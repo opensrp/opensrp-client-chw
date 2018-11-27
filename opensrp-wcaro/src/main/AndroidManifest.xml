@@ -3,16 +3,17 @@
     package="org.smartgresiter.wcaro">
 
     <application
+        android:name=".application.WcaroApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/WcaroTheme">
         <activity
-            android:name=".FamilyListActivity"
+            android:name=".activity.FamilyListActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/WcaroTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,13 +21,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".FamilyDetailActivity"
+            android:name=".activity.FamilyDetailActivity"
             android:label="@string/title_family_detail"
-            android:parentActivityName=".FamilyListActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:parentActivityName=".activity.FamilyListActivity"
+            android:theme="@style/WcaroTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.smartgresiter.wcaro.FamilyListActivity" />
+                android:value="org.smartgresiter.wcaro.activity.FamilyListActivity" />
         </activity>
     </application>
 
