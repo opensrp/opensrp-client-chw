@@ -11,6 +11,7 @@ import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
 import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
+import org.smartregister.configurableviews.helper.JsonSpecHelper;
 import org.smartregister.family.FamilyLibrary;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.Utils;
@@ -22,6 +23,7 @@ import org.smartregister.view.activity.DrishtiApplication;
 public class WcaroApplication extends DrishtiApplication {
 
     private static final String TAG = WcaroApplication.class.getCanonicalName();
+    private static JsonSpecHelper jsonSpecHelper;
 
     private static CommonFtsObject commonFtsObject;
 
@@ -49,6 +51,8 @@ public class WcaroApplication extends DrishtiApplication {
         context.configuration().getDrishtiApplication().setPassword(password);
         context.session().setPassword(password);
 
+        // init json helper
+        this.jsonSpecHelper = new JsonSpecHelper(this);
 
         //init Job Manager
         JobManager.create(this).addJobCreator(new WcaroJobCreator());
@@ -61,6 +65,14 @@ public class WcaroApplication extends DrishtiApplication {
 
     public static synchronized WcaroApplication getInstance() {
         return (WcaroApplication) mInstance;
+    }
+
+    public Context getContext(){
+        return this.getContext();
+    }
+
+    public static JsonSpecHelper getJsonSpecHelper() {
+        return getInstance().jsonSpecHelper;
     }
 
     @Override
