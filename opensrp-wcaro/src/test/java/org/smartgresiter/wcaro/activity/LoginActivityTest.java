@@ -17,23 +17,30 @@ import junit.framework.Assert;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.powermock.reflect.Whitebox;
 import org.robolectric.Robolectric;
+import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.android.controller.ActivityController;
+import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowApplication;
+import org.smartgresiter.wcaro.BuildConfig;
 import org.smartgresiter.wcaro.R;
-import org.smartgresiter.wcaro.event.ViewConfigurationSyncCompleteEvent;
+import org.smartgresiter.wcaro.application.WcaroApplication;
 import org.smartregister.view.contract.BaseLoginContract;
 
+@RunWith(RobolectricTestRunner.class)
+@Config(application = WcaroApplication.class, constants = BuildConfig.class, sdk = 22)
 public class LoginActivityTest {
 
     private static final String STRING_SETTINGS = "Settings";
     private LoginActivity loginActivity;
     private ActivityController<LoginActivity> controller;
+
     @Mock
     private Menu menu;
 
@@ -114,7 +121,7 @@ public class LoginActivityTest {
             e.printStackTrace();
         }
 
-        assertActivityStarted(loginActivity, new FamilyListActivity());
+        assertActivityStarted(loginActivity, new FamilyRegisterActivity());
     }
 
     @Test
@@ -126,7 +133,7 @@ public class LoginActivityTest {
             e.printStackTrace();
         }
 
-        assertActivityStarted(loginActivity, new FamilyListActivity());
+        assertActivityStarted(loginActivity, new FamilyRegisterActivity());
     }
 
     private void assertActivityStarted(Activity currActivity, Activity nextActivity) {
@@ -269,19 +276,6 @@ public class LoginActivityTest {
         spyActivity.resetUsernameError();
 
         Mockito.verify(userNameEditText).setError(null);
-    }
-
-
-    @Test
-    public void testRefreshViewsInvokesProcessViewConfigurationsMethodOfPresenter() {
-
-        LoginActivity spyActivity = Mockito.spy(loginActivity);
-
-        Whitebox.setInternalState(spyActivity, "mLoginPresenter", presenter);
-
-        spyActivity.refreshViews(new ViewConfigurationSyncCompleteEvent());
-
-        Mockito.verify(presenter).processViewCustomizations();
     }
 
     @Test
