@@ -10,7 +10,7 @@
     android:divider="?android:attr/dividerHorizontal"
     android:orientation="horizontal"
     android:showDividers="middle"
-    tools:context=".FamilyListActivity">
+    tools:context=".activity.FamilyListActivity">
 
     <!--
     This layout is a two-pane layout for the Families
@@ -27,7 +27,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         app:layoutManager="LinearLayoutManager"
-        tools:context="org.smartgresiter.wcaro.FamilyListActivity"
+        tools:context="org.smartgresiter.wcaro.activity.FamilyListActivity"
         tools:listitem="@layout/family_list_content" />
 
     <FrameLayout
