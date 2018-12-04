@@ -3,22 +3,30 @@ package org.smartgresiter.wcaro.application;
 import android.util.Log;
 
 import com.evernote.android.job.JobManager;
+import com.vijay.jsonwizard.activities.JsonFormActivity;
 
 import org.smartgresiter.wcaro.BuildConfig;
+import org.smartgresiter.wcaro.activity.FamilyProfileActivity;
 import org.smartgresiter.wcaro.job.WcaroJobCreator;
 import org.smartgresiter.wcaro.repository.WcaroRepository;
+import org.smartgresiter.wcaro.util.Constants;
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
 import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
 import org.smartregister.configurableviews.helper.JsonSpecHelper;
 import org.smartregister.family.FamilyLibrary;
+import org.smartregister.family.domain.FamilyMetadata;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.Utils;
 import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.repository.Repository;
 import org.smartregister.view.activity.DrishtiApplication;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 public class WcaroApplication extends DrishtiApplication {
 
@@ -39,17 +47,10 @@ public class WcaroApplication extends DrishtiApplication {
         //Initialize Modules
         CoreLibrary.init(context);
         ConfigurableViewsLibrary.init(context, getRepository());
-        FamilyLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
+        FamilyLibrary.init(context, getRepository(), getMetadata(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
 
         SyncStatusBroadcastReceiver.init(this);
         LocationHelper.init(Utils.ALLOWED_LEVELS, Utils.DEFAULT_LOCATION_LEVEL);
-
-
-        //Auto login by default
-        String password = "pwd";
-        context.session().start(context.session().lengthInMilliseconds());
-        context.configuration().getDrishtiApplication().setPassword(password);
-        context.session().setPassword(password);
 
         // init json helper
         this.jsonSpecHelper = new JsonSpecHelper(this);
@@ -57,6 +58,8 @@ public class WcaroApplication extends DrishtiApplication {
         //init Job Manager
         JobManager.create(this).addJobCreator(new WcaroJobCreator());
 
+        //TODO FIXME remove when login is implemented
+        sampleUniqueIds();
     }
 
     @Override
@@ -67,7 +70,7 @@ public class WcaroApplication extends DrishtiApplication {
         return (WcaroApplication) mInstance;
     }
 
-    public Context getContext(){
+    public Context getContext() {
         return this.getContext();
     }
 
@@ -100,7 +103,7 @@ public class WcaroApplication extends DrishtiApplication {
     }
 
     private static String[] getFtsTables() {
-        return new String[]{DBConstants.FAMILY_TABLE_NAME};
+        return new String[]{Constants.TABLE_NAME.FAMILY};
     }
 
     private static String[] getFtsSearchFields() {
@@ -111,4 +114,29 @@ public class WcaroApplication extends DrishtiApplication {
         return new String[]{DBConstants.KEY.BASE_ENTITY_ID, DBConstants.KEY.FIRST_NAME, DBConstants.KEY.LAST_NAME, DBConstants.KEY
                 .LAST_INTERACTED_WITH};
     }
+
+    private FamilyMetadata getMetadata() {
+        FamilyMetadata metadata = new FamilyMetadata(JsonFormActivity.class, FamilyProfileActivity.class);
+        metadata.updateFamilyRegister(Constants.JSON_FORM.FAMILY_REGISTER, Constants.TABLE_NAME.FAMILY, Constants.EventType.FAMILY_REGISTRATION, Constants.EventType.UPDATE_FAMILY_REGISTRATION, Constants.CONFIGURATION.FAMILY_REGISTER);
+        metadata.updateFamilyMemberRegister(Constants.JSON_FORM.FAMILY_MEMBER_REGISTER, Constants.TABLE_NAME.FAMILY_MEMBER, Constants.EventType.FAMILY_REGISTRATION, Constants.EventType.UPDATE_FAMILY_MEMBER_REGISTRATION, Constants.CONFIGURATION.FAMILY_MEMBER_REGISTER, Constants.RELATIONSHIP.FAMILY);
+        return metadata;
+    }
+
+    private void sampleUniqueIds() {
+        List<String> ids = generateIds(20);
+        FamilyLibrary.getInstance().getUniqueIdRepository().bulkInserOpenmrsIds(ids);
+    }
+
+    private List<String> generateIds(int size) {
+        List<String> ids = new ArrayList<>();
+        Random r = new Random();
+
+        for (int i = 0; i < size; i++) {
+            Integer randomInt = r.nextInt(1000) + 1;
+            ids.add(randomInt.toString());
+        }
+
+        return ids;
+    }
+
 }

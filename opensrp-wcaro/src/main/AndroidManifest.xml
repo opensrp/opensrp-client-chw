@@ -24,17 +24,17 @@
         android:theme="@style/WcaroTheme"
         tools:replace="android:theme">
         <activity
-            android:name=".activity.FamilyListActivity"
+            android:name=".activity.FamilyRegisterActivity"
             android:label="@string/app_name"
-            android:theme="@style/WcaroTheme.NoActionBar"></activity>
+            android:theme="@style/WcaroTheme.NoActionBar" />
         <activity
-            android:name=".activity.FamilyDetailActivity"
+            android:name=".activity.FamilyProfileActivity"
             android:label="@string/title_family_detail"
-            android:parentActivityName=".activity.FamilyListActivity"
+            android:parentActivityName=".activity.FamilyRegisterActivity"
             android:theme="@style/WcaroTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.smartgresiter.wcaro.activity.FamilyListActivity" />
+                android:value="org.smartgresiter.wcaro.activity.FamilyRegisterActivity" />
         </activity>
         <activity
             android:name=".activity.LoginActivity"
