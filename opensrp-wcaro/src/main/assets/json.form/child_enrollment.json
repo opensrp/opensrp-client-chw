@@ -1,9 +1,6 @@
 {
   "count": "1",
-  "encounter_type": "Birth Registration",
-  "mother": {
-    "encounter_type": "New Woman Registration"
-  },
+  "encounter_type": "Child Registration",
   "entity_id": "",
   "relational_id": "",
   "metadata": {
@@ -55,7 +52,7 @@
     }
   },
   "step1": {
-    "title": "Birth Registration",
+    "title": "Add Child Under 5",
     "fields": [
       {
         "key": "image",
@@ -66,7 +63,7 @@
         "uploadButtonText": "Take a picture of the child"
       },
       {
-        "key": "opensrp_id",
+        "key": "unique_id",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_identifier",
         "openmrs_entity_id": "OpenMRS_ID",

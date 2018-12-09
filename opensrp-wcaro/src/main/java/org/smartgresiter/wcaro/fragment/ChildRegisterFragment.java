@@ -10,13 +10,11 @@ import org.apache.commons.lang3.StringUtils;
 import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.activity.ChildRegisterActivity;
 import org.smartgresiter.wcaro.contract.ChildRegisterFragmentContract;
-import org.smartgresiter.wcaro.domain.ChildMetadata;
 import org.smartgresiter.wcaro.model.ChildRegisterFragmentModel;
 import org.smartgresiter.wcaro.presenter.ChildRegisterFragmentPresenter;
 import org.smartgresiter.wcaro.provider.ChildRegisterProvider;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
-import org.smartregister.family.contract.FamilyRegisterFragmentContract;
 import org.smartregister.family.fragment.NoMatchDialogFragment;
 import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.DBConstants;
@@ -161,7 +159,7 @@ public class ChildRegisterFragment extends BaseRegisterFragment implements Child
     }
 
     @Override
-    public FamilyRegisterFragmentContract.Presenter presenter() {
-        return (FamilyRegisterFragmentContract.Presenter)presenter;
+    public ChildRegisterFragmentContract.Presenter presenter() {
+        return (ChildRegisterFragmentContract.Presenter)presenter;
     }
 }

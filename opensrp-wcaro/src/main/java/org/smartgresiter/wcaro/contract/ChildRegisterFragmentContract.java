@@ -17,7 +17,7 @@ public interface ChildRegisterFragmentContract {
 
         void initializeAdapter(Set<org.smartregister.configurableviews.model.View> visibleColumns);
 
-        org.smartregister.family.contract.FamilyRegisterFragmentContract.Presenter presenter();
+        Presenter presenter();
 
     }
 

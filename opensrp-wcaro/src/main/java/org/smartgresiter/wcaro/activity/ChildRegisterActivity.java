@@ -5,6 +5,8 @@ import android.support.design.bottomnavigation.LabelVisibilityMode;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 
+import com.vijay.jsonwizard.activities.JsonFormActivity;
+
 import org.json.JSONObject;
 import org.smartgresiter.wcaro.BuildConfig;
 import org.smartgresiter.wcaro.R;
@@ -61,9 +63,10 @@ public class ChildRegisterActivity extends BaseRegisterActivity implements Child
 
     @Override
     public void startFormActivity(JSONObject form) {
-        Intent intent = new Intent(this, ChildProfileActivity.class);
+        Intent intent = new Intent(this, Utils.metadata().nativeFormActivity);
         intent.putExtra(Constants.JSON_FORM_EXTRA.JSON, form.toString());
         startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
+//        startRegistration();
     }
 
     @Override
@@ -74,7 +77,9 @@ public class ChildRegisterActivity extends BaseRegisterActivity implements Child
                 Log.d("JSONResult", jsonString);
 
                 JSONObject form = new JSONObject(jsonString);
-                if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Utils.metadata().familyRegister.registerEventType)) {
+                if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Utils.metadata().familyRegister.registerEventType)
+                        || form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals("Child Registration")
+                        ) {
                     presenter().saveForm(jsonString, false);
                 }
             } catch (Exception e) {
