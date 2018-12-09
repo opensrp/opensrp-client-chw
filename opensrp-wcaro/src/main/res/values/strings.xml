@@ -2,6 +2,8 @@
     <string name="app_name">CFC</string>
     <string name="title_family_detail">Family Detail</string>
     <string name="login_title">CFC</string>
+    <string name="child_register_title">Child Clients</string>
+
 
     <string name="search_name_or_id">Search name or ID</string>
 </resources>

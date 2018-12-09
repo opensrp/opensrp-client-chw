@@ -89,7 +89,7 @@ public class ChildRegisterFragment extends BaseRegisterFragment implements Child
         CustomFontTextView titleView = view.findViewById(org.smartregister.family.R.id.txt_title_label);
         if (titleView != null) {
             titleView.setVisibility(View.VISIBLE);
-            titleView.setText(getString(org.smartregister.family.R.string.all_families));
+            titleView.setText(getString(R.string.child_register_title));
             titleView.setFontVariant(FontVariant.REGULAR);
         }
     }
