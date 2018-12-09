@@ -5,10 +5,10 @@ import android.util.Pair;
 
 import org.json.JSONObject;
 import org.smartgresiter.wcaro.contract.ChildRegisterContract;
+import org.smartgresiter.wcaro.util.JsonFormUtils;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
-import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
 import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.util.FormUtils;

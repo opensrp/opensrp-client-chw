@@ -52,7 +52,7 @@ public class ChildRegisterFragmentPresenter implements ChildRegisterFragmentCont
 
     @Override
     public void initializeQueries(String mainCondition) {
-        String tableName = Utils.metadata().familyRegister.tableName;
+        String tableName = "ec_child";
 
         String countSelect = model.countSelect(tableName, mainCondition);
         String mainSelect = model.mainSelect(tableName, mainCondition);
