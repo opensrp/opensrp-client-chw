@@ -60,13 +60,13 @@ public class ChildRegisterProvider implements RecyclerViewProvider<ChildRegister
     @Override
     public void getView(Cursor cursor, SmartRegisterClient client, RegisterViewHolder viewHolder) {
         CommonPersonObjectClient pc = (CommonPersonObjectClient) client;
-//        if (visibleColumns.isEmpty()) {
-//            populatePatientColumn(pc, client, viewHolder);
-//            populateIdentifierColumn(pc, viewHolder);
-//            populateLastColumn(pc, viewHolder);
-//
-//            return;
-//        }
+        if (visibleColumns.isEmpty()) {
+            populatePatientColumn(pc, client, viewHolder);
+            populateIdentifierColumn(pc, viewHolder);
+            populateLastColumn(pc, viewHolder);
+
+            return;
+        }
     }
 
     @Override
