@@ -7,6 +7,7 @@ import org.smartgresiter.wcaro.fragment.FamilyProfileDueFragment;
 import org.smartgresiter.wcaro.fragment.FamilyProfileMemberFragment;
 import org.smartgresiter.wcaro.model.FamilyProfileModel;
 import org.smartgresiter.wcaro.presenter.FamilyProfilePresenter;
+import org.smartgresiter.wcaro.util.NavigationHelper;
 import org.smartregister.family.activity.BaseFamilyProfileActivity;
 import org.smartregister.family.adapter.ViewPagerAdapter;
 import org.smartregister.family.fragment.BaseFamilyProfileActivityFragment;
@@ -37,6 +38,12 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity {
         viewPager.setAdapter(adapter);
 
         return viewPager;
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        NavigationHelper.getInstance(this, null, null);
     }
 
 }

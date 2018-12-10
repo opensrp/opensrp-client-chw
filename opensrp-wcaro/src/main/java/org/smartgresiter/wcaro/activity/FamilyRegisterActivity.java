@@ -6,6 +6,7 @@ import org.smartgresiter.wcaro.BuildConfig;
 import org.smartgresiter.wcaro.fragment.FamilyRegisterFragment;
 import org.smartgresiter.wcaro.model.FamilyRegisterModel;
 import org.smartgresiter.wcaro.presenter.FamilyRegisterPresenter;
+import org.smartgresiter.wcaro.util.NavigationHelper;
 import org.smartregister.family.activity.BaseFamilyRegisterActivity;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
@@ -33,6 +34,12 @@ public class FamilyRegisterActivity extends BaseFamilyRegisterActivity {
         if (!BuildConfig.SCAN_QR_CODE) {
             bottomNavigationView.getMenu().removeItem(org.smartregister.family.R.id.action_scan_qr);
         }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        NavigationHelper.getInstance(this, null, null);
     }
 
 }
