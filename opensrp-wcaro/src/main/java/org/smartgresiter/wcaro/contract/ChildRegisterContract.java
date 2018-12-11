@@ -23,7 +23,7 @@ public interface ChildRegisterContract {
 
         void saveLanguage(String language);
 
-        void startForm(String formName, String entityId, String metadata, String currentLocationId) throws Exception;
+        void startForm(String formName, String entityId, String metadata, String currentLocationId,String familyID) throws Exception;
 
         void saveForm(String jsonString, boolean isEditMode);
 
@@ -44,7 +44,7 @@ public interface ChildRegisterContract {
         Pair<Client, Event> processRegistration(String jsonString);
 
         JSONObject getFormAsJson(String formName, String entityId,
-                                 String currentLocationId) throws Exception;
+                                 String currentLocationId, String familyId) throws Exception;
 
         String getInitials();
 
@@ -54,7 +54,7 @@ public interface ChildRegisterContract {
 
         void onDestroy(boolean isChangingConfiguration);
 
-        void getNextUniqueId(Triple<String, String, String> triple, ChildRegisterContract.InteractorCallBack callBack);
+        void getNextUniqueId(Triple<String, String, String> triple, ChildRegisterContract.InteractorCallBack callBack,String familyID);
 
         void saveRegistration(final Pair<Client, Event> pair, final String jsonString, final boolean isEditMode, final ChildRegisterContract.InteractorCallBack callBack);
 
@@ -64,9 +64,9 @@ public interface ChildRegisterContract {
 
     interface InteractorCallBack {
 
-        void onUniqueIdFetched(Triple<String, String, String> triple, String entityId);
-
         void onNoUniqueId();
+
+        void onUniqueIdFetched(Triple<String, String, String> triple, String entityId, String familyId);
 
         void onRegistrationSaved(boolean isEdit);
 

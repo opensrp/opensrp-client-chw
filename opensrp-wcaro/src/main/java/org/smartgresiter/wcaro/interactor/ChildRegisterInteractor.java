@@ -49,7 +49,7 @@ public class ChildRegisterInteractor implements ChildRegisterContract.Interactor
     }
 
     @Override
-    public void getNextUniqueId(final Triple<String, String, String> triple, final ChildRegisterContract.InteractorCallBack callBack) {
+    public void getNextUniqueId(final Triple<String, String, String> triple, final ChildRegisterContract.InteractorCallBack callBack, final String familyId) {
 
         Runnable runnable = new Runnable() {
             @Override
@@ -62,7 +62,7 @@ public class ChildRegisterInteractor implements ChildRegisterContract.Interactor
                         if (StringUtils.isBlank(entityId)) {
                             callBack.onNoUniqueId();
                         } else {
-                            callBack.onUniqueIdFetched(triple, entityId);
+                            callBack.onUniqueIdFetched(triple, entityId,familyId);
                         }
                     }
                 });
