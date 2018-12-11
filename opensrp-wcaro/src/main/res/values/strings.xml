@@ -4,4 +4,10 @@
     <string name="login_title">CFC</string>
 
     <string name="search_name_or_id">Search name or ID</string>
+    <string name="call">Call</string>
+    <string name="family_details">Family details</string>
+    <string name="add_new_family_member">Add new family member</string>
+    <string name="remove_existing_family_member">Remove existing family member</string>
+    <string name="change_family_head">Change family head</string>
+    <string name="change_primary_caregiver">Change primary caregiver</string>
 </resources>
