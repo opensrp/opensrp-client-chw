@@ -1,5 +1,5 @@
 {
-  "count": "1",
+  "count": "2",
   "encounter_type": "Family Registration",
   "entity_id": "",
   "relational_id": "",
@@ -52,34 +52,193 @@
     }
   },
   "step1": {
-    "title": "Family Registration",
+    "title": "Family details",
+    "next": "step2",
     "fields": [
       {
-        "key": "photo",
+        "key": "fam_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "first_name",
+        "type": "edit_text",
+        "hint": "Family name *",
+        "edit_type": "name",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the family name"
+        },
+        "v_regex": {
+          "value": "[A-Za-z\\s\.\-]*",
+          "err": "Please enter a valid name"
+        }
+      },
+      {
+        "key": "num_fam_members",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "num_fam_members",
+        "type": "edit_text",
+        "hint": "Number of family members *",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the Number of family members"
+        },
+        "v_numeric_integer": {
+          "value": "true",
+          "err": "Enter a valid number"
+        }
+      },
+      {
+        "key": "village_town",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_address",
+        "openmrs_entity_id": "cityVillage",
+        "type": "edit_text",
+        "hint": "Village/Town *",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the village or town"
+        }
+      },
+      {
+        "key": "quarter_clan",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_address",
+        "openmrs_entity_id": "addressFields.commune",
+        "type": "edit_text",
+        "hint": "Quarter/Clan *",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the quarter or clan"
+        }
+      },
+      {
+        "key": "street",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_address",
+        "openmrs_entity_id": "addressFields.street",
+        "type": "edit_text",
+        "hint": "Street"
+      },
+      {
+        "key": "landmark",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_address",
+        "openmrs_entity_id": "addressFields.landmark",
+        "type": "edit_text",
+        "hint": "Landmark"
+      },
+      {
+        "key": "gps",
+        "openmrs_entity_parent": "usual_residence",
+        "openmrs_entity": "person_address",
+        "openmrs_entity_id": "geopoint",
+        "openmrs_data_type": "text",
+        "type": "gps"
+      },
+      {
+        "key": "fam_source_income",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "openmrs_data_type": "",
+        "type": "spinner",
+        "hint": "Family source of income",
+        "values": [
+          "Agriculture, hunting and fishing",
+          "Exploitation of mines and quarries",
+          "Manufacturing industry",
+          "Construction",
+          "Electricity, gas and water",
+          "Commercial, hotels and restaurants",
+          "Transport, storage and communications",
+          "Financial institutions",
+          "Communication, social and personal services",
+          "Other"
+        ]
+      }
+    ]
+  },
+  "step2": {
+    "title": "Family head",
+    "fields": [
+      {
+        "key": "profile",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "choose_image",
-        "uploadButtonText": "Take a picture of the family"
+        "uploadButtonText": "Take a photo of the child"
       },
       {
-        "key": "unique_id",
+        "key": "opensrp_id",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_identifier",
-        "openmrs_entity_id": "UNIQUE_ID",
+        "openmrs_entity_id": "opensrp_id",
         "type": "barcode",
         "barcode_type": "qrcode",
-        "hint": "UNIQUE ID *",
-        "value": "0",
+        "hint": "ID *",
         "scanButtonText": "Scan QR Code",
         "v_numeric": {
           "value": "true",
-          "err": "Please enter a valid UNIQUE ID"
+          "err": "Please enter a valid ID"
         },
         "v_required": {
           "value": "true",
-          "err": "Please enter the UNIQUE ID"
+          "err": "Please enter the ID"
         }
+      },
+      {
+        "key": "national_id",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "national_id",
+        "type": "edit_text",
+        "hint": "National ID number"
+      },
+      {
+        "key": "surname",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "last_name",
+        "type": "edit_text",
+        "hint": "Surname *",
+        "edit_type": "name",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the date of birth"
+        },
+        "v_regex": {
+          "value": "[A-Za-z\\s\.\-]*",
+          "err": "Please enter a valid name"
+        },
+        "relevance": {
+          "step2:same_as_fam_name": {
+            "ex-checkbox": [
+              {
+                "not": [
+                  "same_as_fam_name"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "same_as_fam_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "check_box",
+        "label": "",
+        "options": [
+          {
+            "key": "same_as_fam_name",
+            "text": "Same as family name",
+            "text_size": "18px",
+            "value": "false"
+          }
+        ]
       },
       {
         "key": "first_name",
@@ -91,7 +250,7 @@
         "edit_type": "name",
         "v_required": {
           "value": "true",
-          "err": "Please enter the first name"
+          "err": "Please enter the middle name"
         },
         "v_regex": {
           "value": "[A-Za-z\\s\.\-]*",
@@ -99,29 +258,21 @@
         }
       },
       {
-        "key": "last_name",
+        "key": "middle_name",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person",
-        "openmrs_entity_id": "last_name",
+        "openmrs_entity_id": "middle_name",
         "type": "edit_text",
-        "hint": "Last name *",
+        "hint": "Middle name *",
         "edit_type": "name",
         "v_required": {
           "value": "true",
-          "err": "Please enter the last name"
+          "err": "Please enter the middle name"
         },
         "v_regex": {
           "value": "[A-Za-z\\s\.\-]*",
           "err": "Please enter a valid name"
         }
-      },
-      {
-        "key": "gender",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person",
-        "openmrs_entity_id": "gender",
-        "type": "hidden",
-        "value": "female"
       },
       {
         "key": "dob",
@@ -134,8 +285,8 @@
         "duration": {
           "label": "Age"
         },
-        "min_date": "today-49y",
-        "max_date": "today-15y",
+        "min_date": "today-120y",
+        "max_date": "today-5y",
         "v_required": {
           "value": "true",
           "err": "Please enter the date of birth"
@@ -204,20 +355,19 @@
         }
       },
       {
-        "key": "home_address",
+        "key": "sex",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "home_address",
-        "openmrs_data_type": "text",
-        "type": "edit_text",
-        "hint": "Home address *",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "gender",
+        "type": "spinner",
+        "hint": "Sex *",
+        "values": [
+          "Male",
+          "Female"
+        ],
         "v_required": {
           "value": "true",
-          "err": "Please enter the home address"
-        },
-        "v_regex": {
-          "value": "[A-Za-z0-9\\s\.\-]*",
-          "err": "Please enter a valid name"
+          "err": "Please enter the sex"
         }
       },
       {
@@ -226,7 +376,7 @@
         "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "phone_number",
         "type": "edit_text",
-        "hint": "Mobile phone number *",
+        "hint": "Phone number *",
         "v_numeric": {
           "value": "true",
           "err": "Number must be a total of 10 digits in length"
@@ -239,6 +389,37 @@
           "value": true,
           "err": "Please specify the phone number"
         }
+      },
+      {
+        "key": "other_phone_number",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "phone_number",
+        "type": "edit_text",
+        "hint": "Other phone number",
+        "v_numeric": {
+          "value": "true",
+          "err": "Number must be a total of 10 digits in length"
+        },
+        "v_regex": {
+          "value": "([0-9]{10})|\s*",
+          "err": "Number must be a total of 10 digits in length"
+        }
+      },
+      {
+        "key": "highest_edu_level",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "highest_edu_level",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "Highest education level",
+        "values": [
+          "None",
+          "Primary",
+          "Secondary",
+          "Post-secondary"
+        ]
       }
     ]
   }
