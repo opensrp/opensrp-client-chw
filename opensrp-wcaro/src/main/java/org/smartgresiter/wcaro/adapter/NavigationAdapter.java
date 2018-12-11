@@ -11,16 +11,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.smartgresiter.wcaro.R;
-import org.smartgresiter.wcaro.model.NavigationModel;
+import org.smartgresiter.wcaro.model.NavigationOption;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class NavigationAdapter extends RecyclerView.Adapter<NavigationAdapter.MyViewHolder> {
 
-    private List<NavigationModel> navigationModelList;
-    private Map<String, SelectedAction> actions = new HashMap<>();
+    private List<NavigationOption> navigationOptionList;
     private int selectedPosition = 0;
     Context context;
 
@@ -37,11 +34,10 @@ public class NavigationAdapter extends RecyclerView.Adapter<NavigationAdapter.My
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    NavigationModel model = navigationModelList.get(getAdapterPosition());
+                    NavigationOption model = navigationOptionList.get(getAdapterPosition());
                     selectedPosition = getAdapterPosition();
-                    SelectedAction sa = actions.get(model.getMenuTitle());
-                    if (sa != null) {
-                        sa.onSelect();
+                    if (model.getSelectedAction() != null) {
+                        model.getSelectedAction().onSelect();
                     }
                     notifyDataSetChanged();
                 }
@@ -49,8 +45,8 @@ public class NavigationAdapter extends RecyclerView.Adapter<NavigationAdapter.My
         }
     }
 
-    public NavigationAdapter(List<NavigationModel> navigationModels, Context context) {
-        this.navigationModelList = navigationModels;
+    public NavigationAdapter(List<NavigationOption> navigationOptions, Context context) {
+        this.navigationOptionList = navigationOptions;
         this.context = context;
     }
 
@@ -65,7 +61,7 @@ public class NavigationAdapter extends RecyclerView.Adapter<NavigationAdapter.My
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        NavigationModel model = navigationModelList.get(position);
+        NavigationOption model = navigationOptionList.get(position);
         holder.tvName.setText(model.getMenuTitle());
         holder.tvCount.setText(Long.toString(model.getRegisterCount()));
         holder.ivIcon.setImageResource(model.getResourceID());
@@ -81,16 +77,9 @@ public class NavigationAdapter extends RecyclerView.Adapter<NavigationAdapter.My
 
     @Override
     public int getItemCount() {
-        return navigationModelList.size();
+        return navigationOptionList.size();
     }
 
-    public void addAction(String menuKey, SelectedAction selectedAction) {
-        actions.put(menuKey, selectedAction);
-    }
-
-    public interface SelectedAction {
-        void onSelect();
-    }
 }
 
 
