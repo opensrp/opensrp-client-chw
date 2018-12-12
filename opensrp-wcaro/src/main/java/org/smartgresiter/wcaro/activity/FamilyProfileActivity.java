@@ -79,6 +79,7 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity implements 
 
 
     ChildRegisterInteractor interactor;
+
     public void startForm(String formName, String entityId, String metadata, String currentLocationId,String familyId) throws Exception {
         interactor = new ChildRegisterInteractor();
         if (StringUtils.isBlank(entityId)) {
@@ -217,7 +218,7 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity implements 
 
     @Override
     public void onRegistrationSaved(boolean isEdit) {
-
+        hideProgressDialog();
     }
 //    @Override
 //    protected void onStart() {
