@@ -5,14 +5,12 @@ import android.support.design.bottomnavigation.LabelVisibilityMode;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 
-import com.vijay.jsonwizard.activities.JsonFormActivity;
-
 import org.json.JSONObject;
 import org.smartgresiter.wcaro.BuildConfig;
 import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.contract.ChildRegisterContract;
 import org.smartgresiter.wcaro.fragment.ChildRegisterFragment;
-import org.smartgresiter.wcaro.listener.ChildBottomNavigationListener;
+import org.smartgresiter.wcaro.listener.WCAROBottomNavigationListener;
 import org.smartgresiter.wcaro.model.ChildRegisterModel;
 import org.smartgresiter.wcaro.presenter.ChildRegisterPresenter;
 import org.smartgresiter.wcaro.util.NavigationHelper;
@@ -110,7 +108,7 @@ public class ChildRegisterActivity extends BaseRegisterActivity implements Child
 
             bottomNavigationHelper.disableShiftMode(bottomNavigationView);
 
-            ChildBottomNavigationListener childBottomNavigationListener = new ChildBottomNavigationListener(this);
+            WCAROBottomNavigationListener childBottomNavigationListener = new WCAROBottomNavigationListener(this);
             bottomNavigationView.setOnNavigationItemSelectedListener(childBottomNavigationListener);
 
         }
