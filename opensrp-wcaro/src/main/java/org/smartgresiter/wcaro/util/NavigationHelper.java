@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.smartgresiter.wcaro.R;
+import org.smartgresiter.wcaro.activity.ChildRegisterActivity;
 import org.smartgresiter.wcaro.activity.FamilyRegisterActivity;
 import org.smartgresiter.wcaro.activity.LoginActivity;
 import org.smartgresiter.wcaro.adapter.NavigationAdapter;
@@ -164,7 +165,7 @@ public class NavigationHelper {
                     new NavigationAdapter.SelectedAction() {
                         @Override
                         public void onSelect() {
-                            Intent intent = new Intent(parentActivity, FamilyRegisterActivity.class);
+                            Intent intent = new Intent(parentActivity, ChildRegisterActivity.class);
                             parentActivity.startActivity(intent);
                         }
                     });

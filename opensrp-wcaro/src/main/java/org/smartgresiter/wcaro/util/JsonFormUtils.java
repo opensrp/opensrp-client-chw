@@ -5,12 +5,17 @@ import android.graphics.Bitmap;
 import android.util.Log;
 import android.util.Pair;
 
+import net.sqlcipher.database.SQLiteDatabase;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.commons.lang3.tuple.Triple;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.smartgresiter.wcaro.application.WcaroApplication;
+import org.smartgresiter.wcaro.repository.WcaroRepository;
+import org.smartregister.clientandeventmodel.Address;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.clientandeventmodel.FormEntityConstants;
@@ -24,8 +29,10 @@ import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.Utils;
 import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.repository.AllSharedPreferences;
+import org.smartregister.repository.EventClientRepository;
 import org.smartregister.repository.ImageRepository;
 import org.smartregister.sync.helper.ECSyncHelper;
+import org.smartregister.util.AssetHandler;
 import org.smartregister.util.FormUtils;
 import org.smartregister.util.ImageUtils;
 import org.smartregister.view.LocationPickerView;
@@ -36,9 +43,13 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.UUID;
+
+import static org.apache.commons.lang3.StringUtils.isBlank;
 
 /**
  * Created by keyman on 13/11/2018.
@@ -55,7 +66,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
 
     public static JSONObject getFormAsJson(JSONObject form,
                                            String formName, String id,
-                                           String currentLocationId) throws Exception {
+                                           String currentLocationId,String familyID) throws Exception {
         if (form == null) {
             return null;
         }
@@ -74,6 +85,13 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
             if (uniqueId != null) {
                 uniqueId.remove(org.smartregister.family.util.JsonFormUtils.VALUE);
                 uniqueId.put(org.smartregister.family.util.JsonFormUtils.VALUE, entityId);
+            }
+
+            if(!isBlank(familyID)) {
+                JSONObject metaDataJson = form.getJSONObject("metadata");
+                JSONObject lookup = metaDataJson.getJSONObject("look_up");
+                lookup.put("entity_id", "family");
+                lookup.put("value", familyID);
             }
 
         } else {
@@ -97,7 +115,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
             JSONArray fields = registrationFormParams.getRight();
 
             String entityId = getString(jsonForm, ENTITY_ID);
-            if (StringUtils.isBlank(entityId)) {
+            if (isBlank(entityId)) {
                 entityId = generateRandomUUIDString();
             }
 
@@ -146,6 +164,32 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
             Client baseClient = org.smartregister.util.JsonFormUtils.createBaseClient(fields, formTag, entityId);
             Event baseEvent = org.smartregister.util.JsonFormUtils.createEvent(fields, metadata, formTag, entityId, encounterType, Utils.metadata().familyRegister.tableName);
 
+
+
+
+            JSONObject lookUpJSONObject = getJSONObject(metadata, "look_up");
+            String lookUpEntityId = "";
+            String lookUpBaseEntityId = "";
+            if (lookUpJSONObject != null) {
+                lookUpEntityId = getString(lookUpJSONObject, "entity_id");
+                lookUpBaseEntityId = getString(lookUpJSONObject, "value");
+            }
+            if (lookUpEntityId.equals("family") && StringUtils.isNotBlank(lookUpBaseEntityId)) {
+                Client ss = new Client(lookUpBaseEntityId);
+                Context context = WcaroApplication.getInstance().getContext().applicationContext();
+                addRelationship(context, ss, baseClient);
+                SQLiteDatabase db = WcaroApplication.getInstance().getRepository().getReadableDatabase();
+                WcaroRepository pathRepository = new WcaroRepository(context,WcaroApplication.getInstance().getContext());
+                EventClientRepository eventClientRepository = new EventClientRepository(pathRepository);
+                JSONObject clientjson = eventClientRepository.getClient(db, lookUpBaseEntityId);
+                baseClient.setAddresses(getAddressFromClientJson(clientjson));
+            }
+
+
+
+
+
+
             tagSyncMetadata(allSharedPreferences, baseEvent);// tag docs
 
             return Pair.create(baseClient, baseEvent);
@@ -153,6 +197,51 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
             Log.e(TAG, Log.getStackTraceString(e));
             return null;
         }
+    }
+
+    private static void addRelationship(Context context, Client parent, Client child) {
+        try {
+            String relationships = AssetHandler.readFileFromAssetsFolder(FormUtils.ecClientRelationships, context);
+            JSONArray jsonArray = null;
+
+            jsonArray = new JSONArray(relationships);
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject rObject = jsonArray.getJSONObject(i);
+                if (rObject.has("field") && getString(rObject, "field").equals(ENTITY_ID)) {
+                    child.addRelationship(rObject.getString("client_relationship"), parent.getBaseEntityId());
+                } /* else {
+                    //TODO how to add other kind of relationships
+                  } */
+            }
+        } catch (Exception e) {
+            Log.e(TAG, e.toString(), e);
+        }
+    }
+
+    private static ArrayList<Address> getAddressFromClientJson(JSONObject clientjson) {
+        ArrayList<Address> addresses = new ArrayList<Address>();
+        try {
+            JSONArray addressArray = clientjson.getJSONArray("addresses");
+            for(int i = 0 ;i<addressArray.length();i++){
+                Address address = new Address();
+                address.setAddressType(addressArray.getJSONObject(i).getString("addressType"));
+                JSONObject addressfields = addressArray.getJSONObject(i).getJSONObject("addressFields");
+
+                Iterator<?> keys = addressfields.keys();
+
+                while( keys.hasNext() ) {
+                    String key = (String)keys.next();
+                    if ( addressfields.get(key) instanceof String ) {
+                        address.addAddressField(key,addressfields.getString(key));
+                    }
+                }
+                addresses.add(address);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return addresses;
     }
 
     public static Pair<Client, Event> processFamilyMemberRegistrationForm(AllSharedPreferences allSharedPreferences, String jsonString, String familyBaseEntityId) {
@@ -168,7 +257,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
             JSONArray fields = registrationFormParams.getRight();
 
             String entityId = getString(jsonForm, ENTITY_ID);
-            if (StringUtils.isBlank(entityId)) {
+            if (isBlank(entityId)) {
                 entityId = generateRandomUUIDString();
             }
 
@@ -241,7 +330,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
     }
 
     public static void saveImage(String providerId, String entityId, String imageLocation) {
-        if (StringUtils.isBlank(imageLocation)) {
+        if (isBlank(imageLocation)) {
             return;
         }
 
@@ -340,7 +429,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
     }
 
     private static void saveStaticImageToDisk(Bitmap image, String providerId, String entityId) {
-        if (image == null || StringUtils.isBlank(providerId) || StringUtils.isBlank(entityId)) {
+        if (image == null || isBlank(providerId) || isBlank(entityId)) {
             return;
         }
         OutputStream os = null;

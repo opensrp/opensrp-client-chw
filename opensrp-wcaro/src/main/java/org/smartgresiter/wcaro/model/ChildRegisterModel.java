@@ -51,12 +51,12 @@ public class ChildRegisterModel implements ChildRegisterContract.Model {
     }
 
     @Override
-    public JSONObject getFormAsJson(String formName, String entityId, String currentLocationId) throws Exception {
+    public JSONObject getFormAsJson(String formName, String entityId, String currentLocationId,String familyID) throws Exception {
         JSONObject form = getFormUtils().getFormJson(formName);
         if (form == null) {
             return null;
         }
-        return JsonFormUtils.getFormAsJson(form, formName, entityId, currentLocationId);
+        return JsonFormUtils.getFormAsJson(form, formName, entityId, currentLocationId,familyID);
     }
 
     private FormUtils getFormUtils() {
