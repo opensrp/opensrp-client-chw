@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import org.apache.commons.lang3.StringUtils;
 import org.smartgresiter.wcaro.R;
+import org.smartgresiter.wcaro.activity.ChildProfileActivity;
 import org.smartgresiter.wcaro.activity.ChildRegisterActivity;
 import org.smartgresiter.wcaro.contract.ChildRegisterFragmentContract;
 import org.smartgresiter.wcaro.model.ChildRegisterFragmentModel;
@@ -153,7 +154,7 @@ public class ChildRegisterFragment extends BaseRegisterFragment implements Child
             Log.i(ChildRegisterFragment.TAG, patient.name);
         }
 
-        Intent intent = new Intent(getActivity(), org.smartregister.family.util.Utils.metadata().profileActivity);
+        Intent intent = new Intent(getActivity(), ChildProfileActivity.class);
         intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, patient.getCaseId());
         startActivity(intent);
     }

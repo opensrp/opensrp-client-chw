@@ -14,29 +14,29 @@ import android.widget.RelativeLayout;
 import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.listener.OnClickFloatingMenu;
 
-public class FamilyFloatingMenu extends LinearLayout implements View.OnClickListener {
+public class IndividualMemberFloatingMenu extends LinearLayout implements View.OnClickListener {
     private RelativeLayout activityMain;
     private FloatingActionButton fab;
     private LinearLayout menuBar;
     private Animation fab_open, fab_close;
     private boolean isFabMenuOpen = false;
     private OnClickFloatingMenu onClickFloatingMenu;
-    public FamilyFloatingMenu(Context context) {
+    public IndividualMemberFloatingMenu(Context context) {
         super(context);
         initUi();
     }
 
-    public FamilyFloatingMenu(Context context,  AttributeSet attrs) {
+    public IndividualMemberFloatingMenu(Context context, AttributeSet attrs) {
         super(context, attrs);
         initUi();
     }
 
-    public FamilyFloatingMenu(Context context, AttributeSet attrs, int defStyleAttr) {
+    public IndividualMemberFloatingMenu(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         initUi();
     }
     private void initUi(){
-        inflate(getContext(),R.layout.view_family_floating_menu,this);
+        inflate(getContext(),R.layout.view_individual_floating_menu,this);
         activityMain=findViewById(R.id.activity_main);
         menuBar=findViewById(R.id.menu_bar);
         fab = findViewById(R.id.fab);
@@ -52,11 +52,8 @@ public class FamilyFloatingMenu extends LinearLayout implements View.OnClickList
             }
         });
         ((RelativeLayout)findViewById(R.id.call_layout)).setOnClickListener(this);
-        ((RelativeLayout)findViewById(R.id.family_detail_layout)).setOnClickListener(this);
-        ((RelativeLayout)findViewById(R.id.add_new_member_layout)).setOnClickListener(this);
+        ((RelativeLayout)findViewById(R.id.registration_layout)).setOnClickListener(this);
         ((RelativeLayout)findViewById(R.id.remove_member_layout)).setOnClickListener(this);
-        ((RelativeLayout)findViewById(R.id.change_head_layout)).setOnClickListener(this);
-        ((RelativeLayout)findViewById(R.id.change_primary_layout)).setOnClickListener(this);
     }
     public void setClickListener(OnClickFloatingMenu onClickFloatingMenu){
         this.onClickFloatingMenu=onClickFloatingMenu;

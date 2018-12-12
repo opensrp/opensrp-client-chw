@@ -1,6 +1,5 @@
 package org.smartgresiter.wcaro.activity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -22,14 +21,11 @@ import org.smartgresiter.wcaro.fragment.FamilyProfileMemberFragment;
 import org.smartgresiter.wcaro.interactor.ChildRegisterInteractor;
 import org.smartgresiter.wcaro.model.ChildRegisterModel;
 import org.smartgresiter.wcaro.model.FamilyProfileModel;
-import org.smartgresiter.wcaro.presenter.ChildRegisterPresenter;
 import org.smartgresiter.wcaro.presenter.FamilyProfilePresenter;
 import org.smartgresiter.wcaro.util.JsonFormUtils;
-import org.smartgresiter.wcaro.util.OnClickFloatingMenu;
+import org.smartgresiter.wcaro.listener.OnClickFloatingMenu;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
-import org.smartregister.domain.FetchStatus;
-import org.smartgresiter.wcaro.util.NavigationHelper;
 import org.smartregister.family.activity.BaseFamilyProfileActivity;
 import org.smartregister.family.adapter.ViewPagerAdapter;
 import org.smartregister.family.fragment.BaseFamilyProfileActivityFragment;

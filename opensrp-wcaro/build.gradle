@@ -102,6 +102,7 @@ tasks.withType(Test) {
 }
 
 dependencies {
+    compile 'com.jakewharton:butterknife:8.5.1'
     implementation('org.smartregister:opensrp-client-native-form:1.2.20-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.android.support', module: 'recyclerview-v7'

@@ -15,6 +15,7 @@ import org.smartgresiter.wcaro.fragment.ChildRegisterFragment;
 import org.smartgresiter.wcaro.listener.ChildBottomNavigationListener;
 import org.smartgresiter.wcaro.model.ChildRegisterModel;
 import org.smartgresiter.wcaro.presenter.ChildRegisterPresenter;
+import org.smartgresiter.wcaro.util.NavigationHelper;
 import org.smartregister.AllConstants;
 import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.JsonFormUtils;
@@ -41,11 +42,14 @@ public class ChildRegisterActivity extends BaseRegisterActivity implements Child
     protected Fragment[] getOtherFragments() {
         return new Fragment[0];
     }
-
+    @Override
+    protected void onStart() {
+        super.onStart();
+        NavigationHelper.getInstance(this, null, null);
+    }
     @Override
     public void startRegistration() {
-        //TODO need to change the hard code
-        startFormActivity("child_enrollment", null, null);
+        startFormActivity(Utils.metadata().familyRegister.formName, null, null);
     }
 
     @Override
