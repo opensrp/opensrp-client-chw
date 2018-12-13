@@ -1,5 +1,6 @@
 package org.smartgresiter.wcaro.activity;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
 import org.smartgresiter.wcaro.BuildConfig;
@@ -36,8 +37,8 @@ public class FamilyRegisterActivity extends BaseFamilyRegisterActivity {
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         NavigationActivity.getInstance(this, null, null);
     }
 
