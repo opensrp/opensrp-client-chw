@@ -4,6 +4,7 @@
     <string name="login_title">CFC</string>
 
     <string name="search_name_or_id">Search name or ID</string>
+
     <string name="navigation_drawer_open">Open</string>
     <string name="navigation_drawer_close">Close</string>
 
@@ -17,6 +18,13 @@
     <string name="nav_logout_as">Logout as</string>
     <string name="nav_sync">Sync</string>
     <string name="nav_last">"Last : </string>
-    <string name="nav_last_sync_time">08:12 am , Aug 8th</string>
+    <string name="nav_last_sync_time">HH:mm a , MMM DD</string>
+
+    <string name="call">Call</string>
+    <string name="family_details">Family details</string>
+    <string name="add_new_family_member">Add new family member</string>
+    <string name="remove_existing_family_member">Remove existing family member</string>
+    <string name="change_family_head">Change family head</string>
+    <string name="change_primary_caregiver">Change primary caregiver</string>
 
 </resources>
