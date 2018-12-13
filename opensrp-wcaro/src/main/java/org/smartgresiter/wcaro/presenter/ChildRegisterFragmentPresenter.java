@@ -53,9 +53,10 @@ public class ChildRegisterFragmentPresenter implements ChildRegisterFragmentCont
     @Override
     public void initializeQueries(String mainCondition) {
         String tableName = "ec_child";
+        String parentTableName = "ec_family";
 
         String countSelect = model.countSelect(tableName, mainCondition);
-        String mainSelect = model.mainSelect(tableName, mainCondition);
+        String mainSelect = model.mainSelect(tableName,parentTableName, mainCondition);
 
         getView().initializeQueryParams(tableName, countSelect, mainSelect);
         getView().initializeAdapter(visibleColumns);
@@ -103,6 +104,6 @@ public class ChildRegisterFragmentPresenter implements ChildRegisterFragmentCont
 
     @Override
     public String getDefaultSortQuery() {
-        return DBConstants.KEY.LAST_INTERACTED_WITH + " DESC ";
+        return "ec_child."+DBConstants.KEY.LAST_INTERACTED_WITH + " DESC ";
     }
 }
