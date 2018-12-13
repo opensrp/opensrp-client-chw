@@ -45,18 +45,23 @@ public class ChildRegisterFragmentModel implements ChildRegisterFragmentContract
     }
 
     @Override
-    public String mainSelect(String tableName, String mainCondition) {
+    public String mainSelect(String tableName,String parentTableName, String mainCondition) {
         SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
-        queryBUilder.SelectInitiateMainTable(tableName, mainColumns(tableName));
+        queryBUilder.SelectInitiateMainTable(tableName, mainColumns(tableName,parentTableName));
+        queryBUilder.customJoin("LEFT JOIN " + parentTableName + " ON  " + tableName + ".relational_id =  " + parentTableName + ".id");
         return queryBUilder.mainCondition(mainCondition);
     }
 
-    protected String[] mainColumns(String tableName) {
+    protected String[] mainColumns(String tableName,String parentTableName) {
+
         String[] columns = new String[]{
                 tableName + "." + DBConstants.KEY.RELATIONAL_ID +" as " +"relationalid",
                 tableName + "." + DBConstants.KEY.LAST_INTERACTED_WITH,
                 tableName + "." + DBConstants.KEY.BASE_ENTITY_ID,
                 tableName + "." + DBConstants.KEY.FIRST_NAME,
+                parentTableName + ".first_name as family_first_name",
+                parentTableName + ".last_name as family_last_name",
+                parentTableName + ".home_address as family_home_address",
                 tableName + "." + DBConstants.KEY.LAST_NAME,
                 tableName + "." + DBConstants.KEY.UNIQUE_ID,
                 tableName + "." + DBConstants.KEY.DOB};
