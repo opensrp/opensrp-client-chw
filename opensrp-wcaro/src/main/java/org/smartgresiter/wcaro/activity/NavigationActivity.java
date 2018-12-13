@@ -1,6 +1,7 @@
 package org.smartgresiter.wcaro.activity;
 
 import android.app.Activity;
+import android.content.res.Configuration;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -9,6 +10,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,20 +52,30 @@ public class NavigationActivity implements NavigationContract.View {
     }
 
     public static NavigationActivity getInstance(Activity activity, View parentView, Toolbar myToolbar) {
-        if (instance == null) {
-            instance = new NavigationActivity();
-        }
 
-        instance.init(activity, parentView, myToolbar);
-        return instance;
+        int orientation = activity.getResources().getConfiguration().orientation;
+        if (orientation == Configuration.ORIENTATION_PORTRAIT) {
+            if (instance == null) {
+                instance = new NavigationActivity();
+            }
+
+            instance.init(activity, parentView, myToolbar);
+            return instance;
+        } else {
+            return null;
+        }
     }
 
     private void init(Activity activity, View parentView, Toolbar myToolbar) {
         // parentActivity = activity;
-        setParentView(activity, parentView);
-        toolbar = myToolbar;
-        mPresenter = new NavigationPresenter(this);
-        prepareViews(activity);
+        try{
+            setParentView(activity, parentView);
+            toolbar = myToolbar;
+            mPresenter = new NavigationPresenter(this);
+            prepareViews(activity);
+        }catch (Exception e){
+            Log.e(TAG,e.toString());
+        }
     }
 
     private void setParentView(Activity activity, View parentView) {
