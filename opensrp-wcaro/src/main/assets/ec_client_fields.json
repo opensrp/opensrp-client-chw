@@ -161,6 +161,13 @@
           }
         },
         {
+          "column_name": "gender",
+          "type": "Client",
+          "json_mapping": {
+            "field": "gender"
+          }
+        },
+        {
           "column_name": "dob",
           "type": "Client",
           "json_mapping": {

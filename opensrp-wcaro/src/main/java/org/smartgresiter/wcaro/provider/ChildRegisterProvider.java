@@ -11,14 +11,13 @@ import android.widget.TextView;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.text.WordUtils;
+import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.util.ChildDBConstants;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.cursoradapter.RecyclerViewProvider;
-import org.smartregister.family.R;
 import org.smartregister.family.fragment.BaseFamilyRegisterFragment;
-import org.smartregister.family.provider.FamilyRegisterProvider;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.Utils;
 import org.smartregister.view.contract.SmartRegisterClient;
@@ -93,13 +92,16 @@ public class ChildRegisterProvider implements RecyclerViewProvider<ChildRegister
         String lastName = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.LAST_NAME, true);
         String childName = org.smartregister.util.Utils.getName(firstName, lastName);
 
-        fillValue(viewHolder.patientName,WordUtils.capitalize(parentName)+"\n" +WordUtils.capitalize(childName));
+        fillValue(viewHolder.textViewParentName,WordUtils.capitalize(parentName));
 
         String dobString = Utils.getDuration(Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.DOB, false));
-        dobString = dobString.contains("y") ? dobString.substring(0, dobString.indexOf("y")) : dobString;
-        fillValue((viewHolder.age), String.format(context.getString(R.string.age_text), dobString));
+        //dobString = dobString.contains("y") ? dobString.substring(0, dobString.indexOf("y")) : dobString;
+        fillValue(viewHolder.textViewChildName,WordUtils.capitalize(childName)+","+WordUtils.capitalize(dobString));
+        String address=Utils.getValue(pc.getColumnmaps(),ChildDBConstants.KEY.FAMILY_HOME_ADDRESS,true);
+        String gender=Utils.getValue(pc.getColumnmaps(),DBConstants.KEY.GENDER,true);
+        fillValue(viewHolder.textViewAddressGender,address+" ."+gender);
 
-        View patient = viewHolder.patientColumn;
+        View patient = viewHolder.childColumn;
         attachPatientOnclickListener(patient, client);
 
 
@@ -111,7 +113,7 @@ public class ChildRegisterProvider implements RecyclerViewProvider<ChildRegister
 
     private void populateIdentifierColumn(CommonPersonObjectClient pc, RegisterViewHolder viewHolder) {
         String uniqueId = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.UNIQUE_ID, false);
-        fillValue(viewHolder.ancId, String.format(context.getString(R.string.unique_id_text), uniqueId));
+        //fillValue(viewHolder.ancId, String.format(context.getString(R.string.unique_id_text), uniqueId));
     }
 
 
@@ -172,7 +174,7 @@ public class ChildRegisterProvider implements RecyclerViewProvider<ChildRegister
 
     @Override
     public RegisterViewHolder createViewHolder(ViewGroup parent) {
-        View view = inflater.inflate(R.layout.family_register_list_row, parent, false);
+        View view = inflater.inflate(R.layout.adapter_child_register_list_row, parent, false);
 
         /*
         ConfigurableViewsHelper helper = ConfigurableViewsLibrary.getInstance().getConfigurableViewsHelper();
@@ -212,23 +214,21 @@ public class ChildRegisterProvider implements RecyclerViewProvider<ChildRegister
     ////////////////////////////////////////////////////////////////
 
     public class RegisterViewHolder extends RecyclerView.ViewHolder {
-        public TextView patientName;
-        public TextView age;
-        public TextView ga;
-        public TextView ancId;
+        public TextView textViewParentName;
+        public TextView textViewChildName;
+        public TextView textViewAddressGender;
         public Button dueButton;
-        public View patientColumn;
+        public View childColumn;
 
         public RegisterViewHolder(View itemView) {
             super(itemView);
 
-            patientName = itemView.findViewById(R.id.patient_name);
-            age = itemView.findViewById(R.id.age);
-            ga = itemView.findViewById(R.id.ga);
-            ancId = itemView.findViewById(R.id.anc_id);
+            textViewParentName = itemView.findViewById(R.id.textview_parent_name);
+            textViewChildName = itemView.findViewById(R.id.text_view_child_name);
+            textViewAddressGender = itemView.findViewById(R.id.text_view_address_gender);
             dueButton = itemView.findViewById(R.id.due_button);
 
-            patientColumn = itemView.findViewById(R.id.patient_column);
+            childColumn = itemView.findViewById(R.id.child_column);
         }
     }
 

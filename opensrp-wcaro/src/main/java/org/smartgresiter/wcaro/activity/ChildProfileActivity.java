@@ -3,6 +3,8 @@ package org.smartgresiter.wcaro.activity;
 import android.app.AppComponentFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -18,6 +20,8 @@ import org.smartgresiter.wcaro.contract.ChildProfileContract;
 import org.smartgresiter.wcaro.contract.ChildRegisterContract;
 import org.smartgresiter.wcaro.custom_view.IndividualMemberFloatingMenu;
 import org.smartgresiter.wcaro.listener.OnClickFloatingMenu;
+import org.smartgresiter.wcaro.model.ChildProfileModel;
+import org.smartgresiter.wcaro.presenter.ChildProfilePresenter;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.family.util.Constants;
 import org.smartregister.helper.ImageRenderHelper;
@@ -25,7 +29,9 @@ import org.smartregister.view.activity.BaseProfileActivity;
 
 
 public class ChildProfileActivity extends BaseProfileActivity implements ChildProfileContract.View,ChildRegisterContract.InteractorCallBack{
-
+    private CollapsingToolbarLayout collapsingToolbarLayout;
+    private boolean appBarTitleIsShown = true;
+    private int appBarLayoutScrollRange = -1;
     private String childBaseEntityId;
     private TextView textViewParentName,textViewChildName,textViewGender,textViewAddress,textViewId;
     private ImageView imageViewProfile;
@@ -48,7 +54,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
             }
         });
         appBarLayout = findViewById(org.smartregister.R.id.collapsing_toolbar_appbarlayout);
-
+        collapsingToolbarLayout = appBarLayout.findViewById(org.smartregister.R.id.collapsing_toolbar_layout);
 
         appBarLayout.addOnOffsetChangedListener(this);
 
@@ -57,7 +63,22 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
         initializePresenter();
         setupViews();
     }
+    @Override
+    public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
 
+        if (appBarLayoutScrollRange == -1) {
+            appBarLayoutScrollRange = appBarLayout.getTotalScrollRange();
+        }
+        if (appBarLayoutScrollRange + verticalOffset == 0) {
+
+            collapsingToolbarLayout.setTitle(patientName);
+            appBarTitleIsShown = true;
+        } else if (appBarTitleIsShown) {
+            collapsingToolbarLayout.setTitle(" ");
+            appBarTitleIsShown = false;
+        }
+
+    }
     @Override
     protected void setupViews() {
         textViewParentName=findViewById(R.id.textview_parent_name);
@@ -73,6 +94,8 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     protected void initializePresenter() {
         childBaseEntityId = getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID);
 
+        presenter = new ChildProfilePresenter(this, new ChildProfileModel(), childBaseEntityId);
+        fetchProfileData();
     }
 
     @Override
@@ -141,7 +164,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
 
     @Override
     public void setParentName(String parentName) {
-        textViewParentName.setText("CG:"+parentName);
+        textViewParentName.setText(parentName);
 
     }
 
@@ -164,6 +187,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
 
     @Override
     public void setProfileName(String fullName) {
+        patientName=fullName;
         textViewChildName.setText(fullName);
 
     }

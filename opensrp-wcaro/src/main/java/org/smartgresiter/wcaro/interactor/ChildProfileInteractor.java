@@ -1,5 +1,6 @@
 package org.smartgresiter.wcaro.interactor;
 
+import android.database.Cursor;
 import android.support.annotation.VisibleForTesting;
 import android.util.Log;
 import android.util.Pair;
@@ -7,6 +8,7 @@ import android.util.Pair;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;
 import org.json.JSONObject;
+import org.smartgresiter.wcaro.application.WcaroApplication;
 import org.smartgresiter.wcaro.contract.ChildProfileContract;
 import org.smartgresiter.wcaro.util.ChildDBConstants;
 import org.smartregister.clientandeventmodel.Client;
@@ -14,6 +16,7 @@ import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
+import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.domain.UniqueId;
 import org.smartregister.family.FamilyLibrary;
 import org.smartregister.family.util.AppExecutors;
@@ -50,21 +53,46 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
-                final CommonPersonObject personObject = getCommonRepository(ChildDBConstants.KEY.TABLE_NAME).findByBaseEntityId(baseEntityId);
-                final CommonPersonObjectClient pClient = new CommonPersonObjectClient(personObject.getCaseId(),
+                //final CommonPersonObject personObject = getCommonRepository(ChildDBConstants.KEY.TABLE_NAME).findByBaseEntityId(baseEntityId);
+                Cursor cursor=getCommonRepository(ChildDBConstants.KEY.TABLE_NAME)
+                        .rawCustomQueryForAdapter(mainSelect(ChildDBConstants.KEY.TABLE_NAME,ChildDBConstants.KEY.PARENT_TABLE_NAME,""));
+                if(cursor!=null && cursor.moveToFirst()){
+                    CommonPersonObject personObject = getCommonRepository(ChildDBConstants.KEY.TABLE_NAME).readAllcommonforCursorAdapter(cursor);
+                    final CommonPersonObjectClient pClient = new CommonPersonObjectClient(personObject.getCaseId(),
                         personObject.getDetails(), "");
-                pClient.setColumnmaps(personObject.getColumnmaps());
-
-                appExecutors.mainThread().execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (isForEdit) {
-                            callback.startFormForEdit(pClient);
-                        } else {
-                            callback.refreshProfileTopSection(pClient);
+                        pClient.setColumnmaps(personObject.getColumnmaps());
+                    appExecutors.mainThread().execute(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (isForEdit) {
+                                callback.startFormForEdit(pClient);
+                            } else {
+                                callback.refreshProfileTopSection(pClient);
+                            }
                         }
-                    }
-                });
+                    });
+                        cursor.close();
+                }
+
+//                CommonPersonObject personObject=  getCommonRepository(ChildDBConstants.KEY.TABLE_NAME)
+//                        .readAllcommonforCursorAdapter();
+//                final CommonPersonObject FamilypersonObject = getCommonRepository(ChildDBConstants.KEY.TABLE_NAME).findByBaseEntityId(pClient.getColumnmaps().get("relational_id"));
+
+//                final CommonPersonObjectClient pClient = new CommonPersonObjectClient(personObject.getCaseId(),
+//                        personObject.getDetails(), "");
+//
+//                pClient.setColumnmaps(personObject.getColumnmaps());
+//
+//
+//                final CommonPersonObject familyObject = getCommonRepository(Utils.metadata().familyRegister.tableName).findByBaseEntityId(pClient.getColumnmaps().get("relational_id"));
+//                final CommonPersonObjectClient familyClient = new CommonPersonObjectClient(familyObject.getCaseId(),
+//                        familyObject.getDetails(), "");
+//
+//
+//                pClient.setColumnmaps(personObject.getColumnmaps());
+
+
+
             }
         };
 
@@ -110,6 +138,30 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
         };
 
         appExecutors.diskIO().execute(runnable);
+    }
+
+    public String mainSelect(String tableName,String parentTableName, String mainCondition) {
+        SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
+        queryBUilder.SelectInitiateMainTable(tableName, mainColumns(tableName,parentTableName));
+        queryBUilder.customJoin("LEFT JOIN " + parentTableName + " ON  " + tableName + ".relational_id =  " + parentTableName + ".id");
+        return queryBUilder.mainCondition(mainCondition);
+    }
+
+    protected String[] mainColumns(String tableName,String parentTableName) {
+
+        String[] columns = new String[]{
+                tableName + "." + DBConstants.KEY.RELATIONAL_ID +" as " +"relationalid",
+                tableName + "." + DBConstants.KEY.LAST_INTERACTED_WITH,
+                tableName + "." + DBConstants.KEY.BASE_ENTITY_ID,
+                tableName + "." + DBConstants.KEY.FIRST_NAME,
+                parentTableName + "."+DBConstants.KEY.FIRST_NAME+" as "+ChildDBConstants.KEY.FAMILY_FIRST_NAME,
+                parentTableName + "."+DBConstants.KEY.LAST_NAME+" as "+ChildDBConstants.KEY.FAMILY_LAST_NAME,
+                parentTableName + ".home_address as "+ChildDBConstants.KEY.FAMILY_HOME_ADDRESS,
+                tableName + "." + DBConstants.KEY.LAST_NAME,
+                tableName + "." + DBConstants.KEY.UNIQUE_ID,
+                tableName + "." + DBConstants.KEY.GENDER,
+                tableName + "." + DBConstants.KEY.DOB};
+        return columns;
     }
     private void saveRegistration(Pair<Client, Event> pair, String jsonString, boolean isEditMode) {
 

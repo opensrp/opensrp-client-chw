@@ -65,6 +65,7 @@ public class ChildRegisterFragmentModel implements ChildRegisterFragmentContract
                 parentTableName + ".home_address as "+ChildDBConstants.KEY.FAMILY_HOME_ADDRESS,
                 tableName + "." + DBConstants.KEY.LAST_NAME,
                 tableName + "." + DBConstants.KEY.UNIQUE_ID,
+                tableName + "." + DBConstants.KEY.GENDER,
                 tableName + "." + DBConstants.KEY.DOB};
         return columns;
     }
