@@ -54,6 +54,7 @@
 
                 <TextView
                     android:id="@+id/tvLogo"
+                    android:fontFamily="sans-serif"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
@@ -83,6 +84,7 @@
 
                 <TextView
                     android:id="@+id/tvRegisters"
+                    android:fontFamily="sans-serif"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
@@ -108,10 +110,14 @@
 
                 <TextView
                     android:id="@+id/tvLogout"
+                    android:fontFamily="sans-serif"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/vDiv2"
-                    android:layout_margin="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginTop="35dp"
                     android:text="Logout as"
                     android:textSize="20sp" />
 
@@ -137,6 +143,7 @@
 
                 <TextView
                     android:id="@+id/tvSync"
+                    android:fontFamily="sans-serif"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -150,6 +157,7 @@
 
                 <TextView
                     android:id="@+id/tvSyncTime"
+                    android:fontFamily="sans-serif"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
@@ -162,6 +170,7 @@
 
                 <TextView
                     android:id="@+id/tvSyncTimeTitle"
+                    android:fontFamily="sans-serif"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"

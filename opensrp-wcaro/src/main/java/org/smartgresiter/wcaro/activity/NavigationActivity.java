@@ -73,26 +73,35 @@ public class NavigationActivity implements NavigationContract.View {
             // get current view
             // ViewGroup current = parentActivity.getWindow().getDecorView().findViewById(android.R.id.content);
             ViewGroup current = (ViewGroup) ((ViewGroup) (activity.findViewById(android.R.id.content))).getChildAt(0);
-            if (current.getParent() != null) {
-                ((ViewGroup) current.getParent()).removeView(current); // <- fix
+            if (!(current instanceof DrawerLayout)) {
+
+                if (current.getParent() != null) {
+                    ((ViewGroup) current.getParent()).removeView(current); // <- fix
+                }
+
+                // swap content view
+                LayoutInflater mInflater = LayoutInflater.from(activity);
+                ViewGroup contentView = (ViewGroup) mInflater.inflate(R.layout.activity_base, null);
+                activity.setContentView(contentView);
+
+                rootView = activity.findViewById(R.id.nav_view);
+                RelativeLayout rl = activity.findViewById(R.id.nav_content);
+
+                if (current.getParent() != null) {
+                    ((ViewGroup) current.getParent()).removeView(current); // <- fix
+                }
+
+                if (current instanceof RelativeLayout) {
+                    RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
+                    params.addRule(RelativeLayout.ALIGN_PARENT_LEFT, RelativeLayout.TRUE);
+                    current.setLayoutParams(params);
+                    rl.addView(current);
+                } else {
+                    rl.addView(current);
+                }
+            } else {
+                rootView = activity.findViewById(R.id.nav_view);
             }
-
-            // swap content view
-            LayoutInflater mInflater = LayoutInflater.from(activity);
-            ViewGroup contentView = (ViewGroup) mInflater.inflate(R.layout.activity_base, null);
-            activity.setContentView(contentView);
-
-            rootView = activity.findViewById(R.id.nav_view);
-            RelativeLayout rl = activity.findViewById(R.id.nav_content);
-
-            if (current.getParent() != null) {
-                ((ViewGroup) current.getParent()).removeView(current); // <- fix
-            }
-
-            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
-            params.addRule(RelativeLayout.ALIGN_PARENT_LEFT, RelativeLayout.TRUE);
-            current.setLayoutParams(params);
-            rl.addView(current);
         }
         //
     }
@@ -100,7 +109,7 @@ public class NavigationActivity implements NavigationContract.View {
     @Override
     public void prepareViews(Activity activity) {
 
-        drawer = rootView.findViewById(R.id.drawer_layout);
+        drawer = activity.findViewById(R.id.drawer_layout);
         recyclerView = rootView.findViewById(R.id.rvOptions);
         navigationView = rootView.findViewById(R.id.nav_view);
         tvLogout = rootView.findViewById(R.id.tvLogout);
@@ -117,6 +126,26 @@ public class NavigationActivity implements NavigationContract.View {
         mPresenter.refreshNavigationCount(activity);
     }
 
+    /*
+    public void toggleDrawer(Activity activity){
+        if (drawer != null) {
+            drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+            if (!drawer.isDrawerOpen(Gravity.LEFT)) {
+                drawer.openDrawer(GravityCompat.START);
+            } else {
+                drawer.closeDrawer(GravityCompat.START);
+            }
+        }
+    }
+    */
+
+    public void lockDrawer(Activity activity) {
+        prepareViews(activity);
+        if (drawer != null) {
+            drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+        }
+    }
+
     private void registerDrawer(Activity parentActivity) {
         if (drawer != null) {
             drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
@@ -124,6 +153,7 @@ public class NavigationActivity implements NavigationContract.View {
                     parentActivity, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
             drawer.addDrawerListener(toggle);
             toggle.syncState();
+
         }
     }
 

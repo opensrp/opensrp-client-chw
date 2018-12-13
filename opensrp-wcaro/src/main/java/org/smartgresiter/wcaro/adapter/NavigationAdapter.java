@@ -69,9 +69,11 @@ public class NavigationAdapter extends RecyclerView.Adapter<NavigationAdapter.My
         if (selectedPosition == position) {
             holder.tvCount.setTextColor(context.getResources().getColor(R.color.holo_blue));
             holder.tvName.setTextColor(context.getResources().getColor(R.color.holo_blue));
+            holder.ivIcon.setImageResource(model.getResourceActiveID());
         } else {
             holder.tvCount.setTextColor(Color.WHITE);
             holder.tvName.setTextColor(Color.WHITE);
+            holder.ivIcon.setImageResource(model.getResourceID());
         }
     }
 

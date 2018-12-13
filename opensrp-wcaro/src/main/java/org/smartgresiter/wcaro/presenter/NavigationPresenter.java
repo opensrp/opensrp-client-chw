@@ -56,7 +56,7 @@ public class NavigationPresenter implements NavigationContract.Presenter {
                     mInteractor.getChildrenCount(activity, new NavigationContract.InteractorCallback<Integer>() {
                         @Override
                         public void onResult(Integer result) {
-                            mModel.getNavigationItems(activity).get(finalX).setRegisterCount(result);
+                            // mModel.getNavigationItems(activity).get(finalX).setRegisterCount(result);
                             getNavigationView().refreshCount();
                         }
 

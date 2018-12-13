@@ -30,8 +30,8 @@ public class NavigationModel implements NavigationContract.Model {
         return instance;
     }
 
-    NavigationOption op1 = new NavigationOption(R.drawable.badge, Constants.DrawerMenu.ALL_FAMILIES, 0);
-    NavigationOption op2 = new NavigationOption(R.drawable.badge, Constants.DrawerMenu.CHILD_CLIENTS, 0);
+    NavigationOption op1 = new NavigationOption(R.mipmap.sidemenu_families, R.mipmap.sidemenu_families_active, Constants.DrawerMenu.ALL_FAMILIES, 0);
+    NavigationOption op2 = new NavigationOption(R.mipmap.sidemenu_children, R.mipmap.sidemenu_children_active, Constants.DrawerMenu.CHILD_CLIENTS, 0);
 
     private NavigationModel() {
     }
@@ -46,6 +46,7 @@ public class NavigationModel implements NavigationContract.Model {
                     Intent intent = new Intent(activity, FamilyRegisterActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     activity.startActivity(intent);
+                    activity.overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
                 }
             });
             op2.setSelectedAction(new NavigationContract.SelectedAction() {
@@ -54,6 +55,7 @@ public class NavigationModel implements NavigationContract.Model {
                     Intent intent = new Intent(activity, FamilyRegisterActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     activity.startActivity(intent);
+                    activity.overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
                 }
             });
 

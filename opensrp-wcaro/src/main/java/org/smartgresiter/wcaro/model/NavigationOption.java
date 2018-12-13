@@ -5,12 +5,14 @@ import org.smartgresiter.wcaro.contract.NavigationContract;
 public class NavigationOption {
 
     private int ResourceID;
+    private int ResourceActiveID;
     private String MenuTitle;
     private long RegisterCount;
     private NavigationContract.SelectedAction selectedAction;
 
-    public NavigationOption(int resourceID, String menuTitle, long registerCount) {
+    public NavigationOption(int resourceID, int resourceActiveID, String menuTitle, long registerCount) {
         ResourceID = resourceID;
+        ResourceActiveID = resourceActiveID;
         MenuTitle = menuTitle;
         RegisterCount = registerCount;
     }
@@ -21,6 +23,14 @@ public class NavigationOption {
 
     public void setResourceID(int resourceID) {
         ResourceID = resourceID;
+    }
+
+    public int getResourceActiveID() {
+        return ResourceActiveID;
+    }
+
+    public void setResourceActiveID(int resourceActiveID) {
+        ResourceActiveID = resourceActiveID;
     }
 
     public String getMenuTitle() {
