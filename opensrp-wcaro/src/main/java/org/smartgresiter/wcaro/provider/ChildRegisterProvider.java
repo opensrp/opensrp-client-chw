@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.text.WordUtils;
+import org.smartgresiter.wcaro.util.ChildDBConstants;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
@@ -85,11 +86,14 @@ public class ChildRegisterProvider implements RecyclerViewProvider<ChildRegister
 
     private void populatePatientColumn(CommonPersonObjectClient pc, SmartRegisterClient client, RegisterViewHolder viewHolder) {
 
+       String parentFirstName=Utils.getValue(pc.getColumnmaps(), ChildDBConstants.KEY.FAMILY_FIRST_NAME, true);
+        String parentLastName=Utils.getValue(pc.getColumnmaps(), ChildDBConstants.KEY.FAMILY_LAST_NAME, true);
+        String parentName="CG:"+org.smartregister.util.Utils.getName(parentFirstName, parentLastName);
         String firstName = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.FIRST_NAME, true);
         String lastName = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.LAST_NAME, true);
-        String patientName = org.smartregister.util.Utils.getName(firstName, lastName);
+        String childName = org.smartregister.util.Utils.getName(firstName, lastName);
 
-        fillValue(viewHolder.patientName, WordUtils.capitalize(patientName));
+        fillValue(viewHolder.patientName,WordUtils.capitalize(parentName)+"\n" +WordUtils.capitalize(childName));
 
         String dobString = Utils.getDuration(Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.DOB, false));
         dobString = dobString.contains("y") ? dobString.substring(0, dobString.indexOf("y")) : dobString;

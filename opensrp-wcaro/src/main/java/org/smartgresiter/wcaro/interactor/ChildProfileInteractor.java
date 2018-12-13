@@ -8,6 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;
 import org.json.JSONObject;
 import org.smartgresiter.wcaro.contract.ChildProfileContract;
+import org.smartgresiter.wcaro.util.ChildDBConstants;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.CommonPersonObject;
@@ -49,8 +50,7 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
-                String tableName = "ec_child";
-                final CommonPersonObject personObject = getCommonRepository(tableName).findByBaseEntityId(baseEntityId);
+                final CommonPersonObject personObject = getCommonRepository(ChildDBConstants.KEY.TABLE_NAME).findByBaseEntityId(baseEntityId);
                 final CommonPersonObjectClient pClient = new CommonPersonObjectClient(personObject.getCaseId(),
                         personObject.getDetails(), "");
                 pClient.setColumnmaps(personObject.getColumnmaps());

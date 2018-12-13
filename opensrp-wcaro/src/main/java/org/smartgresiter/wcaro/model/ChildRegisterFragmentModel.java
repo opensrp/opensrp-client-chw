@@ -5,6 +5,7 @@ import android.util.Log;
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.smartgresiter.wcaro.contract.ChildRegisterFragmentContract;
+import org.smartgresiter.wcaro.util.ChildDBConstants;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
 import org.smartregister.configurableviews.model.Field;
 import org.smartregister.configurableviews.model.RegisterConfiguration;
@@ -59,9 +60,9 @@ public class ChildRegisterFragmentModel implements ChildRegisterFragmentContract
                 tableName + "." + DBConstants.KEY.LAST_INTERACTED_WITH,
                 tableName + "." + DBConstants.KEY.BASE_ENTITY_ID,
                 tableName + "." + DBConstants.KEY.FIRST_NAME,
-                parentTableName + ".first_name as family_first_name",
-                parentTableName + ".last_name as family_last_name",
-                parentTableName + ".home_address as family_home_address",
+                parentTableName + "."+DBConstants.KEY.FIRST_NAME+" as "+ChildDBConstants.KEY.FAMILY_FIRST_NAME,
+                parentTableName + "."+DBConstants.KEY.LAST_NAME+" as "+ChildDBConstants.KEY.FAMILY_LAST_NAME,
+                parentTableName + ".home_address as "+ChildDBConstants.KEY.FAMILY_HOME_ADDRESS,
                 tableName + "." + DBConstants.KEY.LAST_NAME,
                 tableName + "." + DBConstants.KEY.UNIQUE_ID,
                 tableName + "." + DBConstants.KEY.DOB};
