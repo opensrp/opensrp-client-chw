@@ -19,6 +19,7 @@ import org.smartregister.clientandeventmodel.Address;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.clientandeventmodel.FormEntityConstants;
+import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.Photo;
 import org.smartregister.domain.ProfileImage;
@@ -155,6 +156,9 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
                 }
             }
 
+
+            processChildEnrollMent(jsonForm,fields);
+
             FormTag formTag = new FormTag();
             formTag.providerId = allSharedPreferences.fetchRegisteredANM();
             formTag.appVersion = FamilyLibrary.getInstance().getApplicationVersion();
@@ -197,6 +201,28 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
             Log.e(TAG, Log.getStackTraceString(e));
             return null;
         }
+    }
+
+    private static void processChildEnrollMent(JSONObject jsonForm, JSONArray fields) {
+
+        try {
+
+            JSONObject surnam_familyName_SameObject = getFieldJSONObject(fields, "surname_same_as_family_name");
+            JSONArray surnam_familyName_Same_options = getJSONArray(surnam_familyName_SameObject, org.smartregister.family.util.Constants.JSON_FORM_KEY.OPTIONS);
+            JSONObject surnam_familyName_Same_option = getJSONObject(surnam_familyName_Same_options, 0);
+            String surnam_familyName_SameString = surnam_familyName_Same_option != null ? surnam_familyName_Same_option.getString(VALUE) : null;
+
+            if (StringUtils.isNotBlank(surnam_familyName_SameString) && Boolean.valueOf(surnam_familyName_SameString)) {
+                String familyId = jsonForm.getJSONObject("metadata").getJSONObject("look_up").getString("value");
+                CommonPersonObject familyObject = WcaroApplication.getInstance().getContext().commonrepository("ec_family").findByCaseID(familyId);
+                String lastname = familyObject.getColumnmaps().get(DBConstants.KEY.LAST_NAME);
+                JSONObject surname_object = getFieldJSONObject(fields, "surname");
+                surname_object.put(VALUE,lastname);
+            }
+        }catch (Exception e){
+
+        }
+
     }
 
     private static void addRelationship(Context context, Client parent, Client child) {
