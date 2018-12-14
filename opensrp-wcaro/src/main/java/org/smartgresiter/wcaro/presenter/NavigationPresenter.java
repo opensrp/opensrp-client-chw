@@ -38,7 +38,7 @@ public class NavigationPresenter implements NavigationContract.Presenter {
             final int finalX = x;
             switch (mModel.getNavigationItems(activity).get(x).getMenuTitle()) {
                 case Constants.DrawerMenu.ALL_FAMILIES:
-                    mInteractor.getFamilyCount(activity, new NavigationContract.InteractorCallback<Integer>() {
+                    mInteractor.getFamilyCount(new NavigationContract.InteractorCallback<Integer>() {
                         @Override
                         public void onResult(Integer result) {
                             mModel.getNavigationItems(activity).get(finalX).setRegisterCount(result);
@@ -53,7 +53,7 @@ public class NavigationPresenter implements NavigationContract.Presenter {
                     });
                     break;
                 case Constants.DrawerMenu.CHILD_CLIENTS:
-                    mInteractor.getChildrenCount(activity, new NavigationContract.InteractorCallback<Integer>() {
+                    mInteractor.getChildrenCount(new NavigationContract.InteractorCallback<Integer>() {
                         @Override
                         public void onResult(Integer result) {
                             // mModel.getNavigationItems(activity).get(finalX).setRegisterCount(result);
@@ -89,7 +89,7 @@ public class NavigationPresenter implements NavigationContract.Presenter {
 
     @Override
     public void Sync(Activity activity) {
-
+        mInteractor.Sync();
     }
 
     @Override

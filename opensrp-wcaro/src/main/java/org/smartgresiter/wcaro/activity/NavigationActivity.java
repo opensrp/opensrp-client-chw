@@ -138,19 +138,6 @@ public class NavigationActivity implements NavigationContract.View {
         mPresenter.refreshNavigationCount(activity);
     }
 
-    /*
-    public void toggleDrawer(Activity activity){
-        if (drawer != null) {
-            drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
-            if (!drawer.isDrawerOpen(Gravity.LEFT)) {
-                drawer.openDrawer(GravityCompat.START);
-            } else {
-                drawer.closeDrawer(GravityCompat.START);
-            }
-        }
-    }
-    */
-
     public void lockDrawer(Activity activity) {
         prepareViews(activity);
         if (drawer != null) {

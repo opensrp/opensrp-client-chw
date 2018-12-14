@@ -44,23 +44,23 @@ public class NavigationInteractor implements NavigationContract.Interactor {
         return null;
     }
 
-    protected boolean isValidFilterForFts(CommonRepository commonRepository, String filters) {
+    private boolean isValidFilterForFts(CommonRepository commonRepository, String filters) {
         return commonRepository.isFts() && filters != null && !StringUtils
                 .containsIgnoreCase(filters, "like") && !StringUtils
                 .startsWithIgnoreCase(filters.trim(), "and ");
     }
 
-    public CommonRepository commonRepository() {
+    private CommonRepository commonRepository() {
         return WcaroApplication.getInstance().getContext().commonrepository(Constants.TABLE_NAME.FAMILY);
     }
 
-    protected Context context(Activity activity) {
+    private Context context(Activity activity) {
         return CoreLibrary.getInstance().context()
                 .updateApplicationContext(activity.getApplicationContext());
     }
 
 
-    public int getCount(Activity activity, String tableName) throws Exception {
+    private int getCount(String tableName) throws Exception {
 
         Integer count = null;
         Cursor c = null;
@@ -94,13 +94,13 @@ public class NavigationInteractor implements NavigationContract.Interactor {
     }
 
     @Override
-    public void getFamilyCount(final Activity activity, final NavigationContract.InteractorCallback<Integer> callback) {
+    public void getFamilyCount(final NavigationContract.InteractorCallback<Integer> callback) {
         if (callback != null) {
             appExecutors.diskIO().execute(new Runnable() {
                 @Override
                 public void run() {
                     try {
-                        final Integer finalCount = getCount(activity, Constants.TABLE_NAME.FAMILY);
+                        final Integer finalCount = getCount(Constants.TABLE_NAME.FAMILY);
                         appExecutors.mainThread().execute(new Runnable() {
                             @Override
                             public void run() {
@@ -122,13 +122,13 @@ public class NavigationInteractor implements NavigationContract.Interactor {
     }
 
     @Override
-    public void getChildrenCount(final Activity activity, final NavigationContract.InteractorCallback<Integer> callback) {
+    public void getChildrenCount(final NavigationContract.InteractorCallback<Integer> callback) {
         if (callback != null) {
             appExecutors.diskIO().execute(new Runnable() {
                 @Override
                 public void run() {
                     try {
-                        final Integer finalCount = getCount(activity, Constants.TABLE_NAME.FAMILY);
+                        final Integer finalCount = getCount(Constants.TABLE_NAME.FAMILY);
                         appExecutors.mainThread().execute(new Runnable() {
                             @Override
                             public void run() {

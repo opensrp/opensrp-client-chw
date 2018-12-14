@@ -54,9 +54,9 @@ public interface NavigationContract {
 
         Date getLastSync();
 
-        void getFamilyCount(Activity activity, InteractorCallback<Integer> callback);
+        void getFamilyCount(InteractorCallback<Integer> callback);
 
-        void getChildrenCount(Activity activity, InteractorCallback<Integer> callback);
+        void getChildrenCount(InteractorCallback<Integer> callback);
 
         Date Sync();
 
