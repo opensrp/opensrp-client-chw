@@ -27,6 +27,7 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        NavigationActivity.getInstance(this, null, null);
         FamilyFloatingMenu familyFloatingMenu=new FamilyFloatingMenu(this);
         LinearLayout.LayoutParams linearLayoutParams =
                 new LinearLayout.LayoutParams(
@@ -35,6 +36,7 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity {
         familyFloatingMenu.setGravity(Gravity.BOTTOM | Gravity.RIGHT);
         addContentView(familyFloatingMenu,linearLayoutParams);
         familyFloatingMenu.setClickListener(onClickFloatingMenuListener);
+
     }
     @Override
     protected void initializePresenter() {

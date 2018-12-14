@@ -72,7 +72,7 @@ public class WcaroApplication extends DrishtiApplication {
     }
 
     public Context getContext() {
-        return this.getContext();
+        return context;
     }
 
     public static JsonSpecHelper getJsonSpecHelper() {

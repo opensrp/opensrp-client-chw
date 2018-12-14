@@ -33,4 +33,11 @@ public class Constants {
         public static final String FAMILY_MEMBER = "ec_family_member";
     }
 
+    public static final class DrawerMenu {
+        public static final String ALL_FAMILIES = "All Families";
+        public static final String ANC_CLIENTS = "ANC Clients";
+        public static final String CHILD_CLIENTS = "Child Clients";
+        public static final String HIV_CLIENTS = "Hiv Clients";
+    }
+
 }
