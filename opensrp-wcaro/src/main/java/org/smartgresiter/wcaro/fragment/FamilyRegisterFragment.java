@@ -3,6 +3,7 @@ package org.smartgresiter.wcaro.fragment;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.activity.NavigationActivity;
 import org.smartgresiter.wcaro.model.FamilyRegisterFramentModel;
 import org.smartgresiter.wcaro.presenter.FamilyRegisterFragmentPresenter;
@@ -18,6 +19,9 @@ public class FamilyRegisterFragment extends BaseFamilyRegisterFragment {
 
         Toolbar toolbar = view.findViewById(org.smartregister.R.id.register_toolbar);
         NavigationActivity.getInstance(getActivity(), null, toolbar);
+
+        View topLeftLayout = view.findViewById(R.id.top_left_layout);
+        topLeftLayout.setVisibility(View.GONE);
     }
 
     @Override

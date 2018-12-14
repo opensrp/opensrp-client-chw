@@ -1,5 +1,6 @@
 package org.smartgresiter.wcaro.application;
 
+import android.content.Intent;
 import android.util.Log;
 
 import com.evernote.android.job.JobManager;
@@ -7,6 +8,7 @@ import com.vijay.jsonwizard.activities.JsonFormActivity;
 
 import org.smartgresiter.wcaro.BuildConfig;
 import org.smartgresiter.wcaro.activity.FamilyProfileActivity;
+import org.smartgresiter.wcaro.activity.LoginActivity;
 import org.smartgresiter.wcaro.job.WcaroJobCreator;
 import org.smartgresiter.wcaro.repository.WcaroRepository;
 import org.smartgresiter.wcaro.util.Constants;
@@ -65,6 +67,13 @@ public class WcaroApplication extends DrishtiApplication {
 
     @Override
     public void logoutCurrentUser() {
+        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        getApplicationContext().startActivity(intent);
+        context.userService().logoutSession();
     }
 
     public static synchronized WcaroApplication getInstance() {
