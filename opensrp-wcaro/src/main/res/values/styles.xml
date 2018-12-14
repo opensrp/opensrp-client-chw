@@ -24,4 +24,11 @@
         <item name="colorControlActivated">@android:color/black</item>
     </style>
 
+    <style name="WcaroTheme.AppBarOverlay.NavigationDrawerStyle">
+        <item name="android:textSize">20sp</item>
+        <!-- text size in menu-->
+        <item name="android:listPreferredItemHeightSmall">70dp</item>
+        <!-- item size in menu-->
+    </style>
+
 </resources>
