@@ -4,6 +4,7 @@ import android.support.v4.view.ViewPager;
 import android.view.Gravity;
 import android.widget.LinearLayout;
 
+import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.custom_view.FamilyFloatingMenu;
 import org.smartgresiter.wcaro.fragment.FamilyProfileActivityFragment;
 import org.smartgresiter.wcaro.fragment.FamilyProfileDueFragment;
@@ -18,6 +19,8 @@ import org.smartregister.family.fragment.BaseFamilyProfileDueFragment;
 import org.smartregister.family.fragment.BaseFamilyProfileMemberFragment;
 import org.smartregister.family.util.Constants;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class FamilyProfileActivity extends BaseFamilyProfileActivity {
     private String familyBaseEntityId;
 
@@ -31,6 +34,11 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity {
     protected void setupViews() {
         super.setupViews();
 
+        // Update profile border
+        CircleImageView profileView = findViewById(R.id.imageview_profile);
+        profileView.setBorderWidth(2);
+
+        // add floating menu
         FamilyFloatingMenu familyFloatingMenu = new FamilyFloatingMenu(this);
         LinearLayout.LayoutParams linearLayoutParams =
                 new LinearLayout.LayoutParams(
