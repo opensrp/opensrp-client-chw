@@ -52,12 +52,12 @@ public class FamilyFloatingMenu extends LinearLayout implements View.OnClickList
                     expandFabMenu();
             }
         });
-        ((RelativeLayout)findViewById(R.id.call_layout)).setOnClickListener(this);
-        ((RelativeLayout)findViewById(R.id.family_detail_layout)).setOnClickListener(this);
-        ((RelativeLayout)findViewById(R.id.add_new_member_layout)).setOnClickListener(this);
-        ((RelativeLayout)findViewById(R.id.remove_member_layout)).setOnClickListener(this);
-        ((RelativeLayout)findViewById(R.id.change_head_layout)).setOnClickListener(this);
-        ((RelativeLayout)findViewById(R.id.change_primary_layout)).setOnClickListener(this);
+        findViewById(R.id.call_layout).setOnClickListener(this);
+        findViewById(R.id.family_detail_layout).setOnClickListener(this);
+        findViewById(R.id.add_new_member_layout).setOnClickListener(this);
+        findViewById(R.id.remove_member_layout).setOnClickListener(this);
+        findViewById(R.id.change_head_layout).setOnClickListener(this);
+        findViewById(R.id.change_primary_layout).setOnClickListener(this);
     }
     public void setClickListener(OnClickFloatingMenu onClickFloatingMenu){
         this.onClickFloatingMenu=onClickFloatingMenu;

@@ -32,17 +32,10 @@
           }
         },
         {
-          "column_name": "dob",
+          "column_name": "village_town",
           "type": "Client",
           "json_mapping": {
-            "field": "birthdate"
-          }
-        },
-        {
-          "column_name": "dob_unknown",
-          "type": "Client",
-          "json_mapping": {
-            "field": "birthdateApprox"
+            "field": "addresses.cityVillage"
           }
         },
         {
@@ -100,10 +93,17 @@
           }
         },
         {
-          "column_name": "dob_unknown",
+          "column_name": "dod",
           "type": "Client",
           "json_mapping": {
-            "field": "birthdateApprox"
+            "field": "deathdate"
+          }
+        },
+        {
+          "column_name": "gender",
+          "type": "Client",
+          "json_mapping": {
+            "field": "gender"
           }
         },
         {

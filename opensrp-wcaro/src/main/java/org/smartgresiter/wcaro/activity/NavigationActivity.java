@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.adapter.NavigationAdapter;
+import org.smartgresiter.wcaro.application.WcaroApplication;
 import org.smartgresiter.wcaro.contract.NavigationContract;
 import org.smartgresiter.wcaro.presenter.NavigationPresenter;
 import org.smartregister.view.activity.DrishtiApplication;
@@ -233,9 +234,7 @@ public class NavigationActivity implements NavigationContract.View {
     @Override
     public void logout(Activity activity) {
         Toast.makeText(activity.getApplicationContext(), activity.getResources().getText(R.string.action_log_out), Toast.LENGTH_SHORT).show();
-        DrishtiApplication drishtiApplication = (DrishtiApplication) activity.getApplication();
-        drishtiApplication.logoutCurrentUser();
-        activity.finish();
+        WcaroApplication.getInstance().logoutCurrentUser();
     }
 
     @Override
