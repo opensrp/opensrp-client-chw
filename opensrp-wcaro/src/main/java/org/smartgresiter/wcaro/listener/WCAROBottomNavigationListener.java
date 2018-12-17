@@ -8,17 +8,17 @@ import org.smartregister.family.R;
 import org.smartregister.listener.BottomNavigationListener;
 import org.smartregister.view.activity.BaseRegisterActivity;
 
-public class ChildBottomNavigationListener extends BottomNavigationListener {
+public class WCAROBottomNavigationListener extends BottomNavigationListener {
     private Activity context;
 
-    public ChildBottomNavigationListener(Activity context) {
+    public WCAROBottomNavigationListener(Activity context) {
         super(context);
         this.context = context;
     }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        super.onNavigationItemSelected(item);
+//        super.onNavigationItemSelected(item);
 
         BaseRegisterActivity baseRegisterActivity = (BaseRegisterActivity) context;
 

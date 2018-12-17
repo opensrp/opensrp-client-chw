@@ -5,16 +5,15 @@ import android.support.design.bottomnavigation.LabelVisibilityMode;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 
-import com.vijay.jsonwizard.activities.JsonFormActivity;
-
 import org.json.JSONObject;
 import org.smartgresiter.wcaro.BuildConfig;
 import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.contract.ChildRegisterContract;
 import org.smartgresiter.wcaro.fragment.ChildRegisterFragment;
-import org.smartgresiter.wcaro.listener.ChildBottomNavigationListener;
+import org.smartgresiter.wcaro.listener.WCAROBottomNavigationListener;
 import org.smartgresiter.wcaro.model.ChildRegisterModel;
 import org.smartgresiter.wcaro.presenter.ChildRegisterPresenter;
+import org.smartgresiter.wcaro.util.NavigationHelper;
 import org.smartregister.AllConstants;
 import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.JsonFormUtils;
@@ -41,11 +40,14 @@ public class ChildRegisterActivity extends BaseRegisterActivity implements Child
     protected Fragment[] getOtherFragments() {
         return new Fragment[0];
     }
-
+    @Override
+    protected void onStart() {
+        super.onStart();
+        NavigationHelper.getInstance(this, null, null);
+    }
     @Override
     public void startRegistration() {
-        //TODO need to change the hard code
-        startFormActivity("child_enrollment", null, null);
+        startFormActivity(Utils.metadata().familyRegister.formName, null, null);
     }
 
     @Override
@@ -53,7 +55,7 @@ public class ChildRegisterActivity extends BaseRegisterActivity implements Child
         try {
             if (mBaseFragment instanceof ChildRegisterFragment) {
                 String locationId = Utils.context().allSharedPreferences().getPreference(AllConstants.CURRENT_LOCATION_ID);
-                presenter().startForm(formName, entityId, metaData, locationId);
+                presenter().startForm(formName, entityId, metaData, locationId,"");
             }
         } catch (Exception e) {
             Log.e(TAG, Log.getStackTraceString(e));
@@ -106,7 +108,7 @@ public class ChildRegisterActivity extends BaseRegisterActivity implements Child
 
             bottomNavigationHelper.disableShiftMode(bottomNavigationView);
 
-            ChildBottomNavigationListener childBottomNavigationListener = new ChildBottomNavigationListener(this);
+            WCAROBottomNavigationListener childBottomNavigationListener = new WCAROBottomNavigationListener(this);
             bottomNavigationView.setOnNavigationItemSelectedListener(childBottomNavigationListener);
 
         }
