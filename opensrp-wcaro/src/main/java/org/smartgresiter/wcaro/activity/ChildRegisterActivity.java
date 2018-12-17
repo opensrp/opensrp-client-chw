@@ -1,6 +1,7 @@
 package org.smartgresiter.wcaro.activity;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.bottomnavigation.LabelVisibilityMode;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -13,7 +14,6 @@ import org.smartgresiter.wcaro.fragment.ChildRegisterFragment;
 import org.smartgresiter.wcaro.listener.WCAROBottomNavigationListener;
 import org.smartgresiter.wcaro.model.ChildRegisterModel;
 import org.smartgresiter.wcaro.presenter.ChildRegisterPresenter;
-import org.smartgresiter.wcaro.util.NavigationHelper;
 import org.smartregister.AllConstants;
 import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.JsonFormUtils;
@@ -41,13 +41,13 @@ public class ChildRegisterActivity extends BaseRegisterActivity implements Child
         return new Fragment[0];
     }
     @Override
-    protected void onStart() {
-        super.onStart();
-        NavigationHelper.getInstance(this, null, null);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        NavigationActivity.getInstance(this, null, null);
     }
     @Override
     public void startRegistration() {
-        startFormActivity(Utils.metadata().familyRegister.formName, null, null);
+        startFormActivity(Utils.metadata().familyMemberRegister.formName, null, null);
     }
 
     @Override

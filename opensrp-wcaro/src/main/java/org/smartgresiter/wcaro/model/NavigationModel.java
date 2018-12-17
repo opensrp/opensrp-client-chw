@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.util.Log;
 
 import org.smartgresiter.wcaro.R;
+import org.smartgresiter.wcaro.activity.ChildRegisterActivity;
 import org.smartgresiter.wcaro.activity.FamilyRegisterActivity;
 import org.smartgresiter.wcaro.contract.NavigationContract;
 import org.smartgresiter.wcaro.util.Constants;
@@ -52,7 +53,7 @@ public class NavigationModel implements NavigationContract.Model {
             op2.setSelectedAction(new NavigationContract.SelectedAction() {
                 @Override
                 public void onSelect() {
-                    Intent intent = new Intent(activity, FamilyRegisterActivity.class);
+                    Intent intent = new Intent(activity, ChildRegisterActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     activity.startActivity(intent);
                     activity.overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);

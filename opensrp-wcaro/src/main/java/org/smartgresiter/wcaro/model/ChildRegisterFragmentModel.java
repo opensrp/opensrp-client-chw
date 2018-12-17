@@ -62,7 +62,7 @@ public class ChildRegisterFragmentModel implements ChildRegisterFragmentContract
                 tableName + "." + DBConstants.KEY.FIRST_NAME,
                 parentTableName + "."+DBConstants.KEY.FIRST_NAME+" as "+ChildDBConstants.KEY.FAMILY_FIRST_NAME,
                 parentTableName + "."+DBConstants.KEY.LAST_NAME+" as "+ChildDBConstants.KEY.FAMILY_LAST_NAME,
-                parentTableName + ".home_address as "+ChildDBConstants.KEY.FAMILY_HOME_ADDRESS,
+                parentTableName + "."+DBConstants.KEY.VILLAGE_TOWN+" as "+ChildDBConstants.KEY.FAMILY_HOME_ADDRESS,
                 tableName + "." + DBConstants.KEY.LAST_NAME,
                 tableName + "." + DBConstants.KEY.UNIQUE_ID,
                 tableName + "." + DBConstants.KEY.GENDER,

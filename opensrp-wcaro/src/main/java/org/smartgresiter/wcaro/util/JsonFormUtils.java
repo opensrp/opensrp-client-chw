@@ -133,27 +133,27 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
             lastInteractedWith.put(org.smartregister.family.util.Constants.KEY.VALUE, Calendar.getInstance().getTimeInMillis());
             fields.put(lastInteractedWith);
 
-            JSONObject dobUnknownObject = getFieldJSONObject(fields, DBConstants.KEY.DOB_UNKNOWN);
+            JSONObject dobUnknownObject = getFieldJSONObject(fields, DBConstants.KEY.DOB);
             JSONArray options = getJSONArray(dobUnknownObject, org.smartregister.family.util.Constants.JSON_FORM_KEY.OPTIONS);
             JSONObject option = getJSONObject(options, 0);
             String dobUnKnownString = option != null ? option.getString(VALUE) : null;
             if (StringUtils.isNotBlank(dobUnKnownString) && Boolean.valueOf(dobUnKnownString)) {
 
-                String ageString = getFieldValue(fields, DBConstants.KEY.AGE);
-                if (StringUtils.isNotBlank(ageString) && NumberUtils.isNumber(ageString)) {
-                    int age = Integer.valueOf(ageString);
-                    JSONObject dobJSONObject = getFieldJSONObject(fields, DBConstants.KEY.DOB);
-                    dobJSONObject.put(VALUE, Utils.getDob(age));
-
-                    //Mark the birth date as an approximation
-                    JSONObject isBirthdateApproximate = new JSONObject();
-                    isBirthdateApproximate.put(org.smartregister.family.util.Constants.KEY.KEY, FormEntityConstants.Person.birthdate_estimated);
-                    isBirthdateApproximate.put(org.smartregister.family.util.Constants.KEY.VALUE, org.smartregister.family.util.Constants.BOOLEAN_INT.TRUE);
-                    isBirthdateApproximate.put(org.smartregister.family.util.Constants.OPENMRS.ENTITY, org.smartregister.family.util.Constants.ENTITY.PERSON);//Required for value to be processed
-                    isBirthdateApproximate.put(org.smartregister.family.util.Constants.OPENMRS.ENTITY_ID, FormEntityConstants.Person.birthdate_estimated);
-                    fields.put(isBirthdateApproximate);
-
-                }
+//                String ageString = getFieldValue(fields, DBConstants.KEY.AGE);
+//                if (StringUtils.isNotBlank(ageString) && NumberUtils.isNumber(ageString)) {
+//                    int age = Integer.valueOf(ageString);
+//                    JSONObject dobJSONObject = getFieldJSONObject(fields, DBConstants.KEY.DOB);
+//                    dobJSONObject.put(VALUE, Utils.getDob(age));
+//
+//                    //Mark the birth date as an approximation
+//                    JSONObject isBirthdateApproximate = new JSONObject();
+//                    isBirthdateApproximate.put(org.smartregister.family.util.Constants.KEY.KEY, FormEntityConstants.Person.birthdate_estimated);
+//                    isBirthdateApproximate.put(org.smartregister.family.util.Constants.KEY.VALUE, org.smartregister.family.util.Constants.BOOLEAN_INT.TRUE);
+//                    isBirthdateApproximate.put(org.smartregister.family.util.Constants.OPENMRS.ENTITY, org.smartregister.family.util.Constants.ENTITY.PERSON);//Required for value to be processed
+//                    isBirthdateApproximate.put(org.smartregister.family.util.Constants.OPENMRS.ENTITY_ID, FormEntityConstants.Person.birthdate_estimated);
+//                    fields.put(isBirthdateApproximate);
+//
+//                }
             }
 
 
@@ -300,27 +300,27 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
             lastInteractedWith.put(org.smartregister.family.util.Constants.KEY.VALUE, Calendar.getInstance().getTimeInMillis());
             fields.put(lastInteractedWith);
 
-            JSONObject dobUnknownObject = getFieldJSONObject(fields, DBConstants.KEY.DOB_UNKNOWN);
+            JSONObject dobUnknownObject = getFieldJSONObject(fields, DBConstants.KEY.DOB);
             JSONArray options = getJSONArray(dobUnknownObject, org.smartregister.family.util.Constants.JSON_FORM_KEY.OPTIONS);
             JSONObject option = getJSONObject(options, 0);
             String dobUnKnownString = option != null ? option.getString(VALUE) : null;
             if (StringUtils.isNotBlank(dobUnKnownString) && Boolean.valueOf(dobUnKnownString)) {
 
-                String ageString = getFieldValue(fields, DBConstants.KEY.AGE);
-                if (StringUtils.isNotBlank(ageString) && NumberUtils.isNumber(ageString)) {
-                    int age = Integer.valueOf(ageString);
-                    JSONObject dobJSONObject = getFieldJSONObject(fields, DBConstants.KEY.DOB);
-                    dobJSONObject.put(VALUE, Utils.getDob(age));
-
-                    //Mark the birth date as an approximation
-                    JSONObject isBirthdateApproximate = new JSONObject();
-                    isBirthdateApproximate.put(org.smartregister.family.util.Constants.KEY.KEY, FormEntityConstants.Person.birthdate_estimated);
-                    isBirthdateApproximate.put(org.smartregister.family.util.Constants.KEY.VALUE, org.smartregister.family.util.Constants.BOOLEAN_INT.TRUE);
-                    isBirthdateApproximate.put(org.smartregister.family.util.Constants.OPENMRS.ENTITY, org.smartregister.family.util.Constants.ENTITY.PERSON);//Required for value to be processed
-                    isBirthdateApproximate.put(org.smartregister.family.util.Constants.OPENMRS.ENTITY_ID, FormEntityConstants.Person.birthdate_estimated);
-                    fields.put(isBirthdateApproximate);
-
-                }
+//                String ageString = getFieldValue(fields, DBConstants.KEY.AGE);
+//                if (StringUtils.isNotBlank(ageString) && NumberUtils.isNumber(ageString)) {
+//                    int age = Integer.valueOf(ageString);
+//                    JSONObject dobJSONObject = getFieldJSONObject(fields, DBConstants.KEY.DOB);
+//                    dobJSONObject.put(VALUE, Utils.getDob(age));
+//
+//                    //Mark the birth date as an approximation
+//                    JSONObject isBirthdateApproximate = new JSONObject();
+//                    isBirthdateApproximate.put(org.smartregister.family.util.Constants.KEY.KEY, FormEntityConstants.Person.birthdate_estimated);
+//                    isBirthdateApproximate.put(org.smartregister.family.util.Constants.KEY.VALUE, org.smartregister.family.util.Constants.BOOLEAN_INT.TRUE);
+//                    isBirthdateApproximate.put(org.smartregister.family.util.Constants.OPENMRS.ENTITY, org.smartregister.family.util.Constants.ENTITY.PERSON);//Required for value to be processed
+//                    isBirthdateApproximate.put(org.smartregister.family.util.Constants.OPENMRS.ENTITY_ID, FormEntityConstants.Person.birthdate_estimated);
+//                    fields.put(isBirthdateApproximate);
+//
+//                }
             }
 
             FormTag formTag = new FormTag();
@@ -430,21 +430,23 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
                 jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, photo.getFilePath());
 
             }
-        } else if (jsonObject.getString(org.smartregister.family.util.JsonFormUtils.KEY).equalsIgnoreCase(DBConstants.KEY.DOB_UNKNOWN)) {
+        } else if (jsonObject.getString(org.smartregister.family.util.JsonFormUtils.KEY).equalsIgnoreCase(DBConstants.KEY.DOB)) {
 
             jsonObject.put(org.smartregister.family.util.JsonFormUtils.READ_ONLY, false);
             JSONObject optionsObject = jsonObject.getJSONArray(Constants.JSON_FORM_KEY.OPTIONS).getJSONObject(0);
-            optionsObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), DBConstants.KEY.DOB_UNKNOWN, false));
+            optionsObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), DBConstants.KEY.DOB, false));
 
-        } else if (jsonObject.getString(org.smartregister.family.util.JsonFormUtils.KEY).equalsIgnoreCase(DBConstants.KEY.AGE)) {
-
-            jsonObject.put(org.smartregister.family.util.JsonFormUtils.READ_ONLY, false);
-            String dobString = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.DOB, false);
-            if (StringUtils.isNotBlank(dobString)) {
-                jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, Utils.getAgeFromDate(dobString));
-            }
-
-        } else if (jsonObject.getString(org.smartregister.family.util.JsonFormUtils.KEY).equalsIgnoreCase(DBConstants.KEY.UNIQUE_ID)) {
+        }
+//        else if (jsonObject.getString(org.smartregister.family.util.JsonFormUtils.KEY).equalsIgnoreCase(DBConstants.KEY.AGE)) {
+//
+//            jsonObject.put(org.smartregister.family.util.JsonFormUtils.READ_ONLY, false);
+//            String dobString = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.DOB, false);
+//            if (StringUtils.isNotBlank(dobString)) {
+//                jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, Utils.getAgeFromDate(dobString));
+//            }
+//
+//        }
+        else if (jsonObject.getString(org.smartregister.family.util.JsonFormUtils.KEY).equalsIgnoreCase(DBConstants.KEY.UNIQUE_ID)) {
 
             String uniqueId = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.UNIQUE_ID, false);
             jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, uniqueId.replace("-", ""));

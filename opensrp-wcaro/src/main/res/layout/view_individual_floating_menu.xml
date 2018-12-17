@@ -65,7 +65,7 @@
                 app:backgroundTint="@color/white"
                 android:tint="@android:color/black"
                 app:fabSize="mini"
-                app:srcCompat="@android:drawable/ic_menu_call" />
+                app:srcCompat="@drawable/floating_call" />
 
         </RelativeLayout>
         <RelativeLayout
@@ -101,7 +101,7 @@
                 app:backgroundTint="@color/white"
                 android:tint="@android:color/black"
                 app:fabSize="mini"
-                app:srcCompat="@drawable/ic_input_add" />
+                app:srcCompat="@drawable/floating_familydetails" />
 
         </RelativeLayout>
         <RelativeLayout
@@ -137,7 +137,7 @@
                 app:backgroundTint="@color/white"
                 android:tint="@android:color/black"
                 app:fabSize="mini"
-                app:srcCompat="@android:drawable/ic_menu_delete" />
+                app:srcCompat="@drawable/floating_addmember" />
 
         </RelativeLayout>
 

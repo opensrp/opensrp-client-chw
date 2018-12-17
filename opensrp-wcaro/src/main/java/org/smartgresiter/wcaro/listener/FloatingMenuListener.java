@@ -4,7 +4,6 @@ import android.content.Context;
 import android.widget.Toast;
 
 import org.smartgresiter.wcaro.R;
-import org.smartgresiter.wcaro.util.OnClickFloatingMenu;
 import org.smartregister.family.activity.BaseFamilyProfileActivity;
 import org.smartregister.family.util.Utils;
 

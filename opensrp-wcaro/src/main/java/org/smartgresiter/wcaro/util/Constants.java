@@ -19,7 +19,7 @@ public class Constants {
 
     public static class JSON_FORM {
         public static final String FAMILY_REGISTER = "family_register";
-        public static final String FAMILY_MEMBER_REGISTER = "family_member_register";
+        public static final String FAMILY_MEMBER_REGISTER = "child_enrollment";
     }
 
     public static class RELATIONSHIP {
@@ -30,7 +30,7 @@ public class Constants {
 
     public static class TABLE_NAME {
         public static final String FAMILY = "ec_family";
-        public static final String FAMILY_MEMBER = "ec_family_member";
+        public static final String FAMILY_MEMBER = "ec_child";
     }
 
     public static final class DrawerMenu {
