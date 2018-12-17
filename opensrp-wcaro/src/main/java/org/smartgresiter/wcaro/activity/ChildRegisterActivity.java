@@ -114,7 +114,13 @@ public class ChildRegisterActivity extends BaseRegisterActivity implements Child
             bottomNavigationView.getMenu().removeItem(org.smartregister.family.R.id.action_scan_qr);
         }
     }
-
+    @Override
+    public void switchToBaseFragment() {
+        super.switchToBaseFragment();
+        Intent intent = new Intent(this, FamilyRegisterActivity.class);
+        startActivity(intent);
+        finish();
+    }
     @Override
     public List<String> getViewIdentifiers() {
         return Arrays.asList(Utils.metadata().familyRegister.config);
