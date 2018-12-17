@@ -53,9 +53,9 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
-                //final CommonPersonObject personObject = getCommonRepository(ChildDBConstants.KEY.TABLE_NAME).findByBaseEntityId(baseEntityId);
-                Cursor cursor=getCommonRepository(ChildDBConstants.KEY.TABLE_NAME)
-                        .rawCustomQueryForAdapter(mainSelect(ChildDBConstants.KEY.TABLE_NAME,ChildDBConstants.KEY.PARENT_TABLE_NAME,""));
+                String query=mainSelect(ChildDBConstants.KEY.TABLE_NAME,ChildDBConstants.KEY.PARENT_TABLE_NAME,baseEntityId);
+
+                Cursor cursor=getCommonRepository(ChildDBConstants.KEY.TABLE_NAME).rawCustomQueryForAdapter(query);
                 if(cursor!=null && cursor.moveToFirst()){
                     CommonPersonObject personObject = getCommonRepository(ChildDBConstants.KEY.TABLE_NAME).readAllcommonforCursorAdapter(cursor);
                     final CommonPersonObjectClient pClient = new CommonPersonObjectClient(personObject.getCaseId(),
@@ -73,23 +73,6 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
                     });
                         cursor.close();
                 }
-
-//                CommonPersonObject personObject=  getCommonRepository(ChildDBConstants.KEY.TABLE_NAME)
-//                        .readAllcommonforCursorAdapter();
-//                final CommonPersonObject FamilypersonObject = getCommonRepository(ChildDBConstants.KEY.TABLE_NAME).findByBaseEntityId(pClient.getColumnmaps().get("relational_id"));
-
-//                final CommonPersonObjectClient pClient = new CommonPersonObjectClient(personObject.getCaseId(),
-//                        personObject.getDetails(), "");
-//
-//                pClient.setColumnmaps(personObject.getColumnmaps());
-//
-//
-//                final CommonPersonObject familyObject = getCommonRepository(Utils.metadata().familyRegister.tableName).findByBaseEntityId(pClient.getColumnmaps().get("relational_id"));
-//                final CommonPersonObjectClient familyClient = new CommonPersonObjectClient(familyObject.getCaseId(),
-//                        familyObject.getDetails(), "");
-//
-//
-//                pClient.setColumnmaps(personObject.getColumnmaps());
 
 
 
@@ -143,8 +126,9 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
     public String mainSelect(String tableName,String parentTableName, String mainCondition) {
         SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
         queryBUilder.SelectInitiateMainTable(tableName, mainColumns(tableName,parentTableName));
-        queryBUilder.customJoin("LEFT JOIN " + parentTableName + " ON  " + tableName + ".relational_id =  " + parentTableName + ".id");
-        return queryBUilder.mainCondition(mainCondition);
+        queryBUilder.customJoin("LEFT JOIN " + parentTableName + " ON  " + tableName + ".relational_id =  " +
+                "" + parentTableName + ".id where "+tableName+"."+DBConstants.KEY.BASE_ENTITY_ID+" = '"+mainCondition+"'");
+        return queryBUilder.mainCondition("");
     }
 
     protected String[] mainColumns(String tableName,String parentTableName) {

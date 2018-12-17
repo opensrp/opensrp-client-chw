@@ -35,7 +35,7 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
 
     @Override
     public void fetchProfileData() {
-        interactor.refreshProfileView(familyBaseEntityId, true, this);
+        interactor.refreshProfileView(familyBaseEntityId, false, this);
 
     }
 

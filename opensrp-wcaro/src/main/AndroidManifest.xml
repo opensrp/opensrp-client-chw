@@ -48,7 +48,9 @@
         </activity>
         <activity android:name=".activity.ChildRegisterActivity"
             android:theme="@style/WcaroTheme.NoActionBar" />
-        <activity android:name=".activity.ChildProfileActivity" android:theme="@style/WcaroTheme.NoActionBar"/>
+        <activity android:name=".activity.ChildProfileActivity"
+            android:label="@string/child_details"
+            android:theme="@style/WcaroTheme.NoActionBar"/>
     </application>
 
 </manifest>

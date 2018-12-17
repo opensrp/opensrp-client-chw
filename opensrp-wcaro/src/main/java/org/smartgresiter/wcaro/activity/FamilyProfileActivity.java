@@ -38,9 +38,10 @@ import org.smartregister.util.FormUtils;
 public class FamilyProfileActivity extends BaseFamilyProfileActivity implements ChildRegisterContract.InteractorCallBack{
     private String familyBaseEntityId;
     //add floating menu at runtime.
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void setupViews() {
+        super.setupViews();
         FamilyFloatingMenu familyFloatingMenu=new FamilyFloatingMenu(this);
         LinearLayout.LayoutParams linearLayoutParams =
                 new LinearLayout.LayoutParams(
@@ -50,6 +51,7 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity implements 
         addContentView(familyFloatingMenu,linearLayoutParams);
         familyFloatingMenu.setClickListener(onClickFloatingMenuListener);
     }
+
     @Override
     protected void initializePresenter() {
         familyBaseEntityId = getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID);
@@ -170,7 +172,6 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity implements 
                     //go to child add form activity
                     break;
                 case R.id.add_new_member_layout:
-                    Toast.makeText(FamilyProfileActivity.this,"Go to new family member add",Toast.LENGTH_SHORT).show();
                     //go to child add form activity
                     try {
                         startForm("child_enrollment","","","",familyBaseEntityId);

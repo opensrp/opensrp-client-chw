@@ -123,7 +123,10 @@
                 android:id="@+id/collapsing_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:layout_collapseMode="pin" />
+                android:contentInsetLeft="0dp"
+                app:contentInsetLeft="0dp"
+                app:layout_collapseMode="pin" >
+            </android.support.v7.widget.Toolbar>
 
         </android.support.design.widget.CollapsingToolbarLayout>
         <RelativeLayout
@@ -131,24 +134,28 @@
             android:padding="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <Button
-                android:id="@+id/button_record_visit"
+            <TextView
+                android:id="@+id/textview_record_visit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Record visit"
                 android:paddingLeft="30dp"
                 android:paddingRight="30dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
                 android:layout_alignParentLeft="true"
                 android:background="@drawable/record_btn_selector"
                 android:textColor="@color/white"
                 />
-            <Button
-                android:id="@+id/button_visit_not"
+            <TextView
+                android:id="@+id/textview_visit_not"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Visit not done"
                 android:paddingLeft="30dp"
                 android:paddingRight="30dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
                 android:layout_alignParentRight="true"
                 android:background="@drawable/visit_btn_selector"
                 android:textColor="@color/white"

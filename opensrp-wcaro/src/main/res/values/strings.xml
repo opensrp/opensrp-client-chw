@@ -26,5 +26,7 @@
     <string name="nav_sync">Sync</string>
     <string name="nav_last">"Last : </string>
     <string name="nav_last_sync_time">08:12 am , Aug 8th</string>
+    <string name="return_to_all_children">Return to all children</string>
+    <string name="child_details">Child details</string>
 
 </resources>

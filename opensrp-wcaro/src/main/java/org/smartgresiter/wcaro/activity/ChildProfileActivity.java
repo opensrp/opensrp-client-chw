@@ -9,6 +9,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -33,11 +34,10 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     private boolean appBarTitleIsShown = true;
     private int appBarLayoutScrollRange = -1;
     private String childBaseEntityId;
-    private TextView textViewParentName,textViewChildName,textViewGender,textViewAddress,textViewId;
+    private TextView textViewParentName,textViewChildName,textViewGender,textViewAddress,textViewId,textViewRecord,textViewVisitNot;
     private ImageView imageViewProfile;
     @Override
     protected void onCreation() {
-
         setContentView(R.layout.activity_child_profile);
         ((IndividualMemberFloatingMenu)findViewById(R.id.individual_floating_menu)).setClickListener(onClickFloatingMenu);
         Toolbar toolbar = findViewById(R.id.collapsing_toolbar);
@@ -55,7 +55,6 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
         });
         appBarLayout = findViewById(org.smartregister.R.id.collapsing_toolbar_appbarlayout);
         collapsingToolbarLayout = appBarLayout.findViewById(org.smartregister.R.id.collapsing_toolbar_layout);
-
         appBarLayout.addOnOffsetChangedListener(this);
 
         imageRenderHelper = new ImageRenderHelper(this);
@@ -81,13 +80,29 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     }
     @Override
     protected void setupViews() {
+
         textViewParentName=findViewById(R.id.textview_parent_name);
-        textViewChildName=findViewById(R.id.textview_name);
+        textViewChildName=findViewById(R.id.textview_name_age);
         textViewGender=findViewById(R.id.textview_gender);
         textViewAddress=findViewById(R.id.textview_address);
         textViewId=findViewById(R.id.textview_id);
         imageViewProfile=findViewById(R.id.imageview_profile);
+        textViewRecord=findViewById(R.id.textview_record_visit);
+        textViewVisitNot=findViewById(R.id.textview_visit_not);
+        textViewRecord.setOnClickListener(this);
+        textViewVisitNot.setOnClickListener(this);
 
+    }
+
+    @Override
+    public void onClick(View view) {
+        super.onClick(view);
+        switch (view.getId()){
+            case R.id.textview_record_visit:
+                break;
+            case R.id.textview_visit_not:
+                break;
+        }
     }
 
     @Override
@@ -108,25 +123,6 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
         presenter().fetchProfileData();
     }
 
-    //    @Override
-//    protected void onCreate(@Nullable Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_child_profile);
-//        ((IndividualMemberFloatingMenu)findViewById(R.id.individual_floating_menu)).setClickListener(onClickFloatingMenu);
-//        Toolbar toolbar = findViewById(R.id.collapsing_toolbar);
-//        setSupportActionBar(toolbar);
-//
-//        ActionBar actionBar = getSupportActionBar();
-//        if (actionBar != null) {
-//            actionBar.setDisplayHomeAsUpEnabled(true);
-//        }
-//        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//               finish();
-//            }
-//        });
-//    }
     private OnClickFloatingMenu onClickFloatingMenu=new OnClickFloatingMenu() {
         @Override
         public void onClickMenu(int viewId) {
@@ -182,6 +178,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
 
     @Override
     public void setId(String id) {
+        textViewId.setText(id);
 
     }
 
@@ -217,4 +214,9 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     public void onRegistrationSaved(boolean isEdit) {
 
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return true;
+    }
+
 }
