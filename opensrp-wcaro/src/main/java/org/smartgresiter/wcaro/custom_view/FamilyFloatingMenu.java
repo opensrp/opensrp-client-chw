@@ -84,6 +84,6 @@ public class FamilyFloatingMenu extends LinearLayout implements View.OnClickList
     @Override
     public void onClick(View v) {
         onClickFloatingMenu.onClickMenu(v.getId());
-
+        collapseFabMenu();
     }
 }
