@@ -1,5 +1,6 @@
 package org.smartgresiter.wcaro.application;
 
+import android.content.Intent;
 import android.util.Log;
 
 import com.evernote.android.job.JobManager;
@@ -7,6 +8,7 @@ import com.vijay.jsonwizard.activities.JsonFormActivity;
 
 import org.smartgresiter.wcaro.BuildConfig;
 import org.smartgresiter.wcaro.activity.FamilyProfileActivity;
+import org.smartgresiter.wcaro.activity.LoginActivity;
 import org.smartgresiter.wcaro.job.WcaroJobCreator;
 import org.smartgresiter.wcaro.repository.WcaroRepository;
 import org.smartgresiter.wcaro.util.Constants;
@@ -16,6 +18,7 @@ import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
 import org.smartregister.configurableviews.helper.JsonSpecHelper;
 import org.smartregister.family.FamilyLibrary;
+import org.smartregister.family.activity.FamilyWizardFormActivity;
 import org.smartregister.family.domain.FamilyMetadata;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.Utils;
@@ -58,12 +61,19 @@ public class WcaroApplication extends DrishtiApplication {
         //init Job Manager
         JobManager.create(this).addJobCreator(new WcaroJobCreator());
 
-        //TODO FIXME remove when login is implemented
-         sampleUniqueIds();
+        // TODO FIXME remove when login is implemented
+        // sampleUniqueIds();
     }
 
     @Override
     public void logoutCurrentUser() {
+        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        getApplicationContext().startActivity(intent);
+        context.userService().logoutSession();
     }
 
     public static synchronized WcaroApplication getInstance() {
@@ -71,7 +81,7 @@ public class WcaroApplication extends DrishtiApplication {
     }
 
     public Context getContext() {
-        return this.getContext();
+        return context;
     }
 
     public static JsonSpecHelper getJsonSpecHelper() {
@@ -116,9 +126,9 @@ public class WcaroApplication extends DrishtiApplication {
     }
 
     private FamilyMetadata getMetadata() {
-        FamilyMetadata metadata = new FamilyMetadata(JsonFormActivity.class, FamilyProfileActivity.class);
-        metadata.updateFamilyRegister(Constants.JSON_FORM.FAMILY_REGISTER, Constants.TABLE_NAME.FAMILY, Constants.EventType.FAMILY_REGISTRATION, Constants.EventType.UPDATE_FAMILY_REGISTRATION, Constants.CONFIGURATION.FAMILY_REGISTER);
-        metadata.updateFamilyMemberRegister(Constants.JSON_FORM.FAMILY_MEMBER_REGISTER, Constants.TABLE_NAME.FAMILY_MEMBER, Constants.EventType.FAMILY_REGISTRATION, Constants.EventType.UPDATE_FAMILY_MEMBER_REGISTRATION, Constants.CONFIGURATION.FAMILY_MEMBER_REGISTER, Constants.RELATIONSHIP.FAMILY);
+        FamilyMetadata metadata = new FamilyMetadata(FamilyWizardFormActivity.class, JsonFormActivity.class, FamilyProfileActivity.class);
+        metadata.updateFamilyRegister(Constants.JSON_FORM.FAMILY_REGISTER, Constants.TABLE_NAME.FAMILY, Constants.EventType.FAMILY_REGISTRATION, Constants.EventType.UPDATE_FAMILY_REGISTRATION, Constants.CONFIGURATION.FAMILY_REGISTER, Constants.RELATIONSHIP.FAMILY_HEAD, Constants.RELATIONSHIP.PRIMARY_CAREGIVER);
+        metadata.updateFamilyMemberRegister(Constants.JSON_FORM.FAMILY_MEMBER_REGISTER, Constants.TABLE_NAME.FAMILY_MEMBER, Constants.EventType.FAMILY_MEMBER_REGISTRATION, Constants.EventType.UPDATE_FAMILY_MEMBER_REGISTRATION, Constants.CONFIGURATION.FAMILY_MEMBER_REGISTER, Constants.RELATIONSHIP.FAMILY);
         return metadata;
     }
 

@@ -6,10 +6,27 @@
 
 
     <string name="search_name_or_id">Search name or ID</string>
+
+    <string name="navigation_drawer_open">Open</string>
+    <string name="navigation_drawer_close">Close</string>
+
+    <string name="action_log_out">Logging Out</string>
+    <string name="action_start_sync">Sync Started</string>
+    <string name="action_sync_failed">Sync Failed</string>
+
+    <!-- Navigation Strings -->
+    <string name="nav_logo">WCARO LOGO</string>
+    <string name="nav_registers">Registers</string>
+    <string name="nav_logout_as">Logout as</string>
+    <string name="nav_sync">Sync</string>
+    <string name="nav_last">"Last : </string>
+    <string name="nav_last_sync_time">HH:mm a , MMM DD</string>
+
     <string name="call">Call</string>
     <string name="family_details">Family details</string>
     <string name="add_new_family_member">Add new family member</string>
     <string name="remove_existing_family_member">Remove existing family member</string>
     <string name="change_family_head">Change family head</string>
     <string name="change_primary_caregiver">Change primary caregiver</string>
+
 </resources>

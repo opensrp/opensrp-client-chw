@@ -24,11 +24,20 @@ public class Constants {
 
     public static class RELATIONSHIP {
         public static final String FAMILY = "family";
+        public static final String FAMILY_HEAD = "family_head";
+        public static final String PRIMARY_CAREGIVER = "primary_caregiver";
     }
 
     public static class TABLE_NAME {
         public static final String FAMILY = "ec_family";
         public static final String FAMILY_MEMBER = "ec_family_member";
+    }
+
+    public static final class DrawerMenu {
+        public static final String ALL_FAMILIES = "All Families";
+        public static final String ANC_CLIENTS = "ANC Clients";
+        public static final String CHILD_CLIENTS = "Child Clients";
+        public static final String HIV_CLIENTS = "Hiv Clients";
     }
 
 }

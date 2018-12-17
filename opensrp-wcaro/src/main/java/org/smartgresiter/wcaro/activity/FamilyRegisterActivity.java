@@ -1,5 +1,6 @@
 package org.smartgresiter.wcaro.activity;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
 import org.smartgresiter.wcaro.BuildConfig;
@@ -33,6 +34,12 @@ public class FamilyRegisterActivity extends BaseFamilyRegisterActivity {
         if (!BuildConfig.SCAN_QR_CODE) {
             bottomNavigationView.getMenu().removeItem(org.smartregister.family.R.id.action_scan_qr);
         }
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        NavigationActivity.getInstance(this, null, null);
     }
 
 }
