@@ -5,10 +5,9 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:paddingTop="15dp"
-    android:paddingBottom="15dp"
+    android:paddingBottom="55dp"
     android:paddingLeft="30dp"
     android:paddingRight="30dp">
-
 
     <ImageView
         android:layout_gravity="right"
@@ -20,7 +19,7 @@
 
     <org.smartregister.view.customcontrols.CustomFontTextView
         android:id="@+id/call_title"
-        style="@style/CustomFontTextViewStyle.ClientList.Medium"
+        style="@style/CustomFontTextViewStyle.ClientList.Light"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
@@ -31,6 +30,7 @@
         android:textStyle="normal" />
 
     <LinearLayout
+        android:id="@+id/layout_family_head"
         android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -38,7 +38,7 @@
 
         <org.smartregister.view.customcontrols.CustomFontTextView
             android:id="@+id/call_head_name"
-            style="@style/CustomFontTextViewStyle.ClientList.Medium"
+            style="@style/CustomFontTextViewStyle.ClientList.Light"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
@@ -75,14 +75,13 @@
     <LinearLayout
         android:id="@+id/layout_caregiver"
         android:layout_marginTop="20dp"
-        android:layout_marginBottom="40dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <org.smartregister.view.customcontrols.CustomFontTextView
             android:id="@+id/call_caregiver_name"
-            style="@style/CustomFontTextViewStyle.ClientList.Medium"
+            style="@style/CustomFontTextViewStyle.ClientList.Light"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"

@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.widget.Toast;
 
 import org.smartgresiter.wcaro.R;
-import org.smartgresiter.wcaro.fragment.FamilyCallWidgetDialogFragment;
+import org.smartgresiter.wcaro.fragment.FamilyCallDialogFragment;
 import org.smartgresiter.wcaro.util.OnClickFloatingMenu;
 import org.smartregister.family.activity.BaseFamilyProfileActivity;
 import org.smartregister.family.util.Utils;
@@ -22,7 +22,7 @@ public class FloatingMenuListener implements OnClickFloatingMenu {
         switch (viewId) {
             case R.id.call_layout:
                 // Toast.makeText(context, "Go to call screen", Toast.LENGTH_SHORT).show();
-                FamilyCallWidgetDialogFragment.showDialog(context);
+                FamilyCallDialogFragment.showDialog(context);
                 //go to child add form activity
                 break;
             case R.id.family_detail_layout:
