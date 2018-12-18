@@ -128,7 +128,7 @@ public class NavigationInteractor implements NavigationContract.Interactor {
                 @Override
                 public void run() {
                     try {
-                        final Integer finalCount = getCount(Constants.TABLE_NAME.FAMILY_MEMBER);
+                        final Integer finalCount = getCount(Constants.TABLE_NAME.CHILD);
                         appExecutors.mainThread().execute(new Runnable() {
                             @Override
                             public void run() {

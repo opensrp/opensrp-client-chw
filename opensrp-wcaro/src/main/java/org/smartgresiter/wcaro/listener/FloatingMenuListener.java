@@ -4,8 +4,8 @@ import android.content.Context;
 import android.widget.Toast;
 
 import org.smartgresiter.wcaro.R;
+import org.smartgresiter.wcaro.util.Constants;
 import org.smartregister.family.activity.BaseFamilyProfileActivity;
-import org.smartregister.family.util.Utils;
 
 public class FloatingMenuListener implements OnClickFloatingMenu {
 
@@ -27,7 +27,7 @@ public class FloatingMenuListener implements OnClickFloatingMenu {
                 //go to child add form activity
                 break;
             case R.id.add_new_member_layout:
-                ((BaseFamilyProfileActivity) context).startFormActivity(Utils.metadata().familyMemberRegister.formName, null, null);
+                ((BaseFamilyProfileActivity) context).startFormActivity(Constants.JSON_FORM.CHILD_REGISTER, null, null);
                 //go to child add form activity
                 break;
 

@@ -6,16 +6,15 @@
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/collapsing_toolbar_appbarlayout"
+        android:background="@color/light_blue"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/customAppThemeBlue">
+        android:layout_height="wrap_content">
 
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/collapsing_toolbar_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            app:contentScrim="@color/customAppThemeBlue"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <LinearLayout
@@ -23,7 +22,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="36dp"
-                android:background="@color/customAppThemeBlue"
+                android:background="@color/light_blue"
                 android:gravity="center_horizontal"
                 android:orientation="vertical"
                 app:layout_collapseMode="parallax">
@@ -33,9 +32,9 @@
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:layout_gravity="center_horizontal"
-                    android:src="@drawable/child_boy_infant"
-                    app:civ_border_color="#FFFFFFFF"
-                    app:civ_border_width="0dp" />
+                    android:src="@drawable/row_boy"
+                    app:civ_border_color="@color/dark_grey"
+                    app:civ_border_width="1dp" />
 
                 <org.smartregister.view.customcontrols.CustomFontTextView
                     android:id="@+id/textview_parent_name"
@@ -46,7 +45,7 @@
                     android:layout_marginTop="5dp"
                     android:paddingLeft="0dp"
                     android:text="CG: Parent name"
-                    android:textColor="@android:color/white"
+                    android:textColor="@android:color/black"
                     android:textSize="@dimen/activity_title_size" />
                 <org.smartregister.view.customcontrols.CustomFontTextView
                     android:id="@+id/textview_name_age"
@@ -57,7 +56,7 @@
                     android:layout_marginTop="5dp"
                     android:paddingLeft="0dp"
                     android:text="Chuchu,3Y"
-                    android:textColor="@android:color/white"
+                    android:textColor="@android:color/black"
                     android:textSize="@dimen/activity_title_size" />
 
                 <LinearLayout
@@ -76,13 +75,13 @@
                         android:gravity="center_horizontal"
                         android:text="Male"
                         android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                        android:textColor="@color/white" />
+                        android:textColor="@android:color/black" />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/profile_dot_separator_margin"
                         android:layout_marginRight="@dimen/profile_dot_separator_margin"
-                        android:textColor="@color/white"
+                        android:textColor="@android:color/black"
                         android:text="." />
 
                     <org.smartregister.view.customcontrols.CustomFontTextView
@@ -94,13 +93,13 @@
                         android:paddingLeft="0dp"
                         android:text="Address #24"
                         android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                        android:textColor="@color/white" />
+                        android:textColor="@android:color/black" />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/profile_dot_separator_margin"
                         android:layout_marginRight="@dimen/profile_dot_separator_margin"
-                        android:textColor="@color/white"
+                        android:textColor="@android:color/black"
                         android:text="." />
 
 
@@ -114,7 +113,7 @@
                         android:paddingLeft="0dp"
                         android:text="ID:123456"
                         android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                        android:textColor="@color/white" />
+                        android:textColor="@android:color/black" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -125,7 +124,18 @@
                 android:layout_height="?attr/actionBarSize"
                 android:contentInsetLeft="0dp"
                 app:contentInsetLeft="0dp"
+                app:contentInsetStart="0dp"
+                app:contentInsetStartWithNavigation="0dp"
                 app:layout_collapseMode="pin" >
+                <TextView
+                    android:id="@+id/toolbar_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Return to all children"
+                    android:textColor="@color/text_blue"
+                    android:textSize="20sp"
+                    android:layout_marginRight="?android:attr/actionBarSize"
+                    android:gravity="left|center_vertical"/>
             </android.support.v7.widget.Toolbar>
 
         </android.support.design.widget.CollapsingToolbarLayout>
