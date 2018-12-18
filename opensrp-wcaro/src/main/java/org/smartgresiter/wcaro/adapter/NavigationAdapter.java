@@ -1,5 +1,6 @@
 package org.smartgresiter.wcaro.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
@@ -11,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.smartgresiter.wcaro.R;
+import org.smartgresiter.wcaro.listener.NavigationListener;
 import org.smartgresiter.wcaro.model.NavigationOption;
 
 import java.util.List;
@@ -19,11 +21,14 @@ public class NavigationAdapter extends RecyclerView.Adapter<NavigationAdapter.My
 
     private List<NavigationOption> navigationOptionList;
     private int selectedPosition = 0;
+    View.OnClickListener onClickListener;
     Context context;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView tvName, tvCount;
         public ImageView ivIcon;
+
+        private View myView;
 
         private MyViewHolder(View view) {
             super(view);
@@ -31,23 +36,22 @@ public class NavigationAdapter extends RecyclerView.Adapter<NavigationAdapter.My
             tvCount = view.findViewById(R.id.tvCount);
             ivIcon = view.findViewById(R.id.ivIcon);
 
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    NavigationOption model = navigationOptionList.get(getAdapterPosition());
-                    selectedPosition = getAdapterPosition();
-                    if (model.getSelectedAction() != null) {
-                        model.getSelectedAction().onSelect();
-                    }
-                    notifyDataSetChanged();
-                }
-            });
+            if (onClickListener != null) {
+                view.setOnClickListener(onClickListener);
+            }
+
+            myView = view;
+        }
+
+        public View getView() {
+            return myView;
         }
     }
 
-    public NavigationAdapter(List<NavigationOption> navigationOptions, Context context) {
+    public NavigationAdapter(List<NavigationOption> navigationOptions, Activity context) {
         this.navigationOptionList = navigationOptions;
         this.context = context;
+        this.onClickListener = new NavigationListener(context);
     }
 
     @NonNull
@@ -75,6 +79,8 @@ public class NavigationAdapter extends RecyclerView.Adapter<NavigationAdapter.My
             holder.tvName.setTextColor(Color.WHITE);
             holder.ivIcon.setImageResource(model.getResourceID());
         }
+
+        holder.getView().setTag(model.getMenuTitle());
     }
 
     @Override

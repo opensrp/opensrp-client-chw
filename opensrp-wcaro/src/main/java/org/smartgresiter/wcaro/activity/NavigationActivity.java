@@ -161,7 +161,7 @@ public class NavigationActivity implements NavigationContract.View {
         if (recyclerView != null) {
 
             if (navigationAdapter == null) {
-                navigationAdapter = new NavigationAdapter(mPresenter.getOptions(parentActivity), parentActivity);
+                navigationAdapter = new NavigationAdapter(mPresenter.getOptions(), parentActivity);
             }
 
             RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(parentActivity);
