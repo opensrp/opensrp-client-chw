@@ -150,7 +150,7 @@ public class AddMemberFragment extends DialogFragment implements View.OnClickLis
                 break;
             case  R.id.layout_add_child_under_five:
                 try {
-                    startForm("child_enrollment","","","",familyBaseEntityId);
+                    startForm(Constants.JSON_FORM.CHILD_REGISTER,"","","",familyBaseEntityId);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
