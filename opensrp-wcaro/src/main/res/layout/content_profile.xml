@@ -6,7 +6,8 @@
     >
     <RelativeLayout
         android:id="@+id/last_visit_row"
-        android:padding="10dp"
+        android:padding="20dp"
+        android:background="@drawable/list_item_background_selctor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <ImageView
@@ -51,14 +52,15 @@
     <View
         android:id="@+id/last_visit_view"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/dark_grey"
+        android:layout_height="1px"
+        android:background="@color/light_grey"
         android:layout_below="@+id/last_visit_row"
         />
     <RelativeLayout
         android:id="@+id/penta_1_row"
         android:layout_below="@+id/last_visit_view"
-        android:padding="10dp"
+        android:padding="20dp"
+        android:background="@drawable/list_item_background_selctor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <ImageView
@@ -112,14 +114,15 @@
     <View
         android:id="@+id/penta_view"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/dark_grey"
+        android:layout_height="1px"
+        android:background="@color/light_grey"
         android:layout_below="@+id/penta_1_row"
         />
     <RelativeLayout
         android:id="@+id/family_has_row"
         android:layout_below="@+id/penta_view"
-        android:padding="10dp"
+        android:background="@drawable/list_item_background_selctor"
+        android:padding="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <ImageView
@@ -164,8 +167,8 @@
     <View
         android:id="@+id/family_view"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/dark_grey"
+        android:layout_height="1px"
+        android:background="@color/light_grey"
         android:layout_below="@+id/family_has_row"
         />
 

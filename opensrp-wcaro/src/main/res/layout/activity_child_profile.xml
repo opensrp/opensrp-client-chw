@@ -22,7 +22,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="36dp"
-                android:background="@color/light_blue"
                 android:gravity="center_horizontal"
                 android:orientation="vertical"
                 app:layout_collapseMode="parallax">
@@ -127,13 +126,13 @@
                 app:contentInsetStart="0dp"
                 app:contentInsetStartWithNavigation="0dp"
                 app:layout_collapseMode="pin" >
-                <TextView
+                <org.smartregister.view.customcontrols.CustomFontTextView
                     android:id="@+id/toolbar_title"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="Return to all children"
-                    android:textColor="@color/text_blue"
-                    android:textSize="20sp"
+                    android:text="@string/return_to_all_children"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
                     android:layout_marginRight="?android:attr/actionBarSize"
                     android:gravity="left|center_vertical"/>
             </android.support.v7.widget.Toolbar>
