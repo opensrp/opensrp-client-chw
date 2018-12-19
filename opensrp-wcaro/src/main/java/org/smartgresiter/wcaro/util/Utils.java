@@ -15,23 +15,29 @@ import android.util.Log;
 import android.widget.Toast;
 
 import org.smartgresiter.wcaro.R;
+import org.smartgresiter.wcaro.contract.FamilyCallDialogContract;
 import org.smartregister.util.PermissionUtils;
 
 public class Utils extends org.smartregister.family.util.Utils {
 
     static String TAG = Utils.class.getCanonicalName();
 
-    public static boolean launchDialer(Activity activity, String phoneNumber) {
+    public static boolean launchDialer(final Activity activity, final FamilyCallDialogContract.View callView, final String phoneNumber) {
 
         if (ContextCompat.checkSelfPermission(activity, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+
+            // set a pending call execution request
+            if (callView != null) {
+                callView.setPendingCallRequest(new FamilyCallDialogContract.Dialer() {
+                    @Override
+                    public void callMe() {
+                        Utils.launchDialer(activity, callView, phoneNumber);
+                    }
+                });
+            }
+
             ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.READ_PHONE_STATE}, PermissionUtils.PHONE_STATE_PERMISSION_REQUEST_CODE);
 
-            // request permission
-
-            ActivityCompat.requestPermissions(
-                    activity,
-                    new String[]{Manifest.permission.CALL_PHONE},
-                    PermissionUtils.PHONE_STATE_PERMISSION_REQUEST_CODE);
             return false;
         } else {
 

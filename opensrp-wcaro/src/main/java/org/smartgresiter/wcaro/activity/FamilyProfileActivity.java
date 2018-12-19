@@ -1,11 +1,15 @@
 package org.smartgresiter.wcaro.activity;
 
+import android.content.pm.PackageManager;
 import android.support.v4.view.ViewPager;
 import android.view.Gravity;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
+import org.greenrobot.eventbus.EventBus;
 import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.custom_view.FamilyFloatingMenu;
+import org.smartgresiter.wcaro.event.PermissionEvent;
 import org.smartgresiter.wcaro.fragment.FamilyProfileActivityFragment;
 import org.smartgresiter.wcaro.fragment.FamilyProfileDueFragment;
 import org.smartgresiter.wcaro.fragment.FamilyProfileMemberFragment;
@@ -18,6 +22,7 @@ import org.smartregister.family.fragment.BaseFamilyProfileActivityFragment;
 import org.smartregister.family.fragment.BaseFamilyProfileDueFragment;
 import org.smartregister.family.fragment.BaseFamilyProfileMemberFragment;
 import org.smartregister.family.util.Constants;
+import org.smartregister.util.PermissionUtils;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -66,4 +71,23 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity {
         return viewPager;
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+
+        switch (requestCode) {
+            case PermissionUtils.PHONE_STATE_PERMISSION_REQUEST_CODE: {
+                // If request is cancelled, the result arrays are empty.
+                Boolean granted = (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED);
+                if (granted) {
+                    PermissionEvent event = new PermissionEvent(requestCode, granted);
+                    EventBus.getDefault().post(event);
+                } else {
+                    Toast.makeText(this, getText(R.string.allow_calls_denied), Toast.LENGTH_LONG).show();
+                }
+            }
+            break;
+        }
+    }
 }

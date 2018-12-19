@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.DialogFragment;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -14,10 +13,13 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.contract.FamilyCallDialogContract;
+import org.smartgresiter.wcaro.event.PermissionEvent;
 import org.smartgresiter.wcaro.listener.CallWidgetDialogListener;
 import org.smartgresiter.wcaro.presenter.FamilyCallDialogPresenter;
 import org.smartregister.util.PermissionUtils;
@@ -106,12 +108,15 @@ public class FamilyCallDialogFragment extends DialogFragment implements FamilyCa
     @Override
     public void onDestroy() {
         super.onDestroy();
+        if (getPendingCallRequest() == null) {
+            EventBus.getDefault().unregister(this);
+        }
         listner = null;
     }
 
     @Override
     public void refreshHeadOfFamilyView(FamilyCallDialogContract.Model model) {
-        if(model != null){
+        if (model != null) {
             llFamilyHead.setVisibility(View.VISIBLE);
             tvFamilyHeadName.setText(model.getName());
 
@@ -119,7 +124,7 @@ public class FamilyCallDialogFragment extends DialogFragment implements FamilyCa
             tvFamilyHeadPhone.setTag(model.getPhoneNumber());
 
             tvFamilyHeadTitle.setText(model.getRole());
-        }else{
+        } else {
             llFamilyHead.setVisibility(View.GONE);
 
             tvFamilyHeadName.setText("");
@@ -131,7 +136,7 @@ public class FamilyCallDialogFragment extends DialogFragment implements FamilyCa
 
     @Override
     public void refreshCareGiverView(FamilyCallDialogContract.Model model) {
-        if(model != null){
+        if (model != null) {
             llCareGiver.setVisibility(View.VISIBLE);
             tvCareGiverName.setText(model.getName());
 
@@ -139,7 +144,8 @@ public class FamilyCallDialogFragment extends DialogFragment implements FamilyCa
             tvCareGiverPhone.setTag(model.getPhoneNumber());
 
             tvCareGiverTitle.setText(model.getRole());
-        }else{
+
+        } else {
 
             llCareGiver.setVisibility(View.GONE);
 
@@ -165,26 +171,26 @@ public class FamilyCallDialogFragment extends DialogFragment implements FamilyCa
         return new FamilyCallDialogPresenter(this);
     }
 
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           String permissions[], int[] grantResults) {
-
-        switch (requestCode) {
-            case PermissionUtils.PHONE_STATE_PERMISSION_REQUEST_CODE: {
-
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    if(getPendingCallRequest() != null){
-                        getPendingCallRequest().callMe();
-                        setPendingCallRequest(null); // delete pending request
-                    }
-                } else {
-                    Toast.makeText(getActivity(),getText(R.string.allow_calls_denied),Toast.LENGTH_LONG).show();
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onPermissionEvent(PermissionEvent permissionEvent) {
+        if (permissionEvent.getPermissionType() == PermissionUtils.PHONE_STATE_PERMISSION_REQUEST_CODE) {
+            if (permissionEvent.isGranted()) {
+                if (getPendingCallRequest() != null) {
+                    getPendingCallRequest().callMe();
+                    setPendingCallRequest(null); // delete pending request
+                    return;
                 }
+                EventBus.getDefault().unregister(this);
                 return;
             }
-            default:
-                break;
+            EventBus.getDefault().unregister(this);
         }
     }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
 }
