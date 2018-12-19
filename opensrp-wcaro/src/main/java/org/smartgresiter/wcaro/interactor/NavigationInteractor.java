@@ -50,8 +50,8 @@ public class NavigationInteractor implements NavigationContract.Interactor {
                 .startsWithIgnoreCase(filters.trim(), "and ");
     }
 
-    private CommonRepository commonRepository() {
-        return WcaroApplication.getInstance().getContext().commonrepository(Constants.TABLE_NAME.FAMILY);
+    private CommonRepository commonRepository(String tableName) {
+        return WcaroApplication.getInstance().getContext().commonrepository(tableName);
     }
 
     private Context context(Activity activity) {
@@ -67,15 +67,15 @@ public class NavigationInteractor implements NavigationContract.Interactor {
         try {
 
             SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder();
-            if (isValidFilterForFts(commonRepository(), "")) {
+            if (isValidFilterForFts(commonRepository(tableName), "")) {
                 String sql = sqb.countQueryFts(tableName, null, null, null);
-                Log.i(getClass().getName(), sql);
-                count = commonRepository().countSearchIds(sql);
+                Log.i(getClass().getName(),"1"+ sql);
+                count = commonRepository(tableName).countSearchIds(sql);
             } else {
                 String query = sqb.queryForCountOnRegisters(tableName, null);
                 query = sqb.Endquery(query);
-                Log.i(getClass().getName(), query);
-                c = commonRepository().rawCustomQueryForAdapter(query);
+                Log.i(getClass().getName(),"2"+ query);
+                c = commonRepository(tableName).rawCustomQueryForAdapter(query);
                 if (c.moveToFirst()) {
                     count = c.getInt(0);
                 } else {
