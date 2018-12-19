@@ -21,7 +21,7 @@ public interface NavigationContract {
 
         void Sync(Activity activity);
 
-        List<NavigationOption> getOptions(Activity activity);
+        List<NavigationOption> getOptions();
     }
 
     interface View {
@@ -41,7 +41,7 @@ public interface NavigationContract {
 
     interface Model {
 
-        List<NavigationOption> getNavigationItems(Activity activity);
+        List<NavigationOption> getNavigationItems();
 
         String getCurrentUser();
 
@@ -67,10 +67,5 @@ public interface NavigationContract {
 
         void onError(Exception e);
     }
-
-    interface SelectedAction {
-        void onSelect();
-    }
-
 
 }
