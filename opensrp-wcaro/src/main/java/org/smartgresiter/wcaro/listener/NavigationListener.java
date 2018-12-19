@@ -6,14 +6,17 @@ import android.view.View;
 
 import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.activity.FamilyRegisterActivity;
+import org.smartgresiter.wcaro.adapter.NavigationAdapter;
 import org.smartgresiter.wcaro.util.Constants;
 
 public class NavigationListener implements View.OnClickListener {
 
     private Activity activity;
+    private NavigationAdapter navigationAdapter;
 
-    public NavigationListener(Activity activity) {
+    public NavigationListener(Activity activity, NavigationAdapter adapter) {
         this.activity = activity;
+        this.navigationAdapter = adapter;
     }
 
     @Override
@@ -42,6 +45,9 @@ public class NavigationListener implements View.OnClickListener {
                     default:
                         break;
                 }
+
+
+                navigationAdapter.setSelectedView(tag);
             }
         }
     }
