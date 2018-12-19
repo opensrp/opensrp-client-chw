@@ -10,6 +10,7 @@ import org.json.JSONObject;
 import org.smartgresiter.wcaro.BuildConfig;
 import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.contract.ChildRegisterContract;
+import org.smartgresiter.wcaro.custom_view.NavigationMenu;
 import org.smartgresiter.wcaro.fragment.ChildRegisterFragment;
 import org.smartgresiter.wcaro.listener.WCAROBottomNavigationListener;
 import org.smartgresiter.wcaro.model.ChildRegisterModel;
@@ -43,7 +44,7 @@ public class ChildRegisterActivity extends BaseRegisterActivity implements Child
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        NavigationActivity.getInstance(this, null, null);
+        NavigationMenu.getInstance(this, null, null);
     }
     @Override
     public void startRegistration() {

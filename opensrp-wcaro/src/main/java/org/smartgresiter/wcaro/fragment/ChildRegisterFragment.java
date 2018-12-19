@@ -1,6 +1,7 @@
 package org.smartgresiter.wcaro.fragment;
 
 import android.content.Intent;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -11,13 +12,14 @@ import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.activity.ChildProfileActivity;
 import org.smartgresiter.wcaro.activity.ChildRegisterActivity;
 import org.smartgresiter.wcaro.contract.ChildRegisterFragmentContract;
+import org.smartgresiter.wcaro.custom_view.NavigationMenu;
 import org.smartgresiter.wcaro.model.ChildRegisterFragmentModel;
 import org.smartgresiter.wcaro.presenter.ChildRegisterFragmentPresenter;
 import org.smartgresiter.wcaro.provider.ChildRegisterProvider;
+import org.smartgresiter.wcaro.util.Constants;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
 import org.smartregister.family.fragment.NoMatchDialogFragment;
-import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.util.Utils;
 import org.smartregister.view.activity.BaseRegisterActivity;
@@ -52,17 +54,16 @@ public class ChildRegisterFragment extends BaseRegisterFragment implements Child
     @Override
     public void setupViews(View view) {
         super.setupViews(view);
-
+        Toolbar toolbar = view.findViewById(org.smartregister.R.id.register_toolbar);
+        NavigationMenu.getInstance(getActivity(), null, toolbar);
         // Update top left icon
         qrCodeScanImageView = view.findViewById(org.smartregister.family.R.id.scanQrCode);
         if (qrCodeScanImageView != null) {
             qrCodeScanImageView.setVisibility(View.GONE);
         }
 
-        ImageView leftMenu = view.findViewById(org.smartregister.family.R.id.left_menu);
-        if (leftMenu != null) {
-            leftMenu.setVisibility(View.VISIBLE);
-        }
+        View topLeftLayout = view.findViewById(R.id.top_left_layout);
+        topLeftLayout.setVisibility(View.GONE);
 
         // Update Search bar
         View searchBarLayout = view.findViewById(org.smartregister.family.R.id.search_bar_layout);
@@ -102,7 +103,7 @@ public class ChildRegisterFragment extends BaseRegisterFragment implements Child
     @Override
     protected void startRegistration() {
         //TODO need to change the form name.
-        ((ChildRegisterActivity)getActivity()).startFormActivity("child_enrollment",null,null);
+        ((ChildRegisterActivity)getActivity()).startFormActivity(Constants.JSON_FORM.CHILD_REGISTER,null,null);
         //getActivity().startFormActivity(Utils.metadata().familyRegister.formName, null, null);
     }
     @Override
@@ -155,7 +156,7 @@ public class ChildRegisterFragment extends BaseRegisterFragment implements Child
         }
 
         Intent intent = new Intent(getActivity(), ChildProfileActivity.class);
-        intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, patient.getCaseId());
+        intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.BASE_ENTITY_ID, patient.getCaseId());
         startActivity(intent);
     }
 
