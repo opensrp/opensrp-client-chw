@@ -14,15 +14,17 @@ import android.widget.TextView;
 import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.listener.NavigationListener;
 import org.smartgresiter.wcaro.model.NavigationOption;
+import org.smartgresiter.wcaro.util.Constants;
 
 import java.util.List;
+import java.util.Locale;
 
 public class NavigationAdapter extends RecyclerView.Adapter<NavigationAdapter.MyViewHolder> {
 
     private List<NavigationOption> navigationOptionList;
-    private int selectedPosition = 0;
-    View.OnClickListener onClickListener;
-    Context context;
+    private String selectedView = Constants.DrawerMenu.ALL_FAMILIES;
+    private View.OnClickListener onClickListener;
+    private Context context;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView tvName, tvCount;
@@ -48,15 +50,27 @@ public class NavigationAdapter extends RecyclerView.Adapter<NavigationAdapter.My
         }
     }
 
+    public void setSelectedView(String selectedView) {
+        this.selectedView = selectedView;
+        this.notifyDataSetChanged();
+    }
+
+    public String getSelectedView() {
+        if(selectedView == null || selectedView.equals(""))
+            setSelectedView(Constants.DrawerMenu.ALL_FAMILIES);
+
+        return selectedView;
+    }
+
     public NavigationAdapter(List<NavigationOption> navigationOptions, Activity context) {
         this.navigationOptionList = navigationOptions;
         this.context = context;
-        this.onClickListener = new NavigationListener(context);
+        this.onClickListener = new NavigationListener(context, this);
     }
 
     @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.navigation_item, parent, false);
 
@@ -67,10 +81,13 @@ public class NavigationAdapter extends RecyclerView.Adapter<NavigationAdapter.My
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         NavigationOption model = navigationOptionList.get(position);
         holder.tvName.setText(model.getMenuTitle());
-        holder.tvCount.setText(Long.toString(model.getRegisterCount()));
+        holder.tvCount.setText(String.format(Locale.getDefault(), "%d", model.getRegisterCount()));
         holder.ivIcon.setImageResource(model.getResourceID());
 
-        if (selectedPosition == position) {
+        holder.getView().setTag(model.getMenuTitle());
+
+
+        if (selectedView != null && selectedView.equals(model.getMenuTitle())) {
             holder.tvCount.setTextColor(context.getResources().getColor(R.color.holo_blue));
             holder.tvName.setTextColor(context.getResources().getColor(R.color.holo_blue));
             holder.ivIcon.setImageResource(model.getResourceActiveID());
@@ -79,8 +96,6 @@ public class NavigationAdapter extends RecyclerView.Adapter<NavigationAdapter.My
             holder.tvName.setTextColor(Color.WHITE);
             holder.ivIcon.setImageResource(model.getResourceID());
         }
-
-        holder.getView().setTag(model.getMenuTitle());
     }
 
     @Override
