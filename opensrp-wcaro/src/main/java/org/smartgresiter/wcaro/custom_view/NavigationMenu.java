@@ -1,4 +1,4 @@
-package org.smartgresiter.wcaro.activity;
+package org.smartgresiter.wcaro.custom_view;
 
 import android.app.Activity;
 import android.content.res.Configuration;
@@ -24,17 +24,16 @@ import org.smartgresiter.wcaro.adapter.NavigationAdapter;
 import org.smartgresiter.wcaro.application.WcaroApplication;
 import org.smartgresiter.wcaro.contract.NavigationContract;
 import org.smartgresiter.wcaro.presenter.NavigationPresenter;
-import org.smartregister.view.activity.DrishtiApplication;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class NavigationActivity implements NavigationContract.View {
+public class NavigationMenu implements NavigationContract.View {
 
-    private String TAG = NavigationActivity.class.getCanonicalName();
+    private String TAG = NavigationMenu.class.getCanonicalName();
 
-    private static NavigationActivity instance;
+    private static NavigationMenu instance;
 
     private NavigationView navigationView;
     private DrawerLayout drawer;
@@ -48,16 +47,16 @@ public class NavigationActivity implements NavigationContract.View {
     private NavigationContract.Presenter mPresenter;
 
 
-    private NavigationActivity() {
+    private NavigationMenu() {
 
     }
 
-    public static NavigationActivity getInstance(Activity activity, View parentView, Toolbar myToolbar) {
+    public static NavigationMenu getInstance(Activity activity, View parentView, Toolbar myToolbar) {
 
         int orientation = activity.getResources().getConfiguration().orientation;
         if (orientation == Configuration.ORIENTATION_PORTRAIT) {
             if (instance == null) {
-                instance = new NavigationActivity();
+                instance = new NavigationMenu();
             }
 
             instance.init(activity, parentView, myToolbar);
@@ -161,7 +160,7 @@ public class NavigationActivity implements NavigationContract.View {
         if (recyclerView != null) {
 
             if (navigationAdapter == null) {
-                navigationAdapter = new NavigationAdapter(mPresenter.getOptions(parentActivity), parentActivity);
+                navigationAdapter = new NavigationAdapter(mPresenter.getOptions(), parentActivity);
             }
 
             RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(parentActivity);
