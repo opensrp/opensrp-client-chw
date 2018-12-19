@@ -1,5 +1,8 @@
 package org.smartgresiter.wcaro.fragment;
 
+import android.app.Activity;
+import android.app.DialogFragment;
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -7,476 +10,276 @@ import android.content.IntentFilter;
 import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.util.Log;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.vijay.jsonwizard.customviews.RadioButton;
 
-import org.smartregister.cbhc.R;
-import org.smartregister.cbhc.activity.BaseRegisterActivity;
-import org.smartregister.cbhc.activity.HomeRegisterActivity;
-import org.smartregister.cbhc.contract.AdvancedSearchContract;
-import org.smartregister.cbhc.cursor.AdvancedMatrixCursor;
-import org.smartregister.cbhc.helper.DBQueryHelper;
-import org.smartregister.cbhc.listener.DatePickerListener;
-import org.smartregister.cbhc.presenter.AdvancedSearchPresenter;
-import org.smartregister.cbhc.provider.AdvancedSearchProvider;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.tuple.Triple;
+import org.json.JSONObject;
+import org.smartgresiter.wcaro.R;
+import org.smartgresiter.wcaro.contract.ChildRegisterContract;
+import org.smartgresiter.wcaro.interactor.ChildRegisterInteractor;
+import org.smartgresiter.wcaro.model.ChildRegisterModel;
+import org.smartgresiter.wcaro.util.JsonFormUtils;
+import org.smartregister.clientandeventmodel.Client;
+import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
+import org.smartgresiter.wcaro.util.Constants;
+import org.smartregister.family.activity.BaseFamilyProfileActivity;
+import org.smartregister.util.FormUtils;
 import org.smartregister.util.Utils;
 import org.smartregister.view.activity.SecuredNativeSmartRegisterActivity;
+import org.smartregister.view.fragment.BaseProfileFragment;
+import org.smartregister.view.fragment.BaseRegisterFragment;
+import org.smartregister.view.fragment.SecuredFragment;
+import org.smartregister.view.fragment.SecuredNativeSmartRegisterFragment;
 
 import java.util.Set;
 
-public class AddMemberFragment extends BaseRegisterFragment implements AdvancedSearchContract.View {
+public class AddMemberFragment extends DialogFragment implements View.OnClickListener,ChildRegisterContract.InteractorCallBack {
 
-    private View listViewLayout;
-    private View advancedSearchForm;
 
-    private ImageButton backButton;
-    private ImageButton cancelButton;
-    private Button searchButton;
+    public static java.lang.String DIALOG_TAG = "add_member_dialog";
+    protected ProgressDialog progressDialog;
+    Context context;
+    String familyBaseEntityId;
 
-    private RadioButton outsideInside;
-    private RadioButton myCatchment;
-
-    private MaterialEditText ancId;
-    private MaterialEditText firstName;
-    private MaterialEditText lastName;
-    private MaterialEditText edd;
-    private MaterialEditText dob;
-    private MaterialEditText phoneNumber;
-    private MaterialEditText altContactName;
-
-    private TextView searchCriteria;
-    private TextView matchingResults;
-
-    private Button qrCodeButton;
-
-    private boolean listMode = false;
-    private boolean isLocal = false;
-
-    private BroadcastReceiver connectionChangeReciever;
-    private boolean registeredConnectionChangeReceiver = false;
-
-    @Override
-    protected void initializePresenter() {
-        String viewConfigurationIdentifier = ((BaseRegisterActivity) getActivity()).getViewIdentifiers().get(0);
-        presenter = new AdvancedSearchPresenter(this, viewConfigurationIdentifier);
-
+    public void setContext(Context context){
+        this.context = context;
+    }
+    public void setFamilyBaseEntityId(String familyBaseEntityId){
+        this.familyBaseEntityId = familyBaseEntityId;
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_advanced_search, container, false);
-        rootView = view;//handle to the root
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-        setupViews(view);
-        onResumption();
-        return view;
+        setStyle(DialogFragment.STYLE_NORMAL, android.R.style.Theme_Holo_Light_NoActionBar);
     }
 
     @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser) {
-            switchViews(false);
-            updateSearchLimits();
-            resetForm();
-        }
+    public void onActivityCreated(Bundle savedInstanceState)
+    {
+        super.onActivityCreated(savedInstanceState);
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
+    public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
+                             Bundle savedInstanceState) {
 
-        if (connectionChangeReciever != null && registeredConnectionChangeReceiver) {
-            getActivity().unregisterReceiver(connectionChangeReciever);
-            registeredConnectionChangeReceiver = false;
-        }
+        ViewGroup dialogView = (ViewGroup) inflater.inflate(R.layout.fragment_add_member, container, false);
+
+
+
+        return dialogView;
     }
 
     @Override
-    public boolean onBackPressed() {
-        goBack();
-        return true;
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        view.findViewById(R.id.close).setOnClickListener(this);
+        view.findViewById(R.id.layout_add_child_under_five).setOnClickListener(this);
+        view.findViewById(R.id.layout_add_other_family_member).setOnClickListener(this);
     }
 
     @Override
-    protected void goBack() {
-        if (listMode) {
-            switchViews(false);
-        } else {
-            ((HomeRegisterActivity) getActivity()).switchToBaseFragment();
-        }
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        // Verify that the host activity implements the callback interface
+//        try {
+//            // Instantiate the WeightActionListener so we can send events to the host
+//            listener = (WeightActionListener) activity;
+//        } catch (ClassCastException e) {
+//            // The activity doesn't implement the interface, throw exception
+//            throw new ClassCastException(activity.toString()
+//                    + " must implement WeightActionListener");
+//        }
     }
+
+
 
     @Override
-    protected void onViewClicked(View view) {
-        if (view.getId() == R.id.search) {
-            search();
-        } else if (view.getId() == R.id.cancel_button) {
-            ((HomeRegisterActivity) getActivity()).switchToBaseFragment();
-            ((HomeRegisterActivity) getActivity()).setSelectedBottomBarMenuItem(R.id.action_clients);
-        } else if (view.getId() == R.id.back_button) {
-            switchViews(false);
-        }
-    }
-
-    @Override
-    public void setupViews(View view) {
-        super.setupViews(view);
-
-        listViewLayout = view.findViewById(R.id.advanced_search_list);
-        listViewLayout.setVisibility(View.GONE);
-        advancedSearchForm = view.findViewById(R.id.advanced_search_form);
-
-        backButton = view.findViewById(R.id.back_button);
-        backButton.setOnClickListener(registerActionHandler);
-
-        cancelButton = view.findViewById(R.id.cancel_button);
-        cancelButton.setOnClickListener(registerActionHandler);
-        searchButton = view.findViewById(R.id.search);
-        qrCodeButton = view.findViewById(R.id.qrCodeButton);
-
-        searchCriteria = view.findViewById(R.id.search_criteria);
-        matchingResults = view.findViewById(R.id.matching_results);
-
-        populateFormViews(view);
-
-    }
-
-    @Override
-    public void initializeAdapter(Set<org.smartregister.configurableviews.model.View> visibleColumns) {
-        AdvancedSearchProvider advancedSearchProvider = new AdvancedSearchProvider(getActivity(), commonRepository(), visibleColumns, registerActionHandler, paginationViewHandler);
-        clientAdapter = new RecyclerViewPaginatedAdapter(null, advancedSearchProvider, context().commonrepository(this.tablename));
-        clientsView.setAdapter(clientAdapter);
-    }
-
-    private void populateFormViews(View view) {
-        Button search = view.findViewById(R.id.search);
-
-        outsideInside = view.findViewById(R.id.out_and_inside);
-        myCatchment = view.findViewById(R.id.my_catchment);
-
-        outsideInside.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+    public void onStart() {
+        super.onStart();
+        // without a handler, the window sizes itself correctly
+        // but the keyboard does not show up
+        new Handler().post(new Runnable() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (!Utils.isConnectedToNetwork(getActivity())) {
-                    myCatchment.setChecked(true);
-                    outsideInside.setChecked(false);
-                } else {
-                    myCatchment.setChecked(!isChecked);
+            public void run() {
+                getDialog().getWindow().setLayout(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
+
+            }
+        });
+
+    }
+
+
+
+    public static AddMemberFragment newInstance() {
+        AddMemberFragment addMemberFragment = new AddMemberFragment();
+        return addMemberFragment;
+    }
+
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.close:
+                dismiss();
+                break;
+            case  R.id.layout_add_child_under_five:
+                try {
+                    startForm("child_enrollment","","","",familyBaseEntityId);
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-            }
-        });
-
-        myCatchment.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (!Utils.isConnectedToNetwork(getActivity())) {
-                    myCatchment.setChecked(true);
-                    outsideInside.setChecked(false);
-                } else {
-                    outsideInside.setChecked(!isChecked);
-                }
-            }
-        });
-
-        View outsideInsideLayout = view.findViewById(R.id.out_and_inside_layout);
-        outsideInsideLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                outsideInside.toggle();
-            }
-        });
-
-        View mycatchmentLayout = view.findViewById(R.id.my_catchment_layout);
-        mycatchmentLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                myCatchment.toggle();
-            }
-        });
-
-
-        ancId = view.findViewById(R.id.anc_id);
-        firstName = view.findViewById(R.id.first_name);
-        lastName = view.findViewById(R.id.last_name);
-        edd = view.findViewById(R.id.edd);
-        dob = view.findViewById(R.id.dob);
-        phoneNumber = view.findViewById(R.id.phone_number);
-        altContactName = view.findViewById(R.id.alternate_contact_name);
-
-        setDatePicker(edd);
-        setDatePicker(dob);
-
-        search.setOnClickListener(registerActionHandler);
-
-        qrCodeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (getActivity() == null) {
-                    return;
-                }
-
-                HomeRegisterActivity homeRegisterActivity = (HomeRegisterActivity) getActivity();
-                homeRegisterActivity.startQrCodeScanner();
-            }
-        });
-
-        resetForm();
-    }
-
-    @Override
-    public void switchViews(boolean showList) {
-        if (showList) {
-            org.smartregister.cbhc.util.Utils.hideKeyboard(getActivity());
-
-            advancedSearchForm.setVisibility(View.GONE);
-            listViewLayout.setVisibility(View.VISIBLE);
-            clientsView.setVisibility(View.VISIBLE);
-
-            cancelButton.setVisibility(View.GONE);
-            backButton.setVisibility(View.VISIBLE);
-            searchButton.setVisibility(View.GONE);
-
-            if (titleLabelView != null) {
-                titleLabelView.setText(getString(R.string.search_results));
-            }
-
-
-            //updateMatchingResults(0);
-            showProgressView();
-            listMode = true;
-        } else {
-            //clearSearchCriteria();
-            advancedSearchForm.setVisibility(View.VISIBLE);
-            listViewLayout.setVisibility(View.GONE);
-            clientsView.setVisibility(View.INVISIBLE);
-
-            backButton.setVisibility(View.GONE);
-            cancelButton.setVisibility(View.VISIBLE);
-            searchButton.setVisibility(View.VISIBLE);
-
-            if (titleLabelView != null) {
-                titleLabelView.setText(getString(R.string.advanced_search));
-            }
-
-
-            listMode = false;
+            case R.id.layout_add_other_family_member:
+                ((BaseFamilyProfileActivity) context).startFormActivity(Constants.JSON_FORM.FAMILY_MEMBER_REGISTER, null, null);
+                break;
         }
     }
 
-    private void updateSearchLimits() {
-        if (Utils.isConnectedToNetwork(getActivity())) {
-            outsideInside.setChecked(true);
-            myCatchment.setChecked(false);
-        } else {
-            myCatchment.setChecked(true);
-            outsideInside.setChecked(false);
-        }
-
-        if (connectionChangeReciever == null) {
-            connectionChangeReciever = new BroadcastReceiver() {
-                @Override
-                public void onReceive(Context context, Intent intent) {
-                    if (!Utils.isConnectedToNetwork(getActivity())) {
-                        myCatchment.setChecked(true);
-                        outsideInside.setChecked(false);
-                    }
-                }
-            };
-
-            IntentFilter intentFilter = new IntentFilter();
-            intentFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
-            getActivity().registerReceiver(connectionChangeReciever, intentFilter);
-            registeredConnectionChangeReceiver = true;
-        }
-
+    public void displayShortToast(int resourceId) {
+        Utils.showShortToast(context, this.getString(resourceId));
     }
 
-    private void resetForm() {
-        clearSearchCriteria();
-        clearMatchingResults();
-
-        ancId.setText("");
-        firstName.setText("");
-        lastName.setText("");
-        edd.setText("");
-        dob.setText("");
-        phoneNumber.setText("");
-        altContactName.setText("");
-    }
-
-    private void clearSearchCriteria() {
-        if (searchCriteria != null) {
-            searchCriteria.setVisibility(View.GONE);
-            searchCriteria.setText("");
-        }
-    }
-
-    private void clearMatchingResults() {
-        if (matchingResults != null) {
-            matchingResults.setVisibility(View.GONE);
-            matchingResults.setText("");
-        }
-    }
-
-
-    public void updateMatchingResults(int count) {
-        if (matchingResults != null) {
-            matchingResults.setText(String.format(getString(R.string.matching_results), String.valueOf(count)));
-            matchingResults.setVisibility(View.VISIBLE);
-        }
+    public void displayToast(int stringID) {
+        Utils.showShortToast(context, this.getString(stringID));
     }
 
     @Override
-    public void updateSearchCriteria(String searchCriteriaString) {
-        if (searchCriteria != null) {
-            searchCriteria.setText(searchCriteriaString);
-            searchCriteria.setVisibility(View.VISIBLE);
-        }
-    }
-
-
-    private void setDatePicker(final EditText editText) {
-        editText.setOnClickListener(new DatePickerListener(getActivity(), editText, true));
+    public void onNoUniqueId() {
+        displayShortToast(R.string.no_unique_id);
     }
 
     @Override
-    public void setupSearchView(View view) {
-        // TODO implement this
-    }
-
-    @Override
-    protected SecuredNativeSmartRegisterActivity.DefaultOptionsProvider getDefaultOptionsProvider() {
-        return null;
-    }
-
-    @Override
-    protected String getMainCondition() {
-        return DBQueryHelper.getHomePatientRegisterCondition();
-    }
-
-    private void search() {
-        String fn = firstName.getText().toString();
-        String ln = lastName.getText().toString();
-        String id = ancId.getText().toString();
-        String eddDate = edd.getText().toString();
-        String dobDate = dob.getText().toString();
-        String pn = phoneNumber.getText().toString();
-        String altName = altContactName.getText().toString();
-
-        if (myCatchment.isChecked()) {
-            isLocal = true;
-        } else if (outsideInside.isChecked()) {
-            isLocal = false;
-        }
-
-        ((AdvancedSearchContract.Presenter) presenter).search(fn, ln, id, eddDate, dobDate, pn, altName, isLocal);
-    }
-
-    @Override
-    public void recalculatePagination(AdvancedMatrixCursor matrixCursor) {
-        super.recalculatePagination(matrixCursor);
-        updateMatchingResults(clientAdapter.getTotalcount());
-    }
-
-    @Override
-    public void showNotFoundPopup(String whoAncId) {
-        //Todo implement this
-    }
-
-    @Override
-    public void countExecute() {
-        Cursor c = null;
-
+    public void onUniqueIdFetched(Triple<String, String, String> triple, String entityId, String familyId) {
         try {
-            SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder(countSelect);
-            String query = "";
+            startForm(triple.getLeft(), entityId, triple.getMiddle(), triple.getRight(),familyId);
+        } catch (Exception e) {
+            Log.e(DIALOG_TAG, Log.getStackTraceString(e));
+            displayToast(R.string.error_unable_to_start_form);
+        }
+    }
 
-            sqb.addCondition(filters);
-            query = sqb.orderbyCondition(Sortqueries);
-            query = sqb.Endquery(query);
+    @Override
+    public void onRegistrationSaved(boolean isEdit) {
+        hideProgressDialog();
+    }
 
-            Log.i(getClass().getName(), query);
-            c = commonRepository().rawCustomQueryForAdapter(query);
-            c.moveToFirst();
-            clientAdapter.setTotalcount(c.getInt(0));
-            Log.v("total count here", "" + clientAdapter.getTotalcount());
+    public void showProgressDialog(int saveMessageStringIdentifier) {
+        if (progressDialog == null) {
+            progressDialog = new ProgressDialog(context);
+            progressDialog.setCancelable(false);
+            progressDialog.setTitle(getString(saveMessageStringIdentifier));
+            progressDialog.setMessage(getString(org.smartregister.R.string.please_wait_message));
+        }
+    }
 
-            clientAdapter.setCurrentlimit(20);
-            clientAdapter.setCurrentoffset(0);
+    public void hideProgressDialog() {
+        if (progressDialog != null) {
+            progressDialog.dismiss();
+        }
+    }
+
+    ChildRegisterInteractor interactor;
+
+    public void startForm(String formName, String entityId, String metadata, String currentLocationId,String familyId) throws Exception {
+        interactor = new ChildRegisterInteractor();
+        if (StringUtils.isBlank(entityId)) {
+            Triple<String, String, String> triple = Triple.of(formName, metadata, currentLocationId);
+            interactor.getNextUniqueId(triple, this,familyId);
+            return;
+        }
+
+        JSONObject form = getFormAsJson(formName, entityId, currentLocationId,familyId);
+        startFormActivity(form);
+    }
+
+
+    public void startFormActivity(JSONObject form) {
+        Intent intent = new Intent(context, org.smartregister.family.util.Utils.metadata().nativeFormActivity);
+        intent.putExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON, form.toString());
+        startActivityForResult(intent, org.smartregister.family.util.JsonFormUtils.REQUEST_CODE_GET_JSON);
+//        startRegistration();
+    }
+
+    public JSONObject getFormAsJson(String formName, String entityId, String currentLocationId,String familyID) throws Exception {
+        JSONObject form = getFormUtils().getFormJson(formName);
+        if (form == null) {
+            return null;
+        }
+        return JsonFormUtils.getFormAsJson(form, formName, entityId, currentLocationId,familyID);
+    }
+
+    public void saveForm(String jsonString, boolean isEditMode) {
+        ChildRegisterModel model = new ChildRegisterModel();
+        try {
+
+            showProgressDialog(R.string.saving_dialog_title);
+
+            Pair<Client, Event> pair = model.processRegistration(jsonString);
+            if (pair == null) {
+                return;
+            }
+
+            interactor.saveRegistration(pair, jsonString, isEditMode, this);
 
         } catch (Exception e) {
-            Log.e(getClass().getName(), e.toString(), e);
-        } finally {
-            if (c != null) {
-                c.close();
+            Log.e(DIALOG_TAG, Log.getStackTraceString(e));
+        }
+    }
+
+    FormUtils formUtils = null;
+    private FormUtils getFormUtils() {
+        if (formUtils == null) {
+            try {
+                formUtils = FormUtils.getInstance(org.smartregister.family.util.Utils.context().applicationContext());
+            } catch (Exception e) {
+                Log.e(ChildRegisterModel.class.getCanonicalName(), e.getMessage(), e);
             }
         }
-
-        updateMatchingResults(clientAdapter.getTotalcount());
+        return formUtils;
     }
 
     @Override
-    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        switch (id) {
-            case LOADER_ID:
-                // Returns a new CursorLoader
-                return new CursorLoader(getActivity()) {
-                    @Override
-                    public Cursor loadInBackground() {
-                        AdvancedMatrixCursor matrixCursor = presenter.getMatrixCursor();
-                        if (isLocal || matrixCursor == null) {
-                            String query = filterandSortQuery();
-                            Cursor cursor = commonRepository().rawCustomQueryForAdapter(query);
-                            getActivity().runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    hideProgressView();
-                                }
-                            });
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == org.smartregister.family.util.JsonFormUtils.REQUEST_CODE_GET_JSON && resultCode == Activity.RESULT_OK) {
+            try {
+                String jsonString = data.getStringExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON);
+                Log.d("JSONResult", jsonString);
 
-                            return cursor;
-                        } else {
-                            return matrixCursor;
-                        }
-                    }
-                };
-            default:
-                // An invalid id was passed in
-                return null;
+                JSONObject form = new JSONObject(jsonString);
+                if (form.getString(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_TYPE).equals(org.smartregister.family.util.Utils.metadata().familyRegister.registerEventType)
+                        || form.getString(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_TYPE).equals("Child Registration")
+                        ) {
+                    saveForm(jsonString, false);
+                }
+            } catch (Exception e) {
+                Log.e(DIALOG_TAG, Log.getStackTraceString(e));
+            }
+
         }
-    }
-
-    private String filterandSortQuery() {
-        SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder(mainSelect);
-
-        String query = "";
-        try {
-            sqb.addCondition(filters);
-            query = sqb.orderbyCondition(Sortqueries);
-            query = sqb.Endquery(sqb.addlimitandOffset(query, clientAdapter.getCurrentlimit(), clientAdapter.getCurrentoffset()));
-        } catch (Exception e) {
-            Log.e(getClass().getName(), e.toString(), e);
-        }
-
-        return query;
-    }
-
-    public EditText getAncId() {
-        return this.ancId;
     }
 }

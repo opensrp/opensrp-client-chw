@@ -39,5 +39,7 @@
     <string name="penta_1">Penta 1</string>
     <string name="view_medical_history">View medical history</string>
     <string name="last_visit_40_days_ago">Last visit 40 days ago</string>
+    <string name="add_member_title">Add family member</string>
+    <string name="add_member_title_question">What kind of family member you want to add?</string>
 
 </resources>
