@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
 import org.smartgresiter.wcaro.BuildConfig;
+import org.smartgresiter.wcaro.custom_view.NavigationMenu;
 import org.smartgresiter.wcaro.fragment.FamilyRegisterFragment;
 import org.smartgresiter.wcaro.model.FamilyRegisterModel;
 import org.smartgresiter.wcaro.presenter.FamilyRegisterPresenter;
@@ -39,7 +40,7 @@ public class FamilyRegisterActivity extends BaseFamilyRegisterActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        NavigationActivity.getInstance(this, null, null);
+        NavigationMenu.getInstance(this, null, null);
     }
 
 }
