@@ -1,12 +1,9 @@
 package org.smartgresiter.wcaro.model;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.util.Log;
 
 import org.smartgresiter.wcaro.R;
-import org.smartgresiter.wcaro.activity.ChildRegisterActivity;
-import org.smartgresiter.wcaro.activity.FamilyRegisterActivity;
 import org.smartgresiter.wcaro.contract.NavigationContract;
 import org.smartgresiter.wcaro.util.Constants;
 import org.smartregister.util.Utils;
@@ -35,37 +32,12 @@ public class NavigationModel implements NavigationContract.Model {
     NavigationOption op2 = new NavigationOption(R.mipmap.sidemenu_children, R.mipmap.sidemenu_children_active, Constants.DrawerMenu.CHILD_CLIENTS, 0);
 
     private NavigationModel() {
+        navigationOptions.clear();
+        navigationOptions.addAll(asList(op1, op2));
     }
 
     @Override
-    public List<NavigationOption> getNavigationItems(final Activity activity) {
-
-        if (mActivity != activity || mActivity == null) {
-            op1.setSelectedAction(new NavigationContract.SelectedAction() {
-                @Override
-                public void onSelect() {
-                    Intent intent = new Intent(activity, FamilyRegisterActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    activity.startActivity(intent);
-                    activity.overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
-                }
-            });
-            op2.setSelectedAction(new NavigationContract.SelectedAction() {
-                @Override
-                public void onSelect() {
-                    Intent intent = new Intent(activity, ChildRegisterActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    activity.startActivity(intent);
-                    activity.overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
-                }
-            });
-
-
-            navigationOptions.clear();
-            navigationOptions.addAll(asList(op1, op2));
-            mActivity = activity;
-        }
-
+    public List<NavigationOption> getNavigationItems() {
         return navigationOptions;
     }
 

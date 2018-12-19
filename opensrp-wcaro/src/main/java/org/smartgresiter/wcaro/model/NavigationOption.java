@@ -1,14 +1,11 @@
 package org.smartgresiter.wcaro.model;
 
-import org.smartgresiter.wcaro.contract.NavigationContract;
-
 public class NavigationOption {
 
     private int ResourceID;
     private int ResourceActiveID;
     private String MenuTitle;
     private long RegisterCount;
-    private NavigationContract.SelectedAction selectedAction;
 
     public NavigationOption(int resourceID, int resourceActiveID, String menuTitle, long registerCount) {
         ResourceID = resourceID;
@@ -49,11 +46,4 @@ public class NavigationOption {
         RegisterCount = registerCount;
     }
 
-    public NavigationContract.SelectedAction getSelectedAction() {
-        return selectedAction;
-    }
-
-    public void setSelectedAction(NavigationContract.SelectedAction selectedAction) {
-        this.selectedAction = selectedAction;
-    }
 }

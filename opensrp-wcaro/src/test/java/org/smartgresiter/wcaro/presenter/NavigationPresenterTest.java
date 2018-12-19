@@ -79,10 +79,9 @@ public class NavigationPresenterTest {
     @Test
     public void test_getOptionsRequestModel() {
         NavigationContract.Presenter presenter = PowerMockito.spy(new NavigationPresenter(view));
-        AppCompatActivity activity = Mockito.mock(AppCompatActivity.class);
 
-        presenter.getOptions(activity);
-        verify(model).getNavigationItems(activity);
+        presenter.getOptions();
+        verify(model).getNavigationItems();
     }
 
     @Test
@@ -103,6 +102,6 @@ public class NavigationPresenterTest {
         presenter.refreshNavigationCount(activity);
 
         // that the model is requested
-        verify(model).getNavigationItems(activity);
+        verify(model).getNavigationItems();
     }
 }
