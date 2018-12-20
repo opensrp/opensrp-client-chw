@@ -14,7 +14,7 @@ import org.smartregister.configurableviews.model.ViewConfiguration;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.domain.Response;
 import org.smartregister.domain.ResponseStatus;
-import org.smartregister.family.util.ConfigHelper;
+import org.smartgresiter.wcaro.util.ConfigHelper;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.Utils;
 
