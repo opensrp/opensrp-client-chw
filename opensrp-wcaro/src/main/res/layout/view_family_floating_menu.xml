@@ -63,9 +63,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 app:backgroundTint="@color/white"
-                android:tint="@android:color/black"
                 app:fabSize="mini"
-                app:srcCompat="@android:drawable/ic_menu_call" />
+                app:srcCompat="@drawable/floating_call" />
 
         </RelativeLayout>
         <RelativeLayout
@@ -99,9 +98,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 app:backgroundTint="@color/white"
-                android:tint="@android:color/black"
                 app:fabSize="mini"
-                app:srcCompat="@android:drawable/ic_menu_agenda" />
+                app:srcCompat="@drawable/floating_familydetails" />
 
         </RelativeLayout>
         <RelativeLayout
@@ -135,9 +133,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 app:backgroundTint="@color/white"
-                android:tint="@android:color/black"
                 app:fabSize="mini"
-                app:srcCompat="@drawable/ic_input_add" />
+                app:srcCompat="@drawable/floating_addmember" />
 
         </RelativeLayout>
         <RelativeLayout
@@ -171,9 +168,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 app:backgroundTint="@color/white"
-                android:tint="@android:color/black"
                 app:fabSize="mini"
-                app:srcCompat="@android:drawable/ic_menu_delete" />
+                app:srcCompat="@drawable/floating_removemember" />
 
         </RelativeLayout>
         <RelativeLayout
@@ -207,9 +203,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 app:backgroundTint="@color/white"
-                android:tint="@android:color/black"
                 app:fabSize="mini"
-                app:srcCompat="@android:drawable/ic_menu_agenda" />
+                app:srcCompat="@drawable/floating_head" />
 
         </RelativeLayout>
         <RelativeLayout
@@ -243,9 +238,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 app:backgroundTint="@color/white"
-                android:tint="@android:color/black"
                 app:fabSize="mini"
-                app:srcCompat="@android:drawable/ic_menu_agenda" />
+                app:srcCompat="@drawable/floating_caregiver" />
 
         </RelativeLayout>
 

@@ -2,6 +2,10 @@
     <string name="app_name">CFC</string>
     <string name="title_family_detail">Family Detail</string>
     <string name="login_title">CFC</string>
+    <string name="child_register_title">Child Clients</string>
+    <string name="return_to_all_children">Return to all children</string>
+    <string name="child_details">Child details</string>
+
 
     <string name="search_name_or_id">Search name or ID</string>
 
@@ -26,5 +30,16 @@
     <string name="remove_existing_family_member">Remove existing family member</string>
     <string name="change_family_head">Change family head</string>
     <string name="change_primary_caregiver">Change primary caregiver</string>
+    <string name="add_other_family_member">Other family member</string>
+    <string name="add_child_under_five">Child under 5 years</string>
+    <string name="go_to_family_s_profile">Go to family\'s profile</string>
+    <string name="family_has_nothing_due">Family has nothing due</string>
+    <string name="view_upcoming_services">View upcoming services</string>
+    <string name="overdue_3_oct">overdue(3 oct)</string>
+    <string name="penta_1">Penta 1</string>
+    <string name="view_medical_history">View medical history</string>
+    <string name="last_visit_40_days_ago">Last visit 40 days ago</string>
+    <string name="add_member_title">Add family member</string>
+    <string name="add_member_title_question">What kind of family member you want to add?</string>
 
 </resources>

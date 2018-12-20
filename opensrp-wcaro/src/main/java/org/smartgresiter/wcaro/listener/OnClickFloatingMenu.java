@@ -1,4 +1,4 @@
-package org.smartgresiter.wcaro.util;
+package org.smartgresiter.wcaro.listener;
 
 public interface OnClickFloatingMenu {
     void onClickMenu(int viewId);

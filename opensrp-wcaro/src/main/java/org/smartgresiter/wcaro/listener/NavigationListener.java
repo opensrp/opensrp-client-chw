@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.view.View;
 
 import org.smartgresiter.wcaro.R;
+import org.smartgresiter.wcaro.activity.ChildRegisterActivity;
 import org.smartgresiter.wcaro.activity.FamilyRegisterActivity;
 import org.smartgresiter.wcaro.adapter.NavigationAdapter;
 import org.smartgresiter.wcaro.util.Constants;
@@ -28,7 +29,7 @@ public class NavigationListener implements View.OnClickListener {
                 switch (tag) {
                     case Constants.DrawerMenu.CHILD_CLIENTS:
 
-                        Intent intent_child = new Intent(activity, FamilyRegisterActivity.class);
+                        Intent intent_child = new Intent(activity, ChildRegisterActivity.class);
                         intent_child.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         activity.startActivity(intent_child);
                         activity.overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);

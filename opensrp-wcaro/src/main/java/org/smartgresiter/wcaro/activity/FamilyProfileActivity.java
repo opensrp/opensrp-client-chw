@@ -1,28 +1,43 @@
 package org.smartgresiter.wcaro.activity;
 
+import android.content.Intent;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
+import android.util.Pair;
 import android.view.Gravity;
 import android.widget.LinearLayout;
 
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.tuple.Triple;
+import org.json.JSONObject;
 import org.smartgresiter.wcaro.R;
+import org.smartgresiter.wcaro.contract.ChildRegisterContract;
 import org.smartgresiter.wcaro.custom_view.FamilyFloatingMenu;
 import org.smartgresiter.wcaro.fragment.FamilyProfileActivityFragment;
 import org.smartgresiter.wcaro.fragment.FamilyProfileDueFragment;
 import org.smartgresiter.wcaro.fragment.FamilyProfileMemberFragment;
+import org.smartgresiter.wcaro.interactor.ChildRegisterInteractor;
 import org.smartgresiter.wcaro.listener.FloatingMenuListener;
+import org.smartgresiter.wcaro.model.ChildRegisterModel;
 import org.smartgresiter.wcaro.model.FamilyProfileModel;
 import org.smartgresiter.wcaro.presenter.FamilyProfilePresenter;
+import org.smartgresiter.wcaro.util.JsonFormUtils;
+import org.smartregister.clientandeventmodel.Client;
+import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.family.activity.BaseFamilyProfileActivity;
 import org.smartregister.family.adapter.ViewPagerAdapter;
 import org.smartregister.family.fragment.BaseFamilyProfileActivityFragment;
 import org.smartregister.family.fragment.BaseFamilyProfileDueFragment;
 import org.smartregister.family.fragment.BaseFamilyProfileMemberFragment;
 import org.smartregister.family.util.Constants;
+import org.smartregister.family.util.Utils;
+import org.smartregister.util.FormUtils;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class FamilyProfileActivity extends BaseFamilyProfileActivity {
     private String familyBaseEntityId;
+
 
     @Override
     protected void initializePresenter() {
@@ -66,4 +81,7 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity {
         return viewPager;
     }
 
+    public String getFamilyBaseEntityId() {
+        return familyBaseEntityId;
+    }
 }

@@ -1,12 +1,18 @@
 package org.smartgresiter.wcaro.listener;
 
+
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.widget.Toast;
 
 import org.smartgresiter.wcaro.R;
-import org.smartgresiter.wcaro.util.OnClickFloatingMenu;
+import org.smartgresiter.wcaro.activity.FamilyProfileActivity;
+import org.smartgresiter.wcaro.fragment.AddMemberFragment;
+import org.smartgresiter.wcaro.util.Constants;
 import org.smartregister.family.activity.BaseFamilyProfileActivity;
-import org.smartregister.family.util.Utils;
+
+import static org.smartgresiter.wcaro.fragment.AddMemberFragment.DIALOG_TAG;
+import static org.smartregister.repository.Hia2ReportRepository.report_column.locationId;
 
 public class FloatingMenuListener implements OnClickFloatingMenu {
 
@@ -28,8 +34,11 @@ public class FloatingMenuListener implements OnClickFloatingMenu {
                 //go to child add form activity
                 break;
             case R.id.add_new_member_layout:
-                ((BaseFamilyProfileActivity) context).startFormActivity(Utils.metadata().familyMemberRegister.formName, null, null);
-                //go to child add form activity
+                FragmentTransaction ft = ((BaseFamilyProfileActivity)context).getFragmentManager().beginTransaction();
+                AddMemberFragment addmemberFragment = AddMemberFragment.newInstance();
+                addmemberFragment.setContext(context);
+                addmemberFragment.setFamilyBaseEntityId(((FamilyProfileActivity)context).getFamilyBaseEntityId());
+                addmemberFragment.show(((BaseFamilyProfileActivity)context).getFragmentManager(),DIALOG_TAG);
                 break;
 
             case R.id.remove_member_layout:

@@ -10,10 +10,9 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.OvershootInterpolator;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import org.smartgresiter.wcaro.R;
-import org.smartgresiter.wcaro.util.OnClickFloatingMenu;
+import org.smartgresiter.wcaro.listener.OnClickFloatingMenu;
 
 public class FamilyFloatingMenu extends LinearLayout implements View.OnClickListener {
     private RelativeLayout activityMain;
