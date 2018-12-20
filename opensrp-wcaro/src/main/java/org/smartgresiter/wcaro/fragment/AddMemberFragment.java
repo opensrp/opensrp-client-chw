@@ -154,6 +154,7 @@ public class AddMemberFragment extends DialogFragment implements View.OnClickLis
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+                break;
             case R.id.layout_add_other_family_member:
                 ((BaseFamilyProfileActivity) context).startFormActivity(Constants.JSON_FORM.FAMILY_MEMBER_REGISTER, null, null);
                 break;
