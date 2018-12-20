@@ -9,4 +9,5 @@ public class FamilyRegisterPresenter extends BaseFamilyRegisterPresenter {
         super(view, model);
     }
 
+
 }

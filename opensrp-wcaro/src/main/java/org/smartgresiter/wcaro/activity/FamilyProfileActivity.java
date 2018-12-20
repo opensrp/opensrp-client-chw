@@ -27,6 +27,7 @@ import org.smartregister.util.PermissionUtils;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class FamilyProfileActivity extends BaseFamilyProfileActivity {
+
     private String familyBaseEntityId;
 
     @Override
@@ -89,5 +90,9 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity {
             }
             break;
         }
+    }
+
+    public String getFamilyBaseEntityId() {
+        return familyBaseEntityId;
     }
 }

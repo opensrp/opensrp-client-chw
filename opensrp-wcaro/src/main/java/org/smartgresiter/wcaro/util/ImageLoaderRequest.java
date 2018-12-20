@@ -16,8 +16,8 @@ public class ImageLoaderRequest {
 
     private static ImageLoaderRequest imageLoaderRequest;
     private final Context context;
-    private RequestQueue requestQueue;
     private final ImageLoader imageLoader;
+    private RequestQueue requestQueue;
 
 
     private ImageLoaderRequest(Context context) {

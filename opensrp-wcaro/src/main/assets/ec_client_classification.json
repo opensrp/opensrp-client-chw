@@ -18,6 +18,13 @@
             "creates_case": [
               "ec_family_member"
             ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Child Registration",
+            "creates_case": [
+              "ec_child"
+            ]
           }
         ]
       }

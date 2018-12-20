@@ -31,6 +31,16 @@ public class FamilyCallDialogFragment extends DialogFragment implements FamilyCa
     public static final String DIALOG_TAG = "FamilyCallWidgetDialogFragment_DIALOG_TAG";
 
     View.OnClickListener listner = null;
+    FamilyCallDialogContract.Dialer mDialer;
+    ImageView ivClose;
+    LinearLayout llFamilyHead;
+    TextView tvFamilyHeadTitle;
+    TextView tvFamilyHeadName;
+    TextView tvFamilyHeadPhone;
+    LinearLayout llCareGiver;
+    TextView tvCareGiverTitle;
+    TextView tvCareGiverName;
+    TextView tvCareGiverPhone;
 
     public static FamilyCallDialogFragment showDialog(Activity activity) {
         FamilyCallDialogFragment dialog = new FamilyCallDialogFragment();
@@ -49,19 +59,8 @@ public class FamilyCallDialogFragment extends DialogFragment implements FamilyCa
         super.onCreate(savedInstanceState);
         setStyle(android.app.DialogFragment.STYLE_NO_TITLE, R.style.WcaroTheme_Dialog_FullWidth);
 
+
     }
-
-    FamilyCallDialogContract.Dialer mDialer;
-    ImageView ivClose;
-    LinearLayout llFamilyHead;
-    TextView tvFamilyHeadTitle;
-    TextView tvFamilyHeadName;
-    TextView tvFamilyHeadPhone;
-
-    LinearLayout llCareGiver;
-    TextView tvCareGiverTitle;
-    TextView tvCareGiverName;
-    TextView tvCareGiverPhone;
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container,

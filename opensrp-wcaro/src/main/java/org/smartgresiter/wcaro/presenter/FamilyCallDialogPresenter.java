@@ -25,14 +25,14 @@ public class FamilyCallDialogPresenter implements FamilyCallDialogContract.Prese
 
     @Override
     public void updateHeadOfFamily(FamilyCallDialogContract.Model model) {
-        if(mView.get() != null){
+        if (mView.get() != null) {
             mView.get().refreshHeadOfFamilyView(model);
         }
     }
 
     @Override
     public void updateCareGiver(FamilyCallDialogContract.Model model) {
-        if(mView.get() != null){
+        if (mView.get() != null) {
             mView.get().refreshCareGiverView(model);
         }
     }

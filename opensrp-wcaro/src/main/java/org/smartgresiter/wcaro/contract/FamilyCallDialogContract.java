@@ -42,13 +42,13 @@ public interface FamilyCallDialogContract {
 
         String getName();
 
-        String getRole();
-
-        String getPhoneNumber();
-
         void setName(String name);
 
+        String getRole();
+
         void setRole(String role);
+
+        String getPhoneNumber();
 
         void setPhoneNumber(String phoneNumber);
     }

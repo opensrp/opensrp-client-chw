@@ -33,15 +33,15 @@ public class NavigationPresenter implements NavigationContract.Presenter {
     public void refreshNavigationCount(final Activity activity) {
 
         int x = 0;
-        while (x < mModel.getNavigationItems(activity).size()) {
+        while (x < mModel.getNavigationItems().size()) {
 
             final int finalX = x;
-            switch (mModel.getNavigationItems(activity).get(x).getMenuTitle()) {
+            switch (mModel.getNavigationItems().get(x).getMenuTitle()) {
                 case Constants.DrawerMenu.ALL_FAMILIES:
                     mInteractor.getFamilyCount(new NavigationContract.InteractorCallback<Integer>() {
                         @Override
                         public void onResult(Integer result) {
-                            mModel.getNavigationItems(activity).get(finalX).setRegisterCount(result);
+                            mModel.getNavigationItems().get(finalX).setRegisterCount(result);
                             Log.d("NavigationPresenter", String.valueOf(result));
                             getNavigationView().refreshCount();
                         }
@@ -56,7 +56,7 @@ public class NavigationPresenter implements NavigationContract.Presenter {
                     mInteractor.getChildrenCount(new NavigationContract.InteractorCallback<Integer>() {
                         @Override
                         public void onResult(Integer result) {
-                            // mModel.getNavigationItems(activity).get(finalX).setRegisterCount(result);
+                            mModel.getNavigationItems().get(finalX).setRegisterCount(result);
                             getNavigationView().refreshCount();
                         }
 
@@ -93,7 +93,7 @@ public class NavigationPresenter implements NavigationContract.Presenter {
     }
 
     @Override
-    public List<NavigationOption> getOptions(Activity activity) {
-        return mModel.getNavigationItems(activity);
+    public List<NavigationOption> getOptions() {
+        return mModel.getNavigationItems();
     }
 }

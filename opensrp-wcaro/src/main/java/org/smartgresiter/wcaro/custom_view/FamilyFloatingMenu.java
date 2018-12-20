@@ -10,10 +10,9 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.OvershootInterpolator;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import org.smartgresiter.wcaro.R;
-import org.smartgresiter.wcaro.util.OnClickFloatingMenu;
+import org.smartgresiter.wcaro.listener.OnClickFloatingMenu;
 
 public class FamilyFloatingMenu extends LinearLayout implements View.OnClickListener {
     private RelativeLayout activityMain;
@@ -22,12 +21,13 @@ public class FamilyFloatingMenu extends LinearLayout implements View.OnClickList
     private Animation fab_open, fab_close;
     private boolean isFabMenuOpen = false;
     private OnClickFloatingMenu onClickFloatingMenu;
+
     public FamilyFloatingMenu(Context context) {
         super(context);
         initUi();
     }
 
-    public FamilyFloatingMenu(Context context,  AttributeSet attrs) {
+    public FamilyFloatingMenu(Context context, AttributeSet attrs) {
         super(context, attrs);
         initUi();
     }
@@ -36,10 +36,11 @@ public class FamilyFloatingMenu extends LinearLayout implements View.OnClickList
         super(context, attrs, defStyleAttr);
         initUi();
     }
-    private void initUi(){
-        inflate(getContext(),R.layout.view_family_floating_menu,this);
-        activityMain=findViewById(R.id.activity_main);
-        menuBar=findViewById(R.id.menu_bar);
+
+    private void initUi() {
+        inflate(getContext(), R.layout.view_family_floating_menu, this);
+        activityMain = findViewById(R.id.activity_main);
+        menuBar = findViewById(R.id.menu_bar);
         fab = findViewById(R.id.fab);
         fab_open = AnimationUtils.loadAnimation(getContext(), R.anim.fab_open);
         fab_close = AnimationUtils.loadAnimation(getContext(), R.anim.fab_close);
@@ -59,9 +60,11 @@ public class FamilyFloatingMenu extends LinearLayout implements View.OnClickList
         findViewById(R.id.change_head_layout).setOnClickListener(this);
         findViewById(R.id.change_primary_layout).setOnClickListener(this);
     }
-    public void setClickListener(OnClickFloatingMenu onClickFloatingMenu){
-        this.onClickFloatingMenu=onClickFloatingMenu;
+
+    public void setClickListener(OnClickFloatingMenu onClickFloatingMenu) {
+        this.onClickFloatingMenu = onClickFloatingMenu;
     }
+
     private void expandFabMenu() {
         activityMain.setBackgroundResource(R.color.black_tranparent_50);
         ViewCompat.animate(fab).rotation(45.0F).withLayer().setDuration(300).setInterpolator(new OvershootInterpolator(10.0F)).start();
@@ -71,6 +74,7 @@ public class FamilyFloatingMenu extends LinearLayout implements View.OnClickList
         fab.setImageResource(R.drawable.ic_input_add);
 
     }
+
     private void collapseFabMenu() {
         activityMain.setBackgroundResource(R.color.transparent);
         ViewCompat.animate(fab).rotation(0.0F).withLayer().setDuration(300).setInterpolator(new OvershootInterpolator(10.0F)).start();
