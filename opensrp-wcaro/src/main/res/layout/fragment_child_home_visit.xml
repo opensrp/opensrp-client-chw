@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+	          android:background="@color/white"
+              android:weightSum="1">
+
+	<android.support.design.widget.AppBarLayout
+		android:id="@+id/app_bar"
+		android:layout_width="match_parent"
+		android:layout_height="@dimen/child_home_visit_bar_height"
+		android:orientation="vertical"
+		android:fitsSystemWindows="true"
+		android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+		<android.support.v7.widget.Toolbar
+			android:id="@+id/detail_toolbar"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:background="@color/opensrp_primary"
+			app:popupTheme="@style/ThemeOverlay.AppCompat.Dark">
+
+			<ImageView
+				android:id="@+id/close"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_gravity="center_vertical"
+				app:srcCompat="@mipmap/ic_cross_white" />
+
+			<org.smartregister.view.customcontrols.CustomFontTextView
+				android:id="@+id/textview_title"
+				style="@style/CustomFontTextViewStyle.ClientList.Light"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:gravity="center_vertical"
+				android:text="@string/add_member_title"
+				android:textAppearance="@style/TextAppearance.AppCompat.Large"
+				android:textColor="@android:color/white" />
+		</android.support.v7.widget.Toolbar>
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:orientation="horizontal">
+
+		</LinearLayout>
+
+
+	</android.support.design.widget.AppBarLayout>
+	<ScrollView
+		android:layout_width="match_parent"
+		android:layout_height="match_parent">
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:orientation="vertical">
+
+			<View
+				android:layout_width="match_parent"
+				android:layout_height="1px"
+				android:background="@color/light_grey" />
+
+			<LinearLayout
+				android:id="@+id/immunization_group"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginBottom="20dp"
+				android:layout_marginTop="20dp"
+				android:orientation="horizontal">
+
+				<de.hdodenhof.circleimageview.CircleImageView
+					android:id="@+id/immunization_group_status_circle"
+					android:layout_width="@dimen/immunization_status_circle_size"
+					android:layout_height="@dimen/immunization_status_circle_size"
+					android:layout_gravity="center_vertical"
+					android:layout_marginLeft="15dp"
+					android:layout_marginRight="15dp"
+					android:src="@color/white"
+					app:civ_border_color="@color/dark_grey"
+					app:civ_border_width="1dp" />
+
+				<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:gravity="center"
+					android:orientation="vertical">
+
+					<org.smartregister.view.customcontrols.CustomFontTextView
+						android:id="@+id/textview_group_immunization"
+						style="@style/CustomFontTextViewStyle.ClientList.Thin"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:layout_weight="1"
+						android:gravity="center_vertical"
+						android:text="Immunizations"
+						android:textAppearance="@style/TextAppearance.AppCompat.Large"
+						android:textColor="@android:color/black" />
+
+					<org.smartregister.view.customcontrols.CustomFontTextView
+						android:id="@+id/textview_immunization_group_secondary_text"
+						style="@style/CustomFontTextViewStyle.ClientList.Thin"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:layout_weight="1"
+						android:gravity="center_vertical"
+						android:text="Due 25 dec 2018"
+						android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+						android:textColor="@android:color/darker_gray" />
+				</LinearLayout>
+
+			</LinearLayout>
+
+			<View
+				android:layout_width="match_parent"
+				android:layout_height="1px"
+				android:background="@color/light_grey" />
+
+			<LinearLayout
+				android:id="@+id/immunization_name_group"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginBottom="20dp"
+				android:layout_marginTop="20dp"
+				android:orientation="horizontal">
+
+				<de.hdodenhof.circleimageview.CircleImageView
+					android:id="@+id/immunization_status_circle"
+					android:layout_width="@dimen/immunization_status_circle_size"
+					android:layout_height="@dimen/immunization_status_circle_size"
+					android:layout_gravity="center_vertical"
+					android:layout_marginLeft="15dp"
+					android:layout_marginRight="15dp"
+					android:src="@color/white"
+					app:civ_border_color="@color/dark_grey"
+					app:civ_border_width="1dp" />
+
+				<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:gravity="center"
+					android:orientation="vertical">
+
+					<org.smartregister.view.customcontrols.CustomFontTextView
+						android:id="@+id/textview_immunization"
+						style="@style/CustomFontTextViewStyle.ClientList.Thin"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:layout_weight="1"
+						android:gravity="center_vertical"
+						android:text="Penta 1"
+						android:textAppearance="@style/TextAppearance.AppCompat.Large"
+						android:textColor="@android:color/black" />
+
+					<org.smartregister.view.customcontrols.CustomFontTextView
+						android:id="@+id/textview_immunization_secondary_text"
+						style="@style/CustomFontTextViewStyle.ClientList.Thin"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:layout_weight="1"
+						android:gravity="center_vertical"
+						android:text="Due 25 dec 2018"
+						android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+						android:textColor="@android:color/darker_gray" />
+				</LinearLayout>
+
+			</LinearLayout>
+
+			<View
+				android:layout_width="match_parent"
+				android:layout_height="1px"
+				android:background="@color/light_grey" />
+
+			<LinearLayout
+				android:id="@+id/growth_and_nutrition_group"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginBottom="20dp"
+				android:layout_marginTop="20dp"
+				android:orientation="horizontal">
+
+				<de.hdodenhof.circleimageview.CircleImageView
+					android:id="@+id/growth_and_nutrition_status_circle"
+					android:layout_width="@dimen/immunization_status_circle_size"
+					android:layout_height="@dimen/immunization_status_circle_size"
+					android:layout_gravity="center_vertical"
+					android:layout_marginLeft="15dp"
+					android:layout_marginRight="15dp"
+					android:src="@color/white"
+					app:civ_border_color="@color/dark_grey"
+					app:civ_border_width="1dp" />
+
+				<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:gravity="center"
+					android:orientation="vertical">
+
+					<org.smartregister.view.customcontrols.CustomFontTextView
+						android:id="@+id/textview_growth_and_nutrition"
+						style="@style/CustomFontTextViewStyle.ClientList.Thin"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:layout_weight="1"
+						android:gravity="center_vertical"
+						android:text="Growth and Nutrition"
+						android:textAppearance="@style/TextAppearance.AppCompat.Large"
+						android:textColor="@android:color/black" />
+
+				</LinearLayout>
+
+			</LinearLayout>
+
+			<View
+				android:layout_width="match_parent"
+				android:layout_height="1px"
+				android:background="@color/light_grey" />
+
+			<LinearLayout
+				android:id="@+id/diarrhea_group"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginBottom="20dp"
+				android:layout_marginTop="20dp"
+				android:orientation="horizontal">
+
+				<de.hdodenhof.circleimageview.CircleImageView
+					android:id="@+id/diarrhea_status_circle"
+					android:layout_width="@dimen/immunization_status_circle_size"
+					android:layout_height="@dimen/immunization_status_circle_size"
+					android:layout_gravity="center_vertical"
+					android:layout_marginLeft="15dp"
+					android:layout_marginRight="15dp"
+					android:src="@color/white"
+					app:civ_border_color="@color/dark_grey"
+					app:civ_border_width="1dp" />
+
+				<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:gravity="center"
+					android:orientation="vertical">
+
+					<org.smartregister.view.customcontrols.CustomFontTextView
+						android:id="@+id/textview_diarrhea"
+						style="@style/CustomFontTextViewStyle.ClientList.Thin"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:layout_weight="1"
+						android:gravity="center_vertical"
+						android:text="Diarrhea"
+						android:textAppearance="@style/TextAppearance.AppCompat.Large"
+						android:textColor="@android:color/black" />
+
+				</LinearLayout>
+
+			</LinearLayout>
+
+			<View
+				android:layout_width="match_parent"
+				android:layout_height="1px"
+				android:background="@color/light_grey" />
+
+			<LinearLayout
+				android:id="@+id/malaria_prevention_group"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginBottom="20dp"
+				android:layout_marginTop="20dp"
+				android:orientation="horizontal">
+
+				<de.hdodenhof.circleimageview.CircleImageView
+					android:id="@+id/malaria_prevention_status_circle"
+					android:layout_width="@dimen/immunization_status_circle_size"
+					android:layout_height="@dimen/immunization_status_circle_size"
+					android:layout_gravity="center_vertical"
+					android:layout_marginLeft="15dp"
+					android:layout_marginRight="15dp"
+					android:src="@color/white"
+					app:civ_border_color="@color/dark_grey"
+					app:civ_border_width="1dp" />
+
+				<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:gravity="center"
+					android:orientation="vertical">
+
+					<org.smartregister.view.customcontrols.CustomFontTextView
+						android:id="@+id/textview_malaria_prevention"
+						style="@style/CustomFontTextViewStyle.ClientList.Thin"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:layout_weight="1"
+						android:gravity="center_vertical"
+						android:text="Malaria Prevention"
+						android:textAppearance="@style/TextAppearance.AppCompat.Large"
+						android:textColor="@android:color/black" />
+
+				</LinearLayout>
+
+			</LinearLayout>
+
+			<View
+				android:layout_width="match_parent"
+				android:layout_height="1px"
+				android:background="@color/light_grey" />
+
+			<LinearLayout
+				android:id="@+id/development_group"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginBottom="20dp"
+				android:layout_marginTop="20dp"
+				android:orientation="horizontal">
+
+				<de.hdodenhof.circleimageview.CircleImageView
+					android:id="@+id/development_status_circle"
+					android:layout_width="@dimen/immunization_status_circle_size"
+					android:layout_height="@dimen/immunization_status_circle_size"
+					android:layout_gravity="center_vertical"
+					android:layout_marginLeft="15dp"
+					android:layout_marginRight="15dp"
+					android:src="@color/white"
+					app:civ_border_color="@color/dark_grey"
+					app:civ_border_width="1dp" />
+
+				<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:gravity="center"
+					android:orientation="vertical">
+
+					<org.smartregister.view.customcontrols.CustomFontTextView
+						android:id="@+id/development_malaria_prevention"
+						style="@style/CustomFontTextViewStyle.ClientList.Thin"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:layout_weight="1"
+						android:gravity="center_vertical"
+						android:text="Development"
+						android:textAppearance="@style/TextAppearance.AppCompat.Large"
+						android:textColor="@android:color/black" />
+
+				</LinearLayout>
+
+			</LinearLayout>
+
+			<View
+				android:layout_width="match_parent"
+				android:layout_height="1px"
+				android:background="@color/light_grey" />
+
+		</LinearLayout>
+
+	</ScrollView>
+
+
+
+
+</LinearLayout>

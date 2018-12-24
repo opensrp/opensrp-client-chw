@@ -1,6 +1,7 @@
 package org.smartgresiter.wcaro.activity;
 
 import android.app.AppComponentFactory;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
@@ -21,13 +22,18 @@ import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.contract.ChildProfileContract;
 import org.smartgresiter.wcaro.contract.ChildRegisterContract;
 import org.smartgresiter.wcaro.custom_view.IndividualMemberFloatingMenu;
+import org.smartgresiter.wcaro.fragment.AddMemberFragment;
+import org.smartgresiter.wcaro.fragment.ChildHomeVisitFragment;
 import org.smartgresiter.wcaro.listener.OnClickFloatingMenu;
 import org.smartgresiter.wcaro.model.ChildProfileModel;
 import org.smartgresiter.wcaro.presenter.ChildProfilePresenter;
 import org.smartregister.domain.FetchStatus;
+import org.smartregister.family.activity.BaseFamilyProfileActivity;
 import org.smartregister.family.util.Constants;
 import org.smartregister.helper.ImageRenderHelper;
 import org.smartregister.view.activity.BaseProfileActivity;
+
+import static org.smartgresiter.wcaro.fragment.AddMemberFragment.DIALOG_TAG;
 
 
 public class ChildProfileActivity extends BaseProfileActivity implements ChildProfileContract.View,ChildRegisterContract.InteractorCallBack{
@@ -100,6 +106,12 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
         super.onClick(view);
         switch (view.getId()){
             case R.id.textview_record_visit:
+                FragmentTransaction ft = this.getFragmentManager().beginTransaction();
+                ChildHomeVisitFragment childHomeVisitFragment = ChildHomeVisitFragment.newInstance();
+                childHomeVisitFragment.setContext(this);
+//                childHomeVisitFragment.setFamilyBaseEntityId(getFamilyBaseEntityId());
+                childHomeVisitFragment.show(getFragmentManager(),DIALOG_TAG);
+
                 break;
             case R.id.textview_visit_not:
                 break;
