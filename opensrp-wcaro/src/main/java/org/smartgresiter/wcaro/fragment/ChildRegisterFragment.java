@@ -45,6 +45,10 @@ public class ChildRegisterFragment extends BaseRegisterFragment implements Child
 
     }
     @Override
+    public void filter(String filterString, String joinTableString, String mainConditionString, boolean qrCode) {
+        super.filter(filterString, Constants.TABLE_NAME.FAMILY, mainConditionString, qrCode);
+    }
+    @Override
     public void initializeAdapter(Set<org.smartregister.configurableviews.model.View> visibleColumns) {
         ChildRegisterProvider childRegisterProvider = new ChildRegisterProvider(getActivity(), commonRepository(), visibleColumns, registerActionHandler, paginationViewHandler);
         clientAdapter = new RecyclerViewPaginatedAdapter(null, childRegisterProvider, context().commonrepository(this.tablename));
