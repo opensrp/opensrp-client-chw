@@ -104,6 +104,6 @@ public class ChildRegisterFragmentPresenter implements ChildRegisterFragmentCont
 
     @Override
     public String getDefaultSortQuery() {
-        return Constants.TABLE_NAME.CHILD+"."+DBConstants.KEY.LAST_INTERACTED_WITH + " DESC ";
+        return DBConstants.KEY.LAST_INTERACTED_WITH + " DESC ";
     }
 }

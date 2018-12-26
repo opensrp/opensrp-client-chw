@@ -113,14 +113,12 @@ public class WcaroApplication extends DrishtiApplication {
     }
 
     private static String[] getFtsTables() {
-        return new String[]{Constants.TABLE_NAME.FAMILY,Constants.TABLE_NAME.CHILD};
+        return new String[]{Constants.TABLE_NAME.FAMILY,Constants.TABLE_NAME.CHILD,Constants.TABLE_NAME.FAMILY_MEMBER};
     }
 
     private static String[] getFtsSearchFields(String table) {
-        if(table.equalsIgnoreCase(Constants.TABLE_NAME.CHILD)){
-            return new String[]{DBConstants.KEY.UNIQUE_ID, DBConstants.KEY.FIRST_NAME, DBConstants.KEY.LAST_NAME};
-        }
-        return new String[]{DBConstants.KEY.BASE_ENTITY_ID, DBConstants.KEY.FIRST_NAME, DBConstants.KEY.LAST_NAME, DBConstants.KEY.UNIQUE_ID,DBConstants.KEY
+        return new String[]{DBConstants.KEY.BASE_ENTITY_ID,DBConstants.KEY.VILLAGE_TOWN, DBConstants.KEY.FIRST_NAME,
+                DBConstants.KEY.LAST_NAME, DBConstants.KEY.UNIQUE_ID,DBConstants.KEY
                 .LAST_INTERACTED_WITH};
     }
 

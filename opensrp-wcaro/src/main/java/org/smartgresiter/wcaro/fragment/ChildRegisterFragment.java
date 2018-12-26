@@ -16,6 +16,7 @@ import org.smartgresiter.wcaro.custom_view.NavigationMenu;
 import org.smartgresiter.wcaro.model.ChildRegisterFragmentModel;
 import org.smartgresiter.wcaro.presenter.ChildRegisterFragmentPresenter;
 import org.smartgresiter.wcaro.provider.ChildRegisterProvider;
+import org.smartgresiter.wcaro.util.ChildUtils;
 import org.smartgresiter.wcaro.util.Constants;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
@@ -44,10 +45,19 @@ public class ChildRegisterFragment extends BaseRegisterFragment implements Child
         presenter = new ChildRegisterFragmentPresenter(this, new ChildRegisterFragmentModel(), viewConfigurationIdentifier);
 
     }
+
     @Override
     public void filter(String filterString, String joinTableString, String mainConditionString, boolean qrCode) {
-        super.filter(filterString, Constants.TABLE_NAME.FAMILY, mainConditionString, qrCode);
+        this.joinTables=new String[]{Constants.TABLE_NAME.FAMILY,Constants.TABLE_NAME.FAMILY_MEMBER};
+        super.filter(filterString,joinTableString, mainConditionString, qrCode);
     }
+
+    //    @Override
+//    public void filter(String filterString, String joinTableString, String mainConditionString, boolean qrCode) {
+//        String query=ChildUtils.mainSelectRegisterWithoutGroupby(Constants.TABLE_NAME.CHILD,Constants.TABLE_NAME.FAMILY,Constants.TABLE_NAME.FAMILY_MEMBER,"");
+//        super.filter(filterString, "", query, false);
+//    }
+
     @Override
     public void initializeAdapter(Set<org.smartregister.configurableviews.model.View> visibleColumns) {
         ChildRegisterProvider childRegisterProvider = new ChildRegisterProvider(getActivity(), commonRepository(), visibleColumns, registerActionHandler, paginationViewHandler);
