@@ -13,12 +13,13 @@
 		android:layout_height="@dimen/child_home_visit_bar_height"
 		android:orientation="vertical"
 		android:fitsSystemWindows="true"
+		android:background="@color/opensrp_primary"
 		android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
 		<android.support.v7.widget.Toolbar
 			android:id="@+id/detail_toolbar"
 			android:layout_width="match_parent"
-			android:layout_height="match_parent"
+			android:layout_height="wrap_content"
 			android:background="@color/opensrp_primary"
 			app:popupTheme="@style/ThemeOverlay.AppCompat.Dark">
 
@@ -27,25 +28,39 @@
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:layout_gravity="center_vertical"
-				app:srcCompat="@mipmap/ic_cross_white" />
+				android:tint="@color/white"
+				app:srcCompat="@drawable/ic_cross" />
 
 			<org.smartregister.view.customcontrols.CustomFontTextView
-				android:id="@+id/textview_title"
+				android:id="@+id/textview_submit"
 				style="@style/CustomFontTextViewStyle.ClientList.Light"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
+				android:layout_margin="@dimen/client_profile_pic_margin_top"
 				android:layout_weight="1"
-				android:gravity="center_vertical"
-				android:text="@string/add_member_title"
-				android:textAppearance="@style/TextAppearance.AppCompat.Large"
-				android:textColor="@android:color/white" />
+				android:gravity="center_vertical|right"
+				android:text="@string/submit"
+				android:textColor="@android:color/white"
+				android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 		</android.support.v7.widget.Toolbar>
 
 		<LinearLayout
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
+			android:layout_gravity="bottom"
 			android:orientation="horizontal">
 
+			<org.smartregister.view.customcontrols.CustomFontTextView
+				android:id="@+id/textview_name_header"
+				style="@style/CustomFontTextViewStyle.ClientList.Light"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="10dp"
+				android:layout_weight="1"
+				android:gravity="center_vertical"
+				android:text="@string/add_member_title"
+				android:textAppearance="@style/TextAppearance.AppCompat.Large"
+				android:textColor="@android:color/white" />
 		</LinearLayout>
 
 

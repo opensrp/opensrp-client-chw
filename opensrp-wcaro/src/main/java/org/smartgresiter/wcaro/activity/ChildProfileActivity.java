@@ -109,6 +109,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
                 FragmentTransaction ft = this.getFragmentManager().beginTransaction();
                 ChildHomeVisitFragment childHomeVisitFragment = ChildHomeVisitFragment.newInstance();
                 childHomeVisitFragment.setContext(this);
+                childHomeVisitFragment.setChildClient(((ChildProfilePresenter)presenter()).getChildClient());
 //                childHomeVisitFragment.setFamilyBaseEntityId(getFamilyBaseEntityId());
                 childHomeVisitFragment.show(getFragmentManager(),DIALOG_TAG);
 

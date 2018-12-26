@@ -33,6 +33,10 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
         this.familyBaseEntityId = familyBaseEntityId;
     }
 
+    public CommonPersonObjectClient getChildClient(){
+        return ((ChildProfileInteractor)interactor).getpClient();
+    }
+
     @Override
     public void fetchProfileData() {
         interactor.refreshProfileView(familyBaseEntityId, false, this);

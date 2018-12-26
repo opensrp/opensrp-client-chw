@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;
@@ -26,9 +27,13 @@ import org.smartgresiter.wcaro.util.Constants;
 import org.smartgresiter.wcaro.util.JsonFormUtils;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
+import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.activity.BaseFamilyProfileActivity;
+import org.smartregister.family.util.DBConstants;
 import org.smartregister.util.FormUtils;
 import org.smartregister.util.Utils;
+
+import static org.smartregister.util.Utils.getValue;
 
 public class ChildHomeVisitFragment extends DialogFragment implements View.OnClickListener,ChildRegisterContract.InteractorCallBack {
 
@@ -37,6 +42,8 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     protected ProgressDialog progressDialog;
     Context context;
     String childBaseEntityId;
+    CommonPersonObjectClient childClient;
+    private TextView nameHeader;
 
     public void setContext(Context context){
         this.context = context;
@@ -72,6 +79,19 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        nameHeader = (TextView) view.findViewById(R.id.textview_name_header);
+
+        assignNameHeader();
+    }
+
+    private void assignNameHeader() {
+        String dobString = org.smartregister.family.util.Utils.getDuration(org.smartregister.family.util.Utils.getValue(childClient.getColumnmaps(), DBConstants.KEY.DOB, false));
+
+        nameHeader.setText(
+                getValue(childClient.getColumnmaps(),"first_name",true)+" "+
+                getValue(childClient.getColumnmaps(),"last_name",true)+", "+
+        dobString+" - Home Visit"
+        );
     }
 
     @Override
@@ -248,5 +268,9 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
             }
 
         }
+    }
+
+    public void setChildClient(CommonPersonObjectClient childClient) {
+        this.childClient = childClient;
     }
 }

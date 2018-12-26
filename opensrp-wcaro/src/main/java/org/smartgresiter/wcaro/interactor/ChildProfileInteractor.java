@@ -36,6 +36,16 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
     public static final String TAG = ChildProfileInteractor.class.getName();
 
     private AppExecutors appExecutors;
+    private CommonPersonObjectClient pClient;
+
+    public CommonPersonObjectClient getpClient() {
+        return pClient;
+    }
+
+    public void setpClient(CommonPersonObjectClient pClient) {
+        this.pClient = pClient;
+    }
+
     @VisibleForTesting
     ChildProfileInteractor(AppExecutors appExecutors) {
         this.appExecutors = appExecutors;
@@ -58,7 +68,7 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
                 Cursor cursor=getCommonRepository(ChildDBConstants.KEY.TABLE_NAME).rawCustomQueryForAdapter(query);
                 if(cursor!=null && cursor.moveToFirst()){
                     CommonPersonObject personObject = getCommonRepository(ChildDBConstants.KEY.TABLE_NAME).readAllcommonforCursorAdapter(cursor);
-                    final CommonPersonObjectClient pClient = new CommonPersonObjectClient(personObject.getCaseId(),
+                    pClient = new CommonPersonObjectClient(personObject.getCaseId(),
                         personObject.getDetails(), "");
                         pClient.setColumnmaps(personObject.getColumnmaps());
                     appExecutors.mainThread().execute(new Runnable() {
