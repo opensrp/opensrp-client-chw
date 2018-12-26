@@ -2,6 +2,7 @@ package org.smartgresiter.wcaro.fragment;
 
 import android.app.Activity;
 import android.app.DialogFragment;
+import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -14,15 +15,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;
 import org.json.JSONObject;
 import org.smartgresiter.wcaro.R;
+import org.smartgresiter.wcaro.activity.ChildProfileActivity;
 import org.smartgresiter.wcaro.contract.ChildRegisterContract;
 import org.smartgresiter.wcaro.interactor.ChildRegisterInteractor;
 import org.smartgresiter.wcaro.model.ChildRegisterModel;
+import org.smartgresiter.wcaro.presenter.ChildProfilePresenter;
 import org.smartgresiter.wcaro.util.Constants;
 import org.smartgresiter.wcaro.util.JsonFormUtils;
 import org.smartregister.clientandeventmodel.Client;
@@ -33,6 +37,7 @@ import org.smartregister.family.util.DBConstants;
 import org.smartregister.util.FormUtils;
 import org.smartregister.util.Utils;
 
+import static org.smartgresiter.wcaro.fragment.AddMemberFragment.DIALOG_TAG;
 import static org.smartregister.util.Utils.getValue;
 
 public class ChildHomeVisitFragment extends DialogFragment implements View.OnClickListener,ChildRegisterContract.InteractorCallBack {
@@ -80,7 +85,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         nameHeader = (TextView) view.findViewById(R.id.textview_name_header);
-
+        ((LinearLayout) view.findViewById(R.id.immunization_group)).setOnClickListener(this);
         assignNameHeader();
     }
 
@@ -139,7 +144,12 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
             case R.id.close:
                 dismiss();
                 break;
-            case  R.id.layout_add_child_under_five:
+            case  R.id.immunization_group:
+                FragmentTransaction ft = ((ChildProfileActivity)context).getFragmentManager().beginTransaction();
+                ChildImmunizationFragment childImmunizationFragment = ChildImmunizationFragment.newInstance(new Bundle());
+                childImmunizationFragment.setChildDetails(childClient);
+//                childHomeVisitFragment.setFamilyBaseEntityId(getFamilyBaseEntityId());
+                childImmunizationFragment.show(ft,DIALOG_TAG);
                 break;
             case R.id.layout_add_other_family_member:
                 ((BaseFamilyProfileActivity) context).startFormActivity(Constants.JSON_FORM.FAMILY_MEMBER_REGISTER, null, null);

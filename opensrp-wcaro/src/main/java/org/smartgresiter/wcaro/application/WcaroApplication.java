@@ -22,10 +22,16 @@ import org.smartregister.family.activity.FamilyWizardFormActivity;
 import org.smartregister.family.domain.FamilyMetadata;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.Utils;
+import org.smartregister.immunization.domain.VaccineSchedule;
+import org.smartregister.immunization.domain.jsonmapping.Vaccine;
+import org.smartregister.immunization.domain.jsonmapping.VaccineGroup;
+import org.smartregister.immunization.util.VaccinatorUtils;
 import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.repository.Repository;
 import org.smartregister.view.activity.DrishtiApplication;
+import org.smartregister.immunization.ImmunizationLibrary;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,6 +55,8 @@ public class WcaroApplication extends DrishtiApplication {
 
         //Initialize Modules
         CoreLibrary.init(context);
+        ImmunizationLibrary.init(context, getRepository(), null, BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
+
         ConfigurableViewsLibrary.init(context, getRepository());
         FamilyLibrary.init(context, getRepository(), getMetadata(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
 
@@ -63,6 +71,8 @@ public class WcaroApplication extends DrishtiApplication {
 
         // TODO FIXME remove when login is implemented
         sampleUniqueIds();
+
+        initOfflineSchedules();
     }
 
     @Override
@@ -147,6 +157,16 @@ public class WcaroApplication extends DrishtiApplication {
         }
 
         return ids;
+    }
+
+    public void initOfflineSchedules() {
+        try {
+            List<VaccineGroup> childVaccines = VaccinatorUtils.getSupportedVaccines(this);
+            List<Vaccine> specialVaccines = VaccinatorUtils.getSpecialVaccines(this);
+            VaccineSchedule.init(childVaccines, specialVaccines, "child");
+        } catch (Exception e) {
+            Log.e(TAG, Log.getStackTraceString(e));
+        }
     }
 
 }
