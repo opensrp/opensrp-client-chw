@@ -130,12 +130,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.textview_record_visit:
-                FragmentTransaction ft = this.getFragmentManager().beginTransaction();
-                ChildHomeVisitFragment childHomeVisitFragment = ChildHomeVisitFragment.newInstance();
-                childHomeVisitFragment.setContext(this);
-                childHomeVisitFragment.setChildClient(((ChildProfilePresenter)presenter()).getChildClient());
-//                childHomeVisitFragment.setFamilyBaseEntityId(getFamilyBaseEntityId());
-                childHomeVisitFragment.show(getFragmentManager(),ChildHomeVisitFragment.DIALOG_TAG);
+                openVisitHomeScreen();
 
                 break;
             case R.id.textview_visit_not:
@@ -153,6 +148,14 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
                 openVisitButtonView();
                 break;
         }
+    }
+    private void openVisitHomeScreen(){
+        FragmentTransaction ft = this.getFragmentManager().beginTransaction();
+        ChildHomeVisitFragment childHomeVisitFragment = ChildHomeVisitFragment.newInstance();
+        childHomeVisitFragment.setContext(this);
+        childHomeVisitFragment.setChildClient(((ChildProfilePresenter)presenter()).getChildClient());
+//                childHomeVisitFragment.setFamilyBaseEntityId(getFamilyBaseEntityId());
+        childHomeVisitFragment.show(getFragmentManager(),ChildHomeVisitFragment.DIALOG_TAG);
     }
     private void openVisitMonthView(){
         layoutNotRecordView.setVisibility(View.VISIBLE);
