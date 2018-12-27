@@ -1,9 +1,14 @@
 package org.smartgresiter.wcaro.util;
 
+import org.smartgresiter.wcaro.interactor.ChildProfileInteractor;
+import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.family.util.DBConstants;
 
+import java.util.Calendar;
+
 public class ChildUtils {
+    private static final long MILLI_SEC=24 * 60 * 60 * 1000;
     //need to add primary caregiver filter at query
     public static String mainSelectRegisterWithoutGroupby(String tableName,String familyTableName,String familyMemberTableName, String mainCondition) {
         SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
@@ -60,5 +65,32 @@ public class ChildUtils {
                 tableName + "." + DBConstants.KEY.GENDER,
                 tableName + "." + DBConstants.KEY.DOB};
         return columns;
+    }
+    public static ChildVisit getChildVisitStatus(CommonRepository commonRepository,String baseEntityId){
+        //TODO need to get the childvisit from database
+        ChildVisit childVisit=new ChildVisit();
+        //testing data
+        //childVisit.setLastVisitTime(1545867630000L);
+        if(Calendar.getInstance().get(Calendar.DAY_OF_MONTH) == 1){
+            childVisit.setVisitStatus(ChildProfileInteractor.VisitType.DUE.name());
+            return childVisit;
+        }
+        if(childVisit.getLastVisitTime()==0){
+            childVisit.setVisitStatus(ChildProfileInteractor.VisitType.OVERDUE.name());
+            return childVisit;
+        }
+        if((System.currentTimeMillis()-childVisit.getLastVisitTime())<MILLI_SEC){
+            childVisit.setVisitStatus(ChildProfileInteractor.VisitType.LESS_TWENTY_FOUR.name());
+            childVisit.setLastVisitMonth(theMonth(Calendar.getInstance().get(Calendar.MONTH)));
+            return childVisit;
+        }
+        else {
+            childVisit.setVisitStatus(ChildProfileInteractor.VisitType.OVER_TWENTY_FOUR.name());
+            return childVisit;
+        }
+    }
+    public static String theMonth(int month){
+        String[] monthNames = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+        return monthNames[month];
     }
 }

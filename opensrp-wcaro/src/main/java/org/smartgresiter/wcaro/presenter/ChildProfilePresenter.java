@@ -7,6 +7,7 @@ import org.apache.commons.lang3.tuple.Triple;
 import org.smartgresiter.wcaro.contract.ChildProfileContract;
 import org.smartgresiter.wcaro.interactor.ChildProfileInteractor;
 import org.smartgresiter.wcaro.util.ChildDBConstants;
+import org.smartgresiter.wcaro.util.ChildVisit;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.DBConstants;
@@ -32,6 +33,13 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
         this.model = model;
         this.familyBaseEntityId = familyBaseEntityId;
     }
+
+    @Override
+    public void fetchVisitStatus(String baseEntityId) {
+        interactor.refreshChildVisitBar(familyBaseEntityId,this);
+    }
+
+
 
     @Override
     public void fetchProfileData() {
@@ -76,7 +84,24 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
     public void startFormForEdit(CommonPersonObjectClient client) {
 
     }
+    @Override
+    public void updateChildVisit(ChildVisit childVisit) {
+        if(childVisit!=null){
+            if(childVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.DUE.name())){
+                getView().setVisitButtonDueStatus();
+            }
+            if(childVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.OVERDUE.name())){
+                getView().setVisitButtonOverdueStatus();
+            }
+            if(childVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.LESS_TWENTY_FOUR.name())){
+                getView().setVisitLessTwentyFourView(childVisit.getLastVisitMonth());
+            }
+            if(childVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.OVER_TWENTY_FOUR.name())){
+                getView().setVisitAboveTwentyFourView();
+            }
+        }
 
+    }
     @Override
     public void refreshProfileTopSection(CommonPersonObjectClient client) {
         if (client == null || client.getColumnmaps() == null) {

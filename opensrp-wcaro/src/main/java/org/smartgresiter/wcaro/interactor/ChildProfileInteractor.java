@@ -12,6 +12,7 @@ import org.smartgresiter.wcaro.application.WcaroApplication;
 import org.smartgresiter.wcaro.contract.ChildProfileContract;
 import org.smartgresiter.wcaro.util.ChildDBConstants;
 import org.smartgresiter.wcaro.util.ChildUtils;
+import org.smartgresiter.wcaro.util.ChildVisit;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.CommonPersonObject;
@@ -36,6 +37,7 @@ import java.util.Date;
 public class ChildProfileInteractor implements ChildProfileContract.Interactor {
     public static final String TAG = ChildProfileInteractor.class.getName();
 
+
     private AppExecutors appExecutors;
     @VisibleForTesting
     ChildProfileInteractor(AppExecutors appExecutors) {
@@ -44,9 +46,30 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
     public ChildProfileInteractor() {
         this(new AppExecutors());
     }
+
+    public enum VisitType {DUE, OVERDUE,LESS_TWENTY_FOUR,OVER_TWENTY_FOUR}
     @Override
     public void onDestroy(boolean isChangingConfiguration) {
 
+    }
+
+    @Override
+    public void refreshChildVisitBar(String baseEntityId, final ChildProfileContract.InteractorCallBack callback) {
+
+      final   ChildVisit childVisit=ChildUtils.getChildVisitStatus(getCommonRepository(org.smartgresiter.wcaro.util.Constants.TABLE_NAME.CHILD),baseEntityId);
+
+       Runnable runnable=new Runnable() {
+           @Override
+           public void run() {
+               appExecutors.mainThread().execute(new Runnable() {
+                   @Override
+                   public void run() {
+                       callback.updateChildVisit(childVisit);
+                   }
+               });
+           }
+       };
+        appExecutors.diskIO().execute(runnable);
     }
 
     @Override
