@@ -142,11 +142,14 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     public void setVisitButtonDueStatus() {
         openVisitButtonView();
         textViewRecord.setBackgroundResource(R.drawable.record_btn_selector_due);
+        textViewRecord.setTextColor(getResources().getColor(R.color.white));
     }
 
     @Override
     public void setVisitButtonOverdueStatus() {
+        openVisitButtonView();
         textViewRecord.setBackgroundResource(R.drawable.record_btn_selector_overdue);
+        textViewRecord.setTextColor(getResources().getColor(R.color.white));
     }
 
     @Override
