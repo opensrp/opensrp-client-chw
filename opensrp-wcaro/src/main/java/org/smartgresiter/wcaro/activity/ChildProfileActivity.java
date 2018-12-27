@@ -13,7 +13,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;
@@ -55,6 +57,9 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     private String childBaseEntityId;
     private TextView textViewTitle,textViewParentName,textViewChildName,textViewGender,textViewAddress,textViewId,textViewRecord,textViewVisitNot;
     private ImageView imageViewProfile;
+    private RelativeLayout layoutRecordView,layoutNotRecordView;
+    private TextView textViewNotVisitMonth,textViewUndo;
+    private ImageView imageViewCross;
     private String gender;
     @Override
     protected void onCreation() {
@@ -109,14 +114,20 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
         imageViewProfile=findViewById(R.id.imageview_profile);
         textViewRecord=findViewById(R.id.textview_record_visit);
         textViewVisitNot=findViewById(R.id.textview_visit_not);
+        textViewNotVisitMonth=findViewById(R.id.textview_not_visit_this_month);
+        textViewUndo=findViewById(R.id.textview_undo);
+        imageViewCross=(ImageView) findViewById(R.id.cross_image);
+        layoutRecordView=findViewById(R.id.record_visit_bar);
+        layoutNotRecordView=findViewById(R.id.record_visit_status_bar);
         textViewRecord.setOnClickListener(this);
         textViewVisitNot.setOnClickListener(this);
+        textViewUndo.setOnClickListener(this);
+        imageViewCross.setOnClickListener(this);
 
     }
 
     @Override
     public void onClick(View view) {
-        super.onClick(view);
         switch (view.getId()){
             case R.id.textview_record_visit:
                 FragmentTransaction ft = this.getFragmentManager().beginTransaction();
@@ -128,8 +139,71 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
 
                 break;
             case R.id.textview_visit_not:
+                openVisitMonthView();
+                break;
+            case R.id.textview_undo:
+                if(textViewUndo.getText().toString().equalsIgnoreCase(getString(R.string.undo))){
+                    openVisitButtonView();
+                }else{
+                    Toast.makeText(this,"Edit previous visit",Toast.LENGTH_SHORT).show();
+                }
+
+                break;
+            case R.id.cross_image:
+                openVisitButtonView();
                 break;
         }
+    }
+    private void openVisitMonthView(){
+        layoutNotRecordView.setVisibility(View.VISIBLE);
+        layoutRecordView.setVisibility(View.GONE);
+
+    }
+    private void openVisitButtonView(){
+        layoutNotRecordView.setVisibility(View.GONE);
+        layoutRecordView.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void setVisitButtonDueStatus() {
+        openVisitButtonView();
+        textViewRecord.setBackgroundResource(R.drawable.record_btn_selector_due);
+        textViewRecord.setTextColor(getResources().getColor(R.color.white));
+    }
+
+    @Override
+    public void setVisitButtonOverdueStatus() {
+        openVisitButtonView();
+        textViewRecord.setBackgroundResource(R.drawable.record_btn_selector_overdue);
+        textViewRecord.setTextColor(getResources().getColor(R.color.white));
+    }
+
+    @Override
+    public void setVisitNotDoneView() {
+
+    }
+
+    @Override
+    public void setVisitThisMonthView() {
+
+    }
+
+    @Override
+    public void setVisitLessTwentyFourView(String monthName) {
+        textViewNotVisitMonth.setText(getString(R.string.visit_month,monthName));
+        textViewUndo.setText(getString(R.string.edit));
+        imageViewCross.setImageResource(R.drawable.activityrow_visited);
+        openVisitMonthView();
+
+    }
+
+    @Override
+    public void setVisitAboveTwentyFourView() {
+        textViewVisitNot.setVisibility(View.GONE);
+        textViewRecord.setBackgroundResource(R.drawable.record_btn_selector_above_twentyfr);
+        textViewRecord.setTextColor(getResources().getColor(R.color.light_grey_text));
+
+
     }
     private void updateTopbar(){
         if(gender.equalsIgnoreCase(Gender.MALE.toString())){
@@ -156,6 +230,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     @Override
     protected void fetchProfileData() {
         presenter().fetchProfileData();
+        presenter().fetchVisitStatus(childBaseEntityId);
     }
 
     private OnClickFloatingMenu onClickFloatingMenu=new OnClickFloatingMenu() {
@@ -234,6 +309,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
         textViewChildName.append(","+age);
 
     }
+
 
     @Override
     public ChildProfileContract.Presenter presenter() {

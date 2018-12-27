@@ -41,7 +41,7 @@ public interface ChildRegisterFragmentContract {
 
         String countSelect(String tableName, String mainCondition);
 
-        String mainSelect(String tableName, String parentTableName, String mainCondition);
+        String mainSelect(String tableName, String familyTableName,String familyMemberTableName, String mainCondition);
 
         String getFilterText(List<Field> filterList, String filter);
 

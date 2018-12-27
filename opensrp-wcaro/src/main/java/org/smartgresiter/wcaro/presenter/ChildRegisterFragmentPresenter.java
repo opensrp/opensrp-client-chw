@@ -3,6 +3,7 @@ package org.smartgresiter.wcaro.presenter;
 import org.apache.commons.lang3.StringUtils;
 import org.smartgresiter.wcaro.contract.ChildRegisterFragmentContract;
 import org.smartgresiter.wcaro.util.ChildDBConstants;
+import org.smartgresiter.wcaro.util.Constants;
 import org.smartregister.configurableviews.model.Field;
 import org.smartregister.configurableviews.model.RegisterConfiguration;
 import org.smartregister.configurableviews.model.View;
@@ -54,10 +55,10 @@ public class ChildRegisterFragmentPresenter implements ChildRegisterFragmentCont
     @Override
     public void initializeQueries(String mainCondition) {
 
-        String countSelect = model.countSelect(ChildDBConstants.KEY.TABLE_NAME, mainCondition);
-        String mainSelect = model.mainSelect(ChildDBConstants.KEY.TABLE_NAME,ChildDBConstants.KEY.PARENT_TABLE_NAME, mainCondition);
+        String countSelect = model.countSelect(Constants.TABLE_NAME.CHILD, mainCondition);
+        String mainSelect = model.mainSelect(Constants.TABLE_NAME.CHILD,Constants.TABLE_NAME.FAMILY,Constants.TABLE_NAME.FAMILY_MEMBER, mainCondition);
 
-        getView().initializeQueryParams(ChildDBConstants.KEY.TABLE_NAME, countSelect, mainSelect);
+        getView().initializeQueryParams(Constants.TABLE_NAME.CHILD, countSelect, mainSelect);
         getView().initializeAdapter(visibleColumns);
 
         getView().countExecute();
@@ -103,6 +104,6 @@ public class ChildRegisterFragmentPresenter implements ChildRegisterFragmentCont
 
     @Override
     public String getDefaultSortQuery() {
-        return ChildDBConstants.KEY.TABLE_NAME+"."+DBConstants.KEY.LAST_INTERACTED_WITH + " DESC ";
+        return DBConstants.KEY.LAST_INTERACTED_WITH + " DESC ";
     }
 }

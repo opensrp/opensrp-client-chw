@@ -119,7 +119,7 @@ public class WcaroApplication extends DrishtiApplication {
         if (commonFtsObject == null) {
             commonFtsObject = new CommonFtsObject(getFtsTables());
             for (String ftsTable : commonFtsObject.getTables()) {
-                commonFtsObject.updateSearchFields(ftsTable, getFtsSearchFields());
+                commonFtsObject.updateSearchFields(ftsTable, getFtsSearchFields(ftsTable));
                 commonFtsObject.updateSortFields(ftsTable, getFtsSortFields());
             }
         }
@@ -127,11 +127,13 @@ public class WcaroApplication extends DrishtiApplication {
     }
 
     private static String[] getFtsTables() {
-        return new String[]{Constants.TABLE_NAME.FAMILY};
+        return new String[]{Constants.TABLE_NAME.FAMILY,Constants.TABLE_NAME.CHILD,Constants.TABLE_NAME.FAMILY_MEMBER};
     }
 
-    private static String[] getFtsSearchFields() {
-        return new String[]{DBConstants.KEY.BASE_ENTITY_ID, DBConstants.KEY.FIRST_NAME, DBConstants.KEY.LAST_NAME, DBConstants.KEY.UNIQUE_ID};
+    private static String[] getFtsSearchFields(String table) {
+        return new String[]{DBConstants.KEY.BASE_ENTITY_ID,DBConstants.KEY.VILLAGE_TOWN, DBConstants.KEY.FIRST_NAME,
+                DBConstants.KEY.LAST_NAME, DBConstants.KEY.UNIQUE_ID,DBConstants.KEY
+                .LAST_INTERACTED_WITH};
     }
 
     private static String[] getFtsSortFields() {
