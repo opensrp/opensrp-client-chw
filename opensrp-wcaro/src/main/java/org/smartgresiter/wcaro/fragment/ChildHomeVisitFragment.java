@@ -6,6 +6,8 @@ import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -23,6 +25,7 @@ import org.apache.commons.lang3.tuple.Triple;
 import org.json.JSONObject;
 import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.activity.ChildProfileActivity;
+import org.smartgresiter.wcaro.application.WcaroApplication;
 import org.smartgresiter.wcaro.contract.ChildRegisterContract;
 import org.smartgresiter.wcaro.interactor.ChildRegisterInteractor;
 import org.smartgresiter.wcaro.model.ChildRegisterModel;
@@ -32,13 +35,24 @@ import org.smartgresiter.wcaro.util.JsonFormUtils;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
+import org.smartregister.domain.Alert;
 import org.smartregister.family.activity.BaseFamilyProfileActivity;
 import org.smartregister.family.util.DBConstants;
+import org.smartregister.immunization.domain.Vaccine;
+import org.smartregister.immunization.util.VaccinateActionUtils;
 import org.smartregister.util.FormUtils;
 import org.smartregister.util.Utils;
+import org.smartregister.view.contract.SmartRegisterClient;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 import static org.smartgresiter.wcaro.fragment.AddMemberFragment.DIALOG_TAG;
+import static org.smartregister.immunization.util.VaccinatorUtils.receivedVaccines;
 import static org.smartregister.util.Utils.getValue;
+import static org.smartregister.util.Utils.startAsyncTask;
 
 public class ChildHomeVisitFragment extends DialogFragment implements View.OnClickListener,ChildRegisterContract.InteractorCallBack {
 
@@ -49,6 +63,8 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     String childBaseEntityId;
     CommonPersonObjectClient childClient;
     private TextView nameHeader;
+    private TextView textview_group_immunization_secondary_text;
+
 
     public void setContext(Context context){
         this.context = context;
@@ -86,6 +102,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         super.onViewCreated(view, savedInstanceState);
         nameHeader = (TextView) view.findViewById(R.id.textview_name_header);
         ((LinearLayout) view.findViewById(R.id.immunization_group)).setOnClickListener(this);
+        textview_group_immunization_secondary_text = (TextView)view.findViewById(R.id.textview_immunization_group_secondary_text);
         assignNameHeader();
     }
 
@@ -149,7 +166,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                 ChildImmunizationFragment childImmunizationFragment = ChildImmunizationFragment.newInstance(new Bundle());
                 childImmunizationFragment.setChildDetails(childClient);
 //                childHomeVisitFragment.setFamilyBaseEntityId(getFamilyBaseEntityId());
-                childImmunizationFragment.show(ft,DIALOG_TAG);
+                childImmunizationFragment.show(ft,ChildImmunizationFragment.TAG);
                 break;
             case R.id.layout_add_other_family_member:
                 ((BaseFamilyProfileActivity) context).startFormActivity(Constants.JSON_FORM.FAMILY_MEMBER_REGISTER, null, null);
@@ -279,6 +296,60 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
 
         }
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateImmunizationState();
+    }
+
+    public void updateImmunizationState() {
+        startAsyncTask(new VaccinationAsyncTask(),null);
+    }
+
+    public void ImmunizationState(List<Vaccine> vaccines){
+        Map<String, Date> recievedVaccines = receivedVaccines(vaccines);
+        recievedVaccines.size();
+        String givenVaccines = "";
+        for(int i = 0;i<vaccines.size();i++){
+            if(i != 0) {
+                givenVaccines = givenVaccines + "," + vaccines.get(i).getName();
+            }else{
+                givenVaccines = vaccines.get(i).getName();
+            }
+
+        }
+        textview_group_immunization_secondary_text.setText(givenVaccines);
+    }
+
+    private class VaccinationAsyncTask extends AsyncTask {
+
+        private List<Vaccine> vaccines = new ArrayList<>();
+        private List<Alert> alerts = new ArrayList<>();
+        private SmartRegisterClient client;
+        private Cursor cursor;
+
+        private VaccinationAsyncTask() {
+        }
+
+        @Override
+        protected Object doInBackground(Object[] objects) {
+            vaccines = WcaroApplication.getInstance().vaccineRepository().findByEntityId(childClient.entityId());
+
+            return null;
+        }
+
+
+        @Override
+        protected void onPostExecute(Object o) {
+            super.onPostExecute(o);
+            ImmunizationState(vaccines);
+
+        }
+
+
+    }
+
 
     public void setChildClient(CommonPersonObjectClient childClient) {
         this.childClient = childClient;

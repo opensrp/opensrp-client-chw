@@ -25,6 +25,7 @@ import org.smartregister.family.util.Utils;
 import org.smartregister.immunization.domain.VaccineSchedule;
 import org.smartregister.immunization.domain.jsonmapping.Vaccine;
 import org.smartregister.immunization.domain.jsonmapping.VaccineGroup;
+import org.smartregister.immunization.repository.VaccineRepository;
 import org.smartregister.immunization.util.VaccinatorUtils;
 import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
@@ -110,6 +111,9 @@ public class WcaroApplication extends DrishtiApplication {
         return repository;
     }
 
+    public VaccineRepository vaccineRepository() {
+        return ImmunizationLibrary.getInstance().vaccineRepository();
+    }
 
     public static CommonFtsObject createCommonFtsObject() {
         if (commonFtsObject == null) {

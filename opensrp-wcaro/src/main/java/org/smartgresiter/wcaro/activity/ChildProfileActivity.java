@@ -15,28 +15,41 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.opensrp.api.constants.Gender;
 import org.smartgresiter.wcaro.R;
+import org.smartgresiter.wcaro.application.WcaroApplication;
 import org.smartgresiter.wcaro.contract.ChildProfileContract;
 import org.smartgresiter.wcaro.contract.ChildRegisterContract;
 import org.smartgresiter.wcaro.custom_view.IndividualMemberFloatingMenu;
 import org.smartgresiter.wcaro.fragment.AddMemberFragment;
 import org.smartgresiter.wcaro.fragment.ChildHomeVisitFragment;
+import org.smartgresiter.wcaro.fragment.ChildImmunizationFragment;
 import org.smartgresiter.wcaro.listener.OnClickFloatingMenu;
 import org.smartgresiter.wcaro.model.ChildProfileModel;
 import org.smartgresiter.wcaro.presenter.ChildProfilePresenter;
+import org.smartgresiter.wcaro.repository.WcaroRepository;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.family.activity.BaseFamilyProfileActivity;
 import org.smartregister.family.util.Constants;
 import org.smartregister.helper.ImageRenderHelper;
+import org.smartregister.immunization.domain.Vaccine;
+import org.smartregister.immunization.domain.VaccineWrapper;
+import org.smartregister.immunization.listener.VaccinationActionListener;
+import org.smartregister.immunization.repository.VaccineRepository;
+import org.smartregister.location.helper.LocationHelper;
+import org.smartregister.util.JsonFormUtils;
 import org.smartregister.view.activity.BaseProfileActivity;
+
+import java.util.ArrayList;
 
 import static org.smartgresiter.wcaro.fragment.AddMemberFragment.DIALOG_TAG;
 
 
-public class ChildProfileActivity extends BaseProfileActivity implements ChildProfileContract.View,ChildRegisterContract.InteractorCallBack{
+public class ChildProfileActivity extends BaseProfileActivity implements ChildProfileContract.View,ChildRegisterContract.InteractorCallBack,VaccinationActionListener {
     private boolean appBarTitleIsShown = true;
     private int appBarLayoutScrollRange = -1;
     private String childBaseEntityId;
@@ -111,7 +124,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
                 childHomeVisitFragment.setContext(this);
                 childHomeVisitFragment.setChildClient(((ChildProfilePresenter)presenter()).getChildClient());
 //                childHomeVisitFragment.setFamilyBaseEntityId(getFamilyBaseEntityId());
-                childHomeVisitFragment.show(getFragmentManager(),DIALOG_TAG);
+                childHomeVisitFragment.show(getFragmentManager(),ChildHomeVisitFragment.DIALOG_TAG);
 
                 break;
             case R.id.textview_visit_not:
@@ -245,5 +258,23 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     public boolean onCreateOptionsMenu(Menu menu) {
         return true;
     }
+
+
+    @Override
+    public void onVaccinateToday(ArrayList<VaccineWrapper> arrayList, View view) {
+        ((ChildImmunizationFragment)getFragmentManager().findFragmentByTag(ChildImmunizationFragment.TAG)).onVaccinateToday(arrayList,view);
+    }
+
+    @Override
+    public void onVaccinateEarlier(ArrayList<VaccineWrapper> arrayList, View view) {
+        ((ChildImmunizationFragment)getFragmentManager().findFragmentByTag(ChildImmunizationFragment.TAG)).onVaccinateEarlier(arrayList,view);
+    }
+
+    @Override
+    public void onUndoVaccination(VaccineWrapper vaccineWrapper, View view) {
+        ((ChildImmunizationFragment)getFragmentManager().findFragmentByTag(ChildImmunizationFragment.TAG)).onUndoVaccination(vaccineWrapper,view);
+    }
+
+
 
 }

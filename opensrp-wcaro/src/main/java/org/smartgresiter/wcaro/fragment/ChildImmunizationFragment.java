@@ -15,6 +15,7 @@ import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -22,6 +23,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;
 import org.joda.time.DateTime;
 import org.smartgresiter.wcaro.R;
+import org.smartgresiter.wcaro.application.WcaroApplication;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.Alert;
 import org.smartregister.family.util.DBConstants;
@@ -119,7 +121,7 @@ public class ChildImmunizationFragment extends DialogFragment {
     // Data
 //    private CommonPersonObjectClient childDetails = Utils.dummyDetatils();
     private CommonPersonObjectClient childDetails;
-    private static final String TAG = ChildImmunizationFragment.class.getCanonicalName();
+    public static final String TAG = ChildImmunizationFragment.class.getCanonicalName();
     private static final String DIALOG_TAG = "DIALOG_TAAAGGG";
     private static final String EXTRA_CHILD_DETAILS = "child_details";
 
@@ -360,8 +362,12 @@ public class ChildImmunizationFragment extends DialogFragment {
         undoServiceDialogFragment.show(ft, DIALOG_TAG);
     }
 
+    @Override
+    public void onDestroy() {
+        ((ChildHomeVisitFragment)getActivity().getFragmentManager().findFragmentByTag(ChildHomeVisitFragment.DIALOG_TAG)).updateImmunizationState();
+        super.onDestroy();
 
-
+    }
 
     public void onVaccinateToday(ArrayList<VaccineWrapper> tags, View v) {
         if (tags != null && !tags.isEmpty()) {
@@ -436,7 +442,7 @@ public class ChildImmunizationFragment extends DialogFragment {
             return;
         }
 
-        VaccineRepository vaccineRepository = ImmunizationLibrary.getInstance().vaccineRepository();
+        VaccineRepository vaccineRepository = WcaroApplication.getInstance().vaccineRepository();
 
         VaccineWrapper[] arrayTags = tags.toArray(new VaccineWrapper[tags.size()]);
         ChildImmunizationFragment.SaveVaccinesTask backgroundTask = new ChildImmunizationFragment.SaveVaccinesTask();
@@ -926,6 +932,21 @@ public class ChildImmunizationFragment extends DialogFragment {
             return Triple.of(list, serviceRecordList, alertList);
 
         }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        // without a handler, the window sizes itself correctly
+        // but the keyboard does not show up
+        new Handler().post(new Runnable() {
+            @Override
+            public void run() {
+                getDialog().getWindow().setLayout(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
+
+            }
+        });
+
     }
 
     private class UndoServiceTask extends AsyncTask<Void, Void, Void> {
