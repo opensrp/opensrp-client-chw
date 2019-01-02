@@ -37,11 +37,13 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class FamilyProfileActivity extends BaseFamilyProfileActivity {
     private String familyBaseEntityId;
+    private boolean isFromFamilyServiceDue=false;
 
 
     @Override
     protected void initializePresenter() {
         familyBaseEntityId = getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID);
+        isFromFamilyServiceDue=getIntent().getBooleanExtra(org.smartgresiter.wcaro.util.Constants.INTENT_KEY.SERVICE_DUE,false);
         presenter = new FamilyProfilePresenter(this, new FamilyProfileModel(), familyBaseEntityId);
     }
 
@@ -77,6 +79,11 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity {
         adapter.addFragment(profileActivityFragment, this.getString(org.smartregister.family.R.string.activity));
 
         viewPager.setAdapter(adapter);
+        if(isFromFamilyServiceDue){
+           // int position=adapter.getItemPosition(profileDueFragment);
+            viewPager.setCurrentItem(1);
+            adapter.notifyDataSetChanged();
+        }
 
         return viewPager;
     }

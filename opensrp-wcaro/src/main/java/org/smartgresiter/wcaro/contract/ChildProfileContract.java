@@ -37,10 +37,16 @@ public interface ChildProfileContract {
         void setAge(String age);
         void setVisitButtonDueStatus();
         void setVisitButtonOverdueStatus();
-        void setVisitNotDoneView();
-        void setVisitThisMonthView();
+        void setLastVisitRowView(String days);
+        void setServiceName(String serviceName);
+        void setServiceDueDate(String date);
+        void setSeviceOverdueDate(String date);
+        void setServiceUpcomingDueDate(String upcomingDate);
         void setVisitLessTwentyFourView(String monthName);
         void setVisitAboveTwentyFourView();
+        void setFamilyHasNothingDue();
+        void setFamilyHasServiceDue();
+        void setFamilyHasServiceOverdue();
 
         ChildProfileContract.Presenter presenter();
 
@@ -59,11 +65,13 @@ public interface ChildProfileContract {
 
         String childBaseEntityId();
         void fetchVisitStatus(String baseEntityId);
+        void fetchFamilyMemberServiceDue(String baseEntityId);
 
     }
 
     interface Interactor {
         void refreshChildVisitBar(String baseEntityId,ChildProfileContract.InteractorCallBack callback);
+        void refreshFamilyMemberServiceDue(String familyId,String baseEntityId,ChildProfileContract.InteractorCallBack callback);
 
         void onDestroy(boolean isChangingConfiguration);
 
@@ -77,6 +85,7 @@ public interface ChildProfileContract {
 
     interface InteractorCallBack {
         void updateChildVisit(ChildVisit childVisit);
+        void updateFamilyMemberServiceDue(String serviceDueStatus);
 
         void startFormForEdit(CommonPersonObjectClient client);
 

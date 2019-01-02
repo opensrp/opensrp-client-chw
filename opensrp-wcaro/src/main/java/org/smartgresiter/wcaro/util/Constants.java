@@ -34,6 +34,9 @@ public class Constants {
         public static final String FAMILY_MEMBER = "ec_family_member";
         public static final String CHILD= "ec_child";
     }
+    public static final class INTENT_KEY {
+        public static final String SERVICE_DUE = "service_due";
+    }
 
     public static final class DrawerMenu {
         public static final String ALL_FAMILIES = "All Families";

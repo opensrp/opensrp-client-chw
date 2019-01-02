@@ -40,9 +40,13 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
 
     private AppExecutors appExecutors;
     private CommonPersonObjectClient pClient;
+    private String familyId;
 
     public CommonPersonObjectClient getpClient() {
         return pClient;
+    }
+    public String getFamilyId(){
+        return familyId;
     }
 
     public void setpClient(CommonPersonObjectClient pClient) {
@@ -58,6 +62,8 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
     }
 
     public enum VisitType {DUE, OVERDUE,LESS_TWENTY_FOUR,OVER_TWENTY_FOUR}
+    public enum ServiceType {DUE, OVERDUE, UPCOMING}
+    public enum FamilyServiceType {DUE, OVERDUE, NOTHING}
     @Override
     public void onDestroy(boolean isChangingConfiguration) {
 
@@ -83,6 +89,23 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
     }
 
     @Override
+    public void refreshFamilyMemberServiceDue(String familyId,String baseEntityId,final ChildProfileContract.InteractorCallBack callback) {
+        final String serviceDueStatus=FamilyServiceType.NOTHING.name();//comes from database query
+        Runnable runnable=new Runnable() {
+            @Override
+            public void run() {
+                appExecutors.mainThread().execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        callback.updateFamilyMemberServiceDue(serviceDueStatus);
+                    }
+                });
+            }
+        };
+        appExecutors.diskIO().execute(runnable);
+    }
+
+    @Override
     public void refreshProfileView(final String baseEntityId, final boolean isForEdit, final ChildProfileContract.InteractorCallBack callback) {
         Runnable runnable = new Runnable() {
             @Override
@@ -95,6 +118,7 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
                     pClient = new CommonPersonObjectClient(personObject.getCaseId(),
                         personObject.getDetails(), "");
                         pClient.setColumnmaps(personObject.getColumnmaps());
+                    familyId= Utils.getValue(pClient.getColumnmaps(), ChildDBConstants.KEY.RELATIONAL_ID, false);
                     appExecutors.mainThread().execute(new Runnable() {
                         @Override
                         public void run() {
