@@ -7,13 +7,10 @@ import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.custom_view.NavigationMenu;
 import org.smartgresiter.wcaro.model.FamilyRegisterFramentModel;
 import org.smartgresiter.wcaro.presenter.FamilyRegisterFragmentPresenter;
-import org.smartregister.family.activity.BaseFamilyRegisterActivity;
 import org.smartregister.family.fragment.BaseFamilyRegisterFragment;
-import org.smartregister.family.util.Utils;
 import org.smartregister.view.activity.BaseRegisterActivity;
 
 public class FamilyRegisterFragment extends BaseFamilyRegisterFragment {
-
 
     @Override
     public void setupViews(View view) {

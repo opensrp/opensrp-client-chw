@@ -3,7 +3,6 @@ package org.smartgresiter.wcaro.model;
 import org.smartgresiter.wcaro.util.ConfigHelper;
 import org.smartregister.configurableviews.model.RegisterConfiguration;
 import org.smartregister.family.model.BaseFamilyRegisterFramentModel;
-import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.Utils;
 
 /**

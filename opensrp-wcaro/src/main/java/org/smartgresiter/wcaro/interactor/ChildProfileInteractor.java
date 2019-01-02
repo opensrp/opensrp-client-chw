@@ -8,7 +8,6 @@ import android.util.Pair;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;
 import org.json.JSONObject;
-import org.smartgresiter.wcaro.application.WcaroApplication;
 import org.smartgresiter.wcaro.contract.ChildProfileContract;
 import org.smartgresiter.wcaro.util.ChildDBConstants;
 import org.smartregister.clientandeventmodel.Client;
@@ -36,13 +35,16 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
     public static final String TAG = ChildProfileInteractor.class.getName();
 
     private AppExecutors appExecutors;
+
     @VisibleForTesting
     ChildProfileInteractor(AppExecutors appExecutors) {
         this.appExecutors = appExecutors;
     }
+
     public ChildProfileInteractor() {
         this(new AppExecutors());
     }
+
     @Override
     public void onDestroy(boolean isChangingConfiguration) {
 
@@ -53,14 +55,14 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
-                String query=mainSelect(ChildDBConstants.KEY.TABLE_NAME,ChildDBConstants.KEY.PARENT_TABLE_NAME,baseEntityId);
+                String query = mainSelect(ChildDBConstants.KEY.TABLE_NAME, ChildDBConstants.KEY.PARENT_TABLE_NAME, baseEntityId);
 
-                Cursor cursor=getCommonRepository(ChildDBConstants.KEY.TABLE_NAME).rawCustomQueryForAdapter(query);
-                if(cursor!=null && cursor.moveToFirst()){
+                Cursor cursor = getCommonRepository(ChildDBConstants.KEY.TABLE_NAME).rawCustomQueryForAdapter(query);
+                if (cursor != null && cursor.moveToFirst()) {
                     CommonPersonObject personObject = getCommonRepository(ChildDBConstants.KEY.TABLE_NAME).readAllcommonforCursorAdapter(cursor);
                     final CommonPersonObjectClient pClient = new CommonPersonObjectClient(personObject.getCaseId(),
-                        personObject.getDetails(), "");
-                        pClient.setColumnmaps(personObject.getColumnmaps());
+                            personObject.getDetails(), "");
+                    pClient.setColumnmaps(personObject.getColumnmaps());
                     appExecutors.mainThread().execute(new Runnable() {
                         @Override
                         public void run() {
@@ -71,9 +73,8 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
                             }
                         }
                     });
-                        cursor.close();
+                    cursor.close();
                 }
-
 
 
             }
@@ -83,7 +84,7 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
     }
 
     @Override
-    public void getNextUniqueId(final Triple<String, String, String> triple,final ChildProfileContract.InteractorCallBack callBack) {
+    public void getNextUniqueId(final Triple<String, String, String> triple, final ChildProfileContract.InteractorCallBack callBack) {
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
@@ -106,7 +107,7 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
     }
 
     @Override
-    public void saveRegistration(final Pair<Client, Event> pair,final String jsonString,final boolean isEditMode,final ChildProfileContract.InteractorCallBack callBack) {
+    public void saveRegistration(final Pair<Client, Event> pair, final String jsonString, final boolean isEditMode, final ChildProfileContract.InteractorCallBack callBack) {
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
@@ -123,30 +124,31 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
         appExecutors.diskIO().execute(runnable);
     }
 
-    public String mainSelect(String tableName,String parentTableName, String mainCondition) {
+    public String mainSelect(String tableName, String parentTableName, String mainCondition) {
         SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
-        queryBUilder.SelectInitiateMainTable(tableName, mainColumns(tableName,parentTableName));
+        queryBUilder.SelectInitiateMainTable(tableName, mainColumns(tableName, parentTableName));
         queryBUilder.customJoin("LEFT JOIN " + parentTableName + " ON  " + tableName + ".relational_id =  " +
-                "" + parentTableName + ".id where "+tableName+"."+DBConstants.KEY.BASE_ENTITY_ID+" = '"+mainCondition+"'");
+                "" + parentTableName + ".id where " + tableName + "." + DBConstants.KEY.BASE_ENTITY_ID + " = '" + mainCondition + "'");
         return queryBUilder.mainCondition("");
     }
 
-    protected String[] mainColumns(String tableName,String parentTableName) {
+    protected String[] mainColumns(String tableName, String parentTableName) {
 
         String[] columns = new String[]{
-                tableName + "." + DBConstants.KEY.RELATIONAL_ID +" as " +"relationalid",
+                tableName + "." + DBConstants.KEY.RELATIONAL_ID + " as " + "relationalid",
                 tableName + "." + DBConstants.KEY.LAST_INTERACTED_WITH,
                 tableName + "." + DBConstants.KEY.BASE_ENTITY_ID,
                 tableName + "." + DBConstants.KEY.FIRST_NAME,
-                parentTableName + "."+DBConstants.KEY.FIRST_NAME+" as "+ChildDBConstants.KEY.FAMILY_FIRST_NAME,
-                parentTableName + "."+DBConstants.KEY.LAST_NAME+" as "+ChildDBConstants.KEY.FAMILY_LAST_NAME,
-                parentTableName + "."+DBConstants.KEY.VILLAGE_TOWN+" as "+ChildDBConstants.KEY.FAMILY_HOME_ADDRESS,
+                parentTableName + "." + DBConstants.KEY.FIRST_NAME + " as " + ChildDBConstants.KEY.FAMILY_FIRST_NAME,
+                parentTableName + "." + DBConstants.KEY.LAST_NAME + " as " + ChildDBConstants.KEY.FAMILY_LAST_NAME,
+                parentTableName + "." + DBConstants.KEY.VILLAGE_TOWN + " as " + ChildDBConstants.KEY.FAMILY_HOME_ADDRESS,
                 tableName + "." + DBConstants.KEY.LAST_NAME,
                 tableName + "." + DBConstants.KEY.UNIQUE_ID,
                 tableName + "." + DBConstants.KEY.GENDER,
                 tableName + "." + DBConstants.KEY.DOB};
         return columns;
     }
+
     private void saveRegistration(Pair<Client, Event> pair, String jsonString, boolean isEditMode) {
 
         try {
@@ -201,6 +203,7 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
             Log.e(TAG, Log.getStackTraceString(e));
         }
     }
+
     public AllSharedPreferences getAllSharedPreferences() {
         return Utils.context().allSharedPreferences();
     }
@@ -208,6 +211,7 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
     public UniqueIdRepository getUniqueIdRepository() {
         return FamilyLibrary.getInstance().getUniqueIdRepository();
     }
+
     public CommonRepository getCommonRepository(String tableName) {
         return Utils.context().commonrepository(tableName);
     }

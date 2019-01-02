@@ -57,15 +57,15 @@ public class ChildRegisterPresenter implements ChildRegisterContract.Presenter, 
     }
 
     @Override
-    public void startForm(String formName, String entityId, String metadata, String currentLocationId,String familyId) throws Exception {
+    public void startForm(String formName, String entityId, String metadata, String currentLocationId, String familyId) throws Exception {
 
         if (StringUtils.isBlank(entityId)) {
             Triple<String, String, String> triple = Triple.of(formName, metadata, currentLocationId);
-            interactor.getNextUniqueId(triple, this,familyId);
+            interactor.getNextUniqueId(triple, this, familyId);
             return;
         }
 
-        JSONObject form = model.getFormAsJson(formName, entityId, currentLocationId,familyId);
+        JSONObject form = model.getFormAsJson(formName, entityId, currentLocationId, familyId);
         getView().startFormActivity(form);
 
     }
@@ -113,9 +113,9 @@ public class ChildRegisterPresenter implements ChildRegisterContract.Presenter, 
     }
 
     @Override
-    public void onUniqueIdFetched(Triple<String, String, String> triple, String entityId,String familyId) {
+    public void onUniqueIdFetched(Triple<String, String, String> triple, String entityId, String familyId) {
         try {
-            startForm(triple.getLeft(), entityId, triple.getMiddle(), triple.getRight(),familyId);
+            startForm(triple.getLeft(), entityId, triple.getMiddle(), triple.getRight(), familyId);
         } catch (Exception e) {
             Log.e(TAG, Log.getStackTraceString(e));
             getView().displayToast(R.string.error_unable_to_start_form);

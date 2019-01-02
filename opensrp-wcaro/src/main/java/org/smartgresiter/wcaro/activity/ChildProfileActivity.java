@@ -1,13 +1,8 @@
 package org.smartgresiter.wcaro.activity;
 
-import android.app.AppComponentFactory;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.View;
@@ -30,19 +25,35 @@ import org.smartregister.helper.ImageRenderHelper;
 import org.smartregister.view.activity.BaseProfileActivity;
 
 
-public class ChildProfileActivity extends BaseProfileActivity implements ChildProfileContract.View,ChildRegisterContract.InteractorCallBack{
+public class ChildProfileActivity extends BaseProfileActivity implements ChildProfileContract.View, ChildRegisterContract.InteractorCallBack {
+
     private boolean appBarTitleIsShown = true;
     private int appBarLayoutScrollRange = -1;
     private String childBaseEntityId;
-    private TextView textViewTitle,textViewParentName,textViewChildName,textViewGender,textViewAddress,textViewId,textViewRecord,textViewVisitNot;
+    private TextView textViewTitle, textViewParentName, textViewChildName, textViewGender, textViewAddress, textViewId, textViewRecord, textViewVisitNot;
     private ImageView imageViewProfile;
     private String gender;
+    private OnClickFloatingMenu onClickFloatingMenu = new OnClickFloatingMenu() {
+        @Override
+        public void onClickMenu(int viewId) {
+            switch (viewId) {
+                case R.id.call_layout:
+                    break;
+                case R.id.registration_layout:
+                    break;
+                case R.id.remove_member_layout:
+                    break;
+            }
+
+        }
+    };
+
     @Override
     protected void onCreation() {
         setContentView(R.layout.activity_child_profile);
-        ((IndividualMemberFloatingMenu)findViewById(R.id.individual_floating_menu)).setClickListener(onClickFloatingMenu);
+        ((IndividualMemberFloatingMenu) findViewById(R.id.individual_floating_menu)).setClickListener(onClickFloatingMenu);
         Toolbar toolbar = findViewById(R.id.collapsing_toolbar);
-        textViewTitle=toolbar.findViewById(R.id.toolbar_title);
+        textViewTitle = toolbar.findViewById(R.id.toolbar_title);
         setSupportActionBar(toolbar);
 
         ActionBar actionBar = getSupportActionBar();
@@ -63,6 +74,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
         initializePresenter();
         setupViews();
     }
+
     @Override
     public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
 
@@ -79,17 +91,18 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
         }
 
     }
+
     @Override
     protected void setupViews() {
 
-        textViewParentName=findViewById(R.id.textview_parent_name);
-        textViewChildName=findViewById(R.id.textview_name_age);
-        textViewGender=findViewById(R.id.textview_gender);
-        textViewAddress=findViewById(R.id.textview_address);
-        textViewId=findViewById(R.id.textview_id);
-        imageViewProfile=findViewById(R.id.imageview_profile);
-        textViewRecord=findViewById(R.id.textview_record_visit);
-        textViewVisitNot=findViewById(R.id.textview_visit_not);
+        textViewParentName = findViewById(R.id.textview_parent_name);
+        textViewChildName = findViewById(R.id.textview_name_age);
+        textViewGender = findViewById(R.id.textview_gender);
+        textViewAddress = findViewById(R.id.textview_address);
+        textViewId = findViewById(R.id.textview_id);
+        imageViewProfile = findViewById(R.id.imageview_profile);
+        textViewRecord = findViewById(R.id.textview_record_visit);
+        textViewVisitNot = findViewById(R.id.textview_visit_not);
         textViewRecord.setOnClickListener(this);
         textViewVisitNot.setOnClickListener(this);
 
@@ -98,17 +111,18 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     @Override
     public void onClick(View view) {
         super.onClick(view);
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.textview_record_visit:
                 break;
             case R.id.textview_visit_not:
                 break;
         }
     }
-    private void updateTopbar(){
-        if(gender.equalsIgnoreCase(Gender.MALE.toString())){
+
+    private void updateTopbar() {
+        if (gender.equalsIgnoreCase(Gender.MALE.toString())) {
             appBarLayout.setBackgroundColor(getResources().getColor(R.color.light_blue));
-        }else if(gender.equalsIgnoreCase(Gender.FEMALE.toString())){
+        } else if (gender.equalsIgnoreCase(Gender.FEMALE.toString())) {
             appBarLayout.setBackgroundColor(getResources().getColor(R.color.light_pink));
         }
 
@@ -132,21 +146,6 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
         presenter().fetchProfileData();
     }
 
-    private OnClickFloatingMenu onClickFloatingMenu=new OnClickFloatingMenu() {
-        @Override
-        public void onClickMenu(int viewId) {
-            switch (viewId){
-                case R.id.call_layout:
-                    break;
-                case R.id.registration_layout:
-                    break;
-                case R.id.remove_member_layout:
-                    break;
-            }
-
-        }
-    };
-
     @Override
     public void startFormActivity(JSONObject form) {
 
@@ -164,8 +163,8 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
 
     @Override
     public void setProfileImage(String baseEntityId) {
-        int defaultImage=gender.equalsIgnoreCase(Gender.MALE.toString())?R.drawable.row_boy:R.drawable.row_girl;
-        imageRenderHelper.refreshProfileImage(baseEntityId, imageViewProfile,defaultImage);
+        int defaultImage = gender.equalsIgnoreCase(Gender.MALE.toString()) ? R.drawable.row_boy : R.drawable.row_girl;
+        imageRenderHelper.refreshProfileImage(baseEntityId, imageViewProfile, defaultImage);
 
 
     }
@@ -178,7 +177,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
 
     @Override
     public void setGender(String gender) {
-        this.gender=gender;
+        this.gender = gender;
         textViewGender.setText(gender);
         updateTopbar();
 
@@ -198,20 +197,20 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
 
     @Override
     public void setProfileName(String fullName) {
-        patientName=fullName;
+        patientName = fullName;
         textViewChildName.setText(fullName);
 
     }
 
     @Override
     public void setAge(String age) {
-        textViewChildName.append(","+age);
+        textViewChildName.append("," + age);
 
     }
 
     @Override
     public ChildProfileContract.Presenter presenter() {
-        return (ChildProfileContract.Presenter)presenter;
+        return (ChildProfileContract.Presenter) presenter;
     }
 
     @Override
@@ -228,6 +227,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     public void onRegistrationSaved(boolean isEdit) {
 
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         return true;

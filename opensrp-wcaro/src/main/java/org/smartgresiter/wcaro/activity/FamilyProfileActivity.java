@@ -1,43 +1,34 @@
 package org.smartgresiter.wcaro.activity;
 
-import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
-import android.util.Pair;
 import android.view.Gravity;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.tuple.Triple;
-import org.json.JSONObject;
+import org.greenrobot.eventbus.EventBus;
 import org.smartgresiter.wcaro.R;
-import org.smartgresiter.wcaro.contract.ChildRegisterContract;
 import org.smartgresiter.wcaro.custom_view.FamilyFloatingMenu;
+import org.smartgresiter.wcaro.event.PermissionEvent;
 import org.smartgresiter.wcaro.fragment.FamilyProfileActivityFragment;
 import org.smartgresiter.wcaro.fragment.FamilyProfileDueFragment;
 import org.smartgresiter.wcaro.fragment.FamilyProfileMemberFragment;
-import org.smartgresiter.wcaro.interactor.ChildRegisterInteractor;
 import org.smartgresiter.wcaro.listener.FloatingMenuListener;
-import org.smartgresiter.wcaro.model.ChildRegisterModel;
 import org.smartgresiter.wcaro.model.FamilyProfileModel;
 import org.smartgresiter.wcaro.presenter.FamilyProfilePresenter;
-import org.smartgresiter.wcaro.util.JsonFormUtils;
-import org.smartregister.clientandeventmodel.Client;
-import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.family.activity.BaseFamilyProfileActivity;
 import org.smartregister.family.adapter.ViewPagerAdapter;
 import org.smartregister.family.fragment.BaseFamilyProfileActivityFragment;
 import org.smartregister.family.fragment.BaseFamilyProfileDueFragment;
 import org.smartregister.family.fragment.BaseFamilyProfileMemberFragment;
 import org.smartregister.family.util.Constants;
-import org.smartregister.family.util.Utils;
-import org.smartregister.util.FormUtils;
+import org.smartregister.util.PermissionUtils;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class FamilyProfileActivity extends BaseFamilyProfileActivity {
-    private String familyBaseEntityId;
 
+    private String familyBaseEntityId;
 
     @Override
     protected void initializePresenter() {
@@ -79,6 +70,26 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity {
         viewPager.setAdapter(adapter);
 
         return viewPager;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+
+        switch (requestCode) {
+            case PermissionUtils.PHONE_STATE_PERMISSION_REQUEST_CODE: {
+                // If request is cancelled, the result arrays are empty.
+                Boolean granted = (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED);
+                if (granted) {
+                    PermissionEvent event = new PermissionEvent(requestCode, granted);
+                    EventBus.getDefault().post(event);
+                } else {
+                    Toast.makeText(this, getText(R.string.allow_calls_denied), Toast.LENGTH_LONG).show();
+                }
+            }
+            break;
+        }
     }
 
     public String getFamilyBaseEntityId() {

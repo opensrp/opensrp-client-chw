@@ -15,9 +15,7 @@ import org.smartregister.repository.AllSharedPreferences;
 
 import java.lang.ref.WeakReference;
 
-import static org.smartregister.util.Utils.getName;
-
-public class ChildProfilePresenter implements ChildProfileContract.Presenter, ChildProfileContract.InteractorCallBack{
+public class ChildProfilePresenter implements ChildProfileContract.Presenter, ChildProfileContract.InteractorCallBack {
 
     private static final String TAG = ChildProfilePresenter.class.getCanonicalName();
 
@@ -26,6 +24,7 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
     private ChildProfileContract.Model model;
 
     private String familyBaseEntityId;
+
     public ChildProfilePresenter(ChildProfileContract.View childView, ChildProfileContract.Model model, String familyBaseEntityId) {
         this.view = new WeakReference<>(childView);
         this.interactor = new ChildProfileInteractor();
@@ -67,6 +66,7 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
     public void startForm(String formName, String entityId, String metadata, String currentLocationId) throws Exception {
 
     }
+
     @Override
     public String childBaseEntityId() {
         return null;
@@ -82,9 +82,9 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
         if (client == null || client.getColumnmaps() == null) {
             return;
         }
-        String parentFirstName=Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.FAMILY_FIRST_NAME, true);
-        String parentLastName=Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.FAMILY_LAST_NAME, true);
-        String parentName="CG:"+org.smartregister.util.Utils.getName(parentFirstName, parentLastName);
+        String parentFirstName = Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.FAMILY_FIRST_NAME, true);
+        String parentLastName = Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.FAMILY_LAST_NAME, true);
+        String parentName = "CG:" + org.smartregister.util.Utils.getName(parentFirstName, parentLastName);
         getView().setParentName(parentName);
         String firstName = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.FIRST_NAME, true);
         String lastName = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.LAST_NAME, true);
@@ -94,8 +94,8 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
         String dobString = Utils.getDuration(Utils.getValue(client.getColumnmaps(), DBConstants.KEY.DOB, false));
         getView().setAge(dobString);
         //dobString = dobString.contains("y") ? dobString.substring(0, dobString.indexOf("y")) : dobString;
-        String address=Utils.getValue(client.getColumnmaps(),ChildDBConstants.KEY.FAMILY_HOME_ADDRESS,true);
-        String gender=Utils.getValue(client.getColumnmaps(),DBConstants.KEY.GENDER,true);
+        String address = Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.FAMILY_HOME_ADDRESS, true);
+        String gender = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.GENDER, true);
 
         getView().setAddress(address);
         getView().setGender(gender);

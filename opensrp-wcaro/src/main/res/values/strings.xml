@@ -42,4 +42,7 @@
     <string name="add_member_title">Add family member</string>
     <string name="add_member_title_question">What kind of family member you want to add?</string>
 
+    <string name="allow_calls_denied">Kindly allow calls to be made here</string>
+    <string name="copy_to_clipboard">Copy to clipboard</string>
+    <string name="copied_phone_number">PhoneNumber copied to clipboard</string>
 </resources>

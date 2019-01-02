@@ -31,10 +31,8 @@ import java.util.Locale;
 
 public class NavigationMenu implements NavigationContract.View {
 
-    private String TAG = NavigationMenu.class.getCanonicalName();
-
     private static NavigationMenu instance;
-
+    private String TAG = NavigationMenu.class.getCanonicalName();
     private NavigationView navigationView;
     private DrawerLayout drawer;
     private Toolbar toolbar;
@@ -68,13 +66,13 @@ public class NavigationMenu implements NavigationContract.View {
 
     private void init(Activity activity, View parentView, Toolbar myToolbar) {
         // parentActivity = activity;
-        try{
+        try {
             setParentView(activity, parentView);
             toolbar = myToolbar;
             mPresenter = new NavigationPresenter(this);
             prepareViews(activity);
-        }catch (Exception e){
-            Log.e(TAG,e.toString());
+        } catch (Exception e) {
+            Log.e(TAG, e.toString());
         }
     }
 
