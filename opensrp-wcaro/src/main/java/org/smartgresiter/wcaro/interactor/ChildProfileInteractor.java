@@ -36,12 +36,18 @@ import java.util.Date;
 
 public class ChildProfileInteractor implements ChildProfileContract.Interactor {
     public static final String TAG = ChildProfileInteractor.class.getName();
-
-
     private AppExecutors appExecutors;
     private CommonPersonObjectClient pClient;
     private String familyId;
 
+    @VisibleForTesting
+    ChildProfileInteractor(AppExecutors appExecutors) {
+        this.appExecutors = appExecutors;
+    }
+
+    public ChildProfileInteractor() {
+        this(new AppExecutors());
+    }
     public CommonPersonObjectClient getpClient() {
         return pClient;
     }
@@ -49,24 +55,77 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
         return familyId;
     }
 
-    public void setpClient(CommonPersonObjectClient pClient) {
-        this.pClient = pClient;
+    public AllSharedPreferences getAllSharedPreferences() {
+        return Utils.context().allSharedPreferences();
     }
 
-    @VisibleForTesting
-    ChildProfileInteractor(AppExecutors appExecutors) {
-        this.appExecutors = appExecutors;
+    public UniqueIdRepository getUniqueIdRepository() {
+        return FamilyLibrary.getInstance().getUniqueIdRepository();
     }
-    public ChildProfileInteractor() {
-        this(new AppExecutors());
+    public CommonRepository getCommonRepository(String tableName) {
+        return Utils.context().commonrepository(tableName);
     }
 
-    public enum VisitType {DUE, OVERDUE,LESS_TWENTY_FOUR,OVER_TWENTY_FOUR}
-    public enum ServiceType {DUE, OVERDUE, UPCOMING}
-    public enum FamilyServiceType {DUE, OVERDUE, NOTHING}
-    @Override
-    public void onDestroy(boolean isChangingConfiguration) {
+    public ECSyncHelper getSyncHelper() {
+        return FamilyLibrary.getInstance().getEcSyncHelper();
+    }
 
+    public ClientProcessorForJava getClientProcessorForJava() {
+        return FamilyLibrary.getInstance().getClientProcessorForJava();
+    }
+    private void saveRegistration(Pair<Client, Event> pair, String jsonString, boolean isEditMode) {
+
+        try {
+
+            Client baseClient = pair.first;
+            Event baseEvent = pair.second;
+
+            if (baseClient != null) {
+                JSONObject clientJson = new JSONObject(JsonFormUtils.gson.toJson(baseClient));
+                if (isEditMode) {
+                    JsonFormUtils.mergeAndSaveClient(getSyncHelper(), baseClient);
+                } else {
+                    getSyncHelper().addClient(baseClient.getBaseEntityId(), clientJson);
+                }
+            }
+
+            if (baseEvent != null) {
+                JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(baseEvent));
+                getSyncHelper().addEvent(baseEvent.getBaseEntityId(), eventJson);
+            }
+
+            if (isEditMode) {
+                // Unassign current OPENSRP ID
+                if (baseClient != null) {
+                    String newOpenSRPId = baseClient.getIdentifier(DBConstants.KEY.UNIQUE_ID).replace("-", "");
+                    String currentOpenSRPId = JsonFormUtils.getString(jsonString, JsonFormUtils.CURRENT_OPENSRP_ID).replace("-", "");
+                    if (!newOpenSRPId.equals(currentOpenSRPId)) {
+                        //OPENSRP ID was changed
+                        getUniqueIdRepository().open(currentOpenSRPId);
+                    }
+                }
+
+            } else {
+                if (baseClient != null) {
+                    String opensrpId = baseClient.getIdentifier(DBConstants.KEY.UNIQUE_ID);
+
+                    //mark OPENSRP ID as used
+                    getUniqueIdRepository().close(opensrpId);
+                }
+            }
+
+            if (baseClient != null || baseEvent != null) {
+                String imageLocation = JsonFormUtils.getFieldValue(jsonString, Constants.KEY.PHOTO);
+                JsonFormUtils.saveImage(baseEvent.getProviderId(), baseClient.getBaseEntityId(), imageLocation);
+            }
+
+            long lastSyncTimeStamp = getAllSharedPreferences().fetchLastUpdatedAtDate(0);
+            Date lastSyncDate = new Date(lastSyncTimeStamp);
+            getClientProcessorForJava().processClient(getSyncHelper().getEvents(lastSyncDate, BaseRepository.TYPE_Unsynced));
+            getAllSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
+        } catch (Exception e) {
+            Log.e(TAG, Log.getStackTraceString(e));
+        }
     }
 
     @Override
@@ -181,77 +240,11 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
         appExecutors.diskIO().execute(runnable);
     }
 
+    @Override
+    public void onDestroy(boolean isChangingConfiguration) {
 
-    private void saveRegistration(Pair<Client, Event> pair, String jsonString, boolean isEditMode) {
-
-        try {
-
-            Client baseClient = pair.first;
-            Event baseEvent = pair.second;
-
-            if (baseClient != null) {
-                JSONObject clientJson = new JSONObject(JsonFormUtils.gson.toJson(baseClient));
-                if (isEditMode) {
-                    JsonFormUtils.mergeAndSaveClient(getSyncHelper(), baseClient);
-                } else {
-                    getSyncHelper().addClient(baseClient.getBaseEntityId(), clientJson);
-                }
-            }
-
-            if (baseEvent != null) {
-                JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(baseEvent));
-                getSyncHelper().addEvent(baseEvent.getBaseEntityId(), eventJson);
-            }
-
-            if (isEditMode) {
-                // Unassign current OPENSRP ID
-                if (baseClient != null) {
-                    String newOpenSRPId = baseClient.getIdentifier(DBConstants.KEY.UNIQUE_ID).replace("-", "");
-                    String currentOpenSRPId = JsonFormUtils.getString(jsonString, JsonFormUtils.CURRENT_OPENSRP_ID).replace("-", "");
-                    if (!newOpenSRPId.equals(currentOpenSRPId)) {
-                        //OPENSRP ID was changed
-                        getUniqueIdRepository().open(currentOpenSRPId);
-                    }
-                }
-
-            } else {
-                if (baseClient != null) {
-                    String opensrpId = baseClient.getIdentifier(DBConstants.KEY.UNIQUE_ID);
-
-                    //mark OPENSRP ID as used
-                    getUniqueIdRepository().close(opensrpId);
-                }
-            }
-
-            if (baseClient != null || baseEvent != null) {
-                String imageLocation = JsonFormUtils.getFieldValue(jsonString, Constants.KEY.PHOTO);
-                JsonFormUtils.saveImage(baseEvent.getProviderId(), baseClient.getBaseEntityId(), imageLocation);
-            }
-
-            long lastSyncTimeStamp = getAllSharedPreferences().fetchLastUpdatedAtDate(0);
-            Date lastSyncDate = new Date(lastSyncTimeStamp);
-            getClientProcessorForJava().processClient(getSyncHelper().getEvents(lastSyncDate, BaseRepository.TYPE_Unsynced));
-            getAllSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
-        } catch (Exception e) {
-            Log.e(TAG, Log.getStackTraceString(e));
-        }
     }
-    public AllSharedPreferences getAllSharedPreferences() {
-        return Utils.context().allSharedPreferences();
-    }
-
-    public UniqueIdRepository getUniqueIdRepository() {
-        return FamilyLibrary.getInstance().getUniqueIdRepository();
-    }
-    public CommonRepository getCommonRepository(String tableName) {
-        return Utils.context().commonrepository(tableName);
-    }
-
-    public ECSyncHelper getSyncHelper() {
-        return FamilyLibrary.getInstance().getEcSyncHelper();
-    }
-
-    public ClientProcessorForJava getClientProcessorForJava() {
-        return FamilyLibrary.getInstance().getClientProcessorForJava();
-    }
+    public enum VisitType {DUE, OVERDUE,LESS_TWENTY_FOUR,OVER_TWENTY_FOUR}
+    public enum ServiceType {DUE, OVERDUE, UPCOMING}
+    public enum FamilyServiceType {DUE, OVERDUE, NOTHING}
 }
