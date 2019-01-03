@@ -63,7 +63,6 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 app:backgroundTint="@color/white"
-                android:tint="@android:color/black"
                 app:fabSize="mini"
                 app:srcCompat="@drawable/floating_call" />
 
@@ -99,7 +98,6 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 app:backgroundTint="@color/white"
-                android:tint="@android:color/black"
                 app:fabSize="mini"
                 app:srcCompat="@drawable/floating_familydetails" />
 
@@ -135,7 +133,6 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 app:backgroundTint="@color/white"
-                android:tint="@android:color/black"
                 app:fabSize="mini"
                 app:srcCompat="@drawable/floating_addmember" />
 

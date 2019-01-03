@@ -57,6 +57,12 @@ public class ChildRegisterProvider implements RecyclerViewProvider<ChildRegister
         this.commonRepository = commonRepository;
     }
 
+    public static void fillValue(TextView v, String value) {
+        if (v != null)
+            v.setText(value);
+
+    }
+
     @Override
     public void getView(Cursor cursor, SmartRegisterClient client, RegisterViewHolder viewHolder) {
         CommonPersonObjectClient pc = (CommonPersonObjectClient) client;
@@ -85,21 +91,21 @@ public class ChildRegisterProvider implements RecyclerViewProvider<ChildRegister
 
     private void populatePatientColumn(CommonPersonObjectClient pc, SmartRegisterClient client, RegisterViewHolder viewHolder) {
 
-       String parentFirstName=Utils.getValue(pc.getColumnmaps(), ChildDBConstants.KEY.FAMILY_FIRST_NAME, true);
-        String parentLastName=Utils.getValue(pc.getColumnmaps(), ChildDBConstants.KEY.FAMILY_LAST_NAME, true);
-        String parentName="CG:"+org.smartregister.util.Utils.getName(parentFirstName, parentLastName);
+        String parentFirstName = Utils.getValue(pc.getColumnmaps(), ChildDBConstants.KEY.FAMILY_FIRST_NAME, true);
+        String parentLastName = Utils.getValue(pc.getColumnmaps(), ChildDBConstants.KEY.FAMILY_LAST_NAME, true);
+        String parentName = "CG:" + org.smartregister.util.Utils.getName(parentFirstName, parentLastName);
         String firstName = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.FIRST_NAME, true);
         String lastName = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.LAST_NAME, true);
         String childName = org.smartregister.util.Utils.getName(firstName, lastName);
 
-        fillValue(viewHolder.textViewParentName,WordUtils.capitalize(parentName));
+        fillValue(viewHolder.textViewParentName, WordUtils.capitalize(parentName));
 
         String dobString = Utils.getDuration(Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.DOB, false));
         //dobString = dobString.contains("y") ? dobString.substring(0, dobString.indexOf("y")) : dobString;
-        fillValue(viewHolder.textViewChildName,WordUtils.capitalize(childName)+","+WordUtils.capitalize(dobString));
-        String address=Utils.getValue(pc.getColumnmaps(),ChildDBConstants.KEY.FAMILY_HOME_ADDRESS,true);
-        String gender=Utils.getValue(pc.getColumnmaps(),DBConstants.KEY.GENDER,true);
-        fillValue(viewHolder.textViewAddressGender,address+" ."+gender);
+        fillValue(viewHolder.textViewChildName, WordUtils.capitalize(childName) + "," + WordUtils.capitalize(dobString));
+        String address = Utils.getValue(pc.getColumnmaps(), ChildDBConstants.KEY.FAMILY_HOME_ADDRESS, true);
+        String gender = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.GENDER, true);
+        fillValue(viewHolder.textViewAddressGender, address + " ." + gender);
 
         View patient = viewHolder.childColumn;
         attachPatientOnclickListener(patient, client);
@@ -110,12 +116,10 @@ public class ChildRegisterProvider implements RecyclerViewProvider<ChildRegister
 
     }
 
-
     private void populateIdentifierColumn(CommonPersonObjectClient pc, RegisterViewHolder viewHolder) {
         String uniqueId = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.UNIQUE_ID, false);
         //fillValue(viewHolder.ancId, String.format(context.getString(R.string.unique_id_text), uniqueId));
     }
-
 
     private void populateLastColumn(CommonPersonObjectClient pc, RegisterViewHolder viewHolder) {
 
@@ -200,13 +204,6 @@ public class ChildRegisterProvider implements RecyclerViewProvider<ChildRegister
     @Override
     public boolean isFooterViewHolder(RecyclerView.ViewHolder viewHolder) {
         return FooterViewHolder.class.isInstance(viewHolder);
-    }
-
-
-    public static void fillValue(TextView v, String value) {
-        if (v != null)
-            v.setText(value);
-
     }
 
     ////////////////////////////////////////////////////////////////

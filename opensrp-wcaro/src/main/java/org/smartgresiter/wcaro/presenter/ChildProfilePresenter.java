@@ -16,8 +16,6 @@ import org.smartregister.repository.AllSharedPreferences;
 
 import java.lang.ref.WeakReference;
 
-import static org.smartregister.util.Utils.getName;
-
 public class ChildProfilePresenter implements ChildProfileContract.Presenter, ChildProfileContract.InteractorCallBack{
 
     private static final String TAG = ChildProfilePresenter.class.getCanonicalName();
@@ -26,34 +24,40 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
     private ChildProfileContract.Interactor interactor;
     private ChildProfileContract.Model model;
 
-    private String familyBaseEntityId;
-    public ChildProfilePresenter(ChildProfileContract.View childView, ChildProfileContract.Model model, String familyBaseEntityId) {
+    private String childBaseEntityId;
+    public ChildProfilePresenter(ChildProfileContract.View childView, ChildProfileContract.Model model, String childBaseEntityId) {
         this.view = new WeakReference<>(childView);
         this.interactor = new ChildProfileInteractor();
         this.model = model;
-        this.familyBaseEntityId = familyBaseEntityId;
+        this.childBaseEntityId = childBaseEntityId;
     }
 
     public CommonPersonObjectClient getChildClient(){
         return ((ChildProfileInteractor)interactor).getpClient();
     }
+    public String getFamilyId(){
+        return ((ChildProfileInteractor)interactor).getFamilyId();
+    }
 
     @Override
     public void fetchVisitStatus(String baseEntityId) {
-        interactor.refreshChildVisitBar(familyBaseEntityId,this);
+        interactor.refreshChildVisitBar(childBaseEntityId,this);
     }
 
-
+    @Override
+    public void fetchFamilyMemberServiceDue(String baseEntityId) {
+        interactor.refreshFamilyMemberServiceDue(getFamilyId(),childBaseEntityId,this);
+    }
 
     @Override
     public void fetchProfileData() {
-        interactor.refreshProfileView(familyBaseEntityId, false, this);
+        interactor.refreshProfileView(childBaseEntityId, false, this);
 
     }
 
     @Override
     public void refreshProfileView() {
-        interactor.refreshProfileView(familyBaseEntityId, false, this);
+        interactor.refreshProfileView(childBaseEntityId, false, this);
     }
 
     @Override
@@ -103,9 +107,34 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
             if(childVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.OVER_TWENTY_FOUR.name())){
                 getView().setVisitAboveTwentyFourView();
             }
+            if(childVisit.getLastVisitTime()!=0){
+                getView().setLastVisitRowView(childVisit.getLastVisitDays());
+            }
+            if(childVisit.getServiceStatus().equalsIgnoreCase(ChildProfileInteractor.ServiceType.DUE.name())){
+                getView().setServiceDueDate("due("+childVisit.getServiceDate()+")");
+            }
+            if(childVisit.getServiceStatus().equalsIgnoreCase(ChildProfileInteractor.ServiceType.OVERDUE.name())){
+                getView().setSeviceOverdueDate("overdue("+childVisit.getServiceDate()+")");
+            }
+            if(childVisit.getServiceStatus().equalsIgnoreCase(ChildProfileInteractor.ServiceType.UPCOMING.name())){
+                getView().setServiceUpcomingDueDate("upcoming("+childVisit.getServiceDate()+")");
+            }
+            getView().setServiceName(childVisit.getServiceName());
         }
 
     }
+
+    @Override
+    public void updateFamilyMemberServiceDue(String serviceDueStatus) {
+        if(serviceDueStatus.equalsIgnoreCase(ChildProfileInteractor.FamilyServiceType.DUE.name())){
+            getView().setFamilyHasServiceDue();
+        }else if(serviceDueStatus.equalsIgnoreCase(ChildProfileInteractor.FamilyServiceType.OVERDUE.name())){
+            getView().setFamilyHasServiceOverdue();
+        }else {
+            getView().setFamilyHasNothingDue();
+        }
+    }
+
     @Override
     public void refreshProfileTopSection(CommonPersonObjectClient client) {
         if (client == null || client.getColumnmaps() == null) {

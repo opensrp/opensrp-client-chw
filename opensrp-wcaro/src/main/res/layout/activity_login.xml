@@ -9,7 +9,7 @@
     <RelativeLayout
         android:id="@+id/login_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_weight="1.0"
         android:background="#0092D5"
         android:paddingBottom="@dimen/login_bottom_margin">

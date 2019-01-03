@@ -45,74 +45,12 @@ public class WcaroApplication extends DrishtiApplication {
 
     private static CommonFtsObject commonFtsObject;
 
-    @Override
-    public void onCreate() {
-        super.onCreate();
-
-        mInstance = this;
-        context = Context.getInstance();
-        context.updateApplicationContext(getApplicationContext());
-        context.updateCommonFtsObject(createCommonFtsObject());
-
-        //Initialize Modules
-        CoreLibrary.init(context);
-        ImmunizationLibrary.init(context, getRepository(), null, BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
-
-        ConfigurableViewsLibrary.init(context, getRepository());
-        FamilyLibrary.init(context, getRepository(), getMetadata(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
-
-        SyncStatusBroadcastReceiver.init(this);
-        LocationHelper.init(Utils.ALLOWED_LEVELS, Utils.DEFAULT_LOCATION_LEVEL);
-
-        // init json helper
-        this.jsonSpecHelper = new JsonSpecHelper(this);
-
-        //init Job Manager
-        JobManager.create(this).addJobCreator(new WcaroJobCreator());
-
-        // TODO FIXME remove when login is implemented
-        sampleUniqueIds();
-
-        initOfflineSchedules();
-    }
-
-    @Override
-    public void logoutCurrentUser() {
-        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.addCategory(Intent.CATEGORY_HOME);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        getApplicationContext().startActivity(intent);
-        context.userService().logoutSession();
-    }
-
     public static synchronized WcaroApplication getInstance() {
         return (WcaroApplication) mInstance;
     }
 
-    public Context getContext() {
-        return context;
-    }
-
     public static JsonSpecHelper getJsonSpecHelper() {
         return getInstance().jsonSpecHelper;
-    }
-
-    @Override
-    public Repository getRepository() {
-        try {
-            if (repository == null) {
-                repository = new WcaroRepository(getInstance().getApplicationContext(), context);
-            }
-        } catch (UnsatisfiedLinkError e) {
-            Log.e(TAG, e.getMessage(), e);
-        }
-        return repository;
-    }
-
-    public VaccineRepository vaccineRepository() {
-        return ImmunizationLibrary.getInstance().vaccineRepository();
     }
 
     public static CommonFtsObject createCommonFtsObject() {
@@ -141,6 +79,64 @@ public class WcaroApplication extends DrishtiApplication {
                 .LAST_INTERACTED_WITH};
     }
 
+    @Override
+    public void onCreate() {
+        super.onCreate();
+
+        mInstance = this;
+        context = Context.getInstance();
+        context.updateApplicationContext(getApplicationContext());
+        context.updateCommonFtsObject(createCommonFtsObject());
+
+        //Initialize Modules
+        CoreLibrary.init(context);
+        ImmunizationLibrary.init(context, getRepository(), null, BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
+
+        ConfigurableViewsLibrary.init(context, getRepository());
+        FamilyLibrary.init(context, getRepository(), getMetadata(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
+
+        SyncStatusBroadcastReceiver.init(this);
+        LocationHelper.init(Utils.ALLOWED_LEVELS, Utils.DEFAULT_LOCATION_LEVEL);
+
+        // init json helper
+        this.jsonSpecHelper = new JsonSpecHelper(this);
+
+        //init Job Manager
+        JobManager.create(this).addJobCreator(new WcaroJobCreator());
+
+        // TODO FIXME remove when login is implemented
+        //sampleUniqueIds();
+
+        initOfflineSchedules();
+    }
+
+    @Override
+    public void logoutCurrentUser() {
+        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        getApplicationContext().startActivity(intent);
+        context.userService().logoutSession();
+    }
+
+    public Context getContext() {
+        return context;
+    }
+
+    @Override
+    public Repository getRepository() {
+        try {
+            if (repository == null) {
+                repository = new WcaroRepository(getInstance().getApplicationContext(), context);
+            }
+        } catch (UnsatisfiedLinkError e) {
+            Log.e(TAG, e.getMessage(), e);
+        }
+        return repository;
+    }
+
     private FamilyMetadata getMetadata() {
         FamilyMetadata metadata = new FamilyMetadata(FamilyWizardFormActivity.class, JsonFormActivity.class, FamilyProfileActivity.class);
         metadata.updateFamilyRegister(Constants.JSON_FORM.FAMILY_REGISTER, Constants.TABLE_NAME.FAMILY, Constants.EventType.FAMILY_REGISTRATION, Constants.EventType.UPDATE_FAMILY_REGISTRATION, Constants.CONFIGURATION.FAMILY_REGISTER, Constants.RELATIONSHIP.FAMILY_HEAD, Constants.RELATIONSHIP.PRIMARY_CAREGIVER);
@@ -164,7 +160,9 @@ public class WcaroApplication extends DrishtiApplication {
 
         return ids;
     }
-
+    public VaccineRepository vaccineRepository() {
+        return ImmunizationLibrary.getInstance().vaccineRepository();
+    }
     public void initOfflineSchedules() {
         try {
             List<VaccineGroup> childVaccines = VaccinatorUtils.getSupportedVaccines(this);

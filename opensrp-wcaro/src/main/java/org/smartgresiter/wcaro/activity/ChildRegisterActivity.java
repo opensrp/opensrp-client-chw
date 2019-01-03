@@ -27,6 +27,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ChildRegisterActivity extends BaseRegisterActivity implements ChildRegisterContract.View {
+
     @Override
     protected void initializePresenter() {
         presenter = new ChildRegisterPresenter(this, new ChildRegisterModel());
@@ -41,11 +42,13 @@ public class ChildRegisterActivity extends BaseRegisterActivity implements Child
     protected Fragment[] getOtherFragments() {
         return new Fragment[0];
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         NavigationMenu.getInstance(this, null, null);
     }
+
     @Override
     public void startRegistration() {
         startFormActivity(Utils.metadata().familyMemberRegister.formName, null, null);
@@ -56,7 +59,7 @@ public class ChildRegisterActivity extends BaseRegisterActivity implements Child
         try {
             if (mBaseFragment instanceof ChildRegisterFragment) {
                 String locationId = Utils.context().allSharedPreferences().getPreference(AllConstants.CURRENT_LOCATION_ID);
-                presenter().startForm(formName, entityId, metaData, locationId,"");
+                presenter().startForm(formName, entityId, metaData, locationId, "");
             }
         } catch (Exception e) {
             Log.e(TAG, Log.getStackTraceString(e));
@@ -117,6 +120,7 @@ public class ChildRegisterActivity extends BaseRegisterActivity implements Child
             bottomNavigationView.getMenu().removeItem(org.smartregister.family.R.id.action_scan_qr);
         }
     }
+
     @Override
     public void switchToBaseFragment() {
         super.switchToBaseFragment();
@@ -124,6 +128,7 @@ public class ChildRegisterActivity extends BaseRegisterActivity implements Child
         startActivity(intent);
         finish();
     }
+
     @Override
     public List<String> getViewIdentifiers() {
         return Arrays.asList(Utils.metadata().familyRegister.config);

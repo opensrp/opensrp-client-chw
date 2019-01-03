@@ -8,7 +8,6 @@ import android.util.Pair;
 import net.sqlcipher.database.SQLiteDatabase;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.commons.lang3.tuple.Triple;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -18,7 +17,6 @@ import org.smartgresiter.wcaro.repository.WcaroRepository;
 import org.smartregister.clientandeventmodel.Address;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
-import org.smartregister.clientandeventmodel.FormEntityConstants;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.Photo;
@@ -56,18 +54,16 @@ import static org.apache.commons.lang3.StringUtils.isBlank;
  * Created by keyman on 13/11/2018.
  */
 public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
-    private static final String TAG = org.smartregister.util.JsonFormUtils.class.getCanonicalName();
-
     public static final String METADATA = "metadata";
     public static final String ENCOUNTER_TYPE = "encounter_type";
     public static final int REQUEST_CODE_GET_JSON = 2244;
-
     public static final String CURRENT_OPENSRP_ID = "current_opensrp_id";
     public static final String READ_ONLY = "read_only";
+    private static final String TAG = org.smartregister.util.JsonFormUtils.class.getCanonicalName();
 
     public static JSONObject getFormAsJson(JSONObject form,
                                            String formName, String id,
-                                           String currentLocationId,String familyID) throws Exception {
+                                           String currentLocationId, String familyID) throws Exception {
         if (form == null) {
             return null;
         }
@@ -75,7 +71,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
         String entityId = id;
         form.getJSONObject(METADATA).put(ENCOUNTER_LOCATION, currentLocationId);
 
-        if (Utils.metadata().familyRegister.formName.equals(formName) || Utils.metadata().familyMemberRegister.formName.equals(formName)|| formName.equalsIgnoreCase("child_enrollment")) {
+        if (Utils.metadata().familyRegister.formName.equals(formName) || Utils.metadata().familyMemberRegister.formName.equals(formName) || formName.equalsIgnoreCase("child_enrollment")) {
             if (StringUtils.isNotBlank(entityId)) {
                 entityId = entityId.replace("-", "");
             }
@@ -88,7 +84,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
                 uniqueId.put(org.smartregister.family.util.JsonFormUtils.VALUE, entityId);
             }
 
-            if(!isBlank(familyID)) {
+            if (!isBlank(familyID)) {
                 JSONObject metaDataJson = form.getJSONObject("metadata");
                 JSONObject lookup = metaDataJson.getJSONObject("look_up");
                 lookup.put("entity_id", "family");
@@ -157,7 +153,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
             }
 
 
-            processChildEnrollMent(jsonForm,fields);
+            processChildEnrollMent(jsonForm, fields);
 
             FormTag formTag = new FormTag();
             formTag.providerId = allSharedPreferences.fetchRegisteredANM();
@@ -167,8 +163,6 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
 
             Client baseClient = org.smartregister.util.JsonFormUtils.createBaseClient(fields, formTag, entityId);
             Event baseEvent = org.smartregister.util.JsonFormUtils.createEvent(fields, metadata, formTag, entityId, encounterType, Utils.metadata().familyRegister.tableName);
-
-
 
 
             JSONObject lookUpJSONObject = getJSONObject(metadata, "look_up");
@@ -183,15 +177,11 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
                 Context context = WcaroApplication.getInstance().getContext().applicationContext();
                 addRelationship(context, ss, baseClient);
                 SQLiteDatabase db = WcaroApplication.getInstance().getRepository().getReadableDatabase();
-                WcaroRepository pathRepository = new WcaroRepository(context,WcaroApplication.getInstance().getContext());
+                WcaroRepository pathRepository = new WcaroRepository(context, WcaroApplication.getInstance().getContext());
                 EventClientRepository eventClientRepository = new EventClientRepository(pathRepository);
                 JSONObject clientjson = eventClientRepository.getClient(db, lookUpBaseEntityId);
                 baseClient.setAddresses(getAddressFromClientJson(clientjson));
             }
-
-
-
-
 
 
             tagSyncMetadata(allSharedPreferences, baseEvent);// tag docs
@@ -217,9 +207,9 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
                 CommonPersonObject familyObject = WcaroApplication.getInstance().getContext().commonrepository("ec_family").findByCaseID(familyId);
                 String lastname = familyObject.getColumnmaps().get(DBConstants.KEY.LAST_NAME);
                 JSONObject surname_object = getFieldJSONObject(fields, "surname");
-                surname_object.put(VALUE,lastname);
+                surname_object.put(VALUE, lastname);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
 
@@ -249,17 +239,17 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
         ArrayList<Address> addresses = new ArrayList<Address>();
         try {
             JSONArray addressArray = clientjson.getJSONArray("addresses");
-            for(int i = 0 ;i<addressArray.length();i++){
+            for (int i = 0; i < addressArray.length(); i++) {
                 Address address = new Address();
                 address.setAddressType(addressArray.getJSONObject(i).getString("addressType"));
                 JSONObject addressfields = addressArray.getJSONObject(i).getJSONObject("addressFields");
 
                 Iterator<?> keys = addressfields.keys();
 
-                while( keys.hasNext() ) {
-                    String key = (String)keys.next();
-                    if ( addressfields.get(key) instanceof String ) {
-                        address.addAddressField(key,addressfields.getString(key));
+                while (keys.hasNext()) {
+                    String key = (String) keys.next();
+                    if (addressfields.get(key) instanceof String) {
+                        address.addAddressField(key, addressfields.getString(key));
                     }
                 }
                 addresses.add(address);

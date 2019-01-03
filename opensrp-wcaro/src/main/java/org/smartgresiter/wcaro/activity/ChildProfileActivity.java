@@ -2,14 +2,14 @@ package org.smartgresiter.wcaro.activity;
 
 import android.app.AppComponentFactory;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ImageView;
@@ -30,10 +30,12 @@ import org.smartgresiter.wcaro.custom_view.IndividualMemberFloatingMenu;
 import org.smartgresiter.wcaro.fragment.AddMemberFragment;
 import org.smartgresiter.wcaro.fragment.ChildHomeVisitFragment;
 import org.smartgresiter.wcaro.fragment.ChildImmunizationFragment;
+import org.smartgresiter.wcaro.fragment.FamilyCallDialogFragment;
 import org.smartgresiter.wcaro.listener.OnClickFloatingMenu;
 import org.smartgresiter.wcaro.model.ChildProfileModel;
 import org.smartgresiter.wcaro.presenter.ChildProfilePresenter;
 import org.smartgresiter.wcaro.repository.WcaroRepository;
+import org.smartgresiter.wcaro.util.ChildUtils;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.family.activity.BaseFamilyProfileActivity;
 import org.smartregister.family.util.Constants;
@@ -57,16 +59,32 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     private String childBaseEntityId;
     private TextView textViewTitle,textViewParentName,textViewChildName,textViewGender,textViewAddress,textViewId,textViewRecord,textViewVisitNot;
     private ImageView imageViewProfile;
-    private RelativeLayout layoutRecordView,layoutNotRecordView;
-    private TextView textViewNotVisitMonth,textViewUndo;
+    private RelativeLayout layoutRecordView,layoutNotRecordView,layoutLastVisitRow,layoutMostDueOverdue,layoutFamilyHasRow;
+    private TextView textViewNotVisitMonth,textViewUndo,textViewLastVisit,textViewNameDue,textViewDueDate,textViewFamilyHas;
     private ImageView imageViewCross;
     private String gender;
+    private OnClickFloatingMenu onClickFloatingMenu = new OnClickFloatingMenu() {
+        @Override
+        public void onClickMenu(int viewId) {
+            switch (viewId) {
+                case R.id.call_layout:
+                    FamilyCallDialogFragment.showDialog(ChildProfileActivity.this);
+                    break;
+                case R.id.registration_layout:
+                    break;
+                case R.id.remove_member_layout:
+                    break;
+            }
+
+        }
+    };
+
     @Override
     protected void onCreation() {
         setContentView(R.layout.activity_child_profile);
-        ((IndividualMemberFloatingMenu)findViewById(R.id.individual_floating_menu)).setClickListener(onClickFloatingMenu);
+        ((IndividualMemberFloatingMenu) findViewById(R.id.individual_floating_menu)).setClickListener(onClickFloatingMenu);
         Toolbar toolbar = findViewById(R.id.collapsing_toolbar);
-        textViewTitle=toolbar.findViewById(R.id.toolbar_title);
+        textViewTitle = toolbar.findViewById(R.id.toolbar_title);
         setSupportActionBar(toolbar);
 
         ActionBar actionBar = getSupportActionBar();
@@ -87,6 +105,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
         initializePresenter();
         setupViews();
     }
+
     @Override
     public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
 
@@ -115,23 +134,42 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
         textViewRecord=findViewById(R.id.textview_record_visit);
         textViewVisitNot=findViewById(R.id.textview_visit_not);
         textViewNotVisitMonth=findViewById(R.id.textview_not_visit_this_month);
+        textViewLastVisit=findViewById(R.id.textview_last_vist_day);
         textViewUndo=findViewById(R.id.textview_undo);
-        imageViewCross=(ImageView) findViewById(R.id.cross_image);
+        imageViewCross=findViewById(R.id.cross_image);
         layoutRecordView=findViewById(R.id.record_visit_bar);
         layoutNotRecordView=findViewById(R.id.record_visit_status_bar);
+        layoutLastVisitRow=findViewById(R.id.last_visit_row);
+        layoutMostDueOverdue=findViewById(R.id.most_due_overdue_row);
+        textViewNameDue=findViewById(R.id.textview_name_due);
+        textViewDueDate=findViewById(R.id.textview_due_overdue_status);
+        layoutFamilyHasRow=findViewById(R.id.family_has_row);
+        textViewFamilyHas=findViewById(R.id.textview_family_has);
         textViewRecord.setOnClickListener(this);
         textViewVisitNot.setOnClickListener(this);
         textViewUndo.setOnClickListener(this);
         imageViewCross.setOnClickListener(this);
+        layoutLastVisitRow.setOnClickListener(this);
+        layoutMostDueOverdue.setOnClickListener(this);
+        layoutFamilyHasRow.setOnClickListener(this);
 
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()){
+            case R.id.last_visit_row:
+                openMedicalHistoryScreen();
+                break;
+            case R.id.most_due_overdue_row:
+                openUpcomingServicePage();
+                break;
             case R.id.textview_record_visit:
                 openVisitHomeScreen();
 
+                break;
+            case R.id.family_has_row:
+                openFamilyDueTab();
                 break;
             case R.id.textview_visit_not:
                 openVisitMonthView();
@@ -140,7 +178,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
                 if(textViewUndo.getText().toString().equalsIgnoreCase(getString(R.string.undo))){
                     openVisitButtonView();
                 }else{
-                    Toast.makeText(this,"Edit previous visit",Toast.LENGTH_SHORT).show();
+                    openVisitHomeScreen();
                 }
 
                 break;
@@ -149,6 +187,20 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
                 break;
         }
     }
+
+    private void openFamilyDueTab() {
+        Intent intent = new Intent(this, FamilyProfileActivity.class);
+        intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.BASE_ENTITY_ID, ((ChildProfilePresenter)presenter()).getFamilyId());
+        intent.putExtra(org.smartgresiter.wcaro.util.Constants.INTENT_KEY.SERVICE_DUE,true);
+        startActivity(intent);
+    }
+
+    private void openUpcomingServicePage() {
+    }
+
+    private void openMedicalHistoryScreen() {
+    }
+
     private void openVisitHomeScreen(){
         FragmentTransaction ft = this.getFragmentManager().beginTransaction();
         ChildHomeVisitFragment childHomeVisitFragment = ChildHomeVisitFragment.newInstance();
@@ -169,6 +221,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
 
     @Override
     public void setVisitButtonDueStatus() {
+        recordBtnCenterAlign(false);
         openVisitButtonView();
         textViewRecord.setBackgroundResource(R.drawable.record_btn_selector_due);
         textViewRecord.setTextColor(getResources().getColor(R.color.white));
@@ -176,19 +229,61 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
 
     @Override
     public void setVisitButtonOverdueStatus() {
+        recordBtnCenterAlign(false);
         openVisitButtonView();
         textViewRecord.setBackgroundResource(R.drawable.record_btn_selector_overdue);
         textViewRecord.setTextColor(getResources().getColor(R.color.white));
     }
 
     @Override
-    public void setVisitNotDoneView() {
+    public void setLastVisitRowView(String days) {
+        if(TextUtils.isEmpty(days)){
+            layoutLastVisitRow.setVisibility(View.GONE);
+        }else{
+            layoutLastVisitRow.setVisibility(View.VISIBLE);
+            textViewLastVisit.setText(getString(R.string.last_visit_40_days_ago,days));
+        }
 
     }
 
     @Override
-    public void setVisitThisMonthView() {
+    public void setServiceName(String serviceName) {
+        textViewNameDue.setText(serviceName);
+    }
 
+    @Override
+    public void setServiceDueDate(String date) {
+        textViewDueDate.setText(date);
+        textViewDueDate.setTextColor(getResources().getColor(R.color.black));
+
+    }
+
+    @Override
+    public void setServiceUpcomingDueDate(String upcomingDate) {
+        textViewDueDate.setText(upcomingDate);
+        textViewDueDate.setTextColor(getResources().getColor(R.color.light_grey_text));
+    }
+
+    @Override
+    public void setSeviceOverdueDate(String date) {
+        textViewDueDate.setText(date);
+        textViewDueDate.setTextColor(getResources().getColor(R.color.visit_status_over_due));
+    }
+
+    @Override
+    public void setFamilyHasNothingDue() {
+        textViewFamilyHas.setText(getString(R.string.family_has_nothing_due));
+
+    }
+
+    @Override
+    public void setFamilyHasServiceDue() {
+        textViewFamilyHas.setText(getString(R.string.family_has_services_due));
+    }
+
+    @Override
+    public void setFamilyHasServiceOverdue() {
+        textViewFamilyHas.setText(ChildUtils.fromHtml(getString(R.string.family_has_service_overdue)));
     }
 
     @Override
@@ -203,6 +298,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     @Override
     public void setVisitAboveTwentyFourView() {
         textViewVisitNot.setVisibility(View.GONE);
+        recordBtnCenterAlign(true);
         textViewRecord.setBackgroundResource(R.drawable.record_btn_selector_above_twentyfr);
         textViewRecord.setTextColor(getResources().getColor(R.color.light_grey_text));
 
@@ -233,23 +329,15 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     @Override
     protected void fetchProfileData() {
         presenter().fetchProfileData();
-        presenter().fetchVisitStatus(childBaseEntityId);
+
     }
 
-    private OnClickFloatingMenu onClickFloatingMenu=new OnClickFloatingMenu() {
-        @Override
-        public void onClickMenu(int viewId) {
-            switch (viewId){
-                case R.id.call_layout:
-                    break;
-                case R.id.registration_layout:
-                    break;
-                case R.id.remove_member_layout:
-                    break;
-            }
-
-        }
-    };
+    @Override
+    protected void onResume() {
+        super.onResume();
+        presenter().fetchVisitStatus(childBaseEntityId);
+        presenter().fetchFamilyMemberServiceDue(childBaseEntityId);
+    }
 
     @Override
     public void startFormActivity(JSONObject form) {
@@ -268,8 +356,8 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
 
     @Override
     public void setProfileImage(String baseEntityId) {
-        int defaultImage=gender.equalsIgnoreCase(Gender.MALE.toString())?R.drawable.row_boy:R.drawable.row_girl;
-        imageRenderHelper.refreshProfileImage(baseEntityId, imageViewProfile,defaultImage);
+        int defaultImage = gender.equalsIgnoreCase(Gender.MALE.toString()) ? R.drawable.row_boy : R.drawable.row_girl;
+        imageRenderHelper.refreshProfileImage(baseEntityId, imageViewProfile, defaultImage);
 
 
     }
@@ -282,7 +370,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
 
     @Override
     public void setGender(String gender) {
-        this.gender=gender;
+        this.gender = gender;
         textViewGender.setText(gender);
         updateTopbar();
 
@@ -302,21 +390,38 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
 
     @Override
     public void setProfileName(String fullName) {
-        patientName=fullName;
+        patientName = fullName;
         textViewChildName.setText(fullName);
 
     }
 
     @Override
     public void setAge(String age) {
-        textViewChildName.append(","+age);
+        textViewChildName.append("," + age);
 
     }
-
+    private void recordBtnCenterAlign(boolean isCenter){
+        if(isCenter){
+            addOrRemoveProperty(textViewRecord,RelativeLayout.CENTER_IN_PARENT,true);
+            addOrRemoveProperty(textViewRecord,RelativeLayout.ALIGN_PARENT_LEFT,false);
+        }else{
+            addOrRemoveProperty(textViewRecord,RelativeLayout.CENTER_IN_PARENT,false);
+            addOrRemoveProperty(textViewRecord,RelativeLayout.ALIGN_PARENT_LEFT,true);
+        }
+    }
+    private void addOrRemoveProperty(View view, int property, boolean flag){
+        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) view.getLayoutParams();
+        if(flag){
+            layoutParams.addRule(property);
+        }else {
+            layoutParams.removeRule(property);
+        }
+        view.setLayoutParams(layoutParams);
+    }
 
     @Override
     public ChildProfileContract.Presenter presenter() {
-        return (ChildProfileContract.Presenter)presenter;
+        return (ChildProfileContract.Presenter) presenter;
     }
 
     @Override
@@ -333,6 +438,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     public void onRegistrationSaved(boolean isEdit) {
 
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         return true;
