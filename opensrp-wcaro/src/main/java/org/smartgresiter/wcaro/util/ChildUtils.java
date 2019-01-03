@@ -19,7 +19,7 @@ public class ChildUtils {
         SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
         queryBUilder.SelectInitiateMainTable(tableName, mainColumns(tableName,familyTableName,familyMemberTableName));
         queryBUilder.customJoin("LEFT JOIN " + familyTableName + " ON  " + tableName + ".relational_id =  " + familyTableName + ".id");
-        queryBUilder.customJoin("LEFT JOIN " + familyMemberTableName + " ON  " + tableName + ".relational_id =  " + familyTableName + ".id");
+        queryBUilder.customJoin("LEFT JOIN " + familyMemberTableName + " ON  " + familyMemberTableName + ".relational_id =  " + familyTableName + ".id");
 
 
         String query=queryBUilder.mainCondition(mainCondition);
