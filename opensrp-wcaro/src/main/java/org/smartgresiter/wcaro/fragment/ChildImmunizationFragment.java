@@ -662,7 +662,7 @@ public class ChildImmunizationFragment extends DialogFragment {
 
             }
 
-            updateServiceViews(serviceTypeMap, serviceRecords, alertList);
+//            updateServiceViews(serviceTypeMap, serviceRecords, alertList);
             updateVaccinationViews(vaccineList, alertList);
         }
 

@@ -123,6 +123,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         nameHeader = (TextView) view.findViewById(R.id.textview_name_header);
+        view.findViewById(R.id.close).setOnClickListener(this);
         ((LinearLayout) view.findViewById(R.id.immunization_group)).setOnClickListener(this);
         textview_group_immunization_primary_text = (TextView)view.findViewById(R.id.textview_group_immunization);
         textview_group_immunization_secondary_text = (TextView)view.findViewById(R.id.textview_immunization_group_secondary_text);
