@@ -65,7 +65,7 @@ public class WcaroApplication extends DrishtiApplication {
     }
 
     private static String[] getFtsTables() {
-        return new String[]{Constants.TABLE_NAME.FAMILY,Constants.TABLE_NAME.CHILD,Constants.TABLE_NAME.FAMILY_MEMBER};
+        return new String[]{Constants.TABLE_NAME.FAMILY,Constants.TABLE_NAME.CHILD};
     }
 
     private static String[] getFtsSearchFields(String table) {
