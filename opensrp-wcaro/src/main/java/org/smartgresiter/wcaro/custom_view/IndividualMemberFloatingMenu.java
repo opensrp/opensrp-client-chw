@@ -54,9 +54,9 @@ public class IndividualMemberFloatingMenu extends LinearLayout implements View.O
                     expandFabMenu();
             }
         });
-        ((RelativeLayout) findViewById(R.id.call_layout)).setOnClickListener(this);
-        ((RelativeLayout) findViewById(R.id.registration_layout)).setOnClickListener(this);
-        ((RelativeLayout) findViewById(R.id.remove_member_layout)).setOnClickListener(this);
+        (findViewById(R.id.call_layout)).setOnClickListener(this);
+        (findViewById(R.id.registration_layout)).setOnClickListener(this);
+        (findViewById(R.id.remove_member_layout)).setOnClickListener(this);
     }
 
     public void setClickListener(OnClickFloatingMenu onClickFloatingMenu) {
@@ -86,5 +86,6 @@ public class IndividualMemberFloatingMenu extends LinearLayout implements View.O
     @Override
     public void onClick(View v) {
         onClickFloatingMenu.onClickMenu(v.getId());
+        collapseFabMenu();
     }
 }

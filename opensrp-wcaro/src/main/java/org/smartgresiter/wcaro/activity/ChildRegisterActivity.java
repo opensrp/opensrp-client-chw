@@ -6,6 +6,9 @@ import android.support.design.bottomnavigation.LabelVisibilityMode;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 
+import com.vijay.jsonwizard.constants.JsonFormConstants;
+import com.vijay.jsonwizard.domain.Form;
+
 import org.json.JSONObject;
 import org.smartgresiter.wcaro.BuildConfig;
 import org.smartgresiter.wcaro.R;
@@ -51,7 +54,7 @@ public class ChildRegisterActivity extends BaseRegisterActivity implements Child
 
     @Override
     public void startRegistration() {
-        startFormActivity(Utils.metadata().familyMemberRegister.formName, null, null);
+        startFormActivity(Utils.metadata().familyRegister.formName, null, null);
     }
 
     @Override
@@ -68,11 +71,18 @@ public class ChildRegisterActivity extends BaseRegisterActivity implements Child
     }
 
     @Override
-    public void startFormActivity(JSONObject form) {
-        Intent intent = new Intent(this, Utils.metadata().nativeFormActivity);
-        intent.putExtra(Constants.JSON_FORM_EXTRA.JSON, form.toString());
+    public void startFormActivity(JSONObject jsonForm) {
+        Intent intent = new Intent(this, Utils.metadata().nativeWizardFormActivity);
+        intent.putExtra(Constants.JSON_FORM_EXTRA.JSON, jsonForm.toString());
+
+        Form form = new Form();
+        form.setName(getString(org.smartregister.family.R.string.add_fam));
+        form.setActionBarBackground(org.smartregister.family.R.color.family_actionbar);
+        form.setNavigationBackground(org.smartregister.family.R.color.family_navigation);
+        form.setHomeAsUpIndicator(org.smartregister.family.R.mipmap.ic_cross_white);
+        intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);
+
         startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
-//        startRegistration();
     }
 
     @Override

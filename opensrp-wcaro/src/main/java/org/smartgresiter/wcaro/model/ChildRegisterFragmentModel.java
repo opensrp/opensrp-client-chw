@@ -6,7 +6,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.smartgresiter.wcaro.contract.ChildRegisterFragmentContract;
 import org.smartgresiter.wcaro.util.ChildDBConstants;
-import org.smartgresiter.wcaro.util.ConfigHelper;
+import org.smartgresiter.wcaro.util.ChildUtils;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
 import org.smartregister.configurableviews.model.Field;
 import org.smartregister.configurableviews.model.RegisterConfiguration;
@@ -15,6 +15,7 @@ import org.smartregister.configurableviews.model.ViewConfiguration;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.domain.Response;
 import org.smartregister.domain.ResponseStatus;
+import org.smartgresiter.wcaro.util.ConfigHelper;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.Utils;
 
@@ -46,30 +47,10 @@ public class ChildRegisterFragmentModel implements ChildRegisterFragmentContract
     }
 
     @Override
-    public String mainSelect(String tableName, String parentTableName, String mainCondition) {
-        SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
-        queryBUilder.SelectInitiateMainTable(tableName, mainColumns(tableName, parentTableName));
-        queryBUilder.customJoin("LEFT JOIN " + parentTableName + " ON  " + tableName + ".relational_id =  " + parentTableName + ".id");
-        return queryBUilder.mainCondition(mainCondition);
+    public String mainSelect(String tableName,String familyName,String familyMemberName, String mainCondition) {
+
+    return ChildUtils.mainSelectRegisterWithoutGroupby(tableName,familyName,familyMemberName,mainCondition);
     }
-
-    protected String[] mainColumns(String tableName, String parentTableName) {
-
-        String[] columns = new String[]{
-                tableName + "." + DBConstants.KEY.RELATIONAL_ID + " as " + "relationalid",
-                tableName + "." + DBConstants.KEY.LAST_INTERACTED_WITH,
-                tableName + "." + DBConstants.KEY.BASE_ENTITY_ID,
-                tableName + "." + DBConstants.KEY.FIRST_NAME,
-                parentTableName + "." + DBConstants.KEY.FIRST_NAME + " as " + ChildDBConstants.KEY.FAMILY_FIRST_NAME,
-                parentTableName + "." + DBConstants.KEY.LAST_NAME + " as " + ChildDBConstants.KEY.FAMILY_LAST_NAME,
-                parentTableName + "." + DBConstants.KEY.VILLAGE_TOWN + " as " + ChildDBConstants.KEY.FAMILY_HOME_ADDRESS,
-                tableName + "." + DBConstants.KEY.LAST_NAME,
-                tableName + "." + DBConstants.KEY.UNIQUE_ID,
-                tableName + "." + DBConstants.KEY.GENDER,
-                tableName + "." + DBConstants.KEY.DOB};
-        return columns;
-    }
-
     @Override
     public String getFilterText(List<Field> list, String filterTitle) {
         List<Field> filterList = list;

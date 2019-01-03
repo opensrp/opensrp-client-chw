@@ -34,13 +34,21 @@
     <string name="add_child_under_five">Child under 5 years</string>
     <string name="go_to_family_s_profile">Go to family\'s profile</string>
     <string name="family_has_nothing_due">Family has nothing due</string>
+    <string name="family_has_services_due">Family has services due</string>
+    <string name="family_has_service_overdue"><![CDATA[Family has <font color=#FF0000>services overdue</font></b>]]></string>
     <string name="view_upcoming_services">View upcoming services</string>
     <string name="overdue_3_oct">overdue(3 oct)</string>
     <string name="penta_1">Penta 1</string>
     <string name="view_medical_history">View medical history</string>
-    <string name="last_visit_40_days_ago">Last visit 40 days ago</string>
+    <string name="last_visit_40_days_ago">Last visit %1$s ago</string>
     <string name="add_member_title">Add family member</string>
     <string name="add_member_title_question">What kind of family member you want to add?</string>
+    <string name="visit_month">%1$s visit done</string>
+    <string name="not_visiting_this_month">Not visiting this month</string>
+    <string name="undo">UNDO</string>
+    <string name="record_visit">Record visit</string>
+    <string name="visit_not_done">Visit not done</string>
+    <string name="edit">EDIT</string>
 
     <string name="allow_calls_denied">Kindly allow calls to be made here</string>
     <string name="copy_to_clipboard">Copy to clipboard</string>

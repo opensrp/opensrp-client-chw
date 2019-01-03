@@ -16,6 +16,7 @@ import org.smartgresiter.wcaro.custom_view.NavigationMenu;
 import org.smartgresiter.wcaro.model.ChildRegisterFragmentModel;
 import org.smartgresiter.wcaro.presenter.ChildRegisterFragmentPresenter;
 import org.smartgresiter.wcaro.provider.ChildRegisterProvider;
+import org.smartgresiter.wcaro.util.ChildUtils;
 import org.smartgresiter.wcaro.util.Constants;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
@@ -31,10 +32,9 @@ import java.util.Set;
 
 public class ChildRegisterFragment extends BaseRegisterFragment implements ChildRegisterFragmentContract.View {
 
+    private static final String TAG = ChildRegisterFragment.class.getCanonicalName();
     public static final String CLICK_VIEW_NORMAL = "click_view_normal";
     public static final String CLICK_VIEW_DOSAGE_STATUS = "click_view_dosage_status";
-    private static final String TAG = ChildRegisterFragment.class.getCanonicalName();
-
     @Override
     protected void initializePresenter() {
         if (getActivity() == null) {
@@ -47,13 +47,24 @@ public class ChildRegisterFragment extends BaseRegisterFragment implements Child
     }
 
     @Override
+    public void filter(String filterString, String joinTableString, String mainConditionString, boolean qrCode) {
+        this.joinTables=new String[]{Constants.TABLE_NAME.FAMILY,Constants.TABLE_NAME.FAMILY_MEMBER};
+        super.filter(filterString,joinTableString, mainConditionString, qrCode);
+    }
+
+    //    @Override
+//    public void filter(String filterString, String joinTableString, String mainConditionString, boolean qrCode) {
+//        String query=ChildUtils.mainSelectRegisterWithoutGroupby(Constants.TABLE_NAME.CHILD,Constants.TABLE_NAME.FAMILY,Constants.TABLE_NAME.FAMILY_MEMBER,"");
+//        super.filter(filterString, "", query, false);
+//    }
+
+    @Override
     public void initializeAdapter(Set<org.smartregister.configurableviews.model.View> visibleColumns) {
         ChildRegisterProvider childRegisterProvider = new ChildRegisterProvider(getActivity(), commonRepository(), visibleColumns, registerActionHandler, paginationViewHandler);
         clientAdapter = new RecyclerViewPaginatedAdapter(null, childRegisterProvider, context().commonrepository(this.tablename));
         clientAdapter.setCurrentlimit(20);
         clientsView.setAdapter(clientAdapter);
     }
-
     @Override
     public void setupViews(View view) {
         super.setupViews(view);
@@ -96,22 +107,19 @@ public class ChildRegisterFragment extends BaseRegisterFragment implements Child
             titleView.setFontVariant(FontVariant.REGULAR);
         }
     }
-
     @Override
     protected void refreshSyncProgressSpinner() {
         super.refreshSyncProgressSpinner();
-        if (syncButton != null) {
+        if(syncButton != null) {
             syncButton.setVisibility(View.GONE);
         }
     }
-
     @Override
     protected void startRegistration() {
         //TODO need to change the form name.
-        ((ChildRegisterActivity) getActivity()).startFormActivity(Constants.JSON_FORM.CHILD_REGISTER, null, null);
+        ((ChildRegisterActivity)getActivity()).startFormActivity(Constants.JSON_FORM.CHILD_REGISTER,null,null);
         //getActivity().startFormActivity(Utils.metadata().familyRegister.formName, null, null);
     }
-
     @Override
     public void showNotFoundPopup(String uniqueId) {
         if (getActivity() == null) {
@@ -155,9 +163,8 @@ public class ChildRegisterFragment extends BaseRegisterFragment implements Child
             }
         }
     }
-
     private void goToChildDetailActivity(CommonPersonObjectClient patient,
-                                         boolean launchDialog) {
+                                           boolean launchDialog) {
         if (launchDialog) {
             Log.i(ChildRegisterFragment.TAG, patient.name);
         }
@@ -169,6 +176,6 @@ public class ChildRegisterFragment extends BaseRegisterFragment implements Child
 
     @Override
     public ChildRegisterFragmentContract.Presenter presenter() {
-        return (ChildRegisterFragmentContract.Presenter) presenter;
+        return (ChildRegisterFragmentContract.Presenter)presenter;
     }
 }

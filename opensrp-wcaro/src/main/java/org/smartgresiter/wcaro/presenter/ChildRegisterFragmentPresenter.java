@@ -3,11 +3,13 @@ package org.smartgresiter.wcaro.presenter;
 import org.apache.commons.lang3.StringUtils;
 import org.smartgresiter.wcaro.contract.ChildRegisterFragmentContract;
 import org.smartgresiter.wcaro.util.ChildDBConstants;
+import org.smartgresiter.wcaro.util.Constants;
 import org.smartregister.configurableviews.model.Field;
 import org.smartregister.configurableviews.model.RegisterConfiguration;
 import org.smartregister.configurableviews.model.View;
 import org.smartregister.configurableviews.model.ViewConfiguration;
 import org.smartregister.family.util.DBConstants;
+import org.smartregister.family.util.Utils;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
@@ -17,10 +19,13 @@ import java.util.TreeSet;
 public class ChildRegisterFragmentPresenter implements ChildRegisterFragmentContract.Presenter {
 
 
-    protected Set<View> visibleColumns = new TreeSet<>();
     private WeakReference<ChildRegisterFragmentContract.View> viewReference;
+
     private ChildRegisterFragmentContract.Model model;
+
     private RegisterConfiguration config;
+
+    protected Set<View> visibleColumns = new TreeSet<>();
     private String viewConfigurationIdentifier;
 
     public ChildRegisterFragmentPresenter(ChildRegisterFragmentContract.View view, ChildRegisterFragmentContract.Model model, String viewConfigurationIdentifier) {
@@ -50,10 +55,10 @@ public class ChildRegisterFragmentPresenter implements ChildRegisterFragmentCont
     @Override
     public void initializeQueries(String mainCondition) {
 
-        String countSelect = model.countSelect(ChildDBConstants.KEY.TABLE_NAME, mainCondition);
-        String mainSelect = model.mainSelect(ChildDBConstants.KEY.TABLE_NAME, ChildDBConstants.KEY.PARENT_TABLE_NAME, mainCondition);
+        String countSelect = model.countSelect(Constants.TABLE_NAME.CHILD, mainCondition);
+        String mainSelect = model.mainSelect(Constants.TABLE_NAME.CHILD,Constants.TABLE_NAME.FAMILY,Constants.TABLE_NAME.FAMILY_MEMBER, mainCondition);
 
-        getView().initializeQueryParams(ChildDBConstants.KEY.TABLE_NAME, countSelect, mainSelect);
+        getView().initializeQueryParams(Constants.TABLE_NAME.CHILD, countSelect, mainSelect);
         getView().initializeAdapter(visibleColumns);
 
         getView().countExecute();
@@ -92,7 +97,6 @@ public class ChildRegisterFragmentPresenter implements ChildRegisterFragmentCont
     public void setModel(ChildRegisterFragmentContract.Model model) {
         this.model = model;
     }
-
     @Override
     public String getMainCondition() {
         return "";
@@ -100,6 +104,6 @@ public class ChildRegisterFragmentPresenter implements ChildRegisterFragmentCont
 
     @Override
     public String getDefaultSortQuery() {
-        return ChildDBConstants.KEY.TABLE_NAME + "." + DBConstants.KEY.LAST_INTERACTED_WITH + " DESC ";
+        return DBConstants.KEY.LAST_INTERACTED_WITH + " DESC ";
     }
 }

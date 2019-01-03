@@ -6,6 +6,7 @@ import android.util.Pair;
 
 import org.apache.commons.lang3.tuple.Triple;
 import org.json.JSONObject;
+import org.smartgresiter.wcaro.util.ChildVisit;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
@@ -40,6 +41,18 @@ public interface ChildProfileContract {
         void setProfileName(String fullName);
 
         void setAge(String age);
+        void setVisitButtonDueStatus();
+        void setVisitButtonOverdueStatus();
+        void setLastVisitRowView(String days);
+        void setServiceName(String serviceName);
+        void setServiceDueDate(String date);
+        void setSeviceOverdueDate(String date);
+        void setServiceUpcomingDueDate(String upcomingDate);
+        void setVisitLessTwentyFourView(String monthName);
+        void setVisitAboveTwentyFourView();
+        void setFamilyHasNothingDue();
+        void setFamilyHasServiceDue();
+        void setFamilyHasServiceOverdue();
 
         ChildProfileContract.Presenter presenter();
 
@@ -58,10 +71,14 @@ public interface ChildProfileContract {
         void processFormDetailsSave(Intent data, AllSharedPreferences allSharedPreferences);
 
         String childBaseEntityId();
+        void fetchVisitStatus(String baseEntityId);
+        void fetchFamilyMemberServiceDue(String baseEntityId);
 
     }
 
     interface Interactor {
+        void refreshChildVisitBar(String baseEntityId,ChildProfileContract.InteractorCallBack callback);
+        void refreshFamilyMemberServiceDue(String familyId,String baseEntityId,ChildProfileContract.InteractorCallBack callback);
 
         void onDestroy(boolean isChangingConfiguration);
 
@@ -74,6 +91,8 @@ public interface ChildProfileContract {
     }
 
     interface InteractorCallBack {
+        void updateChildVisit(ChildVisit childVisit);
+        void updateFamilyMemberServiceDue(String serviceDueStatus);
 
         void startFormForEdit(CommonPersonObjectClient client);
 
