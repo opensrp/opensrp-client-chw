@@ -42,6 +42,7 @@ import org.smartregister.family.util.DBConstants;
 import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.immunization.domain.Vaccine;
 import org.smartregister.immunization.util.VaccinateActionUtils;
+import org.smartregister.util.DateUtil;
 import org.smartregister.util.FormUtils;
 import org.smartregister.util.Utils;
 import org.smartregister.view.contract.SmartRegisterClient;
@@ -122,6 +123,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         nameHeader = (TextView) view.findViewById(R.id.textview_name_header);
+        view.findViewById(R.id.close).setOnClickListener(this);
         ((LinearLayout) view.findViewById(R.id.immunization_group)).setOnClickListener(this);
         textview_group_immunization_primary_text = (TextView)view.findViewById(R.id.textview_group_immunization);
         textview_group_immunization_secondary_text = (TextView)view.findViewById(R.id.textview_immunization_group_secondary_text);
@@ -359,8 +361,10 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
             textview_immunization_secondary_text.setText("Due "+ dueDate.toString());
         }else if(state.equals(State.OVERDUE)) {
             DateTime dueDate = (DateTime) nv.get(DATE);
+            String duedateString = DateUtil.formatDate(dueDate.toLocalDate(),"dd MMM yyyy");
+            textview_immunization_secondary_text.setTextColor(getResources().getColor(R.color.alert_urgent_red));
 
-            textview_immunization_secondary_text.setText("Overdue "+ dueDate.toString());
+            textview_immunization_secondary_text.setText("Overdue "+ duedateString);
         }else{
             textview_immunization_secondary_text.setText("");
 
