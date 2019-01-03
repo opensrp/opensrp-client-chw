@@ -23,7 +23,7 @@ public interface ChildRegisterContract {
 
         void saveLanguage(String language);
 
-        void startForm(String formName, String entityId, String metadata, String currentLocationId,String familyID) throws Exception;
+        void startForm(String formName, String entityId, String metadata, String currentLocationId, String familyID) throws Exception;
 
         void saveForm(String jsonString, boolean isEditMode);
 
@@ -54,7 +54,7 @@ public interface ChildRegisterContract {
 
         void onDestroy(boolean isChangingConfiguration);
 
-        void getNextUniqueId(Triple<String, String, String> triple, ChildRegisterContract.InteractorCallBack callBack,String familyID);
+        void getNextUniqueId(Triple<String, String, String> triple, ChildRegisterContract.InteractorCallBack callBack, String familyID);
 
         void saveRegistration(final Pair<Client, Event> pair, final String jsonString, final boolean isEditMode, final ChildRegisterContract.InteractorCallBack callBack);
 

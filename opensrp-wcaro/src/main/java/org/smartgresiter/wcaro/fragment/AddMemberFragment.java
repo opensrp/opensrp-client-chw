@@ -3,34 +3,17 @@ package org.smartgresiter.wcaro.fragment;
 import android.app.Activity;
 import android.app.DialogFragment;
 import android.app.ProgressDialog;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.database.Cursor;
-import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.content.CursorLoader;
-import android.support.v4.content.Loader;
 import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.widget.Button;
-import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.FrameLayout;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.TextView;
-
-import com.rengwuxian.materialedittext.MaterialEditText;
-import com.vijay.jsonwizard.customviews.RadioButton;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;
@@ -39,35 +22,34 @@ import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.contract.ChildRegisterContract;
 import org.smartgresiter.wcaro.interactor.ChildRegisterInteractor;
 import org.smartgresiter.wcaro.model.ChildRegisterModel;
+import org.smartgresiter.wcaro.util.Constants;
 import org.smartgresiter.wcaro.util.JsonFormUtils;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
-import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
-import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
-import org.smartgresiter.wcaro.util.Constants;
 import org.smartregister.family.activity.BaseFamilyProfileActivity;
 import org.smartregister.util.FormUtils;
 import org.smartregister.util.Utils;
-import org.smartregister.view.activity.SecuredNativeSmartRegisterActivity;
-import org.smartregister.view.fragment.BaseProfileFragment;
-import org.smartregister.view.fragment.BaseRegisterFragment;
-import org.smartregister.view.fragment.SecuredFragment;
-import org.smartregister.view.fragment.SecuredNativeSmartRegisterFragment;
 
-import java.util.Set;
-
-public class AddMemberFragment extends DialogFragment implements View.OnClickListener,ChildRegisterContract.InteractorCallBack {
+public class AddMemberFragment extends DialogFragment implements View.OnClickListener, ChildRegisterContract.InteractorCallBack {
 
 
     public static java.lang.String DIALOG_TAG = "add_member_dialog";
     protected ProgressDialog progressDialog;
     Context context;
     String familyBaseEntityId;
+    ChildRegisterInteractor interactor;
+    FormUtils formUtils = null;
 
-    public void setContext(Context context){
+    public static AddMemberFragment newInstance() {
+        AddMemberFragment addMemberFragment = new AddMemberFragment();
+        return addMemberFragment;
+    }
+
+    public void setContext(Context context) {
         this.context = context;
     }
-    public void setFamilyBaseEntityId(String familyBaseEntityId){
+
+    public void setFamilyBaseEntityId(String familyBaseEntityId) {
         this.familyBaseEntityId = familyBaseEntityId;
     }
 
@@ -79,8 +61,7 @@ public class AddMemberFragment extends DialogFragment implements View.OnClickLis
     }
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState)
-    {
+    public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
     }
 
@@ -89,7 +70,6 @@ public class AddMemberFragment extends DialogFragment implements View.OnClickLis
                              Bundle savedInstanceState) {
 
         ViewGroup dialogView = (ViewGroup) inflater.inflate(R.layout.fragment_add_member, container, false);
-
 
 
         return dialogView;
@@ -117,8 +97,6 @@ public class AddMemberFragment extends DialogFragment implements View.OnClickLis
 //        }
     }
 
-
-
     @Override
     public void onStart() {
         super.onStart();
@@ -134,23 +112,15 @@ public class AddMemberFragment extends DialogFragment implements View.OnClickLis
 
     }
 
-
-
-    public static AddMemberFragment newInstance() {
-        AddMemberFragment addMemberFragment = new AddMemberFragment();
-        return addMemberFragment;
-    }
-
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.close:
                 dismiss();
                 break;
-            case  R.id.layout_add_child_under_five:
+            case R.id.layout_add_child_under_five:
                 try {
-                    startForm(Constants.JSON_FORM.CHILD_REGISTER,"","","",familyBaseEntityId);
+                    startForm(Constants.JSON_FORM.CHILD_REGISTER, "", "", "", familyBaseEntityId);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -177,7 +147,7 @@ public class AddMemberFragment extends DialogFragment implements View.OnClickLis
     @Override
     public void onUniqueIdFetched(Triple<String, String, String> triple, String entityId, String familyId) {
         try {
-            startForm(triple.getLeft(), entityId, triple.getMiddle(), triple.getRight(),familyId);
+            startForm(triple.getLeft(), entityId, triple.getMiddle(), triple.getRight(), familyId);
         } catch (Exception e) {
             Log.e(DIALOG_TAG, Log.getStackTraceString(e));
             displayToast(R.string.error_unable_to_start_form);
@@ -204,20 +174,17 @@ public class AddMemberFragment extends DialogFragment implements View.OnClickLis
         }
     }
 
-    ChildRegisterInteractor interactor;
-
-    public void startForm(String formName, String entityId, String metadata, String currentLocationId,String familyId) throws Exception {
+    public void startForm(String formName, String entityId, String metadata, String currentLocationId, String familyId) throws Exception {
         interactor = new ChildRegisterInteractor();
         if (StringUtils.isBlank(entityId)) {
             Triple<String, String, String> triple = Triple.of(formName, metadata, currentLocationId);
-            interactor.getNextUniqueId(triple, this,familyId);
+            interactor.getNextUniqueId(triple, this, familyId);
             return;
         }
 
-        JSONObject form = getFormAsJson(formName, entityId, currentLocationId,familyId);
+        JSONObject form = getFormAsJson(formName, entityId, currentLocationId, familyId);
         startFormActivity(form);
     }
-
 
     public void startFormActivity(JSONObject form) {
         Intent intent = new Intent(context, org.smartregister.family.util.Utils.metadata().nativeFormActivity);
@@ -226,12 +193,12 @@ public class AddMemberFragment extends DialogFragment implements View.OnClickLis
 //        startRegistration();
     }
 
-    public JSONObject getFormAsJson(String formName, String entityId, String currentLocationId,String familyID) throws Exception {
+    public JSONObject getFormAsJson(String formName, String entityId, String currentLocationId, String familyID) throws Exception {
         JSONObject form = getFormUtils().getFormJson(formName);
         if (form == null) {
             return null;
         }
-        return JsonFormUtils.getFormAsJson(form, formName, entityId, currentLocationId,familyID);
+        return JsonFormUtils.getFormAsJson(form, formName, entityId, currentLocationId, familyID);
     }
 
     public void saveForm(String jsonString, boolean isEditMode) {
@@ -252,7 +219,6 @@ public class AddMemberFragment extends DialogFragment implements View.OnClickLis
         }
     }
 
-    FormUtils formUtils = null;
     private FormUtils getFormUtils() {
         if (formUtils == null) {
             try {

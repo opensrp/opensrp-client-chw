@@ -6,10 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.Menu;
@@ -64,12 +62,27 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     private TextView textViewNotVisitMonth,textViewUndo,textViewLastVisit,textViewNameDue,textViewDueDate,textViewFamilyHas;
     private ImageView imageViewCross;
     private String gender;
+    private OnClickFloatingMenu onClickFloatingMenu = new OnClickFloatingMenu() {
+        @Override
+        public void onClickMenu(int viewId) {
+            switch (viewId) {
+                case R.id.call_layout:
+                    break;
+                case R.id.registration_layout:
+                    break;
+                case R.id.remove_member_layout:
+                    break;
+            }
+
+        }
+    };
+
     @Override
     protected void onCreation() {
         setContentView(R.layout.activity_child_profile);
-        ((IndividualMemberFloatingMenu)findViewById(R.id.individual_floating_menu)).setClickListener(onClickFloatingMenu);
+        ((IndividualMemberFloatingMenu) findViewById(R.id.individual_floating_menu)).setClickListener(onClickFloatingMenu);
         Toolbar toolbar = findViewById(R.id.collapsing_toolbar);
-        textViewTitle=toolbar.findViewById(R.id.toolbar_title);
+        textViewTitle = toolbar.findViewById(R.id.toolbar_title);
         setSupportActionBar(toolbar);
 
         ActionBar actionBar = getSupportActionBar();
@@ -90,6 +103,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
         initializePresenter();
         setupViews();
     }
+
     @Override
     public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
 
@@ -323,21 +337,6 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
         presenter().fetchFamilyMemberServiceDue(childBaseEntityId);
     }
 
-    private OnClickFloatingMenu onClickFloatingMenu=new OnClickFloatingMenu() {
-        @Override
-        public void onClickMenu(int viewId) {
-            switch (viewId){
-                case R.id.call_layout:
-                    break;
-                case R.id.registration_layout:
-                    break;
-                case R.id.remove_member_layout:
-                    break;
-            }
-
-        }
-    };
-
     @Override
     public void startFormActivity(JSONObject form) {
 
@@ -355,8 +354,8 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
 
     @Override
     public void setProfileImage(String baseEntityId) {
-        int defaultImage=gender.equalsIgnoreCase(Gender.MALE.toString())?R.drawable.row_boy:R.drawable.row_girl;
-        imageRenderHelper.refreshProfileImage(baseEntityId, imageViewProfile,defaultImage);
+        int defaultImage = gender.equalsIgnoreCase(Gender.MALE.toString()) ? R.drawable.row_boy : R.drawable.row_girl;
+        imageRenderHelper.refreshProfileImage(baseEntityId, imageViewProfile, defaultImage);
 
 
     }
@@ -369,7 +368,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
 
     @Override
     public void setGender(String gender) {
-        this.gender=gender;
+        this.gender = gender;
         textViewGender.setText(gender);
         updateTopbar();
 
@@ -389,14 +388,14 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
 
     @Override
     public void setProfileName(String fullName) {
-        patientName=fullName;
+        patientName = fullName;
         textViewChildName.setText(fullName);
 
     }
 
     @Override
     public void setAge(String age) {
-        textViewChildName.append(","+age);
+        textViewChildName.append("," + age);
 
     }
     private void recordBtnCenterAlign(boolean isCenter){
@@ -420,7 +419,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
 
     @Override
     public ChildProfileContract.Presenter presenter() {
-        return (ChildProfileContract.Presenter)presenter;
+        return (ChildProfileContract.Presenter) presenter;
     }
 
     @Override
@@ -437,6 +436,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     public void onRegistrationSaved(boolean isEdit) {
 
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         return true;

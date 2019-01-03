@@ -29,11 +29,17 @@ public interface ChildProfileContract {
         void displayShortToast(int resourceId);
 
         void setProfileImage(String baseEntityId);
+
         void setParentName(String parentName);
+
         void setGender(String gender);
+
         void setAddress(String address);
+
         void setId(String id);
+
         void setProfileName(String fullName);
+
         void setAge(String age);
         void setVisitButtonDueStatus();
         void setVisitButtonOverdueStatus();
@@ -57,6 +63,7 @@ public interface ChildProfileContract {
         ChildProfileContract.View getView();
 
         void startForm(String formName, String entityId, String metadata, String currentLocationId) throws Exception;
+
         void fetchProfileData();
 
         void refreshProfileView();

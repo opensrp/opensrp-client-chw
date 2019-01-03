@@ -50,4 +50,7 @@
     <string name="visit_not_done">Visit not done</string>
     <string name="edit">EDIT</string>
 
+    <string name="allow_calls_denied">Kindly allow calls to be made here</string>
+    <string name="copy_to_clipboard">Copy to clipboard</string>
+    <string name="copied_phone_number">PhoneNumber copied to clipboard</string>
 </resources>

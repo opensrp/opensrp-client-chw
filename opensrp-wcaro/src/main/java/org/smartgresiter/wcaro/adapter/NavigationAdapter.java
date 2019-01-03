@@ -26,46 +26,22 @@ public class NavigationAdapter extends RecyclerView.Adapter<NavigationAdapter.My
     private View.OnClickListener onClickListener;
     private Context context;
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView tvName, tvCount;
-        public ImageView ivIcon;
-
-        private View myView;
-
-        private MyViewHolder(View view) {
-            super(view);
-            tvName = view.findViewById(R.id.tvName);
-            tvCount = view.findViewById(R.id.tvCount);
-            ivIcon = view.findViewById(R.id.ivIcon);
-
-            if (onClickListener != null) {
-                view.setOnClickListener(onClickListener);
-            }
-
-            myView = view;
-        }
-
-        public View getView() {
-            return myView;
-        }
-    }
-
-    public void setSelectedView(String selectedView) {
-        this.selectedView = selectedView;
-        this.notifyDataSetChanged();
+    public NavigationAdapter(List<NavigationOption> navigationOptions, Activity context) {
+        this.navigationOptionList = navigationOptions;
+        this.context = context;
+        this.onClickListener = new NavigationListener(context, this);
     }
 
     public String getSelectedView() {
-        if(selectedView == null || selectedView.equals(""))
+        if (selectedView == null || selectedView.equals(""))
             setSelectedView(Constants.DrawerMenu.ALL_FAMILIES);
 
         return selectedView;
     }
 
-    public NavigationAdapter(List<NavigationOption> navigationOptions, Activity context) {
-        this.navigationOptionList = navigationOptions;
-        this.context = context;
-        this.onClickListener = new NavigationListener(context, this);
+    public void setSelectedView(String selectedView) {
+        this.selectedView = selectedView;
+        this.notifyDataSetChanged();
     }
 
     @NonNull
@@ -101,6 +77,30 @@ public class NavigationAdapter extends RecyclerView.Adapter<NavigationAdapter.My
     @Override
     public int getItemCount() {
         return navigationOptionList.size();
+    }
+
+    public class MyViewHolder extends RecyclerView.ViewHolder {
+        public TextView tvName, tvCount;
+        public ImageView ivIcon;
+
+        private View myView;
+
+        private MyViewHolder(View view) {
+            super(view);
+            tvName = view.findViewById(R.id.tvName);
+            tvCount = view.findViewById(R.id.tvCount);
+            ivIcon = view.findViewById(R.id.ivIcon);
+
+            if (onClickListener != null) {
+                view.setOnClickListener(onClickListener);
+            }
+
+            myView = view;
+        }
+
+        public View getView() {
+            return myView;
+        }
     }
 
 }

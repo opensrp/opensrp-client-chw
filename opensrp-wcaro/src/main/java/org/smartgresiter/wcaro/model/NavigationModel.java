@@ -15,25 +15,23 @@ import static java.util.Arrays.asList;
 
 public class NavigationModel implements NavigationContract.Model {
 
-    private String TAG = NavigationModel.class.getCanonicalName();
-
     private static NavigationModel instance;
     List<NavigationOption> navigationOptions = new ArrayList<>();
+    NavigationOption op1 = new NavigationOption(R.mipmap.sidemenu_families, R.mipmap.sidemenu_families_active, Constants.DrawerMenu.ALL_FAMILIES, 0);
+    NavigationOption op2 = new NavigationOption(R.mipmap.sidemenu_children, R.mipmap.sidemenu_children_active, Constants.DrawerMenu.CHILD_CLIENTS, 0);
+    private String TAG = NavigationModel.class.getCanonicalName();
     private Activity mActivity;
+
+    private NavigationModel() {
+        navigationOptions.clear();
+        navigationOptions.addAll(asList(op1, op2));
+    }
 
     public static NavigationModel getInstance() {
         if (instance == null)
             instance = new NavigationModel();
 
         return instance;
-    }
-
-    NavigationOption op1 = new NavigationOption(R.mipmap.sidemenu_families, R.mipmap.sidemenu_families_active, Constants.DrawerMenu.ALL_FAMILIES, 0);
-    NavigationOption op2 = new NavigationOption(R.mipmap.sidemenu_children, R.mipmap.sidemenu_children_active, Constants.DrawerMenu.CHILD_CLIENTS, 0);
-
-    private NavigationModel() {
-        navigationOptions.clear();
-        navigationOptions.addAll(asList(op1, op2));
     }
 
     @Override

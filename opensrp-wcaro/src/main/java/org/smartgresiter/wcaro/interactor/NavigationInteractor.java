@@ -18,20 +18,18 @@ import java.util.Date;
 
 public class NavigationInteractor implements NavigationContract.Interactor {
 
+    private static NavigationInteractor instance;
     AppExecutors appExecutors = new AppExecutors();
 
+    private NavigationInteractor() {
 
-    private static NavigationInteractor instance;
+    }
 
     public static NavigationInteractor getInstance() {
         if (instance == null)
             instance = new NavigationInteractor();
 
         return instance;
-    }
-
-    private NavigationInteractor() {
-
     }
 
     @Override
@@ -69,12 +67,12 @@ public class NavigationInteractor implements NavigationContract.Interactor {
             SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder();
             if (isValidFilterForFts(commonRepository(tableName), "")) {
                 String sql = sqb.countQueryFts(tableName, null, null, null);
-                Log.i(getClass().getName(),"1"+ sql);
+                Log.i(getClass().getName(), "1" + sql);
                 count = commonRepository(tableName).countSearchIds(sql);
             } else {
                 String query = sqb.queryForCountOnRegisters(tableName, null);
                 query = sqb.Endquery(query);
-                Log.i(getClass().getName(),"2"+ query);
+                Log.i(getClass().getName(), "2" + query);
                 c = commonRepository(tableName).rawCustomQueryForAdapter(query);
                 if (c.moveToFirst()) {
                     count = c.getInt(0);

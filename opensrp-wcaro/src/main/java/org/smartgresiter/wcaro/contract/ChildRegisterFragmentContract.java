@@ -12,7 +12,6 @@ import java.util.Set;
 
 public interface ChildRegisterFragmentContract {
 
-
     interface View extends BaseRegisterFragmentContract.View {
 
         void initializeAdapter(Set<org.smartregister.configurableviews.model.View> visibleColumns);

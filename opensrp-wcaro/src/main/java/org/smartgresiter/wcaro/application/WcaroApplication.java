@@ -45,6 +45,40 @@ public class WcaroApplication extends DrishtiApplication {
 
     private static CommonFtsObject commonFtsObject;
 
+    public static synchronized WcaroApplication getInstance() {
+        return (WcaroApplication) mInstance;
+    }
+
+    public static JsonSpecHelper getJsonSpecHelper() {
+        return getInstance().jsonSpecHelper;
+    }
+
+    public static CommonFtsObject createCommonFtsObject() {
+        if (commonFtsObject == null) {
+            commonFtsObject = new CommonFtsObject(getFtsTables());
+            for (String ftsTable : commonFtsObject.getTables()) {
+                commonFtsObject.updateSearchFields(ftsTable, getFtsSearchFields(ftsTable));
+                commonFtsObject.updateSortFields(ftsTable, getFtsSortFields());
+            }
+        }
+        return commonFtsObject;
+    }
+
+    private static String[] getFtsTables() {
+        return new String[]{Constants.TABLE_NAME.FAMILY,Constants.TABLE_NAME.CHILD,Constants.TABLE_NAME.FAMILY_MEMBER};
+    }
+
+    private static String[] getFtsSearchFields(String table) {
+        return new String[]{DBConstants.KEY.BASE_ENTITY_ID,DBConstants.KEY.VILLAGE_TOWN, DBConstants.KEY.FIRST_NAME,
+                DBConstants.KEY.LAST_NAME, DBConstants.KEY.UNIQUE_ID,DBConstants.KEY
+                .LAST_INTERACTED_WITH};
+    }
+
+    private static String[] getFtsSortFields() {
+        return new String[]{DBConstants.KEY.BASE_ENTITY_ID, DBConstants.KEY.FIRST_NAME, DBConstants.KEY.LAST_NAME, DBConstants.KEY
+                .LAST_INTERACTED_WITH};
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -87,16 +121,8 @@ public class WcaroApplication extends DrishtiApplication {
         context.userService().logoutSession();
     }
 
-    public static synchronized WcaroApplication getInstance() {
-        return (WcaroApplication) mInstance;
-    }
-
     public Context getContext() {
         return context;
-    }
-
-    public static JsonSpecHelper getJsonSpecHelper() {
-        return getInstance().jsonSpecHelper;
     }
 
     @Override
@@ -109,36 +135,6 @@ public class WcaroApplication extends DrishtiApplication {
             Log.e(TAG, e.getMessage(), e);
         }
         return repository;
-    }
-
-    public VaccineRepository vaccineRepository() {
-        return ImmunizationLibrary.getInstance().vaccineRepository();
-    }
-
-    public static CommonFtsObject createCommonFtsObject() {
-        if (commonFtsObject == null) {
-            commonFtsObject = new CommonFtsObject(getFtsTables());
-            for (String ftsTable : commonFtsObject.getTables()) {
-                commonFtsObject.updateSearchFields(ftsTable, getFtsSearchFields(ftsTable));
-                commonFtsObject.updateSortFields(ftsTable, getFtsSortFields());
-            }
-        }
-        return commonFtsObject;
-    }
-
-    private static String[] getFtsTables() {
-        return new String[]{Constants.TABLE_NAME.FAMILY,Constants.TABLE_NAME.CHILD,Constants.TABLE_NAME.FAMILY_MEMBER};
-    }
-
-    private static String[] getFtsSearchFields(String table) {
-        return new String[]{DBConstants.KEY.BASE_ENTITY_ID,DBConstants.KEY.VILLAGE_TOWN, DBConstants.KEY.FIRST_NAME,
-                DBConstants.KEY.LAST_NAME, DBConstants.KEY.UNIQUE_ID,DBConstants.KEY
-                .LAST_INTERACTED_WITH};
-    }
-
-    private static String[] getFtsSortFields() {
-        return new String[]{DBConstants.KEY.BASE_ENTITY_ID, DBConstants.KEY.FIRST_NAME, DBConstants.KEY.LAST_NAME, DBConstants.KEY
-                .LAST_INTERACTED_WITH};
     }
 
     private FamilyMetadata getMetadata() {
@@ -164,7 +160,9 @@ public class WcaroApplication extends DrishtiApplication {
 
         return ids;
     }
-
+    public VaccineRepository vaccineRepository() {
+        return ImmunizationLibrary.getInstance().vaccineRepository();
+    }
     public void initOfflineSchedules() {
         try {
             List<VaccineGroup> childVaccines = VaccinatorUtils.getSupportedVaccines(this);

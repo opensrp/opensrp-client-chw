@@ -12,8 +12,6 @@ import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.domain.UniqueId;
 import org.smartregister.family.FamilyLibrary;
-import org.smartregister.family.contract.FamilyRegisterContract;
-import org.smartregister.family.interactor.FamilyRegisterInteractor;
 import org.smartregister.family.util.AppExecutors;
 import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.DBConstants;
@@ -33,11 +31,8 @@ import java.util.Date;
 public class ChildRegisterInteractor implements ChildRegisterContract.Interactor {
 
     public static final String TAG = ChildRegisterInteractor.class.getName();
-
-    public enum type {SAVED, UPDATED}
-
-
     private AppExecutors appExecutors;
+
 
     @VisibleForTesting
     ChildRegisterInteractor(AppExecutors appExecutors) {
@@ -62,7 +57,7 @@ public class ChildRegisterInteractor implements ChildRegisterContract.Interactor
                         if (StringUtils.isBlank(entityId)) {
                             callBack.onNoUniqueId();
                         } else {
-                            callBack.onUniqueIdFetched(triple, entityId,familyId);
+                            callBack.onUniqueIdFetched(triple, entityId, familyId);
                         }
                     }
                 });
@@ -171,7 +166,6 @@ public class ChildRegisterInteractor implements ChildRegisterContract.Interactor
         return FamilyLibrary.getInstance().getUniqueIdRepository();
     }
 
-
     public ECSyncHelper getSyncHelper() {
         return FamilyLibrary.getInstance().getEcSyncHelper();
     }
@@ -179,4 +173,6 @@ public class ChildRegisterInteractor implements ChildRegisterContract.Interactor
     public ClientProcessorForJava getClientProcessorForJava() {
         return FamilyLibrary.getInstance().getClientProcessorForJava();
     }
+
+    public enum type {SAVED, UPDATED}
 }

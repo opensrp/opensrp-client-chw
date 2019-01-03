@@ -27,18 +27,10 @@ public class ChildMetadata {
 
     public class ChildRegister {
 
-        public String getFormName() {
-            return formName;
-        }
-
         public final String formName;
-
         public final String tableName;
-
         public final String registerEventType;
-
         public final String updateEventType;
-
         public final String config;
 
         public ChildRegister(String formName, String tableName, String registerEventType, String updateEventType, String config) {
@@ -47,6 +39,10 @@ public class ChildMetadata {
             this.registerEventType = registerEventType;
             this.updateEventType = updateEventType;
             this.config = config;
+        }
+
+        public String getFormName() {
+            return formName;
         }
     }
 
