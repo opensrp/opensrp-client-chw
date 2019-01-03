@@ -30,6 +30,7 @@ import org.smartgresiter.wcaro.custom_view.IndividualMemberFloatingMenu;
 import org.smartgresiter.wcaro.fragment.AddMemberFragment;
 import org.smartgresiter.wcaro.fragment.ChildHomeVisitFragment;
 import org.smartgresiter.wcaro.fragment.ChildImmunizationFragment;
+import org.smartgresiter.wcaro.fragment.FamilyCallDialogFragment;
 import org.smartgresiter.wcaro.listener.OnClickFloatingMenu;
 import org.smartgresiter.wcaro.model.ChildProfileModel;
 import org.smartgresiter.wcaro.presenter.ChildProfilePresenter;
@@ -67,6 +68,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
         public void onClickMenu(int viewId) {
             switch (viewId) {
                 case R.id.call_layout:
+                    FamilyCallDialogFragment.showDialog(ChildProfileActivity.this);
                     break;
                 case R.id.registration_layout:
                     break;
