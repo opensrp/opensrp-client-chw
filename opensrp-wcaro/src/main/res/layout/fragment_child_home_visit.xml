@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical"
@@ -106,7 +107,7 @@
 
 					<org.smartregister.view.customcontrols.CustomFontTextView
 						android:id="@+id/textview_group_immunization"
-						style="@style/CustomFontTextViewStyle.ClientList.Thin"
+						style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
 						android:layout_weight="1"
@@ -117,7 +118,7 @@
 
 					<org.smartregister.view.customcontrols.CustomFontTextView
 						android:id="@+id/textview_immunization_group_secondary_text"
-						style="@style/CustomFontTextViewStyle.ClientList.Thin"
+						style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
 						android:layout_weight="1"
@@ -161,7 +162,7 @@
 
 					<org.smartregister.view.customcontrols.CustomFontTextView
 						android:id="@+id/textview_immunization"
-						style="@style/CustomFontTextViewStyle.ClientList.Thin"
+						style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
 						android:layout_weight="1"
@@ -172,7 +173,7 @@
 
 					<org.smartregister.view.customcontrols.CustomFontTextView
 						android:id="@+id/textview_immunization_secondary_text"
-						style="@style/CustomFontTextViewStyle.ClientList.Thin"
+						style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
 						android:layout_weight="1"
@@ -216,7 +217,7 @@
 
 					<org.smartregister.view.customcontrols.CustomFontTextView
 						android:id="@+id/textview_growth_and_nutrition"
-						style="@style/CustomFontTextViewStyle.ClientList.Thin"
+						style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
 						android:layout_weight="1"
@@ -261,7 +262,7 @@
 
 					<org.smartregister.view.customcontrols.CustomFontTextView
 						android:id="@+id/textview_diarrhea"
-						style="@style/CustomFontTextViewStyle.ClientList.Thin"
+						style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
 						android:layout_weight="1"
@@ -306,7 +307,7 @@
 
 					<org.smartregister.view.customcontrols.CustomFontTextView
 						android:id="@+id/textview_malaria_prevention"
-						style="@style/CustomFontTextViewStyle.ClientList.Thin"
+						style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
 						android:layout_weight="1"
@@ -350,8 +351,8 @@
 					android:orientation="vertical">
 
 					<org.smartregister.view.customcontrols.CustomFontTextView
-						android:id="@+id/development_malaria_prevention"
-						style="@style/CustomFontTextViewStyle.ClientList.Thin"
+						android:id="@+id/textview_development"
+						style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
 						android:layout_weight="1"
