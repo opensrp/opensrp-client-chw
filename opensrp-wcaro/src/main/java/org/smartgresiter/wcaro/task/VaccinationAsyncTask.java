@@ -2,6 +2,7 @@ package org.smartgresiter.wcaro.task;
 
 import android.database.Cursor;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import org.joda.time.DateTime;
 import org.smartgresiter.wcaro.application.WcaroApplication;

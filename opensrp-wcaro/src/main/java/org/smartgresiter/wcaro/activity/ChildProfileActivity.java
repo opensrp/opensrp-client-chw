@@ -4,6 +4,7 @@ import android.app.AppComponentFactory;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.view.ViewPager;
@@ -63,6 +64,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     private TextView textViewNotVisitMonth,textViewUndo,textViewLastVisit,textViewNameDue,textViewDueDate,textViewFamilyHas;
     private ImageView imageViewCross;
     private String gender;
+    private Handler handler=new Handler();
     private OnClickFloatingMenu onClickFloatingMenu = new OnClickFloatingMenu() {
         @Override
         public void onClickMenu(int viewId) {
@@ -336,8 +338,13 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     protected void onResume() {
         super.onResume();
         presenter().fetchVisitStatus(childBaseEntityId);
-        presenter().fetchServiceStatus(childBaseEntityId);
-        presenter().fetchFamilyMemberServiceDue(childBaseEntityId);
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                presenter().fetchFamilyMemberServiceDue(childBaseEntityId);
+            }
+        },500);
+
     }
 
     @Override
@@ -461,6 +468,9 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
         ((ChildImmunizationFragment)getFragmentManager().findFragmentByTag(ChildImmunizationFragment.TAG)).onUndoVaccination(vaccineWrapper,view);
     }
 
-
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        handler.removeCallbacksAndMessages(null);
+    }
 }

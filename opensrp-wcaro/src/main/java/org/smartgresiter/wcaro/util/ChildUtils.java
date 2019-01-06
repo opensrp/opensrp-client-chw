@@ -38,6 +38,12 @@ public class ChildUtils {
 
         return query;
     }
+    public static String getChildListByFamilyId(String tableName,String familyId,String childId){
+        SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
+        queryBUilder.SelectInitiateMainTable(tableName,new String[]{DBConstants.KEY.BASE_ENTITY_ID});
+        String query=queryBUilder.mainCondition(tableName+"."+DBConstants.KEY.RELATIONAL_ID+" = '"+familyId+"'");
+        return query;
+    }
 
     private static String[] mainColumns(String tableName,String familyTable,String familyMemberTable) {
 

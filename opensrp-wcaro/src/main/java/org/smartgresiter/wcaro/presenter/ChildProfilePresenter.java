@@ -46,11 +46,6 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
     }
 
     @Override
-    public void fetchServiceStatus(String baseEntityId) {
-        interactor.refreshChildServiceBar(childBaseEntityId,this);
-    }
-
-    @Override
     public void fetchFamilyMemberServiceDue(String baseEntityId) {
         interactor.refreshFamilyMemberServiceDue(getFamilyId(),childBaseEntityId,this);
     }

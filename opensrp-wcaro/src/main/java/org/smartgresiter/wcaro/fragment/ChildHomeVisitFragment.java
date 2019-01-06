@@ -344,9 +344,9 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     }
 
     public void updateImmunizationState() {
-        if(vaccinationAsyncTask!=null && !vaccinationAsyncTask.isCancelled()){
-            vaccinationAsyncTask.cancel(true);
-        }
+//        if(vaccinationAsyncTask!=null && !vaccinationAsyncTask.isCancelled()){
+//            vaccinationAsyncTask.cancel(true);
+//        }
         vaccinationAsyncTask=new VaccinationAsyncTask(childClient.getCaseId(), childClient.getColumnmaps(), new ImmunizationStateChangeListener() {
             @Override
             public void onImmunicationStateChange(List<Vaccine> vaccines, String stateKey, Map<String, Object> nv, ImmunizationState state) {
