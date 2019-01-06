@@ -7,13 +7,17 @@ import android.util.Pair;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;
+import org.joda.time.DateTime;
 import org.json.JSONObject;
 import org.smartgresiter.wcaro.application.WcaroApplication;
 import org.smartgresiter.wcaro.contract.ChildProfileContract;
+import org.smartgresiter.wcaro.listener.ImmunizationStateChangeListener;
+import org.smartgresiter.wcaro.task.VaccinationAsyncTask;
 import org.smartgresiter.wcaro.util.ChildDBConstants;
 import org.smartgresiter.wcaro.util.ChildService;
 import org.smartgresiter.wcaro.util.ChildUtils;
 import org.smartgresiter.wcaro.util.ChildVisit;
+import org.smartgresiter.wcaro.util.ImmunizationState;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.CommonPersonObject;
@@ -27,19 +31,29 @@ import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
+import org.smartregister.immunization.db.VaccineRepo;
+import org.smartregister.immunization.domain.Vaccine;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.repository.UniqueIdRepository;
 import org.smartregister.sync.ClientProcessorForJava;
 import org.smartregister.sync.helper.ECSyncHelper;
+import org.smartregister.util.DateUtil;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
+import static org.smartgresiter.wcaro.util.Constants.IMMUNIZATION_CONSTANT.DATE;
+import static org.smartgresiter.wcaro.util.Constants.IMMUNIZATION_CONSTANT.VACCINE;
+import static org.smartregister.util.Utils.startAsyncTask;
 
 public class ChildProfileInteractor implements ChildProfileContract.Interactor {
     public static final String TAG = ChildProfileInteractor.class.getName();
     private AppExecutors appExecutors;
     private CommonPersonObjectClient pClient;
     private String familyId;
+    private VaccinationAsyncTask vaccinationAsyncTask;
 
     @VisibleForTesting
     ChildProfileInteractor(AppExecutors appExecutors) {
@@ -150,23 +164,45 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
 
     @Override
     public void refreshChildServiceBar(String baseEntityId,final ChildProfileContract.InteractorCallBack callback) {
-        final ChildService childService=new ChildService();
-        childService.setServiceName("Penta1");
-        childService.setServiceDate("3 oct");
-        childService.setServiceStatus(ChildProfileInteractor.ServiceType.OVERDUE.name());
+        if(getpClient()==null) return;
 
-        Runnable runnable=new Runnable() {
+        if(vaccinationAsyncTask!=null && !vaccinationAsyncTask.isCancelled()){
+            vaccinationAsyncTask.cancel(true);
+        }
+        vaccinationAsyncTask=new VaccinationAsyncTask(baseEntityId, getpClient().getColumnmaps(), new ImmunizationStateChangeListener() {
             @Override
-            public void run() {
-                appExecutors.mainThread().execute(new Runnable() {
+            public void onImmunicationStateChange(List<Vaccine> vaccines, String stateKey, Map<String, Object> nv, ImmunizationState state) {
+                VaccineRepo.Vaccine vaccine = (VaccineRepo.Vaccine) nv.get(VACCINE);
+                final ChildService childService=new ChildService();
+                childService.setServiceName(vaccine.display());
+                DateTime dueDate = (DateTime) nv.get(DATE);
+                String duedateString = DateUtil.formatDate(dueDate.toLocalDate(),"dd MMM yyyy");
+                childService.setServiceDate(duedateString);
+                if(state.equals(ImmunizationState.DUE)) {
+                    childService.setServiceStatus(ServiceType.DUE.name());
+                }else if(state.equals(ImmunizationState.OVERDUE)){
+                    childService.setServiceStatus(ServiceType.OVERDUE.name());
+                }else {
+                    childService.setServiceStatus(ServiceType.UPCOMING.name());
+                }
+                Runnable runnable=new Runnable() {
                     @Override
                     public void run() {
-                        callback.updateChildService(childService);
+                        appExecutors.mainThread().execute(new Runnable() {
+                            @Override
+                            public void run() {
+                                callback.updateChildService(childService);
+                            }
+                        });
                     }
-                });
+                };
+                appExecutors.diskIO().execute(runnable);
             }
-        };
-        appExecutors.diskIO().execute(runnable);
+        });
+        startAsyncTask(vaccinationAsyncTask,null);
+
+
+
     }
 
     @Override
