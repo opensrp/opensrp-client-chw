@@ -11,6 +11,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
@@ -47,6 +48,7 @@ import org.smartregister.family.activity.BaseFamilyProfileActivity;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.immunization.domain.Vaccine;
+import org.smartregister.immunization.domain.VaccineWrapper;
 import org.smartregister.immunization.util.VaccinateActionUtils;
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.repository.EventClientRepository;
@@ -93,6 +95,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     private TextView textview_group_immunization_primary_text;
     private TextView textview_immunization_primary_text;
     private TextView textview_immunization_secondary_text;
+    private LinearLayout single_immunization_group;
 
 
     public void setContext(Context context){
@@ -132,6 +135,9 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         view.findViewById(R.id.textview_submit).setOnClickListener(this);
 
         ((LinearLayout) view.findViewById(R.id.immunization_group)).setOnClickListener(this);
+         single_immunization_group = ((LinearLayout) view.findViewById(R.id.immunization_name_group));
+
+
         textview_group_immunization_primary_text = (TextView)view.findViewById(R.id.textview_group_immunization);
         textview_group_immunization_secondary_text = (TextView)view.findViewById(R.id.textview_immunization_group_secondary_text);
 
@@ -193,6 +199,8 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
 
     @Override
     public void onClick(View v) {
+        FragmentTransaction ft = ((ChildProfileActivity)context).getFragmentManager().beginTransaction();
+
         switch (v.getId()) {
             case R.id.textview_submit:
                 updateClientStatusAsEvent("last_home_visit",""+System.currentTimeMillis(),"ec_child");
@@ -202,11 +210,31 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                 dismiss();
                 break;
             case  R.id.immunization_group:
-                FragmentTransaction ft = ((ChildProfileActivity)context).getFragmentManager().beginTransaction();
                 ChildImmunizationFragment childImmunizationFragment = ChildImmunizationFragment.newInstance(new Bundle());
                 childImmunizationFragment.setChildDetails(childClient);
 //                childHomeVisitFragment.setFamilyBaseEntityId(getFamilyBaseEntityId());
                 childImmunizationFragment.show(ft,ChildImmunizationFragment.TAG);
+                break;
+            case R.id.immunization_name_group:
+                String dobString = org.smartregister.util.Utils.getValue(childClient.getColumnmaps(), "dob", false);
+                if (!TextUtils.isEmpty(dobString)) {
+                    DateTime dateTime = new DateTime(dobString);
+                    Date dob = dateTime.toDate();
+                    VaccineRepo.Vaccine vaccine = (VaccineRepo.Vaccine) v.getTag(R.id.singlenextvaccine);
+                    VaccineWrapper vaccineWrapper = new VaccineWrapper();
+                    vaccineWrapper.setVaccine(vaccine);
+                    vaccineWrapper.setName(vaccine.name());
+                    vaccineWrapper.setDefaultName(vaccine.name());
+                    ArrayList<VaccineWrapper> vaccineWrappers = new ArrayList<VaccineWrapper>();
+                    vaccineWrappers.add(vaccineWrapper);
+
+                    List<Vaccine> vaccines = (List<Vaccine>)v.getTag(R.id.vaccinelist);
+
+                    CustomVaccinationDialogFragment customVaccinationDialogFragment = CustomVaccinationDialogFragment.newInstance(dob,vaccines,vaccineWrappers);
+//                childHomeVisitFragment.setFamilyBaseEntityId(getFamilyBaseEntityId());
+                    customVaccinationDialogFragment.show(ft,ChildImmunizationFragment.TAG);
+                }
+
                 break;
             case R.id.layout_add_other_family_member:
                 ((BaseFamilyProfileActivity) context).startFormActivity(Constants.JSON_FORM.FAMILY_MEMBER_REGISTER, null, null);
@@ -373,6 +401,9 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
 
         VaccineRepo.Vaccine vaccine = (VaccineRepo.Vaccine) nv.get(VACCINE);
 
+        single_immunization_group.setTag(R.id.singlenextvaccine,vaccine);
+        single_immunization_group.setTag(R.id.vaccinelist,vaccines);
+
 
         textview_immunization_primary_text.setText(vaccine.display());
         if(state.equals(ImmunizationState.DUE)) {
@@ -385,10 +416,13 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
             textview_immunization_secondary_text.setTextColor(getResources().getColor(R.color.alert_urgent_red));
 
             textview_immunization_secondary_text.setText("Overdue "+ duedateString);
+            single_immunization_group.setOnClickListener(this);
         }else{
             textview_immunization_secondary_text.setText("");
 
         }
+
+
     }
 
 
