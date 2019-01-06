@@ -60,9 +60,7 @@ public class ChildUtils {
         ChildVisit childVisit=new ChildVisit();
         //testing data
         //childVisit.setLastVisitTime(1545867630000L);
-        childVisit.setServiceName("Penta1");
-        childVisit.setServiceDate("3 oct");
-        childVisit.setServiceStatus(ChildProfileInteractor.ServiceType.OVERDUE.name());
+
 
         long diff=System.currentTimeMillis()-childVisit.getLastVisitTime();
         if(Calendar.getInstance().get(Calendar.DAY_OF_MONTH) == 1){

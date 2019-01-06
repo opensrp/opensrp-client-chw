@@ -7,6 +7,7 @@ import org.apache.commons.lang3.tuple.Triple;
 import org.smartgresiter.wcaro.contract.ChildProfileContract;
 import org.smartgresiter.wcaro.interactor.ChildProfileInteractor;
 import org.smartgresiter.wcaro.util.ChildDBConstants;
+import org.smartgresiter.wcaro.util.ChildService;
 import org.smartgresiter.wcaro.util.ChildVisit;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.util.Constants;
@@ -42,6 +43,11 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
     @Override
     public void fetchVisitStatus(String baseEntityId) {
         interactor.refreshChildVisitBar(childBaseEntityId,this);
+    }
+
+    @Override
+    public void fetchServiceStatus(String baseEntityId) {
+        interactor.refreshChildServiceBar(childBaseEntityId,this);
     }
 
     @Override
@@ -110,18 +116,23 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
             if(childVisit.getLastVisitTime()!=0){
                 getView().setLastVisitRowView(childVisit.getLastVisitDays());
             }
-            if(childVisit.getServiceStatus().equalsIgnoreCase(ChildProfileInteractor.ServiceType.DUE.name())){
-                getView().setServiceDueDate("due("+childVisit.getServiceDate()+")");
-            }
-            if(childVisit.getServiceStatus().equalsIgnoreCase(ChildProfileInteractor.ServiceType.OVERDUE.name())){
-                getView().setSeviceOverdueDate("overdue("+childVisit.getServiceDate()+")");
-            }
-            if(childVisit.getServiceStatus().equalsIgnoreCase(ChildProfileInteractor.ServiceType.UPCOMING.name())){
-                getView().setServiceUpcomingDueDate("upcoming("+childVisit.getServiceDate()+")");
-            }
-            getView().setServiceName(childVisit.getServiceName());
+
         }
 
+    }
+
+    @Override
+    public void updateChildService(ChildService childService) {
+        if(childService.getServiceStatus().equalsIgnoreCase(ChildProfileInteractor.ServiceType.DUE.name())){
+            getView().setServiceDueDate("due("+childService.getServiceDate()+")");
+        }
+        if(childService.getServiceStatus().equalsIgnoreCase(ChildProfileInteractor.ServiceType.OVERDUE.name())){
+            getView().setSeviceOverdueDate("overdue("+childService.getServiceDate()+")");
+        }
+        if(childService.getServiceStatus().equalsIgnoreCase(ChildProfileInteractor.ServiceType.UPCOMING.name())){
+            getView().setServiceUpcomingDueDate("upcoming("+childService.getServiceDate()+")");
+        }
+        getView().setServiceName(childService.getServiceName());
     }
 
     @Override

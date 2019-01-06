@@ -336,6 +336,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     protected void onResume() {
         super.onResume();
         presenter().fetchVisitStatus(childBaseEntityId);
+        presenter().fetchServiceStatus(childBaseEntityId);
         presenter().fetchFamilyMemberServiceDue(childBaseEntityId);
     }
 

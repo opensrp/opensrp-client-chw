@@ -6,6 +6,7 @@ import android.util.Pair;
 
 import org.apache.commons.lang3.tuple.Triple;
 import org.json.JSONObject;
+import org.smartgresiter.wcaro.util.ChildService;
 import org.smartgresiter.wcaro.util.ChildVisit;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
@@ -72,12 +73,14 @@ public interface ChildProfileContract {
 
         String childBaseEntityId();
         void fetchVisitStatus(String baseEntityId);
+        void fetchServiceStatus(String baseEntityId);
         void fetchFamilyMemberServiceDue(String baseEntityId);
 
     }
 
     interface Interactor {
         void refreshChildVisitBar(String baseEntityId,ChildProfileContract.InteractorCallBack callback);
+        void refreshChildServiceBar(String baseEntityId,ChildProfileContract.InteractorCallBack callback);
         void refreshFamilyMemberServiceDue(String familyId,String baseEntityId,ChildProfileContract.InteractorCallBack callback);
 
         void onDestroy(boolean isChangingConfiguration);
@@ -92,6 +95,7 @@ public interface ChildProfileContract {
 
     interface InteractorCallBack {
         void updateChildVisit(ChildVisit childVisit);
+        void updateChildService(ChildService childService);
         void updateFamilyMemberServiceDue(String serviceDueStatus);
 
         void startFormForEdit(CommonPersonObjectClient client);

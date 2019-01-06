@@ -11,6 +11,7 @@ import org.json.JSONObject;
 import org.smartgresiter.wcaro.application.WcaroApplication;
 import org.smartgresiter.wcaro.contract.ChildProfileContract;
 import org.smartgresiter.wcaro.util.ChildDBConstants;
+import org.smartgresiter.wcaro.util.ChildService;
 import org.smartgresiter.wcaro.util.ChildUtils;
 import org.smartgresiter.wcaro.util.ChildVisit;
 import org.smartregister.clientandeventmodel.Client;
@@ -144,6 +145,27 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
                });
            }
        };
+        appExecutors.diskIO().execute(runnable);
+    }
+
+    @Override
+    public void refreshChildServiceBar(String baseEntityId,final ChildProfileContract.InteractorCallBack callback) {
+        final ChildService childService=new ChildService();
+        childService.setServiceName("Penta1");
+        childService.setServiceDate("3 oct");
+        childService.setServiceStatus(ChildProfileInteractor.ServiceType.OVERDUE.name());
+
+        Runnable runnable=new Runnable() {
+            @Override
+            public void run() {
+                appExecutors.mainThread().execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        callback.updateChildService(childService);
+                    }
+                });
+            }
+        };
         appExecutors.diskIO().execute(runnable);
     }
 

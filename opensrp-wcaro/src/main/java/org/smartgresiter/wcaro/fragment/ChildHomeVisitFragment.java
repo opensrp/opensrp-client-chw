@@ -29,9 +29,12 @@ import org.smartgresiter.wcaro.activity.ChildProfileActivity;
 import org.smartgresiter.wcaro.application.WcaroApplication;
 import org.smartgresiter.wcaro.contract.ChildRegisterContract;
 import org.smartgresiter.wcaro.interactor.ChildRegisterInteractor;
+import org.smartgresiter.wcaro.listener.ImmunizationStateChangeListener;
 import org.smartgresiter.wcaro.model.ChildRegisterModel;
 import org.smartgresiter.wcaro.presenter.ChildProfilePresenter;
+import org.smartgresiter.wcaro.task.VaccinationAsyncTask;
 import org.smartgresiter.wcaro.util.Constants;
+import org.smartgresiter.wcaro.util.ImmunizationState;
 import org.smartgresiter.wcaro.util.JsonFormUtils;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
@@ -56,6 +59,8 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import static org.smartgresiter.wcaro.fragment.AddMemberFragment.DIALOG_TAG;
+import static org.smartgresiter.wcaro.util.Constants.IMMUNIZATION_CONSTANT.DATE;
+import static org.smartgresiter.wcaro.util.Constants.IMMUNIZATION_CONSTANT.VACCINE;
 import static org.smartgresiter.wcaro.util.Constants.TABLE_NAME.CHILD;
 import static org.smartregister.immunization.domain.State.EXPIRED;
 import static org.smartregister.immunization.util.VaccinatorUtils.generateScheduleList;
@@ -73,16 +78,9 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     Context context;
     String childBaseEntityId;
     CommonPersonObjectClient childClient;
+    private VaccinationAsyncTask vaccinationAsyncTask;
     private TextView nameHeader;
     private TextView textview_group_immunization_secondary_text;
-
-    public static final String DATE = "date";
-    public static final String VACCINE = "vaccine";
-
-    public static final String NORMAL = "normal";
-    public static final String UPCOMING = "upcoming";
-    public static final String URGENT = "urgent";
-    public static final String EXPIRED = "expired";
     private TextView textview_group_immunization_primary_text;
     private TextView textview_immunization_primary_text;
     private TextView textview_immunization_secondary_text;
@@ -333,10 +331,19 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     }
 
     public void updateImmunizationState() {
-        startAsyncTask(new VaccinationAsyncTask(),null);
+        if(vaccinationAsyncTask!=null && !vaccinationAsyncTask.isCancelled()){
+            vaccinationAsyncTask.cancel(true);
+        }
+        vaccinationAsyncTask=new VaccinationAsyncTask(childClient.getCaseId(), childClient.getColumnmaps(), new ImmunizationStateChangeListener() {
+            @Override
+            public void onImmunicationStateChange(List<Vaccine> vaccines, String stateKey, Map<String, Object> nv, ImmunizationState state) {
+                ImmunizationState(vaccines,stateKey,nv,state);
+            }
+        });
+        startAsyncTask(vaccinationAsyncTask,null);
     }
 
-    public void ImmunizationState(List<Vaccine> vaccines, String stateKey, Map<String, Object> nv, State state){
+    public void ImmunizationState(List<Vaccine> vaccines, String stateKey, Map<String, Object> nv, ImmunizationState state){
         Map<String, Date> recievedVaccines = receivedVaccines(vaccines);
         recievedVaccines.size();
         String givenVaccines = "";
@@ -355,11 +362,11 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
 
 
         textview_immunization_primary_text.setText(vaccine.display());
-        if(state.equals(State.DUE)) {
+        if(state.equals(ImmunizationState.DUE)) {
             DateTime dueDate = (DateTime) nv.get(DATE);
 
             textview_immunization_secondary_text.setText("Due "+ dueDate.toString());
-        }else if(state.equals(State.OVERDUE)) {
+        }else if(state.equals(ImmunizationState.OVERDUE)) {
             DateTime dueDate = (DateTime) nv.get(DATE);
             String duedateString = DateUtil.formatDate(dueDate.toLocalDate(),"dd MMM yyyy");
             textview_immunization_secondary_text.setTextColor(getResources().getColor(R.color.alert_urgent_red));
@@ -371,93 +378,9 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         }
     }
 
-    private class VaccinationAsyncTask extends AsyncTask {
-
-        private List<Vaccine> vaccines = new ArrayList<>();
-        private List<Alert> alerts = new ArrayList<>();
-        private SmartRegisterClient client;
-        private Cursor cursor;
-        String stateKey = "";
-        private State state;
-        private Map<String, Object> nv;
-
-        private VaccinationAsyncTask() {
-        }
-
-        @Override
-        protected Object doInBackground(Object[] objects) {
-            alerts = WcaroApplication.getInstance().getContext().alertService().findByEntityIdAndAlertNames(childClient.entityId(), VaccinateActionUtils.allAlertNames("child"));
-            vaccines = WcaroApplication.getInstance().vaccineRepository().findByEntityId(childClient.entityId());
-            Map<String, Date> recievedVaccines = receivedVaccines(vaccines);
-
-            List<Map<String, Object>> sch = generateScheduleList("child", new DateTime(org.smartregister.family.util.Utils.getValue(childClient.getColumnmaps(), DBConstants.KEY.DOB, false)), recievedVaccines, alerts);
-
-            List<VaccineRepo.Vaccine> vList = Arrays.asList(VaccineRepo.Vaccine.values());
-            nv = nextVaccineDue(sch, vList);
-            if (nv != null) {
-                DateTime dueDate = (DateTime) nv.get(DATE);
-                VaccineRepo.Vaccine vaccine = (VaccineRepo.Vaccine) nv.get(VACCINE);
-                stateKey = VaccinateActionUtils.stateKey(vaccine);
-                String ALERT = "alert";
-                if (nv.get(ALERT) == null) {
-                    state = State.NO_ALERT;
-                } else if (((Alert) nv.get(ALERT)).status().value().equalsIgnoreCase(NORMAL)) {
-                    state = State.DUE;
-                } else if (((Alert) nv.get(ALERT)).status().value().equalsIgnoreCase(UPCOMING)) {
-                    Calendar today = Calendar.getInstance();
-                    today.set(Calendar.HOUR_OF_DAY, 0);
-                    today.set(Calendar.MINUTE, 0);
-                    today.set(Calendar.SECOND, 0);
-                    today.set(Calendar.MILLISECOND, 0);
-
-                    if (dueDate.getMillis() >= (today.getTimeInMillis() + TimeUnit.MILLISECONDS.convert(1, TimeUnit.DAYS)) && dueDate.getMillis() < (today.getTimeInMillis() + TimeUnit.MILLISECONDS.convert(7, TimeUnit.DAYS))) {
-                        state = State.UPCOMING_NEXT_7_DAYS;
-                    } else {
-                        state = State.UPCOMING;
-                    }
-                } else if (((Alert) nv.get(ALERT)).status().value().equalsIgnoreCase(URGENT)) {
-                    state = State.OVERDUE;
-                } else if (((Alert) nv.get(ALERT)).status().value().equalsIgnoreCase(EXPIRED)) {
-                    state = State.EXPIRED;
-                }
-            } else {
-                state = State.WAITING;
-            }
-
-
-
-
-            return null;
-        }
-
-
-        @Override
-        protected void onPostExecute(Object o) {
-            super.onPostExecute(o);
-            ImmunizationState(vaccines,stateKey,nv,state);
-
-        }
-
-
-
-    }
-
 
     public void setChildClient(CommonPersonObjectClient childClient) {
         this.childClient = childClient;
-    }
-
-    public enum State {
-        DUE,
-        OVERDUE,
-        UPCOMING_NEXT_7_DAYS,
-        UPCOMING,
-        INACTIVE,
-        LOST_TO_FOLLOW_UP,
-        EXPIRED,
-        WAITING,
-        NO_ALERT,
-        FULLY_IMMUNIZED
     }
 
 }
