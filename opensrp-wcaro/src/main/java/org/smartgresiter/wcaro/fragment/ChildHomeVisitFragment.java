@@ -195,7 +195,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.textview_submit:
-                updateClientStatusAsEvent("last_home_visit",DateUtil.formatDate(new LocalDate(), DEFAULT_DATE_FORMAT),"ec_child");
+                updateClientStatusAsEvent("last_home_visit",""+System.currentTimeMillis(),"ec_child");
                 dismiss();
                 break;
             case R.id.close:
@@ -402,7 +402,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
             ECSyncHelper syncHelper = getSyncHelper();
 
             Event event = (Event) new Event()
-                    .withBaseEntityId(childBaseEntityId)
+                    .withBaseEntityId(childClient.entityId())
                     .withEventDate(new Date())
                     .withEventType("Child Home Visit")
                     .withLocationId(context().allSharedPreferences().fetchCurrentLocality())
@@ -413,7 +413,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
             event.addObs((new Obs()).withFormSubmissionField(attributeName).withValue(attributeValue).withFieldCode(attributeName).withFieldType("formsubmissionField").withFieldDataType("text").withParentCode("").withHumanReadableValues(new ArrayList<Object>()));
 
             JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(event));
-            getSyncHelper().addEvent(childBaseEntityId, eventJson);
+            getSyncHelper().addEvent(childClient.entityId(), eventJson);
             long lastSyncTimeStamp = context().allSharedPreferences().fetchLastUpdatedAtDate(0);
             Date lastSyncDate = new Date(lastSyncTimeStamp);
             getClientProcessorForJava().processClient(syncHelper.getEvents(lastSyncDate, BaseRepository.TYPE_Unsynced));
