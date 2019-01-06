@@ -4,6 +4,7 @@
     <string name="login_title">CFC</string>
     <string name="child_register_title">Child Clients</string>
     <string name="return_to_all_children">Return to all children</string>
+    <string name="back_to_children">Back to %1$s</string>
     <string name="child_details">Child details</string>
 
 
@@ -53,4 +54,5 @@
     <string name="allow_calls_denied">Kindly allow calls to be made here</string>
     <string name="copy_to_clipboard">Copy to clipboard</string>
     <string name="copied_phone_number">PhoneNumber copied to clipboard</string>
+    <string name="medical_history">Medical History</string>
 </resources>
