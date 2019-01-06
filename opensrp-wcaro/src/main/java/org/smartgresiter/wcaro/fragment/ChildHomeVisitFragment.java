@@ -23,6 +23,7 @@ import android.widget.TextView;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;
 import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 import org.json.JSONObject;
 import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.activity.ChildProfileActivity;
@@ -38,13 +39,20 @@ import org.smartgresiter.wcaro.util.ImmunizationState;
 import org.smartgresiter.wcaro.util.JsonFormUtils;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
+import org.smartregister.clientandeventmodel.Obs;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.Alert;
+import org.smartregister.family.FamilyLibrary;
 import org.smartregister.family.activity.BaseFamilyProfileActivity;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.immunization.domain.Vaccine;
 import org.smartregister.immunization.util.VaccinateActionUtils;
+import org.smartregister.repository.BaseRepository;
+import org.smartregister.repository.EventClientRepository;
+import org.smartregister.sync.ClientProcessor;
+import org.smartregister.sync.ClientProcessorForJava;
+import org.smartregister.sync.helper.ECSyncHelper;
 import org.smartregister.util.DateUtil;
 import org.smartregister.util.FormUtils;
 import org.smartregister.util.Utils;
@@ -66,6 +74,7 @@ import static org.smartregister.immunization.domain.State.EXPIRED;
 import static org.smartregister.immunization.util.VaccinatorUtils.generateScheduleList;
 import static org.smartregister.immunization.util.VaccinatorUtils.nextVaccineDue;
 import static org.smartregister.immunization.util.VaccinatorUtils.receivedVaccines;
+import static org.smartregister.util.DateUtil.DEFAULT_DATE_FORMAT;
 import static org.smartregister.util.Utils.getValue;
 import static org.smartregister.util.Utils.startAsyncTask;
 import static org.smartregister.view.contract.AlertStatus.UPCOMING;
@@ -112,8 +121,6 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
 
         ViewGroup dialogView = (ViewGroup) inflater.inflate(R.layout.fragment_child_home_visit, container, false);
 
-
-
         return dialogView;
     }
 
@@ -122,6 +129,8 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         super.onViewCreated(view, savedInstanceState);
         nameHeader = (TextView) view.findViewById(R.id.textview_name_header);
         view.findViewById(R.id.close).setOnClickListener(this);
+        view.findViewById(R.id.textview_submit).setOnClickListener(this);
+
         ((LinearLayout) view.findViewById(R.id.immunization_group)).setOnClickListener(this);
         textview_group_immunization_primary_text = (TextView)view.findViewById(R.id.textview_group_immunization);
         textview_group_immunization_secondary_text = (TextView)view.findViewById(R.id.textview_immunization_group_secondary_text);
@@ -185,6 +194,10 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.textview_submit:
+                updateClientStatusAsEvent("last_home_visit",DateUtil.formatDate(new LocalDate(), DEFAULT_DATE_FORMAT),"ec_child");
+                dismiss();
+                break;
             case R.id.close:
                 dismiss();
                 break;
@@ -383,4 +396,47 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         this.childClient = childClient;
     }
 
+    public void updateClientStatusAsEvent(String attributeName, Object attributeValue, String entityType) {
+        try {
+
+            ECSyncHelper syncHelper = getSyncHelper();
+
+            Event event = (Event) new Event()
+                    .withBaseEntityId(childBaseEntityId)
+                    .withEventDate(new Date())
+                    .withEventType("Child Home Visit")
+                    .withLocationId(context().allSharedPreferences().fetchCurrentLocality())
+                    .withProviderId(context().allSharedPreferences().fetchRegisteredANM())
+                    .withEntityType(entityType)
+                    .withFormSubmissionId(JsonFormUtils.generateRandomUUIDString())
+                    .withDateCreated(new Date());
+            event.addObs((new Obs()).withFormSubmissionField(attributeName).withValue(attributeValue).withFieldCode(attributeName).withFieldType("formsubmissionField").withFieldDataType("text").withParentCode("").withHumanReadableValues(new ArrayList<Object>()));
+
+            JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(event));
+            getSyncHelper().addEvent(childBaseEntityId, eventJson);
+            long lastSyncTimeStamp = context().allSharedPreferences().fetchLastUpdatedAtDate(0);
+            Date lastSyncDate = new Date(lastSyncTimeStamp);
+            getClientProcessorForJava().processClient(syncHelper.getEvents(lastSyncDate, BaseRepository.TYPE_Unsynced));
+            context().allSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
+
+            //update details
+
+
+
+        } catch (Exception e) {
+            Log.e("Error in adding event", e.getMessage());
+        }
+    }
+
+    private org.smartregister.Context context() {
+        return WcaroApplication.getInstance().getContext();
+    }
+
+    public ClientProcessorForJava getClientProcessorForJava() {
+        return FamilyLibrary.getInstance().getClientProcessorForJava();
+    }
+
+    public ECSyncHelper getSyncHelper() {
+        return FamilyLibrary.getInstance().getEcSyncHelper();
+    }
 }
