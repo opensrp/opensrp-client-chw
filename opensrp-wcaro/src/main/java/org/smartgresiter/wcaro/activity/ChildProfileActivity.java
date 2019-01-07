@@ -331,20 +331,18 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     @Override
     protected void fetchProfileData() {
         presenter().fetchProfileData();
+        updateImmunizationData();
 
     }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        presenter().fetchVisitStatus(childBaseEntityId);
+    //immunization data update from initialize the screen or close the home visit screen
+    public void updateImmunizationData(){
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
+                presenter().fetchVisitStatus(childBaseEntityId);
                 presenter().fetchFamilyMemberServiceDue(childBaseEntityId);
             }
         },500);
-
     }
 
     @Override

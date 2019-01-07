@@ -1,8 +1,11 @@
 package org.smartgresiter.wcaro.util;
 
+import android.database.Cursor;
 import android.os.Build;
 import android.text.Html;
 import android.text.Spanned;
+import android.text.TextUtils;
+import android.util.Log;
 
 import org.smartgresiter.wcaro.interactor.ChildProfileInteractor;
 import org.smartregister.commonregistry.CommonRepository;
@@ -44,7 +47,12 @@ public class ChildUtils {
         String query=queryBUilder.mainCondition(tableName+"."+DBConstants.KEY.RELATIONAL_ID+" = '"+familyId+"'");
         return query;
     }
-
+    public static String getLastHomeVisit(String tableName,String childId){
+        SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
+        queryBUilder.SelectInitiateMainTable(tableName,new String[]{ChildDBConstants.KEY.LAST_HOME_VISIT});
+        String query=queryBUilder.mainCondition(tableName+"."+DBConstants.KEY.BASE_ENTITY_ID+" = '"+childId+"'");
+        return query;
+    }
     private static String[] mainColumns(String tableName,String familyTable,String familyMemberTable) {
 
         String[] columns = new String[]{
@@ -58,12 +66,23 @@ public class ChildUtils {
                 tableName + "." + DBConstants.KEY.LAST_NAME,
                 tableName + "." + DBConstants.KEY.UNIQUE_ID,
                 tableName + "." + DBConstants.KEY.GENDER,
-                tableName + "." + DBConstants.KEY.DOB};
+                tableName + "." + DBConstants.KEY.DOB, tableName + "." + ChildDBConstants.KEY.LAST_HOME_VISIT};
         return columns;
     }
     public static ChildVisit getChildVisitStatus(CommonRepository commonRepository,String baseEntityId){
-        //TODO need to get the childvisit from database
         ChildVisit childVisit=new ChildVisit();
+        String query=ChildUtils.getLastHomeVisit(org.smartgresiter.wcaro.util.Constants.TABLE_NAME.CHILD,baseEntityId);
+        Cursor cursor=commonRepository.queryTable(query);
+        if(cursor!=null && cursor.moveToFirst()){
+            String lastVisitStr=cursor.getString(1);
+            if(TextUtils.isEmpty(lastVisitStr)){
+                childVisit.setLastVisitTime(0);
+            }else{
+                childVisit.setLastVisitTime(Long.parseLong(lastVisitStr));
+            }
+            cursor.close();
+        }
+
         //testing data
         //childVisit.setLastVisitTime(1545867630000L);
 
