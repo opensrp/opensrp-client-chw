@@ -188,6 +188,14 @@
             "field": "obs.fieldCode",
             "formSubmissionField": "last_home_visit"
           }
+        },
+        {
+          "column_name": "visit_not_done",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "formSubmissionField": "visit_not_done"
+          }
         }
       ]
     }

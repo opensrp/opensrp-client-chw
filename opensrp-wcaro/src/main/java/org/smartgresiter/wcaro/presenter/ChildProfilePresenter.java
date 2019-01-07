@@ -62,6 +62,11 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
     }
 
     @Override
+    public void updateVisitNotDone(long value) {
+        interactor.updateVisitNotDone(value);
+    }
+
+    @Override
     public void processFormDetailsSave(Intent data, AllSharedPreferences allSharedPreferences) {
         try {
             String jsonString = data.getStringExtra(Constants.INTENT_KEY.JSON);
@@ -107,6 +112,9 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
             }
             if(childVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.OVER_TWENTY_FOUR.name())){
                 getView().setVisitAboveTwentyFourView();
+            }
+            if(childVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.NOT_VISIT_THIS_MONTH.name())){
+                getView().setVisitNotDoneThisMonth();
             }
             if(childVisit.getLastVisitTime()!=0){
                 getView().setLastVisitRowView(childVisit.getLastVisitDays());

@@ -2,6 +2,7 @@ package org.smartgresiter.wcaro.interactor;
 
 import android.database.Cursor;
 import android.support.annotation.VisibleForTesting;
+import android.text.TextUtils;
 import android.util.Log;
 import android.util.Pair;
 
@@ -150,9 +151,37 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
     }
 
     @Override
-    public void refreshChildVisitBar(String baseEntityId, final ChildProfileContract.InteractorCallBack callback) {
+    public void updateVisitNotDone(long value) {
+        ChildUtils.updateClientStatusAsEvent(getpClient().entityId(),"Visit not done","visit_not_done",""+value,"ec_child");
 
-      final   ChildVisit childVisit=ChildUtils.getChildVisitStatus(getCommonRepository(org.smartgresiter.wcaro.util.Constants.TABLE_NAME.CHILD),baseEntityId);
+    }
+
+    @Override
+    public void refreshChildVisitBar(String baseEntityId, final ChildProfileContract.InteractorCallBack callback) {
+        String query=ChildUtils.getLastHomeVisit(org.smartgresiter.wcaro.util.Constants.TABLE_NAME.CHILD,baseEntityId);
+        long lastVisit=0;
+        long visitNot=0;
+        Cursor cursor=getCommonRepository(org.smartgresiter.wcaro.util.Constants.TABLE_NAME.CHILD).queryTable(query);
+        if(cursor!=null && cursor.moveToFirst()){
+            String lastVisitStr=cursor.getString(1);
+            if(!TextUtils.isEmpty(lastVisitStr)) {
+                try {
+                    lastVisit = Long.parseLong(lastVisitStr);
+                } catch (Exception e) {
+
+                }
+            }
+            String visitNotDoneStr=cursor.getString(2);
+            if(!TextUtils.isEmpty(visitNotDoneStr)) {
+                try {
+                    visitNot = Long.parseLong(visitNotDoneStr);
+                } catch (Exception e) {
+
+                }
+            }
+            cursor.close();
+        }
+      final   ChildVisit childVisit=ChildUtils.getChildVisitStatus(lastVisit,ChildUtils.isSameMonth(visitNot));
 
        Runnable runnable=new Runnable() {
            @Override
@@ -317,7 +346,7 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
     public void onDestroy(boolean isChangingConfiguration) {
 
     }
-    public enum VisitType {DUE, OVERDUE,LESS_TWENTY_FOUR,OVER_TWENTY_FOUR}
+    public enum VisitType {DUE, OVERDUE,LESS_TWENTY_FOUR,OVER_TWENTY_FOUR,NOT_VISIT_THIS_MONTH}
     public enum ServiceType {DUE, OVERDUE, UPCOMING}
     public enum FamilyServiceType {DUE, OVERDUE, NOTHING}
 }

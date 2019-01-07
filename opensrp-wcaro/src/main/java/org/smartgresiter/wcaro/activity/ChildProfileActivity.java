@@ -174,19 +174,22 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
                 openFamilyDueTab();
                 break;
             case R.id.textview_visit_not:
+                presenter().updateVisitNotDone(System.currentTimeMillis());
+
                 openVisitMonthView();
                 break;
             case R.id.textview_undo:
                 if(textViewUndo.getText().toString().equalsIgnoreCase(getString(R.string.undo))){
-                    openVisitButtonView();
+                    presenter().updateVisitNotDone(0);
+                    presenter().fetchVisitStatus(childBaseEntityId);
                 }else{
                     openVisitHomeScreen();
                 }
 
                 break;
-            case R.id.cross_image:
-                openVisitButtonView();
-                break;
+//            case R.id.cross_image:
+//                openVisitButtonView();
+//                break;
         }
     }
 
@@ -286,6 +289,14 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     @Override
     public void setFamilyHasServiceOverdue() {
         textViewFamilyHas.setText(ChildUtils.fromHtml(getString(R.string.family_has_service_overdue)));
+    }
+
+    @Override
+    public void setVisitNotDoneThisMonth() {
+        openVisitMonthView();
+        textViewNotVisitMonth.setText(getString(R.string.not_visiting_this_month));
+        textViewUndo.setText(getString(R.string.undo));
+        imageViewCross.setImageResource(R.drawable.ic_cross);
     }
 
     @Override
