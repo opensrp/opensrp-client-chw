@@ -68,7 +68,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
         public void onClickMenu(int viewId) {
             switch (viewId) {
                 case R.id.call_layout:
-                    FamilyCallDialogFragment.showDialog(ChildProfileActivity.this);
+                    FamilyCallDialogFragment.showDialog(ChildProfileActivity.this, ((ChildProfilePresenter) presenter).getFamilyId());
                     break;
                 case R.id.registration_layout:
                     break;
