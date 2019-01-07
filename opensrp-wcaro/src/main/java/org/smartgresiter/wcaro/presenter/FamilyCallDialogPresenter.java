@@ -13,13 +13,10 @@ public class FamilyCallDialogPresenter implements FamilyCallDialogContract.Prese
 
     WeakReference<FamilyCallDialogContract.View> mView;
     FamilyCallDialogContract.Interactor mInteractor;
-    ExecutorService executorService;
-    int THREAD_POOL = 2;
 
-    public FamilyCallDialogPresenter(FamilyCallDialogContract.View view) {
+    public FamilyCallDialogPresenter(FamilyCallDialogContract.View view, String familyBaseEntityId) {
         mView = new WeakReference<>(view);
-        executorService = Executors.newFixedThreadPool(THREAD_POOL);
-        mInteractor = new FamilyCallDialogInteractor(executorService);
+        mInteractor = new FamilyCallDialogInteractor(familyBaseEntityId);
         initalize();
     }
 

@@ -1,63 +1,105 @@
 package org.smartgresiter.wcaro.interactor;
 
-import android.os.Handler;
-import android.os.Looper;
+import android.database.Cursor;
+import android.support.annotation.VisibleForTesting;
 
+import org.smartgresiter.wcaro.application.WcaroApplication;
 import org.smartgresiter.wcaro.contract.FamilyCallDialogContract;
 import org.smartgresiter.wcaro.model.FamilyCallDialogModel;
-
-import java.util.concurrent.ExecutorService;
+import org.smartgresiter.wcaro.util.Constants;
+import org.smartregister.commonregistry.CommonRepository;
+import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
+import org.smartregister.family.util.AppExecutors;
+import org.smartregister.family.util.DBConstants;
+import org.smartregister.family.util.Utils;
 
 public class FamilyCallDialogInteractor implements FamilyCallDialogContract.Interactor {
 
-    ExecutorService executorService;
-    Handler mainThread;
+    private AppExecutors appExecutors;
+    String familyBaseEntityId;
 
-    public FamilyCallDialogInteractor(ExecutorService service) {
-        executorService = service;
 
-        mainThread = new Handler(Looper.getMainLooper());
-        if (service == null)
-            throw new IllegalStateException("Null executor service");
+    @VisibleForTesting
+    FamilyCallDialogInteractor(AppExecutors appExecutors, String familyBaseEntityId) {
+        this.appExecutors = appExecutors;
+        this.familyBaseEntityId = familyBaseEntityId;
+    }
+
+    public FamilyCallDialogInteractor(String familyBaseEntityId) {
+        this(new AppExecutors(), familyBaseEntityId);
     }
 
     @Override
     public void getHeadOfFamily(final FamilyCallDialogContract.Presenter presenter) {
-        executorService.submit(new Runnable() {
+
+        Runnable runnable = new Runnable() {
             @Override
             public void run() {
                 //TODO  replace this with actual query info for the HOF
-                final FamilyCallDialogModel model = new FamilyCallDialogModel();
-                model.setPhoneNumber("+2547112233");
-                model.setName("ReplaceWith RealName");
-                model.setRole("Head of Family , Caregiver");
-                mainThread.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        // return only if the phone number is present
-                        presenter.updateHeadOfFamily(model.getPhoneNumber() == null ? null : model);
-                    }
-                });
+
+
+
+                // Select phone_number , is_family_head , is_primary_caregiver , first_name , last_name from ec_family_member where family_id = ? and is_family_head = 1;
+
+                SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder();
+                sqb.SelectInitiateMainTable(Constants.TABLE_NAME.FAMILY_MEMBER, mainColumns(Constants.TABLE_NAME.FAMILY_MEMBER));
+                sqb.mainCondition(String.format(" %s = '%s'" , DBConstants.KEY.RELATIONAL_ID , familyBaseEntityId));
+                // sqb.addCondition("is_family_head = 1"); replace with db logic
+
+                Cursor cursor = getCommonRepository(org.smartgresiter.wcaro.util.Constants.TABLE_NAME.CHILD).rawCustomQueryForAdapter(sqb.getSelectquery());
+
+                if(cursor!=null && cursor.moveToFirst()){
+
+                    final FamilyCallDialogModel model = new FamilyCallDialogModel();
+                    model.setPhoneNumber("+2547112233");
+                    model.setName("ReplaceWith RealName");
+                    model.setRole("Head of Family , Caregiver");
+                    appExecutors.mainThread().execute(new Runnable() {
+                        @Override
+                        public void run() {
+                            presenter.updateHeadOfFamily((model == null || model.getPhoneNumber() == null) ? null : model);
+                        }
+                    });
+                }
             }
-        });
+        };
+
+        appExecutors.diskIO().execute(runnable);
     }
 
     @Override
     public void getCareGiver(final FamilyCallDialogContract.Presenter presenter) {
-        executorService.submit(new Runnable() {
+
+        Runnable runnable = new Runnable() {
             @Override
             public void run() {
-                //TODO  retrieve the and display the care giver
-                final FamilyCallDialogModel model = new FamilyCallDialogModel();
-                mainThread.post(new Runnable() {
+                //TODO  replace this with actual query info for the HOF
+
+                final FamilyCallDialogModel model = null;
+                appExecutors.mainThread().execute(new Runnable() {
                     @Override
                     public void run() {
-                        // return only if the phone number is present
-                        presenter.updateCareGiver(model.getPhoneNumber() == null ? null : model);
+                        presenter.updateCareGiver((model == null || model.getPhoneNumber() == null) ? null : model);
                     }
                 });
             }
-        });
+        };
+
+        appExecutors.diskIO().execute(runnable);
     }
 
+    public CommonRepository getCommonRepository(String tableName) {
+        return Utils.context().commonrepository(tableName);
+    }
+
+    private static String[] mainColumns(String tableName) {
+
+        String[] columns = new String[]{
+                tableName + "." + DBConstants.KEY.RELATIONAL_ID +" as " + DBConstants.KEY.RELATIONAL_ID,
+                tableName + "." + DBConstants.KEY.BASE_ENTITY_ID,
+                tableName + "." + DBConstants.KEY.FIRST_NAME,
+                tableName + "." + DBConstants.KEY.LAST_NAME
+        };
+        return columns;
+    }
 }

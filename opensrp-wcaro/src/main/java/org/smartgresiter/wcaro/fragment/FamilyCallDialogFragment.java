@@ -32,6 +32,7 @@ public class FamilyCallDialogFragment extends DialogFragment implements FamilyCa
 
     View.OnClickListener listner = null;
     FamilyCallDialogContract.Dialer mDialer;
+    String familyBaseEntityId;
     ImageView ivClose;
     LinearLayout llFamilyHead;
     TextView tvFamilyHeadTitle;
@@ -42,7 +43,7 @@ public class FamilyCallDialogFragment extends DialogFragment implements FamilyCa
     TextView tvCareGiverName;
     TextView tvCareGiverPhone;
 
-    public static FamilyCallDialogFragment showDialog(Activity activity) {
+    public static FamilyCallDialogFragment showDialog(Activity activity, String familyBaseEntityId) {
         FamilyCallDialogFragment dialog = new FamilyCallDialogFragment();
         FragmentTransaction ft = activity.getFragmentManager().beginTransaction();
         Fragment prev = activity.getFragmentManager().findFragmentByTag(DIALOG_TAG);
@@ -50,8 +51,13 @@ public class FamilyCallDialogFragment extends DialogFragment implements FamilyCa
             ft.remove(prev);
         }
         ft.addToBackStack(null);
+        dialog.setFamilyBaseEntityId(familyBaseEntityId);
         dialog.show(ft, DIALOG_TAG);
         return dialog;
+    }
+
+    protected void setFamilyBaseEntityId(String familyBaseEntityId) {
+        this.familyBaseEntityId = familyBaseEntityId;
     }
 
     @Override
@@ -167,7 +173,7 @@ public class FamilyCallDialogFragment extends DialogFragment implements FamilyCa
 
     @Override
     public FamilyCallDialogContract.Presenter initializePresenter() {
-        return new FamilyCallDialogPresenter(this);
+        return new FamilyCallDialogPresenter(this, familyBaseEntityId);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
