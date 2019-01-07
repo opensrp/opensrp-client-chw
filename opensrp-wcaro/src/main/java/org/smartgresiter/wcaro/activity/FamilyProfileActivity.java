@@ -102,4 +102,10 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity {
     public String getFamilyBaseEntityId() {
         return familyBaseEntityId;
     }
+
+    public void startFormForEdit(){
+        if(familyBaseEntityId != null){
+            ((FamilyProfilePresenter)presenter).fetchProfileData();
+        }
+    }
 }
