@@ -13,9 +13,11 @@ import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.Utils;
+import org.smartregister.immunization.domain.Vaccine;
 import org.smartregister.repository.AllSharedPreferences;
 
 import java.lang.ref.WeakReference;
+import java.util.List;
 
 public class ChildProfilePresenter implements ChildProfileContract.Presenter, ChildProfileContract.InteractorCallBack{
 
@@ -35,6 +37,9 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
 
     public CommonPersonObjectClient getChildClient(){
         return ((ChildProfileInteractor)interactor).getpClient();
+    }
+    public List<Vaccine> getVaccineList(){
+        return ((ChildProfileInteractor)interactor).getVaccineList();
     }
     public String getFamilyId(){
         return ((ChildProfileInteractor)interactor).getFamilyId();

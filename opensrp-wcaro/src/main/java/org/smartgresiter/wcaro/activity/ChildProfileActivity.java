@@ -32,6 +32,7 @@ import org.smartgresiter.wcaro.fragment.AddMemberFragment;
 import org.smartgresiter.wcaro.fragment.ChildHomeVisitFragment;
 import org.smartgresiter.wcaro.fragment.ChildImmunizationFragment;
 import org.smartgresiter.wcaro.fragment.FamilyCallDialogFragment;
+import org.smartgresiter.wcaro.fragment.MedicalHistoryFragment;
 import org.smartgresiter.wcaro.listener.OnClickFloatingMenu;
 import org.smartgresiter.wcaro.model.ChildProfileModel;
 import org.smartgresiter.wcaro.presenter.ChildProfilePresenter;
@@ -65,6 +66,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     private ImageView imageViewCross;
     private String gender;
     private Handler handler=new Handler();
+    private String lastVisitDay;
     private OnClickFloatingMenu onClickFloatingMenu = new OnClickFloatingMenu() {
         @Override
         public void onClickMenu(int viewId) {
@@ -204,10 +206,12 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     }
 
     private void openMedicalHistoryScreen() {
+        MedicalHistoryFragment medicalHistoryFragment=MedicalHistoryFragment.getInstance(childBaseEntityId,patientName,lastVisitDay);
+        medicalHistoryFragment.setVaccineList(((ChildProfilePresenter)presenter()).getVaccineList());
+        medicalHistoryFragment.show(getFragmentManager(),"");
     }
 
     private void openVisitHomeScreen(){
-        FragmentTransaction ft = this.getFragmentManager().beginTransaction();
         ChildHomeVisitFragment childHomeVisitFragment = ChildHomeVisitFragment.newInstance();
         childHomeVisitFragment.setContext(this);
         childHomeVisitFragment.setChildClient(((ChildProfilePresenter)presenter()).getChildClient());
@@ -242,6 +246,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
 
     @Override
     public void setLastVisitRowView(String days) {
+        lastVisitDay=days;
         if(TextUtils.isEmpty(days)){
             layoutLastVisitRow.setVisibility(View.GONE);
         }else{
