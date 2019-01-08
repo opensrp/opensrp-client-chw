@@ -4,6 +4,7 @@ import android.app.AppComponentFactory;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.view.ViewPager;
@@ -63,6 +64,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     private TextView textViewNotVisitMonth,textViewUndo,textViewLastVisit,textViewNameDue,textViewDueDate,textViewFamilyHas;
     private ImageView imageViewCross;
     private String gender;
+    private Handler handler=new Handler();
     private OnClickFloatingMenu onClickFloatingMenu = new OnClickFloatingMenu() {
         @Override
         public void onClickMenu(int viewId) {
@@ -172,19 +174,22 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
                 openFamilyDueTab();
                 break;
             case R.id.textview_visit_not:
+                presenter().updateVisitNotDone(System.currentTimeMillis());
+
                 openVisitMonthView();
                 break;
             case R.id.textview_undo:
                 if(textViewUndo.getText().toString().equalsIgnoreCase(getString(R.string.undo))){
-                    openVisitButtonView();
+                    presenter().updateVisitNotDone(0);
+                    presenter().fetchVisitStatus(childBaseEntityId);
                 }else{
                     openVisitHomeScreen();
                 }
 
                 break;
-            case R.id.cross_image:
-                openVisitButtonView();
-                break;
+//            case R.id.cross_image:
+//                openVisitButtonView();
+//                break;
         }
     }
 
@@ -287,6 +292,14 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     }
 
     @Override
+    public void setVisitNotDoneThisMonth() {
+        openVisitMonthView();
+        textViewNotVisitMonth.setText(getString(R.string.not_visiting_this_month));
+        textViewUndo.setText(getString(R.string.undo));
+        imageViewCross.setImageResource(R.drawable.ic_cross);
+    }
+
+    @Override
     public void setVisitLessTwentyFourView(String monthName) {
         textViewNotVisitMonth.setText(getString(R.string.visit_month,monthName));
         textViewUndo.setText(getString(R.string.edit));
@@ -329,15 +342,18 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     @Override
     protected void fetchProfileData() {
         presenter().fetchProfileData();
+        updateImmunizationData();
 
     }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        presenter().fetchVisitStatus(childBaseEntityId);
-        presenter().fetchServiceStatus(childBaseEntityId);
-        presenter().fetchFamilyMemberServiceDue(childBaseEntityId);
+    //immunization data update from initialize the screen or close the home visit screen
+    public void updateImmunizationData(){
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                presenter().fetchVisitStatus(childBaseEntityId);
+                presenter().fetchFamilyMemberServiceDue(childBaseEntityId);
+            }
+        },500);
     }
 
     @Override
@@ -461,6 +477,9 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
         ((ChildImmunizationFragment)getFragmentManager().findFragmentByTag(ChildImmunizationFragment.TAG)).onUndoVaccination(vaccineWrapper,view);
     }
 
-
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        handler.removeCallbacksAndMessages(null);
+    }
 }

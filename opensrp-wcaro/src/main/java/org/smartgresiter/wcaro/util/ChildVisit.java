@@ -1,10 +1,20 @@
 package org.smartgresiter.wcaro.util;
 
 public class ChildVisit {
-    String visitStatus;
-    long lastVisitTime;
-    String lastVisitMonth;
-    String lastVisitDays;
+    private String visitStatus;
+    private long lastVisitTime;
+    private String lastVisitMonth;
+    private String lastVisitDays;
+    private boolean visitNotDone;
+
+    public boolean isVisitNotDone() {
+        return visitNotDone;
+    }
+
+    public void setVisitNotDone(boolean visitNotDone) {
+        this.visitNotDone = visitNotDone;
+    }
+
     public String getLastVisitDays() {
         return lastVisitDays;
     }

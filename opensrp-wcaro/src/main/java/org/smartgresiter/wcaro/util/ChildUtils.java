@@ -1,18 +1,33 @@
 package org.smartgresiter.wcaro.util;
 
+import android.database.Cursor;
 import android.os.Build;
 import android.text.Html;
 import android.text.Spanned;
+import android.text.TextUtils;
+import android.util.Log;
 
+import org.json.JSONObject;
+import org.smartgresiter.wcaro.application.WcaroApplication;
 import org.smartgresiter.wcaro.interactor.ChildProfileInteractor;
+import org.smartregister.clientandeventmodel.Event;
+import org.smartregister.clientandeventmodel.Obs;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
+import org.smartregister.family.FamilyLibrary;
 import org.smartregister.family.util.DBConstants;
+import org.smartregister.repository.BaseRepository;
+import org.smartregister.sync.helper.ECSyncHelper;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 public class ChildUtils {
-    private static final long MILLI_SEC=24 * 60 * 60 * 1000;
+    private static final long MILLI_SEC=24 * 60 * 60 * 1000;//24 hrs
+    private static final String[] monthNames = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+
     //need to add primary caregiver filter at query
     //ec_family_member.is_primary_caregiver" is true
     public static String mainSelectRegisterWithoutGroupby(String tableName,String familyTableName,String familyMemberTableName, String mainCondition) {
@@ -38,7 +53,18 @@ public class ChildUtils {
 
         return query;
     }
-
+    public static String getChildListByFamilyId(String tableName,String familyId,String childId){
+        SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
+        queryBUilder.SelectInitiateMainTable(tableName,new String[]{DBConstants.KEY.BASE_ENTITY_ID});
+        String query=queryBUilder.mainCondition(tableName+"."+DBConstants.KEY.RELATIONAL_ID+" = '"+familyId+"'");
+        return query;
+    }
+    public static String getLastHomeVisit(String tableName,String childId){
+        SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
+        queryBUilder.SelectInitiateMainTable(tableName,new String[]{ChildDBConstants.KEY.LAST_HOME_VISIT,ChildDBConstants.KEY.VISIT_NOT_DONE});
+        String query=queryBUilder.mainCondition(tableName+"."+DBConstants.KEY.BASE_ENTITY_ID+" = '"+childId+"'");
+        return query;
+    }
     private static String[] mainColumns(String tableName,String familyTable,String familyMemberTable) {
 
         String[] columns = new String[]{
@@ -52,12 +78,15 @@ public class ChildUtils {
                 tableName + "." + DBConstants.KEY.LAST_NAME,
                 tableName + "." + DBConstants.KEY.UNIQUE_ID,
                 tableName + "." + DBConstants.KEY.GENDER,
-                tableName + "." + DBConstants.KEY.DOB};
+                tableName + "." + DBConstants.KEY.DOB,
+                tableName + "." + ChildDBConstants.KEY.LAST_HOME_VISIT,
+                tableName + "." + ChildDBConstants.KEY.VISIT_NOT_DONE};
         return columns;
     }
-    public static ChildVisit getChildVisitStatus(CommonRepository commonRepository,String baseEntityId){
-        //TODO need to get the childvisit from database
+    public static ChildVisit getChildVisitStatus(long lastVisitDate,boolean isVisitNotDone){
         ChildVisit childVisit=new ChildVisit();
+        childVisit.setLastVisitTime(lastVisitDate);
+        childVisit.setVisitNotDone(isVisitNotDone);
         //testing data
         //childVisit.setLastVisitTime(1545867630000L);
 
@@ -74,7 +103,7 @@ public class ChildUtils {
             }
             return childVisit;
         }
-        if(childVisit.getLastVisitTime()==0){
+        if(childVisit.getLastVisitTime()==0 && !childVisit.isVisitNotDone()){
             childVisit.setVisitStatus(ChildProfileInteractor.VisitType.OVERDUE.name());
             return childVisit;
         }
@@ -85,14 +114,31 @@ public class ChildUtils {
             childVisit.setLastVisitMonth(theMonth(Calendar.getInstance().get(Calendar.MONTH)));
             return childVisit;
         }
+        if(isVisitNotDone){
+            childVisit.setVisitStatus(ChildProfileInteractor.VisitType.NOT_VISIT_THIS_MONTH.name());
+            return childVisit;
+        }
         else {
             childVisit.setLastVisitDays(diff/MILLI_SEC+" days");
             childVisit.setVisitStatus(ChildProfileInteractor.VisitType.OVER_TWENTY_FOUR.name());
             return childVisit;
         }
     }
+    public static boolean isSameMonth(long time){
+        if(time==0) return false;
+        int runningMonth=Calendar.getInstance().get(Calendar.MONTH);
+        int runningYear=Calendar.getInstance().get(Calendar.YEAR);
+        Date date = new Date(time);
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        int visitMonth=cal.get(Calendar.MONTH);
+        int visitYear=cal.get(Calendar.YEAR);
+        if(runningMonth==visitMonth && runningYear==visitYear){
+            return true;
+        }
+        return false;
+    }
     public static String theMonth(int month){
-        String[] monthNames = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
         return monthNames[month];
     }
     @SuppressWarnings("deprecation")
@@ -101,6 +147,38 @@ public class ChildUtils {
             return Html.fromHtml(text, Html.FROM_HTML_MODE_LEGACY);
         } else {
             return Html.fromHtml(text);
+        }
+    }
+    //event type="Child Home Visit"/Visit not done
+    public static void updateClientStatusAsEvent(String entityId,String eventType,String attributeName, Object attributeValue, String entityType) {
+        try {
+
+            ECSyncHelper syncHelper = FamilyLibrary.getInstance().getEcSyncHelper();
+
+            Event event = (Event) new Event()
+                    .withBaseEntityId(entityId)
+                    .withEventDate(new Date())
+                    .withEventType(eventType)
+                    .withLocationId(WcaroApplication.getInstance().getContext().allSharedPreferences().fetchCurrentLocality())
+                    .withProviderId(WcaroApplication.getInstance().getContext().allSharedPreferences().fetchRegisteredANM())
+                    .withEntityType(entityType)
+                    .withFormSubmissionId(JsonFormUtils.generateRandomUUIDString())
+                    .withDateCreated(new Date());
+            event.addObs((new Obs()).withFormSubmissionField(attributeName).withValue(attributeValue).withFieldCode(attributeName).withFieldType("formsubmissionField").withFieldDataType("text").withParentCode("").withHumanReadableValues(new ArrayList<Object>()));
+
+            JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(event));
+            syncHelper.addEvent(entityId, eventJson);
+            long lastSyncTimeStamp = WcaroApplication.getInstance().getContext().allSharedPreferences().fetchLastUpdatedAtDate(0);
+            Date lastSyncDate = new Date(lastSyncTimeStamp);
+            FamilyLibrary.getInstance().getClientProcessorForJava().processClient(syncHelper.getEvents(lastSyncDate, BaseRepository.TYPE_Unsynced));
+            WcaroApplication.getInstance().getContext().allSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
+
+            //update details
+
+
+
+        } catch (Exception e) {
+            Log.e("Error in adding event", e.getMessage());
         }
     }
 }

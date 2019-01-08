@@ -35,6 +35,7 @@ import org.smartgresiter.wcaro.listener.ImmunizationStateChangeListener;
 import org.smartgresiter.wcaro.model.ChildRegisterModel;
 import org.smartgresiter.wcaro.presenter.ChildProfilePresenter;
 import org.smartgresiter.wcaro.task.VaccinationAsyncTask;
+import org.smartgresiter.wcaro.util.ChildUtils;
 import org.smartgresiter.wcaro.util.Constants;
 import org.smartgresiter.wcaro.util.ImmunizationState;
 import org.smartgresiter.wcaro.util.JsonFormUtils;
@@ -203,7 +204,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
 
         switch (v.getId()) {
             case R.id.textview_submit:
-                updateClientStatusAsEvent("last_home_visit",""+System.currentTimeMillis(),"ec_child");
+                ChildUtils.updateClientStatusAsEvent(childClient.entityId(),"Child Home Visit","last_home_visit",""+System.currentTimeMillis(),"ec_child");
                 dismiss();
                 break;
             case R.id.close:
@@ -372,9 +373,9 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     }
 
     public void updateImmunizationState() {
-        if(vaccinationAsyncTask!=null && !vaccinationAsyncTask.isCancelled()){
-            vaccinationAsyncTask.cancel(true);
-        }
+//        if(vaccinationAsyncTask!=null && !vaccinationAsyncTask.isCancelled()){
+//            vaccinationAsyncTask.cancel(true);
+//        }
         vaccinationAsyncTask=new VaccinationAsyncTask(childClient.getCaseId(), childClient.getColumnmaps(), new ImmunizationStateChangeListener() {
             @Override
             public void onImmunicationStateChange(List<Vaccine> vaccines, String stateKey, Map<String, Object> nv, ImmunizationState state) {
@@ -429,48 +430,12 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     public void setChildClient(CommonPersonObjectClient childClient) {
         this.childClient = childClient;
     }
-
-    public void updateClientStatusAsEvent(String attributeName, Object attributeValue, String entityType) {
-        try {
-
-            ECSyncHelper syncHelper = getSyncHelper();
-
-            Event event = (Event) new Event()
-                    .withBaseEntityId(childClient.entityId())
-                    .withEventDate(new Date())
-                    .withEventType("Child Home Visit")
-                    .withLocationId(context().allSharedPreferences().fetchCurrentLocality())
-                    .withProviderId(context().allSharedPreferences().fetchRegisteredANM())
-                    .withEntityType(entityType)
-                    .withFormSubmissionId(JsonFormUtils.generateRandomUUIDString())
-                    .withDateCreated(new Date());
-            event.addObs((new Obs()).withFormSubmissionField(attributeName).withValue(attributeValue).withFieldCode(attributeName).withFieldType("formsubmissionField").withFieldDataType("text").withParentCode("").withHumanReadableValues(new ArrayList<Object>()));
-
-            JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(event));
-            getSyncHelper().addEvent(childClient.entityId(), eventJson);
-            long lastSyncTimeStamp = context().allSharedPreferences().fetchLastUpdatedAtDate(0);
-            Date lastSyncDate = new Date(lastSyncTimeStamp);
-            getClientProcessorForJava().processClient(syncHelper.getEvents(lastSyncDate, BaseRepository.TYPE_Unsynced));
-            context().allSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
-
-            //update details
-
-
-
-        } catch (Exception e) {
-            Log.e("Error in adding event", e.getMessage());
+    @Override
+    public void onDestroy() {
+        if(context instanceof ChildProfileActivity){
+            ChildProfileActivity activity=(ChildProfileActivity)context;
+            activity.updateImmunizationData();
         }
-    }
-
-    private org.smartregister.Context context() {
-        return WcaroApplication.getInstance().getContext();
-    }
-
-    public ClientProcessorForJava getClientProcessorForJava() {
-        return FamilyLibrary.getInstance().getClientProcessorForJava();
-    }
-
-    public ECSyncHelper getSyncHelper() {
-        return FamilyLibrary.getInstance().getEcSyncHelper();
+        super.onDestroy();
     }
 }

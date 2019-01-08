@@ -46,11 +46,6 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
     }
 
     @Override
-    public void fetchServiceStatus(String baseEntityId) {
-        interactor.refreshChildServiceBar(childBaseEntityId,this);
-    }
-
-    @Override
     public void fetchFamilyMemberServiceDue(String baseEntityId) {
         interactor.refreshFamilyMemberServiceDue(getFamilyId(),childBaseEntityId,this);
     }
@@ -64,6 +59,11 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
     @Override
     public void refreshProfileView() {
         interactor.refreshProfileView(childBaseEntityId, false, this);
+    }
+
+    @Override
+    public void updateVisitNotDone(long value) {
+        interactor.updateVisitNotDone(value);
     }
 
     @Override
@@ -112,6 +112,9 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
             }
             if(childVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.OVER_TWENTY_FOUR.name())){
                 getView().setVisitAboveTwentyFourView();
+            }
+            if(childVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.NOT_VISIT_THIS_MONTH.name())){
+                getView().setVisitNotDoneThisMonth();
             }
             if(childVisit.getLastVisitTime()!=0){
                 getView().setLastVisitRowView(childVisit.getLastVisitDays());
