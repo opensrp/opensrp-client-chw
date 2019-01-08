@@ -27,7 +27,7 @@ import com.vijay.jsonwizard.customviews.RadioButton;
 
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
-import org.smartregister.immunization.R;
+import org.smartgresiter.wcaro.R;
 import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.immunization.domain.Vaccine;
 import org.smartregister.immunization.domain.VaccineSchedule;
@@ -94,7 +94,7 @@ public class CustomVaccinationDialogFragment extends DialogFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setStyle(DialogFragment.STYLE_NO_TITLE, android.R.style.Theme_Holo_Light_Dialog);
+        setStyle(DialogFragment.STYLE_NO_TITLE, android.R.style.Theme_Holo_Light_NoActionBar);
     }
 
     public void setDateOfBirth(Date dateOfBirth) {
@@ -128,7 +128,7 @@ public class CustomVaccinationDialogFragment extends DialogFragment {
             return null;
         }
 
-        ViewGroup dialogView = (ViewGroup) inflater.inflate(R.layout.vaccination_dialog_view, container, false);
+        ViewGroup dialogView = (ViewGroup) inflater.inflate(R.layout.single_vaccination_dialog_view, container, false);
         TextView nameView = (TextView) dialogView.findViewById(R.id.name);
         nameView.setText(tags.get(0).getPatientName());
         TextView numberView = (TextView) dialogView.findViewById(R.id.number);
@@ -187,8 +187,10 @@ public class CustomVaccinationDialogFragment extends DialogFragment {
 
                 View vaccinationName = inflater.inflate(R.layout.vaccination_name, null);
                 TextView vaccineView = (TextView) vaccinationName.findViewById(R.id.vaccine);
+                TextView vaccineViewTitle = (TextView) dialogView.findViewById(R.id.textview_vaccine_title);
 
-                vaccineView.setText(vName);
+                vaccineViewTitle.setText("Record "+vName);
+                vaccineView.setText("When was "+vName+" immunization done?");
 
                 View select = vaccinationName.findViewById(R.id.select);
                 select.setVisibility(View.GONE);
@@ -229,17 +231,7 @@ public class CustomVaccinationDialogFragment extends DialogFragment {
             vaccinateEarlier.setText(vaccinateEarlier.getText().toString().replace("Vaccination", "Vaccinations"));
         }
 
-        if (tags.get(0).getId() != null) {
-            ImageView mImageView = (ImageView) dialogView.findViewById(R.id.child_profilepic);
-            if (tags.get(0).getId() != null) {//image already in local storage most likey ):
-                //set profile image by passing the client id.If the image doesn't exist in the image repository then download and save locally
-                mImageView.setTag(R.id.entity_id, tags.get(0).getId());
 
-                int defaultImageResId = getDefaultImageResourceID() == null ? ImageUtils.profileImageResourceByGender(tags.get(0).getGender()) : getDefaultImageResourceID();
-                int errorImageResId = getDefaultErrorImageResourceID() == null ? ImageUtils.profileImageResourceByGender(tags.get(0).getGender()) : getDefaultErrorImageResourceID();
-                DrishtiApplication.getCachedImageLoaderInstance().getImageByClientId(tags.get(0).getId(), OpenSRPImageLoader.getStaticImageListener((ImageView) mImageView, defaultImageResId, errorImageResId));
-            }
-        }
 
         final DatePicker earlierDatePicker = (DatePicker) dialogView.findViewById(R.id.earlier_date_picker);
 
@@ -449,8 +441,8 @@ public class CustomVaccinationDialogFragment extends DialogFragment {
                 vaccinateToday.setClickable(true);
                 vaccinateToday.setVisibility(View.VISIBLE);
 
-                vaccinateEarlier.setVisibility(View.VISIBLE);
-                earlierDatePicker.setVisibility(View.GONE);
+                vaccinateEarlier.setVisibility(View.GONE);
+                earlierDatePicker.setVisibility(View.VISIBLE);
                 set.setVisibility(View.GONE);
             } else {
                 vaccinateToday.setClickable(false);
@@ -458,7 +450,7 @@ public class CustomVaccinationDialogFragment extends DialogFragment {
 
                 vaccinateEarlier.setVisibility(View.GONE);
                 earlierDatePicker.setVisibility(View.VISIBLE);
-                set.setVisibility(View.VISIBLE);
+                set.setVisibility(View.GONE);
 
                 DatePickerUtils.themeDatePicker(earlierDatePicker, new char[]{'d', 'm', 'y'});
             }
@@ -581,7 +573,7 @@ public class CustomVaccinationDialogFragment extends DialogFragment {
                 int width = size.x;
                 double widthFactor = Utils.calculateDialogWidthFactor(getActivity());
 
-                window.setLayout((int) (width * widthFactor), FrameLayout.LayoutParams.WRAP_CONTENT);
+                window.setLayout(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
                 window.setGravity(Gravity.CENTER);
             }
         });
