@@ -45,6 +45,7 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.UUID;
 
@@ -361,9 +362,9 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
 
     }
 
-    public static JSONObject getAutoPopulatedJsonEditFormString(Context context, CommonPersonObjectClient client) {
+    public static JSONObject getAutoPopulatedJsonEditFormString(String formName , Context context, CommonPersonObjectClient client) {
         try {
-            JSONObject form = FormUtils.getInstance(context).getFormJson(Utils.metadata().familyRegister.formName);
+            JSONObject form = FormUtils.getInstance(context).getFormJson(formName);
             LocationPickerView lpv = new LocationPickerView(context);
             lpv.init();
             // JsonFormUtils.addWomanRegisterHierarchyQuestions(form);
@@ -396,6 +397,10 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
         }
 
         return null;
+    }
+
+    public static JSONObject getAutoPopulatedJsonEditFormString(Context context, CommonPersonObjectClient client) {
+        return getAutoPopulatedJsonEditFormString(Utils.metadata().familyRegister.formName, context,client);
     }
 
     protected static void processPopulatableFields(CommonPersonObjectClient client, JSONObject jsonObject) throws JSONException {
@@ -438,36 +443,37 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
 
             case DBConstants.KEY.VILLAGE_TOWN:
 
-                String village_town = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.VILLAGE_TOWN, false);
-                jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, village_town);
+                jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), DBConstants.KEY.VILLAGE_TOWN, false));
 
                 break;
 
-            case "quarter_clan":
+            case DBConstants.KEY.QUATER_CLAN:
 
-                String quarter_clan = Utils.getValue(client.getColumnmaps(), "quarter_clan", false);
-                jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, quarter_clan);
-
-                break;
-
-            case "street":
-
-                String street = Utils.getValue(client.getColumnmaps(), "street", false);
-                jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, street);
+                jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), DBConstants.KEY.QUATER_CLAN, false));
 
                 break;
 
-            case "landmark":
+            case DBConstants.KEY.STREET:
 
-                String landmark = Utils.getValue(client.getColumnmaps(), "landmark", false);
-                jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, landmark);
+                jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), DBConstants.KEY.STREET, false));
 
                 break;
 
-            case "fam_source_income":
+            case DBConstants.KEY.LANDMARK:
 
-                String fam_source_income = Utils.getValue(client.getColumnmaps(), "fam_source_income", false);
-                jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, fam_source_income);
+                jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), DBConstants.KEY.LANDMARK, false));
+
+                break;
+
+            case DBConstants.KEY.FAMILY_SOURCE_INCOME:
+
+                jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), DBConstants.KEY.FAMILY_SOURCE_INCOME, false));
+
+                break;
+
+            case DBConstants.KEY.GPS:
+
+                jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), DBConstants.KEY.GPS, false));
 
                 break;
 

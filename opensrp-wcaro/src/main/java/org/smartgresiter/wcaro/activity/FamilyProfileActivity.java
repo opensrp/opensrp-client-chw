@@ -82,6 +82,7 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode,
                                            String permissions[], int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode,permissions,grantResults);
 
         switch (requestCode) {
             case PermissionUtils.PHONE_STATE_PERMISSION_REQUEST_CODE: {
