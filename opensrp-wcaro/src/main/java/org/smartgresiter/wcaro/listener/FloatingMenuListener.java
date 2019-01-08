@@ -26,7 +26,7 @@ public class FloatingMenuListener implements OnClickFloatingMenu {
         switch (viewId) {
             case R.id.call_layout:
                 // Toast.makeText(context, "Go to call screen", Toast.LENGTH_SHORT).show();
-                FamilyCallDialogFragment.showDialog(context);
+                FamilyCallDialogFragment dialog = FamilyCallDialogFragment.showDialog(context, ((FamilyProfileActivity) context).getFamilyBaseEntityId());
                 //go to child add form activity
                 break;
             case R.id.family_detail_layout:
