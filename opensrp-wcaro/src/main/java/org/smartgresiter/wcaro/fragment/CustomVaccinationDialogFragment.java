@@ -8,6 +8,8 @@ import android.graphics.Color;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
+import android.text.TextUtils;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -28,6 +30,7 @@ import com.vijay.jsonwizard.customviews.RadioButton;
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.smartgresiter.wcaro.R;
+import org.smartregister.domain.Alert;
 import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.immunization.domain.Vaccine;
 import org.smartregister.immunization.domain.VaccineSchedule;
@@ -35,18 +38,22 @@ import org.smartregister.immunization.domain.VaccineWrapper;
 import org.smartregister.immunization.listener.VaccinationActionListener;
 import org.smartregister.immunization.util.ImageUtils;
 import org.smartregister.immunization.util.Utils;
+import org.smartregister.immunization.view.VaccineGroup;
 import org.smartregister.util.DatePickerUtils;
+import org.smartregister.util.DateUtil;
 import org.smartregister.util.OpenSRPImageLoader;
 import org.smartregister.view.activity.DrishtiApplication;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 @SuppressLint("ValidFragment")
-public class CustomVaccinationDialogFragment extends DialogFragment {
+public class CustomVaccinationDialogFragment extends ChildImmunizationFragment {
     private List<VaccineWrapper> tags;
     private VaccinationActionListener listener;
     private Date dateOfBirth;
@@ -58,6 +65,7 @@ public class CustomVaccinationDialogFragment extends DialogFragment {
     private DialogInterface.OnDismissListener onDismissListener;
     private Integer defaultImageResourceID;
     private Integer defaultErrorImageResourceID;
+    private Activity context;
 
     public static CustomVaccinationDialogFragment newInstance(Date dateOfBirth,
                                                               List<Vaccine> issuedVaccines,
@@ -322,7 +330,7 @@ public class CustomVaccinationDialogFragment extends DialogFragment {
                     }
                 }
 
-                listener.onVaccinateToday(tagsToUpdate, view);
+                onVaccinateToday(tagsToUpdate, view);
 
             }
         });
@@ -346,6 +354,10 @@ public class CustomVaccinationDialogFragment extends DialogFragment {
             @Override
             public void onClick(View view) {
                 dismiss();
+                VaccineWrapper vaccineWrapper = tags.get(0);
+                VaccineRepo.Vaccine vaccine = vaccineWrapper.getVaccine();
+                ((ChildHomeVisitFragment)getActivity().getFragmentManager().findFragmentByTag("child_home_visit_dialog")).updateNotGivenVaccine(vaccine.display().toLowerCase());
+                ((ChildHomeVisitFragment)getActivity().getFragmentManager().findFragmentByTag("child_home_visit_dialog")).updateImmunizationState();
             }
         });
 
@@ -673,5 +685,26 @@ public class CustomVaccinationDialogFragment extends DialogFragment {
 
     public void setDefaultErrorImageResourceID(Integer defaultErrorImageResourceID) {
         this.defaultErrorImageResourceID = defaultErrorImageResourceID;
+    }
+
+    @Override
+    public void updateAgeViews() {
+    }
+
+    @Override
+    public void updateChildIdViews() {
+    }
+
+    public void addVaccineGroup(int canvasId, org.smartregister.immunization.domain.jsonmapping.VaccineGroup vaccineGroupData, List<Vaccine> vaccineList, List<Alert> alerts) {
+    }
+
+    @Override
+    public void updateVaccineGroupViews(View view, final ArrayList<VaccineWrapper> wrappers, final List<Vaccine> vaccineList, final boolean undo) {
+        ((ChildHomeVisitFragment)context.getFragmentManager().findFragmentByTag("child_home_visit_dialog")).updateImmunizationState();
+    }
+
+
+    public void setContext(Activity context) {
+        this.context = context;
     }
 }

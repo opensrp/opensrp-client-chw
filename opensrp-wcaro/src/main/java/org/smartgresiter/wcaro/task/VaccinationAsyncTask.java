@@ -36,6 +36,7 @@ public class VaccinationAsyncTask extends AsyncTask {
     private Map<String, Object> nv;
     private ImmunizationStateChangeListener immunizationStateChangeListener;
     private Map<String,String> getColumnMaps;
+    public ArrayList<String> notDoneVaccines = new ArrayList<String>();
 
     public VaccinationAsyncTask(String entityId,Map<String,String> getColumnMaps, ImmunizationStateChangeListener immunizationStateChangeListener) {
         this.entityId=entityId;
@@ -43,12 +44,19 @@ public class VaccinationAsyncTask extends AsyncTask {
         this.immunizationStateChangeListener=immunizationStateChangeListener;
     }
 
+    public VaccinationAsyncTask(String entityId,Map<String,String> getColumnMaps,ArrayList<String> notDoneVaccines, ImmunizationStateChangeListener immunizationStateChangeListener) {
+        this.entityId=entityId;
+        this.getColumnMaps=getColumnMaps;
+        this.immunizationStateChangeListener=immunizationStateChangeListener;
+        this.notDoneVaccines = notDoneVaccines;
+    }
+
     @Override
     protected Object doInBackground(Object[] objects) {
         alerts = WcaroApplication.getInstance().getContext().alertService().findByEntityIdAndAlertNames(entityId, VaccinateActionUtils.allAlertNames("child"));
         vaccines = WcaroApplication.getInstance().vaccineRepository().findByEntityId(entityId);
         Map<String, Date> recievedVaccines = receivedVaccines(vaccines);
-
+        recievedVaccines = addNotDoneVaccinesToReceivedVaccines(notDoneVaccines,recievedVaccines);
         List<Map<String, Object>> sch = generateScheduleList("child",
                 new DateTime(org.smartregister.family.util.Utils.getValue(getColumnMaps, DBConstants.KEY.DOB, false)), recievedVaccines, alerts);
 
@@ -88,6 +96,14 @@ public class VaccinationAsyncTask extends AsyncTask {
 
 
         return null;
+    }
+
+    private Map<String, Date> addNotDoneVaccinesToReceivedVaccines(ArrayList<String> notDoneVaccines, Map<String, Date> recievedVaccines) {
+        for(int i = 0;i<notDoneVaccines.size();i++){
+            recievedVaccines.put(notDoneVaccines.get(i),new Date());
+        }
+
+        return recievedVaccines;
     }
 
 

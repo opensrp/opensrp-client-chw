@@ -18,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -69,6 +70,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 import static org.smartgresiter.wcaro.fragment.AddMemberFragment.DIALOG_TAG;
 import static org.smartgresiter.wcaro.util.Constants.IMMUNIZATION_CONSTANT.DATE;
 import static org.smartgresiter.wcaro.util.Constants.IMMUNIZATION_CONSTANT.VACCINE;
@@ -97,6 +100,8 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     private TextView textview_immunization_primary_text;
     private TextView textview_immunization_secondary_text;
     private LinearLayout single_immunization_group;
+    ArrayList<String> notGivenVaccines = new ArrayList<String>();
+    private CircleImageView immunization_status_circle;
 
 
     public void setContext(Context context){
@@ -145,6 +150,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         textview_immunization_primary_text = (TextView)view.findViewById(R.id.textview_immunization);
         textview_immunization_secondary_text = (TextView)view.findViewById(R.id.textview_immunization_secondary_text);
 
+        immunization_status_circle = ((CircleImageView)view.findViewById(R.id.immunization_status_circle));
 
         assignNameHeader();
     }
@@ -233,6 +239,8 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
 
                     CustomVaccinationDialogFragment customVaccinationDialogFragment = CustomVaccinationDialogFragment.newInstance(dob,vaccines,vaccineWrappers);
 //                childHomeVisitFragment.setFamilyBaseEntityId(getFamilyBaseEntityId());
+                    customVaccinationDialogFragment.setContext(getActivity());
+                    customVaccinationDialogFragment.setChildDetails(childClient);
                     customVaccinationDialogFragment.show(ft,ChildImmunizationFragment.TAG);
                 }
 
@@ -376,7 +384,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
 //        if(vaccinationAsyncTask!=null && !vaccinationAsyncTask.isCancelled()){
 //            vaccinationAsyncTask.cancel(true);
 //        }
-        vaccinationAsyncTask=new VaccinationAsyncTask(childClient.getCaseId(), childClient.getColumnmaps(), new ImmunizationStateChangeListener() {
+        vaccinationAsyncTask=new VaccinationAsyncTask(childClient.getCaseId(), childClient.getColumnmaps(),notGivenVaccines, new ImmunizationStateChangeListener() {
             @Override
             public void onImmunicationStateChange(List<Vaccine> vaccines, String stateKey, Map<String, Object> nv, ImmunizationState state) {
                 ImmunizationState(vaccines,stateKey,nv,state);
@@ -418,6 +426,10 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
 
             textview_immunization_secondary_text.setText("Overdue "+ duedateString);
             single_immunization_group.setOnClickListener(this);
+        }else if(state.equals(ImmunizationState.NO_ALERT)){
+            immunization_status_circle.setImageResource(R.drawable.ic_checked);
+            immunization_status_circle.setColorFilter(getResources().getColor(R.color.white));
+            immunization_status_circle.setCircleBackgroundColor(getResources().getColor(R.color.pnc_circle_yellow));
         }else{
             textview_immunization_secondary_text.setText("");
 
@@ -438,4 +450,11 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         }
         super.onDestroy();
     }
+
+    public void updateNotGivenVaccine(String name) {
+        if(!notGivenVaccines.contains(name)) {
+            notGivenVaccines.add(name);
+        }
+    }
+
 }

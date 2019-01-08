@@ -174,7 +174,7 @@ public class ChildImmunizationFragment extends DialogFragment {
         org.smartregister.util.Utils.startAsyncTask(updateViewTask, null);
     }
 
-    private void updateChildIdViews() {
+    public void updateChildIdViews() {
         String name = "";
         String childId = "";
         if (isDataOk()) {
@@ -188,7 +188,7 @@ public class ChildImmunizationFragment extends DialogFragment {
         childIdTV.setText(String.format("%s: %s", "ID", childId));
     }
 
-    private void updateAgeViews() {
+    public void updateAgeViews() {
         String formattedAge = "";
         String formattedDob = "";
         if (isDataOk()) {
@@ -291,7 +291,7 @@ public class ChildImmunizationFragment extends DialogFragment {
     }
 
 
-    private void addVaccineGroup(int canvasId, org.smartregister.immunization.domain.jsonmapping.VaccineGroup vaccineGroupData, List<Vaccine> vaccineList, List<Alert> alerts) {
+    public void addVaccineGroup(int canvasId, org.smartregister.immunization.domain.jsonmapping.VaccineGroup vaccineGroupData, List<Vaccine> vaccineList, List<Alert> alerts) {
         LinearLayout vaccineGroupCanvasLL = (LinearLayout) view.findViewById(R.id.vaccine_group_canvas_ll);
         VaccineGroup curGroup = new VaccineGroup(getActivity());
         curGroup.setChildActive(isChildActive);
@@ -485,7 +485,7 @@ public class ChildImmunizationFragment extends DialogFragment {
         updateVaccineGroupViews(view, wrappers, vaccineList, false);
     }
 
-    private void updateVaccineGroupViews(View view, final ArrayList<VaccineWrapper> wrappers, final List<Vaccine> vaccineList, final boolean undo) {
+    public void updateVaccineGroupViews(View view, final ArrayList<VaccineWrapper> wrappers, final List<Vaccine> vaccineList, final boolean undo) {
         if (view == null || !(view instanceof VaccineGroup)) {
             return;
         }
