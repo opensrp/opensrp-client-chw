@@ -39,6 +39,20 @@
           }
         },
         {
+          "column_name": "family_head",
+          "type": "Client",
+          "json_mapping": {
+            "field": "relationships.family_head"
+          }
+        },
+        {
+          "column_name": "primary_caregiver",
+          "type": "Client",
+          "json_mapping": {
+            "field": "relationships.primary_caregiver"
+          }
+        },
+        {
           "column_name": "last_interacted_with",
           "type": "Event",
           "json_mapping": {
@@ -61,7 +75,7 @@
           "column_name": "unique_id",
           "type": "Client",
           "json_mapping": {
-            "field": "identifiers.UNIQUE_ID"
+            "field": "identifiers.opensrp_id"
           }
         },
         {
@@ -76,6 +90,13 @@
           "type": "Client",
           "json_mapping": {
             "field": "firstName"
+          }
+        },
+        {
+          "column_name": "middle_name",
+          "type": "Client",
+          "json_mapping": {
+            "field": "middleName"
           }
         },
         {
@@ -97,6 +118,13 @@
           "type": "Client",
           "json_mapping": {
             "field": "deathdate"
+          }
+        },
+        {
+          "column_name": "dob_unknown",
+          "type": "Client",
+          "json_mapping": {
+            "field": "birthdateApprox"
           }
         },
         {
@@ -129,7 +157,7 @@
           "column_name": "unique_id",
           "type": "Client",
           "json_mapping": {
-            "field": "identifiers.UNIQUE_ID"
+            "field": "identifiers.opensrp_id"
           }
         },
         {
@@ -147,17 +175,17 @@
           }
         },
         {
+          "column_name": "middle_name",
+          "type": "Client",
+          "json_mapping": {
+            "field": "middleName"
+          }
+        },
+        {
           "column_name": "last_name",
           "type": "Client",
           "json_mapping": {
             "field": "lastName"
-          }
-        },
-        {
-          "column_name": "gender",
-          "type": "Client",
-          "json_mapping": {
-            "field": "gender"
           }
         },
         {
@@ -168,10 +196,24 @@
           }
         },
         {
+          "column_name": "dod",
+          "type": "Client",
+          "json_mapping": {
+            "field": "deathdate"
+          }
+        },
+        {
           "column_name": "dob_unknown",
           "type": "Client",
           "json_mapping": {
             "field": "birthdateApprox"
+          }
+        },
+        {
+          "column_name": "gender",
+          "type": "Client",
+          "json_mapping": {
+            "field": "gender"
           }
         },
         {

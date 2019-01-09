@@ -89,7 +89,7 @@ public class WcaroApplication extends DrishtiApplication {
         context.updateCommonFtsObject(createCommonFtsObject());
 
         //Initialize Modules
-        CoreLibrary.init(context);
+        CoreLibrary.init(context, new WcaroSyncConfiguration());
         ImmunizationLibrary.init(context, getRepository(), null, BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
 
         ConfigurableViewsLibrary.init(context, getRepository());
@@ -105,7 +105,7 @@ public class WcaroApplication extends DrishtiApplication {
         JobManager.create(this).addJobCreator(new WcaroJobCreator());
 
         // TODO FIXME remove when login is implemented
-        //sampleUniqueIds();
+        sampleUniqueIds();
 
         initOfflineSchedules();
     }
