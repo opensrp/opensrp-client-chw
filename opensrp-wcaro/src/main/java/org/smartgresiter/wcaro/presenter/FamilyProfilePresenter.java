@@ -4,7 +4,9 @@ import android.util.Log;
 
 import org.json.JSONObject;
 import org.smartgresiter.wcaro.model.ChildRegisterModel;
+import org.smartgresiter.wcaro.util.Constants;
 import org.smartgresiter.wcaro.util.JsonFormUtils;
+import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.contract.FamilyProfileContract;
 import org.smartregister.family.presenter.BaseFamilyProfilePresenter;
 import org.smartregister.family.util.Utils;
@@ -39,4 +41,13 @@ public class FamilyProfilePresenter extends BaseFamilyProfilePresenter {
         return formUtils;
     }
 
+    @Override
+    public void startFormForEdit(CommonPersonObjectClient client) {
+        JSONObject form = JsonFormUtils.getAutoPopulatedJsonEditFormString(Constants.JSON_FORM.FAMILY_DETAILS_REGISTER , getView().getApplicationContext(), client);
+        try {
+            getView().startFormActivity(form);
+        } catch (Exception e) {
+            Log.e("TAG", e.getMessage());
+        }
+    }
 }
