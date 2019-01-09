@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+
+    <color name="wcaro_primary">#218CC5</color>
+    <color name="wcaro_primary_dark">#0d384e</color>
+    <color name="wcaro_accent">#3797ca</color>
+    <color name="primaryAccent">#3797ca</color>
+    <color name="primaryBackground">#a6d1e7</color>
+
     <color name="black_tranparent_50">#80232323</color>
     <color name="black">#000000</color>
     <color name="grey">#9e9e9e</color>
