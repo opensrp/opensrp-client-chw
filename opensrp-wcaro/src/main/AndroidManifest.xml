@@ -76,6 +76,8 @@
         <activity android:name=".activity.ChildProfileActivity"
             android:label="@string/child_details"
             android:theme="@style/WcaroTheme.NoActionBar"/>
+        <activity android:name=".activity.MedicalHistoryActivity" android:label="@string/medical_history"
+            android:theme="@style/WcaroTheme.NoActionBar"/>
     </application>
 
 </manifest>

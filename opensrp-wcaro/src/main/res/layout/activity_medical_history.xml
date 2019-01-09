@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
 android:layout_width="match_parent"
 android:layout_height="match_parent">
 
@@ -15,9 +16,10 @@ android:layout_height="match_parent">
         android:id="@+id/collapsing_toolbar_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:layout_scrollFlags="scroll|exitUntilCollapsed">
-            <LinearLayout
+            <android.support.v7.widget.Toolbar
                 android:id="@+id/collapsing_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
@@ -27,30 +29,21 @@ android:layout_height="match_parent">
                 android:orientation="horizontal"
                 app:contentInsetStartWithNavigation="0dp"
                 app:layout_collapseMode="pin" >
-                <ImageView
-                    android:id="@+id/back_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_action_back"
-                    android:layout_gravity="center_vertical"
-                    android:tint="@color/colorPrimary"
-                    android:padding="10dp"
-                    />
                 <org.smartregister.view.customcontrols.CustomFontTextView
                     android:id="@+id/toolbar_title"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="@string/back_to_children"
                     style="@style/CustomFontTextViewStyle.ClientList.Light"
-                    android:textColor="@color/colorPrimary"
+                    android:textColor="@color/text_blue"
                     android:textSize="18sp"
                     android:layout_marginRight="?android:attr/actionBarSize"
                     android:gravity="left|center_vertical"/>
-            </LinearLayout>
+            </android.support.v7.widget.Toolbar>
     </android.support.design.widget.CollapsingToolbarLayout>
 
-    <include layout="@layout/content_medical_history"/>
+
 
 </android.support.design.widget.AppBarLayout>
-
-</android.support.design.widget.CoordinatorLayout>
+    <include layout="@layout/content_medical_history" />
+</LinearLayout>

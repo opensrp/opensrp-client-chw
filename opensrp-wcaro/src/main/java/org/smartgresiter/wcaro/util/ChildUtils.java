@@ -7,6 +7,8 @@ import android.text.Spanned;
 import android.text.TextUtils;
 import android.util.Log;
 
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.ListUtils;
 import org.json.JSONObject;
 import org.smartgresiter.wcaro.application.WcaroApplication;
 import org.smartgresiter.wcaro.interactor.ChildProfileInteractor;
@@ -23,6 +25,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -31,42 +34,31 @@ public class ChildUtils {
     private static final long MILLI_SEC=24 * 60 * 60 * 1000;//24 hrs
     private static final String[] monthNames = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
 
-    public  enum ONE_YR{ bcg,
-        hepb,opv1,penta1,pcv1,rota1,opv2,penta2,pcv2,rota2,opv3,penta3,pcv3,rota3,ipv,mcv1,yf
-        }
-    public  enum TWO_YR{ bcg,
-        hepb,opv1,penta1,pcv1,rota1,opv2,penta2,pcv2,rota2,opv3,penta3,pcv3,rota3,ipv,mcv1,yf,mcv2
-    }
-    public static String isFullyImmunized(int age, Map<String,Date> vaccineGiven){
+    public  static final String[] ONE_YR={ "bcg",
+        "hepb","opv1","penta1","pcv1","rota1","opv2","penta2","pcv2","rota2","opv3","penta3","pcv3","rota3","ipv","mcv1",
+            "yf"
+        };
+    public  static final String[] TWO_YR={ "bcg",
+            "hepb","opv1","penta1","pcv1","rota1","opv2","penta2","pcv2","rota2","opv3","penta3","pcv3","rota3","ipv","mcv1",
+            "yf","mcv2"
+    };
+    public  static final String[] test={ "pcv 1","bcg"};
+
+    //Fully immunized at age 2
+    public static String isFullyImmunized(int age, List<String> vaccineGiven){
         String str="";
-        if(age>1 && age<2){
-            List<TWO_YR> twoYrVac=Arrays.asList(TWO_YR.values());
-            for( String vaccineName:vaccineGiven.keySet()){
-                for (TWO_YR two_yr:twoYrVac){
-                    if(two_yr.name().equalsIgnoreCase(vaccineName)){
-                        str="Fully immunized at age 2" ;
-                    }else{
-                        str="Not Fully immunized at age 2" ;
-                        break;
-                    }
-                }
-
-            }
-        }
         if(age<1){
-            List<ONE_YR> oneYrVac=Arrays.asList(ONE_YR.values());
-            for( String vaccineName:vaccineGiven.keySet()){
-                for (ONE_YR one_yr:oneYrVac){
-                    if(one_yr.name().equalsIgnoreCase(vaccineName)){
-                        str="Fully immunized at age 1" ;
-                    }else{
-                        str="Not Fully immunized at age 1" ;
-                        break;
-                    }
-                }
-
+            List<String> oneYrVac=Arrays.asList(ONE_YR);
+            if(vaccineGiven.containsAll(oneYrVac)){
+                str="Fully immunized at age 1";
+            }
+        }else{
+            List<String> twoYrVac=Arrays.asList(TWO_YR);
+            if(vaccineGiven.containsAll(twoYrVac)){
+                str="Fully immunized at age 2";
             }
         }
+
         return str;
 
     }

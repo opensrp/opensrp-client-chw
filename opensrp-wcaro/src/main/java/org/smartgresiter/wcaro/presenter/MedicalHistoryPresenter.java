@@ -19,12 +19,16 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+
+import static org.smartregister.immunization.util.VaccinatorUtils.receivedVaccines;
 
 public class MedicalHistoryPresenter implements MedicalHistoryContract.Presenter,MedicalHistoryContract.InteractorCallBack {
     private WeakReference<MedicalHistoryContract.View> view;
     private MedicalHistoryContract.Interactor interactor;
+    private  Map<String, Date> recievedVaccines;
     private ArrayList<BaseVaccine> baseVaccineArrayList;
     private ArrayList<GrowthNutrition> growthNutritionArrayList;
 
@@ -34,8 +38,9 @@ public class MedicalHistoryPresenter implements MedicalHistoryContract.Presenter
     }
 
     @Override
-    public void setInitialVaccineList(List<Vaccine> veccineList) {
-        interactor.setInitialVaccineList(veccineList,this);
+    public void setInitialVaccineList(Map<String, Date> veccineList) {
+        recievedVaccines=veccineList;
+        interactor.setInitialVaccineList(recievedVaccines,this);
     }
 
     @Override
@@ -44,8 +49,18 @@ public class MedicalHistoryPresenter implements MedicalHistoryContract.Presenter
     }
 
     @Override
+    public void fetchFullyImmunization(String dateOfBirth) {
+        interactor.fetchFullyImmunizationData(dateOfBirth,recievedVaccines,this);
+    }
+
+    @Override
     public void initialize() {
 
+    }
+
+    @Override
+    public void updateFullyImmunization(String text) {
+        getView().updateFullyImmunization(text);
     }
 
     @Override
