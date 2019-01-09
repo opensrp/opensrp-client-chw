@@ -3,6 +3,7 @@ package org.smartgresiter.wcaro.fragment;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.DialogFragment;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.Point;
@@ -65,6 +66,11 @@ public class CustomVaccinationDialogFragment extends ChildImmunizationFragment {
     private DialogInterface.OnDismissListener onDismissListener;
     private Integer defaultImageResourceID;
     private Integer defaultErrorImageResourceID;
+
+    public void setContext(Activity context) {
+        this.context = context;
+    }
+
     private Activity context;
 
     public static CustomVaccinationDialogFragment newInstance(Date dateOfBirth,
@@ -356,7 +362,7 @@ public class CustomVaccinationDialogFragment extends ChildImmunizationFragment {
                 dismiss();
                 VaccineWrapper vaccineWrapper = tags.get(0);
                 VaccineRepo.Vaccine vaccine = vaccineWrapper.getVaccine();
-                ((ChildHomeVisitFragment)getActivity().getFragmentManager().findFragmentByTag("child_home_visit_dialog")).updateNotGivenVaccine(vaccine.display().toLowerCase());
+                ((ChildHomeVisitFragment)getActivity().getFragmentManager().findFragmentByTag("child_home_visit_dialog")).updateNotGivenVaccine(vaccineWrapper);
                 ((ChildHomeVisitFragment)getActivity().getFragmentManager().findFragmentByTag("child_home_visit_dialog")).updateImmunizationState();
             }
         });
@@ -704,7 +710,4 @@ public class CustomVaccinationDialogFragment extends ChildImmunizationFragment {
     }
 
 
-    public void setContext(Activity context) {
-        this.context = context;
-    }
 }

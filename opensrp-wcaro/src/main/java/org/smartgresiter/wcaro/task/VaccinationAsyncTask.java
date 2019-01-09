@@ -12,6 +12,7 @@ import org.smartregister.domain.Alert;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.immunization.domain.Vaccine;
+import org.smartregister.immunization.domain.VaccineWrapper;
 import org.smartregister.immunization.util.VaccinateActionUtils;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -36,7 +37,7 @@ public class VaccinationAsyncTask extends AsyncTask {
     private Map<String, Object> nv;
     private ImmunizationStateChangeListener immunizationStateChangeListener;
     private Map<String,String> getColumnMaps;
-    public ArrayList<String> notDoneVaccines = new ArrayList<String>();
+    public ArrayList<VaccineWrapper> notDoneVaccines = new ArrayList<>();
 
     public VaccinationAsyncTask(String entityId,Map<String,String> getColumnMaps, ImmunizationStateChangeListener immunizationStateChangeListener) {
         this.entityId=entityId;
@@ -44,7 +45,7 @@ public class VaccinationAsyncTask extends AsyncTask {
         this.immunizationStateChangeListener=immunizationStateChangeListener;
     }
 
-    public VaccinationAsyncTask(String entityId,Map<String,String> getColumnMaps,ArrayList<String> notDoneVaccines, ImmunizationStateChangeListener immunizationStateChangeListener) {
+    public VaccinationAsyncTask(String entityId, Map<String,String> getColumnMaps, ArrayList<VaccineWrapper> notDoneVaccines, ImmunizationStateChangeListener immunizationStateChangeListener) {
         this.entityId=entityId;
         this.getColumnMaps=getColumnMaps;
         this.immunizationStateChangeListener=immunizationStateChangeListener;
@@ -98,9 +99,9 @@ public class VaccinationAsyncTask extends AsyncTask {
         return null;
     }
 
-    private Map<String, Date> addNotDoneVaccinesToReceivedVaccines(ArrayList<String> notDoneVaccines, Map<String, Date> recievedVaccines) {
+    private Map<String, Date> addNotDoneVaccinesToReceivedVaccines(ArrayList<VaccineWrapper> notDoneVaccines, Map<String, Date> recievedVaccines) {
         for(int i = 0;i<notDoneVaccines.size();i++){
-            recievedVaccines.put(notDoneVaccines.get(i),new Date());
+            recievedVaccines.put(notDoneVaccines.get(i).getName().toLowerCase(),new Date());
         }
 
         return recievedVaccines;

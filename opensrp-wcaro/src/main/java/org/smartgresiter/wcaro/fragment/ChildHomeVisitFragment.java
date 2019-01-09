@@ -6,8 +6,6 @@ import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -18,23 +16,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;
 import org.joda.time.DateTime;
-import org.joda.time.LocalDate;
 import org.json.JSONObject;
 import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.activity.ChildProfileActivity;
-import org.smartgresiter.wcaro.application.WcaroApplication;
 import org.smartgresiter.wcaro.contract.ChildRegisterContract;
 import org.smartgresiter.wcaro.interactor.ChildRegisterInteractor;
 import org.smartgresiter.wcaro.listener.ImmunizationStateChangeListener;
 import org.smartgresiter.wcaro.model.ChildRegisterModel;
-import org.smartgresiter.wcaro.presenter.ChildProfilePresenter;
 import org.smartgresiter.wcaro.task.VaccinationAsyncTask;
 import org.smartgresiter.wcaro.util.ChildUtils;
 import org.smartgresiter.wcaro.util.Constants;
@@ -42,48 +36,30 @@ import org.smartgresiter.wcaro.util.ImmunizationState;
 import org.smartgresiter.wcaro.util.JsonFormUtils;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
-import org.smartregister.clientandeventmodel.Obs;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
-import org.smartregister.domain.Alert;
-import org.smartregister.family.FamilyLibrary;
 import org.smartregister.family.activity.BaseFamilyProfileActivity;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.immunization.domain.Vaccine;
 import org.smartregister.immunization.domain.VaccineWrapper;
-import org.smartregister.immunization.util.VaccinateActionUtils;
-import org.smartregister.repository.BaseRepository;
-import org.smartregister.repository.EventClientRepository;
-import org.smartregister.sync.ClientProcessor;
-import org.smartregister.sync.ClientProcessorForJava;
-import org.smartregister.sync.helper.ECSyncHelper;
 import org.smartregister.util.DateUtil;
 import org.smartregister.util.FormUtils;
 import org.smartregister.util.Utils;
-import org.smartregister.view.contract.SmartRegisterClient;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-import static org.smartgresiter.wcaro.fragment.AddMemberFragment.DIALOG_TAG;
 import static org.smartgresiter.wcaro.util.Constants.IMMUNIZATION_CONSTANT.DATE;
 import static org.smartgresiter.wcaro.util.Constants.IMMUNIZATION_CONSTANT.VACCINE;
-import static org.smartgresiter.wcaro.util.Constants.TABLE_NAME.CHILD;
-import static org.smartregister.immunization.domain.State.EXPIRED;
 import static org.smartregister.immunization.util.VaccinatorUtils.generateScheduleList;
 import static org.smartregister.immunization.util.VaccinatorUtils.nextVaccineDue;
 import static org.smartregister.immunization.util.VaccinatorUtils.receivedVaccines;
-import static org.smartregister.util.DateUtil.DEFAULT_DATE_FORMAT;
 import static org.smartregister.util.Utils.getValue;
 import static org.smartregister.util.Utils.startAsyncTask;
-import static org.smartregister.view.contract.AlertStatus.UPCOMING;
 
 public class ChildHomeVisitFragment extends DialogFragment implements View.OnClickListener,ChildRegisterContract.InteractorCallBack {
 
@@ -100,7 +76,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     private TextView textview_immunization_primary_text;
     private TextView textview_immunization_secondary_text;
     private LinearLayout single_immunization_group;
-    ArrayList<String> notGivenVaccines = new ArrayList<String>();
+    ArrayList<VaccineWrapper> notGivenVaccines = new ArrayList<VaccineWrapper>();
     private CircleImageView immunization_status_circle;
 
 
@@ -230,8 +206,8 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                     VaccineRepo.Vaccine vaccine = (VaccineRepo.Vaccine) v.getTag(R.id.singlenextvaccine);
                     VaccineWrapper vaccineWrapper = new VaccineWrapper();
                     vaccineWrapper.setVaccine(vaccine);
-                    vaccineWrapper.setName(vaccine.name());
-                    vaccineWrapper.setDefaultName(vaccine.name());
+                    vaccineWrapper.setName(vaccine.display());
+                    vaccineWrapper.setDefaultName(vaccine.display());
                     ArrayList<VaccineWrapper> vaccineWrappers = new ArrayList<VaccineWrapper>();
                     vaccineWrappers.add(vaccineWrapper);
 
@@ -397,11 +373,18 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         Map<String, Date> recievedVaccines = receivedVaccines(vaccines);
         recievedVaccines.size();
         String givenVaccines = "";
+        String lastVaccine = "";
+        String lastVaccineGivenDate = "";
+
         for(int i = 0;i<vaccines.size();i++){
             if(i != 0) {
                 givenVaccines = givenVaccines + "," + vaccines.get(i).getName();
             }else{
                 givenVaccines = vaccines.get(i).getName();
+            }
+            if(i == vaccines.size()-1){
+                lastVaccine = vaccines.get(i).getName();
+                lastVaccineGivenDate = DateUtil.formatDate(new DateTime(vaccines.get(i).getDate().getTime()).toLocalDate(),"dd MMM yyyy");
             }
 
         }
@@ -427,9 +410,24 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
             textview_immunization_secondary_text.setText("Overdue "+ duedateString);
             single_immunization_group.setOnClickListener(this);
         }else if(state.equals(ImmunizationState.NO_ALERT)){
-            immunization_status_circle.setImageResource(R.drawable.ic_checked);
-            immunization_status_circle.setColorFilter(getResources().getColor(R.color.white));
-            immunization_status_circle.setCircleBackgroundColor(getResources().getColor(R.color.pnc_circle_yellow));
+            if(notGivenVaccines.size()>0) {
+                textview_immunization_primary_text.setText(notGivenVaccines.get(notGivenVaccines.size()-1).getDefaultName());
+                textview_immunization_secondary_text.setText("Due "+ notGivenVaccines.get(notGivenVaccines.size()-1).getVaccineDateAsString());
+
+                immunization_status_circle.setImageResource(R.drawable.ic_checked);
+                immunization_status_circle.setColorFilter(getResources().getColor(R.color.white));
+                immunization_status_circle.setCircleBackgroundColor(getResources().getColor(R.color.pnc_circle_yellow));
+
+            }else{
+                textview_immunization_primary_text.setText(lastVaccine);
+                textview_immunization_secondary_text.setText(lastVaccineGivenDate);
+
+                immunization_status_circle.setImageResource(R.drawable.ic_checked);
+                immunization_status_circle.setColorFilter(getResources().getColor(R.color.white));
+                immunization_status_circle.setCircleBackgroundColor(getResources().getColor(R.color.alert_complete_green));
+
+            }
+
         }else{
             textview_immunization_secondary_text.setText("");
 
@@ -451,7 +449,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         super.onDestroy();
     }
 
-    public void updateNotGivenVaccine(String name) {
+    public void updateNotGivenVaccine(VaccineWrapper name) {
         if(!notGivenVaccines.contains(name)) {
             notGivenVaccines.add(name);
         }
