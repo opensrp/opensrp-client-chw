@@ -78,6 +78,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     private LinearLayout single_immunization_group;
     ArrayList<VaccineWrapper> notGivenVaccines = new ArrayList<VaccineWrapper>();
     private CircleImageView immunization_status_circle;
+    private CircleImageView immunization_group_status_circle;
 
 
     public void setContext(Context context){
@@ -127,6 +128,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         textview_immunization_secondary_text = (TextView)view.findViewById(R.id.textview_immunization_secondary_text);
 
         immunization_status_circle = ((CircleImageView)view.findViewById(R.id.immunization_status_circle));
+        immunization_group_status_circle = ((CircleImageView)view.findViewById(R.id.immunization_group_status_circle));
 
         assignNameHeader();
     }
@@ -418,6 +420,10 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                 immunization_status_circle.setColorFilter(getResources().getColor(R.color.white));
                 immunization_status_circle.setCircleBackgroundColor(getResources().getColor(R.color.pnc_circle_yellow));
 
+                immunization_group_status_circle.setImageResource(R.drawable.ic_checked);
+                immunization_group_status_circle.setColorFilter(getResources().getColor(R.color.white));
+                immunization_group_status_circle.setCircleBackgroundColor(getResources().getColor(R.color.pnc_circle_yellow));
+
             }else{
                 textview_immunization_primary_text.setText(lastVaccine);
                 textview_immunization_secondary_text.setText(lastVaccineGivenDate);
@@ -425,6 +431,10 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                 immunization_status_circle.setImageResource(R.drawable.ic_checked);
                 immunization_status_circle.setColorFilter(getResources().getColor(R.color.white));
                 immunization_status_circle.setCircleBackgroundColor(getResources().getColor(R.color.alert_complete_green));
+
+                immunization_group_status_circle.setImageResource(R.drawable.ic_checked);
+                immunization_group_status_circle.setColorFilter(getResources().getColor(R.color.white));
+                immunization_group_status_circle.setCircleBackgroundColor(getResources().getColor(R.color.alert_complete_green));
 
             }
 
