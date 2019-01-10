@@ -2,6 +2,7 @@ package org.smartgresiter.wcaro.task;
 
 import android.database.Cursor;
 import android.os.AsyncTask;
+import android.text.TextUtils;
 import android.util.Log;
 
 import org.joda.time.DateTime;
@@ -16,7 +17,9 @@ import org.smartregister.domain.Alert;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.Utils;
 import org.smartregister.immunization.db.VaccineRepo;
+import org.smartregister.immunization.domain.ServiceSchedule;
 import org.smartregister.immunization.domain.Vaccine;
+import org.smartregister.immunization.domain.VaccineSchedule;
 import org.smartregister.immunization.util.VaccinateActionUtils;
 
 import java.util.ArrayList;
@@ -62,12 +65,21 @@ public class FamilyMemberVaccinationAsyncTask extends AsyncTask {
             CommonPersonObjectClient pClient = new CommonPersonObjectClient(personObject.getCaseId(),
                     personObject.getDetails(), "");
            // pClient.setColumnmaps(personObject.getColumnmaps());
+                String dobString = org.smartregister.util.Utils.getValue(personObject.getColumnmaps(), DBConstants.KEY.DOB, false);
+
+                if(pClient.getCaseId().equalsIgnoreCase(childId)){
+                if (!TextUtils.isEmpty(dobString)) {
+                    DateTime dateTime = new DateTime(dobString);
+                    VaccineSchedule.updateOfflineAlerts(childId, dateTime, "child");
+                    ServiceSchedule.updateOfflineAlerts(childId, dateTime);
+                }
+            }
 
             List<Alert> alerts = WcaroApplication.getInstance().getContext().alertService().findByEntityIdAndAlertNames(pClient.getCaseId(), VaccinateActionUtils.allAlertNames("child"));
             List<Vaccine> vaccines = WcaroApplication.getInstance().vaccineRepository().findByEntityId(pClient.getCaseId());
             Map<String, Date> recievedVaccines = receivedVaccines(vaccines);
             List<Map<String, Object>> sch = generateScheduleList("child",
-                    new DateTime(org.smartregister.family.util.Utils.getValue(personObject.getColumnmaps(), DBConstants.KEY.DOB, false)), recievedVaccines, alerts);
+                    new DateTime(dobString), recievedVaccines, alerts);
 
             List<VaccineRepo.Vaccine> vList = Arrays.asList(VaccineRepo.Vaccine.values());
             Map<String, Object> nv = nextVaccineDue(sch, vList);
