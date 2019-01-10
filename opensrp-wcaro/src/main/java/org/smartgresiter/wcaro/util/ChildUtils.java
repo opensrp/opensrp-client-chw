@@ -50,12 +50,12 @@ public class ChildUtils {
         if(age<1){
             List<String> oneYrVac=Arrays.asList(ONE_YR);
             if(vaccineGiven.containsAll(oneYrVac)){
-                str="Fully immunized at age 1";
+                str="1";
             }
         }else{
             List<String> twoYrVac=Arrays.asList(TWO_YR);
             if(vaccineGiven.containsAll(twoYrVac)){
-                str="Fully immunized at age 2";
+                str="2";
             }
         }
 

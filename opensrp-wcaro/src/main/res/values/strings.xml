@@ -62,5 +62,7 @@
     <string name="medical_last_visit">%1$s ago home visit</string>
     <string name="growth_and_nutrition">GROWTH AND NUTRITION</string>
     <string name="immunization">IMMUNIZATION</string>
-    <string name="fully_immunized_at_age">Fully immunized at age %1$s</string>
+    <string name="fully_immunized_at_age_2">Fully immunized at age 2</string>
+    <string name="fully_immunized_at_age_1">Fully immunized at age 1</string>
+    <string name="health_child_milestone">Health child milestone</string>
 </resources>
