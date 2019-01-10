@@ -22,6 +22,7 @@ import org.smartregister.family.activity.FamilyWizardFormActivity;
 import org.smartregister.family.domain.FamilyMetadata;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.Utils;
+import org.smartregister.immunization.ImmunizationLibrary;
 import org.smartregister.immunization.domain.VaccineSchedule;
 import org.smartregister.immunization.domain.jsonmapping.Vaccine;
 import org.smartregister.immunization.domain.jsonmapping.VaccineGroup;
@@ -31,8 +32,6 @@ import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.repository.Repository;
 import org.smartregister.view.activity.DrishtiApplication;
-import org.smartregister.immunization.ImmunizationLibrary;
-
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,25 +57,35 @@ public class WcaroApplication extends DrishtiApplication {
             commonFtsObject = new CommonFtsObject(getFtsTables());
             for (String ftsTable : commonFtsObject.getTables()) {
                 commonFtsObject.updateSearchFields(ftsTable, getFtsSearchFields(ftsTable));
-                commonFtsObject.updateSortFields(ftsTable, getFtsSortFields());
+                commonFtsObject.updateSortFields(ftsTable, getFtsSortFields(ftsTable));
             }
         }
         return commonFtsObject;
     }
 
     private static String[] getFtsTables() {
-        return new String[]{Constants.TABLE_NAME.FAMILY,Constants.TABLE_NAME.CHILD};
+        return new String[]{Constants.TABLE_NAME.FAMILY, Constants.TABLE_NAME.FAMILY_MEMBER, Constants.TABLE_NAME.CHILD};
     }
 
-    private static String[] getFtsSearchFields(String table) {
-        return new String[]{DBConstants.KEY.BASE_ENTITY_ID,DBConstants.KEY.VILLAGE_TOWN, DBConstants.KEY.FIRST_NAME,
-                DBConstants.KEY.LAST_NAME, DBConstants.KEY.UNIQUE_ID,DBConstants.KEY
-                .LAST_INTERACTED_WITH};
+    private static String[] getFtsSearchFields(String tableName) {
+        if (tableName.equals(Constants.TABLE_NAME.FAMILY)) {
+            return new String[]{DBConstants.KEY.BASE_ENTITY_ID, DBConstants.KEY.VILLAGE_TOWN, DBConstants.KEY.FIRST_NAME,
+                    DBConstants.KEY.LAST_NAME, DBConstants.KEY.UNIQUE_ID};
+        } else if (tableName.equals(Constants.TABLE_NAME.FAMILY_MEMBER) || tableName.equals(Constants.TABLE_NAME.CHILD)) {
+            return new String[]{DBConstants.KEY.BASE_ENTITY_ID, DBConstants.KEY.FIRST_NAME, DBConstants.KEY.MIDDLE_NAME,
+                    DBConstants.KEY.LAST_NAME, DBConstants.KEY.UNIQUE_ID};
+        }
+        return null;
     }
 
-    private static String[] getFtsSortFields() {
-        return new String[]{DBConstants.KEY.BASE_ENTITY_ID, DBConstants.KEY.FIRST_NAME, DBConstants.KEY.LAST_NAME, DBConstants.KEY
-                .LAST_INTERACTED_WITH};
+    private static String[] getFtsSortFields(String tableName) {
+        if (tableName.equals(Constants.TABLE_NAME.FAMILY)) {
+            return new String[]{DBConstants.KEY.LAST_INTERACTED_WITH};
+        } else if (tableName.equals(Constants.TABLE_NAME.FAMILY_MEMBER) || tableName.equals(Constants.TABLE_NAME.CHILD)) {
+            return new String[]{DBConstants.KEY.DOB, DBConstants.KEY.DOD, DBConstants.KEY
+                    .LAST_INTERACTED_WITH};
+        }
+        return null;
     }
 
     @Override
@@ -160,9 +169,11 @@ public class WcaroApplication extends DrishtiApplication {
 
         return ids;
     }
+
     public VaccineRepository vaccineRepository() {
         return ImmunizationLibrary.getInstance().vaccineRepository();
     }
+
     public void initOfflineSchedules() {
         try {
             List<VaccineGroup> childVaccines = VaccinatorUtils.getSupportedVaccines(this);
