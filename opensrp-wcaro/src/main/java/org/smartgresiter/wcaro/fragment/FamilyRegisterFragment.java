@@ -1,8 +1,10 @@
 package org.smartgresiter.wcaro.fragment;
 
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.custom_view.NavigationMenu;
@@ -14,6 +16,8 @@ import org.smartregister.view.activity.BaseRegisterActivity;
 import org.smartregister.view.customcontrols.CustomFontTextView;
 
 public class FamilyRegisterFragment extends BaseFamilyRegisterFragment {
+
+    private View dueOnlyLayout;
 
     @Override
     public void setupViews(View view) {
@@ -46,15 +50,15 @@ public class FamilyRegisterFragment extends BaseFamilyRegisterFragment {
         View topRightLayout = view.findViewById(R.id.top_right_layout);
         topRightLayout.setVisibility(View.VISIBLE);
 
-        View sortFilterBar = view.findViewById(R.id.register_sort_filter_bar_layout);
-        sortFilterBar.setVisibility(View.GONE);
+        View sortFilterBarLayout = view.findViewById(R.id.register_sort_filter_bar_layout);
+        sortFilterBarLayout.setVisibility(View.GONE);
 
-        View filterTextView = view.findViewById(R.id.filter_sort_layout);
-        filterTextView.setVisibility(View.GONE);
+        View filterSortLayout = view.findViewById(R.id.filter_sort_layout);
+        filterSortLayout.setVisibility(View.GONE);
 
-        View dueOnlyTextView = view.findViewById(R.id.due_only_layout);
-        dueOnlyTextView.setVisibility(View.VISIBLE);
-        dueOnlyTextView.setOnClickListener(registerActionHandler);
+        dueOnlyLayout = view.findViewById(R.id.due_only_layout);
+        dueOnlyLayout.setVisibility(View.VISIBLE);
+        dueOnlyLayout.setOnClickListener(registerActionHandler);
     }
 
     @Override
@@ -85,5 +89,19 @@ public class FamilyRegisterFragment extends BaseFamilyRegisterFragment {
     @Override
     protected void onViewClicked(View view) {
         super.onViewClicked(view);
+
+        switch (view.getId()) {
+            case R.id.due_only_layout:
+                TextView dueOnlyTextView = dueOnlyLayout.findViewById(R.id.due_only_text_view);
+                Drawable[] drawables = dueOnlyTextView.getCompoundDrawables();
+                Drawable rightDrawable = drawables[2];
+                if (rightDrawable != null) {
+                    if (Utils.areDrawablesIdentical(rightDrawable, getResources().getDrawable(R.drawable.ic_due_filter_off))) {
+                        dueOnlyTextView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_due_filter_on, 0);
+                    } else {
+                        dueOnlyTextView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_due_filter_off, 0);
+                    }
+                }
+        }
     }
 }

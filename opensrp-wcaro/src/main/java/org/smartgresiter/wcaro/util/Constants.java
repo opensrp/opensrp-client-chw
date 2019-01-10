@@ -46,4 +46,8 @@ public class Constants {
         public static final String HIV_CLIENTS = "Hiv Clients";
     }
 
+    public static final class SyncFilters {
+        public static final String FILTER_TEAM_ID = "teamId";
+    }
+
 }
