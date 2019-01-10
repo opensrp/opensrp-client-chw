@@ -152,13 +152,16 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
 
     @Override
     public void updateFamilyMemberServiceDue(String serviceDueStatus) {
-        if(serviceDueStatus.equalsIgnoreCase(ChildProfileInteractor.FamilyServiceType.DUE.name())){
-            getView().setFamilyHasServiceDue();
-        }else if(serviceDueStatus.equalsIgnoreCase(ChildProfileInteractor.FamilyServiceType.OVERDUE.name())){
-            getView().setFamilyHasServiceOverdue();
-        }else {
-            getView().setFamilyHasNothingDue();
+        if(getView()!=null){
+            if(serviceDueStatus.equalsIgnoreCase(ChildProfileInteractor.FamilyServiceType.DUE.name())){
+                getView().setFamilyHasServiceDue();
+            }else if(serviceDueStatus.equalsIgnoreCase(ChildProfileInteractor.FamilyServiceType.OVERDUE.name())){
+                getView().setFamilyHasServiceOverdue();
+            }else {
+                getView().setFamilyHasNothingDue();
+            }
         }
+
     }
 
     @Override

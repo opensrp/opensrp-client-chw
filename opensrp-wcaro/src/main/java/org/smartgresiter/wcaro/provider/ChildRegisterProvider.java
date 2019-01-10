@@ -192,8 +192,12 @@ public class ChildRegisterProvider implements RecyclerViewProvider<ChildRegister
 
     private void setVisitButtonOverdueStatus(Button dueButton,String lastVisitDays) {
         dueButton.setTextColor(context.getResources().getColor(R.color.white));
-        if(TextUtils.isEmpty(lastVisitDays)) lastVisitDays="";
-        dueButton.setText(context.getString(R.string.due_visit,lastVisitDays));
+        if(TextUtils.isEmpty(lastVisitDays)){
+            dueButton.setText(context.getString(R.string.record_visit));
+        }else{
+            dueButton.setText(context.getString(R.string.due_visit,lastVisitDays));
+        }
+
         dueButton.setBackgroundResource(R.drawable.red_btn_selector);
         dueButton.setOnClickListener(onClickListener);
     }
