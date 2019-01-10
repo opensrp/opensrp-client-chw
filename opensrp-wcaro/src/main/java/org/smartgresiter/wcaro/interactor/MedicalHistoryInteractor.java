@@ -1,6 +1,7 @@
 package org.smartgresiter.wcaro.interactor;
 
 import android.support.annotation.VisibleForTesting;
+import android.util.Log;
 
 import org.apache.commons.lang3.text.WordUtils;
 import org.smartgresiter.wcaro.contract.MedicalHistoryContract;
@@ -18,6 +19,8 @@ import org.smartregister.immunization.util.VaccinateActionUtils;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -75,18 +78,28 @@ public class MedicalHistoryInteractor implements MedicalHistoryContract.Interact
                     receivedVaccine.setVaccineCategory(stateKey);
                     receivedVaccine.setVaccineName(name);
                     receivedVaccine.setVaccineDate(recievedVaccines.get(name));
+                    receivedVaccine.setVaccineIndex(vList.indexOf(vaccine));
                     receivedVaccineArrayList.add(receivedVaccine);
                 }
             }
+        }
+        if(receivedVaccineArrayList.size()>0){
+            Collections.sort(receivedVaccineArrayList, new Comparator<ReceivedVaccine>() {
+                public int compare(ReceivedVaccine vaccine1, ReceivedVaccine vaccine2) {
+                    if (vaccine1.getVaccineIndex() < vaccine2.getVaccineIndex()) {
+                        return -1;
+                    } else if (vaccine1.getVaccineIndex() > vaccine2.getVaccineIndex()) {
+                        return 1;
+                    }
+                    return 0;
+                }
+            });
         }
 
         String lastCategory="";
         for(ReceivedVaccine receivedVaccine:receivedVaccineArrayList){
             if(!receivedVaccine.getVaccineCategory().equalsIgnoreCase(lastCategory)){
                 VaccineHeader vaccineHeader=new VaccineHeader();
-                if(receivedVaccine.getVaccineCategory().trim().equalsIgnoreCase("at birth")){
-                    receivedVaccine.setVaccineCategory("Birth");
-                }
                 lastCategory=receivedVaccine.getVaccineCategory();
                 vaccineHeader.setVaccineHeaderName(receivedVaccine.getVaccineCategory());
                 baseVaccineArrayList.add(vaccineHeader);

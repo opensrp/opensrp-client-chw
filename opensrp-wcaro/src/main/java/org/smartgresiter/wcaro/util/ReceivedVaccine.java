@@ -3,9 +3,16 @@ package org.smartgresiter.wcaro.util;
 import java.util.Date;
 
 public class ReceivedVaccine {
-    String vaccineCategory;
-    String vaccineName;
-    Date vaccineDate;
+    private String vaccineCategory;
+    private String vaccineName;
+    private Date vaccineDate;
+    private int vaccineIndex;
+    public int getVaccineIndex() {
+        return vaccineIndex;
+    }
+    public void setVaccineIndex(int vaccineIndex) {
+        this.vaccineIndex = vaccineIndex;
+    }
     public String getVaccineCategory() {
         return vaccineCategory;
     }

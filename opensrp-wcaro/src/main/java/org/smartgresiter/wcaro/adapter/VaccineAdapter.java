@@ -45,6 +45,9 @@ public class VaccineAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 BaseVaccine baseVaccine = baseVaccines.get(position);
                 VaccineHeader vaccineHeader=(VaccineHeader) baseVaccine;
                 HeaderViewHolder headerViewHolder=(HeaderViewHolder)viewHolder;
+                if(vaccineHeader.getVaccineHeaderName().trim().equalsIgnoreCase("at birth")){
+                   vaccineHeader.setVaccineHeaderName("Birth");
+                }
                 headerViewHolder.headerTitle.setText(vaccineHeader.getVaccineHeaderName());
                 break;
              case BaseVaccine.TYPE_CONTENT:
