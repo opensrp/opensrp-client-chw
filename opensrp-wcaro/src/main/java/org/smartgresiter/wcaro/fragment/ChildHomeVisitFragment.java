@@ -184,7 +184,6 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
 
     @Override
     public void onClick(View v) {
-        FragmentTransaction ft = getActivity().getFragmentManager().beginTransaction();
 
         switch (v.getId()) {
             case R.id.textview_submit:
@@ -198,7 +197,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                 ChildImmunizationFragment childImmunizationFragment = ChildImmunizationFragment.newInstance(new Bundle());
                 childImmunizationFragment.setChildDetails(childClient);
 //                childHomeVisitFragment.setFamilyBaseEntityId(getFamilyBaseEntityId());
-                childImmunizationFragment.show(ft,ChildImmunizationFragment.TAG);
+                childImmunizationFragment.show(getActivity().getFragmentManager(),ChildImmunizationFragment.TAG);
                 break;
             case R.id.immunization_name_group:
                 String dobString = org.smartregister.util.Utils.getValue(childClient.getColumnmaps(), "dob", false);
@@ -219,7 +218,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
 //                childHomeVisitFragment.setFamilyBaseEntityId(getFamilyBaseEntityId());
                     customVaccinationDialogFragment.setContext(getActivity());
                     customVaccinationDialogFragment.setChildDetails(childClient);
-                    customVaccinationDialogFragment.show(ft,ChildImmunizationFragment.TAG);
+                    customVaccinationDialogFragment.show(getActivity().getFragmentManager(),ChildImmunizationFragment.TAG);
                 }
 
                 break;
