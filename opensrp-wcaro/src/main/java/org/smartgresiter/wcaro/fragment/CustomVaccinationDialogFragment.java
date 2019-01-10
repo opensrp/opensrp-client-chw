@@ -56,7 +56,7 @@ import java.util.Random;
 @SuppressLint("ValidFragment")
 public class CustomVaccinationDialogFragment extends ChildImmunizationFragment {
     private List<VaccineWrapper> tags;
-    private VaccinationActionListener listener;
+//    private VaccinationActionListener listener;
     private Date dateOfBirth;
     private List<Vaccine> issuedVaccines;
     public static final String DIALOG_TAG = "CustomVaccinationDialogFragment";
@@ -301,7 +301,7 @@ public class CustomVaccinationDialogFragment extends ChildImmunizationFragment {
                         }
                     }
                 }
-                listener.onVaccinateEarlier(tagsToUpdate, view);
+                onVaccinateEarlier(tagsToUpdate, view);
 
             }
         });
@@ -557,7 +557,7 @@ public class CustomVaccinationDialogFragment extends ChildImmunizationFragment {
         // Verify that the host activity implements the callback interface
         try {
             // Instantiate the NoticeDialogListener so we can send events to the host
-            listener = (VaccinationActionListener) activity;
+//            listener = (VaccinationActionListener) activity;
         } catch (ClassCastException e) {
             // The activity doesn't implement the interface, throw exception
             throw new ClassCastException(activity.toString()

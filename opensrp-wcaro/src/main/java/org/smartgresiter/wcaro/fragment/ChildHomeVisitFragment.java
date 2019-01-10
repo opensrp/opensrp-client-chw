@@ -184,7 +184,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
 
     @Override
     public void onClick(View v) {
-        FragmentTransaction ft = ((ChildProfileActivity)context).getFragmentManager().beginTransaction();
+        FragmentTransaction ft = getActivity().getFragmentManager().beginTransaction();
 
         switch (v.getId()) {
             case R.id.textview_submit:
