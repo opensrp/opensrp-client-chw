@@ -3,6 +3,8 @@ package org.smartgresiter.wcaro.activity;
 import android.content.pm.PackageManager;
 import android.support.v4.view.ViewPager;
 import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -80,9 +82,21 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+
+        MenuItem addMember = menu.findItem(R.id.add_member);
+        if (addMember != null) {
+            addMember.setVisible(false);
+        }
+
+        return true;
+    }
+
+    @Override
     public void onRequestPermissionsResult(int requestCode,
                                            String permissions[], int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode,permissions,grantResults);
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
         switch (requestCode) {
             case PermissionUtils.PHONE_STATE_PERMISSION_REQUEST_CODE: {
@@ -104,9 +118,9 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity {
         return familyBaseEntityId;
     }
 
-    public void startFormForEdit(){
-        if(familyBaseEntityId != null){
-            ((FamilyProfilePresenter)presenter).fetchProfileData();
+    public void startFormForEdit() {
+        if (familyBaseEntityId != null) {
+            ((FamilyProfilePresenter) presenter).fetchProfileData();
         }
     }
 }

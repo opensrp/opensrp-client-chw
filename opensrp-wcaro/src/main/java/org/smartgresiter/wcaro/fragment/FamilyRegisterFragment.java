@@ -10,6 +10,7 @@ import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.custom_view.NavigationMenu;
 import org.smartgresiter.wcaro.model.FamilyRegisterFramentModel;
 import org.smartgresiter.wcaro.presenter.FamilyRegisterFragmentPresenter;
+import org.smartgresiter.wcaro.util.Constants;
 import org.smartgresiter.wcaro.util.Utils;
 import org.smartregister.family.fragment.BaseFamilyRegisterFragment;
 import org.smartregister.view.activity.BaseRegisterActivity;
@@ -59,6 +60,13 @@ public class FamilyRegisterFragment extends BaseFamilyRegisterFragment {
         dueOnlyLayout = view.findViewById(R.id.due_only_layout);
         dueOnlyLayout.setVisibility(View.VISIBLE);
         dueOnlyLayout.setOnClickListener(registerActionHandler);
+
+        if (getSearchView() != null) {
+            getSearchView().setBackgroundResource(org.smartregister.family.R.color.white);
+            getSearchView().setCompoundDrawablesWithIntrinsicBounds(org.smartregister.family.R.drawable.ic_action_search, 0, 0, 0);
+            getSearchView().setTextColor(getResources().getColor(R.color.text_black));
+        }
+
     }
 
     @Override
@@ -84,6 +92,12 @@ public class FamilyRegisterFragment extends BaseFamilyRegisterFragment {
     @Override
     protected void startRegistration() {
 //        ((BaseFamilyRegisterActivity) getActivity()).startFormActivity(Utils.metadata().familyRegister.formName, null, null);
+    }
+
+    @Override
+    public void filter(String filterString, String joinTableString, String mainConditionString, boolean qrCode) {
+        this.joinTables = new String[]{Constants.TABLE_NAME.FAMILY, Constants.TABLE_NAME.FAMILY_MEMBER};
+        super.filter(filterString, joinTableString, mainConditionString, qrCode);
     }
 
     @Override
