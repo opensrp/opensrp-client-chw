@@ -8,6 +8,7 @@ import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.activity.FamilyProfileActivity;
 import org.smartgresiter.wcaro.fragment.AddMemberFragment;
 import org.smartgresiter.wcaro.fragment.FamilyCallDialogFragment;
+import org.smartgresiter.wcaro.util.Constants;
 import org.smartregister.family.activity.BaseFamilyProfileActivity;
 
 import static org.smartgresiter.wcaro.fragment.AddMemberFragment.DIALOG_TAG;
@@ -25,12 +26,11 @@ public class FloatingMenuListener implements OnClickFloatingMenu {
         switch (viewId) {
             case R.id.call_layout:
                 // Toast.makeText(context, "Go to call screen", Toast.LENGTH_SHORT).show();
-                FamilyCallDialogFragment.showDialog(context);
+                FamilyCallDialogFragment dialog = FamilyCallDialogFragment.showDialog(context, ((FamilyProfileActivity) context).getFamilyBaseEntityId());
                 //go to child add form activity
                 break;
             case R.id.family_detail_layout:
-                Toast.makeText(context, "Go to family details", Toast.LENGTH_SHORT).show();
-                //go to child add form activity
+                ((FamilyProfileActivity) context).startFormForEdit();
                 break;
             case R.id.add_new_member_layout:
                 FragmentTransaction ft = ((BaseFamilyProfileActivity) context).getFragmentManager().beginTransaction();

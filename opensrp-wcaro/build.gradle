@@ -126,7 +126,7 @@ dependencies {
     }
 
 
-    implementation('org.smartregister:opensrp-client-family:1.0.1-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-family:1.0.2-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'org.smartregister', module: 'opensrp-client-core'
         exclude group: 'org.smartregister', module: 'opensrp-client-native-form'

@@ -73,6 +73,21 @@
         }
       },
       {
+        "key": "unique_id",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_identifier",
+        "openmrs_entity_id": "opensrp_id",
+        "hidden":"true",
+        "type": "barcode",
+        "barcode_type": "qrcode",
+        "hint": "ID *",
+        "scanButtonText": "Scan QR Code",
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter a valid ID"
+        }
+      },
+      {
         "key": "village_town",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_address",
@@ -88,7 +103,7 @@
         "key": "quarter_clan",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_address",
-        "openmrs_entity_id": "addressFields.commune",
+        "openmrs_entity_id": "commune",
         "type": "edit_text",
         "hint": "Quarter/Clan *",
         "v_required": {
@@ -100,7 +115,7 @@
         "key": "street",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_address",
-        "openmrs_entity_id": "addressFields.street",
+        "openmrs_entity_id": "street",
         "type": "edit_text",
         "hint": "Street"
       },
@@ -108,7 +123,7 @@
         "key": "landmark",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_address",
-        "openmrs_entity_id": "addressFields.landmark",
+        "openmrs_entity_id": "landmark",
         "type": "edit_text",
         "hint": "Landmark"
       },

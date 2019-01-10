@@ -45,6 +45,7 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.UUID;
 
@@ -361,9 +362,9 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
 
     }
 
-    public static JSONObject getAutoPopulatedJsonEditFormString(Context context, CommonPersonObjectClient client) {
+    public static JSONObject getAutoPopulatedJsonEditFormString(String formName , Context context, CommonPersonObjectClient client) {
         try {
-            JSONObject form = FormUtils.getInstance(context).getFormJson(Utils.metadata().familyRegister.formName);
+            JSONObject form = FormUtils.getInstance(context).getFormJson(formName);
             LocationPickerView lpv = new LocationPickerView(context);
             lpv.init();
             // JsonFormUtils.addWomanRegisterHierarchyQuestions(form);
@@ -398,51 +399,98 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
         return null;
     }
 
+    public static JSONObject getAutoPopulatedJsonEditFormString(Context context, CommonPersonObjectClient client) {
+        return getAutoPopulatedJsonEditFormString(Utils.metadata().familyRegister.formName, context,client);
+    }
+
     protected static void processPopulatableFields(CommonPersonObjectClient client, JSONObject jsonObject) throws JSONException {
 
+        switch (jsonObject.getString(org.smartregister.family.util.JsonFormUtils.KEY).toLowerCase()) {
+            case DBConstants.KEY.DOB:
+
+                String dobString = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.DOB, false);
+                if (StringUtils.isNotBlank(dobString)) {
+                    Date dob = Utils.dobStringToDate(dobString);
+                    if (dob != null) {
+                        jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, dd_MM_yyyy.format(dob));
+                    }
+                }
+
+                break;
+
+            case org.smartregister.family.util.Constants.KEY.PHOTO:
+
+                Photo photo = ImageUtils.profilePhotoByClientID(client.getCaseId(), Utils.getProfileImageResourceIDentifier());
+                if (StringUtils.isNotBlank(photo.getFilePath())) {
+                    jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, photo.getFilePath());
+                }
+
+                break;
+
+            case DBConstants.KEY.UNIQUE_ID:
+
+                String uniqueId = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.UNIQUE_ID, false);
+                jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, uniqueId.replace("-", ""));
+
+                break;
+
+            case "fam_name":
+
+                String fam_name = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.FIRST_NAME, false);
+                jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, fam_name);
+
+                break;
+
+            case DBConstants.KEY.VILLAGE_TOWN:
+
+                jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), DBConstants.KEY.VILLAGE_TOWN, false));
+
+                break;
+
+            case DBConstants.KEY.QUATER_CLAN:
+
+                jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), DBConstants.KEY.QUATER_CLAN, false));
+
+                break;
+
+            case DBConstants.KEY.STREET:
+
+                jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), DBConstants.KEY.STREET, false));
+
+                break;
+
+            case DBConstants.KEY.LANDMARK:
+
+                jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), DBConstants.KEY.LANDMARK, false));
+
+                break;
+
+            case DBConstants.KEY.FAMILY_SOURCE_INCOME:
+
+                jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), DBConstants.KEY.FAMILY_SOURCE_INCOME, false));
+
+                break;
+
+            case DBConstants.KEY.GPS:
+
+                jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), DBConstants.KEY.GPS, false));
+
+                break;
+
+            default:
+
+                Log.e(TAG, "ERROR:: Unprocessed Form Object Key " + jsonObject.getString(org.smartregister.family.util.JsonFormUtils.KEY));
+
+                break;
+
+        }
 
         if (jsonObject.getString(org.smartregister.family.util.JsonFormUtils.KEY).equalsIgnoreCase(DBConstants.KEY.DOB)) {
-
-            String dobString = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.DOB, false);
-            if (StringUtils.isNotBlank(dobString)) {
-                Date dob = Utils.dobStringToDate(dobString);
-                if (dob != null) {
-                    jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, dd_MM_yyyy.format(dob));
-                }
-            }
-
-        } else if (jsonObject.getString(org.smartregister.family.util.JsonFormUtils.KEY).equalsIgnoreCase(org.smartregister.family.util.Constants.KEY.PHOTO)) {
-
-            Photo photo = ImageUtils.profilePhotoByClientID(client.getCaseId(), Utils.getProfileImageResourceIDentifier());
-
-            if (StringUtils.isNotBlank(photo.getFilePath())) {
-
-                jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, photo.getFilePath());
-
-            }
-        } else if (jsonObject.getString(org.smartregister.family.util.JsonFormUtils.KEY).equalsIgnoreCase(DBConstants.KEY.DOB)) {
 
             jsonObject.put(org.smartregister.family.util.JsonFormUtils.READ_ONLY, false);
             JSONObject optionsObject = jsonObject.getJSONArray(Constants.JSON_FORM_KEY.OPTIONS).getJSONObject(0);
             optionsObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), DBConstants.KEY.DOB, false));
 
-        }
-//        else if (jsonObject.getString(org.smartregister.family.util.JsonFormUtils.KEY).equalsIgnoreCase(DBConstants.KEY.AGE)) {
-//
-//            jsonObject.put(org.smartregister.family.util.JsonFormUtils.READ_ONLY, false);
-//            String dobString = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.DOB, false);
-//            if (StringUtils.isNotBlank(dobString)) {
-//                jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, Utils.getAgeFromDate(dobString));
-//            }
-//
-//        }
-        else if (jsonObject.getString(org.smartregister.family.util.JsonFormUtils.KEY).equalsIgnoreCase(DBConstants.KEY.UNIQUE_ID)) {
-
-            String uniqueId = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.UNIQUE_ID, false);
-            jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, uniqueId.replace("-", ""));
-
-        } else {
-            Log.e(TAG, "ERROR:: Unprocessed Form Object Key " + jsonObject.getString(org.smartregister.family.util.JsonFormUtils.KEY));
         }
     }
 
