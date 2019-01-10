@@ -39,6 +39,42 @@
           }
         },
         {
+          "column_name": "quarter_clan",
+          "type": "Client",
+          "json_mapping": {
+            "field": "addresses.commune"
+          }
+        },
+        {
+          "column_name": "street",
+          "type": "Client",
+          "json_mapping": {
+            "field": "addresses.street"
+          }
+        },
+        {
+          "column_name": "landmark",
+          "type": "Client",
+          "json_mapping": {
+            "field": "addresses.landmark"
+          }
+        },
+        {
+          "column_name": "gps",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "163277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        {
+          "column_name": "fam_source_income",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.fam_source_income"
+          }
+        },
+        {
           "column_name": "family_head",
           "type": "Client",
           "json_mapping": {
@@ -132,6 +168,14 @@
           "type": "Client",
           "json_mapping": {
             "field": "gender"
+          }
+        },
+        {
+          "column_name": "phone_number",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "159635AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         },
         {
