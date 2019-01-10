@@ -13,9 +13,14 @@ import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.Utils;
+import org.smartregister.immunization.domain.Vaccine;
 import org.smartregister.repository.AllSharedPreferences;
 
 import java.lang.ref.WeakReference;
+import java.util.Date;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 public class ChildProfilePresenter implements ChildProfileContract.Presenter, ChildProfileContract.InteractorCallBack{
 
@@ -26,6 +31,7 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
     private ChildProfileContract.Model model;
 
     private String childBaseEntityId;
+    private String dob;
     public ChildProfilePresenter(ChildProfileContract.View childView, ChildProfileContract.Model model, String childBaseEntityId) {
         this.view = new WeakReference<>(childView);
         this.interactor = new ChildProfileInteractor();
@@ -36,8 +42,14 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
     public CommonPersonObjectClient getChildClient(){
         return ((ChildProfileInteractor)interactor).getpClient();
     }
+    public Map<String, Date> getVaccineList(){
+        return ((ChildProfileInteractor)interactor).getVaccineList();
+    }
     public String getFamilyId(){
         return ((ChildProfileInteractor)interactor).getFamilyId();
+    }
+    public String getDateOfBirth(){
+        return dob;
     }
 
     @Override
@@ -163,8 +175,8 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
         String childName = org.smartregister.util.Utils.getName(firstName, lastName);
         getView().setProfileName(childName);
 
-        String dobString = Utils.getDuration(Utils.getValue(client.getColumnmaps(), DBConstants.KEY.DOB, false));
-        getView().setAge(dobString);
+        dob = Utils.getDuration(Utils.getValue(client.getColumnmaps(), DBConstants.KEY.DOB, false));
+        getView().setAge(dob);
         //dobString = dobString.contains("y") ? dobString.substring(0, dobString.indexOf("y")) : dobString;
         String address=Utils.getValue(client.getColumnmaps(),ChildDBConstants.KEY.FAMILY_HOME_ADDRESS,true);
         String gender=Utils.getValue(client.getColumnmaps(),DBConstants.KEY.GENDER,true);

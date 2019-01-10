@@ -44,6 +44,7 @@ import org.smartregister.sync.helper.ECSyncHelper;
 import org.smartregister.util.DateUtil;
 
 import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -57,7 +58,7 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
     private CommonPersonObjectClient pClient;
     private String familyId;
     private FamilyMemberVaccinationAsyncTask familyMemberVaccinationAsyncTask;
-    private List<Vaccine> vaccineList;
+    private Map<String, Date> vaccineList;
     private String serviceDueStatus=FamilyServiceType.NOTHING.name();
     @VisibleForTesting
     ChildProfileInteractor(AppExecutors appExecutors) {
@@ -73,7 +74,7 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
     public String getFamilyId(){
         return familyId;
     }
-    public List<Vaccine> getVaccineList(){
+    public Map<String, Date> getVaccineList(){
         return vaccineList;
     }
 
@@ -203,7 +204,7 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
 //        if(familyMemberVaccinationAsyncTask!=null && !familyMemberVaccinationAsyncTask.isCancelled()){
 //            familyMemberVaccinationAsyncTask.cancel(true);
 //        }
-        familyMemberVaccinationAsyncTask=new FamilyMemberVaccinationAsyncTask(baseEntityId, familyId, getpClient().getColumnmaps(),new FamilyMemberImmunizationListener() {
+        familyMemberVaccinationAsyncTask=new FamilyMemberVaccinationAsyncTask(baseEntityId, familyId,new FamilyMemberImmunizationListener() {
             @Override
             public void onFamilyMemberState(ImmunizationState state) {
 
@@ -230,7 +231,7 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
             }
 
             @Override
-            public void onSelfStatus(List<Vaccine> vaccines, Map<String, Object> nv, ImmunizationState state) {
+            public void onSelfStatus(Map<String, Date> vaccines, Map<String, Object> nv, ImmunizationState state) {
                 vaccineList=vaccines;
                 VaccineRepo.Vaccine vaccine = (VaccineRepo.Vaccine) nv.get(VACCINE);
                 final ChildService childService=new ChildService();

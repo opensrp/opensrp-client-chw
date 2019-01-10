@@ -23,6 +23,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -37,15 +39,12 @@ public class FamilyMemberVaccinationAsyncTask extends AsyncTask {
 
     private String childId,familyId;
     private FamilyMemberImmunizationListener immunizationStateChangeListener;
-    private Map<String,String> getColumnMaps;
-    private List<Vaccine> vaccines = new ArrayList<>();
-    private List<Alert> alerts = new ArrayList<>();
+    private Map<String, Date> vaccines = new HashMap<>();
     private ImmunizationState childServiceState;
     private Map<String, Object> nv;
-    public FamilyMemberVaccinationAsyncTask(String childId, String familyId,Map<String,String> getColumnMaps, FamilyMemberImmunizationListener immunizationStateChangeListener) {
+    public FamilyMemberVaccinationAsyncTask(String childId, String familyId,FamilyMemberImmunizationListener immunizationStateChangeListener) {
         this.childId=childId;
         this.familyId=familyId;
-        this.getColumnMaps=getColumnMaps;
         this.immunizationStateChangeListener=immunizationStateChangeListener;
     }
     //TODO need to prformance improvement
@@ -101,7 +100,7 @@ public class FamilyMemberVaccinationAsyncTask extends AsyncTask {
                 state = ImmunizationState.WAITING;
             }
             if(pClient.getCaseId().equalsIgnoreCase(childId)){
-                this.vaccines=vaccines;
+                this.vaccines=recievedVaccines;
                 this.nv=nv;
                 this.childServiceState=state;
             }

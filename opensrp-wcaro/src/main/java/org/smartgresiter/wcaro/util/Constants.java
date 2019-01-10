@@ -36,6 +36,11 @@ public class Constants {
     }
     public static final class INTENT_KEY {
         public static final String SERVICE_DUE = "service_due";
+        public static final String CHILD_BASE_ID = "child_base_id";
+        public static final String CHILD_NAME = "child_name";
+        public static final String CHILD_DATE_OF_BIRTH = "child_dob";
+        public static final String CHILD_LAST_VISIT_DAYS = "child_visit_days";
+        public static final String CHILD_VACCINE_LIST= "child_vaccine_list";
     }
     public static final class IMMUNIZATION_CONSTANT{
         public static final String DATE = "date";
