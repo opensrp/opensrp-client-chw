@@ -114,7 +114,7 @@ public class WcaroApplication extends DrishtiApplication {
         JobManager.create(this).addJobCreator(new WcaroJobCreator());
 
         // TODO FIXME remove when login is implemented
-        sampleUniqueIds();
+        // sampleUniqueIds();
 
         initOfflineSchedules();
     }
