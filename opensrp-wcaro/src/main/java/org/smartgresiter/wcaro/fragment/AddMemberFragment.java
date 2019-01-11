@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;
@@ -26,6 +27,7 @@ import org.smartgresiter.wcaro.util.Constants;
 import org.smartgresiter.wcaro.util.JsonFormUtils;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
+import org.smartregister.domain.FetchStatus;
 import org.smartregister.family.activity.BaseFamilyProfileActivity;
 import org.smartregister.util.FormUtils;
 import org.smartregister.util.Utils;
@@ -127,6 +129,7 @@ public class AddMemberFragment extends DialogFragment implements View.OnClickLis
                 break;
             case R.id.layout_add_other_family_member:
                 ((BaseFamilyProfileActivity) context).startFormActivity(Constants.JSON_FORM.FAMILY_MEMBER_REGISTER, null, null);
+                dismiss();
                 break;
         }
     }
@@ -157,6 +160,8 @@ public class AddMemberFragment extends DialogFragment implements View.OnClickLis
     @Override
     public void onRegistrationSaved(boolean isEdit) {
         hideProgressDialog();
+        dismiss();
+        ((BaseFamilyProfileActivity) context).refreshMemberList(FetchStatus.fetched);
     }
 
     public void showProgressDialog(int saveMessageStringIdentifier) {
@@ -190,7 +195,6 @@ public class AddMemberFragment extends DialogFragment implements View.OnClickLis
         Intent intent = new Intent(context, org.smartregister.family.util.Utils.metadata().nativeFormActivity);
         intent.putExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON, form.toString());
         startActivityForResult(intent, org.smartregister.family.util.JsonFormUtils.REQUEST_CODE_GET_JSON);
-//        startRegistration();
     }
 
     public JSONObject getFormAsJson(String formName, String entityId, String currentLocationId, String familyID) throws Exception {
@@ -239,14 +243,16 @@ public class AddMemberFragment extends DialogFragment implements View.OnClickLis
 
                 JSONObject form = new JSONObject(jsonString);
                 if (form.getString(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_TYPE).equals(org.smartregister.family.util.Utils.metadata().familyRegister.registerEventType)
-                        || form.getString(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_TYPE).equals("Child Registration")
+                        || form.getString(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_TYPE).equals(Constants.EventType.CHILD_REGISTRATION)
                         ) {
                     saveForm(jsonString, false);
                 }
             } catch (Exception e) {
                 Log.e(DIALOG_TAG, Log.getStackTraceString(e));
+                Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
             }
 
         }
     }
+
 }
