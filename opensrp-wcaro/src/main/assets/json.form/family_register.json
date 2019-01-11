@@ -192,6 +192,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "163084AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "label_info_text": "What is their national identity number or their voter registration number?",
+        "label_info_title": "National ID number",
         "type": "edit_text",
         "hint": "National ID number"
       },
