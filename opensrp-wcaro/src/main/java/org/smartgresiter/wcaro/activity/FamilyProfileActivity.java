@@ -1,7 +1,10 @@
 package org.smartgresiter.wcaro.activity;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -9,7 +12,9 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import org.greenrobot.eventbus.EventBus;
+import org.json.JSONObject;
 import org.smartgresiter.wcaro.R;
+import org.smartgresiter.wcaro.contract.FamilyProfileExtendedContract;
 import org.smartgresiter.wcaro.custom_view.FamilyFloatingMenu;
 import org.smartgresiter.wcaro.event.PermissionEvent;
 import org.smartgresiter.wcaro.fragment.FamilyProfileActivityFragment;
@@ -28,8 +33,9 @@ import org.smartregister.util.PermissionUtils;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class FamilyProfileActivity extends BaseFamilyProfileActivity {
+public class FamilyProfileActivity extends BaseFamilyProfileActivity implements FamilyProfileExtendedContract.View {
 
+    private static final String TAG = FamilyProfileActivity.class.getCanonicalName();
     private String familyBaseEntityId;
     private boolean isFromFamilyServiceDue = false;
 
@@ -122,5 +128,35 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity {
         if (familyBaseEntityId != null) {
             ((FamilyProfilePresenter) presenter).fetchProfileData();
         }
+    }
+
+    // Child Form
+
+    @Override
+    public void startChildForm(String formName, String entityId, String metadata, String currentLocationId) throws Exception {
+        ((FamilyProfilePresenter) presenter).startChildForm(formName, entityId, metadata, currentLocationId);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == org.smartregister.family.util.JsonFormUtils.REQUEST_CODE_GET_JSON && resultCode == Activity.RESULT_OK) {
+            try {
+                String jsonString = data.getStringExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON);
+                Log.d("JSONResult", jsonString);
+
+                JSONObject form = new JSONObject(jsonString);
+                if (form.getString(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_TYPE).equals(org.smartregister.family.util.Utils.metadata().familyRegister.registerEventType)
+                        || form.getString(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_TYPE).equals(org.smartgresiter.wcaro.util.Constants.EventType.CHILD_REGISTRATION)
+                        ) {
+                    ((FamilyProfilePresenter) presenter).saveChildForm(jsonString, false);
+                }
+            } catch (Exception e) {
+                Log.e(TAG, Log.getStackTraceString(e));
+                Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+
+        }
+
     }
 }
