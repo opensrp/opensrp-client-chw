@@ -63,4 +63,7 @@
     <string name="growth_and_nutrition">GROWTH AND NUTRITION</string>
     <string name="immunization">IMMUNIZATION</string>
     <string name="fully_immunized_at_age">Fully immunized at age %1$s</string>
+    <string name="add_date_separately">+ ADD DATE FOR EACH VACCINE</string>
+    <string name="which_vaccines_given_text">Which immunizations were done?</string>
+    <string name="when_vaccines_given_text">When were immunizations done?</string>
 </resources>

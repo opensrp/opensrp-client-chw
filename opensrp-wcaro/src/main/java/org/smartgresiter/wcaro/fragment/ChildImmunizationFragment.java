@@ -118,6 +118,11 @@ public class ChildImmunizationFragment extends DialogFragment {
 //        cia = new ChildImmunizationFragment(fragmentView,getActivity());
         return fragmentView;
     }
+
+    public CommonPersonObjectClient getChildDetails() {
+        return childDetails;
+    }
+
     // Data
 //    private CommonPersonObjectClient childDetails = Utils.dummyDetatils();
     private CommonPersonObjectClient childDetails;

@@ -185,6 +185,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     @Override
     public void onClick(View v) {
         FragmentTransaction ft = getActivity().getFragmentManager().beginTransaction();
+        String dobString = org.smartregister.util.Utils.getValue(childClient.getColumnmaps(), "dob", false);
 
         switch (v.getId()) {
             case R.id.textview_submit:
@@ -195,13 +196,38 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                 dismiss();
                 break;
             case  R.id.immunization_group:
-                ChildImmunizationFragment childImmunizationFragment = ChildImmunizationFragment.newInstance(new Bundle());
-                childImmunizationFragment.setChildDetails(childClient);
+//                ChildImmunizationFragment childImmunizationFragment = ChildImmunizationFragment.newInstance(new Bundle());
+//                childImmunizationFragment.setChildDetails(childClient);
+////                childHomeVisitFragment.setFamilyBaseEntityId(getFamilyBaseEntityId());
+//                childImmunizationFragment.show(ft,ChildImmunizationFragment.TAG);
+                if (!TextUtils.isEmpty(dobString)) {
+                    DateTime dateTime = new DateTime(dobString);
+                    Date dob = dateTime.toDate();
+                    VaccineRepo.Vaccine vaccine1 = VaccineRepo.Vaccine.bcg;
+                    VaccineWrapper vaccineWrapper1 = new VaccineWrapper();
+                    vaccineWrapper1.setVaccine(vaccine1);
+                    vaccineWrapper1.setName(vaccine1.display());
+                    vaccineWrapper1.setDefaultName(vaccine1.display());
+
+                    VaccineRepo.Vaccine vaccine2 = VaccineRepo.Vaccine.opv0;
+                    VaccineWrapper vaccineWrapper2 = new VaccineWrapper();
+                    vaccineWrapper2.setVaccine(vaccine2);
+                    vaccineWrapper2.setName(vaccine2.display());
+                    vaccineWrapper2.setDefaultName(vaccine2.display());
+                    ArrayList<VaccineWrapper> vaccineWrappers = new ArrayList<VaccineWrapper>();
+                    vaccineWrappers.add(vaccineWrapper1);
+                    vaccineWrappers.add(vaccineWrapper2);
+
+                    List<Vaccine> vaccines = (List<Vaccine>)v.getTag(R.id.vaccinelist);
+
+                    CustomMultipleVaccinationDialogFragment customVaccinationDialogFragment = CustomMultipleVaccinationDialogFragment.newInstance(dob,vaccines,vaccineWrappers);
 //                childHomeVisitFragment.setFamilyBaseEntityId(getFamilyBaseEntityId());
-                childImmunizationFragment.show(ft,ChildImmunizationFragment.TAG);
+                    customVaccinationDialogFragment.setContext(getActivity());
+                    customVaccinationDialogFragment.setChildDetails(childClient);
+                    customVaccinationDialogFragment.show(ft,ChildImmunizationFragment.TAG);
+                }
                 break;
             case R.id.immunization_name_group:
-                String dobString = org.smartregister.util.Utils.getValue(childClient.getColumnmaps(), "dob", false);
                 if (!TextUtils.isEmpty(dobString)) {
                     DateTime dateTime = new DateTime(dobString);
                     Date dob = dateTime.toDate();
