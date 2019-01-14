@@ -84,7 +84,7 @@
 			android:layout_height="wrap_content"
 			android:layout_weight="1"
 			android:gravity="center_vertical"
-			android:text="@string/add_child_under_five"
+			android:text="@string/child_under_five"
 			android:textAppearance="@style/TextAppearance.AppCompat.Large"
 			android:textColor="@android:color/black" />
 
