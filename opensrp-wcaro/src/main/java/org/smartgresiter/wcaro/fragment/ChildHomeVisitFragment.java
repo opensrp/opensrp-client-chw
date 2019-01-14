@@ -37,19 +37,25 @@ import org.smartgresiter.wcaro.util.JsonFormUtils;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
+import org.smartregister.domain.Alert;
 import org.smartregister.family.activity.BaseFamilyProfileActivity;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.immunization.domain.Vaccine;
 import org.smartregister.immunization.domain.VaccineWrapper;
+import org.smartregister.immunization.util.VaccinateActionUtils;
+import org.smartregister.immunization.util.VaccinatorUtils;
 import org.smartregister.util.DateUtil;
 import org.smartregister.util.FormUtils;
 import org.smartregister.util.Utils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -390,14 +396,14 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
 //        }
         vaccinationAsyncTask=new VaccinationAsyncTask(childClient.getCaseId(), childClient.getColumnmaps(),notGivenVaccines, new ImmunizationStateChangeListener() {
             @Override
-            public void onImmunicationStateChange(List<Vaccine> vaccines, String stateKey, Map<String, Object> nv, ImmunizationState state) {
-                ImmunizationState(vaccines,stateKey,nv,state);
+            public void onImmunicationStateChange(List<Alert> alerts, List<Vaccine> vaccines, String stateKey, Map<String, Object> nv, ImmunizationState state) {
+                ImmunizationState(alerts,vaccines,stateKey,nv,state);
             }
         });
         startAsyncTask(vaccinationAsyncTask,null);
     }
 
-    public void ImmunizationState(List<Vaccine> vaccines, String stateKey, Map<String, Object> nv, ImmunizationState state){
+    public void ImmunizationState(List<Alert> alerts, List<Vaccine> vaccines, String stateKey, Map<String, Object> nv, ImmunizationState state){
         Map<String, Date> recievedVaccines = receivedVaccines(vaccines);
         recievedVaccines.size();
         String givenVaccines = "";
@@ -469,6 +475,8 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
 
         }
 
+        determineNextDueGroup(alerts,vaccines);
+
 
     }
 
@@ -491,4 +499,43 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         }
     }
 
+    public void determineNextDueGroup(List<Alert> alerts, List<Vaccine> vaccines){
+        Map<String, Date> receivedvaccines = receivedVaccines(vaccines);
+        List<VaccineRepo.Vaccine> vList = Arrays.asList(VaccineRepo.Vaccine.values());
+
+            for (Alert toProcess : alerts) {
+                if (isReceived(toProcess.scheduleName(),receivedvaccines)){
+
+                }else{
+                    for(VaccineRepo.Vaccine vaccine:vList){
+                        if(toProcess.scheduleName().equalsIgnoreCase(vaccine.display())) {
+                            String vaccineGroup = VaccinateActionUtils.stateKey(vaccine);
+                            ImmunizationState state;
+                            if (toProcess == null) {
+                                state = ImmunizationState.NO_ALERT;
+                            } else if (toProcess.status().value().equalsIgnoreCase(ImmunizationState.NORMAL.name())) {
+                                state = ImmunizationState.DUE;
+                            } else if (toProcess.status().value().equalsIgnoreCase(ImmunizationState.UPCOMING.name())) {
+                                state = ImmunizationState.UPCOMING;
+                            } else if (toProcess.status().value().equalsIgnoreCase(ImmunizationState.URGENT.name())) {
+                                state = ImmunizationState.OVERDUE;
+                            } else if (toProcess.status().value().equalsIgnoreCase(ImmunizationState.EXPIRED.name())) {
+                                state = ImmunizationState.EXPIRED;
+                            }
+                        }
+                    }
+                }
+            }
+
+    }
+
+    private boolean isReceived(String s, Map<String, Date> receivedvaccines) {
+        boolean isReceived = false;
+        for (String name : receivedvaccines.keySet()) {
+            if (s.equalsIgnoreCase(name)){
+                isReceived = true;
+            }
+        }
+        return isReceived;
+    }
 }

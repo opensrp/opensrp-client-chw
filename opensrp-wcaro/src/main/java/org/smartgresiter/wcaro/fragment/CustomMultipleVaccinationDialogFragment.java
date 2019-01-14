@@ -140,102 +140,40 @@ public class CustomMultipleVaccinationDialogFragment extends ChildImmunizationFr
 
         final LinearLayout vaccinationNameLayout = (LinearLayout) dialogView.findViewById(R.id.vaccination_name_layout);
 
-        if (tags.size() == 1) {
+        for (VaccineWrapper vaccineWrapper : tags) {
 
-            String vName = "";
-            VaccineWrapper vaccineWrapper = tags.get(0);
+            View vaccinationName = inflater.inflate(R.layout.vaccination_name, null);
+            TextView vaccineView = (TextView) vaccinationName.findViewById(R.id.vaccine);
+
             VaccineRepo.Vaccine vaccine = vaccineWrapper.getVaccine();
-            if (vaccine != null) {
-                vName = vaccine.display();
+            if (vaccineWrapper.getVaccine() != null) {
+                vaccineView.setText(vaccine.display());
             } else {
-                vName = vaccineWrapper.getName();
+                vaccineView.setText(vaccineWrapper.getName());
             }
 
-            if (vName.contains("/")) {
-                String[] names = vName.split("/");
-                final List<RadioButton> radios = new ArrayList<>();
-                for (int i = 0; i < names.length; i++) {
-                    View vaccinationName = inflater.inflate(R.layout.multiple_vaccination_name, null);
-                    TextView vaccineView = (TextView) vaccinationName.findViewById(R.id.vaccine);
-
-                    String name = names[i].trim();
-                    vaccineView.setText(name);
-
-                    View select = vaccinationName.findViewById(R.id.select);
-                    select.setVisibility(View.GONE);
-
-                    RadioButton radio = (RadioButton) vaccinationName.findViewById(R.id.radio);
-                    radio.setVisibility(View.VISIBLE);
-                    if (i != 0) {
-                        radio.setChecked(false);
-                    }
-                    radios.add(radio);
-
-                    vaccinationNameLayout.addView(vaccinationName);
-                }
-
-                addRadioClickListener(radios);
-
-                for (int i = 0; i < vaccinationNameLayout.getChildCount(); i++) {
-                    View chilView = vaccinationNameLayout.getChildAt(i);
-                    chilView.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            RadioButton childRadio = (RadioButton) view.findViewById(R.id.radio);
-                            addRadioClickListener(radios, childRadio);
-                        }
-                    });
-                }
-
-            } else {
-
-                View vaccinationName = inflater.inflate(R.layout.vaccination_name, null);
-                TextView vaccineView = (TextView) vaccinationName.findViewById(R.id.vaccine);
-                TextView vaccineViewTitle = (TextView) dialogView.findViewById(R.id.textview_vaccine_title);
-
-                vaccineViewTitle.setText("Record "+vName);
-                vaccineView.setText("When was "+vName+" immunization done?");
-
-                View select = vaccinationName.findViewById(R.id.select);
-                select.setVisibility(View.GONE);
-
-                vaccinationNameLayout.addView(vaccinationName);
-            }
-        } else {
-            for (VaccineWrapper vaccineWrapper : tags) {
-
-                View vaccinationName = inflater.inflate(R.layout.vaccination_name, null);
-                TextView vaccineView = (TextView) vaccinationName.findViewById(R.id.vaccine);
-
-                VaccineRepo.Vaccine vaccine = vaccineWrapper.getVaccine();
-                if (vaccineWrapper.getVaccine() != null) {
-                    vaccineView.setText(vaccine.display());
-                } else {
-                    vaccineView.setText(vaccineWrapper.getName());
-                }
-
-                vaccinationNameLayout.addView(vaccinationName);
-            }
-
-            for (int i = 0; i < vaccinationNameLayout.getChildCount(); i++) {
-                View chilView = vaccinationNameLayout.getChildAt(i);
-                chilView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        CheckBox childSelect = (CheckBox) view.findViewById(R.id.select);
-                        childSelect.toggle();
-                    }
-                });
-            }
-
-
-
-            Button vaccinateToday = (Button) dialogView.findViewById(R.id.vaccinate_today);
-            vaccinateToday.setText(vaccinateToday.getText().toString().replace("Vaccination", "Vaccinations"));
-
-            Button vaccinateEarlier = (Button) dialogView.findViewById(R.id.vaccinate_earlier);
-            vaccinateEarlier.setText(vaccinateEarlier.getText().toString().replace("Vaccination", "Vaccinations"));
+            vaccinationNameLayout.addView(vaccinationName);
         }
+
+        for (int i = 0; i < vaccinationNameLayout.getChildCount(); i++) {
+            View chilView = vaccinationNameLayout.getChildAt(i);
+            chilView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    CheckBox childSelect = (CheckBox) view.findViewById(R.id.select);
+                    childSelect.toggle();
+                }
+            });
+        }
+
+
+
+        Button vaccinateToday = (Button) dialogView.findViewById(R.id.vaccinate_today);
+        vaccinateToday.setText(vaccinateToday.getText().toString().replace("Vaccination", "Vaccinations"));
+
+        final Button vaccinateEarlier = (Button) dialogView.findViewById(R.id.vaccinate_earlier);
+        vaccinateEarlier.setText(vaccinateEarlier.getText().toString().replace("Vaccination", "Vaccinations"));
+
 
 
 
@@ -248,7 +186,7 @@ public class CustomMultipleVaccinationDialogFragment extends ChildImmunizationFr
         }
 
         final Button set = (Button) dialogView.findViewById(R.id.set);
-        set.setOnClickListener(new View.OnClickListener() {
+        vaccinateToday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 dismiss();
@@ -298,43 +236,8 @@ public class CustomMultipleVaccinationDialogFragment extends ChildImmunizationFr
             }
         });
 
-        final Button vaccinateToday = (Button) dialogView.findViewById(R.id.vaccinate_today);
-        vaccinateToday.setOnClickListener(new Button.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dismiss();
-
-                ArrayList<VaccineWrapper> tagsToUpdate = new ArrayList<VaccineWrapper>();
-
-                Calendar calendar = Calendar.getInstance();
-                DateTime dateTime = new DateTime(calendar.getTime());
-                if (tags.size() == 1) {
-                    VaccineWrapper tag = tags.get(0);
-                    tag.setUpdatedVaccineDate(dateTime, true);
-
-                    String radioName = findSelectRadio(vaccinationNameLayout);
-                    if (radioName != null) {
-                        tag.setName(radioName);
-                    }
-                    tagsToUpdate.add(tag);
-                } else {
-                    List<String> selectedCheckboxes = findSelectedCheckBoxes(vaccinationNameLayout);
-                    for (String checkedName : selectedCheckboxes) {
-                        VaccineWrapper tag = searchWrapperByName(checkedName);
-                        if (tag != null) {
-                            tag.setUpdatedVaccineDate(dateTime, true);
-                            tagsToUpdate.add(tag);
-                        }
-                    }
-                }
 
 
-                onVaccinateToday(tagsToUpdate, view);
-
-            }
-        });
-
-        final Button vaccinateEarlier = (Button) dialogView.findViewById(R.id.vaccinate_earlier);
         vaccinateEarlier.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -389,10 +292,11 @@ public class CustomMultipleVaccinationDialogFragment extends ChildImmunizationFr
             @Override
             public void onClick(View view) {
                 dismiss();
-                VaccineWrapper vaccineWrapper = tags.get(0);
-                VaccineRepo.Vaccine vaccine = vaccineWrapper.getVaccine();
-                ((ChildHomeVisitFragment)getActivity().getFragmentManager().findFragmentByTag("child_home_visit_dialog")).updateNotGivenVaccine(vaccineWrapper);
-                ((ChildHomeVisitFragment)getActivity().getFragmentManager().findFragmentByTag("child_home_visit_dialog")).updateImmunizationState();
+                for (VaccineWrapper vaccineWrapper : tags) {
+                    VaccineRepo.Vaccine vaccine = vaccineWrapper.getVaccine();
+                    ((ChildHomeVisitFragment) getActivity().getFragmentManager().findFragmentByTag("child_home_visit_dialog")).updateNotGivenVaccine(vaccineWrapper);
+                }
+                ((ChildHomeVisitFragment) getActivity().getFragmentManager().findFragmentByTag("child_home_visit_dialog")).updateImmunizationState();
             }
         });
 
