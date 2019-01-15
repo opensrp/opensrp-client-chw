@@ -142,6 +142,28 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MyViewHold
             res = true;
         }
 
+        String text = holder.etPhone.getText().toString().trim();
+        if(text.length() > 0 && !text.substring(0,1).equals("0")){
+            holder.etPhone.setError("Must start with 0");
+            res = false;
+        }
+
+        if(text.length() > 0 && text.length() != 10){
+            holder.etPhone.setError("Length must be equal to 10");
+            res = false;
+        }
+
+        text = holder.etAlternatePhone.getText().toString().trim();
+        if(text.length() > 0 && !text.substring(0,1).equals("0")){
+            holder.etAlternatePhone.setError("Must start with 0");
+            res = false;
+        }
+
+        if(text.length() > 0 && text.length() != 10){
+            holder.etAlternatePhone.setError("Length must be equal to 10");
+            res = false;
+        }
+
         return res;
     }
 
