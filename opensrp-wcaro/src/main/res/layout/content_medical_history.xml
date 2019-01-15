@@ -11,7 +11,7 @@
            android:layout_width="match_parent"
            android:layout_height="wrap_content"
            android:text="@string/medical_history"
-           style="@style/CustomFontTextViewStyle.ClientList.Light"
+           style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
            android:textColor="@color/black"
            android:gravity="center_horizontal"
            android:padding="10dp"
@@ -24,7 +24,7 @@
            android:layout_height="wrap_content"
            android:text="LAST VISIT"
            android:background="@color/black"
-           style="@style/CustomFontTextViewStyle.ClientList.Light"
+           style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
            android:textColor="@color/white"
            android:padding="10dp"
            android:textSize="18sp"/>
@@ -41,7 +41,7 @@
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
                android:text="@string/medical_last_visit"
-               style="@style/CustomFontTextViewStyle.ClientList.Light"
+               style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
                android:textColor="@color/black"
                android:padding="20dp"
                android:textSize="18sp"/>
@@ -60,22 +60,21 @@
                android:layout_height="wrap_content"
                android:text="@string/immunization"
                android:background="@color/black"
-               style="@style/CustomFontTextViewStyle.ClientList.Light"
+               style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
                android:textColor="@color/white"
                android:padding="10dp"
                android:textSize="18sp"/>
            <RelativeLayout
                android:id="@+id/immu_bar_age_1"
-               android:visibility="gone"
+               android:visibility="visible"
                android:layout_width="match_parent"
                android:layout_height="wrap_content">
                <ImageView
                    android:id="@+id/immu_imag"
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
-                   android:src="@drawable/childrow_family"
-                   android:padding="20dp"
-                   android:layout_centerVertical="true"
+                   android:src="@drawable/one_yr_immu"
+                   android:layout_margin="10dp"
                    />
                <org.smartregister.view.customcontrols.CustomFontTextView
                    android:id="@+id/health_child"
@@ -83,7 +82,7 @@
                    android:layout_width="match_parent"
                    android:layout_height="wrap_content"
                    android:text="Health child milestone"
-                   style="@style/CustomFontTextViewStyle.ClientList.Light"
+                   style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
                    android:textColor="@color/black"
                    android:padding="5dp"
                    android:textSize="18sp"/>
@@ -93,8 +92,8 @@
                    android:layout_toRightOf="@+id/immu_imag"
                    android:layout_width="match_parent"
                    android:layout_height="wrap_content"
-                   android:text="@string/fully_immunized_at_age_2"
-                   style="@style/CustomFontTextViewStyle.ClientList.Light"
+                   android:text="@string/fully_immunized_at_age_1"
+                   style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
                    android:textColor="@color/light_grey_text"
                    android:padding="2dp"
                    android:textSize="14sp"/>
@@ -102,25 +101,23 @@
                    android:id="@+id/view"
                    android:layout_width="match_parent"
                    android:layout_height="1px"
-                   android:layout_marginLeft="20dp"
-                   android:layout_marginRight="20dp"
-                   android:layout_marginTop="5dp"
+                   android:layout_marginTop="10dp"
+                   android:layout_marginLeft="10dp"
                    android:background="@color/light_grey"
                    android:layout_below="@+id/fully_immunized"
                    />
            </RelativeLayout>
            <RelativeLayout
                android:id="@+id/immu_bar_age_2"
-               android:visibility="gone"
+               android:visibility="visible"
                android:layout_width="match_parent"
                android:layout_height="wrap_content">
                <ImageView
                    android:id="@+id/immu_imag_2"
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
-                   android:src="@drawable/childrow_family"
-                   android:padding="20dp"
-                   android:layout_centerVertical="true"
+                   android:layout_margin="10dp"
+                   android:src="@drawable/two_yr_immu"
                    />
                <org.smartregister.view.customcontrols.CustomFontTextView
                    android:id="@+id/health_child_2"
@@ -128,7 +125,7 @@
                    android:layout_width="match_parent"
                    android:layout_height="wrap_content"
                    android:text="@string/health_child_milestone"
-                   style="@style/CustomFontTextViewStyle.ClientList.Light"
+                   style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
                    android:textColor="@color/black"
                    android:padding="5dp"
                    android:textSize="18sp"/>
@@ -139,7 +136,7 @@
                    android:layout_width="match_parent"
                    android:layout_height="wrap_content"
                    android:text="@string/fully_immunized_at_age_2"
-                   style="@style/CustomFontTextViewStyle.ClientList.Light"
+                   style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
                    android:textColor="@color/light_grey_text"
                    android:padding="2dp"
                    android:textSize="14sp"/>
@@ -147,9 +144,8 @@
                    android:id="@+id/view_2"
                    android:layout_width="match_parent"
                    android:layout_height="1px"
-                   android:layout_marginLeft="20dp"
-                   android:layout_marginRight="20dp"
-                   android:layout_marginTop="5dp"
+                   android:layout_marginTop="10dp"
+                   android:layout_marginLeft="10dp"
                    android:background="@color/light_grey"
                    android:layout_below="@+id/fully_immunized_2"
                    />
@@ -183,7 +179,7 @@
                android:layout_height="wrap_content"
                android:text="@string/growth_and_nutrition"
                android:background="@color/black"
-               style="@style/CustomFontTextViewStyle.ClientList.Light"
+               style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
                android:textColor="@color/white"
                android:padding="10dp"
                android:textSize="18sp"/>

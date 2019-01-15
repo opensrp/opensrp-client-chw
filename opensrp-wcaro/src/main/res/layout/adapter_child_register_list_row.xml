@@ -53,7 +53,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="0dp"
-            android:text="Age: 33"
+            android:text="Age. 33"
+            android:layout_gravity="center_horizontal"
             android:textColor="@color/light_grey_text"
             android:textSize="16sp"
             android:textStyle="bold" />
@@ -63,7 +64,7 @@
 
     <LinearLayout
         android:id="@+id/due_button_wrapper"
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="@dimen/register_list_item_height"
         android:layout_alignParentEnd="true"
         android:layout_marginLeft="10dp"
@@ -84,7 +85,7 @@
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:stateListAnimator="@drawable/button"
-            android:text="due"
+            android:text="Visit not done"
             android:textAllCaps="false"
             android:textAppearance="?android:textAppearanceSmall"
             android:textColor="@color/vaccine_blue_bg_st"

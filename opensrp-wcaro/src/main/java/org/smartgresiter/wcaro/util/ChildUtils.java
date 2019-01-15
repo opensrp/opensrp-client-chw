@@ -9,6 +9,7 @@ import android.util.Log;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.ListUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
 import org.smartgresiter.wcaro.application.WcaroApplication;
 import org.smartgresiter.wcaro.interactor.ChildProfileInteractor;
@@ -20,6 +21,7 @@ import org.smartregister.family.FamilyLibrary;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.sync.helper.ECSyncHelper;
+import org.smartregister.util.StringUtil;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -33,7 +35,7 @@ import java.util.Map;
 public class ChildUtils {
     private static final long MILLI_SEC=24 * 60 * 60 * 1000;//24 hrs
     private static final String[] monthNames = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
-
+    private static final String[] firstSecondNumber={"Zero","1st","2nd","3rd","4th","5th","6th","7th","8th","9th"};
     public  static final String[] ONE_YR={ "bcg",
         "hepb","opv1","penta1","pcv1","rota1","opv2","penta2","pcv2","rota2","opv3","penta3","pcv3","rota3","ipv","mcv1",
             "yf"
@@ -60,6 +62,36 @@ public class ChildUtils {
         }
 
         return str;
+
+    }
+    public static Object[] getStringWithNumber(String fullString){
+        Object[] objects=new Object[2];
+        if(fullString.length()>0){
+            fullString=StringUtils.capitalize(fullString);
+            String str="";
+            String digit="";
+            for(int i=0;i<fullString.length();i++){
+                char c=fullString.charAt(i);
+                if(Character.isDigit(c)){
+                    digit=digit+c;
+                }else{
+                    str=str+c;
+                }
+
+            }
+            objects[0]=str;
+            objects[1]=digit;
+        }
+        return objects;
+    }
+    public static String getFirstSecondAsNumber(String number){
+        try{
+            int index=Integer.parseInt(number);
+            return firstSecondNumber[index];
+        }catch (Exception e){
+
+        }
+        return "";
 
     }
     //need to add primary caregiver filter at query
@@ -130,20 +162,25 @@ public class ChildUtils {
             childVisit.setVisitStatus(ChildProfileInteractor.VisitType.DUE.name());
             if(childVisit.getLastVisitTime()!=0){
                 if(diff<MILLI_SEC){
-                    childVisit.setLastVisitDays("less 24 hrs");
+                    childVisit.setLastVisitDays("less than 24 hrs");
                 }else{
                     childVisit.setLastVisitDays(diff/MILLI_SEC+" days");
                 }
             }
             return childVisit;
         }
-        if(childVisit.getLastVisitTime()==0 && !childVisit.isVisitNotDone()){
-            childVisit.setVisitStatus(ChildProfileInteractor.VisitType.OVERDUE.name());
+        if(!isSameMonth(childVisit.getLastVisitTime()) && !childVisit.isVisitNotDone()){
+            if(childVisit.getLastVisitTime()==0){
+                childVisit.setVisitStatus(ChildProfileInteractor.VisitType.DUE.name());
+            }else{
+                childVisit.setVisitStatus(ChildProfileInteractor.VisitType.OVERDUE.name());
+            }
+
             return childVisit;
         }
 
         if(diff<MILLI_SEC){
-            childVisit.setLastVisitDays("less 24 hrs");
+            childVisit.setLastVisitDays("less than 24 hrs");
             childVisit.setVisitStatus(ChildProfileInteractor.VisitType.LESS_TWENTY_FOUR.name());
             childVisit.setLastVisitMonth(theMonth(Calendar.getInstance().get(Calendar.MONTH)));
             return childVisit;

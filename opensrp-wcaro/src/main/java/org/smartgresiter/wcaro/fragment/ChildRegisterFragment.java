@@ -6,6 +6,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.apache.commons.lang3.StringUtils;
@@ -37,6 +38,7 @@ public class ChildRegisterFragment extends BaseRegisterFragment implements Child
     private static final String TAG = ChildRegisterFragment.class.getCanonicalName();
     public static final String CLICK_VIEW_NORMAL = "click_view_normal";
     public static final String CLICK_VIEW_DOSAGE_STATUS = "click_view_dosage_status";
+    private View dueOnlyLayout;
     @Override
     protected void initializePresenter() {
         if (getActivity() == null) {
@@ -70,44 +72,71 @@ public class ChildRegisterFragment extends BaseRegisterFragment implements Child
     @Override
     public void setupViews(View view) {
         super.setupViews(view);
-        Toolbar toolbar = view.findViewById(org.smartregister.R.id.register_toolbar);
-        NavigationMenu.getInstance(getActivity(), null, toolbar);
-        // Update top left icon
-        qrCodeScanImageView = view.findViewById(org.smartregister.family.R.id.scanQrCode);
+        qrCodeScanImageView = view.findViewById(R.id.scanQrCode);
         if (qrCodeScanImageView != null) {
             qrCodeScanImageView.setVisibility(View.GONE);
+        }
+
+        // Update Search bar
+
+        if (getSearchView() != null) {
+            getSearchView().setBackgroundResource(R.color.white);
+            getSearchView().setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_action_search, 0, 0, 0);
+        }
+
+        // Update sort filter
+        TextView filterView = view.findViewById(R.id.filter_text_view);
+        if (filterView != null) {
+            filterView.setText(getString(R.string.sort));
+        }
+
+        // Update title name
+        ImageView logo = view.findViewById(R.id.opensrp_logo_image_view);
+        if (logo != null) {
+            logo.setVisibility(View.GONE);
+        }
+
+        Toolbar toolbar = view.findViewById(org.smartregister.R.id.register_toolbar);
+        toolbar.setContentInsetsAbsolute(0, 0);
+        toolbar.setContentInsetsRelative(0, 0);
+        toolbar.setContentInsetStartWithNavigation(0);
+
+        NavigationMenu.getInstance(getActivity(), null, toolbar);
+
+        View navbarContainer = view.findViewById(R.id.register_nav_bar_container);
+        navbarContainer.setFocusable(false);
+
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        View searchBarLayout = view.findViewById(R.id.search_bar_layout);
+        searchBarLayout.setLayoutParams(params);
+        searchBarLayout.setBackgroundResource(R.color.wcaro_primary);
+        searchBarLayout.setPadding(searchBarLayout.getPaddingLeft(), searchBarLayout.getPaddingTop(), searchBarLayout.getPaddingRight(), (int) org.smartgresiter.wcaro.util.Utils.convertDpToPixel(10, getActivity()));
+
+        CustomFontTextView titleView = view.findViewById(R.id.txt_title_label);
+        if (titleView != null) {
+            titleView.setPadding(0, titleView.getTop(), titleView.getPaddingRight(), titleView.getPaddingBottom());
+            titleView.setVisibility(View.VISIBLE);
+            titleView.setText(getString(R.string.child_register_title));
+            titleView.setFontVariant(FontVariant.REGULAR);
         }
 
         View topLeftLayout = view.findViewById(R.id.top_left_layout);
         topLeftLayout.setVisibility(View.GONE);
 
-        // Update Search bar
-        View searchBarLayout = view.findViewById(org.smartregister.family.R.id.search_bar_layout);
-        searchBarLayout.setBackgroundResource(org.smartregister.family.R.color.customAppThemeBlue);
+        View topRightLayout = view.findViewById(R.id.top_right_layout);
+        topRightLayout.setVisibility(View.VISIBLE);
 
-        if (getSearchView() != null) {
-            getSearchView().setBackgroundResource(org.smartregister.family.R.color.white);
-            getSearchView().setCompoundDrawablesWithIntrinsicBounds(org.smartregister.family.R.drawable.ic_action_search, 0, 0, 0);
-        }
+        View sortFilterBarLayout = view.findViewById(R.id.register_sort_filter_bar_layout);
+        sortFilterBarLayout.setVisibility(View.GONE);
 
-        // Update sort filter
-        TextView filterView = view.findViewById(org.smartregister.family.R.id.filter_text_view);
-        if (filterView != null) {
-            filterView.setText(getString(org.smartregister.family.R.string.sort));
-        }
+        View filterSortLayout = view.findViewById(R.id.filter_sort_layout);
+        filterSortLayout.setVisibility(View.GONE);
 
-        // Update title name
-        ImageView logo = view.findViewById(org.smartregister.family.R.id.opensrp_logo_image_view);
-        if (logo != null) {
-            logo.setVisibility(View.GONE);
-        }
+        dueOnlyLayout = view.findViewById(R.id.due_only_layout);
+        dueOnlyLayout.setVisibility(View.VISIBLE);
+        dueOnlyLayout.setOnClickListener(registerActionHandler);
 
-        CustomFontTextView titleView = view.findViewById(org.smartregister.family.R.id.txt_title_label);
-        if (titleView != null) {
-            titleView.setVisibility(View.VISIBLE);
-            titleView.setText(getString(R.string.child_register_title));
-            titleView.setFontVariant(FontVariant.REGULAR);
-        }
+
     }
     @Override
     protected void refreshSyncProgressSpinner() {

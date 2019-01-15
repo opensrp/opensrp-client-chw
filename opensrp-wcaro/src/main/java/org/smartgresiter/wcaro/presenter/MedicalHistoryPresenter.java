@@ -4,6 +4,7 @@ import android.util.ArrayMap;
 
 import org.smartgresiter.wcaro.contract.MedicalHistoryContract;
 import org.smartgresiter.wcaro.interactor.MedicalHistoryInteractor;
+import org.smartgresiter.wcaro.util.BaseService;
 import org.smartgresiter.wcaro.util.BaseVaccine;
 import org.smartgresiter.wcaro.util.GrowthNutrition;
 import org.smartgresiter.wcaro.util.ReceivedVaccine;
@@ -30,7 +31,7 @@ public class MedicalHistoryPresenter implements MedicalHistoryContract.Presenter
     private MedicalHistoryContract.Interactor interactor;
     private  Map<String, Date> recievedVaccines;
     private ArrayList<BaseVaccine> baseVaccineArrayList;
-    private ArrayList<GrowthNutrition> growthNutritionArrayList;
+    private ArrayList<BaseService> growthNutritionArrayList;
 
     public MedicalHistoryPresenter(MedicalHistoryContract.View view){
         this.view=new WeakReference<>(view);
@@ -69,7 +70,7 @@ public class MedicalHistoryPresenter implements MedicalHistoryContract.Presenter
     }
 
     @Override
-    public ArrayList<GrowthNutrition> getGrowthNutrition() {
+    public ArrayList<BaseService> getGrowthNutrition() {
         return growthNutritionArrayList;
     }
 
@@ -82,7 +83,7 @@ public class MedicalHistoryPresenter implements MedicalHistoryContract.Presenter
     }
 
     @Override
-    public void updateGrowthNutrition(ArrayList<GrowthNutrition> growthNutritions) {
+    public void updateGrowthNutrition(ArrayList<BaseService> growthNutritions) {
         this.growthNutritionArrayList=growthNutritions;
         getView().updateGrowthNutrition();
 

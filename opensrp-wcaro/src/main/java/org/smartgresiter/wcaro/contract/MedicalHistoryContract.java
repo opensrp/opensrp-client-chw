@@ -1,6 +1,7 @@
 package org.smartgresiter.wcaro.contract;
 
 
+import org.smartgresiter.wcaro.util.BaseService;
 import org.smartgresiter.wcaro.util.BaseVaccine;
 import org.smartgresiter.wcaro.util.GrowthNutrition;
 import org.smartregister.immunization.domain.Vaccine;
@@ -23,7 +24,7 @@ public interface MedicalHistoryContract {
         void fetchFullyImmunization(String dateOfBirth);
         void initialize();
         ArrayList<BaseVaccine> getVaccineBaseItem();
-        ArrayList<GrowthNutrition> getGrowthNutrition();
+        ArrayList<BaseService> getGrowthNutrition();
         MedicalHistoryContract.View getView();
         void onDestroy(boolean isChangingConfiguration);
     }
@@ -35,7 +36,7 @@ public interface MedicalHistoryContract {
     }
     interface InteractorCallBack{
         void updateVaccineData(ArrayList<BaseVaccine> recievedVaccines);
-        void updateGrowthNutrition(ArrayList<GrowthNutrition> growthNutritions);
+        void updateGrowthNutrition(ArrayList<BaseService> services);
         void updateFullyImmunization(String text);
 
     }

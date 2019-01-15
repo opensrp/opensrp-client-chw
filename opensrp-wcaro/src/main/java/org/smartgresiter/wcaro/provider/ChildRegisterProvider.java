@@ -97,7 +97,7 @@ public class ChildRegisterProvider implements RecyclerViewProvider<ChildRegister
 
         String parentFirstName = Utils.getValue(pc.getColumnmaps(), ChildDBConstants.KEY.FAMILY_FIRST_NAME, true);
         String parentLastName = Utils.getValue(pc.getColumnmaps(), ChildDBConstants.KEY.FAMILY_LAST_NAME, true);
-        String parentName = "CG:" + org.smartregister.util.Utils.getName(parentFirstName, parentLastName);
+        String parentName = "CG: " + org.smartregister.util.Utils.getName(parentFirstName, parentLastName);
         String firstName = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.FIRST_NAME, true);
         String lastName = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.LAST_NAME, true);
         String childName = org.smartregister.util.Utils.getName(firstName, lastName);
@@ -106,10 +106,10 @@ public class ChildRegisterProvider implements RecyclerViewProvider<ChildRegister
 
         String dobString = Utils.getDuration(Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.DOB, false));
         //dobString = dobString.contains("y") ? dobString.substring(0, dobString.indexOf("y")) : dobString;
-        fillValue(viewHolder.textViewChildName, WordUtils.capitalize(childName) + "," + WordUtils.capitalize(dobString));
+        fillValue(viewHolder.textViewChildName, WordUtils.capitalize(childName) + ", " + WordUtils.capitalize(dobString));
         String address = Utils.getValue(pc.getColumnmaps(), ChildDBConstants.KEY.FAMILY_HOME_ADDRESS, true);
         String gender = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.GENDER, true);
-        fillValue(viewHolder.textViewAddressGender, address + " ." + gender);
+        fillValue(viewHolder.textViewAddressGender, address + " . " + gender);
 
         View patient = viewHolder.childColumn;
         attachPatientOnclickListener(patient, client);

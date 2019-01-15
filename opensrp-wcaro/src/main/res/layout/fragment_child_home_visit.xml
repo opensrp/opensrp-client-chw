@@ -191,45 +191,12 @@
 				android:layout_height="1px"
 				android:background="@color/light_grey" />
 
-			<LinearLayout
+			<org.smartgresiter.wcaro.custom_view.HomeVisitGrowthAndNutrition
 				android:id="@+id/growth_and_nutrition_group"
 				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:layout_marginBottom="20dp"
-				android:layout_marginTop="20dp"
-				android:orientation="horizontal">
+				android:layout_height="wrap_content">
 
-				<de.hdodenhof.circleimageview.CircleImageView
-					android:id="@+id/growth_and_nutrition_status_circle"
-					android:layout_width="@dimen/immunization_status_circle_size"
-					android:layout_height="@dimen/immunization_status_circle_size"
-					android:layout_gravity="center_vertical"
-					android:layout_marginLeft="15dp"
-					android:layout_marginRight="15dp"
-					android:src="@color/white"
-					app:civ_border_color="@color/dark_grey"
-					app:civ_border_width="1dp" />
-
-				<LinearLayout
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:gravity="center"
-					android:orientation="vertical">
-
-					<org.smartregister.view.customcontrols.CustomFontTextView
-						android:id="@+id/textview_growth_and_nutrition"
-						style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
-						android:layout_width="match_parent"
-						android:layout_height="wrap_content"
-						android:layout_weight="1"
-						android:gravity="center_vertical"
-						android:text="Growth and Nutrition"
-						android:textAppearance="@style/TextAppearance.AppCompat.Large"
-						android:textColor="@android:color/black" />
-
-				</LinearLayout>
-
-			</LinearLayout>
+			</org.smartgresiter.wcaro.custom_view.HomeVisitGrowthAndNutrition>
 
 			<View
 				android:layout_width="match_parent"

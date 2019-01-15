@@ -26,6 +26,7 @@ import org.json.JSONObject;
 import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.activity.ChildProfileActivity;
 import org.smartgresiter.wcaro.contract.ChildRegisterContract;
+import org.smartgresiter.wcaro.custom_view.HomeVisitGrowthAndNutrition;
 import org.smartgresiter.wcaro.interactor.ChildRegisterInteractor;
 import org.smartgresiter.wcaro.listener.ImmunizationStateChangeListener;
 import org.smartgresiter.wcaro.model.ChildRegisterModel;
@@ -79,6 +80,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     ArrayList<VaccineWrapper> notGivenVaccines = new ArrayList<VaccineWrapper>();
     private CircleImageView immunization_status_circle;
     private CircleImageView immunization_group_status_circle;
+    private HomeVisitGrowthAndNutrition homeVisitGrowthAndNutritionLayout;
 
 
     public void setContext(Context context){
@@ -120,7 +122,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         ((LinearLayout) view.findViewById(R.id.immunization_group)).setOnClickListener(this);
          single_immunization_group = ((LinearLayout) view.findViewById(R.id.immunization_name_group));
 
-
+        homeVisitGrowthAndNutritionLayout=view.findViewById(R.id.growth_and_nutrition_group);
         textview_group_immunization_primary_text = (TextView)view.findViewById(R.id.textview_group_immunization);
         textview_group_immunization_secondary_text = (TextView)view.findViewById(R.id.textview_immunization_group_secondary_text);
 
@@ -153,8 +155,11 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
 //        } catch (ClassCastException e) {
 //            // The activity doesn't implement the interface, throw exception
 //            throw new ClassCastException(activity.toString()
-//                    + " must implement WeightActionListener");
+//                    + " must implementfonre WeightActionListener");
 //        }
+    }
+    private void updateGrowthData(){
+        homeVisitGrowthAndNutritionLayout.setData(getActivity().getFragmentManager(),childClient);
     }
 
 
@@ -355,6 +360,13 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     public void onResume() {
         super.onResume();
         updateImmunizationState();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                updateGrowthData();
+            }
+        },100);
+
     }
 
     public void updateImmunizationState() {
@@ -456,6 +468,12 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
             activity.updateImmunizationData();
         }
         super.onDestroy();
+    }
+    private void resetGrowthData(){
+        homeVisitGrowthAndNutritionLayout.resetAll();
+    }
+    private boolean isAllGrowthSelected(){
+        return homeVisitGrowthAndNutritionLayout.isAllSelected();
     }
 
     public void updateNotGivenVaccine(VaccineWrapper name) {
