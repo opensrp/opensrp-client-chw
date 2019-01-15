@@ -31,6 +31,7 @@ import org.smartregister.immunization.util.VaccinatorUtils;
 import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.repository.Repository;
+import org.smartregister.sync.helper.ECSyncHelper;
 import org.smartregister.view.activity.DrishtiApplication;
 
 import java.util.ArrayList;
@@ -41,6 +42,7 @@ public class WcaroApplication extends DrishtiApplication {
 
     private static final String TAG = WcaroApplication.class.getCanonicalName();
     private static JsonSpecHelper jsonSpecHelper;
+    private static ECSyncHelper ecSyncHelper;
 
     private static CommonFtsObject commonFtsObject;
 
@@ -184,4 +186,10 @@ public class WcaroApplication extends DrishtiApplication {
         }
     }
 
+    public ECSyncHelper getEcSyncHelper() {
+        if (ecSyncHelper == null) {
+            ecSyncHelper = ECSyncHelper.getInstance(getApplicationContext());
+        }
+        return ecSyncHelper;
+    }
 }

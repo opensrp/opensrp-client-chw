@@ -31,7 +31,7 @@ public class FamilyChangeContractPresenter implements FamilyChangeContract.Prese
 
     @Override
     public void saveFamilyMember(HashMap<String,String> member) {
-        interactor.updateFamilyMember(member, this);
+        interactor.updateFamilyMember(member, familyID, this);
     }
 
     @Override

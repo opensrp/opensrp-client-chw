@@ -144,8 +144,10 @@ public class FamilyProfileChangeHead extends Fragment implements View.OnClickLis
         @Override
         public void onClick(View view) {
             selectedItem = recyclerView.getChildLayoutPosition(view);
-            memberAdapter.setSelected(selectedItem);
-            memberAdapter.notifyDataSetChanged();
+            if(selectedItem != memberAdapter.getSelected()){
+                memberAdapter.setSelected(selectedItem);
+                memberAdapter.notifyDataSetChanged();
+            }
         }
     }
 }

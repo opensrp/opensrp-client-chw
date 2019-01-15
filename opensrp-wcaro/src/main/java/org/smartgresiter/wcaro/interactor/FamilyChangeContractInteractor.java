@@ -5,6 +5,7 @@ import android.support.annotation.VisibleForTesting;
 import android.util.Log;
 
 import org.apache.commons.lang3.tuple.Triple;
+import org.smartgresiter.wcaro.application.WcaroApplication;
 import org.smartgresiter.wcaro.contract.FamilyChangeContract;
 import org.smartgresiter.wcaro.util.Constants;
 import org.smartregister.commonregistry.CommonPersonObject;
@@ -13,6 +14,7 @@ import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.family.util.AppExecutors;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.Utils;
+import org.smartregister.sync.helper.ECSyncHelper;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -92,6 +94,7 @@ public class FamilyChangeContractInteractor implements FamilyChangeContract.Inte
             String otherPhone = familyMember.get(Constants.JsonAssets.FAMILY_MEMBER.OTHER_PHONE_NUMBER);
             String eduLevel = familyMember.get(Constants.JsonAssets.FAMILY_MEMBER.HIGHEST_EDUCATION_LEVEL);
 
+            ECSyncHelper syncHelper = WcaroApplication.getInstance().getEcSyncHelper();
             // update family record
 
             // update the EC client model
