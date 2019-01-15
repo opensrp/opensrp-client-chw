@@ -2,10 +2,12 @@ package org.smartgresiter.wcaro.listener;
 
 import android.app.Activity;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.widget.Toast;
 
 import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.activity.FamilyProfileActivity;
+import org.smartgresiter.wcaro.activity.FamilyProfileMenu;
 import org.smartgresiter.wcaro.fragment.AddMemberFragment;
 import org.smartgresiter.wcaro.fragment.FamilyCallDialogFragment;
 
@@ -40,8 +42,13 @@ public class FloatingMenuListener implements OnClickFloatingMenu {
                 //go to child add form activity
                 break;
             case R.id.change_head_layout:
-                Toast.makeText(context, "Go to change family head", Toast.LENGTH_SHORT).show();
-                //go to child add form activity
+
+                Intent intent = new Intent(context, FamilyProfileMenu.class);
+                intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.BASE_ENTITY_ID,
+                        ((FamilyProfileActivity) context).getFamilyBaseEntityId());
+                intent.putExtra(FamilyProfileMenu.MENU, FamilyProfileMenu.MenuType.ChangeHead);
+                context.startActivity(intent);
+
                 break;
             case R.id.change_primary_layout:
                 Toast.makeText(context, "Go to change primary caregiver", Toast.LENGTH_SHORT).show();

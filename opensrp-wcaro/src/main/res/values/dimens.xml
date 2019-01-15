@@ -5,7 +5,7 @@
     <dimen name="item_width">200dp</dimen>
     <dimen name="text_margin">16dp</dimen>
     <dimen name="child_home_visit_bar_height">95dp</dimen>
-
+    <dimen name="app_bar_size">75dp</dimen>
 
     <dimen name="login_font_size">14sp</dimen>
     <dimen name="immunization_status_circle_size">30dp</dimen>
