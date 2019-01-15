@@ -31,6 +31,7 @@
     <string name="change_family_head">Change family head</string>
     <string name="change_primary_caregiver">Change primary caregiver</string>
     <string name="add_other_family_member">Other family member</string>
+    <string name="add_child_under_five">Child under 5 years</string>
     <string name="child_under_five">Child under 5 years</string>
     <string name="go_to_family_s_profile">Go to family\'s profile</string>
     <string name="family_has_nothing_due">Family has nothing due</string>

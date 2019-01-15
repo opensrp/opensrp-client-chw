@@ -2,14 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical"
-              android:weightSum="1">
+	android:layout_height="match_parent"
+	android:orientation="vertical"
+	android:weightSum="1">
 
 	<android.support.design.widget.AppBarLayout
 		android:id="@+id/app_bar"
 		android:layout_width="match_parent"
-		android:layout_height="@dimen/pagination_bar_height"
+		android:layout_height="@dimen/app_bar_size"
 		android:fitsSystemWindows="true"
 		android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
@@ -45,8 +45,10 @@
 	<LinearLayout
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:layout_marginBottom="20dp"
-		android:layout_marginTop="20dp"
+		android:layout_marginLeft="15dp"
+		android:layout_marginRight="15dp"
+		android:layout_marginTop="30dp"
+		android:layout_marginBottom="30dp"
 		android:orientation="horizontal">
 
 		<org.smartregister.view.customcontrols.CustomFontTextView
@@ -66,15 +68,17 @@
 	<View
 		android:layout_width="match_parent"
 		android:layout_height="1px"
-		android:background="@color/light_grey"
-		/>
+		android:background="@color/light_grey" />
+
 
 	<LinearLayout
 		android:id="@+id/layout_add_child_under_five"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:layout_marginBottom="20dp"
+		android:layout_marginLeft="15dp"
+		android:layout_marginRight="15dp"
 		android:layout_marginTop="20dp"
+		android:layout_marginBottom="20dp"
 		android:orientation="horizontal">
 
 		<org.smartregister.view.customcontrols.CustomFontTextView
@@ -84,7 +88,7 @@
 			android:layout_height="wrap_content"
 			android:layout_weight="1"
 			android:gravity="center_vertical"
-			android:text="@string/child_under_five"
+			android:text="@string/add_child_under_five"
 			android:textAppearance="@style/TextAppearance.AppCompat.Large"
 			android:textColor="@android:color/black" />
 
@@ -92,7 +96,7 @@
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_gravity="center"
-			android:layout_margin="5dp"
+			android:layout_margin="10dp"
 			android:src="@drawable/row_goto" />
 
 	</LinearLayout>
@@ -100,15 +104,16 @@
 	<View
 		android:layout_width="match_parent"
 		android:layout_height="1px"
-		android:background="@color/light_grey"
-		/>
+		android:background="@color/light_grey" />
 
 	<LinearLayout
 		android:id="@+id/layout_add_other_family_member"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:layout_marginBottom="10dp"
-		android:layout_marginTop="10dp"
+		android:layout_marginLeft="15dp"
+		android:layout_marginRight="15dp"
+		android:layout_marginTop="20dp"
+		android:layout_marginBottom="20dp"
 		android:orientation="horizontal">
 
 		<org.smartregister.view.customcontrols.CustomFontTextView
@@ -116,18 +121,17 @@
 			style="@style/CustomFontTextViewStyle.ClientList.Thin"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:layout_marginBottom="20dp"
-			android:layout_marginTop="20dp"
 			android:layout_weight="1"
 			android:gravity="center_vertical"
 			android:text="@string/add_other_family_member"
 			android:textAppearance="@style/TextAppearance.AppCompat.Large"
 			android:textColor="@android:color/black" />
+
 		<ImageView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_gravity="center"
-			android:layout_margin="5dp"
+			android:layout_margin="10dp"
 			android:src="@drawable/row_goto" />
 
 	</LinearLayout>
@@ -135,7 +139,6 @@
 	<View
 		android:layout_width="match_parent"
 		android:layout_height="1px"
-		android:background="@color/light_grey"
-		/>
+		android:background="@color/light_grey" />
 
 </LinearLayout>
