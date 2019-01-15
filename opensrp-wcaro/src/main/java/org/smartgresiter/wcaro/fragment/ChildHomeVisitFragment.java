@@ -19,7 +19,6 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;
 import org.joda.time.DateTime;
 import org.json.JSONObject;
@@ -32,6 +31,7 @@ import org.smartgresiter.wcaro.model.ChildRegisterModel;
 import org.smartgresiter.wcaro.task.VaccinationAsyncTask;
 import org.smartgresiter.wcaro.util.ChildUtils;
 import org.smartgresiter.wcaro.util.Constants;
+import org.smartgresiter.wcaro.util.HomeVisitVaccineGroupDetails;
 import org.smartgresiter.wcaro.util.ImmunizationState;
 import org.smartgresiter.wcaro.util.JsonFormUtils;
 import org.smartregister.clientandeventmodel.Client;
@@ -44,21 +44,19 @@ import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.immunization.domain.Vaccine;
 import org.smartregister.immunization.domain.VaccineWrapper;
 import org.smartregister.immunization.util.VaccinateActionUtils;
-import org.smartregister.immunization.util.VaccinatorUtils;
 import org.smartregister.util.DateUtil;
 import org.smartregister.util.FormUtils;
 import org.smartregister.util.Utils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import static org.apache.commons.lang3.StringUtils.isBlank;
 import static org.smartgresiter.wcaro.util.Constants.IMMUNIZATION_CONSTANT.DATE;
 import static org.smartgresiter.wcaro.util.Constants.IMMUNIZATION_CONSTANT.VACCINE;
 import static org.smartregister.immunization.util.VaccinatorUtils.generateScheduleList;
@@ -85,6 +83,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     ArrayList<VaccineWrapper> notGivenVaccines = new ArrayList<VaccineWrapper>();
     private CircleImageView immunization_status_circle;
     private CircleImageView immunization_group_status_circle;
+    private LinearLayout multiple_immunization_group;
 
 
     public void setContext(Context context){
@@ -125,6 +124,10 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
 
         ((LinearLayout) view.findViewById(R.id.immunization_group)).setOnClickListener(this);
          single_immunization_group = ((LinearLayout) view.findViewById(R.id.immunization_name_group));
+
+        ((LinearLayout) view.findViewById(R.id.immunization_group)).setOnClickListener(this);
+        multiple_immunization_group = ((LinearLayout) view.findViewById(R.id.immunization_group));
+
 
 
         textview_group_immunization_primary_text = (TextView)view.findViewById(R.id.textview_group_immunization);
@@ -209,24 +212,12 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                 if (!TextUtils.isEmpty(dobString)) {
                     DateTime dateTime = new DateTime(dobString);
                     Date dob = dateTime.toDate();
-                    VaccineRepo.Vaccine vaccine1 = VaccineRepo.Vaccine.bcg;
-                    VaccineWrapper vaccineWrapper1 = new VaccineWrapper();
-                    vaccineWrapper1.setVaccine(vaccine1);
-                    vaccineWrapper1.setName(vaccine1.display());
-                    vaccineWrapper1.setDefaultName(vaccine1.display());
-
-                    VaccineRepo.Vaccine vaccine2 = VaccineRepo.Vaccine.opv0;
-                    VaccineWrapper vaccineWrapper2 = new VaccineWrapper();
-                    vaccineWrapper2.setVaccine(vaccine2);
-                    vaccineWrapper2.setName(vaccine2.display());
-                    vaccineWrapper2.setDefaultName(vaccine2.display());
-                    ArrayList<VaccineWrapper> vaccineWrappers = new ArrayList<VaccineWrapper>();
-                    vaccineWrappers.add(vaccineWrapper1);
-                    vaccineWrappers.add(vaccineWrapper2);
 
                     List<Vaccine> vaccines = (List<Vaccine>)v.getTag(R.id.vaccinelist);
 
-                    CustomMultipleVaccinationDialogFragment customVaccinationDialogFragment = CustomMultipleVaccinationDialogFragment.newInstance(dob,vaccines,vaccineWrappers);
+                    HomeVisitVaccineGroupDetails duevaccines = (HomeVisitVaccineGroupDetails)v.getTag(R.id.nextduevaccinelist);
+
+                    CustomMultipleVaccinationDialogFragment customVaccinationDialogFragment = CustomMultipleVaccinationDialogFragment.newInstance(dob,vaccines,createVaccineWrappers(duevaccines));
 //                childHomeVisitFragment.setFamilyBaseEntityId(getFamilyBaseEntityId());
                     customVaccinationDialogFragment.setContext(getActivity());
                     customVaccinationDialogFragment.setChildDetails(childClient);
@@ -259,6 +250,20 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                 ((BaseFamilyProfileActivity) context).startFormActivity(Constants.JSON_FORM.FAMILY_MEMBER_REGISTER, null, null);
                 break;
         }
+    }
+
+    private ArrayList<VaccineWrapper> createVaccineWrappers(HomeVisitVaccineGroupDetails vaccines) {
+
+        ArrayList<VaccineWrapper> vaccineWrappers = new ArrayList<VaccineWrapper>();
+        for(VaccineRepo.Vaccine vaccine : vaccines.getDueVaccines()) {
+            VaccineWrapper vaccineWrapper = new VaccineWrapper();
+            vaccineWrapper.setVaccine(vaccine);
+            vaccineWrapper.setName(vaccine.display());
+            vaccineWrapper.setDefaultName(vaccine.display());
+            vaccineWrappers.add(vaccineWrapper);
+        }
+
+        return vaccineWrappers;
     }
 
     public void displayShortToast(int resourceId) {
@@ -308,7 +313,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
 
     public void startForm(String formName, String entityId, String metadata, String currentLocationId,String familyId) throws Exception {
         interactor = new ChildRegisterInteractor();
-        if (StringUtils.isBlank(entityId)) {
+        if (isBlank(entityId)) {
             Triple<String, String, String> triple = Triple.of(formName, metadata, currentLocationId);
             interactor.getNextUniqueId(triple, this,familyId);
             return;
@@ -475,8 +480,82 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
 
         }
 
-        determineNextDueGroup(alerts,vaccines);
+        ArrayList<HomeVisitVaccineGroupDetails> homeVisitVaccineGroupDetailsArrayList = determineNextDueGroup(alerts, vaccines);
 
+        HomeVisitVaccineGroupDetails nextDueGroup = null;
+
+        for(int i = 0; i < homeVisitVaccineGroupDetailsArrayList.size();i++){
+            if(!homeVisitVaccineGroupDetailsArrayList.get(i).getAlert().name().equalsIgnoreCase(ImmunizationState.NO_ALERT.name())){
+                if(homeVisitVaccineGroupDetailsArrayList.get(i).getGivenVaccines().size() == 0 && homeVisitVaccineGroupDetailsArrayList.get(i).getDueVaccines().size()>0){
+                    nextDueGroup = homeVisitVaccineGroupDetailsArrayList.get(i);
+                    break;
+                }
+            }
+        }
+        if(nextDueGroup != null) {
+            textview_group_immunization_primary_text.setText("Immunizations" + "(" + nextDueGroup.getGroup() + ")");
+            multiple_immunization_group.setTag(R.id.nextduevaccinelist, nextDueGroup);
+            multiple_immunization_group.setTag(R.id.vaccinelist, vaccines);
+
+            multiple_immunization_group.setOnClickListener(this);
+        }else{
+            multiple_immunization_group.setVisibility(View.GONE);
+        }
+
+        ArrayList<HomeVisitVaccineGroupDetails> notGivenGroup = notGivenGroup(nextDueGroup,homeVisitVaccineGroupDetailsArrayList);
+        if(notGivenGroup.size()>0){
+            String overDueVaccinesNotGivenInVisit = "";
+            ArrayList<VaccineRepo.Vaccine> notgivenVaccines = new ArrayList<VaccineRepo.Vaccine>();
+            for(HomeVisitVaccineGroupDetails notgivenGroup : notGivenGroup){
+                for(VaccineRepo.Vaccine vaccinenotgiven : notgivenGroup.getNotGivenVaccines()){
+                    if(isInNotGivenThisVisitGroup(vaccinenotgiven)){
+                        overDueVaccinesNotGivenInVisit = overDueVaccinesNotGivenInVisit + vaccinenotgiven.display()+",";
+                        notgivenVaccines.add(vaccinenotgiven);
+                    }
+
+                }
+            }
+            if (overDueVaccinesNotGivenInVisit.endsWith(",")){
+                overDueVaccinesNotGivenInVisit = overDueVaccinesNotGivenInVisit.substring(0, overDueVaccinesNotGivenInVisit.length() - 1);
+            }
+            if(notgivenVaccines.size()>0) {
+                textview_immunization_primary_text.setText(overDueVaccinesNotGivenInVisit);
+            }else{
+                single_immunization_group.setVisibility(View.GONE);
+            }
+        }else{
+        }
+
+
+
+    }
+
+    private boolean isInNotGivenThisVisitGroup(VaccineRepo.Vaccine vaccinenotgiven) {
+        boolean isNotGivenThisVisit = true;
+        for(VaccineWrapper vaccineWrapper :notGivenVaccines){
+            if(vaccinenotgiven.display().equalsIgnoreCase(vaccineWrapper.getName())){
+                isNotGivenThisVisit = false;
+            }
+        }
+        return isNotGivenThisVisit;
+    }
+
+    private ArrayList<HomeVisitVaccineGroupDetails> notGivenGroup(HomeVisitVaccineGroupDetails nextDueGroup, ArrayList<HomeVisitVaccineGroupDetails> homeVisitVaccineGroupDetailsArrayList) {
+        ArrayList<HomeVisitVaccineGroupDetails> notGiven = new ArrayList<HomeVisitVaccineGroupDetails>();
+        int indexofnextGroup = 0;
+        for(int i = 0;i<homeVisitVaccineGroupDetailsArrayList.size();i++) {
+            if (homeVisitVaccineGroupDetailsArrayList.get(i).getGroup().equalsIgnoreCase(nextDueGroup.getGroup())) {
+                indexofnextGroup = i;
+            }
+        }
+
+        for(int i = 0;i<indexofnextGroup;i++) {
+            if(homeVisitVaccineGroupDetailsArrayList.get(i).getDueVaccines().size()>homeVisitVaccineGroupDetailsArrayList.get(i).getGivenVaccines().size()){
+                notGiven.add(homeVisitVaccineGroupDetailsArrayList.get(i));
+            }
+        }
+
+        return notGiven;
 
     }
 
@@ -499,34 +578,101 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         }
     }
 
-    public void determineNextDueGroup(List<Alert> alerts, List<Vaccine> vaccines){
+    public ArrayList<HomeVisitVaccineGroupDetails> determineNextDueGroup(List<Alert> alerts, List<Vaccine> vaccines){
+        ArrayList<HomeVisitVaccineGroupDetails> homeVisitVaccineGroupDetailsArrayList = new ArrayList<HomeVisitVaccineGroupDetails>();
         Map<String, Date> receivedvaccines = receivedVaccines(vaccines);
         List<VaccineRepo.Vaccine> vList = Arrays.asList(VaccineRepo.Vaccine.values());
+        ArrayList<String> vaccineGroupName= new ArrayList<String>();
+        String groupName = "";
+        for(VaccineRepo.Vaccine vaccine : vList){
+            if(vaccine.category().equalsIgnoreCase("child")) {
+//                if (!VaccinateActionUtils.stateKey(vaccine).equalsIgnoreCase(groupName)) {
+//                    groupName = VaccinateActionUtils.stateKey(vaccine);
+//                    vaccineGroupName.add(groupName);
+//                }
+                if(!vaccineGroupName.contains(VaccinateActionUtils.stateKey(vaccine))){
+                    vaccineGroupName.add(VaccinateActionUtils.stateKey(vaccine));
+                }
+            }
+        }
+        for(int i = 0;i<vaccineGroupName.size();i++){
+            HomeVisitVaccineGroupDetails homeVisitVaccineGroupDetails = new HomeVisitVaccineGroupDetails();
+            homeVisitVaccineGroupDetails.setGroup(vaccineGroupName.get(i));
+            homeVisitVaccineGroupDetailsArrayList.add(homeVisitVaccineGroupDetails);
+        }
 
-            for (Alert toProcess : alerts) {
-                if (isReceived(toProcess.scheduleName(),receivedvaccines)){
+        homeVisitVaccineGroupDetailsArrayList = assignDueVaccine(vList,homeVisitVaccineGroupDetailsArrayList,alerts);
+        homeVisitVaccineGroupDetailsArrayList = assignGivenVaccine(homeVisitVaccineGroupDetailsArrayList,receivedvaccines);
 
-                }else{
-                    for(VaccineRepo.Vaccine vaccine:vList){
-                        if(toProcess.scheduleName().equalsIgnoreCase(vaccine.display())) {
-                            String vaccineGroup = VaccinateActionUtils.stateKey(vaccine);
-                            ImmunizationState state;
-                            if (toProcess == null) {
-                                state = ImmunizationState.NO_ALERT;
-                            } else if (toProcess.status().value().equalsIgnoreCase(ImmunizationState.NORMAL.name())) {
-                                state = ImmunizationState.DUE;
-                            } else if (toProcess.status().value().equalsIgnoreCase(ImmunizationState.UPCOMING.name())) {
-                                state = ImmunizationState.UPCOMING;
-                            } else if (toProcess.status().value().equalsIgnoreCase(ImmunizationState.URGENT.name())) {
-                                state = ImmunizationState.OVERDUE;
-                            } else if (toProcess.status().value().equalsIgnoreCase(ImmunizationState.EXPIRED.name())) {
-                                state = ImmunizationState.EXPIRED;
-                            }
-                        }
+
+        return  homeVisitVaccineGroupDetailsArrayList;
+    }
+
+    private ArrayList<HomeVisitVaccineGroupDetails> assignGivenVaccine(ArrayList<HomeVisitVaccineGroupDetails> homeVisitVaccineGroupDetailsArrayList, Map<String, Date> receivedvaccines) {
+
+        for(int i = 0;i<homeVisitVaccineGroupDetailsArrayList.size();i++){
+            ArrayList<VaccineRepo.Vaccine> dueVaccines = homeVisitVaccineGroupDetailsArrayList.get(i).getDueVaccines();
+            for(VaccineRepo.Vaccine checkVaccine: dueVaccines){
+                if(isReceived(checkVaccine.display(),receivedvaccines)){
+                    homeVisitVaccineGroupDetailsArrayList.get(i).getGivenVaccines().add(checkVaccine);
+                }
+            }
+            homeVisitVaccineGroupDetailsArrayList.get(i).calculateNotGivenVaccines();
+        }
+        return homeVisitVaccineGroupDetailsArrayList;
+    }
+
+    private ArrayList<HomeVisitVaccineGroupDetails> assignDueVaccine(List<VaccineRepo.Vaccine> vList, ArrayList<HomeVisitVaccineGroupDetails> homeVisitVaccineGroupDetailsArrayList, List<Alert> alerts) {
+        for(int i = 0;i<homeVisitVaccineGroupDetailsArrayList.size();i++){
+            for(VaccineRepo.Vaccine vaccine : vList){
+                if(VaccinateActionUtils.stateKey(vaccine).equalsIgnoreCase(homeVisitVaccineGroupDetailsArrayList.get(i).getGroup())){
+                    if(hasAlert(vaccine,alerts)){
+                        homeVisitVaccineGroupDetailsArrayList.get(i).getDueVaccines().add(vaccine);
+                        homeVisitVaccineGroupDetailsArrayList.get(i).setAlert(assignAlert(vaccine,alerts));
                     }
                 }
             }
+        }
 
+
+        return homeVisitVaccineGroupDetailsArrayList;
+    }
+
+    private ImmunizationState assignAlert(VaccineRepo.Vaccine vaccine, List<Alert> alerts) {
+        ImmunizationState state = ImmunizationState.NO_ALERT;
+        for(Alert alert : alerts){
+            if(alert.scheduleName().equalsIgnoreCase(vaccine.display())){
+                state = alertState(alert);
+            }
+        }
+        return state;
+    }
+
+    private boolean hasAlert(VaccineRepo.Vaccine vaccine, List<Alert> alerts) {
+        boolean hasAlert = false;
+        for(Alert alert : alerts){
+            if(alert.scheduleName().equalsIgnoreCase(vaccine.display())){
+                hasAlert = true;
+            }
+        }
+
+        return hasAlert;
+    }
+
+    public ImmunizationState alertState(Alert toProcess){
+        ImmunizationState state = ImmunizationState.NO_ALERT;
+        if (toProcess == null) {
+            state = ImmunizationState.NO_ALERT;
+        } else if (toProcess.status().value().equalsIgnoreCase(ImmunizationState.NORMAL.name())) {
+            state = ImmunizationState.DUE;
+        } else if (toProcess.status().value().equalsIgnoreCase(ImmunizationState.UPCOMING.name())) {
+            state = ImmunizationState.UPCOMING;
+        } else if (toProcess.status().value().equalsIgnoreCase(ImmunizationState.URGENT.name())) {
+            state = ImmunizationState.OVERDUE;
+        } else if (toProcess.status().value().equalsIgnoreCase(ImmunizationState.EXPIRED.name())) {
+            state = ImmunizationState.EXPIRED;
+        }
+        return state;
     }
 
     private boolean isReceived(String s, Map<String, Date> receivedvaccines) {

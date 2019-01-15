@@ -4,4 +4,5 @@
     <item name="vaccine_group_parent_id" type="id"></item>
     <item name="vaccinelist" type="id" />
     <item name="singlenextvaccine" type="id" />
+    <item name="nextduevaccinelist" type="id" />
 </resources>

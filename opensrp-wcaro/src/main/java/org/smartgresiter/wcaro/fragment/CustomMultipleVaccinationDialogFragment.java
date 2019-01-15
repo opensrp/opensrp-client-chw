@@ -74,7 +74,7 @@ public class CustomMultipleVaccinationDialogFragment extends ChildImmunizationFr
         customVaccinationDialogFragment.setArguments(args);
         customVaccinationDialogFragment.setDateOfBirth(dateOfBirth);
         customVaccinationDialogFragment.setIssuedVaccines(issuedVaccines);
-        customVaccinationDialogFragment.setDisableConstraints(false);
+        customVaccinationDialogFragment.setDisableConstraints(true);
 
         return customVaccinationDialogFragment;
     }
