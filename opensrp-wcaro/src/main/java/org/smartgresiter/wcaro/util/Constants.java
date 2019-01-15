@@ -23,6 +23,7 @@ public class Constants {
         public static final String FAMILY_MEMBER_REGISTER = "family_member_register";
         public static final String CHILD_REGISTER = "child_enrollment";
         public static final String FAMILY_DETAILS_REGISTER = "family_details_register";
+        public static final String FAMILY_DETAILS_REMOVE_MEMBER = "family_details_remove_member";
     }
 
     public static class RELATIONSHIP {

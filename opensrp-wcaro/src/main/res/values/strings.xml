@@ -48,6 +48,8 @@
     <string name="change_head_member_title_question">Select a new family head</string>
     <string name="change_caregiver_member_title">Change primary care giver</string>
     <string name="change_caregiver_member_title_question">Select a new primary care giver</string>
+    <string name="remove_member_title">Remove member</string>
+    <string name="remove_member_prompt">Which member do you want to remove?</string>
     <string name="visit_month">%1$s visit done</string>
     <string name="not_visiting_this_month">Not visiting this month</string>
     <string name="undo">UNDO</string>

@@ -8,6 +8,7 @@ import android.widget.Toast;
 import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.activity.FamilyProfileActivity;
 import org.smartgresiter.wcaro.activity.FamilyProfileMenuActivity;
+import org.smartgresiter.wcaro.activity.FamilyRemoveMemberActivity;
 import org.smartgresiter.wcaro.fragment.AddMemberFragment;
 import org.smartgresiter.wcaro.fragment.FamilyCallDialogFragment;
 
@@ -38,8 +39,13 @@ public class FloatingMenuListener implements OnClickFloatingMenu {
                 break;
 
             case R.id.remove_member_layout:
-                Toast.makeText(context, "Go to remove member", Toast.LENGTH_SHORT).show();
-                //go to child add form activity
+
+                Intent frm_intent = new Intent(context, FamilyRemoveMemberActivity.class);
+                if (context instanceof FamilyProfileActivity) {
+                    frm_intent.putExtras(((FamilyProfileActivity) context).getProfileExtras());
+                }
+                context.startActivity(frm_intent);
+
                 break;
             case R.id.change_head_layout:
 

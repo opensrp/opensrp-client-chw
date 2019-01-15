@@ -4,20 +4,25 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 
+import org.json.JSONObject;
 import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.fragment.FamilyProfileChangeHead;
 import org.smartgresiter.wcaro.fragment.FamilyProfileChangePrimaryCG;
+import org.smartgresiter.wcaro.fragment.FamilyRemoveMemberFragment;
 import org.smartregister.family.util.Constants;
+import org.smartregister.family.util.JsonFormUtils;
+import org.smartregister.family.util.Utils;
 import org.smartregister.view.activity.SecuredActivity;
 
 public class FamilyProfileMenuActivity extends SecuredActivity {
 
+    public static final String TAG = FamilyProfileMenuActivity.class.getName();
     public static final String MENU = "MENU";
 
     public static class MenuType {
         public static final String ChangeHead = "ChangeHead";
-        public static final String RemoveFamilyMember = "RemoveFamilyMember";
         public static final String ChangePrimaryCare = "ChangePrimaryCare";
     }
 
@@ -33,9 +38,6 @@ public class FamilyProfileMenuActivity extends SecuredActivity {
         Fragment fragment;
         switch (menuOption) {
             case MenuType.ChangeHead:
-                fragment = FamilyProfileChangeHead.newInstance(familyBaseEntityId);
-                break;
-            case MenuType.RemoveFamilyMember:
                 fragment = FamilyProfileChangeHead.newInstance(familyBaseEntityId);
                 break;
             case MenuType.ChangePrimaryCare:
@@ -58,5 +60,25 @@ public class FamilyProfileMenuActivity extends SecuredActivity {
     @Override
     protected void onResumption() {
 
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == JsonFormUtils.REQUEST_CODE_GET_JSON && resultCode == RESULT_OK) {
+            try {
+                String jsonString = data.getStringExtra(Constants.JSON_FORM_EXTRA.JSON);
+                Log.d("JSONResult", jsonString);
+
+                JSONObject form = new JSONObject(jsonString);
+                if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Utils.metadata().familyRegister.updateEventType)) {
+                    //presenter().updateFamilyRegister(jsonString);
+                } else if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Utils.metadata().familyMemberRegister.registerEventType)) {
+                    //presenter().saveFamilyMember(jsonString);
+                }
+            } catch (Exception e) {
+                Log.e(TAG, Log.getStackTraceString(e));
+            }
+        }
     }
 }

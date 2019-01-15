@@ -3,6 +3,7 @@ package org.smartgresiter.wcaro.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.Gravity;
@@ -85,6 +86,10 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity implements 
         }
 
         return viewPager;
+    }
+
+    public Bundle getProfileExtras(){
+        return getIntent().getExtras();
     }
 
     @Override
