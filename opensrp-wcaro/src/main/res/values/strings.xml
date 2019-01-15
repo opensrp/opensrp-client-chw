@@ -46,8 +46,8 @@
     <string name="add_member_title_question">What kind of family member you want to add?</string>
     <string name="change_head_member_title">Change family head</string>
     <string name="change_head_member_title_question">Select a new family head</string>
-    <string name="change_caregiver_member_title">Change care giver</string>
-    <string name="change_caregiver_member_title_question">Select a new care giver</string>
+    <string name="change_caregiver_member_title">Change primary care giver</string>
+    <string name="change_caregiver_member_title_question">Select a new primary care giver</string>
     <string name="visit_month">%1$s visit done</string>
     <string name="not_visiting_this_month">Not visiting this month</string>
     <string name="undo">UNDO</string>

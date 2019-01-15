@@ -25,7 +25,7 @@
         android:theme="@style/WcaroTheme"
         tools:replace="android:theme">
         <activity
-            android:name=".activity.FamilyProfileMenu"
+            android:name=".activity.FamilyProfileMenuActivity"
             android:screenOrientation="portrait"
             android:theme="@style/WcaroTheme.NoActionBar" />
         <activity

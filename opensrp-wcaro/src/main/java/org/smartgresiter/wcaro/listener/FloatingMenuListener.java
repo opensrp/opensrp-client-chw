@@ -7,7 +7,7 @@ import android.widget.Toast;
 
 import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.activity.FamilyProfileActivity;
-import org.smartgresiter.wcaro.activity.FamilyProfileMenu;
+import org.smartgresiter.wcaro.activity.FamilyProfileMenuActivity;
 import org.smartgresiter.wcaro.fragment.AddMemberFragment;
 import org.smartgresiter.wcaro.fragment.FamilyCallDialogFragment;
 
@@ -43,16 +43,21 @@ public class FloatingMenuListener implements OnClickFloatingMenu {
                 break;
             case R.id.change_head_layout:
 
-                Intent intent = new Intent(context, FamilyProfileMenu.class);
-                intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.BASE_ENTITY_ID,
+                Intent fh_intent = new Intent(context, FamilyProfileMenuActivity.class);
+                fh_intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.BASE_ENTITY_ID,
                         ((FamilyProfileActivity) context).getFamilyBaseEntityId());
-                intent.putExtra(FamilyProfileMenu.MENU, FamilyProfileMenu.MenuType.ChangeHead);
-                context.startActivity(intent);
+                fh_intent.putExtra(FamilyProfileMenuActivity.MENU, FamilyProfileMenuActivity.MenuType.ChangeHead);
+                context.startActivity(fh_intent);
 
                 break;
             case R.id.change_primary_layout:
-                Toast.makeText(context, "Go to change primary caregiver", Toast.LENGTH_SHORT).show();
-                //go to child add form activity
+
+                Intent pc_intent = new Intent(context, FamilyProfileMenuActivity.class);
+                pc_intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.BASE_ENTITY_ID,
+                        ((FamilyProfileActivity) context).getFamilyBaseEntityId());
+                pc_intent.putExtra(FamilyProfileMenuActivity.MENU, FamilyProfileMenuActivity.MenuType.ChangePrimaryCare);
+                context.startActivity(pc_intent);
+
                 break;
         }
     }

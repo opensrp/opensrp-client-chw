@@ -7,10 +7,11 @@ import android.support.v4.app.FragmentTransaction;
 
 import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.fragment.FamilyProfileChangeHead;
+import org.smartgresiter.wcaro.fragment.FamilyProfileChangePrimaryCG;
 import org.smartregister.family.util.Constants;
 import org.smartregister.view.activity.SecuredActivity;
 
-public class FamilyProfileMenu extends SecuredActivity {
+public class FamilyProfileMenuActivity extends SecuredActivity {
 
     public static final String MENU = "MENU";
 
@@ -26,7 +27,7 @@ public class FamilyProfileMenu extends SecuredActivity {
         setContentView(R.layout.activity_family_profile_menu);
 
         Intent intent = getIntent();
-        String menuOption = intent.getStringExtra(FamilyProfileMenu.MENU);
+        String menuOption = intent.getStringExtra(FamilyProfileMenuActivity.MENU);
         String familyBaseEntityId = getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID);
 
         Fragment fragment;
@@ -38,7 +39,7 @@ public class FamilyProfileMenu extends SecuredActivity {
                 fragment = FamilyProfileChangeHead.newInstance(familyBaseEntityId);
                 break;
             case MenuType.ChangePrimaryCare:
-                fragment = FamilyProfileChangeHead.newInstance(familyBaseEntityId);
+                fragment = FamilyProfileChangePrimaryCG.newInstance(familyBaseEntityId);
                 break;
             default:
                 fragment = FamilyProfileChangeHead.newInstance(familyBaseEntityId);

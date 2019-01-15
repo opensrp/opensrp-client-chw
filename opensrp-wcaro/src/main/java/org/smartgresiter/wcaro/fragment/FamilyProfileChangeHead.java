@@ -21,8 +21,8 @@ import java.util.List;
 
 public class FamilyProfileChangeHead extends Fragment implements View.OnClickListener, FamilyChangeContract.View {
 
-    private static final String FAMILY_ID = "FAMILY_ID";
-    private String familyID;
+    protected static final String FAMILY_ID = "FAMILY_ID";
+    protected String familyID;
 
     public FamilyProfileChangeHead() {
         // Required empty public constructor
@@ -75,7 +75,7 @@ public class FamilyProfileChangeHead extends Fragment implements View.OnClickLis
         }
     }
 
-    private void prepareViews(View view) {
+    protected void prepareViews(View view) {
         view.findViewById(R.id.close).setOnClickListener(this);
         view.findViewById(R.id.tvAction).setOnClickListener(this);
         progressBar = view.findViewById(R.id.progressBar);
@@ -126,14 +126,14 @@ public class FamilyProfileChangeHead extends Fragment implements View.OnClickLis
         getActivity().finish();
     }
 
-    private void validateSave(int itemPosition) {
+    protected void validateSave(int itemPosition) {
         Boolean valid = memberAdapter.validateSave((MemberAdapter.MyViewHolder) recyclerView.findViewHolderForAdapterPosition(itemPosition));
         if (valid) {
-            HashMap<String,String> res = memberAdapter.getSelectedResults(
-                    (MemberAdapter.MyViewHolder) recyclerView.findViewHolderForAdapterPosition(itemPosition) ,
+            HashMap<String, String> res = memberAdapter.getSelectedResults(
+                    (MemberAdapter.MyViewHolder) recyclerView.findViewHolderForAdapterPosition(itemPosition),
                     itemPosition
             );
-            res.put("position","change_head");
+            res.put("position", "change_head");
             updateFamilyMember(res);
         }
     }

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context="org.smartgresiter.wcaro.fragment.FamilyProfileChangeHead">
+    tools:context="org.smartgresiter.wcaro.fragment.FamilyProfileChangePrimaryCG">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -47,7 +47,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_toEndOf="@+id/close"
-                        android:text="@string/change_head_member_title"
+                        android:text="@string/change_caregiver_member_title"
                         android:textAppearance="@style/TextAppearance.AppCompat.Large"
                         android:textColor="@android:color/white" />
 
@@ -82,7 +82,7 @@
             android:layout_marginBottom="30dp"
             android:gravity="center_vertical"
             android:singleLine="false"
-            android:text="@string/change_head_member_title_question"
+            android:text="@string/change_caregiver_member_title_question"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
 
             android:textColor="@android:color/black" />
@@ -99,6 +99,6 @@
         style="?android:attr/progressBarStyleLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"/>
+        android:layout_centerInParent="true" />
 
 </RelativeLayout>
