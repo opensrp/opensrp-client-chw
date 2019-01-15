@@ -14,6 +14,7 @@ import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.adapter.MemberAdapter;
 import org.smartgresiter.wcaro.contract.FamilyChangeContract;
 import org.smartgresiter.wcaro.presenter.FamilyChangeContractPresenter;
+import org.smartgresiter.wcaro.util.Constants;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -133,7 +134,7 @@ public class FamilyProfileChangeHead extends Fragment implements View.OnClickLis
                     (MemberAdapter.MyViewHolder) recyclerView.findViewHolderForAdapterPosition(itemPosition),
                     itemPosition
             );
-            res.put("position", "change_head");
+            res.put(Constants.PROFILE_CHANGE_ACTION.ACTION_TYPE, Constants.PROFILE_CHANGE_ACTION.HEAD_OF_FAMILY);
             updateFamilyMember(res);
         }
     }

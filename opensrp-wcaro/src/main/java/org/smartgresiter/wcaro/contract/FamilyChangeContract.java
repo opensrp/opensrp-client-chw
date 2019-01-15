@@ -47,7 +47,7 @@ public interface FamilyChangeContract {
 
         void getAdultMembersExcludePCG(String familyID, Presenter presenter);
 
-        void updateFamilyMember(HashMap<String, String> familyMember, Presenter presenter);
+        void updateFamilyMember(HashMap<String, String> familyMember, String familyID, Presenter presenter);
 
     }
 

@@ -20,6 +20,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import org.smartgresiter.wcaro.R;
+import org.smartgresiter.wcaro.util.Constants;
 import org.smartregister.family.util.DBConstants;
 
 import java.util.ArrayList;
@@ -170,10 +171,10 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MyViewHold
     public HashMap<String,String> getSelectedResults(MyViewHolder holder, int Position){
         HashMap<String,String> res = new HashMap<>();
 
-        res.put("member_id", familyMembers.get(Position).get(DBConstants.KEY.OBJECT_ID));
-        res.put("phone_number", holder.etPhone.getText().toString());
-        res.put("other_phone_number", holder.etAlternatePhone.getText().toString());
-        res.put("highest_edu_level", holder.spEduLevel.getSelectedItem().toString());
+        res.put(DBConstants.KEY.BASE_ENTITY_ID, familyMembers.get(Position).get(DBConstants.KEY.BASE_ENTITY_ID));
+        res.put(Constants.JsonAssets.FAMILY_MEMBER.PHONE_NUMBER, holder.etPhone.getText().toString());
+        res.put(Constants.JsonAssets.FAMILY_MEMBER.OTHER_PHONE_NUMBER, holder.etAlternatePhone.getText().toString());
+        res.put(Constants.JsonAssets.FAMILY_MEMBER.HIGHEST_EDUCATION_LEVEL, holder.spEduLevel.getSelectedItem().toString());
 
         return res;
     }

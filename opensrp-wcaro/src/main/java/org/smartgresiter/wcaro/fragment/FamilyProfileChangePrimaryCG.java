@@ -1,25 +1,19 @@
 package org.smartgresiter.wcaro.fragment;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.widget.ProgressBar;
 
 import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.adapter.MemberAdapter;
-import org.smartgresiter.wcaro.contract.FamilyChangeContract;
 import org.smartgresiter.wcaro.presenter.FamilyChangeContractPresenter;
+import org.smartgresiter.wcaro.util.Constants;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
-public class FamilyProfileChangePrimaryCG extends FamilyProfileChangeHead{
+public class FamilyProfileChangePrimaryCG extends FamilyProfileChangeHead {
 
     public static FamilyProfileChangePrimaryCG newInstance(String familyID) {
         FamilyProfileChangePrimaryCG fragment = new FamilyProfileChangePrimaryCG();
@@ -49,7 +43,7 @@ public class FamilyProfileChangePrimaryCG extends FamilyProfileChangeHead{
                     (MemberAdapter.MyViewHolder) recyclerView.findViewHolderForAdapterPosition(itemPosition),
                     itemPosition
             );
-            res.put("position", "change_primary_cg");
+            res.put(Constants.PROFILE_CHANGE_ACTION.ACTION_TYPE, Constants.PROFILE_CHANGE_ACTION.PRIMARY_CARE_GIVER);
             updateFamilyMember(res);
         }
     }

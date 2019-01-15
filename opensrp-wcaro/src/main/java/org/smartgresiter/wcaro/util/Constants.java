@@ -1,5 +1,7 @@
 package org.smartgresiter.wcaro.util;
 
+import org.smartregister.family.util.DBConstants;
+
 public class Constants {
 
     public static class CONFIGURATION {
@@ -51,6 +53,20 @@ public class Constants {
 
     public static final class SyncFilters {
         public static final String FILTER_TEAM_ID = "teamId";
+    }
+
+    public static class PROFILE_CHANGE_ACTION {
+        public static final String ACTION_TYPE = "change_action_type";
+        public static final String PRIMARY_CARE_GIVER = "change_primary_cg";
+        public static final String HEAD_OF_FAMILY = "change_head";
+    }
+
+    public static class JsonAssets {
+        public static class FAMILY_MEMBER {
+            public static final String HIGHEST_EDUCATION_LEVEL = "highest_edu_level";
+            public static final String PHONE_NUMBER = DBConstants.KEY.PHONE_NUMBER;
+            public static final String OTHER_PHONE_NUMBER = "other_phone_number";
+        }
     }
 
 }

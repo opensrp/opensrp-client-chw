@@ -6,6 +6,7 @@ import android.util.Log;
 
 import org.apache.commons.lang3.tuple.Triple;
 import org.smartgresiter.wcaro.contract.FamilyChangeContract;
+import org.smartgresiter.wcaro.util.Constants;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
@@ -80,21 +81,30 @@ public class FamilyChangeContractInteractor implements FamilyChangeContract.Inte
     }
 
     @Override
-    public void updateFamilyMember(HashMap<String, String> familyMember, FamilyChangeContract.Presenter presenter) {
+    public void updateFamilyMember(HashMap<String, String> familyMember, String familyID, FamilyChangeContract.Presenter presenter) {
+
         if (familyMember != null) {
-            //TODO update the family member to be the primary care giver etc
-            try {
-                // update family record
 
-                // update the member
+            String option = familyMember.get(Constants.PROFILE_CHANGE_ACTION.ACTION_TYPE);
+            String memberID = familyMember.get(DBConstants.KEY.BASE_ENTITY_ID);
 
-                // update the EC client model
+            String phone = familyMember.get(Constants.JsonAssets.FAMILY_MEMBER.PHONE_NUMBER);
+            String otherPhone = familyMember.get(Constants.JsonAssets.FAMILY_MEMBER.OTHER_PHONE_NUMBER);
+            String eduLevel = familyMember.get(Constants.JsonAssets.FAMILY_MEMBER.HIGHEST_EDUCATION_LEVEL);
 
+            // update family record
 
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+            // update the EC client model
+
+            switch (option){
+                case Constants.PROFILE_CHANGE_ACTION.PRIMARY_CARE_GIVER:
+
+                    break;
+                case Constants.PROFILE_CHANGE_ACTION.HEAD_OF_FAMILY:
+
+                    break;
             }
+
         }
         presenter.saveCompleted();
     }
