@@ -65,7 +65,7 @@ public class GrowthNutritionInputFragment extends DialogFragment implements Radi
     private LinearLayout layoutExclusiveFeeding,layoutVitaminBar;
     private TextView textViewVitamin;
     private DatePicker datePicker;
-    private String isFeeding="yes";
+    private String isFeeding="";
     private ServiceWrapper serviceWrapper;
     private CommonPersonObjectClient commonPersonObjectClient;
     private LinearLayout context;
@@ -161,7 +161,7 @@ public class GrowthNutritionInputFragment extends DialogFragment implements Radi
         }
     }
     private void saveExclusiveFeedingData(){
-        if (serviceWrapper == null) {
+        if (serviceWrapper == null || TextUtils.isEmpty(isFeeding)) {
             return;
         }
         Calendar calendar = Calendar.getInstance();
