@@ -98,11 +98,10 @@ public interface ChildProfileContract {
     }
 
     interface Interactor {
-        void refreshChildVisitBar(String baseEntityId, ChildProfileContract.InteractorCallBack callback);
-
-        void refreshFamilyMemberServiceDue(String familyId, String baseEntityId, ChildProfileContract.InteractorCallBack callback);
         void updateVisitNotDone(long value);
+
         void refreshChildVisitBar(String baseEntityId,ChildProfileContract.InteractorCallBack callback);
+
         void refreshFamilyMemberServiceDue(String familyId,String baseEntityId,ChildProfileContract.InteractorCallBack callback);
 
         void onDestroy(boolean isChangingConfiguration);
