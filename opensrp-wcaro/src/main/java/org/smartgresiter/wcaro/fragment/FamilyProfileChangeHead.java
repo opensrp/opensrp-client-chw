@@ -112,7 +112,7 @@ public class FamilyProfileChangeHead extends Fragment implements View.OnClickLis
     @Override
     public void updateFamilyMember(HashMap<String, String> familyMember) {
         showProgressDialog("Saving");
-        presenter.saveFamilyMember(familyMember);
+        presenter.saveFamilyMember(getContext(), familyMember);
     }
 
     @Override

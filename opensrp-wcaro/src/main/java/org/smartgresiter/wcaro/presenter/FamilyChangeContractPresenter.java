@@ -1,5 +1,7 @@
 package org.smartgresiter.wcaro.presenter;
 
+import android.content.Context;
+
 import org.smartgresiter.wcaro.contract.FamilyChangeContract;
 import org.smartgresiter.wcaro.interactor.FamilyChangeContractInteractor;
 import org.smartgresiter.wcaro.model.FamilyChangeContractModel;
@@ -30,8 +32,8 @@ public class FamilyChangeContractPresenter implements FamilyChangeContract.Prese
     }
 
     @Override
-    public void saveFamilyMember(HashMap<String,String> member) {
-        interactor.updateFamilyMember(member, familyID, this);
+    public void saveFamilyMember(Context context, HashMap<String,String> member) {
+        interactor.updateFamilyMember(context , member, familyID, this);
     }
 
     @Override

@@ -37,6 +37,7 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MyViewHold
 
     Animation slideUp;
     Animation slideDown;
+    List<String> eduOptions;
 
     public MemberAdapter(Context context, List<HashMap<String, String>> myDataset, View.OnClickListener clickListener) {
         familyMembers = myDataset;
@@ -124,8 +125,26 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MyViewHold
 
 
         holder.etPhone.setText(model.get(DBConstants.KEY.PHONE_NUMBER));
-        holder.etAlternatePhone.setText(model.get(DBConstants.KEY.PHONE_NUMBER));
-        holder.spEduLevel.setSelection(0);
+        holder.etAlternatePhone.setText((model.get("other_phone_number").equals("null") ? "" : model.get("other_phone_number")));
+
+        switch (model.get("highest_edu_level")){
+            case "None":
+                holder.spEduLevel.setSelection(0);
+                break;
+            case "Primary":
+                holder.spEduLevel.setSelection(1);
+                break;
+            case "Secondary":
+                holder.spEduLevel.setSelection(2);
+                break;
+            case "Post-secondary":
+                holder.spEduLevel.setSelection(3);
+                break;
+                default:
+
+                    holder.spEduLevel.setSelection(0);
+                    break;
+        }
     }
 
     public boolean validateSave(MyViewHolder holder) {
@@ -179,6 +198,17 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MyViewHold
         return res;
     }
 
+    private List<String> getOptions(){
+        if(eduOptions == null){
+            eduOptions = new ArrayList<>();
+            eduOptions.add("None");
+            eduOptions.add("Primary");
+            eduOptions.add("Secondary");
+            eduOptions.add("Post-secondary");
+        }
+        return eduOptions;
+    }
+
     @Override
     public int getItemCount() {
         return familyMembers.size();
@@ -215,14 +245,8 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MyViewHold
             etAlternatePhone = view.findViewById(R.id.etOtherNumber);
             spEduLevel = view.findViewById(R.id.spEducationLevel);
 
-            final List<String> list = new ArrayList<String>();
-            list.add("None");
-            list.add("Primary");
-            list.add("Secondary");
-            list.add("Post-secondary");
-
             ArrayAdapter<String> adp1 = new ArrayAdapter<>(context,
-                    android.R.layout.simple_list_item_1, list);
+                    android.R.layout.simple_list_item_1, getOptions());
             adp1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spEduLevel.setAdapter(adp1);
 

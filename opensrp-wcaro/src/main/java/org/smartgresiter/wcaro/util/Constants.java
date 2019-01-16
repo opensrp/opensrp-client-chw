@@ -1,7 +1,5 @@
 package org.smartgresiter.wcaro.util;
 
-import org.smartregister.family.util.DBConstants;
-
 public class Constants {
 
     public static class CONFIGURATION {
@@ -64,7 +62,7 @@ public class Constants {
     public static class JsonAssets {
         public static class FAMILY_MEMBER {
             public static final String HIGHEST_EDUCATION_LEVEL = "highest_edu_level";
-            public static final String PHONE_NUMBER = DBConstants.KEY.PHONE_NUMBER;
+            public static final String PHONE_NUMBER = "phone_number";
             public static final String OTHER_PHONE_NUMBER = "other_phone_number";
         }
     }

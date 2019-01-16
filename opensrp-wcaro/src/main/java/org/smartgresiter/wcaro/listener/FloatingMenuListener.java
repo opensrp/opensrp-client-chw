@@ -1,9 +1,7 @@
 package org.smartgresiter.wcaro.listener;
 
 import android.app.Activity;
-import android.app.FragmentTransaction;
 import android.content.Intent;
-import android.widget.Toast;
 
 import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.activity.FamilyProfileActivity;
@@ -29,13 +27,16 @@ public class FloatingMenuListener implements OnClickFloatingMenu {
                 //go to child add form activity
                 break;
             case R.id.family_detail_layout:
+
                 ((FamilyProfileActivity) context).startFormForEdit();
+
                 break;
             case R.id.add_new_member_layout:
-                FragmentTransaction ft = context.getFragmentManager().beginTransaction();
+
                 AddMemberFragment addmemberFragment = AddMemberFragment.newInstance();
                 addmemberFragment.setContext(context);
                 addmemberFragment.show(context.getFragmentManager(), AddMemberFragment.DIALOG_TAG);
+
                 break;
 
             case R.id.remove_member_layout:
