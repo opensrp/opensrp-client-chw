@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.contract.HomeVisitGrowthNutritionContract;
+import org.smartgresiter.wcaro.fragment.ChildHomeVisitFragment;
 import org.smartgresiter.wcaro.fragment.GrowthNutritionInputFragment;
 import org.smartgresiter.wcaro.presenter.HomeVisitGrowthNutritionPresenter;
 import org.smartgresiter.wcaro.util.ChildUtils;
@@ -31,6 +32,7 @@ public class HomeVisitGrowthAndNutrition extends LinearLayout implements View.On
     private HomeVisitGrowthNutritionContract.Presenter presenter;
     private CommonPersonObjectClient commonPersonObjectClient;
     private FragmentManager fragmentManager;
+    private ChildHomeVisitFragment childHomeVisitFragment;
     public HomeVisitGrowthAndNutrition(Context context) {
         super(context);
         initUi();
@@ -68,7 +70,8 @@ public class HomeVisitGrowthAndNutrition extends LinearLayout implements View.On
 //        imageViewDewormingStatus.setOnClickListener(this);
         initializePresenter();
     }
-    public void setData(FragmentManager fragmentManager,CommonPersonObjectClient commonPersonObjectClient){
+    public void setData(ChildHomeVisitFragment childHomeVisitFragment,FragmentManager fragmentManager,CommonPersonObjectClient commonPersonObjectClient){
+        this.childHomeVisitFragment=childHomeVisitFragment;
         this.fragmentManager=fragmentManager;
         this.commonPersonObjectClient=commonPersonObjectClient;
         presenter.parseRecordServiceData(commonPersonObjectClient);
@@ -200,6 +203,9 @@ public class HomeVisitGrowthAndNutrition extends LinearLayout implements View.On
             imageView.setImageResource(R.drawable.ic_checked);
             imageView.setColorFilter(getResources().getColor(R.color.white));
             imageView.setCircleBackgroundColor(getResources().getColor(R.color.pnc_circle_yellow));
+        }
+        if(childHomeVisitFragment!=null){
+            childHomeVisitFragment.checkIfSubmitIsToBeEnabled();
         }
 
     }

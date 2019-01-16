@@ -146,6 +146,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         immunization_group_status_circle = ((CircleImageView)view.findViewById(R.id.immunization_group_status_circle));
 
         assignNameHeader();
+        submitButtonEnableDisable(false);
     }
 
     private void assignNameHeader() {
@@ -172,7 +173,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
 //        }
     }
     private void updateGrowthData(){
-        homeVisitGrowthAndNutritionLayout.setData(getActivity().getFragmentManager(),childClient);
+        homeVisitGrowthAndNutritionLayout.setData(this,getActivity().getFragmentManager(),childClient);
     }
 
 
@@ -263,6 +264,14 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                 break;
         }
     }
+    private void submitButtonEnableDisable(boolean isEnable){
+        if(isEnable){
+            submit.setAlpha(1.0f);
+        }else{
+            submit.setAlpha(0.3f);
+        }
+
+    }
 
     private boolean checkAllGiven() {
         return allVaccineStateFullfilled && isAllGrowthSelected();
@@ -283,9 +292,9 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
 
     public void checkIfSubmitIsToBeEnabled(){
         if(checkAllGiven()){
-            submit.setEnabled(true);
+            submitButtonEnableDisable(true);
         }else {
-            submit.setEnabled(false);
+            submitButtonEnableDisable(false);
         }
     }
 
