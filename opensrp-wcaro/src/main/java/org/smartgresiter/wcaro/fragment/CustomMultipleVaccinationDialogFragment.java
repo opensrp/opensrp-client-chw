@@ -142,7 +142,7 @@ public class CustomMultipleVaccinationDialogFragment extends ChildImmunizationFr
 
         for (VaccineWrapper vaccineWrapper : tags) {
 
-            View vaccinationName = inflater.inflate(R.layout.vaccination_name, null);
+            View vaccinationName = inflater.inflate(R.layout.custom_vaccination_name, null);
             TextView vaccineView = (TextView) vaccinationName.findViewById(R.id.vaccine);
 
             VaccineRepo.Vaccine vaccine = vaccineWrapper.getVaccine();
@@ -283,6 +283,7 @@ public class CustomMultipleVaccinationDialogFragment extends ChildImmunizationFr
                         }
                     }
                 }
+                dismiss();
             }
         });
 

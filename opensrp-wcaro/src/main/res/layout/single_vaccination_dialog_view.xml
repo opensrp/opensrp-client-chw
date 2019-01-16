@@ -140,7 +140,7 @@
                     android:background="@drawable/vaccination_today_bg"
                     android:paddingBottom="@dimen/btn_padding_bottom"
                     android:paddingTop="@dimen/btn_padding_top"
-                    android:text="Save"
+                    android:text="SAVE"
                     android:textAllCaps="false"
                     android:textAppearance="?android:textAppearanceSmall"
                     android:textColor="@color/white"

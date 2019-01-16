@@ -165,7 +165,7 @@ public class CustomVaccinationDialogFragment extends ChildImmunizationFragment {
                 String[] names = vName.split("/");
                 final List<RadioButton> radios = new ArrayList<>();
                 for (int i = 0; i < names.length; i++) {
-                    View vaccinationName = inflater.inflate(R.layout.vaccination_name, null);
+                    View vaccinationName = inflater.inflate(R.layout.custom_vaccination_name, null);
                     TextView vaccineView = (TextView) vaccinationName.findViewById(R.id.vaccine);
 
                     String name = names[i].trim();
@@ -254,9 +254,10 @@ public class CustomVaccinationDialogFragment extends ChildImmunizationFragment {
         if (status != null) {
             status.setBackgroundColor(StringUtils.isBlank(color) ? Color.WHITE : Color.parseColor(color));
         }
+        final Button vaccinateToday = (Button) dialogView.findViewById(R.id.vaccinate_today);
 
         final Button set = (Button) dialogView.findViewById(R.id.set);
-        set.setOnClickListener(new View.OnClickListener() {
+        vaccinateToday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 dismiss();
@@ -306,40 +307,7 @@ public class CustomVaccinationDialogFragment extends ChildImmunizationFragment {
             }
         });
 
-        final Button vaccinateToday = (Button) dialogView.findViewById(R.id.vaccinate_today);
-        vaccinateToday.setOnClickListener(new Button.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dismiss();
 
-                ArrayList<VaccineWrapper> tagsToUpdate = new ArrayList<VaccineWrapper>();
-
-                Calendar calendar = Calendar.getInstance();
-                DateTime dateTime = new DateTime(calendar.getTime());
-                if (tags.size() == 1) {
-                    VaccineWrapper tag = tags.get(0);
-                    tag.setUpdatedVaccineDate(dateTime, true);
-
-                    String radioName = findSelectRadio(vaccinationNameLayout);
-                    if (radioName != null) {
-                        tag.setName(radioName);
-                    }
-                    tagsToUpdate.add(tag);
-                } else {
-                    List<String> selectedCheckboxes = findSelectedCheckBoxes(vaccinationNameLayout);
-                    for (String checkedName : selectedCheckboxes) {
-                        VaccineWrapper tag = searchWrapperByName(checkedName);
-                        if (tag != null) {
-                            tag.setUpdatedVaccineDate(dateTime, true);
-                            tagsToUpdate.add(tag);
-                        }
-                    }
-                }
-
-                onVaccinateToday(tagsToUpdate, view);
-
-            }
-        });
 
         final Button vaccinateEarlier = (Button) dialogView.findViewById(R.id.vaccinate_earlier);
         vaccinateEarlier.setOnClickListener(new Button.OnClickListener() {

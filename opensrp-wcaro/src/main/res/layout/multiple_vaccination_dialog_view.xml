@@ -38,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:gravity="center_vertical"
-                android:text="@string/record_"
+                android:text="@string/record_immunizations"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="@android:color/white" />
         </android.support.v7.widget.Toolbar>
@@ -84,7 +84,7 @@
 
             <org.smartregister.view.customcontrols.CustomFontTextView
                 android:id="@+id/vaccines_given_title_question"
-                style="@style/CustomFontTextViewStyle.ClientList.Light"
+                style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -126,7 +126,7 @@
                 android:visibility="gone" />
             <org.smartregister.view.customcontrols.CustomFontTextView
                 android:id="@+id/vaccines_given_when_title_question"
-                style="@style/CustomFontTextViewStyle.ClientList.Light"
+                style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -147,17 +147,28 @@
                 android:layout_weight="1"
                 android:orientation="vertical">
 
-                <DatePicker
-                    android:id="@+id/earlier_date_picker"
-                    android:layout_width="match_parent"
+                <LinearLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:calendarViewShown="false"
-                    android:descendantFocusability="blocksDescendants"
-                    android:visibility="visible" />
+                    android:layout_gravity="left"
+                    android:orientation="vertical">
+
+                    <DatePicker
+                        android:id="@+id/earlier_date_picker"
+                        style="@android:style/Widget.DatePicker"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:calendarViewShown="false"
+                        android:descendantFocusability="blocksDescendants"
+                        android:gravity="left"
+                        android:scaleX="0.6"
+                        android:scaleY="0.6"
+                        android:visibility="visible" />
+                </LinearLayout>
 
                 <org.smartregister.view.customcontrols.CustomFontTextView
                     android:id="@+id/add_date_separately"
-                    style="@style/CustomFontTextViewStyle.ClientList.Light"
+                    style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -188,7 +199,7 @@
                     android:background="@drawable/vaccination_today_bg"
                     android:paddingBottom="@dimen/btn_padding_bottom"
                     android:paddingTop="@dimen/btn_padding_top"
-                    android:text="Save"
+                    android:text="SAVE"
                     android:textAllCaps="false"
                     android:textAppearance="?android:textAppearanceSmall"
                     android:textColor="@color/white"
