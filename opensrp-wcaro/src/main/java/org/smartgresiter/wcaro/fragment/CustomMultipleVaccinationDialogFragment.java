@@ -258,6 +258,7 @@ public class CustomMultipleVaccinationDialogFragment extends ChildImmunizationFr
             @Override
             public void onClick(View v) {
 
+
                 List<String> selectedCheckboxes = findSelectedCheckBoxes(vaccinationNameLayout);
                 for (String checkedName : selectedCheckboxes) {
                     FragmentTransaction ft = getActivity().getFragmentManager().beginTransaction();
@@ -285,7 +286,13 @@ public class CustomMultipleVaccinationDialogFragment extends ChildImmunizationFr
                         }
                     }
                 }
-                dismiss();
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        dismiss();
+                    }
+                },100);
             }
         });
 
