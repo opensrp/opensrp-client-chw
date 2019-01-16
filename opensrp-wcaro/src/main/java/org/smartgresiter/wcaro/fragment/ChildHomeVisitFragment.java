@@ -425,7 +425,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                 updateGrowthData();
             }
         },100);
-        
+
     }
 
     public void updateImmunizationState() {
