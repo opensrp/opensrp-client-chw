@@ -29,6 +29,7 @@ import org.smartgresiter.wcaro.custom_view.HomeVisitGrowthAndNutrition;
 import org.smartgresiter.wcaro.interactor.ChildRegisterInteractor;
 import org.smartgresiter.wcaro.listener.ImmunizationStateChangeListener;
 import org.smartgresiter.wcaro.model.ChildRegisterModel;
+import org.smartgresiter.wcaro.task.UndoVaccineTask;
 import org.smartgresiter.wcaro.task.VaccinationAsyncTask;
 import org.smartgresiter.wcaro.util.ChildUtils;
 import org.smartgresiter.wcaro.util.Constants;
@@ -88,6 +89,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     private HomeVisitGrowthAndNutrition homeVisitGrowthAndNutritionLayout;
     private boolean allVaccineStateFullfilled = false;
     private TextView submit;
+    private ArrayList<VaccineWrapper> vaccinesGivenThisVisit = new ArrayList<VaccineWrapper>();
 
 
     public void setContext(Context context){
@@ -213,6 +215,8 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                 }
                 break;
             case R.id.close:
+                resetGrowthData();
+                undoGivenVaccines();
                 dismiss();
                 break;
             case  R.id.immunization_group:
@@ -461,9 +465,9 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
 
         for(int i = 0;i<vaccines.size();i++){
             if(i != 0) {
-                givenVaccines = givenVaccines + "," + vaccines.get(i).getName();
+                givenVaccines = givenVaccines + "," + vaccines.get(i).getName().toUpperCase();
             }else{
-                givenVaccines = vaccines.get(i).getName();
+                givenVaccines = vaccines.get(i).getName().toUpperCase();
             }
             if(i == vaccines.size()-1){
                 lastVaccine = vaccines.get(i).getName();
@@ -814,5 +818,13 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
             }
         }
         return isReceived;
+    }
+
+    public void assigntoGivenVaccines(ArrayList<VaccineWrapper> tagsToUpdate) {
+        vaccinesGivenThisVisit.addAll(tagsToUpdate);
+    }
+    public void undoGivenVaccines(){
+        org.smartregister.util.Utils.startAsyncTask(new UndoVaccineTask(vaccinesGivenThisVisit,childClient), null);
+
     }
 }

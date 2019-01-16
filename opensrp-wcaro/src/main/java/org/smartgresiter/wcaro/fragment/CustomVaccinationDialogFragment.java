@@ -303,6 +303,8 @@ public class CustomVaccinationDialogFragment extends ChildImmunizationFragment {
                     }
                 }
                 onVaccinateEarlier(tagsToUpdate, view);
+                ((ChildHomeVisitFragment)getActivity().getFragmentManager().findFragmentByTag(ChildHomeVisitFragment.DIALOG_TAG)).assigntoGivenVaccines(tagsToUpdate);
+
 
             }
         });
