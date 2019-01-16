@@ -9,6 +9,7 @@ import com.vijay.jsonwizard.activities.JsonFormActivity;
 import org.smartgresiter.wcaro.BuildConfig;
 import org.smartgresiter.wcaro.activity.FamilyProfileActivity;
 import org.smartgresiter.wcaro.activity.LoginActivity;
+import org.smartgresiter.wcaro.helper.RulesEngineHelper;
 import org.smartgresiter.wcaro.job.WcaroJobCreator;
 import org.smartgresiter.wcaro.repository.WcaroRepository;
 import org.smartgresiter.wcaro.util.Constants;
@@ -78,7 +79,7 @@ public class WcaroApplication extends DrishtiApplication {
         return new String[]{DBConstants.KEY.BASE_ENTITY_ID, DBConstants.KEY.FIRST_NAME, DBConstants.KEY.LAST_NAME, DBConstants.KEY
                 .LAST_INTERACTED_WITH};
     }
-
+    private RulesEngineHelper rulesEngineHelper;
     @Override
     public void onCreate() {
         super.onCreate();
@@ -163,6 +164,12 @@ public class WcaroApplication extends DrishtiApplication {
     public VaccineRepository vaccineRepository() {
         return ImmunizationLibrary.getInstance().vaccineRepository();
     }
+    public RulesEngineHelper getRulesEngineHelper() {
+        if (rulesEngineHelper == null) {
+            rulesEngineHelper = new RulesEngineHelper(getApplicationContext());
+        }
+        return rulesEngineHelper;
+    }
     public void initOfflineSchedules() {
         try {
             List<VaccineGroup> childVaccines = VaccinatorUtils.getSupportedVaccines(this);
@@ -172,5 +179,6 @@ public class WcaroApplication extends DrishtiApplication {
             Log.e(TAG, Log.getStackTraceString(e));
         }
     }
+
 
 }

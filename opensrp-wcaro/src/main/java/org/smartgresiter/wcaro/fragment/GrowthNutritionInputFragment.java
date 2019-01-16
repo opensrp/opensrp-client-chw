@@ -243,8 +243,6 @@ public class GrowthNutritionInputFragment extends DialogFragment implements Radi
 
         @Override
         protected void onPostExecute(ServiceWrapper serviceWrapper) {
-            //RecurringServiceUtils.updateServiceGroupViews(null, triple.getLeft(), triple.getMiddle(), triple.getRight());
-            Toast.makeText(getActivity().getApplicationContext(),"Save Data:"+serviceWrapper.getDbKey(),Toast.LENGTH_SHORT).show();
             saveService=serviceWrapper;
             dismiss();
         }

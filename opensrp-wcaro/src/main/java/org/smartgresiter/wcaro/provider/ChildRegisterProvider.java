@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.text.WordUtils;
 import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.interactor.ChildProfileInteractor;
@@ -56,7 +55,6 @@ public class ChildRegisterProvider implements RecyclerViewProvider<ChildRegister
 
         this.onClickListener = onClickListener;
         this.paginationClickListener = paginationClickListener;
-
         this.context = context;
         this.commonRepository = commonRepository;
     }
@@ -140,31 +138,22 @@ public class ChildRegisterProvider implements RecyclerViewProvider<ChildRegister
                 if(!TextUtils.isEmpty(visitNotDone)){
                     visitNot=Long.parseLong(visitNotDone);
                 }
-                ChildVisit childVisit=ChildUtils.getChildVisitStatus(lastVisit,ChildUtils.isSameMonth(visitNot));
+                ChildVisit childVisit=ChildUtils.getChildVisitStatus(lastVisit,visitNot);
                 if(childVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.DUE.name())){
                     setVisitButtonDueStatus(viewHolder.dueButton);
                 }
-                if(childVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.OVERDUE.name())){
+                else if(childVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.OVERDUE.name())){
                    setVisitButtonOverdueStatus(viewHolder.dueButton,childVisit.getLastVisitDays());
                 }
-                if(childVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.LESS_TWENTY_FOUR.name())){
-                    setVisitLessTwentyFourView(viewHolder.dueButton,childVisit.getLastVisitMonth());
+                else if(childVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.LESS_TWENTY_FOUR.name())){
+                    setVisitLessTwentyFourView(viewHolder.dueButton,childVisit.getLastVisitDays());
                 }
-                if(childVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.OVER_TWENTY_FOUR.name())){
+                else if(childVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.VISIT_THIS_MONTH.name())){
                     setVisitAboveTwentyFourView(viewHolder.dueButton);
                 }
-                if(childVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.NOT_VISIT_THIS_MONTH.name())){
+                else if(childVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.NOT_VISIT_THIS_MONTH.name())){
                     setVisitNotDone(viewHolder.dueButton);
                 }
-//                String ga = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.CONTACT_STATUS, false);
-//
-//                if (StringUtils.isNotBlank(ga)) {
-//
-//                    viewHolder.dueButton.setBackgroundColor(context.getResources().getColor(R.color.progress_orange));
-//                    viewHolder.dueButton.setTextColor(context.getResources().getColor(R.color.white));
-//                }
-
-                //updateDoseButton();
             } else {
                 viewHolder.dueButton.setVisibility(View.GONE);
                 //attachSyncOnclickListener(viewHolder.sync, pc);

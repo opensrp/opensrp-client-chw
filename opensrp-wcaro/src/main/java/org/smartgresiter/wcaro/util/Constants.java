@@ -58,6 +58,9 @@ public class Constants {
         public static final String CHILD_CLIENTS = "Child Clients";
         public static final String HIV_CLIENTS = "Hiv Clients";
     }
+    public static final class RULE_FILE {
+        public static final String HOME_VISIT = "home-visit-rules.yml";
+    }
 
     public static final class SyncFilters {
         public static final String FILTER_TEAM_ID = "teamId";

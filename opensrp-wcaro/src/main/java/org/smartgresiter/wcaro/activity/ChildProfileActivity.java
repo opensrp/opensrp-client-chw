@@ -185,7 +185,13 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
             case R.id.textview_undo:
                 if(textViewUndo.getText().toString().equalsIgnoreCase(getString(R.string.undo))){
                     presenter().updateVisitNotDone(0);
-                    presenter().fetchVisitStatus(childBaseEntityId);
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            presenter().fetchVisitStatus(childBaseEntityId);
+                        }
+                    },200);
+
                 }else{
                     openVisitHomeScreen();
                 }
