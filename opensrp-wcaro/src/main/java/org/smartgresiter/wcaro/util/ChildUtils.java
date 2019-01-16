@@ -1,36 +1,30 @@
 package org.smartgresiter.wcaro.util;
 
-import android.database.Cursor;
+import android.annotation.SuppressLint;
 import android.os.Build;
 import android.text.Html;
 import android.text.Spanned;
-import android.text.TextUtils;
 import android.util.Log;
 
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.collections.ListUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
 import org.smartgresiter.wcaro.application.WcaroApplication;
 import org.smartgresiter.wcaro.interactor.ChildProfileInteractor;
+import org.smartgresiter.wcaro.rule.HomeAlertRule;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.clientandeventmodel.Obs;
-import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.family.FamilyLibrary;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.sync.helper.ECSyncHelper;
-import org.smartregister.util.StringUtil;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 public class ChildUtils {
     private static final long MILLI_SEC=24 * 60 * 60 * 1000;//24 hrs
@@ -149,51 +143,62 @@ public class ChildUtils {
                 tableName + "." + ChildDBConstants.KEY.VISIT_NOT_DONE};
         return columns;
     }
-    public static ChildVisit getChildVisitStatus(long lastVisitDate,boolean isVisitNotDone){
+    public static ChildVisit getChildVisitStatus(long lastVisitDate,long visitNotDate){
         ChildVisit childVisit=new ChildVisit();
         childVisit.setLastVisitTime(lastVisitDate);
-        childVisit.setVisitNotDone(isVisitNotDone);
-        //testing data
-        //childVisit.setLastVisitTime(1545867630000L);
-
-
-        long diff=System.currentTimeMillis()-childVisit.getLastVisitTime();
-        if(Calendar.getInstance().get(Calendar.DAY_OF_MONTH) == 1){
-            childVisit.setVisitStatus(ChildProfileInteractor.VisitType.DUE.name());
-            if(childVisit.getLastVisitTime()!=0){
-                if(diff<MILLI_SEC){
-                    childVisit.setLastVisitDays("less than 24 hrs");
-                }else{
-                    childVisit.setLastVisitDays(diff/MILLI_SEC+" days");
-                }
-            }
-            return childVisit;
-        }
-        if(!isSameMonth(childVisit.getLastVisitTime()) && !childVisit.isVisitNotDone()){
-            if(childVisit.getLastVisitTime()==0){
-                childVisit.setVisitStatus(ChildProfileInteractor.VisitType.DUE.name());
-            }else{
-                childVisit.setVisitStatus(ChildProfileInteractor.VisitType.OVERDUE.name());
-            }
-
-            return childVisit;
-        }
-
-        if(diff<MILLI_SEC){
-            childVisit.setLastVisitDays("less than 24 hrs");
-            childVisit.setVisitStatus(ChildProfileInteractor.VisitType.LESS_TWENTY_FOUR.name());
-            childVisit.setLastVisitMonth(theMonth(Calendar.getInstance().get(Calendar.MONTH)));
-            return childVisit;
-        }
-        if(isVisitNotDone){
+        childVisit.setVisitNotDone(ChildUtils.isSameMonth(visitNotDate));
+        if(childVisit.isVisitNotDone()){
             childVisit.setVisitStatus(ChildProfileInteractor.VisitType.NOT_VISIT_THIS_MONTH.name());
             return childVisit;
         }
-        else {
+        long diff=System.currentTimeMillis()-childVisit.getLastVisitTime();
+        if(diff<MILLI_SEC){
+            childVisit.setLastVisitDays("less than 24 hrs");
+            childVisit.setLastVisitMonth(theMonth(Calendar.getInstance().get(Calendar.MONTH)));
+        }else{
             childVisit.setLastVisitDays(diff/MILLI_SEC+" days");
-            childVisit.setVisitStatus(ChildProfileInteractor.VisitType.OVER_TWENTY_FOUR.name());
-            return childVisit;
         }
+        HomeAlertRule homeAlertRule=new HomeAlertRule(lastVisitDate,visitNotDate);
+        String visitStatus=WcaroApplication.getInstance().getRulesEngineHelper().getButtonAlertStatus(homeAlertRule,Constants.RULE_FILE.HOME_VISIT);
+        childVisit.setVisitStatus(visitStatus);
+        return childVisit;
+
+//        if(Calendar.getInstance().get(Calendar.DAY_OF_MONTH) == 1){
+//            childVisit.setVisitStatus(ChildProfileInteractor.VisitType.DUE.name());
+//            if(childVisit.getLastVisitTime()!=0){
+//                if(diff<MILLI_SEC){
+//                    childVisit.setLastVisitDays("less than 24 hrs");
+//                }else{
+//                    childVisit.setLastVisitDays(diff/MILLI_SEC+" days");
+//                }
+//            }
+//            return childVisit;
+//        }
+//        if(!isSameMonth(childVisit.getLastVisitTime()) && !childVisit.isVisitNotDone()){
+//            if(childVisit.getLastVisitTime()==0){
+//                childVisit.setVisitStatus(ChildProfileInteractor.VisitType.DUE.name());
+//            }else{
+//                childVisit.setVisitStatus(ChildProfileInteractor.VisitType.OVERDUE.name());
+//            }
+//
+//            return childVisit;
+//        }
+//
+//        if(diff<MILLI_SEC){
+//            childVisit.setLastVisitDays("less than 24 hrs");
+//            childVisit.setVisitStatus(ChildProfileInteractor.VisitType.LESS_TWENTY_FOUR.name());
+//            childVisit.setLastVisitMonth(theMonth(Calendar.getInstance().get(Calendar.MONTH)));
+//            return childVisit;
+//        }
+//        if(isVisitNotDone){
+//            childVisit.setVisitStatus(ChildProfileInteractor.VisitType.NOT_VISIT_THIS_MONTH.name());
+//            return childVisit;
+//        }
+//        else {
+//            childVisit.setLastVisitDays(diff/MILLI_SEC+" days");
+//            childVisit.setVisitStatus(ChildProfileInteractor.VisitType.VISIT_THIS_MONTH.name());
+//            return childVisit;
+//        }
     }
     public static boolean isSameMonth(long time){
         if(time==0) return false;
@@ -211,6 +216,15 @@ public class ChildUtils {
     }
     public static String theMonth(int month){
         return monthNames[month];
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    public static String covertLongDateToDisplayDate(long callingTime) {
+        Date date = new Date(callingTime);
+        SimpleDateFormat df2 = new SimpleDateFormat("yyyy-MM-dd");
+        String dateText2 = df2.format(date);
+        return dateText2;
+
     }
     @SuppressWarnings("deprecation")
     public static Spanned fromHtml(String text){

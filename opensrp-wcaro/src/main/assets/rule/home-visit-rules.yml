@@ -1,0 +1,29 @@
+---
+name: visit_twenty_four
+description: visit within twenty four hours
+priority: 2
+condition: "homeAlertRule.isVisitWithinTwentyFour()"
+actions:
+  - "homeAlertRule.buttonStatus = 'LESS_TWENTY_FOUR'"
+---
+name: visit_this_month
+description: visit grether than 24 hours but within this month
+priority: 3
+condition: "homeAlertRule.isVisitWithinThisMonth()"
+actions:
+  - "homeAlertRule.buttonStatus = 'VISIT_THIS_MONTH'"
+---
+name: due
+description: due first day of month and same month
+priority: 2
+condition: "homeAlertRule.isDueWithinMonth()"
+actions:
+  - "homeAlertRule.buttonStatus = 'DUE'"
+---
+name: overdue
+description: previous month not visited
+priority: 2
+condition: "homeAlertRule.isOverdueWithinMonth()"
+actions:
+  - "homeAlertRule.buttonStatus = 'OVERDUE'"
+

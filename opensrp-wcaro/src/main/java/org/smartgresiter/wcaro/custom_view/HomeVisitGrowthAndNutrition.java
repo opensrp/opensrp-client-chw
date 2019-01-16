@@ -132,7 +132,7 @@ public class HomeVisitGrowthAndNutrition extends LinearLayout implements View.On
             String str=(String)displayName[0];
             String no=(String)displayName[1];
 
-            textViewExclusiveFeedingName.setText(str+""+no+" month");
+            textViewExclusiveFeedingName.setText(str+" "+no+" month");
         }
 
     }
@@ -145,7 +145,7 @@ public class HomeVisitGrowthAndNutrition extends LinearLayout implements View.On
             Object[] displayName=ChildUtils.getStringWithNumber(name);
             String str=(String)displayName[0];
             String no=(String)displayName[1];
-            name=str+""+ChildUtils.getFirstSecondAsNumber(no)+" pack";
+            name=str+" "+ChildUtils.getFirstSecondAsNumber(no)+" pack";
             textViewMnpName.setText(name);
         }
     }
@@ -158,7 +158,7 @@ public class HomeVisitGrowthAndNutrition extends LinearLayout implements View.On
             Object[] displayName=ChildUtils.getStringWithNumber(name);
             String str=(String)displayName[0];
             String no=(String)displayName[1];
-            name=str+""+ChildUtils.getFirstSecondAsNumber(no)+" dose";
+            name=str+" "+ChildUtils.getFirstSecondAsNumber(no)+" dose";
             textViewVitaminName.setText(name);
         }
     }
@@ -170,7 +170,7 @@ public class HomeVisitGrowthAndNutrition extends LinearLayout implements View.On
             Object[] displayName=ChildUtils.getStringWithNumber(name);
             String str=(String)displayName[0];
             String no=(String)displayName[1];
-            name=str+""+ChildUtils.getFirstSecondAsNumber(no)+" dose";
+            name=str+" "+ChildUtils.getFirstSecondAsNumber(no)+" dose";
             textViewDewormingName.setText(name);
         }
     }

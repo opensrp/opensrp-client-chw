@@ -263,19 +263,20 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     }
 
     private boolean checkAllGiven() {
-        boolean checkallgiven = false;
-        if(allVaccineStateFullfilled){
-            checkallgiven = true;
-        }else{
-            checkallgiven = false;
-        }
-        if(isAllGrowthSelected()){
-            checkallgiven = true;
-        }else{
-            checkallgiven = false;
-        }
-
-        return  checkallgiven;
+        return allVaccineStateFullfilled && isAllGrowthSelected();
+//        boolean checkallgiven = false;
+//        if(allVaccineStateFullfilled){
+//            checkallgiven = true;
+//        }else{
+//            checkallgiven = false;
+//        }
+//        if(isAllGrowthSelected()){
+//            checkallgiven = true;
+//        }else{
+//            checkallgiven = false;
+//        }
+//
+//        return  checkallgiven;
     }
 
     private ArrayList<VaccineWrapper> createVaccineWrappers(HomeVisitVaccineGroupDetails vaccines) {

@@ -182,7 +182,7 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
             }
             cursor.close();
         }
-      final   ChildVisit childVisit=ChildUtils.getChildVisitStatus(lastVisit,ChildUtils.isSameMonth(visitNot));
+        final   ChildVisit childVisit=ChildUtils.getChildVisitStatus(lastVisit,visitNot);
 
        Runnable runnable=new Runnable() {
            @Override
@@ -347,7 +347,7 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
     public void onDestroy(boolean isChangingConfiguration) {
 
     }
-    public enum VisitType {DUE, OVERDUE,LESS_TWENTY_FOUR,OVER_TWENTY_FOUR,NOT_VISIT_THIS_MONTH}
+    public enum VisitType {DUE, OVERDUE,LESS_TWENTY_FOUR, VISIT_THIS_MONTH,NOT_VISIT_THIS_MONTH}
     public enum ServiceType {DUE, OVERDUE, UPCOMING}
     public enum FamilyServiceType {DUE, OVERDUE, NOTHING}
 }
