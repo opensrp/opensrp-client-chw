@@ -87,6 +87,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     private LinearLayout multiple_immunization_group;
     private HomeVisitGrowthAndNutrition homeVisitGrowthAndNutritionLayout;
     private boolean allVaccineStateFullfilled = false;
+    private TextView submit;
 
 
     public void setContext(Context context){
@@ -123,6 +124,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         super.onViewCreated(view, savedInstanceState);
         nameHeader = (TextView) view.findViewById(R.id.textview_name_header);
         view.findViewById(R.id.close).setOnClickListener(this);
+        submit = (TextView)view.findViewById(R.id.textview_submit);
         view.findViewById(R.id.textview_submit).setOnClickListener(this);
 
         ((LinearLayout) view.findViewById(R.id.immunization_group)).setOnClickListener(this);
@@ -277,6 +279,14 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
 //        }
 //
 //        return  checkallgiven;
+    }
+
+    public void checkIfSubmitIsToBeEnabled(){
+        if(checkAllGiven()){
+            submit.setEnabled(true);
+        }else {
+            submit.setEnabled(false);
+        }
     }
 
     private ArrayList<VaccineWrapper> createVaccineWrappers(HomeVisitVaccineGroupDetails vaccines) {
@@ -611,7 +621,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
 
         }
 
-
+        checkIfSubmitIsToBeEnabled();
 
     }
 
