@@ -233,6 +233,7 @@ public class CustomMultipleVaccinationDialogFragment extends ChildImmunizationFr
                     }
                 }
                 onVaccinateEarlier(tagsToUpdate, view);
+                ((ChildHomeVisitFragment)getActivity().getFragmentManager().findFragmentByTag(ChildHomeVisitFragment.DIALOG_TAG)).assigntoGivenVaccines(tagsToUpdate);
 
             }
         });

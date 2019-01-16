@@ -39,6 +39,7 @@
 				android:layout_height="wrap_content"
 				android:layout_margin="@dimen/client_profile_pic_margin_top"
 				android:layout_weight="1"
+				android:textAllCaps="true"
 				android:gravity="center_vertical|right"
 				android:text="@string/submit"
 				android:textColor="@android:color/white"

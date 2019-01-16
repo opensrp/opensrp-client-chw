@@ -5,10 +5,12 @@ import android.app.DialogFragment;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.Pair;
@@ -33,6 +35,7 @@ import org.smartgresiter.wcaro.custom_view.HomeVisitGrowthAndNutrition;
 import org.smartgresiter.wcaro.interactor.ChildRegisterInteractor;
 import org.smartgresiter.wcaro.listener.ImmunizationStateChangeListener;
 import org.smartgresiter.wcaro.model.ChildRegisterModel;
+import org.smartgresiter.wcaro.task.UndoVaccineTask;
 import org.smartgresiter.wcaro.task.VaccinationAsyncTask;
 import org.smartgresiter.wcaro.util.ChildUtils;
 import org.smartgresiter.wcaro.util.Constants;
@@ -92,6 +95,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     private HomeVisitGrowthAndNutrition homeVisitGrowthAndNutritionLayout;
     private boolean allVaccineStateFullfilled = false;
     private TextView submit;
+    private ArrayList<VaccineWrapper> vaccinesGivenThisVisit = new ArrayList<VaccineWrapper>();
 
 
     public void setContext(Context context){
@@ -218,7 +222,27 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                 }
                 break;
             case R.id.close:
-                dismiss();
+                AlertDialog dialog = new AlertDialog.Builder(getActivity(),R.style.AppThemeAlertDialog)
+                        .setTitle("Undo Changes and Exit")
+                        .setMessage("Would you like to undo the changes in this home visit and exit ?")
+                        .setNegativeButton(com.vijay.jsonwizard.R.string.yes, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                resetGrowthData();
+                                undoGivenVaccines();
+                                dismiss();
+                            }
+                        })
+                        .setPositiveButton(com.vijay.jsonwizard.R.string.no, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+
+                            }
+                        })
+                        .create();
+
+                dialog.show();
                 break;
             case  R.id.immunization_group:
 //                ChildImmunizationFragment childImmunizationFragment = ChildImmunizationFragment.newInstance(new Bundle());
@@ -480,9 +504,9 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
 
         for(int i = 0;i<vaccines.size();i++){
             if(i != 0) {
-                givenVaccines = givenVaccines + "," + vaccines.get(i).getName();
+                givenVaccines = givenVaccines + "," + vaccines.get(i).getName().toUpperCase();
             }else{
-                givenVaccines = vaccines.get(i).getName();
+                givenVaccines = vaccines.get(i).getName().toUpperCase();
             }
             if(i == vaccines.size()-1){
                 lastVaccine = vaccines.get(i).getName();
@@ -833,5 +857,13 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
             }
         }
         return isReceived;
+    }
+
+    public void assigntoGivenVaccines(ArrayList<VaccineWrapper> tagsToUpdate) {
+        vaccinesGivenThisVisit.addAll(tagsToUpdate);
+    }
+    public void undoGivenVaccines(){
+        org.smartregister.util.Utils.startAsyncTask(new UndoVaccineTask(vaccinesGivenThisVisit,childClient), null);
+
     }
 }

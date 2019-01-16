@@ -217,7 +217,7 @@
                     android:background="@drawable/vaccination_earlier_bg"
                     android:paddingBottom="@dimen/btn_padding_bottom"
                     android:paddingTop="@dimen/btn_padding_top"
-                    android:text="VACCINE NOT DONE"
+                    android:text="VACCINES NOT DONE"
                     android:textAllCaps="false"
                     android:textAppearance="?android:textAppearanceSmall"
                     android:textColor="@color/client_list_grey"

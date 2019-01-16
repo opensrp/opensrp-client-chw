@@ -391,7 +391,7 @@ public class ChildImmunizationFragment extends DialogFragment {
 
 
     public void onUndoVaccination(VaccineWrapper tag, View v) {
-        org.smartregister.util.Utils.startAsyncTask(new ChildImmunizationFragment.UndoVaccineTask(tag, v), null);
+        org.smartregister.util.Utils.startAsyncTask(new ChildImmunizationFragment.UndoVaccineTask(tag), null);
     }
 
     public void addVaccinationDialogFragment(ArrayList<VaccineWrapper> vaccineWrappers, VaccineGroup vaccineGroup) {
@@ -733,16 +733,14 @@ public class ChildImmunizationFragment extends DialogFragment {
     private class UndoVaccineTask extends AsyncTask<Void, Void, Void> {
 
         private VaccineWrapper tag;
-        private View v;
         private final VaccineRepository vaccineRepository;
         private final AlertService alertService;
         private List<Vaccine> vaccineList;
         private List<Alert> alertList;
         private List<String> affectedVaccines;
 
-        public UndoVaccineTask(VaccineWrapper tag, View v) {
+        public UndoVaccineTask(VaccineWrapper tag) {
             this.tag = tag;
-            this.v = v;
             vaccineRepository = ImmunizationLibrary.getInstance().vaccineRepository();
             alertService = ImmunizationLibrary.getInstance().context().alertService();
         }
