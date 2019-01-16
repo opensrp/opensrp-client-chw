@@ -5,10 +5,12 @@ import android.app.DialogFragment;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.Pair;
@@ -18,6 +20,8 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.vijay.jsonwizard.activities.JsonFormActivity;
 
 import org.apache.commons.lang3.tuple.Triple;
 import org.joda.time.DateTime;
@@ -215,9 +219,27 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                 }
                 break;
             case R.id.close:
-                resetGrowthData();
-                undoGivenVaccines();
-                dismiss();
+                AlertDialog dialog = new AlertDialog.Builder(getActivity(),R.style.AppThemeAlertDialog)
+                        .setTitle("Undo Changes and Exit")
+                        .setMessage("Would you like to undo the changes in this home visit and exit ?")
+                        .setNegativeButton(com.vijay.jsonwizard.R.string.yes, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                resetGrowthData();
+                                undoGivenVaccines();
+                                dismiss();
+                            }
+                        })
+                        .setPositiveButton(com.vijay.jsonwizard.R.string.no, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+
+                            }
+                        })
+                        .create();
+
+                dialog.show();
                 break;
             case  R.id.immunization_group:
 //                ChildImmunizationFragment childImmunizationFragment = ChildImmunizationFragment.newInstance(new Bundle());
