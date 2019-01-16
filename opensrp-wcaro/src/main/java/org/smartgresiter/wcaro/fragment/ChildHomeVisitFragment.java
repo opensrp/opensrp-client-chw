@@ -530,6 +530,13 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                     }
                 }
             }
+            if(lastGivenGroup == null){
+                for(int i = 0; i < homeVisitVaccineGroupDetailsArrayList.size();i++){
+                    if(!homeVisitVaccineGroupDetailsArrayList.get(i).getAlert().name().equalsIgnoreCase(ImmunizationState.NO_ALERT.name())){
+                            lastGivenGroup = homeVisitVaccineGroupDetailsArrayList.get(i);
+                    }
+                }
+            }
 
             textview_group_immunization_primary_text.setText("Immunizations" + "(" + lastGivenGroup.getGroup() + ")");
             boolean allVaccineOfCurrentGroupGiven = hasAllVaccineOfCurrentGroupGiven(lastGivenGroup);
@@ -566,8 +573,16 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
             }
             if(notgivenVaccines.size()>0) {
                 textview_immunization_primary_text.setText(overDueVaccinesNotGivenInVisit);
-            }else{
-                single_immunization_group.setVisibility(View.GONE);
+            }else if (notGivenVaccines.size()>0){
+                overDueVaccinesNotGivenInVisit = "";
+
+                for(VaccineWrapper vaccineWrapper : notGivenVaccines){
+
+                            overDueVaccinesNotGivenInVisit = overDueVaccinesNotGivenInVisit + vaccineWrapper.getDefaultName().toUpperCase()+",";
+
+
+
+                }
             }
         }else{
 
@@ -604,6 +619,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         for(VaccineWrapper vaccineWrapper :notGivenVaccines){
             if(vaccinenotgiven.display().equalsIgnoreCase(vaccineWrapper.getName())){
                 isNotGivenThisVisit = true;
+                break;
             }
         }
         return isNotGivenThisVisit;
