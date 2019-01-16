@@ -67,4 +67,8 @@ public class Constants {
         }
     }
 
+    public static class ProfileActivityResults {
+        public static final int CHANGE_COMPLETED = 9090;
+    }
+
 }

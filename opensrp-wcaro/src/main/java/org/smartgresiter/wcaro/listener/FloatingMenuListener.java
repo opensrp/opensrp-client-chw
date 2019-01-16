@@ -9,6 +9,7 @@ import org.smartgresiter.wcaro.activity.FamilyProfileMenuActivity;
 import org.smartgresiter.wcaro.activity.FamilyRemoveMemberActivity;
 import org.smartgresiter.wcaro.fragment.AddMemberFragment;
 import org.smartgresiter.wcaro.fragment.FamilyCallDialogFragment;
+import org.smartgresiter.wcaro.util.Constants;
 
 public class FloatingMenuListener implements OnClickFloatingMenu {
 
@@ -45,7 +46,7 @@ public class FloatingMenuListener implements OnClickFloatingMenu {
                 if (context instanceof FamilyProfileActivity) {
                     frm_intent.putExtras(((FamilyProfileActivity) context).getProfileExtras());
                 }
-                context.startActivity(frm_intent);
+                context.startActivityForResult(frm_intent, Constants.ProfileActivityResults.CHANGE_COMPLETED);
 
                 break;
             case R.id.change_head_layout:
@@ -54,7 +55,7 @@ public class FloatingMenuListener implements OnClickFloatingMenu {
                 fh_intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.BASE_ENTITY_ID,
                         ((FamilyProfileActivity) context).getFamilyBaseEntityId());
                 fh_intent.putExtra(FamilyProfileMenuActivity.MENU, FamilyProfileMenuActivity.MenuType.ChangeHead);
-                context.startActivity(fh_intent);
+                context.startActivityForResult(fh_intent, Constants.ProfileActivityResults.CHANGE_COMPLETED);
 
                 break;
             case R.id.change_primary_layout:
@@ -63,7 +64,7 @@ public class FloatingMenuListener implements OnClickFloatingMenu {
                 pc_intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.BASE_ENTITY_ID,
                         ((FamilyProfileActivity) context).getFamilyBaseEntityId());
                 pc_intent.putExtra(FamilyProfileMenuActivity.MENU, FamilyProfileMenuActivity.MenuType.ChangePrimaryCare);
-                context.startActivity(pc_intent);
+                context.startActivityForResult(pc_intent, Constants.ProfileActivityResults.CHANGE_COMPLETED);
 
                 break;
         }

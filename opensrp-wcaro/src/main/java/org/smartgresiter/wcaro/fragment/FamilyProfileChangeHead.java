@@ -1,5 +1,7 @@
 package org.smartgresiter.wcaro.fragment;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -68,6 +70,8 @@ public class FamilyProfileChangeHead extends Fragment implements View.OnClickLis
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.close:
+                Intent returnIntent = new Intent();
+                getActivity().setResult(Activity.RESULT_CANCELED, returnIntent);
                 close();
                 break;
             case R.id.tvAction:
@@ -106,6 +110,10 @@ public class FamilyProfileChangeHead extends Fragment implements View.OnClickLis
     public void saveComplete() {
         progressBar.setVisibility(View.INVISIBLE);
         getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+
+
+        Intent returnIntent = new Intent();
+        getActivity().setResult(Activity.RESULT_OK, returnIntent);
         close();
     }
 

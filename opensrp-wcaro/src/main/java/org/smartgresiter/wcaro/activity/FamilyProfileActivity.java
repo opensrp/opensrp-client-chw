@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.Gravity;
@@ -24,6 +25,7 @@ import org.smartgresiter.wcaro.fragment.FamilyProfileMemberFragment;
 import org.smartgresiter.wcaro.listener.FloatingMenuListener;
 import org.smartgresiter.wcaro.model.FamilyProfileModel;
 import org.smartgresiter.wcaro.presenter.FamilyProfilePresenter;
+import org.smartregister.domain.FetchStatus;
 import org.smartregister.family.activity.BaseFamilyProfileActivity;
 import org.smartregister.family.adapter.ViewPagerAdapter;
 import org.smartregister.family.fragment.BaseFamilyProfileActivityFragment;
@@ -39,6 +41,10 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity implements 
     private static final String TAG = FamilyProfileActivity.class.getCanonicalName();
     private String familyBaseEntityId;
     private boolean isFromFamilyServiceDue = false;
+
+    BaseFamilyProfileMemberFragment profileMemberFragment;
+    BaseFamilyProfileDueFragment profileDueFragment;
+    BaseFamilyProfileActivityFragment profileActivityFragment;
 
     @Override
     protected void initializePresenter() {
@@ -70,9 +76,9 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity implements 
     protected ViewPager setupViewPager(ViewPager viewPager) {
         adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
-        BaseFamilyProfileMemberFragment profileMemberFragment = FamilyProfileMemberFragment.newInstance(this.getIntent().getExtras());
-        BaseFamilyProfileDueFragment profileDueFragment = FamilyProfileDueFragment.newInstance(this.getIntent().getExtras());
-        BaseFamilyProfileActivityFragment profileActivityFragment = FamilyProfileActivityFragment.newInstance(this.getIntent().getExtras());
+        profileMemberFragment = FamilyProfileMemberFragment.newInstance(this.getIntent().getExtras());
+        profileDueFragment = FamilyProfileDueFragment.newInstance(this.getIntent().getExtras());
+        profileActivityFragment = FamilyProfileActivityFragment.newInstance(this.getIntent().getExtras());
 
         adapter.addFragment(profileMemberFragment, this.getString(org.smartregister.family.R.string.member).toUpperCase());
         adapter.addFragment(profileDueFragment, this.getString(org.smartregister.family.R.string.due).toUpperCase());
@@ -88,7 +94,7 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity implements 
         return viewPager;
     }
 
-    public Bundle getProfileExtras(){
+    public Bundle getProfileExtras() {
         return getIntent().getExtras();
     }
 
@@ -145,22 +151,35 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity implements 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == org.smartregister.family.util.JsonFormUtils.REQUEST_CODE_GET_JSON && resultCode == Activity.RESULT_OK) {
-            try {
-                String jsonString = data.getStringExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON);
-                Log.d("JSONResult", jsonString);
+        switch (requestCode) {
+            case org.smartregister.family.util.JsonFormUtils.REQUEST_CODE_GET_JSON:
+                if (resultCode == Activity.RESULT_OK) {
+                    try {
+                        String jsonString = data.getStringExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON);
+                        Log.d("JSONResult", jsonString);
 
-                JSONObject form = new JSONObject(jsonString);
-                if (form.getString(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_TYPE).equals(org.smartregister.family.util.Utils.metadata().familyRegister.registerEventType)
-                        || form.getString(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_TYPE).equals(org.smartgresiter.wcaro.util.Constants.EventType.CHILD_REGISTRATION)
+                        JSONObject form = new JSONObject(jsonString);
+                        if (form.getString(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_TYPE).equals(org.smartregister.family.util.Utils.metadata().familyRegister.registerEventType)
+                                || form.getString(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_TYPE).equals(org.smartgresiter.wcaro.util.Constants.EventType.CHILD_REGISTRATION)
                         ) {
-                    ((FamilyProfilePresenter) presenter).saveChildForm(jsonString, false);
+                            ((FamilyProfilePresenter) presenter).saveChildForm(jsonString, false);
+                        }
+                    } catch (Exception e) {
+                        Log.e(TAG, Log.getStackTraceString(e));
+                        Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
                 }
-            } catch (Exception e) {
-                Log.e(TAG, Log.getStackTraceString(e));
-                Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-
+                break;
+            case org.smartgresiter.wcaro.util.Constants.ProfileActivityResults.CHANGE_COMPLETED:
+                if (resultCode == Activity.RESULT_OK) {
+                    try {
+                        refreshMemberList(FetchStatus.fetched);
+                    } catch (Exception e) {
+                        Log.e(TAG, Log.getStackTraceString(e));
+                        Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+                break;
         }
 
     }

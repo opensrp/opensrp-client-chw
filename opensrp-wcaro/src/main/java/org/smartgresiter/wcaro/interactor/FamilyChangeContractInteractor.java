@@ -99,31 +99,46 @@ public class FamilyChangeContractInteractor implements FamilyChangeContract.Inte
     }
 
     @Override
-    public void updateFamilyMember(Context context, HashMap<String, String> familyMember, String familyID, FamilyChangeContract.Presenter presenter) {
+    public void updateFamilyMember(final Context context, final HashMap<String, String> familyMember, final String familyID, final String lastLocationId, final FamilyChangeContract.Presenter presenter) {
 
-        if (familyMember != null) {
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
 
-            String option = familyMember.get(Constants.PROFILE_CHANGE_ACTION.ACTION_TYPE);
-            String memberID = familyMember.get(DBConstants.KEY.BASE_ENTITY_ID);
+                if (familyMember != null) {
 
-            String phone = familyMember.get(Constants.JsonAssets.FAMILY_MEMBER.PHONE_NUMBER);
-            String otherPhone = familyMember.get(Constants.JsonAssets.FAMILY_MEMBER.OTHER_PHONE_NUMBER);
-            String eduLevel = familyMember.get(Constants.JsonAssets.FAMILY_MEMBER.HIGHEST_EDUCATION_LEVEL);
+                    String option = familyMember.get(Constants.PROFILE_CHANGE_ACTION.ACTION_TYPE);
+                    String memberID = familyMember.get(DBConstants.KEY.BASE_ENTITY_ID);
+
+                    String phone = familyMember.get(Constants.JsonAssets.FAMILY_MEMBER.PHONE_NUMBER);
+                    String otherPhone = familyMember.get(Constants.JsonAssets.FAMILY_MEMBER.OTHER_PHONE_NUMBER);
+                    String eduLevel = familyMember.get(Constants.JsonAssets.FAMILY_MEMBER.HIGHEST_EDUCATION_LEVEL);
 
 
-            // update the EC client model
+                    // update the EC client model
 
-            try {
-                save(context, familyID, memberID, phone, otherPhone, eduLevel, option);
-            } catch (Exception e) {
-                e.printStackTrace();
+                    try {
+                        save(context, familyID, memberID, phone, otherPhone, eduLevel, option , lastLocationId);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                }
+
+                appExecutors.mainThread().execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        presenter.saveCompleted();
+                    }
+                });
             }
+        };
 
-        }
-        presenter.saveCompleted();
+        appExecutors.diskIO().execute(runnable);
+
     }
 
-    private void save(Context context, String familyID, String memberID, String phone, String otherPhone, String eduLevel, String option) throws Exception {
+    private void save(Context context, String familyID, String memberID, String phone, String otherPhone, String eduLevel, String option, String lastLocationId) throws Exception {
 
         // update the ec model
         ECSyncHelper syncHelper = WcaroApplication.getInstance().getEcSyncHelper();
@@ -150,10 +165,6 @@ public class FamilyChangeContractInteractor implements FamilyChangeContract.Inte
                 .getFormJson(Utils.metadata().familyRegister.formName)
                 .getJSONObject(org.smartregister.family.util.JsonFormUtils.METADATA);
 
-        LocationPickerView lpv = new LocationPickerView(context);
-        lpv.init();
-
-        String lastLocationId = LocationHelper.getInstance().getOpenMrsLocationId(lpv.getSelectedItem());
         metadata.put(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_LOCATION, lastLocationId);
 
         FormTag formTag = new FormTag();

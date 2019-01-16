@@ -5,6 +5,8 @@ import android.content.Context;
 import org.smartgresiter.wcaro.contract.FamilyChangeContract;
 import org.smartgresiter.wcaro.interactor.FamilyChangeContractInteractor;
 import org.smartgresiter.wcaro.model.FamilyChangeContractModel;
+import org.smartregister.location.helper.LocationHelper;
+import org.smartregister.view.LocationPickerView;
 
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
@@ -33,7 +35,12 @@ public class FamilyChangeContractPresenter implements FamilyChangeContract.Prese
 
     @Override
     public void saveFamilyMember(Context context, HashMap<String,String> member) {
-        interactor.updateFamilyMember(context , member, familyID, this);
+
+        LocationPickerView lpv = new LocationPickerView(context);
+        lpv.init();
+        String lastLocationId = LocationHelper.getInstance().getOpenMrsLocationId(lpv.getSelectedItem());
+
+        interactor.updateFamilyMember(context , member, familyID, lastLocationId, this);
     }
 
     @Override
