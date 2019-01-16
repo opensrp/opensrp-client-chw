@@ -60,7 +60,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.vijay.jsonwizard.activities.JsonFormActivity"
+            android:name="com.vijay.jsonwizard.activities.JsonWizardFormActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/FamilyTheme.NoActionBar"
@@ -76,6 +76,15 @@
         <activity android:name=".activity.ChildProfileActivity"
             android:label="@string/child_details"
             android:theme="@style/WcaroTheme.NoActionBar"/>
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/captured_images_path" />
+        </provider>
         <activity android:name=".activity.MedicalHistoryActivity" android:label="@string/medical_history"
             android:theme="@style/WcaroTheme.NoActionBar"/>
     </application>

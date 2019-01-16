@@ -12,6 +12,7 @@ public class Constants {
     public static final class EventType {
         public static final String FAMILY_REGISTRATION = "Family Registration";
         public static final String FAMILY_MEMBER_REGISTRATION = "Family Member Registration";
+        public static final String CHILD_REGISTRATION = "Child Registration";
 
         public static final String UPDATE_FAMILY_REGISTRATION = "Update Family Registration";
         public static final String UPDATE_FAMILY_MEMBER_REGISTRATION = "Update Family Member Registration";
@@ -35,6 +36,7 @@ public class Constants {
         public static final String FAMILY_MEMBER = "ec_family_member";
         public static final String CHILD = "ec_child";
     }
+
     public static final class INTENT_KEY {
         public static final String SERVICE_DUE = "service_due";
         public static final String CHILD_BASE_ID = "child_base_id";

@@ -8,10 +8,6 @@ import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.activity.FamilyProfileActivity;
 import org.smartgresiter.wcaro.fragment.AddMemberFragment;
 import org.smartgresiter.wcaro.fragment.FamilyCallDialogFragment;
-import org.smartgresiter.wcaro.util.Constants;
-import org.smartregister.family.activity.BaseFamilyProfileActivity;
-
-import static org.smartgresiter.wcaro.fragment.AddMemberFragment.DIALOG_TAG;
 
 public class FloatingMenuListener implements OnClickFloatingMenu {
 
@@ -33,11 +29,10 @@ public class FloatingMenuListener implements OnClickFloatingMenu {
                 ((FamilyProfileActivity) context).startFormForEdit();
                 break;
             case R.id.add_new_member_layout:
-                FragmentTransaction ft = ((BaseFamilyProfileActivity) context).getFragmentManager().beginTransaction();
+                FragmentTransaction ft = context.getFragmentManager().beginTransaction();
                 AddMemberFragment addmemberFragment = AddMemberFragment.newInstance();
                 addmemberFragment.setContext(context);
-                addmemberFragment.setFamilyBaseEntityId(((FamilyProfileActivity) context).getFamilyBaseEntityId());
-                addmemberFragment.show(((BaseFamilyProfileActivity) context).getFragmentManager(), DIALOG_TAG);
+                addmemberFragment.show(context.getFragmentManager(), AddMemberFragment.DIALOG_TAG);
                 break;
 
             case R.id.remove_member_layout:

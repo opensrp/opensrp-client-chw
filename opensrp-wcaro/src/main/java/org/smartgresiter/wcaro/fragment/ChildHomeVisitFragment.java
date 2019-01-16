@@ -19,6 +19,10 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.vijay.jsonwizard.constants.JsonFormConstants;
+import com.vijay.jsonwizard.domain.Form;
+
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;
 import org.joda.time.DateTime;
 import org.json.JSONObject;
@@ -370,11 +374,17 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     }
 
 
-    public void startFormActivity(JSONObject form) {
-        Intent intent = new Intent(context, org.smartregister.family.util.Utils.metadata().nativeFormActivity);
-        intent.putExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON, form.toString());
+    public void startFormActivity(JSONObject jsonForm) {
+        Intent intent = new Intent(context, org.smartregister.family.util.Utils.metadata().familyMemberFormActivity);
+        intent.putExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON, jsonForm.toString());
+
+        Form form = new Form();
+        form.setWizard(false);
+        form.setActionBarBackground(org.smartregister.family.R.color.family_actionbar);
+
+        intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);
+
         startActivityForResult(intent, org.smartregister.family.util.JsonFormUtils.REQUEST_CODE_GET_JSON);
-//        startRegistration();
     }
 
     public JSONObject getFormAsJson(String formName, String entityId, String currentLocationId,String familyID) throws Exception {

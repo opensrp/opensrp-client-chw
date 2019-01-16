@@ -32,7 +32,7 @@
     <string name="change_family_head">Change family head</string>
     <string name="change_primary_caregiver">Change primary caregiver</string>
     <string name="add_other_family_member">Other family member</string>
-    <string name="add_child_under_five">Child under 5 years</string>
+    <string name="child_under_five">Child under 5 years</string>
     <string name="go_to_family_s_profile">Go to family\'s profile</string>
     <string name="family_has_nothing_due">Family has nothing due</string>
     <string name="family_has_services_due">Family has services due</string>
@@ -54,6 +54,7 @@
     <string name="allow_calls_denied">Kindly allow calls to be made here</string>
     <string name="copy_to_clipboard">Copy to clipboard</string>
     <string name="copied_phone_number">PhoneNumber copied to clipboard</string>
+
     <string name="medical_history">Medical History</string>
     <string name="record_home_visit">Record Home visit</string>
     <string name="visit_done">Visit done</string>

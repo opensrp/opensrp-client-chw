@@ -2,6 +2,7 @@ package org.smartgresiter.wcaro.presenter;
 
 import android.content.Intent;
 import android.util.Log;
+import android.util.Pair;
 
 import org.apache.commons.lang3.tuple.Triple;
 import org.smartgresiter.wcaro.contract.ChildProfileContract;
@@ -9,6 +10,8 @@ import org.smartgresiter.wcaro.interactor.ChildProfileInteractor;
 import org.smartgresiter.wcaro.util.ChildDBConstants;
 import org.smartgresiter.wcaro.util.ChildService;
 import org.smartgresiter.wcaro.util.ChildVisit;
+import org.smartregister.clientandeventmodel.Client;
+import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.DBConstants;
@@ -19,7 +22,7 @@ import java.lang.ref.WeakReference;
 import java.util.Date;
 import java.util.Map;
 
-public class ChildProfilePresenter implements ChildProfileContract.Presenter, ChildProfileContract.InteractorCallBack{
+public class ChildProfilePresenter implements ChildProfileContract.Presenter, ChildProfileContract.InteractorCallBack {
 
     private static final String TAG = ChildProfilePresenter.class.getCanonicalName();
 
@@ -178,8 +181,8 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
         dob = Utils.getDuration(Utils.getValue(client.getColumnmaps(), DBConstants.KEY.DOB, false));
         getView().setAge(dob);
         //dobString = dobString.contains("y") ? dobString.substring(0, dobString.indexOf("y")) : dobString;
-        String address=Utils.getValue(client.getColumnmaps(),ChildDBConstants.KEY.FAMILY_HOME_ADDRESS,true);
-        String gender=Utils.getValue(client.getColumnmaps(),DBConstants.KEY.GENDER,true);
+        String address = Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.FAMILY_HOME_ADDRESS, true);
+        String gender = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.GENDER, true);
 
         getView().setAddress(address);
         getView().setGender(gender);
@@ -206,6 +209,11 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
     @Override
     public void onRegistrationSaved(boolean isEditMode) {
 
+    }
+
+    @Override
+    public void saveRegistration(Pair<Client, Event> pair, String jsonString, boolean isEditMode, ChildProfileContract.InteractorCallBack callBack) {
+        interactor.saveRegistration(pair, jsonString, isEditMode, callBack);
     }
 
     @Override

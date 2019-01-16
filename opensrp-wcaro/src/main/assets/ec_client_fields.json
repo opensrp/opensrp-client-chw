@@ -14,7 +14,7 @@
           "column_name": "unique_id",
           "type": "Client",
           "json_mapping": {
-            "field": "identifiers.UNIQUE_ID"
+            "field": "identifiers.opensrp_id"
           }
         },
         {
