@@ -29,12 +29,12 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class FamilyProfileActivity extends BaseFamilyProfileActivity {
 
     private String familyBaseEntityId;
-    private boolean isFromFamilyServiceDue=false;
+    private boolean isFromFamilyServiceDue = false;
 
     @Override
     protected void initializePresenter() {
         familyBaseEntityId = getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID);
-        isFromFamilyServiceDue=getIntent().getBooleanExtra(org.smartgresiter.wcaro.util.Constants.INTENT_KEY.SERVICE_DUE,false);
+        isFromFamilyServiceDue = getIntent().getBooleanExtra(org.smartgresiter.wcaro.util.Constants.INTENT_KEY.SERVICE_DUE, false);
         presenter = new FamilyProfilePresenter(this, new FamilyProfileModel(), familyBaseEntityId);
     }
 
@@ -65,13 +65,13 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity {
         BaseFamilyProfileDueFragment profileDueFragment = FamilyProfileDueFragment.newInstance(this.getIntent().getExtras());
         BaseFamilyProfileActivityFragment profileActivityFragment = FamilyProfileActivityFragment.newInstance(this.getIntent().getExtras());
 
-        adapter.addFragment(profileMemberFragment, this.getString(org.smartregister.family.R.string.member));
-        adapter.addFragment(profileDueFragment, this.getString(org.smartregister.family.R.string.due));
-        adapter.addFragment(profileActivityFragment, this.getString(org.smartregister.family.R.string.activity));
+        adapter.addFragment(profileMemberFragment, this.getString(org.smartregister.family.R.string.member).toUpperCase());
+        adapter.addFragment(profileDueFragment, this.getString(org.smartregister.family.R.string.due).toUpperCase());
+        adapter.addFragment(profileActivityFragment, this.getString(org.smartregister.family.R.string.activity).toUpperCase());
 
         viewPager.setAdapter(adapter);
-        if(isFromFamilyServiceDue){
-           // int position=adapter.getItemPosition(profileDueFragment);
+        if (isFromFamilyServiceDue) {
+            // int position=adapter.getItemPosition(profileDueFragment);
             viewPager.setCurrentItem(1);
             adapter.notifyDataSetChanged();
         }
@@ -82,6 +82,7 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode,
                                            String permissions[], int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode,permissions,grantResults);
 
         switch (requestCode) {
             case PermissionUtils.PHONE_STATE_PERMISSION_REQUEST_CODE: {
@@ -101,5 +102,11 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity {
 
     public String getFamilyBaseEntityId() {
         return familyBaseEntityId;
+    }
+
+    public void startFormForEdit(){
+        if(familyBaseEntityId != null){
+            ((FamilyProfilePresenter)presenter).fetchProfileData();
+        }
     }
 }

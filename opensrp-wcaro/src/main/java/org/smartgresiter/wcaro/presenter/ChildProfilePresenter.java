@@ -139,26 +139,29 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
     @Override
     public void updateChildService(ChildService childService) {
         if(childService.getServiceStatus().equalsIgnoreCase(ChildProfileInteractor.ServiceType.DUE.name())){
-            getView().setServiceDueDate("due("+childService.getServiceDate()+")");
+            getView().setServiceDueDate("due ("+childService.getServiceDate()+")");
         }
         if(childService.getServiceStatus().equalsIgnoreCase(ChildProfileInteractor.ServiceType.OVERDUE.name())){
-            getView().setSeviceOverdueDate("overdue("+childService.getServiceDate()+")");
+            getView().setSeviceOverdueDate("overdue ("+childService.getServiceDate()+")");
         }
         if(childService.getServiceStatus().equalsIgnoreCase(ChildProfileInteractor.ServiceType.UPCOMING.name())){
-            getView().setServiceUpcomingDueDate("upcoming("+childService.getServiceDate()+")");
+            getView().setServiceUpcomingDueDate("upcoming ("+childService.getServiceDate()+")");
         }
         getView().setServiceName(childService.getServiceName());
     }
 
     @Override
     public void updateFamilyMemberServiceDue(String serviceDueStatus) {
-        if(serviceDueStatus.equalsIgnoreCase(ChildProfileInteractor.FamilyServiceType.DUE.name())){
-            getView().setFamilyHasServiceDue();
-        }else if(serviceDueStatus.equalsIgnoreCase(ChildProfileInteractor.FamilyServiceType.OVERDUE.name())){
-            getView().setFamilyHasServiceOverdue();
-        }else {
-            getView().setFamilyHasNothingDue();
+        if(getView()!=null){
+            if(serviceDueStatus.equalsIgnoreCase(ChildProfileInteractor.FamilyServiceType.DUE.name())){
+                getView().setFamilyHasServiceDue();
+            }else if(serviceDueStatus.equalsIgnoreCase(ChildProfileInteractor.FamilyServiceType.OVERDUE.name())){
+                getView().setFamilyHasServiceOverdue();
+            }else {
+                getView().setFamilyHasNothingDue();
+            }
         }
+
     }
 
     @Override
@@ -168,7 +171,7 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
         }
         String parentFirstName=Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.FAMILY_FIRST_NAME, true);
         String parentLastName=Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.FAMILY_LAST_NAME, true);
-        String parentName="CG:"+org.smartregister.util.Utils.getName(parentFirstName, parentLastName);
+        String parentName="CG: "+org.smartregister.util.Utils.getName(parentFirstName, parentLastName);
         getView().setParentName(parentName);
         String firstName = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.FIRST_NAME, true);
         String lastName = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.LAST_NAME, true);

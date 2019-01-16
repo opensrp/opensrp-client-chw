@@ -21,6 +21,7 @@ public class Constants {
         public static final String FAMILY_REGISTER = "family_register";
         public static final String FAMILY_MEMBER_REGISTER = "family_member_register";
         public static final String CHILD_REGISTER = "child_enrollment";
+        public static final String FAMILY_DETAILS_REGISTER = "family_details_register";
     }
 
     public static class RELATIONSHIP {
@@ -41,6 +42,10 @@ public class Constants {
         public static final String CHILD_DATE_OF_BIRTH = "child_dob";
         public static final String CHILD_LAST_VISIT_DAYS = "child_visit_days";
         public static final String CHILD_VACCINE_LIST= "child_vaccine_list";
+        public static final String GROWTH_TITLE = "growth_title";
+        public static final String GROWTH_IMMUNIZATION_TYPE = "growth_type";
+        public static final String GROWTH_SERVICE_WRAPPER = "growth_service";
+        public static final String CHILD_COMMON_PERSON = "child_common_peron";
     }
     public static final class IMMUNIZATION_CONSTANT{
         public static final String DATE = "date";
@@ -52,6 +57,10 @@ public class Constants {
         public static final String ANC_CLIENTS = "ANC Clients";
         public static final String CHILD_CLIENTS = "Child Clients";
         public static final String HIV_CLIENTS = "Hiv Clients";
+    }
+
+    public static final class SyncFilters {
+        public static final String FILTER_TEAM_ID = "teamId";
     }
 
 }

@@ -25,13 +25,13 @@ import org.smartgresiter.wcaro.util.Constants;
 
 import java.util.Date;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 
 public class MedicalHistoryActivity extends AppCompatActivity implements MedicalHistoryContract.View {
     private TextView textViewTitle,textViewLastVisit,textViewFullyImmunization;
-    private RelativeLayout layoutImmunization;
+    private LinearLayout layoutImmunization;
     private LinearLayout layoutGrowthAndNutrition;
+    private RelativeLayout layoutFullyImmunizationBarAge1,layoutFullyImmunizationBarAge2;
     private RecyclerView recyclerViewImmunization,recyclerViewGrowthNutrition;
     private Map<String, Date> vaccineList;
     private String childBaseId,name,lastVisitDays,dateOfBirth;
@@ -58,6 +58,8 @@ public class MedicalHistoryActivity extends AppCompatActivity implements Medical
         setUpActionBar();
         textViewLastVisit=findViewById(R.id.home_visit_date);
         layoutImmunization=findViewById(R.id.immunization_bar);
+        layoutFullyImmunizationBarAge1=findViewById(R.id.immu_bar_age_1);
+        layoutFullyImmunizationBarAge2=findViewById(R.id.immu_bar_age_2);
         textViewFullyImmunization=findViewById(R.id.fully_immunized);
         recyclerViewImmunization=findViewById(R.id.immunization_recycler_view);
         recyclerViewGrowthNutrition=findViewById(R.id.recycler_view_growth);
@@ -120,7 +122,16 @@ public class MedicalHistoryActivity extends AppCompatActivity implements Medical
 
     @Override
     public void updateFullyImmunization(String text) {
-        textViewFullyImmunization.setText(text);
+        if(text.equalsIgnoreCase("2")){
+            layoutFullyImmunizationBarAge1.setVisibility(View.VISIBLE);
+            layoutFullyImmunizationBarAge2.setVisibility(View.VISIBLE);
+        }else if(text.equalsIgnoreCase("1")){
+            layoutFullyImmunizationBarAge1.setVisibility(View.VISIBLE);
+            layoutFullyImmunizationBarAge2.setVisibility(View.GONE);
+        }else{
+            layoutFullyImmunizationBarAge1.setVisibility(View.GONE);
+            layoutFullyImmunizationBarAge2.setVisibility(View.GONE);
+        }
     }
 
     @Override

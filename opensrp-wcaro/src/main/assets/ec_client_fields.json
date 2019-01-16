@@ -39,6 +39,56 @@
           }
         },
         {
+          "column_name": "quarter_clan",
+          "type": "Client",
+          "json_mapping": {
+            "field": "addresses.commune"
+          }
+        },
+        {
+          "column_name": "street",
+          "type": "Client",
+          "json_mapping": {
+            "field": "addresses.street"
+          }
+        },
+        {
+          "column_name": "landmark",
+          "type": "Client",
+          "json_mapping": {
+            "field": "addresses.landmark"
+          }
+        },
+        {
+          "column_name": "gps",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "163277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        {
+          "column_name": "fam_source_income",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.fam_source_income"
+          }
+        },
+        {
+          "column_name": "family_head",
+          "type": "Client",
+          "json_mapping": {
+            "field": "relationships.family_head"
+          }
+        },
+        {
+          "column_name": "primary_caregiver",
+          "type": "Client",
+          "json_mapping": {
+            "field": "relationships.primary_caregiver"
+          }
+        },
+        {
           "column_name": "last_interacted_with",
           "type": "Event",
           "json_mapping": {
@@ -61,7 +111,7 @@
           "column_name": "unique_id",
           "type": "Client",
           "json_mapping": {
-            "field": "identifiers.UNIQUE_ID"
+            "field": "identifiers.opensrp_id"
           }
         },
         {
@@ -76,6 +126,13 @@
           "type": "Client",
           "json_mapping": {
             "field": "firstName"
+          }
+        },
+        {
+          "column_name": "middle_name",
+          "type": "Client",
+          "json_mapping": {
+            "field": "middleName"
           }
         },
         {
@@ -100,10 +157,25 @@
           }
         },
         {
+          "column_name": "dob_unknown",
+          "type": "Client",
+          "json_mapping": {
+            "field": "birthdateApprox"
+          }
+        },
+        {
           "column_name": "gender",
           "type": "Client",
           "json_mapping": {
             "field": "gender"
+          }
+        },
+        {
+          "column_name": "phone_number",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "159635AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         },
         {
@@ -129,7 +201,7 @@
           "column_name": "unique_id",
           "type": "Client",
           "json_mapping": {
-            "field": "identifiers.UNIQUE_ID"
+            "field": "identifiers.opensrp_id"
           }
         },
         {
@@ -147,17 +219,17 @@
           }
         },
         {
+          "column_name": "middle_name",
+          "type": "Client",
+          "json_mapping": {
+            "field": "middleName"
+          }
+        },
+        {
           "column_name": "last_name",
           "type": "Client",
           "json_mapping": {
             "field": "lastName"
-          }
-        },
-        {
-          "column_name": "gender",
-          "type": "Client",
-          "json_mapping": {
-            "field": "gender"
           }
         },
         {
@@ -168,10 +240,24 @@
           }
         },
         {
+          "column_name": "dod",
+          "type": "Client",
+          "json_mapping": {
+            "field": "deathdate"
+          }
+        },
+        {
           "column_name": "dob_unknown",
           "type": "Client",
           "json_mapping": {
             "field": "birthdateApprox"
+          }
+        },
+        {
+          "column_name": "gender",
+          "type": "Client",
+          "json_mapping": {
+            "field": "gender"
           }
         },
         {

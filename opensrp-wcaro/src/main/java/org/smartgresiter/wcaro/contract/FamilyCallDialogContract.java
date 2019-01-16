@@ -30,8 +30,6 @@ public interface FamilyCallDialogContract {
 
         void getHeadOfFamily(Presenter presenter);
 
-        void getCareGiver(Presenter presenter);
-
     }
 
     interface Dialer {

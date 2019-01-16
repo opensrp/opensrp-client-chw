@@ -66,4 +66,12 @@
     <string name="add_date_separately">+ ADD DATE FOR EACH VACCINE</string>
     <string name="which_vaccines_given_text">Which immunizations were done?</string>
     <string name="when_vaccines_given_text">When were immunizations done?</string>
+    <string name="fully_immunized_at_age_2">Fully immunized at age 2</string>
+    <string name="fully_immunized_at_age_1">Fully immunized at age 1</string>
+    <string name="health_child_milestone">Health child milestone</string>
+    <string name="exclusive_feeding">Did the child receive any liquid or food other than breastmilk yesterday and last night?</string>
+    <string name="vitamin_given">When was %1$s given?</string>
+    <string name="exclusive_breastfeeding">Exclusive breastfeeding</string>
+    <string name="vitamin_a">Vitamin A</string>
+    <string name="deworming">Deworming</string>
 </resources>

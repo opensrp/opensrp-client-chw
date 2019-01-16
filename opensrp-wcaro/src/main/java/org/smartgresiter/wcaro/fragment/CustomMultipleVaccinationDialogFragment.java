@@ -278,6 +278,7 @@ public class CustomMultipleVaccinationDialogFragment extends ChildImmunizationFr
 //                childHomeVisitFragment.setFamilyBaseEntityId(getFamilyBaseEntityId());
                             customVaccinationDialogFragment.setContext(getActivity());
                             customVaccinationDialogFragment.setChildDetails(getChildDetails());
+                            customVaccinationDialogFragment.setDisableConstraints(true);
                             customVaccinationDialogFragment.show(ft,ChildImmunizationFragment.TAG+"_"+tag.getVaccine().display());
                         }
                     }

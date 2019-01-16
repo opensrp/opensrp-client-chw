@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("org.smartgresiter.wcaro", appContext.getPackageName());
+        assertEquals("org.smartregister.wcaro", appContext.getPackageName());
     }
 }

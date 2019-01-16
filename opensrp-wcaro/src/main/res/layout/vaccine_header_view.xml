@@ -6,7 +6,7 @@
         android:id="@+id/header_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/CustomFontTextViewStyle.ClientList.Light"
+        style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
         android:textColor="@color/black"
         android:padding="20dp"
         android:textSize="18sp"/>

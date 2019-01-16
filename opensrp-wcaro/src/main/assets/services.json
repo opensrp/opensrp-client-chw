@@ -4,13 +4,16 @@
     "id": "Recurring_Services",
     "services": [
       {
-        "type": "Vit A"
+        "type": "Exclusive breastfeeding"
+      },
+      {
+        "type": "MNP"
+      },
+      {
+        "type": "Vitamin A"
       },
       {
         "type": "Deworming"
-      },
-      {
-        "type": "ITN"
       }
     ]
   }

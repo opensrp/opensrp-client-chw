@@ -21,7 +21,9 @@ public class FamilyProfileMemberFragment extends BaseFamilyProfileMemberFragment
 
     @Override
     protected void initializePresenter() {
-        String baseEntityId = getArguments().getString(Constants.INTENT_KEY.BASE_ENTITY_ID);
-        presenter = new FamilyProfileMemberPresenter(this, new FamilyProfileMemberModel(), null, baseEntityId);
+        String familyBaseEntityId = getArguments().getString(Constants.INTENT_KEY.BASE_ENTITY_ID);
+        String familyHead = getArguments().getString(Constants.INTENT_KEY.FAMILY_HEAD);
+        String primaryCareGiver = getArguments().getString(Constants.INTENT_KEY.PRIMARY_CAREGIVER);
+        presenter = new FamilyProfileMemberPresenter(this, new FamilyProfileMemberModel(), null, familyBaseEntityId, familyHead, primaryCareGiver);
     }
 }
