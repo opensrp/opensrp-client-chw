@@ -86,6 +86,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     private CircleImageView immunization_group_status_circle;
     private LinearLayout multiple_immunization_group;
     private HomeVisitGrowthAndNutrition homeVisitGrowthAndNutritionLayout;
+    private boolean allVaccineStateFullfilled = false;
 
 
     public void setContext(Context context){
@@ -204,8 +205,10 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
 
         switch (v.getId()) {
             case R.id.textview_submit:
-                ChildUtils.updateClientStatusAsEvent(childClient.entityId(),"Child Home Visit","last_home_visit",""+System.currentTimeMillis(),"ec_child");
-                dismiss();
+                if(checkAllGiven()) {
+                    ChildUtils.updateClientStatusAsEvent(childClient.entityId(), "Child Home Visit", "last_home_visit", "" + System.currentTimeMillis(), "ec_child");
+                    dismiss();
+                }
                 break;
             case R.id.close:
                 dismiss();
@@ -248,6 +251,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
 //                childHomeVisitFragment.setFamilyBaseEntityId(getFamilyBaseEntityId());
                     customVaccinationDialogFragment.setContext(getActivity());
                     customVaccinationDialogFragment.setChildDetails(childClient);
+                    customVaccinationDialogFragment.setDisableConstraints(true);
                     customVaccinationDialogFragment.show(getActivity().getFragmentManager(),ChildImmunizationFragment.TAG);
                 }
 
@@ -256,6 +260,22 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                 ((BaseFamilyProfileActivity) context).startFormActivity(Constants.JSON_FORM.FAMILY_MEMBER_REGISTER, null, null);
                 break;
         }
+    }
+
+    private boolean checkAllGiven() {
+        boolean checkallgiven = false;
+        if(allVaccineStateFullfilled){
+            checkallgiven = true;
+        }else{
+            checkallgiven = false;
+        }
+        if(isAllGrowthSelected()){
+            checkallgiven = true;
+        }else{
+            checkallgiven = false;
+        }
+
+        return  checkallgiven;
     }
 
     private ArrayList<VaccineWrapper> createVaccineWrappers(HomeVisitVaccineGroupDetails vaccines) {
@@ -405,7 +425,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                 updateGrowthData();
             }
         },100);
-
+        
     }
 
     public void updateImmunizationState() {
@@ -473,6 +493,8 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                 immunization_group_status_circle.setImageResource(R.drawable.ic_checked);
                 immunization_group_status_circle.setColorFilter(getResources().getColor(R.color.white));
                 immunization_group_status_circle.setCircleBackgroundColor(getResources().getColor(R.color.pnc_circle_yellow));
+
+                allVaccineStateFullfilled = true;
 
             }else{
                 textview_immunization_primary_text.setText(lastVaccine);

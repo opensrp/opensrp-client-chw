@@ -80,11 +80,25 @@
                 android:text="number"
                 android:textColor="@color/client_list_grey"
                 android:textSize="@dimen/number_view_text_size" />
+            <org.smartregister.view.customcontrols.CustomFontTextView
+                android:id="@+id/vaccines_given_title_question"
+                style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="@dimen/btn_margin_bottom"
+                android:layout_marginLeft="@dimen/btn_margin_left"
+                android:layout_marginRight="@dimen/btn_margin_right"
+                android:layout_marginTop="@dimen/vaccine_text_top_margin"
+                android:paddingLeft="0dp"
+                android:text="@string/which_vaccines_given_text"
+                android:textColor="@color/client_list_grey"
+                android:textSize="@dimen/number_view_text_size" />
 
 
             <LinearLayout
                 android:id="@+id/vaccination_name_layout"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="@dimen/vaccination_name_layout_bottom_margin"
@@ -110,14 +124,25 @@
                 android:textSize="@dimen/btn_text_size"
                 android:visibility="gone" />
 
-            <DatePicker
-                android:id="@+id/earlier_date_picker"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:calendarViewShown="false"
-                android:descendantFocusability="blocksDescendants"
+                android:layout_gravity="left"
                 android:layout_weight="1"
-                android:visibility="visible" />
+                android:orientation="vertical">
+
+                <DatePicker
+                    android:id="@+id/earlier_date_picker"
+                    style="@android:style/Widget.DatePicker"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:calendarViewShown="false"
+                    android:descendantFocusability="blocksDescendants"
+                    android:gravity="left"
+                    android:scaleX="0.6"
+                    android:scaleY="0.6"
+                    android:visibility="visible" />
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/vaccination_action_linear_layout"

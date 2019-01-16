@@ -91,6 +91,7 @@
                 android:layout_marginBottom="@dimen/btn_margin_bottom"
                 android:layout_marginLeft="@dimen/btn_margin_left"
                 android:layout_marginRight="@dimen/btn_margin_right"
+                android:layout_marginTop="@dimen/vaccine_text_top_margin"
                 android:paddingLeft="0dp"
                 android:text="@string/which_vaccines_given_text"
                 android:textColor="@color/client_list_grey"

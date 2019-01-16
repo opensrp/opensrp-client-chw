@@ -11,4 +11,5 @@
 
     <dimen name="login_font_size">14sp</dimen>
     <dimen name="immunization_status_circle_size">30dp</dimen>
+    <dimen name="vaccine_text_top_margin">10dp</dimen>
 </resources>

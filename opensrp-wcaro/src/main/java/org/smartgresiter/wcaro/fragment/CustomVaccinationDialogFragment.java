@@ -199,17 +199,17 @@ public class CustomVaccinationDialogFragment extends ChildImmunizationFragment {
 
             } else {
 
-                View vaccinationName = inflater.inflate(R.layout.vaccination_name, null);
-                TextView vaccineView = (TextView) vaccinationName.findViewById(R.id.vaccine);
+//                View vaccinationName = inflater.inflate(R.layout.custom_vaccination_name, null);
+                TextView vaccineView = (TextView) dialogView.findViewById(R.id.vaccines_given_title_question);
                 TextView vaccineViewTitle = (TextView) dialogView.findViewById(R.id.textview_vaccine_title);
 
                 vaccineViewTitle.setText("Record "+vName);
                 vaccineView.setText("When was "+vName+" immunization done?");
 
-                View select = vaccinationName.findViewById(R.id.select);
-                select.setVisibility(View.GONE);
-
-                vaccinationNameLayout.addView(vaccinationName);
+//                View select = vaccinationName.findViewById(R.id.select);
+//                select.setVisibility(View.GONE);
+//
+//                vaccinationNameLayout.addView(vaccinationName);
             }
         } else {
             for (VaccineWrapper vaccineWrapper : tags) {
@@ -334,7 +334,13 @@ public class CustomVaccinationDialogFragment extends ChildImmunizationFragment {
                 ((ChildHomeVisitFragment)getActivity().getFragmentManager().findFragmentByTag("child_home_visit_dialog")).updateImmunizationState();
             }
         });
-
+        ImageView close = (ImageView) dialogView.findViewById(R.id.close);
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
+            }
+        });
         return dialogView;
     }
 
