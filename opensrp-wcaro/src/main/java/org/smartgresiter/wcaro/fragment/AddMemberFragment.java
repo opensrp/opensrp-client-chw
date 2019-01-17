@@ -95,7 +95,6 @@ public class AddMemberFragment extends DialogFragment implements View.OnClickLis
                     dismiss();
                     break;
                 case R.id.layout_add_child_under_five:
-
                     ((FamilyProfileActivity) context).startChildForm(Constants.JSON_FORM.CHILD_REGISTER, "", "", "");
                     dismiss();
                     break;
@@ -108,6 +107,5 @@ public class AddMemberFragment extends DialogFragment implements View.OnClickLis
             e.printStackTrace();
         }
     }
-
 
 }

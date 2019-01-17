@@ -48,7 +48,7 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity implements 
 
     @Override
     protected void initializePresenter() {
-        familyBaseEntityId = getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID);
+        familyBaseEntityId = getIntent().getStringExtra(Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID);
         isFromFamilyServiceDue = getIntent().getBooleanExtra(org.smartgresiter.wcaro.util.Constants.INTENT_KEY.SERVICE_DUE, false);
         presenter = new FamilyProfilePresenter(this, new FamilyProfileModel(), familyBaseEntityId);
     }

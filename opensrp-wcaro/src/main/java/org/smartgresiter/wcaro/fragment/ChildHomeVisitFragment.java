@@ -258,7 +258,6 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         startFormActivity(form);
     }
 
-
     public void startFormActivity(JSONObject jsonForm) {
         Intent intent = new Intent(context, org.smartregister.family.util.Utils.metadata().familyMemberFormActivity);
         intent.putExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON, jsonForm.toString());
