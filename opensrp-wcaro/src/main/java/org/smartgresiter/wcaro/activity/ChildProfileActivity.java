@@ -1,10 +1,7 @@
 package org.smartgresiter.wcaro.activity;
 
-import android.app.AppComponentFactory;
 import android.app.FragmentTransaction;
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
@@ -15,42 +12,29 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;
-import org.json.JSONException;
 import org.json.JSONObject;
 import org.opensrp.api.constants.Gender;
 import org.smartgresiter.wcaro.R;
-import org.smartgresiter.wcaro.application.WcaroApplication;
 import org.smartgresiter.wcaro.contract.ChildProfileContract;
 import org.smartgresiter.wcaro.contract.ChildRegisterContract;
 import org.smartgresiter.wcaro.custom_view.IndividualMemberFloatingMenu;
-import org.smartgresiter.wcaro.fragment.AddMemberFragment;
 import org.smartgresiter.wcaro.fragment.ChildHomeVisitFragment;
 import org.smartgresiter.wcaro.fragment.ChildImmunizationFragment;
 import org.smartgresiter.wcaro.fragment.FamilyCallDialogFragment;
 import org.smartgresiter.wcaro.listener.OnClickFloatingMenu;
 import org.smartgresiter.wcaro.model.ChildProfileModel;
 import org.smartgresiter.wcaro.presenter.ChildProfilePresenter;
-import org.smartgresiter.wcaro.repository.WcaroRepository;
 import org.smartgresiter.wcaro.util.ChildUtils;
 import org.smartregister.domain.FetchStatus;
-import org.smartregister.family.activity.BaseFamilyProfileActivity;
 import org.smartregister.family.util.Constants;
 import org.smartregister.helper.ImageRenderHelper;
-import org.smartregister.immunization.domain.Vaccine;
 import org.smartregister.immunization.domain.VaccineWrapper;
 import org.smartregister.immunization.listener.VaccinationActionListener;
-import org.smartregister.immunization.repository.VaccineRepository;
-import org.smartregister.location.helper.LocationHelper;
-import org.smartregister.util.JsonFormUtils;
 import org.smartregister.view.activity.BaseProfileActivity;
 
 import java.util.ArrayList;
-
-import static org.smartgresiter.wcaro.fragment.AddMemberFragment.DIALOG_TAG;
 
 
 public class ChildProfileActivity extends BaseProfileActivity implements ChildProfileContract.View,ChildRegisterContract.InteractorCallBack,VaccinationActionListener {

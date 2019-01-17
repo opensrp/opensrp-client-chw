@@ -20,6 +20,9 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.vijay.jsonwizard.constants.JsonFormConstants;
+import com.vijay.jsonwizard.domain.Form;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;
 import org.joda.time.DateTime;
@@ -30,7 +33,6 @@ import org.smartgresiter.wcaro.application.WcaroApplication;
 import org.smartgresiter.wcaro.contract.ChildRegisterContract;
 import org.smartgresiter.wcaro.interactor.ChildRegisterInteractor;
 import org.smartgresiter.wcaro.model.ChildRegisterModel;
-import org.smartgresiter.wcaro.presenter.ChildProfilePresenter;
 import org.smartgresiter.wcaro.util.Constants;
 import org.smartgresiter.wcaro.util.JsonFormUtils;
 import org.smartregister.clientandeventmodel.Client;
@@ -55,15 +57,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-import static org.smartgresiter.wcaro.fragment.AddMemberFragment.DIALOG_TAG;
-import static org.smartgresiter.wcaro.util.Constants.TABLE_NAME.CHILD;
-import static org.smartregister.immunization.domain.State.EXPIRED;
 import static org.smartregister.immunization.util.VaccinatorUtils.generateScheduleList;
 import static org.smartregister.immunization.util.VaccinatorUtils.nextVaccineDue;
 import static org.smartregister.immunization.util.VaccinatorUtils.receivedVaccines;
 import static org.smartregister.util.Utils.getValue;
 import static org.smartregister.util.Utils.startAsyncTask;
-import static org.smartregister.view.contract.AlertStatus.UPCOMING;
 
 public class ChildHomeVisitFragment extends DialogFragment implements View.OnClickListener,ChildRegisterContract.InteractorCallBack {
 
@@ -260,12 +258,17 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         startFormActivity(form);
     }
 
-
-    public void startFormActivity(JSONObject form) {
+    public void startFormActivity(JSONObject jsonForm) {
         Intent intent = new Intent(context, org.smartregister.family.util.Utils.metadata().familyMemberFormActivity);
-        intent.putExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON, form.toString());
+        intent.putExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON, jsonForm.toString());
+
+        Form form = new Form();
+        form.setWizard(false);
+        form.setActionBarBackground(org.smartregister.family.R.color.family_actionbar);
+
+        intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);
+
         startActivityForResult(intent, org.smartregister.family.util.JsonFormUtils.REQUEST_CODE_GET_JSON);
-//        startRegistration();
     }
 
     public JSONObject getFormAsJson(String formName, String entityId, String currentLocationId,String familyID) throws Exception {
