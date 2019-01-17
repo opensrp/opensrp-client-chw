@@ -5,6 +5,7 @@ import android.support.annotation.VisibleForTesting;
 import android.util.Log;
 
 import org.apache.commons.lang3.StringUtils;
+import org.json.JSONObject;
 import org.smartgresiter.wcaro.application.WcaroApplication;
 import org.smartgresiter.wcaro.contract.FamilyRemoveMemberContract;
 import org.smartgresiter.wcaro.util.Constants;
@@ -42,17 +43,18 @@ public class FamilyRemoveMemberInteractor implements FamilyRemoveMemberContract.
     }
 
     @Override
-    public void removeMember(String familyID, String memberID, String lastLocationId) {
+    public void removeMember(String familyID, String lastLocationId, JSONObject exitForm, final FamilyRemoveMemberContract.Presenter presenter) {
 
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
 
+                // process the json object
 
                 appExecutors.mainThread().execute(new Runnable() {
                     @Override
                     public void run() {
-
+                        presenter.memberRemoved();
                     }
                 });
             }

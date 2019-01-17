@@ -17,6 +17,7 @@ import org.smartregister.view.activity.SecuredActivity;
 public class FamilyRemoveMemberActivity extends SecuredActivity implements View.OnClickListener {
 
     public static final String TAG = FamilyRemoveMemberActivity.class.getName();
+    FamilyRemoveMemberFragment fragment;
 
     @Override
     protected void onCreation() {
@@ -26,7 +27,7 @@ public class FamilyRemoveMemberActivity extends SecuredActivity implements View.
         findViewById(R.id.close).setOnClickListener(this);
 
         // initialize fragment
-        Fragment fragment = FamilyRemoveMemberFragment.newInstance(getIntent().getExtras());
+        fragment = FamilyRemoveMemberFragment.newInstance(getIntent().getExtras());
         FragmentManager fm = getSupportFragmentManager();
         fm.beginTransaction()
                 .replace(R.id.flFrame, fragment)
@@ -49,17 +50,15 @@ public class FamilyRemoveMemberActivity extends SecuredActivity implements View.
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        String ss = data.getStringExtra(Constants.JSON_FORM_EXTRA.JSON);
         if (requestCode == JsonFormUtils.REQUEST_CODE_GET_JSON && resultCode == RESULT_OK) {
             try {
                 String jsonString = data.getStringExtra(Constants.JSON_FORM_EXTRA.JSON);
                 Log.d("JSONResult", jsonString);
 
                 JSONObject form = new JSONObject(jsonString);
-                if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Utils.metadata().familyRegister.updateEventType)) {
-                    //presenter().updateFamilyRegister(jsonString);
-                } else if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Utils.metadata().familyMemberRegister.registerEventType)) {
-                    //presenter().saveFamilyMember(jsonString);
-                }
+                fragment.getPresenter().processRemoveForm(form);
+                // (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Utils.metadata().familyRegister.updateEventType))
             } catch (Exception e) {
                 Log.e(TAG, Log.getStackTraceString(e));
             }

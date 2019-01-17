@@ -1,11 +1,11 @@
 package org.smartgresiter.wcaro.contract;
 
+import com.google.gson.JsonObject;
+
 import org.json.JSONObject;
-import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.contract.FamilyProfileMemberContract;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,11 +15,15 @@ public interface FamilyRemoveMemberContract {
 
         void removeMember(CommonPersonObjectClient client);
 
-        void processMember(Map<String,String> familyDetails, CommonPersonObjectClient client);
+        void processMember(Map<String, String> familyDetails, CommonPersonObjectClient client);
 
         void removeEveryone();
 
         void onFamilyRemoved(Boolean success);
+
+        void processRemoveForm(JSONObject jsonObject);
+
+        void memberRemoved();
 
     }
 
@@ -37,17 +41,20 @@ public interface FamilyRemoveMemberContract {
 
         void startJsonActivity(JSONObject form);
 
+        void onMemberRemoved();
+
+        void onEveryoneRemoved();
     }
 
     interface Interactor {
 
-        void removeMember(String familyID, String memberID, String lastLocationId);
+        void removeMember(String familyID, String lastLocationId, JSONObject exitForm, Presenter presenter);
 
         void removeFamily(String familyID, String lastLocationId, Presenter presenter);
 
         void processFamilyMember(String familyID, CommonPersonObjectClient client, Presenter presenter);
 
-        void getFamilyChildrenCount(String familyID, InteractorCallback<HashMap<String,Integer>> callback);
+        void getFamilyChildrenCount(String familyID, InteractorCallback<HashMap<String, Integer>> callback);
     }
 
     interface Model extends FamilyProfileMemberContract.Model {

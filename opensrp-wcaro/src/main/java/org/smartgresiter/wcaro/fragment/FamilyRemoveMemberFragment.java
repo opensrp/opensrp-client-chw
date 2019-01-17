@@ -1,5 +1,7 @@
 package org.smartgresiter.wcaro.fragment;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -57,7 +59,7 @@ public class FamilyRemoveMemberFragment extends BaseFamilyProfileMemberFragment 
         presenter = new FamilyRemoveMemberPresenter(this, new FamilyRemoveMemberModel(), null, baseEntityId, familyHead, primaryCareGiver);
     }
 
-    protected FamilyRemoveMemberContract.Presenter getPresenter() {
+    public FamilyRemoveMemberContract.Presenter getPresenter() {
         return (FamilyRemoveMemberContract.Presenter) presenter;
     }
 
@@ -118,6 +120,33 @@ public class FamilyRemoveMemberFragment extends BaseFamilyProfileMemberFragment 
         intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);
 
         startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
+    }
+
+    @Override
+    public void onMemberRemoved() {
+        // display alert
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setMessage("Member has been removed");
+        builder.setCancelable(true);
+
+        builder.setPositiveButton(
+                "Dismiss",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+
+        AlertDialog alert11 = builder.create();
+        alert11.show();
+    }
+
+    @Override
+    public void onEveryoneRemoved() {
+        // close family and return to main register
+        Intent intent = new Intent(getActivity(), FamilyRegisterActivity.class);
+        startActivity(intent);
+        getActivity().finish();
     }
 
     public class RemoveMemberListener implements android.view.View.OnClickListener {
