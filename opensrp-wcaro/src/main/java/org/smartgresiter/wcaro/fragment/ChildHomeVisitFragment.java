@@ -31,6 +31,7 @@ import org.smartgresiter.wcaro.activity.ChildProfileActivity;
 import org.smartgresiter.wcaro.contract.ChildRegisterContract;
 import org.smartgresiter.wcaro.custom_view.HomeVisitGrowthAndNutrition;
 import org.smartgresiter.wcaro.interactor.ChildRegisterInteractor;
+import org.smartgresiter.wcaro.interactor.HomeVisitImmunizationInteractor;
 import org.smartgresiter.wcaro.listener.ImmunizationStateChangeListener;
 import org.smartgresiter.wcaro.model.ChildRegisterModel;
 import org.smartgresiter.wcaro.task.UndoVaccineTask;
@@ -473,6 +474,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
             @Override
             public void onImmunicationStateChange(List<Alert> alerts, List<Vaccine> vaccines, String stateKey, Map<String, Object> nv, ImmunizationState state) {
                 ImmunizationState(alerts,vaccines,stateKey,nv,state);
+                ImmunizationStateNew(alerts,vaccines,stateKey,nv,state);
             }
         });
         startAsyncTask(vaccinationAsyncTask,null);
@@ -650,6 +652,24 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         checkIfSubmitIsToBeEnabled();
 
     }
+
+
+    public void ImmunizationStateNew(List<Alert> alerts, List<Vaccine> vaccines, String stateKey, Map<String, Object> nv, ImmunizationState state){
+        HomeVisitImmunizationInteractor homeVisitImmunizationInteractor = new HomeVisitImmunizationInteractor();
+        ArrayList<VaccineRepo.Vaccine> vaccinesDueFromLastVisit = new ArrayList<VaccineRepo.Vaccine>();
+        ArrayList<HomeVisitVaccineGroupDetails> allgroups = homeVisitImmunizationInteractor.determineAllHomeVisitVaccineGroupDetails(alerts,vaccines);
+        if(homeVisitImmunizationInteractor.hasVaccinesNotGivenSinceLastVisit(allgroups)){
+           vaccinesDueFromLastVisit =  homeVisitImmunizationInteractor.getNotGivenVaccinesLastVisitList(allgroups);
+        }
+        HomeVisitVaccineGroupDetails currentActiveGroup = homeVisitImmunizationInteractor.getCurrentActiveHomeVisitVaccineGroupDetail(allgroups);
+        if(currentActiveGroup == null){
+            currentActiveGroup = homeVisitImmunizationInteractor.getLastActiveHomeVisitVaccineGroupDetail(allgroups);
+        }
+        currentActiveGroup.getDueVaccines().size();
+    }
+
+
+
 
     private boolean hasAllVaccineOfCurrentGroupNotGiven(HomeVisitVaccineGroupDetails lastGivenGroup) {
         boolean allvaccinegiven = false;

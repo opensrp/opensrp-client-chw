@@ -17,7 +17,7 @@ import java.lang.ref.WeakReference;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class HomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNutritionContract.Presenter,HomeVisitGrowthNutritionContract.InteractorCallBack {
+public class  HomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNutritionContract.Presenter,HomeVisitGrowthNutritionContract.InteractorCallBack {
     private WeakReference<HomeVisitGrowthNutritionContract.View> view;
     private HomeVisitGrowthNutritionContract.Interactor interactor;
     private Map<String, ServiceWrapper> serviceWrapperMap;
