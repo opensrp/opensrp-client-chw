@@ -1,16 +1,25 @@
 package org.smartgresiter.wcaro.contract;
 
 import org.json.JSONObject;
+import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.contract.FamilyProfileMemberContract;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public interface FamilyRemoveMemberContract {
 
     interface Presenter extends FamilyProfileMemberContract.Presenter {
 
         void removeMember(CommonPersonObjectClient client);
+
+        void processMember(Map<String,String> familyDetails, CommonPersonObject client);
+
+        void displayChangeFamilyHeadDialog(CommonPersonObjectClient client);
+
+        void displayChangeCareGiverDialog(CommonPersonObjectClient client);
 
         void changeCareGiver(String familyID, String memberID);
 
@@ -20,15 +29,16 @@ public interface FamilyRemoveMemberContract {
 
         void initialize();
 
+        void processMember(HashMap<String, String> res);
     }
 
     interface View extends FamilyProfileMemberContract.View {
 
         void removeMember(CommonPersonObjectClient client);
 
-        void displayChangeHeadDialog();
+        void displayChangeFamilyHeadDialog(CommonPersonObjectClient client);
 
-        void displayChangeOptionDialog();
+        void displayChangeCareGiverDialog(CommonPersonObjectClient client);
 
         void closeFamily();
 
@@ -40,10 +50,11 @@ public interface FamilyRemoveMemberContract {
 
     interface Interactor {
 
-        void removeMember(String memberID);
+        void removeMember(CommonPersonObject memberID, String lastLocationId);
 
-        void removeFamily(String familyID, Presenter presenter);
+        void removeFamily(String familyID, String lastLocationId, Presenter presenter);
 
+        void processFamilyMember(String familyID, Presenter presenter);
     }
 
     interface Model extends FamilyProfileMemberContract.Model {
