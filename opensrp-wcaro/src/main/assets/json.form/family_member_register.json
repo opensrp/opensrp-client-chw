@@ -82,6 +82,69 @@
         }
       },
       {
+        "key": "surname",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "Surname",
+        "edit_type": "name",
+        "v_regex": {
+          "value": "[A-Za-z\\s\.\-]*",
+          "err": "Please enter a valid name"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family-member-relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "same_as_fam_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "openmrs_data_type": "text",
+        "type": "check_box",
+        "label": " ",
+        "exclusive": [
+          "none"
+        ],
+        "options": [
+          {
+            "key": "same_as_fam_name",
+            "text": "Surname same as family name",
+            "text_size": "18px",
+            "value": "false"
+          }
+        ]
+      },
+      {
+        "key": "fam_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "label",
+        "hidden": "true"
+      },
+      {
+        "key": "surname_calculation",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "last_name",
+        "type": "hidden",
+        "hint": "Surname as Family name",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family-member-calculation.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "first_name",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person",
@@ -99,16 +162,16 @@
         }
       },
       {
-        "key": "last_name",
+        "key": "middle_name",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person",
-        "openmrs_entity_id": "last_name",
+        "openmrs_entity_id": "middle_name",
         "type": "edit_text",
-        "hint": "Last name *",
+        "hint": "Middle name *",
         "edit_type": "name",
         "v_required": {
           "value": "true",
-          "err": "Please enter the last name"
+          "err": "Please enter the middle name"
         },
         "v_regex": {
           "value": "[A-Za-z\\s\.\-]*",
@@ -133,14 +196,10 @@
           "err": "Please enter the date of birth"
         },
         "relevance": {
-          "step1:dob_unknown": {
-            "ex-checkbox": [
-              {
-                "not": [
-                  "dob_unknown"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family-member-relevance.yml"
+            }
           }
         }
       },
@@ -180,14 +239,10 @@
           "err": "Age must be equal or less than 49"
         },
         "relevance": {
-          "step1:dob_unknown": {
-            "ex-checkbox": [
-              {
-                "and": [
-                  "dob_unknown"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family-member-relevance.yml"
+            }
           }
         },
         "v_required": {
@@ -241,6 +296,12 @@
         "v_required": {
           "value": true,
           "err": "Please specify the phone number"
+        },
+        "relevance": {
+          "step1:primary_caregiver": {
+            "type": "string",
+            "ex": "equalTo(., \"Yes\")"
+          }
         }
       },
       {
@@ -257,6 +318,39 @@
         "v_regex": {
           "value": "(0[0-9]{9})|\s*",
           "err": "Number must be 10 digits and must start with 0."
+        },
+        "relevance": {
+          "step1:primary_caregiver": {
+            "type": "string",
+            "ex": "equalTo(., \"Yes\")"
+          }
+        }
+      },
+      {
+        "key": "highest_edu_level",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1712AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "Highest education level",
+        "values": [
+          "None",
+          "Primary",
+          "Secondary",
+          "Post-secondary"
+        ],
+        "openmrs_choice_ids": {
+          "None": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Primary": "1713AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Secondary": "1714AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Post-secondary": "159785AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "relevance": {
+          "step1:primary_caregiver": {
+            "type": "string",
+            "ex": "equalTo(., \"Yes\")"
+          }
         }
       }
     ]

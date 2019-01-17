@@ -242,7 +242,6 @@
         "openmrs_entity": "person",
         "openmrs_entity_id": "last_name",
         "type": "edit_text",
-        "edit_type": "name",
         "hidden": true,
         "hint": "Surname as Family name",
         "calculation": {

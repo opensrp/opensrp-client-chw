@@ -54,7 +54,7 @@ import static org.apache.commons.lang3.StringUtils.isBlank;
 /**
  * Created by keyman on 13/11/2018.
  */
-public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
+public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
     public static final String METADATA = "metadata";
     public static final String ENCOUNTER_TYPE = "encounter_type";
     public static final int REQUEST_CODE_GET_JSON = 2244;
@@ -260,79 +260,6 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
         }
         return addresses;
     }
-
-    public static Pair<Client, Event> processFamilyMemberRegistrationForm(AllSharedPreferences allSharedPreferences, String jsonString, String familyBaseEntityId) {
-
-        try {
-            Triple<Boolean, JSONObject, JSONArray> registrationFormParams = validateParameters(jsonString);
-
-            if (!registrationFormParams.getLeft()) {
-                return null;
-            }
-
-            JSONObject jsonForm = registrationFormParams.getMiddle();
-            JSONArray fields = registrationFormParams.getRight();
-
-            String entityId = getString(jsonForm, ENTITY_ID);
-            if (isBlank(entityId)) {
-                entityId = generateRandomUUIDString();
-            }
-
-            String encounterType = getString(jsonForm, ENCOUNTER_TYPE);
-            JSONObject metadata = getJSONObject(jsonForm, METADATA);
-
-            // String lastLocationName = null;
-            // String lastLocationId = null;
-            // TODO Replace values for location questions with their corresponding location IDs
-
-
-            JSONObject lastInteractedWith = new JSONObject();
-            lastInteractedWith.put(org.smartregister.family.util.Constants.KEY.KEY, DBConstants.KEY.LAST_INTERACTED_WITH);
-            lastInteractedWith.put(org.smartregister.family.util.Constants.KEY.VALUE, Calendar.getInstance().getTimeInMillis());
-            fields.put(lastInteractedWith);
-
-            JSONObject dobUnknownObject = getFieldJSONObject(fields, DBConstants.KEY.DOB);
-            JSONArray options = getJSONArray(dobUnknownObject, org.smartregister.family.util.Constants.JSON_FORM_KEY.OPTIONS);
-            JSONObject option = getJSONObject(options, 0);
-            String dobUnKnownString = option != null ? option.getString(VALUE) : null;
-            if (StringUtils.isNotBlank(dobUnKnownString) && Boolean.valueOf(dobUnKnownString)) {
-
-//                String ageString = getFieldValue(fields, DBConstants.KEY.AGE);
-//                if (StringUtils.isNotBlank(ageString) && NumberUtils.isNumber(ageString)) {
-//                    int age = Integer.valueOf(ageString);
-//                    JSONObject dobJSONObject = getFieldJSONObject(fields, DBConstants.KEY.DOB);
-//                    dobJSONObject.put(VALUE, Utils.getDob(age));
-//
-//                    //Mark the birth date as an approximation
-//                    JSONObject isBirthdateApproximate = new JSONObject();
-//                    isBirthdateApproximate.put(org.smartregister.family.util.Constants.KEY.KEY, FormEntityConstants.Person.birthdate_estimated);
-//                    isBirthdateApproximate.put(org.smartregister.family.util.Constants.KEY.VALUE, org.smartregister.family.util.Constants.BOOLEAN_INT.TRUE);
-//                    isBirthdateApproximate.put(org.smartregister.family.util.Constants.OPENMRS.ENTITY, org.smartregister.family.util.Constants.ENTITY.PERSON);//Required for value to be processed
-//                    isBirthdateApproximate.put(org.smartregister.family.util.Constants.OPENMRS.ENTITY_ID, FormEntityConstants.Person.birthdate_estimated);
-//                    fields.put(isBirthdateApproximate);
-//
-//                }
-            }
-
-            FormTag formTag = new FormTag();
-            formTag.providerId = allSharedPreferences.fetchRegisteredANM();
-            formTag.appVersion = FamilyLibrary.getInstance().getApplicationVersion();
-            formTag.databaseVersion = FamilyLibrary.getInstance().getDatabaseVersion();
-
-            Client baseClient = org.smartregister.util.JsonFormUtils.createBaseClient(fields, formTag, entityId);
-            baseClient.addRelationship(Utils.metadata().familyMemberRegister.familyRelationKey, familyBaseEntityId);
-
-            Event baseEvent = org.smartregister.util.JsonFormUtils.createEvent(fields, metadata, formTag, entityId, encounterType, Utils.metadata().familyMemberRegister.tableName);
-
-            tagSyncMetadata(allSharedPreferences, baseEvent);// tag docs
-
-            return Pair.create(baseClient, baseEvent);
-        } catch (Exception e) {
-            Log.e(TAG, Log.getStackTraceString(e));
-            return null;
-        }
-    }
-
 
     public static void mergeAndSaveClient(ECSyncHelper ecUpdater, Client baseClient) throws Exception {
         JSONObject updatedClientJson = new JSONObject(org.smartregister.util.JsonFormUtils.gson.toJson(baseClient));

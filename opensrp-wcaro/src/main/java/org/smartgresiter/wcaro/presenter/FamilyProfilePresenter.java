@@ -32,8 +32,8 @@ public class FamilyProfilePresenter extends BaseFamilyProfilePresenter implement
     private ChildRegisterInteractor childRegisterInteractor;
 
 
-    public FamilyProfilePresenter(FamilyProfileExtendedContract.View view, FamilyProfileContract.Model model, String familyBaseEntityId) {
-        super(view, model, familyBaseEntityId);
+    public FamilyProfilePresenter(FamilyProfileExtendedContract.View view, FamilyProfileContract.Model model, String familyBaseEntityId, String familyHead, String primaryCaregiver, String familyName) {
+        super(view, model, familyBaseEntityId, familyHead, primaryCaregiver, familyName);
         viewReference = new WeakReference<>(view);
         childRegisterInteractor = new ChildRegisterInteractor();
     }
