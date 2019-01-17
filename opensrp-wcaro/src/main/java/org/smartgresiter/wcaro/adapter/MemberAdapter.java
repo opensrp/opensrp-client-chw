@@ -1,6 +1,8 @@
 package org.smartgresiter.wcaro.adapter;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -76,7 +78,24 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MyViewHold
                 )
         );
         holder.llQuestions.setVisibility((selected == position) ? View.VISIBLE : View.GONE);
+
         holder.radioButton.setChecked((selected == position));
+
+        holder.radioButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    setSelected(position);
+                    onBindViewHolder(holder, position);
+
+                    try{
+                        notifyDataSetChanged();
+                    }catch (Exception e){
+
+                    }
+                }
+            }
+        });
 
 
         Boolean isVisible = (holder.llQuestions.getVisibility() == View.VISIBLE);
@@ -92,7 +111,6 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MyViewHold
 
 
         holder.view.setOnClickListener(clickListener);
-        holder.radioButton.setOnClickListener(clickListener);
 
         renderViews(holder, model);
     }
@@ -120,6 +138,9 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MyViewHold
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 holder.llNewPhone.setVisibility(isChecked ? View.VISIBLE : View.GONE);
+
+                holder.rbNo.setError(null);
+                holder.rbYes.setError(null);
             }
         });
 
@@ -127,7 +148,7 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MyViewHold
         holder.etPhone.setText(model.get(DBConstants.KEY.PHONE_NUMBER));
         holder.etAlternatePhone.setText((model.get("other_phone_number").equals("null") ? "" : model.get("other_phone_number")));
 
-        switch (model.get("highest_edu_level")){
+        switch (model.get("highest_edu_level")) {
             case "None":
                 holder.spEduLevel.setSelection(0);
                 break;
@@ -140,10 +161,10 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MyViewHold
             case "Post-secondary":
                 holder.spEduLevel.setSelection(3);
                 break;
-                default:
+            default:
 
-                    holder.spEduLevel.setSelection(0);
-                    break;
+                holder.spEduLevel.setSelection(0);
+                break;
         }
     }
 
@@ -155,40 +176,59 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MyViewHold
             String value = holder.etPhone.getText().toString();
             if (value.trim().equals("")) {
                 holder.etPhone.setError("Phone number is required");
-            }else{
+            } else {
                 res = true;
             }
-        } else {
+        } else if (selectedId == R.id.rbYes) {
             res = true;
+        } else {
+            res = false;
+            holder.rbYes.setError("Select Item");//Set error to last Radio button
         }
 
         String text = holder.etPhone.getText().toString().trim();
-        if(text.length() > 0 && !text.substring(0,1).equals("0")){
+        if (text.length() > 0 && !text.substring(0, 1).equals("0")) {
             holder.etPhone.setError("Must start with 0");
             res = false;
         }
 
-        if(text.length() > 0 && text.length() != 10){
+        if (text.length() > 0 && text.length() != 10) {
             holder.etPhone.setError("Length must be equal to 10");
             res = false;
         }
 
         text = holder.etAlternatePhone.getText().toString().trim();
-        if(text.length() > 0 && !text.substring(0,1).equals("0")){
+        if (text.length() > 0 && !text.substring(0, 1).equals("0")) {
             holder.etAlternatePhone.setError("Must start with 0");
             res = false;
         }
 
-        if(text.length() > 0 && text.length() != 10){
+        if (text.length() > 0 && text.length() != 10) {
             holder.etAlternatePhone.setError("Length must be equal to 10");
             res = false;
         }
 
+        if (!res) {
+            AlertDialog.Builder builder1 = new AlertDialog.Builder(context);
+            builder1.setMessage("Kindly complete the form before submitting");
+            builder1.setCancelable(true);
+
+            builder1.setPositiveButton(
+                    "Dismiss",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+
+            AlertDialog alert11 = builder1.create();
+            alert11.show();
+        }
         return res;
     }
 
-    public HashMap<String,String> getSelectedResults(MyViewHolder holder, int Position){
-        HashMap<String,String> res = new HashMap<>();
+    public HashMap<String, String> getSelectedResults(MyViewHolder holder, int Position) {
+        HashMap<String, String> res = new HashMap<>();
 
         res.put(DBConstants.KEY.BASE_ENTITY_ID, familyMembers.get(Position).get(DBConstants.KEY.BASE_ENTITY_ID));
         res.put(Constants.JsonAssets.FAMILY_MEMBER.PHONE_NUMBER, holder.etPhone.getText().toString());
@@ -198,8 +238,8 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MyViewHold
         return res;
     }
 
-    private List<String> getOptions(){
-        if(eduOptions == null){
+    private List<String> getOptions() {
+        if (eduOptions == null) {
             eduOptions = new ArrayList<>();
             eduOptions.add("None");
             eduOptions.add("Primary");
@@ -255,7 +295,7 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MyViewHold
 
         }
 
-        private void setLengthErrorMessage(final EditText et){
+        private void setLengthErrorMessage(final EditText et) {
             String error = "Length must be equal to 10";
 
             TextWatcher tw = new TextWatcher() {
@@ -272,10 +312,10 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MyViewHold
                 @Override
                 public void afterTextChanged(Editable s) {
                     String text = et.getText().toString().trim();
-                    if(text.length() > 0 && text.length() != 10){
+                    if (text.length() > 0 && text.length() != 10) {
                         et.setError("Length must be equal to 10");
                     }
-                    if(text.length() > 0 && !text.substring(0,1).equals("0")){
+                    if (text.length() > 0 && !text.substring(0, 1).equals("0")) {
                         et.setError("Must start with 0");
                     }
                 }
