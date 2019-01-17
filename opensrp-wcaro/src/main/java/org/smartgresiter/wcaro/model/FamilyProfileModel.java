@@ -1,6 +1,7 @@
 package org.smartgresiter.wcaro.model;
 
 import org.json.JSONObject;
+import org.smartgresiter.wcaro.util.Constants;
 import org.smartgresiter.wcaro.util.JsonFormUtils;
 import org.smartgresiter.wcaro.util.Utils;
 import org.smartregister.family.model.BaseFamilyProfileModel;

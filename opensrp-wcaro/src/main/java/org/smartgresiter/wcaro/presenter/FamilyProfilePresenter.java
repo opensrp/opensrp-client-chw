@@ -10,6 +10,7 @@ import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.contract.ChildRegisterContract;
 import org.smartgresiter.wcaro.contract.FamilyProfileExtendedContract;
 import org.smartgresiter.wcaro.interactor.ChildRegisterInteractor;
+import org.smartgresiter.wcaro.model.ChildProfileModel;
 import org.smartgresiter.wcaro.model.ChildRegisterModel;
 import org.smartgresiter.wcaro.util.Constants;
 import org.smartgresiter.wcaro.util.JsonFormUtils;
@@ -18,24 +19,23 @@ import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.contract.FamilyProfileContract;
 import org.smartregister.family.presenter.BaseFamilyProfilePresenter;
-import org.smartregister.family.util.Utils;
 import org.smartregister.util.FormUtils;
 
 import java.lang.ref.WeakReference;
 
 public class FamilyProfilePresenter extends BaseFamilyProfilePresenter implements FamilyProfileExtendedContract.Presenter, ChildRegisterContract.InteractorCallBack {
-
-    private FormUtils formUtils = null;
     private static final String TAG = FamilyProfilePresenter.class.getCanonicalName();
 
     private WeakReference<FamilyProfileExtendedContract.View> viewReference;
     private ChildRegisterInteractor childRegisterInteractor;
+    private ChildProfileModel childProfileModel;
 
 
     public FamilyProfilePresenter(FamilyProfileExtendedContract.View view, FamilyProfileContract.Model model, String familyBaseEntityId, String familyHead, String primaryCaregiver, String familyName) {
         super(view, model, familyBaseEntityId, familyHead, primaryCaregiver, familyName);
         viewReference = new WeakReference<>(view);
         childRegisterInteractor = new ChildRegisterInteractor();
+        childProfileModel = new ChildProfileModel(familyName);
     }
 
     @Override
@@ -58,7 +58,7 @@ public class FamilyProfilePresenter extends BaseFamilyProfilePresenter implement
             return;
         }
 
-        JSONObject form = getFormAsJson(formName, entityId, currentLocationId, familyBaseEntityId);
+        JSONObject form = childProfileModel.getFormAsJson(formName, entityId, currentLocationId, familyBaseEntityId);
         getView().startFormActivity(form);
 
     }
@@ -94,26 +94,6 @@ public class FamilyProfilePresenter extends BaseFamilyProfilePresenter implement
         } catch (Exception e) {
             Log.e(TAG, Log.getStackTraceString(e));
         }
-    }
-
-    public JSONObject getFormAsJson(String formName, String entityId, String currentLocationId, String familyID) throws Exception {
-        JSONObject form = getFormUtils().getFormJson(formName);
-        if (form == null) {
-            return null;
-        }
-        return JsonFormUtils.getFormAsJson(form, formName, entityId, currentLocationId, familyID);
-    }
-
-    private FormUtils getFormUtils() {
-
-        if (formUtils == null) {
-            try {
-                formUtils = FormUtils.getInstance(Utils.context().applicationContext());
-            } catch (Exception e) {
-                Log.e(ChildRegisterModel.class.getCanonicalName(), e.getMessage(), e);
-            }
-        }
-        return formUtils;
     }
 
     public FamilyProfileExtendedContract.View getView() {
