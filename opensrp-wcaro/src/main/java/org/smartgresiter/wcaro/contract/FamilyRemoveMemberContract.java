@@ -31,9 +31,9 @@ public interface FamilyRemoveMemberContract {
 
         void removeMember(CommonPersonObjectClient client);
 
-        void displayChangeFamilyHeadDialog(CommonPersonObjectClient client);
+        void displayChangeFamilyHeadDialog(CommonPersonObjectClient client, String familyHeadID);
 
-        void displayChangeCareGiverDialog(CommonPersonObjectClient client);
+        void displayChangeCareGiverDialog(CommonPersonObjectClient client, String careGiverID);
 
         void closeFamily();
 

@@ -60,13 +60,13 @@ public class FamilyRemoveMemberPresenter extends FamilyProfileMemberPresenter im
             if (memberID.equalsIgnoreCase(currentFamilyHead)) {
 
                 if (viewReference.get() != null) {
-                    viewReference.get().displayChangeFamilyHeadDialog(client);
+                    viewReference.get().displayChangeFamilyHeadDialog(client, memberID);
                 }
 
             } else if (memberID.equalsIgnoreCase(currentCareGiver)) {
 
                 if (viewReference.get() != null) {
-                    viewReference.get().displayChangeCareGiverDialog(client);
+                    viewReference.get().displayChangeCareGiverDialog(client, memberID);
                 }
 
             } else {
