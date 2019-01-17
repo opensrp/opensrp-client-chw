@@ -37,6 +37,7 @@ public class FamilyProfileChangeDialog extends DialogFragment implements View.On
     protected Context context;
     protected String familyID;
     protected String actionType;
+    protected Runnable onSaveAndClose;
 
 
     protected MemberAdapter memberAdapter;
@@ -55,6 +56,10 @@ public class FamilyProfileChangeDialog extends DialogFragment implements View.On
         fragment.setActionType(actionType);
 
         return fragment;
+    }
+
+    public void setOnSaveAndClose(Runnable onClose) {
+        this.onSaveAndClose = onClose;
     }
 
     protected void setContext(Context context) {
@@ -155,6 +160,10 @@ public class FamilyProfileChangeDialog extends DialogFragment implements View.On
 
         Intent returnIntent = new Intent();
         getActivity().setResult(Activity.RESULT_OK, returnIntent);
+
+        if(onSaveAndClose != null){
+            onSaveAndClose.run();
+        }
         close();
     }
 

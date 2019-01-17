@@ -23,11 +23,9 @@ import org.smartregister.family.FamilyLibrary;
 import org.smartregister.family.util.AppExecutors;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.Utils;
-import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.sync.helper.ECSyncHelper;
 import org.smartregister.util.FormUtils;
-import org.smartregister.view.LocationPickerView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -118,7 +116,7 @@ public class FamilyChangeContractInteractor implements FamilyChangeContract.Inte
                     // update the EC client model
 
                     try {
-                        save(context, familyID, memberID, phone, otherPhone, eduLevel, option , lastLocationId);
+                        save(context, familyID, memberID, phone, otherPhone, eduLevel, option, lastLocationId);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

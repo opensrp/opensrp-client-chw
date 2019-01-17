@@ -63,9 +63,5 @@ public class FamilyRemoveMemberModel extends FamilyProfileMemberModel implements
         }
     }
 
-    @Override
-    public FamilyRemoveMemberContract.DataModel renderObject(String memberID) {
-        return null;
-    }
 }
 

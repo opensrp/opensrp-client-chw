@@ -10,6 +10,7 @@ import com.vijay.jsonwizard.domain.Form;
 
 import org.json.JSONObject;
 import org.smartgresiter.wcaro.R;
+import org.smartgresiter.wcaro.activity.FamilyRegisterActivity;
 import org.smartgresiter.wcaro.contract.FamilyRemoveMemberContract;
 import org.smartgresiter.wcaro.model.FamilyRemoveMemberModel;
 import org.smartgresiter.wcaro.presenter.FamilyRemoveMemberPresenter;
@@ -42,7 +43,7 @@ public class FamilyRemoveMemberFragment extends BaseFamilyProfileMemberFragment 
 
     @Override
     public void initializeAdapter(Set<View> visibleColumns, String familyHead, String primaryCaregiver)  {
-        FamilyRemoveMemberProvider provider = new FamilyRemoveMemberProvider(this.getActivity(), this.commonRepository(), visibleColumns, new RemoveMemberListener(), new FooterListener(), familyHead, primaryCaregiver);
+        FamilyRemoveMemberProvider provider = new FamilyRemoveMemberProvider(baseEntityId, this.getActivity(), this.commonRepository(), visibleColumns, new RemoveMemberListener(), new FooterListener(), familyHead, primaryCaregiver);
         this.clientAdapter = new RecyclerViewPaginatedAdapter((Cursor) null, provider, this.context().commonrepository(this.tablename));
         this.clientAdapter.setCurrentlimit(100);
         this.clientsView.setAdapter(this.clientAdapter);
@@ -66,35 +67,43 @@ public class FamilyRemoveMemberFragment extends BaseFamilyProfileMemberFragment 
     }
 
     @Override
-    public void displayChangeFamilyHeadDialog(CommonPersonObjectClient client) {
-        // TODO Remove the member then return
-
+    public void displayChangeFamilyHeadDialog(final CommonPersonObjectClient client) {
         FamilyProfileChangeDialog dialog = FamilyProfileChangeDialog.newInstance(getContext(), baseEntityId,
                 org.smartgresiter.wcaro.util.Constants.PROFILE_CHANGE_ACTION.HEAD_OF_FAMILY);
+        dialog.setOnSaveAndClose(new Runnable() {
+            @Override
+            public void run() {
+                getPresenter().removeMember(client);
+            }
+        });
         dialog.show(getActivity().getFragmentManager(),"FamilyProfileChangeDialogHF");
-
-        getPresenter().removeMember(client);
     }
 
     @Override
-    public void displayChangeCareGiverDialog(CommonPersonObjectClient client) {
-        // TODO Remove the
-
+    public void displayChangeCareGiverDialog(final CommonPersonObjectClient client) {
         FamilyProfileChangeDialog dialog = FamilyProfileChangeDialog.newInstance(getContext(), baseEntityId,
                 org.smartgresiter.wcaro.util.Constants.PROFILE_CHANGE_ACTION.PRIMARY_CARE_GIVER);
-        dialog.show(getActivity().getFragmentManager(),"FamilyProfileChangeDialogPC");
+        dialog.setOnSaveAndClose(new Runnable() {
+            @Override
+            public void run() {
+                getPresenter().removeMember(client);
+            }
+        });
 
-        getPresenter().removeMember(client);
+        dialog.show(getActivity().getFragmentManager(),"FamilyProfileChangeDialogPC");
     }
 
     @Override
     public void closeFamily() {
 
+        getPresenter().removeEveryone();
+
     }
 
     @Override
-    public void gotToPrevious() {
-
+    public void goToPrevious() {
+        // open family register
+        startActivity(new Intent(getContext(), FamilyRegisterActivity.class));
     }
 
     @Override
@@ -125,6 +134,7 @@ public class FamilyRemoveMemberFragment extends BaseFamilyProfileMemberFragment 
         @Override
         public void onClick(android.view.View v) {
 
+            closeFamily();
             Toast.makeText(getContext(), "Removing entire family", Toast.LENGTH_SHORT).show();
         }
     }

@@ -15,21 +15,12 @@ public interface FamilyRemoveMemberContract {
 
         void removeMember(CommonPersonObjectClient client);
 
-        void processMember(Map<String,String> familyDetails, CommonPersonObject client);
-
-        void displayChangeFamilyHeadDialog(CommonPersonObjectClient client);
-
-        void displayChangeCareGiverDialog(CommonPersonObjectClient client);
-
-        void changeCareGiver(String familyID, String memberID);
-
-        void changeHeadOfFamily(String familyID, String memberID);
+        void processMember(Map<String,String> familyDetails, CommonPersonObjectClient client);
 
         void removeEveryone();
 
-        void initialize();
+        void onFamilyRemoved(Boolean success);
 
-        void processMember(HashMap<String, String> res);
     }
 
     interface View extends FamilyProfileMemberContract.View {
@@ -42,7 +33,7 @@ public interface FamilyRemoveMemberContract {
 
         void closeFamily();
 
-        void gotToPrevious();
+        void goToPrevious();
 
         void startJsonActivity(JSONObject form);
 
@@ -50,31 +41,25 @@ public interface FamilyRemoveMemberContract {
 
     interface Interactor {
 
-        void removeMember(CommonPersonObject memberID, String lastLocationId);
+        void removeMember(String familyID, String memberID, String lastLocationId);
 
         void removeFamily(String familyID, String lastLocationId, Presenter presenter);
 
-        void processFamilyMember(String familyID, Presenter presenter);
+        void processFamilyMember(String familyID, CommonPersonObjectClient client, Presenter presenter);
+
+        void getFamilyChildrenCount(String familyID, InteractorCallback<HashMap<String,Integer>> callback);
     }
 
     interface Model extends FamilyProfileMemberContract.Model {
 
         JSONObject prepareJsonForm(CommonPersonObjectClient client);
 
-        DataModel renderObject(String memberID);
-
     }
 
-    interface DataModel {
+    interface InteractorCallback<T> {
+        void onResult(T result);
 
-        String baseEntityID();
-        Boolean isPrimaryCareGiver();
-        Boolean isHeadOfHouse();
-        String firstName();
-        String lastName();
-        String Age();
-        Date DateOfBirth();
-
+        void onError(Exception e);
     }
 
 }
