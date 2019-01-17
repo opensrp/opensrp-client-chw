@@ -103,18 +103,16 @@ public class FamilyChangeContractInteractor implements FamilyChangeContract.Inte
             @Override
             public void run() {
 
+
+                final String option = familyMember.get(Constants.PROFILE_CHANGE_ACTION.ACTION_TYPE);
+                final String memberID = familyMember.get(DBConstants.KEY.BASE_ENTITY_ID);
+
+                String phone = familyMember.get(Constants.JsonAssets.FAMILY_MEMBER.PHONE_NUMBER);
+                String otherPhone = familyMember.get(Constants.JsonAssets.FAMILY_MEMBER.OTHER_PHONE_NUMBER);
+                String eduLevel = familyMember.get(Constants.JsonAssets.FAMILY_MEMBER.HIGHEST_EDUCATION_LEVEL);
+
                 if (familyMember != null) {
-
-                    String option = familyMember.get(Constants.PROFILE_CHANGE_ACTION.ACTION_TYPE);
-                    String memberID = familyMember.get(DBConstants.KEY.BASE_ENTITY_ID);
-
-                    String phone = familyMember.get(Constants.JsonAssets.FAMILY_MEMBER.PHONE_NUMBER);
-                    String otherPhone = familyMember.get(Constants.JsonAssets.FAMILY_MEMBER.OTHER_PHONE_NUMBER);
-                    String eduLevel = familyMember.get(Constants.JsonAssets.FAMILY_MEMBER.HIGHEST_EDUCATION_LEVEL);
-
-
                     // update the EC client model
-
                     try {
                         save(context, familyID, memberID, phone, otherPhone, eduLevel, option, lastLocationId);
                     } catch (Exception e) {
@@ -126,7 +124,15 @@ public class FamilyChangeContractInteractor implements FamilyChangeContract.Inte
                 appExecutors.mainThread().execute(new Runnable() {
                     @Override
                     public void run() {
-                        presenter.saveCompleted();
+
+                        switch (option) {
+                            case Constants.PROFILE_CHANGE_ACTION.PRIMARY_CARE_GIVER:
+                                presenter.saveCompleted(null, memberID);
+                                break;
+                            case Constants.PROFILE_CHANGE_ACTION.HEAD_OF_FAMILY:
+                                presenter.saveCompleted(memberID, null);
+                                break;
+                        }
                     }
                 });
             }
@@ -288,7 +294,7 @@ public class FamilyChangeContractInteractor implements FamilyChangeContract.Inte
                     }
                 }
                 // add if member is above 5 year
-                if (getDiffYears(dob, new Date()) > 5) {
+                if (getDiffYears(dob, new Date()) >= 5) {
                     res.add(columns);
                 }
                 cursor.moveToNext();

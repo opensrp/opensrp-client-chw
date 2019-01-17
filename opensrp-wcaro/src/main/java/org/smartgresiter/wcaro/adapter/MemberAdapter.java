@@ -84,13 +84,13 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MyViewHold
         holder.radioButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
+                if (isChecked) {
                     setSelected(position);
                     onBindViewHolder(holder, position);
 
-                    try{
+                    try {
                         notifyDataSetChanged();
-                    }catch (Exception e){
+                    } catch (Exception e) {
 
                     }
                 }
@@ -171,58 +171,61 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MyViewHold
     public boolean validateSave(MyViewHolder holder) {
         boolean res = false;
 
-        int selectedId = holder.radioGroup.getCheckedRadioButtonId();
-        if (selectedId == R.id.rbNo) {
-            String value = holder.etPhone.getText().toString();
-            if (value.trim().equals("")) {
-                holder.etPhone.setError("Phone number is required");
-            } else {
+        if (holder != null) {
+
+            int selectedId = holder.radioGroup.getCheckedRadioButtonId();
+            if (selectedId == R.id.rbNo) {
+                String value = holder.etPhone.getText().toString();
+                if (value.trim().equals("")) {
+                    holder.etPhone.setError("Phone number is required");
+                } else {
+                    res = true;
+                }
+            } else if (selectedId == R.id.rbYes) {
                 res = true;
+            } else {
+                res = false;
+                holder.rbYes.setError("Select Item");//Set error to last Radio button
             }
-        } else if (selectedId == R.id.rbYes) {
-            res = true;
-        } else {
-            res = false;
-            holder.rbYes.setError("Select Item");//Set error to last Radio button
-        }
 
-        String text = holder.etPhone.getText().toString().trim();
-        if (text.length() > 0 && !text.substring(0, 1).equals("0")) {
-            holder.etPhone.setError("Must start with 0");
-            res = false;
-        }
+            String text = holder.etPhone.getText().toString().trim();
+            if (text.length() > 0 && !text.substring(0, 1).equals("0")) {
+                holder.etPhone.setError("Must start with 0");
+                res = false;
+            }
 
-        if (text.length() > 0 && text.length() != 10) {
-            holder.etPhone.setError("Length must be equal to 10");
-            res = false;
-        }
+            if (text.length() > 0 && text.length() != 10) {
+                holder.etPhone.setError("Length must be equal to 10");
+                res = false;
+            }
 
-        text = holder.etAlternatePhone.getText().toString().trim();
-        if (text.length() > 0 && !text.substring(0, 1).equals("0")) {
-            holder.etAlternatePhone.setError("Must start with 0");
-            res = false;
-        }
+            text = holder.etAlternatePhone.getText().toString().trim();
+            if (text.length() > 0 && !text.substring(0, 1).equals("0")) {
+                holder.etAlternatePhone.setError("Must start with 0");
+                res = false;
+            }
 
-        if (text.length() > 0 && text.length() != 10) {
-            holder.etAlternatePhone.setError("Length must be equal to 10");
-            res = false;
-        }
+            if (text.length() > 0 && text.length() != 10) {
+                holder.etAlternatePhone.setError("Length must be equal to 10");
+                res = false;
+            }
 
-        if (!res) {
-            AlertDialog.Builder builder1 = new AlertDialog.Builder(context);
-            builder1.setMessage("Kindly complete the form before submitting");
-            builder1.setCancelable(true);
+            if (!res) {
+                AlertDialog.Builder builder1 = new AlertDialog.Builder(context);
+                builder1.setMessage("Kindly complete the form before submitting");
+                builder1.setCancelable(true);
 
-            builder1.setPositiveButton(
-                    "Dismiss",
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            dialog.cancel();
-                        }
-                    });
+                builder1.setPositiveButton(
+                        "Dismiss",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
 
-            AlertDialog alert11 = builder1.create();
-            alert11.show();
+                AlertDialog alert11 = builder1.create();
+                alert11.show();
+            }
         }
         return res;
     }

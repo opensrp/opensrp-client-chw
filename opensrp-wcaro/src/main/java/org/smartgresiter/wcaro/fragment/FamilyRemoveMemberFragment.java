@@ -29,7 +29,7 @@ import java.util.Set;
 
 public class FamilyRemoveMemberFragment extends BaseFamilyProfileMemberFragment implements FamilyRemoveMemberContract.View {
 
-    String baseEntityId;
+    String familyBaseEntityId;
     String familyHead;
     String primaryCareGiver;
 
@@ -45,7 +45,7 @@ public class FamilyRemoveMemberFragment extends BaseFamilyProfileMemberFragment 
 
     @Override
     public void initializeAdapter(Set<View> visibleColumns, String familyHead, String primaryCaregiver)  {
-        FamilyRemoveMemberProvider provider = new FamilyRemoveMemberProvider(baseEntityId, this.getActivity(), this.commonRepository(), visibleColumns, new RemoveMemberListener(), new FooterListener(), familyHead, primaryCaregiver);
+        FamilyRemoveMemberProvider provider = new FamilyRemoveMemberProvider(familyBaseEntityId, this.getActivity(), this.commonRepository(), visibleColumns, new RemoveMemberListener(), new FooterListener(), familyHead, primaryCaregiver);
         this.clientAdapter = new RecyclerViewPaginatedAdapter((Cursor) null, provider, this.context().commonrepository(this.tablename));
         this.clientAdapter.setCurrentlimit(100);
         this.clientsView.setAdapter(this.clientAdapter);
@@ -53,10 +53,10 @@ public class FamilyRemoveMemberFragment extends BaseFamilyProfileMemberFragment 
 
     @Override
     protected void initializePresenter() {
-        baseEntityId = getArguments().getString(Constants.INTENT_KEY.BASE_ENTITY_ID);
+        familyBaseEntityId = getArguments().getString(Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID);
         familyHead = getArguments().getString(Constants.INTENT_KEY.FAMILY_HEAD);
         primaryCareGiver = getArguments().getString(Constants.INTENT_KEY.PRIMARY_CAREGIVER);
-        presenter = new FamilyRemoveMemberPresenter(this, new FamilyRemoveMemberModel(), null, baseEntityId, familyHead, primaryCareGiver);
+        presenter = new FamilyRemoveMemberPresenter(this, new FamilyRemoveMemberModel(), null, familyBaseEntityId, familyHead, primaryCareGiver);
     }
 
     public FamilyRemoveMemberContract.Presenter getPresenter() {
@@ -70,7 +70,7 @@ public class FamilyRemoveMemberFragment extends BaseFamilyProfileMemberFragment 
 
     @Override
     public void displayChangeFamilyHeadDialog(final CommonPersonObjectClient client) {
-        FamilyProfileChangeDialog dialog = FamilyProfileChangeDialog.newInstance(getContext(), baseEntityId,
+        FamilyProfileChangeDialog dialog = FamilyProfileChangeDialog.newInstance(getContext(), familyBaseEntityId,
                 org.smartgresiter.wcaro.util.Constants.PROFILE_CHANGE_ACTION.HEAD_OF_FAMILY);
         dialog.setOnSaveAndClose(new Runnable() {
             @Override
@@ -83,7 +83,7 @@ public class FamilyRemoveMemberFragment extends BaseFamilyProfileMemberFragment 
 
     @Override
     public void displayChangeCareGiverDialog(final CommonPersonObjectClient client) {
-        FamilyProfileChangeDialog dialog = FamilyProfileChangeDialog.newInstance(getContext(), baseEntityId,
+        FamilyProfileChangeDialog dialog = FamilyProfileChangeDialog.newInstance(getContext(), familyBaseEntityId,
                 org.smartgresiter.wcaro.util.Constants.PROFILE_CHANGE_ACTION.PRIMARY_CARE_GIVER);
         dialog.setOnSaveAndClose(new Runnable() {
             @Override

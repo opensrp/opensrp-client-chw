@@ -68,9 +68,9 @@ public class FamilyChangeContractPresenter implements FamilyChangeContract.Prese
 
 
     @Override
-    public void saveCompleted() {
+    public void saveCompleted(String familyHeadID, String careGiverID) {
         if (view != null && view.get() != null) {
-            view.get().saveComplete();
+            view.get().saveComplete(familyHeadID, careGiverID);
         }
     }
 

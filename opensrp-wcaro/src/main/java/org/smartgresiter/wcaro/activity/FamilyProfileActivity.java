@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import org.apache.commons.lang3.StringUtils;
 import org.greenrobot.eventbus.EventBus;
 import org.json.JSONObject;
 import org.smartgresiter.wcaro.R;
@@ -175,6 +176,17 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity implements 
             case org.smartgresiter.wcaro.util.Constants.ProfileActivityResults.CHANGE_COMPLETED:
                 if (resultCode == Activity.RESULT_OK) {
                     try {
+
+                        String careGiverID = data.getStringExtra(Constants.INTENT_KEY.PRIMARY_CAREGIVER);
+                        String familyHeadID = data.getStringExtra(Constants.INTENT_KEY.FAMILY_HEAD);
+
+                        BaseFamilyProfileMemberFragment memberFragment = this.getProfileMemberFragment();
+                        if(StringUtils.isNotBlank(careGiverID)){
+                            memberFragment.setPrimaryCaregiver(careGiverID);
+                        }
+                        if(StringUtils.isNotBlank(familyHeadID)){
+                            memberFragment.setFamilyHead(familyHeadID);
+                        }
                         refreshMemberList(FetchStatus.fetched);
                     } catch (Exception e) {
                         Log.e(TAG, Log.getStackTraceString(e));

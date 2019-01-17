@@ -9,7 +9,7 @@ public interface FamilyChangeContract {
 
     interface Presenter {
 
-        void saveCompleted();
+        void saveCompleted(String familyHeadID, String careGiverID);
 
         void getMembers(String familyID);
 
@@ -28,7 +28,7 @@ public interface FamilyChangeContract {
 
         void refreshMembersView(List<HashMap<String, String>> familyMembers);
 
-        void saveComplete();
+        void saveComplete(String familyHeadID, String careGiverID);
 
         void updateFamilyMember(HashMap<String, String> familyMember);
 

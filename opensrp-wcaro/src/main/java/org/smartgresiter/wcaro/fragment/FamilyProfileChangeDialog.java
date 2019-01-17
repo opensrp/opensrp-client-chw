@@ -22,6 +22,7 @@ import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import org.apache.commons.lang3.StringUtils;
 import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.adapter.MemberAdapter;
 import org.smartgresiter.wcaro.contract.FamilyChangeContract;
@@ -46,7 +47,6 @@ public class FamilyProfileChangeDialog extends DialogFragment implements View.On
     List<HashMap<String, String>> members;
     TextView tvInfo;
     TextView tvTitle;
-    Integer selectedItem = -1;
     ProgressBar progressBar;
 
     public static FamilyProfileChangeDialog newInstance(Context context, String familyBaseEntityId, String actionType) {
@@ -111,7 +111,7 @@ public class FamilyProfileChangeDialog extends DialogFragment implements View.On
                 close();
                 break;
             case R.id.tvSubmit:
-                validateSave(selectedItem);
+                validateSave(memberAdapter.getSelected());
                 break;
         }
     }
@@ -153,12 +153,17 @@ public class FamilyProfileChangeDialog extends DialogFragment implements View.On
     }
 
     @Override
-    public void saveComplete() {
+    public void saveComplete(String familyHeadID, String careGiverID) {
         progressBar.setVisibility(View.INVISIBLE);
         getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
-
         Intent returnIntent = new Intent();
+        if(StringUtils.isNotBlank(familyHeadID)){
+            returnIntent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.FAMILY_HEAD, familyHeadID);
+        }
+        if(StringUtils.isNotBlank(careGiverID)){
+            returnIntent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.PRIMARY_CAREGIVER, careGiverID);
+        }
         getActivity().setResult(Activity.RESULT_OK, returnIntent);
 
         if(onSaveAndClose != null){
@@ -201,8 +206,8 @@ public class FamilyProfileChangeDialog extends DialogFragment implements View.On
 
         @Override
         public void onClick(View view) {
-            selectedItem = recyclerView.getChildLayoutPosition(view);
-            if (selectedItem != memberAdapter.getSelected()) {
+            Integer selectedItem = recyclerView.getChildLayoutPosition(view);
+            if (!selectedItem.equals(memberAdapter.getSelected())) {
                 memberAdapter.setSelected(selectedItem);
                 memberAdapter.notifyDataSetChanged();
             }

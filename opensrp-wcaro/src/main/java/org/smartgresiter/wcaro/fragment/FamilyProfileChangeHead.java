@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ProgressBar;
 
+import org.apache.commons.lang3.StringUtils;
 import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.adapter.MemberAdapter;
 import org.smartgresiter.wcaro.contract.FamilyChangeContract;
@@ -107,12 +108,17 @@ public class FamilyProfileChangeHead extends Fragment implements View.OnClickLis
     }
 
     @Override
-    public void saveComplete() {
+    public void saveComplete(String familyHeadID, String careGiverID) {
         progressBar.setVisibility(View.INVISIBLE);
         getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
-
         Intent returnIntent = new Intent();
+        if(StringUtils.isNotBlank(familyHeadID)){
+            returnIntent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.FAMILY_HEAD, familyHeadID);
+        }
+        if(StringUtils.isNotBlank(careGiverID)){
+            returnIntent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.PRIMARY_CAREGIVER, careGiverID);
+        }
         getActivity().setResult(Activity.RESULT_OK, returnIntent);
         close();
     }
