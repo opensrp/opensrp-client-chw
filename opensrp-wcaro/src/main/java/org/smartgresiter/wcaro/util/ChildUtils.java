@@ -170,23 +170,21 @@ public class ChildUtils {
     }
     public static ChildVisit getChildVisitStatus(String dateOfBirth,long lastVisitDate,long visitNotDate){
         ChildVisit childVisit=new ChildVisit();
-        childVisit.setLastVisitTime(lastVisitDate);
-        childVisit.setVisitNotDone(ChildUtils.isSameMonth(visitNotDate));
-        if(childVisit.isVisitNotDone()){
-            childVisit.setVisitStatus(ChildProfileInteractor.VisitType.NOT_VISIT_THIS_MONTH.name());
-            return childVisit;
-        }
-        long diff=System.currentTimeMillis()-childVisit.getLastVisitTime();
-        if(diff<MILLI_SEC){
-            childVisit.setLastVisitDays("less than 24 hrs");
-            childVisit.setLastVisitMonth(theMonth(Calendar.getInstance().get(Calendar.MONTH)));
-        }else{
-            childVisit.setLastVisitDays(diff/MILLI_SEC+" days");
-        }
+//        childVisit.setLastVisitTime(lastVisitDate);
+//        long diff=System.currentTimeMillis()-childVisit.getLastVisitTime();
+//        if(diff<MILLI_SEC){
+//            childVisit.setLastVisitDays("less than 24 hrs");
+//            childVisit.setLastVisitMonthName(theMonth(Calendar.getInstance().get(Calendar.MONTH)));
+//        }else{
+//            childVisit.setLastVisitDays(diff/MILLI_SEC+" days");
+//        }
         HomeAlertRule homeAlertRule=new HomeAlertRule(dateOfBirth,lastVisitDate,visitNotDate);
         String visitStatus=WcaroApplication.getInstance().getRulesEngineHelper().getButtonAlertStatus(homeAlertRule,Constants.RULE_FILE.HOME_VISIT);
         childVisit.setVisitStatus(visitStatus);
-        childVisit.setNoOfMonthDue(homeAlertRule.noOfMonthDue+"M");
+        childVisit.setNoOfMonthDue(homeAlertRule.noOfMonthDue);
+        childVisit.setLastVisitDays(homeAlertRule.noOfDayDue);
+        childVisit.setLastVisitMonthName(homeAlertRule.visitMonthName);
+        childVisit.setLastVisitTime(lastVisitDate);
         return childVisit;
 
 //        if(Calendar.getInstance().get(Calendar.DAY_OF_MONTH) == 1){

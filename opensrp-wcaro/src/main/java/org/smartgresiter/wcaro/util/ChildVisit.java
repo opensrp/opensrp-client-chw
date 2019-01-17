@@ -3,9 +3,8 @@ package org.smartgresiter.wcaro.util;
 public class ChildVisit {
     private String visitStatus;
     private long lastVisitTime;
-    private String lastVisitMonth;
+    private String lastVisitMonthName;
     private String lastVisitDays;
-    private boolean visitNotDone;
 
     private String noOfMonthDue;
 
@@ -16,13 +15,6 @@ public class ChildVisit {
 
     public void setNoOfMonthDue(String noOfMonthDue) {
         this.noOfMonthDue = noOfMonthDue;
-    }
-    public boolean isVisitNotDone() {
-        return visitNotDone;
-    }
-
-    public void setVisitNotDone(boolean visitNotDone) {
-        this.visitNotDone = visitNotDone;
     }
 
     public String getLastVisitDays() {
@@ -51,12 +43,12 @@ public class ChildVisit {
     }
 
 
-    public String getLastVisitMonth() {
-        return lastVisitMonth;
+    public String getLastVisitMonthName() {
+        return lastVisitMonthName;
     }
 
-    public void setLastVisitMonth(String lastVisitMonth) {
-        this.lastVisitMonth = lastVisitMonth;
+    public void setLastVisitMonthName(String lastVisitMonthName) {
+        this.lastVisitMonthName = lastVisitMonthName;
     }
 
 

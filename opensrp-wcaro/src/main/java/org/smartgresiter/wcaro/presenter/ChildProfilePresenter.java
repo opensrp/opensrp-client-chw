@@ -120,7 +120,7 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
                 getView().setVisitButtonOverdueStatus();
             }
             if(childVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.LESS_TWENTY_FOUR.name())){
-                getView().setVisitLessTwentyFourView(childVisit.getLastVisitMonth());
+                getView().setVisitLessTwentyFourView(childVisit.getLastVisitMonthName());
             }
             if(childVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.VISIT_THIS_MONTH.name())){
                 getView().setVisitAboveTwentyFourView();

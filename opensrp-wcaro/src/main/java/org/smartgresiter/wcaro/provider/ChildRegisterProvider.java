@@ -141,7 +141,7 @@ public class ChildRegisterProvider implements RecyclerViewProvider<ChildRegister
                 String dobString = Utils.getDuration(Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.DOB, false));
 
                 ChildVisit childVisit=ChildUtils.getChildVisitStatus(dobString,lastVisit,visitNot);
-               // Log.v("CHILD_VISIT_STATUS","populateLastColumn>>"+childVisit.getVisitStatus());
+                //Log.v("CHILD_VISIT_STATUS","populateLastColumn>>"+childVisit.getVisitStatus());
                 if(childVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.DUE.name())){
                     setVisitButtonDueStatus(viewHolder.dueButton);
                 }
