@@ -116,14 +116,6 @@
         }
       },
       {
-        "key": "gender",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person",
-        "openmrs_entity_id": "gender",
-        "type": "hidden",
-        "value": "female"
-      },
-      {
         "key": "dob",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person",
@@ -204,21 +196,32 @@
         }
       },
       {
-        "key": "home_address",
+        "key": "sex",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "home_address",
-        "openmrs_data_type": "text",
-        "type": "edit_text",
-        "hint": "Home address *",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "gender",
+        "type": "spinner",
+        "hint": "Sex *",
+        "values": [
+          "Male",
+          "Female"
+        ],
         "v_required": {
           "value": "true",
-          "err": "Please enter the home address"
-        },
-        "v_regex": {
-          "value": "[A-Za-z0-9\\s\.\-]*",
-          "err": "Please enter a valid name"
+          "err": "Please enter the sex"
         }
+      },
+      {
+        "key": "primary_caregiver",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "spinner",
+        "hint": "Is primary caregiver?",
+        "values": [
+          "Yes",
+          "No"
+        ]
       },
       {
         "key": "phone_number",
@@ -226,18 +229,34 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "159635AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "edit_text",
-        "hint": "Mobile phone number *",
+        "hint": "Phone number *",
         "v_numeric": {
           "value": "true",
           "err": "Number must be a total of 10 digits in length"
         },
         "v_regex": {
-          "value": "([0-9]{10})|\s*",
-          "err": "Number must be a total of 10 digits in length"
+          "value": "(0[0-9]{9})|\s*",
+          "err": "Number must be 10 digits and must start with 0."
         },
         "v_required": {
           "value": true,
           "err": "Please specify the phone number"
+        }
+      },
+      {
+        "key": "other_phone_number",
+        "openmrs_entity_parent": "159635AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "edit_text",
+        "hint": "Other phone number",
+        "v_numeric": {
+          "value": "true",
+          "err": "Number must be a total of 10 digits in length"
+        },
+        "v_regex": {
+          "value": "(0[0-9]{9})|\s*",
+          "err": "Number must be 10 digits and must start with 0."
         }
       }
     ]
