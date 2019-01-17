@@ -2,17 +2,26 @@ package org.smartgresiter.wcaro.interactor;
 
 import android.database.Cursor;
 import android.support.annotation.VisibleForTesting;
+import android.text.TextUtils;
 import android.util.Log;
 import android.util.Pair;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;
+import org.joda.time.DateTime;
 import org.json.JSONObject;
 import org.smartgresiter.wcaro.application.WcaroApplication;
 import org.smartgresiter.wcaro.contract.ChildProfileContract;
+import org.smartgresiter.wcaro.listener.FamilyMemberImmunizationListener;
+import org.smartgresiter.wcaro.listener.ImmunizationStateChangeListener;
+import org.smartgresiter.wcaro.task.FamilyMemberVaccinationAsyncTask;
+import org.smartgresiter.wcaro.task.VaccinationAsyncTask;
 import org.smartgresiter.wcaro.util.ChildDBConstants;
+import org.smartgresiter.wcaro.util.ChildHomeVisit;
+import org.smartgresiter.wcaro.util.ChildService;
 import org.smartgresiter.wcaro.util.ChildUtils;
 import org.smartgresiter.wcaro.util.ChildVisit;
+import org.smartgresiter.wcaro.util.ImmunizationState;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.CommonPersonObject;
@@ -26,20 +35,32 @@ import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
+import org.smartregister.immunization.db.VaccineRepo;
+import org.smartregister.immunization.domain.Vaccine;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.repository.UniqueIdRepository;
 import org.smartregister.sync.ClientProcessorForJava;
 import org.smartregister.sync.helper.ECSyncHelper;
+import org.smartregister.util.DateUtil;
 
 import java.util.Date;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
+import static org.smartgresiter.wcaro.util.Constants.IMMUNIZATION_CONSTANT.DATE;
+import static org.smartgresiter.wcaro.util.Constants.IMMUNIZATION_CONSTANT.VACCINE;
+import static org.smartregister.util.Utils.startAsyncTask;
 
 public class ChildProfileInteractor implements ChildProfileContract.Interactor {
     public static final String TAG = ChildProfileInteractor.class.getName();
     private AppExecutors appExecutors;
     private CommonPersonObjectClient pClient;
     private String familyId;
-
+    private FamilyMemberVaccinationAsyncTask familyMemberVaccinationAsyncTask;
+    private Map<String, Date> vaccineList;
+    private String serviceDueStatus=FamilyServiceType.NOTHING.name();
     @VisibleForTesting
     ChildProfileInteractor(AppExecutors appExecutors) {
         this.appExecutors = appExecutors;
@@ -53,6 +74,9 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
     }
     public String getFamilyId(){
         return familyId;
+    }
+    public Map<String, Date> getVaccineList(){
+        return vaccineList;
     }
 
     public AllSharedPreferences getAllSharedPreferences() {
@@ -129,9 +153,18 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
     }
 
     @Override
-    public void refreshChildVisitBar(String baseEntityId, final ChildProfileContract.InteractorCallBack callback) {
+    public void updateVisitNotDone(long value) {
+        ChildUtils.updateClientStatusAsEvent(getpClient().entityId(),"Visit not done","visit_not_done",""+value,"ec_child");
 
-      final   ChildVisit childVisit=ChildUtils.getChildVisitStatus(getCommonRepository(org.smartgresiter.wcaro.util.Constants.TABLE_NAME.CHILD),baseEntityId);
+    }
+
+    @Override
+    public void refreshChildVisitBar(String baseEntityId, final ChildProfileContract.InteractorCallBack callback) {
+        ChildHomeVisit childHomeVisit=ChildUtils.getLastHomeVisit(org.smartgresiter.wcaro.util.Constants.TABLE_NAME.CHILD,baseEntityId);
+
+        String dobString = Utils.getDuration(Utils.getValue(pClient.getColumnmaps(), DBConstants.KEY.DOB, false));
+
+        final   ChildVisit childVisit=ChildUtils.getChildVisitStatus(dobString,childHomeVisit.getLastHomeVisitDate(),childHomeVisit.getVisitNotDoneDate());
 
        Runnable runnable=new Runnable() {
            @Override
@@ -146,22 +179,73 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
        };
         appExecutors.diskIO().execute(runnable);
     }
-
     @Override
     public void refreshFamilyMemberServiceDue(String familyId,String baseEntityId,final ChildProfileContract.InteractorCallBack callback) {
-        final String serviceDueStatus=FamilyServiceType.NOTHING.name();//comes from database query
-        Runnable runnable=new Runnable() {
+        if(getpClient()==null) return;
+//        if(familyMemberVaccinationAsyncTask!=null && !familyMemberVaccinationAsyncTask.isCancelled()){
+//            familyMemberVaccinationAsyncTask.cancel(true);
+//        }
+        familyMemberVaccinationAsyncTask=new FamilyMemberVaccinationAsyncTask(baseEntityId, familyId,new FamilyMemberImmunizationListener() {
             @Override
-            public void run() {
-                appExecutors.mainThread().execute(new Runnable() {
+            public void onFamilyMemberState(ImmunizationState state) {
+
+                if(state.equals(ImmunizationState.DUE)) {
+                    serviceDueStatus=FamilyServiceType.DUE.name();
+                }else if(state.equals(ImmunizationState.OVERDUE)){
+                    serviceDueStatus=FamilyServiceType.OVERDUE.name();
+                }else {
+                    serviceDueStatus=FamilyServiceType.NOTHING.name();
+                }
+                Runnable runnable=new Runnable() {
                     @Override
                     public void run() {
-                        callback.updateFamilyMemberServiceDue(serviceDueStatus);
+                        appExecutors.mainThread().execute(new Runnable() {
+                            @Override
+                            public void run() {
+                                callback.updateFamilyMemberServiceDue(serviceDueStatus);
+                            }
+                        });
                     }
-                });
+                };
+                appExecutors.diskIO().execute(runnable);
+
             }
-        };
-        appExecutors.diskIO().execute(runnable);
+
+            @Override
+            public void onSelfStatus(Map<String, Date> vaccines, Map<String, Object> nv, ImmunizationState state) {
+                vaccineList=vaccines;
+                VaccineRepo.Vaccine vaccine = (VaccineRepo.Vaccine) nv.get(VACCINE);
+                final ChildService childService=new ChildService();
+                childService.setServiceName(vaccine.display());
+                DateTime dueDate = (DateTime) nv.get(DATE);
+                String duedateString = DateUtil.formatDate(dueDate.toLocalDate(),"dd MMM yyyy");
+                childService.setServiceDate(duedateString);
+                if(state.equals(ImmunizationState.DUE)) {
+                    childService.setServiceStatus(ServiceType.DUE.name());
+                }else if(state.equals(ImmunizationState.OVERDUE)){
+                    childService.setServiceStatus(ServiceType.OVERDUE.name());
+                }else {
+                    childService.setServiceStatus(ServiceType.UPCOMING.name());
+                }
+                Runnable runnable=new Runnable() {
+                    @Override
+                    public void run() {
+                        appExecutors.mainThread().execute(new Runnable() {
+                            @Override
+                            public void run() {
+                                callback.updateChildService(childService);
+                            }
+                        });
+                    }
+                };
+                appExecutors.diskIO().execute(runnable);
+            }
+
+
+        });
+
+        startAsyncTask(familyMemberVaccinationAsyncTask,null);
+
     }
 
     @Override
@@ -244,7 +328,7 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
     public void onDestroy(boolean isChangingConfiguration) {
 
     }
-    public enum VisitType {DUE, OVERDUE,LESS_TWENTY_FOUR,OVER_TWENTY_FOUR}
+    public enum VisitType {DUE, OVERDUE,LESS_TWENTY_FOUR, VISIT_THIS_MONTH,NOT_VISIT_THIS_MONTH,EXPIRY}
     public enum ServiceType {DUE, OVERDUE, UPCOMING}
     public enum FamilyServiceType {DUE, OVERDUE, NOTHING}
 }

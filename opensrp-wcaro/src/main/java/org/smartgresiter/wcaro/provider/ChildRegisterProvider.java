@@ -3,16 +3,19 @@ package org.smartgresiter.wcaro.provider;
 import android.content.Context;
 import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.text.WordUtils;
 import org.smartgresiter.wcaro.R;
+import org.smartgresiter.wcaro.interactor.ChildProfileInteractor;
 import org.smartgresiter.wcaro.util.ChildDBConstants;
+import org.smartgresiter.wcaro.util.ChildUtils;
+import org.smartgresiter.wcaro.util.ChildVisit;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
@@ -52,7 +55,6 @@ public class ChildRegisterProvider implements RecyclerViewProvider<ChildRegister
 
         this.onClickListener = onClickListener;
         this.paginationClickListener = paginationClickListener;
-
         this.context = context;
         this.commonRepository = commonRepository;
     }
@@ -93,7 +95,7 @@ public class ChildRegisterProvider implements RecyclerViewProvider<ChildRegister
 
         String parentFirstName = Utils.getValue(pc.getColumnmaps(), ChildDBConstants.KEY.FAMILY_FIRST_NAME, true);
         String parentLastName = Utils.getValue(pc.getColumnmaps(), ChildDBConstants.KEY.FAMILY_LAST_NAME, true);
-        String parentName = "CG:" + org.smartregister.util.Utils.getName(parentFirstName, parentLastName);
+        String parentName = "CG: " + org.smartregister.util.Utils.getName(parentFirstName, parentLastName);
         String firstName = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.FIRST_NAME, true);
         String lastName = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.LAST_NAME, true);
         String childName = org.smartregister.util.Utils.getName(firstName, lastName);
@@ -102,10 +104,10 @@ public class ChildRegisterProvider implements RecyclerViewProvider<ChildRegister
 
         String dobString = Utils.getDuration(Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.DOB, false));
         //dobString = dobString.contains("y") ? dobString.substring(0, dobString.indexOf("y")) : dobString;
-        fillValue(viewHolder.textViewChildName, WordUtils.capitalize(childName) + "," + WordUtils.capitalize(dobString));
+        fillValue(viewHolder.textViewChildName, WordUtils.capitalize(childName) + ", " + WordUtils.capitalize(dobString));
         String address = Utils.getValue(pc.getColumnmaps(), ChildDBConstants.KEY.FAMILY_HOME_ADDRESS, true);
         String gender = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.GENDER, true);
-        fillValue(viewHolder.textViewAddressGender, address + " ." + gender);
+        fillValue(viewHolder.textViewAddressGender, address + " . " + gender);
 
         View patient = viewHolder.childColumn;
         attachPatientOnclickListener(patient, client);
@@ -127,22 +129,76 @@ public class ChildRegisterProvider implements RecyclerViewProvider<ChildRegister
             CommonPersonObject commonPersonObject = commonRepository.findByBaseEntityId(pc.entityId());
             if (commonPersonObject != null) {
                 viewHolder.dueButton.setVisibility(View.VISIBLE);
-                viewHolder.dueButton.setText("Due\n02/05/2019");
-
-                String ga = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.CONTACT_STATUS, false);
-
-                if (StringUtils.isNotBlank(ga)) {
-
-                    viewHolder.dueButton.setBackgroundColor(context.getResources().getColor(R.color.progress_orange));
-                    viewHolder.dueButton.setTextColor(context.getResources().getColor(R.color.white));
+                String lastVisitDate= Utils.getValue(pc.getColumnmaps(), ChildDBConstants.KEY.LAST_HOME_VISIT, false);
+                String visitNotDone=Utils.getValue(pc.getColumnmaps(), ChildDBConstants.KEY.VISIT_NOT_DONE, false);
+                long lastVisit=0,visitNot=0;
+                if(!TextUtils.isEmpty(lastVisitDate)){
+                    lastVisit=Long.parseLong(lastVisitDate);
                 }
+                if(!TextUtils.isEmpty(visitNotDone)){
+                    visitNot=Long.parseLong(visitNotDone);
+                }
+                String dobString = Utils.getDuration(Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.DOB, false));
 
-                //updateDoseButton();
+                ChildVisit childVisit=ChildUtils.getChildVisitStatus(dobString,lastVisit,visitNot);
+                //Log.v("CHILD_VISIT_STATUS","populateLastColumn>>"+childVisit.getVisitStatus());
+                if(childVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.DUE.name())){
+                    setVisitButtonDueStatus(viewHolder.dueButton);
+                }
+                else if(childVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.OVERDUE.name())){
+                   setVisitButtonOverdueStatus(viewHolder.dueButton,childVisit.getNoOfMonthDue());
+                }
+                else if(childVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.LESS_TWENTY_FOUR.name())){
+                    setVisitLessTwentyFourView(viewHolder.dueButton,childVisit.getLastVisitDays());
+                }
+                else if(childVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.VISIT_THIS_MONTH.name())){
+                    setVisitAboveTwentyFourView(viewHolder.dueButton);
+                }
+                else if(childVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.NOT_VISIT_THIS_MONTH.name())){
+                    setVisitNotDone(viewHolder.dueButton);
+                }
             } else {
                 viewHolder.dueButton.setVisibility(View.GONE);
                 //attachSyncOnclickListener(viewHolder.sync, pc);
             }
         }
+    }
+
+    private void setVisitNotDone(Button dueButton) {
+        dueButton.setTextColor(context.getResources().getColor(R.color.progress_orange));
+        dueButton.setText(context.getString(R.string.visit_not_done));
+        dueButton.setBackgroundResource(R.drawable.white_btn_selector);
+        dueButton.setOnClickListener(null);
+    }
+
+    private void setVisitAboveTwentyFourView(Button dueButton) {
+        dueButton.setTextColor(context.getResources().getColor(R.color.alert_complete_green));
+        dueButton.setText(context.getString(R.string.visit_done));
+        dueButton.setBackgroundResource(R.drawable.white_btn_selector);
+        dueButton.setOnClickListener(null);
+    }
+
+    private void setVisitLessTwentyFourView(Button dueButton, String lastVisitMonth) {
+        setVisitAboveTwentyFourView(dueButton);
+    }
+
+    private void setVisitButtonOverdueStatus(Button dueButton,String lastVisitDays) {
+        dueButton.setTextColor(context.getResources().getColor(R.color.white));
+        if(TextUtils.isEmpty(lastVisitDays)){
+            dueButton.setText(context.getString(R.string.record_visit));
+        }else{
+            dueButton.setText(context.getString(R.string.due_visit,lastVisitDays));
+        }
+
+        dueButton.setBackgroundResource(R.drawable.red_btn_selector);
+        dueButton.setOnClickListener(onClickListener);
+    }
+
+    private void setVisitButtonDueStatus(Button dueButton) {
+        dueButton.setTextColor(context.getResources().getColor(R.color.alert_in_progress_blue));
+        dueButton.setText(context.getString(R.string.record_home_visit));
+        dueButton.setBackgroundResource(R.drawable.blue_btn_selector);
+        dueButton.setOnClickListener(onClickListener);
     }
 
     private void attachPatientOnclickListener(View view, SmartRegisterClient client) {

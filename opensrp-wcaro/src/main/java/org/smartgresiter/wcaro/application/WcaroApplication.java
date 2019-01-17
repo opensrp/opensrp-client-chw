@@ -9,6 +9,7 @@ import com.vijay.jsonwizard.activities.JsonWizardFormActivity;
 import org.smartgresiter.wcaro.BuildConfig;
 import org.smartgresiter.wcaro.activity.FamilyProfileActivity;
 import org.smartgresiter.wcaro.activity.LoginActivity;
+import org.smartgresiter.wcaro.helper.RulesEngineHelper;
 import org.smartgresiter.wcaro.job.WcaroJobCreator;
 import org.smartgresiter.wcaro.repository.WcaroRepository;
 import org.smartgresiter.wcaro.util.Constants;
@@ -89,7 +90,7 @@ public class WcaroApplication extends DrishtiApplication {
         }
         return null;
     }
-
+    private RulesEngineHelper rulesEngineHelper;
     @Override
     public void onCreate() {
         super.onCreate();
@@ -116,7 +117,7 @@ public class WcaroApplication extends DrishtiApplication {
         JobManager.create(this).addJobCreator(new WcaroJobCreator());
 
         // TODO FIXME remove when login is implemented
-        //sampleUniqueIds();
+        sampleUniqueIds();
 
         initOfflineSchedules();
     }
@@ -179,6 +180,12 @@ public class WcaroApplication extends DrishtiApplication {
         return ImmunizationLibrary.getInstance().vaccineRepository();
     }
 
+    public RulesEngineHelper getRulesEngineHelper() {
+        if (rulesEngineHelper == null) {
+            rulesEngineHelper = new RulesEngineHelper(getApplicationContext());
+        }
+        return rulesEngineHelper;
+    }
     public void initOfflineSchedules() {
         try {
             List<VaccineGroup> childVaccines = VaccinatorUtils.getSupportedVaccines(this);

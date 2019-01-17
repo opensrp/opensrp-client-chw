@@ -1,5 +1,6 @@
 package org.smartgresiter.wcaro.fragment;
 
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.v7.widget.Toolbar;
@@ -16,6 +17,7 @@ import org.smartgresiter.wcaro.activity.ChildRegisterActivity;
 import org.smartgresiter.wcaro.contract.ChildRegisterFragmentContract;
 import org.smartgresiter.wcaro.custom_view.NavigationMenu;
 import org.smartgresiter.wcaro.model.ChildRegisterFragmentModel;
+import org.smartgresiter.wcaro.presenter.ChildProfilePresenter;
 import org.smartgresiter.wcaro.presenter.ChildRegisterFragmentPresenter;
 import org.smartgresiter.wcaro.provider.ChildRegisterProvider;
 import org.smartgresiter.wcaro.util.Constants;
@@ -185,7 +187,11 @@ public class ChildRegisterFragment extends BaseRegisterFragment implements Child
             String baseEntityId = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, true);
 
             if (StringUtils.isNotBlank(baseEntityId)) {
-                // TODO Proceed to dose status
+                ChildHomeVisitFragment childHomeVisitFragment = ChildHomeVisitFragment.newInstance();
+                childHomeVisitFragment.setContext(getActivity());
+                childHomeVisitFragment.setChildClient(pc);
+//                childHomeVisitFragment.setFamilyBaseEntityId(getFamilyBaseEntityId());
+                childHomeVisitFragment.show(getActivity().getFragmentManager(),ChildHomeVisitFragment.DIALOG_TAG);
             }
         } else if (view.getId() == R.id.due_only_layout) {
             TextView dueOnlyTextView = dueOnlyLayout.findViewById(R.id.due_only_text_view);

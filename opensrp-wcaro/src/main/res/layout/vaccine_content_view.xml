@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:layout_width="match_parent"
+    android:layout_marginTop="5dp"
+    android:paddingLeft="20dp"
+    android:layout_height="wrap_content">
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:background="@color/alert_complete_green"
+        />
+    <org.smartregister.view.customcontrols.CustomFontTextView
+        android:id="@+id/name_date_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
+        android:textColor="@color/black"
+        android:padding="10dp"
+        android:textSize="18sp"/>
+
+</LinearLayout>
