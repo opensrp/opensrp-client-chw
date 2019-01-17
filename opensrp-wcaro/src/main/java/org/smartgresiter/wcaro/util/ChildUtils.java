@@ -1,9 +1,11 @@
 package org.smartgresiter.wcaro.util;
 
 import android.annotation.SuppressLint;
+import android.database.Cursor;
 import android.os.Build;
 import android.text.Html;
 import android.text.Spanned;
+import android.text.TextUtils;
 import android.util.Log;
 
 import org.apache.commons.lang3.StringUtils;
@@ -16,6 +18,7 @@ import org.smartregister.clientandeventmodel.Obs;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.family.FamilyLibrary;
 import org.smartregister.family.util.DBConstants;
+import org.smartregister.family.util.Utils;
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.sync.helper.ECSyncHelper;
 
@@ -118,11 +121,34 @@ public class ChildUtils {
         String query=queryBUilder.mainCondition(tableName+"."+DBConstants.KEY.RELATIONAL_ID+" = '"+familyId+"'");
         return query;
     }
-    public static String getLastHomeVisit(String tableName,String childId){
+    public static ChildHomeVisit getLastHomeVisit(String tableName,String childId){
         SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
         queryBUilder.SelectInitiateMainTable(tableName,new String[]{ChildDBConstants.KEY.LAST_HOME_VISIT,ChildDBConstants.KEY.VISIT_NOT_DONE});
         String query=queryBUilder.mainCondition(tableName+"."+DBConstants.KEY.BASE_ENTITY_ID+" = '"+childId+"'");
-        return query;
+
+        ChildHomeVisit childHomeVisit=new ChildHomeVisit();
+        Cursor cursor=Utils.context().commonrepository(org.smartgresiter.wcaro.util.Constants.TABLE_NAME.CHILD).queryTable(query);
+        if(cursor!=null && cursor.moveToFirst()){
+            String lastVisitStr=cursor.getString(1);
+            if(!TextUtils.isEmpty(lastVisitStr)) {
+                try {
+                    childHomeVisit.setLastHomeVisitDate(Long.parseLong(lastVisitStr));
+                } catch (Exception e) {
+
+                }
+            }
+            String visitNotDoneStr=cursor.getString(2);
+            if(!TextUtils.isEmpty(visitNotDoneStr)) {
+                try {
+                    childHomeVisit.setVisitNotDoneDate(Long.parseLong(visitNotDoneStr));
+                } catch (Exception e) {
+
+                }
+            }
+            cursor.close();
+        }
+
+        return childHomeVisit;
     }
     private static String[] mainColumns(String tableName,String familyTable,String familyMemberTable) {
 
@@ -142,7 +168,7 @@ public class ChildUtils {
                 tableName + "." + ChildDBConstants.KEY.VISIT_NOT_DONE};
         return columns;
     }
-    public static ChildVisit getChildVisitStatus(long lastVisitDate,long visitNotDate){
+    public static ChildVisit getChildVisitStatus(String dateOfBirth,long lastVisitDate,long visitNotDate){
         ChildVisit childVisit=new ChildVisit();
         childVisit.setLastVisitTime(lastVisitDate);
         childVisit.setVisitNotDone(ChildUtils.isSameMonth(visitNotDate));
@@ -157,9 +183,10 @@ public class ChildUtils {
         }else{
             childVisit.setLastVisitDays(diff/MILLI_SEC+" days");
         }
-        HomeAlertRule homeAlertRule=new HomeAlertRule(lastVisitDate,visitNotDate);
+        HomeAlertRule homeAlertRule=new HomeAlertRule(dateOfBirth,lastVisitDate,visitNotDate);
         String visitStatus=WcaroApplication.getInstance().getRulesEngineHelper().getButtonAlertStatus(homeAlertRule,Constants.RULE_FILE.HOME_VISIT);
         childVisit.setVisitStatus(visitStatus);
+        childVisit.setNoOfMonthDue(homeAlertRule.noOfMonthDue+"M");
         return childVisit;
 
 //        if(Calendar.getInstance().get(Calendar.DAY_OF_MONTH) == 1){

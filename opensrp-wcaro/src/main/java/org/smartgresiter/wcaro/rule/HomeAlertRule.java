@@ -20,8 +20,11 @@ public class HomeAlertRule {
     public  String lastVisitDate;
     public  String visitNotDoneValue;
     private LocalDate todayDate;
+    public int noOfMonthDue;
+    private String dob;
 
-    public HomeAlertRule(long lastVisitDateLong, long visitNotDoneValue) {
+    public HomeAlertRule(String dateOfBirthString,long lastVisitDateLong, long visitNotDoneValue) {
+        dob = dateOfBirthString.contains("y") ? dateOfBirthString.substring(0, dateOfBirthString.indexOf("y")) : "";
         this.lastVisitDate=(lastVisitDateLong==0)?"":ChildUtils.covertLongDateToDisplayDate(lastVisitDateLong);
 
         this.visitNotDoneValue = (visitNotDoneValue==0)?"":ChildUtils.covertLongDateToDisplayDate(visitNotDoneValue);;
@@ -32,19 +35,40 @@ public class HomeAlertRule {
     public String getButtonStatus() {
         return buttonStatus;
     }
+
+    public boolean isExpiry(Integer calYr){
+        if(!TextUtils.isEmpty(dob)){
+            if(Integer.parseInt(dob)>=calYr){
+                return true;
+            }
+        }
+        return false;
+
+    }
     public boolean isOverdueWithinMonth() {
 
         LocalDate lastVisit = new LocalDate(lastVisitDate);
-        LocalDate visitNotDone = new LocalDate(visitNotDoneValue);
+
         int diff=getMonthsDifference(lastVisit,todayDate);
-        if(diff>=2 && (visitNotDone.getMonthOfYear()==(todayDate.getMonthOfYear()-1))){
-            return true;
+        //Log.v("CHILD_VISIT_STATUS","isOverdueWithinMonth>>"+lastVisit.getMonthOfYear()+":diff:"+diff);
+        if(TextUtils.isEmpty(visitNotDoneValue)){
+         if(diff>=2){
+             noOfMonthDue=diff;
+             return true;
+         }
+
+        }else{
+            LocalDate visitNotDone = new LocalDate(visitNotDoneValue);
+            if(diff>=2 && (visitNotDone.getMonthOfYear()!=(todayDate.getMonthOfYear()-1))){
+                noOfMonthDue=diff;
+                return true;
+            }
         }
+
         return false;
     }
 
     public boolean isDueWithinMonth() {
-
         LocalDate lastVisit = new LocalDate(lastVisitDate);
         if(todayDate.getDayOfMonth()==1){
             return true;
@@ -71,6 +95,6 @@ public class HomeAlertRule {
     private static int getMonthsDifference(LocalDate date1, LocalDate date2) {
         int m1 = date1.getYear() * 12 + date1.getMonthOfYear();
         int m2 = date2.getYear() * 12 + date2.getMonthOfYear();
-        return m2 - m1 + 1;
+        return m2 - m1;
     }
 }

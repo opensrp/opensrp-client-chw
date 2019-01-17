@@ -138,12 +138,15 @@ public class ChildRegisterProvider implements RecyclerViewProvider<ChildRegister
                 if(!TextUtils.isEmpty(visitNotDone)){
                     visitNot=Long.parseLong(visitNotDone);
                 }
-                ChildVisit childVisit=ChildUtils.getChildVisitStatus(lastVisit,visitNot);
+                String dobString = Utils.getDuration(Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.DOB, false));
+
+                ChildVisit childVisit=ChildUtils.getChildVisitStatus(dobString,lastVisit,visitNot);
+               // Log.v("CHILD_VISIT_STATUS","populateLastColumn>>"+childVisit.getVisitStatus());
                 if(childVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.DUE.name())){
                     setVisitButtonDueStatus(viewHolder.dueButton);
                 }
                 else if(childVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.OVERDUE.name())){
-                   setVisitButtonOverdueStatus(viewHolder.dueButton,childVisit.getLastVisitDays());
+                   setVisitButtonOverdueStatus(viewHolder.dueButton,childVisit.getNoOfMonthDue());
                 }
                 else if(childVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.LESS_TWENTY_FOUR.name())){
                     setVisitLessTwentyFourView(viewHolder.dueButton,childVisit.getLastVisitDays());

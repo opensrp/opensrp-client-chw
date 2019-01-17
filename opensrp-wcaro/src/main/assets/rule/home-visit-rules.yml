@@ -1,4 +1,11 @@
 ---
+name: expiry
+description: expire dob greter then 5 yr
+priority: 1
+condition: "homeAlertRule.isExpiry(5)"
+actions:
+  - "homeAlertRule.buttonStatus = 'EXPIRY'"
+---
 name: visit_twenty_four
 description: visit within twenty four hours
 priority: 2
@@ -13,17 +20,18 @@ condition: "homeAlertRule.isVisitWithinThisMonth()"
 actions:
   - "homeAlertRule.buttonStatus = 'VISIT_THIS_MONTH'"
 ---
-name: due
-description: due first day of month and same month
-priority: 2
-condition: "homeAlertRule.isDueWithinMonth()"
-actions:
-  - "homeAlertRule.buttonStatus = 'DUE'"
----
 name: overdue
 description: previous month not visited
 priority: 2
 condition: "homeAlertRule.isOverdueWithinMonth()"
 actions:
   - "homeAlertRule.buttonStatus = 'OVERDUE'"
+---
+name: due
+description: due first day of month and same month
+priority: 3
+condition: "homeAlertRule.isDueWithinMonth()"
+actions:
+  - "homeAlertRule.buttonStatus = 'DUE'"
+
 

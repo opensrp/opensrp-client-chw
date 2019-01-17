@@ -7,6 +7,16 @@ public class ChildVisit {
     private String lastVisitDays;
     private boolean visitNotDone;
 
+    private String noOfMonthDue;
+
+
+    public String getNoOfMonthDue() {
+        return noOfMonthDue;
+    }
+
+    public void setNoOfMonthDue(String noOfMonthDue) {
+        this.noOfMonthDue = noOfMonthDue;
+    }
     public boolean isVisitNotDone() {
         return visitNotDone;
     }

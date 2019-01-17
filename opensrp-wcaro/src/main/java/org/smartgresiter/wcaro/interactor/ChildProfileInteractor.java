@@ -17,6 +17,7 @@ import org.smartgresiter.wcaro.listener.ImmunizationStateChangeListener;
 import org.smartgresiter.wcaro.task.FamilyMemberVaccinationAsyncTask;
 import org.smartgresiter.wcaro.task.VaccinationAsyncTask;
 import org.smartgresiter.wcaro.util.ChildDBConstants;
+import org.smartgresiter.wcaro.util.ChildHomeVisit;
 import org.smartgresiter.wcaro.util.ChildService;
 import org.smartgresiter.wcaro.util.ChildUtils;
 import org.smartgresiter.wcaro.util.ChildVisit;
@@ -159,30 +160,11 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
 
     @Override
     public void refreshChildVisitBar(String baseEntityId, final ChildProfileContract.InteractorCallBack callback) {
-        String query=ChildUtils.getLastHomeVisit(org.smartgresiter.wcaro.util.Constants.TABLE_NAME.CHILD,baseEntityId);
-        long lastVisit=0;
-        long visitNot=0;
-        Cursor cursor=getCommonRepository(org.smartgresiter.wcaro.util.Constants.TABLE_NAME.CHILD).queryTable(query);
-        if(cursor!=null && cursor.moveToFirst()){
-            String lastVisitStr=cursor.getString(1);
-            if(!TextUtils.isEmpty(lastVisitStr)) {
-                try {
-                    lastVisit = Long.parseLong(lastVisitStr);
-                } catch (Exception e) {
+        ChildHomeVisit childHomeVisit=ChildUtils.getLastHomeVisit(org.smartgresiter.wcaro.util.Constants.TABLE_NAME.CHILD,baseEntityId);
 
-                }
-            }
-            String visitNotDoneStr=cursor.getString(2);
-            if(!TextUtils.isEmpty(visitNotDoneStr)) {
-                try {
-                    visitNot = Long.parseLong(visitNotDoneStr);
-                } catch (Exception e) {
+        String dobString = Utils.getDuration(Utils.getValue(pClient.getColumnmaps(), DBConstants.KEY.DOB, false));
 
-                }
-            }
-            cursor.close();
-        }
-        final   ChildVisit childVisit=ChildUtils.getChildVisitStatus(lastVisit,visitNot);
+        final   ChildVisit childVisit=ChildUtils.getChildVisitStatus(dobString,childHomeVisit.getLastHomeVisitDate(),childHomeVisit.getVisitNotDoneDate());
 
        Runnable runnable=new Runnable() {
            @Override
@@ -200,7 +182,6 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
     @Override
     public void refreshFamilyMemberServiceDue(String familyId,String baseEntityId,final ChildProfileContract.InteractorCallBack callback) {
         if(getpClient()==null) return;
-        Log.v("PROFILE_UPDATE","refreshFamilyMemberServiceDue");
 //        if(familyMemberVaccinationAsyncTask!=null && !familyMemberVaccinationAsyncTask.isCancelled()){
 //            familyMemberVaccinationAsyncTask.cancel(true);
 //        }
@@ -347,7 +328,7 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
     public void onDestroy(boolean isChangingConfiguration) {
 
     }
-    public enum VisitType {DUE, OVERDUE,LESS_TWENTY_FOUR, VISIT_THIS_MONTH,NOT_VISIT_THIS_MONTH}
+    public enum VisitType {DUE, OVERDUE,LESS_TWENTY_FOUR, VISIT_THIS_MONTH,NOT_VISIT_THIS_MONTH,EXPIRY}
     public enum ServiceType {DUE, OVERDUE, UPCOMING}
     public enum FamilyServiceType {DUE, OVERDUE, NOTHING}
 }
