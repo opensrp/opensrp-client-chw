@@ -15,13 +15,13 @@ public interface FamilyRemoveMemberContract {
 
         void processMember(Map<String, String> familyDetails, CommonPersonObjectClient client);
 
-        void removeEveryone();
+        void removeEveryone(String details);
 
         void onFamilyRemoved(Boolean success);
 
         void processRemoveForm(JSONObject jsonObject);
 
-        void memberRemoved();
+        void memberRemoved(String removalType);
 
     }
 
@@ -33,13 +33,13 @@ public interface FamilyRemoveMemberContract {
 
         void displayChangeCareGiverDialog(CommonPersonObjectClient client, String careGiverID);
 
-        void closeFamily();
+        void closeFamily(String details);
 
         void goToPrevious();
 
         void startJsonActivity(JSONObject form);
 
-        void onMemberRemoved();
+        void onMemberRemoved(String removalType);
 
         void onEveryoneRemoved();
     }
@@ -47,8 +47,6 @@ public interface FamilyRemoveMemberContract {
     interface Interactor {
 
         void removeMember(String familyID, String lastLocationId, JSONObject exitForm, Presenter presenter);
-
-        void removeFamily(String familyID, String lastLocationId, Presenter presenter);
 
         void processFamilyMember(String familyID, CommonPersonObjectClient client, Presenter presenter);
 
@@ -58,6 +56,8 @@ public interface FamilyRemoveMemberContract {
     interface Model extends FamilyProfileMemberContract.Model {
 
         JSONObject prepareJsonForm(CommonPersonObjectClient client, String formType);
+
+        JSONObject prepareFamilyRemovalForm(String familyID, String details);
 
     }
 

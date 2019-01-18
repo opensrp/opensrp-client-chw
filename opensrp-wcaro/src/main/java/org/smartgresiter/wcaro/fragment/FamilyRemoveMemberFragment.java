@@ -106,9 +106,9 @@ public class FamilyRemoveMemberFragment extends BaseFamilyProfileMemberFragment 
     }
 
     @Override
-    public void closeFamily() {
+    public void closeFamily(String details) {
 
-        getPresenter().removeEveryone();
+        getPresenter().removeEveryone(details);
 
     }
 
@@ -134,25 +134,17 @@ public class FamilyRemoveMemberFragment extends BaseFamilyProfileMemberFragment 
     }
 
     @Override
-    public void onMemberRemoved() {
+    public void onMemberRemoved(String removalType) {
         // display alert
-        getActivity().finish();
-        /**
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setMessage("Member has been removed");
-        builder.setCancelable(true);
-
-        builder.setPositiveButton(
-                "Dismiss",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                    }
-                });
-
-        AlertDialog alert11 = builder.create();
-        alert11.show();
-         **/
+        if(getActivity() != null){
+            if(org.smartgresiter.wcaro.util.Constants.EventType.REMOVE_FAMILY.equalsIgnoreCase(removalType)){
+                Intent intent = new Intent(getActivity(), FamilyRegisterActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+            }else{
+                getActivity().finish();
+            }
+        }
     }
 
     @Override
@@ -177,7 +169,7 @@ public class FamilyRemoveMemberFragment extends BaseFamilyProfileMemberFragment 
         @Override
         public void onClick(android.view.View v) {
 
-            closeFamily();
+            closeFamily((String) v.getTag());
             Toast.makeText(getContext(), "Removing entire family", Toast.LENGTH_SHORT).show();
         }
     }

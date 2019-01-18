@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.support.annotation.VisibleForTesting;
 import android.util.Log;
+import android.util.Pair;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;
@@ -18,11 +19,9 @@ import org.smartregister.commonregistry.AllCommonsRepository;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
-import org.smartregister.family.FamilyLibrary;
 import org.smartregister.family.util.AppExecutors;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.Utils;
-import org.smartregister.repository.BaseRepository;
 import org.smartregister.sync.helper.ECSyncHelper;
 
 import java.text.SimpleDateFormat;
@@ -62,18 +61,20 @@ public class FamilyRemoveMemberInteractor implements FamilyRemoveMemberContract.
             public void run() {
 
                 Boolean res = true;
+                String value = null;
                 // process the json object
                 try {
-                    removeMember(familyID, exitForm, lastLocationId);
+                    value = removeUser(familyID, exitForm, lastLocationId);
                 } catch (Exception e) {
                     res = false;
                     e.printStackTrace();
                 }
 
+                final String finalValue = value;
                 appExecutors.mainThread().execute(new Runnable() {
                     @Override
                     public void run() {
-                        presenter.memberRemoved();
+                        presenter.memberRemoved(finalValue);
                     }
                 });
             }
@@ -81,28 +82,6 @@ public class FamilyRemoveMemberInteractor implements FamilyRemoveMemberContract.
 
         appExecutors.diskIO().execute(runnable);
 
-    }
-
-    @Override
-    public void removeFamily(final String familyID, final String lastLocationId, final FamilyRemoveMemberContract.Presenter presenter) {
-
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                final Boolean success = false;
-                // close all members
-                // close family
-
-                appExecutors.mainThread().execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        presenter.onFamilyRemoved(success);
-                    }
-                });
-            }
-        };
-
-        appExecutors.diskIO().execute(runnable);
     }
 
     @Override
@@ -207,7 +186,7 @@ public class FamilyRemoveMemberInteractor implements FamilyRemoveMemberContract.
 
         Integer count = null;
         Cursor c = null;
-        String mainCondition = String.format(" %s = '%s'", DBConstants.KEY.RELATIONAL_ID, familyID);
+        String mainCondition = String.format(" %s = '%s' and %s is null ", DBConstants.KEY.RELATIONAL_ID, familyID, DBConstants.KEY.DATE_REMOVED);
         try {
 
             SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder();
@@ -240,42 +219,30 @@ public class FamilyRemoveMemberInteractor implements FamilyRemoveMemberContract.
         return WcaroApplication.getInstance().getContext().commonrepository(tableName);
     }
 
-    private void removeMember(String familyID, JSONObject closeFormJsonString, String providerId) throws Exception {
-        // create events
-        Triple<Date, String, List<Event>> triple = JsonFormUtils.processRemoveMemberEvent(familyID, Utils.getAllSharedPreferences(), closeFormJsonString, providerId);
-        // delete from local repo
+    private String removeUser(String familyID, JSONObject closeFormJsonString, String providerId) throws Exception {
+
+        Triple<Pair<Date, String>, String, List<Event>> triple = JsonFormUtils.processRemoveMemberEvent(familyID, Utils.getAllSharedPreferences(), closeFormJsonString, providerId);
         if (triple != null) {
-            if (triple.getRight() != null) {
+            if (triple.getLeft() != null) {
+
                 processEvents(triple.getRight());
+
+
+                if (triple.getLeft().second.equalsIgnoreCase(Constants.EventType.REMOVE_CHILD)) {
+                    updateRepo(triple, Utils.metadata().familyMemberRegister.tableName);
+                    updateRepo(triple, Constants.TABLE_NAME.CHILD);
+                } else if (triple.getLeft().second.equalsIgnoreCase(Constants.EventType.REMOVE_FAMILY)) {
+                    updateRepo(triple, Utils.metadata().familyRegister.tableName);
+                } else {
+                    updateRepo(triple, Utils.metadata().familyMemberRegister.tableName);
+                }
+                return triple.getLeft().second;
             }
-            updateRepo(triple, Utils.metadata().familyMemberRegister.tableName);
         }
+        return null;
     }
 
-    private void removeChild(String familyID, JSONObject closeFormJsonString, String providerId) throws Exception {
-        Triple<Date, String, List<Event>> triple = JsonFormUtils.processRemoveMemberEvent(familyID, Utils.getAllSharedPreferences(), closeFormJsonString, providerId);
-        // delete from local repo
-        if (triple != null) {
-            if (triple.getRight() != null) {
-                processEvents(triple.getRight());
-            }
-            updateRepo(triple, Utils.metadata().familyMemberRegister.tableName);
-            updateRepo(triple, Constants.TABLE_NAME.CHILD);
-        }
-    }
-
-    private void removeFamily(String familyID, JSONObject closeFormJsonString, String providerId) throws Exception {
-        Triple<Date, String, List<Event>> triple = JsonFormUtils.processRemoveMemberEvent(familyID, Utils.getAllSharedPreferences(), closeFormJsonString, providerId);
-        // delete from local repo
-        if (triple != null) {
-            if (triple.getRight() != null) {
-                processEvents(triple.getRight());
-            }
-            updateRepo(triple, Utils.metadata().familyRegister.tableName);
-        }
-    }
-
-    private void updateRepo(Triple<Date, String, List<Event>> triple, String tableName){
+    private void updateRepo(Triple<Pair<Date, String>, String, List<Event>> triple, String tableName) {
         AllCommonsRepository commonsRepository = WcaroApplication.getInstance().getAllCommonsRepository(tableName);
 
         if (commonsRepository != null) {
@@ -286,9 +253,9 @@ public class FamilyRemoveMemberInteractor implements FamilyRemoveMemberContract.
         }
 
         // enter the date of death
-        if (triple.getLeft() != null && commonsRepository != null) {
+        if (triple.getLeft() != null && triple.getLeft().first != null && commonsRepository != null) {
             ContentValues values = new ContentValues();
-            values.put(DBConstants.KEY.DOD, getDBFormatedDate(triple.getLeft()));
+            values.put(DBConstants.KEY.DOD, getDBFormatedDate(triple.getLeft().first));
             commonsRepository.update(tableName, values, triple.getMiddle());
             commonsRepository.updateSearch(triple.getMiddle());
         }

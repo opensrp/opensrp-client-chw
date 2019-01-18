@@ -56,6 +56,7 @@ public class FamilyRemoveMemberProvider extends FamilyMemberRegisterProvider {
                     int adults = members - children;
                     footerViewHolder.hint.setText(
                             String.format("%s adults and %s U5 children", String.valueOf(adults), String.valueOf(children)));
+                    footerViewHolder.view.setTag(String.format("%s adults and %s U5 children", String.valueOf(adults), String.valueOf(children)));
                 }
             }
 

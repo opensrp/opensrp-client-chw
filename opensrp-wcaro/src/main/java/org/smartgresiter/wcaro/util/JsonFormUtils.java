@@ -5,6 +5,8 @@ import android.graphics.Bitmap;
 import android.util.Log;
 import android.util.Pair;
 
+import com.google.gson.JsonObject;
+
 import net.sqlcipher.database.SQLiteDatabase;
 
 import org.apache.commons.lang3.StringUtils;
@@ -493,7 +495,7 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
      * @param providerId
      * @return Returns a triple object <b>DateOfDeath as String, BaseEntityID , List of Events </b>that should be processed
      */
-    public static Triple<Date, String, List<Event>> processRemoveMemberEvent(String familyID, AllSharedPreferences allSharedPreferences, JSONObject jsonObject, String providerId) {
+    public static Triple<Pair<Date,String>, String, List<Event>> processRemoveMemberEvent(String familyID, AllSharedPreferences allSharedPreferences, JSONObject jsonObject, String providerId) {
 
         try {
 
@@ -538,14 +540,31 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
                 x++;
             }
 
-            Event eventMember = JsonFormUtils.createEvent(fields, metadata, formTag, memberID, Utils.metadata().familyMemberRegister.updateEventType,
-                    Utils.metadata().familyMemberRegister.tableName);
+            String encounterType = getString(jsonObject, ENCOUNTER_TYPE);
+
+            String eventType;
+            String tableName;
+
+            if(encounterType.equalsIgnoreCase(org.smartgresiter.wcaro.util.Constants.EventType.REMOVE_CHILD)){
+                eventType = org.smartgresiter.wcaro.util.Constants.EventType.REMOVE_CHILD;
+                tableName = org.smartgresiter.wcaro.util.Constants.TABLE_NAME.CHILD;
+            } else if (encounterType.equalsIgnoreCase(org.smartgresiter.wcaro.util.Constants.EventType.REMOVE_FAMILY)) {
+                eventType = org.smartgresiter.wcaro.util.Constants.EventType.REMOVE_FAMILY;
+                tableName = org.smartgresiter.wcaro.util.Constants.TABLE_NAME.FAMILY;
+            }else{
+                eventType = org.smartgresiter.wcaro.util.Constants.EventType.REMOVE_MEMBER;
+                tableName = org.smartgresiter.wcaro.util.Constants.TABLE_NAME.FAMILY_MEMBER;
+            }
+
+            Event eventMember = JsonFormUtils.createEvent(fields, metadata, formTag, memberID,
+                    eventType,
+                    tableName
+            );
 
             events.add(eventMember);
 
-            // add observations
 
-            return Triple.of(dod, memberID, events);
+            return Triple.of(Pair.create(dod,encounterType), memberID, events);
         } catch (Exception e) {
             Log.e(TAG, e.toString());
             return null;

@@ -4,6 +4,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.smartgresiter.wcaro.contract.FamilyRemoveMemberContract;
+import org.smartgresiter.wcaro.util.Constants;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.Utils;
@@ -53,6 +54,30 @@ public class FamilyRemoveMemberModel extends FamilyProfileMemberModel implements
 
                     jsonObject.put("text", details);
 
+                }
+            }
+
+            return form;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public JSONObject prepareFamilyRemovalForm(String familyID, String details) {
+        try {
+            FormUtils formUtils = FormUtils.getInstance(Utils.context().applicationContext());
+            JSONObject form = formUtils.getFormJson(Constants.JSON_FORM.FAMILY_DETAILS_REMOVE_FAMILY);
+            form.put(JsonFormUtils.ENTITY_ID, familyID);
+
+            JSONObject stepOne = form.getJSONObject(org.smartregister.family.util.JsonFormUtils.STEP1);
+            JSONArray jsonArray = stepOne.getJSONArray(org.smartregister.family.util.JsonFormUtils.FIELDS);
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                if(jsonObject.getString(org.smartregister.family.util.JsonFormUtils.KEY).equalsIgnoreCase("details")){
+                    jsonObject.put("text", details);
                 }
             }
 

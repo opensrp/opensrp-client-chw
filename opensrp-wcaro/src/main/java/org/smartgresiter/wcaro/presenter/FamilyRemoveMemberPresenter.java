@@ -110,13 +110,12 @@ public class FamilyRemoveMemberPresenter extends FamilyProfileMemberPresenter im
     }
 
     @Override
-    public void removeEveryone() {
+    public void removeEveryone(String details) {
 
-        LocationPickerView lpv = new LocationPickerView(viewReference.get().getContext());
-        lpv.init();
-        String lastLocationId = LocationHelper.getInstance().getOpenMrsLocationId(lpv.getSelectedItem());
-
-        interactor.removeFamily(familyBaseEntityId, lastLocationId, this);
+        JSONObject form = model.prepareFamilyRemovalForm(familyBaseEntityId, details);
+        if (form != null) {
+            viewReference.get().startJsonActivity(form);
+        }
 
     }
 
@@ -141,9 +140,9 @@ public class FamilyRemoveMemberPresenter extends FamilyProfileMemberPresenter im
     }
 
     @Override
-    public void memberRemoved() {
+    public void memberRemoved(String removalType) {
         if (viewReference.get() != null) {
-            viewReference.get().onMemberRemoved();
+            viewReference.get().onMemberRemoved(removalType);
         }
     }
 
