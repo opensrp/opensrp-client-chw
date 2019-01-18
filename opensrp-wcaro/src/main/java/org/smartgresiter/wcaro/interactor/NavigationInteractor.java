@@ -13,6 +13,7 @@ import org.smartregister.CoreLibrary;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.family.util.AppExecutors;
+import org.smartregister.family.util.DBConstants;
 
 import java.util.Date;
 
@@ -62,15 +63,16 @@ public class NavigationInteractor implements NavigationContract.Interactor {
 
         Integer count = null;
         Cursor c = null;
+        String mainCondition = String.format(" %s is null ", DBConstants.KEY.DATE_REMOVED);
         try {
 
             SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder();
             if (isValidFilterForFts(commonRepository(tableName), "")) {
-                String sql = sqb.countQueryFts(tableName, null, null, null);
+                String sql = sqb.countQueryFts(tableName, null, mainCondition, null);
                 Log.i(getClass().getName(), "1" + sql);
                 count = commonRepository(tableName).countSearchIds(sql);
             } else {
-                String query = sqb.queryForCountOnRegisters(tableName, null);
+                String query = sqb.queryForCountOnRegisters(tableName, mainCondition);
                 query = sqb.Endquery(query);
                 Log.i(getClass().getName(), "2" + query);
                 c = commonRepository(tableName).rawCustomQueryForAdapter(query);

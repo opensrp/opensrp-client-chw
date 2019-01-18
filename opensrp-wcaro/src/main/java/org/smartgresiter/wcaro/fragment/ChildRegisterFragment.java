@@ -185,7 +185,11 @@ public class ChildRegisterFragment extends BaseRegisterFragment implements Child
             String baseEntityId = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, true);
 
             if (StringUtils.isNotBlank(baseEntityId)) {
-                // TODO Proceed to dose status
+                ChildHomeVisitFragment childHomeVisitFragment = ChildHomeVisitFragment.newInstance();
+                childHomeVisitFragment.setContext(getActivity());
+                childHomeVisitFragment.setChildClient(pc);
+//                childHomeVisitFragment.setFamilyBaseEntityId(getFamilyBaseEntityId());
+                childHomeVisitFragment.show(getActivity().getFragmentManager(), ChildHomeVisitFragment.DIALOG_TAG);
             }
         } else if (view.getId() == R.id.due_only_layout) {
             TextView dueOnlyTextView = dueOnlyLayout.findViewById(R.id.due_only_text_view);

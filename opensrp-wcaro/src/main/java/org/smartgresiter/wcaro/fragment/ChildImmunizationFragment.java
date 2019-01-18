@@ -3,7 +3,6 @@ package org.smartgresiter.wcaro.fragment;
 import android.app.DialogFragment;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
-import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -51,7 +50,6 @@ import org.smartregister.immunization.view.ServiceGroup;
 import org.smartregister.immunization.view.VaccineGroup;
 import org.smartregister.service.AlertService;
 import org.smartregister.util.DateUtil;
-import org.smartregister.view.fragment.BaseProfileFragment;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -66,9 +64,10 @@ import java.util.Random;
 import static org.smartregister.util.Utils.getName;
 
 public class ChildImmunizationFragment extends DialogFragment {
-    public void setChildDetails(CommonPersonObjectClient childDetails){
+    public void setChildDetails(CommonPersonObjectClient childDetails) {
         this.childDetails = childDetails;
     }
+
     public static ChildImmunizationFragment newInstance(Bundle bundle) {
         Bundle args = bundle;
 
@@ -84,7 +83,6 @@ public class ChildImmunizationFragment extends DialogFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
-
 
 
     @Override
@@ -118,6 +116,11 @@ public class ChildImmunizationFragment extends DialogFragment {
 //        cia = new ChildImmunizationFragment(fragmentView,getActivity());
         return fragmentView;
     }
+
+    public CommonPersonObjectClient getChildDetails() {
+        return childDetails;
+    }
+
     // Data
 //    private CommonPersonObjectClient childDetails = Utils.dummyDetatils();
     private CommonPersonObjectClient childDetails;
@@ -174,7 +177,7 @@ public class ChildImmunizationFragment extends DialogFragment {
         org.smartregister.util.Utils.startAsyncTask(updateViewTask, null);
     }
 
-    private void updateChildIdViews() {
+    public void updateChildIdViews() {
         String name = "";
         String childId = "";
         if (isDataOk()) {
@@ -188,7 +191,7 @@ public class ChildImmunizationFragment extends DialogFragment {
         childIdTV.setText(String.format("%s: %s", "ID", childId));
     }
 
-    private void updateAgeViews() {
+    public void updateAgeViews() {
         String formattedAge = "";
         String formattedDob = "";
         if (isDataOk()) {
@@ -291,7 +294,7 @@ public class ChildImmunizationFragment extends DialogFragment {
     }
 
 
-    private void addVaccineGroup(int canvasId, org.smartregister.immunization.domain.jsonmapping.VaccineGroup vaccineGroupData, List<Vaccine> vaccineList, List<Alert> alerts) {
+    public void addVaccineGroup(int canvasId, org.smartregister.immunization.domain.jsonmapping.VaccineGroup vaccineGroupData, List<Vaccine> vaccineList, List<Alert> alerts) {
         LinearLayout vaccineGroupCanvasLL = (LinearLayout) view.findViewById(R.id.vaccine_group_canvas_ll);
         VaccineGroup curGroup = new VaccineGroup(getActivity());
         curGroup.setChildActive(isChildActive);
@@ -364,7 +367,7 @@ public class ChildImmunizationFragment extends DialogFragment {
 
     @Override
     public void onDestroy() {
-        ((ChildHomeVisitFragment)getActivity().getFragmentManager().findFragmentByTag(ChildHomeVisitFragment.DIALOG_TAG)).updateImmunizationState();
+        ((ChildHomeVisitFragment) getActivity().getFragmentManager().findFragmentByTag(ChildHomeVisitFragment.DIALOG_TAG)).updateImmunizationState();
         super.onDestroy();
 
     }
@@ -386,7 +389,7 @@ public class ChildImmunizationFragment extends DialogFragment {
 
 
     public void onUndoVaccination(VaccineWrapper tag, View v) {
-        org.smartregister.util.Utils.startAsyncTask(new ChildImmunizationFragment.UndoVaccineTask(tag, v), null);
+        org.smartregister.util.Utils.startAsyncTask(new ChildImmunizationFragment.UndoVaccineTask(tag), null);
     }
 
     public void addVaccinationDialogFragment(ArrayList<VaccineWrapper> vaccineWrappers, VaccineGroup vaccineGroup) {
@@ -485,7 +488,7 @@ public class ChildImmunizationFragment extends DialogFragment {
         updateVaccineGroupViews(view, wrappers, vaccineList, false);
     }
 
-    private void updateVaccineGroupViews(View view, final ArrayList<VaccineWrapper> wrappers, final List<Vaccine> vaccineList, final boolean undo) {
+    public void updateVaccineGroupViews(View view, final ArrayList<VaccineWrapper> wrappers, final List<Vaccine> vaccineList, final boolean undo) {
         if (view == null || !(view instanceof VaccineGroup)) {
             return;
         }
@@ -728,16 +731,14 @@ public class ChildImmunizationFragment extends DialogFragment {
     private class UndoVaccineTask extends AsyncTask<Void, Void, Void> {
 
         private VaccineWrapper tag;
-        private View v;
         private final VaccineRepository vaccineRepository;
         private final AlertService alertService;
         private List<Vaccine> vaccineList;
         private List<Alert> alertList;
         private List<String> affectedVaccines;
 
-        public UndoVaccineTask(VaccineWrapper tag, View v) {
+        public UndoVaccineTask(VaccineWrapper tag) {
             this.tag = tag;
-            this.v = v;
             vaccineRepository = ImmunizationLibrary.getInstance().vaccineRepository();
             alertService = ImmunizationLibrary.getInstance().context().alertService();
         }

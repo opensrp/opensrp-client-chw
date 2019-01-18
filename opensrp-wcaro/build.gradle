@@ -59,10 +59,9 @@ android {
             buildConfigField "int", "DATABASE_VERSION", '5'
             buildConfigField "boolean", "TIME_CHECK", "true"
             buildConfigField "int", "DATA_SYNC_DURATION_MINUTES", '15'
-            buildConfigField "int", "PULL_UNIQUE_IDS_MINUTES", '180'
+            buildConfigField "int", "VACCINE_SYNC_PROCESSING_MINUTES", '30'
             buildConfigField "int", "IMAGE_UPLOAD_MINUTES", '180'
-            buildConfigField "int", "VIEW_SYNC_CONFIGURATIONS_MINUTES", '2'
-            buildConfigField "int", "CLIENT_SETTINGS_SYNC_MINUTES", '2'
+            buildConfigField "int", "PULL_UNIQUE_IDS_MINUTES", '180'
         }
 
         debug {
@@ -72,11 +71,10 @@ android {
             buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '2'
             buildConfigField "int", "DATABASE_VERSION", '5'
             buildConfigField "boolean", "TIME_CHECK", "false"
-            buildConfigField "int", "DATA_SYNC_DURATION_MINUTES", '15'
-            buildConfigField "int", "PULL_UNIQUE_IDS_MINUTES", '180'
-            buildConfigField "int", "IMAGE_UPLOAD_MINUTES", '180'
-            buildConfigField "int", "VIEW_SYNC_CONFIGURATIONS_MINUTES", '2'
-            buildConfigField "int", "CLIENT_SETTINGS_SYNC_MINUTES", '2'
+            buildConfigField "int", "DATA_SYNC_DURATION_MINUTES", '2'
+            buildConfigField "int", "VACCINE_SYNC_PROCESSING_MINUTES", '2'
+            buildConfigField "int", "IMAGE_UPLOAD_MINUTES", '7'
+            buildConfigField "int", "PULL_UNIQUE_IDS_MINUTES", '10'
             testCoverageEnabled true
         }
     }
@@ -132,7 +130,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'appcompat-v7'
     }
 
-    implementation('org.smartregister:opensrp-client-family:1.0.5-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-family:1.0.6-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'org.smartregister', module: 'opensrp-client-core'
         exclude group: 'org.smartregister', module: 'opensrp-client-native-form'
@@ -172,7 +170,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
 
-    testImplementation  'org.mockito:mockito-core:2.7.22'
+    testImplementation 'org.mockito:mockito-core:2.7.22'
     androidTestImplementation 'org.mockito:mockito-android:2.7.22'
 
     testImplementation 'org.robolectric:robolectric:3.8'

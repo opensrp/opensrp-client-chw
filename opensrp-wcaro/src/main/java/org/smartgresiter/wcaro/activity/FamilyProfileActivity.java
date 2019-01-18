@@ -3,6 +3,7 @@ package org.smartgresiter.wcaro.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.Gravity;
@@ -11,6 +12,7 @@ import android.view.MenuItem;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import org.apache.commons.lang3.StringUtils;
 import org.greenrobot.eventbus.EventBus;
 import org.json.JSONObject;
 import org.smartgresiter.wcaro.R;
@@ -23,6 +25,7 @@ import org.smartgresiter.wcaro.fragment.FamilyProfileMemberFragment;
 import org.smartgresiter.wcaro.listener.FloatingMenuListener;
 import org.smartgresiter.wcaro.model.FamilyProfileModel;
 import org.smartgresiter.wcaro.presenter.FamilyProfilePresenter;
+import org.smartregister.domain.FetchStatus;
 import org.smartregister.family.activity.BaseFamilyProfileActivity;
 import org.smartregister.family.adapter.ViewPagerAdapter;
 import org.smartregister.family.fragment.BaseFamilyProfileActivityFragment;
@@ -39,11 +42,18 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity implements 
     private String familyBaseEntityId;
     private boolean isFromFamilyServiceDue = false;
 
+    BaseFamilyProfileMemberFragment profileMemberFragment;
+    BaseFamilyProfileDueFragment profileDueFragment;
+    BaseFamilyProfileActivityFragment profileActivityFragment;
+
     @Override
     protected void initializePresenter() {
-        familyBaseEntityId = getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID);
+        familyBaseEntityId = getIntent().getStringExtra(Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID);
         isFromFamilyServiceDue = getIntent().getBooleanExtra(org.smartgresiter.wcaro.util.Constants.INTENT_KEY.SERVICE_DUE, false);
-        presenter = new FamilyProfilePresenter(this, new FamilyProfileModel(), familyBaseEntityId);
+        String familyHead = getIntent().getStringExtra(Constants.INTENT_KEY.FAMILY_HEAD);
+        String primaryCaregiver = getIntent().getStringExtra(Constants.INTENT_KEY.PRIMARY_CAREGIVER);
+        String familyName = getIntent().getStringExtra(Constants.INTENT_KEY.FAMILY_NAME);
+        presenter = new FamilyProfilePresenter(this, new FamilyProfileModel(familyName), familyBaseEntityId, familyHead, primaryCaregiver, familyName);
     }
 
     @Override
@@ -69,9 +79,9 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity implements 
     protected ViewPager setupViewPager(ViewPager viewPager) {
         adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
-        BaseFamilyProfileMemberFragment profileMemberFragment = FamilyProfileMemberFragment.newInstance(this.getIntent().getExtras());
-        BaseFamilyProfileDueFragment profileDueFragment = FamilyProfileDueFragment.newInstance(this.getIntent().getExtras());
-        BaseFamilyProfileActivityFragment profileActivityFragment = FamilyProfileActivityFragment.newInstance(this.getIntent().getExtras());
+        profileMemberFragment = FamilyProfileMemberFragment.newInstance(this.getIntent().getExtras());
+        profileDueFragment = FamilyProfileDueFragment.newInstance(this.getIntent().getExtras());
+        profileActivityFragment = FamilyProfileActivityFragment.newInstance(this.getIntent().getExtras());
 
         adapter.addFragment(profileMemberFragment, this.getString(org.smartregister.family.R.string.member).toUpperCase());
         adapter.addFragment(profileDueFragment, this.getString(org.smartregister.family.R.string.due).toUpperCase());
@@ -85,6 +95,10 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity implements 
         }
 
         return viewPager;
+    }
+
+    public Bundle getProfileExtras() {
+        return getIntent().getExtras();
     }
 
     @Override
@@ -140,22 +154,46 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity implements 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == org.smartregister.family.util.JsonFormUtils.REQUEST_CODE_GET_JSON && resultCode == Activity.RESULT_OK) {
-            try {
-                String jsonString = data.getStringExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON);
-                Log.d("JSONResult", jsonString);
+        switch (requestCode) {
+            case org.smartregister.family.util.JsonFormUtils.REQUEST_CODE_GET_JSON:
+                if (resultCode == Activity.RESULT_OK) {
+                    try {
+                        String jsonString = data.getStringExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON);
+                        Log.d("JSONResult", jsonString);
 
-                JSONObject form = new JSONObject(jsonString);
-                if (form.getString(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_TYPE).equals(org.smartregister.family.util.Utils.metadata().familyRegister.registerEventType)
-                        || form.getString(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_TYPE).equals(org.smartgresiter.wcaro.util.Constants.EventType.CHILD_REGISTRATION)
-                        ) {
-                    ((FamilyProfilePresenter) presenter).saveChildForm(jsonString, false);
+                        JSONObject form = new JSONObject(jsonString);
+                        if (form.getString(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_TYPE).equals(org.smartregister.family.util.Utils.metadata().familyRegister.registerEventType)
+                                || form.getString(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_TYPE).equals(org.smartgresiter.wcaro.util.Constants.EventType.CHILD_REGISTRATION)
+                                ) {
+                            ((FamilyProfilePresenter) presenter).saveChildForm(jsonString, false);
+                        }
+                    } catch (Exception e) {
+                        Log.e(TAG, Log.getStackTraceString(e));
+                        Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
                 }
-            } catch (Exception e) {
-                Log.e(TAG, Log.getStackTraceString(e));
-                Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
-            }
+                break;
+            case org.smartgresiter.wcaro.util.Constants.ProfileActivityResults.CHANGE_COMPLETED:
+                if (resultCode == Activity.RESULT_OK) {
+                    try {
 
+                        String careGiverID = data.getStringExtra(Constants.INTENT_KEY.PRIMARY_CAREGIVER);
+                        String familyHeadID = data.getStringExtra(Constants.INTENT_KEY.FAMILY_HEAD);
+
+                        BaseFamilyProfileMemberFragment memberFragment = this.getProfileMemberFragment();
+                        if (StringUtils.isNotBlank(careGiverID)) {
+                            memberFragment.setPrimaryCaregiver(careGiverID);
+                        }
+                        if (StringUtils.isNotBlank(familyHeadID)) {
+                            memberFragment.setFamilyHead(familyHeadID);
+                        }
+                        refreshMemberList(FetchStatus.fetched);
+                    } catch (Exception e) {
+                        Log.e(TAG, Log.getStackTraceString(e));
+                        Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+                break;
         }
 
     }

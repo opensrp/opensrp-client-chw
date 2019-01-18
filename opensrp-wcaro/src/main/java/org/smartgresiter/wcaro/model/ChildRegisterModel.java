@@ -47,7 +47,7 @@ public class ChildRegisterModel implements ChildRegisterContract.Model {
 
     @Override
     public Pair<Client, Event> processRegistration(String jsonString) {
-        return JsonFormUtils.processFamilyRegistrationForm(Utils.context().allSharedPreferences(), jsonString);
+        return JsonFormUtils.processChildRegistrationForm(Utils.context().allSharedPreferences(), jsonString);
     }
 
     @Override

@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp">
+
+    <RadioButton
+        android:id="@+id/rbButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="10dp" />
+
+    <org.smartregister.view.customcontrols.CustomFontTextView
+        android:id="@+id/tvName"
+        style="@style/CustomFontTextViewStyle.ClientList.Light"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="45dp"
+        android:text="Elaine Smith, 33"
+        android:textColor="@color/black"
+        android:textSize="24sp" />
+
+
+    <org.smartregister.view.customcontrols.CustomFontTextView
+        android:id="@+id/tvGender"
+        style="@style/CustomFontTextViewStyle.ClientList.Light"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvName"
+        android:layout_alignStart="@+id/tvName"
+        android:text="Female"
+        android:textColor="@color/black"
+        android:textSize="18sp" />
+
+    <LinearLayout
+        android:id="@+id/llQuestions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvGender"
+        android:animateLayoutChanges="true"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <LinearLayout
+            android:id="@+id/llOldNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical">
+
+            <org.smartregister.view.customcontrols.CustomFontTextView
+                android:id="@+id/tvPhoneNumber"
+                style="@style/CustomFontTextViewStyle.ClientList.Light"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Is her phone number still?"
+                android:textColor="@color/black"
+                android:textSize="24sp" />
+
+            <RadioGroup
+                android:id="@+id/rgOldNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:orientation="vertical">
+
+                <RadioButton
+                    android:id="@+id/rbYes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Yes"
+                    android:textSize="24sp" />
+
+                <RadioButton
+                    android:id="@+id/rbNo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="No"
+                    android:textSize="24sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/light_grey" />
+
+            </RadioGroup>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llNewNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical">
+
+            <org.smartregister.view.customcontrols.CustomFontTextView
+                style="@style/CustomFontTextViewStyle.ClientList.Light"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="4"
+                android:text="What's the new phone number for the new family head?"
+                android:textColor="@color/black"
+                android:textSize="24sp" />
+
+
+            <EditText
+                android:id="@+id/etPhoneNumber"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/login_view_component_height"
+                android:layout_margin="10dp"
+                android:layout_weight="8"
+                android:background="@drawable/rounded_corner_edit_text"
+                android:cursorVisible="true"
+                android:ems="10"
+                android:hint="Phone Number"
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                android:lines="1"
+                android:paddingLeft="10dp"
+                android:textColor="#666666"
+                android:textColorHint="#bfbfbf"
+                android:textCursorDrawable="@null"
+                android:textSize="@dimen/login_edit_text_textSize"
+                android:typeface="sans" />
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginTop="10dp"
+                android:background="@color/light_grey" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llOtherNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical">
+
+            <org.smartregister.view.customcontrols.CustomFontTextView
+                style="@style/CustomFontTextViewStyle.ClientList.Light"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="4"
+                android:text="Other Phone Number"
+                android:textColor="@color/black"
+                android:textSize="24sp" />
+
+
+            <EditText
+                android:id="@+id/etOtherNumber"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/login_view_component_height"
+                android:layout_margin="10dp"
+                android:layout_weight="8"
+                android:background="@drawable/rounded_corner_edit_text"
+                android:cursorVisible="true"
+                android:ems="10"
+                android:hint="Alternative PhoneNumber"
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                android:lines="1"
+                android:paddingLeft="10dp"
+                android:textColor="#666666"
+                android:textColorHint="#bfbfbf"
+                android:textCursorDrawable="@null"
+                android:textSize="@dimen/login_edit_text_textSize"
+                android:typeface="sans" />
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginTop="10dp"
+                android:background="@color/light_grey" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llHighestEduLevel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical">
+
+            <org.smartregister.view.customcontrols.CustomFontTextView
+                style="@style/CustomFontTextViewStyle.ClientList.Light"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="4"
+                android:text="Higest Level of Education"
+                android:textColor="@color/black"
+                android:textSize="24sp" />
+
+            <Spinner
+                android:id="@+id/spEducationLevel"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:hint="Highest Education Level"
+                android:textColor="#666666"
+                android:textColorHint="#bfbfbf"
+                android:typeface="sans" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginTop="10dp"
+                android:background="@color/light_grey" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

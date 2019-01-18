@@ -1,30 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
-    <RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
         android:id="@+id/record_visit_bar"
         android:background="@color/white"
         android:padding="10dp"
+        android:weightSum="2"
         android:visibility="visible"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <org.smartregister.view.customcontrols.CustomFontTextView
             android:id="@+id/textview_record_visit"
+            style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/record_visit"
             android:paddingLeft="30dp"
             android:paddingRight="30dp"
             android:paddingTop="10dp"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
             android:paddingBottom="10dp"
             android:layout_alignParentLeft="true"
             android:background="@drawable/record_btn_selector"
-            android:textColor="@color/white"
-            />
+            android:textColor="@color/white" />
+
         <org.smartregister.view.customcontrols.CustomFontTextView
             android:id="@+id/textview_visit_not"
+            style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
             android:text="@string/visit_not_done"
             android:paddingLeft="30dp"
             android:paddingRight="30dp"
@@ -32,9 +43,34 @@
             android:paddingBottom="10dp"
             android:layout_alignParentRight="true"
             android:background="@drawable/record_btn_selector_above_twentyfr"
-            android:textColor="@color/light_grey_text"
-            />
+            android:textColor="@color/dark_grey" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/record_visit_done_bar"
+        android:background="@color/white"
+        android:padding="10dp"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <org.smartregister.view.customcontrols.CustomFontTextView
+            android:id="@+id/textview_record_visit_done"
+            style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/record_visit"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:paddingTop="10dp"
+            android:layout_centerInParent="true"
+            android:layout_centerHorizontal="true"
+            android:gravity="center_horizontal"
+            android:paddingBottom="10dp"
+            android:background="@drawable/record_btn_selector_above_twentyfr"
+            android:textColor="@color/grey" />
     </RelativeLayout>
+
     <RelativeLayout
         android:id="@+id/record_visit_status_bar"
         android:background="@color/white"
@@ -42,35 +78,35 @@
         android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <ImageView
             android:id="@+id/cross_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_cross"
             android:layout_centerVertical="true"
-            android:padding="10dp"
-            />
+            android:padding="10dp" />
+
         <org.smartregister.view.customcontrols.CustomFontTextView
             android:id="@+id/textview_not_visit_this_month"
+            style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/cross_image"
             android:layout_toLeftOf="@+id/textview_undo"
             android:text="@string/not_visiting_this_month"
             android:padding="10dp"
-            android:textSize="18sp"
             android:textColor="@color/black"
-            android:layout_centerVertical="true"
-            />
+            android:layout_centerVertical="true" />
+
         <org.smartregister.view.customcontrols.CustomFontTextView
             android:id="@+id/textview_undo"
+            style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/undo"
             android:padding="10dp"
             android:layout_alignParentRight="true"
-            android:textSize="20sp"
-            android:textColor="@color/primary"
-            />
+            android:textColor="@color/primary" />
     </RelativeLayout>
 </merge>

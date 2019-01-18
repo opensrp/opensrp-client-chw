@@ -6,6 +6,7 @@ import android.util.Pair;
 
 import org.apache.commons.lang3.tuple.Triple;
 import org.json.JSONObject;
+import org.smartgresiter.wcaro.util.ChildService;
 import org.smartgresiter.wcaro.util.ChildVisit;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
@@ -46,6 +47,8 @@ public interface ChildProfileContract {
 
         void setVisitButtonOverdueStatus();
 
+        void setVisitNotDoneThisMonth();
+
         void setLastVisitRowView(String days);
 
         void setServiceName(String serviceName);
@@ -82,6 +85,8 @@ public interface ChildProfileContract {
 
         void processFormDetailsSave(Intent data, AllSharedPreferences allSharedPreferences);
 
+        void updateVisitNotDone(long value);
+
         String childBaseEntityId();
 
         void fetchVisitStatus(String baseEntityId);
@@ -93,6 +98,8 @@ public interface ChildProfileContract {
     }
 
     interface Interactor {
+        void updateVisitNotDone(long value);
+
         void refreshChildVisitBar(String baseEntityId, ChildProfileContract.InteractorCallBack callback);
 
         void refreshFamilyMemberServiceDue(String familyId, String baseEntityId, ChildProfileContract.InteractorCallBack callback);
@@ -110,6 +117,8 @@ public interface ChildProfileContract {
     interface InteractorCallBack {
         void updateChildVisit(ChildVisit childVisit);
 
+        void updateChildService(ChildService childService);
+
         void updateFamilyMemberServiceDue(String serviceDueStatus);
 
         void startFormForEdit(CommonPersonObjectClient client);
@@ -126,7 +135,7 @@ public interface ChildProfileContract {
 
     interface Model {
 
-        JSONObject getFormAsJson(String formName, String entityId, String currentLocationId) throws Exception;
+        JSONObject getFormAsJson(String formName, String entityId, String currentLocationId, String familyID) throws Exception;
 
         Pair<Client, Event> processMemberRegistration(String jsonString, String familyBaseEntityId);
 

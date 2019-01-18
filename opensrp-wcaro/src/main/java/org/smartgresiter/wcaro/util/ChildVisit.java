@@ -1,38 +1,21 @@
 package org.smartgresiter.wcaro.util;
 
 public class ChildVisit {
-    String visitStatus;
-    long lastVisitTime;
-    String lastVisitMonth;
-    String lastVisitDays;
-    String serviceName;
-    String serviceStatus;
-    String serviceDate;
+    private String visitStatus;
+    private long lastVisitTime;
+    private String lastVisitMonthName;
+    private String lastVisitDays;
 
-    public String getServiceName() {
-        return serviceName;
+    private String noOfMonthDue;
+
+
+    public String getNoOfMonthDue() {
+        return noOfMonthDue;
     }
 
-    public void setServiceName(String serviceName) {
-        this.serviceName = serviceName;
+    public void setNoOfMonthDue(String noOfMonthDue) {
+        this.noOfMonthDue = noOfMonthDue;
     }
-
-    public String getServiceStatus() {
-        return serviceStatus;
-    }
-
-    public void setServiceStatus(String serviceStatus) {
-        this.serviceStatus = serviceStatus;
-    }
-
-    public String getServiceDate() {
-        return serviceDate;
-    }
-
-    public void setServiceDate(String serviceDate) {
-        this.serviceDate = serviceDate;
-    }
-
 
     public String getLastVisitDays() {
         return lastVisitDays;
@@ -60,15 +43,13 @@ public class ChildVisit {
     }
 
 
-    public String getLastVisitMonth() {
-        return lastVisitMonth;
+    public String getLastVisitMonthName() {
+        return lastVisitMonthName;
     }
 
-    public void setLastVisitMonth(String lastVisitMonth) {
-        this.lastVisitMonth = lastVisitMonth;
+    public void setLastVisitMonthName(String lastVisitMonthName) {
+        this.lastVisitMonthName = lastVisitMonthName;
     }
-
-
 
 
 }

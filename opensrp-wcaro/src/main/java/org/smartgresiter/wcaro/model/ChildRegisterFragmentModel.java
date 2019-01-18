@@ -5,8 +5,8 @@ import android.util.Log;
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.smartgresiter.wcaro.contract.ChildRegisterFragmentContract;
-import org.smartgresiter.wcaro.util.ChildDBConstants;
 import org.smartgresiter.wcaro.util.ChildUtils;
+import org.smartgresiter.wcaro.util.ConfigHelper;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
 import org.smartregister.configurableviews.model.Field;
 import org.smartregister.configurableviews.model.RegisterConfiguration;
@@ -15,8 +15,6 @@ import org.smartregister.configurableviews.model.ViewConfiguration;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.domain.Response;
 import org.smartregister.domain.ResponseStatus;
-import org.smartgresiter.wcaro.util.ConfigHelper;
-import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.Utils;
 
 import java.util.ArrayList;
@@ -47,10 +45,11 @@ public class ChildRegisterFragmentModel implements ChildRegisterFragmentContract
     }
 
     @Override
-    public String mainSelect(String tableName,String familyName,String familyMemberName, String mainCondition) {
+    public String mainSelect(String tableName, String familyName, String familyMemberName, String mainCondition) {
 
-    return ChildUtils.mainSelectRegisterWithoutGroupby(tableName,familyName,familyMemberName,mainCondition);
+        return ChildUtils.mainSelectRegisterWithoutGroupby(tableName, familyName, familyMemberName, mainCondition);
     }
+
     @Override
     public String getFilterText(List<Field> list, String filterTitle) {
         List<Field> filterList = list;

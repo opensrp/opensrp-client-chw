@@ -77,7 +77,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_identifier",
         "openmrs_entity_id": "opensrp_id",
-        "hidden":"true",
+        "hidden": "true",
         "type": "barcode",
         "barcode_type": "qrcode",
         "hint": "ID *",
@@ -242,7 +242,6 @@
         "openmrs_entity": "person",
         "openmrs_entity_id": "last_name",
         "type": "edit_text",
-        "edit_type": "name",
         "hidden": true,
         "hint": "Surname as Family name",
         "calculation": {
@@ -397,9 +396,9 @@
       },
       {
         "key": "other_phone_number",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity_parent": "159635AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "edit_text",
         "hint": "Other phone number",
         "v_numeric": {

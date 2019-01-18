@@ -25,20 +25,37 @@
         android:theme="@style/WcaroTheme"
         tools:replace="android:theme">
         <activity
+            android:name=".activity.FamilyRemoveMemberActivity"
+            android:theme="@style/WcaroTheme.NoActionBar" />
+        <activity
+            android:name=".activity.FamilyProfileMenuActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/WcaroTheme.NoActionBar" />
+        <activity
             android:name=".activity.FamilyRegisterActivity"
             android:label="@string/app_name"
-            android:theme="@style/WcaroTheme.NoActionBar"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/WcaroTheme.NoActionBar" />
         <activity
             android:name=".activity.FamilyProfileActivity"
             android:label="@string/title_family_detail"
             android:parentActivityName=".activity.FamilyRegisterActivity"
-            android:theme="@style/WcaroTheme.NoActionBar"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/WcaroTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="org.smartgresiter.wcaro.activity.FamilyRegisterActivity" />
         </activity>
+        <activity
+            android:name=".activity.FamilyOtherMemberProfileActivity"
+            android:label="@string/title_family_detail"
+            android:parentActivityName=".activity.FamilyRegisterActivity"
+            android:theme="@style/FamilyTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.FamilyProfileActivity" />
+        </activity>
+
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="${applicationId}.fileprovider"
@@ -48,11 +65,12 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/captured_images_path" />
         </provider>
+
         <activity
             android:name=".activity.LoginActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/WcaroTheme.Login"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
-            android:screenOrientation="portrait">
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -71,11 +89,14 @@
             android:screenOrientation="portrait"
             android:theme="@style/FamilyTheme.NoActionBar"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
-        <activity android:name=".activity.ChildRegisterActivity"
+        <activity
+            android:name=".activity.ChildRegisterActivity"
             android:theme="@style/WcaroTheme.NoActionBar" />
-        <activity android:name=".activity.ChildProfileActivity"
+        <activity
+            android:name=".activity.ChildProfileActivity"
             android:label="@string/child_details"
-            android:theme="@style/WcaroTheme.NoActionBar"/>
+            android:theme="@style/WcaroTheme.NoActionBar" />
+
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="${applicationId}.fileprovider"
@@ -85,6 +106,15 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/captured_images_path" />
         </provider>
+        <activity
+            android:name=".activity.MedicalHistoryActivity"
+            android:label="@string/medical_history"
+            android:theme="@style/WcaroTheme.NoActionBar" />
+
+        <service android:name="org.smartregister.sync.intent.PullUniqueIdsIntentService" />
+        <service android:name="org.smartregister.sync.intent.SyncIntentService" />
+        <service android:name="org.smartregister.sync.intent.ExtendedSyncIntentService" />
+        <service android:name="org.smartregister.sync.intent.ValidateIntentService" />
     </application>
 
 </manifest>

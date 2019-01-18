@@ -47,8 +47,8 @@
     },
     "encounter_location": "",
     "look_up": {
-      "entity_id":"",
-      "value":""
+      "entity_id": "",
+      "value": ""
     }
   },
   "step1": {
@@ -69,7 +69,6 @@
         "openmrs_entity_id": "opensrp_id",
         "type": "edit_text",
         "hint": "ID: (opensrp_id)",
-        "read_only":"true",
         "value": "0",
         "v_numeric": {
           "value": "true",
@@ -83,8 +82,8 @@
       {
         "key": "surname",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "person",
-        "openmrs_entity_id": "last_name",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
         "type": "edit_text",
         "hint": "Surname",
         "edit_type": "name",
@@ -93,34 +92,55 @@
           "err": "Please enter a valid name"
         },
         "relevance": {
-          "step1:surname_same_as_family_name": {
-            "ex-checkbox": [
-              {
-                "not": [
-                  "same_as_family_name"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family-child-relevance.yml"
+            }
           }
         }
       },
       {
-        "key": "surname_same_as_family_name",
+        "key": "same_as_fam_name",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "openmrs_data_type": "text",
         "type": "check_box",
         "label": " ",
-        "exclusive": ["none"],
+        "exclusive": [
+          "none"
+        ],
         "options": [
           {
-            "key": "same_as_family_name",
+            "key": "same_as_fam_name",
             "text": "Surname same as family name",
-            "value": false,
-            "openmrs_choice_id": "same_as_family_name"
+            "text_size": "18px",
+            "value": "false"
           }
         ]
+      },
+      {
+        "key": "fam_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "label",
+        "hidden": "true"
+      },
+      {
+        "key": "surname_calculation",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "last_name",
+        "type": "hidden",
+        "hint": "Surname as Family name",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family-child-calculation.yml"
+            }
+          }
+        }
       },
       {
         "key": "first_name",
@@ -164,7 +184,7 @@
         "openmrs_entity": "person",
         "openmrs_entity_id": "birthdate",
         "type": "date_picker",
-        "hint": "Date of birth (DOB)",
+        "hint": "Date of birth (DOB) *",
         "expanded": false,
         "duration": {
           "label": "Age"
@@ -174,6 +194,60 @@
         "v_required": {
           "value": "true",
           "err": "Please enter the date of birth"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family-child-relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "dob_unknown",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "birthdateApprox",
+        "type": "check_box",
+        "label": "",
+        "options": [
+          {
+            "key": "dob_unknown",
+            "text": "DOB unknown?",
+            "text_size": "18px",
+            "value": "false"
+          }
+        ]
+      },
+      {
+        "key": "age",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "age",
+        "type": "edit_text",
+        "hint": "Age *",
+        "v_numeric": {
+          "value": "true",
+          "err": "Number must begin with 0 and must be a total of 10 digits in length"
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Age must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "5",
+          "err": "Age must be equal or less than 5"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family-child-relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": true,
+          "err": "Please enter the age"
         }
       },
       {
@@ -205,7 +279,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Please enter the value"
+          "err": "Please enter Early initiation of breastfeeding"
         }
       },
       {
@@ -221,7 +295,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Please enter the value"
+          "err": "Please enter if Physically challenged"
         }
       }
     ]

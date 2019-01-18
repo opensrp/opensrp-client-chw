@@ -4,6 +4,7 @@
     <string name="login_title">CFC</string>
     <string name="child_register_title">Child Clients</string>
     <string name="return_to_all_children">Return to all children</string>
+    <string name="back_to_children">Back to %1$s</string>
     <string name="child_details">Child details</string>
 
 
@@ -31,6 +32,7 @@
     <string name="change_family_head">Change family head</string>
     <string name="change_primary_caregiver">Change primary caregiver</string>
     <string name="add_other_family_member">Other family member</string>
+    <string name="add_child_under_five">Child under 5 years</string>
     <string name="child_under_five">Child under 5 years</string>
     <string name="go_to_family_s_profile">Go to family\'s profile</string>
     <string name="family_has_nothing_due">Family has nothing due</string>
@@ -43,6 +45,12 @@
     <string name="last_visit_40_days_ago">Last visit %1$s ago</string>
     <string name="add_member_title">Add family member</string>
     <string name="add_member_title_question">What kind of family member you want to add?</string>
+    <string name="change_head_member_title">Change family head</string>
+    <string name="change_head_member_title_question">Select a new family head</string>
+    <string name="change_caregiver_member_title">Change primary care giver</string>
+    <string name="change_caregiver_member_title_question">Select a new primary care giver</string>
+    <string name="remove_member_title">Remove member</string>
+    <string name="remove_member_prompt">Which member do you want to remove?</string>
     <string name="visit_month">%1$s visit done</string>
     <string name="not_visiting_this_month">Not visiting this month</string>
     <string name="undo">UNDO</string>
@@ -54,4 +62,28 @@
     <string name="copy_to_clipboard">Copy to clipboard</string>
     <string name="copied_phone_number">PhoneNumber copied to clipboard</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="medical_history">Medical History</string>
+    <string name="record_home_visit">Record Home visit</string>
+    <string name="visit_done">Visit done</string>
+    <string name="due_visit">Last visit \n %1$s</string>
+    <string name="medical_title">Back to %1$s</string>
+    <string name="medical_last_visit">%1$s ago home visit</string>
+    <string name="growth_and_nutrition">GROWTH AND NUTRITION</string>
+    <string name="immunization">IMMUNIZATION</string>
+    <string name="fully_immunized_at_age">Fully immunized at age %1$s</string>
+    <string name="add_date_separately">+ ADD DATE FOR EACH VACCINE</string>
+    <string name="which_vaccines_given_text">Which immunizations were done?</string>
+    <string name="when_vaccines_given_text">When were immunizations done?</string>
+    <string name="fully_immunized_at_age_2">Fully immunized at age 2</string>
+    <string name="fully_immunized_at_age_1">Fully immunized at age 1</string>
+    <string name="health_child_milestone">Health child milestone</string>
+    <string name="exclusive_feeding">Did the child receive any liquid or food other than breastmilk yesterday and last night?</string>
+    <string name="vitamin_given">When was %1$s given?</string>
+    <string name="exclusive_breastfeeding">Exclusive breastfeeding</string>
+    <string name="vitamin_a">Vitamin A</string>
+    <string name="deworming">Deworming</string>
+    <string name="record_immunizations">Record immunizations</string>
 </resources>
