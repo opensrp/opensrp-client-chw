@@ -42,17 +42,25 @@ public class FamilyProfileMemberFragment extends BaseFamilyProfileMemberFragment
         switch (view.getId()) {
             case R.id.patient_column:
                 if (view.getTag() != null && view.getTag(org.smartregister.family.R.id.VIEW_ID) == CLICK_VIEW_NORMAL) {
-                    CommonPersonObjectClient commonPersonObjectClient = (CommonPersonObjectClient) view.getTag();
-                    String entityType = Utils.getValue(commonPersonObjectClient.getColumnmaps(), ChildDBConstants.KEY.ENTITY_TYPE, false);
-                    if (org.smartgresiter.wcaro.util.Constants.TABLE_NAME.FAMILY_MEMBER.equals(entityType)) {
-                        goToOtherMemberProfileActivity(commonPersonObjectClient);
-                    } else {
-                        goToChildProfileActivity(commonPersonObjectClient);
-                    }
+                    goToProfileActivity(view);
                 }
                 break;
+            case R.id.next_arrow:
+                if (view.getTag() != null && view.getTag(org.smartregister.family.R.id.VIEW_ID) == CLICK_VIEW_NEXT_ARROW) {
+                    goToProfileActivity(view);
+                }
             default:
                 break;
+        }
+    }
+
+    public void goToProfileActivity(View view) {
+        CommonPersonObjectClient commonPersonObjectClient = (CommonPersonObjectClient) view.getTag();
+        String entityType = Utils.getValue(commonPersonObjectClient.getColumnmaps(), ChildDBConstants.KEY.ENTITY_TYPE, false);
+        if (org.smartgresiter.wcaro.util.Constants.TABLE_NAME.FAMILY_MEMBER.equals(entityType)) {
+            goToOtherMemberProfileActivity(commonPersonObjectClient);
+        } else {
+            goToChildProfileActivity(commonPersonObjectClient);
         }
     }
 
