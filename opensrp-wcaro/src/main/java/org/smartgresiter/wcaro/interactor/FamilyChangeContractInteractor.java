@@ -270,7 +270,7 @@ public class FamilyChangeContractInteractor implements FamilyChangeContract.Inte
                 info_columns,
                 Utils.metadata().familyMemberRegister.tableName,
                 DBConstants.KEY.RELATIONAL_ID,
-                familyID ,
+                familyID,
                 DBConstants.KEY.DATE_REMOVED
         );
 

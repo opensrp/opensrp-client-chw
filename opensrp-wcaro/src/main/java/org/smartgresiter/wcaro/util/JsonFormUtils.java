@@ -5,8 +5,6 @@ import android.graphics.Bitmap;
 import android.util.Log;
 import android.util.Pair;
 
-import com.google.gson.JsonObject;
-
 import net.sqlcipher.database.SQLiteDatabase;
 
 import org.apache.commons.lang3.StringUtils;
@@ -44,14 +42,12 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
-import java.util.concurrent.ExecutionException;
 
 import static org.apache.commons.lang3.StringUtils.isBlank;
 
@@ -495,7 +491,7 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
      * @param providerId
      * @return Returns a triple object <b>DateOfDeath as String, BaseEntityID , List of Events </b>that should be processed
      */
-    public static Triple<Pair<Date,String>, String, List<Event>> processRemoveMemberEvent(String familyID, AllSharedPreferences allSharedPreferences, JSONObject jsonObject, String providerId) {
+    public static Triple<Pair<Date, String>, String, List<Event>> processRemoveMemberEvent(String familyID, AllSharedPreferences allSharedPreferences, JSONObject jsonObject, String providerId) {
 
         try {
 
@@ -526,15 +522,15 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
 
                 if (myKey.equalsIgnoreCase(org.smartgresiter.wcaro.util.Constants.FORM_CONSTANTS.REMOVE_MEMBER_FORM.DATE_MOVED) ||
                         myKey.equalsIgnoreCase(org.smartgresiter.wcaro.util.Constants.FORM_CONSTANTS.REMOVE_MEMBER_FORM.REASON)
-                ) {
+                        ) {
                     fields.put(registrationFormParams.getRight().get(x));
                 }
                 if (myKey.equalsIgnoreCase(org.smartgresiter.wcaro.util.Constants.FORM_CONSTANTS.REMOVE_MEMBER_FORM.DATE_DIED)) {
                     fields.put(registrationFormParams.getRight().get(x));
-                    try{
+                    try {
                         dod = dd_MM_yyyy.parse(registrationFormParams.getRight().getJSONObject(x).getString(VALUE));
-                    }catch (Exception e){
-                        Log.d(TAG,e.toString());
+                    } catch (Exception e) {
+                        Log.d(TAG, e.toString());
                     }
                 }
                 x++;
@@ -545,13 +541,13 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
             String eventType;
             String tableName;
 
-            if(encounterType.equalsIgnoreCase(org.smartgresiter.wcaro.util.Constants.EventType.REMOVE_CHILD)){
+            if (encounterType.equalsIgnoreCase(org.smartgresiter.wcaro.util.Constants.EventType.REMOVE_CHILD)) {
                 eventType = org.smartgresiter.wcaro.util.Constants.EventType.REMOVE_CHILD;
                 tableName = org.smartgresiter.wcaro.util.Constants.TABLE_NAME.CHILD;
             } else if (encounterType.equalsIgnoreCase(org.smartgresiter.wcaro.util.Constants.EventType.REMOVE_FAMILY)) {
                 eventType = org.smartgresiter.wcaro.util.Constants.EventType.REMOVE_FAMILY;
                 tableName = org.smartgresiter.wcaro.util.Constants.TABLE_NAME.FAMILY;
-            }else{
+            } else {
                 eventType = org.smartgresiter.wcaro.util.Constants.EventType.REMOVE_MEMBER;
                 tableName = org.smartgresiter.wcaro.util.Constants.TABLE_NAME.FAMILY_MEMBER;
             }
@@ -564,7 +560,7 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
             events.add(eventMember);
 
 
-            return Triple.of(Pair.create(dod,encounterType), memberID, events);
+            return Triple.of(Pair.create(dod, encounterType), memberID, events);
         } catch (Exception e) {
             Log.e(TAG, e.toString());
             return null;

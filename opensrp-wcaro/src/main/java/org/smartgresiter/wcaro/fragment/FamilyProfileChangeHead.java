@@ -112,10 +112,10 @@ public class FamilyProfileChangeHead extends Fragment implements View.OnClickLis
         getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
         Intent returnIntent = new Intent();
-        if(StringUtils.isNotBlank(familyHeadID)){
+        if (StringUtils.isNotBlank(familyHeadID)) {
             returnIntent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.FAMILY_HEAD, familyHeadID);
         }
-        if(StringUtils.isNotBlank(careGiverID)){
+        if (StringUtils.isNotBlank(careGiverID)) {
             returnIntent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.PRIMARY_CAREGIVER, careGiverID);
         }
         getActivity().setResult(Activity.RESULT_OK, returnIntent);
@@ -156,13 +156,13 @@ public class FamilyProfileChangeHead extends Fragment implements View.OnClickLis
 
         @Override
         public void onClick(View view) {
-            try{
+            try {
                 Integer selectedItem = recyclerView.getChildLayoutPosition(view);
-                if(selectedItem != memberAdapter.getSelected()){
+                if (selectedItem != memberAdapter.getSelected()) {
                     memberAdapter.setSelected(selectedItem);
                     memberAdapter.notifyDataSetChanged();
                 }
-            }catch (Exception e){
+            } catch (Exception e) {
 
             }
         }

@@ -2,23 +2,27 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
         <shape android:shape="rectangle"> <!-- this shape is used as shadow -->
-            <padding android:bottom="5dp"
+            <padding
+                android:bottom="5dp"
                 android:left="5dp"
                 android:right="5dp"
-                android:top="5dp"/>
-            <solid android:color="#44000000"/>
-            <corners android:radius="5dp"/>
+                android:top="5dp" />
+            <solid android:color="#44000000" />
+            <corners android:radius="5dp" />
         </shape>
     </item>
     <item>
         <shape android:shape="rectangle"> <!-- this is for dialog frame -->
-            <corners android:radius="6dp"/>
-            <stroke android:color="#ff272727" android:width="2dp" />
-            <gradient android:angle="80"
+            <corners android:radius="6dp" />
+            <stroke
+                android:color="#ff272727"
+                android:width="2dp" />
+            <gradient
+                android:angle="80"
                 android:startColor="#ffa7a7a7"
                 android:centerColor="#ff6a6a6a"
                 android:endColor="#ffa7a7a7"
-                android:type="linear"/>
+                android:type="linear" />
         </shape>
     </item>
 </layer-list>

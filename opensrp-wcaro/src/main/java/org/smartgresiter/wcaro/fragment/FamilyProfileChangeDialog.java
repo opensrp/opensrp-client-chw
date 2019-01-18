@@ -18,7 +18,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -158,15 +157,15 @@ public class FamilyProfileChangeDialog extends DialogFragment implements View.On
         getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
         Intent returnIntent = new Intent();
-        if(StringUtils.isNotBlank(familyHeadID)){
+        if (StringUtils.isNotBlank(familyHeadID)) {
             returnIntent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.FAMILY_HEAD, familyHeadID);
         }
-        if(StringUtils.isNotBlank(careGiverID)){
+        if (StringUtils.isNotBlank(careGiverID)) {
             returnIntent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.PRIMARY_CAREGIVER, careGiverID);
         }
         getActivity().setResult(Activity.RESULT_OK, returnIntent);
 
-        if(onSaveAndClose != null){
+        if (onSaveAndClose != null) {
             onSaveAndClose.run();
         }
         close();

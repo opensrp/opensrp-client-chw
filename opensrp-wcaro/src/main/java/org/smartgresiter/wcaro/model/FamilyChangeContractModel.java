@@ -15,22 +15,22 @@ public class FamilyChangeContractModel implements FamilyChangeContract.Model {
     public static final String HEAD_ID = "head_id";
 
     @Override
-    public List<HashMap<String,String>> getMembersExcluding(List<HashMap<String, String>> clients, String primaryCareID, String headOfHouseID, String... ids) {
-        List<HashMap<String,String>> members = new ArrayList<>();
+    public List<HashMap<String, String>> getMembersExcluding(List<HashMap<String, String>> clients, String primaryCareID, String headOfHouseID, String... ids) {
+        List<HashMap<String, String>> members = new ArrayList<>();
         List<String> listIDs = Arrays.asList(ids);
         for (HashMap<String, String> client : clients) {
 
-            if(
+            if (
                     !client.containsKey(FamilyChangeContractModel.PRIMARY_ID) &&
-                    client.get(DBConstants.KEY.BASE_ENTITY_ID).equals(primaryCareID)
-            ){
+                            client.get(DBConstants.KEY.BASE_ENTITY_ID).equals(primaryCareID)
+                    ) {
                 client.put(FamilyChangeContractModel.PRIMARY_ID, "PrimaryCare");
             }
 
-            if(
+            if (
                     !client.containsKey(FamilyChangeContractModel.HEAD_ID) &&
                             client.get(DBConstants.KEY.BASE_ENTITY_ID).equals(primaryCareID)
-            ){
+                    ) {
                 client.put(FamilyChangeContractModel.PRIMARY_ID, "HeadID");
             }
 

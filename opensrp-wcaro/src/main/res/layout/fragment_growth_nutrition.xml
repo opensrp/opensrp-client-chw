@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <android.support.v7.widget.Toolbar
         android:id="@+id/detail_toolbar"
         android:layout_width="match_parent"
@@ -31,6 +32,7 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="@android:color/white" />
     </android.support.v7.widget.Toolbar>
+
     <LinearLayout
         android:id="@+id/exclusive_feeding_bar"
         android:layout_below="@+id/detail_toolbar"
@@ -38,6 +40,7 @@
         android:padding="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <org.smartregister.view.customcontrols.CustomFontTextView
             android:id="@+id/textview_exclusive"
             style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
@@ -46,27 +49,28 @@
             android:layout_marginLeft="10dp"
             android:gravity="center_vertical"
             android:text="@string/exclusive_feeding"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-             />
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
         <RadioGroup
             android:id="@+id/radio_group_exclusive"
             android:padding="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
+
             <RadioButton
                 android:id="@+id/yes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Yes"
-                />
+                android:text="Yes" />
+
             <RadioButton
                 android:id="@+id/no"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="No"
-                />
+                android:text="No" />
         </RadioGroup>
     </LinearLayout>
+
     <LinearLayout
         android:id="@+id/vitamin_a_bar"
         android:layout_below="@+id/exclusive_feeding_bar"
@@ -75,6 +79,7 @@
         android:visibility="visible"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <org.smartregister.view.customcontrols.CustomFontTextView
             android:id="@+id/textview_vitamin"
             style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
@@ -84,8 +89,8 @@
             android:layout_gravity="center_horizontal"
             android:gravity="center_horizontal"
             android:text="@string/vitamin_given"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            />
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
         <DatePicker
             android:id="@+id/earlier_date_picker"
             android:layout_width="match_parent"
@@ -96,6 +101,7 @@
             android:descendantFocusability="blocksDescendants"
             android:visibility="visible" />
     </LinearLayout>
+
     <Button
         android:id="@+id/save_btn"
         style="?android:attr/borderlessButtonStyle"

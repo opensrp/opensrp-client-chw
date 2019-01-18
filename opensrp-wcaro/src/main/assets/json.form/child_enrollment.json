@@ -47,8 +47,8 @@
     },
     "encounter_location": "",
     "look_up": {
-      "entity_id":"",
-      "value":""
+      "entity_id": "",
+      "value": ""
     }
   },
   "step1": {
@@ -78,7 +78,8 @@
           "value": "true",
           "err": "Please enter the Child's OpenMRS ID"
         }
-      },{
+      },
+      {
         "key": "surname",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",

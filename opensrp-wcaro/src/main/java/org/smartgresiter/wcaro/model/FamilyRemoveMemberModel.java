@@ -39,7 +39,7 @@ public class FamilyRemoveMemberModel extends FamilyProfileMemberModel implements
                             jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, JsonFormUtils.dd_MM_yyyy.format(dob));
                         }
                     }
-                }else if(jsonObject.getString(org.smartregister.family.util.JsonFormUtils.KEY).equalsIgnoreCase("details")){
+                } else if (jsonObject.getString(org.smartregister.family.util.JsonFormUtils.KEY).equalsIgnoreCase("details")) {
 
                     String dob = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.DOB, false);
                     String dobString = Utils.getDuration(dob);
@@ -76,7 +76,7 @@ public class FamilyRemoveMemberModel extends FamilyProfileMemberModel implements
 
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
-                if(jsonObject.getString(org.smartregister.family.util.JsonFormUtils.KEY).equalsIgnoreCase("details")){
+                if (jsonObject.getString(org.smartregister.family.util.JsonFormUtils.KEY).equalsIgnoreCase("details")) {
                     jsonObject.put("text", details);
                 }
             }

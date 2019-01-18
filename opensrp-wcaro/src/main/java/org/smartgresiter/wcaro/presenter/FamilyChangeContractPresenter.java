@@ -34,19 +34,19 @@ public class FamilyChangeContractPresenter implements FamilyChangeContract.Prese
     }
 
     @Override
-    public void saveFamilyMember(Context context, HashMap<String,String> member) {
+    public void saveFamilyMember(Context context, HashMap<String, String> member) {
 
         LocationPickerView lpv = new LocationPickerView(context);
         lpv.init();
         String lastLocationId = LocationHelper.getInstance().getOpenMrsLocationId(lpv.getSelectedItem());
 
-        interactor.updateFamilyMember(context , member, familyID, lastLocationId, this);
+        interactor.updateFamilyMember(context, member, familyID, lastLocationId, this);
     }
 
     @Override
     public void renderAdultMembersExcludePCG(List<HashMap<String, String>> clients, String primaryCareID, String headOfHouseID) {
         if (view != null && view.get() != null) {
-            List<HashMap<String,String>> res = model.getMembersExcluding(clients, primaryCareID, headOfHouseID, primaryCareID);
+            List<HashMap<String, String>> res = model.getMembersExcluding(clients, primaryCareID, headOfHouseID, primaryCareID);
             view.get().refreshMembersView(res);
         }
     }
@@ -61,7 +61,7 @@ public class FamilyChangeContractPresenter implements FamilyChangeContract.Prese
     @Override
     public void renderAdultMembersExcludeHOF(List<HashMap<String, String>> clients, String primaryCareID, String headOfHouseID) {
         if (view != null && view.get() != null) {
-            List<HashMap<String,String>> res = model.getMembersExcluding(clients, primaryCareID, headOfHouseID, headOfHouseID);
+            List<HashMap<String, String>> res = model.getMembersExcluding(clients, primaryCareID, headOfHouseID, headOfHouseID);
             view.get().refreshMembersView(res);
         }
     }

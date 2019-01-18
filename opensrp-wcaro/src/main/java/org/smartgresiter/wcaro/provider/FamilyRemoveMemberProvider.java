@@ -8,13 +8,10 @@ import android.widget.TextView;
 
 import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.contract.FamilyRemoveMemberContract;
-import org.smartgresiter.wcaro.contract.NavigationContract;
 import org.smartgresiter.wcaro.interactor.FamilyRemoveMemberInteractor;
-import org.smartgresiter.wcaro.interactor.NavigationInteractor;
 import org.smartgresiter.wcaro.util.Constants;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.family.provider.FamilyMemberRegisterProvider;
-import org.smartregister.family.util.DBConstants;
 
 import java.util.HashMap;
 import java.util.Set;
@@ -52,7 +49,7 @@ public class FamilyRemoveMemberProvider extends FamilyMemberRegisterProvider {
                 Integer children = result.get(Constants.TABLE_NAME.CHILD);
                 Integer members = result.get(Constants.TABLE_NAME.FAMILY_MEMBER);
 
-                if(children != null && members != null){
+                if (children != null && members != null) {
                     int adults = members - children;
                     footerViewHolder.hint.setText(
                             String.format("%s adults and %s U5 children", String.valueOf(adults), String.valueOf(children)));

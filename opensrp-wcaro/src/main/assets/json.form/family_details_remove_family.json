@@ -47,8 +47,8 @@
     },
     "encounter_location": "",
     "look_up": {
-      "entity_id":"",
-      "value":""
+      "entity_id": "",
+      "value": ""
     }
   },
   "step1": {

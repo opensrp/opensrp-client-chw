@@ -2,14 +2,12 @@ package org.smartgresiter.wcaro.presenter;
 
 import org.apache.commons.lang3.StringUtils;
 import org.smartgresiter.wcaro.contract.ChildRegisterFragmentContract;
-import org.smartgresiter.wcaro.util.ChildDBConstants;
 import org.smartgresiter.wcaro.util.Constants;
 import org.smartregister.configurableviews.model.Field;
 import org.smartregister.configurableviews.model.RegisterConfiguration;
 import org.smartregister.configurableviews.model.View;
 import org.smartregister.configurableviews.model.ViewConfiguration;
 import org.smartregister.family.util.DBConstants;
-import org.smartregister.family.util.Utils;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
@@ -56,7 +54,7 @@ public class ChildRegisterFragmentPresenter implements ChildRegisterFragmentCont
     public void initializeQueries(String mainCondition) {
 
         String countSelect = model.countSelect(Constants.TABLE_NAME.CHILD, mainCondition);
-        String mainSelect = model.mainSelect(Constants.TABLE_NAME.CHILD,Constants.TABLE_NAME.FAMILY,Constants.TABLE_NAME.FAMILY_MEMBER, mainCondition);
+        String mainSelect = model.mainSelect(Constants.TABLE_NAME.CHILD, Constants.TABLE_NAME.FAMILY, Constants.TABLE_NAME.FAMILY_MEMBER, mainCondition);
 
         getView().initializeQueryParams(Constants.TABLE_NAME.CHILD, countSelect, mainSelect);
         getView().initializeAdapter(visibleColumns);
@@ -97,9 +95,10 @@ public class ChildRegisterFragmentPresenter implements ChildRegisterFragmentCont
     public void setModel(ChildRegisterFragmentContract.Model model) {
         this.model = model;
     }
+
     @Override
     public String getMainCondition() {
-        return String.format(" %s is null " , DBConstants.KEY.DATE_REMOVED);
+        return String.format(" %s is null ", DBConstants.KEY.DATE_REMOVED);
     }
 
     @Override

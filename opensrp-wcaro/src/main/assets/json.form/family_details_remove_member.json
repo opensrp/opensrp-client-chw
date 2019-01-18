@@ -47,8 +47,8 @@
     },
     "encounter_location": "",
     "look_up": {
-      "entity_id":"",
-      "value":""
+      "entity_id": "",
+      "value": ""
     }
   },
   "step1": {
@@ -113,8 +113,8 @@
         "type": "date_picker",
         "hint": "Child's DOB *",
         "expanded": false,
-        "read_only":"true",
-        "hidden":"true"
+        "read_only": "true",
+        "hidden": "true"
       },
       {
         "key": "date_moved",

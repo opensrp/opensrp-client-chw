@@ -19,7 +19,6 @@ import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.contract.FamilyProfileContract;
 import org.smartregister.family.presenter.BaseFamilyProfilePresenter;
-import org.smartregister.util.FormUtils;
 
 import java.lang.ref.WeakReference;
 

@@ -50,13 +50,14 @@ public class Constants {
         public static final String CHILD_NAME = "child_name";
         public static final String CHILD_DATE_OF_BIRTH = "child_dob";
         public static final String CHILD_LAST_VISIT_DAYS = "child_visit_days";
-        public static final String CHILD_VACCINE_LIST= "child_vaccine_list";
+        public static final String CHILD_VACCINE_LIST = "child_vaccine_list";
         public static final String GROWTH_TITLE = "growth_title";
         public static final String GROWTH_IMMUNIZATION_TYPE = "growth_type";
         public static final String GROWTH_SERVICE_WRAPPER = "growth_service";
         public static final String CHILD_COMMON_PERSON = "child_common_peron";
     }
-    public static final class IMMUNIZATION_CONSTANT{
+
+    public static final class IMMUNIZATION_CONSTANT {
         public static final String DATE = "date";
         public static final String VACCINE = "vaccine";
     }
@@ -67,6 +68,7 @@ public class Constants {
         public static final String CHILD_CLIENTS = "Child Clients";
         public static final String HIV_CLIENTS = "Hiv Clients";
     }
+
     public static final class RULE_FILE {
         public static final String HOME_VISIT = "home-visit-rules.yml";
     }
@@ -100,14 +102,17 @@ public class Constants {
             public static final String DATE_DIED = "date_died";
             public static final String DATE_MOVED = "date_moved";
         }
+
         public static class CHANGE_CARE_GIVER {
             public static class PHONE_NUMBER {
                 public static final String CODE = "159635AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
             }
+
             public static class OTHER_PHONE_NUMBER {
                 public static final String CODE = "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
                 public static final String PARENT_CODE = "159635AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
             }
+
             public static class HIGHEST_EDU_LEVEL {
                 public static final String CODE = "1712AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
             }

@@ -164,7 +164,7 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity implements 
                         JSONObject form = new JSONObject(jsonString);
                         if (form.getString(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_TYPE).equals(org.smartregister.family.util.Utils.metadata().familyRegister.registerEventType)
                                 || form.getString(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_TYPE).equals(org.smartgresiter.wcaro.util.Constants.EventType.CHILD_REGISTRATION)
-                        ) {
+                                ) {
                             ((FamilyProfilePresenter) presenter).saveChildForm(jsonString, false);
                         }
                     } catch (Exception e) {
@@ -181,10 +181,10 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity implements 
                         String familyHeadID = data.getStringExtra(Constants.INTENT_KEY.FAMILY_HEAD);
 
                         BaseFamilyProfileMemberFragment memberFragment = this.getProfileMemberFragment();
-                        if(StringUtils.isNotBlank(careGiverID)){
+                        if (StringUtils.isNotBlank(careGiverID)) {
                             memberFragment.setPrimaryCaregiver(careGiverID);
                         }
-                        if(StringUtils.isNotBlank(familyHeadID)){
+                        if (StringUtils.isNotBlank(familyHeadID)) {
                             memberFragment.setFamilyHead(familyHeadID);
                         }
                         refreshMemberList(FetchStatus.fetched);

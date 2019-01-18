@@ -16,19 +16,22 @@ import static org.smartregister.util.Utils.startAsyncTask;
 public class HomeVisitGrowthNutritionInteractor implements HomeVisitGrowthNutritionContract.Interactor {
     private AppExecutors appExecutors;
     private UpdateServiceTask updateServiceTask;
+
     @VisibleForTesting
     HomeVisitGrowthNutritionInteractor(AppExecutors appExecutors) {
         this.appExecutors = appExecutors;
     }
-    public HomeVisitGrowthNutritionInteractor(){
+
+    public HomeVisitGrowthNutritionInteractor() {
         this(new AppExecutors());
     }
+
     @Override
-    public void parseRecordServiceData(final CommonPersonObjectClient commonPersonObjectClient,final HomeVisitGrowthNutritionContract.InteractorCallBack callBack) {
+    public void parseRecordServiceData(final CommonPersonObjectClient commonPersonObjectClient, final HomeVisitGrowthNutritionContract.InteractorCallBack callBack) {
         updateServiceTask = new UpdateServiceTask(commonPersonObjectClient, new UpdateServiceListener() {
             @Override
             public void onUpdateServiceList(final Map<String, ServiceWrapper> serviceWrapperMap) {
-                Runnable runnable=new Runnable() {
+                Runnable runnable = new Runnable() {
                     @Override
                     public void run() {
                         appExecutors.mainThread().execute(new Runnable() {
@@ -42,7 +45,7 @@ public class HomeVisitGrowthNutritionInteractor implements HomeVisitGrowthNutrit
                 appExecutors.diskIO().execute(runnable);
             }
         });
-        startAsyncTask(updateServiceTask,null);
+        startAsyncTask(updateServiceTask, null);
 
     }
 

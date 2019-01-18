@@ -2,7 +2,6 @@ package org.smartgresiter.wcaro.task;
 
 import android.os.AsyncTask;
 import android.text.TextUtils;
-import android.view.View;
 
 import org.joda.time.DateTime;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
@@ -31,7 +30,7 @@ public class UndoVaccineTask extends AsyncTask<Void, Void, Void> {
     private List<String> affectedVaccines;
     private CommonPersonObjectClient childDetails;
 
-    public UndoVaccineTask(ArrayList<VaccineWrapper> tag,CommonPersonObjectClient childDetails) {
+    public UndoVaccineTask(ArrayList<VaccineWrapper> tag, CommonPersonObjectClient childDetails) {
         this.childDetails = childDetails;
         this.tag = tag;
         vaccineRepository = ImmunizationLibrary.getInstance().vaccineRepository();
@@ -45,7 +44,7 @@ public class UndoVaccineTask extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected Void doInBackground(Void... params) {
-        for(VaccineWrapper tag : this.tag) {
+        for (VaccineWrapper tag : this.tag) {
             if (tag != null) {
 
                 if (tag.getDbKey() != null) {

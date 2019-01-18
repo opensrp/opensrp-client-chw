@@ -1,7 +1,5 @@
 package org.smartgresiter.wcaro.fragment;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -14,9 +12,7 @@ import com.vijay.jsonwizard.domain.Form;
 
 import org.json.JSONObject;
 import org.smartgresiter.wcaro.R;
-import org.smartgresiter.wcaro.activity.FamilyProfileActivity;
 import org.smartgresiter.wcaro.activity.FamilyRegisterActivity;
-import org.smartgresiter.wcaro.activity.FamilyRemoveMemberActivity;
 import org.smartgresiter.wcaro.contract.FamilyRemoveMemberContract;
 import org.smartgresiter.wcaro.model.FamilyRemoveMemberModel;
 import org.smartgresiter.wcaro.presenter.FamilyRemoveMemberPresenter;
@@ -25,7 +21,6 @@ import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.configurableviews.model.View;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
 import org.smartregister.domain.FetchStatus;
-import org.smartregister.family.activity.BaseFamilyProfileActivity;
 import org.smartregister.family.fragment.BaseFamilyProfileMemberFragment;
 import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.JsonFormUtils;
@@ -50,7 +45,7 @@ public class FamilyRemoveMemberFragment extends BaseFamilyProfileMemberFragment 
     }
 
     @Override
-    public void initializeAdapter(Set<View> visibleColumns, String familyHead, String primaryCaregiver)  {
+    public void initializeAdapter(Set<View> visibleColumns, String familyHead, String primaryCaregiver) {
         FamilyRemoveMemberProvider provider = new FamilyRemoveMemberProvider(familyBaseEntityId, this.getActivity(), this.commonRepository(), visibleColumns, new RemoveMemberListener(), new FooterListener(), familyHead, primaryCaregiver);
         this.clientAdapter = new RecyclerViewPaginatedAdapter((Cursor) null, provider, this.context().commonrepository(this.tablename));
         this.clientAdapter.setCurrentlimit(100);
@@ -86,7 +81,7 @@ public class FamilyRemoveMemberFragment extends BaseFamilyProfileMemberFragment 
                 getPresenter().removeMember(client);
             }
         });
-        dialog.show(getActivity().getFragmentManager(),"FamilyProfileChangeDialogHF");
+        dialog.show(getActivity().getFragmentManager(), "FamilyProfileChangeDialogHF");
     }
 
     @Override
@@ -102,7 +97,7 @@ public class FamilyRemoveMemberFragment extends BaseFamilyProfileMemberFragment 
             }
         });
 
-        dialog.show(getActivity().getFragmentManager(),"FamilyProfileChangeDialogPC");
+        dialog.show(getActivity().getFragmentManager(), "FamilyProfileChangeDialogPC");
     }
 
     @Override
@@ -136,12 +131,12 @@ public class FamilyRemoveMemberFragment extends BaseFamilyProfileMemberFragment 
     @Override
     public void onMemberRemoved(String removalType) {
         // display alert
-        if(getActivity() != null){
-            if(org.smartgresiter.wcaro.util.Constants.EventType.REMOVE_FAMILY.equalsIgnoreCase(removalType)){
+        if (getActivity() != null) {
+            if (org.smartgresiter.wcaro.util.Constants.EventType.REMOVE_FAMILY.equalsIgnoreCase(removalType)) {
                 Intent intent = new Intent(getActivity(), FamilyRegisterActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
-            }else{
+            } else {
                 getActivity().finish();
             }
         }

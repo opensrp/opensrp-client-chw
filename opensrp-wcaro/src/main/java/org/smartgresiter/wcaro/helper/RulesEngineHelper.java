@@ -1,7 +1,6 @@
 package org.smartgresiter.wcaro.helper;
 
 import android.content.Context;
-import android.util.Log;
 
 import org.jeasy.rules.api.Facts;
 import org.jeasy.rules.api.Rules;
@@ -15,12 +14,8 @@ import org.smartgresiter.wcaro.rule.HomeAlertRule;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 public class RulesEngineHelper {
     private Context context;

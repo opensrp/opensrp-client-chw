@@ -10,7 +10,6 @@ import org.json.JSONObject;
 import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.fragment.FamilyProfileChangeHead;
 import org.smartgresiter.wcaro.fragment.FamilyProfileChangePrimaryCG;
-import org.smartgresiter.wcaro.fragment.FamilyRemoveMemberFragment;
 import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;

@@ -1,7 +1,6 @@
 package org.smartgresiter.wcaro.rule;
 
 import android.text.TextUtils;
-import android.util.Log;
 
 import org.joda.time.Days;
 import org.joda.time.LocalDate;

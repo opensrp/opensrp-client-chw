@@ -6,31 +6,46 @@ import org.smartregister.immunization.domain.ServiceWrapper;
 import java.util.Map;
 
 public interface HomeVisitGrowthNutritionContract {
-    interface View{
+    interface View {
         Presenter initializePresenter();
+
         void updateExclusiveFeedingData(String name);
+
         void updateMnpData(String name);
+
         void updateVitaminAData(String name);
+
         void updateDewormingData(String name);
-        void statusImageViewUpdate(String type,boolean value);
+
+        void statusImageViewUpdate(String type, boolean value);
 
     }
-    interface Presenter{
+
+    interface Presenter {
         void parseRecordServiceData(CommonPersonObjectClient commonPersonObjectClient);
-        void setSaveState(String type,ServiceWrapper serviceWrapper);
-        void serNotVisitState(String type,ServiceWrapper serviceWrapper);
+
+        void setSaveState(String type, ServiceWrapper serviceWrapper);
+
+        void serNotVisitState(String type, ServiceWrapper serviceWrapper);
+
         void resetAllSaveState();
+
         boolean isAllSelected();
+
         HomeVisitGrowthNutritionContract.View getView();
+
         void onDestroy(boolean isChangingConfiguration);
 
     }
-    interface Interactor{
-        void parseRecordServiceData(CommonPersonObjectClient commonPersonObjectClient,InteractorCallBack callBack);
+
+    interface Interactor {
+        void parseRecordServiceData(CommonPersonObjectClient commonPersonObjectClient, InteractorCallBack callBack);
+
         void onDestroy(boolean isChangingConfiguration);
 
     }
-    interface InteractorCallBack{
+
+    interface InteractorCallBack {
         void updateRecordVisitData(Map<String, ServiceWrapper> stringServiceWrapperMap);
 
     }

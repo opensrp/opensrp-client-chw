@@ -3,6 +3,7 @@ package org.smartgresiter.wcaro.util;
 public class VaccineContent implements BaseVaccine {
     String vaccineName;
     String vaccineDate;
+
     public String getVaccineName() {
         return vaccineName;
     }
