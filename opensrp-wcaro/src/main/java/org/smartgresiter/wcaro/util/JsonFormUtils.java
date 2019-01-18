@@ -1,6 +1,5 @@
 package org.smartgresiter.wcaro.util;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.util.Log;
@@ -43,12 +42,14 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.ExecutionException;
 
 import static org.apache.commons.lang3.StringUtils.isBlank;
 
@@ -485,7 +486,14 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
         return event;
     }
 
-    public static Triple<String, String, List<Event>> processRemoveMemberEvent(String familyID, AllSharedPreferences allSharedPreferences, JSONObject jsonObject, String providerId) {
+    /**
+     * @param familyID
+     * @param allSharedPreferences
+     * @param jsonObject
+     * @param providerId
+     * @return Returns a triple object <b>DateOfDeath as String, BaseEntityID , List of Events </b>that should be processed
+     */
+    public static Triple<Date, String, List<Event>> processRemoveMemberEvent(String familyID, AllSharedPreferences allSharedPreferences, JSONObject jsonObject, String providerId) {
 
         try {
 
@@ -497,7 +505,7 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
                 return null;
             }
 
-            String dod = null;
+            Date dod = null;
 
             FormTag formTag = new FormTag();
             formTag.providerId = Utils.context().allSharedPreferences().fetchRegisteredANM();
@@ -505,33 +513,34 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
             formTag.databaseVersion = FamilyLibrary.getInstance().getDatabaseVersion();
 
             JSONObject metadata = getJSONObject(registrationFormParams.getMiddle(), METADATA);
-
-            // update family register
-            Event eventFamily = JsonFormUtils.createEvent(new JSONArray(), metadata, formTag, familyID, Utils.metadata().familyRegister.updateEventType,
-                    Utils.metadata().familyRegister.tableName);
-            events.add(eventFamily);
-
-            // update member register
-
             String memberID = getString(registrationFormParams.getMiddle(), ENTITY_ID);
 
             JSONArray fields = new JSONArray();
+
             int x = 0;
-            while(x < registrationFormParams.getRight().length()){
-                String value = registrationFormParams.getRight().getJSONObject(x).getString(VALUE);
+            while (x < registrationFormParams.getRight().length()) {
+                //JSONObject obj = registrationFormParams.getRight().getJSONObject(x);
                 String myKey = registrationFormParams.getRight().getJSONObject(x).getString(KEY);
 
-                if (StringUtils.isNotBlank(value) && (
-                        myKey.equalsIgnoreCase(org.smartgresiter.wcaro.util.Constants.FORM_CONSTANTS.REMOVE_MEMBER_FORM.DATE_DIED) ||
-                                myKey.equalsIgnoreCase(org.smartgresiter.wcaro.util.Constants.FORM_CONSTANTS.REMOVE_MEMBER_FORM.DATE_MOVED) ||
-                                myKey.equalsIgnoreCase(org.smartgresiter.wcaro.util.Constants.FORM_CONSTANTS.REMOVE_MEMBER_FORM.REASON)
-                )){
+                if (myKey.equalsIgnoreCase(org.smartgresiter.wcaro.util.Constants.FORM_CONSTANTS.REMOVE_MEMBER_FORM.DATE_MOVED) ||
+                        myKey.equalsIgnoreCase(org.smartgresiter.wcaro.util.Constants.FORM_CONSTANTS.REMOVE_MEMBER_FORM.REASON)
+                ) {
                     fields.put(registrationFormParams.getRight().get(x));
                 }
+                if (myKey.equalsIgnoreCase(org.smartgresiter.wcaro.util.Constants.FORM_CONSTANTS.REMOVE_MEMBER_FORM.DATE_DIED)) {
+                    fields.put(registrationFormParams.getRight().get(x));
+                    try{
+                        dod = dd_MM_yyyy.parse(registrationFormParams.getRight().getJSONObject(x).getString(VALUE));
+                    }catch (Exception e){
+                        Log.d(TAG,e.toString());
+                    }
+                }
+                x++;
             }
 
             Event eventMember = JsonFormUtils.createEvent(fields, metadata, formTag, memberID, Utils.metadata().familyMemberRegister.updateEventType,
                     Utils.metadata().familyMemberRegister.tableName);
+
             events.add(eventMember);
 
             // add observations

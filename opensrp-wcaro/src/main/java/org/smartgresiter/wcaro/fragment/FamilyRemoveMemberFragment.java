@@ -136,6 +136,8 @@ public class FamilyRemoveMemberFragment extends BaseFamilyProfileMemberFragment 
     @Override
     public void onMemberRemoved() {
         // display alert
+        getActivity().finish();
+        /**
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setMessage("Member has been removed");
         builder.setCancelable(true);
@@ -150,6 +152,7 @@ public class FamilyRemoveMemberFragment extends BaseFamilyProfileMemberFragment 
 
         AlertDialog alert11 = builder.create();
         alert11.show();
+         **/
     }
 
     @Override

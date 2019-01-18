@@ -1,7 +1,5 @@
 package org.smartgresiter.wcaro.contract;
 
-import com.google.gson.JsonObject;
-
 import org.json.JSONObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.contract.FamilyProfileMemberContract;

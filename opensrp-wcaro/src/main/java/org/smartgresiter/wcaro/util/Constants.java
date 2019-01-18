@@ -16,6 +16,10 @@ public class Constants {
 
         public static final String UPDATE_FAMILY_REGISTRATION = "Update Family Registration";
         public static final String UPDATE_FAMILY_MEMBER_REGISTRATION = "Update Family Member Registration";
+
+        public static final String REMOVE_MEMBER = "Remove Family Member";
+        public static final String REMOVE_CHILD = "Remove Child Under 5";
+        public static final String REMOVE_FAMILY = "Remove Family";
     }
 
     public static class JSON_FORM {

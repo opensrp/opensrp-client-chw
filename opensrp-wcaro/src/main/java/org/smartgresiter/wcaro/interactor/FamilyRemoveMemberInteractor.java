@@ -7,12 +7,12 @@ import android.util.Log;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartgresiter.wcaro.application.WcaroApplication;
 import org.smartgresiter.wcaro.contract.FamilyRemoveMemberContract;
 import org.smartgresiter.wcaro.util.Constants;
 import org.smartgresiter.wcaro.util.JsonFormUtils;
-import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.AllCommonsRepository;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
@@ -25,6 +25,7 @@ import org.smartregister.family.util.Utils;
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.sync.helper.ECSyncHelper;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -63,7 +64,7 @@ public class FamilyRemoveMemberInteractor implements FamilyRemoveMemberContract.
                 Boolean res = true;
                 // process the json object
                 try {
-                    removeMember(familyID, exitForm,lastLocationId);
+                    removeMember(familyID, exitForm, lastLocationId);
                 } catch (Exception e) {
                     res = false;
                     e.printStackTrace();
@@ -240,22 +241,67 @@ public class FamilyRemoveMemberInteractor implements FamilyRemoveMemberContract.
     }
 
     private void removeMember(String familyID, JSONObject closeFormJsonString, String providerId) throws Exception {
-
-        ECSyncHelper syncHelper = WcaroApplication.getInstance().getEcSyncHelper();
-
-        Triple<String, String, List<Event>> triple = JsonFormUtils.processRemoveMemberEvent(familyID , Utils.getAllSharedPreferences(), closeFormJsonString, providerId);
-        if(triple != null){
-
-            if(triple.getMiddle() != null && triple.getRight() != null){
-                // syncHelper.addEvent(triple.getRight().getBaseEntityId(), new JSONObject(org.smartregister.family.util.JsonFormUtils.gson.toJson(triple.getRight())));
-
-                // call processor
-                long lastSyncTimeStamp = Utils.context().allSharedPreferences().fetchLastUpdatedAtDate(0);
-                Date lastSyncDate = new Date(lastSyncTimeStamp);
-                FamilyLibrary.getInstance().getClientProcessorForJava().processClient(syncHelper.getEvents(lastSyncDate, BaseRepository.TYPE_Unsynced));
-                Utils.context().allSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
-
+        // create events
+        Triple<Date, String, List<Event>> triple = JsonFormUtils.processRemoveMemberEvent(familyID, Utils.getAllSharedPreferences(), closeFormJsonString, providerId);
+        // delete from local repo
+        if (triple != null) {
+            if (triple.getRight() != null) {
+                processEvents(triple.getRight());
             }
+            updateRepo(triple, Utils.metadata().familyMemberRegister.tableName);
         }
+    }
+
+    private void removeChild(String familyID, JSONObject closeFormJsonString, String providerId) throws Exception {
+        Triple<Date, String, List<Event>> triple = JsonFormUtils.processRemoveMemberEvent(familyID, Utils.getAllSharedPreferences(), closeFormJsonString, providerId);
+        // delete from local repo
+        if (triple != null) {
+            if (triple.getRight() != null) {
+                processEvents(triple.getRight());
+            }
+            updateRepo(triple, Utils.metadata().familyMemberRegister.tableName);
+            updateRepo(triple, Constants.TABLE_NAME.CHILD);
+        }
+    }
+
+    private void removeFamily(String familyID, JSONObject closeFormJsonString, String providerId) throws Exception {
+        Triple<Date, String, List<Event>> triple = JsonFormUtils.processRemoveMemberEvent(familyID, Utils.getAllSharedPreferences(), closeFormJsonString, providerId);
+        // delete from local repo
+        if (triple != null) {
+            if (triple.getRight() != null) {
+                processEvents(triple.getRight());
+            }
+            updateRepo(triple, Utils.metadata().familyRegister.tableName);
+        }
+    }
+
+    private void updateRepo(Triple<Date, String, List<Event>> triple, String tableName){
+        AllCommonsRepository commonsRepository = WcaroApplication.getInstance().getAllCommonsRepository(tableName);
+
+        if (commonsRepository != null) {
+            ContentValues values = new ContentValues();
+            values.put(DBConstants.KEY.DATE_REMOVED, getDBFormatedDate(new Date()));
+            commonsRepository.update(tableName, values, triple.getMiddle());
+            commonsRepository.updateSearch(triple.getMiddle());
+        }
+
+        // enter the date of death
+        if (triple.getLeft() != null && commonsRepository != null) {
+            ContentValues values = new ContentValues();
+            values.put(DBConstants.KEY.DOD, getDBFormatedDate(triple.getLeft()));
+            commonsRepository.update(tableName, values, triple.getMiddle());
+            commonsRepository.updateSearch(triple.getMiddle());
+        }
+    }
+
+    private void processEvents(List<Event> events) throws JSONException {
+        ECSyncHelper syncHelper = WcaroApplication.getInstance().getEcSyncHelper();
+        for (Event e : events) {
+            syncHelper.addEvent(e.getBaseEntityId(), new JSONObject(JsonFormUtils.gson.toJson(e)));
+        }
+    }
+
+    private String getDBFormatedDate(Date date) {
+        return new SimpleDateFormat("yyyy-MM-dd").format(date);
     }
 }

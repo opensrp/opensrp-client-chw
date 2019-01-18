@@ -266,11 +266,12 @@ public class FamilyChangeContractInteractor implements FamilyChangeContract.Inte
                 DBConstants.KEY.DOB + " , " +
                 DBConstants.KEY.GENDER;
 
-        String sql = String.format("select %s from %s where %s = '%s' ",
+        String sql = String.format("select %s from %s where %s = '%s' and %s is null ",
                 info_columns,
                 Utils.metadata().familyMemberRegister.tableName,
                 DBConstants.KEY.RELATIONAL_ID,
-                familyID
+                familyID ,
+                DBConstants.KEY.DATE_REMOVED
         );
 
         CommonRepository commonRepository = Utils.context().commonrepository(Utils.metadata().familyMemberRegister.tableName);
