@@ -87,4 +87,24 @@ public class Constants {
         public static final int CHANGE_COMPLETED = 9090;
     }
 
+    public static class FORM_CONSTANTS {
+        public static class REMOVE_MEMBER_FORM {
+            public static final String REASON = "remove_reason";
+            public static final String DATE_DIED = "date_died";
+            public static final String DATE_MOVED = "date_moved";
+        }
+        public static class CHANGE_CARE_GIVER {
+            public static class PHONE_NUMBER {
+                public static final String CODE = "159635AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+            }
+            public static class OTHER_PHONE_NUMBER {
+                public static final String CODE = "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+                public static final String PARENT_CODE = "159635AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+            }
+            public static class HIGHEST_EDU_LEVEL {
+                public static final String CODE = "1712AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+            }
+        }
+    }
+
 }

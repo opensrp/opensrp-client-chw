@@ -1,21 +1,31 @@
 package org.smartgresiter.wcaro.interactor;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.support.annotation.VisibleForTesting;
 import android.util.Log;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.tuple.Triple;
 import org.json.JSONObject;
 import org.smartgresiter.wcaro.application.WcaroApplication;
 import org.smartgresiter.wcaro.contract.FamilyRemoveMemberContract;
 import org.smartgresiter.wcaro.util.Constants;
+import org.smartgresiter.wcaro.util.JsonFormUtils;
+import org.smartregister.clientandeventmodel.Client;
+import org.smartregister.clientandeventmodel.Event;
+import org.smartregister.commonregistry.AllCommonsRepository;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
+import org.smartregister.family.FamilyLibrary;
 import org.smartregister.family.util.AppExecutors;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.Utils;
+import org.smartregister.repository.BaseRepository;
+import org.smartregister.sync.helper.ECSyncHelper;
 
+import java.util.Date;
 import java.util.HashMap;
 
 public class FamilyRemoveMemberInteractor implements FamilyRemoveMemberContract.Interactor {
@@ -43,13 +53,20 @@ public class FamilyRemoveMemberInteractor implements FamilyRemoveMemberContract.
     }
 
     @Override
-    public void removeMember(String familyID, String lastLocationId, JSONObject exitForm, final FamilyRemoveMemberContract.Presenter presenter) {
+    public void removeMember(final String familyID, final String lastLocationId, final JSONObject exitForm, final FamilyRemoveMemberContract.Presenter presenter) {
 
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
 
+                Boolean res = true;
                 // process the json object
+                try {
+                    removeMember(familyID, exitForm,lastLocationId);
+                } catch (Exception e) {
+                    res = false;
+                    e.printStackTrace();
+                }
 
                 appExecutors.mainThread().execute(new Runnable() {
                     @Override
@@ -65,14 +82,13 @@ public class FamilyRemoveMemberInteractor implements FamilyRemoveMemberContract.
     }
 
     @Override
-    public void removeFamily(String familyID, String lastLocationId, final FamilyRemoveMemberContract.Presenter presenter) {
+    public void removeFamily(final String familyID, final String lastLocationId, final FamilyRemoveMemberContract.Presenter presenter) {
 
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
                 final Boolean success = false;
                 // close all members
-
                 // close family
 
                 appExecutors.mainThread().execute(new Runnable() {
@@ -222,4 +238,23 @@ public class FamilyRemoveMemberInteractor implements FamilyRemoveMemberContract.
         return WcaroApplication.getInstance().getContext().commonrepository(tableName);
     }
 
+    private void removeMember(String familyID, JSONObject closeFormJsonString, String providerId) throws Exception {
+
+        ECSyncHelper syncHelper = WcaroApplication.getInstance().getEcSyncHelper();
+
+        Triple<Boolean, Event, Event> triple = JsonFormUtils.processRemoveMemberEvent(familyID , Utils.getAllSharedPreferences(), closeFormJsonString, providerId);
+        if(triple != null){
+
+            if(triple.getMiddle() != null && triple.getRight() != null){
+                syncHelper.addEvent(triple.getMiddle().getBaseEntityId(), new JSONObject(org.smartregister.family.util.JsonFormUtils.gson.toJson(triple.getMiddle())));
+                syncHelper.addEvent(triple.getRight().getBaseEntityId(), new JSONObject(org.smartregister.family.util.JsonFormUtils.gson.toJson(triple.getRight())));
+
+                // call processor
+                long lastSyncTimeStamp = Utils.context().allSharedPreferences().fetchLastUpdatedAtDate(0);
+                Date lastSyncDate = new Date(lastSyncTimeStamp);
+                FamilyLibrary.getInstance().getClientProcessorForJava().processClient(syncHelper.getEvents(lastSyncDate, BaseRepository.TYPE_Unsynced));
+                Utils.context().allSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
+            }
+        }
+    }
 }

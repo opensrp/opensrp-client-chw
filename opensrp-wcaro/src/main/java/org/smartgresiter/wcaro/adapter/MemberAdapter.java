@@ -146,9 +146,9 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MyViewHold
 
 
         holder.etPhone.setText(model.get(DBConstants.KEY.PHONE_NUMBER));
-        holder.etAlternatePhone.setText((model.get("other_phone_number").equals("null") ? "" : model.get("other_phone_number")));
+        holder.etAlternatePhone.setText((model.get(DBConstants.KEY.OTHER_PHONE_NUMBER).equals("null") ? "" : model.get(DBConstants.KEY.OTHER_PHONE_NUMBER)));
 
-        switch (model.get("highest_edu_level")) {
+        switch (model.get(DBConstants.KEY.HIGHEST_EDU_LEVEL)) {
             case "None":
                 holder.spEduLevel.setSelection(0);
                 break;

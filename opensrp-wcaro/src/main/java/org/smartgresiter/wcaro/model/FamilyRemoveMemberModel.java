@@ -20,7 +20,7 @@ public class FamilyRemoveMemberModel extends FamilyProfileMemberModel implements
             FormUtils formUtils = FormUtils.getInstance(Utils.context().applicationContext());
             JSONObject form = formUtils.getFormJson(org.smartgresiter.wcaro.util.Constants.JSON_FORM.FAMILY_DETAILS_REMOVE_MEMBER);
 
-
+            form.put(JsonFormUtils.ENTITY_ID, Utils.getValue(client.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, false));
             // inject data into the form
 
             JSONObject stepOne = form.getJSONObject(org.smartregister.family.util.JsonFormUtils.STEP1);
