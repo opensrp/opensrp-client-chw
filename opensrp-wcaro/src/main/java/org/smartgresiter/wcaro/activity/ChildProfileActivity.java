@@ -81,7 +81,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     protected void onCreation() {
         setContentView(R.layout.activity_child_profile);
         ((IndividualMemberFloatingMenu) findViewById(R.id.individual_floating_menu)).setClickListener(onClickFloatingMenu);
-        Toolbar toolbar = findViewById(R.id.child_toolbar);
+        Toolbar toolbar = findViewById(R.id.collapsing_toolbar);
         textViewTitle = toolbar.findViewById(R.id.toolbar_title);
         setSupportActionBar(toolbar);
 
@@ -98,7 +98,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
                 finish();
             }
         });
-        appBarLayout = findViewById(R.id.child_toolbar_appbarlayout);
+        appBarLayout = findViewById(R.id.collapsing_toolbar_appbarlayout);
         appBarLayout.addOnOffsetChangedListener(this);
 
         imageRenderHelper = new ImageRenderHelper(this);

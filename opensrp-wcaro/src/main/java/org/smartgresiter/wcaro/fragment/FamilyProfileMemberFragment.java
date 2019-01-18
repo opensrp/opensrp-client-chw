@@ -5,9 +5,12 @@ import android.os.Bundle;
 import android.view.View;
 
 import org.smartgresiter.wcaro.R;
+import org.smartgresiter.wcaro.activity.ChildProfileActivity;
 import org.smartgresiter.wcaro.activity.FamilyOtherMemberProfileActivity;
 import org.smartgresiter.wcaro.model.FamilyProfileMemberModel;
 import org.smartgresiter.wcaro.presenter.FamilyProfileMemberPresenter;
+import org.smartgresiter.wcaro.util.ChildDBConstants;
+import org.smartgresiter.wcaro.util.Utils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.fragment.BaseFamilyProfileMemberFragment;
 import org.smartregister.family.util.Constants;
@@ -39,7 +42,13 @@ public class FamilyProfileMemberFragment extends BaseFamilyProfileMemberFragment
         switch (view.getId()) {
             case R.id.patient_column:
                 if (view.getTag() != null && view.getTag(org.smartregister.family.R.id.VIEW_ID) == CLICK_VIEW_NORMAL) {
-                    goToOtherMemberProfileActivity((CommonPersonObjectClient) view.getTag());
+                    CommonPersonObjectClient commonPersonObjectClient = (CommonPersonObjectClient) view.getTag();
+                    String entityType = Utils.getValue(commonPersonObjectClient.getColumnmaps(), ChildDBConstants.KEY.ENTITY_TYPE, false);
+                    if (org.smartgresiter.wcaro.util.Constants.TABLE_NAME.FAMILY_MEMBER.equals(entityType)) {
+                        goToOtherMemberProfileActivity(commonPersonObjectClient);
+                    } else {
+                        goToChildProfileActivity(commonPersonObjectClient);
+                    }
                 }
                 break;
             default:
@@ -49,6 +58,13 @@ public class FamilyProfileMemberFragment extends BaseFamilyProfileMemberFragment
 
     public void goToOtherMemberProfileActivity(CommonPersonObjectClient patient) {
         Intent intent = new Intent(getActivity(), FamilyOtherMemberProfileActivity.class);
+        intent.putExtras(getArguments());
+        intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, patient.getCaseId());
+        startActivity(intent);
+    }
+
+    public void goToChildProfileActivity(CommonPersonObjectClient patient) {
+        Intent intent = new Intent(getActivity(), ChildProfileActivity.class);
         intent.putExtras(getArguments());
         intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, patient.getCaseId());
         startActivity(intent);
