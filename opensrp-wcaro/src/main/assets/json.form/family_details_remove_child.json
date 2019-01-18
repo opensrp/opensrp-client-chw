@@ -1,6 +1,6 @@
 {
   "count": "1",
-  "encounter_type": "Remove Family Member",
+  "encounter_type": "Remove Child Under 5",
   "entity_id": "",
   "relational_id": "",
   "metadata": {
@@ -52,7 +52,7 @@
     }
   },
   "step1": {
-    "title": "Remove Family Member",
+    "title": "Remove Child Under 5",
     "fields": [
       {
         "key": "spacer",
@@ -169,6 +169,21 @@
             "err": "Date of death can't occur before date of birth"
           }
         ],
+        "relevance": {
+          "step1:remove_reason": {
+            "type": "string",
+            "ex": "equalTo(., \"Died\")"
+          }
+        }
+      },
+      {
+        "key": "age_at_death",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "label",
+        "text": "",
+        "text_size": "30px",
         "relevance": {
           "step1:remove_reason": {
             "type": "string",

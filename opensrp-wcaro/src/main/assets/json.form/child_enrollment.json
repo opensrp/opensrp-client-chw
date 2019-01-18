@@ -231,12 +231,12 @@
           "err": "Number must begin with 0 and must be a total of 10 digits in length"
         },
         "v_min": {
-          "value": "15",
-          "err": "Age must be equal or greater than 15"
+          "value": "0",
+          "err": "Age must be equal or greater than 0"
         },
         "v_max": {
-          "value": "49",
-          "err": "Age must be equal or less than 49"
+          "value": "5",
+          "err": "Age must be equal or less than 5"
         },
         "relevance": {
           "rules-engine": {

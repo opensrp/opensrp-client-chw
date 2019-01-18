@@ -189,8 +189,8 @@
         "duration": {
           "label": "Age"
         },
-        "min_date": "today-49y",
-        "max_date": "today-15y",
+        "min_date": "today-120y",
+        "max_date": "today-5y",
         "v_required": {
           "value": "true",
           "err": "Please enter the date of birth"
@@ -231,12 +231,12 @@
           "err": "Number must begin with 0 and must be a total of 10 digits in length"
         },
         "v_min": {
-          "value": "15",
-          "err": "Age must be equal or greater than 15"
+          "value": "5",
+          "err": "Age must be equal or greater than 5"
         },
         "v_max": {
-          "value": "49",
-          "err": "Age must be equal or less than 49"
+          "value": "120",
+          "err": "Age must be equal or less than 120"
         },
         "relevance": {
           "rules-engine": {

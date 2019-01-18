@@ -21,6 +21,7 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import org.apache.commons.lang3.StringUtils;
 import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.util.Constants;
 import org.smartregister.family.util.DBConstants;
@@ -116,11 +117,13 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MyViewHold
     }
 
     private void renderViews(final MyViewHolder holder, HashMap<String, String> model) {
-        if (
-                model.containsKey(DBConstants.KEY.PHONE_NUMBER) &&
-                        model.get(DBConstants.KEY.PHONE_NUMBER) != null &&
-                        !model.get(DBConstants.KEY.PHONE_NUMBER).trim().equals("")
-        ) {
+        String phoneNumber = model.get(DBConstants.KEY.PHONE_NUMBER);
+        phoneNumber = (StringUtils.equalsIgnoreCase(phoneNumber, "null") ? "" : phoneNumber);
+
+        String otherPhoneNumber = model.get(DBConstants.KEY.OTHER_PHONE_NUMBER);
+        otherPhoneNumber = (StringUtils.equalsIgnoreCase(otherPhoneNumber, "null") ? "" : otherPhoneNumber);
+
+        if (StringUtils.isNotBlank(phoneNumber)) {
             holder.llOldNumber.setVisibility(View.VISIBLE);
             holder.llNewPhone.setVisibility(View.GONE);
         } else {
@@ -130,8 +133,8 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MyViewHold
         }
 
         holder.tvPhoneNumberConfirm.setText(String.format("Is %s phone number still %s?",
-                (model.get(DBConstants.KEY.GENDER).equals("male") ? "his" : "her"),
-                model.get(DBConstants.KEY.PHONE_NUMBER)
+                (model.get(DBConstants.KEY.GENDER).equalsIgnoreCase("male") ? "his" : "her"),
+                phoneNumber
         ));
 
         holder.rbNo.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -145,26 +148,29 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MyViewHold
         });
 
 
-        holder.etPhone.setText(model.get(DBConstants.KEY.PHONE_NUMBER));
-        holder.etAlternatePhone.setText((model.get(DBConstants.KEY.OTHER_PHONE_NUMBER).equals("null") ? "" : model.get(DBConstants.KEY.OTHER_PHONE_NUMBER)));
+        holder.etPhone.setText(phoneNumber);
+        holder.etAlternatePhone.setText(otherPhoneNumber);
 
-        switch (model.get(DBConstants.KEY.HIGHEST_EDU_LEVEL)) {
-            case "None":
-                holder.spEduLevel.setSelection(0);
-                break;
-            case "Primary":
-                holder.spEduLevel.setSelection(1);
-                break;
-            case "Secondary":
-                holder.spEduLevel.setSelection(2);
-                break;
-            case "Post-secondary":
-                holder.spEduLevel.setSelection(3);
-                break;
-            default:
+        String highestEduLevel = model.get(DBConstants.KEY.HIGHEST_EDU_LEVEL);
+        if (StringUtils.isNotBlank(highestEduLevel)) {
+            switch (highestEduLevel) {
+                case "None":
+                    holder.spEduLevel.setSelection(0);
+                    break;
+                case "Primary":
+                    holder.spEduLevel.setSelection(1);
+                    break;
+                case "Secondary":
+                    holder.spEduLevel.setSelection(2);
+                    break;
+                case "Post-secondary":
+                    holder.spEduLevel.setSelection(3);
+                    break;
+                default:
 
-                holder.spEduLevel.setSelection(0);
-                break;
+                    holder.spEduLevel.setSelection(0);
+                    break;
+            }
         }
     }
 

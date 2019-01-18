@@ -1,5 +1,6 @@
 package org.smartgresiter.wcaro.util;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.util.Log;
@@ -17,7 +18,6 @@ import org.smartgresiter.wcaro.repository.WcaroRepository;
 import org.smartregister.clientandeventmodel.Address;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
-import org.smartregister.clientandeventmodel.FormEntityConstants;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.Photo;
@@ -47,10 +47,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 import java.util.UUID;
 
 import static org.apache.commons.lang3.StringUtils.isBlank;
-import static org.apache.commons.lang3.StringUtils.remove;
 
 /**
  * Created by keyman on 13/11/2018.
@@ -290,7 +290,7 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
 
     }
 
-    public static JSONObject getAutoPopulatedJsonEditFormString(String formName , Context context, CommonPersonObjectClient client) {
+    public static JSONObject getAutoPopulatedJsonEditFormString(String formName, Context context, CommonPersonObjectClient client) {
         try {
             JSONObject form = FormUtils.getInstance(context).getFormJson(formName);
             LocationPickerView lpv = new LocationPickerView(context);
@@ -328,7 +328,7 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
     }
 
     public static JSONObject getAutoPopulatedJsonEditFormString(Context context, CommonPersonObjectClient client) {
-        return getAutoPopulatedJsonEditFormString(Utils.metadata().familyRegister.formName, context,client);
+        return getAutoPopulatedJsonEditFormString(Utils.metadata().familyRegister.formName, context, client);
     }
 
     protected static void processPopulatableFields(CommonPersonObjectClient client, JSONObject jsonObject) throws JSONException {
@@ -485,13 +485,59 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
         return event;
     }
 
-    public static Triple<Boolean, Event, Event> processRemoveMemberEvent(String familyID, AllSharedPreferences allSharedPreferences, JSONObject jsonString, String providerId){
+    public static Triple<String, String, List<Event>> processRemoveMemberEvent(String familyID, AllSharedPreferences allSharedPreferences, JSONObject jsonObject, String providerId) {
 
-        try{
+        try {
 
+            List<Event> events = new ArrayList<>();
 
-            return null;
-        }catch (Exception e){
+            Triple<Boolean, JSONObject, JSONArray> registrationFormParams = validateParameters(jsonObject.toString());
+
+            if (!registrationFormParams.getLeft()) {
+                return null;
+            }
+
+            String dod = null;
+
+            FormTag formTag = new FormTag();
+            formTag.providerId = Utils.context().allSharedPreferences().fetchRegisteredANM();
+            formTag.appVersion = FamilyLibrary.getInstance().getApplicationVersion();
+            formTag.databaseVersion = FamilyLibrary.getInstance().getDatabaseVersion();
+
+            JSONObject metadata = getJSONObject(registrationFormParams.getMiddle(), METADATA);
+
+            // update family register
+            Event eventFamily = JsonFormUtils.createEvent(new JSONArray(), metadata, formTag, familyID, Utils.metadata().familyRegister.updateEventType,
+                    Utils.metadata().familyRegister.tableName);
+            events.add(eventFamily);
+
+            // update member register
+
+            String memberID = getString(registrationFormParams.getMiddle(), ENTITY_ID);
+
+            JSONArray fields = new JSONArray();
+            int x = 0;
+            while(x < registrationFormParams.getRight().length()){
+                String value = registrationFormParams.getRight().getJSONObject(x).getString(VALUE);
+                String myKey = registrationFormParams.getRight().getJSONObject(x).getString(KEY);
+
+                if (StringUtils.isNotBlank(value) && (
+                        myKey.equalsIgnoreCase(org.smartgresiter.wcaro.util.Constants.FORM_CONSTANTS.REMOVE_MEMBER_FORM.DATE_DIED) ||
+                                myKey.equalsIgnoreCase(org.smartgresiter.wcaro.util.Constants.FORM_CONSTANTS.REMOVE_MEMBER_FORM.DATE_MOVED) ||
+                                myKey.equalsIgnoreCase(org.smartgresiter.wcaro.util.Constants.FORM_CONSTANTS.REMOVE_MEMBER_FORM.REASON)
+                )){
+                    fields.put(registrationFormParams.getRight().get(x));
+                }
+            }
+
+            Event eventMember = JsonFormUtils.createEvent(fields, metadata, formTag, memberID, Utils.metadata().familyMemberRegister.updateEventType,
+                    Utils.metadata().familyMemberRegister.tableName);
+            events.add(eventMember);
+
+            // add observations
+
+            return Triple.of(dod, memberID, events);
+        } catch (Exception e) {
             Log.e(TAG, e.toString());
             return null;
         }

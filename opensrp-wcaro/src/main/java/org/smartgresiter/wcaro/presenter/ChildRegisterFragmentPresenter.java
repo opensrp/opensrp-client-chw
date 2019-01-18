@@ -99,7 +99,7 @@ public class ChildRegisterFragmentPresenter implements ChildRegisterFragmentCont
     }
     @Override
     public String getMainCondition() {
-        return "";
+        return String.format(" %s is null " , DBConstants.KEY.DATE_REMOVED);
     }
 
     @Override

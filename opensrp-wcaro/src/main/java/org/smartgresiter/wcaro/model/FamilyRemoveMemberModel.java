@@ -15,10 +15,10 @@ import java.util.Date;
 public class FamilyRemoveMemberModel extends FamilyProfileMemberModel implements FamilyRemoveMemberContract.Model {
 
     @Override
-    public JSONObject prepareJsonForm(CommonPersonObjectClient client) {
+    public JSONObject prepareJsonForm(CommonPersonObjectClient client, String formType) {
         try {
             FormUtils formUtils = FormUtils.getInstance(Utils.context().applicationContext());
-            JSONObject form = formUtils.getFormJson(org.smartgresiter.wcaro.util.Constants.JSON_FORM.FAMILY_DETAILS_REMOVE_MEMBER);
+            JSONObject form = formUtils.getFormJson(formType);
 
             form.put(JsonFormUtils.ENTITY_ID, Utils.getValue(client.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, false));
             // inject data into the form

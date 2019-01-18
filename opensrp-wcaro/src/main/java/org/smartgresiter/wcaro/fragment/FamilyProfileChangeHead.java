@@ -36,7 +36,6 @@ public class FamilyProfileChangeHead extends Fragment implements View.OnClickLis
     RecyclerView recyclerView;
     FamilyChangeContract.Presenter presenter;
     List<HashMap<String, String>> members;
-    Integer selectedItem = -1;
     ProgressBar progressBar;
 
     public static FamilyProfileChangeHead newInstance(String familyID) {
@@ -76,7 +75,7 @@ public class FamilyProfileChangeHead extends Fragment implements View.OnClickLis
                 close();
                 break;
             case R.id.tvAction:
-                validateSave(selectedItem);
+                validateSave(memberAdapter.getSelected());
                 break;
         }
     }
@@ -158,7 +157,7 @@ public class FamilyProfileChangeHead extends Fragment implements View.OnClickLis
         @Override
         public void onClick(View view) {
             try{
-                selectedItem = recyclerView.getChildLayoutPosition(view);
+                Integer selectedItem = recyclerView.getChildLayoutPosition(view);
                 if(selectedItem != memberAdapter.getSelected()){
                     memberAdapter.setSelected(selectedItem);
                     memberAdapter.notifyDataSetChanged();

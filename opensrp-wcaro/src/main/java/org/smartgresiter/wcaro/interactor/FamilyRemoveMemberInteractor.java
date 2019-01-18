@@ -27,6 +27,7 @@ import org.smartregister.sync.helper.ECSyncHelper;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 public class FamilyRemoveMemberInteractor implements FamilyRemoveMemberContract.Interactor {
 
@@ -242,18 +243,18 @@ public class FamilyRemoveMemberInteractor implements FamilyRemoveMemberContract.
 
         ECSyncHelper syncHelper = WcaroApplication.getInstance().getEcSyncHelper();
 
-        Triple<Boolean, Event, Event> triple = JsonFormUtils.processRemoveMemberEvent(familyID , Utils.getAllSharedPreferences(), closeFormJsonString, providerId);
+        Triple<String, String, List<Event>> triple = JsonFormUtils.processRemoveMemberEvent(familyID , Utils.getAllSharedPreferences(), closeFormJsonString, providerId);
         if(triple != null){
 
             if(triple.getMiddle() != null && triple.getRight() != null){
-                syncHelper.addEvent(triple.getMiddle().getBaseEntityId(), new JSONObject(org.smartregister.family.util.JsonFormUtils.gson.toJson(triple.getMiddle())));
-                syncHelper.addEvent(triple.getRight().getBaseEntityId(), new JSONObject(org.smartregister.family.util.JsonFormUtils.gson.toJson(triple.getRight())));
+                // syncHelper.addEvent(triple.getRight().getBaseEntityId(), new JSONObject(org.smartregister.family.util.JsonFormUtils.gson.toJson(triple.getRight())));
 
                 // call processor
                 long lastSyncTimeStamp = Utils.context().allSharedPreferences().fetchLastUpdatedAtDate(0);
                 Date lastSyncDate = new Date(lastSyncTimeStamp);
                 FamilyLibrary.getInstance().getClientProcessorForJava().processClient(syncHelper.getEvents(lastSyncDate, BaseRepository.TYPE_Unsynced));
                 Utils.context().allSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
+
             }
         }
     }

@@ -59,7 +59,7 @@ public interface FamilyRemoveMemberContract {
 
     interface Model extends FamilyProfileMemberContract.Model {
 
-        JSONObject prepareJsonForm(CommonPersonObjectClient client);
+        JSONObject prepareJsonForm(CommonPersonObjectClient client, String formType);
 
     }
 
