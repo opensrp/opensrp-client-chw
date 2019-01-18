@@ -73,6 +73,7 @@ public class Constants {
 
     public static final class SyncFilters {
         public static final String FILTER_TEAM_ID = "teamId";
+        public static final String FILTER_LOCATION_ID = "locationId";
     }
 
     public static class PROFILE_CHANGE_ACTION {

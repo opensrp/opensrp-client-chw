@@ -108,6 +108,11 @@
         </provider>
         <activity android:name=".activity.MedicalHistoryActivity" android:label="@string/medical_history"
             android:theme="@style/WcaroTheme.NoActionBar"/>
+
+        <service android:name="org.smartregister.sync.intent.PullUniqueIdsIntentService" />
+        <service android:name="org.smartregister.sync.intent.SyncIntentService" />
+        <service android:name="org.smartregister.sync.intent.ExtendedSyncIntentService" />
+        <service android:name="org.smartregister.sync.intent.ValidateIntentService" />
     </application>
 
 </manifest>

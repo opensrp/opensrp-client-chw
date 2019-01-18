@@ -69,7 +69,6 @@
         "openmrs_entity_id": "opensrp_id",
         "type": "edit_text",
         "hint": "ID: (opensrp_id)",
-        "read_only":"true",
         "value": "0",
         "v_numeric": {
           "value": "true",

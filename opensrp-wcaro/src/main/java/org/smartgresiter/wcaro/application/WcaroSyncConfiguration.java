@@ -3,7 +3,7 @@ package org.smartgresiter.wcaro.application;
 import org.smartgresiter.wcaro.BuildConfig;
 import org.smartgresiter.wcaro.util.Constants;
 import org.smartregister.SyncConfiguration;
-import org.smartregister.repository.AllSharedPreferences;
+import org.smartregister.location.helper.LocationHelper;
 
 /**
  * Created by samuelgithengi on 10/19/18.
@@ -16,13 +16,12 @@ public class WcaroSyncConfiguration extends SyncConfiguration {
 
     @Override
     public String getSyncFilterParam() {
-        return Constants.SyncFilters.FILTER_TEAM_ID;
+        return Constants.SyncFilters.FILTER_LOCATION_ID;
     }
 
     @Override
     public String getSyncFilterValue() {
-        AllSharedPreferences sharedPreferences = WcaroApplication.getInstance().getContext().userService().getAllSharedPreferences();
-        return sharedPreferences.fetchDefaultTeamId(sharedPreferences.fetchRegisteredANM());
+        return LocationHelper.getInstance().locationIdsFromHierarchy();
     }
 
     @Override
