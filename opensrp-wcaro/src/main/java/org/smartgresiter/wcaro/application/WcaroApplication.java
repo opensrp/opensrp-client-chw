@@ -36,9 +36,7 @@ import org.smartregister.repository.Repository;
 import org.smartregister.sync.helper.ECSyncHelper;
 import org.smartregister.view.activity.DrishtiApplication;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class WcaroApplication extends DrishtiApplication {
 
@@ -84,10 +82,10 @@ public class WcaroApplication extends DrishtiApplication {
 
     private static String[] getFtsSortFields(String tableName) {
         if (tableName.equals(Constants.TABLE_NAME.FAMILY)) {
-            return new String[]{DBConstants.KEY.LAST_INTERACTED_WITH , DBConstants.KEY.DATE_REMOVED};
+            return new String[]{DBConstants.KEY.LAST_INTERACTED_WITH, DBConstants.KEY.DATE_REMOVED};
         } else if (tableName.equals(Constants.TABLE_NAME.FAMILY_MEMBER) || tableName.equals(Constants.TABLE_NAME.CHILD)) {
             return new String[]{DBConstants.KEY.DOB, DBConstants.KEY.DOD, DBConstants.KEY
-                    .LAST_INTERACTED_WITH , DBConstants.KEY.DATE_REMOVED};
+                    .LAST_INTERACTED_WITH, DBConstants.KEY.DATE_REMOVED};
         }
         return null;
     }
@@ -118,9 +116,6 @@ public class WcaroApplication extends DrishtiApplication {
 
         //init Job Manager
         JobManager.create(this).addJobCreator(new WcaroJobCreator());
-
-        // TODO FIXME remove when login is implemented
-        // sampleUniqueIds();
 
         initOfflineSchedules();
     }
@@ -160,23 +155,6 @@ public class WcaroApplication extends DrishtiApplication {
         metadata.updateFamilyActivityRegister(Constants.TABLE_NAME.FAMILY_MEMBER, Integer.MAX_VALUE, false);
         metadata.updateFamilyOtherMemberRegister(Constants.TABLE_NAME.FAMILY_MEMBER, Integer.MAX_VALUE, false);
         return metadata;
-    }
-
-    private void sampleUniqueIds() {
-        List<String> ids = generateIds(20);
-        FamilyLibrary.getInstance().getUniqueIdRepository().bulkInserOpenmrsIds(ids);
-    }
-
-    private List<String> generateIds(int size) {
-        List<String> ids = new ArrayList<>();
-        Random r = new Random();
-
-        for (int i = 0; i < size; i++) {
-            Integer randomInt = r.nextInt(1000) + 1;
-            ids.add(randomInt.toString());
-        }
-
-        return ids;
     }
 
     public VaccineRepository vaccineRepository() {
