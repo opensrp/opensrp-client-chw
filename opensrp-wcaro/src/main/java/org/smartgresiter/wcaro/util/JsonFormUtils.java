@@ -17,6 +17,7 @@ import org.smartgresiter.wcaro.repository.WcaroRepository;
 import org.smartregister.clientandeventmodel.Address;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
+import org.smartregister.clientandeventmodel.FormEntityConstants;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.Photo;
@@ -49,6 +50,7 @@ import java.util.Iterator;
 import java.util.UUID;
 
 import static org.apache.commons.lang3.StringUtils.isBlank;
+import static org.apache.commons.lang3.StringUtils.remove;
 
 /**
  * Created by keyman on 13/11/2018.
@@ -483,4 +485,15 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
         return event;
     }
 
+    public static Triple<Boolean, Event, Event> processRemoveMemberEvent(String familyID, AllSharedPreferences allSharedPreferences, JSONObject jsonString, String providerId){
+
+        try{
+
+
+            return null;
+        }catch (Exception e){
+            Log.e(TAG, e.toString());
+            return null;
+        }
+    }
 }

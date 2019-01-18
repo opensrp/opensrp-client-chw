@@ -15,6 +15,7 @@ import org.smartgresiter.wcaro.repository.WcaroRepository;
 import org.smartgresiter.wcaro.util.Constants;
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
+import org.smartregister.commonregistry.AllCommonsRepository;
 import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
 import org.smartregister.configurableviews.helper.JsonSpecHelper;
@@ -44,6 +45,7 @@ public class WcaroApplication extends DrishtiApplication {
     private static final String TAG = WcaroApplication.class.getCanonicalName();
     private static JsonSpecHelper jsonSpecHelper;
     private static ECSyncHelper ecSyncHelper;
+    private static AllCommonsRepository allCommonsRepository;
 
     private static CommonFtsObject commonFtsObject;
 
@@ -90,7 +92,9 @@ public class WcaroApplication extends DrishtiApplication {
         }
         return null;
     }
+
     private RulesEngineHelper rulesEngineHelper;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -186,6 +190,7 @@ public class WcaroApplication extends DrishtiApplication {
         }
         return rulesEngineHelper;
     }
+
     public void initOfflineSchedules() {
         try {
             List<VaccineGroup> childVaccines = VaccinatorUtils.getSupportedVaccines(this);

@@ -14,6 +14,7 @@ import com.vijay.jsonwizard.domain.Form;
 
 import org.json.JSONObject;
 import org.smartgresiter.wcaro.R;
+import org.smartgresiter.wcaro.activity.FamilyProfileActivity;
 import org.smartgresiter.wcaro.activity.FamilyRegisterActivity;
 import org.smartgresiter.wcaro.activity.FamilyRemoveMemberActivity;
 import org.smartgresiter.wcaro.contract.FamilyRemoveMemberContract;
@@ -80,9 +81,9 @@ public class FamilyRemoveMemberFragment extends BaseFamilyProfileMemberFragment 
         dialog.setOnSaveAndClose(new Runnable() {
             @Override
             public void run() {
-                getPresenter().removeMember(client);
                 setFamilyHead(familyHeadID);
                 refreshMemberList(FetchStatus.fetched);
+                getPresenter().removeMember(client);
             }
         });
         dialog.show(getActivity().getFragmentManager(),"FamilyProfileChangeDialogHF");
@@ -95,9 +96,9 @@ public class FamilyRemoveMemberFragment extends BaseFamilyProfileMemberFragment 
         dialog.setOnSaveAndClose(new Runnable() {
             @Override
             public void run() {
-                getPresenter().removeMember(client);
                 setPrimaryCaregiver(careGiverID);
                 refreshMemberList(FetchStatus.fetched);
+                getPresenter().removeMember(client);
             }
         });
 
@@ -119,7 +120,8 @@ public class FamilyRemoveMemberFragment extends BaseFamilyProfileMemberFragment 
 
     @Override
     public void startJsonActivity(JSONObject jsonObject) {
-        Intent intent = new Intent(getContext(), Utils.metadata().familyMemberFormActivity);
+        // Intent intent = new Intent(getContext(), Utils.metadata().familyMemberFormActivity);
+        Intent intent = new Intent(getActivity(), Utils.metadata().familyMemberFormActivity);
         intent.putExtra(Constants.JSON_FORM_EXTRA.JSON, jsonObject.toString());
 
         Form form = new Form();

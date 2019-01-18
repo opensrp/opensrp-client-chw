@@ -111,14 +111,11 @@ public class FamilyChangeContractInteractor implements FamilyChangeContract.Inte
                 String otherPhone = familyMember.get(Constants.JsonAssets.FAMILY_MEMBER.OTHER_PHONE_NUMBER);
                 String eduLevel = familyMember.get(Constants.JsonAssets.FAMILY_MEMBER.HIGHEST_EDUCATION_LEVEL);
 
-                if (familyMember != null) {
-                    // update the EC client model
-                    try {
-                        save(context, familyID, memberID, phone, otherPhone, eduLevel, option, lastLocationId);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-
+                // update the EC client model
+                try {
+                    save(context, familyID, memberID, phone, otherPhone, eduLevel, option, lastLocationId);
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
 
                 appExecutors.mainThread().execute(new Runnable() {
@@ -182,17 +179,16 @@ public class FamilyChangeContractInteractor implements FamilyChangeContract.Inte
         Event eventMember = JsonFormUtils.createEvent(new JSONArray(), metadata, formTag, memberID, Utils.metadata().familyMemberRegister.updateEventType,
                 Utils.metadata().familyMemberRegister.tableName);
 
-        eventMember.addObs(new Obs("concept", "text", "159635AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "",
-                toList(phone), new ArrayList<>(), null, "phone_number"));
+        eventMember.addObs(new Obs("concept", "text", Constants.FORM_CONSTANTS.CHANGE_CARE_GIVER.PHONE_NUMBER.CODE, "",
+                toList(phone), new ArrayList<>(), null, DBConstants.KEY.PHONE_NUMBER));
 
-        eventMember.addObs(new Obs("concept", "text", "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "159635AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                toList(otherPhone), new ArrayList<>(), null, "other_phone_number"));
+        eventMember.addObs(new Obs("concept", "text", Constants.FORM_CONSTANTS.CHANGE_CARE_GIVER.OTHER_PHONE_NUMBER.CODE, Constants.FORM_CONSTANTS.CHANGE_CARE_GIVER.OTHER_PHONE_NUMBER.PARENT_CODE,
+                toList(otherPhone), new ArrayList<>(), null, DBConstants.KEY.OTHER_PHONE_NUMBER));
 
-        eventMember.addObs(new Obs("concept", "text", "1712AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "",
-                toList(eduMap().get(eduLevel)), toList(eduLevel), null, "highest_edu_level"));
+        eventMember.addObs(new Obs("concept", "text", Constants.FORM_CONSTANTS.CHANGE_CARE_GIVER.HIGHEST_EDU_LEVEL.CODE, "",
+                toList(eduMap().get(eduLevel)), toList(eduLevel), null, DBConstants.KEY.HIGHEST_EDU_LEVEL));
 
 
-        syncHelper.convertToJson(familyClient);
         // merge and add client
         JsonFormUtils.mergeAndSaveClient(syncHelper, familyClient);
 
@@ -265,7 +261,8 @@ public class FamilyChangeContractInteractor implements FamilyChangeContract.Inte
                 DBConstants.KEY.MIDDLE_NAME + " , " +
                 DBConstants.KEY.LAST_NAME + " , " +
                 DBConstants.KEY.PHONE_NUMBER + " , " +
-                " other_phone_number , highest_edu_level , " +
+                DBConstants.KEY.OTHER_PHONE_NUMBER + " , " +
+                DBConstants.KEY.HIGHEST_EDU_LEVEL + " , " +
                 DBConstants.KEY.DOB + " , " +
                 DBConstants.KEY.GENDER;
 
