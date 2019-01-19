@@ -42,13 +42,17 @@ public class HomeVisitImmunizationInteractor implements HomeVisitImmunizationCon
         HomeVisitVaccineGroupDetails currentActiveHomeVisit = null;
         for(HomeVisitVaccineGroupDetails toReturn: allGroups){
             if(toReturn.getDueVaccines().size()>0){
-                if(!(toReturn.getNotGivenInThisVisitVaccines().size()>0 && toReturn.getGivenVaccines().size()>0)){
+                if(!(toReturn.getNotGivenInThisVisitVaccines().size()>0 || toReturn.getGivenVaccines().size()>0)){
                     if(!toReturn.getAlert().equals(ImmunizationState.NO_ALERT)) {
                         currentActiveHomeVisit = toReturn;
+                        break;
                     }
                 }
             }
         }
+
+        //check if this is not the last due group
+
         return currentActiveHomeVisit;
     }
 
@@ -58,7 +62,7 @@ public class HomeVisitImmunizationInteractor implements HomeVisitImmunizationCon
         HomeVisitVaccineGroupDetails toReturn = null;
         for(int i = 0;i<allGroups.size();i++){
             if(!allGroups.get(i).getAlert().equals(ImmunizationState.NO_ALERT)) {
-                toReturn = toReturn;
+                toReturn = allGroups.get(i);
             }
         }
         return toReturn;
