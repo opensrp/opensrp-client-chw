@@ -657,7 +657,8 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     public void ImmunizationStateNew(List<Alert> alerts, List<Vaccine> vaccines, String stateKey, Map<String, Object> nv, ImmunizationState state){
         HomeVisitImmunizationInteractor homeVisitImmunizationInteractor = new HomeVisitImmunizationInteractor();
         ArrayList<VaccineRepo.Vaccine> vaccinesDueFromLastVisit = new ArrayList<VaccineRepo.Vaccine>();
-        ArrayList<HomeVisitVaccineGroupDetails> allgroups = homeVisitImmunizationInteractor.determineAllHomeVisitVaccineGroupDetails(alerts,vaccines);
+        ArrayList<HomeVisitVaccineGroupDetails> allgroups = homeVisitImmunizationInteractor.determineAllHomeVisitVaccineGroupDetails(alerts,vaccines,notGivenVaccines);
+        vaccinesDueFromLastVisit = homeVisitImmunizationInteractor.getNotGivenVaccinesLastVisitList(allgroups);
         if(homeVisitImmunizationInteractor.hasVaccinesNotGivenSinceLastVisit(allgroups)){
            vaccinesDueFromLastVisit =  homeVisitImmunizationInteractor.getNotGivenVaccinesLastVisitList(allgroups);
         }
@@ -667,16 +668,22 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         }
         currentActiveGroup.getDueVaccines().size();
         if(homeVisitImmunizationInteractor.isPartiallyComplete(currentActiveGroup)){
+            textview_group_immunization_primary_text.setText("Immunizations" + "(" + currentActiveGroup.getGroup() + ")");
 
             immunization_group_status_circle.setImageResource(R.drawable.ic_checked);
             immunization_group_status_circle.setColorFilter(getResources().getColor(R.color.white));
             immunization_group_status_circle.setCircleBackgroundColor(getResources().getColor(R.color.pnc_circle_yellow));
+            multiple_immunization_group.setOnClickListener(null);
+
 
         }else if(homeVisitImmunizationInteractor.isComplete(currentActiveGroup)){
+            textview_group_immunization_primary_text.setText("Immunizations" + "(" + currentActiveGroup.getGroup() + ")");
 
             immunization_group_status_circle.setImageResource(R.drawable.ic_checked);
             immunization_group_status_circle.setColorFilter(getResources().getColor(R.color.white));
             immunization_group_status_circle.setCircleBackgroundColor(getResources().getColor(R.color.alert_complete_green));
+            multiple_immunization_group.setOnClickListener(null);
+
 
         }else if (homeVisitImmunizationInteractor.groupIsDue(currentActiveGroup)){
             textview_group_immunization_primary_text.setText("Immunizations" + "(" + currentActiveGroup.getGroup() + ")");
@@ -684,6 +691,18 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
             multiple_immunization_group.setTag(R.id.vaccinelist, vaccines);
 
             multiple_immunization_group.setOnClickListener(this);
+        }
+
+        if(vaccinesDueFromLastVisit.size()>0){
+            String vaccinesDueLastVisit = "";
+            for(int i = 0;i<vaccinesDueFromLastVisit.size();i++){
+                vaccinesDueLastVisit = vaccinesDueLastVisit+vaccinesDueFromLastVisit.get(i).display().toUpperCase()+",";
+            }
+            if(vaccinesDueLastVisit.endsWith(",")){
+                vaccinesDueLastVisit = vaccinesDueLastVisit.substring(0,vaccinesDueLastVisit.length()-1);
+            }
+            textview_immunization_primary_text.setText(vaccinesDueLastVisit);
+
         }
     }
 

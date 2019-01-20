@@ -10,10 +10,12 @@ import org.smartregister.domain.Alert;
 import org.smartregister.family.util.AppExecutors;
 import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.immunization.domain.Vaccine;
+import org.smartregister.immunization.domain.VaccineWrapper;
 import org.smartregister.immunization.util.VaccinateActionUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -40,6 +42,7 @@ public class HomeVisitImmunizationInteractor implements HomeVisitImmunizationCon
     @Override
     public HomeVisitVaccineGroupDetails getCurrentActiveHomeVisitVaccineGroupDetail(ArrayList<HomeVisitVaccineGroupDetails> allGroups){
         HomeVisitVaccineGroupDetails currentActiveHomeVisit = null;
+        int index = 0;
         for(HomeVisitVaccineGroupDetails toReturn: allGroups){
             if(toReturn.getDueVaccines().size()>0){
                 if(!(toReturn.getNotGivenInThisVisitVaccines().size()>0 || toReturn.getGivenVaccines().size()>0)){
@@ -49,9 +52,39 @@ public class HomeVisitImmunizationInteractor implements HomeVisitImmunizationCon
                     }
                 }
             }
+            index++;
         }
 
         //check if this is not the last due group
+        boolean completedExistsAfterCurrentGroup = false;
+        if(index<allGroups.size()-1) {
+            for (int i = index + 1; i < allGroups.size(); i++) {
+                HomeVisitVaccineGroupDetails toReturn = allGroups.get(i);
+                if (toReturn.getDueVaccines().size() > 0) {
+                    if ((toReturn.getNotGivenInThisVisitVaccines().size() > 0 || toReturn.getGivenVaccines().size() > 0)) {
+                        if (!toReturn.getAlert().equals(ImmunizationState.NO_ALERT)) {
+                            completedExistsAfterCurrentGroup = true;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        if(completedExistsAfterCurrentGroup){
+            currentActiveHomeVisit = null;
+            for (int i = index + 1; i < allGroups.size(); i++) {
+                HomeVisitVaccineGroupDetails toReturn = allGroups.get(i);
+                if (toReturn.getDueVaccines().size() > 0) {
+                    if ((toReturn.getNotGivenInThisVisitVaccines().size() > 0 || toReturn.getGivenVaccines().size() > 0)) {
+                        if (!toReturn.getAlert().equals(ImmunizationState.NO_ALERT)) {
+                            currentActiveHomeVisit  = toReturn;
+                            break;
+                        }
+                    }
+                }
+            }
+
+        }
 
         return currentActiveHomeVisit;
     }
@@ -70,12 +103,16 @@ public class HomeVisitImmunizationInteractor implements HomeVisitImmunizationCon
 
     public boolean isPartiallyComplete(HomeVisitVaccineGroupDetails toprocess){
         if(toprocess.getDueVaccines().size()>0){
-            if(toprocess.getNotGivenInThisVisitVaccines().size()>0){
+//            if(toprocess.getNotGivenInThisVisitVaccines().size()>0){
+//                return true;
+//            }
+            if(toprocess.getGivenVaccines().size()<toprocess.getDueVaccines().size()){
                 return true;
             }
         }
         return false;
     }
+
     public boolean isComplete(HomeVisitVaccineGroupDetails toprocess){
         if(toprocess.getDueVaccines().size()>0){
             if(toprocess.getGivenVaccines().size() == toprocess.getDueVaccines().size()){
@@ -99,44 +136,85 @@ public class HomeVisitImmunizationInteractor implements HomeVisitImmunizationCon
 
     public boolean hasVaccinesNotGivenSinceLastVisit(ArrayList<HomeVisitVaccineGroupDetails> allGroup){
         int indexofCurrentGroup = getIndexOfCurrentGroup(allGroup);
-        for(int i = 0;i<indexofCurrentGroup;i++){
+        if(isPartiallyComplete(allGroup.get(indexofCurrentGroup))){
+            indexofCurrentGroup = indexofCurrentGroup+1;
+        }
+        for(int i = 0;i<indexofCurrentGroup+1;i++){
             HomeVisitVaccineGroupDetails toReturn = allGroup.get(i);
             if(toReturn.getDueVaccines().size() > toReturn.getGivenVaccines().size()){
-                return true;
+                if(!(toReturn.getNotGivenInThisVisitVaccines().size()>0)) {
+                    return true;
+                }
             }
         }
         return false;
     }
 
     private int getIndexOfCurrentGroup(ArrayList<HomeVisitVaccineGroupDetails> allGroup) {
+//        int indexofCurrentGroup = 0;
+//        for(int i = 0;i<allGroup.size();i++){
+//            HomeVisitVaccineGroupDetails toReturn = allGroup.get(i);
+//            if(toReturn.getDueVaccines().size()>0){
+//                if(!(toReturn.getNotGivenInThisVisitVaccines().size()>0 && toReturn.getGivenVaccines().size()>0)){
+//                    if(!toReturn.getAlert().equals(ImmunizationState.NO_ALERT)) {
+//                        indexofCurrentGroup = i;
+//                    }
+//                }
+//            }
+//        }
+//        return indexofCurrentGroup;
+        ///////////////////////////////////////////////////
+        HomeVisitVaccineGroupDetails currentActiveGroup = getCurrentActiveHomeVisitVaccineGroupDetail(allGroup);
+        if(currentActiveGroup == null){
+            currentActiveGroup = getLastActiveHomeVisitVaccineGroupDetail(allGroup);
+        }
         int indexofCurrentGroup = 0;
         for(int i = 0;i<allGroup.size();i++){
             HomeVisitVaccineGroupDetails toReturn = allGroup.get(i);
             if(toReturn.getDueVaccines().size()>0){
-                if(!(toReturn.getNotGivenInThisVisitVaccines().size()>0 && toReturn.getGivenVaccines().size()>0)){
-                    if(!toReturn.getAlert().equals(ImmunizationState.NO_ALERT)) {
-                        indexofCurrentGroup = i;
-                    }
+                if(toReturn.getGroup().equalsIgnoreCase(currentActiveGroup.getGroup())){
+                    indexofCurrentGroup = i;
                 }
             }
         }
         return indexofCurrentGroup;
+        //////////////////////////////////////////////////
     }
 
     public ArrayList<VaccineRepo.Vaccine> getNotGivenVaccinesLastVisitList(ArrayList<HomeVisitVaccineGroupDetails> allGroup){
         ArrayList<VaccineRepo.Vaccine> toReturn = new ArrayList<VaccineRepo.Vaccine>();
         if(hasVaccinesNotGivenSinceLastVisit(allGroup)){
             int indexOfCurrentGroup = getIndexOfCurrentGroup(allGroup);
+            if(isPartiallyComplete(allGroup.get(indexOfCurrentGroup))){
+                indexOfCurrentGroup = indexOfCurrentGroup+1;
+            }
             for(int i = 0;i<indexOfCurrentGroup;i++){
 //                allGroup.get(i).calculateNotGivenVaccines();
-                toReturn.addAll(allGroup.get(i).getNotGivenVaccines());
+                toReturn.addAll(getNotGivenVaccinesNotInNotGivenThisVisit(allGroup.get(i)));
             }
         }
         return toReturn;
     }
 
+    private ArrayList<VaccineRepo.Vaccine> getNotGivenVaccinesNotInNotGivenThisVisit(HomeVisitVaccineGroupDetails allGroup) {
+        ArrayList<VaccineRepo.Vaccine> getNotGivenVaccinesNotInNotGivenThisVisit = new ArrayList<VaccineRepo.Vaccine>();
+        for(VaccineRepo.Vaccine toProcess: allGroup.getNotGivenVaccines()){
+            boolean isInNotGivenThisVisit = false;
+            for(VaccineRepo.Vaccine notGivenThisVisit: allGroup.getNotGivenInThisVisitVaccines()){
+                if(notGivenThisVisit.display().equalsIgnoreCase(toProcess.display())){
+                    isInNotGivenThisVisit = true;
+                }
+            }
+            if(!isInNotGivenThisVisit){
+                getNotGivenVaccinesNotInNotGivenThisVisit.add(toProcess);
+            }
+        }
+
+        return  getNotGivenVaccinesNotInNotGivenThisVisit;
+    }
+
     @Override
-    public ArrayList<HomeVisitVaccineGroupDetails> determineAllHomeVisitVaccineGroupDetails(List<Alert> alerts, List<Vaccine> vaccines){
+    public ArrayList<HomeVisitVaccineGroupDetails> determineAllHomeVisitVaccineGroupDetails(List<Alert> alerts, List<Vaccine> vaccines, ArrayList<VaccineWrapper> notGivenVaccines){
         ArrayList<HomeVisitVaccineGroupDetails> homeVisitVaccineGroupDetailsArrayList = new ArrayList<HomeVisitVaccineGroupDetails>();
         Map<String, Date> receivedvaccines = receivedVaccines(vaccines);
         List<VaccineRepo.Vaccine> vList = Arrays.asList(VaccineRepo.Vaccine.values());
@@ -161,6 +239,17 @@ public class HomeVisitImmunizationInteractor implements HomeVisitImmunizationCon
         }
         homeVisitVaccineGroupDetailsArrayList = assignDueVaccine(vList,homeVisitVaccineGroupDetailsArrayList,alerts);
         homeVisitVaccineGroupDetailsArrayList = assignGivenVaccine(homeVisitVaccineGroupDetailsArrayList,receivedvaccines);
+
+        for(HomeVisitVaccineGroupDetails singlegroup : homeVisitVaccineGroupDetailsArrayList){
+            for(int i = 0;i<singlegroup.getDueVaccines().size();i++){
+                for(VaccineWrapper notgivenVaccine: notGivenVaccines) {
+                    if (singlegroup.getDueVaccines().get(i).display().equalsIgnoreCase(notgivenVaccine.getName())) {
+                        singlegroup.getNotGivenInThisVisitVaccines().add(notgivenVaccine.getVaccine());
+                    }
+                }
+            }
+        }
+
         return  homeVisitVaccineGroupDetailsArrayList;
     }
 

@@ -4,6 +4,7 @@ import org.smartgresiter.wcaro.util.HomeVisitVaccineGroupDetails;
 import org.smartregister.domain.Alert;
 import org.smartregister.immunization.domain.ServiceWrapper;
 import org.smartregister.immunization.domain.Vaccine;
+import org.smartregister.immunization.domain.VaccineWrapper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +25,7 @@ public interface HomeVisitImmunizationContract {
 
         HomeVisitVaccineGroupDetails getCurrentActiveHomeVisitVaccineGroupDetail(ArrayList<HomeVisitVaccineGroupDetails> allGroups);
 
-        ArrayList<HomeVisitVaccineGroupDetails> determineAllHomeVisitVaccineGroupDetails(List<Alert> alerts, List<Vaccine> vaccines);
+        ArrayList<HomeVisitVaccineGroupDetails> determineAllHomeVisitVaccineGroupDetails(List<Alert> alerts, List<Vaccine> vaccines, ArrayList<VaccineWrapper> notGivenVaccines);
     }
     interface InteractorCallBack{
         void updateRecordVisitData(Map<String, ServiceWrapper> stringServiceWrapperMap);
