@@ -32,6 +32,8 @@ public interface HomeVisitGrowthNutritionContract {
 
         boolean isAllSelected();
 
+        boolean isSelected(String type);
+
         HomeVisitGrowthNutritionContract.View getView();
 
         void onDestroy(boolean isChangingConfiguration);
