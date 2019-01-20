@@ -129,32 +129,28 @@ public class ChildRegisterProvider implements RecyclerViewProvider<ChildRegister
             CommonPersonObject commonPersonObject = commonRepository.findByBaseEntityId(pc.entityId());
             if (commonPersonObject != null) {
                 viewHolder.dueButton.setVisibility(View.VISIBLE);
-                String lastVisitDate= Utils.getValue(pc.getColumnmaps(), ChildDBConstants.KEY.LAST_HOME_VISIT, false);
-                String visitNotDone=Utils.getValue(pc.getColumnmaps(), ChildDBConstants.KEY.VISIT_NOT_DONE, false);
-                long lastVisit=0,visitNot=0;
-                if(!TextUtils.isEmpty(lastVisitDate)){
-                    lastVisit=Long.parseLong(lastVisitDate);
+                String lastVisitDate = Utils.getValue(pc.getColumnmaps(), ChildDBConstants.KEY.LAST_HOME_VISIT, false);
+                String visitNotDone = Utils.getValue(pc.getColumnmaps(), ChildDBConstants.KEY.VISIT_NOT_DONE, false);
+                long lastVisit = 0, visitNot = 0;
+                if (!TextUtils.isEmpty(lastVisitDate)) {
+                    lastVisit = Long.parseLong(lastVisitDate);
                 }
-                if(!TextUtils.isEmpty(visitNotDone)){
-                    visitNot=Long.parseLong(visitNotDone);
+                if (!TextUtils.isEmpty(visitNotDone)) {
+                    visitNot = Long.parseLong(visitNotDone);
                 }
                 String dobString = Utils.getDuration(Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.DOB, false));
 
-                ChildVisit childVisit=ChildUtils.getChildVisitStatus(dobString,lastVisit,visitNot);
+                ChildVisit childVisit = ChildUtils.getChildVisitStatus(dobString, lastVisit, visitNot);
                 //Log.v("CHILD_VISIT_STATUS","populateLastColumn>>"+childVisit.getVisitStatus());
-                if(childVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.DUE.name())){
+                if (childVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.DUE.name())) {
                     setVisitButtonDueStatus(viewHolder.dueButton);
-                }
-                else if(childVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.OVERDUE.name())){
-                   setVisitButtonOverdueStatus(viewHolder.dueButton,childVisit.getNoOfMonthDue());
-                }
-                else if(childVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.LESS_TWENTY_FOUR.name())){
-                    setVisitLessTwentyFourView(viewHolder.dueButton,childVisit.getLastVisitDays());
-                }
-                else if(childVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.VISIT_THIS_MONTH.name())){
+                } else if (childVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.OVERDUE.name())) {
+                    setVisitButtonOverdueStatus(viewHolder.dueButton, childVisit.getNoOfMonthDue());
+                } else if (childVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.LESS_TWENTY_FOUR.name())) {
+                    setVisitLessTwentyFourView(viewHolder.dueButton, childVisit.getLastVisitDays());
+                } else if (childVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.VISIT_THIS_MONTH.name())) {
                     setVisitAboveTwentyFourView(viewHolder.dueButton);
-                }
-                else if(childVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.NOT_VISIT_THIS_MONTH.name())){
+                } else if (childVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.NOT_VISIT_THIS_MONTH.name())) {
                     setVisitNotDone(viewHolder.dueButton);
                 }
             } else {
@@ -182,12 +178,12 @@ public class ChildRegisterProvider implements RecyclerViewProvider<ChildRegister
         setVisitAboveTwentyFourView(dueButton);
     }
 
-    private void setVisitButtonOverdueStatus(Button dueButton,String lastVisitDays) {
+    private void setVisitButtonOverdueStatus(Button dueButton, String lastVisitDays) {
         dueButton.setTextColor(context.getResources().getColor(R.color.white));
-        if(TextUtils.isEmpty(lastVisitDays)){
+        if (TextUtils.isEmpty(lastVisitDays)) {
             dueButton.setText(context.getString(R.string.record_visit));
-        }else{
-            dueButton.setText(context.getString(R.string.due_visit,lastVisitDays));
+        } else {
+            dueButton.setText(context.getString(R.string.due_visit, lastVisitDays));
         }
 
         dueButton.setBackgroundResource(R.drawable.red_btn_selector);

@@ -2,15 +2,14 @@ package org.smartgresiter.wcaro.interactor;
 
 import android.support.annotation.VisibleForTesting;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.smartgresiter.wcaro.contract.FamilyCallDialogContract;
 import org.smartgresiter.wcaro.model.FamilyCallDialogModel;
-import org.smartgresiter.wcaro.util.Constants;
-import org.smartregister.family.FamilyLibrary;
+import org.smartregister.commonregistry.CommonPersonObject;
+import org.smartregister.commonregistry.CommonPersonObjectClient;
+import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.family.util.AppExecutors;
-import org.smartregister.repository.EventClientRepository;
+import org.smartregister.family.util.DBConstants;
+import org.smartregister.family.util.Utils;
 
 public class FamilyCallDialogInteractor implements FamilyCallDialogContract.Interactor {
 
@@ -34,39 +33,34 @@ public class FamilyCallDialogInteractor implements FamilyCallDialogContract.Inte
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
-                //TODO  replace this with actual query info for the HOF
-                EventClientRepository eventClientRepository = FamilyLibrary.getInstance().context().getEventClientRepository();
 
-                JSONObject familyJSON = eventClientRepository.getClientByBaseEntityId(familyBaseEntityId);
+                final CommonPersonObject personObject = getCommonRepository(Utils.metadata().familyRegister.tableName).findByBaseEntityId(familyBaseEntityId);
+                final CommonPersonObjectClient client = new CommonPersonObjectClient(personObject.getCaseId(), personObject.getDetails(), "");
+                client.setColumnmaps(personObject.getColumnmaps());
 
-                if (familyJSON != null) {
-                    try {
-                        JSONObject relationships = familyJSON.getJSONObject("relationships");
+                String primaryCaregiverID = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.PRIMARY_CAREGIVER, false);
+                String familyHeadID = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.FAMILY_HEAD, false);
 
-                        String primaryCaregiverID = (String) relationships.getJSONArray("primary_caregiver").get(0);
-                        String familyHeadID = (String) relationships.getJSONArray("family_head").get(0);
+                if (primaryCaregiverID != null) {
+                    // load primary care giver
+                    final FamilyCallDialogModel headModel = prepareModel(familyHeadID, primaryCaregiverID, true);
+                    appExecutors.mainThread().execute(new Runnable() {
+                        @Override
+                        public void run() {
+                            presenter.updateHeadOfFamily((headModel == null || headModel.getPhoneNumber() == null) ? null : headModel);
+                        }
+                    });
+                }
 
-                        final FamilyCallDialogModel headModel = prepareModel(eventClientRepository, familyHeadID, primaryCaregiverID, true);
-                        appExecutors.mainThread().execute(new Runnable() {
-                            @Override
-                            public void run() {
-                                presenter.updateHeadOfFamily((headModel == null || headModel.getPhoneNumber() == null) ? null : headModel);
-                            }
-                        });
-
-
-                        final FamilyCallDialogModel careGiverModel = prepareModel(eventClientRepository, familyHeadID, primaryCaregiverID, false);
-                        appExecutors.mainThread().execute(new Runnable() {
-                            @Override
-                            public void run() {
-                                presenter.updateCareGiver((careGiverModel == null || careGiverModel.getPhoneNumber() == null) ? null : careGiverModel);
-                            }
-                        });
-
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+                if (familyHeadID != null && !familyHeadID.equals(primaryCaregiverID)) {
+                    // load family head
+                    final FamilyCallDialogModel careGiverModel = prepareModel(familyHeadID, primaryCaregiverID, false);
+                    appExecutors.mainThread().execute(new Runnable() {
+                        @Override
+                        public void run() {
+                            presenter.updateCareGiver((careGiverModel == null || careGiverModel.getPhoneNumber() == null) ? null : careGiverModel);
+                        }
+                    });
                 }
             }
         };
@@ -75,36 +69,42 @@ public class FamilyCallDialogInteractor implements FamilyCallDialogContract.Inte
     }
 
     private FamilyCallDialogModel prepareModel(
-            EventClientRepository eventClientRepository,
             String familyHeadID, String primaryCaregiverID,
             Boolean isHead
-    ) throws JSONException {
+    ) {
 
         if (primaryCaregiverID.toLowerCase().equals(familyHeadID.toLowerCase()) && !isHead) {
             return null;
         }
 
         String baseID = (isHead) ? familyHeadID : primaryCaregiverID;
-        JSONObject joClient = eventClientRepository.getClientByBaseEntityId(baseID);
-        JSONObject joEvent = eventClientRepository.getEventsByBaseEntityIdAndEventType(baseID, Constants.EventType.FAMILY_MEMBER_REGISTRATION);
 
-        String phoneNumber = null;
-        JSONArray obs = joEvent.getJSONArray("obs");
-        int x = 0;
-        while (phoneNumber == null && obs.length() > x) {
-            JSONObject obPhone = obs.getJSONObject(x);
-            if (obPhone.getString("formSubmissionField").equals("phone_number")) {
-                phoneNumber = (String) obPhone.getJSONArray("values").get(0);
-            }
-            x++;
-        }
+
+        final CommonPersonObject personObject = getCommonRepository(Utils.metadata().familyMemberRegister.tableName).findByBaseEntityId(baseID);
+        final CommonPersonObjectClient client = new CommonPersonObjectClient(personObject.getCaseId(), personObject.getDetails(), "");
+        client.setColumnmaps(personObject.getColumnmaps());
+
+        String phoneNumber = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.PHONE_NUMBER, false);
+        String firstName = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.FIRST_NAME, false);
+        String lastName = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.LAST_NAME, false);
+        String middleName = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.MIDDLE_NAME, false);
 
         FamilyCallDialogModel model = new FamilyCallDialogModel();
         model.setPhoneNumber(phoneNumber);
-        model.setName(String.format("%s %s", joClient.getString("firstName"), joClient.getString("lastName")));
+        model.setName(
+                String.format("%s %s",
+                        String.format("%s %s", firstName, middleName).trim(),
+                        lastName
+                )
+        );
+
         model.setRole((primaryCaregiverID.toLowerCase().equals(familyHeadID.toLowerCase())) ? "Head of Family , Caregiver" : (isHead ? "Head of Family" : "Caregiver"));
 
         return model;
+    }
+
+    public CommonRepository getCommonRepository(String tableName) {
+        return Utils.context().commonrepository(tableName);
     }
 
 }

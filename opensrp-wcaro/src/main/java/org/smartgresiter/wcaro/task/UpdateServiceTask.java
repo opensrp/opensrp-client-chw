@@ -45,18 +45,19 @@ public class UpdateServiceTask extends AsyncTask<Void, Void, Map<String, UpdateS
     private AlertService alertService;
     private Map<String, ServiceWrapper> displayServiceWrapper;
     private UpdateServiceListener listener;
-    public UpdateServiceTask(CommonPersonObjectClient childDetails,UpdateServiceListener listener){
-        this.childDetails=childDetails;
-        this.listener=listener;
+
+    public UpdateServiceTask(CommonPersonObjectClient childDetails, UpdateServiceListener listener) {
+        this.childDetails = childDetails;
+        this.listener = listener;
     }
 
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        recurringServiceTypeRepository=ImmunizationLibrary.getInstance().recurringServiceTypeRepository();
+        recurringServiceTypeRepository = ImmunizationLibrary.getInstance().recurringServiceTypeRepository();
         recurringServiceRecordRepository = ImmunizationLibrary.getInstance().recurringServiceRecordRepository();
         alertService = ImmunizationLibrary.getInstance().context().alertService();
-        displayServiceWrapper=new LinkedHashMap<>();
+        displayServiceWrapper = new LinkedHashMap<>();
     }
 
     @SuppressWarnings("unchecked")
@@ -125,7 +126,7 @@ public class UpdateServiceTask extends AsyncTask<Void, Void, Map<String, UpdateS
         if (foundServiceTypeMap.isEmpty()) {
             return;
         }
-        for(String type:foundServiceTypeMap.keySet()){
+        for (String type : foundServiceTypeMap.keySet()) {
             ServiceWrapper serviceWrapper = new ServiceWrapper();
             serviceWrapper.setId(childDetails.entityId());
             serviceWrapper.setGender(childDetails.getDetails().get("gender"));
@@ -150,13 +151,14 @@ public class UpdateServiceTask extends AsyncTask<Void, Void, Map<String, UpdateS
             String childName = getName(firstName, lastName);
             serviceWrapper.setPatientName(childName.trim());
 
-            updateWrapperStatus(serviceRecords,alertList, serviceWrapper, childDetails,foundServiceTypeMap.get(type));
-            updateWrapper(serviceWrapper,serviceRecords);
-            displayServiceWrapper.put(type,serviceWrapper);
+            updateWrapperStatus(serviceRecords, alertList, serviceWrapper, childDetails, foundServiceTypeMap.get(type));
+            updateWrapper(serviceWrapper, serviceRecords);
+            displayServiceWrapper.put(type, serviceWrapper);
         }
-        Log.v("Service_wrapper","service wrapper"+displayServiceWrapper);
+        Log.v("Service_wrapper", "service wrapper" + displayServiceWrapper);
         listener.onUpdateServiceList(displayServiceWrapper);
     }
+
     @Override
     protected Map<String, NamedObject<?>> doInBackground(Void... voids) {
         String dobString = Utils.getValue(childDetails.getColumnmaps(), "dob", false);
@@ -206,7 +208,8 @@ public class UpdateServiceTask extends AsyncTask<Void, Void, Map<String, UpdateS
 
         return map;
     }
-    public void updateWrapperStatus(List<ServiceRecord> serviceRecords,List<Alert> alertList, ServiceWrapper tag, CommonPersonObjectClient childDetails, List<ServiceType> serviceTypes) {
+
+    public void updateWrapperStatus(List<ServiceRecord> serviceRecords, List<Alert> alertList, ServiceWrapper tag, CommonPersonObjectClient childDetails, List<ServiceType> serviceTypes) {
 
 
         List<ServiceRecord> serviceRecordList = new ArrayList<>();
@@ -259,7 +262,8 @@ public class UpdateServiceTask extends AsyncTask<Void, Void, Map<String, UpdateS
             tag.setServiceType(nextServiceType);
         }
     }
-    public void updateWrapper(ServiceWrapper tag,List<ServiceRecord> serviceRecordList) {
+
+    public void updateWrapper(ServiceWrapper tag, List<ServiceRecord> serviceRecordList) {
 
         if (!serviceRecordList.isEmpty()) {
             for (ServiceRecord serviceRecord : serviceRecordList) {
@@ -277,6 +281,7 @@ public class UpdateServiceTask extends AsyncTask<Void, Void, Map<String, UpdateS
         }
 
     }
+
     public class NamedObject<T> {
         public final String name;
         public final T object;

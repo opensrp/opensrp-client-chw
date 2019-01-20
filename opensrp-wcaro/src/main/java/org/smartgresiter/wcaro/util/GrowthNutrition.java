@@ -3,6 +3,7 @@ package org.smartgresiter.wcaro.util;
 public class GrowthNutrition {
     private String growthName;
     private String status;
+
     public String getGrowthName() {
         return growthName;
     }

@@ -35,6 +35,7 @@
             android:ellipsize="end"
             android:textColor="@color/text_black"
             android:textSize="18sp" />
+
         <org.smartregister.view.customcontrols.CustomFontTextView
             android:id="@+id/text_view_child_name"
             style="@style/CustomFontTextViewStyle.ClientList.Medium"
@@ -47,6 +48,7 @@
             android:text="Patient Name"
             android:textColor="@color/text_black"
             android:textSize="18sp" />
+
         <org.smartregister.view.customcontrols.CustomFontTextView
             android:id="@+id/text_view_address_gender"
             style="@style/CustomFontTextViewStyle.ClientList.Light"

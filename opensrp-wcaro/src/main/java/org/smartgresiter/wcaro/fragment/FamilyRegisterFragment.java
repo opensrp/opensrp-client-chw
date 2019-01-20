@@ -10,11 +10,15 @@ import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.custom_view.NavigationMenu;
 import org.smartgresiter.wcaro.model.FamilyRegisterFramentModel;
 import org.smartgresiter.wcaro.presenter.FamilyRegisterFragmentPresenter;
+import org.smartgresiter.wcaro.provider.WcaroRegisterProvider;
 import org.smartgresiter.wcaro.util.Constants;
 import org.smartgresiter.wcaro.util.Utils;
+import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
 import org.smartregister.family.fragment.BaseFamilyRegisterFragment;
 import org.smartregister.view.activity.BaseRegisterActivity;
 import org.smartregister.view.customcontrols.CustomFontTextView;
+
+import java.util.Set;
 
 public class FamilyRegisterFragment extends BaseFamilyRegisterFragment {
 
@@ -77,6 +81,14 @@ public class FamilyRegisterFragment extends BaseFamilyRegisterFragment {
 
         String viewConfigurationIdentifier = ((BaseRegisterActivity) getActivity()).getViewIdentifiers().get(0);
         presenter = new FamilyRegisterFragmentPresenter(this, new FamilyRegisterFramentModel(), viewConfigurationIdentifier);
+    }
+
+    @Override
+    public void initializeAdapter(Set<org.smartregister.configurableviews.model.View> visibleColumns) {
+        WcaroRegisterProvider wcaroRegisterProvider = new WcaroRegisterProvider(getActivity(), commonRepository(), visibleColumns, registerActionHandler, paginationViewHandler);
+        clientAdapter = new RecyclerViewPaginatedAdapter(null, wcaroRegisterProvider, context().commonrepository(this.tablename));
+        clientAdapter.setCurrentlimit(20);
+        clientsView.setAdapter(clientAdapter);
     }
 
     @Override

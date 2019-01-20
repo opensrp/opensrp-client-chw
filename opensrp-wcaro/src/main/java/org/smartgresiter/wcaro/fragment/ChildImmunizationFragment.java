@@ -3,7 +3,6 @@ package org.smartgresiter.wcaro.fragment;
 import android.app.DialogFragment;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
-import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -51,7 +50,6 @@ import org.smartregister.immunization.view.ServiceGroup;
 import org.smartregister.immunization.view.VaccineGroup;
 import org.smartregister.service.AlertService;
 import org.smartregister.util.DateUtil;
-import org.smartregister.view.fragment.BaseProfileFragment;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -66,9 +64,10 @@ import java.util.Random;
 import static org.smartregister.util.Utils.getName;
 
 public class ChildImmunizationFragment extends DialogFragment {
-    public void setChildDetails(CommonPersonObjectClient childDetails){
+    public void setChildDetails(CommonPersonObjectClient childDetails) {
         this.childDetails = childDetails;
     }
+
     public static ChildImmunizationFragment newInstance(Bundle bundle) {
         Bundle args = bundle;
 
@@ -84,7 +83,6 @@ public class ChildImmunizationFragment extends DialogFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
-
 
 
     @Override
@@ -369,7 +367,7 @@ public class ChildImmunizationFragment extends DialogFragment {
 
     @Override
     public void onDestroy() {
-        ((ChildHomeVisitFragment)getActivity().getFragmentManager().findFragmentByTag(ChildHomeVisitFragment.DIALOG_TAG)).updateImmunizationState();
+        ((ChildHomeVisitFragment) getActivity().getFragmentManager().findFragmentByTag(ChildHomeVisitFragment.DIALOG_TAG)).updateImmunizationState();
         super.onDestroy();
 
     }

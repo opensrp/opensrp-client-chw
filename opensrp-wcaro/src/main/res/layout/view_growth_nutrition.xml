@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <LinearLayout
         android:id="@+id/exclusive_feeding_bar"
         android:layout_width="match_parent"
@@ -40,6 +41,7 @@
                 android:text="@string/exclusive_breastfeeding"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textColor="@android:color/black" />
+
             <org.smartregister.view.customcontrols.CustomFontTextView
                 android:id="@+id/textview_exclusive_feeding_name"
                 style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
@@ -54,12 +56,14 @@
         </LinearLayout>
 
     </LinearLayout>
+
     <View
         android:id="@+id/view_exclusive_feeding_bar"
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:visibility="gone"
         android:background="@color/light_grey" />
+
     <LinearLayout
         android:id="@+id/mnp_bar"
         android:layout_width="match_parent"
@@ -96,6 +100,7 @@
                 android:text="MNP"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textColor="@android:color/black" />
+
             <org.smartregister.view.customcontrols.CustomFontTextView
                 android:id="@+id/textview_mnp_bar_name"
                 style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
@@ -110,12 +115,14 @@
         </LinearLayout>
 
     </LinearLayout>
+
     <View
         android:id="@+id/view_mnp_bar"
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:visibility="gone"
         android:background="@color/light_grey" />
+
     <LinearLayout
         android:id="@+id/vitamin_a_bar"
         android:layout_width="match_parent"
@@ -152,6 +159,7 @@
                 android:text="@string/vitamin_a"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textColor="@android:color/black" />
+
             <org.smartregister.view.customcontrols.CustomFontTextView
                 android:id="@+id/textview_vitamin_a_name"
                 style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
@@ -166,12 +174,14 @@
         </LinearLayout>
 
     </LinearLayout>
+
     <View
         android:id="@+id/view_vitamin_a_bar"
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:visibility="gone"
         android:background="@color/light_grey" />
+
     <LinearLayout
         android:id="@+id/deworming_bar"
         android:visibility="gone"
@@ -208,6 +218,7 @@
                 android:text="@string/deworming"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textColor="@android:color/black" />
+
             <org.smartregister.view.customcontrols.CustomFontTextView
                 android:id="@+id/textview_deworming_name"
                 style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"

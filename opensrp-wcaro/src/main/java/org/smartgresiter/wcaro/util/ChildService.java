@@ -5,6 +5,7 @@ public class ChildService {
     String serviceName;
     String serviceStatus;
     String serviceDate;
+
     public String getServiceName() {
         return serviceName;
     }

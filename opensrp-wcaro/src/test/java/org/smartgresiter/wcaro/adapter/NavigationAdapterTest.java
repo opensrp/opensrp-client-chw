@@ -11,7 +11,6 @@ import org.robolectric.android.controller.ActivityController;
 import org.robolectric.annotation.Config;
 import org.smartgresiter.wcaro.BuildConfig;
 import org.smartgresiter.wcaro.R;
-import org.smartgresiter.wcaro.activity.FamilyRegisterActivity;
 import org.smartgresiter.wcaro.activity.LoginActivity;
 import org.smartgresiter.wcaro.application.WcaroApplication;
 import org.smartgresiter.wcaro.model.NavigationOption;

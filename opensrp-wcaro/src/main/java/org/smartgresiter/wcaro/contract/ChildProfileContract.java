@@ -100,9 +100,9 @@ public interface ChildProfileContract {
     interface Interactor {
         void updateVisitNotDone(long value);
 
-        void refreshChildVisitBar(String baseEntityId,ChildProfileContract.InteractorCallBack callback);
+        void refreshChildVisitBar(String baseEntityId, ChildProfileContract.InteractorCallBack callback);
 
-        void refreshFamilyMemberServiceDue(String familyId,String baseEntityId,ChildProfileContract.InteractorCallBack callback);
+        void refreshFamilyMemberServiceDue(String familyId, String baseEntityId, ChildProfileContract.InteractorCallBack callback);
 
         void onDestroy(boolean isChangingConfiguration);
 
@@ -135,7 +135,7 @@ public interface ChildProfileContract {
 
     interface Model {
 
-        JSONObject getFormAsJson(String formName, String entityId, String currentLocationId) throws Exception;
+        JSONObject getFormAsJson(String formName, String entityId, String currentLocationId, String familyID) throws Exception;
 
         Pair<Client, Event> processMemberRegistration(String jsonString, String familyBaseEntityId);
 

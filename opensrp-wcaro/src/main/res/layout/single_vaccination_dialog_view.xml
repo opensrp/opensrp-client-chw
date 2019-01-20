@@ -80,6 +80,7 @@
                 android:text="number"
                 android:textColor="@color/client_list_grey"
                 android:textSize="@dimen/number_view_text_size" />
+
             <org.smartregister.view.customcontrols.CustomFontTextView
                 android:id="@+id/vaccines_given_title_question"
                 style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"

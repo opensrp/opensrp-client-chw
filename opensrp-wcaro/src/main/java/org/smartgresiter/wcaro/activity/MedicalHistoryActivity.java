@@ -28,25 +28,25 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class MedicalHistoryActivity extends AppCompatActivity implements MedicalHistoryContract.View {
-    private TextView textViewTitle,textViewLastVisit,textViewFullyImmunization;
+    private TextView textViewTitle, textViewLastVisit, textViewFullyImmunization;
     private LinearLayout layoutImmunization;
     private LinearLayout layoutGrowthAndNutrition;
-    private RelativeLayout layoutFullyImmunizationBarAge1,layoutFullyImmunizationBarAge2;
-    private RecyclerView recyclerViewImmunization,recyclerViewGrowthNutrition;
+    private RelativeLayout layoutFullyImmunizationBarAge1, layoutFullyImmunizationBarAge2;
+    private RecyclerView recyclerViewImmunization, recyclerViewGrowthNutrition;
     private Map<String, Date> vaccineList;
-    private String childBaseId,name,lastVisitDays,dateOfBirth;
+    private String childBaseId, name, lastVisitDays, dateOfBirth;
     private MedicalHistoryContract.Presenter presenter;
     private VaccineAdapter vaccineAdapter;
     private GrowthAdapter growthAdapter;
 
     public static void startMedicalHistoryActivity(Activity activity, String childBaseEntityId, String childName, String lastVisitDays, String dateOfirth,
-                                                   LinkedHashMap<String, Date> receivedVaccine){
-        Intent intent=new Intent(activity,MedicalHistoryActivity.class);
-        intent.putExtra(Constants.INTENT_KEY.CHILD_BASE_ID,childBaseEntityId);
-        intent.putExtra(Constants.INTENT_KEY.CHILD_NAME,childName);
-        intent.putExtra(Constants.INTENT_KEY.CHILD_DATE_OF_BIRTH,dateOfirth);
-        intent.putExtra(Constants.INTENT_KEY.CHILD_LAST_VISIT_DAYS,lastVisitDays);
-        intent.putExtra(Constants.INTENT_KEY.CHILD_VACCINE_LIST,receivedVaccine);
+                                                   LinkedHashMap<String, Date> receivedVaccine) {
+        Intent intent = new Intent(activity, MedicalHistoryActivity.class);
+        intent.putExtra(Constants.INTENT_KEY.CHILD_BASE_ID, childBaseEntityId);
+        intent.putExtra(Constants.INTENT_KEY.CHILD_NAME, childName);
+        intent.putExtra(Constants.INTENT_KEY.CHILD_DATE_OF_BIRTH, dateOfirth);
+        intent.putExtra(Constants.INTENT_KEY.CHILD_LAST_VISIT_DAYS, lastVisitDays);
+        intent.putExtra(Constants.INTENT_KEY.CHILD_VACCINE_LIST, receivedVaccine);
 
         activity.startActivity(intent);
     }
@@ -56,20 +56,20 @@ public class MedicalHistoryActivity extends AppCompatActivity implements Medical
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_medical_history);
         setUpActionBar();
-        textViewLastVisit=findViewById(R.id.home_visit_date);
-        layoutImmunization=findViewById(R.id.immunization_bar);
-        layoutFullyImmunizationBarAge1=findViewById(R.id.immu_bar_age_1);
-        layoutFullyImmunizationBarAge2=findViewById(R.id.immu_bar_age_2);
-        textViewFullyImmunization=findViewById(R.id.fully_immunized);
-        recyclerViewImmunization=findViewById(R.id.immunization_recycler_view);
-        recyclerViewGrowthNutrition=findViewById(R.id.recycler_view_growth);
+        textViewLastVisit = findViewById(R.id.home_visit_date);
+        layoutImmunization = findViewById(R.id.immunization_bar);
+        layoutFullyImmunizationBarAge1 = findViewById(R.id.immu_bar_age_1);
+        layoutFullyImmunizationBarAge2 = findViewById(R.id.immu_bar_age_2);
+        textViewFullyImmunization = findViewById(R.id.fully_immunized);
+        recyclerViewImmunization = findViewById(R.id.immunization_recycler_view);
+        recyclerViewGrowthNutrition = findViewById(R.id.recycler_view_growth);
         recyclerViewImmunization.setLayoutManager(new LinearLayoutManager(this));
         recyclerViewGrowthNutrition.setLayoutManager(new LinearLayoutManager(this));
-        layoutGrowthAndNutrition=findViewById(R.id.growth_and_nutrition_list);
+        layoutGrowthAndNutrition = findViewById(R.id.growth_and_nutrition_list);
         parseBundleANdUpdateView();
     }
 
-    private void setUpActionBar(){
+    private void setUpActionBar() {
         Toolbar toolbar = findViewById(R.id.collapsing_toolbar);
         textViewTitle = toolbar.findViewById(R.id.toolbar_title);
         setSupportActionBar(toolbar);
@@ -89,18 +89,19 @@ public class MedicalHistoryActivity extends AppCompatActivity implements Medical
         });
 
     }
-    private void parseBundleANdUpdateView(){
-        childBaseId=getIntent().getStringExtra(Constants.INTENT_KEY.CHILD_BASE_ID);
-        name=getIntent().getStringExtra(Constants.INTENT_KEY.CHILD_NAME);
-        lastVisitDays=getIntent().getStringExtra(Constants.INTENT_KEY.CHILD_LAST_VISIT_DAYS);
-        dateOfBirth=getIntent().getStringExtra(Constants.INTENT_KEY.CHILD_DATE_OF_BIRTH);
-        vaccineList=(Map<String, Date>)getIntent().getSerializableExtra(Constants.INTENT_KEY.CHILD_VACCINE_LIST);
-        if(TextUtils.isEmpty(name)){
+
+    private void parseBundleANdUpdateView() {
+        childBaseId = getIntent().getStringExtra(Constants.INTENT_KEY.CHILD_BASE_ID);
+        name = getIntent().getStringExtra(Constants.INTENT_KEY.CHILD_NAME);
+        lastVisitDays = getIntent().getStringExtra(Constants.INTENT_KEY.CHILD_LAST_VISIT_DAYS);
+        dateOfBirth = getIntent().getStringExtra(Constants.INTENT_KEY.CHILD_DATE_OF_BIRTH);
+        vaccineList = (Map<String, Date>) getIntent().getSerializableExtra(Constants.INTENT_KEY.CHILD_VACCINE_LIST);
+        if (TextUtils.isEmpty(name)) {
             textViewTitle.setVisibility(View.GONE);
-        }else{
-            textViewTitle.setText(getString(R.string.medical_title,name));
+        } else {
+            textViewTitle.setText(getString(R.string.medical_title, name));
         }
-        textViewLastVisit.setText(getString(R.string.medical_last_visit,lastVisitDays));
+        textViewLastVisit.setText(getString(R.string.medical_last_visit, lastVisitDays));
         initializePresenter();
         setInitialVaccineList();
         fetchFullYImmunization();
@@ -108,27 +109,29 @@ public class MedicalHistoryActivity extends AppCompatActivity implements Medical
     }
 
 
-    private void fetchFullYImmunization(){
+    private void fetchFullYImmunization() {
         presenter.fetchFullyImmunization(dateOfBirth);
     }
-    private void setInitialVaccineList(){
+
+    private void setInitialVaccineList() {
         presenter.setInitialVaccineList(vaccineList);
 
     }
-    private void fetchGrowthNutrition(){
+
+    private void fetchGrowthNutrition() {
         presenter.fetchGrowthNutrition(childBaseId);
 
     }
 
     @Override
     public void updateFullyImmunization(String text) {
-        if(text.equalsIgnoreCase("2")){
+        if (text.equalsIgnoreCase("2")) {
             layoutFullyImmunizationBarAge1.setVisibility(View.VISIBLE);
             layoutFullyImmunizationBarAge2.setVisibility(View.VISIBLE);
-        }else if(text.equalsIgnoreCase("1")){
+        } else if (text.equalsIgnoreCase("1")) {
             layoutFullyImmunizationBarAge1.setVisibility(View.VISIBLE);
             layoutFullyImmunizationBarAge2.setVisibility(View.GONE);
-        }else{
+        } else {
             layoutFullyImmunizationBarAge1.setVisibility(View.GONE);
             layoutFullyImmunizationBarAge2.setVisibility(View.GONE);
         }
@@ -136,33 +139,34 @@ public class MedicalHistoryActivity extends AppCompatActivity implements Medical
 
     @Override
     public void updateVaccinationData() {
-        if(presenter.getVaccineBaseItem()!=null && presenter.getVaccineBaseItem().size()>0){
+        if (presenter.getVaccineBaseItem() != null && presenter.getVaccineBaseItem().size() > 0) {
             layoutImmunization.setVisibility(View.VISIBLE);
-            if(vaccineAdapter ==null){
-                vaccineAdapter =new VaccineAdapter();
+            if (vaccineAdapter == null) {
+                vaccineAdapter = new VaccineAdapter();
                 vaccineAdapter.addItem(presenter.getVaccineBaseItem());
                 recyclerViewImmunization.setAdapter(vaccineAdapter);
-            }else{
+            } else {
                 vaccineAdapter.notifyDataSetChanged();
             }
-        }else{
+        } else {
             layoutImmunization.setVisibility(View.GONE);
         }
 
 
     }
+
     @Override
     public void updateGrowthNutrition() {
-        if(presenter.getGrowthNutrition()!=null && presenter.getGrowthNutrition().size()>0){
+        if (presenter.getGrowthNutrition() != null && presenter.getGrowthNutrition().size() > 0) {
             layoutGrowthAndNutrition.setVisibility(View.VISIBLE);
-            if(growthAdapter==null){
-                growthAdapter=new GrowthAdapter();
+            if (growthAdapter == null) {
+                growthAdapter = new GrowthAdapter();
                 growthAdapter.addItem(presenter.getGrowthNutrition());
                 recyclerViewGrowthNutrition.setAdapter(growthAdapter);
-            }else{
+            } else {
                 growthAdapter.notifyDataSetChanged();
             }
-        }else{
+        } else {
             layoutGrowthAndNutrition.setVisibility(View.GONE);
         }
 
@@ -171,7 +175,7 @@ public class MedicalHistoryActivity extends AppCompatActivity implements Medical
 
     @Override
     public MedicalHistoryContract.Presenter initializePresenter() {
-        presenter=new MedicalHistoryPresenter(this);
+        presenter = new MedicalHistoryPresenter(this);
         return presenter;
     }
 }

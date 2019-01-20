@@ -4,8 +4,6 @@ import org.smartgresiter.wcaro.contract.FamilyCallDialogContract;
 import org.smartgresiter.wcaro.interactor.FamilyCallDialogInteractor;
 
 import java.lang.ref.WeakReference;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class FamilyCallDialogPresenter implements FamilyCallDialogContract.Presenter {
 
@@ -36,6 +34,8 @@ public class FamilyCallDialogPresenter implements FamilyCallDialogContract.Prese
 
     @Override
     public void initalize() {
+        mView.get().refreshHeadOfFamilyView(null);
+        mView.get().refreshCareGiverView(null);
         mInteractor.getHeadOfFamily(this);
     }
 }

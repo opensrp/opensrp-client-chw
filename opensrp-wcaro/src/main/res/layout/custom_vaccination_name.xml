@@ -38,5 +38,5 @@
         android:text="vaccine"
         android:textColor="@color/text_black"
         android:textSize="@dimen/vaccine_text_size"
-        android:paddingLeft="0dp"/>
+        android:paddingLeft="0dp" />
 </LinearLayout>

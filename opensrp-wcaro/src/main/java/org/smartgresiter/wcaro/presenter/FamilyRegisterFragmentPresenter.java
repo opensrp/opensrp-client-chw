@@ -11,11 +11,6 @@ public class FamilyRegisterFragmentPresenter extends BaseFamilyRegisterFragmentP
     }
 
     @Override
-    public String getMainCondition() {
-        return "";
-    }
-
-    @Override
     public String getDefaultSortQuery() {
         return DBConstants.KEY.LAST_INTERACTED_WITH + " DESC ";
     }
