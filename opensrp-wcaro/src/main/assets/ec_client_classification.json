@@ -28,9 +28,17 @@
           },
           {
             "field": "eventType",
+            "field_value": "Update Family Member Registration",
+            "creates_case": [
+              "ec_family_member"
+            ]
+          },
+          {
+            "field": "eventType",
             "field_value": "Child Registration",
             "creates_case": [
-              "ec_child"
+              "ec_child",
+              "ec_family_member"
             ]
           },
           {
@@ -39,8 +47,7 @@
             "creates_case": [
               "ec_child"
             ]
-          }
-        ,
+          },
           {
             "field": "eventType",
             "field_value": "Visit not done",

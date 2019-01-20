@@ -8,12 +8,12 @@
     android:fillViewport="true"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="org.smartgresiter.wcaro.activity.ChildProfileActivity"
-    tools:showIn="@layout/content_main" >
+    tools:showIn="@layout/content_main">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -28,7 +28,7 @@
                 android:layout_height="100dp"
                 android:layout_width="100dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="10dp"/>
+                android:layout_marginTop="10dp" />
 
             <org.smartregister.view.customcontrols.CustomFontTextView
                 android:id="@+id/name_tv"
@@ -40,7 +40,7 @@
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/activity_title_size"
                 android:paddingLeft="0dp"
-                android:layout_marginTop="5dp"/>
+                android:layout_marginTop="5dp" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -76,7 +76,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:textColor="@color/white"
-                    android:text="Birth Date"/>
+                    android:text="Birth Date" />
             </LinearLayout>
         </LinearLayout>
 
@@ -99,7 +99,7 @@
             android:clickable="false"
             android:foreground="?android:attr/selectableItemBackground"
             app:cardCornerRadius="3dp"
-            app:cardElevation="0dp" >
+            app:cardElevation="0dp">
 
             <LinearLayout
                 android:layout_width="match_parent"

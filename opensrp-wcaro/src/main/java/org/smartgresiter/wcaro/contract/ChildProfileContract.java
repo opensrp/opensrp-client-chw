@@ -42,18 +42,31 @@ public interface ChildProfileContract {
         void setProfileName(String fullName);
 
         void setAge(String age);
+
         void setVisitButtonDueStatus();
+
         void setVisitButtonOverdueStatus();
+
         void setVisitNotDoneThisMonth();
+
         void setLastVisitRowView(String days);
+
         void setServiceName(String serviceName);
+
         void setServiceDueDate(String date);
+
         void setSeviceOverdueDate(String date);
+
         void setServiceUpcomingDueDate(String upcomingDate);
+
         void setVisitLessTwentyFourView(String monthName);
+
         void setVisitAboveTwentyFourView();
+
         void setFamilyHasNothingDue();
+
         void setFamilyHasServiceDue();
+
         void setFamilyHasServiceOverdue();
 
         ChildProfileContract.Presenter presenter();
@@ -71,17 +84,25 @@ public interface ChildProfileContract {
         void refreshProfileView();
 
         void processFormDetailsSave(Intent data, AllSharedPreferences allSharedPreferences);
+
         void updateVisitNotDone(long value);
+
         String childBaseEntityId();
+
         void fetchVisitStatus(String baseEntityId);
+
         void fetchFamilyMemberServiceDue(String baseEntityId);
+
+        void saveRegistration(final Pair<Client, Event> pair, final String jsonString, final boolean isEditMode, final ChildProfileContract.InteractorCallBack callBack);
 
     }
 
     interface Interactor {
         void updateVisitNotDone(long value);
-        void refreshChildVisitBar(String baseEntityId,ChildProfileContract.InteractorCallBack callback);
-        void refreshFamilyMemberServiceDue(String familyId,String baseEntityId,ChildProfileContract.InteractorCallBack callback);
+
+        void refreshChildVisitBar(String baseEntityId, ChildProfileContract.InteractorCallBack callback);
+
+        void refreshFamilyMemberServiceDue(String familyId, String baseEntityId, ChildProfileContract.InteractorCallBack callback);
 
         void onDestroy(boolean isChangingConfiguration);
 
@@ -95,7 +116,9 @@ public interface ChildProfileContract {
 
     interface InteractorCallBack {
         void updateChildVisit(ChildVisit childVisit);
+
         void updateChildService(ChildService childService);
+
         void updateFamilyMemberServiceDue(String serviceDueStatus);
 
         void startFormForEdit(CommonPersonObjectClient client);
@@ -112,7 +135,7 @@ public interface ChildProfileContract {
 
     interface Model {
 
-        JSONObject getFormAsJson(String formName, String entityId, String currentLocationId) throws Exception;
+        JSONObject getFormAsJson(String formName, String entityId, String currentLocationId, String familyID) throws Exception;
 
         Pair<Client, Event> processMemberRegistration(String jsonString, String familyBaseEntityId);
 

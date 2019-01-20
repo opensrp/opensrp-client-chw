@@ -33,6 +33,7 @@
     <string name="change_primary_caregiver">Change primary caregiver</string>
     <string name="add_other_family_member">Other family member</string>
     <string name="add_child_under_five">Child under 5 years</string>
+    <string name="child_under_five">Child under 5 years</string>
     <string name="go_to_family_s_profile">Go to family\'s profile</string>
     <string name="family_has_nothing_due">Family has nothing due</string>
     <string name="family_has_services_due">Family has services due</string>
@@ -44,6 +45,12 @@
     <string name="last_visit_40_days_ago">Last visit %1$s ago</string>
     <string name="add_member_title">Add family member</string>
     <string name="add_member_title_question">What kind of family member you want to add?</string>
+    <string name="change_head_member_title">Change family head</string>
+    <string name="change_head_member_title_question">Select a new family head</string>
+    <string name="change_caregiver_member_title">Change primary care giver</string>
+    <string name="change_caregiver_member_title_question">Select a new primary care giver</string>
+    <string name="remove_member_title">Remove member</string>
+    <string name="remove_member_prompt">Which member do you want to remove?</string>
     <string name="visit_month">%1$s visit done</string>
     <string name="not_visiting_this_month">Not visiting this month</string>
     <string name="undo">UNDO</string>
@@ -54,6 +61,10 @@
     <string name="allow_calls_denied">Kindly allow calls to be made here</string>
     <string name="copy_to_clipboard">Copy to clipboard</string>
     <string name="copied_phone_number">PhoneNumber copied to clipboard</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
     <string name="medical_history">Medical History</string>
     <string name="record_home_visit">Record Home visit</string>
     <string name="visit_done">Visit done</string>

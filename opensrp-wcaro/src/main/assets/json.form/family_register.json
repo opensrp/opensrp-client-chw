@@ -77,7 +77,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_identifier",
         "openmrs_entity_id": "opensrp_id",
-        "hidden":"true",
+        "hidden": "true",
         "type": "barcode",
         "barcode_type": "qrcode",
         "hint": "ID *",
@@ -174,10 +174,9 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_identifier",
         "openmrs_entity_id": "opensrp_id",
-        "type": "barcode",
-        "barcode_type": "qrcode",
+        "type": "edit_text",
         "hint": "ID *",
-        "scanButtonText": "Scan QR Code",
+        "value": "0",
         "v_numeric": {
           "value": "true",
           "err": "Please enter a valid ID"
@@ -192,6 +191,8 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "163084AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "label_info_text": "What is their national identity number or their voter registration number?",
+        "label_info_title": "National ID number",
         "type": "edit_text",
         "hint": "National ID number"
       },
@@ -229,7 +230,7 @@
         "options": [
           {
             "key": "same_as_fam_name",
-            "text": "Same as family name",
+            "text": "Surname same as family name",
             "text_size": "18px",
             "value": "false"
           }
@@ -241,7 +242,6 @@
         "openmrs_entity": "person",
         "openmrs_entity_id": "last_name",
         "type": "edit_text",
-        "edit_type": "name",
         "hidden": true,
         "hint": "Surname as Family name",
         "calculation": {
@@ -396,9 +396,9 @@
       },
       {
         "key": "other_phone_number",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity_parent": "159635AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "edit_text",
         "hint": "Other phone number",
         "v_numeric": {

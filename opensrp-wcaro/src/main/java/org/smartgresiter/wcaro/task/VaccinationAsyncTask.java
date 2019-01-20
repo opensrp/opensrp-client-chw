@@ -1,8 +1,6 @@
 package org.smartgresiter.wcaro.task;
 
-import android.database.Cursor;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import org.joda.time.DateTime;
 import org.smartgresiter.wcaro.application.WcaroApplication;
@@ -14,6 +12,7 @@ import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.immunization.domain.Vaccine;
 import org.smartregister.immunization.domain.VaccineWrapper;
 import org.smartregister.immunization.util.VaccinateActionUtils;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -36,19 +35,19 @@ public class VaccinationAsyncTask extends AsyncTask {
     private ImmunizationState state;
     private Map<String, Object> nv;
     private ImmunizationStateChangeListener immunizationStateChangeListener;
-    private Map<String,String> getColumnMaps;
+    private Map<String, String> getColumnMaps;
     public ArrayList<VaccineWrapper> notDoneVaccines = new ArrayList<>();
 
-    public VaccinationAsyncTask(String entityId,Map<String,String> getColumnMaps, ImmunizationStateChangeListener immunizationStateChangeListener) {
-        this.entityId=entityId;
-        this.getColumnMaps=getColumnMaps;
-        this.immunizationStateChangeListener=immunizationStateChangeListener;
+    public VaccinationAsyncTask(String entityId, Map<String, String> getColumnMaps, ImmunizationStateChangeListener immunizationStateChangeListener) {
+        this.entityId = entityId;
+        this.getColumnMaps = getColumnMaps;
+        this.immunizationStateChangeListener = immunizationStateChangeListener;
     }
 
-    public VaccinationAsyncTask(String entityId, Map<String,String> getColumnMaps, ArrayList<VaccineWrapper> notDoneVaccines, ImmunizationStateChangeListener immunizationStateChangeListener) {
-        this.entityId=entityId;
-        this.getColumnMaps=getColumnMaps;
-        this.immunizationStateChangeListener=immunizationStateChangeListener;
+    public VaccinationAsyncTask(String entityId, Map<String, String> getColumnMaps, ArrayList<VaccineWrapper> notDoneVaccines, ImmunizationStateChangeListener immunizationStateChangeListener) {
+        this.entityId = entityId;
+        this.getColumnMaps = getColumnMaps;
+        this.immunizationStateChangeListener = immunizationStateChangeListener;
         this.notDoneVaccines = notDoneVaccines;
     }
 
@@ -57,7 +56,7 @@ public class VaccinationAsyncTask extends AsyncTask {
         alerts = WcaroApplication.getInstance().getContext().alertService().findByEntityIdAndAlertNames(entityId, VaccinateActionUtils.allAlertNames("child"));
         vaccines = WcaroApplication.getInstance().vaccineRepository().findByEntityId(entityId);
         Map<String, Date> recievedVaccines = receivedVaccines(vaccines);
-        recievedVaccines = addNotDoneVaccinesToReceivedVaccines(notDoneVaccines,recievedVaccines);
+        recievedVaccines = addNotDoneVaccinesToReceivedVaccines(notDoneVaccines, recievedVaccines);
         List<Map<String, Object>> sch = generateScheduleList("child",
                 new DateTime(org.smartregister.family.util.Utils.getValue(getColumnMaps, DBConstants.KEY.DOB, false)), recievedVaccines, alerts);
 
@@ -94,14 +93,12 @@ public class VaccinationAsyncTask extends AsyncTask {
         }
 
 
-
-
         return null;
     }
 
     private Map<String, Date> addNotDoneVaccinesToReceivedVaccines(ArrayList<VaccineWrapper> notDoneVaccines, Map<String, Date> recievedVaccines) {
-        for(int i = 0;i<notDoneVaccines.size();i++){
-            recievedVaccines.put(notDoneVaccines.get(i).getName().toLowerCase(),new Date());
+        for (int i = 0; i < notDoneVaccines.size(); i++) {
+            recievedVaccines.put(notDoneVaccines.get(i).getName().toLowerCase(), new Date());
         }
 
         return recievedVaccines;
@@ -111,7 +108,7 @@ public class VaccinationAsyncTask extends AsyncTask {
     @Override
     protected void onPostExecute(Object o) {
         super.onPostExecute(o);
-        immunizationStateChangeListener.onImmunicationStateChange(alerts,vaccines,stateKey,nv,state);
+        immunizationStateChangeListener.onImmunicationStateChange(alerts, vaccines, stateKey, nv, state);
         //ImmunizationState(vaccines,stateKey,nv,state);
 
     }

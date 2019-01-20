@@ -48,7 +48,7 @@ import java.util.List;
 @SuppressLint("ValidFragment")
 public class CustomMultipleVaccinationDialogFragment extends ChildImmunizationFragment {
     private List<VaccineWrapper> tags;
-//    private VaccinationActionListener listener;
+    //    private VaccinationActionListener listener;
     private Date dateOfBirth;
     private List<Vaccine> issuedVaccines;
     public static final String DIALOG_TAG = "CustomVaccinationDialogFragment";
@@ -169,14 +169,11 @@ public class CustomMultipleVaccinationDialogFragment extends ChildImmunizationFr
         }
 
 
-
         Button vaccinateToday = (Button) dialogView.findViewById(R.id.vaccinate_today);
         vaccinateToday.setText(vaccinateToday.getText().toString().replace("Vaccination", "Vaccinations"));
 
         final Button vaccinateEarlier = (Button) dialogView.findViewById(R.id.vaccinate_earlier);
         vaccinateEarlier.setText(vaccinateEarlier.getText().toString().replace("Vaccination", "Vaccinations"));
-
-
 
 
         final DatePicker earlierDatePicker = (DatePicker) dialogView.findViewById(R.id.earlier_date_picker);
@@ -234,11 +231,10 @@ public class CustomMultipleVaccinationDialogFragment extends ChildImmunizationFr
                     }
                 }
                 onVaccinateEarlier(tagsToUpdate, view);
-                ((ChildHomeVisitFragment)getActivity().getFragmentManager().findFragmentByTag(ChildHomeVisitFragment.DIALOG_TAG)).assigntoGivenVaccines(tagsToUpdate);
+                ((ChildHomeVisitFragment) getActivity().getFragmentManager().findFragmentByTag(ChildHomeVisitFragment.DIALOG_TAG)).assigntoGivenVaccines(tagsToUpdate);
 
             }
         });
-
 
 
         vaccinateEarlier.setOnClickListener(new Button.OnClickListener() {
@@ -252,7 +248,7 @@ public class CustomMultipleVaccinationDialogFragment extends ChildImmunizationFr
             }
         });
 
-        TextView add_date_separately = (TextView)dialogView.findViewById(R.id.add_date_separately);
+        TextView add_date_separately = (TextView) dialogView.findViewById(R.id.add_date_separately);
 
         add_date_separately.setOnClickListener(new View.OnClickListener() {
 
@@ -276,14 +272,14 @@ public class CustomMultipleVaccinationDialogFragment extends ChildImmunizationFr
                             ArrayList<VaccineWrapper> vaccineWrappers = new ArrayList<VaccineWrapper>();
                             vaccineWrappers.add(tag);
 
-                            List<Vaccine> vaccines = (List<Vaccine>)v.getTag(R.id.vaccinelist);
+                            List<Vaccine> vaccines = (List<Vaccine>) v.getTag(R.id.vaccinelist);
 
-                            CustomVaccinationDialogFragment customVaccinationDialogFragment = CustomVaccinationDialogFragment.newInstance(dob,vaccines,vaccineWrappers);
+                            CustomVaccinationDialogFragment customVaccinationDialogFragment = CustomVaccinationDialogFragment.newInstance(dob, vaccines, vaccineWrappers);
 //                childHomeVisitFragment.setFamilyBaseEntityId(getFamilyBaseEntityId());
                             customVaccinationDialogFragment.setContext(getActivity());
                             customVaccinationDialogFragment.setChildDetails(getChildDetails());
                             customVaccinationDialogFragment.setDisableConstraints(true);
-                            customVaccinationDialogFragment.show(ft,ChildImmunizationFragment.TAG+"_"+tag.getVaccine().display());
+                            customVaccinationDialogFragment.show(ft, ChildImmunizationFragment.TAG + "_" + tag.getVaccine().display());
                         }
                     }
                 }
@@ -293,7 +289,7 @@ public class CustomMultipleVaccinationDialogFragment extends ChildImmunizationFr
                     public void run() {
                         dismiss();
                     }
-                },100);
+                }, 100);
             }
         });
 
@@ -658,7 +654,7 @@ public class CustomMultipleVaccinationDialogFragment extends ChildImmunizationFr
 
     @Override
     public void updateVaccineGroupViews(View view, final ArrayList<VaccineWrapper> wrappers, final List<Vaccine> vaccineList, final boolean undo) {
-        ((ChildHomeVisitFragment)context.getFragmentManager().findFragmentByTag("child_home_visit_dialog")).updateImmunizationState();
+        ((ChildHomeVisitFragment) context.getFragmentManager().findFragmentByTag("child_home_visit_dialog")).updateImmunizationState();
     }
 
 

@@ -4,9 +4,11 @@ public class ServiceContent implements BaseService {
     String serviceName;
     //String serviceDate;
     String type;
+
     public void setType(String type) {
         this.type = type;
     }
+
     public String getServiceName() {
         return serviceName;
     }

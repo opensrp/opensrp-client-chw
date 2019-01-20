@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.util.Log;
 
 import com.evernote.android.job.JobManager;
-import com.vijay.jsonwizard.activities.JsonFormActivity;
+import com.vijay.jsonwizard.activities.JsonWizardFormActivity;
 
 import org.smartgresiter.wcaro.BuildConfig;
 import org.smartgresiter.wcaro.activity.FamilyProfileActivity;
@@ -15,6 +15,7 @@ import org.smartgresiter.wcaro.repository.WcaroRepository;
 import org.smartgresiter.wcaro.util.Constants;
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
+import org.smartregister.commonregistry.AllCommonsRepository;
 import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
 import org.smartregister.configurableviews.helper.JsonSpecHelper;
@@ -23,6 +24,7 @@ import org.smartregister.family.activity.FamilyWizardFormActivity;
 import org.smartregister.family.domain.FamilyMetadata;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.Utils;
+import org.smartregister.immunization.ImmunizationLibrary;
 import org.smartregister.immunization.domain.VaccineSchedule;
 import org.smartregister.immunization.domain.jsonmapping.Vaccine;
 import org.smartregister.immunization.domain.jsonmapping.VaccineGroup;
@@ -31,18 +33,16 @@ import org.smartregister.immunization.util.VaccinatorUtils;
 import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.repository.Repository;
+import org.smartregister.sync.helper.ECSyncHelper;
 import org.smartregister.view.activity.DrishtiApplication;
-import org.smartregister.immunization.ImmunizationLibrary;
 
-
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class WcaroApplication extends DrishtiApplication {
 
     private static final String TAG = WcaroApplication.class.getCanonicalName();
     private static JsonSpecHelper jsonSpecHelper;
+    private static ECSyncHelper ecSyncHelper;
 
     private static CommonFtsObject commonFtsObject;
 
@@ -59,27 +59,39 @@ public class WcaroApplication extends DrishtiApplication {
             commonFtsObject = new CommonFtsObject(getFtsTables());
             for (String ftsTable : commonFtsObject.getTables()) {
                 commonFtsObject.updateSearchFields(ftsTable, getFtsSearchFields(ftsTable));
-                commonFtsObject.updateSortFields(ftsTable, getFtsSortFields());
+                commonFtsObject.updateSortFields(ftsTable, getFtsSortFields(ftsTable));
             }
         }
         return commonFtsObject;
     }
 
     private static String[] getFtsTables() {
-        return new String[]{Constants.TABLE_NAME.FAMILY,Constants.TABLE_NAME.CHILD};
+        return new String[]{Constants.TABLE_NAME.FAMILY, Constants.TABLE_NAME.FAMILY_MEMBER, Constants.TABLE_NAME.CHILD};
     }
 
-    private static String[] getFtsSearchFields(String table) {
-        return new String[]{DBConstants.KEY.BASE_ENTITY_ID,DBConstants.KEY.VILLAGE_TOWN, DBConstants.KEY.FIRST_NAME,
-                DBConstants.KEY.LAST_NAME, DBConstants.KEY.UNIQUE_ID,DBConstants.KEY
-                .LAST_INTERACTED_WITH};
+    private static String[] getFtsSearchFields(String tableName) {
+        if (tableName.equals(Constants.TABLE_NAME.FAMILY)) {
+            return new String[]{DBConstants.KEY.BASE_ENTITY_ID, DBConstants.KEY.VILLAGE_TOWN, DBConstants.KEY.FIRST_NAME,
+                    DBConstants.KEY.LAST_NAME, DBConstants.KEY.UNIQUE_ID};
+        } else if (tableName.equals(Constants.TABLE_NAME.FAMILY_MEMBER) || tableName.equals(Constants.TABLE_NAME.CHILD)) {
+            return new String[]{DBConstants.KEY.BASE_ENTITY_ID, DBConstants.KEY.FIRST_NAME, DBConstants.KEY.MIDDLE_NAME,
+                    DBConstants.KEY.LAST_NAME, DBConstants.KEY.UNIQUE_ID};
+        }
+        return null;
     }
 
-    private static String[] getFtsSortFields() {
-        return new String[]{DBConstants.KEY.BASE_ENTITY_ID, DBConstants.KEY.FIRST_NAME, DBConstants.KEY.LAST_NAME, DBConstants.KEY
-                .LAST_INTERACTED_WITH};
+    private static String[] getFtsSortFields(String tableName) {
+        if (tableName.equals(Constants.TABLE_NAME.FAMILY)) {
+            return new String[]{DBConstants.KEY.LAST_INTERACTED_WITH, DBConstants.KEY.DATE_REMOVED};
+        } else if (tableName.equals(Constants.TABLE_NAME.FAMILY_MEMBER) || tableName.equals(Constants.TABLE_NAME.CHILD)) {
+            return new String[]{DBConstants.KEY.DOB, DBConstants.KEY.DOD, DBConstants.KEY
+                    .LAST_INTERACTED_WITH, DBConstants.KEY.DATE_REMOVED};
+        }
+        return null;
     }
+
     private RulesEngineHelper rulesEngineHelper;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -104,9 +116,6 @@ public class WcaroApplication extends DrishtiApplication {
 
         //init Job Manager
         JobManager.create(this).addJobCreator(new WcaroJobCreator());
-
-        // TODO FIXME remove when login is implemented
-        sampleUniqueIds();
 
         initOfflineSchedules();
     }
@@ -139,37 +148,26 @@ public class WcaroApplication extends DrishtiApplication {
     }
 
     private FamilyMetadata getMetadata() {
-        FamilyMetadata metadata = new FamilyMetadata(FamilyWizardFormActivity.class, JsonFormActivity.class, FamilyProfileActivity.class);
+        FamilyMetadata metadata = new FamilyMetadata(FamilyWizardFormActivity.class, JsonWizardFormActivity.class, FamilyProfileActivity.class);
         metadata.updateFamilyRegister(Constants.JSON_FORM.FAMILY_REGISTER, Constants.TABLE_NAME.FAMILY, Constants.EventType.FAMILY_REGISTRATION, Constants.EventType.UPDATE_FAMILY_REGISTRATION, Constants.CONFIGURATION.FAMILY_REGISTER, Constants.RELATIONSHIP.FAMILY_HEAD, Constants.RELATIONSHIP.PRIMARY_CAREGIVER);
         metadata.updateFamilyMemberRegister(Constants.JSON_FORM.FAMILY_MEMBER_REGISTER, Constants.TABLE_NAME.FAMILY_MEMBER, Constants.EventType.FAMILY_MEMBER_REGISTRATION, Constants.EventType.UPDATE_FAMILY_MEMBER_REGISTRATION, Constants.CONFIGURATION.FAMILY_MEMBER_REGISTER, Constants.RELATIONSHIP.FAMILY);
+        metadata.updateFamilyDueRegister(Constants.TABLE_NAME.FAMILY_MEMBER, Integer.MAX_VALUE, false);
+        metadata.updateFamilyActivityRegister(Constants.TABLE_NAME.FAMILY_MEMBER, Integer.MAX_VALUE, false);
+        metadata.updateFamilyOtherMemberRegister(Constants.TABLE_NAME.FAMILY_MEMBER, Integer.MAX_VALUE, false);
         return metadata;
     }
 
-    private void sampleUniqueIds() {
-        List<String> ids = generateIds(20);
-        FamilyLibrary.getInstance().getUniqueIdRepository().bulkInserOpenmrsIds(ids);
-    }
-
-    private List<String> generateIds(int size) {
-        List<String> ids = new ArrayList<>();
-        Random r = new Random();
-
-        for (int i = 0; i < size; i++) {
-            Integer randomInt = r.nextInt(1000) + 1;
-            ids.add(randomInt.toString());
-        }
-
-        return ids;
-    }
     public VaccineRepository vaccineRepository() {
         return ImmunizationLibrary.getInstance().vaccineRepository();
     }
+
     public RulesEngineHelper getRulesEngineHelper() {
         if (rulesEngineHelper == null) {
             rulesEngineHelper = new RulesEngineHelper(getApplicationContext());
         }
         return rulesEngineHelper;
     }
+
     public void initOfflineSchedules() {
         try {
             List<VaccineGroup> childVaccines = VaccinatorUtils.getSupportedVaccines(this);
@@ -180,5 +178,15 @@ public class WcaroApplication extends DrishtiApplication {
         }
     }
 
+    public ECSyncHelper getEcSyncHelper() {
+        if (ecSyncHelper == null) {
+            ecSyncHelper = ECSyncHelper.getInstance(getApplicationContext());
+        }
+        return ecSyncHelper;
+    }
+
+    public AllCommonsRepository getAllCommonsRepository(String table) {
+        return WcaroApplication.getInstance().getContext().allCommonsRepositoryobjects(table);
+    }
 
 }

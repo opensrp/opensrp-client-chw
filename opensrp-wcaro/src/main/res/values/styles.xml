@@ -30,10 +30,17 @@
         <item name="android:listPreferredItemHeightSmall">70dp</item>
         <!-- item size in menu-->
     </style>
+
     <style name="WcaroTheme.Dialog.FullWidth" parent="android:Theme.Holo.Light.Dialog">
         <item name="android:windowMinWidthMajor">98%</item>
         <item name="android:windowMinWidthMinor">98%</item>
         <item name="android:background">@android:color/white</item>
+    </style>
+
+    <style name="AppCompatAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorAccent">@color/black</item>
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:background">@color/grey</item>
     </style>
 
     <style name="custom_wcaro_vaccine_checkbox" parent="Material.Drawable.CheckBox.Dialog">

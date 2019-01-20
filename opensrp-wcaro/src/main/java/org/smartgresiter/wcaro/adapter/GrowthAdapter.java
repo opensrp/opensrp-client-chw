@@ -5,7 +5,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.smartgresiter.wcaro.R;
@@ -13,28 +12,29 @@ import org.smartgresiter.wcaro.util.BaseService;
 import org.smartgresiter.wcaro.util.BaseVaccine;
 import org.smartgresiter.wcaro.util.ServiceContent;
 import org.smartgresiter.wcaro.util.ServiceHeader;
-import org.smartgresiter.wcaro.util.VaccineContent;
-import org.smartgresiter.wcaro.util.VaccineHeader;
 
 import java.util.ArrayList;
 
 public class GrowthAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private ArrayList<BaseService> baseServices;
-    public GrowthAdapter(){
-        this.baseServices =new ArrayList<>();
+
+    public GrowthAdapter() {
+        this.baseServices = new ArrayList<>();
     }
-    public void addItem(ArrayList<BaseService> baseVaccines){
+
+    public void addItem(ArrayList<BaseService> baseVaccines) {
         this.baseServices.addAll(baseVaccines);
 
     }
+
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
-        switch (viewType){
+        switch (viewType) {
             case BaseVaccine.TYPE_HEADER:
-                return new HeaderViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.vaccine_header_view,null));
+                return new HeaderViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.vaccine_header_view, null));
             case BaseVaccine.TYPE_CONTENT:
-                return new ContentViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.vaccine_content_view,null));
+                return new ContentViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.vaccine_content_view, null));
 
         }
         return null;
@@ -43,17 +43,17 @@ public class GrowthAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
 
-        switch (viewHolder.getItemViewType()){
+        switch (viewHolder.getItemViewType()) {
             case BaseVaccine.TYPE_HEADER:
                 BaseService baseService = baseServices.get(position);
-                ServiceHeader serviceHeader=(ServiceHeader) baseService;
-                HeaderViewHolder headerViewHolder=(HeaderViewHolder)viewHolder;
+                ServiceHeader serviceHeader = (ServiceHeader) baseService;
+                HeaderViewHolder headerViewHolder = (HeaderViewHolder) viewHolder;
                 headerViewHolder.headerTitle.setText(serviceHeader.getServiceHeaderName());
                 break;
-             case BaseVaccine.TYPE_CONTENT:
-                 BaseService content = baseServices.get(position);
-                ServiceContent serviceContent=(ServiceContent) content;
-                ContentViewHolder contentViewHolder=(ContentViewHolder)viewHolder;
+            case BaseVaccine.TYPE_CONTENT:
+                BaseService content = baseServices.get(position);
+                ServiceContent serviceContent = (ServiceContent) content;
+                ContentViewHolder contentViewHolder = (ContentViewHolder) viewHolder;
                 contentViewHolder.vaccineName.setText(serviceContent.getServiceName());
                 break;
         }
@@ -70,6 +70,7 @@ public class GrowthAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     public int getItemCount() {
         return baseServices.size();
     }
+
     public class HeaderViewHolder extends RecyclerView.ViewHolder {
         public TextView headerTitle;
         private View myView;
@@ -85,6 +86,7 @@ public class GrowthAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             return myView;
         }
     }
+
     public class ContentViewHolder extends RecyclerView.ViewHolder {
         public TextView vaccineName;
         private View myView;
