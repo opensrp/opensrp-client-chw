@@ -21,6 +21,7 @@ public interface HomeVisitGrowthNutritionContract {
         void serNotVisitState(String type,ServiceWrapper serviceWrapper);
         void resetAllSaveState();
         boolean isAllSelected();
+        boolean isSelected(String type);
         HomeVisitGrowthNutritionContract.View getView();
         void onDestroy(boolean isChangingConfiguration);
 
