@@ -274,7 +274,10 @@ public class HomeVisitImmunizationInteractor implements HomeVisitImmunizationCon
                 if(VaccinateActionUtils.stateKey(vaccine).equalsIgnoreCase(homeVisitVaccineGroupDetailsArrayList.get(i).getGroup())){
                     if(hasAlert(vaccine,alerts)){
                         homeVisitVaccineGroupDetailsArrayList.get(i).getDueVaccines().add(vaccine);
-                        homeVisitVaccineGroupDetailsArrayList.get(i).setAlert(assignAlert(vaccine,alerts));
+                        if(assignAlert(vaccine,alerts)==(ImmunizationState.DUE)||assignAlert(vaccine,alerts)==(ImmunizationState.OVERDUE)
+                                ||assignAlert(vaccine,alerts)==(ImmunizationState.UPCOMING)||assignAlert(vaccine,alerts)==(ImmunizationState.EXPIRED)) {
+                            homeVisitVaccineGroupDetailsArrayList.get(i).setAlert(assignAlert(vaccine, alerts));
+                        }
                     }
                 }
             }

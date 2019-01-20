@@ -28,6 +28,5 @@ public interface HomeVisitImmunizationContract {
         ArrayList<HomeVisitVaccineGroupDetails> determineAllHomeVisitVaccineGroupDetails(List<Alert> alerts, List<Vaccine> vaccines, ArrayList<VaccineWrapper> notGivenVaccines);
     }
     interface InteractorCallBack{
-        void updateRecordVisitData(Map<String, ServiceWrapper> stringServiceWrapperMap);
     }
 }

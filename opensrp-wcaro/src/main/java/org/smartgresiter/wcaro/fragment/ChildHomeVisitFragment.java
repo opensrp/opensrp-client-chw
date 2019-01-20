@@ -687,6 +687,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
             immunization_group_status_circle.setColorFilter(getResources().getColor(R.color.white));
             immunization_group_status_circle.setCircleBackgroundColor(getResources().getColor(R.color.pnc_circle_yellow));
             multiple_immunization_group.setOnClickListener(null);
+            allVaccineStateFullfilled = true;
 
 
         }else if(homeVisitImmunizationInteractor.isComplete(currentActiveGroup)){
@@ -696,6 +697,8 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
             immunization_group_status_circle.setColorFilter(getResources().getColor(R.color.white));
             immunization_group_status_circle.setCircleBackgroundColor(getResources().getColor(R.color.alert_complete_green));
             multiple_immunization_group.setOnClickListener(null);
+            allVaccineStateFullfilled = true;
+
 
 
         }else if (homeVisitImmunizationInteractor.groupIsDue(currentActiveGroup)){

@@ -213,31 +213,33 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
             @Override
             public void onSelfStatus(Map<String, Date> vaccines, Map<String, Object> nv, ImmunizationState state) {
                 vaccineList = vaccines;
-                VaccineRepo.Vaccine vaccine = (VaccineRepo.Vaccine) nv.get(VACCINE);
-                final ChildService childService = new ChildService();
-                childService.setServiceName(vaccine.display());
-                DateTime dueDate = (DateTime) nv.get(DATE);
-                String duedateString = DateUtil.formatDate(dueDate.toLocalDate(), "dd MMM yyyy");
-                childService.setServiceDate(duedateString);
-                if (state.equals(ImmunizationState.DUE)) {
-                    childService.setServiceStatus(ServiceType.DUE.name());
-                } else if (state.equals(ImmunizationState.OVERDUE)) {
-                    childService.setServiceStatus(ServiceType.OVERDUE.name());
-                } else {
-                    childService.setServiceStatus(ServiceType.UPCOMING.name());
-                }
-                Runnable runnable = new Runnable() {
-                    @Override
-                    public void run() {
-                        appExecutors.mainThread().execute(new Runnable() {
-                            @Override
-                            public void run() {
-                                callback.updateChildService(childService);
-                            }
-                        });
+                if (nv != null) {
+                    VaccineRepo.Vaccine vaccine = (VaccineRepo.Vaccine) nv.get(VACCINE);
+                    final ChildService childService = new ChildService();
+                    childService.setServiceName(vaccine.display());
+                    DateTime dueDate = (DateTime) nv.get(DATE);
+                    String duedateString = DateUtil.formatDate(dueDate.toLocalDate(), "dd MMM yyyy");
+                    childService.setServiceDate(duedateString);
+                    if (state.equals(ImmunizationState.DUE)) {
+                        childService.setServiceStatus(ServiceType.DUE.name());
+                    } else if (state.equals(ImmunizationState.OVERDUE)) {
+                        childService.setServiceStatus(ServiceType.OVERDUE.name());
+                    } else {
+                        childService.setServiceStatus(ServiceType.UPCOMING.name());
                     }
-                };
-                appExecutors.diskIO().execute(runnable);
+                    Runnable runnable = new Runnable() {
+                        @Override
+                        public void run() {
+                            appExecutors.mainThread().execute(new Runnable() {
+                                @Override
+                                public void run() {
+                                    callback.updateChildService(childService);
+                                }
+                            });
+                        }
+                    };
+                    appExecutors.diskIO().execute(runnable);
+                }
             }
 
 
