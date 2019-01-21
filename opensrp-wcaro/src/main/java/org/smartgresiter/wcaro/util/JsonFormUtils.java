@@ -8,6 +8,7 @@ import android.util.Pair;
 import net.sqlcipher.database.SQLiteDatabase;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.commons.lang3.tuple.Triple;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -17,6 +18,7 @@ import org.smartgresiter.wcaro.repository.WcaroRepository;
 import org.smartregister.clientandeventmodel.Address;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
+import org.smartregister.clientandeventmodel.FormEntityConstants;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.Photo;
@@ -130,27 +132,27 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
             lastInteractedWith.put(org.smartregister.family.util.Constants.KEY.VALUE, Calendar.getInstance().getTimeInMillis());
             fields.put(lastInteractedWith);
 
-            JSONObject dobUnknownObject = getFieldJSONObject(fields, DBConstants.KEY.DOB);
-            JSONArray options = getJSONArray(dobUnknownObject, org.smartregister.family.util.Constants.JSON_FORM_KEY.OPTIONS);
+            JSONObject dobUnknownObject = getFieldJSONObject(fields, Constants.JSON_FORM_KEY.DOB_UNKNOWN);
+            JSONArray options = getJSONArray(dobUnknownObject, Constants.JSON_FORM_KEY.OPTIONS);
             JSONObject option = getJSONObject(options, 0);
             String dobUnKnownString = option != null ? option.getString(VALUE) : null;
             if (StringUtils.isNotBlank(dobUnKnownString) && Boolean.valueOf(dobUnKnownString)) {
 
-//                String ageString = getFieldValue(fields, DBConstants.KEY.AGE);
-//                if (StringUtils.isNotBlank(ageString) && NumberUtils.isNumber(ageString)) {
-//                    int age = Integer.valueOf(ageString);
-//                    JSONObject dobJSONObject = getFieldJSONObject(fields, DBConstants.KEY.DOB);
-//                    dobJSONObject.put(VALUE, Utils.getDob(age));
-//
-//                    //Mark the birth date as an approximation
-//                    JSONObject isBirthdateApproximate = new JSONObject();
-//                    isBirthdateApproximate.put(org.smartregister.family.util.Constants.KEY.KEY, FormEntityConstants.Person.birthdate_estimated);
-//                    isBirthdateApproximate.put(org.smartregister.family.util.Constants.KEY.VALUE, org.smartregister.family.util.Constants.BOOLEAN_INT.TRUE);
-//                    isBirthdateApproximate.put(org.smartregister.family.util.Constants.OPENMRS.ENTITY, org.smartregister.family.util.Constants.ENTITY.PERSON);//Required for value to be processed
-//                    isBirthdateApproximate.put(org.smartregister.family.util.Constants.OPENMRS.ENTITY_ID, FormEntityConstants.Person.birthdate_estimated);
-//                    fields.put(isBirthdateApproximate);
-//
-//                }
+                String ageString = getFieldValue(fields, Constants.JSON_FORM_KEY.AGE);
+                if (StringUtils.isNotBlank(ageString) && NumberUtils.isNumber(ageString)) {
+                    int age = Integer.valueOf(ageString);
+                    JSONObject dobJSONObject = getFieldJSONObject(fields, Constants.JSON_FORM_KEY.DOB);
+                    dobJSONObject.put(VALUE, Utils.getDob(age));
+
+                    //Mark the birth date as an approximation
+                    JSONObject isBirthdateApproximate = new JSONObject();
+                    isBirthdateApproximate.put(Constants.KEY.KEY, FormEntityConstants.Person.birthdate_estimated);
+                    isBirthdateApproximate.put(Constants.KEY.VALUE, Constants.BOOLEAN_INT.TRUE);
+                    isBirthdateApproximate.put(Constants.OPENMRS.ENTITY, Constants.ENTITY.PERSON);//Required for value to be processed
+                    isBirthdateApproximate.put(Constants.OPENMRS.ENTITY_ID, FormEntityConstants.Person.birthdate_estimated);
+                    fields.put(isBirthdateApproximate);
+
+                }
             }
 
 
@@ -333,6 +335,12 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
     protected static void processPopulatableFields(CommonPersonObjectClient client, JSONObject jsonObject) throws JSONException {
 
         switch (jsonObject.getString(org.smartregister.family.util.JsonFormUtils.KEY).toLowerCase()) {
+            case Constants.JSON_FORM_KEY.DOB_UNKNOWN:
+                jsonObject.put(org.smartregister.family.util.JsonFormUtils.READ_ONLY, false);
+                JSONObject optionsObject = jsonObject.getJSONArray(Constants.JSON_FORM_KEY.OPTIONS).getJSONObject(0);
+                optionsObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), Constants.JSON_FORM_KEY.DOB_UNKNOWN, false));
+
+                break;
             case DBConstants.KEY.DOB:
 
                 String dobString = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.DOB, false);
