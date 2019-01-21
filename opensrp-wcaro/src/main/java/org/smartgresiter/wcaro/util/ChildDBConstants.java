@@ -2,6 +2,7 @@ package org.smartgresiter.wcaro.util;
 
 public class ChildDBConstants {
     public static final class KEY {
+        public static final String VISIT_STATUS = "visit_status";
         public static final String VISIT_NOT_DONE = "visit_not_done";
         public static final String LAST_HOME_VISIT = "last_home_visit";
         public static final String RELATIONAL_ID = "relationalid";
