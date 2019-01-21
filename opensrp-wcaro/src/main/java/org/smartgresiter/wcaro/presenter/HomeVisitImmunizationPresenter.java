@@ -1,38 +1,31 @@
 package org.smartgresiter.wcaro.presenter;
 
-import org.smartgresiter.wcaro.contract.HomeVisitGrowthNutritionContract;
 import org.smartgresiter.wcaro.contract.HomeVisitImmunizationContract;
-import org.smartgresiter.wcaro.fragment.GrowthNutritionInputFragment;
-import org.smartgresiter.wcaro.interactor.HomeVisitGrowthNutritionInteractor;
 import org.smartgresiter.wcaro.interactor.HomeVisitImmunizationInteractor;
+import org.smartgresiter.wcaro.task.UndoVaccineTask;
 import org.smartgresiter.wcaro.util.HomeVisitVaccineGroupDetails;
-import org.smartgresiter.wcaro.util.ImmunizationState;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.Alert;
-import org.smartregister.immunization.ImmunizationLibrary;
 import org.smartregister.immunization.db.VaccineRepo;
-import org.smartregister.immunization.domain.ServiceSchedule;
-import org.smartregister.immunization.domain.ServiceWrapper;
 import org.smartregister.immunization.domain.Vaccine;
 import org.smartregister.immunization.domain.VaccineWrapper;
-import org.smartregister.immunization.repository.RecurringServiceRecordRepository;
-import org.smartregister.util.Utils;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationContract.Presenter, HomeVisitImmunizationContract.InteractorCallBack {
+public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationContract.Presenter {
 
 
-    HomeVisitImmunizationInteractor homeVisitImmunizationInteractor;
+    HomeVisitImmunizationContract.Interactor homeVisitImmunizationInteractor;
     private WeakReference<HomeVisitImmunizationContract.View> view;
     ArrayList<VaccineRepo.Vaccine> vaccinesDueFromLastVisit = new ArrayList<VaccineRepo.Vaccine>();
     private ArrayList<HomeVisitVaccineGroupDetails> allgroups = new ArrayList<HomeVisitVaccineGroupDetails>();
     private ArrayList<VaccineWrapper> notGivenVaccines = new ArrayList<VaccineWrapper>();
     private HomeVisitVaccineGroupDetails currentActiveGroup;
+    private CommonPersonObjectClient childClient;
+    private ArrayList<VaccineWrapper> vaccinesGivenThisVisit = new ArrayList<VaccineWrapper>();
 
 
     public HomeVisitImmunizationPresenter(HomeVisitImmunizationContract.View view){
@@ -41,8 +34,8 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
     }
 
     @Override
-    public void createAllVaccineGroups(List<Alert> alerts, List<Vaccine> vaccines){
-        allgroups = homeVisitImmunizationInteractor.determineAllHomeVisitVaccineGroupDetails(alerts,vaccines,notGivenVaccines);
+    public void createAllVaccineGroups(List<Alert> alerts, List<Vaccine> vaccines, List<Map<String, Object>> sch){
+        allgroups = homeVisitImmunizationInteractor.determineAllHomeVisitVaccineGroupDetails(alerts,vaccines,notGivenVaccines,sch);
     }
 
     @Override
@@ -85,7 +78,7 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
     }
 
     @Override
-    public HomeVisitImmunizationInteractor getHomeVisitImmunizationInteractor() {
+    public HomeVisitImmunizationContract.Interactor getHomeVisitImmunizationInteractor() {
         return homeVisitImmunizationInteractor;
     }
 
@@ -143,4 +136,57 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
     public boolean groupIsDue() {
         return homeVisitImmunizationInteractor.groupIsDue(currentActiveGroup);
     }
+
+    @Override
+    public ArrayList<VaccineWrapper> createVaccineWrappers(HomeVisitVaccineGroupDetails duevaccines) {
+
+        ArrayList<VaccineWrapper> vaccineWrappers = new ArrayList<VaccineWrapper>();
+        for (VaccineRepo.Vaccine vaccine : duevaccines.getDueVaccines()) {
+            VaccineWrapper vaccineWrapper = new VaccineWrapper();
+            vaccineWrapper.setVaccine(vaccine);
+            vaccineWrapper.setName(vaccine.display());
+            vaccineWrapper.setDefaultName(vaccine.display());
+            vaccineWrappers.add(vaccineWrapper);
+        }
+        return vaccineWrappers;
+    }
+
+    @Override
+    public CommonPersonObjectClient getchildClient() {
+        return childClient;
+    }
+
+    @Override
+    public void setChildClient(CommonPersonObjectClient childClient) {
+        this.childClient = childClient;
+    }
+
+    @Override
+    public void updateNotGivenVaccine(VaccineWrapper name) {
+        if (!notGivenVaccines.contains(name)) {
+            notGivenVaccines.add(name);
+        }
+    }
+
+    @Override
+    public ArrayList<VaccineWrapper> getVaccinesGivenThisVisit() {
+        return vaccinesGivenThisVisit;
+    }
+
+    @Override
+    public void assigntoGivenVaccines(ArrayList<VaccineWrapper> tagsToUpdate) {
+        vaccinesGivenThisVisit.addAll(tagsToUpdate);
+    }
+
+    @Override
+    public void undoGivenVaccines() {
+        org.smartregister.util.Utils.startAsyncTask(new UndoVaccineTask(vaccinesGivenThisVisit, childClient), null);
+    }
+
+    @Override
+    public void updateImmunizationState(HomeVisitImmunizationContract.InteractorCallBack callBack) {
+        homeVisitImmunizationInteractor.updateImmunizationState(childClient,notGivenVaccines,callBack);
+    }
+
+
 }
