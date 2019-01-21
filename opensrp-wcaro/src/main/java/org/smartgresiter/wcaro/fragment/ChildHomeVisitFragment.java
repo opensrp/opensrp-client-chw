@@ -31,6 +31,7 @@ import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.activity.ChildProfileActivity;
 import org.smartgresiter.wcaro.contract.ChildRegisterContract;
 import org.smartgresiter.wcaro.custom_view.HomeVisitGrowthAndNutrition;
+import org.smartgresiter.wcaro.custom_view.HomeVisitImmunizationView;
 import org.smartgresiter.wcaro.interactor.ChildRegisterInteractor;
 import org.smartgresiter.wcaro.interactor.HomeVisitImmunizationInteractor;
 import org.smartgresiter.wcaro.listener.ImmunizationStateChangeListener;
@@ -94,6 +95,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     private boolean allVaccineStateFullfilled = false;
     private TextView submit;
     private ArrayList<VaccineWrapper> vaccinesGivenThisVisit = new ArrayList<VaccineWrapper>();
+    private HomeVisitImmunizationView homeVisitImmunizationView;
 
 
     public void setContext(Context context) {
@@ -149,6 +151,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
 
         immunization_status_circle = ((CircleImageView) view.findViewById(R.id.immunization_status_circle));
         immunization_group_status_circle = ((CircleImageView) view.findViewById(R.id.immunization_group_status_circle));
+        homeVisitImmunizationView = (HomeVisitImmunizationView)view.findViewById(R.id.home_visit_immunization_view);
 
         assignNameHeader();
         submitButtonEnableDisable(false);
@@ -722,6 +725,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         }else{
             single_immunization_group.setVisibility(View.GONE);
         }
+        homeVisitImmunizationView.refreshPresenter(alerts,vaccines);
     }
 
 

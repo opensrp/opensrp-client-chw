@@ -40,17 +40,20 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
         homeVisitImmunizationInteractor = new HomeVisitImmunizationInteractor();
     }
 
+    @Override
     public void createAllVaccineGroups(List<Alert> alerts, List<Vaccine> vaccines){
         allgroups = homeVisitImmunizationInteractor.determineAllHomeVisitVaccineGroupDetails(alerts,vaccines,notGivenVaccines);
     }
 
+    @Override
     public void getVaccinesNotGivenLastVisit(){
         if(homeVisitImmunizationInteractor.hasVaccinesNotGivenSinceLastVisit(allgroups)){
             vaccinesDueFromLastVisit =  homeVisitImmunizationInteractor.getNotGivenVaccinesLastVisitList(allgroups);
         }
     }
 
-    public void setCurrentActiveGroup(){
+    @Override
+    public void calculateCurrentActiveGroup(){
         currentActiveGroup = homeVisitImmunizationInteractor.getCurrentActiveHomeVisitVaccineGroupDetail(allgroups);
         if(currentActiveGroup == null){
             currentActiveGroup = homeVisitImmunizationInteractor.getLastActiveHomeVisitVaccineGroupDetail(allgroups);
@@ -71,4 +74,73 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
 
     }
 
+    @Override
+    public boolean isPartiallyComplete() {
+        return getHomeVisitImmunizationInteractor().isPartiallyComplete(currentActiveGroup);
+    }
+
+    @Override
+    public boolean isComplete() {
+        return getHomeVisitImmunizationInteractor().isComplete(currentActiveGroup);
+    }
+
+    @Override
+    public HomeVisitImmunizationInteractor getHomeVisitImmunizationInteractor() {
+        return homeVisitImmunizationInteractor;
+    }
+
+    @Override
+    public void setHomeVisitImmunizationInteractor(HomeVisitImmunizationInteractor homeVisitImmunizationInteractor) {
+        this.homeVisitImmunizationInteractor = homeVisitImmunizationInteractor;
+    }
+
+    @Override
+    public void setView(WeakReference<HomeVisitImmunizationContract.View> view) {
+        this.view = view;
+    }
+
+    @Override
+    public ArrayList<VaccineRepo.Vaccine> getVaccinesDueFromLastVisit() {
+        return vaccinesDueFromLastVisit;
+    }
+
+    @Override
+    public void setVaccinesDueFromLastVisit(ArrayList<VaccineRepo.Vaccine> vaccinesDueFromLastVisit) {
+        this.vaccinesDueFromLastVisit = vaccinesDueFromLastVisit;
+    }
+
+    @Override
+    public ArrayList<HomeVisitVaccineGroupDetails> getAllgroups() {
+        return allgroups;
+    }
+
+    @Override
+    public void setAllgroups(ArrayList<HomeVisitVaccineGroupDetails> allgroups) {
+        this.allgroups = allgroups;
+    }
+
+    @Override
+    public ArrayList<VaccineWrapper> getNotGivenVaccines() {
+        return notGivenVaccines;
+    }
+
+    @Override
+    public void setNotGivenVaccines(ArrayList<VaccineWrapper> notGivenVaccines) {
+        this.notGivenVaccines = notGivenVaccines;
+    }
+
+    @Override
+    public HomeVisitVaccineGroupDetails getCurrentActiveGroup() {
+        return currentActiveGroup;
+    }
+
+    @Override
+    public void setCurrentActiveGroup(HomeVisitVaccineGroupDetails currentActiveGroup) {
+        this.currentActiveGroup = currentActiveGroup;
+    }
+
+    @Override
+    public boolean groupIsDue() {
+        return homeVisitImmunizationInteractor.groupIsDue(currentActiveGroup);
+    }
 }

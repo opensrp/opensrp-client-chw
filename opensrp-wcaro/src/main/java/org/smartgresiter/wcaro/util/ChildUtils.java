@@ -293,7 +293,7 @@ public class ChildUtils {
             FamilyLibrary.getInstance().getClientProcessorForJava().processClient(syncHelper.getEvents(lastSyncDate, BaseRepository.TYPE_Unsynced));
             WcaroApplication.getInstance().getContext().allSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
 
-            //update details
+           //update details
 
 
         } catch (Exception e) {

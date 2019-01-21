@@ -192,6 +192,19 @@
                 android:layout_height="1px"
                 android:background="@color/light_grey" />
 
+            <org.smartgresiter.wcaro.custom_view.HomeVisitImmunizationView
+                android:id="@+id/home_visit_immunization_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </org.smartgresiter.wcaro.custom_view.HomeVisitImmunizationView>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/light_grey" />
+
             <org.smartgresiter.wcaro.custom_view.HomeVisitGrowthAndNutrition
                 android:id="@+id/growth_and_nutrition_group"
                 android:layout_width="match_parent"
