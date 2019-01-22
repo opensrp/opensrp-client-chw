@@ -22,6 +22,7 @@ public class RulesEngineHelper {
     private RulesEngine inferentialRulesEngine;
     private RulesEngine defaultRulesEngine;
     private Map<String, Rules> ruleMap;
+    private final String RULE_FOLDER_PATH = "rule/";
 
     public RulesEngineHelper(Context context) {
         this.context = context;
@@ -60,7 +61,7 @@ public class RulesEngineHelper {
         Facts facts = new Facts();
         facts.put(HomeAlertRule.RULE_KEY, alertRule);
 
-        Rules rules = getRulesFromAsset("rule/" + rulesFile);
+        Rules rules = rules(rulesFile);
         if (rules == null) {
             return null;
         }
@@ -68,5 +69,23 @@ public class RulesEngineHelper {
         processDefaultRules(rules, facts);
 
         return alertRule.buttonStatus;
+    }
+
+    public String getButtonAlertStatus(HomeAlertRule alertRule, Rules rules) {
+
+        if (rules == null) {
+            return null;
+        }
+
+        Facts facts = new Facts();
+        facts.put(HomeAlertRule.RULE_KEY, alertRule);
+
+        processDefaultRules(rules, facts);
+
+        return alertRule.buttonStatus;
+    }
+
+    public Rules rules(String rulesFile) {
+        return getRulesFromAsset(RULE_FOLDER_PATH + rulesFile);
     }
 }
