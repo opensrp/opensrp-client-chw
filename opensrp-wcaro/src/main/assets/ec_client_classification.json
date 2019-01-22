@@ -54,6 +54,13 @@
             "creates_case": [
               "ec_child"
             ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Birth Certification",
+            "creates_case": [
+              "ec_child"
+            ]
           }
         ]
       }

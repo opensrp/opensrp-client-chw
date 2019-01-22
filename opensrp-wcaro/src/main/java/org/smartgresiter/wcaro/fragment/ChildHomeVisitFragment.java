@@ -25,7 +25,6 @@ import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
 
 import org.apache.commons.lang3.tuple.Triple;
-import org.joda.time.DateTime;
 import org.json.JSONObject;
 import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.activity.ChildProfileActivity;
@@ -34,11 +33,7 @@ import org.smartgresiter.wcaro.contract.ChildRegisterContract;
 import org.smartgresiter.wcaro.custom_view.HomeVisitGrowthAndNutrition;
 import org.smartgresiter.wcaro.custom_view.HomeVisitImmunizationView;
 import org.smartgresiter.wcaro.interactor.ChildRegisterInteractor;
-import org.smartgresiter.wcaro.interactor.HomeVisitImmunizationInteractor;
-import org.smartgresiter.wcaro.listener.ImmunizationStateChangeListener;
 import org.smartgresiter.wcaro.model.ChildRegisterModel;
-import org.smartgresiter.wcaro.task.UndoVaccineTask;
-import org.smartgresiter.wcaro.task.VaccinationAsyncTask;
 import org.smartgresiter.wcaro.util.ChildUtils;
 import org.smartgresiter.wcaro.util.Constants;
 import org.smartgresiter.wcaro.util.HomeVisitVaccineGroupDetails;
@@ -60,19 +55,11 @@ import org.smartregister.util.FormUtils;
 import org.smartregister.util.Utils;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static org.apache.commons.lang3.StringUtils.isBlank;
-import static org.smartgresiter.wcaro.util.Constants.IMMUNIZATION_CONSTANT.DATE;
-import static org.smartgresiter.wcaro.util.Constants.IMMUNIZATION_CONSTANT.VACCINE;
-import static org.smartregister.immunization.util.VaccinatorUtils.receivedVaccines;
 import static org.smartregister.util.Utils.getValue;
-import static org.smartregister.util.Utils.startAsyncTask;
 
 public class ChildHomeVisitFragment extends DialogFragment implements View.OnClickListener, ChildRegisterContract.InteractorCallBack {
 
@@ -82,22 +69,13 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     Context context;
     String childBaseEntityId;
     CommonPersonObjectClient childClient;
-    private VaccinationAsyncTask vaccinationAsyncTask;
     private TextView nameHeader;
-    private TextView textview_group_immunization_secondary_text;
-    private TextView textview_group_immunization_primary_text;
-    private TextView textview_immunization_primary_text;
-    private TextView textview_immunization_secondary_text;
-    private LinearLayout single_immunization_group;
-    ArrayList<VaccineWrapper> notGivenVaccines = new ArrayList<VaccineWrapper>();
-    private CircleImageView immunization_status_circle;
-    private CircleImageView immunization_group_status_circle;
-    private LinearLayout multiple_immunization_group;
     private HomeVisitGrowthAndNutrition homeVisitGrowthAndNutritionLayout;
     public boolean allVaccineStateFullfilled = false;
     private TextView submit;
-    private ArrayList<VaccineWrapper> vaccinesGivenThisVisit = new ArrayList<VaccineWrapper>();
     private HomeVisitImmunizationView homeVisitImmunizationView;
+    private LinearLayout layoutBirthCertGroup,layoutIllnessGroup;
+    private CircleImageView circleImageViewBirthStatus,circleImageViewIllnessStatus;
 
 
     public void setContext(Context context) {
@@ -135,8 +113,12 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         nameHeader = (TextView) view.findViewById(R.id.textview_name_header);
         view.findViewById(R.id.close).setOnClickListener(this);
         submit = (TextView) view.findViewById(R.id.textview_submit);
+        circleImageViewBirthStatus=view.findViewById(R.id.birth_status_circle);
+        circleImageViewIllnessStatus=view.findViewById(R.id.obs_illness_status_circle);
+        layoutBirthCertGroup=view.findViewById(R.id.birth_cert_group);
+        layoutIllnessGroup=view.findViewById(R.id.obs_illness_prevention_group);
         view.findViewById(R.id.textview_submit).setOnClickListener(this);
-
+        layoutBirthCertGroup.setOnClickListener(this);
         homeVisitGrowthAndNutritionLayout = view.findViewById(R.id.growth_and_nutrition_group);
 
         homeVisitImmunizationView = (HomeVisitImmunizationView)view.findViewById(R.id.home_visit_immunization_view);
@@ -203,6 +185,8 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         String dobString = org.smartregister.util.Utils.getValue(childClient.getColumnmaps(), "dob", false);
 
         switch (v.getId()) {
+            case R.id.birth_cert_group:
+                break;
             case R.id.textview_submit:
                 if (checkAllGiven()) {
                     ChildUtils.updateClientStatusAsEvent(childClient.entityId(), "Child Home Visit", "last_home_visit", "" + System.currentTimeMillis(), "ec_child");
