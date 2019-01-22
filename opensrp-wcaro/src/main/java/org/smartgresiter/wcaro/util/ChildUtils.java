@@ -217,14 +217,11 @@ public class ChildUtils {
                     .withBaseEntityId(entityId)
                     .withEventDate(new Date())
                     .withEventType(eventType)
-                    .withLocationId(WcaroApplication.getInstance().getContext().allSharedPreferences().fetchCurrentLocality())
-                    .withProviderId(WcaroApplication.getInstance().getContext().allSharedPreferences().fetchRegisteredANM())
                     .withEntityType(entityType)
                     .withFormSubmissionId(JsonFormUtils.generateRandomUUIDString())
-                    .withTeamId(WcaroApplication.getInstance().getContext().allSharedPreferences().fetchDefaultTeamId(WcaroApplication.getInstance().getContext().allSharedPreferences().fetchRegisteredANM()))
                     .withDateCreated(new Date());
             event.addObs((new Obs()).withFormSubmissionField(attributeName).withValue(attributeValue).withFieldCode(attributeName).withFieldType("formsubmissionField").withFieldDataType("text").withParentCode("").withHumanReadableValues(new ArrayList<Object>()));
-
+            JsonFormUtils.tagSyncMetadata(WcaroApplication.getInstance().getContext().allSharedPreferences(),event);
             JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(event));
             syncHelper.addEvent(entityId, eventJson);
             long lastSyncTimeStamp = WcaroApplication.getInstance().getContext().allSharedPreferences().fetchLastUpdatedAtDate(0);

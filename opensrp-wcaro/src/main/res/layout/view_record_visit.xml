@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:paddingTop="10dp"
     android:layout_height="match_parent">
 
     <LinearLayout
         android:id="@+id/record_visit_bar"
-        android:background="@color/white"
         android:padding="10dp"
         android:weightSum="2"
         android:visibility="visible"
@@ -109,4 +111,10 @@
             android:layout_alignParentRight="true"
             android:textColor="@color/primary" />
     </RelativeLayout>
-</merge>
+    <View
+        android:id="@+id/view_record"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginTop="5dp"
+        android:background="@color/light_grey" />
+</LinearLayout>

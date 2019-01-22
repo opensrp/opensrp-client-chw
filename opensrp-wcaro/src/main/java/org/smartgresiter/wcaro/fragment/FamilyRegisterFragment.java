@@ -8,12 +8,14 @@ import android.widget.TextView;
 
 import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.custom_view.NavigationMenu;
+import org.smartgresiter.wcaro.job.UpdateVisitServiceJob;
 import org.smartgresiter.wcaro.model.FamilyRegisterFramentModel;
 import org.smartgresiter.wcaro.presenter.FamilyRegisterFragmentPresenter;
 import org.smartgresiter.wcaro.provider.WcaroRegisterProvider;
 import org.smartgresiter.wcaro.util.Constants;
 import org.smartgresiter.wcaro.util.Utils;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
+import org.smartregister.domain.FetchStatus;
 import org.smartregister.family.fragment.BaseFamilyRegisterFragment;
 import org.smartregister.view.activity.BaseRegisterActivity;
 import org.smartregister.view.customcontrols.CustomFontTextView;
@@ -82,6 +84,14 @@ public class FamilyRegisterFragment extends BaseFamilyRegisterFragment {
         String viewConfigurationIdentifier = ((BaseRegisterActivity) getActivity()).getViewIdentifiers().get(0);
         presenter = new FamilyRegisterFragmentPresenter(this, new FamilyRegisterFramentModel(), viewConfigurationIdentifier);
     }
+    //TODO need to do only first time when all data sync
+    @Override
+    public void onSyncComplete(FetchStatus fetchStatus) {
+        super.onSyncComplete(fetchStatus);
+        //if(fetchStatus.displayValue().equalsIgnoreCase(FetchStatus.fetched.displayValue())){
+         UpdateVisitServiceJob.scheduleJobImmediately(UpdateVisitServiceJob.TAG);
+        //}
+    }
 
     @Override
     public void initializeAdapter(Set<org.smartregister.configurableviews.model.View> visibleColumns) {
@@ -95,6 +105,7 @@ public class FamilyRegisterFragment extends BaseFamilyRegisterFragment {
     protected String getMainCondition() {
         return presenter().getMainCondition();
     }
+
 
     @Override
     protected String getDefaultSortQuery() {

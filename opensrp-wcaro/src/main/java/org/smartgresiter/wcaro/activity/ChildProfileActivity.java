@@ -281,6 +281,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     @Override
     public void setServiceDueDate(String date) {
         layoutMostDueOverdue.setVisibility(View.VISIBLE);
+        viewLastVisitRow.setVisibility(View.GONE);
         viewMostDueRow.setVisibility(View.VISIBLE);
         textViewDueDate.setText(date);
         textViewDueDate.setTextColor(getResources().getColor(R.color.black));

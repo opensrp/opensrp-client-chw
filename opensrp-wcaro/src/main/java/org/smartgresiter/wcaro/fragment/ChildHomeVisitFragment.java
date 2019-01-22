@@ -29,6 +29,7 @@ import org.joda.time.DateTime;
 import org.json.JSONObject;
 import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.activity.ChildProfileActivity;
+import org.smartgresiter.wcaro.activity.ChildRegisterActivity;
 import org.smartgresiter.wcaro.contract.ChildRegisterContract;
 import org.smartgresiter.wcaro.custom_view.HomeVisitGrowthAndNutrition;
 import org.smartgresiter.wcaro.custom_view.HomeVisitImmunizationView;
@@ -47,6 +48,7 @@ import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.Alert;
+import org.smartregister.domain.FetchStatus;
 import org.smartregister.family.activity.BaseFamilyProfileActivity;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.immunization.db.VaccineRepo;
@@ -204,6 +206,10 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
             case R.id.textview_submit:
                 if (checkAllGiven()) {
                     ChildUtils.updateClientStatusAsEvent(childClient.entityId(), "Child Home Visit", "last_home_visit", "" + System.currentTimeMillis(), "ec_child");
+
+                    if (getActivity() instanceof ChildRegisterActivity) {
+                        ((ChildRegisterActivity) getActivity()).refreshList(FetchStatus.fetched);
+                    }
                     dismiss();
                 }
                 break;
