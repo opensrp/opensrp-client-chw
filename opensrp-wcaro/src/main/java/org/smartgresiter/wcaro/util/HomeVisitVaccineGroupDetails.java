@@ -14,8 +14,21 @@ public class HomeVisitVaccineGroupDetails {
     ArrayList<VaccineRepo.Vaccine> dueVaccines = new ArrayList<VaccineRepo.Vaccine>();
     ;
     ArrayList<VaccineRepo.Vaccine> notGivenVaccines = new ArrayList<VaccineRepo.Vaccine>();
+    ArrayList<VaccineRepo.Vaccine> notGivenInThisVisitVaccines = new ArrayList<VaccineRepo.Vaccine>();
     String group = "";
     ImmunizationState alert = ImmunizationState.NO_ALERT;
+
+
+    public ArrayList<VaccineRepo.Vaccine> getNotGivenInThisVisitVaccines() {
+        return notGivenInThisVisitVaccines;
+    }
+
+    public void setNotGivenInThisVisitVaccines(ArrayList<VaccineRepo.Vaccine> notGivenInThisVisitVaccines) {
+        this.notGivenInThisVisitVaccines = notGivenInThisVisitVaccines;
+    }
+
+
+
 
     public ArrayList<VaccineRepo.Vaccine> getGivenVaccines() {
         return givenVaccines;

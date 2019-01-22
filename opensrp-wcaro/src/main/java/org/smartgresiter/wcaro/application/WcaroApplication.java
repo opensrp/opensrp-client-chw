@@ -12,6 +12,7 @@ import org.smartgresiter.wcaro.activity.LoginActivity;
 import org.smartgresiter.wcaro.helper.RulesEngineHelper;
 import org.smartgresiter.wcaro.job.WcaroJobCreator;
 import org.smartgresiter.wcaro.repository.WcaroRepository;
+import org.smartgresiter.wcaro.util.ChildDBConstants;
 import org.smartgresiter.wcaro.util.Constants;
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
@@ -85,7 +86,7 @@ public class WcaroApplication extends DrishtiApplication {
             return new String[]{DBConstants.KEY.LAST_INTERACTED_WITH, DBConstants.KEY.DATE_REMOVED};
         } else if (tableName.equals(Constants.TABLE_NAME.FAMILY_MEMBER) || tableName.equals(Constants.TABLE_NAME.CHILD)) {
             return new String[]{DBConstants.KEY.DOB, DBConstants.KEY.DOD, DBConstants.KEY
-                    .LAST_INTERACTED_WITH, DBConstants.KEY.DATE_REMOVED};
+                    .LAST_INTERACTED_WITH, DBConstants.KEY.DATE_REMOVED,ChildDBConstants.KEY.VISIT_STATUS};
         }
         return null;
     }

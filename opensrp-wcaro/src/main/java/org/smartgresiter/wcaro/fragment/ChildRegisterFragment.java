@@ -15,9 +15,11 @@ import org.smartgresiter.wcaro.activity.ChildProfileActivity;
 import org.smartgresiter.wcaro.activity.ChildRegisterActivity;
 import org.smartgresiter.wcaro.contract.ChildRegisterFragmentContract;
 import org.smartgresiter.wcaro.custom_view.NavigationMenu;
+import org.smartgresiter.wcaro.interactor.ChildProfileInteractor;
 import org.smartgresiter.wcaro.model.ChildRegisterFragmentModel;
 import org.smartgresiter.wcaro.presenter.ChildRegisterFragmentPresenter;
 import org.smartgresiter.wcaro.provider.ChildRegisterProvider;
+import org.smartgresiter.wcaro.util.ChildDBConstants;
 import org.smartgresiter.wcaro.util.Constants;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
@@ -49,17 +51,12 @@ public class ChildRegisterFragment extends BaseRegisterFragment implements Child
 
     }
 
-    @Override
-    public void filter(String filterString, String joinTableString, String mainConditionString, boolean qrCode) {
-        this.joinTables = new String[]{Constants.TABLE_NAME.FAMILY, Constants.TABLE_NAME.FAMILY_MEMBER};
-        super.filter(filterString, joinTableString, mainConditionString, qrCode);
+    protected void filter(String filterString, String joinTableString, String mainConditionString) {
+        filters = filterString;
+        joinTable = joinTableString;
+        mainCondition = mainConditionString;
+        filterandSortExecute(countBundle());
     }
-
-    //    @Override
-//    public void filter(String filterString, String joinTableString, String mainConditionString, boolean qrCode) {
-//        String query=ChildUtils.mainSelectRegisterWithoutGroupby(Constants.TABLE_NAME.CHILD,Constants.TABLE_NAME.FAMILY,Constants.TABLE_NAME.FAMILY_MEMBER,"");
-//        super.filter(filterString, "", query, false);
-//    }
 
     @Override
     public void initializeAdapter(Set<org.smartregister.configurableviews.model.View> visibleColumns) {
@@ -192,16 +189,47 @@ public class ChildRegisterFragment extends BaseRegisterFragment implements Child
                 childHomeVisitFragment.show(getActivity().getFragmentManager(), ChildHomeVisitFragment.DIALOG_TAG);
             }
         } else if (view.getId() == R.id.due_only_layout) {
-            TextView dueOnlyTextView = dueOnlyLayout.findViewById(R.id.due_only_text_view);
-            Drawable[] drawables = dueOnlyTextView.getCompoundDrawables();
-            Drawable rightDrawable = drawables[2];
-            if (rightDrawable != null) {
-                if (org.smartgresiter.wcaro.util.Utils.areDrawablesIdentical(rightDrawable, getResources().getDrawable(R.drawable.ic_due_filter_off))) {
-                    dueOnlyTextView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_due_filter_on, 0);
-                } else {
-                    dueOnlyTextView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_due_filter_off, 0);
-                }
+            toggleFilterSelection();
+//            TextView dueOnlyTextView = dueOnlyLayout.findViewById(R.id.due_only_text_view);
+//            Drawable[] drawables = dueOnlyTextView.getCompoundDrawables();
+//            Drawable rightDrawable = drawables[2];
+//            if (rightDrawable != null) {
+//                if (org.smartgresiter.wcaro.util.Utils.areDrawablesIdentical(rightDrawable, getResources().getDrawable(R.drawable.ic_due_filter_off))) {
+//                    dueOnlyTextView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_due_filter_on, 0);
+//                } else {
+//                    dueOnlyTextView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_due_filter_off, 0);
+//                }
+//            }
+        }
+    }
+    private void toggleFilterSelection() {
+        if (dueOnlyLayout != null) {
+            String tagString = "PRESSED";
+            if (dueOnlyLayout.getTag() == null) {
+                filter("", "", filterSelectionCondition(false));
+                dueOnlyLayout.setTag(tagString);
+                switchViews(true);
+            } else if (dueOnlyLayout.getTag().toString().equals(tagString)) {
+                filter("", "", "");
+                dueOnlyLayout.setTag(null);
+                switchViews(false);
             }
+        }
+    }
+
+    private String filterSelectionCondition(boolean b) {
+        String mainCondition="("+ChildDBConstants.KEY.VISIT_STATUS+" = '"+ChildProfileInteractor.VisitType.DUE.name()+"')";
+        return mainCondition;
+    }
+
+    private void switchViews(boolean isPress){
+        TextView dueOnlyTextView = dueOnlyLayout.findViewById(R.id.due_only_text_view);
+        if(isPress){
+            dueOnlyTextView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_due_filter_on, 0);
+        }else
+        {
+            dueOnlyTextView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_due_filter_off, 0);
+
         }
     }
 
