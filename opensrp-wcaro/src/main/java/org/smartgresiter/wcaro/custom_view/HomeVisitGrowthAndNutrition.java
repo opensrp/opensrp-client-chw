@@ -206,10 +206,13 @@ public class HomeVisitGrowthAndNutrition extends LinearLayout implements View.On
             imageView.setImageResource(R.drawable.ic_checked);
             imageView.setColorFilter(getResources().getColor(R.color.white));
             imageView.setCircleBackgroundColor(getResources().getColor(R.color.alert_complete_green));
+            imageView.setBorderColor(getResources().getColor(R.color.alert_complete_green));
+
         } else {
             imageView.setImageResource(R.drawable.ic_checked);
             imageView.setColorFilter(getResources().getColor(R.color.white));
             imageView.setCircleBackgroundColor(getResources().getColor(R.color.pnc_circle_yellow));
+            imageView.setBorderColor(getResources().getColor(R.color.pnc_circle_yellow));
         }
         if (childHomeVisitFragment != null) {
             childHomeVisitFragment.checkIfSubmitIsToBeEnabled();
