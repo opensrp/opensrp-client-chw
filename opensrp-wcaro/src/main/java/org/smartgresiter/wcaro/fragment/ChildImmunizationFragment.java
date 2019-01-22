@@ -518,11 +518,11 @@ public class ChildImmunizationFragment extends DialogFragment {
     }
 
     public void startServices() {
-        Intent vaccineIntent = new Intent(getActivity(), VaccineIntentService.class);
-        getActivity().startService(vaccineIntent);
-
-        Intent serviceIntent = new Intent(getActivity(), RecurringIntentService.class);
-        getActivity().startService(serviceIntent);
+//        Intent vaccineIntent = new Intent(getActivity(), VaccineIntentService.class);
+//        getActivity().startService(vaccineIntent);
+//
+//        Intent serviceIntent = new Intent(getActivity(), RecurringIntentService.class);
+//        getActivity().startService(serviceIntent);
 
     }
 

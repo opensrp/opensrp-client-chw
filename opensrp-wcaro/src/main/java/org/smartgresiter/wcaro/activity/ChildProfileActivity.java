@@ -45,7 +45,7 @@ import java.util.Map;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 
-public class ChildProfileActivity extends BaseProfileActivity implements ChildProfileContract.View, ChildRegisterContract.InteractorCallBack, VaccinationActionListener {
+public class ChildProfileActivity extends BaseProfileActivity implements ChildProfileContract.View, ChildRegisterContract.InteractorCallBack{
     private boolean appBarTitleIsShown = true;
     private int appBarLayoutScrollRange = -1;
     private String childBaseEntityId;
@@ -501,22 +501,6 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         return true;
-    }
-
-
-    @Override
-    public void onVaccinateToday(ArrayList<VaccineWrapper> arrayList, View view) {
-        ((ChildImmunizationFragment) getFragmentManager().findFragmentByTag(ChildImmunizationFragment.TAG)).onVaccinateToday(arrayList, view);
-    }
-
-    @Override
-    public void onVaccinateEarlier(ArrayList<VaccineWrapper> arrayList, View view) {
-        ((ChildImmunizationFragment) getFragmentManager().findFragmentByTag(ChildImmunizationFragment.TAG)).onVaccinateEarlier(arrayList, view);
-    }
-
-    @Override
-    public void onUndoVaccination(VaccineWrapper vaccineWrapper, View view) {
-        ((ChildImmunizationFragment) getFragmentManager().findFragmentByTag(ChildImmunizationFragment.TAG)).onUndoVaccination(vaccineWrapper, view);
     }
 
     @Override
