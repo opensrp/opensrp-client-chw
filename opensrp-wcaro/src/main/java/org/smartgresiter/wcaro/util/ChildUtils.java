@@ -221,6 +221,7 @@ public class ChildUtils {
                     .withProviderId(WcaroApplication.getInstance().getContext().allSharedPreferences().fetchRegisteredANM())
                     .withEntityType(entityType)
                     .withFormSubmissionId(JsonFormUtils.generateRandomUUIDString())
+                    .withTeamId(WcaroApplication.getInstance().getContext().allSharedPreferences().fetchDefaultTeamId(WcaroApplication.getInstance().getContext().allSharedPreferences().fetchRegisteredANM()))
                     .withDateCreated(new Date());
             event.addObs((new Obs()).withFormSubmissionField(attributeName).withValue(attributeValue).withFieldCode(attributeName).withFieldType("formsubmissionField").withFieldDataType("text").withParentCode("").withHumanReadableValues(new ArrayList<Object>()));
 
