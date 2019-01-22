@@ -14,6 +14,7 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Stack;
 
 public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationContract.Presenter {
 
@@ -189,6 +190,64 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
     public void updateImmunizationState(HomeVisitImmunizationContract.InteractorCallBack callBack) {
         homeVisitImmunizationInteractor.updateImmunizationState(childClient,notGivenVaccines,callBack);
     }
+
+    @Override
+    public ArrayList<VaccineRepo.Vaccine> getVaccinesDueFromLastVisitStillDueState() {
+        ArrayList<VaccineRepo.Vaccine> vaccinesToReturn = new ArrayList<VaccineRepo.Vaccine>();
+        Stack<VaccineRepo.Vaccine> vaccinesStack = new Stack<VaccineRepo.Vaccine>();
+        for(VaccineRepo.Vaccine vaccinedueLastVisit : vaccinesDueFromLastVisit){
+            vaccinesStack.add(vaccinedueLastVisit);
+            for(VaccineWrapper givenThisVisit: vaccinesGivenThisVisit){
+                if(givenThisVisit.getDefaultName().equalsIgnoreCase(vaccinesStack.peek().display())){
+                    vaccinesStack.pop();
+                }
+            }
+        }
+        vaccinesToReturn.addAll(vaccinesStack);
+        vaccinesStack = new Stack<VaccineRepo.Vaccine>();
+        for(VaccineRepo.Vaccine vaccinesDueYetnotGiven : vaccinesToReturn) {
+            vaccinesStack.add(vaccinesDueYetnotGiven);
+            for (VaccineWrapper vaccine : notGivenVaccines) {
+                if(vaccine.getDefaultName().equalsIgnoreCase(vaccinesStack.peek().display())){
+                    vaccinesStack.pop();
+                }
+            }
+        }
+        vaccinesToReturn = new ArrayList<VaccineRepo.Vaccine>();
+        vaccinesToReturn.addAll(vaccinesStack);
+        return vaccinesToReturn;
+    }
+
+    @Override
+    public boolean isSingleVaccineGroupPartialComplete(){
+        boolean toReturn = false;
+        ArrayList<VaccineRepo.Vaccine> singleVaccineInDueState = getVaccinesDueFromLastVisitStillDueState();
+        if(singleVaccineInDueState.size() == 0){
+            for (VaccineRepo.Vaccine vaccineDueLastVisit: vaccinesDueFromLastVisit){
+                for(VaccineWrapper notgivenVaccine : notGivenVaccines){
+                    if(notgivenVaccine.getDefaultName().equalsIgnoreCase(vaccineDueLastVisit.display())){
+                        toReturn = true;
+                    }
+                }
+            }
+        }
+        return toReturn;
+    }
+
+    @Override
+    public boolean isSingleVaccineGroupComplete() {
+        boolean toReturn = true;
+        ArrayList<VaccineRepo.Vaccine> singleVaccineInDueState = getVaccinesDueFromLastVisitStillDueState();
+        if(singleVaccineInDueState.size() == 0){
+            for (VaccineRepo.Vaccine vaccineDueLastVisit: vaccinesDueFromLastVisit){
+                for(VaccineWrapper notgivenVaccine : notGivenVaccines){
+                    if(notgivenVaccine.getDefaultName().equalsIgnoreCase(vaccineDueLastVisit.display())){
+                        toReturn = false;
+                    }
+                }
+            }
+        }
+        return toReturn;    }
 
 
 }

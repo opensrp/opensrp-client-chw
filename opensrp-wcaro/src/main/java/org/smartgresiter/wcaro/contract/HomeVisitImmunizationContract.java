@@ -88,6 +88,12 @@ public interface HomeVisitImmunizationContract {
         void undoGivenVaccines();
 
         void updateImmunizationState(InteractorCallBack callBack);
+
+        ArrayList<VaccineRepo.Vaccine> getVaccinesDueFromLastVisitStillDueState();
+
+        boolean isSingleVaccineGroupPartialComplete();
+
+        boolean isSingleVaccineGroupComplete();
     }
     interface Interactor{
 
