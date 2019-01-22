@@ -126,6 +126,8 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
                 vaccinesDueLastVisit = vaccinesDueLastVisit.substring(0,vaccinesDueLastVisit.length()-1);
             }
             textview_immunization_primary_text.setText(vaccinesDueLastVisit);
+            single_immunization_group.setTag(R.id.nextduevaccinelist,presenter.getVaccinesDueFromLastVisit());
+            single_immunization_group.setOnClickListener(this);
         }else{
             single_immunization_group.setVisibility(View.GONE);
         }
@@ -164,20 +166,12 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
         switch (v.getId()) {
 
             case R.id.immunization_group:
-//                ChildImmunizationFragment childImmunizationFragment = ChildImmunizationFragment.newInstance(new Bundle());
-//                childImmunizationFragment.setChildDetails(childClient);
-////                childHomeVisitFragment.setFamilyBaseEntityId(getFamilyBaseEntityId());
-//                childImmunizationFragment.show(ft,ChildImmunizationFragment.TAG);
                 if (!TextUtils.isEmpty(dobString)) {
                     DateTime dateTime = new DateTime(dobString);
                     Date dob = dateTime.toDate();
-
                     List<Vaccine> vaccines = (List<Vaccine>) v.getTag(R.id.vaccinelist);
-
                     HomeVisitVaccineGroupDetails duevaccines = (HomeVisitVaccineGroupDetails) v.getTag(R.id.nextduevaccinelist);
-
                     CustomMultipleVaccinationDialogFragment customVaccinationDialogFragment = CustomMultipleVaccinationDialogFragment.newInstance(dob, vaccines, presenter.createVaccineWrappers(duevaccines));
-//                childHomeVisitFragment.setFamilyBaseEntityId(getFamilyBaseEntityId());
                     customVaccinationDialogFragment.setContext(context);
                     customVaccinationDialogFragment.setChildDetails(presenter.getchildClient());
                     customVaccinationDialogFragment.setView(this);
@@ -188,23 +182,30 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
                 if (!TextUtils.isEmpty(dobString)) {
                     DateTime dateTime = new DateTime(dobString);
                     Date dob = dateTime.toDate();
-                    VaccineRepo.Vaccine vaccine = (VaccineRepo.Vaccine) v.getTag(R.id.singlenextvaccine);
-                    VaccineWrapper vaccineWrapper = new VaccineWrapper();
-                    vaccineWrapper.setVaccine(vaccine);
-                    vaccineWrapper.setName(vaccine.display());
-                    vaccineWrapper.setDefaultName(vaccine.display());
                     ArrayList<VaccineWrapper> vaccineWrappers = new ArrayList<VaccineWrapper>();
-                    vaccineWrappers.add(vaccineWrapper);
-
+                    ArrayList<VaccineRepo.Vaccine> vaccinesList = (ArrayList<VaccineRepo.Vaccine>) v.getTag(R.id.nextduevaccinelist);
+                    for(VaccineRepo.Vaccine vaccine:vaccinesList) {
+                        VaccineWrapper vaccineWrapper = new VaccineWrapper();
+                        vaccineWrapper.setVaccine(vaccine);
+                        vaccineWrapper.setName(vaccine.display());
+                        vaccineWrapper.setDefaultName(vaccine.display());
+                        vaccineWrappers.add(vaccineWrapper);
+                    }
                     List<Vaccine> vaccines = (List<Vaccine>) v.getTag(R.id.vaccinelist);
-
-                    CustomVaccinationDialogFragment customVaccinationDialogFragment = CustomVaccinationDialogFragment.newInstance(dob, vaccines, vaccineWrappers);
-//                childHomeVisitFragment.setFamilyBaseEntityId(getFamilyBaseEntityId());
-                    customVaccinationDialogFragment.setContext(context);
-                    customVaccinationDialogFragment.setChildDetails(presenter.getchildClient());
-                    customVaccinationDialogFragment.setView(this);
-                    customVaccinationDialogFragment.setDisableConstraints(true);
-                    customVaccinationDialogFragment.show(context.getFragmentManager(), ChildImmunizationFragment.TAG);
+                    if(vaccineWrappers.size()==1) {
+                        CustomVaccinationDialogFragment customVaccinationDialogFragment = CustomVaccinationDialogFragment.newInstance(dob, vaccines, vaccineWrappers);
+                        customVaccinationDialogFragment.setContext(context);
+                        customVaccinationDialogFragment.setChildDetails(presenter.getchildClient());
+                        customVaccinationDialogFragment.setView(this);
+                        customVaccinationDialogFragment.setDisableConstraints(true);
+                        customVaccinationDialogFragment.show(context.getFragmentManager(), ChildImmunizationFragment.TAG);
+                    }else if(vaccineWrappers.size()>1){
+                        CustomMultipleVaccinationDialogFragment customVaccinationDialogFragment = CustomMultipleVaccinationDialogFragment.newInstance(dob, vaccines, vaccineWrappers);
+                        customVaccinationDialogFragment.setContext(context);
+                        customVaccinationDialogFragment.setChildDetails(presenter.getchildClient());
+                        customVaccinationDialogFragment.setView(this);
+                        customVaccinationDialogFragment.show(ft, ChildImmunizationFragment.TAG);
+                    }
                 }
 
                 break;
