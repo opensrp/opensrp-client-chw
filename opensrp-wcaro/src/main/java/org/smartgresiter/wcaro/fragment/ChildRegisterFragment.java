@@ -1,7 +1,6 @@
 package org.smartgresiter.wcaro.fragment;
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -15,11 +14,9 @@ import org.smartgresiter.wcaro.activity.ChildProfileActivity;
 import org.smartgresiter.wcaro.activity.ChildRegisterActivity;
 import org.smartgresiter.wcaro.contract.ChildRegisterFragmentContract;
 import org.smartgresiter.wcaro.custom_view.NavigationMenu;
-import org.smartgresiter.wcaro.interactor.ChildProfileInteractor;
 import org.smartgresiter.wcaro.model.ChildRegisterFragmentModel;
 import org.smartgresiter.wcaro.presenter.ChildRegisterFragmentPresenter;
 import org.smartgresiter.wcaro.provider.ChildRegisterProvider;
-import org.smartgresiter.wcaro.util.ChildDBConstants;
 import org.smartgresiter.wcaro.util.Constants;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
@@ -202,32 +199,27 @@ public class ChildRegisterFragment extends BaseRegisterFragment implements Child
 //            }
         }
     }
+
     private void toggleFilterSelection() {
         if (dueOnlyLayout != null) {
             String tagString = "PRESSED";
             if (dueOnlyLayout.getTag() == null) {
-                filter("", "", filterSelectionCondition(false));
+                filter("", "", presenter().getDueFilterCondition());
                 dueOnlyLayout.setTag(tagString);
                 switchViews(true);
             } else if (dueOnlyLayout.getTag().toString().equals(tagString)) {
-                filter("", "", "");
+                filter("", "", presenter().getMainCondition());
                 dueOnlyLayout.setTag(null);
                 switchViews(false);
             }
         }
     }
 
-    private String filterSelectionCondition(boolean b) {
-        String mainCondition="("+ChildDBConstants.KEY.VISIT_STATUS+" = '"+ChildProfileInteractor.VisitType.DUE.name()+"')";
-        return mainCondition;
-    }
-
-    private void switchViews(boolean isPress){
+    private void switchViews(boolean isPress) {
         TextView dueOnlyTextView = dueOnlyLayout.findViewById(R.id.due_only_text_view);
-        if(isPress){
+        if (isPress) {
             dueOnlyTextView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_due_filter_on, 0);
-        }else
-        {
+        } else {
             dueOnlyTextView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_due_filter_off, 0);
 
         }

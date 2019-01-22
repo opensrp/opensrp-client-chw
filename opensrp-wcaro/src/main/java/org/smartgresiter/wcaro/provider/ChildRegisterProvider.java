@@ -2,6 +2,7 @@ package org.smartgresiter.wcaro.provider;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -11,11 +12,14 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import org.apache.commons.lang3.text.WordUtils;
+import org.jeasy.rules.api.Rules;
 import org.smartgresiter.wcaro.R;
+import org.smartgresiter.wcaro.application.WcaroApplication;
 import org.smartgresiter.wcaro.interactor.ChildProfileInteractor;
 import org.smartgresiter.wcaro.util.ChildDBConstants;
 import org.smartgresiter.wcaro.util.ChildUtils;
 import org.smartgresiter.wcaro.util.ChildVisit;
+import org.smartgresiter.wcaro.util.Constants;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
@@ -124,61 +128,28 @@ public class ChildRegisterProvider implements RecyclerViewProvider<ChildRegister
     }
 
     private void populateLastColumn(CommonPersonObjectClient pc, RegisterViewHolder viewHolder) {
-
-        if (commonRepository != null) {
-            CommonPersonObject commonPersonObject = commonRepository.findByBaseEntityId(pc.entityId());
-            if (commonPersonObject != null) {
-                viewHolder.dueButton.setVisibility(View.VISIBLE);
-                String lastVisitDate = Utils.getValue(pc.getColumnmaps(), ChildDBConstants.KEY.LAST_HOME_VISIT, false);
-                String visitNotDone = Utils.getValue(pc.getColumnmaps(), ChildDBConstants.KEY.VISIT_NOT_DONE, false);
-                long lastVisit = 0, visitNot = 0;
-                if (!TextUtils.isEmpty(lastVisitDate)) {
-                    lastVisit = Long.parseLong(lastVisitDate);
-                }
-                if (!TextUtils.isEmpty(visitNotDone)) {
-                    visitNot = Long.parseLong(visitNotDone);
-                }
-                String dobString = Utils.getDuration(Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.DOB, false));
-
-                ChildVisit childVisit = ChildUtils.getChildVisitStatus(pc.entityId(),dobString, lastVisit, visitNot);
-                //Log.v("CHILD_VISIT_STATUS","populateLastColumn>>"+childVisit.getVisitStatus());
-                if (childVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.DUE.name())) {
-                    setVisitButtonDueStatus(viewHolder.dueButton);
-                } else if (childVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.OVERDUE.name())) {
-                    setVisitButtonOverdueStatus(viewHolder.dueButton, childVisit.getNoOfMonthDue());
-                } else if (childVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.LESS_TWENTY_FOUR.name())) {
-                    setVisitLessTwentyFourView(viewHolder.dueButton, childVisit.getLastVisitDays());
-                } else if (childVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.VISIT_THIS_MONTH.name())) {
-                    setVisitAboveTwentyFourView(viewHolder.dueButton);
-                } else if (childVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.NOT_VISIT_THIS_MONTH.name())) {
-                    setVisitNotDone(viewHolder.dueButton);
-                }
-            } else {
-                viewHolder.dueButton.setVisibility(View.GONE);
-                //attachSyncOnclickListener(viewHolder.sync, pc);
-            }
-        }
+        Utils.startAsyncTask(new UpdateLastAsyncTask(context, commonRepository, viewHolder, pc.entityId()), null);
     }
 
-    private void setVisitNotDone(Button dueButton) {
+    private void setVisitNotDone(Context context, Button dueButton) {
         dueButton.setTextColor(context.getResources().getColor(R.color.progress_orange));
         dueButton.setText(context.getString(R.string.visit_not_done));
         dueButton.setBackgroundResource(R.drawable.white_btn_selector);
         dueButton.setOnClickListener(null);
     }
 
-    private void setVisitAboveTwentyFourView(Button dueButton) {
+    private void setVisitAboveTwentyFourView(Context context, Button dueButton) {
         dueButton.setTextColor(context.getResources().getColor(R.color.alert_complete_green));
         dueButton.setText(context.getString(R.string.visit_done));
         dueButton.setBackgroundResource(R.drawable.white_btn_selector);
         dueButton.setOnClickListener(null);
     }
 
-    private void setVisitLessTwentyFourView(Button dueButton, String lastVisitMonth) {
-        setVisitAboveTwentyFourView(dueButton);
+    private void setVisitLessTwentyFourView(Context context, Button dueButton, String lastVisitMonth) {
+        setVisitAboveTwentyFourView(context, dueButton);
     }
 
-    private void setVisitButtonOverdueStatus(Button dueButton, String lastVisitDays) {
+    private void setVisitButtonOverdueStatus(Context context, Button dueButton, String lastVisitDays) {
         dueButton.setTextColor(context.getResources().getColor(R.color.white));
         if (TextUtils.isEmpty(lastVisitDays)) {
             dueButton.setText(context.getString(R.string.record_visit));
@@ -190,7 +161,7 @@ public class ChildRegisterProvider implements RecyclerViewProvider<ChildRegister
         dueButton.setOnClickListener(onClickListener);
     }
 
-    private void setVisitButtonDueStatus(Button dueButton) {
+    private void setVisitButtonDueStatus(Context context, Button dueButton) {
         dueButton.setTextColor(context.getResources().getColor(R.color.alert_in_progress_blue));
         dueButton.setText(context.getString(R.string.record_home_visit));
         dueButton.setBackgroundResource(R.drawable.blue_btn_selector);
@@ -292,6 +263,74 @@ public class ChildRegisterProvider implements RecyclerViewProvider<ChildRegister
             nextPageView = view.findViewById(org.smartregister.R.id.btn_next_page);
             previousPageView = view.findViewById(org.smartregister.R.id.btn_previous_page);
             pageInfoView = view.findViewById(org.smartregister.R.id.txt_page_info);
+        }
+    }
+
+    private class UpdateLastAsyncTask extends AsyncTask<Void, Void, Void> {
+        private final Context context;
+        private final CommonRepository commonRepository;
+
+        private final RegisterViewHolder viewHolder;
+        private final String baseEntityId;
+        private final Rules rules;
+
+        private CommonPersonObject commonPersonObject;
+        private ChildVisit childVisit;
+
+        private UpdateLastAsyncTask(Context context, CommonRepository commonRepository, RegisterViewHolder viewHolder, String baseEntityId) {
+            this.context = context;
+            this.commonRepository = commonRepository;
+            this.viewHolder = viewHolder;
+            this.baseEntityId = baseEntityId;
+            this.rules = WcaroApplication.getInstance().getRulesEngineHelper().rules(Constants.RULE_FILE.HOME_VISIT);
+        }
+
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            if (commonRepository != null) {
+                commonPersonObject = commonRepository.findByBaseEntityId(baseEntityId);
+                if (commonPersonObject != null) {
+                    String lastVisitDate = Utils.getValue(commonPersonObject.getColumnmaps(), ChildDBConstants.KEY.LAST_HOME_VISIT, false);
+                    String visitNotDone = Utils.getValue(commonPersonObject.getColumnmaps(), ChildDBConstants.KEY.VISIT_NOT_DONE, false);
+                    long lastVisit = 0, visitNot = 0;
+                    if (!TextUtils.isEmpty(lastVisitDate)) {
+                        lastVisit = Long.parseLong(lastVisitDate);
+                    }
+                    if (!TextUtils.isEmpty(visitNotDone)) {
+                        visitNot = Long.parseLong(visitNotDone);
+                    }
+                    String dobString = Utils.getDuration(Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.DOB, false));
+
+                    childVisit = ChildUtils.getChildVisitStatus(rules, commonPersonObject.getCaseId(), dobString, lastVisit, visitNot);
+
+
+                }
+                return null;
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void param) {
+            if (commonPersonObject != null) {
+                viewHolder.dueButton.setVisibility(View.VISIBLE);
+                if (childVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.DUE.name())) {
+                    setVisitButtonDueStatus(context, viewHolder.dueButton);
+                } else if (childVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.OVERDUE.name())) {
+                    setVisitButtonOverdueStatus(context, viewHolder.dueButton, childVisit.getNoOfMonthDue());
+                } else if (childVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.LESS_TWENTY_FOUR.name())) {
+                    setVisitLessTwentyFourView(context, viewHolder.dueButton, childVisit.getLastVisitDays());
+                } else if (childVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.VISIT_THIS_MONTH.name())) {
+                    setVisitAboveTwentyFourView(context, viewHolder.dueButton);
+                } else if (childVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.NOT_VISIT_THIS_MONTH.name())) {
+                    setVisitNotDone(context, viewHolder.dueButton);
+                }
+            } else {
+                viewHolder.dueButton.setVisibility(View.GONE);
+                //attachSyncOnclickListener(viewHolder.sync, pc);
+            }
+
         }
     }
 
