@@ -111,7 +111,7 @@ public class HomeVisitImmunizationInteractor implements HomeVisitImmunizationCon
 
     @Override
     public boolean isPartiallyComplete(HomeVisitVaccineGroupDetails toprocess){
-        if(toprocess.getDueVaccines().size()>0){
+        if(toprocess != null && toprocess.getDueVaccines() != null &&  toprocess.getDueVaccines().size()>0){
 //            if(toprocess.getNotGivenInThisVisitVaccines().size()>0){
 //                return true;
 //            }
@@ -126,7 +126,7 @@ public class HomeVisitImmunizationInteractor implements HomeVisitImmunizationCon
 
     @Override
     public boolean isComplete(HomeVisitVaccineGroupDetails toprocess){
-        if(toprocess.getDueVaccines().size()>0){
+        if(toprocess != null && toprocess.getDueVaccines() != null && toprocess.getDueVaccines().size()>0){
             if(toprocess.getGivenVaccines().size() == toprocess.getDueVaccines().size()){
                 if(toprocess.getNotGivenInThisVisitVaccines().size() == 0) {
                     return true;
@@ -138,7 +138,7 @@ public class HomeVisitImmunizationInteractor implements HomeVisitImmunizationCon
 
     @Override
     public boolean groupIsDue(HomeVisitVaccineGroupDetails toprocess){
-        if(toprocess.getDueVaccines().size()>0){
+        if(toprocess != null && toprocess.getDueVaccines() != null && toprocess.getDueVaccines().size()>0){
             if(toprocess.getGivenVaccines().size() == 0){
                 if(toprocess.getNotGivenInThisVisitVaccines().size() == 0) {
                     return true;
