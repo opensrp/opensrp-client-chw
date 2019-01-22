@@ -19,9 +19,11 @@ import org.smartregister.commonregistry.AllCommonsRepository;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
+import org.smartregister.family.FamilyLibrary;
 import org.smartregister.family.util.AppExecutors;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.Utils;
+import org.smartregister.repository.EventClientRepository;
 import org.smartregister.sync.helper.ECSyncHelper;
 
 import java.text.SimpleDateFormat;
@@ -136,7 +138,7 @@ public class FamilyRemoveMemberInteractor implements FamilyRemoveMemberContract.
     }
 
     @Override
-    public void getFamilyChildrenCount(final String familyID, final FamilyRemoveMemberContract.InteractorCallback<HashMap<String, Integer>> callback) {
+    public void getFamilySummary(final String familyID, final FamilyRemoveMemberContract.InteractorCallback<HashMap<String, String>> callback) {
 
         Runnable runnable = null;
         try {
@@ -145,15 +147,21 @@ public class FamilyRemoveMemberInteractor implements FamilyRemoveMemberContract.
                 Integer kids = getCount(Constants.TABLE_NAME.CHILD, familyID);
                 Integer members = getCount(Constants.TABLE_NAME.FAMILY_MEMBER, familyID);
 
+                EventClientRepository eventClientRepository = FamilyLibrary.getInstance().context().getEventClientRepository();
+                JSONObject familyJSON = eventClientRepository.getClientByBaseEntityId(familyID);
+
+                String name = (String) familyJSON.get("firstName");
+
                 @Override
                 public void run() {
                     appExecutors.mainThread().execute(new Runnable() {
                         @Override
                         public void run() {
 
-                            HashMap<String, Integer> results = new HashMap<>();
-                            results.put(Constants.TABLE_NAME.CHILD, kids);
-                            results.put(Constants.TABLE_NAME.FAMILY_MEMBER, members);
+                            HashMap<String, String> results = new HashMap<>();
+                            results.put(Constants.TABLE_NAME.CHILD, kids.toString());
+                            results.put(Constants.TABLE_NAME.FAMILY_MEMBER, members.toString());
+                            results.put(Constants.GLOBAL.NAME, name);
                             callback.onResult(results);
                         }
                     });
