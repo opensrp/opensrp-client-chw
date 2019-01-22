@@ -29,6 +29,7 @@ import org.joda.time.DateTime;
 import org.json.JSONObject;
 import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.activity.ChildProfileActivity;
+import org.smartgresiter.wcaro.activity.ChildRegisterActivity;
 import org.smartgresiter.wcaro.contract.ChildRegisterContract;
 import org.smartgresiter.wcaro.custom_view.HomeVisitGrowthAndNutrition;
 import org.smartgresiter.wcaro.interactor.ChildRegisterInteractor;
@@ -46,6 +47,7 @@ import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.Alert;
+import org.smartregister.domain.FetchStatus;
 import org.smartregister.family.activity.BaseFamilyProfileActivity;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.immunization.db.VaccineRepo;
@@ -214,6 +216,9 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
             case R.id.textview_submit:
                 if (checkAllGiven()) {
                     ChildUtils.updateClientStatusAsEvent(childClient.entityId(), "Child Home Visit", "last_home_visit", "" + System.currentTimeMillis(), "ec_child");
+                    if (getActivity() instanceof ChildRegisterActivity) {
+                        ((ChildRegisterActivity) getActivity()).refreshList(FetchStatus.fetched);
+                    }
                     dismiss();
                 }
                 break;
@@ -324,8 +329,10 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     }
 
     private ArrayList<VaccineWrapper> createVaccineWrappers(HomeVisitVaccineGroupDetails vaccines) {
-
         ArrayList<VaccineWrapper> vaccineWrappers = new ArrayList<VaccineWrapper>();
+        if(vaccines == null){
+            return vaccineWrappers;
+        }
         for (VaccineRepo.Vaccine vaccine : vaccines.getDueVaccines()) {
             VaccineWrapper vaccineWrapper = new VaccineWrapper();
             vaccineWrapper.setVaccine(vaccine);
@@ -488,7 +495,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
             public void onImmunicationStateChange(List<Alert> alerts, List<Vaccine> vaccines, String stateKey, Map<String, Object> nv, ImmunizationState state) {
 //                ImmunizationState(alerts, vaccines, stateKey, nv, state);
 //                ImmunizationState(alerts,vaccines,stateKey,nv,state);
-                ImmunizationStateNew(alerts,vaccines,stateKey,nv,state);
+                ImmunizationStateNew(alerts, vaccines, stateKey, nv, state);
             }
         });
         startAsyncTask(vaccinationAsyncTask, null);
@@ -667,20 +674,19 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     }
 
 
-    public void ImmunizationStateNew(List<Alert> alerts, List<Vaccine> vaccines, String stateKey, Map<String, Object> nv, ImmunizationState state){
+    public void ImmunizationStateNew(List<Alert> alerts, List<Vaccine> vaccines, String stateKey, Map<String, Object> nv, ImmunizationState state) {
         HomeVisitImmunizationInteractor homeVisitImmunizationInteractor = new HomeVisitImmunizationInteractor();
         ArrayList<VaccineRepo.Vaccine> vaccinesDueFromLastVisit = new ArrayList<VaccineRepo.Vaccine>();
-        ArrayList<HomeVisitVaccineGroupDetails> allgroups = homeVisitImmunizationInteractor.determineAllHomeVisitVaccineGroupDetails(alerts,vaccines,notGivenVaccines);
+        ArrayList<HomeVisitVaccineGroupDetails> allgroups = homeVisitImmunizationInteractor.determineAllHomeVisitVaccineGroupDetails(alerts, vaccines, notGivenVaccines);
         vaccinesDueFromLastVisit = homeVisitImmunizationInteractor.getNotGivenVaccinesLastVisitList(allgroups);
-        if(homeVisitImmunizationInteractor.hasVaccinesNotGivenSinceLastVisit(allgroups)){
-           vaccinesDueFromLastVisit =  homeVisitImmunizationInteractor.getNotGivenVaccinesLastVisitList(allgroups);
+        if (homeVisitImmunizationInteractor.hasVaccinesNotGivenSinceLastVisit(allgroups)) {
+            vaccinesDueFromLastVisit = homeVisitImmunizationInteractor.getNotGivenVaccinesLastVisitList(allgroups);
         }
         HomeVisitVaccineGroupDetails currentActiveGroup = homeVisitImmunizationInteractor.getCurrentActiveHomeVisitVaccineGroupDetail(allgroups);
-        if(currentActiveGroup == null){
+        if (currentActiveGroup == null) {
             currentActiveGroup = homeVisitImmunizationInteractor.getLastActiveHomeVisitVaccineGroupDetail(allgroups);
         }
-        currentActiveGroup.getDueVaccines().size();
-        if(homeVisitImmunizationInteractor.isPartiallyComplete(currentActiveGroup)){
+        if (homeVisitImmunizationInteractor.isPartiallyComplete(currentActiveGroup)) {
             textview_group_immunization_primary_text.setText("Immunizations" + "(" + currentActiveGroup.getGroup() + ")");
 
             immunization_group_status_circle.setImageResource(R.drawable.ic_checked);
@@ -690,7 +696,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
             allVaccineStateFullfilled = true;
 
 
-        }else if(homeVisitImmunizationInteractor.isComplete(currentActiveGroup)){
+        } else if (homeVisitImmunizationInteractor.isComplete(currentActiveGroup)) {
             textview_group_immunization_primary_text.setText("Immunizations" + "(" + currentActiveGroup.getGroup() + ")");
 
             immunization_group_status_circle.setImageResource(R.drawable.ic_checked);
@@ -700,8 +706,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
             allVaccineStateFullfilled = true;
 
 
-
-        }else if (homeVisitImmunizationInteractor.groupIsDue(currentActiveGroup)){
+        } else if (homeVisitImmunizationInteractor.groupIsDue(currentActiveGroup)) {
             textview_group_immunization_primary_text.setText("Immunizations" + "(" + currentActiveGroup.getGroup() + ")");
             multiple_immunization_group.setTag(R.id.nextduevaccinelist, currentActiveGroup);
             multiple_immunization_group.setTag(R.id.vaccinelist, vaccines);
@@ -709,22 +714,20 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
             multiple_immunization_group.setOnClickListener(this);
         }
 
-        if(vaccinesDueFromLastVisit.size()>0){
+        if (vaccinesDueFromLastVisit.size() > 0) {
             String vaccinesDueLastVisit = "";
-            for(int i = 0;i<vaccinesDueFromLastVisit.size();i++){
-                vaccinesDueLastVisit = vaccinesDueLastVisit+vaccinesDueFromLastVisit.get(i).display().toUpperCase()+",";
+            for (int i = 0; i < vaccinesDueFromLastVisit.size(); i++) {
+                vaccinesDueLastVisit = vaccinesDueLastVisit + vaccinesDueFromLastVisit.get(i).display().toUpperCase() + ",";
             }
-            if(vaccinesDueLastVisit.endsWith(",")){
-                vaccinesDueLastVisit = vaccinesDueLastVisit.substring(0,vaccinesDueLastVisit.length()-1);
+            if (vaccinesDueLastVisit.endsWith(",")) {
+                vaccinesDueLastVisit = vaccinesDueLastVisit.substring(0, vaccinesDueLastVisit.length() - 1);
             }
             textview_immunization_primary_text.setText(vaccinesDueLastVisit);
 
-        }else{
+        } else {
             single_immunization_group.setVisibility(View.GONE);
         }
     }
-
-
 
 
     private boolean hasAllVaccineOfCurrentGroupNotGiven(HomeVisitVaccineGroupDetails lastGivenGroup) {

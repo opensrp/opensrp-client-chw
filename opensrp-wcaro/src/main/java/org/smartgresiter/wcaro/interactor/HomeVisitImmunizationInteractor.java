@@ -15,7 +15,6 @@ import org.smartregister.immunization.util.VaccinateActionUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -102,7 +101,7 @@ public class HomeVisitImmunizationInteractor implements HomeVisitImmunizationCon
     }
 
     public boolean isPartiallyComplete(HomeVisitVaccineGroupDetails toprocess){
-        if(toprocess.getDueVaccines().size()>0){
+        if(toprocess != null && toprocess.getDueVaccines() != null &&  toprocess.getDueVaccines().size()>0){
 //            if(toprocess.getNotGivenInThisVisitVaccines().size()>0){
 //                return true;
 //            }
@@ -116,7 +115,7 @@ public class HomeVisitImmunizationInteractor implements HomeVisitImmunizationCon
     }
 
     public boolean isComplete(HomeVisitVaccineGroupDetails toprocess){
-        if(toprocess.getDueVaccines().size()>0){
+        if(toprocess != null && toprocess.getDueVaccines() != null && toprocess.getDueVaccines().size()>0){
             if(toprocess.getGivenVaccines().size() == toprocess.getDueVaccines().size()){
                 if(toprocess.getNotGivenInThisVisitVaccines().size() == 0) {
                     return true;
@@ -126,7 +125,7 @@ public class HomeVisitImmunizationInteractor implements HomeVisitImmunizationCon
         return false;
     }
     public boolean groupIsDue(HomeVisitVaccineGroupDetails toprocess){
-        if(toprocess.getDueVaccines().size()>0){
+        if(toprocess != null && toprocess.getDueVaccines() != null && toprocess.getDueVaccines().size()>0){
             if(toprocess.getGivenVaccines().size() == 0){
                 if(toprocess.getNotGivenInThisVisitVaccines().size() == 0) {
                     return true;
