@@ -110,6 +110,6 @@ public class ChildRegisterFragmentPresenter implements ChildRegisterFragmentCont
 
     @Override
     public String getDueFilterCondition() {
-        return getMainCondition() + " AND (" + ChildDBConstants.KEY.VISIT_STATUS + " = '" + ChildProfileInteractor.VisitType.DUE.name() + "') ";
+        return getMainCondition() + " AND (" + ChildDBConstants.KEY.VISIT_STATUS + " = '" + ChildProfileInteractor.VisitType.OVERDUE.name() + "' OR " + ChildDBConstants.KEY.VISIT_STATUS + " = '" + ChildProfileInteractor.VisitType.DUE.name() + "') ";
     }
 }

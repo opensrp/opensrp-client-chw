@@ -18,7 +18,6 @@ import org.smartregister.clientandeventmodel.Obs;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.family.FamilyLibrary;
 import org.smartregister.family.util.DBConstants;
-import org.smartregister.family.util.Utils;
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.sync.helper.ECSyncHelper;
 
@@ -181,6 +180,7 @@ public class ChildUtils {
 
     /**
      * Rules can be retrieved separately so that the background thread is used here
+     *
      * @param rules
      * @param baseEntityId
      * @param dateOfBirth
@@ -210,13 +210,10 @@ public class ChildUtils {
     }
 
     public static void updateFtsSearch(String baseEntityId, String status) {
-//        ContentValues contentValues=new ContentValues();
-//        contentValues.put(ChildDBConstants.KEY.VISIT_STATUS,status);
-        //Utils.context().commonrepository(Constants.TABLE_NAME.CHILD).updateColumn(Constants.TABLE_NAME.CHILD,contentValues,baseEntityId);
-        Utils.context().commonrepository(Constants.TABLE_NAME.CHILD).populateSearchValues(baseEntityId, ChildDBConstants.KEY.VISIT_STATUS, status, null);
-        Utils.context().commonrepository(Constants.TABLE_NAME.FAMILY_MEMBER).populateSearchValues(baseEntityId, ChildDBConstants.KEY.VISIT_STATUS, status, null);
-
+        Utils.updateFtsSearch(Constants.TABLE_NAME.CHILD, baseEntityId, ChildDBConstants.KEY.VISIT_STATUS, status);
+        Utils.updateFtsSearch(Constants.TABLE_NAME.FAMILY_MEMBER, baseEntityId, ChildDBConstants.KEY.VISIT_STATUS, status);
     }
+
 
     @SuppressLint("SimpleDateFormat")
     public static String covertLongDateToDisplayDate(long callingTime) {
@@ -250,7 +247,7 @@ public class ChildUtils {
                     .withFormSubmissionId(JsonFormUtils.generateRandomUUIDString())
                     .withDateCreated(new Date());
             event.addObs((new Obs()).withFormSubmissionField(attributeName).withValue(attributeValue).withFieldCode(attributeName).withFieldType("formsubmissionField").withFieldDataType("text").withParentCode("").withHumanReadableValues(new ArrayList<Object>()));
-            JsonFormUtils.tagSyncMetadata(WcaroApplication.getInstance().getContext().allSharedPreferences(),event);
+            JsonFormUtils.tagSyncMetadata(WcaroApplication.getInstance().getContext().allSharedPreferences(), event);
             JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(event));
             syncHelper.addEvent(entityId, eventJson);
             long lastSyncTimeStamp = WcaroApplication.getInstance().getContext().allSharedPreferences().fetchLastUpdatedAtDate(0);
@@ -258,7 +255,7 @@ public class ChildUtils {
             FamilyLibrary.getInstance().getClientProcessorForJava().processClient(syncHelper.getEvents(lastSyncDate, BaseRepository.TYPE_Unsynced));
             WcaroApplication.getInstance().getContext().allSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
 
-           //update details
+            //update details
 
 
         } catch (Exception e) {
