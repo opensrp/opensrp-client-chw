@@ -17,6 +17,7 @@ public class HomeVisitVaccineGroupDetails {
     ArrayList<VaccineRepo.Vaccine> notGivenInThisVisitVaccines = new ArrayList<VaccineRepo.Vaccine>();
     String group = "";
     ImmunizationState alert = ImmunizationState.NO_ALERT;
+    private String dueDate = "";
 
 
     public ArrayList<VaccineRepo.Vaccine> getNotGivenInThisVisitVaccines() {
@@ -82,5 +83,13 @@ public class HomeVisitVaccineGroupDetails {
                 notGivenVaccines.add(vaccine);
             }
         }
+    }
+
+    public String getDueDate() {
+        return dueDate;
+    }
+
+    public void setDueDate(String dueDate) {
+       this.dueDate = dueDate;
     }
 }

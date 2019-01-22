@@ -20,7 +20,7 @@ public class FamilyRegisterFragmentPresenter extends BaseFamilyRegisterFragmentP
 
     @Override
     public String getDueFilterCondition() {
-        return getMainCondition() + " AND (" + ChildDBConstants.KEY.VISIT_STATUS + " = '" + ChildProfileInteractor.VisitType.DUE.name() + "') ";
+        return getMainCondition() + " AND (" + ChildDBConstants.KEY.CHILD_VISIT_STATUS + " = '" + ChildProfileInteractor.VisitType.OVERDUE.name() + "' OR " + ChildDBConstants.KEY.CHILD_VISIT_STATUS + " = '" + ChildProfileInteractor.VisitType.DUE.name() + "') ";
     }
 
 }

@@ -2,16 +2,21 @@ package org.smartgresiter.wcaro.interactor;
 
 import android.support.annotation.VisibleForTesting;
 
+import org.joda.time.DateTime;
 import org.smartgresiter.wcaro.contract.HomeVisitImmunizationContract;
+import org.smartgresiter.wcaro.listener.ImmunizationStateChangeListener;
 import org.smartgresiter.wcaro.task.UpdateServiceTask;
+import org.smartgresiter.wcaro.task.VaccinationAsyncTask;
 import org.smartgresiter.wcaro.util.HomeVisitVaccineGroupDetails;
 import org.smartgresiter.wcaro.util.ImmunizationState;
+import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.Alert;
 import org.smartregister.family.util.AppExecutors;
 import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.immunization.domain.Vaccine;
 import org.smartregister.immunization.domain.VaccineWrapper;
 import org.smartregister.immunization.util.VaccinateActionUtils;
+import org.smartregister.util.DateUtil;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -20,11 +25,15 @@ import java.util.List;
 import java.util.Map;
 
 import static org.apache.commons.lang3.StringUtils.isBlank;
+import static org.smartgresiter.wcaro.util.Constants.IMMUNIZATION_CONSTANT.DATE;
 import static org.smartregister.immunization.util.VaccinatorUtils.receivedVaccines;
+import static org.smartregister.util.Utils.startAsyncTask;
 
 public class HomeVisitImmunizationInteractor implements HomeVisitImmunizationContract.Interactor {
     private AppExecutors appExecutors;
     private UpdateServiceTask updateServiceTask;
+    private VaccinationAsyncTask vaccinationAsyncTask;
+
     @VisibleForTesting
     HomeVisitImmunizationInteractor(AppExecutors appExecutors) {
         this.appExecutors = appExecutors;
@@ -89,7 +98,7 @@ public class HomeVisitImmunizationInteractor implements HomeVisitImmunizationCon
     }
 
 
-
+    @Override
     public HomeVisitVaccineGroupDetails getLastActiveHomeVisitVaccineGroupDetail(ArrayList<HomeVisitVaccineGroupDetails> allGroups){
         HomeVisitVaccineGroupDetails toReturn = null;
         for(int i = 0;i<allGroups.size();i++){
@@ -100,6 +109,7 @@ public class HomeVisitImmunizationInteractor implements HomeVisitImmunizationCon
         return toReturn;
     }
 
+    @Override
     public boolean isPartiallyComplete(HomeVisitVaccineGroupDetails toprocess){
         if(toprocess != null && toprocess.getDueVaccines() != null &&  toprocess.getDueVaccines().size()>0){
 //            if(toprocess.getNotGivenInThisVisitVaccines().size()>0){
@@ -114,6 +124,7 @@ public class HomeVisitImmunizationInteractor implements HomeVisitImmunizationCon
         return false;
     }
 
+    @Override
     public boolean isComplete(HomeVisitVaccineGroupDetails toprocess){
         if(toprocess != null && toprocess.getDueVaccines() != null && toprocess.getDueVaccines().size()>0){
             if(toprocess.getGivenVaccines().size() == toprocess.getDueVaccines().size()){
@@ -124,6 +135,8 @@ public class HomeVisitImmunizationInteractor implements HomeVisitImmunizationCon
         }
         return false;
     }
+
+    @Override
     public boolean groupIsDue(HomeVisitVaccineGroupDetails toprocess){
         if(toprocess != null && toprocess.getDueVaccines() != null && toprocess.getDueVaccines().size()>0){
             if(toprocess.getGivenVaccines().size() == 0){
@@ -135,6 +148,7 @@ public class HomeVisitImmunizationInteractor implements HomeVisitImmunizationCon
         return false;
     }
 
+    @Override
     public boolean hasVaccinesNotGivenSinceLastVisit(ArrayList<HomeVisitVaccineGroupDetails> allGroup){
         int indexofCurrentGroup = getIndexOfCurrentGroup(allGroup);
         if(isPartiallyComplete(allGroup.get(indexofCurrentGroup))){
@@ -151,20 +165,8 @@ public class HomeVisitImmunizationInteractor implements HomeVisitImmunizationCon
         return false;
     }
 
-    private int getIndexOfCurrentGroup(ArrayList<HomeVisitVaccineGroupDetails> allGroup) {
-//        int indexofCurrentGroup = 0;
-//        for(int i = 0;i<allGroup.size();i++){
-//            HomeVisitVaccineGroupDetails toReturn = allGroup.get(i);
-//            if(toReturn.getDueVaccines().size()>0){
-//                if(!(toReturn.getNotGivenInThisVisitVaccines().size()>0 && toReturn.getGivenVaccines().size()>0)){
-//                    if(!toReturn.getAlert().equals(ImmunizationState.NO_ALERT)) {
-//                        indexofCurrentGroup = i;
-//                    }
-//                }
-//            }
-//        }
-//        return indexofCurrentGroup;
-        ///////////////////////////////////////////////////
+    @Override
+    public int getIndexOfCurrentGroup(ArrayList<HomeVisitVaccineGroupDetails> allGroup) {
         HomeVisitVaccineGroupDetails currentActiveGroup = getCurrentActiveHomeVisitVaccineGroupDetail(allGroup);
         if(currentActiveGroup == null){
             currentActiveGroup = getLastActiveHomeVisitVaccineGroupDetail(allGroup);
@@ -179,9 +181,9 @@ public class HomeVisitImmunizationInteractor implements HomeVisitImmunizationCon
             }
         }
         return indexofCurrentGroup;
-        //////////////////////////////////////////////////
     }
 
+    @Override
     public ArrayList<VaccineRepo.Vaccine> getNotGivenVaccinesLastVisitList(ArrayList<HomeVisitVaccineGroupDetails> allGroup){
         ArrayList<VaccineRepo.Vaccine> toReturn = new ArrayList<VaccineRepo.Vaccine>();
         if(hasVaccinesNotGivenSinceLastVisit(allGroup)){
@@ -197,7 +199,8 @@ public class HomeVisitImmunizationInteractor implements HomeVisitImmunizationCon
         return toReturn;
     }
 
-    private ArrayList<VaccineRepo.Vaccine> getNotGivenVaccinesNotInNotGivenThisVisit(HomeVisitVaccineGroupDetails allGroup) {
+    @Override
+    public ArrayList<VaccineRepo.Vaccine> getNotGivenVaccinesNotInNotGivenThisVisit(HomeVisitVaccineGroupDetails allGroup) {
         ArrayList<VaccineRepo.Vaccine> getNotGivenVaccinesNotInNotGivenThisVisit = new ArrayList<VaccineRepo.Vaccine>();
         for(VaccineRepo.Vaccine toProcess: allGroup.getNotGivenVaccines()){
             boolean isInNotGivenThisVisit = false;
@@ -215,7 +218,7 @@ public class HomeVisitImmunizationInteractor implements HomeVisitImmunizationCon
     }
 
     @Override
-    public ArrayList<HomeVisitVaccineGroupDetails> determineAllHomeVisitVaccineGroupDetails(List<Alert> alerts, List<Vaccine> vaccines, ArrayList<VaccineWrapper> notGivenVaccines){
+    public ArrayList<HomeVisitVaccineGroupDetails> determineAllHomeVisitVaccineGroupDetails(List<Alert> alerts, List<Vaccine> vaccines, ArrayList<VaccineWrapper> notGivenVaccines, List<Map<String, Object>> sch){
         ArrayList<HomeVisitVaccineGroupDetails> homeVisitVaccineGroupDetailsArrayList = new ArrayList<HomeVisitVaccineGroupDetails>();
         Map<String, Date> receivedvaccines = receivedVaccines(vaccines);
         List<VaccineRepo.Vaccine> vList = Arrays.asList(VaccineRepo.Vaccine.values());
@@ -240,6 +243,7 @@ public class HomeVisitImmunizationInteractor implements HomeVisitImmunizationCon
         }
         homeVisitVaccineGroupDetailsArrayList = assignDueVaccine(vList,homeVisitVaccineGroupDetailsArrayList,alerts);
         homeVisitVaccineGroupDetailsArrayList = assignGivenVaccine(homeVisitVaccineGroupDetailsArrayList,receivedvaccines);
+        homeVisitVaccineGroupDetailsArrayList = assignDate(homeVisitVaccineGroupDetailsArrayList,sch);
 
         for(HomeVisitVaccineGroupDetails singlegroup : homeVisitVaccineGroupDetailsArrayList){
             for(int i = 0;i<singlegroup.getDueVaccines().size();i++){
@@ -254,7 +258,25 @@ public class HomeVisitImmunizationInteractor implements HomeVisitImmunizationCon
         return  homeVisitVaccineGroupDetailsArrayList;
     }
 
-    private ArrayList<HomeVisitVaccineGroupDetails> assignGivenVaccine(ArrayList<HomeVisitVaccineGroupDetails> homeVisitVaccineGroupDetailsArrayList, Map<String, Date> receivedvaccines) {
+    @Override
+    public ArrayList<HomeVisitVaccineGroupDetails> assignDate(ArrayList<HomeVisitVaccineGroupDetails> homeVisitVaccineGroupDetailsArrayList, List<Map<String, Object>> sch) {
+        for(int i = 0;i<homeVisitVaccineGroupDetailsArrayList.size();i++) {
+            for(VaccineRepo.Vaccine vaccine: homeVisitVaccineGroupDetailsArrayList.get(i).getDueVaccines()) {
+                for (Map<String, Object> toprocess : sch) {
+                    if(((VaccineRepo.Vaccine)(toprocess.get("vaccine"))).name().equalsIgnoreCase(vaccine.name())){
+                        DateTime dueDate = (DateTime) toprocess.get(DATE);
+                        String duedateString = DateUtil.formatDate(dueDate.toLocalDate(), "dd MMM yyyy");
+                        homeVisitVaccineGroupDetailsArrayList.get(i).setDueDate(duedateString);
+                    }
+                    toprocess.size();
+                }
+            }
+        }
+        return homeVisitVaccineGroupDetailsArrayList;
+    }
+
+    @Override
+    public ArrayList<HomeVisitVaccineGroupDetails> assignGivenVaccine(ArrayList<HomeVisitVaccineGroupDetails> homeVisitVaccineGroupDetailsArrayList, Map<String, Date> receivedvaccines) {
         for(int i = 0;i<homeVisitVaccineGroupDetailsArrayList.size();i++){
             ArrayList<VaccineRepo.Vaccine> dueVaccines = homeVisitVaccineGroupDetailsArrayList.get(i).getDueVaccines();
             for(VaccineRepo.Vaccine checkVaccine: dueVaccines){
@@ -267,7 +289,8 @@ public class HomeVisitImmunizationInteractor implements HomeVisitImmunizationCon
         return homeVisitVaccineGroupDetailsArrayList;
     }
 
-    private ArrayList<HomeVisitVaccineGroupDetails> assignDueVaccine(List<VaccineRepo.Vaccine> vList, ArrayList<HomeVisitVaccineGroupDetails> homeVisitVaccineGroupDetailsArrayList, List<Alert> alerts) {
+    @Override
+    public ArrayList<HomeVisitVaccineGroupDetails> assignDueVaccine(List<VaccineRepo.Vaccine> vList, ArrayList<HomeVisitVaccineGroupDetails> homeVisitVaccineGroupDetailsArrayList, List<Alert> alerts) {
         for(int i = 0;i<homeVisitVaccineGroupDetailsArrayList.size();i++){
             for(VaccineRepo.Vaccine vaccine : vList){
                 if(VaccinateActionUtils.stateKey(vaccine).equalsIgnoreCase(homeVisitVaccineGroupDetailsArrayList.get(i).getGroup())){
@@ -284,7 +307,8 @@ public class HomeVisitImmunizationInteractor implements HomeVisitImmunizationCon
         return homeVisitVaccineGroupDetailsArrayList;
     }
 
-    private boolean hasAlert(VaccineRepo.Vaccine vaccine, List<Alert> alerts) {
+    @Override
+    public boolean hasAlert(VaccineRepo.Vaccine vaccine, List<Alert> alerts) {
         boolean hasAlert = false;
         for(Alert alert : alerts){
             if(alert.scheduleName().equalsIgnoreCase(vaccine.display())){
@@ -294,6 +318,7 @@ public class HomeVisitImmunizationInteractor implements HomeVisitImmunizationCon
         return hasAlert;
     }
 
+    @Override
     public ImmunizationState alertState(Alert toProcess){
         ImmunizationState state = ImmunizationState.NO_ALERT;
         if (toProcess == null) {
@@ -310,7 +335,8 @@ public class HomeVisitImmunizationInteractor implements HomeVisitImmunizationCon
         return state;
     }
 
-    private boolean isReceived(String s, Map<String, Date> receivedvaccines) {
+    @Override
+    public boolean isReceived(String s, Map<String, Date> receivedvaccines) {
         boolean isReceived = false;
         for (String name : receivedvaccines.keySet()) {
             if (s.equalsIgnoreCase(name)){
@@ -320,7 +346,8 @@ public class HomeVisitImmunizationInteractor implements HomeVisitImmunizationCon
         return isReceived;
     }
 
-    private ImmunizationState assignAlert(VaccineRepo.Vaccine vaccine, List<Alert> alerts) {
+    @Override
+    public ImmunizationState assignAlert(VaccineRepo.Vaccine vaccine, List<Alert> alerts) {
         ImmunizationState state = ImmunizationState.NO_ALERT;
         for(Alert alert : alerts){
             if(alert.scheduleName().equalsIgnoreCase(vaccine.display())){
@@ -330,6 +357,14 @@ public class HomeVisitImmunizationInteractor implements HomeVisitImmunizationCon
         return state;
     }
 
-
-
+    @Override
+    public void updateImmunizationState(CommonPersonObjectClient childClient, ArrayList<VaccineWrapper> notGivenVaccines, final HomeVisitImmunizationContract.InteractorCallBack callBack) {
+        vaccinationAsyncTask = new VaccinationAsyncTask(childClient.getCaseId(), childClient.getColumnmaps(), notGivenVaccines, new ImmunizationStateChangeListener() {
+            @Override
+            public void onImmunicationStateChange(List<Alert> alerts, List<Vaccine> vaccines, String stateKey, List<Map<String, Object>> sch, ImmunizationState state) {
+                callBack.immunizationState(alerts,vaccines,sch);
+            }
+        });
+        startAsyncTask(vaccinationAsyncTask, null);
+    }
 }

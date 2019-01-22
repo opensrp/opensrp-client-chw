@@ -22,12 +22,13 @@ import org.smartgresiter.wcaro.adapter.VaccineAdapter;
 import org.smartgresiter.wcaro.contract.MedicalHistoryContract;
 import org.smartgresiter.wcaro.presenter.MedicalHistoryPresenter;
 import org.smartgresiter.wcaro.util.Constants;
+import org.smartregister.view.activity.SecuredActivity;
 
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class MedicalHistoryActivity extends AppCompatActivity implements MedicalHistoryContract.View {
+public class MedicalHistoryActivity extends SecuredActivity implements MedicalHistoryContract.View {
     private TextView textViewTitle, textViewLastVisit, textViewFullyImmunization;
     private LinearLayout layoutImmunization;
     private LinearLayout layoutGrowthAndNutrition;
@@ -52,8 +53,7 @@ public class MedicalHistoryActivity extends AppCompatActivity implements Medical
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void onCreation() {
         setContentView(R.layout.activity_medical_history);
         setUpActionBar();
         textViewLastVisit = findViewById(R.id.home_visit_date);
@@ -67,6 +67,11 @@ public class MedicalHistoryActivity extends AppCompatActivity implements Medical
         recyclerViewGrowthNutrition.setLayoutManager(new LinearLayoutManager(this));
         layoutGrowthAndNutrition = findViewById(R.id.growth_and_nutrition_list);
         parseBundleANdUpdateView();
+    }
+
+    @Override
+    protected void onResumption() {
+
     }
 
     private void setUpActionBar() {
