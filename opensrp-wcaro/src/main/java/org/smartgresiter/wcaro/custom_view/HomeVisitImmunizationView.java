@@ -101,6 +101,7 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
             immunization_group_status_circle.setImageResource(R.drawable.ic_checked);
             immunization_group_status_circle.setColorFilter(getResources().getColor(R.color.white));
             immunization_group_status_circle.setCircleBackgroundColor(getResources().getColor(R.color.pnc_circle_yellow));
+            immunization_group_status_circle.setBorderColor(getResources().getColor(R.color.pnc_circle_yellow));
             multiple_immunization_group.setOnClickListener(null);
         }else if(presenter.isComplete()){
             textview_group_immunization_primary_text.setText("Immunizations" + "(" + presenter.getCurrentActiveGroup().getGroup() + ")");
@@ -108,6 +109,7 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
             immunization_group_status_circle.setImageResource(R.drawable.ic_checked);
             immunization_group_status_circle.setColorFilter(getResources().getColor(R.color.white));
             immunization_group_status_circle.setCircleBackgroundColor(getResources().getColor(R.color.alert_complete_green));
+            immunization_group_status_circle.setBorderColor(getResources().getColor(R.color.alert_complete_green));
             multiple_immunization_group.setOnClickListener(null);
         }else if (presenter.groupIsDue()){
             textview_group_immunization_primary_text.setText("Immunizations" + "(" + presenter.getCurrentActiveGroup().getGroup() + ")");
@@ -126,8 +128,23 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
                 vaccinesDueLastVisit = vaccinesDueLastVisit.substring(0,vaccinesDueLastVisit.length()-1);
             }
             textview_immunization_primary_text.setText(vaccinesDueLastVisit);
-            single_immunization_group.setTag(R.id.nextduevaccinelist,presenter.getVaccinesDueFromLastVisit());
+            single_immunization_group.setTag(R.id.nextduevaccinelist,presenter.getVaccinesDueFromLastVisitStillDueState());
             single_immunization_group.setOnClickListener(this);
+
+            if(presenter.getVaccinesDueFromLastVisitStillDueState().size()==0){
+                if(presenter.isSingleVaccineGroupPartialComplete()){
+                    immunization_status_circle.setImageResource(R.drawable.ic_checked);
+                    immunization_status_circle.setColorFilter(getResources().getColor(R.color.white));
+                    immunization_status_circle.setCircleBackgroundColor(getResources().getColor(R.color.pnc_circle_yellow));
+                    immunization_status_circle.setBorderColor(getResources().getColor(R.color.pnc_circle_yellow));
+                }
+                if(presenter.isSingleVaccineGroupComplete()){
+                    immunization_status_circle.setImageResource(R.drawable.ic_checked);
+                    immunization_status_circle.setColorFilter(getResources().getColor(R.color.white));
+                    immunization_status_circle.setCircleBackgroundColor(getResources().getColor(R.color.alert_complete_green));
+                    immunization_status_circle.setBorderColor(getResources().getColor(R.color.alert_complete_green));
+                }
+            }
         }else{
             single_immunization_group.setVisibility(View.GONE);
         }
@@ -236,7 +253,7 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
     @Override
     public void immunizationState(List<Alert> alerts, List<Vaccine> vaccines, List<Map<String, Object>> sch) {
         refreshPresenter(alerts,vaccines,sch);
-        if(presenter.isComplete()||presenter.isPartiallyComplete()) {
+        if((presenter.isComplete()||presenter.isPartiallyComplete())&&(presenter.isSingleVaccineGroupPartialComplete()||presenter.isSingleVaccineGroupComplete())) {
             ((ChildHomeVisitFragment) (((Activity) context).getFragmentManager().findFragmentByTag(ChildHomeVisitFragment.DIALOG_TAG))).allVaccineStateFullfilled = true;
         }else{
             ((ChildHomeVisitFragment) (((Activity) context).getFragmentManager().findFragmentByTag(ChildHomeVisitFragment.DIALOG_TAG))).allVaccineStateFullfilled = false;

@@ -7,6 +7,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.smartgresiter.wcaro.R;
+import org.smartgresiter.wcaro.contract.RegisterFragmentContract;
 import org.smartgresiter.wcaro.custom_view.NavigationMenu;
 import org.smartgresiter.wcaro.job.UpdateVisitServiceJob;
 import org.smartgresiter.wcaro.model.FamilyRegisterFramentModel;
@@ -119,8 +120,13 @@ public class FamilyRegisterFragment extends BaseFamilyRegisterFragment {
 
     @Override
     public void filter(String filterString, String joinTableString, String mainConditionString, boolean qrCode) {
-        this.joinTables = new String[]{Constants.TABLE_NAME.FAMILY, Constants.TABLE_NAME.FAMILY_MEMBER};
+        this.joinTables = new String[]{Constants.TABLE_NAME.FAMILY_MEMBER};
         super.filter(filterString, joinTableString, mainConditionString, qrCode);
+    }
+
+    private void dueFilter(String mainConditionString) {
+        this.joinTables = null;
+        super.filter("", "", mainConditionString, false);
     }
 
     @Override
@@ -134,11 +140,18 @@ public class FamilyRegisterFragment extends BaseFamilyRegisterFragment {
                 Drawable rightDrawable = drawables[2];
                 if (rightDrawable != null) {
                     if (Utils.areDrawablesIdentical(rightDrawable, getResources().getDrawable(R.drawable.ic_due_filter_off))) {
+                        dueFilter(presenter().getDueFilterCondition());
                         dueOnlyTextView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_due_filter_on, 0);
                     } else {
+                        filter("", "", presenter().getMainCondition(), false);
                         dueOnlyTextView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_due_filter_off, 0);
                     }
                 }
         }
+    }
+
+    @Override
+    public RegisterFragmentContract.Presenter presenter() {
+        return (RegisterFragmentContract.Presenter) presenter;
     }
 }

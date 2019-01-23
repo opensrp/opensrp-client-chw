@@ -2,6 +2,8 @@ package org.smartgresiter.wcaro.presenter;
 
 import org.apache.commons.lang3.StringUtils;
 import org.smartgresiter.wcaro.contract.ChildRegisterFragmentContract;
+import org.smartgresiter.wcaro.interactor.ChildProfileInteractor;
+import org.smartgresiter.wcaro.util.ChildDBConstants;
 import org.smartgresiter.wcaro.util.Constants;
 import org.smartregister.configurableviews.model.Field;
 import org.smartregister.configurableviews.model.RegisterConfiguration;
@@ -104,5 +106,10 @@ public class ChildRegisterFragmentPresenter implements ChildRegisterFragmentCont
     @Override
     public String getDefaultSortQuery() {
         return DBConstants.KEY.LAST_INTERACTED_WITH + " DESC ";
+    }
+
+    @Override
+    public String getDueFilterCondition() {
+        return getMainCondition() + " AND (" + ChildDBConstants.KEY.VISIT_STATUS + " = '" + ChildProfileInteractor.VisitType.OVERDUE.name() + "' OR " + ChildDBConstants.KEY.VISIT_STATUS + " = '" + ChildProfileInteractor.VisitType.DUE.name() + "') ";
     }
 }

@@ -485,7 +485,7 @@ public class ChildImmunizationFragment extends DialogFragment {
     }
 
     private void updateVaccineGroupViews(View view, final ArrayList<VaccineWrapper> wrappers, List<Vaccine> vaccineList) {
-        updateVaccineGroupViews(view, wrappers, vaccineList, false);
+//        updateVaccineGroupViews(view, wrappers, vaccineList, false);
     }
 
     public void updateVaccineGroupViews(View view, final ArrayList<VaccineWrapper> wrappers, final List<Vaccine> vaccineList, final boolean undo) {
