@@ -256,9 +256,13 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
         return toReturn;    }
 
     @Override
-    public void setGroupVaccineText(HomeVisitVaccineGroupDetails currentActiveGroup, List<Map<String, Object>> sch) {
+    public void setGroupVaccineText(List<Map<String, Object>> sch) {
+        ArrayList<VaccineRepo.Vaccine> allgivenVaccines = new ArrayList<VaccineRepo.Vaccine>();
+        for(HomeVisitVaccineGroupDetails group : allgroups){
+            allgivenVaccines.addAll(group.getGivenVaccines());
+        }
         HashMap<DateTime,ArrayList<VaccineRepo.Vaccine>> groupedByDate = new LinkedHashMap<DateTime, ArrayList<VaccineRepo.Vaccine>>();
-        for(VaccineRepo.Vaccine vaccineGiven:currentActiveGroup.getGivenVaccines()){
+        for(VaccineRepo.Vaccine vaccineGiven:allgivenVaccines){
             for(Map<String, Object> mapToProcess: sch){
                 if(((VaccineRepo.Vaccine)mapToProcess.get("vaccine")).display().equalsIgnoreCase(vaccineGiven.display())){
                     if(groupedByDate.get((DateTime)mapToProcess.get("date"))==null){

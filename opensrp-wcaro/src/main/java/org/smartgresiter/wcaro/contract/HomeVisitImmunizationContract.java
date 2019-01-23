@@ -95,7 +95,7 @@ public interface HomeVisitImmunizationContract {
 
         boolean isSingleVaccineGroupComplete();
 
-        void setGroupVaccineText(HomeVisitVaccineGroupDetails currentActiveGroup, List<Map<String,Object>> sch);
+        void setGroupVaccineText(List<Map<String, Object>> sch);
 
         void setSingleVaccineText(ArrayList<VaccineRepo.Vaccine> vaccinesDueFromLastVisit, List<Map<String,Object>> sch);
     }
