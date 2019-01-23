@@ -201,19 +201,8 @@ public class ChildUtils {
         childVisit.setLastVisitDays(homeAlertRule.noOfDayDue);
         childVisit.setLastVisitMonthName(homeAlertRule.visitMonthName);
         childVisit.setLastVisitTime(lastVisitDate);
-        try {
-            updateFtsSearch(baseEntityId, homeAlertRule.buttonStatus);
-        } catch (Exception e) {
-
-        }
         return childVisit;
     }
-
-    public static void updateFtsSearch(String baseEntityId, String status) {
-        //Utils.updateFtsSearch(Constants.TABLE_NAME.CHILD, baseEntityId, ChildDBConstants.KEY.VISIT_STATUS, status);
-        //Utils.updateFtsSearch(Constants.TABLE_NAME.FAMILY_MEMBER, baseEntityId, ChildDBConstants.KEY.VISIT_STATUS, status);
-    }
-
 
     @SuppressLint("SimpleDateFormat")
     public static String covertLongDateToDisplayDate(long callingTime) {

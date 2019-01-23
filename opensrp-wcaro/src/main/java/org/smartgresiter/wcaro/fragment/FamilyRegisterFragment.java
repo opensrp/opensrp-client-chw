@@ -205,6 +205,54 @@ public class FamilyRegisterFragment extends BaseFamilyRegisterFragment {
     }
 
     @Override
+    public void countExecute() {
+        if (!dueFilterActive) {
+            super.countExecute();
+        } else {
+            Cursor c = null;
+
+            try {
+                SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder(countSelect);
+                String query = "";
+                if (isValidFilterForFts(commonRepository())) {
+                    String sql = sqb.countQueryFts(tablename, joinTable, mainCondition, filters);
+                    sql = sql.replace(CommonFtsObject.idColumn, CommonFtsObject.relationalIdColumn);
+                    sql = sql.replace(CommonFtsObject.searchTableName(Constants.TABLE_NAME.FAMILY), CommonFtsObject.searchTableName(Constants.TABLE_NAME.CHILD));
+                    sql = sql + " GROUP BY " + CommonFtsObject.relationalIdColumn;
+                    Log.i(getClass().getName(), query);
+
+                    clientAdapter.setTotalcount(commonRepository().countSearchIds(sql));
+                    Log.v("total count here", "" + clientAdapter.getTotalcount());
+
+
+                } else {
+                    sqb.addCondition(filters);
+                    query = sqb.orderbyCondition(Sortqueries);
+                    query = sqb.Endquery(query);
+
+                    Log.i(getClass().getName(), query);
+                    c = commonRepository().rawCustomQueryForAdapter(query);
+                    c.moveToFirst();
+                    clientAdapter.setTotalcount(c.getInt(0));
+                    Log.v("total count here", "" + clientAdapter.getTotalcount());
+                }
+
+                clientAdapter.setCurrentlimit(20);
+                clientAdapter.setCurrentoffset(0);
+
+
+            } catch (Exception e) {
+                Log.e(getClass().getName(), e.toString(), e);
+            } finally {
+                if (c != null) {
+                    c.close();
+                }
+            }
+        }
+
+    }
+
+    @Override
     public Loader<Cursor> onCreateLoader(int id, final Bundle args) {
         if (!dueFilterActive) {
             return super.onCreateLoader(id, args);
