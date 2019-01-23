@@ -210,8 +210,8 @@ public class ChildUtils {
     }
 
     public static void updateFtsSearch(String baseEntityId, String status) {
-        Utils.updateFtsSearch(Constants.TABLE_NAME.CHILD, baseEntityId, ChildDBConstants.KEY.VISIT_STATUS, status);
-        Utils.updateFtsSearch(Constants.TABLE_NAME.FAMILY_MEMBER, baseEntityId, ChildDBConstants.KEY.VISIT_STATUS, status);
+        //Utils.updateFtsSearch(Constants.TABLE_NAME.CHILD, baseEntityId, ChildDBConstants.KEY.VISIT_STATUS, status);
+        //Utils.updateFtsSearch(Constants.TABLE_NAME.FAMILY_MEMBER, baseEntityId, ChildDBConstants.KEY.VISIT_STATUS, status);
     }
 
 

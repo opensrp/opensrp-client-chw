@@ -51,7 +51,7 @@ public class UpdateVisitStatusIntentService extends IntentService {
                 if (!homeAlertRuleList.isEmpty()) {
                     String childStatus = mergeChildStatus(homeAlertRuleList);
                     if (StringUtils.isNotBlank(childStatus)) {
-                        Utils.updateFtsSearch(Constants.TABLE_NAME.FAMILY, entityId, ChildDBConstants.KEY.CHILD_VISIT_STATUS, childStatus);
+                        //Utils.updateFtsSearch(Constants.TABLE_NAME.FAMILY, entityId, ChildDBConstants.KEY.CHILD_VISIT_STATUS, childStatus);
                     }
                 }
             } while (cursor.moveToNext());
