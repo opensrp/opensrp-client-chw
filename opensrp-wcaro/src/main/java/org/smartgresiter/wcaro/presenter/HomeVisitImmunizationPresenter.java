@@ -1,5 +1,6 @@
 package org.smartgresiter.wcaro.presenter;
 
+import org.joda.time.DateTime;
 import org.smartgresiter.wcaro.contract.HomeVisitImmunizationContract;
 import org.smartgresiter.wcaro.interactor.HomeVisitImmunizationInteractor;
 import org.smartgresiter.wcaro.task.UndoVaccineTask;
@@ -12,6 +13,8 @@ import org.smartregister.immunization.domain.VaccineWrapper;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Stack;
@@ -27,6 +30,9 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
     private HomeVisitVaccineGroupDetails currentActiveGroup;
     private CommonPersonObjectClient childClient;
     private ArrayList<VaccineWrapper> vaccinesGivenThisVisit = new ArrayList<VaccineWrapper>();
+    public String groupImmunizationSecondaryText = "";
+    public String singleImmunizationSecondaryText = "";
+
 
 
     public HomeVisitImmunizationPresenter(HomeVisitImmunizationContract.View view){
@@ -248,6 +254,31 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
             }
         }
         return toReturn;    }
+
+    @Override
+    public void setGroupVaccineText(HomeVisitVaccineGroupDetails currentActiveGroup, List<Map<String, Object>> sch) {
+        HashMap<DateTime,ArrayList<VaccineRepo.Vaccine>> groupedByDate = new LinkedHashMap<DateTime, ArrayList<VaccineRepo.Vaccine>>();
+        for(VaccineRepo.Vaccine vaccineGiven:currentActiveGroup.getGivenVaccines()){
+            for(Map<String, Object> mapToProcess: sch){
+                if(((VaccineRepo.Vaccine)mapToProcess.get("vaccine")).display().equalsIgnoreCase(vaccineGiven.display())){
+                    if(groupedByDate.get((DateTime)mapToProcess.get("date"))==null){
+                        ArrayList<VaccineRepo.Vaccine> givenVaccinesAtDate = new ArrayList<VaccineRepo.Vaccine>();
+                        givenVaccinesAtDate.add(vaccineGiven);
+                        groupedByDate.put((DateTime) mapToProcess.get("date"),givenVaccinesAtDate);
+                    }else{
+                        groupedByDate.get(mapToProcess.get("date")).add(vaccineGiven);
+                    }
+                }
+            }
+        }
+        groupedByDate.size();
+
+    }
+
+    @Override
+    public void setSingleVaccineText(ArrayList<VaccineRepo.Vaccine> vaccinesDueFromLastVisit, List<Map<String, Object>> sch) {
+
+    }
 
 
 }

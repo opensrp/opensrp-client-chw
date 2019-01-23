@@ -95,6 +95,9 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
         presenter.createAllVaccineGroups(alerts,vaccines,sch);
         presenter.getVaccinesNotGivenLastVisit();
         presenter.calculateCurrentActiveGroup();
+        presenter.setGroupVaccineText(presenter.getCurrentActiveGroup(),sch);
+        presenter.setSingleVaccineText(presenter.getVaccinesDueFromLastVisit(),sch);
+
         if(presenter.isPartiallyComplete()){
             textview_group_immunization_primary_text.setText("Immunizations" + "(" + presenter.getCurrentActiveGroup().getGroup() + ")");
             textview_group_immunization_secondary_text.setText(immunizationsGivenThisVisitafterCompletion());
