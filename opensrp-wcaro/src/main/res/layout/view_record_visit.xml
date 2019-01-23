@@ -111,6 +111,7 @@
             android:layout_alignParentRight="true"
             android:textColor="@color/primary" />
     </RelativeLayout>
+
     <View
         android:id="@+id/view_record"
         android:layout_width="match_parent"

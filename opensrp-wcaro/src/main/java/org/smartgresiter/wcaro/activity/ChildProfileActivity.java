@@ -24,7 +24,6 @@ import org.smartgresiter.wcaro.contract.ChildProfileContract;
 import org.smartgresiter.wcaro.contract.ChildRegisterContract;
 import org.smartgresiter.wcaro.custom_view.IndividualMemberFloatingMenu;
 import org.smartgresiter.wcaro.fragment.ChildHomeVisitFragment;
-import org.smartgresiter.wcaro.fragment.ChildImmunizationFragment;
 import org.smartgresiter.wcaro.fragment.FamilyCallDialogFragment;
 import org.smartgresiter.wcaro.listener.OnClickFloatingMenu;
 import org.smartgresiter.wcaro.model.ChildProfileModel;
@@ -33,11 +32,8 @@ import org.smartgresiter.wcaro.util.ChildUtils;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.family.util.Constants;
 import org.smartregister.helper.ImageRenderHelper;
-import org.smartregister.immunization.domain.VaccineWrapper;
-import org.smartregister.immunization.listener.VaccinationActionListener;
 import org.smartregister.view.activity.BaseProfileActivity;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -45,7 +41,7 @@ import java.util.Map;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 
-public class ChildProfileActivity extends BaseProfileActivity implements ChildProfileContract.View, ChildRegisterContract.InteractorCallBack{
+public class ChildProfileActivity extends BaseProfileActivity implements ChildProfileContract.View, ChildRegisterContract.InteractorCallBack {
     private boolean appBarTitleIsShown = true;
     private int appBarLayoutScrollRange = -1;
     private String childBaseEntityId;

@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface HomeVisitImmunizationContract {
-    interface View extends InteractorCallBack{
+    interface View extends InteractorCallBack {
 
         void setActivity(Activity activity);
 
@@ -34,7 +34,8 @@ public interface HomeVisitImmunizationContract {
 
         void updateImmunizationState();
     }
-    interface Presenter{
+
+    interface Presenter {
 
         void createAllVaccineGroups(List<Alert> alerts, List<Vaccine> vaccines, List<Map<String, Object>> sch);
 
@@ -43,6 +44,7 @@ public interface HomeVisitImmunizationContract {
         void calculateCurrentActiveGroup();
 
         HomeVisitImmunizationContract.View getView();
+
         void onDestroy(boolean isChangingConfiguration);
 
         boolean isPartiallyComplete();
@@ -95,7 +97,8 @@ public interface HomeVisitImmunizationContract {
 
         boolean isSingleVaccineGroupComplete();
     }
-    interface Interactor{
+
+    interface Interactor {
 
         void onDestroy(boolean isChangingConfiguration);
 
@@ -135,7 +138,8 @@ public interface HomeVisitImmunizationContract {
 
         void updateImmunizationState(CommonPersonObjectClient childClient, ArrayList<VaccineWrapper> notGivenVaccines, InteractorCallBack callBack);
     }
-    interface InteractorCallBack{
+
+    interface InteractorCallBack {
         void immunizationState(List<Alert> alerts, List<Vaccine> vaccines, List<Map<String, Object>> sch);
     }
 }

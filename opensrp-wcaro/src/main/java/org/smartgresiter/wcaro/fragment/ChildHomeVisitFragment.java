@@ -122,7 +122,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
 
         homeVisitGrowthAndNutritionLayout = view.findViewById(R.id.growth_and_nutrition_group);
 
-        homeVisitImmunizationView = (HomeVisitImmunizationView)view.findViewById(R.id.home_visit_immunization_view);
+        homeVisitImmunizationView = (HomeVisitImmunizationView) view.findViewById(R.id.home_visit_immunization_view);
         homeVisitImmunizationView.setActivity(getActivity());
         homeVisitImmunizationView.setChildClient(childClient);
         assignNameHeader();
