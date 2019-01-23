@@ -186,6 +186,11 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
 
         switch (v.getId()) {
             case R.id.birth_cert_group:
+                try {
+                    startForm(Constants.JSON_FORM.BIRTH_CERTIFICATION,childClient.getCaseId(),"","","");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 break;
             case R.id.textview_submit:
                 if (checkAllGiven()) {
@@ -392,7 +397,8 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
 
                 JSONObject form = new JSONObject(jsonString);
                 if (form.getString(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_TYPE).equals(org.smartregister.family.util.Utils.metadata().familyRegister.registerEventType)
-                        || form.getString(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_TYPE).equals("Child Registration")
+                        || form.getString(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_TYPE).equals(Constants.EventType.CHILD_REGISTRATION)
+                        || form.getString(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_TYPE).equals(Constants.EventType.BIRTH_CERTIFICATION)
                         ) {
                     saveForm(jsonString, false);
                 }

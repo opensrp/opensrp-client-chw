@@ -6,6 +6,13 @@ condition: "step1_birth_cert == 'Yes'"
 actions:
  - "isRelevant = true"
 ---
+name: step1_birth_cert_num
+description: birth certification number
+priority: 1
+condition: "step1_birth_cert == 'Yes'"
+actions:
+  - "isRelevant = true"
+---
 name: step1_birth_notification
 description: birth notification done
 priority: 1

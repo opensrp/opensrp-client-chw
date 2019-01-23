@@ -120,7 +120,7 @@
           "No"
         ],
         "v_required": {
-          "value": true,
+          "value": false,
           "err": "Please select option"
         },
         "relevance": {
