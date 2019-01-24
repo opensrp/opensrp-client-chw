@@ -30,7 +30,7 @@
 
             <org.smartregister.view.customcontrols.CustomFontTextView
                 android:id="@+id/textview_title"
-                style="@style/CustomFontTextViewStyle.NavBar.Bold"
+                style="@style/CustomFontTextViewStyle.NavBar.Black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -38,7 +38,7 @@
                 android:text="@string/remove_member_title"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textColor="@android:color/white"
-                android:textSize="28sp" />
+                android:textSize="26sp" />
 
         </android.support.v7.widget.Toolbar>
 

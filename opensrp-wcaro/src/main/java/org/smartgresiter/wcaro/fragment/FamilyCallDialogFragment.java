@@ -125,7 +125,7 @@ public class FamilyCallDialogFragment extends DialogFragment implements FamilyCa
             llFamilyHead.setVisibility(View.VISIBLE);
             tvFamilyHeadName.setText(model.getName());
 
-            tvFamilyHeadPhone.setText(String.format("CALL [%s]", model.getPhoneNumber()));
+            tvFamilyHeadPhone.setText(String.format("CALL %s", model.getPhoneNumber()));
             tvFamilyHeadPhone.setTag(model.getPhoneNumber());
 
             tvFamilyHeadTitle.setText(model.getRole());
@@ -145,7 +145,7 @@ public class FamilyCallDialogFragment extends DialogFragment implements FamilyCa
             llCareGiver.setVisibility(View.VISIBLE);
             tvCareGiverName.setText(model.getName());
 
-            tvCareGiverPhone.setText(String.format("CALL [%s]", model.getPhoneNumber()));
+            tvCareGiverPhone.setText(String.format("CALL %s", model.getPhoneNumber()));
             tvCareGiverPhone.setTag(model.getPhoneNumber());
 
             tvCareGiverTitle.setText(model.getRole());
