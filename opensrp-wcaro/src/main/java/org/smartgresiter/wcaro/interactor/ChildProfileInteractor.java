@@ -49,7 +49,6 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
     public static final String TAG = ChildProfileInteractor.class.getName();
     private AppExecutors appExecutors;
     private CommonPersonObjectClient pClient;
-    private String familyId;
     private FamilyMemberVaccinationAsyncTask familyMemberVaccinationAsyncTask;
     private Map<String, Date> vaccineList;
     private String serviceDueStatus = FamilyServiceType.NOTHING.name();
@@ -65,10 +64,6 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
 
     public CommonPersonObjectClient getpClient() {
         return pClient;
-    }
-
-    public String getFamilyId() {
-        return familyId;
     }
 
     public Map<String, Date> getVaccineList() {
@@ -248,6 +243,13 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
 
     }
 
+    /**
+     * Refreshes family view based on the child id
+     *
+     * @param baseEntityId
+     * @param isForEdit
+     * @param callback
+     */
     @Override
     public void refreshProfileView(final String baseEntityId, final boolean isForEdit, final ChildProfileContract.InteractorCallBack callback) {
         Runnable runnable = new Runnable() {
@@ -261,10 +263,26 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
                     pClient = new CommonPersonObjectClient(personObject.getCaseId(),
                             personObject.getDetails(), "");
                     pClient.setColumnmaps(personObject.getColumnmaps());
-                    familyId = Utils.getValue(pClient.getColumnmaps(), ChildDBConstants.KEY.RELATIONAL_ID, false);
+                    final String familyId = Utils.getValue(pClient.getColumnmaps(), ChildDBConstants.KEY.RELATIONAL_ID, false);
+
+                    final CommonPersonObject familyPersonObject = getCommonRepository(Utils.metadata().familyRegister.tableName).findByBaseEntityId(familyId);
+                    final CommonPersonObjectClient client = new CommonPersonObjectClient(familyPersonObject.getCaseId(), familyPersonObject.getDetails(), "");
+                    client.setColumnmaps(familyPersonObject.getColumnmaps());
+
+                    final String primaryCaregiverID = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.PRIMARY_CAREGIVER, false);
+                    final String familyHeadID = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.FAMILY_HEAD, false);
+                    final String familyName = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.FIRST_NAME, false);
+
+
                     appExecutors.mainThread().execute(new Runnable() {
                         @Override
                         public void run() {
+
+                            callback.setFamilyHeadID(familyHeadID);
+                            callback.setFamilyID(familyId);
+                            callback.setPrimaryCareGiverID(primaryCaregiverID);
+                            callback.setFamilyName(familyName);
+
                             if (isForEdit) {
                                 callback.startFormForEdit(pClient);
                             } else {

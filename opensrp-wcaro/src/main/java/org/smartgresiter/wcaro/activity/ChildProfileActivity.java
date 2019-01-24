@@ -205,7 +205,11 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     private void openFamilyDueTab() {
         Intent intent = new Intent(this, FamilyProfileActivity.class);
 
-        intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.BASE_ENTITY_ID, ((ChildProfilePresenter) presenter()).getFamilyId());
+        intent.putExtra(Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID, ((ChildProfilePresenter) presenter()).getFamilyId());
+        intent.putExtra(Constants.INTENT_KEY.FAMILY_HEAD, ((ChildProfilePresenter) presenter()).getFamilyHeadID());
+        intent.putExtra(Constants.INTENT_KEY.PRIMARY_CAREGIVER, ((ChildProfilePresenter) presenter()).getPrimaryCareGiverID());
+        intent.putExtra(Constants.INTENT_KEY.FAMILY_NAME, ((ChildProfilePresenter) presenter()).getFamilyName());
+
         intent.putExtra(org.smartgresiter.wcaro.util.Constants.INTENT_KEY.SERVICE_DUE, true);
         startActivity(intent);
     }
