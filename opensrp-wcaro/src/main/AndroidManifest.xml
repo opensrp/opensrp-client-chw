@@ -119,7 +119,6 @@
         <service android:name="org.smartregister.sync.intent.SyncIntentService" />
         <service android:name="org.smartregister.sync.intent.ExtendedSyncIntentService" />
         <service android:name="org.smartregister.sync.intent.ValidateIntentService" />
-        <service android:name="org.smartgresiter.wcaro.service.UpdateVisitStatusIntentService" />
     </application>
 
 </manifest>

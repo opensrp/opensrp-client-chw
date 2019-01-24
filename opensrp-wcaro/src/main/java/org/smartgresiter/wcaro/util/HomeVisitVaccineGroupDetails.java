@@ -29,8 +29,6 @@ public class HomeVisitVaccineGroupDetails {
     }
 
 
-
-
     public ArrayList<VaccineRepo.Vaccine> getGivenVaccines() {
         return givenVaccines;
     }
@@ -90,6 +88,6 @@ public class HomeVisitVaccineGroupDetails {
     }
 
     public void setDueDate(String dueDate) {
-       this.dueDate = dueDate;
+        this.dueDate = dueDate;
     }
 }

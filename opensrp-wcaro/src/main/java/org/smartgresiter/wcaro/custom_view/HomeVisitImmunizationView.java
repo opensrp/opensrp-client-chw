@@ -32,9 +32,9 @@ import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class HomeVisitImmunizationView extends LinearLayout implements View.OnClickListener, HomeVisitImmunizationContract.View{
+public class HomeVisitImmunizationView extends LinearLayout implements View.OnClickListener, HomeVisitImmunizationContract.View {
     public static final String TAG = "HomeVisitImmunization";
-   private HomeVisitImmunizationContract.Presenter presenter;
+    private HomeVisitImmunizationContract.Presenter presenter;
     private CommonPersonObjectClient commonPersonObjectClient;
     private FragmentManager fragmentManager;
     private ChildHomeVisitFragment childHomeVisitFragment;
@@ -67,7 +67,7 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
     }
 
     @Override
-    public void setActivity(Activity activity){
+    public void setActivity(Activity activity) {
         this.context = activity;
     }
 
@@ -78,24 +78,24 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
         textview_immunization_primary_text = (TextView) findViewById(R.id.textview_immunization);
         textview_immunization_secondary_text = (TextView) findViewById(R.id.textview_immunization_secondary_text);
         immunization_status_circle = ((CircleImageView) findViewById(R.id.immunization_status_circle));
-        immunization_group_status_circle = ((CircleImageView)findViewById(R.id.immunization_group_status_circle));
-        single_immunization_group = ((LinearLayout)findViewById(R.id.immunization_name_group));
+        immunization_group_status_circle = ((CircleImageView) findViewById(R.id.immunization_group_status_circle));
+        single_immunization_group = ((LinearLayout) findViewById(R.id.immunization_name_group));
         multiple_immunization_group = ((LinearLayout) findViewById(R.id.immunization_group));
         initializePresenter();
 
     }
 
     @Override
-    public void setChildClient(CommonPersonObjectClient childClient){
+    public void setChildClient(CommonPersonObjectClient childClient) {
         presenter.setChildClient(childClient);
     }
 
     @Override
     public void refreshPresenter(List<Alert> alerts, List<Vaccine> vaccines, List<Map<String, Object>> sch) {
-        presenter.createAllVaccineGroups(alerts,vaccines,sch);
+        presenter.createAllVaccineGroups(alerts, vaccines, sch);
         presenter.getVaccinesNotGivenLastVisit();
         presenter.calculateCurrentActiveGroup();
-        if(presenter.isPartiallyComplete()){
+        if (presenter.isPartiallyComplete()) {
             textview_group_immunization_primary_text.setText("Immunizations" + "(" + presenter.getCurrentActiveGroup().getGroup() + ")");
             textview_group_immunization_secondary_text.setText(immunizationsGivenThisVisitafterCompletion());
             immunization_group_status_circle.setImageResource(R.drawable.ic_checked);
@@ -103,7 +103,7 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
             immunization_group_status_circle.setCircleBackgroundColor(getResources().getColor(R.color.pnc_circle_yellow));
             immunization_group_status_circle.setBorderColor(getResources().getColor(R.color.pnc_circle_yellow));
             multiple_immunization_group.setOnClickListener(null);
-        }else if(presenter.isComplete()){
+        } else if (presenter.isComplete()) {
             textview_group_immunization_primary_text.setText("Immunizations" + "(" + presenter.getCurrentActiveGroup().getGroup() + ")");
             textview_group_immunization_secondary_text.setText(immunizationsGivenThisVisitafterCompletion());
             immunization_group_status_circle.setImageResource(R.drawable.ic_checked);
@@ -111,64 +111,64 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
             immunization_group_status_circle.setCircleBackgroundColor(getResources().getColor(R.color.alert_complete_green));
             immunization_group_status_circle.setBorderColor(getResources().getColor(R.color.alert_complete_green));
             multiple_immunization_group.setOnClickListener(null);
-        }else if (presenter.groupIsDue()){
+        } else if (presenter.groupIsDue()) {
             textview_group_immunization_primary_text.setText("Immunizations" + "(" + presenter.getCurrentActiveGroup().getGroup() + ")");
-            textview_group_immunization_secondary_text.setText("Due On "+presenter.getCurrentActiveGroup().getDueDate());
+            textview_group_immunization_secondary_text.setText("Due On " + presenter.getCurrentActiveGroup().getDueDate());
 
             multiple_immunization_group.setTag(R.id.nextduevaccinelist, presenter.getCurrentActiveGroup());
             multiple_immunization_group.setTag(R.id.vaccinelist, vaccines);
             multiple_immunization_group.setOnClickListener(this);
         }
-        if(presenter.getVaccinesDueFromLastVisit().size()>0){
+        if (presenter.getVaccinesDueFromLastVisit().size() > 0) {
             String vaccinesDueLastVisit = "";
-            for(int i = 0;i<presenter.getVaccinesDueFromLastVisit().size();i++){
-                vaccinesDueLastVisit = vaccinesDueLastVisit+presenter.getVaccinesDueFromLastVisit().get(i).display().toUpperCase()+",";
+            for (int i = 0; i < presenter.getVaccinesDueFromLastVisit().size(); i++) {
+                vaccinesDueLastVisit = vaccinesDueLastVisit + presenter.getVaccinesDueFromLastVisit().get(i).display().toUpperCase() + ",";
             }
-            if(vaccinesDueLastVisit.endsWith(",")){
-                vaccinesDueLastVisit = vaccinesDueLastVisit.substring(0,vaccinesDueLastVisit.length()-1);
+            if (vaccinesDueLastVisit.endsWith(",")) {
+                vaccinesDueLastVisit = vaccinesDueLastVisit.substring(0, vaccinesDueLastVisit.length() - 1);
             }
             textview_immunization_primary_text.setText(vaccinesDueLastVisit);
-            single_immunization_group.setTag(R.id.nextduevaccinelist,presenter.getVaccinesDueFromLastVisitStillDueState());
+            single_immunization_group.setTag(R.id.nextduevaccinelist, presenter.getVaccinesDueFromLastVisitStillDueState());
             single_immunization_group.setOnClickListener(this);
 
-            if(presenter.getVaccinesDueFromLastVisitStillDueState().size()==0){
-                if(presenter.isSingleVaccineGroupPartialComplete()){
+            if (presenter.getVaccinesDueFromLastVisitStillDueState().size() == 0) {
+                if (presenter.isSingleVaccineGroupPartialComplete()) {
                     immunization_status_circle.setImageResource(R.drawable.ic_checked);
                     immunization_status_circle.setColorFilter(getResources().getColor(R.color.white));
                     immunization_status_circle.setCircleBackgroundColor(getResources().getColor(R.color.pnc_circle_yellow));
                     immunization_status_circle.setBorderColor(getResources().getColor(R.color.pnc_circle_yellow));
                 }
-                if(presenter.isSingleVaccineGroupComplete()){
+                if (presenter.isSingleVaccineGroupComplete()) {
                     immunization_status_circle.setImageResource(R.drawable.ic_checked);
                     immunization_status_circle.setColorFilter(getResources().getColor(R.color.white));
                     immunization_status_circle.setCircleBackgroundColor(getResources().getColor(R.color.alert_complete_green));
                     immunization_status_circle.setBorderColor(getResources().getColor(R.color.alert_complete_green));
                 }
             }
-        }else{
+        } else {
             single_immunization_group.setVisibility(View.GONE);
         }
     }
 
     private String immunizationsGivenThisVisitafterCompletion() {
         String immunizationGivenThisVisit = "";
-        for(VaccineWrapper vaccineWrapper: presenter.getVaccinesGivenThisVisit()){
-            immunizationGivenThisVisit = immunizationGivenThisVisit+vaccineWrapper.getName().toUpperCase()+",";
+        for (VaccineWrapper vaccineWrapper : presenter.getVaccinesGivenThisVisit()) {
+            immunizationGivenThisVisit = immunizationGivenThisVisit + vaccineWrapper.getName().toUpperCase() + ",";
         }
-        if(immunizationGivenThisVisit.equalsIgnoreCase("")){
+        if (immunizationGivenThisVisit.equalsIgnoreCase("")) {
             immunizationGivenThisVisit = getAllGivenVaccines();
         }
-        if(immunizationGivenThisVisit.endsWith(",")){
-            immunizationGivenThisVisit = immunizationGivenThisVisit.substring(0,immunizationGivenThisVisit.length()-1);
+        if (immunizationGivenThisVisit.endsWith(",")) {
+            immunizationGivenThisVisit = immunizationGivenThisVisit.substring(0, immunizationGivenThisVisit.length() - 1);
         }
         return immunizationGivenThisVisit;
     }
 
     private String getAllGivenVaccines() {
         String allImmunizationGivenThisVisit = "";
-        for(HomeVisitVaccineGroupDetails toprocess: presenter.getAllgroups()){
-            for(VaccineRepo.Vaccine given: toprocess.getGivenVaccines()){
-                allImmunizationGivenThisVisit = allImmunizationGivenThisVisit+ given.display().toUpperCase()+",";
+        for (HomeVisitVaccineGroupDetails toprocess : presenter.getAllgroups()) {
+            for (VaccineRepo.Vaccine given : toprocess.getGivenVaccines()) {
+                allImmunizationGivenThisVisit = allImmunizationGivenThisVisit + given.display().toUpperCase() + ",";
             }
         }
         return allImmunizationGivenThisVisit;
@@ -201,7 +201,7 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
                     Date dob = dateTime.toDate();
                     ArrayList<VaccineWrapper> vaccineWrappers = new ArrayList<VaccineWrapper>();
                     ArrayList<VaccineRepo.Vaccine> vaccinesList = (ArrayList<VaccineRepo.Vaccine>) v.getTag(R.id.nextduevaccinelist);
-                    for(VaccineRepo.Vaccine vaccine:vaccinesList) {
+                    for (VaccineRepo.Vaccine vaccine : vaccinesList) {
                         VaccineWrapper vaccineWrapper = new VaccineWrapper();
                         vaccineWrapper.setVaccine(vaccine);
                         vaccineWrapper.setName(vaccine.display());
@@ -209,14 +209,14 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
                         vaccineWrappers.add(vaccineWrapper);
                     }
                     List<Vaccine> vaccines = (List<Vaccine>) v.getTag(R.id.vaccinelist);
-                    if(vaccineWrappers.size()==1) {
+                    if (vaccineWrappers.size() == 1) {
                         CustomVaccinationDialogFragment customVaccinationDialogFragment = CustomVaccinationDialogFragment.newInstance(dob, vaccines, vaccineWrappers);
                         customVaccinationDialogFragment.setContext(context);
                         customVaccinationDialogFragment.setChildDetails(presenter.getchildClient());
                         customVaccinationDialogFragment.setView(this);
                         customVaccinationDialogFragment.setDisableConstraints(true);
                         customVaccinationDialogFragment.show(context.getFragmentManager(), ChildImmunizationFragment.TAG);
-                    }else if(vaccineWrappers.size()>1){
+                    } else if (vaccineWrappers.size() > 1) {
                         CustomMultipleVaccinationDialogFragment customVaccinationDialogFragment = CustomMultipleVaccinationDialogFragment.newInstance(dob, vaccines, vaccineWrappers);
                         customVaccinationDialogFragment.setContext(context);
                         customVaccinationDialogFragment.setChildDetails(presenter.getchildClient());
@@ -230,7 +230,7 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
     }
 
     @Override
-    public void undoVaccines(){
+    public void undoVaccines() {
         presenter.undoGivenVaccines();
     }
 
@@ -246,16 +246,16 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
     }
 
     @Override
-    public void updateImmunizationState(){
+    public void updateImmunizationState() {
         presenter.updateImmunizationState(this);
     }
 
     @Override
     public void immunizationState(List<Alert> alerts, List<Vaccine> vaccines, List<Map<String, Object>> sch) {
-        refreshPresenter(alerts,vaccines,sch);
-        if((presenter.isComplete()||presenter.isPartiallyComplete())&&(presenter.isSingleVaccineGroupPartialComplete()||presenter.isSingleVaccineGroupComplete())) {
+        refreshPresenter(alerts, vaccines, sch);
+        if ((presenter.isComplete() || presenter.isPartiallyComplete()) && (presenter.isSingleVaccineGroupPartialComplete() || presenter.isSingleVaccineGroupComplete())) {
             ((ChildHomeVisitFragment) (((Activity) context).getFragmentManager().findFragmentByTag(ChildHomeVisitFragment.DIALOG_TAG))).allVaccineStateFullfilled = true;
-        }else{
+        } else {
             ((ChildHomeVisitFragment) (((Activity) context).getFragmentManager().findFragmentByTag(ChildHomeVisitFragment.DIALOG_TAG))).allVaccineStateFullfilled = false;
         }
         ((ChildHomeVisitFragment) (((Activity) context).getFragmentManager().findFragmentByTag(ChildHomeVisitFragment.DIALOG_TAG))).checkIfSubmitIsToBeEnabled();

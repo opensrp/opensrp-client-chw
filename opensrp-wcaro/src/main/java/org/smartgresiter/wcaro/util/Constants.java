@@ -12,7 +12,10 @@ public class Constants {
     public static final class EventType {
         public static final String FAMILY_REGISTRATION = "Family Registration";
         public static final String FAMILY_MEMBER_REGISTRATION = "Family Member Registration";
+
         public static final String CHILD_REGISTRATION = "Child Registration";
+        public static final String CHILD_HOME_VISIT = "Child Home Visit";
+        public static final String CHILD_VISIT_NOT_DONE = "Visit not done";
 
         public static final String UPDATE_FAMILY_REGISTRATION = "Update Family Registration";
         public static final String UPDATE_FAMILY_MEMBER_REGISTRATION = "Update Family Member Registration";

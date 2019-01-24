@@ -44,7 +44,7 @@
                     android:textColor="@color/customAppThemeBlue"
                     android:textSize="17sp"
                     android:paddingLeft="0dp"
-                    android:paddingStart="0dp"/>
+                    android:paddingStart="0dp" />
             </android.support.v7.widget.Toolbar>
 
             <LinearLayout
