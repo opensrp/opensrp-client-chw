@@ -279,7 +279,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         String dobString = org.smartregister.family.util.Utils.getDuration(org.smartregister.family.util.Utils.getValue
                 (childClient.getColumnmaps(), DBConstants.KEY.DOB, false));
 
-        JSONObject revForm=JsonFormUtils.getBirthCertFormAsJson(form,childBaseEntityId,"",dobString);
+        JSONObject revForm=JsonFormUtils.getBirthCertFormAsJson(form,childClient.getCaseId(),"",dobString);
         startFormActivity(revForm);
     }
 
