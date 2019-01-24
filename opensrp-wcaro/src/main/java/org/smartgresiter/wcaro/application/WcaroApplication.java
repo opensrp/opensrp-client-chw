@@ -86,7 +86,7 @@ public class WcaroApplication extends DrishtiApplication {
             return new String[]{DBConstants.KEY.LAST_INTERACTED_WITH, DBConstants.KEY.DATE_REMOVED};
         } else if (tableName.equals(Constants.TABLE_NAME.FAMILY_MEMBER) || tableName.equals(Constants.TABLE_NAME.CHILD)) {
             return new String[]{DBConstants.KEY.DOB, DBConstants.KEY.DOD, DBConstants.KEY
-                    .LAST_INTERACTED_WITH, DBConstants.KEY.DATE_REMOVED,ChildDBConstants.KEY.VISIT_STATUS};
+                    .LAST_INTERACTED_WITH, DBConstants.KEY.DATE_REMOVED, ChildDBConstants.KEY.LAST_HOME_VISIT, ChildDBConstants.KEY.VISIT_NOT_DONE};
         }
         return null;
     }

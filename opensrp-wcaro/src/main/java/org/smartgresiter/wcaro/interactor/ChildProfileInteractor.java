@@ -17,6 +17,7 @@ import org.smartgresiter.wcaro.util.ChildHomeVisit;
 import org.smartgresiter.wcaro.util.ChildService;
 import org.smartgresiter.wcaro.util.ChildUtils;
 import org.smartgresiter.wcaro.util.ChildVisit;
+import org.smartgresiter.wcaro.util.Constants;
 import org.smartgresiter.wcaro.util.ImmunizationState;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
@@ -26,7 +27,6 @@ import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.domain.UniqueId;
 import org.smartregister.family.FamilyLibrary;
 import org.smartregister.family.util.AppExecutors;
-import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
@@ -49,7 +49,6 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
     public static final String TAG = ChildProfileInteractor.class.getName();
     private AppExecutors appExecutors;
     private CommonPersonObjectClient pClient;
-    private String familyId;
     private FamilyMemberVaccinationAsyncTask familyMemberVaccinationAsyncTask;
     private Map<String, Date> vaccineList;
     private String serviceDueStatus = FamilyServiceType.NOTHING.name();
@@ -65,10 +64,6 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
 
     public CommonPersonObjectClient getpClient() {
         return pClient;
-    }
-
-    public String getFamilyId() {
-        return familyId;
     }
 
     public Map<String, Date> getVaccineList() {
@@ -137,7 +132,7 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
             }
 
             if (baseClient != null || baseEvent != null) {
-                String imageLocation = JsonFormUtils.getFieldValue(jsonString, Constants.KEY.PHOTO);
+                String imageLocation = JsonFormUtils.getFieldValue(jsonString, org.smartregister.family.util.Constants.KEY.PHOTO);
                 JsonFormUtils.saveImage(baseEvent.getProviderId(), baseClient.getBaseEntityId(), imageLocation);
             }
 
@@ -152,8 +147,7 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
 
     @Override
     public void updateVisitNotDone(long value) {
-        ChildUtils.updateClientStatusAsEvent(getpClient().entityId(), "Visit not done", "visit_not_done", "" + value, "ec_child");
-
+        ChildUtils.updateClientStatusAsEvent(getpClient().entityId(), Constants.EventType.CHILD_VISIT_NOT_DONE, ChildDBConstants.KEY.VISIT_NOT_DONE, value+"", Constants.TABLE_NAME.CHILD);
     }
 
     @Override
@@ -162,7 +156,7 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
 
         String dobString = Utils.getDuration(Utils.getValue(pClient.getColumnmaps(), DBConstants.KEY.DOB, false));
 
-        final ChildVisit childVisit = ChildUtils.getChildVisitStatus(baseEntityId,dobString, childHomeVisit.getLastHomeVisitDate(), childHomeVisit.getVisitNotDoneDate());
+        final ChildVisit childVisit = ChildUtils.getChildVisitStatus(dobString, childHomeVisit.getLastHomeVisitDate(), childHomeVisit.getVisitNotDoneDate());
 
         Runnable runnable = new Runnable() {
             @Override
@@ -249,6 +243,13 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
 
     }
 
+    /**
+     * Refreshes family view based on the child id
+     *
+     * @param baseEntityId
+     * @param isForEdit
+     * @param callback
+     */
     @Override
     public void refreshProfileView(final String baseEntityId, final boolean isForEdit, final ChildProfileContract.InteractorCallBack callback) {
         Runnable runnable = new Runnable() {
@@ -262,10 +263,26 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
                     pClient = new CommonPersonObjectClient(personObject.getCaseId(),
                             personObject.getDetails(), "");
                     pClient.setColumnmaps(personObject.getColumnmaps());
-                    familyId = Utils.getValue(pClient.getColumnmaps(), ChildDBConstants.KEY.RELATIONAL_ID, false);
+                    final String familyId = Utils.getValue(pClient.getColumnmaps(), ChildDBConstants.KEY.RELATIONAL_ID, false);
+
+                    final CommonPersonObject familyPersonObject = getCommonRepository(Utils.metadata().familyRegister.tableName).findByBaseEntityId(familyId);
+                    final CommonPersonObjectClient client = new CommonPersonObjectClient(familyPersonObject.getCaseId(), familyPersonObject.getDetails(), "");
+                    client.setColumnmaps(familyPersonObject.getColumnmaps());
+
+                    final String primaryCaregiverID = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.PRIMARY_CAREGIVER, false);
+                    final String familyHeadID = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.FAMILY_HEAD, false);
+                    final String familyName = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.FIRST_NAME, false);
+
+
                     appExecutors.mainThread().execute(new Runnable() {
                         @Override
                         public void run() {
+
+                            callback.setFamilyHeadID(familyHeadID);
+                            callback.setFamilyID(familyId);
+                            callback.setPrimaryCareGiverID(primaryCaregiverID);
+                            callback.setFamilyName(familyName);
+
                             if (isForEdit) {
                                 callback.startFormForEdit(pClient);
                             } else {

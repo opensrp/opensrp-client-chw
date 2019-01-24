@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import org.apache.commons.lang3.StringUtils;
+import org.jeasy.rules.api.Rules;
 import org.json.JSONObject;
 import org.smartgresiter.wcaro.application.WcaroApplication;
 import org.smartgresiter.wcaro.rule.HomeAlertRule;
@@ -17,14 +18,12 @@ import org.smartregister.clientandeventmodel.Obs;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.family.FamilyLibrary;
 import org.smartregister.family.util.DBConstants;
-import org.smartregister.family.util.Utils;
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.sync.helper.ECSyncHelper;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -94,8 +93,8 @@ public class ChildUtils {
     public static String mainSelectRegisterWithoutGroupby(String tableName, String familyTableName, String familyMemberTableName, String mainCondition) {
         SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
         queryBUilder.SelectInitiateMainTable(tableName, mainColumns(tableName, familyTableName, familyMemberTableName));
-        queryBUilder.customJoin("LEFT JOIN " + familyTableName + " ON  " + tableName + "."+ DBConstants.KEY.RELATIONAL_ID + " = " + familyTableName + ".id");
-        queryBUilder.customJoin("LEFT JOIN " + familyMemberTableName + " ON  " + familyMemberTableName + "."+ DBConstants.KEY.BASE_ENTITY_ID + " = " + familyTableName + ".primary_caregiver");
+        queryBUilder.customJoin("LEFT JOIN " + familyTableName + " ON  " + tableName + "." + DBConstants.KEY.RELATIONAL_ID + " = " + familyTableName + ".id");
+        queryBUilder.customJoin("LEFT JOIN " + familyMemberTableName + " ON  " + familyMemberTableName + "." + DBConstants.KEY.BASE_ENTITY_ID + " = " + familyTableName + ".primary_caregiver");
 
         return queryBUilder.mainCondition(mainCondition);
     }
@@ -123,7 +122,7 @@ public class ChildUtils {
         ChildHomeVisit childHomeVisit = new ChildHomeVisit();
         Cursor cursor = Utils.context().commonrepository(org.smartgresiter.wcaro.util.Constants.TABLE_NAME.CHILD).queryTable(query);
         if (cursor != null && cursor.moveToFirst()) {
-            String lastVisitStr = cursor.getString(1);
+            String lastVisitStr = cursor.getString(cursor.getColumnIndex(ChildDBConstants.KEY.LAST_HOME_VISIT));
             if (!TextUtils.isEmpty(lastVisitStr)) {
                 try {
                     childHomeVisit.setLastHomeVisitDate(Long.parseLong(lastVisitStr));
@@ -131,7 +130,7 @@ public class ChildUtils {
 
                 }
             }
-            String visitNotDoneStr = cursor.getString(2);
+            String visitNotDoneStr = cursor.getString(cursor.getColumnIndex(ChildDBConstants.KEY.VISIT_NOT_DONE));
             if (!TextUtils.isEmpty(visitNotDoneStr)) {
                 try {
                     childHomeVisit.setVisitNotDoneDate(Long.parseLong(visitNotDoneStr));
@@ -164,29 +163,43 @@ public class ChildUtils {
         return columns;
     }
 
-    public static ChildVisit getChildVisitStatus(String baseEntityId,String dateOfBirth, long lastVisitDate, long visitNotDate) {
+    /**
+     * Same thread to retrive rules and also save in fts
+     *
+     * @param yearOfBirth
+     * @param lastVisitDate
+     * @param visitNotDate
+     * @return
+     */
+    public static ChildVisit getChildVisitStatus( String yearOfBirth, long lastVisitDate, long visitNotDate) {
+        HomeAlertRule homeAlertRule = new HomeAlertRule(yearOfBirth, lastVisitDate, visitNotDate);
+        WcaroApplication.getInstance().getRulesEngineHelper().getButtonAlertStatus(homeAlertRule, Constants.RULE_FILE.HOME_VISIT);
+        return getChildVisitStatus(homeAlertRule, lastVisitDate);
+    }
+
+    /**
+     * Rules can be retrieved separately so that the background thread is used here
+     *
+     * @param rules
+     * @param yearOfBirth
+     * @param lastVisitDate
+     * @param visitNotDate
+     * @return
+     */
+    public static ChildVisit getChildVisitStatus(Rules rules, String yearOfBirth, long lastVisitDate, long visitNotDate) {
+        HomeAlertRule homeAlertRule = new HomeAlertRule(yearOfBirth, lastVisitDate, visitNotDate);
+        WcaroApplication.getInstance().getRulesEngineHelper().getButtonAlertStatus(homeAlertRule, rules);
+        return getChildVisitStatus(homeAlertRule, lastVisitDate);
+    }
+
+    public static ChildVisit getChildVisitStatus(HomeAlertRule homeAlertRule, long lastVisitDate) {
         ChildVisit childVisit = new ChildVisit();
-        HomeAlertRule homeAlertRule = new HomeAlertRule(dateOfBirth, lastVisitDate, visitNotDate);
-        String visitStatus = WcaroApplication.getInstance().getRulesEngineHelper().getButtonAlertStatus(homeAlertRule, Constants.RULE_FILE.HOME_VISIT);
-        childVisit.setVisitStatus(visitStatus);
+        childVisit.setVisitStatus(homeAlertRule.buttonStatus);
         childVisit.setNoOfMonthDue(homeAlertRule.noOfMonthDue);
         childVisit.setLastVisitDays(homeAlertRule.noOfDayDue);
         childVisit.setLastVisitMonthName(homeAlertRule.visitMonthName);
         childVisit.setLastVisitTime(lastVisitDate);
-        try{
-            updateFtsSearch(baseEntityId,visitStatus);
-        }catch (Exception e){
-
-        }
         return childVisit;
-    }
-    public static void updateFtsSearch(String baseEntityId, String status){
-//        ContentValues contentValues=new ContentValues();
-//        contentValues.put(ChildDBConstants.KEY.VISIT_STATUS,status);
-        //Utils.context().commonrepository(Constants.TABLE_NAME.CHILD).updateColumn(Constants.TABLE_NAME.CHILD,contentValues,baseEntityId);
-        Utils.context().commonrepository(Constants.TABLE_NAME.CHILD).populateSearchValues(baseEntityId, ChildDBConstants.KEY.VISIT_STATUS, status, null);
-        Utils.context().commonrepository(Constants.TABLE_NAME.FAMILY_MEMBER).populateSearchValues(baseEntityId, ChildDBConstants.KEY.VISIT_STATUS, status, null);
-
     }
 
     @SuppressLint("SimpleDateFormat")
@@ -217,14 +230,11 @@ public class ChildUtils {
                     .withBaseEntityId(entityId)
                     .withEventDate(new Date())
                     .withEventType(eventType)
-                    .withLocationId(WcaroApplication.getInstance().getContext().allSharedPreferences().fetchCurrentLocality())
-                    .withProviderId(WcaroApplication.getInstance().getContext().allSharedPreferences().fetchRegisteredANM())
                     .withEntityType(entityType)
                     .withFormSubmissionId(JsonFormUtils.generateRandomUUIDString())
-                    .withTeamId(WcaroApplication.getInstance().getContext().allSharedPreferences().fetchDefaultTeamId(WcaroApplication.getInstance().getContext().allSharedPreferences().fetchRegisteredANM()))
                     .withDateCreated(new Date());
             event.addObs((new Obs()).withFormSubmissionField(attributeName).withValue(attributeValue).withFieldCode(attributeName).withFieldType("formsubmissionField").withFieldDataType("text").withParentCode("").withHumanReadableValues(new ArrayList<Object>()));
-
+            JsonFormUtils.tagSyncMetadata(WcaroApplication.getInstance().getContext().allSharedPreferences(), event);
             JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(event));
             syncHelper.addEvent(entityId, eventJson);
             long lastSyncTimeStamp = WcaroApplication.getInstance().getContext().allSharedPreferences().fetchLastUpdatedAtDate(0);
@@ -232,7 +242,7 @@ public class ChildUtils {
             FamilyLibrary.getInstance().getClientProcessorForJava().processClient(syncHelper.getEvents(lastSyncDate, BaseRepository.TYPE_Unsynced));
             WcaroApplication.getInstance().getContext().allSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
 
-           //update details
+            //update details
 
 
         } catch (Exception e) {

@@ -3,7 +3,6 @@ package org.smartgresiter.wcaro.fragment;
 import android.app.DialogFragment;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -26,6 +25,7 @@ import org.smartgresiter.wcaro.application.WcaroApplication;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.Alert;
 import org.smartregister.family.util.DBConstants;
+import org.smartregister.family.util.Utils;
 import org.smartregister.immunization.ImmunizationLibrary;
 import org.smartregister.immunization.domain.ServiceRecord;
 import org.smartregister.immunization.domain.ServiceSchedule;
@@ -41,8 +41,6 @@ import org.smartregister.immunization.fragment.VaccinationDialogFragment;
 import org.smartregister.immunization.repository.RecurringServiceRecordRepository;
 import org.smartregister.immunization.repository.RecurringServiceTypeRepository;
 import org.smartregister.immunization.repository.VaccineRepository;
-import org.smartregister.immunization.service.intent.RecurringIntentService;
-import org.smartregister.immunization.service.intent.VaccineIntentService;
 import org.smartregister.immunization.util.RecurringServiceUtils;
 import org.smartregister.immunization.util.VaccinateActionUtils;
 import org.smartregister.immunization.util.VaccinatorUtils;
@@ -477,9 +475,11 @@ public class ChildImmunizationFragment extends DialogFragment {
             vaccine.setCalculation(-1);
         }
 
-        vaccine.setTeam("testTeam");
-        vaccine.setTeamId("testTeamId");
-        vaccine.setChildLocationId("testChildLocationId");
+        String providerId = Utils.context().allSharedPreferences().fetchRegisteredANM();
+        vaccine.setChildLocationId(Utils.context().allSharedPreferences().fetchDefaultLocalityId(providerId));
+        vaccine.setTeam(Utils.context().allSharedPreferences().fetchDefaultTeam(providerId));
+        vaccine.setTeamId(Utils.context().allSharedPreferences().fetchDefaultTeamId(providerId));
+        vaccine.setLocationId(Utils.context().allSharedPreferences().fetchDefaultLocalityId(providerId));
         vaccineRepository.add(vaccine);
         tag.setDbKey(vaccine.getId());
     }

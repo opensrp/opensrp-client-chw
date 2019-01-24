@@ -1,7 +1,6 @@
 package org.smartgresiter.wcaro.fragment;
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -15,11 +14,9 @@ import org.smartgresiter.wcaro.activity.ChildProfileActivity;
 import org.smartgresiter.wcaro.activity.ChildRegisterActivity;
 import org.smartgresiter.wcaro.contract.ChildRegisterFragmentContract;
 import org.smartgresiter.wcaro.custom_view.NavigationMenu;
-import org.smartgresiter.wcaro.interactor.ChildProfileInteractor;
 import org.smartgresiter.wcaro.model.ChildRegisterFragmentModel;
 import org.smartgresiter.wcaro.presenter.ChildRegisterFragmentPresenter;
 import org.smartgresiter.wcaro.provider.ChildRegisterProvider;
-import org.smartgresiter.wcaro.util.ChildDBConstants;
 import org.smartgresiter.wcaro.util.Constants;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
@@ -38,7 +35,6 @@ public class ChildRegisterFragment extends BaseRegisterFragment implements Child
     private static final String TAG = ChildRegisterFragment.class.getCanonicalName();
     public static final String CLICK_VIEW_NORMAL = "click_view_normal";
     public static final String CLICK_VIEW_DOSAGE_STATUS = "click_view_dosage_status";
-    private View dueOnlyLayout;
 
     @Override
     protected void initializePresenter() {
@@ -123,7 +119,7 @@ public class ChildRegisterFragment extends BaseRegisterFragment implements Child
         View filterSortLayout = view.findViewById(R.id.filter_sort_layout);
         filterSortLayout.setVisibility(View.GONE);
 
-        dueOnlyLayout = view.findViewById(R.id.due_only_layout);
+        View dueOnlyLayout = view.findViewById(R.id.due_only_layout);
         dueOnlyLayout.setVisibility(View.VISIBLE);
         dueOnlyLayout.setOnClickListener(registerActionHandler);
     }
@@ -185,49 +181,33 @@ public class ChildRegisterFragment extends BaseRegisterFragment implements Child
                 ChildHomeVisitFragment childHomeVisitFragment = ChildHomeVisitFragment.newInstance();
                 childHomeVisitFragment.setContext(getActivity());
                 childHomeVisitFragment.setChildClient(pc);
-//                childHomeVisitFragment.setFamilyBaseEntityId(getFamilyBaseEntityId());
                 childHomeVisitFragment.show(getActivity().getFragmentManager(), ChildHomeVisitFragment.DIALOG_TAG);
             }
         } else if (view.getId() == R.id.due_only_layout) {
-            toggleFilterSelection();
-//            TextView dueOnlyTextView = dueOnlyLayout.findViewById(R.id.due_only_text_view);
-//            Drawable[] drawables = dueOnlyTextView.getCompoundDrawables();
-//            Drawable rightDrawable = drawables[2];
-//            if (rightDrawable != null) {
-//                if (org.smartgresiter.wcaro.util.Utils.areDrawablesIdentical(rightDrawable, getResources().getDrawable(R.drawable.ic_due_filter_off))) {
-//                    dueOnlyTextView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_due_filter_on, 0);
-//                } else {
-//                    dueOnlyTextView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_due_filter_off, 0);
-//                }
-//            }
+            toggleFilterSelection(view);
         }
     }
-    private void toggleFilterSelection() {
+
+    private void toggleFilterSelection(View dueOnlyLayout) {
         if (dueOnlyLayout != null) {
             String tagString = "PRESSED";
             if (dueOnlyLayout.getTag() == null) {
-                filter("", "", filterSelectionCondition(false));
+                filter("", "", presenter().getDueFilterCondition());
                 dueOnlyLayout.setTag(tagString);
-                switchViews(true);
+                switchViews(dueOnlyLayout, true);
             } else if (dueOnlyLayout.getTag().toString().equals(tagString)) {
-                filter("", "", "");
+                filter("", "", presenter().getMainCondition());
                 dueOnlyLayout.setTag(null);
-                switchViews(false);
+                switchViews(dueOnlyLayout, false);
             }
         }
     }
 
-    private String filterSelectionCondition(boolean b) {
-        String mainCondition="("+ChildDBConstants.KEY.VISIT_STATUS+" = '"+ChildProfileInteractor.VisitType.DUE.name()+"')";
-        return mainCondition;
-    }
-
-    private void switchViews(boolean isPress){
+    private void switchViews(View dueOnlyLayout, boolean isPress) {
         TextView dueOnlyTextView = dueOnlyLayout.findViewById(R.id.due_only_text_view);
-        if(isPress){
+        if (isPress) {
             dueOnlyTextView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_due_filter_on, 0);
-        }else
-        {
+        } else {
             dueOnlyTextView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_due_filter_off, 0);
 
         }

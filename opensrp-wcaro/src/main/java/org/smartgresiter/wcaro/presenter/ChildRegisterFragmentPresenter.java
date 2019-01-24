@@ -2,6 +2,7 @@ package org.smartgresiter.wcaro.presenter;
 
 import org.apache.commons.lang3.StringUtils;
 import org.smartgresiter.wcaro.contract.ChildRegisterFragmentContract;
+import org.smartgresiter.wcaro.util.ChildDBConstants;
 import org.smartgresiter.wcaro.util.Constants;
 import org.smartregister.configurableviews.model.Field;
 import org.smartregister.configurableviews.model.RegisterConfiguration;
@@ -104,5 +105,10 @@ public class ChildRegisterFragmentPresenter implements ChildRegisterFragmentCont
     @Override
     public String getDefaultSortQuery() {
         return DBConstants.KEY.LAST_INTERACTED_WITH + " DESC ";
+    }
+
+    @Override
+    public String getDueFilterCondition() {
+        return getMainCondition() + " AND ((" + ChildDBConstants.KEY.LAST_HOME_VISIT + " is null OR ((" + ChildDBConstants.KEY.LAST_HOME_VISIT + "/1000) > strftime('%s',datetime('now','start of month')))) AND (" + ChildDBConstants.KEY.VISIT_NOT_DONE + " is null OR ((" + ChildDBConstants.KEY.VISIT_NOT_DONE + "/1000) > strftime('%s',datetime('now','start of month'))))) ";
     }
 }

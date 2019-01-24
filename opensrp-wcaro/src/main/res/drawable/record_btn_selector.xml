@@ -3,6 +3,6 @@
     android:shape="rectangle"
     android:padding="40dp">
     <corners android:radius="35dp" />
-    <solid android:color="@color/customAppThemeBlue" /> <!-- the button color -->
+    <solid android:color="@color/visit_status_ok" /> <!-- the button color -->
 
 </shape>

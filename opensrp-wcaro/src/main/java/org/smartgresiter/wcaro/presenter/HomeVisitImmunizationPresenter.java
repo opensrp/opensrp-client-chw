@@ -256,7 +256,8 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
                 }
             }
         }
-        return toReturn;    }
+        return toReturn;
+    }
 
     @Override
     public void setGroupVaccineText(List<Map<String, Object>> sch) {

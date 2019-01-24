@@ -24,7 +24,6 @@ import org.smartgresiter.wcaro.contract.ChildProfileContract;
 import org.smartgresiter.wcaro.contract.ChildRegisterContract;
 import org.smartgresiter.wcaro.custom_view.IndividualMemberFloatingMenu;
 import org.smartgresiter.wcaro.fragment.ChildHomeVisitFragment;
-import org.smartgresiter.wcaro.fragment.ChildImmunizationFragment;
 import org.smartgresiter.wcaro.fragment.FamilyCallDialogFragment;
 import org.smartgresiter.wcaro.listener.OnClickFloatingMenu;
 import org.smartgresiter.wcaro.model.ChildProfileModel;
@@ -33,11 +32,8 @@ import org.smartgresiter.wcaro.util.ChildUtils;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.family.util.Constants;
 import org.smartregister.helper.ImageRenderHelper;
-import org.smartregister.immunization.domain.VaccineWrapper;
-import org.smartregister.immunization.listener.VaccinationActionListener;
 import org.smartregister.view.activity.BaseProfileActivity;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -45,7 +41,7 @@ import java.util.Map;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 
-public class ChildProfileActivity extends BaseProfileActivity implements ChildProfileContract.View, ChildRegisterContract.InteractorCallBack{
+public class ChildProfileActivity extends BaseProfileActivity implements ChildProfileContract.View, ChildRegisterContract.InteractorCallBack {
     private boolean appBarTitleIsShown = true;
     private int appBarLayoutScrollRange = -1;
     private String childBaseEntityId;
@@ -209,7 +205,11 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     private void openFamilyDueTab() {
         Intent intent = new Intent(this, FamilyProfileActivity.class);
 
-        intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.BASE_ENTITY_ID, ((ChildProfilePresenter) presenter()).getFamilyId());
+        intent.putExtra(Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID, ((ChildProfilePresenter) presenter()).getFamilyId());
+        intent.putExtra(Constants.INTENT_KEY.FAMILY_HEAD, ((ChildProfilePresenter) presenter()).getFamilyHeadID());
+        intent.putExtra(Constants.INTENT_KEY.PRIMARY_CAREGIVER, ((ChildProfilePresenter) presenter()).getPrimaryCareGiverID());
+        intent.putExtra(Constants.INTENT_KEY.FAMILY_NAME, ((ChildProfilePresenter) presenter()).getFamilyName());
+
         intent.putExtra(org.smartgresiter.wcaro.util.Constants.INTENT_KEY.SERVICE_DUE, true);
         startActivity(intent);
     }
@@ -281,6 +281,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     @Override
     public void setServiceDueDate(String date) {
         layoutMostDueOverdue.setVisibility(View.VISIBLE);
+        viewLastVisitRow.setVisibility(View.GONE);
         viewMostDueRow.setVisibility(View.VISIBLE);
         textViewDueDate.setText(date);
         textViewDueDate.setTextColor(getResources().getColor(R.color.black));

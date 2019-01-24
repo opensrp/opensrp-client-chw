@@ -90,16 +90,16 @@ public class HomeVisitGrowthAndNutrition extends LinearLayout implements View.On
 //                ServiceWrapper deServiceWrapper=((HomeVisitGrowthNutritionPresenter)presenter).getServiceWrapperDeworming();
 //                notVisitSetState(GrowthNutritionInputFragment.GROWTH_TYPE.DEWORMING.getValue(),deServiceWrapper);
 //                break;
-            case  R.id.exclusive_feeding_bar:
-                if(!presenter.isSelected(GrowthNutritionInputFragment.GROWTH_TYPE.EXCLUSIVE.getValue())){
-                    ServiceWrapper serviceWrapper=((HomeVisitGrowthNutritionPresenter)presenter).getServiceWrapperExclusive();
+            case R.id.exclusive_feeding_bar:
+                if (!presenter.isSelected(GrowthNutritionInputFragment.GROWTH_TYPE.EXCLUSIVE.getValue())) {
+                    ServiceWrapper serviceWrapper = ((HomeVisitGrowthNutritionPresenter) presenter).getServiceWrapperExclusive();
                     showGrowthNutritionDialog(GrowthNutritionInputFragment.GROWTH_TYPE.EXCLUSIVE.getValue(),
-                            textViewExclusiveFeedingName.getText().toString(),serviceWrapper);
+                            textViewExclusiveFeedingName.getText().toString(), serviceWrapper);
                 }
 
                 break;
-            case  R.id.mnp_bar:
-                if(!presenter.isSelected(GrowthNutritionInputFragment.GROWTH_TYPE.MNP.getValue())) {
+            case R.id.mnp_bar:
+                if (!presenter.isSelected(GrowthNutritionInputFragment.GROWTH_TYPE.MNP.getValue())) {
 
                     ServiceWrapper serviceWrapperMnp = ((HomeVisitGrowthNutritionPresenter) presenter).getServiceWrapperMnp();
                     showGrowthNutritionDialog(GrowthNutritionInputFragment.GROWTH_TYPE.MNP.getValue(),
@@ -107,14 +107,14 @@ public class HomeVisitGrowthAndNutrition extends LinearLayout implements View.On
                 }
                 break;
             case R.id.vitamin_a_bar:
-                if(!presenter.isSelected(GrowthNutritionInputFragment.GROWTH_TYPE.VITAMIN.getValue())) {
+                if (!presenter.isSelected(GrowthNutritionInputFragment.GROWTH_TYPE.VITAMIN.getValue())) {
                     ServiceWrapper serviceWrapperVit = ((HomeVisitGrowthNutritionPresenter) presenter).getServiceWrapperVitamin();
                     showGrowthNutritionDialog(GrowthNutritionInputFragment.GROWTH_TYPE.VITAMIN.getValue(),
                             textViewVitaminName.getText().toString(), serviceWrapperVit);
                 }
                 break;
             case R.id.deworming_bar:
-                if(!presenter.isSelected(GrowthNutritionInputFragment.GROWTH_TYPE.DEWORMING.getValue())) {
+                if (!presenter.isSelected(GrowthNutritionInputFragment.GROWTH_TYPE.DEWORMING.getValue())) {
                     ServiceWrapper serviceWrapperDorm = ((HomeVisitGrowthNutritionPresenter) presenter).getServiceWrapperDeworming();
                     showGrowthNutritionDialog(GrowthNutritionInputFragment.GROWTH_TYPE.DEWORMING.getValue(),
                             textViewDewormingName.getText().toString(), serviceWrapperDorm);
@@ -206,10 +206,13 @@ public class HomeVisitGrowthAndNutrition extends LinearLayout implements View.On
             imageView.setImageResource(R.drawable.ic_checked);
             imageView.setColorFilter(getResources().getColor(R.color.white));
             imageView.setCircleBackgroundColor(getResources().getColor(R.color.alert_complete_green));
+            imageView.setBorderColor(getResources().getColor(R.color.alert_complete_green));
+
         } else {
             imageView.setImageResource(R.drawable.ic_checked);
             imageView.setColorFilter(getResources().getColor(R.color.white));
             imageView.setCircleBackgroundColor(getResources().getColor(R.color.pnc_circle_yellow));
+            imageView.setBorderColor(getResources().getColor(R.color.pnc_circle_yellow));
         }
         if (childHomeVisitFragment != null) {
             childHomeVisitFragment.checkIfSubmitIsToBeEnabled();
