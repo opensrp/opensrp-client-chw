@@ -22,8 +22,14 @@
                 android:id="@+id/collapsing_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
+                android:contentInsetEnd="0dp"
                 android:contentInsetLeft="0dp"
+                android:contentInsetRight="0dp"
+                android:contentInsetStart="0dp"
+                android:theme="@style/FamilyTheme.AppBarOverlay"
+                app:contentInsetEnd="0dp"
                 app:contentInsetLeft="0dp"
+                app:contentInsetRight="0dp"
                 app:contentInsetStart="0dp"
                 app:contentInsetStartWithNavigation="0dp"
                 app:layout_collapseMode="pin">
@@ -34,10 +40,11 @@
                     android:layout_height="match_parent"
                     style="@style/CustomFontTextViewStyle.ClientList"
                     android:text="@string/return_to_all_children"
+                    android:gravity="center_vertical|left"
                     android:textColor="@color/customAppThemeBlue"
                     android:textSize="17sp"
-                    android:layout_marginRight="?android:attr/actionBarSize"
-                    android:gravity="left|center_vertical" />
+                    android:paddingLeft="0dp"
+                    android:paddingStart="0dp"/>
             </android.support.v7.widget.Toolbar>
 
             <LinearLayout

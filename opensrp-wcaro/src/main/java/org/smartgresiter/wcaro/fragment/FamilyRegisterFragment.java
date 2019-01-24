@@ -7,13 +7,16 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.smartgresiter.wcaro.R;
+import org.smartgresiter.wcaro.contract.RegisterFragmentContract;
 import org.smartgresiter.wcaro.custom_view.NavigationMenu;
+import org.smartgresiter.wcaro.job.UpdateVisitServiceJob;
 import org.smartgresiter.wcaro.model.FamilyRegisterFramentModel;
 import org.smartgresiter.wcaro.presenter.FamilyRegisterFragmentPresenter;
 import org.smartgresiter.wcaro.provider.WcaroRegisterProvider;
 import org.smartgresiter.wcaro.util.Constants;
 import org.smartgresiter.wcaro.util.Utils;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
+import org.smartregister.domain.FetchStatus;
 import org.smartregister.family.fragment.BaseFamilyRegisterFragment;
 import org.smartregister.view.activity.BaseRegisterActivity;
 import org.smartregister.view.customcontrols.CustomFontTextView;
@@ -82,6 +85,14 @@ public class FamilyRegisterFragment extends BaseFamilyRegisterFragment {
         String viewConfigurationIdentifier = ((BaseRegisterActivity) getActivity()).getViewIdentifiers().get(0);
         presenter = new FamilyRegisterFragmentPresenter(this, new FamilyRegisterFramentModel(), viewConfigurationIdentifier);
     }
+    //TODO need to do only first time when all data sync
+    @Override
+    public void onSyncComplete(FetchStatus fetchStatus) {
+        super.onSyncComplete(fetchStatus);
+        //if(fetchStatus.displayValue().equalsIgnoreCase(FetchStatus.fetched.displayValue())){
+         UpdateVisitServiceJob.scheduleJobImmediately(UpdateVisitServiceJob.TAG);
+        //}
+    }
 
     @Override
     public void initializeAdapter(Set<org.smartregister.configurableviews.model.View> visibleColumns) {
@@ -96,6 +107,7 @@ public class FamilyRegisterFragment extends BaseFamilyRegisterFragment {
         return presenter().getMainCondition();
     }
 
+
     @Override
     protected String getDefaultSortQuery() {
         return presenter().getDefaultSortQuery();
@@ -108,8 +120,13 @@ public class FamilyRegisterFragment extends BaseFamilyRegisterFragment {
 
     @Override
     public void filter(String filterString, String joinTableString, String mainConditionString, boolean qrCode) {
-        this.joinTables = new String[]{Constants.TABLE_NAME.FAMILY, Constants.TABLE_NAME.FAMILY_MEMBER};
+        this.joinTables = new String[]{Constants.TABLE_NAME.FAMILY_MEMBER};
         super.filter(filterString, joinTableString, mainConditionString, qrCode);
+    }
+
+    private void dueFilter(String mainConditionString) {
+        this.joinTables = null;
+        super.filter("", "", mainConditionString, false);
     }
 
     @Override
@@ -123,11 +140,18 @@ public class FamilyRegisterFragment extends BaseFamilyRegisterFragment {
                 Drawable rightDrawable = drawables[2];
                 if (rightDrawable != null) {
                     if (Utils.areDrawablesIdentical(rightDrawable, getResources().getDrawable(R.drawable.ic_due_filter_off))) {
+                        dueFilter(presenter().getDueFilterCondition());
                         dueOnlyTextView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_due_filter_on, 0);
                     } else {
+                        filter("", "", presenter().getMainCondition(), false);
                         dueOnlyTextView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_due_filter_off, 0);
                     }
                 }
         }
+    }
+
+    @Override
+    public RegisterFragmentContract.Presenter presenter() {
+        return (RegisterFragmentContract.Presenter) presenter;
     }
 }

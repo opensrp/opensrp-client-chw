@@ -28,6 +28,8 @@ public interface ChildRegisterFragmentContract {
 
         String getDefaultSortQuery();
 
+        String getDueFilterCondition();
+
     }
 
     interface Model {
