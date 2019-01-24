@@ -38,7 +38,7 @@
             android:layout_marginLeft="20dp"
             android:layout_weight="1"
             android:gravity="center_horizontal"
-            android:text="@string/visit_not_done"
+            android:text="@string/visit_not_done_btn_child_profile"
             android:paddingLeft="30dp"
             android:paddingRight="30dp"
             android:paddingTop="10dp"

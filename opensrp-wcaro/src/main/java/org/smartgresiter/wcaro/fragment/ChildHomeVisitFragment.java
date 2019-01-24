@@ -188,7 +188,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         switch (v.getId()) {
             case R.id.textview_submit:
                 if (checkAllGiven()) {
-                    ChildUtils.updateClientStatusAsEvent(childClient.entityId(), Constants.EventType.CHILD_HOME_VISIT, ChildDBConstants.KEY.LAST_HOME_VISIT, System.currentTimeMillis(), Constants.TABLE_NAME.CHILD);
+                    ChildUtils.updateClientStatusAsEvent(childClient.entityId(), Constants.EventType.CHILD_HOME_VISIT, ChildDBConstants.KEY.LAST_HOME_VISIT, System.currentTimeMillis()+"", Constants.TABLE_NAME.CHILD);
 
                     if (getActivity() instanceof ChildRegisterActivity) {
                         ((ChildRegisterActivity) getActivity()).refreshList(FetchStatus.fetched);

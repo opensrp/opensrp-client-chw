@@ -63,7 +63,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-
+    <string name="visit_not_done_btn_child_profile">Visit not done</string>
     <string name="medical_history">Medical History</string>
     <string name="record_home_visit">Record \nHome \nvisit</string>
     <string name="visit_not_done">Visit \nnot \ndone</string>

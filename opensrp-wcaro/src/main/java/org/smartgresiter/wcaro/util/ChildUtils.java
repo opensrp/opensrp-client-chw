@@ -122,7 +122,7 @@ public class ChildUtils {
         ChildHomeVisit childHomeVisit = new ChildHomeVisit();
         Cursor cursor = Utils.context().commonrepository(org.smartgresiter.wcaro.util.Constants.TABLE_NAME.CHILD).queryTable(query);
         if (cursor != null && cursor.moveToFirst()) {
-            String lastVisitStr = cursor.getString(1);
+            String lastVisitStr = cursor.getString(cursor.getColumnIndex(ChildDBConstants.KEY.LAST_HOME_VISIT));
             if (!TextUtils.isEmpty(lastVisitStr)) {
                 try {
                     childHomeVisit.setLastHomeVisitDate(Long.parseLong(lastVisitStr));
@@ -130,7 +130,7 @@ public class ChildUtils {
 
                 }
             }
-            String visitNotDoneStr = cursor.getString(2);
+            String visitNotDoneStr = cursor.getString(cursor.getColumnIndex(ChildDBConstants.KEY.VISIT_NOT_DONE));
             if (!TextUtils.isEmpty(visitNotDoneStr)) {
                 try {
                     childHomeVisit.setVisitNotDoneDate(Long.parseLong(visitNotDoneStr));

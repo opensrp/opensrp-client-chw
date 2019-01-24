@@ -25,6 +25,7 @@ import org.smartgresiter.wcaro.application.WcaroApplication;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.Alert;
 import org.smartregister.family.util.DBConstants;
+import org.smartregister.family.util.Utils;
 import org.smartregister.immunization.ImmunizationLibrary;
 import org.smartregister.immunization.domain.ServiceRecord;
 import org.smartregister.immunization.domain.ServiceSchedule;
@@ -474,9 +475,11 @@ public class ChildImmunizationFragment extends DialogFragment {
             vaccine.setCalculation(-1);
         }
 
-        vaccine.setTeam("testTeam");
-        vaccine.setTeamId("testTeamId");
-        vaccine.setChildLocationId("testChildLocationId");
+        String providerId = Utils.context().allSharedPreferences().fetchRegisteredANM();
+        vaccine.setChildLocationId(Utils.context().allSharedPreferences().fetchDefaultLocalityId(providerId));
+        vaccine.setTeam(Utils.context().allSharedPreferences().fetchDefaultTeam(providerId));
+        vaccine.setTeamId(Utils.context().allSharedPreferences().fetchDefaultTeamId(providerId));
+        vaccine.setLocationId(Utils.context().allSharedPreferences().fetchDefaultLocalityId(providerId));
         vaccineRepository.add(vaccine);
         tag.setDbKey(vaccine.getId());
     }
