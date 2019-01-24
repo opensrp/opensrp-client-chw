@@ -64,7 +64,57 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
     public static final String READ_ONLY = "read_only";
     private static final String TAG = org.smartregister.util.JsonFormUtils.class.getCanonicalName();
 
-    public static JSONObject getFormAsJson(JSONObject form,
+    public static JSONObject getBirthCertFormAsJson(JSONObject form,String baseEntityId,String currentLocationId,String dateOfBirthString) throws Exception {
+
+        if (form == null) {
+            return null;
+        }
+        dateOfBirthString = dateOfBirthString.contains("y") ? dateOfBirthString.substring(0, dateOfBirthString.indexOf("y")) : "";
+        form.getJSONObject(METADATA).put(ENCOUNTER_LOCATION, currentLocationId);
+        form.put(ENTITY_ID,baseEntityId);
+        JSONArray field = fields(form);
+        JSONObject mindate = getFieldJSONObject(field, "birth_cert_issue_date");
+        //if(mindate!=null){
+            mindate.put("min_date", "today-"+dateOfBirthString+"y");
+        //}
+        return form;
+
+    }
+    public static Pair<Client, Event> processBirthCertForm(AllSharedPreferences allSharedPreferences, String jsonString) {
+        try{
+
+            Triple<Boolean, JSONObject, JSONArray> registrationFormParams = validateParameters(jsonString);
+            if (!registrationFormParams.getLeft()) {
+                return null;
+            }
+
+            JSONObject jsonForm = registrationFormParams.getMiddle();
+            JSONArray fields = registrationFormParams.getRight();
+            String entityId = getString(jsonForm, ENTITY_ID);
+            String encounterType = getString(jsonForm, ENCOUNTER_TYPE);
+            JSONObject metadata = getJSONObject(jsonForm, METADATA);
+            JSONObject lastInteractedWith = new JSONObject();
+            lastInteractedWith.put(org.smartregister.family.util.Constants.KEY.KEY, DBConstants.KEY.LAST_INTERACTED_WITH);
+            lastInteractedWith.put(org.smartregister.family.util.Constants.KEY.VALUE, Calendar.getInstance().getTimeInMillis());
+            fields.put(lastInteractedWith);
+            FormTag formTag = new FormTag();
+            formTag.providerId = allSharedPreferences.fetchRegisteredANM();
+            formTag.appVersion = FamilyLibrary.getInstance().getApplicationVersion();
+            formTag.databaseVersion = FamilyLibrary.getInstance().getDatabaseVersion();
+
+
+            Client baseClient = org.smartregister.util.JsonFormUtils.createBaseClient(fields, formTag, entityId);
+            Event baseEvent = org.smartregister.util.JsonFormUtils.createEvent(fields, metadata, formTag, entityId, encounterType, org.smartgresiter.wcaro.util.Constants.TABLE_NAME.CHILD);
+            tagSyncMetadata(allSharedPreferences, baseEvent);// tag docs
+
+            return Pair.create(baseClient, baseEvent);
+        }catch (Exception e){
+            return null;
+        }
+
+    }
+
+        public static JSONObject getFormAsJson(JSONObject form,
                                            String formName, String id,
                                            String currentLocationId, String familyID) throws Exception {
         if (form == null) {

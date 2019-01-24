@@ -24,15 +24,18 @@ import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
 
 import org.apache.commons.lang3.tuple.Triple;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.activity.ChildProfileActivity;
 import org.smartgresiter.wcaro.activity.ChildRegisterActivity;
+import org.smartgresiter.wcaro.application.WcaroApplication;
 import org.smartgresiter.wcaro.contract.ChildRegisterContract;
 import org.smartgresiter.wcaro.custom_view.HomeVisitGrowthAndNutrition;
 import org.smartgresiter.wcaro.custom_view.HomeVisitImmunizationView;
 import org.smartgresiter.wcaro.interactor.ChildRegisterInteractor;
 import org.smartgresiter.wcaro.model.ChildRegisterModel;
+import org.smartgresiter.wcaro.repository.WcaroRepository;
 import org.smartgresiter.wcaro.util.ChildDBConstants;
 import org.smartgresiter.wcaro.util.ChildUtils;
 import org.smartgresiter.wcaro.util.Constants;
@@ -42,25 +45,34 @@ import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.FetchStatus;
+import org.smartregister.family.FamilyLibrary;
 import org.smartregister.family.activity.BaseFamilyProfileActivity;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.immunization.domain.VaccineWrapper;
+import org.smartregister.repository.AllSharedPreferences;
+import org.smartregister.repository.BaseRepository;
+import org.smartregister.repository.EventClientRepository;
+import org.smartregister.repository.UniqueIdRepository;
+import org.smartregister.sync.ClientProcessorForJava;
+import org.smartregister.sync.helper.ECSyncHelper;
 import org.smartregister.util.FormUtils;
 import org.smartregister.util.Utils;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static org.apache.commons.lang3.StringUtils.isBlank;
 import static org.smartregister.util.Utils.getValue;
 
-public class ChildHomeVisitFragment extends DialogFragment implements View.OnClickListener, ChildRegisterContract.InteractorCallBack {
+public class ChildHomeVisitFragment extends DialogFragment implements View.OnClickListener{
 
 
+    private static final String TAG ="ChildHomeVisitFragment" ;
     public static String DIALOG_TAG = "child_home_visit_dialog";
-    protected ProgressDialog progressDialog;
     Context context;
     String childBaseEntityId;
     CommonPersonObjectClient childClient;
@@ -181,8 +193,9 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
 
         switch (v.getId()) {
             case R.id.birth_cert_group:
+
                 try {
-                    startForm(Constants.JSON_FORM.BIRTH_CERTIFICATION,childClient.getCaseId(),"","","");
+                    startBirthCertForm();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -237,19 +250,6 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
 
     private boolean checkAllGiven() {
         return allVaccineStateFullfilled && isAllGrowthSelected();
-//        boolean checkallgiven = false;
-//        if(allVaccineStateFullfilled){
-//            checkallgiven = true;
-//        }else{
-//            checkallgiven = false;
-//        }
-//        if(isAllGrowthSelected()){
-//            checkallgiven = true;
-//        }else{
-//            checkallgiven = false;
-//        }
-//
-//        return  checkallgiven;
     }
 
     public void checkIfSubmitIsToBeEnabled() {
@@ -274,61 +274,13 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         return vaccineWrappers;
     }
 
-    public void displayShortToast(int resourceId) {
-        Utils.showShortToast(context, this.getString(resourceId));
-    }
+    public void startBirthCertForm() throws Exception {
+        JSONObject form = getFormUtils().getFormJson(Constants.JSON_FORM.BIRTH_CERTIFICATION);
+        String dobString = org.smartregister.family.util.Utils.getDuration(org.smartregister.family.util.Utils.getValue
+                (childClient.getColumnmaps(), DBConstants.KEY.DOB, false));
 
-    public void displayToast(int stringID) {
-        Utils.showShortToast(context, this.getString(stringID));
-    }
-
-    @Override
-    public void onNoUniqueId() {
-        displayShortToast(R.string.no_unique_id);
-    }
-
-    @Override
-    public void onUniqueIdFetched(Triple<String, String, String> triple, String entityId, String familyId) {
-        try {
-            startForm(triple.getLeft(), entityId, triple.getMiddle(), triple.getRight(), familyId);
-        } catch (Exception e) {
-            Log.e(DIALOG_TAG, Log.getStackTraceString(e));
-            displayToast(R.string.error_unable_to_start_form);
-        }
-    }
-
-    @Override
-    public void onRegistrationSaved(boolean isEdit) {
-        hideProgressDialog();
-    }
-
-    public void showProgressDialog(int saveMessageStringIdentifier) {
-        if (progressDialog == null) {
-            progressDialog = new ProgressDialog(context);
-            progressDialog.setCancelable(false);
-            progressDialog.setTitle(getString(saveMessageStringIdentifier));
-            progressDialog.setMessage(getString(org.smartregister.R.string.please_wait_message));
-        }
-    }
-
-    public void hideProgressDialog() {
-        if (progressDialog != null) {
-            progressDialog.dismiss();
-        }
-    }
-
-    ChildRegisterInteractor interactor;
-
-    public void startForm(String formName, String entityId, String metadata, String currentLocationId, String familyId) throws Exception {
-        interactor = new ChildRegisterInteractor();
-        if (isBlank(entityId)) {
-            Triple<String, String, String> triple = Triple.of(formName, metadata, currentLocationId);
-            interactor.getNextUniqueId(triple, this, familyId);
-            return;
-        }
-
-        JSONObject form = getFormAsJson(formName, entityId, currentLocationId, familyId);
-        startFormActivity(form);
+        JSONObject revForm=JsonFormUtils.getBirthCertFormAsJson(form,childBaseEntityId,"",dobString);
+        startFormActivity(revForm);
     }
 
     public void startFormActivity(JSONObject jsonForm) {
@@ -343,31 +295,106 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
 
         startActivityForResult(intent, org.smartregister.family.util.JsonFormUtils.REQUEST_CODE_GET_JSON);
     }
-
-    public JSONObject getFormAsJson(String formName, String entityId, String currentLocationId, String familyID) throws Exception {
-        JSONObject form = getFormUtils().getFormJson(formName);
-        if (form == null) {
-            return null;
-        }
-        return JsonFormUtils.getFormAsJson(form, formName, entityId, currentLocationId, familyID);
-    }
-
-    public void saveForm(String jsonString, boolean isEditMode) {
-        ChildRegisterModel model = new ChildRegisterModel();
+    public void saveForm(String jsonString) {
         try {
 
-            showProgressDialog(R.string.saving_dialog_title);
-
-            Pair<Client, Event> pair = model.processRegistration(jsonString);
+            Pair<Client, Event> pair = JsonFormUtils.processBirthCertForm(org.smartregister.family.util.Utils.context().allSharedPreferences(),jsonString);
             if (pair == null) {
                 return;
             }
 
-            interactor.saveRegistration(pair, jsonString, isEditMode, this);
+            saveRegistration(pair, jsonString);
 
         } catch (Exception e) {
             Log.e(DIALOG_TAG, Log.getStackTraceString(e));
         }
+    }
+    private void saveRegistration(Pair<Client, Event> pair, String jsonString) {
+
+        try {
+
+            Client baseClient = pair.first;
+            Event baseEvent = pair.second;
+
+            if (baseClient != null) {
+                JSONObject clientjsonFromForm = new JSONObject(org.smartregister.family.util.JsonFormUtils.gson.toJson(baseClient));
+                WcaroRepository pathRepository = new WcaroRepository(context, WcaroApplication.getInstance().getContext());
+                EventClientRepository eventClientRepository = new EventClientRepository(pathRepository);
+                JSONObject clientJson = eventClientRepository.getClient(WcaroApplication.getInstance().getRepository().getReadableDatabase(),baseClient.getBaseEntityId());
+                updateClientAttributes(clientjsonFromForm,clientJson);
+                getSyncHelper().addClient(baseClient.getBaseEntityId(), clientJson);
+
+            }
+
+            if (baseEvent != null) {
+                JSONObject eventJson = new JSONObject(org.smartregister.family.util.JsonFormUtils.gson.toJson(baseEvent));
+                getSyncHelper().addEvent(baseEvent.getBaseEntityId(), eventJson);
+            }
+
+//            if (isEditMode) {
+//                // Unassign current OPENSRP ID
+//                if (baseClient != null) {
+//                    String newOpenSRPId = baseClient.getIdentifier(DBConstants.KEY.UNIQUE_ID).replace("-", "");
+//                    String currentOpenSRPId = org.smartregister.family.util.JsonFormUtils.getString(jsonString, org.smartregister.family.util.JsonFormUtils.CURRENT_OPENSRP_ID).replace("-", "");
+//                    if (!newOpenSRPId.equals(currentOpenSRPId)) {
+//                        //OPENSRP ID was changed
+//                        getUniqueIdRepository().open(currentOpenSRPId);
+//                    }
+//                }
+//
+//            } else {
+                if (baseClient != null) {
+                    String opensrpId = baseClient.getIdentifier(DBConstants.KEY.UNIQUE_ID);
+
+                    //mark OPENSRP ID as used
+                    getUniqueIdRepository().close(opensrpId);
+                }
+          //  }
+
+            if (baseClient != null || baseEvent != null) {
+                String imageLocation = org.smartregister.family.util.JsonFormUtils.getFieldValue(jsonString, org.smartregister.family.util.Constants.KEY.PHOTO);
+                org.smartregister.family.util.JsonFormUtils.saveImage(baseEvent.getProviderId(), baseClient.getBaseEntityId(), imageLocation);
+            }
+
+            long lastSyncTimeStamp = getAllSharedPreferences().fetchLastUpdatedAtDate(0);
+            Date lastSyncDate = new Date(lastSyncTimeStamp);
+            getClientProcessorForJava().processClient(getSyncHelper().getEvents(lastSyncDate, BaseRepository.TYPE_Unsynced));
+            getAllSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
+        } catch (Exception e) {
+            Log.e(TAG, Log.getStackTraceString(e));
+        }
+    }
+    private static void updateClientAttributes(JSONObject clientjsonFromForm, JSONObject clientJson) {
+        try {
+            JSONObject formAttributes = clientjsonFromForm.getJSONObject("attributes");
+            JSONObject clientAttributes = clientJson.getJSONObject("attributes");
+            Iterator<String> keys = formAttributes.keys();
+
+            while(keys.hasNext()) {
+                String key = keys.next();
+                clientAttributes.put(key,formAttributes.get(key));
+
+            }
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+    public AllSharedPreferences getAllSharedPreferences() {
+        return org.smartregister.family.util.Utils.context().allSharedPreferences();
+    }
+
+    public UniqueIdRepository getUniqueIdRepository() {
+        return FamilyLibrary.getInstance().getUniqueIdRepository();
+    }
+
+    public ECSyncHelper getSyncHelper() {
+        return FamilyLibrary.getInstance().getEcSyncHelper();
+    }
+
+    public ClientProcessorForJava getClientProcessorForJava() {
+        return FamilyLibrary.getInstance().getClientProcessorForJava();
     }
 
     FormUtils formUtils = null;
@@ -391,11 +418,9 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                 Log.d("JSONResult", jsonString);
 
                 JSONObject form = new JSONObject(jsonString);
-                if (form.getString(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_TYPE).equals(org.smartregister.family.util.Utils.metadata().familyRegister.registerEventType)
-                        || form.getString(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_TYPE).equals(Constants.EventType.CHILD_REGISTRATION)
-                        || form.getString(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_TYPE).equals(Constants.EventType.BIRTH_CERTIFICATION)
-                        ) {
-                    saveForm(jsonString, false);
+                if (form.getString(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_TYPE).equals(Constants.EventType.BIRTH_CERTIFICATION)
+                 ) {
+                    saveForm(jsonString);
                 }
             } catch (Exception e) {
                 Log.e(DIALOG_TAG, Log.getStackTraceString(e));

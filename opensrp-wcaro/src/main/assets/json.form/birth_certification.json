@@ -75,6 +75,7 @@
         "hint": "Birth certificate issuance date *",
         "expanded": false,
         "max_date": "today",
+        "min_date":"",
         "v_required": {
           "value": "true",
           "err": "Please enter Birth certificate issuance date"
