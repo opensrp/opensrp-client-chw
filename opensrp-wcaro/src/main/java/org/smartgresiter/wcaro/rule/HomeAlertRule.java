@@ -66,19 +66,10 @@ public class HomeAlertRule {
 
     public boolean isOverdueWithinMonth(Integer value) {
         int diff = getMonthsDifference(lastVisitDate, todayDate);
-        if (visitNotDoneDate == null) {
-            if (diff >= value) {
-                noOfMonthDue = diff + "M";
-                return true;
-            }
-
-        } else {
-            if (diff >= value && (visitNotDoneDate.getMonthOfYear() != (todayDate.getMonthOfYear() - 1))) {
-                noOfMonthDue = diff + "M";
-                return true;
-            }
+        if (diff >= value){
+            noOfMonthDue = diff + "M";
+            return true;
         }
-
         return false;
     }
 
@@ -110,9 +101,11 @@ public class HomeAlertRule {
     private int dayDifference(LocalDate date1, LocalDate date2) {
         return Days.daysBetween(date1, date2).getDays();
     }
-    private  String theMonth(int month){
+
+    private String theMonth(int month) {
         return monthNames[month];
     }
+
     private int getMonthsDifference(LocalDate date1, LocalDate date2) {
         int m1 = date1.getYear() * 12 + date1.getMonthOfYear();
         int m2 = date2.getYear() * 12 + date2.getMonthOfYear();

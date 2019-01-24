@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
-import android.text.TextUtils;
 import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
@@ -37,20 +36,15 @@ import org.smartgresiter.wcaro.model.ChildRegisterModel;
 import org.smartgresiter.wcaro.util.ChildUtils;
 import org.smartgresiter.wcaro.util.Constants;
 import org.smartgresiter.wcaro.util.HomeVisitVaccineGroupDetails;
-import org.smartgresiter.wcaro.util.ImmunizationState;
 import org.smartgresiter.wcaro.util.JsonFormUtils;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
-import org.smartregister.domain.Alert;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.family.activity.BaseFamilyProfileActivity;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.immunization.db.VaccineRepo;
-import org.smartregister.immunization.domain.Vaccine;
 import org.smartregister.immunization.domain.VaccineWrapper;
-import org.smartregister.immunization.util.VaccinateActionUtils;
-import org.smartregister.util.DateUtil;
 import org.smartregister.util.FormUtils;
 import org.smartregister.util.Utils;
 
@@ -121,7 +115,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         layoutBirthCertGroup.setOnClickListener(this);
         homeVisitGrowthAndNutritionLayout = view.findViewById(R.id.growth_and_nutrition_group);
 
-        homeVisitImmunizationView = (HomeVisitImmunizationView)view.findViewById(R.id.home_visit_immunization_view);
+        homeVisitImmunizationView = (HomeVisitImmunizationView) view.findViewById(R.id.home_visit_immunization_view);
         homeVisitImmunizationView.setActivity(getActivity());
         homeVisitImmunizationView.setChildClient(childClient);
         assignNameHeader();
@@ -182,7 +176,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     @Override
     public void onClick(View v) {
         FragmentTransaction ft = getActivity().getFragmentManager().beginTransaction();
-        String dobString = org.smartregister.util.Utils.getValue(childClient.getColumnmaps(), "dob", false);
+        String dobString = org.smartregister.util.Utils.getValue(childClient.getColumnmaps(), DBConstants.KEY.DOB, false);
 
         switch (v.getId()) {
             case R.id.birth_cert_group:
@@ -194,7 +188,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                 break;
             case R.id.textview_submit:
                 if (checkAllGiven()) {
-                    ChildUtils.updateClientStatusAsEvent(childClient.entityId(), "Child Home Visit", "last_home_visit", "" + System.currentTimeMillis(), "ec_child");
+                    ChildUtils.updateClientStatusAsEvent(childClient.entityId(), Constants.EventType.CHILD_HOME_VISIT, ChildDBConstants.KEY.LAST_HOME_VISIT, System.currentTimeMillis()+"", Constants.TABLE_NAME.CHILD);
 
                     if (getActivity() instanceof ChildRegisterActivity) {
                         ((ChildRegisterActivity) getActivity()).refreshList(FetchStatus.fetched);
