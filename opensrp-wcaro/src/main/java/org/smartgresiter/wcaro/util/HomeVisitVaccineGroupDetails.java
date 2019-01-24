@@ -14,8 +14,22 @@ public class HomeVisitVaccineGroupDetails {
     ArrayList<VaccineRepo.Vaccine> dueVaccines = new ArrayList<VaccineRepo.Vaccine>();
     ;
     ArrayList<VaccineRepo.Vaccine> notGivenVaccines = new ArrayList<VaccineRepo.Vaccine>();
+    ArrayList<VaccineRepo.Vaccine> notGivenInThisVisitVaccines = new ArrayList<VaccineRepo.Vaccine>();
     String group = "";
     ImmunizationState alert = ImmunizationState.NO_ALERT;
+    private String dueDate = "";
+
+
+    public ArrayList<VaccineRepo.Vaccine> getNotGivenInThisVisitVaccines() {
+        return notGivenInThisVisitVaccines;
+    }
+
+    public void setNotGivenInThisVisitVaccines(ArrayList<VaccineRepo.Vaccine> notGivenInThisVisitVaccines) {
+        this.notGivenInThisVisitVaccines = notGivenInThisVisitVaccines;
+    }
+
+
+
 
     public ArrayList<VaccineRepo.Vaccine> getGivenVaccines() {
         return givenVaccines;
@@ -69,5 +83,13 @@ public class HomeVisitVaccineGroupDetails {
                 notGivenVaccines.add(vaccine);
             }
         }
+    }
+
+    public String getDueDate() {
+        return dueDate;
+    }
+
+    public void setDueDate(String dueDate) {
+       this.dueDate = dueDate;
     }
 }

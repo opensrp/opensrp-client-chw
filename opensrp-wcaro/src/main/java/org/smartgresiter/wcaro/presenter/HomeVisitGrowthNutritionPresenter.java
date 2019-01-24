@@ -68,6 +68,16 @@ public class HomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNutriti
     }
 
     @Override
+    public boolean isSelected(String type) {
+        for(String key:saveStateMap.keySet()){
+            if(key.equalsIgnoreCase(type)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
     public boolean isAllSelected() {
         if (growthListCount == (saveStateMap.size() + notVisitStateMap.size())) {
             return true;

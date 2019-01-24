@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.ClipData;
 import android.content.ClipboardManager;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -111,6 +112,17 @@ public class Utils extends org.smartregister.family.util.Utils {
             drawable.draw(canvas);
         }
         return result;
+    }
+
+    public static void updateTable(String tableName, String baseEntityId, String column, String value) {
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(column, value);
+
+        Utils.context().commonrepository(tableName).updateColumn(tableName, contentValues, baseEntityId);
+    }
+
+    public static void updateFtsSearch(String tableName, String baseEntityId, String column, String value) {
+        Utils.context().commonrepository(tableName).populateSearchValues(baseEntityId, column, value, null);
     }
 
 }

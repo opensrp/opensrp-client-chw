@@ -28,6 +28,8 @@ import com.vijay.jsonwizard.customviews.RadioButton;
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.smartgresiter.wcaro.R;
+import org.smartgresiter.wcaro.contract.HomeVisitImmunizationContract;
+import org.smartgresiter.wcaro.custom_view.HomeVisitImmunizationView;
 import org.smartregister.domain.Alert;
 import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.immunization.domain.Vaccine;
@@ -55,6 +57,7 @@ public class CustomVaccinationDialogFragment extends ChildImmunizationFragment {
     private DialogInterface.OnDismissListener onDismissListener;
     private Integer defaultImageResourceID;
     private Integer defaultErrorImageResourceID;
+    private HomeVisitImmunizationContract.View homeVisitImmunizationView;
 
     public void setContext(Activity context) {
         this.context = context;
@@ -291,8 +294,7 @@ public class CustomVaccinationDialogFragment extends ChildImmunizationFragment {
                     }
                 }
                 onVaccinateEarlier(tagsToUpdate, view);
-                ((ChildHomeVisitFragment) getActivity().getFragmentManager().findFragmentByTag(ChildHomeVisitFragment.DIALOG_TAG)).assigntoGivenVaccines(tagsToUpdate);
-
+                homeVisitImmunizationView.getPresenter().assigntoGivenVaccines(tagsToUpdate);
 
             }
         });
@@ -319,7 +321,7 @@ public class CustomVaccinationDialogFragment extends ChildImmunizationFragment {
                 dismiss();
                 VaccineWrapper vaccineWrapper = tags.get(0);
                 VaccineRepo.Vaccine vaccine = vaccineWrapper.getVaccine();
-                ((ChildHomeVisitFragment) getActivity().getFragmentManager().findFragmentByTag("child_home_visit_dialog")).updateNotGivenVaccine(vaccineWrapper);
+                homeVisitImmunizationView.getPresenter().updateNotGivenVaccine(vaccineWrapper);
                 ((ChildHomeVisitFragment) getActivity().getFragmentManager().findFragmentByTag("child_home_visit_dialog")).updateImmunizationState();
             }
         });
@@ -672,5 +674,7 @@ public class CustomVaccinationDialogFragment extends ChildImmunizationFragment {
         ((ChildHomeVisitFragment) context.getFragmentManager().findFragmentByTag("child_home_visit_dialog")).updateImmunizationState();
     }
 
-
+    public void setView(HomeVisitImmunizationContract.View homeVisitImmunizationView) {
+        this.homeVisitImmunizationView = homeVisitImmunizationView;
+    }
 }
