@@ -100,7 +100,7 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
 
         if(presenter.isPartiallyComplete()){
             textview_group_immunization_primary_text.setText("Immunizations" + "(" + presenter.getCurrentActiveGroup().getGroup() + ")");
-            textview_group_immunization_secondary_text.setText(immunizationsGivenThisVisitafterCompletion());
+            textview_group_immunization_secondary_text.setText(presenter.getGroupImmunizationSecondaryText());
             immunization_group_status_circle.setImageResource(R.drawable.ic_checked);
             immunization_group_status_circle.setColorFilter(getResources().getColor(R.color.white));
             immunization_group_status_circle.setCircleBackgroundColor(getResources().getColor(R.color.pnc_circle_yellow));
@@ -108,7 +108,7 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
             multiple_immunization_group.setOnClickListener(null);
         }else if(presenter.isComplete()){
             textview_group_immunization_primary_text.setText("Immunizations" + "(" + presenter.getCurrentActiveGroup().getGroup() + ")");
-            textview_group_immunization_secondary_text.setText(immunizationsGivenThisVisitafterCompletion());
+            textview_group_immunization_secondary_text.setText(presenter.getGroupImmunizationSecondaryText());
             immunization_group_status_circle.setImageResource(R.drawable.ic_checked);
             immunization_group_status_circle.setColorFilter(getResources().getColor(R.color.white));
             immunization_group_status_circle.setCircleBackgroundColor(getResources().getColor(R.color.alert_complete_green));
@@ -136,12 +136,14 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
 
             if(presenter.getVaccinesDueFromLastVisitStillDueState().size()==0){
                 if(presenter.isSingleVaccineGroupPartialComplete()){
+                    textview_immunization_secondary_text.setText(presenter.getSingleImmunizationSecondaryText());
                     immunization_status_circle.setImageResource(R.drawable.ic_checked);
                     immunization_status_circle.setColorFilter(getResources().getColor(R.color.white));
                     immunization_status_circle.setCircleBackgroundColor(getResources().getColor(R.color.pnc_circle_yellow));
                     immunization_status_circle.setBorderColor(getResources().getColor(R.color.pnc_circle_yellow));
                 }
                 if(presenter.isSingleVaccineGroupComplete()){
+                    textview_immunization_secondary_text.setText(presenter.getSingleImmunizationSecondaryText());
                     immunization_status_circle.setImageResource(R.drawable.ic_checked);
                     immunization_status_circle.setColorFilter(getResources().getColor(R.color.white));
                     immunization_status_circle.setCircleBackgroundColor(getResources().getColor(R.color.alert_complete_green));
