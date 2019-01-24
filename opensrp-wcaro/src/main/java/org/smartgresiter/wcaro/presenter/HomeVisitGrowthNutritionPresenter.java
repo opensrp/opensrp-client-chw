@@ -69,8 +69,8 @@ public class HomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNutriti
 
     @Override
     public boolean isSelected(String type) {
-        for(String key:saveStateMap.keySet()){
-            if(key.equalsIgnoreCase(type)){
+        for (String key : saveStateMap.keySet()) {
+            if (key.equalsIgnoreCase(type)) {
                 return true;
             }
         }

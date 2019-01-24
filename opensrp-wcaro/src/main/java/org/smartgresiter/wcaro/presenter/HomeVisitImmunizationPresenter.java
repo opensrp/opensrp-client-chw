@@ -29,19 +29,19 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
     private ArrayList<VaccineWrapper> vaccinesGivenThisVisit = new ArrayList<VaccineWrapper>();
 
 
-    public HomeVisitImmunizationPresenter(HomeVisitImmunizationContract.View view){
+    public HomeVisitImmunizationPresenter(HomeVisitImmunizationContract.View view) {
         this.view = new WeakReference<>(view);
         homeVisitImmunizationInteractor = new HomeVisitImmunizationInteractor();
     }
 
     @Override
-    public void createAllVaccineGroups(List<Alert> alerts, List<Vaccine> vaccines, List<Map<String, Object>> sch){
-        allgroups = homeVisitImmunizationInteractor.determineAllHomeVisitVaccineGroupDetails(alerts,vaccines,notGivenVaccines,sch);
+    public void createAllVaccineGroups(List<Alert> alerts, List<Vaccine> vaccines, List<Map<String, Object>> sch) {
+        allgroups = homeVisitImmunizationInteractor.determineAllHomeVisitVaccineGroupDetails(alerts, vaccines, notGivenVaccines, sch);
     }
 
     @Override
-    public void getVaccinesNotGivenLastVisit(){
-        if(vaccinesDueFromLastVisit.size()==0) {
+    public void getVaccinesNotGivenLastVisit() {
+        if (vaccinesDueFromLastVisit.size() == 0) {
             if (homeVisitImmunizationInteractor.hasVaccinesNotGivenSinceLastVisit(allgroups)) {
                 vaccinesDueFromLastVisit = homeVisitImmunizationInteractor.getNotGivenVaccinesLastVisitList(allgroups);
             }
@@ -49,9 +49,9 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
     }
 
     @Override
-    public void calculateCurrentActiveGroup(){
+    public void calculateCurrentActiveGroup() {
         currentActiveGroup = homeVisitImmunizationInteractor.getCurrentActiveHomeVisitVaccineGroupDetail(allgroups);
-        if(currentActiveGroup == null){
+        if (currentActiveGroup == null) {
             currentActiveGroup = homeVisitImmunizationInteractor.getLastActiveHomeVisitVaccineGroupDetail(allgroups);
         }
     }
@@ -188,27 +188,27 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
 
     @Override
     public void updateImmunizationState(HomeVisitImmunizationContract.InteractorCallBack callBack) {
-        homeVisitImmunizationInteractor.updateImmunizationState(childClient,notGivenVaccines,callBack);
+        homeVisitImmunizationInteractor.updateImmunizationState(childClient, notGivenVaccines, callBack);
     }
 
     @Override
     public ArrayList<VaccineRepo.Vaccine> getVaccinesDueFromLastVisitStillDueState() {
         ArrayList<VaccineRepo.Vaccine> vaccinesToReturn = new ArrayList<VaccineRepo.Vaccine>();
         Stack<VaccineRepo.Vaccine> vaccinesStack = new Stack<VaccineRepo.Vaccine>();
-        for(VaccineRepo.Vaccine vaccinedueLastVisit : vaccinesDueFromLastVisit){
+        for (VaccineRepo.Vaccine vaccinedueLastVisit : vaccinesDueFromLastVisit) {
             vaccinesStack.add(vaccinedueLastVisit);
-            for(VaccineWrapper givenThisVisit: vaccinesGivenThisVisit){
-                if(givenThisVisit.getDefaultName().equalsIgnoreCase(vaccinesStack.peek().display())){
+            for (VaccineWrapper givenThisVisit : vaccinesGivenThisVisit) {
+                if (givenThisVisit.getDefaultName().equalsIgnoreCase(vaccinesStack.peek().display())) {
                     vaccinesStack.pop();
                 }
             }
         }
         vaccinesToReturn.addAll(vaccinesStack);
         vaccinesStack = new Stack<VaccineRepo.Vaccine>();
-        for(VaccineRepo.Vaccine vaccinesDueYetnotGiven : vaccinesToReturn) {
+        for (VaccineRepo.Vaccine vaccinesDueYetnotGiven : vaccinesToReturn) {
             vaccinesStack.add(vaccinesDueYetnotGiven);
             for (VaccineWrapper vaccine : notGivenVaccines) {
-                if(vaccine.getDefaultName().equalsIgnoreCase(vaccinesStack.peek().display())){
+                if (vaccine.getDefaultName().equalsIgnoreCase(vaccinesStack.peek().display())) {
                     vaccinesStack.pop();
                 }
             }
@@ -219,13 +219,13 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
     }
 
     @Override
-    public boolean isSingleVaccineGroupPartialComplete(){
+    public boolean isSingleVaccineGroupPartialComplete() {
         boolean toReturn = false;
         ArrayList<VaccineRepo.Vaccine> singleVaccineInDueState = getVaccinesDueFromLastVisitStillDueState();
-        if(singleVaccineInDueState.size() == 0){
-            for (VaccineRepo.Vaccine vaccineDueLastVisit: vaccinesDueFromLastVisit){
-                for(VaccineWrapper notgivenVaccine : notGivenVaccines){
-                    if(notgivenVaccine.getDefaultName().equalsIgnoreCase(vaccineDueLastVisit.display())){
+        if (singleVaccineInDueState.size() == 0) {
+            for (VaccineRepo.Vaccine vaccineDueLastVisit : vaccinesDueFromLastVisit) {
+                for (VaccineWrapper notgivenVaccine : notGivenVaccines) {
+                    if (notgivenVaccine.getDefaultName().equalsIgnoreCase(vaccineDueLastVisit.display())) {
                         toReturn = true;
                     }
                 }
@@ -238,16 +238,17 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
     public boolean isSingleVaccineGroupComplete() {
         boolean toReturn = true;
         ArrayList<VaccineRepo.Vaccine> singleVaccineInDueState = getVaccinesDueFromLastVisitStillDueState();
-        if(singleVaccineInDueState.size() == 0){
-            for (VaccineRepo.Vaccine vaccineDueLastVisit: vaccinesDueFromLastVisit){
-                for(VaccineWrapper notgivenVaccine : notGivenVaccines){
-                    if(notgivenVaccine.getDefaultName().equalsIgnoreCase(vaccineDueLastVisit.display())){
+        if (singleVaccineInDueState.size() == 0) {
+            for (VaccineRepo.Vaccine vaccineDueLastVisit : vaccinesDueFromLastVisit) {
+                for (VaccineWrapper notgivenVaccine : notGivenVaccines) {
+                    if (notgivenVaccine.getDefaultName().equalsIgnoreCase(vaccineDueLastVisit.display())) {
                         toReturn = false;
                     }
                 }
             }
         }
-        return toReturn;    }
+        return toReturn;
+    }
 
 
 }

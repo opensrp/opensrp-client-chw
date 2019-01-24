@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
-import android.text.TextUtils;
 import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
@@ -25,7 +24,6 @@ import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
 
 import org.apache.commons.lang3.tuple.Triple;
-import org.joda.time.DateTime;
 import org.json.JSONObject;
 import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.activity.ChildProfileActivity;
@@ -34,45 +32,30 @@ import org.smartgresiter.wcaro.contract.ChildRegisterContract;
 import org.smartgresiter.wcaro.custom_view.HomeVisitGrowthAndNutrition;
 import org.smartgresiter.wcaro.custom_view.HomeVisitImmunizationView;
 import org.smartgresiter.wcaro.interactor.ChildRegisterInteractor;
-import org.smartgresiter.wcaro.interactor.HomeVisitImmunizationInteractor;
-import org.smartgresiter.wcaro.listener.ImmunizationStateChangeListener;
 import org.smartgresiter.wcaro.model.ChildRegisterModel;
-import org.smartgresiter.wcaro.task.UndoVaccineTask;
 import org.smartgresiter.wcaro.task.VaccinationAsyncTask;
+import org.smartgresiter.wcaro.util.ChildDBConstants;
 import org.smartgresiter.wcaro.util.ChildUtils;
 import org.smartgresiter.wcaro.util.Constants;
 import org.smartgresiter.wcaro.util.HomeVisitVaccineGroupDetails;
-import org.smartgresiter.wcaro.util.ImmunizationState;
 import org.smartgresiter.wcaro.util.JsonFormUtils;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
-import org.smartregister.domain.Alert;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.family.activity.BaseFamilyProfileActivity;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.immunization.db.VaccineRepo;
-import org.smartregister.immunization.domain.Vaccine;
 import org.smartregister.immunization.domain.VaccineWrapper;
-import org.smartregister.immunization.util.VaccinateActionUtils;
-import org.smartregister.util.DateUtil;
 import org.smartregister.util.FormUtils;
 import org.smartregister.util.Utils;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static org.apache.commons.lang3.StringUtils.isBlank;
-import static org.smartgresiter.wcaro.util.Constants.IMMUNIZATION_CONSTANT.DATE;
-import static org.smartgresiter.wcaro.util.Constants.IMMUNIZATION_CONSTANT.VACCINE;
-import static org.smartregister.immunization.util.VaccinatorUtils.receivedVaccines;
 import static org.smartregister.util.Utils.getValue;
-import static org.smartregister.util.Utils.startAsyncTask;
 
 public class ChildHomeVisitFragment extends DialogFragment implements View.OnClickListener, ChildRegisterContract.InteractorCallBack {
 
@@ -139,7 +122,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
 
         homeVisitGrowthAndNutritionLayout = view.findViewById(R.id.growth_and_nutrition_group);
 
-        homeVisitImmunizationView = (HomeVisitImmunizationView)view.findViewById(R.id.home_visit_immunization_view);
+        homeVisitImmunizationView = (HomeVisitImmunizationView) view.findViewById(R.id.home_visit_immunization_view);
         homeVisitImmunizationView.setActivity(getActivity());
         homeVisitImmunizationView.setChildClient(childClient);
         assignNameHeader();
@@ -200,12 +183,12 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     @Override
     public void onClick(View v) {
         FragmentTransaction ft = getActivity().getFragmentManager().beginTransaction();
-        String dobString = org.smartregister.util.Utils.getValue(childClient.getColumnmaps(), "dob", false);
+        String dobString = org.smartregister.util.Utils.getValue(childClient.getColumnmaps(), DBConstants.KEY.DOB, false);
 
         switch (v.getId()) {
             case R.id.textview_submit:
                 if (checkAllGiven()) {
-                    ChildUtils.updateClientStatusAsEvent(childClient.entityId(), "Child Home Visit", "last_home_visit", "" + System.currentTimeMillis(), "ec_child");
+                    ChildUtils.updateClientStatusAsEvent(childClient.entityId(), Constants.EventType.CHILD_HOME_VISIT, ChildDBConstants.KEY.LAST_HOME_VISIT, System.currentTimeMillis()+"", Constants.TABLE_NAME.CHILD);
 
                     if (getActivity() instanceof ChildRegisterActivity) {
                         ((ChildRegisterActivity) getActivity()).refreshList(FetchStatus.fetched);
