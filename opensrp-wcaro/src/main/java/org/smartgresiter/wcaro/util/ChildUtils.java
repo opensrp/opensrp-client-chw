@@ -171,7 +171,7 @@ public class ChildUtils {
      * @param visitNotDate
      * @return
      */
-    public static ChildVisit getChildVisitStatus( String yearOfBirth, long lastVisitDate, long visitNotDate) {
+    public static ChildVisit getChildVisitStatus(String yearOfBirth, long lastVisitDate, long visitNotDate) {
         HomeAlertRule homeAlertRule = new HomeAlertRule(yearOfBirth, lastVisitDate, visitNotDate);
         WcaroApplication.getInstance().getRulesEngineHelper().getButtonAlertStatus(homeAlertRule, Constants.RULE_FILE.HOME_VISIT);
         return getChildVisitStatus(homeAlertRule, lastVisitDate);

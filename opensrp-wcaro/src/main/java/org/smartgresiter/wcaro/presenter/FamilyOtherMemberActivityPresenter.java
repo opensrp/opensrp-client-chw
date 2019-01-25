@@ -5,8 +5,20 @@ import org.smartregister.family.presenter.BaseFamilyOtherMemberProfileActivityPr
 
 public class FamilyOtherMemberActivityPresenter extends BaseFamilyOtherMemberProfileActivityPresenter {
 
-    public FamilyOtherMemberActivityPresenter(FamilyOtherMemberContract.View view, FamilyOtherMemberContract.Model model, String viewConfigurationIdentifier, String baseEntityId, String familyHead, String primaryCaregiver, String villageTown) {
+    private String familyBaseEntityId;
+    private String familyName;
+
+    public FamilyOtherMemberActivityPresenter(FamilyOtherMemberContract.View view, FamilyOtherMemberContract.Model model, String viewConfigurationIdentifier, String familyBaseEntityId, String baseEntityId, String familyHead, String primaryCaregiver, String villageTown, String familyName) {
         super(view, model, viewConfigurationIdentifier, baseEntityId, familyHead, primaryCaregiver, villageTown);
+        this.familyBaseEntityId = familyBaseEntityId;
+        this.familyName = familyName;
     }
 
+    public String getFamilyBaseEntityId() {
+        return familyBaseEntityId;
+    }
+
+    public String getFamilyName() {
+        return familyName;
+    }
 }

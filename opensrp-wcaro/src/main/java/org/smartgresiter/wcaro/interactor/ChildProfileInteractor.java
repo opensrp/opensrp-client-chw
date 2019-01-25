@@ -147,7 +147,7 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
 
     @Override
     public void updateVisitNotDone(long value) {
-        ChildUtils.updateClientStatusAsEvent(getpClient().entityId(), Constants.EventType.CHILD_VISIT_NOT_DONE, ChildDBConstants.KEY.VISIT_NOT_DONE, value+"", Constants.TABLE_NAME.CHILD);
+        ChildUtils.updateClientStatusAsEvent(getpClient().entityId(), Constants.EventType.CHILD_VISIT_NOT_DONE, ChildDBConstants.KEY.VISIT_NOT_DONE, value + "", Constants.TABLE_NAME.CHILD);
     }
 
     @Override

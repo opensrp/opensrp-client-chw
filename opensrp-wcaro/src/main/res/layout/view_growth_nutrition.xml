@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/exclusive_feeding_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
         android:layout_marginTop="20dp"
-        android:visibility="gone"
-        android:orientation="horizontal">
+        android:layout_marginBottom="20dp"
+        android:orientation="horizontal"
+        android:visibility="gone">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/exclusive_feeding_status_circle"
@@ -61,17 +61,17 @@
         android:id="@+id/view_exclusive_feeding_bar"
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:visibility="gone"
-        android:background="@color/light_grey" />
+        android:background="@color/light_grey"
+        android:visibility="gone" />
 
     <LinearLayout
         android:id="@+id/mnp_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
         android:layout_marginTop="20dp"
-        android:visibility="gone"
-        android:orientation="horizontal">
+        android:layout_marginBottom="20dp"
+        android:orientation="horizontal"
+        android:visibility="gone">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/mnp_bar_status_circle"
@@ -120,17 +120,17 @@
         android:id="@+id/view_mnp_bar"
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:visibility="gone"
-        android:background="@color/light_grey" />
+        android:background="@color/light_grey"
+        android:visibility="gone" />
 
     <LinearLayout
         android:id="@+id/vitamin_a_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
         android:layout_marginTop="20dp"
-        android:visibility="gone"
-        android:orientation="horizontal">
+        android:layout_marginBottom="20dp"
+        android:orientation="horizontal"
+        android:visibility="gone">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/vitamin_a_status_circle"
@@ -179,17 +179,17 @@
         android:id="@+id/view_vitamin_a_bar"
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:visibility="gone"
-        android:background="@color/light_grey" />
+        android:background="@color/light_grey"
+        android:visibility="gone" />
 
     <LinearLayout
         android:id="@+id/deworming_bar"
-        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
         android:layout_marginTop="20dp"
-        android:orientation="horizontal">
+        android:layout_marginBottom="20dp"
+        android:orientation="horizontal"
+        android:visibility="gone">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/deworming_status_circle"

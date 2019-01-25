@@ -106,9 +106,14 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/captured_images_path" />
         </provider>
+
         <activity
             android:name=".activity.MedicalHistoryActivity"
             android:label="@string/medical_history"
+            android:theme="@style/WcaroTheme.NoActionBar" />
+        <activity
+            android:name=".activity.UpcomingServicesActivity"
+            android:label="@string/upcoming_services"
             android:theme="@style/WcaroTheme.NoActionBar" />
 
         <service android:name="org.smartregister.sync.intent.PullUniqueIdsIntentService" />

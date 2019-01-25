@@ -28,7 +28,6 @@ import org.smartregister.immunization.domain.ServiceRecord;
 import org.smartregister.immunization.domain.ServiceSchedule;
 import org.smartregister.immunization.domain.ServiceWrapper;
 import org.smartregister.immunization.repository.RecurringServiceRecordRepository;
-import org.smartregister.immunization.util.RecurringServiceUtils;
 import org.smartregister.util.DatePickerUtils;
 import org.smartregister.util.Utils;
 
@@ -288,6 +287,7 @@ public class GrowthNutritionInputFragment extends DialogFragment implements Radi
 
         }
     }
+
     public static void saveService(ServiceWrapper tag, String baseEntityId, String providerId, String locationId) {
         if (tag.getUpdatedVaccineDate() == null) {
             return;

@@ -14,9 +14,11 @@ import org.smartgresiter.wcaro.util.Constants;
 public class FloatingMenuListener implements OnClickFloatingMenu {
 
     private Activity context;
+    private String familyBaseEntityId;
 
-    public FloatingMenuListener(Activity context) {
+    public FloatingMenuListener(Activity context, String familyBaseEntityId) {
         this.context = context;
+        this.familyBaseEntityId = familyBaseEntityId;
     }
 
     @Override
@@ -24,7 +26,7 @@ public class FloatingMenuListener implements OnClickFloatingMenu {
         switch (viewId) {
             case R.id.call_layout:
                 // Toast.makeText(context, "Go to call screen", Toast.LENGTH_SHORT).show();
-                FamilyCallDialogFragment dialog = FamilyCallDialogFragment.showDialog(context, ((FamilyProfileActivity) context).getFamilyBaseEntityId());
+                FamilyCallDialogFragment.launchDialog(context, familyBaseEntityId);
                 //go to child add form activity
                 break;
             case R.id.family_detail_layout:
@@ -43,17 +45,14 @@ public class FloatingMenuListener implements OnClickFloatingMenu {
             case R.id.remove_member_layout:
 
                 Intent frm_intent = new Intent(context, FamilyRemoveMemberActivity.class);
-                if (context instanceof FamilyProfileActivity) {
-                    frm_intent.putExtras(((FamilyProfileActivity) context).getProfileExtras());
-                }
+                frm_intent.putExtras(context.getIntent().getExtras());
                 context.startActivityForResult(frm_intent, Constants.ProfileActivityResults.CHANGE_COMPLETED);
 
                 break;
             case R.id.change_head_layout:
 
                 Intent fh_intent = new Intent(context, FamilyProfileMenuActivity.class);
-                fh_intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.BASE_ENTITY_ID,
-                        ((FamilyProfileActivity) context).getFamilyBaseEntityId());
+                fh_intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.BASE_ENTITY_ID, familyBaseEntityId);
                 fh_intent.putExtra(FamilyProfileMenuActivity.MENU, FamilyProfileMenuActivity.MenuType.ChangeHead);
                 context.startActivityForResult(fh_intent, Constants.ProfileActivityResults.CHANGE_COMPLETED);
 
@@ -61,8 +60,7 @@ public class FloatingMenuListener implements OnClickFloatingMenu {
             case R.id.change_primary_layout:
 
                 Intent pc_intent = new Intent(context, FamilyProfileMenuActivity.class);
-                pc_intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.BASE_ENTITY_ID,
-                        ((FamilyProfileActivity) context).getFamilyBaseEntityId());
+                pc_intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.BASE_ENTITY_ID, familyBaseEntityId);
                 pc_intent.putExtra(FamilyProfileMenuActivity.MENU, FamilyProfileMenuActivity.MenuType.ChangePrimaryCare);
                 context.startActivityForResult(pc_intent, Constants.ProfileActivityResults.CHANGE_COMPLETED);
 
