@@ -5,32 +5,20 @@ import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.support.v7.app.ActionBar;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import org.smartgresiter.wcaro.R;
-import org.smartgresiter.wcaro.adapter.GrowthAdapter;
-import org.smartgresiter.wcaro.adapter.VaccineAdapter;
-import org.smartgresiter.wcaro.contract.MedicalHistoryContract;
 import org.smartgresiter.wcaro.custom_view.UpcomingServicesFragmentView;
-import org.smartgresiter.wcaro.presenter.MedicalHistoryPresenter;
 import org.smartgresiter.wcaro.util.Constants;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.view.activity.SecuredActivity;
 
-import java.util.Date;
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import static org.smartregister.util.Utils.getValue;
 
-public class UpcomingServicesActivity extends SecuredActivity{
+public class UpcomingServicesActivity extends SecuredActivity {
 
 
     private UpcomingServicesFragmentView upcomingServicesView;
@@ -49,8 +37,8 @@ public class UpcomingServicesActivity extends SecuredActivity{
         setContentView(R.layout.activity_upcoming_services);
         CommonPersonObjectClient childClient = (CommonPersonObjectClient) getIntent().getSerializableExtra(Constants.INTENT_KEY.CHILD_COMMON_PERSON);
         name = getValue(childClient.getColumnmaps(), "first_name", true) + " " +
-                getValue(childClient.getColumnmaps(), "last_name", true)+"'s profile";
-        upcomingServicesView = (UpcomingServicesFragmentView)findViewById(R.id.upcomingServicesHolder);
+                getValue(childClient.getColumnmaps(), "last_name", true) + "'s profile";
+        upcomingServicesView = (UpcomingServicesFragmentView) findViewById(R.id.upcomingServicesHolder);
         upcomingServicesView.setActivity(this);
         upcomingServicesView.setChildClient(childClient);
 

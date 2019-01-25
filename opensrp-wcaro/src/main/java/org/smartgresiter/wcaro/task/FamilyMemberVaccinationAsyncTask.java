@@ -64,7 +64,7 @@ public class FamilyMemberVaccinationAsyncTask extends AsyncTask {
                 // pClient.setColumnmaps(personObject.getColumnmaps());
                 String dobString = org.smartregister.util.Utils.getValue(personObject.getColumnmaps(), DBConstants.KEY.DOB, false);
                 DateTime dob = org.smartgresiter.wcaro.util.Utils.dobStringToDateTime(dobString);
-                if(dob == null){
+                if (dob == null) {
                     dob = new DateTime();
                 }
 

@@ -62,7 +62,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
         public void onClickMenu(int viewId) {
             switch (viewId) {
                 case R.id.call_layout:
-                    FamilyCallDialogFragment.showDialog(ChildProfileActivity.this, ((ChildProfilePresenter) presenter).getFamilyId());
+                    FamilyCallDialogFragment.launchDialog(ChildProfileActivity.this, ((ChildProfilePresenter) presenter).getFamilyId());
                     break;
                 case R.id.registration_layout:
                     break;
@@ -215,7 +215,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     }
 
     private void openUpcomingServicePage() {
-        UpcomingServicesActivity.startUpcomingServicesActivity(this,((ChildProfilePresenter) presenter()).getChildClient());
+        UpcomingServicesActivity.startUpcomingServicesActivity(this, ((ChildProfilePresenter) presenter()).getChildClient());
     }
 
     private void openMedicalHistoryScreen() {

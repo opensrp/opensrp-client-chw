@@ -14,13 +14,10 @@ import org.smartregister.util.DateUtil;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Stack;
-
-import static org.smartgresiter.wcaro.util.Constants.IMMUNIZATION_CONSTANT.DATE;
 
 public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationContract.Presenter {
 
@@ -36,19 +33,19 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
     public String groupImmunizationSecondaryText = "";
     public String singleImmunizationSecondaryText = "";
 
-    public HomeVisitImmunizationPresenter(HomeVisitImmunizationContract.View view){
+    public HomeVisitImmunizationPresenter(HomeVisitImmunizationContract.View view) {
         this.view = new WeakReference<>(view);
         homeVisitImmunizationInteractor = new HomeVisitImmunizationInteractor();
     }
 
     @Override
-    public void createAllVaccineGroups(List<Alert> alerts, List<Vaccine> vaccines, List<Map<String, Object>> sch){
-        allgroups = homeVisitImmunizationInteractor.determineAllHomeVisitVaccineGroupDetails(alerts,vaccines,notGivenVaccines,sch);
+    public void createAllVaccineGroups(List<Alert> alerts, List<Vaccine> vaccines, List<Map<String, Object>> sch) {
+        allgroups = homeVisitImmunizationInteractor.determineAllHomeVisitVaccineGroupDetails(alerts, vaccines, notGivenVaccines, sch);
     }
 
     @Override
-    public void getVaccinesNotGivenLastVisit(){
-        if(vaccinesDueFromLastVisit.size()==0) {
+    public void getVaccinesNotGivenLastVisit() {
+        if (vaccinesDueFromLastVisit.size() == 0) {
             if (homeVisitImmunizationInteractor.hasVaccinesNotGivenSinceLastVisit(allgroups)) {
                 vaccinesDueFromLastVisit = homeVisitImmunizationInteractor.getNotGivenVaccinesLastVisitList(allgroups);
             }
@@ -56,9 +53,9 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
     }
 
     @Override
-    public void calculateCurrentActiveGroup(){
+    public void calculateCurrentActiveGroup() {
         currentActiveGroup = homeVisitImmunizationInteractor.getCurrentActiveHomeVisitVaccineGroupDetail(allgroups);
-        if(currentActiveGroup == null){
+        if (currentActiveGroup == null) {
             currentActiveGroup = homeVisitImmunizationInteractor.getLastActiveHomeVisitVaccineGroupDetail(allgroups);
         }
     }
@@ -195,17 +192,17 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
 
     @Override
     public void updateImmunizationState(HomeVisitImmunizationContract.InteractorCallBack callBack) {
-        homeVisitImmunizationInteractor.updateImmunizationState(childClient,notGivenVaccines,callBack);
+        homeVisitImmunizationInteractor.updateImmunizationState(childClient, notGivenVaccines, callBack);
     }
 
     @Override
     public ArrayList<VaccineRepo.Vaccine> getVaccinesDueFromLastVisitStillDueState() {
         ArrayList<VaccineRepo.Vaccine> vaccinesToReturn = new ArrayList<VaccineRepo.Vaccine>();
         Stack<VaccineRepo.Vaccine> vaccinesStack = new Stack<VaccineRepo.Vaccine>();
-        for(VaccineRepo.Vaccine vaccinedueLastVisit : vaccinesDueFromLastVisit){
+        for (VaccineRepo.Vaccine vaccinedueLastVisit : vaccinesDueFromLastVisit) {
             vaccinesStack.add(vaccinedueLastVisit);
-            for(VaccineWrapper givenThisVisit: vaccinesGivenThisVisit){
-                if(!vaccinesStack.isEmpty()) {
+            for (VaccineWrapper givenThisVisit : vaccinesGivenThisVisit) {
+                if (!vaccinesStack.isEmpty()) {
                     if (givenThisVisit.getDefaultName().equalsIgnoreCase(vaccinesStack.peek().display())) {
                         vaccinesStack.pop();
                     }
@@ -214,10 +211,10 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
         }
         vaccinesToReturn.addAll(vaccinesStack);
         vaccinesStack = new Stack<VaccineRepo.Vaccine>();
-        for(VaccineRepo.Vaccine vaccinesDueYetnotGiven : vaccinesToReturn) {
+        for (VaccineRepo.Vaccine vaccinesDueYetnotGiven : vaccinesToReturn) {
             vaccinesStack.add(vaccinesDueYetnotGiven);
             for (VaccineWrapper vaccine : notGivenVaccines) {
-                if(vaccine.getDefaultName().equalsIgnoreCase(vaccinesStack.peek().display())){
+                if (vaccine.getDefaultName().equalsIgnoreCase(vaccinesStack.peek().display())) {
                     vaccinesStack.pop();
                 }
             }
@@ -228,13 +225,13 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
     }
 
     @Override
-    public boolean isSingleVaccineGroupPartialComplete(){
+    public boolean isSingleVaccineGroupPartialComplete() {
         boolean toReturn = false;
         ArrayList<VaccineRepo.Vaccine> singleVaccineInDueState = getVaccinesDueFromLastVisitStillDueState();
-        if(singleVaccineInDueState.size() == 0){
-            for (VaccineRepo.Vaccine vaccineDueLastVisit: vaccinesDueFromLastVisit){
-                for(VaccineWrapper notgivenVaccine : notGivenVaccines){
-                    if(notgivenVaccine.getDefaultName().equalsIgnoreCase(vaccineDueLastVisit.display())){
+        if (singleVaccineInDueState.size() == 0) {
+            for (VaccineRepo.Vaccine vaccineDueLastVisit : vaccinesDueFromLastVisit) {
+                for (VaccineWrapper notgivenVaccine : notGivenVaccines) {
+                    if (notgivenVaccine.getDefaultName().equalsIgnoreCase(vaccineDueLastVisit.display())) {
                         toReturn = true;
                     }
                 }
@@ -247,10 +244,10 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
     public boolean isSingleVaccineGroupComplete() {
         boolean toReturn = true;
         ArrayList<VaccineRepo.Vaccine> singleVaccineInDueState = getVaccinesDueFromLastVisitStillDueState();
-        if(singleVaccineInDueState.size() == 0){
-            for (VaccineRepo.Vaccine vaccineDueLastVisit: vaccinesDueFromLastVisit){
-                for(VaccineWrapper notgivenVaccine : notGivenVaccines){
-                    if(notgivenVaccine.getDefaultName().equalsIgnoreCase(vaccineDueLastVisit.display())){
+        if (singleVaccineInDueState.size() == 0) {
+            for (VaccineRepo.Vaccine vaccineDueLastVisit : vaccinesDueFromLastVisit) {
+                for (VaccineWrapper notgivenVaccine : notGivenVaccines) {
+                    if (notgivenVaccine.getDefaultName().equalsIgnoreCase(vaccineDueLastVisit.display())) {
                         toReturn = false;
                     }
                 }
@@ -262,18 +259,18 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
     @Override
     public void setGroupVaccineText(List<Map<String, Object>> sch) {
         ArrayList<VaccineRepo.Vaccine> allgivenVaccines = new ArrayList<VaccineRepo.Vaccine>();
-        for(HomeVisitVaccineGroupDetails group : allgroups){
+        for (HomeVisitVaccineGroupDetails group : allgroups) {
             allgivenVaccines.addAll(group.getGivenVaccines());
         }
-        LinkedHashMap<DateTime,ArrayList<VaccineRepo.Vaccine>> groupedByDate = new LinkedHashMap<DateTime, ArrayList<VaccineRepo.Vaccine>>();
-        for(VaccineRepo.Vaccine vaccineGiven:allgivenVaccines){
-            for(Map<String, Object> mapToProcess: sch){
-                if(((VaccineRepo.Vaccine)mapToProcess.get("vaccine")).display().equalsIgnoreCase(vaccineGiven.display())){
-                    if(groupedByDate.get((DateTime)mapToProcess.get("date"))==null){
+        LinkedHashMap<DateTime, ArrayList<VaccineRepo.Vaccine>> groupedByDate = new LinkedHashMap<DateTime, ArrayList<VaccineRepo.Vaccine>>();
+        for (VaccineRepo.Vaccine vaccineGiven : allgivenVaccines) {
+            for (Map<String, Object> mapToProcess : sch) {
+                if (((VaccineRepo.Vaccine) mapToProcess.get("vaccine")).display().equalsIgnoreCase(vaccineGiven.display())) {
+                    if (groupedByDate.get((DateTime) mapToProcess.get("date")) == null) {
                         ArrayList<VaccineRepo.Vaccine> givenVaccinesAtDate = new ArrayList<VaccineRepo.Vaccine>();
                         givenVaccinesAtDate.add(vaccineGiven);
-                        groupedByDate.put((DateTime) mapToProcess.get("date"),givenVaccinesAtDate);
-                    }else{
+                        groupedByDate.put((DateTime) mapToProcess.get("date"), givenVaccinesAtDate);
+                    } else {
                         groupedByDate.get(mapToProcess.get("date")).add(vaccineGiven);
                     }
                 }
@@ -284,20 +281,20 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
             DateTime dateTime = entry.getKey();
             ArrayList<VaccineRepo.Vaccine> vaccines = entry.getValue();
             // now work with key and value...
-            for(VaccineRepo.Vaccine vaccineGiven:vaccines){
-                groupSecondaryText = groupSecondaryText+vaccineGiven.display()+", ";
+            for (VaccineRepo.Vaccine vaccineGiven : vaccines) {
+                groupSecondaryText = groupSecondaryText + vaccineGiven.display() + ", ";
             }
 
-            if(groupSecondaryText.endsWith(", ")){
+            if (groupSecondaryText.endsWith(", ")) {
                 groupSecondaryText = groupSecondaryText.trim();
-                groupSecondaryText = groupSecondaryText.substring(0,groupSecondaryText.length()-2);
+                groupSecondaryText = groupSecondaryText.substring(0, groupSecondaryText.length() - 2);
 
             }
-            groupSecondaryText = groupSecondaryText+ " provided on ";
+            groupSecondaryText = groupSecondaryText + " provided on ";
 
             DateTime dueDate = (DateTime) dateTime;
             String duedateString = DateUtil.formatDate(dueDate.toLocalDate(), "dd MMM yyyy");
-            groupSecondaryText= groupSecondaryText + duedateString+ " \u00B7 ";
+            groupSecondaryText = groupSecondaryText + duedateString + " \u00B7 ";
 
         }
         groupImmunizationSecondaryText = groupSecondaryText;
@@ -306,23 +303,23 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
     @Override
     public void setSingleVaccineText(ArrayList<VaccineRepo.Vaccine> vaccinesDueFromLastVisit, List<Map<String, Object>> sch) {
         ArrayList<VaccineRepo.Vaccine> allgivenVaccines = new ArrayList<VaccineRepo.Vaccine>();
-        for(VaccineRepo.Vaccine vaccineDueFromLastVisit : vaccinesDueFromLastVisit){
-            for(VaccineWrapper vaccineWrapper: vaccinesGivenThisVisit){
-                if(vaccineWrapper.getDefaultName().equalsIgnoreCase(vaccineDueFromLastVisit.display())){
+        for (VaccineRepo.Vaccine vaccineDueFromLastVisit : vaccinesDueFromLastVisit) {
+            for (VaccineWrapper vaccineWrapper : vaccinesGivenThisVisit) {
+                if (vaccineWrapper.getDefaultName().equalsIgnoreCase(vaccineDueFromLastVisit.display())) {
                     allgivenVaccines.add(vaccineDueFromLastVisit);
 
                 }
             }
         }
-        LinkedHashMap<DateTime,ArrayList<VaccineRepo.Vaccine>> groupedByDate = new LinkedHashMap<DateTime, ArrayList<VaccineRepo.Vaccine>>();
-        for(VaccineRepo.Vaccine vaccineGiven:allgivenVaccines){
-            for(Map<String, Object> mapToProcess: sch){
-                if(((VaccineRepo.Vaccine)mapToProcess.get("vaccine")).display().equalsIgnoreCase(vaccineGiven.display())){
-                    if(groupedByDate.get((DateTime)mapToProcess.get("date"))==null){
+        LinkedHashMap<DateTime, ArrayList<VaccineRepo.Vaccine>> groupedByDate = new LinkedHashMap<DateTime, ArrayList<VaccineRepo.Vaccine>>();
+        for (VaccineRepo.Vaccine vaccineGiven : allgivenVaccines) {
+            for (Map<String, Object> mapToProcess : sch) {
+                if (((VaccineRepo.Vaccine) mapToProcess.get("vaccine")).display().equalsIgnoreCase(vaccineGiven.display())) {
+                    if (groupedByDate.get((DateTime) mapToProcess.get("date")) == null) {
                         ArrayList<VaccineRepo.Vaccine> givenVaccinesAtDate = new ArrayList<VaccineRepo.Vaccine>();
                         givenVaccinesAtDate.add(vaccineGiven);
-                        groupedByDate.put((DateTime) mapToProcess.get("date"),givenVaccinesAtDate);
-                    }else{
+                        groupedByDate.put((DateTime) mapToProcess.get("date"), givenVaccinesAtDate);
+                    } else {
                         groupedByDate.get(mapToProcess.get("date")).add(vaccineGiven);
                     }
                 }
@@ -333,19 +330,19 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
             DateTime dateTime = entry.getKey();
             ArrayList<VaccineRepo.Vaccine> vaccines = entry.getValue();
             // now work with key and value...
-            for(VaccineRepo.Vaccine vaccineGiven:vaccines){
-                groupSecondaryText = groupSecondaryText+vaccineGiven.display()+", ";
+            for (VaccineRepo.Vaccine vaccineGiven : vaccines) {
+                groupSecondaryText = groupSecondaryText + vaccineGiven.display() + ", ";
             }
 
-            if(groupSecondaryText.endsWith(", ")){
+            if (groupSecondaryText.endsWith(", ")) {
                 groupSecondaryText = groupSecondaryText.trim();
-                groupSecondaryText = groupSecondaryText.substring(0,groupSecondaryText.length()-1);
+                groupSecondaryText = groupSecondaryText.substring(0, groupSecondaryText.length() - 1);
             }
-            groupSecondaryText = groupSecondaryText+ " provided on ";
+            groupSecondaryText = groupSecondaryText + " provided on ";
 
             DateTime dueDate = (DateTime) dateTime;
             String duedateString = DateUtil.formatDate(dueDate.toLocalDate(), "dd MMM yyyy");
-            groupSecondaryText= groupSecondaryText + duedateString+ " \u00B7 ";
+            groupSecondaryText = groupSecondaryText + duedateString + " \u00B7 ";
 
         }
         singleImmunizationSecondaryText = groupSecondaryText;

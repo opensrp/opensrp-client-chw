@@ -99,7 +99,7 @@ public interface HomeVisitImmunizationContract {
 
         void setGroupVaccineText(List<Map<String, Object>> sch);
 
-        void setSingleVaccineText(ArrayList<VaccineRepo.Vaccine> vaccinesDueFromLastVisit, List<Map<String,Object>> sch);
+        void setSingleVaccineText(ArrayList<VaccineRepo.Vaccine> vaccinesDueFromLastVisit, List<Map<String, Object>> sch);
 
         String getGroupImmunizationSecondaryText();
 

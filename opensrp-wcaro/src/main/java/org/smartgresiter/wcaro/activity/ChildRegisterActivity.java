@@ -94,7 +94,7 @@ public class ChildRegisterActivity extends BaseRegisterActivity implements Child
                 JSONObject form = new JSONObject(jsonString);
                 if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Utils.metadata().familyRegister.registerEventType)
                         || form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals("Child Registration")
-                ) {
+                        ) {
                     presenter().saveForm(jsonString, false);
                 }
             } catch (Exception e) {

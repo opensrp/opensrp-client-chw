@@ -62,9 +62,10 @@ public class VaccinationAsyncTask extends AsyncTask {
         DateTime dob = new DateTime();
         try {
             dob = new DateTime(org.smartregister.family.util.Utils.getValue(getColumnMaps, DBConstants.KEY.DOB, false));
-        }catch (Exception e) {}
+        } catch (Exception e) {
+        }
         sch = generateScheduleList("child",
-                dob , recievedVaccines, alerts);
+                dob, recievedVaccines, alerts);
 
         List<VaccineRepo.Vaccine> vList = Arrays.asList(VaccineRepo.Vaccine.values());
         nv = nextVaccineDue(sch, vList);
