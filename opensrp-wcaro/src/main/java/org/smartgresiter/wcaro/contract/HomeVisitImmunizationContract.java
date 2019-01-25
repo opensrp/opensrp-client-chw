@@ -96,6 +96,18 @@ public interface HomeVisitImmunizationContract {
         boolean isSingleVaccineGroupPartialComplete();
 
         boolean isSingleVaccineGroupComplete();
+
+        void setGroupVaccineText(List<Map<String, Object>> sch);
+
+        void setSingleVaccineText(ArrayList<VaccineRepo.Vaccine> vaccinesDueFromLastVisit, List<Map<String,Object>> sch);
+
+        String getGroupImmunizationSecondaryText();
+
+        void setGroupImmunizationSecondaryText(String groupImmunizationSecondaryText);
+
+        String getSingleImmunizationSecondaryText();
+
+        void setSingleImmunizationSecondaryText(String singleImmunizationSecondaryText);
     }
 
     interface Interactor {

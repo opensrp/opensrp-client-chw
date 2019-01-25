@@ -32,7 +32,7 @@ import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class HomeVisitImmunizationView extends LinearLayout implements View.OnClickListener, HomeVisitImmunizationContract.View {
+public class HomeVisitImmunizationView extends LinearLayout implements View.OnClickListener, HomeVisitImmunizationContract.View{
     public static final String TAG = "HomeVisitImmunization";
     private HomeVisitImmunizationContract.Presenter presenter;
     private CommonPersonObjectClient commonPersonObjectClient;
@@ -95,24 +95,27 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
         presenter.createAllVaccineGroups(alerts, vaccines, sch);
         presenter.getVaccinesNotGivenLastVisit();
         presenter.calculateCurrentActiveGroup();
-        if (presenter.isPartiallyComplete()) {
-            textview_group_immunization_primary_text.setText("Immunizations" + "(" + presenter.getCurrentActiveGroup().getGroup() + ")");
-            textview_group_immunization_secondary_text.setText(immunizationsGivenThisVisitafterCompletion());
+        presenter.setGroupVaccineText(sch);
+        presenter.setSingleVaccineText(presenter.getVaccinesDueFromLastVisit(),sch);
+
+        if(presenter.isPartiallyComplete()){
+            textview_group_immunization_primary_text.setText("Immunizations" + " (" + presenter.getCurrentActiveGroup().getGroup().replace("weeks","w").replace("months","m") + ")");
+            textview_group_immunization_secondary_text.setText(presenter.getGroupImmunizationSecondaryText());
             immunization_group_status_circle.setImageResource(R.drawable.ic_checked);
             immunization_group_status_circle.setColorFilter(getResources().getColor(R.color.white));
             immunization_group_status_circle.setCircleBackgroundColor(getResources().getColor(R.color.pnc_circle_yellow));
             immunization_group_status_circle.setBorderColor(getResources().getColor(R.color.pnc_circle_yellow));
             multiple_immunization_group.setOnClickListener(null);
         } else if (presenter.isComplete()) {
-            textview_group_immunization_primary_text.setText("Immunizations" + "(" + presenter.getCurrentActiveGroup().getGroup() + ")");
-            textview_group_immunization_secondary_text.setText(immunizationsGivenThisVisitafterCompletion());
+            textview_group_immunization_primary_text.setText("Immunizations" + " (" + presenter.getCurrentActiveGroup().getGroup().replace("weeks","w").replace("months","m") + ")");
+            textview_group_immunization_secondary_text.setText(presenter.getGroupImmunizationSecondaryText());
             immunization_group_status_circle.setImageResource(R.drawable.ic_checked);
             immunization_group_status_circle.setColorFilter(getResources().getColor(R.color.white));
             immunization_group_status_circle.setCircleBackgroundColor(getResources().getColor(R.color.alert_complete_green));
             immunization_group_status_circle.setBorderColor(getResources().getColor(R.color.alert_complete_green));
             multiple_immunization_group.setOnClickListener(null);
         } else if (presenter.groupIsDue()) {
-            textview_group_immunization_primary_text.setText("Immunizations" + "(" + presenter.getCurrentActiveGroup().getGroup() + ")");
+            textview_group_immunization_primary_text.setText("Immunizations" + " (" + presenter.getCurrentActiveGroup().getGroup().replace("weeks","w").replace("months","m") + ")");
             textview_group_immunization_secondary_text.setText("Due On " + presenter.getCurrentActiveGroup().getDueDate());
 
             multiple_immunization_group.setTag(R.id.nextduevaccinelist, presenter.getCurrentActiveGroup());
@@ -131,14 +134,16 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
             single_immunization_group.setTag(R.id.nextduevaccinelist, presenter.getVaccinesDueFromLastVisitStillDueState());
             single_immunization_group.setOnClickListener(this);
 
-            if (presenter.getVaccinesDueFromLastVisitStillDueState().size() == 0) {
-                if (presenter.isSingleVaccineGroupPartialComplete()) {
+            if(presenter.getVaccinesDueFromLastVisitStillDueState().size()==0){
+                if(presenter.isSingleVaccineGroupPartialComplete()){
+                    textview_immunization_secondary_text.setText(presenter.getSingleImmunizationSecondaryText());
                     immunization_status_circle.setImageResource(R.drawable.ic_checked);
                     immunization_status_circle.setColorFilter(getResources().getColor(R.color.white));
                     immunization_status_circle.setCircleBackgroundColor(getResources().getColor(R.color.pnc_circle_yellow));
                     immunization_status_circle.setBorderColor(getResources().getColor(R.color.pnc_circle_yellow));
                 }
-                if (presenter.isSingleVaccineGroupComplete()) {
+                if(presenter.isSingleVaccineGroupComplete()){
+                    textview_immunization_secondary_text.setText(presenter.getSingleImmunizationSecondaryText());
                     immunization_status_circle.setImageResource(R.drawable.ic_checked);
                     immunization_status_circle.setColorFilter(getResources().getColor(R.color.white));
                     immunization_status_circle.setCircleBackgroundColor(getResources().getColor(R.color.alert_complete_green));
