@@ -103,7 +103,7 @@ public class UpcomingServicesFragmentView extends LinearLayout implements View.O
 
         groupDateTitle.setText(homeVisitVaccineGroupDetail.getDueDate());
         groupNameTitle.setText("Immunizations ("+ homeVisitVaccineGroupDetail.getGroup()+")");
-        for(VaccineRepo.Vaccine vaccine : homeVisitVaccineGroupDetail.getDueVaccines()){
+        for(VaccineRepo.Vaccine vaccine : homeVisitVaccineGroupDetail.getNotGivenVaccines()){
             if(isBlank(groupVaccineTitle.getText().toString())) {
                 groupVaccineTitle.append(vaccine.display().toUpperCase());
             }else{
