@@ -39,6 +39,7 @@
     <string name="family_has_services_due">Family has services due</string>
     <string name="family_has_service_overdue"><![CDATA[Family has <font color=#FF0000>services overdue</font></b>]]></string>
     <string name="view_upcoming_services">View upcoming services</string>
+    <string name="upcoming_services">Upcoming Services</string>
     <string name="overdue_3_oct">overdue(3 oct)</string>
     <string name="penta_1">Penta 1</string>
     <string name="view_medical_history">View medical history</string>

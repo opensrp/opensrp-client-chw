@@ -99,7 +99,7 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
         presenter.setSingleVaccineText(presenter.getVaccinesDueFromLastVisit(),sch);
 
         if(presenter.isPartiallyComplete()){
-            textview_group_immunization_primary_text.setText("Immunizations" + "(" + presenter.getCurrentActiveGroup().getGroup() + ")");
+            textview_group_immunization_primary_text.setText("Immunizations" + " (" + presenter.getCurrentActiveGroup().getGroup().replace("weeks","w").replace("months","m") + ")");
             textview_group_immunization_secondary_text.setText(presenter.getGroupImmunizationSecondaryText());
             immunization_group_status_circle.setImageResource(R.drawable.ic_checked);
             immunization_group_status_circle.setColorFilter(getResources().getColor(R.color.white));
@@ -107,7 +107,7 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
             immunization_group_status_circle.setBorderColor(getResources().getColor(R.color.pnc_circle_yellow));
             multiple_immunization_group.setOnClickListener(null);
         } else if (presenter.isComplete()) {
-            textview_group_immunization_primary_text.setText("Immunizations" + "(" + presenter.getCurrentActiveGroup().getGroup() + ")");
+            textview_group_immunization_primary_text.setText("Immunizations" + " (" + presenter.getCurrentActiveGroup().getGroup().replace("weeks","w").replace("months","m") + ")");
             textview_group_immunization_secondary_text.setText(presenter.getGroupImmunizationSecondaryText());
             immunization_group_status_circle.setImageResource(R.drawable.ic_checked);
             immunization_group_status_circle.setColorFilter(getResources().getColor(R.color.white));
@@ -115,7 +115,7 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
             immunization_group_status_circle.setBorderColor(getResources().getColor(R.color.alert_complete_green));
             multiple_immunization_group.setOnClickListener(null);
         } else if (presenter.groupIsDue()) {
-            textview_group_immunization_primary_text.setText("Immunizations" + "(" + presenter.getCurrentActiveGroup().getGroup() + ")");
+            textview_group_immunization_primary_text.setText("Immunizations" + " (" + presenter.getCurrentActiveGroup().getGroup().replace("weeks","w").replace("months","m") + ")");
             textview_group_immunization_secondary_text.setText("Due On " + presenter.getCurrentActiveGroup().getDueDate());
 
             multiple_immunization_group.setTag(R.id.nextduevaccinelist, presenter.getCurrentActiveGroup());

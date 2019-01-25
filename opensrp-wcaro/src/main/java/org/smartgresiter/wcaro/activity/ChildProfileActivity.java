@@ -215,6 +215,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     }
 
     private void openUpcomingServicePage() {
+        UpcomingServicesActivity.startUpcomingServicesActivity(this,((ChildProfilePresenter) presenter()).getChildClient());
     }
 
     private void openMedicalHistoryScreen() {
