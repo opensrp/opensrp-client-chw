@@ -132,11 +132,11 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     private void assignNameHeader() {
         String dobString = org.smartregister.family.util.Utils.getDuration(org.smartregister.family.util.Utils.getValue(childClient.getColumnmaps(), DBConstants.KEY.DOB, false));
 
-        nameHeader.setText(
-                getValue(childClient.getColumnmaps(), "first_name", true) + " " +
-                        getValue(childClient.getColumnmaps(), "last_name", true) + ", " +
-                        dobString + " - Home Visit"
-        );
+        nameHeader.setText(String.format("%s %s, %s - Home Visit",
+                getValue(childClient.getColumnmaps(), "first_name", true) ,
+                getValue(childClient.getColumnmaps(), "last_name", true) ,
+                dobString
+        ));
     }
 
     @Override
@@ -188,7 +188,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         switch (v.getId()) {
             case R.id.textview_submit:
                 if (checkAllGiven()) {
-                    ChildUtils.updateClientStatusAsEvent(childClient.entityId(), Constants.EventType.CHILD_HOME_VISIT, ChildDBConstants.KEY.LAST_HOME_VISIT, System.currentTimeMillis()+"", Constants.TABLE_NAME.CHILD);
+                    ChildUtils.updateClientStatusAsEvent(childClient.entityId(), Constants.EventType.CHILD_HOME_VISIT, ChildDBConstants.KEY.LAST_HOME_VISIT, System.currentTimeMillis() + "", Constants.TABLE_NAME.CHILD);
 
                     if (getActivity() instanceof ChildRegisterActivity) {
                         ((ChildRegisterActivity) getActivity()).refreshList(FetchStatus.fetched);
@@ -392,7 +392,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                 JSONObject form = new JSONObject(jsonString);
                 if (form.getString(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_TYPE).equals(org.smartregister.family.util.Utils.metadata().familyRegister.registerEventType)
                         || form.getString(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_TYPE).equals("Child Registration")
-                        ) {
+                ) {
                     saveForm(jsonString, false);
                 }
             } catch (Exception e) {

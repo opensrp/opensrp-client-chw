@@ -64,6 +64,10 @@ public class NavigationMenu implements NavigationContract.View {
         }
     }
 
+    public NavigationAdapter getNavigationAdapter() {
+        return navigationAdapter;
+    }
+
     private void init(Activity activity, View parentView, Toolbar myToolbar) {
         // parentActivity = activity;
         try {

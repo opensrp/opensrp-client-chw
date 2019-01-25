@@ -8,6 +8,7 @@ import org.smartgresiter.wcaro.custom_view.NavigationMenu;
 import org.smartgresiter.wcaro.fragment.FamilyRegisterFragment;
 import org.smartgresiter.wcaro.model.FamilyRegisterModel;
 import org.smartgresiter.wcaro.presenter.FamilyRegisterPresenter;
+import org.smartgresiter.wcaro.util.Constants;
 import org.smartregister.family.activity.BaseFamilyRegisterActivity;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
@@ -43,4 +44,11 @@ public class FamilyRegisterActivity extends BaseFamilyRegisterActivity {
         NavigationMenu.getInstance(this, null, null);
     }
 
+
+    @Override
+    protected void onResumption() {
+        super.onResumption();
+        NavigationMenu.getInstance(this, null, null).getNavigationAdapter()
+                .setSelectedView(Constants.DrawerMenu.ALL_FAMILIES);
+    }
 }

@@ -94,7 +94,7 @@ public class ChildRegisterActivity extends BaseRegisterActivity implements Child
                 JSONObject form = new JSONObject(jsonString);
                 if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Utils.metadata().familyRegister.registerEventType)
                         || form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals("Child Registration")
-                        ) {
+                ) {
                     presenter().saveForm(jsonString, false);
                 }
             } catch (Exception e) {
@@ -146,5 +146,12 @@ public class ChildRegisterActivity extends BaseRegisterActivity implements Child
     @Override
     public ChildRegisterContract.Presenter presenter() {
         return (ChildRegisterContract.Presenter) presenter;
+    }
+
+    @Override
+    protected void onResumption() {
+        super.onResumption();
+        NavigationMenu.getInstance(this, null, null).getNavigationAdapter()
+                .setSelectedView(org.smartgresiter.wcaro.util.Constants.DrawerMenu.CHILD_CLIENTS);
     }
 }
