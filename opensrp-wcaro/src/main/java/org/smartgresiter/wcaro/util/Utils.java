@@ -21,10 +21,15 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.widget.Toast;
 
+import org.smartgresiter.wcaro.BuildConfig;
 import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.contract.FamilyCallDialogContract;
 import org.smartgresiter.wcaro.fragment.CopyToClipboardDialog;
 import org.smartregister.util.PermissionUtils;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class Utils extends org.smartregister.family.util.Utils {
 
@@ -111,6 +116,18 @@ public class Utils extends org.smartregister.family.util.Utils {
             drawable.draw(canvas);
         }
         return result;
+    }
+
+    public static String getBuildDate(Boolean isShortMonth) {
+        String simpleDateFormat;
+        if (isShortMonth) {
+            simpleDateFormat =
+                    new SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(new Date(BuildConfig.BUILD_TIMESTAMP));
+        } else {
+            simpleDateFormat =
+                    new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault()).format(new Date(BuildConfig.BUILD_TIMESTAMP));
+        }
+        return simpleDateFormat;
     }
 
 }
