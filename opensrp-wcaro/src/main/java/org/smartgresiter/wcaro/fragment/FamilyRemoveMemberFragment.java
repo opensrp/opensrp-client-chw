@@ -10,6 +10,7 @@ import android.widget.Toast;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
 
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
 import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.activity.FamilyRegisterActivity;
@@ -162,17 +163,21 @@ public class FamilyRemoveMemberFragment extends BaseFamilyProfileMemberFragment 
                         pc.getColumnmaps().get(DBConstants.KEY.MIDDLE_NAME) ,
                         pc.getColumnmaps().get(DBConstants.KEY.LAST_NAME));
 
-                FamilyRemoveMemberConfrimDialog dialog = FamilyRemoveMemberConfrimDialog.newInstance(
-                        String.format("Are you sure you want to remove %s's record? This will remove their entire health record from your device. This action cannot be undone." , name)
-                );
-                dialog.setContext(getContext());
-                dialog.show(getFragmentManager(), AddMemberFragment.DIALOG_TAG);
-                dialog.setOnRemove(new Runnable() {
-                    @Override
-                    public void run() {
-                        removeMember(pc);
-                    }
-                });
+                String dod  = pc.getColumnmaps().get(DBConstants.KEY.DOD);
+
+                if(StringUtils.isBlank(dod)){
+                    FamilyRemoveMemberConfrimDialog dialog = FamilyRemoveMemberConfrimDialog.newInstance(
+                            String.format("Are you sure you want to remove %s's record? This will remove their entire health record from your device. This action cannot be undone." , name)
+                    );
+                    dialog.setContext(getContext());
+                    dialog.show(getFragmentManager(), AddMemberFragment.DIALOG_TAG);
+                    dialog.setOnRemove(new Runnable() {
+                        @Override
+                        public void run() {
+                            removeMember(pc);
+                        }
+                    });
+                }
 
             }
         }
@@ -222,4 +227,15 @@ public class FamilyRemoveMemberFragment extends BaseFamilyProfileMemberFragment 
         }
 
     }
+
+    @Override
+    protected String getMainCondition() {
+        return presenter().getMainCondition();
+    }
+
+    @Override
+    protected String getDefaultSortQuery() {
+        return presenter().getDefaultSortQuery();
+    }
+
 }
