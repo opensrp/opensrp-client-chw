@@ -98,7 +98,7 @@ public class FamilyCallDialogInteractor implements FamilyCallDialogContract.Inte
                 )
         );
 
-        model.setRole((primaryCaregiverID.toLowerCase().equals(familyHeadID.toLowerCase())) ? "Head of Family , Caregiver" : (isHead ? "Head of Family" : "Caregiver"));
+        model.setRole((primaryCaregiverID.toLowerCase().equals(familyHeadID.toLowerCase())) ? "Head of family, Caregiver" : (isHead ? "Head of family" : "Caregiver"));
 
         return model;
     }

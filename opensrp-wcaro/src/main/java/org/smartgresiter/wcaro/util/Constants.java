@@ -122,4 +122,8 @@ public class Constants {
         }
     }
 
+    public static class GLOBAL {
+        public static final String NAME = "name";
+        public static final String MESSAGE = "message";
+    }
 }

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">CFC</string>
+    <string name="app_name">Liberia CFC</string>
     <string name="title_family_detail">Family Detail</string>
     <string name="login_title">CFC</string>
     <string name="child_register_title">Child Clients</string>
@@ -18,7 +18,7 @@
     <string name="action_sync_failed">Sync Failed</string>
 
     <!-- Navigation Strings -->
-    <string name="nav_logo">WCARO LOGO</string>
+    <string name="nav_logo">Liberia CFC Monitor</string>
     <string name="nav_registers">Registers</string>
     <string name="nav_logout_as">Logout as</string>
     <string name="nav_sync">Sync</string>
@@ -88,4 +88,8 @@
     <string name="vitamin_a">Vitamin A</string>
     <string name="deworming">Deworming</string>
     <string name="record_immunizations">Record immunizations</string>
+    <string name="tab_text_1">DASHBOARD</string>
+    <string name="tab_text_2">GUIDEBOOKS</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
 </resources>

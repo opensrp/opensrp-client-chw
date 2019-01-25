@@ -148,6 +148,15 @@ public class FamilyRemoveMemberPresenter extends FamilyProfileMemberPresenter im
 
     @Override
     public String getDefaultSortQuery() {
-        return String.format("%s ASC", DBConstants.KEY.DOB);
+        return String.format(" %s ASC ", DBConstants.KEY.DOB);
+    }
+
+    @Override
+    public String getMainCondition() {
+        return String.format(" %s = '%s' and %s is null and %s is null ",
+                DBConstants.KEY.OBJECT_RELATIONAL_ID, familyBaseEntityId,
+                DBConstants.KEY.DATE_REMOVED ,
+                DBConstants.KEY.DOD
+        );
     }
 }

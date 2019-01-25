@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".activity.FamilyRemoveMemberActivity">
 
 
@@ -30,14 +30,16 @@
 
             <org.smartregister.view.customcontrols.CustomFontTextView
                 android:id="@+id/textview_title"
-                style="@style/CustomFontTextViewStyle.ClientList.Light"
+                style="@style/CustomFontTextViewStyle.NavBar.Black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:text="@string/remove_member_title"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:textColor="@android:color/white" />
+                android:textColor="@android:color/white"
+                android:textSize="26sp" />
+
         </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>
@@ -51,10 +53,11 @@
         android:layout_below="@+id/app_bar"
         android:gravity="left"
         android:paddingLeft="15dp"
-        android:paddingRight="15dp"
         android:paddingTop="25dp"
+        android:paddingRight="15dp"
         android:paddingBottom="25dp"
         android:text="@string/remove_member_prompt"
+        android:maxLines="5"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="@android:color/black" />
 
