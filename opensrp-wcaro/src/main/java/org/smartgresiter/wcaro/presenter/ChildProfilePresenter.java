@@ -32,12 +32,48 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
 
     private String childBaseEntityId;
     private String dob;
+    private String familyID;
+    private String familyName;
+    private String familyHeadID;
+    private String primaryCareGiverID;
 
     public ChildProfilePresenter(ChildProfileContract.View childView, ChildProfileContract.Model model, String childBaseEntityId) {
         this.view = new WeakReference<>(childView);
         this.interactor = new ChildProfileInteractor();
         this.model = model;
         this.childBaseEntityId = childBaseEntityId;
+    }
+
+    public String getFamilyID() {
+        return familyID;
+    }
+
+    public void setFamilyID(String familyID) {
+        this.familyID = familyID;
+    }
+
+    public String getFamilyName() {
+        return familyName;
+    }
+
+    public void setFamilyName(String familyName) {
+        this.familyName = familyName;
+    }
+
+    public String getFamilyHeadID() {
+        return familyHeadID;
+    }
+
+    public void setFamilyHeadID(String familyHeadID) {
+        this.familyHeadID = familyHeadID;
+    }
+
+    public String getPrimaryCareGiverID() {
+        return primaryCareGiverID;
+    }
+
+    public void setPrimaryCareGiverID(String primaryCareGiverID) {
+        this.primaryCareGiverID = primaryCareGiverID;
     }
 
     public CommonPersonObjectClient getChildClient() {
@@ -49,7 +85,7 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
     }
 
     public String getFamilyId() {
-        return ((ChildProfileInteractor) interactor).getFamilyId();
+        return familyID;
     }
 
     public String getDateOfBirth() {
