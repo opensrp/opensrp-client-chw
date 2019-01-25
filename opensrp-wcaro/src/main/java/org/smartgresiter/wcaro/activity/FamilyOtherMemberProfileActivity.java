@@ -1,11 +1,16 @@
 package org.smartgresiter.wcaro.activity;
 
 import android.support.v4.view.ViewPager;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import org.smartgresiter.wcaro.R;
+import org.smartgresiter.wcaro.custom_view.FamilyFloatingMenu;
 import org.smartgresiter.wcaro.fragment.FamilyOtherMemberProfileFragment;
+import org.smartgresiter.wcaro.listener.FloatingMenuListener;
 import org.smartgresiter.wcaro.model.FamilyOtherMemberProfileActivityModel;
 import org.smartgresiter.wcaro.presenter.FamilyOtherMemberActivityPresenter;
 import org.smartregister.family.activity.BaseFamilyOtherMemberProfileActivity;
@@ -16,11 +21,31 @@ import org.smartregister.family.util.Constants;
 public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfileActivity {
     @Override
     protected void initializePresenter() {
+        String familyBaseEntityId = getIntent().getStringExtra(Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID);
         String baseEntityId = getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID);
         String familyHead = getIntent().getStringExtra(Constants.INTENT_KEY.FAMILY_HEAD);
         String primaryCaregiver = getIntent().getStringExtra(Constants.INTENT_KEY.PRIMARY_CAREGIVER);
         String villageTown = getIntent().getStringExtra(Constants.INTENT_KEY.VILLAGE_TOWN);
-        presenter = new FamilyOtherMemberActivityPresenter(this, new FamilyOtherMemberProfileActivityModel(), null, baseEntityId, familyHead, primaryCaregiver, villageTown);
+        String familyName = getIntent().getStringExtra(Constants.INTENT_KEY.FAMILY_NAME);
+        presenter = new FamilyOtherMemberActivityPresenter(this, new FamilyOtherMemberProfileActivityModel(), null, familyBaseEntityId, baseEntityId, familyHead, primaryCaregiver, villageTown, familyName);
+    }
+
+    @Override
+    protected void setupViews() {
+        super.setupViews();
+
+        TextView toolbarTitle = findViewById(R.id.toolbar_title);
+        toolbarTitle.setText(String.format(getString(R.string.return_to_family_name), presenter().getFamilyName()));
+
+        // add floating menu
+        FamilyFloatingMenu familyFloatingMenu = new FamilyFloatingMenu(this);
+        LinearLayout.LayoutParams linearLayoutParams =
+                new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.MATCH_PARENT);
+        familyFloatingMenu.setGravity(Gravity.BOTTOM | Gravity.RIGHT);
+        addContentView(familyFloatingMenu, linearLayoutParams);
+        familyFloatingMenu.setClickListener(new FloatingMenuListener(this, presenter().getFamilyBaseEntityId()));
     }
 
     @Override
@@ -56,5 +81,10 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public FamilyOtherMemberActivityPresenter presenter() {
+        return (FamilyOtherMemberActivityPresenter) presenter;
     }
 }

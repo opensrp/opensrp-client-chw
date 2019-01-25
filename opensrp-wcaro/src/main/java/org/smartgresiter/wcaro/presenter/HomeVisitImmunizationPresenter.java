@@ -1,5 +1,6 @@
 package org.smartgresiter.wcaro.presenter;
 
+import org.joda.time.DateTime;
 import org.smartgresiter.wcaro.contract.HomeVisitImmunizationContract;
 import org.smartgresiter.wcaro.interactor.HomeVisitImmunizationInteractor;
 import org.smartgresiter.wcaro.task.UndoVaccineTask;
@@ -9,9 +10,11 @@ import org.smartregister.domain.Alert;
 import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.immunization.domain.Vaccine;
 import org.smartregister.immunization.domain.VaccineWrapper;
+import org.smartregister.util.DateUtil;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Stack;
@@ -27,7 +30,8 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
     private HomeVisitVaccineGroupDetails currentActiveGroup;
     private CommonPersonObjectClient childClient;
     private ArrayList<VaccineWrapper> vaccinesGivenThisVisit = new ArrayList<VaccineWrapper>();
-
+    public String groupImmunizationSecondaryText = "";
+    public String singleImmunizationSecondaryText = "";
 
     public HomeVisitImmunizationPresenter(HomeVisitImmunizationContract.View view) {
         this.view = new WeakReference<>(view);
@@ -198,8 +202,10 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
         for (VaccineRepo.Vaccine vaccinedueLastVisit : vaccinesDueFromLastVisit) {
             vaccinesStack.add(vaccinedueLastVisit);
             for (VaccineWrapper givenThisVisit : vaccinesGivenThisVisit) {
-                if (givenThisVisit.getDefaultName().equalsIgnoreCase(vaccinesStack.peek().display())) {
-                    vaccinesStack.pop();
+                if (!vaccinesStack.isEmpty()) {
+                    if (givenThisVisit.getDefaultName().equalsIgnoreCase(vaccinesStack.peek().display())) {
+                        vaccinesStack.pop();
+                    }
                 }
             }
         }
@@ -250,5 +256,115 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
         return toReturn;
     }
 
+    @Override
+    public void setGroupVaccineText(List<Map<String, Object>> sch) {
+        ArrayList<VaccineRepo.Vaccine> allgivenVaccines = new ArrayList<VaccineRepo.Vaccine>();
+        for (HomeVisitVaccineGroupDetails group : allgroups) {
+            allgivenVaccines.addAll(group.getGivenVaccines());
+        }
+        LinkedHashMap<DateTime, ArrayList<VaccineRepo.Vaccine>> groupedByDate = new LinkedHashMap<DateTime, ArrayList<VaccineRepo.Vaccine>>();
+        for (VaccineRepo.Vaccine vaccineGiven : allgivenVaccines) {
+            for (Map<String, Object> mapToProcess : sch) {
+                if (((VaccineRepo.Vaccine) mapToProcess.get("vaccine")).display().equalsIgnoreCase(vaccineGiven.display())) {
+                    if (groupedByDate.get((DateTime) mapToProcess.get("date")) == null) {
+                        ArrayList<VaccineRepo.Vaccine> givenVaccinesAtDate = new ArrayList<VaccineRepo.Vaccine>();
+                        givenVaccinesAtDate.add(vaccineGiven);
+                        groupedByDate.put((DateTime) mapToProcess.get("date"), givenVaccinesAtDate);
+                    } else {
+                        groupedByDate.get(mapToProcess.get("date")).add(vaccineGiven);
+                    }
+                }
+            }
+        }
+        String groupSecondaryText = "";
+        for (Map.Entry<DateTime, ArrayList<VaccineRepo.Vaccine>> entry : groupedByDate.entrySet()) {
+            DateTime dateTime = entry.getKey();
+            ArrayList<VaccineRepo.Vaccine> vaccines = entry.getValue();
+            // now work with key and value...
+            for (VaccineRepo.Vaccine vaccineGiven : vaccines) {
+                groupSecondaryText = groupSecondaryText + vaccineGiven.display() + ", ";
+            }
 
+            if (groupSecondaryText.endsWith(", ")) {
+                groupSecondaryText = groupSecondaryText.trim();
+                groupSecondaryText = groupSecondaryText.substring(0, groupSecondaryText.length() - 2);
+
+            }
+            groupSecondaryText = groupSecondaryText + " provided on ";
+
+            DateTime dueDate = (DateTime) dateTime;
+            String duedateString = DateUtil.formatDate(dueDate.toLocalDate(), "dd MMM yyyy");
+            groupSecondaryText = groupSecondaryText + duedateString + " \u00B7 ";
+
+        }
+        groupImmunizationSecondaryText = groupSecondaryText;
+    }
+
+    @Override
+    public void setSingleVaccineText(ArrayList<VaccineRepo.Vaccine> vaccinesDueFromLastVisit, List<Map<String, Object>> sch) {
+        ArrayList<VaccineRepo.Vaccine> allgivenVaccines = new ArrayList<VaccineRepo.Vaccine>();
+        for (VaccineRepo.Vaccine vaccineDueFromLastVisit : vaccinesDueFromLastVisit) {
+            for (VaccineWrapper vaccineWrapper : vaccinesGivenThisVisit) {
+                if (vaccineWrapper.getDefaultName().equalsIgnoreCase(vaccineDueFromLastVisit.display())) {
+                    allgivenVaccines.add(vaccineDueFromLastVisit);
+
+                }
+            }
+        }
+        LinkedHashMap<DateTime, ArrayList<VaccineRepo.Vaccine>> groupedByDate = new LinkedHashMap<DateTime, ArrayList<VaccineRepo.Vaccine>>();
+        for (VaccineRepo.Vaccine vaccineGiven : allgivenVaccines) {
+            for (Map<String, Object> mapToProcess : sch) {
+                if (((VaccineRepo.Vaccine) mapToProcess.get("vaccine")).display().equalsIgnoreCase(vaccineGiven.display())) {
+                    if (groupedByDate.get((DateTime) mapToProcess.get("date")) == null) {
+                        ArrayList<VaccineRepo.Vaccine> givenVaccinesAtDate = new ArrayList<VaccineRepo.Vaccine>();
+                        givenVaccinesAtDate.add(vaccineGiven);
+                        groupedByDate.put((DateTime) mapToProcess.get("date"), givenVaccinesAtDate);
+                    } else {
+                        groupedByDate.get(mapToProcess.get("date")).add(vaccineGiven);
+                    }
+                }
+            }
+        }
+        String groupSecondaryText = "";
+        for (Map.Entry<DateTime, ArrayList<VaccineRepo.Vaccine>> entry : groupedByDate.entrySet()) {
+            DateTime dateTime = entry.getKey();
+            ArrayList<VaccineRepo.Vaccine> vaccines = entry.getValue();
+            // now work with key and value...
+            for (VaccineRepo.Vaccine vaccineGiven : vaccines) {
+                groupSecondaryText = groupSecondaryText + vaccineGiven.display() + ", ";
+            }
+
+            if (groupSecondaryText.endsWith(", ")) {
+                groupSecondaryText = groupSecondaryText.trim();
+                groupSecondaryText = groupSecondaryText.substring(0, groupSecondaryText.length() - 1);
+            }
+            groupSecondaryText = groupSecondaryText + " provided on ";
+
+            DateTime dueDate = (DateTime) dateTime;
+            String duedateString = DateUtil.formatDate(dueDate.toLocalDate(), "dd MMM yyyy");
+            groupSecondaryText = groupSecondaryText + duedateString + " \u00B7 ";
+
+        }
+        singleImmunizationSecondaryText = groupSecondaryText;
+    }
+
+    @Override
+    public String getGroupImmunizationSecondaryText() {
+        return groupImmunizationSecondaryText;
+    }
+
+    @Override
+    public void setGroupImmunizationSecondaryText(String groupImmunizationSecondaryText) {
+        this.groupImmunizationSecondaryText = groupImmunizationSecondaryText;
+    }
+
+    @Override
+    public String getSingleImmunizationSecondaryText() {
+        return singleImmunizationSecondaryText;
+    }
+
+    @Override
+    public void setSingleImmunizationSecondaryText(String singleImmunizationSecondaryText) {
+        this.singleImmunizationSecondaryText = singleImmunizationSecondaryText;
+    }
 }

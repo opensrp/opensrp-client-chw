@@ -33,7 +33,7 @@ public class NavigationListener implements View.OnClickListener {
                         intent_child.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         activity.startActivity(intent_child);
                         activity.overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
-
+                        activity.finish();
                         break;
                     case Constants.DrawerMenu.ALL_FAMILIES:
 
@@ -41,7 +41,7 @@ public class NavigationListener implements View.OnClickListener {
                         intent_fam.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         activity.startActivity(intent_fam);
                         activity.overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
-
+                        activity.finish();
                         break;
                     default:
                         break;

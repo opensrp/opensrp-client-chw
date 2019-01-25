@@ -147,4 +147,11 @@ public class ChildRegisterActivity extends BaseRegisterActivity implements Child
     public ChildRegisterContract.Presenter presenter() {
         return (ChildRegisterContract.Presenter) presenter;
     }
+
+    @Override
+    protected void onResumption() {
+        super.onResumption();
+        NavigationMenu.getInstance(this, null, null).getNavigationAdapter()
+                .setSelectedView(org.smartgresiter.wcaro.util.Constants.DrawerMenu.CHILD_CLIENTS);
+    }
 }

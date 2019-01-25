@@ -114,6 +114,10 @@
             android:name=".activity.MedicalHistoryActivity"
             android:label="@string/medical_history"
             android:theme="@style/WcaroTheme.NoActionBar" />
+        <activity
+            android:name=".activity.UpcomingServicesActivity"
+            android:label="@string/upcoming_services"
+            android:theme="@style/WcaroTheme.NoActionBar" />
 
         <service android:name="org.smartregister.sync.intent.PullUniqueIdsIntentService" />
         <service android:name="org.smartregister.sync.intent.SyncIntentService" />
