@@ -75,7 +75,7 @@ public class UpcomingServicesFragmentView extends LinearLayout implements View.O
         homeVisitVaccineGroupDetailsList = presenter.getAllgroups();
         for (HomeVisitVaccineGroupDetails homeVisitVaccineGroupDetail : homeVisitVaccineGroupDetailsList) {
             if (homeVisitVaccineGroupDetail.getAlert().equals(ImmunizationState.DUE) || homeVisitVaccineGroupDetail.getAlert().equals(ImmunizationState.OVERDUE)) {
-                if (homeVisitVaccineGroupDetail.getDueVaccines().size() > 0) {
+                if (homeVisitVaccineGroupDetail.getNotGivenVaccines().size() > 0) {
                     addView(createUpcomingServicesCard(homeVisitVaccineGroupDetail));
                 }
             }
