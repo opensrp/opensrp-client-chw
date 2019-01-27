@@ -356,7 +356,7 @@
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "formSubmissionField": "birth_cert"
+            "formSubmissionField": "birth_notification"
           }
         },
         {
@@ -373,6 +373,30 @@
           "json_mapping": {
             "field": "obs.fieldCode",
             "formSubmissionField": "caregiverinstroductions"
+          }
+        },
+        {
+          "column_name": "date_of_illness",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "1730AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        {
+          "column_name": "illness_description",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "1390AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        {
+          "column_name": "action_taken",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "164378AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         }
       ]

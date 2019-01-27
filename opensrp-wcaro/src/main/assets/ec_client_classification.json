@@ -61,6 +61,13 @@
             "creates_case": [
               "ec_child"
             ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Observations Illness",
+            "creates_case": [
+              "ec_child"
+            ]
           }
         ]
       }
