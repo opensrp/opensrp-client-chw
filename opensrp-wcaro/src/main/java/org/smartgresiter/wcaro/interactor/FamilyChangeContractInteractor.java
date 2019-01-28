@@ -292,7 +292,7 @@ public class FamilyChangeContractInteractor implements FamilyChangeContract.Inte
                     }
                 }
                 // add if member is above 5 year
-                if(dob != null){
+                if (dob != null) {
                     if (getDiffYears(dob, new Date()) >= 5) {
                         res.add(columns);
                     }

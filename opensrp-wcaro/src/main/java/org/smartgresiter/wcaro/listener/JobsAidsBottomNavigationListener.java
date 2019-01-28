@@ -6,10 +6,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.view.MenuItem;
 
-import org.smartgresiter.wcaro.activity.FamilyProfileActivity;
 import org.smartgresiter.wcaro.activity.FamilyRegisterActivity;
-import org.smartgresiter.wcaro.activity.JobAidsActivity;
-import org.smartgresiter.wcaro.util.Constants;
 import org.smartregister.AllConstants;
 import org.smartregister.listener.BottomNavigationListener;
 import org.smartregister.util.PermissionUtils;

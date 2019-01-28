@@ -297,11 +297,11 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
             groupSecondaryText = groupSecondaryText + duedateString + " \u00B7 ";
 
         }
-        groupSecondaryText = groupSecondaryText +addNotGivenVaccines(sch);
+        groupSecondaryText = groupSecondaryText + addNotGivenVaccines(sch);
         groupImmunizationSecondaryText = groupSecondaryText;
     }
 
-    private String addNotGivenVaccines (List<Map<String, Object>> sch) {
+    private String addNotGivenVaccines(List<Map<String, Object>> sch) {
         ArrayList<VaccineRepo.Vaccine> allgivenVaccines = new ArrayList<VaccineRepo.Vaccine>();
         for (HomeVisitVaccineGroupDetails group : allgroups) {
             allgivenVaccines.addAll(group.getNotGivenVaccines());
@@ -336,7 +336,7 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
             }
             groupSecondaryText = groupSecondaryText + " not given ";
 
-               groupSecondaryText = groupSecondaryText + " \u00B7 ";
+            groupSecondaryText = groupSecondaryText + " \u00B7 ";
 
         }
 

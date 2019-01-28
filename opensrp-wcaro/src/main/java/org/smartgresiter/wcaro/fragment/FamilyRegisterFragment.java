@@ -22,7 +22,6 @@ import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
-import org.smartregister.domain.FetchStatus;
 import org.smartregister.family.fragment.BaseFamilyRegisterFragment;
 import org.smartregister.view.activity.BaseRegisterActivity;
 import org.smartregister.view.customcontrols.CustomFontTextView;
@@ -40,7 +39,7 @@ public class FamilyRegisterFragment extends BaseFamilyRegisterFragment {
     @Override
     public void setupViews(View view) {
         super.setupViews(view);
-        this.view =view;
+        this.view = view;
 
         Toolbar toolbar = view.findViewById(org.smartregister.R.id.register_toolbar);
         toolbar.setContentInsetsAbsolute(0, 0);

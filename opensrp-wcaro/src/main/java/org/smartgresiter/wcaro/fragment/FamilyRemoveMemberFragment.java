@@ -159,15 +159,15 @@ public class FamilyRemoveMemberFragment extends BaseFamilyProfileMemberFragment 
             if (v.getTag(R.id.VIEW_ID) == BaseFamilyProfileMemberFragment.CLICK_VIEW_NORMAL) {
                 final CommonPersonObjectClient pc = (CommonPersonObjectClient) v.getTag();
 
-                String name = String.format("%s %s %s", pc.getColumnmaps().get(DBConstants.KEY.FIRST_NAME) ,
-                        pc.getColumnmaps().get(DBConstants.KEY.MIDDLE_NAME) ,
+                String name = String.format("%s %s %s", pc.getColumnmaps().get(DBConstants.KEY.FIRST_NAME),
+                        pc.getColumnmaps().get(DBConstants.KEY.MIDDLE_NAME),
                         pc.getColumnmaps().get(DBConstants.KEY.LAST_NAME));
 
-                String dod  = pc.getColumnmaps().get(DBConstants.KEY.DOD);
+                String dod = pc.getColumnmaps().get(DBConstants.KEY.DOD);
 
-                if(StringUtils.isBlank(dod)){
+                if (StringUtils.isBlank(dod)) {
                     FamilyRemoveMemberConfrimDialog dialog = FamilyRemoveMemberConfrimDialog.newInstance(
-                            String.format("Are you sure you want to remove %s's record? This will remove their entire health record from your device. This action cannot be undone." , name)
+                            String.format("Are you sure you want to remove %s's record? This will remove their entire health record from your device. This action cannot be undone.", name)
                     );
                     dialog.setContext(getContext());
                     dialog.show(getFragmentManager(), AddMemberFragment.DIALOG_TAG);
@@ -187,13 +187,13 @@ public class FamilyRemoveMemberFragment extends BaseFamilyProfileMemberFragment 
         @Override
         public void onClick(final android.view.View v) {
 
-            HashMap<String,String> payload = (HashMap<String, String>) v.getTag();
+            HashMap<String, String> payload = (HashMap<String, String>) v.getTag();
             final String message = payload.get("message");
             final String name = payload.get("name");
 
             FamilyRemoveMemberConfrimDialog dialog = FamilyRemoveMemberConfrimDialog.newInstance(
                     String.format("Are you sure you want to remove the %s Family's record? This will remove the family's entire record AND all of the %s " +
-                            "family members' health records from your device. This action cannot be undone." ,
+                                    "family members' health records from your device. This action cannot be undone.",
                             name, name)
             );
 

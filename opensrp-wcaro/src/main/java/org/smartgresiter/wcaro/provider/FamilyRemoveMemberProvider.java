@@ -52,7 +52,7 @@ public class FamilyRemoveMemberProvider extends FamilyMemberRegisterProvider {
                 if (children != null && members != null) {
                     int adults = members - children;
 
-                    HashMap<String,String> payload = new HashMap<>();
+                    HashMap<String, String> payload = new HashMap<>();
                     payload.put(Constants.GLOBAL.MESSAGE, String.format("%s adults and %s U5 children", String.valueOf(adults), String.valueOf(children)));
                     payload.put(Constants.GLOBAL.NAME, result.get(Constants.GLOBAL.NAME));
 

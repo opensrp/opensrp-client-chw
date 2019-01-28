@@ -14,7 +14,6 @@ import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.family.util.AppExecutors;
 import org.smartregister.family.util.DBConstants;
-import org.smartregister.job.SyncServiceJob;
 
 import java.util.Date;
 
