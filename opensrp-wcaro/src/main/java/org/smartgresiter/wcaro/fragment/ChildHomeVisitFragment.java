@@ -32,11 +32,13 @@ import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.activity.ChildProfileActivity;
 import org.smartgresiter.wcaro.activity.ChildRegisterActivity;
 import org.smartgresiter.wcaro.application.WcaroApplication;
+import org.smartgresiter.wcaro.contract.ChildHomeVisitContract;
 import org.smartgresiter.wcaro.contract.ChildRegisterContract;
 import org.smartgresiter.wcaro.custom_view.HomeVisitGrowthAndNutrition;
 import org.smartgresiter.wcaro.custom_view.HomeVisitImmunizationView;
 import org.smartgresiter.wcaro.interactor.ChildRegisterInteractor;
 import org.smartgresiter.wcaro.model.ChildRegisterModel;
+import org.smartgresiter.wcaro.presenter.ChildHomeVisitPresenter;
 import org.smartgresiter.wcaro.repository.WcaroRepository;
 import org.smartgresiter.wcaro.util.ChildDBConstants;
 import org.smartgresiter.wcaro.util.ChildUtils;
@@ -73,7 +75,7 @@ import static org.smartgresiter.wcaro.util.ChildDBConstants.KEY.BIRTH_CERT;
 import static org.smartregister.util.JsonFormUtils.getFieldJSONObject;
 import static org.smartregister.util.Utils.getValue;
 
-public class ChildHomeVisitFragment extends DialogFragment implements View.OnClickListener{
+public class ChildHomeVisitFragment extends DialogFragment implements View.OnClickListener,ChildHomeVisitContract.View {
 
 
     private static final String TAG ="ChildHomeVisitFragment" ;
@@ -86,7 +88,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     private TextView submit;
     private HomeVisitImmunizationView homeVisitImmunizationView;
     private LinearLayout layoutBirthCertGroup,layoutIllnessGroup;
-    private HashMap<String,Pair<Client, Event>> saveList=new HashMap<>();
+    private ChildHomeVisitContract.Presenter presenter;
     private CircleImageView circleImageViewBirthStatus,circleImageViewIllnessStatus;
 
 
@@ -99,11 +101,6 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         super.onCreate(savedInstanceState);
 
         setStyle(DialogFragment.STYLE_NORMAL, android.R.style.Theme_Holo_Light_NoActionBar);
-    }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
     }
 
     @Override
@@ -129,10 +126,11 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         layoutBirthCertGroup.setOnClickListener(this);
         layoutIllnessGroup.setOnClickListener(this);
         homeVisitGrowthAndNutritionLayout = view.findViewById(R.id.growth_and_nutrition_group);
-
         homeVisitImmunizationView = (HomeVisitImmunizationView) view.findViewById(R.id.home_visit_immunization_view);
         homeVisitImmunizationView.setActivity(getActivity());
         homeVisitImmunizationView.setChildClient(childClient);
+        initializePresenter();
+        ((ChildHomeVisitPresenter)presenter).setChildClient(childClient);
         assignNameHeader();
         submitButtonEnableDisable(false);
     }
@@ -142,8 +140,8 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         String birthCert=getValue(childClient.getColumnmaps(), BIRTH_CERT, true);
 
         nameHeader.setText(String.format("%s %s, %s - Home Visit",
-                getValue(childClient.getColumnmaps(), "first_name", true),
-                getValue(childClient.getColumnmaps(), "last_name", true),
+                getValue(childClient.getColumnmaps(), DBConstants.KEY.FIRST_NAME, true),
+                getValue(childClient.getColumnmaps(), DBConstants.KEY.LAST_NAME, true),
                 dobString
         ));
         if(!TextUtils.isEmpty(birthCert)){
@@ -151,19 +149,6 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         }
     }
 
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        // Verify that the host activity implements the callback interface
-//        try {
-//            // Instantiate the WeightActionListener so we can send events to the host
-//            listener = (WeightActionListener) activity;
-//        } catch (ClassCastException e) {
-//            // The activity doesn't implement the interface, throw exception
-//            throw new ClassCastException(activity.toString()
-//                    + " must implementfonre WeightActionListener");
-//        }
-    }
 
     private void updateGrowthData() {
         homeVisitGrowthAndNutritionLayout.setData(this, getActivity().getFragmentManager(), childClient);
@@ -194,24 +179,14 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
 
     @Override
     public void onClick(View v) {
-        FragmentTransaction ft = getActivity().getFragmentManager().beginTransaction();
-        String dobString = org.smartregister.util.Utils.getValue(childClient.getColumnmaps(), DBConstants.KEY.DOB, false);
 
         switch (v.getId()) {
             case R.id.birth_cert_group:
 
-                try {
-                    startBirthCertForm();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                 presenter.startBirthCertForm();
                 break;
             case R.id.obs_illness_prevention_group:
-                try {
-                    startIllnessForm();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                presenter.startObsIllnessCertForm();
                 break;
             case R.id.textview_submit:
                 if (checkAllGiven()) {
@@ -220,8 +195,8 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                     if (getActivity() instanceof ChildRegisterActivity) {
                         ((ChildRegisterActivity) getActivity()).refreshList(FetchStatus.fetched);
                     }
-                    if(saveList.size()>0){
-                        saveFormData();
+                    if(((ChildHomeVisitPresenter)presenter).getSaveSize()>0){
+                        presenter.saveForm();
                     }
 
                     dismiss();
@@ -256,17 +231,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         }
     }
 
-    private void saveFormData() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                for(String json:saveList.keySet()){
-                    Pair<Client, Event> pair=saveList.get(json);
-                    saveRegistration(pair,json);
-                }
-            }
-        }).start();
-    }
+
 
     private void submitButtonEnableDisable(boolean isEnable) {
         if (isEnable) {
@@ -303,22 +268,13 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         return vaccineWrappers;
     }
 
-    public void startBirthCertForm() throws Exception {
-        JSONObject form = getFormUtils().getFormJson(Constants.JSON_FORM.BIRTH_CERTIFICATION);
-        String dobString = org.smartregister.family.util.Utils.getDuration(org.smartregister.family.util.Utils.getValue
-                (childClient.getColumnmaps(), DBConstants.KEY.DOB, false));
 
-        JSONObject revForm=JsonFormUtils.getBirthCertFormAsJson(form,childClient.getCaseId(),"",dobString);
-        startFormActivity(revForm);
+    @Override
+    public ChildHomeVisitContract.Presenter initializePresenter() {
+        presenter=new ChildHomeVisitPresenter(this);
+        return presenter;
     }
-    public void startIllnessForm() throws Exception {
-        JSONObject form = getFormUtils().getFormJson(Constants.JSON_FORM.OBS_ILLNESS);
-        String dobString = org.smartregister.family.util.Utils.getDuration(org.smartregister.family.util.Utils.getValue
-                (childClient.getColumnmaps(), DBConstants.KEY.DOB, false));
-
-        JSONObject revForm=JsonFormUtils.getOnsIllnessFormAsJson(form,childClient.getCaseId(),"",dobString);
-        startFormActivity(revForm);
-    }
+    @Override
     public void startFormActivity(JSONObject jsonForm) {
         Intent intent = new Intent(context, org.smartregister.family.util.Utils.metadata().familyMemberFormActivity);
         intent.putExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON, jsonForm.toString());
@@ -331,85 +287,17 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
 
         startActivityForResult(intent, org.smartregister.family.util.JsonFormUtils.REQUEST_CODE_GET_JSON);
     }
-    public void saveBirthIllnessForm(String jsonString) {
-        try {
 
-            Pair<Client, Event> pair = JsonFormUtils.processBirthAndIllnessForm(org.smartregister.family.util.Utils.context().allSharedPreferences(),jsonString);
-            if (pair == null) {
-                return;
-            }
-            JSONObject form = new JSONObject(jsonString);
-            if(form.getString(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_TYPE).equals(Constants.EventType.BIRTH_CERTIFICATION)){
-                updateStatusTick(circleImageViewBirthStatus,true);
-                saveList.put(jsonString,pair);
-
-            }
-            if(form.getString(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_TYPE).equals(Constants.EventType.OBS_ILLNESS)){
-                updateStatusTick(circleImageViewIllnessStatus,true);
-                saveList.put(jsonString,pair);
-
-            }
-
-
-        } catch (Exception e) {
-            Log.e(DIALOG_TAG, Log.getStackTraceString(e));
-        }
+    @Override
+    public void updateBirthStatusTick() {
+        updateStatusTick(circleImageViewBirthStatus,true);
     }
-    private void saveRegistration(Pair<Client, Event> pair, String jsonString) {
 
-        try {
-
-            Client baseClient = pair.first;
-            Event baseEvent = pair.second;
-
-            if (baseClient != null) {
-                JSONObject clientjsonFromForm = new JSONObject(org.smartregister.family.util.JsonFormUtils.gson.toJson(baseClient));
-                WcaroRepository pathRepository = new WcaroRepository(context, WcaroApplication.getInstance().getContext());
-                EventClientRepository eventClientRepository = new EventClientRepository(pathRepository);
-                JSONObject clientJson = eventClientRepository.getClient(WcaroApplication.getInstance().getRepository().getReadableDatabase(),baseClient.getBaseEntityId());
-                updateClientAttributes(clientjsonFromForm,clientJson);
-                getSyncHelper().addClient(baseClient.getBaseEntityId(), clientJson);
-
-            }
-
-            if (baseEvent != null) {
-                JSONObject eventJson = new JSONObject(org.smartregister.family.util.JsonFormUtils.gson.toJson(baseEvent));
-                getSyncHelper().addEvent(baseEvent.getBaseEntityId(), eventJson);
-            }
-
-            if (baseClient != null || baseEvent != null) {
-                String imageLocation = org.smartregister.family.util.JsonFormUtils.getFieldValue(jsonString, org.smartregister.family.util.Constants.KEY.PHOTO);
-                org.smartregister.family.util.JsonFormUtils.saveImage(baseEvent.getProviderId(), baseClient.getBaseEntityId(), imageLocation);
-
-            }
-
-            long lastSyncTimeStamp = getAllSharedPreferences().fetchLastUpdatedAtDate(0);
-            Date lastSyncDate = new Date(lastSyncTimeStamp);
-            getClientProcessorForJava().processClient(getSyncHelper().getEvents(lastSyncDate, BaseRepository.TYPE_Unsynced));
-            getAllSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
-
-
-        } catch (Exception e) {
-            Log.e(TAG, Log.getStackTraceString(e));
-        }
+    @Override
+    public void updateObsIllnessStatusTick() {
+        updateStatusTick(circleImageViewIllnessStatus,true);
     }
-    private static void updateClientAttributes(JSONObject clientjsonFromForm, JSONObject clientJson) {
-        try {
-            JSONObject formAttributes = clientjsonFromForm.getJSONObject("attributes");
-            JSONObject clientAttributes = clientJson.getJSONObject("attributes");
-            Iterator<String> keys = formAttributes.keys();
 
-            while(keys.hasNext()) {
-                String key = keys.next();
-                clientAttributes.put(key,formAttributes.get(key));
-
-            }
-
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
     private void updateStatusTick(CircleImageView imageView, boolean isCheck) {
         if (isCheck) {
             imageView.setImageResource(R.drawable.ic_checked);
@@ -425,34 +313,6 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         }
 
     }
-    public AllSharedPreferences getAllSharedPreferences() {
-        return org.smartregister.family.util.Utils.context().allSharedPreferences();
-    }
-
-    public UniqueIdRepository getUniqueIdRepository() {
-        return FamilyLibrary.getInstance().getUniqueIdRepository();
-    }
-
-    public ECSyncHelper getSyncHelper() {
-        return FamilyLibrary.getInstance().getEcSyncHelper();
-    }
-
-    public ClientProcessorForJava getClientProcessorForJava() {
-        return FamilyLibrary.getInstance().getClientProcessorForJava();
-    }
-
-    FormUtils formUtils = null;
-
-    private FormUtils getFormUtils() {
-        if (formUtils == null) {
-            try {
-                formUtils = FormUtils.getInstance(org.smartregister.family.util.Utils.context().applicationContext());
-            } catch (Exception e) {
-                Log.e(ChildRegisterModel.class.getCanonicalName(), e.getMessage(), e);
-            }
-        }
-        return formUtils;
-    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -465,7 +325,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                 if (form.getString(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_TYPE).equals(Constants.EventType.BIRTH_CERTIFICATION)
                   || form.getString(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_TYPE).equals(Constants.EventType.OBS_ILLNESS)
                         ) {
-                    saveBirthIllnessForm(jsonString);
+                    presenter.generateBirthIllnessForm(jsonString);
                 }
             } catch (Exception e) {
                 Log.e(DIALOG_TAG, Log.getStackTraceString(e));
