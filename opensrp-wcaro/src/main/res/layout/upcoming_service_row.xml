@@ -23,7 +23,8 @@
             android:padding="10dp"
             android:text="@string/upcoming_services"
             android:textColor="@color/black"
-            android:textSize="16sp" />
+            android:textStyle="bold"
+            android:textSize="18sp" />
 
         <org.smartregister.view.customcontrols.CustomFontTextView
             android:id="@+id/grou_name_title"
@@ -33,7 +34,7 @@
             android:padding="10dp"
             android:text="@string/upcoming_services"
             android:textColor="@color/black"
-            android:textSize="14sp" />
+            android:textSize="16sp" />
 
         <org.smartregister.view.customcontrols.CustomFontTextView
             android:id="@+id/grou_vaccines_title"
@@ -46,6 +47,6 @@
             android:text="@string/upcoming_services"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="@android:color/darker_gray"
-            android:textSize="12sp" />
+            android:textSize="14sp" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
