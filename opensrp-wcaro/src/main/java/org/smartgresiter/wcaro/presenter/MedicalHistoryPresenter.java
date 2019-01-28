@@ -4,6 +4,9 @@ import org.smartgresiter.wcaro.contract.MedicalHistoryContract;
 import org.smartgresiter.wcaro.interactor.MedicalHistoryInteractor;
 import org.smartgresiter.wcaro.util.BaseService;
 import org.smartgresiter.wcaro.util.BaseVaccine;
+import org.smartgresiter.wcaro.util.BirthCertification;
+import org.smartgresiter.wcaro.util.ObsIllness;
+import org.smartregister.commonregistry.CommonPersonObjectClient;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -16,6 +19,8 @@ public class MedicalHistoryPresenter implements MedicalHistoryContract.Presenter
     private Map<String, Date> recievedVaccines;
     private ArrayList<BaseVaccine> baseVaccineArrayList;
     private ArrayList<BaseService> growthNutritionArrayList;
+    private ArrayList<BirthCertification> birthCertifications;
+    private ArrayList<ObsIllness> obsIllnesses;
 
     public MedicalHistoryPresenter(MedicalHistoryContract.View view) {
         this.view = new WeakReference<>(view);
@@ -39,7 +44,7 @@ public class MedicalHistoryPresenter implements MedicalHistoryContract.Presenter
     }
 
     @Override
-    public void initialize() {
+    public void fetchBirthAndIllnessData(CommonPersonObjectClient commonPersonObjectClient) {
 
     }
 
@@ -56,6 +61,30 @@ public class MedicalHistoryPresenter implements MedicalHistoryContract.Presenter
     @Override
     public ArrayList<BaseService> getGrowthNutrition() {
         return growthNutritionArrayList;
+    }
+
+    @Override
+    public ArrayList<BirthCertification> getBirthCertification() {
+        return birthCertifications;
+    }
+
+    @Override
+    public ArrayList<ObsIllness> getObsIllness() {
+        return obsIllnesses;
+    }
+
+    @Override
+    public void updateBirthCertification(ArrayList<BirthCertification> birthCertification) {
+        this.birthCertifications=birthCertification;
+        getView().updateBirthCertification();
+
+    }
+
+    @Override
+    public void updateIllnessData(ArrayList<ObsIllness> obsIllnessArrayList) {
+        this.obsIllnesses=obsIllnessArrayList;
+        getView().updateObsIllness();
+
     }
 
     @Override

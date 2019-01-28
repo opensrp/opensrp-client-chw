@@ -1,18 +1,23 @@
 package org.smartgresiter.wcaro.interactor;
 
 import android.support.annotation.VisibleForTesting;
+import android.text.TextUtils;
 
 import org.smartgresiter.wcaro.contract.MedicalHistoryContract;
 import org.smartgresiter.wcaro.fragment.GrowthNutritionInputFragment;
 import org.smartgresiter.wcaro.util.BaseService;
 import org.smartgresiter.wcaro.util.BaseVaccine;
+import org.smartgresiter.wcaro.util.BirthCertification;
 import org.smartgresiter.wcaro.util.ChildUtils;
+import org.smartgresiter.wcaro.util.Constants;
 import org.smartgresiter.wcaro.util.GrowthNutrition;
+import org.smartgresiter.wcaro.util.ObsIllness;
 import org.smartgresiter.wcaro.util.ReceivedVaccine;
 import org.smartgresiter.wcaro.util.ServiceContent;
 import org.smartgresiter.wcaro.util.ServiceHeader;
 import org.smartgresiter.wcaro.util.VaccineContent;
 import org.smartgresiter.wcaro.util.VaccineHeader;
+import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.util.AppExecutors;
 import org.smartregister.immunization.ImmunizationLibrary;
 import org.smartregister.immunization.db.VaccineRepo;
@@ -28,6 +33,18 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+
+import static org.smartgresiter.wcaro.util.ChildDBConstants.KEY.BIRTH_CERT;
+import static org.smartgresiter.wcaro.util.ChildDBConstants.KEY.BIRTH_CERT_CAREGIVER;
+import static org.smartgresiter.wcaro.util.ChildDBConstants.KEY.BIRTH_CERT_INSTRUC;
+import static org.smartgresiter.wcaro.util.ChildDBConstants.KEY.BIRTH_CERT_ISSUE_DATE;
+import static org.smartgresiter.wcaro.util.ChildDBConstants.KEY.BIRTH_CERT_NOTIFIICATION;
+import static org.smartgresiter.wcaro.util.ChildDBConstants.KEY.BIRTH_CERT_NUMBER;
+import static org.smartgresiter.wcaro.util.ChildDBConstants.KEY.ILLNESS_ACTION;
+import static org.smartgresiter.wcaro.util.ChildDBConstants.KEY.ILLNESS_DATE;
+import static org.smartgresiter.wcaro.util.ChildDBConstants.KEY.ILLNESS_DESCRIPTION;
+import static org.smartregister.util.Utils.fillValue;
+import static org.smartregister.util.Utils.getValue;
 
 public class MedicalHistoryInteractor implements MedicalHistoryContract.Interactor {
     private AppExecutors appExecutors;
@@ -68,6 +85,59 @@ public class MedicalHistoryInteractor implements MedicalHistoryContract.Interact
             }
         };
         appExecutors.diskIO().execute(runnable);
+    }
+
+    @Override
+    public void fetchBirthAndIllnessData(CommonPersonObjectClient commonPersonObjectClient,final MedicalHistoryContract.InteractorCallBack callBack) {
+        String birthCert=getValue(commonPersonObjectClient.getColumnmaps(), BIRTH_CERT, true);
+        final ArrayList<BirthCertification> birthCertificationArrayList=new ArrayList<>();
+        if(TextUtils.isEmpty(birthCert) && birthCert.equalsIgnoreCase("Yes")){
+            BirthCertification birthCertification=new BirthCertification();
+            birthCertification.setHasBirthCert(birthCert);
+            birthCertification.setBirthCertIssueDate(getValue(commonPersonObjectClient.getColumnmaps(),BIRTH_CERT_ISSUE_DATE,true));
+            birthCertification.setBirthCertNumber(getValue(commonPersonObjectClient.getColumnmaps(),BIRTH_CERT_NUMBER,true));
+            birthCertificationArrayList.add(birthCertification);
+        }else if(TextUtils.isEmpty(birthCert) && birthCert.equalsIgnoreCase("No")){
+            BirthCertification birthCertification=new BirthCertification();
+            birthCertification.setHasBirthCert(birthCert);
+            birthCertification.setBirthCertNotification(getValue(commonPersonObjectClient.getColumnmaps(),BIRTH_CERT_NOTIFIICATION,true));
+            birthCertification.setInstruction(getValue(commonPersonObjectClient.getColumnmaps(),BIRTH_CERT_INSTRUC,true));
+            birthCertification.setCaregiverInstruction(getValue(commonPersonObjectClient.getColumnmaps(),BIRTH_CERT_CAREGIVER,true));
+            birthCertificationArrayList.add(birthCertification);
+        }
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                appExecutors.mainThread().execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        callBack.updateBirthCertification(birthCertificationArrayList);
+                    }
+                });
+            }
+        };
+        appExecutors.diskIO().execute(runnable);
+        String illnessDate=getValue(commonPersonObjectClient.getColumnmaps(), ILLNESS_DATE, true);
+        String illnessDescription=getValue(commonPersonObjectClient.getColumnmaps(), ILLNESS_DESCRIPTION, true);
+        String illnessAction=getValue(commonPersonObjectClient.getColumnmaps(), ILLNESS_ACTION, true);
+        final ArrayList<ObsIllness> obsIllnessArrayList=new ArrayList<>();
+        ObsIllness obsIllness=new ObsIllness();
+        obsIllness.setIllnessDate(illnessDate);
+        obsIllness.setDescription(illnessDescription);
+        obsIllness.setActionTaken(illnessAction);
+        Runnable runnable2 = new Runnable() {
+            @Override
+            public void run() {
+                appExecutors.mainThread().execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        callBack.updateIllnessData(obsIllnessArrayList);
+                    }
+                });
+            }
+        };
+        appExecutors.diskIO().execute(runnable2);
+
     }
 
     @Override
@@ -206,32 +276,6 @@ public class MedicalHistoryInteractor implements MedicalHistoryContract.Interact
                 baseServiceArrayList.add(content);
             }
         }
-
-
-//        GrowthNutrition growthNutrition=new GrowthNutrition();
-//        growthNutrition.setGrowthName("Early brestfeeding");
-//        growthNutrition.setStatus("No");
-//        growthNutritions.add(growthNutrition);
-//        GrowthNutrition growthNutrition2=new GrowthNutrition();
-//        growthNutrition2.setGrowthName("Early brestfeeding (1m)");
-//        growthNutrition2.setStatus("Yes");
-//        growthNutritions.add(growthNutrition2);
-//        GrowthNutrition growthNutrition3=new GrowthNutrition();
-//        growthNutrition3.setGrowthName("Early brestfeeding (3m)");
-//        growthNutrition3.setStatus("No");
-//        growthNutritions.add(growthNutrition3);
-//        GrowthNutrition growthNutrition4=new GrowthNutrition();
-//        growthNutrition4.setGrowthName("Early brestfeeding (4m)");
-//        growthNutrition4.setStatus("No");
-//        growthNutritions.add(growthNutrition4);
-//        GrowthNutrition growthNutrition5=new GrowthNutrition();
-//        growthNutrition5.setGrowthName("Early brestfeeding (5m)");
-//        growthNutrition5.setStatus("No");
-//        growthNutritions.add(growthNutrition5);
-//        GrowthNutrition growthNutrition6=new GrowthNutrition();
-//        growthNutrition6.setGrowthName("Early brestfeeding (6m)");
-//        growthNutrition6.setStatus("yes");
-//        growthNutritions.add(growthNutrition6);
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
