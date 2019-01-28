@@ -33,12 +33,14 @@ import java.util.Set;
 public class FamilyRegisterFragment extends BaseFamilyRegisterFragment {
 
     private View dueOnlyLayout;
+    private View view;
 
     private boolean dueFilterActive = false;
 
     @Override
     public void setupViews(View view) {
         super.setupViews(view);
+        this.view =view;
 
         Toolbar toolbar = view.findViewById(org.smartregister.R.id.register_toolbar);
         toolbar.setContentInsetsAbsolute(0, 0);
@@ -282,5 +284,16 @@ public class FamilyRegisterFragment extends BaseFamilyRegisterFragment {
     @Override
     public RegisterFragmentContract.Presenter presenter() {
         return (RegisterFragmentContract.Presenter) presenter;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        Toolbar toolbar = view.findViewById(org.smartregister.R.id.register_toolbar);
+        toolbar.setContentInsetsAbsolute(0, 0);
+        toolbar.setContentInsetsRelative(0, 0);
+        toolbar.setContentInsetStartWithNavigation(0);
+        NavigationMenu.getInstance(getActivity(), null, toolbar);
     }
 }

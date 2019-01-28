@@ -31,7 +31,6 @@ public class JobsAidsBottomNavigationListener extends BottomNavigationListener {
         if (item.getItemId() == org.smartregister.family.R.id.action_family) {
             Intent intent = new Intent(context, FamilyRegisterActivity.class);
             context.startActivity(intent);
-            context.finish();
 
         } else if (item.getItemId() == org.smartregister.family.R.id.action_scan_qr) {
 

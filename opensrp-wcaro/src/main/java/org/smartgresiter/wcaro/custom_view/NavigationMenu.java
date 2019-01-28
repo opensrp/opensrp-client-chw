@@ -114,7 +114,7 @@ public class NavigationMenu implements NavigationContract.View {
                     rl.addView(current);
                 }
             } else {
-                rootView = activity.findViewById(R.id.nav_view);
+                rootView = current;
             }
         }
         //
