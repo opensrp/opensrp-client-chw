@@ -43,17 +43,23 @@ public class FamilyRemoveMemberProvider extends FamilyMemberRegisterProvider {
         // do nothing
         FamilyRemoveMemberInteractor familyRemoveMemberInteractor = FamilyRemoveMemberInteractor.getInstance();
         final RemoveFooterViewHolder footerViewHolder = (RemoveFooterViewHolder) viewHolder;
-        familyRemoveMemberInteractor.getFamilyChildrenCount(familyID, new FamilyRemoveMemberContract.InteractorCallback<HashMap<String, Integer>>() {
+        familyRemoveMemberInteractor.getFamilySummary(familyID, new FamilyRemoveMemberContract.InteractorCallback<HashMap<String, String>>() {
             @Override
-            public void onResult(HashMap<String, Integer> result) {
-                Integer children = result.get(Constants.TABLE_NAME.CHILD);
-                Integer members = result.get(Constants.TABLE_NAME.FAMILY_MEMBER);
+            public void onResult(HashMap<String, String> result) {
+                Integer children = Integer.valueOf(result.get(Constants.TABLE_NAME.CHILD));
+                Integer members = Integer.valueOf(result.get(Constants.TABLE_NAME.FAMILY_MEMBER));
 
                 if (children != null && members != null) {
                     int adults = members - children;
-                    footerViewHolder.hint.setText(
-                            String.format("%s adults and %s U5 children", String.valueOf(adults), String.valueOf(children)));
-                    footerViewHolder.view.setTag(String.format("%s adults and %s U5 children", String.valueOf(adults), String.valueOf(children)));
+
+                    HashMap<String,String> payload = new HashMap<>();
+                    payload.put(Constants.GLOBAL.MESSAGE, String.format("%s adults and %s U5 children", String.valueOf(adults), String.valueOf(children)));
+                    payload.put(Constants.GLOBAL.NAME, result.get(Constants.GLOBAL.NAME));
+
+                    footerViewHolder.hint.setText(payload.get(Constants.GLOBAL.MESSAGE));
+
+
+                    footerViewHolder.view.setTag(payload);
                 }
             }
 

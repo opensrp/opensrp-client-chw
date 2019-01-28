@@ -50,7 +50,7 @@ public interface FamilyRemoveMemberContract {
 
         void processFamilyMember(String familyID, CommonPersonObjectClient client, Presenter presenter);
 
-        void getFamilyChildrenCount(String familyID, InteractorCallback<HashMap<String, Integer>> callback);
+        void getFamilySummary(String familyID, InteractorCallback<HashMap<String, String>> callback);
     }
 
     interface Model extends FamilyProfileMemberContract.Model {

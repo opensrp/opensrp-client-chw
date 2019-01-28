@@ -211,8 +211,7 @@ public class WcaroRegisterProvider extends FamilyRegisterProvider {
     private List<ChildVisit> retrieveChildVisitList(Rules rules, List<Map<String, String>> list) {
         List<ChildVisit> childVisitList = new ArrayList<>();
         for (Map<String, String> map : list) {
-            String baseEntityId = map.get(DBConstants.KEY.BASE_ENTITY_ID);
-            String dobString = map.get(DBConstants.KEY.DOB);
+            String dobString = Utils.getDuration(map.get(DBConstants.KEY.DOB));
             String lastVisitDate = map.get(ChildDBConstants.KEY.LAST_HOME_VISIT);
             String visitNotDone = map.get(ChildDBConstants.KEY.VISIT_NOT_DONE);
             long lastVisit = 0, visitNot = 0;
@@ -222,7 +221,7 @@ public class WcaroRegisterProvider extends FamilyRegisterProvider {
             if (!TextUtils.isEmpty(visitNotDone)) {
                 visitNot = Long.valueOf(visitNotDone);
             }
-            ChildVisit childVisit = ChildUtils.getChildVisitStatus(rules, baseEntityId, dobString, lastVisit, visitNot);
+            ChildVisit childVisit = ChildUtils.getChildVisitStatus(rules, dobString, lastVisit, visitNot);
             childVisitList.add(childVisit);
         }
         return childVisitList;

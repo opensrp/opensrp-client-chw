@@ -9,7 +9,9 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.support.v4.app.ActivityCompat;
@@ -19,9 +21,15 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.widget.Toast;
 
+import org.smartgresiter.wcaro.BuildConfig;
 import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.contract.FamilyCallDialogContract;
+import org.smartgresiter.wcaro.fragment.CopyToClipboardDialog;
 import org.smartregister.util.PermissionUtils;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class Utils extends org.smartregister.family.util.Utils {
 
@@ -55,6 +63,10 @@ public class Utils extends org.smartregister.family.util.Utils {
                 ClipData clip = ClipData.newPlainText(activity.getText(R.string.copied_phone_number), phoneNumber);
                 clipboard.setPrimaryClip(clip);
 
+                CopyToClipboardDialog copyToClipboardDialog = new CopyToClipboardDialog(activity, R.style.copy_clipboard_dialog);
+                copyToClipboardDialog.setContent(phoneNumber);
+                copyToClipboardDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                copyToClipboardDialog.show();
                 // no phone
                 Toast.makeText(activity, activity.getText(R.string.copied_phone_number), Toast.LENGTH_SHORT).show();
 
@@ -104,6 +116,18 @@ public class Utils extends org.smartregister.family.util.Utils {
             drawable.draw(canvas);
         }
         return result;
+    }
+
+    public static String getBuildDate(Boolean isShortMonth) {
+        String simpleDateFormat;
+        if (isShortMonth) {
+            simpleDateFormat =
+                    new SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(new Date(BuildConfig.BUILD_TIMESTAMP));
+        } else {
+            simpleDateFormat =
+                    new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault()).format(new Date(BuildConfig.BUILD_TIMESTAMP));
+        }
+        return simpleDateFormat;
     }
 
 }

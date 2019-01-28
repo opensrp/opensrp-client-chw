@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">CFC</string>
+    <string name="app_name">Liberia CFC</string>
     <string name="title_family_detail">Family Detail</string>
     <string name="login_title">CFC</string>
     <string name="child_register_title">Child Clients</string>
@@ -18,7 +18,7 @@
     <string name="action_sync_failed">Sync Failed</string>
 
     <!-- Navigation Strings -->
-    <string name="nav_logo">WCARO LOGO</string>
+    <string name="nav_logo">Liberia CFC Monitor</string>
     <string name="nav_registers">Registers</string>
     <string name="nav_logout_as">Logout as</string>
     <string name="nav_sync">Sync</string>
@@ -39,6 +39,7 @@
     <string name="family_has_services_due">Family has services due</string>
     <string name="family_has_service_overdue"><![CDATA[Family has <font color=#FF0000>services overdue</font></b>]]></string>
     <string name="view_upcoming_services">View upcoming services</string>
+    <string name="upcoming_services">Upcoming Services</string>
     <string name="overdue_3_oct">overdue(3 oct)</string>
     <string name="penta_1">Penta 1</string>
     <string name="view_medical_history">View medical history</string>
@@ -56,6 +57,7 @@
     <string name="undo">UNDO</string>
     <string name="record_visit">Record visit</string>
     <string name="edit">EDIT</string>
+    <string name="return_to_family_name">Return to %1$s Family</string>
 
     <string name="allow_calls_denied">Kindly allow calls to be made here</string>
     <string name="copy_to_clipboard">Copy to clipboard</string>
@@ -86,6 +88,10 @@
     <string name="vitamin_a">Vitamin A</string>
     <string name="deworming">Deworming</string>
     <string name="record_immunizations">Record immunizations</string>
+    <string name="tab_text_1">DASHBOARD</string>
+    <string name="tab_text_2">GUIDEBOOKS</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
     <string name="birth_certification">Birth certification</string>
     <string name="observations_illness_episodes"><![CDATA[Observations & Illness Episodes]]></string>
 </resources>

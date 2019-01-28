@@ -43,17 +43,25 @@ public class FamilyCallDialogFragment extends DialogFragment implements FamilyCa
     TextView tvCareGiverName;
     TextView tvCareGiverPhone;
 
-    public static FamilyCallDialogFragment showDialog(Activity activity, String familyBaseEntityId) {
-        FamilyCallDialogFragment dialog = new FamilyCallDialogFragment();
+    public static FamilyCallDialogFragment launchDialog(Activity activity,
+                                                        String familyBaseEntityId) {
+        FamilyCallDialogFragment dialogFragment = FamilyCallDialogFragment.newInstance(familyBaseEntityId);
         FragmentTransaction ft = activity.getFragmentManager().beginTransaction();
         Fragment prev = activity.getFragmentManager().findFragmentByTag(DIALOG_TAG);
         if (prev != null) {
             ft.remove(prev);
         }
         ft.addToBackStack(null);
-        dialog.setFamilyBaseEntityId(familyBaseEntityId);
-        dialog.show(ft, DIALOG_TAG);
-        return dialog;
+
+        dialogFragment.show(ft, DIALOG_TAG);
+
+        return dialogFragment;
+    }
+
+    public static FamilyCallDialogFragment newInstance(String familyBaseEntityId) {
+        FamilyCallDialogFragment familyCallDialogFragment = new FamilyCallDialogFragment();
+        familyCallDialogFragment.setFamilyBaseEntityId(familyBaseEntityId);
+        return familyCallDialogFragment;
     }
 
     protected void setFamilyBaseEntityId(String familyBaseEntityId) {
@@ -125,7 +133,7 @@ public class FamilyCallDialogFragment extends DialogFragment implements FamilyCa
             llFamilyHead.setVisibility(View.VISIBLE);
             tvFamilyHeadName.setText(model.getName());
 
-            tvFamilyHeadPhone.setText(String.format("CALL [%s]", model.getPhoneNumber()));
+            tvFamilyHeadPhone.setText(String.format("CALL %s", model.getPhoneNumber()));
             tvFamilyHeadPhone.setTag(model.getPhoneNumber());
 
             tvFamilyHeadTitle.setText(model.getRole());
@@ -145,7 +153,7 @@ public class FamilyCallDialogFragment extends DialogFragment implements FamilyCa
             llCareGiver.setVisibility(View.VISIBLE);
             tvCareGiverName.setText(model.getName());
 
-            tvCareGiverPhone.setText(String.format("CALL [%s]", model.getPhoneNumber()));
+            tvCareGiverPhone.setText(String.format("CALL %s", model.getPhoneNumber()));
             tvCareGiverPhone.setTag(model.getPhoneNumber());
 
             tvCareGiverTitle.setText(model.getRole());

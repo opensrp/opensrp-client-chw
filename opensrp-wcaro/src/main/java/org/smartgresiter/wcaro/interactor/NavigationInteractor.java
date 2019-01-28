@@ -14,6 +14,7 @@ import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.family.util.AppExecutors;
 import org.smartregister.family.util.DBConstants;
+import org.smartregister.job.SyncServiceJob;
 
 import java.util.Date;
 
@@ -151,6 +152,7 @@ public class NavigationInteractor implements NavigationContract.Interactor {
 
     @Override
     public Date Sync() {
+        SyncServiceJob.scheduleJobImmediately(SyncServiceJob.TAG);
         return null;
     }
 

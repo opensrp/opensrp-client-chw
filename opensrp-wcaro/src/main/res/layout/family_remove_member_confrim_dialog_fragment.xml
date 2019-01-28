@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="25dp"
+    tools:context="org.smartgresiter.wcaro.fragment.FamilyRemoveMemberConfrimDialog">
+
+    <org.smartregister.view.customcontrols.CustomFontTextView
+        android:id="@+id/message"
+        style="@style/CustomFontTextViewStyle.ClientList.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:maxLines="5"
+        android:text="Are you sure you want to remove %s's record? This will remove their entire health record from your device. This action cannot be undone."
+        android:textColor="@color/black"
+        android:textSize="22sp"
+        android:textStyle="normal" />
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/message"
+        android:layout_marginTop="15dp">
+
+        <org.smartregister.view.customcontrols.CustomFontTextView
+            android:id="@+id/cancel"
+            style="@style/CustomFontTextViewStyle.ClientList.Bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="5dp"
+            android:layout_toLeftOf="@+id/remove"
+            android:text="CANCEL"
+            android:textColor="@color/purple"
+            android:textSize="22sp"
+            android:textStyle="normal" />
+
+        <org.smartregister.view.customcontrols.CustomFontTextView
+            android:id="@+id/remove"
+            style="@style/CustomFontTextViewStyle.ClientList.Bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginBottom="5dp"
+            android:text="REMOVE"
+            android:textColor="@color/purple"
+            android:textSize="22sp"
+            android:textStyle="normal" />
+    </RelativeLayout>
+
+</RelativeLayout>

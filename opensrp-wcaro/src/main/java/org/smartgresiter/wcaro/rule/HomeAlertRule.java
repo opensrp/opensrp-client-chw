@@ -1,7 +1,9 @@
 package org.smartgresiter.wcaro.rule;
 
 import android.text.TextUtils;
+import android.util.Log;
 
+import org.apache.commons.lang3.StringUtils;
 import org.joda.time.Days;
 import org.joda.time.LocalDate;
 import org.smartgresiter.wcaro.interactor.ChildProfileInteractor;
@@ -24,10 +26,10 @@ public class HomeAlertRule {
     public String noOfMonthDue;
     public String noOfDayDue;
     public String visitMonthName;
-    private String dob;
+    private Integer yearOfBirth;
 
-    public HomeAlertRule(String dateOfBirthString, long lastVisitDateLong, long visitNotDoneValue) {
-        dob = dateOfBirthString.contains("y") ? dateOfBirthString.substring(0, dateOfBirthString.indexOf("y")) : "";
+    public HomeAlertRule(String yearOfBirthString, long lastVisitDateLong, long visitNotDoneValue) {
+        yearOfBirth = dobStringToYear(yearOfBirthString);
         String lastVisit = (lastVisitDateLong == 0) ? "" : ChildUtils.covertLongDateToDisplayDate(lastVisitDateLong);
         String visitNotDone = (visitNotDoneValue == 0) ? "" : ChildUtils.covertLongDateToDisplayDate(visitNotDoneValue);
         ;
@@ -55,10 +57,8 @@ public class HomeAlertRule {
     }
 
     public boolean isExpiry(Integer calYr) {
-        if (!TextUtils.isEmpty(dob)) {
-            if (Integer.parseInt(dob) > calYr) {
-                return true;
-            }
+        if (yearOfBirth != null && yearOfBirth > calYr) {
+            return true;
         }
         return false;
 
@@ -66,7 +66,7 @@ public class HomeAlertRule {
 
     public boolean isOverdueWithinMonth(Integer value) {
         int diff = getMonthsDifference(lastVisitDate, todayDate);
-        if (diff >= value){
+        if (diff >= value) {
             noOfMonthDue = diff + "M";
             return true;
         }
@@ -111,4 +111,20 @@ public class HomeAlertRule {
         int m2 = date2.getYear() * 12 + date2.getMonthOfYear();
         return m2 - m1;
     }
+
+    private Integer dobStringToYear(String yearOfBirthString) {
+        if (!TextUtils.isEmpty(yearOfBirthString)) {
+            try {
+                String year = yearOfBirthString.contains("y") ? yearOfBirthString.substring(0, yearOfBirthString.indexOf("y")) : "";
+                if (StringUtils.isNotBlank(year)) {
+                    return Integer.valueOf(year);
+                }
+            } catch (Exception e) {
+                Log.e(getClass().getCanonicalName(), e.toString(), e);
+            }
+        }
+
+        return null;
+    }
+
 }

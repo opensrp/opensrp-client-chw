@@ -1,9 +1,11 @@
 package org.smartgresiter.wcaro.listener;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.view.MenuItem;
 
+import org.smartgresiter.wcaro.activity.JobAidsActivity;
 import org.smartregister.family.R;
 import org.smartregister.listener.BottomNavigationListener;
 import org.smartregister.view.activity.BaseRegisterActivity;
@@ -28,8 +30,9 @@ public class WCAROBottomNavigationListener extends BottomNavigationListener {
             baseRegisterActivity.startQrCodeScanner();
         } else if (item.getItemId() == R.id.action_register) {
             baseRegisterActivity.startRegistration();
-        } else if (item.getItemId() == R.id.action_library) {
-            baseRegisterActivity.switchToFragment(BaseRegisterActivity.LIBRARY_POSITION);
+        } else if (item.getItemId() == R.id.action_job_aids) {
+            Intent intent = new Intent(context, JobAidsActivity.class);
+            context.startActivity(intent);
         }
 
         return true;

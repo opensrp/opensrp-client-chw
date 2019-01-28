@@ -302,7 +302,7 @@ public class ChildRegisterProvider implements RecyclerViewProvider<ChildRegister
                     }
                     String dobString = Utils.getDuration(Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.DOB, false));
 
-                    childVisit = ChildUtils.getChildVisitStatus(rules, commonPersonObject.getCaseId(), dobString, lastVisit, visitNot);
+                    childVisit = ChildUtils.getChildVisitStatus(rules, dobString, lastVisit, visitNot);
 
 
                 }

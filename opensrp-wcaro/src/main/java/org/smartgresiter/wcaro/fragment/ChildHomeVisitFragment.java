@@ -141,11 +141,11 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         String dobString = org.smartregister.family.util.Utils.getDuration(org.smartregister.family.util.Utils.getValue(childClient.getColumnmaps(), DBConstants.KEY.DOB, false));
         String birthCert=getValue(childClient.getColumnmaps(), BIRTH_CERT, true);
 
-        nameHeader.setText(
-                getValue(childClient.getColumnmaps(),DBConstants.KEY.FIRST_NAME , true) + " " +
-                        getValue(childClient.getColumnmaps(), DBConstants.KEY.LAST_NAME, true) + ", " +
-                        dobString + " - Home Visit"
-        );
+        nameHeader.setText(String.format("%s %s, %s - Home Visit",
+                getValue(childClient.getColumnmaps(), "first_name", true),
+                getValue(childClient.getColumnmaps(), "last_name", true),
+                dobString
+        ));
         if(!TextUtils.isEmpty(birthCert)){
             layoutBirthCertGroup.setVisibility(View.GONE);
         }
@@ -215,7 +215,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                 break;
             case R.id.textview_submit:
                 if (checkAllGiven()) {
-                    ChildUtils.updateClientStatusAsEvent(childClient.entityId(), Constants.EventType.CHILD_HOME_VISIT, ChildDBConstants.KEY.LAST_HOME_VISIT, System.currentTimeMillis()+"", Constants.TABLE_NAME.CHILD);
+                    ChildUtils.updateClientStatusAsEvent(childClient.entityId(), Constants.EventType.CHILD_HOME_VISIT, ChildDBConstants.KEY.LAST_HOME_VISIT, System.currentTimeMillis() + "", Constants.TABLE_NAME.CHILD);
 
                     if (getActivity() instanceof ChildRegisterActivity) {
                         ((ChildRegisterActivity) getActivity()).refreshList(FetchStatus.fetched);

@@ -63,6 +63,10 @@ public class FamilyMemberVaccinationAsyncTask extends AsyncTask {
                         personObject.getDetails(), "");
                 // pClient.setColumnmaps(personObject.getColumnmaps());
                 String dobString = org.smartregister.util.Utils.getValue(personObject.getColumnmaps(), DBConstants.KEY.DOB, false);
+                DateTime dob = org.smartgresiter.wcaro.util.Utils.dobStringToDateTime(dobString);
+                if (dob == null) {
+                    dob = new DateTime();
+                }
 
                 if (pClient.getCaseId().equalsIgnoreCase(childId)) {
                     if (!TextUtils.isEmpty(dobString)) {
@@ -76,7 +80,7 @@ public class FamilyMemberVaccinationAsyncTask extends AsyncTask {
                 List<Vaccine> vaccines = WcaroApplication.getInstance().vaccineRepository().findByEntityId(pClient.getCaseId());
                 Map<String, Date> recievedVaccines = receivedVaccines(vaccines);
                 List<Map<String, Object>> sch = generateScheduleList("child",
-                        new DateTime(dobString), recievedVaccines, alerts);
+                        dob, recievedVaccines, alerts);
 
                 List<VaccineRepo.Vaccine> vList = Arrays.asList(VaccineRepo.Vaccine.values());
                 Map<String, Object> nv = nextVaccineDue(sch, vList);

@@ -131,6 +131,13 @@ public interface ChildProfileContract {
 
         void onRegistrationSaved(boolean isEditMode);
 
+        void setFamilyID(String familyID);
+
+        void setFamilyName(String familyName);
+
+        void setFamilyHeadID(String familyHeadID);
+
+        void setPrimaryCareGiverID(String primaryCareGiverID);
     }
 
     interface Model {

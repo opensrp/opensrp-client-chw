@@ -167,35 +167,33 @@ public class ChildUtils {
     /**
      * Same thread to retrive rules and also save in fts
      *
-     * @param baseEntityId
-     * @param dateOfBirth
+     * @param yearOfBirth
      * @param lastVisitDate
      * @param visitNotDate
      * @return
      */
-    public static ChildVisit getChildVisitStatus(String baseEntityId, String dateOfBirth, long lastVisitDate, long visitNotDate) {
-        HomeAlertRule homeAlertRule = new HomeAlertRule(dateOfBirth, lastVisitDate, visitNotDate);
+    public static ChildVisit getChildVisitStatus(String yearOfBirth, long lastVisitDate, long visitNotDate) {
+        HomeAlertRule homeAlertRule = new HomeAlertRule(yearOfBirth, lastVisitDate, visitNotDate);
         WcaroApplication.getInstance().getRulesEngineHelper().getButtonAlertStatus(homeAlertRule, Constants.RULE_FILE.HOME_VISIT);
-        return getChildVisitStatus(homeAlertRule, baseEntityId, lastVisitDate);
+        return getChildVisitStatus(homeAlertRule, lastVisitDate);
     }
 
     /**
      * Rules can be retrieved separately so that the background thread is used here
      *
      * @param rules
-     * @param baseEntityId
-     * @param dateOfBirth
+     * @param yearOfBirth
      * @param lastVisitDate
      * @param visitNotDate
      * @return
      */
-    public static ChildVisit getChildVisitStatus(Rules rules, String baseEntityId, String dateOfBirth, long lastVisitDate, long visitNotDate) {
-        HomeAlertRule homeAlertRule = new HomeAlertRule(dateOfBirth, lastVisitDate, visitNotDate);
+    public static ChildVisit getChildVisitStatus(Rules rules, String yearOfBirth, long lastVisitDate, long visitNotDate) {
+        HomeAlertRule homeAlertRule = new HomeAlertRule(yearOfBirth, lastVisitDate, visitNotDate);
         WcaroApplication.getInstance().getRulesEngineHelper().getButtonAlertStatus(homeAlertRule, rules);
-        return getChildVisitStatus(homeAlertRule, baseEntityId, lastVisitDate);
+        return getChildVisitStatus(homeAlertRule, lastVisitDate);
     }
 
-    public static ChildVisit getChildVisitStatus(HomeAlertRule homeAlertRule, String baseEntityId, long lastVisitDate) {
+    public static ChildVisit getChildVisitStatus(HomeAlertRule homeAlertRule, long lastVisitDate) {
         ChildVisit childVisit = new ChildVisit();
         childVisit.setVisitStatus(homeAlertRule.buttonStatus);
         childVisit.setNoOfMonthDue(homeAlertRule.noOfMonthDue);

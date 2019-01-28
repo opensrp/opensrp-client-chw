@@ -89,7 +89,7 @@ public class FamilyRemoveMemberPresenter extends FamilyProfileMemberPresenter im
 
     private String getForm(CommonPersonObjectClient client) {
         Date dob = Utils.dobStringToDate(Utils.getValue(client.getColumnmaps(), DBConstants.KEY.DOB, false));
-        return ((getDiffYears(dob, new Date()) >= 5) ? Constants.JSON_FORM.FAMILY_DETAILS_REMOVE_MEMBER : Constants.JSON_FORM.FAMILY_DETAILS_REMOVE_CHILD);
+        return ((dob != null && getDiffYears(dob, new Date()) >= 5) ? Constants.JSON_FORM.FAMILY_DETAILS_REMOVE_MEMBER : Constants.JSON_FORM.FAMILY_DETAILS_REMOVE_CHILD);
     }
 
     private int getDiffYears(Date first, Date last) {
@@ -148,6 +148,15 @@ public class FamilyRemoveMemberPresenter extends FamilyProfileMemberPresenter im
 
     @Override
     public String getDefaultSortQuery() {
-        return String.format("%s ASC", DBConstants.KEY.DOB);
+        return String.format(" %s ASC ", DBConstants.KEY.DOB);
+    }
+
+    @Override
+    public String getMainCondition() {
+        return String.format(" %s = '%s' and %s is null and %s is null ",
+                DBConstants.KEY.OBJECT_RELATIONAL_ID, familyBaseEntityId,
+                DBConstants.KEY.DATE_REMOVED ,
+                DBConstants.KEY.DOD
+        );
     }
 }
