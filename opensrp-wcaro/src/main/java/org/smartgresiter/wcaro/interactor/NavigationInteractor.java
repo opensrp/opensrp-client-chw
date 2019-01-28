@@ -152,7 +152,6 @@ public class NavigationInteractor implements NavigationContract.Interactor {
 
     @Override
     public Date Sync() {
-        SyncServiceJob.scheduleJobImmediately(SyncServiceJob.TAG);
         return null;
     }
 

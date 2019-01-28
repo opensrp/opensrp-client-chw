@@ -14,4 +14,8 @@ public class ChildDBConstants {
         // Family child visit status
         //public static final String CHILD_VISIT_STATUS = "child_visit_status";
     }
+
+    public static String childDueFilter() {
+        return " ((" + ChildDBConstants.KEY.LAST_HOME_VISIT + " is null OR ((" + ChildDBConstants.KEY.LAST_HOME_VISIT + "/1000) > strftime('%s',datetime('now','start of month')))) AND (" + ChildDBConstants.KEY.VISIT_NOT_DONE + " is null OR ((" + ChildDBConstants.KEY.VISIT_NOT_DONE + "/1000) > strftime('%s',datetime('now','start of month'))))) ";
+    }
 }

@@ -97,15 +97,6 @@ public class FamilyRegisterFragment extends BaseFamilyRegisterFragment {
         presenter = new FamilyRegisterFragmentPresenter(this, new FamilyRegisterFramentModel(), viewConfigurationIdentifier);
     }
 
-    //TODO need to do only first time when all data sync
-    @Override
-    public void onSyncComplete(FetchStatus fetchStatus) {
-        super.onSyncComplete(fetchStatus);
-        //if(fetchStatus.displayValue().equalsIgnoreCase(FetchStatus.fetched.displayValue())){
-        //UpdateVisitServiceJob.scheduleJobImmediately(UpdateVisitServiceJob.TAG);
-        //}
-    }
-
     @Override
     public void initializeAdapter(Set<org.smartregister.configurableviews.model.View> visibleColumns) {
         WcaroRegisterProvider wcaroRegisterProvider = new WcaroRegisterProvider(getActivity(), commonRepository(), visibleColumns, registerActionHandler, paginationViewHandler);
