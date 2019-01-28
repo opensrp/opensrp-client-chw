@@ -12,6 +12,7 @@ import org.smartgresiter.wcaro.activity.LoginActivity;
 import org.smartgresiter.wcaro.helper.RulesEngineHelper;
 import org.smartgresiter.wcaro.job.WcaroJobCreator;
 import org.smartgresiter.wcaro.repository.WcaroRepository;
+import org.smartgresiter.wcaro.sync.WCAROClientProcessor;
 import org.smartgresiter.wcaro.util.ChildDBConstants;
 import org.smartgresiter.wcaro.util.Constants;
 import org.smartregister.Context;
@@ -34,6 +35,7 @@ import org.smartregister.immunization.util.VaccinatorUtils;
 import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.repository.Repository;
+import org.smartregister.sync.ClientProcessorForJava;
 import org.smartregister.sync.helper.ECSyncHelper;
 import org.smartregister.view.activity.DrishtiApplication;
 
@@ -44,6 +46,7 @@ public class WcaroApplication extends DrishtiApplication {
     private static final String TAG = WcaroApplication.class.getCanonicalName();
     private static JsonSpecHelper jsonSpecHelper;
     private static ECSyncHelper ecSyncHelper;
+    private static WCAROClientProcessor clientProcessor;
 
     private static CommonFtsObject commonFtsObject;
 
@@ -190,4 +193,10 @@ public class WcaroApplication extends DrishtiApplication {
         return WcaroApplication.getInstance().getContext().allCommonsRepositoryobjects(table);
     }
 
+    public static ClientProcessorForJava getClientProcessor(android.content.Context context) {
+        if(clientProcessor == null){
+            clientProcessor = WCAROClientProcessor.getInstance(context);
+        }
+        return clientProcessor;
+    }
 }
