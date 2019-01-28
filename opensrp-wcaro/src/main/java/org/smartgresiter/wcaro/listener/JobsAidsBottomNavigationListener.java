@@ -29,8 +29,7 @@ public class JobsAidsBottomNavigationListener extends BottomNavigationListener {
 //        super.onNavigationItemSelected(item);
 
         if (item.getItemId() == org.smartregister.family.R.id.action_family) {
-            Intent intent = new Intent(context, FamilyRegisterActivity.class);
-            context.startActivity(intent);
+
 
         } else if (item.getItemId() == org.smartregister.family.R.id.action_scan_qr) {
 
@@ -52,6 +51,8 @@ public class JobsAidsBottomNavigationListener extends BottomNavigationListener {
             }
 
         }
+
+        context.finish();
         return true;
     }
 }
