@@ -287,7 +287,7 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
 
             if (groupSecondaryText.endsWith(", ")) {
                 groupSecondaryText = groupSecondaryText.trim();
-                groupSecondaryText = groupSecondaryText.substring(0, groupSecondaryText.length() - 2);
+                groupSecondaryText = groupSecondaryText.substring(0, groupSecondaryText.length() - 1);
 
             }
             groupSecondaryText = groupSecondaryText + " provided on ";
@@ -297,7 +297,50 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
             groupSecondaryText = groupSecondaryText + duedateString + " \u00B7 ";
 
         }
+        groupSecondaryText = groupSecondaryText +addNotGivenVaccines(sch);
         groupImmunizationSecondaryText = groupSecondaryText;
+    }
+
+    private String addNotGivenVaccines (List<Map<String, Object>> sch) {
+        ArrayList<VaccineRepo.Vaccine> allgivenVaccines = new ArrayList<VaccineRepo.Vaccine>();
+        for (HomeVisitVaccineGroupDetails group : allgroups) {
+            allgivenVaccines.addAll(group.getNotGivenVaccines());
+        }
+        LinkedHashMap<DateTime, ArrayList<VaccineRepo.Vaccine>> groupedByDate = new LinkedHashMap<DateTime, ArrayList<VaccineRepo.Vaccine>>();
+        for (VaccineRepo.Vaccine vaccineGiven : allgivenVaccines) {
+            for (Map<String, Object> mapToProcess : sch) {
+                if (((VaccineRepo.Vaccine) mapToProcess.get("vaccine")).display().equalsIgnoreCase(vaccineGiven.display())) {
+                    if (groupedByDate.get((DateTime) mapToProcess.get("date")) == null) {
+                        ArrayList<VaccineRepo.Vaccine> givenVaccinesAtDate = new ArrayList<VaccineRepo.Vaccine>();
+                        givenVaccinesAtDate.add(vaccineGiven);
+                        groupedByDate.put((DateTime) mapToProcess.get("date"), givenVaccinesAtDate);
+                    } else {
+                        groupedByDate.get(mapToProcess.get("date")).add(vaccineGiven);
+                    }
+                }
+            }
+        }
+        String groupSecondaryText = "";
+        for (Map.Entry<DateTime, ArrayList<VaccineRepo.Vaccine>> entry : groupedByDate.entrySet()) {
+            DateTime dateTime = entry.getKey();
+            ArrayList<VaccineRepo.Vaccine> vaccines = entry.getValue();
+            // now work with key and value...
+            for (VaccineRepo.Vaccine vaccineGiven : vaccines) {
+                groupSecondaryText = groupSecondaryText + vaccineGiven.display() + ", ";
+            }
+
+            if (groupSecondaryText.endsWith(", ")) {
+                groupSecondaryText = groupSecondaryText.trim();
+                groupSecondaryText = groupSecondaryText.substring(0, groupSecondaryText.length() - 1);
+
+            }
+            groupSecondaryText = groupSecondaryText + " not given ";
+
+               groupSecondaryText = groupSecondaryText + " \u00B7 ";
+
+        }
+
+        return groupSecondaryText;
     }
 
     @Override

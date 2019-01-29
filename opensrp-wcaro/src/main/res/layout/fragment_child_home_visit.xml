@@ -82,7 +82,7 @@
             <org.smartgresiter.wcaro.custom_view.HomeVisitImmunizationView
                 android:id="@+id/home_visit_immunization_view"
                 android:layout_width="match_parent"
-                android:layout_height="80dp">
+                android:layout_height="wrap_content">
 
             </org.smartgresiter.wcaro.custom_view.HomeVisitImmunizationView>
 
