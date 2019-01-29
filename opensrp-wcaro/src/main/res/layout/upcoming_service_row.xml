@@ -48,5 +48,15 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="@android:color/darker_gray"
             android:textSize="14sp" />
+        <org.smartregister.view.customcontrols.CustomFontTextView
+            android:id="@+id/growth_service_name_title"
+            style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="Growth nutrition"
+            android:textColor="@color/black"
+            android:visibility="gone"
+            android:textSize="16sp" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
