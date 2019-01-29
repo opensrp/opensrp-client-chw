@@ -10,6 +10,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.joda.time.DateTime;
 import org.smartgresiter.wcaro.application.WcaroApplication;
+import org.smartgresiter.wcaro.repository.HomeVisitRepository;
 import org.smartregister.clientandeventmodel.DateUtil;
 import org.smartregister.commonregistry.AllCommonsRepository;
 import org.smartregister.domain.db.Client;
@@ -68,7 +69,6 @@ public class WCAROClientProcessor extends FamilyClientProcessorForJava {
         Table vaccineTable = assetJsonToJava("ec_client_vaccine.json", Table.class);
 //        Table weightTable = assetJsonToJava("ec_client_weight.json", Table.class);
         Table serviceTable = assetJsonToJava("ec_client_service.json", Table.class);
-
         if (!eventClients.isEmpty()) {
             List<Event> unsyncEvents = new ArrayList<>();
             for (EventClient eventClient : eventClients) {
@@ -93,10 +93,19 @@ public class WCAROClientProcessor extends FamilyClientProcessorForJava {
                         continue;
                     }
                     processService(eventClient, serviceTable);
+                }  else if (eventType.equals(HomeVisitRepository.EVENT_TYPE)) {
+                    if (serviceTable == null) {
+                        continue;
+                    }
+                    processHomeVisit(eventClient);
                 }
             }
         }
         super.processClient(eventClients);
+    }
+
+    private void processHomeVisit(EventClient eventClient) {
+
     }
 
     private Boolean processVaccine(EventClient vaccine, Table vaccineTable, boolean outOfCatchment) throws Exception {
