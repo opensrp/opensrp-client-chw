@@ -202,4 +202,13 @@ public class HomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNutriti
         }
     }
 
+    @Override
+    public Map<String, ServiceWrapper> getSaveStateMap() {
+        return saveStateMap;
+    }
+
+    @Override
+    public void setSaveStateMap(Map<String, ServiceWrapper> saveStateMap) {
+        this.saveStateMap = saveStateMap;
+    }
 }

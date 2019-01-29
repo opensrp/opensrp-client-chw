@@ -36,7 +36,7 @@ public class HomeVisitRepository extends BaseRepository {
 
     private static final String TAG = HomeVisitRepository.class.getCanonicalName();
     private static final String HomeVisit_SQL = "CREATE TABLE home_visit (_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,base_entity_id VARCHAR NOT NULL,name VARCHAR NOT NULL,date DATETIME NOT NULL,anmid VARCHAR NULL,location_id VARCHAR NULL,event_id VARCHAR NULL,formSubmissionId VARCHAR,sync_status VARCHAR,updated_at INTEGER NULL," +
-            "formfields VARCHAR,created_at DATETIME NOT NULL,vaccine_group VARCHAR,single_vaccine VARCHAR,service VARCHAR,birth_certification VARCHAR,illness_information VARCHAR,)";
+            "formfields VARCHAR,created_at DATETIME NOT NULL,vaccine_group VARCHAR,single_vaccine VARCHAR,service VARCHAR,birth_certification VARCHAR,illness_information VARCHAR)";
     public static final String HomeVisitTABLE_NAME = "home_visit";
     public static final String ID_COLUMN = "_id";
     public static final String BASE_ENTITY_ID = "base_entity_id";

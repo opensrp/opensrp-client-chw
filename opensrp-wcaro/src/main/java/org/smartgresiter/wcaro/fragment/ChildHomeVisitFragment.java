@@ -20,10 +20,13 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
 
 import org.apache.commons.lang3.tuple.Triple;
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.activity.ChildProfileActivity;
@@ -31,10 +34,12 @@ import org.smartgresiter.wcaro.activity.ChildRegisterActivity;
 import org.smartgresiter.wcaro.contract.ChildRegisterContract;
 import org.smartgresiter.wcaro.custom_view.HomeVisitGrowthAndNutrition;
 import org.smartgresiter.wcaro.custom_view.HomeVisitImmunizationView;
+import org.smartgresiter.wcaro.domain.HomeVisit;
 import org.smartgresiter.wcaro.interactor.ChildRegisterInteractor;
 import org.smartgresiter.wcaro.model.ChildRegisterModel;
 import org.smartgresiter.wcaro.task.VaccinationAsyncTask;
 import org.smartgresiter.wcaro.util.ChildDBConstants;
+import org.smartgresiter.wcaro.util.ChildHomeVisit;
 import org.smartgresiter.wcaro.util.ChildUtils;
 import org.smartgresiter.wcaro.util.Constants;
 import org.smartgresiter.wcaro.util.HomeVisitVaccineGroupDetails;
@@ -193,6 +198,19 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                     if (getActivity() instanceof ChildRegisterActivity) {
                         ((ChildRegisterActivity) getActivity()).refreshList(FetchStatus.fetched);
                     }
+
+                  try {
+                      JSONArray vaccineGroup = homeVisitImmunizationView.getGroupVaccinesGivenThisVisit();
+                      JSONArray singleVaccine = homeVisitImmunizationView.getSingleVaccinesGivenThisVisit();
+
+                      JSONObject singleVaccineObject = new JSONObject().put("singleVaccinesGiven",singleVaccine);
+                      JSONObject vaccineGroupObject = new JSONObject().put("groupVaccinesGiven",vaccineGroup);
+                      JSONObject service = new JSONObject((new Gson()).toJson(homeVisitGrowthAndNutritionLayout.returnSaveStateMap()));
+                      ChildUtils.addToHomeVisitTable(childClient.getCaseId(),singleVaccineObject,vaccineGroupObject,service);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
                     dismiss();
                 }
                 break;

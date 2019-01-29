@@ -17,6 +17,8 @@ import org.smartgresiter.wcaro.util.ChildUtils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.immunization.domain.ServiceWrapper;
 
+import java.util.Map;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class HomeVisitGrowthAndNutrition extends LinearLayout implements View.OnClickListener, HomeVisitGrowthNutritionContract.View {
@@ -235,5 +237,9 @@ public class HomeVisitGrowthAndNutrition extends LinearLayout implements View.On
 
     public boolean isAllSelected() {
         return presenter.isAllSelected();
+    }
+
+    public Map<String, ServiceWrapper> returnSaveStateMap(){
+        return presenter.getSaveStateMap();
     }
 }

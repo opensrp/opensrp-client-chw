@@ -11,6 +11,7 @@ import org.smartgresiter.wcaro.activity.FamilyProfileActivity;
 import org.smartgresiter.wcaro.activity.LoginActivity;
 import org.smartgresiter.wcaro.helper.RulesEngineHelper;
 import org.smartgresiter.wcaro.job.WcaroJobCreator;
+import org.smartgresiter.wcaro.repository.HomeVisitRepository;
 import org.smartgresiter.wcaro.repository.WcaroRepository;
 import org.smartgresiter.wcaro.sync.WCAROClientProcessor;
 import org.smartgresiter.wcaro.util.ChildDBConstants;
@@ -49,6 +50,7 @@ public class WcaroApplication extends DrishtiApplication {
     private static WCAROClientProcessor clientProcessor;
 
     private static CommonFtsObject commonFtsObject;
+    private static HomeVisitRepository homeVisitRepository;
 
     public static synchronized WcaroApplication getInstance() {
         return (WcaroApplication) mInstance;
@@ -198,5 +200,12 @@ public class WcaroApplication extends DrishtiApplication {
             clientProcessor = WCAROClientProcessor.getInstance(context);
         }
         return clientProcessor;
+    }
+
+    public static HomeVisitRepository homeVisitRepository() {
+        if(homeVisitRepository == null){
+            homeVisitRepository = new HomeVisitRepository(getInstance().getRepository(),getInstance().getContext().commonFtsObject(),getInstance().getContext().alertService());
+        }
+        return homeVisitRepository;
     }
 }

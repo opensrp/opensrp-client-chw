@@ -12,6 +12,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.jeasy.rules.api.Rules;
 import org.json.JSONObject;
 import org.smartgresiter.wcaro.application.WcaroApplication;
+import org.smartgresiter.wcaro.domain.HomeVisit;
+import org.smartgresiter.wcaro.repository.HomeVisitRepository;
 import org.smartgresiter.wcaro.rule.HomeAlertRule;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.clientandeventmodel.Obs;
@@ -25,7 +27,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ChildUtils {
 
@@ -248,5 +252,16 @@ public class ChildUtils {
         } catch (Exception e) {
             Log.e("Error in adding event", e.getMessage());
         }
+    }
+
+    public static void addToHomeVisitTable(String baseEntityID,JSONObject singleVaccineObject, JSONObject vaccineGroupObject, JSONObject service) {
+        HomeVisit newHomeVisit = new HomeVisit(null,baseEntityID, HomeVisitRepository.EVENT_TYPE,new Date(),"","","",0l,"","",new Date());
+        newHomeVisit.setSingleVaccinesGiven(singleVaccineObject);
+        newHomeVisit.setVaccineGroupsGiven(vaccineGroupObject);
+        newHomeVisit.setServicesGiven(service);
+        newHomeVisit.setIllness_information(new JSONObject());
+        newHomeVisit.setFormfields(new HashMap<String, String>());
+
+        WcaroApplication.homeVisitRepository().add(newHomeVisit);
     }
 }

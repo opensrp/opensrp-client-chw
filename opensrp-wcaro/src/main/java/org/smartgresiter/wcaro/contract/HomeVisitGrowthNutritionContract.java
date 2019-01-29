@@ -38,6 +38,9 @@ public interface HomeVisitGrowthNutritionContract {
 
         void onDestroy(boolean isChangingConfiguration);
 
+        Map<String, ServiceWrapper> getSaveStateMap();
+
+        void setSaveStateMap(Map<String, ServiceWrapper> saveStateMap);
     }
 
     interface Interactor {
