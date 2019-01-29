@@ -15,6 +15,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import org.smartgresiter.wcaro.R;
+import org.smartgresiter.wcaro.adapter.BirthAndIllnessAdapter;
 import org.smartgresiter.wcaro.adapter.GrowthAdapter;
 import org.smartgresiter.wcaro.adapter.VaccineAdapter;
 import org.smartgresiter.wcaro.contract.MedicalHistoryContract;
@@ -38,6 +39,7 @@ public class MedicalHistoryActivity extends SecuredActivity implements MedicalHi
     private MedicalHistoryContract.Presenter presenter;
     private VaccineAdapter vaccineAdapter;
     private GrowthAdapter growthAdapter;
+    private BirthAndIllnessAdapter birthCertAdapter,illnessAdapter;
 
     public static void startMedicalHistoryActivity(Activity activity, CommonPersonObjectClient childClient, String childName, String lastVisitDays, String dateOfirth,
                                                    LinkedHashMap<String, Date> receivedVaccine) {
@@ -116,6 +118,7 @@ public class MedicalHistoryActivity extends SecuredActivity implements MedicalHi
         setInitialVaccineList();
         fetchFullYImmunization();
         fetchGrowthNutrition();
+        fetchBirthCertIllness();
     }
 
 
@@ -131,6 +134,9 @@ public class MedicalHistoryActivity extends SecuredActivity implements MedicalHi
     private void fetchGrowthNutrition() {
         presenter.fetchGrowthNutrition(childClient.entityId());
 
+    }
+    private void fetchBirthCertIllness(){
+        presenter.fetchBirthAndIllnessData(childClient);
     }
 
     @Override
@@ -184,12 +190,35 @@ public class MedicalHistoryActivity extends SecuredActivity implements MedicalHi
 
     @Override
     public void updateBirthCertification() {
+        if(presenter.getBirthCertification()!=null && presenter.getBirthCertification().size()>0){
+            layoutBirthCert.setVisibility(View.VISIBLE);
+            if(birthCertAdapter==null){
+                birthCertAdapter=new BirthAndIllnessAdapter();
+                birthCertAdapter.setData(presenter.getBirthCertification());
+                recyclerViewBirthCert.setAdapter(birthCertAdapter);
+            }else{
+                birthCertAdapter.notifyDataSetChanged();
+            }
+        }else{
+            layoutBirthCert.setVisibility(View.GONE);
+        }
 
     }
 
     @Override
     public void updateObsIllness() {
-
+        if(presenter.getObsIllness()!=null && presenter.getObsIllness().size()>0){
+            layoutIllness.setVisibility(View.VISIBLE);
+            if(illnessAdapter==null){
+                illnessAdapter=new BirthAndIllnessAdapter();
+                illnessAdapter.setData(presenter.getObsIllness());
+                recyclerViewIllness.setAdapter(illnessAdapter);
+            }else{
+                illnessAdapter.notifyDataSetChanged();
+            }
+        }else{
+            layoutIllness.setVisibility(View.GONE);
+        }
     }
 
 

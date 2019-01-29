@@ -164,8 +164,6 @@ public class ChildUtils {
                 tableName + "." + ChildDBConstants.KEY.BIRTH_CERT_ISSUE_DATE,
                 tableName + "." + ChildDBConstants.KEY.BIRTH_CERT_NUMBER,
                 tableName + "." + ChildDBConstants.KEY.BIRTH_CERT_NOTIFIICATION,
-                tableName + "." + ChildDBConstants.KEY.BIRTH_CERT_INSTRUC,
-                tableName + "." + ChildDBConstants.KEY.BIRTH_CERT_CAREGIVER,
                 tableName + "." + ChildDBConstants.KEY.ILLNESS_DATE,
                 tableName + "." + ChildDBConstants.KEY.ILLNESS_DESCRIPTION,
                 tableName + "." + ChildDBConstants.KEY.ILLNESS_ACTION};

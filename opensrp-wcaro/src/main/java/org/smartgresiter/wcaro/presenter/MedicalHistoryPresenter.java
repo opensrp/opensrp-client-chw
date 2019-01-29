@@ -19,8 +19,8 @@ public class MedicalHistoryPresenter implements MedicalHistoryContract.Presenter
     private Map<String, Date> recievedVaccines;
     private ArrayList<BaseVaccine> baseVaccineArrayList;
     private ArrayList<BaseService> growthNutritionArrayList;
-    private ArrayList<BirthCertification> birthCertifications;
-    private ArrayList<ObsIllness> obsIllnesses;
+    private ArrayList<String> birthCertifications;
+    private ArrayList<String> obsIllnesses;
 
     public MedicalHistoryPresenter(MedicalHistoryContract.View view) {
         this.view = new WeakReference<>(view);
@@ -45,6 +45,7 @@ public class MedicalHistoryPresenter implements MedicalHistoryContract.Presenter
 
     @Override
     public void fetchBirthAndIllnessData(CommonPersonObjectClient commonPersonObjectClient) {
+        interactor.fetchBirthAndIllnessData(commonPersonObjectClient,this);
 
     }
 
@@ -64,24 +65,24 @@ public class MedicalHistoryPresenter implements MedicalHistoryContract.Presenter
     }
 
     @Override
-    public ArrayList<BirthCertification> getBirthCertification() {
+    public ArrayList<String> getBirthCertification() {
         return birthCertifications;
     }
 
     @Override
-    public ArrayList<ObsIllness> getObsIllness() {
+    public ArrayList<String> getObsIllness() {
         return obsIllnesses;
     }
 
     @Override
-    public void updateBirthCertification(ArrayList<BirthCertification> birthCertification) {
+    public void updateBirthCertification(ArrayList<String> birthCertification) {
         this.birthCertifications=birthCertification;
         getView().updateBirthCertification();
 
     }
 
     @Override
-    public void updateIllnessData(ArrayList<ObsIllness> obsIllnessArrayList) {
+    public void updateIllnessData(ArrayList<String> obsIllnessArrayList) {
         this.obsIllnesses=obsIllnessArrayList;
         getView().updateObsIllness();
 

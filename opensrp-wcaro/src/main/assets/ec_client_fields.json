@@ -360,22 +360,6 @@
           }
         },
         {
-          "column_name": "birthinstroductions",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.fieldCode",
-            "formSubmissionField": "birthinstroductions"
-          }
-        },
-        {
-          "column_name": "caregiverinstroductions",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.fieldCode",
-            "formSubmissionField": "caregiverinstroductions"
-          }
-        },
-        {
           "column_name": "date_of_illness",
           "type": "Event",
           "json_mapping": {

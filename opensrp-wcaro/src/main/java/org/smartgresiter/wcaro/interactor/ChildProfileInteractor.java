@@ -39,6 +39,7 @@ import org.smartregister.sync.helper.ECSyncHelper;
 import org.smartregister.util.DateUtil;
 
 import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import static org.smartgresiter.wcaro.util.Constants.IMMUNIZATION_CONSTANT.DATE;
@@ -50,7 +51,7 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
     private AppExecutors appExecutors;
     private CommonPersonObjectClient pClient;
     private FamilyMemberVaccinationAsyncTask familyMemberVaccinationAsyncTask;
-    private Map<String, Date> vaccineList;
+    private Map<String, Date> vaccineList=new LinkedHashMap<>();
     private String serviceDueStatus = FamilyServiceType.NOTHING.name();
 
     @VisibleForTesting
@@ -242,6 +243,20 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
         startAsyncTask(familyMemberVaccinationAsyncTask, null);
 
     }
+
+    @Override
+    public void updateChildCommonPerson(String baseEntityId) {
+        String query = ChildUtils.mainSelect(org.smartgresiter.wcaro.util.Constants.TABLE_NAME.CHILD, org.smartgresiter.wcaro.util.Constants.TABLE_NAME.FAMILY, org.smartgresiter.wcaro.util.Constants.TABLE_NAME.FAMILY_MEMBER, baseEntityId);
+
+        Cursor cursor = getCommonRepository(org.smartgresiter.wcaro.util.Constants.TABLE_NAME.CHILD).rawCustomQueryForAdapter(query);
+        if (cursor != null && cursor.moveToFirst()) {
+            CommonPersonObject personObject = getCommonRepository(org.smartgresiter.wcaro.util.Constants.TABLE_NAME.CHILD).readAllcommonforCursorAdapter(cursor);
+            pClient = new CommonPersonObjectClient(personObject.getCaseId(),
+                    personObject.getDetails(), "");
+            pClient.setColumnmaps(personObject.getColumnmaps());
+            cursor.close();
+            }
+        }
 
     /**
      * Refreshes family view based on the child id

@@ -14,6 +14,7 @@ import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.Pair;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -170,10 +171,8 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
 
     }
 
-
     public static ChildHomeVisitFragment newInstance() {
-        ChildHomeVisitFragment addMemberFragment = new ChildHomeVisitFragment();
-        return addMemberFragment;
+        return new ChildHomeVisitFragment();
     }
 
 
@@ -198,37 +197,38 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                     if(((ChildHomeVisitPresenter)presenter).getSaveSize()>0){
                         presenter.saveForm();
                     }
-
-                    dismiss();
+                   dismiss();
                 }
                 break;
             case R.id.close:
-                AlertDialog dialog = new AlertDialog.Builder(getActivity(), R.style.AppThemeAlertDialog)
-                        .setTitle("Undo Changes and Exit")
-                        .setMessage("Would you like to undo the changes in this home visit and exit ?")
-                        .setNegativeButton(com.vijay.jsonwizard.R.string.yes, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                resetGrowthData();
-                                undoGivenVaccines();
-                                dismiss();
-                            }
-                        })
-                        .setPositiveButton(com.vijay.jsonwizard.R.string.no, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-
-
-                            }
-                        })
-                        .create();
-
-                dialog.show();
+                showCloseDialog();
                 break;
             case R.id.layout_add_other_family_member:
                 ((BaseFamilyProfileActivity) context).startFormActivity(Constants.JSON_FORM.FAMILY_MEMBER_REGISTER, null, null);
                 break;
         }
+    }
+    private void showCloseDialog(){
+        AlertDialog dialog = new AlertDialog.Builder(getActivity(), R.style.AppThemeAlertDialog)
+                .setTitle("Undo Changes and Exit")
+                .setMessage("Would you like to undo the changes in this home visit and exit ?")
+                .setNegativeButton(com.vijay.jsonwizard.R.string.yes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        resetGrowthData();
+                        undoGivenVaccines();
+                        dismiss();
+                    }
+                })
+                .setPositiveButton(com.vijay.jsonwizard.R.string.no, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                })
+                .create();
+
+        dialog.show();
     }
 
 
@@ -334,6 +334,10 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         }
     }
 
+    /**
+     * show close dialog if user press back button instend of cross button
+     */
+
     @Override
     public void onResume() {
         super.onResume();
@@ -344,6 +348,20 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                 updateGrowthData();
             }
         }, 100);
+        if(getView()==null) return;
+        getView().setFocusableInTouchMode(true);
+        getView().requestFocus();
+        getView().setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+
+                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK){
+                    showCloseDialog();
+                    return true;
+                }
+                return false;
+            }
+        });
 
     }
 
@@ -354,6 +372,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     public void setChildClient(CommonPersonObjectClient childClient) {
         this.childClient = childClient;
     }
+
 
     @Override
     public void onDestroy() {

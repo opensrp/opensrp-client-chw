@@ -41,9 +41,9 @@ public interface MedicalHistoryContract {
 
         ArrayList<BaseService> getGrowthNutrition();
 
-        ArrayList<BirthCertification> getBirthCertification();
+        ArrayList<String> getBirthCertification();
 
-        ArrayList<ObsIllness> getObsIllness();
+        ArrayList<String> getObsIllness();
 
         MedicalHistoryContract.View getView();
 
@@ -65,9 +65,9 @@ public interface MedicalHistoryContract {
 
     interface InteractorCallBack {
 
-        void updateBirthCertification(ArrayList<BirthCertification> birthCertification);
+        void updateBirthCertification(ArrayList<String> birthCertification);
 
-        void updateIllnessData(ArrayList<ObsIllness> obsIllnessArrayList);
+        void updateIllnessData(ArrayList<String> obsIllnessArrayList);
 
         void updateVaccineData(ArrayList<BaseVaccine> recievedVaccines);
 

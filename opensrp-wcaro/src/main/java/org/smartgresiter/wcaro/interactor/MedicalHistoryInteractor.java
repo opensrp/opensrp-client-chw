@@ -2,16 +2,12 @@ package org.smartgresiter.wcaro.interactor;
 
 import android.support.annotation.VisibleForTesting;
 import android.text.TextUtils;
-
 import org.smartgresiter.wcaro.contract.MedicalHistoryContract;
 import org.smartgresiter.wcaro.fragment.GrowthNutritionInputFragment;
 import org.smartgresiter.wcaro.util.BaseService;
 import org.smartgresiter.wcaro.util.BaseVaccine;
-import org.smartgresiter.wcaro.util.BirthCertification;
 import org.smartgresiter.wcaro.util.ChildUtils;
-import org.smartgresiter.wcaro.util.Constants;
 import org.smartgresiter.wcaro.util.GrowthNutrition;
-import org.smartgresiter.wcaro.util.ObsIllness;
 import org.smartgresiter.wcaro.util.ReceivedVaccine;
 import org.smartgresiter.wcaro.util.ServiceContent;
 import org.smartgresiter.wcaro.util.ServiceHeader;
@@ -24,7 +20,6 @@ import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.immunization.domain.ServiceRecord;
 import org.smartregister.immunization.repository.RecurringServiceRecordRepository;
 import org.smartregister.immunization.util.VaccinateActionUtils;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,17 +28,13 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-
 import static org.smartgresiter.wcaro.util.ChildDBConstants.KEY.BIRTH_CERT;
-import static org.smartgresiter.wcaro.util.ChildDBConstants.KEY.BIRTH_CERT_CAREGIVER;
-import static org.smartgresiter.wcaro.util.ChildDBConstants.KEY.BIRTH_CERT_INSTRUC;
 import static org.smartgresiter.wcaro.util.ChildDBConstants.KEY.BIRTH_CERT_ISSUE_DATE;
 import static org.smartgresiter.wcaro.util.ChildDBConstants.KEY.BIRTH_CERT_NOTIFIICATION;
 import static org.smartgresiter.wcaro.util.ChildDBConstants.KEY.BIRTH_CERT_NUMBER;
 import static org.smartgresiter.wcaro.util.ChildDBConstants.KEY.ILLNESS_ACTION;
 import static org.smartgresiter.wcaro.util.ChildDBConstants.KEY.ILLNESS_DATE;
 import static org.smartgresiter.wcaro.util.ChildDBConstants.KEY.ILLNESS_DESCRIPTION;
-import static org.smartregister.util.Utils.fillValue;
 import static org.smartregister.util.Utils.getValue;
 
 public class MedicalHistoryInteractor implements MedicalHistoryContract.Interactor {
@@ -90,20 +81,21 @@ public class MedicalHistoryInteractor implements MedicalHistoryContract.Interact
     @Override
     public void fetchBirthAndIllnessData(CommonPersonObjectClient commonPersonObjectClient,final MedicalHistoryContract.InteractorCallBack callBack) {
         String birthCert=getValue(commonPersonObjectClient.getColumnmaps(), BIRTH_CERT, true);
-        final ArrayList<BirthCertification> birthCertificationArrayList=new ArrayList<>();
-        if(TextUtils.isEmpty(birthCert) && birthCert.equalsIgnoreCase("Yes")){
-            BirthCertification birthCertification=new BirthCertification();
-            birthCertification.setHasBirthCert(birthCert);
-            birthCertification.setBirthCertIssueDate(getValue(commonPersonObjectClient.getColumnmaps(),BIRTH_CERT_ISSUE_DATE,true));
-            birthCertification.setBirthCertNumber(getValue(commonPersonObjectClient.getColumnmaps(),BIRTH_CERT_NUMBER,true));
-            birthCertificationArrayList.add(birthCertification);
-        }else if(TextUtils.isEmpty(birthCert) && birthCert.equalsIgnoreCase("No")){
-            BirthCertification birthCertification=new BirthCertification();
-            birthCertification.setHasBirthCert(birthCert);
-            birthCertification.setBirthCertNotification(getValue(commonPersonObjectClient.getColumnmaps(),BIRTH_CERT_NOTIFIICATION,true));
-            birthCertification.setInstruction(getValue(commonPersonObjectClient.getColumnmaps(),BIRTH_CERT_INSTRUC,true));
-            birthCertification.setCaregiverInstruction(getValue(commonPersonObjectClient.getColumnmaps(),BIRTH_CERT_CAREGIVER,true));
-            birthCertificationArrayList.add(birthCertification);
+        final ArrayList<String> birthCertificationContent=new ArrayList<>();
+        if(!TextUtils.isEmpty(birthCert) && birthCert.equalsIgnoreCase("Yes")){
+            birthCertificationContent.add("Does the child have a birth certificate? "+birthCert);
+            birthCertificationContent.add("Birth certificate issuance date: "+getValue(commonPersonObjectClient.getColumnmaps(),BIRTH_CERT_ISSUE_DATE,true));
+            birthCertificationContent.add("Birth certificate number: "+getValue(commonPersonObjectClient.getColumnmaps(),BIRTH_CERT_NUMBER,true));
+
+        }else if(!TextUtils.isEmpty(birthCert) && birthCert.equalsIgnoreCase("No")){
+            birthCertificationContent.add("Does the child have a birth certificate? "+birthCert);
+            String notification=getValue(commonPersonObjectClient.getColumnmaps(),BIRTH_CERT_NOTIFIICATION,true);
+            birthCertificationContent.add("Was the birth notification done? "+notification);
+            if(!TextUtils.isEmpty(notification) && notification.equalsIgnoreCase("Yes")){
+                birthCertificationContent.add("Ask to see the birth notification and instruct the caregiver to register the birth with the civil registrar.");
+            }else if(!TextUtils.isEmpty(notification) && notification.equalsIgnoreCase("No")){
+                birthCertificationContent.add("Instruct the caregiver to have the birth registered with the civil registrar.");
+            }
         }
         Runnable runnable = new Runnable() {
             @Override
@@ -111,27 +103,27 @@ public class MedicalHistoryInteractor implements MedicalHistoryContract.Interact
                 appExecutors.mainThread().execute(new Runnable() {
                     @Override
                     public void run() {
-                        callBack.updateBirthCertification(birthCertificationArrayList);
+                        callBack.updateBirthCertification(birthCertificationContent);
                     }
                 });
             }
         };
         appExecutors.diskIO().execute(runnable);
+        final ArrayList<String> illnessContent=new ArrayList<>();
+
         String illnessDate=getValue(commonPersonObjectClient.getColumnmaps(), ILLNESS_DATE, true);
         String illnessDescription=getValue(commonPersonObjectClient.getColumnmaps(), ILLNESS_DESCRIPTION, true);
         String illnessAction=getValue(commonPersonObjectClient.getColumnmaps(), ILLNESS_ACTION, true);
-        final ArrayList<ObsIllness> obsIllnessArrayList=new ArrayList<>();
-        ObsIllness obsIllness=new ObsIllness();
-        obsIllness.setIllnessDate(illnessDate);
-        obsIllness.setDescription(illnessDescription);
-        obsIllness.setActionTaken(illnessAction);
+        illnessContent.add("Date of illness: "+illnessDate);
+        illnessContent.add("Illness description: "+illnessDescription);
+        illnessContent.add("Action taken: "+illnessAction);
         Runnable runnable2 = new Runnable() {
             @Override
             public void run() {
                 appExecutors.mainThread().execute(new Runnable() {
                     @Override
                     public void run() {
-                        callBack.updateIllnessData(obsIllnessArrayList);
+                        callBack.updateIllnessData(illnessContent);
                     }
                 });
             }
