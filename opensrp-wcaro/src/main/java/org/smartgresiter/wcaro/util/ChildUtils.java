@@ -2,14 +2,20 @@ package org.smartgresiter.wcaro.util;
 
 import android.annotation.SuppressLint;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Build;
 import android.text.Html;
+import android.text.Spannable;
+import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextUtils;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 
 import org.apache.commons.lang3.StringUtils;
 import org.jeasy.rules.api.Rules;
+import org.joda.time.Days;
+import org.joda.time.LocalDate;
 import org.json.JSONObject;
 import org.smartgresiter.wcaro.application.WcaroApplication;
 import org.smartgresiter.wcaro.rule.HomeAlertRule;
@@ -247,6 +253,23 @@ public class ChildUtils {
 
         } catch (Exception e) {
             Log.e("Error in adding event", e.getMessage());
+        }
+    }
+    public static SpannableString daysAway(String dueDate){
+        SpannableString spannableString;
+        LocalDate date1=new LocalDate(dueDate);
+        LocalDate date2= new LocalDate();
+        int diff=Days.daysBetween(date1, date2).getDays();
+        if(diff<0){
+            String str=diff+" days away";
+            spannableString=new SpannableString(str);
+            spannableString.setSpan(new ForegroundColorSpan(Color.GRAY),0,str.length(),Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            return spannableString;
+        }else{
+            String str=diff+" days overdue";
+            spannableString=new SpannableString(str);
+            spannableString.setSpan(new ForegroundColorSpan(Color.RED),0,str.length(),Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            return spannableString;
         }
     }
 }

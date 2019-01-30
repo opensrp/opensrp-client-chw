@@ -32,7 +32,6 @@ public class HomeAlertRule {
         yearOfBirth = dobStringToYear(yearOfBirthString);
         String lastVisit = (lastVisitDateLong == 0) ? "" : ChildUtils.covertLongDateToDisplayDate(lastVisitDateLong);
         String visitNotDone = (visitNotDoneValue == 0) ? "" : ChildUtils.covertLongDateToDisplayDate(visitNotDoneValue);
-        ;
         this.todayDate = new LocalDate();
         if (!TextUtils.isEmpty(lastVisit)) {
             this.lastVisitDate = new LocalDate(lastVisit);
