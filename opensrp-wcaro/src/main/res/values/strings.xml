@@ -95,4 +95,7 @@
 
     <string name="home_visit_suffix"> &#183; Home Visit</string>
     <string name="last_visit_prefix">Last visit %1$s ago</string>
+
+    <string name="profile_activity_completed">Completed on %s</string>
+    <string name="profile_activity_not_visited">Marked not visisted on %s</string>
 </resources>
