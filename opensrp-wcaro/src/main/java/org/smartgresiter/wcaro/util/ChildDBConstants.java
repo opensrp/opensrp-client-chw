@@ -11,6 +11,7 @@ public class ChildDBConstants {
         public static final String FAMILY_HOME_ADDRESS = "family_home_address";
         public static final String ENTITY_TYPE = "entity_type";
         public static final String EVENT_DATE = "event_date";
+        public static final String EVENT_TYPE = "event_type";
 
         // Family child visit status
         //public static final String CHILD_VISIT_STATUS = "child_visit_status";

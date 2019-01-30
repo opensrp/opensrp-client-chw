@@ -361,6 +361,13 @@
           }
         },
         {
+          "column_name": "event_type",
+          "type": "Event",
+          "json_mapping": {
+            "field": "eventType"
+          }
+        },
+        {
           "column_name": "last_home_visit",
           "type": "Event",
           "json_mapping": {

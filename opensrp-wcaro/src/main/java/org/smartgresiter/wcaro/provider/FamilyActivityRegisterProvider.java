@@ -8,6 +8,8 @@ import android.view.View;
 
 import org.apache.commons.lang3.StringUtils;
 import org.smartgresiter.wcaro.R;
+import org.smartgresiter.wcaro.util.ChildDBConstants;
+import org.smartgresiter.wcaro.util.Constants;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.family.fragment.BaseFamilyProfileMemberFragment;
@@ -43,16 +45,19 @@ public class FamilyActivityRegisterProvider extends org.smartregister.family.pro
         String firstName = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.FIRST_NAME, true);
         String middleName = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.MIDDLE_NAME, true);
         String lastName = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.LAST_NAME, true);
+        String eventType = Utils.getValue(pc.getColumnmaps(), ChildDBConstants.KEY.EVENT_TYPE, true);
+
+        eventType = (eventType.equalsIgnoreCase(Constants.EventType.CHILD_HOME_VISIT) ? context.getString(R.string.interpunct) + " " + context.getString(R.string.home_visit) : "");
 
         long dateNotVisited = parseLong(Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.DATE_VISIT_NOT_DONE, false));
         long dateVisited = parseLong(Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.DATE_LAST_HOME_VISIT, false));
 
-        if(dateNotVisited > 0){
+        if (dateNotVisited > 0) {
             viewHolder.status.setImageResource(Utils.getActivityProfileImageResourceNotVistedIDentifier());
             fillValue(viewHolder.lastVisit, String.format(context.getString(R.string.profile_activity_not_visited), new SimpleDateFormat("dd MMM yyyy").format(new Date(dateNotVisited))));
         }
 
-        if(dateVisited > 0){
+        if (dateVisited > 0) {
             viewHolder.status.setImageResource(Utils.getActivityProfileImageResourceVistedIDentifier());
             fillValue(viewHolder.lastVisit, String.format(context.getString(R.string.profile_activity_completed), new SimpleDateFormat("dd MMM yyyy").format(new Date(dateVisited))));
         }
@@ -69,12 +74,12 @@ public class FamilyActivityRegisterProvider extends org.smartregister.family.pro
             dobString = Utils.getDuration(dod, dob);
             dobString = dobString.contains("y") ? dobString.substring(0, dobString.indexOf("y")) : dobString;
 
-            patientName = patientName + ", " + dobString + " " + context.getString(org.smartregister.family.R.string.deceased_brackets);
+            patientName = patientName + ", " + dobString + " " + eventType + context.getString(org.smartregister.family.R.string.deceased_brackets);
             viewHolder.patientNameAge.setFontVariant(FontVariant.REGULAR);
             viewHolder.patientNameAge.setTextColor(Color.GRAY);
             viewHolder.patientNameAge.setTypeface(viewHolder.patientNameAge.getTypeface(), Typeface.ITALIC);
         } else {
-            patientName = patientName + ", " + dobString;
+            patientName = patientName + ", " + dobString + " " + eventType;
             viewHolder.patientNameAge.setFontVariant(FontVariant.REGULAR);
             viewHolder.patientNameAge.setTextColor(Color.BLACK);
             viewHolder.patientNameAge.setTypeface(viewHolder.patientNameAge.getTypeface(), Typeface.NORMAL);
@@ -97,11 +102,11 @@ public class FamilyActivityRegisterProvider extends org.smartregister.family.pro
         attachPatientOnclickListener(patient, client);
     }
 
-    private long parseLong(String string){
+    private long parseLong(String string) {
         long res = 0l;
-        try{
+        try {
             res = Long.valueOf(string);
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
         return res;

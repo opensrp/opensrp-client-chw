@@ -1,5 +1,6 @@
 package org.smartgresiter.wcaro.model;
 
+import org.smartgresiter.wcaro.util.ChildDBConstants;
 import org.smartgresiter.wcaro.util.Constants;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.family.model.BaseFamilyProfileActivityModel;
@@ -38,6 +39,7 @@ public class FamilyProfileActivityModel extends BaseFamilyProfileActivityModel {
                 Constants.TABLE_NAME.CHILD + "." + DBConstants.KEY.DOD,
                 tableName + "." + DBConstants.KEY.DATE_LAST_HOME_VISIT,
                 tableName + "." + DBConstants.KEY.DATE_VISIT_NOT_DONE,
+                tableName + "." + ChildDBConstants.KEY.EVENT_TYPE,
         };
         return columns;
     }
