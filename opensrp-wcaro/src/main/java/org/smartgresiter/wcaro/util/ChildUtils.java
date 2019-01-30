@@ -159,7 +159,14 @@ public class ChildUtils {
                 tableName + "." + DBConstants.KEY.GENDER,
                 tableName + "." + DBConstants.KEY.DOB,
                 tableName + "." + ChildDBConstants.KEY.LAST_HOME_VISIT,
-                tableName + "." + ChildDBConstants.KEY.VISIT_NOT_DONE};
+                tableName + "." + ChildDBConstants.KEY.VISIT_NOT_DONE,
+                tableName + "." + ChildDBConstants.KEY.BIRTH_CERT,
+                tableName + "." + ChildDBConstants.KEY.BIRTH_CERT_ISSUE_DATE,
+                tableName + "." + ChildDBConstants.KEY.BIRTH_CERT_NUMBER,
+                tableName + "." + ChildDBConstants.KEY.BIRTH_CERT_NOTIFIICATION,
+                tableName + "." + ChildDBConstants.KEY.ILLNESS_DATE,
+                tableName + "." + ChildDBConstants.KEY.ILLNESS_DESCRIPTION,
+                tableName + "." + ChildDBConstants.KEY.ILLNESS_ACTION};
         return columns;
     }
 
