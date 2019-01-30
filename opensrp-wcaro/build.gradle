@@ -59,7 +59,7 @@ android {
             buildConfigField "int", "DATABASE_VERSION", '5'
             buildConfigField "boolean", "TIME_CHECK", "true"
             buildConfigField "int", "DATA_SYNC_DURATION_MINUTES", '15'
-            buildConfigField "int", "VACCINE_SYNC_PROCESSING_MINUTES", '30'
+            buildConfigField "int", "VACCINE_SYNC_PROCESSING_MINUTES", '180'
             buildConfigField "int", "IMAGE_UPLOAD_MINUTES", '180'
             buildConfigField "int", "PULL_UNIQUE_IDS_MINUTES", '180'
         }
@@ -138,7 +138,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'appcompat-v7'
     }
 
-    implementation('org.smartregister:opensrp-client-immunization:1.4.2-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-immunization:1.4.3-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'org.smartregister', module: 'opensrp-client-core'
         exclude group: 'org.smartregister', module: 'opensrp-client-native-form'
