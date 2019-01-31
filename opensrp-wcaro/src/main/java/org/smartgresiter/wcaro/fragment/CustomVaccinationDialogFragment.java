@@ -194,7 +194,7 @@ public class CustomVaccinationDialogFragment extends ChildImmunizationFragment {
                 TextView vaccineView = (TextView) dialogView.findViewById(R.id.vaccines_given_title_question);
                 TextView vaccineViewTitle = (TextView) dialogView.findViewById(R.id.textview_vaccine_title);
 
-                vaccineViewTitle.setText("Record " + vName);
+                vaccineViewTitle.setText(" Record " + vName);
                 vaccineView.setText("When was " + vName + " immunization done?");
 
 //                View select = vaccinationName.findViewById(R.id.select);
