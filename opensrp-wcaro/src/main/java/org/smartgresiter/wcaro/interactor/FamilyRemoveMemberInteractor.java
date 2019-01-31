@@ -11,6 +11,7 @@ import org.apache.commons.lang3.tuple.Triple;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartgresiter.wcaro.application.WcaroApplication;
+import org.smartgresiter.wcaro.contract.ChildRemoveContract;
 import org.smartgresiter.wcaro.contract.FamilyRemoveMemberContract;
 import org.smartgresiter.wcaro.util.Constants;
 import org.smartgresiter.wcaro.util.JsonFormUtils;
@@ -77,6 +78,31 @@ public class FamilyRemoveMemberInteractor implements FamilyRemoveMemberContract.
                     @Override
                     public void run() {
                         presenter.memberRemoved(finalValue);
+                    }
+                });
+            }
+        };
+
+        appExecutors.diskIO().execute(runnable);
+
+    }
+    public void removeChild(final String familyID, final String lastLocationId, final JSONObject exitForm, final ChildRemoveContract.Presenter presenter) {
+
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+
+                // process the json object
+                try {
+                    removeUser(familyID, exitForm, lastLocationId);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                appExecutors.mainThread().execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        presenter.onChildRemove();
                     }
                 });
             }

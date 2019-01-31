@@ -1,5 +1,6 @@
 package org.smartgresiter.wcaro.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
@@ -67,6 +68,11 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
                 case R.id.registration_layout:
                     break;
                 case R.id.remove_member_layout:
+
+                    Intent frm_intent = new Intent(ChildProfileActivity.this, ChildRemoveActivity.class);
+                    frm_intent.putExtra(org.smartgresiter.wcaro.util.Constants.INTENT_KEY.CHILD_COMMON_PERSON,((ChildProfilePresenter) presenter()).getChildClient());
+                    startActivityForResult(frm_intent, org.smartgresiter.wcaro.util.Constants.ProfileActivityResults.CHANGE_COMPLETED);
+
                     break;
             }
 
@@ -509,5 +515,17 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     protected void onDestroy() {
         super.onDestroy();
         handler.removeCallbacksAndMessages(null);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case org.smartgresiter.wcaro.util.Constants.ProfileActivityResults.CHANGE_COMPLETED:
+                if (resultCode == Activity.RESULT_OK) {
+                    finish();
+                }
+                break;
+        }
     }
 }
