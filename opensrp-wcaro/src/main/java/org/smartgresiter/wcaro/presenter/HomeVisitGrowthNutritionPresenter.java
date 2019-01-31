@@ -1,24 +1,31 @@
 package org.smartgresiter.wcaro.presenter;
 
+import org.joda.time.DateTime;
 import org.smartgresiter.wcaro.contract.HomeVisitGrowthNutritionContract;
 import org.smartgresiter.wcaro.fragment.GrowthNutritionInputFragment;
 import org.smartgresiter.wcaro.interactor.HomeVisitGrowthNutritionInteractor;
+import org.smartgresiter.wcaro.util.ChildUtils;
+import org.smartgresiter.wcaro.util.GrowthServiceData;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.Alert;
 import org.smartregister.immunization.ImmunizationLibrary;
 import org.smartregister.immunization.domain.ServiceSchedule;
 import org.smartregister.immunization.domain.ServiceWrapper;
 import org.smartregister.immunization.repository.RecurringServiceRecordRepository;
+import org.smartregister.util.DateUtil;
 import org.smartregister.util.Utils;
 
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
+
+import static org.smartgresiter.wcaro.util.Constants.IMMUNIZATION_CONSTANT.DATE;
 
 public class HomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNutritionContract.Presenter, HomeVisitGrowthNutritionContract.InteractorCallBack {
     private WeakReference<HomeVisitGrowthNutritionContract.View> view;
     private HomeVisitGrowthNutritionContract.Interactor interactor;
-    private Map<String, ServiceWrapper> serviceWrapperMap;
+    private Map<String, ServiceWrapper> serviceWrapperMap=new LinkedHashMap<>();
     private ServiceWrapper serviceWrapperExclusive;
     private ServiceWrapper serviceWrapperMnp;
     private ServiceWrapper serviceWrapperVitamin;
@@ -32,6 +39,40 @@ public class HomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNutriti
         this.view = new WeakReference<>(view);
         interactor = new HomeVisitGrowthNutritionInteractor();
     }
+    public ArrayList<GrowthServiceData> getAllDueService(){
+        ArrayList<GrowthServiceData> growthServiceDataList=new ArrayList<>();
+
+        for(String key:serviceWrapperMap.keySet()){
+            ServiceWrapper serviceWrapper=serviceWrapperMap.get(key);
+            if(serviceWrapper!=null && serviceWrapper.getAlert()!=null){
+                GrowthServiceData growthServiceData=new GrowthServiceData();
+                growthServiceData.setDate(serviceWrapper.getAlert().startDate());
+                growthServiceData.setName(serviceWrapper.getAlert().scheduleName());
+                growthServiceData.setDisplayName(getDisplayNameBasedOnType(key,growthServiceData.getName()));
+                String duedateString = DateUtil.formatDate(growthServiceData.getDate(), "dd MMM yyyy");
+                growthServiceData.setDisplayAbleDate(duedateString);
+                growthServiceDataList.add(growthServiceData);
+            }
+
+        }
+        return growthServiceDataList;
+    }
+    private String getDisplayNameBasedOnType(String type,String name){
+        Object[] displayName = ChildUtils.getStringWithNumber(name);
+        if(displayName.length>1){
+            String str = (String) displayName[0];
+            String no = (String) displayName[1];
+            if(type.equalsIgnoreCase(GrowthNutritionInputFragment.GROWTH_TYPE.EXCLUSIVE.getValue())){
+                return str + " " + no + " month";
+            }else if(type.equalsIgnoreCase(GrowthNutritionInputFragment.GROWTH_TYPE.MNP.getValue())){
+                return str + " " + ChildUtils.getFirstSecondAsNumber(no) + " pack";
+            }else{
+               return str + " " + ChildUtils.getFirstSecondAsNumber(no) + " dose";
+            }
+        }
+        return "";
+
+    }
 
     @Override
     public void parseRecordServiceData(CommonPersonObjectClient commonPersonObjectClient) {
@@ -42,7 +83,7 @@ public class HomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNutriti
     @Override
     public void setSaveState(String type, ServiceWrapper serviceWrapper) {
         saveStateMap.put(type, serviceWrapper);
-        getView().statusImageViewUpdate(type, true);
+        if(getView()!=null)getView().statusImageViewUpdate(type, true);
     }
 
     @Override
@@ -50,7 +91,7 @@ public class HomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNutriti
 
         if (isSave(type)) return;
         notVisitStateMap.put(type, serviceWrapper);
-        getView().statusImageViewUpdate(type, false);
+        if(getView()!=null)getView().statusImageViewUpdate(type, false);
     }
 
     @Override
@@ -97,7 +138,7 @@ public class HomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNutriti
             Alert alert = serviceWrapperExclusive.getAlert();
             if (alert != null) {
                 growthListCount++;
-                getView().updateExclusiveFeedingData(alert.scheduleName());
+                if(getView()!=null)getView().updateExclusiveFeedingData(alert.scheduleName());
             } else {
                 String lastDoneExclusive = serviceWrapperExclusive.getServiceType().getName();
 
@@ -108,7 +149,7 @@ public class HomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNutriti
             Alert alert = serviceWrapperMnp.getAlert();
             if (alert != null) {
                 growthListCount++;
-                getView().updateMnpData(alert.scheduleName());
+                if(getView()!=null)getView().updateMnpData(alert.scheduleName());
             } else {
                 String lastDoneExclusive = serviceWrapperMnp.getServiceType().getName();
 
@@ -119,7 +160,7 @@ public class HomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNutriti
             Alert alert = serviceWrapperVitamin.getAlert();
             if (alert != null) {
                 growthListCount++;
-                getView().updateVitaminAData(alert.scheduleName());
+                if(getView()!=null)getView().updateVitaminAData(alert.scheduleName());
             } else {
                 String lastDoneExclusive = serviceWrapperVitamin.getServiceType().getName();
 
@@ -131,12 +172,13 @@ public class HomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNutriti
             Alert alert = serviceWrapperDeworming.getAlert();
             if (alert != null) {
                 growthListCount++;
-                getView().updateDewormingData(alert.scheduleName());
+                if(getView()!=null)getView().updateDewormingData(alert.scheduleName());
             } else {
                 String lastDoneVitamin = serviceWrapperDeworming.getServiceType().getName();
 
             }
         }
+        if(getView()!=null) getView().updateUpcomingService();
 
     }
 

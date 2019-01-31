@@ -10,15 +10,22 @@ import java.util.ArrayList;
 
 public class HomeVisitVaccineGroupDetails {
     ArrayList<VaccineRepo.Vaccine> givenVaccines = new ArrayList<VaccineRepo.Vaccine>();
-    ;
     ArrayList<VaccineRepo.Vaccine> dueVaccines = new ArrayList<VaccineRepo.Vaccine>();
-    ;
     ArrayList<VaccineRepo.Vaccine> notGivenVaccines = new ArrayList<VaccineRepo.Vaccine>();
     ArrayList<VaccineRepo.Vaccine> notGivenInThisVisitVaccines = new ArrayList<VaccineRepo.Vaccine>();
     String group = "";
     ImmunizationState alert = ImmunizationState.NO_ALERT;
-    private String dueDate = "";
+    private String dueDisplayDate = "";
 
+    public String getDueDate() {
+        return dueDate;
+    }
+
+    public void setDueDate(String dueDate) {
+        this.dueDate = dueDate;
+    }
+
+    private String dueDate = "";
 
     public ArrayList<VaccineRepo.Vaccine> getNotGivenInThisVisitVaccines() {
         return notGivenInThisVisitVaccines;
@@ -83,11 +90,11 @@ public class HomeVisitVaccineGroupDetails {
         }
     }
 
-    public String getDueDate() {
-        return dueDate;
+    public String getDueDisplayDate() {
+        return dueDisplayDate;
     }
 
-    public void setDueDate(String dueDate) {
-        this.dueDate = dueDate;
+    public void setDueDisplayDate(String dueDate) {
+        this.dueDisplayDate = dueDate;
     }
 }
