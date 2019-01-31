@@ -19,6 +19,8 @@ public interface HomeVisitGrowthNutritionContract {
 
         void statusImageViewUpdate(String type, boolean value);
 
+        void updateUpcomingService();
+
     }
 
     interface Presenter {

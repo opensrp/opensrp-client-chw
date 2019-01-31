@@ -222,6 +222,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
         Map<String, Date> vaccine = ((ChildProfilePresenter) presenter()).getVaccineList();
         MedicalHistoryActivity.startMedicalHistoryActivity(this, ((ChildProfilePresenter) presenter()).getChildClient(), patientName, lastVisitDay,
                 ((ChildProfilePresenter) presenter()).getDateOfBirth(), new LinkedHashMap<String, Date>(vaccine));
+
     }
 
 
