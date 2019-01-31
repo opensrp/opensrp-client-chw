@@ -70,7 +70,7 @@ public class WcaroDueRegisterProvider extends FamilyDueRegisterProvider {
 
         String lastVisit = Utils.getValue(pc.getColumnmaps(), ChildDBConstants.KEY.LAST_HOME_VISIT, false);
         if (StringUtils.isNotBlank(lastVisit)) {
-            String lastVisitString = Utils.getDuration(lastVisit);
+            String lastVisitString = Utils.actualDuration(context, Utils.getDuration(lastVisit));
             viewHolder.lastVisit.setText(String.format(context.getString(R.string.last_visit_prefix), lastVisitString));
             viewHolder.lastVisit.setVisibility(View.VISIBLE);
         } else {

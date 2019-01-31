@@ -222,8 +222,13 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity implements 
 
     private void refreshList(Fragment fragment) {
         if (fragment != null && fragment instanceof BaseRegisterFragment) {
-            BaseRegisterFragment registerFragment = (BaseRegisterFragment) fragment;
-            registerFragment.refreshListView();
+            if (fragment instanceof FamilyProfileMemberFragment) {
+                ((FamilyProfileMemberFragment) fragment).refreshListView();
+            } else if (fragment instanceof FamilyProfileDueFragment) {
+                ((FamilyProfileDueFragment) fragment).refreshListView();
+            } else if (fragment instanceof FamilyProfileActivityFragment) {
+                ((FamilyProfileActivityFragment) fragment).refreshListView();
+            }
         }
     }
 }

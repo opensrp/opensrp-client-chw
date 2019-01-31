@@ -14,6 +14,7 @@ import org.smartgresiter.wcaro.job.WcaroJobCreator;
 import org.smartgresiter.wcaro.repository.WcaroRepository;
 import org.smartgresiter.wcaro.util.ChildDBConstants;
 import org.smartgresiter.wcaro.util.Constants;
+import org.smartgresiter.wcaro.util.Utils;
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
 import org.smartregister.commonregistry.AllCommonsRepository;
@@ -24,7 +25,6 @@ import org.smartregister.family.FamilyLibrary;
 import org.smartregister.family.activity.FamilyWizardFormActivity;
 import org.smartregister.family.domain.FamilyMetadata;
 import org.smartregister.family.util.DBConstants;
-import org.smartregister.family.util.Utils;
 import org.smartregister.immunization.ImmunizationLibrary;
 import org.smartregister.immunization.domain.VaccineSchedule;
 import org.smartregister.immunization.domain.jsonmapping.Vaccine;
@@ -42,10 +42,11 @@ import java.util.List;
 public class WcaroApplication extends DrishtiApplication {
 
     private static final String TAG = WcaroApplication.class.getCanonicalName();
-    private static JsonSpecHelper jsonSpecHelper;
-    private static ECSyncHelper ecSyncHelper;
-
     private static CommonFtsObject commonFtsObject;
+
+    private JsonSpecHelper jsonSpecHelper;
+    private ECSyncHelper ecSyncHelper;
+    private String password;
 
     public static synchronized WcaroApplication getInstance() {
         return (WcaroApplication) mInstance;
@@ -113,7 +114,7 @@ public class WcaroApplication extends DrishtiApplication {
         FamilyLibrary.init(context, getRepository(), getMetadata(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
 
         SyncStatusBroadcastReceiver.init(this);
-        LocationHelper.init(Utils.ALLOWED_LEVELS, Utils.DEFAULT_LOCATION_LEVEL);
+        LocationHelper.init(Utils.ALLOWED_LEVELS, Utils.CHA);
 
         // init json helper
         this.jsonSpecHelper = new JsonSpecHelper(this);
@@ -133,6 +134,14 @@ public class WcaroApplication extends DrishtiApplication {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         getApplicationContext().startActivity(intent);
         context.userService().logoutSession();
+    }
+
+    public String getPassword() {
+        if (password == null) {
+            String username = getContext().userService().getAllSharedPreferences().fetchRegisteredANM();
+            password = getContext().userService().getGroupId(username);
+        }
+        return password;
     }
 
     public Context getContext() {
