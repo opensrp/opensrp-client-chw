@@ -82,7 +82,7 @@
             <org.smartgresiter.wcaro.custom_view.HomeVisitImmunizationView
                 android:id="@+id/home_visit_immunization_view"
                 android:layout_width="match_parent"
-                android:layout_height="80dp">
+                android:layout_height="wrap_content">
 
             </org.smartgresiter.wcaro.custom_view.HomeVisitImmunizationView>
 
@@ -93,13 +93,14 @@
 
             </org.smartgresiter.wcaro.custom_view.HomeVisitGrowthAndNutrition>
 
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
                 android:background="@color/light_grey" />
 
             <LinearLayout
-                android:id="@+id/diarrhea_group"
+                android:id="@+id/birth_cert_group"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -107,7 +108,7 @@
                 android:orientation="horizontal">
 
                 <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/diarrhea_status_circle"
+                    android:id="@+id/birth_status_circle"
                     android:layout_width="@dimen/immunization_status_circle_size"
                     android:layout_height="@dimen/immunization_status_circle_size"
                     android:layout_gravity="center_vertical"
@@ -124,13 +125,13 @@
                     android:orientation="vertical">
 
                     <org.smartregister.view.customcontrols.CustomFontTextView
-                        android:id="@+id/textview_diarrhea"
+                        android:id="@+id/textview_birth_certification"
                         style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center_vertical"
-                        android:text="Diarrhea"
+                        android:text="@string/birth_certification"
                         android:textAppearance="@style/TextAppearance.AppCompat.Large"
                         android:textColor="@android:color/black" />
 
@@ -144,7 +145,7 @@
                 android:background="@color/light_grey" />
 
             <LinearLayout
-                android:id="@+id/malaria_prevention_group"
+                android:id="@+id/obs_illness_prevention_group"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -152,7 +153,7 @@
                 android:orientation="horizontal">
 
                 <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/malaria_prevention_status_circle"
+                    android:id="@+id/obs_illness_status_circle"
                     android:layout_width="@dimen/immunization_status_circle_size"
                     android:layout_height="@dimen/immunization_status_circle_size"
                     android:layout_gravity="center_vertical"
@@ -169,13 +170,13 @@
                     android:orientation="vertical">
 
                     <org.smartregister.view.customcontrols.CustomFontTextView
-                        android:id="@+id/textview_malaria_prevention"
+                        android:id="@+id/textview_obser_illness"
                         style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center_vertical"
-                        android:text="Malaria Prevention"
+                        android:text="@string/observations_illness_episodes"
                         android:textAppearance="@style/TextAppearance.AppCompat.Large"
                         android:textColor="@android:color/black" />
 
@@ -188,50 +189,7 @@
                 android:layout_height="1px"
                 android:background="@color/light_grey" />
 
-            <LinearLayout
-                android:id="@+id/development_group"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
-                android:orientation="horizontal">
 
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/development_status_circle"
-                    android:layout_width="@dimen/immunization_status_circle_size"
-                    android:layout_height="@dimen/immunization_status_circle_size"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
-                    android:src="@color/white"
-                    app:civ_border_color="@color/dark_grey"
-                    app:civ_border_width="1dp" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <org.smartregister.view.customcontrols.CustomFontTextView
-                        android:id="@+id/textview_development"
-                        style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center_vertical"
-                        android:text="Development"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                        android:textColor="@android:color/black" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:background="@color/light_grey" />
 
         </LinearLayout>
 

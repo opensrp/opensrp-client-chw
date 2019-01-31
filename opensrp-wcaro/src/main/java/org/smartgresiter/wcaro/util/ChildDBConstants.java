@@ -10,6 +10,13 @@ public class ChildDBConstants {
         public static final String FAMILY_LAST_NAME = "family_last_name";
         public static final String FAMILY_HOME_ADDRESS = "family_home_address";
         public static final String ENTITY_TYPE = "entity_type";
+        public static final String BIRTH_CERT = "birth_cert";
+        public static final String BIRTH_CERT_ISSUE_DATE = "birth_cert_issue_date";
+        public static final String BIRTH_CERT_NUMBER = "birth_cert_num";
+        public static final String BIRTH_CERT_NOTIFIICATION= "birth_notification";
+        public static final String ILLNESS_DATE= "date_of_illness";
+        public static final String ILLNESS_DESCRIPTION= "illness_description";
+        public static final String ILLNESS_ACTION= "action_taken";
 
         // Family child visit status
         //public static final String CHILD_VISIT_STATUS = "child_visit_status";

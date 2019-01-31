@@ -87,11 +87,11 @@ public class GrowthAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         }
     }
 
-    public class ContentViewHolder extends RecyclerView.ViewHolder {
+    public static class ContentViewHolder extends RecyclerView.ViewHolder {
         public TextView vaccineName;
         private View myView;
 
-        private ContentViewHolder(View view) {
+        public ContentViewHolder(View view) {
             super(view);
             vaccineName = view.findViewById(R.id.name_date_tv);
             (view.findViewById(R.id.imageView)).setVisibility(View.GONE);

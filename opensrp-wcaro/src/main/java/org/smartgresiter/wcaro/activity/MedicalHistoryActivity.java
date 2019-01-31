@@ -15,11 +15,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import org.smartgresiter.wcaro.R;
+import org.smartgresiter.wcaro.adapter.BirthAndIllnessAdapter;
 import org.smartgresiter.wcaro.adapter.GrowthAdapter;
 import org.smartgresiter.wcaro.adapter.VaccineAdapter;
 import org.smartgresiter.wcaro.contract.MedicalHistoryContract;
 import org.smartgresiter.wcaro.presenter.MedicalHistoryPresenter;
 import org.smartgresiter.wcaro.util.Constants;
+import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.view.activity.SecuredActivity;
 
 import java.util.Date;
@@ -28,20 +30,21 @@ import java.util.Map;
 
 public class MedicalHistoryActivity extends SecuredActivity implements MedicalHistoryContract.View {
     private TextView textViewTitle, textViewLastVisit, textViewFullyImmunization;
-    private LinearLayout layoutImmunization;
-    private LinearLayout layoutGrowthAndNutrition;
+    private LinearLayout layoutImmunization,layoutGrowthAndNutrition,layoutBirthCert,layoutIllness;
     private RelativeLayout layoutFullyImmunizationBarAge1, layoutFullyImmunizationBarAge2;
-    private RecyclerView recyclerViewImmunization, recyclerViewGrowthNutrition;
+    private RecyclerView recyclerViewImmunization, recyclerViewGrowthNutrition,recyclerViewBirthCert,recyclerViewIllness;
     private Map<String, Date> vaccineList;
-    private String childBaseId, name, lastVisitDays, dateOfBirth;
+    private String name, lastVisitDays, dateOfBirth;
+    private CommonPersonObjectClient childClient;
     private MedicalHistoryContract.Presenter presenter;
     private VaccineAdapter vaccineAdapter;
     private GrowthAdapter growthAdapter;
+    private BirthAndIllnessAdapter birthCertAdapter,illnessAdapter;
 
-    public static void startMedicalHistoryActivity(Activity activity, String childBaseEntityId, String childName, String lastVisitDays, String dateOfirth,
+    public static void startMedicalHistoryActivity(Activity activity, CommonPersonObjectClient childClient, String childName, String lastVisitDays, String dateOfirth,
                                                    LinkedHashMap<String, Date> receivedVaccine) {
         Intent intent = new Intent(activity, MedicalHistoryActivity.class);
-        intent.putExtra(Constants.INTENT_KEY.CHILD_BASE_ID, childBaseEntityId);
+        intent.putExtra(Constants.INTENT_KEY.CHILD_COMMON_PERSON, childClient);
         intent.putExtra(Constants.INTENT_KEY.CHILD_NAME, childName);
         intent.putExtra(Constants.INTENT_KEY.CHILD_DATE_OF_BIRTH, dateOfirth);
         intent.putExtra(Constants.INTENT_KEY.CHILD_LAST_VISIT_DAYS, lastVisitDays);
@@ -58,11 +61,17 @@ public class MedicalHistoryActivity extends SecuredActivity implements MedicalHi
         layoutImmunization = findViewById(R.id.immunization_bar);
         layoutFullyImmunizationBarAge1 = findViewById(R.id.immu_bar_age_1);
         layoutFullyImmunizationBarAge2 = findViewById(R.id.immu_bar_age_2);
+        layoutBirthCert=findViewById(R.id.birth_cert_list);
+        layoutIllness=findViewById(R.id.illness_list);
         textViewFullyImmunization = findViewById(R.id.fully_immunized);
         recyclerViewImmunization = findViewById(R.id.immunization_recycler_view);
         recyclerViewGrowthNutrition = findViewById(R.id.recycler_view_growth);
+        recyclerViewBirthCert=findViewById(R.id.recycler_view_birth);
+        recyclerViewIllness=findViewById(R.id.recycler_view_illness);
         recyclerViewImmunization.setLayoutManager(new LinearLayoutManager(this));
         recyclerViewGrowthNutrition.setLayoutManager(new LinearLayoutManager(this));
+        recyclerViewIllness.setLayoutManager(new LinearLayoutManager(this));
+        recyclerViewBirthCert.setLayoutManager(new LinearLayoutManager(this));
         layoutGrowthAndNutrition = findViewById(R.id.growth_and_nutrition_list);
         parseBundleANdUpdateView();
     }
@@ -94,7 +103,7 @@ public class MedicalHistoryActivity extends SecuredActivity implements MedicalHi
     }
 
     private void parseBundleANdUpdateView() {
-        childBaseId = getIntent().getStringExtra(Constants.INTENT_KEY.CHILD_BASE_ID);
+        childClient =(CommonPersonObjectClient) getIntent().getSerializableExtra(Constants.INTENT_KEY.CHILD_COMMON_PERSON);
         name = getIntent().getStringExtra(Constants.INTENT_KEY.CHILD_NAME);
         lastVisitDays = getIntent().getStringExtra(Constants.INTENT_KEY.CHILD_LAST_VISIT_DAYS);
         dateOfBirth = getIntent().getStringExtra(Constants.INTENT_KEY.CHILD_DATE_OF_BIRTH);
@@ -109,6 +118,7 @@ public class MedicalHistoryActivity extends SecuredActivity implements MedicalHi
         setInitialVaccineList();
         fetchFullYImmunization();
         fetchGrowthNutrition();
+        fetchBirthCertIllness();
     }
 
 
@@ -122,8 +132,11 @@ public class MedicalHistoryActivity extends SecuredActivity implements MedicalHi
     }
 
     private void fetchGrowthNutrition() {
-        presenter.fetchGrowthNutrition(childBaseId);
+        presenter.fetchGrowthNutrition(childClient.entityId());
 
+    }
+    private void fetchBirthCertIllness(){
+        presenter.fetchBirthAndIllnessData(childClient);
     }
 
     @Override
@@ -173,6 +186,39 @@ public class MedicalHistoryActivity extends SecuredActivity implements MedicalHi
             layoutGrowthAndNutrition.setVisibility(View.GONE);
         }
 
+    }
+
+    @Override
+    public void updateBirthCertification() {
+        if(presenter.getBirthCertification()!=null && presenter.getBirthCertification().size()>0){
+            layoutBirthCert.setVisibility(View.VISIBLE);
+            if(birthCertAdapter==null){
+                birthCertAdapter=new BirthAndIllnessAdapter();
+                birthCertAdapter.setData(presenter.getBirthCertification());
+                recyclerViewBirthCert.setAdapter(birthCertAdapter);
+            }else{
+                birthCertAdapter.notifyDataSetChanged();
+            }
+        }else{
+            layoutBirthCert.setVisibility(View.GONE);
+        }
+
+    }
+
+    @Override
+    public void updateObsIllness() {
+        if(presenter.getObsIllness()!=null && presenter.getObsIllness().size()>0){
+            layoutIllness.setVisibility(View.VISIBLE);
+            if(illnessAdapter==null){
+                illnessAdapter=new BirthAndIllnessAdapter();
+                illnessAdapter.setData(presenter.getObsIllness());
+                recyclerViewIllness.setAdapter(illnessAdapter);
+            }else{
+                illnessAdapter.notifyDataSetChanged();
+            }
+        }else{
+            layoutIllness.setVisibility(View.GONE);
+        }
     }
 
 
