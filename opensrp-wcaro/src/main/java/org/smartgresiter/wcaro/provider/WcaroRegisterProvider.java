@@ -176,12 +176,13 @@ public class WcaroRegisterProvider extends FamilyRegisterProvider {
 
 
         SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
-        queryBUilder.SelectInitiateMainTable(Constants.TABLE_NAME.CHILD, new String[]{DBConstants.KEY.BASE_ENTITY_ID, ChildDBConstants.KEY.LAST_HOME_VISIT, ChildDBConstants.KEY.VISIT_NOT_DONE, DBConstants.KEY.DOB});
-        String query = queryBUilder.mainCondition(String.format(" %s is null AND %s = '%s' ",
+        queryBUilder.SelectInitiateMainTable(Constants.TABLE_NAME.CHILD, new String[]{DBConstants.KEY.BASE_ENTITY_ID, DBConstants.KEY.GENDER, ChildDBConstants.KEY.LAST_HOME_VISIT, ChildDBConstants.KEY.VISIT_NOT_DONE, DBConstants.KEY.DOB});
+        queryBUilder.mainCondition(String.format(" %s is null AND %s = '%s' ",
                 DBConstants.KEY.DATE_REMOVED,
                 DBConstants.KEY.RELATIONAL_ID,
                 familyEntityId));
 
+        String query = queryBUilder.orderbyCondition(DBConstants.KEY.DOB + " ASC ");
 
         CommonRepository commonRepository = Utils.context().commonrepository(Constants.TABLE_NAME.CHILD);
         List<Map<String, String>> res = new ArrayList<>();

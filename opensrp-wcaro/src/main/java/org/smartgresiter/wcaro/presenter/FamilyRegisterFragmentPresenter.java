@@ -19,7 +19,7 @@ public class FamilyRegisterFragmentPresenter extends BaseFamilyRegisterFragmentP
 
     @Override
     public String getDueFilterCondition() {
-        return getMainCondition() + " AND ((" + ChildDBConstants.KEY.LAST_HOME_VISIT + " is null OR ((" + ChildDBConstants.KEY.LAST_HOME_VISIT + "/1000) > strftime('%s',datetime('now','start of month')))) AND (" + ChildDBConstants.KEY.VISIT_NOT_DONE + " is null OR ((" + ChildDBConstants.KEY.VISIT_NOT_DONE + "/1000) > strftime('%s',datetime('now','start of month'))))) ";
+        return getMainCondition() + " AND " + ChildDBConstants.childDueFilter();
     }
 
 }

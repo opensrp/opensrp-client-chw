@@ -29,7 +29,8 @@ import org.smartregister.domain.tag.FormTag;
 import org.smartregister.family.FamilyLibrary;
 import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.DBConstants;
-import org.smartregister.family.util.Utils;
+import org.smartregister.immunization.domain.ServiceRecord;
+import org.smartregister.immunization.domain.Vaccine;
 import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.EventClientRepository;
@@ -261,10 +262,10 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
             formTag.appVersion = FamilyLibrary.getInstance().getApplicationVersion();
             formTag.databaseVersion = FamilyLibrary.getInstance().getDatabaseVersion();
 
-
             Client baseClient = org.smartregister.util.JsonFormUtils.createBaseClient(fields, formTag, entityId);
-            Event baseEvent = org.smartregister.util.JsonFormUtils.createEvent(fields, metadata, formTag, entityId, encounterType, org.smartgresiter.wcaro.util.Constants.TABLE_NAME.CHILD);
 
+            Event baseEvent = org.smartregister.util.JsonFormUtils.createEvent(fields, metadata, formTag, entityId, encounterType, org.smartgresiter.wcaro.util.Constants.TABLE_NAME.CHILD);
+            tagSyncMetadata(allSharedPreferences, baseEvent);
 
             JSONObject lookUpJSONObject = getJSONObject(metadata, "look_up");
             String lookUpEntityId = "";
@@ -284,8 +285,6 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
                 baseClient.setAddresses(getAddressFromClientJson(clientjson));
             }
 
-
-            tagSyncMetadata(allSharedPreferences, baseEvent);// tag docs
 
             return Pair.create(baseClient, baseEvent);
         } catch (Exception e) {
@@ -584,10 +583,35 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
     public static Event tagSyncMetadata(AllSharedPreferences allSharedPreferences, Event event) {
         String providerId = allSharedPreferences.fetchRegisteredANM();
         event.setProviderId(providerId);
-        event.setLocationId(allSharedPreferences.fetchDefaultLocalityId(providerId));
+        event.setLocationId(locationId(allSharedPreferences));
+        event.setChildLocationId(allSharedPreferences.fetchCurrentLocality());
         event.setTeam(allSharedPreferences.fetchDefaultTeam(providerId));
         event.setTeamId(allSharedPreferences.fetchDefaultTeamId(providerId));
+
+        event.setClientApplicationVersion(FamilyLibrary.getInstance().getApplicationVersion());
+        event.setClientDatabaseVersion(FamilyLibrary.getInstance().getDatabaseVersion());
+
         return event;
+    }
+
+    public static Vaccine tagSyncMetadata(AllSharedPreferences allSharedPreferences, Vaccine vaccine) {
+        String providerId = allSharedPreferences.fetchRegisteredANM();
+        vaccine.setAnmId(providerId);
+        vaccine.setLocationId(locationId(allSharedPreferences));
+        vaccine.setChildLocationId(allSharedPreferences.fetchCurrentLocality());
+        vaccine.setTeam(allSharedPreferences.fetchDefaultTeam(providerId));
+        vaccine.setTeamId(allSharedPreferences.fetchDefaultTeamId(providerId));
+        return vaccine;
+    }
+
+    public static ServiceRecord tagSyncMetadata(AllSharedPreferences allSharedPreferences, ServiceRecord serviceRecord) {
+        String providerId = allSharedPreferences.fetchRegisteredANM();
+        serviceRecord.setAnmId(providerId);
+        serviceRecord.setLocationId(locationId(allSharedPreferences));
+        serviceRecord.setChildLocationId(allSharedPreferences.fetchCurrentLocality());
+        serviceRecord.setTeam(allSharedPreferences.fetchDefaultTeam(providerId));
+        serviceRecord.setTeamId(allSharedPreferences.fetchDefaultTeamId(providerId));
+        return serviceRecord;
     }
 
     /**
@@ -662,7 +686,7 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
                     eventType,
                     tableName
             );
-
+            JsonFormUtils.tagSyncMetadata(Utils.context().allSharedPreferences(), eventMember);
             events.add(eventMember);
 
 

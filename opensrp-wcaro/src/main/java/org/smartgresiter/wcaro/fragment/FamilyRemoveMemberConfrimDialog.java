@@ -54,12 +54,12 @@ public class FamilyRemoveMemberConfrimDialog extends DialogFragment implements V
         return rootview;
     }
 
-    private void setUpView(View rootView){
+    private void setUpView(View rootView) {
         rootView.findViewById(R.id.remove).setOnClickListener(this);
         rootView.findViewById(R.id.cancel).setOnClickListener(this);
 
-        if(StringUtils.isNotBlank(message)){
-            ((TextView)rootView.findViewById(R.id.message)).setText(message);
+        if (StringUtils.isNotBlank(message)) {
+            ((TextView) rootView.findViewById(R.id.message)).setText(message);
         }
     }
 
@@ -94,9 +94,9 @@ public class FamilyRemoveMemberConfrimDialog extends DialogFragment implements V
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.remove:
-                if(this.onRemove != null){
+                if (this.onRemove != null) {
                     onRemove.run();
                 }
                 dismiss();
@@ -104,8 +104,8 @@ public class FamilyRemoveMemberConfrimDialog extends DialogFragment implements V
             case R.id.cancel:
                 dismiss();
                 break;
-                default:
-                    break;
+            default:
+                break;
         }
     }
 }

@@ -20,8 +20,8 @@ public class LoginInteractor extends BaseLoginInteractor implements BaseLoginCon
 
         PullUniqueIdsServiceJob.scheduleJobImmediately(PullUniqueIdsServiceJob.TAG); //need these asap!
 
-        /* SyncServiceJob.scheduleJob(SyncServiceJob.TAG, TimeUnit.MINUTES.toMillis(BuildConfig.DATA_SYNC_DURATION_MINUTES), getFlexValue(BuildConfig
-                .DATA_SYNC_DURATION_MINUTES)); */
+        SyncServiceJob.scheduleJob(SyncServiceJob.TAG, TimeUnit.MINUTES.toMillis(BuildConfig.DATA_SYNC_DURATION_MINUTES), getFlexValue(BuildConfig
+                .DATA_SYNC_DURATION_MINUTES));
 
         PullUniqueIdsServiceJob.scheduleJob(SyncServiceJob.TAG, TimeUnit.MINUTES.toMillis(BuildConfig.PULL_UNIQUE_IDS_MINUTES), getFlexValue
                 (BuildConfig.PULL_UNIQUE_IDS_MINUTES));

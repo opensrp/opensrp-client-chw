@@ -17,8 +17,14 @@ public class ChildDBConstants {
         public static final String ILLNESS_DATE= "date_of_illness";
         public static final String ILLNESS_DESCRIPTION= "illness_description";
         public static final String ILLNESS_ACTION= "action_taken";
+        public static final String EVENT_DATE = "event_date";
+        public static final String EVENT_TYPE = "event_type";
 
         // Family child visit status
         //public static final String CHILD_VISIT_STATUS = "child_visit_status";
+    }
+
+    public static String childDueFilter() {
+        return " ((" + ChildDBConstants.KEY.LAST_HOME_VISIT + " is null OR ((" + ChildDBConstants.KEY.LAST_HOME_VISIT + "/1000) > strftime('%s',datetime('now','start of month')))) AND (" + ChildDBConstants.KEY.VISIT_NOT_DONE + " is null OR ((" + ChildDBConstants.KEY.VISIT_NOT_DONE + "/1000) > strftime('%s',datetime('now','start of month'))))) ";
     }
 }

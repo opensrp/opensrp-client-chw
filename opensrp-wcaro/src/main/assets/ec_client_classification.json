@@ -45,14 +45,16 @@
             "field": "eventType",
             "field_value": "Child Home Visit",
             "creates_case": [
-              "ec_child"
+              "ec_child",
+              "ec_child_activity"
             ]
           },
           {
             "field": "eventType",
             "field_value": "Visit not done",
             "creates_case": [
-              "ec_child"
+              "ec_child",
+              "ec_child_activity"
             ]
           },
           {
