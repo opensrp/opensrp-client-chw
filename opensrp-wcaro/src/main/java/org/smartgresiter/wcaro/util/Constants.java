@@ -10,8 +10,8 @@ public class Constants {
     }
 
     public static final class EventType {
-        public static final String BIRTH_CERTIFICATION="Birth Certification";
-        public static final String OBS_ILLNESS="Observations Illness";
+        public static final String BIRTH_CERTIFICATION = "Birth Certification";
+        public static final String OBS_ILLNESS = "Observations Illness";
         public static final String FAMILY_REGISTRATION = "Family Registration";
         public static final String FAMILY_MEMBER_REGISTRATION = "Family Member Registration";
 
@@ -125,6 +125,7 @@ public class Constants {
                 public static final String CODE = "1712AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
             }
         }
+
         public static class ILLNESS_ACTION_TAKEN_LEVEL {
             public static final String CODE = "164378AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
         }

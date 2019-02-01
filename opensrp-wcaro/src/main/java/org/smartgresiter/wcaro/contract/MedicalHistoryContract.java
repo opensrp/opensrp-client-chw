@@ -3,8 +3,6 @@ package org.smartgresiter.wcaro.contract;
 
 import org.smartgresiter.wcaro.util.BaseService;
 import org.smartgresiter.wcaro.util.BaseVaccine;
-import org.smartgresiter.wcaro.util.BirthCertification;
-import org.smartgresiter.wcaro.util.ObsIllness;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 
 import java.util.ArrayList;

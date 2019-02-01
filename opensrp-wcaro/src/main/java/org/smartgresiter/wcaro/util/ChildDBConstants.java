@@ -13,10 +13,10 @@ public class ChildDBConstants {
         public static final String BIRTH_CERT = "birth_cert";
         public static final String BIRTH_CERT_ISSUE_DATE = "birth_cert_issue_date";
         public static final String BIRTH_CERT_NUMBER = "birth_cert_num";
-        public static final String BIRTH_CERT_NOTIFIICATION= "birth_notification";
-        public static final String ILLNESS_DATE= "date_of_illness";
-        public static final String ILLNESS_DESCRIPTION= "illness_description";
-        public static final String ILLNESS_ACTION= "action_taken";
+        public static final String BIRTH_CERT_NOTIFIICATION = "birth_notification";
+        public static final String ILLNESS_DATE = "date_of_illness";
+        public static final String ILLNESS_DESCRIPTION = "illness_description";
+        public static final String ILLNESS_ACTION = "action_taken";
         public static final String EVENT_DATE = "event_date";
         public static final String EVENT_TYPE = "event_type";
 

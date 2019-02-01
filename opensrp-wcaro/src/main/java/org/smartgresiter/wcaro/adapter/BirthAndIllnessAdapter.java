@@ -6,18 +6,20 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import org.smartgresiter.wcaro.R;
-import org.smartgresiter.wcaro.util.BaseVaccine;
 
 import java.util.ArrayList;
 
 public class BirthAndIllnessAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     ArrayList<String> contentList;
-    public BirthAndIllnessAdapter(){
-        contentList=new ArrayList<>();
+
+    public BirthAndIllnessAdapter() {
+        contentList = new ArrayList<>();
     }
-    public void setData(ArrayList<String> contentList){
-        this.contentList=contentList;
+
+    public void setData(ArrayList<String> contentList) {
+        this.contentList = contentList;
     }
+
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
@@ -27,7 +29,7 @@ public class BirthAndIllnessAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
-        String content=contentList.get(position);
+        String content = contentList.get(position);
         GrowthAdapter.ContentViewHolder contentViewHolder = (GrowthAdapter.ContentViewHolder) viewHolder;
         contentViewHolder.vaccineName.setText(content);
 

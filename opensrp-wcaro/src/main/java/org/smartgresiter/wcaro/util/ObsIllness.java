@@ -4,6 +4,7 @@ public class ObsIllness {
     private String illnessDate;
     private String description;
     private String actionTaken;
+
     public String getIllnessDate() {
         return illnessDate;
     }

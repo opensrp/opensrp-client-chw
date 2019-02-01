@@ -90,7 +90,8 @@ public class UpcomingServicesFragmentView extends LinearLayout implements View.O
         }
 
     }
-    Map<String,View> viewMap=new LinkedHashMap<>();
+
+    Map<String, View> viewMap = new LinkedHashMap<>();
 
     private View createUpcomingServicesCard(HomeVisitVaccineGroupDetails homeVisitVaccineGroupDetail) {
         View view = context.getLayoutInflater().inflate(R.layout.upcoming_service_row, null);
@@ -99,8 +100,8 @@ public class UpcomingServicesFragmentView extends LinearLayout implements View.O
         TextView groupNameTitle = (TextView) view.findViewById(R.id.grou_name_title);
         TextView groupVaccineTitle = (TextView) view.findViewById(R.id.grou_vaccines_title);
         groupVaccineTitle.setText("");
-        if(!viewMap.containsKey(homeVisitVaccineGroupDetail.getDueDisplayDate())){
-            viewMap.put(homeVisitVaccineGroupDetail.getDueDisplayDate(),view);
+        if (!viewMap.containsKey(homeVisitVaccineGroupDetail.getDueDisplayDate())) {
+            viewMap.put(homeVisitVaccineGroupDetail.getDueDisplayDate(), view);
         }
         groupDateTitle.setText(homeVisitVaccineGroupDetail.getDueDisplayDate());
         groupDateStatus.setText(ChildUtils.daysAway(homeVisitVaccineGroupDetail.getDueDate()));
@@ -115,6 +116,7 @@ public class UpcomingServicesFragmentView extends LinearLayout implements View.O
 
         return view;
     }
+
     private View createGrowthCard(GrowthServiceData growthServiceData) {
         View view = context.getLayoutInflater().inflate(R.layout.upcoming_service_row, null);
         TextView groupDateTitle = (TextView) view.findViewById(R.id.grou_date_title);
@@ -146,8 +148,9 @@ public class UpcomingServicesFragmentView extends LinearLayout implements View.O
     public HomeVisitImmunizationContract.Presenter getPresenter() {
         return presenter;
     }
-    private void initializeGrowthPresenter(){
-        growthNutritionPresenter=new HomeVisitGrowthNutritionPresenter(new HomeVisitGrowthNutritionContract.View() {
+
+    private void initializeGrowthPresenter() {
+        growthNutritionPresenter = new HomeVisitGrowthNutritionPresenter(new HomeVisitGrowthNutritionContract.View() {
             @Override
             public HomeVisitGrowthNutritionContract.Presenter initializePresenter() {
                 return null;
@@ -183,28 +186,28 @@ public class UpcomingServicesFragmentView extends LinearLayout implements View.O
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        try{
-                            ArrayList<GrowthServiceData> growthServiceDataList=growthNutritionPresenter.getAllDueService();
-                            String lastDate="";
-                            View lastView=null;
-                            for(Iterator<GrowthServiceData> i = growthServiceDataList.iterator(); i.hasNext();) {
+                        try {
+                            ArrayList<GrowthServiceData> growthServiceDataList = growthNutritionPresenter.getAllDueService();
+                            String lastDate = "";
+                            View lastView = null;
+                            for (Iterator<GrowthServiceData> i = growthServiceDataList.iterator(); i.hasNext(); ) {
                                 GrowthServiceData growthServiceData = i.next();
-                                View existView=isExistView(growthServiceData);
-                                if(existView!=null){
+                                View existView = isExistView(growthServiceData);
+                                if (existView != null) {
                                     TextView growth = (TextView) existView.findViewById(R.id.growth_service_name_title);
                                     growth.setVisibility(VISIBLE);
-                                    growth.append("\n"+growthServiceData.getDisplayName());
-                                    lastDate=growthServiceData.getDisplayAbleDate();
+                                    growth.append("\n" + growthServiceData.getDisplayName());
+                                    lastDate = growthServiceData.getDisplayAbleDate();
                                     i.remove();
-                                }else{
-                                    if(!lastDate.equalsIgnoreCase(growthServiceData.getDisplayAbleDate())){
-                                        lastDate=growthServiceData.getDisplayAbleDate();
-                                        lastView=createGrowthCard(growthServiceData);
+                                } else {
+                                    if (!lastDate.equalsIgnoreCase(growthServiceData.getDisplayAbleDate())) {
+                                        lastDate = growthServiceData.getDisplayAbleDate();
+                                        lastView = createGrowthCard(growthServiceData);
                                         addView(lastView);
-                                    }else{
-                                        if(lastView!=null){
+                                    } else {
+                                        if (lastView != null) {
                                             TextView growth = (TextView) lastView.findViewById(R.id.growth_service_name_title);
-                                            growth.append("\n"+growthServiceData.getDisplayName());
+                                            growth.append("\n" + growthServiceData.getDisplayName());
                                         }
 
                                     }
@@ -212,19 +215,20 @@ public class UpcomingServicesFragmentView extends LinearLayout implements View.O
 
                             }
 
-                        }catch (Exception e){
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }
-                },500);
+                }, 500);
 
 
             }
         });
     }
-    private View isExistView(GrowthServiceData growthServiceData){
-        for(String date:viewMap.keySet()){
-            if(date.equalsIgnoreCase(growthServiceData.getDisplayAbleDate())){
+
+    private View isExistView(GrowthServiceData growthServiceData) {
+        for (String date : viewMap.keySet()) {
+            if (date.equalsIgnoreCase(growthServiceData.getDisplayAbleDate())) {
                 return viewMap.get(date);
             }
         }

@@ -3,7 +3,8 @@
     android:shape="rectangle">
     <stroke
         android:color="@color/visit_status_ok"
-        android:width="1dp" /> />
+        android:width="1dp" />
+    />
     <solid android:color="@color/white" /> <!-- the button color -->
 
 </shape>

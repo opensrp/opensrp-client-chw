@@ -12,13 +12,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import org.apache.commons.lang3.StringUtils;
 import org.smartgresiter.wcaro.R;
-import org.smartregister.immunization.util.Utils;
 
 public class FamilyRemoveMemberConfrimDialog extends DialogFragment implements View.OnClickListener {
 

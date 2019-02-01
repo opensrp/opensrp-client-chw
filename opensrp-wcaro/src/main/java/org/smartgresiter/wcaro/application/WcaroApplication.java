@@ -44,8 +44,6 @@ import java.util.concurrent.TimeUnit;
 public class WcaroApplication extends DrishtiApplication {
 
     private static final String TAG = WcaroApplication.class.getCanonicalName();
-    private static JsonSpecHelper jsonSpecHelper;
-    private static ECSyncHelper ecSyncHelper;
     private static final int MINIMUM_JOB_FLEX_VALUE = 1;
     private static CommonFtsObject commonFtsObject;
 
@@ -196,10 +194,12 @@ public class WcaroApplication extends DrishtiApplication {
             Log.e(TAG, Log.getStackTraceString(e));
         }
     }
-    private void scheduleJobs(){
+
+    private void scheduleJobs() {
         VaccineRecurringServiceJob.scheduleJob(VaccineRecurringServiceJob.TAG, TimeUnit.MINUTES.toMillis(BuildConfig.VACCINE_SYNC_PROCESSING_MINUTES), getFlexValue(BuildConfig.VACCINE_SYNC_PROCESSING_MINUTES));
 
     }
+
     private long getFlexValue(int value) {
         int minutes = MINIMUM_JOB_FLEX_VALUE;
 

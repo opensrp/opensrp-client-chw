@@ -51,7 +51,7 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
     private AppExecutors appExecutors;
     private CommonPersonObjectClient pClient;
     private FamilyMemberVaccinationAsyncTask familyMemberVaccinationAsyncTask;
-    private Map<String, Date> vaccineList=new LinkedHashMap<>();
+    private Map<String, Date> vaccineList = new LinkedHashMap<>();
     private String serviceDueStatus = FamilyServiceType.NOTHING.name();
 
     @VisibleForTesting
@@ -255,8 +255,8 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
                     personObject.getDetails(), "");
             pClient.setColumnmaps(personObject.getColumnmaps());
             cursor.close();
-            }
         }
+    }
 
     /**
      * Refreshes family view based on the child id
