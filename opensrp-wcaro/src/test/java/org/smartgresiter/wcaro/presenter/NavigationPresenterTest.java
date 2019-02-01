@@ -4,6 +4,7 @@ package org.smartgresiter.wcaro.presenter;
 import android.support.v7.app.AppCompatActivity;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -85,6 +86,7 @@ public class NavigationPresenterTest {
     }
 
     @Test
+    @Ignore // Needs a better implementation
     public void test_Sync() {
         NavigationContract.Presenter presenter = PowerMockito.spy(new NavigationPresenter(view));
         AppCompatActivity activity = Mockito.mock(AppCompatActivity.class);
