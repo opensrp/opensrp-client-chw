@@ -18,9 +18,9 @@ public class FamilyProfileActivityModel extends BaseFamilyProfileActivityModel {
     public String mainSelect(String tableName, String mainCondition) {
         SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
         queryBUilder.SelectInitiateMainTable(tableName, mainColumns(tableName));
-        queryBUilder.customJoin(String.format(" left join %s on %s.%s = %s.%s " ,
-                Constants.TABLE_NAME.CHILD , Constants.TABLE_NAME.CHILD_ACTIVITY , DBConstants.KEY.BASE_ENTITY_ID ,
-                Constants.TABLE_NAME.CHILD , DBConstants.KEY.BASE_ENTITY_ID ));
+        queryBUilder.customJoin(String.format(" left join %s on %s.%s = %s.%s ",
+                Constants.TABLE_NAME.CHILD, Constants.TABLE_NAME.CHILD_ACTIVITY, DBConstants.KEY.BASE_ENTITY_ID,
+                Constants.TABLE_NAME.CHILD, DBConstants.KEY.BASE_ENTITY_ID));
         return queryBUilder.mainCondition(mainCondition);
     }
 

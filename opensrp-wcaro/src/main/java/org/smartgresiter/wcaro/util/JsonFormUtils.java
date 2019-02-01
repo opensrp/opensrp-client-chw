@@ -188,8 +188,6 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
             }
 
 
-
-
             return Pair.create(baseClient, baseEvent);
         } catch (Exception e) {
             Log.e(TAG, Log.getStackTraceString(e));

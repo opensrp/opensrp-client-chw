@@ -19,6 +19,6 @@ public class FamilyProfileActivityPresenter extends BaseFamilyProfileActivityPre
 
     @Override
     public String getDefaultSortQuery() {
-        return Constants.TABLE_NAME.CHILD_ACTIVITY + "." + ChildDBConstants.KEY.EVENT_DATE + " DESC" ;
+        return Constants.TABLE_NAME.CHILD_ACTIVITY + "." + ChildDBConstants.KEY.EVENT_DATE + " DESC";
     }
 }
