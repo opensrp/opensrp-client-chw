@@ -220,8 +220,9 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
 
     private void openMedicalHistoryScreen() {
         Map<String, Date> vaccine = ((ChildProfilePresenter) presenter()).getVaccineList();
-        MedicalHistoryActivity.startMedicalHistoryActivity(this, childBaseEntityId, patientName, lastVisitDay,
+        MedicalHistoryActivity.startMedicalHistoryActivity(this, ((ChildProfilePresenter) presenter()).getChildClient(), patientName, lastVisitDay,
                 ((ChildProfilePresenter) presenter()).getDateOfBirth(), new LinkedHashMap<String, Date>(vaccine));
+
     }
 
 
@@ -387,13 +388,17 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
 
     }
 
-    //immunization data update from initialize the screen or close the home visit screen
+    /**
+     * update immunization data and commonpersonobject for child as data may be updated
+     * from childhomevisitfragment screen and need at medical history/upcoming service data.
+     */
     public void updateImmunizationData() {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 presenter().fetchVisitStatus(childBaseEntityId);
                 presenter().fetchFamilyMemberServiceDue(childBaseEntityId);
+                presenter().updateChildCommonPerson(childBaseEntityId);
             }
         }, 500);
     }

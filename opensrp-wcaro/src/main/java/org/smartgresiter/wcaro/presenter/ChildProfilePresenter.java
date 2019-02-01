@@ -109,6 +109,11 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
     }
 
     @Override
+    public void updateChildCommonPerson(String baseEntityId) {
+        interactor.updateChildCommonPerson(baseEntityId);
+    }
+
+    @Override
     public void refreshProfileView() {
         interactor.refreshProfileView(childBaseEntityId, false, this);
     }

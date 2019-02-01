@@ -10,6 +10,7 @@ import org.smartgresiter.wcaro.BuildConfig;
 import org.smartgresiter.wcaro.activity.FamilyProfileActivity;
 import org.smartgresiter.wcaro.activity.LoginActivity;
 import org.smartgresiter.wcaro.helper.RulesEngineHelper;
+import org.smartgresiter.wcaro.job.VaccineRecurringServiceJob;
 import org.smartgresiter.wcaro.job.WcaroJobCreator;
 import org.smartgresiter.wcaro.repository.WcaroRepository;
 import org.smartgresiter.wcaro.util.ChildDBConstants;
@@ -38,10 +39,14 @@ import org.smartregister.sync.helper.ECSyncHelper;
 import org.smartregister.view.activity.DrishtiApplication;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class WcaroApplication extends DrishtiApplication {
 
     private static final String TAG = WcaroApplication.class.getCanonicalName();
+    private static JsonSpecHelper jsonSpecHelper;
+    private static ECSyncHelper ecSyncHelper;
+    private static final int MINIMUM_JOB_FLEX_VALUE = 1;
     private static CommonFtsObject commonFtsObject;
 
     private JsonSpecHelper jsonSpecHelper;
@@ -123,6 +128,7 @@ public class WcaroApplication extends DrishtiApplication {
         JobManager.create(this).addJobCreator(new WcaroJobCreator());
 
         initOfflineSchedules();
+        scheduleJobs();
     }
 
     @Override
@@ -189,6 +195,20 @@ public class WcaroApplication extends DrishtiApplication {
         } catch (Exception e) {
             Log.e(TAG, Log.getStackTraceString(e));
         }
+    }
+    private void scheduleJobs(){
+        VaccineRecurringServiceJob.scheduleJob(VaccineRecurringServiceJob.TAG, TimeUnit.MINUTES.toMillis(BuildConfig.VACCINE_SYNC_PROCESSING_MINUTES), getFlexValue(BuildConfig.VACCINE_SYNC_PROCESSING_MINUTES));
+
+    }
+    private long getFlexValue(int value) {
+        int minutes = MINIMUM_JOB_FLEX_VALUE;
+
+        if (value > MINIMUM_JOB_FLEX_VALUE) {
+
+            minutes = (int) Math.ceil(value / 3);
+        }
+
+        return TimeUnit.MINUTES.toMillis(minutes);
     }
 
     public ECSyncHelper getEcSyncHelper() {

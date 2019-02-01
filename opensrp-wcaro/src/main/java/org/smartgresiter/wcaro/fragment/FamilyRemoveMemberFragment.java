@@ -156,7 +156,8 @@ public class FamilyRemoveMemberFragment extends BaseFamilyProfileMemberFragment 
     public class RemoveMemberListener implements android.view.View.OnClickListener {
         @Override
         public void onClick(android.view.View v) {
-            if (v.getTag(R.id.VIEW_ID) == BaseFamilyProfileMemberFragment.CLICK_VIEW_NORMAL) {
+            if (v.getTag(R.id.VIEW_ID) == BaseFamilyProfileMemberFragment.CLICK_VIEW_NEXT_ARROW ||
+                    v.getTag(R.id.VIEW_ID) == BaseFamilyProfileMemberFragment.CLICK_VIEW_NORMAL) {
                 final CommonPersonObjectClient pc = (CommonPersonObjectClient) v.getTag();
 
                 String name = String.format("%s %s %s", pc.getColumnmaps().get(DBConstants.KEY.FIRST_NAME),
@@ -178,7 +179,6 @@ public class FamilyRemoveMemberFragment extends BaseFamilyProfileMemberFragment 
                         }
                     });
                 }
-
             }
         }
     }

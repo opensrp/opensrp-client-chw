@@ -92,6 +92,9 @@
     <string name="tab_text_2">GUIDEBOOKS</string>
     <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>
+    <string name="birth_certification">Birth certification</string>
+    <string name="observations_illness_episodes"><![CDATA[Observations & Illness Episodes]]></string>
+
 
     <string name="home_visit_suffix"> &#183; Home Visit</string>
     <string name="last_visit_prefix">Last visit %1$s ago</string>

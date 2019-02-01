@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="10dp">
+    android:padding="@dimen/change_member_padding">
 
     <RadioButton
         android:id="@+id/rbButton"
@@ -20,9 +20,10 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="45dp"
+        android:maxLines="5"
         android:text="Elaine Smith, 33"
         android:textColor="@color/black"
-        android:textSize="24sp" />
+        android:textSize="@dimen/change_member_list_main" />
 
 
     <org.smartregister.view.customcontrols.CustomFontTextView
@@ -32,9 +33,10 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvName"
         android:layout_alignStart="@+id/tvName"
+        android:maxLines="5"
         android:text="Female"
         android:textColor="@color/black"
-        android:textSize="18sp" />
+        android:textSize="@dimen/change_member_list_details" />
 
     <LinearLayout
         android:id="@+id/llQuestions"
@@ -43,7 +45,7 @@
         android:layout_below="@+id/tvGender"
         android:animateLayoutChanges="true"
         android:orientation="vertical"
-        android:padding="10dp">
+        android:padding="@dimen/change_member_padding">
 
         <LinearLayout
             android:id="@+id/llOldNumber"
@@ -57,15 +59,16 @@
                 style="@style/CustomFontTextViewStyle.ClientList.Light"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:maxLines="5"
                 android:text="Is her phone number still?"
                 android:textColor="@color/black"
-                android:textSize="24sp" />
+                android:textSize="@dimen/change_member_list_main" />
 
             <RadioGroup
                 android:id="@+id/rgOldNumber"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
+                android:layout_margin="@dimen/change_member_padding"
                 android:orientation="vertical">
 
                 <RadioButton
@@ -73,19 +76,19 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Yes"
-                    android:textSize="24sp" />
+                    android:textSize="@dimen/change_member_list_main" />
 
                 <RadioButton
                     android:id="@+id/rbNo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="No"
-                    android:textSize="24sp" />
+                    android:textSize="@dimen/change_member_list_main" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1px"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="@dimen/change_member_padding"
                     android:background="@color/light_grey" />
 
             </RadioGroup>
@@ -103,17 +106,17 @@
                 style="@style/CustomFontTextViewStyle.ClientList.Light"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:maxLines="4"
+                android:maxLines="5"
                 android:text="What's the new phone number for the new family head?"
                 android:textColor="@color/black"
-                android:textSize="24sp" />
+                android:textSize="@dimen/change_member_list_main" />
 
 
             <EditText
                 android:id="@+id/etPhoneNumber"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/login_view_component_height"
-                android:layout_margin="10dp"
+                android:layout_margin="@dimen/change_member_padding"
                 android:layout_weight="8"
                 android:background="@drawable/rounded_corner_edit_text"
                 android:cursorVisible="true"
@@ -133,7 +136,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="@dimen/change_member_padding"
                 android:background="@color/light_grey" />
 
         </LinearLayout>
@@ -149,17 +152,17 @@
                 style="@style/CustomFontTextViewStyle.ClientList.Light"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:maxLines="4"
+                android:maxLines="5"
                 android:text="Other Phone Number"
                 android:textColor="@color/black"
-                android:textSize="24sp" />
+                android:textSize="@dimen/change_member_list_main" />
 
 
             <EditText
                 android:id="@+id/etOtherNumber"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/login_view_component_height"
-                android:layout_margin="10dp"
+                android:layout_margin="@dimen/change_member_padding"
                 android:layout_weight="8"
                 android:background="@drawable/rounded_corner_edit_text"
                 android:cursorVisible="true"
@@ -195,16 +198,16 @@
                 style="@style/CustomFontTextViewStyle.ClientList.Light"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:maxLines="4"
+                android:maxLines="5"
                 android:text="Higest Level of Education"
                 android:textColor="@color/black"
-                android:textSize="24sp" />
+                android:textSize="@dimen/change_member_list_main" />
 
             <Spinner
                 android:id="@+id/spEducationLevel"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
+                android:layout_margin="@dimen/change_member_padding"
                 android:hint="Highest Education Level"
                 android:textColor="#666666"
                 android:textColorHint="#bfbfbf"
