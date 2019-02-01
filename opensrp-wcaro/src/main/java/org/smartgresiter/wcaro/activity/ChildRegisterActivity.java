@@ -121,7 +121,7 @@ public class ChildRegisterActivity extends BaseRegisterActivity implements Child
 
             bottomNavigationHelper.disableShiftMode(bottomNavigationView);
 
-            WCAROBottomNavigationListener childBottomNavigationListener = new WCAROBottomNavigationListener(this);
+            WCAROBottomNavigationListener childBottomNavigationListener = new WCAROBottomNavigationListener(this, bottomNavigationView);
             bottomNavigationView.setOnNavigationItemSelectedListener(childBottomNavigationListener);
 
         }

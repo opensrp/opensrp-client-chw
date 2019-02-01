@@ -4,8 +4,6 @@ import org.smartgresiter.wcaro.contract.MedicalHistoryContract;
 import org.smartgresiter.wcaro.interactor.MedicalHistoryInteractor;
 import org.smartgresiter.wcaro.util.BaseService;
 import org.smartgresiter.wcaro.util.BaseVaccine;
-import org.smartgresiter.wcaro.util.BirthCertification;
-import org.smartgresiter.wcaro.util.ObsIllness;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 
 import java.lang.ref.WeakReference;
@@ -45,7 +43,7 @@ public class MedicalHistoryPresenter implements MedicalHistoryContract.Presenter
 
     @Override
     public void fetchBirthAndIllnessData(CommonPersonObjectClient commonPersonObjectClient) {
-        interactor.fetchBirthAndIllnessData(commonPersonObjectClient,this);
+        interactor.fetchBirthAndIllnessData(commonPersonObjectClient, this);
 
     }
 
@@ -76,14 +74,14 @@ public class MedicalHistoryPresenter implements MedicalHistoryContract.Presenter
 
     @Override
     public void updateBirthCertification(ArrayList<String> birthCertification) {
-        this.birthCertifications=birthCertification;
+        this.birthCertifications = birthCertification;
         getView().updateBirthCertification();
 
     }
 
     @Override
     public void updateIllnessData(ArrayList<String> obsIllnessArrayList) {
-        this.obsIllnesses=obsIllnessArrayList;
+        this.obsIllnesses = obsIllnessArrayList;
         getView().updateObsIllness();
 
     }

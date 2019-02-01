@@ -262,20 +262,21 @@ public class ChildUtils {
             Log.e("Error in adding event", e.getMessage());
         }
     }
-    public static SpannableString daysAway(String dueDate){
+
+    public static SpannableString daysAway(String dueDate) {
         SpannableString spannableString;
-        LocalDate date1=new LocalDate(dueDate);
-        LocalDate date2= new LocalDate();
-        int diff=Days.daysBetween(date1, date2).getDays();
-        if(diff<0){
-            String str=diff+" days away";
-            spannableString=new SpannableString(str);
-            spannableString.setSpan(new ForegroundColorSpan(Color.GRAY),0,str.length(),Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        LocalDate date1 = new LocalDate(dueDate);
+        LocalDate date2 = new LocalDate();
+        int diff = Days.daysBetween(date1, date2).getDays();
+        if (diff < 0) {
+            String str = diff + " days away";
+            spannableString = new SpannableString(str);
+            spannableString.setSpan(new ForegroundColorSpan(Color.GRAY), 0, str.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             return spannableString;
-        }else{
-            String str=diff+" days overdue";
-            spannableString=new SpannableString(str);
-            spannableString.setSpan(new ForegroundColorSpan(Color.RED),0,str.length(),Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        } else {
+            String str = diff + " days overdue";
+            spannableString = new SpannableString(str);
+            spannableString.setSpan(new ForegroundColorSpan(Color.RED), 0, str.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             return spannableString;
         }
     }

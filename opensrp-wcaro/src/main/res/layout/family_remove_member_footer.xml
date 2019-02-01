@@ -105,19 +105,27 @@
         </LinearLayout>
 
 
-        <ImageView
-            android:id="@+id/next_arrow"
+        <LinearLayout
+            android:id="@+id/next_arrow_column"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:paddingStart="@dimen/register_list_member_item_padding"
-            android:paddingLeft="@dimen/register_list_member_item_padding"
-            android:paddingTop="@dimen/register_list_top_bottom_padding"
-            android:paddingEnd="@dimen/register_list_max_padding"
-            android:paddingRight="@dimen/register_list_max_padding"
-            android:paddingBottom="25dp"
-            android:src="@mipmap/ic_arrow_forward" />
+            android:paddingEnd="@dimen/register_list_item_padding"
+            android:paddingRight="@dimen/register_list_item_padding">
+
+            <ImageView
+                android:id="@+id/next_arrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/register_list_top_bottom_padding"
+                android:paddingEnd="@dimen/register_list_max_padding"
+                android:paddingLeft="@dimen/register_list_member_item_padding"
+                android:paddingRight="@dimen/register_list_max_padding"
+                android:paddingStart="@dimen/register_list_member_item_padding"
+                android:paddingTop="@dimen/register_list_top_bottom_padding"
+                android:src="@mipmap/ic_arrow_forward" />
+        </LinearLayout>
 
     </RelativeLayout>
 

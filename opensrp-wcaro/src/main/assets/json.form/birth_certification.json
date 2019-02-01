@@ -75,7 +75,7 @@
         "hint": "Birth certificate issuance date *",
         "expanded": false,
         "max_date": "today",
-        "min_date":"",
+        "min_date": "",
         "v_required": {
           "value": "true",
           "err": "Please enter Birth certificate issuance date"
@@ -133,13 +133,12 @@
         }
       },
       {
-        "key":"birthinstroductions",
+        "key": "birthinstroductions",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type":"label",
-        "text":"Ask to see the birth notification and instruct the caregiver to register the birth with the civil registrar."
-      ,
+        "type": "label",
+        "text": "Ask to see the birth notification and instruct the caregiver to register the birth with the civil registrar.",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -149,13 +148,12 @@
         }
       },
       {
-        "key":"caregiverinstroductions",
+        "key": "caregiverinstroductions",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type":"label",
-        "text":"Instruct the caregiver to have the birth registered with the civil registrar."
-      ,
+        "type": "label",
+        "text": "Instruct the caregiver to have the birth registered with the civil registrar.",
         "relevance": {
           "rules-engine": {
             "ex-rules": {

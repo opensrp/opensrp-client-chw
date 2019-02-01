@@ -24,6 +24,7 @@ public class GrowthServiceData {
     }
 
     private String type;
+
     public String getDate() {
         return date;
     }

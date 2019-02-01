@@ -4,7 +4,6 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.contract.FamilyRemoveMemberContract;
@@ -12,6 +11,8 @@ import org.smartgresiter.wcaro.interactor.FamilyRemoveMemberInteractor;
 import org.smartgresiter.wcaro.util.Constants;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.family.provider.FamilyMemberRegisterProvider;
+import org.smartregister.view.customcontrols.CustomFontTextView;
+import org.smartregister.view.customcontrols.FontVariant;
 
 import java.util.HashMap;
 import java.util.Set;
@@ -52,7 +53,7 @@ public class FamilyRemoveMemberProvider extends FamilyMemberRegisterProvider {
                 if (children != null && members != null) {
                     int adults = members - children;
 
-                    HashMap<String,String> payload = new HashMap<>();
+                    HashMap<String, String> payload = new HashMap<>();
                     payload.put(Constants.GLOBAL.MESSAGE, String.format("%s adults and %s U5 children", String.valueOf(adults), String.valueOf(children)));
                     payload.put(Constants.GLOBAL.NAME, result.get(Constants.GLOBAL.NAME));
 
@@ -73,13 +74,15 @@ public class FamilyRemoveMemberProvider extends FamilyMemberRegisterProvider {
     }
 
     public class RemoveFooterViewHolder extends FooterViewHolder {
-        public TextView hint;
+        public CustomFontTextView hint;
         public View view;
 
         public RemoveFooterViewHolder(android.view.View view) {
             super(view);
             this.hint = view.findViewById(R.id.hint);
             this.view = view;
+
+            hint.setFontVariant(FontVariant.REGULAR);
         }
     }
 }

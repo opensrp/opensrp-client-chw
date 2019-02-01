@@ -22,7 +22,6 @@ import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
-import org.smartregister.domain.FetchStatus;
 import org.smartregister.family.fragment.BaseFamilyRegisterFragment;
 import org.smartregister.view.activity.BaseRegisterActivity;
 import org.smartregister.view.customcontrols.CustomFontTextView;
@@ -33,12 +32,14 @@ import java.util.Set;
 public class FamilyRegisterFragment extends BaseFamilyRegisterFragment {
 
     private View dueOnlyLayout;
+    private View view;
 
     private boolean dueFilterActive = false;
 
     @Override
     public void setupViews(View view) {
         super.setupViews(view);
+        this.view = view;
 
         Toolbar toolbar = view.findViewById(org.smartregister.R.id.register_toolbar);
         toolbar.setContentInsetsAbsolute(0, 0);
@@ -93,15 +94,6 @@ public class FamilyRegisterFragment extends BaseFamilyRegisterFragment {
 
         String viewConfigurationIdentifier = ((BaseRegisterActivity) getActivity()).getViewIdentifiers().get(0);
         presenter = new FamilyRegisterFragmentPresenter(this, new FamilyRegisterFramentModel(), viewConfigurationIdentifier);
-    }
-
-    //TODO need to do only first time when all data sync
-    @Override
-    public void onSyncComplete(FetchStatus fetchStatus) {
-        super.onSyncComplete(fetchStatus);
-        //if(fetchStatus.displayValue().equalsIgnoreCase(FetchStatus.fetched.displayValue())){
-        //UpdateVisitServiceJob.scheduleJobImmediately(UpdateVisitServiceJob.TAG);
-        //}
     }
 
     @Override
@@ -282,5 +274,16 @@ public class FamilyRegisterFragment extends BaseFamilyRegisterFragment {
     @Override
     public RegisterFragmentContract.Presenter presenter() {
         return (RegisterFragmentContract.Presenter) presenter;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        Toolbar toolbar = view.findViewById(org.smartregister.R.id.register_toolbar);
+        toolbar.setContentInsetsAbsolute(0, 0);
+        toolbar.setContentInsetsRelative(0, 0);
+        toolbar.setContentInsetStartWithNavigation(0);
+        NavigationMenu.getInstance(getActivity(), null, toolbar);
     }
 }

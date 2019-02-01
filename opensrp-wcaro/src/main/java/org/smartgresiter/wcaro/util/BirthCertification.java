@@ -8,6 +8,7 @@ public class BirthCertification {
     private String birthCertNotification;
     private String instruction;
     private String caregiverInstruction;
+
     public String getHasBirthCert() {
         return hasBirthCert;
     }

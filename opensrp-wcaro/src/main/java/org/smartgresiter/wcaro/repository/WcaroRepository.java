@@ -32,7 +32,6 @@ public class WcaroRepository extends Repository {
     protected SQLiteDatabase readableDatabase;
     protected SQLiteDatabase writableDatabase;
     private Context context;
-    private String password = "Wcaro_PASS";
 
     public WcaroRepository(Context context, org.smartregister.Context openSRPContext) {
         super(context, AllConstants.DATABASE_NAME, BuildConfig.DATABASE_VERSION, openSRPContext.session(), WcaroApplication.createCommonFtsObject(), openSRPContext.sharedRepositoriesArray());
@@ -93,12 +92,12 @@ public class WcaroRepository extends Repository {
 
     @Override
     public SQLiteDatabase getReadableDatabase() {
-        return getReadableDatabase(password);
+        return getReadableDatabase(WcaroApplication.getInstance().getPassword());
     }
 
     @Override
     public SQLiteDatabase getWritableDatabase() {
-        return getWritableDatabase(password);
+        return getWritableDatabase(WcaroApplication.getInstance().getPassword());
     }
 
     @Override

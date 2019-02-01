@@ -2,8 +2,6 @@ package org.smartgresiter.wcaro.fragment;
 
 import android.app.Activity;
 import android.app.DialogFragment;
-import android.app.FragmentTransaction;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -13,7 +11,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.Log;
-import android.util.Pair;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,61 +22,36 @@ import android.widget.TextView;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
 
-import org.apache.commons.lang3.tuple.Triple;
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.activity.ChildProfileActivity;
 import org.smartgresiter.wcaro.activity.ChildRegisterActivity;
-import org.smartgresiter.wcaro.application.WcaroApplication;
 import org.smartgresiter.wcaro.contract.ChildHomeVisitContract;
-import org.smartgresiter.wcaro.contract.ChildRegisterContract;
 import org.smartgresiter.wcaro.custom_view.HomeVisitGrowthAndNutrition;
 import org.smartgresiter.wcaro.custom_view.HomeVisitImmunizationView;
-import org.smartgresiter.wcaro.interactor.ChildRegisterInteractor;
-import org.smartgresiter.wcaro.model.ChildRegisterModel;
 import org.smartgresiter.wcaro.presenter.ChildHomeVisitPresenter;
-import org.smartgresiter.wcaro.repository.WcaroRepository;
 import org.smartgresiter.wcaro.util.ChildDBConstants;
 import org.smartgresiter.wcaro.util.ChildUtils;
 import org.smartgresiter.wcaro.util.Constants;
 import org.smartgresiter.wcaro.util.HomeVisitVaccineGroupDetails;
-import org.smartgresiter.wcaro.util.JsonFormUtils;
-import org.smartregister.clientandeventmodel.Client;
-import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.FetchStatus;
-import org.smartregister.family.FamilyLibrary;
 import org.smartregister.family.activity.BaseFamilyProfileActivity;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.immunization.domain.VaccineWrapper;
-import org.smartregister.repository.AllSharedPreferences;
-import org.smartregister.repository.BaseRepository;
-import org.smartregister.repository.EventClientRepository;
-import org.smartregister.repository.UniqueIdRepository;
-import org.smartregister.sync.ClientProcessorForJava;
-import org.smartregister.sync.helper.ECSyncHelper;
-import org.smartregister.util.FormUtils;
-import org.smartregister.util.Utils;
 
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-import static org.apache.commons.lang3.StringUtils.isBlank;
 import static org.smartgresiter.wcaro.util.ChildDBConstants.KEY.BIRTH_CERT;
-import static org.smartregister.util.JsonFormUtils.getFieldJSONObject;
 import static org.smartregister.util.Utils.getValue;
 
-public class ChildHomeVisitFragment extends DialogFragment implements View.OnClickListener,ChildHomeVisitContract.View {
+public class ChildHomeVisitFragment extends DialogFragment implements View.OnClickListener, ChildHomeVisitContract.View {
 
 
-    private static final String TAG ="ChildHomeVisitFragment" ;
+    private static final String TAG = "ChildHomeVisitFragment";
     public static String DIALOG_TAG = "child_home_visit_dialog";
     Context context;
     CommonPersonObjectClient childClient;
@@ -88,9 +60,9 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     public boolean allVaccineStateFullfilled = false;
     private TextView submit;
     private HomeVisitImmunizationView homeVisitImmunizationView;
-    private LinearLayout layoutBirthCertGroup,layoutIllnessGroup;
+    private LinearLayout layoutBirthCertGroup, layoutIllnessGroup;
     private ChildHomeVisitContract.Presenter presenter;
-    private CircleImageView circleImageViewBirthStatus,circleImageViewIllnessStatus;
+    private CircleImageView circleImageViewBirthStatus, circleImageViewIllnessStatus;
 
 
     public void setContext(Context context) {
@@ -119,10 +91,10 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         nameHeader = (TextView) view.findViewById(R.id.textview_name_header);
         view.findViewById(R.id.close).setOnClickListener(this);
         submit = (TextView) view.findViewById(R.id.textview_submit);
-        circleImageViewBirthStatus=view.findViewById(R.id.birth_status_circle);
-        circleImageViewIllnessStatus=view.findViewById(R.id.obs_illness_status_circle);
-        layoutBirthCertGroup=view.findViewById(R.id.birth_cert_group);
-        layoutIllnessGroup=view.findViewById(R.id.obs_illness_prevention_group);
+        circleImageViewBirthStatus = view.findViewById(R.id.birth_status_circle);
+        circleImageViewIllnessStatus = view.findViewById(R.id.obs_illness_status_circle);
+        layoutBirthCertGroup = view.findViewById(R.id.birth_cert_group);
+        layoutIllnessGroup = view.findViewById(R.id.obs_illness_prevention_group);
         view.findViewById(R.id.textview_submit).setOnClickListener(this);
         layoutBirthCertGroup.setOnClickListener(this);
         layoutIllnessGroup.setOnClickListener(this);
@@ -131,21 +103,21 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         homeVisitImmunizationView.setActivity(getActivity());
         homeVisitImmunizationView.setChildClient(childClient);
         initializePresenter();
-        ((ChildHomeVisitPresenter)presenter).setChildClient(childClient);
+        ((ChildHomeVisitPresenter) presenter).setChildClient(childClient);
         assignNameHeader();
         submitButtonEnableDisable(false);
     }
 
     private void assignNameHeader() {
         String dobString = org.smartregister.family.util.Utils.getDuration(org.smartregister.family.util.Utils.getValue(childClient.getColumnmaps(), DBConstants.KEY.DOB, false));
-        String birthCert=getValue(childClient.getColumnmaps(), BIRTH_CERT, true);
+        String birthCert = getValue(childClient.getColumnmaps(), BIRTH_CERT, true);
 
         nameHeader.setText(String.format("%s %s, %s - Home Visit",
                 getValue(childClient.getColumnmaps(), DBConstants.KEY.FIRST_NAME, true),
                 getValue(childClient.getColumnmaps(), DBConstants.KEY.LAST_NAME, true),
                 dobString
         ));
-        if(!TextUtils.isEmpty(birthCert)){
+        if (!TextUtils.isEmpty(birthCert)) {
             layoutBirthCertGroup.setVisibility(View.GONE);
         }
     }
@@ -182,7 +154,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         switch (v.getId()) {
             case R.id.birth_cert_group:
 
-                 presenter.startBirthCertForm();
+                presenter.startBirthCertForm();
                 break;
             case R.id.obs_illness_prevention_group:
                 presenter.startObsIllnessCertForm();
@@ -194,10 +166,10 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                     if (getActivity() instanceof ChildRegisterActivity) {
                         ((ChildRegisterActivity) getActivity()).refreshList(FetchStatus.fetched);
                     }
-                    if(((ChildHomeVisitPresenter)presenter).getSaveSize()>0){
+                    if (((ChildHomeVisitPresenter) presenter).getSaveSize() > 0) {
                         presenter.saveForm();
                     }
-                   dismiss();
+                    dismiss();
                 }
                 break;
             case R.id.close:
@@ -208,7 +180,8 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                 break;
         }
     }
-    private void showCloseDialog(){
+
+    private void showCloseDialog() {
         AlertDialog dialog = new AlertDialog.Builder(getActivity(), R.style.AppThemeAlertDialog)
                 .setTitle("Undo Changes and Exit")
                 .setMessage("Would you like to undo the changes in this home visit and exit ?")
@@ -230,7 +203,6 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
 
         dialog.show();
     }
-
 
 
     private void submitButtonEnableDisable(boolean isEnable) {
@@ -271,9 +243,10 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
 
     @Override
     public ChildHomeVisitContract.Presenter initializePresenter() {
-        presenter=new ChildHomeVisitPresenter(this);
+        presenter = new ChildHomeVisitPresenter(this);
         return presenter;
     }
+
     @Override
     public void startFormActivity(JSONObject jsonForm) {
         Intent intent = new Intent(context, org.smartregister.family.util.Utils.metadata().familyMemberFormActivity);
@@ -290,12 +263,12 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
 
     @Override
     public void updateBirthStatusTick() {
-        updateStatusTick(circleImageViewBirthStatus,true);
+        updateStatusTick(circleImageViewBirthStatus, true);
     }
 
     @Override
     public void updateObsIllnessStatusTick() {
-        updateStatusTick(circleImageViewIllnessStatus,true);
+        updateStatusTick(circleImageViewIllnessStatus, true);
     }
 
     private void updateStatusTick(CircleImageView imageView, boolean isCheck) {
@@ -323,7 +296,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
 
                 JSONObject form = new JSONObject(jsonString);
                 if (form.getString(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_TYPE).equals(Constants.EventType.BIRTH_CERTIFICATION)
-                  || form.getString(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_TYPE).equals(Constants.EventType.OBS_ILLNESS)
+                        || form.getString(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_TYPE).equals(Constants.EventType.OBS_ILLNESS)
                         ) {
                     presenter.generateBirthIllnessForm(jsonString);
                 }
@@ -348,14 +321,14 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                 updateGrowthData();
             }
         }, 100);
-        if(getView()==null) return;
+        if (getView() == null) return;
         getView().setFocusableInTouchMode(true);
         getView().requestFocus();
         getView().setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
 
-                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK){
+                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
                     showCloseDialog();
                     return true;
                 }

@@ -6,10 +6,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.view.MenuItem;
 
-import org.smartgresiter.wcaro.activity.FamilyProfileActivity;
 import org.smartgresiter.wcaro.activity.FamilyRegisterActivity;
-import org.smartgresiter.wcaro.activity.JobAidsActivity;
-import org.smartgresiter.wcaro.util.Constants;
 import org.smartregister.AllConstants;
 import org.smartregister.listener.BottomNavigationListener;
 import org.smartregister.util.PermissionUtils;
@@ -29,9 +26,7 @@ public class JobsAidsBottomNavigationListener extends BottomNavigationListener {
 //        super.onNavigationItemSelected(item);
 
         if (item.getItemId() == org.smartregister.family.R.id.action_family) {
-            Intent intent = new Intent(context, FamilyRegisterActivity.class);
-            context.startActivity(intent);
-            context.finish();
+
 
         } else if (item.getItemId() == org.smartregister.family.R.id.action_scan_qr) {
 
@@ -53,6 +48,8 @@ public class JobsAidsBottomNavigationListener extends BottomNavigationListener {
             }
 
         }
+
+        context.finish();
         return true;
     }
 }

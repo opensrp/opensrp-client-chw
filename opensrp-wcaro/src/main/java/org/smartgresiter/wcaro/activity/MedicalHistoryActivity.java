@@ -30,16 +30,16 @@ import java.util.Map;
 
 public class MedicalHistoryActivity extends SecuredActivity implements MedicalHistoryContract.View {
     private TextView textViewTitle, textViewLastVisit, textViewFullyImmunization;
-    private LinearLayout layoutImmunization,layoutGrowthAndNutrition,layoutBirthCert,layoutIllness;
+    private LinearLayout layoutImmunization, layoutGrowthAndNutrition, layoutBirthCert, layoutIllness;
     private RelativeLayout layoutFullyImmunizationBarAge1, layoutFullyImmunizationBarAge2;
-    private RecyclerView recyclerViewImmunization, recyclerViewGrowthNutrition,recyclerViewBirthCert,recyclerViewIllness;
+    private RecyclerView recyclerViewImmunization, recyclerViewGrowthNutrition, recyclerViewBirthCert, recyclerViewIllness;
     private Map<String, Date> vaccineList;
     private String name, lastVisitDays, dateOfBirth;
     private CommonPersonObjectClient childClient;
     private MedicalHistoryContract.Presenter presenter;
     private VaccineAdapter vaccineAdapter;
     private GrowthAdapter growthAdapter;
-    private BirthAndIllnessAdapter birthCertAdapter,illnessAdapter;
+    private BirthAndIllnessAdapter birthCertAdapter, illnessAdapter;
 
     public static void startMedicalHistoryActivity(Activity activity, CommonPersonObjectClient childClient, String childName, String lastVisitDays, String dateOfirth,
                                                    LinkedHashMap<String, Date> receivedVaccine) {
@@ -61,13 +61,13 @@ public class MedicalHistoryActivity extends SecuredActivity implements MedicalHi
         layoutImmunization = findViewById(R.id.immunization_bar);
         layoutFullyImmunizationBarAge1 = findViewById(R.id.immu_bar_age_1);
         layoutFullyImmunizationBarAge2 = findViewById(R.id.immu_bar_age_2);
-        layoutBirthCert=findViewById(R.id.birth_cert_list);
-        layoutIllness=findViewById(R.id.illness_list);
+        layoutBirthCert = findViewById(R.id.birth_cert_list);
+        layoutIllness = findViewById(R.id.illness_list);
         textViewFullyImmunization = findViewById(R.id.fully_immunized);
         recyclerViewImmunization = findViewById(R.id.immunization_recycler_view);
         recyclerViewGrowthNutrition = findViewById(R.id.recycler_view_growth);
-        recyclerViewBirthCert=findViewById(R.id.recycler_view_birth);
-        recyclerViewIllness=findViewById(R.id.recycler_view_illness);
+        recyclerViewBirthCert = findViewById(R.id.recycler_view_birth);
+        recyclerViewIllness = findViewById(R.id.recycler_view_illness);
         recyclerViewImmunization.setLayoutManager(new LinearLayoutManager(this));
         recyclerViewGrowthNutrition.setLayoutManager(new LinearLayoutManager(this));
         recyclerViewIllness.setLayoutManager(new LinearLayoutManager(this));
@@ -103,7 +103,7 @@ public class MedicalHistoryActivity extends SecuredActivity implements MedicalHi
     }
 
     private void parseBundleANdUpdateView() {
-        childClient =(CommonPersonObjectClient) getIntent().getSerializableExtra(Constants.INTENT_KEY.CHILD_COMMON_PERSON);
+        childClient = (CommonPersonObjectClient) getIntent().getSerializableExtra(Constants.INTENT_KEY.CHILD_COMMON_PERSON);
         name = getIntent().getStringExtra(Constants.INTENT_KEY.CHILD_NAME);
         lastVisitDays = getIntent().getStringExtra(Constants.INTENT_KEY.CHILD_LAST_VISIT_DAYS);
         dateOfBirth = getIntent().getStringExtra(Constants.INTENT_KEY.CHILD_DATE_OF_BIRTH);
@@ -135,7 +135,8 @@ public class MedicalHistoryActivity extends SecuredActivity implements MedicalHi
         presenter.fetchGrowthNutrition(childClient.entityId());
 
     }
-    private void fetchBirthCertIllness(){
+
+    private void fetchBirthCertIllness() {
         presenter.fetchBirthAndIllnessData(childClient);
     }
 
@@ -190,16 +191,16 @@ public class MedicalHistoryActivity extends SecuredActivity implements MedicalHi
 
     @Override
     public void updateBirthCertification() {
-        if(presenter.getBirthCertification()!=null && presenter.getBirthCertification().size()>0){
+        if (presenter.getBirthCertification() != null && presenter.getBirthCertification().size() > 0) {
             layoutBirthCert.setVisibility(View.VISIBLE);
-            if(birthCertAdapter==null){
-                birthCertAdapter=new BirthAndIllnessAdapter();
+            if (birthCertAdapter == null) {
+                birthCertAdapter = new BirthAndIllnessAdapter();
                 birthCertAdapter.setData(presenter.getBirthCertification());
                 recyclerViewBirthCert.setAdapter(birthCertAdapter);
-            }else{
+            } else {
                 birthCertAdapter.notifyDataSetChanged();
             }
-        }else{
+        } else {
             layoutBirthCert.setVisibility(View.GONE);
         }
 
@@ -207,16 +208,16 @@ public class MedicalHistoryActivity extends SecuredActivity implements MedicalHi
 
     @Override
     public void updateObsIllness() {
-        if(presenter.getObsIllness()!=null && presenter.getObsIllness().size()>0){
+        if (presenter.getObsIllness() != null && presenter.getObsIllness().size() > 0) {
             layoutIllness.setVisibility(View.VISIBLE);
-            if(illnessAdapter==null){
-                illnessAdapter=new BirthAndIllnessAdapter();
+            if (illnessAdapter == null) {
+                illnessAdapter = new BirthAndIllnessAdapter();
                 illnessAdapter.setData(presenter.getObsIllness());
                 recyclerViewIllness.setAdapter(illnessAdapter);
-            }else{
+            } else {
                 illnessAdapter.notifyDataSetChanged();
             }
-        }else{
+        } else {
             layoutIllness.setVisibility(View.GONE);
         }
     }

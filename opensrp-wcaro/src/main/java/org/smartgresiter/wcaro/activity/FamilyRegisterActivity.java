@@ -38,7 +38,7 @@ public class FamilyRegisterActivity extends BaseFamilyRegisterActivity {
             bottomNavigationView.getMenu().removeItem(org.smartregister.family.R.id.action_scan_qr);
         }
 
-        FamilyBottomNavigationListener familyBottomNavigationListener = new FamilyBottomNavigationListener(this);
+        FamilyBottomNavigationListener familyBottomNavigationListener = new FamilyBottomNavigationListener(this, bottomNavigationView);
         bottomNavigationView.setOnNavigationItemSelectedListener(familyBottomNavigationListener);
     }
 

@@ -14,48 +14,52 @@ import org.smartregister.util.FormUtils;
 
 import java.lang.ref.WeakReference;
 
-public class ChildHomeVisitPresenter implements ChildHomeVisitContract.Presenter,ChildHomeVisitContract.InteractorCallback {
+public class ChildHomeVisitPresenter implements ChildHomeVisitContract.Presenter, ChildHomeVisitContract.InteractorCallback {
     private WeakReference<ChildHomeVisitContract.View> view;
     private ChildHomeVisitContract.Interactor interactor;
     private CommonPersonObjectClient childClient;
     private FormUtils formUtils = null;
+
     public ChildHomeVisitPresenter(ChildHomeVisitContract.View view) {
         this.view = new WeakReference<>(view);
         interactor = new ChildHomeVisitInteractor();
     }
-    public void setChildClient(CommonPersonObjectClient childClient){
-        this.childClient=childClient;
+
+    public void setChildClient(CommonPersonObjectClient childClient) {
+        this.childClient = childClient;
 
     }
-    public int getSaveSize(){
-        return ((ChildHomeVisitInteractor)interactor).getSaveSize();
+
+    public int getSaveSize() {
+        return ((ChildHomeVisitInteractor) interactor).getSaveSize();
     }
 
     @Override
-    public void startBirthCertForm()  {
-        try{
+    public void startBirthCertForm() {
+        try {
             JSONObject form = getFormUtils().getFormJson(Constants.JSON_FORM.BIRTH_CERTIFICATION);
             String dobString = org.smartregister.family.util.Utils.getDuration(org.smartregister.family.util.Utils.getValue
                     (childClient.getColumnmaps(), DBConstants.KEY.DOB, false));
 
-            JSONObject revForm=JsonFormUtils.getBirthCertFormAsJson(form,childClient.getCaseId(),"",dobString);
+            JSONObject revForm = JsonFormUtils.getBirthCertFormAsJson(form, childClient.getCaseId(), "", dobString);
             getView().startFormActivity(revForm);
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
 
     }
+
     @Override
-    public void startObsIllnessCertForm()  {
-        try{
+    public void startObsIllnessCertForm() {
+        try {
 
             JSONObject form = getFormUtils().getFormJson(Constants.JSON_FORM.OBS_ILLNESS);
             String dobString = org.smartregister.family.util.Utils.getDuration(org.smartregister.family.util.Utils.getValue
                     (childClient.getColumnmaps(), DBConstants.KEY.DOB, false));
 
-            JSONObject revForm=JsonFormUtils.getOnsIllnessFormAsJson(form,childClient.getCaseId(),"",dobString);
+            JSONObject revForm = JsonFormUtils.getOnsIllnessFormAsJson(form, childClient.getCaseId(), "", dobString);
             getView().startFormActivity(revForm);
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
 
@@ -75,7 +79,7 @@ public class ChildHomeVisitPresenter implements ChildHomeVisitContract.Presenter
 
     @Override
     public void generateBirthIllnessForm(String jsonString) {
-        interactor.generateBirthIllnessForm(jsonString,this);
+        interactor.generateBirthIllnessForm(jsonString, this);
 
     }
 

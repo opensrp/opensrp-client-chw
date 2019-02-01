@@ -8,6 +8,7 @@ import org.smartgresiter.wcaro.interactor.NavigationInteractor;
 import org.smartgresiter.wcaro.model.NavigationModel;
 import org.smartgresiter.wcaro.model.NavigationOption;
 import org.smartgresiter.wcaro.util.Constants;
+import org.smartregister.job.SyncServiceJob;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
@@ -89,7 +90,7 @@ public class NavigationPresenter implements NavigationContract.Presenter {
 
     @Override
     public void Sync(Activity activity) {
-        mInteractor.Sync();
+        SyncServiceJob.scheduleJobImmediately(SyncServiceJob.TAG);
     }
 
     @Override
