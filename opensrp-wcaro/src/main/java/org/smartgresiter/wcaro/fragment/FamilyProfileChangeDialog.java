@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -234,10 +235,9 @@ public class FamilyProfileChangeDialog extends DialogFragment implements View.On
                 Display display = window.getWindowManager().getDefaultDisplay();
                 display.getSize(size);
 
-                int width = size.x;
                 int height = size.y;
 
-                window.setLayout((int) (width * 0.9), (int) (height * 0.8));
+                window.setLayout(FrameLayout.LayoutParams.MATCH_PARENT, (int) (height * 0.9));
                 window.setGravity(Gravity.CENTER);
             }
         });
