@@ -60,7 +60,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "choose_image",
-        "uploadButtonText": "Take a picture of the family"
+        "uploadButtonText": "Take a picture of the person"
       },
       {
         "key": "unique_id",
@@ -79,6 +79,16 @@
           "value": "true",
           "err": "Please enter the UNIQUE ID"
         }
+      },
+      {
+        "key": "national_id",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "163084AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "label_info_text": "What is their national identity number or their voter registration number?",
+        "label_info_title": "National ID number",
+        "type": "edit_text",
+        "hint": "National ID number"
       },
       {
         "key": "surname",
