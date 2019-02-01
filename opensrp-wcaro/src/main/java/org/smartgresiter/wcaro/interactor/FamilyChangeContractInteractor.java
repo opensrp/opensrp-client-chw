@@ -12,6 +12,7 @@ import org.smartgresiter.wcaro.application.WcaroApplication;
 import org.smartgresiter.wcaro.contract.FamilyChangeContract;
 import org.smartgresiter.wcaro.util.Constants;
 import org.smartgresiter.wcaro.util.JsonFormUtils;
+import org.smartgresiter.wcaro.util.Utils;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.clientandeventmodel.Obs;
@@ -22,7 +23,6 @@ import org.smartregister.domain.tag.FormTag;
 import org.smartregister.family.FamilyLibrary;
 import org.smartregister.family.util.AppExecutors;
 import org.smartregister.family.util.DBConstants;
-import org.smartregister.family.util.Utils;
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.sync.helper.ECSyncHelper;
 import org.smartregister.util.FormUtils;
@@ -175,9 +175,11 @@ public class FamilyChangeContractInteractor implements FamilyChangeContract.Inte
 
         Event eventFamily = JsonFormUtils.createEvent(new JSONArray(), metadata, formTag, familyID, Utils.metadata().familyRegister.updateEventType,
                 Utils.metadata().familyRegister.tableName);
+        JsonFormUtils.tagSyncMetadata(Utils.context().allSharedPreferences(), eventFamily);
 
         Event eventMember = JsonFormUtils.createEvent(new JSONArray(), metadata, formTag, memberID, Utils.metadata().familyMemberRegister.updateEventType,
                 Utils.metadata().familyMemberRegister.tableName);
+        JsonFormUtils.tagSyncMetadata(Utils.context().allSharedPreferences(), eventMember);
 
         eventMember.addObs(new Obs("concept", "text", Constants.FORM_CONSTANTS.CHANGE_CARE_GIVER.PHONE_NUMBER.CODE, "",
                 toList(phone), new ArrayList<>(), null, DBConstants.KEY.PHONE_NUMBER));
