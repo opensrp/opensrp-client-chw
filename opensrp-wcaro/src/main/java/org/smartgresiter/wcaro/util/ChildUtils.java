@@ -12,6 +12,8 @@ import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 
+import com.google.gson.JsonObject;
+
 import org.apache.commons.lang3.StringUtils;
 import org.jeasy.rules.api.Rules;
 import org.joda.time.Days;
@@ -285,14 +287,16 @@ public class ChildUtils {
         }
     }
 
-    public static void addToHomeVisitTable(String baseEntityID,JSONObject singleVaccineObject, JSONObject vaccineGroupObject, JSONObject service) {
+    public static void addToHomeVisitTable(String baseEntityID, JSONObject singleVaccineObject, JSONObject vaccineGroupObject, JSONObject service, String birthCert, JSONObject illnessJson) {
         HomeVisit newHomeVisit = new HomeVisit(null,baseEntityID, HomeVisitRepository.EVENT_TYPE,new Date(),"","","",0l,"","",new Date());
         newHomeVisit.setSingleVaccinesGiven(singleVaccineObject);
         newHomeVisit.setVaccineGroupsGiven(vaccineGroupObject);
         newHomeVisit.setServicesGiven(service);
-        newHomeVisit.setIllness_information(new JSONObject());
+        newHomeVisit.setBirthCertificationState(birthCert);
+        if(illnessJson!=null){
+            newHomeVisit.setIllness_information(illnessJson);
+        }
         newHomeVisit.setFormfields(new HashMap<String, String>());
-
         WcaroApplication.homeVisitRepository().add(newHomeVisit);
     }
 }

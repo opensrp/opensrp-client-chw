@@ -19,9 +19,13 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.activity.ChildProfileActivity;
@@ -63,7 +67,9 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     private LinearLayout layoutBirthCertGroup, layoutIllnessGroup;
     private ChildHomeVisitContract.Presenter presenter;
     private CircleImageView circleImageViewBirthStatus, circleImageViewIllnessStatus;
-
+    private String birthCertGiven=BIRTH_CERT_TYPE.NOT_GIVEN.name();
+    private  JSONObject illnessJson;
+    private String jsonString;
 
     public void setContext(Context context) {
         this.context = context;
@@ -169,6 +175,17 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                     if (((ChildHomeVisitPresenter) presenter).getSaveSize() > 0) {
                         presenter.saveForm();
                     }
+                    try {
+                        JSONArray vaccineGroup = homeVisitImmunizationView.getGroupVaccinesGivenThisVisit();
+                        JSONArray singleVaccine = homeVisitImmunizationView.getSingleVaccinesGivenThisVisit();
+
+                        JSONObject singleVaccineObject = new JSONObject().put("singleVaccinesGiven",singleVaccine);
+                        JSONObject vaccineGroupObject = new JSONObject().put("groupVaccinesGiven",vaccineGroup);
+                        JSONObject service = new JSONObject((new Gson()).toJson(homeVisitGrowthAndNutritionLayout.returnSaveStateMap()));
+                        ChildUtils.addToHomeVisitTable(childClient.getCaseId(),singleVaccineObject,vaccineGroupObject,service,birthCertGiven,illnessJson);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                     dismiss();
                 }
                 break;
@@ -263,11 +280,17 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
 
     @Override
     public void updateBirthStatusTick() {
+       birthCertGiven= BIRTH_CERT_TYPE.GIVEN.name();
         updateStatusTick(circleImageViewBirthStatus, true);
     }
 
     @Override
     public void updateObsIllnessStatusTick() {
+        try {
+            illnessJson=new JSONObject().put("obsIllness",jsonString);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         updateStatusTick(circleImageViewIllnessStatus, true);
     }
 
@@ -291,7 +314,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == org.smartregister.family.util.JsonFormUtils.REQUEST_CODE_GET_JSON && resultCode == Activity.RESULT_OK) {
             try {
-                String jsonString = data.getStringExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON);
+                jsonString = data.getStringExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON);
                 Log.d("JSONResult", jsonString);
 
                 JSONObject form = new JSONObject(jsonString);
@@ -368,4 +391,5 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         homeVisitImmunizationView.undoVaccines();
 
     }
+    public enum BIRTH_CERT_TYPE{GIVEN, NOT_GIVEN}
 }
