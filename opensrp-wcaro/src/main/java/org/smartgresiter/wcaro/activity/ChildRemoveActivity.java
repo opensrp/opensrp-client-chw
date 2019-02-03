@@ -29,6 +29,7 @@ public class ChildRemoveActivity extends SecuredActivity implements ChildRemoveC
     @Override
     protected void onCreation() {
         setContentView(R.layout.activity_family_remove_member);
+        findViewById(R.id.detail_toolbar).setVisibility(View.GONE);
         findViewById(R.id.close).setVisibility(View.GONE);
         findViewById(R.id.tvDetails).setVisibility(View.GONE);
         findViewById(R.id.flFrame).setVisibility(View.GONE);
@@ -79,6 +80,8 @@ public class ChildRemoveActivity extends SecuredActivity implements ChildRemoveC
                 getPresenter().processRemoveForm(form);
             } catch (Exception e) {
             }
+        }else{
+            finish();
         }
     }
 
