@@ -23,13 +23,13 @@ import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
 import org.smartregister.view.activity.SecuredActivity;
 
-public class ChildRemoveActivity extends SecuredActivity implements View.OnClickListener,ChildRemoveContract.View {
+public class ChildRemoveActivity extends SecuredActivity implements ChildRemoveContract.View {
     private CommonPersonObjectClient pc;
     private String familyBaseEntityId;
     @Override
     protected void onCreation() {
         setContentView(R.layout.activity_family_remove_member);
-        findViewById(R.id.close).setOnClickListener(this);
+        findViewById(R.id.close).setVisibility(View.GONE);
         findViewById(R.id.tvDetails).setVisibility(View.GONE);
         findViewById(R.id.flFrame).setVisibility(View.GONE);
         pc=(CommonPersonObjectClient)getIntent().getSerializableExtra(Constants.INTENT_KEY.CHILD_COMMON_PERSON);
@@ -54,21 +54,18 @@ public class ChildRemoveActivity extends SecuredActivity implements View.OnClick
                     getPresenter().removeMember(pc);
                 }
             });
+            dialog.setOnRemoveActivity(new Runnable() {
+                @Override
+                public void run() {
+                    finish();
+                }
+            });
         }
     }
 
     @Override
     protected void onResumption() {
 
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.close:
-                finish();
-                break;
-        }
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

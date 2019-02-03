@@ -19,6 +19,7 @@ public class FamilyRemoveMemberConfrimDialog extends DialogFragment implements V
 
     private Context context;
     private Runnable onRemove;
+    private Runnable onRemoveActivity;
     private String message;
 
     public static FamilyRemoveMemberConfrimDialog newInstance(String message) {
@@ -30,7 +31,9 @@ public class FamilyRemoveMemberConfrimDialog extends DialogFragment implements V
     public void setOnRemove(Runnable onRemove) {
         this.onRemove = onRemove;
     }
-
+    public void setOnRemoveActivity(Runnable onRemoveActivity) {
+        this.onRemoveActivity = onRemoveActivity;
+    }
     public FamilyRemoveMemberConfrimDialog() {
         // Required empty public constructor
     }
@@ -78,6 +81,9 @@ public class FamilyRemoveMemberConfrimDialog extends DialogFragment implements V
                 dismiss();
                 break;
             case R.id.cancel:
+                if(this.onRemoveActivity != null){
+                    onRemoveActivity.run();
+                }
                 dismiss();
                 break;
                 default:
