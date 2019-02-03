@@ -38,7 +38,7 @@ public interface HomeVisitGrowthNutritionContract {
 
         void onDestroy(boolean isChangingConfiguration);
 
-        Map<String, ServiceWrapper> getSaveStateMap();
+        Map<String, String> getSaveStateMap();
 
         void setSaveStateMap(Map<String, ServiceWrapper> saveStateMap);
     }
