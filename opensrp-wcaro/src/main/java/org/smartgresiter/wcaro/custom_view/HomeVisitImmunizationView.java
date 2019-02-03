@@ -122,7 +122,7 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
             multiple_immunization_group.setOnClickListener(null);
         } else if (presenter.groupIsDue()) {
             textview_group_immunization_primary_text.setText("Immunizations" + " (" + presenter.getCurrentActiveGroup().getGroup().replace("weeks", "w").replace("months", "m") + ")");
-            textview_group_immunization_secondary_text.setText("Due On " + presenter.getCurrentActiveGroup().getDueDate());
+            textview_group_immunization_secondary_text.setText("Due On " + presenter.getCurrentActiveGroup().getDueDisplayDate());
 
             multiple_immunization_group.setTag(R.id.nextduevaccinelist, presenter.getCurrentActiveGroup());
             multiple_immunization_group.setTag(R.id.vaccinelist, vaccines);

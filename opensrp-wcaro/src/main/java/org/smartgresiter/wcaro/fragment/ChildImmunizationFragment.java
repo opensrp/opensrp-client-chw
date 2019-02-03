@@ -22,6 +22,7 @@ import org.apache.commons.lang3.tuple.Triple;
 import org.joda.time.DateTime;
 import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.application.WcaroApplication;
+import org.smartgresiter.wcaro.util.JsonFormUtils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.Alert;
 import org.smartregister.family.util.DBConstants;
@@ -466,7 +467,6 @@ public class ChildImmunizationFragment extends DialogFragment {
         vaccine.setBaseEntityId(childDetails.entityId());
         vaccine.setName(tag.getName());
         vaccine.setDate(tag.getUpdatedVaccineDate().toDate());
-        vaccine.setAnmId(ImmunizationLibrary.getInstance().context().allSharedPreferences().fetchRegisteredANM());
 
         String lastChar = vaccine.getName().substring(vaccine.getName().length() - 1);
         if (StringUtils.isNumeric(lastChar)) {
@@ -475,11 +475,7 @@ public class ChildImmunizationFragment extends DialogFragment {
             vaccine.setCalculation(-1);
         }
 
-        String providerId = Utils.context().allSharedPreferences().fetchRegisteredANM();
-        vaccine.setChildLocationId(Utils.context().allSharedPreferences().fetchDefaultLocalityId(providerId));
-        vaccine.setTeam(Utils.context().allSharedPreferences().fetchDefaultTeam(providerId));
-        vaccine.setTeamId(Utils.context().allSharedPreferences().fetchDefaultTeamId(providerId));
-        vaccine.setLocationId(Utils.context().allSharedPreferences().fetchDefaultLocalityId(providerId));
+        JsonFormUtils.tagSyncMetadata(Utils.context().allSharedPreferences(), vaccine);
         vaccineRepository.add(vaccine);
         tag.setDbKey(vaccine.getId());
     }

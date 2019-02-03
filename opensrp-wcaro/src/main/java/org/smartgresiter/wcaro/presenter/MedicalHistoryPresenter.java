@@ -4,6 +4,7 @@ import org.smartgresiter.wcaro.contract.MedicalHistoryContract;
 import org.smartgresiter.wcaro.interactor.MedicalHistoryInteractor;
 import org.smartgresiter.wcaro.util.BaseService;
 import org.smartgresiter.wcaro.util.BaseVaccine;
+import org.smartregister.commonregistry.CommonPersonObjectClient;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -16,6 +17,8 @@ public class MedicalHistoryPresenter implements MedicalHistoryContract.Presenter
     private Map<String, Date> recievedVaccines;
     private ArrayList<BaseVaccine> baseVaccineArrayList;
     private ArrayList<BaseService> growthNutritionArrayList;
+    private ArrayList<String> birthCertifications;
+    private ArrayList<String> obsIllnesses;
 
     public MedicalHistoryPresenter(MedicalHistoryContract.View view) {
         this.view = new WeakReference<>(view);
@@ -39,7 +42,8 @@ public class MedicalHistoryPresenter implements MedicalHistoryContract.Presenter
     }
 
     @Override
-    public void initialize() {
+    public void fetchBirthAndIllnessData(CommonPersonObjectClient commonPersonObjectClient) {
+        interactor.fetchBirthAndIllnessData(commonPersonObjectClient, this);
 
     }
 
@@ -56,6 +60,30 @@ public class MedicalHistoryPresenter implements MedicalHistoryContract.Presenter
     @Override
     public ArrayList<BaseService> getGrowthNutrition() {
         return growthNutritionArrayList;
+    }
+
+    @Override
+    public ArrayList<String> getBirthCertification() {
+        return birthCertifications;
+    }
+
+    @Override
+    public ArrayList<String> getObsIllness() {
+        return obsIllnesses;
+    }
+
+    @Override
+    public void updateBirthCertification(ArrayList<String> birthCertification) {
+        this.birthCertifications = birthCertification;
+        getView().updateBirthCertification();
+
+    }
+
+    @Override
+    public void updateIllnessData(ArrayList<String> obsIllnessArrayList) {
+        this.obsIllnesses = obsIllnessArrayList;
+        getView().updateObsIllness();
+
     }
 
     @Override

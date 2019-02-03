@@ -22,6 +22,8 @@ import org.joda.time.DateTime;
 import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.custom_view.HomeVisitGrowthAndNutrition;
 import org.smartgresiter.wcaro.util.Constants;
+import org.smartgresiter.wcaro.util.JsonFormUtils;
+import org.smartgresiter.wcaro.util.Utils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.immunization.ImmunizationLibrary;
 import org.smartregister.immunization.domain.ServiceRecord;
@@ -29,7 +31,6 @@ import org.smartregister.immunization.domain.ServiceSchedule;
 import org.smartregister.immunization.domain.ServiceWrapper;
 import org.smartregister.immunization.repository.RecurringServiceRecordRepository;
 import org.smartregister.util.DatePickerUtils;
-import org.smartregister.util.Utils;
 
 import java.util.Calendar;
 
@@ -305,12 +306,9 @@ public class GrowthNutritionInputFragment extends DialogFragment implements Radi
             serviceRecord.setBaseEntityId(baseEntityId);
             serviceRecord.setRecurringServiceId(tag.getTypeId());
             serviceRecord.setDate(tag.getUpdatedVaccineDate().toDate());
-            serviceRecord.setAnmId(providerId);
             serviceRecord.setValue(tag.getValue());
-            serviceRecord.setLocationId(org.smartregister.family.util.Utils.context().allSharedPreferences().fetchDefaultLocalityId(providerId));
-            serviceRecord.setChildLocationId(org.smartregister.family.util.Utils.context().allSharedPreferences().fetchDefaultLocalityId(providerId));
-            serviceRecord.setTeam(org.smartregister.family.util.Utils.context().allSharedPreferences().fetchDefaultTeam(providerId));
-            serviceRecord.setTeamId(org.smartregister.family.util.Utils.context().allSharedPreferences().fetchDefaultTeamId(providerId));
+
+            JsonFormUtils.tagSyncMetadata(Utils.context().allSharedPreferences(), serviceRecord);
 
         }
 

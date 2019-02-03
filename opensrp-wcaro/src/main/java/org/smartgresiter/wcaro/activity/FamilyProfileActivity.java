@@ -4,6 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.Gravity;
@@ -33,6 +36,7 @@ import org.smartregister.family.fragment.BaseFamilyProfileDueFragment;
 import org.smartregister.family.fragment.BaseFamilyProfileMemberFragment;
 import org.smartregister.family.util.Constants;
 import org.smartregister.util.PermissionUtils;
+import org.smartregister.view.fragment.BaseRegisterFragment;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -196,5 +200,44 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity implements 
                 break;
         }
 
+    }
+
+    @Override
+    public void refreshMemberList(FetchStatus fetchStatus) {
+        if (Looper.myLooper() == Looper.getMainLooper()) {
+            for (int i = 0; i < adapter.getCount(); i++) {
+                refreshList(adapter.getItem(i));
+            }
+        } else {
+            Handler handler = new Handler(Looper.getMainLooper());
+            handler.post(new Runnable() {
+                public void run() {
+                    for (int i = 0; i < adapter.getCount(); i++) {
+                        refreshList(adapter.getItem(i));
+                    }
+                }
+            });
+        }
+    }
+
+    private void refreshList(Fragment fragment) {
+        if (fragment != null && fragment instanceof BaseRegisterFragment) {
+            if (fragment instanceof FamilyProfileMemberFragment) {
+                FamilyProfileMemberFragment familyProfileMemberFragment = ((FamilyProfileMemberFragment) fragment);
+                if (familyProfileMemberFragment.presenter() != null) {
+                    familyProfileMemberFragment.refreshListView();
+                }
+            } else if (fragment instanceof FamilyProfileDueFragment) {
+                FamilyProfileDueFragment familyProfileDueFragment = ((FamilyProfileDueFragment) fragment);
+                if (familyProfileDueFragment.presenter() != null) {
+                    familyProfileDueFragment.refreshListView();
+                }
+            } else if (fragment instanceof FamilyProfileActivityFragment) {
+                FamilyProfileActivityFragment familyProfileActivityFragment = ((FamilyProfileActivityFragment) fragment);
+                if (familyProfileActivityFragment.presenter() != null) {
+                    familyProfileActivityFragment.refreshListView();
+                }
+            }
+        }
     }
 }

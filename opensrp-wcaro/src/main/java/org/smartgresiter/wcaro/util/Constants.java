@@ -10,6 +10,8 @@ public class Constants {
     }
 
     public static final class EventType {
+        public static final String BIRTH_CERTIFICATION = "Birth Certification";
+        public static final String OBS_ILLNESS = "Observations Illness";
         public static final String FAMILY_REGISTRATION = "Family Registration";
         public static final String FAMILY_MEMBER_REGISTRATION = "Family Member Registration";
 
@@ -26,6 +28,8 @@ public class Constants {
     }
 
     public static class JSON_FORM {
+        public static final String BIRTH_CERTIFICATION = "birth_certification";
+        public static final String OBS_ILLNESS = "observation_illness";
         public static final String FAMILY_REGISTER = "family_register";
         public static final String FAMILY_MEMBER_REGISTER = "family_member_register";
         public static final String CHILD_REGISTER = "child_enrollment";
@@ -45,6 +49,7 @@ public class Constants {
         public static final String FAMILY = "ec_family";
         public static final String FAMILY_MEMBER = "ec_family_member";
         public static final String CHILD = "ec_child";
+        public static final String CHILD_ACTIVITY = "ec_child_activity";
     }
 
     public static final class INTENT_KEY {
@@ -119,6 +124,10 @@ public class Constants {
             public static class HIGHEST_EDU_LEVEL {
                 public static final String CODE = "1712AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
             }
+        }
+
+        public static class ILLNESS_ACTION_TAKEN_LEVEL {
+            public static final String CODE = "164378AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
         }
     }
 

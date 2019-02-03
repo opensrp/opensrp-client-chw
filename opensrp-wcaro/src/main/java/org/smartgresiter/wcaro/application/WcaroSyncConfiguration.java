@@ -1,9 +1,13 @@
 package org.smartgresiter.wcaro.application;
 
+import org.apache.commons.lang3.StringUtils;
 import org.smartgresiter.wcaro.BuildConfig;
 import org.smartgresiter.wcaro.util.Constants;
+import org.smartgresiter.wcaro.util.Utils;
 import org.smartregister.SyncConfiguration;
 import org.smartregister.location.helper.LocationHelper;
+
+import java.util.List;
 
 /**
  * Created by samuelgithengi on 10/19/18.
@@ -21,7 +25,16 @@ public class WcaroSyncConfiguration extends SyncConfiguration {
 
     @Override
     public String getSyncFilterValue() {
-        return LocationHelper.getInstance().locationIdsFromHierarchy();
+        String providerId = Utils.context().allSharedPreferences().fetchRegisteredANM();
+        String userLocationId = Utils.context().allSharedPreferences().fetchUserLocalityId(providerId);
+
+        List<String> locationIds = LocationHelper.getInstance().locationsFromHierarchy(true, null);
+        if (!Utils.isEmptyCollection(locationIds)) {
+            int index = locationIds.indexOf(userLocationId);
+            List<String> subLocationIds = locationIds.subList(index, locationIds.size());
+            return StringUtils.join(subLocationIds, ",");
+        }
+        return "";
     }
 
     @Override

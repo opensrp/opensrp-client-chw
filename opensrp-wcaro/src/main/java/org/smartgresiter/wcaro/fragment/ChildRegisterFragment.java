@@ -35,6 +35,7 @@ public class ChildRegisterFragment extends BaseRegisterFragment implements Child
     private static final String TAG = ChildRegisterFragment.class.getCanonicalName();
     public static final String CLICK_VIEW_NORMAL = "click_view_normal";
     public static final String CLICK_VIEW_DOSAGE_STATUS = "click_view_dosage_status";
+    View view;
 
     @Override
     protected void initializePresenter() {
@@ -65,6 +66,8 @@ public class ChildRegisterFragment extends BaseRegisterFragment implements Child
     @Override
     public void setupViews(View view) {
         super.setupViews(view);
+        this.view = view;
+
         Toolbar toolbar = view.findViewById(org.smartregister.R.id.register_toolbar);
         toolbar.setContentInsetsAbsolute(0, 0);
         toolbar.setContentInsetsRelative(0, 0);
@@ -229,4 +232,14 @@ public class ChildRegisterFragment extends BaseRegisterFragment implements Child
         return (ChildRegisterFragmentContract.Presenter) presenter;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        Toolbar toolbar = view.findViewById(org.smartregister.R.id.register_toolbar);
+        toolbar.setContentInsetsAbsolute(0, 0);
+        toolbar.setContentInsetsRelative(0, 0);
+        toolbar.setContentInsetStartWithNavigation(0);
+        NavigationMenu.getInstance(getActivity(), null, toolbar);
+    }
 }

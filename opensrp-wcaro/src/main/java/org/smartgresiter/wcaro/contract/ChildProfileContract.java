@@ -81,6 +81,8 @@ public interface ChildProfileContract {
 
         void fetchProfileData();
 
+        void updateChildCommonPerson(String baseEntityId);
+
         void refreshProfileView();
 
         void processFormDetailsSave(Intent data, AllSharedPreferences allSharedPreferences);
@@ -105,6 +107,8 @@ public interface ChildProfileContract {
         void refreshFamilyMemberServiceDue(String familyId, String baseEntityId, ChildProfileContract.InteractorCallBack callback);
 
         void onDestroy(boolean isChangingConfiguration);
+
+        void updateChildCommonPerson(String baseEntityId);
 
         void refreshProfileView(String baseEntityId, boolean isForEdit, ChildProfileContract.InteractorCallBack callback);
 
