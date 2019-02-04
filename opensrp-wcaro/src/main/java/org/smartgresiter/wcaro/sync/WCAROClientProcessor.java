@@ -16,6 +16,7 @@ import org.smartregister.commonregistry.AllCommonsRepository;
 import org.smartregister.domain.db.Client;
 import org.smartregister.domain.db.Event;
 import org.smartregister.domain.db.EventClient;
+import org.smartregister.domain.db.Obs;
 import org.smartregister.domain.jsonmapping.ClientClassification;
 import org.smartregister.domain.jsonmapping.ClientField;
 import org.smartregister.domain.jsonmapping.Column;
@@ -105,7 +106,8 @@ public class WCAROClientProcessor extends FamilyClientProcessorForJava {
     }
 
     private void processHomeVisit(EventClient eventClient) {
-
+        List<Obs> observations = eventClient.getEvent().getObs();
+        observations.size();
     }
 
     private Boolean processVaccine(EventClient vaccine, Table vaccineTable, boolean outOfCatchment) throws Exception {

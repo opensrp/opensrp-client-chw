@@ -269,6 +269,42 @@ public class ChildUtils {
         }
     }
 
+    //event type="Child Home Visit"/Visit not done
+    public static void updateHomeVisitAsEvent(String entityId, String eventType, String entityType, JSONObject singleVaccineObject, JSONObject vaccineGroupObject, JSONObject service, String birthCert, JSONObject illnessJson) {
+        try {
+
+            ECSyncHelper syncHelper = FamilyLibrary.getInstance().getEcSyncHelper();
+
+            Event event = (Event) new Event()
+                    .withBaseEntityId(entityId)
+                    .withEventDate(new Date())
+                    .withEventType(eventType)
+                    .withEntityType(entityType)
+                    .withFormSubmissionId(JsonFormUtils.generateRandomUUIDString())
+                    .withDateCreated(new Date());
+
+            event.addObs((new Obs()).withFormSubmissionField("singleVaccine").withValue(singleVaccineObject.toString()).withFieldCode("singleVaccine").withFieldType("formsubmissionField").withFieldDataType("text").withParentCode("").withHumanReadableValues(new ArrayList<Object>()));
+            event.addObs((new Obs()).withFormSubmissionField("groupVaccine").withValue(vaccineGroupObject.toString()).withFieldCode("groupVaccine").withFieldType("formsubmissionField").withFieldDataType("text").withParentCode("").withHumanReadableValues(new ArrayList<Object>()));
+            event.addObs((new Obs()).withFormSubmissionField("service").withValue(service.toString()).withFieldCode("service").withFieldType("formsubmissionField").withFieldDataType("text").withParentCode("").withHumanReadableValues(new ArrayList<Object>()));
+            event.addObs((new Obs()).withFormSubmissionField("birth_certificate").withValue(birthCert).withFieldCode("birth_certificate").withFieldType("formsubmissionField").withFieldDataType("text").withParentCode("").withHumanReadableValues(new ArrayList<Object>()));
+            event.addObs((new Obs()).withFormSubmissionField("illness_information").withValue(illnessJson.toString()).withFieldCode("illness_information").withFieldType("formsubmissionField").withFieldDataType("text").withParentCode("").withHumanReadableValues(new ArrayList<Object>()));
+
+            JsonFormUtils.tagSyncMetadata(WcaroApplication.getInstance().getContext().allSharedPreferences(), event);
+            JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(event));
+            syncHelper.addEvent(entityId, eventJson);
+            long lastSyncTimeStamp = WcaroApplication.getInstance().getContext().allSharedPreferences().fetchLastUpdatedAtDate(0);
+            Date lastSyncDate = new Date(lastSyncTimeStamp);
+            FamilyLibrary.getInstance().getClientProcessorForJava().processClient(syncHelper.getEvents(lastSyncDate, BaseRepository.TYPE_Unsynced));
+            WcaroApplication.getInstance().getContext().allSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
+
+            //update details
+
+
+        } catch (Exception e) {
+            Log.e("Error in adding event", e.getMessage());
+        }
+    }
+
     public static SpannableString daysAway(String dueDate) {
         SpannableString spannableString;
         LocalDate date1 = new LocalDate(dueDate);

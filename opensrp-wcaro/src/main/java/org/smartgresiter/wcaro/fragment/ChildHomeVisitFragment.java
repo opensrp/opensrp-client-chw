@@ -182,7 +182,9 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                         JSONObject singleVaccineObject = new JSONObject().put("singleVaccinesGiven",singleVaccine);
                         JSONObject vaccineGroupObject = new JSONObject().put("groupVaccinesGiven",vaccineGroup);
                         JSONObject service = new JSONObject((new Gson()).toJson(homeVisitGrowthAndNutritionLayout.returnSaveStateMap()));
-                        ChildUtils.addToHomeVisitTable(childClient.getCaseId(),singleVaccineObject,vaccineGroupObject,service,birthCertGiven,illnessJson);
+                        ChildUtils.updateHomeVisitAsEvent(childClient.entityId(), Constants.EventType.CHILD_HOME_VISIT, Constants.TABLE_NAME.CHILD, singleVaccineObject, vaccineGroupObject, service, birthCertGiven, illnessJson);
+
+//                        ChildUtils.addToHomeVisitTable(childClient.getCaseId(),singleVaccineObject,vaccineGroupObject,service,birthCertGiven,illnessJson);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
