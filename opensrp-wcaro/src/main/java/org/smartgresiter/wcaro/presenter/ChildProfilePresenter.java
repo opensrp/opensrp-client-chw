@@ -134,11 +134,11 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
         JSONObject form =interactor.getAutoPopulatedJsonEditFormString(org.smartgresiter.wcaro.util.Constants.JSON_FORM.CHILD_REGISTER, getView().getApplicationContext(), client);
        try{
 
-           if (!isBlank(client.getColumnmaps().get(DBConstants.KEY.RELATIONAL_ID))) {
+           if (!isBlank(client.getColumnmaps().get(ChildDBConstants.KEY.RELATIONAL_ID))) {
                JSONObject metaDataJson = form.getJSONObject("metadata");
                JSONObject lookup = metaDataJson.getJSONObject("look_up");
                lookup.put("entity_id", "family");
-               lookup.put("value", client.getColumnmaps().get(DBConstants.KEY.RELATIONAL_ID));
+               lookup.put("value", client.getColumnmaps().get(ChildDBConstants.KEY.RELATIONAL_ID));
            }
            getView().startFormActivity(form);
        }catch (Exception e){
