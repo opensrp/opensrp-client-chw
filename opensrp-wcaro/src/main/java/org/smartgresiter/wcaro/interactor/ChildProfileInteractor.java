@@ -1,5 +1,6 @@
 package org.smartgresiter.wcaro.interactor;
 
+import android.content.Context;
 import android.database.Cursor;
 import android.support.annotation.VisibleForTesting;
 import android.util.Log;
@@ -8,6 +9,8 @@ import android.util.Pair;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;
 import org.joda.time.DateTime;
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartgresiter.wcaro.contract.ChildProfileContract;
 import org.smartgresiter.wcaro.listener.FamilyMemberImmunizationListener;
@@ -24,6 +27,7 @@ import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
+import org.smartregister.domain.Photo;
 import org.smartregister.domain.UniqueId;
 import org.smartregister.family.FamilyLibrary;
 import org.smartregister.family.util.AppExecutors;
@@ -31,12 +35,16 @@ import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
 import org.smartregister.immunization.db.VaccineRepo;
+import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.repository.UniqueIdRepository;
 import org.smartregister.sync.ClientProcessorForJava;
 import org.smartregister.sync.helper.ECSyncHelper;
 import org.smartregister.util.DateUtil;
+import org.smartregister.util.FormUtils;
+import org.smartregister.util.ImageUtils;
+import org.smartregister.view.LocationPickerView;
 
 import java.util.Date;
 import java.util.LinkedHashMap;
@@ -44,6 +52,7 @@ import java.util.Map;
 
 import static org.smartgresiter.wcaro.util.Constants.IMMUNIZATION_CONSTANT.DATE;
 import static org.smartgresiter.wcaro.util.Constants.IMMUNIZATION_CONSTANT.VACCINE;
+import static org.smartregister.util.JsonFormUtils.getFieldJSONObject;
 import static org.smartregister.util.Utils.startAsyncTask;
 
 public class ChildProfileInteractor implements ChildProfileContract.Interactor {
@@ -114,14 +123,14 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
 
             if (isEditMode) {
                 // Unassign current OPENSRP ID
-                if (baseClient != null) {
-                    String newOpenSRPId = baseClient.getIdentifier(DBConstants.KEY.UNIQUE_ID).replace("-", "");
-                    String currentOpenSRPId = JsonFormUtils.getString(jsonString, JsonFormUtils.CURRENT_OPENSRP_ID).replace("-", "");
-                    if (!newOpenSRPId.equals(currentOpenSRPId)) {
-                        //OPENSRP ID was changed
-                        getUniqueIdRepository().open(currentOpenSRPId);
-                    }
-                }
+//                if (baseClient != null) {
+//                    String newOpenSRPId = baseClient.getIdentifier(DBConstants.KEY.UNIQUE_ID).replace("-", "");
+//                    String currentOpenSRPId = JsonFormUtils.getString(jsonString, JsonFormUtils.CURRENT_OPENSRP_ID).replace("-", "");
+//                    if (!newOpenSRPId.equals(currentOpenSRPId)) {
+//                        //OPENSRP ID was changed
+//                        getUniqueIdRepository().open(currentOpenSRPId);
+//                    }
+//                }
 
             } else {
                 if (baseClient != null) {
@@ -316,26 +325,41 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
     }
 
     @Override
-    public void getNextUniqueId(final Triple<String, String, String> triple, final ChildProfileContract.InteractorCallBack callBack) {
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                UniqueId uniqueId = getUniqueIdRepository().getNextUniqueId();
-                final String entityId = uniqueId != null ? uniqueId.getOpenmrsId() : "";
-                appExecutors.mainThread().execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (StringUtils.isBlank(entityId)) {
-                            callBack.onNoUniqueId();
-                        } else {
-                            callBack.onUniqueIdFetched(triple, entityId);
-                        }
-                    }
-                });
-            }
-        };
+    public JSONObject getAutoPopulatedJsonEditFormString(String formName, Context context, CommonPersonObjectClient client) {
+        try {
+            JSONObject form = FormUtils.getInstance(context).getFormJson(formName);
+            LocationPickerView lpv = new LocationPickerView(context);
+            lpv.init();
+            // JsonFormUtils.addWomanRegisterHierarchyQuestions(form);
+            Log.d(TAG, "Form is " + form.toString());
+            if (form != null) {
+                form.put(org.smartregister.family.util.JsonFormUtils.ENTITY_ID, client.getCaseId());
+                form.put(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_TYPE, Constants.EventType.CHILD_REGISTRATION);
 
-        appExecutors.diskIO().execute(runnable);
+                JSONObject metadata = form.getJSONObject(org.smartregister.family.util.JsonFormUtils.METADATA);
+                String lastLocationId = LocationHelper.getInstance().getOpenMrsLocationId(lpv.getSelectedItem());
+
+                metadata.put(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_LOCATION, lastLocationId);
+
+                form.put(org.smartregister.family.util.JsonFormUtils.CURRENT_OPENSRP_ID, Utils.getValue(client.getColumnmaps(), DBConstants.KEY.UNIQUE_ID, false));
+
+                //inject opensrp id into the form
+                JSONObject stepOne = form.getJSONObject(org.smartregister.family.util.JsonFormUtils.STEP1);
+                JSONArray jsonArray = stepOne.getJSONArray(org.smartregister.family.util.JsonFormUtils.FIELDS);
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+
+                    processPopulatableFields(client, jsonObject,jsonArray);
+
+                }
+
+                return form;
+            }
+        } catch (Exception e) {
+            Log.e(TAG, Log.getStackTraceString(e));
+        }
+
+        return null;
     }
 
     @Override
@@ -355,7 +379,71 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
 
         appExecutors.diskIO().execute(runnable);
     }
+    private void processPopulatableFields(CommonPersonObjectClient client, JSONObject jsonObject,JSONArray jsonArray) throws JSONException {
 
+        switch (jsonObject.getString(org.smartregister.family.util.JsonFormUtils.KEY).toLowerCase()) {
+            case org.smartregister.family.util.Constants.JSON_FORM_KEY.DOB_UNKNOWN:
+                jsonObject.put(org.smartregister.family.util.JsonFormUtils.READ_ONLY, false);
+                JSONObject optionsObject = jsonObject.getJSONArray(org.smartregister.family.util.Constants.JSON_FORM_KEY.OPTIONS).getJSONObject(0);
+                optionsObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), org.smartregister.family.util.Constants.JSON_FORM_KEY.DOB_UNKNOWN, false));
+
+                break;
+            case DBConstants.KEY.DOB:
+
+                String dobString = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.DOB, false);
+                if (StringUtils.isNotBlank(dobString)) {
+                    Date dob = Utils.dobStringToDate(dobString);
+                    if (dob != null) {
+                        jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, org.smartgresiter.wcaro.util.JsonFormUtils.dd_MM_yyyy.format(dob));
+                    }
+                }
+
+                break;
+
+            case org.smartregister.family.util.Constants.KEY.PHOTO:
+
+                Photo photo = ImageUtils.profilePhotoByClientID(client.getCaseId(), Utils.getProfileImageResourceIDentifier());
+                if (StringUtils.isNotBlank(photo.getFilePath())) {
+                    jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, photo.getFilePath());
+                }
+
+                break;
+
+            case DBConstants.KEY.UNIQUE_ID:
+
+                String uniqueId = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.UNIQUE_ID, false);
+                jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, uniqueId.replace("-", ""));
+
+                break;
+
+            case "fam_name":
+
+                String fam_name = Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.FAMILY_FIRST_NAME, false);
+                jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, fam_name);
+                JSONObject jsonObject1 = getFieldJSONObject(jsonArray, "same_as_fam_name");
+                JSONObject optionsObject1 = jsonObject1.getJSONArray(org.smartregister.family.util.Constants.JSON_FORM_KEY.OPTIONS).getJSONObject(0);
+                optionsObject1.put(org.smartregister.family.util.JsonFormUtils.VALUE, true);
+
+                JSONObject jsonObject2 = getFieldJSONObject(jsonArray, "surname");
+                jsonObject2.put(org.smartregister.family.util.JsonFormUtils.VALUE, fam_name);
+
+                break;
+
+            case DBConstants.KEY.GPS:
+
+                jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), DBConstants.KEY.GPS, false));
+
+                break;
+
+            default:
+                jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), jsonObject.getString(org.smartregister.family.util.JsonFormUtils.KEY), false));
+
+                //Log.e(TAG, "ERROR:: Unprocessed Form Object Key " + jsonObject.getString(org.smartregister.family.util.JsonFormUtils.KEY));
+
+                break;
+
+        }
+    }
     @Override
     public void onDestroy(boolean isChangingConfiguration) {
 
