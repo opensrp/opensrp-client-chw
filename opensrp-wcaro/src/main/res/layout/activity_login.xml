@@ -44,8 +44,9 @@
                 android:layout_marginBottom="5dp"
                 android:gravity="center_horizontal"
                 android:text="@string/login_title"
-                android:textColor="#5E5C5C"
+                android:textColor="#272727"
                 android:textSize="@dimen/login_title_text_size"
+                android:textStyle="bold"
                 android:typeface="sans" />
 
             <TextView
@@ -55,7 +56,7 @@
                 android:layout_marginBottom="5dp"
                 android:gravity="center_horizontal"
                 android:text="@string/app_version"
-                android:textColor="#B4B1B1"
+                android:textColor="#999999"
                 android:textSize="@dimen/login_build_text_view_textSize" />
 
         </LinearLayout>
@@ -141,7 +142,7 @@
             <Button
                 android:id="@+id/login_login_btn"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/login_view_component_height"
+                android:layout_height="55dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="20dp"
                 android:layout_weight="8"
