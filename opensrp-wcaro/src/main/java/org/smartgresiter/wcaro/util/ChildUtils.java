@@ -294,7 +294,7 @@ public class ChildUtils {
             syncHelper.addEvent(entityId, eventJson);
             long lastSyncTimeStamp = WcaroApplication.getInstance().getContext().allSharedPreferences().fetchLastUpdatedAtDate(0);
             Date lastSyncDate = new Date(lastSyncTimeStamp);
-            FamilyLibrary.getInstance().getClientProcessorForJava().processClient(syncHelper.getEvents(lastSyncDate, BaseRepository.TYPE_Unsynced));
+            WcaroApplication.getClientProcessor(WcaroApplication.getInstance().getContext().applicationContext()).processClient(syncHelper.getEvents(lastSyncDate, BaseRepository.TYPE_Unsynced));
             WcaroApplication.getInstance().getContext().allSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
 
             //update details
@@ -323,6 +323,33 @@ public class ChildUtils {
         }
     }
 
+    public static void addToHomeVisitTable(String baseEntityID,List<org.smartregister.domain.db.Obs> observations ) {
+        HomeVisit newHomeVisit = new HomeVisit(null,baseEntityID, HomeVisitRepository.EVENT_TYPE,new Date(),"","","",0l,"","",new Date());
+        try {
+            for (org.smartregister.domain.db.Obs obs : observations) {
+                if (obs.getFormSubmissionField().equalsIgnoreCase("singleVaccine")) {
+                    newHomeVisit.setSingleVaccinesGiven(new JSONObject((String) obs.getValue()));
+                }
+                if (obs.getFormSubmissionField().equalsIgnoreCase("groupVaccine")) {
+                    newHomeVisit.setVaccineGroupsGiven(new JSONObject((String) obs.getValue()));
+                }
+                if (obs.getFormSubmissionField().equalsIgnoreCase("service")) {
+                    newHomeVisit.setServicesGiven(new JSONObject((String) obs.getValue()));
+                }
+                if (obs.getFormSubmissionField().equalsIgnoreCase("birth_certificate")) {
+                    newHomeVisit.setBirthCertificationState((String)obs.getValue());
+                }
+                if (obs.getFormSubmissionField().equalsIgnoreCase("illness_information")) {
+                    newHomeVisit.setIllness_information(new JSONObject((String) obs.getValue()));
+                }
+            }
+        }catch (Exception e){
+
+        }
+        newHomeVisit.setFormfields(new HashMap<String, String>());
+        WcaroApplication.homeVisitRepository().add(newHomeVisit);
+    }
+
     public static void addToHomeVisitTable(String baseEntityID, JSONObject singleVaccineObject, JSONObject vaccineGroupObject, JSONObject service, String birthCert, JSONObject illnessJson) {
         HomeVisit newHomeVisit = new HomeVisit(null,baseEntityID, HomeVisitRepository.EVENT_TYPE,new Date(),"","","",0l,"","",new Date());
         newHomeVisit.setSingleVaccinesGiven(singleVaccineObject);
@@ -335,4 +362,6 @@ public class ChildUtils {
         newHomeVisit.setFormfields(new HashMap<String, String>());
         WcaroApplication.homeVisitRepository().add(newHomeVisit);
     }
+
+
 }

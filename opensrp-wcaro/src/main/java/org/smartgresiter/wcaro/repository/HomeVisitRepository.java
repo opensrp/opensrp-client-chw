@@ -32,6 +32,7 @@ import java.util.Map;
 
 public class HomeVisitRepository extends BaseRepository {
     public static final String EVENT_TYPE = "Child Home Visit";
+    public static final String NOT_DONE_EVENT_TYPE = "Visit not done";
     public static DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     private static final String TAG = HomeVisitRepository.class.getCanonicalName();

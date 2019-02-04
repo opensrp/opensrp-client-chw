@@ -46,6 +46,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import static org.smartgresiter.wcaro.util.ChildUtils.addToHomeVisitTable;
 
 
 public class WCAROClientProcessor extends FamilyClientProcessorForJava {
@@ -94,7 +95,7 @@ public class WCAROClientProcessor extends FamilyClientProcessorForJava {
                         continue;
                     }
                     processService(eventClient, serviceTable);
-                }  else if (eventType.equals(HomeVisitRepository.EVENT_TYPE)) {
+                }  else if (eventType.equals(HomeVisitRepository.EVENT_TYPE)||eventType.equals(HomeVisitRepository.NOT_DONE_EVENT_TYPE)) {
                     if (serviceTable == null) {
                         continue;
                     }
@@ -107,7 +108,7 @@ public class WCAROClientProcessor extends FamilyClientProcessorForJava {
 
     private void processHomeVisit(EventClient eventClient) {
         List<Obs> observations = eventClient.getEvent().getObs();
-        observations.size();
+        addToHomeVisitTable(eventClient.getEvent().getBaseEntityId(),observations);
     }
 
     private Boolean processVaccine(EventClient vaccine, Table vaccineTable, boolean outOfCatchment) throws Exception {
