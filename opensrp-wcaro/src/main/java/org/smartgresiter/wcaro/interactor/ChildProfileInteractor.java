@@ -10,6 +10,7 @@ import org.apache.commons.lang3.tuple.Triple;
 import org.joda.time.DateTime;
 import org.json.JSONObject;
 import org.smartgresiter.wcaro.contract.ChildProfileContract;
+import org.smartgresiter.wcaro.fragment.ChildHomeVisitFragment;
 import org.smartgresiter.wcaro.listener.FamilyMemberImmunizationListener;
 import org.smartgresiter.wcaro.task.FamilyMemberVaccinationAsyncTask;
 import org.smartgresiter.wcaro.util.ChildDBConstants;
@@ -148,7 +149,9 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
 
     @Override
     public void updateVisitNotDone(long value) {
-        ChildUtils.updateClientStatusAsEvent(getpClient().entityId(), Constants.EventType.CHILD_VISIT_NOT_DONE, ChildDBConstants.KEY.VISIT_NOT_DONE, value + "", Constants.TABLE_NAME.CHILD);
+        ChildUtils.updateHomeVisitAsEvent(getpClient().entityId(), Constants.EventType.CHILD_VISIT_NOT_DONE, Constants.TABLE_NAME.CHILD, new JSONObject(), new JSONObject(), new JSONObject(), ChildHomeVisitFragment.BIRTH_CERT_TYPE.NOT_GIVEN.name(), new JSONObject(),ChildDBConstants.KEY.VISIT_NOT_DONE,value+"");
+
+//        ChildUtils.updateClientStatusAsEvent(getpClient().entityId(), Constants.EventType.CHILD_VISIT_NOT_DONE, ChildDBConstants.KEY.VISIT_NOT_DONE, value + "", Constants.TABLE_NAME.CHILD);
     }
 
     @Override
