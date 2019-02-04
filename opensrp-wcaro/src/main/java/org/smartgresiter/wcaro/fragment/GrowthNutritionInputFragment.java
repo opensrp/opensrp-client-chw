@@ -36,21 +36,22 @@ import java.util.Calendar;
 
 public class GrowthNutritionInputFragment extends DialogFragment implements RadioGroup.OnCheckedChangeListener, View.OnClickListener {
 
-    public static GrowthNutritionInputFragment getInstance(String title, String type, ServiceWrapper serviceWrapper,
+    public static GrowthNutritionInputFragment getInstance(String title,String question, String type, ServiceWrapper serviceWrapper,
                                                            CommonPersonObjectClient commonPersonObjectClient) {
         GrowthNutritionInputFragment growthNutritionInputFragment = new GrowthNutritionInputFragment();
         Bundle bundle = new Bundle();
         bundle.putString(Constants.INTENT_KEY.GROWTH_IMMUNIZATION_TYPE, type);
         bundle.putSerializable(Constants.INTENT_KEY.GROWTH_SERVICE_WRAPPER, serviceWrapper);
         bundle.putString(Constants.INTENT_KEY.GROWTH_TITLE, title);
+        bundle.putString(Constants.INTENT_KEY.GROWTH_QUESTION, question);
         bundle.putSerializable(Constants.INTENT_KEY.CHILD_COMMON_PERSON, commonPersonObjectClient);
         growthNutritionInputFragment.setArguments(bundle);
         return growthNutritionInputFragment;
     }
 
     private TextView textViewTitle;
-    private Button buttonSave;
-    private String type, title;
+    private Button buttonSave,buttonCancel;
+    private String type;
     private LinearLayout layoutExclusiveFeeding, layoutVitaminBar;
     private TextView textViewVitamin;
     private DatePicker datePicker;
@@ -90,6 +91,7 @@ public class GrowthNutritionInputFragment extends DialogFragment implements Radi
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         textViewTitle = view.findViewById(R.id.textview_vaccine_title);
         buttonSave = view.findViewById(R.id.save_btn);
+        buttonCancel= view.findViewById(R.id.cancel);
         layoutExclusiveFeeding = view.findViewById(R.id.exclusive_feeding_bar);
         layoutVitaminBar = view.findViewById(R.id.vitamin_a_bar);
         textViewVitamin = view.findViewById(R.id.textview_vitamin);
@@ -97,6 +99,7 @@ public class GrowthNutritionInputFragment extends DialogFragment implements Radi
         DatePickerUtils.themeDatePicker(datePicker, new char[]{'d', 'm', 'y'});
         (view.findViewById(R.id.close)).setOnClickListener(this);
         buttonSave.setOnClickListener(this);
+        buttonCancel.setOnClickListener(this);
         ((RadioGroup) view.findViewById(R.id.radio_group_exclusive)).setOnCheckedChangeListener(this);
         parseBundleAndSetData();
 
@@ -116,13 +119,14 @@ public class GrowthNutritionInputFragment extends DialogFragment implements Radi
 
     private void parseBundleAndSetData() {
         type = getArguments().getString(Constants.INTENT_KEY.GROWTH_IMMUNIZATION_TYPE, GROWTH_TYPE.EXCLUSIVE.name());
-        title = getArguments().getString(Constants.INTENT_KEY.GROWTH_TITLE, getString(R.string.growth_and_nutrition));
-        title = StringUtils.capitalize(title);
+        String title = getArguments().getString(Constants.INTENT_KEY.GROWTH_TITLE, getString(R.string.growth_and_nutrition));
+        String question = getArguments().getString(Constants.INTENT_KEY.GROWTH_QUESTION, getString(R.string.growth_and_nutrition));
+        question = StringUtils.capitalize(question);
         textViewTitle.setText(title);
         if (type.equalsIgnoreCase(GROWTH_TYPE.EXCLUSIVE.getValue())) {
             visibleExclusiveBar();
         } else {
-            textViewVitamin.setText(getString(R.string.vitamin_given, title));
+            textViewVitamin.setText(getString(R.string.vitamin_given, question));
             visibleVitaminBar();
         }
         serviceWrapper = (ServiceWrapper) getArguments().getSerializable(Constants.INTENT_KEY.GROWTH_SERVICE_WRAPPER);
@@ -133,13 +137,14 @@ public class GrowthNutritionInputFragment extends DialogFragment implements Radi
     private void visibleExclusiveBar() {
         layoutExclusiveFeeding.setVisibility(View.VISIBLE);
         layoutVitaminBar.setVisibility(View.GONE);
+        buttonCancel.setVisibility(View.GONE);
         saveButtonDisable(true);
     }
 
     private void visibleVitaminBar() {
         layoutExclusiveFeeding.setVisibility(View.GONE);
         layoutVitaminBar.setVisibility(View.VISIBLE);
-
+        buttonCancel.setVisibility(View.VISIBLE);
         saveButtonDisable(false);
     }
 
@@ -208,6 +213,7 @@ public class GrowthNutritionInputFragment extends DialogFragment implements Radi
 
                 break;
             case R.id.close:
+            case R.id.cancel:
                 if (context instanceof HomeVisitGrowthAndNutrition && serviceWrapper != null) {
                     HomeVisitGrowthAndNutrition homeVisitGrowthAndNutrition = (HomeVisitGrowthAndNutrition) context;
                     homeVisitGrowthAndNutrition.notVisitSetState(type, serviceWrapper);

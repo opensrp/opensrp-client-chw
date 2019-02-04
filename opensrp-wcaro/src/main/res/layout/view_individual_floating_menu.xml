@@ -98,7 +98,7 @@
                 android:layout_alignParentRight="true"
                 app:backgroundTint="@color/white"
                 app:fabSize="mini"
-                app:srcCompat="@drawable/floating_familydetails" />
+                app:srcCompat="@drawable/floating_registrationinfo" />
 
         </RelativeLayout>
 
@@ -120,20 +120,20 @@
                 android:padding="10dp"
                 android:gravity="center"
                 android:layout_toLeftOf="@+id/add_member_fab"
-                android:text="Remove this member"
+                android:text="Remove this person"
                 android:minWidth="50dp"
                 android:background="@color/white"
                 android:textColor="@android:color/black" />
 
 
             <android.support.design.widget.FloatingActionButton
-                android:id="@+id/add_member_fab"
+                android:id="@+id/remove_member_fab"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 app:backgroundTint="@color/white"
                 app:fabSize="mini"
-                app:srcCompat="@drawable/floating_addmember" />
+                app:srcCompat="@drawable/floating_removemember" />
 
         </RelativeLayout>
 

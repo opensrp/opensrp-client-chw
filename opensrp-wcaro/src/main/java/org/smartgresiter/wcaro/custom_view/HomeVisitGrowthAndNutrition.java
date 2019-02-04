@@ -93,7 +93,7 @@ public class HomeVisitGrowthAndNutrition extends LinearLayout implements View.On
             case R.id.exclusive_feeding_bar:
                 if (!presenter.isSelected(GrowthNutritionInputFragment.GROWTH_TYPE.EXCLUSIVE.getValue())) {
                     ServiceWrapper serviceWrapper = ((HomeVisitGrowthNutritionPresenter) presenter).getServiceWrapperExclusive();
-                    showGrowthNutritionDialog(GrowthNutritionInputFragment.GROWTH_TYPE.EXCLUSIVE.getValue(),
+                    showGrowthNutritionDialog(GrowthNutritionInputFragment.GROWTH_TYPE.EXCLUSIVE.getValue(),"Exclusive breastfeeding",
                             textViewExclusiveFeedingName.getText().toString(), serviceWrapper);
                 }
 
@@ -102,29 +102,29 @@ public class HomeVisitGrowthAndNutrition extends LinearLayout implements View.On
                 if (!presenter.isSelected(GrowthNutritionInputFragment.GROWTH_TYPE.MNP.getValue())) {
 
                     ServiceWrapper serviceWrapperMnp = ((HomeVisitGrowthNutritionPresenter) presenter).getServiceWrapperMnp();
-                    showGrowthNutritionDialog(GrowthNutritionInputFragment.GROWTH_TYPE.MNP.getValue(),
+                    showGrowthNutritionDialog(GrowthNutritionInputFragment.GROWTH_TYPE.MNP.getValue(),"Record MNP dose",
                             textViewMnpName.getText().toString(), serviceWrapperMnp);
                 }
                 break;
             case R.id.vitamin_a_bar:
                 if (!presenter.isSelected(GrowthNutritionInputFragment.GROWTH_TYPE.VITAMIN.getValue())) {
                     ServiceWrapper serviceWrapperVit = ((HomeVisitGrowthNutritionPresenter) presenter).getServiceWrapperVitamin();
-                    showGrowthNutritionDialog(GrowthNutritionInputFragment.GROWTH_TYPE.VITAMIN.getValue(),
+                    showGrowthNutritionDialog(GrowthNutritionInputFragment.GROWTH_TYPE.VITAMIN.getValue(),"Record Vitamin A dose",
                             textViewVitaminName.getText().toString(), serviceWrapperVit);
                 }
                 break;
             case R.id.deworming_bar:
                 if (!presenter.isSelected(GrowthNutritionInputFragment.GROWTH_TYPE.DEWORMING.getValue())) {
                     ServiceWrapper serviceWrapperDorm = ((HomeVisitGrowthNutritionPresenter) presenter).getServiceWrapperDeworming();
-                    showGrowthNutritionDialog(GrowthNutritionInputFragment.GROWTH_TYPE.DEWORMING.getValue(),
+                    showGrowthNutritionDialog(GrowthNutritionInputFragment.GROWTH_TYPE.DEWORMING.getValue(),"Record Deworming dose",
                             textViewDewormingName.getText().toString(), serviceWrapperDorm);
                 }
                 break;
         }
     }
 
-    private void showGrowthNutritionDialog(String type, String title, ServiceWrapper serviceWrapper) {
-        GrowthNutritionInputFragment growthNutritionInputFragment = GrowthNutritionInputFragment.getInstance(title, type, serviceWrapper, commonPersonObjectClient);
+    private void showGrowthNutritionDialog(String type, String title,String question, ServiceWrapper serviceWrapper) {
+        GrowthNutritionInputFragment growthNutritionInputFragment = GrowthNutritionInputFragment.getInstance(title,question, type, serviceWrapper, commonPersonObjectClient);
         growthNutritionInputFragment.setContext(HomeVisitGrowthAndNutrition.this);
         growthNutritionInputFragment.show(fragmentManager, TAG);
     }

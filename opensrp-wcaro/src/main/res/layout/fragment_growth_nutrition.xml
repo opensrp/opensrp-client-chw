@@ -48,6 +48,8 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:gravity="center_vertical"
+            android:textColor="@color/text_black"
+            android:textSize="@dimen/register_list_desc_size"
             android:text="@string/exclusive_feeding"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
@@ -61,12 +63,16 @@
                 android:id="@+id/yes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/text_black"
+                android:textSize="@dimen/register_list_desc_size"
                 android:text="Yes" />
 
             <RadioButton
                 android:id="@+id/no"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/text_black"
+                android:textSize="@dimen/register_list_desc_size"
                 android:text="No" />
         </RadioGroup>
     </LinearLayout>
@@ -83,25 +89,33 @@
         <org.smartregister.view.customcontrols.CustomFontTextView
             android:id="@+id/textview_vitamin"
             style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
             android:layout_gravity="center_horizontal"
-            android:gravity="center_horizontal"
-            android:text="@string/vitamin_given"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+            android:layout_marginLeft="@dimen/btn_margin_left"
+            android:layout_marginTop="@dimen/vaccine_text_top_margin"
+            android:layout_marginRight="@dimen/btn_margin_right"
+            android:layout_marginBottom="@dimen/btn_margin_bottom"
+            android:paddingLeft="0dp"
+            android:textColor="@color/text_black"
+            android:textSize="@dimen/register_list_desc_size" />
 
         <DatePicker
             android:id="@+id/earlier_date_picker"
-            android:layout_width="match_parent"
+            style="@android:style/Widget.DatePicker"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:calendarViewShown="false"
-            android:layout_gravity="center_horizontal"
-            android:padding="10dp"
+            android:layout_marginLeft="@dimen/btn_margin_left"
             android:descendantFocusability="blocksDescendants"
-            android:visibility="visible" />
+            android:gravity="left" />
     </LinearLayout>
+    <View
 
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_above="@+id/save_btn"
+        android:background="@color/light_grey" />
     <Button
         android:id="@+id/save_btn"
         style="?android:attr/borderlessButtonStyle"
@@ -115,10 +129,28 @@
         android:paddingTop="@dimen/btn_padding_top"
         android:paddingBottom="@dimen/btn_padding_bottom"
         android:text="Save"
-        android:layout_alignParentBottom="true"
+        android:layout_above="@+id/cancel"
         android:textAllCaps="true"
         android:textAppearance="?android:textAppearanceSmall"
+        android:layout_alignWithParentIfMissing="true"
         android:textColor="@color/white"
+        android:textSize="@dimen/btn_text_size" />
+    <Button
+        android:id="@+id/cancel"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/btn_margin_left"
+        android:layout_marginRight="@dimen/btn_margin_right"
+        android:layout_weight="1"
+        android:background="@drawable/vaccination_earlier_bg"
+        android:paddingBottom="@dimen/btn_padding_bottom"
+        android:paddingTop="@dimen/btn_padding_top"
+        android:text="DOSE NOT GIVEN"
+        android:textAllCaps="false"
+        android:textAppearance="?android:textAppearanceSmall"
+        android:textColor="@color/client_list_grey"
         android:textSize="@dimen/btn_text_size" />
 
 </RelativeLayout>
