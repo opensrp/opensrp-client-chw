@@ -5,14 +5,18 @@ import android.util.Log;
 import android.util.Pair;
 
 import org.apache.commons.lang3.tuple.Triple;
+import org.json.JSONObject;
+import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.contract.ChildProfileContract;
 import org.smartgresiter.wcaro.interactor.ChildProfileInteractor;
+import org.smartgresiter.wcaro.model.ChildRegisterModel;
 import org.smartgresiter.wcaro.util.ChildDBConstants;
 import org.smartgresiter.wcaro.util.ChildService;
 import org.smartgresiter.wcaro.util.ChildVisit;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
+import org.smartregister.domain.FetchStatus;
 import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.Utils;
@@ -109,24 +113,10 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
     }
 
     @Override
-    public void refreshProfileView() {
-        interactor.refreshProfileView(childBaseEntityId, false, this);
-    }
-
-    @Override
     public void updateVisitNotDone(long value) {
         interactor.updateVisitNotDone(value);
     }
 
-    @Override
-    public void processFormDetailsSave(Intent data, AllSharedPreferences allSharedPreferences) {
-        try {
-            String jsonString = data.getStringExtra(Constants.INTENT_KEY.JSON);
-            Log.d("JSONResult", jsonString);
-        } catch (Exception e) {
-            Log.e(TAG, Log.getStackTraceString(e));
-        }
-    }
 
     @Override
     public ChildProfileContract.View getView() {
@@ -138,18 +128,25 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
     }
 
     @Override
-    public void startForm(String formName, String entityId, String metadata, String currentLocationId) throws Exception {
-
-    }
-
-    @Override
-    public String childBaseEntityId() {
-        return null;
-    }
-
-    @Override
     public void startFormForEdit(CommonPersonObjectClient client) {
+        JSONObject form =interactor.getAutoPopulatedJsonEditFormString(org.smartgresiter.wcaro.util.Constants.JSON_FORM.CHILD_REGISTER, getView().getApplicationContext(), client);
+       // try {
+            getView().startFormActivity(form);
+//        } catch (Exception e) {
+//            Log.e("TAG", e.getMessage());
+//        }
+    }
 
+    @Override
+    public void updateChildProfile(String jsonString) {
+        getView().showProgressDialog(R.string.updating);
+        ChildRegisterModel model=new ChildRegisterModel();
+        Pair<Client, Event> pair = model.processRegistration(jsonString);
+        if (pair == null) {
+            return;
+        }
+
+        interactor.saveRegistration(pair, jsonString, true, this);
     }
 
     @Override
@@ -250,12 +247,12 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
 
     @Override
     public void onRegistrationSaved(boolean isEditMode) {
+        if(isEditMode){
+            getView().hideProgressDialog();
+            getView().refreshProfile(FetchStatus.fetched);
+        }
 
-    }
 
-    @Override
-    public void saveRegistration(Pair<Client, Event> pair, String jsonString, boolean isEditMode, ChildProfileContract.InteractorCallBack callBack) {
-        interactor.saveRegistration(pair, jsonString, isEditMode, callBack);
     }
 
     @Override

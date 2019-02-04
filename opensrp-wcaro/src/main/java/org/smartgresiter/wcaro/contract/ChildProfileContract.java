@@ -25,7 +25,7 @@ public interface ChildProfileContract {
 
         void startFormActivity(JSONObject form);
 
-        void refreshMemberList(final FetchStatus fetchStatus);
+        void refreshProfile(final FetchStatus fetchStatus);
 
         void displayShortToast(int resourceId);
 
@@ -75,25 +75,17 @@ public interface ChildProfileContract {
 
     interface Presenter extends BaseProfileContract.Presenter {
 
-        ChildProfileContract.View getView();
+        void updateChildProfile(String jsonObject);
 
-        void startForm(String formName, String entityId, String metadata, String currentLocationId) throws Exception;
+        ChildProfileContract.View getView();
 
         void fetchProfileData();
 
-        void refreshProfileView();
-
-        void processFormDetailsSave(Intent data, AllSharedPreferences allSharedPreferences);
-
         void updateVisitNotDone(long value);
-
-        String childBaseEntityId();
 
         void fetchVisitStatus(String baseEntityId);
 
         void fetchFamilyMemberServiceDue(String baseEntityId);
-
-        void saveRegistration(final Pair<Client, Event> pair, final String jsonString, final boolean isEditMode, final ChildProfileContract.InteractorCallBack callBack);
 
     }
 
@@ -108,10 +100,9 @@ public interface ChildProfileContract {
 
         void refreshProfileView(String baseEntityId, boolean isForEdit, ChildProfileContract.InteractorCallBack callback);
 
-        void getNextUniqueId(Triple<String, String, String> triple, ChildProfileContract.InteractorCallBack callBack);
-
         void saveRegistration(final Pair<Client, Event> pair, final String jsonString, final boolean isEditMode, final ChildProfileContract.InteractorCallBack callBack);
 
+        JSONObject getAutoPopulatedJsonEditFormString(String formName,Context context,CommonPersonObjectClient client);
     }
 
     interface InteractorCallBack {
@@ -143,8 +134,6 @@ public interface ChildProfileContract {
     interface Model {
 
         JSONObject getFormAsJson(String formName, String entityId, String currentLocationId, String familyID) throws Exception;
-
-        Pair<Client, Event> processMemberRegistration(String jsonString, String familyBaseEntityId);
 
     }
 

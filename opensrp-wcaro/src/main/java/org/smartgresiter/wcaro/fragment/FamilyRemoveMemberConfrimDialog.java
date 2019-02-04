@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -89,5 +90,30 @@ public class FamilyRemoveMemberConfrimDialog extends DialogFragment implements V
                 default:
                     break;
         }
+    }
+
+    /**
+     * handle backpress from dialog.it'll finish childremoveactivity when back press
+     */
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(getView()==null) return;
+        getView().setFocusableInTouchMode(true);
+        getView().requestFocus();
+        getView().setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK){
+                    if(onRemoveActivity != null){
+                        onRemoveActivity.run();
+                    }
+                    dismiss();
+                return true;
+            }
+                return false;
+            }
+        });
     }
 }
