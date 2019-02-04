@@ -26,6 +26,8 @@ import java.lang.ref.WeakReference;
 import java.util.Date;
 import java.util.Map;
 
+import static org.apache.commons.lang3.StringUtils.isBlank;
+
 public class ChildProfilePresenter implements ChildProfileContract.Presenter, ChildProfileContract.InteractorCallBack {
 
     private static final String TAG = ChildProfilePresenter.class.getCanonicalName();
@@ -130,8 +132,19 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
     @Override
     public void startFormForEdit(CommonPersonObjectClient client) {
         JSONObject form =interactor.getAutoPopulatedJsonEditFormString(org.smartgresiter.wcaro.util.Constants.JSON_FORM.CHILD_REGISTER, getView().getApplicationContext(), client);
-       // try {
-            getView().startFormActivity(form);
+       try{
+
+           if (!isBlank(client.getColumnmaps().get(DBConstants.KEY.RELATIONAL_ID))) {
+               JSONObject metaDataJson = form.getJSONObject("metadata");
+               JSONObject lookup = metaDataJson.getJSONObject("look_up");
+               lookup.put("entity_id", "family");
+               lookup.put("value", client.getColumnmaps().get(DBConstants.KEY.RELATIONAL_ID));
+           }
+           getView().startFormActivity(form);
+       }catch (Exception e){
+
+       }
+
 //        } catch (Exception e) {
 //            Log.e("TAG", e.getMessage());
 //        }
