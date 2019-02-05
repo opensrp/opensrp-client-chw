@@ -114,4 +114,7 @@
     <string name="year">year</string>
     <string name="years">years</string>
 
+    <string name="family">%s Family</string>
+    <string name="remove_entire_family">Removing entire family</string>
+    <string name="remove_warning_family">Are you sure you want to remove the %s Family\'s record? This will remove the family\'s entire record AND all of the %s family members\' health records from your device. This action cannot be undone.</string>
 </resources>

@@ -125,6 +125,9 @@ public class WcaroApplication extends DrishtiApplication {
         SyncStatusBroadcastReceiver.init(this);
         LocationHelper.init(Utils.ALLOWED_LEVELS, Utils.CHA);
 
+        // set up processor
+        FamilyLibrary.getInstance().setClientProcessorForJava(WCAROClientProcessor.getInstance(getApplicationContext()));
+
         // init json helper
         this.jsonSpecHelper = new JsonSpecHelper(this);
 

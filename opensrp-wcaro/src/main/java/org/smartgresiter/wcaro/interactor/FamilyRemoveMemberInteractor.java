@@ -24,7 +24,10 @@ import org.smartregister.family.FamilyLibrary;
 import org.smartregister.family.util.AppExecutors;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.Utils;
+import org.smartregister.repository.AllSharedPreferences;
+import org.smartregister.repository.BaseRepository;
 import org.smartregister.repository.EventClientRepository;
+import org.smartregister.sync.ClientProcessorForJava;
 import org.smartregister.sync.helper.ECSyncHelper;
 
 import java.text.SimpleDateFormat;
@@ -256,6 +259,7 @@ public class FamilyRemoveMemberInteractor implements FamilyRemoveMemberContract.
 
     private String removeUser(String familyID, JSONObject closeFormJsonString, String providerId) throws Exception {
 
+        String res = null;
         Triple<Pair<Date, String>, String, List<Event>> triple = JsonFormUtils.processRemoveMemberEvent(familyID, Utils.getAllSharedPreferences(), closeFormJsonString, providerId);
         if (triple != null) {
             if (triple.getLeft() != null) {
@@ -271,10 +275,15 @@ public class FamilyRemoveMemberInteractor implements FamilyRemoveMemberContract.
                 } else {
                     updateRepo(triple, Utils.metadata().familyMemberRegister.tableName);
                 }
-                return triple.getLeft().second;
+                res = triple.getLeft().second;
             }
         }
-        return null;
+
+        long lastSyncTimeStamp = getAllSharedPreferences().fetchLastUpdatedAtDate(0);
+        Date lastSyncDate = new Date(lastSyncTimeStamp);
+        getClientProcessorForJava().processClient(getSyncHelper().getEvents(lastSyncDate, BaseRepository.TYPE_Unsynced));
+        getAllSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
+        return res;
     }
 
     private void updateRepo(Triple<Pair<Date, String>, String, List<Event>> triple, String tableName) {
@@ -285,6 +294,7 @@ public class FamilyRemoveMemberInteractor implements FamilyRemoveMemberContract.
             values.put(DBConstants.KEY.DATE_REMOVED, getDBFormatedDate(new Date()));
             commonsRepository.update(tableName, values, triple.getMiddle());
             commonsRepository.updateSearch(triple.getMiddle());
+            commonsRepository.close(triple.getMiddle());
         }
 
         // enter the date of death
@@ -305,5 +315,17 @@ public class FamilyRemoveMemberInteractor implements FamilyRemoveMemberContract.
 
     private String getDBFormatedDate(Date date) {
         return new SimpleDateFormat("yyyy-MM-dd").format(date);
+    }
+
+    public AllSharedPreferences getAllSharedPreferences() {
+        return Utils.context().allSharedPreferences();
+    }
+
+    public ECSyncHelper getSyncHelper() {
+        return FamilyLibrary.getInstance().getEcSyncHelper();
+    }
+
+    public ClientProcessorForJava getClientProcessorForJava() {
+        return FamilyLibrary.getInstance().getClientProcessorForJava();
     }
 }
