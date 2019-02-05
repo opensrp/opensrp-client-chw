@@ -83,10 +83,8 @@ public class WCAROClientProcessor extends FamilyClientProcessorForJava {
                     }
                     processService(eventClient, serviceTable);
                 } else if (eventType.equals(HomeVisitRepository.EVENT_TYPE) || eventType.equals(HomeVisitRepository.NOT_DONE_EVENT_TYPE)) {
-                    if (serviceTable == null) {
-                        continue;
-                    }
                     processHomeVisit(eventClient);
+                    processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
                 }
             }
         }
