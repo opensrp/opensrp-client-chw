@@ -34,11 +34,6 @@ public class ChildProfileModel implements ChildProfileContract.Model {
         return form;
     }
 
-    @Override
-    public Pair<Client, Event> processMemberRegistration(String jsonString, String familyBaseEntityId) {
-        return null;
-    }
-
 
     private FormUtils getFormUtils() {
 

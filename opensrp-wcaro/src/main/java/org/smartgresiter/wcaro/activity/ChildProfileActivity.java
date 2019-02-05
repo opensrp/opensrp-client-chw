@@ -1,5 +1,6 @@
 package org.smartgresiter.wcaro.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
@@ -16,6 +17,9 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.vijay.jsonwizard.constants.JsonFormConstants;
+import com.vijay.jsonwizard.domain.Form;
+
 import org.apache.commons.lang3.tuple.Triple;
 import org.json.JSONObject;
 import org.opensrp.api.constants.Gender;
@@ -31,6 +35,8 @@ import org.smartgresiter.wcaro.presenter.ChildProfilePresenter;
 import org.smartgresiter.wcaro.util.ChildUtils;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.family.util.Constants;
+import org.smartregister.family.util.JsonFormUtils;
+import org.smartregister.family.util.Utils;
 import org.smartregister.helper.ImageRenderHelper;
 import org.smartregister.view.activity.BaseProfileActivity;
 
@@ -65,8 +71,14 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
                     FamilyCallDialogFragment.launchDialog(ChildProfileActivity.this, ((ChildProfilePresenter) presenter).getFamilyId());
                     break;
                 case R.id.registration_layout:
+                    ((ChildProfilePresenter) presenter()).startFormForEdit(((ChildProfilePresenter) presenter()).getChildClient());
                     break;
                 case R.id.remove_member_layout:
+
+                    Intent frm_intent = new Intent(ChildProfileActivity.this, ChildRemoveActivity.class);
+                    frm_intent.putExtra(org.smartgresiter.wcaro.util.Constants.INTENT_KEY.CHILD_COMMON_PERSON,((ChildProfilePresenter) presenter()).getChildClient());
+                    startActivityForResult(frm_intent, org.smartgresiter.wcaro.util.Constants.ProfileActivityResults.CHANGE_COMPLETED);
+
                     break;
             }
 
@@ -404,12 +416,31 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     }
 
     @Override
-    public void startFormActivity(JSONObject form) {
+    public void startFormActivity(JSONObject jsonForm) {
 
+        Intent intent = new Intent(this, Utils.metadata().familyMemberFormActivity);
+        intent.putExtra(Constants.JSON_FORM_EXTRA.JSON, jsonForm.toString());
+
+
+        Form form = new Form();
+        form.setActionBarBackground(R.color.family_actionbar);
+        form.setWizard(false);
+        intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);
+
+
+        startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
     }
 
     @Override
-    public void refreshMemberList(FetchStatus fetchStatus) {
+    public void refreshProfile(FetchStatus fetchStatus) {
+        if(fetchStatus.equals(FetchStatus.fetched)){
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    presenter().fetchProfileData();
+                }
+            },100);
+        }
 
     }
 
@@ -515,4 +546,33 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
         super.onDestroy();
         handler.removeCallbacksAndMessages(null);
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case org.smartgresiter.wcaro.util.Constants.ProfileActivityResults.CHANGE_COMPLETED:
+                if (resultCode == Activity.RESULT_OK) {
+                    finish();
+                }
+                break;
+            case JsonFormUtils.REQUEST_CODE_GET_JSON:
+                if(resultCode == RESULT_OK){
+                    try {
+                        String jsonString = data.getStringExtra(Constants.JSON_FORM_EXTRA.JSON);
+
+                        JSONObject form = new JSONObject(jsonString);
+                        if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(org.smartgresiter.wcaro.util.Constants.EventType.UPDATE_CHILD_REGISTRATION)) {
+                            presenter().updateChildProfile(jsonString);
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                break;
+
+
+            }
+        }
+
 }

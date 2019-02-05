@@ -137,7 +137,6 @@ public class ChildRegisterFragment extends BaseRegisterFragment implements Child
 
     @Override
     protected void startRegistration() {
-        //TODO need to change the form name.
         ((ChildRegisterActivity) getActivity()).startFormActivity(Constants.JSON_FORM.CHILD_REGISTER, null, null);
         //getActivity().startFormActivity(Utils.metadata().familyRegister.formName, null, null);
     }
