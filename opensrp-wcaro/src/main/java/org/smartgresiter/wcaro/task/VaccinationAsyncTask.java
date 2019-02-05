@@ -70,7 +70,6 @@ public class VaccinationAsyncTask extends AsyncTask {
         }
 
 
-
         alerts = WcaroApplication.getInstance().getContext().alertService().findByEntityIdAndAlertNames(entityId, VaccinateActionUtils.allAlertNames("child"));
         vaccines = WcaroApplication.getInstance().vaccineRepository().findByEntityId(entityId);
         Map<String, Date> recievedVaccines = receivedVaccines(vaccines);

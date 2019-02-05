@@ -36,9 +36,11 @@ public class FamilyRemoveMemberConfrimDialog extends DialogFragment implements V
     public void setOnRemove(Runnable onRemove) {
         this.onRemove = onRemove;
     }
+
     public void setOnRemoveActivity(Runnable onRemoveActivity) {
         this.onRemoveActivity = onRemoveActivity;
     }
+
     public FamilyRemoveMemberConfrimDialog() {
         // Required empty public constructor
     }
@@ -104,7 +106,7 @@ public class FamilyRemoveMemberConfrimDialog extends DialogFragment implements V
                 dismiss();
                 break;
             case R.id.cancel:
-                if(this.onRemoveActivity != null){
+                if (this.onRemoveActivity != null) {
                     onRemoveActivity.run();
                 }
                 dismiss();
@@ -121,19 +123,19 @@ public class FamilyRemoveMemberConfrimDialog extends DialogFragment implements V
     @Override
     public void onResume() {
         super.onResume();
-        if(getView()==null) return;
+        if (getView() == null) return;
         getView().setFocusableInTouchMode(true);
         getView().requestFocus();
         getView().setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK){
-                    if(onRemoveActivity != null){
+                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
+                    if (onRemoveActivity != null) {
                         onRemoveActivity.run();
                     }
                     dismiss();
-                return true;
-            }
+                    return true;
+                }
                 return false;
             }
         });

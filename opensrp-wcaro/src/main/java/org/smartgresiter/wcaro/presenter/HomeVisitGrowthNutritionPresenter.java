@@ -139,7 +139,7 @@ public class HomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNutriti
             Alert alert = serviceWrapperExclusive.getAlert();
             if (alert != null) {
                 growthListCount++;
-                saveServiceMap.put(GrowthNutritionInputFragment.GROWTH_TYPE.EXCLUSIVE.getValue(),alert.scheduleName());
+                saveServiceMap.put(GrowthNutritionInputFragment.GROWTH_TYPE.EXCLUSIVE.getValue(), alert.scheduleName());
 
                 if (getView() != null) getView().updateExclusiveFeedingData(alert.scheduleName());
             } else {
@@ -152,7 +152,7 @@ public class HomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNutriti
             Alert alert = serviceWrapperMnp.getAlert();
             if (alert != null) {
                 growthListCount++;
-                saveServiceMap.put(GrowthNutritionInputFragment.GROWTH_TYPE.MNP.getValue(),alert.scheduleName());
+                saveServiceMap.put(GrowthNutritionInputFragment.GROWTH_TYPE.MNP.getValue(), alert.scheduleName());
 
                 if (getView() != null) getView().updateMnpData(alert.scheduleName());
             } else {
@@ -165,7 +165,7 @@ public class HomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNutriti
             Alert alert = serviceWrapperVitamin.getAlert();
             if (alert != null) {
                 growthListCount++;
-                saveServiceMap.put(GrowthNutritionInputFragment.GROWTH_TYPE.VITAMIN.getValue(),alert.scheduleName());
+                saveServiceMap.put(GrowthNutritionInputFragment.GROWTH_TYPE.VITAMIN.getValue(), alert.scheduleName());
 
                 if (getView() != null) getView().updateVitaminAData(alert.scheduleName());
             } else {
@@ -179,7 +179,7 @@ public class HomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNutriti
             Alert alert = serviceWrapperDeworming.getAlert();
             if (alert != null) {
                 growthListCount++;
-                saveServiceMap.put(GrowthNutritionInputFragment.GROWTH_TYPE.DEWORMING.getValue(),alert.scheduleName());
+                saveServiceMap.put(GrowthNutritionInputFragment.GROWTH_TYPE.DEWORMING.getValue(), alert.scheduleName());
 
                 if (getView() != null) getView().updateDewormingData(alert.scheduleName());
             } else {

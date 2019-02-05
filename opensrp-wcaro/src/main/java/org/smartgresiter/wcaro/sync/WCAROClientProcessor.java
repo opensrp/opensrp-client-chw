@@ -2,42 +2,29 @@ package org.smartgresiter.wcaro.sync;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.util.Log;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.math.NumberUtils;
-import org.joda.time.DateTime;
 import org.smartgresiter.wcaro.application.WcaroApplication;
 import org.smartgresiter.wcaro.repository.HomeVisitRepository;
 import org.smartregister.clientandeventmodel.DateUtil;
-import org.smartregister.commonregistry.AllCommonsRepository;
-import org.smartregister.domain.db.Client;
 import org.smartregister.domain.db.Event;
 import org.smartregister.domain.db.EventClient;
 import org.smartregister.domain.db.Obs;
 import org.smartregister.domain.jsonmapping.ClientClassification;
-import org.smartregister.domain.jsonmapping.ClientField;
 import org.smartregister.domain.jsonmapping.Column;
 import org.smartregister.domain.jsonmapping.Table;
 import org.smartregister.family.sync.FamilyClientProcessorForJava;
 import org.smartregister.immunization.ImmunizationLibrary;
 import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.immunization.domain.ServiceRecord;
-import org.smartregister.immunization.domain.ServiceSchedule;
 import org.smartregister.immunization.domain.ServiceType;
 import org.smartregister.immunization.domain.Vaccine;
-import org.smartregister.immunization.domain.VaccineSchedule;
 import org.smartregister.immunization.repository.RecurringServiceRecordRepository;
 import org.smartregister.immunization.repository.RecurringServiceTypeRepository;
 import org.smartregister.immunization.repository.VaccineRepository;
 import org.smartregister.immunization.service.intent.RecurringIntentService;
 import org.smartregister.immunization.service.intent.VaccineIntentService;
-import org.smartregister.repository.AllSharedPreferences;
-import org.smartregister.repository.DetailsRepository;
-import org.smartregister.sync.ClientProcessorForJava;
-import org.smartregister.sync.helper.ECSyncHelper;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -90,12 +77,12 @@ public class WCAROClientProcessor extends FamilyClientProcessorForJava {
                     }
 
                     processVaccine(eventClient, vaccineTable, eventType.equals(VaccineIntentService.EVENT_TYPE_OUT_OF_CATCHMENT));
-                }  else if (eventType.equals(RecurringIntentService.EVENT_TYPE)) {
+                } else if (eventType.equals(RecurringIntentService.EVENT_TYPE)) {
                     if (serviceTable == null) {
                         continue;
                     }
                     processService(eventClient, serviceTable);
-                }  else if (eventType.equals(HomeVisitRepository.EVENT_TYPE)||eventType.equals(HomeVisitRepository.NOT_DONE_EVENT_TYPE)) {
+                } else if (eventType.equals(HomeVisitRepository.EVENT_TYPE) || eventType.equals(HomeVisitRepository.NOT_DONE_EVENT_TYPE)) {
                     if (serviceTable == null) {
                         continue;
                     }
@@ -108,7 +95,7 @@ public class WCAROClientProcessor extends FamilyClientProcessorForJava {
 
     private void processHomeVisit(EventClient eventClient) {
         List<Obs> observations = eventClient.getEvent().getObs();
-        addToHomeVisitTable(eventClient.getEvent().getBaseEntityId(),observations);
+        addToHomeVisitTable(eventClient.getEvent().getBaseEntityId(), observations);
     }
 
     private Boolean processVaccine(EventClient vaccine, Table vaccineTable, boolean outOfCatchment) throws Exception {

@@ -20,7 +20,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
 
@@ -67,8 +66,8 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     private LinearLayout layoutBirthCertGroup, layoutIllnessGroup;
     private ChildHomeVisitContract.Presenter presenter;
     private CircleImageView circleImageViewBirthStatus, circleImageViewIllnessStatus;
-    private String birthCertGiven=BIRTH_CERT_TYPE.NOT_GIVEN.name();
-    private  JSONObject illnessJson=new JSONObject();
+    private String birthCertGiven = BIRTH_CERT_TYPE.NOT_GIVEN.name();
+    private JSONObject illnessJson = new JSONObject();
     private String jsonString;
 
     public void setContext(Context context) {
@@ -174,10 +173,10 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                         JSONArray vaccineGroup = homeVisitImmunizationView.getGroupVaccinesGivenThisVisit();
                         JSONArray singleVaccine = homeVisitImmunizationView.getSingleVaccinesGivenThisVisit();
 
-                        JSONObject singleVaccineObject = new JSONObject().put("singleVaccinesGiven",singleVaccine);
-                        JSONObject vaccineGroupObject = new JSONObject().put("groupVaccinesGiven",vaccineGroup);
+                        JSONObject singleVaccineObject = new JSONObject().put("singleVaccinesGiven", singleVaccine);
+                        JSONObject vaccineGroupObject = new JSONObject().put("groupVaccinesGiven", vaccineGroup);
                         JSONObject service = new JSONObject((new Gson()).toJson(homeVisitGrowthAndNutritionLayout.returnSaveStateMap()));
-                        ChildUtils.updateHomeVisitAsEvent(childClient.entityId(), Constants.EventType.CHILD_HOME_VISIT, Constants.TABLE_NAME.CHILD, singleVaccineObject, vaccineGroupObject, service, birthCertGiven, illnessJson,ChildDBConstants.KEY.LAST_HOME_VISIT,System.currentTimeMillis() + "");
+                        ChildUtils.updateHomeVisitAsEvent(childClient.entityId(), Constants.EventType.CHILD_HOME_VISIT, Constants.TABLE_NAME.CHILD, singleVaccineObject, vaccineGroupObject, service, birthCertGiven, illnessJson, ChildDBConstants.KEY.LAST_HOME_VISIT, System.currentTimeMillis() + "");
 
 //                        ChildUtils.addToHomeVisitTable(childClient.getCaseId(),singleVaccineObject,vaccineGroupObject,service,birthCertGiven,illnessJson);
                     } catch (JSONException e) {
@@ -283,14 +282,14 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
 
     @Override
     public void updateBirthStatusTick() {
-       birthCertGiven= BIRTH_CERT_TYPE.GIVEN.name();
+        birthCertGiven = BIRTH_CERT_TYPE.GIVEN.name();
         updateStatusTick(circleImageViewBirthStatus, true);
     }
 
     @Override
     public void updateObsIllnessStatusTick() {
         try {
-            illnessJson=new JSONObject().put("obsIllness",jsonString);
+            illnessJson = new JSONObject().put("obsIllness", jsonString);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -394,5 +393,6 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         homeVisitImmunizationView.undoVaccines();
 
     }
-    public enum BIRTH_CERT_TYPE{GIVEN, NOT_GIVEN}
+
+    public enum BIRTH_CERT_TYPE {GIVEN, NOT_GIVEN}
 }

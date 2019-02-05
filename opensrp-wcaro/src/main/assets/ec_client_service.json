@@ -36,10 +36,10 @@
       }
     },
     {
-      "column_name":"itn_has_net",
-      "json_mapping":{
-        "field":"obs.fieldCode",
-        "formSubmissionField":"Child_Has_Net"
+      "column_name": "itn_has_net",
+      "json_mapping": {
+        "field": "obs.fieldCode",
+        "formSubmissionField": "Child_Has_Net"
       }
     },
     {

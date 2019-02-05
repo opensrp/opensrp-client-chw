@@ -1,7 +1,5 @@
 package org.smartgresiter.wcaro.presenter;
 
-import android.content.Intent;
-import android.util.Log;
 import android.util.Pair;
 
 import org.apache.commons.lang3.tuple.Triple;
@@ -17,10 +15,8 @@ import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.FetchStatus;
-import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.Utils;
-import org.smartregister.repository.AllSharedPreferences;
 
 import java.lang.ref.WeakReference;
 import java.util.Date;
@@ -136,19 +132,19 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
 
     @Override
     public void startFormForEdit(CommonPersonObjectClient client) {
-        JSONObject form =interactor.getAutoPopulatedJsonEditFormString(org.smartgresiter.wcaro.util.Constants.JSON_FORM.CHILD_REGISTER, getView().getApplicationContext(), client);
-       try{
+        JSONObject form = interactor.getAutoPopulatedJsonEditFormString(org.smartgresiter.wcaro.util.Constants.JSON_FORM.CHILD_REGISTER, getView().getApplicationContext(), client);
+        try {
 
-           if (!isBlank(client.getColumnmaps().get(ChildDBConstants.KEY.RELATIONAL_ID))) {
-               JSONObject metaDataJson = form.getJSONObject("metadata");
-               JSONObject lookup = metaDataJson.getJSONObject("look_up");
-               lookup.put("entity_id", "family");
-               lookup.put("value", client.getColumnmaps().get(ChildDBConstants.KEY.RELATIONAL_ID));
-           }
-           getView().startFormActivity(form);
-       }catch (Exception e){
+            if (!isBlank(client.getColumnmaps().get(ChildDBConstants.KEY.RELATIONAL_ID))) {
+                JSONObject metaDataJson = form.getJSONObject("metadata");
+                JSONObject lookup = metaDataJson.getJSONObject("look_up");
+                lookup.put("entity_id", "family");
+                lookup.put("value", client.getColumnmaps().get(ChildDBConstants.KEY.RELATIONAL_ID));
+            }
+            getView().startFormActivity(form);
+        } catch (Exception e) {
 
-       }
+        }
 
 //        } catch (Exception e) {
 //            Log.e("TAG", e.getMessage());
@@ -158,7 +154,7 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
     @Override
     public void updateChildProfile(String jsonString) {
         getView().showProgressDialog(R.string.updating);
-        ChildRegisterModel model=new ChildRegisterModel();
+        ChildRegisterModel model = new ChildRegisterModel();
         Pair<Client, Event> pair = model.processRegistration(jsonString);
         if (pair == null) {
             return;
@@ -265,7 +261,7 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
 
     @Override
     public void onRegistrationSaved(boolean isEditMode) {
-        if(isEditMode){
+        if (isEditMode) {
             getView().hideProgressDialog();
             getView().refreshProfile(FetchStatus.fetched);
         }

@@ -7,7 +7,6 @@ import android.util.Log;
 import android.util.Pair;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.tuple.Triple;
 import org.joda.time.DateTime;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,7 +28,6 @@ import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.domain.Photo;
-import org.smartregister.domain.UniqueId;
 import org.smartregister.family.FamilyLibrary;
 import org.smartregister.family.util.AppExecutors;
 import org.smartregister.family.util.DBConstants;
@@ -158,7 +156,7 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
 
     @Override
     public void updateVisitNotDone(long value) {
-        ChildUtils.updateHomeVisitAsEvent(getpClient().entityId(), Constants.EventType.CHILD_VISIT_NOT_DONE, Constants.TABLE_NAME.CHILD, new JSONObject(), new JSONObject(), new JSONObject(), ChildHomeVisitFragment.BIRTH_CERT_TYPE.NOT_GIVEN.name(), new JSONObject(),ChildDBConstants.KEY.VISIT_NOT_DONE,value+"");
+        ChildUtils.updateHomeVisitAsEvent(getpClient().entityId(), Constants.EventType.CHILD_VISIT_NOT_DONE, Constants.TABLE_NAME.CHILD, new JSONObject(), new JSONObject(), new JSONObject(), ChildHomeVisitFragment.BIRTH_CERT_TYPE.NOT_GIVEN.name(), new JSONObject(), ChildDBConstants.KEY.VISIT_NOT_DONE, value + "");
 
 //        ChildUtils.updateClientStatusAsEvent(getpClient().entityId(), Constants.EventType.CHILD_VISIT_NOT_DONE, ChildDBConstants.KEY.VISIT_NOT_DONE, value + "", Constants.TABLE_NAME.CHILD);
     }
@@ -352,7 +350,7 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
 
-                    processPopulatableFields(client, jsonObject,jsonArray);
+                    processPopulatableFields(client, jsonObject, jsonArray);
 
                 }
 
@@ -382,7 +380,8 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
 
         appExecutors.diskIO().execute(runnable);
     }
-    private void processPopulatableFields(CommonPersonObjectClient client, JSONObject jsonObject,JSONArray jsonArray) throws JSONException {
+
+    private void processPopulatableFields(CommonPersonObjectClient client, JSONObject jsonObject, JSONArray jsonArray) throws JSONException {
 
         switch (jsonObject.getString(org.smartregister.family.util.JsonFormUtils.KEY).toLowerCase()) {
             case org.smartregister.family.util.Constants.JSON_FORM_KEY.DOB_UNKNOWN:
@@ -447,6 +446,7 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
 
         }
     }
+
     @Override
     public void onDestroy(boolean isChangingConfiguration) {
 

@@ -229,15 +229,15 @@ public class WcaroApplication extends DrishtiApplication {
     }
 
     public static ClientProcessorForJava getClientProcessor(android.content.Context context) {
-        if(clientProcessor == null){
+        if (clientProcessor == null) {
             clientProcessor = WCAROClientProcessor.getInstance(context);
         }
         return clientProcessor;
     }
 
     public static HomeVisitRepository homeVisitRepository() {
-        if(homeVisitRepository == null){
-            homeVisitRepository = new HomeVisitRepository(getInstance().getRepository(),getInstance().getContext().commonFtsObject(),getInstance().getContext().alertService());
+        if (homeVisitRepository == null) {
+            homeVisitRepository = new HomeVisitRepository(getInstance().getRepository(), getInstance().getContext().commonFtsObject(), getInstance().getContext().alertService());
         }
         return homeVisitRepository;
     }

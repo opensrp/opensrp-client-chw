@@ -76,7 +76,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
                 case R.id.remove_member_layout:
 
                     Intent frm_intent = new Intent(ChildProfileActivity.this, ChildRemoveActivity.class);
-                    frm_intent.putExtra(org.smartgresiter.wcaro.util.Constants.INTENT_KEY.CHILD_COMMON_PERSON,((ChildProfilePresenter) presenter()).getChildClient());
+                    frm_intent.putExtra(org.smartgresiter.wcaro.util.Constants.INTENT_KEY.CHILD_COMMON_PERSON, ((ChildProfilePresenter) presenter()).getChildClient());
                     startActivityForResult(frm_intent, org.smartgresiter.wcaro.util.Constants.ProfileActivityResults.CHANGE_COMPLETED);
 
                     break;
@@ -433,13 +433,13 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
 
     @Override
     public void refreshProfile(FetchStatus fetchStatus) {
-        if(fetchStatus.equals(FetchStatus.fetched)){
+        if (fetchStatus.equals(FetchStatus.fetched)) {
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     presenter().fetchProfileData();
                 }
-            },100);
+            }, 100);
         }
 
     }
@@ -557,7 +557,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
                 }
                 break;
             case JsonFormUtils.REQUEST_CODE_GET_JSON:
-                if(resultCode == RESULT_OK){
+                if (resultCode == RESULT_OK) {
                     try {
                         String jsonString = data.getStringExtra(Constants.JSON_FORM_EXTRA.JSON);
 
@@ -572,7 +572,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
                 break;
 
 
-            }
         }
+    }
 
 }

@@ -12,7 +12,6 @@ import org.smartregister.job.ExtendedSyncServiceJob;
 import org.smartregister.job.PullUniqueIdsServiceJob;
 import org.smartregister.job.SyncServiceJob;
 import org.smartregister.job.ValidateSyncDataServiceJob;
-import org.smartregister.sync.intent.SyncIntentService;
 
 /**
  * Created by keyman on 27/11/2018.

@@ -86,6 +86,7 @@ public class FamilyRemoveMemberInteractor implements FamilyRemoveMemberContract.
         appExecutors.diskIO().execute(runnable);
 
     }
+
     public void removeChild(final String familyID, final String lastLocationId, final JSONObject exitForm, final ChildRemoveContract.Presenter presenter) {
 
         Runnable runnable = new Runnable() {

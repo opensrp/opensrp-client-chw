@@ -1,7 +1,6 @@
 package org.smartgresiter.wcaro.contract;
 
 import android.content.Context;
-import android.content.Intent;
 import android.util.Pair;
 
 import org.apache.commons.lang3.tuple.Triple;
@@ -12,7 +11,6 @@ import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.FetchStatus;
-import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.view.contract.BaseProfileContract;
 
 public interface ChildProfileContract {
@@ -106,7 +104,7 @@ public interface ChildProfileContract {
 
         void saveRegistration(final Pair<Client, Event> pair, final String jsonString, final boolean isEditMode, final ChildProfileContract.InteractorCallBack callBack);
 
-        JSONObject getAutoPopulatedJsonEditFormString(String formName,Context context,CommonPersonObjectClient client);
+        JSONObject getAutoPopulatedJsonEditFormString(String formName, Context context, CommonPersonObjectClient client);
     }
 
     interface InteractorCallBack {

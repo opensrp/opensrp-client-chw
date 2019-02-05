@@ -58,8 +58,7 @@ public class HomeVisitRepository extends BaseRepository {
     public static final String illness_information = "illness_information";
 
 
-
-    public static final String[] HomeVisit_TABLE_COLUMNS = {ID_COLUMN, BASE_ENTITY_ID, NAME, DATE, ANMID, LOCATIONID, SYNC_STATUS, UPDATED_AT_COLUMN, EVENT_ID, FORMSUBMISSION_ID, CREATED_AT,FORMFIELDS,VACCCINE_GROUP,SINGLE_VACCINE,SERVICE,BIRTH_CERTIFICATION,illness_information};
+    public static final String[] HomeVisit_TABLE_COLUMNS = {ID_COLUMN, BASE_ENTITY_ID, NAME, DATE, ANMID, LOCATIONID, SYNC_STATUS, UPDATED_AT_COLUMN, EVENT_ID, FORMSUBMISSION_ID, CREATED_AT, FORMFIELDS, VACCCINE_GROUP, SINGLE_VACCINE, SERVICE, BIRTH_CERTIFICATION, illness_information};
 
     private static final String BASE_ENTITY_ID_INDEX = "CREATE INDEX " + HomeVisitTABLE_NAME + "_" + BASE_ENTITY_ID + "_index ON " + HomeVisitTABLE_NAME + "(" + BASE_ENTITY_ID + " COLLATE NOCASE);";
     private static final String UPDATED_AT_INDEX = "CREATE INDEX " + HomeVisitTABLE_NAME + "_" + UPDATED_AT_COLUMN + "_index ON " + HomeVisitTABLE_NAME + "(" + UPDATED_AT_COLUMN + ");";
@@ -114,7 +113,7 @@ public class HomeVisitRepository extends BaseRepository {
                     homeVisit.setId(sameHomeVisit.getId());
                     update(database, homeVisit);
                 } else {
-                    if(homeVisit.getCreatedAt() == null){
+                    if (homeVisit.getCreatedAt() == null) {
                         homeVisit.setCreatedAt(new Date());
                     }
                     Long id = database.insert(HomeVisitTABLE_NAME, null, createValuesFor(homeVisit));
@@ -227,7 +226,6 @@ public class HomeVisitRepository extends BaseRepository {
     }
 
 
-
     public void deleteCounselling(Long caseId) {
         try {
             HomeVisit counselling = find(caseId);
@@ -321,12 +319,12 @@ public class HomeVisitRepository extends BaseRepository {
         values.put(EVENT_ID, homeVisit.getEventId() != null ? homeVisit.getEventId() : null);
         values.put(FORMSUBMISSION_ID, homeVisit.getFormSubmissionId() != null ? homeVisit.getFormSubmissionId() : null);
         values.put(CREATED_AT, homeVisit.getCreatedAt() != null ? dateFormat.format(homeVisit.getCreatedAt()) : null);
-        values.put(FORMFIELDS,new Gson().toJson(homeVisit.getFormfields()));
-        values.put(VACCCINE_GROUP,homeVisit.getVaccineGroupsGiven().toString());
-        values.put(SINGLE_VACCINE,homeVisit.getSingleVaccinesGiven().toString());
-        values.put(SERVICE,homeVisit.getServicesGiven().toString());
-        values.put(BIRTH_CERTIFICATION,homeVisit.getBirthCertificationState());
-        values.put(illness_information,homeVisit.getIllness_information().toString());
+        values.put(FORMFIELDS, new Gson().toJson(homeVisit.getFormfields()));
+        values.put(VACCCINE_GROUP, homeVisit.getVaccineGroupsGiven().toString());
+        values.put(SINGLE_VACCINE, homeVisit.getSingleVaccinesGiven().toString());
+        values.put(SERVICE, homeVisit.getServicesGiven().toString());
+        values.put(BIRTH_CERTIFICATION, homeVisit.getBirthCertificationState());
+        values.put(illness_information, homeVisit.getIllness_information().toString());
         return values;
     }
 

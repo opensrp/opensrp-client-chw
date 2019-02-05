@@ -12,8 +12,6 @@ import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 
-import com.google.gson.JsonObject;
-
 import org.apache.commons.lang3.StringUtils;
 import org.jeasy.rules.api.Rules;
 import org.joda.time.Days;
@@ -37,7 +35,6 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class ChildUtils {
 
@@ -270,7 +267,7 @@ public class ChildUtils {
     }
 
     //event type="Child Home Visit"/Visit not done
-    public static void updateHomeVisitAsEvent(String entityId, String eventType, String entityType, JSONObject singleVaccineObject, JSONObject vaccineGroupObject, JSONObject service, String birthCert, JSONObject illnessJson, String visitStatus,String value) {
+    public static void updateHomeVisitAsEvent(String entityId, String eventType, String entityType, JSONObject singleVaccineObject, JSONObject vaccineGroupObject, JSONObject service, String birthCert, JSONObject illnessJson, String visitStatus, String value) {
         try {
 
             ECSyncHelper syncHelper = FamilyLibrary.getInstance().getEcSyncHelper();
@@ -326,8 +323,8 @@ public class ChildUtils {
         }
     }
 
-    public static void addToHomeVisitTable(String baseEntityID,List<org.smartregister.domain.db.Obs> observations ) {
-        HomeVisit newHomeVisit = new HomeVisit(null,baseEntityID, HomeVisitRepository.EVENT_TYPE,new Date(),"","","",0l,"","",new Date());
+    public static void addToHomeVisitTable(String baseEntityID, List<org.smartregister.domain.db.Obs> observations) {
+        HomeVisit newHomeVisit = new HomeVisit(null, baseEntityID, HomeVisitRepository.EVENT_TYPE, new Date(), "", "", "", 0l, "", "", new Date());
         try {
             for (org.smartregister.domain.db.Obs obs : observations) {
                 if (obs.getFormSubmissionField().equalsIgnoreCase("singleVaccine")) {
@@ -340,13 +337,13 @@ public class ChildUtils {
                     newHomeVisit.setServicesGiven(new JSONObject((String) obs.getValue()));
                 }
                 if (obs.getFormSubmissionField().equalsIgnoreCase("birth_certificate")) {
-                    newHomeVisit.setBirthCertificationState((String)obs.getValue());
+                    newHomeVisit.setBirthCertificationState((String) obs.getValue());
                 }
                 if (obs.getFormSubmissionField().equalsIgnoreCase("illness_information")) {
                     newHomeVisit.setIllness_information(new JSONObject((String) obs.getValue()));
                 }
             }
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
         newHomeVisit.setFormfields(new HashMap<String, String>());
@@ -354,12 +351,12 @@ public class ChildUtils {
     }
 
     public static void addToHomeVisitTable(String baseEntityID, JSONObject singleVaccineObject, JSONObject vaccineGroupObject, JSONObject service, String birthCert, JSONObject illnessJson) {
-        HomeVisit newHomeVisit = new HomeVisit(null,baseEntityID, HomeVisitRepository.EVENT_TYPE,new Date(),"","","",0l,"","",new Date());
+        HomeVisit newHomeVisit = new HomeVisit(null, baseEntityID, HomeVisitRepository.EVENT_TYPE, new Date(), "", "", "", 0l, "", "", new Date());
         newHomeVisit.setSingleVaccinesGiven(singleVaccineObject);
         newHomeVisit.setVaccineGroupsGiven(vaccineGroupObject);
         newHomeVisit.setServicesGiven(service);
         newHomeVisit.setBirthCertificationState(birthCert);
-        if(illnessJson!=null){
+        if (illnessJson != null) {
             newHomeVisit.setIllness_information(illnessJson);
         }
         newHomeVisit.setFormfields(new HashMap<String, String>());

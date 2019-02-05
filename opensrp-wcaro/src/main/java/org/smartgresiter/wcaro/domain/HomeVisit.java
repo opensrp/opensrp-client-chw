@@ -21,7 +21,7 @@ public class HomeVisit {
     private String eventId;
     private String formSubmissionId;
     private Date createdAt;
-    private Map<String,String> formfields;
+    private Map<String, String> formfields;
     private JSONObject VaccineGroupsGiven;
     private JSONObject singleVaccinesGiven;
     private JSONObject ServicesGiven;

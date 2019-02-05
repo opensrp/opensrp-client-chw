@@ -272,7 +272,7 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
         ((ChildHomeVisitFragment) (((Activity) context).getFragmentManager().findFragmentByTag(ChildHomeVisitFragment.DIALOG_TAG))).checkIfSubmitIsToBeEnabled();
     }
 
-    public JSONArray getSingleVaccinesGivenThisVisit(){
+    public JSONArray getSingleVaccinesGivenThisVisit() {
         ArrayList<VaccineWrapper> singleVaccinesGivenThisVisit = new ArrayList<VaccineWrapper>();
         Stack<VaccineRepo.Vaccine> vaccinesStack = new Stack<VaccineRepo.Vaccine>();
         for (VaccineRepo.Vaccine vaccinedueLastVisit : presenter.getVaccinesDueFromLastVisit()) {
@@ -289,16 +289,16 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
         return getVaccineWrapperListAsJson(singleVaccinesGivenThisVisit);
     }
 
-    public JSONArray getGroupVaccinesGivenThisVisit(){
+    public JSONArray getGroupVaccinesGivenThisVisit() {
         ArrayList<VaccineWrapper> groupVaccinesGivenThisVisit = new ArrayList<VaccineWrapper>();
-        for(VaccineWrapper givenThisVisit: presenter.getVaccinesGivenThisVisit()){
+        for (VaccineWrapper givenThisVisit : presenter.getVaccinesGivenThisVisit()) {
             boolean isInSingleVaccineList = false;
-            for(VaccineRepo.Vaccine vaccineDueFromLastVisit: presenter.getVaccinesDueFromLastVisit()){
-                if(vaccineDueFromLastVisit.display().equalsIgnoreCase(givenThisVisit.getName())){
+            for (VaccineRepo.Vaccine vaccineDueFromLastVisit : presenter.getVaccinesDueFromLastVisit()) {
+                if (vaccineDueFromLastVisit.display().equalsIgnoreCase(givenThisVisit.getName())) {
                     isInSingleVaccineList = true;
                 }
             }
-            if(!isInSingleVaccineList){
+            if (!isInSingleVaccineList) {
                 groupVaccinesGivenThisVisit.add(givenThisVisit);
             }
         }
@@ -308,11 +308,11 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
 
     private JSONArray getVaccineWrapperListAsJson(ArrayList<VaccineWrapper> groupVaccinesGivenThisVisit) {
         JSONArray arrayOfWrapper = new JSONArray();
-        for(VaccineWrapper wrapper : groupVaccinesGivenThisVisit){
+        for (VaccineWrapper wrapper : groupVaccinesGivenThisVisit) {
             try {
                 JSONObject wrapperObject = new JSONObject((new Gson()).toJson(wrapper));
                 JSONObject vaccineObject = new JSONObject((new Gson()).toJson(wrapper.getVaccine()));
-                wrapperObject.put("vaccine",vaccineObject);
+                wrapperObject.put("vaccine", vaccineObject);
                 arrayOfWrapper.put(wrapperObject);
             } catch (JSONException e) {
                 e.printStackTrace();

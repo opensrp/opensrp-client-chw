@@ -36,7 +36,7 @@ import java.util.Calendar;
 
 public class GrowthNutritionInputFragment extends DialogFragment implements RadioGroup.OnCheckedChangeListener, View.OnClickListener {
 
-    public static GrowthNutritionInputFragment getInstance(String title,String question, String type, ServiceWrapper serviceWrapper,
+    public static GrowthNutritionInputFragment getInstance(String title, String question, String type, ServiceWrapper serviceWrapper,
                                                            CommonPersonObjectClient commonPersonObjectClient) {
         GrowthNutritionInputFragment growthNutritionInputFragment = new GrowthNutritionInputFragment();
         Bundle bundle = new Bundle();
@@ -50,7 +50,7 @@ public class GrowthNutritionInputFragment extends DialogFragment implements Radi
     }
 
     private TextView textViewTitle;
-    private Button buttonSave,buttonCancel;
+    private Button buttonSave, buttonCancel;
     private String type;
     private LinearLayout layoutExclusiveFeeding, layoutVitaminBar;
     private TextView textViewVitamin;
@@ -91,7 +91,7 @@ public class GrowthNutritionInputFragment extends DialogFragment implements Radi
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         textViewTitle = view.findViewById(R.id.textview_vaccine_title);
         buttonSave = view.findViewById(R.id.save_btn);
-        buttonCancel= view.findViewById(R.id.cancel);
+        buttonCancel = view.findViewById(R.id.cancel);
         layoutExclusiveFeeding = view.findViewById(R.id.exclusive_feeding_bar);
         layoutVitaminBar = view.findViewById(R.id.vitamin_a_bar);
         textViewVitamin = view.findViewById(R.id.textview_vitamin);

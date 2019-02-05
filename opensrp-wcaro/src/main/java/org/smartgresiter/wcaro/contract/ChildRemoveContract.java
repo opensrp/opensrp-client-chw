@@ -6,15 +6,21 @@ import org.json.JSONObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 
 public interface ChildRemoveContract {
-    interface View{
+    interface View {
         Presenter getPresenter();
+
         void startJsonActivity(JSONObject form);
+
         Context getContext();
+
         void onChildRemove();
     }
+
     interface Presenter {
         void removeMember(CommonPersonObjectClient commonPersonObjectClient);
+
         void processRemoveForm(JSONObject form);
+
         void onChildRemove();
     }
 

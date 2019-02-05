@@ -111,12 +111,14 @@
             android:descendantFocusability="blocksDescendants"
             android:gravity="left" />
     </LinearLayout>
+
     <View
 
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:layout_above="@+id/save_btn"
         android:background="@color/light_grey" />
+
     <Button
         android:id="@+id/save_btn"
         style="?android:attr/borderlessButtonStyle"
@@ -136,6 +138,7 @@
         android:layout_alignWithParentIfMissing="true"
         android:textColor="@color/white"
         android:textSize="@dimen/btn_text_size" />
+
     <Button
         android:id="@+id/cancel"
         style="?android:attr/borderlessButtonStyle"

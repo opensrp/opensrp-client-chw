@@ -1,14 +1,11 @@
 package org.smartgresiter.wcaro.model;
 
 import android.util.Log;
-import android.util.Pair;
 
 import org.json.JSONObject;
 import org.smartgresiter.wcaro.contract.ChildProfileContract;
 import org.smartgresiter.wcaro.util.Constants;
 import org.smartgresiter.wcaro.util.JsonFormUtils;
-import org.smartregister.clientandeventmodel.Client;
-import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.family.util.Utils;
 import org.smartregister.util.FormUtils;
 

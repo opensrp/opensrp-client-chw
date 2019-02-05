@@ -26,6 +26,7 @@ import org.smartregister.view.activity.SecuredActivity;
 public class ChildRemoveActivity extends SecuredActivity implements ChildRemoveContract.View {
     private CommonPersonObjectClient pc;
     private String familyBaseEntityId;
+
     @Override
     protected void onCreation() {
         setContentView(R.layout.activity_family_remove_member);
@@ -33,19 +34,20 @@ public class ChildRemoveActivity extends SecuredActivity implements ChildRemoveC
         findViewById(R.id.close).setVisibility(View.GONE);
         findViewById(R.id.tvDetails).setVisibility(View.GONE);
         findViewById(R.id.flFrame).setVisibility(View.GONE);
-        pc=(CommonPersonObjectClient)getIntent().getSerializableExtra(Constants.INTENT_KEY.CHILD_COMMON_PERSON);
+        pc = (CommonPersonObjectClient) getIntent().getSerializableExtra(Constants.INTENT_KEY.CHILD_COMMON_PERSON);
         openDeleteDialog();
     }
-    private void openDeleteDialog(){
-        String name = String.format("%s %s %s", pc.getColumnmaps().get(DBConstants.KEY.FIRST_NAME) ,
-                pc.getColumnmaps().get(DBConstants.KEY.MIDDLE_NAME)==null?"":pc.getColumnmaps().get(DBConstants.KEY.MIDDLE_NAME) ,
-                pc.getColumnmaps().get(DBConstants.KEY.LAST_NAME) ==null?"":pc.getColumnmaps().get(DBConstants.KEY.LAST_NAME));
 
-        String dod  = pc.getColumnmaps().get(DBConstants.KEY.DOD);
-        familyBaseEntityId=pc.getColumnmaps().get(ChildDBConstants.KEY.RELATIONAL_ID);
-        if(StringUtils.isBlank(dod)){
+    private void openDeleteDialog() {
+        String name = String.format("%s %s %s", pc.getColumnmaps().get(DBConstants.KEY.FIRST_NAME),
+                pc.getColumnmaps().get(DBConstants.KEY.MIDDLE_NAME) == null ? "" : pc.getColumnmaps().get(DBConstants.KEY.MIDDLE_NAME),
+                pc.getColumnmaps().get(DBConstants.KEY.LAST_NAME) == null ? "" : pc.getColumnmaps().get(DBConstants.KEY.LAST_NAME));
+
+        String dod = pc.getColumnmaps().get(DBConstants.KEY.DOD);
+        familyBaseEntityId = pc.getColumnmaps().get(ChildDBConstants.KEY.RELATIONAL_ID);
+        if (StringUtils.isBlank(dod)) {
             FamilyRemoveMemberConfrimDialog dialog = FamilyRemoveMemberConfrimDialog.newInstance(
-                    String.format("Are you sure you want to remove %s's record? This will remove their entire health record from your device. This action cannot be undone." , name)
+                    String.format("Are you sure you want to remove %s's record? This will remove their entire health record from your device. This action cannot be undone.", name)
             );
             dialog.setContext(this);
             dialog.show(getSupportFragmentManager(), AddMemberFragment.DIALOG_TAG);
@@ -68,6 +70,7 @@ public class ChildRemoveActivity extends SecuredActivity implements ChildRemoveC
     protected void onResumption() {
 
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -80,14 +83,14 @@ public class ChildRemoveActivity extends SecuredActivity implements ChildRemoveC
                 getPresenter().processRemoveForm(form);
             } catch (Exception e) {
             }
-        }else{
+        } else {
             finish();
         }
     }
 
     @Override
     public ChildRemoveContract.Presenter getPresenter() {
-        return new ChildRemovePresenter(familyBaseEntityId,this);
+        return new ChildRemovePresenter(familyBaseEntityId, this);
     }
 
     @Override

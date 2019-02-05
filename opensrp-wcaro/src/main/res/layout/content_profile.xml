@@ -86,11 +86,13 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:src="@drawable/row_goto" />
+
         <LinearLayout
             android:id="@+id/content_due"
             android:layout_toRightOf="@+id/cross_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
+
             <org.smartregister.view.customcontrols.CustomFontTextView
                 android:id="@+id/textview_name_due"
                 style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
@@ -111,7 +113,6 @@
                 android:layout_marginLeft="-5dp"
                 android:textColor="@color/visit_status_over_due" />
         </LinearLayout>
-
 
 
         <org.smartregister.view.customcontrols.CustomFontTextView

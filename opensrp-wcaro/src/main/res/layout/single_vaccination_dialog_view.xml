@@ -143,10 +143,12 @@
                     android:gravity="left"
                     android:visibility="visible" />
             </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
                 android:background="@color/light_grey" />
+
             <LinearLayout
                 android:id="@+id/vaccination_action_linear_layout"
                 android:layout_width="match_parent"
