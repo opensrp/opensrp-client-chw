@@ -68,7 +68,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     private ChildHomeVisitContract.Presenter presenter;
     private CircleImageView circleImageViewBirthStatus, circleImageViewIllnessStatus;
     private String birthCertGiven=BIRTH_CERT_TYPE.NOT_GIVEN.name();
-    private  JSONObject illnessJson;
+    private  JSONObject illnessJson=new JSONObject();
     private String jsonString;
 
     public void setContext(Context context) {
@@ -169,12 +169,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                 if (checkAllGiven()) {
 //                    ChildUtils.updateClientStatusAsEvent(childClient.entityId(), Constants.EventType.CHILD_HOME_VISIT, ChildDBConstants.KEY.LAST_HOME_VISIT, System.currentTimeMillis() + "", Constants.TABLE_NAME.CHILD);
 
-                    if (getActivity() instanceof ChildRegisterActivity) {
-                        ((ChildRegisterActivity) getActivity()).refreshList(FetchStatus.fetched);
-                    }
-                    if (((ChildHomeVisitPresenter) presenter).getSaveSize() > 0) {
-                        presenter.saveForm();
-                    }
+
                     try {
                         JSONArray vaccineGroup = homeVisitImmunizationView.getGroupVaccinesGivenThisVisit();
                         JSONArray singleVaccine = homeVisitImmunizationView.getSingleVaccinesGivenThisVisit();
@@ -187,6 +182,12 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
 //                        ChildUtils.addToHomeVisitTable(childClient.getCaseId(),singleVaccineObject,vaccineGroupObject,service,birthCertGiven,illnessJson);
                     } catch (JSONException e) {
                         e.printStackTrace();
+                    }
+                    if (getActivity() instanceof ChildRegisterActivity) {
+                        ((ChildRegisterActivity) getActivity()).refreshList(FetchStatus.fetched);
+                    }
+                    if (((ChildHomeVisitPresenter) presenter).getSaveSize() > 0) {
+                        presenter.saveForm();
                     }
                     dismiss();
                 }

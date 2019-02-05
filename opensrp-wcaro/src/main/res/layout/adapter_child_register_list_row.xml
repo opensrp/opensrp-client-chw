@@ -84,7 +84,6 @@
             android:gravity="center"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
-            android:text="@string/visit_done"
             android:stateListAnimator="@drawable/button"
             android:textAllCaps="true"
             android:textAppearance="?android:textAppearanceSmall"
