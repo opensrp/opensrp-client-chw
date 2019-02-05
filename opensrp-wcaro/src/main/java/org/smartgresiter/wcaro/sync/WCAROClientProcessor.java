@@ -5,6 +5,9 @@ import android.content.Context;
 import android.util.Log;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
+import org.joda.time.DateTime;
+import org.json.JSONObject;
 import org.smartgresiter.wcaro.application.WcaroApplication;
 import org.smartgresiter.wcaro.repository.HomeVisitRepository;
 import org.smartregister.clientandeventmodel.DateUtil;
@@ -166,30 +169,19 @@ public class WCAROClientProcessor extends FamilyClientProcessorForJava {
 
             // save the values to db
             if (contentValues != null && contentValues.size() > 0) {
-
                 String name = contentValues.getAsString(RecurringServiceTypeRepository.NAME);
+
                 if (StringUtils.isNotBlank(name)) {
                     name = name.replaceAll("_", " ").replace("dose", "").trim();
                 }
 
+
                 String eventDateStr = contentValues.getAsString(RecurringServiceRecordRepository.DATE);
                 Date date = getDate(eventDateStr);
+                String value=null;
 
-                String value = null;
-
-                if (StringUtils.containsIgnoreCase(name, "ITN")) {
-                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                    String itnDateString = contentValues.getAsString("itn_date");
-                    if (StringUtils.isNotBlank(itnDateString)) {
-                        date = simpleDateFormat.parse(itnDateString);
-                    }
-
-
-                    value = RecurringIntentService.ITN_PROVIDED;
-                    if (contentValues.getAsString("itn_has_net") != null) {
-                        value = RecurringIntentService.CHILD_HAS_NET;
-                    }
-
+                if(StringUtils.containsIgnoreCase(name, "Exclusive breastfeeding")){
+                    value=contentValues.getAsString(RecurringServiceRecordRepository.VALUE);
                 }
 
                 RecurringServiceTypeRepository recurringServiceTypeRepository = ImmunizationLibrary.getInstance().getInstance().recurringServiceTypeRepository();

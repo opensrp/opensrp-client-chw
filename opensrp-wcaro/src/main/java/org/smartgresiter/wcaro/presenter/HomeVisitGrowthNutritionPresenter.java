@@ -84,7 +84,14 @@ public class HomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNutriti
     @Override
     public void setSaveState(String type, ServiceWrapper serviceWrapper) {
         saveStateMap.put(type, serviceWrapper);
-        if (getView() != null) getView().statusImageViewUpdate(type, true);
+        saveServiceMap.put(type,serviceWrapper.getAlert().scheduleName());
+        if(type.equalsIgnoreCase(GrowthNutritionInputFragment.GROWTH_TYPE.EXCLUSIVE.getValue())){
+            if (getView() != null) getView().statusImageViewUpdate(type, true,serviceWrapper.getValue());
+        }else{
+            if (getView() != null) getView().statusImageViewUpdate(type, true,"given");
+        }
+
+
     }
 
     @Override
@@ -92,7 +99,11 @@ public class HomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNutriti
 
         if (isSave(type)) return;
         notVisitStateMap.put(type, serviceWrapper);
-        if (getView() != null) getView().statusImageViewUpdate(type, false);
+        if(type.equalsIgnoreCase(GrowthNutritionInputFragment.GROWTH_TYPE.EXCLUSIVE.getValue())){
+            if (getView() != null) getView().statusImageViewUpdate(type, true,"");
+        }else{
+            if (getView() != null) getView().statusImageViewUpdate(type, true,"not given");
+        }
     }
 
     @Override
@@ -139,7 +150,6 @@ public class HomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNutriti
             Alert alert = serviceWrapperExclusive.getAlert();
             if (alert != null) {
                 growthListCount++;
-                saveServiceMap.put(GrowthNutritionInputFragment.GROWTH_TYPE.EXCLUSIVE.getValue(), alert.scheduleName());
 
                 if (getView() != null) getView().updateExclusiveFeedingData(alert.scheduleName());
             } else {
@@ -152,7 +162,6 @@ public class HomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNutriti
             Alert alert = serviceWrapperMnp.getAlert();
             if (alert != null) {
                 growthListCount++;
-                saveServiceMap.put(GrowthNutritionInputFragment.GROWTH_TYPE.MNP.getValue(), alert.scheduleName());
 
                 if (getView() != null) getView().updateMnpData(alert.scheduleName());
             } else {
@@ -165,7 +174,6 @@ public class HomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNutriti
             Alert alert = serviceWrapperVitamin.getAlert();
             if (alert != null) {
                 growthListCount++;
-                saveServiceMap.put(GrowthNutritionInputFragment.GROWTH_TYPE.VITAMIN.getValue(), alert.scheduleName());
 
                 if (getView() != null) getView().updateVitaminAData(alert.scheduleName());
             } else {
@@ -179,7 +187,6 @@ public class HomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNutriti
             Alert alert = serviceWrapperDeworming.getAlert();
             if (alert != null) {
                 growthListCount++;
-                saveServiceMap.put(GrowthNutritionInputFragment.GROWTH_TYPE.DEWORMING.getValue(), alert.scheduleName());
 
                 if (getView() != null) getView().updateDewormingData(alert.scheduleName());
             } else {
@@ -258,8 +265,4 @@ public class HomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNutriti
         return saveServiceMap;
     }
 
-    @Override
-    public void setSaveStateMap(Map<String, ServiceWrapper> saveStateMap) {
-        this.saveStateMap = saveStateMap;
-    }
 }

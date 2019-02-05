@@ -17,7 +17,7 @@ public interface HomeVisitGrowthNutritionContract {
 
         void updateDewormingData(String name);
 
-        void statusImageViewUpdate(String type, boolean value);
+        void statusImageViewUpdate(String type, boolean value,String message);
 
         void updateUpcomingService();
 
@@ -42,7 +42,6 @@ public interface HomeVisitGrowthNutritionContract {
 
         Map<String, String> getSaveStateMap();
 
-        void setSaveStateMap(Map<String, ServiceWrapper> saveStateMap);
     }
 
     interface Interactor {

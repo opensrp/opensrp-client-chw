@@ -29,10 +29,11 @@
       }
     },
     {
-      "column_name": "itn_date",
+      "column_name": "value",
       "json_mapping": {
         "field": "obs.fieldCode",
-        "concept": "159432AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        "concept": "5526AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "value_field": "formSubmissionField"
       }
     },
     {

@@ -1,5 +1,6 @@
 package org.smartgresiter.wcaro.fragment;
 
+import android.annotation.SuppressLint;
 import android.app.DialogFragment;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
@@ -34,14 +36,20 @@ import org.smartregister.util.DatePickerUtils;
 
 import java.util.Calendar;
 
+@SuppressLint("ValidFragment")
 public class GrowthNutritionInputFragment extends DialogFragment implements RadioGroup.OnCheckedChangeListener, View.OnClickListener {
 
-    public static GrowthNutritionInputFragment getInstance(String title, String question, String type, ServiceWrapper serviceWrapper,
+
+    public GrowthNutritionInputFragment(ServiceWrapper serviceWrapper){
+        this.serviceWrapper=serviceWrapper;
+
+    }
+
+    public static GrowthNutritionInputFragment getInstance(String title,String question, String type, ServiceWrapper serviceWrapper,
                                                            CommonPersonObjectClient commonPersonObjectClient) {
-        GrowthNutritionInputFragment growthNutritionInputFragment = new GrowthNutritionInputFragment();
+        GrowthNutritionInputFragment growthNutritionInputFragment = new GrowthNutritionInputFragment(serviceWrapper);
         Bundle bundle = new Bundle();
         bundle.putString(Constants.INTENT_KEY.GROWTH_IMMUNIZATION_TYPE, type);
-        bundle.putSerializable(Constants.INTENT_KEY.GROWTH_SERVICE_WRAPPER, serviceWrapper);
         bundle.putString(Constants.INTENT_KEY.GROWTH_TITLE, title);
         bundle.putString(Constants.INTENT_KEY.GROWTH_QUESTION, question);
         bundle.putSerializable(Constants.INTENT_KEY.CHILD_COMMON_PERSON, commonPersonObjectClient);
@@ -50,7 +58,8 @@ public class GrowthNutritionInputFragment extends DialogFragment implements Radi
     }
 
     private TextView textViewTitle;
-    private Button buttonSave, buttonCancel;
+    private Button buttonSave,buttonCancel;
+    private RadioButton yesRadio,noRadio;
     private String type;
     private LinearLayout layoutExclusiveFeeding, layoutVitaminBar;
     private TextView textViewVitamin;
@@ -91,7 +100,9 @@ public class GrowthNutritionInputFragment extends DialogFragment implements Radi
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         textViewTitle = view.findViewById(R.id.textview_vaccine_title);
         buttonSave = view.findViewById(R.id.save_btn);
-        buttonCancel = view.findViewById(R.id.cancel);
+        buttonCancel= view.findViewById(R.id.cancel);
+        yesRadio=view.findViewById(R.id.yes);
+        noRadio=view.findViewById(R.id.no);
         layoutExclusiveFeeding = view.findViewById(R.id.exclusive_feeding_bar);
         layoutVitaminBar = view.findViewById(R.id.vitamin_a_bar);
         textViewVitamin = view.findViewById(R.id.textview_vitamin);
@@ -123,22 +134,36 @@ public class GrowthNutritionInputFragment extends DialogFragment implements Radi
         String question = getArguments().getString(Constants.INTENT_KEY.GROWTH_QUESTION, getString(R.string.growth_and_nutrition));
         question = StringUtils.capitalize(question);
         textViewTitle.setText(title);
+
+        commonPersonObjectClient = (CommonPersonObjectClient) getArguments().getSerializable(Constants.INTENT_KEY.CHILD_COMMON_PERSON);
         if (type.equalsIgnoreCase(GROWTH_TYPE.EXCLUSIVE.getValue())) {
+            if(serviceWrapper.getValue()!=null && serviceWrapper.getValue().equalsIgnoreCase("yes")){
+                noRadio.setChecked(true);
+                isFeeding = "yes";
+                saveButtonDisable(false);
+            }else if(serviceWrapper.getValue()!=null && serviceWrapper.getValue().equalsIgnoreCase("no")){
+                yesRadio.setChecked(true);
+                isFeeding = "no";
+                saveButtonDisable(false);
+            }else{
+                saveButtonDisable(true);
+            }
             visibleExclusiveBar();
         } else {
             textViewVitamin.setText(getString(R.string.vitamin_given, question));
+            if(serviceWrapper.getUpdatedVaccineDate()!=null){
+                datePicker.updateDate(serviceWrapper.getUpdatedVaccineDate().getYear(),
+                        serviceWrapper.getUpdatedVaccineDate().getMonthOfYear() -1,serviceWrapper.getUpdatedVaccineDate().getDayOfMonth());
+            }
             visibleVitaminBar();
         }
-        serviceWrapper = (ServiceWrapper) getArguments().getSerializable(Constants.INTENT_KEY.GROWTH_SERVICE_WRAPPER);
-        commonPersonObjectClient = (CommonPersonObjectClient) getArguments().getSerializable(Constants.INTENT_KEY.CHILD_COMMON_PERSON);
-
     }
 
     private void visibleExclusiveBar() {
         layoutExclusiveFeeding.setVisibility(View.VISIBLE);
         layoutVitaminBar.setVisibility(View.GONE);
         buttonCancel.setVisibility(View.GONE);
-        saveButtonDisable(true);
+
     }
 
     private void visibleVitaminBar() {
@@ -154,11 +179,11 @@ public class GrowthNutritionInputFragment extends DialogFragment implements Radi
 
             case R.id.yes:
                 saveButtonDisable(false);
-                isFeeding = "yes";
+                isFeeding = "no";
                 break;
             case R.id.no:
                 saveButtonDisable(false);
-                isFeeding = "no";
+                isFeeding = "yes";
                 break;
         }
     }
@@ -306,6 +331,7 @@ public class GrowthNutritionInputFragment extends DialogFragment implements Radi
         if (tag.getDbKey() != null) {
             serviceRecord = recurringServiceRecordRepository.find(tag.getDbKey());
             serviceRecord.setDate(tag.getUpdatedVaccineDate().toDate());
+            serviceRecord.setValue(tag.getValue());
         } else {
             serviceRecord.setDate(tag.getUpdatedVaccineDate().toDate());
 
