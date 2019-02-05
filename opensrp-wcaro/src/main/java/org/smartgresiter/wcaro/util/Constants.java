@@ -98,6 +98,8 @@ public class Constants {
             public static final String PHONE_NUMBER = "phone_number";
             public static final String OTHER_PHONE_NUMBER = "other_phone_number";
         }
+        public static String DETAILS = "details";
+        public static String FAM_NAME = "fam_name";
     }
 
     public static class ProfileActivityResults {

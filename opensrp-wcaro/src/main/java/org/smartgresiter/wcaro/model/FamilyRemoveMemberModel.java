@@ -39,14 +39,15 @@ public class FamilyRemoveMemberModel extends FamilyProfileMemberModel implements
                             jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, JsonFormUtils.dd_MM_yyyy.format(dob));
                         }
                     }
-                } else if (jsonObject.getString(org.smartregister.family.util.JsonFormUtils.KEY).equalsIgnoreCase("details")) {
+                } else if (jsonObject.getString(org.smartregister.family.util.JsonFormUtils.KEY).equalsIgnoreCase(Constants.JsonAssets.DETAILS)) {
 
                     String dob = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.DOB, false);
                     String dobString = Utils.getDuration(dob);
                     dobString = dobString.contains("y") ? dobString.substring(0, dobString.indexOf("y")) : dobString;
 
-                    String details = String.format("%s %s, %s %s",
+                    String details = String.format("%s %s %s, %s %s",
                             Utils.getValue(client.getColumnmaps(), DBConstants.KEY.FIRST_NAME, true),
+                            Utils.getValue(client.getColumnmaps(), DBConstants.KEY.MIDDLE_NAME, true),
                             Utils.getValue(client.getColumnmaps(), DBConstants.KEY.LAST_NAME, true),
                             dobString,
                             Utils.getValue(client.getColumnmaps(), DBConstants.KEY.GENDER, true)
@@ -65,7 +66,7 @@ public class FamilyRemoveMemberModel extends FamilyProfileMemberModel implements
     }
 
     @Override
-    public JSONObject prepareFamilyRemovalForm(String familyID, String details) {
+    public JSONObject prepareFamilyRemovalForm(String familyID, String familyName, String details) {
         try {
             FormUtils formUtils = FormUtils.getInstance(Utils.context().applicationContext());
             JSONObject form = formUtils.getFormJson(Constants.JSON_FORM.FAMILY_DETAILS_REMOVE_FAMILY);
@@ -76,8 +77,11 @@ public class FamilyRemoveMemberModel extends FamilyProfileMemberModel implements
 
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
-                if (jsonObject.getString(org.smartregister.family.util.JsonFormUtils.KEY).equalsIgnoreCase("details")) {
+                if (jsonObject.getString(org.smartregister.family.util.JsonFormUtils.KEY).equalsIgnoreCase(Constants.JsonAssets.DETAILS)) {
                     jsonObject.put("text", details);
+                }
+                if (jsonObject.getString(org.smartregister.family.util.JsonFormUtils.KEY).equalsIgnoreCase(Constants.JsonAssets.FAM_NAME)) {
+                    jsonObject.put("text", familyName);
                 }
             }
 

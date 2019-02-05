@@ -110,9 +110,9 @@ public class FamilyRemoveMemberPresenter extends FamilyProfileMemberPresenter im
     }
 
     @Override
-    public void removeEveryone(String details) {
+    public void removeEveryone(String familyName, String details) {
 
-        JSONObject form = model.prepareFamilyRemovalForm(familyBaseEntityId, details);
+        JSONObject form = model.prepareFamilyRemovalForm(familyBaseEntityId, familyName , details);
         if (form != null) {
             viewReference.get().startJsonActivity(form);
         }

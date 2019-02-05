@@ -13,6 +13,7 @@ import org.smartgresiter.wcaro.helper.RulesEngineHelper;
 import org.smartgresiter.wcaro.job.VaccineRecurringServiceJob;
 import org.smartgresiter.wcaro.job.WcaroJobCreator;
 import org.smartgresiter.wcaro.repository.WcaroRepository;
+import org.smartgresiter.wcaro.sync.WcaroClientProcessorForJava;
 import org.smartgresiter.wcaro.util.ChildDBConstants;
 import org.smartgresiter.wcaro.util.Constants;
 import org.smartgresiter.wcaro.util.Utils;
@@ -118,6 +119,9 @@ public class WcaroApplication extends DrishtiApplication {
 
         SyncStatusBroadcastReceiver.init(this);
         LocationHelper.init(Utils.ALLOWED_LEVELS, Utils.CHA);
+
+        // set up processor
+        FamilyLibrary.getInstance().setClientProcessorForJava(WcaroClientProcessorForJava.getInstance(getApplicationContext()));
 
         // init json helper
         this.jsonSpecHelper = new JsonSpecHelper(this);
