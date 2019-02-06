@@ -17,7 +17,6 @@ import org.smartregister.domain.db.Obs;
 import org.smartregister.domain.jsonmapping.ClientClassification;
 import org.smartregister.domain.jsonmapping.Column;
 import org.smartregister.domain.jsonmapping.Table;
-import org.smartregister.family.sync.FamilyClientProcessorForJava;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.immunization.ImmunizationLibrary;
 import org.smartregister.immunization.db.VaccineRepo;
@@ -29,6 +28,7 @@ import org.smartregister.immunization.repository.RecurringServiceTypeRepository;
 import org.smartregister.immunization.repository.VaccineRepository;
 import org.smartregister.immunization.service.intent.RecurringIntentService;
 import org.smartregister.immunization.service.intent.VaccineIntentService;
+import org.smartregister.sync.ClientProcessorForJava;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -40,7 +40,7 @@ import java.util.List;
 import static org.smartgresiter.wcaro.util.ChildUtils.addToHomeVisitTable;
 
 
-public class WCAROClientProcessor extends FamilyClientProcessorForJava {
+public class WCAROClientProcessor extends ClientProcessorForJava {
 
     private static final String TAG = WCAROClientProcessor.class.getName();
     private static WCAROClientProcessor instance;
