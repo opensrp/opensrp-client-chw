@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Liberia CFC</string>
     <string name="title_family_detail">Family Detail</string>
-    <string name="login_title">CFC Liberia Monitor</string>
+    <string name="login_title">Liberia CFC Monitor</string>
     <string name="child_register_title">Child Clients</string>
     <string name="return_to_all_children">Return to all children</string>
     <string name="back_to_children">Back to %1$s</string>
