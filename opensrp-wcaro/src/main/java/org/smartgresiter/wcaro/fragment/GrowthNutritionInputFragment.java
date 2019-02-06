@@ -14,12 +14,16 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.google.common.collect.ImmutableMap;
+
 import org.apache.commons.lang3.StringUtils;
+import org.apache.http.annotation.Immutable;
 import org.joda.time.DateTime;
 import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.custom_view.HomeVisitGrowthAndNutrition;
@@ -35,6 +39,8 @@ import org.smartregister.immunization.repository.RecurringServiceRecordRepositor
 import org.smartregister.util.DatePickerUtils;
 
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 @SuppressLint("ValidFragment")
 public class GrowthNutritionInputFragment extends DialogFragment implements RadioGroup.OnCheckedChangeListener, View.OnClickListener {
@@ -56,6 +62,11 @@ public class GrowthNutritionInputFragment extends DialogFragment implements Radi
         growthNutritionInputFragment.setArguments(bundle);
         return growthNutritionInputFragment;
     }
+    static final Map<String,Integer> imageMap=ImmutableMap.of(
+            GROWTH_TYPE.VITAMIN.getValue(), R.mipmap.form_vitamin,
+            GROWTH_TYPE.MNP.getValue(),R.mipmap.form_mnp,
+            GROWTH_TYPE.DEWORMING.getValue(),R.mipmap.form_deworming
+    );
 
     private TextView textViewTitle;
     private Button buttonSave,buttonCancel;
@@ -64,11 +75,12 @@ public class GrowthNutritionInputFragment extends DialogFragment implements Radi
     private LinearLayout layoutExclusiveFeeding, layoutVitaminBar;
     private TextView textViewVitamin;
     private DatePicker datePicker;
+    private ImageView vitaminImage;
     private String isFeeding = "";
     private ServiceWrapper serviceWrapper;
     private CommonPersonObjectClient commonPersonObjectClient;
     private LinearLayout context;
-
+    private ServiceWrapper saveService;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -105,6 +117,7 @@ public class GrowthNutritionInputFragment extends DialogFragment implements Radi
         noRadio=view.findViewById(R.id.no);
         layoutExclusiveFeeding = view.findViewById(R.id.exclusive_feeding_bar);
         layoutVitaminBar = view.findViewById(R.id.vitamin_a_bar);
+        vitaminImage = view.findViewById(R.id.vitamin_image);
         textViewVitamin = view.findViewById(R.id.textview_vitamin);
         datePicker = view.findViewById(R.id.earlier_date_picker);
         DatePickerUtils.themeDatePicker(datePicker, new char[]{'d', 'm', 'y'});
@@ -170,6 +183,7 @@ public class GrowthNutritionInputFragment extends DialogFragment implements Radi
         layoutExclusiveFeeding.setVisibility(View.GONE);
         layoutVitaminBar.setVisibility(View.VISIBLE);
         buttonCancel.setVisibility(View.VISIBLE);
+        vitaminImage.setImageResource(imageMap.get(type));
         saveButtonDisable(false);
     }
 
@@ -262,7 +276,6 @@ public class GrowthNutritionInputFragment extends DialogFragment implements Radi
         }
     }
 
-    private ServiceWrapper saveService;
 
     public class SaveServiceTask extends AsyncTask<ServiceWrapper, Void, ServiceWrapper> {
 

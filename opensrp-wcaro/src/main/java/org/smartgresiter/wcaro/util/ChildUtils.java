@@ -51,7 +51,7 @@ public class ChildUtils {
     //Fully immunized at age 2
     public static String isFullyImmunized(int age, List<String> vaccineGiven) {
         String str = "";
-        if (age < 1) {
+        if (age <= 1) {
             List<String> oneYrVac = Arrays.asList(ONE_YR);
             if (vaccineGiven.containsAll(oneYrVac)) {
                 str = "1";

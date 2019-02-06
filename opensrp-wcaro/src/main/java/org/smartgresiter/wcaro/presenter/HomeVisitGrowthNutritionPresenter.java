@@ -95,14 +95,14 @@ public class HomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNutriti
     }
 
     @Override
-    public void serNotVisitState(String type, ServiceWrapper serviceWrapper) {
+    public void setNotVisitState(String type, ServiceWrapper serviceWrapper) {
 
         if (isSave(type)) return;
         notVisitStateMap.put(type, serviceWrapper);
         if(type.equalsIgnoreCase(GrowthNutritionInputFragment.GROWTH_TYPE.EXCLUSIVE.getValue())){
-            if (getView() != null) getView().statusImageViewUpdate(type, true,"");
+            if (getView() != null) getView().statusImageViewUpdate(type, false,"");
         }else{
-            if (getView() != null) getView().statusImageViewUpdate(type, true,"not given");
+            if (getView() != null) getView().statusImageViewUpdate(type, false,"not given");
         }
     }
 

@@ -28,7 +28,7 @@ public interface HomeVisitGrowthNutritionContract {
 
         void setSaveState(String type, ServiceWrapper serviceWrapper);
 
-        void serNotVisitState(String type, ServiceWrapper serviceWrapper);
+        void setNotVisitState(String type, ServiceWrapper serviceWrapper);
 
         void resetAllSaveState();
 

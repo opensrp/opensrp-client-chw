@@ -238,7 +238,7 @@ public class HomeVisitGrowthAndNutrition extends LinearLayout implements View.On
     }
 
     public void notVisitSetState(String type, ServiceWrapper serviceWrapper) {
-        presenter.serNotVisitState(type, serviceWrapper);
+        presenter.setNotVisitState(type, serviceWrapper);
     }
 
     public void resetAll() {

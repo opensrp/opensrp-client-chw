@@ -208,7 +208,6 @@ public class MedicalHistoryInteractor implements MedicalHistoryContract.Interact
 
     @Override
     public void fetchGrowthNutritionData(String baseEntity, final MedicalHistoryContract.InteractorCallBack callBack) {
-        final ArrayList<GrowthNutrition> growthNutritions = new ArrayList<>();
         RecurringServiceRecordRepository recurringServiceRecordRepository = ImmunizationLibrary.getInstance().recurringServiceRecordRepository();
         List<ServiceRecord> serviceRecordList = recurringServiceRecordRepository.findByEntityId(baseEntity);
         if (serviceRecordList.size() > 0) {
