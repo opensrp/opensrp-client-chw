@@ -39,15 +39,21 @@ import java.util.List;
 public class ChildUtils {
 
     private static final String[] firstSecondNumber = {"Zero", "1st", "2nd", "3rd", "4th", "5th", "6th", "7th", "8th", "9th"};
-    public static final String[] ONE_YR = {"bcg",
-            "hepb", "opv1", "penta1", "pcv1", "rota1", "opv2", "penta2", "pcv2", "rota2", "opv3", "penta3", "pcv3", "rota3", "ipv", "mcv1",
-            "yf"
-    };
-    public static final String[] TWO_YR = {"bcg",
-            "hepb", "opv1", "penta1", "pcv1", "rota1", "opv2", "penta2", "pcv2", "rota2", "opv3", "penta3", "pcv3", "rota3", "ipv", "mcv1",
-            "yf", "mcv2"
-    };
+//    public static final String[] ONE_YR = {"bcg",
+//            "hepb", "opv1", "penta1", "pcv1", "rota1", "opv2", "penta2", "pcv2", "rota2", "opv3", "penta3", "pcv3", "ipv", "mcv1",
+//            "yf"
+//    };
+//    public static final String[] TWO_YR = {"bcg",
+//            "hepb", "opv1", "penta1", "pcv1", "rota1", "opv2", "penta2", "pcv2", "rota2", "opv3", "penta3", "pcv3", "ipv", "mcv1",
+//            "yf", "mcv2"
+//    };
 
+    public static final String[] ONE_YR = {"bcg","opv1", "penta1", "pcv1", "rota1", "opv2", "penta2", "pcv2", "rota2", "opv3", "penta3", "pcv3", "measles1"
+
+    };
+    public static final String[] TWO_YR = {"bcg", "opv1", "penta1", "pcv1", "rota1", "opv2", "penta2", "pcv2", "rota2", "opv3", "penta3", "pcv3","measles1",
+            "measles2"
+    };
     //Fully immunized at age 2
     public static String isFullyImmunized(int age, List<String> vaccineGiven) {
         String str = "";
@@ -160,8 +166,10 @@ public class ChildUtils {
                 tableName + "." + DBConstants.KEY.LAST_INTERACTED_WITH,
                 tableName + "." + DBConstants.KEY.BASE_ENTITY_ID,
                 tableName + "." + DBConstants.KEY.FIRST_NAME,
+                tableName + "." + DBConstants.KEY.MIDDLE_NAME,
                 familyMemberTable + "." + DBConstants.KEY.FIRST_NAME + " as " + ChildDBConstants.KEY.FAMILY_FIRST_NAME,
                 familyMemberTable + "." + DBConstants.KEY.LAST_NAME + " as " + ChildDBConstants.KEY.FAMILY_LAST_NAME,
+                familyMemberTable + "." + DBConstants.KEY.MIDDLE_NAME + " as " + ChildDBConstants.KEY.FAMILY_MIDDLE_NAME,
                 familyTable + "." + DBConstants.KEY.VILLAGE_TOWN + " as " + ChildDBConstants.KEY.FAMILY_HOME_ADDRESS,
                 tableName + "." + DBConstants.KEY.LAST_NAME,
                 tableName + "." + DBConstants.KEY.UNIQUE_ID,
