@@ -10,7 +10,12 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+
 import org.joda.time.DateTime;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.contract.HomeVisitImmunizationContract;
 import org.smartgresiter.wcaro.fragment.ChildHomeVisitFragment;
@@ -29,6 +34,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Stack;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -264,5 +270,54 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
             ((ChildHomeVisitFragment) (((Activity) context).getFragmentManager().findFragmentByTag(ChildHomeVisitFragment.DIALOG_TAG))).allVaccineStateFullfilled = false;
         }
         ((ChildHomeVisitFragment) (((Activity) context).getFragmentManager().findFragmentByTag(ChildHomeVisitFragment.DIALOG_TAG))).checkIfSubmitIsToBeEnabled();
+    }
+
+    public JSONArray getSingleVaccinesGivenThisVisit() {
+        ArrayList<VaccineWrapper> singleVaccinesGivenThisVisit = new ArrayList<VaccineWrapper>();
+        Stack<VaccineRepo.Vaccine> vaccinesStack = new Stack<VaccineRepo.Vaccine>();
+        for (VaccineRepo.Vaccine vaccinedueLastVisit : presenter.getVaccinesDueFromLastVisit()) {
+            vaccinesStack.add(vaccinedueLastVisit);
+            for (VaccineWrapper givenThisVisit : presenter.getVaccinesGivenThisVisit()) {
+                if (!vaccinesStack.isEmpty()) {
+                    if (givenThisVisit.getDefaultName().equalsIgnoreCase(vaccinesStack.peek().display())) {
+                        vaccinesStack.pop();
+                        singleVaccinesGivenThisVisit.add(givenThisVisit);
+                    }
+                }
+            }
+        }
+        return getVaccineWrapperListAsJson(singleVaccinesGivenThisVisit);
+    }
+
+    public JSONArray getGroupVaccinesGivenThisVisit() {
+        ArrayList<VaccineWrapper> groupVaccinesGivenThisVisit = new ArrayList<VaccineWrapper>();
+        for (VaccineWrapper givenThisVisit : presenter.getVaccinesGivenThisVisit()) {
+            boolean isInSingleVaccineList = false;
+            for (VaccineRepo.Vaccine vaccineDueFromLastVisit : presenter.getVaccinesDueFromLastVisit()) {
+                if (vaccineDueFromLastVisit.display().equalsIgnoreCase(givenThisVisit.getName())) {
+                    isInSingleVaccineList = true;
+                }
+            }
+            if (!isInSingleVaccineList) {
+                groupVaccinesGivenThisVisit.add(givenThisVisit);
+            }
+        }
+        JSONArray jsonObject = getVaccineWrapperListAsJson(groupVaccinesGivenThisVisit);
+        return jsonObject;
+    }
+
+    private JSONArray getVaccineWrapperListAsJson(ArrayList<VaccineWrapper> groupVaccinesGivenThisVisit) {
+        JSONArray arrayOfWrapper = new JSONArray();
+        for (VaccineWrapper wrapper : groupVaccinesGivenThisVisit) {
+            try {
+                JSONObject wrapperObject = new JSONObject((new Gson()).toJson(wrapper));
+                JSONObject vaccineObject = new JSONObject((new Gson()).toJson(wrapper.getVaccine()));
+                wrapperObject.put("vaccine", vaccineObject);
+                arrayOfWrapper.put(wrapperObject);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        return arrayOfWrapper;
     }
 }

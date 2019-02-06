@@ -87,11 +87,12 @@
     <string name="exclusive_breastfeeding">Exclusive breastfeeding</string>
     <string name="vitamin_a">Vitamin A</string>
     <string name="deworming">Deworming</string>
-    <string name="record_immunizations">Record immunizations</string>
+    <string name="record_immunizations"> Record immunizations</string>
     <string name="tab_text_1">DASHBOARD</string>
     <string name="tab_text_2">GUIDEBOOKS</string>
     <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>
+    <string name="updating">Updating....</string>
     <string name="birth_certification">Birth certification</string>
     <string name="observations_illness_episodes"><![CDATA[Observations & Illness Episodes]]></string>
 

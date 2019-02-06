@@ -118,11 +118,14 @@
             android:name=".activity.UpcomingServicesActivity"
             android:label="@string/upcoming_services"
             android:theme="@style/WcaroTheme.NoActionBar" />
+        <activity
+            android:name=".activity.ChildRemoveActivity"
+            android:theme="@style/WcaroTheme.NoActionBar" />
 
         <service android:name="org.smartregister.immunization.service.intent.VaccineIntentService" />
         <service android:name="org.smartregister.immunization.service.intent.RecurringIntentService" />
         <service android:name="org.smartregister.sync.intent.PullUniqueIdsIntentService" />
-        <service android:name="org.smartregister.sync.intent.SyncIntentService" />
+        <service android:name="org.smartgresiter.wcaro.sync.WCAROSyncIntentService" />
         <service android:name="org.smartregister.sync.intent.ExtendedSyncIntentService" />
         <service android:name="org.smartregister.sync.intent.ValidateIntentService" />
     </application>

@@ -46,6 +46,7 @@ public class WcaroRepository extends Repository {
         VaccineRepository.createTable(database);
         VaccineNameRepository.createTable(database);
         VaccineTypeRepository.createTable(database);
+        HomeVisitRepository.createTable(database);
         ConfigurableViewsRepository.createTable(database);
 
         UniqueIdRepository.createTable(database);
