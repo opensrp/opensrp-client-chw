@@ -177,7 +177,7 @@ public class UpcomingServicesFragmentView extends LinearLayout implements View.O
             }
 
             @Override
-            public void statusImageViewUpdate(String type, boolean value) {
+            public void statusImageViewUpdate(String type, boolean value,String message) {
 
             }
 

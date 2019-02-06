@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.support.v4.app.DialogFragment;
 import android.view.Display;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,7 @@ public class FamilyRemoveMemberConfrimDialog extends DialogFragment implements V
 
     private Context context;
     private Runnable onRemove;
+    private Runnable onRemoveActivity;
     private String message;
 
     public static FamilyRemoveMemberConfrimDialog newInstance(String message) {
@@ -33,6 +35,10 @@ public class FamilyRemoveMemberConfrimDialog extends DialogFragment implements V
 
     public void setOnRemove(Runnable onRemove) {
         this.onRemove = onRemove;
+    }
+
+    public void setOnRemoveActivity(Runnable onRemoveActivity) {
+        this.onRemoveActivity = onRemoveActivity;
     }
 
     public FamilyRemoveMemberConfrimDialog() {
@@ -100,10 +106,38 @@ public class FamilyRemoveMemberConfrimDialog extends DialogFragment implements V
                 dismiss();
                 break;
             case R.id.cancel:
+                if (this.onRemoveActivity != null) {
+                    onRemoveActivity.run();
+                }
                 dismiss();
                 break;
             default:
                 break;
         }
+    }
+
+    /**
+     * handle backpress from dialog.it'll finish childremoveactivity when back press
+     */
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (getView() == null) return;
+        getView().setFocusableInTouchMode(true);
+        getView().requestFocus();
+        getView().setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
+                    if (onRemoveActivity != null) {
+                        onRemoveActivity.run();
+                    }
+                    dismiss();
+                    return true;
+                }
+                return false;
+            }
+        });
     }
 }

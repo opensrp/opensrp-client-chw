@@ -18,6 +18,8 @@ import org.joda.time.Days;
 import org.joda.time.LocalDate;
 import org.json.JSONObject;
 import org.smartgresiter.wcaro.application.WcaroApplication;
+import org.smartgresiter.wcaro.domain.HomeVisit;
+import org.smartgresiter.wcaro.repository.HomeVisitRepository;
 import org.smartgresiter.wcaro.rule.HomeAlertRule;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.clientandeventmodel.Obs;
@@ -31,6 +33,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 public class ChildUtils {
@@ -48,7 +51,7 @@ public class ChildUtils {
     //Fully immunized at age 2
     public static String isFullyImmunized(int age, List<String> vaccineGiven) {
         String str = "";
-        if (age < 1) {
+        if (age <= 1) {
             List<String> oneYrVac = Arrays.asList(ONE_YR);
             if (vaccineGiven.containsAll(oneYrVac)) {
                 str = "1";
@@ -263,6 +266,45 @@ public class ChildUtils {
         }
     }
 
+    //event type="Child Home Visit"/Visit not done
+    public static void updateHomeVisitAsEvent(String entityId, String eventType, String entityType, JSONObject singleVaccineObject, JSONObject vaccineGroupObject, JSONObject service, String birthCert, JSONObject illnessJson, String visitStatus, String value) {
+        try {
+
+            ECSyncHelper syncHelper = FamilyLibrary.getInstance().getEcSyncHelper();
+
+            Event event = (Event) new Event()
+                    .withBaseEntityId(entityId)
+                    .withEventDate(new Date())
+                    .withEventType(eventType)
+                    .withEntityType(entityType)
+                    .withFormSubmissionId(JsonFormUtils.generateRandomUUIDString())
+                    .withDateCreated(new Date());
+
+
+            event.addObs((new Obs()).withFormSubmissionField(visitStatus).withValue(value).withFieldCode(visitStatus).withFieldType("formsubmissionField").withFieldDataType("text").withParentCode("").withHumanReadableValues(new ArrayList<Object>()));
+
+            event.addObs((new Obs()).withFormSubmissionField("singleVaccine").withValue(singleVaccineObject.toString()).withFieldCode("singleVaccine").withFieldType("formsubmissionField").withFieldDataType("text").withParentCode("").withHumanReadableValues(new ArrayList<Object>()));
+            event.addObs((new Obs()).withFormSubmissionField("groupVaccine").withValue(vaccineGroupObject.toString()).withFieldCode("groupVaccine").withFieldType("formsubmissionField").withFieldDataType("text").withParentCode("").withHumanReadableValues(new ArrayList<Object>()));
+            event.addObs((new Obs()).withFormSubmissionField("service").withValue(service.toString()).withFieldCode("service").withFieldType("formsubmissionField").withFieldDataType("text").withParentCode("").withHumanReadableValues(new ArrayList<Object>()));
+            event.addObs((new Obs()).withFormSubmissionField("birth_certificate").withValue(birthCert).withFieldCode("birth_certificate").withFieldType("formsubmissionField").withFieldDataType("text").withParentCode("").withHumanReadableValues(new ArrayList<Object>()));
+            event.addObs((new Obs()).withFormSubmissionField("illness_information").withValue(illnessJson.toString()).withFieldCode("illness_information").withFieldType("formsubmissionField").withFieldDataType("text").withParentCode("").withHumanReadableValues(new ArrayList<Object>()));
+
+            JsonFormUtils.tagSyncMetadata(WcaroApplication.getInstance().getContext().allSharedPreferences(), event);
+            JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(event));
+            syncHelper.addEvent(entityId, eventJson);
+            long lastSyncTimeStamp = WcaroApplication.getInstance().getContext().allSharedPreferences().fetchLastUpdatedAtDate(0);
+            Date lastSyncDate = new Date(lastSyncTimeStamp);
+            WcaroApplication.getClientProcessor(WcaroApplication.getInstance().getContext().applicationContext()).processClient(syncHelper.getEvents(lastSyncDate, BaseRepository.TYPE_Unsynced));
+            WcaroApplication.getInstance().getContext().allSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
+
+            //update details
+
+
+        } catch (Exception e) {
+            Log.e("Error in adding event", e.getMessage());
+        }
+    }
+
     public static SpannableString daysAway(String dueDate) {
         SpannableString spannableString;
         LocalDate date1 = new LocalDate(dueDate);
@@ -280,4 +322,46 @@ public class ChildUtils {
             return spannableString;
         }
     }
+
+    public static void addToHomeVisitTable(String baseEntityID, List<org.smartregister.domain.db.Obs> observations) {
+        HomeVisit newHomeVisit = new HomeVisit(null, baseEntityID, HomeVisitRepository.EVENT_TYPE, new Date(), "", "", "", 0l, "", "", new Date());
+        try {
+            for (org.smartregister.domain.db.Obs obs : observations) {
+                if (obs.getFormSubmissionField().equalsIgnoreCase("singleVaccine")) {
+                    newHomeVisit.setSingleVaccinesGiven(new JSONObject((String) obs.getValue()));
+                }
+                if (obs.getFormSubmissionField().equalsIgnoreCase("groupVaccine")) {
+                    newHomeVisit.setVaccineGroupsGiven(new JSONObject((String) obs.getValue()));
+                }
+                if (obs.getFormSubmissionField().equalsIgnoreCase("service")) {
+                    newHomeVisit.setServicesGiven(new JSONObject((String) obs.getValue()));
+                }
+                if (obs.getFormSubmissionField().equalsIgnoreCase("birth_certificate")) {
+                    newHomeVisit.setBirthCertificationState((String) obs.getValue());
+                }
+                if (obs.getFormSubmissionField().equalsIgnoreCase("illness_information")) {
+                    newHomeVisit.setIllness_information(new JSONObject((String) obs.getValue()));
+                }
+            }
+        } catch (Exception e) {
+
+        }
+        newHomeVisit.setFormfields(new HashMap<String, String>());
+        WcaroApplication.homeVisitRepository().add(newHomeVisit);
+    }
+
+    public static void addToHomeVisitTable(String baseEntityID, JSONObject singleVaccineObject, JSONObject vaccineGroupObject, JSONObject service, String birthCert, JSONObject illnessJson) {
+        HomeVisit newHomeVisit = new HomeVisit(null, baseEntityID, HomeVisitRepository.EVENT_TYPE, new Date(), "", "", "", 0l, "", "", new Date());
+        newHomeVisit.setSingleVaccinesGiven(singleVaccineObject);
+        newHomeVisit.setVaccineGroupsGiven(vaccineGroupObject);
+        newHomeVisit.setServicesGiven(service);
+        newHomeVisit.setBirthCertificationState(birthCert);
+        if (illnessJson != null) {
+            newHomeVisit.setIllness_information(illnessJson);
+        }
+        newHomeVisit.setFormfields(new HashMap<String, String>());
+        WcaroApplication.homeVisitRepository().add(newHomeVisit);
+    }
+
+
 }

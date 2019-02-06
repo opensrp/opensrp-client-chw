@@ -1,6 +1,7 @@
 package org.smartgresiter.wcaro.task;
 
 import android.os.AsyncTask;
+import android.text.TextUtils;
 
 import org.joda.time.DateTime;
 import org.smartgresiter.wcaro.application.WcaroApplication;
@@ -9,7 +10,9 @@ import org.smartgresiter.wcaro.util.ImmunizationState;
 import org.smartregister.domain.Alert;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.immunization.db.VaccineRepo;
+import org.smartregister.immunization.domain.ServiceSchedule;
 import org.smartregister.immunization.domain.Vaccine;
+import org.smartregister.immunization.domain.VaccineSchedule;
 import org.smartregister.immunization.domain.VaccineWrapper;
 import org.smartregister.immunization.util.VaccinateActionUtils;
 
@@ -54,16 +57,24 @@ public class VaccinationAsyncTask extends AsyncTask {
 
     @Override
     protected Object doInBackground(Object[] objects) {
+        String dobString = org.smartregister.util.Utils.getValue(getColumnMaps, DBConstants.KEY.DOB, false);
+        DateTime dob = org.smartgresiter.wcaro.util.Utils.dobStringToDateTime(dobString);
+        if (dob == null) {
+            dob = new DateTime();
+        }
+
+        if (!TextUtils.isEmpty(dobString)) {
+            DateTime dateTime = new DateTime(dobString);
+            VaccineSchedule.updateOfflineAlerts(entityId, dateTime, "child");
+            ServiceSchedule.updateOfflineAlerts(entityId, dateTime);
+        }
+
+
         alerts = WcaroApplication.getInstance().getContext().alertService().findByEntityIdAndAlertNames(entityId, VaccinateActionUtils.allAlertNames("child"));
         vaccines = WcaroApplication.getInstance().vaccineRepository().findByEntityId(entityId);
         Map<String, Date> recievedVaccines = receivedVaccines(vaccines);
         recievedVaccines = addNotDoneVaccinesToReceivedVaccines(notDoneVaccines, recievedVaccines);
 
-        DateTime dob = new DateTime();
-        try {
-            dob = new DateTime(org.smartregister.family.util.Utils.getValue(getColumnMaps, DBConstants.KEY.DOB, false));
-        } catch (Exception e) {
-        }
         sch = generateScheduleList("child",
                 dob, recievedVaccines, alerts);
 

@@ -13,15 +13,15 @@
         android:layout_width="match_parent"
         android:layout_toLeftOf="@+id/due_button_wrapper"
         android:gravity="center_vertical"
-        android:layout_marginStart="15dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginRight="15dp"
+        android:layout_marginBottom="@dimen/register_list_top_bottom_margin"
+        android:layout_marginEnd="@dimen/register_list_item_margin"
+        android:layout_marginLeft="@dimen/register_list_item_margin"
+        android:layout_marginRight="@dimen/register_list_item_margin"
+        android:layout_marginStart="@dimen/register_list_item_margin"
+        android:layout_marginTop="@dimen/register_list_top_bottom_margin"
         android:layout_centerVertical="true"
         android:orientation="vertical"
-        android:layout_height="@dimen/register_list_item_height"
-        android:layout_marginTop="7dp"
-        android:layout_marginBottom="7dp">
+        android:layout_height="@dimen/register_list_item_height">
 
         <org.smartregister.view.customcontrols.CustomFontTextView
             android:id="@+id/textview_parent_name"
@@ -66,8 +66,9 @@
 
     <LinearLayout
         android:id="@+id/due_button_wrapper"
-        android:layout_width="100dp"
+        android:layout_width="@dimen/register_list_item_width"
         android:layout_height="@dimen/register_list_item_height"
+        android:background="@drawable/grey_left_border"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_marginLeft="10dp"
@@ -84,7 +85,6 @@
             android:gravity="center"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
-            android:text="@string/visit_done"
             android:stateListAnimator="@drawable/button"
             android:textAllCaps="true"
             android:textAppearance="?android:textAppearanceSmall"

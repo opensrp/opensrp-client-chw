@@ -17,7 +17,7 @@ public interface HomeVisitGrowthNutritionContract {
 
         void updateDewormingData(String name);
 
-        void statusImageViewUpdate(String type, boolean value);
+        void statusImageViewUpdate(String type, boolean value,String message);
 
         void updateUpcomingService();
 
@@ -28,7 +28,7 @@ public interface HomeVisitGrowthNutritionContract {
 
         void setSaveState(String type, ServiceWrapper serviceWrapper);
 
-        void serNotVisitState(String type, ServiceWrapper serviceWrapper);
+        void setNotVisitState(String type, ServiceWrapper serviceWrapper);
 
         void resetAllSaveState();
 
@@ -39,6 +39,8 @@ public interface HomeVisitGrowthNutritionContract {
         HomeVisitGrowthNutritionContract.View getView();
 
         void onDestroy(boolean isChangingConfiguration);
+
+        Map<String, String> getSaveStateMap();
 
     }
 

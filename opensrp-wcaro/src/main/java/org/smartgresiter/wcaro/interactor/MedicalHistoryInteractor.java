@@ -115,11 +115,14 @@ public class MedicalHistoryInteractor implements MedicalHistoryContract.Interact
         final ArrayList<String> illnessContent = new ArrayList<>();
 
         String illnessDate = getValue(commonPersonObjectClient.getColumnmaps(), ILLNESS_DATE, true);
-        String illnessDescription = getValue(commonPersonObjectClient.getColumnmaps(), ILLNESS_DESCRIPTION, true);
-        String illnessAction = getValue(commonPersonObjectClient.getColumnmaps(), ILLNESS_ACTION, true);
-        illnessContent.add("Date of illness: " + illnessDate);
-        illnessContent.add("Illness description: " + illnessDescription);
-        illnessContent.add("Action taken: " + illnessAction);
+        if(!TextUtils.isEmpty(illnessDate)){
+            String illnessDescription = getValue(commonPersonObjectClient.getColumnmaps(), ILLNESS_DESCRIPTION, true);
+            String illnessAction = getValue(commonPersonObjectClient.getColumnmaps(), ILLNESS_ACTION, true);
+            illnessContent.add("Date of illness: " + illnessDate);
+            illnessContent.add("Illness description: " + illnessDescription);
+            illnessContent.add("Action taken: " + illnessAction);
+
+        }
         Runnable runnable2 = new Runnable() {
             @Override
             public void run() {
@@ -205,7 +208,6 @@ public class MedicalHistoryInteractor implements MedicalHistoryContract.Interact
 
     @Override
     public void fetchGrowthNutritionData(String baseEntity, final MedicalHistoryContract.InteractorCallBack callBack) {
-        final ArrayList<GrowthNutrition> growthNutritions = new ArrayList<>();
         RecurringServiceRecordRepository recurringServiceRecordRepository = ImmunizationLibrary.getInstance().recurringServiceRecordRepository();
         List<ServiceRecord> serviceRecordList = recurringServiceRecordRepository.findByEntityId(baseEntity);
         if (serviceRecordList.size() > 0) {
@@ -229,14 +231,14 @@ public class MedicalHistoryInteractor implements MedicalHistoryContract.Interact
                 baseServiceArrayList.add(serviceHeader);
                 ServiceContent content = new ServiceContent();
                 if (serviceRecord.getType().equalsIgnoreCase(GrowthNutritionInputFragment.GROWTH_TYPE.EXCLUSIVE.getValue())) {
-                    String[] values = serviceRecord.getValue().split("_");
+                    //String[] values = serviceRecord.getValue().split("_");
                     if (serviceRecord.getName().equalsIgnoreCase("exclusive breastfeeding0")) {
-                        content.setServiceName("Early initiation breastfeeding: " + values[0]);
+                        content.setServiceName("Early initiation breastfeeding: " + serviceRecord.getValue());
                     } else {
                         Object[] objects = ChildUtils.getStringWithNumber(serviceRecord.getName());
                         String name = (String) objects[0];
                         String number = (String) objects[1];
-                        content.setServiceName(name + " (" + number + "m): " + values[0]);
+                        content.setServiceName(name + " (" + number + "m): " + serviceRecord.getValue());
                     }
 
                 } else {
@@ -251,14 +253,14 @@ public class MedicalHistoryInteractor implements MedicalHistoryContract.Interact
             } else {
                 ServiceContent content = new ServiceContent();
                 if (serviceRecord.getType().equalsIgnoreCase(GrowthNutritionInputFragment.GROWTH_TYPE.EXCLUSIVE.getValue())) {
-                    String[] values = serviceRecord.getValue().split("_");
+                    //String[] values = serviceRecord.getValue().split("_");
                     if (serviceRecord.getName().equalsIgnoreCase("exclusive breastfeeding0")) {
-                        content.setServiceName("Early initiation breastfeeding: " + values[0]);
+                        content.setServiceName("Early initiation breastfeeding: " +serviceRecord.getValue());
                     } else {
                         Object[] objects = ChildUtils.getStringWithNumber(serviceRecord.getName());
                         String name = (String) objects[0];
                         String number = (String) objects[1];
-                        content.setServiceName(name + " (" + number + "m): " + values[0]);
+                        content.setServiceName(name + " (" + number + "m): " + serviceRecord.getValue());
                     }
 
                 } else {

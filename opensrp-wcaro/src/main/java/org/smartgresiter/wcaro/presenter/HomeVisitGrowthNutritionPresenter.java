@@ -28,6 +28,8 @@ public class HomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNutriti
     private ServiceWrapper serviceWrapperVitamin;
     private ServiceWrapper serviceWrapperDeworming;
     private Map<String, ServiceWrapper> saveStateMap = new LinkedHashMap<>();
+    private Map<String, String> saveServiceMap = new LinkedHashMap<>();
+
     private Map<String, ServiceWrapper> notVisitStateMap = new LinkedHashMap<>();
     private CommonPersonObjectClient commonPersonObjectClient;
     private int growthListCount = 0;
@@ -82,15 +84,26 @@ public class HomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNutriti
     @Override
     public void setSaveState(String type, ServiceWrapper serviceWrapper) {
         saveStateMap.put(type, serviceWrapper);
-        if (getView() != null) getView().statusImageViewUpdate(type, true);
+        saveServiceMap.put(type,serviceWrapper.getAlert().scheduleName());
+        if(type.equalsIgnoreCase(GrowthNutritionInputFragment.GROWTH_TYPE.EXCLUSIVE.getValue())){
+            if (getView() != null) getView().statusImageViewUpdate(type, true,serviceWrapper.getValue());
+        }else{
+            if (getView() != null) getView().statusImageViewUpdate(type, true,"given");
+        }
+
+
     }
 
     @Override
-    public void serNotVisitState(String type, ServiceWrapper serviceWrapper) {
+    public void setNotVisitState(String type, ServiceWrapper serviceWrapper) {
 
         if (isSave(type)) return;
         notVisitStateMap.put(type, serviceWrapper);
-        if (getView() != null) getView().statusImageViewUpdate(type, false);
+        if(type.equalsIgnoreCase(GrowthNutritionInputFragment.GROWTH_TYPE.EXCLUSIVE.getValue())){
+            if (getView() != null) getView().statusImageViewUpdate(type, false,"");
+        }else{
+            if (getView() != null) getView().statusImageViewUpdate(type, false,"not given");
+        }
     }
 
     @Override
@@ -137,6 +150,7 @@ public class HomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNutriti
             Alert alert = serviceWrapperExclusive.getAlert();
             if (alert != null) {
                 growthListCount++;
+
                 if (getView() != null) getView().updateExclusiveFeedingData(alert.scheduleName());
             } else {
                 String lastDoneExclusive = serviceWrapperExclusive.getServiceType().getName();
@@ -148,6 +162,7 @@ public class HomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNutriti
             Alert alert = serviceWrapperMnp.getAlert();
             if (alert != null) {
                 growthListCount++;
+
                 if (getView() != null) getView().updateMnpData(alert.scheduleName());
             } else {
                 String lastDoneExclusive = serviceWrapperMnp.getServiceType().getName();
@@ -159,6 +174,7 @@ public class HomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNutriti
             Alert alert = serviceWrapperVitamin.getAlert();
             if (alert != null) {
                 growthListCount++;
+
                 if (getView() != null) getView().updateVitaminAData(alert.scheduleName());
             } else {
                 String lastDoneExclusive = serviceWrapperVitamin.getServiceType().getName();
@@ -171,6 +187,7 @@ public class HomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNutriti
             Alert alert = serviceWrapperDeworming.getAlert();
             if (alert != null) {
                 growthListCount++;
+
                 if (getView() != null) getView().updateDewormingData(alert.scheduleName());
             } else {
                 String lastDoneVitamin = serviceWrapperDeworming.getServiceType().getName();
@@ -241,6 +258,11 @@ public class HomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNutriti
         } else {
             return null;
         }
+    }
+
+    @Override
+    public Map<String, String> getSaveStateMap() {
+        return saveServiceMap;
     }
 
 }
