@@ -13,4 +13,17 @@
     <dimen name="change_member_padding">10sp</dimen>
     <dimen name="change_member_list_main">24sp</dimen>
     <dimen name="change_member_list_details">18sp</dimen>
+
+
+    <dimen name="tool_bar_size">75dp</dimen>
+    <dimen name="tool_bar_title">25sp</dimen>
+    <dimen name="tool_bar_image">30dp</dimen>
+
+    <dimen name="call_widget_padding_top">15dp</dimen>
+    <dimen name="call_widget_padding_side">20dp</dimen>
+    <dimen name="call_widget_padding_bottom">50dp</dimen>
+
+    <dimen name="call_widget_font1">30sp</dimen>
+    <dimen name="call_widget_font2">26sp</dimen>
+    <dimen name="call_widget_font3">22sp</dimen>
 </resources>
