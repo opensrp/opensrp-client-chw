@@ -32,7 +32,9 @@ public class WCAROBottomNavigationListener extends BottomNavigationListener {
         } else if (item.getItemId() == R.id.action_scan_qr) {
             baseRegisterActivity.startQrCodeScanner();
         } else if (item.getItemId() == R.id.action_register) {
+            view.setSelectedItemId(R.id.action_family);
             baseRegisterActivity.startRegistration();
+            return false;
         } else if (item.getItemId() == R.id.action_job_aids) {
             view.setSelectedItemId(R.id.action_family);
             Intent intent = new Intent(context, JobAidsActivity.class);
