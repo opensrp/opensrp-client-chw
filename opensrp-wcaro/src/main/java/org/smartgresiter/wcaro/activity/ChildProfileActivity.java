@@ -345,7 +345,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
         openVisitMonthView();
         textViewNotVisitMonth.setText(getString(R.string.not_visiting_this_month));
         textViewUndo.setText(getString(R.string.undo));
-        imageViewCross.setImageResource(R.drawable.ic_cross);
+        imageViewCross.setImageResource(R.drawable.activityrow_notvisited);
     }
 
     @Override
