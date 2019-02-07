@@ -7,7 +7,10 @@ import android.util.Log;
 import org.apache.commons.lang3.StringUtils;
 import org.smartgresiter.wcaro.application.WcaroApplication;
 import org.smartgresiter.wcaro.repository.HomeVisitRepository;
+import org.smartgresiter.wcaro.util.Constants;
 import org.smartregister.clientandeventmodel.DateUtil;
+import org.smartregister.commonregistry.AllCommonsRepository;
+import org.smartregister.domain.db.Client;
 import org.smartregister.domain.db.Event;
 import org.smartregister.domain.db.EventClient;
 import org.smartregister.domain.db.Obs;
@@ -15,6 +18,7 @@ import org.smartregister.domain.jsonmapping.ClientClassification;
 import org.smartregister.domain.jsonmapping.Column;
 import org.smartregister.domain.jsonmapping.Table;
 import org.smartregister.family.sync.FamilyClientProcessorForJava;
+import org.smartregister.family.util.DBConstants;
 import org.smartregister.immunization.ImmunizationLibrary;
 import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.immunization.domain.ServiceRecord;
@@ -83,10 +87,16 @@ public class WCAROClientProcessor extends FamilyClientProcessorForJava {
                     }
                     processService(eventClient, serviceTable);
                 } else if (eventType.equals(HomeVisitRepository.EVENT_TYPE) || eventType.equals(HomeVisitRepository.NOT_DONE_EVENT_TYPE)) {
-                    if (serviceTable == null) {
-                        continue;
-                    }
                     processHomeVisit(eventClient);
+                    processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
+                } else if (eventType.equals(Constants.EventType.REMOVE_FAMILY)) {
+                    Client client = eventClient.getClient();
+                    //iterate through the events
+                    if (client != null) {
+                        if (eventType.equals(Constants.EventType.REMOVE_FAMILY)) {
+                            processRemoveFamily(client.getBaseEntityId(), event.getEventDate().toDate());
+                        }
+                    }
                 }
             }
         }
@@ -168,30 +178,19 @@ public class WCAROClientProcessor extends FamilyClientProcessorForJava {
 
             // save the values to db
             if (contentValues != null && contentValues.size() > 0) {
-
                 String name = contentValues.getAsString(RecurringServiceTypeRepository.NAME);
+
                 if (StringUtils.isNotBlank(name)) {
                     name = name.replaceAll("_", " ").replace("dose", "").trim();
                 }
 
+
                 String eventDateStr = contentValues.getAsString(RecurringServiceRecordRepository.DATE);
                 Date date = getDate(eventDateStr);
-
                 String value = null;
 
-                if (StringUtils.containsIgnoreCase(name, "ITN")) {
-                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                    String itnDateString = contentValues.getAsString("itn_date");
-                    if (StringUtils.isNotBlank(itnDateString)) {
-                        date = simpleDateFormat.parse(itnDateString);
-                    }
-
-
-                    value = RecurringIntentService.ITN_PROVIDED;
-                    if (contentValues.getAsString("itn_has_net") != null) {
-                        value = RecurringIntentService.CHILD_HAS_NET;
-                    }
-
+                if (StringUtils.containsIgnoreCase(name, "Exclusive breastfeeding")) {
+                    value = contentValues.getAsString(RecurringServiceRecordRepository.VALUE);
                 }
 
                 RecurringServiceTypeRepository recurringServiceTypeRepository = ImmunizationLibrary.getInstance().getInstance().recurringServiceTypeRepository();
@@ -330,5 +329,38 @@ public class WCAROClientProcessor extends FamilyClientProcessorForJava {
             Log.e(WCAROClientProcessor.class.getCanonicalName(), Log.getStackTraceString(e));
         }
 
+    }
+
+    /**
+     * Update the family members
+     *
+     * @param familyID
+     */
+    private void processRemoveFamily(String familyID, Date eventDate) {
+
+        if (eventDate == null) {
+            eventDate = new Date();
+        }
+
+        if (familyID == null) {
+            return;
+        }
+
+        AllCommonsRepository commonsRepository = WcaroApplication.getInstance().getAllCommonsRepository(Constants.TABLE_NAME.FAMILY);
+        if (commonsRepository != null) {
+
+            ContentValues values = new ContentValues();
+            values.put(DBConstants.KEY.DATE_REMOVED, new SimpleDateFormat("yyyy-MM-dd").format(eventDate));
+            values.put("is_closed", 1);
+
+            WcaroApplication.getInstance().getRepository().getWritableDatabase().update(Constants.TABLE_NAME.FAMILY, values,
+                    DBConstants.KEY.BASE_ENTITY_ID + " = ?  ", new String[]{familyID});
+
+            WcaroApplication.getInstance().getRepository().getWritableDatabase().update(Constants.TABLE_NAME.CHILD, values,
+                    DBConstants.KEY.RELATIONAL_ID + " = ?  ", new String[]{familyID});
+
+            WcaroApplication.getInstance().getRepository().getWritableDatabase().update(Constants.TABLE_NAME.FAMILY_MEMBER, values,
+                    DBConstants.KEY.RELATIONAL_ID + " = ?  ", new String[]{familyID});
+        }
     }
 }

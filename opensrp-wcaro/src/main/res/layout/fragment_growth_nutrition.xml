@@ -41,6 +41,14 @@
         android:padding="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/growth_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/form_breasfeeding"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
+            />
 
         <org.smartregister.view.customcontrols.CustomFontTextView
             android:id="@+id/textview_exclusive"
@@ -83,15 +91,24 @@
         android:layout_below="@+id/exclusive_feeding_bar"
         android:orientation="vertical"
         android:padding="10dp"
+        android:gravity="center"
         android:visibility="visible"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
+        <ImageView
+            android:id="@+id/vitamin_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/form_vitamin"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
+            />
         <org.smartregister.view.customcontrols.CustomFontTextView
             android:id="@+id/textview_vitamin"
             style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:layout_gravity="center_horizontal"
             android:layout_marginLeft="@dimen/btn_margin_left"
             android:layout_marginTop="@dimen/vaccine_text_top_margin"
@@ -107,9 +124,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:calendarViewShown="false"
-            android:layout_marginLeft="@dimen/btn_margin_left"
+            android:layout_gravity="center"
             android:descendantFocusability="blocksDescendants"
-            android:gravity="left" />
+            />
     </LinearLayout>
 
     <View

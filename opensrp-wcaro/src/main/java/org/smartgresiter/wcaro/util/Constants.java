@@ -63,7 +63,6 @@ public class Constants {
         public static final String GROWTH_TITLE = "growth_title";
         public static final String GROWTH_QUESTION = "growth_ques";
         public static final String GROWTH_IMMUNIZATION_TYPE = "growth_type";
-        public static final String GROWTH_SERVICE_WRAPPER = "growth_service";
         public static final String CHILD_COMMON_PERSON = "child_common_peron";
     }
 
@@ -100,6 +99,8 @@ public class Constants {
             public static final String PHONE_NUMBER = "phone_number";
             public static final String OTHER_PHONE_NUMBER = "other_phone_number";
         }
+        public static String DETAILS = "details";
+        public static String FAM_NAME = "fam_name";
     }
 
     public static class ProfileActivityResults {

@@ -15,7 +15,7 @@ public interface FamilyRemoveMemberContract {
 
         void processMember(Map<String, String> familyDetails, CommonPersonObjectClient client);
 
-        void removeEveryone(String details);
+        void removeEveryone(String familyName, String details);
 
         void onFamilyRemoved(Boolean success);
 
@@ -33,7 +33,7 @@ public interface FamilyRemoveMemberContract {
 
         void displayChangeCareGiverDialog(CommonPersonObjectClient client, String careGiverID);
 
-        void closeFamily(String details);
+        void closeFamily(String familyName, String details);
 
         void goToPrevious();
 
@@ -57,7 +57,7 @@ public interface FamilyRemoveMemberContract {
 
         JSONObject prepareJsonForm(CommonPersonObjectClient client, String formType);
 
-        JSONObject prepareFamilyRemovalForm(String familyID, String details);
+        JSONObject prepareFamilyRemovalForm(String familyID, String familyName, String details);
 
     }
 

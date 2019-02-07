@@ -1,6 +1,8 @@
 package org.smartgresiter.wcaro.provider;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,8 +59,13 @@ public class FamilyRemoveMemberProvider extends FamilyMemberRegisterProvider {
                     payload.put(Constants.GLOBAL.MESSAGE, String.format("%s adults and %s U5 children", String.valueOf(adults), String.valueOf(children)));
                     payload.put(Constants.GLOBAL.NAME, result.get(Constants.GLOBAL.NAME));
 
-                    footerViewHolder.hint.setText(payload.get(Constants.GLOBAL.MESSAGE));
+                    footerViewHolder.instructions.setFontVariant(FontVariant.REGULAR);
+                    footerViewHolder.instructions.setTextColor(Color.BLACK);
 
+                    footerViewHolder.hint.setText(payload.get(Constants.GLOBAL.MESSAGE));
+                    footerViewHolder.hint.setFontVariant(FontVariant.LIGHT);
+                    footerViewHolder.hint.setTextColor(Color.GRAY);
+                    footerViewHolder.hint.setTypeface(footerViewHolder.hint.getTypeface(), Typeface.NORMAL);
 
                     footerViewHolder.view.setTag(payload);
                 }
@@ -75,11 +82,13 @@ public class FamilyRemoveMemberProvider extends FamilyMemberRegisterProvider {
 
     public class RemoveFooterViewHolder extends FooterViewHolder {
         public CustomFontTextView hint;
+        public CustomFontTextView instructions;
         public View view;
 
         public RemoveFooterViewHolder(android.view.View view) {
             super(view);
             this.hint = view.findViewById(R.id.hint);
+            this.instructions = view.findViewById(R.id.instructions);
             this.view = view;
 
             hint.setFontVariant(FontVariant.REGULAR);

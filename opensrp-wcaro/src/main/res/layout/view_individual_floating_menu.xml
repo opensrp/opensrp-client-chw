@@ -119,7 +119,7 @@
                 android:elevation="2dp"
                 android:padding="10dp"
                 android:gravity="center"
-                android:layout_toLeftOf="@+id/remove_member_layout"
+                android:layout_toLeftOf="@+id/remove_member_fab"
                 android:text="Remove this person"
                 android:minWidth="50dp"
                 android:background="@color/white"

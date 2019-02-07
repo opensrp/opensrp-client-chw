@@ -3,10 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:paddingTop="15dp"
-    android:paddingBottom="50dp"
-    android:paddingLeft="20dp"
-    android:paddingRight="20dp">
+    android:paddingTop="@dimen/call_widget_padding_top"
+    android:paddingBottom="@dimen/call_widget_padding_bottom"
+    android:paddingLeft="@dimen/call_widget_padding_side"
+    android:paddingRight="@dimen/call_widget_padding_side">
 
     <ImageView
         android:layout_gravity="right"
@@ -32,7 +32,7 @@
             android:layout_marginBottom="5dp"
             android:text="Call caregiver"
             android:textColor="@color/black"
-            android:textSize="30sp"
+            android:textSize="@dimen/call_widget_font1"
             android:textStyle="normal" />
 
         <LinearLayout
@@ -50,7 +50,7 @@
                 android:layout_marginBottom="5dp"
                 android:text="Name 1"
                 android:textColor="@color/black"
-                android:textSize="26sp"
+                android:textSize="@dimen/call_widget_font2"
                 android:textStyle="normal" />
 
             <org.smartregister.view.customcontrols.CustomFontTextView
@@ -61,7 +61,7 @@
                 android:layout_marginBottom="5dp"
                 android:text="Head of family"
                 android:textColor="@color/grey"
-                android:textSize="22sp"
+                android:textSize="@dimen/call_widget_font3"
                 android:textStyle="normal" />
 
             <org.smartregister.view.customcontrols.CustomFontTextView
@@ -72,7 +72,7 @@
                 android:layout_marginBottom="5dp"
                 android:text="CALL [-]"
                 android:textColor="@color/colorPrimaryDark"
-                android:textSize="22sp"
+                android:textSize="@dimen/call_widget_font3"
                 android:textStyle="bold" />
 
         </LinearLayout>
@@ -93,7 +93,7 @@
                 android:layout_marginBottom="5dp"
                 android:text="Name 2"
                 android:textColor="@color/black"
-                android:textSize="26sp"
+                android:textSize="@dimen/call_widget_font2"
                 android:textStyle="normal" />
 
             <org.smartregister.view.customcontrols.CustomFontTextView
@@ -104,7 +104,7 @@
                 android:layout_marginBottom="5dp"
                 android:text="Caregiver"
                 android:textColor="@color/grey"
-                android:textSize="22sp"
+                android:textSize="@dimen/call_widget_font3"
                 android:textStyle="normal" />
 
             <org.smartregister.view.customcontrols.CustomFontTextView
@@ -115,7 +115,7 @@
                 android:layout_marginBottom="5dp"
                 android:text="CALL [-]"
                 android:textColor="@color/colorPrimaryDark"
-                android:textSize="22sp"
+                android:textSize="@dimen/call_widget_font3"
                 android:textStyle="bold" />
 
         </LinearLayout>
