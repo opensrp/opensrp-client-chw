@@ -224,11 +224,14 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
         }
         String parentFirstName = Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.FAMILY_FIRST_NAME, true);
         String parentLastName = Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.FAMILY_LAST_NAME, true);
-        String parentName = "CG: " + org.smartregister.util.Utils.getName(parentFirstName, parentLastName);
+        String parentMiddleName=Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.FAMILY_MIDDLE_NAME, true);
+
+        String parentName = "CG: " + org.smartregister.util.Utils.getName(parentFirstName,parentMiddleName+" "+ parentLastName);
         getView().setParentName(parentName);
         String firstName = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.FIRST_NAME, true);
         String lastName = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.LAST_NAME, true);
-        String childName = org.smartregister.util.Utils.getName(firstName, lastName);
+        String middleName = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.MIDDLE_NAME, true);
+        String childName = org.smartregister.util.Utils.getName(firstName,middleName+" "+ lastName);
         getView().setProfileName(childName);
 
         dob = Utils.getDuration(Utils.getValue(client.getColumnmaps(), DBConstants.KEY.DOB, false));
