@@ -132,6 +132,11 @@ public class ChildRegisterActivity extends BaseRegisterActivity implements Child
     }
 
     @Override
+    public void openFamilyListView() {
+        bottomNavigationView.setSelectedItemId(R.id.action_family);
+    }
+
+    @Override
     public void switchToBaseFragment() {
         Intent intent = new Intent(this, FamilyRegisterActivity.class);
         startActivity(intent);

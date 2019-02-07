@@ -128,9 +128,10 @@ public class ChildRegisterPresenter implements ChildRegisterContract.Presenter, 
 
                     @Override
                     public void onRegistrationSaved(boolean isEdit) {
-
-                        getView().refreshList(FetchStatus.fetched);
                         getView().hideProgressDialog();
+                        getView().openFamilyListView();
+
+
                     }
                 });
 
