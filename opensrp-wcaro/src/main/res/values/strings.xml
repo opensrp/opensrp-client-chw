@@ -45,7 +45,7 @@
     <string name="view_medical_history">View medical history</string>
     <string name="last_visit_40_days_ago">Last visit %1$s ago</string>
     <string name="add_member_title">Add family member</string>
-    <string name="add_member_title_question">What kind of family member you want to add?</string>
+    <string name="add_member_title_question">What kind of family member do you want to add?</string>
     <string name="change_head_member_title">Change family head</string>
     <string name="change_head_member_title_question">Select a new family head</string>
     <string name="change_caregiver_member_title">Change primary care giver</string>

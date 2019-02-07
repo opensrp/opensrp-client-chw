@@ -108,26 +108,6 @@ public class WCAROClientProcessor extends FamilyClientProcessorForJava {
 //        super.processClient(eventClients);
     }
 
-
-//    @Override
-//    public synchronized void processClient(List<EventClient> eventClientList) throws Exception {
-//
-//        final String EC_CLIENT_CLASSIFICATION = "ec_client_classification.json";
-//        ClientClassification clientClassification = assetJsonToJava(EC_CLIENT_CLASSIFICATION, ClientClassification.class);
-//        if (clientClassification == null) {
-//            return;
-//        }
-//
-//        if (!eventClientList.isEmpty()) {
-//            for (EventClient eventClient : eventClientList) {
-//                // Iterate through the events
-//                if (eventClient.getClient() != null) {
-//                    processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
-//                }
-//            }
-//        }
-//    }
-
     private void processHomeVisit(EventClient eventClient) {
         List<Obs> observations = eventClient.getEvent().getObs();
         addToHomeVisitTable(eventClient.getEvent().getBaseEntityId(), observations);
