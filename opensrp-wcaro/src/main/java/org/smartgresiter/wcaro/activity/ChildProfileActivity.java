@@ -75,9 +75,9 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
                     break;
                 case R.id.remove_member_layout:
 
-                    Intent frm_intent = new Intent(ChildProfileActivity.this, ChildRemoveActivity.class);
-                    frm_intent.putExtra(org.smartgresiter.wcaro.util.Constants.INTENT_KEY.CHILD_COMMON_PERSON, ((ChildProfilePresenter) presenter()).getChildClient());
-                    startActivityForResult(frm_intent, org.smartgresiter.wcaro.util.Constants.ProfileActivityResults.CHANGE_COMPLETED);
+                    IndividualProfileRemoveActivity.startIndividualProfileActivity(ChildProfileActivity.this,((ChildProfilePresenter) presenter()).getChildClient(),
+                    ((ChildProfilePresenter) presenter()).getFamilyID()
+                    ,((ChildProfilePresenter) presenter()).getFamilyHeadID(),((ChildProfilePresenter) presenter()).getPrimaryCareGiverID());
 
                     break;
             }
