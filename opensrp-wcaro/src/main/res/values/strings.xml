@@ -58,6 +58,7 @@
     <string name="record_visit">Record visit</string>
     <string name="edit">EDIT</string>
     <string name="return_to_family_name">Return to %1$s Family</string>
+    <string name="return_to_family_members">Return to family members</string>
 
     <string name="allow_calls_denied">Kindly allow calls to be made here</string>
     <string name="copy_to_clipboard">Copy to clipboard</string>

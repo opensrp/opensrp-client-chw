@@ -34,7 +34,7 @@ public class WCAROBottomNavigationListener extends BottomNavigationListener {
         } else if (item.getItemId() == R.id.action_register) {
             baseRegisterActivity.startRegistration();
         } else if (item.getItemId() == R.id.action_job_aids) {
-            view.setSelectedItemId(R.id.action_family);
+            //view.setSelectedItemId(R.id.action_family);
             Intent intent = new Intent(context, JobAidsActivity.class);
             context.startActivity(intent);
             return false;

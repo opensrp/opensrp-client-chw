@@ -130,13 +130,6 @@ public class ChildRegisterActivity extends BaseRegisterActivity implements Child
         }
     }
 
-    @Override
-    public void switchToBaseFragment() {
-        super.switchToBaseFragment();
-        Intent intent = new Intent(this, FamilyRegisterActivity.class);
-        startActivity(intent);
-        finish();
-    }
 
     @Override
     public List<String> getViewIdentifiers() {
