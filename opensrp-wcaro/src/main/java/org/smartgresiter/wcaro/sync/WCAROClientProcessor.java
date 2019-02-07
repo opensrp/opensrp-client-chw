@@ -29,6 +29,8 @@ import org.smartregister.immunization.repository.RecurringServiceTypeRepository;
 import org.smartregister.immunization.repository.VaccineRepository;
 import org.smartregister.immunization.service.intent.RecurringIntentService;
 import org.smartregister.immunization.service.intent.VaccineIntentService;
+import org.smartregister.sync.ClientProcessor;
+import org.smartregister.sync.ClientProcessorForJava;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -42,14 +44,14 @@ import static org.smartgresiter.wcaro.util.ChildUtils.addToHomeVisitTable;
 
 public class WCAROClientProcessor extends FamilyClientProcessorForJava {
 
-    private static final String TAG = WCAROClientProcessor.class.getName();
-    private static WCAROClientProcessor instance;
+//    private static final String TAG = WCAROClientProcessor.class.getName();
+//    private static ClientProcessorForJava instance;
 
     private WCAROClientProcessor(Context context) {
         super(context);
     }
 
-    public static WCAROClientProcessor getInstance(Context context) {
+    public static ClientProcessorForJava getInstance(Context context) {
         if (instance == null) {
             instance = new WCAROClientProcessor(context);
         }
@@ -57,7 +59,7 @@ public class WCAROClientProcessor extends FamilyClientProcessorForJava {
     }
 
     @Override
-    public void processClient(List<EventClient> eventClients) throws Exception {
+    public synchronized void processClient(List<EventClient> eventClients) throws Exception {
         ClientClassification clientClassification = assetJsonToJava("ec_client_classification.json", ClientClassification.class);
         Table vaccineTable = assetJsonToJava("ec_client_vaccine.json", Table.class);
 //        Table weightTable = assetJsonToJava("ec_client_weight.json", Table.class);
@@ -73,9 +75,7 @@ public class WCAROClientProcessor extends FamilyClientProcessorForJava {
                 String eventType = event.getEventType();
                 if (eventType == null) {
                     continue;
-                }
-
-                if (eventType.equals(VaccineIntentService.EVENT_TYPE) || eventType.equals(VaccineIntentService.EVENT_TYPE_OUT_OF_CATCHMENT)) {
+                }else if (eventType.equals(VaccineIntentService.EVENT_TYPE) || eventType.equals(VaccineIntentService.EVENT_TYPE_OUT_OF_CATCHMENT)) {
                     if (vaccineTable == null) {
                         continue;
                     }
@@ -97,11 +97,36 @@ public class WCAROClientProcessor extends FamilyClientProcessorForJava {
                             processRemoveFamily(client.getBaseEntityId(), event.getEventDate().toDate());
                         }
                     }
+                } else{
+                    if (eventClient.getClient() != null) {
+                        processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
+                    }
                 }
+
             }
         }
-        super.processClient(eventClients);
+//        super.processClient(eventClients);
     }
+
+
+//    @Override
+//    public synchronized void processClient(List<EventClient> eventClientList) throws Exception {
+//
+//        final String EC_CLIENT_CLASSIFICATION = "ec_client_classification.json";
+//        ClientClassification clientClassification = assetJsonToJava(EC_CLIENT_CLASSIFICATION, ClientClassification.class);
+//        if (clientClassification == null) {
+//            return;
+//        }
+//
+//        if (!eventClientList.isEmpty()) {
+//            for (EventClient eventClient : eventClientList) {
+//                // Iterate through the events
+//                if (eventClient.getClient() != null) {
+//                    processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
+//                }
+//            }
+//        }
+//    }
 
     private void processHomeVisit(EventClient eventClient) {
         List<Obs> observations = eventClient.getEvent().getObs();
@@ -362,5 +387,12 @@ public class WCAROClientProcessor extends FamilyClientProcessorForJava {
             WcaroApplication.getInstance().getRepository().getWritableDatabase().update(Constants.TABLE_NAME.FAMILY_MEMBER, values,
                     DBConstants.KEY.RELATIONAL_ID + " = ?  ", new String[]{familyID});
         }
+    }
+
+    @Override
+    public void updateClientDetailsTable(Event event, Client client) {
+        Log.d(TAG, "Started updateClientDetailsTable");
+        event.addDetails("detailsUpdated", Boolean.TRUE.toString());
+        Log.d(TAG, "Finished updateClientDetailsTable");
     }
 }
