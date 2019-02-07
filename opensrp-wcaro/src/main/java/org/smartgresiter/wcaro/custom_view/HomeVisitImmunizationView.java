@@ -53,6 +53,7 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
     private LinearLayout multiple_immunization_group;
     private LinearLayout single_immunization_group;
     Activity context;
+    private boolean isInEditMode = false;
 
 
     public HomeVisitImmunizationView(Context context) {
@@ -319,5 +320,9 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
             }
         }
         return arrayOfWrapper;
+    }
+
+    public void setEditMode(boolean isEditMode) {
+        this.isInEditMode = isEditMode;
     }
 }
