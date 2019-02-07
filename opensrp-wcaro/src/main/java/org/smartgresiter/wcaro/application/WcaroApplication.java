@@ -48,7 +48,7 @@ public class WcaroApplication extends DrishtiApplication {
 
     private static final String TAG = WcaroApplication.class.getCanonicalName();
     private static final int MINIMUM_JOB_FLEX_VALUE = 1;
-    private static WCAROClientProcessor clientProcessor;
+    private static ClientProcessorForJava clientProcessor;
 
     private static CommonFtsObject commonFtsObject;
     private static HomeVisitRepository homeVisitRepository;
@@ -234,6 +234,7 @@ public class WcaroApplication extends DrishtiApplication {
     public static ClientProcessorForJava getClientProcessor(android.content.Context context) {
         if (clientProcessor == null) {
             clientProcessor = WCAROClientProcessor.getInstance(context);
+//            clientProcessor = FamilyLibrary.getInstance().getClientProcessorForJava();
         }
         return clientProcessor;
     }

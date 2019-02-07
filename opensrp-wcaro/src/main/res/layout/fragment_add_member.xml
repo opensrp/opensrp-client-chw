@@ -21,18 +21,24 @@
             android:background="@color/family_actionbar"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Dark">
 
-            <ImageView
+
+            <org.smartregister.view.customcontrols.CustomFontTextView
                 android:id="@+id/close"
+                style="@style/CustomFontTextViewStyle.ClientList.Light"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                app:srcCompat="@mipmap/ic_cross_white" />
+                android:gravity="center_vertical"
+                android:text="⨉"
+                android:paddingLeft="0dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textColor="@android:color/white" />
 
             <org.smartregister.view.customcontrols.CustomFontTextView
                 android:id="@+id/textview_title"
                 style="@style/CustomFontTextViewStyle.ClientList.Light"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:text="@string/add_member_title"
