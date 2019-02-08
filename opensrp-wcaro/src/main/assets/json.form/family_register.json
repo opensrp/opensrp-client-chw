@@ -170,7 +170,7 @@
     "title": "Family head",
     "fields": [
       {
-        "key": "profile",
+        "key": "photo",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
