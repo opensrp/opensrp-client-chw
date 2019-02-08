@@ -67,9 +67,9 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="visit_not_done_btn_child_profile">Visit not done</string>
     <string name="medical_history">Medical History</string>
-    <string name="record_home_visit">Record \nHome \nvisit</string>
-    <string name="visit_not_done">Visit \nnot \ndone</string>
-    <string name="visit_done">Visit \ndone</string>
+    <string name="record_home_visit">Record \nHome visit</string>
+    <string name="visit_not_done">Visit \nnot done</string>
+    <string name="visit_done">Visit done</string>
     <string name="due_visit">Last visit \n %1$s</string>
     <string name="medical_title">Back to %1$s</string>
     <string name="medical_last_visit">%1$s ago home visit</string>
