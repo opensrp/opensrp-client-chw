@@ -9,6 +9,6 @@ actions:
 name: step1_age_at_death
 description: age_at_death
 priority: 1
-condition: "step1_age_at_death != '' "
+condition: "step1_remove_reason.equals('Died')"
 actions:
 - "isRelevant = true"

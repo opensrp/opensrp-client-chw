@@ -110,11 +110,10 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type": "date_picker",
-        "hint": "Child's DOB *",
+        "type": "spacer",
         "expanded": false,
         "read_only": "true",
-        "hidden": "true"
+        "hidden": "false"
       },
       {
         "key": "date_moved",
@@ -182,9 +181,8 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type": "label",
-        "text": "",
-        "hidden": "true",
+        "type": "edit_text",
+        "read_only": "true",
         "calculation": {
           "rules-engine": {
             "ex-rules": {
