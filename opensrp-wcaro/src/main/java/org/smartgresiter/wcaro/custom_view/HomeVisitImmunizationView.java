@@ -157,6 +157,7 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
             if (presenter.getVaccinesDueFromLastVisitStillDueState().size() == 0) {
                 if (presenter.isSingleVaccineGroupPartialComplete()) {
                     textview_immunization_secondary_text.setText(presenter.getSingleImmunizationSecondaryText());
+                    textview_immunization_secondary_text.setTextColor(getResources().getColor(android.R.color.darker_gray));
                     immunization_status_circle.setImageResource(R.drawable.ic_checked);
                     immunization_status_circle.setColorFilter(getResources().getColor(R.color.white));
                     immunization_status_circle.setCircleBackgroundColor(getResources().getColor(R.color.pnc_circle_yellow));
@@ -164,6 +165,7 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
                 }
                 if (presenter.isSingleVaccineGroupComplete()) {
                     textview_immunization_secondary_text.setText(presenter.getSingleImmunizationSecondaryText());
+                    textview_immunization_secondary_text.setTextColor(getResources().getColor(android.R.color.darker_gray));
                     immunization_status_circle.setImageResource(R.drawable.ic_checked);
                     immunization_status_circle.setColorFilter(getResources().getColor(R.color.white));
                     immunization_status_circle.setCircleBackgroundColor(getResources().getColor(R.color.alert_complete_green));

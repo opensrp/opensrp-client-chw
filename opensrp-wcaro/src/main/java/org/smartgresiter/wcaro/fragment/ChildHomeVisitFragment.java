@@ -119,7 +119,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         String dobString = org.smartregister.family.util.Utils.getDuration(org.smartregister.family.util.Utils.getValue(childClient.getColumnmaps(), DBConstants.KEY.DOB, false));
         String birthCert = getValue(childClient.getColumnmaps(), BIRTH_CERT, true);
 
-        nameHeader.setText(String.format("%s %s, %s - Home Visit",
+        nameHeader.setText(String.format("%s %s, %s \u00B7 Home Visit",
                 getValue(childClient.getColumnmaps(), DBConstants.KEY.FIRST_NAME, true),
                 getValue(childClient.getColumnmaps(), DBConstants.KEY.LAST_NAME, true),
                 dobString
