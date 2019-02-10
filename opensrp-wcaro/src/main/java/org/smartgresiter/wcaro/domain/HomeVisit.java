@@ -22,11 +22,11 @@ public class HomeVisit {
     private String formSubmissionId;
     private Date createdAt;
     private Map<String, String> formfields;
-    private JSONObject VaccineGroupsGiven;
-    private JSONObject singleVaccinesGiven;
-    private JSONObject ServicesGiven;
-    private String birthCertificationState;
-    private JSONObject illness_information;
+    private JSONObject VaccineGroupsGiven = new JSONObject();
+    private JSONObject singleVaccinesGiven = new JSONObject();
+    private JSONObject ServicesGiven = new JSONObject();
+    private String birthCertificationState = "";
+    private JSONObject illness_information = new JSONObject();
 
 
     public HomeVisit(Long id, String baseEntityId, String name, Date date, String anmId, String locationId, String syncStatus, Long updatedAt, String eventId, String formSubmissionId, Date createdAt) {
