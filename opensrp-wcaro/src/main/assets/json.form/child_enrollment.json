@@ -68,7 +68,7 @@
         "openmrs_entity": "person_identifier",
         "openmrs_entity_id": "opensrp_id",
         "type": "edit_text",
-        "hint": "ID: (opensrp_id)",
+        "hint": "UNIQUE ID *",
         "value": "0",
         "v_numeric": {
           "value": "true",
@@ -149,7 +149,7 @@
         "openmrs_entity_id": "first_name",
         "openmrs_data_type": "text",
         "type": "edit_text",
-        "hint": "First name",
+        "hint": "First name *",
         "expanded": false,
         "v_required": {
           "value": "true",
@@ -167,7 +167,7 @@
         "openmrs_entity_id": "middle_name",
         "openmrs_data_type": "text",
         "type": "edit_text",
-        "hint": "Middle name",
+        "hint": "Middle name *",
         "expanded": false,
         "v_required": {
           "value": "true",
@@ -256,7 +256,7 @@
         "openmrs_entity": "person",
         "openmrs_entity_id": "gender",
         "type": "spinner",
-        "hint": "Sex",
+        "hint": "Sex *",
         "values": [
           "Male",
           "Female"
@@ -272,7 +272,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "161543AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "spinner",
-        "hint": "Early initiation of breastfeeding (1 hr)?",
+        "hint": "Early initiation of breastfeeding (1 hr)? *",
         "values": [
           "Yes",
           "No"
@@ -292,7 +292,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "159522AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "spinner",
-        "hint": "Physically challenged?",
+        "hint": "Physically challenged? *",
         "values": [
           "Yes",
           "No"

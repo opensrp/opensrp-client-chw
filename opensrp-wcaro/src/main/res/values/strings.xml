@@ -58,6 +58,7 @@
     <string name="record_visit">Record visit</string>
     <string name="edit">EDIT</string>
     <string name="return_to_family_name">Return to %1$s Family</string>
+    <string name="return_to_family_members">Return to family members</string>
 
     <string name="allow_calls_denied">Kindly allow calls to be made here</string>
     <string name="copy_to_clipboard">Copy to clipboard</string>
@@ -67,9 +68,9 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="visit_not_done_btn_child_profile">Visit not done</string>
     <string name="medical_history">Medical History</string>
-    <string name="record_home_visit">Record \nHome \nvisit</string>
-    <string name="visit_not_done">Visit \nnot \ndone</string>
-    <string name="visit_done">Visit \ndone</string>
+    <string name="record_home_visit">Record \nHome visit</string>
+    <string name="visit_not_done">Visit not \ndone</string>
+    <string name="visit_done">Visit done</string>
     <string name="due_visit">Last visit \n %1$s</string>
     <string name="medical_title">Back to %1$s</string>
     <string name="medical_last_visit">%1$s ago home visit</string>
