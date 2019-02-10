@@ -277,6 +277,10 @@
           "Yes",
           "No"
         ],
+        "openmrs_choice_ids": {
+          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
         "v_required": {
           "value": "true",
           "err": "Please enter Early initiation of breastfeeding"
@@ -293,6 +297,10 @@
           "Yes",
           "No"
         ],
+        "openmrs_choice_ids": {
+          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
         "v_required": {
           "value": "true",
           "err": "Please enter if Physically challenged"

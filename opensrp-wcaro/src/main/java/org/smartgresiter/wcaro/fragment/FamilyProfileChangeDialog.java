@@ -113,6 +113,10 @@ public class FamilyProfileChangeDialog extends DialogFragment implements View.On
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tvCancel:
+
+                if (onRemoveActivity != null) {
+                    onRemoveActivity.run();
+                }
                 close();
                 break;
             case R.id.tvSubmit:
@@ -192,9 +196,6 @@ public class FamilyProfileChangeDialog extends DialogFragment implements View.On
 
     @Override
     public void close() {
-        if (onRemoveActivity != null) {
-            onRemoveActivity.run();
-        }
         dismiss();
     }
 
