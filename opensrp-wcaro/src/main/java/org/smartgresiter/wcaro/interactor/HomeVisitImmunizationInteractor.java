@@ -9,6 +9,7 @@ import org.smartgresiter.wcaro.task.UpdateServiceTask;
 import org.smartgresiter.wcaro.task.VaccinationAsyncTask;
 import org.smartgresiter.wcaro.util.HomeVisitVaccineGroupDetails;
 import org.smartgresiter.wcaro.util.ImmunizationState;
+import org.smartgresiter.wcaro.util.WCAROVaccinateUtils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.Alert;
 import org.smartregister.family.util.AppExecutors;
@@ -231,8 +232,8 @@ public class HomeVisitImmunizationInteractor implements HomeVisitImmunizationCon
         String groupName = "";
         for (VaccineRepo.Vaccine vaccine : vList) {
             if (vaccine.category().equalsIgnoreCase("child")) {
-                if (!vaccineGroupName.contains(VaccinateActionUtils.stateKey(vaccine))) {
-                    vaccineGroupName.add(VaccinateActionUtils.stateKey(vaccine));
+                if (!vaccineGroupName.contains(WCAROVaccinateUtils.stateKey(vaccine))) {
+                    vaccineGroupName.add(WCAROVaccinateUtils.stateKey(vaccine));
                 }
             }
         }
@@ -299,7 +300,7 @@ public class HomeVisitImmunizationInteractor implements HomeVisitImmunizationCon
     public ArrayList<HomeVisitVaccineGroupDetails> assignDueVaccine(List<VaccineRepo.Vaccine> vList, ArrayList<HomeVisitVaccineGroupDetails> homeVisitVaccineGroupDetailsArrayList, List<Alert> alerts) {
         for (int i = 0; i < homeVisitVaccineGroupDetailsArrayList.size(); i++) {
             for (VaccineRepo.Vaccine vaccine : vList) {
-                if (VaccinateActionUtils.stateKey(vaccine).equalsIgnoreCase(homeVisitVaccineGroupDetailsArrayList.get(i).getGroup())) {
+                if (WCAROVaccinateUtils.stateKey(vaccine).equalsIgnoreCase(homeVisitVaccineGroupDetailsArrayList.get(i).getGroup())) {
                     if (hasAlert(vaccine, alerts)) {
                         homeVisitVaccineGroupDetailsArrayList.get(i).getDueVaccines().add(vaccine);
                         if (assignAlert(vaccine, alerts) == (ImmunizationState.DUE) || assignAlert(vaccine, alerts) == (ImmunizationState.OVERDUE)

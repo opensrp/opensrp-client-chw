@@ -513,9 +513,9 @@
     ]
   },
   {
-    "name": "18 Months",
-    "id": "Eighteen_Months",
-    "days_after_birth_due": 548,
+    "name": "15 Months",
+    "id": "Fifteen_Months",
+    "days_after_birth_due": 456,
     "vaccines": [
       {
         "name": "Measles 2 / MR 2",
@@ -538,13 +538,13 @@
               {
                 "reference": "prerequisite",
                 "prerequisite": "Measles 1",
-                "offset": "+9m",
+                "offset": "+6m",
                 "window": "+10d"
               },
               {
                 "reference": "prerequisite",
                 "prerequisite": "MR 1",
-                "offset": "+9m",
+                "offset": "+6m",
                 "window": "+10d"
               }
             ],

@@ -7,6 +7,7 @@ import org.joda.time.DateTime;
 import org.smartgresiter.wcaro.application.WcaroApplication;
 import org.smartgresiter.wcaro.listener.ImmunizationStateChangeListener;
 import org.smartgresiter.wcaro.util.ImmunizationState;
+import org.smartgresiter.wcaro.util.WCAROVaccinateUtils;
 import org.smartregister.domain.Alert;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.immunization.db.VaccineRepo;
@@ -83,7 +84,7 @@ public class VaccinationAsyncTask extends AsyncTask {
         if (nv != null) {
             DateTime dueDate = (DateTime) nv.get(DATE);
             VaccineRepo.Vaccine vaccine = (VaccineRepo.Vaccine) nv.get(VACCINE);
-            stateKey = VaccinateActionUtils.stateKey(vaccine);
+            stateKey = WCAROVaccinateUtils.stateKey(vaccine);
             String ALERT = "alert";
             if (nv.get(ALERT) == null) {
                 state = ImmunizationState.NO_ALERT;
