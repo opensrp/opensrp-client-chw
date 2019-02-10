@@ -119,6 +119,10 @@ public class HomeVisitImmunizationInteractor implements HomeVisitImmunizationCon
             if (toprocess.getGivenVaccines().size() < toprocess.getDueVaccines().size()) {
                 if (toprocess.getGivenVaccines().size() > 0) {
                     return true;
+                }else{
+                    if(toprocess.getNotGivenInThisVisitVaccines().size() == toprocess.getDueVaccines().size()){
+                        return true;
+                    }
                 }
             }
         }
