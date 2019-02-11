@@ -15,6 +15,8 @@ import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.fragment.BaseFamilyProfileMemberFragment;
 import org.smartregister.family.util.Constants;
 
+import java.util.HashMap;
+
 public class FamilyProfileMemberFragment extends BaseFamilyProfileMemberFragment {
 
     public static BaseFamilyProfileMemberFragment newInstance(Bundle bundle) {
@@ -55,12 +57,14 @@ public class FamilyProfileMemberFragment extends BaseFamilyProfileMemberFragment
     }
 
     public void goToProfileActivity(View view) {
-        CommonPersonObjectClient commonPersonObjectClient = (CommonPersonObjectClient) view.getTag();
-        String entityType = Utils.getValue(commonPersonObjectClient.getColumnmaps(), ChildDBConstants.KEY.ENTITY_TYPE, false);
-        if (org.smartgresiter.wcaro.util.Constants.TABLE_NAME.FAMILY_MEMBER.equals(entityType)) {
-            goToOtherMemberProfileActivity(commonPersonObjectClient);
-        } else {
-            goToChildProfileActivity(commonPersonObjectClient);
+        if (view.getTag() instanceof CommonPersonObjectClient) {
+            CommonPersonObjectClient commonPersonObjectClient = (CommonPersonObjectClient) view.getTag();
+            String entityType = Utils.getValue(commonPersonObjectClient.getColumnmaps(), ChildDBConstants.KEY.ENTITY_TYPE, false);
+            if (org.smartgresiter.wcaro.util.Constants.TABLE_NAME.FAMILY_MEMBER.equals(entityType)) {
+                goToOtherMemberProfileActivity(commonPersonObjectClient);
+            } else {
+                goToChildProfileActivity(commonPersonObjectClient);
+            }
         }
     }
 
@@ -77,4 +81,8 @@ public class FamilyProfileMemberFragment extends BaseFamilyProfileMemberFragment
         intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, patient.getCaseId());
         startActivity(intent);
     }
+
+    @Override
+    public void setAdvancedSearchFormData(HashMap<String, String> hashMap) { }
+
 }
