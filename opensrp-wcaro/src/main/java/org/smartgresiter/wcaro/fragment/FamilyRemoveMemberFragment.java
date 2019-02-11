@@ -82,6 +82,7 @@ public class FamilyRemoveMemberFragment extends BaseFamilyProfileMemberFragment 
                 setFamilyHead(familyHeadID);
                 refreshMemberList(FetchStatus.fetched);
                 getPresenter().removeMember(client);
+                refreshListView();
             }
         });
         dialog.show(getActivity().getFragmentManager(), "FamilyProfileChangeDialogHF");
@@ -97,6 +98,7 @@ public class FamilyRemoveMemberFragment extends BaseFamilyProfileMemberFragment 
                 setPrimaryCaregiver(careGiverID);
                 refreshMemberList(FetchStatus.fetched);
                 getPresenter().removeMember(client);
+                refreshListView();
             }
         });
 
@@ -236,7 +238,6 @@ public class FamilyRemoveMemberFragment extends BaseFamilyProfileMemberFragment 
         return presenter().getDefaultSortQuery();
     }
 
-    @Override
     public void setAdvancedSearchFormData(HashMap<String, String> hashMap) { }
 
 }

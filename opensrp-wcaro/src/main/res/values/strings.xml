@@ -104,7 +104,7 @@
     <string name="profile_activity_completed">Completed on %s</string>
     <string name="interpunct">・</string>
     <string name="home_visit">Home Visit</string>
-    <string name="profile_activity_not_visited">Marked not visisted on %s</string>
+    <string name="profile_activity_not_visited">Marked not visited on %s</string>
 
     <string name="day">day</string>
     <string name="days">days</string>

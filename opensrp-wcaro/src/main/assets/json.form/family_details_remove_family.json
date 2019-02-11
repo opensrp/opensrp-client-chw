@@ -60,7 +60,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "spacer",
-        "spacer_height": "40sp"
+        "spacer_height": "30sp"
       },
       {
         "key": "fam_name",
@@ -69,7 +69,7 @@
         "openmrs_entity_id": "",
         "type": "label",
         "text": "",
-        "text_size": "20px"
+        "text_size": "25px"
       },
       {
         "key": "details",
@@ -78,7 +78,7 @@
         "openmrs_entity_id": "",
         "type": "label",
         "text": "",
-        "text_size": "27px"
+        "text_size": "25px"
       },
       {
         "key": "divider1",
@@ -102,7 +102,7 @@
         "openmrs_entity_id": "160417AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Reason",
+        "hint": "Reason *",
         "values": [
           "Moved away",
           "Other"
