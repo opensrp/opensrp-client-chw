@@ -236,4 +236,7 @@ public class FamilyRemoveMemberFragment extends BaseFamilyProfileMemberFragment 
         return presenter().getDefaultSortQuery();
     }
 
+    @Override
+    public void setAdvancedSearchFormData(HashMap<String, String> hashMap) { }
+
 }

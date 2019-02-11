@@ -9,6 +9,7 @@ import android.os.Looper;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.util.Pair;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -223,6 +224,10 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity implements 
         }
     }
 
+    public void updateDueCount(int dueCount) {
+        adapter.updateCount(Pair.create(1, dueCount));
+    }
+
     private void refreshList(Fragment fragment) {
         if (fragment != null && fragment instanceof BaseRegisterFragment) {
             if (fragment instanceof FamilyProfileMemberFragment) {
@@ -243,4 +248,5 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity implements 
             }
         }
     }
+
 }
