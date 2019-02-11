@@ -27,7 +27,6 @@ import org.smartgresiter.wcaro.fragment.FamilyProfileActivityFragment;
 import org.smartgresiter.wcaro.fragment.FamilyProfileDueFragment;
 import org.smartgresiter.wcaro.fragment.FamilyProfileMemberFragment;
 import org.smartgresiter.wcaro.listener.FloatingMenuListener;
-import org.smartgresiter.wcaro.model.FamilyProfileModel;
 import org.smartgresiter.wcaro.presenter.FamilyProfilePresenter;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.family.activity.BaseFamilyProfileActivity;
@@ -35,6 +34,7 @@ import org.smartregister.family.adapter.ViewPagerAdapter;
 import org.smartregister.family.fragment.BaseFamilyProfileActivityFragment;
 import org.smartregister.family.fragment.BaseFamilyProfileDueFragment;
 import org.smartregister.family.fragment.BaseFamilyProfileMemberFragment;
+import org.smartregister.family.model.BaseFamilyProfileModel;
 import org.smartregister.family.util.Constants;
 import org.smartregister.util.PermissionUtils;
 import org.smartregister.view.fragment.BaseRegisterFragment;
@@ -58,7 +58,7 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity implements 
         String familyHead = getIntent().getStringExtra(Constants.INTENT_KEY.FAMILY_HEAD);
         String primaryCaregiver = getIntent().getStringExtra(Constants.INTENT_KEY.PRIMARY_CAREGIVER);
         String familyName = getIntent().getStringExtra(Constants.INTENT_KEY.FAMILY_NAME);
-        presenter = new FamilyProfilePresenter(this, new FamilyProfileModel(familyName), familyBaseEntityId, familyHead, primaryCaregiver, familyName);
+        presenter = new FamilyProfilePresenter(this, new BaseFamilyProfileModel(familyName), familyBaseEntityId, familyHead, primaryCaregiver, familyName);
     }
 
     @Override
