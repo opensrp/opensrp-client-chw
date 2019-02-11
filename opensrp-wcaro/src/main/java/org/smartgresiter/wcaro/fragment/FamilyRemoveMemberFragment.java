@@ -125,7 +125,7 @@ public class FamilyRemoveMemberFragment extends BaseFamilyProfileMemberFragment 
         Form form = new Form();
         form.setActionBarBackground(org.smartregister.family.R.color.family_actionbar);
         form.setWizard(false);
-        form.setSaveLabel("Remove");
+        form.setSaveLabel("Save");
         intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);
 
         startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
