@@ -21,24 +21,34 @@
             android:background="@color/family_actionbar"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Dark">
 
-            <ImageView
-                android:id="@+id/close"
-                android:layout_width="@dimen/tool_bar_image"
-                android:layout_height="@dimen/tool_bar_image"
-                android:layout_gravity="center_vertical"
-                app:srcCompat="@mipmap/ic_cross_white" />
-
-            <org.smartregister.view.customcontrols.CustomFontTextView
-                android:id="@+id/textview_title"
-                style="@style/CustomFontTextViewStyle.NavBar.Black"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:text="@string/remove_member_title"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:textColor="@android:color/white"
-                android:textSize="@dimen/tool_bar_title" />
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/close"
+                    android:layout_width="@dimen/tool_bar_image"
+                    android:layout_height="@dimen/tool_bar_image"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="5dp"
+                    app:srcCompat="@drawable/ic_action_close" />
+
+                <org.smartregister.view.customcontrols.CustomFontTextView
+                    android:id="@+id/textview_title"
+                    style="@style/CustomFontTextViewStyle.ClientList.Light"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@+id/close"
+                    android:text="@string/remove_member_title"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:textSize="@dimen/tool_bar_title"
+                    android:layout_toStartOf="@+id/tvAction"
+                    android:layout_marginEnd="5dp"
+                    android:textColor="@android:color/white" />
+
+            </RelativeLayout>
 
         </android.support.v7.widget.Toolbar>
 
@@ -52,12 +62,12 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/app_bar"
         android:gravity="left"
+        android:maxLines="5"
         android:paddingLeft="15dp"
         android:paddingTop="25dp"
         android:paddingRight="15dp"
         android:paddingBottom="25dp"
         android:text="@string/remove_member_prompt"
-        android:maxLines="5"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="@android:color/black" />
 

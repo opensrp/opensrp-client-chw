@@ -54,18 +54,12 @@
 
         <ImageView
             android:id="@+id/profile"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/client_profile_pic_width"
+            android:layout_height="@dimen/client_profile_pic_height"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
             android:layout_marginStart="@dimen/register_list_item_margin"
             android:layout_marginLeft="@dimen/register_list_item_margin"
-            android:adjustViewBounds="true"
-            android:paddingStart="@dimen/register_list_top_bottom_min_padding"
-            android:paddingLeft="@dimen/register_list_top_bottom_min_padding"
-            android:paddingTop="@dimen/register_list_top_bottom_min_padding"
-            android:paddingBottom="@dimen/register_list_top_bottom_min_padding"
-            android:scaleType="centerCrop"
             android:src="@mipmap/ic_member" />
 
         <LinearLayout
