@@ -63,13 +63,22 @@
         "spacer_height": "40sp"
       },
       {
+        "key": "fam_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "label",
+        "text": "",
+        "text_size": "20px"
+      },
+      {
         "key": "details",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "label",
         "text": "",
-        "text_size": "30px"
+        "text_size": "27px"
       },
       {
         "key": "divider1",

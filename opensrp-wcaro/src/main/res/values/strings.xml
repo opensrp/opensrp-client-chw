@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Liberia CFC</string>
     <string name="title_family_detail">Family Detail</string>
-    <string name="login_title">CFC Liberia Monitor</string>
+    <string name="login_title">Liberia CFC Monitor</string>
     <string name="child_register_title">Child Clients</string>
     <string name="return_to_all_children">Return to all children</string>
     <string name="back_to_children">Back to %1$s</string>
@@ -45,7 +45,7 @@
     <string name="view_medical_history">View medical history</string>
     <string name="last_visit_40_days_ago">Last visit %1$s ago</string>
     <string name="add_member_title">Add family member</string>
-    <string name="add_member_title_question">What kind of family member you want to add?</string>
+    <string name="add_member_title_question">What kind of family member do you want to add?</string>
     <string name="change_head_member_title">Change family head</string>
     <string name="change_head_member_title_question">Select a new family head</string>
     <string name="change_caregiver_member_title">Change primary care giver</string>
@@ -114,4 +114,7 @@
     <string name="year">year</string>
     <string name="years">years</string>
 
+    <string name="family">%s Family</string>
+    <string name="remove_entire_family">Removing entire family</string>
+    <string name="remove_warning_family">Are you sure you want to remove the %s Family\'s record? This will remove the family\'s entire record AND all of the %s family members\' health records from your device. This action cannot be undone.</string>
 </resources>

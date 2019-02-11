@@ -10,7 +10,7 @@
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/app_bar_size"
+        android:layout_height="@dimen/tool_bar_size"
         android:fitsSystemWindows="true"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
@@ -23,8 +23,8 @@
 
             <ImageView
                 android:id="@+id/close"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/tool_bar_image"
+                android:layout_height="@dimen/tool_bar_image"
                 android:layout_gravity="center_vertical"
                 app:srcCompat="@mipmap/ic_cross_white" />
 
@@ -38,7 +38,7 @@
                 android:text="@string/remove_member_title"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textColor="@android:color/white"
-                android:textSize="26sp" />
+                android:textSize="@dimen/tool_bar_title" />
 
         </android.support.v7.widget.Toolbar>
 

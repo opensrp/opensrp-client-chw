@@ -5,12 +5,12 @@ import android.content.Context;
 import android.util.Log;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.math.NumberUtils;
-import org.joda.time.DateTime;
-import org.json.JSONObject;
 import org.smartgresiter.wcaro.application.WcaroApplication;
 import org.smartgresiter.wcaro.repository.HomeVisitRepository;
+import org.smartgresiter.wcaro.util.Constants;
 import org.smartregister.clientandeventmodel.DateUtil;
+import org.smartregister.commonregistry.AllCommonsRepository;
+import org.smartregister.domain.db.Client;
 import org.smartregister.domain.db.Event;
 import org.smartregister.domain.db.EventClient;
 import org.smartregister.domain.db.Obs;
@@ -18,6 +18,7 @@ import org.smartregister.domain.jsonmapping.ClientClassification;
 import org.smartregister.domain.jsonmapping.Column;
 import org.smartregister.domain.jsonmapping.Table;
 import org.smartregister.family.sync.FamilyClientProcessorForJava;
+import org.smartregister.family.util.DBConstants;
 import org.smartregister.immunization.ImmunizationLibrary;
 import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.immunization.domain.ServiceRecord;
@@ -28,6 +29,8 @@ import org.smartregister.immunization.repository.RecurringServiceTypeRepository;
 import org.smartregister.immunization.repository.VaccineRepository;
 import org.smartregister.immunization.service.intent.RecurringIntentService;
 import org.smartregister.immunization.service.intent.VaccineIntentService;
+import org.smartregister.sync.ClientProcessor;
+import org.smartregister.sync.ClientProcessorForJava;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -41,14 +44,14 @@ import static org.smartgresiter.wcaro.util.ChildUtils.addToHomeVisitTable;
 
 public class WCAROClientProcessor extends FamilyClientProcessorForJava {
 
-    private static final String TAG = WCAROClientProcessor.class.getName();
-    private static WCAROClientProcessor instance;
+//    private static final String TAG = WCAROClientProcessor.class.getName();
+//    private static ClientProcessorForJava instance;
 
     private WCAROClientProcessor(Context context) {
         super(context);
     }
 
-    public static WCAROClientProcessor getInstance(Context context) {
+    public static ClientProcessorForJava getInstance(Context context) {
         if (instance == null) {
             instance = new WCAROClientProcessor(context);
         }
@@ -56,7 +59,7 @@ public class WCAROClientProcessor extends FamilyClientProcessorForJava {
     }
 
     @Override
-    public void processClient(List<EventClient> eventClients) throws Exception {
+    public synchronized void processClient(List<EventClient> eventClients) throws Exception {
         ClientClassification clientClassification = assetJsonToJava("ec_client_classification.json", ClientClassification.class);
         Table vaccineTable = assetJsonToJava("ec_client_vaccine.json", Table.class);
 //        Table weightTable = assetJsonToJava("ec_client_weight.json", Table.class);
@@ -72,9 +75,7 @@ public class WCAROClientProcessor extends FamilyClientProcessorForJava {
                 String eventType = event.getEventType();
                 if (eventType == null) {
                     continue;
-                }
-
-                if (eventType.equals(VaccineIntentService.EVENT_TYPE) || eventType.equals(VaccineIntentService.EVENT_TYPE_OUT_OF_CATCHMENT)) {
+                }else if (eventType.equals(VaccineIntentService.EVENT_TYPE) || eventType.equals(VaccineIntentService.EVENT_TYPE_OUT_OF_CATCHMENT)) {
                     if (vaccineTable == null) {
                         continue;
                     }
@@ -88,10 +89,23 @@ public class WCAROClientProcessor extends FamilyClientProcessorForJava {
                 } else if (eventType.equals(HomeVisitRepository.EVENT_TYPE) || eventType.equals(HomeVisitRepository.NOT_DONE_EVENT_TYPE)) {
                     processHomeVisit(eventClient);
                     processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
+                } else if (eventType.equals(Constants.EventType.REMOVE_FAMILY)) {
+                    Client client = eventClient.getClient();
+                    //iterate through the events
+                    if (client != null) {
+                        if (eventType.equals(Constants.EventType.REMOVE_FAMILY)) {
+                            processRemoveFamily(client.getBaseEntityId(), event.getEventDate().toDate());
+                        }
+                    }
+                } else{
+                    if (eventClient.getClient() != null) {
+                        processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
+                    }
                 }
+
             }
         }
-        super.processClient(eventClients);
+//        super.processClient(eventClients);
     }
 
     private void processHomeVisit(EventClient eventClient) {
@@ -178,10 +192,10 @@ public class WCAROClientProcessor extends FamilyClientProcessorForJava {
 
                 String eventDateStr = contentValues.getAsString(RecurringServiceRecordRepository.DATE);
                 Date date = getDate(eventDateStr);
-                String value=null;
+                String value = null;
 
-                if(StringUtils.containsIgnoreCase(name, "Exclusive breastfeeding")){
-                    value=contentValues.getAsString(RecurringServiceRecordRepository.VALUE);
+                if (StringUtils.containsIgnoreCase(name, "Exclusive breastfeeding")) {
+                    value = contentValues.getAsString(RecurringServiceRecordRepository.VALUE);
                 }
 
                 RecurringServiceTypeRepository recurringServiceTypeRepository = ImmunizationLibrary.getInstance().getInstance().recurringServiceTypeRepository();
@@ -320,5 +334,45 @@ public class WCAROClientProcessor extends FamilyClientProcessorForJava {
             Log.e(WCAROClientProcessor.class.getCanonicalName(), Log.getStackTraceString(e));
         }
 
+    }
+
+    /**
+     * Update the family members
+     *
+     * @param familyID
+     */
+    private void processRemoveFamily(String familyID, Date eventDate) {
+
+        if (eventDate == null) {
+            eventDate = new Date();
+        }
+
+        if (familyID == null) {
+            return;
+        }
+
+        AllCommonsRepository commonsRepository = WcaroApplication.getInstance().getAllCommonsRepository(Constants.TABLE_NAME.FAMILY);
+        if (commonsRepository != null) {
+
+            ContentValues values = new ContentValues();
+            values.put(DBConstants.KEY.DATE_REMOVED, new SimpleDateFormat("yyyy-MM-dd").format(eventDate));
+            values.put("is_closed", 1);
+
+            WcaroApplication.getInstance().getRepository().getWritableDatabase().update(Constants.TABLE_NAME.FAMILY, values,
+                    DBConstants.KEY.BASE_ENTITY_ID + " = ?  ", new String[]{familyID});
+
+            WcaroApplication.getInstance().getRepository().getWritableDatabase().update(Constants.TABLE_NAME.CHILD, values,
+                    DBConstants.KEY.RELATIONAL_ID + " = ?  ", new String[]{familyID});
+
+            WcaroApplication.getInstance().getRepository().getWritableDatabase().update(Constants.TABLE_NAME.FAMILY_MEMBER, values,
+                    DBConstants.KEY.RELATIONAL_ID + " = ?  ", new String[]{familyID});
+        }
+    }
+
+    @Override
+    public void updateClientDetailsTable(Event event, Client client) {
+        Log.d(TAG, "Started updateClientDetailsTable");
+        event.addDetails("detailsUpdated", Boolean.TRUE.toString());
+        Log.d(TAG, "Finished updateClientDetailsTable");
     }
 }

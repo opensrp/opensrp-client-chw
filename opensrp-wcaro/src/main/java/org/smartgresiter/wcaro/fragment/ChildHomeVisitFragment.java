@@ -69,6 +69,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     private String birthCertGiven = BIRTH_CERT_TYPE.NOT_GIVEN.name();
     private JSONObject illnessJson = new JSONObject();
     private String jsonString;
+    private boolean isEditMode = false;
 
     public void setContext(Context context) {
         this.context = context;
@@ -107,6 +108,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         homeVisitImmunizationView = (HomeVisitImmunizationView) view.findViewById(R.id.home_visit_immunization_view);
         homeVisitImmunizationView.setActivity(getActivity());
         homeVisitImmunizationView.setChildClient(childClient);
+        homeVisitImmunizationView.setEditMode(isEditMode);
         initializePresenter();
         ((ChildHomeVisitPresenter) presenter).setChildClient(childClient);
         assignNameHeader();
@@ -391,7 +393,10 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
 
     public void undoGivenVaccines() {
         homeVisitImmunizationView.undoVaccines();
+    }
 
+    public void setEditMode(boolean isEditMode) {
+        this.isEditMode = isEditMode;
     }
 
     public enum BIRTH_CERT_TYPE {GIVEN, NOT_GIVEN}

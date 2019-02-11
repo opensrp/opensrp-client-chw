@@ -181,7 +181,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
                 break;
             case R.id.textview_record_visit:
             case R.id.record_visit_done_bar:
-                openVisitHomeScreen();
+                openVisitHomeScreen(false);
 
                 break;
             case R.id.family_has_row:
@@ -204,7 +204,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
                     }, 200);
 
                 } else {
-                    openVisitHomeScreen();
+                    openVisitHomeScreen(true);
                 }
 
                 break;
@@ -238,8 +238,9 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     }
 
 
-    private void openVisitHomeScreen() {
+    private void openVisitHomeScreen(boolean isEditMode) {
         ChildHomeVisitFragment childHomeVisitFragment = ChildHomeVisitFragment.newInstance();
+        childHomeVisitFragment.setEditMode(isEditMode);
         childHomeVisitFragment.setContext(this);
         childHomeVisitFragment.setChildClient(((ChildProfilePresenter) presenter()).getChildClient());
 //                childHomeVisitFragment.setFamilyBaseEntityId(getFamilyBaseEntityId());

@@ -104,9 +104,9 @@ public class FamilyRemoveMemberFragment extends BaseFamilyProfileMemberFragment 
     }
 
     @Override
-    public void closeFamily(String details) {
+    public void closeFamily(String familyName, String details) {
 
-        getPresenter().removeEveryone(details);
+        getPresenter().removeEveryone(familyName , details);
 
     }
 
@@ -192,9 +192,7 @@ public class FamilyRemoveMemberFragment extends BaseFamilyProfileMemberFragment 
             final String name = payload.get("name");
 
             FamilyRemoveMemberConfrimDialog dialog = FamilyRemoveMemberConfrimDialog.newInstance(
-                    String.format("Are you sure you want to remove the %s Family's record? This will remove the family's entire record AND all of the %s " +
-                                    "family members' health records from your device. This action cannot be undone.",
-                            name, name)
+                    String.format(getString(R.string.remove_warning_family), name, name)
             );
 
             dialog.setContext(getContext());
@@ -202,8 +200,8 @@ public class FamilyRemoveMemberFragment extends BaseFamilyProfileMemberFragment 
             dialog.setOnRemove(new Runnable() {
                 @Override
                 public void run() {
-                    closeFamily(message);
-                    Toast.makeText(getContext(), "Removing entire family", Toast.LENGTH_SHORT).show();
+                    closeFamily(String.format(getString(R.string.family) , name) , message);
+                    Toast.makeText(getContext(), getString(R.string.remove_entire_family), Toast.LENGTH_SHORT).show();
                 }
             });
         }
