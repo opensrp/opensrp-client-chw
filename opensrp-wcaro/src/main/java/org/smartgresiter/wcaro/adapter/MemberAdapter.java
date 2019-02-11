@@ -17,7 +17,6 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -25,6 +24,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.util.Constants;
 import org.smartregister.family.util.DBConstants;
+import org.smartregister.family.util.Utils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -71,11 +71,24 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MyViewHold
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
 
         final HashMap<String, String> model = familyMembers.get(position);
+
+        String dob = ((!model.containsKey(DBConstants.KEY.DOB) || model.get(DBConstants.KEY.DOB) == "null") ? "" : model.get(DBConstants.KEY.DOB));
+        String dobString = Utils.getDuration(dob);
+        dobString = dobString.contains("y") ? dobString.substring(0, dobString.indexOf("y")) : dobString;
+
+        String dod = ((!model.containsKey(DBConstants.KEY.DOD) || model.get(DBConstants.KEY.DOD) == "null") ? "" : model.get(DBConstants.KEY.DOD));
+
+        if (StringUtils.isNotBlank(dod)) {
+            dobString = Utils.getDuration(dod, dob);
+            dobString = dobString.contains("y") ? dobString.substring(0, dobString.indexOf("y")) : dobString;
+        }
+
         holder.tvName.setText(
-                String.format("%s %s %s",
-                        ((!model.containsKey(DBConstants.KEY.FIRST_NAME) || model.get(DBConstants.KEY.FIRST_NAME) == "null") ? "" : model.get(DBConstants.KEY.FIRST_NAME)),
-                        ((!model.containsKey(DBConstants.KEY.MIDDLE_NAME) || model.get(DBConstants.KEY.MIDDLE_NAME) == "null") ? "" : model.get(DBConstants.KEY.MIDDLE_NAME)),
-                        ((!model.containsKey(DBConstants.KEY.LAST_NAME) || model.get(DBConstants.KEY.LAST_NAME) == "null") ? "" : model.get(DBConstants.KEY.LAST_NAME))
+                String.format("%s %s %s, %s",
+                        ((!model.containsKey(DBConstants.KEY.FIRST_NAME) || model.get(DBConstants.KEY.FIRST_NAME).equals("null")) ? "" : model.get(DBConstants.KEY.FIRST_NAME)),
+                        ((!model.containsKey(DBConstants.KEY.MIDDLE_NAME) || model.get(DBConstants.KEY.MIDDLE_NAME).equals("null")) ? "" : model.get(DBConstants.KEY.MIDDLE_NAME)),
+                        ((!model.containsKey(DBConstants.KEY.LAST_NAME) || model.get(DBConstants.KEY.LAST_NAME).equals("null")) ? "" : model.get(DBConstants.KEY.LAST_NAME)),
+                        dobString
                 )
         );
         holder.llQuestions.setVisibility((selected == position) ? View.VISIBLE : View.GONE);
@@ -123,31 +136,6 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MyViewHold
         String otherPhoneNumber = model.get(DBConstants.KEY.OTHER_PHONE_NUMBER);
         otherPhoneNumber = (StringUtils.equalsIgnoreCase(otherPhoneNumber, "null") ? "" : otherPhoneNumber);
 
-        if (StringUtils.isNotBlank(phoneNumber)) {
-            holder.llOldNumber.setVisibility(View.VISIBLE);
-            holder.llNewPhone.setVisibility(View.GONE);
-        } else {
-            holder.llOldNumber.setVisibility(View.GONE);
-            holder.llNewPhone.setVisibility(View.VISIBLE);
-            holder.rbNo.setChecked(true);
-        }
-
-        holder.tvPhoneNumberConfirm.setText(String.format("Is %s phone number still %s?",
-                (model.get(DBConstants.KEY.GENDER).equalsIgnoreCase("male") ? "his" : "her"),
-                phoneNumber
-        ));
-
-        holder.rbNo.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                holder.llNewPhone.setVisibility(isChecked ? View.VISIBLE : View.GONE);
-
-                holder.rbNo.setError(null);
-                holder.rbYes.setError(null);
-            }
-        });
-
-
         holder.etPhone.setText(phoneNumber);
         holder.etAlternatePhone.setText(otherPhoneNumber);
 
@@ -179,28 +167,13 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MyViewHold
 
         if (holder != null) {
 
-            int selectedId = holder.radioGroup.getCheckedRadioButtonId();
-            if (selectedId == R.id.rbNo) {
-                String value = holder.etPhone.getText().toString();
-                if (value.trim().equals("")) {
-                    holder.etPhone.setError("Phone number is required");
-                } else {
-                    res = true;
-                }
-            } else if (selectedId == R.id.rbYes) {
-                res = true;
-            } else {
-                res = false;
-                holder.rbYes.setError("Select Item");//Set error to last Radio button
-            }
-
             String text = holder.etPhone.getText().toString().trim();
             if (text.length() > 0 && !text.substring(0, 1).equals("0")) {
                 holder.etPhone.setError("Must start with 0");
                 res = false;
             }
 
-            if (text.length() > 0 && text.length() != 10) {
+            if (text.length() != 10) {
                 holder.etPhone.setError("Length must be equal to 10");
                 res = false;
             }
@@ -264,13 +237,12 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MyViewHold
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView tvName, tvGender, tvPhoneNumberConfirm;
-        public RadioButton radioButton, rbYes, rbNo;
-        public LinearLayout llQuestions, llOldNumber, llNewPhone, llAltPhone, llHighestEduLevel;
+        public TextView tvName, tvGender;
+        public RadioButton radioButton;
+        public LinearLayout llQuestions, llNewPhone, llAltPhone, llHighestEduLevel;
         public View view;
         public EditText etPhone, etAlternatePhone;
         public Spinner spEduLevel;
-        public RadioGroup radioGroup;
 
         private MyViewHolder(View view) {
             super(view);
@@ -278,18 +250,13 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MyViewHold
 
             tvName = view.findViewById(R.id.tvName);
             tvGender = view.findViewById(R.id.tvGender);
-            tvPhoneNumberConfirm = view.findViewById(R.id.tvPhoneNumber);
             radioButton = view.findViewById(R.id.rbButton);
-            rbYes = view.findViewById(R.id.rbYes);
-            rbNo = view.findViewById(R.id.rbNo);
             llQuestions = view.findViewById(R.id.llQuestions);
 
-            llOldNumber = view.findViewById(R.id.llOldNumber);
             llNewPhone = view.findViewById(R.id.llNewNumber);
             llAltPhone = view.findViewById(R.id.llOtherNumber);
             llHighestEduLevel = view.findViewById(R.id.llHighestEduLevel);
 
-            radioGroup = view.findViewById(R.id.rgOldNumber);
             etPhone = view.findViewById(R.id.etPhoneNumber);
             etAlternatePhone = view.findViewById(R.id.etOtherNumber);
             spEduLevel = view.findViewById(R.id.spEducationLevel);

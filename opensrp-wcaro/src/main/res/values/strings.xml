@@ -48,8 +48,8 @@
     <string name="add_member_title_question">What kind of family member do you want to add?</string>
     <string name="change_head_member_title">Change family head</string>
     <string name="change_head_member_title_question">Select a new family head</string>
-    <string name="change_caregiver_member_title">Change primary care giver</string>
-    <string name="change_caregiver_member_title_question">Select a new primary care giver</string>
+    <string name="change_caregiver_member_title">Change primary caregiver</string>
+    <string name="change_caregiver_member_title_question">Select a new primary caregiver</string>
     <string name="remove_member_title">Remove member</string>
     <string name="remove_member_prompt">Which member do you want to remove?</string>
     <string name="visit_month">%1$s visit done</string>
@@ -58,6 +58,7 @@
     <string name="record_visit">Record visit</string>
     <string name="edit">EDIT</string>
     <string name="return_to_family_name">Return to %1$s Family</string>
+    <string name="save_title">SAVE</string>
 
     <string name="allow_calls_denied">Kindly allow calls to be made here</string>
     <string name="copy_to_clipboard">Copy to clipboard</string>
