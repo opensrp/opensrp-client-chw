@@ -9,6 +9,7 @@ import org.smartgresiter.wcaro.task.UpdateServiceTask;
 import org.smartgresiter.wcaro.task.VaccinationAsyncTask;
 import org.smartgresiter.wcaro.util.HomeVisitVaccineGroupDetails;
 import org.smartgresiter.wcaro.util.ImmunizationState;
+import org.smartgresiter.wcaro.util.WCAROVaccinateUtils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.Alert;
 import org.smartregister.family.util.AppExecutors;
@@ -236,11 +237,25 @@ public class HomeVisitImmunizationInteractor implements HomeVisitImmunizationCon
                 }
             }
         }
-        for (String emptyname : vaccineGroupName) {
+
+//        for (String emptyname : vaccineGroupName) {
+//            if (isBlank(emptyname)) {
+//                vaccineGroupName.remove(emptyname);
+//            }
+//        }
+
+        ArrayList<Integer> emptyIndices = new ArrayList<Integer>();
+        for (int i = 0; i < vaccineGroupName.size(); i++) {
+            String emptyname = vaccineGroupName.get(i);
             if (isBlank(emptyname)) {
-                vaccineGroupName.remove(emptyname);
+                emptyIndices.add(i);
             }
         }
+
+        for(Integer todelete: emptyIndices){
+            vaccineGroupName.remove(todelete);
+        }
+
         for (int i = 0; i < vaccineGroupName.size(); i++) {
             HomeVisitVaccineGroupDetails homeVisitVaccineGroupDetails = new HomeVisitVaccineGroupDetails();
             homeVisitVaccineGroupDetails.setGroup(vaccineGroupName.get(i));

@@ -14,6 +14,7 @@ import org.smartgresiter.wcaro.util.ServiceContent;
 import org.smartgresiter.wcaro.util.ServiceHeader;
 import org.smartgresiter.wcaro.util.VaccineContent;
 import org.smartgresiter.wcaro.util.VaccineHeader;
+import org.smartgresiter.wcaro.util.WCAROVaccinateUtils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.util.AppExecutors;
 import org.smartregister.immunization.ImmunizationLibrary;

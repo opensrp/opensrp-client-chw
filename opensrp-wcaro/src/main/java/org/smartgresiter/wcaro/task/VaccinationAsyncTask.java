@@ -7,6 +7,7 @@ import org.joda.time.DateTime;
 import org.smartgresiter.wcaro.application.WcaroApplication;
 import org.smartgresiter.wcaro.listener.ImmunizationStateChangeListener;
 import org.smartgresiter.wcaro.util.ImmunizationState;
+import org.smartgresiter.wcaro.util.WCAROVaccinateUtils;
 import org.smartregister.domain.Alert;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.immunization.db.VaccineRepo;
