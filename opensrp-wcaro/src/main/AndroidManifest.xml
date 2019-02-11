@@ -119,9 +119,6 @@
             android:label="@string/upcoming_services"
             android:theme="@style/WcaroTheme.NoActionBar" />
         <activity
-            android:name=".activity.ChildRemoveActivity"
-            android:theme="@style/WcaroTheme.NoActionBar" />
-        <activity
             android:name=".activity.IndividualProfileRemoveActivity"
             android:theme="@style/WcaroTheme.NoActionBar" />
 

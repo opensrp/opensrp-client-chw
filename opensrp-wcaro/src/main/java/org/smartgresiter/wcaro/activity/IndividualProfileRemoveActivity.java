@@ -27,11 +27,7 @@ public class IndividualProfileRemoveActivity extends SecuredActivity {
         intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.PRIMARY_CAREGIVER,primaryCareGiver);
         activity.startActivityForResult(intent, org.smartgresiter.wcaro.util.Constants.ProfileActivityResults.CHANGE_COMPLETED);
     }
-    public static void startIndividualProfileActivity(Activity activity, Bundle bundle){
-        Intent intent=new Intent(activity,IndividualProfileRemoveActivity.class);
-        intent.putExtras(bundle);
-         activity.startActivityForResult(intent, org.smartgresiter.wcaro.util.Constants.ProfileActivityResults.CHANGE_COMPLETED);
-    }
+
     @Override
     protected void onCreation() {
         setContentView(R.layout.activity_family_remove_member);

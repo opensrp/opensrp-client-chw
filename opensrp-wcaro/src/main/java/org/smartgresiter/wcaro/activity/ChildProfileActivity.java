@@ -26,7 +26,7 @@ import org.opensrp.api.constants.Gender;
 import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.contract.ChildProfileContract;
 import org.smartgresiter.wcaro.contract.ChildRegisterContract;
-import org.smartgresiter.wcaro.custom_view.IndividualMemberFloatingMenu;
+import org.smartgresiter.wcaro.custom_view.FamilyMemberFloatingMenu;
 import org.smartgresiter.wcaro.fragment.ChildHomeVisitFragment;
 import org.smartgresiter.wcaro.fragment.FamilyCallDialogFragment;
 import org.smartgresiter.wcaro.listener.OnClickFloatingMenu;
@@ -90,7 +90,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     @Override
     protected void onCreation() {
         setContentView(R.layout.activity_child_profile);
-        ((IndividualMemberFloatingMenu) findViewById(R.id.individual_floating_menu)).setClickListener(onClickFloatingMenu);
+        ((FamilyMemberFloatingMenu) findViewById(R.id.individual_floating_menu)).setClickListener(onClickFloatingMenu);
         Toolbar toolbar = findViewById(R.id.collapsing_toolbar);
         textViewTitle = toolbar.findViewById(R.id.toolbar_title);
         setSupportActionBar(toolbar);
