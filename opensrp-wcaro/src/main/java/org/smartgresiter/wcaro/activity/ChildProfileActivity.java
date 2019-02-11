@@ -425,7 +425,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
                 presenter().fetchFamilyMemberServiceDue(childBaseEntityId);
                 presenter().updateChildCommonPerson(childBaseEntityId);
             }
-        }, 500);
+        }, 100);
     }
 
     @Override
