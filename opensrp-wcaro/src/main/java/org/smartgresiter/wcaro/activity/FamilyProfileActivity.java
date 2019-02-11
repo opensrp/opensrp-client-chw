@@ -80,7 +80,11 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity implements 
                         LinearLayout.LayoutParams.MATCH_PARENT);
         familyFloatingMenu.setGravity(Gravity.BOTTOM | Gravity.RIGHT);
         addContentView(familyFloatingMenu, linearLayoutParams);
-        familyFloatingMenu.setClickListener(FloatingMenuListener.getInstance(this, presenter().familyBaseEntityId()));
+        familyFloatingMenu.setClickListener(
+                FloatingMenuListener.getInstance(this, presenter().familyBaseEntityId())
+                .setFamilyHead(familyHead)
+                .setPrimaryCareGiver(primaryCaregiver)
+        );
     }
 
     @Override

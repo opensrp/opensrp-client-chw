@@ -46,24 +46,27 @@ public class FloatingMenuListener implements OnClickFloatingMenu {
         return familyBaseEntityId;
     }
 
-    public void setFamilyBaseEntityId(String familyBaseEntityId) {
+    public FloatingMenuListener setFamilyBaseEntityId(String familyBaseEntityId) {
         this.familyBaseEntityId = familyBaseEntityId;
+        return this;
     }
 
     public String getFamilyHead() {
         return familyHead;
     }
 
-    public void setFamilyHead(String familyHead) {
+    public FloatingMenuListener setFamilyHead(String familyHead) {
         this.familyHead = familyHead;
+        return this;
     }
 
     public String getPrimaryCareGiver() {
         return primaryCareGiver;
     }
 
-    public void setPrimaryCareGiver(String primaryCareGiver) {
+    public FloatingMenuListener setPrimaryCareGiver(String primaryCareGiver) {
         this.primaryCareGiver = primaryCareGiver;
+        return this;
     }
 
     @Override
