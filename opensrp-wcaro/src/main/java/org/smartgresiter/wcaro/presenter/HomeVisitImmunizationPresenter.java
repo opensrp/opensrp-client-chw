@@ -20,6 +20,7 @@ import java.util.Map;
 import java.util.Stack;
 
 import static org.apache.commons.lang3.text.WordUtils.capitalize;
+import static org.smartgresiter.wcaro.util.ChildUtils.fixVaccineCasing;
 
 public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationContract.Presenter {
 
@@ -286,11 +287,8 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
             ArrayList<VaccineRepo.Vaccine> vaccines = entry.getValue();
             // now work with key and value...
             for (VaccineRepo.Vaccine vaccineGiven : vaccines) {
-                String vaccineName = vaccineGiven.display();
-                if(vaccineName.toLowerCase().contains("rota")||vaccineName.toLowerCase().contains("penta")){
-                    vaccineName = capitalize(vaccineName.toLowerCase());
-                }
-                groupSecondaryText = groupSecondaryText + vaccineName + ", ";
+
+                groupSecondaryText = groupSecondaryText + fixVaccineCasing(vaccineGiven.display()) + ", ";
             }
 
             if (groupSecondaryText.endsWith(", ")) {
@@ -334,7 +332,7 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
             ArrayList<VaccineRepo.Vaccine> vaccines = entry.getValue();
             // now work with key and value...
             for (VaccineRepo.Vaccine vaccineGiven : vaccines) {
-                groupSecondaryText = groupSecondaryText + vaccineGiven.display() + ", ";
+                groupSecondaryText = groupSecondaryText + fixVaccineCasing(vaccineGiven.display()) + ", ";
             }
 
             if (groupSecondaryText.endsWith(", ")) {
@@ -382,11 +380,7 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
             ArrayList<VaccineRepo.Vaccine> vaccines = entry.getValue();
             // now work with key and value...
             for (VaccineRepo.Vaccine vaccineGiven : vaccines) {
-                String vaccineName = vaccineGiven.display();
-                if(vaccineName.toLowerCase().contains("rota")||vaccineName.toLowerCase().contains("penta")){
-                    vaccineName = capitalize(vaccineName.toLowerCase());
-                }
-                groupSecondaryText = groupSecondaryText + vaccineName + ", ";
+                groupSecondaryText = groupSecondaryText + fixVaccineCasing(vaccineGiven.display()) + ", ";
             }
 
             if (groupSecondaryText.endsWith(", ")) {

@@ -31,6 +31,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.contract.HomeVisitImmunizationContract;
+import org.smartgresiter.wcaro.util.ChildUtils;
 import org.smartregister.domain.Alert;
 import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.immunization.domain.Vaccine;
@@ -44,6 +45,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
+import static org.smartgresiter.wcaro.util.ChildUtils.fixVaccineCasing;
 
 @SuppressLint("ValidFragment")
 public class CustomMultipleVaccinationDialogFragment extends ChildImmunizationFragment {
@@ -150,7 +153,7 @@ public class CustomMultipleVaccinationDialogFragment extends ChildImmunizationFr
 
             VaccineRepo.Vaccine vaccine = vaccineWrapper.getVaccine();
             if (vaccineWrapper.getVaccine() != null) {
-                vaccineView.setText(vaccine.display());
+                vaccineView.setText(fixVaccineCasing(vaccine.display()));
             } else {
                 vaccineView.setText(vaccineWrapper.getName());
             }

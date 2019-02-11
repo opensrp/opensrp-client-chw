@@ -36,6 +36,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import static org.apache.commons.lang3.text.WordUtils.capitalize;
+
 public class ChildUtils {
 
     private static final String[] firstSecondNumber = {"Zero", "1st", "2nd", "3rd", "4th", "5th", "6th", "7th", "8th", "9th"};
@@ -365,4 +367,11 @@ public class ChildUtils {
     }
 
 
+    public static String fixVaccineCasing(String display) {
+        display = display.toUpperCase();
+        if(display.toLowerCase().contains("rota")||display.toLowerCase().contains("penta")||display.toLowerCase().contains("yellow fever")){
+            display = capitalize(display.toLowerCase());
+        }
+        return display;
+    }
 }
