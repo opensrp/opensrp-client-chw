@@ -163,7 +163,7 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MyViewHold
     }
 
     public boolean validateSave(MyViewHolder holder) {
-        boolean res = false;
+        boolean res = true;
 
         if (holder != null) {
 

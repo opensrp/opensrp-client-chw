@@ -19,14 +19,21 @@ import org.smartregister.family.fragment.BaseFamilyOtherMemberProfileFragment;
 import org.smartregister.family.util.Constants;
 
 public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfileActivity {
+    String familyBaseEntityId;
+    String baseEntityId;
+    String familyHead;
+    String primaryCaregiver;
+    String villageTown;
+    String familyName;
+
     @Override
     protected void initializePresenter() {
-        String familyBaseEntityId = getIntent().getStringExtra(Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID);
-        String baseEntityId = getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID);
-        String familyHead = getIntent().getStringExtra(Constants.INTENT_KEY.FAMILY_HEAD);
-        String primaryCaregiver = getIntent().getStringExtra(Constants.INTENT_KEY.PRIMARY_CAREGIVER);
-        String villageTown = getIntent().getStringExtra(Constants.INTENT_KEY.VILLAGE_TOWN);
-        String familyName = getIntent().getStringExtra(Constants.INTENT_KEY.FAMILY_NAME);
+        familyBaseEntityId = getIntent().getStringExtra(Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID);
+        baseEntityId = getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID);
+        familyHead = getIntent().getStringExtra(Constants.INTENT_KEY.FAMILY_HEAD);
+        primaryCaregiver = getIntent().getStringExtra(Constants.INTENT_KEY.PRIMARY_CAREGIVER);
+        villageTown = getIntent().getStringExtra(Constants.INTENT_KEY.VILLAGE_TOWN);
+        familyName = getIntent().getStringExtra(Constants.INTENT_KEY.FAMILY_NAME);
         presenter = new FamilyOtherMemberActivityPresenter(this, new FamilyOtherMemberProfileActivityModel(), null, familyBaseEntityId, baseEntityId, familyHead, primaryCaregiver, villageTown, familyName);
     }
 
@@ -45,7 +52,7 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
                         LinearLayout.LayoutParams.MATCH_PARENT);
         familyFloatingMenu.setGravity(Gravity.BOTTOM | Gravity.RIGHT);
         addContentView(familyFloatingMenu, linearLayoutParams);
-        familyFloatingMenu.setClickListener(new FloatingMenuListener(this, presenter().getFamilyBaseEntityId()));
+        familyFloatingMenu.setClickListener(FloatingMenuListener.getInstance(this, presenter().getFamilyBaseEntityId()));
     }
 
     @Override

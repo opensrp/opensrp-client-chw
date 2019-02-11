@@ -106,7 +106,7 @@ public class FamilyRemoveMemberFragment extends BaseFamilyProfileMemberFragment 
     @Override
     public void closeFamily(String familyName, String details) {
 
-        getPresenter().removeEveryone(familyName , details);
+        getPresenter().removeEveryone(familyName, details);
 
     }
 
@@ -200,7 +200,7 @@ public class FamilyRemoveMemberFragment extends BaseFamilyProfileMemberFragment 
             dialog.setOnRemove(new Runnable() {
                 @Override
                 public void run() {
-                    closeFamily(String.format(getString(R.string.family) , name) , message);
+                    closeFamily(String.format(getString(R.string.family), name), message);
                     Toast.makeText(getContext(), getString(R.string.remove_entire_family), Toast.LENGTH_SHORT).show();
                 }
             });
