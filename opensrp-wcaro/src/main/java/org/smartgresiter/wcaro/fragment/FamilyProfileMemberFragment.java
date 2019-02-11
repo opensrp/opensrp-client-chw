@@ -55,12 +55,14 @@ public class FamilyProfileMemberFragment extends BaseFamilyProfileMemberFragment
     }
 
     public void goToProfileActivity(View view) {
-        CommonPersonObjectClient commonPersonObjectClient = (CommonPersonObjectClient) view.getTag();
-        String entityType = Utils.getValue(commonPersonObjectClient.getColumnmaps(), ChildDBConstants.KEY.ENTITY_TYPE, false);
-        if (org.smartgresiter.wcaro.util.Constants.TABLE_NAME.FAMILY_MEMBER.equals(entityType)) {
-            goToOtherMemberProfileActivity(commonPersonObjectClient);
-        } else {
-            goToChildProfileActivity(commonPersonObjectClient);
+        if (view.getTag() instanceof CommonPersonObjectClient) {
+            CommonPersonObjectClient commonPersonObjectClient = (CommonPersonObjectClient) view.getTag();
+            String entityType = Utils.getValue(commonPersonObjectClient.getColumnmaps(), ChildDBConstants.KEY.ENTITY_TYPE, false);
+            if (org.smartgresiter.wcaro.util.Constants.TABLE_NAME.FAMILY_MEMBER.equals(entityType)) {
+                goToOtherMemberProfileActivity(commonPersonObjectClient);
+            } else {
+                goToChildProfileActivity(commonPersonObjectClient);
+            }
         }
     }
 
