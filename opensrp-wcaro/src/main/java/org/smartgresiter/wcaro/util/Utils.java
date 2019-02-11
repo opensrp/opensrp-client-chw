@@ -22,6 +22,8 @@ import android.util.Log;
 import android.widget.Toast;
 
 import org.apache.commons.lang3.StringUtils;
+import org.joda.time.DateTime;
+import org.joda.time.Days;
 import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.contract.FamilyCallDialogContract;
 import org.smartgresiter.wcaro.fragment.CopyToClipboardDialog;
@@ -138,6 +140,30 @@ public class Utils extends org.smartregister.family.util.Utils {
         return R.color.visit_status_ok;
     }
 
+    public static Integer daysBetweenDateAndNow(String date) {
+        DateTime duration;
+        if (StringUtils.isNotBlank(date)) {
+            try {
+                duration = new DateTime(date);
+                Days days = Days.daysBetween(duration.withTimeAtStartOfDay(), DateTime.now().withTimeAtStartOfDay());
+                return days.getDays();
+            } catch (Exception e) {
+                Log.e(TAG, e.toString(), e);
+            }
+        }
+        return null;
+    }
+
+    public static String actualDaysBetweenDateAndNow(Context context, String date) {
+        Integer days = daysBetweenDateAndNow(date);
+        if (days != null) {
+            if (days <= 1) {
+                return days + getStringSpacePrefix(context, R.string.day);
+            } else return days + getStringSpacePrefix(context, R.string.days);
+        }
+        return "";
+    }
+
     public static String actualDuration(Context context, String duration) {
         List<String> printList = new ArrayList<>();
         String[] splits = duration.split("\\s+");
@@ -155,6 +181,7 @@ public class Utils extends org.smartregister.family.util.Utils {
 
         return StringUtils.join(printList, " ");
     }
+
 
     private static String replaceSingularPlural(String string, String dwmyString, String singular, String plural) {
         int dwmy = Integer.valueOf(string.substring(0, string.indexOf(dwmyString)));

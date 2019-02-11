@@ -28,6 +28,7 @@ import org.smartregister.view.customcontrols.CustomFontTextView;
 import org.smartregister.view.customcontrols.FontVariant;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
+import java.util.HashMap;
 import java.util.Set;
 
 public class ChildRegisterFragment extends BaseRegisterFragment implements ChildRegisterFragmentContract.View {
@@ -174,16 +175,20 @@ public class ChildRegisterFragment extends BaseRegisterFragment implements Child
         }
 
         if (view.getTag() != null && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_NORMAL) {
-            goToChildDetailActivity((CommonPersonObjectClient) view.getTag(), false);
+            if (view.getTag() instanceof CommonPersonObjectClient) {
+                goToChildDetailActivity((CommonPersonObjectClient) view.getTag(), false);
+            }
         } else if (view.getTag() != null && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_DOSAGE_STATUS) {
-            CommonPersonObjectClient pc = (CommonPersonObjectClient) view.getTag();
-            String baseEntityId = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, true);
+            if (view.getTag() instanceof CommonPersonObjectClient) {
+                CommonPersonObjectClient pc = (CommonPersonObjectClient) view.getTag();
+                String baseEntityId = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, true);
 
-            if (StringUtils.isNotBlank(baseEntityId)) {
-                ChildHomeVisitFragment childHomeVisitFragment = ChildHomeVisitFragment.newInstance();
-                childHomeVisitFragment.setContext(getActivity());
-                childHomeVisitFragment.setChildClient(pc);
-                childHomeVisitFragment.show(getActivity().getFragmentManager(), ChildHomeVisitFragment.DIALOG_TAG);
+                if (StringUtils.isNotBlank(baseEntityId)) {
+                    ChildHomeVisitFragment childHomeVisitFragment = ChildHomeVisitFragment.newInstance();
+                    childHomeVisitFragment.setContext(getActivity());
+                    childHomeVisitFragment.setChildClient(pc);
+                    childHomeVisitFragment.show(getActivity().getFragmentManager(), ChildHomeVisitFragment.DIALOG_TAG);
+                }
             }
         } else if (view.getId() == R.id.due_only_layout) {
             toggleFilterSelection(view);
@@ -241,4 +246,8 @@ public class ChildRegisterFragment extends BaseRegisterFragment implements Child
         toolbar.setContentInsetStartWithNavigation(0);
         NavigationMenu.getInstance(getActivity(), null, toolbar);
     }
+
+    @Override
+    public void setAdvancedSearchFormData(HashMap<String, String> hashMap) { }
+
 }

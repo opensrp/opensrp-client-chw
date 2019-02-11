@@ -2,9 +2,9 @@ package org.smartgresiter.wcaro.application;
 
 import org.apache.commons.lang3.StringUtils;
 import org.smartgresiter.wcaro.BuildConfig;
-import org.smartgresiter.wcaro.util.Constants;
 import org.smartgresiter.wcaro.util.Utils;
 import org.smartregister.SyncConfiguration;
+import org.smartregister.SyncFilter;
 import org.smartregister.location.helper.LocationHelper;
 
 import java.util.List;
@@ -19,8 +19,8 @@ public class WcaroSyncConfiguration extends SyncConfiguration {
     }
 
     @Override
-    public String getSyncFilterParam() {
-        return Constants.SyncFilters.FILTER_LOCATION_ID;
+    public SyncFilter getSyncFilterParam() {
+        return SyncFilter.LOCATION;
     }
 
     @Override
@@ -55,5 +55,15 @@ public class WcaroSyncConfiguration extends SyncConfiguration {
     @Override
     public boolean isSyncSettings() {
         return BuildConfig.IS_SYNC_SETTINGS;
+    }
+
+    @Override
+    public SyncFilter getEncryptionParam() {
+        return SyncFilter.LOCATION;
+    }
+
+    @Override
+    public boolean updateClientDetailsTable() {
+        return false;
     }
 }
