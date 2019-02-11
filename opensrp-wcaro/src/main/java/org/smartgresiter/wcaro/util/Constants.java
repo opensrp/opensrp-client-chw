@@ -83,11 +83,6 @@ public class Constants {
         public static final String HOME_VISIT = "home-visit-rules.yml";
     }
 
-    public static final class SyncFilters {
-        public static final String FILTER_TEAM_ID = "teamId";
-        public static final String FILTER_LOCATION_ID = "locationId";
-    }
-
     public static class PROFILE_CHANGE_ACTION {
         public static final String ACTION_TYPE = "change_action_type";
         public static final String PRIMARY_CARE_GIVER = "change_primary_cg";

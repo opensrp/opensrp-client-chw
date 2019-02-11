@@ -9,6 +9,8 @@ import org.smartgresiter.wcaro.presenter.FamilyOtherMemberProfileFragmentPresent
 import org.smartregister.family.fragment.BaseFamilyOtherMemberProfileFragment;
 import org.smartregister.family.util.Constants;
 
+import java.util.HashMap;
+
 public class FamilyOtherMemberProfileFragment extends BaseFamilyOtherMemberProfileFragment {
     public static BaseFamilyOtherMemberProfileFragment newInstance(Bundle bundle) {
         Bundle args = bundle;
@@ -39,4 +41,8 @@ public class FamilyOtherMemberProfileFragment extends BaseFamilyOtherMemberProfi
                 break;
         }
     }
+
+    @Override
+    public void setAdvancedSearchFormData(HashMap<String, String> hashMap) { }
+
 }
