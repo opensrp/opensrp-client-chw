@@ -28,6 +28,7 @@ import org.smartregister.view.customcontrols.CustomFontTextView;
 import org.smartregister.view.customcontrols.FontVariant;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
+import java.util.HashMap;
 import java.util.Set;
 
 public class ChildRegisterFragment extends BaseRegisterFragment implements ChildRegisterFragmentContract.View {
@@ -245,4 +246,8 @@ public class ChildRegisterFragment extends BaseRegisterFragment implements Child
         toolbar.setContentInsetStartWithNavigation(0);
         NavigationMenu.getInstance(getActivity(), null, toolbar);
     }
+
+    @Override
+    public void setAdvancedSearchFormData(HashMap<String, String> hashMap) { }
+
 }
