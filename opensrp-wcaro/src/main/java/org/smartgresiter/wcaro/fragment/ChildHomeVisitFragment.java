@@ -121,6 +121,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
 
         nameHeader.setText(String.format("%s %s, %s \u00B7 Home Visit",
                 getValue(childClient.getColumnmaps(), DBConstants.KEY.FIRST_NAME, true),
+                getValue(childClient.getColumnmaps(), DBConstants.KEY.MIDDLE_NAME, true),
                 getValue(childClient.getColumnmaps(), DBConstants.KEY.LAST_NAME, true),
                 dobString
         ));

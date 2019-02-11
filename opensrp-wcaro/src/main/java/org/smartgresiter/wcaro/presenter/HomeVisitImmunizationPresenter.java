@@ -19,6 +19,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Stack;
 
+import static org.apache.commons.lang3.text.WordUtils.capitalize;
+
 public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationContract.Presenter {
 
 
@@ -284,7 +286,11 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
             ArrayList<VaccineRepo.Vaccine> vaccines = entry.getValue();
             // now work with key and value...
             for (VaccineRepo.Vaccine vaccineGiven : vaccines) {
-                groupSecondaryText = groupSecondaryText + vaccineGiven.display() + ", ";
+                String vaccineName = vaccineGiven.display();
+                if(vaccineName.toLowerCase().contains("rota")||vaccineName.toLowerCase().contains("penta")){
+                    vaccineName = capitalize(vaccineName.toLowerCase());
+                }
+                groupSecondaryText = groupSecondaryText + vaccineName + ", ";
             }
 
             if (groupSecondaryText.endsWith(", ")) {
@@ -376,7 +382,11 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
             ArrayList<VaccineRepo.Vaccine> vaccines = entry.getValue();
             // now work with key and value...
             for (VaccineRepo.Vaccine vaccineGiven : vaccines) {
-                groupSecondaryText = groupSecondaryText + vaccineGiven.display() + ", ";
+                String vaccineName = vaccineGiven.display();
+                if(vaccineName.toLowerCase().contains("rota")||vaccineName.toLowerCase().contains("penta")){
+                    vaccineName = capitalize(vaccineName.toLowerCase());
+                }
+                groupSecondaryText = groupSecondaryText + vaccineName + ", ";
             }
 
             if (groupSecondaryText.endsWith(", ")) {

@@ -84,7 +84,7 @@ public class VaccinationAsyncTask extends AsyncTask {
         if (nv != null) {
             DateTime dueDate = (DateTime) nv.get(DATE);
             VaccineRepo.Vaccine vaccine = (VaccineRepo.Vaccine) nv.get(VACCINE);
-            stateKey = WCAROVaccinateUtils.stateKey(vaccine);
+            stateKey = VaccinateActionUtils.stateKey(vaccine);
             String ALERT = "alert";
             if (nv.get(ALERT) == null) {
                 state = ImmunizationState.NO_ALERT;

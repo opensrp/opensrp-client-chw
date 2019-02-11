@@ -145,7 +145,13 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
         if (presenter.getVaccinesDueFromLastVisit().size() > 0) {
             String vaccinesDueLastVisit = "";
             for (int i = 0; i < presenter.getVaccinesDueFromLastVisit().size(); i++) {
-                vaccinesDueLastVisit = vaccinesDueLastVisit + presenter.getVaccinesDueFromLastVisit().get(i).display().toUpperCase() + ",";
+                String vaccineName = presenter.getVaccinesDueFromLastVisit().get(i).display();
+                if(vaccineName.toLowerCase().contains("rota")||vaccineName.toLowerCase().contains("penta")){
+                    vaccineName = capitalize(vaccineName.toLowerCase());
+                }else{
+                    vaccineName = vaccineName.toUpperCase();
+                }
+                vaccinesDueLastVisit = vaccinesDueLastVisit + vaccineName + ",";
             }
             if (vaccinesDueLastVisit.endsWith(",")) {
                 vaccinesDueLastVisit = vaccinesDueLastVisit.substring(0, vaccinesDueLastVisit.length() - 1);

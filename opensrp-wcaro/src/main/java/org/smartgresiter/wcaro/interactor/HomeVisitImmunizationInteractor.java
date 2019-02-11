@@ -232,16 +232,30 @@ public class HomeVisitImmunizationInteractor implements HomeVisitImmunizationCon
         String groupName = "";
         for (VaccineRepo.Vaccine vaccine : vList) {
             if (vaccine.category().equalsIgnoreCase("child")) {
-                if (!vaccineGroupName.contains(WCAROVaccinateUtils.stateKey(vaccine))) {
-                    vaccineGroupName.add(WCAROVaccinateUtils.stateKey(vaccine));
+                if (!vaccineGroupName.contains(VaccinateActionUtils.stateKey(vaccine))) {
+                    vaccineGroupName.add(VaccinateActionUtils.stateKey(vaccine));
                 }
             }
         }
-        for (String emptyname : vaccineGroupName) {
+
+//        for (String emptyname : vaccineGroupName) {
+//            if (isBlank(emptyname)) {
+//                vaccineGroupName.remove(emptyname);
+//            }
+//        }
+
+        ArrayList<Integer> emptyIndices = new ArrayList<Integer>();
+        for (int i = 0; i < vaccineGroupName.size(); i++) {
+            String emptyname = vaccineGroupName.get(i);
             if (isBlank(emptyname)) {
-                vaccineGroupName.remove(emptyname);
+                emptyIndices.add(i);
             }
         }
+
+        for(Integer todelete: emptyIndices){
+            vaccineGroupName.remove(todelete);
+        }
+
         for (int i = 0; i < vaccineGroupName.size(); i++) {
             HomeVisitVaccineGroupDetails homeVisitVaccineGroupDetails = new HomeVisitVaccineGroupDetails();
             homeVisitVaccineGroupDetails.setGroup(vaccineGroupName.get(i));
@@ -300,7 +314,7 @@ public class HomeVisitImmunizationInteractor implements HomeVisitImmunizationCon
     public ArrayList<HomeVisitVaccineGroupDetails> assignDueVaccine(List<VaccineRepo.Vaccine> vList, ArrayList<HomeVisitVaccineGroupDetails> homeVisitVaccineGroupDetailsArrayList, List<Alert> alerts) {
         for (int i = 0; i < homeVisitVaccineGroupDetailsArrayList.size(); i++) {
             for (VaccineRepo.Vaccine vaccine : vList) {
-                if (WCAROVaccinateUtils.stateKey(vaccine).equalsIgnoreCase(homeVisitVaccineGroupDetailsArrayList.get(i).getGroup())) {
+                if (VaccinateActionUtils.stateKey(vaccine).equalsIgnoreCase(homeVisitVaccineGroupDetailsArrayList.get(i).getGroup())) {
                     if (hasAlert(vaccine, alerts)) {
                         homeVisitVaccineGroupDetailsArrayList.get(i).getDueVaccines().add(vaccine);
                         if (assignAlert(vaccine, alerts) == (ImmunizationState.DUE) || assignAlert(vaccine, alerts) == (ImmunizationState.OVERDUE)

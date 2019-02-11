@@ -46,12 +46,14 @@ import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import static org.smartgresiter.wcaro.util.Constants.INTENT_KEY.IS_COMES_FROM_FAMILY;
+
 
 public class ChildProfileActivity extends BaseProfileActivity implements ChildProfileContract.View, ChildRegisterContract.InteractorCallBack {
     private boolean appBarTitleIsShown = true;
     private int appBarLayoutScrollRange = -1;
     private String childBaseEntityId;
-
+    private boolean isComesFromFamily=false;
     private TextView textViewTitle, textViewParentName, textViewChildName, textViewGender, textViewAddress, textViewId, textViewRecord, textViewVisitNot;
     private CircleImageView imageViewProfile;
     private RelativeLayout layoutNotRecordView, layoutLastVisitRow, layoutMostDueOverdue, layoutFamilyHasRow;
@@ -113,6 +115,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
 
         initializePresenter();
         setupViews();
+        setUpToolbar();
     }
 
     @Override
@@ -126,7 +129,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
             textViewTitle.setText(patientName);
             appBarTitleIsShown = true;
         } else if (appBarTitleIsShown) {
-            textViewTitle.setText(getString(R.string.return_to_all_children));
+            setUpToolbar();
             appBarTitleIsShown = false;
         }
 
@@ -167,6 +170,14 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
         layoutMostDueOverdue.setOnClickListener(this);
         layoutFamilyHasRow.setOnClickListener(this);
         layoutRecordButtonDone.setOnClickListener(this);
+
+    }
+    private void setUpToolbar(){
+        if(isComesFromFamily){
+            textViewTitle.setText(getString(R.string.return_to_family_members));
+        }else{
+            textViewTitle.setText(getString(R.string.return_to_all_children));
+        }
 
     }
 
@@ -346,7 +357,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
         openVisitMonthView();
         textViewNotVisitMonth.setText(getString(R.string.not_visiting_this_month));
         textViewUndo.setText(getString(R.string.undo));
-        imageViewCross.setImageResource(R.drawable.ic_cross);
+        imageViewCross.setImageResource(R.drawable.activityrow_notvisited);
     }
 
     @Override
@@ -380,6 +391,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     @Override
     protected void initializePresenter() {
         childBaseEntityId = getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID);
+        isComesFromFamily=getIntent().getBooleanExtra(IS_COMES_FROM_FAMILY,false);
         String familyName = getIntent().getStringExtra(Constants.INTENT_KEY.FAMILY_NAME);
         if (familyName == null) {
             familyName = "";

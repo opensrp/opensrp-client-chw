@@ -72,13 +72,14 @@ public class ChildRegisterActivity extends BaseRegisterActivity implements Child
 
     @Override
     public void startFormActivity(JSONObject jsonForm) {
-        Intent intent = new Intent(this, Utils.metadata().familyMemberFormActivity);
+        Intent intent = new Intent(this, Utils.metadata().familyFormActivity);
         intent.putExtra(Constants.JSON_FORM_EXTRA.JSON, jsonForm.toString());
 
         Form form = new Form();
-        form.setWizard(false);
-        form.setActionBarBackground(org.smartregister.family.R.color.family_actionbar);
-
+        form.setName(getString(R.string.add_fam));
+        form.setActionBarBackground(R.color.family_actionbar);
+        form.setNavigationBackground(R.color.family_navigation);
+        form.setHomeAsUpIndicator(R.mipmap.ic_cross_white);
         intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);
 
         startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
@@ -131,8 +132,12 @@ public class ChildRegisterActivity extends BaseRegisterActivity implements Child
     }
 
     @Override
+    public void openFamilyListView() {
+        bottomNavigationView.setSelectedItemId(R.id.action_family);
+    }
+
+    @Override
     public void switchToBaseFragment() {
-        super.switchToBaseFragment();
         Intent intent = new Intent(this, FamilyRegisterActivity.class);
         startActivity(intent);
         finish();

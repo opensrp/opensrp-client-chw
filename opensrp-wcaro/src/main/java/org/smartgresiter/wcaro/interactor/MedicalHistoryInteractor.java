@@ -148,7 +148,7 @@ public class MedicalHistoryInteractor implements MedicalHistoryContract.Interact
         for (String name : recievedVaccines.keySet()) {
             for (VaccineRepo.Vaccine vaccine : vList) {
                 if (name.equalsIgnoreCase(vaccine.display())) {
-                    String stateKey = WCAROVaccinateUtils.stateKey(vaccine);
+                    String stateKey = VaccinateActionUtils.stateKey(vaccine);
                     ReceivedVaccine receivedVaccine = new ReceivedVaccine();
                     receivedVaccine.setVaccineCategory(stateKey);
                     receivedVaccine.setVaccineName(name);
