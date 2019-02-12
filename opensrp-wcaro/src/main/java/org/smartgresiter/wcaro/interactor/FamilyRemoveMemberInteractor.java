@@ -289,18 +289,24 @@ public class FamilyRemoveMemberInteractor implements FamilyRemoveMemberContract.
     private void updateRepo(Triple<Pair<Date, String>, String, List<Event>> triple, String tableName) {
         AllCommonsRepository commonsRepository = WcaroApplication.getInstance().getAllCommonsRepository(tableName);
 
-        if (commonsRepository != null) {
+        Date date_removed = new Date();
+        Date dod = null;
+        if(triple.getLeft() != null && triple.getLeft().first != null ){
+            dod = triple.getLeft().first;
+        }
+
+        if (commonsRepository != null && dod == null) {
             ContentValues values = new ContentValues();
-            values.put(DBConstants.KEY.DATE_REMOVED, getDBFormatedDate(new Date()));
+            values.put(DBConstants.KEY.DATE_REMOVED, getDBFormatedDate(date_removed));
             commonsRepository.update(tableName, values, triple.getMiddle());
             commonsRepository.updateSearch(triple.getMiddle());
             commonsRepository.close(triple.getMiddle());
         }
 
         // enter the date of death
-        if (triple.getLeft() != null && triple.getLeft().first != null && commonsRepository != null) {
+        if (dod != null && commonsRepository != null) {
             ContentValues values = new ContentValues();
-            values.put(DBConstants.KEY.DOD, getDBFormatedDate(triple.getLeft().first));
+            values.put(DBConstants.KEY.DOD, getDBFormatedDate(dod));
             commonsRepository.update(tableName, values, triple.getMiddle());
             commonsRepository.updateSearch(triple.getMiddle());
         }

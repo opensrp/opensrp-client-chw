@@ -31,13 +31,9 @@ public class FloatingMenuListener implements OnClickFloatingMenu {
             instance = new FloatingMenuListener(context, familyBaseEntityId);
         } else {
             instance.setFamilyBaseEntityId(familyBaseEntityId);
-        }
-        return instance;
-    }
-
-    public static FloatingMenuListener getInstance() {
-        if (instance == null) {
-            throw new RuntimeException("Instantiate this view");
+            if(instance.context.get() != context){
+                instance.context = new WeakReference<>(context);
+            }
         }
         return instance;
     }
@@ -72,6 +68,11 @@ public class FloatingMenuListener implements OnClickFloatingMenu {
     @Override
     public void onClickMenu(int viewId) {
         if (context.get() != null) {
+
+            if(context.get().isDestroyed()){
+                return;
+            }
+
             switch (viewId) {
                 case R.id.call_layout:
                     // Toast.makeText(context, "Go to call screen", Toast.LENGTH_SHORT).show();

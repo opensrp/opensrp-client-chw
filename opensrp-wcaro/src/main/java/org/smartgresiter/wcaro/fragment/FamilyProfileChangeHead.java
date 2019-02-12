@@ -115,11 +115,11 @@ public class FamilyProfileChangeHead extends Fragment implements View.OnClickLis
         Intent returnIntent = new Intent();
         if (StringUtils.isNotBlank(familyHeadID)) {
             returnIntent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.FAMILY_HEAD, familyHeadID);
-            FloatingMenuListener.getInstance().setFamilyHead(familyHeadID);
+            FloatingMenuListener.getInstance(getActivity(), familyID).setFamilyHead(familyHeadID);
         }
         if (StringUtils.isNotBlank(careGiverID)) {
             returnIntent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.PRIMARY_CAREGIVER, careGiverID);
-            FloatingMenuListener.getInstance().setPrimaryCareGiver(careGiverID);
+            FloatingMenuListener.getInstance(getActivity(), familyID).setPrimaryCareGiver(careGiverID);
         }
         getActivity().setResult(Activity.RESULT_OK, returnIntent);
         close();
