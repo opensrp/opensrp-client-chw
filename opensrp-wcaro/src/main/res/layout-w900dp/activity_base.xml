@@ -42,18 +42,18 @@
                     android:layout_height="75dp"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
+                    android:contentDescription="@string/nav_logo"
                     android:visibility="gone"
-                    app:srcCompat="@mipmap/ic_launcher"
-                    android:contentDescription="@string/nav_logo"  />
+                    app:srcCompat="@mipmap/ic_launcher" />
 
                 <TextView
                     android:id="@+id/tvLogo"
-                    android:fontFamily="sans-serif"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
                     android:layout_margin="15dp"
+                    android:fontFamily="sans-serif"
                     android:text="@string/nav_logo"
                     android:textColor="@color/light_grey"
                     android:textSize="24sp"
@@ -77,12 +77,12 @@
 
                 <TextView
                     android:id="@+id/tvRegisters"
-                    android:fontFamily="sans-serif"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
                     android:layout_margin="15dp"
+                    android:fontFamily="sans-serif"
                     android:text="@string/nav_registers"
                     android:textSize="24sp" />
 
@@ -102,14 +102,14 @@
 
                 <TextView
                     android:id="@+id/tvLogout"
-                    android:fontFamily="sans-serif"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/vDiv2"
-                    android:layout_marginRight="15dp"
                     android:layout_marginLeft="15dp"
-                    android:layout_marginBottom="15dp"
                     android:layout_marginTop="35dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:fontFamily="sans-serif"
                     android:text="Log out as"
                     android:textSize="20sp" />
 
@@ -124,37 +124,52 @@
                 android:background="#3d3d3d"
                 android:padding="15dp">
 
-                <ImageView
-                    android:id="@+id/ivIcon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentTop="true"
-                    app:srcCompat="@mipmap/sidemenu_sync" />
+                <RelativeLayout
+                    android:id="@+id/rlIconSync"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/ivIcon"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentTop="true"
+                        app:srcCompat="@mipmap/sidemenu_sync" />
+
+                    <ProgressBar
+                        android:id="@+id/pbSync"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:indeterminate="true" />
+
+                </RelativeLayout>
 
                 <TextView
                     android:id="@+id/tvSync"
-                    android:fontFamily="sans-serif"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:layout_toEndOf="@+id/ivIcon"
-                    android:layout_toRightOf="@+id/ivIcon"
+                    android:layout_toEndOf="@+id/rlIconSync"
+                    android:layout_toRightOf="@+id/rlIconSync"
+                    android:fontFamily="sans-serif"
                     android:text="@string/nav_sync"
                     android:textColor="@color/white"
                     android:textSize="24sp" />
 
                 <TextView
                     android:id="@+id/tvSyncTime"
-                    android:fontFamily="sans-serif"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
+                    android:fontFamily="sans-serif"
                     android:text="@string/nav_last_sync_time"
                     android:textColor="@color/white"
                     android:textSize="18sp" />
@@ -162,12 +177,12 @@
 
                 <TextView
                     android:id="@+id/tvSyncTimeTitle"
-                    android:fontFamily="sans-serif"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_toStartOf="@+id/tvSyncTime"
                     android:layout_toLeftOf="@+id/tvSyncTime"
+                    android:fontFamily="sans-serif"
                     android:text="@string/nav_last"
                     android:textColor="@color/white"
                     android:textSize="18sp" />
