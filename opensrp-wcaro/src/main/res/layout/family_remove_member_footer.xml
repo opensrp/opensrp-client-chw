@@ -60,7 +60,7 @@
             android:layout_alignParentLeft="true"
             android:layout_marginStart="@dimen/register_list_item_margin"
             android:layout_marginLeft="@dimen/register_list_item_margin"
-            android:src="@mipmap/ic_member" />
+            android:src="@mipmap/rowavatar_family" />
 
         <LinearLayout
             android:id="@+id/patient_column"
