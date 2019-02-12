@@ -61,7 +61,7 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity implements 
         familyHead = getIntent().getStringExtra(Constants.INTENT_KEY.FAMILY_HEAD);
         primaryCaregiver = getIntent().getStringExtra(Constants.INTENT_KEY.PRIMARY_CAREGIVER);
         familyName = getIntent().getStringExtra(Constants.INTENT_KEY.FAMILY_NAME);
-        presenter = new FamilyProfilePresenter(this, new FamilyProfileModel(familyName), familyBaseEntityId, familyHead, primaryCaregiver, familyName);
+        presenter = new FamilyProfilePresenter(this, new BaseFamilyProfileModel(familyName), familyBaseEntityId, familyHead, primaryCaregiver, familyName);
     }
 
     @Override

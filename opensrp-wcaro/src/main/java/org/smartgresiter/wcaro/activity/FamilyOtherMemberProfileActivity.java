@@ -34,7 +34,7 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
         primaryCaregiver = getIntent().getStringExtra(Constants.INTENT_KEY.PRIMARY_CAREGIVER);
         villageTown = getIntent().getStringExtra(Constants.INTENT_KEY.VILLAGE_TOWN);
         familyName = getIntent().getStringExtra(Constants.INTENT_KEY.FAMILY_NAME);
-        presenter = new FamilyOtherMemberActivityPresenter(this, new FamilyOtherMemberProfileActivityModel(), null, familyBaseEntityId, baseEntityId, familyHead, primaryCaregiver, villageTown, familyName);
+        presenter = new FamilyOtherMemberActivityPresenter(this, new BaseFamilyOtherMemberProfileActivityModel(), null, familyBaseEntityId, baseEntityId, familyHead, primaryCaregiver, villageTown, familyName);
     }
 
     @Override
