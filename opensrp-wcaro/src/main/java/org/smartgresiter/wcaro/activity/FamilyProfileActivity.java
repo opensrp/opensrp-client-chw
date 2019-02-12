@@ -82,8 +82,8 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity implements 
         addContentView(familyFloatingMenu, linearLayoutParams);
         familyFloatingMenu.setClickListener(
                 FloatingMenuListener.getInstance(this, presenter().familyBaseEntityId())
-                .setFamilyHead(familyHead)
-                .setPrimaryCareGiver(primaryCaregiver)
+                        .setFamilyHead(familyHead)
+                        .setPrimaryCareGiver(primaryCaregiver)
         );
     }
 
@@ -253,4 +253,9 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity implements 
         }
     }
 
+    @Override
+    protected void onResumption() {
+        super.onResumption();
+        FloatingMenuListener.getInstance(this, presenter().familyBaseEntityId());
+    }
 }

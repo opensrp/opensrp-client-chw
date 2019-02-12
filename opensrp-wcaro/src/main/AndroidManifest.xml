@@ -40,6 +40,11 @@
             android:screenOrientation="portrait"
             android:theme="@style/WcaroTheme.NoActionBar" />
         <activity
+            android:name=".activity.CustomJsonFromActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/WcaroTheme.NoActionBar" />
+        <activity
             android:name=".activity.FamilyProfileActivity"
             android:label="@string/title_family_detail"
             android:parentActivityName=".activity.FamilyRegisterActivity"

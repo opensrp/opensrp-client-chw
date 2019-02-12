@@ -98,4 +98,10 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
     public FamilyOtherMemberActivityPresenter presenter() {
         return (FamilyOtherMemberActivityPresenter) presenter;
     }
+
+    @Override
+    protected void onResumption() {
+        super.onResumption();
+        FloatingMenuListener.getInstance(this, presenter().getFamilyBaseEntityId());
+    }
 }

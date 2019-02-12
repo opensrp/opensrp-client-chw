@@ -2,6 +2,7 @@ package org.smartgresiter.wcaro.listener;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.util.Log;
 
 import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.activity.FamilyProfileActivity;
@@ -14,6 +15,7 @@ import org.smartgresiter.wcaro.util.Constants;
 import java.lang.ref.WeakReference;
 
 public class FloatingMenuListener implements OnClickFloatingMenu {
+    static String TAG = FloatingMenuListener.class.getCanonicalName();
     private WeakReference<Activity> context;
     private String familyBaseEntityId;
     private String familyHead;
@@ -70,6 +72,7 @@ public class FloatingMenuListener implements OnClickFloatingMenu {
         if (context.get() != null) {
 
             if(context.get().isDestroyed()){
+                Log.d(TAG, "Activity Destroyed");
                 return;
             }
 

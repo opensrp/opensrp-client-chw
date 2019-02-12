@@ -59,6 +59,7 @@
     <string name="edit">EDIT</string>
     <string name="return_to_family_name">Return to %1$s Family</string>
     <string name="save_title">SAVE</string>
+    <string name="any_changes_you_make">Any changes you have made will be lost</string>
 
     <string name="allow_calls_denied">Kindly allow calls to be made here</string>
     <string name="copy_to_clipboard">Copy to clipboard</string>
