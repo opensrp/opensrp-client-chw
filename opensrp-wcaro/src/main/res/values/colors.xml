@@ -17,7 +17,7 @@
     <color name="light_pink">#FFDAF7</color>
     <color name="light_gray">#FAFAFA</color>
     <color name="visit_status_ok">@android:color/holo_blue_light</color>
-    <color name="visit_status_over_due">@android:color/holo_red_light</color>
+    <color name="visit_status_over_due">@color/alert_urgent_red</color>
     <color name="visit_status_not_yet">@android:color/darker_gray</color>
 
 </resources>

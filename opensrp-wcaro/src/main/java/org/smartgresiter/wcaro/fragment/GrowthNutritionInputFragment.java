@@ -31,6 +31,7 @@ import org.smartgresiter.wcaro.util.Constants;
 import org.smartgresiter.wcaro.util.JsonFormUtils;
 import org.smartgresiter.wcaro.util.Utils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
+import org.smartregister.family.util.DBConstants;
 import org.smartregister.immunization.ImmunizationLibrary;
 import org.smartregister.immunization.domain.ServiceRecord;
 import org.smartregister.immunization.domain.ServiceSchedule;
@@ -63,9 +64,9 @@ public class GrowthNutritionInputFragment extends DialogFragment implements Radi
         return growthNutritionInputFragment;
     }
     static final Map<String,Integer> imageMap=ImmutableMap.of(
-            GROWTH_TYPE.VITAMIN.getValue(), R.mipmap.form_vitamin,
-            GROWTH_TYPE.MNP.getValue(),R.mipmap.form_mnp,
-            GROWTH_TYPE.DEWORMING.getValue(),R.mipmap.form_deworming
+            GROWTH_TYPE.VITAMIN.getValue(), R.drawable.form_vitamin,
+            GROWTH_TYPE.MNP.getValue(),R.drawable.form_mnp,
+            GROWTH_TYPE.DEWORMING.getValue(),R.drawable.form_deworming
     );
 
     private TextView textViewTitle;
@@ -81,6 +82,7 @@ public class GrowthNutritionInputFragment extends DialogFragment implements Radi
     private CommonPersonObjectClient commonPersonObjectClient;
     private LinearLayout context;
     private ServiceWrapper saveService;
+    String dob;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -149,6 +151,8 @@ public class GrowthNutritionInputFragment extends DialogFragment implements Radi
         textViewTitle.setText(title);
 
         commonPersonObjectClient = (CommonPersonObjectClient) getArguments().getSerializable(Constants.INTENT_KEY.CHILD_COMMON_PERSON);
+        dob=org.smartregister.family.util.Utils.getValue(commonPersonObjectClient.getColumnmaps(), DBConstants.KEY.DOB, false);
+
         if (type.equalsIgnoreCase(GROWTH_TYPE.EXCLUSIVE.getValue())) {
             if(serviceWrapper.getValue()!=null && serviceWrapper.getValue().equalsIgnoreCase("yes")){
                 noRadio.setChecked(true);
@@ -163,6 +167,7 @@ public class GrowthNutritionInputFragment extends DialogFragment implements Radi
             }
             visibleExclusiveBar();
         } else {
+            updateDatePicker();
             textViewVitamin.setText(getString(R.string.vitamin_given, question));
             if(serviceWrapper.getUpdatedVaccineDate()!=null){
                 datePicker.updateDate(serviceWrapper.getUpdatedVaccineDate().getYear(),
@@ -170,6 +175,16 @@ public class GrowthNutritionInputFragment extends DialogFragment implements Radi
             }
             visibleVitaminBar();
         }
+    }
+    private void updateDatePicker(){
+        DateTime dateOfBirth = Utils.dobStringToDateTime(dob);
+        DateTime dcToday= ServiceSchedule.standardiseDateTime(DateTime.now());
+        DateTime minDate = ServiceSchedule.standardiseDateTime(dateOfBirth);
+        DateTime maxDate = ServiceSchedule.standardiseDateTime(dcToday);
+
+        datePicker.setMinDate(minDate.getMillis());
+        datePicker.setMaxDate(maxDate.getMillis());
+
     }
 
     private void visibleExclusiveBar() {

@@ -25,6 +25,7 @@ public class HomeVisitGrowthAndNutrition extends LinearLayout implements View.On
     public static final String TAG = "HomeVisitGrowthAndNutrition";
     private LinearLayout layoutExclusiveBar, layoutMnpBar, layoutVitaminBar, layoutDewormingBar;
     private TextView textViewExclusiveFeedingName, textViewMnpName, textViewVitaminName, textViewDewormingName;
+    private TextView textViewExclusiveFeedingTitle,textViewMnpTitle,textViewVitaminTitle,textViewDewormingTitle;
     private CircleImageView imageViewExclusiveStatus, imageViewMnpStatus, imageViewVitaminStatus, imageViewDewormingStatus;
     private HomeVisitGrowthNutritionContract.Presenter presenter;
     private CommonPersonObjectClient commonPersonObjectClient;
@@ -53,6 +54,10 @@ public class HomeVisitGrowthAndNutrition extends LinearLayout implements View.On
         layoutMnpBar = findViewById(R.id.mnp_bar);
         layoutVitaminBar = findViewById(R.id.vitamin_a_bar);
         layoutDewormingBar = findViewById(R.id.deworming_bar);
+        textViewExclusiveFeedingTitle=findViewById(R.id.textview_exclusive_feeding);
+        textViewMnpTitle=findViewById(R.id.textview_mnp_bar);
+        textViewVitaminTitle=findViewById(R.id.textview_vitamin_a);
+        textViewDewormingTitle=findViewById(R.id.textview_deworming);
         textViewExclusiveFeedingName = findViewById(R.id.textview_exclusive_feeding_name);
         textViewMnpName = findViewById(R.id.textview_mnp_bar_name);
         textViewVitaminName = findViewById(R.id.textview_vitamin_a_name);
@@ -97,7 +102,7 @@ public class HomeVisitGrowthAndNutrition extends LinearLayout implements View.On
                 //if (!presenter.isSelected(GrowthNutritionInputFragment.GROWTH_TYPE.EXCLUSIVE.getValue())) {
                     ServiceWrapper serviceWrapper = ((HomeVisitGrowthNutritionPresenter) presenter).getServiceWrapperExclusive();
                     showGrowthNutritionDialog(GrowthNutritionInputFragment.GROWTH_TYPE.EXCLUSIVE.getValue(), "Exclusive breastfeeding",
-                            textViewExclusiveFeedingName.getText().toString(), serviceWrapper);
+                            textViewExclusiveFeedingTitle.getText().toString(), serviceWrapper);
                // }
 
                 break;
@@ -106,21 +111,21 @@ public class HomeVisitGrowthAndNutrition extends LinearLayout implements View.On
 
                     ServiceWrapper serviceWrapperMnp = ((HomeVisitGrowthNutritionPresenter) presenter).getServiceWrapperMnp();
                     showGrowthNutritionDialog(GrowthNutritionInputFragment.GROWTH_TYPE.MNP.getValue(), "Record MNP dose",
-                            textViewMnpName.getText().toString(), serviceWrapperMnp);
+                            textViewMnpTitle.getText().toString(), serviceWrapperMnp);
                 //}
                 break;
             case R.id.vitamin_a_bar:
                 //if (!presenter.isSelected(GrowthNutritionInputFragment.GROWTH_TYPE.VITAMIN.getValue())) {
                     ServiceWrapper serviceWrapperVit = ((HomeVisitGrowthNutritionPresenter) presenter).getServiceWrapperVitamin();
                     showGrowthNutritionDialog(GrowthNutritionInputFragment.GROWTH_TYPE.VITAMIN.getValue(), "Record Vitamin A dose",
-                            textViewVitaminName.getText().toString(), serviceWrapperVit);
+                            textViewVitaminTitle.getText().toString(), serviceWrapperVit);
                 //}
                 break;
             case R.id.deworming_bar:
                 //if (!presenter.isSelected(GrowthNutritionInputFragment.GROWTH_TYPE.DEWORMING.getValue())) {
                     ServiceWrapper serviceWrapperDorm = ((HomeVisitGrowthNutritionPresenter) presenter).getServiceWrapperDeworming();
                     showGrowthNutritionDialog(GrowthNutritionInputFragment.GROWTH_TYPE.DEWORMING.getValue(), "Record Deworming dose",
-                            textViewDewormingName.getText().toString(), serviceWrapperDorm);
+                            textViewDewormingTitle.getText().toString(), serviceWrapperDorm);
                // }
                 break;
         }
@@ -139,7 +144,7 @@ public class HomeVisitGrowthAndNutrition extends LinearLayout implements View.On
     }
 
     @Override
-    public void updateExclusiveFeedingData(String name) {
+    public void updateExclusiveFeedingData(String name,String dueDate) {
         if (!TextUtils.isEmpty(name)) {
             layoutExclusiveBar.setVisibility(VISIBLE);
             ((View) findViewById(R.id.view_exclusive_feeding_bar)).setVisibility(VISIBLE);
@@ -147,13 +152,14 @@ public class HomeVisitGrowthAndNutrition extends LinearLayout implements View.On
             String str = (String) displayName[0];
             String no = (String) displayName[1];
             feedingText=str + " " + no + " month";
-            textViewExclusiveFeedingName.setText(feedingText);
+            textViewExclusiveFeedingTitle.setText(feedingText);
+            textViewExclusiveFeedingName.setText(ChildUtils.dueOverdueCalculation(dueDate));
         }
 
     }
 
     @Override
-    public void updateMnpData(String name) {
+    public void updateMnpData(String name,String dueDate) {
         if (!TextUtils.isEmpty(name)) {
             layoutMnpBar.setVisibility(VISIBLE);
             ((View) findViewById(R.id.view_mnp_bar)).setVisibility(VISIBLE);
@@ -161,12 +167,13 @@ public class HomeVisitGrowthAndNutrition extends LinearLayout implements View.On
             String str = (String) displayName[0];
             String no = (String) displayName[1];
             mnpText = str + " " + ChildUtils.getFirstSecondAsNumber(no) + " pack";
-            textViewMnpName.setText(mnpText);
+            textViewMnpTitle.setText(mnpText);
+            textViewMnpName.setText(ChildUtils.dueOverdueCalculation(dueDate));
         }
     }
 
     @Override
-    public void updateVitaminAData(String name) {
+    public void updateVitaminAData(String name,String dueDate) {
         if (!TextUtils.isEmpty(name)) {
             layoutVitaminBar.setVisibility(VISIBLE);
             ((View) findViewById(R.id.view_vitamin_a_bar)).setVisibility(VISIBLE);
@@ -174,36 +181,39 @@ public class HomeVisitGrowthAndNutrition extends LinearLayout implements View.On
             String str = (String) displayName[0];
             String no = (String) displayName[1];
             vitaminText = str + " " + ChildUtils.getFirstSecondAsNumber(no) + " dose";
-            textViewVitaminName.setText(vitaminText);
+            textViewVitaminTitle.setText(vitaminText);
+            textViewVitaminName.setText(ChildUtils.dueOverdueCalculation(dueDate));
         }
     }
 
     @Override
-    public void updateDewormingData(String name) {
+    public void updateDewormingData(String name,String dueDate) {
         if (!TextUtils.isEmpty(name)) {
             layoutDewormingBar.setVisibility(VISIBLE);
             Object[] displayName = ChildUtils.getStringWithNumber(name);
             String str = (String) displayName[0];
             String no = (String) displayName[1];
             dewormingText = str + " " + ChildUtils.getFirstSecondAsNumber(no) + " dose";
-            textViewDewormingName.setText(dewormingText);
+            textViewDewormingTitle.setText(dewormingText);
+            textViewDewormingName.setText(ChildUtils.dueOverdueCalculation(dueDate));
         }
     }
 
     @Override
-    public void statusImageViewUpdate(String type, boolean value,String message) {
+    public void statusImageViewUpdate(String type, boolean value,String message,String yesNoValue) {
         if (type.equalsIgnoreCase(GrowthNutritionInputFragment.GROWTH_TYPE.EXCLUSIVE.getValue())) {
             updateStatusTick(imageViewExclusiveStatus, value);
-            textViewExclusiveFeedingName.setText(feedingText+" "+message);
+            textViewExclusiveFeedingTitle.setText(feedingText+" "+yesNoValue);
+            textViewExclusiveFeedingName.setText(message);
         } else if (type.equalsIgnoreCase(GrowthNutritionInputFragment.GROWTH_TYPE.MNP.getValue())) {
             updateStatusTick(imageViewMnpStatus, value);
-            textViewMnpName.setText(mnpText+" "+message);
+            textViewMnpName.setText(message);
         } else if (type.equalsIgnoreCase(GrowthNutritionInputFragment.GROWTH_TYPE.VITAMIN.getValue())) {
             updateStatusTick(imageViewVitaminStatus, value);
-            textViewVitaminName.setText(vitaminText+" "+message);
+            textViewVitaminName.setText(message);
         } else if (type.equalsIgnoreCase(GrowthNutritionInputFragment.GROWTH_TYPE.DEWORMING.getValue())) {
             updateStatusTick(imageViewDewormingStatus, value);
-            textViewDewormingName.setText(dewormingText+" "+message);
+            textViewDewormingName.setText(message);
         }
     }
 
@@ -232,6 +242,11 @@ public class HomeVisitGrowthAndNutrition extends LinearLayout implements View.On
 
     }
 
+    @Override
+    public Context getViewContext() {
+        return getContext();
+    }
+
     public void setState(String type, ServiceWrapper serviceWrapper) {
         presenter.setSaveState(type, serviceWrapper);
 
@@ -252,4 +267,5 @@ public class HomeVisitGrowthAndNutrition extends LinearLayout implements View.On
     public Map<String, String> returnSaveStateMap() {
         return presenter.getSaveStateMap();
     }
+
 }

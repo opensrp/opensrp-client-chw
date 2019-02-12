@@ -5,9 +5,10 @@
     <string name="child_register_title">Child Clients</string>
     <string name="return_to_all_children">Return to all children</string>
     <string name="back_to_children">Back to %1$s</string>
-    <string name="child_details">Child details</string>
-
-
+    <string name="child_details">Child details %1$s</string>
+    <string name="not_given">Not given</string>
+    <string name="given">Given</string>
+    <string name="provided_on">Provided on %1$s</string>
     <string name="search_name_or_id">Search name or ID</string>
 
     <string name="navigation_drawer_open">Open</string>

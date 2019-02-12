@@ -43,9 +43,9 @@
         android:layout_height="wrap_content">
         <ImageView
             android:id="@+id/growth_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/form_breasfeeding"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/form_breasfeeding"
             android:layout_gravity="center"
             android:layout_marginBottom="10dp"
             />
@@ -91,15 +91,14 @@
         android:layout_below="@+id/exclusive_feeding_bar"
         android:orientation="vertical"
         android:padding="10dp"
-        android:gravity="center"
         android:visibility="visible"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <ImageView
             android:id="@+id/vitamin_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/form_vitamin"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/form_vitamin"
             android:layout_gravity="center"
             android:layout_marginBottom="10dp"
             />

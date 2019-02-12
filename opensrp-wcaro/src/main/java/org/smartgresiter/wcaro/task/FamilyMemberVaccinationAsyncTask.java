@@ -7,8 +7,11 @@ import android.util.Log;
 
 import org.joda.time.DateTime;
 import org.smartgresiter.wcaro.application.WcaroApplication;
+import org.smartgresiter.wcaro.interactor.ChildProfileInteractor;
 import org.smartgresiter.wcaro.listener.FamilyMemberImmunizationListener;
+import org.smartgresiter.wcaro.util.ChildDBConstants;
 import org.smartgresiter.wcaro.util.ChildUtils;
+import org.smartgresiter.wcaro.util.ChildVisit;
 import org.smartgresiter.wcaro.util.ImmunizationState;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
@@ -64,6 +67,10 @@ public class FamilyMemberVaccinationAsyncTask extends AsyncTask {
                         personObject.getDetails(), "");
                 // pClient.setColumnmaps(personObject.getColumnmaps());
                 String dobString = org.smartregister.util.Utils.getValue(personObject.getColumnmaps(), DBConstants.KEY.DOB, false);
+                String visitNotDoneStr=org.smartregister.util.Utils.getValue(personObject.getColumnmaps(), ChildDBConstants.KEY.VISIT_NOT_DONE, false);
+                String lastHomeVisitStr=org.smartregister.util.Utils.getValue(personObject.getColumnmaps(), ChildDBConstants.KEY.LAST_HOME_VISIT, false);
+                long lastHomeVisit=TextUtils.isEmpty(lastHomeVisitStr)?0:Long.parseLong(lastHomeVisitStr);
+                long visitNotDone=TextUtils.isEmpty(visitNotDoneStr)?0:Long.parseLong(visitNotDoneStr);
                 DateTime dob = org.smartgresiter.wcaro.util.Utils.dobStringToDateTime(dobString);
                 if (dob == null) {
                     dob = new DateTime();
@@ -118,11 +125,12 @@ public class FamilyMemberVaccinationAsyncTask extends AsyncTask {
                     this.nv = nv;
                     this.childServiceState = state;
                 }else{
-                    if(state!=null && (state.equals(ImmunizationState.OVERDUE) || state.equals(ImmunizationState.DUE)) ){
-                       if( familyImmunizationState!=null && !familyImmunizationState.equals(ImmunizationState.OVERDUE)){
-                            familyImmunizationState=state;
-                        }
-                    }
+                    final ChildVisit childVisit = ChildUtils.getChildVisitStatus(dobString,lastHomeVisit,visitNotDone);
+                    if(childVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.OVERDUE.name())
+                            || childVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.DUE.name()))
+                        if( familyImmunizationState!=null && !familyImmunizationState.equals(ImmunizationState.OVERDUE)){
+                                familyImmunizationState=state;
+                       }
                 }
 
             } while (cursor.moveToNext());

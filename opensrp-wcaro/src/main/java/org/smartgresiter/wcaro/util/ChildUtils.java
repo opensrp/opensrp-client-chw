@@ -17,6 +17,7 @@ import org.jeasy.rules.api.Rules;
 import org.joda.time.Days;
 import org.joda.time.LocalDate;
 import org.json.JSONObject;
+import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.application.WcaroApplication;
 import org.smartgresiter.wcaro.domain.HomeVisit;
 import org.smartgresiter.wcaro.repository.HomeVisitRepository;
@@ -37,6 +38,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import static org.apache.commons.lang3.text.WordUtils.capitalize;
+import static org.smartregister.util.JsonFormUtils.dd_MM_yyyy;
 
 public class ChildUtils {
 
@@ -321,7 +323,27 @@ public class ChildUtils {
         } else {
             String str = diff + " days overdue";
             spannableString = new SpannableString(str);
-            spannableString.setSpan(new ForegroundColorSpan(Color.RED), 0, str.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            spannableString.setSpan(new ForegroundColorSpan(WcaroApplication.getInstance().getContext().getColorResource(R.color.alert_urgent_red)), 0, str.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            return spannableString;
+        }
+    }
+
+    public static SpannableString dueOverdueCalculation(String dueDate) {
+        SpannableString spannableString;
+        LocalDate date1 = new LocalDate(dueDate);
+        LocalDate date2 = new LocalDate();
+        int diff = Days.daysBetween(date1, date2).getDays();
+        Date date= org.smartregister.family.util.Utils.dobStringToDate(dueDate);
+        if (diff < 0) {
+
+            String str="Due "+dd_MM_yyyy.format(date);
+            spannableString = new SpannableString(str);
+            spannableString.setSpan(new ForegroundColorSpan(Color.GRAY), 0, str.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            return spannableString;
+        } else {
+            String str="Overdue "+dd_MM_yyyy.format(date);
+            spannableString = new SpannableString(str);
+            spannableString.setSpan(new ForegroundColorSpan(WcaroApplication.getInstance().getContext().getColorResource(R.color.alert_urgent_red)), 0, str.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             return spannableString;
         }
     }
