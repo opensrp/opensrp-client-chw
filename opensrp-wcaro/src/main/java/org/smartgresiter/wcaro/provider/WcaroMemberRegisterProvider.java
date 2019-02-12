@@ -15,6 +15,7 @@ import org.smartgresiter.wcaro.util.ChildUtils;
 import org.smartgresiter.wcaro.util.ChildVisit;
 import org.smartgresiter.wcaro.util.Constants;
 import org.smartgresiter.wcaro.util.Utils;
+import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
@@ -43,18 +44,23 @@ public class WcaroMemberRegisterProvider extends FamilyMemberRegisterProvider {
 
         viewHolder.statusLayout.setVisibility(View.GONE);
         viewHolder.status.setVisibility(View.GONE);
-        Utils.startAsyncTask(new UpdateAsyncTask(viewHolder, pc.getCaseId()), null);
+
+        String entityType = Utils.getValue(pc.getColumnmaps(), ChildDBConstants.KEY.ENTITY_TYPE, false);
+        if (Constants.TABLE_NAME.CHILD.equals(entityType)) {
+            Utils.startAsyncTask(new UpdateAsyncTask(viewHolder, pc), null);
+        }
+
     }
 
     private Map<String, String> getChildDetails(String baseEntityId) {
         SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
-        queryBUilder.SelectInitiateMainTable(Constants.TABLE_NAME.CHILD, new String[]{DBConstants.KEY.BASE_ENTITY_ID, ChildDBConstants.KEY.LAST_HOME_VISIT, ChildDBConstants.KEY.VISIT_NOT_DONE, DBConstants.KEY.DOB});
-        queryBUilder.mainCondition(String.format(" %s is null AND %s = '%s' ",
+        queryBUilder.SelectInitiateMainTable(CommonFtsObject.searchTableName(Constants.TABLE_NAME.CHILD), new String[]{CommonFtsObject.idColumn, ChildDBConstants.KEY.LAST_HOME_VISIT, ChildDBConstants.KEY.VISIT_NOT_DONE});
+        String query = queryBUilder.mainCondition(String.format(" %s is null AND %s = '%s' ",
                 DBConstants.KEY.DATE_REMOVED,
-                DBConstants.KEY.BASE_ENTITY_ID,
+                CommonFtsObject.idColumn,
                 baseEntityId));
 
-        String query = queryBUilder.orderbyCondition(DBConstants.KEY.DOB + " ASC ");
+        query = query.replace(CommonFtsObject.searchTableName(Constants.TABLE_NAME.CHILD) + ".id as _id ,", "");
 
         CommonRepository commonRepository = Utils.context().commonrepository(Constants.TABLE_NAME.CHILD);
         List<Map<String, String>> res = new ArrayList<>();
@@ -84,8 +90,9 @@ public class WcaroMemberRegisterProvider extends FamilyMemberRegisterProvider {
         return res.get(0);
     }
 
-    private ChildVisit retrieveChildVisitList(Rules rules, Map<String, String> map) {
-        String dobString = Utils.getDuration(map.get(DBConstants.KEY.DOB));
+    private ChildVisit retrieveChildVisitList(Rules rules, CommonPersonObjectClient pc, Map<String, String> map) {
+        String dob = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.DOB, false);
+        String dobString = Utils.getDuration(dob);
         String lastVisitDate = map.get(ChildDBConstants.KEY.LAST_HOME_VISIT);
         String visitNotDone = map.get(ChildDBConstants.KEY.VISIT_NOT_DONE);
         long lastVisit = 0, visitNot = 0;
@@ -106,6 +113,8 @@ public class WcaroMemberRegisterProvider extends FamilyMemberRegisterProvider {
                 viewHolder.status.setImageResource(Utils.getDueProfileImageResourceIDentifier());
             } else if (childVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.OVERDUE.name())) {
                 viewHolder.status.setImageResource(Utils.getOverDueProfileImageResourceIDentifier());
+            } else {
+                viewHolder.status.setVisibility(View.INVISIBLE);
             }
         } else {
             viewHolder.status.setVisibility(View.INVISIBLE);
@@ -118,24 +127,24 @@ public class WcaroMemberRegisterProvider extends FamilyMemberRegisterProvider {
 
     private class UpdateAsyncTask extends AsyncTask<Void, Void, Void> {
         private final RegisterViewHolder viewHolder;
-        private final String baseEntityId;
+        private final CommonPersonObjectClient pc;
 
         private final Rules rules;
 
         private Map<String, String> map;
         private ChildVisit childVisit;
 
-        private UpdateAsyncTask(RegisterViewHolder viewHolder, String baseEntityId) {
+        private UpdateAsyncTask(RegisterViewHolder viewHolder, CommonPersonObjectClient pc) {
             this.viewHolder = viewHolder;
-            this.baseEntityId = baseEntityId;
+            this.pc = pc;
             this.rules = WcaroApplication.getInstance().getRulesEngineHelper().rules(Constants.RULE_FILE.HOME_VISIT);
         }
 
         @Override
         protected Void doInBackground(Void... params) {
-            map = getChildDetails(baseEntityId);
+            map = getChildDetails(pc.getCaseId());
             if (map != null) {
-                childVisit = retrieveChildVisitList(rules, map);
+                childVisit = retrieveChildVisitList(rules, pc, map);
             }
             return null;
         }

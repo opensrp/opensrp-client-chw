@@ -120,6 +120,8 @@ public class WcaroDueRegisterProvider extends FamilyDueRegisterProvider {
                 viewHolder.status.setImageResource(Utils.getDueProfileImageResourceIDentifier());
             } else if (childVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.OVERDUE.name())) {
                 viewHolder.status.setImageResource(Utils.getOverDueProfileImageResourceIDentifier());
+            } else {
+                viewHolder.status.setVisibility(View.INVISIBLE);
             }
         } else {
             viewHolder.status.setVisibility(View.INVISIBLE);
