@@ -22,7 +22,7 @@
     <string name="nav_registers">Registers</string>
     <string name="nav_logout_as">Logout as</string>
     <string name="nav_sync">Sync</string>
-    <string name="nav_last">"Last : </string>
+    <string name="nav_last">"Last: </string>
     <string name="nav_last_sync_time">HH:mm a , MMM DD</string>
 
     <string name="call">Call</string>

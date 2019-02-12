@@ -14,19 +14,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:layout_marginRight="50dp"
+        android:layout_marginEnd="50dp"
         android:background="#2c2c2c"
         android:fitsSystemWindows="true"
         app:itemBackground="@drawable/drawer_item_background"
         app:itemIconTint="@android:color/white"
         app:itemTextColor="@android:color/white"
         app:theme="@style/WcaroTheme.AppBarOverlay.NavigationDrawerStyle">
-
-
-        <RelativeLayout
-            android:id="@+id/nav_content"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"></RelativeLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -47,10 +41,10 @@
                     android:layout_width="75dp"
                     android:layout_height="75dp"
                     android:layout_alignParentStart="true"
-                    android:layout_alignParentLeft="true"
                     android:layout_alignParentTop="true"
                     android:visibility="gone"
-                    app:srcCompat="@mipmap/ic_launcher" />
+                    app:srcCompat="@mipmap/ic_launcher"
+                    android:contentDescription="@string/nav_logo"  />
 
                 <TextView
                     android:id="@+id/tvLogo"
@@ -58,10 +52,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
-                    android:layout_alignParentLeft="true"
                     android:layout_alignParentTop="true"
                     android:layout_margin="15dp"
-                    android:text="WCARO LOGO"
+                    android:text="@string/nav_logo"
                     android:textColor="@color/light_grey"
                     android:textSize="24sp"
                     android:textStyle="bold" />
@@ -88,10 +81,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
-                    android:layout_alignParentLeft="true"
                     android:layout_alignParentTop="true"
                     android:layout_margin="15dp"
-                    android:text="Registers"
+                    android:text="@string/nav_registers"
                     android:textSize="24sp" />
 
                 <android.support.v7.widget.RecyclerView
@@ -118,7 +110,7 @@
                     android:layout_marginLeft="15dp"
                     android:layout_marginBottom="15dp"
                     android:layout_marginTop="35dp"
-                    android:text="Logout as"
+                    android:text="Log out as"
                     android:textSize="20sp" />
 
             </RelativeLayout>
@@ -151,7 +143,7 @@
                     android:layout_marginRight="10dp"
                     android:layout_toEndOf="@+id/ivIcon"
                     android:layout_toRightOf="@+id/ivIcon"
-                    android:text="Sync"
+                    android:text="@string/nav_sync"
                     android:textColor="@color/white"
                     android:textSize="24sp" />
 
@@ -163,7 +155,7 @@
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:text="08:12 am , Aug 8th"
+                    android:text="@string/nav_last_sync_time"
                     android:textColor="@color/white"
                     android:textSize="18sp" />
 
@@ -176,7 +168,7 @@
                     android:layout_centerVertical="true"
                     android:layout_toStartOf="@+id/tvSyncTime"
                     android:layout_toLeftOf="@+id/tvSyncTime"
-                    android:text="Last : "
+                    android:text="@string/nav_last"
                     android:textColor="@color/white"
                     android:textSize="18sp" />
 

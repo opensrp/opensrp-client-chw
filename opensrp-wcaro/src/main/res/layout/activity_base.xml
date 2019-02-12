@@ -113,7 +113,7 @@
                     android:layout_marginLeft="15dp"
                     android:layout_marginBottom="15dp"
                     android:layout_marginTop="35dp"
-                    android:text="Logout as"
+                    android:text="Log out as"
                     android:textSize="16sp" />
 
             </RelativeLayout>
