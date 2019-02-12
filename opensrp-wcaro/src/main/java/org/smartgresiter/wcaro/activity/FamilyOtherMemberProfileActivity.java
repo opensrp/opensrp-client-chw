@@ -11,11 +11,11 @@ import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.custom_view.FamilyFloatingMenu;
 import org.smartgresiter.wcaro.fragment.FamilyOtherMemberProfileFragment;
 import org.smartgresiter.wcaro.listener.FloatingMenuListener;
-import org.smartgresiter.wcaro.model.FamilyOtherMemberProfileActivityModel;
 import org.smartgresiter.wcaro.presenter.FamilyOtherMemberActivityPresenter;
 import org.smartregister.family.activity.BaseFamilyOtherMemberProfileActivity;
 import org.smartregister.family.adapter.ViewPagerAdapter;
 import org.smartregister.family.fragment.BaseFamilyOtherMemberProfileFragment;
+import org.smartregister.family.model.BaseFamilyOtherMemberProfileActivityModel;
 import org.smartregister.family.util.Constants;
 
 public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfileActivity {

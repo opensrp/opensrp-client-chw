@@ -4,9 +4,9 @@ import android.os.Bundle;
 import android.view.View;
 
 import org.smartgresiter.wcaro.R;
-import org.smartgresiter.wcaro.model.FamilyOtherMemberProfileFragmentModel;
-import org.smartgresiter.wcaro.presenter.FamilyOtherMemberProfileFragmentPresenter;
 import org.smartregister.family.fragment.BaseFamilyOtherMemberProfileFragment;
+import org.smartregister.family.model.BaseFamilyOtherMemberProfileFragmentModel;
+import org.smartregister.family.presenter.BaseFamilyOtherMemberProfileFragmentPresenter;
 import org.smartregister.family.util.Constants;
 
 import java.util.HashMap;
@@ -25,7 +25,7 @@ public class FamilyOtherMemberProfileFragment extends BaseFamilyOtherMemberProfi
     @Override
     protected void initializePresenter() {
         String familyBaseEntityId = getArguments().getString(Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID);
-        presenter = new FamilyOtherMemberProfileFragmentPresenter(this, new FamilyOtherMemberProfileFragmentModel(), null, familyBaseEntityId);
+        presenter = new BaseFamilyOtherMemberProfileFragmentPresenter(this, new BaseFamilyOtherMemberProfileFragmentModel(), null, familyBaseEntityId);
     }
 
     @Override

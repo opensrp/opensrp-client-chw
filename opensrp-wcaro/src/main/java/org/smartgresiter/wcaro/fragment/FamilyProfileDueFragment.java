@@ -7,12 +7,12 @@ import android.view.View;
 import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.activity.ChildProfileActivity;
 import org.smartgresiter.wcaro.activity.FamilyProfileActivity;
-import org.smartgresiter.wcaro.model.FamilyProfileDueModel;
 import org.smartgresiter.wcaro.presenter.FamilyProfileDuePresenter;
 import org.smartgresiter.wcaro.provider.WcaroDueRegisterProvider;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.adapter.FamilyRecyclerViewCustomAdapter;
 import org.smartregister.family.fragment.BaseFamilyProfileDueFragment;
+import org.smartregister.family.model.BaseFamilyProfileDueModel;
 import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.Utils;
 
@@ -36,7 +36,7 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
     @Override
     protected void initializePresenter() {
         String familyBaseEntityId = getArguments().getString(Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID);
-        presenter = new FamilyProfileDuePresenter(this, new FamilyProfileDueModel(), null, familyBaseEntityId);
+        presenter = new FamilyProfileDuePresenter(this, new BaseFamilyProfileDueModel(), null, familyBaseEntityId);
     }
 
     @Override
