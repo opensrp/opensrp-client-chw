@@ -63,42 +63,6 @@ public class WcaroRegisterProvider extends FamilyRegisterProvider {
 
     }
 
-    private class UpdateAsyncTask extends AsyncTask<Void, Void, Void> {
-        private final Context context;
-        private final RegisterViewHolder viewHolder;
-        private final String familyBaseEntityId;
-
-        private final Rules rules;
-
-        private List<Map<String, String>> list;
-        private ChildVisit childVisit;
-
-        private UpdateAsyncTask(Context context, RegisterViewHolder viewHolder, String familyBaseEntityId) {
-            this.context = context;
-            this.viewHolder = viewHolder;
-            this.familyBaseEntityId = familyBaseEntityId;
-            this.rules = WcaroApplication.getInstance().getRulesEngineHelper().rules(Constants.RULE_FILE.HOME_VISIT);
-        }
-
-        @Override
-        protected Void doInBackground(Void... params) {
-            list = getChildren(familyBaseEntityId);
-
-            childVisit = mergeChildVisits(retrieveChildVisitList(rules, list));
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void param) {
-            // Update child Icon
-            updateChildIcons(viewHolder, list);
-
-            // Update due column
-            updateDueColumn(context, viewHolder, childVisit);
-        }
-    }
-
     private void updateChildIcons(RegisterViewHolder viewHolder, List<Map<String, String>> list) {
         if (list != null && !list.isEmpty()) {
             for (Map<String, String> map : list) {
@@ -173,8 +137,6 @@ public class WcaroRegisterProvider extends FamilyRegisterProvider {
     }
 
     private List<Map<String, String>> getChildren(String familyEntityId) {
-
-
         SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
         queryBUilder.SelectInitiateMainTable(Constants.TABLE_NAME.CHILD, new String[]{DBConstants.KEY.BASE_ENTITY_ID, DBConstants.KEY.GENDER, ChildDBConstants.KEY.LAST_HOME_VISIT, ChildDBConstants.KEY.VISIT_NOT_DONE, DBConstants.KEY.DOB});
         queryBUilder.mainCondition(String.format(" %s is null AND %s = '%s' ",
@@ -279,4 +241,43 @@ public class WcaroRegisterProvider extends FamilyRegisterProvider {
         }
     }
 
+    ////////////////////////////////////////////////////////////////
+    // Inner classes
+    ////////////////////////////////////////////////////////////////
+
+    private class UpdateAsyncTask extends AsyncTask<Void, Void, Void> {
+        private final Context context;
+        private final RegisterViewHolder viewHolder;
+        private final String familyBaseEntityId;
+
+        private final Rules rules;
+
+        private List<Map<String, String>> list;
+        private ChildVisit childVisit;
+
+        private UpdateAsyncTask(Context context, RegisterViewHolder viewHolder, String familyBaseEntityId) {
+            this.context = context;
+            this.viewHolder = viewHolder;
+            this.familyBaseEntityId = familyBaseEntityId;
+            this.rules = WcaroApplication.getInstance().getRulesEngineHelper().rules(Constants.RULE_FILE.HOME_VISIT);
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            list = getChildren(familyBaseEntityId);
+
+            childVisit = mergeChildVisits(retrieveChildVisitList(rules, list));
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void param) {
+            // Update child Icon
+            updateChildIcons(viewHolder, list);
+
+            // Update due column
+            updateDueColumn(context, viewHolder, childVisit);
+        }
+    }
 }

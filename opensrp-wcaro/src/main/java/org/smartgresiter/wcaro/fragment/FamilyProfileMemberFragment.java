@@ -8,14 +8,17 @@ import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.activity.ChildProfileActivity;
 import org.smartgresiter.wcaro.activity.FamilyOtherMemberProfileActivity;
 import org.smartgresiter.wcaro.model.FamilyProfileMemberModel;
+import org.smartgresiter.wcaro.provider.WcaroMemberRegisterProvider;
 import org.smartgresiter.wcaro.util.ChildDBConstants;
 import org.smartgresiter.wcaro.util.Utils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
+import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
 import org.smartregister.family.fragment.BaseFamilyProfileMemberFragment;
 import org.smartregister.family.presenter.BaseFamilyProfileMemberPresenter;
 import org.smartregister.family.util.Constants;
 
 import java.util.HashMap;
+import java.util.Set;
 
 public class FamilyProfileMemberFragment extends BaseFamilyProfileMemberFragment {
 
@@ -37,6 +40,13 @@ public class FamilyProfileMemberFragment extends BaseFamilyProfileMemberFragment
         presenter = new BaseFamilyProfileMemberPresenter(this, new FamilyProfileMemberModel(), null, familyBaseEntityId, familyHead, primaryCareGiver);
     }
 
+    @Override
+    public void initializeAdapter(Set<org.smartregister.configurableviews.model.View> visibleColumns, String familyHead, String primaryCaregiver) {
+        WcaroMemberRegisterProvider wcaroMemberRegisterProvider = new WcaroMemberRegisterProvider(this.getActivity(), this.commonRepository(), visibleColumns, this.registerActionHandler, this.paginationViewHandler, familyHead, primaryCaregiver);
+        this.clientAdapter = new RecyclerViewPaginatedAdapter(null, wcaroMemberRegisterProvider, this.context().commonrepository(this.tablename));
+        this.clientAdapter.setCurrentlimit(20);
+        this.clientsView.setAdapter(this.clientAdapter);
+    }
 
     @Override
     protected void onViewClicked(View view) {
@@ -83,6 +93,7 @@ public class FamilyProfileMemberFragment extends BaseFamilyProfileMemberFragment
     }
 
     @Override
-    public void setAdvancedSearchFormData(HashMap<String, String> hashMap) { }
+    public void setAdvancedSearchFormData(HashMap<String, String> hashMap) {
+    }
 
 }

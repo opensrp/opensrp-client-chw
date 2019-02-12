@@ -50,7 +50,6 @@ public class WcaroDueRegisterProvider extends FamilyDueRegisterProvider {
         Utils.startAsyncTask(new UpdateAsyncTask(viewHolder, pc), null);
     }
 
-
     private void populatePatientColumn(CommonPersonObjectClient pc, SmartRegisterClient client, final RegisterViewHolder viewHolder) {
 
         String firstName = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.FIRST_NAME, true);
@@ -102,7 +101,6 @@ public class WcaroDueRegisterProvider extends FamilyDueRegisterProvider {
         //fillValue(viewHolder.ancId, String.format(context.getString(R.string.unique_id_text), uniqueId));
     }
 
-
     private void attachPatientOnclickListener(View view, SmartRegisterClient client) {
         view.setOnClickListener(onClickListener);
         view.setTag(client);
@@ -115,6 +113,36 @@ public class WcaroDueRegisterProvider extends FamilyDueRegisterProvider {
         view.setTag(R.id.VIEW_ID, BaseFamilyProfileMemberFragment.CLICK_VIEW_NEXT_ARROW);
     }
 
+    private void updateDueColumn(RegisterViewHolder viewHolder, ChildVisit childVisit) {
+        if (childVisit != null) {
+            viewHolder.status.setVisibility(View.VISIBLE);
+            if (childVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.DUE.name())) {
+                viewHolder.status.setImageResource(Utils.getDueProfileImageResourceIDentifier());
+            } else if (childVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.OVERDUE.name())) {
+                viewHolder.status.setImageResource(Utils.getOverDueProfileImageResourceIDentifier());
+            }
+        } else {
+            viewHolder.status.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    private ChildVisit retrieveChildVisitList(Rules rules, CommonPersonObjectClient pc) {
+        String dobString = Utils.getDuration(Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.DOB, false));
+        String lastVisitDate = Utils.getValue(pc.getColumnmaps(), ChildDBConstants.KEY.LAST_HOME_VISIT, false);
+        String visitNotDone = Utils.getValue(pc.getColumnmaps(), ChildDBConstants.KEY.VISIT_NOT_DONE, false);
+        long lastVisit = 0, visitNot = 0;
+        if (!TextUtils.isEmpty(lastVisitDate)) {
+            lastVisit = Long.valueOf(lastVisitDate);
+        }
+        if (!TextUtils.isEmpty(visitNotDone)) {
+            visitNot = Long.valueOf(visitNotDone);
+        }
+        return ChildUtils.getChildVisitStatus(rules, dobString, lastVisit, visitNot);
+    }
+
+    ////////////////////////////////////////////////////////////////
+    // Inner classes
+    ////////////////////////////////////////////////////////////////
 
     private class UpdateAsyncTask extends AsyncTask<Void, Void, Void> {
         private final RegisterViewHolder viewHolder;
@@ -141,34 +169,6 @@ public class WcaroDueRegisterProvider extends FamilyDueRegisterProvider {
             // Update status column
             updateDueColumn(viewHolder, childVisit);
         }
-    }
-
-    private void updateDueColumn(RegisterViewHolder viewHolder, ChildVisit childVisit) {
-        if (childVisit != null) {
-            viewHolder.status.setVisibility(View.VISIBLE);
-            if (childVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.DUE.name())) {
-                viewHolder.status.setImageResource(Utils.getDueProfileImageResourceIDentifier());
-            } else if (childVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.OVERDUE.name())) {
-                viewHolder.status.setImageResource(Utils.getOverDueProfileImageResourceIDentifier());
-            }
-        } else {
-            viewHolder.status.setVisibility(View.INVISIBLE);
-        }
-    }
-
-
-    private ChildVisit retrieveChildVisitList(Rules rules, CommonPersonObjectClient pc) {
-        String dobString = Utils.getDuration(Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.DOB, false));
-        String lastVisitDate = Utils.getValue(pc.getColumnmaps(), ChildDBConstants.KEY.LAST_HOME_VISIT, false);
-        String visitNotDone = Utils.getValue(pc.getColumnmaps(), ChildDBConstants.KEY.VISIT_NOT_DONE, false);
-        long lastVisit = 0, visitNot = 0;
-        if (!TextUtils.isEmpty(lastVisitDate)) {
-            lastVisit = Long.valueOf(lastVisitDate);
-        }
-        if (!TextUtils.isEmpty(visitNotDone)) {
-            visitNot = Long.valueOf(visitNotDone);
-        }
-        return ChildUtils.getChildVisitStatus(rules, dobString, lastVisit, visitNot);
     }
 
 }
