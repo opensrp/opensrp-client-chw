@@ -139,10 +139,10 @@ public class CustomMultipleVaccinationDialogFragment extends ChildImmunizationFr
         }
 
         ViewGroup dialogView = (ViewGroup) inflater.inflate(R.layout.multiple_vaccination_dialog_view, container, false);
-        TextView nameView = (TextView) dialogView.findViewById(R.id.name);
-        nameView.setText(tags.get(0).getPatientName());
-        TextView numberView = (TextView) dialogView.findViewById(R.id.number);
-        numberView.setText(tags.get(0).getPatientNumber());
+//        TextView nameView = (TextView) dialogView.findViewById(R.id.name);
+//        nameView.setText(tags.get(0).getPatientName());
+//        TextView numberView = (TextView) dialogView.findViewById(R.id.number);
+//        numberView.setText(tags.get(0).getPatientNumber());
 
         final LinearLayout vaccinationNameLayout = (LinearLayout) dialogView.findViewById(R.id.vaccination_name_layout);
 
@@ -557,11 +557,11 @@ public class CustomMultipleVaccinationDialogFragment extends ChildImmunizationFr
 
         for (VaccineWrapper tag : tags) {
             if (tag.getVaccine() != null) {
-                if (tag.getVaccine().display().equals(name)) {
+                if (tag.getVaccine().display().equalsIgnoreCase(name)) {
                     return tag;
                 }
             } else {
-                if (tag.getName().equals(name)) {
+                if (tag.getName().equalsIgnoreCase(name)) {
                     return tag;
                 }
             }
