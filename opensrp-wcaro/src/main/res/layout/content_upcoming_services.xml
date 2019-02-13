@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/upcoming_services"
-            android:gravity="center"
+            android:gravity="left"
             style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
             android:textColor="@color/black"
             android:padding="10dp"
