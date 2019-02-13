@@ -5,6 +5,7 @@ import org.smartgresiter.wcaro.contract.FamilyRemoveMemberContract;
 import org.smartgresiter.wcaro.interactor.FamilyRemoveMemberInteractor;
 import org.smartgresiter.wcaro.util.Constants;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
+import org.smartregister.family.presenter.BaseFamilyProfileMemberPresenter;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.Utils;
 import org.smartregister.location.helper.LocationHelper;
@@ -20,7 +21,7 @@ import static java.util.Calendar.DATE;
 import static java.util.Calendar.MONTH;
 import static java.util.Calendar.YEAR;
 
-public class FamilyRemoveMemberPresenter extends FamilyProfileMemberPresenter implements FamilyRemoveMemberContract.Presenter {
+public class FamilyRemoveMemberPresenter extends BaseFamilyProfileMemberPresenter implements FamilyRemoveMemberContract.Presenter {
 
     FamilyRemoveMemberContract.Model model;
     protected WeakReference<FamilyRemoveMemberContract.View> viewReference;

@@ -14,4 +14,5 @@ public class FamilyRegisterFramentModel extends BaseFamilyRegisterFramentModel {
     public RegisterConfiguration defaultRegisterConfiguration() {
         return ConfigHelper.defaultRegisterConfiguration(Utils.context().applicationContext());
     }
+
 }

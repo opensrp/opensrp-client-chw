@@ -8,12 +8,14 @@ import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.activity.ChildProfileActivity;
 import org.smartgresiter.wcaro.activity.FamilyOtherMemberProfileActivity;
 import org.smartgresiter.wcaro.model.FamilyProfileMemberModel;
-import org.smartgresiter.wcaro.presenter.FamilyProfileMemberPresenter;
 import org.smartgresiter.wcaro.util.ChildDBConstants;
 import org.smartgresiter.wcaro.util.Utils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.fragment.BaseFamilyProfileMemberFragment;
+import org.smartregister.family.presenter.BaseFamilyProfileMemberPresenter;
 import org.smartregister.family.util.Constants;
+
+import java.util.HashMap;
 
 public class FamilyProfileMemberFragment extends BaseFamilyProfileMemberFragment {
 
@@ -32,7 +34,7 @@ public class FamilyProfileMemberFragment extends BaseFamilyProfileMemberFragment
         String familyBaseEntityId = getArguments().getString(Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID);
         String familyHead = getArguments().getString(Constants.INTENT_KEY.FAMILY_HEAD);
         String primaryCareGiver = getArguments().getString(Constants.INTENT_KEY.PRIMARY_CAREGIVER);
-        presenter = new FamilyProfileMemberPresenter(this, new FamilyProfileMemberModel(), null, familyBaseEntityId, familyHead, primaryCareGiver);
+        presenter = new BaseFamilyProfileMemberPresenter(this, new FamilyProfileMemberModel(), null, familyBaseEntityId, familyHead, primaryCareGiver);
     }
 
 
@@ -55,12 +57,14 @@ public class FamilyProfileMemberFragment extends BaseFamilyProfileMemberFragment
     }
 
     public void goToProfileActivity(View view) {
-        CommonPersonObjectClient commonPersonObjectClient = (CommonPersonObjectClient) view.getTag();
-        String entityType = Utils.getValue(commonPersonObjectClient.getColumnmaps(), ChildDBConstants.KEY.ENTITY_TYPE, false);
-        if (org.smartgresiter.wcaro.util.Constants.TABLE_NAME.FAMILY_MEMBER.equals(entityType)) {
-            goToOtherMemberProfileActivity(commonPersonObjectClient);
-        } else {
-            goToChildProfileActivity(commonPersonObjectClient);
+        if (view.getTag() instanceof CommonPersonObjectClient) {
+            CommonPersonObjectClient commonPersonObjectClient = (CommonPersonObjectClient) view.getTag();
+            String entityType = Utils.getValue(commonPersonObjectClient.getColumnmaps(), ChildDBConstants.KEY.ENTITY_TYPE, false);
+            if (org.smartgresiter.wcaro.util.Constants.TABLE_NAME.FAMILY_MEMBER.equals(entityType)) {
+                goToOtherMemberProfileActivity(commonPersonObjectClient);
+            } else {
+                goToChildProfileActivity(commonPersonObjectClient);
+            }
         }
     }
 
@@ -78,4 +82,8 @@ public class FamilyProfileMemberFragment extends BaseFamilyProfileMemberFragment
         intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, patient.getCaseId());
         startActivity(intent);
     }
+
+    @Override
+    public void setAdvancedSearchFormData(HashMap<String, String> hashMap) { }
+
 }

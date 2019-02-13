@@ -19,6 +19,7 @@ import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.custom_view.FamilyMemberFloatingMenu;
 import org.smartgresiter.wcaro.fragment.FamilyCallDialogFragment;
 import org.smartgresiter.wcaro.fragment.FamilyOtherMemberProfileFragment;
+import org.smartgresiter.wcaro.listener.FloatingMenuListener;
 import org.smartgresiter.wcaro.listener.OnClickFloatingMenu;
 import org.smartgresiter.wcaro.model.FamilyOtherMemberProfileActivityModel;
 import org.smartgresiter.wcaro.model.FamilyProfileModel;
@@ -31,6 +32,7 @@ import org.smartregister.family.adapter.ViewPagerAdapter;
 import org.smartregister.family.contract.FamilyProfileContract;
 import org.smartregister.family.domain.FamilyEventClient;
 import org.smartregister.family.fragment.BaseFamilyOtherMemberProfileFragment;
+import org.smartregister.family.model.BaseFamilyOtherMemberProfileActivityModel;
 import org.smartregister.family.interactor.FamilyProfileInteractor;
 import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.JsonFormUtils;
@@ -68,6 +70,8 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
          familyHead = getIntent().getStringExtra(Constants.INTENT_KEY.FAMILY_HEAD);
          primaryCaregiver = getIntent().getStringExtra(Constants.INTENT_KEY.PRIMARY_CAREGIVER);
         String villageTown = getIntent().getStringExtra(Constants.INTENT_KEY.VILLAGE_TOWN);
+        String familyName = getIntent().getStringExtra(Constants.INTENT_KEY.FAMILY_NAME);
+        presenter = new FamilyOtherMemberActivityPresenter(this, new BaseFamilyOtherMemberProfileActivityModel(), null, familyBaseEntityId, baseEntityId, familyHead, primaryCaregiver, villageTown, familyName);
         familyName = getIntent().getStringExtra(Constants.INTENT_KEY.FAMILY_NAME);
         presenter = new FamilyOtherMemberActivityPresenter(this, new FamilyOtherMemberProfileActivityModel(), null, familyBaseEntityId, baseEntityId, familyHead, primaryCaregiver, villageTown, familyName);
     }
