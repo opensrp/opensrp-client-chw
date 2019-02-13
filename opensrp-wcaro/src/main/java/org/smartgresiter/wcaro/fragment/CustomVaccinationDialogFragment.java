@@ -570,11 +570,11 @@ public class CustomVaccinationDialogFragment extends ChildImmunizationFragment {
 
         for (VaccineWrapper tag : tags) {
             if (tag.getVaccine() != null) {
-                if (tag.getVaccine().display().equals(name)) {
+                if (tag.getVaccine().display().equalsIgnoreCase(name)) {
                     return tag;
                 }
             } else {
-                if (tag.getName().equals(name)) {
+                if (tag.getName().equalsIgnoreCase(name)) {
                     return tag;
                 }
             }
