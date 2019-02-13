@@ -12,13 +12,13 @@ import org.json.JSONObject;
 import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.contract.ChildRegisterContract;
 import org.smartgresiter.wcaro.interactor.ChildRegisterInteractor;
-import org.smartgresiter.wcaro.model.FamilyRegisterModel;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.family.contract.FamilyRegisterContract;
 import org.smartregister.family.domain.FamilyEventClient;
 import org.smartregister.family.interactor.FamilyRegisterInteractor;
+import org.smartregister.family.model.BaseFamilyRegisterModel;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
 import org.smartregister.repository.AllSharedPreferences;
@@ -72,7 +72,7 @@ public class ChildRegisterPresenter implements ChildRegisterContract.Presenter, 
             return;
         }
         if(TextUtils.isEmpty(familyId)){
-            JSONObject form=  new FamilyRegisterModel().getFormAsJson(formName, entityId, currentLocationId);
+            JSONObject form=  new BaseFamilyRegisterModel().getFormAsJson(formName, entityId, currentLocationId);
             getView().startFormActivity(form);
         }else{
             JSONObject form = model.getFormAsJson(formName, entityId, currentLocationId, familyId);
@@ -111,7 +111,7 @@ public class ChildRegisterPresenter implements ChildRegisterContract.Presenter, 
             if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Utils.metadata().familyRegister.registerEventType))
             {
 
-                List<FamilyEventClient> fevent = new FamilyRegisterModel().processRegistration(jsonString);
+                List<FamilyEventClient> fevent = new BaseFamilyRegisterModel().processRegistration(jsonString);
                 if (fevent == null) {
                     return;
                 }

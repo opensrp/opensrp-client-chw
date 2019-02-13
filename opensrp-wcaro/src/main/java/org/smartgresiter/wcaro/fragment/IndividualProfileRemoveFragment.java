@@ -23,6 +23,8 @@ import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
+
+import java.util.HashMap;
 import java.util.Set;
 
 public class IndividualProfileRemoveFragment extends BaseFamilyProfileMemberFragment implements FamilyRemoveMemberContract.View {
@@ -58,6 +60,11 @@ public class IndividualProfileRemoveFragment extends BaseFamilyProfileMemberFrag
         pc = (CommonPersonObjectClient) getArguments().getSerializable(org.smartgresiter.wcaro.util.Constants.INTENT_KEY.CHILD_COMMON_PERSON);
         presenter = new FamilyRemoveMemberPresenter(this, new FamilyRemoveMemberModel(), null, familyBaseEntityId, familyHead, primaryCareGiver);
         openDeleteDialog();
+    }
+
+    @Override
+    public void setAdvancedSearchFormData(HashMap<String, String> hashMap) {
+
     }
 
     public FamilyRemoveMemberContract.Presenter getPresenter() {

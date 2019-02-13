@@ -19,10 +19,7 @@ import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.custom_view.FamilyMemberFloatingMenu;
 import org.smartgresiter.wcaro.fragment.FamilyCallDialogFragment;
 import org.smartgresiter.wcaro.fragment.FamilyOtherMemberProfileFragment;
-import org.smartgresiter.wcaro.listener.FloatingMenuListener;
 import org.smartgresiter.wcaro.listener.OnClickFloatingMenu;
-import org.smartgresiter.wcaro.model.FamilyOtherMemberProfileActivityModel;
-import org.smartgresiter.wcaro.model.FamilyProfileModel;
 import org.smartgresiter.wcaro.presenter.FamilyOtherMemberActivityPresenter;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
@@ -34,6 +31,7 @@ import org.smartregister.family.domain.FamilyEventClient;
 import org.smartregister.family.fragment.BaseFamilyOtherMemberProfileFragment;
 import org.smartregister.family.model.BaseFamilyOtherMemberProfileActivityModel;
 import org.smartregister.family.interactor.FamilyProfileInteractor;
+import org.smartregister.family.model.BaseFamilyProfileModel;
 import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
@@ -72,8 +70,6 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
         String villageTown = getIntent().getStringExtra(Constants.INTENT_KEY.VILLAGE_TOWN);
         String familyName = getIntent().getStringExtra(Constants.INTENT_KEY.FAMILY_NAME);
         presenter = new FamilyOtherMemberActivityPresenter(this, new BaseFamilyOtherMemberProfileActivityModel(), null, familyBaseEntityId, baseEntityId, familyHead, primaryCaregiver, villageTown, familyName);
-        familyName = getIntent().getStringExtra(Constants.INTENT_KEY.FAMILY_NAME);
-        presenter = new FamilyOtherMemberActivityPresenter(this, new FamilyOtherMemberProfileActivityModel(), null, familyBaseEntityId, baseEntityId, familyHead, primaryCaregiver, villageTown, familyName);
     }
 
     @Override
@@ -170,7 +166,7 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
         try {
             showProgressDialog(org.smartregister.family.R.string.saving_dialog_title);
 
-            FamilyEventClient familyEventClient = new FamilyProfileModel(familyName).processMemberRegistration(jsonString, familyBaseEntityId);
+            FamilyEventClient familyEventClient = new BaseFamilyProfileModel(familyName).processMemberRegistration(jsonString, familyBaseEntityId);
             if (familyEventClient == null) {
                 return;
             }

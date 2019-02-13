@@ -654,6 +654,7 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
             case "primary_caregiver":
                 if(isPrimaryCaregiver){
                     jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, "Yes");
+                    jsonObject.put(org.smartregister.family.util.JsonFormUtils.READ_ONLY, true);
                 }else{
                     jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, "No");
                 }
