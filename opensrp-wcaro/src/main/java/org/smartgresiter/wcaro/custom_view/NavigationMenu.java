@@ -288,6 +288,10 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
         refreshSyncProgressSpinner();
         // update the time
         refreshLastSync(new Date());
+
+        if(activityWeakReference.get() != null && !activityWeakReference.get().isDestroyed()){
+            mPresenter.refreshNavigationCount(activityWeakReference.get());
+        }
     }
 
     protected void refreshSyncProgressSpinner() {

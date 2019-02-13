@@ -2,11 +2,13 @@ package org.smartgresiter.wcaro.activity;
 
 import android.os.Bundle;
 
-import com.vijay.jsonwizard.activities.JsonWizardFormActivity;
-
 import org.smartgresiter.wcaro.R;
+import org.smartregister.family.activity.FamilyWizardFormActivity;
 
-public class CustomJsonFromActivity extends JsonWizardFormActivity {
+/**
+ * Override to change custom close message and custom view design
+ */
+public class CustomJsonFromActivity extends FamilyWizardFormActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

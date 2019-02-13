@@ -107,6 +107,10 @@
           "Moved away",
           "Other"
         ],
+        "v_required": {
+          "value": "true",
+          "err": "Select the reason for removing the family's record."
+        },
         "openmrs_choice_ids": {
           "Moved away": "160415AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "Other": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
