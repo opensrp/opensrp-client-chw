@@ -43,6 +43,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import static org.smartgresiter.wcaro.util.ChildUtils.fixVaccineCasing;
+
 @SuppressLint("ValidFragment")
 public class CustomVaccinationDialogFragment extends ChildImmunizationFragment {
     private List<VaccineWrapper> tags;
@@ -147,7 +149,7 @@ public class CustomVaccinationDialogFragment extends ChildImmunizationFragment {
             VaccineWrapper vaccineWrapper = tags.get(0);
             VaccineRepo.Vaccine vaccine = vaccineWrapper.getVaccine();
             if (vaccine != null) {
-                vName = vaccine.display();
+                vName = fixVaccineCasing(vaccine.display());
             } else {
                 vName = vaccineWrapper.getName();
             }

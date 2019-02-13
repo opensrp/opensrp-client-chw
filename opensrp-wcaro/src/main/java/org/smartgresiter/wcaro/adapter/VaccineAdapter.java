@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.util.BaseVaccine;
+import org.smartgresiter.wcaro.util.ChildUtils;
 import org.smartgresiter.wcaro.util.VaccineContent;
 import org.smartgresiter.wcaro.util.VaccineHeader;
 
@@ -56,7 +57,7 @@ public class VaccineAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 BaseVaccine content = baseVaccines.get(position);
                 VaccineContent vaccineContent = (VaccineContent) content;
                 ContentViewHolder contentViewHolder = (ContentViewHolder) viewHolder;
-                contentViewHolder.vaccineName.setText(vaccineContent.getVaccineName() + " - " + vaccineContent.getVaccineDate());
+                contentViewHolder.vaccineName.setText(ChildUtils.fixVaccineCasing(vaccineContent.getVaccineName()) + " - " + vaccineContent.getVaccineDate());
                 break;
         }
 

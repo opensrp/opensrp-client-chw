@@ -23,6 +23,7 @@ import com.google.gson.Gson;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
 
+import org.joda.time.DateTime;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -37,6 +38,7 @@ import org.smartgresiter.wcaro.util.ChildDBConstants;
 import org.smartgresiter.wcaro.util.ChildUtils;
 import org.smartgresiter.wcaro.util.Constants;
 import org.smartgresiter.wcaro.util.HomeVisitVaccineGroupDetails;
+import org.smartgresiter.wcaro.util.Utils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.family.activity.BaseFamilyProfileActivity;
@@ -45,6 +47,7 @@ import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.immunization.domain.VaccineWrapper;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -58,7 +61,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     public static String DIALOG_TAG = "child_home_visit_dialog";
     Context context;
     CommonPersonObjectClient childClient;
-    private TextView nameHeader;
+    private TextView nameHeader,textViewBirthCertDueDate;
     private HomeVisitGrowthAndNutrition homeVisitGrowthAndNutritionLayout;
     public boolean allVaccineStateFullfilled = false;
     private TextView submit;
@@ -70,6 +73,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     private JSONObject illnessJson = new JSONObject();
     private String jsonString;
     private boolean isEditMode = false;
+    private String selectedForm;
 
     public void setContext(Context context) {
         this.context = context;
@@ -95,6 +99,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         nameHeader = (TextView) view.findViewById(R.id.textview_name_header);
+        textViewBirthCertDueDate = (TextView) view.findViewById(R.id.textview_birth_certification_name);
         view.findViewById(R.id.close).setOnClickListener(this);
         submit = (TextView) view.findViewById(R.id.textview_submit);
         circleImageViewBirthStatus = view.findViewById(R.id.birth_status_circle);
@@ -113,20 +118,29 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         ((ChildHomeVisitPresenter) presenter).setChildClient(childClient);
         assignNameHeader();
         submitButtonEnableDisable(false);
+        updateGrowthData();
     }
 
     private void assignNameHeader() {
-        String dobString = org.smartregister.family.util.Utils.getDuration(org.smartregister.family.util.Utils.getValue(childClient.getColumnmaps(), DBConstants.KEY.DOB, false));
+        String dob=org.smartregister.family.util.Utils.getValue(childClient.getColumnmaps(), DBConstants.KEY.DOB, false);
+        String dobString = org.smartregister.family.util.Utils.getDuration(dob);
         String birthCert = getValue(childClient.getColumnmaps(), BIRTH_CERT, true);
+        dobString = dobString.contains("y") ? dobString.substring(0, dobString.indexOf("y")) : "";
 
-        nameHeader.setText(String.format("%s %s %s, %s - Home Visit",
+        nameHeader.setText(String.format("%s %s %s, %s \u00B7 Home Visit",
                 getValue(childClient.getColumnmaps(), DBConstants.KEY.FIRST_NAME, true),
                 getValue(childClient.getColumnmaps(), DBConstants.KEY.MIDDLE_NAME, true),
                 getValue(childClient.getColumnmaps(), DBConstants.KEY.LAST_NAME, true),
                 dobString
         ));
-        if (!TextUtils.isEmpty(birthCert)) {
+
+        if (!TextUtils.isEmpty(birthCert) || Integer.valueOf(dobString)<1) {
             layoutBirthCertGroup.setVisibility(View.GONE);
+        }else{
+            layoutBirthCertGroup.setVisibility(View.VISIBLE);
+            DateTime ddd = Utils.dobStringToDateTime(dob);
+            textViewBirthCertDueDate.setText(ChildUtils.dueOverdueCalculation(ddd.toLocalDate()+""));
+
         }
     }
 
@@ -161,10 +175,11 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
 
         switch (v.getId()) {
             case R.id.birth_cert_group:
-
+                selectedForm="Birth";
                 presenter.startBirthCertForm();
                 break;
             case R.id.obs_illness_prevention_group:
+                selectedForm="illness";
                 presenter.startObsIllnessCertForm();
                 break;
             case R.id.textview_submit:
@@ -286,6 +301,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     @Override
     public void updateBirthStatusTick() {
         birthCertGiven = BIRTH_CERT_TYPE.GIVEN.name();
+        textViewBirthCertDueDate.setText(R.string.given);
         updateStatusTick(circleImageViewBirthStatus, true);
     }
 
@@ -317,21 +333,31 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == org.smartregister.family.util.JsonFormUtils.REQUEST_CODE_GET_JSON && resultCode == Activity.RESULT_OK) {
-            try {
-                jsonString = data.getStringExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON);
-                Log.d("JSONResult", jsonString);
+        switch (requestCode){
+            case org.smartregister.family.util.JsonFormUtils.REQUEST_CODE_GET_JSON:
+                if(resultCode == Activity.RESULT_OK){
+                    try {
+                        jsonString = data.getStringExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON);
+                        Log.d("JSONResult", jsonString);
 
-                JSONObject form = new JSONObject(jsonString);
-                if (form.getString(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_TYPE).equals(Constants.EventType.BIRTH_CERTIFICATION)
-                        || form.getString(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_TYPE).equals(Constants.EventType.OBS_ILLNESS)
+                        JSONObject form = new JSONObject(jsonString);
+                        if (form.getString(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_TYPE).equals(Constants.EventType.BIRTH_CERTIFICATION)
+                                || form.getString(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_TYPE).equals(Constants.EventType.OBS_ILLNESS)
                         ) {
-                    presenter.generateBirthIllnessForm(jsonString);
+                            presenter.generateBirthIllnessForm(jsonString);
+                        }
+                    } catch (Exception e) {
+                        Log.e(DIALOG_TAG, Log.getStackTraceString(e));
+                    }
+                }else{
+                    if(selectedForm.equalsIgnoreCase("Birth")){
+                        updateStatusTick(circleImageViewBirthStatus, false);
+                        textViewBirthCertDueDate.setText(R.string.not_given);
+                    }else if(selectedForm.equalsIgnoreCase("illness")){
+                        updateStatusTick(circleImageViewIllnessStatus, false);
+                    }
                 }
-            } catch (Exception e) {
-                Log.e(DIALOG_TAG, Log.getStackTraceString(e));
-            }
-
+                break;
         }
     }
 
@@ -343,12 +369,12 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     public void onResume() {
         super.onResume();
         updateImmunizationState();
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                updateGrowthData();
-            }
-        }, 100);
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                updateGrowthData();
+//            }
+//        }, 100);
         if (getView() == null) return;
         getView().setFocusableInTouchMode(true);
         getView().requestFocus();
