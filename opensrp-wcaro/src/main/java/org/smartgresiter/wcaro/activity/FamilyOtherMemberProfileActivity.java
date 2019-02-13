@@ -194,16 +194,14 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
 
                 @Override
                 public void onRegistrationSaved(boolean isEditMode) {
-                    //TODO need to refresh with new value
-                    Intent intent = new Intent(FamilyOtherMemberProfileActivity.this, FamilyRegisterActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(intent);
-                    finish();
+                    hideProgressDialog();
+                    presenter().refreshProfileView();
 
                 }
             });
 
         } catch (Exception e) {
+            hideProgressDialog();
             e.printStackTrace();
         }
     }
