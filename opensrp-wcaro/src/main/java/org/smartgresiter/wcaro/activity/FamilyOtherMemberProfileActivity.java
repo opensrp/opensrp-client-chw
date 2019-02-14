@@ -19,6 +19,7 @@ import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.custom_view.FamilyMemberFloatingMenu;
 import org.smartgresiter.wcaro.fragment.FamilyCallDialogFragment;
 import org.smartgresiter.wcaro.fragment.FamilyOtherMemberProfileFragment;
+import org.smartgresiter.wcaro.listener.FloatingMenuListener;
 import org.smartgresiter.wcaro.listener.OnClickFloatingMenu;
 import org.smartgresiter.wcaro.presenter.FamilyOtherMemberActivityPresenter;
 import org.smartregister.commonregistry.CommonPersonObject;
@@ -45,7 +46,7 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
     private String villageTown;
     private String familyName;
     private CommonPersonObjectClient commonPersonObject;
-  
+
     private OnClickFloatingMenu onClickFloatingMenu = new OnClickFloatingMenu() {
         @Override
         public void onClickMenu(int viewId) {
@@ -96,8 +97,8 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
 
         familyFloatingMenu.setClickListener(
                 FloatingMenuListener.getInstance(this, presenter().getFamilyBaseEntityId())
-                .setFamilyHead(familyHead)
-                .setPrimaryCareGiver(primaryCaregiver)
+                        .setFamilyHead(familyHead)
+                        .setPrimaryCareGiver(primaryCaregiver)
         );
     }
 
@@ -252,6 +253,7 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
 
 
         }
+    }
 
     @Override
     protected void onResumption() {
