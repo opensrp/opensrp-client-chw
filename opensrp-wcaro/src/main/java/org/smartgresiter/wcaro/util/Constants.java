@@ -64,6 +64,7 @@ public class Constants {
         public static final String GROWTH_QUESTION = "growth_ques";
         public static final String GROWTH_IMMUNIZATION_TYPE = "growth_type";
         public static final String CHILD_COMMON_PERSON = "child_common_peron";
+        public static final String IS_COMES_FROM_FAMILY = "is_comes_from";
     }
 
     public static final class IMMUNIZATION_CONSTANT {

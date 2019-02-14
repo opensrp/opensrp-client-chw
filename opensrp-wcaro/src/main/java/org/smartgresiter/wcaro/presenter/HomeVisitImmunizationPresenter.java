@@ -19,6 +19,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Stack;
 
+import static org.apache.commons.lang3.text.WordUtils.capitalize;
+import static org.smartgresiter.wcaro.util.ChildUtils.fixVaccineCasing;
+
 public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationContract.Presenter {
 
 
@@ -214,8 +217,10 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
         for (VaccineRepo.Vaccine vaccinesDueYetnotGiven : vaccinesToReturn) {
             vaccinesStack.add(vaccinesDueYetnotGiven);
             for (VaccineWrapper vaccine : notGivenVaccines) {
-                if (vaccine.getDefaultName().equalsIgnoreCase(vaccinesStack.peek().display())) {
-                    vaccinesStack.pop();
+                if(!vaccinesStack.isEmpty()) {
+                    if (vaccine.getDefaultName().equalsIgnoreCase(vaccinesStack.peek().display())) {
+                        vaccinesStack.pop();
+                    }
                 }
             }
         }
@@ -252,6 +257,8 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
                     }
                 }
             }
+        }else if(singleVaccineInDueState.size()>0){
+            toReturn = false;
         }
         return toReturn;
     }
@@ -282,7 +289,8 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
             ArrayList<VaccineRepo.Vaccine> vaccines = entry.getValue();
             // now work with key and value...
             for (VaccineRepo.Vaccine vaccineGiven : vaccines) {
-                groupSecondaryText = groupSecondaryText + vaccineGiven.display() + ", ";
+
+                groupSecondaryText = groupSecondaryText + fixVaccineCasing(vaccineGiven.display()) + ", ";
             }
 
             if (groupSecondaryText.endsWith(", ")) {
@@ -326,7 +334,7 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
             ArrayList<VaccineRepo.Vaccine> vaccines = entry.getValue();
             // now work with key and value...
             for (VaccineRepo.Vaccine vaccineGiven : vaccines) {
-                groupSecondaryText = groupSecondaryText + vaccineGiven.display() + ", ";
+                groupSecondaryText = groupSecondaryText + fixVaccineCasing(vaccineGiven.display()) + ", ";
             }
 
             if (groupSecondaryText.endsWith(", ")) {
@@ -374,7 +382,7 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
             ArrayList<VaccineRepo.Vaccine> vaccines = entry.getValue();
             // now work with key and value...
             for (VaccineRepo.Vaccine vaccineGiven : vaccines) {
-                groupSecondaryText = groupSecondaryText + vaccineGiven.display() + ", ";
+                groupSecondaryText = groupSecondaryText + fixVaccineCasing(vaccineGiven.display()) + ", ";
             }
 
             if (groupSecondaryText.endsWith(", ")) {

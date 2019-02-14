@@ -7,8 +7,11 @@ import android.util.Log;
 
 import org.joda.time.DateTime;
 import org.smartgresiter.wcaro.application.WcaroApplication;
+import org.smartgresiter.wcaro.interactor.ChildProfileInteractor;
 import org.smartgresiter.wcaro.listener.FamilyMemberImmunizationListener;
+import org.smartgresiter.wcaro.util.ChildDBConstants;
 import org.smartgresiter.wcaro.util.ChildUtils;
+import org.smartgresiter.wcaro.util.ChildVisit;
 import org.smartgresiter.wcaro.util.ImmunizationState;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
@@ -47,12 +50,13 @@ public class FamilyMemberVaccinationAsyncTask extends AsyncTask {
         this.familyId = familyId;
         this.immunizationStateChangeListener = immunizationStateChangeListener;
     }
-    //TODO need to prformance improvement
+    //TODO need to performance improvement
 
     @Override
     protected Object doInBackground(Object[] objects) {
         Log.v("PROFILE_UPDATE", "doInBackground>>>FamilyMemberVaccinationAsyncTask");
         ImmunizationState state = null;
+        ImmunizationState familyImmunizationState=ImmunizationState.NO_ALERT;
         String query = ChildUtils.getChildListByFamilyId(org.smartgresiter.wcaro.util.Constants.TABLE_NAME.CHILD, familyId, childId);
         Cursor cursor = Utils.context().commonrepository(org.smartgresiter.wcaro.util.Constants.TABLE_NAME.CHILD).queryTable(query);
         if (cursor != null && cursor.moveToFirst()) {
@@ -63,6 +67,10 @@ public class FamilyMemberVaccinationAsyncTask extends AsyncTask {
                         personObject.getDetails(), "");
                 // pClient.setColumnmaps(personObject.getColumnmaps());
                 String dobString = org.smartregister.util.Utils.getValue(personObject.getColumnmaps(), DBConstants.KEY.DOB, false);
+                String visitNotDoneStr=org.smartregister.util.Utils.getValue(personObject.getColumnmaps(), ChildDBConstants.KEY.VISIT_NOT_DONE, false);
+                String lastHomeVisitStr=org.smartregister.util.Utils.getValue(personObject.getColumnmaps(), ChildDBConstants.KEY.LAST_HOME_VISIT, false);
+                long lastHomeVisit=TextUtils.isEmpty(lastHomeVisitStr)?0:Long.parseLong(lastHomeVisitStr);
+                long visitNotDone=TextUtils.isEmpty(visitNotDoneStr)?0:Long.parseLong(visitNotDoneStr);
                 DateTime dob = org.smartgresiter.wcaro.util.Utils.dobStringToDateTime(dobString);
                 if (dob == null) {
                     dob = new DateTime();
@@ -71,8 +79,17 @@ public class FamilyMemberVaccinationAsyncTask extends AsyncTask {
                 if (pClient.getCaseId().equalsIgnoreCase(childId)) {
                     if (!TextUtils.isEmpty(dobString)) {
                         DateTime dateTime = new DateTime(dobString);
-                        VaccineSchedule.updateOfflineAlerts(childId, dateTime, "child");
-                        ServiceSchedule.updateOfflineAlerts(childId, dateTime);
+                        try{
+                            VaccineSchedule.updateOfflineAlerts(childId, dateTime, "child");
+                        }catch ( Exception e){
+
+                        }
+                        try{
+                            ServiceSchedule.updateOfflineAlerts(childId, dateTime);
+                        }catch (Exception e){
+
+                        }
+
                     }
                 }
 
@@ -116,6 +133,13 @@ public class FamilyMemberVaccinationAsyncTask extends AsyncTask {
                     this.vaccines = recievedVaccines;
                     this.nv = nv;
                     this.childServiceState = state;
+                }else{
+                    final ChildVisit childVisit = ChildUtils.getChildVisitStatus(dobString,lastHomeVisit,visitNotDone);
+                    if(childVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.OVERDUE.name())
+                            || childVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.DUE.name()))
+                        if( familyImmunizationState!=null && !familyImmunizationState.equals(ImmunizationState.OVERDUE)){
+                                familyImmunizationState=state;
+                       }
                 }
 
             } while (cursor.moveToNext());
@@ -123,20 +147,15 @@ public class FamilyMemberVaccinationAsyncTask extends AsyncTask {
         }
 
 
-        return state;
+        return familyImmunizationState;
     }
 
 
     @Override
     protected void onPostExecute(Object o) {
-        super.onPostExecute(o);
         if (o instanceof ImmunizationState) {
             ImmunizationState state = (ImmunizationState) o;
-            Log.v("PROFILE_UPDATE", "onPostExecute>>FamilyMemberVaccinationAsyncTask>>state:" + state);
-
             immunizationStateChangeListener.onFamilyMemberState(state);
-
-
         }
         immunizationStateChangeListener.onSelfStatus(vaccines, nv, childServiceState);
 

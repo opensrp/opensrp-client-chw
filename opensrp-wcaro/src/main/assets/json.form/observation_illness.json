@@ -47,7 +47,7 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "Report Observations & Illness Episodes",
+    "title": "Observations & Illness Episodes",
     "fields": [
       {
         "key": "date_of_illness",
@@ -55,7 +55,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "1730AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "date_picker",
-        "hint": "Date of illness *",
+        "hint": "Date *",
         "expanded": false,
         "max_date": "today",
         "min_date": "",
@@ -71,7 +71,7 @@
         "openmrs_entity_id": "1390AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "text",
         "type": "edit_text",
-        "hint": "Illness description *",
+        "hint": "Description *",
         "v_required": {
           "value": "true",
           "err": "Please enter description"
@@ -84,7 +84,7 @@
         "openmrs_entity_id": "164378AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Action taken",
+        "hint": "Action taken *",
         "values": [
           "Managed",
           "Referred"

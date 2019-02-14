@@ -7,6 +7,7 @@ import org.joda.time.DateTime;
 import org.smartgresiter.wcaro.application.WcaroApplication;
 import org.smartgresiter.wcaro.listener.ImmunizationStateChangeListener;
 import org.smartgresiter.wcaro.util.ImmunizationState;
+import org.smartgresiter.wcaro.util.WCAROVaccinateUtils;
 import org.smartregister.domain.Alert;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.immunization.db.VaccineRepo;
@@ -65,11 +66,17 @@ public class VaccinationAsyncTask extends AsyncTask {
 
         if (!TextUtils.isEmpty(dobString)) {
             DateTime dateTime = new DateTime(dobString);
-            VaccineSchedule.updateOfflineAlerts(entityId, dateTime, "child");
-            ServiceSchedule.updateOfflineAlerts(entityId, dateTime);
+            try{
+                VaccineSchedule.updateOfflineAlerts(entityId, dateTime, "child");
+            }catch (Exception e){
+
+            }
+            try{
+                ServiceSchedule.updateOfflineAlerts(entityId, dateTime);
+            }catch (Exception e){
+
+            }
         }
-
-
         alerts = WcaroApplication.getInstance().getContext().alertService().findByEntityIdAndAlertNames(entityId, VaccinateActionUtils.allAlertNames("child"));
         vaccines = WcaroApplication.getInstance().vaccineRepository().findByEntityId(entityId);
         Map<String, Date> recievedVaccines = receivedVaccines(vaccines);

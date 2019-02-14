@@ -436,22 +436,22 @@
     "days_after_birth_due": 274,
     "vaccines": [
       {
-        "name": "Measles 1 / MR 1",
+        "name": "MCV 1",
         "type": "Measles / MR",
         "vaccine_separator": " / ",
         "openmrs_date": {
-          "parent_entity": "36AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/162586AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "parent_entity": "79409AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "entity": "concept",
           "entity_id": "1410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         "openmrs_calculate": {
-          "parent_entity": "36AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "parent_entity": "79409AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "entity": "concept",
           "entity_id": "1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "calculation": 1
         },
         "schedules": {
-          "Measles 1": {
+          "MCV 1": {
             "due": [
               {
                 "reference": "dob",
@@ -465,22 +465,37 @@
                 "vaccine": "MR 1"
               }
             ]
-          },
-          "MR 1": {
-            "due": [
-              {
-                "reference": "dob",
-                "offset": "+9m",
-                "window": "+10d"
-              }
-            ],
-            "conditions": [
-              {
-                "type": "not_given",
-                "vaccine": "Measles 1"
-              }
-            ]
           }
+        }
+      },
+      {
+        "name": "IPV",
+        "type": "IPV",
+        "openmrs_date": {
+          "parent_entity": "1422AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "entity": "concept",
+          "entity_id": "1410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "openmrs_calculate": {
+          "parent_entity": "1422AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "entity": "concept",
+          "entity_id": "1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "calculation": 1
+        },
+        "schedule": {
+          "due": [
+            {
+              "reference": "dob",
+              "offset": "+9m",
+              "window": "+10d"
+            }
+          ],
+          "expiry": [
+            {
+              "reference": "dob",
+              "offset": "+5y"
+            }
+          ]
         }
       },
       {
@@ -524,42 +539,67 @@
             }
           ]
         }
-      }
-    ]
-  },
-  {
-    "name": "18 Months",
-    "id": "Eighteen_Months",
-    "days_after_birth_due": 548,
-    "vaccines": [
+      },
       {
-        "name": "Measles 2 / MR 2",
-        "type": "Measles / MR",
-        "vaccine_separator": " / ",
+        "name": "Yellow Fever",
+        "type": "YF",
         "openmrs_date": {
-          "parent_entity": "36AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/162586AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "parent_entity": "5864AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "entity": "concept",
           "entity_id": "1410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         "openmrs_calculate": {
-          "parent_entity": "36AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "parent_entity": "5864AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "entity": "concept",
+          "entity_id": "1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "calculation": 1
+        },
+        "schedule": {
+          "due": [
+            {
+              "reference": "dob",
+              "offset": "+9m",
+              "window": "+10d"
+            }
+          ],
+          "expiry": [
+            {
+              "reference": "dob",
+              "offset": "+80y"
+            }
+          ]
+        }
+      }
+
+    ]
+  },
+  {
+    "name": "15 Months",
+    "id": "Fifteen_Months",
+    "days_after_birth_due": 456,
+    "vaccines": [
+      {
+        "name": "MCV 2",
+        "type": "Measles / MR",
+        "vaccine_separator": " / ",
+        "openmrs_date": {
+          "parent_entity": "79409AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "entity": "concept",
+          "entity_id": "1410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "openmrs_calculate": {
+          "parent_entity": "79409AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "entity": "concept",
           "entity_id": "1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "calculation": 2
         },
         "schedules": {
-          "Measles 2": {
+          "MCV 2": {
             "due": [
               {
                 "reference": "prerequisite",
-                "prerequisite": "Measles 1",
-                "offset": "+9m",
-                "window": "+10d"
-              },
-              {
-                "reference": "prerequisite",
-                "prerequisite": "MR 1",
-                "offset": "+9m",
+                "prerequisite": "MCV 1",
+                "offset": "+6m",
                 "window": "+10d"
               }
             ],
@@ -567,28 +607,6 @@
               {
                 "type": "not_given",
                 "vaccine": "MR 2"
-              }
-            ]
-          },
-          "MR 2": {
-            "due": [
-              {
-                "reference": "prerequisite",
-                "prerequisite": "MR 1",
-                "offset": "+9m",
-                "window": "+10d"
-              },
-              {
-                "reference": "prerequisite",
-                "prerequisite": "Measles 1",
-                "offset": "+9m",
-                "window": "+10d"
-              }
-            ],
-            "conditions": [
-              {
-                "type": "not_given",
-                "vaccine": "Measles 2"
               }
             ]
           }

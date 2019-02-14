@@ -1,5 +1,7 @@
 package org.smartgresiter.wcaro.contract;
 
+import android.content.Context;
+
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.immunization.domain.ServiceWrapper;
 
@@ -9,17 +11,18 @@ public interface HomeVisitGrowthNutritionContract {
     interface View {
         Presenter initializePresenter();
 
-        void updateExclusiveFeedingData(String name);
+        void updateExclusiveFeedingData(String name,String dueDate);
 
-        void updateMnpData(String name);
+        void updateMnpData(String name,String dueDate);
 
-        void updateVitaminAData(String name);
+        void updateVitaminAData(String name,String dueDate);
 
-        void updateDewormingData(String name);
+        void updateDewormingData(String name,String dueDate);
 
-        void statusImageViewUpdate(String type, boolean value,String message);
+        void statusImageViewUpdate(String type, boolean value,String message,String yesNoValue);
 
         void updateUpcomingService();
+        Context getViewContext();
 
     }
 
