@@ -23,6 +23,7 @@ import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.family.fragment.BaseFamilyRegisterFragment;
+import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.view.activity.BaseRegisterActivity;
 import org.smartregister.view.customcontrols.CustomFontTextView;
 
@@ -291,4 +292,13 @@ public class FamilyRegisterFragment extends BaseFamilyRegisterFragment {
     @Override
     public void setAdvancedSearchFormData(HashMap<String, String> hashMap) { }
 
+    @Override
+    protected void refreshSyncProgressSpinner() {
+        if(syncProgressBar != null){
+            syncProgressBar.setVisibility(View.GONE);
+        }
+        if(syncButton != null){
+            syncButton.setVisibility(View.GONE);
+        }
+    }
 }

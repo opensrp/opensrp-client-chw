@@ -38,6 +38,14 @@ import org.smartregister.family.util.Utils;
 
 public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfileActivity {
 
+    private String familyBaseEntityId;
+    private String baseEntityId;
+    private String familyHead;
+    private String primaryCaregiver;
+    private String villageTown;
+    private String familyName;
+    private CommonPersonObjectClient commonPersonObject;
+  
     private OnClickFloatingMenu onClickFloatingMenu = new OnClickFloatingMenu() {
         @Override
         public void onClickMenu(int viewId) {
@@ -57,19 +65,16 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
 
         }
     };
-    String familyBaseEntityId, familyHead, primaryCaregiver;
-    String familyName;
-    CommonPersonObjectClient commonPersonObject;
 
     @Override
     protected void initializePresenter() {
         commonPersonObject = (CommonPersonObjectClient) getIntent().getSerializableExtra(org.smartgresiter.wcaro.util.Constants.INTENT_KEY.CHILD_COMMON_PERSON);
         familyBaseEntityId = getIntent().getStringExtra(Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID);
-        String baseEntityId = getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID);
+        baseEntityId = getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID);
         familyHead = getIntent().getStringExtra(Constants.INTENT_KEY.FAMILY_HEAD);
         primaryCaregiver = getIntent().getStringExtra(Constants.INTENT_KEY.PRIMARY_CAREGIVER);
-        String villageTown = getIntent().getStringExtra(Constants.INTENT_KEY.VILLAGE_TOWN);
-        String familyName = getIntent().getStringExtra(Constants.INTENT_KEY.FAMILY_NAME);
+        villageTown = getIntent().getStringExtra(Constants.INTENT_KEY.VILLAGE_TOWN);
+        familyName = getIntent().getStringExtra(Constants.INTENT_KEY.FAMILY_NAME);
         presenter = new FamilyOtherMemberActivityPresenter(this, new BaseFamilyOtherMemberProfileActivityModel(), null, familyBaseEntityId, baseEntityId, familyHead, primaryCaregiver, villageTown, familyName);
     }
 
@@ -88,7 +93,12 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
                         LinearLayout.LayoutParams.MATCH_PARENT);
         familyFloatingMenu.setGravity(Gravity.BOTTOM | Gravity.RIGHT);
         addContentView(familyFloatingMenu, linearLayoutParams);
-        familyFloatingMenu.setClickListener(onClickFloatingMenu);
+
+        familyFloatingMenu.setClickListener(
+                FloatingMenuListener.getInstance(this, presenter().getFamilyBaseEntityId())
+                .setFamilyHead(familyHead)
+                .setPrimaryCareGiver(primaryCaregiver)
+        );
     }
 
 
@@ -242,5 +252,10 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
 
 
         }
+
+    @Override
+    protected void onResumption() {
+        super.onResumption();
+        FloatingMenuListener.getInstance(this, presenter().getFamilyBaseEntityId());
     }
 }

@@ -1,6 +1,7 @@
 package org.smartgresiter.wcaro.activity;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.View;
@@ -23,8 +24,9 @@ public class FamilyRemoveMemberActivity extends SecuredActivity implements View.
         // set up views
         findViewById(R.id.close).setOnClickListener(this);
 
+        Bundle bundle = getIntent().getExtras();
         // initialize removeMemberFragment
-        removeMemberFragment = FamilyRemoveMemberFragment.newInstance(getIntent().getExtras());
+        removeMemberFragment = FamilyRemoveMemberFragment.newInstance(bundle);
         FragmentManager fm = getSupportFragmentManager();
         fm.beginTransaction()
                 .replace(R.id.flFrame, removeMemberFragment)

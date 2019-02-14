@@ -136,11 +136,11 @@ public class FamilyProfileChangeDialog extends DialogFragment implements View.On
 
 
         if (actionType.equals(Constants.PROFILE_CHANGE_ACTION.PRIMARY_CARE_GIVER)) {
-            tvTitle.setText("Select a new primary care giver");
-            tvInfo.setText("Before you remove this member you must select a primary care giver");
+            tvTitle.setText(getString(R.string.select_caregiver));
+            tvInfo.setText(getString(R.string.remove_caregiver_warning_message));
         } else {
-            tvTitle.setText("Select a new family head");
-            tvInfo.setText("Before you remove this member you must select a new family head.");
+            tvTitle.setText(getString(R.string.select_family_head));
+            tvInfo.setText(getString(R.string.remove_familyhead_warning_message));
         }
     }
 

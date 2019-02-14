@@ -223,6 +223,11 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
             Event baseEvent = org.smartregister.util.JsonFormUtils.createEvent(fields, getJSONObject(jsonForm, METADATA), formTag(allSharedPreferences), entityId, getString(jsonForm, ENCOUNTER_TYPE), org.smartgresiter.wcaro.util.Constants.TABLE_NAME.CHILD);
             tagSyncMetadata(allSharedPreferences, baseEvent);
 
+            if (baseClient != null || baseEvent != null) {
+                String imageLocation = org.smartregister.family.util.JsonFormUtils.getFieldValue(jsonString, Constants.KEY.PHOTO);
+                org.smartregister.family.util.JsonFormUtils.saveImage(baseEvent.getProviderId(), baseClient.getBaseEntityId(), imageLocation);
+            }
+
             JSONObject lookUpJSONObject = getJSONObject(getJSONObject(jsonForm, METADATA), "look_up");
             String lookUpEntityId = "";
             String lookUpBaseEntityId = "";

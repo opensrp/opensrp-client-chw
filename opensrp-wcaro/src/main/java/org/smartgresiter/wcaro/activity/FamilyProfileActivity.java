@@ -45,6 +45,10 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity implements 
 
     private static final String TAG = FamilyProfileActivity.class.getCanonicalName();
     private String familyBaseEntityId;
+    private boolean isFromFamilyServiceDue = false;
+    String familyHead;
+    String primaryCaregiver;
+    String familyName;
 
     BaseFamilyProfileMemberFragment profileMemberFragment;
     BaseFamilyProfileDueFragment profileDueFragment;
@@ -53,9 +57,10 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity implements 
     @Override
     protected void initializePresenter() {
         familyBaseEntityId = getIntent().getStringExtra(Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID);
-        String familyHead = getIntent().getStringExtra(Constants.INTENT_KEY.FAMILY_HEAD);
-        String primaryCaregiver = getIntent().getStringExtra(Constants.INTENT_KEY.PRIMARY_CAREGIVER);
-        String familyName = getIntent().getStringExtra(Constants.INTENT_KEY.FAMILY_NAME);
+        isFromFamilyServiceDue = getIntent().getBooleanExtra(org.smartgresiter.wcaro.util.Constants.INTENT_KEY.SERVICE_DUE, false);
+        familyHead = getIntent().getStringExtra(Constants.INTENT_KEY.FAMILY_HEAD);
+        primaryCaregiver = getIntent().getStringExtra(Constants.INTENT_KEY.PRIMARY_CAREGIVER);
+        familyName = getIntent().getStringExtra(Constants.INTENT_KEY.FAMILY_NAME);
         presenter = new FamilyProfilePresenter(this, new BaseFamilyProfileModel(familyName), familyBaseEntityId, familyHead, primaryCaregiver, familyName);
     }
 
@@ -75,7 +80,11 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity implements 
                         LinearLayout.LayoutParams.MATCH_PARENT);
         familyFloatingMenu.setGravity(Gravity.BOTTOM | Gravity.RIGHT);
         addContentView(familyFloatingMenu, linearLayoutParams);
-        familyFloatingMenu.setClickListener(new FloatingMenuListener(this, presenter().familyBaseEntityId()));
+        familyFloatingMenu.setClickListener(
+                FloatingMenuListener.getInstance(this, presenter().familyBaseEntityId())
+                        .setFamilyHead(familyHead)
+                        .setPrimaryCareGiver(primaryCaregiver)
+        );
     }
 
     @Override
@@ -162,7 +171,7 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity implements 
                         JSONObject form = new JSONObject(jsonString);
                         if (form.getString(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_TYPE).equals(org.smartregister.family.util.Utils.metadata().familyRegister.registerEventType)
                                 || form.getString(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_TYPE).equals(org.smartgresiter.wcaro.util.Constants.EventType.CHILD_REGISTRATION)
-                                ) {
+                        ) {
                             ((FamilyProfilePresenter) presenter).saveChildForm(jsonString, false);
                         }
                     } catch (Exception e) {
@@ -239,4 +248,9 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity implements 
         }
     }
 
+    @Override
+    protected void onResumption() {
+        super.onResumption();
+        FloatingMenuListener.getInstance(this, presenter().familyBaseEntityId());
+    }
 }

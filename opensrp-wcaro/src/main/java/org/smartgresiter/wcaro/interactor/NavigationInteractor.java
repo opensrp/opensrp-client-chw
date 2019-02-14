@@ -151,7 +151,16 @@ public class NavigationInteractor implements NavigationContract.Interactor {
 
     @Override
     public Date Sync() {
-        return null;
+        Date res = null;
+        try{
+            res = new Date(getLastCheckTimeStamp());
+        }catch (Exception e){
+
+        }
+        return res;
     }
 
+    public Long getLastCheckTimeStamp() {
+        return WcaroApplication.getInstance().getEcSyncHelper().getLastCheckTimeStamp();
+    }
 }

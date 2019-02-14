@@ -94,6 +94,10 @@
         "openmrs_data_type": "select one",
         "type": "spinner",
         "hint": "Reason *",
+        "v_required": {
+          "value": "true",
+          "err": "Select the reason for removing the family member's record"
+        },
         "values": [
           "Died",
           "Moved away",
@@ -110,11 +114,10 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type": "date_picker",
-        "hint": "Child's DOB *",
+        "type": "spacer",
         "expanded": false,
         "read_only": "true",
-        "hidden": "true"
+        "hidden": "false"
       },
       {
         "key": "date_moved",
@@ -153,10 +156,10 @@
         "openmrs_entity_id": "1543AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "text",
         "type": "date_picker",
-        "label": "Date of death",
+        "label": "Date of death *",
         "hint": "Date of death *",
         "expanded": false,
-        "min_date": "",
+        "min_date": "today-80y",
         "max_date": "today",
         "v_required": {
           "value": "true",
@@ -182,8 +185,17 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type": "label",
-        "text": "",
+        "label": "Age at death",
+        "hint": "Age at death",
+        "type": "edit_text",
+        "read_only": "true",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_remove_relevance.yml"
+            }
+          }
+        },
         "calculation": {
           "rules-engine": {
             "ex-rules": {

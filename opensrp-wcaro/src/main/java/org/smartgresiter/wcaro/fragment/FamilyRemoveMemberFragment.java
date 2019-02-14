@@ -82,6 +82,7 @@ public class FamilyRemoveMemberFragment extends BaseFamilyProfileMemberFragment 
                 setFamilyHead(familyHeadID);
                 refreshMemberList(FetchStatus.fetched);
                 getPresenter().removeMember(client);
+                refreshListView();
             }
         });
         dialog.show(getActivity().getFragmentManager(), "FamilyProfileChangeDialogHF");
@@ -97,6 +98,7 @@ public class FamilyRemoveMemberFragment extends BaseFamilyProfileMemberFragment 
                 setPrimaryCaregiver(careGiverID);
                 refreshMemberList(FetchStatus.fetched);
                 getPresenter().removeMember(client);
+                refreshListView();
             }
         });
 
@@ -106,7 +108,7 @@ public class FamilyRemoveMemberFragment extends BaseFamilyProfileMemberFragment 
     @Override
     public void closeFamily(String familyName, String details) {
 
-        getPresenter().removeEveryone(familyName , details);
+        getPresenter().removeEveryone(familyName, details);
 
     }
 
@@ -125,7 +127,7 @@ public class FamilyRemoveMemberFragment extends BaseFamilyProfileMemberFragment 
         Form form = new Form();
         form.setActionBarBackground(org.smartregister.family.R.color.family_actionbar);
         form.setWizard(false);
-        form.setSaveLabel("Remove");
+        form.setSaveLabel("Save");
         intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);
 
         startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
@@ -200,7 +202,7 @@ public class FamilyRemoveMemberFragment extends BaseFamilyProfileMemberFragment 
             dialog.setOnRemove(new Runnable() {
                 @Override
                 public void run() {
-                    closeFamily(String.format(getString(R.string.family) , name) , message);
+                    closeFamily(String.format(getString(R.string.family), name), message);
                     Toast.makeText(getContext(), getString(R.string.remove_entire_family), Toast.LENGTH_SHORT).show();
                 }
             });
@@ -236,7 +238,6 @@ public class FamilyRemoveMemberFragment extends BaseFamilyProfileMemberFragment 
         return presenter().getDefaultSortQuery();
     }
 
-    @Override
     public void setAdvancedSearchFormData(HashMap<String, String> hashMap) { }
 
 }
