@@ -8,7 +8,7 @@
         android:id="@+id/header_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
+        style="@style/CustomFontTextViewStyle.ClientList"
         android:textColor="@color/black"
         android:padding="10dp"
         android:textSize="18sp" />
