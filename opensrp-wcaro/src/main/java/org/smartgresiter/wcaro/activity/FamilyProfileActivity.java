@@ -3,7 +3,6 @@ package org.smartgresiter.wcaro.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.v4.app.Fragment;

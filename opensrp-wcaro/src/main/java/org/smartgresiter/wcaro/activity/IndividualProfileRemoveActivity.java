@@ -1,12 +1,11 @@
 package org.smartgresiter.wcaro.activity;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.View;
+
 import org.json.JSONObject;
 import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.fragment.IndividualProfileRemoveFragment;

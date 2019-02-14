@@ -39,7 +39,6 @@ import java.util.List;
 
 import static org.apache.commons.lang3.text.WordUtils.capitalize;
 import static org.smartgresiter.wcaro.util.JsonFormUtils.dd_MMM_yyyy;
-import static org.smartregister.util.JsonFormUtils.dd_MM_yyyy;
 
 public class ChildUtils {
 

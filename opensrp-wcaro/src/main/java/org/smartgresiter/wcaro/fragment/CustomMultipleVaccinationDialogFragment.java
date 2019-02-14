@@ -31,7 +31,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.contract.HomeVisitImmunizationContract;
-import org.smartgresiter.wcaro.util.ChildUtils;
 import org.smartregister.domain.Alert;
 import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.immunization.domain.Vaccine;

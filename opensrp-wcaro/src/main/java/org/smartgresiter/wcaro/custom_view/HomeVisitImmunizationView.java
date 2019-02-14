@@ -43,7 +43,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import static org.apache.commons.lang3.text.WordUtils.capitalize;
 import static org.smartgresiter.wcaro.util.ChildUtils.fixVaccineCasing;
 import static org.smartgresiter.wcaro.util.Constants.IMMUNIZATION_CONSTANT.DATE;
-import static org.smartregister.util.StringUtil.humanize;
 
 public class HomeVisitImmunizationView extends LinearLayout implements View.OnClickListener, HomeVisitImmunizationContract.View {
     public static final String TAG = "HomeVisitImmunization";

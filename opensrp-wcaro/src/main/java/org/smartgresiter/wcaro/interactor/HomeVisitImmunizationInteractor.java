@@ -9,7 +9,6 @@ import org.smartgresiter.wcaro.task.UpdateServiceTask;
 import org.smartgresiter.wcaro.task.VaccinationAsyncTask;
 import org.smartgresiter.wcaro.util.HomeVisitVaccineGroupDetails;
 import org.smartgresiter.wcaro.util.ImmunizationState;
-import org.smartgresiter.wcaro.util.WCAROVaccinateUtils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.Alert;
 import org.smartregister.family.util.AppExecutors;
