@@ -7,8 +7,10 @@ import android.util.Log;
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.smartgresiter.wcaro.listener.UpdateServiceListener;
+import org.smartgresiter.wcaro.util.WCAROServiceSchedule;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.Alert;
+import org.smartregister.domain.AlertStatus;
 import org.smartregister.domain.Photo;
 import org.smartregister.immunization.ImmunizationLibrary;
 import org.smartregister.immunization.domain.ServiceRecord;
@@ -165,7 +167,7 @@ public class UpdateServiceTask extends AsyncTask<Void, Void, Map<String, UpdateS
         if (!TextUtils.isEmpty(dobString)) {
             DateTime dateTime = new DateTime(dobString);
             VaccineSchedule.updateOfflineAlerts(childDetails.entityId(), dateTime, "child");
-            ServiceSchedule.updateOfflineAlerts(childDetails.entityId(), dateTime);
+            WCAROServiceSchedule.updateOfflineAlerts(childDetails.entityId(), dateTime);
         }
 
 
@@ -228,7 +230,7 @@ public class UpdateServiceTask extends AsyncTask<Void, Void, Map<String, UpdateS
 
         Map<String, Object> nv = null;
         if (serviceRecordList.isEmpty()) {
-            nv = nextServiceDue(sch, serviceTypes);
+            nv = nextServiceDueBasedOnExpire(sch, serviceTypes);
         } else {
             ServiceRecord lastServiceRecord = null;
             for (ServiceRecord serviceRecord : serviceRecordList) {
@@ -261,6 +263,40 @@ public class UpdateServiceTask extends AsyncTask<Void, Void, Map<String, UpdateS
             }
             tag.setServiceType(nextServiceType);
         }
+    }
+    public static Map<String, Object> nextServiceDueBasedOnExpire
+            (List<Map<String, Object>> schedule, List<ServiceType> serviceTypeList) {
+        Map<String, Object> v = null;
+        try {
+            for (Map<String, Object> m : schedule) {
+                if (m != null && m.get("status") != null && m.get("status").toString().equalsIgnoreCase("due")) {
+
+                    if (v == null && m.get("service") != null && serviceTypeList.contains((ServiceType) m.get("service"))) {
+                        v = m;
+
+                    } else if (v.get("alert") == null && m.get("alert") != null && m.get("service") != null && serviceTypeList.contains((ServiceType) m.get("service"))) {
+                        Alert mAlert = (Alert) m.get("alert");
+                        if(!mAlert.status().equals(AlertStatus.expired)){
+                            v = m;
+                        }
+
+
+                    } else if (v.get("alert") != null && m.get("alert") != null && m.get("service") != null && serviceTypeList.contains((ServiceType) m.get("service"))) {
+                        Alert vAlert = (Alert) v.get("alert");
+                        Alert mAlert = (Alert) m.get("alert");
+                        if (!vAlert.status().equals(AlertStatus.urgent)) {
+                            if (vAlert.status().equals(AlertStatus.upcoming) && (mAlert.status().equals(AlertStatus.normal) || mAlert.status().equals(AlertStatus.urgent))) {
+                                v = m;
+                            } else if (vAlert.status().equals(AlertStatus.normal) && mAlert.status().equals(AlertStatus.urgent)) {
+                                v = m;
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+        }
+        return v;
     }
 
     public void updateWrapper(ServiceWrapper tag, List<ServiceRecord> serviceRecordList) {

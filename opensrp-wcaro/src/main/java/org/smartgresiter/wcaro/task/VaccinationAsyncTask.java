@@ -7,6 +7,7 @@ import org.joda.time.DateTime;
 import org.smartgresiter.wcaro.application.WcaroApplication;
 import org.smartgresiter.wcaro.listener.ImmunizationStateChangeListener;
 import org.smartgresiter.wcaro.util.ImmunizationState;
+import org.smartgresiter.wcaro.util.WCAROServiceSchedule;
 import org.smartgresiter.wcaro.util.WCAROVaccinateUtils;
 import org.smartregister.domain.Alert;
 import org.smartregister.family.util.DBConstants;
@@ -67,7 +68,7 @@ public class VaccinationAsyncTask extends AsyncTask {
         if (!TextUtils.isEmpty(dobString)) {
             DateTime dateTime = new DateTime(dobString);
             VaccineSchedule.updateOfflineAlerts(entityId, dateTime, "child");
-            ServiceSchedule.updateOfflineAlerts(entityId, dateTime);
+            WCAROServiceSchedule.updateOfflineAlerts(entityId, dateTime);
         }
 
 
