@@ -22,16 +22,14 @@
             app:popupTheme="@style/ThemeOverlay.AppCompat.Dark">
 
 
-            <org.smartregister.view.customcontrols.CustomFontTextView
+            <ImageView
                 android:id="@+id/close"
-                style="@style/CustomFontTextViewStyle.ClientList.Light"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:text="⨉"
-                android:paddingLeft="0dp"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:textColor="@android:color/white" />
+                android:layout_width="@dimen/tool_bar_image"
+                android:layout_height="@dimen/tool_bar_image"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="5dp"
+                app:srcCompat="@drawable/ic_action_close" />
 
             <org.smartregister.view.customcontrols.CustomFontTextView
                 android:id="@+id/textview_title"
