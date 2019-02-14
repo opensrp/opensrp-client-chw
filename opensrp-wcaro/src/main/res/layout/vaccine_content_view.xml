@@ -17,7 +17,7 @@
         android:id="@+id/name_date_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
+        style="@style/CustomFontTextViewStyle.ClientList.Light"
         android:textColor="@color/black"
         android:paddingTop="5dp"
         android:paddingBottom="5dp"
