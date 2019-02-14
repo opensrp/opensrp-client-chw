@@ -28,7 +28,7 @@
     <dimen name="change_member_list_details">16sp</dimen>
 
     <dimen name="tool_bar_size">55dp</dimen>
-    <dimen name="tool_bar_title">18sp</dimen>
+    <dimen name="tool_bar_title">20sp</dimen>
     <dimen name="tool_bar_image">25dp</dimen>
 
     <dimen name="call_widget_padding_top">10dp</dimen>

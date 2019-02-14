@@ -3,14 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/white"
+    android:orientation="vertical"
     android:weightSum="1">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/app_bar_size"
+        android:layout_height="@dimen/tool_bar_size"
         android:fitsSystemWindows="true"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
@@ -33,7 +33,7 @@
 
             <org.smartregister.view.customcontrols.CustomFontTextView
                 android:id="@+id/textview_title"
-                style="@style/CustomFontTextViewStyle.ClientList.Light"
+                style="@style/CustomFontTextViewStyle.ClientList"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="25dp"
@@ -41,7 +41,8 @@
                 android:gravity="center_vertical"
                 android:text="@string/add_member_title"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:textColor="@android:color/white" />
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/tool_bar_title" />
         </android.support.v7.widget.Toolbar>
 
 
@@ -51,8 +52,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
         android:layout_marginTop="30dp"
+        android:layout_marginRight="15dp"
         android:layout_marginBottom="30dp"
         android:orientation="horizontal">
 
@@ -81,8 +82,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
         android:layout_marginTop="20dp"
+        android:layout_marginRight="15dp"
         android:layout_marginBottom="20dp"
         android:orientation="horizontal">
 
@@ -116,8 +117,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
         android:layout_marginTop="20dp"
+        android:layout_marginRight="15dp"
         android:layout_marginBottom="20dp"
         android:orientation="horizontal">
 
