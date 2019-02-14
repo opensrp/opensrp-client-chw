@@ -134,6 +134,15 @@
                         android:text="@string/birth_certification"
                         android:textAppearance="@style/TextAppearance.AppCompat.Large"
                         android:textColor="@android:color/black" />
+                    <org.smartregister.view.customcontrols.CustomFontTextView
+                        android:id="@+id/textview_birth_certification_name"
+                        style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textColor="@android:color/darker_gray" />
 
                 </LinearLayout>
 

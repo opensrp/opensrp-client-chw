@@ -47,7 +47,7 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "Report Birth Certification",
+    "title": "Birth Certification",
     "fields": [
       {
         "key": "birth_cert",

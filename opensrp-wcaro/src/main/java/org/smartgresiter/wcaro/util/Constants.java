@@ -16,7 +16,7 @@ public class Constants {
         public static final String FAMILY_MEMBER_REGISTRATION = "Family Member Registration";
 
         public static final String CHILD_REGISTRATION = "Child Registration";
-        public static final String UPDATE_CHILD_REGISTRATION = "Child Registration";
+        public static final String UPDATE_CHILD_REGISTRATION = "Update Child Registration";
         public static final String CHILD_HOME_VISIT = "Child Home Visit";
         public static final String CHILD_VISIT_NOT_DONE = "Visit not done";
 
@@ -64,6 +64,7 @@ public class Constants {
         public static final String GROWTH_QUESTION = "growth_ques";
         public static final String GROWTH_IMMUNIZATION_TYPE = "growth_type";
         public static final String CHILD_COMMON_PERSON = "child_common_peron";
+        public static final String IS_COMES_FROM_FAMILY = "is_comes_from";
     }
 
     public static final class IMMUNIZATION_CONSTANT {

@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.Menu;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -102,6 +103,11 @@ public class MedicalHistoryActivity extends SecuredActivity implements MedicalHi
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+       return false;
+    }
+
     private void parseBundleANdUpdateView() {
         childClient = (CommonPersonObjectClient) getIntent().getSerializableExtra(Constants.INTENT_KEY.CHILD_COMMON_PERSON);
         name = getIntent().getStringExtra(Constants.INTENT_KEY.CHILD_NAME);
@@ -111,7 +117,7 @@ public class MedicalHistoryActivity extends SecuredActivity implements MedicalHi
         if (TextUtils.isEmpty(name)) {
             textViewTitle.setVisibility(View.GONE);
         } else {
-            textViewTitle.setText(getString(R.string.medical_title, name));
+            textViewTitle.setText(getString(R.string.medical_title, name+"'s profile"));
         }
         textViewLastVisit.setText(getString(R.string.medical_last_visit, lastVisitDays));
         initializePresenter();

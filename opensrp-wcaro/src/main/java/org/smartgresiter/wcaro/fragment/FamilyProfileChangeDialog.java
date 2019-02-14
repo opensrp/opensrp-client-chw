@@ -13,6 +13,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,6 +40,7 @@ public class FamilyProfileChangeDialog extends DialogFragment implements View.On
     protected String familyID;
     protected String actionType;
     protected Runnable onSaveAndClose;
+    protected Runnable onRemoveActivity;
 
 
     protected MemberAdapter memberAdapter;
@@ -62,6 +64,9 @@ public class FamilyProfileChangeDialog extends DialogFragment implements View.On
         this.onSaveAndClose = onClose;
     }
 
+    public void setOnRemoveActivity(Runnable onRemoveActivity) {
+        this.onRemoveActivity = onRemoveActivity;
+    }
     protected void setContext(Context context) {
         this.context = context;
     }
@@ -108,6 +113,10 @@ public class FamilyProfileChangeDialog extends DialogFragment implements View.On
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tvCancel:
+
+                if (onRemoveActivity != null) {
+                    onRemoveActivity.run();
+                }
                 close();
                 break;
             case R.id.tvSubmit:
@@ -239,6 +248,30 @@ public class FamilyProfileChangeDialog extends DialogFragment implements View.On
 
                 window.setLayout(FrameLayout.LayoutParams.MATCH_PARENT, (int) (height * 0.9));
                 window.setGravity(Gravity.CENTER);
+            }
+        });
+    }
+    /**
+     * handle backpress from dialog.it'll finish childremoveactivity when back press
+     */
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (getView() == null) return;
+        getView().setFocusableInTouchMode(true);
+        getView().requestFocus();
+        getView().setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
+                    if (onRemoveActivity != null) {
+                        onRemoveActivity.run();
+                    }
+                    dismiss();
+                    return true;
+                }
+                return false;
             }
         });
     }

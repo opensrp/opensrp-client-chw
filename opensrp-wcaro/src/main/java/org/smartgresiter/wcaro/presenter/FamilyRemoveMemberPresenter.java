@@ -52,7 +52,7 @@ public class FamilyRemoveMemberPresenter extends BaseFamilyProfileMemberPresente
 
         } else {
 
-            JSONObject form = model.prepareJsonForm(client, getForm(client));
+            JSONObject form = model.prepareJsonForm(client, model.getForm(client));
             if (form != null) {
                 viewReference.get().startJsonActivity(form);
             }
@@ -80,7 +80,7 @@ public class FamilyRemoveMemberPresenter extends BaseFamilyProfileMemberPresente
 
             } else {
 
-                JSONObject form = model.prepareJsonForm(client, getForm(client));
+                JSONObject form = model.prepareJsonForm(client, model.getForm(client));
                 if (form != null) {
                     viewReference.get().startJsonActivity(form);
                 }
@@ -88,27 +88,7 @@ public class FamilyRemoveMemberPresenter extends BaseFamilyProfileMemberPresente
         }
     }
 
-    private String getForm(CommonPersonObjectClient client) {
-        Date dob = Utils.dobStringToDate(Utils.getValue(client.getColumnmaps(), DBConstants.KEY.DOB, false));
-        return ((dob != null && getDiffYears(dob, new Date()) >= 5) ? Constants.JSON_FORM.FAMILY_DETAILS_REMOVE_MEMBER : Constants.JSON_FORM.FAMILY_DETAILS_REMOVE_CHILD);
-    }
 
-    private int getDiffYears(Date first, Date last) {
-        Calendar a = getCalendar(first);
-        Calendar b = getCalendar(last);
-        int diff = b.get(YEAR) - a.get(YEAR);
-        if (a.get(MONTH) > b.get(MONTH) ||
-                (a.get(MONTH) == b.get(MONTH) && a.get(DATE) > b.get(DATE))) {
-            diff--;
-        }
-        return diff;
-    }
-
-    private Calendar getCalendar(Date date) {
-        Calendar cal = Calendar.getInstance(Locale.US);
-        cal.setTime(date);
-        return cal;
-    }
 
     @Override
     public void removeEveryone(String familyName, String details) {

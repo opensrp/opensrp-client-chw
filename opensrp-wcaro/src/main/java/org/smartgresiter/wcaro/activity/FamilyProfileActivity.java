@@ -100,17 +100,12 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity implements 
         adapter.addFragment(profileActivityFragment, this.getString(org.smartregister.family.R.string.activity).toUpperCase());
 
         viewPager.setAdapter(adapter);
-        if (isFromFamilyServiceDue) {
-            // int position=adapter.getItemPosition(profileDueFragment);
+
+        if (getIntent().getBooleanExtra(org.smartgresiter.wcaro.util.Constants.INTENT_KEY.SERVICE_DUE, false) || getIntent().getBooleanExtra(Constants.INTENT_KEY.GO_TO_DUE_PAGE, false)) {
             viewPager.setCurrentItem(1);
-            adapter.notifyDataSetChanged();
         }
 
         return viewPager;
-    }
-
-    public Bundle getProfileExtras() {
-        return getIntent().getExtras();
     }
 
     @Override

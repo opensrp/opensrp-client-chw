@@ -119,7 +119,7 @@
             android:label="@string/upcoming_services"
             android:theme="@style/WcaroTheme.NoActionBar" />
         <activity
-            android:name=".activity.ChildRemoveActivity"
+            android:name=".activity.IndividualProfileRemoveActivity"
             android:theme="@style/WcaroTheme.NoActionBar" />
 
         <service android:name="org.smartregister.immunization.service.intent.VaccineIntentService" />

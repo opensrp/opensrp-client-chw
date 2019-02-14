@@ -102,14 +102,14 @@ public class WcaroRegisterProvider extends FamilyRegisterProvider {
     private void setVisitNotDone(Context context, Button dueButton) {
         dueButton.setTextColor(context.getResources().getColor(R.color.progress_orange));
         dueButton.setText(context.getString(R.string.visit_not_done));
-        dueButton.setBackgroundResource(R.drawable.white_btn_selector);
+        dueButton.setBackgroundColor(context.getResources().getColor(R.color.transparent));
         dueButton.setOnClickListener(null);
     }
 
     private void setVisitAboveTwentyFourView(Context context, Button dueButton) {
         dueButton.setTextColor(context.getResources().getColor(R.color.alert_complete_green));
         dueButton.setText(context.getString(R.string.visit_done));
-        dueButton.setBackgroundResource(R.drawable.white_btn_selector);
+        dueButton.setBackgroundColor(context.getResources().getColor(R.color.transparent));
         dueButton.setOnClickListener(null);
     }
 

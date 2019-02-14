@@ -335,7 +335,7 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
             Log.d(TAG, "Form is " + form.toString());
             if (form != null) {
                 form.put(org.smartregister.family.util.JsonFormUtils.ENTITY_ID, client.getCaseId());
-                form.put(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_TYPE, Constants.EventType.CHILD_REGISTRATION);
+                form.put(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_TYPE, Constants.EventType.UPDATE_CHILD_REGISTRATION);
 
                 JSONObject metadata = form.getJSONObject(org.smartregister.family.util.JsonFormUtils.METADATA);
                 String lastLocationId = LocationHelper.getInstance().getOpenMrsLocationId(lpv.getSelectedItem());
@@ -390,6 +390,14 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
                 optionsObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), org.smartregister.family.util.Constants.JSON_FORM_KEY.DOB_UNKNOWN, false));
 
                 break;
+            case "age":{
+
+                String dobString = org.smartgresiter.wcaro.util.Utils.getValue(client.getColumnmaps(), DBConstants.KEY.DOB, false);
+                dobString = org.smartregister.family.util.Utils.getDuration(dobString);
+                dobString = dobString.contains("y") ? dobString.substring(0, dobString.indexOf("y")) : "0";
+                jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, Integer.valueOf(dobString));
+            }
+            break;
             case DBConstants.KEY.DOB:
 
                 String dobString = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.DOB, false);

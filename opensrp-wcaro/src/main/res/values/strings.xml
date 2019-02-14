@@ -5,9 +5,10 @@
     <string name="child_register_title">Child Clients</string>
     <string name="return_to_all_children">Return to all children</string>
     <string name="back_to_children">Back to %1$s</string>
-    <string name="child_details">Child details</string>
-
-
+    <string name="child_details">Child details %1$s</string>
+    <string name="not_given">Not given</string>
+    <string name="given">Given</string>
+    <string name="provided_on">Provided on %1$s</string>
     <string name="search_name_or_id">Search name or ID</string>
 
     <string name="navigation_drawer_open">Open</string>
@@ -58,6 +59,7 @@
     <string name="record_visit">Record visit</string>
     <string name="edit">EDIT</string>
     <string name="return_to_family_name">Return to %1$s Family</string>
+    <string name="return_to_family_members">Return to family members</string>
     <string name="save_title">SAVE</string>
 
     <string name="allow_calls_denied">Kindly allow calls to be made here</string>
@@ -69,7 +71,7 @@
     <string name="visit_not_done_btn_child_profile">Visit not done</string>
     <string name="medical_history">Medical History</string>
     <string name="record_home_visit">Record \nHome visit</string>
-    <string name="visit_not_done">Visit \nnot done</string>
+    <string name="visit_not_done">Visit not \ndone</string>
     <string name="visit_done">Visit done</string>
     <string name="due_visit">Last visit \n %1$s</string>
     <string name="medical_title">Back to %1$s</string>

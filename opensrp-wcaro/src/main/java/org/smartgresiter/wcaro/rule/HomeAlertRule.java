@@ -82,7 +82,7 @@ public class HomeAlertRule {
     }
 
     public boolean isVisitWithinTwentyFour() {
-        visitMonthName = theMonth(todayDate.getMonthOfYear());
+        visitMonthName = theMonth(todayDate.getMonthOfYear()-1);
         noOfDayDue = "less than 24 hrs";
         return !(lastVisitDate.isBefore(todayDate.minusDays(1)) && lastVisitDate.isBefore(todayDate));
 

@@ -82,6 +82,7 @@ public class FamilyProfileMemberFragment extends BaseFamilyProfileMemberFragment
         Intent intent = new Intent(getActivity(), FamilyOtherMemberProfileActivity.class);
         intent.putExtras(getArguments());
         intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, patient.getCaseId());
+        intent.putExtra(org.smartgresiter.wcaro.util.Constants.INTENT_KEY.CHILD_COMMON_PERSON, patient);
         startActivity(intent);
     }
 

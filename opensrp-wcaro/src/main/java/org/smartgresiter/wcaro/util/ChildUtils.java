@@ -17,6 +17,7 @@ import org.jeasy.rules.api.Rules;
 import org.joda.time.Days;
 import org.joda.time.LocalDate;
 import org.json.JSONObject;
+import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.application.WcaroApplication;
 import org.smartgresiter.wcaro.domain.HomeVisit;
 import org.smartgresiter.wcaro.repository.HomeVisitRepository;
@@ -36,17 +37,20 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import static org.apache.commons.lang3.text.WordUtils.capitalize;
+import static org.smartgresiter.wcaro.util.JsonFormUtils.dd_MMM_yyyy;
+import static org.smartregister.util.JsonFormUtils.dd_MM_yyyy;
+
 public class ChildUtils {
 
     private static final String[] firstSecondNumber = {"Zero", "1st", "2nd", "3rd", "4th", "5th", "6th", "7th", "8th", "9th"};
-    public static final String[] ONE_YR = {"bcg",
-            "hepb", "opv1", "penta1", "pcv1", "rota1", "opv2", "penta2", "pcv2", "rota2", "opv3", "penta3", "pcv3", "rota3", "ipv", "mcv1",
-            "yf"
+    public static final String[] ONE_YR = {"bcg", "opv1", "penta1", "pcv1", "rota1", "opv2", "penta2", "pcv2", "rota2", "opv3", "penta3", "pcv3", "ipv", "mcv1",
+            "yellowfever"
     };
-    public static final String[] TWO_YR = {"bcg",
-            "hepb", "opv1", "penta1", "pcv1", "rota1", "opv2", "penta2", "pcv2", "rota2", "opv3", "penta3", "pcv3", "rota3", "ipv", "mcv1",
-            "yf", "mcv2"
+    public static final String[] TWO_YR = {"bcg", "opv1", "penta1", "pcv1", "rota1", "opv2", "penta2", "pcv2", "rota2", "opv3", "penta3", "pcv3", "ipv", "mcv1",
+            "yellowfever", "mcv2"
     };
+
 
     //Fully immunized at age 2
     public static String isFullyImmunized(int age, List<String> vaccineGiven) {
@@ -160,15 +164,20 @@ public class ChildUtils {
                 tableName + "." + DBConstants.KEY.LAST_INTERACTED_WITH,
                 tableName + "." + DBConstants.KEY.BASE_ENTITY_ID,
                 tableName + "." + DBConstants.KEY.FIRST_NAME,
+                tableName + "." + DBConstants.KEY.MIDDLE_NAME,
                 familyMemberTable + "." + DBConstants.KEY.FIRST_NAME + " as " + ChildDBConstants.KEY.FAMILY_FIRST_NAME,
                 familyMemberTable + "." + DBConstants.KEY.LAST_NAME + " as " + ChildDBConstants.KEY.FAMILY_LAST_NAME,
+                familyMemberTable + "." + DBConstants.KEY.MIDDLE_NAME + " as " + ChildDBConstants.KEY.FAMILY_MIDDLE_NAME,
                 familyTable + "." + DBConstants.KEY.VILLAGE_TOWN + " as " + ChildDBConstants.KEY.FAMILY_HOME_ADDRESS,
                 tableName + "." + DBConstants.KEY.LAST_NAME,
                 tableName + "." + DBConstants.KEY.UNIQUE_ID,
                 tableName + "." + DBConstants.KEY.GENDER,
                 tableName + "." + DBConstants.KEY.DOB,
+                tableName + "." + org.smartregister.family.util.Constants.JSON_FORM_KEY.DOB_UNKNOWN,
                 tableName + "." + ChildDBConstants.KEY.LAST_HOME_VISIT,
                 tableName + "." + ChildDBConstants.KEY.VISIT_NOT_DONE,
+                tableName + "." + ChildDBConstants.KEY.CHILD_BF_HR,
+                tableName + "." + ChildDBConstants.KEY.CHILD_PHYSICAL_CHANGE,
                 tableName + "." + ChildDBConstants.KEY.BIRTH_CERT,
                 tableName + "." + ChildDBConstants.KEY.BIRTH_CERT_ISSUE_DATE,
                 tableName + "." + ChildDBConstants.KEY.BIRTH_CERT_NUMBER,
@@ -318,7 +327,27 @@ public class ChildUtils {
         } else {
             String str = diff + " days overdue";
             spannableString = new SpannableString(str);
-            spannableString.setSpan(new ForegroundColorSpan(Color.RED), 0, str.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            spannableString.setSpan(new ForegroundColorSpan(WcaroApplication.getInstance().getContext().getColorResource(R.color.alert_urgent_red)), 0, str.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            return spannableString;
+        }
+    }
+
+    public static SpannableString dueOverdueCalculation(String dueDate) {
+        SpannableString spannableString;
+        LocalDate date1 = new LocalDate(dueDate);
+        LocalDate date2 = new LocalDate();
+        int diff = Days.daysBetween(date1, date2).getDays();
+        Date date= org.smartregister.family.util.Utils.dobStringToDate(dueDate);
+        if (diff < 0) {
+
+            String str="Due "+dd_MMM_yyyy.format(date);
+            spannableString = new SpannableString(str);
+            spannableString.setSpan(new ForegroundColorSpan(Color.GRAY), 0, str.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            return spannableString;
+        } else {
+            String str="Overdue "+dd_MMM_yyyy.format(date);
+            spannableString = new SpannableString(str);
+            spannableString.setSpan(new ForegroundColorSpan(WcaroApplication.getInstance().getContext().getColorResource(R.color.alert_urgent_red)), 0, str.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             return spannableString;
         }
     }
@@ -364,4 +393,11 @@ public class ChildUtils {
     }
 
 
+    public static String fixVaccineCasing(String display) {
+        display = display.toUpperCase();
+        if(display.toLowerCase().contains("rota")||display.toLowerCase().contains("penta")||display.toLowerCase().contains("yellow fever")){
+            display = capitalize(display.toLowerCase());
+        }
+        return display;
+    }
 }

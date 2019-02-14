@@ -7,9 +7,12 @@ public class ChildDBConstants {
         public static final String LAST_HOME_VISIT = "last_home_visit";
         public static final String RELATIONAL_ID = "relationalid";
         public static final String FAMILY_FIRST_NAME = "family_first_name";
+        public static final String FAMILY_MIDDLE_NAME = "family_middle_name";
         public static final String FAMILY_LAST_NAME = "family_last_name";
         public static final String FAMILY_HOME_ADDRESS = "family_home_address";
         public static final String ENTITY_TYPE = "entity_type";
+        public static final String CHILD_BF_HR="early_bf_1hr";
+        public static final String CHILD_PHYSICAL_CHANGE="physically_challenged";
         public static final String BIRTH_CERT = "birth_cert";
         public static final String BIRTH_CERT_ISSUE_DATE = "birth_cert_issue_date";
         public static final String BIRTH_CERT_NUMBER = "birth_cert_num";

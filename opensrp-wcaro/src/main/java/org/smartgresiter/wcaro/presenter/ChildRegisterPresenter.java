@@ -2,6 +2,7 @@ package org.smartgresiter.wcaro.presenter;
 
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.text.TextUtils;
 import android.util.Log;
 import android.util.Pair;
 
@@ -14,6 +15,12 @@ import org.smartgresiter.wcaro.interactor.ChildRegisterInteractor;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.domain.FetchStatus;
+import org.smartregister.family.contract.FamilyRegisterContract;
+import org.smartregister.family.domain.FamilyEventClient;
+import org.smartregister.family.interactor.FamilyRegisterInteractor;
+import org.smartregister.family.model.BaseFamilyRegisterModel;
+import org.smartregister.family.util.JsonFormUtils;
+import org.smartregister.family.util.Utils;
 import org.smartregister.repository.AllSharedPreferences;
 
 import java.lang.ref.WeakReference;
@@ -64,9 +71,15 @@ public class ChildRegisterPresenter implements ChildRegisterContract.Presenter, 
             interactor.getNextUniqueId(triple, this, familyId);
             return;
         }
+        if(TextUtils.isEmpty(familyId)){
+            JSONObject form=  new BaseFamilyRegisterModel().getFormAsJson(formName, entityId, currentLocationId);
+            getView().startFormActivity(form);
+        }else{
+            JSONObject form = model.getFormAsJson(formName, entityId, currentLocationId, familyId);
+            getView().startFormActivity(form);
+        }
 
-        JSONObject form = model.getFormAsJson(formName, entityId, currentLocationId, familyId);
-        getView().startFormActivity(form);
+
 
     }
 
@@ -94,13 +107,44 @@ public class ChildRegisterPresenter implements ChildRegisterContract.Presenter, 
         try {
 
             getView().showProgressDialog(R.string.saving_dialog_title);
+            JSONObject form = new JSONObject(jsonString);
+            if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Utils.metadata().familyRegister.registerEventType))
+            {
 
-            Pair<Client, Event> pair = model.processRegistration(jsonString);
-            if (pair == null) {
-                return;
+                List<FamilyEventClient> fevent = new BaseFamilyRegisterModel().processRegistration(jsonString);
+                if (fevent == null) {
+                    return;
+                }
+                new FamilyRegisterInteractor().saveRegistration(fevent, jsonString, isEditMode, new FamilyRegisterContract.InteractorCallBack() {
+                    @Override
+                    public void onUniqueIdFetched(Triple<String, String, String> triple, String entityId) {
+
+                    }
+
+                    @Override
+                    public void onNoUniqueId() {
+
+                    }
+
+                    @Override
+                    public void onRegistrationSaved(boolean isEdit) {
+                        getView().hideProgressDialog();
+                        getView().openFamilyListView();
+
+
+                    }
+                });
+
+            }else{
+
+                Pair<Client, Event> pair = model.processRegistration(jsonString);
+                if (pair == null) {
+                    return;
+                }
+
+                interactor.saveRegistration(pair, jsonString, isEditMode, this);
             }
 
-            interactor.saveRegistration(pair, jsonString, isEditMode, this);
 
         } catch (Exception e) {
             Log.e(TAG, Log.getStackTraceString(e));

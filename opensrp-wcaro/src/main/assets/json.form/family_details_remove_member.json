@@ -129,7 +129,7 @@
         "label": "Date moved away",
         "hint": "Date moved away *",
         "expanded": false,
-        "min_date": "today-10y",
+        "min_date": "",
         "max_date": "today",
         "v_required": {
           "value": "true",

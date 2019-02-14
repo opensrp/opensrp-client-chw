@@ -43,6 +43,14 @@
           },
           {
             "field": "eventType",
+            "field_value": "Update Child Registration",
+            "creates_case": [
+              "ec_child",
+              "ec_family_member"
+            ]
+          },
+          {
+            "field": "eventType",
             "field_value": "Child Home Visit",
             "creates_case": [
               "ec_child",

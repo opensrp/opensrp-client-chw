@@ -157,27 +157,32 @@ public class UpcomingServicesFragmentView extends LinearLayout implements View.O
             }
 
             @Override
-            public void updateExclusiveFeedingData(String name) {
+            public Context getViewContext() {
+                return getContext();
+            }
+
+            @Override
+            public void updateExclusiveFeedingData(String name,String dueDate) {
 
             }
 
             @Override
-            public void updateMnpData(String name) {
+            public void updateMnpData(String name,String dueDate) {
 
             }
 
             @Override
-            public void updateVitaminAData(String name) {
+            public void updateVitaminAData(String name,String dueDate) {
 
             }
 
             @Override
-            public void updateDewormingData(String name) {
+            public void updateDewormingData(String name,String dueDate) {
 
             }
 
             @Override
-            public void statusImageViewUpdate(String type, boolean value,String message) {
+            public void statusImageViewUpdate(String type, boolean value,String message,String yesNo) {
 
             }
 
