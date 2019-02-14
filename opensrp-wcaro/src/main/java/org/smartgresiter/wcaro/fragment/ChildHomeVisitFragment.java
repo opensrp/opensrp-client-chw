@@ -134,7 +134,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         ));
         dobString = dobString.contains("y") ? dobString.substring(0, dobString.indexOf("y")) : "";
 
-        if (!TextUtils.isEmpty(birthCert) || Integer.valueOf(dobString)<1) {
+        if (!TextUtils.isEmpty(birthCert)|| TextUtils.isEmpty(dobString) || Integer.valueOf(dobString)<1) {
             layoutBirthCertGroup.setVisibility(View.GONE);
         }else{
             layoutBirthCertGroup.setVisibility(View.VISIBLE);

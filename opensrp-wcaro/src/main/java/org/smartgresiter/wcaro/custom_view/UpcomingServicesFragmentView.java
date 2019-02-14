@@ -12,6 +12,7 @@ import android.widget.TextView;
 import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.contract.HomeVisitGrowthNutritionContract;
 import org.smartgresiter.wcaro.contract.HomeVisitImmunizationContract;
+import org.smartgresiter.wcaro.interactor.HomeVisitGrowthNutritionInteractor;
 import org.smartgresiter.wcaro.presenter.HomeVisitGrowthNutritionPresenter;
 import org.smartgresiter.wcaro.presenter.HomeVisitImmunizationPresenter;
 import org.smartgresiter.wcaro.util.ChildUtils;
@@ -21,6 +22,7 @@ import org.smartgresiter.wcaro.util.ImmunizationState;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.Alert;
 import org.smartregister.immunization.db.VaccineRepo;
+import org.smartregister.immunization.domain.ServiceWrapper;
 import org.smartregister.immunization.domain.Vaccine;
 
 import java.util.ArrayList;
@@ -35,9 +37,9 @@ public class UpcomingServicesFragmentView extends LinearLayout implements View.O
 
 
     private HomeVisitImmunizationPresenter presenter;
-    private HomeVisitGrowthNutritionPresenter growthNutritionPresenter;
     private Activity context;
     private ArrayList<HomeVisitVaccineGroupDetails> homeVisitVaccineGroupDetailsList;
+    private CommonPersonObjectClient childClient;
 
     public UpcomingServicesFragmentView(Context context) {
         super(context);
@@ -72,6 +74,7 @@ public class UpcomingServicesFragmentView extends LinearLayout implements View.O
     @Override
     public void setChildClient(CommonPersonObjectClient childClient) {
         presenter.setChildClient(childClient);
+        this.childClient=childClient;
 
     }
 
@@ -140,7 +143,6 @@ public class UpcomingServicesFragmentView extends LinearLayout implements View.O
     @Override
     public HomeVisitImmunizationContract.Presenter initializePresenter() {
         presenter = new HomeVisitImmunizationPresenter(this);
-        initializeGrowthPresenter();
         return presenter;
     }
 
@@ -149,50 +151,17 @@ public class UpcomingServicesFragmentView extends LinearLayout implements View.O
         return presenter;
     }
 
-    private void initializeGrowthPresenter() {
-        growthNutritionPresenter = new HomeVisitGrowthNutritionPresenter(new HomeVisitGrowthNutritionContract.View() {
+    private void getUpcomingGrowthNutritonData() {
+        final HomeVisitGrowthNutritionInteractor homeVisitGrowthNutritionInteractor=new HomeVisitGrowthNutritionInteractor();
+        homeVisitGrowthNutritionInteractor.parseRecordServiceData(childClient, new HomeVisitGrowthNutritionContract.InteractorCallBack() {
             @Override
-            public HomeVisitGrowthNutritionContract.Presenter initializePresenter() {
-                return null;
-            }
+            public void updateRecordVisitData(final Map<String, ServiceWrapper> stringServiceWrapperMap) {
 
-            @Override
-            public Context getViewContext() {
-                return getContext();
-            }
-
-            @Override
-            public void updateExclusiveFeedingData(String name,String dueDate) {
-
-            }
-
-            @Override
-            public void updateMnpData(String name,String dueDate) {
-
-            }
-
-            @Override
-            public void updateVitaminAData(String name,String dueDate) {
-
-            }
-
-            @Override
-            public void updateDewormingData(String name,String dueDate) {
-
-            }
-
-            @Override
-            public void statusImageViewUpdate(String type, boolean value,String message,String yesNo) {
-
-            }
-
-            @Override
-            public void updateUpcomingService() {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         try {
-                            ArrayList<GrowthServiceData> growthServiceDataList = growthNutritionPresenter.getAllDueService();
+                            ArrayList<GrowthServiceData> growthServiceDataList = homeVisitGrowthNutritionInteractor.getAllDueService(stringServiceWrapperMap);
                             String lastDate = "";
                             View lastView = null;
                             for (Iterator<GrowthServiceData> i = growthServiceDataList.iterator(); i.hasNext(); ) {
@@ -200,8 +169,12 @@ public class UpcomingServicesFragmentView extends LinearLayout implements View.O
                                 View existView = isExistView(growthServiceData);
                                 if (existView != null) {
                                     TextView growth = (TextView) existView.findViewById(R.id.growth_service_name_title);
-                                    growth.setVisibility(VISIBLE);
-                                    growth.append("\n" + growthServiceData.getDisplayName());
+                                    if(growth.getVisibility()==GONE){
+                                        growth.setVisibility(VISIBLE);
+                                        growth.setText(growthServiceData.getDisplayName());
+                                    }else{
+                                        growth.append("\n" + growthServiceData.getDisplayName());
+                                    }
                                     lastDate = growthServiceData.getDisplayAbleDate();
                                     i.remove();
                                 } else {
@@ -224,12 +197,12 @@ public class UpcomingServicesFragmentView extends LinearLayout implements View.O
                             e.printStackTrace();
                         }
                     }
-                }, 500);
-
+                }, 200);
 
             }
         });
     }
+
 
     private View isExistView(GrowthServiceData growthServiceData) {
         for (String date : viewMap.keySet()) {
@@ -245,8 +218,7 @@ public class UpcomingServicesFragmentView extends LinearLayout implements View.O
 
         removeAllViews();
         presenter.updateImmunizationState(this);
-        growthNutritionPresenter.parseRecordServiceData(presenter.getchildClient());
-
+        getUpcomingGrowthNutritonData();
 
     }
 
