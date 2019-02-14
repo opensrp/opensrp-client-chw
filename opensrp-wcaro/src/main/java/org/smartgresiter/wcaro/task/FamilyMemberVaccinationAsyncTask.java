@@ -80,8 +80,17 @@ public class FamilyMemberVaccinationAsyncTask extends AsyncTask {
                 if (pClient.getCaseId().equalsIgnoreCase(childId)) {
                     if (!TextUtils.isEmpty(dobString)) {
                         DateTime dateTime = new DateTime(dobString);
-                        VaccineSchedule.updateOfflineAlerts(childId, dateTime, "child");
-                        WCAROServiceSchedule.updateOfflineAlerts(childId, dateTime);
+                        try{
+                            VaccineSchedule.updateOfflineAlerts(childId, dateTime, "child");
+                        }catch ( Exception e){
+
+                        }
+                        try{
+                            WCAROServiceSchedule.updateOfflineAlerts(childId, dateTime);
+                        }catch (Exception e){
+
+                        }
+
                     }
                 }
 

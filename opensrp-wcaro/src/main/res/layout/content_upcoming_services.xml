@@ -17,15 +17,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/upcoming_services"
-            android:gravity="center"
-            style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
+            android:gravity="left"
+            style="@style/CustomFontTextViewStyle.ClientList"
             android:textColor="@color/black"
+            android:layout_marginLeft="10dp"
             android:padding="10dp"
             android:textStyle="bold"
             android:textSize="20sp" />
 
         <org.smartgresiter.wcaro.custom_view.UpcomingServicesFragmentView
             android:id="@+id/upcomingServicesHolder"
+            android:layout_marginLeft="10dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
