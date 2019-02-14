@@ -257,6 +257,8 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
                     }
                 }
             }
+        }else if(singleVaccineInDueState.size()>0){
+            toReturn = false;
         }
         return toReturn;
     }

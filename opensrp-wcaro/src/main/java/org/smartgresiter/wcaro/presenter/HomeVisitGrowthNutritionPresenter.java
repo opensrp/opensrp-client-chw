@@ -10,6 +10,7 @@ import org.smartgresiter.wcaro.fragment.GrowthNutritionInputFragment;
 import org.smartgresiter.wcaro.interactor.HomeVisitGrowthNutritionInteractor;
 import org.smartgresiter.wcaro.util.ChildUtils;
 import org.smartgresiter.wcaro.util.GrowthServiceData;
+import org.smartgresiter.wcaro.util.JsonFormUtils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.Alert;
 import org.smartregister.domain.AlertStatus;
@@ -22,6 +23,7 @@ import org.smartregister.util.Utils;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -94,9 +96,11 @@ public class HomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNutriti
         saveStateMap.put(type, serviceWrapper);
         saveServiceMap.put(type,serviceWrapper.getAlert().scheduleName());
         if(type.equalsIgnoreCase(GrowthNutritionInputFragment.GROWTH_TYPE.EXCLUSIVE.getValue())){
-            if (getView() != null) getView().statusImageViewUpdate(type, true,context.getString(R.string.provided_on,serviceWrapper.getUpdatedVaccineDateAsString()),serviceWrapper.getValue());
+            Date date= org.smartregister.family.util.Utils.dobStringToDate(serviceWrapper.getUpdatedVaccineDateAsString());
+            if (getView() != null) getView().statusImageViewUpdate(type, true,context.getString(R.string.provided_on, JsonFormUtils.dd_MMM_yyyy.format(date)),serviceWrapper.getValue());
         }else{
-            if (getView() != null) getView().statusImageViewUpdate(type, true,context.getString(R.string.provided_on,serviceWrapper.getUpdatedVaccineDateAsString()),"");
+            Date date= org.smartregister.family.util.Utils.dobStringToDate(serviceWrapper.getUpdatedVaccineDateAsString());
+            if (getView() != null) getView().statusImageViewUpdate(type, true,context.getString(R.string.provided_on,JsonFormUtils.dd_MMM_yyyy.format(date)),"");
 
         }
     }

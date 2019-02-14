@@ -66,11 +66,17 @@ public class VaccinationAsyncTask extends AsyncTask {
 
         if (!TextUtils.isEmpty(dobString)) {
             DateTime dateTime = new DateTime(dobString);
-            VaccineSchedule.updateOfflineAlerts(entityId, dateTime, "child");
-            ServiceSchedule.updateOfflineAlerts(entityId, dateTime);
+            try{
+                VaccineSchedule.updateOfflineAlerts(entityId, dateTime, "child");
+            }catch (Exception e){
+
+            }
+            try{
+                ServiceSchedule.updateOfflineAlerts(entityId, dateTime);
+            }catch (Exception e){
+
+            }
         }
-
-
         alerts = WcaroApplication.getInstance().getContext().alertService().findByEntityIdAndAlertNames(entityId, VaccinateActionUtils.allAlertNames("child"));
         vaccines = WcaroApplication.getInstance().vaccineRepository().findByEntityId(entityId);
         Map<String, Date> recievedVaccines = receivedVaccines(vaccines);

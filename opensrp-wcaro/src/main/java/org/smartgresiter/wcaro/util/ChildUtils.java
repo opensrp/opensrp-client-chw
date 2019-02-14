@@ -38,6 +38,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import static org.apache.commons.lang3.text.WordUtils.capitalize;
+import static org.smartgresiter.wcaro.util.JsonFormUtils.dd_MMM_yyyy;
 import static org.smartregister.util.JsonFormUtils.dd_MM_yyyy;
 
 public class ChildUtils {
@@ -339,12 +340,12 @@ public class ChildUtils {
         Date date= org.smartregister.family.util.Utils.dobStringToDate(dueDate);
         if (diff < 0) {
 
-            String str="Due "+dd_MM_yyyy.format(date);
+            String str="Due "+dd_MMM_yyyy.format(date);
             spannableString = new SpannableString(str);
             spannableString.setSpan(new ForegroundColorSpan(Color.GRAY), 0, str.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             return spannableString;
         } else {
-            String str="Overdue "+dd_MM_yyyy.format(date);
+            String str="Overdue "+dd_MMM_yyyy.format(date);
             spannableString = new SpannableString(str);
             spannableString.setSpan(new ForegroundColorSpan(WcaroApplication.getInstance().getContext().getColorResource(R.color.alert_urgent_red)), 0, str.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             return spannableString;

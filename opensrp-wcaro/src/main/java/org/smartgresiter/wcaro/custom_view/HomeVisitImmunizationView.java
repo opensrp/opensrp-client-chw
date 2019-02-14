@@ -41,6 +41,7 @@ import java.util.Stack;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static org.apache.commons.lang3.text.WordUtils.capitalize;
+import static org.smartgresiter.wcaro.util.ChildUtils.fixVaccineCasing;
 import static org.smartgresiter.wcaro.util.Constants.IMMUNIZATION_CONSTANT.DATE;
 import static org.smartregister.util.StringUtil.humanize;
 
@@ -145,12 +146,7 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
         if (presenter.getVaccinesDueFromLastVisit().size() > 0) {
             String vaccinesDueLastVisit = "";
             for (int i = 0; i < presenter.getVaccinesDueFromLastVisit().size(); i++) {
-                String vaccineName = presenter.getVaccinesDueFromLastVisit().get(i).display();
-                if(vaccineName.toLowerCase().contains("rota")||vaccineName.toLowerCase().contains("penta")){
-                    vaccineName = capitalize(vaccineName.toLowerCase());
-                }else{
-                    vaccineName = vaccineName.toUpperCase();
-                }
+                String vaccineName = fixVaccineCasing(presenter.getVaccinesDueFromLastVisit().get(i).display());
                 vaccinesDueLastVisit = vaccinesDueLastVisit + vaccineName + ",";
             }
             if (vaccinesDueLastVisit.endsWith(",")) {
