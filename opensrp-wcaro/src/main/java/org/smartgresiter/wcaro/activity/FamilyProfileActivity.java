@@ -16,6 +16,8 @@ import android.view.MenuItem;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.vijay.jsonwizard.domain.Form;
+
 import org.apache.commons.lang3.StringUtils;
 import org.greenrobot.eventbus.EventBus;
 import org.json.JSONObject;
@@ -36,6 +38,7 @@ import org.smartregister.family.fragment.BaseFamilyProfileDueFragment;
 import org.smartregister.family.fragment.BaseFamilyProfileMemberFragment;
 import org.smartregister.family.model.BaseFamilyProfileModel;
 import org.smartregister.family.util.Constants;
+import org.smartregister.family.util.Utils;
 import org.smartregister.util.PermissionUtils;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
@@ -244,6 +247,17 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity implements 
                 }
             }
         }
+    }
+
+    @Override
+    public void startFormActivity(JSONObject jsonForm) {
+        Intent intent = new Intent(this, WCAROJsonFormActivity.class);
+        intent.putExtra("json", jsonForm.toString());
+        Form form = new Form();
+        form.setActionBarBackground(R.color.family_actionbar);
+        form.setWizard(false);
+        intent.putExtra("form", form);
+        this.startActivityForResult(intent, 2244);
     }
 
 }
