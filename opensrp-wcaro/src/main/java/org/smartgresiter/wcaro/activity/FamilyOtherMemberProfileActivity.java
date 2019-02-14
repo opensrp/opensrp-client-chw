@@ -29,8 +29,8 @@ import org.smartregister.family.adapter.ViewPagerAdapter;
 import org.smartregister.family.contract.FamilyProfileContract;
 import org.smartregister.family.domain.FamilyEventClient;
 import org.smartregister.family.fragment.BaseFamilyOtherMemberProfileFragment;
-import org.smartregister.family.model.BaseFamilyOtherMemberProfileActivityModel;
 import org.smartregister.family.interactor.FamilyProfileInteractor;
+import org.smartregister.family.model.BaseFamilyOtherMemberProfileActivityModel;
 import org.smartregister.family.model.BaseFamilyProfileModel;
 import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.JsonFormUtils;
@@ -50,23 +50,24 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
                     break;
                 case R.id.remove_member_layout:
 
-                    IndividualProfileRemoveActivity.startIndividualProfileActivity(FamilyOtherMemberProfileActivity.this,commonPersonObject,familyBaseEntityId,familyHead,primaryCaregiver);
+                    IndividualProfileRemoveActivity.startIndividualProfileActivity(FamilyOtherMemberProfileActivity.this, commonPersonObject, familyBaseEntityId, familyHead, primaryCaregiver);
 
                     break;
             }
 
         }
     };
-    String familyBaseEntityId,familyHead,primaryCaregiver;
+    String familyBaseEntityId, familyHead, primaryCaregiver;
     String familyName;
     CommonPersonObjectClient commonPersonObject;
+
     @Override
     protected void initializePresenter() {
-        commonPersonObject=(CommonPersonObjectClient)getIntent().getSerializableExtra(org.smartgresiter.wcaro.util.Constants.INTENT_KEY.CHILD_COMMON_PERSON);
-         familyBaseEntityId = getIntent().getStringExtra(Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID);
+        commonPersonObject = (CommonPersonObjectClient) getIntent().getSerializableExtra(org.smartgresiter.wcaro.util.Constants.INTENT_KEY.CHILD_COMMON_PERSON);
+        familyBaseEntityId = getIntent().getStringExtra(Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID);
         String baseEntityId = getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID);
-         familyHead = getIntent().getStringExtra(Constants.INTENT_KEY.FAMILY_HEAD);
-         primaryCaregiver = getIntent().getStringExtra(Constants.INTENT_KEY.PRIMARY_CAREGIVER);
+        familyHead = getIntent().getStringExtra(Constants.INTENT_KEY.FAMILY_HEAD);
+        primaryCaregiver = getIntent().getStringExtra(Constants.INTENT_KEY.PRIMARY_CAREGIVER);
         String villageTown = getIntent().getStringExtra(Constants.INTENT_KEY.VILLAGE_TOWN);
         String familyName = getIntent().getStringExtra(Constants.INTENT_KEY.FAMILY_NAME);
         presenter = new FamilyOtherMemberActivityPresenter(this, new BaseFamilyOtherMemberProfileActivityModel(), null, familyBaseEntityId, baseEntityId, familyHead, primaryCaregiver, villageTown, familyName);
@@ -130,6 +131,7 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
     public FamilyOtherMemberActivityPresenter presenter() {
         return (FamilyOtherMemberActivityPresenter) presenter;
     }
+
     public void startFormForEdit() {
 
         CommonRepository commonRepository = org.smartgresiter.wcaro.util.Utils.context().commonrepository(org.smartgresiter.wcaro.util.Utils.metadata().familyMemberRegister.tableName);
@@ -140,13 +142,14 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
         client.setColumnmaps(personObject.getColumnmaps());
 
         JSONObject form = org.smartgresiter.wcaro.util.JsonFormUtils.getAutoPopulatedJsonEditMemberFormString(org.smartgresiter.wcaro.util.Constants.JSON_FORM.FAMILY_MEMBER_REGISTER,
-                this, client, org.smartgresiter.wcaro.util.Utils.metadata().familyMemberRegister.registerEventType,commonPersonObject.getCaseId().equalsIgnoreCase(primaryCaregiver));
+                this, client, org.smartgresiter.wcaro.util.Utils.metadata().familyMemberRegister.updateEventType, commonPersonObject.getCaseId().equalsIgnoreCase(primaryCaregiver));
         try {
             startFormActivity(form);
         } catch (Exception e) {
             Log.e("TAG", e.getMessage());
         }
     }
+
     public void startFormActivity(JSONObject jsonForm) {
 
         Intent intent = new Intent(this, Utils.metadata().familyMemberFormActivity);
@@ -161,12 +164,13 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
 
         startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
     }
+
     public void updateFamilyMember(String jsonString) {
 
         try {
             showProgressDialog(org.smartregister.family.R.string.saving_dialog_title);
 
-            FamilyEventClient familyEventClient = new BaseFamilyProfileModel(familyName).processMemberRegistration(jsonString, familyBaseEntityId);
+            FamilyEventClient familyEventClient = new BaseFamilyProfileModel(familyName).processUpdateMemberRegistration(jsonString, familyBaseEntityId);
             if (familyEventClient == null) {
                 return;
             }
@@ -205,6 +209,7 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
             e.printStackTrace();
         }
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -214,8 +219,8 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
                     //TODO need to refresh FamilyProfileActivity
 //                    Intent intent = getIntent();
 //                    setResult(RESULT_OK, intent);
-                    Intent intent = new Intent(FamilyOtherMemberProfileActivity.this, FamilyRegisterActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    Intent intent = new Intent(FamilyOtherMemberProfileActivity.this, FamilyProfileActivity.class);
+                    intent.putExtras(getIntent().getExtras());
                     startActivity(intent);
                     finish();
                 }
@@ -226,7 +231,7 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
                         String jsonString = data.getStringExtra(Constants.JSON_FORM_EXTRA.JSON);
 
                         JSONObject form = new JSONObject(jsonString);
-                        if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(org.smartgresiter.wcaro.util.Constants.EventType.FAMILY_MEMBER_REGISTRATION)) {
+                        if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Utils.metadata().familyMemberRegister.updateEventType)) {
                             updateFamilyMember(jsonString);
                         }
                     } catch (Exception e) {
