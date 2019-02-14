@@ -55,7 +55,7 @@
     "title": "Add Child Under 5",
     "fields": [
       {
-        "key": "image",
+        "key": "photo",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
@@ -269,14 +269,18 @@
       {
         "key": "early_bf_1hr",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "161543AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "spinner",
         "hint": "Early initiation of breastfeeding (1 hr)? *",
         "values": [
           "Yes",
           "No"
         ],
+        "openmrs_choice_ids": {
+          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
         "v_required": {
           "value": "true",
           "err": "Please enter Early initiation of breastfeeding"
@@ -285,14 +289,18 @@
       {
         "key": "physically_challenged",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "159522AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "spinner",
         "hint": "Physically challenged? *",
         "values": [
           "Yes",
           "No"
         ],
+        "openmrs_choice_ids": {
+          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
         "v_required": {
           "value": "true",
           "err": "Please enter if Physically challenged"

@@ -14,19 +14,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:layout_marginRight="50dp"
+        android:layout_marginEnd="50dp"
         android:background="#2c2c2c"
         android:fitsSystemWindows="true"
         app:itemBackground="@drawable/drawer_item_background"
         app:itemIconTint="@android:color/white"
         app:itemTextColor="@android:color/white"
         app:theme="@style/WcaroTheme.AppBarOverlay.NavigationDrawerStyle">
-
-
-        <RelativeLayout
-            android:id="@+id/nav_content"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"></RelativeLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -47,21 +41,20 @@
                     android:layout_width="75dp"
                     android:layout_height="75dp"
                     android:layout_alignParentStart="true"
-                    android:layout_alignParentLeft="true"
                     android:layout_alignParentTop="true"
+                    android:contentDescription="@string/nav_logo"
                     android:visibility="gone"
                     app:srcCompat="@mipmap/ic_launcher" />
 
                 <TextView
                     android:id="@+id/tvLogo"
-                    android:fontFamily="sans-serif"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
-                    android:layout_alignParentLeft="true"
                     android:layout_alignParentTop="true"
                     android:layout_margin="15dp"
-                    android:text="WCARO LOGO"
+                    android:fontFamily="sans-serif"
+                    android:text="@string/nav_logo"
                     android:textColor="@color/light_grey"
                     android:textSize="24sp"
                     android:textStyle="bold" />
@@ -84,14 +77,13 @@
 
                 <TextView
                     android:id="@+id/tvRegisters"
-                    android:fontFamily="sans-serif"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
-                    android:layout_alignParentLeft="true"
                     android:layout_alignParentTop="true"
                     android:layout_margin="15dp"
-                    android:text="Registers"
+                    android:fontFamily="sans-serif"
+                    android:text="@string/nav_registers"
                     android:textSize="24sp" />
 
                 <android.support.v7.widget.RecyclerView
@@ -110,15 +102,15 @@
 
                 <TextView
                     android:id="@+id/tvLogout"
-                    android:fontFamily="sans-serif"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/vDiv2"
-                    android:layout_marginRight="15dp"
                     android:layout_marginLeft="15dp"
-                    android:layout_marginBottom="15dp"
                     android:layout_marginTop="35dp"
-                    android:text="Logout as"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:fontFamily="sans-serif"
+                    android:text="Log out as"
                     android:textSize="20sp" />
 
             </RelativeLayout>
@@ -132,51 +124,66 @@
                 android:background="#3d3d3d"
                 android:padding="15dp">
 
-                <ImageView
-                    android:id="@+id/ivIcon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentTop="true"
-                    app:srcCompat="@mipmap/sidemenu_sync" />
+                <RelativeLayout
+                    android:id="@+id/rlIconSync"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/ivIcon"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentTop="true"
+                        app:srcCompat="@mipmap/sidemenu_sync" />
+
+                    <ProgressBar
+                        android:id="@+id/pbSync"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:indeterminate="true" />
+
+                </RelativeLayout>
 
                 <TextView
                     android:id="@+id/tvSync"
-                    android:fontFamily="sans-serif"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:layout_toEndOf="@+id/ivIcon"
-                    android:layout_toRightOf="@+id/ivIcon"
-                    android:text="Sync"
+                    android:layout_toEndOf="@+id/rlIconSync"
+                    android:layout_toRightOf="@+id/rlIconSync"
+                    android:fontFamily="sans-serif"
+                    android:text="@string/nav_sync"
                     android:textColor="@color/white"
                     android:textSize="24sp" />
 
                 <TextView
                     android:id="@+id/tvSyncTime"
-                    android:fontFamily="sans-serif"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:text="08:12 am , Aug 8th"
+                    android:fontFamily="sans-serif"
+                    android:text="@string/nav_last_sync_time"
                     android:textColor="@color/white"
                     android:textSize="18sp" />
 
 
                 <TextView
                     android:id="@+id/tvSyncTimeTitle"
-                    android:fontFamily="sans-serif"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_toStartOf="@+id/tvSyncTime"
                     android:layout_toLeftOf="@+id/tvSyncTime"
-                    android:text="Last : "
+                    android:fontFamily="sans-serif"
+                    android:text="@string/nav_last"
                     android:textColor="@color/white"
                     android:textSize="18sp" />
 

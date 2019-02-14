@@ -14,6 +14,7 @@ import org.smartgresiter.wcaro.model.ChildProfileModel;
 import org.smartgresiter.wcaro.model.ChildRegisterModel;
 import org.smartgresiter.wcaro.util.Constants;
 import org.smartgresiter.wcaro.util.JsonFormUtils;
+import org.smartgresiter.wcaro.util.Utils;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
@@ -39,7 +40,7 @@ public class FamilyProfilePresenter extends BaseFamilyProfilePresenter implement
 
     @Override
     public void startFormForEdit(CommonPersonObjectClient client) {
-        JSONObject form = JsonFormUtils.getAutoPopulatedJsonEditFormString(Constants.JSON_FORM.FAMILY_DETAILS_REGISTER, getView().getApplicationContext(), client);
+        JSONObject form = JsonFormUtils.getAutoPopulatedJsonEditFormString(Constants.JSON_FORM.FAMILY_DETAILS_REGISTER, getView().getApplicationContext(), client, Utils.metadata().familyRegister.updateEventType);
         try {
             getView().startFormActivity(form);
         } catch (Exception e) {

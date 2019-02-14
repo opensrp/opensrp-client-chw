@@ -18,6 +18,7 @@ import org.smartregister.domain.jsonmapping.ClientClassification;
 import org.smartregister.domain.jsonmapping.Column;
 import org.smartregister.domain.jsonmapping.Table;
 import org.smartregister.family.util.DBConstants;
+import org.smartregister.family.util.Utils;
 import org.smartregister.immunization.ImmunizationLibrary;
 import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.immunization.domain.ServiceRecord;
@@ -95,7 +96,26 @@ public class WCAROClientProcessor extends ClientProcessorForJava {
                             processRemoveFamily(client.getBaseEntityId(), event.getEventDate().toDate());
                         }
                     }
-                } else{
+                }
+                else if (eventType.equals(Constants.EventType.REMOVE_MEMBER)) {
+                    Client client = eventClient.getClient();
+                    //iterate through the events
+                    if (client != null) {
+                        if (eventType.equals(Constants.EventType.REMOVE_MEMBER)) {
+                            processRemoveMember(client.getBaseEntityId(), event.getEventDate().toDate());
+                        }
+                    }
+                }
+                else if (eventType.equals(Constants.EventType.REMOVE_CHILD)) {
+                    Client client = eventClient.getClient();
+                    //iterate through the events
+                    if (client != null) {
+                        if (eventType.equals(Constants.EventType.REMOVE_CHILD)) {
+                            processRemoveChild(client.getBaseEntityId(), event.getEventDate().toDate());
+                        }
+                    }
+                }
+                else{
                     if (eventClient.getClient() != null) {
                         processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
                     }
@@ -332,6 +352,55 @@ public class WCAROClientProcessor extends ClientProcessorForJava {
             Log.e(WCAROClientProcessor.class.getCanonicalName(), Log.getStackTraceString(e));
         }
 
+    }
+
+    private void processRemoveMember(String baseEntityId, Date eventDate) {
+
+        if (eventDate == null) {
+            eventDate = new Date();
+        }
+
+        if (baseEntityId == null) {
+            return;
+        }
+
+        AllCommonsRepository commonsRepository = WcaroApplication.getInstance().getAllCommonsRepository(Constants.TABLE_NAME.FAMILY_MEMBER);
+        if (commonsRepository != null) {
+
+            ContentValues values = new ContentValues();
+            values.put(DBConstants.KEY.DATE_REMOVED, new SimpleDateFormat("yyyy-MM-dd").format(eventDate));
+            values.put("is_closed", 1);
+
+            WcaroApplication.getInstance().getRepository().getWritableDatabase().update(Constants.TABLE_NAME.FAMILY_MEMBER, values,
+                    DBConstants.KEY.BASE_ENTITY_ID + " = ?  ", new String[]{baseEntityId});
+
+            Utils.context().commonrepository(Constants.TABLE_NAME.FAMILY_MEMBER).populateSearchValues(baseEntityId, DBConstants.KEY.DATE_REMOVED, new SimpleDateFormat("yyyy-MM-dd").format(eventDate), null);
+
+        }
+    }
+
+    private void processRemoveChild(String baseEntityId, Date eventDate) {
+
+        if (eventDate == null) {
+            eventDate = new Date();
+        }
+
+        if (baseEntityId == null) {
+            return;
+        }
+
+        AllCommonsRepository commonsRepository = WcaroApplication.getInstance().getAllCommonsRepository(Constants.TABLE_NAME.CHILD);
+        if (commonsRepository != null) {
+
+            ContentValues values = new ContentValues();
+            values.put(DBConstants.KEY.DATE_REMOVED, new SimpleDateFormat("yyyy-MM-dd").format(eventDate));
+            values.put("is_closed", 1);
+
+            WcaroApplication.getInstance().getRepository().getWritableDatabase().update(Constants.TABLE_NAME.CHILD, values,
+                    DBConstants.KEY.BASE_ENTITY_ID + " = ?  ", new String[]{baseEntityId});
+            Utils.context().commonrepository(Constants.TABLE_NAME.CHILD).populateSearchValues(baseEntityId, DBConstants.KEY.DATE_REMOVED, new SimpleDateFormat("yyyy-MM-dd").format(eventDate), null);
+
+        }
     }
 
     /**

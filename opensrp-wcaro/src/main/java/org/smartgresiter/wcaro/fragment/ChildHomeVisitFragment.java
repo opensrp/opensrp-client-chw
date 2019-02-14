@@ -47,7 +47,6 @@ import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.immunization.domain.VaccineWrapper;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 

@@ -23,7 +23,6 @@ import android.widget.TextView;
 import com.google.common.collect.ImmutableMap;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.http.annotation.Immutable;
 import org.joda.time.DateTime;
 import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.custom_view.HomeVisitGrowthAndNutrition;
@@ -40,7 +39,6 @@ import org.smartregister.immunization.repository.RecurringServiceRecordRepositor
 import org.smartregister.util.DatePickerUtils;
 
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.Map;
 
 @SuppressLint("ValidFragment")

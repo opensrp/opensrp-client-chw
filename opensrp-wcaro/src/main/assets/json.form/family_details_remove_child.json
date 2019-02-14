@@ -126,7 +126,7 @@
         "label": "Date moved away",
         "hint": "Date moved away *",
         "expanded": false,
-        "min_date": "today-10y",
+        "min_date": "",
         "max_date": "today",
         "v_required": {
           "value": "true",
@@ -156,7 +156,7 @@
         "label": "Date of death",
         "hint": "Date the family member died *",
         "expanded": false,
-        "min_date": "today-10y",
+        "min_date": "",
         "max_date": "today",
         "v_required": {
           "value": "true",

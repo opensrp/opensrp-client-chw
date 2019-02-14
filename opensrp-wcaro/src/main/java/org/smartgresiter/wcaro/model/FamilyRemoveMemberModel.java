@@ -11,7 +11,13 @@ import org.smartregister.family.util.Utils;
 import org.smartregister.util.FormUtils;
 import org.smartregister.util.JsonFormUtils;
 
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
+
+import static java.util.Calendar.DATE;
+import static java.util.Calendar.MONTH;
+import static java.util.Calendar.YEAR;
 
 public class FamilyRemoveMemberModel extends FamilyProfileMemberModel implements FamilyRemoveMemberContract.Model {
 
@@ -37,6 +43,14 @@ public class FamilyRemoveMemberModel extends FamilyProfileMemberModel implements
                         Date dob = Utils.dobStringToDate(dobString);
                         if (dob != null) {
                             jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, JsonFormUtils.dd_MM_yyyy.format(dob));
+                            JSONObject min_date = org.smartgresiter.wcaro.util.JsonFormUtils.getFieldJSONObject(jsonArray, "date_moved");
+                            JSONObject date_died = org.smartgresiter.wcaro.util.JsonFormUtils.getFieldJSONObject(jsonArray, "date_died");
+
+                            dobString = Utils.getDuration(dobString);
+                            dobString = dobString.contains("y") ? dobString.substring(0, dobString.indexOf("y")) : "";
+
+                            min_date.put("min_date", "today-" + dobString + "y");
+                            date_died.put("min_date", "today-" + dobString + "y");
                         }
                     }
                 } else if (jsonObject.getString(org.smartregister.family.util.JsonFormUtils.KEY).equalsIgnoreCase(Constants.JsonAssets.DETAILS)) {
@@ -90,6 +104,27 @@ public class FamilyRemoveMemberModel extends FamilyProfileMemberModel implements
             e.printStackTrace();
             return null;
         }
+    }
+    public String getForm(CommonPersonObjectClient client) {
+        Date dob = Utils.dobStringToDate(Utils.getValue(client.getColumnmaps(), DBConstants.KEY.DOB, false));
+        return ((dob != null && getDiffYears(dob, new Date()) >= 5) ? Constants.JSON_FORM.FAMILY_DETAILS_REMOVE_MEMBER : Constants.JSON_FORM.FAMILY_DETAILS_REMOVE_CHILD);
+    }
+
+    public int getDiffYears(Date first, Date last) {
+        Calendar a = getCalendar(first);
+        Calendar b = getCalendar(last);
+        int diff = b.get(YEAR) - a.get(YEAR);
+        if (a.get(MONTH) > b.get(MONTH) ||
+                (a.get(MONTH) == b.get(MONTH) && a.get(DATE) > b.get(DATE))) {
+            diff--;
+        }
+        return diff;
+    }
+
+    public Calendar getCalendar(Date date) {
+        Calendar cal = Calendar.getInstance(Locale.US);
+        cal.setTime(date);
+        return cal;
     }
 
 }
