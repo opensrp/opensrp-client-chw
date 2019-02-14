@@ -23,6 +23,7 @@ import org.joda.time.DateTime;
 import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.application.WcaroApplication;
 import org.smartgresiter.wcaro.util.JsonFormUtils;
+import org.smartgresiter.wcaro.util.WCAROServiceSchedule;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.Alert;
 import org.smartregister.family.util.DBConstants;
@@ -671,7 +672,7 @@ public class ChildImmunizationFragment extends DialogFragment {
             if (!TextUtils.isEmpty(dobString)) {
                 DateTime dateTime = new DateTime(dobString);
                 VaccineSchedule.updateOfflineAlerts(childDetails.entityId(), dateTime, "child");
-                ServiceSchedule.updateOfflineAlerts(childDetails.entityId(), dateTime);
+                WCAROServiceSchedule.updateOfflineAlerts(childDetails.entityId(), dateTime);
             }
 
             List<Vaccine> vaccineList = new ArrayList<>();
@@ -913,7 +914,7 @@ public class ChildImmunizationFragment extends DialogFragment {
                 list.add(tag);
 
 
-                ServiceSchedule.updateOfflineAlerts(tag.getType(), childDetails.entityId(), org.smartregister.util.Utils.dobToDateTime(childDetails));
+                WCAROServiceSchedule.updateOfflineAlerts(tag.getType(), childDetails.entityId(), org.smartregister.util.Utils.dobToDateTime(childDetails));
             }
 
             RecurringServiceRecordRepository recurringServiceRecordRepository = ImmunizationLibrary.getInstance().recurringServiceRecordRepository();
@@ -978,7 +979,7 @@ public class ChildImmunizationFragment extends DialogFragment {
                     wrappers = new ArrayList<>();
                     wrappers.add(tag);
 
-                    ServiceSchedule.updateOfflineAlerts(tag.getType(), childDetails.entityId(), org.smartregister.util.Utils.dobToDateTime(childDetails));
+                    WCAROServiceSchedule.updateOfflineAlerts(tag.getType(), childDetails.entityId(), org.smartregister.util.Utils.dobToDateTime(childDetails));
 
                     RecurringServiceTypeRepository recurringServiceTypeRepository = ImmunizationLibrary.getInstance().recurringServiceTypeRepository();
                     List<ServiceType> serviceTypes = recurringServiceTypeRepository.fetchAll();

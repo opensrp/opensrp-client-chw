@@ -11,6 +11,7 @@ import org.smartgresiter.wcaro.interactor.HomeVisitGrowthNutritionInteractor;
 import org.smartgresiter.wcaro.util.ChildUtils;
 import org.smartgresiter.wcaro.util.GrowthServiceData;
 import org.smartgresiter.wcaro.util.JsonFormUtils;
+import org.smartgresiter.wcaro.util.WCAROServiceSchedule;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.Alert;
 import org.smartregister.domain.AlertStatus;
@@ -122,7 +123,7 @@ public class HomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNutriti
             ServiceWrapper serviceWrapper = saveStateMap.get(type);
             if (serviceWrapper != null) {
                 recurringServiceRecordRepository.deleteServiceRecord(serviceWrapper.getDbKey());
-                ServiceSchedule.updateOfflineAlerts(serviceWrapper.getType(), commonPersonObjectClient.entityId(), Utils.dobToDateTime(commonPersonObjectClient));
+                WCAROServiceSchedule.updateOfflineAlerts(serviceWrapper.getType(), commonPersonObjectClient.entityId(), Utils.dobToDateTime(commonPersonObjectClient));
             }
 
         }

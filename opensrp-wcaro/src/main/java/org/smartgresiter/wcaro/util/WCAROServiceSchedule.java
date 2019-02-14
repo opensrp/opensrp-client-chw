@@ -141,18 +141,7 @@ public class WCAROServiceSchedule {
     }
 
     private static AlertStatus calculateAlertStatus(DateTime referenceDate, DateTime expiryDateTime) {
-        if (referenceDate != null) {
-            Calendar refCalendarDate = Calendar.getInstance();
-            refCalendarDate.setTime(referenceDate.toDate());
-            standardiseCalendarDate(refCalendarDate);
 
-            Calendar today = Calendar.getInstance();
-            standardiseCalendarDate(today);
-
-            if (refCalendarDate.getTimeInMillis() <= today.getTimeInMillis()) {// Due
-                return AlertStatus.normal;
-            }
-        }
         if(expiryDateTime != null){
             Calendar refCalendarDate = Calendar.getInstance();
             refCalendarDate.setTime(expiryDateTime.toDate());
@@ -163,6 +152,18 @@ public class WCAROServiceSchedule {
 
             if (refCalendarDate.getTimeInMillis() <= today.getTimeInMillis()) {// Due
                 return AlertStatus.expired;
+            }
+        }
+        if (referenceDate != null) {
+            Calendar refCalendarDate = Calendar.getInstance();
+            refCalendarDate.setTime(referenceDate.toDate());
+            standardiseCalendarDate(refCalendarDate);
+
+            Calendar today = Calendar.getInstance();
+            standardiseCalendarDate(today);
+
+            if (refCalendarDate.getTimeInMillis() <= today.getTimeInMillis()) {// Due
+                return AlertStatus.normal;
             }
         }
 
