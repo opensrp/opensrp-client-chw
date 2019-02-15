@@ -272,7 +272,16 @@ public class UpdateServiceTask extends AsyncTask<Void, Void, Map<String, UpdateS
                 if (m != null && m.get("status") != null && m.get("status").toString().equalsIgnoreCase("due")) {
 
                     if (v == null && m.get("service") != null && serviceTypeList.contains((ServiceType) m.get("service"))) {
-                        v = m;
+                        try{
+                            Alert mAlert = (Alert) m.get("alert");
+                            if(!mAlert.status().equals(AlertStatus.expired)){
+                                v = m;
+                            }
+
+                        }catch (Exception e){
+
+                        }
+
 
                     } else if (v.get("alert") == null && m.get("alert") != null && m.get("service") != null && serviceTypeList.contains((ServiceType) m.get("service"))) {
                         Alert mAlert = (Alert) m.get("alert");

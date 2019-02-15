@@ -12,6 +12,7 @@ import org.smartgresiter.wcaro.util.JsonFormUtils;
 import org.smartgresiter.wcaro.util.WCAROServiceSchedule;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.Alert;
+import org.smartregister.domain.AlertStatus;
 import org.smartregister.immunization.ImmunizationLibrary;
 import org.smartregister.immunization.domain.ServiceSchedule;
 import org.smartregister.immunization.domain.ServiceWrapper;
@@ -119,7 +120,7 @@ public class HomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNutriti
             serviceWrapperExclusive = getServiceWrapperByType(GrowthNutritionInputFragment.GROWTH_TYPE.EXCLUSIVE.getValue());
             if (serviceWrapperExclusive != null) {
                 Alert alert = serviceWrapperExclusive.getAlert();
-                if (alert != null) {
+                if (alert != null && !alert.status().equals(AlertStatus.expired)) {
                     growthListCount++;
 
                     if (getView() != null) getView().updateExclusiveFeedingData(alert.scheduleName(),alert.startDate());
