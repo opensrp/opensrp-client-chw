@@ -150,7 +150,7 @@ public class WCAROServiceSchedule {
             Calendar today = Calendar.getInstance();
             standardiseCalendarDate(today);
 
-            if (refCalendarDate.getTimeInMillis() <= today.getTimeInMillis()) {// Due
+            if (refCalendarDate.getTimeInMillis() <= today.getTimeInMillis()) {// expired
                 return AlertStatus.expired;
             }
         }

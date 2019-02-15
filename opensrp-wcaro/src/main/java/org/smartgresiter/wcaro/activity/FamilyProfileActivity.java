@@ -58,7 +58,6 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity implements 
     @Override
     protected void initializePresenter() {
         familyBaseEntityId = getIntent().getStringExtra(Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID);
-        isFromFamilyServiceDue = getIntent().getBooleanExtra(org.smartgresiter.wcaro.util.Constants.INTENT_KEY.SERVICE_DUE, false);
         familyHead = getIntent().getStringExtra(Constants.INTENT_KEY.FAMILY_HEAD);
         primaryCaregiver = getIntent().getStringExtra(Constants.INTENT_KEY.PRIMARY_CAREGIVER);
         familyName = getIntent().getStringExtra(Constants.INTENT_KEY.FAMILY_NAME);
@@ -170,8 +169,7 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity implements 
                         Log.d("JSONResult", jsonString);
 
                         JSONObject form = new JSONObject(jsonString);
-                        if (form.getString(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_TYPE).equals(org.smartregister.family.util.Utils.metadata().familyRegister.registerEventType)
-                                || form.getString(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_TYPE).equals(org.smartgresiter.wcaro.util.Constants.EventType.CHILD_REGISTRATION)
+                        if (form.getString(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_TYPE).equals(org.smartgresiter.wcaro.util.Constants.EventType.CHILD_REGISTRATION)
                         ) {
                             ((FamilyProfilePresenter) presenter).saveChildForm(jsonString, false);
                         }
@@ -254,15 +252,15 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity implements 
         super.onResumption();
         FloatingMenuListener.getInstance(this, presenter().familyBaseEntityId());
     }
-    @Override
-    public void startFormActivity(JSONObject jsonForm) {
-        Intent intent = new Intent(this, WCAROJsonFormActivity.class);
-        intent.putExtra("json", jsonForm.toString());
-        Form form = new Form();
-        form.setActionBarBackground(R.color.family_actionbar);
-        form.setWizard(false);
-        intent.putExtra("form", form);
-        this.startActivityForResult(intent, 2244);
-    }
+//    @Override
+//    public void startFormActivity(JSONObject jsonForm) {
+//        Intent intent = new Intent(this, WCAROJsonFormActivity.class);
+//        intent.putExtra("json", jsonForm.toString());
+//        Form form = new Form();
+//        form.setActionBarBackground(R.color.family_actionbar);
+//        form.setWizard(false);
+//        intent.putExtra("form", form);
+//        this.startActivityForResult(intent, org.smartregister.family.util.JsonFormUtils.REQUEST_CODE_GET_JSON);
+//    }
 
 }
