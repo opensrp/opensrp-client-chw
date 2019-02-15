@@ -95,11 +95,7 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
         familyFloatingMenu.setGravity(Gravity.BOTTOM | Gravity.RIGHT);
         addContentView(familyFloatingMenu, linearLayoutParams);
 
-        familyFloatingMenu.setClickListener(
-                FloatingMenuListener.getInstance(this, presenter().getFamilyBaseEntityId())
-                        .setFamilyHead(familyHead)
-                        .setPrimaryCareGiver(primaryCaregiver)
-        );
+        familyFloatingMenu.setClickListener(onClickFloatingMenu);
     }
 
 

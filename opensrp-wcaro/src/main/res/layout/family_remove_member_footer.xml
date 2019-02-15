@@ -82,7 +82,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:paddingLeft="0dp"
-                android:text="Remove entire family"
+                android:text="@string/remove_entire_family"
                 android:textColor="@color/text_black"
                 android:textSize="@dimen/register_list_title_size" />
 

@@ -13,25 +13,36 @@
         android:background="@color/opensrp_primary"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-        <ImageView
-            android:id="@+id/close"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginEnd="@dimen/dialog_toolbar_close_margin"
-            android:layout_marginRight="@dimen/dialog_toolbar_close_margin"
-            android:tint="@color/white"
-            app:srcCompat="@drawable/ic_cross" />
-
-        <org.smartregister.view.customcontrols.CustomFontTextView
-            android:id="@+id/textview_vaccine_title"
-            style="@style/CustomFontTextViewStyle.ClientList.Light"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:text="Growth and Nutrition"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textColor="@android:color/white" />
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/close"
+                android:layout_width="@dimen/tool_bar_image"
+                android:layout_height="@dimen/tool_bar_image"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/dialog_toolbar_close_margin"
+                android:layout_marginRight="@dimen/dialog_toolbar_close_margin"
+                android:tint="@color/white"
+                app:srcCompat="@drawable/ic_action_close" />
+
+            <org.smartregister.view.customcontrols.CustomFontTextView
+                android:id="@+id/textview_vaccine_title"
+                style="@style/CustomFontTextViewStyle.ClientList.Light"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/close"
+                android:layout_toRightOf="@+id/close"
+                android:paddingLeft="0dp"
+                android:paddingStart="0dp"
+                android:text="Growth and Nutrition"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@android:color/white" />
+        </RelativeLayout>
     </android.support.v7.widget.Toolbar>
 
     <LinearLayout
@@ -110,10 +121,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginLeft="@dimen/btn_margin_left"
-            android:layout_marginTop="@dimen/vaccine_text_top_margin"
-            android:layout_marginRight="@dimen/btn_margin_right"
             android:layout_marginBottom="@dimen/btn_margin_bottom"
+            android:layout_marginLeft="@dimen/btn_margin_left"
+            android:layout_marginRight="@dimen/btn_margin_right"
+            android:layout_marginTop="@dimen/vaccine_text_top_margin"
             android:gravity="center"
             android:paddingLeft="0dp"
             android:textColor="@color/text_black"
@@ -141,15 +152,15 @@
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignWithParentIfMissing="true"
         android:layout_above="@+id/cancel"
+        android:layout_alignWithParentIfMissing="true"
         android:layout_gravity="bottom"
+        android:layout_marginBottom="@dimen/btn_margin_bottom"
         android:layout_marginLeft="@dimen/btn_margin_left"
         android:layout_marginRight="@dimen/btn_margin_right"
-        android:layout_marginBottom="@dimen/btn_margin_bottom"
         android:background="@drawable/vaccination_today_bg"
-        android:paddingTop="@dimen/btn_padding_top"
         android:paddingBottom="@dimen/btn_padding_bottom"
+        android:paddingTop="@dimen/btn_padding_top"
         android:text="Save"
         android:textAllCaps="true"
         android:textAppearance="?android:textAppearanceSmall"
@@ -166,8 +177,8 @@
         android:layout_marginRight="@dimen/btn_margin_right"
         android:layout_weight="1"
         android:background="@drawable/vaccination_earlier_bg"
-        android:paddingTop="@dimen/btn_padding_top"
         android:paddingBottom="@dimen/btn_padding_bottom"
+        android:paddingTop="@dimen/btn_padding_top"
         android:text="DOSE NOT GIVEN"
         android:textAllCaps="false"
         android:textAppearance="?android:textAppearanceSmall"
