@@ -93,7 +93,7 @@
         "openmrs_entity_id": "160417AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Reason",
+        "hint": "Reason *",
         "values": [
           "Died",
           "Moved away",
@@ -135,7 +135,7 @@
           {
             "type": "date",
             "ex": "greaterThanEqualTo(., step1:dob)",
-            "err": "Date moved away occur before date of birth"
+            "err": "Moved away date cannot be before date of birth"
           }
         ],
         "relevance": {
@@ -153,7 +153,7 @@
         "openmrs_data_type": "text",
         "type": "date_picker",
         "label": "Date of death",
-        "hint": "Date the family member died *",
+        "hint": "Date of death *",
         "expanded": false,
         "min_date": "",
         "max_date": "today",
