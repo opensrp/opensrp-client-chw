@@ -45,4 +45,7 @@
     <dimen name="call_widget_font3">18sp</dimen>
 
     <dimen name="dialog_toolbar_close_margin">10dp</dimen>
+
+    <dimen name="child_register_title_size">16sp</dimen>
+    <dimen name="child_register_list_desc_size">16sp</dimen>
 </resources>
