@@ -265,6 +265,8 @@ public class GrowthNutritionInputFragment extends DialogFragment implements Radi
 
                 break;
             case R.id.close:
+                dismiss();
+                break;
             case R.id.cancel:
                 if (context instanceof HomeVisitGrowthAndNutrition && serviceWrapper != null) {
                     HomeVisitGrowthAndNutrition homeVisitGrowthAndNutrition = (HomeVisitGrowthAndNutrition) context;
