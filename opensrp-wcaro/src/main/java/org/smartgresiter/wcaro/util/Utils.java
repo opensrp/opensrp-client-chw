@@ -24,13 +24,17 @@ import android.widget.Toast;
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
+import org.smartgresiter.wcaro.BuildConfig;
 import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.contract.FamilyCallDialogContract;
 import org.smartgresiter.wcaro.fragment.CopyToClipboardDialog;
 import org.smartregister.util.PermissionUtils;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class Utils extends org.smartregister.family.util.Utils {
 
@@ -182,6 +186,17 @@ public class Utils extends org.smartregister.family.util.Utils {
         return StringUtils.join(printList, " ");
     }
 
+    public static String getBuildDate(Boolean isShortMonth) {
+        String simpleDateFormat;
+        if (isShortMonth) {
+            simpleDateFormat =
+                    new SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(new Date(BuildConfig.BUILD_TIMESTAMP));
+        } else {
+            simpleDateFormat =
+                    new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault()).format(new Date(BuildConfig.BUILD_TIMESTAMP));
+        }
+        return simpleDateFormat;
+    }
 
     private static String replaceSingularPlural(String string, String dwmyString, String singular, String plural) {
         int dwmy = Integer.valueOf(string.substring(0, string.indexOf(dwmyString)));
@@ -191,4 +206,5 @@ public class Utils extends org.smartregister.family.util.Utils {
     private static String getStringSpacePrefix(Context context, int resId) {
         return " " + context.getString(resId);
     }
+
 }
