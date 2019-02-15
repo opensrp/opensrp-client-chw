@@ -195,6 +195,7 @@ public class CustomMultipleVaccinationDialogFragment extends ChildImmunizationFr
                 dismiss();
 
                 ArrayList<VaccineWrapper> tagsToUpdate = new ArrayList<VaccineWrapper>();
+                ArrayList<VaccineWrapper> UngiventagsToUpdate = new ArrayList<VaccineWrapper>();
 
                 int day = earlierDatePicker.getDayOfMonth();
                 int month = earlierDatePicker.getMonth();
@@ -233,9 +234,29 @@ public class CustomMultipleVaccinationDialogFragment extends ChildImmunizationFr
                             }
                         }
                     }
+
+                    List<String> UnselectedCheckboxes = findUnSelectedCheckBoxes(vaccinationNameLayout);
+                    for (String checkedName : UnselectedCheckboxes) {
+                        VaccineWrapper tag = searchWrapperByName(checkedName);
+                        if (tag != null) {
+                            if (validateVaccinationDate(tag, dateTime.toDate())) {
+                                tag.setUpdatedVaccineDate(dateTime, false);
+                                UngiventagsToUpdate.add(tag);
+                            } else {
+                                Toast.makeText(CustomMultipleVaccinationDialogFragment.this.getActivity(),
+                                        String.format(getString(R.string.cannot_record_vaccine),
+                                                tag.getName()), Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    }
                 }
                 onVaccinateEarlier(tagsToUpdate, view);
                 homeVisitImmunizationView.getPresenter().assigntoGivenVaccines(tagsToUpdate);
+                ///////handle not given
+                for(VaccineWrapper tags:UngiventagsToUpdate) {
+                    homeVisitImmunizationView.getPresenter().updateNotGivenVaccine(tags);
+                }
+                ////////////////////////////
 
             }
         });
@@ -596,6 +617,21 @@ public class CustomMultipleVaccinationDialogFragment extends ChildImmunizationFr
             View chilView = vaccinationNameLayout.getChildAt(i);
             CheckBox selectChild = (CheckBox) chilView.findViewById(R.id.select);
             if (selectChild.isChecked()) {
+                TextView childVaccineView = (TextView) chilView.findViewById(R.id.vaccine);
+                String checkedName = childVaccineView.getText().toString();
+                names.add(checkedName);
+            }
+        }
+
+        return names;
+    }
+
+    private List<String> findUnSelectedCheckBoxes(LinearLayout vaccinationNameLayout) {
+        List<String> names = new ArrayList<>();
+        for (int i = 0; i < vaccinationNameLayout.getChildCount(); i++) {
+            View chilView = vaccinationNameLayout.getChildAt(i);
+            CheckBox selectChild = (CheckBox) chilView.findViewById(R.id.select);
+            if (!selectChild.isChecked()) {
                 TextView childVaccineView = (TextView) chilView.findViewById(R.id.vaccine);
                 String checkedName = childVaccineView.getText().toString();
                 names.add(checkedName);
