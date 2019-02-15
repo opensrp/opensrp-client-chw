@@ -33,7 +33,7 @@
             android:layout_marginEnd="20dp"
             android:layout_toRightOf="@+id/imageView2"
             android:maxLines="4"
-            android:text="Before you remove this member you must select a new family head."
+            android:text="@string/profile_change_dialog_message"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="@android:color/black" />
 
@@ -76,9 +76,9 @@
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_margin="15dp"
-            android:text="Submit"
+            android:text="@string/submit"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textColor="@android:color/black" />
+            android:textColor="@color/button_navy_blue" />
 
         <org.smartregister.view.customcontrols.CustomFontTextView
             android:id="@+id/tvCancel"
@@ -88,9 +88,9 @@
             android:layout_centerVertical="true"
             android:layout_margin="15dp"
             android:layout_toLeftOf="@+id/tvSubmit"
-            android:text="Cancel"
+            android:text="@string/cancel"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textColor="@android:color/black" />
+            android:textColor="@color/button_navy_blue" />
 
     </RelativeLayout>
 

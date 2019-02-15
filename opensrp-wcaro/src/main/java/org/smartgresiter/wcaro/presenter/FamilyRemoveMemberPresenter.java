@@ -7,19 +7,11 @@ import org.smartgresiter.wcaro.util.Constants;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.presenter.BaseFamilyProfileMemberPresenter;
 import org.smartregister.family.util.DBConstants;
-import org.smartregister.family.util.Utils;
 import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.view.LocationPickerView;
 
 import java.lang.ref.WeakReference;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
 import java.util.Map;
-
-import static java.util.Calendar.DATE;
-import static java.util.Calendar.MONTH;
-import static java.util.Calendar.YEAR;
 
 public class FamilyRemoveMemberPresenter extends BaseFamilyProfileMemberPresenter implements FamilyRemoveMemberContract.Presenter {
 
@@ -52,7 +44,7 @@ public class FamilyRemoveMemberPresenter extends BaseFamilyProfileMemberPresente
 
         } else {
 
-            JSONObject form = model.prepareJsonForm(client, getForm(client));
+            JSONObject form = model.prepareJsonForm(client, model.getForm(client));
             if (form != null) {
                 viewReference.get().startJsonActivity(form);
             }
@@ -80,7 +72,7 @@ public class FamilyRemoveMemberPresenter extends BaseFamilyProfileMemberPresente
 
             } else {
 
-                JSONObject form = model.prepareJsonForm(client, getForm(client));
+                JSONObject form = model.prepareJsonForm(client, model.getForm(client));
                 if (form != null) {
                     viewReference.get().startJsonActivity(form);
                 }
@@ -88,27 +80,7 @@ public class FamilyRemoveMemberPresenter extends BaseFamilyProfileMemberPresente
         }
     }
 
-    private String getForm(CommonPersonObjectClient client) {
-        Date dob = Utils.dobStringToDate(Utils.getValue(client.getColumnmaps(), DBConstants.KEY.DOB, false));
-        return ((dob != null && getDiffYears(dob, new Date()) >= 5) ? Constants.JSON_FORM.FAMILY_DETAILS_REMOVE_MEMBER : Constants.JSON_FORM.FAMILY_DETAILS_REMOVE_CHILD);
-    }
 
-    private int getDiffYears(Date first, Date last) {
-        Calendar a = getCalendar(first);
-        Calendar b = getCalendar(last);
-        int diff = b.get(YEAR) - a.get(YEAR);
-        if (a.get(MONTH) > b.get(MONTH) ||
-                (a.get(MONTH) == b.get(MONTH) && a.get(DATE) > b.get(DATE))) {
-            diff--;
-        }
-        return diff;
-    }
-
-    private Calendar getCalendar(Date date) {
-        Calendar cal = Calendar.getInstance(Locale.US);
-        cal.setTime(date);
-        return cal;
-    }
 
     @Override
     public void removeEveryone(String familyName, String details) {

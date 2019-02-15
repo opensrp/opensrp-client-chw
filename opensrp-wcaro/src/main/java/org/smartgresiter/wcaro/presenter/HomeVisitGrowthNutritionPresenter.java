@@ -1,10 +1,8 @@
 package org.smartgresiter.wcaro.presenter;
 
 import android.content.Context;
-import android.text.SpannableString;
 
 import org.smartgresiter.wcaro.R;
-import org.smartgresiter.wcaro.application.WcaroApplication;
 import org.smartgresiter.wcaro.contract.HomeVisitGrowthNutritionContract;
 import org.smartgresiter.wcaro.fragment.GrowthNutritionInputFragment;
 import org.smartgresiter.wcaro.interactor.HomeVisitGrowthNutritionInteractor;
@@ -122,7 +120,7 @@ public class HomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNutriti
             serviceWrapperExclusive = getServiceWrapperByType(GrowthNutritionInputFragment.GROWTH_TYPE.EXCLUSIVE.getValue());
             if (serviceWrapperExclusive != null) {
                 Alert alert = serviceWrapperExclusive.getAlert();
-                if (alert != null) {
+                if (alert != null && !alert.status().equals(AlertStatus.expired)) {
                     growthListCount++;
 
                     if (getView() != null) getView().updateExclusiveFeedingData(alert.scheduleName(),alert.startDate());

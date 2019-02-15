@@ -8,11 +8,9 @@ import org.smartgresiter.wcaro.application.WcaroApplication;
 import org.smartgresiter.wcaro.listener.ImmunizationStateChangeListener;
 import org.smartgresiter.wcaro.util.ImmunizationState;
 import org.smartgresiter.wcaro.util.WCAROServiceSchedule;
-import org.smartgresiter.wcaro.util.WCAROVaccinateUtils;
 import org.smartregister.domain.Alert;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.immunization.db.VaccineRepo;
-import org.smartregister.immunization.domain.ServiceSchedule;
 import org.smartregister.immunization.domain.Vaccine;
 import org.smartregister.immunization.domain.VaccineSchedule;
 import org.smartregister.immunization.domain.VaccineWrapper;
@@ -43,12 +41,6 @@ public class VaccinationAsyncTask extends AsyncTask {
     private Map<String, String> getColumnMaps;
     public ArrayList<VaccineWrapper> notDoneVaccines = new ArrayList<>();
     private List<Map<String, Object>> sch;
-
-    public VaccinationAsyncTask(String entityId, Map<String, String> getColumnMaps, ImmunizationStateChangeListener immunizationStateChangeListener) {
-        this.entityId = entityId;
-        this.getColumnMaps = getColumnMaps;
-        this.immunizationStateChangeListener = immunizationStateChangeListener;
-    }
 
     public VaccinationAsyncTask(String entityId, Map<String, String> getColumnMaps, ArrayList<VaccineWrapper> notDoneVaccines, ImmunizationStateChangeListener immunizationStateChangeListener) {
         this.entityId = entityId;

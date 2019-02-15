@@ -1,5 +1,6 @@
 package org.smartgresiter.wcaro.presenter;
 
+import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.contract.FamilyOtherMemberContract;
 import org.smartregister.family.presenter.BaseFamilyOtherMemberProfileActivityPresenter;
 
@@ -20,5 +21,9 @@ public class FamilyOtherMemberActivityPresenter extends BaseFamilyOtherMemberPro
 
     public String getFamilyName() {
         return familyName;
+    }
+
+    public void startFormForEdit(CommonPersonObjectClient commonPersonObject) {
+
     }
 }

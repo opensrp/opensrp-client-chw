@@ -39,7 +39,6 @@ import java.util.List;
 
 import static org.apache.commons.lang3.text.WordUtils.capitalize;
 import static org.smartgresiter.wcaro.util.JsonFormUtils.dd_MMM_yyyy;
-import static org.smartregister.util.JsonFormUtils.dd_MM_yyyy;
 
 public class ChildUtils {
 
@@ -173,8 +172,11 @@ public class ChildUtils {
                 tableName + "." + DBConstants.KEY.UNIQUE_ID,
                 tableName + "." + DBConstants.KEY.GENDER,
                 tableName + "." + DBConstants.KEY.DOB,
+                tableName + "." + org.smartregister.family.util.Constants.JSON_FORM_KEY.DOB_UNKNOWN,
                 tableName + "." + ChildDBConstants.KEY.LAST_HOME_VISIT,
                 tableName + "." + ChildDBConstants.KEY.VISIT_NOT_DONE,
+                tableName + "." + ChildDBConstants.KEY.CHILD_BF_HR,
+                tableName + "." + ChildDBConstants.KEY.CHILD_PHYSICAL_CHANGE,
                 tableName + "." + ChildDBConstants.KEY.BIRTH_CERT,
                 tableName + "." + ChildDBConstants.KEY.BIRTH_CERT_ISSUE_DATE,
                 tableName + "." + ChildDBConstants.KEY.BIRTH_CERT_NUMBER,

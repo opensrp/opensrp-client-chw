@@ -19,7 +19,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Stack;
 
-import static org.apache.commons.lang3.text.WordUtils.capitalize;
 import static org.smartgresiter.wcaro.util.ChildUtils.fixVaccineCasing;
 
 public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationContract.Presenter {
