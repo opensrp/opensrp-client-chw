@@ -9,6 +9,7 @@ import org.smartgresiter.wcaro.task.UpdateServiceTask;
 import org.smartgresiter.wcaro.util.ChildUtils;
 import org.smartgresiter.wcaro.util.GrowthServiceData;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
+import org.smartregister.domain.AlertStatus;
 import org.smartregister.family.util.AppExecutors;
 import org.smartregister.immunization.domain.ServiceWrapper;
 import org.smartregister.util.DateUtil;
@@ -58,7 +59,7 @@ public class HomeVisitGrowthNutritionInteractor implements HomeVisitGrowthNutrit
 
         for (String key : serviceWrapperMap.keySet()) {
             ServiceWrapper serviceWrapper = serviceWrapperMap.get(key);
-            if (serviceWrapper != null && serviceWrapper.getAlert() != null) {
+            if (serviceWrapper != null && serviceWrapper.getAlert() != null && !serviceWrapper.getAlert().status().equals(AlertStatus.expired)) {
                 GrowthServiceData growthServiceData = new GrowthServiceData();
                 growthServiceData.setDate(serviceWrapper.getAlert().startDate());
                 growthServiceData.setName(serviceWrapper.getAlert().scheduleName());
