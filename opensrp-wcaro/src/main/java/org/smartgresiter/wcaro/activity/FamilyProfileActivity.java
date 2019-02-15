@@ -254,7 +254,7 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity implements 
     }
 //    @Override
 //    public void startFormActivity(JSONObject jsonForm) {
-//        Intent intent = new Intent(this, WCAROJsonFormActivity.class);
+//        Intent intent = new Intent(this, FamilyWizardFormFragment.class);
 //        intent.putExtra("json", jsonForm.toString());
 //        Form form = new Form();
 //        form.setActionBarBackground(R.color.family_actionbar);
