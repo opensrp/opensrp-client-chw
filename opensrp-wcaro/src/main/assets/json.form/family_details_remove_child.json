@@ -93,7 +93,7 @@
         "openmrs_entity_id": "160417AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Reason",
+        "hint": "Reason *",
         "values": [
           "Died",
           "Moved away",
@@ -154,7 +154,7 @@
         "openmrs_data_type": "text",
         "type": "date_picker",
         "label": "Date of death",
-        "hint": "Date the family member died *",
+        "hint": "Date of death *",
         "expanded": false,
         "min_date": "",
         "max_date": "today",
