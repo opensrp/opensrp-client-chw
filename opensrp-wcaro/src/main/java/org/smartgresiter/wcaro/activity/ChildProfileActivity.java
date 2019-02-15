@@ -53,7 +53,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     private boolean appBarTitleIsShown = true;
     private int appBarLayoutScrollRange = -1;
     private String childBaseEntityId;
-    private boolean isComesFromFamily=false;
+    private boolean isComesFromFamily = false;
     private TextView textViewTitle, textViewParentName, textViewChildName, textViewGender, textViewAddress, textViewId, textViewRecord, textViewVisitNot;
     private CircleImageView imageViewProfile;
     private RelativeLayout layoutNotRecordView, layoutLastVisitRow, layoutMostDueOverdue, layoutFamilyHasRow;
@@ -77,9 +77,9 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
                     break;
                 case R.id.remove_member_layout:
 
-                    IndividualProfileRemoveActivity.startIndividualProfileActivity(ChildProfileActivity.this,((ChildProfilePresenter) presenter()).getChildClient(),
-                    ((ChildProfilePresenter) presenter()).getFamilyID()
-                    ,((ChildProfilePresenter) presenter()).getFamilyHeadID(),((ChildProfilePresenter) presenter()).getPrimaryCareGiverID());
+                    IndividualProfileRemoveActivity.startIndividualProfileActivity(ChildProfileActivity.this, ((ChildProfilePresenter) presenter()).getChildClient(),
+                            ((ChildProfilePresenter) presenter()).getFamilyID()
+                            , ((ChildProfilePresenter) presenter()).getFamilyHeadID(), ((ChildProfilePresenter) presenter()).getPrimaryCareGiverID());
 
                     break;
             }
@@ -172,10 +172,11 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
         layoutRecordButtonDone.setOnClickListener(this);
 
     }
-    private void setUpToolbar(){
-        if(isComesFromFamily){
+
+    private void setUpToolbar() {
+        if (isComesFromFamily) {
             textViewTitle.setText(getString(R.string.return_to_family_members));
-        }else{
+        } else {
             textViewTitle.setText(getString(R.string.return_to_all_children));
         }
 
@@ -357,6 +358,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
         openVisitMonthView();
         textViewNotVisitMonth.setText(getString(R.string.not_visiting_this_month));
         textViewUndo.setText(getString(R.string.undo));
+        textViewUndo.setVisibility(View.VISIBLE);
         imageViewCross.setImageResource(R.drawable.activityrow_notvisited);
     }
 
@@ -364,6 +366,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     public void setVisitLessTwentyFourView(String monthName) {
         textViewNotVisitMonth.setText(getString(R.string.visit_month, monthName));
         textViewUndo.setText(getString(R.string.edit));
+        textViewUndo.setVisibility(View.GONE);
         imageViewCross.setImageResource(R.drawable.activityrow_visited);
         openVisitMonthView();
 
@@ -391,7 +394,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     @Override
     protected void initializePresenter() {
         childBaseEntityId = getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID);
-        isComesFromFamily=getIntent().getBooleanExtra(IS_COMES_FROM_FAMILY,false);
+        isComesFromFamily = getIntent().getBooleanExtra(IS_COMES_FROM_FAMILY, false);
         String familyName = getIntent().getStringExtra(Constants.INTENT_KEY.FAMILY_NAME);
         if (familyName == null) {
             familyName = "";
