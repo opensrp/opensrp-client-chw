@@ -1,7 +1,6 @@
 package org.smartgresiter.wcaro.util;
 
 import org.smartregister.immunization.db.VaccineRepo;
-import org.smartregister.immunization.util.VaccinateActionUtils;
 
 
 public class WCAROVaccinateUtils  {

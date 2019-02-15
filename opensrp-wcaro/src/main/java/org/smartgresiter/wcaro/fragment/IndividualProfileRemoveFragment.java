@@ -3,17 +3,14 @@ package org.smartgresiter.wcaro.fragment;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.widget.Toast;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
 
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
-import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.activity.FamilyRegisterActivity;
+import org.smartgresiter.wcaro.activity.IndividualProfileRemoveActivity;
 import org.smartgresiter.wcaro.contract.FamilyRemoveMemberContract;
 import org.smartgresiter.wcaro.model.FamilyRemoveMemberModel;
 import org.smartgresiter.wcaro.presenter.FamilyRemoveMemberPresenter;
@@ -21,7 +18,6 @@ import org.smartgresiter.wcaro.provider.FamilyRemoveMemberProvider;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.configurableviews.model.View;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
-import org.smartregister.domain.FetchStatus;
 import org.smartregister.family.fragment.BaseFamilyProfileMemberFragment;
 import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.DBConstants;
@@ -31,15 +27,15 @@ import org.smartregister.family.util.Utils;
 import java.util.HashMap;
 import java.util.Set;
 
-public class FamilyRemoveMemberFragment extends BaseFamilyProfileMemberFragment implements FamilyRemoveMemberContract.View {
+public class IndividualProfileRemoveFragment extends BaseFamilyProfileMemberFragment implements FamilyRemoveMemberContract.View {
 
     String familyBaseEntityId;
     String familyHead;
     String primaryCareGiver;
-
-    public static FamilyRemoveMemberFragment newInstance(Bundle bundle) {
+    private CommonPersonObjectClient pc;
+    public static IndividualProfileRemoveFragment newInstance(Bundle bundle) {
         Bundle args = bundle;
-        FamilyRemoveMemberFragment fragment = new FamilyRemoveMemberFragment();
+        IndividualProfileRemoveFragment fragment = new IndividualProfileRemoveFragment();
         if (args == null) {
             args = new Bundle();
         }
@@ -49,10 +45,11 @@ public class FamilyRemoveMemberFragment extends BaseFamilyProfileMemberFragment 
 
     @Override
     public void initializeAdapter(Set<View> visibleColumns, String familyHead, String primaryCaregiver) {
-        FamilyRemoveMemberProvider provider = new FamilyRemoveMemberProvider(familyBaseEntityId, this.getActivity(), this.commonRepository(), visibleColumns, new RemoveMemberListener(), new FooterListener(), familyHead, primaryCaregiver);
+        FamilyRemoveMemberProvider provider = new FamilyRemoveMemberProvider(familyBaseEntityId, this.getActivity(), this.commonRepository(), visibleColumns, null, null, familyHead, primaryCareGiver);
         this.clientAdapter = new RecyclerViewPaginatedAdapter((Cursor) null, provider, this.context().commonrepository(this.tablename));
-        this.clientAdapter.setCurrentlimit(100);
+        this.clientAdapter.setCurrentlimit(0);
         this.clientsView.setAdapter(this.clientAdapter);
+        this.clientsView.setVisibility(android.view.View.GONE);
     }
 
     @Override
@@ -60,7 +57,14 @@ public class FamilyRemoveMemberFragment extends BaseFamilyProfileMemberFragment 
         familyBaseEntityId = getArguments().getString(Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID);
         familyHead = getArguments().getString(Constants.INTENT_KEY.FAMILY_HEAD);
         primaryCareGiver = getArguments().getString(Constants.INTENT_KEY.PRIMARY_CAREGIVER);
+        pc = (CommonPersonObjectClient) getArguments().getSerializable(org.smartgresiter.wcaro.util.Constants.INTENT_KEY.CHILD_COMMON_PERSON);
         presenter = new FamilyRemoveMemberPresenter(this, new FamilyRemoveMemberModel(), null, familyBaseEntityId, familyHead, primaryCareGiver);
+        openDeleteDialog();
+    }
+
+    @Override
+    public void setAdvancedSearchFormData(HashMap<String, String> hashMap) {
+
     }
 
     public FamilyRemoveMemberContract.Presenter getPresenter() {
@@ -71,6 +75,32 @@ public class FamilyRemoveMemberFragment extends BaseFamilyProfileMemberFragment 
     public void removeMember(CommonPersonObjectClient client) {
         getPresenter().removeMember(client);
     }
+    private void openDeleteDialog() {
+        String name = String.format("%s %s %s", pc.getColumnmaps().get(DBConstants.KEY.FIRST_NAME),
+                pc.getColumnmaps().get(DBConstants.KEY.MIDDLE_NAME) == null ? "" : pc.getColumnmaps().get(DBConstants.KEY.MIDDLE_NAME),
+                pc.getColumnmaps().get(DBConstants.KEY.LAST_NAME) == null ? "" : pc.getColumnmaps().get(DBConstants.KEY.LAST_NAME));
+
+        String dod = pc.getColumnmaps().get(DBConstants.KEY.DOD);
+        if (StringUtils.isBlank(dod)) {
+            FamilyRemoveMemberConfrimDialog dialog = FamilyRemoveMemberConfrimDialog.newInstance(
+                    String.format("Are you sure you want to remove %s's record? This will remove their entire health record from your device. This action cannot be undone.", name)
+            );
+            dialog.setContext(getActivity());
+            dialog.show(getFragmentManager(), AddMemberFragment.DIALOG_TAG);
+            dialog.setOnRemove(new Runnable() {
+                @Override
+                public void run() {
+                    getPresenter().removeMember(pc);
+                }
+            });
+            dialog.setOnRemoveActivity(new Runnable() {
+                @Override
+                public void run() {
+                    getActivity().finish();
+                }
+            });
+        }
+    }
 
     @Override
     public void displayChangeFamilyHeadDialog(final CommonPersonObjectClient client, final String familyHeadID) {
@@ -80,9 +110,13 @@ public class FamilyRemoveMemberFragment extends BaseFamilyProfileMemberFragment 
             @Override
             public void run() {
                 setFamilyHead(familyHeadID);
-                refreshMemberList(FetchStatus.fetched);
                 getPresenter().removeMember(client);
-                refreshListView();
+            }
+        });
+        dialog.setOnRemoveActivity(new Runnable() {
+            @Override
+            public void run() {
+                getActivity().finish();
             }
         });
         dialog.show(getActivity().getFragmentManager(), "FamilyProfileChangeDialogHF");
@@ -96,9 +130,13 @@ public class FamilyRemoveMemberFragment extends BaseFamilyProfileMemberFragment 
             @Override
             public void run() {
                 setPrimaryCaregiver(careGiverID);
-                refreshMemberList(FetchStatus.fetched);
                 getPresenter().removeMember(client);
-                refreshListView();
+            }
+        });
+        dialog.setOnRemoveActivity(new Runnable() {
+            @Override
+            public void run() {
+                getActivity().finish();
             }
         });
 
@@ -106,9 +144,9 @@ public class FamilyRemoveMemberFragment extends BaseFamilyProfileMemberFragment 
     }
 
     @Override
-    public void closeFamily(String familyName, String details) {
+    public void closeFamily(String familyName,String details) {
 
-        getPresenter().removeEveryone(familyName, details);
+        getPresenter().removeEveryone(familyName,details);
 
     }
 
@@ -135,109 +173,43 @@ public class FamilyRemoveMemberFragment extends BaseFamilyProfileMemberFragment 
 
     @Override
     public void onMemberRemoved(String removalType) {
-        // display alert
         if (getActivity() != null) {
             if (org.smartgresiter.wcaro.util.Constants.EventType.REMOVE_FAMILY.equalsIgnoreCase(removalType)) {
                 Intent intent = new Intent(getActivity(), FamilyRegisterActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
-            } else {
                 getActivity().finish();
+            } else {
+                if (getActivity() != null) {
+                    if(getActivity() instanceof IndividualProfileRemoveActivity){
+                        IndividualProfileRemoveActivity p=(IndividualProfileRemoveActivity)getActivity();
+                        p.onRemoveMember();
+                    }
+                }
             }
         }
     }
 
     @Override
     public void onEveryoneRemoved() {
-        // close family and return to main register
-        Intent intent = new Intent(getActivity(), FamilyRegisterActivity.class);
-        startActivity(intent);
-        getActivity().finish();
-    }
 
-    public class RemoveMemberListener implements android.view.View.OnClickListener {
-        @Override
-        public void onClick(android.view.View v) {
-            if (v.getTag(R.id.VIEW_ID) == BaseFamilyProfileMemberFragment.CLICK_VIEW_NEXT_ARROW ||
-                    v.getTag(R.id.VIEW_ID) == BaseFamilyProfileMemberFragment.CLICK_VIEW_NORMAL) {
-                final CommonPersonObjectClient pc = (CommonPersonObjectClient) v.getTag();
-
-                String name = String.format("%s %s %s", pc.getColumnmaps().get(DBConstants.KEY.FIRST_NAME),
-                        pc.getColumnmaps().get(DBConstants.KEY.MIDDLE_NAME),
-                        pc.getColumnmaps().get(DBConstants.KEY.LAST_NAME));
-
-                String dod = pc.getColumnmaps().get(DBConstants.KEY.DOD);
-
-                if (StringUtils.isBlank(dod)) {
-                    FamilyRemoveMemberConfrimDialog dialog = FamilyRemoveMemberConfrimDialog.newInstance(
-                            String.format("Are you sure you want to remove %s's record? This will remove their entire health record from your device. This action cannot be undone.", name)
-                    );
-                    dialog.setContext(getContext());
-                    dialog.show(getFragmentManager(), AddMemberFragment.DIALOG_TAG);
-                    dialog.setOnRemove(new Runnable() {
-                        @Override
-                        public void run() {
-                            removeMember(pc);
-                        }
-                    });
-                }
+        if (getActivity() != null) {
+            if(getActivity() instanceof IndividualProfileRemoveActivity){
+                IndividualProfileRemoveActivity p=(IndividualProfileRemoveActivity)getActivity();
+                p.onRemoveMember();
             }
         }
     }
 
-    public class FooterListener implements android.view.View.OnClickListener {
-        @Override
-        public void onClick(final android.view.View v) {
-
-            HashMap<String, String> payload = (HashMap<String, String>) v.getTag();
-            final String message = payload.get("message");
-            final String name = payload.get("name");
-
-            FamilyRemoveMemberConfrimDialog dialog = FamilyRemoveMemberConfrimDialog.newInstance(
-                    String.format(getString(R.string.remove_warning_family), name, name)
-            );
-
-            dialog.setContext(getContext());
-            dialog.show(getFragmentManager(), AddMemberFragment.DIALOG_TAG);
-            dialog.setOnRemove(new Runnable() {
-                @Override
-                public void run() {
-                    closeFamily(String.format(getString(R.string.family), name), message);
-                    Toast.makeText(getContext(), getString(R.string.remove_entire_family), Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
-    }
-
-    public void refreshMemberList(final FetchStatus fetchStatus) {
-        if (Looper.myLooper() == Looper.getMainLooper()) {
-            if (fetchStatus.equals(FetchStatus.fetched)) {
-                refreshListView();
-            }
-        } else {
-            Handler handler = new Handler(Looper.getMainLooper());
-            handler.post(new Runnable() {
-                public void run() {
-                    if (fetchStatus.equals(FetchStatus.fetched)) {
-                        refreshListView();
-                    }
-
-                }
-            });
-        }
-
-    }
 
     @Override
     protected String getMainCondition() {
-        return presenter().getMainCondition();
+        return "";
     }
 
     @Override
     protected String getDefaultSortQuery() {
-        return presenter().getDefaultSortQuery();
+        return "";
     }
-
-    public void setAdvancedSearchFormData(HashMap<String, String> hashMap) { }
 
 }

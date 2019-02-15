@@ -23,7 +23,7 @@
     <string name="nav_registers">Registers</string>
     <string name="nav_logout_as">Logout as</string>
     <string name="nav_sync">Sync</string>
-    <string name="nav_last">"Last : </string>
+    <string name="nav_last">"Last: </string>
     <string name="nav_last_sync_time">HH:mm a , MMM DD</string>
 
     <string name="call">Call</string>
@@ -49,8 +49,8 @@
     <string name="add_member_title_question">What kind of family member do you want to add?</string>
     <string name="change_head_member_title">Change family head</string>
     <string name="change_head_member_title_question">Select a new family head</string>
-    <string name="change_caregiver_member_title">Change primary care giver</string>
-    <string name="change_caregiver_member_title_question">Select a new primary care giver</string>
+    <string name="change_caregiver_member_title">Change primary caregiver</string>
+    <string name="change_caregiver_member_title_question">Select a new primary caregiver</string>
     <string name="remove_member_title">Remove member</string>
     <string name="remove_member_prompt">Which member do you want to remove?</string>
     <string name="visit_month">%1$s visit done</string>
@@ -60,6 +60,7 @@
     <string name="edit">EDIT</string>
     <string name="return_to_family_name">Return to %1$s Family</string>
     <string name="return_to_family_members">Return to family members</string>
+    <string name="save_title">SAVE</string>
 
     <string name="allow_calls_denied">Kindly allow calls to be made here</string>
     <string name="copy_to_clipboard">Copy to clipboard</string>
@@ -105,7 +106,7 @@
     <string name="profile_activity_completed">Completed on %s</string>
     <string name="interpunct">・</string>
     <string name="home_visit">Home Visit</string>
-    <string name="profile_activity_not_visited">Marked not visisted on %s</string>
+    <string name="profile_activity_not_visited">Marked not visited on %s</string>
 
     <string name="day">day</string>
     <string name="days">days</string>
@@ -119,4 +120,11 @@
     <string name="family">%s Family</string>
     <string name="remove_entire_family">Removing entire family</string>
     <string name="remove_warning_family">Are you sure you want to remove the %s Family\'s record? This will remove the family\'s entire record AND all of the %s family members\' health records from your device. This action cannot be undone.</string>
+    <string name="cancel">CANCEL</string>
+    <string name="submit">SUBMIT</string>
+    <string name="profile_change_dialog_message">Before you remove this member, you must select a new family head.</string>
+    <string name="select_caregiver">Select a new primary caregiver</string>
+    <string name="select_family_head">Select a new family head</string>
+    <string name="remove_caregiver_warning_message">Before you remove this member you must select a new primary caregiver</string>
+    <string name="remove_familyhead_warning_message">Before you remove this member you must select a new family head.</string>
 </resources>

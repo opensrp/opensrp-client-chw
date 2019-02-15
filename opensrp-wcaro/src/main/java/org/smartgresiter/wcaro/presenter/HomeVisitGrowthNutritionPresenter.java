@@ -1,10 +1,8 @@
 package org.smartgresiter.wcaro.presenter;
 
 import android.content.Context;
-import android.text.SpannableString;
 
 import org.smartgresiter.wcaro.R;
-import org.smartgresiter.wcaro.application.WcaroApplication;
 import org.smartgresiter.wcaro.contract.HomeVisitGrowthNutritionContract;
 import org.smartgresiter.wcaro.fragment.GrowthNutritionInputFragment;
 import org.smartgresiter.wcaro.interactor.HomeVisitGrowthNutritionInteractor;
@@ -14,7 +12,6 @@ import org.smartgresiter.wcaro.util.JsonFormUtils;
 import org.smartgresiter.wcaro.util.WCAROServiceSchedule;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.Alert;
-import org.smartregister.domain.AlertStatus;
 import org.smartregister.immunization.ImmunizationLibrary;
 import org.smartregister.immunization.domain.ServiceSchedule;
 import org.smartregister.immunization.domain.ServiceWrapper;

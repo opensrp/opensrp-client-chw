@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    android:orientation="vertical"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:orientation="vertical">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/detail_toolbar"
@@ -18,7 +18,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:padding="5dp"
+            android:layout_marginEnd="@dimen/dialog_toolbar_close_margin"
+            android:layout_marginRight="@dimen/dialog_toolbar_close_margin"
             android:tint="@color/white"
             app:srcCompat="@drawable/ic_cross" />
 
@@ -27,7 +28,6 @@
             style="@style/CustomFontTextViewStyle.ClientList.Light"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
             android:gravity="center_vertical"
             android:text="Growth and Nutrition"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -36,19 +36,19 @@
 
     <LinearLayout
         android:id="@+id/exclusive_feeding_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/detail_toolbar"
         android:orientation="vertical"
-        android:padding="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:padding="10dp">
+
         <ImageView
             android:id="@+id/growth_image"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:src="@drawable/form_breasfeeding"
             android:layout_gravity="center"
             android:layout_marginBottom="10dp"
-            />
+            android:src="@mipmap/form_breasfeeding" />
 
         <org.smartregister.view.customcontrols.CustomFontTextView
             android:id="@+id/textview_exclusive"
@@ -57,62 +57,64 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:gravity="center_vertical"
-            android:textColor="@color/text_black"
-            android:textSize="@dimen/register_list_desc_size"
             android:text="@string/exclusive_feeding"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@color/text_black"
+            android:textSize="@dimen/register_list_desc_size" />
 
         <RadioGroup
             android:id="@+id/radio_group_exclusive"
-            android:padding="10dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:padding="10dp">
 
             <RadioButton
                 android:id="@+id/yes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="Yes"
                 android:textColor="@color/text_black"
-                android:textSize="@dimen/register_list_desc_size"
-                android:text="Yes" />
+                android:textSize="@dimen/register_list_desc_size" />
 
             <RadioButton
                 android:id="@+id/no"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="No"
                 android:textColor="@color/text_black"
-                android:textSize="@dimen/register_list_desc_size"
-                android:text="No" />
+                android:textSize="@dimen/register_list_desc_size" />
         </RadioGroup>
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/vitamin_a_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/exclusive_feeding_bar"
+        android:gravity="center"
         android:orientation="vertical"
         android:padding="10dp"
-        android:visibility="visible"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:visibility="visible">
+
         <ImageView
             android:id="@+id/vitamin_image"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:src="@drawable/form_vitamin"
             android:layout_gravity="center"
             android:layout_marginBottom="10dp"
-            />
+            android:src="@mipmap/form_vitamin" />
+
         <org.smartregister.view.customcontrols.CustomFontTextView
             android:id="@+id/textview_vitamin"
             style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:layout_gravity="center_horizontal"
             android:layout_marginLeft="@dimen/btn_margin_left"
             android:layout_marginTop="@dimen/vaccine_text_top_margin"
             android:layout_marginRight="@dimen/btn_margin_right"
             android:layout_marginBottom="@dimen/btn_margin_bottom"
+            android:gravity="center"
             android:paddingLeft="0dp"
             android:textColor="@color/text_black"
             android:textSize="@dimen/register_list_desc_size" />
@@ -122,10 +124,9 @@
             style="@android:style/Widget.DatePicker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:calendarViewShown="false"
             android:layout_gravity="center"
-            android:descendantFocusability="blocksDescendants"
-            />
+            android:calendarViewShown="false"
+            android:descendantFocusability="blocksDescendants" />
     </LinearLayout>
 
     <View
@@ -140,6 +141,8 @@
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignWithParentIfMissing="true"
+        android:layout_above="@+id/cancel"
         android:layout_gravity="bottom"
         android:layout_marginLeft="@dimen/btn_margin_left"
         android:layout_marginRight="@dimen/btn_margin_right"
@@ -148,10 +151,8 @@
         android:paddingTop="@dimen/btn_padding_top"
         android:paddingBottom="@dimen/btn_padding_bottom"
         android:text="Save"
-        android:layout_above="@+id/cancel"
         android:textAllCaps="true"
         android:textAppearance="?android:textAppearanceSmall"
-        android:layout_alignWithParentIfMissing="true"
         android:textColor="@color/white"
         android:textSize="@dimen/btn_text_size" />
 
@@ -165,8 +166,8 @@
         android:layout_marginRight="@dimen/btn_margin_right"
         android:layout_weight="1"
         android:background="@drawable/vaccination_earlier_bg"
-        android:paddingBottom="@dimen/btn_padding_bottom"
         android:paddingTop="@dimen/btn_padding_top"
+        android:paddingBottom="@dimen/btn_padding_bottom"
         android:text="DOSE NOT GIVEN"
         android:textAllCaps="false"
         android:textAppearance="?android:textAppearanceSmall"

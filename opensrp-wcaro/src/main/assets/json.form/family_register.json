@@ -136,6 +136,14 @@
         "type": "gps"
       },
       {
+        "key": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "spacer",
+        "spacer_height": "15dp"
+      },
+      {
         "key": "fam_source_income",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_attribute",
@@ -162,12 +170,12 @@
     "title": "Family head",
     "fields": [
       {
-        "key": "profile",
+        "key": "photo",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "choose_image",
-        "uploadButtonText": "Take a photo of the child"
+        "uploadButtonText": "Take a picture of the person"
       },
       {
         "key": "unique_id",
@@ -177,6 +185,7 @@
         "type": "edit_text",
         "hint": "ID *",
         "value": "0",
+        "read_only" : "true",
         "v_numeric": {
           "value": "true",
           "err": "Please enter a valid ID"
@@ -262,7 +271,7 @@
         "edit_type": "name",
         "v_required": {
           "value": "true",
-          "err": "Please enter the middle name"
+          "err": "Please enter the first name"
         },
         "v_regex": {
           "value": "[A-Za-z\\s\.\-]*",

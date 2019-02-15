@@ -11,7 +11,6 @@ import org.apache.commons.lang3.tuple.Triple;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartgresiter.wcaro.application.WcaroApplication;
-import org.smartgresiter.wcaro.contract.ChildRemoveContract;
 import org.smartgresiter.wcaro.contract.FamilyRemoveMemberContract;
 import org.smartgresiter.wcaro.util.Constants;
 import org.smartgresiter.wcaro.util.JsonFormUtils;
@@ -81,32 +80,6 @@ public class FamilyRemoveMemberInteractor implements FamilyRemoveMemberContract.
                     @Override
                     public void run() {
                         presenter.memberRemoved(finalValue);
-                    }
-                });
-            }
-        };
-
-        appExecutors.diskIO().execute(runnable);
-
-    }
-
-    public void removeChild(final String familyID, final String lastLocationId, final JSONObject exitForm, final ChildRemoveContract.Presenter presenter) {
-
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-
-                // process the json object
-                try {
-                    removeUser(familyID, exitForm, lastLocationId);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-                appExecutors.mainThread().execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        presenter.onChildRemove();
                     }
                 });
             }
@@ -289,18 +262,24 @@ public class FamilyRemoveMemberInteractor implements FamilyRemoveMemberContract.
     private void updateRepo(Triple<Pair<Date, String>, String, List<Event>> triple, String tableName) {
         AllCommonsRepository commonsRepository = WcaroApplication.getInstance().getAllCommonsRepository(tableName);
 
-        if (commonsRepository != null) {
+        Date date_removed = new Date();
+        Date dod = null;
+        if(triple.getLeft() != null && triple.getLeft().first != null ){
+            dod = triple.getLeft().first;
+        }
+
+        if (commonsRepository != null && dod == null) {
             ContentValues values = new ContentValues();
-            values.put(DBConstants.KEY.DATE_REMOVED, getDBFormatedDate(new Date()));
+            values.put(DBConstants.KEY.DATE_REMOVED, getDBFormatedDate(date_removed));
             commonsRepository.update(tableName, values, triple.getMiddle());
             commonsRepository.updateSearch(triple.getMiddle());
             commonsRepository.close(triple.getMiddle());
         }
 
         // enter the date of death
-        if (triple.getLeft() != null && triple.getLeft().first != null && commonsRepository != null) {
+        if (dod != null && commonsRepository != null) {
             ContentValues values = new ContentValues();
-            values.put(DBConstants.KEY.DOD, getDBFormatedDate(triple.getLeft().first));
+            values.put(DBConstants.KEY.DOD, getDBFormatedDate(dod));
             commonsRepository.update(tableName, values, triple.getMiddle());
             commonsRepository.updateSearch(triple.getMiddle());
         }

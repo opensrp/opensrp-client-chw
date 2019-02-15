@@ -15,21 +15,27 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.github.ybq.android.spinkit.style.FadingCircle;
 
 import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.adapter.NavigationAdapter;
 import org.smartgresiter.wcaro.application.WcaroApplication;
 import org.smartgresiter.wcaro.contract.NavigationContract;
 import org.smartgresiter.wcaro.presenter.NavigationPresenter;
+import org.smartregister.domain.FetchStatus;
+import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 
+import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class NavigationMenu implements NavigationContract.View {
+public class NavigationMenu implements NavigationContract.View, SyncStatusBroadcastReceiver.SyncStatusListener {
 
     private static NavigationMenu instance;
     private String TAG = NavigationMenu.class.getCanonicalName();
@@ -41,8 +47,11 @@ public class NavigationMenu implements NavigationContract.View {
     private RecyclerView recyclerView;
     private TextView tvLogout;
     private View rootView = null;
+    private ImageView ivSync;
+    private ProgressBar syncProgressBar;
 
     private NavigationContract.Presenter mPresenter;
+    private static WeakReference<Activity> activityWeakReference;
 
 
     private NavigationMenu() {
@@ -50,13 +59,15 @@ public class NavigationMenu implements NavigationContract.View {
     }
 
     public static NavigationMenu getInstance(Activity activity, View parentView, Toolbar myToolbar) {
-
+        SyncStatusBroadcastReceiver.getInstance().removeSyncStatusListener(instance);
+        activityWeakReference = new WeakReference<>(activity);
         int orientation = activity.getResources().getConfiguration().orientation;
         if (orientation == Configuration.ORIENTATION_PORTRAIT) {
             if (instance == null) {
                 instance = new NavigationMenu();
             }
 
+            SyncStatusBroadcastReceiver.getInstance().addSyncStatusListener(instance);
             instance.init(activity, parentView, myToolbar);
             return instance;
         } else {
@@ -128,6 +139,13 @@ public class NavigationMenu implements NavigationContract.View {
         navigationView = rootView.findViewById(R.id.nav_view);
         tvLogout = rootView.findViewById(R.id.tvLogout);
         recyclerView = rootView.findViewById(R.id.rvOptions);
+        ivSync = rootView.findViewById(R.id.ivSyncIcon);
+        syncProgressBar = rootView.findViewById(R.id.pbSync);
+
+        if (syncProgressBar != null) {
+            FadingCircle circle = new FadingCircle();
+            syncProgressBar.setIndeterminateDrawable(circle);
+        }
 
         // register all objects
         registerDrawer(activity);
@@ -185,7 +203,8 @@ public class NavigationMenu implements NavigationContract.View {
     private void registerSync(final Activity parentActivity) {
 
         TextView tvSync = rootView.findViewById(R.id.tvSync);
-        ImageView ivSync = rootView.findViewById(R.id.ivSyncIcon);
+        ivSync = rootView.findViewById(R.id.ivSyncIcon);
+        syncProgressBar = rootView.findViewById(R.id.pbSync);
 
         View.OnClickListener syncClicker = new View.OnClickListener() {
             @Override
@@ -198,6 +217,8 @@ public class NavigationMenu implements NavigationContract.View {
 
         tvSync.setOnClickListener(syncClicker);
         ivSync.setOnClickListener(syncClicker);
+
+        refreshSyncProgressSpinner();
     }
 
     public boolean onBackPressed() {
@@ -218,7 +239,7 @@ public class NavigationMenu implements NavigationContract.View {
             TextView tvLastSyncTime = rootView.findViewById(R.id.tvSyncTime);
             if (lastSync != null) {
                 tvLastSyncTime.setVisibility(View.VISIBLE);
-                tvLastSyncTime.setText(sdf.format(lastSync));
+                tvLastSyncTime.setText(" " + sdf.format(lastSync));
             } else {
                 tvLastSyncTime.setVisibility(View.INVISIBLE);
             }
@@ -249,4 +270,38 @@ public class NavigationMenu implements NavigationContract.View {
             Toast.makeText(activity.getApplicationContext(), message, Toast.LENGTH_SHORT).show();
         }
     }
+
+    @Override
+    public void onSyncStart() {
+        // set the sync icon to be a rotating menu
+        refreshSyncProgressSpinner();
+    }
+
+    @Override
+    public void onSyncInProgress(FetchStatus fetchStatus) {
+
+    }
+
+    @Override
+    public void onSyncComplete(FetchStatus fetchStatus) {
+        // hide the rotating menu
+        refreshSyncProgressSpinner();
+        // update the time
+        refreshLastSync(new Date());
+
+        if(activityWeakReference.get() != null && !activityWeakReference.get().isDestroyed()){
+            mPresenter.refreshNavigationCount(activityWeakReference.get());
+        }
+    }
+
+    protected void refreshSyncProgressSpinner() {
+        if (SyncStatusBroadcastReceiver.getInstance().isSyncing()) {
+            syncProgressBar.setVisibility(View.VISIBLE);
+            ivSync.setVisibility(View.INVISIBLE);
+        } else {
+            syncProgressBar.setVisibility(View.INVISIBLE);
+            ivSync.setVisibility(View.VISIBLE);
+        }
+    }
+
 }

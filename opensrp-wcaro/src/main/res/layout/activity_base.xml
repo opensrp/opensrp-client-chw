@@ -19,25 +19,25 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:fitsSystemWindows="true"
         android:background="#2c2c2c"
+        android:fitsSystemWindows="true"
         app:itemBackground="@drawable/drawer_item_background"
         app:itemIconTint="@android:color/white"
         app:itemTextColor="@android:color/white"
         app:theme="@style/WcaroTheme.AppBarOverlay.NavigationDrawerStyle">
 
         <RelativeLayout
-            android:fitsSystemWindows="false"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="false">
 
             <RelativeLayout
                 android:id="@+id/rlLogo"
-                android:paddingTop="30dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true">
+                android:layout_alignParentTop="true"
+                android:paddingTop="30dp">
 
                 <ImageView
                     android:id="@+id/ivLogo"
@@ -45,20 +45,20 @@
                     android:layout_height="75dp"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
+                    android:contentDescription="@string/nav_logo"
                     android:visibility="gone"
-                    app:srcCompat="@mipmap/ic_launcher"
-                    android:contentDescription="@string/nav_logo" />
+                    app:srcCompat="@mipmap/ic_launcher" />
 
                 <TextView
                     android:id="@+id/tvLogo"
-                    android:fontFamily="sans-serif"
-                    android:layout_margin="15dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
-                    android:textColor="@color/light_grey"
+                    android:layout_margin="15dp"
+                    android:fontFamily="sans-serif"
                     android:text="@string/nav_logo"
+                    android:textColor="@color/light_grey"
                     android:textSize="24sp"
                     android:textStyle="bold" />
 
@@ -75,45 +75,45 @@
                 android:id="@+id/rlMid"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/vDiv1"
-                android:layout_above="@+id/rlSync">
+                android:layout_above="@+id/rlSync"
+                android:layout_below="@+id/vDiv1">
 
                 <TextView
                     android:id="@+id/tvRegisters"
-                    android:fontFamily="sans-serif"
-                    android:layout_margin="15dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
+                    android:layout_margin="15dp"
+                    android:fontFamily="sans-serif"
                     android:text="@string/nav_registers"
                     android:textSize="24sp" />
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rvOptions"
-                    android:layout_margin="15dp"
-                    android:layout_below="@+id/tvRegisters"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvRegisters"
+                    android:layout_margin="15dp" />
 
                 <View
                     android:id="@+id/vDiv2"
-                    android:layout_below="@+id/rvOptions"
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
+                    android:layout_below="@+id/rvOptions"
                     android:background="#000000" />
 
                 <TextView
                     android:id="@+id/tvLogout"
-                    android:fontFamily="sans-serif"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/vDiv2"
-                    android:layout_marginRight="15dp"
                     android:layout_marginLeft="15dp"
-                    android:layout_marginBottom="15dp"
                     android:layout_marginTop="35dp"
-                    android:text="Logout as"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:fontFamily="sans-serif"
+                    android:text="Log out as"
                     android:textSize="16sp" />
 
             </RelativeLayout>
@@ -127,51 +127,66 @@
                 android:background="#3d3d3d"
                 android:padding="10dp">
 
-                <ImageView
-                    android:id="@+id/ivSyncIcon"
+                <RelativeLayout
+                    android:id="@+id/rlIconSync"
                     android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-                    app:srcCompat="@mipmap/sidemenu_sync"
-                    android:clickable="true"
-                    android:contentDescription="@string/nav_sync"
-                    android:focusable="true" />
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/ivSyncIcon"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:clickable="true"
+                        android:contentDescription="@string/nav_sync"
+                        android:focusable="true"
+                        app:srcCompat="@mipmap/sidemenu_sync" />
+
+                    <ProgressBar
+                        android:id="@+id/pbSync"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:indeterminate="true" />
+
+                </RelativeLayout>
 
                 <TextView
                     android:id="@+id/tvSync"
-                    android:fontFamily="sans-serif"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:layout_toEndOf="@+id/ivSyncIcon"
+                    android:layout_toEndOf="@+id/rlIconSync"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:fontFamily="sans-serif"
                     android:text="@string/nav_sync"
                     android:textColor="@color/white"
-                    android:clickable="true"
-                    android:textSize="18sp"
-                    android:focusable="true" />
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/tvSyncTimeTitle"
-                    android:fontFamily="sans-serif"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_toStartOf="@+id/tvSyncTime"
+                    android:fontFamily="sans-serif"
                     android:text="@string/nav_last"
                     android:textColor="@color/white"
                     android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/tvSyncTime"
-                    android:fontFamily="sans-serif"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
+                    android:fontFamily="sans-serif"
                     android:text="@string/nav_last_sync_time"
                     android:textColor="@color/white"
                     android:textSize="14sp" />
