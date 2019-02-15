@@ -115,7 +115,7 @@ public class WcaroApplication extends DrishtiApplication {
         context.updateCommonFtsObject(createCommonFtsObject());
 
         //Initialize Modules
-        CoreLibrary.init(context, new WcaroSyncConfiguration());
+        CoreLibrary.init(context, new WcaroSyncConfiguration(), BuildConfig.BUILD_TIMESTAMP);
         ImmunizationLibrary.init(context, getRepository(), null, BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
 
         ConfigurableViewsLibrary.init(context, getRepository());

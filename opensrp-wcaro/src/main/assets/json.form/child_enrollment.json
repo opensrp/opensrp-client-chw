@@ -68,7 +68,8 @@
         "openmrs_entity": "person_identifier",
         "openmrs_entity_id": "opensrp_id",
         "type": "edit_text",
-        "hint": "UNIQUE ID *",
+        "hint": "ID *",
+        "read_only" : "true",
         "value": "0",
         "v_numeric": {
           "value": "true",

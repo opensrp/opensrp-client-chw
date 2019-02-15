@@ -21,7 +21,6 @@ public interface HomeVisitGrowthNutritionContract {
 
         void statusImageViewUpdate(String type, boolean value,String message,String yesNoValue);
 
-        void updateUpcomingService();
         Context getViewContext();
 
     }

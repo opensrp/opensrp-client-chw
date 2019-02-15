@@ -29,6 +29,7 @@ import org.smartgresiter.wcaro.custom_view.HomeVisitGrowthAndNutrition;
 import org.smartgresiter.wcaro.util.Constants;
 import org.smartgresiter.wcaro.util.JsonFormUtils;
 import org.smartgresiter.wcaro.util.Utils;
+import org.smartgresiter.wcaro.util.WCAROServiceSchedule;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.immunization.ImmunizationLibrary;
@@ -318,7 +319,7 @@ public class GrowthNutritionInputFragment extends DialogFragment implements Radi
                 //list.add(tag);
                 //serviceId=tag.getServiceType().getId()+"";
                 //tag.getDbKey();
-                ServiceSchedule.updateOfflineAlerts(tag.getType(), commonPersonObjectClient.entityId(), Utils.dobToDateTime(commonPersonObjectClient));
+                WCAROServiceSchedule.updateOfflineAlerts(tag.getType(), commonPersonObjectClient.entityId(), Utils.dobToDateTime(commonPersonObjectClient));
                 serviceWrapper = tag;
             }
             return serviceWrapper;

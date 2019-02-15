@@ -13,6 +13,7 @@ import org.smartgresiter.wcaro.util.ChildDBConstants;
 import org.smartgresiter.wcaro.util.ChildUtils;
 import org.smartgresiter.wcaro.util.ChildVisit;
 import org.smartgresiter.wcaro.util.ImmunizationState;
+import org.smartgresiter.wcaro.util.WCAROServiceSchedule;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.Alert;
@@ -85,7 +86,7 @@ public class FamilyMemberVaccinationAsyncTask extends AsyncTask {
 
                         }
                         try{
-                            ServiceSchedule.updateOfflineAlerts(childId, dateTime);
+                            WCAROServiceSchedule.updateOfflineAlerts(childId, dateTime);
                         }catch (Exception e){
 
                         }

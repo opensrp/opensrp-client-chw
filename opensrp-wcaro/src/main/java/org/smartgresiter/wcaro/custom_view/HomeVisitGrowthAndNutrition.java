@@ -217,11 +217,6 @@ public class HomeVisitGrowthAndNutrition extends LinearLayout implements View.On
         }
     }
 
-    @Override
-    public void updateUpcomingService() {
-
-    }
-
 
     private void updateStatusTick(CircleImageView imageView, boolean isCheck) {
         if (isCheck) {
