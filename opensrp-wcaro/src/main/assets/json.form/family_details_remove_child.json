@@ -136,7 +136,7 @@
           {
             "type": "date",
             "ex": "greaterThanEqualTo(., step1:dob)",
-            "err": "Date moved away occur before date of birth"
+            "err": "Moved away date cannot be before date of birth"
           }
         ],
         "relevance": {
