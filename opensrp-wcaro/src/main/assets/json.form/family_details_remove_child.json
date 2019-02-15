@@ -110,11 +110,10 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type": "date_picker",
-        "hint": "Child's DOB *",
+        "type": "spacer",
         "expanded": false,
         "read_only": "true",
-        "hidden": "true"
+        "hidden": "false"
       },
       {
         "key": "date_moved",
@@ -181,13 +180,21 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type": "label",
-        "text": "",
-        "text_size": "30px",
+        "label": "Age at death",
+        "hint": "Age at death",
+        "type": "edit_text",
+        "read_only": "true",
         "relevance": {
           "step1:remove_reason": {
             "type": "string",
             "ex": "equalTo(., \"Died\")"
+          }
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_remove_calculation.yml"
+            }
           }
         }
       }
