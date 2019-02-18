@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Handler;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.view.ViewPager;
@@ -109,8 +110,9 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
             }
         });
         appBarLayout = findViewById(R.id.collapsing_toolbar_appbarlayout);
-        appBarLayout.addOnOffsetChangedListener(this);
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            appBarLayout.setOutlineProvider(null);
+        }
         imageRenderHelper = new ImageRenderHelper(this);
 
         initializePresenter();
