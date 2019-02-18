@@ -20,6 +20,8 @@ import org.smartregister.family.util.Constants;
 import java.util.HashMap;
 import java.util.Set;
 
+import static org.smartgresiter.wcaro.util.Constants.INTENT_KEY.IS_COMES_FROM_FAMILY;
+
 public class FamilyProfileMemberFragment extends BaseFamilyProfileMemberFragment {
 
     public static BaseFamilyProfileMemberFragment newInstance(Bundle bundle) {
@@ -89,6 +91,7 @@ public class FamilyProfileMemberFragment extends BaseFamilyProfileMemberFragment
     public void goToChildProfileActivity(CommonPersonObjectClient patient) {
         Intent intent = new Intent(getActivity(), ChildProfileActivity.class);
         intent.putExtras(getArguments());
+        intent.putExtra(IS_COMES_FROM_FAMILY,true);
         intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, patient.getCaseId());
         startActivity(intent);
     }
