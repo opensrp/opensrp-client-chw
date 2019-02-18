@@ -60,7 +60,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "spacer",
-        "spacer_height": "40sp"
+        "spacer_height": "10sp"
       },
       {
         "key": "details",
@@ -69,7 +69,7 @@
         "openmrs_entity_id": "",
         "type": "label",
         "text": "",
-        "text_size": "30px"
+        "text_size": "25px"
       },
       {
         "key": "divider1",
@@ -84,7 +84,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "spacer",
-        "spacer_height": "20sp"
+        "spacer_height": "15dp"
       },
       {
         "key": "remove_reason",
@@ -93,7 +93,7 @@
         "openmrs_entity_id": "160417AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Reason",
+        "hint": "Reason *",
         "values": [
           "Died",
           "Moved away",
@@ -110,11 +110,10 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type": "date_picker",
-        "hint": "Child's DOB *",
+        "type": "spacer",
         "expanded": false,
         "read_only": "true",
-        "hidden": "true"
+        "hidden": "false"
       },
       {
         "key": "date_moved",
@@ -136,7 +135,7 @@
           {
             "type": "date",
             "ex": "greaterThanEqualTo(., step1:dob)",
-            "err": "Date moved away occur before date of birth"
+            "err": "Moved away date cannot be before date of birth"
           }
         ],
         "relevance": {
@@ -154,7 +153,7 @@
         "openmrs_data_type": "text",
         "type": "date_picker",
         "label": "Date of death",
-        "hint": "Date the family member died *",
+        "hint": "Date of death *",
         "expanded": false,
         "min_date": "",
         "max_date": "today",
@@ -181,13 +180,21 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type": "label",
-        "text": "",
-        "text_size": "30px",
+        "label": "Age at death",
+        "hint": "Age at death",
+        "type": "edit_text",
+        "read_only": "true",
         "relevance": {
           "step1:remove_reason": {
             "type": "string",
             "ex": "equalTo(., \"Died\")"
+          }
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_remove_calculation.yml"
+            }
           }
         }
       }
