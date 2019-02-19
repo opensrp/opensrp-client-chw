@@ -56,11 +56,11 @@
 
         <ImageView
             android:id="@+id/growth_image"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_breast_feeding_big"
             android:layout_gravity="center"
-            android:layout_marginBottom="10dp"
-            android:src="@mipmap/form_breasfeeding" />
+            android:layout_marginBottom="10dp" />
 
         <org.smartregister.view.customcontrols.CustomFontTextView
             android:id="@+id/textview_exclusive"
@@ -110,11 +110,10 @@
 
         <ImageView
             android:id="@+id/vitamin_image"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginBottom="10dp"
-            android:src="@mipmap/form_vitamin" />
+            android:layout_marginBottom="10dp" />
 
         <org.smartregister.view.customcontrols.CustomFontTextView
             android:id="@+id/textview_vitamin"

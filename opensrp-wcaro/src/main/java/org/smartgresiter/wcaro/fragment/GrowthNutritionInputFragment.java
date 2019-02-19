@@ -63,9 +63,9 @@ public class GrowthNutritionInputFragment extends DialogFragment implements Radi
         return growthNutritionInputFragment;
     }
     static final Map<String,Integer> imageMap=ImmutableMap.of(
-            GROWTH_TYPE.VITAMIN.getValue(), R.drawable.form_vitamin,
-            GROWTH_TYPE.MNP.getValue(),R.drawable.form_mnp,
-            GROWTH_TYPE.DEWORMING.getValue(),R.drawable.form_deworming
+            GROWTH_TYPE.VITAMIN.getValue(), R.drawable.ic_vitamin_big,
+            GROWTH_TYPE.MNP.getValue(),R.drawable.ic_mnp_big,
+            GROWTH_TYPE.DEWORMING.getValue(),R.drawable.ic_deworming_big
     );
 
     private TextView textViewTitle;

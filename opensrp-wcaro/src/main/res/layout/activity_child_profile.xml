@@ -168,12 +168,4 @@
         <include layout="@layout/content_profile" />
 
     </android.support.design.widget.AppBarLayout>
-
-
-    <org.smartgresiter.wcaro.custom_view.FamilyMemberFloatingMenu
-        android:id="@+id/individual_floating_menu"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true" />
 </android.support.design.widget.CoordinatorLayout>
