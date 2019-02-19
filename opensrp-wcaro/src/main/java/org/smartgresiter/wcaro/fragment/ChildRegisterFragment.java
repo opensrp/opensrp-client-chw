@@ -1,6 +1,10 @@
 package org.smartgresiter.wcaro.fragment;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.os.Bundle;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -17,9 +21,12 @@ import org.smartgresiter.wcaro.custom_view.NavigationMenu;
 import org.smartgresiter.wcaro.model.ChildRegisterFragmentModel;
 import org.smartgresiter.wcaro.presenter.ChildRegisterFragmentPresenter;
 import org.smartgresiter.wcaro.provider.ChildRegisterProvider;
+import org.smartgresiter.wcaro.util.ChildDBConstants;
 import org.smartgresiter.wcaro.util.Constants;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
+import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
+import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.family.fragment.NoMatchDialogFragment;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.util.Utils;
@@ -29,6 +36,7 @@ import org.smartregister.view.customcontrols.FontVariant;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Set;
 
 public class ChildRegisterFragment extends BaseRegisterFragment implements ChildRegisterFragmentContract.View {
@@ -47,6 +55,12 @@ public class ChildRegisterFragment extends BaseRegisterFragment implements Child
         String viewConfigurationIdentifier = ((BaseRegisterActivity) getActivity()).getViewIdentifiers().get(0);
         presenter = new ChildRegisterFragmentPresenter(this, new ChildRegisterFragmentModel(), viewConfigurationIdentifier);
 
+    }
+
+    @Override
+    public void filter(String filterString, String joinTableString, String mainConditionString, boolean qrCode) {
+        this.joinTables = new String[]{Constants.TABLE_NAME.FAMILY_MEMBER};
+        super.filter(filterString, joinTableString, mainConditionString, qrCode);
     }
 
     protected void filter(String filterString, String joinTableString, String mainConditionString) {
@@ -247,7 +261,56 @@ public class ChildRegisterFragment extends BaseRegisterFragment implements Child
         NavigationMenu.getInstance(getActivity(), null, toolbar);
     }
 
-    @Override
-    public void setAdvancedSearchFormData(HashMap<String, String> hashMap) { }
+    private String filterandSortQuery() {
+        SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder(mainSelect);
 
+        String query = "";
+        try {
+            if (isValidFilterForFts(commonRepository())) {
+                String sql = ChildDBConstants.childMainFilter(mainCondition, filters, Sortqueries, clientAdapter.getCurrentlimit(), clientAdapter.getCurrentoffset());
+                List<String> ids = commonRepository().findSearchIds(sql);
+                query = sqb.toStringFts(ids, tablename, CommonRepository.ID_COLUMN,
+                        Sortqueries);
+                query = sqb.Endquery(query);
+            } else {
+                sqb.addCondition(filters);
+                query = sqb.orderbyCondition(Sortqueries);
+                query = sqb.Endquery(sqb.addlimitandOffset(query, clientAdapter.getCurrentlimit(), clientAdapter.getCurrentoffset()));
+
+            }
+        } catch (Exception e) {
+            Log.e(getClass().getName(), e.toString(), e);
+        }
+
+        return query;
+    }
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        if (StringUtils.isBlank(filters)) {
+            return super.onCreateLoader(id, args);
+        } else {
+            switch (id) {
+                case LOADER_ID:
+                    // Returns a new CursorLoader
+                    return new CursorLoader(getActivity()) {
+                        @Override
+                        public Cursor loadInBackground() {
+                            // Count query
+                            String query = "";
+                            // Select register query
+                            query = filterandSortQuery();
+                            return commonRepository().rawCustomQueryForAdapter(query);
+                        }
+                    };
+                default:
+                    // An invalid id was passed in
+                    return null;
+            }
+        }
+    }
+
+    @Override
+    public void setAdvancedSearchFormData(HashMap<String, String> hashMap) {
+    }
 }
