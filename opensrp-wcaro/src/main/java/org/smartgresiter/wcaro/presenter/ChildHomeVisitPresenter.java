@@ -38,8 +38,8 @@ public class ChildHomeVisitPresenter implements ChildHomeVisitContract.Presenter
     public void startBirthCertForm() {
         try {
             JSONObject form = getFormUtils().getFormJson(Constants.JSON_FORM.BIRTH_CERTIFICATION);
-            String dobString = org.smartregister.family.util.Utils.getDuration(org.smartregister.family.util.Utils.getValue
-                    (childClient.getColumnmaps(), DBConstants.KEY.DOB, false));
+            String dobString = org.smartregister.family.util.Utils.getValue
+                    (childClient.getColumnmaps(), DBConstants.KEY.DOB, false);
 
             JSONObject revForm = JsonFormUtils.getBirthCertFormAsJson(form, childClient.getCaseId(), "", dobString);
             getView().startFormActivity(revForm);
@@ -54,8 +54,8 @@ public class ChildHomeVisitPresenter implements ChildHomeVisitContract.Presenter
         try {
 
             JSONObject form = getFormUtils().getFormJson(Constants.JSON_FORM.OBS_ILLNESS);
-            String dobString = org.smartregister.family.util.Utils.getDuration(org.smartregister.family.util.Utils.getValue
-                    (childClient.getColumnmaps(), DBConstants.KEY.DOB, false));
+            String dobString = org.smartregister.family.util.Utils.getValue
+                    (childClient.getColumnmaps(), DBConstants.KEY.DOB, false);
 
             JSONObject revForm = JsonFormUtils.getOnsIllnessFormAsJson(form, childClient.getCaseId(), "", dobString);
             getView().startFormActivity(revForm);
