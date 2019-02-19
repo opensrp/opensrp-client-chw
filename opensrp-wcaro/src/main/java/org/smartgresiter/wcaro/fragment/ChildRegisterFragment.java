@@ -56,13 +56,7 @@ public class ChildRegisterFragment extends BaseRegisterFragment implements Child
         presenter = new ChildRegisterFragmentPresenter(this, new ChildRegisterFragmentModel(), viewConfigurationIdentifier);
 
     }
-
-    @Override
-    public void filter(String filterString, String joinTableString, String mainConditionString, boolean qrCode) {
-        this.joinTables = new String[]{Constants.TABLE_NAME.FAMILY_MEMBER};
-        super.filter(filterString, joinTableString, mainConditionString, qrCode);
-    }
-
+    
     protected void filter(String filterString, String joinTableString, String mainConditionString) {
         filters = filterString;
         joinTable = joinTableString;
