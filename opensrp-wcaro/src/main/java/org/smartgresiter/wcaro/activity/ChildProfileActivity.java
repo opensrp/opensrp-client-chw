@@ -263,18 +263,25 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
 
     private void openVisitMonthView() {
         layoutNotRecordView.setVisibility(View.VISIBLE);
+        layoutRecordButtonDone.setVisibility(View.GONE);
+        layoutRecordView.setVisibility(View.GONE);
+
+    }
+    private void openVisitRecordDoneView(){
+        layoutRecordButtonDone.setVisibility(View.VISIBLE);
+        layoutNotRecordView.setVisibility(View.GONE);
         layoutRecordView.setVisibility(View.GONE);
 
     }
 
     private void openVisitButtonView() {
         layoutNotRecordView.setVisibility(View.GONE);
+        layoutRecordButtonDone.setVisibility(View.GONE);
         layoutRecordView.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void setVisitButtonDueStatus() {
-        recordBtnCenterAlign(false);
         openVisitButtonView();
         textViewRecord.setBackgroundResource(R.drawable.record_btn_selector_due);
         textViewRecord.setTextColor(getResources().getColor(R.color.white));
@@ -282,7 +289,6 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
 
     @Override
     public void setVisitButtonOverdueStatus() {
-        recordBtnCenterAlign(false);
         openVisitButtonView();
         textViewRecord.setBackgroundResource(R.drawable.record_btn_selector_overdue);
         textViewRecord.setTextColor(getResources().getColor(R.color.white));
@@ -377,7 +383,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     @Override
     public void setVisitAboveTwentyFourView() {
         textViewVisitNot.setVisibility(View.GONE);
-        recordBtnCenterAlign(true);
+        openVisitRecordDoneView();
         textViewRecord.setBackgroundResource(R.drawable.record_btn_selector_above_twentyfr);
         textViewRecord.setTextColor(getResources().getColor(R.color.light_grey_text));
 
@@ -512,26 +518,6 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     public void setAge(String age) {
         textViewChildName.append(", " + age);
 
-    }
-
-    private void recordBtnCenterAlign(boolean isCenter) {
-        if (isCenter) {
-            layoutRecordButtonDone.setVisibility(View.VISIBLE);
-            layoutRecordView.setVisibility(View.GONE);
-        } else {
-            layoutRecordButtonDone.setVisibility(View.GONE);
-            layoutRecordView.setVisibility(View.VISIBLE);
-        }
-    }
-
-    private void addOrRemoveProperty(View view, int property, boolean flag) {
-        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) view.getLayoutParams();
-        if (flag) {
-            layoutParams.addRule(property);
-        } else {
-            layoutParams.removeRule(property);
-        }
-        view.setLayoutParams(layoutParams);
     }
 
     @Override
