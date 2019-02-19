@@ -50,6 +50,7 @@
                     android:paddingStart="0dp"
                     android:text="@string/record_immunizations"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textSize="@dimen/activity_title_size"
                     android:textColor="@android:color/white" />
             </RelativeLayout>
         </android.support.v7.widget.Toolbar>
