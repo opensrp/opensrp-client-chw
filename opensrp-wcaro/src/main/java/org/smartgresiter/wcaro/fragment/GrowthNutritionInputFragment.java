@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.common.collect.ImmutableMap;
@@ -63,16 +64,16 @@ public class GrowthNutritionInputFragment extends DialogFragment implements Radi
         return growthNutritionInputFragment;
     }
     static final Map<String,Integer> imageMap=ImmutableMap.of(
-            GROWTH_TYPE.VITAMIN.getValue(), R.drawable.ic_vitamin_big,
-            GROWTH_TYPE.MNP.getValue(),R.drawable.ic_mnp_big,
-            GROWTH_TYPE.DEWORMING.getValue(),R.drawable.ic_deworming_big
+            GROWTH_TYPE.VITAMIN.getValue(), R.drawable.formvitamin,
+            GROWTH_TYPE.MNP.getValue(),R.drawable.formmnp,
+            GROWTH_TYPE.DEWORMING.getValue(),R.drawable.formdeworming
     );
 
     private TextView textViewTitle;
-    private Button buttonSave,buttonCancel;
+    private Button buttonSave,buttonSaveBf,buttonCancel;
     private RadioButton yesRadio,noRadio;
     private String type;
-    private LinearLayout layoutExclusiveFeeding, layoutVitaminBar;
+    private RelativeLayout layoutExclusiveFeeding, layoutVitaminBar;
     private TextView textViewVitamin;
     private DatePicker datePicker;
     private ImageView vitaminImage;
@@ -113,6 +114,7 @@ public class GrowthNutritionInputFragment extends DialogFragment implements Radi
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         textViewTitle = view.findViewById(R.id.textview_vaccine_title);
         buttonSave = view.findViewById(R.id.save_btn);
+        buttonSaveBf=view.findViewById(R.id.save_bf_btn);
         buttonCancel= view.findViewById(R.id.cancel);
         yesRadio=view.findViewById(R.id.yes);
         noRadio=view.findViewById(R.id.no);
@@ -123,6 +125,7 @@ public class GrowthNutritionInputFragment extends DialogFragment implements Radi
         datePicker = view.findViewById(R.id.earlier_date_picker);
         DatePickerUtils.themeDatePicker(datePicker, new char[]{'d', 'm', 'y'});
         (view.findViewById(R.id.close)).setOnClickListener(this);
+        buttonSaveBf.setOnClickListener(this);
         buttonSave.setOnClickListener(this);
         buttonCancel.setOnClickListener(this);
         ((RadioGroup) view.findViewById(R.id.radio_group_exclusive)).setOnCheckedChangeListener(this);
@@ -257,6 +260,7 @@ public class GrowthNutritionInputFragment extends DialogFragment implements Radi
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.save_bf_btn:
             case R.id.save_btn:
                 if (type.equalsIgnoreCase(GROWTH_TYPE.EXCLUSIVE.getValue())) {
                     saveExclusiveFeedingData();
