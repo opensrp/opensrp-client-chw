@@ -60,7 +60,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     public static String DIALOG_TAG = "child_home_visit_dialog";
     Context context;
     CommonPersonObjectClient childClient;
-    private TextView nameHeader,textViewBirthCertDueDate;
+    private TextView nameHeader, textViewBirthCertDueDate;
     private HomeVisitGrowthAndNutrition homeVisitGrowthAndNutritionLayout;
     public boolean allVaccineStateFullfilled = false;
     private TextView submit;
@@ -121,7 +121,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     }
 
     private void assignNameHeader() {
-        String dob=org.smartregister.family.util.Utils.getValue(childClient.getColumnmaps(), DBConstants.KEY.DOB, false);
+        String dob = org.smartregister.family.util.Utils.getValue(childClient.getColumnmaps(), DBConstants.KEY.DOB, false);
         String dobString = org.smartregister.family.util.Utils.getDuration(dob);
         String birthCert = getValue(childClient.getColumnmaps(), BIRTH_CERT, true);
 
@@ -133,12 +133,12 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         ));
         dobString = dobString.contains("y") ? dobString.substring(0, dobString.indexOf("y")) : "";
 
-        if (!TextUtils.isEmpty(birthCert)|| TextUtils.isEmpty(dobString) || Integer.valueOf(dobString)<1) {
+        if (!TextUtils.isEmpty(birthCert) || TextUtils.isEmpty(dobString) || Integer.valueOf(dobString) < 1) {
             layoutBirthCertGroup.setVisibility(View.GONE);
-        }else{
+        } else {
             layoutBirthCertGroup.setVisibility(View.VISIBLE);
             DateTime ddd = Utils.dobStringToDateTime(dob);
-            textViewBirthCertDueDate.setText(ChildUtils.dueOverdueCalculation(ddd.toLocalDate()+""));
+            textViewBirthCertDueDate.setText(ChildUtils.dueOverdueCalculation(ddd.toLocalDate() + ""));
 
         }
     }
@@ -174,11 +174,11 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
 
         switch (v.getId()) {
             case R.id.birth_cert_group:
-                selectedForm="Birth";
+                selectedForm = "Birth";
                 presenter.startBirthCertForm();
                 break;
             case R.id.obs_illness_prevention_group:
-                selectedForm="illness";
+                selectedForm = "illness";
                 presenter.startObsIllnessCertForm();
                 break;
             case R.id.textview_submit:
@@ -315,26 +315,23 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     }
 
     private void updateStatusTick(CircleImageView imageView, boolean isCheck) {
-        if (isCheck) {
-            imageView.setImageResource(R.drawable.ic_checked);
-            imageView.setColorFilter(getResources().getColor(R.color.white));
-            imageView.setCircleBackgroundColor(getResources().getColor(R.color.alert_complete_green));
-            imageView.setBorderColor(getResources().getColor(R.color.alert_complete_green));
 
-        } else {
-            imageView.setImageResource(R.drawable.ic_checked);
-            imageView.setColorFilter(getResources().getColor(R.color.white));
-            imageView.setCircleBackgroundColor(getResources().getColor(R.color.pnc_circle_yellow));
-            imageView.setBorderColor(getResources().getColor(R.color.pnc_circle_yellow));
-        }
+        imageView.setImageResource(R.drawable.ic_checked);
+        imageView.setColorFilter(getResources().getColor(R.color.white));
+        imageView.setCircleBackgroundColor(getResources().getColor(
+                ((isCheck) ? R.color.alert_complete_green : R.color.pnc_circle_yellow))
+        );
+        imageView.setBorderColor(getResources().getColor(
+                ((isCheck) ? R.color.alert_complete_green : R.color.pnc_circle_yellow))
+        );
 
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch (requestCode){
+        switch (requestCode) {
             case org.smartregister.family.util.JsonFormUtils.REQUEST_CODE_GET_JSON:
-                if(resultCode == Activity.RESULT_OK){
+                if (resultCode == Activity.RESULT_OK) {
                     try {
                         jsonString = data.getStringExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON);
                         Log.d("JSONResult", jsonString);
@@ -348,11 +345,11 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                     } catch (Exception e) {
                         Log.e(DIALOG_TAG, Log.getStackTraceString(e));
                     }
-                }else{
-                    if(selectedForm.equalsIgnoreCase("Birth")){
+                } else {
+                    if (selectedForm.equalsIgnoreCase("Birth")) {
                         updateStatusTick(circleImageViewBirthStatus, false);
                         textViewBirthCertDueDate.setText(R.string.not_given);
-                    }else if(selectedForm.equalsIgnoreCase("illness")){
+                    } else if (selectedForm.equalsIgnoreCase("illness")) {
                         updateStatusTick(circleImageViewIllnessStatus, false);
                     }
                 }

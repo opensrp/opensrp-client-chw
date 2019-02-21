@@ -17,6 +17,7 @@ import org.smartgresiter.wcaro.util.ChildUtils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.immunization.domain.ServiceWrapper;
 
+import java.text.MessageFormat;
 import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -25,13 +26,13 @@ public class HomeVisitGrowthAndNutrition extends LinearLayout implements View.On
     public static final String TAG = "HomeVisitGrowthAndNutrition";
     private LinearLayout layoutExclusiveBar, layoutMnpBar, layoutVitaminBar, layoutDewormingBar;
     private TextView textViewExclusiveFeedingName, textViewMnpName, textViewVitaminName, textViewDewormingName;
-    private TextView textViewExclusiveFeedingTitle,textViewMnpTitle,textViewVitaminTitle,textViewDewormingTitle;
+    private TextView textViewExclusiveFeedingTitle, textViewMnpTitle, textViewVitaminTitle, textViewDewormingTitle;
     private CircleImageView imageViewExclusiveStatus, imageViewMnpStatus, imageViewVitaminStatus, imageViewDewormingStatus;
     private HomeVisitGrowthNutritionContract.Presenter presenter;
     private CommonPersonObjectClient commonPersonObjectClient;
     private FragmentManager fragmentManager;
     private ChildHomeVisitFragment childHomeVisitFragment;
-    private String feedingText,vitaminText,mnpText,dewormingText;
+    private String feedingText;
 
     public HomeVisitGrowthAndNutrition(Context context) {
         super(context);
@@ -54,10 +55,10 @@ public class HomeVisitGrowthAndNutrition extends LinearLayout implements View.On
         layoutMnpBar = findViewById(R.id.mnp_bar);
         layoutVitaminBar = findViewById(R.id.vitamin_a_bar);
         layoutDewormingBar = findViewById(R.id.deworming_bar);
-        textViewExclusiveFeedingTitle=findViewById(R.id.textview_exclusive_feeding);
-        textViewMnpTitle=findViewById(R.id.textview_mnp_bar);
-        textViewVitaminTitle=findViewById(R.id.textview_vitamin_a);
-        textViewDewormingTitle=findViewById(R.id.textview_deworming);
+        textViewExclusiveFeedingTitle = findViewById(R.id.textview_exclusive_feeding);
+        textViewMnpTitle = findViewById(R.id.textview_mnp_bar);
+        textViewVitaminTitle = findViewById(R.id.textview_vitamin_a);
+        textViewDewormingTitle = findViewById(R.id.textview_deworming);
         textViewExclusiveFeedingName = findViewById(R.id.textview_exclusive_feeding_name);
         textViewMnpName = findViewById(R.id.textview_mnp_bar_name);
         textViewVitaminName = findViewById(R.id.textview_vitamin_a_name);
@@ -100,33 +101,33 @@ public class HomeVisitGrowthAndNutrition extends LinearLayout implements View.On
 //                break;
             case R.id.exclusive_feeding_bar:
                 //if (!presenter.isSelected(GrowthNutritionInputFragment.GROWTH_TYPE.EXCLUSIVE.getValue())) {
-                    ServiceWrapper serviceWrapper = ((HomeVisitGrowthNutritionPresenter) presenter).getServiceWrapperExclusive();
-                    showGrowthNutritionDialog(GrowthNutritionInputFragment.GROWTH_TYPE.EXCLUSIVE.getValue(), "Exclusive breastfeeding",
-                            textViewExclusiveFeedingTitle.getText().toString(), serviceWrapper);
-               // }
+                ServiceWrapper serviceWrapper = ((HomeVisitGrowthNutritionPresenter) presenter).getServiceWrapperExclusive();
+                showGrowthNutritionDialog(GrowthNutritionInputFragment.GROWTH_TYPE.EXCLUSIVE.getValue(), getContext().getString(R.string.visit_exclusive_breastfeeding),
+                        textViewExclusiveFeedingTitle.getText().toString(), serviceWrapper);
+                // }
 
                 break;
             case R.id.mnp_bar:
                 //if (!presenter.isSelected(GrowthNutritionInputFragment.GROWTH_TYPE.MNP.getValue())) {
 
-                    ServiceWrapper serviceWrapperMnp = ((HomeVisitGrowthNutritionPresenter) presenter).getServiceWrapperMnp();
-                    showGrowthNutritionDialog(GrowthNutritionInputFragment.GROWTH_TYPE.MNP.getValue(), "MNP dose",
-                            textViewMnpTitle.getText().toString(), serviceWrapperMnp);
+                ServiceWrapper serviceWrapperMnp = ((HomeVisitGrowthNutritionPresenter) presenter).getServiceWrapperMnp();
+                showGrowthNutritionDialog(GrowthNutritionInputFragment.GROWTH_TYPE.MNP.getValue(), getContext().getString(R.string.visit_mnp_dose),
+                        textViewMnpTitle.getText().toString(), serviceWrapperMnp);
                 //}
                 break;
             case R.id.vitamin_a_bar:
                 //if (!presenter.isSelected(GrowthNutritionInputFragment.GROWTH_TYPE.VITAMIN.getValue())) {
-                    ServiceWrapper serviceWrapperVit = ((HomeVisitGrowthNutritionPresenter) presenter).getServiceWrapperVitamin();
-                    showGrowthNutritionDialog(GrowthNutritionInputFragment.GROWTH_TYPE.VITAMIN.getValue(), "Vitamin A dose",
-                            textViewVitaminTitle.getText().toString(), serviceWrapperVit);
+                ServiceWrapper serviceWrapperVit = ((HomeVisitGrowthNutritionPresenter) presenter).getServiceWrapperVitamin();
+                showGrowthNutritionDialog(GrowthNutritionInputFragment.GROWTH_TYPE.VITAMIN.getValue(), getContext().getString(R.string.visit_vitamin_a_dose),
+                        textViewVitaminTitle.getText().toString(), serviceWrapperVit);
                 //}
                 break;
             case R.id.deworming_bar:
                 //if (!presenter.isSelected(GrowthNutritionInputFragment.GROWTH_TYPE.DEWORMING.getValue())) {
-                    ServiceWrapper serviceWrapperDorm = ((HomeVisitGrowthNutritionPresenter) presenter).getServiceWrapperDeworming();
-                    showGrowthNutritionDialog(GrowthNutritionInputFragment.GROWTH_TYPE.DEWORMING.getValue(), "Deworming dose",
-                            textViewDewormingTitle.getText().toString(), serviceWrapperDorm);
-               // }
+                ServiceWrapper serviceWrapperDorm = ((HomeVisitGrowthNutritionPresenter) presenter).getServiceWrapperDeworming();
+                showGrowthNutritionDialog(GrowthNutritionInputFragment.GROWTH_TYPE.DEWORMING.getValue(), getContext().getString(R.string.visit_deworming_dose),
+                        textViewDewormingTitle.getText().toString(), serviceWrapperDorm);
+                // }
                 break;
         }
     }
@@ -144,14 +145,14 @@ public class HomeVisitGrowthAndNutrition extends LinearLayout implements View.On
     }
 
     @Override
-    public void updateExclusiveFeedingData(String name,String dueDate) {
+    public void updateExclusiveFeedingData(String name, String dueDate) {
         if (!TextUtils.isEmpty(name)) {
             layoutExclusiveBar.setVisibility(VISIBLE);
-            ((View) findViewById(R.id.view_exclusive_feeding_bar)).setVisibility(VISIBLE);
+            findViewById(R.id.view_exclusive_feeding_bar).setVisibility(VISIBLE);
             Object[] displayName = ChildUtils.getStringWithNumber(name);
             String str = (String) displayName[0];
             String no = (String) displayName[1];
-            feedingText=str + " " + no + " month";
+            feedingText = MessageFormat.format("{0} {1} {2}", str, no, getContext().getString(R.string.visit_months));
             textViewExclusiveFeedingTitle.setText(feedingText);
             textViewExclusiveFeedingName.setText(ChildUtils.dueOverdueCalculation(dueDate));
         }
@@ -159,51 +160,51 @@ public class HomeVisitGrowthAndNutrition extends LinearLayout implements View.On
     }
 
     @Override
-    public void updateMnpData(String name,String dueDate) {
+    public void updateMnpData(String name, String dueDate) {
         if (!TextUtils.isEmpty(name)) {
             layoutMnpBar.setVisibility(VISIBLE);
-            ((View) findViewById(R.id.view_mnp_bar)).setVisibility(VISIBLE);
+            findViewById(R.id.view_mnp_bar).setVisibility(VISIBLE);
             Object[] displayName = ChildUtils.getStringWithNumber(name);
             String str = (String) displayName[0];
             String no = (String) displayName[1];
-            mnpText = str + " " + ChildUtils.getFirstSecondAsNumber(no) + " pack";
+            String mnpText = MessageFormat.format("{0} {1} {2}", str, ChildUtils.getFirstSecondAsNumber(no), getContext().getString(R.string.visit_pack));
             textViewMnpTitle.setText(mnpText);
             textViewMnpName.setText(ChildUtils.dueOverdueCalculation(dueDate));
         }
     }
 
     @Override
-    public void updateVitaminAData(String name,String dueDate) {
+    public void updateVitaminAData(String name, String dueDate) {
         if (!TextUtils.isEmpty(name)) {
             layoutVitaminBar.setVisibility(VISIBLE);
-            ((View) findViewById(R.id.view_vitamin_a_bar)).setVisibility(VISIBLE);
+            findViewById(R.id.view_vitamin_a_bar).setVisibility(VISIBLE);
             Object[] displayName = ChildUtils.getStringWithNumber(name);
             String str = (String) displayName[0];
             String no = (String) displayName[1];
-            vitaminText = str + " " + ChildUtils.getFirstSecondAsNumber(no) + " dose";
+            String vitaminText = MessageFormat.format("{0} {1} {2}", str, ChildUtils.getFirstSecondAsNumber(no), getContext().getString(R.string.visit_dose));
             textViewVitaminTitle.setText(vitaminText);
             textViewVitaminName.setText(ChildUtils.dueOverdueCalculation(dueDate));
         }
     }
 
     @Override
-    public void updateDewormingData(String name,String dueDate) {
+    public void updateDewormingData(String name, String dueDate) {
         if (!TextUtils.isEmpty(name)) {
             layoutDewormingBar.setVisibility(VISIBLE);
             Object[] displayName = ChildUtils.getStringWithNumber(name);
             String str = (String) displayName[0];
             String no = (String) displayName[1];
-            dewormingText = str + " " + ChildUtils.getFirstSecondAsNumber(no) + " dose";
+            String dewormingText = MessageFormat.format("{0} {1} {2}", str, ChildUtils.getFirstSecondAsNumber(no), getContext().getString(R.string.visit_dose));
             textViewDewormingTitle.setText(dewormingText);
             textViewDewormingName.setText(ChildUtils.dueOverdueCalculation(dueDate));
         }
     }
 
     @Override
-    public void statusImageViewUpdate(String type, boolean value,String message,String yesNoValue) {
+    public void statusImageViewUpdate(String type, boolean value, String message, String yesNoValue) {
         if (type.equalsIgnoreCase(GrowthNutritionInputFragment.GROWTH_TYPE.EXCLUSIVE.getValue())) {
             updateStatusTick(imageViewExclusiveStatus, value);
-            textViewExclusiveFeedingTitle.setText(feedingText+" "+yesNoValue);
+            textViewExclusiveFeedingTitle.setText(MessageFormat.format("{0} {1}", feedingText, yesNoValue));
             textViewExclusiveFeedingName.setText(message);
         } else if (type.equalsIgnoreCase(GrowthNutritionInputFragment.GROWTH_TYPE.MNP.getValue())) {
             updateStatusTick(imageViewMnpStatus, value);
