@@ -203,7 +203,7 @@ public class HomeVisitGrowthAndNutrition extends LinearLayout implements View.On
     @Override
     public void statusImageViewUpdate(String type, boolean value, String message, String yesNoValue) {
         if (type.equalsIgnoreCase(GrowthNutritionInputFragment.GROWTH_TYPE.EXCLUSIVE.getValue())) {
-            updateStatusTick(imageViewExclusiveStatus, value);
+            updateStatusTick(imageViewExclusiveStatus, (value && yesNoValue.equals("yes")));
             textViewExclusiveFeedingTitle.setText(MessageFormat.format("{0} {1}", feedingText, yesNoValue));
             textViewExclusiveFeedingName.setText(message);
         } else if (type.equalsIgnoreCase(GrowthNutritionInputFragment.GROWTH_TYPE.MNP.getValue())) {
@@ -220,18 +220,16 @@ public class HomeVisitGrowthAndNutrition extends LinearLayout implements View.On
 
 
     private void updateStatusTick(CircleImageView imageView, boolean isCheck) {
-        if (isCheck) {
-            imageView.setImageResource(R.drawable.ic_checked);
-            imageView.setColorFilter(getResources().getColor(R.color.white));
-            imageView.setCircleBackgroundColor(getResources().getColor(R.color.alert_complete_green));
-            imageView.setBorderColor(getResources().getColor(R.color.alert_complete_green));
 
-        } else {
-            imageView.setImageResource(R.drawable.ic_checked);
-            imageView.setColorFilter(getResources().getColor(R.color.white));
-            imageView.setCircleBackgroundColor(getResources().getColor(R.color.pnc_circle_yellow));
-            imageView.setBorderColor(getResources().getColor(R.color.pnc_circle_yellow));
-        }
+        imageView.setImageResource(R.drawable.ic_checked);
+        imageView.setColorFilter(getResources().getColor(R.color.white));
+        imageView.setCircleBackgroundColor(getResources().getColor(
+                ((isCheck) ? R.color.alert_complete_green : R.color.pnc_circle_yellow))
+        );
+        imageView.setBorderColor(getResources().getColor(
+                ((isCheck) ? R.color.alert_complete_green : R.color.pnc_circle_yellow))
+        );
+
         if (childHomeVisitFragment != null) {
             childHomeVisitFragment.checkIfSubmitIsToBeEnabled();
         }

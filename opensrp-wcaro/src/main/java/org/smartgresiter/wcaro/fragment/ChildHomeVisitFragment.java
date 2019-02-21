@@ -97,10 +97,10 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        nameHeader = (TextView) view.findViewById(R.id.textview_name_header);
-        textViewBirthCertDueDate = (TextView) view.findViewById(R.id.textview_birth_certification_name);
+        nameHeader = view.findViewById(R.id.textview_name_header);
+        textViewBirthCertDueDate = view.findViewById(R.id.textview_birth_certification_name);
         view.findViewById(R.id.close).setOnClickListener(this);
-        submit = (TextView) view.findViewById(R.id.textview_submit);
+        submit = view.findViewById(R.id.textview_submit);
         circleImageViewBirthStatus = view.findViewById(R.id.birth_status_circle);
         circleImageViewIllnessStatus = view.findViewById(R.id.obs_illness_status_circle);
         layoutBirthCertGroup = view.findViewById(R.id.birth_cert_group);
@@ -109,7 +109,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         layoutBirthCertGroup.setOnClickListener(this);
         layoutIllnessGroup.setOnClickListener(this);
         homeVisitGrowthAndNutritionLayout = view.findViewById(R.id.growth_and_nutrition_group);
-        homeVisitImmunizationView = (HomeVisitImmunizationView) view.findViewById(R.id.home_visit_immunization_view);
+        homeVisitImmunizationView = view.findViewById(R.id.home_visit_immunization_view);
         homeVisitImmunizationView.setActivity(getActivity());
         homeVisitImmunizationView.setChildClient(childClient);
         homeVisitImmunizationView.setEditMode(isEditMode);
