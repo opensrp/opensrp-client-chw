@@ -390,8 +390,7 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
             }
             groupSecondaryText = groupSecondaryText + " provided on ";
 
-            DateTime dueDate = (DateTime) dateTime;
-            String duedateString = DateUtil.formatDate(dueDate.toLocalDate(), "dd MMM yyyy");
+            String duedateString = DateUtil.formatDate(dateTime.toLocalDate(), "dd MMM yyyy");
             groupSecondaryText = groupSecondaryText + duedateString + " \u00B7 ";
 
         }
