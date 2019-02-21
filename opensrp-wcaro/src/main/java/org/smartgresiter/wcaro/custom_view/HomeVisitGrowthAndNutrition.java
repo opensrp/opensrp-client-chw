@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import org.apache.commons.lang3.StringUtils;
 import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.contract.HomeVisitGrowthNutritionContract;
 import org.smartgresiter.wcaro.fragment.ChildHomeVisitFragment;
@@ -203,9 +204,9 @@ public class HomeVisitGrowthAndNutrition extends LinearLayout implements View.On
     @Override
     public void statusImageViewUpdate(String type, boolean value, String message, String yesNoValue) {
         if (type.equalsIgnoreCase(GrowthNutritionInputFragment.GROWTH_TYPE.EXCLUSIVE.getValue())) {
-            updateStatusTick(imageViewExclusiveStatus, (value && yesNoValue.equals("yes")));
-            textViewExclusiveFeedingTitle.setText(MessageFormat.format("{0} {1}", feedingText, yesNoValue));
-            textViewExclusiveFeedingName.setText(message);
+            updateStatusTick(imageViewExclusiveStatus, (value && yesNoValue.toLowerCase().equalsIgnoreCase("yes")));
+            textViewExclusiveFeedingTitle.setText(feedingText);
+            textViewExclusiveFeedingName.setText(StringUtils.capitalize(yesNoValue));
         } else if (type.equalsIgnoreCase(GrowthNutritionInputFragment.GROWTH_TYPE.MNP.getValue())) {
             updateStatusTick(imageViewMnpStatus, value);
             textViewMnpName.setText(message);
