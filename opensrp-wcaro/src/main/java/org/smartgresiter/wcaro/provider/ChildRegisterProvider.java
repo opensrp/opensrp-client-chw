@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +36,7 @@ import org.smartregister.view.dialog.SortOption;
 import org.smartregister.view.viewholder.OnClickFormLauncher;
 
 import java.text.MessageFormat;
+import java.text.SimpleDateFormat;
 import java.util.Set;
 
 /**
@@ -270,6 +272,8 @@ public class ChildRegisterProvider implements RecyclerViewProvider<ChildRegister
     }
 
     private class UpdateLastAsyncTask extends AsyncTask<Void, Void, Void> {
+        private String TAG = UpdateLastAsyncTask.class.getCanonicalName();
+
         private final Context context;
         private final CommonRepository commonRepository;
 
@@ -288,6 +292,35 @@ public class ChildRegisterProvider implements RecyclerViewProvider<ChildRegister
             this.rules = WcaroApplication.getInstance().getRulesEngineHelper().rules(Constants.RULE_FILE.HOME_VISIT);
         }
 
+        private Long getCreateDate(String baseEntityId) {
+
+            String sql = String.format(
+                    "select dateCreated from event where baseEntityId = '%s' and eventType = '%s' ",
+                    baseEntityId,
+                    Constants.EventType.CHILD_REGISTRATION
+            );
+
+            CommonRepository commonRepository = Utils.context().commonrepository(Utils.metadata().familyMemberRegister.tableName);
+            long res = 0L;
+            Cursor cursor = commonRepository.queryTable(sql);
+            try {
+                cursor.moveToFirst();
+
+                while (!cursor.isAfterLast()) {
+                    try {
+                        res = new SimpleDateFormat("EEE MMM d HH:mm:ss 'GMT'Z YYYY").parse(cursor.getString(0)).getTime();
+                    } catch (Exception e) {
+                        Log.e(TAG, e.toString(), e);
+                    }
+                    cursor.moveToNext();
+                }
+            } catch (Exception e) {
+                Log.e(TAG, e.toString(), e);
+            } finally {
+                cursor.close();
+            }
+            return res;
+        }
 
         @Override
         protected Void doInBackground(Void... params) {
@@ -297,16 +330,17 @@ public class ChildRegisterProvider implements RecyclerViewProvider<ChildRegister
                     String lastVisitDate = Utils.getValue(commonPersonObject.getColumnmaps(), ChildDBConstants.KEY.LAST_HOME_VISIT, false);
                     String visitNotDone = Utils.getValue(commonPersonObject.getColumnmaps(), ChildDBConstants.KEY.VISIT_NOT_DONE, false);
                     long lastVisit = 0, visitNot = 0;
-                    if (!TextUtils.isEmpty(lastVisitDate)) {
-                        lastVisit = Long.parseLong(lastVisitDate);
-                    }
                     if (!TextUtils.isEmpty(visitNotDone)) {
                         visitNot = Long.parseLong(visitNotDone);
+                    } else {
+                        if (!TextUtils.isEmpty(lastVisitDate)) {
+                            lastVisit = Long.parseLong(lastVisitDate);
+                        } else {
+                            lastVisit = getCreateDate(baseEntityId);
+                        }
                     }
                     String dobString = Utils.getDuration(Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.DOB, false));
-
                     childVisit = ChildUtils.getChildVisitStatus(rules, dobString, lastVisit, visitNot);
-
 
                 }
                 return null;
