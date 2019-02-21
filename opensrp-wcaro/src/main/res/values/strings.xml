@@ -127,4 +127,6 @@
     <string name="select_family_head">Select a new family head</string>
     <string name="remove_caregiver_warning_message">Before you remove this member you must select a new primary caregiver</string>
     <string name="remove_familyhead_warning_message">Before you remove this member you must select a new family head.</string>
+
+    <string name="growth_nutrition">Growth and Nutrition</string>
 </resources>

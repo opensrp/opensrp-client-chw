@@ -73,7 +73,7 @@ public class GrowthNutritionInputFragment extends DialogFragment implements Radi
     private Button buttonSave,buttonSaveBf,buttonCancel;
     private RadioButton yesRadio,noRadio;
     private String type;
-    private RelativeLayout layoutExclusiveFeeding, layoutVitaminBar;
+    private View layoutExclusiveFeeding, layoutVitaminBar;
     private TextView textViewVitamin;
     private DatePicker datePicker;
     private ImageView vitaminImage;
