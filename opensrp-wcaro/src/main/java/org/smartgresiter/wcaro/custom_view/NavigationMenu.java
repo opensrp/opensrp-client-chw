@@ -234,7 +234,7 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
 
     @Override
     public void refreshLastSync(Date lastSync) {
-        SimpleDateFormat sdf = new SimpleDateFormat("hh.mm aa , MMM d", Locale.getDefault());
+        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm aa, MMM d", Locale.getDefault());
         if (rootView != null) {
             TextView tvLastSyncTime = rootView.findViewById(R.id.tvSyncTime);
             if (lastSync != null) {
@@ -249,7 +249,7 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
     @Override
     public void refreshCurrentUser(String name) {
         if (tvLogout != null) {
-            tvLogout.setText(String.format("%s %s", "Logout as", name));
+            tvLogout.setText(String.format("%s %s", "Log out as", name));
         }
     }
 
@@ -287,7 +287,8 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
         // hide the rotating menu
         refreshSyncProgressSpinner();
         // update the time
-        refreshLastSync(new Date());
+        mPresenter.refreshLastSync();
+        // refreshLastSync(new Date());
 
         if(activityWeakReference.get() != null && !activityWeakReference.get().isDestroyed()){
             mPresenter.refreshNavigationCount(activityWeakReference.get());

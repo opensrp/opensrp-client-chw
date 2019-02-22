@@ -125,7 +125,12 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:background="#3d3d3d"
-                android:padding="10dp">
+                android:paddingTop="@dimen/sync_time_padding"
+                android:paddingRight="@dimen/sync_time_padding_right"
+                android:paddingEnd="@dimen/sync_time_padding_right"
+                android:paddingBottom="@dimen/sync_time_padding"
+                android:paddingLeft="@dimen/sync_time_padding"
+                android:paddingStart="@dimen/sync_time_padding">
 
                 <RelativeLayout
                     android:id="@+id/rlIconSync"
