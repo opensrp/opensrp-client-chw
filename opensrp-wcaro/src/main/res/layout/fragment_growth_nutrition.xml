@@ -48,106 +48,19 @@
     </android.support.v7.widget.Toolbar>
 
     <include
+        android:id="@+id/exclusive_feeding_bar"
         layout="@layout/view_exclusive_feeding"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/detail_toolbar" />
+        android:layout_below="@+id/detail_toolbar"
+        android:visibility="visible" />
 
-    <RelativeLayout
+    <include
         android:id="@+id/vitamin_a_bar"
+        layout="@layout/view_vitamin_a"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_below="@+id/exclusive_feeding_bar"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:visibility="gone">
+        android:visibility="gone" />
 
-        <ImageView
-            android:id="@+id/vitamin_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/textview_vitamin"
-            android:layout_gravity="center"
-            android:src="@drawable/formvitamin" />
-
-        <org.smartregister.view.customcontrols.CustomFontTextView
-            android:id="@+id/textview_vitamin"
-            style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/earlier_date_picker"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="@dimen/btn_margin_bottom"
-            android:layout_marginLeft="@dimen/btn_margin_left"
-            android:layout_marginRight="@dimen/btn_margin_right"
-            android:layout_marginTop="@dimen/vaccine_text_top_margin"
-            android:gravity="center"
-            android:paddingLeft="0dp"
-            android:textColor="@color/text_black"
-            android:textSize="18sp" />
-
-        <DatePicker
-            android:id="@+id/earlier_date_picker"
-            style="@android:style/Widget.DatePicker"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/view_vt"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="10dp"
-            android:calendarViewShown="false"
-            android:descendantFocusability="blocksDescendants" />
-
-        <View
-            android:id="@+id/view_vt"
-
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:layout_above="@+id/save_btn"
-            android:background="@color/light_grey" />
-
-        <Button
-            android:id="@+id/save_btn"
-            style="?android:attr/borderlessButtonStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/cancel"
-            android:layout_alignWithParentIfMissing="true"
-            android:layout_gravity="bottom"
-            android:layout_marginBottom="@dimen/btn_margin_bottom"
-            android:layout_marginLeft="@dimen/btn_margin_left"
-            android:layout_marginRight="@dimen/btn_margin_right"
-            android:background="@drawable/vaccination_today_bg"
-            android:paddingBottom="@dimen/btn_padding_bottom"
-            android:paddingTop="@dimen/btn_padding_top"
-            android:text="Save"
-            android:textAllCaps="true"
-            android:textAppearance="?android:textAppearanceSmall"
-            android:textColor="@color/white"
-            android:textSize="@dimen/btn_text_size" />
-
-        <Button
-            android:id="@+id/cancel"
-            style="?android:attr/borderlessButtonStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/fake_view_2"
-            android:layout_marginBottom="@dimen/btn_margin_bottom"
-            android:layout_marginLeft="@dimen/btn_margin_left"
-            android:layout_marginRight="@dimen/btn_margin_right"
-            android:layout_weight="1"
-            android:background="@drawable/vaccination_earlier_bg"
-            android:paddingBottom="@dimen/btn_padding_bottom"
-            android:paddingTop="@dimen/btn_padding_top"
-            android:text="DOSE NOT GIVEN"
-            android:textAllCaps="false"
-            android:textAppearance="?android:textAppearanceSmall"
-            android:textColor="@color/client_list_grey"
-            android:textSize="@dimen/btn_text_size" />
-
-        <View
-            android:id="@+id/fake_view_2"
-            android:layout_width="match_parent"
-            android:layout_height="5dp"
-            android:layout_alignParentBottom="true" />
-    </RelativeLayout>
 </RelativeLayout>

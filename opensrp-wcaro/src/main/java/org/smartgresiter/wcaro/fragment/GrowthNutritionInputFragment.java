@@ -18,7 +18,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.common.collect.ImmutableMap;
@@ -65,9 +64,9 @@ public class GrowthNutritionInputFragment extends DialogFragment implements Radi
     }
   
     static final Map<String,Integer> imageMap=ImmutableMap.of(
-            GROWTH_TYPE.VITAMIN.getValue(), R.drawable.formvitamin,
-            GROWTH_TYPE.MNP.getValue(),R.drawable.formmnp,
-            GROWTH_TYPE.DEWORMING.getValue(),R.drawable.formdeworming
+            GROWTH_TYPE.VITAMIN.getValue(), R.drawable.ic_form_vitamin,
+            GROWTH_TYPE.MNP.getValue(),R.drawable.ic_form_mnp,
+            GROWTH_TYPE.DEWORMING.getValue(),R.drawable.ic_form_deworming
     );
 
     private TextView textViewTitle;
