@@ -5,6 +5,7 @@ import android.util.Log;
 
 import net.sqlcipher.database.SQLiteDatabase;
 
+import org.apache.commons.lang3.StringUtils;
 import org.smartgresiter.wcaro.BuildConfig;
 import org.smartgresiter.wcaro.application.WcaroApplication;
 import org.smartregister.AllConstants;
@@ -93,12 +94,22 @@ public class WcaroRepository extends Repository {
 
     @Override
     public SQLiteDatabase getReadableDatabase() {
-        return getReadableDatabase(WcaroApplication.getInstance().getPassword());
+        String pass = WcaroApplication.getInstance().getPassword();
+        if(StringUtils.isNotBlank(pass)){
+            return getReadableDatabase(pass);
+        }else{
+            throw new IllegalStateException("Password is blank");
+        }
     }
 
     @Override
     public SQLiteDatabase getWritableDatabase() {
-        return getWritableDatabase(WcaroApplication.getInstance().getPassword());
+        String pass = WcaroApplication.getInstance().getPassword();
+        if(StringUtils.isNotBlank(pass)){
+            return getWritableDatabase(pass);
+        }else{
+            throw new IllegalStateException("Password is blank");
+        }
     }
 
     @Override

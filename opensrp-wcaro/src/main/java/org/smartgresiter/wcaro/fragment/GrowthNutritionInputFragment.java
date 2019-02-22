@@ -46,12 +46,12 @@ import java.util.Map;
 public class GrowthNutritionInputFragment extends DialogFragment implements RadioGroup.OnCheckedChangeListener, View.OnClickListener {
 
 
-    public GrowthNutritionInputFragment(ServiceWrapper serviceWrapper){
-        this.serviceWrapper=serviceWrapper;
+    public GrowthNutritionInputFragment(ServiceWrapper serviceWrapper) {
+        this.serviceWrapper = serviceWrapper;
 
     }
 
-    public static GrowthNutritionInputFragment getInstance(String title,String question, String type, ServiceWrapper serviceWrapper,
+    public static GrowthNutritionInputFragment getInstance(String title, String question, String type, ServiceWrapper serviceWrapper,
                                                            CommonPersonObjectClient commonPersonObjectClient) {
         GrowthNutritionInputFragment growthNutritionInputFragment = new GrowthNutritionInputFragment(serviceWrapper);
         Bundle bundle = new Bundle();
@@ -62,6 +62,7 @@ public class GrowthNutritionInputFragment extends DialogFragment implements Radi
         growthNutritionInputFragment.setArguments(bundle);
         return growthNutritionInputFragment;
     }
+  
     static final Map<String,Integer> imageMap=ImmutableMap.of(
             GROWTH_TYPE.VITAMIN.getValue(), R.drawable.ic_form_vitamin,
             GROWTH_TYPE.MNP.getValue(),R.drawable.ic_form_mnp,
@@ -71,6 +72,7 @@ public class GrowthNutritionInputFragment extends DialogFragment implements Radi
     private TextView textViewTitle;
     private Button buttonSave,buttonSaveBf,buttonCancel;
     private RadioButton yesRadio,noRadio;
+
     private String type;
     private View layoutExclusiveFeeding, layoutVitaminBar;
     private TextView textViewVitamin;
@@ -152,34 +154,35 @@ public class GrowthNutritionInputFragment extends DialogFragment implements Radi
         textViewTitle.setText(title);
 
         commonPersonObjectClient = (CommonPersonObjectClient) getArguments().getSerializable(Constants.INTENT_KEY.CHILD_COMMON_PERSON);
-        dob=org.smartregister.family.util.Utils.getValue(commonPersonObjectClient.getColumnmaps(), DBConstants.KEY.DOB, false);
+        dob = org.smartregister.family.util.Utils.getValue(commonPersonObjectClient.getColumnmaps(), DBConstants.KEY.DOB, false);
 
         if (type.equalsIgnoreCase(GROWTH_TYPE.EXCLUSIVE.getValue())) {
-            if(serviceWrapper.getValue()!=null && serviceWrapper.getValue().equalsIgnoreCase("yes")){
+            if (serviceWrapper.getValue() != null && serviceWrapper.getValue().equalsIgnoreCase("yes")) {
                 noRadio.setChecked(true);
                 isFeeding = "yes";
                 saveButtonDisable(false);
-            }else if(serviceWrapper.getValue()!=null && serviceWrapper.getValue().equalsIgnoreCase("no")){
+            } else if (serviceWrapper.getValue() != null && serviceWrapper.getValue().equalsIgnoreCase("no")) {
                 yesRadio.setChecked(true);
                 isFeeding = "no";
                 saveButtonDisable(false);
-            }else{
+            } else {
                 saveButtonDisable(true);
             }
             visibleExclusiveBar();
         } else {
             updateDatePicker();
             textViewVitamin.setText(getString(R.string.vitamin_given, question));
-            if(serviceWrapper.getUpdatedVaccineDate()!=null){
+            if (serviceWrapper.getUpdatedVaccineDate() != null) {
                 datePicker.updateDate(serviceWrapper.getUpdatedVaccineDate().getYear(),
-                        serviceWrapper.getUpdatedVaccineDate().getMonthOfYear() -1,serviceWrapper.getUpdatedVaccineDate().getDayOfMonth());
+                        serviceWrapper.getUpdatedVaccineDate().getMonthOfYear() - 1, serviceWrapper.getUpdatedVaccineDate().getDayOfMonth());
             }
             visibleVitaminBar();
         }
     }
-    private void updateDatePicker(){
+
+    private void updateDatePicker() {
         DateTime dateOfBirth = Utils.dobStringToDateTime(dob);
-        DateTime dcToday= ServiceSchedule.standardiseDateTime(DateTime.now());
+        DateTime dcToday = ServiceSchedule.standardiseDateTime(DateTime.now());
         DateTime minDate = ServiceSchedule.standardiseDateTime(dateOfBirth);
         DateTime maxDate = ServiceSchedule.standardiseDateTime(dcToday);
 

@@ -64,7 +64,7 @@ public class HomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNutriti
             if (getView() != null) getView().statusImageViewUpdate(type, true,context.getString(R.string.provided_on, JsonFormUtils.dd_MMM_yyyy.format(date)),serviceWrapper.getValue());
         }else{
             Date date= org.smartregister.family.util.Utils.dobStringToDate(serviceWrapper.getUpdatedVaccineDateAsString());
-            if (getView() != null) getView().statusImageViewUpdate(type, true,context.getString(R.string.provided_on,JsonFormUtils.dd_MMM_yyyy.format(date)),"");
+            if (getView() != null) getView().statusImageViewUpdate(type, false,context.getString(R.string.provided_on,JsonFormUtils.dd_MMM_yyyy.format(date)),"");
 
         }
     }

@@ -183,7 +183,9 @@ public class ChildUtils {
                 tableName + "." + ChildDBConstants.KEY.BIRTH_CERT_NOTIFIICATION,
                 tableName + "." + ChildDBConstants.KEY.ILLNESS_DATE,
                 tableName + "." + ChildDBConstants.KEY.ILLNESS_DESCRIPTION,
-                tableName + "." + ChildDBConstants.KEY.ILLNESS_ACTION};
+                tableName + "." + ChildDBConstants.KEY.DATE_CREATED,
+                tableName + "." + ChildDBConstants.KEY.ILLNESS_ACTION
+        };
         return columns;
     }
 

@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +36,7 @@ import org.smartregister.view.dialog.SortOption;
 import org.smartregister.view.viewholder.OnClickFormLauncher;
 
 import java.text.MessageFormat;
+import java.text.SimpleDateFormat;
 import java.util.Set;
 
 /**
@@ -270,6 +272,8 @@ public class ChildRegisterProvider implements RecyclerViewProvider<ChildRegister
     }
 
     private class UpdateLastAsyncTask extends AsyncTask<Void, Void, Void> {
+        private String TAG = UpdateLastAsyncTask.class.getCanonicalName();
+
         private final Context context;
         private final CommonRepository commonRepository;
 
@@ -288,7 +292,6 @@ public class ChildRegisterProvider implements RecyclerViewProvider<ChildRegister
             this.rules = WcaroApplication.getInstance().getRulesEngineHelper().rules(Constants.RULE_FILE.HOME_VISIT);
         }
 
-
         @Override
         protected Void doInBackground(Void... params) {
             if (commonRepository != null) {
@@ -297,16 +300,21 @@ public class ChildRegisterProvider implements RecyclerViewProvider<ChildRegister
                     String lastVisitDate = Utils.getValue(commonPersonObject.getColumnmaps(), ChildDBConstants.KEY.LAST_HOME_VISIT, false);
                     String visitNotDone = Utils.getValue(commonPersonObject.getColumnmaps(), ChildDBConstants.KEY.VISIT_NOT_DONE, false);
                     long lastVisit = 0, visitNot = 0;
-                    if (!TextUtils.isEmpty(lastVisitDate)) {
-                        lastVisit = Long.parseLong(lastVisitDate);
-                    }
                     if (!TextUtils.isEmpty(visitNotDone)) {
                         visitNot = Long.parseLong(visitNotDone);
+                    } else {
+                        if(!TextUtils.isEmpty(lastVisitDate)){
+                            lastVisit =  Long.parseLong(lastVisitDate);
+                        }else{
+
+                            String dateCreated = Utils.getValue(commonPersonObject.getColumnmaps(), ChildDBConstants.KEY.DATE_CREATED, false);
+                            if(!TextUtils.isEmpty(dateCreated)){
+                                lastVisit = Utils.dobStringToDateTime(dateCreated).getMillis();
+                            }
+                        }
                     }
                     String dobString = Utils.getDuration(Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.DOB, false));
-
                     childVisit = ChildUtils.getChildVisitStatus(rules, dobString, lastVisit, visitNot);
-
 
                 }
                 return null;
