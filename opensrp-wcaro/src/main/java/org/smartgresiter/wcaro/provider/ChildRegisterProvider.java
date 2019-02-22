@@ -5,7 +5,6 @@ import android.database.Cursor;
 import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,7 +35,6 @@ import org.smartregister.view.dialog.SortOption;
 import org.smartregister.view.viewholder.OnClickFormLauncher;
 
 import java.text.MessageFormat;
-import java.text.SimpleDateFormat;
 import java.util.Set;
 
 /**
@@ -162,7 +160,7 @@ public class ChildRegisterProvider implements RecyclerViewProvider<ChildRegister
             dueButton.setText(context.getString(R.string.due_visit, lastVisitDays));
         }
 
-        dueButton.setBackgroundResource(R.drawable.red_btn_selector);
+        dueButton.setBackgroundResource(R.drawable.overdue_red_btn_selector);
         dueButton.setOnClickListener(onClickListener);
     }
 
