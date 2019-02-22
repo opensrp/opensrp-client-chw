@@ -135,6 +135,7 @@
     <string name="visit_mnp_dose">MNP dose</string>
     <string name="visit_vitamin_a_dose">Vitamin A dose</string>
     <string name="visit_deworming_dose">Deworming dose</string>
-    <string name="growth_nutrition">Growth and Nutrition</string>
 
+    <string name="growth_nutrition">Growth and Nutrition</string>
+    <string name="dose_not_given">DOSE NOT GIVEN</string>
 </resources>
