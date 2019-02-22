@@ -129,4 +129,5 @@
     <string name="remove_familyhead_warning_message">Before you remove this member you must select a new family head.</string>
 
     <string name="growth_nutrition">Growth and Nutrition</string>
+    <string name="dose_not_given">DOSE NOT GIVEN</string>
 </resources>

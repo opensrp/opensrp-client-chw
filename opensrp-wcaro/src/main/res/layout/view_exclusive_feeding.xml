@@ -1,10 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/exclusive_feeding_bar"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="0dp"
-    android:visibility="visible"
-    android:weightSum="2">
+    android:layout_margin="0dp">
 
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/scroll_layout"
@@ -26,13 +23,10 @@
                 android:paddingTop="10dp"
                 android:src="@drawable/ic_form_bf" />
 
-
             <LinearLayout
-                android:id="@+id/bf_info_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/growth_image"
-
                 android:orientation="vertical">
 
                 <org.smartregister.view.customcontrols.CustomFontTextView
@@ -40,8 +34,8 @@
                     style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
                     android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
                     android:gravity="center_vertical"
                     android:padding="20dp"
                     android:text="@string/exclusive_feeding"
@@ -52,7 +46,6 @@
                     android:id="@+id/radio_group_exclusive"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/textview_exclusive"
                     android:layout_marginBottom="10dp"
                     android:paddingBottom="20dp"
                     android:paddingLeft="20dp"
@@ -63,7 +56,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="10dp"
-                        android:text="Yes"
+                        android:text="@string/yes"
                         android:textColor="@color/text_black"
                         android:textSize="@dimen/register_list_desc_size" />
 
@@ -72,7 +65,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="10dp"
-                        android:text="No"
+                        android:text="@string/no"
                         android:textColor="@color/text_black"
                         android:textSize="@dimen/register_list_desc_size" />
                 </RadioGroup>
