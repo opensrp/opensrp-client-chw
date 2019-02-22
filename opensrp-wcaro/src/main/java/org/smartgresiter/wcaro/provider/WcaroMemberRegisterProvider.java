@@ -95,14 +95,18 @@ public class WcaroMemberRegisterProvider extends FamilyMemberRegisterProvider {
         String dobString = Utils.getDuration(dob);
         String lastVisitDate = map.get(ChildDBConstants.KEY.LAST_HOME_VISIT);
         String visitNotDone = map.get(ChildDBConstants.KEY.VISIT_NOT_DONE);
-        long lastVisit = 0, visitNot = 0;
+        String strDateCreated = map.get(ChildDBConstants.KEY.DATE_CREATED);
+        long lastVisit = 0, visitNot = 0, dateCreated = 0;
         if (!TextUtils.isEmpty(lastVisitDate)) {
             lastVisit = Long.valueOf(lastVisitDate);
         }
         if (!TextUtils.isEmpty(visitNotDone)) {
             visitNot = Long.valueOf(visitNotDone);
         }
-        return ChildUtils.getChildVisitStatus(rules, dobString, lastVisit, visitNot);
+        if(!TextUtils.isEmpty(strDateCreated)){
+            dateCreated =  org.smartregister.family.util.Utils.dobStringToDateTime(strDateCreated).getMillis();
+        }
+        return ChildUtils.getChildVisitStatus(rules, dobString, lastVisit, visitNot, dateCreated);
     }
 
     private void updateDueColumn(RegisterViewHolder viewHolder, ChildVisit childVisit) {

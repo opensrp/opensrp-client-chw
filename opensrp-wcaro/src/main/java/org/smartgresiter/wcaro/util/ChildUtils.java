@@ -128,7 +128,7 @@ public class ChildUtils {
 
     public static ChildHomeVisit getLastHomeVisit(String tableName, String childId) {
         SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
-        queryBUilder.SelectInitiateMainTable(tableName, new String[]{ChildDBConstants.KEY.LAST_HOME_VISIT, ChildDBConstants.KEY.VISIT_NOT_DONE});
+        queryBUilder.SelectInitiateMainTable(tableName, new String[]{ChildDBConstants.KEY.LAST_HOME_VISIT, ChildDBConstants.KEY.VISIT_NOT_DONE, ChildDBConstants.KEY.DATE_CREATED});
         String query = queryBUilder.mainCondition(tableName + "." + DBConstants.KEY.BASE_ENTITY_ID + " = '" + childId + "'");
 
         ChildHomeVisit childHomeVisit = new ChildHomeVisit();
@@ -146,6 +146,14 @@ public class ChildUtils {
             if (!TextUtils.isEmpty(visitNotDoneStr)) {
                 try {
                     childHomeVisit.setVisitNotDoneDate(Long.parseLong(visitNotDoneStr));
+                } catch (Exception e) {
+
+                }
+            }
+            String strDateCreated = cursor.getString(cursor.getColumnIndex(ChildDBConstants.KEY.DATE_CREATED));
+            if(!TextUtils.isEmpty(strDateCreated)){
+                try {
+                    childHomeVisit.setDateCreated(org.smartregister.family.util.Utils.dobStringToDateTime(strDateCreated).getMillis());
                 } catch (Exception e) {
 
                 }
@@ -197,8 +205,8 @@ public class ChildUtils {
      * @param visitNotDate
      * @return
      */
-    public static ChildVisit getChildVisitStatus(String yearOfBirth, long lastVisitDate, long visitNotDate) {
-        HomeAlertRule homeAlertRule = new HomeAlertRule(yearOfBirth, lastVisitDate, visitNotDate);
+    public static ChildVisit getChildVisitStatus(String yearOfBirth, long lastVisitDate, long visitNotDate, long dateCreated) {
+        HomeAlertRule homeAlertRule = new HomeAlertRule(yearOfBirth, lastVisitDate, visitNotDate, dateCreated);
         WcaroApplication.getInstance().getRulesEngineHelper().getButtonAlertStatus(homeAlertRule, Constants.RULE_FILE.HOME_VISIT);
         return getChildVisitStatus(homeAlertRule, lastVisitDate);
     }
@@ -212,8 +220,8 @@ public class ChildUtils {
      * @param visitNotDate
      * @return
      */
-    public static ChildVisit getChildVisitStatus(Rules rules, String yearOfBirth, long lastVisitDate, long visitNotDate) {
-        HomeAlertRule homeAlertRule = new HomeAlertRule(yearOfBirth, lastVisitDate, visitNotDate);
+    public static ChildVisit getChildVisitStatus(Rules rules, String yearOfBirth, long lastVisitDate, long visitNotDate, long dateCreated) {
+        HomeAlertRule homeAlertRule = new HomeAlertRule(yearOfBirth, lastVisitDate, visitNotDate, dateCreated);
         WcaroApplication.getInstance().getRulesEngineHelper().getButtonAlertStatus(homeAlertRule, rules);
         return getChildVisitStatus(homeAlertRule, lastVisitDate);
     }
@@ -226,15 +234,6 @@ public class ChildUtils {
         childVisit.setLastVisitMonthName(homeAlertRule.visitMonthName);
         childVisit.setLastVisitTime(lastVisitDate);
         return childVisit;
-    }
-
-    @SuppressLint("SimpleDateFormat")
-    public static String covertLongDateToDisplayDate(long callingTime) {
-        Date date = new Date(callingTime);
-        SimpleDateFormat df2 = new SimpleDateFormat("yyyy-MM-dd");
-        String dateText2 = df2.format(date);
-        return dateText2;
-
     }
 
     @SuppressWarnings("deprecation")

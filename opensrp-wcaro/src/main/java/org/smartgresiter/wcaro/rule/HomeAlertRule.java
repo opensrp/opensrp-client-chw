@@ -20,6 +20,7 @@ public class HomeAlertRule {
     public String buttonStatus = ChildProfileInteractor.VisitType.DUE.name();
     private final String[] monthNames = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
 
+    private LocalDate dateCreated;
     private LocalDate todayDate;
     private LocalDate lastVisitDate;
     private LocalDate visitNotDoneDate;
@@ -28,17 +29,21 @@ public class HomeAlertRule {
     public String visitMonthName;
     private Integer yearOfBirth;
 
-    public HomeAlertRule(String yearOfBirthString, long lastVisitDateLong, long visitNotDoneValue) {
+    public HomeAlertRule(String yearOfBirthString, long lastVisitDateLong, long visitNotDoneValue, long dateCreatedLong) {
         yearOfBirth = dobStringToYear(yearOfBirthString);
-        String lastVisit = (lastVisitDateLong == 0) ? "" : ChildUtils.covertLongDateToDisplayDate(lastVisitDateLong);
-        String visitNotDone = (visitNotDoneValue == 0) ? "" : ChildUtils.covertLongDateToDisplayDate(visitNotDoneValue);
+        
         this.todayDate = new LocalDate();
-        if (!TextUtils.isEmpty(lastVisit)) {
-            this.lastVisitDate = new LocalDate(lastVisit);
+        if (lastVisitDateLong > 0) {
+            this.lastVisitDate = new LocalDate(lastVisitDateLong);
             noOfDayDue = dayDifference(lastVisitDate, todayDate) + " days";
         }
-        if (!TextUtils.isEmpty(visitNotDone)) {
-            this.visitNotDoneDate = new LocalDate(visitNotDone);
+        
+        if (visitNotDoneValue > 0) {
+            this.visitNotDoneDate = new LocalDate(visitNotDoneValue);
+        }
+
+        if (dateCreatedLong > 0) {
+            this.dateCreated = new LocalDate(dateCreatedLong);
         }
     }
 
@@ -64,7 +69,7 @@ public class HomeAlertRule {
     }
 
     public boolean isOverdueWithinMonth(Integer value) {
-        int diff = getMonthsDifference(lastVisitDate, todayDate);
+        int diff = getMonthsDifference((lastVisitDate != null ? lastVisitDate : dateCreated), todayDate);
         if (diff >= value) {
             noOfMonthDue = diff + "M";
             return true;
@@ -76,7 +81,10 @@ public class HomeAlertRule {
         if (todayDate.getDayOfMonth() == 1) {
             return true;
         }
-        if (lastVisitDate == null) return true;
+        if (lastVisitDate == null) {
+            return isVisitThisMonth(dateCreated, todayDate);
+        }
+
         return !isVisitThisMonth(lastVisitDate, todayDate);
 
     }
@@ -84,11 +92,13 @@ public class HomeAlertRule {
     public boolean isVisitWithinTwentyFour() {
         visitMonthName = theMonth(todayDate.getMonthOfYear()-1);
         noOfDayDue = "less than 24 hrs";
+        if (lastVisitDate == null) return false;
         return !(lastVisitDate.isBefore(todayDate.minusDays(1)) && lastVisitDate.isBefore(todayDate));
 
     }
 
     public boolean isVisitWithinThisMonth() {
+        if (lastVisitDate == null) return false;
         return isVisitThisMonth(lastVisitDate, todayDate);
     }
 

@@ -297,24 +297,22 @@ public class ChildRegisterProvider implements RecyclerViewProvider<ChildRegister
             if (commonRepository != null) {
                 commonPersonObject = commonRepository.findByBaseEntityId(baseEntityId);
                 if (commonPersonObject != null) {
+                    String strDateCreated = Utils.getValue(commonPersonObject.getColumnmaps(), ChildDBConstants.KEY.DATE_CREATED, false);
                     String lastVisitDate = Utils.getValue(commonPersonObject.getColumnmaps(), ChildDBConstants.KEY.LAST_HOME_VISIT, false);
                     String visitNotDone = Utils.getValue(commonPersonObject.getColumnmaps(), ChildDBConstants.KEY.VISIT_NOT_DONE, false);
-                    long lastVisit = 0, visitNot = 0;
+                    long lastVisit = 0, visitNot = 0, dateCreated = 0;
                     if (!TextUtils.isEmpty(visitNotDone)) {
                         visitNot = Long.parseLong(visitNotDone);
-                    } else {
-                        if(!TextUtils.isEmpty(lastVisitDate)){
-                            lastVisit =  Long.parseLong(lastVisitDate);
-                        }else{
-
-                            String dateCreated = Utils.getValue(commonPersonObject.getColumnmaps(), ChildDBConstants.KEY.DATE_CREATED, false);
-                            if(!TextUtils.isEmpty(dateCreated)){
-                                lastVisit = Utils.dobStringToDateTime(dateCreated).getMillis();
-                            }
-                        }
                     }
+                    if(!TextUtils.isEmpty(lastVisitDate)){
+                        lastVisit =  Long.parseLong(lastVisitDate);
+                    }
+                    if(!TextUtils.isEmpty(strDateCreated)){
+                        dateCreated =  Utils.dobStringToDateTime(strDateCreated).getMillis();
+                    }
+
                     String dobString = Utils.getDuration(Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.DOB, false));
-                    childVisit = ChildUtils.getChildVisitStatus(rules, dobString, lastVisit, visitNot);
+                    childVisit = ChildUtils.getChildVisitStatus(rules, dobString, lastVisit, visitNot, dateCreated);
 
                 }
                 return null;
