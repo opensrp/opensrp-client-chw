@@ -46,11 +46,11 @@ public class FamilyRemoveMemberModel extends FamilyProfileMemberModel implements
                             JSONObject min_date = org.smartgresiter.wcaro.util.JsonFormUtils.getFieldJSONObject(jsonArray, "date_moved");
                             JSONObject date_died = org.smartgresiter.wcaro.util.JsonFormUtils.getFieldJSONObject(jsonArray, "date_died");
 
-                            dobString = Utils.getDuration(dobString);
-                            dobString = dobString.contains("y") ? dobString.substring(0, dobString.indexOf("y")) : "";
-
-                            min_date.put("min_date", "today-" + dobString + "y");
-                            date_died.put("min_date", "today-" + dobString + "y");
+                           // dobString = Utils.getDuration(dobString);
+                            //dobString = dobString.contains("y") ? dobString.substring(0, dobString.indexOf("y")) : "";
+                            int days= org.smartgresiter.wcaro.util.JsonFormUtils.getDayFromDate(dobString);
+                            min_date.put("min_date", "today-" + days + "d");
+                            date_died.put("min_date", "today-" + days + "d");
                         }
                     }
                 } else if (jsonObject.getString(org.smartregister.family.util.JsonFormUtils.KEY).equalsIgnoreCase(Constants.JsonAssets.DETAILS)) {

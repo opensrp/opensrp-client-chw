@@ -19,6 +19,8 @@ import org.smartregister.family.util.Utils;
 import java.util.HashMap;
 import java.util.Set;
 
+import static org.smartgresiter.wcaro.util.Constants.INTENT_KEY.IS_COMES_FROM_FAMILY;
+
 public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
 
     private int dueCount = 0;
@@ -82,6 +84,7 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
 
             Intent intent = new Intent(getActivity(), ChildProfileActivity.class);
             intent.putExtras(getArguments());
+            intent.putExtra(IS_COMES_FROM_FAMILY,true);
             intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, patient.getCaseId());
             startActivity(intent);
         }

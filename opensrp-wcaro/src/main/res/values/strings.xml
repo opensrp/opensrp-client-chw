@@ -80,8 +80,8 @@
     <string name="immunization">IMMUNIZATION</string>
     <string name="fully_immunized_at_age">Fully immunized at age %1$s</string>
     <string name="add_date_separately">+ ADD DATE FOR EACH VACCINE</string>
-    <string name="which_vaccines_given_text">Which immunizations were done?</string>
-    <string name="when_vaccines_given_text">When were immunizations done?</string>
+    <string name="which_vaccines_given_text">Which vaccinations were done?</string>
+    <string name="when_vaccines_given_text">When were vaccinations done?</string>
     <string name="fully_immunized_at_age_2">Fully immunized at age 2</string>
     <string name="fully_immunized_at_age_1">Fully immunized at age 1</string>
     <string name="health_child_milestone">Health child milestone</string>
@@ -90,7 +90,7 @@
     <string name="exclusive_breastfeeding">Exclusive breastfeeding</string>
     <string name="vitamin_a">Vitamin A</string>
     <string name="deworming">Deworming</string>
-    <string name="record_immunizations"> Record immunizations</string>
+    <string name="record_immunizations">Record vaccinations</string>
     <string name="tab_text_1">DASHBOARD</string>
     <string name="tab_text_2">GUIDEBOOKS</string>
     <string name="action_settings">Settings</string>
@@ -127,6 +127,7 @@
     <string name="select_family_head">Select a new family head</string>
     <string name="remove_caregiver_warning_message">Before you remove this member you must select a new primary caregiver</string>
     <string name="remove_familyhead_warning_message">Before you remove this member you must select a new family head.</string>
+
     <string name="visit_months">months</string>
     <string name="visit_dose">dose</string>
     <string name="visit_pack">pack</string>
@@ -134,4 +135,6 @@
     <string name="visit_mnp_dose">MNP dose</string>
     <string name="visit_vitamin_a_dose">Vitamin A dose</string>
     <string name="visit_deworming_dose">Deworming dose</string>
+    <string name="growth_nutrition">Growth and Nutrition</string>
+
 </resources>

@@ -345,14 +345,15 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                     } catch (Exception e) {
                         Log.e(DIALOG_TAG, Log.getStackTraceString(e));
                     }
-                } else {
-                    if (selectedForm.equalsIgnoreCase("Birth")) {
-                        updateStatusTick(circleImageViewBirthStatus, false);
-                        textViewBirthCertDueDate.setText(R.string.not_given);
-                    } else if (selectedForm.equalsIgnoreCase("illness")) {
-                        updateStatusTick(circleImageViewIllnessStatus, false);
-                    }
                 }
+//                else{
+//                    if(selectedForm.equalsIgnoreCase("Birth")){
+//                        updateStatusTick(circleImageViewBirthStatus, false);
+//                        textViewBirthCertDueDate.setText(R.string.not_given);
+//                    }else if(selectedForm.equalsIgnoreCase("illness")){
+//                        updateStatusTick(circleImageViewIllnessStatus, false);
+//                    }
+//                }
                 break;
         }
     }
