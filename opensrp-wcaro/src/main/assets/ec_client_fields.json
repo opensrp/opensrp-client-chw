@@ -344,6 +344,13 @@
           }
         },
         {
+          "column_name": "date_created",
+          "type": "Client",
+          "json_mapping": {
+            "field": "dateCreated"
+          }
+        },
+        {
           "column_name": "birth_cert",
           "type": "Event",
           "json_mapping": {

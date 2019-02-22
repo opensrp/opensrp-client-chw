@@ -150,7 +150,7 @@ public class WcaroApplication extends DrishtiApplication {
 
     public String getPassword() {
         if (password == null) {
-            String username = getContext().userService().getAllSharedPreferences().fetchRegisteredANM();
+            String username = getContext().allSharedPreferences().fetchRegisteredANM();
             password = getContext().userService().getGroupId(username);
         }
         return password;

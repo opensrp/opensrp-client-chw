@@ -292,36 +292,6 @@ public class ChildRegisterProvider implements RecyclerViewProvider<ChildRegister
             this.rules = WcaroApplication.getInstance().getRulesEngineHelper().rules(Constants.RULE_FILE.HOME_VISIT);
         }
 
-        private Long getCreateDate(String baseEntityId) {
-
-            String sql = String.format(
-                    "select dateCreated from event where baseEntityId = '%s' and eventType = '%s' ",
-                    baseEntityId,
-                    Constants.EventType.CHILD_REGISTRATION
-            );
-
-            CommonRepository commonRepository = Utils.context().commonrepository(Utils.metadata().familyMemberRegister.tableName);
-            long res = 0L;
-            Cursor cursor = commonRepository.queryTable(sql);
-            try {
-                cursor.moveToFirst();
-
-                while (!cursor.isAfterLast()) {
-                    try {
-                        res = new SimpleDateFormat("EEE MMM d HH:mm:ss 'GMT'Z YYYY").parse(cursor.getString(0)).getTime();
-                    } catch (Exception e) {
-                        Log.e(TAG, e.toString(), e);
-                    }
-                    cursor.moveToNext();
-                }
-            } catch (Exception e) {
-                Log.e(TAG, e.toString(), e);
-            } finally {
-                cursor.close();
-            }
-            return res;
-        }
-
         @Override
         protected Void doInBackground(Void... params) {
             if (commonRepository != null) {
@@ -333,10 +303,14 @@ public class ChildRegisterProvider implements RecyclerViewProvider<ChildRegister
                     if (!TextUtils.isEmpty(visitNotDone)) {
                         visitNot = Long.parseLong(visitNotDone);
                     } else {
-                        if (!TextUtils.isEmpty(lastVisitDate)) {
-                            lastVisit = Long.parseLong(lastVisitDate);
-                        } else {
-                            lastVisit = getCreateDate(baseEntityId);
+                        if(!TextUtils.isEmpty(lastVisitDate)){
+                            lastVisit =  Long.parseLong(lastVisitDate);
+                        }else{
+
+                            String dateCreated = Utils.getValue(commonPersonObject.getColumnmaps(), ChildDBConstants.KEY.DATE_CREATED, false);
+                            if(!TextUtils.isEmpty(dateCreated)){
+                                lastVisit = Utils.dobStringToDateTime(dateCreated).getMillis();
+                            }
                         }
                     }
                     String dobString = Utils.getDuration(Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.DOB, false));
