@@ -127,6 +127,17 @@
     <string name="select_family_head">Select a new family head</string>
     <string name="remove_caregiver_warning_message">Before you remove this member you must select a new primary caregiver</string>
     <string name="remove_familyhead_warning_message">Before you remove this member you must select a new family head.</string>
+
+    <string name="visit_months">months</string>
+    <string name="visit_dose">dose</string>
+    <string name="visit_pack">pack</string>
+    <string name="visit_exclusive_breastfeeding">Exclusive breastfeeding</string>
+    <string name="visit_mnp_dose">MNP dose</string>
+    <string name="visit_vitamin_a_dose">Vitamin A dose</string>
+    <string name="visit_deworming_dose">Deworming dose</string>
+
+    <string name="growth_nutrition">Growth and Nutrition</string>
+    <string name="dose_not_given">DOSE NOT GIVEN</string>
     <string name="has_birt_cert">Has birth certificate?</string>
     <string name="issuance_date">Issuance date</string>
     <string name="number">Number</string>

@@ -125,7 +125,7 @@ public class WcaroRegisterProvider extends FamilyRegisterProvider {
             dueButton.setText(context.getString(R.string.due_visit, lastVisitDays));
         }
 
-        dueButton.setBackgroundResource(R.drawable.red_btn_selector);
+        dueButton.setBackgroundResource(R.drawable.overdue_red_btn_selector);
         dueButton.setOnClickListener(onClickListener);
     }
 

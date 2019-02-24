@@ -105,8 +105,8 @@ public class ChildUtils {
     public static String mainSelectRegisterWithoutGroupby(String tableName, String familyTableName, String familyMemberTableName, String mainCondition) {
         SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
         queryBUilder.SelectInitiateMainTable(tableName, mainColumns(tableName, familyTableName, familyMemberTableName));
-        queryBUilder.customJoin("LEFT JOIN " + familyTableName + " ON  " + tableName + "." + DBConstants.KEY.RELATIONAL_ID + " = " + familyTableName + ".id");
-        queryBUilder.customJoin("LEFT JOIN " + familyMemberTableName + " ON  " + familyMemberTableName + "." + DBConstants.KEY.BASE_ENTITY_ID + " = " + familyTableName + ".primary_caregiver");
+        queryBUilder.customJoin("LEFT JOIN " + familyTableName + " ON  " + tableName + "." + DBConstants.KEY.RELATIONAL_ID + " = " + familyTableName + ".id COLLATE NOCASE ");
+        queryBUilder.customJoin("LEFT JOIN " + familyMemberTableName + " ON  " + familyMemberTableName + "." + DBConstants.KEY.BASE_ENTITY_ID + " = " + familyTableName + ".primary_caregiver COLLATE NOCASE ");
 
         return queryBUilder.mainCondition(mainCondition);
     }
@@ -183,7 +183,9 @@ public class ChildUtils {
                 tableName + "." + ChildDBConstants.KEY.BIRTH_CERT_NOTIFIICATION,
                 tableName + "." + ChildDBConstants.KEY.ILLNESS_DATE,
                 tableName + "." + ChildDBConstants.KEY.ILLNESS_DESCRIPTION,
-                tableName + "." + ChildDBConstants.KEY.ILLNESS_ACTION};
+                tableName + "." + ChildDBConstants.KEY.DATE_CREATED,
+                tableName + "." + ChildDBConstants.KEY.ILLNESS_ACTION
+        };
         return columns;
     }
 

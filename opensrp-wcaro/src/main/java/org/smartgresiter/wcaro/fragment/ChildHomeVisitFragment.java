@@ -64,7 +64,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     public static String DIALOG_TAG = "child_home_visit_dialog";
     Context context;
     CommonPersonObjectClient childClient;
-    private TextView nameHeader,textViewBirthCertDueDate;
+    private TextView nameHeader, textViewBirthCertDueDate;
     private HomeVisitGrowthAndNutrition homeVisitGrowthAndNutritionLayout;
     public boolean allVaccineStateFullfilled = false;
     private TextView submit;
@@ -103,10 +103,10 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        nameHeader = (TextView) view.findViewById(R.id.textview_name_header);
-        textViewBirthCertDueDate = (TextView) view.findViewById(R.id.textview_birth_certification_name);
+        nameHeader = view.findViewById(R.id.textview_name_header);
+        textViewBirthCertDueDate = view.findViewById(R.id.textview_birth_certification_name);
         view.findViewById(R.id.close).setOnClickListener(this);
-        submit = (TextView) view.findViewById(R.id.textview_submit);
+        submit = view.findViewById(R.id.textview_submit);
         circleImageViewBirthStatus = view.findViewById(R.id.birth_status_circle);
         circleImageViewIllnessStatus = view.findViewById(R.id.obs_illness_status_circle);
         layoutBirthCertGroup = view.findViewById(R.id.birth_cert_group);
@@ -119,7 +119,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         layoutBirthCertGroup.setOnClickListener(this);
         layoutIllnessGroup.setOnClickListener(this);
         homeVisitGrowthAndNutritionLayout = view.findViewById(R.id.growth_and_nutrition_group);
-        homeVisitImmunizationView = (HomeVisitImmunizationView) view.findViewById(R.id.home_visit_immunization_view);
+        homeVisitImmunizationView = view.findViewById(R.id.home_visit_immunization_view);
         homeVisitImmunizationView.setActivity(getActivity());
         homeVisitImmunizationView.setChildClient(childClient);
         homeVisitImmunizationView.setEditMode(isEditMode);
@@ -131,7 +131,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     }
 
     private void assignNameHeader() {
-        String dob=org.smartregister.family.util.Utils.getValue(childClient.getColumnmaps(), DBConstants.KEY.DOB, false);
+        String dob = org.smartregister.family.util.Utils.getValue(childClient.getColumnmaps(), DBConstants.KEY.DOB, false);
         String dobString = org.smartregister.family.util.Utils.getDuration(dob);
         String birthCert = getValue(childClient.getColumnmaps(), BIRTH_CERT, true);
 
@@ -143,12 +143,12 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         ));
         dobString = dobString.contains("y") ? dobString.substring(0, dobString.indexOf("y")) : "";
 
-        if (!TextUtils.isEmpty(birthCert)|| TextUtils.isEmpty(dobString) || Integer.valueOf(dobString)<1) {
+        if (!TextUtils.isEmpty(birthCert) || TextUtils.isEmpty(dobString) || Integer.valueOf(dobString) < 1) {
             layoutBirthCertGroup.setVisibility(View.GONE);
-        }else{
+        } else {
             layoutBirthCertGroup.setVisibility(View.VISIBLE);
             DateTime ddd = Utils.dobStringToDateTime(dob);
-            textViewBirthCertDueDate.setText(ChildUtils.dueOverdueCalculation(ddd.toLocalDate()+""));
+            textViewBirthCertDueDate.setText(ChildUtils.dueOverdueCalculation(ddd.toLocalDate() + ""));
 
         }
     }
@@ -373,26 +373,23 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     }
 
     private void updateStatusTick(CircleImageView imageView, boolean isCheck) {
-        if (isCheck) {
-            imageView.setImageResource(R.drawable.ic_checked);
-            imageView.setColorFilter(getResources().getColor(R.color.white));
-            imageView.setCircleBackgroundColor(getResources().getColor(R.color.alert_complete_green));
-            imageView.setBorderColor(getResources().getColor(R.color.alert_complete_green));
 
-        } else {
-            imageView.setImageResource(R.drawable.ic_checked);
-            imageView.setColorFilter(getResources().getColor(R.color.white));
-            imageView.setCircleBackgroundColor(getResources().getColor(R.color.pnc_circle_yellow));
-            imageView.setBorderColor(getResources().getColor(R.color.pnc_circle_yellow));
-        }
+        imageView.setImageResource(R.drawable.ic_checked);
+        imageView.setColorFilter(getResources().getColor(R.color.white));
+        imageView.setCircleBackgroundColor(getResources().getColor(
+                ((isCheck) ? R.color.alert_complete_green : R.color.pnc_circle_yellow))
+        );
+        imageView.setBorderColor(getResources().getColor(
+                ((isCheck) ? R.color.alert_complete_green : R.color.pnc_circle_yellow))
+        );
 
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch (requestCode){
+        switch (requestCode) {
             case org.smartregister.family.util.JsonFormUtils.REQUEST_CODE_GET_JSON:
-                if(resultCode == Activity.RESULT_OK){
+                if (resultCode == Activity.RESULT_OK) {
                     try {
                         jsonString = data.getStringExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON);
                         Log.d("JSONResult", jsonString);

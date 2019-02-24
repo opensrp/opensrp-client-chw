@@ -92,7 +92,7 @@ public class WcaroApplication extends DrishtiApplication {
 
     private static String[] getFtsSortFields(String tableName) {
         if (tableName.equals(Constants.TABLE_NAME.FAMILY)) {
-            return new String[]{DBConstants.KEY.LAST_INTERACTED_WITH, DBConstants.KEY.DATE_REMOVED};
+            return new String[]{DBConstants.KEY.LAST_INTERACTED_WITH, DBConstants.KEY.DATE_REMOVED, DBConstants.KEY.FAMILY_HEAD, DBConstants.KEY.PRIMARY_CAREGIVER};
         } else if (tableName.equals(Constants.TABLE_NAME.FAMILY_MEMBER)) {
             return new String[]{DBConstants.KEY.DOB, DBConstants.KEY.DOD, DBConstants.KEY
                     .LAST_INTERACTED_WITH, DBConstants.KEY.DATE_REMOVED};
@@ -150,7 +150,7 @@ public class WcaroApplication extends DrishtiApplication {
 
     public String getPassword() {
         if (password == null) {
-            String username = getContext().userService().getAllSharedPreferences().fetchRegisteredANM();
+            String username = getContext().allSharedPreferences().fetchRegisteredANM();
             password = getContext().userService().getGroupId(username);
         }
         return password;

@@ -1,5 +1,6 @@
 package org.smartgresiter.wcaro.presenter;
 
+import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.smartgresiter.wcaro.contract.HomeVisitImmunizationContract;
 import org.smartgresiter.wcaro.interactor.HomeVisitImmunizationInteractor;
@@ -14,6 +15,7 @@ import org.smartregister.util.DateUtil;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -216,7 +218,7 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
         for (VaccineRepo.Vaccine vaccinesDueYetnotGiven : vaccinesToReturn) {
             vaccinesStack.add(vaccinesDueYetnotGiven);
             for (VaccineWrapper vaccine : notGivenVaccines) {
-                if(!vaccinesStack.isEmpty()) {
+                if (!vaccinesStack.isEmpty()) {
                     if (vaccine.getDefaultName().equalsIgnoreCase(vaccinesStack.peek().display())) {
                         vaccinesStack.pop();
                     }
@@ -256,7 +258,7 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
                     }
                 }
             }
-        }else if(singleVaccineInDueState.size()>0){
+        } else if (singleVaccineInDueState.size() > 0) {
             toReturn = false;
         }
         return toReturn;
@@ -268,11 +270,51 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
         for (HomeVisitVaccineGroupDetails group : allgroups) {
             allgivenVaccines.addAll(group.getGivenVaccines());
         }
+
+        LinkedHashMap<DateTime, ArrayList<VaccineRepo.Vaccine>> groupedByDate = groupVaccines(allgivenVaccines, sch);
+
+        String notGiven = addNotGivenVaccines(sch).trim();
+        StringBuilder groupSecondaryText = new StringBuilder();
+        Iterator<Map.Entry<DateTime, ArrayList<VaccineRepo.Vaccine>>> iterator = groupedByDate.entrySet().iterator();
+        while (iterator.hasNext()) {
+            Map.Entry<DateTime, ArrayList<VaccineRepo.Vaccine>> entry = iterator.next();
+            DateTime dueDate = entry.getKey();
+            ArrayList<VaccineRepo.Vaccine> vaccines = entry.getValue();
+            // now work with key and value...
+            for (VaccineRepo.Vaccine vaccineGiven : vaccines) {
+                groupSecondaryText.append(fixVaccineCasing(vaccineGiven.display())).append(", ");
+            }
+
+            if (groupSecondaryText.toString().endsWith(", ")) {
+                groupSecondaryText = new StringBuilder(groupSecondaryText.toString().trim());
+                groupSecondaryText = new StringBuilder(groupSecondaryText.substring(0, groupSecondaryText.length() - 1));
+            }
+
+            groupSecondaryText.append(" provided on ").append(DateUtil.formatDate(dueDate.toLocalDate(), "dd MMM yyyy"));
+
+            if (StringUtils.isNotBlank(notGiven) || iterator.hasNext()) {
+                groupSecondaryText.append(" \u00B7 ");
+            }
+        }
+
+        groupSecondaryText.append(notGiven);
+        groupImmunizationSecondaryText = groupSecondaryText.toString();
+    }
+
+    /**
+     * Groups vaccines by date
+     *
+     * @param givenVaccines
+     * @param sch
+     * @return
+     */
+    private LinkedHashMap<DateTime, ArrayList<VaccineRepo.Vaccine>> groupVaccines(ArrayList<VaccineRepo.Vaccine> givenVaccines, List<Map<String, Object>> sch) {
         LinkedHashMap<DateTime, ArrayList<VaccineRepo.Vaccine>> groupedByDate = new LinkedHashMap<DateTime, ArrayList<VaccineRepo.Vaccine>>();
-        for (VaccineRepo.Vaccine vaccineGiven : allgivenVaccines) {
+
+        for (VaccineRepo.Vaccine vaccineGiven : givenVaccines) {
             for (Map<String, Object> mapToProcess : sch) {
                 if (((VaccineRepo.Vaccine) mapToProcess.get("vaccine")).display().equalsIgnoreCase(vaccineGiven.display())) {
-                    if (groupedByDate.get((DateTime) mapToProcess.get("date")) == null) {
+                    if (groupedByDate.get(mapToProcess.get("date")) == null) {
                         ArrayList<VaccineRepo.Vaccine> givenVaccinesAtDate = new ArrayList<VaccineRepo.Vaccine>();
                         givenVaccinesAtDate.add(vaccineGiven);
                         groupedByDate.put((DateTime) mapToProcess.get("date"), givenVaccinesAtDate);
@@ -282,30 +324,8 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
                 }
             }
         }
-        String groupSecondaryText = "";
-        for (Map.Entry<DateTime, ArrayList<VaccineRepo.Vaccine>> entry : groupedByDate.entrySet()) {
-            DateTime dateTime = entry.getKey();
-            ArrayList<VaccineRepo.Vaccine> vaccines = entry.getValue();
-            // now work with key and value...
-            for (VaccineRepo.Vaccine vaccineGiven : vaccines) {
 
-                groupSecondaryText = groupSecondaryText + fixVaccineCasing(vaccineGiven.display()) + ", ";
-            }
-
-            if (groupSecondaryText.endsWith(", ")) {
-                groupSecondaryText = groupSecondaryText.trim();
-                groupSecondaryText = groupSecondaryText.substring(0, groupSecondaryText.length() - 1);
-
-            }
-            groupSecondaryText = groupSecondaryText + " provided on ";
-
-            DateTime dueDate = (DateTime) dateTime;
-            String duedateString = DateUtil.formatDate(dueDate.toLocalDate(), "dd MMM yyyy");
-            groupSecondaryText = groupSecondaryText + duedateString + " \u00B7 ";
-
-        }
-        groupSecondaryText = groupSecondaryText + addNotGivenVaccines(sch);
-        groupImmunizationSecondaryText = groupSecondaryText;
+        return groupedByDate;
     }
 
     private String addNotGivenVaccines(List<Map<String, Object>> sch) {
@@ -313,41 +333,31 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
         for (HomeVisitVaccineGroupDetails group : allgroups) {
             allgivenVaccines.addAll(group.getNotGivenVaccines());
         }
-        LinkedHashMap<DateTime, ArrayList<VaccineRepo.Vaccine>> groupedByDate = new LinkedHashMap<DateTime, ArrayList<VaccineRepo.Vaccine>>();
-        for (VaccineRepo.Vaccine vaccineGiven : allgivenVaccines) {
-            for (Map<String, Object> mapToProcess : sch) {
-                if (((VaccineRepo.Vaccine) mapToProcess.get("vaccine")).display().equalsIgnoreCase(vaccineGiven.display())) {
-                    if (groupedByDate.get((DateTime) mapToProcess.get("date")) == null) {
-                        ArrayList<VaccineRepo.Vaccine> givenVaccinesAtDate = new ArrayList<VaccineRepo.Vaccine>();
-                        givenVaccinesAtDate.add(vaccineGiven);
-                        groupedByDate.put((DateTime) mapToProcess.get("date"), givenVaccinesAtDate);
-                    } else {
-                        groupedByDate.get(mapToProcess.get("date")).add(vaccineGiven);
-                    }
-                }
-            }
-        }
-        String groupSecondaryText = "";
-        for (Map.Entry<DateTime, ArrayList<VaccineRepo.Vaccine>> entry : groupedByDate.entrySet()) {
-            DateTime dateTime = entry.getKey();
+
+        LinkedHashMap<DateTime, ArrayList<VaccineRepo.Vaccine>> groupedByDate = groupVaccines(allgivenVaccines, sch);
+
+        StringBuilder groupSecondaryText = new StringBuilder();
+        Iterator<Map.Entry<DateTime, ArrayList<VaccineRepo.Vaccine>>> iterator = groupedByDate.entrySet().iterator();
+        while (iterator.hasNext()) {
+            Map.Entry<DateTime, ArrayList<VaccineRepo.Vaccine>> entry = iterator.next();
             ArrayList<VaccineRepo.Vaccine> vaccines = entry.getValue();
             // now work with key and value...
             for (VaccineRepo.Vaccine vaccineGiven : vaccines) {
-                groupSecondaryText = groupSecondaryText + fixVaccineCasing(vaccineGiven.display()) + ", ";
+                groupSecondaryText.append(fixVaccineCasing(vaccineGiven.display())).append(", ");
             }
 
-            if (groupSecondaryText.endsWith(", ")) {
-                groupSecondaryText = groupSecondaryText.trim();
-                groupSecondaryText = groupSecondaryText.substring(0, groupSecondaryText.length() - 1);
-
+            if (groupSecondaryText.toString().endsWith(", ")) {
+                groupSecondaryText = new StringBuilder(groupSecondaryText.toString().trim());
+                groupSecondaryText = new StringBuilder(groupSecondaryText.substring(0, groupSecondaryText.length() - 1));
             }
-            groupSecondaryText = groupSecondaryText + " not given ";
 
-            groupSecondaryText = groupSecondaryText + " \u00B7 ";
-
+            groupSecondaryText.append(" not given ");
+            if (iterator.hasNext()) {
+                groupSecondaryText.append(" \u00B7 ");
+            }
         }
 
-        return groupSecondaryText;
+        return groupSecondaryText.toString();
     }
 
     @Override
@@ -390,8 +400,7 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
             }
             groupSecondaryText = groupSecondaryText + " provided on ";
 
-            DateTime dueDate = (DateTime) dateTime;
-            String duedateString = DateUtil.formatDate(dueDate.toLocalDate(), "dd MMM yyyy");
+            String duedateString = DateUtil.formatDate(dateTime.toLocalDate(), "dd MMM yyyy");
             groupSecondaryText = groupSecondaryText + duedateString + " \u00B7 ";
 
         }
