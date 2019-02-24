@@ -138,4 +138,8 @@
 
     <string name="growth_nutrition">Growth and Nutrition</string>
     <string name="dose_not_given">DOSE NOT GIVEN</string>
+    <string name="has_birt_cert">Has birth certificate?</string>
+    <string name="issuance_date">Issuance date</string>
+    <string name="number">Number</string>
+    <string name="notification">Birth notification done?</string>
 </resources>

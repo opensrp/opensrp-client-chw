@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -30,10 +32,12 @@ import org.json.JSONObject;
 import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.activity.ChildProfileActivity;
 import org.smartgresiter.wcaro.activity.ChildRegisterActivity;
+import org.smartgresiter.wcaro.adapter.HomeVisitBirthAndIllnessDataAdapter;
 import org.smartgresiter.wcaro.contract.ChildHomeVisitContract;
 import org.smartgresiter.wcaro.custom_view.HomeVisitGrowthAndNutrition;
 import org.smartgresiter.wcaro.custom_view.HomeVisitImmunizationView;
 import org.smartgresiter.wcaro.presenter.ChildHomeVisitPresenter;
+import org.smartgresiter.wcaro.util.BirthIllnessData;
 import org.smartgresiter.wcaro.util.ChildDBConstants;
 import org.smartgresiter.wcaro.util.ChildUtils;
 import org.smartgresiter.wcaro.util.Constants;
@@ -69,10 +73,12 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     private ChildHomeVisitContract.Presenter presenter;
     private CircleImageView circleImageViewBirthStatus, circleImageViewIllnessStatus;
     private String birthCertGiven = BIRTH_CERT_TYPE.NOT_GIVEN.name();
-    private JSONObject illnessJson = new JSONObject();
+    private JSONObject illnessJson;
+    private JSONObject birthCertJson;
     private String jsonString;
     private boolean isEditMode = false;
     private String selectedForm;
+    private RecyclerView recyclerViewBirthCertData,recyclerViewIllnessData;
 
     public void setContext(Context context) {
         this.context = context;
@@ -105,6 +111,10 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         circleImageViewIllnessStatus = view.findViewById(R.id.obs_illness_status_circle);
         layoutBirthCertGroup = view.findViewById(R.id.birth_cert_group);
         layoutIllnessGroup = view.findViewById(R.id.obs_illness_prevention_group);
+        recyclerViewBirthCertData=view.findViewById(R.id.birth_cert_data_recycler);
+        recyclerViewIllnessData=view.findViewById(R.id.illness_data_recycler);
+        recyclerViewBirthCertData.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerViewIllnessData.setLayoutManager(new LinearLayoutManager(getActivity()));
         view.findViewById(R.id.textview_submit).setOnClickListener(this);
         layoutBirthCertGroup.setOnClickListener(this);
         layoutIllnessGroup.setOnClickListener(this);
@@ -174,12 +184,12 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
 
         switch (v.getId()) {
             case R.id.birth_cert_group:
-                selectedForm = "Birth";
-                presenter.startBirthCertForm();
+                selectedForm="Birth";
+                presenter.startBirthCertForm(birthCertJson);
                 break;
             case R.id.obs_illness_prevention_group:
-                selectedForm = "illness";
-                presenter.startObsIllnessCertForm();
+                selectedForm="illness";
+                presenter.startObsIllnessCertForm(illnessJson);
                 break;
             case R.id.textview_submit:
                 if (checkAllGiven()) {
@@ -193,6 +203,9 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                         JSONObject singleVaccineObject = new JSONObject().put("singleVaccinesGiven", singleVaccine);
                         JSONObject vaccineGroupObject = new JSONObject().put("groupVaccinesGiven", vaccineGroup);
                         JSONObject service = new JSONObject((new Gson()).toJson(homeVisitGrowthAndNutritionLayout.returnSaveStateMap()));
+                        if(illnessJson==null){
+                            illnessJson=new JSONObject();
+                        }
                         ChildUtils.updateHomeVisitAsEvent(childClient.entityId(), Constants.EventType.CHILD_HOME_VISIT, Constants.TABLE_NAME.CHILD, singleVaccineObject, vaccineGroupObject, service, birthCertGiven, illnessJson, ChildDBConstants.KEY.LAST_HOME_VISIT, System.currentTimeMillis() + "");
 
 //                        ChildUtils.addToHomeVisitTable(childClient.getCaseId(),singleVaccineObject,vaccineGroupObject,service,birthCertGiven,illnessJson);
@@ -293,16 +306,24 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         form.setActionBarBackground(org.smartregister.family.R.color.customAppThemeBlue);
 
         intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);
-
+        intent.putExtra(org.smartregister.family.util.Constants.WizardFormActivity.EnableOnCloseDialog, false);
         startActivityForResult(intent, org.smartregister.family.util.JsonFormUtils.REQUEST_CODE_GET_JSON);
     }
 
     @Override
     public void updateBirthStatusTick() {
         birthCertGiven = BIRTH_CERT_TYPE.GIVEN.name();
-        textViewBirthCertDueDate.setText(R.string.given);
+       // textViewBirthCertDueDate.setText(R.string.given);
+        textViewBirthCertDueDate.setVisibility(View.GONE);
+        try {
+            birthCertJson = new JSONObject().put("birtCert", jsonString);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         updateStatusTick(circleImageViewBirthStatus, true);
+        updateBirthCertData();
     }
+
 
     @Override
     public void updateObsIllnessStatusTick() {
@@ -312,6 +333,43 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
             e.printStackTrace();
         }
         updateStatusTick(circleImageViewIllnessStatus, true);
+        updateIllnessData();
+    }
+    private HomeVisitBirthAndIllnessDataAdapter birthCertDataAdapter,illnessDataAdapter;
+
+    private void updateBirthCertData() {
+        ArrayList<BirthIllnessData> data=((ChildHomeVisitPresenter)presenter).getBirthCertDataList();
+        if(data.size()>0){
+            recyclerViewBirthCertData.setVisibility(View.VISIBLE);
+           // if(birthCertDataAdapter==null){
+                birthCertDataAdapter=new HomeVisitBirthAndIllnessDataAdapter();
+                birthCertDataAdapter.setData(data);
+                recyclerViewBirthCertData.setAdapter(birthCertDataAdapter);
+                recyclerViewBirthCertData.setLayoutFrozen(true);
+//            }else{
+//                birthCertDataAdapter.setData(data);
+//                birthCertDataAdapter.notifyDataSetChanged();
+//            }
+        }
+
+
+    }
+    private void updateIllnessData() {
+        ArrayList<BirthIllnessData> data=((ChildHomeVisitPresenter)presenter).getIllnessDataList();
+        if(data.size()>0){
+            recyclerViewIllnessData.setVisibility(View.VISIBLE);
+           // if(illnessDataAdapter==null){
+                illnessDataAdapter=new HomeVisitBirthAndIllnessDataAdapter();
+                illnessDataAdapter.setData(data);
+                recyclerViewIllnessData.setAdapter(illnessDataAdapter);
+                recyclerViewIllnessData.setLayoutFrozen(true);
+//            }else{
+//                illnessDataAdapter.setData(data);
+//                illnessDataAdapter.notifyDataSetChanged();
+//            }
+        }
+
+
     }
 
     private void updateStatusTick(CircleImageView imageView, boolean isCheck) {
