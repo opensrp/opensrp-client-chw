@@ -27,12 +27,12 @@ public class WCAROVaccinateUtils  {
             case opv3:
             case penta3:
             case pcv3:
+            case ipv:
                 return "14 weeks";
 
             case measles1:
             case mr1:
             case opv4:
-            case ipv:
                 return "9 months";
 
             case measles2:
