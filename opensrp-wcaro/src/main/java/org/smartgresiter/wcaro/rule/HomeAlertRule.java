@@ -6,6 +6,7 @@ import android.util.Log;
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.Days;
 import org.joda.time.LocalDate;
+import org.joda.time.Months;
 import org.smartgresiter.wcaro.interactor.ChildProfileInteractor;
 import org.smartgresiter.wcaro.util.ChildUtils;
 
@@ -24,6 +25,7 @@ public class HomeAlertRule {
     private LocalDate todayDate;
     private LocalDate lastVisitDate;
     private LocalDate visitNotDoneDate;
+
     public String noOfMonthDue;
     public String noOfDayDue;
     public String visitMonthName;
@@ -31,13 +33,13 @@ public class HomeAlertRule {
 
     public HomeAlertRule(String yearOfBirthString, long lastVisitDateLong, long visitNotDoneValue, long dateCreatedLong) {
         yearOfBirth = dobStringToYear(yearOfBirthString);
-        
+
         this.todayDate = new LocalDate();
         if (lastVisitDateLong > 0) {
             this.lastVisitDate = new LocalDate(lastVisitDateLong);
             noOfDayDue = dayDifference(lastVisitDate, todayDate) + " days";
         }
-        
+
         if (visitNotDoneValue > 0) {
             this.visitNotDoneDate = new LocalDate(visitNotDoneValue);
         }
@@ -52,20 +54,11 @@ public class HomeAlertRule {
     }
 
     public boolean isVisitNotDone() {
-        if (visitNotDoneDate != null && visitNotDoneDate.getMonthOfYear() == todayDate.getMonthOfYear()) {
-            return true;
-        }
-
-        return false;
-
+        return (visitNotDoneDate != null && getMonthsDifference(visitNotDoneDate, todayDate) < 1);
     }
 
     public boolean isExpiry(Integer calYr) {
-        if (yearOfBirth != null && yearOfBirth > calYr) {
-            return true;
-        }
-        return false;
-
+        return (yearOfBirth != null && yearOfBirth > calYr);
     }
 
     public boolean isOverdueWithinMonth(Integer value) {
@@ -82,29 +75,24 @@ public class HomeAlertRule {
             return true;
         }
         if (lastVisitDate == null) {
-            return isVisitThisMonth(dateCreated, todayDate);
+            return !isVisitThisMonth(dateCreated, todayDate);
         }
 
         return !isVisitThisMonth(lastVisitDate, todayDate);
-
     }
 
     public boolean isVisitWithinTwentyFour() {
-        visitMonthName = theMonth(todayDate.getMonthOfYear()-1);
+        visitMonthName = theMonth(todayDate.getMonthOfYear() - 1);
         noOfDayDue = "less than 24 hrs";
-        if (lastVisitDate == null) return false;
-        return !(lastVisitDate.isBefore(todayDate.minusDays(1)) && lastVisitDate.isBefore(todayDate));
-
+        return (lastVisitDate != null) && !(lastVisitDate.isBefore(todayDate.minusDays(1)) && lastVisitDate.isBefore(todayDate));
     }
 
     public boolean isVisitWithinThisMonth() {
-        if (lastVisitDate == null) return false;
-        return isVisitThisMonth(lastVisitDate, todayDate);
+        return  (lastVisitDate != null) && isVisitThisMonth(lastVisitDate, todayDate);
     }
 
     private boolean isVisitThisMonth(LocalDate lastVisit, LocalDate todayDate) {
-        return (todayDate.getMonthOfYear() == lastVisit.getMonthOfYear() && todayDate.getYear() == lastVisit.getYear());
-
+        return getMonthsDifference(lastVisit, todayDate) < 1;
     }
 
     private int dayDifference(LocalDate date1, LocalDate date2) {
@@ -116,9 +104,9 @@ public class HomeAlertRule {
     }
 
     private int getMonthsDifference(LocalDate date1, LocalDate date2) {
-        int m1 = date1.getYear() * 12 + date1.getMonthOfYear();
-        int m2 = date2.getYear() * 12 + date2.getMonthOfYear();
-        return m2 - m1;
+        return Months.monthsBetween(
+                date1.withDayOfMonth(1),
+                date2.withDayOfMonth(1)).getMonths();
     }
 
     private Integer dobStringToYear(String yearOfBirthString) {
