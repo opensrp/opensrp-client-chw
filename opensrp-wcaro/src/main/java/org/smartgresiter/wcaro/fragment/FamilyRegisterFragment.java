@@ -22,7 +22,9 @@ import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
+import org.smartregister.domain.FetchStatus;
 import org.smartregister.family.fragment.BaseFamilyRegisterFragment;
+import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.view.activity.BaseRegisterActivity;
 import org.smartregister.view.customcontrols.CustomFontTextView;
 
@@ -32,10 +34,11 @@ import java.util.Set;
 
 public class FamilyRegisterFragment extends BaseFamilyRegisterFragment {
 
-    private View dueOnlyLayout;
     private View view;
+    private View dueOnlyLayout;
 
     private boolean dueFilterActive = false;
+    private static final String DUE_FILTER_TAG = "PRESSED";
 
     @Override
     public void setupViews(View view) {
@@ -88,6 +91,15 @@ public class FamilyRegisterFragment extends BaseFamilyRegisterFragment {
     }
 
     @Override
+    protected void onResumption() {
+        if (dueFilterActive && dueOnlyLayout != null) {
+            dueFilter(dueOnlyLayout);
+        } else {
+            super.onResumption();
+        }
+    }
+
+    @Override
     protected void initializePresenter() {
         if (getActivity() == null) {
             return;
@@ -129,7 +141,7 @@ public class FamilyRegisterFragment extends BaseFamilyRegisterFragment {
 
     private void dueFilter(String mainConditionString) {
         this.joinTables = null;
-        super.filter("", "", mainConditionString, false);
+        super.filter(searchText(), "", mainConditionString, false);
     }
 
     @Override
@@ -142,21 +154,54 @@ public class FamilyRegisterFragment extends BaseFamilyRegisterFragment {
         }
     }
 
+    @Override
+    public void onSyncInProgress(FetchStatus fetchStatus) {
+        if (!SyncStatusBroadcastReceiver.getInstance().isSyncing() && (FetchStatus.fetched.equals(fetchStatus) || FetchStatus.nothingFetched.equals(fetchStatus)) && dueFilterActive && dueOnlyLayout != null) {
+            dueFilter(dueOnlyLayout);
+            Utils.showShortToast(getActivity(), getString(R.string.sync_complete));
+            refreshSyncProgressSpinner();
+        } else {
+            super.onSyncInProgress(fetchStatus);
+        }
+    }
+
+    @Override
+    public void onSyncComplete(FetchStatus fetchStatus) {
+        if (!SyncStatusBroadcastReceiver.getInstance().isSyncing() && (FetchStatus.fetched.equals(fetchStatus) || FetchStatus.nothingFetched.equals(fetchStatus)) && (dueFilterActive && dueOnlyLayout != null)) {
+            dueFilter(dueOnlyLayout);
+            Utils.showShortToast(getActivity(), getString(R.string.sync_complete));
+            refreshSyncProgressSpinner();
+        } else {
+            super.onSyncComplete(fetchStatus);
+        }
+    }
+
     private void toggleFilterSelection(View dueOnlyLayout) {
         if (dueOnlyLayout != null) {
-            String tagString = "PRESSED";
             if (dueOnlyLayout.getTag() == null) {
                 dueFilterActive = true;
-                dueFilter(presenter().getDueFilterCondition());
-                dueOnlyLayout.setTag(tagString);
-                switchViews(dueOnlyLayout, true);
-            } else if (dueOnlyLayout.getTag().toString().equals(tagString)) {
+                dueFilter(dueOnlyLayout);
+            } else if (dueOnlyLayout.getTag().toString().equals(DUE_FILTER_TAG)) {
                 dueFilterActive = false;
-                filter("", "", presenter().getMainCondition(), false);
-                dueOnlyLayout.setTag(null);
-                switchViews(dueOnlyLayout, false);
+                normalFilter(dueOnlyLayout);
             }
         }
+    }
+
+    private void dueFilter(View dueOnlyLayout) {
+        dueFilter(presenter().getDueFilterCondition());
+        dueOnlyLayout.setTag(DUE_FILTER_TAG);
+        switchViews(dueOnlyLayout, true);
+    }
+
+    private void normalFilter(View dueOnlyLayout) {
+        filter(searchText(), "", presenter().getMainCondition(), false);
+        dueOnlyLayout.setTag(null);
+        switchViews(dueOnlyLayout, false);
+    }
+
+    private String searchText() {
+        return (getSearchView() == null) ? "" : getSearchView().getText().toString();
     }
 
     private void switchViews(View dueOnlyLayout, boolean isPress) {
@@ -289,14 +334,15 @@ public class FamilyRegisterFragment extends BaseFamilyRegisterFragment {
     }
 
     @Override
-    public void setAdvancedSearchFormData(HashMap<String, String> hashMap) { }
+    public void setAdvancedSearchFormData(HashMap<String, String> hashMap) {
+    }
 
     @Override
     protected void refreshSyncProgressSpinner() {
-        if(syncProgressBar != null){
+        if (syncProgressBar != null) {
             syncProgressBar.setVisibility(View.GONE);
         }
-        if(syncButton != null){
+        if (syncButton != null) {
             syncButton.setVisibility(View.GONE);
         }
     }
