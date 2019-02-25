@@ -108,7 +108,7 @@ public class FloatingMenuListener implements OnClickFloatingMenu {
 
                     Intent fh_intent = new Intent(context.get(), FamilyProfileMenuActivity.class);
                     fh_intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.BASE_ENTITY_ID, getFamilyBaseEntityId());
-                    fh_intent.putExtra(FamilyProfileMenuActivity.MENU, FamilyProfileMenuActivity.MenuType.ChangeHead);
+                    fh_intent.putExtra(FamilyProfileMenuActivity.MENU, Constants.MenuType.ChangeHead);
                     context.get().startActivityForResult(fh_intent, Constants.ProfileActivityResults.CHANGE_COMPLETED);
 
                     break;
@@ -116,7 +116,7 @@ public class FloatingMenuListener implements OnClickFloatingMenu {
 
                     Intent pc_intent = new Intent(context.get(), FamilyProfileMenuActivity.class);
                     pc_intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.BASE_ENTITY_ID, getFamilyBaseEntityId());
-                    pc_intent.putExtra(FamilyProfileMenuActivity.MENU, FamilyProfileMenuActivity.MenuType.ChangePrimaryCare);
+                    pc_intent.putExtra(FamilyProfileMenuActivity.MENU, Constants.MenuType.ChangePrimaryCare);
                     context.get().startActivityForResult(pc_intent, Constants.ProfileActivityResults.CHANGE_COMPLETED);
 
                     break;

@@ -142,4 +142,8 @@
     <string name="issuance_date">Issuance date</string>
     <string name="number">Number</string>
     <string name="notification">Birth notification done?</string>
+    <string name="call_prompt">CALL %s</string>
+    <string name="head_of_family">Head of family</string>
+    <string name="care_giver">Caregiver</string>
+    <string name="status_saving">Saving</string>
 </resources>

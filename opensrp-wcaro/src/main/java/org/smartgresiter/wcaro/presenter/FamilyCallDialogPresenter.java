@@ -36,6 +36,6 @@ public class FamilyCallDialogPresenter implements FamilyCallDialogContract.Prese
     public void initalize() {
         mView.get().refreshHeadOfFamilyView(null);
         mView.get().refreshCareGiverView(null);
-        mInteractor.getHeadOfFamily(this);
+        mInteractor.getHeadOfFamily(this, mView.get().getContext());
     }
 }
