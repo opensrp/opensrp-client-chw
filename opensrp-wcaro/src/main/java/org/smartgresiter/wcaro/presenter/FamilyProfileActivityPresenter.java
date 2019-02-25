@@ -14,7 +14,7 @@ public class FamilyProfileActivityPresenter extends BaseFamilyProfileActivityPre
 
     @Override
     public String getMainCondition() {
-        return String.format(" %s = '%s' and %s is null ", Constants.TABLE_NAME.CHILD_ACTIVITY + ".relational_id", this.familyBaseEntityId, Constants.TABLE_NAME.CHILD_ACTIVITY + "." + DBConstants.KEY.DATE_REMOVED);
+        return String.format(" %s = '%s' and %s is null and ( %s is null OR %s != '0') ", Constants.TABLE_NAME.CHILD_ACTIVITY + ".relational_id", this.familyBaseEntityId, Constants.TABLE_NAME.CHILD_ACTIVITY + "." + DBConstants.KEY.DATE_REMOVED, Constants.TABLE_NAME.CHILD_ACTIVITY + "." + DBConstants.KEY.DATE_VISIT_NOT_DONE, Constants.TABLE_NAME.CHILD_ACTIVITY + "." + DBConstants.KEY.DATE_VISIT_NOT_DONE);
     }
 
     @Override
