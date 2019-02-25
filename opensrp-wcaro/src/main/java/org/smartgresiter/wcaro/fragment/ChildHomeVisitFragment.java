@@ -67,6 +67,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     CommonPersonObjectClient childClient;
     private TextView nameHeader, textViewBirthCertDueDate,textViewObsIllnessTitle;
     private HomeVisitGrowthAndNutrition homeVisitGrowthAndNutritionLayout;
+    private View viewBirthLine;
     public boolean allVaccineStateFullfilled = false;
     private TextView submit;
     private HomeVisitImmunizationView homeVisitImmunizationView;
@@ -109,6 +110,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         textViewObsIllnessTitle=view.findViewById(R.id.textview_obser_illness);
         textViewObsIllnessTitle.setText(Html.fromHtml(getString(R.string.observations_illness_episodes)));
         view.findViewById(R.id.close).setOnClickListener(this);
+        viewBirthLine=view.findViewById(R.id.birth_line_view);
         submit = view.findViewById(R.id.textview_submit);
         circleImageViewBirthStatus = view.findViewById(R.id.birth_status_circle);
         circleImageViewIllnessStatus = view.findViewById(R.id.obs_illness_status_circle);
@@ -148,8 +150,10 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
 
         if (!TextUtils.isEmpty(birthCert) || TextUtils.isEmpty(dobString) || Integer.valueOf(dobString) < 1) {
             layoutBirthCertGroup.setVisibility(View.GONE);
+            viewBirthLine.setVisibility(View.GONE);
         } else {
             layoutBirthCertGroup.setVisibility(View.VISIBLE);
+            viewBirthLine.setVisibility(View.VISIBLE);
             DateTime ddd = Utils.dobStringToDateTime(dob);
             textViewBirthCertDueDate.setText(ChildUtils.dueOverdueCalculation(ddd.toLocalDate() + ""));
 
