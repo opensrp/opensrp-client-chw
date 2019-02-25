@@ -116,6 +116,10 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
+                android:layout_marginEnd="@dimen/child_home_visit_right_margin"
+                android:layout_marginLeft="@dimen/child_home_visit_left_margin"
+                android:layout_marginRight="@dimen/child_home_visit_right_margin"
+                android:layout_marginStart="@dimen/child_home_visit_left_margin"
                 android:background="@color/light_grey" />
 
             <LinearLayout
@@ -185,6 +189,10 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
+                android:layout_marginEnd="@dimen/child_home_visit_right_margin"
+                android:layout_marginLeft="@dimen/child_home_visit_left_margin"
+                android:layout_marginRight="@dimen/child_home_visit_right_margin"
+                android:layout_marginStart="@dimen/child_home_visit_left_margin"
                 android:background="@color/light_grey" />
 
             <LinearLayout
@@ -223,7 +231,6 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center_vertical"
-                        android:text="@string/observations_illness_episodes"
                         android:textAppearance="@style/TextAppearance.AppCompat.Large"
                         android:textColor="@android:color/black" />
                     <android.support.v7.widget.RecyclerView
@@ -240,6 +247,10 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
+                android:layout_marginEnd="@dimen/child_home_visit_right_margin"
+                android:layout_marginLeft="@dimen/child_home_visit_left_margin"
+                android:layout_marginRight="@dimen/child_home_visit_right_margin"
+                android:layout_marginStart="@dimen/child_home_visit_left_margin"
                 android:background="@color/light_grey" />
 
 

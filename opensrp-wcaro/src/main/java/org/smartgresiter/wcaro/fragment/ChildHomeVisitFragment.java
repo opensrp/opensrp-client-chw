@@ -11,6 +11,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -64,7 +65,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     public static String DIALOG_TAG = "child_home_visit_dialog";
     Context context;
     CommonPersonObjectClient childClient;
-    private TextView nameHeader, textViewBirthCertDueDate;
+    private TextView nameHeader, textViewBirthCertDueDate,textViewObsIllnessTitle;
     private HomeVisitGrowthAndNutrition homeVisitGrowthAndNutritionLayout;
     public boolean allVaccineStateFullfilled = false;
     private TextView submit;
@@ -105,6 +106,8 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         super.onViewCreated(view, savedInstanceState);
         nameHeader = view.findViewById(R.id.textview_name_header);
         textViewBirthCertDueDate = view.findViewById(R.id.textview_birth_certification_name);
+        textViewObsIllnessTitle=view.findViewById(R.id.textview_obser_illness);
+        textViewObsIllnessTitle.setText(Html.fromHtml(getString(R.string.observations_illness_episodes)));
         view.findViewById(R.id.close).setOnClickListener(this);
         submit = view.findViewById(R.id.textview_submit);
         circleImageViewBirthStatus = view.findViewById(R.id.birth_status_circle);
