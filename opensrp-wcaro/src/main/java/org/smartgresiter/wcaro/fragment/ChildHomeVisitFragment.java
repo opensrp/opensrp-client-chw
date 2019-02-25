@@ -232,8 +232,8 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
 
     private void showCloseDialog() {
         AlertDialog dialog = new AlertDialog.Builder(getActivity(), R.style.AppThemeAlertDialog)
-                .setTitle("Undo Changes and Exit")
-                .setMessage("Would you like to undo the changes in this home visit and exit ?")
+                .setTitle(getString(R.string.confirm_form_close))
+                .setMessage(R.string.confirm_form_close_explanation)
                 .setNegativeButton(com.vijay.jsonwizard.R.string.yes, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
