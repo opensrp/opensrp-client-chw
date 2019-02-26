@@ -6,6 +6,7 @@ import android.app.FragmentTransaction;
 import android.content.Context;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -13,6 +14,9 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 
 import org.joda.time.DateTime;
+import org.joda.time.Days;
+import org.joda.time.Months;
+import org.joda.time.Weeks;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -23,10 +27,12 @@ import org.smartgresiter.wcaro.fragment.ChildImmunizationFragment;
 import org.smartgresiter.wcaro.fragment.CustomMultipleVaccinationDialogFragment;
 import org.smartgresiter.wcaro.fragment.CustomVaccinationDialogFragment;
 import org.smartgresiter.wcaro.presenter.HomeVisitImmunizationPresenter;
+import org.smartgresiter.wcaro.repository.HomeVisitRepository;
 import org.smartgresiter.wcaro.util.HomeVisitVaccineGroupDetails;
 import org.smartgresiter.wcaro.util.ImmunizationState;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.Alert;
+import org.smartregister.family.util.DBConstants;
 import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.immunization.domain.Vaccine;
 import org.smartregister.immunization.domain.VaccineWrapper;
@@ -61,6 +67,8 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
     private LinearLayout single_immunization_group;
     Activity context;
     private boolean isInEditMode = false;
+    private LinearLayout immunization_undue_groups_holder;
+    private ArrayList<String> elligibleVaccineGroups = new ArrayList<String>();
 
 
     public HomeVisitImmunizationView(Context context) {
@@ -95,6 +103,8 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
         immunization_group_status_circle = ((CircleImageView) findViewById(R.id.immunization_group_status_circle));
         single_immunization_group = ((LinearLayout) findViewById(R.id.immunization_name_group));
         multiple_immunization_group = ((LinearLayout) findViewById(R.id.immunization_group));
+        immunization_undue_groups_holder = ((LinearLayout) findViewById(R.id.immunization_undue_groups_holder));
+
         initializePresenter();
 
     }
@@ -185,6 +195,8 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
         } else {
             single_immunization_group.setVisibility(View.GONE);
         }
+
+        inflateGroupsNotEnabled();
     }
 
     private String getSingleImmunizationSecondaryText(ArrayList<VaccineRepo.Vaccine> vaccinesDueFromLastVisitStillDueState, List<Map<String, Object>> sch, List<Alert> alerts) {
@@ -206,6 +218,49 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
             }
         }
         return toReturn;
+    }
+
+    public void inflateGroupsNotEnabled(){
+        immunization_undue_groups_holder.removeAllViews();
+        ArrayList<HomeVisitVaccineGroupDetails> inActiveDueGroups = findDueInactiveGroups();
+        for(int i = 0;i<inActiveDueGroups.size();i++){
+            LinearLayout vaccineGroupNotDue = (LinearLayout)((LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.multiple_vaccine_layout, null);
+            String immunizations = MessageFormat.format("Immunizations ({0})", inActiveDueGroups.get(i).getGroup().replace("weeks", "w").replace("months", "m"));
+            ((TextView)vaccineGroupNotDue.findViewById(R.id.textview_group_immunization)).setText(immunizations);
+            ((TextView)vaccineGroupNotDue.findViewById(R.id.textview_immunization_group_secondary_text)).setText(getContext().getString(R.string.fill_earler_immunization));
+            immunization_undue_groups_holder.addView(vaccineGroupNotDue);
+        }
+
+    }
+
+    private ArrayList<HomeVisitVaccineGroupDetails> findDueInactiveGroups() {
+        setAgeVaccineListElligibleGroups();
+        ArrayList<HomeVisitVaccineGroupDetails> inActiveDueGroups = new ArrayList<HomeVisitVaccineGroupDetails>();
+        ArrayList<HomeVisitVaccineGroupDetails> homeVisitVaccineGroupDetails = presenter.getAllgroups();
+        HomeVisitVaccineGroupDetails currentActiveGroup = presenter.getCurrentActiveGroup();
+        int indexofCurrentActiveGroup = 0;
+        for(int i = 0;i<homeVisitVaccineGroupDetails.size();i++){
+            if(homeVisitVaccineGroupDetails.get(i).getGroup().equalsIgnoreCase(currentActiveGroup.getGroup())){
+                indexofCurrentActiveGroup = i;
+            }
+        }
+        for(int i = indexofCurrentActiveGroup+1;i<homeVisitVaccineGroupDetails.size();i++){
+//            if(homeVisitVaccineGroupDetails.get(i).getAlert().equals(ImmunizationState.DUE)||homeVisitVaccineGroupDetails.get(i).getAlert().equals(ImmunizationState.OVERDUE)){
+            if(inElligibleVaccineMap(homeVisitVaccineGroupDetails.get(i))) {
+                inActiveDueGroups.add(homeVisitVaccineGroupDetails.get(i));
+            }
+//            }
+        }
+        return inActiveDueGroups;
+    }
+
+    private boolean inElligibleVaccineMap(HomeVisitVaccineGroupDetails homeVisitVaccineGroupDetails) {
+        for(String string : elligibleVaccineGroups){
+            if(string.equalsIgnoreCase(homeVisitVaccineGroupDetails.getGroup())){
+                return true;
+            }
+        }
+        return false;
     }
 
     private String immunizationsGivenThisVisitafterCompletion() {
@@ -370,5 +425,30 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
 
     public void setEditMode(boolean isEditMode) {
         this.isInEditMode = isEditMode;
+    }
+
+    public void setAgeVaccineListElligibleGroups(){
+        String dobString = org.smartregister.util.Utils.getValue(presenter.getchildClient().getColumnmaps(), DBConstants.KEY.DOB, false);
+       if (!TextUtils.isEmpty(dobString)) {
+            DateTime dateTime = new DateTime(dobString);
+            DateTime now = new DateTime();
+           int weeks = Weeks.weeksBetween(dateTime, now).getWeeks();
+           int months = Months.monthsBetween(dateTime,now).getMonths();
+           if(weeks>=6){
+               elligibleVaccineGroups.add("6 weeks");
+           }
+           if(weeks>=10){
+               elligibleVaccineGroups.add("10 weeks");
+           }
+           if(weeks>=6){
+               elligibleVaccineGroups.add("14 weeks");
+           }
+           if(months>=9){
+               elligibleVaccineGroups.add("9 months");
+           }
+           if(months>=15){
+               elligibleVaccineGroups.add("15 months");
+           }
+        }
     }
 }

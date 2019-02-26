@@ -59,6 +59,19 @@
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:background="@color/light_grey" />
+    <LinearLayout
+        android:id="@+id/immunization_undue_groups_holder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/light_grey" />
 
     <LinearLayout
         android:id="@+id/immunization_name_group"
