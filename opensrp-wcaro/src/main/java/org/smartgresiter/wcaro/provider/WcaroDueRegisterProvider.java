@@ -132,14 +132,18 @@ public class WcaroDueRegisterProvider extends FamilyDueRegisterProvider {
         String dobString = Utils.getDuration(Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.DOB, false));
         String lastVisitDate = Utils.getValue(pc.getColumnmaps(), ChildDBConstants.KEY.LAST_HOME_VISIT, false);
         String visitNotDone = Utils.getValue(pc.getColumnmaps(), ChildDBConstants.KEY.VISIT_NOT_DONE, false);
-        long lastVisit = 0, visitNot = 0;
+        String strDateCreated = org.smartregister.family.util.Utils.getValue(pc.getColumnmaps(), ChildDBConstants.KEY.DATE_CREATED, false);
+        long lastVisit = 0, visitNot = 0, dateCreated = 0;
         if (!TextUtils.isEmpty(lastVisitDate)) {
             lastVisit = Long.valueOf(lastVisitDate);
         }
         if (!TextUtils.isEmpty(visitNotDone)) {
             visitNot = Long.valueOf(visitNotDone);
         }
-        return ChildUtils.getChildVisitStatus(rules, dobString, lastVisit, visitNot);
+        if(!TextUtils.isEmpty(strDateCreated)){
+            dateCreated =  org.smartregister.family.util.Utils.dobStringToDateTime(strDateCreated).getMillis();
+        }
+        return ChildUtils.getChildVisitStatus(rules, dobString, lastVisit, visitNot, dateCreated);
     }
 
     ////////////////////////////////////////////////////////////////

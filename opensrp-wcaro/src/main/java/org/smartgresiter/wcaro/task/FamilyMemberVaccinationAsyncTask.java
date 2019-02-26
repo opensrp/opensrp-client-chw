@@ -70,8 +70,14 @@ public class FamilyMemberVaccinationAsyncTask extends AsyncTask {
                 String dobString = org.smartregister.util.Utils.getValue(personObject.getColumnmaps(), DBConstants.KEY.DOB, false);
                 String visitNotDoneStr=org.smartregister.util.Utils.getValue(personObject.getColumnmaps(), ChildDBConstants.KEY.VISIT_NOT_DONE, false);
                 String lastHomeVisitStr=org.smartregister.util.Utils.getValue(personObject.getColumnmaps(), ChildDBConstants.KEY.LAST_HOME_VISIT, false);
+                String strDateCreated = org.smartregister.family.util.Utils.getValue(personObject.getColumnmaps(), ChildDBConstants.KEY.DATE_CREATED, false);
                 long lastHomeVisit=TextUtils.isEmpty(lastHomeVisitStr)?0:Long.parseLong(lastHomeVisitStr);
                 long visitNotDone=TextUtils.isEmpty(visitNotDoneStr)?0:Long.parseLong(visitNotDoneStr);
+
+                long dateCreated = 0;
+                if(!TextUtils.isEmpty(strDateCreated)){
+                    dateCreated =  org.smartregister.family.util.Utils.dobStringToDateTime(strDateCreated).getMillis();
+                }
                 DateTime dob = org.smartgresiter.wcaro.util.Utils.dobStringToDateTime(dobString);
                 if (dob == null) {
                     dob = new DateTime();
@@ -135,7 +141,7 @@ public class FamilyMemberVaccinationAsyncTask extends AsyncTask {
                     this.nv = nv;
                     this.childServiceState = state;
                 }else{
-                    final ChildVisit childVisit = ChildUtils.getChildVisitStatus(dobString,lastHomeVisit,visitNotDone);
+                    final ChildVisit childVisit = ChildUtils.getChildVisitStatus(dobString,lastHomeVisit,visitNotDone, dateCreated);
                     if(childVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.OVERDUE.name())
                             || childVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.DUE.name()))
                         if( familyImmunizationState!=null && !familyImmunizationState.equals(ImmunizationState.OVERDUE)){

@@ -138,7 +138,7 @@ public class WcaroRegisterProvider extends FamilyRegisterProvider {
 
     private List<Map<String, String>> getChildren(String familyEntityId) {
         SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
-        queryBUilder.SelectInitiateMainTable(Constants.TABLE_NAME.CHILD, new String[]{DBConstants.KEY.BASE_ENTITY_ID, DBConstants.KEY.GENDER, ChildDBConstants.KEY.LAST_HOME_VISIT, ChildDBConstants.KEY.VISIT_NOT_DONE, DBConstants.KEY.DOB});
+        queryBUilder.SelectInitiateMainTable(Constants.TABLE_NAME.CHILD, new String[]{DBConstants.KEY.BASE_ENTITY_ID, DBConstants.KEY.GENDER, ChildDBConstants.KEY.LAST_HOME_VISIT, ChildDBConstants.KEY.VISIT_NOT_DONE, ChildDBConstants.KEY.DATE_CREATED, DBConstants.KEY.DOB});
         queryBUilder.mainCondition(String.format(" %s is null AND %s = '%s' ",
                 DBConstants.KEY.DATE_REMOVED,
                 DBConstants.KEY.RELATIONAL_ID,
@@ -177,14 +177,18 @@ public class WcaroRegisterProvider extends FamilyRegisterProvider {
             String dobString = Utils.getDuration(map.get(DBConstants.KEY.DOB));
             String lastVisitDate = map.get(ChildDBConstants.KEY.LAST_HOME_VISIT);
             String visitNotDone = map.get(ChildDBConstants.KEY.VISIT_NOT_DONE);
-            long lastVisit = 0, visitNot = 0;
+            String strDateCreated = map.get(ChildDBConstants.KEY.DATE_CREATED);
+            long lastVisit = 0, visitNot = 0, dateCreated = 0;
             if (!TextUtils.isEmpty(lastVisitDate)) {
                 lastVisit = Long.valueOf(lastVisitDate);
             }
             if (!TextUtils.isEmpty(visitNotDone)) {
                 visitNot = Long.valueOf(visitNotDone);
             }
-            ChildVisit childVisit = ChildUtils.getChildVisitStatus(rules, dobString, lastVisit, visitNot);
+            if(!TextUtils.isEmpty(strDateCreated)){
+                dateCreated =  org.smartregister.family.util.Utils.dobStringToDateTime(strDateCreated).getMillis();
+            }
+            ChildVisit childVisit = ChildUtils.getChildVisitStatus(rules, dobString, lastVisit, visitNot, dateCreated);
             childVisitList.add(childVisit);
         }
         return childVisitList;

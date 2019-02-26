@@ -12,6 +12,7 @@ public class FamilyProfileDueModel extends BaseFamilyProfileDueModel {
         String[] newColumns = new String[]{
                 tableName + "." + ChildDBConstants.KEY.LAST_HOME_VISIT,
                 tableName + "." + ChildDBConstants.KEY.VISIT_NOT_DONE,
+                tableName + "." + ChildDBConstants.KEY.DATE_CREATED
         };
 
         return ArrayUtils.addAll(columns, newColumns);
