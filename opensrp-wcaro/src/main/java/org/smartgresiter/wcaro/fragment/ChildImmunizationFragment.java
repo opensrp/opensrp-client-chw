@@ -545,10 +545,16 @@ public class ChildImmunizationFragment extends DialogFragment {
 
         @Override
         protected void onPostExecute(Pair<ArrayList<VaccineWrapper>, List<Vaccine>> pair) {
-            updateVaccineGroupViews(view, pair.first, pair.second);
+            try{
+                updateVaccineGroupViews(view, pair.first, pair.second);
 
-            updateVaccineGroupsUsingAlerts(affectedVaccines, vaccineList, alertList);
-        }
+                updateVaccineGroupsUsingAlerts(affectedVaccines, vaccineList, alertList);
+
+
+            }catch (Exception e){
+
+            }
+         }
 
         @Override
         protected Pair<ArrayList<VaccineWrapper>, List<Vaccine>> doInBackground(VaccineWrapper... vaccineWrappers) {
@@ -778,9 +784,15 @@ public class ChildImmunizationFragment extends DialogFragment {
 
             ArrayList<VaccineWrapper> wrappers = new ArrayList<>();
             wrappers.add(tag);
-            updateVaccineGroupViews(view, wrappers, vaccineList, true);
-            updateVaccineGroupsUsingAlerts(affectedVaccines, vaccineList, alertList);
-        }
+            try{
+
+                updateVaccineGroupViews(view, wrappers, vaccineList, true);
+                updateVaccineGroupsUsingAlerts(affectedVaccines, vaccineList, alertList);
+
+            }catch (Exception e){
+
+            }
+         }
     }
 
     private void updateVaccineGroupsUsingAlerts(List<String> affectedVaccines, List<Vaccine> vaccineList, List<Alert> alerts) {
@@ -999,8 +1011,12 @@ public class ChildImmunizationFragment extends DialogFragment {
 
             tag.setUpdatedVaccineDate(null, false);
             tag.setDbKey(null);
+            try{
+                RecurringServiceUtils.updateServiceGroupViews(view, wrappers, serviceRecordList, alertList, true);
 
-            RecurringServiceUtils.updateServiceGroupViews(view, wrappers, serviceRecordList, alertList, true);
+            }catch (Exception e){
+
+            }
         }
     }
 
