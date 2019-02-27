@@ -20,6 +20,8 @@ public class Constants {
         public static final String CHILD_HOME_VISIT = "Child Home Visit";
         public static final String CHILD_VISIT_NOT_DONE = "Visit not done";
 
+        public static final String UPDATE_FAMILY_RELATIONS = "Update Family Relations";
+
         public static final String UPDATE_FAMILY_REGISTRATION = "Update Family Registration";
         public static final String UPDATE_FAMILY_MEMBER_REGISTRATION = "Update Family Member Registration";
 
