@@ -22,6 +22,7 @@ import org.smartgresiter.wcaro.util.ChildUtils;
 import org.smartgresiter.wcaro.util.ChildVisit;
 import org.smartgresiter.wcaro.util.Constants;
 import org.smartgresiter.wcaro.util.ImmunizationState;
+import org.smartgresiter.wcaro.util.Utils;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.CommonPersonObject;
@@ -32,7 +33,6 @@ import org.smartregister.family.FamilyLibrary;
 import org.smartregister.family.util.AppExecutors;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.JsonFormUtils;
-import org.smartregister.family.util.Utils;
 import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.repository.AllSharedPreferences;
@@ -133,7 +133,7 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
 
             } else {
                 if (baseClient != null) {
-                    String opensrpId = baseClient.getIdentifier(DBConstants.KEY.UNIQUE_ID);
+                    String opensrpId = baseClient.getIdentifier(Utils.metadata().uniqueIdentifierKey);
 
                     //mark OPENSRP ID as used
                     getUniqueIdRepository().close(opensrpId);

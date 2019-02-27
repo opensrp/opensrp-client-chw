@@ -139,4 +139,8 @@ public class Constants {
         public static final String ChangeHead = "ChangeHead";
         public static final String ChangePrimaryCare = "ChangePrimaryCare";
     }
+
+    public static class IDENTIFIER {
+        public static final String UNIQUE_IDENTIFIER_KEY = "opensrp_id";
+    }
 }
