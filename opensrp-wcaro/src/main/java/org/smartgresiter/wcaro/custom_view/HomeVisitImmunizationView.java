@@ -67,7 +67,7 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
     private CircleImageView immunization_group_status_circle;
     private LinearLayout multiple_immunization_group;
     private LinearLayout single_immunization_group;
-    private View viewImmunization;
+    private View lineImmunization,lineImmunizationUndue;
     Activity context;
     private boolean isInEditMode = false;
     private LinearLayout immunization_undue_groups_holder;
@@ -106,7 +106,8 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
         immunization_status_circle = ((CircleImageView) findViewById(R.id.immunization_status_circle));
         immunization_group_status_circle = ((CircleImageView) findViewById(R.id.immunization_group_status_circle));
         single_immunization_group = ((LinearLayout) findViewById(R.id.immunization_name_group));
-        viewImmunization=findViewById(R.id.view_group_immunization);
+        lineImmunization=findViewById(R.id.line_group_immunization);
+        lineImmunizationUndue=findViewById(R.id.line_immunization_undue_groups);
         multiple_immunization_group = ((LinearLayout) findViewById(R.id.immunization_group));
         immunization_undue_groups_holder = ((LinearLayout) findViewById(R.id.immunization_undue_groups_holder));
         immunization_done_before_active_groups__holder = ((LinearLayout) findViewById(R.id.immunization_done_before_active_groups_holder));
@@ -195,6 +196,7 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
 
             if (presenter.getVaccinesDueFromLastVisitStillDueState().size() == 0) {
                 if (presenter.isSingleVaccineGroupPartialComplete() || presenter.isSingleVaccineGroupComplete()) {
+                    textview_immunization_secondary_text.setVisibility(VISIBLE);
                     textview_immunization_secondary_text.setText(presenter.getSingleImmunizationSecondaryText());
                     textview_immunization_secondary_text.setTextColor(getResources().getColor(android.R.color.darker_gray));
                     immunization_status_circle.setImageResource(R.drawable.ic_checked);
@@ -206,6 +208,7 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
                 }
             } else if (presenter.getVaccinesDueFromLastVisitStillDueState().size() > 0) {
                 String SingleImmunizationSecondaryText = getSingleImmunizationSecondaryText(presenter.getVaccinesDueFromLastVisitStillDueState(), sch, alerts);
+                textview_immunization_secondary_text.setVisibility(VISIBLE);
                 textview_immunization_secondary_text.setText(SingleImmunizationSecondaryText);
                 if (SingleImmunizationSecondaryText.toLowerCase().contains(ImmunizationState.DUE.toString().toLowerCase())) {
                     textview_immunization_secondary_text.setTextColor(getResources().getColor(android.R.color.darker_gray));
@@ -216,7 +219,7 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
             }
         } else {
             single_immunization_group.setVisibility(View.GONE);
-            viewImmunization.setVisibility(GONE);
+            lineImmunization.setVisibility(GONE);
 
         }
         inflateGroupsDone(sch);
@@ -250,7 +253,11 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
         ArrayList<HomeVisitVaccineGroupDetails> groupsDoneBeforeCurrentActive = findGroupsDoneBeforeActive();
         for(int i = 0;i<groupsDoneBeforeCurrentActive.size();i++){
             LinearLayout vaccineGroupNotDue = (LinearLayout)((LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.multiple_vaccine_layout, null);
-            String immunizations = MessageFormat.format("Immunizations ({0})", groupsDoneBeforeCurrentActive.get(i).getGroup().replace("weeks", "w").replace("months", "m"));
+//            View lineView=vaccineGroupNotDue.findViewById(R.id.line_view);
+//            if(i==(groupsDoneBeforeCurrentActive.size()-1)){
+//                lineView.setVisibility(GONE);
+//            }
+            String immunizations = MessageFormat.format("Immunizations ({0})", groupsDoneBeforeCurrentActive.get(i).getGroup().replace("weeks", "w").replace("months", "m").replace(" ",""));
             TextView groupImmunizationTitle = ((TextView)vaccineGroupNotDue.findViewById(R.id.textview_group_immunization));
             groupImmunizationTitle.setText(immunizations);
             TextView secondaryText = ((TextView)vaccineGroupNotDue.findViewById(R.id.textview_immunization_group_secondary_text));
@@ -285,9 +292,16 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
     public void inflateGroupsNotEnabled(){
         immunization_undue_groups_holder.removeAllViews();
         ArrayList<HomeVisitVaccineGroupDetails> inActiveDueGroups = findDueInactiveGroups();
+        if(inActiveDueGroups.size()==0){
+            lineImmunizationUndue.setVisibility(GONE);
+        }
         for(int i = 0;i<inActiveDueGroups.size();i++){
             LinearLayout vaccineGroupNotDue = (LinearLayout)((LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.multiple_vaccine_layout, null);
-            String immunizations = MessageFormat.format("Immunizations ({0})", inActiveDueGroups.get(i).getGroup().replace("weeks", "w").replace("months", "m"));
+            View lineView=vaccineGroupNotDue.findViewById(R.id.line_view);
+            if(i==(inActiveDueGroups.size()-1)){
+                lineView.setVisibility(GONE);
+            }
+            String immunizations = MessageFormat.format("Immunizations ({0})", inActiveDueGroups.get(i).getGroup().replace("weeks", "w").replace("months", "m").replace(" ",""));
             ((TextView)vaccineGroupNotDue.findViewById(R.id.textview_group_immunization)).setText(immunizations);
             ((TextView)vaccineGroupNotDue.findViewById(R.id.textview_immunization_group_secondary_text)).setText(getContext().getString(R.string.fill_earler_immunization));
             immunization_undue_groups_holder.addView(vaccineGroupNotDue);
