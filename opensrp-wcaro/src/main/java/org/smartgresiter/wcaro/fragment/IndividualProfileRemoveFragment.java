@@ -9,6 +9,7 @@ import com.vijay.jsonwizard.domain.Form;
 
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
+import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.activity.FamilyRegisterActivity;
 import org.smartgresiter.wcaro.activity.IndividualProfileRemoveActivity;
 import org.smartgresiter.wcaro.contract.FamilyRemoveMemberContract;
@@ -33,6 +34,8 @@ public class IndividualProfileRemoveFragment extends BaseFamilyProfileMemberFrag
     String familyHead;
     String primaryCareGiver;
     private CommonPersonObjectClient pc;
+    String memberName;
+
     public static IndividualProfileRemoveFragment newInstance(Bundle bundle) {
         Bundle args = bundle;
         IndividualProfileRemoveFragment fragment = new IndividualProfileRemoveFragment();
@@ -75,22 +78,30 @@ public class IndividualProfileRemoveFragment extends BaseFamilyProfileMemberFrag
     public void removeMember(CommonPersonObjectClient client) {
         getPresenter().removeMember(client);
     }
+
     private void openDeleteDialog() {
-        String name = String.format("%s %s %s", pc.getColumnmaps().get(DBConstants.KEY.FIRST_NAME),
+        memberName = String.format("%s %s %s", pc.getColumnmaps().get(DBConstants.KEY.FIRST_NAME),
                 pc.getColumnmaps().get(DBConstants.KEY.MIDDLE_NAME) == null ? "" : pc.getColumnmaps().get(DBConstants.KEY.MIDDLE_NAME),
                 pc.getColumnmaps().get(DBConstants.KEY.LAST_NAME) == null ? "" : pc.getColumnmaps().get(DBConstants.KEY.LAST_NAME));
 
         String dod = pc.getColumnmaps().get(DBConstants.KEY.DOD);
         if (StringUtils.isBlank(dod)) {
+            getPresenter().removeMember(pc);
+        }
+    }
+
+
+    public void confirmRemove(final JSONObject form) {
+        if (StringUtils.isNotBlank(memberName)) {
             FamilyRemoveMemberConfrimDialog dialog = FamilyRemoveMemberConfrimDialog.newInstance(
-                    String.format("Are you sure you want to remove %s's record? This will remove their entire health record from your device. This action cannot be undone.", name)
+                    String.format(getString(R.string.confirm_remove_text), memberName)
             );
-            dialog.setContext(getActivity());
+            dialog.setContext(getContext());
             dialog.show(getFragmentManager(), AddMemberFragment.DIALOG_TAG);
             dialog.setOnRemove(new Runnable() {
                 @Override
                 public void run() {
-                    getPresenter().removeMember(pc);
+                    getPresenter().processRemoveForm(form);
                 }
             });
             dialog.setOnRemoveActivity(new Runnable() {
@@ -144,9 +155,9 @@ public class IndividualProfileRemoveFragment extends BaseFamilyProfileMemberFrag
     }
 
     @Override
-    public void closeFamily(String familyName,String details) {
+    public void closeFamily(String familyName, String details) {
 
-        getPresenter().removeEveryone(familyName,details);
+        getPresenter().removeEveryone(familyName, details);
 
     }
 
@@ -181,8 +192,8 @@ public class IndividualProfileRemoveFragment extends BaseFamilyProfileMemberFrag
                 getActivity().finish();
             } else {
                 if (getActivity() != null) {
-                    if(getActivity() instanceof IndividualProfileRemoveActivity){
-                        IndividualProfileRemoveActivity p=(IndividualProfileRemoveActivity)getActivity();
+                    if (getActivity() instanceof IndividualProfileRemoveActivity) {
+                        IndividualProfileRemoveActivity p = (IndividualProfileRemoveActivity) getActivity();
                         p.onRemoveMember();
                     }
                 }
@@ -194,8 +205,8 @@ public class IndividualProfileRemoveFragment extends BaseFamilyProfileMemberFrag
     public void onEveryoneRemoved() {
 
         if (getActivity() != null) {
-            if(getActivity() instanceof IndividualProfileRemoveActivity){
-                IndividualProfileRemoveActivity p=(IndividualProfileRemoveActivity)getActivity();
+            if (getActivity() instanceof IndividualProfileRemoveActivity) {
+                IndividualProfileRemoveActivity p = (IndividualProfileRemoveActivity) getActivity();
                 p.onRemoveMember();
             }
         }

@@ -56,7 +56,7 @@ public class FamilyRemoveMemberActivity extends SecuredActivity implements View.
                 Log.d("JSONResult", jsonString);
 
                 JSONObject form = new JSONObject(jsonString);
-                removeMemberFragment.getPresenter().processRemoveForm(form);
+                removeMemberFragment.confirmRemove(form);
             } catch (Exception e) {
                 Log.e(TAG, Log.getStackTraceString(e));
             }
