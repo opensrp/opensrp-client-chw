@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
+import android.graphics.Typeface;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -13,8 +14,8 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 
+import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
-import org.joda.time.Days;
 import org.joda.time.Months;
 import org.joda.time.Weeks;
 import org.json.JSONArray;
@@ -27,7 +28,6 @@ import org.smartgresiter.wcaro.fragment.ChildImmunizationFragment;
 import org.smartgresiter.wcaro.fragment.CustomMultipleVaccinationDialogFragment;
 import org.smartgresiter.wcaro.fragment.CustomVaccinationDialogFragment;
 import org.smartgresiter.wcaro.presenter.HomeVisitImmunizationPresenter;
-import org.smartgresiter.wcaro.repository.HomeVisitRepository;
 import org.smartgresiter.wcaro.util.HomeVisitVaccineGroupDetails;
 import org.smartgresiter.wcaro.util.ImmunizationState;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
@@ -41,6 +41,8 @@ import org.smartregister.util.DateUtil;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Stack;
@@ -197,7 +199,7 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
         } else {
             single_immunization_group.setVisibility(View.GONE);
         }
-        inflateGroupsDone();
+        inflateGroupsDone(sch);
         inflateGroupsNotEnabled();
 
     }
@@ -223,16 +225,41 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
         return toReturn;
     }
 
-    private void inflateGroupsDone() {
+    private void inflateGroupsDone(List<Map<String, Object>> sch) {
         immunization_done_before_active_groups__holder.removeAllViews();
         ArrayList<HomeVisitVaccineGroupDetails> groupsDoneBeforeCurrentActive = findGroupsDoneBeforeActive();
         for(int i = 0;i<groupsDoneBeforeCurrentActive.size();i++){
             LinearLayout vaccineGroupNotDue = (LinearLayout)((LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.multiple_vaccine_layout, null);
             String immunizations = MessageFormat.format("Immunizations ({0})", groupsDoneBeforeCurrentActive.get(i).getGroup().replace("weeks", "w").replace("months", "m"));
-            ((TextView)vaccineGroupNotDue.findViewById(R.id.textview_group_immunization)).setText(immunizations);
-            ((TextView)vaccineGroupNotDue.findViewById(R.id.textview_immunization_group_secondary_text)).setText(getContext().getString(R.string.fill_earler_immunization));
+            TextView groupImmunizationTitle = ((TextView)vaccineGroupNotDue.findViewById(R.id.textview_group_immunization));
+            groupImmunizationTitle.setText(immunizations);
+            TextView secondaryText = ((TextView)vaccineGroupNotDue.findViewById(R.id.textview_immunization_group_secondary_text));
+            secondaryText.setText(getGivenBeforeActiveGroupVaccineText(sch,new HomeVisitVaccineGroupDetails[]{groupsDoneBeforeCurrentActive.get(i)}));
+
+            groupImmunizationTitle.setTextColor(getContext().getResources().getColor(R.color.black));
+            secondaryText.setTextColor(getContext().getResources().getColor(android.R.color.darker_gray));
+            secondaryText.setTypeface(secondaryText.getTypeface(), Typeface.NORMAL);
+
+            CircleImageView immunization_group_done_status_circle = (CircleImageView)vaccineGroupNotDue.findViewById(R.id.immunization_group_status_circle);
+            if(inflatedGroupsDoneIsComplete(groupsDoneBeforeCurrentActive.get(i))){
+                immunization_group_done_status_circle.setImageResource(R.drawable.ic_checked);
+                immunization_group_done_status_circle.setColorFilter(getResources().getColor(R.color.white));
+                int color_res =  R.color.alert_complete_green;
+                immunization_group_done_status_circle.setCircleBackgroundColor(getResources().getColor(color_res));
+                immunization_group_done_status_circle.setBorderColor(getResources().getColor(color_res));
+            }else{
+                immunization_group_done_status_circle.setImageResource(R.drawable.ic_checked);
+                immunization_group_done_status_circle.setColorFilter(getResources().getColor(R.color.white));
+                int color_res =  R.color.pnc_circle_yellow;
+                immunization_group_done_status_circle.setCircleBackgroundColor(getResources().getColor(color_res));
+                immunization_group_done_status_circle.setBorderColor(getResources().getColor(color_res));
+            }
             immunization_done_before_active_groups__holder.addView(vaccineGroupNotDue);
         }
+    }
+
+    private boolean inflatedGroupsDoneIsComplete(HomeVisitVaccineGroupDetails homeVisitVaccineGroupDetails) {
+        return !(homeVisitVaccineGroupDetails.getNotGivenVaccines().size()>0);
     }
 
     public void inflateGroupsNotEnabled(){
@@ -281,11 +308,10 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
         }
         for(int i = 0;i<indexofCurrentActiveGroup;i++){
 //            if(homeVisitVaccineGroupDetails.get(i).getAlert().equals(ImmunizationState.DUE)||homeVisitVaccineGroupDetails.get(i).getAlert().equals(ImmunizationState.OVERDUE)){
-            if(inElligibleVaccineMap(homeVisitVaccineGroupDetails.get(i))) {
-                if(isGroupDoneThisVisit(homeVisitVaccineGroupDetails.get(i))) {
-                    groupsDoneBeforeActive.add(homeVisitVaccineGroupDetails.get(i));
-                }
+            if(isGroupDoneThisVisit(homeVisitVaccineGroupDetails.get(i))) {
+                groupsDoneBeforeActive.add(homeVisitVaccineGroupDetails.get(i));
             }
+
 //            }
         }
         return groupsDoneBeforeActive;
@@ -506,5 +532,101 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
                elligibleVaccineGroups.add("15 months");
            }
         }
+    }
+
+
+    public String getGivenBeforeActiveGroupVaccineText(List<Map<String, Object>> sch, HomeVisitVaccineGroupDetails[] allgroups) {
+        ArrayList<VaccineRepo.Vaccine> allgivenVaccines = new ArrayList<VaccineRepo.Vaccine>();
+        for (HomeVisitVaccineGroupDetails group : allgroups) {
+            allgivenVaccines.addAll(group.getGivenVaccines());
+        }
+
+        LinkedHashMap<DateTime, ArrayList<VaccineRepo.Vaccine>> groupedByDate = groupVaccines(allgivenVaccines, sch);
+
+        String notGiven = addNotGivenVaccines(sch, allgroups).trim();
+        StringBuilder groupSecondaryText = new StringBuilder();
+        Iterator<Map.Entry<DateTime, ArrayList<VaccineRepo.Vaccine>>> iterator = groupedByDate.entrySet().iterator();
+        while (iterator.hasNext()) {
+            Map.Entry<DateTime, ArrayList<VaccineRepo.Vaccine>> entry = iterator.next();
+            DateTime dueDate = entry.getKey();
+            ArrayList<VaccineRepo.Vaccine> vaccines = entry.getValue();
+            // now work with key and value...
+            for (VaccineRepo.Vaccine vaccineGiven : vaccines) {
+                groupSecondaryText.append(fixVaccineCasing(vaccineGiven.display())).append(", ");
+            }
+
+            if (groupSecondaryText.toString().endsWith(", ")) {
+                groupSecondaryText = new StringBuilder(groupSecondaryText.toString().trim());
+                groupSecondaryText = new StringBuilder(groupSecondaryText.substring(0, groupSecondaryText.length() - 1));
+            }
+
+            groupSecondaryText.append(" provided on ").append(DateUtil.formatDate(dueDate.toLocalDate(), "dd MMM yyyy"));
+
+            if (StringUtils.isNotBlank(notGiven) || iterator.hasNext()) {
+                groupSecondaryText.append(" \u00B7 ");
+            }
+        }
+
+        groupSecondaryText.append(notGiven);
+        return groupSecondaryText.toString();
+    }
+
+    /**
+     * Groups vaccines by date
+     *
+     * @param givenVaccines
+     * @param sch
+     * @return
+     */
+    private LinkedHashMap<DateTime, ArrayList<VaccineRepo.Vaccine>> groupVaccines(ArrayList<VaccineRepo.Vaccine> givenVaccines, List<Map<String, Object>> sch) {
+        LinkedHashMap<DateTime, ArrayList<VaccineRepo.Vaccine>> groupedByDate = new LinkedHashMap<DateTime, ArrayList<VaccineRepo.Vaccine>>();
+
+        for (VaccineRepo.Vaccine vaccineGiven : givenVaccines) {
+            for (Map<String, Object> mapToProcess : sch) {
+                if (((VaccineRepo.Vaccine) mapToProcess.get("vaccine")).display().equalsIgnoreCase(vaccineGiven.display())) {
+                    if (groupedByDate.get(mapToProcess.get("date")) == null) {
+                        ArrayList<VaccineRepo.Vaccine> givenVaccinesAtDate = new ArrayList<VaccineRepo.Vaccine>();
+                        givenVaccinesAtDate.add(vaccineGiven);
+                        groupedByDate.put((DateTime) mapToProcess.get("date"), givenVaccinesAtDate);
+                    } else {
+                        groupedByDate.get(mapToProcess.get("date")).add(vaccineGiven);
+                    }
+                }
+            }
+        }
+
+        return groupedByDate;
+    }
+
+    private String addNotGivenVaccines(List<Map<String, Object>> sch, HomeVisitVaccineGroupDetails[] allgroups) {
+        ArrayList<VaccineRepo.Vaccine> allgivenVaccines = new ArrayList<VaccineRepo.Vaccine>();
+        for (HomeVisitVaccineGroupDetails group : allgroups) {
+            allgivenVaccines.addAll(group.getNotGivenVaccines());
+        }
+
+        LinkedHashMap<DateTime, ArrayList<VaccineRepo.Vaccine>> groupedByDate = groupVaccines(allgivenVaccines, sch);
+
+        StringBuilder groupSecondaryText = new StringBuilder();
+        Iterator<Map.Entry<DateTime, ArrayList<VaccineRepo.Vaccine>>> iterator = groupedByDate.entrySet().iterator();
+        while (iterator.hasNext()) {
+            Map.Entry<DateTime, ArrayList<VaccineRepo.Vaccine>> entry = iterator.next();
+            ArrayList<VaccineRepo.Vaccine> vaccines = entry.getValue();
+            // now work with key and value...
+            for (VaccineRepo.Vaccine vaccineGiven : vaccines) {
+                groupSecondaryText.append(fixVaccineCasing(vaccineGiven.display())).append(", ");
+            }
+
+            if (groupSecondaryText.toString().endsWith(", ")) {
+                groupSecondaryText = new StringBuilder(groupSecondaryText.toString().trim());
+                groupSecondaryText = new StringBuilder(groupSecondaryText.substring(0, groupSecondaryText.length() - 1));
+            }
+
+            groupSecondaryText.append(" not given ");
+            if (iterator.hasNext()) {
+                groupSecondaryText.append(" \u00B7 ");
+            }
+        }
+
+        return groupSecondaryText.toString();
     }
 }

@@ -267,9 +267,7 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
     @Override
     public void setGroupVaccineText(List<Map<String, Object>> sch) {
         ArrayList<VaccineRepo.Vaccine> allgivenVaccines = new ArrayList<VaccineRepo.Vaccine>();
-        for (HomeVisitVaccineGroupDetails group : allgroups) {
-            allgivenVaccines.addAll(group.getGivenVaccines());
-        }
+        allgivenVaccines.addAll(getCurrentActiveGroup().getGivenVaccines());
 
         LinkedHashMap<DateTime, ArrayList<VaccineRepo.Vaccine>> groupedByDate = groupVaccines(allgivenVaccines, sch);
 
