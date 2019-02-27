@@ -10,6 +10,7 @@ import org.jeasy.rules.core.InferenceRulesEngine;
 import org.jeasy.rules.core.RulesEngineParameters;
 import org.jeasy.rules.mvel.MVELRuleFactory;
 import org.smartgresiter.wcaro.rule.HomeAlertRule;
+import org.smartgresiter.wcaro.rule.ICommonRule;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -56,10 +57,10 @@ public class RulesEngineHelper {
         defaultRulesEngine.fire(rules, facts);
     }
 
-    public String getButtonAlertStatus(HomeAlertRule alertRule, String rulesFile) {
+    public String getButtonAlertStatus(ICommonRule alertRule, String rulesFile) {
 
         Facts facts = new Facts();
-        facts.put(HomeAlertRule.RULE_KEY, alertRule);
+        facts.put(alertRule.getRuleKey(), alertRule);
 
         Rules rules = rules(rulesFile);
         if (rules == null) {
@@ -68,7 +69,7 @@ public class RulesEngineHelper {
 
         processDefaultRules(rules, facts);
 
-        return alertRule.buttonStatus;
+        return alertRule.getButtonStatus();
     }
 
     public String getButtonAlertStatus(HomeAlertRule alertRule, Rules rules) {
@@ -78,12 +79,13 @@ public class RulesEngineHelper {
         }
 
         Facts facts = new Facts();
-        facts.put(HomeAlertRule.RULE_KEY, alertRule);
+        facts.put(alertRule.getRuleKey(), alertRule);
 
         processDefaultRules(rules, facts);
 
-        return alertRule.buttonStatus;
+        return alertRule.getButtonStatus();
     }
+
 
     public Rules rules(String rulesFile) {
         return getRulesFromAsset(RULE_FOLDER_PATH + rulesFile);

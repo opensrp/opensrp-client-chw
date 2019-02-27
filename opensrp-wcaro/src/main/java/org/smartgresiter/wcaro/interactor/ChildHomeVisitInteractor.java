@@ -16,6 +16,7 @@ import org.smartgresiter.wcaro.repository.WcaroRepository;
 import org.smartgresiter.wcaro.util.BirthIllnessData;
 import org.smartgresiter.wcaro.util.Constants;
 import org.smartgresiter.wcaro.util.JsonFormUtils;
+import org.smartgresiter.wcaro.util.Utils;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.family.FamilyLibrary;
@@ -39,7 +40,6 @@ import static org.smartgresiter.wcaro.util.ChildDBConstants.KEY.BIRTH_CERT_NUMBE
 import static org.smartgresiter.wcaro.util.ChildDBConstants.KEY.ILLNESS_ACTION;
 import static org.smartgresiter.wcaro.util.ChildDBConstants.KEY.ILLNESS_DATE;
 import static org.smartgresiter.wcaro.util.ChildDBConstants.KEY.ILLNESS_DESCRIPTION;
-import static org.smartgresiter.wcaro.util.JsonFormUtils.convertToMonthString;
 
 public class ChildHomeVisitInteractor implements ChildHomeVisitContract.Interactor {
 
@@ -95,7 +95,7 @@ public class ChildHomeVisitInteractor implements ChildHomeVisitContract.Interact
                             if(!TextUtils.isEmpty(value)){
                                 birthIllnessData=new BirthIllnessData();
                                 birthIllnessData.setQuestion(getContext().getString(R.string.issuance_date));
-                                birthIllnessData.setAnswer(convertToMonthString(value));
+                                birthIllnessData.setAnswer(Utils.convertToDateFormateString(value,Utils.dd_MMM_yyyy));
                                 birthCertDataList.add(birthIllnessData);
                             }
                           
@@ -150,7 +150,7 @@ public class ChildHomeVisitInteractor implements ChildHomeVisitContract.Interact
                             birthIllnessData=new BirthIllnessData();
                             birthIllnessData.setQuestion("Date");
                             String value=jsonObject.getString(org.smartregister.family.util.JsonFormUtils.VALUE);
-                            birthIllnessData.setAnswer(convertToMonthString(value));
+                            birthIllnessData.setAnswer(Utils.convertToDateFormateString(value,Utils.dd_MMM_yyyy));
                             illnessDataList.add(birthIllnessData);
                             break;
                         case ILLNESS_DESCRIPTION:

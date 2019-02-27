@@ -30,6 +30,7 @@ import org.smartgresiter.wcaro.contract.FamilyCallDialogContract;
 import org.smartgresiter.wcaro.fragment.CopyToClipboardDialog;
 import org.smartregister.util.PermissionUtils;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -51,6 +52,20 @@ public class Utils extends org.smartregister.family.util.Utils {
         ALLOWED_LEVELS.add(CLINIC);
         ALLOWED_LEVELS.add(CHSS);
         ALLOWED_LEVELS.add(CHA);
+    }
+
+    public static final SimpleDateFormat dd_MMM_yyyy = new SimpleDateFormat("dd MMM yyyy");
+    public static final SimpleDateFormat yyyy_mm_dd = new SimpleDateFormat("yyyy-mm-dd");
+
+    public static String convertToDateFormateString(String timeAsDDMMYYYY,SimpleDateFormat dateFormat){
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy");//12-08-2018
+        try {
+            Date date=sdf.parse(timeAsDDMMYYYY);
+            return dateFormat.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 
     public static boolean launchDialer(final Activity activity, final FamilyCallDialogContract.View callView, final String phoneNumber) {
