@@ -5,9 +5,12 @@ import android.database.Cursor;
 import android.os.AsyncTask;
 import android.text.TextUtils;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
+import android.widget.RelativeLayout;
 
 import org.jeasy.rules.api.Rules;
+import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.application.WcaroApplication;
 import org.smartgresiter.wcaro.interactor.ChildProfileInteractor;
 import org.smartgresiter.wcaro.util.ChildDBConstants;
@@ -31,14 +34,23 @@ import java.util.Set;
 
 public class WcaroMemberRegisterProvider extends FamilyMemberRegisterProvider {
     private static final String TAG = WcaroMemberRegisterProvider.class.getCanonicalName();
+    private Context context;
 
     public WcaroMemberRegisterProvider(Context context, CommonRepository commonRepository, Set visibleColumns, View.OnClickListener onClickListener, View.OnClickListener paginationClickListener, String familyHead, String primaryCaregiver) {
         super(context, commonRepository, visibleColumns, onClickListener, paginationClickListener, familyHead, primaryCaregiver);
+        this.context = context;
     }
 
     @Override
     public void getView(Cursor cursor, SmartRegisterClient client, RegisterViewHolder viewHolder) {
         super.getView(cursor, client, viewHolder);
+
+        // Update UI cutoffs
+        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) viewHolder.profile.getLayoutParams();
+        layoutParams.width = context.getResources().getDimensionPixelSize(R.dimen.member_profile_pic_width);
+        layoutParams.height = RelativeLayout.LayoutParams.WRAP_CONTENT;
+        viewHolder.profile.setLayoutParams(layoutParams);
+        viewHolder.patientNameAge.setTextSize(TypedValue.COMPLEX_UNIT_PX, context.getResources().getDimensionPixelSize(R.dimen.member_profile_list_title_size));
 
         CommonPersonObjectClient pc = (CommonPersonObjectClient) client;
 
@@ -103,8 +115,8 @@ public class WcaroMemberRegisterProvider extends FamilyMemberRegisterProvider {
         if (!TextUtils.isEmpty(visitNotDone)) {
             visitNot = Long.valueOf(visitNotDone);
         }
-        if(!TextUtils.isEmpty(strDateCreated)){
-            dateCreated =  org.smartregister.family.util.Utils.dobStringToDateTime(strDateCreated).getMillis();
+        if (!TextUtils.isEmpty(strDateCreated)) {
+            dateCreated = org.smartregister.family.util.Utils.dobStringToDateTime(strDateCreated).getMillis();
         }
         return ChildUtils.getChildVisitStatus(rules, dobString, lastVisit, visitNot, dateCreated);
     }

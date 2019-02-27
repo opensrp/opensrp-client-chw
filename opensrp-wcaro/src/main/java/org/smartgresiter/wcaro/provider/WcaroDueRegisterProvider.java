@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.text.TextUtils;
+import android.util.TypedValue;
 import android.view.View;
 
 import org.apache.commons.lang3.StringUtils;
@@ -64,6 +65,9 @@ public class WcaroDueRegisterProvider extends FamilyDueRegisterProvider {
 
         patientName = patientName + ", " + dobString + " " + context.getString(R.string.home_visit_suffix);
         fillValue(viewHolder.patientNameAge, patientName);
+
+        // Update UI cutoffs
+        viewHolder.patientNameAge.setTextSize(TypedValue.COMPLEX_UNIT_PX, context.getResources().getDimensionPixelSize(R.dimen.member_due_list_title_size));
 
         viewHolder.nextArrow.setVisibility(View.VISIBLE);
 
@@ -140,8 +144,8 @@ public class WcaroDueRegisterProvider extends FamilyDueRegisterProvider {
         if (!TextUtils.isEmpty(visitNotDone)) {
             visitNot = Long.valueOf(visitNotDone);
         }
-        if(!TextUtils.isEmpty(strDateCreated)){
-            dateCreated =  org.smartregister.family.util.Utils.dobStringToDateTime(strDateCreated).getMillis();
+        if (!TextUtils.isEmpty(strDateCreated)) {
+            dateCreated = org.smartregister.family.util.Utils.dobStringToDateTime(strDateCreated).getMillis();
         }
         return ChildUtils.getChildVisitStatus(rules, dobString, lastVisit, visitNot, dateCreated);
     }
