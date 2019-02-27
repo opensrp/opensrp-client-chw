@@ -8,12 +8,12 @@
 
     <org.smartregister.view.customcontrols.CustomFontTextView
         android:id="@+id/message"
-        style="@style/CustomFontTextViewStyle.ClientList.Medium"
+        style="@style/CustomFontTextViewStyle.ClientList"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
         android:maxLines="10"
-        android:text="Are you sure you want to remove %s's record? This will remove their entire health record from your device. This action cannot be undone."
+        android:text="@string/remove_warning_family"
         android:textColor="@color/black"
         android:textSize="@dimen/remove_member_text_size"
         android:textStyle="normal" />
@@ -27,25 +27,25 @@
 
         <org.smartregister.view.customcontrols.CustomFontTextView
             android:id="@+id/cancel"
-            style="@style/CustomFontTextViewStyle.ClientList.Bold"
+            style="@style/CustomFontTextViewStyle.ClientList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="30dp"
+            android:layout_marginEnd="30dp"
             android:layout_marginBottom="5dp"
-            android:layout_toLeftOf="@+id/remove"
-            android:text="CANCEL"
+            android:layout_toStartOf="@+id/remove"
+            android:text="@string/cancel"
             android:textColor="@color/purple"
             android:textSize="@dimen/remove_member_text_size"
             android:textStyle="normal" />
 
         <org.smartregister.view.customcontrols.CustomFontTextView
             android:id="@+id/remove"
-            style="@style/CustomFontTextViewStyle.ClientList.Bold"
+            style="@style/CustomFontTextViewStyle.ClientList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_marginBottom="5dp"
-            android:text="REMOVE"
+            android:text="@string/remove"
             android:textColor="@color/purple"
             android:textSize="@dimen/remove_member_text_size"
             android:textStyle="normal" />

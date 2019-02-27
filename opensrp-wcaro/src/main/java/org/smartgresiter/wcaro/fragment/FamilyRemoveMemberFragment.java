@@ -37,6 +37,8 @@ public class FamilyRemoveMemberFragment extends BaseFamilyProfileMemberFragment 
     String familyHead;
     String primaryCareGiver;
 
+    String memberName;
+
     public static FamilyRemoveMemberFragment newInstance(Bundle bundle) {
         Bundle args = bundle;
         FamilyRemoveMemberFragment fragment = new FamilyRemoveMemberFragment();
@@ -162,26 +164,32 @@ public class FamilyRemoveMemberFragment extends BaseFamilyProfileMemberFragment 
                     v.getTag(R.id.VIEW_ID) == BaseFamilyProfileMemberFragment.CLICK_VIEW_NORMAL) {
                 final CommonPersonObjectClient pc = (CommonPersonObjectClient) v.getTag();
 
-                String name = String.format("%s %s %s", pc.getColumnmaps().get(DBConstants.KEY.FIRST_NAME),
+                memberName = String.format("%s %s %s", pc.getColumnmaps().get(DBConstants.KEY.FIRST_NAME),
                         pc.getColumnmaps().get(DBConstants.KEY.MIDDLE_NAME),
                         pc.getColumnmaps().get(DBConstants.KEY.LAST_NAME));
 
                 String dod = pc.getColumnmaps().get(DBConstants.KEY.DOD);
 
                 if (StringUtils.isBlank(dod)) {
-                    FamilyRemoveMemberConfrimDialog dialog = FamilyRemoveMemberConfrimDialog.newInstance(
-                            String.format("Are you sure you want to remove %s's record? This will remove their entire health record from your device. This action cannot be undone.", name)
-                    );
-                    dialog.setContext(getContext());
-                    dialog.show(getFragmentManager(), AddMemberFragment.DIALOG_TAG);
-                    dialog.setOnRemove(new Runnable() {
-                        @Override
-                        public void run() {
-                            removeMember(pc);
-                        }
-                    });
+                    removeMember(pc);
                 }
             }
+        }
+    }
+
+    public void confirmRemove(final JSONObject form) {
+        if (StringUtils.isNotBlank(memberName)) {
+            FamilyRemoveMemberConfrimDialog dialog = FamilyRemoveMemberConfrimDialog.newInstance(
+                    String.format(getString(R.string.confirm_remove_text), memberName)
+            );
+            dialog.setContext(getContext());
+            dialog.show(getFragmentManager(), AddMemberFragment.DIALOG_TAG);
+            dialog.setOnRemove(new Runnable() {
+                @Override
+                public void run() {
+                    getPresenter().processRemoveForm(form);
+                }
+            });
         }
     }
 
@@ -238,6 +246,7 @@ public class FamilyRemoveMemberFragment extends BaseFamilyProfileMemberFragment 
         return presenter().getDefaultSortQuery();
     }
 
-    public void setAdvancedSearchFormData(HashMap<String, String> hashMap) { }
+    public void setAdvancedSearchFormData(HashMap<String, String> hashMap) {
+    }
 
 }

@@ -14,16 +14,16 @@ import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.view.activity.SecuredActivity;
 
 public class IndividualProfileRemoveActivity extends SecuredActivity {
-    private static final String TAG ="IndividualProfile" ;
+    private static final String TAG = "IndividualProfile";
     private IndividualProfileRemoveFragment individualProfileRemoveFragment;
 
-    public static void startIndividualProfileActivity(Activity activity,CommonPersonObjectClient commonPersonObjectClient,String familyBaseEntityId,
-            String familyHead,String primaryCareGiver){
-        Intent intent=new Intent(activity,IndividualProfileRemoveActivity.class);
-        intent.putExtra(Constants.INTENT_KEY.CHILD_COMMON_PERSON,commonPersonObjectClient);
-        intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID,familyBaseEntityId);
-        intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.FAMILY_HEAD,familyHead);
-        intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.PRIMARY_CAREGIVER,primaryCareGiver);
+    public static void startIndividualProfileActivity(Activity activity, CommonPersonObjectClient commonPersonObjectClient, String familyBaseEntityId,
+                                                      String familyHead, String primaryCareGiver) {
+        Intent intent = new Intent(activity, IndividualProfileRemoveActivity.class);
+        intent.putExtra(Constants.INTENT_KEY.CHILD_COMMON_PERSON, commonPersonObjectClient);
+        intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID, familyBaseEntityId);
+        intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.FAMILY_HEAD, familyHead);
+        intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.PRIMARY_CAREGIVER, primaryCareGiver);
         activity.startActivityForResult(intent, org.smartgresiter.wcaro.util.Constants.ProfileActivityResults.CHANGE_COMPLETED);
     }
 
@@ -54,11 +54,11 @@ public class IndividualProfileRemoveActivity extends SecuredActivity {
                 String jsonString = data.getStringExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON);
 
                 JSONObject form = new JSONObject(jsonString);
-                individualProfileRemoveFragment.getPresenter().processRemoveForm(form);
+                individualProfileRemoveFragment.confirmRemove(form);
             } catch (Exception e) {
                 Log.e(TAG, Log.getStackTraceString(e));
             }
-        }else{
+        } else {
             finish();
         }
     }
