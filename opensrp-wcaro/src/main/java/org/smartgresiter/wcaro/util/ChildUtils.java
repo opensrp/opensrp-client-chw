@@ -21,7 +21,9 @@ import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.application.WcaroApplication;
 import org.smartgresiter.wcaro.domain.HomeVisit;
 import org.smartgresiter.wcaro.repository.HomeVisitRepository;
+import org.smartgresiter.wcaro.rule.BirthCertRule;
 import org.smartgresiter.wcaro.rule.HomeAlertRule;
+import org.smartgresiter.wcaro.rule.ServiceRule;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.clientandeventmodel.Obs;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
@@ -30,6 +32,7 @@ import org.smartregister.family.util.DBConstants;
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.sync.helper.ECSyncHelper;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -38,7 +41,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import static org.apache.commons.lang3.text.WordUtils.capitalize;
-import static org.smartgresiter.wcaro.util.JsonFormUtils.dd_MMM_yyyy;
+import static org.smartgresiter.wcaro.util.Utils.dd_MMM_yyyy;
 
 public class ChildUtils {
 
@@ -128,7 +131,7 @@ public class ChildUtils {
 
     public static ChildHomeVisit getLastHomeVisit(String tableName, String childId) {
         SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
-        queryBUilder.SelectInitiateMainTable(tableName, new String[]{ChildDBConstants.KEY.LAST_HOME_VISIT, ChildDBConstants.KEY.VISIT_NOT_DONE});
+        queryBUilder.SelectInitiateMainTable(tableName, new String[]{ChildDBConstants.KEY.LAST_HOME_VISIT, ChildDBConstants.KEY.VISIT_NOT_DONE, ChildDBConstants.KEY.DATE_CREATED});
         String query = queryBUilder.mainCondition(tableName + "." + DBConstants.KEY.BASE_ENTITY_ID + " = '" + childId + "'");
 
         ChildHomeVisit childHomeVisit = new ChildHomeVisit();
@@ -146,6 +149,14 @@ public class ChildUtils {
             if (!TextUtils.isEmpty(visitNotDoneStr)) {
                 try {
                     childHomeVisit.setVisitNotDoneDate(Long.parseLong(visitNotDoneStr));
+                } catch (Exception e) {
+
+                }
+            }
+            String strDateCreated = cursor.getString(cursor.getColumnIndex(ChildDBConstants.KEY.DATE_CREATED));
+            if(!TextUtils.isEmpty(strDateCreated)){
+                try {
+                    childHomeVisit.setDateCreated(org.smartregister.family.util.Utils.dobStringToDateTime(strDateCreated).getMillis());
                 } catch (Exception e) {
 
                 }
@@ -183,7 +194,9 @@ public class ChildUtils {
                 tableName + "." + ChildDBConstants.KEY.BIRTH_CERT_NOTIFIICATION,
                 tableName + "." + ChildDBConstants.KEY.ILLNESS_DATE,
                 tableName + "." + ChildDBConstants.KEY.ILLNESS_DESCRIPTION,
-                tableName + "." + ChildDBConstants.KEY.ILLNESS_ACTION};
+                tableName + "." + ChildDBConstants.KEY.DATE_CREATED,
+                tableName + "." + ChildDBConstants.KEY.ILLNESS_ACTION
+        };
         return columns;
     }
 
@@ -195,10 +208,20 @@ public class ChildUtils {
      * @param visitNotDate
      * @return
      */
-    public static ChildVisit getChildVisitStatus(String yearOfBirth, long lastVisitDate, long visitNotDate) {
-        HomeAlertRule homeAlertRule = new HomeAlertRule(yearOfBirth, lastVisitDate, visitNotDate);
+    public static ChildVisit getChildVisitStatus(String yearOfBirth, long lastVisitDate, long visitNotDate, long dateCreated) {
+        HomeAlertRule homeAlertRule = new HomeAlertRule(yearOfBirth, lastVisitDate, visitNotDate, dateCreated);
         WcaroApplication.getInstance().getRulesEngineHelper().getButtonAlertStatus(homeAlertRule, Constants.RULE_FILE.HOME_VISIT);
         return getChildVisitStatus(homeAlertRule, lastVisitDate);
+    }
+    public static String getBirthCertDueStatus(String dateOfBirth){
+        BirthCertRule birthCertRule = new BirthCertRule(dateOfBirth);
+        WcaroApplication.getInstance().getRulesEngineHelper().getButtonAlertStatus(birthCertRule, Constants.RULE_FILE.BIRTH_CERT);
+        return birthCertRule.getButtonStatus();
+    }
+    public static String getServiceDueStatus(String dueDate){
+        ServiceRule serviceRule = new ServiceRule(dueDate);
+        WcaroApplication.getInstance().getRulesEngineHelper().getButtonAlertStatus(serviceRule, Constants.RULE_FILE.SERVICE);
+        return serviceRule.getButtonStatus();
     }
 
     /**
@@ -210,8 +233,8 @@ public class ChildUtils {
      * @param visitNotDate
      * @return
      */
-    public static ChildVisit getChildVisitStatus(Rules rules, String yearOfBirth, long lastVisitDate, long visitNotDate) {
-        HomeAlertRule homeAlertRule = new HomeAlertRule(yearOfBirth, lastVisitDate, visitNotDate);
+    public static ChildVisit getChildVisitStatus(Rules rules, String yearOfBirth, long lastVisitDate, long visitNotDate, long dateCreated) {
+        HomeAlertRule homeAlertRule = new HomeAlertRule(yearOfBirth, lastVisitDate, visitNotDate, dateCreated);
         WcaroApplication.getInstance().getRulesEngineHelper().getButtonAlertStatus(homeAlertRule, rules);
         return getChildVisitStatus(homeAlertRule, lastVisitDate);
     }
@@ -224,15 +247,6 @@ public class ChildUtils {
         childVisit.setLastVisitMonthName(homeAlertRule.visitMonthName);
         childVisit.setLastVisitTime(lastVisitDate);
         return childVisit;
-    }
-
-    @SuppressLint("SimpleDateFormat")
-    public static String covertLongDateToDisplayDate(long callingTime) {
-        Date date = new Date(callingTime);
-        SimpleDateFormat df2 = new SimpleDateFormat("yyyy-MM-dd");
-        String dateText2 = df2.format(date);
-        return dateText2;
-
     }
 
     @SuppressWarnings("deprecation")
@@ -318,7 +332,7 @@ public class ChildUtils {
         LocalDate date1 = new LocalDate(dueDate);
         LocalDate date2 = new LocalDate();
         int diff = Days.daysBetween(date1, date2).getDays();
-        if (diff < 0) {
+        if (diff <= 0) {
             String str = diff + " days away";
             spannableString = new SpannableString(str);
             spannableString.setSpan(new ForegroundColorSpan(Color.GRAY), 0, str.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -350,6 +364,23 @@ public class ChildUtils {
             return spannableString;
         }
     }
+    public static SpannableString dueOverdueCalculation(String status,String dueDate){
+        SpannableString spannableString;
+        Date date= org.smartregister.family.util.Utils.dobStringToDate(dueDate);
+        if(status.equalsIgnoreCase(ImmunizationState.DUE.name())){
+
+            String str="Due "+dd_MMM_yyyy.format(date);
+            spannableString = new SpannableString(str);
+            spannableString.setSpan(new ForegroundColorSpan(Color.GRAY), 0, str.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            return spannableString;
+        }else {
+            String str="Overdue "+dd_MMM_yyyy.format(date);
+            spannableString = new SpannableString(str);
+            spannableString.setSpan(new ForegroundColorSpan(WcaroApplication.getInstance().getContext().getColorResource(R.color.alert_urgent_red)), 0, str.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            return spannableString;
+        }
+    }
+
 
     public static void addToHomeVisitTable(String baseEntityID, List<org.smartregister.domain.db.Obs> observations) {
         HomeVisit newHomeVisit = new HomeVisit(null, baseEntityID, HomeVisitRepository.EVENT_TYPE, new Date(), "", "", "", 0l, "", "", new Date());

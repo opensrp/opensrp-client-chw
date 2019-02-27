@@ -15,8 +15,7 @@
             android:id="@+id/collapsing_toolbar_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+            >
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/collapsing_toolbar"
@@ -169,12 +168,4 @@
         <include layout="@layout/content_profile" />
 
     </android.support.design.widget.AppBarLayout>
-
-
-    <org.smartgresiter.wcaro.custom_view.FamilyMemberFloatingMenu
-        android:id="@+id/individual_floating_menu"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true" />
 </android.support.design.widget.CoordinatorLayout>

@@ -98,7 +98,7 @@ public class WcaroApplication extends DrishtiApplication {
                     .LAST_INTERACTED_WITH, DBConstants.KEY.DATE_REMOVED};
         } else if (tableName.equals(Constants.TABLE_NAME.CHILD)) {
             return new String[]{ChildDBConstants.KEY.LAST_HOME_VISIT, ChildDBConstants.KEY.VISIT_NOT_DONE, DBConstants.KEY
-                    .LAST_INTERACTED_WITH, DBConstants.KEY.DATE_REMOVED};
+                    .LAST_INTERACTED_WITH, ChildDBConstants.KEY.DATE_CREATED, DBConstants.KEY.DATE_REMOVED};
         }
         return null;
     }
@@ -150,7 +150,7 @@ public class WcaroApplication extends DrishtiApplication {
 
     public String getPassword() {
         if (password == null) {
-            String username = getContext().userService().getAllSharedPreferences().fetchRegisteredANM();
+            String username = getContext().allSharedPreferences().fetchRegisteredANM();
             password = getContext().userService().getGroupId(username);
         }
         return password;
@@ -173,7 +173,7 @@ public class WcaroApplication extends DrishtiApplication {
     }
 
     private FamilyMetadata getMetadata() {
-        FamilyMetadata metadata = new FamilyMetadata(FamilyWizardFormActivity.class, FamilyWizardFormActivity.class, FamilyProfileActivity.class, false);
+        FamilyMetadata metadata = new FamilyMetadata(FamilyWizardFormActivity.class, FamilyWizardFormActivity.class, FamilyProfileActivity.class, Constants.IDENTIFIER.UNIQUE_IDENTIFIER_KEY, false);
         metadata.updateFamilyRegister(Constants.JSON_FORM.FAMILY_REGISTER, Constants.TABLE_NAME.FAMILY, Constants.EventType.FAMILY_REGISTRATION, Constants.EventType.UPDATE_FAMILY_REGISTRATION, Constants.CONFIGURATION.FAMILY_REGISTER, Constants.RELATIONSHIP.FAMILY_HEAD, Constants.RELATIONSHIP.PRIMARY_CAREGIVER);
         metadata.updateFamilyMemberRegister(Constants.JSON_FORM.FAMILY_MEMBER_REGISTER, Constants.TABLE_NAME.FAMILY_MEMBER, Constants.EventType.FAMILY_MEMBER_REGISTRATION, Constants.EventType.UPDATE_FAMILY_MEMBER_REGISTRATION, Constants.CONFIGURATION.FAMILY_MEMBER_REGISTER, Constants.RELATIONSHIP.FAMILY);
         metadata.updateFamilyDueRegister(Constants.TABLE_NAME.CHILD, Integer.MAX_VALUE, false);

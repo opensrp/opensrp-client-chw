@@ -1,5 +1,7 @@
 package org.smartgresiter.wcaro.contract;
 
+import android.content.Context;
+
 public interface FamilyCallDialogContract {
 
     interface Presenter {
@@ -24,11 +26,12 @@ public interface FamilyCallDialogContract {
 
         Presenter initializePresenter();
 
+        Context getContext();
     }
 
     interface Interactor {
 
-        void getHeadOfFamily(Presenter presenter);
+        void getHeadOfFamily(Presenter presenter, Context context);
 
     }
 

@@ -4,12 +4,14 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Handler;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ImageView;
@@ -90,7 +92,6 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     @Override
     protected void onCreation() {
         setContentView(R.layout.activity_child_profile);
-        ((FamilyMemberFloatingMenu) findViewById(R.id.individual_floating_menu)).setClickListener(onClickFloatingMenu);
         Toolbar toolbar = findViewById(R.id.collapsing_toolbar);
         textViewTitle = toolbar.findViewById(R.id.toolbar_title);
         setSupportActionBar(toolbar);
@@ -109,8 +110,9 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
             }
         });
         appBarLayout = findViewById(R.id.collapsing_toolbar_appbarlayout);
-        appBarLayout.addOnOffsetChangedListener(this);
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            appBarLayout.setOutlineProvider(null);
+        }
         imageRenderHelper = new ImageRenderHelper(this);
 
         initializePresenter();
@@ -170,6 +172,16 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
         layoutMostDueOverdue.setOnClickListener(this);
         layoutFamilyHasRow.setOnClickListener(this);
         layoutRecordButtonDone.setOnClickListener(this);
+
+        FamilyMemberFloatingMenu familyFloatingMenu = new FamilyMemberFloatingMenu(this);
+        LinearLayout.LayoutParams linearLayoutParams =
+                new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.MATCH_PARENT);
+        familyFloatingMenu.setGravity(Gravity.BOTTOM | Gravity.RIGHT);
+        addContentView(familyFloatingMenu, linearLayoutParams);
+
+        familyFloatingMenu.setClickListener(onClickFloatingMenu);
 
     }
 
@@ -261,18 +273,25 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
 
     private void openVisitMonthView() {
         layoutNotRecordView.setVisibility(View.VISIBLE);
+        layoutRecordButtonDone.setVisibility(View.GONE);
+        layoutRecordView.setVisibility(View.GONE);
+
+    }
+    private void openVisitRecordDoneView(){
+        layoutRecordButtonDone.setVisibility(View.VISIBLE);
+        layoutNotRecordView.setVisibility(View.GONE);
         layoutRecordView.setVisibility(View.GONE);
 
     }
 
     private void openVisitButtonView() {
         layoutNotRecordView.setVisibility(View.GONE);
+        layoutRecordButtonDone.setVisibility(View.GONE);
         layoutRecordView.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void setVisitButtonDueStatus() {
-        recordBtnCenterAlign(false);
         openVisitButtonView();
         textViewRecord.setBackgroundResource(R.drawable.record_btn_selector_due);
         textViewRecord.setTextColor(getResources().getColor(R.color.white));
@@ -280,7 +299,6 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
 
     @Override
     public void setVisitButtonOverdueStatus() {
-        recordBtnCenterAlign(false);
         openVisitButtonView();
         textViewRecord.setBackgroundResource(R.drawable.record_btn_selector_overdue);
         textViewRecord.setTextColor(getResources().getColor(R.color.white));
@@ -375,7 +393,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     @Override
     public void setVisitAboveTwentyFourView() {
         textViewVisitNot.setVisibility(View.GONE);
-        recordBtnCenterAlign(true);
+        openVisitRecordDoneView();
         textViewRecord.setBackgroundResource(R.drawable.record_btn_selector_above_twentyfr);
         textViewRecord.setTextColor(getResources().getColor(R.color.light_grey_text));
 
@@ -510,26 +528,6 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     public void setAge(String age) {
         textViewChildName.append(", " + age);
 
-    }
-
-    private void recordBtnCenterAlign(boolean isCenter) {
-        if (isCenter) {
-            layoutRecordButtonDone.setVisibility(View.VISIBLE);
-            layoutRecordView.setVisibility(View.GONE);
-        } else {
-            layoutRecordButtonDone.setVisibility(View.GONE);
-            layoutRecordView.setVisibility(View.VISIBLE);
-        }
-    }
-
-    private void addOrRemoveProperty(View view, int property, boolean flag) {
-        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) view.getLayoutParams();
-        if (flag) {
-            layoutParams.addRule(property);
-        } else {
-            layoutParams.removeRule(property);
-        }
-        view.setLayoutParams(layoutParams);
     }
 
     @Override

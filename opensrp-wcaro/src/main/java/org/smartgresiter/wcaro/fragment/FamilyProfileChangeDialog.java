@@ -183,7 +183,7 @@ public class FamilyProfileChangeDialog extends DialogFragment implements View.On
 
     @Override
     public void updateFamilyMember(HashMap<String, String> familyMember) {
-        showProgressDialog("Saving");
+        showProgressDialog(getString(R.string.status_saving));
         presenter.saveFamilyMember(getActivity(), familyMember);
     }
 

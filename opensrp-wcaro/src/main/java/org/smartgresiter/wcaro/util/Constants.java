@@ -20,6 +20,8 @@ public class Constants {
         public static final String CHILD_HOME_VISIT = "Child Home Visit";
         public static final String CHILD_VISIT_NOT_DONE = "Visit not done";
 
+        public static final String UPDATE_FAMILY_RELATIONS = "Update Family Relations";
+
         public static final String UPDATE_FAMILY_REGISTRATION = "Update Family Registration";
         public static final String UPDATE_FAMILY_MEMBER_REGISTRATION = "Update Family Member Registration";
 
@@ -81,6 +83,8 @@ public class Constants {
 
     public static final class RULE_FILE {
         public static final String HOME_VISIT = "home-visit-rules.yml";
+        public static final String BIRTH_CERT = "birth-cert-rules.yml";
+        public static final String SERVICE = "service-rules.yml";
     }
 
     public static class PROFILE_CHANGE_ACTION {
@@ -133,5 +137,14 @@ public class Constants {
     public static class GLOBAL {
         public static final String NAME = "name";
         public static final String MESSAGE = "message";
+    }
+
+    public static class MenuType {
+        public static final String ChangeHead = "ChangeHead";
+        public static final String ChangePrimaryCare = "ChangePrimaryCare";
+    }
+
+    public static class IDENTIFIER {
+        public static final String UNIQUE_IDENTIFIER_KEY = "opensrp_id";
     }
 }

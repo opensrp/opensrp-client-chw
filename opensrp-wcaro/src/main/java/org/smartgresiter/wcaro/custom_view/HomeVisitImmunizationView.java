@@ -32,6 +32,7 @@ import org.smartregister.immunization.domain.Vaccine;
 import org.smartregister.immunization.domain.VaccineWrapper;
 import org.smartregister.util.DateUtil;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -58,6 +59,7 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
     private CircleImageView immunization_group_status_circle;
     private LinearLayout multiple_immunization_group;
     private LinearLayout single_immunization_group;
+    private View viewImmunization;
     Activity context;
     private boolean isInEditMode = false;
 
@@ -93,6 +95,7 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
         immunization_status_circle = ((CircleImageView) findViewById(R.id.immunization_status_circle));
         immunization_group_status_circle = ((CircleImageView) findViewById(R.id.immunization_group_status_circle));
         single_immunization_group = ((LinearLayout) findViewById(R.id.immunization_name_group));
+        viewImmunization = findViewById(R.id.view_group_immunization);
         multiple_immunization_group = ((LinearLayout) findViewById(R.id.immunization_group));
         initializePresenter();
 
@@ -111,98 +114,113 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
         presenter.setGroupVaccineText(sch);
         presenter.setSingleVaccineText(presenter.getVaccinesDueFromLastVisit(), sch);
 
-        if (presenter.isPartiallyComplete()) {
-            textview_group_immunization_primary_text.setText("Immunizations" + " (" + presenter.getCurrentActiveGroup().getGroup().replace("weeks", "w").replace("months", "m") + ")");
-            textview_group_immunization_secondary_text.setTextColor(getResources().getColor(android.R.color.darker_gray));
-            textview_group_immunization_secondary_text.setText(presenter.getGroupImmunizationSecondaryText());
-            immunization_group_status_circle.setImageResource(R.drawable.ic_checked);
-            immunization_group_status_circle.setColorFilter(getResources().getColor(R.color.white));
-            immunization_group_status_circle.setCircleBackgroundColor(getResources().getColor(R.color.pnc_circle_yellow));
-            immunization_group_status_circle.setBorderColor(getResources().getColor(R.color.pnc_circle_yellow));
-            multiple_immunization_group.setOnClickListener(null);
-        } else if (presenter.isComplete()) {
-            textview_group_immunization_primary_text.setText("Immunizations" + " (" + presenter.getCurrentActiveGroup().getGroup().replace("weeks", "w").replace("months", "m") + ")");
-            textview_group_immunization_secondary_text.setTextColor(getResources().getColor(android.R.color.darker_gray));
-            textview_group_immunization_secondary_text.setText(presenter.getGroupImmunizationSecondaryText());
-            immunization_group_status_circle.setImageResource(R.drawable.ic_checked);
-            immunization_group_status_circle.setColorFilter(getResources().getColor(R.color.white));
-            immunization_group_status_circle.setCircleBackgroundColor(getResources().getColor(R.color.alert_complete_green));
-            immunization_group_status_circle.setBorderColor(getResources().getColor(R.color.alert_complete_green));
-            multiple_immunization_group.setOnClickListener(null);
-        } else if (presenter.groupIsDue()) {
-            textview_group_immunization_primary_text.setText("Immunizations" + " (" + presenter.getCurrentActiveGroup().getGroup().replace("weeks", "w").replace("months", "m") + ")");
-            if(presenter.getCurrentActiveGroup().getAlert().equals(ImmunizationState.OVERDUE)) {
-                textview_group_immunization_secondary_text.setText("Overdue " + presenter.getCurrentActiveGroup().getDueDisplayDate());
-                textview_group_immunization_secondary_text.setTextColor(getResources().getColor(R.color.alert_urgent_red));
-            }else if(presenter.getCurrentActiveGroup().getAlert().equals(ImmunizationState.OVERDUE)){
-                textview_group_immunization_secondary_text.setText("Due " + presenter.getCurrentActiveGroup().getDueDisplayDate());
-                textview_group_immunization_secondary_text.setTextColor(getResources().getColor(android.R.color.darker_gray));
+        if (presenter.isPartiallyComplete() || presenter.isComplete()) {
+            String value = presenter.getCurrentActiveGroup().getGroup();
+            String immunizations;
+            if (value.contains("birth")) {
+                immunizations = MessageFormat.format("Immunizations ({0})", value);
+
+            } else {
+                immunizations = MessageFormat.format("Immunizations ({0})", value.replace("weeks", "w").replace("months", "m").replace(" ", ""));
+
             }
+            textview_group_immunization_primary_text.setText(immunizations);
+            textview_group_immunization_secondary_text.setVisibility(VISIBLE);
+            textview_group_immunization_secondary_text.setTextColor(getResources().getColor(android.R.color.darker_gray));
+            textview_group_immunization_secondary_text.setText(presenter.getGroupImmunizationSecondaryText());
+            immunization_group_status_circle.setImageResource(R.drawable.ic_checked);
+            immunization_group_status_circle.setColorFilter(getResources().getColor(R.color.white));
+
+            int color_res = (presenter.isPartiallyComplete()) ? R.color.pnc_circle_yellow : R.color.alert_complete_green;
+
+            immunization_group_status_circle.setCircleBackgroundColor(getResources().getColor(color_res));
+            immunization_group_status_circle.setBorderColor(getResources().getColor(color_res));
+            multiple_immunization_group.setOnClickListener(null);
+
+        } else if (presenter.groupIsDue()) {
+            String value = presenter.getCurrentActiveGroup().getGroup();
+            String immunizations;
+            if (value.contains("birth")) {
+                immunizations = MessageFormat.format("Immunizations ({0})", value);
+
+            } else {
+                immunizations = MessageFormat.format("Immunizations ({0})", value.replace("weeks", "w").replace("months", "m").replace(" ", ""));
+
+            }
+            textview_group_immunization_primary_text.setText(immunizations);
+
+            String message = MessageFormat.format("{0} {1}",
+                    ((presenter.getCurrentActiveGroup().getAlert().equals(ImmunizationState.OVERDUE)) ? "Overdue" : "Due"),
+                    presenter.getCurrentActiveGroup().getDueDisplayDate()
+            );
+            int color_res = ((presenter.getCurrentActiveGroup().getAlert().equals(ImmunizationState.OVERDUE)) ? R.color.alert_urgent_red : android.R.color.darker_gray);
+            textview_group_immunization_secondary_text.setVisibility(VISIBLE);
+            textview_group_immunization_secondary_text.setText(message);
+            textview_group_immunization_secondary_text.setTextColor(getResources().getColor(color_res));
+
             multiple_immunization_group.setTag(R.id.nextduevaccinelist, presenter.getCurrentActiveGroup());
             multiple_immunization_group.setTag(R.id.vaccinelist, vaccines);
             multiple_immunization_group.setOnClickListener(this);
         }
+
         if (presenter.getVaccinesDueFromLastVisit().size() > 0) {
-            String vaccinesDueLastVisit = "";
+            StringBuilder vaccinesDueLastVisitBuilder = new StringBuilder();
             for (int i = 0; i < presenter.getVaccinesDueFromLastVisit().size(); i++) {
-                String vaccineName = fixVaccineCasing(presenter.getVaccinesDueFromLastVisit().get(i).display());
-                vaccinesDueLastVisit = vaccinesDueLastVisit + vaccineName + ",";
+                vaccinesDueLastVisitBuilder.append(
+                        fixVaccineCasing(presenter.getVaccinesDueFromLastVisit().get(i).display())
+                ).append(",");
             }
+            String vaccinesDueLastVisit = vaccinesDueLastVisitBuilder.toString();
             if (vaccinesDueLastVisit.endsWith(",")) {
                 vaccinesDueLastVisit = vaccinesDueLastVisit.substring(0, vaccinesDueLastVisit.length() - 1);
             }
+
             textview_immunization_primary_text.setText(vaccinesDueLastVisit);
             single_immunization_group.setTag(R.id.nextduevaccinelist, presenter.getVaccinesDueFromLastVisitStillDueState());
             single_immunization_group.setOnClickListener(this);
 
             if (presenter.getVaccinesDueFromLastVisitStillDueState().size() == 0) {
-                if (presenter.isSingleVaccineGroupPartialComplete()) {
+                if (presenter.isSingleVaccineGroupPartialComplete() || presenter.isSingleVaccineGroupComplete()) {
                     textview_immunization_secondary_text.setText(presenter.getSingleImmunizationSecondaryText());
                     textview_immunization_secondary_text.setTextColor(getResources().getColor(android.R.color.darker_gray));
                     immunization_status_circle.setImageResource(R.drawable.ic_checked);
                     immunization_status_circle.setColorFilter(getResources().getColor(R.color.white));
-                    immunization_status_circle.setCircleBackgroundColor(getResources().getColor(R.color.pnc_circle_yellow));
-                    immunization_status_circle.setBorderColor(getResources().getColor(R.color.pnc_circle_yellow));
-                }
-                if (presenter.isSingleVaccineGroupComplete()) {
-                    textview_immunization_secondary_text.setText(presenter.getSingleImmunizationSecondaryText());
-                    textview_immunization_secondary_text.setTextColor(getResources().getColor(android.R.color.darker_gray));
-                    immunization_status_circle.setImageResource(R.drawable.ic_checked);
-                    immunization_status_circle.setColorFilter(getResources().getColor(R.color.white));
-                    immunization_status_circle.setCircleBackgroundColor(getResources().getColor(R.color.alert_complete_green));
-                    immunization_status_circle.setBorderColor(getResources().getColor(R.color.alert_complete_green));
-                }
-            }else if(presenter.getVaccinesDueFromLastVisitStillDueState().size()>0){
 
-                String SingleImmunizationSecondaryText = getSingleImmunizationSecondaryText(presenter.getVaccinesDueFromLastVisitStillDueState(),sch,alerts);
+                    int color_res = (presenter.isSingleVaccineGroupPartialComplete()) ? R.color.pnc_circle_yellow : R.color.alert_complete_green;
+                    immunization_status_circle.setCircleBackgroundColor(getResources().getColor(color_res));
+                    immunization_status_circle.setBorderColor(getResources().getColor(color_res));
+                }
+            } else if (presenter.getVaccinesDueFromLastVisitStillDueState().size() > 0) {
+                String SingleImmunizationSecondaryText = getSingleImmunizationSecondaryText(presenter.getVaccinesDueFromLastVisitStillDueState(), sch, alerts);
                 textview_immunization_secondary_text.setText(SingleImmunizationSecondaryText);
-                if(SingleImmunizationSecondaryText.toLowerCase().contains(ImmunizationState.DUE.toString().toLowerCase())){
+                if (SingleImmunizationSecondaryText.toLowerCase().contains(ImmunizationState.DUE.toString().toLowerCase())) {
                     textview_immunization_secondary_text.setTextColor(getResources().getColor(android.R.color.darker_gray));
                 }
-                if(SingleImmunizationSecondaryText.toLowerCase().contains(ImmunizationState.OVERDUE.toString().toLowerCase())){
+                if (SingleImmunizationSecondaryText.toLowerCase().contains(ImmunizationState.OVERDUE.toString().toLowerCase())) {
                     textview_immunization_secondary_text.setTextColor(getResources().getColor(R.color.alert_urgent_red));
                 }
-
             }
         } else {
             single_immunization_group.setVisibility(View.GONE);
+            viewImmunization.setVisibility(GONE);
+
         }
     }
 
     private String getSingleImmunizationSecondaryText(ArrayList<VaccineRepo.Vaccine> vaccinesDueFromLastVisitStillDueState, List<Map<String, Object>> sch, List<Alert> alerts) {
         String toReturn = "";
         ImmunizationState currentState = ImmunizationState.NO_ALERT;
-        for(VaccineRepo.Vaccine vaccine : vaccinesDueFromLastVisitStillDueState){
-            ImmunizationState state = presenter.getHomeVisitImmunizationInteractor().assignAlert(vaccine,alerts);
-            if((currentState.equals(ImmunizationState.DUE)&&state.equals(ImmunizationState.OVERDUE))||
-                    (currentState.equals(ImmunizationState.NO_ALERT)&&state.equals(ImmunizationState.OVERDUE))||
-                    (currentState.equals(ImmunizationState.NO_ALERT)&&state.equals(ImmunizationState.DUE))){
-                    currentState = state;
+        for (VaccineRepo.Vaccine vaccine : vaccinesDueFromLastVisitStillDueState) {
+            ImmunizationState state = presenter.getHomeVisitImmunizationInteractor().assignAlert(vaccine, alerts);
+            if ((currentState.equals(ImmunizationState.DUE) && state.equals(ImmunizationState.OVERDUE)) ||
+                    (currentState.equals(ImmunizationState.NO_ALERT) && state.equals(ImmunizationState.OVERDUE)) ||
+                    (currentState.equals(ImmunizationState.NO_ALERT) && state.equals(ImmunizationState.DUE))) {
+                currentState = state;
                 for (Map<String, Object> toprocess : sch) {
                     if (((VaccineRepo.Vaccine) (toprocess.get("vaccine"))).name().equalsIgnoreCase(vaccine.name())) {
-                    DateTime dueDate = (DateTime) toprocess.get(DATE);
-                    String duedateString = DateUtil.formatDate(dueDate.toLocalDate(), "dd MMM yyyy");
-                    toReturn = capitalize(state.toString().toLowerCase()) + " "+duedateString;
+                        DateTime dueDate = (DateTime) toprocess.get(DATE);
+                        String duedateString = DateUtil.formatDate(dueDate.toLocalDate(), "dd MMM yyyy");
+                        toReturn = capitalize(state.toString().toLowerCase()) + " " + duedateString;
                     }
                 }
             }
@@ -211,17 +229,17 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
     }
 
     private String immunizationsGivenThisVisitafterCompletion() {
-        String immunizationGivenThisVisit = "";
+        StringBuilder immunizationGivenThisVisit = new StringBuilder();
         for (VaccineWrapper vaccineWrapper : presenter.getVaccinesGivenThisVisit()) {
-            immunizationGivenThisVisit = immunizationGivenThisVisit + vaccineWrapper.getName().toUpperCase() + ",";
+            immunizationGivenThisVisit.append(vaccineWrapper.getName().toUpperCase()).append(",");
         }
-        if (immunizationGivenThisVisit.equalsIgnoreCase("")) {
-            immunizationGivenThisVisit = getAllGivenVaccines();
+        if (immunizationGivenThisVisit.toString().equalsIgnoreCase("")) {
+            immunizationGivenThisVisit = new StringBuilder(getAllGivenVaccines());
         }
-        if (immunizationGivenThisVisit.endsWith(",")) {
-            immunizationGivenThisVisit = immunizationGivenThisVisit.substring(0, immunizationGivenThisVisit.length() - 1);
+        if (immunizationGivenThisVisit.toString().endsWith(",")) {
+            immunizationGivenThisVisit = new StringBuilder(immunizationGivenThisVisit.substring(0, immunizationGivenThisVisit.length() - 1));
         }
-        return immunizationGivenThisVisit;
+        return immunizationGivenThisVisit.toString();
     }
 
     private String getAllGivenVaccines() {
@@ -313,17 +331,21 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
     @Override
     public void immunizationState(List<Alert> alerts, List<Vaccine> vaccines, List<Map<String, Object>> sch) {
         refreshPresenter(alerts, vaccines, sch);
-        if ((presenter.isComplete() || presenter.isPartiallyComplete()) && (presenter.isSingleVaccineGroupPartialComplete() || presenter.isSingleVaccineGroupComplete())) {
-            ((ChildHomeVisitFragment) (((Activity) context).getFragmentManager().findFragmentByTag(ChildHomeVisitFragment.DIALOG_TAG))).allVaccineStateFullfilled = true;
-        } else {
-            ((ChildHomeVisitFragment) (((Activity) context).getFragmentManager().findFragmentByTag(ChildHomeVisitFragment.DIALOG_TAG))).allVaccineStateFullfilled = false;
+        ChildHomeVisitFragment childHomeVisitFragment = (ChildHomeVisitFragment) context.getFragmentManager().findFragmentByTag(ChildHomeVisitFragment.DIALOG_TAG);
+        if (childHomeVisitFragment == null) {
+            return;
         }
-        ((ChildHomeVisitFragment) (((Activity) context).getFragmentManager().findFragmentByTag(ChildHomeVisitFragment.DIALOG_TAG))).checkIfSubmitIsToBeEnabled();
+        if ((presenter.isComplete() || presenter.isPartiallyComplete()) && (presenter.isSingleVaccineGroupPartialComplete() || presenter.isSingleVaccineGroupComplete())) {
+            childHomeVisitFragment.allVaccineStateFullfilled = true;
+        } else {
+            childHomeVisitFragment.allVaccineStateFullfilled = false;
+        }
+        childHomeVisitFragment.checkIfSubmitIsToBeEnabled();
     }
 
     public JSONArray getSingleVaccinesGivenThisVisit() {
-        ArrayList<VaccineWrapper> singleVaccinesGivenThisVisit = new ArrayList<VaccineWrapper>();
-        Stack<VaccineRepo.Vaccine> vaccinesStack = new Stack<VaccineRepo.Vaccine>();
+        ArrayList<VaccineWrapper> singleVaccinesGivenThisVisit = new ArrayList<>();
+        Stack<VaccineRepo.Vaccine> vaccinesStack = new Stack<>();
         for (VaccineRepo.Vaccine vaccinedueLastVisit : presenter.getVaccinesDueFromLastVisit()) {
             vaccinesStack.add(vaccinedueLastVisit);
             for (VaccineWrapper givenThisVisit : presenter.getVaccinesGivenThisVisit()) {
@@ -339,7 +361,7 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
     }
 
     public JSONArray getGroupVaccinesGivenThisVisit() {
-        ArrayList<VaccineWrapper> groupVaccinesGivenThisVisit = new ArrayList<VaccineWrapper>();
+        ArrayList<VaccineWrapper> groupVaccinesGivenThisVisit = new ArrayList<>();
         for (VaccineWrapper givenThisVisit : presenter.getVaccinesGivenThisVisit()) {
             boolean isInSingleVaccineList = false;
             for (VaccineRepo.Vaccine vaccineDueFromLastVisit : presenter.getVaccinesDueFromLastVisit()) {

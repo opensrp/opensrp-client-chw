@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.util.TypedValue;
 import android.view.View;
 
 import org.apache.commons.lang3.StringUtils;
@@ -87,6 +88,8 @@ public class FamilyActivityRegisterProvider extends org.smartregister.family.pro
 
         fillValue(viewHolder.patientNameAge, patientName);
 
+        // Update UI cutoffs
+        viewHolder.patientNameAge.setTextSize(TypedValue.COMPLEX_UNIT_PX, context.getResources().getDimensionPixelSize(R.dimen.member_due_list_title_size));
 
         String gender = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.GENDER, true);
         fillValue(viewHolder.gender, gender);

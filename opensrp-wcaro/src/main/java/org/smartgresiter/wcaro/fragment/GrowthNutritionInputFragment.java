@@ -46,12 +46,12 @@ import java.util.Map;
 public class GrowthNutritionInputFragment extends DialogFragment implements RadioGroup.OnCheckedChangeListener, View.OnClickListener {
 
 
-    public GrowthNutritionInputFragment(ServiceWrapper serviceWrapper){
-        this.serviceWrapper=serviceWrapper;
+    public GrowthNutritionInputFragment(ServiceWrapper serviceWrapper) {
+        this.serviceWrapper = serviceWrapper;
 
     }
 
-    public static GrowthNutritionInputFragment getInstance(String title,String question, String type, ServiceWrapper serviceWrapper,
+    public static GrowthNutritionInputFragment getInstance(String title, String question, String type, ServiceWrapper serviceWrapper,
                                                            CommonPersonObjectClient commonPersonObjectClient) {
         GrowthNutritionInputFragment growthNutritionInputFragment = new GrowthNutritionInputFragment(serviceWrapper);
         Bundle bundle = new Bundle();
@@ -62,17 +62,19 @@ public class GrowthNutritionInputFragment extends DialogFragment implements Radi
         growthNutritionInputFragment.setArguments(bundle);
         return growthNutritionInputFragment;
     }
+  
     static final Map<String,Integer> imageMap=ImmutableMap.of(
-            GROWTH_TYPE.VITAMIN.getValue(), R.drawable.form_vitamin,
-            GROWTH_TYPE.MNP.getValue(),R.drawable.form_mnp,
-            GROWTH_TYPE.DEWORMING.getValue(),R.drawable.form_deworming
+            GROWTH_TYPE.VITAMIN.getValue(), R.drawable.ic_form_vitamin,
+            GROWTH_TYPE.MNP.getValue(),R.drawable.ic_form_mnp,
+            GROWTH_TYPE.DEWORMING.getValue(),R.drawable.ic_form_deworming
     );
 
     private TextView textViewTitle;
-    private Button buttonSave,buttonCancel;
+    private Button buttonSave,buttonSaveBf,buttonCancel;
     private RadioButton yesRadio,noRadio;
+
     private String type;
-    private LinearLayout layoutExclusiveFeeding, layoutVitaminBar;
+    private View layoutExclusiveFeeding, layoutVitaminBar;
     private TextView textViewVitamin;
     private DatePicker datePicker;
     private ImageView vitaminImage;
@@ -113,6 +115,7 @@ public class GrowthNutritionInputFragment extends DialogFragment implements Radi
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         textViewTitle = view.findViewById(R.id.textview_vaccine_title);
         buttonSave = view.findViewById(R.id.save_btn);
+        buttonSaveBf=view.findViewById(R.id.save_bf_btn);
         buttonCancel= view.findViewById(R.id.cancel);
         yesRadio=view.findViewById(R.id.yes);
         noRadio=view.findViewById(R.id.no);
@@ -123,6 +126,7 @@ public class GrowthNutritionInputFragment extends DialogFragment implements Radi
         datePicker = view.findViewById(R.id.earlier_date_picker);
         DatePickerUtils.themeDatePicker(datePicker, new char[]{'d', 'm', 'y'});
         (view.findViewById(R.id.close)).setOnClickListener(this);
+        buttonSaveBf.setOnClickListener(this);
         buttonSave.setOnClickListener(this);
         buttonCancel.setOnClickListener(this);
         ((RadioGroup) view.findViewById(R.id.radio_group_exclusive)).setOnCheckedChangeListener(this);
@@ -150,34 +154,35 @@ public class GrowthNutritionInputFragment extends DialogFragment implements Radi
         textViewTitle.setText(title);
 
         commonPersonObjectClient = (CommonPersonObjectClient) getArguments().getSerializable(Constants.INTENT_KEY.CHILD_COMMON_PERSON);
-        dob=org.smartregister.family.util.Utils.getValue(commonPersonObjectClient.getColumnmaps(), DBConstants.KEY.DOB, false);
+        dob = org.smartregister.family.util.Utils.getValue(commonPersonObjectClient.getColumnmaps(), DBConstants.KEY.DOB, false);
 
         if (type.equalsIgnoreCase(GROWTH_TYPE.EXCLUSIVE.getValue())) {
-            if(serviceWrapper.getValue()!=null && serviceWrapper.getValue().equalsIgnoreCase("yes")){
+            if (serviceWrapper.getValue() != null && serviceWrapper.getValue().equalsIgnoreCase("yes")) {
                 noRadio.setChecked(true);
                 isFeeding = "yes";
                 saveButtonDisable(false);
-            }else if(serviceWrapper.getValue()!=null && serviceWrapper.getValue().equalsIgnoreCase("no")){
+            } else if (serviceWrapper.getValue() != null && serviceWrapper.getValue().equalsIgnoreCase("no")) {
                 yesRadio.setChecked(true);
                 isFeeding = "no";
                 saveButtonDisable(false);
-            }else{
+            } else {
                 saveButtonDisable(true);
             }
             visibleExclusiveBar();
         } else {
             updateDatePicker();
             textViewVitamin.setText(getString(R.string.vitamin_given, question));
-            if(serviceWrapper.getUpdatedVaccineDate()!=null){
+            if (serviceWrapper.getUpdatedVaccineDate() != null) {
                 datePicker.updateDate(serviceWrapper.getUpdatedVaccineDate().getYear(),
-                        serviceWrapper.getUpdatedVaccineDate().getMonthOfYear() -1,serviceWrapper.getUpdatedVaccineDate().getDayOfMonth());
+                        serviceWrapper.getUpdatedVaccineDate().getMonthOfYear() - 1, serviceWrapper.getUpdatedVaccineDate().getDayOfMonth());
             }
             visibleVitaminBar();
         }
     }
-    private void updateDatePicker(){
+
+    private void updateDatePicker() {
         DateTime dateOfBirth = Utils.dobStringToDateTime(dob);
-        DateTime dcToday= ServiceSchedule.standardiseDateTime(DateTime.now());
+        DateTime dcToday = ServiceSchedule.standardiseDateTime(DateTime.now());
         DateTime minDate = ServiceSchedule.standardiseDateTime(dateOfBirth);
         DateTime maxDate = ServiceSchedule.standardiseDateTime(dcToday);
 
@@ -257,6 +262,7 @@ public class GrowthNutritionInputFragment extends DialogFragment implements Radi
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.save_bf_btn:
             case R.id.save_btn:
                 if (type.equalsIgnoreCase(GROWTH_TYPE.EXCLUSIVE.getValue())) {
                     saveExclusiveFeedingData();

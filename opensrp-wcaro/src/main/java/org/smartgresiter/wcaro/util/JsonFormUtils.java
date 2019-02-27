@@ -10,6 +10,9 @@ import net.sqlcipher.database.SQLiteDatabase;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;
+import org.joda.time.DateTime;
+import org.joda.time.Days;
+import org.joda.time.LocalDate;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -44,6 +47,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -65,23 +69,30 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
     public static final String READ_ONLY = "read_only";
     private static final String TAG = org.smartregister.util.JsonFormUtils.class.getCanonicalName();
     private static HashMap<String, String> actionMap = null;
-    public static final SimpleDateFormat dd_MMM_yyyy = new SimpleDateFormat("dd MMM yyyy");
+
+
 
     public static JSONObject getBirthCertFormAsJson(JSONObject form, String baseEntityId, String currentLocationId, String dateOfBirthString) throws Exception {
 
         if (form == null) {
             return null;
         }
-        dateOfBirthString = dateOfBirthString.contains("y") ? dateOfBirthString.substring(0, dateOfBirthString.indexOf("y")) : "";
+        //dateOfBirthString = dateOfBirthString.contains("y") ? dateOfBirthString.substring(0, dateOfBirthString.indexOf("y")) : "";
         form.getJSONObject(METADATA).put(ENCOUNTER_LOCATION, currentLocationId);
         form.put(ENTITY_ID, baseEntityId);
         JSONArray field = fields(form);
         JSONObject mindate = getFieldJSONObject(field, "birth_cert_issue_date");
+        int days=getDayFromDate(dateOfBirthString);
         //if(mindate!=null){
-        mindate.put("min_date", "today-" + dateOfBirthString + "y");
+        mindate.put("min_date", "today-" + days + "d");
         //}
         return form;
 
+    }
+    public static int getDayFromDate(String dateOfBirth) {
+        DateTime date = DateTime.parse(dateOfBirth);
+        Days days = Days.daysBetween(date.toLocalDate(), LocalDate.now());
+        return days.getDays();
     }
 
     public static JSONObject getOnsIllnessFormAsJson(JSONObject form, String baseEntityId, String currentLocationId, String dateOfBirthString) throws Exception {
@@ -89,13 +100,14 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
         if (form == null) {
             return null;
         }
-        dateOfBirthString = dateOfBirthString.contains("y") ? dateOfBirthString.substring(0, dateOfBirthString.indexOf("y")) : "";
+        //dateOfBirthString = dateOfBirthString.contains("y") ? dateOfBirthString.substring(0, dateOfBirthString.indexOf("y")) : "";
         form.getJSONObject(METADATA).put(ENCOUNTER_LOCATION, currentLocationId);
         form.put(ENTITY_ID, baseEntityId);
         JSONArray field = fields(form);
         JSONObject mindate = getFieldJSONObject(field, "date_of_illness");
+        int days=getDayFromDate(dateOfBirthString);
         //if(mindate!=null){
-        mindate.put("min_date", "today-" + dateOfBirthString + "y");
+        mindate.put("min_date", "today-" + days + "d");
         //}
         return form;
 

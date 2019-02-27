@@ -1,5 +1,7 @@
 package org.smartgresiter.wcaro.contract;
 
+import android.content.Context;
+
 import org.json.JSONObject;
 
 public interface ChildHomeVisitContract {
@@ -11,14 +13,15 @@ public interface ChildHomeVisitContract {
         void updateBirthStatusTick();
 
         void updateObsIllnessStatusTick();
+        Context getContext();
     }
 
     interface Presenter {
         ChildHomeVisitContract.View getView();
 
-        void startBirthCertForm();
+        void startBirthCertForm(JSONObject previousJson);
 
-        void startObsIllnessCertForm();
+        void startObsIllnessCertForm(JSONObject previousJson);
 
         void generateBirthIllnessForm(String jsonString);
 

@@ -117,8 +117,8 @@ public class MedicalHistoryInteractor implements MedicalHistoryContract.Interact
         if(!TextUtils.isEmpty(illnessDate)){
             String illnessDescription = getValue(commonPersonObjectClient.getColumnmaps(), ILLNESS_DESCRIPTION, true);
             String illnessAction = getValue(commonPersonObjectClient.getColumnmaps(), ILLNESS_ACTION, true);
-            illnessContent.add("Date of illness: " + illnessDate);
-            illnessContent.add("Illness description: " + illnessDescription);
+            illnessContent.add("Date: " + illnessDate);
+            illnessContent.add("Description: " + illnessDescription);
             illnessContent.add("Action taken: " + illnessAction);
 
         }

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:layout_width="match_parent"
+    android:layout_marginTop="2dp"
+    android:weightSum="2.5"
+    android:layout_height="wrap_content">
+
+    <org.smartregister.view.customcontrols.CustomFontTextView
+        android:id="@+id/question_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:maxWidth="200dp"
+        style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
+        android:textColor="@color/black"
+        android:layout_toLeftOf="@+id/answer_tv"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:paddingRight="10dp"
+        android:textSize="15sp" />
+    <org.smartregister.view.customcontrols.CustomFontTextView
+        android:id="@+id/answer_tv"
+        android:layout_centerVertical="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:maxWidth="150dp"
+        style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
+        android:textColor="@color/grey"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:textSize="15sp" />
+
+</RelativeLayout>

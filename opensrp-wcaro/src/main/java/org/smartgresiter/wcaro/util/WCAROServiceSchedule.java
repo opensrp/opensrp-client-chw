@@ -12,6 +12,7 @@ import org.smartregister.immunization.ImmunizationLibrary;
 import org.smartregister.immunization.domain.ServiceRecord;
 import org.smartregister.immunization.domain.ServiceTrigger;
 import org.smartregister.immunization.domain.ServiceType;
+import org.smartregister.immunization.domain.VaccineTrigger;
 import org.smartregister.immunization.repository.RecurringServiceRecordRepository;
 import org.smartregister.immunization.repository.RecurringServiceTypeRepository;
 import org.smartregister.immunization.util.VaccinateActionUtils;
@@ -123,7 +124,6 @@ public class WCAROServiceSchedule {
         try {
             DateTime dueDateTime = VaccinatorUtils.getServiceDueDate(serviceType, dateOfBirth, issuedServices);
             DateTime expiryDateTime = VaccinatorUtils.getServiceExpiryDate(serviceType, dateOfBirth);
-
             // Use the trigger date as a reference, since that is what is mostly used
             AlertStatus alertStatus = calculateAlertStatus(dueDateTime,expiryDateTime);
 

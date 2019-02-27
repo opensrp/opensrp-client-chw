@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -59,12 +60,14 @@ public class CustomVaccinationDialogFragment extends ChildImmunizationFragment {
     private Integer defaultImageResourceID;
     private Integer defaultErrorImageResourceID;
     private HomeVisitImmunizationContract.View homeVisitImmunizationView;
+    private int selectCount = 0;
 
     public void setContext(Activity context) {
         this.context = context;
     }
 
     private Activity context;
+    Button vaccinateToday;
 
     public static CustomVaccinationDialogFragment newInstance(Date dateOfBirth,
                                                               List<Vaccine> issuedVaccines,
@@ -197,7 +200,7 @@ public class CustomVaccinationDialogFragment extends ChildImmunizationFragment {
                 TextView vaccineViewTitle = (TextView) dialogView.findViewById(R.id.textview_vaccine_title);
 
                 vaccineViewTitle.setText(" Record " + vName);
-                vaccineView.setText("When was " + vName + " immunization done?");
+                vaccineView.setText("When was " + vName + " given?");
 
 //                View select = vaccinationName.findViewById(R.id.select);
 //                select.setVisibility(View.GONE);
@@ -219,19 +222,30 @@ public class CustomVaccinationDialogFragment extends ChildImmunizationFragment {
 
                 vaccinationNameLayout.addView(vaccinationName);
             }
-
+            selectCount=vaccinationNameLayout.getChildCount();
             for (int i = 0; i < vaccinationNameLayout.getChildCount(); i++) {
                 View chilView = vaccinationNameLayout.getChildAt(i);
+                final CheckBox childSelect = (CheckBox) chilView.findViewById(R.id.select);
+                childSelect.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        if(isChecked){
+                            selectCount++;
+                        }else{
+                            selectCount--;
+                        }
+                        updateSaveButton();
+                    }
+                });
                 chilView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        CheckBox childSelect = (CheckBox) view.findViewById(R.id.select);
                         childSelect.toggle();
                     }
                 });
             }
 
-            Button vaccinateToday = (Button) dialogView.findViewById(R.id.vaccinate_today);
+            vaccinateToday= (Button) dialogView.findViewById(R.id.vaccinate_today);
             vaccinateToday.setText(vaccinateToday.getText().toString().replace("Vaccination", "Vaccinations"));
 
             Button vaccinateEarlier = (Button) dialogView.findViewById(R.id.vaccinate_earlier);
@@ -334,6 +348,23 @@ public class CustomVaccinationDialogFragment extends ChildImmunizationFragment {
             }
         });
         return dialogView;
+    }
+
+    private void updateSaveButton() {
+        if(vaccinateToday!=null){
+            if(selectCount==0){
+                vaccinateToday.setAlpha(0.3f);
+            }else{
+                vaccinateToday.setAlpha(1.0f);
+            }
+
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateSaveButton();
     }
 
     private boolean validateVaccinationDate(VaccineWrapper vaccine, Date date) {

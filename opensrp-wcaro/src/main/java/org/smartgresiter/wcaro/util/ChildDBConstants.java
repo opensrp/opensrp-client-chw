@@ -9,6 +9,7 @@ public class ChildDBConstants {
         //public static final String VISIT_STATUS = "visit_status";
         public static final String VISIT_NOT_DONE = "visit_not_done";
         public static final String LAST_HOME_VISIT = "last_home_visit";
+        public static final String DATE_CREATED = "date_created";
         public static final String RELATIONAL_ID = "relationalid";
         public static final String FAMILY_FIRST_NAME = "family_first_name";
         public static final String FAMILY_MIDDLE_NAME = "family_middle_name";
@@ -32,7 +33,7 @@ public class ChildDBConstants {
     }
 
     public static String childDueFilter() {
-        return " ((" + ChildDBConstants.KEY.LAST_HOME_VISIT + " is null OR ((" + ChildDBConstants.KEY.LAST_HOME_VISIT + "/1000) > strftime('%s',datetime('now','start of month')))) AND (" + ChildDBConstants.KEY.VISIT_NOT_DONE + " is null OR ((" + ChildDBConstants.KEY.VISIT_NOT_DONE + "/1000) > strftime('%s',datetime('now','start of month'))))) ";
+        return " ((" + ChildDBConstants.KEY.LAST_HOME_VISIT + " is null OR ((" + ChildDBConstants.KEY.LAST_HOME_VISIT + "/1000) > strftime('%s',datetime('now','start of month')))) AND ((" + ChildDBConstants.KEY.VISIT_NOT_DONE + " is null OR " + ChildDBConstants.KEY.VISIT_NOT_DONE + " = '0') OR ((" + ChildDBConstants.KEY.VISIT_NOT_DONE + "/1000) > strftime('%s',datetime('now','start of month'))))) ";
     }
 
     public static String childMainFilter(String mainCondition, String filters, String sort, int limit, int offset) {

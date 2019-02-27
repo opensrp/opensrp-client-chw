@@ -13,7 +13,6 @@ condition: "homeAlertRule.isVisitNotDone()"
 actions:
   - "homeAlertRule.buttonStatus = 'NOT_VISIT_THIS_MONTH'"
 ---
-
 name: visit_twenty_four
 description: visit within twenty four hours
 priority: 2
@@ -31,7 +30,7 @@ actions:
 name: overdue
 description: previous month not visited
 priority: 2
-condition: "homeAlertRule.isOverdueWithinMonth(2)"
+condition: "homeAlertRule.isOverdueWithinMonth(1)"
 actions:
   - "homeAlertRule.buttonStatus = 'OVERDUE'"
 ---

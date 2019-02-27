@@ -1,16 +1,22 @@
 package org.smartgresiter.wcaro.interactor;
 
+import android.content.Context;
 import android.support.annotation.VisibleForTesting;
+import android.text.TextUtils;
 import android.util.Log;
 import android.util.Pair;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.application.WcaroApplication;
 import org.smartgresiter.wcaro.contract.ChildHomeVisitContract;
 import org.smartgresiter.wcaro.repository.WcaroRepository;
+import org.smartgresiter.wcaro.util.BirthIllnessData;
 import org.smartgresiter.wcaro.util.Constants;
 import org.smartgresiter.wcaro.util.JsonFormUtils;
+import org.smartgresiter.wcaro.util.Utils;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.family.FamilyLibrary;
@@ -22,15 +28,26 @@ import org.smartregister.repository.UniqueIdRepository;
 import org.smartregister.sync.ClientProcessorForJava;
 import org.smartregister.sync.helper.ECSyncHelper;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+
+import static org.smartgresiter.wcaro.util.ChildDBConstants.KEY.BIRTH_CERT;
+import static org.smartgresiter.wcaro.util.ChildDBConstants.KEY.BIRTH_CERT_ISSUE_DATE;
+import static org.smartgresiter.wcaro.util.ChildDBConstants.KEY.BIRTH_CERT_NOTIFIICATION;
+import static org.smartgresiter.wcaro.util.ChildDBConstants.KEY.BIRTH_CERT_NUMBER;
+import static org.smartgresiter.wcaro.util.ChildDBConstants.KEY.ILLNESS_ACTION;
+import static org.smartgresiter.wcaro.util.ChildDBConstants.KEY.ILLNESS_DATE;
+import static org.smartgresiter.wcaro.util.ChildDBConstants.KEY.ILLNESS_DESCRIPTION;
 
 public class ChildHomeVisitInteractor implements ChildHomeVisitContract.Interactor {
 
     private static final String TAG = "VisitInteractor";
     private AppExecutors appExecutors;
     private HashMap<String, Pair<Client, Event>> saveList = new HashMap<>();
+    private ArrayList<BirthIllnessData> birthCertDataList=new ArrayList<>();
+    private ArrayList<BirthIllnessData> illnessDataList=new ArrayList<>();
 
     @VisibleForTesting
     ChildHomeVisitInteractor(AppExecutors appExecutors) {
@@ -44,6 +61,12 @@ public class ChildHomeVisitInteractor implements ChildHomeVisitContract.Interact
     public int getSaveSize() {
         return saveList.size();
     }
+    public ArrayList<BirthIllnessData> getIllnessDataList(){
+        return illnessDataList;
+    }
+    public ArrayList<BirthIllnessData> getBirthCertDataList(){
+        return birthCertDataList;
+    }
 
     @Override
     public void generateBirthIllnessForm(String jsonString, final ChildHomeVisitContract.InteractorCallback callback) {
@@ -54,6 +77,51 @@ public class ChildHomeVisitInteractor implements ChildHomeVisitContract.Interact
             }
             JSONObject form = new JSONObject(jsonString);
             if (form.getString(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_TYPE).equals(Constants.EventType.BIRTH_CERTIFICATION)) {
+                birthCertDataList.clear();
+                JSONObject stepOne = form.getJSONObject(org.smartregister.family.util.JsonFormUtils.STEP1);
+                JSONArray jsonArray = stepOne.getJSONArray(org.smartregister.family.util.JsonFormUtils.FIELDS);
+                BirthIllnessData birthIllnessData;
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                    switch (jsonObject.getString(org.smartregister.family.util.JsonFormUtils.KEY).toLowerCase()){
+                        case BIRTH_CERT:
+                            birthIllnessData=new BirthIllnessData();
+                            birthIllnessData.setQuestion(getContext().getString(R.string.has_birt_cert));
+                            birthIllnessData.setAnswer(jsonObject.getString(org.smartregister.family.util.JsonFormUtils.VALUE));
+                            birthCertDataList.add(birthIllnessData);
+                            break;
+                        case BIRTH_CERT_ISSUE_DATE:
+                            String value=jsonObject.getString(org.smartregister.family.util.JsonFormUtils.VALUE);
+                            if(!TextUtils.isEmpty(value)){
+                                birthIllnessData=new BirthIllnessData();
+                                birthIllnessData.setQuestion(getContext().getString(R.string.issuance_date));
+                                birthIllnessData.setAnswer(Utils.convertToDateFormateString(value,Utils.dd_MMM_yyyy));
+                                birthCertDataList.add(birthIllnessData);
+                            }
+                          
+                            break;
+                        case BIRTH_CERT_NUMBER:
+                            String valueN=jsonObject.getString(org.smartregister.family.util.JsonFormUtils.VALUE);
+                            if(!TextUtils.isEmpty(valueN)){
+                                birthIllnessData=new BirthIllnessData();
+                                birthIllnessData.setQuestion(getContext().getString(R.string.number));
+                                birthIllnessData.setAnswer(valueN);
+                                birthCertDataList.add(birthIllnessData);
+                            }
+                          
+                            break;
+
+                    }
+
+                }
+                String birthCert = org.smartregister.family.util.JsonFormUtils.getFieldValue(jsonString, BIRTH_CERT);
+                if (!TextUtils.isEmpty(birthCert) && birthCert.equalsIgnoreCase("no")) {
+                    String noti = org.smartregister.family.util.JsonFormUtils.getFieldValue(jsonString, BIRTH_CERT_NOTIFIICATION);
+                    birthIllnessData=new BirthIllnessData();
+                    birthIllnessData.setQuestion(getContext().getString(R.string.notification));
+                    birthIllnessData.setAnswer(noti);
+                    birthCertDataList.add(birthIllnessData);
+                }
                 Runnable runnable = new Runnable() {
                     @Override
                     public void run() {
@@ -70,6 +138,36 @@ public class ChildHomeVisitInteractor implements ChildHomeVisitContract.Interact
 
             }
             if (form.getString(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_TYPE).equals(Constants.EventType.OBS_ILLNESS)) {
+                illnessDataList.clear();
+                JSONObject stepOne = form.getJSONObject(org.smartregister.family.util.JsonFormUtils.STEP1);
+                JSONArray jsonArray = stepOne.getJSONArray(org.smartregister.family.util.JsonFormUtils.FIELDS);
+                BirthIllnessData birthIllnessData;
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+
+                    switch (jsonObject.getString(org.smartregister.family.util.JsonFormUtils.KEY).toLowerCase()){
+                        case ILLNESS_DATE:
+                            birthIllnessData=new BirthIllnessData();
+                            birthIllnessData.setQuestion("Date");
+                            String value=jsonObject.getString(org.smartregister.family.util.JsonFormUtils.VALUE);
+                            birthIllnessData.setAnswer(Utils.convertToDateFormateString(value,Utils.dd_MMM_yyyy));
+                            illnessDataList.add(birthIllnessData);
+                            break;
+                        case ILLNESS_DESCRIPTION:
+                            birthIllnessData=new BirthIllnessData();
+                            birthIllnessData.setQuestion("Description");
+                            birthIllnessData.setAnswer(jsonObject.getString(org.smartregister.family.util.JsonFormUtils.VALUE));
+                            illnessDataList.add(birthIllnessData);
+                            break;
+                        case ILLNESS_ACTION:
+                            birthIllnessData=new BirthIllnessData();
+                            birthIllnessData.setQuestion("Action taken");
+                            birthIllnessData.setAnswer(jsonObject.getString(org.smartregister.family.util.JsonFormUtils.VALUE));
+                            illnessDataList.add(birthIllnessData);
+                            break;
+                    }
+
+                }
                 Runnable runnable = new Runnable() {
                     @Override
                     public void run() {
@@ -102,6 +200,15 @@ public class ChildHomeVisitInteractor implements ChildHomeVisitContract.Interact
                 }
             }
         }).start();
+    }
+
+    private void processPopulatableFields(JSONObject previousJson, JSONObject jsonObject, JSONArray jsonArray) {
+       try{
+           jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE,previousJson.getString(org.smartregister.family.util.JsonFormUtils.KEY));
+       }catch (Exception e){
+
+       }
+
     }
 
     private void saveRegistration(Pair<Client, Event> pair, String jsonString) {
@@ -175,6 +282,9 @@ public class ChildHomeVisitInteractor implements ChildHomeVisitContract.Interact
 
     public ClientProcessorForJava getClientProcessorForJava() {
         return FamilyLibrary.getInstance().getClientProcessorForJava();
+    }
+    private Context getContext(){
+        return WcaroApplication.getInstance().getApplicationContext();
     }
 
     @Override

@@ -173,11 +173,11 @@ public class FamilyChangeContractInteractor implements FamilyChangeContract.Inte
         formTag.appVersion = FamilyLibrary.getInstance().getApplicationVersion();
         formTag.databaseVersion = FamilyLibrary.getInstance().getDatabaseVersion();
 
-        Event eventFamily = JsonFormUtils.createEvent(new JSONArray(), metadata, formTag, familyID, Utils.metadata().familyRegister.updateEventType,
+        Event eventFamily = JsonFormUtils.createEvent(new JSONArray(), metadata, formTag, familyID, Constants.EventType.UPDATE_FAMILY_RELATIONS,
                 Utils.metadata().familyRegister.tableName);
         JsonFormUtils.tagSyncMetadata(Utils.context().allSharedPreferences(), eventFamily);
 
-        Event eventMember = JsonFormUtils.createEvent(new JSONArray(), metadata, formTag, memberID, Utils.metadata().familyMemberRegister.updateEventType,
+        Event eventMember = JsonFormUtils.createEvent(new JSONArray(), metadata, formTag, memberID, Constants.EventType.UPDATE_FAMILY_RELATIONS,
                 Utils.metadata().familyMemberRegister.tableName);
         JsonFormUtils.tagSyncMetadata(Utils.context().allSharedPreferences(), eventMember);
 

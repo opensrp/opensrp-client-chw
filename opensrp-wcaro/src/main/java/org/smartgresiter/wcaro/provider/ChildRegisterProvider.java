@@ -160,7 +160,7 @@ public class ChildRegisterProvider implements RecyclerViewProvider<ChildRegister
             dueButton.setText(context.getString(R.string.due_visit, lastVisitDays));
         }
 
-        dueButton.setBackgroundResource(R.drawable.red_btn_selector);
+        dueButton.setBackgroundResource(R.drawable.overdue_red_btn_selector);
         dueButton.setOnClickListener(onClickListener);
     }
 
@@ -270,6 +270,8 @@ public class ChildRegisterProvider implements RecyclerViewProvider<ChildRegister
     }
 
     private class UpdateLastAsyncTask extends AsyncTask<Void, Void, Void> {
+        private String TAG = UpdateLastAsyncTask.class.getCanonicalName();
+
         private final Context context;
         private final CommonRepository commonRepository;
 
@@ -288,25 +290,27 @@ public class ChildRegisterProvider implements RecyclerViewProvider<ChildRegister
             this.rules = WcaroApplication.getInstance().getRulesEngineHelper().rules(Constants.RULE_FILE.HOME_VISIT);
         }
 
-
         @Override
         protected Void doInBackground(Void... params) {
             if (commonRepository != null) {
                 commonPersonObject = commonRepository.findByBaseEntityId(baseEntityId);
                 if (commonPersonObject != null) {
+                    String strDateCreated = Utils.getValue(commonPersonObject.getColumnmaps(), ChildDBConstants.KEY.DATE_CREATED, false);
                     String lastVisitDate = Utils.getValue(commonPersonObject.getColumnmaps(), ChildDBConstants.KEY.LAST_HOME_VISIT, false);
                     String visitNotDone = Utils.getValue(commonPersonObject.getColumnmaps(), ChildDBConstants.KEY.VISIT_NOT_DONE, false);
-                    long lastVisit = 0, visitNot = 0;
-                    if (!TextUtils.isEmpty(lastVisitDate)) {
-                        lastVisit = Long.parseLong(lastVisitDate);
-                    }
+                    long lastVisit = 0, visitNot = 0, dateCreated = 0;
                     if (!TextUtils.isEmpty(visitNotDone)) {
                         visitNot = Long.parseLong(visitNotDone);
                     }
+                    if(!TextUtils.isEmpty(lastVisitDate)){
+                        lastVisit =  Long.parseLong(lastVisitDate);
+                    }
+                    if(!TextUtils.isEmpty(strDateCreated)){
+                        dateCreated =  Utils.dobStringToDateTime(strDateCreated).getMillis();
+                    }
+
                     String dobString = Utils.getDuration(Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.DOB, false));
-
-                    childVisit = ChildUtils.getChildVisitStatus(rules, dobString, lastVisit, visitNot);
-
+                    childVisit = ChildUtils.getChildVisitStatus(rules, dobString, lastVisit, visitNot, dateCreated);
 
                 }
                 return null;
