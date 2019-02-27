@@ -7,9 +7,9 @@ actions:
   - "birthCertAlertRule.buttonStatus = 'OVERDUE'"
 ---
 name: due
-description: due at dob plus 12 month
+description: due at dob plus 12 month to 24 month
 priority: 3
-condition: "birthCertAlertRule.isDue(12)"
+condition: "birthCertAlertRule.isDue(24)"
 actions:
   - "birthCertAlertRule.buttonStatus = 'DUE'"
 
