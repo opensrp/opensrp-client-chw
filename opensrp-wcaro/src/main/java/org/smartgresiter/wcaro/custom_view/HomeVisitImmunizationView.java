@@ -69,6 +69,7 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
     private boolean isInEditMode = false;
     private LinearLayout immunization_undue_groups_holder;
     private ArrayList<String> elligibleVaccineGroups = new ArrayList<String>();
+    private LinearLayout immunization_done_before_active_groups__holder;
 
 
     public HomeVisitImmunizationView(Context context) {
@@ -104,6 +105,7 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
         single_immunization_group = ((LinearLayout) findViewById(R.id.immunization_name_group));
         multiple_immunization_group = ((LinearLayout) findViewById(R.id.immunization_group));
         immunization_undue_groups_holder = ((LinearLayout) findViewById(R.id.immunization_undue_groups_holder));
+        immunization_done_before_active_groups__holder = ((LinearLayout) findViewById(R.id.immunization_done_before_active_groups_holder));
 
         initializePresenter();
 
@@ -195,8 +197,9 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
         } else {
             single_immunization_group.setVisibility(View.GONE);
         }
-
+        inflateGroupsDone();
         inflateGroupsNotEnabled();
+
     }
 
     private String getSingleImmunizationSecondaryText(ArrayList<VaccineRepo.Vaccine> vaccinesDueFromLastVisitStillDueState, List<Map<String, Object>> sch, List<Alert> alerts) {
@@ -218,6 +221,18 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
             }
         }
         return toReturn;
+    }
+
+    private void inflateGroupsDone() {
+        immunization_done_before_active_groups__holder.removeAllViews();
+        ArrayList<HomeVisitVaccineGroupDetails> groupsDoneBeforeCurrentActive = findGroupsDoneBeforeActive();
+        for(int i = 0;i<groupsDoneBeforeCurrentActive.size();i++){
+            LinearLayout vaccineGroupNotDue = (LinearLayout)((LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.multiple_vaccine_layout, null);
+            String immunizations = MessageFormat.format("Immunizations ({0})", groupsDoneBeforeCurrentActive.get(i).getGroup().replace("weeks", "w").replace("months", "m"));
+            ((TextView)vaccineGroupNotDue.findViewById(R.id.textview_group_immunization)).setText(immunizations);
+            ((TextView)vaccineGroupNotDue.findViewById(R.id.textview_immunization_group_secondary_text)).setText(getContext().getString(R.string.fill_earler_immunization));
+            immunization_done_before_active_groups__holder.addView(vaccineGroupNotDue);
+        }
     }
 
     public void inflateGroupsNotEnabled(){
@@ -252,6 +267,47 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
 //            }
         }
         return inActiveDueGroups;
+    }
+
+    private ArrayList<HomeVisitVaccineGroupDetails> findGroupsDoneBeforeActive() {
+        ArrayList<HomeVisitVaccineGroupDetails> groupsDoneBeforeActive = new ArrayList<HomeVisitVaccineGroupDetails>();
+        ArrayList<HomeVisitVaccineGroupDetails> homeVisitVaccineGroupDetails = presenter.getAllgroups();
+        HomeVisitVaccineGroupDetails currentActiveGroup = presenter.getCurrentActiveGroup();
+        int indexofCurrentActiveGroup = 0;
+        for(int i = 0;i<homeVisitVaccineGroupDetails.size();i++){
+            if(homeVisitVaccineGroupDetails.get(i).getGroup().equalsIgnoreCase(currentActiveGroup.getGroup())){
+                indexofCurrentActiveGroup = i;
+            }
+        }
+        for(int i = 0;i<indexofCurrentActiveGroup;i++){
+//            if(homeVisitVaccineGroupDetails.get(i).getAlert().equals(ImmunizationState.DUE)||homeVisitVaccineGroupDetails.get(i).getAlert().equals(ImmunizationState.OVERDUE)){
+            if(inElligibleVaccineMap(homeVisitVaccineGroupDetails.get(i))) {
+                if(isGroupDoneThisVisit(homeVisitVaccineGroupDetails.get(i))) {
+                    groupsDoneBeforeActive.add(homeVisitVaccineGroupDetails.get(i));
+                }
+            }
+//            }
+        }
+        return groupsDoneBeforeActive;
+    }
+
+    private boolean isGroupDoneThisVisit(HomeVisitVaccineGroupDetails homeVisitVaccineGroupDetails) {
+        boolean toReturn = false;
+        for(VaccineRepo.Vaccine vaccine: homeVisitVaccineGroupDetails.getDueVaccines()){
+            for(VaccineWrapper vaccineGivenThisVisit: presenter.getVaccinesGivenThisVisit()){
+                if(vaccineGivenThisVisit.getVaccine().display().equalsIgnoreCase(vaccine.display())){
+                    toReturn = true;
+                }
+            }
+        }
+        for(VaccineRepo.Vaccine vaccine: homeVisitVaccineGroupDetails.getDueVaccines()){
+            for(VaccineRepo.Vaccine vaccineDueFromLastVisit: presenter.getVaccinesDueFromLastVisit()){
+                if(vaccineDueFromLastVisit.display().equalsIgnoreCase(vaccine.display())){
+                    toReturn = false;
+                }
+            }
+        }
+        return toReturn;
     }
 
     private boolean inElligibleVaccineMap(HomeVisitVaccineGroupDetails homeVisitVaccineGroupDetails) {
