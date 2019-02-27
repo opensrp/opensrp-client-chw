@@ -147,16 +147,17 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                 dobString,
                 getString(R.string.home_visit)
         ));
-        dobString = dobString.contains("y") ? dobString.substring(0, dobString.indexOf("y")) : "";
+       // dobString = dobString.contains("y") ? dobString.substring(0, dobString.indexOf("y")) : "";
+        String status=ChildUtils.getBirthCertDueStatus(dob);
 
-        if (!TextUtils.isEmpty(birthCert) || TextUtils.isEmpty(dobString) || Integer.valueOf(dobString) < 1) {
+        if (!TextUtils.isEmpty(birthCert)) {
             layoutBirthCertGroup.setVisibility(View.GONE);
             viewBirthLine.setVisibility(View.GONE);
         } else {
             layoutBirthCertGroup.setVisibility(View.VISIBLE);
             viewBirthLine.setVisibility(View.VISIBLE);
-            DateTime ddd = Utils.dobStringToDateTime(dob);
-            textViewBirthCertDueDate.setText(ChildUtils.dueOverdueCalculation(ddd.toLocalDate() + ""));
+            //DateTime ddd = Utils.dobStringToDateTime(dob);
+            textViewBirthCertDueDate.setText(ChildUtils.dueOverdueCalculation(status,dob));
 
         }
     }

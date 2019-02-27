@@ -21,7 +21,9 @@ import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.application.WcaroApplication;
 import org.smartgresiter.wcaro.domain.HomeVisit;
 import org.smartgresiter.wcaro.repository.HomeVisitRepository;
+import org.smartgresiter.wcaro.rule.BirthCertRule;
 import org.smartgresiter.wcaro.rule.HomeAlertRule;
+import org.smartgresiter.wcaro.rule.ServiceRule;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.clientandeventmodel.Obs;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
@@ -30,6 +32,7 @@ import org.smartregister.family.util.DBConstants;
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.sync.helper.ECSyncHelper;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -38,7 +41,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import static org.apache.commons.lang3.text.WordUtils.capitalize;
-import static org.smartgresiter.wcaro.util.JsonFormUtils.dd_MMM_yyyy;
+import static org.smartgresiter.wcaro.util.Utils.dd_MMM_yyyy;
 
 public class ChildUtils {
 
@@ -210,6 +213,16 @@ public class ChildUtils {
         WcaroApplication.getInstance().getRulesEngineHelper().getButtonAlertStatus(homeAlertRule, Constants.RULE_FILE.HOME_VISIT);
         return getChildVisitStatus(homeAlertRule, lastVisitDate);
     }
+    public static String getBirthCertDueStatus(String dateOfBirth){
+        BirthCertRule birthCertRule = new BirthCertRule(dateOfBirth);
+        WcaroApplication.getInstance().getRulesEngineHelper().getButtonAlertStatus(birthCertRule, Constants.RULE_FILE.BIRTH_CERT);
+        return birthCertRule.getButtonStatus();
+    }
+    public static String getServiceDueStatus(String dueDate){
+        ServiceRule serviceRule = new ServiceRule(dueDate);
+        WcaroApplication.getInstance().getRulesEngineHelper().getButtonAlertStatus(serviceRule, Constants.RULE_FILE.SERVICE);
+        return serviceRule.getButtonStatus();
+    }
 
     /**
      * Rules can be retrieved separately so that the background thread is used here
@@ -319,7 +332,7 @@ public class ChildUtils {
         LocalDate date1 = new LocalDate(dueDate);
         LocalDate date2 = new LocalDate();
         int diff = Days.daysBetween(date1, date2).getDays();
-        if (diff < 0) {
+        if (diff <= 0) {
             String str = diff + " days away";
             spannableString = new SpannableString(str);
             spannableString.setSpan(new ForegroundColorSpan(Color.GRAY), 0, str.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -351,6 +364,23 @@ public class ChildUtils {
             return spannableString;
         }
     }
+    public static SpannableString dueOverdueCalculation(String status,String dueDate){
+        SpannableString spannableString;
+        Date date= org.smartregister.family.util.Utils.dobStringToDate(dueDate);
+        if(status.equalsIgnoreCase(ImmunizationState.DUE.name())){
+
+            String str="Due "+dd_MMM_yyyy.format(date);
+            spannableString = new SpannableString(str);
+            spannableString.setSpan(new ForegroundColorSpan(Color.GRAY), 0, str.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            return spannableString;
+        }else {
+            String str="Overdue "+dd_MMM_yyyy.format(date);
+            spannableString = new SpannableString(str);
+            spannableString.setSpan(new ForegroundColorSpan(WcaroApplication.getInstance().getContext().getColorResource(R.color.alert_urgent_red)), 0, str.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            return spannableString;
+        }
+    }
+
 
     public static void addToHomeVisitTable(String baseEntityID, List<org.smartregister.domain.db.Obs> observations) {
         HomeVisit newHomeVisit = new HomeVisit(null, baseEntityID, HomeVisitRepository.EVENT_TYPE, new Date(), "", "", "", 0l, "", "", new Date());
