@@ -97,7 +97,7 @@
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="updating">Updating....</string>
     <string name="birth_certification">Birth certification</string>
-    <string name="observations_illness_episodes"><![CDATA[Observations & Illness Episodes]]></string>
+    <string name="observations_illness_episodes"><![CDATA[Observations & Illness - <i>optional</i>]]></string>
 
 
     <string name="home_visit_suffix"> &#183; Home Visit</string>
@@ -142,6 +142,10 @@
     <string name="issuance_date">Issuance date</string>
     <string name="number">Number</string>
     <string name="notification">Birth notification done?</string>
+    <string name="call_prompt">CALL %s</string>
+    <string name="head_of_family">Head of family</string>
+    <string name="care_giver">Caregiver</string>
+    <string name="status_saving">Saving</string>
     <string name="fill_earler_immunization">Fill earlier immunization</string>
     <string name="confirm_remove_text">Are you sure you want to remove %s\'s record? This will remove their entire health record from your device. This action cannot be undone.</string>
     <string name="remove">REMOVE</string>

@@ -67,6 +67,7 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
     private CircleImageView immunization_group_status_circle;
     private LinearLayout multiple_immunization_group;
     private LinearLayout single_immunization_group;
+    private View viewImmunization;
     Activity context;
     private boolean isInEditMode = false;
     private LinearLayout immunization_undue_groups_holder;
@@ -105,6 +106,7 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
         immunization_status_circle = ((CircleImageView) findViewById(R.id.immunization_status_circle));
         immunization_group_status_circle = ((CircleImageView) findViewById(R.id.immunization_group_status_circle));
         single_immunization_group = ((LinearLayout) findViewById(R.id.immunization_name_group));
+        viewImmunization=findViewById(R.id.view_group_immunization);
         multiple_immunization_group = ((LinearLayout) findViewById(R.id.immunization_group));
         immunization_undue_groups_holder = ((LinearLayout) findViewById(R.id.immunization_undue_groups_holder));
         immunization_done_before_active_groups__holder = ((LinearLayout) findViewById(R.id.immunization_done_before_active_groups_holder));
@@ -127,9 +129,17 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
         presenter.setSingleVaccineText(presenter.getVaccinesDueFromLastVisit(), sch);
 
         if (presenter.isPartiallyComplete() || presenter.isComplete()) {
-            String immunizations = MessageFormat.format("Immunizations ({0})", presenter.getCurrentActiveGroup().getGroup().replace("weeks", "w").replace("months", "m"));
-            textview_group_immunization_primary_text.setText(immunizations);
+            String value=presenter.getCurrentActiveGroup().getGroup();
+            String immunizations;
+            if(value.contains("birth")){
+                immunizations = MessageFormat.format("Immunizations ({0})", value);
 
+            }else{
+                immunizations = MessageFormat.format("Immunizations ({0})", value.replace("weeks", "w").replace("months", "m").replace(" ",""));
+
+            }
+            textview_group_immunization_primary_text.setText(immunizations);
+            textview_group_immunization_secondary_text.setVisibility(VISIBLE);
             textview_group_immunization_secondary_text.setTextColor(getResources().getColor(android.R.color.darker_gray));
             textview_group_immunization_secondary_text.setText(presenter.getGroupImmunizationSecondaryText());
             immunization_group_status_circle.setImageResource(R.drawable.ic_checked);
@@ -142,7 +152,15 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
             multiple_immunization_group.setOnClickListener(null);
 
         } else if (presenter.groupIsDue()) {
-            String immunizations = MessageFormat.format("Immunizations ({0})", presenter.getCurrentActiveGroup().getGroup().replace("weeks", "w").replace("months", "m"));
+            String value=presenter.getCurrentActiveGroup().getGroup();
+            String immunizations;
+            if(value.contains("birth")){
+                immunizations = MessageFormat.format("Immunizations ({0})", value);
+
+            }else{
+                immunizations = MessageFormat.format("Immunizations ({0})", value.replace("weeks", "w").replace("months", "m").replace(" ",""));
+
+            }
             textview_group_immunization_primary_text.setText(immunizations);
 
             String message = MessageFormat.format("{0} {1}",
@@ -150,7 +168,7 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
                     presenter.getCurrentActiveGroup().getDueDisplayDate()
             );
             int color_res = ((presenter.getCurrentActiveGroup().getAlert().equals(ImmunizationState.OVERDUE)) ? R.color.alert_urgent_red : android.R.color.darker_gray);
-
+            textview_group_immunization_secondary_text.setVisibility(VISIBLE);
             textview_group_immunization_secondary_text.setText(message);
             textview_group_immunization_secondary_text.setTextColor(getResources().getColor(color_res));
 
@@ -198,6 +216,8 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
             }
         } else {
             single_immunization_group.setVisibility(View.GONE);
+            viewImmunization.setVisibility(GONE);
+
         }
         inflateGroupsDone(sch);
         inflateGroupsNotEnabled();

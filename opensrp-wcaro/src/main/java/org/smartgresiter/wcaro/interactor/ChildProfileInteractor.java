@@ -167,7 +167,7 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
 
         String dobString = Utils.getDuration(Utils.getValue(pClient.getColumnmaps(), DBConstants.KEY.DOB, false));
 
-        final ChildVisit childVisit = ChildUtils.getChildVisitStatus(dobString, childHomeVisit.getLastHomeVisitDate(), childHomeVisit.getVisitNotDoneDate());
+        final ChildVisit childVisit = ChildUtils.getChildVisitStatus(dobString, childHomeVisit.getLastHomeVisitDate(), childHomeVisit.getVisitNotDoneDate(), childHomeVisit.getDateCreated());
 
         Runnable runnable = new Runnable() {
             @Override

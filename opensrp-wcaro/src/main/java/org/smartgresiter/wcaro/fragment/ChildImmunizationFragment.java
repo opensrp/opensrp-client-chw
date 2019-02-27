@@ -88,6 +88,7 @@ public class ChildImmunizationFragment extends DialogFragment {
     @Override
     public void onResume() {
         super.onResume();
+        if(view==null) return;
         //Overriden
         if (vaccineGroups != null) {
             LinearLayout vaccineGroupCanvasLL = (LinearLayout) view.findViewById(R.id.vaccine_group_canvas_ll);

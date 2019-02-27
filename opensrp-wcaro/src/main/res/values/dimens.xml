@@ -51,7 +51,13 @@
     <dimen name="child_register_list_item_width">120dp</dimen>
     <dimen name="child_home_visit_right_margin">20dp</dimen>
     <dimen name="child_home_visit_left_margin">10dp</dimen>
+    <dimen name="child_home_visit_title_text_size">20sp</dimen>
 
     <dimen name="sync_time_padding_right">20dp</dimen>
     <dimen name="sync_time_padding">15dp</dimen>
+
+    <dimen name="member_profile_pic_width">70dp</dimen>
+    <dimen name="member_profile_list_title_size">18sp</dimen>
+    <dimen name="member_due_list_title_size">17.5sp</dimen>
+
 </resources>

@@ -1,7 +1,9 @@
 package org.smartgresiter.wcaro.interactor;
 
+import android.content.Context;
 import android.support.annotation.VisibleForTesting;
 
+import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.contract.FamilyCallDialogContract;
 import org.smartgresiter.wcaro.model.FamilyCallDialogModel;
 import org.smartregister.commonregistry.CommonPersonObject;
@@ -28,7 +30,7 @@ public class FamilyCallDialogInteractor implements FamilyCallDialogContract.Inte
     }
 
     @Override
-    public void getHeadOfFamily(final FamilyCallDialogContract.Presenter presenter) {
+    public void getHeadOfFamily(final FamilyCallDialogContract.Presenter presenter, final Context context) {
 
         Runnable runnable = new Runnable() {
             @Override
@@ -43,7 +45,7 @@ public class FamilyCallDialogInteractor implements FamilyCallDialogContract.Inte
 
                 if (primaryCaregiverID != null) {
                     // load primary care giver
-                    final FamilyCallDialogModel headModel = prepareModel(familyHeadID, primaryCaregiverID, true);
+                    final FamilyCallDialogModel headModel = prepareModel(context, familyHeadID, primaryCaregiverID, true);
                     appExecutors.mainThread().execute(new Runnable() {
                         @Override
                         public void run() {
@@ -54,7 +56,7 @@ public class FamilyCallDialogInteractor implements FamilyCallDialogContract.Inte
 
                 if (familyHeadID != null && !familyHeadID.equals(primaryCaregiverID)) {
                     // load family head
-                    final FamilyCallDialogModel careGiverModel = prepareModel(familyHeadID, primaryCaregiverID, false);
+                    final FamilyCallDialogModel careGiverModel = prepareModel(context , familyHeadID, primaryCaregiverID, false);
                     appExecutors.mainThread().execute(new Runnable() {
                         @Override
                         public void run() {
@@ -69,6 +71,7 @@ public class FamilyCallDialogInteractor implements FamilyCallDialogContract.Inte
     }
 
     private FamilyCallDialogModel prepareModel(
+            Context context,
             String familyHeadID, String primaryCaregiverID,
             Boolean isHead
     ) {
@@ -98,7 +101,10 @@ public class FamilyCallDialogInteractor implements FamilyCallDialogContract.Inte
                 )
         );
 
-        model.setRole((primaryCaregiverID.toLowerCase().equals(familyHeadID.toLowerCase())) ? "Head of family, Caregiver" : (isHead ? "Head of family" : "Caregiver"));
+        model.setRole((primaryCaregiverID.toLowerCase().equals(familyHeadID.toLowerCase()))
+                ? String.format("%s, %s", context.getString(R.string.head_of_family) , context.getString(R.string.care_giver))
+                : (isHead ? context.getString(R.string.head_of_family)
+                : context.getString(R.string.care_giver)));
 
         return model;
     }

@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -61,12 +62,13 @@ public class CustomMultipleVaccinationDialogFragment extends ChildImmunizationFr
     private Integer defaultImageResourceID;
     private Integer defaultErrorImageResourceID;
     private HomeVisitImmunizationContract.View homeVisitImmunizationView;
-
+    private int selectCount=0;
     public void setContext(Activity context) {
         this.context = context;
     }
 
     private Activity context;
+    private Button vaccinateToday;
 
     public static CustomMultipleVaccinationDialogFragment newInstance(Date dateOfBirth,
                                                                       List<Vaccine> issuedVaccines,
@@ -128,7 +130,7 @@ public class CustomMultipleVaccinationDialogFragment extends ChildImmunizationFr
                              Bundle savedInstanceState) {
 
         Bundle bundle = getArguments();
-        Serializable serializable = bundle.getSerializable(WRAPPER_TAG);
+        final Serializable serializable = bundle.getSerializable(WRAPPER_TAG);
         if (serializable != null && serializable instanceof ArrayList) {
             tags = (ArrayList<VaccineWrapper>) serializable;
         }
@@ -150,29 +152,38 @@ public class CustomMultipleVaccinationDialogFragment extends ChildImmunizationFr
             View vaccinationName = inflater.inflate(R.layout.custom_vaccination_name, null);
             TextView vaccineView = (TextView) vaccinationName.findViewById(R.id.vaccine);
 
+
             VaccineRepo.Vaccine vaccine = vaccineWrapper.getVaccine();
             if (vaccineWrapper.getVaccine() != null) {
                 vaccineView.setText(fixVaccineCasing(vaccine.display()));
             } else {
                 vaccineView.setText(vaccineWrapper.getName());
             }
-
             vaccinationNameLayout.addView(vaccinationName);
         }
-
+        vaccinateToday= (Button) dialogView.findViewById(R.id.vaccinate_today);
+        selectCount=vaccinationNameLayout.getChildCount();
         for (int i = 0; i < vaccinationNameLayout.getChildCount(); i++) {
             View chilView = vaccinationNameLayout.getChildAt(i);
+            final CheckBox childSelect = (CheckBox) chilView.findViewById(R.id.select);
+            childSelect.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if(isChecked){
+                        selectCount++;
+                    }else{
+                        selectCount--;
+                    }
+                    updateSaveButton();
+                }
+            });
             chilView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    CheckBox childSelect = (CheckBox) view.findViewById(R.id.select);
                     childSelect.toggle();
                 }
             });
         }
-
-
-        Button vaccinateToday = (Button) dialogView.findViewById(R.id.vaccinate_today);
         vaccinateToday.setText(vaccinateToday.getText().toString().replace("Vaccination", "Vaccinations"));
 
         final Button vaccinateEarlier = (Button) dialogView.findViewById(R.id.vaccinate_earlier);
@@ -248,6 +259,7 @@ public class CustomMultipleVaccinationDialogFragment extends ChildImmunizationFr
                             }
                         }
                     }
+
                 }
                 onVaccinateEarlier(tagsToUpdate, view);
                 homeVisitImmunizationView.getPresenter().assigntoGivenVaccines(tagsToUpdate);
@@ -341,6 +353,22 @@ public class CustomMultipleVaccinationDialogFragment extends ChildImmunizationFr
         });
 
         return dialogView;
+    }
+    private void updateSaveButton(){
+        if(vaccinateToday!=null){
+            if(selectCount==0){
+                vaccinateToday.setAlpha(0.3f);
+            }else{
+                vaccinateToday.setAlpha(1.0f);
+            }
+
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateSaveButton();
     }
 
     private boolean validateVaccinationDate(VaccineWrapper vaccine, Date date) {

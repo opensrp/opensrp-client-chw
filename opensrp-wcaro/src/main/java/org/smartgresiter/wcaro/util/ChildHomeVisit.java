@@ -6,6 +6,8 @@ public class ChildHomeVisit {
 
     private long visitNotDoneDate;
 
+    private long dateCreated;
+
     public long getLastHomeVisitDate() {
         return lastHomeVisitDate;
     }
@@ -22,5 +24,11 @@ public class ChildHomeVisit {
         this.visitNotDoneDate = visitNotDoneDate;
     }
 
+    public long getDateCreated() {
+        return dateCreated;
+    }
 
+    public void setDateCreated(long dateCreated) {
+        this.dateCreated = dateCreated;
+    }
 }

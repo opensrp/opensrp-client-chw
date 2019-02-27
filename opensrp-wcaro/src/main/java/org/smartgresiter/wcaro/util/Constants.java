@@ -134,4 +134,9 @@ public class Constants {
         public static final String NAME = "name";
         public static final String MESSAGE = "message";
     }
+
+    public static class MenuType {
+        public static final String ChangeHead = "ChangeHead";
+        public static final String ChangePrimaryCare = "ChangePrimaryCare";
+    }
 }

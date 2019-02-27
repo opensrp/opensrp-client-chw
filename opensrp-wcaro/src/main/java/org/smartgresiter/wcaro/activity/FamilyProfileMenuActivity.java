@@ -20,11 +20,6 @@ public class FamilyProfileMenuActivity extends SecuredActivity {
     public static final String TAG = FamilyProfileMenuActivity.class.getName();
     public static final String MENU = "MENU";
 
-    public static class MenuType {
-        public static final String ChangeHead = "ChangeHead";
-        public static final String ChangePrimaryCare = "ChangePrimaryCare";
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,10 +31,10 @@ public class FamilyProfileMenuActivity extends SecuredActivity {
 
         Fragment fragment;
         switch (menuOption) {
-            case MenuType.ChangeHead:
+            case org.smartgresiter.wcaro.util.Constants.MenuType.ChangeHead:
                 fragment = FamilyProfileChangeHead.newInstance(familyBaseEntityId);
                 break;
-            case MenuType.ChangePrimaryCare:
+            case org.smartgresiter.wcaro.util.Constants.MenuType.ChangePrimaryCare:
                 fragment = FamilyProfileChangePrimaryCG.newInstance(familyBaseEntityId);
                 break;
             default:

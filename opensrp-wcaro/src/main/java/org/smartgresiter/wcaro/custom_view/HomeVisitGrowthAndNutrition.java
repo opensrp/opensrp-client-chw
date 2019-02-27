@@ -192,6 +192,7 @@ public class HomeVisitGrowthAndNutrition extends LinearLayout implements View.On
     public void updateDewormingData(String name, String dueDate) {
         if (!TextUtils.isEmpty(name)) {
             layoutDewormingBar.setVisibility(VISIBLE);
+            findViewById(R.id.view_deworming_bar).setVisibility(VISIBLE);
             Object[] displayName = ChildUtils.getStringWithNumber(name);
             String str = (String) displayName[0];
             String no = (String) displayName[1];

@@ -33,7 +33,7 @@ public class ChildDBConstants {
     }
 
     public static String childDueFilter() {
-        return " ((" + ChildDBConstants.KEY.LAST_HOME_VISIT + " is null OR ((" + ChildDBConstants.KEY.LAST_HOME_VISIT + "/1000) > strftime('%s',datetime('now','start of month')))) AND (" + ChildDBConstants.KEY.VISIT_NOT_DONE + " is null OR ((" + ChildDBConstants.KEY.VISIT_NOT_DONE + "/1000) > strftime('%s',datetime('now','start of month'))))) ";
+        return " ((" + ChildDBConstants.KEY.LAST_HOME_VISIT + " is null OR ((" + ChildDBConstants.KEY.LAST_HOME_VISIT + "/1000) > strftime('%s',datetime('now','start of month')))) AND ((" + ChildDBConstants.KEY.VISIT_NOT_DONE + " is null OR " + ChildDBConstants.KEY.VISIT_NOT_DONE + " = '0') OR ((" + ChildDBConstants.KEY.VISIT_NOT_DONE + "/1000) > strftime('%s',datetime('now','start of month'))))) ";
     }
 
     public static String childMainFilter(String mainCondition, String filters, String sort, int limit, int offset) {
