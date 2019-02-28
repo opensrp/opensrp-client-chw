@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:gravity="center_horizontal"
+    android:orientation="horizontal">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/pagination_bar_height"
+        android:fitsSystemWindows="true"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/detail_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/opensrp_primary"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Dark">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/close"
+                    android:layout_width="@dimen/tool_bar_image"
+                    android:layout_height="@dimen/tool_bar_image"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/dialog_toolbar_close_margin"
+                    android:layout_marginRight="@dimen/dialog_toolbar_close_margin"
+                    android:tint="@color/white"
+                    app:srcCompat="@drawable/ic_action_close" />
+
+                <org.smartregister.view.customcontrols.CustomFontTextView
+                    android:id="@+id/textview_vaccine_title"
+                    style="@style/CustomFontTextViewStyle.ClientList"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@+id/close"
+                    android:layout_toRightOf="@+id/close"
+                    android:paddingLeft="0dp"
+                    android:paddingStart="0dp"
+                    android:text="@string/record_immunizations"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textSize="@dimen/activity_title_size"
+                    android:textColor="@android:color/white" />
+            </RelativeLayout>
+        </android.support.v7.widget.Toolbar>
+
+
+    </android.support.design.widget.AppBarLayout>
+    <android.support.v4.widget.NestedScrollView
+        android:layout_below="@+id/app_bar"
+        android:fillViewport="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+
+            <org.smartregister.view.customcontrols.CustomFontTextView
+                android:id="@+id/vaccines_given_title_question"
+                style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="@dimen/btn_margin_bottom"
+                android:layout_marginLeft="@dimen/btn_margin_left"
+                android:layout_marginRight="@dimen/btn_margin_right"
+                android:layout_marginTop="30dp"
+                android:paddingLeft="0dp"
+                android:text="@string/which_vaccines_given_text"
+                android:textColor="@color/text_black"
+                android:textSize="@dimen/register_list_desc_size" />
+
+            <include android:layout_width="match_parent"
+                android:id="@+id/checkbox_no_vaccination"
+                android:layout_below="@+id/vaccines_given_title_question"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/btn_margin_left"
+                android:layout_marginRight="@dimen/btn_margin_right"
+                layout="@layout/custom_vaccine_name_check"/>
+
+
+            <LinearLayout
+                android:id="@+id/vaccination_name_layout"
+                android:layout_below="@+id/checkbox_no_vaccination"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="@dimen/btn_margin_bottom"
+                android:layout_marginLeft="@dimen/btn_margin_left"
+                android:layout_marginRight="@dimen/btn_margin_right"
+                android:gravity="center_horizontal"
+                android:orientation="vertical" />
+            <LinearLayout
+                android:id="@+id/multiple_vaccine_date_pickerview"
+                android:layout_below="@+id/vaccination_name_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/btn_margin_bottom"
+                android:layout_marginLeft="@dimen/btn_margin_left"
+                android:layout_marginRight="@dimen/btn_margin_right"
+                android:orientation="vertical">
+                <org.smartregister.view.customcontrols.CustomFontTextView
+                    android:id="@+id/vaccines_given_when_title_question"
+                    style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/btn_padding_top"
+                    android:text="@string/when_vaccines_given_text"
+                    android:textColor="@color/text_black"
+                    android:textSize="@dimen/register_member_title_size" />
+
+                <DatePicker
+                    android:id="@+id/earlier_date_picker"
+                    style="@android:style/Widget.DatePicker"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:calendarViewShown="false"
+                    android:layout_marginTop="@dimen/btn_padding_top"
+                    android:layout_marginLeft="10dp"
+                    android:descendantFocusability="blocksDescendants"
+                    android:gravity="left"
+                    android:visibility="visible" />
+
+                <org.smartregister.view.customcontrols.CustomFontTextView
+                    android:id="@+id/add_date_separately"
+                    style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/add_date_separately"
+                    android:textColor="@color/button_navy_blue"
+                    android:textSize="@dimen/number_view_text_size" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/single_vaccine_add_layout"
+                android:layout_below="@+id/multiple_vaccine_date_pickerview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="@dimen/btn_margin_bottom"
+                android:layout_marginLeft="@dimen/btn_margin_left"
+                android:layout_marginRight="@dimen/btn_margin_right"
+                android:gravity="center_horizontal"
+                android:orientation="vertical" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_above="@+id/vaccinate_today"
+                android:background="@color/light_grey" />
+
+
+            <Button
+                android:id="@+id/save_btn"
+                android:layout_alignParentBottom="true"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/btn_margin_bottom"
+                android:layout_marginLeft="@dimen/btn_margin_left"
+                android:layout_marginRight="@dimen/btn_margin_right"
+                android:layout_marginTop="@dimen/btn_padding_top"
+                android:layout_weight="1"
+                android:background="@drawable/vaccination_today_bg"
+                android:paddingBottom="@dimen/btn_padding_bottom"
+                android:paddingTop="@dimen/btn_padding_top"
+                android:text="SAVE"
+                android:textAllCaps="false"
+                android:textAppearance="?android:textAppearanceSmall"
+                android:textColor="@color/white"
+                android:textSize="@dimen/btn_text_size" />
+
+        </RelativeLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+</RelativeLayout>

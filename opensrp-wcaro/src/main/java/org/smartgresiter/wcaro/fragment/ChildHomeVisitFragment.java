@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -69,6 +70,8 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     private HomeVisitGrowthAndNutrition homeVisitGrowthAndNutritionLayout;
     private View viewBirthLine;
     public boolean allVaccineStateFullfilled = false;
+    public boolean allVaccineDataLoaded=false;
+    public boolean allServicesDataLoaded=false;
     private TextView submit;
     private HomeVisitImmunizationView homeVisitImmunizationView;
     private LinearLayout layoutBirthCertGroup, layoutIllnessGroup;
@@ -81,6 +84,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     private boolean isEditMode = false;
     private String selectedForm;
     private RecyclerView recyclerViewBirthCertData, recyclerViewIllnessData;
+    private ProgressBar progressBar;
 
     public void setContext(Context context) {
         this.context = context;
@@ -105,6 +109,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        progressBar=view.findViewById(R.id.progress_bar);
         nameHeader = view.findViewById(R.id.textview_name_header);
         textViewBirthCertDueDate = view.findViewById(R.id.textview_birth_certification_name);
         textViewObsIllnessDesc = view.findViewById(R.id.textview_obser_illness_name);
@@ -282,6 +287,13 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
             submitButtonEnableDisable(true);
         } else {
             submitButtonEnableDisable(false);
+        }
+    }
+    public void progressBarInvisible(){
+        if(allVaccineDataLoaded && allServicesDataLoaded){
+            progressBar.setVisibility(View.GONE);
+        }else{
+            progressBar.setVisibility(View.VISIBLE);
         }
     }
 
