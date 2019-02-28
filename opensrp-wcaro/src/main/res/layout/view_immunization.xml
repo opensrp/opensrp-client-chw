@@ -4,6 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+    <LinearLayout
+        android:id="@+id/immunization_done_before_active_groups_holder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/immunization_group"
@@ -56,10 +63,24 @@
     </LinearLayout>
 
     <View
-        android:id="@+id/view_group_immunization"
+        android:id="@+id/line_immunization_undue_groups"
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:background="@color/light_grey" />
+    <LinearLayout
+        android:id="@+id/immunization_undue_groups_holder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+    </LinearLayout>
+    <View
+        android:id="@+id/line_group_immunization"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/light_grey" />
+
 
     <LinearLayout
         android:id="@+id/immunization_name_group"
@@ -104,7 +125,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
-                android:text="Due 25 Dec 2018"
+                android:visibility="gone"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="@android:color/darker_gray" />
         </LinearLayout>
