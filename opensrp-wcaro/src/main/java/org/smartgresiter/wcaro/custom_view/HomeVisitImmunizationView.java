@@ -28,6 +28,7 @@ import org.smartgresiter.wcaro.fragment.ChildHomeVisitFragment;
 import org.smartgresiter.wcaro.fragment.ChildImmunizationFragment;
 import org.smartgresiter.wcaro.fragment.CustomMultipleVaccinationDialogFragment;
 import org.smartgresiter.wcaro.fragment.CustomVaccinationDialogFragment;
+import org.smartgresiter.wcaro.fragment.VaccinationDialogFragment;
 import org.smartgresiter.wcaro.presenter.HomeVisitImmunizationPresenter;
 import org.smartgresiter.wcaro.util.HomeVisitVaccineGroupDetails;
 import org.smartgresiter.wcaro.util.ImmunizationState;
@@ -435,7 +436,7 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
                     Date dob = dateTime.toDate();
                     List<Vaccine> vaccines = (List<Vaccine>) v.getTag(R.id.vaccinelist);
                     HomeVisitVaccineGroupDetails duevaccines = (HomeVisitVaccineGroupDetails) v.getTag(R.id.nextduevaccinelist);
-                    CustomMultipleVaccinationDialogFragment customVaccinationDialogFragment = CustomMultipleVaccinationDialogFragment.newInstance(dob, vaccines, presenter.createVaccineWrappers(duevaccines));
+                    VaccinationDialogFragment customVaccinationDialogFragment = VaccinationDialogFragment.newInstance(dob, vaccines, presenter.createVaccineWrappers(duevaccines));
                     customVaccinationDialogFragment.setContext(context);
                     customVaccinationDialogFragment.setChildDetails(presenter.getchildClient());
                     customVaccinationDialogFragment.setView(this);
@@ -464,7 +465,7 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
                         customVaccinationDialogFragment.setDisableConstraints(true);
                         customVaccinationDialogFragment.show(context.getFragmentManager(), ChildImmunizationFragment.TAG);
                     } else if (vaccineWrappers.size() > 1) {
-                        CustomMultipleVaccinationDialogFragment customVaccinationDialogFragment = CustomMultipleVaccinationDialogFragment.newInstance(dob, vaccines, vaccineWrappers);
+                        VaccinationDialogFragment customVaccinationDialogFragment = VaccinationDialogFragment.newInstance(dob, vaccines, vaccineWrappers);
                         customVaccinationDialogFragment.setContext(context);
                         customVaccinationDialogFragment.setChildDetails(presenter.getchildClient());
                         customVaccinationDialogFragment.setView(this);
