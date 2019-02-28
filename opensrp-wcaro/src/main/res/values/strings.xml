@@ -149,4 +149,6 @@
     <string name="fill_earler_immunization">Fill earlier immunization</string>
     <string name="confirm_remove_text">Are you sure you want to remove %s\'s record? This will remove their entire health record from your device. This action cannot be undone.</string>
     <string name="remove">REMOVE</string>
+    <string name="birth_date">Birth Date</string>
+    <string name="age">Age</string>
 </resources>

@@ -30,7 +30,6 @@ import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.Utils;
 import org.smartregister.immunization.ImmunizationLibrary;
 import org.smartregister.immunization.domain.ServiceRecord;
-import org.smartregister.immunization.domain.ServiceSchedule;
 import org.smartregister.immunization.domain.ServiceType;
 import org.smartregister.immunization.domain.ServiceWrapper;
 import org.smartregister.immunization.domain.Vaccine;
@@ -64,6 +63,41 @@ import java.util.Random;
 import static org.smartregister.util.Utils.getName;
 
 public class ChildImmunizationFragment extends DialogFragment {
+
+    // Data
+    // private CommonPersonObjectClient childDetails = Utils.dummyDetatils();
+    private CommonPersonObjectClient childDetails;
+    public static final String TAG = ChildImmunizationFragment.class.getCanonicalName();
+    private static final String DIALOG_TAG = "DIALOG_TAAAGGG";
+    private static final String EXTRA_CHILD_DETAILS = "child_details";
+
+    private ArrayList<VaccineGroup> vaccineGroups;
+    private ArrayList<ServiceGroup> serviceGroups;
+
+    private static final ArrayList<String> COMBINED_VACCINES;
+    private static final HashMap<String, String> COMBINED_VACCINES_MAP;
+
+    private static final boolean isChildActive = true;
+
+    static {
+        COMBINED_VACCINES = new ArrayList<>();
+        COMBINED_VACCINES_MAP = new HashMap<>();
+        COMBINED_VACCINES.add("Measles 1");
+        COMBINED_VACCINES_MAP.put("Measles 1", "Measles 1 / MR 1");
+        COMBINED_VACCINES.add("MR 1");
+        COMBINED_VACCINES_MAP.put("MR 1", "Measles 1 / MR 1");
+        COMBINED_VACCINES.add("Measles 2");
+        COMBINED_VACCINES_MAP.put("Measles 2", "Measles 2 / MR 2");
+        COMBINED_VACCINES.add("MR 2");
+        COMBINED_VACCINES_MAP.put("MR 2", "Measles 2 / MR 2");
+    }
+
+    View view;
+
+    public CommonPersonObjectClient getChildDetails() {
+        return childDetails;
+    }
+
     public void setChildDetails(CommonPersonObjectClient childDetails) {
         this.childDetails = childDetails;
     }
@@ -88,7 +122,7 @@ public class ChildImmunizationFragment extends DialogFragment {
     @Override
     public void onResume() {
         super.onResume();
-        if(view==null) return;
+        if (view == null) return;
         //Overriden
         if (vaccineGroups != null) {
             LinearLayout vaccineGroupCanvasLL = (LinearLayout) view.findViewById(R.id.vaccine_group_canvas_ll);
@@ -117,41 +151,6 @@ public class ChildImmunizationFragment extends DialogFragment {
 //        cia = new ChildImmunizationFragment(fragmentView,getActivity());
         return fragmentView;
     }
-
-    public CommonPersonObjectClient getChildDetails() {
-        return childDetails;
-    }
-
-    // Data
-//    private CommonPersonObjectClient childDetails = Utils.dummyDetatils();
-    private CommonPersonObjectClient childDetails;
-    public static final String TAG = ChildImmunizationFragment.class.getCanonicalName();
-    private static final String DIALOG_TAG = "DIALOG_TAAAGGG";
-    private static final String EXTRA_CHILD_DETAILS = "child_details";
-
-    private ArrayList<VaccineGroup> vaccineGroups;
-    private ArrayList<ServiceGroup> serviceGroups;
-
-    private static final ArrayList<String> COMBINED_VACCINES;
-    private static final HashMap<String, String> COMBINED_VACCINES_MAP;
-
-    private static final boolean isChildActive = true;
-
-    static {
-        COMBINED_VACCINES = new ArrayList<>();
-        COMBINED_VACCINES_MAP = new HashMap<>();
-        COMBINED_VACCINES.add("Measles 1");
-        COMBINED_VACCINES_MAP.put("Measles 1", "Measles 1 / MR 1");
-        COMBINED_VACCINES.add("MR 1");
-        COMBINED_VACCINES_MAP.put("MR 1", "Measles 1 / MR 1");
-        COMBINED_VACCINES.add("Measles 2");
-        COMBINED_VACCINES_MAP.put("Measles 2", "Measles 2 / MR 2");
-        COMBINED_VACCINES.add("MR 2");
-        COMBINED_VACCINES_MAP.put("MR 2", "Measles 2 / MR 2");
-    }
-
-
-    View view;
 
     private boolean isDataOk() {
         return childDetails != null && childDetails.getDetails() != null;
@@ -211,9 +210,9 @@ public class ChildImmunizationFragment extends DialogFragment {
             }
         }
         TextView dobTV = (TextView) view.findViewById(R.id.dob_tv);
-        dobTV.setText(String.format("%s: %s", "Birth Date", formattedDob));
+        dobTV.setText(String.format("%s: %s", getString(R.string.birth_date), formattedDob));
         TextView ageTV = (TextView) view.findViewById(R.id.age_tv);
-        ageTV.setText(String.format("%s: %s", "Age", formattedAge));
+        ageTV.setText(String.format("%s: %s", getString(R.string.age), formattedAge));
     }
 
     private void updateServiceViews(Map<String, List<ServiceType>> serviceTypeMap, List<ServiceRecord> serviceRecordList, List<Alert> alerts) {
@@ -545,16 +544,13 @@ public class ChildImmunizationFragment extends DialogFragment {
 
         @Override
         protected void onPostExecute(Pair<ArrayList<VaccineWrapper>, List<Vaccine>> pair) {
-            try{
+            try {
                 updateVaccineGroupViews(view, pair.first, pair.second);
-
                 updateVaccineGroupsUsingAlerts(affectedVaccines, vaccineList, alertList);
-
-
-            }catch (Exception e){
-
+            } catch (Exception e) {
+                Log.e(TAG, e.toString());
             }
-         }
+        }
 
         @Override
         protected Pair<ArrayList<VaccineWrapper>, List<Vaccine>> doInBackground(VaccineWrapper... vaccineWrappers) {
@@ -784,15 +780,13 @@ public class ChildImmunizationFragment extends DialogFragment {
 
             ArrayList<VaccineWrapper> wrappers = new ArrayList<>();
             wrappers.add(tag);
-            try{
-
+            try {
                 updateVaccineGroupViews(view, wrappers, vaccineList, true);
                 updateVaccineGroupsUsingAlerts(affectedVaccines, vaccineList, alertList);
-
-            }catch (Exception e){
-
+            } catch (Exception e) {
+                Log.e(TAG, e.toString());
             }
-         }
+        }
     }
 
     private void updateVaccineGroupsUsingAlerts(List<String> affectedVaccines, List<Vaccine> vaccineList, List<Alert> alerts) {
@@ -1011,11 +1005,10 @@ public class ChildImmunizationFragment extends DialogFragment {
 
             tag.setUpdatedVaccineDate(null, false);
             tag.setDbKey(null);
-            try{
+            try {
                 RecurringServiceUtils.updateServiceGroupViews(view, wrappers, serviceRecordList, alertList, true);
-
-            }catch (Exception e){
-
+            } catch (Exception e) {
+                Log.e(TAG, e.toString());
             }
         }
     }
