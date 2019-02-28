@@ -130,13 +130,13 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
         presenter.setSingleVaccineText(presenter.getVaccinesDueFromLastVisit(), sch);
 
         if (presenter.isPartiallyComplete() || presenter.isComplete()) {
-            String value=presenter.getCurrentActiveGroup().getGroup();
+            String value = presenter.getCurrentActiveGroup().getGroup();
             String immunizations;
-            if(value.contains("birth")){
+            if (value.contains("birth")) {
                 immunizations = MessageFormat.format("Immunizations ({0})", value);
 
-            }else{
-                immunizations = MessageFormat.format("Immunizations ({0})", value.replace("weeks", "w").replace("months", "m").replace(" ",""));
+            } else {
+                immunizations = MessageFormat.format("Immunizations ({0})", value.replace("weeks", "w").replace("months", "m").replace(" ", ""));
 
             }
             textview_group_immunization_primary_text.setText(immunizations);
@@ -153,13 +153,13 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
             multiple_immunization_group.setOnClickListener(null);
 
         } else if (presenter.groupIsDue()) {
-            String value=presenter.getCurrentActiveGroup().getGroup();
+            String value = presenter.getCurrentActiveGroup().getGroup();
             String immunizations;
-            if(value.contains("birth")){
+            if (value.contains("birth")) {
                 immunizations = MessageFormat.format("Immunizations ({0})", value);
 
-            }else{
-                immunizations = MessageFormat.format("Immunizations ({0})", value.replace("weeks", "w").replace("months", "m").replace(" ",""));
+            } else {
+                immunizations = MessageFormat.format("Immunizations ({0})", value.replace("weeks", "w").replace("months", "m").replace(" ", ""));
 
             }
             textview_group_immunization_primary_text.setText(immunizations);
@@ -482,12 +482,16 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
     @Override
     public void immunizationState(List<Alert> alerts, List<Vaccine> vaccines, List<Map<String, Object>> sch) {
         refreshPresenter(alerts, vaccines, sch);
-        if ((presenter.isComplete() || presenter.isPartiallyComplete()) && (presenter.isSingleVaccineGroupPartialComplete() || presenter.isSingleVaccineGroupComplete())) {
-            ((ChildHomeVisitFragment) (((Activity) context).getFragmentManager().findFragmentByTag(ChildHomeVisitFragment.DIALOG_TAG))).allVaccineStateFullfilled = true;
-        } else {
-            ((ChildHomeVisitFragment) (((Activity) context).getFragmentManager().findFragmentByTag(ChildHomeVisitFragment.DIALOG_TAG))).allVaccineStateFullfilled = false;
+        ChildHomeVisitFragment childHomeVisitFragment = (ChildHomeVisitFragment) context.getFragmentManager().findFragmentByTag(ChildHomeVisitFragment.DIALOG_TAG);
+        if (childHomeVisitFragment == null) {
+            return;
         }
-        ((ChildHomeVisitFragment) (((Activity) context).getFragmentManager().findFragmentByTag(ChildHomeVisitFragment.DIALOG_TAG))).checkIfSubmitIsToBeEnabled();
+        if ((presenter.isComplete() || presenter.isPartiallyComplete()) && (presenter.isSingleVaccineGroupPartialComplete() || presenter.isSingleVaccineGroupComplete())) {
+            childHomeVisitFragment.allVaccineStateFullfilled = true;
+        } else {
+            childHomeVisitFragment.allVaccineStateFullfilled = false;
+        }
+        childHomeVisitFragment.checkIfSubmitIsToBeEnabled();
     }
 
     public JSONArray getSingleVaccinesGivenThisVisit() {

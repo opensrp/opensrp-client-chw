@@ -15,9 +15,8 @@ import org.smartgresiter.wcaro.util.ChildUtils;
 /**
  * Created by ndegwamartin on 09/11/2018.
  */
-public class HomeAlertRule {
+public class HomeAlertRule implements ICommonRule {
 
-    public static final String RULE_KEY = "homeAlertRule";
     public String buttonStatus = ChildProfileInteractor.VisitType.DUE.name();
     private final String[] monthNames = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
 
@@ -124,4 +123,8 @@ public class HomeAlertRule {
         return null;
     }
 
+    @Override
+    public String getRuleKey() {
+        return "homeAlertRule";
+    }
 }

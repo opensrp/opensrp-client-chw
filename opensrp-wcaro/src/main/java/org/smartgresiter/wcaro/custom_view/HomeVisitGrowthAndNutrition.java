@@ -155,7 +155,8 @@ public class HomeVisitGrowthAndNutrition extends LinearLayout implements View.On
             String no = (String) displayName[1];
             feedingText = MessageFormat.format("{0} {1} {2}", str, no, getContext().getString(R.string.visit_months));
             textViewExclusiveFeedingTitle.setText(feedingText);
-            textViewExclusiveFeedingName.setText(ChildUtils.dueOverdueCalculation(dueDate));
+            String status=ChildUtils.getServiceDueStatus(dueDate);
+            textViewExclusiveFeedingName.setText(ChildUtils.dueOverdueCalculation(status,dueDate));
         }
 
     }
@@ -170,7 +171,8 @@ public class HomeVisitGrowthAndNutrition extends LinearLayout implements View.On
             String no = (String) displayName[1];
             String mnpText = MessageFormat.format("{0} {1} {2}", str, ChildUtils.getFirstSecondAsNumber(no), getContext().getString(R.string.visit_pack));
             textViewMnpTitle.setText(mnpText);
-            textViewMnpName.setText(ChildUtils.dueOverdueCalculation(dueDate));
+            String status=ChildUtils.getServiceDueStatus(dueDate);
+            textViewMnpName.setText(ChildUtils.dueOverdueCalculation(status,dueDate));
         }
     }
 
@@ -184,7 +186,8 @@ public class HomeVisitGrowthAndNutrition extends LinearLayout implements View.On
             String no = (String) displayName[1];
             String vitaminText = MessageFormat.format("{0} {1} {2}", str, ChildUtils.getFirstSecondAsNumber(no), getContext().getString(R.string.visit_dose));
             textViewVitaminTitle.setText(vitaminText);
-            textViewVitaminName.setText(ChildUtils.dueOverdueCalculation(dueDate));
+            String status=ChildUtils.getServiceDueStatus(dueDate);
+            textViewVitaminName.setText(ChildUtils.dueOverdueCalculation(status,dueDate));
         }
     }
 
@@ -198,7 +201,8 @@ public class HomeVisitGrowthAndNutrition extends LinearLayout implements View.On
             String no = (String) displayName[1];
             String dewormingText = MessageFormat.format("{0} {1} {2}", str, ChildUtils.getFirstSecondAsNumber(no), getContext().getString(R.string.visit_dose));
             textViewDewormingTitle.setText(dewormingText);
-            textViewDewormingName.setText(ChildUtils.dueOverdueCalculation(dueDate));
+            String status=ChildUtils.getServiceDueStatus(dueDate);
+            textViewDewormingName.setText(ChildUtils.dueOverdueCalculation(status,dueDate));
         }
     }
 

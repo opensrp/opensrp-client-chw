@@ -69,19 +69,8 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
     public static final String READ_ONLY = "read_only";
     private static final String TAG = org.smartregister.util.JsonFormUtils.class.getCanonicalName();
     private static HashMap<String, String> actionMap = null;
-    public static final SimpleDateFormat dd_MMM_yyyy = new SimpleDateFormat("dd MMM yyyy");
 
-    public static String convertToMonthString(String timeAsDDMMYYYY){
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy");//2018-10-28T00:00:00
-        try {
-            Date date=sdf.parse(timeAsDDMMYYYY);
-            SimpleDateFormat df = new SimpleDateFormat("dd MMM yyyy");
-            return df.format(date);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return "";
-    }
+
 
     public static JSONObject getBirthCertFormAsJson(JSONObject form, String baseEntityId, String currentLocationId, String dateOfBirthString) throws Exception {
 
