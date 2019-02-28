@@ -166,6 +166,7 @@ public class HomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNutriti
 
                 }
             }
+            getView().allDataLoaded();
     }
 
     public ServiceWrapper getServiceWrapperByType(String type) {

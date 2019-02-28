@@ -509,6 +509,8 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
         } else {
             childHomeVisitFragment.allVaccineStateFullfilled = false;
         }
+        childHomeVisitFragment.allVaccineDataLoaded=true;
+        childHomeVisitFragment.progressBarInvisible();
         childHomeVisitFragment.checkIfSubmitIsToBeEnabled();
     }
 

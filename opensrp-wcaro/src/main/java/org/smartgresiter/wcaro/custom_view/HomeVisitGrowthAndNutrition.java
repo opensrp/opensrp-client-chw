@@ -241,6 +241,13 @@ public class HomeVisitGrowthAndNutrition extends LinearLayout implements View.On
         }
 
     }
+    @Override
+    public void allDataLoaded(){
+        if (childHomeVisitFragment != null) {
+            childHomeVisitFragment.allServicesDataLoaded=true;
+            childHomeVisitFragment.progressBarInvisible();
+        }
+    }
 
     @Override
     public Context getViewContext() {
