@@ -146,7 +146,7 @@
     <string name="head_of_family">Head of family</string>
     <string name="care_giver">Caregiver</string>
     <string name="status_saving">Saving</string>
-    <string name="fill_earler_immunization">Fill earlier immunization</string>
+    <string name="fill_earler_immunization"><![CDATA[<i>Record earlier immunizations</i>]]></string>
     <string name="confirm_remove_text">Are you sure you want to remove %s\'s record? This will remove their entire health record from your device. This action cannot be undone.</string>
     <string name="remove">REMOVE</string>
     <string name="birth_date">Birth Date</string>

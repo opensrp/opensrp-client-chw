@@ -5,6 +5,7 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.graphics.Typeface;
+import android.text.Html;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -257,7 +258,15 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
 //            if(i==(groupsDoneBeforeCurrentActive.size()-1)){
 //                lineView.setVisibility(GONE);
 //            }
-            String immunizations = MessageFormat.format("Immunizations ({0})", groupsDoneBeforeCurrentActive.get(i).getGroup().replace("weeks", "w").replace("months", "m").replace(" ",""));
+            String immunizations;
+            String value=groupsDoneBeforeCurrentActive.get(i).getGroup();
+            if (value.contains("birth")) {
+                immunizations = MessageFormat.format("Immunizations ({0})", value);
+
+            } else {
+                immunizations = MessageFormat.format("Immunizations ({0})", value.replace("weeks", "w").replace("months", "m").replace(" ", ""));
+
+            }
             TextView groupImmunizationTitle = ((TextView)vaccineGroupNotDue.findViewById(R.id.textview_group_immunization));
             groupImmunizationTitle.setText(immunizations);
             TextView secondaryText = ((TextView)vaccineGroupNotDue.findViewById(R.id.textview_immunization_group_secondary_text));
@@ -301,9 +310,18 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
             if(i==(inActiveDueGroups.size()-1)){
                 lineView.setVisibility(GONE);
             }
-            String immunizations = MessageFormat.format("Immunizations ({0})", inActiveDueGroups.get(i).getGroup().replace("weeks", "w").replace("months", "m").replace(" ",""));
+            String immunizations;
+            String value=inActiveDueGroups.get(i).getGroup();
+            if (value.contains("birth")) {
+                immunizations = MessageFormat.format("Immunizations ({0})", value);
+
+            } else {
+                immunizations = MessageFormat.format("Immunizations ({0})", value.replace("weeks", "w").replace("months", "m").replace(" ", ""));
+
+            }
             ((TextView)vaccineGroupNotDue.findViewById(R.id.textview_group_immunization)).setText(immunizations);
-            ((TextView)vaccineGroupNotDue.findViewById(R.id.textview_immunization_group_secondary_text)).setText(getContext().getString(R.string.fill_earler_immunization));
+            String text =getContext().getString(R.string.fill_earler_immunization);
+            ((TextView)vaccineGroupNotDue.findViewById(R.id.textview_immunization_group_secondary_text)).setText(Html.fromHtml(text));
             immunization_undue_groups_holder.addView(vaccineGroupNotDue);
         }
 
