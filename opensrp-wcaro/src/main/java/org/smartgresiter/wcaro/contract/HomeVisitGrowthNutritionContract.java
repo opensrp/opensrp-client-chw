@@ -20,6 +20,7 @@ public interface HomeVisitGrowthNutritionContract {
         void updateDewormingData(String name,String dueDate);
 
         void statusImageViewUpdate(String type, boolean value,String message,String yesNoValue);
+        void allDataLoaded();
 
         Context getViewContext();
 

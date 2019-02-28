@@ -202,6 +202,7 @@ public class CustomMultipleVaccinationDialogFragment extends ChildImmunizationFr
         vaccinateToday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(selectCount==0)return;
                 dismiss();
 
                 ArrayList<VaccineWrapper> tagsToUpdate = new ArrayList<VaccineWrapper>();

@@ -7,6 +7,7 @@
     <string name="back_to_children">Back to %1$s</string>
     <string name="child_details">Child details %1$s</string>
     <string name="not_given">Not given</string>
+    <string name="not_provided">Not provided</string>
     <string name="given">Given</string>
     <string name="provided_on">Provided on %1$s</string>
     <string name="search_name_or_id">Search name or ID</string>
@@ -146,6 +147,10 @@
     <string name="head_of_family">Head of family</string>
     <string name="care_giver">Caregiver</string>
     <string name="status_saving">Saving</string>
+    <string name="fill_earler_immunization"><![CDATA[<i>Record earlier immunizations</i>]]></string>
     <string name="confirm_remove_text">Are you sure you want to remove %s\'s record? This will remove their entire health record from your device. This action cannot be undone.</string>
     <string name="remove">REMOVE</string>
+    <string name="birth_date">Birth Date</string>
+    <string name="age">Age</string>
+    <string name="no_vaccines_were_done">No vaccines were done</string>
 </resources>

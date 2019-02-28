@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -78,6 +78,7 @@
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.widget.NestedScrollView
+        android:layout_below="@+id/app_bar"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -172,6 +173,7 @@
                         android:id="@+id/birth_cert_data_recycler"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:visibility="gone"
                         android:clickable="false">
 
                     </android.support.v7.widget.RecyclerView>
@@ -227,9 +229,21 @@
                         android:gravity="center_vertical"
                         android:textAppearance="@style/TextAppearance.AppCompat.Large"
                         android:textColor="@android:color/black" />
+                    <org.smartregister.view.customcontrols.CustomFontTextView
+                        android:id="@+id/textview_obser_illness_name"
+                        style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:clickable="false"
+                        android:gravity="center_vertical"
+                        android:visibility="gone"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textColor="@android:color/darker_gray" />
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/illness_data_recycler"
+                        android:visibility="gone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
@@ -249,9 +263,16 @@
                 android:background="@color/light_grey" />
 
 
+
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        style="@style/Base.Widget.AppCompat.ProgressBar"
+        android:visibility="visible"
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
-
-</LinearLayout>
+</RelativeLayout>
