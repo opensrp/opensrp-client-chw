@@ -55,7 +55,6 @@ import static org.smartgresiter.wcaro.util.ChildUtils.fixVaccineCasing;
 @SuppressLint("ValidFragment")
 public class VaccinationDialogFragment extends ChildImmunizationFragment implements View.OnClickListener {
     private List<VaccineWrapper> tags;
-    //    private VaccinationActionListener listener;
     private Date dateOfBirth;
     private List<Vaccine> issuedVaccines;
     public static final String DIALOG_TAG = "VaccinationDialogFragment";
@@ -119,7 +118,7 @@ public class VaccinationDialogFragment extends ChildImmunizationFragment impleme
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
-
+        this.inflater = inflater;
         ViewGroup dialogView = (ViewGroup) inflater.inflate(R.layout.fragment_vaccination_dialog_view, container, false);
         initUi(dialogView);
         return dialogView;
@@ -136,13 +135,13 @@ public class VaccinationDialogFragment extends ChildImmunizationFragment impleme
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.add_date_separately:
+                if(selectCount == 0) return;
                 showSingleVaccineDetailsView();
                 break;
             case R.id.checkbox_no_vaccination:
                 checkBoxNoVaccine.toggle();
                 break;
             case R.id.save_btn:
-                if(selectCount==0)return;
                 dismiss();
 
                 ArrayList<VaccineWrapper> tagsToUpdate = new ArrayList<VaccineWrapper>();
@@ -256,6 +255,8 @@ public class VaccinationDialogFragment extends ChildImmunizationFragment impleme
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
                     resetAllSelectedVaccine();
+                }else {
+                    updateSaveButton();
                 }
 
             }
@@ -322,7 +323,7 @@ public class VaccinationDialogFragment extends ChildImmunizationFragment impleme
         List<String> selectedCheckboxes = findSelectedCheckBoxes(vaccinationNameLayout);
         singleVaccineAddView.removeAllViews();
         for (String checkedName : selectedCheckboxes) {
-
+            singleVaccineAddView.setVisibility(View.VISIBLE);
             VaccineWrapper tag = searchWrapperByName(checkedName);
             String dobString = org.smartregister.util.Utils.getValue(getChildDetails().getColumnmaps(), DBConstants.KEY.DOB, false);
 
@@ -331,7 +332,7 @@ public class VaccinationDialogFragment extends ChildImmunizationFragment impleme
 //                    DateTime dateTime = new DateTime(dobString);
 //                    Date dob = dateTime.toDate();
                     View layout = inflater.inflate(R.layout.custom_single_vaccine_view, null);
-                    TextView question=layout.findViewById(R.id.vaccines_given_title_question);
+                    TextView question=layout.findViewById(R.id.vaccines_given_when_title_question);
                     DatePicker datePicker=layout.findViewById(R.id.earlier_date_picker);
                     question.setText(getString(R.string.when_vaccine,checkedName));
                     updateDatePicker(datePicker);
@@ -349,12 +350,17 @@ public class VaccinationDialogFragment extends ChildImmunizationFragment impleme
         if(saveBtn!=null){
             if(selectCount==0){
                 checkBoxNoVaccine.setChecked(true);
+                multipleVaccineDatePickerView.setVisibility(View.VISIBLE);
                 multipleVaccineDatePickerView.setAlpha(0.3f);
+                singleVaccineAddView.setVisibility(View.GONE);
                 //saveBtn.setAlpha(0.3f);
             }else{
                 checkBoxNoVaccine.setChecked(false);
                 multipleVaccineDatePickerView.setAlpha(1.0f);
-                //saveBtn.setAlpha(1.0f);
+                if(singleVaccineAddView.getVisibility() == View.VISIBLE){
+                    showSingleVaccineDetailsView();
+                }
+                saveBtn.setAlpha(1.0f);
             }
 
         }
