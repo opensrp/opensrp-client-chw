@@ -26,8 +26,6 @@ import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.contract.HomeVisitImmunizationContract;
 import org.smartgresiter.wcaro.fragment.ChildHomeVisitFragment;
 import org.smartgresiter.wcaro.fragment.ChildImmunizationFragment;
-import org.smartgresiter.wcaro.fragment.CustomMultipleVaccinationDialogFragment;
-import org.smartgresiter.wcaro.fragment.CustomVaccinationDialogFragment;
 import org.smartgresiter.wcaro.fragment.VaccinationDialogFragment;
 import org.smartgresiter.wcaro.presenter.HomeVisitImmunizationPresenter;
 import org.smartgresiter.wcaro.util.HomeVisitVaccineGroupDetails;
@@ -457,20 +455,27 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
                         vaccineWrappers.add(vaccineWrapper);
                     }
                     List<Vaccine> vaccines = (List<Vaccine>) v.getTag(R.id.vaccinelist);
-                    if (vaccineWrappers.size() == 1) {
-                        CustomVaccinationDialogFragment customVaccinationDialogFragment = CustomVaccinationDialogFragment.newInstance(dob, vaccines, vaccineWrappers);
-                        customVaccinationDialogFragment.setContext(context);
-                        customVaccinationDialogFragment.setChildDetails(presenter.getchildClient());
-                        customVaccinationDialogFragment.setView(this);
-                        customVaccinationDialogFragment.setDisableConstraints(true);
-                        customVaccinationDialogFragment.show(context.getFragmentManager(), ChildImmunizationFragment.TAG);
-                    } else if (vaccineWrappers.size() > 1) {
+                    if (vaccineWrappers.size() >= 1) {
                         VaccinationDialogFragment customVaccinationDialogFragment = VaccinationDialogFragment.newInstance(dob, vaccines, vaccineWrappers);
                         customVaccinationDialogFragment.setContext(context);
                         customVaccinationDialogFragment.setChildDetails(presenter.getchildClient());
                         customVaccinationDialogFragment.setView(this);
                         customVaccinationDialogFragment.show(ft, ChildImmunizationFragment.TAG);
                     }
+//                    if (vaccineWrappers.size() == 1) {
+//                        CustomVaccinationDialogFragment customVaccinationDialogFragment = CustomVaccinationDialogFragment.newInstance(dob, vaccines, vaccineWrappers);
+//                        customVaccinationDialogFragment.setContext(context);
+//                        customVaccinationDialogFragment.setChildDetails(presenter.getchildClient());
+//                        customVaccinationDialogFragment.setView(this);
+//                        customVaccinationDialogFragment.setDisableConstraints(true);
+//                        customVaccinationDialogFragment.show(context.getFragmentManager(), ChildImmunizationFragment.TAG);
+//                    } else if (vaccineWrappers.size() > 1) {
+//                        VaccinationDialogFragment customVaccinationDialogFragment = VaccinationDialogFragment.newInstance(dob, vaccines, vaccineWrappers);
+//                        customVaccinationDialogFragment.setContext(context);
+//                        customVaccinationDialogFragment.setChildDetails(presenter.getchildClient());
+//                        customVaccinationDialogFragment.setView(this);
+//                        customVaccinationDialogFragment.show(ft, ChildImmunizationFragment.TAG);
+//                    }
                 }
 
                 break;

@@ -143,7 +143,10 @@ public class VaccinationDialogFragment extends ChildImmunizationFragment impleme
                 break;
             case R.id.save_btn:
                 dismiss();
-
+                if(selectCount == 0){
+                    handleAllVaccineNotGiven();
+                    return;
+                }
                 ArrayList<VaccineWrapper> tagsToUpdate = new ArrayList<VaccineWrapper>();
                 ArrayList<VaccineWrapper> UngiventagsToUpdate = new ArrayList<VaccineWrapper>();
 
@@ -154,22 +157,22 @@ public class VaccinationDialogFragment extends ChildImmunizationFragment impleme
                 Calendar calendar = Calendar.getInstance();
                 calendar.set(year, month, day);
                 DateTime dateTime = new DateTime(calendar.getTime());
-                if (tags.size() == 1) {
-                    VaccineWrapper tag = tags.get(0);
-                    String radioName = findSelectRadio(vaccinationNameLayout);
-                    if (radioName != null) {
-                        tag.setName(radioName);
-                    }
-
-                    if (validateVaccinationDate(tag, dateTime.toDate())) {
-                        tag.setUpdatedVaccineDate(dateTime, false);
-                        tagsToUpdate.add(tag);
-                    } else {
-                        Toast.makeText(VaccinationDialogFragment.this.getActivity(),
-                                String.format(getString(R.string.cannot_record_vaccine), tag.getName()),
-                                Toast.LENGTH_LONG).show();
-                    }
-                } else {
+//                if (tags.size() == 1) {
+//                    VaccineWrapper tag = tags.get(0);
+//                    String radioName = findSelectRadio(vaccinationNameLayout);
+//                    if (radioName != null) {
+//                        tag.setName(radioName);
+//                    }
+//
+//                    if (validateVaccinationDate(tag, dateTime.toDate())) {
+//                        tag.setUpdatedVaccineDate(dateTime, false);
+//                        tagsToUpdate.add(tag);
+//                    } else {
+//                        Toast.makeText(VaccinationDialogFragment.this.getActivity(),
+//                                String.format(getString(R.string.cannot_record_vaccine), tag.getName()),
+//                                Toast.LENGTH_LONG).show();
+//                    }
+//                } else {
                     List<String> selectedCheckboxes = findSelectedCheckBoxes(vaccinationNameLayout);
                     for (String checkedName : selectedCheckboxes) {
                         VaccineWrapper tag = searchWrapperByName(checkedName);
@@ -183,19 +186,19 @@ public class VaccinationDialogFragment extends ChildImmunizationFragment impleme
                                                 tag.getName()), Toast.LENGTH_LONG).show();
                             }
                         }
-                    }
+                    //}
 
                     List<String> UnselectedCheckboxes = findUnSelectedCheckBoxes(vaccinationNameLayout);
-                    for (String checkedName : UnselectedCheckboxes) {
-                        VaccineWrapper tag = searchWrapperByName(checkedName);
-                        if (tag != null) {
-                            if (validateVaccinationDate(tag, dateTime.toDate())) {
-                                tag.setUpdatedVaccineDate(dateTime, false);
-                                UngiventagsToUpdate.add(tag);
+                    for (String uncheckedName : UnselectedCheckboxes) {
+                        VaccineWrapper untag = searchWrapperByName(uncheckedName);
+                        if (untag != null) {
+                            if (validateVaccinationDate(untag, dateTime.toDate())) {
+                                untag.setUpdatedVaccineDate(dateTime, false);
+                                UngiventagsToUpdate.add(untag);
                             } else {
                                 Toast.makeText(VaccinationDialogFragment.this.getActivity(),
                                         String.format(getString(R.string.cannot_record_vaccine),
-                                                tag.getName()), Toast.LENGTH_LONG).show();
+                                                untag.getName()), Toast.LENGTH_LONG).show();
                             }
                         }
                     }
@@ -212,6 +215,13 @@ public class VaccinationDialogFragment extends ChildImmunizationFragment impleme
                 dismiss();
                 break;
         }
+    }
+    private void handleAllVaccineNotGiven(){
+        for (VaccineWrapper vaccineWrapper : tags) {
+                    homeVisitImmunizationView.getPresenter().updateNotGivenVaccine(vaccineWrapper);
+         }
+         ((ChildHomeVisitFragment) getActivity().getFragmentManager().findFragmentByTag("child_home_visit_dialog")).updateImmunizationState();
+
     }
 
 

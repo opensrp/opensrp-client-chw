@@ -1,7 +1,11 @@
 package org.smartgresiter.wcaro.presenter;
 
+import android.text.TextUtils;
+
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
+import org.smartgresiter.wcaro.R;
+import org.smartgresiter.wcaro.application.WcaroApplication;
 import org.smartgresiter.wcaro.contract.HomeVisitImmunizationContract;
 import org.smartgresiter.wcaro.interactor.HomeVisitImmunizationInteractor;
 import org.smartgresiter.wcaro.task.UndoVaccineTask;
@@ -417,7 +421,7 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
 
     @Override
     public String getSingleImmunizationSecondaryText() {
-        return singleImmunizationSecondaryText;
+        return TextUtils.isEmpty(singleImmunizationSecondaryText)?WcaroApplication.getInstance().getString(R.string.not_given):singleImmunizationSecondaryText;
     }
 
     @Override
