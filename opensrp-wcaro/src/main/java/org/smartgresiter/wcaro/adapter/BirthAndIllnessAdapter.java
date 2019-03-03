@@ -23,7 +23,7 @@ public class BirthAndIllnessAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        return new GrowthAdapter.ContentViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.vaccine_content_view, null));
+        return new GrowthAdapter.ContentViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.content_view, null));
 
     }
 

@@ -57,7 +57,7 @@ public class VaccineAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 BaseVaccine content = baseVaccines.get(position);
                 VaccineContent vaccineContent = (VaccineContent) content;
                 ContentViewHolder contentViewHolder = (ContentViewHolder) viewHolder;
-                contentViewHolder.vaccineName.setText(ChildUtils.fixVaccineCasing(vaccineContent.getVaccineName()) + " - " + vaccineContent.getVaccineDate());
+                contentViewHolder.vaccineName.setText(ChildUtils.fixVaccineCasing(vaccineContent.getVaccineName()) + " - done " + vaccineContent.getVaccineDate());
                 break;
         }
 
