@@ -17,12 +17,13 @@
         android:id="@+id/name_date_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/CustomFontTextViewStyle.ClientList.Light"
+        style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
+        android:singleLine="false"
         android:textColor="@color/black"
         android:paddingTop="5dp"
         android:paddingBottom="5dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:textSize="18sp" />
+        android:textSize="@dimen/px_16_to_sp" />
 
 </LinearLayout>

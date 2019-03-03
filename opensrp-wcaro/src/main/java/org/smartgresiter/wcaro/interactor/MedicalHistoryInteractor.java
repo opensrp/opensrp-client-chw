@@ -37,6 +37,7 @@ import static org.smartgresiter.wcaro.util.ChildDBConstants.KEY.BIRTH_CERT_NUMBE
 import static org.smartgresiter.wcaro.util.ChildDBConstants.KEY.ILLNESS_ACTION;
 import static org.smartgresiter.wcaro.util.ChildDBConstants.KEY.ILLNESS_DATE;
 import static org.smartgresiter.wcaro.util.ChildDBConstants.KEY.ILLNESS_DESCRIPTION;
+import static org.smartgresiter.wcaro.util.ChildUtils.fixVaccineCasing;
 import static org.smartregister.util.Utils.getValue;
 
 public class MedicalHistoryInteractor implements MedicalHistoryContract.Interactor {
@@ -149,7 +150,10 @@ public class MedicalHistoryInteractor implements MedicalHistoryContract.Interact
                     String stateKey = VaccinateActionUtils.stateKey(vaccine);
                     ReceivedVaccine receivedVaccine = new ReceivedVaccine();
                     receivedVaccine.setVaccineCategory(stateKey);
-                    receivedVaccine.setVaccineName(name);
+                    receivedVaccine.setVaccineName(fixVaccineCasing(name).replace("MEASLES","MCV"));
+                    if(receivedVaccine.getVaccineName().contains("MEASLES")){
+                        receivedVaccine.setVaccineName(receivedVaccine.getVaccineName().replace("MEASLES","MCV"));
+                    }
                     receivedVaccine.setVaccineDate(recievedVaccines.get(name));
                     receivedVaccine.setVaccineIndex(vList.indexOf(vaccine));
                     receivedVaccineArrayList.add(receivedVaccine);

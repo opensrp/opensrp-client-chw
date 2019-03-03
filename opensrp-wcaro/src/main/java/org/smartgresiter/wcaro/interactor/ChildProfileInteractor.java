@@ -49,6 +49,7 @@ import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import static org.smartgresiter.wcaro.util.ChildUtils.fixVaccineCasing;
 import static org.smartgresiter.wcaro.util.Constants.IMMUNIZATION_CONSTANT.DATE;
 import static org.smartgresiter.wcaro.util.Constants.IMMUNIZATION_CONSTANT.VACCINE;
 import static org.smartregister.util.JsonFormUtils.getFieldJSONObject;
@@ -221,7 +222,10 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
                 if (nv != null) {
                     VaccineRepo.Vaccine vaccine = (VaccineRepo.Vaccine) nv.get(VACCINE);
                     final ChildService childService = new ChildService();
-                    childService.setServiceName(vaccine.display());
+                    childService.setServiceName(fixVaccineCasing(vaccine.display()));
+                    if(childService.getServiceName().contains("MEASLES")){
+                        childService.setServiceName(childService.getServiceName().replace("MEASLES","MCV"));
+                    }
                     DateTime dueDate = (DateTime) nv.get(DATE);
                     String duedateString = DateUtil.formatDate(dueDate.toLocalDate(), "dd MMM yyyy");
                     childService.setServiceDate(duedateString);

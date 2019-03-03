@@ -320,7 +320,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
 
     @Override
     public void setServiceName(String serviceName) {
-        textViewNameDue.setText(ChildUtils.fixVaccineCasing(serviceName));
+        textViewNameDue.setText(serviceName);
     }
 
     @Override

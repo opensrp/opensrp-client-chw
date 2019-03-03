@@ -11,6 +11,6 @@
         style="@style/CustomFontTextViewStyle.ClientList"
         android:textColor="@color/black"
         android:padding="10dp"
-        android:textSize="18sp" />
+        android:textSize="@dimen/px_16_to_sp" />
 
 </LinearLayout>
