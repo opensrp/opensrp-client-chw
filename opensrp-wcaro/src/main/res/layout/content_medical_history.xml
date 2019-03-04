@@ -90,7 +90,6 @@
 
                 <org.smartregister.view.customcontrols.CustomFontTextView
                     android:id="@+id/health_child"
-                    android:layout_centerVertical=""
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="5dp"
                     android:layout_toRightOf="@+id/immu_imag"
