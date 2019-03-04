@@ -75,27 +75,31 @@
             <RelativeLayout
                 android:id="@+id/immu_bar_age_1"
                 android:visibility="visible"
-                android:padding="10dp"
+                android:padding="5dp"
+                android:gravity="center_horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <ImageView
                     android:id="@+id/immu_imag"
-                    android:layout_width="52dp"
-                    android:layout_height="60dp"
-                    android:src="@drawable/one_yr_immu"
+                    android:layout_width="39dp"
+                    android:layout_height="45dp"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_full_one_yr"
                     android:layout_margin="10dp" />
 
                 <org.smartregister.view.customcontrols.CustomFontTextView
                     android:id="@+id/health_child"
+                    android:layout_centerVertical=""
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="5dp"
                     android:layout_toRightOf="@+id/immu_imag"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/health_child_milestone"
                     style="@style/CustomFontTextViewStyle.ClientList"
                     android:textColor="@color/black"
-                    android:padding="5dp"
-                    android:textSize="18sp" />
+                    android:textSize="@dimen/px_16_to_sp" />
 
                 <org.smartregister.view.customcontrols.CustomFontTextView
                     android:id="@+id/fully_immunized"
@@ -106,14 +110,13 @@
                     android:text="@string/fully_immunized_at_age_1"
                     style="@style/CustomFontTextViewStyle.ClientList.Light"
                     android:textColor="@color/light_grey_text"
-                    android:padding="2dp"
                     android:textSize="@dimen/px_15_to_sp" />
 
                 <View
                     android:id="@+id/view"
                     android:layout_width="match_parent"
                     android:layout_height="1px"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="20dp"
                     android:layout_marginLeft="10dp"
                     android:background="@color/light_grey"
                     android:layout_below="@+id/fully_immunized" />
@@ -122,16 +125,18 @@
             <RelativeLayout
                 android:id="@+id/immu_bar_age_2"
                 android:visibility="visible"
-                android:padding="10dp"
+                android:padding="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <ImageView
                     android:id="@+id/immu_imag_2"
-                    android:layout_width="52dp"
-                    android:layout_height="60dp"
-                    android:layout_margin="10dp"
-                    android:src="@drawable/two_yr_immu" />
+                    android:layout_width="39dp"
+                    android:layout_height="45dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_full_two_yr" />
 
                 <org.smartregister.view.customcontrols.CustomFontTextView
                     android:id="@+id/health_child_2"
@@ -139,10 +144,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/health_child_milestone"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
                     style="@style/CustomFontTextViewStyle.ClientList"
                     android:textColor="@color/black"
-                    android:padding="5dp"
-                    android:textSize="18sp" />
+                    android:textSize="@dimen/px_16_to_sp" />
 
                 <org.smartregister.view.customcontrols.CustomFontTextView
                     android:id="@+id/fully_immunized_2"
@@ -153,14 +159,14 @@
                     android:text="@string/fully_immunized_at_age_2"
                     style="@style/CustomFontTextViewStyle.ClientList.Light"
                     android:textColor="@color/light_grey_text"
-                    android:padding="2dp"
+
                     android:textSize="@dimen/px_15_to_sp" />
 
                 <View
                     android:id="@+id/view_2"
                     android:layout_width="match_parent"
                     android:layout_height="1px"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="20dp"
                     android:layout_marginLeft="10dp"
                     android:background="@color/light_grey"
                     android:layout_below="@+id/fully_immunized_2" />
