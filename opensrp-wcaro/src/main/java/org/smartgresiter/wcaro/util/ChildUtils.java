@@ -345,25 +345,6 @@ public class ChildUtils {
         }
     }
 
-    public static SpannableString dueOverdueCalculation(String dueDate) {
-        SpannableString spannableString;
-        LocalDate date1 = new LocalDate(dueDate);
-        LocalDate date2 = new LocalDate();
-        int diff = Days.daysBetween(date1, date2).getDays();
-        Date date= org.smartregister.family.util.Utils.dobStringToDate(dueDate);
-        if (diff < 0) {
-
-            String str="Due "+dd_MMM_yyyy.format(date);
-            spannableString = new SpannableString(str);
-            spannableString.setSpan(new ForegroundColorSpan(Color.GRAY), 0, str.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            return spannableString;
-        } else {
-            String str="Overdue "+dd_MMM_yyyy.format(date);
-            spannableString = new SpannableString(str);
-            spannableString.setSpan(new ForegroundColorSpan(WcaroApplication.getInstance().getContext().getColorResource(R.color.alert_urgent_red)), 0, str.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            return spannableString;
-        }
-    }
     public static SpannableString dueOverdueCalculation(String status,String dueDate){
         SpannableString spannableString;
         Date date= org.smartregister.family.util.Utils.dobStringToDate(dueDate);

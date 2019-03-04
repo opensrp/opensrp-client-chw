@@ -62,7 +62,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     private RelativeLayout layoutRecordButtonDone;
     private LinearLayout layoutRecordView;
     private View viewLastVisitRow, viewMostDueRow, viewFamilyRow;
-    private TextView textViewNotVisitMonth, textViewUndo, textViewLastVisit, textViewNameDue, textViewDueDate, textViewFamilyHas;
+    private TextView textViewNotVisitMonth, textViewUndo, textViewLastVisit, textViewNameDue, textViewFamilyHas;
     private ImageView imageViewCross;
     private String gender;
     private Handler handler = new Handler();
@@ -157,7 +157,6 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
         layoutLastVisitRow = findViewById(R.id.last_visit_row);
         layoutMostDueOverdue = findViewById(R.id.most_due_overdue_row);
         textViewNameDue = findViewById(R.id.textview_name_due);
-        textViewDueDate = findViewById(R.id.textview_due_overdue_status);
         layoutFamilyHasRow = findViewById(R.id.family_has_row);
         textViewFamilyHas = findViewById(R.id.textview_family_has);
         layoutRecordButtonDone = findViewById(R.id.record_visit_done_bar);
@@ -319,34 +318,24 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     }
 
     @Override
-    public void setServiceName(String serviceName) {
-        textViewNameDue.setText(serviceName);
-    }
-
-    @Override
-    public void setServiceDueDate(String date) {
-        layoutMostDueOverdue.setVisibility(View.VISIBLE);
-        viewLastVisitRow.setVisibility(View.GONE);
-        viewMostDueRow.setVisibility(View.VISIBLE);
-        textViewDueDate.setText(date);
-        textViewDueDate.setTextColor(getResources().getColor(R.color.black));
-
-    }
-
-    @Override
-    public void setServiceUpcomingDueDate(String upcomingDate) {
+    public void setServiceNameDue(String serviceName,String dueDate) {
         layoutMostDueOverdue.setVisibility(View.VISIBLE);
         viewMostDueRow.setVisibility(View.VISIBLE);
-        textViewDueDate.setText(upcomingDate);
-        textViewDueDate.setTextColor(getResources().getColor(R.color.light_grey_text));
+        textViewNameDue.setText(ChildUtils.fromHtml(getString(R.string.vaccine_service_due,serviceName,dueDate)));
     }
-
     @Override
-    public void setSeviceOverdueDate(String date) {
+    public void setServiceNameOverDue(String serviceName,String dueDate) {
         layoutMostDueOverdue.setVisibility(View.VISIBLE);
         viewMostDueRow.setVisibility(View.VISIBLE);
-        textViewDueDate.setText(date);
-        textViewDueDate.setTextColor(getResources().getColor(R.color.visit_status_over_due));
+        textViewNameDue.setText(ChildUtils.fromHtml(getString(R.string.vaccine_service_overdue,serviceName,dueDate)));
+
+    }
+    @Override
+    public void setServiceNameUpcoming(String serviceName,String dueDate) {
+        layoutMostDueOverdue.setVisibility(View.VISIBLE);
+        viewMostDueRow.setVisibility(View.VISIBLE);
+        textViewNameDue.setText(ChildUtils.fromHtml(getString(R.string.vaccine_service_upcoming,serviceName,dueDate)));
+
     }
 
     @Override
