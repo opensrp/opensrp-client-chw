@@ -157,6 +157,7 @@
     <string name="birth_date">Birth Date</string>
     <string name="age">Age</string>
     <string name="no_vaccines_were_done">No vaccines were done</string>
+
     <string name="last_visit">LAST VISIT</string>
     <string name="edit_child_form_title">Edit Child Under 5</string>
     <string name="birth_cert_value">Does the child have a birth certificate? %s</string>
@@ -173,4 +174,6 @@
     <string name="vaccination_done_earlier">Vaccination done earlier</string>
     <string name="vaccines_not_done">VACCINES NOT DONE</string>
     <string name="set">Set</string>
+    <string name="remove_family_count">%s adults and %s U5 children</string>
+
 </resources>
