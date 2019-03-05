@@ -153,4 +153,5 @@
     <string name="birth_date">Birth Date</string>
     <string name="age">Age</string>
     <string name="no_vaccines_were_done">No vaccines were done</string>
+    <string name="remove_family_count">%s adults and %s U5 children</string>
 </resources>

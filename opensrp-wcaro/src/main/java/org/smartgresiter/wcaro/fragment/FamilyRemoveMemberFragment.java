@@ -38,6 +38,7 @@ public class FamilyRemoveMemberFragment extends BaseFamilyProfileMemberFragment 
     String primaryCareGiver;
 
     String memberName;
+    boolean processingFamily = false;
 
     public static FamilyRemoveMemberFragment newInstance(Bundle bundle) {
         Bundle args = bundle;
@@ -171,6 +172,7 @@ public class FamilyRemoveMemberFragment extends BaseFamilyProfileMemberFragment 
                 String dod = pc.getColumnmaps().get(DBConstants.KEY.DOD);
 
                 if (StringUtils.isBlank(dod)) {
+                    processingFamily = false;
                     removeMember(pc);
                 }
             }
@@ -179,9 +181,17 @@ public class FamilyRemoveMemberFragment extends BaseFamilyProfileMemberFragment 
 
     public void confirmRemove(final JSONObject form) {
         if (StringUtils.isNotBlank(memberName)) {
-            FamilyRemoveMemberConfrimDialog dialog = FamilyRemoveMemberConfrimDialog.newInstance(
-                    String.format(getString(R.string.confirm_remove_text), memberName)
-            );
+            FamilyRemoveMemberConfrimDialog dialog = null;
+            if(processingFamily){
+                dialog = FamilyRemoveMemberConfrimDialog.newInstance(
+                        String.format(getString(R.string.remove_warning_family), memberName, memberName)
+                );
+
+            }else{
+                dialog = FamilyRemoveMemberConfrimDialog.newInstance(
+                        String.format(getString(R.string.confirm_remove_text), memberName)
+                );
+            }
             dialog.setContext(getContext());
             dialog.show(getFragmentManager(), AddMemberFragment.DIALOG_TAG);
             dialog.setOnRemove(new Runnable() {
@@ -196,24 +206,11 @@ public class FamilyRemoveMemberFragment extends BaseFamilyProfileMemberFragment 
     public class FooterListener implements android.view.View.OnClickListener {
         @Override
         public void onClick(final android.view.View v) {
-
+            processingFamily = true;
             HashMap<String, String> payload = (HashMap<String, String>) v.getTag();
-            final String message = payload.get("message");
-            final String name = payload.get("name");
-
-            FamilyRemoveMemberConfrimDialog dialog = FamilyRemoveMemberConfrimDialog.newInstance(
-                    String.format(getString(R.string.remove_warning_family), name, name)
-            );
-
-            dialog.setContext(getContext());
-            dialog.show(getFragmentManager(), AddMemberFragment.DIALOG_TAG);
-            dialog.setOnRemove(new Runnable() {
-                @Override
-                public void run() {
-                    closeFamily(String.format(getString(R.string.family), name), message);
-                    Toast.makeText(getContext(), getString(R.string.remove_entire_family), Toast.LENGTH_SHORT).show();
-                }
-            });
+            String message = payload.get("message");
+            memberName = payload.get("name");
+            closeFamily(String.format(getString(R.string.family), memberName), message);
         }
     }
 
