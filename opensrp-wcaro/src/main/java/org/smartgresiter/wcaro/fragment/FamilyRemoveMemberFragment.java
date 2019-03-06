@@ -32,6 +32,8 @@ import java.util.Set;
 
 public class FamilyRemoveMemberFragment extends BaseFamilyProfileMemberFragment implements FamilyRemoveMemberContract.View {
 
+    public static final String DIALOG_TAG = FamilyRemoveMemberFragment.class.getSimpleName();
+
     String familyBaseEntityId;
     String familyHead;
     String primaryCareGiver;
@@ -192,7 +194,7 @@ public class FamilyRemoveMemberFragment extends BaseFamilyProfileMemberFragment 
                 );
             }
             dialog.setContext(getContext());
-            dialog.show(getFragmentManager(), AddMemberFragment.DIALOG_TAG);
+            dialog.show(getFragmentManager(), FamilyRemoveMemberFragment.DIALOG_TAG);
             dialog.setOnRemove(new Runnable() {
                 @Override
                 public void run() {
