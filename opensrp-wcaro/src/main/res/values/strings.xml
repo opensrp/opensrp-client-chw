@@ -157,4 +157,5 @@
     <string name="age">Age</string>
     <string name="no_vaccines_were_done">No vaccines were done</string>
     <string name="last_visit">LAST VISIT</string>
+    <string name="edit_child_form_title">Edit Child Under 5</string>
 </resources>
