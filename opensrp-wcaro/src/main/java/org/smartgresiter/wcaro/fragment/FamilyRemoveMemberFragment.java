@@ -5,7 +5,6 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.widget.Toast;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
@@ -181,15 +180,15 @@ public class FamilyRemoveMemberFragment extends BaseFamilyProfileMemberFragment 
 
     public void confirmRemove(final JSONObject form) {
         if (StringUtils.isNotBlank(memberName)) {
-            FamilyRemoveMemberConfrimDialog dialog = null;
+            FamilyRemoveMemberConfirmDialog dialog = null;
             if(processingFamily){
-                dialog = FamilyRemoveMemberConfrimDialog.newInstance(
-                        String.format(getString(R.string.remove_warning_family), memberName, memberName)
+                dialog = FamilyRemoveMemberConfirmDialog.newInstance(
+                        String.format(getContext().getString(R.string.remove_warning_family), memberName, memberName)
                 );
 
             }else{
-                dialog = FamilyRemoveMemberConfrimDialog.newInstance(
-                        String.format(getString(R.string.confirm_remove_text), memberName)
+                dialog = FamilyRemoveMemberConfirmDialog.newInstance(
+                        String.format(getContext().getString(R.string.confirm_remove_text), memberName)
                 );
             }
             dialog.setContext(getContext());
