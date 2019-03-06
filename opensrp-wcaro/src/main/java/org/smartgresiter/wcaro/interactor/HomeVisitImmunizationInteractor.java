@@ -47,6 +47,7 @@ public class HomeVisitImmunizationInteractor implements HomeVisitImmunizationCon
     public void onDestroy(boolean isChangingConfiguration) {
 
     }
+    //current focus row
 
     @Override
     public HomeVisitVaccineGroupDetails getCurrentActiveHomeVisitVaccineGroupDetail(ArrayList<HomeVisitVaccineGroupDetails> allGroups) {
@@ -152,6 +153,7 @@ public class HomeVisitImmunizationInteractor implements HomeVisitImmunizationCon
         }
         return false;
     }
+    //row vaccine due from previous
 
     @Override
     public boolean hasVaccinesNotGivenSinceLastVisit(ArrayList<HomeVisitVaccineGroupDetails> allGroup) {
@@ -221,7 +223,7 @@ public class HomeVisitImmunizationInteractor implements HomeVisitImmunizationCon
 
         return getNotGivenVaccinesNotInNotGivenThisVisit;
     }
-
+    //all group generate row
     @Override
     public ArrayList<HomeVisitVaccineGroupDetails> determineAllHomeVisitVaccineGroupDetails(List<Alert> alerts, List<Vaccine> vaccines, ArrayList<VaccineWrapper> notGivenVaccines, List<Map<String, Object>> sch) {
         ArrayList<HomeVisitVaccineGroupDetails> homeVisitVaccineGroupDetailsArrayList = new ArrayList<HomeVisitVaccineGroupDetails>();

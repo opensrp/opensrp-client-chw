@@ -121,7 +121,7 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
     public void setChildClient(CommonPersonObjectClient childClient) {
         presenter.setChildClient(childClient);
     }
-
+    //active means clicckable view
     @Override
     public void refreshPresenter(List<Alert> alerts, List<Vaccine> vaccines, List<Map<String, Object>> sch) {
         presenter.createAllVaccineGroups(alerts, vaccines, sch);
