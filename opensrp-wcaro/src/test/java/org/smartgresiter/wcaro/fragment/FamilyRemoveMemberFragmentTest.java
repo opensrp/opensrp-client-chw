@@ -69,7 +69,7 @@ public class FamilyRemoveMemberFragmentTest {
         Whitebox.setInternalState(familyRemoveMemberFragment, "processingFamily", true);
 
         familyRemoveMemberFragment.confirmRemove(new JSONObject());
-        verify(dialog).show(familyRemoveMemberFragment.getFragmentManager(),AddMemberFragment.DIALOG_TAG);
+        verify(dialog).show(familyRemoveMemberFragment.getFragmentManager(),FamilyRemoveMemberFragment.DIALOG_TAG);
 
     }
 

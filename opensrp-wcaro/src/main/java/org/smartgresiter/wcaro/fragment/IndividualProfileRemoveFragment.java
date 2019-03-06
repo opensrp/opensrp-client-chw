@@ -97,7 +97,7 @@ public class IndividualProfileRemoveFragment extends BaseFamilyProfileMemberFrag
                     String.format(getString(R.string.confirm_remove_text), memberName)
             );
             dialog.setContext(getContext());
-            dialog.show(getFragmentManager(), AddMemberFragment.DIALOG_TAG);
+            dialog.show(getFragmentManager(), FamilyRemoveMemberFragment.DIALOG_TAG);
             dialog.setOnRemove(new Runnable() {
                 @Override
                 public void run() {
