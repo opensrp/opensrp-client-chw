@@ -27,25 +27,27 @@
             <ImageView
                 android:id="@+id/login_logo"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="250dp"
+                android:layout_alignParentTop="true"
                 android:layout_gravity="center"
-                android:layout_marginTop="60dp"
-                android:layout_marginBottom="60dp"
+                android:layout_margin="10dp"
                 android:layout_weight="1"
-                android:contentDescription="logo"
+                android:contentDescription="@string/logo"
                 android:scaleType="fitCenter"
-                android:src="@drawable/ic_wcaro_logo" />
+                android:src="@drawable/boresha_afya_logo"
+                android:visibility="visible" />
 
             <TextView
                 android:id="@+id/login_title_text_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginBottom="5dp"
+                android:fontFamily="@font/roboto_black"
                 android:gravity="center_horizontal"
                 android:text="@string/login_title"
-                android:textColor="#272727"
+                android:textColor="@color/black"
                 android:textSize="@dimen/login_title_text_size"
-                android:textStyle="bold"
                 android:typeface="sans" />
 
             <TextView
@@ -66,7 +68,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/top_section"
-            android:layout_marginTop="@dimen/login_middle_section_padding_top"
+            android:layout_marginTop="@dimen/twenty_dp"
             android:orientation="vertical"
             android:paddingLeft="@dimen/login_horizontal_margin"
             android:paddingRight="@dimen/login_horizontal_margin">
@@ -76,14 +78,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/login_view_component_height"
                 android:layout_weight="8"
-                android:background="@drawable/rounded_corner_edit_text_bg"
+                android:background="@drawable/rounded_corner_edit_text"
                 android:cursorVisible="true"
                 android:ems="10"
-                android:hint="Username"
+                android:hint="@string/username"
                 android:imeOptions="actionNext"
                 android:inputType="text"
                 android:lines="1"
-                android:paddingLeft="10dp"
+                android:paddingLeft="@dimen/ten_dp"
                 android:textColor="#666666"
                 android:textColorHint="#bfbfbf"
                 android:textCursorDrawable="@null"
@@ -95,16 +97,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/login_view_component_height"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="@dimen/fifteen_dp"
                 android:layout_weight="8"
-                android:background="@drawable/rounded_corner_edit_text_bg"
+                android:background="@drawable/rounded_corner_edit_text"
                 android:cursorVisible="true"
                 android:ems="10"
                 android:hint="Password"
                 android:imeActionId="@integer/login"
                 android:inputType="textPassword"
                 android:lines="1"
-                android:paddingLeft="10dp"
+                android:paddingLeft="@dimen/ten_dp"
                 android:textColor="#666666"
                 android:textColorHint="#bfbfbf"
                 android:textCursorDrawable="@null"
@@ -131,10 +133,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="@dimen/ten_dp"
                     android:layout_toRightOf="@id/login_show_password_checkbox"
                     android:text="@string/show_password_text"
-                    android:textColor="#585858"
+                    android:textColor="@android:color/darker_gray"
                     android:textSize="@dimen/login_edit_text_textSize" />
             </RelativeLayout>
 
@@ -163,20 +165,20 @@
             android:id="@+id/bottom_section"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/middle_section"
             android:layout_alignParentBottom="true"
+            android:layout_below="@+id/middle_section"
             android:orientation="vertical"
-            android:paddingTop="30dp">
+            android:paddingTop="10dp">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:paddingTop="10dp"
-                android:paddingBottom="5dp"
+                android:paddingTop="@dimen/ten_dp"
+                android:paddingBottom="@dimen/five_dp"
                 android:text="Powered by"
                 android:textAlignment="center"
-                android:textColor="#585858" />
+                android:textColor="#999999" />
 
             <ImageView
                 android:id="@+id/opensrp_logo_image_view"

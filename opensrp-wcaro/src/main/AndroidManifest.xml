@@ -18,9 +18,9 @@
     <application
         android:name=".application.WcaroApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/opensrp_logo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/opensrp_logo"
         android:supportsRtl="true"
         android:theme="@style/WcaroTheme"
         tools:replace="android:theme">
