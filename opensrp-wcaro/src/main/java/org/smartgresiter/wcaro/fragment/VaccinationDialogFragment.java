@@ -61,16 +61,8 @@ public class VaccinationDialogFragment extends ChildImmunizationFragment impleme
     public static final String WRAPPER_TAG = "tag";
     private boolean disableConstraints;
     private Calendar dcToday;
-    private DialogInterface.OnDismissListener onDismissListener;
-    private Integer defaultImageResourceID;
-    private Integer defaultErrorImageResourceID;
     private HomeVisitImmunizationContract.View homeVisitImmunizationView;
     private int selectCount=0;
-    public void setContext(Activity context) {
-        this.context = context;
-    }
-
-    private Activity context;
     private Button saveBtn;
     private LinearLayout multipleVaccineDatePickerView,singleVaccineAddView,vaccinationNameLayout;
     private CheckBox checkBoxNoVaccine;
@@ -143,11 +135,7 @@ public class VaccinationDialogFragment extends ChildImmunizationFragment impleme
                 checkBoxNoVaccine.toggle();
                 break;
             case R.id.save_btn:
-                dismiss();
-                if(selectCount == 0){
-                    handleAllVaccineNotGiven();
-                    return;
-                }
+
                 int day = earlierDatePicker.getDayOfMonth();
                 int month = earlierDatePicker.getMonth();
                 int year = earlierDatePicker.getYear();
@@ -155,9 +143,16 @@ public class VaccinationDialogFragment extends ChildImmunizationFragment impleme
                 Calendar calendar = Calendar.getInstance();
                 calendar.set(year, month, day);
                 DateTime dateTime = new DateTime(calendar.getTime());
+                if(selectCount == 0){
+                    handleNotGivenVaccines(dateTime);
+                    dismiss();
+                    return;
+                }
+
                 if(singleVaccineAddView.getVisibility() == View.VISIBLE && singleVaccineMap.size()>0){
                     handleSingleVaccineLogic();
                     handleNotGivenVaccines(dateTime);
+                    dismiss();
                     return;
                 }
                 handleMultipleVaccineGiven(dateTime);
@@ -225,6 +220,7 @@ public class VaccinationDialogFragment extends ChildImmunizationFragment impleme
 //                for(VaccineWrapper tags:UngiventagsToUpdate) {
 //                    homeVisitImmunizationView.getPresenter().updateNotGivenVaccine(tags);
 //                }
+                dismiss();
                 break;
             case R.id.close:
                 dismiss();
@@ -606,62 +602,11 @@ public class VaccinationDialogFragment extends ChildImmunizationFragment impleme
         return names;
     }
 
-    private String findSelectRadio(LinearLayout vaccinationNameLayout) {
-        for (int i = 0; i < vaccinationNameLayout.getChildCount(); i++) {
-            View chilView = vaccinationNameLayout.getChildAt(i);
-            RadioButton radioChild = (RadioButton) chilView.findViewById(R.id.radio);
-            if (radioChild.getVisibility() == View.VISIBLE && radioChild.isChecked()) {
-                TextView childVaccineView = (TextView) chilView.findViewById(R.id.vaccine);
-                return childVaccineView.getText().toString();
-            }
-        }
-        return null;
-    }
-
     @Override
     public void onDismiss(DialogInterface dialog) {
         super.onDismiss(dialog);
-
-        if (onDismissListener != null) {
-            onDismissListener.onDismiss(dialog);
-        }
     }
 
-    public void setOnDismissListener(DialogInterface.OnDismissListener onDismissListener) {
-        this.onDismissListener = onDismissListener;
-    }
-
-    public Integer getDefaultImageResourceID() {
-        return defaultImageResourceID;
-    }
-
-    public void setDefaultImageResourceID(Integer defaultImageResourceID) {
-        this.defaultImageResourceID = defaultImageResourceID;
-    }
-
-    public Integer getDefaultErrorImageResourceID() {
-        return defaultErrorImageResourceID;
-    }
-
-    public void setDefaultErrorImageResourceID(Integer defaultErrorImageResourceID) {
-        this.defaultErrorImageResourceID = defaultErrorImageResourceID;
-    }
-
-    @Override
-    public void updateAgeViews() {
-    }
-
-    @Override
-    public void updateChildIdViews() {
-    }
-
-    public void addVaccineGroup(int canvasId, org.smartregister.immunization.domain.jsonmapping.VaccineGroup vaccineGroupData, List<Vaccine> vaccineList, List<Alert> alerts) {
-    }
-
-    @Override
-    public void updateVaccineGroupViews(View view, final ArrayList<VaccineWrapper> wrappers, final List<Vaccine> vaccineList, final boolean undo) {
-        ((ChildHomeVisitFragment) context.getFragmentManager().findFragmentByTag("child_home_visit_dialog")).updateImmunizationState();
-    }
 
     public void setView(HomeVisitImmunizationContract.View homeVisitImmunizationView) {
         this.homeVisitImmunizationView = homeVisitImmunizationView;

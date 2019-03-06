@@ -396,30 +396,6 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
         return false;
     }
 
-    private String immunizationsGivenThisVisitafterCompletion() {
-        StringBuilder immunizationGivenThisVisit = new StringBuilder();
-        for (VaccineWrapper vaccineWrapper : presenter.getVaccinesGivenThisVisit()) {
-            immunizationGivenThisVisit.append(vaccineWrapper.getName().toUpperCase()).append(",");
-        }
-        if (immunizationGivenThisVisit.toString().equalsIgnoreCase("")) {
-            immunizationGivenThisVisit = new StringBuilder(getAllGivenVaccines());
-        }
-        if (immunizationGivenThisVisit.toString().endsWith(",")) {
-            immunizationGivenThisVisit = new StringBuilder(immunizationGivenThisVisit.substring(0, immunizationGivenThisVisit.length() - 1));
-        }
-        return immunizationGivenThisVisit.toString();
-    }
-
-    private String getAllGivenVaccines() {
-        String allImmunizationGivenThisVisit = "";
-        for (HomeVisitVaccineGroupDetails toprocess : presenter.getAllgroups()) {
-            for (VaccineRepo.Vaccine given : toprocess.getGivenVaccines()) {
-                allImmunizationGivenThisVisit = allImmunizationGivenThisVisit + given.display().toUpperCase() + ",";
-            }
-        }
-        return allImmunizationGivenThisVisit;
-    }
-
 
     @Override
     public void onClick(View v) {
@@ -435,7 +411,6 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
                     List<Vaccine> vaccines = (List<Vaccine>) v.getTag(R.id.vaccinelist);
                     HomeVisitVaccineGroupDetails duevaccines = (HomeVisitVaccineGroupDetails) v.getTag(R.id.nextduevaccinelist);
                     VaccinationDialogFragment customVaccinationDialogFragment = VaccinationDialogFragment.newInstance(dob, vaccines, presenter.createVaccineWrappers(duevaccines));
-                    customVaccinationDialogFragment.setContext(context);
                     customVaccinationDialogFragment.setChildDetails(presenter.getchildClient());
                     customVaccinationDialogFragment.setView(this);
                     customVaccinationDialogFragment.show(ft, ChildImmunizationFragment.TAG);
@@ -457,7 +432,6 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
                     List<Vaccine> vaccines = (List<Vaccine>) v.getTag(R.id.vaccinelist);
                     if (vaccineWrappers.size() >= 1) {
                         VaccinationDialogFragment customVaccinationDialogFragment = VaccinationDialogFragment.newInstance(dob, vaccines, vaccineWrappers);
-                        customVaccinationDialogFragment.setContext(context);
                         customVaccinationDialogFragment.setChildDetails(presenter.getchildClient());
                         customVaccinationDialogFragment.setView(this);
                         customVaccinationDialogFragment.show(ft, ChildImmunizationFragment.TAG);
