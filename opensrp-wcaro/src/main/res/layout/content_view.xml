@@ -10,6 +10,7 @@
         android:id="@+id/imageView"
         android:layout_width="20dp"
         android:layout_height="20dp"
+        android:visibility="gone"
         android:background="@color/alert_complete_green" />
 
     <org.smartregister.view.customcontrols.CustomFontTextView
