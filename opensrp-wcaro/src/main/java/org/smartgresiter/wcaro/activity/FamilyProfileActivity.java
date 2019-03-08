@@ -214,13 +214,15 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity implements 
 
     private void refreshMemberFragment(String careGiverID, String familyHeadID){
         BaseFamilyProfileMemberFragment memberFragment = this.getProfileMemberFragment();
-        if (StringUtils.isNotBlank(careGiverID)) {
-            memberFragment.setPrimaryCaregiver(careGiverID);
+        if(memberFragment != null){
+            if (StringUtils.isNotBlank(careGiverID)) {
+                memberFragment.setPrimaryCaregiver(careGiverID);
+            }
+            if (StringUtils.isNotBlank(familyHeadID)) {
+                memberFragment.setFamilyHead(familyHeadID);
+            }
+            refreshMemberList(FetchStatus.fetched);
         }
-        if (StringUtils.isNotBlank(familyHeadID)) {
-            memberFragment.setFamilyHead(familyHeadID);
-        }
-        refreshMemberList(FetchStatus.fetched);
     }
 
     @Override
