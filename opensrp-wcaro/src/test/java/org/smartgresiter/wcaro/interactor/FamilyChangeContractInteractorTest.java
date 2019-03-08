@@ -21,9 +21,7 @@ public class FamilyChangeContractInteractorTest {
 
         FamilyChangeContractInteractor interactor = Mockito.spy(FamilyChangeContractInteractor.class);
 
-        AppExecutors appExecutors = Mockito.spy(AppExecutors.class);
-
-        Whitebox.setInternalState(interactor, "appExecutors", appExecutors);
+        Whitebox.setInternalState(interactor, "appExecutors", new AppExecutors());
 
         HashMap<String, String> familyMember = new HashMap<>();
         familyMember.put(Constants.PROFILE_CHANGE_ACTION.ACTION_TYPE, Constants.PROFILE_CHANGE_ACTION.PRIMARY_CARE_GIVER);
@@ -40,5 +38,4 @@ public class FamilyChangeContractInteractorTest {
         // update relations was called
         Mockito.verify(interactor).updateFamilyRelations(Mockito.eq(context), any(FamilyMember.class), Mockito.eq(lastLocationId));
     }
-
 }
