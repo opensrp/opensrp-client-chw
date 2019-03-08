@@ -15,8 +15,6 @@ import android.view.MenuItem;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.vijay.jsonwizard.domain.Form;
-
 import org.apache.commons.lang3.StringUtils;
 import org.greenrobot.eventbus.EventBus;
 import org.json.JSONObject;
@@ -37,6 +35,7 @@ import org.smartregister.family.fragment.BaseFamilyProfileDueFragment;
 import org.smartregister.family.fragment.BaseFamilyProfileMemberFragment;
 import org.smartregister.family.model.BaseFamilyProfileModel;
 import org.smartregister.family.util.Constants;
+import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
 import org.smartregister.util.PermissionUtils;
 import org.smartregister.view.fragment.BaseRegisterFragment;
@@ -158,50 +157,70 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity implements 
         ((FamilyProfilePresenter) presenter).startChildForm(formName, entityId, metadata, currentLocationId);
     }
 
+    private void refreshPresenter(){
+        presenter = new FamilyProfilePresenter(this, new BaseFamilyProfileModel(familyName), familyBaseEntityId, familyHead, primaryCaregiver, familyName);
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode) {
-            case org.smartregister.family.util.JsonFormUtils.REQUEST_CODE_GET_JSON:
-                if (resultCode == Activity.RESULT_OK) {
+        if (resultCode == Activity.RESULT_OK) {
+            switch (requestCode) {
+                case org.smartregister.family.util.JsonFormUtils.REQUEST_CODE_GET_JSON:
                     try {
                         String jsonString = data.getStringExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON);
                         Log.d("JSONResult", jsonString);
 
                         JSONObject form = new JSONObject(jsonString);
-                        if (form.getString(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_TYPE).equals(org.smartgresiter.wcaro.util.Constants.EventType.CHILD_REGISTRATION)
-                        ) {
+                        String encounter_type =form.getString(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_TYPE);
+                        // process child registration
+                        if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Utils.metadata().familyRegister.updateEventType)) {
+
+                            presenter().updateFamilyRegister(jsonString);
+
+                        } else if  (encounter_type.equals(org.smartgresiter.wcaro.util.Constants.EventType.CHILD_REGISTRATION)) {
+
                             ((FamilyProfilePresenter) presenter).saveChildForm(jsonString, false);
+
+                        }else if(encounter_type.equals(Utils.metadata().familyMemberRegister.registerEventType)){
+
+                            primaryCaregiver = ((FamilyProfilePresenter) presenter).saveWcaroFamilyMember(jsonString);
+                            ((FamilyProfilePresenter) presenter).updatePrimaryCareGiver(getApplicationContext(), jsonString, familyBaseEntityId, primaryCaregiver);
+                            getIntent().putExtra(Constants.INTENT_KEY.PRIMARY_CAREGIVER, primaryCaregiver);
+                            refreshPresenter();
+
+                            refreshMemberFragment(primaryCaregiver, null);
+
                         }
                     } catch (Exception e) {
                         Log.e(TAG, Log.getStackTraceString(e));
                         Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
-                }
-                break;
-            case org.smartgresiter.wcaro.util.Constants.ProfileActivityResults.CHANGE_COMPLETED:
-                if (resultCode == Activity.RESULT_OK) {
+                    break;
+                case org.smartgresiter.wcaro.util.Constants.ProfileActivityResults.CHANGE_COMPLETED:
                     try {
 
                         String careGiverID = data.getStringExtra(Constants.INTENT_KEY.PRIMARY_CAREGIVER);
                         String familyHeadID = data.getStringExtra(Constants.INTENT_KEY.FAMILY_HEAD);
 
-                        BaseFamilyProfileMemberFragment memberFragment = this.getProfileMemberFragment();
-                        if (StringUtils.isNotBlank(careGiverID)) {
-                            memberFragment.setPrimaryCaregiver(careGiverID);
-                        }
-                        if (StringUtils.isNotBlank(familyHeadID)) {
-                            memberFragment.setFamilyHead(familyHeadID);
-                        }
-                        refreshMemberList(FetchStatus.fetched);
+                        refreshMemberFragment(careGiverID, familyHeadID);
                     } catch (Exception e) {
                         Log.e(TAG, Log.getStackTraceString(e));
                         Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
-                }
-                break;
+                    break;
+            }
         }
+    }
 
+    private void refreshMemberFragment(String careGiverID, String familyHeadID){
+        BaseFamilyProfileMemberFragment memberFragment = this.getProfileMemberFragment();
+        if (StringUtils.isNotBlank(careGiverID)) {
+            memberFragment.setPrimaryCaregiver(careGiverID);
+        }
+        if (StringUtils.isNotBlank(familyHeadID)) {
+            memberFragment.setFamilyHead(familyHeadID);
+        }
+        refreshMemberList(FetchStatus.fetched);
     }
 
     @Override
