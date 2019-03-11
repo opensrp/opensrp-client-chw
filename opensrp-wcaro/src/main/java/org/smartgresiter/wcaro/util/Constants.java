@@ -1,5 +1,7 @@
 package org.smartgresiter.wcaro.util;
 
+import java.util.HashMap;
+
 public class Constants {
 
     public static class CONFIGURATION {
@@ -21,6 +23,7 @@ public class Constants {
         public static final String CHILD_VISIT_NOT_DONE = "Visit not done";
 
         public static final String UPDATE_FAMILY_RELATIONS = "Update Family Relations";
+        public static final String UPDATE_FAMILY_MEMBER_RELATIONS = "Update Family Member Relations";
 
         public static final String UPDATE_FAMILY_REGISTRATION = "Update Family Registration";
         public static final String UPDATE_FAMILY_MEMBER_REGISTRATION = "Update Family Member Registration";
@@ -99,6 +102,7 @@ public class Constants {
             public static final String PHONE_NUMBER = "phone_number";
             public static final String OTHER_PHONE_NUMBER = "other_phone_number";
         }
+
         public static String DETAILS = "details";
         public static String FAM_NAME = "fam_name";
     }
@@ -108,6 +112,7 @@ public class Constants {
     }
 
     public static class FORM_CONSTANTS {
+
         public static class REMOVE_MEMBER_FORM {
             public static final String REASON = "remove_reason";
             public static final String DATE_DIED = "date_died";
@@ -131,6 +136,16 @@ public class Constants {
 
         public static class ILLNESS_ACTION_TAKEN_LEVEL {
             public static final String CODE = "164378AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+        }
+
+        public static HashMap<String, String> EDUCATION_LEVELS;
+
+        static {
+            EDUCATION_LEVELS = new HashMap<>();
+            EDUCATION_LEVELS.put("None", "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+            EDUCATION_LEVELS.put("Primary", "1713AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+            EDUCATION_LEVELS.put("Secondary", "1714AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+            EDUCATION_LEVELS.put("Post-secondary", "159785AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
         }
     }
 

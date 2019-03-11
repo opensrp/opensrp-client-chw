@@ -201,7 +201,7 @@ public class ChildUtils {
     }
 
     /**
-     * Same thread to retrive rules and also save in fts
+     * Same thread to retrive rules and also updateFamilyRelations in fts
      *
      * @param yearOfBirth
      * @param lastVisitDate
