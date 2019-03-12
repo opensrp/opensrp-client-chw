@@ -152,6 +152,7 @@
         "type": "spinner",
         "hint": "Family source of income",
         "values": [
+          "Petty trade",
           "Agriculture, hunting and fishing",
           "Exploitation of mines and quarries",
           "Manufacturing industry",
