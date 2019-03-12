@@ -89,7 +89,7 @@
     <string name="when_vaccines_given_text">When were vaccinations done?</string>
     <string name="fully_immunized_at_age_2">Fully immunized at age 2</string>
     <string name="fully_immunized_at_age_1">Fully immunized at age 1</string>
-    <string name="health_child_milestone">Health child milestone</string>
+    <string name="health_child_milestone">Healthy child milestone</string>
     <string name="exclusive_feeding">Did the child receive any liquid or food other than breastmilk yesterday and last night?</string>
     <string name="vitamin_given">When was %1$s given?</string>
     <string name="exclusive_breastfeeding">Exclusive breastfeeding</string>

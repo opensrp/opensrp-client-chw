@@ -87,21 +87,24 @@ public class MedicalHistoryInteractor implements MedicalHistoryContract.Interact
     @Override
     public void fetchBirthAndIllnessData(CommonPersonObjectClient commonPersonObjectClient, final MedicalHistoryContract.InteractorCallBack callBack) {
         String birthCert = getValue(commonPersonObjectClient.getColumnmaps(), BIRTH_CERT, true);
-        Context context= WcaroApplication.getInstance().getApplicationContext();
         final ArrayList<String> birthCertificationContent = new ArrayList<>();
         if (!TextUtils.isEmpty(birthCert) && birthCert.equalsIgnoreCase("Yes")) {
-            birthCertificationContent.add(context.getString(R.string.birth_cert_value,birthCert));
-            birthCertificationContent.add(context.getString(R.string.birth_cert_date,getValue(commonPersonObjectClient.getColumnmaps(), BIRTH_CERT_ISSUE_DATE, true)));
-            birthCertificationContent.add(context.getString(R.string.birth_cert_number,getValue(commonPersonObjectClient.getColumnmaps(), BIRTH_CERT_NUMBER, true)));
+            birthCertificationContent.add(getContext().getString(R.string.birth_cert_value,birthCert));
+            birthCertificationContent.add(getContext().getString(R.string.birth_cert_date,getValue(commonPersonObjectClient.getColumnmaps(), BIRTH_CERT_ISSUE_DATE, true)));
+            birthCertificationContent.add(getContext().getString(R.string.birth_cert_number,getValue(commonPersonObjectClient.getColumnmaps(), BIRTH_CERT_NUMBER, true)));
 
         } else if (!TextUtils.isEmpty(birthCert) && birthCert.equalsIgnoreCase("No")) {
-            birthCertificationContent.add(context.getString(R.string.birth_cert_value,birthCert));
+            birthCertificationContent.add(getContext().getString(R.string.birth_cert_value,birthCert));
             String notification = getValue(commonPersonObjectClient.getColumnmaps(), BIRTH_CERT_NOTIFIICATION, true);
-            birthCertificationContent.add(context.getString(R.string.birth_cert_notification,notification));
+
             if (!TextUtils.isEmpty(notification) && notification.equalsIgnoreCase("Yes")) {
-                birthCertificationContent.add(context.getString(R.string.birth_cert_note_1));
+                birthCertificationContent.add(getContext().getString(R.string.birth_cert_note_1));
+                birthCertificationContent.add(getContext().getString(R.string.birth_cert_notification,"Yes"));
             } else if (!TextUtils.isEmpty(notification) && notification.equalsIgnoreCase("No")) {
-                birthCertificationContent.add(context.getString(R.string.birth_cert_note_2));
+                birthCertificationContent.add(getContext().getString(R.string.birth_cert_notification,"No"));
+                birthCertificationContent.add(getContext().getString(R.string.birth_cert_note_2));
+            }else {
+                birthCertificationContent.add(getContext().getString(R.string.birth_cert_notification,"No"));
             }
         }
         Runnable runnable = new Runnable() {
@@ -122,9 +125,9 @@ public class MedicalHistoryInteractor implements MedicalHistoryContract.Interact
         if(!TextUtils.isEmpty(illnessDate)){
             String illnessDescription = getValue(commonPersonObjectClient.getColumnmaps(), ILLNESS_DESCRIPTION, true);
             String illnessAction = getValue(commonPersonObjectClient.getColumnmaps(), ILLNESS_ACTION, true);
-            illnessContent.add(context.getString(R.string.illness_date_with_value, illnessDate));
-            illnessContent.add(context.getString(R.string.illness_des_with_value, illnessDescription));
-            illnessContent.add(context.getString(R.string.illness_action_value,illnessAction));
+            illnessContent.add(getContext().getString(R.string.illness_date_with_value, illnessDate));
+            illnessContent.add(getContext().getString(R.string.illness_des_with_value, illnessDescription));
+            illnessContent.add(getContext().getString(R.string.illness_action_value,illnessAction));
 
         }
         Runnable runnable2 = new Runnable() {
@@ -216,7 +219,6 @@ public class MedicalHistoryInteractor implements MedicalHistoryContract.Interact
     @Override
     public void fetchGrowthNutritionData(String baseEntity, final MedicalHistoryContract.InteractorCallBack callBack) {
         RecurringServiceRecordRepository recurringServiceRecordRepository = ImmunizationLibrary.getInstance().recurringServiceRecordRepository();
-        Context context= WcaroApplication.getInstance().getApplicationContext();
         List<ServiceRecord> serviceRecordList = recurringServiceRecordRepository.findByEntityId(baseEntity);
         if (serviceRecordList.size() > 0) {
             Collections.sort(serviceRecordList, new Comparator<ServiceRecord>() {
@@ -241,7 +243,7 @@ public class MedicalHistoryInteractor implements MedicalHistoryContract.Interact
                 if (serviceRecord.getType().equalsIgnoreCase(GrowthNutritionInputFragment.GROWTH_TYPE.EXCLUSIVE.getValue())) {
                     //String[] values = serviceRecord.getValue().split("_");
                     if (serviceRecord.getName().equalsIgnoreCase("exclusive breastfeeding0")) {
-                        content.setServiceName(context.getString(R.string.initial_breastfeed_value,serviceRecord.getValue()));
+                        content.setServiceName(getContext().getString(R.string.initial_breastfeed_value,serviceRecord.getValue()));
                     } else {
                         Object[] objects = ChildUtils.getStringWithNumber(serviceRecord.getName());
                         String name = (String) objects[0];
@@ -263,7 +265,7 @@ public class MedicalHistoryInteractor implements MedicalHistoryContract.Interact
                 if (serviceRecord.getType().equalsIgnoreCase(GrowthNutritionInputFragment.GROWTH_TYPE.EXCLUSIVE.getValue())) {
                     //String[] values = serviceRecord.getValue().split("_");
                     if (serviceRecord.getName().equalsIgnoreCase("exclusive breastfeeding0")) {
-                        content.setServiceName(context.getString(R.string.initial_breastfeed_value,serviceRecord.getValue()));
+                        content.setServiceName(getContext().getString(R.string.initial_breastfeed_value,serviceRecord.getValue()));
                     } else {
                         Object[] objects = ChildUtils.getStringWithNumber(serviceRecord.getName());
                         String name = (String) objects[0];
@@ -298,5 +300,8 @@ public class MedicalHistoryInteractor implements MedicalHistoryContract.Interact
     @Override
     public void onDestroy(boolean isChangingConfiguration) {
 
+    }
+    public Context getContext(){
+        return WcaroApplication.getInstance().getApplicationContext();
     }
 }
