@@ -378,6 +378,13 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
             }
         }
         for(VaccineRepo.Vaccine vaccine: homeVisitVaccineGroupDetails.getDueVaccines()){
+            for(VaccineWrapper vaccineGivenThisVisit: presenter.getNotGivenVaccines()){
+                if(vaccineGivenThisVisit.getVaccine().display().equalsIgnoreCase(vaccine.display())){
+                    toReturn = true;
+                }
+            }
+        }
+        for(VaccineRepo.Vaccine vaccine: homeVisitVaccineGroupDetails.getDueVaccines()){
             for(VaccineRepo.Vaccine vaccineDueFromLastVisit: presenter.getVaccinesDueFromLastVisit()){
                 if(vaccineDueFromLastVisit.display().equalsIgnoreCase(vaccine.display())){
                     toReturn = false;

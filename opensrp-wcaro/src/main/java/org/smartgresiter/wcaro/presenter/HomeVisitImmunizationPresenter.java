@@ -332,9 +332,7 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
 
     private String addNotGivenVaccines(List<Map<String, Object>> sch) {
         ArrayList<VaccineRepo.Vaccine> allgivenVaccines = new ArrayList<VaccineRepo.Vaccine>();
-        for (HomeVisitVaccineGroupDetails group : allgroups) {
-            allgivenVaccines.addAll(group.getNotGivenVaccines());
-        }
+        allgivenVaccines.addAll(getCurrentActiveGroup().getNotGivenVaccines());
 
         LinkedHashMap<DateTime, ArrayList<VaccineRepo.Vaccine>> groupedByDate = groupVaccines(allgivenVaccines, sch);
 
