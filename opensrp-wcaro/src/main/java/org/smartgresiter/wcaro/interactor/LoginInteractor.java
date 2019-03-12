@@ -1,6 +1,7 @@
 package org.smartgresiter.wcaro.interactor;
 
 import org.smartgresiter.wcaro.BuildConfig;
+import org.smartregister.job.ImageUploadServiceJob;
 import org.smartregister.job.PullUniqueIdsServiceJob;
 import org.smartregister.job.SyncServiceJob;
 import org.smartregister.login.interactor.BaseLoginInteractor;
@@ -23,11 +24,11 @@ public class LoginInteractor extends BaseLoginInteractor implements BaseLoginCon
         SyncServiceJob.scheduleJob(SyncServiceJob.TAG, TimeUnit.MINUTES.toMillis(BuildConfig.DATA_SYNC_DURATION_MINUTES), getFlexValue(BuildConfig
                 .DATA_SYNC_DURATION_MINUTES));
 
-        PullUniqueIdsServiceJob.scheduleJob(SyncServiceJob.TAG, TimeUnit.MINUTES.toMillis(BuildConfig.PULL_UNIQUE_IDS_MINUTES), getFlexValue
+        PullUniqueIdsServiceJob.scheduleJob(PullUniqueIdsServiceJob.TAG, TimeUnit.MINUTES.toMillis(BuildConfig.PULL_UNIQUE_IDS_MINUTES), getFlexValue
                 (BuildConfig.PULL_UNIQUE_IDS_MINUTES));
 
-        /* ImageUploadServiceJob.scheduleJob(SyncServiceJob.TAG, TimeUnit.MINUTES.toMillis(BuildConfig.IMAGE_UPLOAD_MINUTES), getFlexValue(BuildConfig
-                .IMAGE_UPLOAD_MINUTES)); */
+        ImageUploadServiceJob.scheduleJob(ImageUploadServiceJob.TAG, TimeUnit.MINUTES.toMillis(BuildConfig.IMAGE_UPLOAD_MINUTES), getFlexValue(BuildConfig
+                .IMAGE_UPLOAD_MINUTES));
 
     }
 

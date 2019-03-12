@@ -74,7 +74,7 @@ android {
             buildConfigField "boolean", "TIME_CHECK", "false"
             buildConfigField "int", "DATA_SYNC_DURATION_MINUTES", '2'
             buildConfigField "int", "VACCINE_SYNC_PROCESSING_MINUTES", '2'
-            buildConfigField "int", "IMAGE_UPLOAD_MINUTES", '7'
+            buildConfigField "int", "IMAGE_UPLOAD_MINUTES", '2'
             buildConfigField "int", "PULL_UNIQUE_IDS_MINUTES", '10'
             testCoverageEnabled true
         }
@@ -115,7 +115,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'cardview-v7'
     }
 
-    implementation('org.smartregister:opensrp-client-core:1.6.11-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-core:1.6.12-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.github.bmelnychuk', module: 'atv'
         exclude group: 'com.google.guava', module: 'guava'

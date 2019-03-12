@@ -9,6 +9,7 @@ import com.evernote.android.job.JobCreator;
 
 import org.smartgresiter.wcaro.sync.WCAROSyncIntentService;
 import org.smartregister.job.ExtendedSyncServiceJob;
+import org.smartregister.job.ImageUploadServiceJob;
 import org.smartregister.job.PullUniqueIdsServiceJob;
 import org.smartregister.job.SyncServiceJob;
 import org.smartregister.job.ValidateSyncDataServiceJob;
@@ -31,6 +32,8 @@ public class WcaroJobCreator implements JobCreator {
                 return new ValidateSyncDataServiceJob();
             case VaccineRecurringServiceJob.TAG:
                 return new VaccineRecurringServiceJob();
+            case ImageUploadServiceJob.TAG:
+                return new ImageUploadServiceJob();
             default:
                 Log.d(WcaroJobCreator.class.getCanonicalName(), "Looks like you tried to create a job " + tag + " that is not declared in the Anc Job Creator");
                 return null;
