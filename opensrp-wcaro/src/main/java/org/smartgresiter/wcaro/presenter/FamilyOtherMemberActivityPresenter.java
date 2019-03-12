@@ -23,7 +23,4 @@ public class FamilyOtherMemberActivityPresenter extends BaseFamilyOtherMemberPro
         return familyName;
     }
 
-    public void startFormForEdit(CommonPersonObjectClient commonPersonObject) {
-
-    }
 }

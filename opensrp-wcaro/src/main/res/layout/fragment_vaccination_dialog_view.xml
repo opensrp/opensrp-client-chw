@@ -50,13 +50,14 @@
                     android:paddingStart="0dp"
                     android:text="@string/record_immunizations"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    android:textSize="@dimen/activity_title_size"
-                    android:textColor="@android:color/white" />
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/activity_title_size" />
             </RelativeLayout>
         </android.support.v7.widget.Toolbar>
 
 
     </android.support.design.widget.AppBarLayout>
+
     <android.support.v4.widget.NestedScrollView
         android:layout_below="@+id/app_bar"
         android:id="@+id/scroll_layout"
@@ -79,42 +80,53 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="@dimen/btn_margin_bottom"
+                android:layout_marginEnd="@dimen/btn_margin_right"
                 android:layout_marginLeft="@dimen/btn_margin_left"
                 android:layout_marginRight="@dimen/btn_margin_right"
+                android:layout_marginStart="@dimen/btn_margin_left"
                 android:layout_marginTop="30dp"
                 android:paddingLeft="0dp"
+                android:paddingStart="0dp"
                 android:text="@string/which_vaccines_given_text"
                 android:textColor="@color/text_black"
                 android:textSize="21sp" />
 
-            <include android:layout_width="match_parent"
+            <include
                 android:id="@+id/checkbox_no_vaccination"
-                android:layout_below="@+id/vaccines_given_title_question"
+                layout="@layout/custom_vaccine_name_check"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/vaccines_given_title_question"
+                android:layout_marginEnd="@dimen/btn_margin_right"
                 android:layout_marginLeft="@dimen/btn_margin_left"
                 android:layout_marginRight="@dimen/btn_margin_right"
-                layout="@layout/custom_vaccine_name_check"/>
+                android:layout_marginStart="@dimen/btn_margin_left" />
 
 
             <LinearLayout
                 android:id="@+id/vaccination_name_layout"
-                android:layout_below="@+id/checkbox_no_vaccination"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/checkbox_no_vaccination"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="@dimen/btn_margin_bottom"
+                android:layout_marginEnd="@dimen/btn_margin_right"
                 android:layout_marginLeft="@dimen/btn_margin_left"
                 android:layout_marginRight="@dimen/btn_margin_right"
+                android:layout_marginStart="@dimen/btn_margin_left"
                 android:gravity="center_horizontal"
                 android:orientation="vertical" />
+
             <LinearLayout
                 android:id="@+id/multiple_vaccine_date_pickerview"
-                android:layout_below="@+id/vaccination_name_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/vaccination_name_layout"
                 android:layout_marginBottom="@dimen/btn_margin_bottom"
+                android:layout_marginEnd="@dimen/btn_margin_right"
                 android:layout_marginLeft="@dimen/btn_margin_left"
                 android:layout_marginRight="@dimen/btn_margin_right"
+                android:layout_marginStart="@dimen/btn_margin_left"
                 android:orientation="vertical">
                 <include layout="@layout/custom_single_vaccine_view"/>
 
@@ -129,13 +141,15 @@
                     android:textColor="@color/button_navy_blue"
                     android:textSize="19sp" />
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/single_vaccine_add_layout"
-                android:layout_below="@+id/multiple_vaccine_date_pickerview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/multiple_vaccine_date_pickerview"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="@dimen/btn_margin_bottom"
+                android:layout_marginEnd="@dimen/btn_margin_right"
                 android:layout_marginLeft="@dimen/btn_margin_left"
                 android:layout_marginRight="@dimen/btn_margin_right"
                 android:gravity="center_horizontal"

@@ -4,28 +4,26 @@ import android.content.Context;
 import android.database.Cursor;
 import android.support.annotation.VisibleForTesting;
 import android.util.Log;
+import android.util.Pair;
 
 import org.apache.commons.lang3.tuple.Triple;
-import org.json.JSONArray;
 import org.json.JSONObject;
 import org.smartgresiter.wcaro.application.WcaroApplication;
 import org.smartgresiter.wcaro.contract.FamilyChangeContract;
+import org.smartgresiter.wcaro.domain.FamilyMember;
 import org.smartgresiter.wcaro.util.Constants;
 import org.smartgresiter.wcaro.util.JsonFormUtils;
 import org.smartgresiter.wcaro.util.Utils;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
-import org.smartregister.clientandeventmodel.Obs;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
-import org.smartregister.domain.tag.FormTag;
 import org.smartregister.family.FamilyLibrary;
 import org.smartregister.family.util.AppExecutors;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.sync.helper.ECSyncHelper;
-import org.smartregister.util.FormUtils;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -33,7 +31,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
 import static java.util.Calendar.DATE;
 import static java.util.Calendar.MONTH;
@@ -44,8 +41,6 @@ public class FamilyChangeContractInteractor implements FamilyChangeContract.Inte
     private static String TAG = FamilyChangeContractInteractor.class.getCanonicalName();
 
     private AppExecutors appExecutors;
-
-    HashMap<String, String> eduMap = null;
 
     @VisibleForTesting
     FamilyChangeContractInteractor(AppExecutors appExecutors) {
@@ -103,17 +98,20 @@ public class FamilyChangeContractInteractor implements FamilyChangeContract.Inte
             @Override
             public void run() {
 
+                String option = familyMember.get(Constants.PROFILE_CHANGE_ACTION.ACTION_TYPE);
 
-                final String option = familyMember.get(Constants.PROFILE_CHANGE_ACTION.ACTION_TYPE);
-                final String memberID = familyMember.get(DBConstants.KEY.BASE_ENTITY_ID);
-
-                String phone = familyMember.get(Constants.JsonAssets.FAMILY_MEMBER.PHONE_NUMBER);
-                String otherPhone = familyMember.get(Constants.JsonAssets.FAMILY_MEMBER.OTHER_PHONE_NUMBER);
-                String eduLevel = familyMember.get(Constants.JsonAssets.FAMILY_MEMBER.HIGHEST_EDUCATION_LEVEL);
+                final FamilyMember member = new FamilyMember();
+                member.setFamilyID(familyID);
+                member.setMemberID(familyMember.get(DBConstants.KEY.BASE_ENTITY_ID));
+                member.setPhone(familyMember.get(Constants.JsonAssets.FAMILY_MEMBER.PHONE_NUMBER));
+                member.setOtherPhone(familyMember.get(Constants.JsonAssets.FAMILY_MEMBER.OTHER_PHONE_NUMBER));
+                member.setEduLevel(familyMember.get(Constants.JsonAssets.FAMILY_MEMBER.HIGHEST_EDUCATION_LEVEL));
+                member.setPrimaryCareGiver(Constants.PROFILE_CHANGE_ACTION.PRIMARY_CARE_GIVER.equals(option));
+                member.setFamilyHead(Constants.PROFILE_CHANGE_ACTION.HEAD_OF_FAMILY.equals(option));
 
                 // update the EC client model
                 try {
-                    save(context, familyID, memberID, phone, otherPhone, eduLevel, option, lastLocationId);
+                    updateFamilyRelations(context, member, lastLocationId);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -122,13 +120,10 @@ public class FamilyChangeContractInteractor implements FamilyChangeContract.Inte
                     @Override
                     public void run() {
 
-                        switch (option) {
-                            case Constants.PROFILE_CHANGE_ACTION.PRIMARY_CARE_GIVER:
-                                presenter.saveCompleted(null, memberID);
-                                break;
-                            case Constants.PROFILE_CHANGE_ACTION.HEAD_OF_FAMILY:
-                                presenter.saveCompleted(memberID, null);
-                                break;
+                        if (member.getPrimaryCareGiver()) {
+                            presenter.saveCompleted(null, member.getMemberID());
+                        } else {
+                            presenter.saveCompleted(member.getMemberID(), null);
                         }
                     }
                 });
@@ -139,101 +134,34 @@ public class FamilyChangeContractInteractor implements FamilyChangeContract.Inte
 
     }
 
-    private void save(Context context, String familyID, String memberID, String phone, String otherPhone, String eduLevel, String option, String lastLocationId) throws Exception {
+    public void updateFamilyRelations(Context context, FamilyMember familyMember, String lastLocationId) throws Exception {
 
         // update the ec model
         ECSyncHelper syncHelper = WcaroApplication.getInstance().getEcSyncHelper();
+
         // update family record
+        Pair<List<Client>, List<Event>> clientEventPair = JsonFormUtils.processFamilyUpdateRelations(context, familyMember, lastLocationId);
 
-        Client familyClient = syncHelper.convert(syncHelper.getClient(familyID), Client.class);
-        Map<String, List<String>> relationships = familyClient.getRelationships();
-        switch (option) {
-            case Constants.PROFILE_CHANGE_ACTION.PRIMARY_CARE_GIVER:
-
-                relationships.put(Constants.RELATIONSHIP.PRIMARY_CAREGIVER, toStringList(memberID));
-                familyClient.setRelationships(relationships);
-
-                break;
-            case Constants.PROFILE_CHANGE_ACTION.HEAD_OF_FAMILY:
-
-                relationships.put(Constants.RELATIONSHIP.FAMILY_HEAD, toStringList(memberID));
-                familyClient.setRelationships(relationships);
-
-                break;
+        if (clientEventPair != null && clientEventPair.first != null) {
+            for (Client c : clientEventPair.first) {
+                // merge and add client
+                JsonFormUtils.mergeAndSaveClient(syncHelper, c);
+            }
         }
 
-        JSONObject metadata = FormUtils.getInstance(context)
-                .getFormJson(Utils.metadata().familyRegister.formName)
-                .getJSONObject(org.smartregister.family.util.JsonFormUtils.METADATA);
-
-        metadata.put(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_LOCATION, lastLocationId);
-
-        FormTag formTag = new FormTag();
-        formTag.providerId = Utils.context().allSharedPreferences().fetchRegisteredANM();
-        formTag.appVersion = FamilyLibrary.getInstance().getApplicationVersion();
-        formTag.databaseVersion = FamilyLibrary.getInstance().getDatabaseVersion();
-
-        Event eventFamily = JsonFormUtils.createEvent(new JSONArray(), metadata, formTag, familyID, Constants.EventType.UPDATE_FAMILY_RELATIONS,
-                Utils.metadata().familyRegister.tableName);
-        JsonFormUtils.tagSyncMetadata(Utils.context().allSharedPreferences(), eventFamily);
-
-        Event eventMember = JsonFormUtils.createEvent(new JSONArray(), metadata, formTag, memberID, Constants.EventType.UPDATE_FAMILY_RELATIONS,
-                Utils.metadata().familyMemberRegister.tableName);
-        JsonFormUtils.tagSyncMetadata(Utils.context().allSharedPreferences(), eventMember);
-
-        eventMember.addObs(new Obs("concept", "text", Constants.FORM_CONSTANTS.CHANGE_CARE_GIVER.PHONE_NUMBER.CODE, "",
-                toList(phone), new ArrayList<>(), null, DBConstants.KEY.PHONE_NUMBER));
-
-        eventMember.addObs(new Obs("concept", "text", Constants.FORM_CONSTANTS.CHANGE_CARE_GIVER.OTHER_PHONE_NUMBER.CODE, Constants.FORM_CONSTANTS.CHANGE_CARE_GIVER.OTHER_PHONE_NUMBER.PARENT_CODE,
-                toList(otherPhone), new ArrayList<>(), null, DBConstants.KEY.OTHER_PHONE_NUMBER));
-
-        eventMember.addObs(new Obs("concept", "text", Constants.FORM_CONSTANTS.CHANGE_CARE_GIVER.HIGHEST_EDU_LEVEL.CODE, "",
-                toList(eduMap().get(eduLevel)), toList(eduLevel), null, DBConstants.KEY.HIGHEST_EDU_LEVEL));
-
-
-        // merge and add client
-        JsonFormUtils.mergeAndSaveClient(syncHelper, familyClient);
-
-        // add events
-        syncHelper.addEvent(eventFamily.getBaseEntityId(), new JSONObject(org.smartregister.family.util.JsonFormUtils.gson.toJson(eventFamily)));
-        syncHelper.addEvent(eventMember.getBaseEntityId(), new JSONObject(org.smartregister.family.util.JsonFormUtils.gson.toJson(eventMember)));
-
+        if (clientEventPair != null && clientEventPair.second != null) {
+            for (Event event : clientEventPair.second) {
+                // add events
+                syncHelper.addEvent(event.getBaseEntityId(), new JSONObject(org.smartregister.family.util.JsonFormUtils.gson.toJson(event)));
+            }
+        }
 
         // call processor
         long lastSyncTimeStamp = Utils.context().allSharedPreferences().fetchLastUpdatedAtDate(0);
         Date lastSyncDate = new Date(lastSyncTimeStamp);
         FamilyLibrary.getInstance().getClientProcessorForJava().processClient(syncHelper.getEvents(lastSyncDate, BaseRepository.TYPE_Unsynced));
         Utils.context().allSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
-
     }
-
-    private HashMap<String, String> eduMap() {
-        if (eduMap == null) {
-            eduMap = new HashMap<>();
-            eduMap.put("None", "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-            eduMap.put("Primary", "1713AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-            eduMap.put("Secondary", "1714AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-            eduMap.put("Post-secondary", "159785AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-        }
-        return eduMap;
-    }
-
-    private List<Object> toList(String... vals) {
-        List<Object> res = new ArrayList<>();
-        for (String s : vals) {
-            res.add(s);
-        }
-        return res;
-    }
-
-    private List<String> toStringList(String... vals) {
-        List<String> res = new ArrayList<>();
-        for (String s : vals) {
-            res.add(s);
-        }
-        return res;
-    }
-
 
     private Triple<List<HashMap<String, String>>, String, String> processFamily(String familyID) {
         Triple<List<HashMap<String, String>>, String, String> res;

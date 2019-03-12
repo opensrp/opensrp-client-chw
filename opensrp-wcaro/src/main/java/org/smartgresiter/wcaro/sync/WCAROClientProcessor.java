@@ -117,6 +117,9 @@ public class WCAROClientProcessor extends ClientProcessorForJava {
                 }
                 else{
                     if (eventClient.getClient() != null) {
+                        if(eventType.equals(Constants.EventType.UPDATE_FAMILY_RELATIONS) && event.getEntityType().equalsIgnoreCase(Constants.TABLE_NAME.FAMILY_MEMBER)){
+                            event.setEventType(Constants.EventType.UPDATE_FAMILY_MEMBER_RELATIONS);
+                        }
                         processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
                     }
                 }
@@ -146,7 +149,7 @@ public class WCAROClientProcessor extends ClientProcessorForJava {
 
             ContentValues contentValues = processCaseModel(vaccine, vaccineTable);
 
-            // save the values to db
+            // updateFamilyRelations the values to db
             if (contentValues != null && contentValues.size() > 0) {
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
                 Date date = simpleDateFormat.parse(contentValues.getAsString(VaccineRepository.DATE));
@@ -199,7 +202,7 @@ public class WCAROClientProcessor extends ClientProcessorForJava {
 
             ContentValues contentValues = processCaseModel(service, serviceTable);
 
-            // save the values to db
+            // updateFamilyRelations the values to db
             if (contentValues != null && contentValues.size() > 0) {
                 String name = contentValues.getAsString(RecurringServiceTypeRepository.NAME);
 
