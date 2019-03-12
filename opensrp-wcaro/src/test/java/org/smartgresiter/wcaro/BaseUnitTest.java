@@ -1,18 +1,16 @@
 package org.smartgresiter.wcaro;
 
 import org.junit.runner.RunWith;
-import org.powermock.core.classloader.annotations.PowerMockIgnore;
-import org.powermock.modules.junit4.PowerMockRunner;
-import org.powermock.modules.junit4.PowerMockRunnerDelegate;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
-import org.smartgresiter.wcaro.application.WcaroApplication;
-import org.smartregister.immunization.BuildConfig;
+import org.smartgresiter.wcaro.application.TestWcaroApplication;
 
-@RunWith(PowerMockRunner.class)
-@PowerMockRunnerDelegate(RobolectricTestRunner.class)
-@Config(application = WcaroApplication.class,constants = BuildConfig.class, sdk = 22)
-@PowerMockIgnore({"org.mockito.*", "org.robolectric.*", "android.*"})
+/**
+ * Created by keyman on 11/03/2019.
+ */
+
+@RunWith(RobolectricTestRunner.class)
+@Config(application = TestWcaroApplication.class, constants = BuildConfig.class, sdk = 22)
 public abstract class BaseUnitTest {
 
 }

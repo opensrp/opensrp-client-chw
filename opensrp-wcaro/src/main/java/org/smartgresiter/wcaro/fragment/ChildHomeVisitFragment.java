@@ -27,7 +27,6 @@ import com.google.gson.Gson;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
 
-import org.joda.time.DateTime;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -44,7 +43,6 @@ import org.smartgresiter.wcaro.util.ChildDBConstants;
 import org.smartgresiter.wcaro.util.ChildUtils;
 import org.smartgresiter.wcaro.util.Constants;
 import org.smartgresiter.wcaro.util.HomeVisitVaccineGroupDetails;
-import org.smartgresiter.wcaro.util.Utils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.family.activity.BaseFamilyProfileActivity;
@@ -66,15 +64,15 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     public static String DIALOG_TAG = "child_home_visit_dialog";
     Context context;
     CommonPersonObjectClient childClient;
-    private TextView nameHeader, textViewBirthCertDueDate, textViewObsIllnessTitle,textViewObsIllnessDesc;
+    private TextView nameHeader, textViewBirthCertDueDate, textViewObsIllnessTitle, textViewObsIllnessDesc;
     private HomeVisitGrowthAndNutrition homeVisitGrowthAndNutritionLayout;
     private View viewBirthLine;
     public boolean allVaccineStateFullfilled = false;
-    public boolean allVaccineDataLoaded=false;
-    public boolean allServicesDataLoaded=false;
+    public boolean allVaccineDataLoaded = false;
+    public boolean allServicesDataLoaded = false;
     private TextView submit;
     private HomeVisitImmunizationView homeVisitImmunizationView;
-    private LinearLayout layoutBirthCertGroup, layoutIllnessGroup;
+    private LinearLayout layoutBirthCertGroup, layoutIllnessGroup, homeVisitLayout;
     private ChildHomeVisitContract.Presenter presenter;
     private CircleImageView circleImageViewBirthStatus, circleImageViewIllnessStatus;
     private String birthCertGiven = BIRTH_CERT_TYPE.NOT_GIVEN.name();
@@ -109,7 +107,8 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        progressBar=view.findViewById(R.id.progress_bar);
+        homeVisitLayout = view.findViewById(R.id.home_visit_layout);
+        progressBar = view.findViewById(R.id.progress_bar);
         nameHeader = view.findViewById(R.id.textview_name_header);
         textViewBirthCertDueDate = view.findViewById(R.id.textview_birth_certification_name);
         textViewObsIllnessDesc = view.findViewById(R.id.textview_obser_illness_name);
@@ -153,8 +152,8 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                 dobString,
                 getString(R.string.home_visit)
         ));
-       // dobString = dobString.contains("y") ? dobString.substring(0, dobString.indexOf("y")) : "";
-        String status=ChildUtils.getBirthCertDueStatus(dob);
+        // dobString = dobString.contains("y") ? dobString.substring(0, dobString.indexOf("y")) : "";
+        String status = ChildUtils.getBirthCertDueStatus(dob);
 
         if (!TextUtils.isEmpty(birthCert)) {
             layoutBirthCertGroup.setVisibility(View.GONE);
@@ -163,7 +162,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
             layoutBirthCertGroup.setVisibility(View.VISIBLE);
             viewBirthLine.setVisibility(View.VISIBLE);
             //DateTime ddd = Utils.dobStringToDateTime(dob);
-            textViewBirthCertDueDate.setText(ChildUtils.dueOverdueCalculation(status,dob));
+            textViewBirthCertDueDate.setText(ChildUtils.dueOverdueCalculation(status, dob));
 
         }
     }
@@ -289,11 +288,14 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
             submitButtonEnableDisable(false);
         }
     }
-    public void progressBarInvisible(){
-        if(allVaccineDataLoaded && allServicesDataLoaded){
+
+    public void progressBarInvisible() {
+        if (allVaccineDataLoaded && allServicesDataLoaded) {
             progressBar.setVisibility(View.GONE);
-        }else{
+            homeVisitLayout.setVisibility(View.VISIBLE);
+        } else {
             progressBar.setVisibility(View.VISIBLE);
+            homeVisitLayout.setVisibility(View.GONE);
         }
     }
 
@@ -361,15 +363,15 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     private void updateBirthCertData() {
         ArrayList<BirthIllnessData> data = ((ChildHomeVisitPresenter) presenter).getBirthCertDataList();
         if (data.size() > 0) {
-            BirthIllnessData birthIllnessData=data.get(0);
-                if(birthIllnessData.isBirthCertHas()){
-                    String message=birthIllnessData.getBirthCertDate()+" ("+birthIllnessData.getBirthCertNumber()+")";
-                    textViewBirthCertDueDate.setText(message);
-                    updateStatusTick(circleImageViewBirthStatus, true);
-                }else {
-                    textViewBirthCertDueDate.setText(getString(R.string.not_provided));
-                    updateStatusTick(circleImageViewBirthStatus, false);
-                }
+            BirthIllnessData birthIllnessData = data.get(0);
+            if (birthIllnessData.isBirthCertHas()) {
+                String message = birthIllnessData.getBirthCertDate() + " (" + birthIllnessData.getBirthCertNumber() + ")";
+                textViewBirthCertDueDate.setText(message);
+                updateStatusTick(circleImageViewBirthStatus, true);
+            } else {
+                textViewBirthCertDueDate.setText(getString(R.string.not_provided));
+                updateStatusTick(circleImageViewBirthStatus, false);
+            }
 
 //            recyclerViewBirthCertData.setVisibility(View.VISIBLE);
 //            birthCertDataAdapter = new HomeVisitBirthAndIllnessDataAdapter();
@@ -386,8 +388,8 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         ArrayList<BirthIllnessData> data = ((ChildHomeVisitPresenter) presenter).getIllnessDataList();
         if (data.size() > 0) {
             textViewObsIllnessDesc.setVisibility(View.VISIBLE);
-            BirthIllnessData birthIllnessData=data.get(0);
-            String message=birthIllnessData.getIllnessDate()+": "+birthIllnessData.getIllnessDescription()+"\n"+birthIllnessData.getActionTaken();
+            BirthIllnessData birthIllnessData = data.get(0);
+            String message = birthIllnessData.getIllnessDate() + ": " + birthIllnessData.getIllnessDescription() + "\n" + birthIllnessData.getActionTaken();
             textViewObsIllnessDesc.setText(message);
 //            recyclerViewIllnessData.setVisibility(View.VISIBLE);
 //            illnessDataAdapter = new HomeVisitBirthAndIllnessDataAdapter();
@@ -395,7 +397,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
 //            recyclerViewIllnessData.setAdapter(illnessDataAdapter);
 //            recyclerViewIllnessData.setLayoutFrozen(true);
 
-        }else {
+        } else {
             textViewObsIllnessDesc.setVisibility(View.GONE);
         }
 

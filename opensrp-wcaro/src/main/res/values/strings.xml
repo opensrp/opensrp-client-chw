@@ -169,4 +169,7 @@
     <string name="illness_action_value">Action taken: %s</string>
     <string name="initial_breastfeed_value">Early initiation breastfeeding: %s</string>
 
+    <string name="vaccination_done_earlier">Vaccination done earlier</string>
+    <string name="vaccines_not_done">VACCINES NOT DONE</string>
+    <string name="set">Set</string>
 </resources>
