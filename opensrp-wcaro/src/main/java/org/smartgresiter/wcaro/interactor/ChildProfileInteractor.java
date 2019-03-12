@@ -11,6 +11,7 @@ import org.joda.time.DateTime;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.contract.ChildProfileContract;
 import org.smartgresiter.wcaro.fragment.ChildHomeVisitFragment;
 import org.smartgresiter.wcaro.listener.FamilyMemberImmunizationListener;
@@ -49,6 +50,7 @@ import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import static org.smartgresiter.wcaro.util.ChildUtils.fixVaccineCasing;
 import static org.smartgresiter.wcaro.util.Constants.IMMUNIZATION_CONSTANT.DATE;
 import static org.smartgresiter.wcaro.util.Constants.IMMUNIZATION_CONSTANT.VACCINE;
 import static org.smartregister.util.JsonFormUtils.getFieldJSONObject;
@@ -221,7 +223,10 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
                 if (nv != null) {
                     VaccineRepo.Vaccine vaccine = (VaccineRepo.Vaccine) nv.get(VACCINE);
                     final ChildService childService = new ChildService();
-                    childService.setServiceName(vaccine.display());
+                    childService.setServiceName(fixVaccineCasing(vaccine.display()));
+                    if(childService.getServiceName().contains("MEASLES")){
+                        childService.setServiceName(childService.getServiceName().replace("MEASLES","MCV"));
+                    }
                     DateTime dueDate = (DateTime) nv.get(DATE);
                     String duedateString = DateUtil.formatDate(dueDate.toLocalDate(), "dd MMM yyyy");
                     childService.setServiceDate(duedateString);
@@ -331,8 +336,6 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
             JSONObject form = FormUtils.getInstance(context).getFormJson(formName);
             LocationPickerView lpv = new LocationPickerView(context);
             lpv.init();
-            // JsonFormUtils.addWomanRegisterHierarchyQuestions(form);
-            Log.d(TAG, "Form is " + form.toString());
             if (form != null) {
                 form.put(org.smartregister.family.util.JsonFormUtils.ENTITY_ID, client.getCaseId());
                 form.put(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_TYPE, Constants.EventType.UPDATE_CHILD_REGISTRATION);
@@ -344,8 +347,8 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
 
                 form.put(org.smartregister.family.util.JsonFormUtils.CURRENT_OPENSRP_ID, Utils.getValue(client.getColumnmaps(), DBConstants.KEY.UNIQUE_ID, false));
 
-                //inject opensrp id into the form
                 JSONObject stepOne = form.getJSONObject(org.smartregister.family.util.JsonFormUtils.STEP1);
+                stepOne.put("title", context.getString(R.string.edit_child_form_title));
                 JSONArray jsonArray = stepOne.getJSONArray(org.smartregister.family.util.JsonFormUtils.FIELDS);
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
