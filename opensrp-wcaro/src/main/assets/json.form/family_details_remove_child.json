@@ -99,6 +99,10 @@
           "Moved away",
           "Other"
         ],
+        "v_required": {
+          "value": "true",
+          "err": "Select the reason for removing the child's record."
+        },
         "openmrs_choice_ids": {
           "Died": "160034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "Moved away": "160415AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
