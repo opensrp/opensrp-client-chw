@@ -309,7 +309,7 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
                             callback.setFamilyName(familyName);
 
                             if (isForEdit) {
-                                callback.startFormForEdit(pClient);
+                                callback.startFormForEdit("", pClient);
                             } else {
                                 callback.refreshProfileTopSection(pClient);
                             }
@@ -326,7 +326,7 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
     }
 
     @Override
-    public JSONObject getAutoPopulatedJsonEditFormString(String formName, Context context, CommonPersonObjectClient client) {
+    public JSONObject getAutoPopulatedJsonEditFormString(String formName, String title, Context context, CommonPersonObjectClient client) {
         try {
             JSONObject form = FormUtils.getInstance(context).getFormJson(formName);
             LocationPickerView lpv = new LocationPickerView(context);
@@ -346,6 +346,10 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
 
                 //inject opensrp id into the form
                 JSONObject stepOne = form.getJSONObject(org.smartregister.family.util.JsonFormUtils.STEP1);
+
+                if(StringUtils.isNotBlank(title)){
+                    stepOne.put(org.smartgresiter.wcaro.util.JsonFormUtils.TITLE, title);
+                }
                 JSONArray jsonArray = stepOne.getJSONArray(org.smartregister.family.util.JsonFormUtils.FIELDS);
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);

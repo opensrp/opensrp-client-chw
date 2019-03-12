@@ -153,4 +153,6 @@
     <string name="birth_date">Birth Date</string>
     <string name="age">Age</string>
     <string name="no_vaccines_were_done">No vaccines were done</string>
+    <string name="edit_member_form_title">Edit Family Member</string>
+    <string name="edit_child_form_title">Edit Child Under 5</string>
 </resources>

@@ -128,8 +128,9 @@ public class FamilyProfilePresenter extends BaseFamilyProfilePresenter implement
         return null;
     }
 
-    public void updatePrimaryCareGiver(Context context, String jsonString, String familyBaseEntityId, String entityID) {
+    public boolean updatePrimaryCareGiver(Context context, String jsonString, String familyBaseEntityId, String entityID) {
 
+        boolean res = false;
         try {
             FamilyMember member = JsonFormUtils.getFamilyMemberFromRegistrationForm(jsonString, familyBaseEntityId, entityID);
             if (member.getPrimaryCareGiver()) {
@@ -138,9 +139,11 @@ public class FamilyProfilePresenter extends BaseFamilyProfilePresenter implement
                 String lastLocationId = LocationHelper.getInstance().getOpenMrsLocationId(lpv.getSelectedItem());
 
                 new FamilyChangeContractInteractor().updateFamilyRelations(context, member, lastLocationId);
+                res = true;
             }
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
         }
+        return res;
     }
 }

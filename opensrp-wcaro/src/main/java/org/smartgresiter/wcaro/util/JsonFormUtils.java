@@ -64,6 +64,7 @@ import static org.apache.commons.lang3.StringUtils.isBlank;
  */
 public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
     public static final String METADATA = "metadata";
+    public static final String TITLE = "title";
     public static final String ENCOUNTER_TYPE = "encounter_type";
     public static final int REQUEST_CODE_GET_JSON = 2244;
     public static final String CURRENT_OPENSRP_ID = "current_opensrp_id";
@@ -429,7 +430,7 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
         return null;
     }
 
-    public static JSONObject getAutoPopulatedJsonEditMemberFormString(String formName, Context context, CommonPersonObjectClient client, String eventType, boolean isPrimaryCaregiver) {
+    public static JSONObject getAutoPopulatedJsonEditMemberFormString(String title, String formName, Context context, CommonPersonObjectClient client, String eventType, boolean isPrimaryCaregiver) {
         try {
             JSONObject form = FormUtils.getInstance(context).getFormJson(formName);
             LocationPickerView lpv = new LocationPickerView(context);
@@ -448,6 +449,11 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
 
                 //inject opensrp id into the form
                 JSONObject stepOne = form.getJSONObject(org.smartregister.family.util.JsonFormUtils.STEP1);
+
+                if(StringUtils.isNotBlank(title)){
+                    stepOne.put(TITLE, title);
+                }
+
                 JSONArray jsonArray = stepOne.getJSONArray(org.smartregister.family.util.JsonFormUtils.FIELDS);
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
@@ -572,7 +578,7 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
 
             }
             break;
-            case "age": {
+            case org.smartgresiter.wcaro.util.Constants.JsonAssets.AGE: {
 
                 String dobString = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.DOB, false);
                 dobString = org.smartregister.family.util.Utils.getDuration(dobString);
@@ -608,7 +614,7 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
 
                 break;
 
-            case "fam_name":
+            case org.smartgresiter.wcaro.util.Constants.JsonAssets.FAM_NAME:
 
                 String fam_name = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.LAST_NAME, false);
                 jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, fam_name);
@@ -620,10 +626,12 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
                 jsonObject2.put(org.smartregister.family.util.JsonFormUtils.VALUE, fam_name);
 
                 break;
-            case "sex":
+
+            case org.smartgresiter.wcaro.util.Constants.JsonAssets.SEX:
                 jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), DBConstants.KEY.GENDER, false));
                 break;
-            case "primary_caregiver":
+
+            case org.smartgresiter.wcaro.util.Constants.JsonAssets.PRIMARY_CARE_GIVER:
                 if (isPrimaryCaregiver) {
                     jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, "Yes");
                     jsonObject.put(org.smartregister.family.util.JsonFormUtils.READ_ONLY, true);
@@ -631,6 +639,10 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
                     jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, "No");
                 }
 
+                break;
+
+            case org.smartgresiter.wcaro.util.Constants.JsonAssets.NATIONAL_ID:
+                jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), org.smartgresiter.wcaro.util.Constants.JsonAssets.NATIONAL_ID, false));
                 break;
 
             default:

@@ -75,7 +75,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
                     FamilyCallDialogFragment.launchDialog(ChildProfileActivity.this, ((ChildProfilePresenter) presenter).getFamilyId());
                     break;
                 case R.id.registration_layout:
-                    ((ChildProfilePresenter) presenter()).startFormForEdit(((ChildProfilePresenter) presenter()).getChildClient());
+                    ((ChildProfilePresenter) presenter()).startFormForEdit(getResources().getString(R.string.edit_child_form_title), ((ChildProfilePresenter) presenter()).getChildClient());
                     break;
                 case R.id.remove_member_layout:
 

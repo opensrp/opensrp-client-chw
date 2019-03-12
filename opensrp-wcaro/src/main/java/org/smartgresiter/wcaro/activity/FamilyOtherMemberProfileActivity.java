@@ -55,7 +55,7 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
                     FamilyCallDialogFragment.launchDialog(FamilyOtherMemberProfileActivity.this, familyBaseEntityId);
                     break;
                 case R.id.registration_layout:
-                    startFormForEdit();
+                    startFormForEdit(R.string.edit_member_form_title);
                     break;
                 case R.id.remove_member_layout:
 
@@ -139,7 +139,7 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
         return (FamilyOtherMemberActivityPresenter) presenter;
     }
 
-    public void startFormForEdit() {
+    public void startFormForEdit(Integer title_resource) {
 
         CommonRepository commonRepository = org.smartgresiter.wcaro.util.Utils.context().commonrepository(org.smartgresiter.wcaro.util.Utils.metadata().familyMemberRegister.tableName);
 
@@ -148,7 +148,9 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
                 new CommonPersonObjectClient(personObject.getCaseId(), personObject.getDetails(), "");
         client.setColumnmaps(personObject.getColumnmaps());
 
-        JSONObject form = org.smartgresiter.wcaro.util.JsonFormUtils.getAutoPopulatedJsonEditMemberFormString(org.smartgresiter.wcaro.util.Constants.JSON_FORM.FAMILY_MEMBER_REGISTER,
+        JSONObject form = org.smartgresiter.wcaro.util.JsonFormUtils.getAutoPopulatedJsonEditMemberFormString(
+                (title_resource != null) ? getResources().getString(title_resource) : null,
+                org.smartgresiter.wcaro.util.Constants.JSON_FORM.FAMILY_MEMBER_REGISTER,
                 this, client, org.smartgresiter.wcaro.util.Utils.metadata().familyMemberRegister.updateEventType, commonPersonObject.getCaseId().equalsIgnoreCase(primaryCaregiver));
         try {
             startFormActivity(form);

@@ -131,8 +131,8 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
     }
 
     @Override
-    public void startFormForEdit(CommonPersonObjectClient client) {
-        JSONObject form = interactor.getAutoPopulatedJsonEditFormString(org.smartgresiter.wcaro.util.Constants.JSON_FORM.CHILD_REGISTER, getView().getApplicationContext(), client);
+    public void startFormForEdit(String title, CommonPersonObjectClient client) {
+        JSONObject form = interactor.getAutoPopulatedJsonEditFormString(org.smartgresiter.wcaro.util.Constants.JSON_FORM.CHILD_REGISTER, title , getView().getApplicationContext(), client);
         try {
 
             if (!isBlank(client.getColumnmaps().get(ChildDBConstants.KEY.RELATIONAL_ID))) {
