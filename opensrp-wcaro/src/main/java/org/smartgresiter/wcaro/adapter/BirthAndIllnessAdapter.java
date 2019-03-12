@@ -3,7 +3,9 @@ package org.smartgresiter.wcaro.adapter;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import org.smartgresiter.wcaro.R;
 
@@ -23,14 +25,14 @@ public class BirthAndIllnessAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        return new GrowthAdapter.ContentViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.vaccine_content_view, null));
+        return new ContentViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.content_view, null));
 
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
         String content = contentList.get(position);
-        GrowthAdapter.ContentViewHolder contentViewHolder = (GrowthAdapter.ContentViewHolder) viewHolder;
+        ContentViewHolder contentViewHolder = (ContentViewHolder) viewHolder;
         contentViewHolder.vaccineName.setText(content);
 
     }
@@ -38,5 +40,19 @@ public class BirthAndIllnessAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     @Override
     public int getItemCount() {
         return contentList.size();
+    }
+    public static class ContentViewHolder extends RecyclerView.ViewHolder {
+        public TextView vaccineName;
+        private View myView;
+
+        public ContentViewHolder(View view) {
+            super(view);
+            vaccineName = view.findViewById(R.id.name_date_tv);
+            myView = view;
+        }
+
+        public View getView() {
+            return myView;
+        }
     }
 }
