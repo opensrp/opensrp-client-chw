@@ -53,6 +53,7 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity implements 
     BaseFamilyProfileMemberFragment profileMemberFragment;
     BaseFamilyProfileDueFragment profileDueFragment;
     BaseFamilyProfileActivityFragment profileActivityFragment;
+    FamilyFloatingMenu familyFloatingMenu;
 
     @Override
     protected void initializePresenter() {
@@ -72,7 +73,7 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity implements 
         profileView.setBorderWidth(2);
 
         // add floating menu
-        FamilyFloatingMenu familyFloatingMenu = new FamilyFloatingMenu(this);
+        familyFloatingMenu = new FamilyFloatingMenu(this);
         LinearLayout.LayoutParams linearLayoutParams =
                 new LinearLayout.LayoutParams(
                         LinearLayout.LayoutParams.MATCH_PARENT,
@@ -157,6 +158,13 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity implements 
         ((FamilyProfilePresenter) presenter).startChildForm(formName, entityId, metadata, currentLocationId);
     }
 
+    @Override
+    public void updateHasPhone(boolean hasPhone) {
+        if(familyFloatingMenu !=null){
+            familyFloatingMenu.reDraw(hasPhone);
+        }
+    }
+
     private void refreshPresenter(){
         presenter = new FamilyProfilePresenter(this, new BaseFamilyProfileModel(familyName), familyBaseEntityId, familyHead, primaryCaregiver, familyName);
     }
@@ -176,6 +184,7 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity implements 
                         if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Utils.metadata().familyRegister.updateEventType)) {
 
                             presenter().updateFamilyRegister(jsonString);
+                            ((FamilyProfilePresenter) presenter).verifyHasPhone();
 
                         } else if  (encounter_type.equals(org.smartgresiter.wcaro.util.Constants.EventType.CHILD_REGISTRATION)) {
 
@@ -189,6 +198,7 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity implements 
                             refreshPresenter();
 
                             refreshMemberFragment(primaryCaregiver, null);
+                            ((FamilyProfilePresenter) presenter).verifyHasPhone();
 
                         }
                     } catch (Exception e) {
@@ -203,6 +213,8 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity implements 
                         String familyHeadID = data.getStringExtra(Constants.INTENT_KEY.FAMILY_HEAD);
 
                         refreshMemberFragment(careGiverID, familyHeadID);
+                        ((FamilyProfilePresenter) presenter).verifyHasPhone();
+
                     } catch (Exception e) {
                         Log.e(TAG, Log.getStackTraceString(e));
                         Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();

@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import org.apache.commons.lang3.StringUtils;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -129,7 +130,7 @@ public class FamilyCallDialogFragment extends DialogFragment implements FamilyCa
 
     @Override
     public void refreshHeadOfFamilyView(FamilyCallDialogContract.Model model) {
-        if (model != null) {
+        if (model != null && StringUtils.isNotBlank(model.getPhoneNumber())) {
             llFamilyHead.setVisibility(View.VISIBLE);
             tvFamilyHeadName.setText(model.getName());
 
@@ -149,7 +150,7 @@ public class FamilyCallDialogFragment extends DialogFragment implements FamilyCa
 
     @Override
     public void refreshCareGiverView(FamilyCallDialogContract.Model model) {
-        if (model != null) {
+        if (model != null && StringUtils.isNotBlank(model.getPhoneNumber())) {
             llCareGiver.setVisibility(View.VISIBLE);
             tvCareGiverName.setText(model.getName());
 
