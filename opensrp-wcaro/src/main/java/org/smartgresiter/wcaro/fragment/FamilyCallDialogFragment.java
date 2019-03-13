@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import org.apache.commons.lang3.StringUtils;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -30,7 +31,7 @@ public class FamilyCallDialogFragment extends DialogFragment implements FamilyCa
 
     public static final String DIALOG_TAG = "FamilyCallWidgetDialogFragment_DIALOG_TAG";
 
-    View.OnClickListener listner = null;
+    View.OnClickListener listener = null;
     FamilyCallDialogContract.Dialer mDialer;
     String familyBaseEntityId;
     ImageView ivClose;
@@ -82,8 +83,8 @@ public class FamilyCallDialogFragment extends DialogFragment implements FamilyCa
         ViewGroup dialogView = (ViewGroup) inflater.inflate(R.layout.family_call_widget_dialog_fragment, container, false);
         setUpPosition();
 
-        if (listner == null) {
-            listner = new CallWidgetDialogListener(this);
+        if (listener == null) {
+            listener = new CallWidgetDialogListener(this);
         }
 
         initUI(dialogView);
@@ -104,9 +105,9 @@ public class FamilyCallDialogFragment extends DialogFragment implements FamilyCa
         tvCareGiverName = rootView.findViewById(R.id.call_caregiver_name);
         tvCareGiverPhone = rootView.findViewById(R.id.call_caregiver_phone);
 
-        ivClose.setOnClickListener(listner);
-        tvFamilyHeadPhone.setOnClickListener(listner);
-        tvCareGiverPhone.setOnClickListener(listner);
+        ivClose.setOnClickListener(listener);
+        tvFamilyHeadPhone.setOnClickListener(listener);
+        tvCareGiverPhone.setOnClickListener(listener);
     }
 
     private void setUpPosition() {
@@ -124,12 +125,12 @@ public class FamilyCallDialogFragment extends DialogFragment implements FamilyCa
         if (getPendingCallRequest() == null) {
             EventBus.getDefault().unregister(this);
         }
-        listner = null;
+        listener = null;
     }
 
     @Override
     public void refreshHeadOfFamilyView(FamilyCallDialogContract.Model model) {
-        if (model != null) {
+        if (model != null && StringUtils.isNotBlank(model.getPhoneNumber())) {
             llFamilyHead.setVisibility(View.VISIBLE);
             tvFamilyHeadName.setText(model.getName());
 
@@ -149,7 +150,7 @@ public class FamilyCallDialogFragment extends DialogFragment implements FamilyCa
 
     @Override
     public void refreshCareGiverView(FamilyCallDialogContract.Model model) {
-        if (model != null) {
+        if (model != null && StringUtils.isNotBlank(model.getPhoneNumber())) {
             llCareGiver.setVisibility(View.VISIBLE);
             tvCareGiverName.setText(model.getName());
 

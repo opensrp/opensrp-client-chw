@@ -1,8 +1,11 @@
 package org.smartgresiter.wcaro.interactor;
 
+import android.content.Context;
 import android.support.annotation.VisibleForTesting;
 import android.text.TextUtils;
 
+import org.smartgresiter.wcaro.R;
+import org.smartgresiter.wcaro.application.WcaroApplication;
 import org.smartgresiter.wcaro.contract.MedicalHistoryContract;
 import org.smartgresiter.wcaro.fragment.GrowthNutritionInputFragment;
 import org.smartgresiter.wcaro.util.BaseService;
@@ -37,6 +40,7 @@ import static org.smartgresiter.wcaro.util.ChildDBConstants.KEY.BIRTH_CERT_NUMBE
 import static org.smartgresiter.wcaro.util.ChildDBConstants.KEY.ILLNESS_ACTION;
 import static org.smartgresiter.wcaro.util.ChildDBConstants.KEY.ILLNESS_DATE;
 import static org.smartgresiter.wcaro.util.ChildDBConstants.KEY.ILLNESS_DESCRIPTION;
+import static org.smartgresiter.wcaro.util.ChildUtils.fixVaccineCasing;
 import static org.smartregister.util.Utils.getValue;
 
 public class MedicalHistoryInteractor implements MedicalHistoryContract.Interactor {
@@ -85,18 +89,22 @@ public class MedicalHistoryInteractor implements MedicalHistoryContract.Interact
         String birthCert = getValue(commonPersonObjectClient.getColumnmaps(), BIRTH_CERT, true);
         final ArrayList<String> birthCertificationContent = new ArrayList<>();
         if (!TextUtils.isEmpty(birthCert) && birthCert.equalsIgnoreCase("Yes")) {
-            birthCertificationContent.add("Does the child have a birth certificate? " + birthCert);
-            birthCertificationContent.add("Birth certificate issuance date: " + getValue(commonPersonObjectClient.getColumnmaps(), BIRTH_CERT_ISSUE_DATE, true));
-            birthCertificationContent.add("Birth certificate number: " + getValue(commonPersonObjectClient.getColumnmaps(), BIRTH_CERT_NUMBER, true));
+            birthCertificationContent.add(getContext().getString(R.string.birth_cert_value,birthCert));
+            birthCertificationContent.add(getContext().getString(R.string.birth_cert_date,getValue(commonPersonObjectClient.getColumnmaps(), BIRTH_CERT_ISSUE_DATE, true)));
+            birthCertificationContent.add(getContext().getString(R.string.birth_cert_number,getValue(commonPersonObjectClient.getColumnmaps(), BIRTH_CERT_NUMBER, true)));
 
         } else if (!TextUtils.isEmpty(birthCert) && birthCert.equalsIgnoreCase("No")) {
-            birthCertificationContent.add("Does the child have a birth certificate? " + birthCert);
+            birthCertificationContent.add(getContext().getString(R.string.birth_cert_value,birthCert));
             String notification = getValue(commonPersonObjectClient.getColumnmaps(), BIRTH_CERT_NOTIFIICATION, true);
-            birthCertificationContent.add("Was the birth notification done? " + notification);
+
             if (!TextUtils.isEmpty(notification) && notification.equalsIgnoreCase("Yes")) {
-                birthCertificationContent.add("Ask to see the birth notification and instruct the caregiver to register the birth with the civil registrar.");
+                birthCertificationContent.add(getContext().getString(R.string.birth_cert_note_1));
+                birthCertificationContent.add(getContext().getString(R.string.birth_cert_notification,"Yes"));
             } else if (!TextUtils.isEmpty(notification) && notification.equalsIgnoreCase("No")) {
-                birthCertificationContent.add("Instruct the caregiver to have the birth registered with the civil registrar.");
+                birthCertificationContent.add(getContext().getString(R.string.birth_cert_notification,"No"));
+                birthCertificationContent.add(getContext().getString(R.string.birth_cert_note_2));
+            }else {
+                birthCertificationContent.add(getContext().getString(R.string.birth_cert_notification,"No"));
             }
         }
         Runnable runnable = new Runnable() {
@@ -117,9 +125,9 @@ public class MedicalHistoryInteractor implements MedicalHistoryContract.Interact
         if(!TextUtils.isEmpty(illnessDate)){
             String illnessDescription = getValue(commonPersonObjectClient.getColumnmaps(), ILLNESS_DESCRIPTION, true);
             String illnessAction = getValue(commonPersonObjectClient.getColumnmaps(), ILLNESS_ACTION, true);
-            illnessContent.add("Date: " + illnessDate);
-            illnessContent.add("Description: " + illnessDescription);
-            illnessContent.add("Action taken: " + illnessAction);
+            illnessContent.add(getContext().getString(R.string.illness_date_with_value, illnessDate));
+            illnessContent.add(getContext().getString(R.string.illness_des_with_value, illnessDescription));
+            illnessContent.add(getContext().getString(R.string.illness_action_value,illnessAction));
 
         }
         Runnable runnable2 = new Runnable() {
@@ -149,7 +157,10 @@ public class MedicalHistoryInteractor implements MedicalHistoryContract.Interact
                     String stateKey = VaccinateActionUtils.stateKey(vaccine);
                     ReceivedVaccine receivedVaccine = new ReceivedVaccine();
                     receivedVaccine.setVaccineCategory(stateKey);
-                    receivedVaccine.setVaccineName(name);
+                    receivedVaccine.setVaccineName(fixVaccineCasing(name).replace("MEASLES","MCV"));
+                    if(receivedVaccine.getVaccineName().contains("MEASLES")){
+                        receivedVaccine.setVaccineName(receivedVaccine.getVaccineName().replace("MEASLES","MCV"));
+                    }
                     receivedVaccine.setVaccineDate(recievedVaccines.get(name));
                     receivedVaccine.setVaccineIndex(vList.indexOf(vaccine));
                     receivedVaccineArrayList.add(receivedVaccine);
@@ -232,7 +243,7 @@ public class MedicalHistoryInteractor implements MedicalHistoryContract.Interact
                 if (serviceRecord.getType().equalsIgnoreCase(GrowthNutritionInputFragment.GROWTH_TYPE.EXCLUSIVE.getValue())) {
                     //String[] values = serviceRecord.getValue().split("_");
                     if (serviceRecord.getName().equalsIgnoreCase("exclusive breastfeeding0")) {
-                        content.setServiceName("Early initiation breastfeeding: " + serviceRecord.getValue());
+                        content.setServiceName(getContext().getString(R.string.initial_breastfeed_value,serviceRecord.getValue()));
                     } else {
                         Object[] objects = ChildUtils.getStringWithNumber(serviceRecord.getName());
                         String name = (String) objects[0];
@@ -243,7 +254,7 @@ public class MedicalHistoryInteractor implements MedicalHistoryContract.Interact
                 } else {
                     SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
                     String date = DATE_FORMAT.format(serviceRecord.getDate());
-                    content.setServiceName(serviceRecord.getName() + " - " + date);
+                    content.setServiceName(serviceRecord.getName() + " - done " + date);
                 }
 
                 content.setType(serviceRecord.getType());
@@ -254,7 +265,7 @@ public class MedicalHistoryInteractor implements MedicalHistoryContract.Interact
                 if (serviceRecord.getType().equalsIgnoreCase(GrowthNutritionInputFragment.GROWTH_TYPE.EXCLUSIVE.getValue())) {
                     //String[] values = serviceRecord.getValue().split("_");
                     if (serviceRecord.getName().equalsIgnoreCase("exclusive breastfeeding0")) {
-                        content.setServiceName("Early initiation breastfeeding: " +serviceRecord.getValue());
+                        content.setServiceName(getContext().getString(R.string.initial_breastfeed_value,serviceRecord.getValue()));
                     } else {
                         Object[] objects = ChildUtils.getStringWithNumber(serviceRecord.getName());
                         String name = (String) objects[0];
@@ -265,7 +276,7 @@ public class MedicalHistoryInteractor implements MedicalHistoryContract.Interact
                 } else {
                     SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
                     String date = DATE_FORMAT.format(serviceRecord.getDate());
-                    content.setServiceName(serviceRecord.getName() + " - " + date);
+                    content.setServiceName(serviceRecord.getName() + " - done " + date);
                 }
 
                 content.setType(serviceRecord.getType());
@@ -289,5 +300,8 @@ public class MedicalHistoryInteractor implements MedicalHistoryContract.Interact
     @Override
     public void onDestroy(boolean isChangingConfiguration) {
 
+    }
+    public Context getContext(){
+        return WcaroApplication.getInstance().getApplicationContext();
     }
 }

@@ -13,6 +13,7 @@ import org.smartgresiter.wcaro.contract.FamilyProfileExtendedContract;
 import org.smartgresiter.wcaro.domain.FamilyMember;
 import org.smartgresiter.wcaro.interactor.ChildRegisterInteractor;
 import org.smartgresiter.wcaro.interactor.FamilyChangeContractInteractor;
+import org.smartgresiter.wcaro.interactor.FamilyProfileInteractor;
 import org.smartgresiter.wcaro.model.ChildProfileModel;
 import org.smartgresiter.wcaro.model.ChildRegisterModel;
 import org.smartgresiter.wcaro.util.Constants;
@@ -42,6 +43,8 @@ public class FamilyProfilePresenter extends BaseFamilyProfilePresenter implement
         viewReference = new WeakReference<>(view);
         childRegisterInteractor = new ChildRegisterInteractor();
         childProfileModel = new ChildProfileModel(familyName);
+        interactor = new FamilyProfileInteractor();
+        verifyHasPhone();
     }
 
     @Override
@@ -100,6 +103,18 @@ public class FamilyProfilePresenter extends BaseFamilyProfilePresenter implement
         } catch (Exception e) {
             Log.e(TAG, Log.getStackTraceString(e));
         }
+    }
+
+    @Override
+    public void notifyHasPhone(boolean hasPhone) {
+        if (viewReference.get() != null) {
+            viewReference.get().updateHasPhone(hasPhone);
+        }
+    }
+
+    @Override
+    public void verifyHasPhone() {
+        ((FamilyProfileInteractor) interactor).verifyHasPhone(familyBaseEntityId, this);
     }
 
     public FamilyProfileExtendedContract.View getView() {

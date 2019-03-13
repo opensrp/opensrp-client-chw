@@ -49,13 +49,11 @@ public interface ChildProfileContract {
 
         void setLastVisitRowView(String days);
 
-        void setServiceName(String serviceName);
+        void setServiceNameDue(String name,String dueDate);
 
-        void setServiceDueDate(String date);
+        void setServiceNameOverDue(String name,String dueDate);
 
-        void setSeviceOverdueDate(String date);
-
-        void setServiceUpcomingDueDate(String upcomingDate);
+        void setServiceNameUpcoming(String name,String dueDate);
 
         void setVisitLessTwentyFourView(String monthName);
 

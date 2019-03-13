@@ -191,16 +191,16 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
 
     @Override
     public void updateChildService(ChildService childService) {
-        if (childService.getServiceStatus().equalsIgnoreCase(ChildProfileInteractor.ServiceType.DUE.name())) {
-            getView().setServiceDueDate("due (" + childService.getServiceDate() + ")");
-        }
-        if (childService.getServiceStatus().equalsIgnoreCase(ChildProfileInteractor.ServiceType.OVERDUE.name())) {
-            getView().setSeviceOverdueDate("overdue (" + childService.getServiceDate() + ")");
-        }
         if (childService.getServiceStatus().equalsIgnoreCase(ChildProfileInteractor.ServiceType.UPCOMING.name())) {
-            getView().setServiceUpcomingDueDate("upcoming (" + childService.getServiceDate() + ")");
+            getView().setServiceNameUpcoming(childService.getServiceName().trim(), childService.getServiceDate());
         }
-        getView().setServiceName(childService.getServiceName());
+        else if (childService.getServiceStatus().equalsIgnoreCase(ChildProfileInteractor.ServiceType.OVERDUE.name())) {
+            getView().setServiceNameOverDue(childService.getServiceName().trim(), childService.getServiceDate());
+        }
+        else{
+            getView().setServiceNameDue(childService.getServiceName().trim(), childService.getServiceDate());
+        }
+
     }
 
     @Override

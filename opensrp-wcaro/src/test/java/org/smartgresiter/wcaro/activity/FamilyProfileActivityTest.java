@@ -28,15 +28,12 @@ import org.smartregister.CoreLibrary;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.family.fragment.BaseFamilyProfileMemberFragment;
 import org.smartregister.family.util.Constants;
-import org.smartregister.util.FormUtils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -122,7 +119,7 @@ public class FamilyProfileActivityTest {
         JSONObject form = getFormJson(RuntimeEnvironment.application, org.smartgresiter.wcaro.util.Constants.JSON_FORM.FAMILY_MEMBER_REGISTER);
 
         FamilyProfilePresenter presenter = mock(FamilyProfilePresenter.class);
-        Whitebox.setInternalState(spyActivity,"presenter", presenter);
+        Whitebox.setInternalState(spyActivity, "presenter", presenter);
 
         int resultCode = Activity.RESULT_OK;
         int requestCode = org.smartregister.family.util.JsonFormUtils.REQUEST_CODE_GET_JSON;
