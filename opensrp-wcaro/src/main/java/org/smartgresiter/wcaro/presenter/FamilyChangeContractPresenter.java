@@ -1,8 +1,10 @@
 package org.smartgresiter.wcaro.presenter;
 
 import android.content.Context;
+import android.util.Pair;
 
 import org.smartgresiter.wcaro.contract.FamilyChangeContract;
+import org.smartgresiter.wcaro.domain.FamilyMember;
 import org.smartgresiter.wcaro.interactor.FamilyChangeContractInteractor;
 import org.smartgresiter.wcaro.model.FamilyChangeContractModel;
 import org.smartregister.location.helper.LocationHelper;
@@ -34,7 +36,7 @@ public class FamilyChangeContractPresenter implements FamilyChangeContract.Prese
     }
 
     @Override
-    public void saveFamilyMember(Context context, HashMap<String, String> member) {
+    public void saveFamilyMember(Context context, Pair<String, FamilyMember> member) {
 
         LocationPickerView lpv = new LocationPickerView(context);
         lpv.init();
@@ -44,9 +46,9 @@ public class FamilyChangeContractPresenter implements FamilyChangeContract.Prese
     }
 
     @Override
-    public void renderAdultMembersExcludePCG(List<HashMap<String, String>> clients, String primaryCareID, String headOfHouseID) {
+    public void renderAdultMembersExcludePCG(List<FamilyMember> clients, String primaryCareID, String headOfHouseID) {
         if (view != null && view.get() != null) {
-            List<HashMap<String, String>> res = model.getMembersExcluding(clients, primaryCareID, headOfHouseID, primaryCareID);
+            List<FamilyMember> res = model.getMembersExcluding(clients, primaryCareID, headOfHouseID, primaryCareID);
             view.get().refreshMembersView(res);
         }
     }
@@ -59,9 +61,9 @@ public class FamilyChangeContractPresenter implements FamilyChangeContract.Prese
     }
 
     @Override
-    public void renderAdultMembersExcludeHOF(List<HashMap<String, String>> clients, String primaryCareID, String headOfHouseID) {
+    public void renderAdultMembersExcludeHOF(List<FamilyMember> clients, String primaryCareID, String headOfHouseID) {
         if (view != null && view.get() != null) {
-            List<HashMap<String, String>> res = model.getMembersExcluding(clients, primaryCareID, headOfHouseID, headOfHouseID);
+            List<FamilyMember> res = model.getMembersExcluding(clients, primaryCareID, headOfHouseID, headOfHouseID);
             view.get().refreshMembersView(res);
         }
     }

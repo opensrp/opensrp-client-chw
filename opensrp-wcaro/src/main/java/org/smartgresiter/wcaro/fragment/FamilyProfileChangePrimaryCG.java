@@ -1,12 +1,14 @@
 package org.smartgresiter.wcaro.fragment;
 
 import android.os.Bundle;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.adapter.MemberAdapter;
+import org.smartgresiter.wcaro.domain.FamilyMember;
 import org.smartgresiter.wcaro.presenter.FamilyChangeContractPresenter;
 import org.smartgresiter.wcaro.util.Constants;
 
@@ -36,15 +38,12 @@ public class FamilyProfileChangePrimaryCG extends FamilyProfileChangeHead {
     }
 
     @Override
-    protected void validateSave(int itemPosition) {
-        Boolean valid = memberAdapter.validateSave((MemberAdapter.MyViewHolder) recyclerView.findViewHolderForAdapterPosition(itemPosition));
+    protected void validateSave() {
+        Boolean valid = memberAdapter.validateSave();
         if (valid) {
-            HashMap<String, String> res = memberAdapter.getSelectedResults(
-                    (MemberAdapter.MyViewHolder) recyclerView.findViewHolderForAdapterPosition(itemPosition),
-                    itemPosition
-            );
-            res.put(Constants.PROFILE_CHANGE_ACTION.ACTION_TYPE, Constants.PROFILE_CHANGE_ACTION.PRIMARY_CARE_GIVER);
-            updateFamilyMember(res);
+            FamilyMember res = memberAdapter.getSelectedResults();
+            if (res != null)
+                updateFamilyMember(Pair.create(Constants.PROFILE_CHANGE_ACTION.PRIMARY_CARE_GIVER, res));
         }
     }
 }

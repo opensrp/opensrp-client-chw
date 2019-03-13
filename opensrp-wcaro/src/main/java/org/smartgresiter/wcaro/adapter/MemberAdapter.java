@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,40 +23,39 @@ import android.widget.TextView;
 
 import org.apache.commons.lang3.StringUtils;
 import org.smartgresiter.wcaro.R;
-import org.smartgresiter.wcaro.util.Constants;
-import org.smartregister.family.util.DBConstants;
+import org.smartgresiter.wcaro.domain.FamilyMember;
 import org.smartregister.family.util.Utils;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MyViewHolder> {
 
-    private List<HashMap<String, String>> familyMembers;
-    private View.OnClickListener clickListener;
+    public String TAG = MemberAdapter.class.getCanonicalName();
+    private List<FamilyMember> familyMembers;
+    private MyViewHolder currentViewHolder;
     private Context context;
 
-    private Integer selected = -1;
+    private String selected = null;
 
     Animation slideUp;
     Animation slideDown;
     List<String> eduOptions;
 
-    public MemberAdapter(Context context, List<HashMap<String, String>> myDataset, View.OnClickListener clickListener) {
+    public MemberAdapter(Context context, List<FamilyMember> myDataset) {
         familyMembers = myDataset;
-        this.clickListener = clickListener;
         this.context = context;
 
         slideUp = AnimationUtils.loadAnimation(context, R.anim.slide_up);
         slideDown = AnimationUtils.loadAnimation(context, R.anim.slide_up);
     }
 
-    public Integer getSelected() {
+    public String getSelected() {
         return selected;
     }
 
-    public void setSelected(Integer selected) {
+    public void setSelected(MyViewHolder view, String selected) {
+        currentViewHolder = view;
         this.selected = selected;
     }
 
@@ -68,78 +68,71 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MyViewHold
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final MyViewHolder holder, int position) {
 
-        final HashMap<String, String> model = familyMembers.get(position);
+        final FamilyMember model = familyMembers.get(position);
 
-        String dob = ((!model.containsKey(DBConstants.KEY.DOB) || model.get(DBConstants.KEY.DOB) == "null") ? "" : model.get(DBConstants.KEY.DOB));
-        String dobString = Utils.getDuration(dob);
+        String dobString = Utils.getDuration(model.getDob());
         dobString = dobString.contains("y") ? dobString.substring(0, dobString.indexOf("y")) : dobString;
 
-        String dod = ((!model.containsKey(DBConstants.KEY.DOD) || model.get(DBConstants.KEY.DOD) == "null") ? "" : model.get(DBConstants.KEY.DOD));
-
-        if (StringUtils.isNotBlank(dod)) {
-            dobString = Utils.getDuration(dod, dob);
+        if (StringUtils.isNotBlank(model.getDod())) {
+            dobString = Utils.getDuration(model.getDod(), model.getDob());
             dobString = dobString.contains("y") ? dobString.substring(0, dobString.indexOf("y")) : dobString;
         }
 
-        holder.tvName.setText(
-                String.format("%s %s %s, %s",
-                        ((!model.containsKey(DBConstants.KEY.FIRST_NAME) || model.get(DBConstants.KEY.FIRST_NAME).equals("null")) ? "" : model.get(DBConstants.KEY.FIRST_NAME)),
-                        ((!model.containsKey(DBConstants.KEY.MIDDLE_NAME) || model.get(DBConstants.KEY.MIDDLE_NAME).equals("null")) ? "" : model.get(DBConstants.KEY.MIDDLE_NAME)),
-                        ((!model.containsKey(DBConstants.KEY.LAST_NAME) || model.get(DBConstants.KEY.LAST_NAME).equals("null")) ? "" : model.get(DBConstants.KEY.LAST_NAME)),
-                        dobString
-                )
-        );
-        holder.llQuestions.setVisibility((selected == position) ? View.VISIBLE : View.GONE);
-
-        holder.radioButton.setChecked((selected == position));
+        holder.tvName.setText(String.format("%s , %s", model.getFullNames(), dobString));
+        holder.llQuestions.setVisibility(model.getMemberID().equals(selected) ? View.VISIBLE : View.GONE);
+        holder.radioButton.setChecked(model.getMemberID().equals(selected));
 
         holder.radioButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    setSelected(position);
-                    onBindViewHolder(holder, position);
-
-                    try {
-                        notifyDataSetChanged();
-                    } catch (Exception e) {
-
-                    }
+                    redrawView(holder, model);
                 }
             }
         });
+        holder.view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                redrawView(holder, model);
+            }
+        });
+        renderViews(holder, model);
+    }
 
+    private void redrawView(MyViewHolder holder, FamilyMember model){
+        if(currentViewHolder != null){
+            currentViewHolder.radioButton.setChecked(false);
+            currentViewHolder.llQuestions.setVisibility(View.GONE);
+            currentViewHolder.llQuestions.startAnimation(slideUp);
+        }
 
-        Boolean isVisible = (holder.llQuestions.getVisibility() == View.VISIBLE);
-        if ((selected == position) && !isVisible) {
+        setSelected(holder, model.getMemberID());
+
+        boolean isVisible = (holder.llQuestions.getVisibility() == View.VISIBLE);
+        if (model.getMemberID().equals(selected) && !isVisible) {
             holder.llQuestions.setVisibility(View.VISIBLE);
             holder.llQuestions.startAnimation(slideDown);
         }
 
-        if ((selected != position) && isVisible) {
+        if (model.getMemberID().equals(selected) && isVisible) {
             holder.llQuestions.setVisibility(View.GONE);
             holder.llQuestions.startAnimation(slideUp);
         }
 
-
-        holder.view.setOnClickListener(clickListener);
-
-        renderViews(holder, model);
+        holder.radioButton.setChecked(model.getMemberID().equals(selected));
     }
 
-    private void renderViews(final MyViewHolder holder, HashMap<String, String> model) {
-        String phoneNumber = model.get(DBConstants.KEY.PHONE_NUMBER);
-        phoneNumber = (StringUtils.equalsIgnoreCase(phoneNumber, "null") ? "" : phoneNumber);
+    private void renderViews(final MyViewHolder holder, FamilyMember model) {
+        String phoneNumber = model.getPhone();
 
-        String otherPhoneNumber = model.get(DBConstants.KEY.OTHER_PHONE_NUMBER);
-        otherPhoneNumber = (StringUtils.equalsIgnoreCase(otherPhoneNumber, "null") ? "" : otherPhoneNumber);
+        String otherPhoneNumber = model.getOtherPhone();
 
         holder.etPhone.setText(phoneNumber);
         holder.etAlternatePhone.setText(otherPhoneNumber);
 
-        String highestEduLevel = model.get(DBConstants.KEY.HIGHEST_EDU_LEVEL);
+        String highestEduLevel = model.getEduLevel();
         if (StringUtils.isNotBlank(highestEduLevel)) {
             switch (highestEduLevel) {
                 case "None":
@@ -155,14 +148,18 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MyViewHold
                     holder.spEduLevel.setSelection(3);
                     break;
                 default:
-
                     holder.spEduLevel.setSelection(0);
                     break;
             }
         }
     }
 
-    public boolean validateSave(MyViewHolder holder) {
+    public boolean validateSave() {
+        if (currentViewHolder == null) {
+            return false;
+        }
+
+        MyViewHolder holder = currentViewHolder;
         boolean res = true;
 
         if (holder != null) {
@@ -209,15 +206,19 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MyViewHold
         return res;
     }
 
-    public HashMap<String, String> getSelectedResults(MyViewHolder holder, int Position) {
-        HashMap<String, String> res = new HashMap<>();
+    public FamilyMember getSelectedResults() {
 
-        res.put(DBConstants.KEY.BASE_ENTITY_ID, familyMembers.get(Position).get(DBConstants.KEY.BASE_ENTITY_ID));
-        res.put(Constants.JsonAssets.FAMILY_MEMBER.PHONE_NUMBER, holder.etPhone.getText().toString());
-        res.put(Constants.JsonAssets.FAMILY_MEMBER.OTHER_PHONE_NUMBER, holder.etAlternatePhone.getText().toString());
-        res.put(Constants.JsonAssets.FAMILY_MEMBER.HIGHEST_EDUCATION_LEVEL, holder.spEduLevel.getSelectedItem().toString());
+        for (FamilyMember m : familyMembers) {
+            if (m.getMemberID().equals(getSelected())) {
 
-        return res;
+                m.setPhone(currentViewHolder.etPhone.getText().toString());
+                m.setOtherPhone(currentViewHolder.etAlternatePhone.getText().toString());
+                m.setEduLevel(currentViewHolder.spEduLevel.getSelectedItem().toString());
+                return m;
+            }
+        }
+
+        return null;
     }
 
     private List<String> getOptions() {

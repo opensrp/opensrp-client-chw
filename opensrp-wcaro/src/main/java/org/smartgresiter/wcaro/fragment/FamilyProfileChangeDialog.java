@@ -11,6 +11,7 @@ import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
+import android.util.Pair;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -27,11 +28,11 @@ import org.apache.commons.lang3.StringUtils;
 import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.adapter.MemberAdapter;
 import org.smartgresiter.wcaro.contract.FamilyChangeContract;
+import org.smartgresiter.wcaro.domain.FamilyMember;
 import org.smartgresiter.wcaro.presenter.FamilyChangeContractPresenter;
 import org.smartgresiter.wcaro.util.Constants;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class FamilyProfileChangeDialog extends DialogFragment implements View.OnClickListener, FamilyChangeContract.View {
@@ -46,7 +47,7 @@ public class FamilyProfileChangeDialog extends DialogFragment implements View.On
     protected MemberAdapter memberAdapter;
     RecyclerView recyclerView;
     FamilyChangeContract.Presenter presenter;
-    List<HashMap<String, String>> members;
+    List<FamilyMember> members;
     TextView tvInfo;
     TextView tvTitle;
     ProgressBar progressBar;
@@ -67,6 +68,7 @@ public class FamilyProfileChangeDialog extends DialogFragment implements View.On
     public void setOnRemoveActivity(Runnable onRemoveActivity) {
         this.onRemoveActivity = onRemoveActivity;
     }
+
     protected void setContext(Context context) {
         this.context = context;
     }
@@ -120,7 +122,7 @@ public class FamilyProfileChangeDialog extends DialogFragment implements View.On
                 close();
                 break;
             case R.id.tvSubmit:
-                validateSave(memberAdapter.getSelected());
+                validateSave();
                 break;
         }
     }
@@ -145,14 +147,14 @@ public class FamilyProfileChangeDialog extends DialogFragment implements View.On
     }
 
     @Override
-    public void refreshMembersView(List<HashMap<String, String>> familyMembers) {
+    public void refreshMembersView(List<FamilyMember> familyMembers) {
         if (familyMembers != null) {
             members.clear();
             members.addAll(familyMembers);
 
             if (memberAdapter == null) {
                 LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-                memberAdapter = new MemberAdapter(getActivity(), members, new MyListener());
+                memberAdapter = new MemberAdapter(getActivity(), members);
                 recyclerView.setLayoutManager(layoutManager);
                 recyclerView.setAdapter(memberAdapter);
             } else {
@@ -182,7 +184,7 @@ public class FamilyProfileChangeDialog extends DialogFragment implements View.On
     }
 
     @Override
-    public void updateFamilyMember(HashMap<String, String> familyMember) {
+    public void updateFamilyMember(Pair<String, FamilyMember> familyMember) {
         showProgressDialog(getString(R.string.status_saving));
         presenter.saveFamilyMember(getActivity(), familyMember);
     }
@@ -199,27 +201,12 @@ public class FamilyProfileChangeDialog extends DialogFragment implements View.On
         dismiss();
     }
 
-    protected void validateSave(int itemPosition) {
-        Boolean valid = memberAdapter.validateSave((MemberAdapter.MyViewHolder) recyclerView.findViewHolderForAdapterPosition(itemPosition));
+    protected void validateSave() {
+        Boolean valid = memberAdapter.validateSave();
         if (valid) {
-            HashMap<String, String> res = memberAdapter.getSelectedResults(
-                    (MemberAdapter.MyViewHolder) recyclerView.findViewHolderForAdapterPosition(itemPosition),
-                    itemPosition
-            );
-            res.put(Constants.PROFILE_CHANGE_ACTION.ACTION_TYPE, actionType);
-            updateFamilyMember(res);
-        }
-    }
-
-    private class MyListener implements View.OnClickListener {
-
-        @Override
-        public void onClick(View view) {
-            Integer selectedItem = recyclerView.getChildLayoutPosition(view);
-            if (!selectedItem.equals(memberAdapter.getSelected())) {
-                memberAdapter.setSelected(selectedItem);
-                memberAdapter.notifyDataSetChanged();
-            }
+            FamilyMember res = memberAdapter.getSelectedResults();
+            if (res != null)
+                updateFamilyMember(Pair.create(actionType, res));
         }
     }
 
@@ -251,6 +238,7 @@ public class FamilyProfileChangeDialog extends DialogFragment implements View.On
             }
         });
     }
+
     /**
      * handle backpress from dialog.it'll finish childremoveactivity when back press
      */

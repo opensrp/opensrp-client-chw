@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.adapter.MemberAdapter;
 import org.smartgresiter.wcaro.contract.FamilyChangeContract;
+import org.smartgresiter.wcaro.domain.FamilyMember;
 import org.smartgresiter.wcaro.listener.FloatingMenuListener;
 import org.smartgresiter.wcaro.presenter.FamilyChangeContractPresenter;
 import org.smartgresiter.wcaro.util.Constants;
@@ -36,7 +38,7 @@ public class FamilyProfileChangeHead extends Fragment implements View.OnClickLis
     protected MemberAdapter memberAdapter;
     RecyclerView recyclerView;
     FamilyChangeContract.Presenter presenter;
-    List<HashMap<String, String>> members;
+    List<FamilyMember> members;
     ProgressBar progressBar;
 
     public static FamilyProfileChangeHead newInstance(String familyID) {
@@ -76,7 +78,7 @@ public class FamilyProfileChangeHead extends Fragment implements View.OnClickLis
                 close();
                 break;
             case R.id.tvAction:
-                validateSave(memberAdapter.getSelected());
+                validateSave();
                 break;
         }
     }
@@ -91,14 +93,14 @@ public class FamilyProfileChangeHead extends Fragment implements View.OnClickLis
     }
 
     @Override
-    public void refreshMembersView(List<HashMap<String, String>> familyMembers) {
+    public void refreshMembersView(List<FamilyMember> familyMembers) {
         if (familyMembers != null) {
             members.clear();
             members.addAll(familyMembers);
 
             if (memberAdapter == null) {
                 LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-                memberAdapter = new MemberAdapter(getActivity(), members, new MyListener());
+                memberAdapter = new MemberAdapter(getActivity(), members);
                 recyclerView.setLayoutManager(layoutManager);
                 recyclerView.setAdapter(memberAdapter);
             } else {
@@ -126,9 +128,9 @@ public class FamilyProfileChangeHead extends Fragment implements View.OnClickLis
     }
 
     @Override
-    public void updateFamilyMember(HashMap<String, String> familyMember) {
+    public void updateFamilyMember(Pair<String, FamilyMember> familyMember) {
         showProgressDialog(getString(R.string.status_saving));
-        presenter.saveFamilyMember(getContext(), familyMember);
+        presenter.saveFamilyMember(getActivity(), familyMember);
     }
 
     @Override
@@ -143,31 +145,12 @@ public class FamilyProfileChangeHead extends Fragment implements View.OnClickLis
         getActivity().finish();
     }
 
-    protected void validateSave(int itemPosition) {
-        Boolean valid = memberAdapter.validateSave((MemberAdapter.MyViewHolder) recyclerView.findViewHolderForAdapterPosition(itemPosition));
+    protected void validateSave() {
+        Boolean valid = memberAdapter.validateSave();
         if (valid) {
-            HashMap<String, String> res = memberAdapter.getSelectedResults(
-                    (MemberAdapter.MyViewHolder) recyclerView.findViewHolderForAdapterPosition(itemPosition),
-                    itemPosition
-            );
-            res.put(Constants.PROFILE_CHANGE_ACTION.ACTION_TYPE, Constants.PROFILE_CHANGE_ACTION.HEAD_OF_FAMILY);
-            updateFamilyMember(res);
-        }
-    }
-
-    private class MyListener implements View.OnClickListener {
-
-        @Override
-        public void onClick(View view) {
-            try {
-                Integer selectedItem = recyclerView.getChildLayoutPosition(view);
-                if (selectedItem != memberAdapter.getSelected()) {
-                    memberAdapter.setSelected(selectedItem);
-                    memberAdapter.notifyDataSetChanged();
-                }
-            } catch (Exception e) {
-
-            }
+            FamilyMember res = memberAdapter.getSelectedResults();
+            if (res != null)
+                updateFamilyMember(Pair.create(Constants.PROFILE_CHANGE_ACTION.HEAD_OF_FAMILY, res));
         }
     }
 }
