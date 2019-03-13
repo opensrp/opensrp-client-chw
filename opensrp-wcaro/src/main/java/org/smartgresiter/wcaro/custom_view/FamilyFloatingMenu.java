@@ -1,6 +1,7 @@
 package org.smartgresiter.wcaro.custom_view;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.support.design.widget.FloatingActionButton;
 import android.util.AttributeSet;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.listener.OnClickFloatingMenu;
@@ -35,6 +37,19 @@ public class FamilyFloatingMenu extends LinearLayout implements View.OnClickList
     public FamilyFloatingMenu(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         initUi();
+    }
+
+    /**
+     * re-renders call menu ui
+     */
+    public void reDraw(boolean has_phone){
+        TextView callTextView =  findViewById(R.id.CallTextView);
+        TextView callTextViewHint =  findViewById(R.id.CallTextViewHint);
+
+        callTextViewHint.setVisibility(has_phone ? GONE : VISIBLE);
+        callLayout.setOnClickListener(has_phone ? this: null);
+        callTextView.setTypeface(null, (has_phone ? Typeface.NORMAL : Typeface.ITALIC));
+        callTextView.setTextColor(getResources().getColor(has_phone ? android.R.color.black : R.color.grey));
     }
 
     private void initUi() {
