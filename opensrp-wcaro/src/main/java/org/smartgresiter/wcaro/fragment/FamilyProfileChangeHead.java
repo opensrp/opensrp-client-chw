@@ -19,11 +19,10 @@ import org.smartgresiter.wcaro.adapter.MemberAdapter;
 import org.smartgresiter.wcaro.contract.FamilyChangeContract;
 import org.smartgresiter.wcaro.domain.FamilyMember;
 import org.smartgresiter.wcaro.listener.FloatingMenuListener;
-import org.smartgresiter.wcaro.presenter.FamilyChangeContractPresenter;
+import org.smartgresiter.wcaro.presenter.FamilyChangePresenter;
 import org.smartgresiter.wcaro.util.Constants;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class FamilyProfileChangeHead extends Fragment implements View.OnClickListener, FamilyChangeContract.View {
@@ -64,7 +63,7 @@ public class FamilyProfileChangeHead extends Fragment implements View.OnClickLis
         View root = inflater.inflate(R.layout.fragment_family_profile_change_head, container, false);
         prepareViews(root);
         members = new ArrayList<>();
-        presenter = new FamilyChangeContractPresenter(this, familyID);
+        presenter = new FamilyChangePresenter(this, familyID);
         presenter.getAdultMembersExcludeHOF();
         return root;
     }

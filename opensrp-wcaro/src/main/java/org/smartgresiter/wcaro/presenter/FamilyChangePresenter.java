@@ -11,17 +11,16 @@ import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.view.LocationPickerView;
 
 import java.lang.ref.WeakReference;
-import java.util.HashMap;
 import java.util.List;
 
-public class FamilyChangeContractPresenter implements FamilyChangeContract.Presenter {
+public class FamilyChangePresenter implements FamilyChangeContract.Presenter {
 
     protected WeakReference<FamilyChangeContract.View> view;
     protected FamilyChangeContract.Model model;
     protected FamilyChangeContract.Interactor interactor;
     protected String familyID;
 
-    public FamilyChangeContractPresenter(FamilyChangeContract.View view, String familyID) {
+    public FamilyChangePresenter(FamilyChangeContract.View view, String familyID) {
         this.view = new WeakReference<>(view);
         this.familyID = familyID;
         this.model = new FamilyChangeContractModel();
@@ -74,11 +73,6 @@ public class FamilyChangeContractPresenter implements FamilyChangeContract.Prese
         if (view != null && view.get() != null) {
             view.get().saveComplete(familyHeadID, careGiverID);
         }
-    }
-
-    @Override
-    public void getMembers(String familyID) {
-
     }
 }
 

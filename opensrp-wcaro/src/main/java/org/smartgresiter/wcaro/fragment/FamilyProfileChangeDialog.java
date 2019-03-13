@@ -29,7 +29,7 @@ import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.adapter.MemberAdapter;
 import org.smartgresiter.wcaro.contract.FamilyChangeContract;
 import org.smartgresiter.wcaro.domain.FamilyMember;
-import org.smartgresiter.wcaro.presenter.FamilyChangeContractPresenter;
+import org.smartgresiter.wcaro.presenter.FamilyChangePresenter;
 import org.smartgresiter.wcaro.util.Constants;
 
 import java.util.ArrayList;
@@ -92,7 +92,7 @@ public class FamilyProfileChangeDialog extends DialogFragment implements View.On
         final ViewGroup root = (ViewGroup) inflater.inflate(R.layout.fragment_family_profile_change_dialog, container, false);
         prepareViews(root);
         members = new ArrayList<>();
-        presenter = new FamilyChangeContractPresenter(this, familyID);
+        presenter = new FamilyChangePresenter(this, familyID);
         if (actionType.equals(Constants.PROFILE_CHANGE_ACTION.PRIMARY_CARE_GIVER)) {
             presenter.getAdultMembersExcludePCG();
         } else {

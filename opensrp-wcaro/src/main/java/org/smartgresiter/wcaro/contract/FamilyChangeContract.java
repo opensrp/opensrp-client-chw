@@ -13,8 +13,6 @@ public interface FamilyChangeContract {
 
         void saveCompleted(String familyHeadID, String careGiverID);
 
-        void getMembers(String familyID);
-
         void getAdultMembersExcludePCG();
 
         void saveFamilyMember(Context context, Pair<String, FamilyMember> member);
