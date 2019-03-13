@@ -289,7 +289,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "159635AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "edit_text",
-        "hint": "Phone number *",
+        "hint": "Phone number",
         "v_numeric": {
           "value": "true",
           "err": "Number must be a total of 10 digits in length"
@@ -299,7 +299,7 @@
           "err": "Number must be 10 digits and must start with 0."
         },
         "v_required": {
-          "value": true,
+          "value": false,
           "err": "Please specify the phone number"
         },
         "relevance": {

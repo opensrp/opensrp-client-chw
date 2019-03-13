@@ -28,6 +28,7 @@
     <string name="nav_last_sync_time">HH:mm a , MMM DD</string>
 
     <string name="call">Call</string>
+    <string name="call_no_number_provider">(no number provider)</string>
     <string name="family_details">Family details</string>
     <string name="add_new_family_member">Add new family member</string>
     <string name="remove_existing_family_member">Remove existing family member</string>
