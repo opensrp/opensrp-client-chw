@@ -2,6 +2,9 @@ package org.smartgresiter.wcaro.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Looper;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.Gravity;
@@ -13,9 +16,9 @@ import android.widget.TextView;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
 
-import org.apache.commons.lang3.tuple.Triple;
 import org.json.JSONObject;
 import org.smartgresiter.wcaro.R;
+import org.smartgresiter.wcaro.contract.FamilyOtherMemberProfileExtendedContract;
 import org.smartgresiter.wcaro.custom_view.FamilyMemberFloatingMenu;
 import org.smartgresiter.wcaro.fragment.FamilyCallDialogFragment;
 import org.smartgresiter.wcaro.fragment.FamilyOtherMemberProfileFragment;
@@ -27,17 +30,14 @@ import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.family.activity.BaseFamilyOtherMemberProfileActivity;
 import org.smartregister.family.adapter.ViewPagerAdapter;
-import org.smartregister.family.contract.FamilyProfileContract;
-import org.smartregister.family.domain.FamilyEventClient;
 import org.smartregister.family.fragment.BaseFamilyOtherMemberProfileFragment;
-import org.smartregister.family.interactor.FamilyProfileInteractor;
 import org.smartregister.family.model.BaseFamilyOtherMemberProfileActivityModel;
-import org.smartregister.family.model.BaseFamilyProfileModel;
 import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
+import org.smartregister.view.fragment.BaseRegisterFragment;
 
-public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfileActivity {
+public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfileActivity implements FamilyOtherMemberProfileExtendedContract.View {
 
     private String familyBaseEntityId;
     private String baseEntityId;
@@ -151,7 +151,7 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
         JSONObject form = org.smartgresiter.wcaro.util.JsonFormUtils.getAutoPopulatedJsonEditMemberFormString(
                 (title_resource != null) ? getResources().getString(title_resource) : null,
                 org.smartgresiter.wcaro.util.Constants.JSON_FORM.FAMILY_MEMBER_REGISTER,
-                this, client, org.smartgresiter.wcaro.util.Utils.metadata().familyMemberRegister.updateEventType, commonPersonObject.getCaseId().equalsIgnoreCase(primaryCaregiver));
+                this, client, org.smartgresiter.wcaro.util.Utils.metadata().familyMemberRegister.updateEventType, familyName, commonPersonObject.getCaseId().equalsIgnoreCase(primaryCaregiver));
         try {
             startFormActivity(form);
         } catch (Exception e) {
@@ -172,51 +172,6 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
 
 
         startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
-    }
-
-    public void updateFamilyMember(String jsonString) {
-
-        try {
-            showProgressDialog(org.smartregister.family.R.string.saving_dialog_title);
-
-            FamilyEventClient familyEventClient = new BaseFamilyProfileModel(familyName).processUpdateMemberRegistration(jsonString, familyBaseEntityId);
-            if (familyEventClient == null) {
-                return;
-            }
-
-            new FamilyProfileInteractor().saveRegistration(familyEventClient, jsonString, true, new FamilyProfileContract.InteractorCallBack() {
-                @Override
-                public void startFormForEdit(CommonPersonObjectClient client) {
-
-                }
-
-                @Override
-                public void refreshProfileTopSection(CommonPersonObjectClient client) {
-
-                }
-
-                @Override
-                public void onUniqueIdFetched(Triple<String, String, String> triple, String entityId) {
-
-                }
-
-                @Override
-                public void onNoUniqueId() {
-
-                }
-
-                @Override
-                public void onRegistrationSaved(boolean isEditMode) {
-                    hideProgressDialog();
-                    presenter().refreshProfileView();
-
-                }
-            });
-
-        } catch (Exception e) {
-            hideProgressDialog();
-            e.printStackTrace();
-        }
     }
 
     @Override
@@ -241,7 +196,7 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
 
                         JSONObject form = new JSONObject(jsonString);
                         if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Utils.metadata().familyMemberRegister.updateEventType)) {
-                            updateFamilyMember(jsonString);
+                            presenter().updateFamilyMember(jsonString);
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -257,5 +212,33 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
     protected void onResumption() {
         super.onResumption();
         FloatingMenuListener.getInstance(this, presenter().getFamilyBaseEntityId());
+    }
+
+    public void refreshList() {
+        if (Looper.myLooper() == Looper.getMainLooper()) {
+            for (int i = 0; i < adapter.getCount(); i++) {
+                refreshList(adapter.getItem(i));
+            }
+        } else {
+            Handler handler = new Handler(Looper.getMainLooper());
+            handler.post(new Runnable() {
+                public void run() {
+                    for (int i = 0; i < adapter.getCount(); i++) {
+                        refreshList(adapter.getItem(i));
+                    }
+                }
+            });
+        }
+    }
+
+    private void refreshList(Fragment fragment) {
+        if (fragment != null && fragment instanceof BaseRegisterFragment) {
+            if (fragment instanceof FamilyOtherMemberProfileFragment) {
+                FamilyOtherMemberProfileFragment familyOtherMemberProfileFragment = ((FamilyOtherMemberProfileFragment) fragment);
+                if (familyOtherMemberProfileFragment.presenter() != null) {
+                    familyOtherMemberProfileFragment.refreshListView();
+                }
+            }
+        }
     }
 }
