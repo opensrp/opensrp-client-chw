@@ -176,12 +176,8 @@
         "openmrs_entity": "person",
         "openmrs_entity_id": "middle_name",
         "type": "edit_text",
-        "hint": "Middle name *",
+        "hint": "Middle name",
         "edit_type": "name",
-        "v_required": {
-          "value": "true",
-          "err": "Please enter the middle name"
-        },
         "v_regex": {
           "value": "[A-Za-z\\s\.\-]*",
           "err": "Please enter a valid name"
