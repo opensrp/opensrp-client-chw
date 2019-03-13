@@ -7,7 +7,6 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -101,8 +100,8 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MyViewHold
         renderViews(holder, model);
     }
 
-    private void redrawView(MyViewHolder holder, FamilyMember model){
-        if(currentViewHolder != null){
+    private void redrawView(MyViewHolder holder, FamilyMember model) {
+        if (currentViewHolder != null) {
             currentViewHolder.radioButton.setChecked(false);
             currentViewHolder.llQuestions.setVisibility(View.GONE);
             currentViewHolder.llQuestions.startAnimation(slideUp);
@@ -125,16 +124,10 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MyViewHold
     }
 
     private void renderViews(final MyViewHolder holder, FamilyMember model) {
-        String phoneNumber = model.getPhone();
-
-        String otherPhoneNumber = model.getOtherPhone();
-
-        holder.etPhone.setText(phoneNumber);
-        holder.etAlternatePhone.setText(otherPhoneNumber);
-
-        String highestEduLevel = model.getEduLevel();
-        if (StringUtils.isNotBlank(highestEduLevel)) {
-            switch (highestEduLevel) {
+        holder.etPhone.setText(model.getPhone());
+        holder.etAlternatePhone.setText(model.getOtherPhone());
+        if (StringUtils.isNotBlank(model.getEduLevel())) {
+            switch (model.getEduLevel()) {
                 case "None":
                     holder.spEduLevel.setSelection(0);
                     break;
@@ -159,49 +152,45 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MyViewHold
             return false;
         }
 
-        MyViewHolder holder = currentViewHolder;
         boolean res = true;
 
-        if (holder != null) {
+        String text = currentViewHolder.etPhone.getText().toString().trim();
+        if (text.length() > 0 && !text.substring(0, 1).equals("0")) {
+            currentViewHolder.etPhone.setError("Must start with 0");
+            res = false;
+        }
 
-            String text = holder.etPhone.getText().toString().trim();
-            if (text.length() > 0 && !text.substring(0, 1).equals("0")) {
-                holder.etPhone.setError("Must start with 0");
-                res = false;
-            }
+        if (text.length() != 10) {
+            currentViewHolder.etPhone.setError("Length must be equal to 10");
+            res = false;
+        }
 
-            if (text.length() != 10) {
-                holder.etPhone.setError("Length must be equal to 10");
-                res = false;
-            }
+        text = currentViewHolder.etAlternatePhone.getText().toString().trim();
+        if (text.length() > 0 && !text.substring(0, 1).equals("0")) {
+            currentViewHolder.etAlternatePhone.setError("Must start with 0");
+            res = false;
+        }
 
-            text = holder.etAlternatePhone.getText().toString().trim();
-            if (text.length() > 0 && !text.substring(0, 1).equals("0")) {
-                holder.etAlternatePhone.setError("Must start with 0");
-                res = false;
-            }
+        if (text.length() > 0 && text.length() != 10) {
+            currentViewHolder.etAlternatePhone.setError("Length must be equal to 10");
+            res = false;
+        }
 
-            if (text.length() > 0 && text.length() != 10) {
-                holder.etAlternatePhone.setError("Length must be equal to 10");
-                res = false;
-            }
+        if (!res) {
+            AlertDialog.Builder builder1 = new AlertDialog.Builder(context);
+            builder1.setMessage("Kindly complete the form before submitting");
+            builder1.setCancelable(true);
 
-            if (!res) {
-                AlertDialog.Builder builder1 = new AlertDialog.Builder(context);
-                builder1.setMessage("Kindly complete the form before submitting");
-                builder1.setCancelable(true);
+            builder1.setPositiveButton(
+                    "Dismiss",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
 
-                builder1.setPositiveButton(
-                        "Dismiss",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                            }
-                        });
-
-                AlertDialog alert11 = builder1.create();
-                alert11.show();
-            }
+            AlertDialog alert11 = builder1.create();
+            alert11.show();
         }
         return res;
     }
