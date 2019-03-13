@@ -94,7 +94,6 @@ public class GrowthAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         public ContentViewHolder(View view) {
             super(view);
             vaccineName = view.findViewById(R.id.name_date_tv);
-            (view.findViewById(R.id.imageView)).setVisibility(View.GONE);
             myView = view;
         }
 

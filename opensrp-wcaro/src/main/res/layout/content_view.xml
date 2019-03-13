@@ -10,6 +10,7 @@
         android:id="@+id/imageView"
         android:layout_width="10dp"
         android:layout_height="10dp"
+        android:visibility="gone"
         android:background="@color/alert_complete_green" />
 
     <org.smartregister.view.customcontrols.CustomFontTextView
@@ -19,6 +20,7 @@
         style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
         android:singleLine="false"
         android:textColor="@color/medical_text_inner"
+        android:paddingLeft="0dp"
         android:paddingTop="5dp"
         android:paddingBottom="5dp"
         android:textSize="@dimen/px_16_to_sp" />

@@ -95,33 +95,16 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:src="@drawable/row_goto" />
-
-        <LinearLayout
-            android:id="@+id/content_due"
+        <org.smartregister.view.customcontrols.CustomFontTextView
+            android:id="@+id/textview_name_due"
             android:layout_toRightOf="@+id/cross_image"
+            style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <org.smartregister.view.customcontrols.CustomFontTextView
-                android:id="@+id/textview_name_due"
-                style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-
-                android:layout_marginLeft="10dp"
-                android:textColor="@android:color/black" />
-
-            <org.smartregister.view.customcontrols.CustomFontTextView
-                android:id="@+id/textview_due_overdue_status"
-                style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="-5dp"
-                android:textColor="@color/visit_status_over_due" />
-        </LinearLayout>
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_marginLeft="10dp"
+            android:textColor="@android:color/black" />
 
 
         <org.smartregister.view.customcontrols.CustomFontTextView
@@ -132,7 +115,7 @@
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/cross_image"
             android:layout_marginLeft="10dp"
-            android:layout_below="@+id/content_due"
+            android:layout_below="@+id/textview_name_due"
             android:text="@string/view_upcoming_services"
             android:textColor="@android:color/darker_gray" />
 

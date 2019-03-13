@@ -40,6 +40,10 @@
     <string name="go_to_family_s_profile">Go to family\'s profile</string>
     <string name="family_has_nothing_due">Family has nothing due</string>
     <string name="family_has_services_due">Family has services due</string>
+    <string name="vaccine_service_overdue"><![CDATA[%1$s <font color=#f04646>overdue (%2$s)</font></b>]]></string>
+    <string name="vaccine_service_due"><![CDATA[%1$s <font color=#000000>due (%2$s)</font></b>]]></string>
+    <string name="vaccine_service_upcoming"><![CDATA[%1$s <font color=#7f7f7f>upcoming (%2$s)</font></b>]]></string>
+
     <string name="family_has_service_overdue"><![CDATA[Family has <font color=#FF0000>services overdue</font></b>]]></string>
     <string name="view_upcoming_services">View upcoming services</string>
     <string name="upcoming_services">Upcoming Services</string>
@@ -77,7 +81,7 @@
     <string name="visit_done">Visit done</string>
     <string name="due_visit">Last visit \n %1$s</string>
     <string name="medical_title">Back to %1$s</string>
-    <string name="medical_last_visit">%1$s ago home visit</string>
+    <string name="medical_last_visit">%1$s ago</string>
     <string name="growth_and_nutrition">GROWTH AND NUTRITION</string>
     <string name="immunization">IMMUNIZATION</string>
     <string name="fully_immunized_at_age">Fully immunized at age %1$s</string>
@@ -86,7 +90,7 @@
     <string name="when_vaccines_given_text">When were vaccinations done?</string>
     <string name="fully_immunized_at_age_2">Fully immunized at age 2</string>
     <string name="fully_immunized_at_age_1">Fully immunized at age 1</string>
-    <string name="health_child_milestone">Health child milestone</string>
+    <string name="health_child_milestone">Healthy child milestone</string>
     <string name="exclusive_feeding">Did the child receive any liquid or food other than breastmilk yesterday and last night?</string>
     <string name="vitamin_given">When was %1$s given?</string>
     <string name="exclusive_breastfeeding">Exclusive breastfeeding</string>
@@ -100,8 +104,7 @@
     <string name="updating">Updating....</string>
     <string name="birth_certification">Birth certification</string>
     <string name="observations_illness_episodes"><![CDATA[Observations & Illness - <i>optional</i>]]></string>
-
-
+    <string name="observations_illness_episodes_medical"><![CDATA[Observations & Illness Episodes]]></string>
     <string name="home_visit_suffix"> &#183; Home Visit</string>
     <string name="last_visit_prefix">Last visit %1$s ago</string>
 
@@ -154,4 +157,20 @@
     <string name="birth_date">Birth Date</string>
     <string name="age">Age</string>
     <string name="no_vaccines_were_done">No vaccines were done</string>
+    <string name="last_visit">LAST VISIT</string>
+    <string name="edit_child_form_title">Edit Child Under 5</string>
+    <string name="birth_cert_value">Does the child have a birth certificate? %s</string>
+    <string name="birth_cert_date">Birth certificate issuance date: %s</string>
+    <string name="birth_cert_number">Birth certificate number: %s</string>
+    <string name="birth_cert_notification">Was the birth notification done? %s</string>
+    <string name="birth_cert_note_1">Ask to see the birth notification and instruct the caregiver to register the birth with the civil registrar.</string>
+    <string name="birth_cert_note_2">Instruct the caregiver to have the birth registered with the civil registrar.</string>
+    <string name="illness_date_with_value">Date: %s</string>
+    <string name="illness_des_with_value">Description: %s</string>
+    <string name="illness_action_value">Action taken: %s</string>
+    <string name="initial_breastfeed_value">Early initiation breastfeeding: %s</string>
+
+    <string name="vaccination_done_earlier">Vaccination done earlier</string>
+    <string name="vaccines_not_done">VACCINES NOT DONE</string>
+    <string name="set">Set</string>
 </resources>
