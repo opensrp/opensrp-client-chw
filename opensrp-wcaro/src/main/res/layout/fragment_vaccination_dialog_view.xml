@@ -89,7 +89,7 @@
                 android:paddingStart="0dp"
                 android:text="@string/which_vaccines_given_text"
                 android:textColor="@color/text_black"
-                android:textSize="21sp" />
+                android:textSize="@dimen/px_16_to_sp" />
 
             <include
                 android:id="@+id/checkbox_no_vaccination"
@@ -122,6 +122,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/vaccination_name_layout"
+                android:layout_marginTop="20dp"
                 android:layout_marginBottom="@dimen/btn_margin_bottom"
                 android:layout_marginEnd="@dimen/btn_margin_right"
                 android:layout_marginLeft="@dimen/btn_margin_left"
@@ -136,10 +137,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="10dp"
                     android:text="@string/add_date_separately"
                     android:textColor="@color/button_navy_blue"
-                    android:textSize="19sp" />
+                    android:paddingLeft="0dp"
+                    android:textSize="@dimen/px_14_to_sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -147,13 +148,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/multiple_vaccine_date_pickerview"
-                android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="@dimen/btn_margin_bottom"
                 android:layout_marginEnd="@dimen/btn_margin_right"
                 android:layout_marginLeft="@dimen/btn_margin_left"
                 android:layout_marginRight="@dimen/btn_margin_right"
+                android:layout_marginStart="@dimen/btn_margin_left"
                 android:gravity="center_horizontal"
                 android:visibility="gone"
+                android:paddingBottom="20dp"
                 android:orientation="vertical" />
         </RelativeLayout>
 

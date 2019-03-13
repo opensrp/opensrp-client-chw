@@ -9,13 +9,14 @@
         style="@style/CustomFontTextViewStyle.ClientList.Medium"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="-10dp"
         android:layout_gravity="left"
+        android:paddingLeft="0dp"
         android:gravity="left"
         android:layout_marginTop="@dimen/btn_padding_top"
         android:text="@string/when_vaccines_given_text"
         android:textColor="@color/text_black"
-        android:textSize="21sp" />
+        android:textStyle="normal"
+        android:textSize="@dimen/px_16_to_sp" />
 
     <DatePicker
         android:id="@+id/earlier_date_picker"
