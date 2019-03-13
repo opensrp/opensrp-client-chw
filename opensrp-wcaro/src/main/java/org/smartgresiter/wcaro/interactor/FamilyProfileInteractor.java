@@ -10,6 +10,9 @@ import org.smartregister.family.util.AppExecutors;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.Utils;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class FamilyProfileInteractor extends org.smartregister.family.interactor.FamilyProfileInteractor {
 
     private AppExecutors appExecutors;
@@ -48,8 +51,8 @@ public class FamilyProfileInteractor extends org.smartregister.family.interactor
         final CommonPersonObjectClient client = new CommonPersonObjectClient(personObject.getCaseId(), personObject.getDetails(), "");
         client.setColumnmaps(personObject.getColumnmaps());
 
-        String primaryCaregiverID = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.PRIMARY_CAREGIVER, false);
-        String familyHeadID = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.FAMILY_HEAD, false);
+        String primaryCaregiverID = getValue(client.getColumnmaps(), DBConstants.KEY.PRIMARY_CAREGIVER);
+        String familyHeadID = getValue(client.getColumnmaps(), DBConstants.KEY.FAMILY_HEAD);
 
         return hasNumber(primaryCaregiverID) || hasNumber(familyHeadID);
     }
@@ -60,6 +63,10 @@ public class FamilyProfileInteractor extends org.smartregister.family.interactor
         client.setColumnmaps(personObject.getColumnmaps());
         client.setColumnmaps(personObject.getColumnmaps());
         return StringUtils.isNotBlank(Utils.getValue(client.getColumnmaps(), DBConstants.KEY.PHONE_NUMBER, false));
+    }
+
+    public String getValue(Map<String,String> map, String field){
+        return Utils.getValue(map, field, false);
     }
 
 }
