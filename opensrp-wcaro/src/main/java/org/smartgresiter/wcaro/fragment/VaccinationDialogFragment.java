@@ -152,20 +152,21 @@ public class VaccinationDialogFragment extends ChildImmunizationFragment impleme
         Calendar calendar = Calendar.getInstance();
         calendar.set(year, month, day);
         DateTime dateTime = new DateTime(calendar.getTime());
+        List<String> unselectedCheckBox = findUnSelectedCheckBoxes(vaccinationNameLayout);
         if(selectCount == 0){
-            handleNotGivenVaccines(dateTime,dateOfBirth);
+            handleNotGivenVaccines(dateTime,dateOfBirth,unselectedCheckBox);
             dismiss();
             return;
         }
 
         if(isVisibleSingleVaccineView && singleVaccineMap.size()>0){
             handleSingleVaccineLogic(singleVaccineMap,dateOfBirth);
-            handleNotGivenVaccines(dateTime,dateOfBirth);
+            handleNotGivenVaccines(dateTime,dateOfBirth,unselectedCheckBox);
             dismiss();
             return;
         }
-        handleMultipleVaccineGiven(dateTime,dateOfBirth);
-        handleNotGivenVaccines(dateTime,dateOfBirth);
+        handleMultipleVaccineGiven(dateTime,dateOfBirth,findSelectedCheckBoxes(vaccinationNameLayout));
+        handleNotGivenVaccines(dateTime,dateOfBirth,unselectedCheckBox);
     }
     private void handleAllVaccineNotGiven(){
         for (VaccineWrapper vaccineWrapper : tags) {
@@ -175,7 +176,7 @@ public class VaccinationDialogFragment extends ChildImmunizationFragment impleme
 
     }
     private void handleSingleVaccineLogic(Map<VaccineWrapper,DatePicker> singleVaccineMap,Date dateOfBirth) {
-        ArrayList<VaccineWrapper> tagsToUpdate = new ArrayList<VaccineWrapper>();
+        ArrayList<VaccineWrapper> tagsToUpdate = new ArrayList<>();
         for (VaccineWrapper wrapper:singleVaccineMap.keySet()){
             DatePicker datePicker=singleVaccineMap.get(wrapper);
             if (datePicker != null) {
@@ -199,9 +200,8 @@ public class VaccinationDialogFragment extends ChildImmunizationFragment impleme
         homeVisitImmunizationView.getPresenter().assigntoGivenVaccines(tagsToUpdate);
 
     }
-    private void handleMultipleVaccineGiven(DateTime dateTime,Date dateOfBirth){
-        ArrayList<VaccineWrapper> tagsToUpdate = new ArrayList<VaccineWrapper>();
-        List<String> selectedCheckboxes = findSelectedCheckBoxes(vaccinationNameLayout);
+    private void handleMultipleVaccineGiven(DateTime dateTime,Date dateOfBirth,List<String> selectedCheckboxes){
+        ArrayList<VaccineWrapper> tagsToUpdate = new ArrayList<>();
         for (String checkedName : selectedCheckboxes) {
             VaccineWrapper tag = searchWrapperByName(checkedName);
             if (tag != null) {
@@ -214,12 +214,14 @@ public class VaccinationDialogFragment extends ChildImmunizationFragment impleme
                 }
             }
         }
-        onVaccinateEarlier(tagsToUpdate);
-        homeVisitImmunizationView.getPresenter().assigntoGivenVaccines(tagsToUpdate);
+        if(tagsToUpdate.size() > 0){
+            onVaccinateEarlier(tagsToUpdate);
+            homeVisitImmunizationView.getPresenter().assigntoGivenVaccines(tagsToUpdate);
+        }
+
     }
-    private void handleNotGivenVaccines(DateTime dateTime,Date dateOfBirth){
-        ArrayList<VaccineWrapper> UngiventagsToUpdate = new ArrayList<VaccineWrapper>();
-        List<String> UnselectedCheckboxes = findUnSelectedCheckBoxes(vaccinationNameLayout);
+    private void handleNotGivenVaccines(DateTime dateTime,Date dateOfBirth,List<String> UnselectedCheckboxes){
+        ArrayList<VaccineWrapper> UngiventagsToUpdate = new ArrayList<>();
         for (String uncheckedName : UnselectedCheckboxes) {
             VaccineWrapper untag = searchWrapperByName(uncheckedName);
             if (untag != null) {

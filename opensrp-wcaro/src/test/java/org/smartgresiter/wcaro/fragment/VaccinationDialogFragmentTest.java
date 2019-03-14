@@ -20,6 +20,7 @@ import org.robolectric.Robolectric;
 import org.robolectric.android.controller.FragmentController;
 import org.smartgresiter.wcaro.BaseUnitTest;
 import org.smartgresiter.wcaro.contract.HomeVisitImmunizationContract;
+import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.immunization.domain.VaccineWrapper;
 
 import java.util.ArrayList;
@@ -27,6 +28,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import static org.junit.Assert.*;
@@ -37,16 +39,12 @@ public class VaccinationDialogFragmentTest extends BaseUnitTest {
 
     @Mock
     HomeVisitImmunizationContract.View homeVisitImmunizationView;
-    @Mock
-    ChildImmunizationFragment childImmunizationFragment;
+
     @Mock
     HomeVisitImmunizationContract.Presenter presenter;
 
-    private FragmentController<VaccinationDialogFragment> controller;
     @Mock
     private VaccinationDialogFragment vaccinationDialogFragment;
-    @Mock
-    Calendar calender;
 
     @Before
     public void setUp() throws Exception {
@@ -74,21 +72,12 @@ public class VaccinationDialogFragmentTest extends BaseUnitTest {
         DateTime dateOfBirth = new DateTime(bcalendar.getTime());
         Whitebox.setInternalState(vaccinationDialogFragment,"dateOfBirth",dateOfBirth.toDate());
         Whitebox.setInternalState(vaccinationDialogFragment,"homeVisitImmunizationView",homeVisitImmunizationView);
-        PowerMockito.doAnswer(new org.mockito.stubbing.Answer<Object>() {
-            @Override
-            public Object answer(InvocationOnMock invocation) throws Throwable {
-                return null; //does nothing
-            }
-        }).when(vaccinationDialogFragment).onVaccinateEarlier(Mockito.any(ArrayList.class));
+
+        doNothing().when(vaccinationDialogFragment).onVaccinateEarlier(Mockito.any(ArrayList.class));
 
         Mockito.when(homeVisitImmunizationView.getPresenter()).thenReturn(presenter);
 
-        PowerMockito.doAnswer(new org.mockito.stubbing.Answer<Object>() {
-            @Override
-            public Object answer(InvocationOnMock invocation) throws Throwable {
-                return null; //does nothing
-            }
-        }).when(presenter).assigntoGivenVaccines(Mockito.any(ArrayList.class));
+        doNothing().when(presenter).assigntoGivenVaccines(Mockito.any(ArrayList.class));
 
         Whitebox.invokeMethod(vaccinationDialogFragment, "handleSingleVaccineLogic",singleVaccineMap,dateOfBirth.toDate());
 
@@ -96,17 +85,77 @@ public class VaccinationDialogFragmentTest extends BaseUnitTest {
 
     }
     @Test
+    public void handleMultipleVaccineGiven_true() throws Exception{
+        setTagValue();
+        List<String> selectedCheckBox = new ArrayList<>();
+
+        selectedCheckBox.add("OPV 1");
+
+        Whitebox.setInternalState(vaccinationDialogFragment,"homeVisitImmunizationView",homeVisitImmunizationView);
+
+        doNothing().when(vaccinationDialogFragment).onVaccinateEarlier(Mockito.any(ArrayList.class));
+
+        Mockito.when(homeVisitImmunizationView.getPresenter()).thenReturn(presenter);
+
+        doNothing().when(presenter).assigntoGivenVaccines(Mockito.any(ArrayList.class));
+
+        Whitebox.invokeMethod(vaccinationDialogFragment, "handleMultipleVaccineGiven",getTestVaccineDate(),getTestDateOfBirth().toDate(),selectedCheckBox);
+
+        Mockito.verify(presenter,Mockito.atLeastOnce()).assigntoGivenVaccines(Mockito.any(ArrayList.class));
+
+    }
+    @Test
+    public void handleNotGivenVaccines_true() throws Exception{
+        setTagValue();
+        List<String> uncheckedBox = new ArrayList<>();
+
+        uncheckedBox.add("OPV 1");
+
+        Whitebox.setInternalState(vaccinationDialogFragment,"homeVisitImmunizationView",homeVisitImmunizationView);
+
+        Mockito.when(homeVisitImmunizationView.getPresenter()).thenReturn(presenter);
+
+        doNothing().when(presenter).updateNotGivenVaccine(Mockito.any(VaccineWrapper.class));
+
+        Whitebox.invokeMethod(vaccinationDialogFragment, "handleNotGivenVaccines",getTestVaccineDate(),getTestDateOfBirth().toDate(),uncheckedBox);
+
+        Mockito.verify(presenter,Mockito.atLeastOnce()).updateNotGivenVaccine(Mockito.any(VaccineWrapper.class));
+
+    }
+    @Test
     public void validateVaccinationDate_true_currentdate() throws Exception{
-        Calendar bcalendar = Calendar.getInstance();
-        bcalendar.set(2000, 5, 15);
-        DateTime dateOfBirth = new DateTime(bcalendar.getTime());
 
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(2019, 2, 14);
-
-        DateTime dateTime = new DateTime(calendar.getTime());
-        Boolean value = Whitebox.invokeMethod(vaccinationDialogFragment, "validateVaccinationDate",dateOfBirth.toDate(),dateTime.toDate());
+        Boolean value = Whitebox.invokeMethod(vaccinationDialogFragment, "validateVaccinationDate",getTestDateOfBirth().toDate(),getTestVaccineDate().toDate());
         Assert.assertTrue(value);
 
     }
+    @Test
+    public void searchWrapperByName_true() throws Exception{
+        setTagValue();
+        VaccineWrapper value = Whitebox.invokeMethod(vaccinationDialogFragment, "searchWrapperByName","opv 1");
+
+        Assert.assertEquals("OPV 1",value.getName());
+
+    }
+    private void setTagValue(){
+        VaccineWrapper vaccineWrapper = new VaccineWrapper();
+        vaccineWrapper.setName("OPV 1");
+
+        vaccineWrapper.setVaccine(VaccineRepo.Vaccine.valueOf("opv1"));
+        List<VaccineWrapper> list=new ArrayList<>();
+        list.add(vaccineWrapper);
+        Whitebox.setInternalState(vaccinationDialogFragment,"tags",list);
+    }
+    private DateTime getTestDateOfBirth(){
+        Calendar bcalendar = Calendar.getInstance();
+        bcalendar.set(2000, 5, 15);
+        return new DateTime(bcalendar.getTime());
+    }
+    private DateTime getTestVaccineDate(){
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(2019, 2, 14);
+
+        return new DateTime(calendar.getTime());
+    }
+
 }
