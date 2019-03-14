@@ -47,7 +47,7 @@ public abstract class BaseActivityTest<T extends Activity> extends BaseUnitTest 
 
     protected abstract Class<T> getActivityClass();
 
-    protected Activity getActivity() {
+    protected T getActivity() {
         return activity;
     }
 
