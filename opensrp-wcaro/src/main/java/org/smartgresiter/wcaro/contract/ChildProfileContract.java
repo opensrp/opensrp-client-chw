@@ -102,7 +102,7 @@ public interface ChildProfileContract {
 
         void saveRegistration(final Pair<Client, Event> pair, final String jsonString, final boolean isEditMode, final ChildProfileContract.InteractorCallBack callBack);
 
-        JSONObject getAutoPopulatedJsonEditFormString(String formName, Context context, CommonPersonObjectClient client);
+        JSONObject getAutoPopulatedJsonEditFormString(String formName, String title, Context context, CommonPersonObjectClient client);
     }
 
     interface InteractorCallBack {
@@ -112,7 +112,7 @@ public interface ChildProfileContract {
 
         void updateFamilyMemberServiceDue(String serviceDueStatus);
 
-        void startFormForEdit(CommonPersonObjectClient client);
+        void startFormForEdit(String title, CommonPersonObjectClient client);
 
         void refreshProfileTopSection(CommonPersonObjectClient client);
 

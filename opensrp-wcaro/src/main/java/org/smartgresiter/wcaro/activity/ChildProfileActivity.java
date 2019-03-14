@@ -75,7 +75,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
                     FamilyCallDialogFragment.launchDialog(ChildProfileActivity.this, ((ChildProfilePresenter) presenter).getFamilyId());
                     break;
                 case R.id.registration_layout:
-                    ((ChildProfilePresenter) presenter()).startFormForEdit(((ChildProfilePresenter) presenter()).getChildClient());
+                    ((ChildProfilePresenter) presenter()).startFormForEdit(getResources().getString(R.string.edit_child_form_title), ((ChildProfilePresenter) presenter()).getChildClient());
                     break;
                 case R.id.remove_member_layout:
 
@@ -276,7 +276,8 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
         layoutRecordView.setVisibility(View.GONE);
 
     }
-    private void openVisitRecordDoneView(){
+
+    private void openVisitRecordDoneView() {
         layoutRecordButtonDone.setVisibility(View.VISIBLE);
         layoutNotRecordView.setVisibility(View.GONE);
         layoutRecordView.setVisibility(View.GONE);
@@ -318,23 +319,25 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     }
 
     @Override
-    public void setServiceNameDue(String serviceName,String dueDate) {
+    public void setServiceNameDue(String serviceName, String dueDate) {
         layoutMostDueOverdue.setVisibility(View.VISIBLE);
         viewMostDueRow.setVisibility(View.VISIBLE);
-        textViewNameDue.setText(ChildUtils.fromHtml(getString(R.string.vaccine_service_due,serviceName,dueDate)));
+        textViewNameDue.setText(ChildUtils.fromHtml(getString(R.string.vaccine_service_due, serviceName, dueDate)));
     }
+
     @Override
-    public void setServiceNameOverDue(String serviceName,String dueDate) {
+    public void setServiceNameOverDue(String serviceName, String dueDate) {
         layoutMostDueOverdue.setVisibility(View.VISIBLE);
         viewMostDueRow.setVisibility(View.VISIBLE);
-        textViewNameDue.setText(ChildUtils.fromHtml(getString(R.string.vaccine_service_overdue,serviceName,dueDate)));
+        textViewNameDue.setText(ChildUtils.fromHtml(getString(R.string.vaccine_service_overdue, serviceName, dueDate)));
 
     }
+
     @Override
-    public void setServiceNameUpcoming(String serviceName,String dueDate) {
+    public void setServiceNameUpcoming(String serviceName, String dueDate) {
         layoutMostDueOverdue.setVisibility(View.VISIBLE);
         viewMostDueRow.setVisibility(View.VISIBLE);
-        textViewNameDue.setText(ChildUtils.fromHtml(getString(R.string.vaccine_service_upcoming,serviceName,dueDate)));
+        textViewNameDue.setText(ChildUtils.fromHtml(getString(R.string.vaccine_service_upcoming, serviceName, dueDate)));
 
     }
 
@@ -577,5 +580,4 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
 
         }
     }
-
 }

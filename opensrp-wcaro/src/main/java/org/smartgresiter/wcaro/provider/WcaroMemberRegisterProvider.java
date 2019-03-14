@@ -48,7 +48,7 @@ public class WcaroMemberRegisterProvider extends FamilyMemberRegisterProvider {
         // Update UI cutoffs
         RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) viewHolder.profile.getLayoutParams();
         layoutParams.width = context.getResources().getDimensionPixelSize(R.dimen.member_profile_pic_width);
-        layoutParams.height = RelativeLayout.LayoutParams.WRAP_CONTENT;
+        layoutParams.height = context.getResources().getDimensionPixelSize(R.dimen.member_profile_pic_width);
         viewHolder.profile.setLayoutParams(layoutParams);
         viewHolder.patientNameAge.setTextSize(TypedValue.COMPLEX_UNIT_PX, context.getResources().getDimensionPixelSize(R.dimen.member_profile_list_title_size));
 

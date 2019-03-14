@@ -103,8 +103,12 @@ public class Constants {
             public static final String OTHER_PHONE_NUMBER = "other_phone_number";
         }
 
-        public static String DETAILS = "details";
-        public static String FAM_NAME = "fam_name";
+        public static final String DETAILS = "details";
+        public static final String FAM_NAME = "fam_name";
+        public static final String SEX = "sex";
+        public static final String PRIMARY_CARE_GIVER = "primary_caregiver";
+        public static final String AGE = "age";
+        public static final String NATIONAL_ID = "national_id";
     }
 
     public static class ProfileActivityResults {

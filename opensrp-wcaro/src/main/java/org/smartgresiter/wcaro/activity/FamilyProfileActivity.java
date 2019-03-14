@@ -192,10 +192,12 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity implements 
 
                         }else if(encounter_type.equals(Utils.metadata().familyMemberRegister.registerEventType)){
 
-                            primaryCaregiver = ((FamilyProfilePresenter) presenter).saveWcaroFamilyMember(jsonString);
-                            ((FamilyProfilePresenter) presenter).updatePrimaryCareGiver(getApplicationContext(), jsonString, familyBaseEntityId, primaryCaregiver);
-                            getIntent().putExtra(Constants.INTENT_KEY.PRIMARY_CAREGIVER, primaryCaregiver);
-                            refreshPresenter();
+                            String careGiver = ((FamilyProfilePresenter) presenter).saveWcaroFamilyMember(jsonString);
+                            if(((FamilyProfilePresenter) presenter).updatePrimaryCareGiver(getApplicationContext(), jsonString, familyBaseEntityId, careGiver)){
+                                primaryCaregiver = careGiver;
+                                getIntent().putExtra(Constants.INTENT_KEY.PRIMARY_CAREGIVER, primaryCaregiver);
+                                refreshPresenter();
+                            }
 
                             refreshMemberFragment(primaryCaregiver, null);
                             ((FamilyProfilePresenter) presenter).verifyHasPhone();

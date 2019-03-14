@@ -68,6 +68,7 @@
         "openmrs_entity": "person_identifier",
         "openmrs_entity_id": "opensrp_id",
         "type": "edit_text",
+        "read_only" : "true",
         "hint": "UNIQUE ID *",
         "value": "0",
         "scanButtonText": "Scan QR Code",
@@ -96,7 +97,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
-        "hint": "Surname",
+        "hint": "Surname *",
         "edit_type": "name",
         "v_regex": {
           "value": "[A-Za-z\\s\.\-]*",
