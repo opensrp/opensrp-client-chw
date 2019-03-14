@@ -74,11 +74,13 @@ public class FamilyOtherMemberActivityPresenter extends BaseFamilyOtherMemberPro
 
     @Override
     public void onRegistrationSaved(boolean isEditMode) {
-        getView().hideProgressDialog();
+        if(isEditMode) {
+            getView().hideProgressDialog();
 
-        refreshProfileView();
+            refreshProfileView();
 
-        getView().refreshList();
+            getView().refreshList();
+        }
     }
 
     public FamilyOtherMemberProfileExtendedContract.View getView() {
