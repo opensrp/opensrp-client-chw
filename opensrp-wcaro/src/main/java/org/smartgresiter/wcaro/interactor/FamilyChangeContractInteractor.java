@@ -58,7 +58,7 @@ public class FamilyChangeContractInteractor implements FamilyChangeContract.Inte
             @Override
             public void run() {
 
-                final Triple<List<HashMap<String, String>>, String, String> family = processFamily(familyID);
+                final Triple<List<FamilyMember>, String, String> family = processFamily(familyID);
                 appExecutors.mainThread().execute(new Runnable() {
                     @Override
                     public void run() {
@@ -78,7 +78,7 @@ public class FamilyChangeContractInteractor implements FamilyChangeContract.Inte
             @Override
             public void run() {
 
-                final Triple<List<HashMap<String, String>>, String, String> family = processFamily(familyID);
+                final Triple<List<FamilyMember>, String, String> family = processFamily(familyID);
                 appExecutors.mainThread().execute(new Runnable() {
                     @Override
                     public void run() {
@@ -92,20 +92,16 @@ public class FamilyChangeContractInteractor implements FamilyChangeContract.Inte
     }
 
     @Override
-    public void updateFamilyMember(final Context context, final HashMap<String, String> familyMember, final String familyID, final String lastLocationId, final FamilyChangeContract.Presenter presenter) {
+    public void updateFamilyMember(final Context context, final Pair<String, FamilyMember> familyMember, final String familyID, final String lastLocationId, final FamilyChangeContract.Presenter presenter) {
 
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
 
-                String option = familyMember.get(Constants.PROFILE_CHANGE_ACTION.ACTION_TYPE);
+                String option =  familyMember.first; // familyMember.get(Constants.PROFILE_CHANGE_ACTION.ACTION_TYPE);
 
-                final FamilyMember member = new FamilyMember();
+                final FamilyMember member = familyMember.second;
                 member.setFamilyID(familyID);
-                member.setMemberID(familyMember.get(DBConstants.KEY.BASE_ENTITY_ID));
-                member.setPhone(familyMember.get(Constants.JsonAssets.FAMILY_MEMBER.PHONE_NUMBER));
-                member.setOtherPhone(familyMember.get(Constants.JsonAssets.FAMILY_MEMBER.OTHER_PHONE_NUMBER));
-                member.setEduLevel(familyMember.get(Constants.JsonAssets.FAMILY_MEMBER.HIGHEST_EDUCATION_LEVEL));
                 member.setPrimaryCareGiver(Constants.PROFILE_CHANGE_ACTION.PRIMARY_CARE_GIVER.equals(option));
                 member.setFamilyHead(Constants.PROFILE_CHANGE_ACTION.HEAD_OF_FAMILY.equals(option));
 
@@ -163,8 +159,8 @@ public class FamilyChangeContractInteractor implements FamilyChangeContract.Inte
         Utils.context().allSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
     }
 
-    private Triple<List<HashMap<String, String>>, String, String> processFamily(String familyID) {
-        Triple<List<HashMap<String, String>>, String, String> res;
+    private Triple<List<FamilyMember>, String, String> processFamily(String familyID) {
+        Triple<List<FamilyMember>, String, String> res;
 
 
         CommonRepository commonRepository = Utils.context().commonrepository(Utils.metadata().familyRegister.tableName);
@@ -183,7 +179,7 @@ public class FamilyChangeContractInteractor implements FamilyChangeContract.Inte
         return res;
     }
 
-    private List<HashMap<String, String>> getFamilyMembers(String familyID) {
+    private List<FamilyMember> getFamilyMembers(String familyID) {
 
         String info_columns = DBConstants.KEY.RELATIONAL_ID + " , " +
                 DBConstants.KEY.BASE_ENTITY_ID + " , " +
@@ -207,7 +203,7 @@ public class FamilyChangeContractInteractor implements FamilyChangeContract.Inte
         );
 
         CommonRepository commonRepository = Utils.context().commonrepository(Utils.metadata().familyMemberRegister.tableName);
-        List<HashMap<String, String>> res = new ArrayList<>();
+        List<FamilyMember> res = new ArrayList<>();
 
         Cursor cursor = commonRepository.queryTable(sql);
         try {
@@ -215,14 +211,53 @@ public class FamilyChangeContractInteractor implements FamilyChangeContract.Inte
 
             while (!cursor.isAfterLast()) {
                 int columncount = cursor.getColumnCount();
-                HashMap<String, String> columns = new HashMap<String, String>();
+                FamilyMember columns = new FamilyMember();
                 Date dob = null;
                 for (int i = 0; i < columncount; i++) {
-                    columns.put(cursor.getColumnName(i), String.valueOf(cursor.getString(i)));
-                    if (cursor.getColumnName(i).equals(DBConstants.KEY.DOB)) {
-                        dob = Utils.dobStringToDate(String.valueOf(cursor.getString(i)));
+
+                    String value = null;
+                    if(!cursor.isNull(i)){
+                        value = String.valueOf(cursor.getString(i));
+                    }
+
+                    switch (cursor.getColumnName(i)){
+                        case DBConstants.KEY.RELATIONAL_ID:
+                            columns.setFamilyID(value);
+                            break;
+                        case DBConstants.KEY.BASE_ENTITY_ID:
+                            columns.setMemberID(value);
+                            break;
+                        case DBConstants.KEY.FIRST_NAME:
+                            columns.setFirstName(value);
+                            break;
+                        case DBConstants.KEY.MIDDLE_NAME:
+                            columns.setMiddleName(value);
+                            break;
+                        case DBConstants.KEY.LAST_NAME:
+                            columns.setLastName(value);
+                            break;
+                        case DBConstants.KEY.PHONE_NUMBER:
+                            columns.setPhone(value);
+                            break;
+                        case DBConstants.KEY.OTHER_PHONE_NUMBER:
+                            columns.setOtherPhone(value);
+                            break;
+                        case DBConstants.KEY.HIGHEST_EDU_LEVEL:
+                            columns.setEduLevel(value);
+                            break;
+                        case DBConstants.KEY.DOB:
+                            columns.setDob(value);
+                            dob = Utils.dobStringToDate(String.valueOf(cursor.getString(i)));
+                            break;
+                        case DBConstants.KEY.DOD:
+                            columns.setDod(value);
+                            break;
+                        case DBConstants.KEY.GENDER:
+                            columns.setGender(value);
+                            break;
                     }
                 }
+
                 // add if member is above 5 year
                 if (dob != null) {
                     if (getDiffYears(dob, new Date()) >= 5) {

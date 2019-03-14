@@ -19,7 +19,7 @@ import android.widget.TextView;
 import org.apache.commons.lang3.StringUtils;
 import org.smartgresiter.wcaro.R;
 
-public class FamilyRemoveMemberConfrimDialog extends DialogFragment implements View.OnClickListener {
+public class FamilyRemoveMemberConfirmDialog extends DialogFragment implements View.OnClickListener {
 
 
     private Context context;
@@ -27,8 +27,8 @@ public class FamilyRemoveMemberConfrimDialog extends DialogFragment implements V
     private Runnable onRemoveActivity;
     private String message;
 
-    public static FamilyRemoveMemberConfrimDialog newInstance(String message) {
-        FamilyRemoveMemberConfrimDialog dialog = new FamilyRemoveMemberConfrimDialog();
+    public static FamilyRemoveMemberConfirmDialog newInstance(String message) {
+        FamilyRemoveMemberConfirmDialog dialog = new FamilyRemoveMemberConfirmDialog();
         dialog.message = message;
         return dialog;
     }
@@ -41,7 +41,7 @@ public class FamilyRemoveMemberConfrimDialog extends DialogFragment implements V
         this.onRemoveActivity = onRemoveActivity;
     }
 
-    public FamilyRemoveMemberConfrimDialog() {
+    public FamilyRemoveMemberConfirmDialog() {
         // Required empty public constructor
     }
 

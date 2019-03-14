@@ -2,6 +2,12 @@ package org.smartgresiter.wcaro.domain;
 
 public class FamilyMember {
 
+    private String firstName;
+    private String lastName;
+    private String middleName;
+    private String gender;
+    private String dob;
+    private String dod;
     private String familyID;
     private String memberID;
     private String phone;
@@ -9,6 +15,54 @@ public class FamilyMember {
     private String eduLevel;
     private boolean isPrimaryCareGiver = false;
     private boolean isFamilyHead = false;
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getMiddleName() {
+        return middleName;
+    }
+
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getDob() {
+        return dob;
+    }
+
+    public void setDob(String dob) {
+        this.dob = dob;
+    }
+
+    public String getDod() {
+        return dod;
+    }
+
+    public void setDod(String dod) {
+        this.dod = dod;
+    }
 
     public String getFamilyID() {
         return familyID;
@@ -64,5 +118,17 @@ public class FamilyMember {
 
     public void setFamilyHead(boolean familyHead) {
         isFamilyHead = familyHead;
+    }
+
+    public String getFullNames() {
+        return String.format("%s %s %s", isNull(getFirstName()), isNull(getMiddleName()), isNull(getLastName()));
+    }
+
+    private String isNull(String string) {
+        if (string == null) {
+            return "";
+        } else {
+            return string.trim();
+        }
     }
 }
