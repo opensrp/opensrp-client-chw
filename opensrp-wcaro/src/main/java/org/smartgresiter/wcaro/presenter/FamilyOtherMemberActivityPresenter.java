@@ -4,11 +4,11 @@ import android.util.Log;
 
 import org.apache.commons.lang3.tuple.Triple;
 import org.smartgresiter.wcaro.contract.FamilyOtherMemberProfileExtendedContract;
+import org.smartgresiter.wcaro.interactor.FamilyProfileInteractor;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.contract.FamilyOtherMemberContract;
 import org.smartregister.family.contract.FamilyProfileContract;
 import org.smartregister.family.domain.FamilyEventClient;
-import org.smartregister.family.interactor.FamilyProfileInteractor;
 import org.smartregister.family.model.BaseFamilyProfileModel;
 import org.smartregister.family.presenter.BaseFamilyOtherMemberProfileActivityPresenter;
 
@@ -20,15 +20,20 @@ public class FamilyOtherMemberActivityPresenter extends BaseFamilyOtherMemberPro
     private WeakReference<FamilyOtherMemberProfileExtendedContract.View> viewReference;
     private String familyBaseEntityId;
     private String familyName;
-    private FamilyProfileInteractor profileInteractor;
 
-    public FamilyOtherMemberActivityPresenter(FamilyOtherMemberProfileExtendedContract.View view, FamilyOtherMemberContract.Model model, String viewConfigurationIdentifier, String familyBaseEntityId, String baseEntityId, String familyHead, String primaryCaregiver, String villageTown, String familyName) {
+    private FamilyProfileContract.Interactor profileInteractor;
+    private FamilyProfileContract.Model profileModel;
+
+    public FamilyOtherMemberActivityPresenter(FamilyOtherMemberProfileExtendedContract.View view, FamilyOtherMemberContract.Model model,
+                                              String viewConfigurationIdentifier, String familyBaseEntityId, String baseEntityId,
+                                              String familyHead, String primaryCaregiver, String villageTown, String familyName) {
         super(view, model, viewConfigurationIdentifier, baseEntityId, familyHead, primaryCaregiver, villageTown);
         viewReference = new WeakReference<>(view);
         this.familyBaseEntityId = familyBaseEntityId;
         this.familyName = familyName;
 
         this.profileInteractor = new FamilyProfileInteractor();
+        this.profileModel = new BaseFamilyProfileModel(familyName);
     }
 
     public String getFamilyBaseEntityId() {
@@ -44,7 +49,7 @@ public class FamilyOtherMemberActivityPresenter extends BaseFamilyOtherMemberPro
         try {
             getView().showProgressDialog(org.smartregister.family.R.string.saving_dialog_title);
 
-            FamilyEventClient familyEventClient = new BaseFamilyProfileModel(familyName).processUpdateMemberRegistration(jsonString, familyBaseEntityId);
+            FamilyEventClient familyEventClient = profileModel.processUpdateMemberRegistration(jsonString, familyBaseEntityId);
             if (familyEventClient == null) {
                 return;
             }
