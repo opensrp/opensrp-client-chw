@@ -28,20 +28,10 @@ public class NavigationListener implements View.OnClickListener {
 
                 switch (tag) {
                     case Constants.DrawerMenu.CHILD_CLIENTS:
-
-                        Intent intent_child = new Intent(activity, ChildRegisterActivity.class);
-                        intent_child.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        activity.startActivity(intent_child);
-                        activity.overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
-                        activity.finish();
+                        startRegisterActivity(ChildRegisterActivity.class);
                         break;
                     case Constants.DrawerMenu.ALL_FAMILIES:
-
-                        Intent intent_fam = new Intent(activity, FamilyRegisterActivity.class);
-                        intent_fam.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        activity.startActivity(intent_fam);
-                        activity.overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
-                        activity.finish();
+                        startRegisterActivity(FamilyRegisterActivity.class);
                         break;
                     default:
                         break;
@@ -51,5 +41,13 @@ public class NavigationListener implements View.OnClickListener {
                 navigationAdapter.setSelectedView(tag);
             }
         }
+    }
+
+    private void startRegisterActivity(Class registerClass){
+        Intent intent = new Intent(activity, registerClass);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        activity.startActivity(intent);
+        activity.overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
+        activity.finish();
     }
 }
