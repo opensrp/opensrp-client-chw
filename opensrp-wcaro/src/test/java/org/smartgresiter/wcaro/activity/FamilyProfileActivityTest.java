@@ -126,7 +126,7 @@ public class FamilyProfileActivityTest {
         Intent data = new Intent();
         data.putExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON, form.toString());
 
-        Mockito.doReturn(false).when(presenter).updatePrimaryCareGiver(spyActivity.getApplicationContext(), form.toString(), null, null);
+        when(presenter.updatePrimaryCareGiver(spyActivity.getApplicationContext(), form.toString(), null, null)).thenReturn(true);
 
         spyActivity.onActivityResult(requestCode, resultCode, data);
 
