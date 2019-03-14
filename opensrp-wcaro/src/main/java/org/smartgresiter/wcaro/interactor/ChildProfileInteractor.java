@@ -11,7 +11,6 @@ import org.joda.time.DateTime;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.contract.ChildProfileContract;
 import org.smartgresiter.wcaro.fragment.ChildHomeVisitFragment;
 import org.smartgresiter.wcaro.listener.FamilyMemberImmunizationListener;
@@ -224,8 +223,8 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
                     VaccineRepo.Vaccine vaccine = (VaccineRepo.Vaccine) nv.get(VACCINE);
                     final ChildService childService = new ChildService();
                     childService.setServiceName(fixVaccineCasing(vaccine.display()));
-                    if(childService.getServiceName().contains("MEASLES")){
-                        childService.setServiceName(childService.getServiceName().replace("MEASLES","MCV"));
+                    if (childService.getServiceName().contains("MEASLES")) {
+                        childService.setServiceName(childService.getServiceName().replace("MEASLES", "MCV"));
                     }
                     DateTime dueDate = (DateTime) nv.get(DATE);
                     String duedateString = DateUtil.formatDate(dueDate.toLocalDate(), "dd MMM yyyy");
@@ -314,7 +313,7 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
                             callback.setFamilyName(familyName);
 
                             if (isForEdit) {
-                                callback.startFormForEdit(pClient);
+                                callback.startFormForEdit("", pClient);
                             } else {
                                 callback.refreshProfileTopSection(pClient);
                             }
@@ -331,7 +330,7 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
     }
 
     @Override
-    public JSONObject getAutoPopulatedJsonEditFormString(String formName, Context context, CommonPersonObjectClient client) {
+    public JSONObject getAutoPopulatedJsonEditFormString(String formName, String title, Context context, CommonPersonObjectClient client) {
         try {
             JSONObject form = FormUtils.getInstance(context).getFormJson(formName);
             LocationPickerView lpv = new LocationPickerView(context);
@@ -348,7 +347,10 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
                 form.put(org.smartregister.family.util.JsonFormUtils.CURRENT_OPENSRP_ID, Utils.getValue(client.getColumnmaps(), DBConstants.KEY.UNIQUE_ID, false));
 
                 JSONObject stepOne = form.getJSONObject(org.smartregister.family.util.JsonFormUtils.STEP1);
-                stepOne.put("title", context.getString(R.string.edit_child_form_title));
+
+                if (StringUtils.isNotBlank(title)) {
+                    stepOne.put(org.smartgresiter.wcaro.util.JsonFormUtils.TITLE, title);
+                }
                 JSONArray jsonArray = stepOne.getJSONArray(org.smartregister.family.util.JsonFormUtils.FIELDS);
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
@@ -393,7 +395,7 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
                 optionsObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), org.smartregister.family.util.Constants.JSON_FORM_KEY.DOB_UNKNOWN, false));
 
                 break;
-            case "age":{
+            case "age": {
 
                 String dobString = org.smartgresiter.wcaro.util.Utils.getValue(client.getColumnmaps(), DBConstants.KEY.DOB, false);
                 dobString = org.smartregister.family.util.Utils.getDuration(dobString);
@@ -429,16 +431,31 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
 
                 break;
 
-            case "fam_name":
+            case org.smartgresiter.wcaro.util.Constants.JsonAssets.FAM_NAME:
 
-                String fam_name = Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.FAMILY_FIRST_NAME, false);
-                jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, fam_name);
-                JSONObject jsonObject1 = getFieldJSONObject(jsonArray, "same_as_fam_name");
-                JSONObject optionsObject1 = jsonObject1.getJSONArray(org.smartregister.family.util.Constants.JSON_FORM_KEY.OPTIONS).getJSONObject(0);
-                optionsObject1.put(org.smartregister.family.util.JsonFormUtils.VALUE, true);
+                final String SAME_AS_FAM_NAME = "same_as_fam_name";
+                final String SURNAME = "surname";
 
-                JSONObject jsonObject2 = getFieldJSONObject(jsonArray, "surname");
-                jsonObject2.put(org.smartregister.family.util.JsonFormUtils.VALUE, fam_name);
+                String familyName = Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.FAMILY_FIRST_NAME, false);
+                jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, familyName);
+
+                String lastName = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.LAST_NAME, false);
+
+                JSONObject sameAsFamName = getFieldJSONObject(jsonArray, SAME_AS_FAM_NAME);
+                JSONObject sameOptions = sameAsFamName.getJSONArray(org.smartregister.family.util.Constants.JSON_FORM_KEY.OPTIONS).getJSONObject(0);
+
+                if (familyName.equals(lastName)) {
+                    sameOptions.put(org.smartregister.family.util.JsonFormUtils.VALUE, true);
+                } else {
+                    sameOptions.put(org.smartregister.family.util.JsonFormUtils.VALUE, false);
+                }
+
+                JSONObject surname = getFieldJSONObject(jsonArray, SURNAME);
+                if (!familyName.equals(lastName)) {
+                    surname.put(org.smartregister.family.util.JsonFormUtils.VALUE, lastName);
+                } else {
+                    surname.put(org.smartregister.family.util.JsonFormUtils.VALUE, "");
+                }
 
                 break;
 

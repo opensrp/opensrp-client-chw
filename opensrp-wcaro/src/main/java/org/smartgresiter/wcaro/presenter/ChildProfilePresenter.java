@@ -131,8 +131,8 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
     }
 
     @Override
-    public void startFormForEdit(CommonPersonObjectClient client) {
-        JSONObject form = interactor.getAutoPopulatedJsonEditFormString(org.smartgresiter.wcaro.util.Constants.JSON_FORM.CHILD_REGISTER, getView().getApplicationContext(), client);
+    public void startFormForEdit(String title, CommonPersonObjectClient client) {
+        JSONObject form = interactor.getAutoPopulatedJsonEditFormString(org.smartgresiter.wcaro.util.Constants.JSON_FORM.CHILD_REGISTER, title, getView().getApplicationContext(), client);
         try {
 
             if (!isBlank(client.getColumnmaps().get(ChildDBConstants.KEY.RELATIONAL_ID))) {
@@ -193,11 +193,9 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
     public void updateChildService(ChildService childService) {
         if (childService.getServiceStatus().equalsIgnoreCase(ChildProfileInteractor.ServiceType.UPCOMING.name())) {
             getView().setServiceNameUpcoming(childService.getServiceName().trim(), childService.getServiceDate());
-        }
-        else if (childService.getServiceStatus().equalsIgnoreCase(ChildProfileInteractor.ServiceType.OVERDUE.name())) {
+        } else if (childService.getServiceStatus().equalsIgnoreCase(ChildProfileInteractor.ServiceType.OVERDUE.name())) {
             getView().setServiceNameOverDue(childService.getServiceName().trim(), childService.getServiceDate());
-        }
-        else{
+        } else {
             getView().setServiceNameDue(childService.getServiceName().trim(), childService.getServiceDate());
         }
 
@@ -224,14 +222,14 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
         }
         String parentFirstName = Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.FAMILY_FIRST_NAME, true);
         String parentLastName = Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.FAMILY_LAST_NAME, true);
-        String parentMiddleName=Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.FAMILY_MIDDLE_NAME, true);
+        String parentMiddleName = Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.FAMILY_MIDDLE_NAME, true);
 
-        String parentName = "CG: " + org.smartregister.util.Utils.getName(parentFirstName,parentMiddleName+" "+ parentLastName);
+        String parentName = "CG: " + org.smartregister.util.Utils.getName(parentFirstName, parentMiddleName + " " + parentLastName);
         getView().setParentName(parentName);
         String firstName = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.FIRST_NAME, true);
         String lastName = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.LAST_NAME, true);
         String middleName = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.MIDDLE_NAME, true);
-        String childName = org.smartregister.util.Utils.getName(firstName,middleName+" "+ lastName);
+        String childName = org.smartregister.util.Utils.getName(firstName, middleName + " " + lastName);
         getView().setProfileName(childName);
 
         dob = Utils.getDuration(Utils.getValue(client.getColumnmaps(), DBConstants.KEY.DOB, false));
@@ -268,8 +266,6 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
             getView().hideProgressDialog();
             getView().refreshProfile(FetchStatus.fetched);
         }
-
-
     }
 
     @Override

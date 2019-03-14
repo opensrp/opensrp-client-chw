@@ -56,7 +56,7 @@ public class FamilyRemoveMemberProvider extends FamilyMemberRegisterProvider {
                     int adults = members - children;
 
                     HashMap<String, String> payload = new HashMap<>();
-                    payload.put(Constants.GLOBAL.MESSAGE, String.format("%s adults and %s U5 children", String.valueOf(adults), String.valueOf(children)));
+                    payload.put(Constants.GLOBAL.MESSAGE, String.format(context.getString(R.string.remove_family_count), String.valueOf(adults), String.valueOf(children)));
                     payload.put(Constants.GLOBAL.NAME, result.get(Constants.GLOBAL.NAME));
 
                     footerViewHolder.instructions.setFontVariant(FontVariant.REGULAR);

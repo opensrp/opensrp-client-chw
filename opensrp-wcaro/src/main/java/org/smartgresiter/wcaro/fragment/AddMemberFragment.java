@@ -15,7 +15,7 @@ import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.activity.FamilyProfileActivity;
 import org.smartgresiter.wcaro.util.Constants;
 
-public class AddMemberFragment extends DialogFragment implements View.OnClickListener {
+public class  AddMemberFragment extends DialogFragment implements View.OnClickListener {
 
     public static final String DIALOG_TAG = "add_member_dialog";
 
