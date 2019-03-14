@@ -99,7 +99,7 @@ public class ChildRegisterFragmentPresenter implements ChildRegisterFragmentCont
 
     @Override
     public String getMainCondition() {
-        return String.format(" %s is null ", DBConstants.KEY.DATE_REMOVED);
+        return String.format(" %s is null AND %s", DBConstants.KEY.DATE_REMOVED,ChildDBConstants.childAgeLimitFilter());
     }
 
     @Override

@@ -5,6 +5,7 @@ import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.family.util.DBConstants;
 
 public class ChildDBConstants {
+    private static final int FIVE_YEAR_SECOND=157680000;
     public static final class KEY {
         //public static final String VISIT_STATUS = "visit_status";
         public static final String VISIT_NOT_DONE = "visit_not_done";
@@ -31,7 +32,9 @@ public class ChildDBConstants {
         // Family child visit status
         //public static final String CHILD_VISIT_STATUS = "child_visit_status";
     }
-
+    public static String childAgeLimitFilter(){
+        return " (( strftime('%s','now') - strftime('%s',"+ DBConstants.KEY.DOB +"))<"+FIVE_YEAR_SECOND+")";
+    }
     public static String childDueFilter() {
         return " ((" + ChildDBConstants.KEY.LAST_HOME_VISIT + " is null OR ((" + ChildDBConstants.KEY.LAST_HOME_VISIT + "/1000) > strftime('%s',datetime('now','start of month')))) AND ((" + ChildDBConstants.KEY.VISIT_NOT_DONE + " is null OR " + ChildDBConstants.KEY.VISIT_NOT_DONE + " = '0') OR ((" + ChildDBConstants.KEY.VISIT_NOT_DONE + "/1000) > strftime('%s',datetime('now','start of month'))))) ";
     }
