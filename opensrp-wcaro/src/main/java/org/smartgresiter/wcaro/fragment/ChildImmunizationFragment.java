@@ -169,7 +169,7 @@ public class ChildImmunizationFragment extends DialogFragment {
     }
 
 
-    public void onVaccinateEarlier(ArrayList<VaccineWrapper> tags, View v) {
+    public void onVaccinateEarlier(ArrayList<VaccineWrapper> tags) {
         if (tags != null && !tags.isEmpty()) {
             View view = getLastOpenedView();
             saveVaccine(tags, view);

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.DialogFragment;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.Point;
@@ -31,6 +32,7 @@ import com.vijay.jsonwizard.customviews.RadioButton;
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.smartgresiter.wcaro.R;
+import org.smartgresiter.wcaro.application.WcaroApplication;
 import org.smartgresiter.wcaro.contract.HomeVisitImmunizationContract;
 import org.smartregister.domain.Alert;
 import org.smartregister.family.util.DBConstants;
@@ -59,8 +61,6 @@ public class VaccinationDialogFragment extends ChildImmunizationFragment impleme
     private List<Vaccine> issuedVaccines;
     public static final String DIALOG_TAG = "VaccinationDialogFragment";
     public static final String WRAPPER_TAG = "tag";
-    private boolean disableConstraints;
-    private Calendar dcToday;
     private HomeVisitImmunizationContract.View homeVisitImmunizationView;
     private int selectCount=0;
     private Button saveBtn;
@@ -135,97 +135,37 @@ public class VaccinationDialogFragment extends ChildImmunizationFragment impleme
                 checkBoxNoVaccine.toggle();
                 break;
             case R.id.save_btn:
-
-                int day = earlierDatePicker.getDayOfMonth();
-                int month = earlierDatePicker.getMonth();
-                int year = earlierDatePicker.getYear();
-
-                Calendar calendar = Calendar.getInstance();
-                calendar.set(year, month, day);
-                DateTime dateTime = new DateTime(calendar.getTime());
-                if(selectCount == 0){
-                    handleNotGivenVaccines(dateTime);
-                    dismiss();
-                    return;
-                }
-
-                if(singleVaccineAddView.getVisibility() == View.VISIBLE && singleVaccineMap.size()>0){
-                    handleSingleVaccineLogic();
-                    handleNotGivenVaccines(dateTime);
-                    dismiss();
-                    return;
-                }
-                handleMultipleVaccineGiven(dateTime);
-                handleNotGivenVaccines(dateTime);
-//                ArrayList<VaccineWrapper> tagsToUpdate = new ArrayList<VaccineWrapper>();
-//                ArrayList<VaccineWrapper> UngiventagsToUpdate = new ArrayList<VaccineWrapper>();
-//
-//                int day = earlierDatePicker.getDayOfMonth();
-//                int month = earlierDatePicker.getMonth();
-//                int year = earlierDatePicker.getYear();
-//
-//                Calendar calendar = Calendar.getInstance();
-//                calendar.set(year, month, day);
-//                DateTime dateTime = new DateTime(calendar.getTime());
-////                if (tags.size() == 1) {
-////                    VaccineWrapper tag = tags.get(0);
-////                    String radioName = findSelectRadio(vaccinationNameLayout);
-////                    if (radioName != null) {
-////                        tag.setName(radioName);
-////                    }
-////
-////                    if (validateVaccinationDate(tag, dateTime.toDate())) {
-////                        tag.setUpdatedVaccineDate(dateTime, false);
-////                        tagsToUpdate.add(tag);
-////                    } else {
-////                        Toast.makeText(VaccinationDialogFragment.this.getActivity(),
-////                                String.format(getString(R.string.cannot_record_vaccine), tag.getName()),
-////                                Toast.LENGTH_LONG).show();
-////                    }
-////                } else {
-//                    List<String> selectedCheckboxes = findSelectedCheckBoxes(vaccinationNameLayout);
-//                    for (String checkedName : selectedCheckboxes) {
-//                        VaccineWrapper tag = searchWrapperByName(checkedName);
-//                        if (tag != null) {
-//                            if (validateVaccinationDate(tag, dateTime.toDate())) {
-//                                tag.setUpdatedVaccineDate(dateTime, false);
-//                                tagsToUpdate.add(tag);
-//                            } else {
-//                                Toast.makeText(VaccinationDialogFragment.this.getActivity(),
-//                                        String.format(getString(R.string.cannot_record_vaccine),
-//                                                tag.getName()), Toast.LENGTH_LONG).show();
-//                            }
-//                        }
-//                    //}
-//
-//                    List<String> UnselectedCheckboxes = findUnSelectedCheckBoxes(vaccinationNameLayout);
-//                    for (String uncheckedName : UnselectedCheckboxes) {
-//                        VaccineWrapper untag = searchWrapperByName(uncheckedName);
-//                        if (untag != null) {
-//                            if (validateVaccinationDate(untag, dateTime.toDate())) {
-//                                untag.setUpdatedVaccineDate(dateTime, false);
-//                                UngiventagsToUpdate.add(untag);
-//                            } else {
-//                                Toast.makeText(VaccinationDialogFragment.this.getActivity(),
-//                                        String.format(getString(R.string.cannot_record_vaccine),
-//                                                untag.getName()), Toast.LENGTH_LONG).show();
-//                            }
-//                        }
-//                    }
-//
-//                }
-//                onVaccinateEarlier(tagsToUpdate, view);
-//                homeVisitImmunizationView.getPresenter().assigntoGivenVaccines(tagsToUpdate);
-//                ///////handle not given
-//                for(VaccineWrapper tags:UngiventagsToUpdate) {
-//                    homeVisitImmunizationView.getPresenter().updateNotGivenVaccine(tags);
-//                }
+                saveData(earlierDatePicker,singleVaccineMap,selectCount,singleVaccineAddView.getVisibility() == View.VISIBLE,dateOfBirth);
                 dismiss();
                 break;
             case R.id.close:
                 dismiss();
                 break;
         }
+    }
+    private void saveData(DatePicker earlierDatePicker,Map<VaccineWrapper,DatePicker> singleVaccineMap
+            ,int selectCount,boolean isVisibleSingleVaccineView,Date dateOfBirth){
+        int day = earlierDatePicker.getDayOfMonth();
+        int month = earlierDatePicker.getMonth();
+        int year = earlierDatePicker.getYear();
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(year, month, day);
+        DateTime dateTime = new DateTime(calendar.getTime());
+        if(selectCount == 0){
+            handleNotGivenVaccines(dateTime,dateOfBirth);
+            dismiss();
+            return;
+        }
+
+        if(isVisibleSingleVaccineView && singleVaccineMap.size()>0){
+            handleSingleVaccineLogic(singleVaccineMap,dateOfBirth);
+            handleNotGivenVaccines(dateTime,dateOfBirth);
+            dismiss();
+            return;
+        }
+        handleMultipleVaccineGiven(dateTime,dateOfBirth);
+        handleNotGivenVaccines(dateTime,dateOfBirth);
     }
     private void handleAllVaccineNotGiven(){
         for (VaccineWrapper vaccineWrapper : tags) {
@@ -234,7 +174,7 @@ public class VaccinationDialogFragment extends ChildImmunizationFragment impleme
          ((ChildHomeVisitFragment) getActivity().getFragmentManager().findFragmentByTag("child_home_visit_dialog")).updateImmunizationState();
 
     }
-    private void handleSingleVaccineLogic() {
+    private void handleSingleVaccineLogic(Map<VaccineWrapper,DatePicker> singleVaccineMap,Date dateOfBirth) {
         ArrayList<VaccineWrapper> tagsToUpdate = new ArrayList<VaccineWrapper>();
         for (VaccineWrapper wrapper:singleVaccineMap.keySet()){
             DatePicker datePicker=singleVaccineMap.get(wrapper);
@@ -246,58 +186,62 @@ public class VaccinationDialogFragment extends ChildImmunizationFragment impleme
                 Calendar calendar = Calendar.getInstance();
                 calendar.set(year, month, day);
                 DateTime dateTime = new DateTime(calendar.getTime());
-                if (validateVaccinationDate(wrapper,dateTime.toDate())) {
+                if (validateVaccinationDate(dateOfBirth,dateTime.toDate())) {
                     wrapper.setUpdatedVaccineDate(dateTime, false);
                     tagsToUpdate.add(wrapper);
                 } else {
-                    Toast.makeText(VaccinationDialogFragment.this.getActivity(),
-                            String.format(getString(R.string.cannot_record_vaccine),
-                                    wrapper.getName()), Toast.LENGTH_LONG).show();
+                    showToast(String.format(getString(R.string.cannot_record_vaccine),
+                            wrapper.getName()));
                 }
             }
         }
-        onVaccinateEarlier(tagsToUpdate,view);
+        onVaccinateEarlier(tagsToUpdate);
         homeVisitImmunizationView.getPresenter().assigntoGivenVaccines(tagsToUpdate);
 
     }
-    private void handleMultipleVaccineGiven(DateTime dateTime){
+    private void handleMultipleVaccineGiven(DateTime dateTime,Date dateOfBirth){
         ArrayList<VaccineWrapper> tagsToUpdate = new ArrayList<VaccineWrapper>();
         List<String> selectedCheckboxes = findSelectedCheckBoxes(vaccinationNameLayout);
         for (String checkedName : selectedCheckboxes) {
             VaccineWrapper tag = searchWrapperByName(checkedName);
             if (tag != null) {
-                if (validateVaccinationDate(tag,dateTime.toDate())) {
+                if (validateVaccinationDate(dateOfBirth,dateTime.toDate())) {
                     tag.setUpdatedVaccineDate(dateTime, false);
                     tagsToUpdate.add(tag);
                 } else {
-                    Toast.makeText(VaccinationDialogFragment.this.getActivity(),
-                            String.format(getString(R.string.cannot_record_vaccine),
-                                    tag.getName()), Toast.LENGTH_LONG).show();
+                    showToast( String.format(getString(R.string.cannot_record_vaccine),
+                            tag.getName()));
                 }
             }
         }
-        onVaccinateEarlier(tagsToUpdate,view);
+        onVaccinateEarlier(tagsToUpdate);
         homeVisitImmunizationView.getPresenter().assigntoGivenVaccines(tagsToUpdate);
     }
-    private void handleNotGivenVaccines(DateTime dateTime){
+    private void handleNotGivenVaccines(DateTime dateTime,Date dateOfBirth){
         ArrayList<VaccineWrapper> UngiventagsToUpdate = new ArrayList<VaccineWrapper>();
         List<String> UnselectedCheckboxes = findUnSelectedCheckBoxes(vaccinationNameLayout);
         for (String uncheckedName : UnselectedCheckboxes) {
             VaccineWrapper untag = searchWrapperByName(uncheckedName);
             if (untag != null) {
-                if (validateVaccinationDate(untag,dateTime.toDate())) {
+                if (validateVaccinationDate(dateOfBirth,dateTime.toDate())) {
                     untag.setUpdatedVaccineDate(dateTime, false);
                     UngiventagsToUpdate.add(untag);
                 } else {
-                    Toast.makeText(VaccinationDialogFragment.this.getActivity(),
-                            String.format(getString(R.string.cannot_record_vaccine),
-                                    untag.getName()), Toast.LENGTH_LONG).show();
+                    showToast(String.format(getString(R.string.cannot_record_vaccine),
+                            untag.getName()));
                 }
             }
         }
         for(VaccineWrapper tags:UngiventagsToUpdate) {
             homeVisitImmunizationView.getPresenter().updateNotGivenVaccine(tags);
         }
+
+    }
+    private Context getApplicationContext(){
+        return WcaroApplication.getInstance().getApplicationContext();
+    }
+    private void showToast(String message){
+        Toast.makeText(getApplicationContext(),message, Toast.LENGTH_LONG).show();
 
     }
     public void setDateOfBirth(Date dateOfBirth) {
@@ -309,11 +253,9 @@ public class VaccinationDialogFragment extends ChildImmunizationFragment impleme
     }
 
     public void setDisableConstraints(boolean disableConstraints) {
-        this.disableConstraints = disableConstraints;
         if (disableConstraints) {
             Calendar dcToday = Calendar.getInstance();
             VaccineSchedule.standardiseCalendarDate(dcToday);
-            this.dcToday = dcToday;
         }
     }
     private void parseBundleData(){
@@ -467,19 +409,16 @@ public class VaccinationDialogFragment extends ChildImmunizationFragment impleme
         updateSaveButton();
     }
 
-    private boolean validateVaccinationDate(VaccineWrapper vaccine, Date date) {
+    private boolean validateVaccinationDate(Date dateOfBirth, Date date) {
         // Assuming that the vaccine wrapper provided to this method isn't one where there's more than one vaccine in a wrapper
-        Date minDate = null;
-        Date maxDate = null;
-
-        if (disableConstraints) {
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTime(dateOfBirth);
-            VaccineSchedule.standardiseCalendarDate(calendar);
-
-            minDate = calendar.getTime();
-            maxDate = dcToday.getTime();
-        }
+        Date minDate;
+        Date maxDate;
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(dateOfBirth);
+        Calendar dcToday = Calendar.getInstance();
+        VaccineSchedule.standardiseCalendarDate(calendar);
+        minDate = calendar.getTime();
+        maxDate = dcToday.getTime();
         Calendar vaccineDate = Calendar.getInstance();
         vaccineDate.setTime(date);
         VaccineSchedule.standardiseCalendarDate(vaccineDate);
@@ -493,7 +432,6 @@ public class VaccinationDialogFragment extends ChildImmunizationFragment impleme
             Calendar min = Calendar.getInstance();
             min.setTime(minDate);
             VaccineSchedule.standardiseCalendarDate(min);
-
             result = min.getTimeInMillis() <= vaccineDate.getTimeInMillis();
         }
 

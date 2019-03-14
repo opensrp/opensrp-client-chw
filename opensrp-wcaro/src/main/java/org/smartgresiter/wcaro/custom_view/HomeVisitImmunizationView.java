@@ -368,7 +368,7 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
         return groupsDoneBeforeActive;
     }
 
-    private boolean isGroupDoneThisVisit(HomeVisitVaccineGroupDetails homeVisitVaccineGroupDetails) {
+    public boolean isGroupDoneThisVisit(HomeVisitVaccineGroupDetails homeVisitVaccineGroupDetails) {
         boolean toReturn = false;
         for(VaccineRepo.Vaccine vaccine: homeVisitVaccineGroupDetails.getDueVaccines()){
             for(VaccineWrapper vaccineGivenThisVisit: presenter.getVaccinesGivenThisVisit()){
