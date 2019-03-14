@@ -1,8 +1,10 @@
 package org.smartgresiter.wcaro.contract;
 
 import android.content.Context;
+import android.util.Pair;
 
-import java.util.HashMap;
+import org.smartgresiter.wcaro.domain.FamilyMember;
+
 import java.util.List;
 
 public interface FamilyChangeContract {
@@ -11,26 +13,24 @@ public interface FamilyChangeContract {
 
         void saveCompleted(String familyHeadID, String careGiverID);
 
-        void getMembers(String familyID);
-
         void getAdultMembersExcludePCG();
 
-        void saveFamilyMember(Context context, HashMap<String, String> member);
+        void saveFamilyMember(Context context, Pair<String, FamilyMember> member);
 
-        void renderAdultMembersExcludePCG(List<HashMap<String, String>> clients, String primaryCareID, String headOfHouseID);
+        void renderAdultMembersExcludePCG(List<FamilyMember> clients, String primaryCareID, String headOfHouseID);
 
         void getAdultMembersExcludeHOF();
 
-        void renderAdultMembersExcludeHOF(List<HashMap<String, String>> clients, String primaryCareID, String headOfHouseID);
+        void renderAdultMembersExcludeHOF(List<FamilyMember> clients, String primaryCareID, String headOfHouseID);
     }
 
     interface View {
 
-        void refreshMembersView(List<HashMap<String, String>> familyMembers);
+        void refreshMembersView(List<FamilyMember> familyMembers);
 
         void saveComplete(String familyHeadID, String careGiverID);
 
-        void updateFamilyMember(HashMap<String, String> familyMember);
+        void updateFamilyMember(Pair<String, FamilyMember> familyMember);
 
         void showProgressDialog(String Title);
 
@@ -39,7 +39,7 @@ public interface FamilyChangeContract {
 
     interface Model {
 
-        List<HashMap<String, String>> getMembersExcluding(List<HashMap<String, String>> mmebers, String primaryCareID, String headOfHouseID, String... ids);
+        List<FamilyMember> getMembersExcluding(List<FamilyMember> members, String primaryCareID, String headOfHouseID, String... ids);
 
     }
 
@@ -49,7 +49,7 @@ public interface FamilyChangeContract {
 
         void getAdultMembersExcludePCG(String familyID, Presenter presenter);
 
-        void updateFamilyMember(Context context, HashMap<String, String> familyMember, String familyID, String lastLocationID, Presenter presenter);
+        void updateFamilyMember(Context context, Pair<String, FamilyMember> familyMember, String familyID, String lastLocationID, Presenter presenter);
 
     }
 
