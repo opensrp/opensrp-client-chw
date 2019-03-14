@@ -161,7 +161,6 @@
 
     <string name="last_visit">LAST VISIT</string>
     <string name="edit_child_form_title">Edit Child Under 5</string>
-    <string name="last_visit">LAST VISIT</string>
     <string name="birth_cert_value">Does the child have a birth certificate? %s</string>
     <string name="birth_cert_date">Birth certificate issuance date: %s</string>
     <string name="birth_cert_number">Birth certificate number: %s</string>
