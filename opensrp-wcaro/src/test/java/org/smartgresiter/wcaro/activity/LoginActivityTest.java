@@ -45,7 +45,7 @@ public class LoginActivityTest extends BaseActivityTest<LoginActivity> {
     private KeyEvent keyEvent;
 
     @Override
-    protected Class<LoginActivity> getType() {
+    protected Class<LoginActivity> getActivityClass() {
         return LoginActivity.class;
     }
 

@@ -1,18 +1,17 @@
 package org.smartgresiter.wcaro;
 
-import android.support.v7.app.AppCompatActivity;
+import android.app.Activity;
+import android.content.Intent;
 
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
-import org.junit.runner.RunWith;
+import org.junit.Test;
 import org.mockito.MockitoAnnotations;
 import org.robolectric.Robolectric;
-import org.robolectric.RobolectricTestRunner;
 import org.robolectric.android.controller.ActivityController;
-import org.robolectric.annotation.Config;
-import org.smartgresiter.wcaro.application.WcaroApplication;
 
-public abstract class BaseActivityTest<T extends AppCompatActivity> extends BaseTest {
+public abstract class BaseActivityTest<T extends Activity> extends BaseUnitTest {
 
     private T activity;
     private ActivityController<T> controller;
@@ -20,28 +19,33 @@ public abstract class BaseActivityTest<T extends AppCompatActivity> extends Base
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        controller = Robolectric.buildActivity(getType()).create().start();
+        if(getControllerIntent() == null){
+            controller = Robolectric.buildActivity(getActivityClass()).create().start();
+        }else{
+            controller = Robolectric.buildActivity(getActivityClass(), getControllerIntent()).create().start();
+        }
         activity = controller.get();
     }
 
     @After
     public void tearDown() {
-        getActivity().finish();
+        try {
+            getActivity().finish();
+            getActivityController().pause().stop().destroy(); //destroy controller if we can
 
-        if(getActivityController() != null){
-            if(controller.get() != null){
-                getActivityController()
-                        .pause()
-                        .stop()
-                        .destroy();
-            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
- //destroy controller if we can
 
         System.gc();
     }
 
-    protected abstract Class<T> getType();
+    @Test
+    public void testActivityExists(){
+        Assert.assertNotNull(getActivity());
+    }
+
+    protected abstract Class<T> getActivityClass();
 
     protected T getActivity() {
         return activity;
@@ -49,5 +53,9 @@ public abstract class BaseActivityTest<T extends AppCompatActivity> extends Base
 
     protected ActivityController getActivityController() {
         return controller;
+    }
+
+    protected Intent getControllerIntent(){
+        return null;
     }
 }

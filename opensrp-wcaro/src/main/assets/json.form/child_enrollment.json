@@ -92,6 +92,10 @@
           "value": "[A-Za-z\\s\.\-]*",
           "err": "Please enter a valid name"
         },
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the surname"
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -107,7 +111,7 @@
         "openmrs_entity_id": "",
         "openmrs_data_type": "text",
         "type": "check_box",
-        "label": " ",
+        "label": "",
         "exclusive": [
           "none"
         ],
