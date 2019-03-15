@@ -68,6 +68,7 @@
         "openmrs_entity": "person_identifier",
         "openmrs_entity_id": "opensrp_id",
         "type": "edit_text",
+        "read_only" : "true",
         "hint": "UNIQUE ID *",
         "value": "0",
         "scanButtonText": "Scan QR Code",
@@ -96,11 +97,15 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
-        "hint": "Surname",
+        "hint": "Surname *",
         "edit_type": "name",
         "v_regex": {
           "value": "[A-Za-z\\s\.\-]*",
           "err": "Please enter a valid name"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the surname"
         },
         "relevance": {
           "rules-engine": {
@@ -117,7 +122,7 @@
         "openmrs_entity_id": "",
         "openmrs_data_type": "text",
         "type": "check_box",
-        "label": " ",
+        "label": "",
         "exclusive": [
           "none"
         ],
@@ -176,12 +181,8 @@
         "openmrs_entity": "person",
         "openmrs_entity_id": "middle_name",
         "type": "edit_text",
-        "hint": "Middle name *",
+        "hint": "Middle name",
         "edit_type": "name",
-        "v_required": {
-          "value": "true",
-          "err": "Please enter the middle name"
-        },
         "v_regex": {
           "value": "[A-Za-z\\s\.\-]*",
           "err": "Please enter a valid name"
@@ -293,7 +294,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "159635AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "edit_text",
-        "hint": "Phone number *",
+        "hint": "Phone number",
         "v_numeric": {
           "value": "true",
           "err": "Number must be a total of 10 digits in length"
@@ -303,7 +304,7 @@
           "err": "Number must be 10 digits and must start with 0."
         },
         "v_required": {
-          "value": true,
+          "value": false,
           "err": "Please specify the phone number"
         },
         "relevance": {

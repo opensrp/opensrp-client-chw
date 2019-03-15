@@ -93,11 +93,11 @@ public class IndividualProfileRemoveFragment extends BaseFamilyProfileMemberFrag
 
     public void confirmRemove(final JSONObject form) {
         if (StringUtils.isNotBlank(memberName)) {
-            FamilyRemoveMemberConfrimDialog dialog = FamilyRemoveMemberConfrimDialog.newInstance(
+            FamilyRemoveMemberConfirmDialog dialog = FamilyRemoveMemberConfirmDialog.newInstance(
                     String.format(getString(R.string.confirm_remove_text), memberName)
             );
             dialog.setContext(getContext());
-            dialog.show(getFragmentManager(), AddMemberFragment.DIALOG_TAG);
+            dialog.show(getFragmentManager(), FamilyRemoveMemberFragment.DIALOG_TAG);
             dialog.setOnRemove(new Runnable() {
                 @Override
                 public void run() {

@@ -204,7 +204,6 @@ public class WcaroApplication extends DrishtiApplication {
     }
 
     private void scheduleJobs() {
-        VaccineRecurringServiceJob.scheduleJob(VaccineRecurringServiceJob.TAG, TimeUnit.MINUTES.toMillis(BuildConfig.VACCINE_SYNC_PROCESSING_MINUTES), getFlexValue(BuildConfig.VACCINE_SYNC_PROCESSING_MINUTES));
 
     }
 

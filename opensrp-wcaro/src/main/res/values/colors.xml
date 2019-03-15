@@ -7,7 +7,8 @@
     <color name="primaryAccent">#3797ca</color>
     <color name="primaryBackground">#a6d1e7</color>
     <color name="purple">#512DA8</color>
-
+    <color name="medical_bar">#3B404D</color>
+    <color name="medical_text_inner">#212121</color>
     <color name="black_tranparent_50">#80232323</color>
     <color name="black">#000000</color>
     <color name="grey">#9e9e9e</color>

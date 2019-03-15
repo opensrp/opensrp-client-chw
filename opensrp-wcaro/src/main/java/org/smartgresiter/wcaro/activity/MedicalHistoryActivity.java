@@ -22,6 +22,7 @@ import org.smartgresiter.wcaro.adapter.VaccineAdapter;
 import org.smartgresiter.wcaro.contract.MedicalHistoryContract;
 import org.smartgresiter.wcaro.presenter.MedicalHistoryPresenter;
 import org.smartgresiter.wcaro.util.Constants;
+import org.smartgresiter.wcaro.util.Utils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.view.activity.SecuredActivity;
 
@@ -119,7 +120,7 @@ public class MedicalHistoryActivity extends SecuredActivity implements MedicalHi
         } else {
             textViewTitle.setText(getString(R.string.medical_title, name+"'s profile"));
         }
-        textViewLastVisit.setText(getString(R.string.medical_last_visit, lastVisitDays));
+        textViewLastVisit.setText(getString(R.string.medical_last_visit, Utils.firstCharacterUppercase(lastVisitDays)));
         initializePresenter();
         setInitialVaccineList();
         fetchFullYImmunization();

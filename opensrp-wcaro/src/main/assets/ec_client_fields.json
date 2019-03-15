@@ -202,6 +202,14 @@
           }
         },
         {
+          "column_name": "national_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "163084AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        {
           "column_name": "entity_type",
           "type": "Event",
           "json_mapping": {

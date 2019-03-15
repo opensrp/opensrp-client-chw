@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="@dimen/remove_member_padding"
-    tools:context="org.smartgresiter.wcaro.fragment.FamilyRemoveMemberConfrimDialog">
+    tools:context="org.smartgresiter.wcaro.fragment.FamilyRemoveMemberConfirmDialog">
 
     <org.smartregister.view.customcontrols.CustomFontTextView
         android:id="@+id/message"

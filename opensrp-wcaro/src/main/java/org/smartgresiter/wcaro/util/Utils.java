@@ -17,6 +17,7 @@ import android.net.Uri;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.telephony.TelephonyManager;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.widget.Toast;
@@ -56,6 +57,10 @@ public class Utils extends org.smartregister.family.util.Utils {
 
     public static final SimpleDateFormat dd_MMM_yyyy = new SimpleDateFormat("dd MMM yyyy");
     public static final SimpleDateFormat yyyy_mm_dd = new SimpleDateFormat("yyyy-mm-dd");
+    public static String firstCharacterUppercase(String str){
+        if(TextUtils.isEmpty(str)) return "";
+        return str.substring(0,1).toUpperCase() + str.substring(1).toLowerCase();
+    }
 
     public static String convertToDateFormateString(String timeAsDDMMYYYY,SimpleDateFormat dateFormat){
         SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy");//12-08-2018

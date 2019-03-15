@@ -79,7 +79,7 @@ public class LoginPresenter extends BaseLoginPresenter implements BaseLoginContr
     }
 
     @Override
-    public boolean isSiteCharacteristicsSet() {
-        return true;
+    public boolean isServerSettingsSet() {
+        return false;
     }
 }

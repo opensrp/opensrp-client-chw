@@ -1,5 +1,6 @@
 package org.smartgresiter.wcaro.presenter;
 
+import android.content.Context;
 import android.util.Log;
 import android.util.Pair;
 
@@ -9,7 +10,10 @@ import org.json.JSONObject;
 import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.contract.ChildRegisterContract;
 import org.smartgresiter.wcaro.contract.FamilyProfileExtendedContract;
+import org.smartgresiter.wcaro.domain.FamilyMember;
 import org.smartgresiter.wcaro.interactor.ChildRegisterInteractor;
+import org.smartgresiter.wcaro.interactor.FamilyChangeContractInteractor;
+import org.smartgresiter.wcaro.interactor.FamilyProfileInteractor;
 import org.smartgresiter.wcaro.model.ChildProfileModel;
 import org.smartgresiter.wcaro.model.ChildRegisterModel;
 import org.smartgresiter.wcaro.util.Constants;
@@ -19,7 +23,10 @@ import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.contract.FamilyProfileContract;
+import org.smartregister.family.domain.FamilyEventClient;
 import org.smartregister.family.presenter.BaseFamilyProfilePresenter;
+import org.smartregister.location.helper.LocationHelper;
+import org.smartregister.view.LocationPickerView;
 
 import java.lang.ref.WeakReference;
 
@@ -36,6 +43,8 @@ public class FamilyProfilePresenter extends BaseFamilyProfilePresenter implement
         viewReference = new WeakReference<>(view);
         childRegisterInteractor = new ChildRegisterInteractor();
         childProfileModel = new ChildProfileModel(familyName);
+        interactor = new FamilyProfileInteractor();
+        verifyHasPhone();
     }
 
     @Override
@@ -44,7 +53,7 @@ public class FamilyProfilePresenter extends BaseFamilyProfilePresenter implement
         try {
             getView().startFormActivity(form);
         } catch (Exception e) {
-            Log.e("TAG", e.getMessage());
+            Log.e(TAG, e.getMessage());
         }
     }
 
@@ -96,11 +105,60 @@ public class FamilyProfilePresenter extends BaseFamilyProfilePresenter implement
         }
     }
 
+    @Override
+    public void notifyHasPhone(boolean hasPhone) {
+        if (viewReference.get() != null) {
+            viewReference.get().updateHasPhone(hasPhone);
+        }
+    }
+
+    @Override
+    public void verifyHasPhone() {
+        ((FamilyProfileInteractor) interactor).verifyHasPhone(familyBaseEntityId, this);
+    }
+
     public FamilyProfileExtendedContract.View getView() {
         if (viewReference != null) {
             return viewReference.get();
         } else {
             return null;
         }
+    }
+
+    public String saveWcaroFamilyMember(String jsonString) {
+
+        try {
+            getView().showProgressDialog(org.smartregister.family.R.string.saving_dialog_title);
+
+            FamilyEventClient familyEventClient = model.processMemberRegistration(jsonString, familyBaseEntityId);
+            if (familyEventClient == null) {
+                return null;
+            }
+
+            interactor.saveRegistration(familyEventClient, jsonString, false, this);
+            return familyEventClient.getClient().getBaseEntityId();
+        } catch (Exception e) {
+            Log.e(TAG, Log.getStackTraceString(e));
+        }
+        return null;
+    }
+
+    public boolean updatePrimaryCareGiver(Context context, String jsonString, String familyBaseEntityId, String entityID) {
+
+        boolean res = false;
+        try {
+            FamilyMember member = JsonFormUtils.getFamilyMemberFromRegistrationForm(jsonString, familyBaseEntityId, entityID);
+            if (member.getPrimaryCareGiver()) {
+                LocationPickerView lpv = new LocationPickerView(context);
+                lpv.init();
+                String lastLocationId = LocationHelper.getInstance().getOpenMrsLocationId(lpv.getSelectedItem());
+
+                new FamilyChangeContractInteractor().updateFamilyRelations(context, member, lastLocationId);
+                res = true;
+            }
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage());
+        }
+        return res;
     }
 }
