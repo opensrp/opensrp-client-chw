@@ -33,7 +33,6 @@ android {
         buildConfigField "boolean", "TIME_CHECK", "false"
         buildConfigField "String", "SYNC_TYPE", '"teamId"'
         buildConfigField "int", "MAX_SYNC_RETRIES", '3'
-        buildConfigField "boolean", "SCAN_QR_CODE", "true"
         buildConfigField "long", "BUILD_TIMESTAMP", System.currentTimeMillis() + "L"
         buildConfigField "boolean", "IS_SYNC_SETTINGS", "false"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -63,6 +62,8 @@ android {
             buildConfigField "int", "VACCINE_SYNC_PROCESSING_MINUTES", '180'
             buildConfigField "int", "IMAGE_UPLOAD_MINUTES", '180'
             buildConfigField "int", "PULL_UNIQUE_IDS_MINUTES", '180'
+            buildConfigField "org.smartgresiter.wcaro.util.Country", "BUILD_COUNTRY", "org.smartgresiter.wcaro.util.Country.LIBERIA"
+
         }
 
         debug {
@@ -76,6 +77,7 @@ android {
             buildConfigField "int", "VACCINE_SYNC_PROCESSING_MINUTES", '2'
             buildConfigField "int", "IMAGE_UPLOAD_MINUTES", '2'
             buildConfigField "int", "PULL_UNIQUE_IDS_MINUTES", '10'
+            buildConfigField "org.smartgresiter.wcaro.util.Country", "BUILD_COUNTRY", "org.smartgresiter.wcaro.util.Country.TANZANIA"
             testCoverageEnabled true
         }
     }

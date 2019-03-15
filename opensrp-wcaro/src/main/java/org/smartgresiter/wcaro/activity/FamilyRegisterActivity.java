@@ -3,11 +3,11 @@ package org.smartgresiter.wcaro.activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
-import org.smartgresiter.wcaro.BuildConfig;
 import org.smartgresiter.wcaro.custom_view.NavigationMenu;
 import org.smartgresiter.wcaro.fragment.FamilyRegisterFragment;
 import org.smartgresiter.wcaro.listener.FamilyBottomNavigationListener;
 import org.smartgresiter.wcaro.util.Constants;
+import org.smartgresiter.wcaro.util.CountryUtils;
 import org.smartregister.family.activity.BaseFamilyRegisterActivity;
 import org.smartregister.family.model.BaseFamilyRegisterModel;
 import org.smartregister.family.presenter.BaseFamilyRegisterPresenter;
@@ -34,7 +34,7 @@ public class FamilyRegisterActivity extends BaseFamilyRegisterActivity {
     protected void registerBottomNavigation() {
         super.registerBottomNavigation();
 
-        if (!BuildConfig.SCAN_QR_CODE) {
+        if (CountryUtils.hideNavigationQRCode()) {
             bottomNavigationView.getMenu().removeItem(org.smartregister.family.R.id.action_scan_qr);
         }
 

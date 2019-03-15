@@ -29,12 +29,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="60dp"
                 android:layout_marginBottom="60dp"
+                android:layout_marginTop="60dp"
                 android:layout_weight="1"
                 android:contentDescription="logo"
                 android:scaleType="fitCenter"
-                android:src="@drawable/ic_wcaro_logo" />
+                android:src="@drawable/ic_liberia_logo" />
 
             <TextView
                 android:id="@+id/login_title_text_view"
@@ -42,7 +42,6 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:gravity="center_horizontal"
-                android:text="@string/login_title"
                 android:textColor="#272727"
                 android:textSize="@dimen/login_title_text_size"
                 android:textStyle="bold"
@@ -79,7 +78,7 @@
                 android:background="@drawable/rounded_corner_edit_text_bg"
                 android:cursorVisible="true"
                 android:ems="10"
-                android:hint="Username"
+                android:hint="@string/username"
                 android:imeOptions="actionNext"
                 android:inputType="text"
                 android:lines="1"
@@ -100,7 +99,7 @@
                 android:background="@drawable/rounded_corner_edit_text_bg"
                 android:cursorVisible="true"
                 android:ems="10"
-                android:hint="Password"
+                android:hint="@string/password"
                 android:imeActionId="@integer/login"
                 android:inputType="textPassword"
                 android:lines="1"
@@ -122,8 +121,8 @@
                     android:layout_height="20dp"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="3dp"
-                    android:layout_marginTop="15dp"
                     android:layout_marginRight="5dp"
+                    android:layout_marginTop="15dp"
                     android:button="@drawable/white_checkbox_bg_selector" />
 
                 <TextView
@@ -163,8 +162,8 @@
             android:id="@+id/bottom_section"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/middle_section"
             android:layout_alignParentBottom="true"
+            android:layout_below="@+id/middle_section"
             android:orientation="vertical"
             android:paddingTop="30dp">
 
@@ -172,8 +171,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:paddingTop="10dp"
                 android:paddingBottom="5dp"
+                android:paddingTop="10dp"
                 android:text="Powered by"
                 android:textAlignment="center"
                 android:textColor="#585858" />

@@ -10,11 +10,11 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 
-import org.smartgresiter.wcaro.BuildConfig;
 import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.fragment.JobAidsDashboardFragment;
 import org.smartgresiter.wcaro.fragment.JobAidsGuideBooksFragment;
 import org.smartgresiter.wcaro.listener.JobsAidsBottomNavigationListener;
+import org.smartgresiter.wcaro.util.CountryUtils;
 import org.smartregister.helper.BottomNavigationHelper;
 
 public class JobAidsActivity extends FamilyRegisterActivity {
@@ -98,7 +98,8 @@ public class JobAidsActivity extends FamilyRegisterActivity {
             bottomNavigationView.setOnNavigationItemSelectedListener(childBottomNavigationListener);
 
         }
-        if (!BuildConfig.SCAN_QR_CODE) {
+
+        if (CountryUtils.hideNavigationQRCode()) {
             bottomNavigationView.getMenu().removeItem(org.smartregister.family.R.id.action_scan_qr);
         }
     }

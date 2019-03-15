@@ -1,7 +1,18 @@
 <resources>
-    <string name="app_name">Liberia CFC</string>
+
+    <string name="liberia_app_name">Liberia CFC</string>
+    <string name="liberia_login_title">Liberia CFC Monitor</string>
+    <string name="liberia_nav_logo">Liberia CFC Monitor</string>
+    <string name="tanzania_app_name">Boresha Afya</string>
+    <string name="tanzania_login_title">Boresha Afya</string>
+    <string name="tanzania_nav_logo">Boresha Afya</string>
+
+    <string name="login_title">CFC App</string>
+    <string name="logo">logo</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+
     <string name="title_family_detail">Family Detail</string>
-    <string name="login_title">Liberia CFC Monitor</string>
     <string name="child_register_title">Child Clients</string>
     <string name="return_to_all_children">Return to all children</string>
     <string name="back_to_children">Back to %1$s</string>
@@ -20,7 +31,6 @@
     <string name="action_sync_failed">Sync Failed</string>
 
     <!-- Navigation Strings -->
-    <string name="nav_logo">Liberia CFC Monitor</string>
     <string name="nav_registers">Registers</string>
     <string name="nav_logout_as">Logout as</string>
     <string name="nav_sync">Sync</string>

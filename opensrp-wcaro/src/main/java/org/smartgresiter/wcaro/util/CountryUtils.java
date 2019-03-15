@@ -1,0 +1,47 @@
+package org.smartgresiter.wcaro.util;
+
+import android.content.ComponentName;
+import android.content.pm.PackageManager;
+
+import org.smartgresiter.wcaro.BuildConfig;
+import org.smartgresiter.wcaro.R;
+
+public class CountryUtils {
+
+    public static boolean hideNavigationQRCode() {
+        return Country.LIBERIA.equals(BuildConfig.BUILD_COUNTRY);
+    }
+
+    public static int loginTitle() {
+        if (Country.LIBERIA.equals(BuildConfig.BUILD_COUNTRY)) {
+            return R.string.liberia_login_title;
+        } else if (Country.TANZANIA.equals(BuildConfig.BUILD_COUNTRY)) {
+            return R.string.tanzania_login_title;
+        } else {
+            return R.string.login_title;
+        }
+    }
+
+    public static int loginLogo() {
+        if (Country.LIBERIA.equals(BuildConfig.BUILD_COUNTRY)) {
+            return R.drawable.ic_liberia_logo;
+        } else if (Country.TANZANIA.equals(BuildConfig.BUILD_COUNTRY)) {
+            return R.drawable.tanzania_logo;
+        } else {
+            return R.drawable.opensrp_logo;
+        }
+    }
+
+    public static void switchLoginAlias(PackageManager packageManager) {
+        ComponentName liberia = new ComponentName("org.smartregister.wcaro", "org.smartgresiter.wcaro.activity.LoginActivityLiberia");
+        ComponentName tanzania = new ComponentName("org.smartregister.wcaro", "org.smartgresiter.wcaro.activity.LoginActivityTanzania");
+        if (Country.LIBERIA.equals(BuildConfig.BUILD_COUNTRY)) {
+            packageManager.setComponentEnabledSetting(liberia, PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
+            packageManager.setComponentEnabledSetting(tanzania, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+        } else if (Country.TANZANIA.equals(BuildConfig.BUILD_COUNTRY)) {
+            packageManager.setComponentEnabledSetting(tanzania, PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
+            packageManager.setComponentEnabledSetting(liberia, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+
+        }
+    }
+}
