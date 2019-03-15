@@ -116,7 +116,7 @@ public class MedicalHistoryPresenter implements MedicalHistoryContract.Presenter
 
     @Override
     public MedicalHistoryContract.View getView() {
-        return view.get();
+        return (view != null) ? view.get() : null;
     }
 
 }
