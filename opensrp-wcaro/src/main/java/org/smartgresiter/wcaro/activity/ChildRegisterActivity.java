@@ -10,7 +10,6 @@ import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
 
 import org.json.JSONObject;
-import org.smartgresiter.wcaro.BuildConfig;
 import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.contract.ChildRegisterContract;
 import org.smartgresiter.wcaro.custom_view.NavigationMenu;
@@ -18,6 +17,7 @@ import org.smartgresiter.wcaro.fragment.ChildRegisterFragment;
 import org.smartgresiter.wcaro.listener.WCAROBottomNavigationListener;
 import org.smartgresiter.wcaro.model.ChildRegisterModel;
 import org.smartgresiter.wcaro.presenter.ChildRegisterPresenter;
+import org.smartgresiter.wcaro.util.CountryUtils;
 import org.smartregister.AllConstants;
 import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.JsonFormUtils;
@@ -126,7 +126,8 @@ public class ChildRegisterActivity extends BaseRegisterActivity implements Child
             bottomNavigationView.setOnNavigationItemSelectedListener(childBottomNavigationListener);
 
         }
-        if (!BuildConfig.SCAN_QR_CODE) {
+
+        if (CountryUtils.hideNavigationQRCode()) {
             bottomNavigationView.getMenu().removeItem(org.smartregister.family.R.id.action_scan_qr);
         }
     }
