@@ -7,6 +7,7 @@ import android.util.Log;
 import org.apache.commons.lang3.StringUtils;
 import org.smartgresiter.wcaro.application.WcaroApplication;
 import org.smartgresiter.wcaro.contract.NavigationContract;
+import org.smartgresiter.wcaro.util.ChildDBConstants;
 import org.smartgresiter.wcaro.util.Constants;
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
@@ -63,7 +64,14 @@ public class NavigationInteractor implements NavigationContract.Interactor {
 
         Integer count = null;
         Cursor c = null;
-        String mainCondition = String.format(" %s is null ", DBConstants.KEY.DATE_REMOVED);
+        String mainCondition;
+        if(tableName.equalsIgnoreCase(Constants.TABLE_NAME.CHILD)){
+           mainCondition = String.format(" %s is null AND %s", DBConstants.KEY.DATE_REMOVED, ChildDBConstants.childAgeLimitFilter());
+
+        }else{
+            mainCondition = String.format(" %s is null ", DBConstants.KEY.DATE_REMOVED);
+
+        }
         try {
 
             SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder();
