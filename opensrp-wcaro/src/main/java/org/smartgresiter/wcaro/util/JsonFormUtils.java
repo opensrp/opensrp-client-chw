@@ -159,6 +159,7 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
             actionMap = new HashMap<>();
             actionMap.put("Managed", "140959AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
             actionMap.put("Referred", "159494AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+            actionMap.put("No action taken", "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
         }
         return actionMap;
     }

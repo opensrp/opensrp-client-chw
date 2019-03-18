@@ -138,7 +138,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "label",
-        "text": "Ask to see the birth notification and instruct the caregiver to register the birth with the civil registrar.",
+        "text": "Ask to see the birth notification and instruct the caregiver to register the birth at County Health.",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -153,7 +153,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "label",
-        "text": "Instruct the caregiver to have the birth registered with the civil registrar.",
+        "text": "Instruct the caregiver to have the birth registered at County Health.",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
