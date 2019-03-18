@@ -32,6 +32,16 @@ public class CountryUtils {
         }
     }
 
+    public static int launcher() {
+        if (Country.LIBERIA.equals(BuildConfig.BUILD_COUNTRY)) {
+            return R.mipmap.ic_liberia_launcher;
+        } else if (Country.TANZANIA.equals(BuildConfig.BUILD_COUNTRY)) {
+            return R.mipmap.ic_launcher;
+        } else {
+            return R.mipmap.ic_launcher;
+        }
+    }
+
     public static void switchLoginAlias(PackageManager packageManager) {
         ComponentName liberia = new ComponentName("org.smartregister.wcaro", "org.smartgresiter.wcaro.activity.LoginActivityLiberia");
         ComponentName tanzania = new ComponentName("org.smartregister.wcaro", "org.smartgresiter.wcaro.activity.LoginActivityTanzania");
@@ -44,4 +54,15 @@ public class CountryUtils {
 
         }
     }
+
+    public static int navLogoString() {
+        if (Country.LIBERIA.equals(BuildConfig.BUILD_COUNTRY)) {
+            return R.string.liberia_nav_logo;
+        } else if (Country.TANZANIA.equals(BuildConfig.BUILD_COUNTRY)) {
+            return R.string.tanzania_nav_logo;
+        } else {
+            return R.string.nav_logo;
+        }
+    }
+
 }

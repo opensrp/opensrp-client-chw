@@ -27,6 +27,7 @@ import org.smartgresiter.wcaro.adapter.NavigationAdapter;
 import org.smartgresiter.wcaro.application.WcaroApplication;
 import org.smartgresiter.wcaro.contract.NavigationContract;
 import org.smartgresiter.wcaro.presenter.NavigationPresenter;
+import org.smartgresiter.wcaro.util.CountryUtils;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 
@@ -141,6 +142,13 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
         recyclerView = rootView.findViewById(R.id.rvOptions);
         ivSync = rootView.findViewById(R.id.ivSyncIcon);
         syncProgressBar = rootView.findViewById(R.id.pbSync);
+
+        ImageView ivLogo = rootView.findViewById(R.id.ivLogo);
+        ivLogo.setContentDescription(activity.getString(CountryUtils.navLogoString()));
+        ivLogo.setImageResource(CountryUtils.loginLogo());
+
+        TextView tvLogo = rootView.findViewById(R.id.tvLogo);
+        tvLogo.setText(activity.getString(CountryUtils.navLogoString()));
 
         if (syncProgressBar != null) {
             FadingCircle circle = new FadingCircle();
@@ -290,7 +298,7 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
         mPresenter.refreshLastSync();
         // refreshLastSync(new Date());
 
-        if(activityWeakReference.get() != null && !activityWeakReference.get().isDestroyed()){
+        if (activityWeakReference.get() != null && !activityWeakReference.get().isDestroyed()) {
             mPresenter.refreshNavigationCount(activityWeakReference.get());
         }
     }

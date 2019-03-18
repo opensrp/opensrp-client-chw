@@ -45,9 +45,7 @@
                     android:layout_height="75dp"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
-                    android:contentDescription="@string/liberia_nav_logo"
-                    android:visibility="gone"
-                    app:srcCompat="@mipmap/ic_liberia_launcher" />
+                    android:visibility="gone" />
 
                 <TextView
                     android:id="@+id/tvLogo"
@@ -57,7 +55,6 @@
                     android:layout_alignParentTop="true"
                     android:layout_margin="15dp"
                     android:fontFamily="sans-serif"
-                    android:text="@string/liberia_nav_logo"
                     android:textColor="@color/light_grey"
                     android:textSize="24sp"
                     android:textStyle="bold" />
@@ -108,10 +105,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/vDiv2"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginTop="35dp"
-                    android:layout_marginRight="15dp"
                     android:layout_marginBottom="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="35dp"
                     android:fontFamily="sans-serif"
                     android:text="Log out as"
                     android:textSize="16sp" />
@@ -125,12 +122,12 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:background="#3d3d3d"
-                android:paddingTop="@dimen/sync_time_padding"
-                android:paddingRight="@dimen/sync_time_padding_right"
-                android:paddingEnd="@dimen/sync_time_padding_right"
                 android:paddingBottom="@dimen/sync_time_padding"
+                android:paddingEnd="@dimen/sync_time_padding_right"
                 android:paddingLeft="@dimen/sync_time_padding"
-                android:paddingStart="@dimen/sync_time_padding">
+                android:paddingRight="@dimen/sync_time_padding_right"
+                android:paddingStart="@dimen/sync_time_padding"
+                android:paddingTop="@dimen/sync_time_padding">
 
                 <RelativeLayout
                     android:id="@+id/rlIconSync"
