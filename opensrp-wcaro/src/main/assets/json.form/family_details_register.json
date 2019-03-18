@@ -60,7 +60,7 @@
         "openmrs_entity": "person",
         "openmrs_entity_id": "first_name",
         "type": "edit_text",
-        "hint": "Family name *",
+        "hint": "Family name",
         "edit_type": "name",
         "v_required": {
           "value": "true",
@@ -92,7 +92,7 @@
         "openmrs_entity": "person_address",
         "openmrs_entity_id": "cityVillage",
         "type": "edit_text",
-        "hint": "Village/Town *",
+        "hint": "Village/Town",
         "v_required": {
           "value": "true",
           "err": "Please enter the village or town"
@@ -104,7 +104,7 @@
         "openmrs_entity": "person_address",
         "openmrs_entity_id": "commune",
         "type": "edit_text",
-        "hint": "Quarter/Clan *",
+        "hint": "Quarter/Clan",
         "v_required": {
           "value": "true",
           "err": "Please enter the quarter or clan"

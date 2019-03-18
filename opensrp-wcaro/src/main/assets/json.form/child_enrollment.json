@@ -86,7 +86,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
-        "hint": "Surname *",
+        "hint": "Surname",
         "edit_type": "name",
         "v_regex": {
           "value": "[A-Za-z\\s\.\-]*",
@@ -154,7 +154,7 @@
         "openmrs_entity_id": "first_name",
         "openmrs_data_type": "text",
         "type": "edit_text",
-        "hint": "First name *",
+        "hint": "First name",
         "expanded": false,
         "v_required": {
           "value": "true",
@@ -185,7 +185,7 @@
         "openmrs_entity": "person",
         "openmrs_entity_id": "birthdate",
         "type": "date_picker",
-        "hint": "Date of birth (DOB) *",
+        "hint": "Date of birth (DOB)",
         "expanded": false,
         "duration": {
           "label": "Age"
@@ -227,7 +227,7 @@
         "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "age",
         "type": "edit_text",
-        "hint": "Age *",
+        "hint": "Age",
         "v_numeric": {
           "value": "true",
           "err": "Number must begin with 0 and must be a total of 10 digits in length"
@@ -258,7 +258,7 @@
         "openmrs_entity": "person",
         "openmrs_entity_id": "gender",
         "type": "spinner",
-        "hint": "Sex *",
+        "hint": "Sex",
         "values": [
           "Male",
           "Female"
@@ -274,7 +274,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "161543AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "spinner",
-        "hint": "Early initiation of breastfeeding (1 hr)? *",
+        "hint": "Early initiation of breastfeeding (1 hr)?",
         "values": [
           "Yes",
           "No"
@@ -294,7 +294,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "159522AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "spinner",
-        "hint": "Physically challenged? *",
+        "hint": "Physically challenged?",
         "values": [
           "Yes",
           "No"
