@@ -9,13 +9,13 @@ import org.smartgresiter.wcaro.BuildConfig;
 import org.smartgresiter.wcaro.activity.FamilyProfileActivity;
 import org.smartgresiter.wcaro.activity.LoginActivity;
 import org.smartgresiter.wcaro.helper.RulesEngineHelper;
-import org.smartgresiter.wcaro.job.VaccineRecurringServiceJob;
 import org.smartgresiter.wcaro.job.WcaroJobCreator;
 import org.smartgresiter.wcaro.repository.HomeVisitRepository;
 import org.smartgresiter.wcaro.repository.WcaroRepository;
 import org.smartgresiter.wcaro.sync.WCAROClientProcessor;
 import org.smartgresiter.wcaro.util.ChildDBConstants;
 import org.smartgresiter.wcaro.util.Constants;
+import org.smartgresiter.wcaro.util.CountryUtils;
 import org.smartgresiter.wcaro.util.Utils;
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
@@ -135,6 +135,8 @@ public class WcaroApplication extends DrishtiApplication {
 
         initOfflineSchedules();
         scheduleJobs();
+
+        CountryUtils.switchLoginAlias(getPackageManager());
     }
 
     @Override

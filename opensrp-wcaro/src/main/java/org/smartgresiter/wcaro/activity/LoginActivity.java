@@ -1,11 +1,13 @@
 package org.smartgresiter.wcaro.activity;
 
 import android.content.Intent;
-import android.content.pm.PackageManager;
+import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.presenter.LoginPresenter;
+import org.smartgresiter.wcaro.util.CountryUtils;
 import org.smartgresiter.wcaro.util.Utils;
 import org.smartregister.family.util.Constants;
 import org.smartregister.task.SaveTeamLocationsTask;
@@ -24,6 +26,24 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
     @Override
     protected void initializePresenter() {
         mLoginPresenter = new LoginPresenter(this);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setupViews();
+    }
+
+    private void setupViews() {
+        TextView loginTitleView = findViewById(R.id.login_title_text_view);
+        if (loginTitleView != null) {
+            loginTitleView.setText(CountryUtils.loginTitle());
+        }
+
+        ImageView loginLogo = findViewById(R.id.login_logo);
+        if (loginLogo != null) {
+            loginLogo.setImageResource(CountryUtils.loginLogo());
+        }
     }
 
     @Override
