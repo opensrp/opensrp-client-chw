@@ -56,7 +56,7 @@
         "openmrs_entity_id": "",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Does the child have a birth certificate? *",
+        "hint": "Does the child have a birth certificate?",
         "values": [
           "Yes",
           "No"
@@ -72,7 +72,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "164129AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "date_picker",
-        "hint": "Birth certificate issuance date *",
+        "hint": "Birth certificate issuance date",
         "expanded": false,
         "max_date": "today",
         "min_date": "",
@@ -95,7 +95,7 @@
         "openmrs_entity_id": "162052AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "text",
         "type": "edit_text",
-        "hint": "Birth certificate number *",
+        "hint": "Birth certificate number",
         "v_required": {
           "value": "true",
           "err": "Please enter number"
@@ -115,7 +115,7 @@
         "openmrs_entity_id": "",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Was the birth notification done? *",
+        "hint": "Was the birth notification done?",
         "values": [
           "Yes",
           "No"
