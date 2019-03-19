@@ -22,6 +22,7 @@
     <string name="not_provided">Not provided</string>
     <string name="given">Given</string>
     <string name="provided_on">Provided on %1$s</string>
+    <string name="given_on">Given on %1$s</string>
     <string name="search_name_or_id">Search name or ID</string>
 
     <string name="navigation_drawer_open">Open</string>

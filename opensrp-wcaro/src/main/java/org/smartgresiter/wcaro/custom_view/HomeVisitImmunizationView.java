@@ -605,7 +605,7 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
                 groupSecondaryText = new StringBuilder(groupSecondaryText.substring(0, groupSecondaryText.length() - 1));
             }
 
-            groupSecondaryText.append(" provided on ").append(DateUtil.formatDate(dueDate.toLocalDate(), "dd MMM yyyy"));
+            groupSecondaryText.append(" given on ").append(DateUtil.formatDate(dueDate.toLocalDate(), "dd MMM yyyy"));
 
             if (StringUtils.isNotBlank(notGiven) || iterator.hasNext()) {
                 groupSecondaryText.append(" \u00B7 ");

@@ -292,7 +292,7 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
                 groupSecondaryText = new StringBuilder(groupSecondaryText.substring(0, groupSecondaryText.length() - 1));
             }
 
-            groupSecondaryText.append(" provided on ").append(DateUtil.formatDate(dueDate.toLocalDate(), "dd MMM yyyy"));
+            groupSecondaryText.append(" given on ").append(DateUtil.formatDate(dueDate.toLocalDate(), "dd MMM yyyy"));
 
             if (StringUtils.isNotBlank(notGiven) || iterator.hasNext()) {
                 groupSecondaryText.append(" \u00B7 ");
@@ -398,7 +398,7 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
                 groupSecondaryText = groupSecondaryText.trim();
                 groupSecondaryText = groupSecondaryText.substring(0, groupSecondaryText.length() - 1);
             }
-            groupSecondaryText = groupSecondaryText + " provided on ";
+            groupSecondaryText = groupSecondaryText + " given on ";
 
             String duedateString = DateUtil.formatDate(dateTime.toLocalDate(), "dd MMM yyyy");
             groupSecondaryText = groupSecondaryText + duedateString + " \u00B7 ";
