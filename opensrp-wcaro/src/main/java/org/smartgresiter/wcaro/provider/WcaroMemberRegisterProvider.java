@@ -67,10 +67,11 @@ public class WcaroMemberRegisterProvider extends FamilyMemberRegisterProvider {
     private Map<String, String> getChildDetails(String baseEntityId) {
         SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
         queryBUilder.SelectInitiateMainTable(CommonFtsObject.searchTableName(Constants.TABLE_NAME.CHILD), new String[]{CommonFtsObject.idColumn, ChildDBConstants.KEY.LAST_HOME_VISIT, ChildDBConstants.KEY.VISIT_NOT_DONE, ChildDBConstants.KEY.DATE_CREATED});
-        String query = queryBUilder.mainCondition(String.format(" %s is null AND %s = '%s' ",
+        String query = queryBUilder.mainCondition(String.format(" %s is null AND %s = '%s' AND %s ",
                 DBConstants.KEY.DATE_REMOVED,
                 CommonFtsObject.idColumn,
-                baseEntityId));
+                baseEntityId,
+                ChildDBConstants.childAgeLimitFilter()));
 
         query = query.replace(CommonFtsObject.searchTableName(Constants.TABLE_NAME.CHILD) + ".id as _id ,", "");
 

@@ -23,6 +23,7 @@ import org.smartgresiter.wcaro.presenter.ChildRegisterFragmentPresenter;
 import org.smartgresiter.wcaro.provider.ChildRegisterProvider;
 import org.smartgresiter.wcaro.util.ChildDBConstants;
 import org.smartgresiter.wcaro.util.Constants;
+import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
@@ -312,7 +313,7 @@ public class ChildRegisterFragment extends BaseRegisterFragment implements Child
         String query = "";
         try {
             if (isValidFilterForFts(commonRepository())) {
-                String sql = ChildDBConstants.childMainFilter(mainCondition, filters, Sortqueries, clientAdapter.getCurrentlimit(), clientAdapter.getCurrentoffset());
+                String sql = ChildDBConstants.childMainFilter(mainCondition, presenter().getMainCondition(CommonFtsObject.searchTableName(Constants.TABLE_NAME.FAMILY_MEMBER)), filters, Sortqueries, clientAdapter.getCurrentlimit(), clientAdapter.getCurrentoffset());
                 List<String> ids = commonRepository().findSearchIds(sql);
                 query = sqb.toStringFts(ids, tablename, CommonRepository.ID_COLUMN,
                         Sortqueries);
