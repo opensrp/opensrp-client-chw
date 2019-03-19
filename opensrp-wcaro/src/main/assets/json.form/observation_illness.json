@@ -87,11 +87,13 @@
         "hint": "Action taken",
         "values": [
           "Managed",
-          "Referred"
+          "Referred",
+          "None"
         ],
         "openmrs_choice_ids": {
           "Managed": "140959AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Referred": "159494AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          "Referred": "159494AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "None": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         }
       }
     ]

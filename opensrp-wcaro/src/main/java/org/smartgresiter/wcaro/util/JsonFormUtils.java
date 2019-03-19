@@ -798,7 +798,7 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
 
                 if (myKey.equalsIgnoreCase(org.smartgresiter.wcaro.util.Constants.FORM_CONSTANTS.REMOVE_MEMBER_FORM.DATE_MOVED) ||
                         myKey.equalsIgnoreCase(org.smartgresiter.wcaro.util.Constants.FORM_CONSTANTS.REMOVE_MEMBER_FORM.REASON)
-                        ) {
+                ) {
                     fields.put(registrationFormParams.getRight().get(x));
                 }
                 if (myKey.equalsIgnoreCase(org.smartgresiter.wcaro.util.Constants.FORM_CONSTANTS.REMOVE_MEMBER_FORM.DATE_DIED)) {
@@ -855,13 +855,27 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
 
         member.setFamilyID(familyBaseEntityId);
         member.setMemberID(entityID);
-        member.setPhone(getFieldJSONObject(fields, "phone_number").getString(org.smartregister.family.util.JsonFormUtils.VALUE));
-        member.setOtherPhone(getFieldJSONObject(fields, "other_phone_number").getString(org.smartregister.family.util.JsonFormUtils.VALUE));
-        member.setEduLevel(getFieldJSONObject(fields, "highest_edu_level").getString(org.smartregister.family.util.JsonFormUtils.VALUE));
-        member.setPrimaryCareGiver(getFieldJSONObject(fields, "primary_caregiver").getString(org.smartregister.family.util.JsonFormUtils.VALUE).equalsIgnoreCase("Yes"));
+        member.setPhone(getJsonFieldValue(fields, org.smartgresiter.wcaro.util.Constants.JsonAssets.FAMILY_MEMBER.PHONE_NUMBER));
+        member.setOtherPhone(getJsonFieldValue(fields, org.smartgresiter.wcaro.util.Constants.JsonAssets.FAMILY_MEMBER.OTHER_PHONE_NUMBER));
+        member.setEduLevel(getJsonFieldValue(fields, org.smartgresiter.wcaro.util.Constants.JsonAssets.FAMILY_MEMBER.HIGHEST_EDUCATION_LEVEL));
+        member.setPrimaryCareGiver(getJsonFieldValue(fields, org.smartgresiter.wcaro.util.Constants.JsonAssets.PRIMARY_CARE_GIVER).equalsIgnoreCase("Yes"));
         member.setFamilyHead(false);
 
         return member;
+    }
+
+    private static String getJsonFieldValue(JSONArray jsonArray, String key) {
+        try {
+            JSONObject jsonObject = getFieldJSONObject(jsonArray, key);
+            if (jsonObject.has(org.smartregister.family.util.JsonFormUtils.VALUE)) {
+                return jsonObject.getString(org.smartregister.family.util.JsonFormUtils.VALUE);
+            } else {
+                return "";
+            }
+        } catch (Exception e) {
+            Log.e(TAG, e.toString());
+        }
+        return "";
     }
 
     public static Pair<List<Client>, List<Event>> processFamilyUpdateRelations(Context context, FamilyMember familyMember, String lastLocationId) throws Exception {

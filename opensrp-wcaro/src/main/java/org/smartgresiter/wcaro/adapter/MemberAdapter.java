@@ -160,7 +160,7 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MyViewHold
             res = false;
         }
 
-        if (text.length() != 10) {
+        if (text.length() > 0 && text.length() != 10) {
             currentViewHolder.etPhone.setError("Length must be equal to 10");
             res = false;
         }
