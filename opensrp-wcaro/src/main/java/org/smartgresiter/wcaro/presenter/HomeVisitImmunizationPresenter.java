@@ -98,11 +98,6 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
     }
 
     @Override
-    public void setHomeVisitImmunizationInteractor(HomeVisitImmunizationInteractor homeVisitImmunizationInteractor) {
-        this.homeVisitImmunizationInteractor = homeVisitImmunizationInteractor;
-    }
-
-    @Override
     public void setView(WeakReference<HomeVisitImmunizationContract.View> view) {
         this.view = view;
     }
@@ -113,18 +108,8 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
     }
 
     @Override
-    public void setVaccinesDueFromLastVisit(ArrayList<VaccineRepo.Vaccine> vaccinesDueFromLastVisit) {
-        this.vaccinesDueFromLastVisit = vaccinesDueFromLastVisit;
-    }
-
-    @Override
     public ArrayList<HomeVisitVaccineGroupDetails> getAllgroups() {
         return allgroups;
-    }
-
-    @Override
-    public void setAllgroups(ArrayList<HomeVisitVaccineGroupDetails> allgroups) {
-        this.allgroups = allgroups;
     }
 
     @Override
@@ -132,20 +117,12 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
         return notGivenVaccines;
     }
 
-    @Override
-    public void setNotGivenVaccines(ArrayList<VaccineWrapper> notGivenVaccines) {
-        this.notGivenVaccines = notGivenVaccines;
-    }
 
     @Override
     public HomeVisitVaccineGroupDetails getCurrentActiveGroup() {
         return currentActiveGroup;
     }
 
-    @Override
-    public void setCurrentActiveGroup(HomeVisitVaccineGroupDetails currentActiveGroup) {
-        this.currentActiveGroup = currentActiveGroup;
-    }
 
     @Override
     public boolean groupIsDue() {

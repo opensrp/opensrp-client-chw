@@ -8,5 +8,5 @@ import java.util.List;
 import java.util.Map;
 
 public interface ImmunizationStateChangeListener {
-    void onImmunicationStateChange(List<Alert> alerts, List<Vaccine> vaccines, String stateKey, List<Map<String, Object>> nv, ImmunizationState state);
+    void onImmunicationStateChange(List<Alert> alerts, List<Vaccine> vaccines, String stateKey, List<Map<String, Object>> sch,Map<String, Object> nv, ImmunizationState state);
 }

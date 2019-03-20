@@ -125,8 +125,7 @@ public class VaccinationAsyncTask extends AsyncTask {
 
     @Override
     protected void onPostExecute(Object o) {
-        super.onPostExecute(o);
-        immunizationStateChangeListener.onImmunicationStateChange(alerts, vaccines, stateKey, sch, state);
+        immunizationStateChangeListener.onImmunicationStateChange(alerts, vaccines, stateKey, sch,nv, state);
         //ImmunizationState(vaccines,stateKey,nv,state);
 
     }

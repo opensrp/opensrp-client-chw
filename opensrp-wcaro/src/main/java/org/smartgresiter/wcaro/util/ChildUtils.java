@@ -333,7 +333,7 @@ public class ChildUtils {
         LocalDate date2 = new LocalDate();
         int diff = Days.daysBetween(date1, date2).getDays();
         if (diff <= 0) {
-            String str = diff + " days away";
+            String str = Math.abs(diff) + " days away";
             spannableString = new SpannableString(str);
             spannableString.setSpan(new ForegroundColorSpan(Color.GRAY), 0, str.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             return spannableString;

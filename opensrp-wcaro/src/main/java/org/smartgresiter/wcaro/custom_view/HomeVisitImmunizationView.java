@@ -27,6 +27,7 @@ import org.smartgresiter.wcaro.contract.HomeVisitImmunizationContract;
 import org.smartgresiter.wcaro.fragment.ChildHomeVisitFragment;
 import org.smartgresiter.wcaro.fragment.ChildImmunizationFragment;
 import org.smartgresiter.wcaro.fragment.VaccinationDialogFragment;
+import org.smartgresiter.wcaro.interactor.HomeVisitImmunizationInteractor;
 import org.smartgresiter.wcaro.presenter.HomeVisitImmunizationPresenter;
 import org.smartgresiter.wcaro.util.HomeVisitVaccineGroupDetails;
 import org.smartgresiter.wcaro.util.ImmunizationState;
@@ -231,7 +232,7 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
         String toReturn = "";
         ImmunizationState currentState = ImmunizationState.NO_ALERT;
         for (VaccineRepo.Vaccine vaccine : vaccinesDueFromLastVisitStillDueState) {
-            ImmunizationState state = presenter.getHomeVisitImmunizationInteractor().assignAlert(vaccine, alerts);
+            ImmunizationState state = ((HomeVisitImmunizationInteractor)presenter.getHomeVisitImmunizationInteractor()).assignAlert(vaccine, alerts);
             if ((currentState.equals(ImmunizationState.DUE) && state.equals(ImmunizationState.OVERDUE)) ||
                     (currentState.equals(ImmunizationState.NO_ALERT) && state.equals(ImmunizationState.OVERDUE)) ||
                     (currentState.equals(ImmunizationState.NO_ALERT) && state.equals(ImmunizationState.DUE))) {
@@ -485,7 +486,7 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
     }
 
     @Override
-    public void immunizationState(List<Alert> alerts, List<Vaccine> vaccines, List<Map<String, Object>> sch) {
+    public void immunizationState(List<Alert> alerts, List<Vaccine> vaccines, List<Map<String, Object>> sch,Map<String, Object> nv) {
         refreshPresenter(alerts, vaccines, sch);
         ChildHomeVisitFragment childHomeVisitFragment = (ChildHomeVisitFragment) context.getFragmentManager().findFragmentByTag(ChildHomeVisitFragment.DIALOG_TAG);
         if (childHomeVisitFragment == null) {

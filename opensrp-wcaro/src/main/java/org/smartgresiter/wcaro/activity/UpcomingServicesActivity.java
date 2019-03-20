@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import org.smartgresiter.wcaro.R;
@@ -24,6 +25,8 @@ public class UpcomingServicesActivity extends SecuredActivity {
 
     private UpcomingServicesFragmentView upcomingServicesView;
     private TextView textViewTitle;
+
+    private ProgressBar progressBar;
     private String name;
 
     public static void startUpcomingServicesActivity(Activity activity, CommonPersonObjectClient childClient) {
@@ -36,6 +39,7 @@ public class UpcomingServicesActivity extends SecuredActivity {
     @Override
     protected void onCreation() {
         setContentView(R.layout.activity_upcoming_services);
+        progressBar = findViewById(R.id.progress_bar);
         CommonPersonObjectClient childClient = (CommonPersonObjectClient) getIntent().getSerializableExtra(Constants.INTENT_KEY.CHILD_COMMON_PERSON);
         name = getValue(childClient.getColumnmaps(), "first_name", true) + " " +
                 getValue(childClient.getColumnmaps(), "last_name", true) + "'s profile";
@@ -81,6 +85,10 @@ public class UpcomingServicesActivity extends SecuredActivity {
             textViewTitle.setText(getString(R.string.medical_title, name));
         }
 
+    }
+    public void progressBarVisibility(boolean flag){
+        if(flag) progressBar.setVisibility(View.VISIBLE);
+        else progressBar.setVisibility(View.GONE);
     }
 
 }

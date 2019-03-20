@@ -7,9 +7,11 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import org.smartgresiter.wcaro.R;
+import org.smartgresiter.wcaro.activity.UpcomingServicesActivity;
 import org.smartgresiter.wcaro.contract.HomeVisitGrowthNutritionContract;
 import org.smartgresiter.wcaro.contract.HomeVisitImmunizationContract;
 import org.smartgresiter.wcaro.interactor.HomeVisitGrowthNutritionInteractor;
@@ -85,12 +87,16 @@ public class UpcomingServicesFragmentView extends LinearLayout implements View.O
         presenter.calculateCurrentActiveGroup();
         homeVisitVaccineGroupDetailsList = presenter.getAllgroups();
         for (HomeVisitVaccineGroupDetails homeVisitVaccineGroupDetail : homeVisitVaccineGroupDetailsList) {
-            if (homeVisitVaccineGroupDetail.getAlert().equals(ImmunizationState.DUE) || homeVisitVaccineGroupDetail.getAlert().equals(ImmunizationState.OVERDUE)) {
+            if (homeVisitVaccineGroupDetail.getAlert().equals(ImmunizationState.DUE)
+                    || homeVisitVaccineGroupDetail.getAlert().equals(ImmunizationState.OVERDUE)
+                     || homeVisitVaccineGroupDetail.getAlert().equals(ImmunizationState.UPCOMING)) {
                 if (homeVisitVaccineGroupDetail.getNotGivenVaccines().size() > 0) {
                     addView(createUpcomingServicesCard(homeVisitVaccineGroupDetail));
-                }
+               }
             }
         }
+
+        getUpcomingGrowthNutritonData();
 
     }
 
@@ -154,12 +160,13 @@ public class UpcomingServicesFragmentView extends LinearLayout implements View.O
     private void getUpcomingGrowthNutritonData() {
         final HomeVisitGrowthNutritionInteractor homeVisitGrowthNutritionInteractor=new HomeVisitGrowthNutritionInteractor();
         homeVisitGrowthNutritionInteractor.parseRecordServiceData(childClient, new HomeVisitGrowthNutritionContract.InteractorCallBack() {
-            @Override
-            public void updateRecordVisitData(final Map<String, ServiceWrapper> stringServiceWrapperMap) {
-
-                new Handler().postDelayed(new Runnable() {
                     @Override
-                    public void run() {
+                    public void updateRecordVisitData(final Map<String, ServiceWrapper> stringServiceWrapperMap) {
+
+//
+//                new Handler().postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
                         try {
                             ArrayList<GrowthServiceData> growthServiceDataList = homeVisitGrowthNutritionInteractor.getAllDueService(stringServiceWrapperMap);
                             String lastDate = "";
@@ -169,10 +176,10 @@ public class UpcomingServicesFragmentView extends LinearLayout implements View.O
                                 View existView = isExistView(growthServiceData);
                                 if (existView != null) {
                                     TextView growth = (TextView) existView.findViewById(R.id.growth_service_name_title);
-                                    if(growth.getVisibility()==GONE){
+                                    if (growth.getVisibility() == GONE) {
                                         growth.setVisibility(VISIBLE);
                                         growth.setText(growthServiceData.getDisplayName());
-                                    }else{
+                                    } else {
                                         growth.append("\n" + growthServiceData.getDisplayName());
                                     }
                                     lastDate = growthServiceData.getDisplayAbleDate();
@@ -195,11 +202,18 @@ public class UpcomingServicesFragmentView extends LinearLayout implements View.O
 
                         } catch (Exception e) {
                             e.printStackTrace();
+                        } finally {
+                            if (context instanceof UpcomingServicesActivity) {
+                                UpcomingServicesActivity activity = (UpcomingServicesActivity) context;
+                                activity.progressBarVisibility(false);
+
+                            }
                         }
                     }
-                }, 200);
 
-            }
+//                }, 200);
+//
+//            }
         });
     }
 
@@ -218,12 +232,12 @@ public class UpcomingServicesFragmentView extends LinearLayout implements View.O
 
         removeAllViews();
         presenter.updateImmunizationState(this);
-        getUpcomingGrowthNutritonData();
 
     }
 
     @Override
-    public void immunizationState(List<Alert> alerts, List<Vaccine> vaccines, List<Map<String, Object>> sch) {
+    public void immunizationState(List<Alert> alerts, List<Vaccine> vaccines, List<Map<String, Object>> sch,Map<String, Object> nv) {
+
         refreshPresenter(alerts, vaccines, sch);
 
     }

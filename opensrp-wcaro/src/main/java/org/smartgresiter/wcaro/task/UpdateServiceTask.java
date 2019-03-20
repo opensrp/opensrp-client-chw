@@ -62,7 +62,6 @@ public class UpdateServiceTask extends AsyncTask<Void, Void, Map<String, UpdateS
         displayServiceWrapper = new LinkedHashMap<>();
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     protected void onPostExecute(Map<String, NamedObject<?>> map) {
 
@@ -126,6 +125,7 @@ public class UpdateServiceTask extends AsyncTask<Void, Void, Map<String, UpdateS
         }
 
         if (foundServiceTypeMap.isEmpty()) {
+            listener.onUpdateServiceList(displayServiceWrapper);
             return;
         }
         for (String type : foundServiceTypeMap.keySet()) {
