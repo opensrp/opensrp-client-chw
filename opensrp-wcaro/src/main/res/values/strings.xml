@@ -189,7 +189,7 @@
     <string name="vaccines_not_done">VACCINES NOT DONE</string>
     <string name="set">Set</string>
     <string name="remove_family_count">%s adults and %s U5 children</string>
-    <string name="not_given_with_spaces">not given</string>
-    <string name="given_on_with_spaces">given on,</string>
+    <string name="not_given_with_spaces"> not given </string>
+    <string name="given_on_with_spaces"> given on </string>
 
 </resources>
