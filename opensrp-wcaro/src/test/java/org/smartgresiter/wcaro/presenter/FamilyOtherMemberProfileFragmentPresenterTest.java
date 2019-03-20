@@ -38,7 +38,8 @@ public class FamilyOtherMemberProfileFragmentPresenterTest extends BaseUnitTest 
 
     @Test
     public void testMainCondition() {
-        Assert.assertEquals(" object_id = 'baseEntityId' and date_removed is null ", presenter.getMainCondition());
+        FamilyOtherMemberProfileFragmentPresenter familyOtherMemberProfileFragmentPresenter = (FamilyOtherMemberProfileFragmentPresenter) presenter;
+        Assert.assertEquals(" object_id = 'baseEntityId' and date_removed is null ", familyOtherMemberProfileFragmentPresenter.getMainCondition());
     }
 
 }
