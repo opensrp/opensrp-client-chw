@@ -5,7 +5,6 @@ import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.family.util.DBConstants;
 
 public class ChildDBConstants {
-    private static final int FIVE_YEAR_SECOND = 157680000;
     private static final int FIVE_YEAR = 5;
 
     public static final class KEY {

@@ -3,7 +3,6 @@ package org.smartgresiter.wcaro.presenter;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.smartgresiter.wcaro.BaseUnitTest;
@@ -12,7 +11,7 @@ import org.smartgresiter.wcaro.model.ChildRegisterFragmentModel;
 
 public class ChildRegisterFragmentPresenterTest extends BaseUnitTest {
 
-     ChildRegisterFragmentPresenter presenter;
+    private ChildRegisterFragmentPresenter presenter;
 
     @Before
     public void setUp() {
@@ -21,7 +20,7 @@ public class ChildRegisterFragmentPresenterTest extends BaseUnitTest {
                 ,new ChildRegisterFragmentModel(),"");
     }
     @Test
-    public void getMainCondition_true(){
+    public void getMainConditionTrue(){
         Assert.assertEquals(" date_removed is null AND  (( strftime('%Y','now') - strftime('%Y',dob))<5)",presenter.getMainCondition());
 
     }
