@@ -26,6 +26,8 @@ public interface ChildRegisterFragmentContract {
 
         String getMainCondition();
 
+        String getMainCondition(String tableName);
+
         String getDefaultSortQuery();
 
         String getDueFilterCondition();

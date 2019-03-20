@@ -5,6 +5,8 @@ import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.family.util.DBConstants;
 
 public class ChildDBConstants {
+    private static final int FIVE_YEAR = 5;
+
     public static final class KEY {
         //public static final String VISIT_STATUS = "visit_status";
         public static final String VISIT_NOT_DONE = "visit_not_done";
@@ -32,18 +34,26 @@ public class ChildDBConstants {
         //public static final String CHILD_VISIT_STATUS = "child_visit_status";
     }
 
+    public static String childAgeLimitFilter() {
+        return childAgeLimitFilter(DBConstants.KEY.DOB, FIVE_YEAR);
+    }
+
+    public static String childAgeLimitFilter(String tableName) {
+        return childAgeLimitFilter(tableColConcat(tableName, DBConstants.KEY.DOB), FIVE_YEAR);
+    }
+
     public static String childDueFilter() {
         return " ((" + ChildDBConstants.KEY.LAST_HOME_VISIT + " is null OR ((" + ChildDBConstants.KEY.LAST_HOME_VISIT + "/1000) > strftime('%s',datetime('now','start of month')))) AND ((" + ChildDBConstants.KEY.VISIT_NOT_DONE + " is null OR " + ChildDBConstants.KEY.VISIT_NOT_DONE + " = '0') OR ((" + ChildDBConstants.KEY.VISIT_NOT_DONE + "/1000) > strftime('%s',datetime('now','start of month'))))) ";
     }
 
-    public static String childMainFilter(String mainCondition, String filters, String sort, int limit, int offset) {
+    public static String childMainFilter(String mainCondition, String mainMemberCondition, String filters, String sort, int limit, int offset) {
         return "SELECT " + CommonFtsObject.idColumn + " FROM " + CommonFtsObject.searchTableName(Constants.TABLE_NAME.CHILD) + " WHERE " + CommonFtsObject.idColumn + " IN " +
                 " ( SELECT " + CommonFtsObject.idColumn + " FROM " + CommonFtsObject.searchTableName(Constants.TABLE_NAME.CHILD) + " WHERE  " + mainCondition + "  AND " + CommonFtsObject.phraseColumn + matchPhrase(filters) +
                 " UNION " +
-                " SELECT " + CommonFtsObject.searchTableName(Constants.TABLE_NAME.CHILD) + "." + CommonFtsObject.idColumn + " FROM " + CommonFtsObject.searchTableName(Constants.TABLE_NAME.CHILD) +
-                " JOIN " + CommonFtsObject.searchTableName(Constants.TABLE_NAME.FAMILY) + " on " + CommonFtsObject.searchTableName(Constants.TABLE_NAME.CHILD) + "." + CommonFtsObject.relationalIdColumn + " = " + CommonFtsObject.searchTableName(Constants.TABLE_NAME.FAMILY) + "." + CommonFtsObject.idColumn +
-                " JOIN " + CommonFtsObject.searchTableName(Constants.TABLE_NAME.FAMILY_MEMBER) + " on " + CommonFtsObject.searchTableName(Constants.TABLE_NAME.FAMILY_MEMBER) + "." + CommonFtsObject.idColumn + " = " + CommonFtsObject.searchTableName(Constants.TABLE_NAME.FAMILY) + "." + DBConstants.KEY.PRIMARY_CAREGIVER +
-                " WHERE  " + CommonFtsObject.searchTableName(Constants.TABLE_NAME.FAMILY_MEMBER) + "." + mainCondition.trim() + " AND " + CommonFtsObject.searchTableName(Constants.TABLE_NAME.FAMILY_MEMBER) + "." + CommonFtsObject.phraseColumn + matchPhrase(filters) +
+                " SELECT " + tableColConcat(CommonFtsObject.searchTableName(Constants.TABLE_NAME.CHILD), CommonFtsObject.idColumn) + " FROM " + CommonFtsObject.searchTableName(Constants.TABLE_NAME.CHILD) +
+                " JOIN " + CommonFtsObject.searchTableName(Constants.TABLE_NAME.FAMILY) + " on " + tableColConcat(CommonFtsObject.searchTableName(Constants.TABLE_NAME.CHILD), CommonFtsObject.relationalIdColumn) + " = " + tableColConcat(CommonFtsObject.searchTableName(Constants.TABLE_NAME.FAMILY), CommonFtsObject.idColumn) +
+                " JOIN " + CommonFtsObject.searchTableName(Constants.TABLE_NAME.FAMILY_MEMBER) + " on " + tableColConcat(CommonFtsObject.searchTableName(Constants.TABLE_NAME.FAMILY_MEMBER), CommonFtsObject.idColumn) + " = " + tableColConcat(CommonFtsObject.searchTableName(Constants.TABLE_NAME.FAMILY), DBConstants.KEY.PRIMARY_CAREGIVER) +
+                " WHERE  " + mainMemberCondition.trim() + " AND " + tableColConcat(CommonFtsObject.searchTableName(Constants.TABLE_NAME.FAMILY_MEMBER), CommonFtsObject.phraseColumn + matchPhrase(filters)) +
                 ")  " + orderByClause(sort) + limitClause(limit, offset);
     }
 
@@ -70,6 +80,18 @@ public class ChildDBConstants {
 
     private static String limitClause(int limit, int offset) {
         return " LIMIT " + offset + "," + limit;
+    }
+
+
+    private static String childAgeLimitFilter(String dateColumn, int age) {
+        return " (( strftime('%Y','now') - strftime('%Y'," + dateColumn + "))<" + age + ")";
+    }
+
+    private static String tableColConcat(String tableName, String columnName) {
+        if (StringUtils.isBlank(tableName) || StringUtils.isBlank(columnName)) {
+            return "";
+        }
+        return tableName.concat(".").concat(columnName);
     }
 
 }
