@@ -200,30 +200,29 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
     public void assigntoGivenVaccines(ArrayList<VaccineWrapper> tagsToUpdate) {
         vaccinesGivenThisVisit.addAll(tagsToUpdate);
     }
+
     /**
      * sometimes asynctask not started and vaccine not reset.so comment out the startAsyncTask
      * and using thread to reset the given vaccine.
      */
 
-    public Observable undoVaccine(){
+    public Observable undoVaccine() {
 
         return Observable.create(new ObservableOnSubscribe() {
             @Override
             public void subscribe(ObservableEmitter e) throws Exception {
                 for (VaccineWrapper tag : vaccinesGivenThisVisit) {
-                    if (tag != null) {
-
-                        if (tag.getDbKey() != null) {
-                            Long dbKey = tag.getDbKey();
-                            vaccineRepository.deleteVaccine(dbKey);
-                            String dobString = org.smartregister.util.Utils.getValue(childClient.getColumnmaps(), "dob", false);
-                            if (!TextUtils.isEmpty(dobString)) {
-                                DateTime dateTime = new DateTime(dobString);
-                                VaccineSchedule.updateOfflineAlerts(childClient.entityId(), dateTime, "child");
-                            }
+                    if (tag != null && tag.getDbKey() != null) {
+                        Long dbKey = tag.getDbKey();
+                        vaccineRepository.deleteVaccine(dbKey);
+                        String dobString = org.smartregister.util.Utils.getValue(childClient.getColumnmaps(), "dob", false);
+                        if (!TextUtils.isEmpty(dobString)) {
+                            DateTime dateTime = new DateTime(dobString);
+                            VaccineSchedule.updateOfflineAlerts(childClient.entityId(), dateTime, "child");
                         }
                     }
                 }
+
                 e.onComplete();
             }
         });
@@ -450,7 +449,7 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
 
     @Override
     public String getSingleImmunizationSecondaryText() {
-        return TextUtils.isEmpty(singleImmunizationSecondaryText)?WcaroApplication.getInstance().getString(R.string.not_given):singleImmunizationSecondaryText;
+        return TextUtils.isEmpty(singleImmunizationSecondaryText) ? WcaroApplication.getInstance().getString(R.string.not_given) : singleImmunizationSecondaryText;
     }
 
     @Override
