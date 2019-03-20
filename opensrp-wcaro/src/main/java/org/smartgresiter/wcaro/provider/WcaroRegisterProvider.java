@@ -139,10 +139,11 @@ public class WcaroRegisterProvider extends FamilyRegisterProvider {
     private List<Map<String, String>> getChildren(String familyEntityId) {
         SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
         queryBUilder.SelectInitiateMainTable(Constants.TABLE_NAME.CHILD, new String[]{DBConstants.KEY.BASE_ENTITY_ID, DBConstants.KEY.GENDER, ChildDBConstants.KEY.LAST_HOME_VISIT, ChildDBConstants.KEY.VISIT_NOT_DONE, ChildDBConstants.KEY.DATE_CREATED, DBConstants.KEY.DOB});
-        queryBUilder.mainCondition(String.format(" %s is null AND %s = '%s' ",
+        queryBUilder.mainCondition(String.format(" %s is null AND %s = '%s' AND %s ",
                 DBConstants.KEY.DATE_REMOVED,
                 DBConstants.KEY.RELATIONAL_ID,
-                familyEntityId));
+                familyEntityId,
+                ChildDBConstants.childAgeLimitFilter()));
 
         String query = queryBUilder.orderbyCondition(DBConstants.KEY.DOB + " ASC ");
 
@@ -185,8 +186,8 @@ public class WcaroRegisterProvider extends FamilyRegisterProvider {
             if (!TextUtils.isEmpty(visitNotDone)) {
                 visitNot = Long.valueOf(visitNotDone);
             }
-            if(!TextUtils.isEmpty(strDateCreated)){
-                dateCreated =  org.smartregister.family.util.Utils.dobStringToDateTime(strDateCreated).getMillis();
+            if (!TextUtils.isEmpty(strDateCreated)) {
+                dateCreated = org.smartregister.family.util.Utils.dobStringToDateTime(strDateCreated).getMillis();
             }
             ChildVisit childVisit = ChildUtils.getChildVisitStatus(rules, dobString, lastVisit, visitNot, dateCreated);
             childVisitList.add(childVisit);

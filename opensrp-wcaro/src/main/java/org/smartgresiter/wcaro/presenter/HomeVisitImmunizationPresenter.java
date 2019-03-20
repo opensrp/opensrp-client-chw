@@ -8,13 +8,15 @@ import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.application.WcaroApplication;
 import org.smartgresiter.wcaro.contract.HomeVisitImmunizationContract;
 import org.smartgresiter.wcaro.interactor.HomeVisitImmunizationInteractor;
-import org.smartgresiter.wcaro.task.UndoVaccineTask;
 import org.smartgresiter.wcaro.util.HomeVisitVaccineGroupDetails;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.Alert;
+import org.smartregister.immunization.ImmunizationLibrary;
 import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.immunization.domain.Vaccine;
+import org.smartregister.immunization.domain.VaccineSchedule;
 import org.smartregister.immunization.domain.VaccineWrapper;
+import org.smartregister.immunization.repository.VaccineRepository;
 import org.smartregister.util.DateUtil;
 
 import java.lang.ref.WeakReference;
@@ -24,6 +26,10 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Stack;
+
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
 
 import static org.smartgresiter.wcaro.util.ChildUtils.fixVaccineCasing;
 
@@ -40,10 +46,12 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
     private ArrayList<VaccineWrapper> vaccinesGivenThisVisit = new ArrayList<VaccineWrapper>();
     public String groupImmunizationSecondaryText = "";
     public String singleImmunizationSecondaryText = "";
+    private final VaccineRepository vaccineRepository;
 
     public HomeVisitImmunizationPresenter(HomeVisitImmunizationContract.View view) {
         this.view = new WeakReference<>(view);
         homeVisitImmunizationInteractor = new HomeVisitImmunizationInteractor();
+        vaccineRepository = ImmunizationLibrary.getInstance().vaccineRepository();
     }
 
     @Override
@@ -170,9 +178,31 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
         vaccinesGivenThisVisit.addAll(tagsToUpdate);
     }
 
-    @Override
-    public void undoGivenVaccines() {
-        org.smartregister.util.Utils.startAsyncTask(new UndoVaccineTask(vaccinesGivenThisVisit, childClient), null);
+    /**
+     * sometimes asynctask not started and vaccine not reset.so comment out the startAsyncTask
+     * and using thread to reset the given vaccine.
+     */
+
+    public Observable undoVaccine() {
+
+        return Observable.create(new ObservableOnSubscribe() {
+            @Override
+            public void subscribe(ObservableEmitter e) throws Exception {
+                for (VaccineWrapper tag : vaccinesGivenThisVisit) {
+                    if (tag != null && tag.getDbKey() != null) {
+                        Long dbKey = tag.getDbKey();
+                        vaccineRepository.deleteVaccine(dbKey);
+                        String dobString = org.smartregister.util.Utils.getValue(childClient.getColumnmaps(), "dob", false);
+                        if (!TextUtils.isEmpty(dobString)) {
+                            DateTime dateTime = new DateTime(dobString);
+                            VaccineSchedule.updateOfflineAlerts(childClient.entityId(), dateTime, "child");
+                        }
+                    }
+                }
+
+                e.onComplete();
+            }
+        });
     }
 
     @Override
@@ -396,7 +426,7 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
 
     @Override
     public String getSingleImmunizationSecondaryText() {
-        return TextUtils.isEmpty(singleImmunizationSecondaryText)?WcaroApplication.getInstance().getString(R.string.not_given):singleImmunizationSecondaryText;
+        return TextUtils.isEmpty(singleImmunizationSecondaryText) ? WcaroApplication.getInstance().getString(R.string.not_given) : singleImmunizationSecondaryText;
     }
 
     @Override

@@ -140,12 +140,6 @@ public class UpcomingServicesFragmentView extends LinearLayout implements View.O
 
         return view;
     }
-
-    @Override
-    public void undoVaccines() {
-
-    }
-
     @Override
     public HomeVisitImmunizationContract.Presenter initializePresenter() {
         presenter = new HomeVisitImmunizationPresenter(this);

@@ -7,25 +7,22 @@ import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.contract.HomeVisitGrowthNutritionContract;
 import org.smartgresiter.wcaro.fragment.GrowthNutritionInputFragment;
 import org.smartgresiter.wcaro.interactor.HomeVisitGrowthNutritionInteractor;
-import org.smartgresiter.wcaro.util.ChildUtils;
-import org.smartgresiter.wcaro.util.GrowthServiceData;
-import org.smartgresiter.wcaro.util.JsonFormUtils;
 import org.smartgresiter.wcaro.util.WCAROServiceSchedule;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.Alert;
 import org.smartregister.domain.AlertStatus;
 import org.smartregister.immunization.ImmunizationLibrary;
-import org.smartregister.immunization.domain.ServiceSchedule;
 import org.smartregister.immunization.domain.ServiceWrapper;
 import org.smartregister.immunization.repository.RecurringServiceRecordRepository;
-import org.smartregister.util.DateUtil;
 import org.smartregister.util.Utils;
-
 import java.lang.ref.WeakReference;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
+
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
 
 public class HomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNutritionContract.Presenter, HomeVisitGrowthNutritionContract.InteractorCallBack {
     private WeakReference<HomeVisitGrowthNutritionContract.View> view;
@@ -79,18 +76,24 @@ public class HomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNutriti
 
     }
 
-    @Override
-    public void resetAllSaveState() {
-        RecurringServiceRecordRepository recurringServiceRecordRepository = ImmunizationLibrary.getInstance().recurringServiceRecordRepository();
+    public Observable undoGrowthData(){
+        return Observable.create(new ObservableOnSubscribe() {
+            @Override
+            public void subscribe(ObservableEmitter e) throws Exception {
+                RecurringServiceRecordRepository recurringServiceRecordRepository = ImmunizationLibrary.getInstance().recurringServiceRecordRepository();
 
-        for (String type : saveStateMap.keySet()) {
-            ServiceWrapper serviceWrapper = saveStateMap.get(type);
-            if (serviceWrapper != null) {
-                recurringServiceRecordRepository.deleteServiceRecord(serviceWrapper.getDbKey());
-                WCAROServiceSchedule.updateOfflineAlerts(serviceWrapper.getType(), commonPersonObjectClient.entityId(), Utils.dobToDateTime(commonPersonObjectClient));
+                for (String type : saveStateMap.keySet()) {
+                    ServiceWrapper serviceWrapper = saveStateMap.get(type);
+                    if (serviceWrapper != null) {
+                        recurringServiceRecordRepository.deleteServiceRecord(serviceWrapper.getDbKey());
+                        WCAROServiceSchedule.updateOfflineAlerts(serviceWrapper.getType(), commonPersonObjectClient.entityId(), Utils.dobToDateTime(commonPersonObjectClient));
+                    }
+
+                }
+                e.onComplete();
             }
+        });
 
-        }
     }
 
     @Override
