@@ -85,13 +85,19 @@
         "openmrs_data_type": "select one",
         "type": "spinner",
         "hint": "Action taken",
+        "v_required": {
+          "value": "true",
+          "err": "Please select action"
+        },
         "values": [
           "Managed",
-          "Referred"
+          "Referred",
+          "No action taken"
         ],
         "openmrs_choice_ids": {
           "Managed": "140959AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Referred": "159494AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          "Referred": "1648AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "No action taken" : "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         }
       }
     ]
