@@ -1,4 +1,6 @@
 {
+  "validate_on_submit": true,
+  "show_errors_on_submit": false,
   "count": "2",
   "encounter_type": "Family Registration",
   "entity_id": "",
@@ -163,7 +165,20 @@
           "Financial institutions",
           "Communication, social and personal services",
           "Other"
-        ]
+        ],
+        "openmrs_choice_ids": {
+          "Petty trade": "1539AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Agriculture, hunting and fishing": "165411AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Exploitation of mines and quarries": "165412AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Manufacturing industry": "165407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Construction": "165408AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Electricity, gas and water": "165409AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Commercial, hotels and restaurants": "165410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Transport, storage and communications": "165413AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Financial institutions": "165414AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Communication, social and personal services": "165415AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Other" : "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        }
       }
     ]
   },
