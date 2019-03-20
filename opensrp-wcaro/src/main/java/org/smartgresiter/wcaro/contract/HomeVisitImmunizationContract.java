@@ -27,8 +27,6 @@ public interface HomeVisitImmunizationContract {
 
         void refreshPresenter(List<Alert> alerts, List<Vaccine> vaccines, List<Map<String, Object>> sch);
 
-        void undoVaccines();
-
         Presenter initializePresenter();
 
         Presenter getPresenter();
@@ -89,8 +87,6 @@ public interface HomeVisitImmunizationContract {
         ArrayList<VaccineWrapper> getVaccinesGivenThisVisit();
 
         void assigntoGivenVaccines(ArrayList<VaccineWrapper> tagsToUpdate);
-
-        void undoGivenVaccines();
 
         void updateImmunizationState(InteractorCallBack callBack);
 
