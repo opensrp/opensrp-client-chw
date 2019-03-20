@@ -21,17 +21,13 @@ public class FamilyOtherMemberProfileFragmentPresenterTest extends BaseUnitTest 
 
     private FamilyOtherMemberProfileFragmentContract.Presenter presenter;
 
-    private String viewConfigurationIdentifier;
-    private String familyBaseEntityId;
-    private String baseEntityId;
-
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
 
-        viewConfigurationIdentifier = "viewConfigurationIdentifier";
-        familyBaseEntityId = "familyBaseEntityId";
-        baseEntityId = "baseEntityId";
+        String viewConfigurationIdentifier = "viewConfigurationIdentifier";
+        String familyBaseEntityId = "familyBaseEntityId";
+        String baseEntityId = "baseEntityId";
 
         presenter = new FamilyOtherMemberProfileFragmentPresenter(view, model, viewConfigurationIdentifier, familyBaseEntityId, baseEntityId);
     }

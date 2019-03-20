@@ -31,23 +31,23 @@ import java.util.concurrent.Executor;
 @PrepareForTest(Utils.class)
 public class FamilyProfileInteractorTest {
 
-    AppExecutors appExecutors;
-    FamilyProfileInteractor interactor;
-    CommonPersonObject personObject;
-    FamilyMetadata metadata;
+    private AppExecutors appExecutors;
+    private FamilyProfileInteractor interactor;
+    private CommonPersonObject personObject;
+    private FamilyMetadata metadata;
 
     @Mock
     private FamilyProfileActivity activity;
 
-    CommonRepository commonRepository;
+    private CommonRepository commonRepository;
 
     @Mock
-    HashMap<String, String> details;
+    private HashMap<String, String> details;
 
-    String familyID = "12345";
+    private String familyID = "12345";
 
     @Mock
-    FamilyProfilePresenter profilePresenter;
+    private FamilyProfilePresenter profilePresenter;
 
     @Before
     public void setUp() throws Exception {

@@ -1,8 +1,8 @@
 package org.smartgresiter.wcaro.util;
 
 public class VaccineContent implements BaseVaccine {
-    String vaccineName;
-    String vaccineDate;
+    private String vaccineName;
+    private String vaccineDate;
 
     public String getVaccineName() {
         return vaccineName;
@@ -19,7 +19,6 @@ public class VaccineContent implements BaseVaccine {
     public void setVaccineDate(String vaccineDate) {
         this.vaccineDate = vaccineDate;
     }
-
 
     @Override
     public int getType() {

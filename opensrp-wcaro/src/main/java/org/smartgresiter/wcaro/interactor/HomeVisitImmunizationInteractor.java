@@ -161,10 +161,11 @@ public class HomeVisitImmunizationInteractor implements HomeVisitImmunizationCon
         }
         for (int i = 0; i < indexofCurrentGroup + 1; i++) {
             HomeVisitVaccineGroupDetails toReturn = allGroup.get(i);
-            if (toReturn.getDueVaccines().size() > toReturn.getGivenVaccines().size()) {
-                if (!(toReturn.getNotGivenInThisVisitVaccines().size() > 0)) {
-                    return true;
-                }
+            if (
+                    toReturn.getDueVaccines().size() > toReturn.getGivenVaccines().size()
+                    && !(toReturn.getNotGivenInThisVisitVaccines().size() > 0)
+            ) {
+                return true;
             }
         }
         return false;

@@ -12,11 +12,6 @@ import org.smartgresiter.wcaro.R;
 
 public class JobAidsGuideBooksFragment extends Fragment {
 
-
-    public JobAidsGuideBooksFragment() {
-        // Required empty public constructor
-    }
-
     public static JobAidsGuideBooksFragment newInstance() {
         JobAidsGuideBooksFragment fragment = new JobAidsGuideBooksFragment();
         Bundle args = new Bundle();
