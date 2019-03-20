@@ -33,8 +33,6 @@ public interface HomeVisitGrowthNutritionContract {
 
         void setNotVisitState(String type, ServiceWrapper serviceWrapper);
 
-        void resetAllSaveState();
-
         boolean isAllSelected();
 
         boolean isSelected(String type);
