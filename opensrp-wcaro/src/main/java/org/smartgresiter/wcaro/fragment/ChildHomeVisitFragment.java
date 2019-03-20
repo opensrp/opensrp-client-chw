@@ -53,6 +53,13 @@ import org.smartregister.immunization.domain.VaccineWrapper;
 import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Action;
+import io.reactivex.functions.BiFunction;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 import static org.smartgresiter.wcaro.util.ChildDBConstants.KEY.BIRTH_CERT;
 import static org.smartregister.util.Utils.getValue;
@@ -251,9 +258,8 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                 .setNegativeButton(com.vijay.jsonwizard.R.string.yes, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        undoGivenVaccines();
-                        resetGrowthData();
-                        dismiss();
+                        undoRecord();
+
                     }
                 })
                 .setPositiveButton(com.vijay.jsonwizard.R.string.no, new DialogInterface.OnClickListener() {
@@ -265,6 +271,31 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                 .create();
 
         dialog.show();
+    }
+
+    private void undoRecord() {
+        Observable.zip( homeVisitGrowthAndNutritionLayout.undoGrowthData(), homeVisitImmunizationView.undoVaccine(), new BiFunction() {
+                    @Override
+                    public Object apply(Object o, Object o2) throws Exception {
+                        return null;
+                    }
+                })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe(new Consumer<Disposable>() {
+                    @Override
+                    public void accept(Disposable disposable) throws Exception {
+                        progressBar.setVisibility(View.VISIBLE);
+                    }
+                })
+                .doOnTerminate(new Action() {
+                    @Override
+                    public void run() throws Exception {
+                        progressBar.setVisibility(View.GONE);
+                        dismiss();
+                    }
+                })
+                .subscribe();
     }
 
 
@@ -497,18 +528,9 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         super.onDestroy();
     }
 
-    private void resetGrowthData() {
-        homeVisitGrowthAndNutritionLayout.resetAll();
-    }
-
     private boolean isAllGrowthSelected() {
         return homeVisitGrowthAndNutritionLayout.isAllSelected();
     }
-
-    public void undoGivenVaccines() {
-        homeVisitImmunizationView.undoVaccines();
-    }
-
     public void setEditMode(boolean isEditMode) {
         this.isEditMode = isEditMode;
     }

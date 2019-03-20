@@ -22,6 +22,7 @@ import java.text.MessageFormat;
 import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import io.reactivex.Observable;
 
 public class HomeVisitGrowthAndNutrition extends LinearLayout implements View.OnClickListener, HomeVisitGrowthNutritionContract.View {
     public static final String TAG = "HomeVisitGrowthAndNutrition";
@@ -263,8 +264,8 @@ public class HomeVisitGrowthAndNutrition extends LinearLayout implements View.On
         presenter.setNotVisitState(type, serviceWrapper);
     }
 
-    public void resetAll() {
-        presenter.resetAllSaveState();
+    public Observable undoGrowthData() {
+       return  ((HomeVisitGrowthNutritionPresenter)presenter).undoGrowthData();
     }
 
     public boolean isAllSelected() {

@@ -8,7 +8,6 @@ import org.smartgresiter.wcaro.R;
 import org.smartgresiter.wcaro.application.WcaroApplication;
 import org.smartgresiter.wcaro.contract.HomeVisitImmunizationContract;
 import org.smartgresiter.wcaro.interactor.HomeVisitImmunizationInteractor;
-import org.smartgresiter.wcaro.task.UndoVaccineTask;
 import org.smartgresiter.wcaro.util.HomeVisitVaccineGroupDetails;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.Alert;
@@ -18,7 +17,6 @@ import org.smartregister.immunization.domain.Vaccine;
 import org.smartregister.immunization.domain.VaccineSchedule;
 import org.smartregister.immunization.domain.VaccineWrapper;
 import org.smartregister.immunization.repository.VaccineRepository;
-import org.smartregister.service.AlertService;
 import org.smartregister.util.DateUtil;
 
 import java.lang.ref.WeakReference;
@@ -28,6 +26,10 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Stack;
+
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
 
 import static org.smartgresiter.wcaro.util.ChildUtils.fixVaccineCasing;
 
@@ -202,19 +204,12 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
      * sometimes asynctask not started and vaccine not reset.so comment out the startAsyncTask
      * and using thread to reset the given vaccine.
      */
-    @Override
-    public void undoGivenVaccines() {
-        //org.smartregister.util.Utils.startAsyncTask(new UndoVaccineTask(vaccinesGivenThisVisit, childClient), null);
 
-        if(vaccinesGivenThisVisit!=null && vaccinesGivenThisVisit.size()>0){
-            undoVaccines();
-        }
+    public Observable undoVaccine(){
 
-    }
-    private void undoVaccines() {
-        new Thread(new Runnable() {
+        return Observable.create(new ObservableOnSubscribe() {
             @Override
-            public void run() {
+            public void subscribe(ObservableEmitter e) throws Exception {
                 for (VaccineWrapper tag : vaccinesGivenThisVisit) {
                     if (tag != null) {
 
@@ -229,8 +224,9 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
                         }
                     }
                 }
+                e.onComplete();
             }
-        }).start();
+        });
     }
 
     @Override
