@@ -57,15 +57,16 @@ public class Utils extends org.smartregister.family.util.Utils {
 
     public static final SimpleDateFormat dd_MMM_yyyy = new SimpleDateFormat("dd MMM yyyy");
     public static final SimpleDateFormat yyyy_mm_dd = new SimpleDateFormat("yyyy-mm-dd");
-    public static String firstCharacterUppercase(String str){
-        if(TextUtils.isEmpty(str)) return "";
-        return str.substring(0,1).toUpperCase() + str.substring(1).toLowerCase();
+
+    public static String firstCharacterUppercase(String str) {
+        if (TextUtils.isEmpty(str)) return "";
+        return str.substring(0, 1).toUpperCase() + str.substring(1).toLowerCase();
     }
 
-    public static String convertToDateFormateString(String timeAsDDMMYYYY,SimpleDateFormat dateFormat){
+    public static String convertToDateFormateString(String timeAsDDMMYYYY, SimpleDateFormat dateFormat) {
         SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy");//12-08-2018
         try {
-            Date date=sdf.parse(timeAsDDMMYYYY);
+            Date date = sdf.parse(timeAsDDMMYYYY);
             return dateFormat.format(date);
         } catch (ParseException e) {
             e.printStackTrace();

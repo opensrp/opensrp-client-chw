@@ -178,8 +178,8 @@
     <string name="birth_cert_date">Birth certificate issuance date: %s</string>
     <string name="birth_cert_number">Birth certificate number: %s</string>
     <string name="birth_cert_notification">Was the birth notification done? %s</string>
-    <string name="birth_cert_note_1">Ask to see the birth notification and instruct the caregiver to register the birth with the civil registrar.</string>
-    <string name="birth_cert_note_2">Instruct the caregiver to have the birth registered with the civil registrar.</string>
+    <string name="birth_cert_note_1">Ask to see the birth notification and instruct the caregiver to register the birth at County Health.</string>
+    <string name="birth_cert_note_2">Instruct the caregiver to have the birth registered at County Health.</string>
     <string name="illness_date_with_value">Date: %s</string>
     <string name="illness_des_with_value">Description: %s</string>
     <string name="illness_action_value">Action taken: %s</string>

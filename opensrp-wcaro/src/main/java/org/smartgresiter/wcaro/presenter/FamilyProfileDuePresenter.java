@@ -12,7 +12,7 @@ public class FamilyProfileDuePresenter extends BaseFamilyProfileDuePresenter {
 
     @Override
     public String getMainCondition() {
-        return super.getMainCondition() + " AND " + ChildDBConstants.childDueFilter();
+        return String.format(" %s AND %s AND %s ", super.getMainCondition(), ChildDBConstants.childDueFilter(), ChildDBConstants.childAgeLimitFilter());
     }
 
     @Override
