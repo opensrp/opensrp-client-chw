@@ -1,6 +1,7 @@
 package org.smartgresiter.wcaro.contract;
 
 import android.app.Activity;
+import android.content.Context;
 
 import org.smartgresiter.wcaro.interactor.HomeVisitImmunizationInteractor;
 import org.smartgresiter.wcaro.util.HomeVisitVaccineGroupDetails;
@@ -31,6 +32,8 @@ public interface HomeVisitImmunizationContract {
         Presenter initializePresenter();
 
         Presenter getPresenter();
+
+        Context getContext();
 
         void updateImmunizationState();
     }

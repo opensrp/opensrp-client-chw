@@ -605,7 +605,7 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
                 groupSecondaryText = new StringBuilder(groupSecondaryText.substring(0, groupSecondaryText.length() - 1));
             }
 
-            groupSecondaryText.append(R.string.given_on_with_spaces).append(DateUtil.formatDate(dueDate.toLocalDate(), "dd MMM yyyy"));
+            groupSecondaryText.append(getContext().getString(R.string.given_on_with_spaces)).append(DateUtil.formatDate(dueDate.toLocalDate(), "dd MMM yyyy"));
 
             if (StringUtils.isNotBlank(notGiven) || iterator.hasNext()) {
                 groupSecondaryText.append(" \u00B7 ");
@@ -666,7 +666,7 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
                 groupSecondaryText = new StringBuilder(groupSecondaryText.substring(0, groupSecondaryText.length() - 1));
             }
 
-            groupSecondaryText.append(R.string.not_given_with_spaces);
+            groupSecondaryText.append(context.getString(R.string.not_given_with_spaces));
             if (iterator.hasNext()) {
                 groupSecondaryText.append(" \u00B7 ");
             }
