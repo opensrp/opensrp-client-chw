@@ -12,9 +12,13 @@ import org.smartgresiter.wcaro.task.UndoVaccineTask;
 import org.smartgresiter.wcaro.util.HomeVisitVaccineGroupDetails;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.Alert;
+import org.smartregister.immunization.ImmunizationLibrary;
 import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.immunization.domain.Vaccine;
+import org.smartregister.immunization.domain.VaccineSchedule;
 import org.smartregister.immunization.domain.VaccineWrapper;
+import org.smartregister.immunization.repository.VaccineRepository;
+import org.smartregister.service.AlertService;
 import org.smartregister.util.DateUtil;
 
 import java.lang.ref.WeakReference;
@@ -40,10 +44,12 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
     private ArrayList<VaccineWrapper> vaccinesGivenThisVisit = new ArrayList<VaccineWrapper>();
     public String groupImmunizationSecondaryText = "";
     public String singleImmunizationSecondaryText = "";
+    private final VaccineRepository vaccineRepository;
 
     public HomeVisitImmunizationPresenter(HomeVisitImmunizationContract.View view) {
         this.view = new WeakReference<>(view);
         homeVisitImmunizationInteractor = new HomeVisitImmunizationInteractor();
+        vaccineRepository = ImmunizationLibrary.getInstance().vaccineRepository();
     }
 
     @Override
@@ -192,10 +198,39 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
     public void assigntoGivenVaccines(ArrayList<VaccineWrapper> tagsToUpdate) {
         vaccinesGivenThisVisit.addAll(tagsToUpdate);
     }
-
+    /**
+     * sometimes asynctask not started and vaccine not reset.so comment out the startAsyncTask
+     * and using thread to reset the given vaccine.
+     */
     @Override
     public void undoGivenVaccines() {
-        org.smartregister.util.Utils.startAsyncTask(new UndoVaccineTask(vaccinesGivenThisVisit, childClient), null);
+        //org.smartregister.util.Utils.startAsyncTask(new UndoVaccineTask(vaccinesGivenThisVisit, childClient), null);
+
+        if(vaccinesGivenThisVisit!=null && vaccinesGivenThisVisit.size()>0){
+            undoVaccines();
+        }
+
+    }
+    private void undoVaccines() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for (VaccineWrapper tag : vaccinesGivenThisVisit) {
+                    if (tag != null) {
+
+                        if (tag.getDbKey() != null) {
+                            Long dbKey = tag.getDbKey();
+                            vaccineRepository.deleteVaccine(dbKey);
+                            String dobString = org.smartregister.util.Utils.getValue(childClient.getColumnmaps(), "dob", false);
+                            if (!TextUtils.isEmpty(dobString)) {
+                                DateTime dateTime = new DateTime(dobString);
+                                VaccineSchedule.updateOfflineAlerts(childClient.entityId(), dateTime, "child");
+                            }
+                        }
+                    }
+                }
+            }
+        }).start();
     }
 
     @Override

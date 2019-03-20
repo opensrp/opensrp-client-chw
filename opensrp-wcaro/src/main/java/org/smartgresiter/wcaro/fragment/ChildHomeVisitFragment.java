@@ -251,8 +251,8 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                 .setNegativeButton(com.vijay.jsonwizard.R.string.yes, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        resetGrowthData();
                         undoGivenVaccines();
+                        resetGrowthData();
                         dismiss();
                     }
                 })
