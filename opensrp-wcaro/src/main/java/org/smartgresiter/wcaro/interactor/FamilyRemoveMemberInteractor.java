@@ -64,14 +64,11 @@ public class FamilyRemoveMemberInteractor implements FamilyRemoveMemberContract.
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
-
-                Boolean res = true;
                 String value = null;
-                // process the json object
                 try {
+                    // process the json object
                     value = removeUser(familyID, exitForm, lastLocationId);
                 } catch (Exception e) {
-                    res = false;
                     e.printStackTrace();
                 }
 
@@ -143,7 +140,7 @@ public class FamilyRemoveMemberInteractor implements FamilyRemoveMemberContract.
     @Override
     public void getFamilySummary(final String familyID, final FamilyRemoveMemberContract.InteractorCallback<HashMap<String, String>> callback) {
 
-        Runnable runnable = null;
+        Runnable runnable;
         try {
             runnable = new Runnable() {
 

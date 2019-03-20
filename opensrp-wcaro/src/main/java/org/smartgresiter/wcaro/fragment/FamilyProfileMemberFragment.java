@@ -2,6 +2,7 @@ package org.smartgresiter.wcaro.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import org.smartgresiter.wcaro.R;
@@ -23,6 +24,8 @@ import java.util.Set;
 import static org.smartgresiter.wcaro.util.Constants.INTENT_KEY.IS_COMES_FROM_FAMILY;
 
 public class FamilyProfileMemberFragment extends BaseFamilyProfileMemberFragment {
+
+    private static final String TAG = FamilyProfileMemberFragment.class.getCanonicalName();
 
     public static BaseFamilyProfileMemberFragment newInstance(Bundle bundle) {
         Bundle args = bundle;
@@ -98,6 +101,7 @@ public class FamilyProfileMemberFragment extends BaseFamilyProfileMemberFragment
 
     @Override
     public void setAdvancedSearchFormData(HashMap<String, String> hashMap) {
+        Log.v(TAG,"setAdvancedSearchFormData");
     }
 
 }

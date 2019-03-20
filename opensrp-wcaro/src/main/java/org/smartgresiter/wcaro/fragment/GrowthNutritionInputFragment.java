@@ -216,6 +216,8 @@ public class GrowthNutritionInputFragment extends DialogFragment implements Radi
                 saveButtonDisable(false);
                 isFeeding = "yes";
                 break;
+            default:
+                break;
         }
     }
 
@@ -279,6 +281,8 @@ public class GrowthNutritionInputFragment extends DialogFragment implements Radi
 
                 }
                 dismiss();
+                break;
+            default:
                 break;
         }
     }

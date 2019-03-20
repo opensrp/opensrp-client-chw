@@ -1,9 +1,9 @@
 package org.smartgresiter.wcaro.util;
 
 public class ServiceContent implements BaseService {
-    String serviceName;
+    private String serviceName;
     //String serviceDate;
-    String type;
+    private String type;
 
     public void setType(String type) {
         this.type = type;

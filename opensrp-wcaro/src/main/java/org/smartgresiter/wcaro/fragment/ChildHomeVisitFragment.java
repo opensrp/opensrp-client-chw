@@ -62,8 +62,8 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
 
     private static final String TAG = "ChildHomeVisitFragment";
     public static String DIALOG_TAG = "child_home_visit_dialog";
-    Context context;
-    CommonPersonObjectClient childClient;
+    private Context context;
+    private CommonPersonObjectClient childClient;
     private TextView nameHeader, textViewBirthCertDueDate, textViewObsIllnessTitle, textViewObsIllnessDesc;
     private HomeVisitGrowthAndNutrition homeVisitGrowthAndNutritionLayout;
     private View viewBirthLine;
@@ -240,6 +240,8 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                 break;
             case R.id.layout_add_other_family_member:
                 ((BaseFamilyProfileActivity) context).startFormActivity(Constants.JSON_FORM.FAMILY_MEMBER_REGISTER, null, null);
+                break;
+            default:
                 break;
         }
     }
@@ -429,7 +431,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                         JSONObject form = new JSONObject(jsonString);
                         if (form.getString(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_TYPE).equals(Constants.EventType.BIRTH_CERTIFICATION)
                                 || form.getString(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_TYPE).equals(Constants.EventType.OBS_ILLNESS)
-                                ) {
+                        ) {
                             presenter.generateBirthIllnessForm(jsonString);
                         }
                     } catch (Exception e) {

@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
@@ -34,11 +35,11 @@ public class FamilyRemoveMemberFragment extends BaseFamilyProfileMemberFragment 
 
     public static final String DIALOG_TAG = FamilyRemoveMemberFragment.class.getSimpleName();
 
-    String familyBaseEntityId;
-    String familyHead;
-    String primaryCareGiver;
+    private String familyBaseEntityId;
+    private String familyHead;
+    private String primaryCareGiver;
 
-    String memberName;
+    private String memberName;
     boolean processingFamily = false;
 
     public static FamilyRemoveMemberFragment newInstance(Bundle bundle) {
@@ -245,6 +246,7 @@ public class FamilyRemoveMemberFragment extends BaseFamilyProfileMemberFragment 
     }
 
     public void setAdvancedSearchFormData(HashMap<String, String> hashMap) {
+        Log.v(DIALOG_TAG, "setAdvancedSearchFormData");
     }
 
 }

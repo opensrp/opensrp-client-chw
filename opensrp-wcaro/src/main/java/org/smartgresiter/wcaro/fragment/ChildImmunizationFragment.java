@@ -89,7 +89,7 @@ public class ChildImmunizationFragment extends DialogFragment {
         COMBINED_VACCINES_MAP.put("MR 2", "Measles 2 / MR 2");
     }
 
-    View view;
+    private View view;
 
     public CommonPersonObjectClient getChildDetails() {
         return childDetails;

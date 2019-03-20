@@ -120,9 +120,7 @@ public class HomeVisitImmunizationInteractor implements HomeVisitImmunizationCon
                 if (toprocess.getGivenVaccines().size() > 0) {
                     return true;
                 }else{
-                    if(toprocess.getNotGivenInThisVisitVaccines().size() == toprocess.getDueVaccines().size()){
-                        return true;
-                    }
+                    return toprocess.getNotGivenInThisVisitVaccines().size() == toprocess.getDueVaccines().size();
                 }
             }
         }
@@ -133,9 +131,7 @@ public class HomeVisitImmunizationInteractor implements HomeVisitImmunizationCon
     public boolean isComplete(HomeVisitVaccineGroupDetails toprocess) {
         if (toprocess != null && toprocess.getDueVaccines() != null && toprocess.getDueVaccines().size() > 0) {
             if (toprocess.getGivenVaccines().size() == toprocess.getDueVaccines().size()) {
-                if (toprocess.getNotGivenInThisVisitVaccines().size() == 0) {
-                    return true;
-                }
+                return toprocess.getNotGivenInThisVisitVaccines().size() == 0;
             }
         }
         return false;
@@ -145,9 +141,7 @@ public class HomeVisitImmunizationInteractor implements HomeVisitImmunizationCon
     public boolean groupIsDue(HomeVisitVaccineGroupDetails toprocess) {
         if (toprocess != null && toprocess.getDueVaccines() != null && toprocess.getDueVaccines().size() > 0) {
             if (toprocess.getGivenVaccines().size() == 0) {
-                if (toprocess.getNotGivenInThisVisitVaccines().size() == 0) {
-                    return true;
-                }
+                return toprocess.getNotGivenInThisVisitVaccines().size() == 0;
             }
         }
         return false;
@@ -191,7 +185,7 @@ public class HomeVisitImmunizationInteractor implements HomeVisitImmunizationCon
 
     @Override
     public ArrayList<VaccineRepo.Vaccine> getNotGivenVaccinesLastVisitList(ArrayList<HomeVisitVaccineGroupDetails> allGroup) {
-        ArrayList<VaccineRepo.Vaccine> toReturn = new ArrayList<VaccineRepo.Vaccine>();
+        ArrayList<VaccineRepo.Vaccine> toReturn = new ArrayList<>();
         if (hasVaccinesNotGivenSinceLastVisit(allGroup)) {
             int indexOfCurrentGroup = getIndexOfCurrentGroup(allGroup);
             if (isPartiallyComplete(allGroup.get(indexOfCurrentGroup))) {
@@ -207,7 +201,7 @@ public class HomeVisitImmunizationInteractor implements HomeVisitImmunizationCon
 
     @Override
     public ArrayList<VaccineRepo.Vaccine> getNotGivenVaccinesNotInNotGivenThisVisit(HomeVisitVaccineGroupDetails allGroup) {
-        ArrayList<VaccineRepo.Vaccine> getNotGivenVaccinesNotInNotGivenThisVisit = new ArrayList<VaccineRepo.Vaccine>();
+        ArrayList<VaccineRepo.Vaccine> getNotGivenVaccinesNotInNotGivenThisVisit = new ArrayList<>();
         for (VaccineRepo.Vaccine toProcess : allGroup.getNotGivenVaccines()) {
             boolean isInNotGivenThisVisit = false;
             for (VaccineRepo.Vaccine notGivenThisVisit : allGroup.getNotGivenInThisVisitVaccines()) {
@@ -225,11 +219,10 @@ public class HomeVisitImmunizationInteractor implements HomeVisitImmunizationCon
 
     @Override
     public ArrayList<HomeVisitVaccineGroupDetails> determineAllHomeVisitVaccineGroupDetails(List<Alert> alerts, List<Vaccine> vaccines, ArrayList<VaccineWrapper> notGivenVaccines, List<Map<String, Object>> sch) {
-        ArrayList<HomeVisitVaccineGroupDetails> homeVisitVaccineGroupDetailsArrayList = new ArrayList<HomeVisitVaccineGroupDetails>();
+        ArrayList<HomeVisitVaccineGroupDetails> homeVisitVaccineGroupDetailsArrayList = new ArrayList<>();
         Map<String, Date> receivedvaccines = receivedVaccines(vaccines);
         List<VaccineRepo.Vaccine> vList = Arrays.asList(VaccineRepo.Vaccine.values());
-        ArrayList<String> vaccineGroupName = new ArrayList<String>();
-        String groupName = "";
+        ArrayList<String> vaccineGroupName = new ArrayList<>();
         for (VaccineRepo.Vaccine vaccine : vList) {
             if (vaccine.category().equalsIgnoreCase("child")) {
                 if (!vaccineGroupName.contains(VaccinateActionUtils.stateKey(vaccine))) {

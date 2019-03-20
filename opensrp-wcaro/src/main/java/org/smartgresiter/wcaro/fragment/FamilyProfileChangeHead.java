@@ -31,10 +31,10 @@ public class FamilyProfileChangeHead extends Fragment implements View.OnClickLis
     protected String familyID;
 
     protected MemberAdapter memberAdapter;
-    RecyclerView recyclerView;
-    FamilyChangeContract.Presenter presenter;
-    List<FamilyMember> members;
-    ProgressBar progressBar;
+    private RecyclerView recyclerView;
+    private FamilyChangeContract.Presenter presenter;
+    private List<FamilyMember> members;
+    private ProgressBar progressBar;
 
     public static FamilyProfileChangeHead newInstance(String familyID) {
         FamilyProfileChangeHead fragment = new FamilyProfileChangeHead();
