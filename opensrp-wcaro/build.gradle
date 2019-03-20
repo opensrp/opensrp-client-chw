@@ -62,7 +62,7 @@ android {
             buildConfigField "int", "VACCINE_SYNC_PROCESSING_MINUTES", '180'
             buildConfigField "int", "IMAGE_UPLOAD_MINUTES", '180'
             buildConfigField "int", "PULL_UNIQUE_IDS_MINUTES", '180'
-            buildConfigField "org.smartgresiter.wcaro.util.Country", "BUILD_COUNTRY", "org.smartgresiter.wcaro.util.Country.TANZANIA"
+            buildConfigField "org.smartgresiter.wcaro.util.Country", "BUILD_COUNTRY", "org.smartgresiter.wcaro.util.Country.LIBERIA"
 
         }
 
@@ -77,7 +77,7 @@ android {
             buildConfigField "int", "VACCINE_SYNC_PROCESSING_MINUTES", '180'
             buildConfigField "int", "IMAGE_UPLOAD_MINUTES", '2'
             buildConfigField "int", "PULL_UNIQUE_IDS_MINUTES", '10'
-            buildConfigField "org.smartgresiter.wcaro.util.Country", "BUILD_COUNTRY", "org.smartgresiter.wcaro.util.Country.TANZANIA"
+            buildConfigField "org.smartgresiter.wcaro.util.Country", "BUILD_COUNTRY", "org.smartgresiter.wcaro.util.Country.LIBERIA"
             testCoverageEnabled true
         }
     }

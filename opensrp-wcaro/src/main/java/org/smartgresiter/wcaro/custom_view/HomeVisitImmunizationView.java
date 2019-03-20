@@ -666,7 +666,7 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
                 groupSecondaryText = new StringBuilder(groupSecondaryText.substring(0, groupSecondaryText.length() - 1));
             }
 
-            groupSecondaryText.append(" not given ");
+            groupSecondaryText.append(R.string.not_given_with_spaces);
             if (iterator.hasNext()) {
                 groupSecondaryText.append(" \u00B7 ");
             }

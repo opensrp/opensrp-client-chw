@@ -292,7 +292,7 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
                 groupSecondaryText = new StringBuilder(groupSecondaryText.substring(0, groupSecondaryText.length() - 1));
             }
 
-            groupSecondaryText.append(" given on ").append(DateUtil.formatDate(dueDate.toLocalDate(), "dd MMM yyyy"));
+            groupSecondaryText.append(R.string.given_on_with_spaces).append(DateUtil.formatDate(dueDate.toLocalDate(), "dd MMM yyyy"));
 
             if (StringUtils.isNotBlank(notGiven) || iterator.hasNext()) {
                 groupSecondaryText.append(" \u00B7 ");
@@ -351,7 +351,7 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
                 groupSecondaryText = new StringBuilder(groupSecondaryText.substring(0, groupSecondaryText.length() - 1));
             }
 
-            groupSecondaryText.append(" not given ");
+            groupSecondaryText.append(R.string.not_given_with_spaces);
             if (iterator.hasNext()) {
                 groupSecondaryText.append(" \u00B7 ");
             }
@@ -398,7 +398,7 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
                 groupSecondaryText = groupSecondaryText.trim();
                 groupSecondaryText = groupSecondaryText.substring(0, groupSecondaryText.length() - 1);
             }
-            groupSecondaryText = groupSecondaryText + " given on ";
+            groupSecondaryText = groupSecondaryText +  R.string.given_on_with_spaces;
 
             String duedateString = DateUtil.formatDate(dateTime.toLocalDate(), "dd MMM yyyy");
             groupSecondaryText = groupSecondaryText + duedateString + " \u00B7 ";
