@@ -252,10 +252,11 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
         for (VaccineRepo.Vaccine vaccinesDueYetnotGiven : vaccinesToReturn) {
             vaccinesStack.add(vaccinesDueYetnotGiven);
             for (VaccineWrapper vaccine : notGivenVaccines) {
-                if (!vaccinesStack.isEmpty()) {
-                    if (vaccine.getDefaultName().equalsIgnoreCase(vaccinesStack.peek().display())) {
-                        vaccinesStack.pop();
-                    }
+                if (
+                        !vaccinesStack.isEmpty()
+                        && vaccine.getDefaultName().equalsIgnoreCase(vaccinesStack.peek().display())
+                ) {
+                    vaccinesStack.pop();
                 }
             }
         }

@@ -11,14 +11,14 @@ import java.util.List;
 
 public class FamilyChangeContractModelTest {
 
-    List<FamilyMember> members = new ArrayList<>();
-    String[] skipped = new String[]{"2", "3", "5"};
-    int max = 20;
-    int min = 1;
-    int range = max - min + 1;
+    private List<FamilyMember> members = new ArrayList<>();
+    private String[] skipped = new String[]{"2", "3", "5"};
+    private int max = 20;
+    private int min = 1;
+    private int range = max - min + 1;
 
-    String primaryCareID;
-    String headOfHouseID;
+    private String primaryCareID;
+    private String headOfHouseID;
 
     @Before
     public void setUp() {

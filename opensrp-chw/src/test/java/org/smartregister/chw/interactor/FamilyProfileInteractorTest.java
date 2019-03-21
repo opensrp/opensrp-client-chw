@@ -29,35 +29,25 @@ import java.util.concurrent.Executor;
 @PrepareForTest(Utils.class)
 public class FamilyProfileInteractorTest {
 
-    AppExecutors appExecutors;
-    FamilyProfileInteractor interactor;
-    CommonPersonObject personObject;
-    FamilyMetadata metadata;
+    private FamilyProfileInteractor interactor;
 
     @Mock
-    private FamilyProfileActivity activity;
-
-    CommonRepository commonRepository;
+    private HashMap<String, String> details;
 
     @Mock
-    HashMap<String, String> details;
-
-    String familyID = "12345";
-
-    @Mock
-    FamilyProfilePresenter profilePresenter;
+    private FamilyProfilePresenter profilePresenter;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         MockitoAnnotations.initMocks(this);
 
-        appExecutors = Mockito.spy(AppExecutors.class);
+        AppExecutors appExecutors = Mockito.spy(AppExecutors.class);
         Executor executor = Mockito.mock(Executor.class);
         implementAsDirectExecutor(executor);
 
         interactor = Mockito.spy(FamilyProfileInteractor.class);
-        metadata = getMetadata();
-        commonRepository = Mockito.mock(CommonRepository.class);
+        FamilyMetadata metadata = getMetadata();
+        CommonRepository commonRepository = Mockito.mock(CommonRepository.class);
 
         // stub all executor threads with the main thread
         Whitebox.setInternalState(appExecutors, "diskIO", executor);
@@ -79,16 +69,16 @@ public class FamilyProfileInteractorTest {
         // Mockito.doReturn(familyID).when(getDetails()).get(Mockito.anyString());
         Mockito.doReturn("123Test").when(details).get(Mockito.anyString());
 
-        personObject = new CommonPersonObject(null, null, details, null);
+        CommonPersonObject personObject = new CommonPersonObject(null, null, details, null);
         personObject.setColumnmaps(details);
 
         Mockito.doReturn(personObject).when(commonRepository).findByBaseEntityId(Mockito.anyString());
         Mockito.doReturn(personObject).when(commonRepository).findByBaseEntityId(null);
     }
 
-    protected void implementAsDirectExecutor(Executor executor) {
+    private void implementAsDirectExecutor(Executor executor) {
         Mockito.doAnswer(new Answer<Object>() {
-            public Object answer(InvocationOnMock invocation) throws Exception {
+            public Object answer(InvocationOnMock invocation) {
                 ((Runnable) invocation.getArguments()[0]).run();
                 return null;
             }
@@ -98,6 +88,7 @@ public class FamilyProfileInteractorTest {
     @Test
     public void testVerifyHasPhone() {
 
+        String familyID = "12345";
         interactor.verifyHasPhone(familyID, profilePresenter);
         // verify that calls are sent to the database
 
