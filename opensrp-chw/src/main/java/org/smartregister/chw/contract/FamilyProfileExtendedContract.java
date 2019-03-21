@@ -16,9 +16,6 @@ public interface FamilyProfileExtendedContract {
 
         void saveChildForm(String jsonString, boolean isEditMode);
 
-        void notifyHasPhone(boolean hasPhone);
-
-        void verifyHasPhone();
     }
 
     interface View extends FamilyProfileContract.View {
@@ -26,5 +23,12 @@ public interface FamilyProfileExtendedContract {
         void startChildForm(String formName, String entityId, String metadata, String currentLocationId) throws Exception;
 
         void updateHasPhone(boolean hasPhone);
+    }
+
+    interface PresenterCallBack {
+
+        void verifyHasPhone();
+
+        void notifyHasPhone(boolean hasPhone);
     }
 }

@@ -3,6 +3,7 @@ package org.smartregister.chw.interactor;
 import android.support.annotation.VisibleForTesting;
 
 import org.apache.commons.lang3.StringUtils;
+import org.smartregister.chw.contract.FamilyProfileExtendedContract;
 import org.smartregister.chw.presenter.FamilyProfilePresenter;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
@@ -25,7 +26,7 @@ public class FamilyProfileInteractor extends org.smartregister.family.interactor
         this(new AppExecutors());
     }
 
-    public void verifyHasPhone(final String familyID, final FamilyProfilePresenter profilePresenter) {
+    public void verifyHasPhone(final String familyID, final FamilyProfileExtendedContract.PresenterCallBack profilePresenter) {
         Runnable runnable = new Runnable() {
             @Override
             public void run() {

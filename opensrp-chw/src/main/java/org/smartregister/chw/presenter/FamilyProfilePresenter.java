@@ -30,7 +30,7 @@ import org.smartregister.view.LocationPickerView;
 
 import java.lang.ref.WeakReference;
 
-public class FamilyProfilePresenter extends BaseFamilyProfilePresenter implements FamilyProfileExtendedContract.Presenter, ChildRegisterContract.InteractorCallBack {
+public class FamilyProfilePresenter extends BaseFamilyProfilePresenter implements FamilyProfileExtendedContract.Presenter, ChildRegisterContract.InteractorCallBack , FamilyProfileExtendedContract.PresenterCallBack {
     private static final String TAG = FamilyProfilePresenter.class.getCanonicalName();
 
     private WeakReference<FamilyProfileExtendedContract.View> viewReference;

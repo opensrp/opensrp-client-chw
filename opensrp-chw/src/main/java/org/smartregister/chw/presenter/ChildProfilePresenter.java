@@ -6,7 +6,9 @@ import org.apache.commons.lang3.tuple.Triple;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.contract.ChildProfileContract;
+import org.smartregister.chw.contract.FamilyProfileExtendedContract;
 import org.smartregister.chw.interactor.ChildProfileInteractor;
+import org.smartregister.chw.interactor.FamilyProfileInteractor;
 import org.smartregister.chw.model.ChildRegisterModel;
 import org.smartregister.chw.util.ChildDBConstants;
 import org.smartregister.chw.util.ChildService;
@@ -24,7 +26,7 @@ import java.util.Map;
 
 import static org.apache.commons.lang3.StringUtils.isBlank;
 
-public class ChildProfilePresenter implements ChildProfileContract.Presenter, ChildProfileContract.InteractorCallBack {
+public class ChildProfilePresenter implements ChildProfileContract.Presenter, ChildProfileContract.InteractorCallBack, FamilyProfileExtendedContract.PresenterCallBack {
 
     private static final String TAG = ChildProfilePresenter.class.getCanonicalName();
 
@@ -52,6 +54,7 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
 
     public void setFamilyID(String familyID) {
         this.familyID = familyID;
+        verifyHasPhone();
     }
 
     public String getFamilyName() {
@@ -278,6 +281,18 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
         // Activity destroyed set interactor to null
         if (!isChangingConfiguration) {
             interactor = null;
+        }
+    }
+
+    @Override
+    public void verifyHasPhone() {
+        new FamilyProfileInteractor().verifyHasPhone(familyID, this);
+    }
+
+    @Override
+    public void notifyHasPhone(boolean hasPhone) {
+        if (view.get() != null) {
+            view.get().updateHasPhone(hasPhone);
         }
     }
 }
