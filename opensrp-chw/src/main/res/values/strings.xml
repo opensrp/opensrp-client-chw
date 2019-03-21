@@ -188,5 +188,7 @@
     <string name="vaccines_not_done">VACCINES NOT DONE</string>
     <string name="set">Set</string>
     <string name="remove_family_count">%s adults and %s U5 children</string>
+    <string name="immunizations">Immunizations (%s)</string>
+    <string name="immunizations_count">Immunizations ({0})</string>
 
 </resources>

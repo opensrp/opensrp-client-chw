@@ -287,7 +287,7 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
 
     @Override
     public void onSyncInProgress(FetchStatus fetchStatus) {
-
+        Log.v(TAG,"onSyncInProgress");
     }
 
     @Override

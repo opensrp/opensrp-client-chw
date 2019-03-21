@@ -81,11 +81,10 @@ public class FamilyRemoveMemberPresenter extends BaseFamilyProfileMemberPresente
     }
 
 
-
     @Override
     public void removeEveryone(String familyName, String details) {
 
-        JSONObject form = model.prepareFamilyRemovalForm(familyBaseEntityId, familyName , details);
+        JSONObject form = model.prepareFamilyRemovalForm(familyBaseEntityId, familyName, details);
         if (form != null) {
             viewReference.get().startJsonActivity(form);
         }
@@ -94,11 +93,8 @@ public class FamilyRemoveMemberPresenter extends BaseFamilyProfileMemberPresente
 
     @Override
     public void onFamilyRemoved(Boolean success) {
-        if (success) {
-            // close
-            if (viewReference.get() != null) {
-                viewReference.get().onEveryoneRemoved();
-            }
+        if (success && viewReference != null && viewReference.get() != null) {
+            viewReference.get().onEveryoneRemoved();
         }
     }
 

@@ -88,32 +88,14 @@ public class WCAROClientProcessor extends ClientProcessorForJava {
                 } else if (eventType.equals(HomeVisitRepository.EVENT_TYPE) || eventType.equals(HomeVisitRepository.NOT_DONE_EVENT_TYPE)) {
                     processHomeVisit(eventClient);
                     processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
-                } else if (eventType.equals(Constants.EventType.REMOVE_FAMILY)) {
-                    Client client = eventClient.getClient();
-                    //iterate through the events
-                    if (client != null) {
-                        if (eventType.equals(Constants.EventType.REMOVE_FAMILY)) {
-                            processRemoveFamily(client.getBaseEntityId(), event.getEventDate().toDate());
-                        }
-                    }
+                } else if (eventType.equals(Constants.EventType.REMOVE_FAMILY) && eventClient.getClient() != null) {
+                    processRemoveFamily(eventClient.getClient().getBaseEntityId(), event.getEventDate().toDate());
                 }
-                else if (eventType.equals(Constants.EventType.REMOVE_MEMBER)) {
-                    Client client = eventClient.getClient();
-                    //iterate through the events
-                    if (client != null) {
-                        if (eventType.equals(Constants.EventType.REMOVE_MEMBER)) {
-                            processRemoveMember(client.getBaseEntityId(), event.getEventDate().toDate());
-                        }
-                    }
+                else if (eventType.equals(Constants.EventType.REMOVE_MEMBER) && eventClient.getClient() != null) {
+                    processRemoveMember(eventClient.getClient().getBaseEntityId(), event.getEventDate().toDate());
                 }
-                else if (eventType.equals(Constants.EventType.REMOVE_CHILD)) {
-                    Client client = eventClient.getClient();
-                    //iterate through the events
-                    if (client != null) {
-                        if (eventType.equals(Constants.EventType.REMOVE_CHILD)) {
-                            processRemoveChild(client.getBaseEntityId(), event.getEventDate().toDate());
-                        }
-                    }
+                else if (eventType.equals(Constants.EventType.REMOVE_CHILD) && eventClient.getClient() != null) {
+                    processRemoveChild(eventClient.getClient().getBaseEntityId(), event.getEventDate().toDate());
                 }
                 else{
                     if (eventClient.getClient() != null) {

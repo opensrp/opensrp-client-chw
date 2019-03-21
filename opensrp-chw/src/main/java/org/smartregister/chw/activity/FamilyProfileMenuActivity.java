@@ -48,12 +48,12 @@ public class FamilyProfileMenuActivity extends SecuredActivity {
 
     @Override
     protected void onCreation() {
-
+        Log.v(TAG,"onCreation");
     }
 
     @Override
     protected void onResumption() {
-
+        Log.v(TAG,"onResumption");
     }
 
 
