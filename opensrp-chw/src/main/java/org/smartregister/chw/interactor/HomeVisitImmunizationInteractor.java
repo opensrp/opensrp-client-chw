@@ -119,7 +119,7 @@ public class HomeVisitImmunizationInteractor implements HomeVisitImmunizationCon
             if (toprocess.getGivenVaccines().size() < toprocess.getDueVaccines().size()) {
                 if (toprocess.getGivenVaccines().size() > 0) {
                     return true;
-                }else{
+                } else {
                     return toprocess.getNotGivenInThisVisitVaccines().size() == toprocess.getDueVaccines().size();
                 }
             }
@@ -157,7 +157,7 @@ public class HomeVisitImmunizationInteractor implements HomeVisitImmunizationCon
             HomeVisitVaccineGroupDetails toReturn = allGroup.get(i);
             if (
                     toReturn.getDueVaccines().size() > toReturn.getGivenVaccines().size()
-                    && !(toReturn.getNotGivenInThisVisitVaccines().size() > 0)
+                            && (toReturn.getNotGivenInThisVisitVaccines().size() <= 0)
             ) {
                 return true;
             }
@@ -245,7 +245,7 @@ public class HomeVisitImmunizationInteractor implements HomeVisitImmunizationCon
             }
         }
 
-        for(Integer todelete: emptyIndices){
+        for (Integer todelete : emptyIndices) {
             vaccineGroupName.remove(todelete);
         }
 

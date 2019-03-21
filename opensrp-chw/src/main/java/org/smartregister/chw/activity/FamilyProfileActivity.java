@@ -50,9 +50,6 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity implements 
     private String primaryCaregiver;
     private String familyName;
 
-    private BaseFamilyProfileMemberFragment profileMemberFragment;
-    private BaseFamilyProfileDueFragment profileDueFragment;
-    private BaseFamilyProfileActivityFragment profileActivityFragment;
     private FamilyFloatingMenu familyFloatingMenu;
 
     @Override
@@ -91,9 +88,9 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity implements 
     protected ViewPager setupViewPager(ViewPager viewPager) {
         adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
-        profileMemberFragment = FamilyProfileMemberFragment.newInstance(this.getIntent().getExtras());
-        profileDueFragment = FamilyProfileDueFragment.newInstance(this.getIntent().getExtras());
-        profileActivityFragment = FamilyProfileActivityFragment.newInstance(this.getIntent().getExtras());
+        BaseFamilyProfileMemberFragment profileMemberFragment = FamilyProfileMemberFragment.newInstance(this.getIntent().getExtras());
+        BaseFamilyProfileDueFragment profileDueFragment = FamilyProfileDueFragment.newInstance(this.getIntent().getExtras());
+        BaseFamilyProfileActivityFragment profileActivityFragment = FamilyProfileActivityFragment.newInstance(this.getIntent().getExtras());
 
         adapter.addFragment(profileMemberFragment, this.getString(org.smartregister.family.R.string.member).toUpperCase());
         adapter.addFragment(profileDueFragment, this.getString(org.smartregister.family.R.string.due).toUpperCase());

@@ -66,7 +66,7 @@ public class MedicalHistoryActivity extends SecuredActivity implements MedicalHi
         layoutFullyImmunizationBarAge2 = findViewById(R.id.immu_bar_age_2);
         layoutBirthCert = findViewById(R.id.birth_cert_list);
         layoutIllness = findViewById(R.id.illness_list);
-        TextView textViewFullyImmunization = findViewById(R.id.fully_immunized);
+        // TextView textViewFullyImmunization = findViewById(R.id.fully_immunized);
         recyclerViewImmunization = findViewById(R.id.immunization_recycler_view);
         recyclerViewGrowthNutrition = findViewById(R.id.recycler_view_growth);
         recyclerViewBirthCert = findViewById(R.id.recycler_view_birth);
@@ -107,7 +107,7 @@ public class MedicalHistoryActivity extends SecuredActivity implements MedicalHi
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-       return false;
+        return false;
     }
 
     private void parseBundleANdUpdateView() {
@@ -119,7 +119,7 @@ public class MedicalHistoryActivity extends SecuredActivity implements MedicalHi
         if (TextUtils.isEmpty(name)) {
             textViewTitle.setVisibility(View.GONE);
         } else {
-            textViewTitle.setText(getString(R.string.medical_title, name +"'s profile"));
+            textViewTitle.setText(getString(R.string.medical_title, name + "'s profile"));
         }
         textViewLastVisit.setText(getString(R.string.medical_last_visit, Utils.firstCharacterUppercase(lastVisitDays)));
         initializePresenter();

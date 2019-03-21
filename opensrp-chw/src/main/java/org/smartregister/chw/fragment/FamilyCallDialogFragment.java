@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -34,7 +33,6 @@ public class FamilyCallDialogFragment extends DialogFragment implements FamilyCa
     private View.OnClickListener listener = null;
     private FamilyCallDialogContract.Dialer mDialer;
     private String familyBaseEntityId;
-    private ImageView ivClose;
     private LinearLayout llFamilyHead;
     private TextView tvFamilyHeadTitle;
     private TextView tvFamilyHeadName;
@@ -93,7 +91,6 @@ public class FamilyCallDialogFragment extends DialogFragment implements FamilyCa
     }
 
     private void initUI(ViewGroup rootView) {
-        ivClose = rootView.findViewById(R.id.close);
 
         llFamilyHead = rootView.findViewById(R.id.layout_family_head);
         tvFamilyHeadTitle = rootView.findViewById(R.id.call_head_title);
@@ -105,7 +102,7 @@ public class FamilyCallDialogFragment extends DialogFragment implements FamilyCa
         tvCareGiverName = rootView.findViewById(R.id.call_caregiver_name);
         tvCareGiverPhone = rootView.findViewById(R.id.call_caregiver_phone);
 
-        ivClose.setOnClickListener(listener);
+        rootView.findViewById(R.id.close).setOnClickListener(listener);
         tvFamilyHeadPhone.setOnClickListener(listener);
         tvCareGiverPhone.setOnClickListener(listener);
     }

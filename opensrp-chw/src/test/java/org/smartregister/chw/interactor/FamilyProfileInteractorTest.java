@@ -29,10 +29,7 @@ import java.util.concurrent.Executor;
 @PrepareForTest(Utils.class)
 public class FamilyProfileInteractorTest {
 
-    private AppExecutors appExecutors;
     private FamilyProfileInteractor interactor;
-    private CommonPersonObject personObject;
-    private FamilyMetadata metadata;
 
     @Mock
     private FamilyProfileActivity activity;
@@ -51,12 +48,12 @@ public class FamilyProfileInteractorTest {
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
 
-        appExecutors = Mockito.spy(AppExecutors.class);
+        AppExecutors appExecutors = Mockito.spy(AppExecutors.class);
         Executor executor = Mockito.mock(Executor.class);
         implementAsDirectExecutor(executor);
 
         interactor = Mockito.spy(FamilyProfileInteractor.class);
-        metadata = getMetadata();
+        FamilyMetadata metadata = getMetadata();
         commonRepository = Mockito.mock(CommonRepository.class);
 
         // stub all executor threads with the main thread
@@ -79,7 +76,7 @@ public class FamilyProfileInteractorTest {
         // Mockito.doReturn(familyID).when(getDetails()).get(Mockito.anyString());
         Mockito.doReturn("123Test").when(details).get(Mockito.anyString());
 
-        personObject = new CommonPersonObject(null, null, details, null);
+        CommonPersonObject personObject = new CommonPersonObject(null, null, details, null);
         personObject.setColumnmaps(details);
 
         Mockito.doReturn(personObject).when(commonRepository).findByBaseEntityId(Mockito.anyString());

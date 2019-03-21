@@ -36,8 +36,6 @@ public class FamilyRemoveMemberFragment extends BaseFamilyProfileMemberFragment 
     public static final String DIALOG_TAG = FamilyRemoveMemberFragment.class.getSimpleName();
 
     private String familyBaseEntityId;
-    private String familyHead;
-    private String primaryCareGiver;
 
     private String memberName;
     boolean processingFamily = false;
@@ -62,10 +60,12 @@ public class FamilyRemoveMemberFragment extends BaseFamilyProfileMemberFragment 
 
     @Override
     protected void initializePresenter() {
-        familyBaseEntityId = getArguments().getString(Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID);
-        familyHead = getArguments().getString(Constants.INTENT_KEY.FAMILY_HEAD);
-        primaryCareGiver = getArguments().getString(Constants.INTENT_KEY.PRIMARY_CAREGIVER);
-        presenter = new FamilyRemoveMemberPresenter(this, new FamilyRemoveMemberModel(), null, familyBaseEntityId, familyHead, primaryCareGiver);
+        if (getArguments() != null) {
+            familyBaseEntityId = getArguments().getString(Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID);
+            String familyHead = getArguments().getString(Constants.INTENT_KEY.FAMILY_HEAD);
+            String primaryCareGiver = getArguments().getString(Constants.INTENT_KEY.PRIMARY_CAREGIVER);
+            presenter = new FamilyRemoveMemberPresenter(this, new FamilyRemoveMemberModel(), null, familyBaseEntityId, familyHead, primaryCareGiver);
+        }
     }
 
     public FamilyRemoveMemberContract.Presenter getPresenter() {
@@ -184,12 +184,12 @@ public class FamilyRemoveMemberFragment extends BaseFamilyProfileMemberFragment 
     public void confirmRemove(final JSONObject form) {
         if (StringUtils.isNotBlank(memberName)) {
             FamilyRemoveMemberConfirmDialog dialog = null;
-            if(processingFamily){
+            if (processingFamily) {
                 dialog = FamilyRemoveMemberConfirmDialog.newInstance(
                         String.format(getContext().getString(R.string.remove_warning_family), memberName, memberName)
                 );
 
-            }else{
+            } else {
                 dialog = FamilyRemoveMemberConfirmDialog.newInstance(
                         String.format(getContext().getString(R.string.confirm_remove_text), memberName)
                 );
