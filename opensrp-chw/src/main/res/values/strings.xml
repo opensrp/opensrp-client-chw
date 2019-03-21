@@ -191,5 +191,7 @@
     <string name="remove_family_count">%s adults and %s U5 children</string>
     <string name="not_given_with_spaces">&#160;not given&#160;</string>
     <string name="given_on_with_spaces">&#160;given on&#160;</string>
+    <string name="immunizations">Immunizations (%s)</string>
+    <string name="immunizations_count">Immunizations ({0})</string>
 
 </resources>

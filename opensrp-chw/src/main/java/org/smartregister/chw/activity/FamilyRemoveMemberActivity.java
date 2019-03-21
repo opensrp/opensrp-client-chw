@@ -15,7 +15,7 @@ import org.smartregister.view.activity.SecuredActivity;
 public class FamilyRemoveMemberActivity extends SecuredActivity implements View.OnClickListener {
 
     public static final String TAG = FamilyRemoveMemberActivity.class.getName();
-    FamilyRemoveMemberFragment removeMemberFragment;
+    private FamilyRemoveMemberFragment removeMemberFragment;
 
     @Override
     protected void onCreation() {
@@ -43,6 +43,8 @@ public class FamilyRemoveMemberActivity extends SecuredActivity implements View.
         switch (v.getId()) {
             case R.id.close:
                 finish();
+                break;
+            default:
                 break;
         }
     }

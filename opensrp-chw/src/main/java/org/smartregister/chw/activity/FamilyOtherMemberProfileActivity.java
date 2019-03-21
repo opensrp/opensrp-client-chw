@@ -58,9 +58,9 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
                     startFormForEdit(R.string.edit_member_form_title);
                     break;
                 case R.id.remove_member_layout:
-
                     IndividualProfileRemoveActivity.startIndividualProfileActivity(FamilyOtherMemberProfileActivity.this, commonPersonObject, familyBaseEntityId, familyHead, primaryCaregiver);
-
+                    break;
+                default:
                     break;
             }
 
@@ -203,7 +203,8 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
                     }
                 }
                 break;
-
+            default:
+                break;
 
         }
     }
