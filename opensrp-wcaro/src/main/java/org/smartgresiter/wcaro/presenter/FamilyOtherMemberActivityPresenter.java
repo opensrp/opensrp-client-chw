@@ -11,6 +11,8 @@ import org.smartregister.family.contract.FamilyProfileContract;
 import org.smartregister.family.domain.FamilyEventClient;
 import org.smartregister.family.model.BaseFamilyProfileModel;
 import org.smartregister.family.presenter.BaseFamilyOtherMemberProfileActivityPresenter;
+import org.smartregister.family.util.DBConstants;
+import org.smartregister.family.util.Utils;
 
 import java.lang.ref.WeakReference;
 
@@ -58,6 +60,22 @@ public class FamilyOtherMemberActivityPresenter extends BaseFamilyOtherMemberPro
         } catch (Exception e) {
             getView().hideProgressDialog();
             Log.e(TAG, e.getMessage(), e);
+        }
+    }
+
+    @Override
+    public void refreshProfileTopSection(CommonPersonObjectClient client) {
+        super.refreshProfileTopSection(client);
+        if (client != null && client.getColumnmaps() != null) {
+            String firstName = Utils.getValue(client.getColumnmaps(), "first_name", true);
+            String middleName = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.MIDDLE_NAME, true);
+            firstName += " " + middleName;
+
+            String lastName = Utils.getValue(client.getColumnmaps(), "last_name", true);
+
+            int age = Utils.getAgeFromDate(Utils.getValue(client.getColumnmaps(), DBConstants.KEY.DOB, true));
+            lastName += ", " + age;
+            this.getView().setProfileName(org.smartregister.util.Utils.getName(firstName, lastName));
         }
     }
 
