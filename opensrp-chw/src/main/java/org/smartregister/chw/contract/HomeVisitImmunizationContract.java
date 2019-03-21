@@ -1,6 +1,7 @@
 package org.smartregister.chw.contract;
 
 import android.app.Activity;
+import android.content.Context;
 
 import org.smartregister.chw.interactor.HomeVisitImmunizationInteractor;
 import org.smartregister.chw.util.HomeVisitVaccineGroupDetails;
@@ -29,6 +30,8 @@ public interface HomeVisitImmunizationContract {
         Presenter initializePresenter();
 
         Presenter getPresenter();
+
+        Context getContext();
 
         void updateImmunizationState();
     }

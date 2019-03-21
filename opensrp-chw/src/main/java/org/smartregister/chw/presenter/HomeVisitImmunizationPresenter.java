@@ -1,5 +1,7 @@
 package org.smartregister.chw.presenter;
 
+import android.app.Activity;
+import android.content.Context;
 import android.text.TextUtils;
 
 import org.apache.commons.lang3.StringUtils;
@@ -33,7 +35,7 @@ import io.reactivex.ObservableOnSubscribe;
 
 import static org.smartregister.chw.util.ChildUtils.fixVaccineCasing;
 
-public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationContract.Presenter {
+public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationContract.Presenter, HomeVisitImmunizationContract.View {
 
 
     HomeVisitImmunizationContract.Interactor homeVisitImmunizationInteractor;
@@ -47,6 +49,7 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
     public String groupImmunizationSecondaryText = "";
     public String singleImmunizationSecondaryText = "";
     private final VaccineRepository vaccineRepository;
+
 
     public HomeVisitImmunizationPresenter(HomeVisitImmunizationContract.View view) {
         this.view = new WeakReference<>(view);
@@ -180,8 +183,34 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
     }
 
     @Override
+    public void setActivity(Activity activity) {
+        // TODO update the method
+    }
+
+    @Override
     public void setChildClient(CommonPersonObjectClient childClient) {
         this.childClient = childClient;
+    }
+
+    @Override
+    public void refreshPresenter(List<Alert> alerts, List<Vaccine> vaccines, List<Map<String, Object>> sch) {
+        // TODO update the method
+    }
+
+    @Override
+    public HomeVisitImmunizationContract.Presenter initializePresenter() {
+        return null;
+    }
+
+    @Override
+    public HomeVisitImmunizationContract.Presenter getPresenter() {
+        return null;
+    }
+
+
+    @Override
+    public void updateImmunizationState() {
+        // TODO update the method
     }
 
     @Override
@@ -323,7 +352,7 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
                 groupSecondaryText = new StringBuilder(groupSecondaryText.substring(0, groupSecondaryText.length() - 1));
             }
 
-            groupSecondaryText.append(" provided on ").append(DateUtil.formatDate(dueDate.toLocalDate(), "dd MMM yyyy"));
+            groupSecondaryText.append(getView().getContext().getString(R.string.given_on_with_spaces)).append(DateUtil.formatDate(dueDate.toLocalDate(), "dd MMM yyyy"));
 
             if (StringUtils.isNotBlank(notGiven) || iterator.hasNext()) {
                 groupSecondaryText.append(" \u00B7 ");
@@ -382,7 +411,7 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
                 groupSecondaryText = new StringBuilder(groupSecondaryText.substring(0, groupSecondaryText.length() - 1));
             }
 
-            groupSecondaryText.append(" not given ");
+            groupSecondaryText.append(getView().getContext().getString(R.string.not_given_with_spaces));
             if (iterator.hasNext()) {
                 groupSecondaryText.append(" \u00B7 ");
             }
@@ -429,7 +458,7 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
                 groupSecondaryText = groupSecondaryText.trim();
                 groupSecondaryText = groupSecondaryText.substring(0, groupSecondaryText.length() - 1);
             }
-            groupSecondaryText = groupSecondaryText + " provided on ";
+            groupSecondaryText = groupSecondaryText + getView().getContext().getString(R.string.given_on_with_spaces);
 
             String duedateString = DateUtil.formatDate(dateTime.toLocalDate(), "dd MMM yyyy");
             groupSecondaryText = groupSecondaryText + duedateString + " \u00B7 ";
@@ -456,5 +485,15 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
     @Override
     public void setSingleImmunizationSecondaryText(String singleImmunizationSecondaryText) {
         this.singleImmunizationSecondaryText = singleImmunizationSecondaryText;
+    }
+
+    @Override
+    public void immunizationState(List<Alert> alerts, List<Vaccine> vaccines, List<Map<String, Object>> sch) {
+        // TODO update the method
+    }
+
+    @Override
+    public Context getContext() {
+        return getView().getContext();
     }
 }
