@@ -67,7 +67,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     private String gender;
     private Handler handler = new Handler();
     private String lastVisitDay;
-    FamilyMemberFloatingMenu familyFloatingMenu;
+    private FamilyMemberFloatingMenu familyFloatingMenu;
 
     @Override
     public void updateHasPhone(boolean hasPhone) {

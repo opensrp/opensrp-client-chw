@@ -46,10 +46,17 @@ public class FamilyMemberFloatingMenu extends LinearLayout implements View.OnCli
         TextView callTextView =  findViewById(R.id.CallTextView);
         TextView callTextViewHint =  findViewById(R.id.CallTextViewHint);
 
-        callTextViewHint.setVisibility(has_phone ? GONE : VISIBLE);
-        callLayout.setOnClickListener(has_phone ? this: null);
-        callTextView.setTypeface(null, (has_phone ? Typeface.NORMAL : Typeface.ITALIC));
-        callTextView.setTextColor(getResources().getColor(has_phone ? android.R.color.black : R.color.grey));
+        if(has_phone){
+            callTextViewHint.setVisibility(GONE);
+            callLayout.setOnClickListener(this);
+            callTextView.setTypeface(null, Typeface.NORMAL);
+            callTextView.setTextColor(getResources().getColor(android.R.color.black));
+        }else{
+            callTextViewHint.setVisibility(VISIBLE);
+            callLayout.setOnClickListener(null);
+            callTextView.setTypeface(null, Typeface.ITALIC);
+            callTextView.setTextColor(getResources().getColor(R.color.grey));
+        }
     }
 
     private void initUi() {
