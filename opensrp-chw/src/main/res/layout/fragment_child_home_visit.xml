@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:weightSum="1">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/opensrp_primary"
+        android:fitsSystemWindows="true"
+        android:orientation="vertical"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/detail_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/opensrp_primary"
+            android:padding="0dp"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Dark">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/close"
+                    android:layout_width="@dimen/tool_bar_image"
+                    android:layout_height="@dimen/tool_bar_image"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:tint="@color/white"
+                    app:srcCompat="@drawable/ic_action_close" />
+
+                <org.smartregister.view.customcontrols.CustomFontTextView
+                    android:id="@+id/textview_submit"
+                    style="@style/CustomFontTextViewStyle.ClientList.Bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/child_home_visit_right_margin"
+                    android:layout_marginRight="@dimen/child_home_visit_right_margin"
+                    android:text="@string/submit"
+                    android:textAllCaps="true"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textColor="@android:color/white" />
+            </RelativeLayout>
+
+        </android.support.v7.widget.Toolbar>
+
+        <org.smartregister.view.customcontrols.CustomFontTextView
+            android:id="@+id/textview_name_header"
+            style="@style/CustomFontTextViewStyle.ClientList.Light"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dialog_toolbar_close_margin"
+            android:layout_marginEnd="@dimen/child_home_visit_right_margin"
+            android:layout_marginLeft="@dimen/child_home_visit_left_margin"
+            android:layout_marginRight="@dimen/child_home_visit_right_margin"
+            android:layout_marginStart="@dimen/child_home_visit_left_margin"
+            android:layout_marginTop="5dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="@string/add_member_title"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/child_home_visit_title_text_size" />
+
+
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/app_bar">
+
+        <LinearLayout
+            android:id="@+id/home_visit_layout"
+            android:layout_width="match_parent"
+            android:visibility="gone"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/light_grey" />
+
+            <org.smartregister.chw.custom_view.HomeVisitImmunizationView
+                android:id="@+id/home_visit_immunization_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/child_home_visit_right_margin"
+                android:layout_marginLeft="@dimen/child_home_visit_left_margin"
+                android:layout_marginRight="@dimen/child_home_visit_right_margin"
+                android:layout_marginStart="@dimen/child_home_visit_left_margin">
+
+            </org.smartregister.chw.custom_view.HomeVisitImmunizationView>
+
+            <org.smartregister.chw.custom_view.HomeVisitGrowthAndNutrition
+                android:id="@+id/growth_and_nutrition_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/child_home_visit_right_margin"
+                android:layout_marginLeft="@dimen/child_home_visit_left_margin"
+                android:layout_marginRight="@dimen/child_home_visit_right_margin"
+                android:layout_marginStart="@dimen/child_home_visit_left_margin">
+
+            </org.smartregister.chw.custom_view.HomeVisitGrowthAndNutrition>
+
+
+            <LinearLayout
+                android:id="@+id/birth_cert_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:layout_marginEnd="@dimen/child_home_visit_right_margin"
+                android:layout_marginLeft="@dimen/child_home_visit_left_margin"
+                android:layout_marginRight="@dimen/child_home_visit_right_margin"
+                android:layout_marginStart="@dimen/child_home_visit_left_margin"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/birth_status_circle"
+                    android:layout_width="@dimen/immunization_status_circle_size"
+                    android:layout_height="@dimen/immunization_status_circle_size"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:clickable="false"
+                    android:src="@color/white"
+                    app:civ_border_color="@color/dark_grey"
+                    app:civ_border_width="1dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="false"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <org.smartregister.view.customcontrols.CustomFontTextView
+                        android:id="@+id/textview_birth_certification"
+                        style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:clickable="false"
+                        android:gravity="center_vertical"
+                        android:text="@string/birth_certification"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                        android:textColor="@android:color/black" />
+
+                    <org.smartregister.view.customcontrols.CustomFontTextView
+                        android:id="@+id/textview_birth_certification_name"
+                        style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:clickable="false"
+                        android:gravity="center_vertical"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textColor="@android:color/darker_gray" />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/birth_cert_data_recycler"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clickable="false"
+                        android:visibility="gone">
+
+                    </android.support.v7.widget.RecyclerView>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/birth_line_view"
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginEnd="@dimen/child_home_visit_right_margin"
+                android:layout_marginLeft="@dimen/child_home_visit_left_margin"
+                android:layout_marginRight="@dimen/child_home_visit_right_margin"
+                android:layout_marginStart="@dimen/child_home_visit_left_margin"
+                android:background="@color/light_grey" />
+
+            <LinearLayout
+                android:id="@+id/obs_illness_prevention_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:layout_marginEnd="@dimen/child_home_visit_right_margin"
+                android:layout_marginLeft="@dimen/child_home_visit_left_margin"
+                android:layout_marginRight="@dimen/child_home_visit_right_margin"
+                android:layout_marginStart="@dimen/child_home_visit_left_margin"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/obs_illness_status_circle"
+                    android:layout_width="@dimen/immunization_status_circle_size"
+                    android:layout_height="@dimen/immunization_status_circle_size"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:src="@color/white"
+                    app:civ_border_color="@color/dark_grey"
+                    app:civ_border_width="1dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <org.smartregister.view.customcontrols.CustomFontTextView
+                        android:id="@+id/textview_obser_illness"
+                        style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                        android:textColor="@android:color/black" />
+
+                    <org.smartregister.view.customcontrols.CustomFontTextView
+                        android:id="@+id/textview_obser_illness_name"
+                        style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:clickable="false"
+                        android:gravity="center_vertical"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textColor="@android:color/darker_gray"
+                        android:visibility="gone" />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/illness_data_recycler"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone">
+
+                    </android.support.v7.widget.RecyclerView>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginEnd="@dimen/child_home_visit_right_margin"
+                android:layout_marginLeft="@dimen/child_home_visit_left_margin"
+                android:layout_marginRight="@dimen/child_home_visit_right_margin"
+                android:layout_marginStart="@dimen/child_home_visit_left_margin"
+                android:background="@color/light_grey" />
+
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        style="@style/Base.Widget.AppCompat.ProgressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="visible" />
+
+</RelativeLayout>
