@@ -32,20 +32,13 @@ public class FamilyProfileInteractorTest {
     private FamilyProfileInteractor interactor;
 
     @Mock
-    private FamilyProfileActivity activity;
-
-    private CommonRepository commonRepository;
-
-    @Mock
     private HashMap<String, String> details;
-
-    private String familyID = "12345";
 
     @Mock
     private FamilyProfilePresenter profilePresenter;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         MockitoAnnotations.initMocks(this);
 
         AppExecutors appExecutors = Mockito.spy(AppExecutors.class);
@@ -54,7 +47,7 @@ public class FamilyProfileInteractorTest {
 
         interactor = Mockito.spy(FamilyProfileInteractor.class);
         FamilyMetadata metadata = getMetadata();
-        commonRepository = Mockito.mock(CommonRepository.class);
+        CommonRepository commonRepository = Mockito.mock(CommonRepository.class);
 
         // stub all executor threads with the main thread
         Whitebox.setInternalState(appExecutors, "diskIO", executor);
@@ -83,9 +76,9 @@ public class FamilyProfileInteractorTest {
         Mockito.doReturn(personObject).when(commonRepository).findByBaseEntityId(null);
     }
 
-    protected void implementAsDirectExecutor(Executor executor) {
+    private void implementAsDirectExecutor(Executor executor) {
         Mockito.doAnswer(new Answer<Object>() {
-            public Object answer(InvocationOnMock invocation) throws Exception {
+            public Object answer(InvocationOnMock invocation) {
                 ((Runnable) invocation.getArguments()[0]).run();
                 return null;
             }
@@ -95,6 +88,7 @@ public class FamilyProfileInteractorTest {
     @Test
     public void testVerifyHasPhone() {
 
+        String familyID = "12345";
         interactor.verifyHasPhone(familyID, profilePresenter);
         // verify that calls are sent to the database
 
