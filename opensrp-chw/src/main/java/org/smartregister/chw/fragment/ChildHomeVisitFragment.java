@@ -176,7 +176,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
 
 
     private void updateGrowthData() {
-        homeVisitGrowthAndNutritionLayout.setData(this, getActivity().getFragmentManager(), childClient);
+        homeVisitGrowthAndNutritionLayout.setData(this, getActivity().getFragmentManager(), childClient,isEditMode);
     }
 
 
@@ -223,7 +223,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
 
                         JSONObject singleVaccineObject = new JSONObject().put("singleVaccinesGiven", singleVaccine);
                         JSONObject vaccineGroupObject = new JSONObject().put("groupVaccinesGiven", vaccineGroup);
-                        JSONObject service = new JSONObject((new Gson()).toJson(homeVisitGrowthAndNutritionLayout.returnSaveStateMap()));
+                        JSONObject service = new JSONObject(ChildUtils.gsonConverter.toJson(homeVisitGrowthAndNutritionLayout.returnSaveStateMap()));
                         if (illnessJson == null) {
                             illnessJson = new JSONObject();
                         }

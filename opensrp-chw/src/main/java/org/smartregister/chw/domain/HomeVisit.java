@@ -28,6 +28,10 @@ public class HomeVisit {
     private String birthCertificationState = "";
     private JSONObject illness_information = new JSONObject();
 
+    public HomeVisit(){
+
+    }
+
 
     public HomeVisit(Long id, String baseEntityId, String name, Date date, String anmId, String locationId, String syncStatus, Long updatedAt, String eventId, String formSubmissionId, Date createdAt) {
         this.id = id;

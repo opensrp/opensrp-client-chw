@@ -13,6 +13,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.ei.drishti.dto.AlertStatus;
 import org.json.JSONObject;
 import org.smartregister.chw.domain.HomeVisit;
+import org.smartregister.chw.util.RxUtils;
 import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.domain.Alert;
 import org.smartregister.immunization.ImmunizationLibrary;
@@ -29,6 +30,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Callable;
+
+import io.reactivex.Observable;
 
 public class HomeVisitRepository extends BaseRepository {
     public static final String EVENT_TYPE = "Child Home Visit";
@@ -408,5 +412,20 @@ public class HomeVisitRepository extends BaseRepository {
         } catch (Exception e) {
             Log.e(TAG, Log.getStackTraceString(e));
         }
+    }
+    public Observable<HomeVisit> getHomeVisitData(long homeVistDate){
+        return RxUtils.makeObservable(getData(homeVistDate));
+    }
+    private Callable<HomeVisit> getData(final long lastHomeVistDate) {
+        return new Callable() {
+            public HomeVisit call() {
+                return findByDate(lastHomeVistDate);
+            }
+        };
+    }
+    public HomeVisit findByDate(long lastHomeVisit) {
+        SQLiteDatabase database = getReadableDatabase();
+        Cursor cursor = database.query(HomeVisitTABLE_NAME, HomeVisit_TABLE_COLUMNS, DATE + " = ? " + COLLATE_NOCASE + " ORDER BY " + UPDATED_AT_COLUMN, new String[]{String.valueOf(lastHomeVisit)}, null, null, null, null);
+        return readAllCounsellings(cursor)!=null?readAllCounsellings(cursor).get(0):null;
     }
 }

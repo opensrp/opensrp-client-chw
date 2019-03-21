@@ -28,6 +28,7 @@ import org.smartregister.chw.fragment.ChildHomeVisitFragment;
 import org.smartregister.chw.fragment.ChildImmunizationFragment;
 import org.smartregister.chw.fragment.VaccinationDialogFragment;
 import org.smartregister.chw.presenter.HomeVisitImmunizationPresenter;
+import org.smartregister.chw.util.ChildUtils;
 import org.smartregister.chw.util.HomeVisitVaccineGroupDetails;
 import org.smartregister.chw.util.ImmunizationState;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
@@ -538,8 +539,8 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
         JSONArray arrayOfWrapper = new JSONArray();
         for (VaccineWrapper wrapper : groupVaccinesGivenThisVisit) {
             try {
-                JSONObject wrapperObject = new JSONObject((new Gson()).toJson(wrapper));
-                JSONObject vaccineObject = new JSONObject((new Gson()).toJson(wrapper.getVaccine()));
+                JSONObject wrapperObject = new JSONObject(ChildUtils.gsonConverter.toJson(wrapper));
+                JSONObject vaccineObject = new JSONObject(ChildUtils.gsonConverter.toJson(wrapper.getVaccine()));
                 wrapperObject.put("vaccine", vaccineObject);
                 arrayOfWrapper.put(wrapperObject);
             } catch (JSONException e) {

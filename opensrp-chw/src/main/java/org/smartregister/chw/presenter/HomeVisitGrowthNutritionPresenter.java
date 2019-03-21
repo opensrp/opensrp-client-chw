@@ -47,9 +47,14 @@ public class HomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNutriti
 
 
     @Override
-    public void parseRecordServiceData(CommonPersonObjectClient commonPersonObjectClient) {
+    public void parseRecordServiceData(CommonPersonObjectClient commonPersonObjectClient,boolean isEditMode) {
         this.commonPersonObjectClient = commonPersonObjectClient;
-        interactor.parseRecordServiceData(commonPersonObjectClient, this);
+        if(isEditMode){
+            interactor.parseEditRecordServiceData(commonPersonObjectClient,this);
+        }else{
+            interactor.parseRecordServiceData(commonPersonObjectClient, this);
+        }
+
     }
 
     @Override
@@ -235,7 +240,7 @@ public class HomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNutriti
     }
 
     @Override
-    public Map<String, String> getSaveStateMap() {
-        return saveServiceMap;
+    public Map<String, ServiceWrapper> getSaveStateMap() {
+        return saveStateMap;
     }
 }

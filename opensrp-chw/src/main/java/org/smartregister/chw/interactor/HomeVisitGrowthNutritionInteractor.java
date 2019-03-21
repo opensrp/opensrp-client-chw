@@ -1,11 +1,18 @@
 package org.smartregister.chw.interactor;
 
 import android.support.annotation.VisibleForTesting;
+import android.text.TextUtils;
 
+import com.google.gson.reflect.TypeToken;
+
+import org.json.JSONObject;
+import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.contract.HomeVisitGrowthNutritionContract;
+import org.smartregister.chw.domain.HomeVisit;
 import org.smartregister.chw.fragment.GrowthNutritionInputFragment;
 import org.smartregister.chw.listener.UpdateServiceListener;
 import org.smartregister.chw.task.UpdateServiceTask;
+import org.smartregister.chw.util.ChildDBConstants;
 import org.smartregister.chw.util.ChildUtils;
 import org.smartregister.chw.util.GrowthServiceData;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
@@ -15,13 +22,26 @@ import org.smartregister.immunization.domain.ServiceWrapper;
 import org.smartregister.util.DateUtil;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.ObservableSource;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
 
 import static org.smartregister.util.Utils.startAsyncTask;
 
 public class HomeVisitGrowthNutritionInteractor implements HomeVisitGrowthNutritionContract.Interactor {
     private AppExecutors appExecutors;
     private UpdateServiceTask updateServiceTask;
+    private HomeVisit currentHomeVisit = new HomeVisit();
 
     @VisibleForTesting
     HomeVisitGrowthNutritionInteractor(AppExecutors appExecutors) {
@@ -53,6 +73,56 @@ public class HomeVisitGrowthNutritionInteractor implements HomeVisitGrowthNutrit
         });
         startAsyncTask(updateServiceTask, null);
 
+    }
+    @Override
+    public void parseEditRecordServiceData(CommonPersonObjectClient commonPersonObjectClient, final HomeVisitGrowthNutritionContract.InteractorCallBack callBack) {
+        String lastHomeVisitStr=org.smartregister.util.Utils.getValue(commonPersonObjectClient.getColumnmaps(), ChildDBConstants.KEY.LAST_HOME_VISIT, false);
+        long lastHomeVisit= TextUtils.isEmpty(lastHomeVisitStr)?0:Long.parseLong(lastHomeVisitStr);
+        ChwApplication.homeVisitRepository().getHomeVisitData(lastHomeVisit)
+                .flatMap(new Function<HomeVisit, ObservableSource<Map<String, ServiceWrapper>>>() {
+                    @Override
+                    public ObservableSource<Map<String, ServiceWrapper>> apply(HomeVisit homeVisit) throws Exception {
+                        currentHomeVisit=homeVisit;
+                        return getServiceWrapperMapFromJson(homeVisit.getServicesGiven());
+                    }
+                })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Map<String, ServiceWrapper>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Map<String, ServiceWrapper> stringServiceWrapperMap) {
+                        callBack.updateRecordVisitData(stringServiceWrapperMap);
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+
+
+
+
+    }
+    public Observable<Map<String, ServiceWrapper>> getServiceWrapperMapFromJson(final JSONObject jsonObject){
+        return Observable.create(new ObservableOnSubscribe<Map<String, ServiceWrapper>>() {
+            @Override
+            public void subscribe(ObservableEmitter<Map<String, ServiceWrapper>> e) throws Exception {
+                Map<String, ServiceWrapper> serviceWrapperMap = ChildUtils.gsonConverter.fromJson(jsonObject.toString(),new TypeToken<HashMap<String, ServiceWrapper>>(){}.getType());
+                e.onNext(serviceWrapperMap);
+            }
+        });
     }
     public ArrayList<GrowthServiceData> getAllDueService(Map<String, ServiceWrapper> serviceWrapperMap) {
         ArrayList<GrowthServiceData> growthServiceDataList = new ArrayList<>();

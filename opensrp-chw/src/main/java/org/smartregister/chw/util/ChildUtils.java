@@ -11,10 +11,22 @@ import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonPrimitive;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
+
 import org.apache.commons.lang3.StringUtils;
 import org.jeasy.rules.api.Rules;
+import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.joda.time.LocalDate;
+import org.joda.time.format.ISODateTimeFormat;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
@@ -31,6 +43,7 @@ import org.smartregister.family.util.DBConstants;
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.sync.helper.ECSyncHelper;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -49,7 +62,27 @@ public class ChildUtils {
     public static final String[] TWO_YR = {"bcg", "opv1", "penta1", "pcv1", "rota1", "opv2", "penta2", "pcv2", "rota2", "opv3", "penta3", "pcv3", "ipv", "mcv1",
             "yellowfever", "mcv2"
     };
+    public static Gson gsonConverter;
 
+     static {
+         gsonConverter = new GsonBuilder()
+                .setPrettyPrinting()
+                .serializeNulls()
+                .registerTypeAdapter(DateTime.class, new JsonSerializer<DateTime>(){
+                    @Override
+                    public JsonElement serialize(DateTime json, Type typeOfSrc, JsonSerializationContext context) {
+                        return new JsonPrimitive(ISODateTimeFormat.dateTime().print(json));
+                    }
+
+                })
+                .registerTypeAdapter(DateTime.class, new JsonDeserializer<DateTime>() {
+                    @Override
+                    public DateTime deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+                        return new DateTime(json.getAsJsonPrimitive().getAsString());
+                    }
+                })
+                .create();
+    }
 
     //Fully immunized at age 2
     public static String isFullyImmunized(int age, List<String> vaccineGiven) {
