@@ -1,12 +1,14 @@
 package org.smartregister.chw.util;
 
+import android.util.Log;
+
 public class ServiceContent implements BaseService {
     private String serviceName;
-    //String serviceDate;
-    private String type;
 
+    //TODO update actual implementation from child code
     public void setType(String type) {
-        this.type = type;
+        //String serviceDate;
+        Log.v("ServiceContent",type);
     }
 
     public String getServiceName() {
