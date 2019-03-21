@@ -257,7 +257,6 @@ public class MedicalHistoryInteractor implements MedicalHistoryContract.Interact
                     content.setServiceName(serviceRecord.getName() + " - done " + date);
                 }
 
-                content.setType(serviceRecord.getType());
                 baseServiceArrayList.add(content);
                 lastType = serviceRecord.getType();
             } else {
@@ -279,7 +278,6 @@ public class MedicalHistoryInteractor implements MedicalHistoryContract.Interact
                     content.setServiceName(serviceRecord.getName() + " - done " + date);
                 }
 
-                content.setType(serviceRecord.getType());
                 baseServiceArrayList.add(content);
             }
         }

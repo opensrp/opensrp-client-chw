@@ -386,9 +386,13 @@ public class VaccinationDialogFragment extends ChildImmunizationFragment impleme
         DateTime dcToday = ServiceSchedule.standardiseDateTime(DateTime.now());
         DateTime maxDate = ServiceSchedule.standardiseDateTime(dcToday);
 
-        datePicker.setMinDate(minDate.getMillis());
-        datePicker.setMaxDate(maxDate.getMillis());
-
+        if(minDate.getMillis()>maxDate.getMillis()){
+            datePicker.setMinDate(minDate.getMillis());
+            datePicker.setMaxDate(minDate.getMillis());
+        }else{
+            datePicker.setMinDate(minDate.getMillis());
+            datePicker.setMaxDate(maxDate.getMillis());
+        }
     }
 
     @Override
