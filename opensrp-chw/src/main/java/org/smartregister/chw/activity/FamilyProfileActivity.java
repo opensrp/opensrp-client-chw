@@ -146,7 +146,7 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity implements 
 
     public void startFormForEdit() {
         if (familyBaseEntityId != null) {
-            ((FamilyProfilePresenter) presenter).fetchProfileData();
+            presenter().fetchProfileData();
         }
     }
 
@@ -154,7 +154,7 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity implements 
 
     @Override
     public void startChildForm(String formName, String entityId, String metadata, String currentLocationId) throws Exception {
-        ((FamilyProfilePresenter) presenter).startChildForm(formName, entityId, metadata, currentLocationId);
+        presenter().startChildForm(formName, entityId, metadata, currentLocationId);
     }
 
     @Override
@@ -183,23 +183,22 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity implements 
                         if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Utils.metadata().familyRegister.updateEventType)) {
 
                             presenter().updateFamilyRegister(jsonString);
-                            ((FamilyProfilePresenter) presenter).verifyHasPhone();
+                            presenter().verifyHasPhone();
 
-                        } else if  (encounter_type.equals(org.smartregister.chw.util.Constants.EventType.CHILD_REGISTRATION)) {
+                        } else if (encounter_type.equals(org.smartregister.chw.util.Constants.EventType.CHILD_REGISTRATION)) {
 
-                            ((FamilyProfilePresenter) presenter).saveChildForm(jsonString, false);
+                            presenter().saveChildForm(jsonString, false);
 
                         } else if (encounter_type.equals(Utils.metadata().familyMemberRegister.registerEventType)) {
 
-                            String careGiver = ((FamilyProfilePresenter) presenter).saveChwFamilyMember(jsonString);
-                            if(((FamilyProfilePresenter) presenter).updatePrimaryCareGiver(getApplicationContext(), jsonString, familyBaseEntityId, careGiver)){
-                                primaryCaregiver = careGiver;
-                                getIntent().putExtra(Constants.INTENT_KEY.PRIMARY_CAREGIVER, primaryCaregiver);
+                            String careGiver = presenter().saveChwFamilyMember(jsonString);
+                            if (presenter().updatePrimaryCareGiver(getApplicationContext(), jsonString, familyBaseEntityId, careGiver)) {
+                                setPrimaryCaregiver(careGiver);
                                 refreshPresenter();
                             }
 
-                            refreshMemberFragment(primaryCaregiver, null);
-                            ((FamilyProfilePresenter) presenter).verifyHasPhone();
+                            refreshMemberFragment(careGiver, null);
+                            presenter().verifyHasPhone();
                         }
                     } catch (Exception e) {
                         Log.e(TAG, Log.getStackTraceString(e));
@@ -212,8 +211,11 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity implements 
                         String careGiverID = data.getStringExtra(Constants.INTENT_KEY.PRIMARY_CAREGIVER);
                         String familyHeadID = data.getStringExtra(Constants.INTENT_KEY.FAMILY_HEAD);
 
+                        setPrimaryCaregiver(careGiverID);
+                        setFamilyHead(familyHeadID);
+
                         refreshMemberFragment(careGiverID, familyHeadID);
-                        ((FamilyProfilePresenter) presenter).verifyHasPhone();
+                        presenter().verifyHasPhone();
 
                     } catch (Exception e) {
                         Log.e(TAG, Log.getStackTraceString(e));
@@ -285,7 +287,27 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity implements 
         super.onResumption();
         FloatingMenuListener.getInstance(this, presenter().familyBaseEntityId());
     }
-//    @Override
+
+    public void setPrimaryCaregiver(String caregiver) {
+        if (StringUtils.isNotBlank(caregiver)) {
+            this.primaryCaregiver = caregiver;
+            getIntent().putExtra(Constants.INTENT_KEY.PRIMARY_CAREGIVER, caregiver);
+        }
+    }
+
+    public void setFamilyHead(String head) {
+        if (StringUtils.isNotBlank(head)) {
+            this.familyHead = head;
+            getIntent().putExtra(Constants.INTENT_KEY.FAMILY_HEAD, head);
+        }
+    }
+
+    @Override
+    public FamilyProfileExtendedContract.Presenter presenter() {
+        return (FamilyProfilePresenter) presenter;
+    }
+
+    //    @Override
 //    public void startFormActivity(JSONObject jsonForm) {
 //        Intent intent = new Intent(this, FamilyWizardFormFragment.class);
 //        intent.putExtra("json", jsonForm.toString());

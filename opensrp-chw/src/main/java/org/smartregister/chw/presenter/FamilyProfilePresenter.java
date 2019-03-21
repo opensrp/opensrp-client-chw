@@ -125,6 +125,7 @@ public class FamilyProfilePresenter extends BaseFamilyProfilePresenter implement
         }
     }
 
+    @Override
     public String saveChwFamilyMember(String jsonString) {
 
         try {
@@ -143,12 +144,13 @@ public class FamilyProfilePresenter extends BaseFamilyProfilePresenter implement
         return null;
     }
 
+    @Override
     public boolean updatePrimaryCareGiver(Context context, String jsonString, String familyBaseEntityId, String entityID) {
 
         boolean res = false;
         try {
             FamilyMember member = JsonFormUtils.getFamilyMemberFromRegistrationForm(jsonString, familyBaseEntityId, entityID);
-            if (member.getPrimaryCareGiver()) {
+            if (member != null && member.getPrimaryCareGiver()) {
                 LocationPickerView lpv = new LocationPickerView(context);
                 lpv.init();
                 String lastLocationId = LocationHelper.getInstance().getOpenMrsLocationId(lpv.getSelectedItem());
