@@ -79,7 +79,7 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MyViewHold
             dobString = dobString.contains("y") ? dobString.substring(0, dobString.indexOf("y")) : dobString;
         }
 
-        holder.tvName.setText(String.format("%s , %s", model.getFullNames(), dobString));
+        holder.tvName.setText(String.format("%s, %s", model.getFullNames(), dobString));
         holder.llQuestions.setVisibility(model.getMemberID().equals(selected) ? View.VISIBLE : View.GONE);
         holder.radioButton.setChecked(model.getMemberID().equals(selected));
 

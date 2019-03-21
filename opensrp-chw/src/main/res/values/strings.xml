@@ -40,7 +40,7 @@
     <string name="nav_last_sync_time">HH:mm a , MMM DD</string>
 
     <string name="call">Call</string>
-    <string name="call_no_number_provider">(no number provider)</string>
+    <string name="call_no_number_provided">(no number provided)</string>
     <string name="family_details">Family details</string>
     <string name="add_new_family_member">Add new family member</string>
     <string name="remove_existing_family_member">Remove existing family member</string>
@@ -193,5 +193,8 @@
     <string name="given_on_with_spaces">&#160;given on&#160;</string>
     <string name="immunizations">Immunizations (%s)</string>
     <string name="immunizations_count">Immunizations ({0})</string>
+    <string name="phone_number">Phone number</string>
+    <string name="other_phone_number">Other phone number</string>
+    <string name="highest_education_level">Highest education level</string>
 
 </resources>

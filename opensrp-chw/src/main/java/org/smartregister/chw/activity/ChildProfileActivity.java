@@ -67,6 +67,15 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     private String gender;
     private Handler handler = new Handler();
     private String lastVisitDay;
+    private FamilyMemberFloatingMenu familyFloatingMenu;
+
+    @Override
+    public void updateHasPhone(boolean hasPhone) {
+        if(familyFloatingMenu !=null){
+            familyFloatingMenu.reDraw(hasPhone);
+        }
+    }
+
     private OnClickFloatingMenu onClickFloatingMenu = new OnClickFloatingMenu() {
         @Override
         public void onClickMenu(int viewId) {
@@ -172,7 +181,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
         layoutFamilyHasRow.setOnClickListener(this);
         layoutRecordButtonDone.setOnClickListener(this);
 
-        FamilyMemberFloatingMenu familyFloatingMenu = new FamilyMemberFloatingMenu(this);
+        familyFloatingMenu = new FamilyMemberFloatingMenu(this);
         LinearLayout.LayoutParams linearLayoutParams =
                 new LinearLayout.LayoutParams(
                         LinearLayout.LayoutParams.MATCH_PARENT,

@@ -1,5 +1,6 @@
 package org.smartregister.chw.contract;
 
+import android.content.Context;
 import android.util.Pair;
 
 import org.smartregister.clientandeventmodel.Client;
@@ -16,9 +17,12 @@ public interface FamilyProfileExtendedContract {
 
         void saveChildForm(String jsonString, boolean isEditMode);
 
-        void notifyHasPhone(boolean hasPhone);
-
         void verifyHasPhone();
+
+        String saveChwFamilyMember(String jsonString);
+
+        boolean updatePrimaryCareGiver(Context context, String jsonString, String familyBaseEntityId, String entityID);
+
     }
 
     interface View extends FamilyProfileContract.View {
@@ -26,5 +30,13 @@ public interface FamilyProfileExtendedContract {
         void startChildForm(String formName, String entityId, String metadata, String currentLocationId) throws Exception;
 
         void updateHasPhone(boolean hasPhone);
+
+    }
+
+    interface PresenterCallBack {
+
+        void verifyHasPhone();
+
+        void notifyHasPhone(boolean hasPhone);
     }
 }

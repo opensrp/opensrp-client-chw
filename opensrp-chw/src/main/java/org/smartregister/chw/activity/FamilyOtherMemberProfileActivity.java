@@ -46,6 +46,7 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
     private String villageTown;
     private String familyName;
     private CommonPersonObjectClient commonPersonObject;
+    private FamilyMemberFloatingMenu familyFloatingMenu;
 
     private OnClickFloatingMenu onClickFloatingMenu = new OnClickFloatingMenu() {
         @Override
@@ -87,7 +88,7 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
         toolbarTitle.setText(String.format(getString(R.string.return_to_family_name), presenter().getFamilyName()));
 
         // add floating menu
-        FamilyMemberFloatingMenu familyFloatingMenu = new FamilyMemberFloatingMenu(this);
+        familyFloatingMenu = new FamilyMemberFloatingMenu(this);
         LinearLayout.LayoutParams linearLayoutParams =
                 new LinearLayout.LayoutParams(
                         LinearLayout.LayoutParams.MATCH_PARENT,
@@ -98,6 +99,12 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
         familyFloatingMenu.setClickListener(onClickFloatingMenu);
     }
 
+    @Override
+    public void updateHasPhone(boolean hasPhone) {
+        if(familyFloatingMenu !=null){
+            familyFloatingMenu.reDraw(hasPhone);
+        }
+    }
 
     @Override
     protected ViewPager setupViewPager(ViewPager viewPager) {

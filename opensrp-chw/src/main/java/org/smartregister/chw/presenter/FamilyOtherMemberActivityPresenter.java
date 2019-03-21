@@ -4,6 +4,7 @@ import android.util.Log;
 
 import org.apache.commons.lang3.tuple.Triple;
 import org.smartregister.chw.contract.FamilyOtherMemberProfileExtendedContract;
+import org.smartregister.chw.contract.FamilyProfileExtendedContract;
 import org.smartregister.chw.interactor.FamilyProfileInteractor;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.contract.FamilyOtherMemberContract;
@@ -14,7 +15,7 @@ import org.smartregister.family.presenter.BaseFamilyOtherMemberProfileActivityPr
 
 import java.lang.ref.WeakReference;
 
-public class FamilyOtherMemberActivityPresenter extends BaseFamilyOtherMemberProfileActivityPresenter implements FamilyOtherMemberProfileExtendedContract.Presenter, FamilyProfileContract.InteractorCallBack {
+public class FamilyOtherMemberActivityPresenter extends BaseFamilyOtherMemberProfileActivityPresenter implements FamilyOtherMemberProfileExtendedContract.Presenter, FamilyProfileContract.InteractorCallBack, FamilyProfileExtendedContract.PresenterCallBack {
     private static final String TAG = FamilyOtherMemberActivityPresenter.class.getCanonicalName();
 
     private WeakReference<FamilyOtherMemberProfileExtendedContract.View> viewReference;
@@ -34,6 +35,8 @@ public class FamilyOtherMemberActivityPresenter extends BaseFamilyOtherMemberPro
 
         this.profileInteractor = new FamilyProfileInteractor();
         this.profileModel = new BaseFamilyProfileModel(familyName);
+
+        verifyHasPhone();
     }
 
     public String getFamilyBaseEntityId() {
@@ -83,6 +86,11 @@ public class FamilyOtherMemberActivityPresenter extends BaseFamilyOtherMemberPro
         }
     }
 
+    @Override
+    public void verifyHasPhone() {
+        ((FamilyProfileInteractor) profileInteractor).verifyHasPhone(familyBaseEntityId, this);
+    }
+
     public FamilyOtherMemberProfileExtendedContract.View getView() {
         if (viewReference != null) {
             return viewReference.get();
@@ -91,4 +99,10 @@ public class FamilyOtherMemberActivityPresenter extends BaseFamilyOtherMemberPro
         }
     }
 
+    @Override
+    public void notifyHasPhone(boolean hasPhone) {
+        if (viewReference.get() != null) {
+            viewReference.get().updateHasPhone(hasPhone);
+        }
+    }
 }

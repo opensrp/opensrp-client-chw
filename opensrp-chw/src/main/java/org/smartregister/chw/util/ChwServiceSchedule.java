@@ -29,20 +29,20 @@ import java.util.regex.Pattern;
  * Created by Keyman on 26/05/2017.
  */
 
-public class WCAROServiceSchedule {
+public class ChwServiceSchedule {
 
     private final ServiceTrigger dueTrigger;
     private final ServiceTrigger expiryTrigger;
 
 
-    public static WCAROServiceSchedule getServiceSchedule(JSONObject schedule)
+    public static ChwServiceSchedule getServiceSchedule(JSONObject schedule)
             throws JSONException {
         ServiceTrigger dueTrigger = ServiceTrigger.init(schedule.getJSONObject("due"));
         ServiceTrigger expiryTrigger = ServiceTrigger.init(schedule.optJSONObject("expiry"));
-        return new WCAROServiceSchedule(dueTrigger, expiryTrigger);
+        return new ChwServiceSchedule(dueTrigger, expiryTrigger);
     }
 
-    public WCAROServiceSchedule(ServiceTrigger dueTrigger, ServiceTrigger expiryTrigger) {
+    public ChwServiceSchedule(ServiceTrigger dueTrigger, ServiceTrigger expiryTrigger) {
         this.dueTrigger = dueTrigger;
         this.expiryTrigger = expiryTrigger;
     }
@@ -112,7 +112,7 @@ public class WCAROServiceSchedule {
             }
 
         } catch (Exception e) {
-            Log.e(WCAROServiceSchedule.class.getName(), e.toString(), e);
+            Log.e(ChwServiceSchedule.class.getName(), e.toString(), e);
         }
 
     }
@@ -134,7 +134,7 @@ public class WCAROServiceSchedule {
             }
             return null;
         } catch (Exception e) {
-            Log.e(WCAROServiceSchedule.class.getName(), e.toString(), e);
+            Log.e(ChwServiceSchedule.class.getName(), e.toString(), e);
             return null;
         }
     }
@@ -239,7 +239,7 @@ public class WCAROServiceSchedule {
 
             return afterOffset;
         } catch (Exception e) {
-            Log.e(WCAROServiceSchedule.class.getName(), e.toString(), e);
+            Log.e(ChwServiceSchedule.class.getName(), e.toString(), e);
             return dateTime;
         }
     }

@@ -7,7 +7,7 @@ import org.smartregister.chw.contract.HomeVisitGrowthNutritionContract;
 import org.smartregister.chw.fragment.GrowthNutritionInputFragment;
 import org.smartregister.chw.interactor.HomeVisitGrowthNutritionInteractor;
 import org.smartregister.chw.util.Utils;
-import org.smartregister.chw.util.WCAROServiceSchedule;
+import org.smartregister.chw.util.ChwServiceSchedule;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.Alert;
 import org.smartregister.domain.AlertStatus;
@@ -89,7 +89,7 @@ public class HomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNutriti
                     ServiceWrapper serviceWrapper = saveStateMap.get(type);
                     if (serviceWrapper != null) {
                         recurringServiceRecordRepository.deleteServiceRecord(serviceWrapper.getDbKey());
-                        WCAROServiceSchedule.updateOfflineAlerts(serviceWrapper.getType(), commonPersonObjectClient.entityId(), Utils.dobToDateTime(commonPersonObjectClient));
+                        ChwServiceSchedule.updateOfflineAlerts(serviceWrapper.getType(), commonPersonObjectClient.entityId(), Utils.dobToDateTime(commonPersonObjectClient));
                     }
 
                 }

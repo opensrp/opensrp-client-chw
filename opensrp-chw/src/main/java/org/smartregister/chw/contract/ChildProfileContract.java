@@ -67,6 +67,7 @@ public interface ChildProfileContract {
 
         ChildProfileContract.Presenter presenter();
 
+        void updateHasPhone(boolean hasPhone);
     }
 
     interface Presenter extends BaseProfileContract.Presenter {

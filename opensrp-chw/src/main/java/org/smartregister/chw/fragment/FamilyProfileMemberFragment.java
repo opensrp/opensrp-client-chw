@@ -88,20 +88,22 @@ public class FamilyProfileMemberFragment extends BaseFamilyProfileMemberFragment
         intent.putExtras(getArguments());
         intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, patient.getCaseId());
         intent.putExtra(org.smartregister.chw.util.Constants.INTENT_KEY.CHILD_COMMON_PERSON, patient);
+        intent.putExtra(Constants.INTENT_KEY.FAMILY_HEAD, ((BaseFamilyProfileMemberPresenter) presenter).getFamilyHead());
+        intent.putExtra(Constants.INTENT_KEY.PRIMARY_CAREGIVER, ((BaseFamilyProfileMemberPresenter) presenter).getPrimaryCaregiver());
         startActivity(intent);
     }
 
     public void goToChildProfileActivity(CommonPersonObjectClient patient) {
         Intent intent = new Intent(getActivity(), ChildProfileActivity.class);
         intent.putExtras(getArguments());
-        intent.putExtra(IS_COMES_FROM_FAMILY,true);
+        intent.putExtra(IS_COMES_FROM_FAMILY, true);
         intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, patient.getCaseId());
         startActivity(intent);
     }
 
     @Override
     public void setAdvancedSearchFormData(HashMap<String, String> hashMap) {
-        Log.v(TAG,"setAdvancedSearchFormData");
+        Log.v(TAG, "setAdvancedSearchFormData");
     }
 
 }
