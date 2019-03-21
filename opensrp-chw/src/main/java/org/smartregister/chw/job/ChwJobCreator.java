@@ -7,7 +7,7 @@ import android.util.Log;
 import com.evernote.android.job.Job;
 import com.evernote.android.job.JobCreator;
 
-import org.smartregister.chw.sync.WCAROSyncIntentService;
+import org.smartregister.chw.sync.ChwSyncIntentService;
 import org.smartregister.job.ExtendedSyncServiceJob;
 import org.smartregister.job.ImageUploadServiceJob;
 import org.smartregister.job.PullUniqueIdsServiceJob;
@@ -23,7 +23,7 @@ public class ChwJobCreator implements JobCreator {
     public Job create(@NonNull String tag) {
         switch (tag) {
             case SyncServiceJob.TAG:
-                return new SyncServiceJob(WCAROSyncIntentService.class);
+                return new SyncServiceJob(ChwSyncIntentService.class);
             case ExtendedSyncServiceJob.TAG:
                 return new ExtendedSyncServiceJob();
             case PullUniqueIdsServiceJob.TAG:

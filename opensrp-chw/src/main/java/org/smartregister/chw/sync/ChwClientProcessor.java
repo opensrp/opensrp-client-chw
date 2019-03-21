@@ -41,18 +41,18 @@ import java.util.List;
 import static org.smartregister.chw.util.ChildUtils.addToHomeVisitTable;
 
 
-public class WCAROClientProcessor extends ClientProcessorForJava {
+public class ChwClientProcessor extends ClientProcessorForJava {
 
-//    private static final String TAG = WCAROClientProcessor.class.getName();
+//    private static final String TAG = ChwClientProcessor.class.getName();
 //    private static ClientProcessorForJava instance;
 
-    private WCAROClientProcessor(Context context) {
+    private ChwClientProcessor(Context context) {
         super(context);
     }
 
     public static ClientProcessorForJava getInstance(Context context) {
         if (instance == null) {
-            instance = new WCAROClientProcessor(context);
+            instance = new ChwClientProcessor(context);
         }
         return instance;
     }
@@ -334,7 +334,7 @@ public class WCAROClientProcessor extends ClientProcessorForJava {
             }
 
         } catch (Exception e) {
-            Log.e(WCAROClientProcessor.class.getCanonicalName(), Log.getStackTraceString(e));
+            Log.e(ChwClientProcessor.class.getCanonicalName(), Log.getStackTraceString(e));
         }
 
     }
