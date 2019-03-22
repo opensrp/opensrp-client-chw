@@ -16,6 +16,9 @@ import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.Utils;
 
 import java.lang.ref.WeakReference;
+import java.text.MessageFormat;
+
+import static org.smartregister.util.Utils.getName;
 
 public class FamilyOtherMemberActivityPresenter extends BaseFamilyOtherMemberProfileActivityPresenter implements FamilyOtherMemberProfileExtendedContract.Presenter, FamilyProfileContract.InteractorCallBack, FamilyProfileExtendedContract.PresenterCallBack {
     private static final String TAG = FamilyOtherMemberActivityPresenter.class.getCanonicalName();
@@ -70,15 +73,12 @@ public class FamilyOtherMemberActivityPresenter extends BaseFamilyOtherMemberPro
     public void refreshProfileTopSection(CommonPersonObjectClient client) {
         super.refreshProfileTopSection(client);
         if (client != null && client.getColumnmaps() != null) {
-            String firstName = Utils.getValue(client.getColumnmaps(), "first_name", true);
+            String firstName = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.FIRST_NAME, true);
             String middleName = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.MIDDLE_NAME, true);
-            firstName += " " + middleName;
-
-            String lastName = Utils.getValue(client.getColumnmaps(), "last_name", true);
-
+            String lastName = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.LAST_NAME, true);
             int age = Utils.getAgeFromDate(Utils.getValue(client.getColumnmaps(), DBConstants.KEY.DOB, true));
-            lastName += ", " + age;
-            this.getView().setProfileName(org.smartregister.util.Utils.getName(firstName, lastName));
+
+            this.getView().setProfileName(MessageFormat.format("{0}, {1}" , getName(getName(firstName, middleName),lastName), age));
         }
     }
 
