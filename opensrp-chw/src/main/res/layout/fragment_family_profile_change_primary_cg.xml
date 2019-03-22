@@ -1,0 +1,109 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context="org.smartregister.chw.fragment.FamilyProfileChangePrimaryCG">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:weightSum="1">
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/tool_bar_size"
+            android:fitsSystemWindows="true"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/detail_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/family_actionbar"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Dark">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/close"
+                        android:layout_width="@dimen/tool_bar_image"
+                        android:layout_height="@dimen/tool_bar_image"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="@dimen/dialog_toolbar_close_margin"
+                        android:layout_marginRight="@dimen/dialog_toolbar_close_margin"
+                        app:srcCompat="@drawable/ic_action_close" />
+
+                    <org.smartregister.view.customcontrols.CustomFontTextView
+                        android:id="@+id/textview_title"
+                        style="@style/CustomFontTextViewStyle.ClientList"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toEndOf="@+id/close"
+                        android:layout_toRightOf="@+id/close"
+                        android:text="@string/change_caregiver_member_title"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                        android:textColor="@android:color/white"
+                        android:layout_toStartOf="@+id/tvAction"
+                        android:ellipsize="end"
+                        android:textSize="@dimen/tool_bar_title" />
+
+                    <org.smartregister.view.customcontrols.CustomFontTextView
+                        android:id="@+id/tvAction"
+                        style="@style/CustomFontTextViewStyle.ClientList.Medium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="20dp"
+                        android:text="@string/save_title"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                        android:textColor="@android:color/darker_gray"
+                        android:textSize="@dimen/tool_bar_title" />
+
+                </RelativeLayout>
+
+            </android.support.v7.widget.Toolbar>
+
+        </android.support.design.widget.AppBarLayout>
+
+
+        <org.smartregister.view.customcontrols.CustomFontTextView
+            android:id="@+id/textview_title_question"
+            style="@style/CustomFontTextViewStyle.ClientList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="30dp"
+            android:gravity="center_vertical"
+            android:singleLine="false"
+            android:text="@string/change_caregiver_member_title_question"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+
+            android:textColor="@android:color/black" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" />
+
+</RelativeLayout>

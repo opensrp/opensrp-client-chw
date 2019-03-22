@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="org.smartregister.chw">
+
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+
+    <application
+        android:name="org.smartregister.chw.application.ChwApplication"
+        android:allowBackup="true"
+        android:supportsRtl="true"
+        android:theme="@style/ChwTheme"
+        tools:replace="android:theme">
+        <activity
+            android:name="org.smartregister.chw.activity.JobAidsActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name="org.smartregister.chw.activity.FamilyRemoveMemberActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name="org.smartregister.chw.activity.FamilyProfileMenuActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name="org.smartregister.chw.activity.FamilyRegisterActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name="org.smartregister.chw.activity.FamilyProfileActivity"
+            android:label="@string/title_family_detail"
+            android:parentActivityName="org.smartregister.chw.activity.FamilyRegisterActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/ChwTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.smartregister.chw.activity.FamilyRegisterActivity" />
+        </activity>
+        <activity
+            android:name="org.smartregister.chw.activity.FamilyOtherMemberProfileActivity"
+            android:label="@string/title_family_detail"
+            android:parentActivityName="org.smartregister.chw.activity.FamilyRegisterActivity"
+            android:theme="@style/FamilyTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.smartregister.chw.activity.FamilyProfileActivity" />
+        </activity>
+        <activity
+            android:name="org.smartregister.family.activity.FamilyWizardFormActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/FamilyTheme.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
+        <activity
+            android:name="org.smartregister.chw.activity.ChildRegisterActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name="org.smartregister.chw.activity.ChildProfileActivity"
+            android:label="@string/child_details"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name="org.smartregister.chw.activity.MedicalHistoryActivity"
+            android:label="@string/medical_history"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name="org.smartregister.chw.activity.UpcomingServicesActivity"
+            android:label="@string/upcoming_services"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name="org.smartregister.chw.activity.IndividualProfileRemoveActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+
+        <activity
+            android:name="org.smartregister.chw.activity.LoginActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/ChwTheme.Login"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+
+        <activity-alias
+            android:name=".activity.LoginActivityLiberia"
+            android:enabled="true"
+            android:icon="@mipmap/ic_liberia_launcher"
+            android:label="@string/liberia_app_name"
+            android:roundIcon="@mipmap/ic_liberia_launcher_round"
+            android:targetActivity="org.smartregister.chw.activity.LoginActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+
+        <activity-alias
+            android:name=".activity.LoginActivityTanzania"
+            android:enabled="false"
+            android:icon="@mipmap/ic_launcher"
+            android:label="@string/tanzania_app_name"
+            android:roundIcon="@mipmap/ic_launcher_round"
+            android:targetActivity="org.smartregister.chw.activity.LoginActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/captured_images_path" />
+        </provider>
+
+        <service android:name="org.smartregister.immunization.service.intent.VaccineIntentService" />
+        <service android:name="org.smartregister.immunization.service.intent.RecurringIntentService" />
+        <service android:name="org.smartregister.sync.intent.PullUniqueIdsIntentService" />
+        <service android:name="org.smartregister.chw.sync.ChwSyncIntentService" />
+        <service android:name="org.smartregister.sync.intent.ExtendedSyncIntentService" />
+        <service android:name="org.smartregister.sync.intent.ValidateIntentService" />
+        <service android:name="org.smartregister.service.ImageUploadSyncService" />
+
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
+    </application>
+
+</manifest>
