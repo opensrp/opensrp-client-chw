@@ -33,7 +33,6 @@ import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.ChildProfileActivity;
 import org.smartregister.chw.activity.ChildRegisterActivity;
-import org.smartregister.chw.adapter.HomeVisitBirthAndIllnessDataAdapter;
 import org.smartregister.chw.contract.ChildHomeVisitContract;
 import org.smartregister.chw.custom_view.HomeVisitGrowthAndNutrition;
 import org.smartregister.chw.custom_view.HomeVisitImmunizationView;
@@ -204,11 +203,11 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
 
         switch (v.getId()) {
             case R.id.birth_cert_group:
-                String selectedForm = "Birth";
+                // String selectedForm = "Birth";
                 presenter.startBirthCertForm(birthCertJson);
                 break;
             case R.id.obs_illness_prevention_group:
-                selectedForm = "illness";
+                // selectedForm = "illness";
                 presenter.startObsIllnessCertForm(illnessJson);
                 break;
             case R.id.textview_submit:
@@ -275,12 +274,12 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     }
 
     private void undoRecord() {
-        Observable.zip( homeVisitGrowthAndNutritionLayout.undoGrowthData(), homeVisitImmunizationView.undoVaccine(), new BiFunction() {
-                    @Override
-                    public Object apply(Object o, Object o2) throws Exception {
-                        return null;
-                    }
-                })
+        Observable.zip(homeVisitGrowthAndNutritionLayout.undoGrowthData(), homeVisitImmunizationView.undoVaccine(), new BiFunction() {
+            @Override
+            public Object apply(Object o, Object o2) throws Exception {
+                return null;
+            }
+        })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(new Consumer<Disposable>() {
@@ -530,6 +529,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     private boolean isAllGrowthSelected() {
         return homeVisitGrowthAndNutritionLayout.isAllSelected();
     }
+
     public void setEditMode(boolean isEditMode) {
         this.isEditMode = isEditMode;
     }

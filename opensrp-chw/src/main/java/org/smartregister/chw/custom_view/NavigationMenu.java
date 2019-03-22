@@ -2,7 +2,6 @@ package org.smartregister.chw.custom_view;
 
 import android.app.Activity;
 import android.content.res.Configuration;
-import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -137,7 +136,7 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
 
         drawer = activity.findViewById(R.id.drawer_layout);
         recyclerView = rootView.findViewById(R.id.rvOptions);
-        NavigationView navigationView = rootView.findViewById(R.id.nav_view);
+        // NavigationView navigationView = rootView.findViewById(R.id.nav_view);
         tvLogout = rootView.findViewById(R.id.tvLogout);
         recyclerView = rootView.findViewById(R.id.rvOptions);
         ivSync = rootView.findViewById(R.id.ivSyncIcon);

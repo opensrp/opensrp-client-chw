@@ -1,6 +1,5 @@
 package org.smartregister.chw.interactor;
 
-import android.content.Context;
 import android.util.Log;
 
 import org.junit.After;
@@ -13,7 +12,6 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.reflect.Whitebox;
 import org.smartregister.chw.BaseUnitTest;
 import org.smartregister.chw.contract.MedicalHistoryContract;
-import org.smartregister.chw.presenter.MedicalHistoryPresenter;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.util.AppExecutors;
 
@@ -34,14 +32,10 @@ public class MedicalHistoryInteractorTest extends BaseUnitTest {
 
     private MedicalHistoryInteractor interactor;
     @Mock
-    private MedicalHistoryPresenter presenter;
-    @Mock
-    private Context context;
-    @Mock
     private MedicalHistoryContract.InteractorCallBack callBack;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         MockitoAnnotations.initMocks(this);
         interactor = Mockito.spy(MedicalHistoryInteractor.class);
     }

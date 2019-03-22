@@ -54,17 +54,15 @@ public class FamilyCallDialogInteractor implements FamilyCallDialogContract.Inte
                     });
                 }
 
-                if (familyHeadID != null && !familyHeadID.equals(primaryCaregiverID)) {
-                    // load family head
-                    if (primaryCaregiverID != null) {
-                        final FamilyCallDialogModel careGiverModel = prepareModel(context, familyHeadID, primaryCaregiverID, false);
-                        appExecutors.mainThread().execute(new Runnable() {
-                            @Override
-                            public void run() {
-                                presenter.updateCareGiver((careGiverModel == null || careGiverModel.getPhoneNumber() == null) ? null : careGiverModel);
-                            }
-                        });
-                    }
+                if (familyHeadID != null && !familyHeadID.equals(primaryCaregiverID) && primaryCaregiverID != null) {
+                    final FamilyCallDialogModel careGiverModel = prepareModel(context, familyHeadID, primaryCaregiverID, false);
+                    appExecutors.mainThread().execute(new Runnable() {
+                        @Override
+                        public void run() {
+                            presenter.updateCareGiver((careGiverModel == null || careGiverModel.getPhoneNumber() == null) ? null : careGiverModel);
+                        }
+                    });
+
                 }
             }
         };
