@@ -3,6 +3,11 @@ package org.smartregister.chw.util;
 public class BirthIllnessData {
     private String question;
     private String answer;
+    private String birthCertDate;
+    private String birthCertNumber;
+    private String illnessDate;
+    private String illnessDescription;
+    private String actionTaken;
 
     public String getQuestion() {
         return question;
@@ -69,13 +74,5 @@ public class BirthIllnessData {
     public void setActionTaken(String actionTaken) {
         this.actionTaken = actionTaken;
     }
-
-    private String birthCertDate;
-    private String birthCertNumber;
-
-    private String illnessDate;
-    private String illnessDescription;
-    private String actionTaken;
-
 
 }

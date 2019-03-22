@@ -37,9 +37,9 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MyViewHold
 
     private String selected = null;
 
-    Animation slideUp;
-    Animation slideDown;
-    List<String> eduOptions;
+    private Animation slideUp;
+    private Animation slideDown;
+    private List<String> eduOptions;
 
     public MemberAdapter(Context context, List<FamilyMember> myDataset) {
         familyMembers = myDataset;

@@ -32,6 +32,7 @@ import org.smartregister.domain.FetchStatus;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 
 import java.lang.ref.WeakReference;
+import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -40,7 +41,6 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
 
     private static NavigationMenu instance;
     private String TAG = NavigationMenu.class.getCanonicalName();
-    private NavigationView navigationView;
     private DrawerLayout drawer;
     private Toolbar toolbar;
 
@@ -137,7 +137,7 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
 
         drawer = activity.findViewById(R.id.drawer_layout);
         recyclerView = rootView.findViewById(R.id.rvOptions);
-        navigationView = rootView.findViewById(R.id.nav_view);
+        NavigationView navigationView = rootView.findViewById(R.id.nav_view);
         tvLogout = rootView.findViewById(R.id.tvLogout);
         recyclerView = rootView.findViewById(R.id.rvOptions);
         ivSync = rootView.findViewById(R.id.ivSyncIcon);
@@ -231,11 +231,9 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
 
     public boolean onBackPressed() {
         boolean res = false;
-        if (drawer != null) {
-            if (drawer.isDrawerOpen(GravityCompat.START)) {
-                drawer.closeDrawer(GravityCompat.START);
-                res = true;
-            }
+        if (drawer != null && drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+            res = true;
         }
         return res;
     }
@@ -247,7 +245,7 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
             TextView tvLastSyncTime = rootView.findViewById(R.id.tvSyncTime);
             if (lastSync != null) {
                 tvLastSyncTime.setVisibility(View.VISIBLE);
-                tvLastSyncTime.setText(" " + sdf.format(lastSync));
+                tvLastSyncTime.setText(MessageFormat.format(" {0}", sdf.format(lastSync)));
             } else {
                 tvLastSyncTime.setVisibility(View.INVISIBLE);
             }
@@ -287,7 +285,7 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
 
     @Override
     public void onSyncInProgress(FetchStatus fetchStatus) {
-        Log.v(TAG,"onSyncInProgress");
+        Log.v(TAG, "onSyncInProgress");
     }
 
     @Override

@@ -2,9 +2,9 @@ package org.smartregister.chw.util;
 
 public class ChildService {
 
-    String serviceName;
-    String serviceStatus;
-    String serviceDate;
+    private String serviceName;
+    private String serviceStatus;
+    private String serviceDate;
 
     public String getServiceName() {
         return serviceName;
