@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.R;
 import org.smartregister.chw.contract.RegisterFragmentContract;
 import org.smartregister.chw.custom_view.NavigationMenu;
@@ -28,6 +30,7 @@ import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.view.activity.BaseRegisterActivity;
 import org.smartregister.view.customcontrols.CustomFontTextView;
 
+import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
@@ -242,6 +245,74 @@ public class FamilyRegisterFragment extends BaseFamilyRegisterFragment {
         return query;
     }
 
+    private String defaultFilterAndSortQuery() {
+        SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder(mainSelect);
+
+        String query = "";
+        try {
+            if (isValidFilterForFts(commonRepository())) {
+
+                StringBuilder sb = new StringBuilder();
+
+                if (ArrayUtils.isEmpty(joinTables)) {
+
+                    sb.append(MessageFormat.format("SELECT {0} FROM {1} ", CommonFtsObject.idColumn, CommonFtsObject.searchTableName(tablename)));
+                    if (StringUtils.isNotBlank(mainCondition)) {
+                        sb.append(MessageFormat.format("WHERE {0} ", mainCondition));
+                    }
+
+                    if (StringUtils.isNotBlank(filters)) {
+                        sb.append(MessageFormat.format("AND PHRASE MATCH '{0}*' ", filters));
+                    }
+
+                    sb.append(MessageFormat.format("LIMIT {0} , {1} ", clientAdapter.getCurrentoffset(), clientAdapter.getCurrentlimit()));
+
+                } else {
+
+                    StringBuilder sbJoin = new StringBuilder();
+                    for (String tableName : joinTables) {
+
+                        if (StringUtils.isNotBlank(sbJoin.toString().trim())) {
+                            sbJoin.append("UNION ");
+                        }
+
+                        sbJoin.append(MessageFormat.format("SELECT {0} FROM {1} WHERE date_removed is null ", CommonFtsObject.relationalIdColumn, CommonFtsObject.searchTableName(tableName)));
+                        if (StringUtils.isNotBlank(filters)) {
+                            sbJoin.append(MessageFormat.format("AND PHRASE MATCH ''{0}*'' ", filters));
+                        }
+                    }
+
+                    sb.append(MessageFormat.format("SELECT {0} FROM {1} WHERE {2} IN ",
+                            CommonFtsObject.idColumn,
+                            CommonFtsObject.searchTableName(tablename),
+                            CommonFtsObject.idColumn
+                    ));
+
+                    sb.append(MessageFormat.format("( {0} ) ORDER BY {1} ", sbJoin.toString(), Sortqueries));
+
+                    sb.append(MessageFormat.format("LIMIT {0} , {1} ",
+                            clientAdapter.getCurrentoffset(),
+                            clientAdapter.getCurrentlimit()
+                    ));
+                }
+
+                List<String> ids = commonRepository().findSearchIds(sb.toString());
+                query = sqb.toStringFts(ids, tablename, CommonRepository.ID_COLUMN,
+                        Sortqueries);
+                query = sqb.Endquery(query);
+            } else {
+                sqb.addCondition(filters);
+                query = sqb.orderbyCondition(Sortqueries);
+                query = sqb.Endquery(sqb.addlimitandOffset(query, clientAdapter.getCurrentlimit(), clientAdapter.getCurrentoffset()));
+
+            }
+        } catch (Exception e) {
+            Log.e(getClass().getName(), e.toString(), e);
+        }
+
+        return query;
+    }
+
     @Override
     public void countExecute() {
         if (!dueFilterActive) {
@@ -292,29 +363,21 @@ public class FamilyRegisterFragment extends BaseFamilyRegisterFragment {
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, final Bundle args) {
-        if (!dueFilterActive) {
-            return super.onCreateLoader(id, args);
-        } else {
-            switch (id) {
-                case LOADER_ID:
-                    // Returns a new CursorLoader
-                    return new CursorLoader(getActivity()) {
-                        @Override
-                        public Cursor loadInBackground() {
-                            // Count query
-                            final String COUNT = "count_execute";
-                            if (args != null && args.getBoolean(COUNT)) {
-                                countExecute();
-                            }
-                            String query = dueFilterAndSortQuery();
-                            return commonRepository().rawCustomQueryForAdapter(query);
-                        }
-                    };
-                default:
-                    // An invalid id was passed in
-                    return null;
-            }
+        if (id == LOADER_ID) {
+            return new CursorLoader(getActivity()) {
+                @Override
+                public Cursor loadInBackground() {
+                    // Count query
+                    final String COUNT = "count_execute";
+                    if (args != null && args.getBoolean(COUNT)) {
+                        countExecute();
+                    }
+                    String query = (dueFilterActive ? dueFilterAndSortQuery() : defaultFilterAndSortQuery());
+                    return commonRepository().rawCustomQueryForAdapter(query);
+                }
+            };
         }
+        return super.onCreateLoader(id, args);
     }
 
     @Override
