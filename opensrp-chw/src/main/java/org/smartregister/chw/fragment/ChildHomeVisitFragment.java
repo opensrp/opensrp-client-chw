@@ -38,6 +38,7 @@ import org.smartregister.chw.contract.ChildHomeVisitContract;
 import org.smartregister.chw.custom_view.HomeVisitGrowthAndNutrition;
 import org.smartregister.chw.custom_view.HomeVisitImmunizationView;
 import org.smartregister.chw.presenter.ChildHomeVisitPresenter;
+import org.smartregister.chw.rule.BirthCertRule;
 import org.smartregister.chw.util.BirthIllnessData;
 import org.smartregister.chw.util.ChildDBConstants;
 import org.smartregister.chw.util.ChildUtils;
@@ -51,6 +52,7 @@ import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.immunization.domain.VaccineWrapper;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import io.reactivex.Observable;
@@ -62,6 +64,7 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 import static org.smartregister.chw.util.ChildDBConstants.KEY.BIRTH_CERT;
+import static org.smartregister.chw.util.Utils.dd_MMM_yyyy;
 import static org.smartregister.util.Utils.getValue;
 
 public class ChildHomeVisitFragment extends DialogFragment implements View.OnClickListener, ChildHomeVisitContract.View {
@@ -169,7 +172,18 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
             layoutBirthCertGroup.setVisibility(View.VISIBLE);
             viewBirthLine.setVisibility(View.VISIBLE);
             //DateTime ddd = Utils.dobStringToDateTime(dob);
-            textViewBirthCertDueDate.setText(ChildUtils.dueOverdueCalculation(status, dob));
+            //check wether it's due or overdue - overdue is 12m+
+            BirthCertRule birthCertRule = new BirthCertRule(dob);
+            if(birthCertRule.isOverdue(12)) {
+                Date date= org.smartregister.family.util.Utils.dobStringToDate(dob);
+                textViewBirthCertDueDate.setTextColor(getResources().getColor(R.color.alert_urgent_red));
+                textViewBirthCertDueDate.setText(String.format("%s%s", getString(R.string.overdue), dd_MMM_yyyy.format(date)));
+            } else {
+                Date date= org.smartregister.family.util.Utils.dobStringToDate(dob);
+                textViewBirthCertDueDate.setTextColor(getResources().getColor(R.color.grey));
+                textViewBirthCertDueDate.setText(String.format("%s%s", getString(R.string.due), dd_MMM_yyyy.format(date)));
+
+            }
 
         }
     }
