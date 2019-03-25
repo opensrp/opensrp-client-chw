@@ -402,7 +402,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                 textViewBirthCertDueDate.setText(message);
                 updateStatusTick(circleImageViewBirthStatus, true);
             } else {
-                textViewBirthCertDueDate.setText(getString(R.string.not_done));
+                textViewBirthCertDueDate.setText(getString(R.string.not_given));
                 updateStatusTick(circleImageViewBirthStatus, false);
             }
 
