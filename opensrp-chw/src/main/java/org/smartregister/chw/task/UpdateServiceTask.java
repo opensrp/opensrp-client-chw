@@ -7,7 +7,7 @@ import android.util.Log;
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.smartregister.chw.listener.UpdateServiceListener;
-import org.smartregister.chw.util.WCAROServiceSchedule;
+import org.smartregister.chw.util.ChwServiceSchedule;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.Alert;
 import org.smartregister.domain.AlertStatus;
@@ -166,7 +166,7 @@ public class UpdateServiceTask extends AsyncTask<Void, Void, Map<String, UpdateS
         if (!TextUtils.isEmpty(dobString)) {
             DateTime dateTime = new DateTime(dobString);
             VaccineSchedule.updateOfflineAlerts(childDetails.entityId(), dateTime, "child");
-            WCAROServiceSchedule.updateOfflineAlerts(childDetails.entityId(), dateTime);
+            ChwServiceSchedule.updateOfflineAlerts(childDetails.entityId(), dateTime);
         }
 
 

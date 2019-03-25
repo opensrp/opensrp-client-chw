@@ -60,7 +60,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:maxLines="5"
-                android:text="What's the new phone number for the new family head?"
+                android:text="@string/phone_number"
                 android:textColor="@color/black"
                 android:textSize="@dimen/change_member_list_main" />
 
@@ -74,7 +74,7 @@
                 android:background="@drawable/rounded_corner_edit_text"
                 android:cursorVisible="true"
                 android:ems="10"
-                android:hint="Phone Number"
+                android:hint="@string/phone_number"
                 android:imeOptions="actionNext"
                 android:inputType="text"
                 android:lines="1"
@@ -106,7 +106,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:maxLines="5"
-                android:text="Other Phone Number"
+                android:text="@string/other_phone_number"
                 android:textColor="@color/black"
                 android:textSize="@dimen/change_member_list_main" />
 
@@ -120,7 +120,7 @@
                 android:background="@drawable/rounded_corner_edit_text"
                 android:cursorVisible="true"
                 android:ems="10"
-                android:hint="Alternative PhoneNumber"
+                android:hint="@string/other_phone_number"
                 android:imeOptions="actionNext"
                 android:inputType="text"
                 android:lines="1"
@@ -152,7 +152,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:maxLines="5"
-                android:text="Higest Level of Education"
+                android:text="@string/highest_education_level"
                 android:textColor="@color/black"
                 android:textSize="@dimen/change_member_list_main" />
 
@@ -161,7 +161,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/change_member_padding"
-                android:hint="Highest Education Level"
+                android:hint="@string/highest_education_level"
                 android:textColor="#666666"
                 android:textColorHint="#bfbfbf"
                 android:typeface="sans" />

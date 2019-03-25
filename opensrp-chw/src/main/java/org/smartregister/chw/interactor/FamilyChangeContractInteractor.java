@@ -97,7 +97,7 @@ public class FamilyChangeContractInteractor implements FamilyChangeContract.Inte
             @Override
             public void run() {
 
-                String option =  familyMember.first; // familyMember.get(Constants.PROFILE_CHANGE_ACTION.ACTION_TYPE);
+                String option = familyMember.first; // familyMember.get(Constants.PROFILE_CHANGE_ACTION.ACTION_TYPE);
 
                 final FamilyMember member = familyMember.second;
                 member.setFamilyID(familyID);
@@ -215,11 +215,11 @@ public class FamilyChangeContractInteractor implements FamilyChangeContract.Inte
                 for (int i = 0; i < columncount; i++) {
 
                     String value = null;
-                    if(!cursor.isNull(i)){
+                    if (!cursor.isNull(i)) {
                         value = String.valueOf(cursor.getString(i));
                     }
 
-                    switch (cursor.getColumnName(i)){
+                    switch (cursor.getColumnName(i)) {
                         case DBConstants.KEY.RELATIONAL_ID:
                             columns.setFamilyID(value);
                             break;
@@ -254,14 +254,14 @@ public class FamilyChangeContractInteractor implements FamilyChangeContract.Inte
                         case DBConstants.KEY.GENDER:
                             columns.setGender(value);
                             break;
+                        default:
+                            break;
                     }
                 }
 
                 // add if member is above 5 year
-                if (dob != null) {
-                    if (getDiffYears(dob, new Date()) >= 5) {
-                        res.add(columns);
-                    }
+                if (dob != null && (getDiffYears(dob, new Date()) >= 5)) {
+                    res.add(columns);
                 }
                 cursor.moveToNext();
             }

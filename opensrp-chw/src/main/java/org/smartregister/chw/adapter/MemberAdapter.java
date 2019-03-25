@@ -79,7 +79,7 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MyViewHold
             dobString = dobString.contains("y") ? dobString.substring(0, dobString.indexOf("y")) : dobString;
         }
 
-        holder.tvName.setText(String.format("%s , %s", model.getFullNames(), dobString));
+        holder.tvName.setText(String.format("%s, %s", model.getFullNames(), dobString));
         holder.llQuestions.setVisibility(model.getMemberID().equals(selected) ? View.VISIBLE : View.GONE);
         holder.radioButton.setChecked(model.getMemberID().equals(selected));
 
@@ -152,29 +152,8 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MyViewHold
             return false;
         }
 
-        boolean res = true;
-
-        String text = currentViewHolder.etPhone.getText().toString().trim();
-        if (text.length() > 0 && !text.substring(0, 1).equals("0")) {
-            currentViewHolder.etPhone.setError("Must start with 0");
-            res = false;
-        }
-
-        if (text.length() > 0 && text.length() != 10) {
-            currentViewHolder.etPhone.setError("Length must be equal to 10");
-            res = false;
-        }
-
-        text = currentViewHolder.etAlternatePhone.getText().toString().trim();
-        if (text.length() > 0 && !text.substring(0, 1).equals("0")) {
-            currentViewHolder.etAlternatePhone.setError("Must start with 0");
-            res = false;
-        }
-
-        if (text.length() > 0 && text.length() != 10) {
-            currentViewHolder.etAlternatePhone.setError("Length must be equal to 10");
-            res = false;
-        }
+        boolean res = validateTextView(currentViewHolder.etPhone);
+        res = (res && validateTextView(currentViewHolder.etAlternatePhone));
 
         if (!res) {
             AlertDialog.Builder builder1 = new AlertDialog.Builder(context);
@@ -193,6 +172,20 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MyViewHold
             alert11.show();
         }
         return res;
+    }
+
+    private boolean validateTextView(TextView textView){
+        String text = textView.getText().toString().trim();
+        if (text.length() > 0 && !text.substring(0, 1).equals("0")) {
+            textView.setError("Must start with 0");
+            return false;
+        }
+
+        if (text.length() > 0 && text.length() != 10) {
+            textView.setError("Length must be equal to 10");
+            return false;
+        }
+        return true;
     }
 
     public FamilyMember getSelectedResults() {

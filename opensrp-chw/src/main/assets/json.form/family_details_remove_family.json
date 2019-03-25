@@ -102,7 +102,7 @@
         "openmrs_entity_id": "160417AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Reason *",
+        "hint": "Reason",
         "values": [
           "Moved away",
           "Other"
@@ -124,7 +124,7 @@
         "openmrs_data_type": "text",
         "type": "date_picker",
         "label": "Date moved away",
-        "hint": "Date moved away *",
+        "hint": "Date moved away",
         "expanded": false,
         "min_date": "today-10y",
         "max_date": "today",

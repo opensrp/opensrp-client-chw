@@ -4,6 +4,7 @@ import android.util.Log;
 
 import org.apache.commons.lang3.tuple.Triple;
 import org.smartregister.chw.contract.FamilyOtherMemberProfileExtendedContract;
+import org.smartregister.chw.contract.FamilyProfileExtendedContract;
 import org.smartregister.chw.interactor.FamilyProfileInteractor;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.contract.FamilyOtherMemberContract;
@@ -15,8 +16,11 @@ import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.Utils;
 
 import java.lang.ref.WeakReference;
+import java.text.MessageFormat;
 
-public class FamilyOtherMemberActivityPresenter extends BaseFamilyOtherMemberProfileActivityPresenter implements FamilyOtherMemberProfileExtendedContract.Presenter, FamilyProfileContract.InteractorCallBack {
+import static org.smartregister.util.Utils.getName;
+
+public class FamilyOtherMemberActivityPresenter extends BaseFamilyOtherMemberProfileActivityPresenter implements FamilyOtherMemberProfileExtendedContract.Presenter, FamilyProfileContract.InteractorCallBack, FamilyProfileExtendedContract.PresenterCallBack {
     private static final String TAG = FamilyOtherMemberActivityPresenter.class.getCanonicalName();
 
     private WeakReference<FamilyOtherMemberProfileExtendedContract.View> viewReference;
@@ -36,6 +40,8 @@ public class FamilyOtherMemberActivityPresenter extends BaseFamilyOtherMemberPro
 
         this.profileInteractor = new FamilyProfileInteractor();
         this.profileModel = new BaseFamilyProfileModel(familyName);
+
+        verifyHasPhone();
     }
 
     public String getFamilyBaseEntityId() {
@@ -67,15 +73,12 @@ public class FamilyOtherMemberActivityPresenter extends BaseFamilyOtherMemberPro
     public void refreshProfileTopSection(CommonPersonObjectClient client) {
         super.refreshProfileTopSection(client);
         if (client != null && client.getColumnmaps() != null) {
-            String firstName = Utils.getValue(client.getColumnmaps(), "first_name", true);
+            String firstName = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.FIRST_NAME, true);
             String middleName = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.MIDDLE_NAME, true);
-            firstName += " " + middleName;
-
-            String lastName = Utils.getValue(client.getColumnmaps(), "last_name", true);
-
+            String lastName = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.LAST_NAME, true);
             int age = Utils.getAgeFromDate(Utils.getValue(client.getColumnmaps(), DBConstants.KEY.DOB, true));
-            lastName += ", " + age;
-            this.getView().setProfileName(org.smartregister.util.Utils.getName(firstName, lastName));
+
+            this.getView().setProfileName(MessageFormat.format("{0}, {1}" , getName(getName(firstName, middleName),lastName), age));
         }
     }
 
@@ -101,6 +104,11 @@ public class FamilyOtherMemberActivityPresenter extends BaseFamilyOtherMemberPro
         }
     }
 
+    @Override
+    public void verifyHasPhone() {
+        ((FamilyProfileInteractor) profileInteractor).verifyHasPhone(familyBaseEntityId, this);
+    }
+
     public FamilyOtherMemberProfileExtendedContract.View getView() {
         if (viewReference != null) {
             return viewReference.get();
@@ -109,4 +117,10 @@ public class FamilyOtherMemberActivityPresenter extends BaseFamilyOtherMemberPro
         }
     }
 
+    @Override
+    public void notifyHasPhone(boolean hasPhone) {
+        if (viewReference.get() != null) {
+            viewReference.get().updateHasPhone(hasPhone);
+        }
+    }
 }

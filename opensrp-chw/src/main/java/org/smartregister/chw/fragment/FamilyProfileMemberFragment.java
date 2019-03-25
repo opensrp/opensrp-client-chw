@@ -2,6 +2,7 @@ package org.smartregister.chw.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import org.smartregister.chw.R;
@@ -23,6 +24,8 @@ import java.util.Set;
 import static org.smartregister.chw.util.Constants.INTENT_KEY.IS_COMES_FROM_FAMILY;
 
 public class FamilyProfileMemberFragment extends BaseFamilyProfileMemberFragment {
+
+    private static final String TAG = FamilyProfileMemberFragment.class.getCanonicalName();
 
     public static BaseFamilyProfileMemberFragment newInstance(Bundle bundle) {
         Bundle args = bundle;
@@ -85,19 +88,22 @@ public class FamilyProfileMemberFragment extends BaseFamilyProfileMemberFragment
         intent.putExtras(getArguments());
         intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, patient.getCaseId());
         intent.putExtra(org.smartregister.chw.util.Constants.INTENT_KEY.CHILD_COMMON_PERSON, patient);
+        intent.putExtra(Constants.INTENT_KEY.FAMILY_HEAD, ((BaseFamilyProfileMemberPresenter) presenter).getFamilyHead());
+        intent.putExtra(Constants.INTENT_KEY.PRIMARY_CAREGIVER, ((BaseFamilyProfileMemberPresenter) presenter).getPrimaryCaregiver());
         startActivity(intent);
     }
 
     public void goToChildProfileActivity(CommonPersonObjectClient patient) {
         Intent intent = new Intent(getActivity(), ChildProfileActivity.class);
         intent.putExtras(getArguments());
-        intent.putExtra(IS_COMES_FROM_FAMILY,true);
+        intent.putExtra(IS_COMES_FROM_FAMILY, true);
         intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, patient.getCaseId());
         startActivity(intent);
     }
 
     @Override
     public void setAdvancedSearchFormData(HashMap<String, String> hashMap) {
+        Log.v(TAG, "setAdvancedSearchFormData");
     }
 
 }

@@ -18,5 +18,6 @@ public interface FamilyOtherMemberProfileExtendedContract {
 
         void refreshList();
 
+        void updateHasPhone(boolean hasPhone);
     }
 }

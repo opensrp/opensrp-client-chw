@@ -29,7 +29,7 @@ import org.smartregister.chw.custom_view.HomeVisitGrowthAndNutrition;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.JsonFormUtils;
 import org.smartregister.chw.util.Utils;
-import org.smartregister.chw.util.WCAROServiceSchedule;
+import org.smartregister.chw.util.ChwServiceSchedule;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.immunization.ImmunizationLibrary;
@@ -45,10 +45,30 @@ import java.util.Map;
 @SuppressLint("ValidFragment")
 public class GrowthNutritionInputFragment extends DialogFragment implements RadioGroup.OnCheckedChangeListener, View.OnClickListener {
 
+    static final Map<String, Integer> imageMap = ImmutableMap.of(
+            GROWTH_TYPE.VITAMIN.getValue(), R.drawable.ic_form_vitamin,
+            GROWTH_TYPE.MNP.getValue(), R.drawable.ic_form_mnp,
+            GROWTH_TYPE.DEWORMING.getValue(), R.drawable.ic_form_deworming
+    );
+
+    private TextView textViewTitle;
+    private Button buttonSave, buttonSaveBf, buttonCancel;
+    private RadioButton yesRadio, noRadio;
+
+    private String type;
+    private View layoutExclusiveFeeding, layoutVitaminBar;
+    private TextView textViewVitamin;
+    private DatePicker datePicker;
+    private ImageView vitaminImage;
+    private String isFeeding = "";
+    private ServiceWrapper serviceWrapper;
+    private CommonPersonObjectClient commonPersonObjectClient;
+    private LinearLayout context;
+    private ServiceWrapper saveService;
+    String dob;
 
     public GrowthNutritionInputFragment(ServiceWrapper serviceWrapper) {
         this.serviceWrapper = serviceWrapper;
-
     }
 
     public static GrowthNutritionInputFragment getInstance(String title, String question, String type, ServiceWrapper serviceWrapper,
@@ -62,28 +82,6 @@ public class GrowthNutritionInputFragment extends DialogFragment implements Radi
         growthNutritionInputFragment.setArguments(bundle);
         return growthNutritionInputFragment;
     }
-  
-    static final Map<String,Integer> imageMap=ImmutableMap.of(
-            GROWTH_TYPE.VITAMIN.getValue(), R.drawable.ic_form_vitamin,
-            GROWTH_TYPE.MNP.getValue(),R.drawable.ic_form_mnp,
-            GROWTH_TYPE.DEWORMING.getValue(),R.drawable.ic_form_deworming
-    );
-
-    private TextView textViewTitle;
-    private Button buttonSave,buttonSaveBf,buttonCancel;
-    private RadioButton yesRadio,noRadio;
-
-    private String type;
-    private View layoutExclusiveFeeding, layoutVitaminBar;
-    private TextView textViewVitamin;
-    private DatePicker datePicker;
-    private ImageView vitaminImage;
-    private String isFeeding = "";
-    private ServiceWrapper serviceWrapper;
-    private CommonPersonObjectClient commonPersonObjectClient;
-    private LinearLayout context;
-    private ServiceWrapper saveService;
-    String dob;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -115,10 +113,10 @@ public class GrowthNutritionInputFragment extends DialogFragment implements Radi
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         textViewTitle = view.findViewById(R.id.textview_vaccine_title);
         buttonSave = view.findViewById(R.id.save_btn);
-        buttonSaveBf=view.findViewById(R.id.save_bf_btn);
-        buttonCancel= view.findViewById(R.id.cancel);
-        yesRadio=view.findViewById(R.id.yes);
-        noRadio=view.findViewById(R.id.no);
+        buttonSaveBf = view.findViewById(R.id.save_bf_btn);
+        buttonCancel = view.findViewById(R.id.cancel);
+        yesRadio = view.findViewById(R.id.yes);
+        noRadio = view.findViewById(R.id.no);
         layoutExclusiveFeeding = view.findViewById(R.id.exclusive_feeding_bar);
         layoutVitaminBar = view.findViewById(R.id.vitamin_a_bar);
         vitaminImage = view.findViewById(R.id.vitamin_image);
@@ -218,6 +216,8 @@ public class GrowthNutritionInputFragment extends DialogFragment implements Radi
                 saveButtonDisable(false);
                 isFeeding = "yes";
                 break;
+            default:
+                break;
         }
     }
 
@@ -282,6 +282,8 @@ public class GrowthNutritionInputFragment extends DialogFragment implements Radi
                 }
                 dismiss();
                 break;
+            default:
+                break;
         }
     }
 
@@ -325,7 +327,7 @@ public class GrowthNutritionInputFragment extends DialogFragment implements Radi
                 //list.add(tag);
                 //serviceId=tag.getServiceType().getId()+"";
                 //tag.getDbKey();
-                WCAROServiceSchedule.updateOfflineAlerts(tag.getType(), commonPersonObjectClient.entityId(), Utils.dobToDateTime(commonPersonObjectClient));
+                ChwServiceSchedule.updateOfflineAlerts(tag.getType(), commonPersonObjectClient.entityId(), Utils.dobToDateTime(commonPersonObjectClient));
                 serviceWrapper = tag;
             }
             return serviceWrapper;

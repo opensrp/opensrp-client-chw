@@ -30,7 +30,7 @@ import org.smartregister.view.LocationPickerView;
 
 import java.lang.ref.WeakReference;
 
-public class FamilyProfilePresenter extends BaseFamilyProfilePresenter implements FamilyProfileExtendedContract.Presenter, ChildRegisterContract.InteractorCallBack {
+public class FamilyProfilePresenter extends BaseFamilyProfilePresenter implements FamilyProfileExtendedContract.Presenter, ChildRegisterContract.InteractorCallBack , FamilyProfileExtendedContract.PresenterCallBack {
     private static final String TAG = FamilyProfilePresenter.class.getCanonicalName();
 
     private WeakReference<FamilyProfileExtendedContract.View> viewReference;
@@ -125,6 +125,7 @@ public class FamilyProfilePresenter extends BaseFamilyProfilePresenter implement
         }
     }
 
+    @Override
     public String saveChwFamilyMember(String jsonString) {
 
         try {
@@ -143,12 +144,13 @@ public class FamilyProfilePresenter extends BaseFamilyProfilePresenter implement
         return null;
     }
 
+    @Override
     public boolean updatePrimaryCareGiver(Context context, String jsonString, String familyBaseEntityId, String entityID) {
 
         boolean res = false;
         try {
             FamilyMember member = JsonFormUtils.getFamilyMemberFromRegistrationForm(jsonString, familyBaseEntityId, entityID);
-            if (member.getPrimaryCareGiver()) {
+            if (member != null && member.getPrimaryCareGiver()) {
                 LocationPickerView lpv = new LocationPickerView(context);
                 lpv.init();
                 String lastLocationId = LocationHelper.getInstance().getOpenMrsLocationId(lpv.getSelectedItem());

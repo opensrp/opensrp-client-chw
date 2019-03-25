@@ -30,15 +30,11 @@ public class FamilyProfileChangeHead extends Fragment implements View.OnClickLis
     protected static final String FAMILY_ID = "FAMILY_ID";
     protected String familyID;
 
-    public FamilyProfileChangeHead() {
-        // Required empty public constructor
-    }
-
     protected MemberAdapter memberAdapter;
-    RecyclerView recyclerView;
-    FamilyChangeContract.Presenter presenter;
-    List<FamilyMember> members;
-    ProgressBar progressBar;
+    protected RecyclerView recyclerView;
+    protected FamilyChangeContract.Presenter presenter;
+    protected List<FamilyMember> members;
+    protected ProgressBar progressBar;
 
     public static FamilyProfileChangeHead newInstance(String familyID) {
         FamilyProfileChangeHead fragment = new FamilyProfileChangeHead();

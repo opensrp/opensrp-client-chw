@@ -67,7 +67,7 @@
                     android:layout_marginLeft="4dp"
                     android:layout_toEndOf="@+id/CallTextView"
                     android:layout_toRightOf="@+id/CallTextView"
-                    android:text="@string/call_no_number_provider"
+                    android:text="@string/call_no_number_provided"
                     android:textColor="@color/grey"
                     android:textStyle="italic"
                     android:visibility="gone"/>
