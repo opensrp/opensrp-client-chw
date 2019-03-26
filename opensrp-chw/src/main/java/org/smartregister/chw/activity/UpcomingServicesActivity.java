@@ -23,7 +23,6 @@ public class UpcomingServicesActivity extends SecuredActivity {
 
 
     private UpcomingServicesFragmentView upcomingServicesView;
-    private TextView textViewTitle;
     private String name;
 
     public static void startUpcomingServicesActivity(Activity activity, CommonPersonObjectClient childClient) {
@@ -59,7 +58,7 @@ public class UpcomingServicesActivity extends SecuredActivity {
 
     private void setUpActionBar() {
         Toolbar toolbar = findViewById(R.id.collapsing_toolbar);
-        textViewTitle = toolbar.findViewById(R.id.toolbar_title);
+        TextView textViewTitle = toolbar.findViewById(R.id.toolbar_title);
         setSupportActionBar(toolbar);
 
         ActionBar actionBar = getSupportActionBar();

@@ -87,10 +87,14 @@ public class FamilyOtherMemberActivityPresenter extends BaseFamilyOtherMemberPro
 
     @Override
     public void onUniqueIdFetched(Triple<String, String, String> triple, String entityId) {
+        //TODO Implement
+        Log.d(TAG, "onUniqueIdFetched unimplemented");
     }
 
     @Override
     public void onNoUniqueId() {
+        //TODO Implement
+        Log.d(TAG, "onNoUniqueId unimplemented");
     }
 
     @Override

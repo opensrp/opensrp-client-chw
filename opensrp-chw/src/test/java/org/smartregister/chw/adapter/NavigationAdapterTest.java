@@ -23,7 +23,6 @@ import static org.junit.Assert.assertEquals;
 @Config(application = ChwApplication.class, constants = BuildConfig.class, sdk = 22)
 public class NavigationAdapterTest {
 
-
     private LoginActivity activity;
     private ActivityController<LoginActivity> controller;
 
@@ -58,7 +57,4 @@ public class NavigationAdapterTest {
         assertEquals(adapter.getItemCount(), 2);
     }
 
-    public void addAction() {
-
-    }
 }

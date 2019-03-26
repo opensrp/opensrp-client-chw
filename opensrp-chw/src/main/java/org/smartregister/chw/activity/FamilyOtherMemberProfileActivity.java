@@ -101,7 +101,7 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
 
     @Override
     public void updateHasPhone(boolean hasPhone) {
-        if(familyFloatingMenu !=null){
+        if (familyFloatingMenu != null) {
             familyFloatingMenu.reDraw(hasPhone);
         }
     }
@@ -240,12 +240,10 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
     }
 
     private void refreshList(Fragment fragment) {
-        if (fragment != null && fragment instanceof BaseRegisterFragment) {
-            if (fragment instanceof FamilyOtherMemberProfileFragment) {
-                FamilyOtherMemberProfileFragment familyOtherMemberProfileFragment = ((FamilyOtherMemberProfileFragment) fragment);
-                if (familyOtherMemberProfileFragment.presenter() != null) {
-                    familyOtherMemberProfileFragment.refreshListView();
-                }
+        if (fragment instanceof BaseRegisterFragment && fragment instanceof FamilyOtherMemberProfileFragment) {
+            FamilyOtherMemberProfileFragment familyOtherMemberProfileFragment = ((FamilyOtherMemberProfileFragment) fragment);
+            if (familyOtherMemberProfileFragment.presenter() != null) {
+                familyOtherMemberProfileFragment.refreshListView();
             }
         }
     }
