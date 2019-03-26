@@ -75,7 +75,8 @@ public class FamilyRemoveMemberFragmentTest {
         FamilyRemoveMemberPresenter familyRemoveMemberPresenter = mock(FamilyRemoveMemberPresenter.class);
         Whitebox.setInternalState(familyRemoveMemberFragment, "presenter", familyRemoveMemberPresenter);
 
-        String familyName = "" , details = "";
+        String familyName = "";
+        String details = "";
         familyRemoveMemberFragment.closeFamily(familyName, details);
         verify(familyRemoveMemberPresenter).removeEveryone(familyName, details);
     }

@@ -16,7 +16,7 @@ import org.smartregister.family.util.Utils;
 public class FamilyCallDialogInteractor implements FamilyCallDialogContract.Interactor {
 
     private AppExecutors appExecutors;
-    String familyBaseEntityId;
+    private String familyBaseEntityId;
 
 
     @VisibleForTesting
@@ -54,15 +54,15 @@ public class FamilyCallDialogInteractor implements FamilyCallDialogContract.Inte
                     });
                 }
 
-                if (familyHeadID != null && !familyHeadID.equals(primaryCaregiverID)) {
-                    // load family head
-                    final FamilyCallDialogModel careGiverModel = prepareModel(context , familyHeadID, primaryCaregiverID, false);
+                if (familyHeadID != null && !familyHeadID.equals(primaryCaregiverID) && primaryCaregiverID != null) {
+                    final FamilyCallDialogModel careGiverModel = prepareModel(context, familyHeadID, primaryCaregiverID, false);
                     appExecutors.mainThread().execute(new Runnable() {
                         @Override
                         public void run() {
                             presenter.updateCareGiver((careGiverModel == null || careGiverModel.getPhoneNumber() == null) ? null : careGiverModel);
                         }
                     });
+
                 }
             }
         };
@@ -102,7 +102,7 @@ public class FamilyCallDialogInteractor implements FamilyCallDialogContract.Inte
         );
 
         model.setRole((primaryCaregiverID.toLowerCase().equals(familyHeadID.toLowerCase()))
-                ? String.format("%s, %s", context.getString(R.string.head_of_family) , context.getString(R.string.care_giver))
+                ? String.format("%s, %s", context.getString(R.string.head_of_family), context.getString(R.string.care_giver))
                 : (isHead ? context.getString(R.string.head_of_family)
                 : context.getString(R.string.care_giver)));
 

@@ -97,18 +97,18 @@ public class Constants {
     }
 
     public static class JsonAssets {
-        public static class FAMILY_MEMBER {
-            public static final String HIGHEST_EDUCATION_LEVEL = "highest_edu_level";
-            public static final String PHONE_NUMBER = "phone_number";
-            public static final String OTHER_PHONE_NUMBER = "other_phone_number";
-        }
-
         public static final String DETAILS = "details";
         public static final String FAM_NAME = "fam_name";
         public static final String SEX = "sex";
         public static final String PRIMARY_CARE_GIVER = "primary_caregiver";
         public static final String AGE = "age";
         public static final String NATIONAL_ID = "national_id";
+
+        public static class FAMILY_MEMBER {
+            public static final String HIGHEST_EDUCATION_LEVEL = "highest_edu_level";
+            public static final String PHONE_NUMBER = "phone_number";
+            public static final String OTHER_PHONE_NUMBER = "other_phone_number";
+        }
     }
 
     public static class ProfileActivityResults {
@@ -116,6 +116,16 @@ public class Constants {
     }
 
     public static class FORM_CONSTANTS {
+
+        public static HashMap<String, String> EDUCATION_LEVELS;
+
+        static {
+            EDUCATION_LEVELS = new HashMap<>();
+            EDUCATION_LEVELS.put("None", "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+            EDUCATION_LEVELS.put("Primary", "1713AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+            EDUCATION_LEVELS.put("Secondary", "1714AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+            EDUCATION_LEVELS.put("Post-secondary", "159785AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+        }
 
         public static class REMOVE_MEMBER_FORM {
             public static final String REASON = "remove_reason";
@@ -140,16 +150,6 @@ public class Constants {
 
         public static class ILLNESS_ACTION_TAKEN_LEVEL {
             public static final String CODE = "164378AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
-        }
-
-        public static HashMap<String, String> EDUCATION_LEVELS;
-
-        static {
-            EDUCATION_LEVELS = new HashMap<>();
-            EDUCATION_LEVELS.put("None", "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-            EDUCATION_LEVELS.put("Primary", "1713AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-            EDUCATION_LEVELS.put("Secondary", "1714AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-            EDUCATION_LEVELS.put("Post-secondary", "159785AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
         }
     }
 

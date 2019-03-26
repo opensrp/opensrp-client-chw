@@ -45,12 +45,10 @@ public class FamilyProfileChangeDialog extends DialogFragment implements View.On
 
 
     protected MemberAdapter memberAdapter;
-    RecyclerView recyclerView;
-    FamilyChangeContract.Presenter presenter;
-    List<FamilyMember> members;
-    TextView tvInfo;
-    TextView tvTitle;
-    ProgressBar progressBar;
+    private RecyclerView recyclerView;
+    private FamilyChangeContract.Presenter presenter;
+    private List<FamilyMember> members;
+    private ProgressBar progressBar;
 
     public static FamilyProfileChangeDialog newInstance(Context context, String familyBaseEntityId, String actionType) {
         FamilyProfileChangeDialog fragment = new FamilyProfileChangeDialog();
@@ -131,8 +129,8 @@ public class FamilyProfileChangeDialog extends DialogFragment implements View.On
         view.findViewById(R.id.tvSubmit).setOnClickListener(this);
         view.findViewById(R.id.tvCancel).setOnClickListener(this);
         progressBar = view.findViewById(R.id.progressBar);
-        tvInfo = view.findViewById(R.id.tvWarning);
-        tvTitle = view.findViewById(R.id.tvTitle);
+        TextView tvInfo = view.findViewById(R.id.tvWarning);
+        TextView tvTitle = view.findViewById(R.id.tvTitle);
         recyclerView = view.findViewById(R.id.rvList);
         progressBar.setVisibility(View.INVISIBLE);
 
