@@ -21,16 +21,16 @@ import static org.mockito.Mockito.mock;
 public class FamilyRemoveMemberPresenterTest {
 
 
-    FamilyRemoveMemberPresenter presenter;
+    private FamilyRemoveMemberPresenter presenter;
 
     @Mock
-    FamilyRemoveMemberContract.View view;
+    private FamilyRemoveMemberContract.View view;
 
     @Mock
-    FamilyRemoveMemberContract.Model model;
+    private FamilyRemoveMemberContract.Model model;
 
     @Mock
-    FamilyRemoveMemberInteractor interactor;
+    private FamilyRemoveMemberInteractor interactor;
 
     private String viewConfigurationIdentifier = "viewConfigurationIdentifier";
     private String familyBaseEntityId = "familyBaseEntityId";

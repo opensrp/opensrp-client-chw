@@ -206,7 +206,8 @@ public class ChwApplication extends DrishtiApplication {
     }
 
     private void scheduleJobs() {
-
+        // TODO implement job scheduling
+        Log.d(TAG,"scheduleJobs pending implementation");
     }
 
     private long getFlexValue(int value) {

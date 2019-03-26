@@ -33,7 +33,6 @@ import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.ChildProfileActivity;
 import org.smartregister.chw.activity.ChildRegisterActivity;
-import org.smartregister.chw.adapter.HomeVisitBirthAndIllnessDataAdapter;
 import org.smartregister.chw.contract.ChildHomeVisitContract;
 import org.smartregister.chw.custom_view.HomeVisitGrowthAndNutrition;
 import org.smartregister.chw.custom_view.HomeVisitImmunizationView;
@@ -71,7 +70,9 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     public static String DIALOG_TAG = "child_home_visit_dialog";
     private Context context;
     private CommonPersonObjectClient childClient;
-    private TextView nameHeader, textViewBirthCertDueDate, textViewObsIllnessTitle, textViewObsIllnessDesc;
+    private TextView nameHeader;
+    private TextView textViewBirthCertDueDate;
+    private TextView textViewObsIllnessDesc;
     private HomeVisitGrowthAndNutrition homeVisitGrowthAndNutritionLayout;
     private View viewBirthLine;
     public boolean allVaccineStateFullfilled = false;
@@ -79,7 +80,8 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     public boolean allServicesDataLoaded = false;
     private TextView submit;
     private HomeVisitImmunizationView homeVisitImmunizationView;
-    private LinearLayout layoutBirthCertGroup, layoutIllnessGroup, homeVisitLayout;
+    private LinearLayout layoutBirthCertGroup;
+    private LinearLayout homeVisitLayout;
     private ChildHomeVisitContract.Presenter presenter;
     private CircleImageView circleImageViewBirthStatus, circleImageViewIllnessStatus;
     private String birthCertGiven = BIRTH_CERT_TYPE.NOT_GIVEN.name();
@@ -87,8 +89,6 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     private JSONObject birthCertJson;
     private String jsonString;
     private boolean isEditMode = false;
-    private String selectedForm;
-    private RecyclerView recyclerViewBirthCertData, recyclerViewIllnessData;
     private ProgressBar progressBar;
 
     public void setContext(Context context) {
@@ -106,9 +106,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
 
-        ViewGroup dialogView = (ViewGroup) inflater.inflate(R.layout.fragment_child_home_visit, container, false);
-
-        return dialogView;
+        return (ViewGroup) inflater.inflate(R.layout.fragment_child_home_visit, container, false);
     }
 
     @Override
@@ -119,7 +117,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         nameHeader = view.findViewById(R.id.textview_name_header);
         textViewBirthCertDueDate = view.findViewById(R.id.textview_birth_certification_name);
         textViewObsIllnessDesc = view.findViewById(R.id.textview_obser_illness_name);
-        textViewObsIllnessTitle = view.findViewById(R.id.textview_obser_illness);
+        TextView textViewObsIllnessTitle = view.findViewById(R.id.textview_obser_illness);
         textViewObsIllnessTitle.setText(Html.fromHtml(getString(R.string.observations_illness_episodes)));
         view.findViewById(R.id.close).setOnClickListener(this);
         viewBirthLine = view.findViewById(R.id.birth_line_view);
@@ -127,9 +125,9 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         circleImageViewBirthStatus = view.findViewById(R.id.birth_status_circle);
         circleImageViewIllnessStatus = view.findViewById(R.id.obs_illness_status_circle);
         layoutBirthCertGroup = view.findViewById(R.id.birth_cert_group);
-        layoutIllnessGroup = view.findViewById(R.id.obs_illness_prevention_group);
-        recyclerViewBirthCertData = view.findViewById(R.id.birth_cert_data_recycler);
-        recyclerViewIllnessData = view.findViewById(R.id.illness_data_recycler);
+        LinearLayout layoutIllnessGroup = view.findViewById(R.id.obs_illness_prevention_group);
+        RecyclerView recyclerViewBirthCertData = view.findViewById(R.id.birth_cert_data_recycler);
+        RecyclerView recyclerViewIllnessData = view.findViewById(R.id.illness_data_recycler);
         recyclerViewBirthCertData.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerViewIllnessData.setLayoutManager(new LinearLayoutManager(getActivity()));
         view.findViewById(R.id.textview_submit).setOnClickListener(this);
@@ -205,11 +203,11 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
 
         switch (v.getId()) {
             case R.id.birth_cert_group:
-                selectedForm = "Birth";
+                // String selectedForm = "Birth";
                 presenter.startBirthCertForm(birthCertJson);
                 break;
             case R.id.obs_illness_prevention_group:
-                selectedForm = "illness";
+                // selectedForm = "illness";
                 presenter.startObsIllnessCertForm(illnessJson);
                 break;
             case R.id.textview_submit:
@@ -276,12 +274,12 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     }
 
     private void undoRecord() {
-        Observable.zip( homeVisitGrowthAndNutritionLayout.undoGrowthData(), homeVisitImmunizationView.undoVaccine(), new BiFunction() {
-                    @Override
-                    public Object apply(Object o, Object o2) throws Exception {
-                        return null;
-                    }
-                })
+        Observable.zip(homeVisitGrowthAndNutritionLayout.undoGrowthData(), homeVisitImmunizationView.undoVaccine(), new BiFunction() {
+            @Override
+            public Object apply(Object o, Object o2) throws Exception {
+                return null;
+            }
+        })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(new Consumer<Disposable>() {
@@ -390,8 +388,6 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         updateStatusTick(circleImageViewIllnessStatus, true);
         updateIllnessData();
     }
-
-    private HomeVisitBirthAndIllnessDataAdapter birthCertDataAdapter, illnessDataAdapter;
 
     private void updateBirthCertData() {
         ArrayList<BirthIllnessData> data = ((ChildHomeVisitPresenter) presenter).getBirthCertDataList();
@@ -533,6 +529,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     private boolean isAllGrowthSelected() {
         return homeVisitGrowthAndNutritionLayout.isAllSelected();
     }
+
     public void setEditMode(boolean isEditMode) {
         this.isEditMode = isEditMode;
     }
