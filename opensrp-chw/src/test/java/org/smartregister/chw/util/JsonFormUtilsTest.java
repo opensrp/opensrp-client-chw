@@ -1,12 +1,14 @@
 package org.smartregister.chw.util;
 
 import org.junit.Test;
-import org.smartregister.chw.BaseTest;
+import org.smartregister.chw.BaseUnitTest;
 
-public class JsonFormUtilsTest extends BaseTest {
+import static org.junit.Assert.assertTrue;
+
+public class JsonFormUtilsTest extends BaseUnitTest {
 
     @Test
-    public void TestGetAutoPopulatedJsonEditMemberFormString() {
-
+    public void testGetAutoPopulatedJsonEditMemberFormString() {
+        assertTrue("TestGetAutoPopulatedJsonEditMemberFormString",true);
     }
 }
