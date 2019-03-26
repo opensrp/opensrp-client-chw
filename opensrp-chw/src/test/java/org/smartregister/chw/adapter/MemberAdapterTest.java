@@ -9,12 +9,10 @@ import org.robolectric.RuntimeEnvironment;
 import org.smartregister.chw.BaseUnitTest;
 import org.smartregister.chw.contract.MemberAdapterListener;
 import org.smartregister.chw.domain.FamilyMember;
-import org.smartregister.chw.presenter.FamilyProfilePresenter;
 
 import java.util.ArrayList;
 
 import static org.mockito.Mockito.verify;
-
 
 public class MemberAdapterTest extends BaseUnitTest {
 

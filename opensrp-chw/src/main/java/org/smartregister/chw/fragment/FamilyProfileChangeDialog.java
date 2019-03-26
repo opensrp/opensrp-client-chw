@@ -11,6 +11,7 @@ import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.util.Pair;
 import android.view.Display;
 import android.view.Gravity;
@@ -37,6 +38,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FamilyProfileChangeDialog extends DialogFragment implements View.OnClickListener, FamilyChangeContract.View, MemberAdapterListener {
+    private static String TAG =  FamilyProfileChangeDialog.class.getCanonicalName();
 
     protected Context context;
     protected String familyID;
@@ -147,7 +149,7 @@ public class FamilyProfileChangeDialog extends DialogFragment implements View.On
 
     @Override
     public void onMenuChoiceChange() {
-
+        Log.v(TAG, "onMenuChoiceChange Fired");
     }
 
     @Override
