@@ -2,6 +2,7 @@ package org.smartregister.chw.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import org.smartregister.chw.R;
@@ -22,6 +23,7 @@ import java.util.Set;
 import static org.smartregister.chw.util.Constants.INTENT_KEY.IS_COMES_FROM_FAMILY;
 
 public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
+    private static final String TAG = FamilyProfileDueFragment.class.getCanonicalName();
 
     private int dueCount = 0;
 
@@ -84,7 +86,7 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
 
             Intent intent = new Intent(getActivity(), ChildProfileActivity.class);
             intent.putExtras(getArguments());
-            intent.putExtra(IS_COMES_FROM_FAMILY,true);
+            intent.putExtra(IS_COMES_FROM_FAMILY, true);
             intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, patient.getCaseId());
             startActivity(intent);
         }
@@ -92,6 +94,9 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
     }
 
     @Override
-    public void setAdvancedSearchFormData(HashMap<String, String> hashMap) { }
+    public void setAdvancedSearchFormData(HashMap<String, String> hashMap) {
+        //TODO
+        Log.d(TAG, "setAdvancedSearchFormData");
+    }
 
 }

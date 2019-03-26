@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -31,12 +32,15 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class MedicalHistoryActivity extends SecuredActivity implements MedicalHistoryContract.View {
-    private TextView textViewTitle, textViewLastVisit, textViewFullyImmunization;
+    private static final String TAG = MedicalHistoryActivity.class.getCanonicalName();
+
+    private TextView textViewTitle;
+    private TextView textViewLastVisit;
     private LinearLayout layoutImmunization, layoutGrowthAndNutrition, layoutBirthCert, layoutIllness;
     private RelativeLayout layoutFullyImmunizationBarAge1, layoutFullyImmunizationBarAge2;
     private RecyclerView recyclerViewImmunization, recyclerViewGrowthNutrition, recyclerViewBirthCert, recyclerViewIllness;
     private Map<String, Date> vaccineList;
-    private String name, lastVisitDays, dateOfBirth;
+    private String dateOfBirth;
     private CommonPersonObjectClient childClient;
     private MedicalHistoryContract.Presenter presenter;
     private VaccineAdapter vaccineAdapter;
@@ -65,7 +69,7 @@ public class MedicalHistoryActivity extends SecuredActivity implements MedicalHi
         layoutFullyImmunizationBarAge2 = findViewById(R.id.immu_bar_age_2);
         layoutBirthCert = findViewById(R.id.birth_cert_list);
         layoutIllness = findViewById(R.id.illness_list);
-        textViewFullyImmunization = findViewById(R.id.fully_immunized);
+        // TextView textViewFullyImmunization = findViewById(R.id.fully_immunized);
         recyclerViewImmunization = findViewById(R.id.immunization_recycler_view);
         recyclerViewGrowthNutrition = findViewById(R.id.recycler_view_growth);
         recyclerViewBirthCert = findViewById(R.id.recycler_view_birth);
@@ -80,7 +84,7 @@ public class MedicalHistoryActivity extends SecuredActivity implements MedicalHi
 
     @Override
     protected void onResumption() {
-
+        Log.d(TAG, "onResumption unimplemented");
     }
 
     private void setUpActionBar() {
@@ -106,19 +110,19 @@ public class MedicalHistoryActivity extends SecuredActivity implements MedicalHi
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-       return false;
+        return false;
     }
 
     private void parseBundleANdUpdateView() {
         childClient = (CommonPersonObjectClient) getIntent().getSerializableExtra(Constants.INTENT_KEY.CHILD_COMMON_PERSON);
-        name = getIntent().getStringExtra(Constants.INTENT_KEY.CHILD_NAME);
-        lastVisitDays = getIntent().getStringExtra(Constants.INTENT_KEY.CHILD_LAST_VISIT_DAYS);
+        String name = getIntent().getStringExtra(Constants.INTENT_KEY.CHILD_NAME);
+        String lastVisitDays = getIntent().getStringExtra(Constants.INTENT_KEY.CHILD_LAST_VISIT_DAYS);
         dateOfBirth = getIntent().getStringExtra(Constants.INTENT_KEY.CHILD_DATE_OF_BIRTH);
         vaccineList = (Map<String, Date>) getIntent().getSerializableExtra(Constants.INTENT_KEY.CHILD_VACCINE_LIST);
         if (TextUtils.isEmpty(name)) {
             textViewTitle.setVisibility(View.GONE);
         } else {
-            textViewTitle.setText(getString(R.string.medical_title, name+"'s profile"));
+            textViewTitle.setText(getString(R.string.medical_title, name + "'s profile"));
         }
         textViewLastVisit.setText(getString(R.string.medical_last_visit, Utils.firstCharacterUppercase(lastVisitDays)));
         initializePresenter();

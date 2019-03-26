@@ -11,14 +11,12 @@ import org.smartregister.family.R;
 import org.smartregister.listener.BottomNavigationListener;
 import org.smartregister.view.activity.BaseRegisterActivity;
 
-public class WCAROBottomNavigationListener extends BottomNavigationListener {
+public class ChwBottomNavigationListener extends BottomNavigationListener {
     private Activity context;
-    private BottomNavigationView view;
 
-    public WCAROBottomNavigationListener(Activity context, BottomNavigationView view) {
+    public ChwBottomNavigationListener(Activity context) {
         super(context);
         this.context = context;
-        this.view = view;
     }
 
     @Override

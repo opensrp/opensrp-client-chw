@@ -1,8 +1,8 @@
 package org.smartregister.chw.fragment;
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
@@ -30,11 +30,11 @@ import java.util.Set;
 
 public class IndividualProfileRemoveFragment extends BaseFamilyProfileMemberFragment implements FamilyRemoveMemberContract.View {
 
-    String familyBaseEntityId;
-    String familyHead;
-    String primaryCareGiver;
+    private static final String TAG = IndividualProfileRemoveFragment.class.getCanonicalName();
+
+    private String familyBaseEntityId;
     private CommonPersonObjectClient pc;
-    String memberName;
+    private String memberName;
 
     public static IndividualProfileRemoveFragment newInstance(Bundle bundle) {
         Bundle args = bundle;
@@ -48,8 +48,8 @@ public class IndividualProfileRemoveFragment extends BaseFamilyProfileMemberFrag
 
     @Override
     public void initializeAdapter(Set<View> visibleColumns, String familyHead, String primaryCaregiver) {
-        FamilyRemoveMemberProvider provider = new FamilyRemoveMemberProvider(familyBaseEntityId, this.getActivity(), this.commonRepository(), visibleColumns, null, null, familyHead, primaryCareGiver);
-        this.clientAdapter = new RecyclerViewPaginatedAdapter((Cursor) null, provider, this.context().commonrepository(this.tablename));
+        FamilyRemoveMemberProvider provider = new FamilyRemoveMemberProvider(familyBaseEntityId, this.getActivity(), this.commonRepository(), visibleColumns, null, null, familyHead, primaryCaregiver);
+        this.clientAdapter = new RecyclerViewPaginatedAdapter(null, provider, this.context().commonrepository(this.tablename));
         this.clientAdapter.setCurrentlimit(0);
         this.clientsView.setAdapter(this.clientAdapter);
         this.clientsView.setVisibility(android.view.View.GONE);
@@ -57,17 +57,19 @@ public class IndividualProfileRemoveFragment extends BaseFamilyProfileMemberFrag
 
     @Override
     protected void initializePresenter() {
-        familyBaseEntityId = getArguments().getString(Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID);
-        familyHead = getArguments().getString(Constants.INTENT_KEY.FAMILY_HEAD);
-        primaryCareGiver = getArguments().getString(Constants.INTENT_KEY.PRIMARY_CAREGIVER);
-        pc = (CommonPersonObjectClient) getArguments().getSerializable(org.smartregister.chw.util.Constants.INTENT_KEY.CHILD_COMMON_PERSON);
-        presenter = new FamilyRemoveMemberPresenter(this, new FamilyRemoveMemberModel(), null, familyBaseEntityId, familyHead, primaryCareGiver);
-        openDeleteDialog();
+        if (getArguments() != null) {
+            familyBaseEntityId = getArguments().getString(Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID);
+            String familyHead = getArguments().getString(Constants.INTENT_KEY.FAMILY_HEAD);
+            String primaryCareGiver = getArguments().getString(Constants.INTENT_KEY.PRIMARY_CAREGIVER);
+            pc = (CommonPersonObjectClient) getArguments().getSerializable(org.smartregister.chw.util.Constants.INTENT_KEY.CHILD_COMMON_PERSON);
+            presenter = new FamilyRemoveMemberPresenter(this, new FamilyRemoveMemberModel(), null, familyBaseEntityId, familyHead, primaryCareGiver);
+            openDeleteDialog();
+        }
     }
 
     @Override
     public void setAdvancedSearchFormData(HashMap<String, String> hashMap) {
-
+        Log.d(TAG,"setAdvancedSearchFormData");
     }
 
     public FamilyRemoveMemberContract.Presenter getPresenter() {
@@ -92,7 +94,7 @@ public class IndividualProfileRemoveFragment extends BaseFamilyProfileMemberFrag
 
 
     public void confirmRemove(final JSONObject form) {
-        if (StringUtils.isNotBlank(memberName)) {
+        if (StringUtils.isNotBlank(memberName) && getFragmentManager() != null) {
             FamilyRemoveMemberConfirmDialog dialog = FamilyRemoveMemberConfirmDialog.newInstance(
                     String.format(getString(R.string.confirm_remove_text), memberName)
             );
@@ -107,7 +109,9 @@ public class IndividualProfileRemoveFragment extends BaseFamilyProfileMemberFrag
             dialog.setOnRemoveActivity(new Runnable() {
                 @Override
                 public void run() {
-                    getActivity().finish();
+                    if (getActivity() != null) {
+                        getActivity().finish();
+                    }
                 }
             });
         }
@@ -115,43 +119,50 @@ public class IndividualProfileRemoveFragment extends BaseFamilyProfileMemberFrag
 
     @Override
     public void displayChangeFamilyHeadDialog(final CommonPersonObjectClient client, final String familyHeadID) {
-        FamilyProfileChangeDialog dialog = FamilyProfileChangeDialog.newInstance(getContext(), familyBaseEntityId,
-                org.smartregister.chw.util.Constants.PROFILE_CHANGE_ACTION.HEAD_OF_FAMILY);
-        dialog.setOnSaveAndClose(new Runnable() {
-            @Override
-            public void run() {
-                setFamilyHead(familyHeadID);
-                getPresenter().removeMember(client);
-            }
-        });
-        dialog.setOnRemoveActivity(new Runnable() {
-            @Override
-            public void run() {
-                getActivity().finish();
-            }
-        });
-        dialog.show(getActivity().getFragmentManager(), "FamilyProfileChangeDialogHF");
+        if (getActivity() != null && getActivity().getFragmentManager() != null) {
+            FamilyProfileChangeDialog dialog = FamilyProfileChangeDialog.newInstance(getContext(), familyBaseEntityId,
+                    org.smartregister.chw.util.Constants.PROFILE_CHANGE_ACTION.HEAD_OF_FAMILY);
+            dialog.setOnSaveAndClose(new Runnable() {
+                @Override
+                public void run() {
+                    setFamilyHead(familyHeadID);
+                    getPresenter().removeMember(client);
+                }
+            });
+            dialog.setOnRemoveActivity(new Runnable() {
+                @Override
+                public void run() {
+                    if (getActivity() != null) {
+                        getActivity().finish();
+                    }
+                }
+            });
+            dialog.show(getActivity().getFragmentManager(), "FamilyProfileChangeDialogHF");
+        }
     }
 
     @Override
     public void displayChangeCareGiverDialog(final CommonPersonObjectClient client, final String careGiverID) {
-        FamilyProfileChangeDialog dialog = FamilyProfileChangeDialog.newInstance(getContext(), familyBaseEntityId,
-                org.smartregister.chw.util.Constants.PROFILE_CHANGE_ACTION.PRIMARY_CARE_GIVER);
-        dialog.setOnSaveAndClose(new Runnable() {
-            @Override
-            public void run() {
-                setPrimaryCaregiver(careGiverID);
-                getPresenter().removeMember(client);
-            }
-        });
-        dialog.setOnRemoveActivity(new Runnable() {
-            @Override
-            public void run() {
-                getActivity().finish();
-            }
-        });
-
-        dialog.show(getActivity().getFragmentManager(), "FamilyProfileChangeDialogPC");
+        if (getActivity() != null && getActivity().getFragmentManager() != null) {
+            FamilyProfileChangeDialog dialog = FamilyProfileChangeDialog.newInstance(getContext(), familyBaseEntityId,
+                    org.smartregister.chw.util.Constants.PROFILE_CHANGE_ACTION.PRIMARY_CARE_GIVER);
+            dialog.setOnSaveAndClose(new Runnable() {
+                @Override
+                public void run() {
+                    setPrimaryCaregiver(careGiverID);
+                    getPresenter().removeMember(client);
+                }
+            });
+            dialog.setOnRemoveActivity(new Runnable() {
+                @Override
+                public void run() {
+                    if (getActivity() != null) {
+                        getActivity().finish();
+                    }
+                }
+            });
+            dialog.show(getActivity().getFragmentManager(), "FamilyProfileChangeDialogPC");
+        }
     }
 
     @Override
@@ -203,12 +214,9 @@ public class IndividualProfileRemoveFragment extends BaseFamilyProfileMemberFrag
 
     @Override
     public void onEveryoneRemoved() {
-
-        if (getActivity() != null) {
-            if (getActivity() instanceof IndividualProfileRemoveActivity) {
+        if (getActivity() != null && getActivity() instanceof IndividualProfileRemoveActivity) {
                 IndividualProfileRemoveActivity p = (IndividualProfileRemoveActivity) getActivity();
                 p.onRemoveMember();
-            }
         }
     }
 

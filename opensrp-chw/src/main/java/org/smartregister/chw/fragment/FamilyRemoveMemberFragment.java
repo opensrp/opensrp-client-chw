@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
@@ -34,11 +35,9 @@ public class FamilyRemoveMemberFragment extends BaseFamilyProfileMemberFragment 
 
     public static final String DIALOG_TAG = FamilyRemoveMemberFragment.class.getSimpleName();
 
-    String familyBaseEntityId;
-    String familyHead;
-    String primaryCareGiver;
+    private String familyBaseEntityId;
 
-    String memberName;
+    private String memberName;
     boolean processingFamily = false;
 
     public static FamilyRemoveMemberFragment newInstance(Bundle bundle) {
@@ -61,10 +60,12 @@ public class FamilyRemoveMemberFragment extends BaseFamilyProfileMemberFragment 
 
     @Override
     protected void initializePresenter() {
-        familyBaseEntityId = getArguments().getString(Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID);
-        familyHead = getArguments().getString(Constants.INTENT_KEY.FAMILY_HEAD);
-        primaryCareGiver = getArguments().getString(Constants.INTENT_KEY.PRIMARY_CAREGIVER);
-        presenter = new FamilyRemoveMemberPresenter(this, new FamilyRemoveMemberModel(), null, familyBaseEntityId, familyHead, primaryCareGiver);
+        if (getArguments() != null) {
+            familyBaseEntityId = getArguments().getString(Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID);
+            String familyHead = getArguments().getString(Constants.INTENT_KEY.FAMILY_HEAD);
+            String primaryCareGiver = getArguments().getString(Constants.INTENT_KEY.PRIMARY_CAREGIVER);
+            presenter = new FamilyRemoveMemberPresenter(this, new FamilyRemoveMemberModel(), null, familyBaseEntityId, familyHead, primaryCareGiver);
+        }
     }
 
     public FamilyRemoveMemberContract.Presenter getPresenter() {
@@ -183,12 +184,12 @@ public class FamilyRemoveMemberFragment extends BaseFamilyProfileMemberFragment 
     public void confirmRemove(final JSONObject form) {
         if (StringUtils.isNotBlank(memberName)) {
             FamilyRemoveMemberConfirmDialog dialog = null;
-            if(processingFamily){
+            if (processingFamily) {
                 dialog = FamilyRemoveMemberConfirmDialog.newInstance(
                         String.format(getContext().getString(R.string.remove_warning_family), memberName, memberName)
                 );
 
-            }else{
+            } else {
                 dialog = FamilyRemoveMemberConfirmDialog.newInstance(
                         String.format(getContext().getString(R.string.confirm_remove_text), memberName)
                 );
@@ -245,6 +246,7 @@ public class FamilyRemoveMemberFragment extends BaseFamilyProfileMemberFragment 
     }
 
     public void setAdvancedSearchFormData(HashMap<String, String> hashMap) {
+        Log.v(DIALOG_TAG, "setAdvancedSearchFormData");
     }
 
 }

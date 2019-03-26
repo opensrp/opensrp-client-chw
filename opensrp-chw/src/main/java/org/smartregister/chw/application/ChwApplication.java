@@ -12,7 +12,7 @@ import org.smartregister.chw.helper.RulesEngineHelper;
 import org.smartregister.chw.job.ChwJobCreator;
 import org.smartregister.chw.repository.HomeVisitRepository;
 import org.smartregister.chw.repository.ChwRepository;
-import org.smartregister.chw.sync.WCAROClientProcessor;
+import org.smartregister.chw.sync.ChwClientProcessor;
 import org.smartregister.chw.util.ChildDBConstants;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.CountryUtils;
@@ -125,7 +125,7 @@ public class ChwApplication extends DrishtiApplication {
         LocationHelper.init(Utils.ALLOWED_LEVELS, Utils.CHA);
 
         // set up processor
-        FamilyLibrary.getInstance().setClientProcessorForJava(WCAROClientProcessor.getInstance(getApplicationContext()));
+        FamilyLibrary.getInstance().setClientProcessorForJava(ChwClientProcessor.getInstance(getApplicationContext()));
 
         // init json helper
         this.jsonSpecHelper = new JsonSpecHelper(this);
@@ -206,7 +206,8 @@ public class ChwApplication extends DrishtiApplication {
     }
 
     private void scheduleJobs() {
-
+        // TODO implement job scheduling
+        Log.d(TAG,"scheduleJobs pending implementation");
     }
 
     private long getFlexValue(int value) {
@@ -233,7 +234,7 @@ public class ChwApplication extends DrishtiApplication {
 
     public static ClientProcessorForJava getClientProcessor(android.content.Context context) {
         if (clientProcessor == null) {
-            clientProcessor = WCAROClientProcessor.getInstance(context);
+            clientProcessor = ChwClientProcessor.getInstance(context);
 //            clientProcessor = FamilyLibrary.getInstance().getClientProcessorForJava();
         }
         return clientProcessor;

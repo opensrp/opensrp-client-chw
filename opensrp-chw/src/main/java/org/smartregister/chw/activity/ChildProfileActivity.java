@@ -11,6 +11,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.View;
@@ -52,6 +53,8 @@ import static org.smartregister.chw.util.Constants.INTENT_KEY.IS_COMES_FROM_FAMI
 
 
 public class ChildProfileActivity extends BaseProfileActivity implements ChildProfileContract.View, ChildRegisterContract.InteractorCallBack {
+    private static final String TAG = ChildProfileActivity.class.getCanonicalName();
+
     private boolean appBarTitleIsShown = true;
     private int appBarLayoutScrollRange = -1;
     private String childBaseEntityId;
@@ -67,6 +70,15 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     private String gender;
     private Handler handler = new Handler();
     private String lastVisitDay;
+    private FamilyMemberFloatingMenu familyFloatingMenu;
+
+    @Override
+    public void updateHasPhone(boolean hasPhone) {
+        if (familyFloatingMenu != null) {
+            familyFloatingMenu.reDraw(hasPhone);
+        }
+    }
+
     private OnClickFloatingMenu onClickFloatingMenu = new OnClickFloatingMenu() {
         @Override
         public void onClickMenu(int viewId) {
@@ -83,6 +95,8 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
                             ((ChildProfilePresenter) presenter()).getFamilyID()
                             , ((ChildProfilePresenter) presenter()).getFamilyHeadID(), ((ChildProfilePresenter) presenter()).getPrimaryCareGiverID());
 
+                    break;
+                default:
                     break;
             }
 
@@ -172,12 +186,12 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
         layoutFamilyHasRow.setOnClickListener(this);
         layoutRecordButtonDone.setOnClickListener(this);
 
-        FamilyMemberFloatingMenu familyFloatingMenu = new FamilyMemberFloatingMenu(this);
+        familyFloatingMenu = new FamilyMemberFloatingMenu(this);
         LinearLayout.LayoutParams linearLayoutParams =
                 new LinearLayout.LayoutParams(
                         LinearLayout.LayoutParams.MATCH_PARENT,
                         LinearLayout.LayoutParams.MATCH_PARENT);
-        familyFloatingMenu.setGravity(Gravity.BOTTOM | Gravity.RIGHT);
+        familyFloatingMenu.setGravity(Gravity.BOTTOM | Gravity.END);
         addContentView(familyFloatingMenu, linearLayoutParams);
 
         familyFloatingMenu.setClickListener(onClickFloatingMenu);
@@ -234,6 +248,8 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
 //            case R.id.cross_image:
 //                openVisitButtonView();
 //                break;
+            default:
+                break;
         }
     }
 
@@ -256,7 +272,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     private void openMedicalHistoryScreen() {
         Map<String, Date> vaccine = ((ChildProfilePresenter) presenter()).getVaccineList();
         MedicalHistoryActivity.startMedicalHistoryActivity(this, ((ChildProfilePresenter) presenter()).getChildClient(), patientName, lastVisitDay,
-                ((ChildProfilePresenter) presenter()).getDateOfBirth(), new LinkedHashMap<String, Date>(vaccine));
+                ((ChildProfilePresenter) presenter()).getDateOfBirth(), new LinkedHashMap<>(vaccine));
 
     }
 
@@ -529,17 +545,20 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
 
     @Override
     public void onNoUniqueId() {
-
+        //TODO
+        Log.d(TAG, "onNoUniqueId unimplemented");
     }
 
     @Override
     public void onUniqueIdFetched(Triple<String, String, String> triple, String entityId, String familyId) {
-
+        //TODO
+        Log.d(TAG, "onUniqueIdFetched unimplemented");
     }
 
     @Override
     public void onRegistrationSaved(boolean isEdit) {
-
+        //TODO
+        Log.d(TAG, "onRegistrationSaved unimplemented");
     }
 
     @Override

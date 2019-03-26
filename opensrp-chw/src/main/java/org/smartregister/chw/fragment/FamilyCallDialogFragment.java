@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -31,18 +30,17 @@ public class FamilyCallDialogFragment extends DialogFragment implements FamilyCa
 
     public static final String DIALOG_TAG = "FamilyCallWidgetDialogFragment_DIALOG_TAG";
 
-    View.OnClickListener listener = null;
-    FamilyCallDialogContract.Dialer mDialer;
-    String familyBaseEntityId;
-    ImageView ivClose;
-    LinearLayout llFamilyHead;
-    TextView tvFamilyHeadTitle;
-    TextView tvFamilyHeadName;
-    TextView tvFamilyHeadPhone;
-    LinearLayout llCareGiver;
-    TextView tvCareGiverTitle;
-    TextView tvCareGiverName;
-    TextView tvCareGiverPhone;
+    private View.OnClickListener listener = null;
+    private FamilyCallDialogContract.Dialer mDialer;
+    private String familyBaseEntityId;
+    private LinearLayout llFamilyHead;
+    private TextView tvFamilyHeadTitle;
+    private TextView tvFamilyHeadName;
+    private TextView tvFamilyHeadPhone;
+    private LinearLayout llCareGiver;
+    private TextView tvCareGiverTitle;
+    private TextView tvCareGiverName;
+    private TextView tvCareGiverPhone;
 
     public static FamilyCallDialogFragment launchDialog(Activity activity,
                                                         String familyBaseEntityId) {
@@ -93,7 +91,6 @@ public class FamilyCallDialogFragment extends DialogFragment implements FamilyCa
     }
 
     private void initUI(ViewGroup rootView) {
-        ivClose = rootView.findViewById(R.id.close);
 
         llFamilyHead = rootView.findViewById(R.id.layout_family_head);
         tvFamilyHeadTitle = rootView.findViewById(R.id.call_head_title);
@@ -105,7 +102,7 @@ public class FamilyCallDialogFragment extends DialogFragment implements FamilyCa
         tvCareGiverName = rootView.findViewById(R.id.call_caregiver_name);
         tvCareGiverPhone = rootView.findViewById(R.id.call_caregiver_phone);
 
-        ivClose.setOnClickListener(listener);
+        rootView.findViewById(R.id.close).setOnClickListener(listener);
         tvFamilyHeadPhone.setOnClickListener(listener);
         tvCareGiverPhone.setOnClickListener(listener);
     }

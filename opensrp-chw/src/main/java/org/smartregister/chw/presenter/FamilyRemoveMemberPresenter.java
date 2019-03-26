@@ -15,9 +15,9 @@ import java.util.Map;
 
 public class FamilyRemoveMemberPresenter extends BaseFamilyProfileMemberPresenter implements FamilyRemoveMemberContract.Presenter {
 
-    FamilyRemoveMemberContract.Model model;
-    protected WeakReference<FamilyRemoveMemberContract.View> viewReference;
-    FamilyRemoveMemberContract.Interactor interactor;
+    private FamilyRemoveMemberContract.Model model;
+    private WeakReference<FamilyRemoveMemberContract.View> viewReference;
+    private FamilyRemoveMemberContract.Interactor interactor;
 
     private String familyHead;
     private String primaryCaregiver;
@@ -37,8 +37,7 @@ public class FamilyRemoveMemberPresenter extends BaseFamilyProfileMemberPresente
     public void removeMember(CommonPersonObjectClient client) {
 
         String memberID = client.getColumnmaps().get(DBConstants.KEY.BASE_ENTITY_ID);
-        if (memberID.equalsIgnoreCase(familyHead) ||
-                memberID.equalsIgnoreCase(primaryCaregiver)) {
+        if (memberID != null && (memberID.equalsIgnoreCase(familyHead) || memberID.equalsIgnoreCase(primaryCaregiver))) {
 
             interactor.processFamilyMember(familyBaseEntityId, client, this);
 
@@ -81,11 +80,10 @@ public class FamilyRemoveMemberPresenter extends BaseFamilyProfileMemberPresente
     }
 
 
-
     @Override
     public void removeEveryone(String familyName, String details) {
 
-        JSONObject form = model.prepareFamilyRemovalForm(familyBaseEntityId, familyName , details);
+        JSONObject form = model.prepareFamilyRemovalForm(familyBaseEntityId, familyName, details);
         if (form != null) {
             viewReference.get().startJsonActivity(form);
         }
@@ -94,11 +92,8 @@ public class FamilyRemoveMemberPresenter extends BaseFamilyProfileMemberPresente
 
     @Override
     public void onFamilyRemoved(Boolean success) {
-        if (success) {
-            // close
-            if (viewReference.get() != null) {
-                viewReference.get().onEveryoneRemoved();
-            }
+        if (success && viewReference != null && viewReference.get() != null) {
+            viewReference.get().onEveryoneRemoved();
         }
     }
 

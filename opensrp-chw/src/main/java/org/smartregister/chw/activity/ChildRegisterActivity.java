@@ -14,7 +14,7 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.contract.ChildRegisterContract;
 import org.smartregister.chw.custom_view.NavigationMenu;
 import org.smartregister.chw.fragment.ChildRegisterFragment;
-import org.smartregister.chw.listener.WCAROBottomNavigationListener;
+import org.smartregister.chw.listener.ChwBottomNavigationListener;
 import org.smartregister.chw.model.ChildRegisterModel;
 import org.smartregister.chw.presenter.ChildRegisterPresenter;
 import org.smartregister.chw.util.CountryUtils;
@@ -122,7 +122,7 @@ public class ChildRegisterActivity extends BaseRegisterActivity implements Child
 
             bottomNavigationHelper.disableShiftMode(bottomNavigationView);
 
-            WCAROBottomNavigationListener childBottomNavigationListener = new WCAROBottomNavigationListener(this, bottomNavigationView);
+            ChwBottomNavigationListener childBottomNavigationListener = new ChwBottomNavigationListener(this);
             bottomNavigationView.setOnNavigationItemSelectedListener(childBottomNavigationListener);
 
         }

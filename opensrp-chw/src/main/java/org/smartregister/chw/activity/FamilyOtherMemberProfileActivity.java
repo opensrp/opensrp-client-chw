@@ -46,6 +46,7 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
     private String villageTown;
     private String familyName;
     private CommonPersonObjectClient commonPersonObject;
+    private FamilyMemberFloatingMenu familyFloatingMenu;
 
     private OnClickFloatingMenu onClickFloatingMenu = new OnClickFloatingMenu() {
         @Override
@@ -58,9 +59,9 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
                     startFormForEdit(R.string.edit_member_form_title);
                     break;
                 case R.id.remove_member_layout:
-
                     IndividualProfileRemoveActivity.startIndividualProfileActivity(FamilyOtherMemberProfileActivity.this, commonPersonObject, familyBaseEntityId, familyHead, primaryCaregiver);
-
+                    break;
+                default:
                     break;
             }
 
@@ -87,7 +88,7 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
         toolbarTitle.setText(String.format(getString(R.string.return_to_family_name), presenter().getFamilyName()));
 
         // add floating menu
-        FamilyMemberFloatingMenu familyFloatingMenu = new FamilyMemberFloatingMenu(this);
+        familyFloatingMenu = new FamilyMemberFloatingMenu(this);
         LinearLayout.LayoutParams linearLayoutParams =
                 new LinearLayout.LayoutParams(
                         LinearLayout.LayoutParams.MATCH_PARENT,
@@ -98,6 +99,12 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
         familyFloatingMenu.setClickListener(onClickFloatingMenu);
     }
 
+    @Override
+    public void updateHasPhone(boolean hasPhone) {
+        if (familyFloatingMenu != null) {
+            familyFloatingMenu.reDraw(hasPhone);
+        }
+    }
 
     @Override
     protected ViewPager setupViewPager(ViewPager viewPager) {
@@ -203,7 +210,8 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
                     }
                 }
                 break;
-
+            default:
+                break;
 
         }
     }
@@ -232,12 +240,10 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
     }
 
     private void refreshList(Fragment fragment) {
-        if (fragment != null && fragment instanceof BaseRegisterFragment) {
-            if (fragment instanceof FamilyOtherMemberProfileFragment) {
-                FamilyOtherMemberProfileFragment familyOtherMemberProfileFragment = ((FamilyOtherMemberProfileFragment) fragment);
-                if (familyOtherMemberProfileFragment.presenter() != null) {
-                    familyOtherMemberProfileFragment.refreshListView();
-                }
+        if (fragment instanceof BaseRegisterFragment && fragment instanceof FamilyOtherMemberProfileFragment) {
+            FamilyOtherMemberProfileFragment familyOtherMemberProfileFragment = ((FamilyOtherMemberProfileFragment) fragment);
+            if (familyOtherMemberProfileFragment.presenter() != null) {
+                familyOtherMemberProfileFragment.refreshListView();
             }
         }
     }

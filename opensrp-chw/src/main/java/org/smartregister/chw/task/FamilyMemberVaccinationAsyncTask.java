@@ -13,7 +13,7 @@ import org.smartregister.chw.util.ChildDBConstants;
 import org.smartregister.chw.util.ChildUtils;
 import org.smartregister.chw.util.ChildVisit;
 import org.smartregister.chw.util.ImmunizationState;
-import org.smartregister.chw.util.WCAROServiceSchedule;
+import org.smartregister.chw.util.ChwServiceSchedule;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.Alert;
@@ -91,7 +91,7 @@ public class FamilyMemberVaccinationAsyncTask extends AsyncTask {
 
                         }
                         try{
-                            WCAROServiceSchedule.updateOfflineAlerts(childId, dateTime);
+                            ChwServiceSchedule.updateOfflineAlerts(childId, dateTime);
                         }catch (Exception e){
 
                         }

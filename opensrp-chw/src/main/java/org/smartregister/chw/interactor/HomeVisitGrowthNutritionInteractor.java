@@ -2,6 +2,7 @@ package org.smartregister.chw.interactor;
 
 import android.support.annotation.VisibleForTesting;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.google.gson.reflect.TypeToken;
 
@@ -39,7 +40,10 @@ import io.reactivex.schedulers.Schedulers;
 import static org.smartregister.util.Utils.startAsyncTask;
 
 public class HomeVisitGrowthNutritionInteractor implements HomeVisitGrowthNutritionContract.Interactor {
+    private static final String TAG = HomeVisitGrowthNutritionInteractor.class.toString();
+
     private AppExecutors appExecutors;
+
     private UpdateServiceTask updateServiceTask;
     private HomeVisit currentHomeVisit = new HomeVisit();
 
@@ -54,7 +58,7 @@ public class HomeVisitGrowthNutritionInteractor implements HomeVisitGrowthNutrit
 
     @Override
     public void parseRecordServiceData(final CommonPersonObjectClient commonPersonObjectClient, final HomeVisitGrowthNutritionContract.InteractorCallBack callBack) {
-        updateServiceTask = new UpdateServiceTask(commonPersonObjectClient, new UpdateServiceListener() {
+        UpdateServiceTask updateServiceTask = new UpdateServiceTask(commonPersonObjectClient, new UpdateServiceListener() {
             @Override
             public void onUpdateServiceList(final Map<String, ServiceWrapper> serviceWrapperMap) {
                 Runnable runnable = new Runnable() {
@@ -74,6 +78,7 @@ public class HomeVisitGrowthNutritionInteractor implements HomeVisitGrowthNutrit
         startAsyncTask(updateServiceTask, null);
 
     }
+
     @Override
     public void parseEditRecordServiceData(CommonPersonObjectClient commonPersonObjectClient, final HomeVisitGrowthNutritionContract.InteractorCallBack callBack) {
         String lastHomeVisitStr=org.smartregister.util.Utils.getValue(commonPersonObjectClient.getColumnmaps(), ChildDBConstants.KEY.LAST_HOME_VISIT, false);
@@ -124,6 +129,7 @@ public class HomeVisitGrowthNutritionInteractor implements HomeVisitGrowthNutrit
             }
         });
     }
+  
     public ArrayList<GrowthServiceData> getAllDueService(Map<String, ServiceWrapper> serviceWrapperMap) {
         ArrayList<GrowthServiceData> growthServiceDataList = new ArrayList<>();
 
@@ -162,6 +168,7 @@ public class HomeVisitGrowthNutritionInteractor implements HomeVisitGrowthNutrit
 
     @Override
     public void onDestroy(boolean isChangingConfiguration) {
-
+        //TODO Implement onDestroy
+        Log.d(TAG, "onDestroy unimplemented");
     }
 }

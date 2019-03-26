@@ -56,10 +56,10 @@ import static org.smartregister.chw.util.Utils.dd_MMM_yyyy;
 public class ChildUtils {
 
     private static final String[] firstSecondNumber = {"Zero", "1st", "2nd", "3rd", "4th", "5th", "6th", "7th", "8th", "9th"};
-    public static final String[] ONE_YR = {"bcg", "opv1", "penta1", "pcv1", "rota1", "opv2", "penta2", "pcv2", "rota2", "opv3", "penta3", "pcv3", "ipv", "mcv1",
+    private static final String[] ONE_YR = {"bcg", "opv1", "penta1", "pcv1", "rota1", "opv2", "penta2", "pcv2", "rota2", "opv3", "penta3", "pcv3", "ipv", "mcv1",
             "yellowfever"
     };
-    public static final String[] TWO_YR = {"bcg", "opv1", "penta1", "pcv1", "rota1", "opv2", "penta2", "pcv2", "rota2", "opv3", "penta3", "pcv3", "ipv", "mcv1",
+    private static final String[] TWO_YR = {"bcg", "opv1", "penta1", "pcv1", "rota1", "opv2", "penta2", "pcv2", "rota2", "opv3", "penta3", "pcv3", "ipv", "mcv1",
             "yellowfever", "mcv2"
     };
     public static Gson gsonConverter;
@@ -106,20 +106,20 @@ public class ChildUtils {
     public static Object[] getStringWithNumber(String fullString) {
         Object[] objects = new Object[2];
         if (fullString.length() > 0) {
-            fullString = StringUtils.capitalize(fullString);
-            String str = "";
-            String digit = "";
-            for (int i = 0; i < fullString.length(); i++) {
-                char c = fullString.charAt(i);
+            String formattedName = StringUtils.capitalize(fullString);
+            StringBuilder str = new StringBuilder();
+            StringBuilder digit = new StringBuilder();
+            for (int i = 0; i < formattedName.length(); i++) {
+                char c = formattedName.charAt(i);
                 if (Character.isDigit(c)) {
-                    digit = digit + c;
+                    digit.append(c);
                 } else {
-                    str = str + c;
+                    str.append(c);
                 }
 
             }
-            objects[0] = str;
-            objects[1] = digit;
+            objects[0] = str.toString();
+            objects[1] = digit.toString();
         }
         return objects;
     }
@@ -184,7 +184,7 @@ public class ChildUtils {
                 }
             }
             String strDateCreated = cursor.getString(cursor.getColumnIndex(ChildDBConstants.KEY.DATE_CREATED));
-            if(!TextUtils.isEmpty(strDateCreated)){
+            if (!TextUtils.isEmpty(strDateCreated)) {
                 try {
                     childHomeVisit.setDateCreated(org.smartregister.family.util.Utils.dobStringToDateTime(strDateCreated).getMillis());
                 } catch (Exception e) {
@@ -243,12 +243,14 @@ public class ChildUtils {
         ChwApplication.getInstance().getRulesEngineHelper().getButtonAlertStatus(homeAlertRule, Constants.RULE_FILE.HOME_VISIT);
         return getChildVisitStatus(homeAlertRule, lastVisitDate);
     }
-    public static String getBirthCertDueStatus(String dateOfBirth){
+
+    public static String getBirthCertDueStatus(String dateOfBirth) {
         BirthCertRule birthCertRule = new BirthCertRule(dateOfBirth);
         ChwApplication.getInstance().getRulesEngineHelper().getButtonAlertStatus(birthCertRule, Constants.RULE_FILE.BIRTH_CERT);
         return birthCertRule.getButtonStatus();
     }
-    public static String getServiceDueStatus(String dueDate){
+
+    public static String getServiceDueStatus(String dueDate) {
         ServiceRule serviceRule = new ServiceRule(dueDate);
         ChwApplication.getInstance().getRulesEngineHelper().getButtonAlertStatus(serviceRule, Constants.RULE_FILE.SERVICE);
         return serviceRule.getButtonStatus();
@@ -375,17 +377,17 @@ public class ChildUtils {
         }
     }
 
-    public static SpannableString dueOverdueCalculation(String status,String dueDate){
+    public static SpannableString dueOverdueCalculation(String status, String dueDate) {
         SpannableString spannableString;
-        Date date= org.smartregister.family.util.Utils.dobStringToDate(dueDate);
-        if(status.equalsIgnoreCase(ImmunizationState.DUE.name())){
+        Date date = org.smartregister.family.util.Utils.dobStringToDate(dueDate);
+        if (status.equalsIgnoreCase(ImmunizationState.DUE.name())) {
 
-            String str="Due "+dd_MMM_yyyy.format(date);
+            String str = "Due " + dd_MMM_yyyy.format(date);
             spannableString = new SpannableString(str);
             spannableString.setSpan(new ForegroundColorSpan(Color.GRAY), 0, str.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             return spannableString;
-        }else {
-            String str="Overdue "+dd_MMM_yyyy.format(date);
+        } else {
+            String str = "Overdue " + dd_MMM_yyyy.format(date);
             spannableString = new SpannableString(str);
             spannableString.setSpan(new ForegroundColorSpan(ChwApplication.getInstance().getContext().getColorResource(R.color.alert_urgent_red)), 0, str.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             return spannableString;
@@ -436,7 +438,7 @@ public class ChildUtils {
 
     public static String fixVaccineCasing(String display) {
         display = display.toUpperCase();
-        if(display.toLowerCase().contains("rota")||display.toLowerCase().contains("penta")||display.toLowerCase().contains("yellow fever")){
+        if (display.toLowerCase().contains("rota") || display.toLowerCase().contains("penta") || display.toLowerCase().contains("yellow fever")) {
             display = capitalize(display.toLowerCase());
         }
         return display;

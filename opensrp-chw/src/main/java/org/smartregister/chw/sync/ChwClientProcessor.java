@@ -41,18 +41,18 @@ import java.util.List;
 import static org.smartregister.chw.util.ChildUtils.addToHomeVisitTable;
 
 
-public class WCAROClientProcessor extends ClientProcessorForJava {
+public class ChwClientProcessor extends ClientProcessorForJava {
 
-//    private static final String TAG = WCAROClientProcessor.class.getName();
+//    private static final String TAG = ChwClientProcessor.class.getName();
 //    private static ClientProcessorForJava instance;
 
-    private WCAROClientProcessor(Context context) {
+    private ChwClientProcessor(Context context) {
         super(context);
     }
 
     public static ClientProcessorForJava getInstance(Context context) {
         if (instance == null) {
-            instance = new WCAROClientProcessor(context);
+            instance = new ChwClientProcessor(context);
         }
         return instance;
     }
@@ -88,32 +88,14 @@ public class WCAROClientProcessor extends ClientProcessorForJava {
                 } else if (eventType.equals(HomeVisitRepository.EVENT_TYPE) || eventType.equals(HomeVisitRepository.NOT_DONE_EVENT_TYPE)) {
                     processHomeVisit(eventClient);
                     processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
-                } else if (eventType.equals(Constants.EventType.REMOVE_FAMILY)) {
-                    Client client = eventClient.getClient();
-                    //iterate through the events
-                    if (client != null) {
-                        if (eventType.equals(Constants.EventType.REMOVE_FAMILY)) {
-                            processRemoveFamily(client.getBaseEntityId(), event.getEventDate().toDate());
-                        }
-                    }
+                } else if (eventType.equals(Constants.EventType.REMOVE_FAMILY) && eventClient.getClient() != null) {
+                    processRemoveFamily(eventClient.getClient().getBaseEntityId(), event.getEventDate().toDate());
                 }
-                else if (eventType.equals(Constants.EventType.REMOVE_MEMBER)) {
-                    Client client = eventClient.getClient();
-                    //iterate through the events
-                    if (client != null) {
-                        if (eventType.equals(Constants.EventType.REMOVE_MEMBER)) {
-                            processRemoveMember(client.getBaseEntityId(), event.getEventDate().toDate());
-                        }
-                    }
+                else if (eventType.equals(Constants.EventType.REMOVE_MEMBER) && eventClient.getClient() != null) {
+                    processRemoveMember(eventClient.getClient().getBaseEntityId(), event.getEventDate().toDate());
                 }
-                else if (eventType.equals(Constants.EventType.REMOVE_CHILD)) {
-                    Client client = eventClient.getClient();
-                    //iterate through the events
-                    if (client != null) {
-                        if (eventType.equals(Constants.EventType.REMOVE_CHILD)) {
-                            processRemoveChild(client.getBaseEntityId(), event.getEventDate().toDate());
-                        }
-                    }
+                else if (eventType.equals(Constants.EventType.REMOVE_CHILD) && eventClient.getClient() != null) {
+                    processRemoveChild(eventClient.getClient().getBaseEntityId(), event.getEventDate().toDate());
                 }
                 else{
                     if (eventClient.getClient() != null) {
@@ -352,15 +334,16 @@ public class WCAROClientProcessor extends ClientProcessorForJava {
             }
 
         } catch (Exception e) {
-            Log.e(WCAROClientProcessor.class.getCanonicalName(), Log.getStackTraceString(e));
+            Log.e(ChwClientProcessor.class.getCanonicalName(), Log.getStackTraceString(e));
         }
 
     }
 
     private void processRemoveMember(String baseEntityId, Date eventDate) {
 
-        if (eventDate == null) {
-            eventDate = new Date();
+        Date myEventDate = eventDate;
+        if (myEventDate == null) {
+            myEventDate = new Date();
         }
 
         if (baseEntityId == null) {
@@ -371,7 +354,7 @@ public class WCAROClientProcessor extends ClientProcessorForJava {
         if (commonsRepository != null) {
 
             ContentValues values = new ContentValues();
-            values.put(DBConstants.KEY.DATE_REMOVED, new SimpleDateFormat("yyyy-MM-dd").format(eventDate));
+            values.put(DBConstants.KEY.DATE_REMOVED, new SimpleDateFormat("yyyy-MM-dd").format(myEventDate));
             values.put("is_closed", 1);
 
             ChwApplication.getInstance().getRepository().getWritableDatabase().update(Constants.TABLE_NAME.FAMILY_MEMBER, values,
@@ -384,8 +367,9 @@ public class WCAROClientProcessor extends ClientProcessorForJava {
 
     private void processRemoveChild(String baseEntityId, Date eventDate) {
 
-        if (eventDate == null) {
-            eventDate = new Date();
+        Date myEventDate = eventDate;
+        if (myEventDate == null) {
+            myEventDate = new Date();
         }
 
         if (baseEntityId == null) {
@@ -396,7 +380,7 @@ public class WCAROClientProcessor extends ClientProcessorForJava {
         if (commonsRepository != null) {
 
             ContentValues values = new ContentValues();
-            values.put(DBConstants.KEY.DATE_REMOVED, new SimpleDateFormat("yyyy-MM-dd").format(eventDate));
+            values.put(DBConstants.KEY.DATE_REMOVED, new SimpleDateFormat("yyyy-MM-dd").format(myEventDate));
             values.put("is_closed", 1);
 
             ChwApplication.getInstance().getRepository().getWritableDatabase().update(Constants.TABLE_NAME.CHILD, values,
@@ -413,8 +397,9 @@ public class WCAROClientProcessor extends ClientProcessorForJava {
      */
     private void processRemoveFamily(String familyID, Date eventDate) {
 
-        if (eventDate == null) {
-            eventDate = new Date();
+        Date myEventDate = eventDate;
+        if (myEventDate == null) {
+            myEventDate = new Date();
         }
 
         if (familyID == null) {
@@ -425,7 +410,7 @@ public class WCAROClientProcessor extends ClientProcessorForJava {
         if (commonsRepository != null) {
 
             ContentValues values = new ContentValues();
-            values.put(DBConstants.KEY.DATE_REMOVED, new SimpleDateFormat("yyyy-MM-dd").format(eventDate));
+            values.put(DBConstants.KEY.DATE_REMOVED, new SimpleDateFormat("yyyy-MM-dd").format(myEventDate));
             values.put("is_closed", 1);
 
             ChwApplication.getInstance().getRepository().getWritableDatabase().update(Constants.TABLE_NAME.FAMILY, values,

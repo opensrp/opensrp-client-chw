@@ -7,7 +7,7 @@ import org.joda.time.DateTime;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.listener.ImmunizationStateChangeListener;
 import org.smartregister.chw.util.ImmunizationState;
-import org.smartregister.chw.util.WCAROServiceSchedule;
+import org.smartregister.chw.util.ChwServiceSchedule;
 import org.smartregister.domain.Alert;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.immunization.db.VaccineRepo;
@@ -65,7 +65,7 @@ public class VaccinationAsyncTask extends AsyncTask {
 
             }
             try{
-                WCAROServiceSchedule.updateOfflineAlerts(entityId, dateTime);
+                ChwServiceSchedule.updateOfflineAlerts(entityId, dateTime);
             }catch (Exception e){
 
             }

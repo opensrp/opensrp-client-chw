@@ -56,6 +56,8 @@ public class GrowthAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 ContentViewHolder contentViewHolder = (ContentViewHolder) viewHolder;
                 contentViewHolder.vaccineName.setText(serviceContent.getServiceName());
                 break;
+            default:
+                break;
         }
 
     }
@@ -72,7 +74,7 @@ public class GrowthAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     public class HeaderViewHolder extends RecyclerView.ViewHolder {
-        public TextView headerTitle;
+        private TextView headerTitle;
         private View myView;
 
         private HeaderViewHolder(View view) {
@@ -88,10 +90,10 @@ public class GrowthAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     public static class ContentViewHolder extends RecyclerView.ViewHolder {
-        public TextView vaccineName;
+        private TextView vaccineName;
         private View myView;
 
-        public ContentViewHolder(View view) {
+        private ContentViewHolder(View view) {
             super(view);
             vaccineName = view.findViewById(R.id.name_date_tv);
             myView = view;

@@ -1,6 +1,7 @@
 package org.smartregister.chw.custom_view;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.support.design.widget.FloatingActionButton;
 import android.util.AttributeSet;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import org.smartregister.chw.R;
 import org.smartregister.chw.listener.OnClickFloatingMenu;
@@ -35,6 +37,26 @@ public class FamilyMemberFloatingMenu extends LinearLayout implements View.OnCli
     public FamilyMemberFloatingMenu(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         initUi();
+    }
+
+    /**
+     * re-renders call menu ui
+     */
+    public void reDraw(boolean has_phone){
+        TextView callTextView =  findViewById(R.id.CallTextView);
+        TextView callTextViewHint =  findViewById(R.id.CallTextViewHint);
+
+        if(has_phone){
+            callTextViewHint.setVisibility(GONE);
+            callLayout.setOnClickListener(this);
+            callTextView.setTypeface(null, Typeface.NORMAL);
+            callTextView.setTextColor(getResources().getColor(android.R.color.black));
+        }else{
+            callTextViewHint.setVisibility(VISIBLE);
+            callLayout.setOnClickListener(null);
+            callTextView.setTypeface(null, Typeface.ITALIC);
+            callTextView.setTextColor(getResources().getColor(R.color.grey));
+        }
     }
 
     private void initUi() {
