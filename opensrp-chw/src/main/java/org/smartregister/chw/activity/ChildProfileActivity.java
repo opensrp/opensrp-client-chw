@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -71,8 +72,8 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
 
     @Override
     public void updateHasPhone(boolean hasPhone) {
-        if(familyFloatingMenu !=null){
-            familyFloatingMenu.reDraw(hasPhone);
+        if (familyFloatingMenu != null) {
+            familyFloatingMenu.setVisibility(hasPhone ? View.VISIBLE : View.GONE);
         }
     }
 
@@ -80,18 +81,10 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
         @Override
         public void onClickMenu(int viewId) {
             switch (viewId) {
-                case R.id.call_layout:
+                case R.id.fab:
                     FamilyCallDialogFragment.launchDialog(ChildProfileActivity.this, ((ChildProfilePresenter) presenter).getFamilyId());
                     break;
-                case R.id.registration_layout:
-                    ((ChildProfilePresenter) presenter()).startFormForEdit(getResources().getString(R.string.edit_child_form_title), ((ChildProfilePresenter) presenter()).getChildClient());
-                    break;
-                case R.id.remove_member_layout:
-
-                    IndividualProfileRemoveActivity.startIndividualProfileActivity(ChildProfileActivity.this, ((ChildProfilePresenter) presenter()).getChildClient(),
-                            ((ChildProfilePresenter) presenter()).getFamilyID()
-                            , ((ChildProfilePresenter) presenter()).getFamilyHeadID(), ((ChildProfilePresenter) presenter()).getPrimaryCareGiverID());
-
+                default:
                     break;
             }
 
@@ -553,7 +546,31 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.other_member_menu, menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+
+            case R.id.action_registration:
+                ((ChildProfilePresenter) presenter()).startFormForEdit(getResources().getString(R.string.edit_child_form_title), ((ChildProfilePresenter) presenter()).getChildClient());
+                return true;
+
+            case R.id.action_remove_member:
+                IndividualProfileRemoveActivity.startIndividualProfileActivity(ChildProfileActivity.this, ((ChildProfilePresenter) presenter()).getChildClient(),
+                        ((ChildProfilePresenter) presenter()).getFamilyID()
+                        , ((ChildProfilePresenter) presenter()).getFamilyHeadID(), ((ChildProfilePresenter) presenter()).getPrimaryCareGiverID());
+
+                return true;
+            default:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
