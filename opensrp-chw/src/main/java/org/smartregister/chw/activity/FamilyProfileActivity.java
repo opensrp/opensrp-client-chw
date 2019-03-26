@@ -11,7 +11,6 @@ import android.util.Log;
 import android.util.Pair;
 import android.view.Gravity;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
 import android.widget.Toast;
