@@ -67,11 +67,14 @@
         <item name="android:textColor">@color/black</item>
     </style>
 
-    <style name="FamilyTheme.NoActionBar.WhiteMenu" parent="FamilyTheme.NoActionBar">
-        <item name="android:textColorPrimary">@color/black</item>
+    <style name="FamilyTheme.DarkAppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:windowContentOverlay">@null</item>
+        <!--below line used to change the color of home(back) button color-->
+        <item name="colorControlNormal">@android:color/black</item>
         <item name="android:textColorSecondary">@color/black</item>
         <item name="android:textColor">@color/black</item>
 
+        <item name="colorBackgroundFloating">@color/white</item>
         <item name="android:windowBackground">@color/white</item>
         <item name="android:colorBackground">@color/white</item>
     </style>
