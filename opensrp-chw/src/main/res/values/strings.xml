@@ -198,5 +198,7 @@
     <string name="highest_education_level">Highest education level</string>
     <string name="overdue">Overdue&#160;</string>
     <string name="due">Due&#160;</string>
+    <string name="remove_this_person">Remove this person</string>
+    <string name="registration_info">Registration info</string>
 
 </resources>
