@@ -15,7 +15,7 @@ public class FamilyProfilePresenterTest {
     private FamilyProfileActivity activity;
 
     @Mock
-    FamilyProfileInteractor interactor;
+    private FamilyProfileInteractor interactor;
 
     @Before
     public void setUp() throws Exception {

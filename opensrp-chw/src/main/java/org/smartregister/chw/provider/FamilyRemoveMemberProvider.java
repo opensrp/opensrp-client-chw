@@ -21,9 +21,9 @@ import java.util.Set;
 
 public class FamilyRemoveMemberProvider extends FamilyMemberRegisterProvider {
 
-    Context context;
-    android.view.View.OnClickListener footerClickListener;
-    String familyID;
+    private Context context;
+    private android.view.View.OnClickListener footerClickListener;
+    private String familyID;
 
     public FamilyRemoveMemberProvider(String familyID, Context context, CommonRepository commonRepository, Set visibleColumns, View.OnClickListener onClickListener, View.OnClickListener paginationClickListener, String familyHead, String primaryCaregiver) {
         super(context, commonRepository, visibleColumns, onClickListener, paginationClickListener, familyHead, primaryCaregiver);
@@ -52,23 +52,21 @@ public class FamilyRemoveMemberProvider extends FamilyMemberRegisterProvider {
                 Integer children = Integer.valueOf(result.get(Constants.TABLE_NAME.CHILD));
                 Integer members = Integer.valueOf(result.get(Constants.TABLE_NAME.FAMILY_MEMBER));
 
-                if (children != null && members != null) {
-                    int adults = members - children;
+                int adults = members - children;
 
-                    HashMap<String, String> payload = new HashMap<>();
-                    payload.put(Constants.GLOBAL.MESSAGE, String.format(context.getString(R.string.remove_family_count), String.valueOf(adults), String.valueOf(children)));
-                    payload.put(Constants.GLOBAL.NAME, result.get(Constants.GLOBAL.NAME));
+                HashMap<String, String> payload = new HashMap<>();
+                payload.put(Constants.GLOBAL.MESSAGE, String.format(context.getString(R.string.remove_family_count), String.valueOf(adults), String.valueOf(children)));
+                payload.put(Constants.GLOBAL.NAME, result.get(Constants.GLOBAL.NAME));
 
-                    footerViewHolder.instructions.setFontVariant(FontVariant.REGULAR);
-                    footerViewHolder.instructions.setTextColor(Color.BLACK);
+                footerViewHolder.instructions.setFontVariant(FontVariant.REGULAR);
+                footerViewHolder.instructions.setTextColor(Color.BLACK);
 
-                    footerViewHolder.hint.setText(payload.get(Constants.GLOBAL.MESSAGE));
-                    footerViewHolder.hint.setFontVariant(FontVariant.LIGHT);
-                    footerViewHolder.hint.setTextColor(Color.GRAY);
-                    footerViewHolder.hint.setTypeface(footerViewHolder.hint.getTypeface(), Typeface.NORMAL);
+                footerViewHolder.hint.setText(payload.get(Constants.GLOBAL.MESSAGE));
+                footerViewHolder.hint.setFontVariant(FontVariant.LIGHT);
+                footerViewHolder.hint.setTextColor(Color.GRAY);
+                footerViewHolder.hint.setTypeface(footerViewHolder.hint.getTypeface(), Typeface.NORMAL);
 
-                    footerViewHolder.view.setTag(payload);
-                }
+                footerViewHolder.view.setTag(payload);
             }
 
             @Override

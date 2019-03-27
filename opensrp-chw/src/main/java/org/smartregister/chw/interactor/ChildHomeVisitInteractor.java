@@ -44,8 +44,8 @@ public class ChildHomeVisitInteractor implements ChildHomeVisitContract.Interact
     private static final String TAG = "VisitInteractor";
     private AppExecutors appExecutors;
     private HashMap<String, Pair<Client, Event>> saveList = new HashMap<>();
-    private ArrayList<BirthIllnessData> birthCertDataList=new ArrayList<>();
-    private ArrayList<BirthIllnessData> illnessDataList=new ArrayList<>();
+    private ArrayList<BirthIllnessData> birthCertDataList = new ArrayList<>();
+    private ArrayList<BirthIllnessData> illnessDataList = new ArrayList<>();
 
     @VisibleForTesting
     ChildHomeVisitInteractor(AppExecutors appExecutors) {
@@ -59,10 +59,12 @@ public class ChildHomeVisitInteractor implements ChildHomeVisitContract.Interact
     public int getSaveSize() {
         return saveList.size();
     }
-    public ArrayList<BirthIllnessData> getIllnessDataList(){
+
+    public ArrayList<BirthIllnessData> getIllnessDataList() {
         return illnessDataList;
     }
-    public ArrayList<BirthIllnessData> getBirthCertDataList(){
+
+    public ArrayList<BirthIllnessData> getBirthCertDataList() {
         return birthCertDataList;
     }
 
@@ -78,26 +80,26 @@ public class ChildHomeVisitInteractor implements ChildHomeVisitContract.Interact
                 birthCertDataList.clear();
                 JSONObject stepOne = form.getJSONObject(org.smartregister.family.util.JsonFormUtils.STEP1);
                 JSONArray jsonArray = stepOne.getJSONArray(org.smartregister.family.util.JsonFormUtils.FIELDS);
-                BirthIllnessData birthIllnessData=new BirthIllnessData();
+                BirthIllnessData birthIllnessData = new BirthIllnessData();
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
-                    switch (jsonObject.getString(org.smartregister.family.util.JsonFormUtils.KEY).toLowerCase()){
+                    switch (jsonObject.getString(org.smartregister.family.util.JsonFormUtils.KEY).toLowerCase()) {
                         case BIRTH_CERT:
                             birthIllnessData.setBirthCertHas(jsonObject.getString(org.smartregister.family.util.JsonFormUtils.VALUE).equalsIgnoreCase("yes"));
                             break;
                         case BIRTH_CERT_ISSUE_DATE:
-                            String value=jsonObject.optString(org.smartregister.family.util.JsonFormUtils.VALUE);
-                            if(!TextUtils.isEmpty(value)){
-                                birthIllnessData.setBirthCertDate("Issued "+Utils.convertToDateFormateString(value,Utils.dd_MMM_yyyy));
+                            String value = jsonObject.optString(org.smartregister.family.util.JsonFormUtils.VALUE);
+                            if (!TextUtils.isEmpty(value)) {
+                                birthIllnessData.setBirthCertDate("Issued " + Utils.convertToDateFormateString(value, Utils.dd_MMM_yyyy));
                             }
-                          
+
                             break;
                         case BIRTH_CERT_NUMBER:
-                            String valueN=jsonObject.optString(org.smartregister.family.util.JsonFormUtils.VALUE);
-                            if(!TextUtils.isEmpty(valueN)){
-                                birthIllnessData.setBirthCertNumber("#"+valueN);
+                            String valueN = jsonObject.optString(org.smartregister.family.util.JsonFormUtils.VALUE);
+                            if (!TextUtils.isEmpty(valueN)) {
+                                birthIllnessData.setBirthCertNumber("#" + valueN);
                             }
-                          
+
                             break;
 
                     }
@@ -127,11 +129,11 @@ public class ChildHomeVisitInteractor implements ChildHomeVisitContract.Interact
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
 
-                    switch (jsonObject.getString(org.smartregister.family.util.JsonFormUtils.KEY).toLowerCase()){
+                    switch (jsonObject.getString(org.smartregister.family.util.JsonFormUtils.KEY).toLowerCase()) {
                         case ILLNESS_DATE:
-                            String value=jsonObject.optString(org.smartregister.family.util.JsonFormUtils.VALUE);
+                            String value = jsonObject.optString(org.smartregister.family.util.JsonFormUtils.VALUE);
 
-                            birthIllnessData.setIllnessDate(Utils.convertToDateFormateString(value,Utils.dd_MMM_yyyy));
+                            birthIllnessData.setIllnessDate(Utils.convertToDateFormateString(value, Utils.dd_MMM_yyyy));
 
                             break;
                         case ILLNESS_DESCRIPTION:
@@ -140,8 +142,10 @@ public class ChildHomeVisitInteractor implements ChildHomeVisitContract.Interact
 
                             break;
                         case ILLNESS_ACTION:
-                            birthIllnessData.setActionTaken("Action taken: "+jsonObject.optString(org.smartregister.family.util.JsonFormUtils.VALUE));
+                            birthIllnessData.setActionTaken("Action taken: " + jsonObject.optString(org.smartregister.family.util.JsonFormUtils.VALUE));
 
+                            break;
+                        default:
                             break;
                     }
 
@@ -183,11 +187,11 @@ public class ChildHomeVisitInteractor implements ChildHomeVisitContract.Interact
     }
 
     private void processPopulatableFields(JSONObject previousJson, JSONObject jsonObject, JSONArray jsonArray) {
-       try{
-           jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE,previousJson.getString(org.smartregister.family.util.JsonFormUtils.KEY));
-       }catch (Exception e){
+        try {
+            jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, previousJson.getString(org.smartregister.family.util.JsonFormUtils.KEY));
+        } catch (Exception e) {
 
-       }
+        }
 
     }
 
@@ -263,12 +267,13 @@ public class ChildHomeVisitInteractor implements ChildHomeVisitContract.Interact
     public ClientProcessorForJava getClientProcessorForJava() {
         return FamilyLibrary.getInstance().getClientProcessorForJava();
     }
-    private Context getContext(){
+
+    private Context getContext() {
         return ChwApplication.getInstance().getApplicationContext();
     }
 
     @Override
     public void onDestroy(boolean isChangingConfiguration) {
-
+        Log.d(TAG, "onDestroy called");
     }
 }

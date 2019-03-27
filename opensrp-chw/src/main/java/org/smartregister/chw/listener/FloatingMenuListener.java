@@ -15,7 +15,7 @@ import org.smartregister.chw.util.Constants;
 import java.lang.ref.WeakReference;
 
 public class FloatingMenuListener implements OnClickFloatingMenu {
-    static String TAG = FloatingMenuListener.class.getCanonicalName();
+    private static String TAG = FloatingMenuListener.class.getCanonicalName();
     private WeakReference<Activity> context;
     private String familyBaseEntityId;
     private String familyHead;
@@ -33,7 +33,7 @@ public class FloatingMenuListener implements OnClickFloatingMenu {
             instance = new FloatingMenuListener(context, familyBaseEntityId);
         } else {
             instance.setFamilyBaseEntityId(familyBaseEntityId);
-            if(instance.context.get() != context){
+            if (instance.context.get() != context) {
                 instance.context = new WeakReference<>(context);
             }
         }
@@ -71,7 +71,7 @@ public class FloatingMenuListener implements OnClickFloatingMenu {
     public void onClickMenu(int viewId) {
         if (context.get() != null) {
 
-            if(context.get().isDestroyed()){
+            if (context.get().isDestroyed()) {
                 Log.d(TAG, "Activity Destroyed");
                 return;
             }
@@ -119,6 +119,8 @@ public class FloatingMenuListener implements OnClickFloatingMenu {
                     pc_intent.putExtra(FamilyProfileMenuActivity.MENU, Constants.MenuType.ChangePrimaryCare);
                     context.get().startActivityForResult(pc_intent, Constants.ProfileActivityResults.CHANGE_COMPLETED);
 
+                    break;
+                default:
                     break;
             }
         }
