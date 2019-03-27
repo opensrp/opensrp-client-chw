@@ -339,8 +339,9 @@ public class ChwClientProcessor extends ClientProcessorForJava {
 
     private void processRemoveMember(String baseEntityId, Date eventDate) {
 
-        if (eventDate == null) {
-            eventDate = new Date();
+        Date myEventDate = eventDate;
+        if (myEventDate == null) {
+            myEventDate = new Date();
         }
 
         if (baseEntityId == null) {
@@ -351,7 +352,7 @@ public class ChwClientProcessor extends ClientProcessorForJava {
         if (commonsRepository != null) {
 
             ContentValues values = new ContentValues();
-            values.put(DBConstants.KEY.DATE_REMOVED, new SimpleDateFormat("yyyy-MM-dd").format(eventDate));
+            values.put(DBConstants.KEY.DATE_REMOVED, new SimpleDateFormat("yyyy-MM-dd").format(myEventDate));
             values.put("is_closed", 1);
 
             ChwApplication.getInstance().getRepository().getWritableDatabase().update(Constants.TABLE_NAME.FAMILY_MEMBER, values,
@@ -368,8 +369,9 @@ public class ChwClientProcessor extends ClientProcessorForJava {
 
     private void processRemoveChild(String baseEntityId, Date eventDate) {
 
-        if (eventDate == null) {
-            eventDate = new Date();
+        Date myEventDate = eventDate;
+        if (myEventDate == null) {
+            myEventDate = new Date();
         }
 
         if (baseEntityId == null) {
@@ -380,7 +382,7 @@ public class ChwClientProcessor extends ClientProcessorForJava {
         if (commonsRepository != null) {
 
             ContentValues values = new ContentValues();
-            values.put(DBConstants.KEY.DATE_REMOVED, new SimpleDateFormat("yyyy-MM-dd").format(eventDate));
+            values.put(DBConstants.KEY.DATE_REMOVED, new SimpleDateFormat("yyyy-MM-dd").format(myEventDate));
             values.put("is_closed", 1);
 
             ChwApplication.getInstance().getRepository().getWritableDatabase().update(Constants.TABLE_NAME.CHILD, values,
@@ -402,8 +404,9 @@ public class ChwClientProcessor extends ClientProcessorForJava {
      */
     private void processRemoveFamily(String familyID, Date eventDate) {
 
-        if (eventDate == null) {
-            eventDate = new Date();
+        Date myEventDate = eventDate;
+        if (myEventDate == null) {
+            myEventDate = new Date();
         }
 
         if (familyID == null) {
@@ -414,7 +417,7 @@ public class ChwClientProcessor extends ClientProcessorForJava {
         if (commonsRepository != null) {
 
             ContentValues values = new ContentValues();
-            values.put(DBConstants.KEY.DATE_REMOVED, new SimpleDateFormat("yyyy-MM-dd").format(eventDate));
+            values.put(DBConstants.KEY.DATE_REMOVED, new SimpleDateFormat("yyyy-MM-dd").format(myEventDate));
             values.put("is_closed", 1);
 
             ChwApplication.getInstance().getRepository().getWritableDatabase().update(Constants.TABLE_NAME.FAMILY, values,

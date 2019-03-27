@@ -9,9 +9,9 @@ import org.smartregister.chw.util.Utils;
 
 public class CallWidgetDialogListener implements View.OnClickListener {
 
-    static String TAG = CallWidgetDialogListener.class.getCanonicalName();
+    private static String TAG = CallWidgetDialogListener.class.getCanonicalName();
 
-    FamilyCallDialogFragment callDialogFragment = null;
+    private FamilyCallDialogFragment callDialogFragment;
 
     public CallWidgetDialogListener(FamilyCallDialogFragment dialogFragment) {
         callDialogFragment = dialogFragment;
@@ -40,6 +40,7 @@ public class CallWidgetDialogListener implements View.OnClickListener {
                 } catch (Exception e) {
                     Log.e(TAG, e.toString());
                 }
+                break;
             default:
                 break;
         }

@@ -13,15 +13,15 @@ import org.smartregister.chw.model.FamilyCallDialogModel;
 public class FamilyCallDialogPresenterTest {
 
 
-    FamilyCallDialogPresenter presenter;
+    private FamilyCallDialogPresenter presenter;
 
     @Mock
-    FamilyCallDialogContract.View view;
+    private FamilyCallDialogContract.View view;
 
     @Mock
-    FamilyCallDialogInteractor mInteractor;
+    private FamilyCallDialogInteractor mInteractor;
 
-    String familyBaseEntityId = "adawrfvsr553";
+    private String familyBaseEntityId = "adawrfvsr553";
 
     @Before
     public void setUp() {

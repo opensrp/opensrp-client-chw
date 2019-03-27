@@ -2,6 +2,7 @@ package org.smartregister.chw.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
@@ -28,6 +29,8 @@ import java.util.HashMap;
 import java.util.Set;
 
 public class IndividualProfileRemoveFragment extends BaseFamilyProfileMemberFragment implements FamilyRemoveMemberContract.View {
+
+    private static final String TAG = IndividualProfileRemoveFragment.class.getCanonicalName();
 
     private String familyBaseEntityId;
     private CommonPersonObjectClient pc;
@@ -66,7 +69,7 @@ public class IndividualProfileRemoveFragment extends BaseFamilyProfileMemberFrag
 
     @Override
     public void setAdvancedSearchFormData(HashMap<String, String> hashMap) {
-
+        Log.d(TAG,"setAdvancedSearchFormData");
     }
 
     public FamilyRemoveMemberContract.Presenter getPresenter() {
@@ -211,12 +214,9 @@ public class IndividualProfileRemoveFragment extends BaseFamilyProfileMemberFrag
 
     @Override
     public void onEveryoneRemoved() {
-
-        if (getActivity() != null) {
-            if (getActivity() instanceof IndividualProfileRemoveActivity) {
+        if (getActivity() != null && getActivity() instanceof IndividualProfileRemoveActivity) {
                 IndividualProfileRemoveActivity p = (IndividualProfileRemoveActivity) getActivity();
                 p.onRemoveMember();
-            }
         }
     }
 
