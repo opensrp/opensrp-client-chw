@@ -1,17 +1,15 @@
 package org.smartregister.chw.interactor;
 
-import android.support.annotation.VisibleForTesting;
+import android.util.Log;
 
 import org.joda.time.DateTime;
 import org.smartregister.chw.contract.HomeVisitImmunizationContract;
 import org.smartregister.chw.listener.ImmunizationStateChangeListener;
-import org.smartregister.chw.task.UpdateServiceTask;
 import org.smartregister.chw.task.VaccinationAsyncTask;
 import org.smartregister.chw.util.HomeVisitVaccineGroupDetails;
 import org.smartregister.chw.util.ImmunizationState;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.Alert;
-import org.smartregister.family.util.AppExecutors;
 import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.immunization.domain.Vaccine;
 import org.smartregister.immunization.domain.VaccineWrapper;
@@ -30,22 +28,24 @@ import static org.smartregister.immunization.util.VaccinatorUtils.receivedVaccin
 import static org.smartregister.util.Utils.startAsyncTask;
 
 public class HomeVisitImmunizationInteractor implements HomeVisitImmunizationContract.Interactor {
+    private static String TAG = HomeVisitImmunizationInteractor.class.toString();
+    /*
     private AppExecutors appExecutors;
     private UpdateServiceTask updateServiceTask;
-    private VaccinationAsyncTask vaccinationAsyncTask;
 
     @VisibleForTesting
     HomeVisitImmunizationInteractor(AppExecutors appExecutors) {
         this.appExecutors = appExecutors;
     }
+    */
 
     public HomeVisitImmunizationInteractor() {
-        this(new AppExecutors());
+        // this(new AppExecutors());
     }
 
     @Override
     public void onDestroy(boolean isChangingConfiguration) {
-
+        Log.d(TAG,"onDestroy unimplemented");
     }
 
     @Override
@@ -54,7 +54,7 @@ public class HomeVisitImmunizationInteractor implements HomeVisitImmunizationCon
         int index = 0;
         for (HomeVisitVaccineGroupDetails toReturn : allGroups) {
             if (toReturn.getDueVaccines().size() > 0) {
-                if (!(toReturn.getNotGivenInThisVisitVaccines().size() > 0 || toReturn.getGivenVaccines().size() > 0)) {
+                if (toReturn.getNotGivenInThisVisitVaccines().size() == 0 && toReturn.getGivenVaccines().size() == 0) {
                     if (!toReturn.getAlert().equals(ImmunizationState.NO_ALERT)) {
                         currentActiveHomeVisit = toReturn;
                         break;
@@ -373,7 +373,7 @@ public class HomeVisitImmunizationInteractor implements HomeVisitImmunizationCon
 
     @Override
     public void updateImmunizationState(CommonPersonObjectClient childClient, ArrayList<VaccineWrapper> notGivenVaccines, final HomeVisitImmunizationContract.InteractorCallBack callBack) {
-        vaccinationAsyncTask = new VaccinationAsyncTask(childClient.getCaseId(), childClient.getColumnmaps(), notGivenVaccines, new ImmunizationStateChangeListener() {
+        VaccinationAsyncTask vaccinationAsyncTask = new VaccinationAsyncTask(childClient.getCaseId(), childClient.getColumnmaps(), notGivenVaccines, new ImmunizationStateChangeListener() {
             @Override
             public void onImmunicationStateChange(List<Alert> alerts, List<Vaccine> vaccines, String stateKey, List<Map<String, Object>> sch, ImmunizationState state) {
                 callBack.immunizationState(alerts, vaccines, sch);

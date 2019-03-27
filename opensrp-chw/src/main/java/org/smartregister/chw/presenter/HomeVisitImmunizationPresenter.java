@@ -3,6 +3,7 @@ package org.smartregister.chw.presenter;
 import android.app.Activity;
 import android.content.Context;
 import android.text.TextUtils;
+import android.util.Log;
 
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
@@ -36,18 +37,18 @@ import io.reactivex.ObservableOnSubscribe;
 import static org.smartregister.chw.util.ChildUtils.fixVaccineCasing;
 
 public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationContract.Presenter, HomeVisitImmunizationContract.View {
+    private static final String TAG = HomeVisitImmunizationPresenter.class.toString();
 
-
-    HomeVisitImmunizationContract.Interactor homeVisitImmunizationInteractor;
+    private HomeVisitImmunizationContract.Interactor homeVisitImmunizationInteractor;
     private WeakReference<HomeVisitImmunizationContract.View> view;
-    ArrayList<VaccineRepo.Vaccine> vaccinesDueFromLastVisit = new ArrayList<VaccineRepo.Vaccine>();
+    private ArrayList<VaccineRepo.Vaccine> vaccinesDueFromLastVisit = new ArrayList<VaccineRepo.Vaccine>();
     private ArrayList<HomeVisitVaccineGroupDetails> allgroups = new ArrayList<HomeVisitVaccineGroupDetails>();
     private ArrayList<VaccineWrapper> notGivenVaccines = new ArrayList<VaccineWrapper>();
     private HomeVisitVaccineGroupDetails currentActiveGroup;
     private CommonPersonObjectClient childClient;
     private ArrayList<VaccineWrapper> vaccinesGivenThisVisit = new ArrayList<VaccineWrapper>();
-    public String groupImmunizationSecondaryText = "";
-    public String singleImmunizationSecondaryText = "";
+    private String groupImmunizationSecondaryText = "";
+    private String singleImmunizationSecondaryText = "";
     private final VaccineRepository vaccineRepository;
 
 
@@ -90,7 +91,7 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
 
     @Override
     public void onDestroy(boolean isChangingConfiguration) {
-
+        Log.d(TAG, "onDestroy unimplemented");
     }
 
     @Override
@@ -269,10 +270,8 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
         for (VaccineRepo.Vaccine vaccinedueLastVisit : vaccinesDueFromLastVisit) {
             vaccinesStack.add(vaccinedueLastVisit);
             for (VaccineWrapper givenThisVisit : vaccinesGivenThisVisit) {
-                if (!vaccinesStack.isEmpty()) {
-                    if (givenThisVisit.getDefaultName().equalsIgnoreCase(vaccinesStack.peek().display())) {
-                        vaccinesStack.pop();
-                    }
+                if (!vaccinesStack.isEmpty() && givenThisVisit.getDefaultName().equalsIgnoreCase(vaccinesStack.peek().display())) {
+                    vaccinesStack.pop();
                 }
             }
         }
@@ -283,7 +282,7 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
             for (VaccineWrapper vaccine : notGivenVaccines) {
                 if (
                         !vaccinesStack.isEmpty()
-                        && vaccine.getDefaultName().equalsIgnoreCase(vaccinesStack.peek().display())
+                                && vaccine.getDefaultName().equalsIgnoreCase(vaccinesStack.peek().display())
                 ) {
                     vaccinesStack.pop();
                 }

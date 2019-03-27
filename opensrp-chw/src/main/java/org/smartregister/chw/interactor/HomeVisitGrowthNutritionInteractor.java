@@ -1,6 +1,7 @@
 package org.smartregister.chw.interactor;
 
 import android.support.annotation.VisibleForTesting;
+import android.util.Log;
 
 import org.smartregister.chw.contract.HomeVisitGrowthNutritionContract;
 import org.smartregister.chw.fragment.GrowthNutritionInputFragment;
@@ -20,6 +21,8 @@ import java.util.Map;
 import static org.smartregister.util.Utils.startAsyncTask;
 
 public class HomeVisitGrowthNutritionInteractor implements HomeVisitGrowthNutritionContract.Interactor {
+    private static final String TAG = HomeVisitGrowthNutritionInteractor.class.toString();
+
     private AppExecutors appExecutors;
 
     @VisibleForTesting
@@ -92,6 +95,7 @@ public class HomeVisitGrowthNutritionInteractor implements HomeVisitGrowthNutrit
 
     @Override
     public void onDestroy(boolean isChangingConfiguration) {
-
+        //TODO Implement onDestroy
+        Log.d(TAG, "onDestroy unimplemented");
     }
 }

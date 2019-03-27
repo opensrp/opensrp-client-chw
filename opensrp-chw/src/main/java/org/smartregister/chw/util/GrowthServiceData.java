@@ -4,6 +4,8 @@ public class GrowthServiceData {
     private String date;
     private String name;
     private String displayAbleDate;
+    private String type;
+    private String displayName;
 
     public String getDisplayName() {
         return displayName;
@@ -13,8 +15,6 @@ public class GrowthServiceData {
         this.displayName = displayName;
     }
 
-    private String displayName;
-
     public String getType() {
         return type;
     }
@@ -22,8 +22,6 @@ public class GrowthServiceData {
     public void setType(String type) {
         this.type = type;
     }
-
-    private String type;
 
     public String getDate() {
         return date;
@@ -48,6 +46,5 @@ public class GrowthServiceData {
     public void setDisplayAbleDate(String displayAbleDate) {
         this.displayAbleDate = displayAbleDate;
     }
-
 
 }

@@ -11,6 +11,7 @@ import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.util.Pair;
 import android.view.Display;
 import android.view.Gravity;
@@ -28,6 +29,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.R;
 import org.smartregister.chw.adapter.MemberAdapter;
 import org.smartregister.chw.contract.FamilyChangeContract;
+import org.smartregister.chw.contract.MemberAdapterListener;
 import org.smartregister.chw.domain.FamilyMember;
 import org.smartregister.chw.presenter.FamilyChangePresenter;
 import org.smartregister.chw.util.Constants;
@@ -35,7 +37,8 @@ import org.smartregister.chw.util.Constants;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FamilyProfileChangeDialog extends DialogFragment implements View.OnClickListener, FamilyChangeContract.View {
+public class FamilyProfileChangeDialog extends DialogFragment implements View.OnClickListener, FamilyChangeContract.View, MemberAdapterListener {
+    private static String TAG =  FamilyProfileChangeDialog.class.getCanonicalName();
 
     protected Context context;
     protected String familyID;
@@ -45,12 +48,10 @@ public class FamilyProfileChangeDialog extends DialogFragment implements View.On
 
 
     protected MemberAdapter memberAdapter;
-    RecyclerView recyclerView;
-    FamilyChangeContract.Presenter presenter;
-    List<FamilyMember> members;
-    TextView tvInfo;
-    TextView tvTitle;
-    ProgressBar progressBar;
+    private RecyclerView recyclerView;
+    private FamilyChangeContract.Presenter presenter;
+    private List<FamilyMember> members;
+    private ProgressBar progressBar;
 
     public static FamilyProfileChangeDialog newInstance(Context context, String familyBaseEntityId, String actionType) {
         FamilyProfileChangeDialog fragment = new FamilyProfileChangeDialog();
@@ -131,8 +132,8 @@ public class FamilyProfileChangeDialog extends DialogFragment implements View.On
         view.findViewById(R.id.tvSubmit).setOnClickListener(this);
         view.findViewById(R.id.tvCancel).setOnClickListener(this);
         progressBar = view.findViewById(R.id.progressBar);
-        tvInfo = view.findViewById(R.id.tvWarning);
-        tvTitle = view.findViewById(R.id.tvTitle);
+        TextView tvInfo = view.findViewById(R.id.tvWarning);
+        TextView tvTitle = view.findViewById(R.id.tvTitle);
         recyclerView = view.findViewById(R.id.rvList);
         progressBar.setVisibility(View.INVISIBLE);
 
@@ -147,6 +148,11 @@ public class FamilyProfileChangeDialog extends DialogFragment implements View.On
     }
 
     @Override
+    public void onMenuChoiceChange() {
+        Log.v(TAG, "onMenuChoiceChange Fired");
+    }
+
+    @Override
     public void refreshMembersView(List<FamilyMember> familyMembers) {
         if (familyMembers != null) {
             members.clear();
@@ -154,7 +160,7 @@ public class FamilyProfileChangeDialog extends DialogFragment implements View.On
 
             if (memberAdapter == null) {
                 LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-                memberAdapter = new MemberAdapter(getActivity(), members);
+                memberAdapter = new MemberAdapter(getActivity(), members, this);
                 recyclerView.setLayoutManager(layoutManager);
                 recyclerView.setAdapter(memberAdapter);
             } else {

@@ -19,10 +19,6 @@ import org.smartregister.helper.BottomNavigationHelper;
 
 public class JobAidsActivity extends FamilyRegisterActivity {
 
-    private SectionsPagerAdapter mSectionsPagerAdapter;
-
-    private ViewPager mViewPager;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,8 +40,10 @@ public class JobAidsActivity extends FamilyRegisterActivity {
                     return JobAidsDashboardFragment.newInstance();
                 case 1:
                     return JobAidsGuideBooksFragment.newInstance();
+                default:
+                    return JobAidsDashboardFragment.newInstance();
             }
-            return JobAidsDashboardFragment.newInstance();
+
         }
 
         @Override
@@ -63,9 +61,9 @@ public class JobAidsActivity extends FamilyRegisterActivity {
         }
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        SectionsPagerAdapter mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
-        mViewPager = (ViewPager) findViewById(R.id.container);
+        ViewPager mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);

@@ -26,10 +26,10 @@ import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.smartregister.chw.R;
 import org.smartregister.chw.custom_view.HomeVisitGrowthAndNutrition;
+import org.smartregister.chw.util.ChwServiceSchedule;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.JsonFormUtils;
 import org.smartregister.chw.util.Utils;
-import org.smartregister.chw.util.ChwServiceSchedule;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.immunization.ImmunizationLibrary;
@@ -52,7 +52,8 @@ public class GrowthNutritionInputFragment extends DialogFragment implements Radi
     );
 
     private TextView textViewTitle;
-    private Button buttonSave, buttonSaveBf, buttonCancel;
+    private Button buttonSave;
+    private Button buttonCancel;
     private RadioButton yesRadio, noRadio;
 
     private String type;
@@ -65,7 +66,7 @@ public class GrowthNutritionInputFragment extends DialogFragment implements Radi
     private CommonPersonObjectClient commonPersonObjectClient;
     private LinearLayout context;
     private ServiceWrapper saveService;
-    String dob;
+    private String dob;
 
     public GrowthNutritionInputFragment(ServiceWrapper serviceWrapper) {
         this.serviceWrapper = serviceWrapper;
@@ -96,8 +97,9 @@ public class GrowthNutritionInputFragment extends DialogFragment implements Radi
         new Handler().post(new Runnable() {
             @Override
             public void run() {
-                getDialog().getWindow().setLayout(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
-
+                if (getDialog() != null && getDialog().getWindow() != null) {
+                    getDialog().getWindow().setLayout(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
+                }
             }
         });
 
@@ -113,7 +115,7 @@ public class GrowthNutritionInputFragment extends DialogFragment implements Radi
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         textViewTitle = view.findViewById(R.id.textview_vaccine_title);
         buttonSave = view.findViewById(R.id.save_btn);
-        buttonSaveBf = view.findViewById(R.id.save_bf_btn);
+        Button buttonSaveBf = view.findViewById(R.id.save_bf_btn);
         buttonCancel = view.findViewById(R.id.cancel);
         yesRadio = view.findViewById(R.id.yes);
         noRadio = view.findViewById(R.id.no);

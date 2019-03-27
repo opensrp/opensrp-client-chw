@@ -6,11 +6,8 @@ import org.smartregister.chw.interactor.FamilyCallDialogInteractor;
 import java.lang.ref.WeakReference;
 
 public class FamilyCallDialogPresenter implements FamilyCallDialogContract.Presenter {
-
-    static String TAG = FamilyCallDialogPresenter.class.getCanonicalName();
-
-    WeakReference<FamilyCallDialogContract.View> mView;
-    FamilyCallDialogContract.Interactor mInteractor;
+    private WeakReference<FamilyCallDialogContract.View> mView;
+    private FamilyCallDialogContract.Interactor mInteractor;
 
     public FamilyCallDialogPresenter(FamilyCallDialogContract.View view, String familyBaseEntityId) {
         mView = new WeakReference<>(view);
