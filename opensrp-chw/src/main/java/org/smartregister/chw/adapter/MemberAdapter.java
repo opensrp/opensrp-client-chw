@@ -22,6 +22,7 @@ import android.widget.TextView;
 
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.R;
+import org.smartregister.chw.contract.MemberAdapterListener;
 import org.smartregister.chw.domain.FamilyMember;
 import org.smartregister.family.util.Utils;
 
@@ -40,10 +41,12 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MyViewHold
     private Animation slideUp;
     private Animation slideDown;
     private List<String> eduOptions;
+    private MemberAdapterListener memberAdapterListener;
 
-    public MemberAdapter(Context context, List<FamilyMember> myDataset) {
+    public MemberAdapter(Context context, List<FamilyMember> myDataset, MemberAdapterListener memberAdapterListener) {
         familyMembers = myDataset;
         this.context = context;
+        this.memberAdapterListener = memberAdapterListener;
 
         slideUp = AnimationUtils.loadAnimation(context, R.anim.slide_up);
         slideDown = AnimationUtils.loadAnimation(context, R.anim.slide_up);
@@ -56,6 +59,9 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MyViewHold
     public void setSelected(MyViewHolder view, String selected) {
         currentViewHolder = view;
         this.selected = selected;
+        if(memberAdapterListener != null){
+            memberAdapterListener.onMenuChoiceChange();
+        }
     }
 
     @NonNull
