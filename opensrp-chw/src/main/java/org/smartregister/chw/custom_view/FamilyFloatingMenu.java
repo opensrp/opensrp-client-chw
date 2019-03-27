@@ -51,6 +51,8 @@ public class FamilyFloatingMenu extends LinearLayout implements View.OnClickList
         callLayout.setOnClickListener(has_phone ? this : null);
         callTextView.setTypeface(null, (has_phone ? Typeface.NORMAL : Typeface.ITALIC));
         callTextView.setTextColor(getResources().getColor(has_phone ? android.R.color.black : R.color.grey));
+
+        ((FloatingActionButton) findViewById(R.id.callFab)).getDrawable().setAlpha(has_phone ? 255 : 122);
     }
 
     private void initUi() {

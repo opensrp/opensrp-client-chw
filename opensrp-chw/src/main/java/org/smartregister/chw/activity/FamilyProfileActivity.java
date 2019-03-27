@@ -79,8 +79,6 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity implements 
         addContentView(familyFloatingMenu, linearLayoutParams);
         familyFloatingMenu.setClickListener(
                 FloatingMenuListener.getInstance(this, presenter().familyBaseEntityId())
-                        .setFamilyHead(familyHead)
-                        .setPrimaryCareGiver(primaryCaregiver)
         );
     }
 
