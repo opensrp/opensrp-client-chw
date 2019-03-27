@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -31,6 +32,8 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class MedicalHistoryActivity extends SecuredActivity implements MedicalHistoryContract.View {
+    private static final String TAG = MedicalHistoryActivity.class.getCanonicalName();
+
     private TextView textViewTitle;
     private TextView textViewLastVisit;
     private LinearLayout layoutImmunization, layoutGrowthAndNutrition, layoutBirthCert, layoutIllness;
@@ -81,7 +84,7 @@ public class MedicalHistoryActivity extends SecuredActivity implements MedicalHi
 
     @Override
     protected void onResumption() {
-
+        Log.d(TAG, "onResumption unimplemented");
     }
 
     private void setUpActionBar() {

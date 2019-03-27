@@ -48,6 +48,10 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
         this.childBaseEntityId = childBaseEntityId;
     }
 
+    public ChildProfileContract.Model getModel() {
+        return model;
+    }
+
     public String getFamilyID() {
         return familyID;
     }
@@ -157,8 +161,7 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
     @Override
     public void updateChildProfile(String jsonString) {
         getView().showProgressDialog(R.string.updating);
-        ChildRegisterModel model = new ChildRegisterModel();
-        Pair<Client, Event> pair = model.processRegistration(jsonString);
+        Pair<Client, Event> pair = new ChildRegisterModel().processRegistration(jsonString);
         if (pair == null) {
             return;
         }

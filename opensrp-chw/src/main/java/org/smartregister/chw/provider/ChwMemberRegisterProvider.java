@@ -109,7 +109,9 @@ public class ChwMemberRegisterProvider extends FamilyMemberRegisterProvider {
         String lastVisitDate = map.get(ChildDBConstants.KEY.LAST_HOME_VISIT);
         String visitNotDone = map.get(ChildDBConstants.KEY.VISIT_NOT_DONE);
         String strDateCreated = map.get(ChildDBConstants.KEY.DATE_CREATED);
-        long lastVisit = 0, visitNot = 0, dateCreated = 0;
+        long lastVisit = 0;
+        long visitNot = 0;
+        long dateCreated = 0;
         if (!TextUtils.isEmpty(lastVisitDate)) {
             lastVisit = Long.valueOf(lastVisitDate);
         }

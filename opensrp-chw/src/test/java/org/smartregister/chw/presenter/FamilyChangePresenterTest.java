@@ -16,18 +16,18 @@ import java.util.List;
 
 public class FamilyChangePresenterTest {
 
-    FamilyChangePresenter presenter;
+    private FamilyChangePresenter presenter;
 
     @Mock
-    FamilyChangeContractInteractor interactor;
+    private FamilyChangeContractInteractor interactor;
 
     @Mock
-    FamilyChangeContractModel model;
+    private FamilyChangeContractModel model;
 
     @Mock
-    FamilyChangeContract.View view;
+    private FamilyChangeContract.View view;
 
-    String familyID = "TEST_FAM_ID";
+    private String familyID = "TEST_FAM_ID";
 
     @Before
     public void setUp() {
