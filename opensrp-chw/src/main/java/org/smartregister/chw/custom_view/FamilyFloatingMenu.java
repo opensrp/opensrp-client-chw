@@ -22,7 +22,8 @@ public class FamilyFloatingMenu extends LinearLayout implements View.OnClickList
     private boolean isFabMenuOpen = false;
     private OnClickFloatingMenu onClickFloatingMenu;
 
-    private View callLayout, familyDetail, addNewMember, removeMember, changeHead, changePrimary;
+    private View callLayout;
+    private View addNewMember;
 
     public FamilyFloatingMenu(Context context) {
         super(context);
@@ -42,14 +43,16 @@ public class FamilyFloatingMenu extends LinearLayout implements View.OnClickList
     /**
      * re-renders call menu ui
      */
-    public void reDraw(boolean has_phone){
-        TextView callTextView =  findViewById(R.id.CallTextView);
-        TextView callTextViewHint =  findViewById(R.id.CallTextViewHint);
+    public void reDraw(boolean has_phone) {
+        TextView callTextView = findViewById(R.id.CallTextView);
+        TextView callTextViewHint = findViewById(R.id.CallTextViewHint);
 
         callTextViewHint.setVisibility(has_phone ? GONE : VISIBLE);
-        callLayout.setOnClickListener(has_phone ? this: null);
+        callLayout.setOnClickListener(has_phone ? this : null);
         callTextView.setTypeface(null, (has_phone ? Typeface.NORMAL : Typeface.ITALIC));
         callTextView.setTextColor(getResources().getColor(has_phone ? android.R.color.black : R.color.grey));
+
+        ((FloatingActionButton) findViewById(R.id.callFab)).getDrawable().setAlpha(has_phone ? 255 : 122);
     }
 
     private void initUi() {
@@ -73,27 +76,11 @@ public class FamilyFloatingMenu extends LinearLayout implements View.OnClickList
         callLayout = findViewById(R.id.call_layout);
         callLayout.setOnClickListener(this);
 
-        familyDetail = findViewById(R.id.family_detail_layout);
-        familyDetail.setOnClickListener(this);
-
         addNewMember = findViewById(R.id.add_new_member_layout);
         addNewMember.setOnClickListener(this);
 
-        removeMember = findViewById(R.id.remove_member_layout);
-        removeMember.setOnClickListener(this);
-
-        changeHead = findViewById(R.id.change_head_layout);
-        changeHead.setOnClickListener(this);
-
-        changePrimary = findViewById(R.id.change_primary_layout);
-        changePrimary.setOnClickListener(this);
-
         callLayout.setClickable(false);
-        familyDetail.setClickable(false);
         addNewMember.setClickable(false);
-        removeMember.setClickable(false);
-        changeHead.setClickable(false);
-        changePrimary.setClickable(false);
 
         menuBar.setVisibility(GONE);
 
@@ -115,19 +102,10 @@ public class FamilyFloatingMenu extends LinearLayout implements View.OnClickList
             fab.setImageResource(R.drawable.ic_edit_white);
 
             callLayout.startAnimation(fabClose);
-            familyDetail.startAnimation(fabClose);
             addNewMember.startAnimation(fabClose);
-            removeMember.startAnimation(fabClose);
-            changeHead.startAnimation(fabClose);
-            changePrimary.startAnimation(fabClose);
 
             callLayout.setClickable(false);
-            familyDetail.setClickable(false);
             addNewMember.setClickable(false);
-            removeMember.setClickable(false);
-            changeHead.setClickable(false);
-            changePrimary.setClickable(false);
-
             isFabMenuOpen = false;
 
         } else {
@@ -137,18 +115,10 @@ public class FamilyFloatingMenu extends LinearLayout implements View.OnClickList
             fab.setImageResource(R.drawable.ic_input_add);
 
             callLayout.startAnimation(fabOpen);
-            familyDetail.startAnimation(fabOpen);
             addNewMember.startAnimation(fabOpen);
-            removeMember.startAnimation(fabOpen);
-            changeHead.startAnimation(fabOpen);
-            changePrimary.startAnimation(fabOpen);
 
             callLayout.setClickable(true);
-            familyDetail.setClickable(true);
             addNewMember.setClickable(true);
-            removeMember.setClickable(true);
-            changeHead.setClickable(true);
-            changePrimary.setClickable(true);
 
             isFabMenuOpen = true;
         }

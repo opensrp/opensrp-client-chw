@@ -196,5 +196,7 @@
     <string name="phone_number">Phone number</string>
     <string name="other_phone_number">Other phone number</string>
     <string name="highest_education_level">Highest education level</string>
+    <string name="remove_this_person">Remove this person</string>
+    <string name="registration_info">Registration info</string>
 
 </resources>
