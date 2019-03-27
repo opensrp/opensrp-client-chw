@@ -1,6 +1,5 @@
 package org.smartregister.chw.model;
 
-import android.app.Activity;
 import android.util.Log;
 
 import org.smartregister.chw.R;
@@ -16,14 +15,13 @@ import static java.util.Arrays.asList;
 public class NavigationModel implements NavigationContract.Model {
 
     private static NavigationModel instance;
-    List<NavigationOption> navigationOptions = new ArrayList<>();
-    NavigationOption op1 = new NavigationOption(R.mipmap.sidemenu_families, R.mipmap.sidemenu_families_active, Constants.DrawerMenu.ALL_FAMILIES, 0);
-    NavigationOption op2 = new NavigationOption(R.mipmap.sidemenu_children, R.mipmap.sidemenu_children_active, Constants.DrawerMenu.CHILD_CLIENTS, 0);
+    private List<NavigationOption> navigationOptions = new ArrayList<>();
     private String TAG = NavigationModel.class.getCanonicalName();
-    private Activity mActivity;
 
     private NavigationModel() {
         navigationOptions.clear();
+        NavigationOption op1 = new NavigationOption(R.mipmap.sidemenu_families, R.mipmap.sidemenu_families_active, Constants.DrawerMenu.ALL_FAMILIES, 0);
+        NavigationOption op2 = new NavigationOption(R.mipmap.sidemenu_children, R.mipmap.sidemenu_children_active, Constants.DrawerMenu.CHILD_CLIENTS, 0);
         navigationOptions.addAll(asList(op1, op2));
     }
 
