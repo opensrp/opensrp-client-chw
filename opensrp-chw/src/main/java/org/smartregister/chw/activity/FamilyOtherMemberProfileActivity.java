@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -52,14 +53,8 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
         @Override
         public void onClickMenu(int viewId) {
             switch (viewId) {
-                case R.id.call_layout:
+                case R.id.fab:
                     FamilyCallDialogFragment.launchDialog(FamilyOtherMemberProfileActivity.this, familyBaseEntityId);
-                    break;
-                case R.id.registration_layout:
-                    startFormForEdit(R.string.edit_member_form_title);
-                    break;
-                case R.id.remove_member_layout:
-                    IndividualProfileRemoveActivity.startIndividualProfileActivity(FamilyOtherMemberProfileActivity.this, commonPersonObject, familyBaseEntityId, familyHead, primaryCaregiver);
                     break;
                 default:
                     break;
@@ -102,7 +97,7 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
     @Override
     public void updateHasPhone(boolean hasPhone) {
         if (familyFloatingMenu != null) {
-            familyFloatingMenu.reDraw(hasPhone);
+            familyFloatingMenu.setVisibility(hasPhone ? View.VISIBLE : View.GONE);
         }
     }
 
@@ -126,6 +121,7 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
             addMember.setVisible(false);
         }
 
+        getMenuInflater().inflate(R.menu.other_member_menu, menu);
         return true;
     }
 
@@ -134,6 +130,12 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
         switch (item.getItemId()) {
             case android.R.id.home:
                 onBackPressed();
+                return true;
+            case R.id.action_registration:
+                startFormForEdit(R.string.edit_member_form_title);
+                return true;
+            case R.id.action_remove_member:
+                IndividualProfileRemoveActivity.startIndividualProfileActivity(FamilyOtherMemberProfileActivity.this, commonPersonObject, familyBaseEntityId, familyHead, primaryCaregiver);
                 return true;
             default:
                 break;
