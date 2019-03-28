@@ -19,6 +19,7 @@ import org.smartregister.chw.model.FamilyRegisterFramentModel;
 import org.smartregister.chw.presenter.FamilyRegisterFragmentPresenter;
 import org.smartregister.chw.provider.ChwRegisterProvider;
 import org.smartregister.chw.util.Constants;
+import org.smartregister.chw.util.QueryBuilder;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.commonregistry.CommonRepository;
@@ -252,51 +253,8 @@ public class FamilyRegisterFragment extends BaseFamilyRegisterFragment {
         try {
             if (isValidFilterForFts(commonRepository())) {
 
-                StringBuilder sb = new StringBuilder();
-
-                if (ArrayUtils.isEmpty(joinTables)) {
-
-                    sb.append(MessageFormat.format("SELECT {0} FROM {1} ", CommonFtsObject.idColumn, CommonFtsObject.searchTableName(tablename)));
-                    if (StringUtils.isNotBlank(mainCondition)) {
-                        sb.append(MessageFormat.format("WHERE {0} ", mainCondition));
-                    }
-
-                    if (StringUtils.isNotBlank(filters)) {
-                        sb.append(MessageFormat.format("AND PHRASE MATCH '{0}*' ", filters));
-                    }
-
-                    sb.append(MessageFormat.format("LIMIT {0} , {1} ", clientAdapter.getCurrentoffset(), clientAdapter.getCurrentlimit()));
-
-                } else {
-
-                    StringBuilder sbJoin = new StringBuilder();
-                    for (String tableName : joinTables) {
-
-                        if (StringUtils.isNotBlank(sbJoin.toString().trim())) {
-                            sbJoin.append("UNION ");
-                        }
-
-                        sbJoin.append(MessageFormat.format("SELECT {0} FROM {1} WHERE date_removed is null ", CommonFtsObject.relationalIdColumn, CommonFtsObject.searchTableName(tableName)));
-                        if (StringUtils.isNotBlank(filters)) {
-                            sbJoin.append(MessageFormat.format("AND PHRASE MATCH ''{0}*'' ", filters));
-                        }
-                    }
-
-                    sb.append(MessageFormat.format("SELECT {0} FROM {1} WHERE {2} IN ",
-                            CommonFtsObject.idColumn,
-                            CommonFtsObject.searchTableName(tablename),
-                            CommonFtsObject.idColumn
-                    ));
-
-                    sb.append(MessageFormat.format("( {0} ) ORDER BY {1} ", sbJoin.toString(), Sortqueries));
-
-                    sb.append(MessageFormat.format("LIMIT {0} , {1} ",
-                            clientAdapter.getCurrentoffset(),
-                            clientAdapter.getCurrentlimit()
-                    ));
-                }
-
-                List<String> ids = commonRepository().findSearchIds(sb.toString());
+                String myquery= QueryBuilder.getQuery(joinTables, mainCondition, tablename, filters, clientAdapter, Sortqueries);
+                List<String> ids = commonRepository().findSearchIds(myquery);
                 query = sqb.toStringFts(ids, tablename, CommonRepository.ID_COLUMN,
                         Sortqueries);
                 query = sqb.Endquery(query);
