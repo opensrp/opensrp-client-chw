@@ -9,7 +9,7 @@ import java.text.MessageFormat;
 
 public class QueryBuilder {
 
-    public static String getQuery(String[] joinTables, String mainCondition, String tablename, String filters, RecyclerViewPaginatedAdapter clientAdapter, String Sortqueries){
+    public static String getQuery(String[] joinTables, String mainCondition, String tablename, String filters, RecyclerViewPaginatedAdapter clientAdapter, String Sortqueries) {
 
         StringBuilder sb = new StringBuilder();
 
@@ -21,11 +21,11 @@ public class QueryBuilder {
             }
 
             if (StringUtils.isNotBlank(filters)) {
-                sb.append(StringUtils.isNotBlank(mainCondition) ? "AND ": "WHERE ");
+                sb.append(StringUtils.isNotBlank(mainCondition) ? "AND " : "WHERE ");
                 sb.append(MessageFormat.format("PHRASE MATCH ''{0}*'' ", filters.trim()));
             }
 
-            if(StringUtils.isNotBlank(Sortqueries)){
+            if (StringUtils.isNotBlank(Sortqueries)) {
                 sb.append(MessageFormat.format("ORDER BY {0} ", Sortqueries));
             }
 
@@ -41,7 +41,7 @@ public class QueryBuilder {
                 sbJoin.append(MessageFormat.format("WHERE {0} ", mainCondition));
             }
             if (StringUtils.isNotBlank(filters)) {
-                sbJoin.append(StringUtils.isNotBlank(mainCondition) ? "AND ": "WHERE ");
+                sbJoin.append(StringUtils.isNotBlank(mainCondition) ? "AND " : "WHERE ");
                 sbJoin.append(MessageFormat.format("PHRASE MATCH ''{0}*'' ", filters.trim()));
             }
 
@@ -57,7 +57,7 @@ public class QueryBuilder {
                     sbJoin.append(MessageFormat.format("WHERE {0} ", mainCondition));
                 }
                 if (StringUtils.isNotBlank(filters)) {
-                    sbJoin.append(StringUtils.isNotBlank(mainCondition) ? "AND ": "WHERE ");
+                    sbJoin.append(StringUtils.isNotBlank(mainCondition) ? "AND " : "WHERE ");
                     sbJoin.append(MessageFormat.format("PHRASE MATCH ''{0}*'' ", filters.trim()));
                 }
             }
@@ -68,7 +68,7 @@ public class QueryBuilder {
                     CommonFtsObject.idColumn
             ));
 
-            if(StringUtils.isNotBlank(Sortqueries)){
+            if (StringUtils.isNotBlank(Sortqueries)) {
                 sb.append(MessageFormat.format("( {0} ) ORDER BY {1} ", sbJoin.toString(), Sortqueries));
             }
 

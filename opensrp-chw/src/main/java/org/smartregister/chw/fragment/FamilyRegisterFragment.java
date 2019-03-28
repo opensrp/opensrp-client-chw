@@ -10,8 +10,6 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import org.apache.commons.lang3.ArrayUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.R;
 import org.smartregister.chw.contract.RegisterFragmentContract;
 import org.smartregister.chw.custom_view.NavigationMenu;
@@ -31,7 +29,6 @@ import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.view.activity.BaseRegisterActivity;
 import org.smartregister.view.customcontrols.CustomFontTextView;
 
-import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
@@ -253,7 +250,7 @@ public class FamilyRegisterFragment extends BaseFamilyRegisterFragment {
         try {
             if (isValidFilterForFts(commonRepository())) {
 
-                String myquery= QueryBuilder.getQuery(joinTables, mainCondition, tablename, filters, clientAdapter, Sortqueries);
+                String myquery = QueryBuilder.getQuery(joinTables, mainCondition, tablename, filters, clientAdapter, Sortqueries);
                 List<String> ids = commonRepository().findSearchIds(myquery);
                 query = sqb.toStringFts(ids, tablename, CommonRepository.ID_COLUMN,
                         Sortqueries);
