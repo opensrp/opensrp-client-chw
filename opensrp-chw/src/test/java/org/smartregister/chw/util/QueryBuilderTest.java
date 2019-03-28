@@ -10,7 +10,7 @@ public class QueryBuilderTest {
     @Test
     public void testGetQueryWithJoinTable() {
 
-        String expected_result = "SELECT object_id FROM ec_family_search WHERE object_id IN ( SELECT object_id FROM ec_family_search WHERE date_removed is null AND PHRASE MATCH 'gu*' UNION SELECT object_relational_id FROM ec_family_member_search WHERE date_removed is null AND PHRASE MATCH 'gu*' ) ORDER BY last_interacted_with DESC  LIMIT 0 , 20";
+        String expected_result = "SELECT object_id FROM ec_family_search WHERE object_id IN ( SELECT object_id FROM ec_family_search WHERE date_removed is null AND PHRASE MATCH 'gu*' UNION SELECT object_relational_id FROM ec_family_member_search WHERE date_removed is null AND PHRASE MATCH 'gu*' ) AND date_removed is null ORDER BY last_interacted_with DESC  LIMIT 0 , 20";
 
         String[] joinTables = new String[]{"ec_family_member"};
         String mainCondition = "date_removed is null";

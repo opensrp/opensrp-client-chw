@@ -68,8 +68,16 @@ public class QueryBuilder {
                     CommonFtsObject.idColumn
             ));
 
+            if (StringUtils.isNotBlank(sbJoin.toString())) {
+                sb.append(MessageFormat.format("( {0} ) ", sbJoin.toString()));
+            }
+
+            if (StringUtils.isNotBlank(mainCondition)) {
+                sb.append(MessageFormat.format("AND {0} ", mainCondition));
+            }
+
             if (StringUtils.isNotBlank(Sortqueries)) {
-                sb.append(MessageFormat.format("( {0} ) ORDER BY {1} ", sbJoin.toString(), Sortqueries));
+                sb.append(MessageFormat.format("ORDER BY {1} ", sbJoin.toString(), Sortqueries));
             }
 
             sb.append(MessageFormat.format("LIMIT {0} , {1} ",
