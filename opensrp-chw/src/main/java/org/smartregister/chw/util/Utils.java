@@ -42,19 +42,6 @@ public class Utils extends org.smartregister.family.util.Utils {
 
     private static String TAG = Utils.class.getCanonicalName();
 
-
-    public static final ArrayList<String> ALLOWED_LEVELS;
-    public static final String CHA = "CHA";
-    public static final String CHSS = "CHSS";
-    public static final String CLINIC = "Clinic";
-
-    static {
-        ALLOWED_LEVELS = new ArrayList<>();
-        ALLOWED_LEVELS.add(CLINIC);
-        ALLOWED_LEVELS.add(CHSS);
-        ALLOWED_LEVELS.add(CHA);
-    }
-
     public static final SimpleDateFormat dd_MMM_yyyy = new SimpleDateFormat("dd MMM yyyy");
     public static final SimpleDateFormat yyyy_mm_dd = new SimpleDateFormat("yyyy-mm-dd");
 
