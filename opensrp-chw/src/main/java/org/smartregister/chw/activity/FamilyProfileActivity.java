@@ -79,8 +79,6 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity implements 
         addContentView(familyFloatingMenu, linearLayoutParams);
         familyFloatingMenu.setClickListener(
                 FloatingMenuListener.getInstance(this, presenter().familyBaseEntityId())
-                        .setFamilyHead(familyHead)
-                        .setPrimaryCareGiver(primaryCaregiver)
         );
     }
 
@@ -114,8 +112,55 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity implements 
             addMember.setVisible(false);
         }
 
+        getMenuInflater().inflate(R.menu.profile_menu, menu);
+
         return true;
     }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.action_family_details:
+
+                startFormForEdit();
+
+                break;
+            case R.id.action_remove_member:
+
+                Intent frm_intent = new Intent(this, FamilyRemoveMemberActivity.class);
+                frm_intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID, getFamilyBaseEntityId());
+                frm_intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.FAMILY_HEAD, familyHead);
+                frm_intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.PRIMARY_CAREGIVER, primaryCaregiver);
+                startActivityForResult(frm_intent, org.smartregister.chw.util.Constants.ProfileActivityResults.CHANGE_COMPLETED);
+
+                break;
+            case R.id.action_change_head:
+
+                Intent fh_intent = new Intent(this, FamilyProfileMenuActivity.class);
+                fh_intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.BASE_ENTITY_ID, getFamilyBaseEntityId());
+                fh_intent.putExtra(FamilyProfileMenuActivity.MENU, org.smartregister.chw.util.Constants.MenuType.ChangeHead);
+                startActivityForResult(fh_intent, org.smartregister.chw.util.Constants.ProfileActivityResults.CHANGE_COMPLETED);
+
+                break;
+            case R.id.action_change_care_giver:
+
+
+                Intent pc_intent = new Intent(this, FamilyProfileMenuActivity.class);
+                pc_intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.BASE_ENTITY_ID, getFamilyBaseEntityId());
+                pc_intent.putExtra(FamilyProfileMenuActivity.MENU, org.smartregister.chw.util.Constants.MenuType.ChangePrimaryCare);
+                startActivityForResult(pc_intent, org.smartregister.chw.util.Constants.ProfileActivityResults.CHANGE_COMPLETED);
+
+                break;
+            default:
+                super.onOptionsItemSelected(item);
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode,

@@ -21,15 +21,12 @@ public class FamilyProfileActivityPresenterTest extends BaseUnitTest {
 
     private FamilyProfileActivityContract.Presenter presenter;
 
-    private String viewConfigurationIdentifier;
-    private String familyBaseEntityId;
-
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
 
-        viewConfigurationIdentifier = "viewConfigurationIdentifier";
-        familyBaseEntityId = "familyBaseEntityId";
+        String viewConfigurationIdentifier = "viewConfigurationIdentifier";
+        String familyBaseEntityId = "familyBaseEntityId";
 
 
         presenter = new FamilyProfileActivityPresenter(view, model, viewConfigurationIdentifier, familyBaseEntityId);

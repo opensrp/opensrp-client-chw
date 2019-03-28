@@ -295,7 +295,7 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
     }
 
     private boolean inflatedGroupsDoneIsComplete(HomeVisitVaccineGroupDetails homeVisitVaccineGroupDetails) {
-        return !(homeVisitVaccineGroupDetails.getNotGivenVaccines().size() > 0);
+        return (homeVisitVaccineGroupDetails.getNotGivenVaccines().size() <= 0);
     }
 
     public void inflateGroupsNotEnabled() {
@@ -465,8 +465,9 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
                 break;
         }
     }
-    public Observable undoVaccine(){
-      return   ((HomeVisitImmunizationPresenter)presenter).undoVaccine();
+
+    public Observable undoVaccine() {
+        return ((HomeVisitImmunizationPresenter) presenter).undoVaccine();
     }
 
     @Override
@@ -508,11 +509,10 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
         for (VaccineRepo.Vaccine vaccinedueLastVisit : presenter.getVaccinesDueFromLastVisit()) {
             vaccinesStack.add(vaccinedueLastVisit);
             for (VaccineWrapper givenThisVisit : presenter.getVaccinesGivenThisVisit()) {
-                if (!vaccinesStack.isEmpty()) {
-                    if (givenThisVisit.getDefaultName().equalsIgnoreCase(vaccinesStack.peek().display())) {
-                        vaccinesStack.pop();
-                        singleVaccinesGivenThisVisit.add(givenThisVisit);
-                    }
+                if (!vaccinesStack.isEmpty() && givenThisVisit.getDefaultName().equalsIgnoreCase(vaccinesStack.peek().display())) {
+                    vaccinesStack.pop();
+                    singleVaccinesGivenThisVisit.add(givenThisVisit);
+
                 }
             }
         }

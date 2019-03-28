@@ -37,7 +37,6 @@ public class UpcomingServicesFragmentView extends LinearLayout implements View.O
 
     private HomeVisitImmunizationPresenter presenter;
     private Activity context;
-    private ArrayList<HomeVisitVaccineGroupDetails> homeVisitVaccineGroupDetailsList;
     private CommonPersonObjectClient childClient;
     private Map<String, View> viewMap = new LinkedHashMap<>();
 
@@ -83,7 +82,7 @@ public class UpcomingServicesFragmentView extends LinearLayout implements View.O
         presenter.createAllVaccineGroups(alerts, vaccines, sch);
         presenter.getVaccinesNotGivenLastVisit();
         presenter.calculateCurrentActiveGroup();
-        homeVisitVaccineGroupDetailsList = presenter.getAllgroups();
+        ArrayList<HomeVisitVaccineGroupDetails> homeVisitVaccineGroupDetailsList = presenter.getAllgroups();
         for (HomeVisitVaccineGroupDetails homeVisitVaccineGroupDetail : homeVisitVaccineGroupDetailsList) {
             if (
                     (homeVisitVaccineGroupDetail.getAlert().equals(ImmunizationState.DUE) || homeVisitVaccineGroupDetail.getAlert().equals(ImmunizationState.OVERDUE))

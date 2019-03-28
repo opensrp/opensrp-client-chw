@@ -15,9 +15,9 @@ import java.util.Map;
 
 public class FamilyRemoveMemberPresenter extends BaseFamilyProfileMemberPresenter implements FamilyRemoveMemberContract.Presenter {
 
-    FamilyRemoveMemberContract.Model model;
-    protected WeakReference<FamilyRemoveMemberContract.View> viewReference;
-    FamilyRemoveMemberContract.Interactor interactor;
+    private FamilyRemoveMemberContract.Model model;
+    private WeakReference<FamilyRemoveMemberContract.View> viewReference;
+    private FamilyRemoveMemberContract.Interactor interactor;
 
     private String familyHead;
     private String primaryCaregiver;
@@ -37,8 +37,7 @@ public class FamilyRemoveMemberPresenter extends BaseFamilyProfileMemberPresente
     public void removeMember(CommonPersonObjectClient client) {
 
         String memberID = client.getColumnmaps().get(DBConstants.KEY.BASE_ENTITY_ID);
-        if (memberID.equalsIgnoreCase(familyHead) ||
-                memberID.equalsIgnoreCase(primaryCaregiver)) {
+        if (memberID != null && (memberID.equalsIgnoreCase(familyHead) || memberID.equalsIgnoreCase(primaryCaregiver))) {
 
             interactor.processFamilyMember(familyBaseEntityId, client, this);
 

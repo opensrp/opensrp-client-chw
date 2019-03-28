@@ -12,11 +12,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.R;
 import org.smartregister.chw.adapter.MemberAdapter;
 import org.smartregister.chw.contract.FamilyChangeContract;
+import org.smartregister.chw.contract.MemberAdapterListener;
 import org.smartregister.chw.domain.FamilyMember;
 import org.smartregister.chw.listener.FloatingMenuListener;
 import org.smartregister.chw.presenter.FamilyChangePresenter;
@@ -25,11 +27,12 @@ import org.smartregister.chw.util.Constants;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FamilyProfileChangeHead extends Fragment implements View.OnClickListener, FamilyChangeContract.View {
+public class FamilyProfileChangeHead extends Fragment implements View.OnClickListener, FamilyChangeContract.View , MemberAdapterListener {
 
     protected static final String FAMILY_ID = "FAMILY_ID";
     protected String familyID;
 
+    protected TextView tvAction;
     protected MemberAdapter memberAdapter;
     protected RecyclerView recyclerView;
     protected FamilyChangeContract.Presenter presenter;
@@ -42,6 +45,12 @@ public class FamilyProfileChangeHead extends Fragment implements View.OnClickLis
         args.putString(FAMILY_ID, familyID);
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    public void onMenuChoiceChange(){
+        boolean active =  (memberAdapter != null && StringUtils.isNotBlank(memberAdapter.getSelected()) && memberAdapter.validateSave());
+        tvAction.setTextColor(getResources().getColor(active ? R.color.white : android.R.color.darker_gray));
     }
 
     @Override
@@ -82,6 +91,7 @@ public class FamilyProfileChangeHead extends Fragment implements View.OnClickLis
         view.findViewById(R.id.close).setOnClickListener(this);
         view.findViewById(R.id.tvAction).setOnClickListener(this);
         progressBar = view.findViewById(R.id.progressBar);
+        tvAction = view.findViewById(R.id.tvAction);
         recyclerView = view.findViewById(R.id.rvList);
 
         progressBar.setVisibility(View.INVISIBLE);
@@ -95,7 +105,7 @@ public class FamilyProfileChangeHead extends Fragment implements View.OnClickLis
 
             if (memberAdapter == null) {
                 LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-                memberAdapter = new MemberAdapter(getActivity(), members);
+                memberAdapter = new MemberAdapter(getActivity(), members, this);
                 recyclerView.setLayoutManager(layoutManager);
                 recyclerView.setAdapter(memberAdapter);
             } else {
@@ -112,11 +122,11 @@ public class FamilyProfileChangeHead extends Fragment implements View.OnClickLis
         Intent returnIntent = new Intent();
         if (StringUtils.isNotBlank(familyHeadID)) {
             returnIntent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.FAMILY_HEAD, familyHeadID);
-            FloatingMenuListener.getInstance(getActivity(), familyID).setFamilyHead(familyHeadID);
+            FloatingMenuListener.getInstance(getActivity(), familyID);
         }
         if (StringUtils.isNotBlank(careGiverID)) {
             returnIntent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.PRIMARY_CAREGIVER, careGiverID);
-            FloatingMenuListener.getInstance(getActivity(), familyID).setPrimaryCareGiver(careGiverID);
+            FloatingMenuListener.getInstance(getActivity(), familyID);
         }
         getActivity().setResult(Activity.RESULT_OK, returnIntent);
         close();

@@ -34,6 +34,7 @@ import java.util.List;
 import java.util.Set;
 
 public class FamilyRegisterFragment extends BaseFamilyRegisterFragment {
+    private static final String TAG = FamilyRegisterFragment.class.getCanonicalName();
 
     private View view;
     private View dueOnlyLayout;
@@ -152,6 +153,8 @@ public class FamilyRegisterFragment extends BaseFamilyRegisterFragment {
         switch (view.getId()) {
             case R.id.due_only_layout:
                 toggleFilterSelection(view);
+            default:
+                break;
         }
     }
 
@@ -353,6 +356,8 @@ public class FamilyRegisterFragment extends BaseFamilyRegisterFragment {
 
     @Override
     public void setAdvancedSearchFormData(HashMap<String, String> hashMap) {
+        //TODO
+        Log.d(TAG, "setAdvancedSearchFormData unimplemented");
     }
 
     @Override
