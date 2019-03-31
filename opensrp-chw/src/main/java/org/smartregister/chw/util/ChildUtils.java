@@ -51,22 +51,25 @@ public class ChildUtils {
     };
 
 
-    //Fully immunized at age 2
-    public static String isFullyImmunized(int age, List<String> vaccineGiven) {
-        String str = "";
-        if (age <= 1) {
-            List<String> oneYrVac = Arrays.asList(ONE_YR);
-            if (vaccineGiven.containsAll(oneYrVac)) {
-                str = "1";
-            }
-        } else {
-            List<String> twoYrVac = Arrays.asList(TWO_YR);
-            if (vaccineGiven.containsAll(twoYrVac)) {
-                str = "2";
-            }
+    /**
+     * Based on received vaccine list it'll return the fully immunized year.
+     * Firstly it'll check with 2years vaccine list if it's match then return 2 year fully immunized.
+     * Else it'll check  with 1year vaccine list otherwise it'll return empty string means not fully immunized.
+     * @param vaccineGiven
+     * @return
+     */
+    public static String isFullyImmunized(List<String> vaccineGiven) {
+        List<String> twoYrVac = Arrays.asList(TWO_YR);
+        if (vaccineGiven.containsAll(twoYrVac)) {
+            return  "2";
         }
 
-        return str;
+        List<String> oneYrVac = Arrays.asList(ONE_YR);
+        if (vaccineGiven.containsAll(oneYrVac)) {
+           return  "1";
+        }
+
+        return "";
 
     }
 
