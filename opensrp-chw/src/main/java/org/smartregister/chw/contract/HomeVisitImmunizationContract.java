@@ -133,17 +133,9 @@ public interface HomeVisitImmunizationContract {
 
         ArrayList<HomeVisitVaccineGroupDetails> determineAllHomeVisitVaccineGroupDetails(List<Alert> alerts, List<Vaccine> vaccines, ArrayList<VaccineWrapper> notGivenVaccines, List<Map<String, Object>> sch);
 
-        ArrayList<HomeVisitVaccineGroupDetails> assignDate(ArrayList<HomeVisitVaccineGroupDetails> homeVisitVaccineGroupDetailsArrayList, List<Map<String, Object>> sch);
-
-        ArrayList<HomeVisitVaccineGroupDetails> assignGivenVaccine(ArrayList<HomeVisitVaccineGroupDetails> homeVisitVaccineGroupDetailsArrayList, Map<String, Date> receivedvaccines);
-
-        ArrayList<HomeVisitVaccineGroupDetails> assignDueVaccine(List<VaccineRepo.Vaccine> vList, ArrayList<HomeVisitVaccineGroupDetails> homeVisitVaccineGroupDetailsArrayList, List<Alert> alerts);
-
         boolean hasAlert(VaccineRepo.Vaccine vaccine, List<Alert> alerts);
 
         ImmunizationState alertState(Alert toProcess);
-
-        boolean isReceived(String s, Map<String, Date> receivedvaccines);
 
         ImmunizationState assignAlert(VaccineRepo.Vaccine vaccine, List<Alert> alerts);
 

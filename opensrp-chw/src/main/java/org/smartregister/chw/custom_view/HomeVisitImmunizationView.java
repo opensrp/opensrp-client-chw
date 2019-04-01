@@ -58,9 +58,6 @@ import static org.smartregister.chw.util.Constants.IMMUNIZATION_CONSTANT.DATE;
 public class HomeVisitImmunizationView extends LinearLayout implements View.OnClickListener, HomeVisitImmunizationContract.View {
     public static final String TAG = "HomeVisitImmunization";
     private HomeVisitImmunizationContract.Presenter presenter;
-    private CommonPersonObjectClient commonPersonObjectClient;
-    private FragmentManager fragmentManager;
-    private ChildHomeVisitFragment childHomeVisitFragment;
     private TextView textview_group_immunization_primary_text;
     private TextView textview_group_immunization_secondary_text;
     private TextView textview_immunization_primary_text;
@@ -152,7 +149,10 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
 
             immunization_group_status_circle.setCircleBackgroundColor(getResources().getColor(color_res));
             immunization_group_status_circle.setBorderColor(getResources().getColor(color_res));
-            multiple_immunization_group.setOnClickListener(null);
+
+            multiple_immunization_group.setTag(R.id.nextduevaccinelist, presenter.getCurrentActiveGroup());
+            multiple_immunization_group.setTag(R.id.vaccinelist, vaccines);
+            multiple_immunization_group.setOnClickListener(this);
 
         } else if (presenter.groupIsDue()) {
             String value = presenter.getCurrentActiveGroup().getGroup();
