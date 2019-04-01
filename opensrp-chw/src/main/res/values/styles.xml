@@ -1,0 +1,82 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="ChwTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/chw_primary</item>
+        <item name="colorPrimaryDark">@color/chw_primary_dark</item>
+        <item name="colorAccent">@color/chw_accent</item>
+    </style>
+
+    <style name="ChwTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="ChwTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="ChwTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="ChwTheme.Login" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorControlNormal">@android:color/white</item>
+        <item name="android:textSize">@dimen/login_font_size</item>
+        <item name="colorControlActivated">@android:color/black</item>
+    </style>
+
+    <style name="ChwTheme.AppBarOverlay.NavigationDrawerStyle">
+        <item name="android:textSize">20sp</item>
+        <!-- text size in menu-->
+        <item name="android:listPreferredItemHeightSmall">70dp</item>
+        <!-- item size in menu-->
+    </style>
+
+    <style name="ChwTheme.Dialog.FullWidth" parent="android:Theme.Holo.Light.Dialog">
+        <item name="android:windowMinWidthMajor">98%</item>
+        <item name="android:windowMinWidthMinor">98%</item>
+        <item name="android:background">@android:color/white</item>
+    </style>
+
+    <style name="AppCompatAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorAccent">@color/black</item>
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:background">@color/grey</item>
+    </style>
+
+    <style name="copy_clipboard_dialog" parent="android:Theme.Holo.Dialog">
+        <item name="android:windowMinWidthMajor">90%</item>
+        <item name="android:windowMinWidthMinor">90%</item>
+    </style>
+
+    <style name="custom_chw_vaccine_checkbox" parent="Material.Drawable.CheckBox.Dialog">
+        <item name="colorAccent">@android:color/white</item> <!-- for uncheck state -->
+        <item name="android:textColorSecondary">@android:color/white</item>
+    </style>
+
+    <style name="FamilyTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:textColorSecondary">@color/black</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="colorBackgroundFloating">@color/white</item>
+        <item name="android:windowBackground">@color/white</item>
+        <item name="android:colorBackground">@color/white</item>
+    </style>
+
+    <style name="FamilyTheme.AppBarOverlay.Light" parent="FamilyTheme.AppBarOverlay">
+        <item name="android:textColorPrimary">@color/customAppThemeBlue</item>
+        <item name="android:textColorSecondary">@color/black</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="FamilyTheme.DarkAppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:windowContentOverlay">@null</item>
+        <!--below line used to change the color of home(back) button color-->
+        <item name="colorControlNormal">@android:color/black</item>
+        <item name="android:textColorSecondary">@color/black</item>
+        <item name="android:textColor">@color/black</item>
+
+        <item name="colorBackgroundFloating">@color/white</item>
+        <item name="android:windowBackground">@color/white</item>
+        <item name="android:colorBackground">@color/white</item>
+    </style>
+
+</resources>

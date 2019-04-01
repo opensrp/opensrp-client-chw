@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:padding="10dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <org.smartregister.view.customcontrols.CustomFontTextView
+            android:id="@+id/medical_history"
+            android:layout_below="@+id/collapsing_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/upcoming_services"
+            android:gravity="left"
+            style="@style/CustomFontTextViewStyle.ClientList"
+            android:textColor="@color/black"
+            android:layout_marginLeft="10dp"
+            android:padding="10dp"
+            android:textStyle="bold"
+            android:textSize="20sp" />
+
+        <org.smartregister.chw.custom_view.UpcomingServicesFragmentView
+            android:id="@+id/upcomingServicesHolder"
+            android:layout_below="@+id/medical_history"
+            android:layout_marginLeft="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </org.smartregister.chw.custom_view.UpcomingServicesFragmentView>
+    </RelativeLayout>
+
+</android.support.v4.widget.NestedScrollView>
