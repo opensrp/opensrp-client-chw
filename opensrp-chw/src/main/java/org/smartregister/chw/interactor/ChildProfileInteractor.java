@@ -371,9 +371,7 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
                 if (cursor != null && cursor.moveToFirst()) {
                     do {
                         CommonPersonObject personObject = org.smartregister.family.util.Utils.context().commonrepository(org.smartregister.chw.util.Constants.TABLE_NAME.CHILD).findByBaseEntityId(cursor.getString(1));
-                        CommonPersonObjectClient pClient = new CommonPersonObjectClient(personObject.getCaseId(),
-                                personObject.getDetails(), "");
-                        if (!pClient.getCaseId().equalsIgnoreCase(childId)) {
+                        if (!personObject.getCaseId().equalsIgnoreCase(childId)) {
                             String dobString = org.smartregister.util.Utils.getValue(personObject.getColumnmaps(), DBConstants.KEY.DOB, false);
                             String visitNotDoneStr=org.smartregister.util.Utils.getValue(personObject.getColumnmaps(), ChildDBConstants.KEY.VISIT_NOT_DONE, false);
                             String lastHomeVisitStr=org.smartregister.util.Utils.getValue(personObject.getColumnmaps(), ChildDBConstants.KEY.LAST_HOME_VISIT, false);
@@ -417,7 +415,7 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
         if(visitStatus.equalsIgnoreCase(ChildProfileInteractor.VisitType.DUE.name())){
             return ImmunizationState.DUE;
         }
-        return ImmunizationState.UPCOMING;
+        return ImmunizationState.NO_ALERT;
     }
 
     @Override
