@@ -27,6 +27,7 @@ import org.smartregister.chw.contract.HomeVisitImmunizationContract;
 import org.smartregister.chw.fragment.ChildHomeVisitFragment;
 import org.smartregister.chw.fragment.ChildImmunizationFragment;
 import org.smartregister.chw.fragment.VaccinationDialogFragment;
+import org.smartregister.chw.interactor.HomeVisitImmunizationInteractor;
 import org.smartregister.chw.presenter.HomeVisitImmunizationPresenter;
 import org.smartregister.chw.util.HomeVisitVaccineGroupDetails;
 import org.smartregister.chw.util.ImmunizationState;
@@ -512,7 +513,6 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
                 if (!vaccinesStack.isEmpty() && givenThisVisit.getDefaultName().equalsIgnoreCase(vaccinesStack.peek().display())) {
                     vaccinesStack.pop();
                     singleVaccinesGivenThisVisit.add(givenThisVisit);
-
                 }
             }
         }

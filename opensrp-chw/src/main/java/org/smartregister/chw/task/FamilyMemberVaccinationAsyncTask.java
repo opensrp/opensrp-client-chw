@@ -33,6 +33,7 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import static org.smartregister.chw.util.Constants.IMMUNIZATION_CONSTANT.DATE;
+import static org.smartregister.chw.util.Constants.IMMUNIZATION_CONSTANT.VACCINE;
 import static org.smartregister.immunization.util.VaccinatorUtils.generateScheduleList;
 import static org.smartregister.immunization.util.VaccinatorUtils.nextVaccineDue;
 import static org.smartregister.immunization.util.VaccinatorUtils.receivedVaccines;
@@ -110,6 +111,7 @@ public class FamilyMemberVaccinationAsyncTask extends AsyncTask {
 
                 if (nv != null) {
                     DateTime dueDate = (DateTime) nv.get(DATE);
+                    VaccineRepo.Vaccine vaccine = (VaccineRepo.Vaccine) nv.get(VACCINE);
                     String ALERT = "alert";
                     if (nv.get(ALERT) == null) {
                         state = ImmunizationState.NO_ALERT;

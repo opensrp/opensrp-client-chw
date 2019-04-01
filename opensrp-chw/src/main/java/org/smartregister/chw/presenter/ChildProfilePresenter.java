@@ -197,14 +197,15 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
 
     @Override
     public void updateChildService(ChildService childService) {
-        if (childService.getServiceStatus().equalsIgnoreCase(ChildProfileInteractor.ServiceType.UPCOMING.name())) {
-            getView().setServiceNameUpcoming(childService.getServiceName().trim(), childService.getServiceDate());
-        } else if (childService.getServiceStatus().equalsIgnoreCase(ChildProfileInteractor.ServiceType.OVERDUE.name())) {
-            getView().setServiceNameOverDue(childService.getServiceName().trim(), childService.getServiceDate());
-        } else {
-            getView().setServiceNameDue(childService.getServiceName().trim(), childService.getServiceDate());
+        if(getView()!=null){
+            if (childService.getServiceStatus().equalsIgnoreCase(ChildProfileInteractor.ServiceType.UPCOMING.name())) {
+                getView().setServiceNameUpcoming(childService.getServiceName().trim(), childService.getServiceDate());
+            } else if (childService.getServiceStatus().equalsIgnoreCase(ChildProfileInteractor.ServiceType.OVERDUE.name())) {
+                getView().setServiceNameOverDue(childService.getServiceName().trim(), childService.getServiceDate());
+            } else {
+                getView().setServiceNameDue(childService.getServiceName().trim(), childService.getServiceDate());
+            }
         }
-
     }
 
     @Override
@@ -219,6 +220,13 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
             }
         }
 
+    }
+
+    @Override
+    public void hideProgressBar() {
+        if (getView() != null) {
+            getView().hideProgressBar();
+        }
     }
 
     @Override
@@ -253,16 +261,6 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
 
 
         getView().setProfileImage(client.getCaseId());
-
-    }
-
-    @Override
-    public void onUniqueIdFetched(Triple<String, String, String> triple, String entityId) {
-
-    }
-
-    @Override
-    public void onNoUniqueId() {
 
     }
 

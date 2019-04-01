@@ -360,6 +360,12 @@ public class ChildUtils {
             return spannableString;
         }
     }
+    public static ImmunizationState getDueStatus(String dueDate ){
+        LocalDate date1 = new LocalDate(dueDate);
+        LocalDate date2 = new LocalDate();
+        int diff = Days.daysBetween(date1, date2).getDays();
+        return diff<=0?ImmunizationState.UPCOMING:ImmunizationState.OVERDUE;
+    }
 
 
     public static void addToHomeVisitTable(String baseEntityID, List<org.smartregister.domain.db.Obs> observations) {

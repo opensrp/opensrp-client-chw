@@ -2,6 +2,7 @@ package org.smartregister.chw.presenter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.annotation.VisibleForTesting;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -50,6 +51,11 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
     private String groupImmunizationSecondaryText = "";
     private String singleImmunizationSecondaryText = "";
     private final VaccineRepository vaccineRepository;
+
+    public HomeVisitImmunizationPresenter() {
+        homeVisitImmunizationInteractor = new HomeVisitImmunizationInteractor();
+        vaccineRepository = ImmunizationLibrary.getInstance().vaccineRepository();
+    }
 
 
     public HomeVisitImmunizationPresenter(HomeVisitImmunizationContract.View view) {
@@ -463,13 +469,15 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
         this.singleImmunizationSecondaryText = singleImmunizationSecondaryText;
     }
 
-    @Override
-    public void immunizationState(List<Alert> alerts, List<Vaccine> vaccines, List<Map<String, Object>> sch) {
-        // TODO update the method
-    }
+
 
     @Override
     public Context getContext() {
         return getView().getContext();
+    }
+
+    @Override
+    public void immunizationState(List<Alert> alerts, List<Vaccine> vaccines, List<Map<String, Object>> sch, Map<String, Object> nv) {
+        //TODO update method
     }
 }
