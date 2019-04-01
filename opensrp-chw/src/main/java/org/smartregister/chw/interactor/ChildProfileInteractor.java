@@ -18,9 +18,7 @@ import org.smartregister.chw.contract.ChildProfileContract;
 import org.smartregister.chw.contract.HomeVisitGrowthNutritionContract;
 import org.smartregister.chw.contract.HomeVisitImmunizationContract;
 import org.smartregister.chw.fragment.ChildHomeVisitFragment;
-import org.smartregister.chw.listener.FamilyMemberImmunizationListener;
 import org.smartregister.chw.presenter.HomeVisitImmunizationPresenter;
-import org.smartregister.chw.task.FamilyMemberVaccinationAsyncTask;
 import org.smartregister.chw.util.ChildDBConstants;
 import org.smartregister.chw.util.ChildHomeVisit;
 import org.smartregister.chw.util.ChildService;
@@ -51,32 +49,23 @@ import org.smartregister.repository.BaseRepository;
 import org.smartregister.repository.UniqueIdRepository;
 import org.smartregister.sync.ClientProcessorForJava;
 import org.smartregister.sync.helper.ECSyncHelper;
-import org.smartregister.util.DateUtil;
 import org.smartregister.util.FormUtils;
 import org.smartregister.util.ImageUtils;
 import org.smartregister.view.LocationPickerView;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Action;
-import io.reactivex.functions.BiFunction;
 import io.reactivex.schedulers.Schedulers;
-
 import static org.smartregister.chw.util.ChildUtils.fixVaccineCasing;
-import static org.smartregister.chw.util.Constants.IMMUNIZATION_CONSTANT.DATE;
-import static org.smartregister.chw.util.Constants.IMMUNIZATION_CONSTANT.VACCINE;
 import static org.smartregister.util.JsonFormUtils.getFieldJSONObject;
-import static org.smartregister.util.Utils.startAsyncTask;
 
 public class ChildProfileInteractor implements ChildProfileContract.Interactor {
     public static final String TAG = ChildProfileInteractor.class.getName();
