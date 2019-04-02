@@ -10,6 +10,7 @@ import org.smartregister.chw.repository.HomeVisitRepository;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.clientandeventmodel.DateUtil;
 import org.smartregister.commonregistry.AllCommonsRepository;
+import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.domain.db.Client;
 import org.smartregister.domain.db.Event;
 import org.smartregister.domain.db.EventClient;
@@ -74,7 +75,7 @@ public class ChwClientProcessor extends ClientProcessorForJava {
                 String eventType = event.getEventType();
                 if (eventType == null) {
                     continue;
-                }else if (eventType.equals(VaccineIntentService.EVENT_TYPE) || eventType.equals(VaccineIntentService.EVENT_TYPE_OUT_OF_CATCHMENT)) {
+                } else if (eventType.equals(VaccineIntentService.EVENT_TYPE) || eventType.equals(VaccineIntentService.EVENT_TYPE_OUT_OF_CATCHMENT)) {
                     if (vaccineTable == null) {
                         continue;
                     }
@@ -90,16 +91,13 @@ public class ChwClientProcessor extends ClientProcessorForJava {
                     processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
                 } else if (eventType.equals(Constants.EventType.REMOVE_FAMILY) && eventClient.getClient() != null) {
                     processRemoveFamily(eventClient.getClient().getBaseEntityId(), event.getEventDate().toDate());
-                }
-                else if (eventType.equals(Constants.EventType.REMOVE_MEMBER) && eventClient.getClient() != null) {
+                } else if (eventType.equals(Constants.EventType.REMOVE_MEMBER) && eventClient.getClient() != null) {
                     processRemoveMember(eventClient.getClient().getBaseEntityId(), event.getEventDate().toDate());
-                }
-                else if (eventType.equals(Constants.EventType.REMOVE_CHILD) && eventClient.getClient() != null) {
+                } else if (eventType.equals(Constants.EventType.REMOVE_CHILD) && eventClient.getClient() != null) {
                     processRemoveChild(eventClient.getClient().getBaseEntityId(), event.getEventDate().toDate());
-                }
-                else{
+                } else {
                     if (eventClient.getClient() != null) {
-                        if(eventType.equals(Constants.EventType.UPDATE_FAMILY_RELATIONS) && event.getEntityType().equalsIgnoreCase(Constants.TABLE_NAME.FAMILY_MEMBER)){
+                        if (eventType.equals(Constants.EventType.UPDATE_FAMILY_RELATIONS) && event.getEntityType().equalsIgnoreCase(Constants.TABLE_NAME.FAMILY_MEMBER)) {
                             event.setEventType(Constants.EventType.UPDATE_FAMILY_MEMBER_RELATIONS);
                         }
                         processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
@@ -360,7 +358,11 @@ public class ChwClientProcessor extends ClientProcessorForJava {
             ChwApplication.getInstance().getRepository().getWritableDatabase().update(Constants.TABLE_NAME.FAMILY_MEMBER, values,
                     DBConstants.KEY.BASE_ENTITY_ID + " = ?  ", new String[]{baseEntityId});
 
-            Utils.context().commonrepository(Constants.TABLE_NAME.FAMILY_MEMBER).populateSearchValues(baseEntityId, DBConstants.KEY.DATE_REMOVED, new SimpleDateFormat("yyyy-MM-dd").format(eventDate), null);
+            // clean fts table
+            ChwApplication.getInstance().getRepository().getWritableDatabase().update(CommonFtsObject.searchTableName(Constants.TABLE_NAME.FAMILY_MEMBER), values,
+                    " object_id  = ?  ", new String[]{baseEntityId});
+
+            // Utils.context().commonrepository(Constants.TABLE_NAME.FAMILY_MEMBER).populateSearchValues(baseEntityId, DBConstants.KEY.DATE_REMOVED, new SimpleDateFormat("yyyy-MM-dd").format(eventDate), null);
 
         }
     }
@@ -385,7 +387,12 @@ public class ChwClientProcessor extends ClientProcessorForJava {
 
             ChwApplication.getInstance().getRepository().getWritableDatabase().update(Constants.TABLE_NAME.CHILD, values,
                     DBConstants.KEY.BASE_ENTITY_ID + " = ?  ", new String[]{baseEntityId});
-            Utils.context().commonrepository(Constants.TABLE_NAME.CHILD).populateSearchValues(baseEntityId, DBConstants.KEY.DATE_REMOVED, new SimpleDateFormat("yyyy-MM-dd").format(eventDate), null);
+
+            // clean fts table
+            ChwApplication.getInstance().getRepository().getWritableDatabase().update(CommonFtsObject.searchTableName(Constants.TABLE_NAME.CHILD), values,
+                    CommonFtsObject.idColumn + "  = ?  ", new String[]{baseEntityId});
+
+            // Utils.context().commonrepository(Constants.TABLE_NAME.CHILD).populateSearchValues(baseEntityId, DBConstants.KEY.DATE_REMOVED, new SimpleDateFormat("yyyy-MM-dd").format(eventDate), null);
 
         }
     }
@@ -421,6 +428,17 @@ public class ChwClientProcessor extends ClientProcessorForJava {
 
             ChwApplication.getInstance().getRepository().getWritableDatabase().update(Constants.TABLE_NAME.FAMILY_MEMBER, values,
                     DBConstants.KEY.RELATIONAL_ID + " = ?  ", new String[]{familyID});
+
+            // clean fts table
+            ChwApplication.getInstance().getRepository().getWritableDatabase().update(CommonFtsObject.searchTableName(Constants.TABLE_NAME.FAMILY), values,
+                    CommonFtsObject.idColumn + " = ?  ", new String[]{familyID});
+
+            ChwApplication.getInstance().getRepository().getWritableDatabase().update(CommonFtsObject.searchTableName(Constants.TABLE_NAME.CHILD), values,
+                    String.format(" %s in (select base_entity_id from %s where relational_id = ? )  ", CommonFtsObject.idColumn , Constants.TABLE_NAME.CHILD), new String[]{familyID});
+
+            ChwApplication.getInstance().getRepository().getWritableDatabase().update(CommonFtsObject.searchTableName(Constants.TABLE_NAME.FAMILY_MEMBER), values,
+                    String.format(" %s in (select base_entity_id from %s where relational_id = ? )  ", CommonFtsObject.idColumn , Constants.TABLE_NAME.FAMILY_MEMBER), new String[]{familyID});
+
         }
     }
 
