@@ -237,9 +237,10 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
         String middleName = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.MIDDLE_NAME, true);
         String childName = org.smartregister.util.Utils.getName(firstName, middleName + " " + lastName);
         getView().setProfileName(childName);
+        getView().setAge(Utils.getDuration(Utils.getValue(client.getColumnmaps(), DBConstants.KEY.DOB, false)));
 
-        dob = Utils.getDuration(Utils.getValue(client.getColumnmaps(), DBConstants.KEY.DOB, false));
-        getView().setAge(dob);
+        dob = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.DOB, false);
+
         //dobString = dobString.contains("y") ? dobString.substring(0, dobString.indexOf("y")) : dobString;
         String address = Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.FAMILY_HOME_ADDRESS, true);
         String gender = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.GENDER, true);

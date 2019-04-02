@@ -57,19 +57,13 @@ public class MedicalHistoryInteractor implements MedicalHistoryContract.Interact
 
     @Override
     public void fetchFullyImmunizationData(String dob, Map<String, Date> recievedVaccines, final MedicalHistoryContract.InteractorCallBack callBack) {
-        String dobString = dob.contains("y") ? dob.substring(0, dob.indexOf("y")) : dob;
-        int year = 0;
-        try {
-            year = Integer.parseInt(dobString);
-        } catch (Exception e) {
 
-        }
         List<String> vacList = new ArrayList<>();
         for (String name : recievedVaccines.keySet()) {
             String trimLower = name.replace(" ", "").toLowerCase();
             vacList.add(trimLower);
         }
-        final String fullyImmunizationText = ChildUtils.isFullyImmunized(year, vacList);
+        final String fullyImmunizationText = ChildUtils.isFullyImmunized(vacList);
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
