@@ -450,7 +450,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
             @Override
             public void run() {
                 presenter().fetchVisitStatus(childBaseEntityId);
-                presenter().fetchFamilyMemberServiceDue(childBaseEntityId);
+                presenter().fetchUpcomingServiceAndFamilyDue(childBaseEntityId);
                 presenter().updateChildCommonPerson(childBaseEntityId);
             }
         }, 100);

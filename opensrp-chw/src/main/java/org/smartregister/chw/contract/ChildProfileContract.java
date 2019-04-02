@@ -85,7 +85,7 @@ public interface ChildProfileContract {
 
         void fetchVisitStatus(String baseEntityId);
 
-        void fetchFamilyMemberServiceDue(String baseEntityId);
+        void fetchUpcomingServiceAndFamilyDue(String baseEntityId);
 
     }
 
@@ -94,7 +94,7 @@ public interface ChildProfileContract {
 
         void refreshChildVisitBar(String baseEntityId, ChildProfileContract.InteractorCallBack callback);
 
-        void refreshFamilyMemberServiceDue(String familyId, String baseEntityId, ChildProfileContract.InteractorCallBack callback);
+        void refreshUpcomingServiceAndFamilyDue(String familyId, String baseEntityId, ChildProfileContract.InteractorCallBack callback);
 
         void onDestroy(boolean isChangingConfiguration);
 

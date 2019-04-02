@@ -195,7 +195,7 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
     }
 
     @Override
-    public void refreshFamilyMemberServiceDue(String familyId, String baseEntityId, final ChildProfileContract.InteractorCallBack callback) {
+    public void refreshUpcomingServiceAndFamilyDue(String familyId, String baseEntityId, final ChildProfileContract.InteractorCallBack callback) {
         if (getpClient() == null) return;
         updateUpcomingServices()
                 .subscribeOn(Schedulers.io())
@@ -247,23 +247,6 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
                     public void onComplete() {
                     }
                 });
-//        Observable.zip(updateUpcomingServices(), updateFamilyDueStatus(baseEntityId, familyId), new BiFunction<ChildService, String, Object>() {
-//            @Override
-//            public Object apply(ChildService childService, String s) throws Exception {
-//                callback.updateChildService(childService);
-//                callback.updateFamilyMemberServiceDue(s);
-//                return null;
-//                  }
-//                })
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .doOnTerminate(new Action() {
-//                    @Override
-//                    public void run() throws Exception {
-//                        callback.hideProgressBar();
-//                    }
-//                })
-//                .subscribe();
 
     }
     private Observable<ChildService> updateUpcomingServices(){

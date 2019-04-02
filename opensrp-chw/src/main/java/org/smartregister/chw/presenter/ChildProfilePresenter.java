@@ -107,8 +107,8 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
     }
 
     @Override
-    public void fetchFamilyMemberServiceDue(String baseEntityId) {
-        interactor.refreshFamilyMemberServiceDue(getFamilyId(), childBaseEntityId, this);
+    public void fetchUpcomingServiceAndFamilyDue(String baseEntityId) {
+        interactor.refreshUpcomingServiceAndFamilyDue(getFamilyId(), childBaseEntityId, this);
     }
 
     @Override
