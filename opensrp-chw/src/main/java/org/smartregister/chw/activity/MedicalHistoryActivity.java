@@ -143,7 +143,7 @@ public class MedicalHistoryActivity extends SecuredActivity implements MedicalHi
     }
 
     private void fetchGrowthNutrition() {
-        presenter.fetchGrowthNutrition(childClient.entityId());
+        presenter.fetchGrowthNutrition(childClient);
 
     }
 
