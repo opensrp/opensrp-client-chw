@@ -28,7 +28,8 @@ public class MedicalHistoryPresenterTest {
     @Mock
     MedicalHistoryInteractor interactor;
 
-    private String baseEntity = "12345667";
+    @Mock
+    CommonPersonObjectClient commonPersonObjectClient;
 
     @Before
     public void setUp() {
@@ -48,8 +49,8 @@ public class MedicalHistoryPresenterTest {
 
     @Test
     public void testFetchGrowthNutrition() {
-        presenter.fetchGrowthNutrition(baseEntity);
-        Mockito.verify(interactor).fetchGrowthNutritionData(baseEntity, presenter);
+        presenter.fetchGrowthNutrition(commonPersonObjectClient);
+        Mockito.verify(interactor).fetchGrowthNutritionData(commonPersonObjectClient, presenter);
     }
 
     @Test

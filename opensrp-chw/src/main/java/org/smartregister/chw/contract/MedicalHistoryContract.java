@@ -29,7 +29,7 @@ public interface MedicalHistoryContract {
 
         void setInitialVaccineList(Map<String, Date> veccineList);
 
-        void fetchGrowthNutrition(String baseEntity);
+        void fetchGrowthNutrition(CommonPersonObjectClient commonPersonObjectClient);
 
         void fetchFullyImmunization(String dateOfBirth);
 
@@ -54,7 +54,7 @@ public interface MedicalHistoryContract {
 
         void setInitialVaccineList(Map<String, Date> recievedVaccines, InteractorCallBack callBack);
 
-        void fetchGrowthNutritionData(String baseEntity, InteractorCallBack callBack);
+        void fetchGrowthNutritionData(CommonPersonObjectClient commonPersonObjectClient,InteractorCallBack callBack);
 
         void fetchFullyImmunizationData(String dob, Map<String, Date> recievedVaccines, InteractorCallBack callBack);
 
