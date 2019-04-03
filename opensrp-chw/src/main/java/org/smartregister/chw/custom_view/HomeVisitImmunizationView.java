@@ -488,7 +488,7 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
     }
 
     @Override
-    public void immunizationState(List<Alert> alerts, List<Vaccine> vaccines, List<Map<String, Object>> sch,Map<String, Object> nv) {
+    public void immunizationState(List<Alert> alerts, List<Vaccine> vaccines,Map<String, Date> receivedVaccine, List<Map<String, Object>> sch) {
         refreshPresenter(alerts, vaccines, sch);
         ChildHomeVisitFragment childHomeVisitFragment = (ChildHomeVisitFragment) context.getFragmentManager().findFragmentByTag(ChildHomeVisitFragment.DIALOG_TAG);
         if (childHomeVisitFragment == null) {

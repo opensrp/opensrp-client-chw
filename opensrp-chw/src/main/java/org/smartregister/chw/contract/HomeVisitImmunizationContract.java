@@ -124,6 +124,6 @@ public interface HomeVisitImmunizationContract {
     }
 
     interface InteractorCallBack {
-        void immunizationState(List<Alert> alerts, List<Vaccine> vaccines, List<Map<String, Object>> sch,Map<String, Object> nv);
+        void immunizationState(List<Alert> alerts, List<Vaccine> vaccines,Map<String, Date> receivedVaccine , List<Map<String, Object>> sch);
     }
 }

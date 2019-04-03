@@ -65,6 +65,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import static org.smartregister.chw.util.ChildUtils.fixVaccineCasing;
+import static org.smartregister.immunization.util.VaccinatorUtils.receivedVaccines;
 import static org.smartregister.util.JsonFormUtils.getFieldJSONObject;
 
 public class ChildProfileInteractor implements ChildProfileContract.Interactor {
@@ -209,6 +210,7 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
                     @Override
                     public void onNext(ChildService childService) {
                         callback.updateChildService(childService);
+                        callback.hideProgressBar();
 
                     }
 
@@ -234,7 +236,6 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
                     @Override
                     public void onNext(String s) {
                         callback.updateFamilyMemberServiceDue(s);
-                        callback.hideProgressBar();
 
                     }
 
@@ -257,7 +258,8 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
                 presenter.setChildClient(getpClient());
                 presenter.updateImmunizationState(new HomeVisitImmunizationContract.InteractorCallBack() {
                     @Override
-                    public void immunizationState(List<Alert> alerts, List<Vaccine> vaccines, List<Map<String, Object>> sch, Map<String, Object> nv) {
+                    public void immunizationState(List<Alert> alerts, List<Vaccine> vaccines,Map<String, Date> receivedVaccine, List<Map<String, Object>> sch) {
+                        vaccineList = receivedVaccine;
                         presenter.createAllVaccineGroups(alerts, vaccines, sch);
                         presenter.getVaccinesNotGivenLastVisit();
                         presenter.calculateCurrentActiveGroup();
@@ -278,8 +280,8 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
                             }
                         }
 
-                        final ChildService childService = new ChildService();
                         if(!TextUtils.isEmpty(vaccineName) && !TextUtils.isEmpty(dueDate)){
+                            ChildService childService = new ChildService();
                             childService.setServiceName(vaccineName);
                             if (childService.getServiceName().contains("MEASLES")) {
                                 childService.setServiceName(childService.getServiceName().replace("MEASLES", "MCV"));
@@ -301,8 +303,10 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
                                 @Override
                                 public void updateRecordVisitData(Map<String, ServiceWrapper> stringServiceWrapperMap) {
                                     try{
+                                        ChildService childService = null;
                                         ArrayList<GrowthServiceData> growthServiceDataList = homeVisitGrowthNutritionInteractor.getAllDueService(stringServiceWrapperMap);
                                         if(growthServiceDataList.size() > 0){
+                                            childService = new ChildService();
                                             GrowthServiceData growthServiceData = growthServiceDataList.get(0);
                                             childService.setServiceName(growthServiceData.getDisplayName());
                                             childService.setServiceDate(growthServiceData.getDisplayAbleDate());
@@ -314,8 +318,9 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
                                             } else {
                                                 childService.setServiceStatus(ServiceType.UPCOMING.name());
                                             }
-                                           e.onNext(childService);
+
                                         }
+                                        e.onNext(childService);
                                     }catch (Exception e){
                                         e.printStackTrace();
                                     }

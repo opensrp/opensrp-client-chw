@@ -27,6 +27,7 @@ import org.smartregister.immunization.domain.ServiceWrapper;
 import org.smartregister.immunization.domain.Vaccine;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -220,22 +221,18 @@ public class UpcomingServicesFragmentView extends LinearLayout implements View.O
 
     @Override
     public void updateImmunizationState() {
-
         removeAllViews();
         presenter.updateImmunizationState(this);
 
     }
 
     @Override
-    public void immunizationState(List<Alert> alerts, List<Vaccine> vaccines, List<Map<String, Object>> sch,Map<String, Object> nv) {
-
-        refreshPresenter(alerts, vaccines, sch);
+    public void onClick(View v) {
 
     }
 
-
     @Override
-    public void onClick(View v) {
-
+    public void immunizationState(List<Alert> alerts, List<Vaccine> vaccines, Map<String, Date> receivedVaccine, List<Map<String, Object>> sch) {
+        refreshPresenter(alerts, vaccines, sch);
     }
 }

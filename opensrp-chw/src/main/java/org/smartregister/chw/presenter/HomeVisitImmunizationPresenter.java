@@ -25,6 +25,7 @@ import org.smartregister.util.DateUtil;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -477,7 +478,7 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
     }
 
     @Override
-    public void immunizationState(List<Alert> alerts, List<Vaccine> vaccines, List<Map<String, Object>> sch, Map<String, Object> nv) {
-        //TODO update method
+    public void immunizationState(List<Alert> alerts, List<Vaccine> vaccines, Map<String, Date> receivedVaccine, List<Map<String, Object>> sch) {
+    //TODO no need to do
     }
 }

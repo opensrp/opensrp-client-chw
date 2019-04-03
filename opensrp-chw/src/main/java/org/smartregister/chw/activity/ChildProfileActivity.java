@@ -335,9 +335,15 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
 
     @Override
     public void setServiceNameDue(String serviceName, String dueDate) {
-        layoutMostDueOverdue.setVisibility(View.VISIBLE);
-        viewMostDueRow.setVisibility(View.VISIBLE);
-        textViewNameDue.setText(ChildUtils.fromHtml(getString(R.string.vaccine_service_due, serviceName, dueDate)));
+        if(!TextUtils.isEmpty(serviceName)){
+            layoutMostDueOverdue.setVisibility(View.VISIBLE);
+            viewMostDueRow.setVisibility(View.VISIBLE);
+            textViewNameDue.setText(ChildUtils.fromHtml(getString(R.string.vaccine_service_due, serviceName, dueDate)));
+        }else{
+            layoutMostDueOverdue.setVisibility(View.GONE);
+            viewMostDueRow.setVisibility(View.GONE);
+        }
+
     }
 
     @Override
