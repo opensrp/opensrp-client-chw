@@ -46,5 +46,4 @@ public class GrowthServiceData {
     public void setDisplayAbleDate(String displayAbleDate) {
         this.displayAbleDate = displayAbleDate;
     }
-
 }
