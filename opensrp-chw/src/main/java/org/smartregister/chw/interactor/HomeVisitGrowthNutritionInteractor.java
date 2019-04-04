@@ -44,8 +44,6 @@ public class HomeVisitGrowthNutritionInteractor implements HomeVisitGrowthNutrit
 
     private AppExecutors appExecutors;
 
-    private UpdateServiceTask updateServiceTask;
-    private HomeVisit currentHomeVisit = new HomeVisit();
 
     @VisibleForTesting
     HomeVisitGrowthNutritionInteractor(AppExecutors appExecutors) {
@@ -87,7 +85,6 @@ public class HomeVisitGrowthNutritionInteractor implements HomeVisitGrowthNutrit
                 .flatMap(new Function<HomeVisit, ObservableSource<Map<String, ServiceWrapper>>>() {
                     @Override
                     public ObservableSource<Map<String, ServiceWrapper>> apply(HomeVisit homeVisit) throws Exception {
-                        currentHomeVisit=homeVisit;
                         return getServiceWrapperMapFromJson(homeVisit.getServicesGiven());
                     }
                 })
