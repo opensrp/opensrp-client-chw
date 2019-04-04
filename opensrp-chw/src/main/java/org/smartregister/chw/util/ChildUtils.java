@@ -335,7 +335,7 @@ public class ChildUtils {
         LocalDate date2 = new LocalDate();
         int diff = Days.daysBetween(date1, date2).getDays();
         if (diff <= 0) {
-            String str = diff + " days away";
+            String str = Math.abs(diff) + " days away";
             spannableString = new SpannableString(str);
             spannableString.setSpan(new ForegroundColorSpan(Color.GRAY), 0, str.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             return spannableString;
@@ -362,6 +362,12 @@ public class ChildUtils {
             spannableString.setSpan(new ForegroundColorSpan(ChwApplication.getInstance().getContext().getColorResource(R.color.alert_urgent_red)), 0, str.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             return spannableString;
         }
+    }
+    public static ImmunizationState getDueStatus(String dueDate ){
+        LocalDate date1 = new LocalDate(dueDate);
+        LocalDate date2 = new LocalDate();
+        int diff = Days.daysBetween(date1, date2).getDays();
+        return diff<=0?ImmunizationState.UPCOMING:ImmunizationState.OVERDUE;
     }
 
 

@@ -27,6 +27,7 @@ import org.smartregister.chw.contract.HomeVisitImmunizationContract;
 import org.smartregister.chw.fragment.ChildHomeVisitFragment;
 import org.smartregister.chw.fragment.ChildImmunizationFragment;
 import org.smartregister.chw.fragment.VaccinationDialogFragment;
+import org.smartregister.chw.interactor.HomeVisitImmunizationInteractor;
 import org.smartregister.chw.presenter.HomeVisitImmunizationPresenter;
 import org.smartregister.chw.util.HomeVisitVaccineGroupDetails;
 import org.smartregister.chw.util.ImmunizationState;
@@ -232,7 +233,7 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
         String toReturn = "";
         ImmunizationState currentState = ImmunizationState.NO_ALERT;
         for (VaccineRepo.Vaccine vaccine : vaccinesDueFromLastVisitStillDueState) {
-            ImmunizationState state = presenter.getHomeVisitImmunizationInteractor().assignAlert(vaccine, alerts);
+            ImmunizationState state = ((HomeVisitImmunizationInteractor)presenter.getHomeVisitImmunizationInteractor()).assignAlert(vaccine, alerts);
             if ((currentState.equals(ImmunizationState.DUE) && state.equals(ImmunizationState.OVERDUE)) ||
                     (currentState.equals(ImmunizationState.NO_ALERT) && state.equals(ImmunizationState.OVERDUE)) ||
                     (currentState.equals(ImmunizationState.NO_ALERT) && state.equals(ImmunizationState.DUE))) {
@@ -487,7 +488,7 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
     }
 
     @Override
-    public void immunizationState(List<Alert> alerts, List<Vaccine> vaccines, List<Map<String, Object>> sch) {
+    public void immunizationState(List<Alert> alerts, List<Vaccine> vaccines,Map<String, Date> receivedVaccine, List<Map<String, Object>> sch) {
         refreshPresenter(alerts, vaccines, sch);
         ChildHomeVisitFragment childHomeVisitFragment = (ChildHomeVisitFragment) context.getFragmentManager().findFragmentByTag(ChildHomeVisitFragment.DIALOG_TAG);
         if (childHomeVisitFragment == null) {
@@ -512,7 +513,6 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
                 if (!vaccinesStack.isEmpty() && givenThisVisit.getDefaultName().equalsIgnoreCase(vaccinesStack.peek().display())) {
                     vaccinesStack.pop();
                     singleVaccinesGivenThisVisit.add(givenThisVisit);
-
                 }
             }
         }
