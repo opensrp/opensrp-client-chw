@@ -185,6 +185,7 @@
     <string name="illness_des_with_value">Description: %s</string>
     <string name="illness_action_value">Action taken: %s</string>
     <string name="initial_breastfeed_value">Early initiation breastfeeding: %s</string>
+    <string name="zero_month_breastfeed_value">Exclusive breastfeeding 0 months: %s</string>
 
     <string name="vaccination_done_earlier">Vaccination done earlier</string>
     <string name="vaccines_not_done">VACCINES NOT DONE</string>

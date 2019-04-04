@@ -4,12 +4,14 @@ import android.content.Context;
 import android.support.annotation.VisibleForTesting;
 import android.text.TextUtils;
 
+import org.apache.commons.lang3.text.WordUtils;
 import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.contract.MedicalHistoryContract;
 import org.smartregister.chw.fragment.GrowthNutritionInputFragment;
 import org.smartregister.chw.util.BaseService;
 import org.smartregister.chw.util.BaseVaccine;
+import org.smartregister.chw.util.ChildDBConstants;
 import org.smartregister.chw.util.ChildUtils;
 import org.smartregister.chw.util.ReceivedVaccine;
 import org.smartregister.chw.util.ServiceContent;
@@ -57,19 +59,13 @@ public class MedicalHistoryInteractor implements MedicalHistoryContract.Interact
 
     @Override
     public void fetchFullyImmunizationData(String dob, Map<String, Date> recievedVaccines, final MedicalHistoryContract.InteractorCallBack callBack) {
-        String dobString = dob.contains("y") ? dob.substring(0, dob.indexOf("y")) : dob;
-        int year = 0;
-        try {
-            year = Integer.parseInt(dobString);
-        } catch (Exception e) {
 
-        }
         List<String> vacList = new ArrayList<>();
         for (String name : recievedVaccines.keySet()) {
             String trimLower = name.replace(" ", "").toLowerCase();
             vacList.add(trimLower);
         }
-        final String fullyImmunizationText = ChildUtils.isFullyImmunized(year, vacList);
+        final String fullyImmunizationText = ChildUtils.isFullyImmunized(vacList);
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
@@ -217,9 +213,10 @@ public class MedicalHistoryInteractor implements MedicalHistoryContract.Interact
     }
 
     @Override
-    public void fetchGrowthNutritionData(String baseEntity, final MedicalHistoryContract.InteractorCallBack callBack) {
+    public void fetchGrowthNutritionData(CommonPersonObjectClient commonPersonObjectClient,final MedicalHistoryContract.InteractorCallBack callBack) {
+        String initialFeedingValue = getValue(commonPersonObjectClient.getColumnmaps(), ChildDBConstants.KEY.CHILD_BF_HR, true);
         RecurringServiceRecordRepository recurringServiceRecordRepository = ImmunizationLibrary.getInstance().recurringServiceRecordRepository();
-        List<ServiceRecord> serviceRecordList = recurringServiceRecordRepository.findByEntityId(baseEntity);
+        List<ServiceRecord> serviceRecordList = recurringServiceRecordRepository.findByEntityId(commonPersonObjectClient.entityId());
         if (serviceRecordList.size() > 0) {
             Collections.sort(serviceRecordList, new Comparator<ServiceRecord>() {
                 public int compare(ServiceRecord serviceRecord1, ServiceRecord serviceRecord2) {
@@ -232,6 +229,12 @@ public class MedicalHistoryInteractor implements MedicalHistoryContract.Interact
                 }
             });
         }
+        //adding exclusive breast feeding initial value from child form
+        ServiceRecord initialServiceRecord = new ServiceRecord();
+        initialServiceRecord.setType(GrowthNutritionInputFragment.GROWTH_TYPE.EXCLUSIVE.getValue());
+        initialServiceRecord.setName(ChildDBConstants.KEY.CHILD_BF_HR);
+        initialServiceRecord.setValue(initialFeedingValue);
+        serviceRecordList.add(0,initialServiceRecord);
         final ArrayList<BaseService> baseServiceArrayList = new ArrayList<>();
         String lastType = "";
         for (ServiceRecord serviceRecord : serviceRecordList) {
@@ -240,44 +243,12 @@ public class MedicalHistoryInteractor implements MedicalHistoryContract.Interact
                 serviceHeader.setServiceHeaderName(serviceRecord.getType());
                 baseServiceArrayList.add(serviceHeader);
                 ServiceContent content = new ServiceContent();
-                if (serviceRecord.getType().equalsIgnoreCase(GrowthNutritionInputFragment.GROWTH_TYPE.EXCLUSIVE.getValue())) {
-                    //String[] values = serviceRecord.getValue().split("_");
-                    if (serviceRecord.getName().equalsIgnoreCase("exclusive breastfeeding0")) {
-                        content.setServiceName(getContext().getString(R.string.initial_breastfeed_value,serviceRecord.getValue()));
-                    } else {
-                        Object[] objects = ChildUtils.getStringWithNumber(serviceRecord.getName());
-                        String name = (String) objects[0];
-                        String number = (String) objects[1];
-                        content.setServiceName(name + " (" + number + "m): " + serviceRecord.getValue());
-                    }
-
-                } else {
-                    SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
-                    String date = DATE_FORMAT.format(serviceRecord.getDate());
-                    content.setServiceName(serviceRecord.getName() + " - done " + date);
-                }
-
+                addContent(content,serviceRecord);
                 baseServiceArrayList.add(content);
                 lastType = serviceRecord.getType();
             } else {
                 ServiceContent content = new ServiceContent();
-                if (serviceRecord.getType().equalsIgnoreCase(GrowthNutritionInputFragment.GROWTH_TYPE.EXCLUSIVE.getValue())) {
-                    //String[] values = serviceRecord.getValue().split("_");
-                    if (serviceRecord.getName().equalsIgnoreCase("exclusive breastfeeding0")) {
-                        content.setServiceName(getContext().getString(R.string.initial_breastfeed_value,serviceRecord.getValue()));
-                    } else {
-                        Object[] objects = ChildUtils.getStringWithNumber(serviceRecord.getName());
-                        String name = (String) objects[0];
-                        String number = (String) objects[1];
-                        content.setServiceName(name + " (" + number + "m): " + serviceRecord.getValue());
-                    }
-
-                } else {
-                    SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
-                    String date = DATE_FORMAT.format(serviceRecord.getDate());
-                    content.setServiceName(serviceRecord.getName() + " - done " + date);
-                }
-
+                addContent(content,serviceRecord);
                 baseServiceArrayList.add(content);
             }
         }
@@ -293,6 +264,27 @@ public class MedicalHistoryInteractor implements MedicalHistoryContract.Interact
             }
         };
         appExecutors.diskIO().execute(runnable);
+    }
+    private void addContent(ServiceContent content,ServiceRecord serviceRecord){
+        if (serviceRecord.getType().equalsIgnoreCase(GrowthNutritionInputFragment.GROWTH_TYPE.EXCLUSIVE.getValue())) {
+            //String[] values = serviceRecord.getValue().split("_");
+            if (serviceRecord.getName().equalsIgnoreCase(ChildDBConstants.KEY.CHILD_BF_HR)) {
+                content.setServiceName(getContext().getString(R.string.initial_breastfeed_value, WordUtils.capitalize(serviceRecord.getValue())));
+            }
+            else if (serviceRecord.getName().equalsIgnoreCase("exclusive breastfeeding0")) {
+                content.setServiceName(getContext().getString(R.string.zero_month_breastfeed_value, WordUtils.capitalize(serviceRecord.getValue())));
+            } else {
+                Object[] objects = ChildUtils.getStringWithNumber(serviceRecord.getName());
+                String name = (String) objects[0];
+                String number = (String) objects[1];
+                content.setServiceName(name + " (" + number + "m): " + serviceRecord.getValue());
+            }
+
+        } else {
+            SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
+            String date = DATE_FORMAT.format(serviceRecord.getDate());
+            content.setServiceName(serviceRecord.getName() + " - done " + date);
+        }
     }
 
     @Override

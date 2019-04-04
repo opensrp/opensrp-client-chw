@@ -109,8 +109,8 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
     }
 
     @Override
-    public void fetchFamilyMemberServiceDue(String baseEntityId) {
-        interactor.refreshFamilyMemberServiceDue(getFamilyId(), childBaseEntityId, this);
+    public void fetchUpcomingServiceAndFamilyDue(String baseEntityId) {
+        interactor.refreshUpcomingServiceAndFamilyDue(getFamilyId(), childBaseEntityId, this);
     }
 
     @Override
@@ -202,14 +202,20 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
 
     @Override
     public void updateChildService(ChildService childService) {
-        if (childService.getServiceStatus().equalsIgnoreCase(ChildProfileInteractor.ServiceType.UPCOMING.name())) {
-            getView().setServiceNameUpcoming(childService.getServiceName().trim(), childService.getServiceDate());
-        } else if (childService.getServiceStatus().equalsIgnoreCase(ChildProfileInteractor.ServiceType.OVERDUE.name())) {
-            getView().setServiceNameOverDue(childService.getServiceName().trim(), childService.getServiceDate());
-        } else {
-            getView().setServiceNameDue(childService.getServiceName().trim(), childService.getServiceDate());
-        }
+        if(getView()!=null ){
+            if(childService!= null){
+                if (childService.getServiceStatus().equalsIgnoreCase(ChildProfileInteractor.ServiceType.UPCOMING.name())) {
+                    getView().setServiceNameUpcoming(childService.getServiceName().trim(), childService.getServiceDate());
+                } else if (childService.getServiceStatus().equalsIgnoreCase(ChildProfileInteractor.ServiceType.OVERDUE.name())) {
+                    getView().setServiceNameOverDue(childService.getServiceName().trim(), childService.getServiceDate());
+                } else {
+                    getView().setServiceNameDue(childService.getServiceName().trim(), childService.getServiceDate());
+                }
+            }else{
+                getView().setServiceNameDue("", "");
+            }
 
+        }
     }
 
     @Override
@@ -224,6 +230,13 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
             }
         }
 
+    }
+
+    @Override
+    public void hideProgressBar() {
+        if (getView() != null) {
+            getView().hideProgressBar();
+        }
     }
 
     @Override
@@ -242,9 +255,10 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
         String middleName = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.MIDDLE_NAME, true);
         String childName = org.smartregister.util.Utils.getName(firstName, middleName + " " + lastName);
         getView().setProfileName(childName);
+        getView().setAge(Utils.getDuration(Utils.getValue(client.getColumnmaps(), DBConstants.KEY.DOB, false)));
 
-        dob = Utils.getDuration(Utils.getValue(client.getColumnmaps(), DBConstants.KEY.DOB, false));
-        getView().setAge(dob);
+        dob = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.DOB, false);
+
         //dobString = dobString.contains("y") ? dobString.substring(0, dobString.indexOf("y")) : dobString;
         String address = Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.FAMILY_HOME_ADDRESS, true);
         String gender = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.GENDER, true);
@@ -258,16 +272,6 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
 
 
         getView().setProfileImage(client.getCaseId());
-
-    }
-
-    @Override
-    public void onUniqueIdFetched(Triple<String, String, String> triple, String entityId) {
-
-    }
-
-    @Override
-    public void onNoUniqueId() {
 
     }
 

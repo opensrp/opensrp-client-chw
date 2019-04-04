@@ -70,6 +70,7 @@ public interface ChildProfileContract {
         void updateHasPhone(boolean hasPhone);
 
         void enableEdit(boolean enable);
+        void hideProgressBar();
     }
 
     interface Presenter extends BaseProfileContract.Presenter {
@@ -86,7 +87,7 @@ public interface ChildProfileContract {
 
         void fetchVisitStatus(String baseEntityId);
 
-        void fetchFamilyMemberServiceDue(String baseEntityId);
+        void fetchUpcomingServiceAndFamilyDue(String baseEntityId);
 
     }
 
@@ -95,7 +96,7 @@ public interface ChildProfileContract {
 
         void refreshChildVisitBar(String baseEntityId, ChildProfileContract.InteractorCallBack callback);
 
-        void refreshFamilyMemberServiceDue(String familyId, String baseEntityId, ChildProfileContract.InteractorCallBack callback);
+        void refreshUpcomingServiceAndFamilyDue(String familyId, String baseEntityId, ChildProfileContract.InteractorCallBack callback);
 
         void onDestroy(boolean isChangingConfiguration);
 
@@ -119,9 +120,7 @@ public interface ChildProfileContract {
 
         void refreshProfileTopSection(CommonPersonObjectClient client);
 
-        void onUniqueIdFetched(Triple<String, String, String> triple, String entityId);
-
-        void onNoUniqueId();
+        void hideProgressBar();
 
         void onRegistrationSaved(boolean isEditMode);
 

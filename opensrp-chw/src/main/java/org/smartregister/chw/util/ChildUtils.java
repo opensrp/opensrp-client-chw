@@ -84,22 +84,25 @@ public class ChildUtils {
                 .create();
     }
 
-    //Fully immunized at age 2
-    public static String isFullyImmunized(int age, List<String> vaccineGiven) {
-        String str = "";
-        if (age <= 1) {
-            List<String> oneYrVac = Arrays.asList(ONE_YR);
-            if (vaccineGiven.containsAll(oneYrVac)) {
-                str = "1";
-            }
-        } else {
-            List<String> twoYrVac = Arrays.asList(TWO_YR);
-            if (vaccineGiven.containsAll(twoYrVac)) {
-                str = "2";
-            }
+    /**
+     * Based on received vaccine list it'll return the fully immunized year.
+     * Firstly it'll check with 2years vaccine list if it's match then return 2 year fully immunized.
+     * Else it'll check  with 1year vaccine list otherwise it'll return empty string means not fully immunized.
+     * @param vaccineGiven
+     * @return
+     */
+    public static String isFullyImmunized(List<String> vaccineGiven) {
+        List<String> twoYrVac = Arrays.asList(TWO_YR);
+        if (vaccineGiven.containsAll(twoYrVac)) {
+            return  "2";
         }
 
-        return str;
+        List<String> oneYrVac = Arrays.asList(ONE_YR);
+        if (vaccineGiven.containsAll(oneYrVac)) {
+           return  "1";
+        }
+
+        return "";
 
     }
 
@@ -365,7 +368,7 @@ public class ChildUtils {
         LocalDate date2 = new LocalDate();
         int diff = Days.daysBetween(date1, date2).getDays();
         if (diff <= 0) {
-            String str = diff + " days away";
+            String str = Math.abs(diff) + " days away";
             spannableString = new SpannableString(str);
             spannableString.setSpan(new ForegroundColorSpan(Color.GRAY), 0, str.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             return spannableString;
@@ -392,6 +395,12 @@ public class ChildUtils {
             spannableString.setSpan(new ForegroundColorSpan(ChwApplication.getInstance().getContext().getColorResource(R.color.alert_urgent_red)), 0, str.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             return spannableString;
         }
+    }
+    public static ImmunizationState getDueStatus(String dueDate ){
+        LocalDate date1 = new LocalDate(dueDate);
+        LocalDate date2 = new LocalDate();
+        int diff = Days.daysBetween(date1, date2).getDays();
+        return diff<=0?ImmunizationState.UPCOMING:ImmunizationState.OVERDUE;
     }
 
 

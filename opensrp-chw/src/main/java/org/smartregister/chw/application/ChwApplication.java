@@ -5,20 +5,19 @@ import android.util.Log;
 
 import com.evernote.android.job.JobManager;
 
+import org.smartregister.Context;
+import org.smartregister.CoreLibrary;
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.activity.FamilyProfileActivity;
 import org.smartregister.chw.activity.LoginActivity;
 import org.smartregister.chw.helper.RulesEngineHelper;
 import org.smartregister.chw.job.ChwJobCreator;
-import org.smartregister.chw.repository.HomeVisitRepository;
 import org.smartregister.chw.repository.ChwRepository;
+import org.smartregister.chw.repository.HomeVisitRepository;
 import org.smartregister.chw.sync.ChwClientProcessor;
 import org.smartregister.chw.util.ChildDBConstants;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.CountryUtils;
-import org.smartregister.chw.util.Utils;
-import org.smartregister.Context;
-import org.smartregister.CoreLibrary;
 import org.smartregister.commonregistry.AllCommonsRepository;
 import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
@@ -98,7 +97,7 @@ public class ChwApplication extends DrishtiApplication {
                     .LAST_INTERACTED_WITH, DBConstants.KEY.DATE_REMOVED};
         } else if (tableName.equals(Constants.TABLE_NAME.CHILD)) {
             return new String[]{ChildDBConstants.KEY.LAST_HOME_VISIT, ChildDBConstants.KEY.VISIT_NOT_DONE, DBConstants.KEY
-                    .LAST_INTERACTED_WITH, ChildDBConstants.KEY.DATE_CREATED, DBConstants.KEY.DATE_REMOVED,DBConstants.KEY.DOB};
+                    .LAST_INTERACTED_WITH, ChildDBConstants.KEY.DATE_CREATED, DBConstants.KEY.DATE_REMOVED, DBConstants.KEY.DOB};
         }
         return null;
     }
@@ -122,7 +121,7 @@ public class ChwApplication extends DrishtiApplication {
         FamilyLibrary.init(context, getRepository(), getMetadata(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
 
         SyncStatusBroadcastReceiver.init(this);
-        LocationHelper.init(Utils.ALLOWED_LEVELS, Utils.CHA);
+        LocationHelper.init(CountryUtils.allowedLevels(), CountryUtils.defaultLevel());
 
         // set up processor
         FamilyLibrary.getInstance().setClientProcessorForJava(ChwClientProcessor.getInstance(getApplicationContext()));
@@ -137,6 +136,7 @@ public class ChwApplication extends DrishtiApplication {
         scheduleJobs();
 
         CountryUtils.switchLoginAlias(getPackageManager());
+        CountryUtils.setOpenSRPUrl();
     }
 
     @Override
@@ -207,7 +207,7 @@ public class ChwApplication extends DrishtiApplication {
 
     private void scheduleJobs() {
         // TODO implement job scheduling
-        Log.d(TAG,"scheduleJobs pending implementation");
+        Log.d(TAG, "scheduleJobs pending implementation");
     }
 
     private long getFlexValue(int value) {
