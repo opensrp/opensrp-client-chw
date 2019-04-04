@@ -269,8 +269,6 @@ public class HomeVisitImmunizationInteractor implements HomeVisitImmunizationCon
                             }
                         }
 
-                        // recompute
-                        homeVisitVaccineGroupDetails.calculateNotGivenVaccines();
                         for (int i = 0; i < homeVisitVaccineGroupDetails.getDueVaccines().size(); i++) {
                             for (VaccineWrapper notgivenVaccine : notGivenVaccines) {
                                 if (homeVisitVaccineGroupDetails.getDueVaccines().get(i).display().equalsIgnoreCase(notgivenVaccine.getName())) {
@@ -278,15 +276,17 @@ public class HomeVisitImmunizationInteractor implements HomeVisitImmunizationCon
                                 }
                             }
                         }
-
+// recompute
+                      homeVisitVaccineGroupDetails.calculateNotGivenVaccines();
                         map.put(stateKey, homeVisitVaccineGroupDetails);
                     }
                 }
 
             }
         }
+        ArrayList<HomeVisitVaccineGroupDetails> details = new ArrayList<>(map.values());
 
-        return new ArrayList<>(map.values());
+        return details;
     }
 
     private boolean hasAlert(VaccineRepo.Vaccine vaccine, List<Alert> alerts) {

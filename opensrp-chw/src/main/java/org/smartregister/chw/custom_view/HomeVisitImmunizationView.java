@@ -96,7 +96,6 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
     public void setActivity(Activity activity) {
         this.context = activity;
     }
-
     private void initUi() {
         inflate(getContext(), R.layout.view_immunization, this);
         textview_group_immunization_primary_text = (TextView) findViewById(R.id.textview_group_immunization);
