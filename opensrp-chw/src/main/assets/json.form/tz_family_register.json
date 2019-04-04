@@ -82,7 +82,7 @@
         "hidden": "true",
         "type": "barcode",
         "barcode_type": "qrcode",
-        "hint": "ID *",
+        "hint": "ID",
         "scanButtonText": "Scan QR Code",
         "v_numeric": {
           "value": "true",
@@ -179,7 +179,7 @@
         "openmrs_entity": "person_identifier",
         "openmrs_entity_id": "opensrp_id",
         "type": "edit_text",
-        "hint": "ID *",
+        "hint": "ID",
         "value": "0",
         "read_only" : "true",
         "v_numeric": {
@@ -354,16 +354,54 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "openmrs_data_type": "",
-        "type": "spinner",
-        "hint": "Do you have any of the following IDs?",
-        "values": [
-          "National ID",
-          "Voter's registration ID",
-          "Driver's license",
-          "Passport",
-          "None"
-        ]
+        "type": "check_box",
+        "label": "Do you have any of the following IDs?",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "exclusive": [
+          "chk_none"
+        ],
+        "options": [
+          {
+            "key": "chk_national_id",
+            "text": "National ID",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "chk_voters_id",
+            "text": "Voter's registration ID",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "chk_drivers_license",
+            "text": "Driver's license",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "chk_passport",
+            "text": "Passport",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "chk_none",
+            "text": "None",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Please specify any other symptoms or select none"
+        }
       },
       {
         "key": "national_id",
@@ -375,13 +413,17 @@
         "edit_type": "name",
         "v_required": {
           "value": "true",
-          "err": "Please enter National ID number *"
+          "err": "Please enter National ID number"
         },
         "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "tz_family_register_relevance.yml"
-            }
+          "step2:id_avail": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "chk_national_id"
+                ]
+              }
+            ]
           }
         }
       },
@@ -395,13 +437,17 @@
         "edit_type": "name",
         "v_required": {
           "value": "true",
-          "err": "Please enter Voter's registration number *"
+          "err": "Please enter Voter's registration number"
         },
         "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "tz_family_register_relevance.yml"
-            }
+          "step2:id_avail": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "chk_voters_id"
+                ]
+              }
+            ]
           }
         }
       },
@@ -415,13 +461,17 @@
         "edit_type": "name",
         "v_required": {
           "value": "true",
-          "err": "Please enter driver's license number *"
+          "err": "Please enter driver's license number"
         },
         "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "tz_family_register_relevance.yml"
-            }
+          "step2:id_avail": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "chk_drivers_license"
+                ]
+              }
+            ]
           }
         }
       },
@@ -435,13 +485,17 @@
         "edit_type": "name",
         "v_required": {
           "value": "true",
-          "err": "Please enter passport number *"
+          "err": "Please enter passport number"
         },
         "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "tz_family_register_relevance.yml"
-            }
+          "step2:id_avail": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "chk_passport"
+                ]
+              }
+            ]
           }
         }
       },
@@ -478,17 +532,10 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
-        "hint": "Other health insurance provider *",
+        "hint": "Other health insurance provider",
         "v_required": {
           "value": "true",
           "err": "Please specify the insurance provider"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "tz_family_register_relevance.yml"
-            }
-          }
         }
       },
       {
@@ -497,17 +544,10 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
-        "hint": "Health insurance provider number *",
+        "hint": "Health insurance provider number",
         "v_required": {
           "value": "true",
           "err": "Please add the health insurance provider iD Number"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "tz_family_register_relevance.yml"
-            }
-          }
         }
       },
       {
@@ -527,6 +567,22 @@
         }
       },
       {
+        "key": "wra",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "values": ""
+      },
+      {
+        "key": "mra",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "values": ""
+      },
+      {
         "key": "preg_1yr",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
@@ -540,7 +596,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "family_register_relevance.yml"
+              "rules-file": "tz_family_register_relevance.yml"
             }
           }
         }
@@ -551,7 +607,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "spinner",
-        "hint": "Physical disabilities *",
+        "hint": "Physical disabilities",
         "values": [
           "Yes",
           "No"
@@ -567,7 +623,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
-        "hint": "Type of disability *",
+        "hint": "Type of disability",
         "v_required": {
           "value": "true",
           "err": "Please enter type of disability"
@@ -575,7 +631,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "family_register_relevance.yml"
+              "rules-file": "tz_family_register_relevance.yml"
             }
           }
         }
@@ -680,7 +736,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "family_register_relevance.yml"
+              "rules-file": "tz_family_register_relevance.yml"
             }
           }
         }
