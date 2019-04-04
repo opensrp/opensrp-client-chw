@@ -1,5 +1,7 @@
 package org.smartregister.chw.util;
 
+import org.smartregister.chw.BuildConfig;
+
 import java.util.HashMap;
 
 public class Constants {
@@ -36,7 +38,7 @@ public class Constants {
     public static class JSON_FORM {
         public static final String BIRTH_CERTIFICATION = "birth_certification";
         public static final String OBS_ILLNESS = "observation_illness";
-        public static final String FAMILY_REGISTER = "family_register";
+        public static final String FAMILY_REGISTER = (Country.LIBERIA.equals(BuildConfig.BUILD_COUNTRY) ? "family_register" : "tz_family_register");
         public static final String FAMILY_MEMBER_REGISTER = "family_member_register";
         public static final String CHILD_REGISTER = "child_enrollment";
         public static final String FAMILY_DETAILS_REGISTER = "family_details_register";
