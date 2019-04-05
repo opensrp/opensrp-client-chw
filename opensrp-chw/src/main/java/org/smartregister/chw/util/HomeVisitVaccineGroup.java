@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * Created by raihan on 1/15/19.
  */
 
-public class HomeVisitVaccineGroupDetails {
+public class HomeVisitVaccineGroup {
     private ArrayList<VaccineRepo.Vaccine> givenVaccines = new ArrayList<VaccineRepo.Vaccine>();
     private ArrayList<VaccineRepo.Vaccine> dueVaccines = new ArrayList<VaccineRepo.Vaccine>();
     private ArrayList<VaccineRepo.Vaccine> notGivenVaccines = new ArrayList<VaccineRepo.Vaccine>();

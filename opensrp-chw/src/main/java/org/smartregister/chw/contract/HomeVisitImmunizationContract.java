@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 
 import org.smartregister.chw.interactor.HomeVisitImmunizationInteractor;
-import org.smartregister.chw.util.HomeVisitVaccineGroupDetails;
+import org.smartregister.chw.util.HomeVisitVaccineGroup;
 import org.smartregister.chw.util.ImmunizationState;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.Alert;
@@ -62,21 +62,21 @@ public interface HomeVisitImmunizationContract {
 
         void setVaccinesDueFromLastVisit(ArrayList<VaccineRepo.Vaccine> vaccinesDueFromLastVisit);
 
-        ArrayList<HomeVisitVaccineGroupDetails> getAllgroups();
+        ArrayList<HomeVisitVaccineGroup> getAllgroups();
 
-        void setAllgroups(ArrayList<HomeVisitVaccineGroupDetails> allgroups);
+        void setAllgroups(ArrayList<HomeVisitVaccineGroup> allgroups);
 
         ArrayList<VaccineWrapper> getNotGivenVaccines();
 
         void setNotGivenVaccines(ArrayList<VaccineWrapper> notGivenVaccines);
 
-        HomeVisitVaccineGroupDetails getCurrentActiveGroup();
+        HomeVisitVaccineGroup getCurrentActiveGroup();
 
-        void setCurrentActiveGroup(HomeVisitVaccineGroupDetails currentActiveGroup);
+        void setCurrentActiveGroup(HomeVisitVaccineGroup currentActiveGroup);
 
         boolean groupIsDue();
 
-        ArrayList<VaccineWrapper> createVaccineWrappers(HomeVisitVaccineGroupDetails duevaccines);
+        ArrayList<VaccineWrapper> createVaccineWrappers(HomeVisitVaccineGroup duevaccines);
 
         CommonPersonObjectClient getchildClient();
 
@@ -113,31 +113,31 @@ public interface HomeVisitImmunizationContract {
 
         void onDestroy(boolean isChangingConfiguration);
 
-        HomeVisitVaccineGroupDetails getCurrentActiveHomeVisitVaccineGroupDetail(ArrayList<HomeVisitVaccineGroupDetails> allGroups);
+        HomeVisitVaccineGroup getCurrentActiveHomeVisitVaccineGroupDetail(ArrayList<HomeVisitVaccineGroup> allGroups);
 
-        HomeVisitVaccineGroupDetails getLastActiveHomeVisitVaccineGroupDetail(ArrayList<HomeVisitVaccineGroupDetails> allGroups);
+        HomeVisitVaccineGroup getLastActiveHomeVisitVaccineGroupDetail(ArrayList<HomeVisitVaccineGroup> allGroups);
 
-        boolean isPartiallyComplete(HomeVisitVaccineGroupDetails toprocess);
+        boolean isPartiallyComplete(HomeVisitVaccineGroup toprocess);
 
-        boolean isComplete(HomeVisitVaccineGroupDetails toprocess);
+        boolean isComplete(HomeVisitVaccineGroup toprocess);
 
-        boolean groupIsDue(HomeVisitVaccineGroupDetails toprocess);
+        boolean groupIsDue(HomeVisitVaccineGroup toprocess);
 
-        boolean hasVaccinesNotGivenSinceLastVisit(ArrayList<HomeVisitVaccineGroupDetails> allGroup);
+        boolean hasVaccinesNotGivenSinceLastVisit(ArrayList<HomeVisitVaccineGroup> allGroup);
 
-        int getIndexOfCurrentGroup(ArrayList<HomeVisitVaccineGroupDetails> allGroup);
+        int getIndexOfCurrentGroup(ArrayList<HomeVisitVaccineGroup> allGroup);
 
-        ArrayList<VaccineRepo.Vaccine> getNotGivenVaccinesLastVisitList(ArrayList<HomeVisitVaccineGroupDetails> allGroup);
+        ArrayList<VaccineRepo.Vaccine> getNotGivenVaccinesLastVisitList(ArrayList<HomeVisitVaccineGroup> allGroup);
 
-        ArrayList<VaccineRepo.Vaccine> getNotGivenVaccinesNotInNotGivenThisVisit(HomeVisitVaccineGroupDetails allGroup);
+        ArrayList<VaccineRepo.Vaccine> getNotGivenVaccinesNotInNotGivenThisVisit(HomeVisitVaccineGroup allGroup);
 
-        ArrayList<HomeVisitVaccineGroupDetails> determineAllHomeVisitVaccineGroupDetails(List<Alert> alerts, List<Vaccine> vaccines, ArrayList<VaccineWrapper> notGivenVaccines, List<Map<String, Object>> sch);
+        ArrayList<HomeVisitVaccineGroup> determineAllHomeVisitVaccineGroupDetails(List<Alert> alerts, List<Vaccine> vaccines, ArrayList<VaccineWrapper> notGivenVaccines, List<Map<String, Object>> sch);
 
-        ArrayList<HomeVisitVaccineGroupDetails> assignDate(ArrayList<HomeVisitVaccineGroupDetails> homeVisitVaccineGroupDetailsArrayList, List<Map<String, Object>> sch);
+        ArrayList<HomeVisitVaccineGroup> assignDate(ArrayList<HomeVisitVaccineGroup> homeVisitVaccineGroupArrayList, List<Map<String, Object>> sch);
 
-        ArrayList<HomeVisitVaccineGroupDetails> assignGivenVaccine(ArrayList<HomeVisitVaccineGroupDetails> homeVisitVaccineGroupDetailsArrayList, Map<String, Date> receivedvaccines);
+        ArrayList<HomeVisitVaccineGroup> assignGivenVaccine(ArrayList<HomeVisitVaccineGroup> homeVisitVaccineGroupArrayList, Map<String, Date> receivedvaccines);
 
-        ArrayList<HomeVisitVaccineGroupDetails> assignDueVaccine(List<VaccineRepo.Vaccine> vList, ArrayList<HomeVisitVaccineGroupDetails> homeVisitVaccineGroupDetailsArrayList, List<Alert> alerts);
+        ArrayList<HomeVisitVaccineGroup> assignDueVaccine(List<VaccineRepo.Vaccine> vList, ArrayList<HomeVisitVaccineGroup> homeVisitVaccineGroupArrayList, List<Alert> alerts);
 
         boolean hasAlert(VaccineRepo.Vaccine vaccine, List<Alert> alerts);
 

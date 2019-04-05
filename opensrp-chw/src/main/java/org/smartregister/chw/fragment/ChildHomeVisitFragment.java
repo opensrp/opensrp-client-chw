@@ -42,7 +42,7 @@ import org.smartregister.chw.util.BirthIllnessData;
 import org.smartregister.chw.util.ChildDBConstants;
 import org.smartregister.chw.util.ChildUtils;
 import org.smartregister.chw.util.Constants;
-import org.smartregister.chw.util.HomeVisitVaccineGroupDetails;
+import org.smartregister.chw.util.HomeVisitVaccineGroup;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.family.activity.BaseFamilyProfileActivity;
@@ -344,7 +344,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         }
     }
 
-    private ArrayList<VaccineWrapper> createVaccineWrappers(HomeVisitVaccineGroupDetails vaccines) {
+    private ArrayList<VaccineWrapper> createVaccineWrappers(HomeVisitVaccineGroup vaccines) {
 
         ArrayList<VaccineWrapper> vaccineWrappers = new ArrayList<VaccineWrapper>();
         for (VaccineRepo.Vaccine vaccine : vaccines.getDueVaccines()) {

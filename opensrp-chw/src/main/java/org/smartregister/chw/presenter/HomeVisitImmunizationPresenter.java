@@ -11,7 +11,7 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.contract.HomeVisitImmunizationContract;
 import org.smartregister.chw.interactor.HomeVisitImmunizationInteractor;
-import org.smartregister.chw.util.HomeVisitVaccineGroupDetails;
+import org.smartregister.chw.util.HomeVisitVaccineGroup;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.Alert;
 import org.smartregister.immunization.ImmunizationLibrary;
@@ -42,9 +42,9 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
     private HomeVisitImmunizationContract.Interactor homeVisitImmunizationInteractor;
     private WeakReference<HomeVisitImmunizationContract.View> view;
     private ArrayList<VaccineRepo.Vaccine> vaccinesDueFromLastVisit = new ArrayList<VaccineRepo.Vaccine>();
-    private ArrayList<HomeVisitVaccineGroupDetails> allgroups = new ArrayList<HomeVisitVaccineGroupDetails>();
+    private ArrayList<HomeVisitVaccineGroup> allgroups = new ArrayList<HomeVisitVaccineGroup>();
     private ArrayList<VaccineWrapper> notGivenVaccines = new ArrayList<VaccineWrapper>();
-    private HomeVisitVaccineGroupDetails currentActiveGroup;
+    private HomeVisitVaccineGroup currentActiveGroup;
     private CommonPersonObjectClient childClient;
     private ArrayList<VaccineWrapper> vaccinesGivenThisVisit = new ArrayList<VaccineWrapper>();
     private String groupImmunizationSecondaryText = "";
@@ -130,12 +130,12 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
     }
 
     @Override
-    public ArrayList<HomeVisitVaccineGroupDetails> getAllgroups() {
+    public ArrayList<HomeVisitVaccineGroup> getAllgroups() {
         return allgroups;
     }
 
     @Override
-    public void setAllgroups(ArrayList<HomeVisitVaccineGroupDetails> allgroups) {
+    public void setAllgroups(ArrayList<HomeVisitVaccineGroup> allgroups) {
         this.allgroups = allgroups;
     }
 
@@ -150,12 +150,12 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
     }
 
     @Override
-    public HomeVisitVaccineGroupDetails getCurrentActiveGroup() {
+    public HomeVisitVaccineGroup getCurrentActiveGroup() {
         return currentActiveGroup;
     }
 
     @Override
-    public void setCurrentActiveGroup(HomeVisitVaccineGroupDetails currentActiveGroup) {
+    public void setCurrentActiveGroup(HomeVisitVaccineGroup currentActiveGroup) {
         this.currentActiveGroup = currentActiveGroup;
     }
 
@@ -165,7 +165,7 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
     }
 
     @Override
-    public ArrayList<VaccineWrapper> createVaccineWrappers(HomeVisitVaccineGroupDetails duevaccines) {
+    public ArrayList<VaccineWrapper> createVaccineWrappers(HomeVisitVaccineGroup duevaccines) {
 
         ArrayList<VaccineWrapper> vaccineWrappers = new ArrayList<VaccineWrapper>();
         for (VaccineRepo.Vaccine vaccine : duevaccines.getDueVaccines()) {

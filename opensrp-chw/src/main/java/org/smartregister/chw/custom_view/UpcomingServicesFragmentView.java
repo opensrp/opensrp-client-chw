@@ -16,7 +16,7 @@ import org.smartregister.chw.interactor.HomeVisitGrowthNutritionInteractor;
 import org.smartregister.chw.presenter.HomeVisitImmunizationPresenter;
 import org.smartregister.chw.util.ChildUtils;
 import org.smartregister.chw.util.GrowthServiceData;
-import org.smartregister.chw.util.HomeVisitVaccineGroupDetails;
+import org.smartregister.chw.util.HomeVisitVaccineGroup;
 import org.smartregister.chw.util.ImmunizationState;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.Alert;
@@ -82,8 +82,8 @@ public class UpcomingServicesFragmentView extends LinearLayout implements View.O
         presenter.createAllVaccineGroups(alerts, vaccines, sch);
         presenter.getVaccinesNotGivenLastVisit();
         presenter.calculateCurrentActiveGroup();
-        ArrayList<HomeVisitVaccineGroupDetails> homeVisitVaccineGroupDetailsList = presenter.getAllgroups();
-        for (HomeVisitVaccineGroupDetails homeVisitVaccineGroupDetail : homeVisitVaccineGroupDetailsList) {
+        ArrayList<HomeVisitVaccineGroup> homeVisitVaccineGroupList = presenter.getAllgroups();
+        for (HomeVisitVaccineGroup homeVisitVaccineGroupDetail : homeVisitVaccineGroupList) {
             if (
                     (homeVisitVaccineGroupDetail.getAlert().equals(ImmunizationState.DUE) || homeVisitVaccineGroupDetail.getAlert().equals(ImmunizationState.OVERDUE))
                     && (homeVisitVaccineGroupDetail.getNotGivenVaccines().size() > 0)
@@ -94,7 +94,7 @@ public class UpcomingServicesFragmentView extends LinearLayout implements View.O
 
     }
 
-    private View createUpcomingServicesCard(HomeVisitVaccineGroupDetails homeVisitVaccineGroupDetail) {
+    private View createUpcomingServicesCard(HomeVisitVaccineGroup homeVisitVaccineGroupDetail) {
         View view = context.getLayoutInflater().inflate(R.layout.upcoming_service_row, null);
         TextView groupDateTitle = (TextView) view.findViewById(R.id.grou_date_title);
         TextView groupDateStatus = (TextView) view.findViewById(R.id.grou_date_status);
