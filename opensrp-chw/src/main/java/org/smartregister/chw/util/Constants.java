@@ -168,4 +168,9 @@ public class Constants {
     public static class IDENTIFIER {
         public static final String UNIQUE_IDENTIFIER_KEY = "opensrp_id";
     }
+
+    public static class ECClientConfig {
+        public static String LIBERIA_EC_CLIENT_FIELDS = "ec_client_fields.json";
+        public static String TANZANIA_EC_CLIENT_FIELDS = "tz_ec_client_fields.json";
+    }
 }

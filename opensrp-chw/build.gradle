@@ -36,8 +36,8 @@ android {
         buildConfigField "long", "BUILD_TIMESTAMP", System.currentTimeMillis() + "L"
         buildConfigField "boolean", "IS_SYNC_SETTINGS", "false"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        buildConfigField "org.smartregister.chw.util.Country", "BUILD_COUNTRY", "org.smartregister.chw.util.Country.LIBERIA"
-        manifestPlaceholders = [liberiaBuild: true, tanzaniaBuild: false]
+        buildConfigField "org.smartregister.chw.util.Country", "BUILD_COUNTRY", "org.smartregister.chw.util.Country.TANZANIA"
+        manifestPlaceholders = [liberiaBuild: false, tanzaniaBuild: true]
     }
 
     dexOptions {

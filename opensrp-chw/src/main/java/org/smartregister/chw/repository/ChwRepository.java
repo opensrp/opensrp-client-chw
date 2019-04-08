@@ -84,6 +84,9 @@ public class ChwRepository extends Repository {
                 case 5:
                     upgradeToVersion5(db);
                     break;
+                case 6:
+                    upgradeToVersion5(db);
+                    break;
                 default:
                     break;
             }
@@ -211,6 +214,15 @@ public class ChwRepository extends Repository {
     }
 
     private void upgradeToVersion5(SQLiteDatabase db) {
+        try {
+            db.execSQL(VaccineRepository.UPDATE_TABLE_ADD_CHILD_LOCATION_ID_COL);
+            db.execSQL(RecurringServiceRecordRepository.UPDATE_TABLE_ADD_CHILD_LOCATION_ID_COL);
+        } catch (Exception e) {
+            Log.e(TAG, "upgradeToVersion5 " + Log.getStackTraceString(e));
+        }
+    }
+
+    private void upgradeToVersion6(SQLiteDatabase db) {
         try {
             db.execSQL(VaccineRepository.UPDATE_TABLE_ADD_CHILD_LOCATION_ID_COL);
             db.execSQL(RecurringServiceRecordRepository.UPDATE_TABLE_ADD_CHILD_LOCATION_ID_COL);

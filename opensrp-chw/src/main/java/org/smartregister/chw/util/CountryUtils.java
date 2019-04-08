@@ -4,6 +4,7 @@ import android.content.ComponentName;
 import android.content.pm.PackageManager;
 
 import org.smartregister.AllConstants;
+import org.smartregister.CoreLibrary;
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.repository.AllSharedPreferences;
@@ -124,4 +125,17 @@ public class CountryUtils {
         preferences.savePreference(AllConstants.DRISHTI_BASE_URL, opensrpUrl);
     }
 
+    public static void switchEcClientFieldProcessor() {
+        switch (BuildConfig.BUILD_COUNTRY) {
+            case LIBERIA:
+                CoreLibrary.getInstance().setEcClientFieldsFile(Constants.ECClientConfig.LIBERIA_EC_CLIENT_FIELDS);
+                break;
+            case TANZANIA:
+                CoreLibrary.getInstance().setEcClientFieldsFile(Constants.ECClientConfig.TANZANIA_EC_CLIENT_FIELDS);
+                break;
+            default:
+                CoreLibrary.getInstance().setEcClientFieldsFile(Constants.ECClientConfig.LIBERIA_EC_CLIENT_FIELDS);
+                break;
+        }
+    }
 }
