@@ -214,11 +214,7 @@ public class ChildImmunizationFragment extends DialogFragment {
 
         @Override
         protected void onPostExecute(Pair<ArrayList<VaccineWrapper>, List<Vaccine>> pair) {
-            try {
-                updateVaccineGroupsUsingAlerts(affectedVaccines, vaccineList, alertList);
-            } catch (Exception e) {
-                Log.e(TAG, e.toString());
-            }
+            updateVaccineGroupsUsingAlerts(affectedVaccines, vaccineList, alertList);
         }
 
         @Override
@@ -262,7 +258,7 @@ public class ChildImmunizationFragment extends DialogFragment {
 
 
     private void updateVaccineGroupsUsingAlerts(List<String> affectedVaccines, List<Vaccine> vaccineList, List<Alert> alerts) {
-        if (affectedVaccines != null && vaccineList != null) {
+        if (affectedVaccines != null && vaccineList != null && vaccineGroups != null) {
             // Update all other affected vaccine groups
             HashMap<VaccineGroup, ArrayList<VaccineWrapper>> affectedGroups = new HashMap<>();
             for (String curAffectedVaccineName : affectedVaccines) {
@@ -304,16 +300,12 @@ public class ChildImmunizationFragment extends DialogFragment {
             }
 
             for (VaccineGroup curGroup : affectedGroups.keySet()) {
-                try {
-                    vaccineGroups.remove(curGroup);
-                    addVaccineGroup(Integer.valueOf((String) curGroup.getTag(R.id.vaccine_group_parent_id)),
-                            //TODO if error use immediately below
-                            // (org.smartregister.immunization.domain.jsonmapping.VaccineGroup) curGroup.getTag(R.id.vaccine_group_vaccine_data),
-                            curGroup.getVaccineData(),
-                            vaccineList, alerts);
-                } catch (Exception e) {
-                    Log.e(TAG, Log.getStackTraceString(e));
-                }
+                vaccineGroups.remove(curGroup);
+                addVaccineGroup(Integer.valueOf((String) curGroup.getTag(R.id.vaccine_group_parent_id)),
+                        //TODO if error use immediately below
+                        // (org.smartregister.immunization.domain.jsonmapping.VaccineGroup) curGroup.getTag(R.id.vaccine_group_vaccine_data),
+                        curGroup.getVaccineData(),
+                        vaccineList, alerts);
             }
         }
     }

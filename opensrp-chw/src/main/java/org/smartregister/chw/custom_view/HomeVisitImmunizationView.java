@@ -444,20 +444,6 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
                         customVaccinationDialogFragment.setView(this);
                         customVaccinationDialogFragment.show(ft, ChildImmunizationFragment.TAG);
                     }
-//                    if (vaccineWrappers.size() == 1) {
-//                        CustomVaccinationDialogFragment customVaccinationDialogFragment = CustomVaccinationDialogFragment.newInstance(dob, vaccines, vaccineWrappers);
-//                        customVaccinationDialogFragment.setContext(context);
-//                        customVaccinationDialogFragment.setChildDetails(presenter.getchildClient());
-//                        customVaccinationDialogFragment.setView(this);
-//                        customVaccinationDialogFragment.setDisableConstraints(true);
-//                        customVaccinationDialogFragment.show(context.getFragmentManager(), ChildImmunizationFragment.TAG);
-//                    } else if (vaccineWrappers.size() > 1) {
-//                        VaccinationDialogFragment customVaccinationDialogFragment = VaccinationDialogFragment.newInstance(dob, vaccines, vaccineWrappers);
-//                        customVaccinationDialogFragment.setContext(context);
-//                        customVaccinationDialogFragment.setChildDetails(presenter.getchildClient());
-//                        customVaccinationDialogFragment.setView(this);
-//                        customVaccinationDialogFragment.show(ft, ChildImmunizationFragment.TAG);
-//                    }
                 }
 
                 break;
