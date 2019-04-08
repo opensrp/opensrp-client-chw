@@ -9,6 +9,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.AllConstants;
+import org.smartregister.chw.util.Country;
+import org.smartregister.chw.util.RepositoryUtils;
 import org.smartregister.configurableviews.repository.ConfigurableViewsRepository;
 import org.smartregister.domain.db.Column;
 import org.smartregister.immunization.ImmunizationLibrary;
@@ -85,7 +87,7 @@ public class ChwRepository extends Repository {
                     upgradeToVersion5(db);
                     break;
                 case 6:
-                    upgradeToVersion5(db);
+                    upgradeToVersion6(db);
                     break;
                 default:
                     break;
@@ -224,10 +226,13 @@ public class ChwRepository extends Repository {
 
     private void upgradeToVersion6(SQLiteDatabase db) {
         try {
-            db.execSQL(VaccineRepository.UPDATE_TABLE_ADD_CHILD_LOCATION_ID_COL);
-            db.execSQL(RecurringServiceRecordRepository.UPDATE_TABLE_ADD_CHILD_LOCATION_ID_COL);
+            if(BuildConfig.BUILD_COUNTRY == Country.TANZANIA){
+                for (String query: RepositoryUtils.UPGRADE_V6) {
+                    db.execSQL(query);
+                }
+            }
         } catch (Exception e) {
-            Log.e(TAG, "upgradeToVersion5 " + Log.getStackTraceString(e));
+            Log.e(TAG, "upgradeToVersion6 " + Log.getStackTraceString(e));
         }
     }
 }
