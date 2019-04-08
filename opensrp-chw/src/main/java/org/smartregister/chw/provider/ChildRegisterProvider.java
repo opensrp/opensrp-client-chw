@@ -24,6 +24,7 @@ import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.cursoradapter.RecyclerViewProvider;
+import org.smartregister.family.contract.FamilyOtherMemberProfileFragmentContract;
 import org.smartregister.family.fragment.BaseFamilyRegisterFragment;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.Utils;
@@ -41,7 +42,7 @@ import java.util.Set;
  * Created by keyman on 13/11/2018.
  */
 
-public class ChildRegisterProvider implements RecyclerViewProvider<ChildRegisterProvider.RegisterViewHolder> {
+public class ChildRegisterProvider implements RecyclerViewProvider<ChildRegisterProvider.RegisterViewHolder>{
 
     private final LayoutInflater inflater;
     private Set<org.smartregister.configurableviews.model.View> visibleColumns;

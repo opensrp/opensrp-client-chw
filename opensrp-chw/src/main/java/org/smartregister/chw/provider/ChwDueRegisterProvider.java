@@ -4,8 +4,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
+import android.widget.Toast;
 
 import org.apache.commons.lang3.StringUtils;
 import org.jeasy.rules.api.Rules;
@@ -118,6 +120,7 @@ public class ChwDueRegisterProvider extends FamilyDueRegisterProvider {
     }
 
     private void updateDueColumn(RegisterViewHolder viewHolder, ChildVisit childVisit) {
+        Log.e("Visit:",childVisit.getVisitStatus()); //STATUS: DUE, EMPTY, OVERDUE
         if (childVisit != null) {
             viewHolder.status.setVisibility(View.VISIBLE);
             if (childVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.DUE.name())) {
@@ -127,7 +130,9 @@ public class ChwDueRegisterProvider extends FamilyDueRegisterProvider {
             } else {
                 viewHolder.status.setVisibility(View.INVISIBLE);
             }
-        } else {
+        }
+
+        else {
             viewHolder.status.setVisibility(View.INVISIBLE);
         }
     }

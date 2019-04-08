@@ -12,6 +12,7 @@ public class FamilyOtherMemberProfileFragmentPresenter extends BaseFamilyOtherMe
         this.baseEntityId = baseEntityId;
     }
 
+
     @Override
     public String getMainCondition() {
         return String.format(" %s = '%s' and %s is null ", DBConstants.KEY.OBJECT_ID, baseEntityId, DBConstants.KEY.DATE_REMOVED);

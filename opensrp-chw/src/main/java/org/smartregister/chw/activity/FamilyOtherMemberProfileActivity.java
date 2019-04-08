@@ -104,8 +104,9 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
     @Override
     protected ViewPager setupViewPager(ViewPager viewPager) {
         adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        BaseFamilyOtherMemberProfileFragment profileOtherMemberFragment = FamilyOtherMemberProfileFragment.newInstance(this.getIntent().getExtras());
-        adapter.addFragment(profileOtherMemberFragment, "");
+        BaseFamilyOtherMemberProfileFragment profileOtherMemberFragment;
+        profileOtherMemberFragment = FamilyOtherMemberProfileFragment.newInstance(this.getIntent().getExtras());
+        adapter.addFragment(profileOtherMemberFragment, "PAGER");
 
         viewPager.setAdapter(adapter);
 
