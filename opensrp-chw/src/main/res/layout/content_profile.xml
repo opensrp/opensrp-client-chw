@@ -98,11 +98,12 @@
         <org.smartregister.view.customcontrols.CustomFontTextView
             android:id="@+id/textview_name_due"
             android:layout_toRightOf="@+id/cross_image"
+            android:layout_toLeftOf="@+id/right_arrow_image"
             style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
+            android:gravity="left|center_horizontal"
             android:layout_marginLeft="10dp"
             android:textColor="@android:color/black" />
 
@@ -188,5 +189,11 @@
 
         </RelativeLayout>
     </ScrollView>
-
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        style="@style/Base.Widget.AppCompat.ProgressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="visible" />
 </RelativeLayout>
