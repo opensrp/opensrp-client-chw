@@ -233,7 +233,7 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
         String toReturn = "";
         ImmunizationState currentState = ImmunizationState.NO_ALERT;
         for (VaccineRepo.Vaccine vaccine : vaccinesDueFromLastVisitStillDueState) {
-            ImmunizationState state = ((HomeVisitImmunizationInteractor)presenter.getHomeVisitImmunizationInteractor()).assignAlert(vaccine, alerts);
+            ImmunizationState state = (ChildUtils.assignAlert(vaccine, alerts));
             if ((currentState.equals(ImmunizationState.DUE) && state.equals(ImmunizationState.OVERDUE)) ||
                     (currentState.equals(ImmunizationState.NO_ALERT) && state.equals(ImmunizationState.OVERDUE)) ||
                     (currentState.equals(ImmunizationState.NO_ALERT) && state.equals(ImmunizationState.DUE))) {

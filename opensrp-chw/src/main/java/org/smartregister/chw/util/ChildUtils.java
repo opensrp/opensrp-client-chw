@@ -38,8 +38,10 @@ import org.smartregister.chw.rule.ServiceRule;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.clientandeventmodel.Obs;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
+import org.smartregister.domain.Alert;
 import org.smartregister.family.FamilyLibrary;
 import org.smartregister.family.util.DBConstants;
+import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.sync.helper.ECSyncHelper;
 
@@ -49,6 +51,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.apache.commons.lang3.text.WordUtils.capitalize;
 import static org.smartregister.chw.util.Utils.dd_MMM_yyyy;
@@ -82,6 +85,47 @@ public class ChildUtils {
                     }
                 })
                 .create();
+    }
+    public static boolean hasAlert(VaccineRepo.Vaccine vaccine, List<Alert> alerts) {
+        for (Alert alert : alerts) {
+            if (alert.scheduleName().equalsIgnoreCase(vaccine.display())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static ImmunizationState alertState(Alert toProcess) {
+        if (toProcess == null) {
+            return ImmunizationState.NO_ALERT;
+        } else if (toProcess.status().value().equalsIgnoreCase(ImmunizationState.NORMAL.name())) {
+            return ImmunizationState.DUE;
+        } else if (toProcess.status().value().equalsIgnoreCase(ImmunizationState.UPCOMING.name())) {
+            return ImmunizationState.UPCOMING;
+        } else if (toProcess.status().value().equalsIgnoreCase(ImmunizationState.URGENT.name())) {
+            return ImmunizationState.OVERDUE;
+        } else if (toProcess.status().value().equalsIgnoreCase(ImmunizationState.EXPIRED.name())) {
+            return ImmunizationState.EXPIRED;
+        }
+        return ImmunizationState.NO_ALERT;
+    }
+
+    public static boolean isReceived(String s, Map<String, Date> receivedvaccines) {
+        for (String name : receivedvaccines.keySet()) {
+            if (s.equalsIgnoreCase(name)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static ImmunizationState assignAlert(VaccineRepo.Vaccine vaccine, List<Alert> alerts) {
+        for (Alert alert : alerts) {
+            if (alert.scheduleName().equalsIgnoreCase(vaccine.display())) {
+                return alertState(alert);
+            }
+        }
+        return ImmunizationState.NO_ALERT;
     }
 
     /**

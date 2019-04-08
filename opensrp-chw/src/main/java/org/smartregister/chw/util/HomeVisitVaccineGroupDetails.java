@@ -1,19 +1,27 @@
 package org.smartregister.chw.util;
 
+import org.joda.time.DateTime;
 import org.smartregister.immunization.db.VaccineRepo;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 /**
  * Created by raihan on 1/15/19.
  */
 
 public class HomeVisitVaccineGroupDetails {
-    private ArrayList<VaccineRepo.Vaccine> givenVaccines = new ArrayList<VaccineRepo.Vaccine>();
-    private ArrayList<VaccineRepo.Vaccine> dueVaccines = new ArrayList<VaccineRepo.Vaccine>();
-    private ArrayList<VaccineRepo.Vaccine> notGivenVaccines = new ArrayList<VaccineRepo.Vaccine>();
-    private ArrayList<VaccineRepo.Vaccine> notGivenInThisVisitVaccines = new ArrayList<VaccineRepo.Vaccine>();
+
+    public static final int TYPE_INACTIVE = 0;
+    public static final int TYPE_ACTIVE = 1;
+
+    private ArrayList<VaccineRepo.Vaccine> givenVaccines = new ArrayList<>();
+    private ArrayList<VaccineRepo.Vaccine> dueVaccines = new ArrayList<>();
+    private ArrayList<VaccineRepo.Vaccine> notGivenVaccines = new ArrayList<>();
+    private ArrayList<VaccineRepo.Vaccine> notGivenInThisVisitVaccines = new ArrayList<>();
+    private LinkedHashMap<VaccineRepo.Vaccine,DateTime> vaccineByDate = new LinkedHashMap<>();
     private String group = "";
+    private int viewType;
     private ImmunizationState alert = ImmunizationState.NO_ALERT;
     private String dueDisplayDate = "";
 
@@ -26,6 +34,14 @@ public class HomeVisitVaccineGroupDetails {
     }
 
     private String dueDate = "";
+
+    public DateTime getDateByVaccine(VaccineRepo.Vaccine vaccine) {
+        return vaccineByDate.get(vaccine);
+    }
+
+    public void setVaccineByDate(VaccineRepo.Vaccine vaccine,DateTime date) {
+        this.vaccineByDate.put(vaccine,date);
+    }
 
     public ArrayList<VaccineRepo.Vaccine> getNotGivenInThisVisitVaccines() {
         return notGivenInThisVisitVaccines;
@@ -64,6 +80,14 @@ public class HomeVisitVaccineGroupDetails {
         return group;
     }
 
+    public int getViewType() {
+        return viewType;
+    }
+
+    public void setGetViewType(int viewType) {
+        this.viewType = viewType;
+    }
+
     public void setGroup(String group) {
         this.group = group;
     }
@@ -97,4 +121,5 @@ public class HomeVisitVaccineGroupDetails {
     public void setDueDisplayDate(String dueDate) {
         this.dueDisplayDate = dueDate;
     }
+
 }

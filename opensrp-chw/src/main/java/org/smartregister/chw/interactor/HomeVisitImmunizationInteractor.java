@@ -7,6 +7,7 @@ import org.joda.time.DateTime;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.contract.HomeVisitImmunizationContract;
 import org.smartregister.chw.model.VaccineTaskModel;
+import org.smartregister.chw.util.ChildUtils;
 import org.smartregister.chw.util.ChwServiceSchedule;
 import org.smartregister.chw.util.HomeVisitVaccineGroupDetails;
 import org.smartregister.chw.util.ImmunizationState;
@@ -161,13 +162,20 @@ public class HomeVisitImmunizationInteractor implements HomeVisitImmunizationCon
             indexofCurrentGroup = indexofCurrentGroup + 1;
         }
         for (int i = 0; i < indexofCurrentGroup + 1; i++) {
-            HomeVisitVaccineGroupDetails toReturn = allGroup.get(i);
-            if (
-                    toReturn.getDueVaccines().size() > toReturn.getGivenVaccines().size()
-                            && (toReturn.getNotGivenInThisVisitVaccines().size() <= 0)
-            ) {
-                return true;
+
+            try{
+                HomeVisitVaccineGroupDetails toReturn = allGroup.get(i);
+                if (
+                        toReturn.getDueVaccines().size() > toReturn.getGivenVaccines().size()
+                                && (toReturn.getNotGivenInThisVisitVaccines().size() <= 0)
+                ) {
+                    return true;
+                }
+
+            }catch (Exception e){
+
             }
+
         }
         return false;
     }
@@ -240,20 +248,20 @@ public class HomeVisitImmunizationInteractor implements HomeVisitImmunizationCon
                     }
 
                     // process
-                    if(hasAlert(vaccine, alerts)){
+                    if(ChildUtils.hasAlert(vaccine, alerts)){
 
                         // add to due vaccines if it has an alert
                         homeVisitVaccineGroupDetails.getDueVaccines().add(vaccine);
-                        ImmunizationState immunizationState = assignAlert(vaccine, alerts);
+                        ImmunizationState immunizationState = ChildUtils.assignAlert(vaccine, alerts);
 
                         if (immunizationState == (ImmunizationState.DUE) || immunizationState == (ImmunizationState.OVERDUE)
                                 || immunizationState == (ImmunizationState.UPCOMING) || immunizationState == (ImmunizationState.EXPIRED)) {
-                            homeVisitVaccineGroupDetails.setAlert(assignAlert(vaccine, alerts));
+                            homeVisitVaccineGroupDetails.setAlert(ChildUtils.assignAlert(vaccine, alerts));
                         }
 
 
                         // add to given vaccines if its in received list
-                        if (isReceived(vaccine.display(), VaccinatorUtils.receivedVaccines(vaccines))) {
+                        if (ChildUtils.isReceived(vaccine.display(), VaccinatorUtils.receivedVaccines(vaccines))) {
                             homeVisitVaccineGroupDetails.getGivenVaccines().add(vaccine);
                         }
 
@@ -263,6 +271,7 @@ public class HomeVisitImmunizationInteractor implements HomeVisitImmunizationCon
                                 DateTime dueDate = (DateTime) schedule.get(DATE);
 
                                 if(dueDate != null){
+                                    homeVisitVaccineGroupDetails.setVaccineByDate(((VaccineRepo.Vaccine)schedule.get("vaccine")),dueDate);
                                     homeVisitVaccineGroupDetails.setDueDate(dueDate.toLocalDate() + "");
                                     homeVisitVaccineGroupDetails.setDueDisplayDate(DateUtil.formatDate(dueDate.toLocalDate(), "dd MMM yyyy"));
                                 }
@@ -287,48 +296,6 @@ public class HomeVisitImmunizationInteractor implements HomeVisitImmunizationCon
         ArrayList<HomeVisitVaccineGroupDetails> details = new ArrayList<>(map.values());
 
         return details;
-    }
-
-    private boolean hasAlert(VaccineRepo.Vaccine vaccine, List<Alert> alerts) {
-        for (Alert alert : alerts) {
-            if (alert.scheduleName().equalsIgnoreCase(vaccine.display())) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private ImmunizationState alertState(Alert toProcess) {
-        if (toProcess == null) {
-            return ImmunizationState.NO_ALERT;
-        } else if (toProcess.status().value().equalsIgnoreCase(ImmunizationState.NORMAL.name())) {
-            return ImmunizationState.DUE;
-        } else if (toProcess.status().value().equalsIgnoreCase(ImmunizationState.UPCOMING.name())) {
-            return ImmunizationState.UPCOMING;
-        } else if (toProcess.status().value().equalsIgnoreCase(ImmunizationState.URGENT.name())) {
-            return ImmunizationState.OVERDUE;
-        } else if (toProcess.status().value().equalsIgnoreCase(ImmunizationState.EXPIRED.name())) {
-            return ImmunizationState.EXPIRED;
-        }
-        return ImmunizationState.NO_ALERT;
-    }
-
-    private boolean isReceived(String s, Map<String, Date> receivedvaccines) {
-        for (String name : receivedvaccines.keySet()) {
-            if (s.equalsIgnoreCase(name)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public ImmunizationState assignAlert(VaccineRepo.Vaccine vaccine, List<Alert> alerts) {
-        for (Alert alert : alerts) {
-            if (alert.scheduleName().equalsIgnoreCase(vaccine.display())) {
-                return alertState(alert);
-            }
-        }
-        return ImmunizationState.NO_ALERT;
     }
 
     @Override

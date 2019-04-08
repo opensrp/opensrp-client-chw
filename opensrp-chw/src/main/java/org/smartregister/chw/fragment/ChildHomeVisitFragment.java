@@ -36,6 +36,7 @@ import org.smartregister.chw.activity.ChildRegisterActivity;
 import org.smartregister.chw.contract.ChildHomeVisitContract;
 import org.smartregister.chw.custom_view.HomeVisitGrowthAndNutrition;
 import org.smartregister.chw.custom_view.HomeVisitImmunizationView;
+import org.smartregister.chw.custom_view.ImmunizationEditView;
 import org.smartregister.chw.presenter.ChildHomeVisitPresenter;
 import org.smartregister.chw.rule.BirthCertRule;
 import org.smartregister.chw.util.BirthIllnessData;
@@ -93,6 +94,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     private String jsonString;
     private boolean isEditMode = false;
     private ProgressBar progressBar;
+    private ImmunizationEditView immunizationEditView;
 
     public void setContext(Context context) {
         this.context = context;
@@ -138,9 +140,17 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         layoutIllnessGroup.setOnClickListener(this);
         homeVisitGrowthAndNutritionLayout = view.findViewById(R.id.growth_and_nutrition_group);
         homeVisitImmunizationView = view.findViewById(R.id.home_visit_immunization_view);
+        immunizationEditView = view.findViewById(R.id.immunization_edit_view);
         homeVisitImmunizationView.setActivity(getActivity());
         homeVisitImmunizationView.setChildClient(childClient);
         homeVisitImmunizationView.setEditMode(isEditMode);
+        if(isEditMode){
+            immunizationEditView.setVisibility(View.VISIBLE);
+            homeVisitImmunizationView.setVisibility(View.GONE);
+        }else{
+            immunizationEditView.setVisibility(View.GONE);
+            homeVisitImmunizationView.setVisibility(View.VISIBLE);
+        }
         initializePresenter();
         ((ChildHomeVisitPresenter) presenter).setChildClient(childClient);
         assignNameHeader();
@@ -546,6 +556,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
 
     public void setEditMode(boolean isEditMode) {
         this.isEditMode = isEditMode;
+
     }
 
     public enum BIRTH_CERT_TYPE {GIVEN, NOT_GIVEN}
