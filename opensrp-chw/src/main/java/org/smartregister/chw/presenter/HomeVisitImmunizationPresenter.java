@@ -24,6 +24,7 @@ import org.smartregister.util.DateUtil;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -51,6 +52,11 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
     private String singleImmunizationSecondaryText = "";
     private final VaccineRepository vaccineRepository;
 
+    public HomeVisitImmunizationPresenter() {
+        homeVisitImmunizationInteractor = new HomeVisitImmunizationInteractor();
+        vaccineRepository = ImmunizationLibrary.getInstance().vaccineRepository();
+    }
+
 
     public HomeVisitImmunizationPresenter(HomeVisitImmunizationContract.View view) {
         this.view = new WeakReference<>(view);
@@ -60,7 +66,7 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
 
     @Override
     public void createAllVaccineGroups(List<Alert> alerts, List<Vaccine> vaccines, List<Map<String, Object>> sch) {
-        allgroups = homeVisitImmunizationInteractor.determineAllHomeVisitVaccineGroupDetails(alerts, vaccines, notGivenVaccines, sch);
+        allgroups = homeVisitImmunizationInteractor.determineAllHomeVisitVaccineGroup(alerts, vaccines, notGivenVaccines, sch);
     }
 
     @Override
@@ -110,11 +116,6 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
     }
 
     @Override
-    public void setHomeVisitImmunizationInteractor(HomeVisitImmunizationInteractor homeVisitImmunizationInteractor) {
-        this.homeVisitImmunizationInteractor = homeVisitImmunizationInteractor;
-    }
-
-    @Override
     public void setView(WeakReference<HomeVisitImmunizationContract.View> view) {
         this.view = view;
     }
@@ -125,38 +126,18 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
     }
 
     @Override
-    public void setVaccinesDueFromLastVisit(ArrayList<VaccineRepo.Vaccine> vaccinesDueFromLastVisit) {
-        this.vaccinesDueFromLastVisit = vaccinesDueFromLastVisit;
-    }
-
-    @Override
     public ArrayList<HomeVisitVaccineGroup> getAllgroups() {
         return allgroups;
     }
 
-    @Override
-    public void setAllgroups(ArrayList<HomeVisitVaccineGroup> allgroups) {
-        this.allgroups = allgroups;
-    }
-
-    @Override
     public ArrayList<VaccineWrapper> getNotGivenVaccines() {
         return notGivenVaccines;
     }
 
-    @Override
-    public void setNotGivenVaccines(ArrayList<VaccineWrapper> notGivenVaccines) {
-        this.notGivenVaccines = notGivenVaccines;
-    }
 
     @Override
     public HomeVisitVaccineGroup getCurrentActiveGroup() {
         return currentActiveGroup;
-    }
-
-    @Override
-    public void setCurrentActiveGroup(HomeVisitVaccineGroup currentActiveGroup) {
-        this.currentActiveGroup = currentActiveGroup;
     }
 
     @Override
@@ -486,13 +467,14 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
         this.singleImmunizationSecondaryText = singleImmunizationSecondaryText;
     }
 
-    @Override
-    public void immunizationState(List<Alert> alerts, List<Vaccine> vaccines, List<Map<String, Object>> sch) {
-        // TODO update the method
-    }
 
     @Override
     public Context getContext() {
         return getView().getContext();
+    }
+
+    @Override
+    public void immunizationState(List<Alert> alerts, List<Vaccine> vaccines, Map<String, Date> receivedVaccine, List<Map<String, Object>> sch) {
+        //TODO no need to do
     }
 }

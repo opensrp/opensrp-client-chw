@@ -32,8 +32,8 @@ public class MedicalHistoryPresenter implements MedicalHistoryContract.Presenter
     }
 
     @Override
-    public void fetchGrowthNutrition(String baseEntity) {
-        interactor.fetchGrowthNutritionData(baseEntity, this);
+    public void fetchGrowthNutrition(CommonPersonObjectClient commonPersonObjectClient) {
+        interactor.fetchGrowthNutritionData(commonPersonObjectClient, this);
     }
 
     @Override

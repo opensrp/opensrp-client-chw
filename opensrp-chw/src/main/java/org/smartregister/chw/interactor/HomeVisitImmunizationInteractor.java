@@ -1,17 +1,21 @@
 package org.smartregister.chw.interactor;
 
+import android.text.TextUtils;
 import android.util.Log;
 
 import org.joda.time.DateTime;
+import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.contract.HomeVisitImmunizationContract;
-import org.smartregister.chw.listener.ImmunizationStateChangeListener;
-import org.smartregister.chw.task.VaccinationAsyncTask;
+import org.smartregister.chw.model.VaccineTaskModel;
+import org.smartregister.chw.util.ChwServiceSchedule;
 import org.smartregister.chw.util.HomeVisitVaccineGroup;
 import org.smartregister.chw.util.ImmunizationState;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.Alert;
+import org.smartregister.family.util.DBConstants;
 import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.immunization.domain.Vaccine;
+import org.smartregister.immunization.domain.VaccineSchedule;
 import org.smartregister.immunization.domain.VaccineWrapper;
 import org.smartregister.immunization.util.VaccinateActionUtils;
 import org.smartregister.util.DateUtil;
@@ -23,10 +27,19 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 import static org.smartregister.chw.util.Constants.IMMUNIZATION_CONSTANT.DATE;
+import static org.smartregister.immunization.util.VaccinatorUtils.generateScheduleList;
 import static org.smartregister.immunization.util.VaccinatorUtils.receivedVaccines;
-import static org.smartregister.util.Utils.startAsyncTask;
+
 
 public class HomeVisitImmunizationInteractor implements HomeVisitImmunizationContract.Interactor {
     private static String TAG = HomeVisitImmunizationInteractor.class.toString();
@@ -207,7 +220,7 @@ public class HomeVisitImmunizationInteractor implements HomeVisitImmunizationCon
     }
 
     @Override
-    public ArrayList<HomeVisitVaccineGroup> determineAllHomeVisitVaccineGroupDetails(List<Alert> alerts, List<Vaccine> vaccines, ArrayList<VaccineWrapper> notGivenVaccines, List<Map<String, Object>> sch) {
+    public ArrayList<HomeVisitVaccineGroup> determineAllHomeVisitVaccineGroup(List<Alert> alerts, List<Vaccine> vaccines, ArrayList<VaccineWrapper> notGivenVaccines, List<Map<String, Object>> sch) {
         Map<String, Date> receivedvaccines = receivedVaccines(vaccines);
         List<VaccineRepo.Vaccine> vList = Arrays.asList(VaccineRepo.Vaccine.values());
 
@@ -276,6 +289,7 @@ public class HomeVisitImmunizationInteractor implements HomeVisitImmunizationCon
                 for (VaccineWrapper notgivenVaccine : notGivenVaccines) {
                     if (singlegroup.getDueVaccines().get(i).display().equalsIgnoreCase(notgivenVaccine.getName())) {
                         singlegroup.getNotGivenInThisVisitVaccines().add(notgivenVaccine.getVaccine());
+
                     }
                 }
             }
@@ -293,21 +307,19 @@ public class HomeVisitImmunizationInteractor implements HomeVisitImmunizationCon
         return false;
     }
 
-    @Override
-    public ImmunizationState alertState(Alert toProcess) {
-        ImmunizationState state = ImmunizationState.NO_ALERT;
+    private ImmunizationState alertState(Alert toProcess) {
         if (toProcess == null) {
-            state = ImmunizationState.NO_ALERT;
+            return ImmunizationState.NO_ALERT;
         } else if (toProcess.status().value().equalsIgnoreCase(ImmunizationState.NORMAL.name())) {
-            state = ImmunizationState.DUE;
+            return ImmunizationState.DUE;
         } else if (toProcess.status().value().equalsIgnoreCase(ImmunizationState.UPCOMING.name())) {
-            state = ImmunizationState.UPCOMING;
+            return ImmunizationState.UPCOMING;
         } else if (toProcess.status().value().equalsIgnoreCase(ImmunizationState.URGENT.name())) {
-            state = ImmunizationState.OVERDUE;
+            return ImmunizationState.OVERDUE;
         } else if (toProcess.status().value().equalsIgnoreCase(ImmunizationState.EXPIRED.name())) {
-            state = ImmunizationState.EXPIRED;
+            return ImmunizationState.EXPIRED;
         }
-        return state;
+        return ImmunizationState.NO_ALERT;
     }
 
     private boolean isReceived(String s, Map<String, Date> receivedvaccines) {
@@ -319,25 +331,96 @@ public class HomeVisitImmunizationInteractor implements HomeVisitImmunizationCon
         return false;
     }
 
-    @Override
     public ImmunizationState assignAlert(VaccineRepo.Vaccine vaccine, List<Alert> alerts) {
-        ImmunizationState state = ImmunizationState.NO_ALERT;
         for (Alert alert : alerts) {
             if (alert.scheduleName().equalsIgnoreCase(vaccine.display())) {
-                state = alertState(alert);
+                return alertState(alert);
             }
         }
-        return state;
+        return ImmunizationState.NO_ALERT;
     }
 
     @Override
     public void updateImmunizationState(CommonPersonObjectClient childClient, ArrayList<VaccineWrapper> notGivenVaccines, final HomeVisitImmunizationContract.InteractorCallBack callBack) {
-        VaccinationAsyncTask vaccinationAsyncTask = new VaccinationAsyncTask(childClient.getCaseId(), childClient.getColumnmaps(), notGivenVaccines, new ImmunizationStateChangeListener() {
+
+        getVaccineTask(childClient.getColumnmaps(), childClient.getCaseId(), notGivenVaccines)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<VaccineTaskModel>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(VaccineTaskModel vaccineTaskModel) {
+                        callBack.immunizationState(vaccineTaskModel.getAlerts(), vaccineTaskModel.getVaccines()
+                                , vaccineTaskModel.getReceivedVaccines(), vaccineTaskModel.getScheduleList());
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+                    }
+                });
+
+
+    }
+
+    /**
+     * Replacement of previous vaccinationasynctask
+     * it'll calculate the received vaccine list of a child.
+     *
+     * @param getColumnMaps
+     * @param entityId
+     * @param notDoneVaccines
+     * @return
+     */
+    private Observable<VaccineTaskModel> getVaccineTask(final Map<String, String> getColumnMaps, final String entityId, final ArrayList<VaccineWrapper> notDoneVaccines) {
+
+        return Observable.create(new ObservableOnSubscribe<VaccineTaskModel>() {
             @Override
-            public void onImmunicationStateChange(List<Alert> alerts, List<Vaccine> vaccines, String stateKey, List<Map<String, Object>> sch, ImmunizationState state) {
-                callBack.immunizationState(alerts, vaccines, sch);
+            public void subscribe(ObservableEmitter<VaccineTaskModel> emmiter) throws Exception {
+                String dobString = org.smartregister.util.Utils.getValue(getColumnMaps, DBConstants.KEY.DOB, false);
+                DateTime dob = org.smartregister.chw.util.Utils.dobStringToDateTime(dobString);
+                if (dob == null) {
+                    dob = new DateTime();
+                }
+
+                if (!TextUtils.isEmpty(dobString)) {
+                    DateTime dateTime = new DateTime(dobString);
+                    try {
+                        VaccineSchedule.updateOfflineAlerts(entityId, dateTime, "child");
+                    } catch (Exception e) {
+
+                    }
+                    try {
+                        ChwServiceSchedule.updateOfflineAlerts(entityId, dateTime);
+                    } catch (Exception e) {
+
+                    }
+                }
+                List<Alert> alerts = ChwApplication.getInstance().getContext().alertService().findByEntityIdAndAlertNames(entityId, VaccinateActionUtils.allAlertNames("child"));
+                List<Vaccine> vaccines = ChwApplication.getInstance().vaccineRepository().findByEntityId(entityId);
+                Map<String, Date> recievedVaccines = receivedVaccines(vaccines);
+                int size = notDoneVaccines.size();
+                for (int i = 0; i < size; i++) {
+                    recievedVaccines.put(notDoneVaccines.get(i).getName().toLowerCase(), new Date());
+                }
+
+                List<Map<String, Object>> sch = generateScheduleList("child", dob, recievedVaccines, alerts);
+                VaccineTaskModel vaccineTaskModel = new VaccineTaskModel();
+                vaccineTaskModel.setAlerts(alerts);
+                vaccineTaskModel.setVaccines(vaccines);
+                vaccineTaskModel.setReceivedVaccines(recievedVaccines);
+                vaccineTaskModel.setScheduleList(sch);
+                emmiter.onNext(vaccineTaskModel);
             }
         });
-        startAsyncTask(vaccinationAsyncTask, null);
     }
 }

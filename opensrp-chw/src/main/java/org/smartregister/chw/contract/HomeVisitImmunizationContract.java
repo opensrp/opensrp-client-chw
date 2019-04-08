@@ -3,9 +3,7 @@ package org.smartregister.chw.contract;
 import android.app.Activity;
 import android.content.Context;
 
-import org.smartregister.chw.interactor.HomeVisitImmunizationInteractor;
 import org.smartregister.chw.util.HomeVisitVaccineGroup;
-import org.smartregister.chw.util.ImmunizationState;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.Alert;
 import org.smartregister.immunization.db.VaccineRepo;
@@ -54,25 +52,15 @@ public interface HomeVisitImmunizationContract {
 
         Interactor getHomeVisitImmunizationInteractor();
 
-        void setHomeVisitImmunizationInteractor(HomeVisitImmunizationInteractor homeVisitImmunizationInteractor);
-
         void setView(WeakReference<View> view);
 
         ArrayList<VaccineRepo.Vaccine> getVaccinesDueFromLastVisit();
 
-        void setVaccinesDueFromLastVisit(ArrayList<VaccineRepo.Vaccine> vaccinesDueFromLastVisit);
-
         ArrayList<HomeVisitVaccineGroup> getAllgroups();
-
-        void setAllgroups(ArrayList<HomeVisitVaccineGroup> allgroups);
 
         ArrayList<VaccineWrapper> getNotGivenVaccines();
 
-        void setNotGivenVaccines(ArrayList<VaccineWrapper> notGivenVaccines);
-
         HomeVisitVaccineGroup getCurrentActiveGroup();
-
-        void setCurrentActiveGroup(HomeVisitVaccineGroup currentActiveGroup);
 
         boolean groupIsDue();
 
@@ -131,16 +119,12 @@ public interface HomeVisitImmunizationContract {
 
         ArrayList<VaccineRepo.Vaccine> getNotGivenVaccinesNotInNotGivenThisVisit(HomeVisitVaccineGroup allGroup);
 
-        ArrayList<HomeVisitVaccineGroup> determineAllHomeVisitVaccineGroupDetails(List<Alert> alerts, List<Vaccine> vaccines, ArrayList<VaccineWrapper> notGivenVaccines, List<Map<String, Object>> sch);
-
-        ImmunizationState alertState(Alert toProcess);
-
-        ImmunizationState assignAlert(VaccineRepo.Vaccine vaccine, List<Alert> alerts);
+        ArrayList<HomeVisitVaccineGroup> determineAllHomeVisitVaccineGroup(List<Alert> alerts, List<Vaccine> vaccines, ArrayList<VaccineWrapper> notGivenVaccines, List<Map<String, Object>> sch);
 
         void updateImmunizationState(CommonPersonObjectClient childClient, ArrayList<VaccineWrapper> notGivenVaccines, InteractorCallBack callBack);
     }
 
     interface InteractorCallBack {
-        void immunizationState(List<Alert> alerts, List<Vaccine> vaccines, List<Map<String, Object>> sch);
+        void immunizationState(List<Alert> alerts, List<Vaccine> vaccines, Map<String, Date> receivedVaccine, List<Map<String, Object>> sch);
     }
 }
