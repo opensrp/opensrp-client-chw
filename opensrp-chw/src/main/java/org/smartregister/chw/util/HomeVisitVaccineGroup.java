@@ -84,7 +84,7 @@ public class HomeVisitVaccineGroup {
                     isGiven = true;
                 }
             }
-            if (!isGiven) {
+            if (!isGiven && !notGivenVaccines.contains(vaccine)) {
                 notGivenVaccines.add(vaccine);
             }
         }
