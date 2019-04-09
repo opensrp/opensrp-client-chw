@@ -25,6 +25,7 @@ public class ImmunizationEditViewPresenter implements ImmunizationEditContract.P
 
     @Override
     public void fetchImmunizationEditData(CommonPersonObjectClient commonPersonObjectClient) {
+        interactor.fetchImmunizationEditData(commonPersonObjectClient,this);
 
     }
 

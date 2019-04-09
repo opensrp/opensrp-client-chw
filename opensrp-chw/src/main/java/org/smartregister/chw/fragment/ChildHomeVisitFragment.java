@@ -146,6 +146,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         homeVisitImmunizationView.setEditMode(isEditMode);
         if(isEditMode){
             immunizationEditView.setVisibility(View.VISIBLE);
+            immunizationEditView.setChildClient(childClient);
             homeVisitImmunizationView.setVisibility(View.GONE);
         }else{
             immunizationEditView.setVisibility(View.GONE);

@@ -10,12 +10,14 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.adapter.HomeVisitImmunizationAdapter;
 import org.smartregister.chw.contract.ImmunizationEditContract;
 import org.smartregister.chw.presenter.ImmunizationEditViewPresenter;
+import org.smartregister.commonregistry.CommonPersonObjectClient;
 
 public class ImmunizationEditView extends LinearLayout implements ImmunizationEditContract.View {
 
     private RecyclerView recyclerView;
     private HomeVisitImmunizationAdapter adapter;
     private ImmunizationEditViewPresenter presenter;
+    private CommonPersonObjectClient childClient;
     public ImmunizationEditView(Context context) {
         super(context);
         initUi();
@@ -34,12 +36,18 @@ public class ImmunizationEditView extends LinearLayout implements ImmunizationEd
         inflate(getContext(), R.layout.custom_vaccine_edit,this);
         recyclerView = findViewById(R.id.immunization_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        initializePresenter();
+        presenter.fetchImmunizationEditData(childClient);
     }
 
     @Override
     public ImmunizationEditContract.Presenter initializePresenter() {
         presenter = new ImmunizationEditViewPresenter(this);
         return presenter;
+    }
+    public void setChildClient(CommonPersonObjectClient childClient){
+        this.childClient = childClient;
+
     }
 
     @Override
