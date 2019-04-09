@@ -36,6 +36,7 @@ public class ChwDueRegisterProvider extends FamilyDueRegisterProvider {
     private final Context context;
 
     private final View.OnClickListener onClickListener;
+    private ChildVisit childVisit;
 
     public ChwDueRegisterProvider(Context context, CommonRepository commonRepository, Set visibleColumns, View.OnClickListener onClickListener, View.OnClickListener paginationClickListener) {
         super(context, commonRepository, visibleColumns, onClickListener, paginationClickListener);
@@ -120,7 +121,6 @@ public class ChwDueRegisterProvider extends FamilyDueRegisterProvider {
     }
 
     private void updateDueColumn(RegisterViewHolder viewHolder, ChildVisit childVisit) {
-        Log.e("Visit:",childVisit.getVisitStatus()); //STATUS: DUE, EMPTY, OVERDUE
         if (childVisit != null) {
             viewHolder.status.setVisibility(View.VISIBLE);
             if (childVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.DUE.name())) {
@@ -164,8 +164,6 @@ public class ChwDueRegisterProvider extends FamilyDueRegisterProvider {
         private final CommonPersonObjectClient pc;
 
         private final Rules rules;
-
-        private ChildVisit childVisit;
 
         private UpdateAsyncTask(RegisterViewHolder viewHolder, CommonPersonObjectClient pc) {
             this.viewHolder = viewHolder;

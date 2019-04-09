@@ -146,7 +146,6 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity implements 
                 break;
             case R.id.action_change_care_giver:
 
-
                 Intent pc_intent = new Intent(this, FamilyProfileMenuActivity.class);
                 pc_intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.BASE_ENTITY_ID, getFamilyBaseEntityId());
                 pc_intent.putExtra(FamilyProfileMenuActivity.MENU, org.smartregister.chw.util.Constants.MenuType.ChangePrimaryCare);
