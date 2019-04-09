@@ -2,12 +2,10 @@ package org.smartregister.chw.custom_view;
 
 import android.app.Activity;
 import android.content.Context;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import org.smartregister.chw.R;
@@ -18,7 +16,7 @@ import org.smartregister.chw.interactor.HomeVisitGrowthNutritionInteractor;
 import org.smartregister.chw.presenter.HomeVisitImmunizationPresenter;
 import org.smartregister.chw.util.ChildUtils;
 import org.smartregister.chw.util.GrowthServiceData;
-import org.smartregister.chw.util.HomeVisitVaccineGroupDetails;
+import org.smartregister.chw.util.HomeVisitVaccineGroup;
 import org.smartregister.chw.util.ImmunizationState;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.Alert;
@@ -85,14 +83,13 @@ public class UpcomingServicesFragmentView extends LinearLayout implements View.O
         presenter.createAllVaccineGroups(alerts, vaccines, sch);
         presenter.getVaccinesNotGivenLastVisit();
         presenter.calculateCurrentActiveGroup();
-        ArrayList<HomeVisitVaccineGroupDetails> homeVisitVaccineGroupDetailsList = presenter.getAllgroups();
-        for (HomeVisitVaccineGroupDetails homeVisitVaccineGroupDetail : homeVisitVaccineGroupDetailsList) {
-            if (homeVisitVaccineGroupDetail.getAlert().equals(ImmunizationState.DUE)
-                    || homeVisitVaccineGroupDetail.getAlert().equals(ImmunizationState.OVERDUE)
-                     || homeVisitVaccineGroupDetail.getAlert().equals(ImmunizationState.UPCOMING)) {
-                if (homeVisitVaccineGroupDetail.getNotGivenVaccines().size() > 0) {
-                    addView(createUpcomingServicesCard(homeVisitVaccineGroupDetail));
-               }
+
+        ArrayList<HomeVisitVaccineGroup> homeVisitVaccineGroupList = presenter.getAllgroups();
+        for (HomeVisitVaccineGroup homeVisitVaccineGroup : homeVisitVaccineGroupList) {
+            if (homeVisitVaccineGroup.getNotGivenVaccines().size() > 0 && (homeVisitVaccineGroup.getAlert().equals(ImmunizationState.DUE)
+                    || homeVisitVaccineGroup.getAlert().equals(ImmunizationState.OVERDUE)
+                    || homeVisitVaccineGroup.getAlert().equals(ImmunizationState.UPCOMING))) {
+                    addView(createUpcomingServicesCard(homeVisitVaccineGroup));
             }
         }
 
@@ -100,7 +97,7 @@ public class UpcomingServicesFragmentView extends LinearLayout implements View.O
 
     }
 
-    private View createUpcomingServicesCard(HomeVisitVaccineGroupDetails homeVisitVaccineGroupDetail) {
+    private View createUpcomingServicesCard(HomeVisitVaccineGroup homeVisitVaccineGroupDetail) {
         View view = context.getLayoutInflater().inflate(R.layout.upcoming_service_row, null);
         TextView groupDateTitle = (TextView) view.findViewById(R.id.grou_date_title);
         TextView groupDateStatus = (TextView) view.findViewById(R.id.grou_date_status);
@@ -138,6 +135,7 @@ public class UpcomingServicesFragmentView extends LinearLayout implements View.O
 
         return view;
     }
+
     @Override
     public HomeVisitImmunizationContract.Presenter initializePresenter() {
         presenter = new HomeVisitImmunizationPresenter(this);
@@ -152,56 +150,56 @@ public class UpcomingServicesFragmentView extends LinearLayout implements View.O
     private void getUpcomingGrowthNutritonData() {
         final HomeVisitGrowthNutritionInteractor homeVisitGrowthNutritionInteractor = new HomeVisitGrowthNutritionInteractor();
         homeVisitGrowthNutritionInteractor.parseRecordServiceData(childClient, new HomeVisitGrowthNutritionContract.InteractorCallBack() {
-                    @Override
-                    public void updateRecordVisitData(final Map<String, ServiceWrapper> stringServiceWrapperMap) {
+            @Override
+            public void updateRecordVisitData(final Map<String, ServiceWrapper> stringServiceWrapperMap) {
 
 //
 //                new Handler().postDelayed(new Runnable() {
 //                    @Override
 //                    public void run() {
-                        try {
-                            ArrayList<GrowthServiceData> growthServiceDataList = homeVisitGrowthNutritionInteractor.getAllDueService(stringServiceWrapperMap);
-                            String lastDate = "";
-                            View lastView = null;
-                            for (Iterator<GrowthServiceData> i = growthServiceDataList.iterator(); i.hasNext(); ) {
-                                GrowthServiceData growthServiceData = i.next();
-                                View existView = isExistView(growthServiceData);
-                                if (existView != null) {
-                                    TextView growth = (TextView) existView.findViewById(R.id.growth_service_name_title);
-                                    if (growth.getVisibility() == GONE) {
-                                        growth.setVisibility(VISIBLE);
-                                        growth.setText(growthServiceData.getDisplayName());
-                                    } else {
-                                        growth.append("\n" + growthServiceData.getDisplayName());
-                                    }
-                                    lastDate = growthServiceData.getDisplayAbleDate();
-                                    i.remove();
-                                } else {
-                                    if (!lastDate.equalsIgnoreCase(growthServiceData.getDisplayAbleDate())) {
-                                        lastDate = growthServiceData.getDisplayAbleDate();
-                                        lastView = createGrowthCard(growthServiceData);
-                                        addView(lastView);
-                                    } else {
-                                        if (lastView != null) {
-                                            TextView growth = (TextView) lastView.findViewById(R.id.growth_service_name_title);
-                                            growth.append("\n" + growthServiceData.getDisplayName());
-                                        }
-
-                                    }
+                try {
+                    ArrayList<GrowthServiceData> growthServiceDataList = homeVisitGrowthNutritionInteractor.getAllDueService(stringServiceWrapperMap);
+                    String lastDate = "";
+                    View lastView = null;
+                    for (Iterator<GrowthServiceData> i = growthServiceDataList.iterator(); i.hasNext(); ) {
+                        GrowthServiceData growthServiceData = i.next();
+                        View existView = isExistView(growthServiceData);
+                        if (existView != null) {
+                            TextView growth = (TextView) existView.findViewById(R.id.growth_service_name_title);
+                            if (growth.getVisibility() == GONE) {
+                                growth.setVisibility(VISIBLE);
+                                growth.setText(growthServiceData.getDisplayName());
+                            } else {
+                                growth.append("\n" + growthServiceData.getDisplayName());
+                            }
+                            lastDate = growthServiceData.getDisplayAbleDate();
+                            i.remove();
+                        } else {
+                            if (!lastDate.equalsIgnoreCase(growthServiceData.getDisplayAbleDate())) {
+                                lastDate = growthServiceData.getDisplayAbleDate();
+                                lastView = createGrowthCard(growthServiceData);
+                                addView(lastView);
+                            } else {
+                                if (lastView != null) {
+                                    TextView growth = (TextView) lastView.findViewById(R.id.growth_service_name_title);
+                                    growth.append("\n" + growthServiceData.getDisplayName());
                                 }
 
                             }
-
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        } finally {
-                            if (context instanceof UpcomingServicesActivity) {
-                                UpcomingServicesActivity activity = (UpcomingServicesActivity) context;
-                                activity.progressBarVisibility(false);
-
-                            }
                         }
+
                     }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    if (context instanceof UpcomingServicesActivity) {
+                        UpcomingServicesActivity activity = (UpcomingServicesActivity) context;
+                        activity.progressBarVisibility(false);
+
+                    }
+                }
+            }
 
 //                }, 200);
 //
