@@ -344,21 +344,6 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         }
     }
 
-    private ArrayList<VaccineWrapper> createVaccineWrappers(HomeVisitVaccineGroup vaccines) {
-
-        ArrayList<VaccineWrapper> vaccineWrappers = new ArrayList<VaccineWrapper>();
-        for (VaccineRepo.Vaccine vaccine : vaccines.getDueVaccines()) {
-            VaccineWrapper vaccineWrapper = new VaccineWrapper();
-            vaccineWrapper.setVaccine(vaccine);
-            vaccineWrapper.setName(vaccine.display());
-            vaccineWrapper.setDefaultName(vaccine.display());
-            vaccineWrappers.add(vaccineWrapper);
-        }
-
-        return vaccineWrappers;
-    }
-
-
     @Override
     public ChildHomeVisitContract.Presenter initializePresenter() {
         presenter = new ChildHomeVisitPresenter(this);
