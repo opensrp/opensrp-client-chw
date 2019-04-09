@@ -64,7 +64,6 @@ public class FamilyActivityRegisterProvider extends org.smartregister.family.pro
         }
 
         String patientName = getName(firstName, middleName, lastName);
-//        String d
 
         String dob = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.DOB, false);
         String dobString = Utils.getDuration(dob);
