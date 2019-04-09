@@ -587,7 +587,7 @@
           "err": "Number must be a total of 10 digits in length"
         },
         "v_regex": {
-          "value": "(0[0-9]{9})|\s*",
+          "value": "(0[0-9]{9})|\\s*",
           "err": "Number must be 10 digits and must start with 0."
         },
         "v_required": {
@@ -607,7 +607,7 @@
           "err": "Number must be a total of 10 digits in length"
         },
         "v_regex": {
-          "value": "(0[0-9]{9})|\s*",
+          "value": "(0[0-9]{9})|\\s*",
           "err": "Number must be 10 digits and must start with 0."
         }
       },
