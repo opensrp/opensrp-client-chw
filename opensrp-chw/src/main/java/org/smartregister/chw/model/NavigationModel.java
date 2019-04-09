@@ -6,7 +6,6 @@ import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.contract.NavigationContract;
 import org.smartregister.chw.util.Constants;
-import org.smartregister.chw.util.Country;
 import org.smartregister.util.Utils;
 
 import java.util.ArrayList;
@@ -32,7 +31,7 @@ public class NavigationModel implements NavigationContract.Model {
         NavigationOption op5 = new NavigationOption(R.mipmap.sidemenu_landd, R.mipmap.sidemenu_landd_active, Constants.DrawerMenu.LD,0);
         NavigationOption op6 = new NavigationOption(R.mipmap.sidemenu_pnc, R.mipmap.sidemenu_pnc_active, Constants.DrawerMenu.PNC, 0);
         NavigationOption op7 = new NavigationOption(R.mipmap.sidemenu_children, R.mipmap.sidemenu_children_active, Constants.DrawerMenu.CH, 0);
-        NavigationOption op8 = new NavigationOption(R.mipmap.sidemenu_families, R.mipmap.sidemenu_families_active, Constants.DrawerMenu.FP, 0);
+        NavigationOption op8 = new NavigationOption(R.drawable.sidemenu_fp, R.drawable.sidemenu_fp_active, Constants.DrawerMenu.FP, 0);
         NavigationOption op9 = new NavigationOption(R.mipmap.sidemenu_malaria, R.mipmap.sidemenu_malaria_active, Constants.DrawerMenu.MALARIA, 0);
         switch (BuildConfig.BUILD_COUNTRY) {
             case TANZANIA:
