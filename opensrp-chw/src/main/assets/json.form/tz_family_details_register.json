@@ -99,26 +99,6 @@
         }
       },
       {
-        "key": "quarter_clan",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person_address",
-        "openmrs_entity_id": "commune",
-        "type": "edit_text",
-        "hint": "Quarter/Clan",
-        "v_required": {
-          "value": "true",
-          "err": "Please enter the quarter or clan"
-        }
-      },
-      {
-        "key": "street",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person_address",
-        "openmrs_entity_id": "street",
-        "type": "edit_text",
-        "hint": "Street"
-      },
-      {
         "key": "landmark",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_address",
@@ -135,13 +115,13 @@
         "type": "gps"
       },
       {
-        "key": "fam_source_income",
+        "key": "nearest_facility",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "fam_source_income",
+        "openmrs_entity_id": "",
         "openmrs_data_type": "",
         "type": "spinner",
-        "hint": "Family source of income",
+        "hint": "Nearest health facility",
         "values": [
           "Petty trade",
           "Agriculture, hunting and fishing",

@@ -36,6 +36,8 @@ android {
         buildConfigField "long", "BUILD_TIMESTAMP", System.currentTimeMillis() + "L"
         buildConfigField "boolean", "IS_SYNC_SETTINGS", "false"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        buildConfigField "org.smartregister.chw.util.Country", "BUILD_COUNTRY", "org.smartregister.chw.util.Country.LIBERIA"
+        manifestPlaceholders = [liberiaBuild: true, tanzaniaBuild: false]
     }
 
     dexOptions {
@@ -55,27 +57,25 @@ android {
             buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '250'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '100'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '1'
-            buildConfigField "int", "DATABASE_VERSION", '5'
+            buildConfigField "int", "DATABASE_VERSION", '6'
             buildConfigField "boolean", "TIME_CHECK", "true"
             buildConfigField "int", "DATA_SYNC_DURATION_MINUTES", '15'
             buildConfigField "int", "VACCINE_SYNC_PROCESSING_MINUTES", '180'
             buildConfigField "int", "IMAGE_UPLOAD_MINUTES", '180'
             buildConfigField "int", "PULL_UNIQUE_IDS_MINUTES", '180'
-            buildConfigField "org.smartregister.chw.util.Country", "BUILD_COUNTRY", "org.smartregister.chw.util.Country.LIBERIA"
 
         }
 
         debug {
             buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '250'
-            buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '100'
+            buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '15'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '2'
-            buildConfigField "int", "DATABASE_VERSION", '5'
+            buildConfigField "int", "DATABASE_VERSION", '6'
             buildConfigField "boolean", "TIME_CHECK", "false"
             buildConfigField "int", "DATA_SYNC_DURATION_MINUTES", '2'
             buildConfigField "int", "VACCINE_SYNC_PROCESSING_MINUTES", '180'
             buildConfigField "int", "IMAGE_UPLOAD_MINUTES", '2'
             buildConfigField "int", "PULL_UNIQUE_IDS_MINUTES", '10'
-            buildConfigField "org.smartregister.chw.util.Country", "BUILD_COUNTRY", "org.smartregister.chw.util.Country.LIBERIA"
             testCoverageEnabled true
         }
     }
