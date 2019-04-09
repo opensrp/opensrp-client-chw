@@ -4,11 +4,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.text.TextUtils;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
-import android.widget.Toast;
-
 import org.apache.commons.lang3.StringUtils;
 import org.jeasy.rules.api.Rules;
 import org.smartregister.chw.R;
