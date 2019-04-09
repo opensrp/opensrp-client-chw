@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -68,6 +69,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     private View viewLastVisitRow, viewMostDueRow, viewFamilyRow;
     private TextView textViewNotVisitMonth, textViewUndo, textViewLastVisit, textViewNameDue, textViewFamilyHas;
     private ImageView imageViewCross;
+    private ProgressBar progressBar;
     private String gender;
     private Handler handler = new Handler();
     private String lastVisitDay;
@@ -168,6 +170,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
         viewLastVisitRow = findViewById(R.id.view_last_visit_row);
         viewMostDueRow = findViewById(R.id.view_most_due_overdue_row);
         viewFamilyRow = findViewById(R.id.view_family_row);
+        progressBar = findViewById(R.id.progress_bar);
         textViewRecord.setOnClickListener(this);
         textViewVisitNot.setOnClickListener(this);
         textViewUndo.setOnClickListener(this);
@@ -298,6 +301,11 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     }
 
     @Override
+    public void hideProgressBar() {
+        progressBar.setVisibility(View.GONE);
+    }
+
+    @Override
     public void setVisitButtonDueStatus() {
         openVisitButtonView();
         textViewRecord.setBackgroundResource(R.drawable.record_btn_selector_due);
@@ -327,9 +335,15 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
 
     @Override
     public void setServiceNameDue(String serviceName, String dueDate) {
-        layoutMostDueOverdue.setVisibility(View.VISIBLE);
-        viewMostDueRow.setVisibility(View.VISIBLE);
-        textViewNameDue.setText(ChildUtils.fromHtml(getString(R.string.vaccine_service_due, serviceName, dueDate)));
+        if(!TextUtils.isEmpty(serviceName)){
+            layoutMostDueOverdue.setVisibility(View.VISIBLE);
+            viewMostDueRow.setVisibility(View.VISIBLE);
+            textViewNameDue.setText(ChildUtils.fromHtml(getString(R.string.vaccine_service_due, serviceName, dueDate)));
+        }else{
+            layoutMostDueOverdue.setVisibility(View.GONE);
+            viewMostDueRow.setVisibility(View.GONE);
+        }
+
     }
 
     @Override
@@ -442,7 +456,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
             @Override
             public void run() {
                 presenter().fetchVisitStatus(childBaseEntityId);
-                presenter().fetchFamilyMemberServiceDue(childBaseEntityId);
+                presenter().fetchUpcomingServiceAndFamilyDue(childBaseEntityId);
                 presenter().updateChildCommonPerson(childBaseEntityId);
             }
         }, 100);

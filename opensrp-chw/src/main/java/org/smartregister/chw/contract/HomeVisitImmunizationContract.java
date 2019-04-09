@@ -53,26 +53,13 @@ public interface HomeVisitImmunizationContract {
         boolean isComplete();
 
         Interactor getHomeVisitImmunizationInteractor();
-
-        void setHomeVisitImmunizationInteractor(HomeVisitImmunizationInteractor homeVisitImmunizationInteractor);
-
         void setView(WeakReference<View> view);
 
         ArrayList<VaccineRepo.Vaccine> getVaccinesDueFromLastVisit();
-
-        void setVaccinesDueFromLastVisit(ArrayList<VaccineRepo.Vaccine> vaccinesDueFromLastVisit);
-
         ArrayList<HomeVisitVaccineGroupDetails> getAllgroups();
 
-        void setAllgroups(ArrayList<HomeVisitVaccineGroupDetails> allgroups);
-
         ArrayList<VaccineWrapper> getNotGivenVaccines();
-
-        void setNotGivenVaccines(ArrayList<VaccineWrapper> notGivenVaccines);
-
         HomeVisitVaccineGroupDetails getCurrentActiveGroup();
-
-        void setCurrentActiveGroup(HomeVisitVaccineGroupDetails currentActiveGroup);
 
         boolean groupIsDue();
 
@@ -133,24 +120,10 @@ public interface HomeVisitImmunizationContract {
 
         ArrayList<HomeVisitVaccineGroupDetails> determineAllHomeVisitVaccineGroupDetails(List<Alert> alerts, List<Vaccine> vaccines, ArrayList<VaccineWrapper> notGivenVaccines, List<Map<String, Object>> sch);
 
-        ArrayList<HomeVisitVaccineGroupDetails> assignDate(ArrayList<HomeVisitVaccineGroupDetails> homeVisitVaccineGroupDetailsArrayList, List<Map<String, Object>> sch);
-
-        ArrayList<HomeVisitVaccineGroupDetails> assignGivenVaccine(ArrayList<HomeVisitVaccineGroupDetails> homeVisitVaccineGroupDetailsArrayList, Map<String, Date> receivedvaccines);
-
-        ArrayList<HomeVisitVaccineGroupDetails> assignDueVaccine(List<VaccineRepo.Vaccine> vList, ArrayList<HomeVisitVaccineGroupDetails> homeVisitVaccineGroupDetailsArrayList, List<Alert> alerts);
-
-        boolean hasAlert(VaccineRepo.Vaccine vaccine, List<Alert> alerts);
-
-        ImmunizationState alertState(Alert toProcess);
-
-        boolean isReceived(String s, Map<String, Date> receivedvaccines);
-
-        ImmunizationState assignAlert(VaccineRepo.Vaccine vaccine, List<Alert> alerts);
-
         void updateImmunizationState(CommonPersonObjectClient childClient, ArrayList<VaccineWrapper> notGivenVaccines, InteractorCallBack callBack);
     }
 
     interface InteractorCallBack {
-        void immunizationState(List<Alert> alerts, List<Vaccine> vaccines, List<Map<String, Object>> sch);
+        void immunizationState(List<Alert> alerts, List<Vaccine> vaccines,Map<String, Date> receivedVaccine , List<Map<String, Object>> sch);
     }
 }
