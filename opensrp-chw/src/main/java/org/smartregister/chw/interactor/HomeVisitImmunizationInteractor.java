@@ -71,9 +71,7 @@ public class HomeVisitImmunizationInteractor implements HomeVisitImmunizationCon
         }
 
         // look for another vaccine groups that's completed after the current edit
-        currentActiveHomeVisit = getCompleteVisitsAfterIndex(index, allGroups, currentActiveHomeVisit);
-
-        return currentActiveHomeVisit;
+        return getCompleteVisitsAfterIndex(index, allGroups, currentActiveHomeVisit);
     }
 
     private HomeVisitVaccineGroup getCompleteVisitsAfterIndex(int index, ArrayList<HomeVisitVaccineGroup> allGroups, HomeVisitVaccineGroup currentActiveHomeVisit) {
