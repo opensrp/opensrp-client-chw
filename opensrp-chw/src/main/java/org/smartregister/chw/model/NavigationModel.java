@@ -21,8 +21,14 @@ public class NavigationModel implements NavigationContract.Model {
     private NavigationModel() {
         navigationOptions.clear();
         NavigationOption op1 = new NavigationOption(R.mipmap.sidemenu_families, R.mipmap.sidemenu_families_active, Constants.DrawerMenu.ALL_FAMILIES, 0);
-        NavigationOption op2 = new NavigationOption(R.mipmap.sidemenu_children, R.mipmap.sidemenu_children_active, Constants.DrawerMenu.CHILD_CLIENTS, 0);
-        navigationOptions.addAll(asList(op1, op2));
+        NavigationOption op2 = new NavigationOption(R.mipmap.sidemenu_anc, R.mipmap.sidemenu_anc_active, Constants.DrawerMenu.ANC, 0);
+        NavigationOption op3 = new NavigationOption(R.mipmap.sidemenu_landd, R.mipmap.sidemenu_landd_active, Constants.DrawerMenu.LD,0);
+        NavigationOption op4 = new NavigationOption(R.mipmap.sidemenu_pnc, R.mipmap.sidemenu_pnc_active, Constants.DrawerMenu.PNC, 0);
+        NavigationOption op5 = new NavigationOption(R.mipmap.sidemenu_children, R.mipmap.sidemenu_children_active, Constants.DrawerMenu.CH, 0);
+        NavigationOption op6 = new NavigationOption(R.mipmap.sidemenu_families, R.mipmap.sidemenu_families_active, Constants.DrawerMenu.FP, 0);
+        NavigationOption op7 = new NavigationOption(R.mipmap.sidemenu_malaria, R.mipmap.sidemenu_malaria_active, Constants.DrawerMenu.MALARIA, 0);
+//        NavigationOption op3 = new NavigationOption(R.mipmap.sidemenu_children, R.mipmap.sidemenu_children_active, Constants.DrawerMenu.CHILD_CLIENTS, 0);
+        navigationOptions.addAll(asList(op1, op2, op3, op4, op5, op6, op7));
     }
 
     public static NavigationModel getInstance() {
