@@ -136,6 +136,7 @@ public class ChwApplication extends DrishtiApplication {
         scheduleJobs();
 
         CountryUtils.switchLoginAlias(getPackageManager());
+        CountryUtils.switchEcClientFieldProcessor();
         CountryUtils.setOpenSRPUrl();
     }
 
