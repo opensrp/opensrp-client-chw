@@ -59,49 +59,16 @@ public class HomeVisitImmunizationInteractor implements HomeVisitImmunizationCon
 
         // get first object in list that has an alert other than NO_ALERT
         for (HomeVisitVaccineGroup toReturn : allGroups) {
-            if (toReturn.getDueVaccines().size() > 0) {
-                if (toReturn.getNotGivenInThisVisitVaccines().size() == 0 && toReturn.getGivenVaccines().size() == 0) {
-                    if (!toReturn.getAlert().equals(ImmunizationState.NO_ALERT)) {
-                        currentActiveHomeVisit = toReturn;
-                        break;
-                    }
+            if (toReturn.getDueVaccines().size() > 0 && !toReturn.getAlert().equals(ImmunizationState.NO_ALERT)) {
+
+                if (currentActiveHomeVisit == null && toReturn.getNotGivenInThisVisitVaccines().size() == 0 && toReturn.getGivenVaccines().size() == 0) {
+                    currentActiveHomeVisit = toReturn;
+                }
+
+                if (currentActiveHomeVisit != null && (toReturn.getNotGivenInThisVisitVaccines().size() > 0 || toReturn.getGivenVaccines().size() > 0)) {
+                    return toReturn;
                 }
             }
-            index++;
-        }
-
-        // look for another vaccine groups that's completed after the current edit
-        return getCompleteVisitsAfterIndex(index, allGroups, currentActiveHomeVisit);
-    }
-
-    private HomeVisitVaccineGroup getCompleteVisitsAfterIndex(int index, ArrayList<HomeVisitVaccineGroup> allGroups, HomeVisitVaccineGroup currentActiveHomeVisit) {
-        boolean completedExistsAfterCurrentGroup = false;
-        if (index < allGroups.size() - 1) {
-            for (int i = index + 1; i < allGroups.size(); i++) {
-                HomeVisitVaccineGroup toReturn = allGroups.get(i);
-                if (toReturn.getDueVaccines().size() > 0
-                        && (toReturn.getNotGivenInThisVisitVaccines().size() > 0 || toReturn.getGivenVaccines().size() > 0)
-                        && !toReturn.getAlert().equals(ImmunizationState.NO_ALERT)) {
-                    completedExistsAfterCurrentGroup = true;
-                    break;
-                }
-            }
-        }
-
-        if (completedExistsAfterCurrentGroup) {
-            currentActiveHomeVisit = null;
-            for (int i = index + 1; i < allGroups.size(); i++) {
-                HomeVisitVaccineGroup toReturn = allGroups.get(i);
-                if (toReturn.getDueVaccines().size() > 0) {
-                    if ((toReturn.getNotGivenInThisVisitVaccines().size() > 0 || toReturn.getGivenVaccines().size() > 0)) {
-                        if (!toReturn.getAlert().equals(ImmunizationState.NO_ALERT)) {
-                            currentActiveHomeVisit = toReturn;
-                            break;
-                        }
-                    }
-                }
-            }
-
         }
 
         return currentActiveHomeVisit;
