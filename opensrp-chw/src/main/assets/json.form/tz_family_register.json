@@ -204,7 +204,7 @@
           "err": "Please enter the first name"
         },
         "v_regex": {
-          "value": "[A-Za-z\\s\.\-]*",
+          "value": "[A-Za-z\\s\\.\\-]*",
           "err": "Please enter a valid name"
         }
       },
@@ -217,7 +217,7 @@
         "hint": "Middle name",
         "edit_type": "name",
         "v_regex": {
-          "value": "[A-Za-z\\s\.\-]*",
+          "value": "[A-Za-z\\s\\.\\-]*",
           "err": "Please enter a valid name"
         }
       },
@@ -234,7 +234,7 @@
           "err": "Please enter the surname"
         },
         "v_regex": {
-          "value": "[A-Za-z\\s\.\-]*",
+          "value": "[A-Za-z\\s\\.\\-]*",
           "err": "Please enter a valid name"
         },
         "relevance": {
