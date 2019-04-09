@@ -1,5 +1,7 @@
 package org.smartregister.chw.util;
 
+import org.smartregister.chw.BuildConfig;
+
 import java.util.HashMap;
 
 public class Constants {
@@ -36,10 +38,10 @@ public class Constants {
     public static class JSON_FORM {
         public static final String BIRTH_CERTIFICATION = "birth_certification";
         public static final String OBS_ILLNESS = "observation_illness";
-        public static final String FAMILY_REGISTER = "family_register";
-        public static final String FAMILY_MEMBER_REGISTER = "family_member_register";
+        public static final String FAMILY_REGISTER = (Country.TANZANIA.equals(BuildConfig.BUILD_COUNTRY) ? "tz_family_register" : "family_register");
+        public static final String FAMILY_MEMBER_REGISTER = (Country.TANZANIA.equals(BuildConfig.BUILD_COUNTRY) ? "tz_family_member_register" : "family_member_register");
         public static final String CHILD_REGISTER = "child_enrollment";
-        public static final String FAMILY_DETAILS_REGISTER = "family_details_register";
+        public static final String FAMILY_DETAILS_REGISTER = (Country.TANZANIA.equals(BuildConfig.BUILD_COUNTRY) ? "tz_family_details_register" : "family_details_register");
         public static final String FAMILY_DETAILS_REMOVE_MEMBER = "family_details_remove_member";
         public static final String FAMILY_DETAILS_REMOVE_CHILD = "family_details_remove_child";
         public static final String FAMILY_DETAILS_REMOVE_FAMILY = "family_details_remove_family";
@@ -171,5 +173,10 @@ public class Constants {
 
     public static class IDENTIFIER {
         public static final String UNIQUE_IDENTIFIER_KEY = "opensrp_id";
+    }
+
+    public static class ECClientConfig {
+        public static String LIBERIA_EC_CLIENT_FIELDS = "ec_client_fields.json";
+        public static String TANZANIA_EC_CLIENT_FIELDS = "tz_ec_client_fields.json";
     }
 }
