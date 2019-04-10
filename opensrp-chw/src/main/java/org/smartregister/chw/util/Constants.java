@@ -90,7 +90,6 @@ public class Constants {
         public static final String CH = "CH";
         public static final String FP = "FP";
         public static final String MALARIA = "MALARIA";
-        public static final String HIV_CLIENTS = "HIV Clients";
     }
 
     public static final class RULE_FILE {
