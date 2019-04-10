@@ -56,7 +56,7 @@ public class NavigationAdapter extends RecyclerView.Adapter<NavigationAdapter.My
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         NavigationOption model = navigationOptionList.get(position);
-        holder.tvName.setText(model.getMenuTitle());
+        holder.tvName.setText(context.getResources().getText(model.getTitleID()));
         holder.tvCount.setText(String.format(Locale.getDefault(), "%d", model.getRegisterCount()));
         holder.ivIcon.setImageResource(model.getResourceID());
 

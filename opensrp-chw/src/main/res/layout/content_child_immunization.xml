@@ -86,7 +86,7 @@
             android:layout_height="50dp"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:text="IMMUNISATION &amp; SERVICES"
+            android:text="@string/immunisation_and_services"
             android:textColor="#919191"
             android:textSize="@dimen/activity_sub_title_size"
             android:gravity="center_vertical"

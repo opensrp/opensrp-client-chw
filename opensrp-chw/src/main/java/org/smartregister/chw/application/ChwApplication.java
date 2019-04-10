@@ -55,6 +55,8 @@ public class ChwApplication extends DrishtiApplication {
     private ECSyncHelper ecSyncHelper;
     private String password;
 
+    private RulesEngineHelper rulesEngineHelper;
+
     public static synchronized ChwApplication getInstance() {
         return (ChwApplication) mInstance;
     }
@@ -101,8 +103,6 @@ public class ChwApplication extends DrishtiApplication {
         }
         return null;
     }
-
-    private RulesEngineHelper rulesEngineHelper;
 
     @Override
     public void onCreate() {
