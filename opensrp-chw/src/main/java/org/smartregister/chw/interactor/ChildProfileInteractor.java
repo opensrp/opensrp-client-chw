@@ -1,16 +1,13 @@
 package org.smartregister.chw.interactor;
 
-import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
 import android.support.annotation.VisibleForTesting;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.Pair;
-import android.view.View;
 
 import org.apache.commons.lang3.StringUtils;
-import org.joda.time.DateTime;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -26,7 +23,7 @@ import org.smartregister.chw.util.ChildUtils;
 import org.smartregister.chw.util.ChildVisit;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.GrowthServiceData;
-import org.smartregister.chw.util.HomeVisitVaccineGroupDetails;
+import org.smartregister.chw.util.HomeVisitVaccineGroup;
 import org.smartregister.chw.util.ImmunizationState;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.clientandeventmodel.Client;
@@ -52,11 +49,13 @@ import org.smartregister.sync.helper.ECSyncHelper;
 import org.smartregister.util.FormUtils;
 import org.smartregister.util.ImageUtils;
 import org.smartregister.view.LocationPickerView;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
@@ -64,8 +63,8 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+
 import static org.smartregister.chw.util.ChildUtils.fixVaccineCasing;
-import static org.smartregister.immunization.util.VaccinatorUtils.receivedVaccines;
 import static org.smartregister.util.JsonFormUtils.getFieldJSONObject;
 
 public class ChildProfileInteractor implements ChildProfileContract.Interactor {
@@ -224,7 +223,7 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
                     public void onComplete() {
                     }
                 });
-        updateFamilyDueStatus(baseEntityId,familyId)
+        updateFamilyDueStatus(baseEntityId, familyId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<String>() {
@@ -250,7 +249,8 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
                 });
 
     }
-    private Observable<ChildService> updateUpcomingServices(){
+
+    private Observable<ChildService> updateUpcomingServices() {
         return Observable.create(new ObservableOnSubscribe<ChildService>() {
             @Override
             public void subscribe(final ObservableEmitter<ChildService> e) throws Exception {
@@ -258,15 +258,15 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
                 presenter.setChildClient(getpClient());
                 presenter.updateImmunizationState(new HomeVisitImmunizationContract.InteractorCallBack() {
                     @Override
-                    public void immunizationState(List<Alert> alerts, List<Vaccine> vaccines,Map<String, Date> receivedVaccine, List<Map<String, Object>> sch) {
+                    public void immunizationState(List<Alert> alerts, List<Vaccine> vaccines, Map<String, Date> receivedVaccine, List<Map<String, Object>> sch) {
                         vaccineList = receivedVaccine;
                         presenter.createAllVaccineGroups(alerts, vaccines, sch);
                         presenter.getVaccinesNotGivenLastVisit();
                         presenter.calculateCurrentActiveGroup();
-                        ArrayList<HomeVisitVaccineGroupDetails> homeVisitVaccineGroupDetailsList = presenter.getAllgroups();
-                        String dueDate = "",vaccineName = "";
+                        ArrayList<HomeVisitVaccineGroup> homeVisitVaccineGroupDetailsList = presenter.getAllgroups();
+                        String dueDate = "", vaccineName = "";
                         ImmunizationState state = ImmunizationState.UPCOMING;
-                        for (HomeVisitVaccineGroupDetails homeVisitVaccineGroupDetail : homeVisitVaccineGroupDetailsList) {
+                        for (HomeVisitVaccineGroup homeVisitVaccineGroupDetail : homeVisitVaccineGroupDetailsList) {
                             if (homeVisitVaccineGroupDetail.getAlert().equals(ImmunizationState.DUE)
                                     || homeVisitVaccineGroupDetail.getAlert().equals(ImmunizationState.OVERDUE)
                                     || homeVisitVaccineGroupDetail.getAlert().equals(ImmunizationState.UPCOMING)) {
@@ -280,7 +280,7 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
                             }
                         }
 
-                        if(!TextUtils.isEmpty(vaccineName) && !TextUtils.isEmpty(dueDate)){
+                        if (!TextUtils.isEmpty(vaccineName) && !TextUtils.isEmpty(dueDate)) {
                             ChildService childService = new ChildService();
                             childService.setServiceName(vaccineName);
                             if (childService.getServiceName().contains("MEASLES")) {
@@ -296,16 +296,16 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
                                 childService.setServiceStatus(ServiceType.UPCOMING.name());
                             }
                             e.onNext(childService);
-                        }else{
+                        } else {
                             //fetch service data
                             final HomeVisitGrowthNutritionInteractor homeVisitGrowthNutritionInteractor = new HomeVisitGrowthNutritionInteractor();
                             homeVisitGrowthNutritionInteractor.parseRecordServiceData(getpClient(), new HomeVisitGrowthNutritionContract.InteractorCallBack() {
                                 @Override
                                 public void updateRecordVisitData(Map<String, ServiceWrapper> stringServiceWrapperMap) {
-                                    try{
+                                    try {
                                         ChildService childService = null;
                                         ArrayList<GrowthServiceData> growthServiceDataList = homeVisitGrowthNutritionInteractor.getAllDueService(stringServiceWrapperMap);
-                                        if(growthServiceDataList.size() > 0){
+                                        if (growthServiceDataList.size() > 0) {
                                             childService = new ChildService();
                                             GrowthServiceData growthServiceData = growthServiceDataList.get(0);
                                             childService.setServiceName(growthServiceData.getDisplayName());
@@ -321,7 +321,7 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
 
                                         }
                                         e.onNext(childService);
-                                    }catch (Exception e){
+                                    } catch (Exception e) {
                                         e.printStackTrace();
                                     }
 
@@ -337,11 +337,11 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
         });
     }
 
-    private Observable<String> updateFamilyDueStatus(final String childId,final String familyId){
+    private Observable<String> updateFamilyDueStatus(final String childId, final String familyId) {
         return Observable.create(new ObservableOnSubscribe<String>() {
             @Override
             public void subscribe(ObservableEmitter<String> e) throws Exception {
-                ImmunizationState familyImmunizationState=ImmunizationState.NO_ALERT;
+                ImmunizationState familyImmunizationState = ImmunizationState.NO_ALERT;
                 String serviceDueStatus;
                 String query = ChildUtils.getChildListByFamilyId(org.smartregister.chw.util.Constants.TABLE_NAME.CHILD, familyId, childId);
                 Cursor cursor = org.smartregister.family.util.Utils.context().commonrepository(org.smartregister.chw.util.Constants.TABLE_NAME.CHILD).queryTable(query);
@@ -350,26 +350,26 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
                         CommonPersonObject personObject = org.smartregister.family.util.Utils.context().commonrepository(org.smartregister.chw.util.Constants.TABLE_NAME.CHILD).findByBaseEntityId(cursor.getString(1));
                         if (!personObject.getCaseId().equalsIgnoreCase(childId)) {
                             String dobString = org.smartregister.util.Utils.getValue(personObject.getColumnmaps(), DBConstants.KEY.DOB, false);
-                            String visitNotDoneStr=org.smartregister.util.Utils.getValue(personObject.getColumnmaps(), ChildDBConstants.KEY.VISIT_NOT_DONE, false);
-                            String lastHomeVisitStr=org.smartregister.util.Utils.getValue(personObject.getColumnmaps(), ChildDBConstants.KEY.LAST_HOME_VISIT, false);
+                            String visitNotDoneStr = org.smartregister.util.Utils.getValue(personObject.getColumnmaps(), ChildDBConstants.KEY.VISIT_NOT_DONE, false);
+                            String lastHomeVisitStr = org.smartregister.util.Utils.getValue(personObject.getColumnmaps(), ChildDBConstants.KEY.LAST_HOME_VISIT, false);
                             String strDateCreated = org.smartregister.family.util.Utils.getValue(personObject.getColumnmaps(), ChildDBConstants.KEY.DATE_CREATED, false);
-                            long lastHomeVisit=TextUtils.isEmpty(lastHomeVisitStr)?0:Long.parseLong(lastHomeVisitStr);
-                            long visitNotDone=TextUtils.isEmpty(visitNotDoneStr)?0:Long.parseLong(visitNotDoneStr);
+                            long lastHomeVisit = TextUtils.isEmpty(lastHomeVisitStr) ? 0 : Long.parseLong(lastHomeVisitStr);
+                            long visitNotDone = TextUtils.isEmpty(visitNotDoneStr) ? 0 : Long.parseLong(visitNotDoneStr);
 
                             long dateCreated = 0;
-                            if(!TextUtils.isEmpty(strDateCreated)){
-                                dateCreated =  org.smartregister.family.util.Utils.dobStringToDateTime(strDateCreated).getMillis();
+                            if (!TextUtils.isEmpty(strDateCreated)) {
+                                dateCreated = org.smartregister.family.util.Utils.dobStringToDateTime(strDateCreated).getMillis();
                             }
-                            final ChildVisit childVisit = ChildUtils.getChildVisitStatus(dobString,lastHomeVisit,visitNotDone, dateCreated);
-                            if(childVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.OVERDUE.name())
+                            final ChildVisit childVisit = ChildUtils.getChildVisitStatus(dobString, lastHomeVisit, visitNotDone, dateCreated);
+                            if (childVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.OVERDUE.name())
                                     || childVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.DUE.name()))
-                                if( familyImmunizationState!=null && !familyImmunizationState.equals(ImmunizationState.OVERDUE)){
-                                    familyImmunizationState=getImmunizationStatus(childVisit.getVisitStatus());
+                                if (familyImmunizationState != null && !familyImmunizationState.equals(ImmunizationState.OVERDUE)) {
+                                    familyImmunizationState = getImmunizationStatus(childVisit.getVisitStatus());
                                 }
                         }
 
 
-                    }while (cursor.moveToNext());
+                    } while (cursor.moveToNext());
                     cursor.close();
                 }
                 if (familyImmunizationState.equals(ImmunizationState.DUE)) {
@@ -386,10 +386,10 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
     }
 
     private ImmunizationState getImmunizationStatus(String visitStatus) {
-        if(visitStatus.equalsIgnoreCase(ChildProfileInteractor.VisitType.OVERDUE.name())){
+        if (visitStatus.equalsIgnoreCase(ChildProfileInteractor.VisitType.OVERDUE.name())) {
             return ImmunizationState.OVERDUE;
         }
-        if(visitStatus.equalsIgnoreCase(ChildProfileInteractor.VisitType.DUE.name())){
+        if (visitStatus.equalsIgnoreCase(ChildProfileInteractor.VisitType.DUE.name())) {
             return ImmunizationState.DUE;
         }
         return ImmunizationState.NO_ALERT;
