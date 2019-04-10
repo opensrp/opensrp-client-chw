@@ -37,39 +37,67 @@ public class NavigationPresenter implements NavigationContract.Presenter {
         while (x < mModel.getNavigationItems().size()) {
 
             final int finalX = x;
-            switch (mModel.getNavigationItems().get(x).getMenuTitle()) {
-                case Constants.DrawerMenu.ALL_FAMILIES:
-                    mInteractor.getFamilyCount(new NavigationContract.InteractorCallback<Integer>() {
-                        @Override
-                        public void onResult(Integer result) {
-                            mModel.getNavigationItems().get(finalX).setRegisterCount(result);
-                            Log.d("NavigationPresenter", String.valueOf(result));
-                            getNavigationView().refreshCount();
-                        }
+            if (mModel.getNavigationItems().get(x).getMenuTitle().equals(Constants.DrawerMenu.ALL_FAMILIES)) {
+                mInteractor.getFamilyCount(new NavigationContract.InteractorCallback<Integer>() {
+                    @Override
+                    public void onResult(Integer result) {
+                        mModel.getNavigationItems().get(finalX).setRegisterCount(result);
+                        Log.d("NavigationPresenter", String.valueOf(result));
+                        getNavigationView().refreshCount();
+                    }
 
-                        @Override
-                        public void onError(Exception e) {
-                            getNavigationView().displayToast(activity, "Error retrieving count for " + Constants.DrawerMenu.ALL_FAMILIES);
-                        }
-                    });
-                    break;
-                case Constants.DrawerMenu.CHILD_CLIENTS:
-                    mInteractor.getChildrenCount(new NavigationContract.InteractorCallback<Integer>() {
-                        @Override
-                        public void onResult(Integer result) {
-                            mModel.getNavigationItems().get(finalX).setRegisterCount(result);
-                            getNavigationView().refreshCount();
-                        }
+                    @Override
+                    public void onError(Exception e) {
+                        getNavigationView().displayToast(activity, "Error retrieving count for " + Constants.DrawerMenu.ALL_FAMILIES);
+                    }
+                });
+            } else if (mModel.getNavigationItems().get(x).getMenuTitle().equals(Constants.DrawerMenu.CHILD_CLIENTS) || mModel.getNavigationItems().get(x).getMenuTitle().equals(Constants.DrawerMenu.CH)) {
+                mInteractor.getChildrenCount(new NavigationContract.InteractorCallback<Integer>() {
+                    @Override
+                    public void onResult(Integer result) {
+                        mModel.getNavigationItems().get(finalX).setRegisterCount(result);
+                        getNavigationView().refreshCount();
+                    }
 
-                        @Override
-                        public void onError(Exception e) {
-                            getNavigationView().displayToast(activity, "Error retrieving count for " + Constants.DrawerMenu.CHILD_CLIENTS);
-                        }
-                    });
-                    break;
-                default:
-                    break;
+                    @Override
+                    public void onError(Exception e) {
+                        getNavigationView().displayToast(activity, "Error retrieving count for " + Constants.DrawerMenu.CHILD_CLIENTS);
+                    }
+                });
             }
+//            switch (mModel.getNavigationItems().get(x).getMenuTitle()) {
+//                case Constants.DrawerMenu.ALL_FAMILIES:
+//                    mInteractor.getFamilyCount(new NavigationContract.InteractorCallback<Integer>() {
+//                        @Override
+//                        public void onResult(Integer result) {
+//                            mModel.getNavigationItems().get(finalX).setRegisterCount(result);
+//                            Log.d("NavigationPresenter", String.valueOf(result));
+//                            getNavigationView().refreshCount();
+//                        }
+//
+//                        @Override
+//                        public void onError(Exception e) {
+//                            getNavigationView().displayToast(activity, "Error retrieving count for " + Constants.DrawerMenu.ALL_FAMILIES);
+//                        }
+//                    });
+//                    break;
+//                case Constants.DrawerMenu.CHILD_CLIENTS:
+//                    mInteractor.getChildrenCount(new NavigationContract.InteractorCallback<Integer>() {
+//                        @Override
+//                        public void onResult(Integer result) {
+//                            mModel.getNavigationItems().get(finalX).setRegisterCount(result);
+//                            getNavigationView().refreshCount();
+//                        }
+//
+//                        @Override
+//                        public void onError(Exception e) {
+//                            getNavigationView().displayToast(activity, "Error retrieving count for " + Constants.DrawerMenu.CHILD_CLIENTS);
+//                        }
+//                    });
+//                    break;
+//                default:
+//                    break;
+//            }
 
             x++;
         }
