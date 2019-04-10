@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.Arrays.asList;
-import static java.util.Arrays.binarySearch;
 
 public class NavigationModel implements NavigationContract.Model {
 
@@ -30,12 +29,13 @@ public class NavigationModel implements NavigationContract.Model {
         NavigationOption op4 = new NavigationOption(R.mipmap.sidemenu_anc, R.mipmap.sidemenu_anc_active, Constants.DrawerMenu.ANC, 0);
         NavigationOption op5 = new NavigationOption(R.mipmap.sidemenu_landd, R.mipmap.sidemenu_landd_active, Constants.DrawerMenu.LD,0);
         NavigationOption op6 = new NavigationOption(R.mipmap.sidemenu_pnc, R.mipmap.sidemenu_pnc_active, Constants.DrawerMenu.PNC, 0);
-        NavigationOption op7 = new NavigationOption(R.mipmap.sidemenu_children, R.mipmap.sidemenu_children_active, Constants.DrawerMenu.CH, 0);
+//        NavigationOption op7 = new NavigationOption(R.mipmap.sidemenu_children, R.mipmap.sidemenu_children_active, Constants.DrawerMenu.CH, 0);
         NavigationOption op8 = new NavigationOption(R.mipmap.sidemenu_fp, R.mipmap.sidemenu_fp_active, Constants.DrawerMenu.FP, 0);
         NavigationOption op9 = new NavigationOption(R.mipmap.sidemenu_malaria, R.mipmap.sidemenu_malaria_active, Constants.DrawerMenu.MALARIA, 0);
         switch (BuildConfig.BUILD_COUNTRY) {
             case TANZANIA:
-                navigationOptions.addAll(asList(op3, op4, op5, op6, op7, op8, op9));
+                op2.setMenuTitle(Constants.DrawerMenu.CH);
+                navigationOptions.addAll(asList(op3, op4, op5, op6, op2, op8, op9));
                 break;
             default:
                 navigationOptions.addAll(asList(op1, op2));
