@@ -215,5 +215,11 @@
     <string name="caregiver">Caregiver</string>
     <string name="select_a_new_family_head">Select a new family head</string>
     <string name="all_registers">All Registers</string>
+    <string name="menu_labour_and_delivery"><![CDATA[L&D]]></string>
+    <string name="menu_child">CH</string>
+    <string name="menu_anc">ANC</string>
+    <string name="menu_pnc">PNC</string>
+    <string name="menu_family_planing">FP</string>
+    <string name="menu_malaria">MALARIA</string>
 
 </resources>

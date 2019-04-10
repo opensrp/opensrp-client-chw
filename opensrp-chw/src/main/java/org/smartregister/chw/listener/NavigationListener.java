@@ -3,12 +3,15 @@ package org.smartregister.chw.listener;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.View;
+import android.widget.Toast;
 
+import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.ChildRegisterActivity;
 import org.smartregister.chw.activity.FamilyRegisterActivity;
 import org.smartregister.chw.adapter.NavigationAdapter;
 import org.smartregister.chw.util.Constants;
+import org.smartregister.chw.util.Country;
 
 public class NavigationListener implements View.OnClickListener {
 
@@ -26,18 +29,47 @@ public class NavigationListener implements View.OnClickListener {
             if (v.getTag() instanceof String) {
                 String tag = (String) v.getTag();
 
-                switch (tag) {
-                    case Constants.DrawerMenu.CHILD_CLIENTS:
-                        startRegisterActivity(ChildRegisterActivity.class);
-                        break;
-                    case Constants.DrawerMenu.ALL_FAMILIES:
-                        startRegisterActivity(FamilyRegisterActivity.class);
-                        break;
-                    default:
-                        break;
+                if(BuildConfig.BUILD_COUNTRY == Country.TANZANIA) {
+                    switch (tag) {
+                        case Constants.DrawerMenu.CHILD_CLIENTS:
+                            startRegisterActivity(ChildRegisterActivity.class);
+                            break;
+                        case Constants.DrawerMenu.ALL_FAMILIES:
+                            startRegisterActivity(FamilyRegisterActivity.class);
+                            break;
+                        case Constants.DrawerMenu.ANC:
+                            Toast.makeText(activity.getApplicationContext(), Constants.DrawerMenu.ANC, Toast.LENGTH_SHORT).show();
+                            break;
+                        case Constants.DrawerMenu.LD:
+                            Toast.makeText(activity.getApplicationContext(), Constants.DrawerMenu.LD, Toast.LENGTH_SHORT).show();
+                            break;
+                        case Constants.DrawerMenu.PNC:
+                            Toast.makeText(activity.getApplicationContext(), Constants.DrawerMenu.PNC, Toast.LENGTH_SHORT).show();
+                            break;
+                        case Constants.DrawerMenu.CH:
+                            startRegisterActivity(ChildRegisterActivity.class);
+                            break;
+                        case Constants.DrawerMenu.FP:
+                            Toast.makeText(activity.getApplicationContext(), Constants.DrawerMenu.FP, Toast.LENGTH_SHORT).show();
+                            break;
+                        case Constants.DrawerMenu.MALARIA:
+                            Toast.makeText(activity.getApplicationContext(), Constants.DrawerMenu.MALARIA, Toast.LENGTH_SHORT).show();
+                            break;
+                        default:
+                            break;
+                    }
+                } else {
+                    switch (tag) {
+                        case Constants.DrawerMenu.CHILD_CLIENTS:
+                            startRegisterActivity(ChildRegisterActivity.class);
+                            break;
+                        case Constants.DrawerMenu.ALL_FAMILIES:
+                            startRegisterActivity(FamilyRegisterActivity.class);
+                            break;
+                        default:
+                            break;
+                    }
                 }
-
-
                 navigationAdapter.setSelectedView(tag);
             }
         }
