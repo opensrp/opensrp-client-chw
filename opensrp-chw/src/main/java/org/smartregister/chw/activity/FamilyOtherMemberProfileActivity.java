@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Looper;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -81,6 +82,9 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
 
         TextView toolbarTitle = findViewById(R.id.toolbar_title);
         toolbarTitle.setText(String.format(getString(R.string.return_to_family_name), presenter().getFamilyName()));
+
+        TabLayout tabLayout = findViewById(R.id.tabs);
+        tabLayout.setSelectedTabIndicatorHeight(0);
 
         // add floating menu
         familyFloatingMenu = new FamilyMemberFloatingMenu(this);
