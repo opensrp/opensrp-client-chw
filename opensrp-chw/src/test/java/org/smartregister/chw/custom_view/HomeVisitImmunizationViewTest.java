@@ -6,7 +6,7 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.powermock.api.mockito.PowerMockito;
 import org.smartregister.chw.contract.HomeVisitImmunizationContract;
-import org.smartregister.chw.util.HomeVisitVaccineGroupDetails;
+import org.smartregister.chw.util.HomeVisitVaccineGroup;
 import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.immunization.domain.VaccineWrapper;
 
@@ -40,7 +40,7 @@ public class HomeVisitImmunizationViewTest  {
         PowerMockito.when(presenter.getVaccinesGivenThisVisit()).thenReturn(new ArrayList<VaccineWrapper>());
         PowerMockito.when(presenter.getNotGivenVaccines()).thenReturn(new ArrayList<VaccineWrapper>());
         PowerMockito.when(presenter.getVaccinesDueFromLastVisit()).thenReturn(new ArrayList<VaccineRepo.Vaccine>());
-        Assert.assertFalse(homeVisitImmunizationView.isGroupDoneThisVisit(new HomeVisitVaccineGroupDetails()));
+        Assert.assertFalse(homeVisitImmunizationView.isGroupDoneThisVisit(new HomeVisitVaccineGroup()));
 
 
     }

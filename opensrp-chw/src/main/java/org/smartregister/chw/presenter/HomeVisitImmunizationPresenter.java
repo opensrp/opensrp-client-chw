@@ -2,7 +2,6 @@ package org.smartregister.chw.presenter;
 
 import android.app.Activity;
 import android.content.Context;
-import android.support.annotation.VisibleForTesting;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -12,7 +11,7 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.contract.HomeVisitImmunizationContract;
 import org.smartregister.chw.interactor.HomeVisitImmunizationInteractor;
-import org.smartregister.chw.util.HomeVisitVaccineGroupDetails;
+import org.smartregister.chw.util.HomeVisitVaccineGroup;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.Alert;
 import org.smartregister.immunization.ImmunizationLibrary;
@@ -44,9 +43,9 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
     private HomeVisitImmunizationContract.Interactor homeVisitImmunizationInteractor;
     private WeakReference<HomeVisitImmunizationContract.View> view;
     private ArrayList<VaccineRepo.Vaccine> vaccinesDueFromLastVisit = new ArrayList<VaccineRepo.Vaccine>();
-    private ArrayList<HomeVisitVaccineGroupDetails> allgroups = new ArrayList<HomeVisitVaccineGroupDetails>();
+    private ArrayList<HomeVisitVaccineGroup> allgroups = new ArrayList<HomeVisitVaccineGroup>();
     private ArrayList<VaccineWrapper> notGivenVaccines = new ArrayList<VaccineWrapper>();
-    private HomeVisitVaccineGroupDetails currentActiveGroup;
+    private HomeVisitVaccineGroup currentActiveGroup;
     private CommonPersonObjectClient childClient;
     private ArrayList<VaccineWrapper> vaccinesGivenThisVisit = new ArrayList<VaccineWrapper>();
     private String groupImmunizationSecondaryText = "";
@@ -67,7 +66,7 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
 
     @Override
     public void createAllVaccineGroups(List<Alert> alerts, List<Vaccine> vaccines, List<Map<String, Object>> sch) {
-        allgroups = homeVisitImmunizationInteractor.determineAllHomeVisitVaccineGroupDetails(alerts, vaccines, notGivenVaccines, sch);
+        allgroups = homeVisitImmunizationInteractor.determineAllHomeVisitVaccineGroup(alerts, vaccines, notGivenVaccines, sch);
     }
 
     @Override
@@ -127,21 +126,19 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
     }
 
     @Override
-    public ArrayList<HomeVisitVaccineGroupDetails> getAllgroups() {
+    public ArrayList<HomeVisitVaccineGroup> getAllgroups() {
         return allgroups;
     }
 
-    @Override
     public ArrayList<VaccineWrapper> getNotGivenVaccines() {
         return notGivenVaccines;
     }
 
 
     @Override
-    public HomeVisitVaccineGroupDetails getCurrentActiveGroup() {
+    public HomeVisitVaccineGroup getCurrentActiveGroup() {
         return currentActiveGroup;
     }
-
 
     @Override
     public boolean groupIsDue() {
@@ -149,7 +146,7 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
     }
 
     @Override
-    public ArrayList<VaccineWrapper> createVaccineWrappers(HomeVisitVaccineGroupDetails duevaccines) {
+    public ArrayList<VaccineWrapper> createVaccineWrappers(HomeVisitVaccineGroup duevaccines) {
 
         ArrayList<VaccineWrapper> vaccineWrappers = new ArrayList<VaccineWrapper>();
         for (VaccineRepo.Vaccine vaccine : duevaccines.getDueVaccines()) {
@@ -471,7 +468,6 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
     }
 
 
-
     @Override
     public Context getContext() {
         return getView().getContext();
@@ -479,6 +475,6 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
 
     @Override
     public void immunizationState(List<Alert> alerts, List<Vaccine> vaccines, Map<String, Date> receivedVaccine, List<Map<String, Object>> sch) {
-    //TODO no need to do
+        //TODO no need to do
     }
 }

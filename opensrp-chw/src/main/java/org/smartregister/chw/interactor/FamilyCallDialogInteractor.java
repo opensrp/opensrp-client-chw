@@ -76,7 +76,7 @@ public class FamilyCallDialogInteractor implements FamilyCallDialogContract.Inte
             Boolean isHead
     ) {
 
-        if (primaryCaregiverID.toLowerCase().equals(familyHeadID.toLowerCase()) && !isHead) {
+        if (primaryCaregiverID.equalsIgnoreCase(familyHeadID) && !isHead) {
             return null;
         }
 

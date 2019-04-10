@@ -23,7 +23,7 @@
         android:layout_marginRight="10dp"
         android:layout_toEndOf="@+id/ivIcon"
         android:layout_toRightOf="@+id/tvCount"
-        android:text="All Registers"
+        android:text="@string/all_registers"
         android:textSize="24sp" />
 
     <TextView
