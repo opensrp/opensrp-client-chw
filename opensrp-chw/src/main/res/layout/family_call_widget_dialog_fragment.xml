@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
-            android:text="Call caregiver"
+            android:text="@string/call_caregiver"
             android:textColor="@color/black"
             android:textSize="@dimen/call_widget_font1"
             android:textStyle="normal" />
@@ -59,7 +59,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-                android:text="Head of family"
+                android:text="@string/head_of_family"
                 android:textColor="@color/grey"
                 android:textSize="@dimen/call_widget_font3"
                 android:textStyle="normal" />
@@ -102,7 +102,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-                android:text="Caregiver"
+                android:text="@string/caregiver"
                 android:textColor="@color/grey"
                 android:textSize="@dimen/call_widget_font3"
                 android:textStyle="normal" />
