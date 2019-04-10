@@ -237,20 +237,22 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                 break;
             case R.id.textview_submit:
                 if (checkAllGiven()) {
-//                    ChildUtils.updateClientStatusAsEvent(childClient.entityId(), Constants.EventType.CHILD_HOME_VISIT, ChildDBConstants.KEY.LAST_HOME_VISIT, System.currentTimeMillis() + "", Constants.TABLE_NAME.CHILD);
-
 
                     try {
-                        JSONArray vaccineGroup = homeVisitImmunizationView.getGroupVaccinesGivenThisVisit();
-                        JSONArray singleVaccine = homeVisitImmunizationView.getSingleVaccinesGivenThisVisit();
-
-                        JSONObject singleVaccineObject = new JSONObject().put("singleVaccinesGiven", singleVaccine);
-                        JSONObject vaccineGroupObject = new JSONObject().put("groupVaccinesGiven", vaccineGroup);
+                        //JSONArray vaccineGroup = homeVisitImmunizationView.getGroupVaccinesGivenThisVisit();
+                        //JSONArray singleVaccine = homeVisitImmunizationView.getSingleVaccinesGivenThisVisit();
+                        //not needed given vaccine track.
+                        JSONObject singleVaccineObject = new JSONObject().put("singleVaccinesGiven", new JSONArray());
+                        JSONObject vaccineGroupObject = new JSONObject().put("groupVaccinesGiven", new JSONArray());
+                        //end of not used
+                        JSONObject vaccineNotGivenObject = new JSONObject().put("vaccineNotGiven", new JSONArray(ChildUtils.gsonConverter.toJson(homeVisitImmunizationView.getNotGivenVaccine())));
                         JSONObject service = new JSONObject(ChildUtils.gsonConverter.toJson(homeVisitGrowthAndNutritionLayout.returnSaveStateMap()));
+                        JSONObject serviceNotGiven = new JSONObject(ChildUtils.gsonConverter.toJson(homeVisitGrowthAndNutritionLayout.returnNotSaveStateMap()));
+
                         if (illnessJson == null) {
                             illnessJson = new JSONObject();
                         }
-                        ChildUtils.updateHomeVisitAsEvent(childClient.entityId(), Constants.EventType.CHILD_HOME_VISIT, Constants.TABLE_NAME.CHILD, singleVaccineObject, vaccineGroupObject, service, birthCertGiven, illnessJson, ChildDBConstants.KEY.LAST_HOME_VISIT, System.currentTimeMillis() + "");
+                        ChildUtils.updateHomeVisitAsEvent(childClient.entityId(), Constants.EventType.CHILD_HOME_VISIT, Constants.TABLE_NAME.CHILD, singleVaccineObject, vaccineGroupObject,vaccineNotGivenObject, service,serviceNotGiven, birthCertGiven, illnessJson, ChildDBConstants.KEY.LAST_HOME_VISIT, System.currentTimeMillis() + "");
 
 //                        ChildUtils.addToHomeVisitTable(childClient.getCaseId(),singleVaccineObject,vaccineGroupObject,service,birthCertGiven,illnessJson);
                     } catch (JSONException e) {
@@ -265,6 +267,33 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                     dismiss();
                 }
                 break;
+//            case R.id.textview_submit:
+//                if (checkAllGiven()) {
+//
+//                    try {
+//                        JSONArray groupVaccineGiven = homeVisitImmunizationView.getGroupVaccinesGivenThisVisit();
+//
+//                        JSONObject singleVaccineObject = new JSONObject().put("singleVaccinesGiven",new JSONArray(ChildUtils.gsonConverter.toJson(homeVisitImmunizationView.getNotGivenVaccine())));
+//                        JSONObject vaccineGroupObject = new JSONObject().put("groupVaccinesGiven", groupVaccineGiven);
+//                        JSONObject service = new JSONObject();
+//                        service.put("given",new JSONObject(ChildUtils.gsonConverter.toJson(homeVisitGrowthAndNutritionLayout.returnSaveStateMap())));
+//                        service.put("not_given",new JSONObject(ChildUtils.gsonConverter.toJson(homeVisitGrowthAndNutritionLayout.returnNotSaveStateMap())));
+//                        if (illnessJson == null) {
+//                            illnessJson = new JSONObject();
+//                        }
+//                        ChildUtils.updateHomeVisitAsEvent(childClient.entityId(), Constants.EventType.CHILD_HOME_VISIT, Constants.TABLE_NAME.CHILD, singleVaccineObject, vaccineGroupObject, service, birthCertGiven, illnessJson, ChildDBConstants.KEY.LAST_HOME_VISIT, System.currentTimeMillis() + "");
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
+//                    if (getActivity() instanceof ChildRegisterActivity) {
+//                        ((ChildRegisterActivity) getActivity()).refreshList(FetchStatus.fetched);
+//                    }
+//                    if (((ChildHomeVisitPresenter) presenter).getSaveSize() > 0) {
+//                        presenter.saveForm();
+//                    }
+//                    dismiss();
+//                }
+//                break;
             case R.id.close:
                 showCloseDialog();
                 break;

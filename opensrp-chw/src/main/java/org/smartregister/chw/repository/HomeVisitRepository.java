@@ -41,14 +41,14 @@ public class HomeVisitRepository extends BaseRepository {
 
     private static final String TAG = HomeVisitRepository.class.getCanonicalName();
     private static final String HomeVisit_SQL = "CREATE TABLE home_visit (_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,base_entity_id VARCHAR NOT NULL,name VARCHAR NOT NULL,date DATETIME NOT NULL,anmid VARCHAR NULL,location_id VARCHAR NULL,event_id VARCHAR NULL,formSubmissionId VARCHAR,sync_status VARCHAR,updated_at INTEGER NULL," +
-            "formfields VARCHAR,created_at DATETIME NOT NULL,vaccine_group VARCHAR,single_vaccine VARCHAR,service VARCHAR,birth_certification VARCHAR,illness_information VARCHAR)";
+            "formfields VARCHAR,created_at DATETIME NOT NULL,vaccine_group VARCHAR,single_vaccine VARCHAR,vaccine_not_given VARCHAR,service VARCHAR,service_not_given VARCHAR,birth_certification VARCHAR,illness_information VARCHAR)";
     public static final String HomeVisitTABLE_NAME = "home_visit";
     public static final String ID_COLUMN = "_id";
     public static final String BASE_ENTITY_ID = "base_entity_id";
     public static final String EVENT_ID = "event_id";
     public static final String FORMSUBMISSION_ID = "formSubmissionId";
     public static final String NAME = "name";
-    public static final String DATE = "date";
+    public static final String LAST_HOME_VISIT_DATE = "date";
     public static final String ANMID = "anmid";
     public static final String LOCATIONID = "location_id";
     public static final String SYNC_STATUS = "sync_status";
@@ -57,15 +57,19 @@ public class HomeVisitRepository extends BaseRepository {
     public static final String CREATED_AT = "created_at";
     public static final String VACCCINE_GROUP = "vaccine_group";
     public static final String SINGLE_VACCINE = "single_vaccine";
+    public static final String VACCINE_NOT_GIVEN = "vaccine_not_given";
     public static final String SERVICE = "service";
+    public static final String SERVICE_NOT_GIVEN = "service_not_given";
     public static final String BIRTH_CERTIFICATION = "birth_certification";
     public static final String illness_information = "illness_information";
 
 
-    public static final String[] HomeVisit_TABLE_COLUMNS = {ID_COLUMN, BASE_ENTITY_ID, NAME, DATE, ANMID, LOCATIONID, SYNC_STATUS, UPDATED_AT_COLUMN, EVENT_ID, FORMSUBMISSION_ID, CREATED_AT, FORMFIELDS, VACCCINE_GROUP, SINGLE_VACCINE, SERVICE, BIRTH_CERTIFICATION, illness_information};
+    public static final String[] HomeVisit_TABLE_COLUMNS = {ID_COLUMN, BASE_ENTITY_ID, NAME, LAST_HOME_VISIT_DATE, ANMID, LOCATIONID, SYNC_STATUS, UPDATED_AT_COLUMN, EVENT_ID, FORMSUBMISSION_ID, CREATED_AT, FORMFIELDS, VACCCINE_GROUP, SINGLE_VACCINE,VACCINE_NOT_GIVEN, SERVICE,SERVICE_NOT_GIVEN, BIRTH_CERTIFICATION, illness_information};
 
     private static final String BASE_ENTITY_ID_INDEX = "CREATE INDEX " + HomeVisitTABLE_NAME + "_" + BASE_ENTITY_ID + "_index ON " + HomeVisitTABLE_NAME + "(" + BASE_ENTITY_ID + " COLLATE NOCASE);";
     private static final String UPDATED_AT_INDEX = "CREATE INDEX " + HomeVisitTABLE_NAME + "_" + UPDATED_AT_COLUMN + "_index ON " + HomeVisitTABLE_NAME + "(" + UPDATED_AT_COLUMN + ");";
+    public static final String UPDATE_TABLE_ADD_VACCINE_NOT_GIVEN = "ALTER TABLE " + HomeVisitTABLE_NAME + " ADD COLUMN " + VACCINE_NOT_GIVEN + " VARCHAR;";
+    public static final String UPDATE_TABLE_ADD_SERVICE_NOT_GIVEN = "ALTER TABLE " + HomeVisitTABLE_NAME + " ADD COLUMN " + SERVICE_NOT_GIVEN + " VARCHAR;";
 //
 //    public static final String UPDATE_TABLE_ADD_EVENT_ID_COL = "ALTER TABLE " + COUNSELLING_TABLE_NAME + " ADD COLUMN " + EVENT_ID + " VARCHAR;";
 //    public static final String EVENT_ID_INDEX = "CREATE INDEX " + COUNSELLING_TABLE_NAME + "_" + EVENT_ID + "_index ON " + COUNSELLING_TABLE_NAME + "(" + EVENT_ID + " COLLATE NOCASE);";
@@ -278,7 +282,7 @@ public class HomeVisitRepository extends BaseRepository {
                     HomeVisit homeVisit = new HomeVisit(cursor.getLong(cursor.getColumnIndex(ID_COLUMN)),
                             cursor.getString(cursor.getColumnIndex(BASE_ENTITY_ID)),
                             vaccineName,
-                            new Date(cursor.getLong(cursor.getColumnIndex(DATE))),
+                            new Date(cursor.getLong(cursor.getColumnIndex(LAST_HOME_VISIT_DATE))),
                             cursor.getString(cursor.getColumnIndex(ANMID)),
                             cursor.getString(cursor.getColumnIndex(LOCATIONID)),
                             cursor.getString(cursor.getColumnIndex(SYNC_STATUS)),
@@ -294,7 +298,9 @@ public class HomeVisitRepository extends BaseRepository {
                     homeVisits.add(homeVisit);
                     homeVisit.setVaccineGroupsGiven(new JSONObject(cursor.getString(cursor.getColumnIndex(VACCCINE_GROUP))));
                     homeVisit.setSingleVaccinesGiven(new JSONObject(cursor.getString(cursor.getColumnIndex(SINGLE_VACCINE))));
+                    homeVisit.setVaccineNotGiven(new JSONObject(cursor.getString(cursor.getColumnIndex(VACCINE_NOT_GIVEN))));
                     homeVisit.setServicesGiven(new JSONObject(cursor.getString(cursor.getColumnIndex(SERVICE))));
+                    homeVisit.setServiceNotGiven(new JSONObject(cursor.getString(cursor.getColumnIndex(SERVICE_NOT_GIVEN))));
                     homeVisit.setBirthCertificationState((cursor.getString(cursor.getColumnIndex(BIRTH_CERTIFICATION))));
                     homeVisit.setIllness_information(new JSONObject(cursor.getString(cursor.getColumnIndex(illness_information))));
 
@@ -315,18 +321,20 @@ public class HomeVisitRepository extends BaseRepository {
         values.put(ID_COLUMN, homeVisit.getId());
         values.put(BASE_ENTITY_ID, homeVisit.getBaseEntityId());
         values.put(NAME, homeVisit.getName() != null ? addHyphen(homeVisit.getName().toLowerCase()) : null);
-        values.put(DATE, homeVisit.getDate() != null ? homeVisit.getDate().getTime() : null);
+        values.put(LAST_HOME_VISIT_DATE, homeVisit.getDate() != null ? homeVisit.getDate().getTime() : null);
         values.put(ANMID, homeVisit.getAnmId());
         values.put(LOCATIONID, homeVisit.getLocationId());
         values.put(SYNC_STATUS, homeVisit.getSyncStatus());
-        values.put(UPDATED_AT_COLUMN, homeVisit.getUpdatedAt() != null ? homeVisit.getUpdatedAt() : null);
-        values.put(EVENT_ID, homeVisit.getEventId() != null ? homeVisit.getEventId() : null);
-        values.put(FORMSUBMISSION_ID, homeVisit.getFormSubmissionId() != null ? homeVisit.getFormSubmissionId() : null);
+        values.put(UPDATED_AT_COLUMN, homeVisit.getUpdatedAt());
+        values.put(EVENT_ID, homeVisit.getEventId());
+        values.put(FORMSUBMISSION_ID, homeVisit.getFormSubmissionId());
         values.put(CREATED_AT, homeVisit.getCreatedAt() != null ? dateFormat.format(homeVisit.getCreatedAt()) : null);
         values.put(FORMFIELDS, new Gson().toJson(homeVisit.getFormfields()));
         values.put(VACCCINE_GROUP, homeVisit.getVaccineGroupsGiven().toString());
         values.put(SINGLE_VACCINE, homeVisit.getSingleVaccinesGiven().toString());
+        values.put(VACCINE_NOT_GIVEN, homeVisit.getVaccineNotGiven().toString());
         values.put(SERVICE, homeVisit.getServicesGiven().toString());
+        values.put(SERVICE_NOT_GIVEN, homeVisit.getServiceNotGiven().toString());
         values.put(BIRTH_CERTIFICATION, homeVisit.getBirthCertificationState());
         values.put(illness_information, homeVisit.getIllness_information().toString());
         return values;
@@ -425,7 +433,7 @@ public class HomeVisitRepository extends BaseRepository {
     }
     public HomeVisit findByDate(long lastHomeVisit) {
         SQLiteDatabase database = getReadableDatabase();
-        Cursor cursor = database.query(HomeVisitTABLE_NAME, HomeVisit_TABLE_COLUMNS, DATE + " = ? " + COLLATE_NOCASE + " ORDER BY " + UPDATED_AT_COLUMN, new String[]{String.valueOf(lastHomeVisit)}, null, null, null, null);
-        return readAllCounsellings(cursor)!=null?readAllCounsellings(cursor).get(0):null;
+        Cursor cursor = database.query(HomeVisitTABLE_NAME, HomeVisit_TABLE_COLUMNS, LAST_HOME_VISIT_DATE + " = ? " + COLLATE_NOCASE + " ORDER BY " + UPDATED_AT_COLUMN, new String[]{String.valueOf(lastHomeVisit)}, null, null, null, null);
+        return readAllCounsellings(cursor).size()>0?readAllCounsellings(cursor).get(0):null;
     }
 }

@@ -24,7 +24,9 @@ public class HomeVisit {
     private Map<String, String> formfields;
     private JSONObject VaccineGroupsGiven = new JSONObject();
     private JSONObject singleVaccinesGiven = new JSONObject();
+    private JSONObject vaccineNotGiven = new JSONObject();
     private JSONObject ServicesGiven = new JSONObject();
+    private JSONObject serviceNotGiven = new JSONObject();
     private String birthCertificationState = "";
     private JSONObject illness_information = new JSONObject();
 
@@ -181,5 +183,21 @@ public class HomeVisit {
 
     public void setIllness_information(JSONObject illness_information) {
         this.illness_information = illness_information;
+    }
+
+    public void setServiceNotGiven(JSONObject serviceNotGiven) {
+        this.serviceNotGiven = serviceNotGiven;
+    }
+
+    public void setVaccineNotGiven(JSONObject vaccineNotGiven) {
+        this.vaccineNotGiven = vaccineNotGiven;
+    }
+
+    public JSONObject getServiceNotGiven() {
+        return serviceNotGiven;
+    }
+
+    public JSONObject getVaccineNotGiven() {
+        return vaccineNotGiven;
     }
 }

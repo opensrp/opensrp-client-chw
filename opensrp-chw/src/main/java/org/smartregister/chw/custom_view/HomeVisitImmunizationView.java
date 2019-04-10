@@ -535,6 +535,9 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
         JSONArray jsonObject = getVaccineWrapperListAsJson(groupVaccinesGivenThisVisit);
         return jsonObject;
     }
+    public ArrayList<VaccineWrapper> getNotGivenVaccine(){
+        return presenter.getNotGivenVaccines();
+    }
 
     private JSONArray getVaccineWrapperListAsJson(ArrayList<VaccineWrapper> groupVaccinesGivenThisVisit) {
         JSONArray arrayOfWrapper = new JSONArray();

@@ -368,7 +368,7 @@ public class ChildUtils {
     }
 
     //event type="Child Home Visit"/Visit not done
-    public static void updateHomeVisitAsEvent(String entityId, String eventType, String entityType, JSONObject singleVaccineObject, JSONObject vaccineGroupObject, JSONObject service, String birthCert, JSONObject illnessJson, String visitStatus, String value) {
+    public static void updateHomeVisitAsEvent(String entityId, String eventType, String entityType, JSONObject singleVaccineObject, JSONObject vaccineGroupObject,JSONObject vaccineNotGiven, JSONObject service,JSONObject serviceNotGiven, String birthCert, JSONObject illnessJson, String visitStatus, String value) {
         try {
 
             ECSyncHelper syncHelper = FamilyLibrary.getInstance().getEcSyncHelper();
@@ -386,7 +386,11 @@ public class ChildUtils {
 
             event.addObs((new Obs()).withFormSubmissionField("singleVaccine").withValue(singleVaccineObject.toString()).withFieldCode("singleVaccine").withFieldType("formsubmissionField").withFieldDataType("text").withParentCode("").withHumanReadableValues(new ArrayList<Object>()));
             event.addObs((new Obs()).withFormSubmissionField("groupVaccine").withValue(vaccineGroupObject.toString()).withFieldCode("groupVaccine").withFieldType("formsubmissionField").withFieldDataType("text").withParentCode("").withHumanReadableValues(new ArrayList<Object>()));
+            event.addObs((new Obs()).withFormSubmissionField("vaccineNotGiven").withValue(vaccineNotGiven.toString()).withFieldCode("vaccineNotGiven").withFieldType("formsubmissionField").withFieldDataType("text").withParentCode("").withHumanReadableValues(new ArrayList<Object>()));
+
             event.addObs((new Obs()).withFormSubmissionField("service").withValue(service.toString()).withFieldCode("service").withFieldType("formsubmissionField").withFieldDataType("text").withParentCode("").withHumanReadableValues(new ArrayList<Object>()));
+            event.addObs((new Obs()).withFormSubmissionField("serviceNotGiven").withValue(serviceNotGiven.toString()).withFieldCode("serviceNotGiven").withFieldType("formsubmissionField").withFieldDataType("text").withParentCode("").withHumanReadableValues(new ArrayList<Object>()));
+
             event.addObs((new Obs()).withFormSubmissionField("birth_certificate").withValue(birthCert).withFieldCode("birth_certificate").withFieldType("formsubmissionField").withFieldDataType("text").withParentCode("").withHumanReadableValues(new ArrayList<Object>()));
             event.addObs((new Obs()).withFormSubmissionField("illness_information").withValue(illnessJson.toString()).withFieldCode("illness_information").withFieldType("formsubmissionField").withFieldDataType("text").withParentCode("").withHumanReadableValues(new ArrayList<Object>()));
 
@@ -458,8 +462,14 @@ public class ChildUtils {
                 if (obs.getFormSubmissionField().equalsIgnoreCase("groupVaccine")) {
                     newHomeVisit.setVaccineGroupsGiven(new JSONObject((String) obs.getValue()));
                 }
+                if (obs.getFormSubmissionField().equalsIgnoreCase("vaccineNotGiven")) {
+                    newHomeVisit.setVaccineNotGiven(new JSONObject((String) obs.getValue()));
+                }
                 if (obs.getFormSubmissionField().equalsIgnoreCase("service")) {
                     newHomeVisit.setServicesGiven(new JSONObject((String) obs.getValue()));
+                }
+                if (obs.getFormSubmissionField().equalsIgnoreCase("serviceNotGiven")) {
+                    newHomeVisit.setServiceNotGiven(new JSONObject((String) obs.getValue()));
                 }
                 if (obs.getFormSubmissionField().equalsIgnoreCase("birth_certificate")) {
                     newHomeVisit.setBirthCertificationState((String) obs.getValue());
@@ -467,22 +477,18 @@ public class ChildUtils {
                 if (obs.getFormSubmissionField().equalsIgnoreCase("illness_information")) {
                     newHomeVisit.setIllness_information(new JSONObject((String) obs.getValue()));
                 }
+                if (obs.getFormSubmissionField().equalsIgnoreCase(ChildDBConstants.KEY.LAST_HOME_VISIT)) {
+                    try{
+                        newHomeVisit.setDate(new Date(Long.parseLong((String) obs.getValue())));
+                    }catch (Exception e){
+                        e.printStackTrace();
+                        newHomeVisit.setDate(new Date());
+                    }
+
+                }
             }
         } catch (Exception e) {
-
-        }
-        newHomeVisit.setFormfields(new HashMap<String, String>());
-        ChwApplication.homeVisitRepository().add(newHomeVisit);
-    }
-
-    public static void addToHomeVisitTable(String baseEntityID, JSONObject singleVaccineObject, JSONObject vaccineGroupObject, JSONObject service, String birthCert, JSONObject illnessJson) {
-        HomeVisit newHomeVisit = new HomeVisit(null, baseEntityID, HomeVisitRepository.EVENT_TYPE, new Date(), "", "", "", 0l, "", "", new Date());
-        newHomeVisit.setSingleVaccinesGiven(singleVaccineObject);
-        newHomeVisit.setVaccineGroupsGiven(vaccineGroupObject);
-        newHomeVisit.setServicesGiven(service);
-        newHomeVisit.setBirthCertificationState(birthCert);
-        if (illnessJson != null) {
-            newHomeVisit.setIllness_information(illnessJson);
+            e.printStackTrace();
         }
         newHomeVisit.setFormfields(new HashMap<String, String>());
         ChwApplication.homeVisitRepository().add(newHomeVisit);

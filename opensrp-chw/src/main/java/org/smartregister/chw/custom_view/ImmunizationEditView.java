@@ -37,7 +37,6 @@ public class ImmunizationEditView extends LinearLayout implements ImmunizationEd
         recyclerView = findViewById(R.id.immunization_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         initializePresenter();
-        presenter.fetchImmunizationEditData(childClient);
     }
 
     @Override
@@ -47,7 +46,7 @@ public class ImmunizationEditView extends LinearLayout implements ImmunizationEd
     }
     public void setChildClient(CommonPersonObjectClient childClient){
         this.childClient = childClient;
-
+        presenter.fetchImmunizationEditData(childClient);
     }
 
     @Override

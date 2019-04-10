@@ -193,7 +193,7 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
                 getView().setLastVisitRowView(childVisit.getLastVisitDays());
             }
             if (!childVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.NOT_VISIT_THIS_MONTH.name()) && childVisit.getLastVisitTime() != 0) {
-                getView().enableEdit(new Period(new DateTime(childVisit.getLastVisitTime()) , DateTime.now()).getHours() <= 12);
+                getView().enableEdit(new Period(new DateTime(childVisit.getLastVisitTime()) , DateTime.now()).getHours() <= 24);
             }
 
         }

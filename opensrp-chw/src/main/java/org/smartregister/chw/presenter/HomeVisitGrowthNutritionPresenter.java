@@ -52,7 +52,7 @@ public class HomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNutriti
     public void parseRecordServiceData(CommonPersonObjectClient commonPersonObjectClient,boolean isEditMode) {
         this.commonPersonObjectClient = commonPersonObjectClient;
         if(isEditMode){
-            interactor.parseEditRecordServiceData(commonPersonObjectClient,this);
+           // interactor.parseEditRecordServiceData(commonPersonObjectClient,this);
         }else{
             interactor.parseRecordServiceData(commonPersonObjectClient, this);
         }
@@ -139,7 +139,7 @@ public class HomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNutriti
                 if (getView() != null)
                     getView().updateExclusiveFeedingData(alert.scheduleName(), alert.startDate());
             } else {
-                String lastDoneExclusive = serviceWrapperExclusive.getServiceType().getName();
+               // String lastDoneExclusive = serviceWrapperExclusive.getServiceType().getName();
 
             }
         }
@@ -152,7 +152,7 @@ public class HomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNutriti
                 if (getView() != null)
                     getView().updateMnpData(alert.scheduleName(), alert.startDate());
             } else {
-                String lastDoneExclusive = serviceWrapperMnp.getServiceType().getName();
+              //  String lastDoneExclusive = serviceWrapperMnp.getServiceType().getName();
 
             }
         }
@@ -165,7 +165,7 @@ public class HomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNutriti
                 if (getView() != null)
                     getView().updateVitaminAData(alert.scheduleName(), alert.startDate());
             } else {
-                String lastDoneExclusive = serviceWrapperVitamin.getServiceType().getName();
+                //String lastDoneExclusive = serviceWrapperVitamin.getServiceType().getName();
 
             }
 
@@ -179,7 +179,7 @@ public class HomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNutriti
                 if (getView() != null)
                     getView().updateDewormingData(alert.scheduleName(), alert.startDate());
             } else {
-                String lastDoneVitamin = serviceWrapperDeworming.getServiceType().getName();
+                //String lastDoneVitamin = serviceWrapperDeworming.getServiceType().getName();
 
             }
         }
@@ -251,5 +251,10 @@ public class HomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNutriti
     @Override
     public Map<String, ServiceWrapper> getSaveStateMap() {
         return saveStateMap;
+    }
+
+    @Override
+    public Map<String, ServiceWrapper> getNotSaveStateMap() {
+        return notVisitStateMap;
     }
 }

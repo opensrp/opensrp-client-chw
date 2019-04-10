@@ -277,5 +277,8 @@ public class HomeVisitGrowthAndNutrition extends LinearLayout implements View.On
     public Map<String, ServiceWrapper> returnSaveStateMap() {
         return presenter.getSaveStateMap();
     }
+    public Map<String, ServiceWrapper> returnNotSaveStateMap() {
+        return presenter.getNotSaveStateMap();
+    }
 
 }
