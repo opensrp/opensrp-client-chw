@@ -43,13 +43,10 @@ import org.smartregister.chw.util.BirthIllnessData;
 import org.smartregister.chw.util.ChildDBConstants;
 import org.smartregister.chw.util.ChildUtils;
 import org.smartregister.chw.util.Constants;
-import org.smartregister.chw.util.HomeVisitVaccineGroupDetails;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.family.activity.BaseFamilyProfileActivity;
 import org.smartregister.family.util.DBConstants;
-import org.smartregister.immunization.db.VaccineRepo;
-import org.smartregister.immunization.domain.VaccineWrapper;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -383,21 +380,6 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
             homeVisitLayout.setVisibility(View.GONE);
         }
     }
-
-    private ArrayList<VaccineWrapper> createVaccineWrappers(HomeVisitVaccineGroupDetails vaccines) {
-
-        ArrayList<VaccineWrapper> vaccineWrappers = new ArrayList<VaccineWrapper>();
-        for (VaccineRepo.Vaccine vaccine : vaccines.getDueVaccines()) {
-            VaccineWrapper vaccineWrapper = new VaccineWrapper();
-            vaccineWrapper.setVaccine(vaccine);
-            vaccineWrapper.setName(vaccine.display());
-            vaccineWrapper.setDefaultName(vaccine.display());
-            vaccineWrappers.add(vaccineWrapper);
-        }
-
-        return vaccineWrappers;
-    }
-
 
     @Override
     public ChildHomeVisitContract.Presenter initializePresenter() {

@@ -10,20 +10,20 @@ import java.util.LinkedHashMap;
  * Created by raihan on 1/15/19.
  */
 
-public class HomeVisitVaccineGroupDetails {
-
+public class HomeVisitVaccineGroup {
     public static final int TYPE_INACTIVE = 0;
     public static final int TYPE_ACTIVE = 1;
-
-    private ArrayList<VaccineRepo.Vaccine> givenVaccines = new ArrayList<>();
-    private ArrayList<VaccineRepo.Vaccine> dueVaccines = new ArrayList<>();
-    private ArrayList<VaccineRepo.Vaccine> notGivenVaccines = new ArrayList<>();
-    private ArrayList<VaccineRepo.Vaccine> notGivenInThisVisitVaccines = new ArrayList<>();
+    private ArrayList<VaccineRepo.Vaccine> givenVaccines = new ArrayList<VaccineRepo.Vaccine>();
+    private ArrayList<VaccineRepo.Vaccine> dueVaccines = new ArrayList<VaccineRepo.Vaccine>();
+    private ArrayList<VaccineRepo.Vaccine> notGivenVaccines = new ArrayList<VaccineRepo.Vaccine>();
+    private ArrayList<VaccineRepo.Vaccine> notGivenInThisVisitVaccines = new ArrayList<VaccineRepo.Vaccine>();
     private LinkedHashMap<VaccineRepo.Vaccine,DateTime> vaccineByDate = new LinkedHashMap<>();
+
     private String group = "";
     private int viewType;
     private ImmunizationState alert = ImmunizationState.NO_ALERT;
     private String dueDisplayDate = "";
+    private String dueDate = "";
 
     public String getDueDate() {
         return dueDate;
@@ -33,7 +33,6 @@ public class HomeVisitVaccineGroupDetails {
         this.dueDate = dueDate;
     }
 
-    private String dueDate = "";
 
     public DateTime getDateByVaccine(VaccineRepo.Vaccine vaccine) {
         return vaccineByDate.get(vaccine);
@@ -47,34 +46,20 @@ public class HomeVisitVaccineGroupDetails {
         return notGivenInThisVisitVaccines;
     }
 
-    public void setNotGivenInThisVisitVaccines(ArrayList<VaccineRepo.Vaccine> notGivenInThisVisitVaccines) {
-        this.notGivenInThisVisitVaccines = notGivenInThisVisitVaccines;
-    }
-
-
     public ArrayList<VaccineRepo.Vaccine> getGivenVaccines() {
         return givenVaccines;
     }
 
-    public void setGivenVaccines(ArrayList<VaccineRepo.Vaccine> givenVaccines) {
-        this.givenVaccines = givenVaccines;
-    }
 
     public ArrayList<VaccineRepo.Vaccine> getDueVaccines() {
         return dueVaccines;
     }
 
-    public void setDueVaccines(ArrayList<VaccineRepo.Vaccine> dueVaccines) {
-        this.dueVaccines = dueVaccines;
-    }
 
     public ArrayList<VaccineRepo.Vaccine> getNotGivenVaccines() {
         return notGivenVaccines;
     }
 
-    public void setNotGivenVaccines(ArrayList<VaccineRepo.Vaccine> notGivenVaccines) {
-        this.notGivenVaccines = notGivenVaccines;
-    }
 
     public String getGroup() {
         return group;
@@ -121,5 +106,4 @@ public class HomeVisitVaccineGroupDetails {
     public void setDueDisplayDate(String dueDate) {
         this.dueDisplayDate = dueDate;
     }
-
 }

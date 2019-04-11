@@ -32,7 +32,7 @@
                 android:layout_marginBottom="60dp"
                 android:layout_marginTop="60dp"
                 android:layout_weight="1"
-                android:contentDescription="logo"
+                android:contentDescription="@string/logo"
                 android:scaleType="fitCenter"
                 android:src="@drawable/ic_liberia_logo" />
 
@@ -173,7 +173,7 @@
                 android:layout_gravity="center_horizontal"
                 android:paddingBottom="5dp"
                 android:paddingTop="10dp"
-                android:text="Powered by"
+                android:text="@string/powered_by"
                 android:textAlignment="center"
                 android:textColor="#585858" />
 

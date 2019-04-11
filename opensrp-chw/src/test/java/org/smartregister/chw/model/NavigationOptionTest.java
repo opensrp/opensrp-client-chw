@@ -10,7 +10,7 @@ public class NavigationOptionTest {
 
     @Test
     public void navigationModel_TestConstructor() {
-        NavigationOption navigationOption = new NavigationOption(R.mipmap.sidemenu_families, R.mipmap.sidemenu_families_active, Constants.DrawerMenu.ALL_FAMILIES, 0);
+        NavigationOption navigationOption = new NavigationOption(R.mipmap.sidemenu_families, R.mipmap.sidemenu_families_active, R.string.menu_all_families, Constants.DrawerMenu.ALL_FAMILIES, 0);
 
         assertEquals(navigationOption.getMenuTitle(), Constants.DrawerMenu.ALL_FAMILIES);
         assertEquals(navigationOption.getResourceID(), R.mipmap.sidemenu_families);
@@ -19,7 +19,7 @@ public class NavigationOptionTest {
 
     @Test
     public void navigationModel_TestSettersAndGetters() {
-        NavigationOption model = new NavigationOption(R.mipmap.sidemenu_families, R.mipmap.sidemenu_families_active, Constants.DrawerMenu.ALL_FAMILIES, 0);
+        NavigationOption model = new NavigationOption(R.mipmap.sidemenu_families, R.mipmap.sidemenu_families_active, R.string.menu_all_families, Constants.DrawerMenu.ALL_FAMILIES, 0);
 
         model.setRegisterCount(2);
         model.setMenuTitle("Test Menu");

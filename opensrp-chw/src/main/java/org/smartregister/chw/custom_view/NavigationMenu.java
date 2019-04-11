@@ -253,8 +253,8 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
 
     @Override
     public void refreshCurrentUser(String name) {
-        if (tvLogout != null) {
-            tvLogout.setText(String.format("%s %s", "Log out as", name));
+        if (tvLogout != null && activityWeakReference.get() != null) {
+            tvLogout.setText(String.format("%s %s", activityWeakReference.get().getResources().getString(R.string.log_out_as), name));
         }
     }
 
