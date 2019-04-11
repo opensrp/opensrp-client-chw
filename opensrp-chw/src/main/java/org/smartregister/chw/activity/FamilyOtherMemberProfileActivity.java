@@ -4,14 +4,18 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Looper;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
@@ -23,9 +27,11 @@ import org.smartregister.chw.contract.FamilyOtherMemberProfileExtendedContract;
 import org.smartregister.chw.custom_view.FamilyMemberFloatingMenu;
 import org.smartregister.chw.fragment.FamilyCallDialogFragment;
 import org.smartregister.chw.fragment.FamilyOtherMemberProfileFragment;
+import org.smartregister.chw.interactor.ChildProfileInteractor;
 import org.smartregister.chw.listener.FloatingMenuListener;
 import org.smartregister.chw.listener.OnClickFloatingMenu;
 import org.smartregister.chw.presenter.FamilyOtherMemberActivityPresenter;
+import org.smartregister.chw.util.ChildUtils;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
@@ -36,6 +42,7 @@ import org.smartregister.family.model.BaseFamilyOtherMemberProfileActivityModel;
 import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
+import org.smartregister.helper.ImageRenderHelper;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
 public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfileActivity implements FamilyOtherMemberProfileExtendedContract.View {
@@ -48,6 +55,8 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
     private String familyName;
     private CommonPersonObjectClient commonPersonObject;
     private FamilyMemberFloatingMenu familyFloatingMenu;
+    private TextView textViewFamilyHas;
+    private RelativeLayout layoutFamilyHasRow;
 
     private OnClickFloatingMenu onClickFloatingMenu = new OnClickFloatingMenu() {
         @Override
@@ -62,6 +71,29 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
 
         }
     };
+
+
+    @Override
+    protected void onCreation() {
+        setContentView(R.layout.activity_family_other_member_profile_chw);
+
+        Toolbar toolbar = findViewById(org.smartregister.family.R.id.family_toolbar);
+        setSupportActionBar(toolbar);
+
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setTitle("");
+        }
+
+        appBarLayout = findViewById(org.smartregister.family.R.id.toolbar_appbarlayout);
+
+        imageRenderHelper = new ImageRenderHelper(this);
+
+        initializePresenter();
+
+        setupViews();
+    }
 
     @Override
     protected void initializePresenter() {
@@ -82,6 +114,11 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
         TextView toolbarTitle = findViewById(R.id.toolbar_title);
         toolbarTitle.setText(String.format(getString(R.string.return_to_family_name), presenter().getFamilyName()));
 
+        TabLayout tabLayout = findViewById(R.id.tabs);
+        tabLayout.setSelectedTabIndicatorHeight(0);
+
+        findViewById(R.id.viewpager).setVisibility(View.GONE);
+
         // add floating menu
         familyFloatingMenu = new FamilyMemberFloatingMenu(this);
         LinearLayout.LayoutParams linearLayoutParams =
@@ -92,12 +129,28 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
         addContentView(familyFloatingMenu, linearLayoutParams);
 
         familyFloatingMenu.setClickListener(onClickFloatingMenu);
+        textViewFamilyHas = findViewById(R.id.textview_family_has);
+        layoutFamilyHasRow = findViewById(R.id.family_has_row);
+
+        layoutFamilyHasRow.setOnClickListener(this);
     }
 
     @Override
     public void updateHasPhone(boolean hasPhone) {
         if (familyFloatingMenu != null) {
             familyFloatingMenu.setVisibility(hasPhone ? View.VISIBLE : View.GONE);
+        }
+    }
+
+    @Override
+    public void setFamilyServiceStatus(String status) {
+        layoutFamilyHasRow.setVisibility(View.VISIBLE);
+        if (status.equalsIgnoreCase(ChildProfileInteractor.FamilyServiceType.DUE.name())) {
+            textViewFamilyHas.setText(getString(R.string.family_has_services_due));
+        } else if (status.equalsIgnoreCase(ChildProfileInteractor.FamilyServiceType.OVERDUE.name())) {
+            textViewFamilyHas.setText(ChildUtils.fromHtml(getString(R.string.family_has_service_overdue)));
+        } else {
+            textViewFamilyHas.setText(getString(R.string.family_has_nothing_due));
         }
     }
 
@@ -248,5 +301,31 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
                 familyOtherMemberProfileFragment.refreshListView();
             }
         }
+    }
+
+
+    @Override
+    public void onClick(View view) {
+
+        switch (view.getId()) {
+            case R.id.family_has_row:
+                openFamilyDueTab();
+                break;
+            default:
+                super.onClick(view);
+                break;
+        }
+    }
+
+    private void openFamilyDueTab() {
+        Intent intent = new Intent(this, FamilyProfileActivity.class);
+
+        intent.putExtra(Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID, familyBaseEntityId);
+        intent.putExtra(Constants.INTENT_KEY.FAMILY_HEAD, familyHead);
+        intent.putExtra(Constants.INTENT_KEY.PRIMARY_CAREGIVER, primaryCaregiver);
+        intent.putExtra(Constants.INTENT_KEY.FAMILY_NAME, familyName);
+
+        intent.putExtra(org.smartregister.chw.util.Constants.INTENT_KEY.SERVICE_DUE, true);
+        startActivity(intent);
     }
 }

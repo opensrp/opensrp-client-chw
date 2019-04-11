@@ -5,6 +5,7 @@ import android.util.Log;
 import org.apache.commons.lang3.tuple.Triple;
 import org.smartregister.chw.contract.FamilyOtherMemberProfileExtendedContract;
 import org.smartregister.chw.contract.FamilyProfileExtendedContract;
+import org.smartregister.chw.interactor.FamilyInteractor;
 import org.smartregister.chw.interactor.FamilyProfileInteractor;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.contract.FamilyOtherMemberContract;
@@ -17,6 +18,11 @@ import org.smartregister.family.util.Utils;
 
 import java.lang.ref.WeakReference;
 import java.text.MessageFormat;
+
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 import static org.smartregister.util.Utils.getName;
 
@@ -42,6 +48,34 @@ public class FamilyOtherMemberActivityPresenter extends BaseFamilyOtherMemberPro
         this.profileModel = new BaseFamilyProfileModel(familyName);
 
         verifyHasPhone();
+        initializeServiceStatus();
+    }
+
+    private void initializeServiceStatus() {
+        FamilyInteractor.updateFamilyDueStatus("", familyBaseEntityId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<String>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        Log.v(TAG, "initializeServiceStatus onSubscribe");
+                    }
+
+                    @Override
+                    public void onNext(String s) {
+                        updateFamilyMemberServiceDue(s);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.e(TAG, "initializeServiceStatus " + e.toString());
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        Log.v(TAG, "initializeServiceStatus onComplete");
+                    }
+                });
     }
 
     public String getFamilyBaseEntityId() {
@@ -78,7 +112,7 @@ public class FamilyOtherMemberActivityPresenter extends BaseFamilyOtherMemberPro
             String lastName = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.LAST_NAME, true);
             int age = Utils.getAgeFromDate(Utils.getValue(client.getColumnmaps(), DBConstants.KEY.DOB, true));
 
-            this.getView().setProfileName(MessageFormat.format("{0}, {1}" , getName(getName(firstName, middleName),lastName), age));
+            this.getView().setProfileName(MessageFormat.format("{0}, {1}", getName(getName(firstName, middleName), lastName), age));
         }
     }
 
@@ -99,7 +133,7 @@ public class FamilyOtherMemberActivityPresenter extends BaseFamilyOtherMemberPro
 
     @Override
     public void onRegistrationSaved(boolean isEditMode) {
-        if(isEditMode) {
+        if (isEditMode) {
             getView().hideProgressDialog();
 
             refreshProfileView();
@@ -126,5 +160,13 @@ public class FamilyOtherMemberActivityPresenter extends BaseFamilyOtherMemberPro
         if (viewReference.get() != null) {
             viewReference.get().updateHasPhone(hasPhone);
         }
+    }
+
+    @Override
+    public void updateFamilyMemberServiceDue(String serviceDueStatus) {
+        if (getView() != null) {
+            getView().setFamilyServiceStatus(serviceDueStatus);
+        }
+
     }
 }
