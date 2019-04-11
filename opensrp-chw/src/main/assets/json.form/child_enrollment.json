@@ -273,7 +273,7 @@
         "openmrs_entity": "person",
         "openmrs_entity_id": "",
         "type": "spinner",
-        "hint": "Health insurance provider",
+        "hint": "Health insurance providgit er",
         "values": [
           "Community Health Fund (CHF)",
           "Improved Community Health Fund (iCHF)",
