@@ -25,6 +25,7 @@ import org.smartregister.immunization.domain.VaccineWrapper;
 import org.smartregister.immunization.util.VaccinateActionUtils;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -75,14 +76,24 @@ public class ImmunizationEditViewInteractor implements ImmunizationEditContract.
             try {
                 JSONObject jsonObject = new JSONObject(homeVisit.getVaccineNotGiven().toString());
                 JSONArray array = jsonObject.getJSONArray("vaccineNotGiven");
-                ArrayList<VaccineWrapper> notGivenVaccine = ChildUtils.gsonConverter.fromJson(array.toString(),new TypeToken<ArrayList<VaccineWrapper>>(){}.getType());
-                vaccineTaskModel.setNotGivenVaccine(notGivenVaccine);
+                if(array!=null){
+                    ArrayList<VaccineWrapper> notGivenVaccine = ChildUtils.gsonConverter.fromJson(array.toString(),new TypeToken<ArrayList<VaccineWrapper>>(){}.getType());
+                    vaccineTaskModel.setNotGivenVaccine(notGivenVaccine);
+                }
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
 
         }
         ArrayList<HomeVisitVaccineGroup> homeVisitVaccineGroupsList = homeVisitImmunizationInteractor.determineAllHomeVisitVaccineGroup(vaccineTaskModel.getAlerts(),vaccineTaskModel.getVaccines(),vaccineTaskModel.getNotGivenVaccine(),vaccineTaskModel.getScheduleList());
+        for (Iterator<HomeVisitVaccineGroup> iterator = homeVisitVaccineGroupsList.iterator(); iterator.hasNext(); ) {
+            HomeVisitVaccineGroup homeVisitVaccineGroup = iterator.next();
+            if (homeVisitVaccineGroup.getDueVaccines().size()==0) {
+                iterator.remove();
+            }
+
+        }
         callBack.updateEditData(homeVisitVaccineGroupsList);
 
 
@@ -99,6 +110,13 @@ public class ImmunizationEditViewInteractor implements ImmunizationEditContract.
 //                    public void onNext(VaccineTaskModel vaccineTaskModel) {
 //                        ArrayList<HomeVisitVaccineGroup> homeVisitVaccineGroupsList = homeVisitImmunizationInteractor.determineAllHomeVisitVaccineGroup(vaccineTaskModel.getAlerts(),vaccineTaskModel.getVaccines(),vaccineTaskModel.getNotGivenVaccine(),vaccineTaskModel.getScheduleList());
 //
+//                        for (Iterator<HomeVisitVaccineGroup> iterator = homeVisitVaccineGroupsList.iterator(); iterator.hasNext(); ) {
+//                            HomeVisitVaccineGroup homeVisitVaccineGroup = iterator.next();
+//                            if (homeVisitVaccineGroup.getDueVaccines().size()==0) {
+//                                iterator.remove();
+//                            }
+//
+//                        }
 //                        callBack.updateEditData(homeVisitVaccineGroupsList);
 //
 //                    }
@@ -140,8 +158,11 @@ public class ImmunizationEditViewInteractor implements ImmunizationEditContract.
                     try {
                         JSONObject jsonObject = new JSONObject(homeVisit.getVaccineNotGiven().toString());
                         JSONArray array = jsonObject.getJSONArray("vaccineNotGiven");
-                        ArrayList<VaccineWrapper> notGivenVaccine = ChildUtils.gsonConverter.fromJson(array.toString(),new TypeToken<ArrayList<VaccineWrapper>>(){}.getType());
-                        vaccineTaskModel.setNotGivenVaccine(notGivenVaccine);
+                        if (array!=null){
+                            ArrayList<VaccineWrapper> notGivenVaccine = ChildUtils.gsonConverter.fromJson(array.toString(),new TypeToken<ArrayList<VaccineWrapper>>(){}.getType());
+                            vaccineTaskModel.setNotGivenVaccine(notGivenVaccine);
+                        }
+
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
