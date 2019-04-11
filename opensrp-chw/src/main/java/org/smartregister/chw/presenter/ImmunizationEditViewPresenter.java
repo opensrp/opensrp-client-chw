@@ -2,7 +2,7 @@ package org.smartregister.chw.presenter;
 
 import org.smartregister.chw.contract.ImmunizationEditContract;
 import org.smartregister.chw.interactor.ImmunizationEditViewInteractor;
-import org.smartregister.chw.util.HomeVisitVaccineGroupDetails;
+import org.smartregister.chw.util.HomeVisitVaccineGroup;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 
 import java.lang.ref.WeakReference;
@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class ImmunizationEditViewPresenter implements ImmunizationEditContract.Presenter,ImmunizationEditContract.InteractorCallBack {
 
     private WeakReference<ImmunizationEditContract.View> view;
-    private ArrayList<HomeVisitVaccineGroupDetails> homeVisitVaccineGroupDetails;
+    private ArrayList<HomeVisitVaccineGroup> homeVisitVaccineGroupDetails;
     private ImmunizationEditContract.Interactor interactor;
     public ImmunizationEditViewPresenter(ImmunizationEditContract.View view){
         this.view = new WeakReference<>(view);
@@ -19,7 +19,7 @@ public class ImmunizationEditViewPresenter implements ImmunizationEditContract.P
 
     }
 
-    public ArrayList<HomeVisitVaccineGroupDetails> getHomeVisitVaccineGroupDetails() {
+    public ArrayList<HomeVisitVaccineGroup> getHomeVisitVaccineGroupDetails() {
         return homeVisitVaccineGroupDetails;
     }
 
@@ -30,8 +30,11 @@ public class ImmunizationEditViewPresenter implements ImmunizationEditContract.P
     }
 
     @Override
-    public void updateEditData(ArrayList<HomeVisitVaccineGroupDetails> homeVisitVaccineGroupDetails) {
+    public void updateEditData(ArrayList<HomeVisitVaccineGroup> homeVisitVaccineGroupDetails) {
         this.homeVisitVaccineGroupDetails = homeVisitVaccineGroupDetails;
+        for (HomeVisitVaccineGroup homeVisitVaccineGroup :this.homeVisitVaccineGroupDetails){
+            homeVisitVaccineGroup.setViewType(HomeVisitVaccineGroup.TYPE_ACTIVE);
+        }
         getView().updateAdapter();
 
     }

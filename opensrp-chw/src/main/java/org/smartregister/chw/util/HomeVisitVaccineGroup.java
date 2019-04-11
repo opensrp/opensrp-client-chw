@@ -69,7 +69,7 @@ public class HomeVisitVaccineGroup {
         return viewType;
     }
 
-    public void setGetViewType(int viewType) {
+    public void setViewType(int viewType) {
         this.viewType = viewType;
     }
 

@@ -300,7 +300,7 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
                             final HomeVisitGrowthNutritionInteractor homeVisitGrowthNutritionInteractor = new HomeVisitGrowthNutritionInteractor();
                             homeVisitGrowthNutritionInteractor.parseRecordServiceData(getpClient(), new HomeVisitGrowthNutritionContract.InteractorCallBack() {
                                 @Override
-                                public void updateRecordVisitData(Map<String, ServiceWrapper> stringServiceWrapperMap) {
+                                public void updateGivenRecordVisitData(Map<String, ServiceWrapper> stringServiceWrapperMap) {
                                     try {
                                         ChildService childService = null;
                                         ArrayList<GrowthServiceData> growthServiceDataList = homeVisitGrowthNutritionInteractor.getAllDueService(stringServiceWrapperMap);
@@ -324,6 +324,11 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
                                         e.printStackTrace();
                                     }
 
+                                }
+
+                                @Override
+                                public void updateNotGivenRecordVisitData(Map<String, ServiceWrapper> stringServiceWrapperMap) {
+                                    //No need to handle not given service
                                 }
                             });
                         }

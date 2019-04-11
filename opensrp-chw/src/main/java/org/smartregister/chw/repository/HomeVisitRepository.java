@@ -161,7 +161,7 @@ public class HomeVisitRepository extends BaseRepository {
             Long time = calendar.getTimeInMillis();
 
             cursor = getReadableDatabase().query(HomeVisitTABLE_NAME, HomeVisit_TABLE_COLUMNS, UPDATED_AT_COLUMN + " < ? AND " + SYNC_STATUS + " = ? ", new String[]{time.toString(), TYPE_Unsynced}, null, null, null, null);
-            homeVisits = readAllCounsellings(cursor);
+            homeVisits = readAllHomeVisits(cursor);
         } catch (Exception e) {
             Log.e(TAG, Log.getStackTraceString(e));
         } finally {
@@ -176,7 +176,7 @@ public class HomeVisitRepository extends BaseRepository {
     public List<HomeVisit> findByEntityId(String entityId) {
         SQLiteDatabase database = getReadableDatabase();
         Cursor cursor = database.query(HomeVisitTABLE_NAME, HomeVisit_TABLE_COLUMNS, BASE_ENTITY_ID + " = ? " + COLLATE_NOCASE + " ORDER BY " + UPDATED_AT_COLUMN, new String[]{entityId}, null, null, null, null);
-        return readAllCounsellings(cursor);
+        return readAllHomeVisits(cursor);
     }
 
     public HomeVisit find(Long caseId) {
@@ -184,7 +184,7 @@ public class HomeVisitRepository extends BaseRepository {
         Cursor cursor = null;
         try {
             cursor = getReadableDatabase().query(HomeVisitTABLE_NAME, HomeVisit_TABLE_COLUMNS, ID_COLUMN + " = ?", new String[]{caseId.toString()}, null, null, null, null);
-            List<HomeVisit> vaccines = readAllCounsellings(cursor);
+            List<HomeVisit> vaccines = readAllHomeVisits(cursor);
             if (!vaccines.isEmpty()) {
                 homeVisit = vaccines.get(0);
             }
@@ -222,7 +222,7 @@ public class HomeVisitRepository extends BaseRepository {
             }
 
             Cursor cursor = database.query(HomeVisitTABLE_NAME, HomeVisit_TABLE_COLUMNS, selection, selectionArgs, null, null, ID_COLUMN + " DESC ", null);
-            List<HomeVisit> homeVisitList = readAllCounsellings(cursor);
+            List<HomeVisit> homeVisitList = readAllHomeVisits(cursor);
             if (!homeVisitList.isEmpty()) {
                 return homeVisitList.get(0);
             }
@@ -258,7 +258,7 @@ public class HomeVisitRepository extends BaseRepository {
     }
 
 
-    private List<HomeVisit> readAllCounsellings(Cursor cursor) {
+    private List<HomeVisit> readAllHomeVisits(Cursor cursor) {
         List<HomeVisit> homeVisits = new ArrayList<HomeVisit>();
 
         try {
@@ -295,7 +295,6 @@ public class HomeVisitRepository extends BaseRepository {
                     homeVisit.setFormfields(new Gson().<Map<String, String>>fromJson(cursor.getString(cursor.getColumnIndex(FORMFIELDS)),
                             new TypeToken<Map<String, String>>() {
                             }.getType()));
-                    homeVisits.add(homeVisit);
                     homeVisit.setVaccineGroupsGiven(new JSONObject(cursor.getString(cursor.getColumnIndex(VACCCINE_GROUP))));
                     homeVisit.setSingleVaccinesGiven(new JSONObject(cursor.getString(cursor.getColumnIndex(SINGLE_VACCINE))));
                     homeVisit.setVaccineNotGiven(new JSONObject(cursor.getString(cursor.getColumnIndex(VACCINE_NOT_GIVEN))));
@@ -304,6 +303,7 @@ public class HomeVisitRepository extends BaseRepository {
                     homeVisit.setBirthCertificationState((cursor.getString(cursor.getColumnIndex(BIRTH_CERTIFICATION))));
                     homeVisit.setIllness_information(new JSONObject(cursor.getString(cursor.getColumnIndex(illness_information))));
 
+                    homeVisits.add(homeVisit);
                     cursor.moveToNext();
                 }
             }
@@ -421,19 +421,13 @@ public class HomeVisitRepository extends BaseRepository {
             Log.e(TAG, Log.getStackTraceString(e));
         }
     }
-    public Observable<HomeVisit> getHomeVisitData(long homeVistDate){
-        return RxUtils.makeObservable(getData(homeVistDate));
-    }
-    private Callable<HomeVisit> getData(final long lastHomeVistDate) {
-        return new Callable() {
-            public HomeVisit call() {
-                return findByDate(lastHomeVistDate);
-            }
-        };
-    }
     public HomeVisit findByDate(long lastHomeVisit) {
         SQLiteDatabase database = getReadableDatabase();
         Cursor cursor = database.query(HomeVisitTABLE_NAME, HomeVisit_TABLE_COLUMNS, LAST_HOME_VISIT_DATE + " = ? " + COLLATE_NOCASE + " ORDER BY " + UPDATED_AT_COLUMN, new String[]{String.valueOf(lastHomeVisit)}, null, null, null, null);
-        return readAllCounsellings(cursor).size()>0?readAllCounsellings(cursor).get(0):null;
+        List<HomeVisit> homeVisits = readAllHomeVisits(cursor);
+        if(homeVisits.size()>0){
+            return homeVisits.get(0);
+        }
+        return null;
     }
 }

@@ -138,21 +138,22 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         homeVisitGrowthAndNutritionLayout = view.findViewById(R.id.growth_and_nutrition_group);
         homeVisitImmunizationView = view.findViewById(R.id.home_visit_immunization_view);
         immunizationEditView = view.findViewById(R.id.immunization_edit_view);
-        homeVisitImmunizationView.setActivity(getActivity());
-        homeVisitImmunizationView.setChildClient(childClient);
-        homeVisitImmunizationView.setEditMode(isEditMode);
         if(isEditMode){
             immunizationEditView.setVisibility(View.VISIBLE);
-            immunizationEditView.setChildClient(childClient);
+            immunizationEditView.setChildClient(getActivity(),childClient);
             homeVisitImmunizationView.setVisibility(View.GONE);
+            submitButtonEnableDisable(true);
         }else{
+            homeVisitImmunizationView.setActivity(getActivity());
+            homeVisitImmunizationView.setChildClient(childClient);
+            homeVisitImmunizationView.setEditMode(isEditMode);
             immunizationEditView.setVisibility(View.GONE);
             homeVisitImmunizationView.setVisibility(View.VISIBLE);
+            initializePresenter();
+            ((ChildHomeVisitPresenter) presenter).setChildClient(childClient);
+            submitButtonEnableDisable(false);
         }
-        initializePresenter();
-        ((ChildHomeVisitPresenter) presenter).setChildClient(childClient);
         assignNameHeader();
-        submitButtonEnableDisable(false);
         updateGrowthData();
     }
 
@@ -250,8 +251,6 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                             illnessJson = new JSONObject();
                         }
                         ChildUtils.updateHomeVisitAsEvent(childClient.entityId(), Constants.EventType.CHILD_HOME_VISIT, Constants.TABLE_NAME.CHILD, singleVaccineObject, vaccineGroupObject,vaccineNotGivenObject, service,serviceNotGiven, birthCertGiven, illnessJson, ChildDBConstants.KEY.LAST_HOME_VISIT, System.currentTimeMillis() + "");
-
-//                        ChildUtils.addToHomeVisitTable(childClient.getCaseId(),singleVaccineObject,vaccineGroupObject,service,birthCertGiven,illnessJson);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -264,33 +263,6 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                     dismiss();
                 }
                 break;
-//            case R.id.textview_submit:
-//                if (checkAllGiven()) {
-//
-//                    try {
-//                        JSONArray groupVaccineGiven = homeVisitImmunizationView.getGroupVaccinesGivenThisVisit();
-//
-//                        JSONObject singleVaccineObject = new JSONObject().put("singleVaccinesGiven",new JSONArray(ChildUtils.gsonConverter.toJson(homeVisitImmunizationView.getNotGivenVaccine())));
-//                        JSONObject vaccineGroupObject = new JSONObject().put("groupVaccinesGiven", groupVaccineGiven);
-//                        JSONObject service = new JSONObject();
-//                        service.put("given",new JSONObject(ChildUtils.gsonConverter.toJson(homeVisitGrowthAndNutritionLayout.returnSaveStateMap())));
-//                        service.put("not_given",new JSONObject(ChildUtils.gsonConverter.toJson(homeVisitGrowthAndNutritionLayout.returnNotSaveStateMap())));
-//                        if (illnessJson == null) {
-//                            illnessJson = new JSONObject();
-//                        }
-//                        ChildUtils.updateHomeVisitAsEvent(childClient.entityId(), Constants.EventType.CHILD_HOME_VISIT, Constants.TABLE_NAME.CHILD, singleVaccineObject, vaccineGroupObject, service, birthCertGiven, illnessJson, ChildDBConstants.KEY.LAST_HOME_VISIT, System.currentTimeMillis() + "");
-//                    } catch (JSONException e) {
-//                        e.printStackTrace();
-//                    }
-//                    if (getActivity() instanceof ChildRegisterActivity) {
-//                        ((ChildRegisterActivity) getActivity()).refreshList(FetchStatus.fetched);
-//                    }
-//                    if (((ChildHomeVisitPresenter) presenter).getSaveSize() > 0) {
-//                        presenter.saveForm();
-//                    }
-//                    dismiss();
-//                }
-//                break;
             case R.id.close:
                 showCloseDialog();
                 break;
@@ -350,7 +322,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     }
 
 
-    private void submitButtonEnableDisable(boolean isEnable) {
+    public void submitButtonEnableDisable(boolean isEnable) {
         if (isEnable) {
             submit.setAlpha(1.0f);
         } else {
@@ -520,13 +492,9 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     @Override
     public void onResume() {
         super.onResume();
-        updateImmunizationState();
-//        new Handler().postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                updateGrowthData();
-//            }
-//        }, 100);
+        if(!isEditMode){
+            updateImmunizationState();
+        }
         if (getView() == null) return;
         getView().setFocusableInTouchMode(true);
         getView().requestFocus();

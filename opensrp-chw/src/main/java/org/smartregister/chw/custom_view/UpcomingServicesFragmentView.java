@@ -151,7 +151,12 @@ public class UpcomingServicesFragmentView extends LinearLayout implements View.O
         final HomeVisitGrowthNutritionInteractor homeVisitGrowthNutritionInteractor = new HomeVisitGrowthNutritionInteractor();
         homeVisitGrowthNutritionInteractor.parseRecordServiceData(childClient, new HomeVisitGrowthNutritionContract.InteractorCallBack() {
             @Override
-            public void updateRecordVisitData(final Map<String, ServiceWrapper> stringServiceWrapperMap) {
+            public void updateNotGivenRecordVisitData(Map<String, ServiceWrapper> stringServiceWrapperMap) {
+                //No need to do anything
+            }
+
+            @Override
+            public void updateGivenRecordVisitData(final Map<String, ServiceWrapper> stringServiceWrapperMap) {
 
 //
 //                new Handler().postDelayed(new Runnable() {

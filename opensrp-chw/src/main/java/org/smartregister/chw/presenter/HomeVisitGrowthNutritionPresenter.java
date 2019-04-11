@@ -39,6 +39,7 @@ public class HomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNutriti
     private Map<String, ServiceWrapper> notVisitStateMap = new LinkedHashMap<>();
     private CommonPersonObjectClient commonPersonObjectClient;
     private int growthListCount = -1;
+    private boolean isEditMode = false;
     private Context context;
 
     public HomeVisitGrowthNutritionPresenter(HomeVisitGrowthNutritionContract.View view) {
@@ -51,8 +52,9 @@ public class HomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNutriti
     @Override
     public void parseRecordServiceData(CommonPersonObjectClient commonPersonObjectClient,boolean isEditMode) {
         this.commonPersonObjectClient = commonPersonObjectClient;
+        this.isEditMode = isEditMode;
         if(isEditMode){
-           // interactor.parseEditRecordServiceData(commonPersonObjectClient,this);
+            interactor.parseEditRecordServiceData(commonPersonObjectClient,this);
         }else{
             interactor.parseRecordServiceData(commonPersonObjectClient, this);
         }
@@ -125,9 +127,28 @@ public class HomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNutriti
 
     }
 
+    @Override
+    public void updateNotGivenRecordVisitData(Map<String, ServiceWrapper> stringServiceWrapperMap) {
+        updateData(stringServiceWrapperMap);
+        for(String type : stringServiceWrapperMap.keySet()){
+            ServiceWrapper serviceWrapper = stringServiceWrapperMap.get(type);
+            setNotVisitState(type,serviceWrapper);
+        }
+
+    }
 
     @Override
-    public void updateRecordVisitData(Map<String, ServiceWrapper> stringServiceWrapperMap) {
+    public void updateGivenRecordVisitData(Map<String, ServiceWrapper> stringServiceWrapperMap) {
+        updateData(stringServiceWrapperMap);
+        getView().allDataLoaded();
+        if(isEditMode){
+            for(String type : stringServiceWrapperMap.keySet()){
+                ServiceWrapper serviceWrapper = stringServiceWrapperMap.get(type);
+                setSaveState(type,serviceWrapper);
+            }
+        }
+    }
+    private void updateData(Map<String, ServiceWrapper> stringServiceWrapperMap){
         growthListCount = 0;
         serviceWrapperMap = stringServiceWrapperMap;
         serviceWrapperExclusive = getServiceWrapperByType(GrowthNutritionInputFragment.GROWTH_TYPE.EXCLUSIVE.getValue());
@@ -139,7 +160,7 @@ public class HomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNutriti
                 if (getView() != null)
                     getView().updateExclusiveFeedingData(alert.scheduleName(), alert.startDate());
             } else {
-               // String lastDoneExclusive = serviceWrapperExclusive.getServiceType().getName();
+                // String lastDoneExclusive = serviceWrapperExclusive.getServiceType().getName();
 
             }
         }
@@ -152,7 +173,7 @@ public class HomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNutriti
                 if (getView() != null)
                     getView().updateMnpData(alert.scheduleName(), alert.startDate());
             } else {
-              //  String lastDoneExclusive = serviceWrapperMnp.getServiceType().getName();
+                //  String lastDoneExclusive = serviceWrapperMnp.getServiceType().getName();
 
             }
         }
@@ -183,7 +204,6 @@ public class HomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNutriti
 
             }
         }
-        getView().allDataLoaded();
     }
 
     public ServiceWrapper getServiceWrapperByType(String type) {

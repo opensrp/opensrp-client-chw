@@ -1,6 +1,6 @@
 package org.smartregister.chw.contract;
 
-import org.smartregister.chw.util.HomeVisitVaccineGroupDetails;
+import org.smartregister.chw.util.HomeVisitVaccineGroup;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 
 import java.util.ArrayList;
@@ -23,7 +23,7 @@ public interface ImmunizationEditContract {
     }
     interface InteractorCallBack {
 
-        void updateEditData(ArrayList<HomeVisitVaccineGroupDetails> homeVisitVaccineGroupDetails);
+        void updateEditData(ArrayList<HomeVisitVaccineGroup> homeVisitVaccineGroupDetails);
     }
 
 }

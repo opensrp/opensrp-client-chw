@@ -263,8 +263,7 @@ public class HomeVisitImmunizationInteractor implements HomeVisitImmunizationCon
                 if (((VaccineRepo.Vaccine) (toprocess.get("vaccine"))).name().equalsIgnoreCase(vaccine.name())) {
                     DateTime dueDate = (DateTime) toprocess.get(DATE);
                     if (dueDate != null) {
-                        homeVisitVaccineGroupArrayList.setVaccineByDate(((VaccineRepo.Vaccine)schedule.get("vaccine")),dueDate);
-
+                        homeVisitVaccineGroupArrayList.get(position).setVaccineByDate(((VaccineRepo.Vaccine)toprocess.get("vaccine")),dueDate);
                         homeVisitVaccineGroupArrayList.get(position).setDueDate(dueDate.toLocalDate() + "");
                         homeVisitVaccineGroupArrayList.get(position).setDueDisplayDate(DateUtil.formatDate(dueDate.toLocalDate(), "dd MMM yyyy"));
                     }
