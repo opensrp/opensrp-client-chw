@@ -422,6 +422,8 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
 
                 }
 
+                org.smartregister.family.util.JsonFormUtils.addLocHierarchyQuestions(form);
+
                 return form;
             }
         } catch (Exception e) {

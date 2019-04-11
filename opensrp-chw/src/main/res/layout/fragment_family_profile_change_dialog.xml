@@ -49,7 +49,7 @@
         android:layout_marginBottom="10dp"
         android:maxLines="4"
         android:textSize="@dimen/change_dialog_text_size"
-        android:text="Select a new family head"
+        android:text="@string/select_a_new_family_head"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="@android:color/black" />
 

@@ -3,6 +3,7 @@ package org.smartregister.chw.listener;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.View;
+import android.widget.Toast;
 
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.ChildRegisterActivity;
@@ -28,22 +29,36 @@ public class NavigationListener implements View.OnClickListener {
 
                 switch (tag) {
                     case Constants.DrawerMenu.CHILD_CLIENTS:
+                    case Constants.DrawerMenu.CH:
                         startRegisterActivity(ChildRegisterActivity.class);
                         break;
                     case Constants.DrawerMenu.ALL_FAMILIES:
                         startRegisterActivity(FamilyRegisterActivity.class);
                         break;
+                    case Constants.DrawerMenu.ANC:
+                        Toast.makeText(activity.getApplicationContext(), Constants.DrawerMenu.ANC, Toast.LENGTH_SHORT).show();
+                        break;
+                    case Constants.DrawerMenu.LD:
+                        Toast.makeText(activity.getApplicationContext(), Constants.DrawerMenu.LD, Toast.LENGTH_SHORT).show();
+                        break;
+                    case Constants.DrawerMenu.PNC:
+                        Toast.makeText(activity.getApplicationContext(), Constants.DrawerMenu.PNC, Toast.LENGTH_SHORT).show();
+                        break;
+                    case Constants.DrawerMenu.FP:
+                        Toast.makeText(activity.getApplicationContext(), Constants.DrawerMenu.FP, Toast.LENGTH_SHORT).show();
+                        break;
+                    case Constants.DrawerMenu.MALARIA:
+                        Toast.makeText(activity.getApplicationContext(), Constants.DrawerMenu.MALARIA, Toast.LENGTH_SHORT).show();
+                        break;
                     default:
                         break;
                 }
-
-
                 navigationAdapter.setSelectedView(tag);
             }
         }
     }
 
-    private void startRegisterActivity(Class registerClass){
+    private void startRegisterActivity(Class registerClass) {
         Intent intent = new Intent(activity, registerClass);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         activity.startActivity(intent);

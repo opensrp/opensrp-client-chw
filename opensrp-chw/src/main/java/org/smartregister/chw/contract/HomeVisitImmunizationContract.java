@@ -3,9 +3,7 @@ package org.smartregister.chw.contract;
 import android.app.Activity;
 import android.content.Context;
 
-import org.smartregister.chw.interactor.HomeVisitImmunizationInteractor;
-import org.smartregister.chw.util.HomeVisitVaccineGroupDetails;
-import org.smartregister.chw.util.ImmunizationState;
+import org.smartregister.chw.util.HomeVisitVaccineGroup;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.Alert;
 import org.smartregister.immunization.db.VaccineRepo;
@@ -53,17 +51,20 @@ public interface HomeVisitImmunizationContract {
         boolean isComplete();
 
         Interactor getHomeVisitImmunizationInteractor();
+
         void setView(WeakReference<View> view);
 
         ArrayList<VaccineRepo.Vaccine> getVaccinesDueFromLastVisit();
-        ArrayList<HomeVisitVaccineGroupDetails> getAllgroups();
+
+        ArrayList<HomeVisitVaccineGroup> getAllgroups();
 
         ArrayList<VaccineWrapper> getNotGivenVaccines();
-        HomeVisitVaccineGroupDetails getCurrentActiveGroup();
+
+        HomeVisitVaccineGroup getCurrentActiveGroup();
 
         boolean groupIsDue();
 
-        ArrayList<VaccineWrapper> createVaccineWrappers(HomeVisitVaccineGroupDetails duevaccines);
+        ArrayList<VaccineWrapper> createVaccineWrappers(HomeVisitVaccineGroup duevaccines);
 
         CommonPersonObjectClient getchildClient();
 
@@ -100,30 +101,30 @@ public interface HomeVisitImmunizationContract {
 
         void onDestroy(boolean isChangingConfiguration);
 
-        HomeVisitVaccineGroupDetails getCurrentActiveHomeVisitVaccineGroupDetail(ArrayList<HomeVisitVaccineGroupDetails> allGroups);
+        HomeVisitVaccineGroup getCurrentActiveHomeVisitVaccineGroupDetail(ArrayList<HomeVisitVaccineGroup> allGroups);
 
-        HomeVisitVaccineGroupDetails getLastActiveHomeVisitVaccineGroupDetail(ArrayList<HomeVisitVaccineGroupDetails> allGroups);
+        HomeVisitVaccineGroup getLastActiveHomeVisitVaccineGroupDetail(ArrayList<HomeVisitVaccineGroup> allGroups);
 
-        boolean isPartiallyComplete(HomeVisitVaccineGroupDetails toprocess);
+        boolean isPartiallyComplete(HomeVisitVaccineGroup toprocess);
 
-        boolean isComplete(HomeVisitVaccineGroupDetails toprocess);
+        boolean isComplete(HomeVisitVaccineGroup toprocess);
 
-        boolean groupIsDue(HomeVisitVaccineGroupDetails toprocess);
+        boolean groupIsDue(HomeVisitVaccineGroup toprocess);
 
-        boolean hasVaccinesNotGivenSinceLastVisit(ArrayList<HomeVisitVaccineGroupDetails> allGroup);
+        boolean hasVaccinesNotGivenSinceLastVisit(ArrayList<HomeVisitVaccineGroup> allGroup);
 
-        int getIndexOfCurrentGroup(ArrayList<HomeVisitVaccineGroupDetails> allGroup);
+        int getIndexOfCurrentGroup(ArrayList<HomeVisitVaccineGroup> allGroup);
 
-        ArrayList<VaccineRepo.Vaccine> getNotGivenVaccinesLastVisitList(ArrayList<HomeVisitVaccineGroupDetails> allGroup);
+        ArrayList<VaccineRepo.Vaccine> getNotGivenVaccinesLastVisitList(ArrayList<HomeVisitVaccineGroup> allGroup);
 
-        ArrayList<VaccineRepo.Vaccine> getNotGivenVaccinesNotInNotGivenThisVisit(HomeVisitVaccineGroupDetails allGroup);
+        ArrayList<VaccineRepo.Vaccine> getNotGivenVaccinesNotInNotGivenThisVisit(HomeVisitVaccineGroup allGroup);
 
-        ArrayList<HomeVisitVaccineGroupDetails> determineAllHomeVisitVaccineGroupDetails(List<Alert> alerts, List<Vaccine> vaccines, ArrayList<VaccineWrapper> notGivenVaccines, List<Map<String, Object>> sch);
+        ArrayList<HomeVisitVaccineGroup> determineAllHomeVisitVaccineGroup(List<Alert> alerts, List<Vaccine> vaccines, ArrayList<VaccineWrapper> notGivenVaccines, List<Map<String, Object>> sch);
 
         void updateImmunizationState(CommonPersonObjectClient childClient, ArrayList<VaccineWrapper> notGivenVaccines, InteractorCallBack callBack);
     }
 
     interface InteractorCallBack {
-        void immunizationState(List<Alert> alerts, List<Vaccine> vaccines,Map<String, Date> receivedVaccine , List<Map<String, Object>> sch);
+        void immunizationState(List<Alert> alerts, List<Vaccine> vaccines, Map<String, Date> receivedVaccine, List<Map<String, Object>> sch);
     }
 }
