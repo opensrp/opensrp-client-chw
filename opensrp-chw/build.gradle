@@ -20,6 +20,7 @@ jacoco {
 android {
     useLibrary 'org.apache.http.legacy'
     compileSdkVersion androidCompileSdkVersion
+    buildToolsVersion androidBuildToolsVersion
 
     defaultConfig {
         applicationId "org.smartregister.chw"
