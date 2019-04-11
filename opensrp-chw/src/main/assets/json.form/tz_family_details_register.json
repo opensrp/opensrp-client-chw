@@ -117,36 +117,15 @@
       {
         "key": "nearest_facility",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "person_attribute",
+        "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "openmrs_data_type": "",
-        "type": "spinner",
+        "openmrs_data_type": "text",
+        "type": "tree",
         "hint": "Nearest health facility",
-        "values": [
-          "Petty trade",
-          "Agriculture, hunting and fishing",
-          "Exploitation of mines and quarries",
-          "Manufacturing industry",
-          "Construction",
-          "Electricity, gas and water",
-          "Commercial, hotels and restaurants",
-          "Transport, storage and communications",
-          "Financial institutions",
-          "Communication, social and personal services",
-          "Other"
-        ],
-        "openmrs_choice_ids": {
-          "Petty trade": "1539AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Agriculture, hunting and fishing": "165411AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Exploitation of mines and quarries": "165412AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Manufacturing industry": "165407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Construction": "165408AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Electricity, gas and water": "165409AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Commercial, hotels and restaurants": "165410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Transport, storage and communications": "165413AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Financial institutions": "165414AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Communication, social and personal services": "165415AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Other" : "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        "tree": [],
+        "v_required": {
+          "value": true,
+          "err": "Please enter the nearest health facility"
         }
       }
     ]
