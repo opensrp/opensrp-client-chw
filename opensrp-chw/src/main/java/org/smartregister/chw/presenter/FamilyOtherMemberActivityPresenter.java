@@ -5,7 +5,6 @@ import android.util.Log;
 import org.apache.commons.lang3.tuple.Triple;
 import org.smartregister.chw.contract.FamilyOtherMemberProfileExtendedContract;
 import org.smartregister.chw.contract.FamilyProfileExtendedContract;
-import org.smartregister.chw.interactor.ChildProfileInteractor;
 import org.smartregister.chw.interactor.FamilyInteractor;
 import org.smartregister.chw.interactor.FamilyProfileInteractor;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
@@ -52,28 +51,29 @@ public class FamilyOtherMemberActivityPresenter extends BaseFamilyOtherMemberPro
         initializeServiceStatus();
     }
 
-    private void initializeServiceStatus(){
+    private void initializeServiceStatus() {
         FamilyInteractor.updateFamilyDueStatus("", familyBaseEntityId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<String>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-
+                        Log.v(TAG, "initializeServiceStatus onSubscribe");
                     }
 
                     @Override
                     public void onNext(String s) {
                         updateFamilyMemberServiceDue(s);
-
                     }
 
                     @Override
                     public void onError(Throwable e) {
+                        Log.e(TAG, "initializeServiceStatus " + e.toString());
                     }
 
                     @Override
                     public void onComplete() {
+                        Log.v(TAG, "initializeServiceStatus onComplete");
                     }
                 });
     }
@@ -112,7 +112,7 @@ public class FamilyOtherMemberActivityPresenter extends BaseFamilyOtherMemberPro
             String lastName = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.LAST_NAME, true);
             int age = Utils.getAgeFromDate(Utils.getValue(client.getColumnmaps(), DBConstants.KEY.DOB, true));
 
-            this.getView().setProfileName(MessageFormat.format("{0}, {1}" , getName(getName(firstName, middleName),lastName), age));
+            this.getView().setProfileName(MessageFormat.format("{0}, {1}", getName(getName(firstName, middleName), lastName), age));
         }
     }
 
@@ -133,7 +133,7 @@ public class FamilyOtherMemberActivityPresenter extends BaseFamilyOtherMemberPro
 
     @Override
     public void onRegistrationSaved(boolean isEditMode) {
-        if(isEditMode) {
+        if (isEditMode) {
             getView().hideProgressDialog();
 
             refreshProfileView();
