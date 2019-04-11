@@ -5,6 +5,8 @@ import android.util.Log;
 import org.apache.commons.lang3.tuple.Triple;
 import org.smartregister.chw.contract.FamilyOtherMemberProfileExtendedContract;
 import org.smartregister.chw.contract.FamilyProfileExtendedContract;
+import org.smartregister.chw.interactor.ChildProfileInteractor;
+import org.smartregister.chw.interactor.FamilyInteractor;
 import org.smartregister.chw.interactor.FamilyProfileInteractor;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.contract.FamilyOtherMemberContract;
@@ -17,6 +19,11 @@ import org.smartregister.family.util.Utils;
 
 import java.lang.ref.WeakReference;
 import java.text.MessageFormat;
+
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 import static org.smartregister.util.Utils.getName;
 
@@ -42,6 +49,33 @@ public class FamilyOtherMemberActivityPresenter extends BaseFamilyOtherMemberPro
         this.profileModel = new BaseFamilyProfileModel(familyName);
 
         verifyHasPhone();
+        initializeServiceStatus();
+    }
+
+    private void initializeServiceStatus(){
+        FamilyInteractor.updateFamilyDueStatus("", familyBaseEntityId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<String>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(String s) {
+                        updateFamilyMemberServiceDue(s);
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                    }
+
+                    @Override
+                    public void onComplete() {
+                    }
+                });
     }
 
     public String getFamilyBaseEntityId() {
@@ -126,5 +160,13 @@ public class FamilyOtherMemberActivityPresenter extends BaseFamilyOtherMemberPro
         if (viewReference.get() != null) {
             viewReference.get().updateHasPhone(hasPhone);
         }
+    }
+
+    @Override
+    public void updateFamilyMemberServiceDue(String serviceDueStatus) {
+        if (getView() != null) {
+            getView().setFamilyServiceStatus(serviceDueStatus);
+        }
+
     }
 }

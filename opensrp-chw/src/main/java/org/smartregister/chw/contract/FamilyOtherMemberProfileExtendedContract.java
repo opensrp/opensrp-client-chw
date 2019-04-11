@@ -8,6 +8,7 @@ public interface FamilyOtherMemberProfileExtendedContract {
 
         void updateFamilyMember(String jsonString);
 
+        void updateFamilyMemberServiceDue(String serviceDueStatus);
     }
 
     interface View extends FamilyOtherMemberContract.View {
@@ -19,5 +20,7 @@ public interface FamilyOtherMemberProfileExtendedContract {
         void refreshList();
 
         void updateHasPhone(boolean hasPhone);
+
+        void setFamilyServiceStatus(String status);
     }
 }
