@@ -45,18 +45,33 @@ public class FamilyMemberFloatingMenu extends LinearLayout implements View.OnCli
     public void reDraw(boolean has_phone) {
         if (Country.TANZANIA.equals(BuildConfig.BUILD_COUNTRY)) {
 
-            TextView callTextView = findViewById(R.id.CallTextView);
-            TextView callTextViewHint = findViewById(R.id.CallTextViewHint);
-
-            callTextViewHint.setVisibility(has_phone ? GONE : VISIBLE);
-            callLayout.setOnClickListener(has_phone ? this : null);
-            callTextView.setTypeface(null, (has_phone ? Typeface.NORMAL : Typeface.ITALIC));
-            callTextView.setTextColor(getResources().getColor(has_phone ? android.R.color.black : R.color.grey));
-
-            ((FloatingActionButton) findViewById(R.id.callFab)).getDrawable().setAlpha(has_phone ? 255 : 122);
+            redrawWithOption(has_phone);
 
         } else {
             this.setVisibility(has_phone ? VISIBLE : GONE);
+        }
+    }
+
+    private void redrawWithOption(boolean has_phone) {
+        TextView callTextView = findViewById(R.id.CallTextView);
+        TextView callTextViewHint = findViewById(R.id.CallTextViewHint);
+
+        if (has_phone) {
+
+            callTextViewHint.setVisibility(GONE);
+            callLayout.setOnClickListener(this);
+            callTextView.setTypeface(null, Typeface.NORMAL);
+            callTextView.setTextColor(getResources().getColor(android.R.color.black));
+            ((FloatingActionButton) findViewById(R.id.callFab)).getDrawable().setAlpha(255);
+
+        } else {
+
+            callTextViewHint.setVisibility(VISIBLE);
+            callLayout.setOnClickListener(null);
+            callTextView.setTypeface(null, Typeface.ITALIC);
+            callTextView.setTextColor(getResources().getColor(R.color.grey));
+            ((FloatingActionButton) findViewById(R.id.callFab)).getDrawable().setAlpha(122);
+
         }
     }
 

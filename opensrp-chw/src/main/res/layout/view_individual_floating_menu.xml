@@ -118,7 +118,7 @@
                 android:layout_alignParentRight="true"
                 app:backgroundTint="@color/white"
                 app:fabSize="mini"
-                app:srcCompat="@mipmap/ic_goto" />
+                app:srcCompat="@mipmap/ic_refer" />
 
         </RelativeLayout>
 
