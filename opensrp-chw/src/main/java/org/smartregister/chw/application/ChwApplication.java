@@ -3,6 +3,8 @@ package org.smartregister.chw.application;
 import android.content.Intent;
 import android.util.Log;
 
+import com.crashlytics.android.Crashlytics;
+import com.crashlytics.android.core.CrashlyticsCore;
 import com.evernote.android.job.JobManager;
 
 import org.smartregister.Context;
@@ -41,6 +43,8 @@ import org.smartregister.view.activity.DrishtiApplication;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+
+import io.fabric.sdk.android.Fabric;
 
 public class ChwApplication extends DrishtiApplication {
 
@@ -112,6 +116,8 @@ public class ChwApplication extends DrishtiApplication {
         context = Context.getInstance();
         context.updateApplicationContext(getApplicationContext());
         context.updateCommonFtsObject(createCommonFtsObject());
+
+        Fabric.with(this, new Crashlytics.Builder().core(new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build()).build());
 
         //Initialize Modules
         CoreLibrary.init(context, new ChwSyncConfiguration(), BuildConfig.BUILD_TIMESTAMP);

@@ -21,6 +21,11 @@
         android:supportsRtl="true"
         android:theme="@style/ChwTheme"
         tools:replace="android:theme">
+
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="3f94f9c3caeff331b3a2bd8c2182b663ad6a955a" />
+
         <activity
             android:name="org.smartregister.chw.activity.JobAidsActivity"
             android:theme="@style/ChwTheme.NoActionBar" />

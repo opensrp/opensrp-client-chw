@@ -31,6 +31,7 @@ import org.smartregister.family.util.DBConstants;
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.sync.helper.ECSyncHelper;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -115,18 +116,13 @@ public class ChildUtils {
     }
 
     public static String mainSelect(String tableName, String familyTableName, String familyMemberTableName, String mainCondition) {
-
-        String query = mainSelectRegisterWithoutGroupby(tableName, familyTableName, familyMemberTableName, tableName + "." + DBConstants.KEY.BASE_ENTITY_ID + " = '" + mainCondition + "'");
-
-
-        return query;
+        return mainSelectRegisterWithoutGroupby(tableName, familyTableName, familyMemberTableName, tableName + "." + DBConstants.KEY.BASE_ENTITY_ID + " = '" + mainCondition + "'");
     }
 
-    public static String getChildListByFamilyId(String tableName, String familyId, String childId) {
+    public static String getChildListByFamilyId(String tableName, String familyId) {
         SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
         queryBUilder.SelectInitiateMainTable(tableName, new String[]{DBConstants.KEY.BASE_ENTITY_ID});
-        String query = queryBUilder.mainCondition(tableName + "." + DBConstants.KEY.RELATIONAL_ID + " = '" + familyId + "'");
-        return query;
+        return queryBUilder.mainCondition(MessageFormat.format("{0}.{1} = ''{2}''", tableName, DBConstants.KEY.RELATIONAL_ID, familyId));
     }
 
     public static ChildHomeVisit getLastHomeVisit(String tableName, String childId) {
