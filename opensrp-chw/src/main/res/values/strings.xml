@@ -221,5 +221,6 @@
     <string name="menu_pnc">PNC</string>
     <string name="menu_family_planing">FP</string>
     <string name="menu_malaria">MALARIA</string>
+    <string name="refer_to_facility">Refer to facility</string>
 
 </resources>
