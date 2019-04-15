@@ -163,12 +163,14 @@
 
                 <TextView
                     android:id="@+id/tvSync"
-                    android:layout_width="wrap_content"
+                    android:layout_width="80sp"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:layout_toEndOf="@+id/rlIconSync"
+                    android:ellipsize="end"
+                    android:maxLines="1"
                     android:clickable="true"
                     android:focusable="true"
                     android:fontFamily="sans-serif"
