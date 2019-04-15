@@ -32,19 +32,19 @@ public class Constants {
 
         public static final String REMOVE_MEMBER = "Remove Family Member";
         public static final String REMOVE_CHILD = "Remove Child Under 5";
-        public static final String REMOVE_FAMILY = "Remove Family";
+        public static final String REMOVE_FAMILY = "Remove Faubuntumily";
     }
 
     public static class JSON_FORM {
-        public static final String BIRTH_CERTIFICATION = "birth_certification";
-        public static final String OBS_ILLNESS = "observation_illness";
-        public static final String FAMILY_REGISTER = (Country.TANZANIA.equals(BuildConfig.BUILD_COUNTRY) ? "tz_family_register" : "family_register");
-        public static final String FAMILY_MEMBER_REGISTER = (Country.TANZANIA.equals(BuildConfig.BUILD_COUNTRY) ? "tz_family_member_register" : "family_member_register");
-        public static final String CHILD_REGISTER = "child_enrollment";
-        public static final String FAMILY_DETAILS_REGISTER = (Country.TANZANIA.equals(BuildConfig.BUILD_COUNTRY) ? "tz_family_details_register" : "family_details_register");
-        public static final String FAMILY_DETAILS_REMOVE_MEMBER = "family_details_remove_member";
-        public static final String FAMILY_DETAILS_REMOVE_CHILD = "family_details_remove_child";
-        public static final String FAMILY_DETAILS_REMOVE_FAMILY = "family_details_remove_family";
+        public static final String BIRTH_CERTIFICATION = Utils.getLocalForm("birth_certification");
+        public static final String OBS_ILLNESS = Utils.getLocalForm("observation_illness");
+        public static final String FAMILY_REGISTER = Country.TANZANIA.equals(BuildConfig.BUILD_COUNTRY) ? "tz_family_register" : Utils.getLocalForm("family_register");
+        public static final String FAMILY_MEMBER_REGISTER = (Country.TANZANIA.equals(BuildConfig.BUILD_COUNTRY) ? "tz_family_member_register" : Utils.getLocalForm("family_member_register"));
+        public static final String CHILD_REGISTER = Utils.getLocalForm("child_enrollment");
+        public static final String FAMILY_DETAILS_REGISTER = (Country.TANZANIA.equals(BuildConfig.BUILD_COUNTRY) ? "tz_family_details_register" : Utils.getLocalForm("family_details_register"));
+        public static final String FAMILY_DETAILS_REMOVE_MEMBER = Utils.getLocalForm("family_details_remove_member");
+        public static final String FAMILY_DETAILS_REMOVE_CHILD = Utils.getLocalForm("family_details_remove_child");
+        public static final String FAMILY_DETAILS_REMOVE_FAMILY = Utils.getLocalForm("family_details_remove_family");
     }
 
     public static class RELATIONSHIP {
