@@ -58,7 +58,6 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
         if (getActivity() != null && count != dueCount) {
             dueCount = count;
             ((FamilyProfileActivity) getActivity()).updateDueCount(dueCount);
-
         }
     }
 

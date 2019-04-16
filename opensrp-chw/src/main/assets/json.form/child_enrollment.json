@@ -60,7 +60,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "choose_image",
-        "uploadButtonText": "Take a picture of the child"
+        "uploadButtonText": "Take a picture of the person"
       },
       {
         "key": "unique_id",
@@ -68,7 +68,7 @@
         "openmrs_entity": "person_identifier",
         "openmrs_entity_id": "opensrp_id",
         "type": "edit_text",
-        "hint": "ID *",
+        "hint": "Boresha Afya ID *",
         "read_only" : "true",
         "value": "0",
         "v_numeric": {
@@ -81,6 +81,21 @@
         }
       },
       {
+        "key": "unique_id",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "hidden": "true",
+        "type": "barcode",
+        "barcode_type": "qrcode",
+        "hint": "Scan QR code*",
+        "scanButtonText": "Scan QR Code",
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter a valid ID"
+        }
+      },
+      {
         "key": "surname",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
@@ -89,7 +104,7 @@
         "hint": "Surname",
         "edit_type": "name",
         "v_regex": {
-          "value": "[A-Za-z\\s\\.\\-]*",
+          "value": "[A-Za-z\\s\.\-]*",
           "err": "Please enter a valid name"
         },
         "v_required": {
@@ -158,10 +173,10 @@
         "expanded": false,
         "v_required": {
           "value": "true",
-          "err": "Please Enter a Valid Name"
+          "err": "Please Enter first name"
         },
         "v_regex": {
-          "value": "[A-Za-z\\s\\.\\-]*",
+          "value": "[A-Za-z\\s\.\-]*",
           "err": "Please Enter a Valid Name"
         }
       },
@@ -174,8 +189,12 @@
         "type": "edit_text",
         "hint": "Middle name",
         "expanded": false,
+        "v_required": {
+          "value": "true",
+          "err": "Please Enter middle name"
+        },
         "v_regex": {
-          "value": "[A-Za-z\\s\\.\\-]*",
+          "value": "[A-Za-z\\s\.\-]*",
           "err": "Please Enter a Valid Name"
         }
       },
@@ -209,7 +228,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "person",
         "openmrs_entity_id": "birthdateApprox",
-        "hidden": "true",
+        "hidden": "false",
         "type": "check_box",
         "label": "",
         "options": [
@@ -253,6 +272,72 @@
         }
       },
       {
+        "key": "insurance_provider",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "",
+        "type": "spinner",
+        "hint": "Health insurance provider",
+        "values": [
+          "Community Health Fund (CHF)",
+          "Improved Community Health Fund (iCHF)",
+          "National Social Security Fund - Social Health Insurance Benefit (SHIB)",
+          "Tiba Kwa Kadi (TIKA)",
+          "AAR Healthcare",
+          "Strategies Insurance",
+          "Milvik Tanzania Ltd (BIMA Mkononi)",
+          "Britam Insurance Tanzania",
+          "Jubilee Insurance",
+          "Resolutions Insurance",
+          "Reliance Insurance",
+          "Other",
+          "None"
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select insurance provider"
+        }
+      },
+
+      {
+        "key": "insurance_provider_other",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "Other insurance provider",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family-child-relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": true,
+          "err": "Please enter other insurance provider"
+        }
+      },
+      {
+        "key": "insurance_provider_number",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "Health insurance provider number",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family-child-relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": true,
+          "err": "Please enter insurance provider number"
+        }
+      },
+      {
         "key": "gender",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person",
@@ -268,44 +353,114 @@
           "err": "Please enter the sex"
         }
       },
+
       {
-        "key": "early_bf_1hr",
+        "key": "disabilities",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "161543AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
         "type": "spinner",
-        "hint": "Early initiation of breastfeeding (1 hr)?",
+        "hint": "Physical disabilities",
         "values": [
           "Yes",
           "No"
         ],
-        "openmrs_choice_ids": {
-          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
+
         "v_required": {
           "value": "true",
-          "err": "Please enter Early initiation of breastfeeding"
+          "err": "Please enter if there is physical disabilities"
         }
       },
       {
-        "key": "physically_challenged",
+        "key": "disability_type",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "159522AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "Type of physical disabilities",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family-child-relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": true,
+          "err": "Please enter type of physical disabilities"
+        }
+      },
+
+      {
+        "key": "birth_cert_available",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
         "type": "spinner",
-        "hint": "Physically challenged?",
+        "hint": "Birth registration/certificate",
         "values": [
           "Yes",
           "No"
         ],
-        "openmrs_choice_ids": {
-          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
+
         "v_required": {
           "value": "true",
-          "err": "Please enter if Physically challenged"
+          "err": "Please provide birth registration/certificate"
+        }
+      },
+      {
+        "key": "birth_regist_number",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "Birth registration number",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family-child-relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": true,
+          "err": "Please enter birth registration number"
+        }
+      },
+      {
+        "key": "rhc_card",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "spinner",
+        "hint": "Does the child have child growth booklet",
+        "values": [
+          "Yes",
+          "No"
+        ],
+
+        "v_required": {
+          "value": "true",
+          "err": "Please provide child growth booklet"
+        }
+      },
+
+      {
+        "key": "nutrition_status",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "spinner",
+        "hint": "Nutrition status",
+        "values": [
+          "Green",
+          "Grey",
+          "Red"
+        ],
+
+        "v_required": {
+          "value": "true",
+          "err": "Please provide child nutrition status"
         }
       }
     ]
