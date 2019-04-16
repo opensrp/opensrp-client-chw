@@ -87,8 +87,7 @@ public class Constants {
         public static final String ANC = "ANC";
         public static final String LD = "L&D";
         public static final String PNC = "PNC";
-        public static final String CH = "CH";
-        public static final String FP = "FP";
+        public static final String FAMILY_PLANNING = "Family Planning";
         public static final String MALARIA = "MALARIA";
     }
 
