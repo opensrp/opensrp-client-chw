@@ -104,7 +104,7 @@
         "hint": "Surname",
         "edit_type": "name",
         "v_regex": {
-          "value": "[A-Za-z\\s\.\-]*",
+          "value": "[A-Za-z\\s\\.\\-]*",
           "err": "Please enter a valid name"
         },
         "v_required": {
@@ -176,7 +176,7 @@
           "err": "Please Enter first name"
         },
         "v_regex": {
-          "value": "[A-Za-z\\s\.\-]*",
+          "value": "[A-Za-z\\s\\-]*",
           "err": "Please Enter a Valid Name"
         }
       },
@@ -194,7 +194,7 @@
           "err": "Please Enter middle name"
         },
         "v_regex": {
-          "value": "[A-Za-z\\s\.\-]*",
+          "value": "[A-Za-z\\s\\.\\-]*",
           "err": "Please Enter a Valid Name"
         }
       },
@@ -457,7 +457,6 @@
           "Grey",
           "Red"
         ],
-
         "v_required": {
           "value": "true",
           "err": "Please provide child nutrition status"
