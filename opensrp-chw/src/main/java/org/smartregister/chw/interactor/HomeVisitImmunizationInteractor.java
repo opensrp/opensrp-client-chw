@@ -43,7 +43,7 @@ import static org.smartregister.immunization.util.VaccinatorUtils.receivedVaccin
 
 public class HomeVisitImmunizationInteractor implements HomeVisitImmunizationContract.Interactor {
     private static String TAG = HomeVisitImmunizationInteractor.class.toString();
-
+    private List<Vaccine> vaccines;
     public HomeVisitImmunizationInteractor() {
     }
 
@@ -189,8 +189,14 @@ public class HomeVisitImmunizationInteractor implements HomeVisitImmunizationCon
         return getNotGivenVaccinesNotInNotGivenThisVisit;
     }
 
+    public List<Vaccine> getVaccines() {
+        return vaccines;
+    }
+
     @Override
     public ArrayList<HomeVisitVaccineGroup> determineAllHomeVisitVaccineGroup(List<Alert> alerts, List<Vaccine> vaccines, ArrayList<VaccineWrapper> notGivenVaccines, List<Map<String, Object>> sch) {
+        if(this.vaccines!=null) this.vaccines.clear();
+        this.vaccines = vaccines;
         Map<String, Date> receivedvaccines = receivedVaccines(vaccines);
         List<VaccineRepo.Vaccine> vList = Arrays.asList(VaccineRepo.Vaccine.values());
 

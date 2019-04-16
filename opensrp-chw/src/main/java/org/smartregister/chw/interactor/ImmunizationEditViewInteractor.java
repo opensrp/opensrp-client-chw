@@ -45,6 +45,7 @@ public class ImmunizationEditViewInteractor implements ImmunizationEditContract.
 
     private AppExecutors appExecutors;
     private HomeVisitImmunizationInteractor homeVisitImmunizationInteractor;
+    private List<Vaccine> vaccines;
     @VisibleForTesting
     ImmunizationEditViewInteractor(AppExecutors appExecutors){
         this.appExecutors = appExecutors;
@@ -53,6 +54,11 @@ public class ImmunizationEditViewInteractor implements ImmunizationEditContract.
         this(new AppExecutors());
         homeVisitImmunizationInteractor = new HomeVisitImmunizationInteractor();
     }
+
+    public List<Vaccine> getVaccines() {
+        return homeVisitImmunizationInteractor.getVaccines();
+    }
+
     @Override
     public void fetchImmunizationEditData(CommonPersonObjectClient commonPersonObjectClient, final ImmunizationEditContract.InteractorCallBack callBack) {
 

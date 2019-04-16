@@ -3,6 +3,7 @@ package org.smartregister.chw.contract;
 import android.content.Context;
 
 import org.json.JSONObject;
+import org.smartregister.commonregistry.CommonPersonObjectClient;
 
 public interface ChildHomeVisitContract {
     interface View {
@@ -19,6 +20,8 @@ public interface ChildHomeVisitContract {
     interface Presenter {
         ChildHomeVisitContract.View getView();
 
+        void getLastEditData();
+
         void startBirthCertForm(JSONObject previousJson);
 
         void startObsIllnessCertForm(JSONObject previousJson);
@@ -31,7 +34,9 @@ public interface ChildHomeVisitContract {
     }
 
     interface Interactor {
-        void generateBirthIllnessForm(String jsonString, InteractorCallback callback);
+        void getLastEditData(CommonPersonObjectClient childClient, InteractorCallback callback);
+
+        void generateBirthIllnessForm(String jsonString, InteractorCallback callback,boolean isEditMode);
 
         void saveForm();
 
@@ -39,6 +44,10 @@ public interface ChildHomeVisitContract {
     }
 
     interface InteractorCallback {
+        void updateBirthCertEditData(String json);
+
+        void updateObsIllnessEditData(String json);
+
         void updateBirthStatusTick();
 
         void updateObsIllnessStatusTick();

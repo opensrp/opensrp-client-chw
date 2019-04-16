@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import org.joda.time.DateTime;
 import org.smartregister.chw.R;
+import org.smartregister.chw.listener.OnClickEditAdapter;
 import org.smartregister.chw.util.HomeVisitVaccineGroup;
 import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.util.DateUtil;
@@ -27,10 +28,12 @@ import static org.smartregister.chw.util.ChildUtils.fixVaccineCasing;
 public class HomeVisitImmunizationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private ArrayList<HomeVisitVaccineGroup> homeVisitVaccineGroupDetailsArrayList;
     private Context context;
+    private OnClickEditAdapter onClickEditAdapter;
 
-    public HomeVisitImmunizationAdapter(Context context) {
+    public HomeVisitImmunizationAdapter(Context context,OnClickEditAdapter onClickEditAdapter) {
         this.homeVisitVaccineGroupDetailsArrayList = new ArrayList<>();
         this.context = context;
+        this.onClickEditAdapter = onClickEditAdapter;
     }
 
     public void addItem(ArrayList<HomeVisitVaccineGroup> homeVisitVaccineGroupDetailsArrayList) {
@@ -52,7 +55,7 @@ public class HomeVisitImmunizationAdapter extends RecyclerView.Adapter<RecyclerV
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, final int position) {
 
         switch (viewHolder.getItemViewType()) {
             case HomeVisitVaccineGroup.TYPE_INACTIVE:
@@ -71,7 +74,7 @@ public class HomeVisitImmunizationAdapter extends RecyclerView.Adapter<RecyclerV
                 inactiveViewHolder.descriptionText.setText(Html.fromHtml(context.getString(R.string.fill_earler_immunization)));
                 break;
             case  HomeVisitVaccineGroup.TYPE_ACTIVE:
-                HomeVisitVaccineGroup contentImmunization = homeVisitVaccineGroupDetailsArrayList.get(position);
+                final HomeVisitVaccineGroup contentImmunization = homeVisitVaccineGroupDetailsArrayList.get(position);
                 ContentViewHolder contentViewHolder = (ContentViewHolder) viewHolder;
                 String cImmunization;
                 String cValue = contentImmunization.getGroup();
@@ -88,11 +91,16 @@ public class HomeVisitImmunizationAdapter extends RecyclerView.Adapter<RecyclerV
                 contentViewHolder.circleImageView.setImageResource(R.drawable.ic_checked);
                 contentViewHolder.circleImageView.setColorFilter(context.getResources().getColor(R.color.white));
 
-                int color_res = isComplete(contentImmunization) ? R.color.pnc_circle_yellow : R.color.alert_complete_green;
+                int color_res = isComplete(contentImmunization) ? R.color.alert_complete_green :R.color.pnc_circle_yellow;
 
                 contentViewHolder.circleImageView.setCircleBackgroundColor(context.getResources().getColor(color_res));
                 contentViewHolder.circleImageView.setBorderColor(context.getResources().getColor(color_res));
-
+                contentViewHolder.getView().setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        onClickEditAdapter.onClick(position,contentImmunization);
+                    }
+                });
 
                 break;
         }
@@ -136,7 +144,7 @@ public class HomeVisitImmunizationAdapter extends RecyclerView.Adapter<RecyclerV
     }
     private boolean isComplete(HomeVisitVaccineGroup contentImmunization){
 
-        return contentImmunization.getDueVaccines().size() == contentImmunization.getGivenVaccines().size();
+        return contentImmunization.getNotGivenVaccines().size() == 0;
 
     }
 

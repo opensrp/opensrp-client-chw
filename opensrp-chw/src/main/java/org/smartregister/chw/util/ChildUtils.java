@@ -368,7 +368,7 @@ public class ChildUtils {
     }
 
     //event type="Child Home Visit"/Visit not done
-    public static void updateHomeVisitAsEvent(String entityId, String eventType, String entityType, JSONObject singleVaccineObject, JSONObject vaccineGroupObject,JSONObject vaccineNotGiven, JSONObject service,JSONObject serviceNotGiven, String birthCert, JSONObject illnessJson, String visitStatus, String value) {
+    public static void updateHomeVisitAsEvent(String entityId, String eventType, String entityType, JSONObject singleVaccineObject, JSONObject vaccineGroupObject,JSONObject vaccineNotGiven, JSONObject service,JSONObject serviceNotGiven, JSONObject birthCert, JSONObject illnessJson, String visitStatus, String value) {
         try {
 
             ECSyncHelper syncHelper = FamilyLibrary.getInstance().getEcSyncHelper();
@@ -472,7 +472,12 @@ public class ChildUtils {
                     newHomeVisit.setServiceNotGiven(new JSONObject((String) obs.getValue()));
                 }
                 if (obs.getFormSubmissionField().equalsIgnoreCase("birth_certificate")) {
-                    newHomeVisit.setBirthCertificationState((String) obs.getValue());
+                    try{
+                        newHomeVisit.setBirthCertificationState(new JSONObject((String) obs.getValue()));
+                    }catch (Exception e){
+                        //previous support
+                        newHomeVisit.setBirthCertificationState(new JSONObject());
+                    }
                 }
                 if (obs.getFormSubmissionField().equalsIgnoreCase("illness_information")) {
                     newHomeVisit.setIllness_information(new JSONObject((String) obs.getValue()));
