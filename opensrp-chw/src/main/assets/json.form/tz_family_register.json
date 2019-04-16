@@ -107,7 +107,11 @@
         "openmrs_entity": "person_address",
         "openmrs_entity_id": "landmark",
         "type": "edit_text",
-        "hint": "Landmark/ Description of house location"
+        "hint": "Landmark/ description of house location *",
+        "v_required": {
+          "value": true,
+          "err": "Please enter the landmark/description of location."
+        }
       },
       {
         "key": "gps",
