@@ -13,6 +13,11 @@
     <string name="username">Nom d\'utilisateur</string>
     <string name="password">Mot de passe</string>
 
+    <string name="menu_all_families">Toutes les familles</string>
+    <string name="menu_anc_clients">Clients SPN</string>
+    <string name="menu_child_clients">Enfants Clients</string>
+    <string name="menu_hiv_clients">Clients VIH</string>
+
     <string name="title_family_detail">Détails sur la Famille</string>
     <string name="child_register_title">Enfants Clients</string>
     <string name="return_to_all_children">Retournez à tous les enfants</string>
@@ -51,7 +56,7 @@
     <string name="add_child_under_five">Enfant de moins de 5 ans</string>
     <string name="child_under_five">Enfant de moins de 5 ans</string>
     <string name="go_to_family_s_profile">Aller au profil de la famille</string>
-    <string name="family_has_nothing_due">La famille n\'a pas de service(s) attendu(s)</string>
+    <string name="family_has_nothing_due">La famille n\'a pas de service attendu</string>
     <string name="family_has_services_due">La famille à des services attendues</string>
     <string name="vaccine_service_overdue"><![CDATA[%1$s <font color=#f04646>en retard (%2$s)</font></b>]]></string>
     <string name="vaccine_service_due"><![CDATA[%1$s <font color=#000000>attendu (%2$s)</font></b>]]></string>
@@ -202,5 +207,20 @@
     <string name="due">Attendu&#160;</string>
     <string name="remove_this_person">Enlever cette personne</string>
     <string name="registration_info">Information d\'enregistrement</string>
+    <string name="log_out_as">Se déconnecter comme</string>
+    <string name="job_aids">Outils de travail</string>
+    <string name="powered_by">Réalisé par</string>
+    <string name="immunisation_and_services"><![CDATA[IMMUNISATION & SERVICES]]></string>
+    <string name="call_caregiver">Appellez la personne responsable pour l\'enfant</string>
+    <string name="caregiver">Personne principalement responsable pour l\'enfant</string>
+    <string name="select_a_new_family_head">Sélectionner un nouveau chef de famille</string>
+    <string name="all_registers">Tous registres</string>
+    <string name="menu_labour_and_delivery"><![CDATA[L&D]]></string>
+    <string name="menu_child">CH</string>
+    <string name="menu_anc">SPN</string>
+    <string name="menu_pnc">Consultation post natale (CPN)</string>
+    <string name="menu_family_planing">PF</string>
+    <string name="menu_malaria">PALUDISME</string>
+    <string name="refer_to_facility">Référer à la structure sanitaire</string>
 
 </resources>

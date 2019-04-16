@@ -1,6 +1,7 @@
 package org.smartregister.chw.presenter;
 
 import org.apache.commons.lang3.StringUtils;
+import org.smartregister.chw.R;
 import org.smartregister.chw.contract.ChildRegisterFragmentContract;
 import org.smartregister.chw.util.ChildDBConstants;
 import org.smartregister.chw.util.Constants;
@@ -47,7 +48,7 @@ public class ChildRegisterFragmentPresenter implements ChildRegisterFragmentCont
         }
 
         if (config.getSearchBarText() != null && getView() != null) {
-            getView().updateSearchBarHint(config.getSearchBarText());
+            getView().updateSearchBarHint(getView().getContext().getString(R.string.search_name_or_id));
         }
     }
 
