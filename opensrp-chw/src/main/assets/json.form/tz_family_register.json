@@ -105,7 +105,7 @@
         "key": "landmark",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_address",
-        "openmrs_entity_id": "landmark",
+        "openmrs_entity_id": "address1",
         "type": "edit_text",
         "hint": "Landmark/ Description of house location"
       },
