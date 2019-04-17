@@ -138,9 +138,14 @@ public class HomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNutriti
     }
 
     @Override
-    public void updateGivenRecordVisitData(Map<String, ServiceWrapper> stringServiceWrapperMap) {
-        updateData(stringServiceWrapperMap);
+    public void allDataLoaded() {
         getView().allDataLoaded();
+    }
+
+    @Override
+    public void updateGivenRecordVisitData(Map<String, ServiceWrapper> stringServiceWrapperMap) {
+        getView().allDataLoaded();
+        updateData(stringServiceWrapperMap);
         if(isEditMode){
             for(String type : stringServiceWrapperMap.keySet()){
                 ServiceWrapper serviceWrapper = stringServiceWrapperMap.get(type);

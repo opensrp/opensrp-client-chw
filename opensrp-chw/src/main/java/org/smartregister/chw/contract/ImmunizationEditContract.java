@@ -10,6 +10,7 @@ public interface ImmunizationEditContract {
     interface View {
 
         Presenter initializePresenter();
+        void allDataLoaded();
         void updateAdapter();
     }
     interface Presenter{
@@ -22,7 +23,7 @@ public interface ImmunizationEditContract {
         void fetchImmunizationEditData(CommonPersonObjectClient commonPersonObjectClient,InteractorCallBack callBack);
     }
     interface InteractorCallBack {
-
+        void allDataLoaded();
         void updateEditData(ArrayList<HomeVisitVaccineGroup> homeVisitVaccineGroupDetails);
     }
 

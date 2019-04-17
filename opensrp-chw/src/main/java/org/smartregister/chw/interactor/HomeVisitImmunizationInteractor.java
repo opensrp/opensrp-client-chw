@@ -231,14 +231,14 @@ public class HomeVisitImmunizationInteractor implements HomeVisitImmunizationCon
         for (int x = 0; x < homeVisitVaccineGroupArrayList.size(); x++) {
             // compute not given vaccines
             homeVisitVaccineGroupArrayList.get(x).calculateNotGivenVaccines();
-
-            for (int i = 0; i < homeVisitVaccineGroupArrayList.get(x).getDueVaccines().size(); i++) {
-                for (VaccineWrapper notgivenVaccine : notGivenVaccines) {
-                    if (homeVisitVaccineGroupArrayList.get(x).getDueVaccines().get(i).display().equalsIgnoreCase(notgivenVaccine.getName())) {
-                        homeVisitVaccineGroupArrayList.get(x).getNotGivenInThisVisitVaccines().add(notgivenVaccine.getVaccine());
+                for (int i = 0; i < homeVisitVaccineGroupArrayList.get(x).getDueVaccines().size(); i++) {
+                    for (VaccineWrapper notgivenVaccine : notGivenVaccines) {
+                        if (homeVisitVaccineGroupArrayList.get(x).getDueVaccines().get(i).display().equalsIgnoreCase(notgivenVaccine.getName())) {
+                            homeVisitVaccineGroupArrayList.get(x).getNotGivenInThisVisitVaccines().add(notgivenVaccine.getVaccine());
+                        }
                     }
                 }
-            }
+
         }
 
         return homeVisitVaccineGroupArrayList;
@@ -272,13 +272,16 @@ public class HomeVisitImmunizationInteractor implements HomeVisitImmunizationCon
                         homeVisitVaccineGroupArrayList.get(position).setDueDate(dueDate.toLocalDate() + "");
                         homeVisitVaccineGroupArrayList.get(position).setDueDisplayDate(DateUtil.formatDate(dueDate.toLocalDate(), "dd MMM yyyy"));
                         //add to date wise vaccine list.needed to display vaccine name with date
-                        if(homeVisitVaccineGroupArrayList.get(position).getGroupedByDate().get(dueDate) == null){
-                            ArrayList<VaccineRepo.Vaccine> vaccineArrayList = new ArrayList<>();
-                            vaccineArrayList.add(vaccine);
-                            homeVisitVaccineGroupArrayList.get(position).getGroupedByDate().put(dueDate,vaccineArrayList);
-                        }else{
-                            homeVisitVaccineGroupArrayList.get(position).getGroupedByDate().get(dueDate).add(vaccine);
-                        }
+                        //if(homeVisitVaccineGroupArrayList.get(position).getGivenVaccines().contains(vaccine)){
+                            if(homeVisitVaccineGroupArrayList.get(position).getGroupedByDate().get(dueDate) == null){
+                                ArrayList<VaccineRepo.Vaccine> vaccineArrayList = new ArrayList<>();
+                                vaccineArrayList.add(vaccine);
+                                homeVisitVaccineGroupArrayList.get(position).getGroupedByDate().put(dueDate,vaccineArrayList);
+                            }else{
+                                homeVisitVaccineGroupArrayList.get(position).getGroupedByDate().get(dueDate).add(vaccine);
+                            }
+                       // }
+
                     }
                 }
             }

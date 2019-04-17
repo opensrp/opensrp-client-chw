@@ -14,7 +14,7 @@ public class VaccineTaskModel {
     private List<Vaccine> vaccines;
     private Map<String, Date> receivedVaccines;
     private List<Map<String, Object>> scheduleList;
-    private ArrayList<VaccineWrapper> notGivenVaccine;
+    private ArrayList<VaccineWrapper> notGivenVaccine = new ArrayList<>();
 
     public List<Alert> getAlerts() {
         return alerts;

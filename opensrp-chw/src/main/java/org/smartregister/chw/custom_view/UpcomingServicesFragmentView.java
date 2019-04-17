@@ -156,6 +156,11 @@ public class UpcomingServicesFragmentView extends LinearLayout implements View.O
             }
 
             @Override
+            public void allDataLoaded() {
+
+            }
+
+            @Override
             public void updateGivenRecordVisitData(final Map<String, ServiceWrapper> stringServiceWrapperMap) {
 
 //

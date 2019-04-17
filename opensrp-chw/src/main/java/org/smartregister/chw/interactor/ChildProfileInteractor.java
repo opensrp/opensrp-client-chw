@@ -330,6 +330,11 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
                                 public void updateNotGivenRecordVisitData(Map<String, ServiceWrapper> stringServiceWrapperMap) {
                                     //No need to handle not given service
                                 }
+
+                                @Override
+                                public void allDataLoaded() {
+
+                                }
                             });
                         }
 

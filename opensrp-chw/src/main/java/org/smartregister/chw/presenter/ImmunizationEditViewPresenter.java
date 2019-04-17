@@ -28,7 +28,7 @@ import io.reactivex.ObservableOnSubscribe;
 public class ImmunizationEditViewPresenter implements ImmunizationEditContract.Presenter,ImmunizationEditContract.InteractorCallBack {
 
     private WeakReference<ImmunizationEditContract.View> view;
-    private ArrayList<HomeVisitVaccineGroup> homeVisitVaccineGroupDetails;
+    private ArrayList<HomeVisitVaccineGroup> homeVisitVaccineGroupDetails = new ArrayList<>();
     private ImmunizationEditContract.Interactor interactor;
     private ArrayList<VaccineWrapper> vaccinesGivenInitially = new ArrayList<VaccineWrapper>();
     private ArrayList<VaccineWrapper> vaccinesGivenThisVisit = new ArrayList<VaccineWrapper>();
@@ -51,7 +51,13 @@ public class ImmunizationEditViewPresenter implements ImmunizationEditContract.P
     }
 
     @Override
+    public void allDataLoaded() {
+        getView().allDataLoaded();
+    }
+
+    @Override
     public void updateEditData(ArrayList<HomeVisitVaccineGroup> homeVisitVaccineGroupDetails) {
+        allDataLoaded();
         this.homeVisitVaccineGroupDetails = homeVisitVaccineGroupDetails;
         for (HomeVisitVaccineGroup homeVisitVaccineGroup :this.homeVisitVaccineGroupDetails){
             homeVisitVaccineGroup.setViewType(HomeVisitVaccineGroup.TYPE_ACTIVE);
@@ -154,6 +160,7 @@ public class ImmunizationEditViewPresenter implements ImmunizationEditContract.P
             public void subscribe(ObservableEmitter e) throws Exception {
                 for (VaccineWrapper tag : vaccinesGivenInitially) {
                     if (tag != null && notGivenVaccines.contains(tag) && tag.getDbKey() != null) {
+                        notGivenVaccines.remove(tag);
                         Long dbKey = tag.getDbKey();
                         vaccineRepository.deleteVaccine(dbKey);
 

@@ -56,6 +56,7 @@ public interface HomeVisitGrowthNutritionContract {
     }
 
     interface InteractorCallBack {
+        void allDataLoaded();
         void updateGivenRecordVisitData(Map<String, ServiceWrapper> stringServiceWrapperMap);
         void updateNotGivenRecordVisitData(Map<String, ServiceWrapper> stringServiceWrapperMap);
 

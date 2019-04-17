@@ -117,25 +117,33 @@ public class HomeVisitImmunizationAdapter extends RecyclerView.Adapter<RecyclerV
     private StringBuilder getVaccineWithDateText(HomeVisitVaccineGroup contentImmunization){
         StringBuilder groupSecondaryText = new StringBuilder();
         Iterator<Map.Entry<DateTime, ArrayList<VaccineRepo.Vaccine>>> iterator = contentImmunization.getGroupedByDate().entrySet().iterator();
+        int count;
         while (iterator.hasNext()) {
+            count = 0;
             Map.Entry<DateTime, ArrayList<VaccineRepo.Vaccine>> entry = iterator.next();
             DateTime dueDate = entry.getKey();
             ArrayList<VaccineRepo.Vaccine> vaccines = entry.getValue();
-            // now work with key and value...
-            for (VaccineRepo.Vaccine vaccineGiven : vaccines) {
-                groupSecondaryText.append(fixVaccineCasing(vaccineGiven.display())).append(", ");
-            }
+                // now work with key and value...
+                for (VaccineRepo.Vaccine vaccineGiven : vaccines) {
+                     if(isExistInGivenVaccine(contentImmunization,vaccineGiven.display())){
+                        groupSecondaryText.append(fixVaccineCasing(vaccineGiven.display())).append(", ");
+                        count++;
+                     }
 
-            if (groupSecondaryText.toString().endsWith(", ")) {
-                groupSecondaryText = new StringBuilder(groupSecondaryText.toString().trim());
-                groupSecondaryText = new StringBuilder(groupSecondaryText.substring(0, groupSecondaryText.length() - 1));
-            }
+                }
 
-            groupSecondaryText.append(context.getString(R.string.given_on_with_spaces)).append(DateUtil.formatDate(dueDate.toLocalDate(), "dd MMM yyyy"));
+                if (groupSecondaryText.toString().endsWith(", ")) {
+                    groupSecondaryText = new StringBuilder(groupSecondaryText.toString().trim());
+                    groupSecondaryText = new StringBuilder(groupSecondaryText.substring(0, groupSecondaryText.length() - 1));
+                }
 
-            if (contentImmunization.getNotGivenVaccines().size()>0 || iterator.hasNext()) {
-                groupSecondaryText.append(" \u00B7 ");
-            }
+                if(!TextUtils.isEmpty(groupSecondaryText) && count>0) {
+                    groupSecondaryText.append(context.getString(R.string.given_on_with_spaces)).append(DateUtil.formatDate(dueDate.toLocalDate(), "dd MMM yyyy"));
+                    if (contentImmunization.getNotGivenVaccines().size()>0 || iterator.hasNext()) {
+                        groupSecondaryText.append(" \u00B7 ");
+                    }
+                }
+
         }
         groupSecondaryText.append(getNotGivenVaccineName(contentImmunization));
         return groupSecondaryText;
@@ -153,6 +161,14 @@ public class HomeVisitImmunizationAdapter extends RecyclerView.Adapter<RecyclerV
         if(!TextUtils.isEmpty(groupSecondaryText))
             groupSecondaryText.append(context.getString(R.string.not_given_with_spaces));
         return groupSecondaryText;
+    }
+    private boolean isExistInGivenVaccine(HomeVisitVaccineGroup contentImmunization,String name){
+        for(VaccineRepo.Vaccine vaccineGiven:contentImmunization.getGivenVaccines()){
+            if(vaccineGiven.display().equalsIgnoreCase(name)){
+                return true;
+            }
+        }
+        return false;
     }
 
     private boolean isComplete(HomeVisitVaccineGroup contentImmunization){

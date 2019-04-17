@@ -85,32 +85,53 @@ public class ChildHomeVisitInteractor implements ChildHomeVisitContract.Interact
     @Override
     public void getLastEditData(CommonPersonObjectClient childClient, final ChildHomeVisitContract.InteractorCallback callback) {
 
-        getLastVisitBirthCertData(childClient)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<BirthIllnessModel>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
+        String lastHomeVisitStr=org.smartregister.util.Utils.getValue(childClient, ChildDBConstants.KEY.LAST_HOME_VISIT, false);
+        long lastHomeVisit= TextUtils.isEmpty(lastHomeVisitStr)?0:Long.parseLong(lastHomeVisitStr);
+        HomeVisit homeVisit = ChwApplication.homeVisitRepository().findByDate(lastHomeVisit);
+        if(homeVisit!=null){
+            JSONObject jsonObject = null;
+            try {
+                jsonObject = new JSONObject(homeVisit.getBirthCertificationState().toString());
+                String birt = jsonObject.getString("birtCert");
+                callback.updateBirthCertEditData(birt);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            try {
+                jsonObject = new JSONObject(homeVisit.getIllness_information().toString());
+                String illness = jsonObject.getString("obsIllness");
+                callback.updateObsIllnessEditData(illness);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
 
-                    }
-
-                    @Override
-                    public void onNext(BirthIllnessModel birthIllnessModel) {
-                        callback.updateBirthCertEditData(birthIllnessModel.getLastBirthCertData());
-                        callback.updateObsIllnessEditData(birthIllnessModel.getLastIllnessData());
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
+        }
+//        getLastVisitBirthCertData(childClient)
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(new Observer<BirthIllnessModel>() {
+//                    @Override
+//                    public void onSubscribe(Disposable d) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onNext(BirthIllnessModel birthIllnessModel) {
+//                        callback.updateBirthCertEditData(birthIllnessModel.getLastBirthCertData());
+//                        callback.updateObsIllnessEditData(birthIllnessModel.getLastIllnessData());
+//
+//                    }
+//
+//                    @Override
+//                    public void onError(Throwable e) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onComplete() {
+//
+//                    }
+//                });
     }
     public Observable<BirthIllnessModel> getLastVisitBirthCertData(final CommonPersonObjectClient childClient){
         return Observable.create(new ObservableOnSubscribe<BirthIllnessModel>() {

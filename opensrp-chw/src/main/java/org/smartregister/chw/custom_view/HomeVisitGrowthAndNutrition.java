@@ -248,7 +248,8 @@ public class HomeVisitGrowthAndNutrition extends LinearLayout implements View.On
     public void allDataLoaded(){
         if (childHomeVisitFragment != null) {
             childHomeVisitFragment.allServicesDataLoaded=true;
-            childHomeVisitFragment.progressBarInvisible();
+            if(isEditMode)childHomeVisitFragment.forcfullyProgressBarInvisible();
+            else childHomeVisitFragment.progressBarInvisible();
         }
     }
 

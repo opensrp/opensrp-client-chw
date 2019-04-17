@@ -79,6 +79,14 @@ public class ImmunizationEditView extends LinearLayout implements ImmunizationEd
     }
 
     @Override
+    public void allDataLoaded() {
+        ChildHomeVisitFragment childHomeVisitFragment = (ChildHomeVisitFragment) activity.getFragmentManager().findFragmentByTag(ChildHomeVisitFragment.DIALOG_TAG);
+
+        childHomeVisitFragment.allVaccineDataLoaded = true;
+        childHomeVisitFragment.forcfullyProgressBarInvisible();
+    }
+
+    @Override
     public void updateAdapter() {
         ChildHomeVisitFragment childHomeVisitFragment = (ChildHomeVisitFragment) activity.getFragmentManager().findFragmentByTag(ChildHomeVisitFragment.DIALOG_TAG);
         childHomeVisitFragment.allVaccineDataLoaded = true;

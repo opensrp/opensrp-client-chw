@@ -151,7 +151,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
             homeVisitImmunizationView.setEditMode(isEditMode);
             immunizationEditView.setVisibility(View.GONE);
             homeVisitImmunizationView.setVisibility(View.VISIBLE);
-                        submitButtonEnableDisable(false);
+            submitButtonEnableDisable(false);
         }
 
 
@@ -396,6 +396,10 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
             progressBar.setVisibility(View.VISIBLE);
             homeVisitLayout.setVisibility(View.GONE);
         }
+    }
+    public void forcfullyProgressBarInvisible(){
+        progressBar.setVisibility(View.GONE);
+        homeVisitLayout.setVisibility(View.VISIBLE);
     }
 
     @Override

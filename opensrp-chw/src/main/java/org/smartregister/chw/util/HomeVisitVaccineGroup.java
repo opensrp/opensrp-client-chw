@@ -87,9 +87,10 @@ public class HomeVisitVaccineGroup {
             for (VaccineRepo.Vaccine givenVaccine : givenVaccines) {
                 if (givenVaccine.display().equalsIgnoreCase(vaccine.display())) {
                     isGiven = true;
+                    break;
                 }
             }
-            if (!isGiven && !notGivenVaccines.contains(vaccine)) {
+            if (!notGivenVaccines.contains(vaccine) && !isGiven) {
                 notGivenVaccines.add(vaccine);
             }
         }

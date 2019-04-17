@@ -92,8 +92,13 @@ public class HomeVisitGrowthNutritionInteractor implements HomeVisitGrowthNutrit
 
                     @Override
                     public void onNext(ServiceTaskModel serviceTaskModel) {
-                        callBack.updateGivenRecordVisitData(serviceTaskModel.getGivenServiceMap());
-                        callBack.updateNotGivenRecordVisitData(serviceTaskModel.getNotGivenServiceMap());
+                        if(serviceTaskModel==null){
+                            callBack.allDataLoaded();
+                        }else{
+                            callBack.updateGivenRecordVisitData(serviceTaskModel.getGivenServiceMap());
+                            callBack.updateNotGivenRecordVisitData(serviceTaskModel.getNotGivenServiceMap());
+                        }
+
 
                     }
 
@@ -126,6 +131,8 @@ public class HomeVisitGrowthNutritionInteractor implements HomeVisitGrowthNutrit
                     serviceTaskModel.setGivenServiceMap(serviceGivenWrapper);
                     serviceTaskModel.setNotGivenServiceMap(serviceNotGivenWrapper);
                     e.onNext(serviceTaskModel);
+                }else{
+                    e.onNext(null);
                 }
 
             }
