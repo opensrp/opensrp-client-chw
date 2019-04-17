@@ -20,6 +20,8 @@ import org.smartregister.util.DateUtil;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -87,7 +89,7 @@ public class HomeVisitImmunizationAdapter extends RecyclerView.Adapter<RecyclerV
                 }
                 contentViewHolder.titleText.setText(cImmunization);
                 contentViewHolder.descriptionText.setTextColor(context.getResources().getColor(android.R.color.darker_gray));
-                contentViewHolder.descriptionText.setText(getVaccineNames(contentImmunization));
+                contentViewHolder.descriptionText.setText(getVaccineWithDateText(contentImmunization));
                 contentViewHolder.circleImageView.setImageResource(R.drawable.ic_checked);
                 contentViewHolder.circleImageView.setColorFilter(context.getResources().getColor(R.color.white));
 
@@ -112,36 +114,47 @@ public class HomeVisitImmunizationAdapter extends RecyclerView.Adapter<RecyclerV
      * @param contentImmunization
      * @return
      */
-    private StringBuilder getVaccineNames(HomeVisitVaccineGroup contentImmunization ){
-        StringBuilder givenText = new StringBuilder();
-        StringBuilder notGivenText = new StringBuilder();
-        DateTime givenDateTime =null;
-        ArrayList<VaccineRepo.Vaccine> dueVaccine = contentImmunization.getDueVaccines();
-        ArrayList<VaccineRepo.Vaccine> receivedVaccine = contentImmunization.getGivenVaccines();
-        for (VaccineRepo.Vaccine due : dueVaccine) {
-            if(receivedVaccine.contains(due)){
-                if(givenDateTime!=null && givenDateTime.equals(contentImmunization.getDateByVaccine(due))){
-                    givenText.append(",").append(fixVaccineCasing(due.display()));
-                }else{
-                    givenDateTime = contentImmunization.getDateByVaccine(due);
-                    givenText = new StringBuilder(fixVaccineCasing(due.display()));
-                    givenText.append(context.getString(R.string.given_on_with_spaces)).append(DateUtil.formatDate(givenDateTime.toLocalDate(), "dd MMM yyyy"));
-
-                }
-
-            }else {
-                givenText.append(" \u00B7 ");
-                if(TextUtils.isEmpty(notGivenText)){
-                    notGivenText = new StringBuilder(fixVaccineCasing(due.display()));
-                }else{
-                    notGivenText = notGivenText.append(",").append(fixVaccineCasing(due.display())) ;
-                }
+    private StringBuilder getVaccineWithDateText(HomeVisitVaccineGroup contentImmunization){
+        StringBuilder groupSecondaryText = new StringBuilder();
+        Iterator<Map.Entry<DateTime, ArrayList<VaccineRepo.Vaccine>>> iterator = contentImmunization.getGroupedByDate().entrySet().iterator();
+        while (iterator.hasNext()) {
+            Map.Entry<DateTime, ArrayList<VaccineRepo.Vaccine>> entry = iterator.next();
+            DateTime dueDate = entry.getKey();
+            ArrayList<VaccineRepo.Vaccine> vaccines = entry.getValue();
+            // now work with key and value...
+            for (VaccineRepo.Vaccine vaccineGiven : vaccines) {
+                groupSecondaryText.append(fixVaccineCasing(vaccineGiven.display())).append(", ");
             }
 
-        }
-        return givenText.append(notGivenText);
+            if (groupSecondaryText.toString().endsWith(", ")) {
+                groupSecondaryText = new StringBuilder(groupSecondaryText.toString().trim());
+                groupSecondaryText = new StringBuilder(groupSecondaryText.substring(0, groupSecondaryText.length() - 1));
+            }
 
+            groupSecondaryText.append(context.getString(R.string.given_on_with_spaces)).append(DateUtil.formatDate(dueDate.toLocalDate(), "dd MMM yyyy"));
+
+            if (contentImmunization.getNotGivenVaccines().size()>0 || iterator.hasNext()) {
+                groupSecondaryText.append(" \u00B7 ");
+            }
+        }
+        groupSecondaryText.append(getNotGivenVaccineName(contentImmunization));
+        return groupSecondaryText;
     }
+
+    private StringBuilder getNotGivenVaccineName(HomeVisitVaccineGroup contentImmunization) {
+        StringBuilder groupSecondaryText = new StringBuilder();
+        for(VaccineRepo.Vaccine notGiven:contentImmunization.getNotGivenVaccines()){
+            groupSecondaryText.append(fixVaccineCasing(notGiven.display())).append(", ");
+        }
+        if (groupSecondaryText.toString().endsWith(", ")) {
+            groupSecondaryText = new StringBuilder(groupSecondaryText.toString().trim());
+            groupSecondaryText = new StringBuilder(groupSecondaryText.substring(0, groupSecondaryText.length() - 1));
+        }
+        if(!TextUtils.isEmpty(groupSecondaryText))
+            groupSecondaryText.append(context.getString(R.string.not_given_with_spaces));
+        return groupSecondaryText;
+    }
+
     private boolean isComplete(HomeVisitVaccineGroup contentImmunization){
 
         return contentImmunization.getNotGivenVaccines().size() == 0;

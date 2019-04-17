@@ -17,13 +17,17 @@ public class HomeVisitVaccineGroup {
     private ArrayList<VaccineRepo.Vaccine> dueVaccines = new ArrayList<VaccineRepo.Vaccine>();
     private ArrayList<VaccineRepo.Vaccine> notGivenVaccines = new ArrayList<VaccineRepo.Vaccine>();
     private ArrayList<VaccineRepo.Vaccine> notGivenInThisVisitVaccines = new ArrayList<VaccineRepo.Vaccine>();
-    private LinkedHashMap<VaccineRepo.Vaccine,DateTime> vaccineByDate = new LinkedHashMap<>();
+    private LinkedHashMap<DateTime, ArrayList<VaccineRepo.Vaccine>> groupedByDate = new LinkedHashMap<>();
 
     private String group = "";
     private int viewType;
     private ImmunizationState alert = ImmunizationState.NO_ALERT;
     private String dueDisplayDate = "";
     private String dueDate = "";
+
+    public LinkedHashMap<DateTime, ArrayList<VaccineRepo.Vaccine>> getGroupedByDate() {
+        return groupedByDate;
+    }
 
     public String getDueDate() {
         return dueDate;
@@ -33,14 +37,6 @@ public class HomeVisitVaccineGroup {
         this.dueDate = dueDate;
     }
 
-
-    public DateTime getDateByVaccine(VaccineRepo.Vaccine vaccine) {
-        return vaccineByDate.get(vaccine);
-    }
-
-    public void setVaccineByDate(VaccineRepo.Vaccine vaccine,DateTime date) {
-        this.vaccineByDate.put(vaccine,date);
-    }
 
     public ArrayList<VaccineRepo.Vaccine> getNotGivenInThisVisitVaccines() {
         return notGivenInThisVisitVaccines;
