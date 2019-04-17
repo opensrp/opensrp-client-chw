@@ -194,7 +194,8 @@
         "schedule": {
           "due": {
             "reference": "dob",
-            "offset": "+1y"
+            "offset": "+1y",
+            "window": "+10d"
           },
           "expiry": {
             "reference": "dob",
@@ -209,7 +210,8 @@
           "due": {
             "reference": "prerequisite",
             "prerequisite": "Deworming 1",
-            "offset": "+6m"
+            "offset": "+6m",
+            "window": "+10d"
           },
           "expiry": {
             "reference": "dob",
@@ -224,7 +226,8 @@
           "due": {
             "reference": "prerequisite",
             "prerequisite": "Deworming 2",
-            "offset": "+6m"
+            "offset": "+6m",
+            "window": "+10d"
           },
           "expiry": {
             "reference": "dob",
@@ -239,7 +242,8 @@
           "due": {
             "reference": "prerequisite",
             "prerequisite": "Deworming 3",
-            "offset": "+6m"
+            "offset": "+6m",
+            "window": "+10d"
           },
           "expiry": {
             "reference": "dob",
@@ -254,7 +258,8 @@
           "due": {
             "reference": "prerequisite",
             "prerequisite": "Deworming 4",
-            "offset": "+6m"
+            "offset": "+6m",
+            "window": "+10d"
           },
           "expiry": {
             "reference": "dob",
@@ -269,7 +274,8 @@
           "due": {
             "reference": "prerequisite",
             "prerequisite": "Deworming 5",
-            "offset": "+6m"
+            "offset": "+6m",
+            "window": "+10d"
           },
           "expiry": {
             "reference": "dob",
@@ -284,7 +290,8 @@
           "due": {
             "reference": "prerequisite",
             "prerequisite": "Deworming 6",
-            "offset": "+6m"
+            "offset": "+6m",
+            "window": "+10d"
           },
           "expiry": {
             "reference": "dob",
@@ -299,7 +306,24 @@
           "due": {
             "reference": "prerequisite",
             "prerequisite": "Deworming 7",
-            "offset": "+6m"
+            "offset": "+6m",
+            "window": "+10d"
+          },
+          "expiry": {
+            "reference": "dob",
+            "offset": "+5y"
+          }
+        }
+      },
+      {
+        "id": "31",
+        "name": "Deworming 9",
+        "schedule": {
+          "due": {
+            "reference": "prerequisite",
+            "prerequisite": "Deworming 8",
+            "offset": "+6m",
+            "window": "+10d"
           },
           "expiry": {
             "reference": "dob",
