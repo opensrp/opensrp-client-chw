@@ -173,12 +173,12 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
     }
 
     @Override
-    public void refreshChildVisitBar(String baseEntityId, final ChildProfileContract.InteractorCallBack callback) {
+    public void refreshChildVisitBar(Context context, String baseEntityId, final ChildProfileContract.InteractorCallBack callback) {
         ChildHomeVisit childHomeVisit = ChildUtils.getLastHomeVisit(org.smartregister.chw.util.Constants.TABLE_NAME.CHILD, baseEntityId);
 
         String dobString = Utils.getDuration(Utils.getValue(pClient.getColumnmaps(), DBConstants.KEY.DOB, false));
 
-        final ChildVisit childVisit = ChildUtils.getChildVisitStatus(dobString, childHomeVisit.getLastHomeVisitDate(), childHomeVisit.getVisitNotDoneDate(), childHomeVisit.getDateCreated());
+        final ChildVisit childVisit = ChildUtils.getChildVisitStatus(context, dobString, childHomeVisit.getLastHomeVisitDate(), childHomeVisit.getVisitNotDoneDate(), childHomeVisit.getDateCreated());
 
         Runnable runnable = new Runnable() {
             @Override
@@ -195,7 +195,7 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
     }
 
     @Override
-    public void refreshUpcomingServiceAndFamilyDue(String familyId, String baseEntityId, final ChildProfileContract.InteractorCallBack callback) {
+    public void refreshUpcomingServiceAndFamilyDue(Context context, String familyId, String baseEntityId, final ChildProfileContract.InteractorCallBack callback) {
         if (getpClient() == null) return;
         updateUpcomingServices()
                 .subscribeOn(Schedulers.io())
@@ -224,7 +224,7 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
                     }
                 });
 
-        FamilyInteractor.updateFamilyDueStatus(baseEntityId, familyId)
+        FamilyInteractor.updateFamilyDueStatus(context, baseEntityId, familyId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<String>() {
