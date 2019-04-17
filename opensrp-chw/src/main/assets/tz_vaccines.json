@@ -444,12 +444,6 @@
               "window": "+10d"
             }
           ]
-//          "expiry": [
-//            {
-//              "reference": "dob",
-//              "offset": "+2y"
-//            }
-//          ]
         }
       }
     ]
@@ -460,10 +454,10 @@
     "days_after_birth_due": 274,
     "vaccines": [
       {
-        "name": "MCV 1",
-        "type": "MCV",
+        "name": "MR 1",
+        "type": "MR",
         "openmrs_date": {
-          "parent_entity": "79409AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "parent_entity": "",
           "entity": "concept",
           "entity_id": "1410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
@@ -478,27 +472,21 @@
             {
               "reference": "dob",
               "offset": "+9m",
-              "window": "+14d"
-            }
-          ],
-          "expiry": [
-            {
-              "reference": "dob",
-              "offset": "+2y"
+              "window": "+10d"
             }
           ]
         }
       },
       {
-        "name": "Yellow Fever",
-        "type": "YF",
+        "name": "MR 2",
+        "type": "MR",
         "openmrs_date": {
-          "parent_entity": "5864AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "parent_entity": "",
           "entity": "concept",
           "entity_id": "1410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         "openmrs_calculate": {
-          "parent_entity": "5864AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "parent_entity": "79409AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "entity": "concept",
           "entity_id": "1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "calculation": 1
@@ -506,52 +494,10 @@
         "schedule": {
           "due": [
             {
-              "reference": "dob",
+              "reference": "prerequisite",
+              "prerequisite": "MR 1",
               "offset": "+9m",
-              "window": "+14d"
-            }
-          ],
-          "expiry": [
-            {
-              "reference": "dob",
-              "offset": "+2y"
-            }
-          ]
-        }
-      }
-    ]
-  },
-  {
-    "name": "15 Months",
-    "id": "Fifteen_Months",
-    "days_after_birth_due": 456,
-    "vaccines": [
-      {
-        "name": "MCV 2",
-        "type": "MCV",
-        "openmrs_date": {
-          "parent_entity": "79409AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "entity": "concept",
-          "entity_id": "1410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
-        "openmrs_calculate": {
-          "parent_entity": "79409AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "entity": "concept",
-          "entity_id": "1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "calculation": 2
-        },
-        "schedule": {
-          "due": [
-            {
-              "reference": "dob",
-              "offset": "+15m",
-              "window": "+14d"
-            }
-          ],
-          "expiry": [
-            {
-              "reference": "dob",
-              "offset": "+2y"
+              "window": "+10d"
             }
           ]
         }
