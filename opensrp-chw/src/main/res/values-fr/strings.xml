@@ -77,7 +77,7 @@
     <string name="change_caregiver_member_title_question">Sélectionner un nouveau résponsable pour l\'enfant/les enfants</string>
     <string name="remove_member_title">Enlever membre </string>
     <string name="remove_member_prompt">Quel membre voulez vous enlever?</string>
-    <string name="visit_month">%1$s visite fait</string>
+    <string name="visit_month">Visite fait dans le mois de %1$s</string>
     <string name="not_visiting_this_month">Aucun visite ce mois</string>
     <string name="undo">ANNULER</string>
     <string name="record_visit">Enregistrer visite</string>
@@ -225,4 +225,19 @@
 
     <string name="due_only">Attendu</string>
     <string name="care_giver_initials">PR</string>
+    <string name="less_than_twenty_four">moins de 24 heures</string>
+
+    <string name="january">janvier</string>
+    <string name="february">février</string>
+    <string name="march">mars</string>
+    <string name="april">avril</string>
+    <string name="may">peut</string>
+    <string name="june">juin</string>
+    <string name="july">juillet</string>
+    <string name="august">août</string>
+    <string name="september">septembre</string>
+    <string name="october">octobre</string>
+    <string name="november">novembre</string>
+    <string name="december">décembre</string>
+
 </resources>

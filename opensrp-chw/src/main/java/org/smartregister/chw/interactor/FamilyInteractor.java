@@ -1,5 +1,6 @@
 package org.smartregister.chw.interactor;
 
+import android.content.Context;
 import android.database.Cursor;
 import android.text.TextUtils;
 
@@ -16,7 +17,7 @@ import io.reactivex.ObservableOnSubscribe;
 
 public class FamilyInteractor {
 
-    public static Observable<String> updateFamilyDueStatus(final String childId, final String familyId) {
+    public static Observable<String> updateFamilyDueStatus(final Context context, final String childId, final String familyId) {
         return Observable.create(new ObservableOnSubscribe<String>() {
             @Override
             public void subscribe(ObservableEmitter<String> e) throws Exception {
@@ -25,7 +26,7 @@ public class FamilyInteractor {
                 Cursor cursor = org.smartregister.family.util.Utils.context().commonrepository(org.smartregister.chw.util.Constants.TABLE_NAME.CHILD).queryTable(query);
                 if (cursor != null && cursor.moveToFirst()) {
                     do {
-                        switch (getChildStatus(childId, cursor)) {
+                        switch (getChildStatus(context, childId, cursor)) {
                             case DUE:
                                 if (familyImmunizationState != ImmunizationState.OVERDUE) {
                                     familyImmunizationState = ImmunizationState.DUE;
@@ -57,7 +58,7 @@ public class FamilyInteractor {
         }
     }
 
-    private static ImmunizationState getChildStatus(final String childId, Cursor cursor) {
+    private static ImmunizationState getChildStatus(Context context, final String childId, Cursor cursor) {
         CommonPersonObject personObject = org.smartregister.family.util.Utils.context().commonrepository(org.smartregister.chw.util.Constants.TABLE_NAME.CHILD).findByBaseEntityId(cursor.getString(1));
         if (!personObject.getCaseId().equalsIgnoreCase(childId)) {
 
@@ -73,7 +74,7 @@ public class FamilyInteractor {
                 dateCreated = org.smartregister.family.util.Utils.dobStringToDateTime(strDateCreated).getMillis();
             }
 
-            final ChildVisit childVisit = ChildUtils.getChildVisitStatus(dobString, lastHomeVisit, visitNotDone, dateCreated);
+            final ChildVisit childVisit = ChildUtils.getChildVisitStatus(context, dobString, lastHomeVisit, visitNotDone, dateCreated);
             return getImmunizationStatus(childVisit.getVisitStatus());
         }
         return ImmunizationState.NO_ALERT;

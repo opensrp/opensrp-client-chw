@@ -102,12 +102,12 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
 
     @Override
     public void fetchVisitStatus(String baseEntityId) {
-        interactor.refreshChildVisitBar(childBaseEntityId, this);
+        interactor.refreshChildVisitBar(view.get().getContext(), childBaseEntityId, this);
     }
 
     @Override
     public void fetchUpcomingServiceAndFamilyDue(String baseEntityId) {
-        interactor.refreshUpcomingServiceAndFamilyDue(getFamilyId(), childBaseEntityId, this);
+        interactor.refreshUpcomingServiceAndFamilyDue(view.get().getContext(), getFamilyId(), childBaseEntityId, this);
     }
 
     @Override

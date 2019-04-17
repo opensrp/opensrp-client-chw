@@ -206,8 +206,8 @@ public class ChildUtils {
      * @param visitNotDate
      * @return
      */
-    public static ChildVisit getChildVisitStatus(String yearOfBirth, long lastVisitDate, long visitNotDate, long dateCreated) {
-        HomeAlertRule homeAlertRule = new HomeAlertRule(yearOfBirth, lastVisitDate, visitNotDate, dateCreated);
+    public static ChildVisit getChildVisitStatus(Context context, String yearOfBirth, long lastVisitDate, long visitNotDate, long dateCreated) {
+        HomeAlertRule homeAlertRule = new HomeAlertRule(context, yearOfBirth, lastVisitDate, visitNotDate, dateCreated);
         ChwApplication.getInstance().getRulesEngineHelper().getButtonAlertStatus(homeAlertRule, Constants.RULE_FILE.HOME_VISIT);
         return getChildVisitStatus(homeAlertRule, lastVisitDate);
     }
@@ -233,8 +233,8 @@ public class ChildUtils {
      * @param visitNotDate
      * @return
      */
-    public static ChildVisit getChildVisitStatus(Rules rules, String yearOfBirth, long lastVisitDate, long visitNotDate, long dateCreated) {
-        HomeAlertRule homeAlertRule = new HomeAlertRule(yearOfBirth, lastVisitDate, visitNotDate, dateCreated);
+    public static ChildVisit getChildVisitStatus(Context context, Rules rules, String yearOfBirth, long lastVisitDate, long visitNotDate, long dateCreated) {
+        HomeAlertRule homeAlertRule = new HomeAlertRule(context, yearOfBirth, lastVisitDate, visitNotDate, dateCreated);
         ChwApplication.getInstance().getRulesEngineHelper().getButtonAlertStatus(homeAlertRule, rules);
         return getChildVisitStatus(homeAlertRule, lastVisitDate);
     }

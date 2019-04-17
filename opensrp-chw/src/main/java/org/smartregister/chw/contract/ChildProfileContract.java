@@ -94,9 +94,9 @@ public interface ChildProfileContract {
     interface Interactor {
         void updateVisitNotDone(long value);
 
-        void refreshChildVisitBar(String baseEntityId, ChildProfileContract.InteractorCallBack callback);
+        void refreshChildVisitBar(Context context, String baseEntityId, ChildProfileContract.InteractorCallBack callback);
 
-        void refreshUpcomingServiceAndFamilyDue(String familyId, String baseEntityId, ChildProfileContract.InteractorCallBack callback);
+        void refreshUpcomingServiceAndFamilyDue(Context context, String familyId, String baseEntityId, ChildProfileContract.InteractorCallBack callback);
 
         void onDestroy(boolean isChangingConfiguration);
 

@@ -302,15 +302,15 @@ public class ChildRegisterProvider implements RecyclerViewProvider<ChildRegister
                     if (!TextUtils.isEmpty(visitNotDone)) {
                         visitNot = Long.parseLong(visitNotDone);
                     }
-                    if(!TextUtils.isEmpty(lastVisitDate)){
-                        lastVisit =  Long.parseLong(lastVisitDate);
+                    if (!TextUtils.isEmpty(lastVisitDate)) {
+                        lastVisit = Long.parseLong(lastVisitDate);
                     }
-                    if(!TextUtils.isEmpty(strDateCreated)){
-                        dateCreated =  Utils.dobStringToDateTime(strDateCreated).getMillis();
+                    if (!TextUtils.isEmpty(strDateCreated)) {
+                        dateCreated = Utils.dobStringToDateTime(strDateCreated).getMillis();
                     }
 
                     String dobString = Utils.getDuration(Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.DOB, false));
-                    childVisit = ChildUtils.getChildVisitStatus(rules, dobString, lastVisit, visitNot, dateCreated);
+                    childVisit = ChildUtils.getChildVisitStatus(context, rules, dobString, lastVisit, visitNot, dateCreated);
 
                 }
                 return null;

@@ -1,5 +1,6 @@
 package org.smartregister.chw.rule;
 
+import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -7,6 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.joda.time.Days;
 import org.joda.time.LocalDate;
 import org.joda.time.Months;
+import org.smartregister.chw.R;
 import org.smartregister.chw.interactor.ChildProfileInteractor;
 
 //All date formats ISO 8601 yyyy-mm-dd
@@ -17,7 +19,7 @@ import org.smartregister.chw.interactor.ChildProfileInteractor;
 public class HomeAlertRule implements ICommonRule {
 
     public String buttonStatus = ChildProfileInteractor.VisitType.DUE.name();
-    private final String[] monthNames = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+    private final int[] monthNames = {R.string.january, R.string.february, R.string.march, R.string.april, R.string.may, R.string.june, R.string.july, R.string.august, R.string.september, R.string.october, R.string.november, R.string.december};
 
     private LocalDate dateCreated;
     private LocalDate todayDate;
@@ -28,9 +30,12 @@ public class HomeAlertRule implements ICommonRule {
     public String noOfDayDue;
     public String visitMonthName;
     private Integer yearOfBirth;
+    private Context context;
 
-    public HomeAlertRule(String yearOfBirthString, long lastVisitDateLong, long visitNotDoneValue, long dateCreatedLong) {
+    public HomeAlertRule(Context context, String yearOfBirthString, long lastVisitDateLong, long visitNotDoneValue, long dateCreatedLong) {
         yearOfBirth = dobStringToYear(yearOfBirthString);
+
+        this.context = context;
 
         this.todayDate = new LocalDate();
         if (lastVisitDateLong > 0) {
@@ -81,12 +86,12 @@ public class HomeAlertRule implements ICommonRule {
 
     public boolean isVisitWithinTwentyFour() {
         visitMonthName = theMonth(todayDate.getMonthOfYear() - 1);
-        noOfDayDue = "less than 24 hrs";
+        noOfDayDue = context.getString(R.string.less_than_twenty_four);
         return (lastVisitDate != null) && !(lastVisitDate.isBefore(todayDate.minusDays(1)) && lastVisitDate.isBefore(todayDate));
     }
 
     public boolean isVisitWithinThisMonth() {
-        return  (lastVisitDate != null) && isVisitThisMonth(lastVisitDate, todayDate);
+        return (lastVisitDate != null) && isVisitThisMonth(lastVisitDate, todayDate);
     }
 
     private boolean isVisitThisMonth(LocalDate lastVisit, LocalDate todayDate) {
@@ -98,7 +103,7 @@ public class HomeAlertRule implements ICommonRule {
     }
 
     private String theMonth(int month) {
-        return monthNames[month];
+        return context.getResources().getString(monthNames[month]);
     }
 
     private int getMonthsDifference(LocalDate date1, LocalDate date2) {
