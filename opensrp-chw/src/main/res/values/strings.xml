@@ -98,7 +98,7 @@
     <string name="visit_not_done">Visit not \ndone</string>
     <string name="visit_done">Visit done</string>
     <string name="due_visit">Last visit \n %1$s</string>
-    <string name="medical_title">Back to %1$s</string>
+    <string name="medical_title">Back to %1$s\'s profile</string>
     <string name="medical_last_visit">%1$s ago</string>
     <string name="growth_and_nutrition">GROWTH AND NUTRITION</string>
     <string name="immunization">IMMUNIZATION</string>
@@ -223,4 +223,6 @@
     <string name="menu_malaria">MALARIA</string>
     <string name="refer_to_facility">Refer to facility</string>
 
+    <string name="due_only">Due only</string>
+    <string name="care_giver_initials">CG</string>
 </resources>

@@ -52,7 +52,7 @@
     }
   },
   "step1": {
-    "title": "Enlever enfant de moins de 5 ans",
+    "title": "Enlever enfant",
     "fields": [
       {
         "key": "spacer",

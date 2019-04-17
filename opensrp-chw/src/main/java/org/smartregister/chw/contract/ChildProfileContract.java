@@ -19,6 +19,8 @@ public interface ChildProfileContract {
 
         Context getApplicationContext();
 
+        Context getContext();
+
         String getString(int resourceId);
 
         void startFormActivity(JSONObject form);

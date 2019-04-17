@@ -52,7 +52,7 @@
     }
   },
   "step1": {
-    "title": "Ajouter membre de famille",
+    "title": "Ajouter membre",
     "fields": [
       {
         "key": "photo",
