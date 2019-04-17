@@ -455,26 +455,13 @@
     ]
   },
   {
-    "name": "6 Months",
-    "id": "Six_Months",
-    "days_after_birth_due": 168,
-    "vaccines": [
-      {
-        "name": "Vit A 1",
-        "type": ""
-
-      }
-    ]
-    }
-  },
-  {
     "name": "9 Months",
     "id": "Nine_Months",
     "days_after_birth_due": 274,
     "vaccines": [
       {
-        "name": "MR 1",
-        "type": "MR",
+        "name": "MCV 1",
+        "type": "MCV",
         "openmrs_date": {
           "parent_entity": "79409AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "entity": "concept",
@@ -491,7 +478,7 @@
             {
               "reference": "dob",
               "offset": "+9m",
-              "window": "+1Od"
+              "window": "+14d"
             }
           ],
           "expiry": [
@@ -503,15 +490,15 @@
         }
       },
       {
-        "name": "MR 2",
-        "type": "MR",
+        "name": "Yellow Fever",
+        "type": "YF",
         "openmrs_date": {
-          "parent_entity": "79409AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "parent_entity": "5864AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "entity": "concept",
           "entity_id": "1410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         "openmrs_calculate": {
-          "parent_entity": "79409AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "parent_entity": "5864AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "entity": "concept",
           "entity_id": "1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "calculation": 1
@@ -519,18 +506,17 @@
         "schedule": {
           "due": [
             {
-              "reference": "prerequisite",
-              "prerequisite": "MR 1",
+              "reference": "dob",
               "offset": "+9m",
-              "window": "+1Od"
+              "window": "+14d"
+            }
+          ],
+          "expiry": [
+            {
+              "reference": "dob",
+              "offset": "+2y"
             }
           ]
-//          "expiry": [
-//            {
-//              "reference": "dob",
-//              "offset": "+2y"
-//            }
-//          ]
         }
       }
     ]
