@@ -35,6 +35,7 @@ public class ChildHomeVisitPresenter implements ChildHomeVisitContract.Presenter
     private ChildHomeVisitContract.Interactor interactor;
     private CommonPersonObjectClient childClient;
     private FormUtils formUtils = null;
+    private String editedBirthCertFormJson,editedIllnessJson;
 
     public ChildHomeVisitPresenter(ChildHomeVisitContract.View view) {
         this.view = new WeakReference<>(view);
@@ -44,6 +45,14 @@ public class ChildHomeVisitPresenter implements ChildHomeVisitContract.Presenter
     public void setChildClient(CommonPersonObjectClient childClient) {
         this.childClient = childClient;
 
+    }
+
+    public String getEditedBirthCertFormJson() {
+        return editedBirthCertFormJson;
+    }
+
+    public String getEditedIllnessJson() {
+        return editedIllnessJson;
     }
 
     public int getSaveSize() {
@@ -112,11 +121,13 @@ public class ChildHomeVisitPresenter implements ChildHomeVisitContract.Presenter
 
     @Override
     public void updateBirthCertEditData(String jsonString) {
+        editedBirthCertFormJson = jsonString;
         interactor.generateBirthIllnessForm(jsonString, this,true);
     }
 
     @Override
     public void updateObsIllnessEditData(String json) {
+        editedIllnessJson = json;
         interactor.generateBirthIllnessForm(json,this,true);
     }
 

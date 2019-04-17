@@ -421,7 +421,12 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     @Override
     public void updateBirthStatusTick() {
         try {
-            birthCertJson = new JSONObject().put("birtCert", jsonString);
+            if(TextUtils.isEmpty(jsonString)){
+                birthCertJson = new JSONObject().put("birtCert", ((ChildHomeVisitPresenter)presenter).getEditedBirthCertFormJson());
+            }else{
+                birthCertJson = new JSONObject().put("birtCert", jsonString);
+            }
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -433,7 +438,11 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     @Override
     public void updateObsIllnessStatusTick() {
         try {
-            illnessJson = new JSONObject().put("obsIllness", jsonString);
+            if(TextUtils.isEmpty(jsonString)){
+                illnessJson = new JSONObject().put("birtCert", ((ChildHomeVisitPresenter)presenter).getEditedIllnessJson());
+            }else {
+                illnessJson = new JSONObject().put("obsIllness", jsonString);
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -454,12 +463,6 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                 updateStatusTick(circleImageViewBirthStatus, false);
             }
 
-//            recyclerViewBirthCertData.setVisibility(View.VISIBLE);
-//            birthCertDataAdapter = new HomeVisitBirthAndIllnessDataAdapter();
-//            birthCertDataAdapter.setData(data);
-//            recyclerViewBirthCertData.setAdapter(birthCertDataAdapter);
-//            recyclerViewBirthCertData.setLayoutFrozen(true);
-
         }
 
 
@@ -472,11 +475,6 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
             BirthIllnessData birthIllnessData = data.get(0);
             String message = birthIllnessData.getIllnessDate() + ": " + birthIllnessData.getIllnessDescription() + "\n" + birthIllnessData.getActionTaken();
             textViewObsIllnessDesc.setText(message);
-//            recyclerViewIllnessData.setVisibility(View.VISIBLE);
-//            illnessDataAdapter = new HomeVisitBirthAndIllnessDataAdapter();
-//            illnessDataAdapter.setData(data);
-//            recyclerViewIllnessData.setAdapter(illnessDataAdapter);
-//            recyclerViewIllnessData.setLayoutFrozen(true);
 
         } else {
             textViewObsIllnessDesc.setVisibility(View.GONE);

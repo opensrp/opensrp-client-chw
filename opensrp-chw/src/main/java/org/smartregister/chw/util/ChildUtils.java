@@ -391,7 +391,7 @@ public class ChildUtils {
             event.addObs((new Obs()).withFormSubmissionField("service").withValue(service.toString()).withFieldCode("service").withFieldType("formsubmissionField").withFieldDataType("text").withParentCode("").withHumanReadableValues(new ArrayList<Object>()));
             event.addObs((new Obs()).withFormSubmissionField("serviceNotGiven").withValue(serviceNotGiven.toString()).withFieldCode("serviceNotGiven").withFieldType("formsubmissionField").withFieldDataType("text").withParentCode("").withHumanReadableValues(new ArrayList<Object>()));
 
-            event.addObs((new Obs()).withFormSubmissionField("birth_certificate").withValue(birthCert).withFieldCode("birth_certificate").withFieldType("formsubmissionField").withFieldDataType("text").withParentCode("").withHumanReadableValues(new ArrayList<Object>()));
+            event.addObs((new Obs()).withFormSubmissionField("birth_certificate").withValue(birthCert.toString()).withFieldCode("birth_certificate").withFieldType("formsubmissionField").withFieldDataType("text").withParentCode("").withHumanReadableValues(new ArrayList<Object>()));
             event.addObs((new Obs()).withFormSubmissionField("illness_information").withValue(illnessJson.toString()).withFieldCode("illness_information").withFieldType("formsubmissionField").withFieldDataType("text").withParentCode("").withHumanReadableValues(new ArrayList<Object>()));
 
             JsonFormUtils.tagSyncMetadata(ChwApplication.getInstance().getContext().allSharedPreferences(), event);
@@ -475,6 +475,7 @@ public class ChildUtils {
                     try{
                         newHomeVisit.setBirthCertificationState(new JSONObject((String) obs.getValue()));
                     }catch (Exception e){
+                        e.printStackTrace();
                         //previous support
                         newHomeVisit.setBirthCertificationState(new JSONObject());
                     }
