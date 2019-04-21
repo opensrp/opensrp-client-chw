@@ -110,7 +110,10 @@ public class HomeVisitImmunizationAdapter extends RecyclerView.Adapter<RecyclerV
     }
 
     /**
-     * need to display like this opv1,penta1 provided at date or opv1 provided at 20-03-2019 or pcv1,rota1 not given
+     * need to display like this opv1,penta1 provided at date or opv1 provided at 20-03-2019 or pcv1,rota1 not given'
+     * it'll iterate on dueVaccines with date map.and showing only given vaccines name with date.
+     * @link count variable using not to display the text ".given on <date>".as it's iterate on other due
+     * vaccines.
      * @param contentImmunization
      * @return
      */
@@ -123,7 +126,6 @@ public class HomeVisitImmunizationAdapter extends RecyclerView.Adapter<RecyclerV
             Map.Entry<DateTime, ArrayList<VaccineRepo.Vaccine>> entry = iterator.next();
             DateTime dueDate = entry.getKey();
             ArrayList<VaccineRepo.Vaccine> vaccines = entry.getValue();
-                // now work with key and value...
                 for (VaccineRepo.Vaccine vaccineGiven : vaccines) {
                      if(isExistInGivenVaccine(contentImmunization,vaccineGiven.display())){
                         groupSecondaryText.append(fixVaccineCasing(vaccineGiven.display())).append(", ");
@@ -148,6 +150,12 @@ public class HomeVisitImmunizationAdapter extends RecyclerView.Adapter<RecyclerV
         groupSecondaryText.append(getNotGivenVaccineName(contentImmunization));
         return groupSecondaryText;
     }
+
+    /**
+     * This method return the text like as "bcg,op1 not give"
+     * @param contentImmunization
+     * @return
+     */
 
     private StringBuilder getNotGivenVaccineName(HomeVisitVaccineGroup contentImmunization) {
         StringBuilder groupSecondaryText = new StringBuilder();

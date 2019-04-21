@@ -1,5 +1,6 @@
 package org.smartregister.chw.interactor;
 
+import android.support.annotation.VisibleForTesting;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -12,12 +13,15 @@ import org.smartregister.chw.util.HomeVisitVaccineGroup;
 import org.smartregister.chw.util.ImmunizationState;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.Alert;
+import org.smartregister.family.util.AppExecutors;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.immunization.domain.Vaccine;
 import org.smartregister.immunization.domain.VaccineSchedule;
 import org.smartregister.immunization.domain.VaccineWrapper;
+import org.smartregister.immunization.repository.VaccineRepository;
 import org.smartregister.immunization.util.VaccinateActionUtils;
+import org.smartregister.service.AlertService;
 import org.smartregister.util.DateUtil;
 
 import java.util.ArrayList;
@@ -44,7 +48,11 @@ import static org.smartregister.immunization.util.VaccinatorUtils.receivedVaccin
 public class HomeVisitImmunizationInteractor implements HomeVisitImmunizationContract.Interactor {
     private static String TAG = HomeVisitImmunizationInteractor.class.toString();
     private List<Vaccine> vaccines;
+    private AlertService alertService;
+    private VaccineRepository vaccineRepository;
     public HomeVisitImmunizationInteractor() {
+        alertService = ChwApplication.getInstance().getContext().alertService();
+        vaccineRepository = ChwApplication.getInstance().vaccineRepository();
     }
 
     @Override
@@ -271,8 +279,7 @@ public class HomeVisitImmunizationInteractor implements HomeVisitImmunizationCon
                     if (dueDate != null) {
                         homeVisitVaccineGroupArrayList.get(position).setDueDate(dueDate.toLocalDate() + "");
                         homeVisitVaccineGroupArrayList.get(position).setDueDisplayDate(DateUtil.formatDate(dueDate.toLocalDate(), "dd MMM yyyy"));
-                        //add to date wise vaccine list.needed to display vaccine name with date
-                        //if(homeVisitVaccineGroupArrayList.get(position).getGivenVaccines().contains(vaccine)){
+                        //add to date wise vaccine list.needed to display vaccine name with date in adapter
                             if(homeVisitVaccineGroupArrayList.get(position).getGroupedByDate().get(dueDate) == null){
                                 ArrayList<VaccineRepo.Vaccine> vaccineArrayList = new ArrayList<>();
                                 vaccineArrayList.add(vaccine);
@@ -280,7 +287,6 @@ public class HomeVisitImmunizationInteractor implements HomeVisitImmunizationCon
                             }else{
                                 homeVisitVaccineGroupArrayList.get(position).getGroupedByDate().get(dueDate).add(vaccine);
                             }
-                       // }
 
                     }
                 }
@@ -333,7 +339,9 @@ public class HomeVisitImmunizationInteractor implements HomeVisitImmunizationCon
     @Override
     public void updateImmunizationState(CommonPersonObjectClient childClient, ArrayList<VaccineWrapper> notGivenVaccines, final HomeVisitImmunizationContract.InteractorCallBack callBack) {
 
-        getVaccineTask(childClient.getColumnmaps(), childClient.getCaseId(), notGivenVaccines)
+        String dobString = org.smartregister.util.Utils.getValue(childClient.getColumnmaps(), DBConstants.KEY.DOB, false);
+
+        getVaccineTask(dobString, childClient.getCaseId(), notGivenVaccines)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<VaccineTaskModel>() {
@@ -366,17 +374,16 @@ public class HomeVisitImmunizationInteractor implements HomeVisitImmunizationCon
      * Replacement of previous vaccinationasynctask
      * it'll calculate the received vaccine list of a child.
      *
-     * @param getColumnMaps
+     * @param dobString
      * @param entityId
      * @param notDoneVaccines
      * @return
      */
-    private Observable<VaccineTaskModel> getVaccineTask(final Map<String, String> getColumnMaps, final String entityId, final ArrayList<VaccineWrapper> notDoneVaccines) {
+    public Observable<VaccineTaskModel> getVaccineTask(final String dobString, final String entityId, final ArrayList<VaccineWrapper> notDoneVaccines) {
 
         return Observable.create(new ObservableOnSubscribe<VaccineTaskModel>() {
             @Override
             public void subscribe(ObservableEmitter<VaccineTaskModel> emmiter) throws Exception {
-                String dobString = org.smartregister.util.Utils.getValue(getColumnMaps, DBConstants.KEY.DOB, false);
                 DateTime dob = org.smartregister.chw.util.Utils.dobStringToDateTime(dobString);
                 if (dob == null) {
                     dob = new DateTime();
@@ -395,8 +402,8 @@ public class HomeVisitImmunizationInteractor implements HomeVisitImmunizationCon
 
                     }
                 }
-                List<Alert> alerts = ChwApplication.getInstance().getContext().alertService().findByEntityIdAndAlertNames(entityId, VaccinateActionUtils.allAlertNames("child"));
-                List<Vaccine> vaccines = ChwApplication.getInstance().vaccineRepository().findByEntityId(entityId);
+                List<Alert> alerts = alertService.findByEntityIdAndAlertNames(entityId, VaccinateActionUtils.allAlertNames("child"));
+                List<Vaccine> vaccines = vaccineRepository.findByEntityId(entityId);
                 Map<String, Date> recievedVaccines = receivedVaccines(vaccines);
                 int size = notDoneVaccines.size();
                 for (int i = 0; i < size; i++) {

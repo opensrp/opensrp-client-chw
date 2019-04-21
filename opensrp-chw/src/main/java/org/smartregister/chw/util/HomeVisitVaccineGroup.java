@@ -83,14 +83,14 @@ public class HomeVisitVaccineGroup {
 
     public void calculateNotGivenVaccines() {
         for (VaccineRepo.Vaccine vaccine : dueVaccines) {
-            boolean isGiven = false;
-            for (VaccineRepo.Vaccine givenVaccine : givenVaccines) {
-                if (givenVaccine.display().equalsIgnoreCase(vaccine.display())) {
-                    isGiven = true;
-                    break;
-                }
-            }
-            if (!notGivenVaccines.contains(vaccine) && !isGiven) {
+//            boolean isGiven = false;
+//            for (VaccineRepo.Vaccine givenVaccine : givenVaccines) {
+//                if (givenVaccine.display().equalsIgnoreCase(vaccine.display())) {
+//                    isGiven = true;
+//                    break;
+//                }
+//            }
+            if (!notGivenVaccines.contains(vaccine) && !givenVaccines.contains(vaccine)) {
                 notGivenVaccines.add(vaccine);
             }
         }
