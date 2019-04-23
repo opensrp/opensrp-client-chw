@@ -47,7 +47,7 @@ public class HomeVisitImmunizationInteractorTest extends BaseUnitTest {
        Map<String,String> details = new LinkedHashMap<>();
        details.put(DBConstants.KEY.DOB,"2018-08-17T06:00:00.000+06:00");
        CommonPersonObjectClient commonPersonObjectClient = new CommonPersonObjectClient("sds",details,"name");
-       doReturn(responseObserver).when(interactor.getVaccineTask(commonPersonObjectClient,new ArrayList<VaccineWrapper>()));
+       doReturn(responseObserver).when(interactor).getVaccineTask(commonPersonObjectClient,new ArrayList<VaccineWrapper>());
         TestObserver<VaccineTaskModel> testObserver = interactor.getVaccineTask(commonPersonObjectClient,new ArrayList<VaccineWrapper>()).test();
         testObserver.dispose();
         //interactor.updateImmunizationState(commonPersonObjectClient,new ArrayList<VaccineWrapper>(),callBack);
