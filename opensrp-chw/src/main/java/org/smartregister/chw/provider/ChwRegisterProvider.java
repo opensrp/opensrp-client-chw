@@ -189,7 +189,7 @@ public class ChwRegisterProvider extends FamilyRegisterProvider {
             if (!TextUtils.isEmpty(strDateCreated)) {
                 dateCreated = org.smartregister.family.util.Utils.dobStringToDateTime(strDateCreated).getMillis();
             }
-            ChildVisit childVisit = ChildUtils.getChildVisitStatus(rules, dobString, lastVisit, visitNot, dateCreated);
+            ChildVisit childVisit = ChildUtils.getChildVisitStatus(context, rules, dobString, lastVisit, visitNot, dateCreated);
             childVisitList.add(childVisit);
         }
         return childVisitList;

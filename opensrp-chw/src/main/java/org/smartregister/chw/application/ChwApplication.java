@@ -1,8 +1,12 @@
 package org.smartregister.chw.application;
 
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.os.Build;
 import android.util.Log;
 
+import com.crashlytics.android.Crashlytics;
+import com.crashlytics.android.core.CrashlyticsCore;
 import com.evernote.android.job.JobManager;
 
 import org.smartregister.Context;
@@ -34,13 +38,17 @@ import org.smartregister.immunization.repository.VaccineRepository;
 import org.smartregister.immunization.util.VaccinatorUtils;
 import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
+import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.Repository;
 import org.smartregister.sync.ClientProcessorForJava;
 import org.smartregister.sync.helper.ECSyncHelper;
 import org.smartregister.view.activity.DrishtiApplication;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
+
+import io.fabric.sdk.android.Fabric;
 
 public class ChwApplication extends DrishtiApplication {
 
@@ -113,6 +121,8 @@ public class ChwApplication extends DrishtiApplication {
         context.updateApplicationContext(getApplicationContext());
         context.updateCommonFtsObject(createCommonFtsObject());
 
+        Fabric.with(this, new Crashlytics.Builder().core(new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build()).build());
+
         //Initialize Modules
         CoreLibrary.init(context, new ChwSyncConfiguration(), BuildConfig.BUILD_TIMESTAMP);
         ImmunizationLibrary.init(context, getRepository(), null, BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
@@ -138,7 +148,24 @@ public class ChwApplication extends DrishtiApplication {
         CountryUtils.switchLoginAlias(getPackageManager());
         CountryUtils.switchEcClientFieldProcessor();
         CountryUtils.setOpenSRPUrl();
+
+        Configuration configuration = getApplicationContext().getResources().getConfiguration();
+        String language;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            language = configuration.getLocales().get(0).getLanguage();
+        } else {
+            language = configuration.locale.getLanguage();
+        }
+        if (language.equals(Locale.FRENCH.getLanguage()))
+            saveLanguage(Locale.FRENCH.getLanguage());
     }
+
+
+    private void saveLanguage(String language) {
+        AllSharedPreferences allSharedPreferences = ChwApplication.getInstance().getContext().allSharedPreferences();
+        allSharedPreferences.saveLanguagePreference(language);
+    }
+
 
     @Override
     public void logoutCurrentUser() {

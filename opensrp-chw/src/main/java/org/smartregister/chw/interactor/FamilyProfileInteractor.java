@@ -4,7 +4,6 @@ import android.support.annotation.VisibleForTesting;
 
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.contract.FamilyProfileExtendedContract;
-import org.smartregister.chw.presenter.FamilyProfilePresenter;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.util.AppExecutors;
