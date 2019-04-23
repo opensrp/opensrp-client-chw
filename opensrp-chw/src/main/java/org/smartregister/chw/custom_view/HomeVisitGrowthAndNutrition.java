@@ -9,12 +9,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.apache.commons.lang3.StringUtils;
+import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.contract.HomeVisitGrowthNutritionContract;
 import org.smartregister.chw.fragment.ChildHomeVisitFragment;
 import org.smartregister.chw.fragment.GrowthNutritionInputFragment;
 import org.smartregister.chw.presenter.HomeVisitGrowthNutritionPresenter;
 import org.smartregister.chw.util.ChildUtils;
+import org.smartregister.chw.util.Country;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.immunization.domain.ServiceWrapper;
 
@@ -148,7 +150,7 @@ public class HomeVisitGrowthAndNutrition extends LinearLayout implements View.On
 
     @Override
     public void updateExclusiveFeedingData(String name, String dueDate) {
-        if (!TextUtils.isEmpty(name)) {
+        if (!TextUtils.isEmpty(name) && BuildConfig.BUILD_COUNTRY == Country.LIBERIA) {
             layoutExclusiveBar.setVisibility(VISIBLE);
             findViewById(R.id.view_exclusive_feeding_bar).setVisibility(VISIBLE);
             Object[] displayName = ChildUtils.getStringWithNumber(name);
@@ -164,7 +166,7 @@ public class HomeVisitGrowthAndNutrition extends LinearLayout implements View.On
 
     @Override
     public void updateMnpData(String name, String dueDate) {
-        if (!TextUtils.isEmpty(name)) {
+        if (!TextUtils.isEmpty(name)  && BuildConfig.BUILD_COUNTRY == Country.LIBERIA) {
             layoutMnpBar.setVisibility(VISIBLE);
             findViewById(R.id.view_mnp_bar).setVisibility(VISIBLE);
             Object[] displayName = ChildUtils.getStringWithNumber(name);
