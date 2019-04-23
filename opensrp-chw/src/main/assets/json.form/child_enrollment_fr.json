@@ -51,7 +51,7 @@
     }
   },
   "step1": {
-    "title": "Ajouter un enfant de moins de 5 ans",
+    "title": "Ajouter enfant",
     "fields": [
       {
         "key": "photo",

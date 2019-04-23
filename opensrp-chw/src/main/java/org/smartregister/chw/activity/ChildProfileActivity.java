@@ -1,6 +1,7 @@
 package org.smartregister.chw.activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
@@ -479,6 +480,11 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
                 presenter().updateChildCommonPerson(childBaseEntityId);
             }
         }, 100);
+    }
+
+    @Override
+    public Context getContext() {
+        return this;
     }
 
     @Override

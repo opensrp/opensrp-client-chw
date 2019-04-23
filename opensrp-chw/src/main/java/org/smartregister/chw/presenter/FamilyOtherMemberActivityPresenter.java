@@ -52,7 +52,7 @@ public class FamilyOtherMemberActivityPresenter extends BaseFamilyOtherMemberPro
     }
 
     private void initializeServiceStatus() {
-        FamilyInteractor.updateFamilyDueStatus("", familyBaseEntityId)
+        FamilyInteractor.updateFamilyDueStatus(viewReference.get().getContext(), "", familyBaseEntityId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<String>() {

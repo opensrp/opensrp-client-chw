@@ -1,6 +1,7 @@
 package org.smartregister.chw.activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Looper;
@@ -171,6 +172,11 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
         } else {
             textViewFamilyHas.setText(getString(R.string.family_has_nothing_due));
         }
+    }
+
+    @Override
+    public Context getContext() {
+        return this;
     }
 
     @Override
