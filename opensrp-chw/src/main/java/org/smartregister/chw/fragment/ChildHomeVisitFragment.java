@@ -74,7 +74,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     private CommonPersonObjectClient childClient;
     private TextView nameHeader;
     private TextView textViewBirthCertDueDate;
-    private TextView textViewObsIllnessDesc, textViewCounsellingDesc;
+    private TextView textViewObsIllnessDesc;
     private HomeVisitGrowthAndNutrition homeVisitGrowthAndNutritionLayout;
     private View viewBirthLine;
     public boolean allVaccineStateFullfilled = false;
@@ -85,7 +85,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     private LinearLayout layoutBirthCertGroup;
     private LinearLayout homeVisitLayout;
     private ChildHomeVisitContract.Presenter presenter;
-    private CircleImageView circleImageViewBirthStatus, circleImageViewIllnessStatus, circleImageViewCousnsellingStatus;
+    private CircleImageView circleImageViewBirthStatus, circleImageViewIllnessStatus;
     private String birthCertGiven = BIRTH_CERT_TYPE.NOT_GIVEN.name();
     private JSONObject illnessJson;
     private JSONObject birthCertJson;
@@ -119,7 +119,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         nameHeader = view.findViewById(R.id.textview_name_header);
         textViewBirthCertDueDate = view.findViewById(R.id.textview_birth_certification_name);
         textViewObsIllnessDesc = view.findViewById(R.id.textview_obser_illness_name);
-        textViewCounsellingDesc = view.findViewById(R.id.textview_counselling_name);
+        View textViewCounsellingDesc = view.findViewById(R.id.textview_counselling_name);
         TextView textViewObsIllnessTitle = view.findViewById(R.id.textview_obser_illness);
         TextView textViewCounsellingTitle = view.findViewById(R.id.textview_counselling);
 
@@ -131,7 +131,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         submit = view.findViewById(R.id.textview_submit);
         circleImageViewBirthStatus = view.findViewById(R.id.birth_status_circle);
         circleImageViewIllnessStatus = view.findViewById(R.id.obs_illness_status_circle);
-        circleImageViewCousnsellingStatus = view.findViewById(R.id.counselling_status_circle);
+        View circleImageViewCousnsellingStatus = view.findViewById(R.id.counselling_status_circle);
         layoutBirthCertGroup = view.findViewById(R.id.birth_cert_group);
         LinearLayout layoutIllnessGroup = view.findViewById(R.id.obs_illness_prevention_group);
         LinearLayout layoutCounsellingGroup = view.findViewById(R.id.counselling_group);
