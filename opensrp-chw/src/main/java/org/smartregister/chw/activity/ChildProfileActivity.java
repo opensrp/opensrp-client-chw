@@ -1,6 +1,7 @@
 package org.smartregister.chw.activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
@@ -21,6 +22,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
@@ -28,6 +30,7 @@ import com.vijay.jsonwizard.domain.Form;
 import org.apache.commons.lang3.tuple.Triple;
 import org.json.JSONObject;
 import org.opensrp.api.constants.Gender;
+import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.contract.ChildProfileContract;
 import org.smartregister.chw.contract.ChildRegisterContract;
@@ -38,6 +41,7 @@ import org.smartregister.chw.listener.OnClickFloatingMenu;
 import org.smartregister.chw.model.ChildProfileModel;
 import org.smartregister.chw.presenter.ChildProfilePresenter;
 import org.smartregister.chw.util.ChildUtils;
+import org.smartregister.chw.util.Country;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.JsonFormUtils;
@@ -78,7 +82,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     @Override
     public void updateHasPhone(boolean hasPhone) {
         if (familyFloatingMenu != null) {
-            familyFloatingMenu.setVisibility(hasPhone ? View.VISIBLE : View.GONE);
+            familyFloatingMenu.reDraw(hasPhone);
         }
     }
 
@@ -96,16 +100,32 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     private OnClickFloatingMenu onClickFloatingMenu = new OnClickFloatingMenu() {
         @Override
         public void onClickMenu(int viewId) {
-            switch (viewId) {
-                case R.id.fab:
-                    FamilyCallDialogFragment.launchDialog(ChildProfileActivity.this, ((ChildProfilePresenter) presenter).getFamilyId());
-                    break;
-                default:
-                    break;
+            if (Country.LIBERIA.equals(BuildConfig.BUILD_COUNTRY)) {
+                switch (viewId) {
+                    case R.id.fab:
+                        FamilyCallDialogFragment.launchDialog(ChildProfileActivity.this, ((ChildProfilePresenter) presenter).getFamilyId());
+                        break;
+                    default:
+                        break;
+                }
+            } else {
+                switch (viewId) {
+                    case R.id.call_layout:
+                        FamilyCallDialogFragment.launchDialog(ChildProfileActivity.this, ((ChildProfilePresenter) presenter).getFamilyId());
+                        break;
+                    case R.id.refer_to_facility_fab:
+                        toast("Refer to facility");
+                        break;
+                    default:
+                        break;
+                }
             }
-
         }
     };
+
+    private void toast(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
 
     @Override
     protected void onCreation() {
@@ -350,11 +370,11 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
 
     @Override
     public void setServiceNameDue(String serviceName, String dueDate) {
-        if(!TextUtils.isEmpty(serviceName)){
+        if (!TextUtils.isEmpty(serviceName)) {
             layoutMostDueOverdue.setVisibility(View.VISIBLE);
             viewMostDueRow.setVisibility(View.VISIBLE);
             textViewNameDue.setText(ChildUtils.fromHtml(getString(R.string.vaccine_service_due, serviceName, dueDate)));
-        }else{
+        } else {
             layoutMostDueOverdue.setVisibility(View.GONE);
             viewMostDueRow.setVisibility(View.GONE);
         }
@@ -475,6 +495,11 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
                 presenter().updateChildCommonPerson(childBaseEntityId);
             }
         }, 100);
+    }
+
+    @Override
+    public Context getContext() {
+        return this;
     }
 
     @Override

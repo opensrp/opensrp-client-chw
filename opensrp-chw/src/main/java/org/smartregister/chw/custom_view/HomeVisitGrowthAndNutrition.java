@@ -159,7 +159,7 @@ public class HomeVisitGrowthAndNutrition extends LinearLayout implements View.On
             feedingText = MessageFormat.format("{0} {1} {2}", str, no, getContext().getString(R.string.visit_months));
             textViewExclusiveFeedingTitle.setText(feedingText);
             String status=ChildUtils.getServiceDueStatus(dueDate);
-            textViewExclusiveFeedingName.setText(ChildUtils.dueOverdueCalculation(status,dueDate));
+            textViewExclusiveFeedingName.setText(ChildUtils.dueOverdueCalculation(getContext(), status,dueDate));
         }
 
     }
@@ -175,7 +175,7 @@ public class HomeVisitGrowthAndNutrition extends LinearLayout implements View.On
             String mnpText = MessageFormat.format("{0} {1} {2}", str, ChildUtils.getFirstSecondAsNumber(no), getContext().getString(R.string.visit_pack));
             textViewMnpTitle.setText(mnpText);
             String status=ChildUtils.getServiceDueStatus(dueDate);
-            textViewMnpName.setText(ChildUtils.dueOverdueCalculation(status,dueDate));
+            textViewMnpName.setText(ChildUtils.dueOverdueCalculation(getContext(), status,dueDate));
         }
     }
 
@@ -190,7 +190,7 @@ public class HomeVisitGrowthAndNutrition extends LinearLayout implements View.On
             String vitaminText = MessageFormat.format("{0} {1} {2}", str, ChildUtils.getFirstSecondAsNumber(no), getContext().getString(R.string.visit_dose));
             textViewVitaminTitle.setText(vitaminText);
             String status=ChildUtils.getServiceDueStatus(dueDate);
-            textViewVitaminName.setText(ChildUtils.dueOverdueCalculation(status,dueDate));
+            textViewVitaminName.setText(ChildUtils.dueOverdueCalculation(getContext(), status,dueDate));
         }
     }
 
@@ -205,7 +205,7 @@ public class HomeVisitGrowthAndNutrition extends LinearLayout implements View.On
             String dewormingText = MessageFormat.format("{0}{1} {2}", str, ChildUtils.getFirstSecondAsNumber(no), getContext().getString(R.string.visit_dose));
             textViewDewormingTitle.setText(dewormingText);
             String status=ChildUtils.getServiceDueStatus(dueDate);
-            textViewDewormingName.setText(ChildUtils.dueOverdueCalculation(status,dueDate));
+            textViewDewormingName.setText(ChildUtils.dueOverdueCalculation(getContext(), status,dueDate));
         }
     }
 

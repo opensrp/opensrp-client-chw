@@ -98,7 +98,7 @@
     <string name="visit_not_done">Visit not \ndone</string>
     <string name="visit_done">Visit done</string>
     <string name="due_visit">Last visit \n %1$s</string>
-    <string name="medical_title">Back to %1$s</string>
+    <string name="medical_title">Back to %1$s\'s profile</string>
     <string name="medical_last_visit">%1$s ago</string>
     <string name="growth_and_nutrition">GROWTH AND NUTRITION</string>
     <string name="immunization">IMMUNIZATION</string>
@@ -215,5 +215,29 @@
     <string name="caregiver">Caregiver</string>
     <string name="select_a_new_family_head">Select a new family head</string>
     <string name="all_registers">All Registers</string>
+    <string name="menu_labour_and_delivery"><![CDATA[L&D]]></string>
+    <string name="menu_child">CH</string>
+    <string name="menu_anc">ANC</string>
+    <string name="menu_pnc">PNC</string>
+    <string name="menu_family_planing">FP</string>
+    <string name="menu_malaria">MALARIA</string>
+    <string name="refer_to_facility">Refer to facility</string>
+
+    <string name="due_only">Due only</string>
+    <string name="care_giver_initials">CG</string>
+    <string name="less_than_twenty_four">less than 24 hrs</string>
+
+    <string name="january">January</string>
+    <string name="february">February</string>
+    <string name="march">March</string>
+    <string name="april">April</string>
+    <string name="may">May</string>
+    <string name="june">June</string>
+    <string name="july">July</string>
+    <string name="august">August</string>
+    <string name="september">September</string>
+    <string name="october">October</string>
+    <string name="november">November</string>
+    <string name="december">December</string>
 
 </resources>

@@ -166,7 +166,7 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
             textview_group_immunization_primary_text.setText(immunizations);
 
             String message = MessageFormat.format("{0} {1}",
-                    ((presenter.getCurrentActiveGroup().getAlert().equals(ImmunizationState.OVERDUE)) ? "Overdue" : "Due"),
+                    ((presenter.getCurrentActiveGroup().getAlert().equals(ImmunizationState.OVERDUE)) ? context.getResources().getString(R.string.overdue) : context.getResources().getString(R.string.due)),
                     presenter.getCurrentActiveGroup().getDueDisplayDate()
             );
             int color_res = ((presenter.getCurrentActiveGroup().getAlert().equals(ImmunizationState.OVERDUE)) ? R.color.alert_urgent_red : android.R.color.darker_gray);
@@ -211,10 +211,10 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
                 String SingleImmunizationSecondaryText = getSingleImmunizationSecondaryText(presenter.getVaccinesDueFromLastVisitStillDueState(), sch, alerts);
                 textview_immunization_secondary_text.setVisibility(VISIBLE);
                 textview_immunization_secondary_text.setText(SingleImmunizationSecondaryText);
-                if (SingleImmunizationSecondaryText.toLowerCase().contains(ImmunizationState.DUE.toString().toLowerCase())) {
+                if (SingleImmunizationSecondaryText.toLowerCase().contains(context.getResources().getString(R.string.due).toLowerCase())) {
                     textview_immunization_secondary_text.setTextColor(getResources().getColor(android.R.color.darker_gray));
                 }
-                if (SingleImmunizationSecondaryText.toLowerCase().contains(ImmunizationState.OVERDUE.toString().toLowerCase())) {
+                if (SingleImmunizationSecondaryText.toLowerCase().contains(context.getResources().getString(R.string.overdue).toLowerCase())) {
                     textview_immunization_secondary_text.setTextColor(getResources().getColor(R.color.alert_urgent_red));
                 }
             }
@@ -241,7 +241,15 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
                     if (((VaccineRepo.Vaccine) (toprocess.get("vaccine"))).name().equalsIgnoreCase(vaccine.name())) {
                         DateTime dueDate = (DateTime) toprocess.get(DATE);
                         String duedateString = DateUtil.formatDate(dueDate.toLocalDate(), "dd MMM yyyy");
-                        toReturn = capitalize(state.toString().toLowerCase()) + " " + duedateString;
+
+                        String status = state.toString();
+                        if(currentState.equals(ImmunizationState.DUE)){
+                            status = context.getResources().getString(R.string.due);
+                        }else if(currentState.equals(ImmunizationState.OVERDUE)){
+                            status = context.getResources().getString(R.string.overdue);
+                        }
+
+                        toReturn = status + " " + capitalize(duedateString.toLowerCase());
                     }
                 }
             }

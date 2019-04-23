@@ -172,12 +172,12 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
     }
 
     @Override
-    public void refreshChildVisitBar(String baseEntityId, final ChildProfileContract.InteractorCallBack callback) {
+    public void refreshChildVisitBar(Context context, String baseEntityId, final ChildProfileContract.InteractorCallBack callback) {
         ChildHomeVisit childHomeVisit = ChildUtils.getLastHomeVisit(org.smartregister.chw.util.Constants.TABLE_NAME.CHILD, baseEntityId);
 
         String dobString = Utils.getDuration(Utils.getValue(pClient.getColumnmaps(), DBConstants.KEY.DOB, false));
 
-        final ChildVisit childVisit = ChildUtils.getChildVisitStatus(dobString, childHomeVisit.getLastHomeVisitDate(), childHomeVisit.getVisitNotDoneDate(), childHomeVisit.getDateCreated());
+        final ChildVisit childVisit = ChildUtils.getChildVisitStatus(context, dobString, childHomeVisit.getLastHomeVisitDate(), childHomeVisit.getVisitNotDoneDate(), childHomeVisit.getDateCreated());
 
         Runnable runnable = new Runnable() {
             @Override
@@ -194,7 +194,7 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
     }
 
     @Override
-    public void refreshUpcomingServiceAndFamilyDue(String familyId, String baseEntityId, final ChildProfileContract.InteractorCallBack callback) {
+    public void refreshUpcomingServiceAndFamilyDue(Context context, String familyId, String baseEntityId, final ChildProfileContract.InteractorCallBack callback) {
         if (getpClient() == null) return;
         updateUpcomingServices()
                 .subscribeOn(Schedulers.io())
@@ -222,7 +222,8 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
                     public void onComplete() {
                     }
                 });
-        updateFamilyDueStatus(baseEntityId, familyId)
+
+        FamilyInteractor.updateFamilyDueStatus(context, baseEntityId, familyId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<String>() {
@@ -344,64 +345,6 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
 
             }
         });
-    }
-
-    private Observable<String> updateFamilyDueStatus(final String childId, final String familyId) {
-        return Observable.create(new ObservableOnSubscribe<String>() {
-            @Override
-            public void subscribe(ObservableEmitter<String> e) throws Exception {
-                ImmunizationState familyImmunizationState = ImmunizationState.NO_ALERT;
-                String serviceDueStatus;
-                String query = ChildUtils.getChildListByFamilyId(org.smartregister.chw.util.Constants.TABLE_NAME.CHILD, familyId, childId);
-                Cursor cursor = org.smartregister.family.util.Utils.context().commonrepository(org.smartregister.chw.util.Constants.TABLE_NAME.CHILD).queryTable(query);
-                if (cursor != null && cursor.moveToFirst()) {
-                    do {
-                        CommonPersonObject personObject = org.smartregister.family.util.Utils.context().commonrepository(org.smartregister.chw.util.Constants.TABLE_NAME.CHILD).findByBaseEntityId(cursor.getString(1));
-                        if (!personObject.getCaseId().equalsIgnoreCase(childId)) {
-                            String dobString = org.smartregister.util.Utils.getValue(personObject.getColumnmaps(), DBConstants.KEY.DOB, false);
-                            String visitNotDoneStr = org.smartregister.util.Utils.getValue(personObject.getColumnmaps(), ChildDBConstants.KEY.VISIT_NOT_DONE, false);
-                            String lastHomeVisitStr = org.smartregister.util.Utils.getValue(personObject.getColumnmaps(), ChildDBConstants.KEY.LAST_HOME_VISIT, false);
-                            String strDateCreated = org.smartregister.family.util.Utils.getValue(personObject.getColumnmaps(), ChildDBConstants.KEY.DATE_CREATED, false);
-                            long lastHomeVisit = TextUtils.isEmpty(lastHomeVisitStr) ? 0 : Long.parseLong(lastHomeVisitStr);
-                            long visitNotDone = TextUtils.isEmpty(visitNotDoneStr) ? 0 : Long.parseLong(visitNotDoneStr);
-
-                            long dateCreated = 0;
-                            if (!TextUtils.isEmpty(strDateCreated)) {
-                                dateCreated = org.smartregister.family.util.Utils.dobStringToDateTime(strDateCreated).getMillis();
-                            }
-                            final ChildVisit childVisit = ChildUtils.getChildVisitStatus(dobString, lastHomeVisit, visitNotDone, dateCreated);
-                            if (childVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.OVERDUE.name())
-                                    || childVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.DUE.name()))
-                                if (familyImmunizationState != null && !familyImmunizationState.equals(ImmunizationState.OVERDUE)) {
-                                    familyImmunizationState = getImmunizationStatus(childVisit.getVisitStatus());
-                                }
-                        }
-
-
-                    } while (cursor.moveToNext());
-                    cursor.close();
-                }
-                if (familyImmunizationState.equals(ImmunizationState.DUE)) {
-                    serviceDueStatus = FamilyServiceType.DUE.name();
-                } else if (familyImmunizationState.equals(ImmunizationState.OVERDUE)) {
-                    serviceDueStatus = FamilyServiceType.OVERDUE.name();
-                } else {
-                    serviceDueStatus = FamilyServiceType.NOTHING.name();
-                }
-                e.onNext(serviceDueStatus);
-            }
-        });
-
-    }
-
-    private ImmunizationState getImmunizationStatus(String visitStatus) {
-        if (visitStatus.equalsIgnoreCase(ChildProfileInteractor.VisitType.OVERDUE.name())) {
-            return ImmunizationState.OVERDUE;
-        }
-        if (visitStatus.equalsIgnoreCase(ChildProfileInteractor.VisitType.DUE.name())) {
-            return ImmunizationState.DUE;
-        }
-        return ImmunizationState.NO_ALERT;
     }
 
     @Override

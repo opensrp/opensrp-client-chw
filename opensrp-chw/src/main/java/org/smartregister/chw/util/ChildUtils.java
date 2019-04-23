@@ -1,5 +1,6 @@
 package org.smartregister.chw.util;
 
+import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Build;
@@ -45,6 +46,7 @@ import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.sync.helper.ECSyncHelper;
 
+import java.text.MessageFormat;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -132,18 +134,19 @@ public class ChildUtils {
      * Based on received vaccine list it'll return the fully immunized year.
      * Firstly it'll check with 2years vaccine list if it's match then return 2 year fully immunized.
      * Else it'll check  with 1year vaccine list otherwise it'll return empty string means not fully immunized.
+     *
      * @param vaccineGiven
      * @return
      */
     public static String isFullyImmunized(List<String> vaccineGiven) {
         List<String> twoYrVac = Arrays.asList(TWO_YR);
         if (vaccineGiven.containsAll(twoYrVac)) {
-            return  "2";
+            return "2";
         }
 
         List<String> oneYrVac = Arrays.asList(ONE_YR);
         if (vaccineGiven.containsAll(oneYrVac)) {
-           return  "1";
+            return "1";
         }
 
         return "";
@@ -192,18 +195,13 @@ public class ChildUtils {
     }
 
     public static String mainSelect(String tableName, String familyTableName, String familyMemberTableName, String mainCondition) {
-
-        String query = mainSelectRegisterWithoutGroupby(tableName, familyTableName, familyMemberTableName, tableName + "." + DBConstants.KEY.BASE_ENTITY_ID + " = '" + mainCondition + "'");
-
-
-        return query;
+        return mainSelectRegisterWithoutGroupby(tableName, familyTableName, familyMemberTableName, tableName + "." + DBConstants.KEY.BASE_ENTITY_ID + " = '" + mainCondition + "'");
     }
 
-    public static String getChildListByFamilyId(String tableName, String familyId, String childId) {
+    public static String getChildListByFamilyId(String tableName, String familyId) {
         SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
         queryBUilder.SelectInitiateMainTable(tableName, new String[]{DBConstants.KEY.BASE_ENTITY_ID});
-        String query = queryBUilder.mainCondition(tableName + "." + DBConstants.KEY.RELATIONAL_ID + " = '" + familyId + "'");
-        return query;
+        return queryBUilder.mainCondition(MessageFormat.format("{0}.{1} = ''{2}''", tableName, DBConstants.KEY.RELATIONAL_ID, familyId));
     }
 
     public static ChildHomeVisit getLastHomeVisit(String tableName, String childId) {
@@ -285,8 +283,8 @@ public class ChildUtils {
      * @param visitNotDate
      * @return
      */
-    public static ChildVisit getChildVisitStatus(String yearOfBirth, long lastVisitDate, long visitNotDate, long dateCreated) {
-        HomeAlertRule homeAlertRule = new HomeAlertRule(yearOfBirth, lastVisitDate, visitNotDate, dateCreated);
+    public static ChildVisit getChildVisitStatus(Context context, String yearOfBirth, long lastVisitDate, long visitNotDate, long dateCreated) {
+        HomeAlertRule homeAlertRule = new HomeAlertRule(context, yearOfBirth, lastVisitDate, visitNotDate, dateCreated);
         ChwApplication.getInstance().getRulesEngineHelper().getButtonAlertStatus(homeAlertRule, Constants.RULE_FILE.HOME_VISIT);
         return getChildVisitStatus(homeAlertRule, lastVisitDate);
     }
@@ -312,8 +310,8 @@ public class ChildUtils {
      * @param visitNotDate
      * @return
      */
-    public static ChildVisit getChildVisitStatus(Rules rules, String yearOfBirth, long lastVisitDate, long visitNotDate, long dateCreated) {
-        HomeAlertRule homeAlertRule = new HomeAlertRule(yearOfBirth, lastVisitDate, visitNotDate, dateCreated);
+    public static ChildVisit getChildVisitStatus(Context context, Rules rules, String yearOfBirth, long lastVisitDate, long visitNotDate, long dateCreated) {
+        HomeAlertRule homeAlertRule = new HomeAlertRule(context, yearOfBirth, lastVisitDate, visitNotDate, dateCreated);
         ChwApplication.getInstance().getRulesEngineHelper().getButtonAlertStatus(homeAlertRule, rules);
         return getChildVisitStatus(homeAlertRule, lastVisitDate);
     }
@@ -428,27 +426,28 @@ public class ChildUtils {
         }
     }
 
-    public static SpannableString dueOverdueCalculation(String status, String dueDate) {
+    public static SpannableString dueOverdueCalculation(Context context, String status, String dueDate) {
         SpannableString spannableString;
         Date date = org.smartregister.family.util.Utils.dobStringToDate(dueDate);
         if (status.equalsIgnoreCase(ImmunizationState.DUE.name())) {
 
-            String str = "Due " + dd_MMM_yyyy.format(date);
+            String str = context.getResources().getString(R.string.due) + " " + dd_MMM_yyyy.format(date);
             spannableString = new SpannableString(str);
             spannableString.setSpan(new ForegroundColorSpan(Color.GRAY), 0, str.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             return spannableString;
         } else {
-            String str = "Overdue " + dd_MMM_yyyy.format(date);
+            String str = context.getResources().getString(R.string.overdue) + " " + dd_MMM_yyyy.format(date);
             spannableString = new SpannableString(str);
             spannableString.setSpan(new ForegroundColorSpan(ChwApplication.getInstance().getContext().getColorResource(R.color.alert_urgent_red)), 0, str.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             return spannableString;
         }
     }
-    public static ImmunizationState getDueStatus(String dueDate ){
+
+    public static ImmunizationState getDueStatus(String dueDate) {
         LocalDate date1 = new LocalDate(dueDate);
         LocalDate date2 = new LocalDate();
         int diff = Days.daysBetween(date1, date2).getDays();
-        return diff<=0?ImmunizationState.UPCOMING:ImmunizationState.OVERDUE;
+        return diff <= 0 ? ImmunizationState.UPCOMING : ImmunizationState.OVERDUE;
     }
 
 

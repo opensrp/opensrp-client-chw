@@ -31,6 +31,7 @@ import org.smartregister.chw.contract.FamilyCallDialogContract;
 import org.smartregister.chw.fragment.CopyToClipboardDialog;
 import org.smartregister.util.PermissionUtils;
 
+import java.text.MessageFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -215,4 +216,8 @@ public class Utils extends org.smartregister.family.util.Utils {
         return " " + context.getString(resId);
     }
 
+    public static String getLocalForm(String jsonForm) {
+        String suffix = Locale.getDefault().getLanguage().equals("fr") ? "_fr" : "";
+        return MessageFormat.format("{0}{1}", jsonForm, suffix);
+    }
 }

@@ -147,7 +147,7 @@ public class ChwDueRegisterProvider extends FamilyDueRegisterProvider {
         if (!TextUtils.isEmpty(strDateCreated)) {
             dateCreated = org.smartregister.family.util.Utils.dobStringToDateTime(strDateCreated).getMillis();
         }
-        return ChildUtils.getChildVisitStatus(rules, dobString, lastVisit, visitNot, dateCreated);
+        return ChildUtils.getChildVisitStatus(context, rules, dobString, lastVisit, visitNot, dateCreated);
     }
 
     ////////////////////////////////////////////////////////////////

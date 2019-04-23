@@ -1,5 +1,7 @@
 package org.smartregister.chw.contract;
 
+import android.content.Context;
+
 import org.smartregister.family.contract.FamilyOtherMemberContract;
 
 public interface FamilyOtherMemberProfileExtendedContract {
@@ -8,6 +10,7 @@ public interface FamilyOtherMemberProfileExtendedContract {
 
         void updateFamilyMember(String jsonString);
 
+        void updateFamilyMemberServiceDue(String serviceDueStatus);
     }
 
     interface View extends FamilyOtherMemberContract.View {
@@ -19,5 +22,9 @@ public interface FamilyOtherMemberProfileExtendedContract {
         void refreshList();
 
         void updateHasPhone(boolean hasPhone);
+
+        void setFamilyServiceStatus(String status);
+
+        Context getContext();
     }
 }

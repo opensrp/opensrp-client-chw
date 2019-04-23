@@ -2,16 +2,19 @@ buildscript {
     repositories {
         google()
         jcenter()
+        maven { url 'https://maven.fabric.io/public' }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.1.4'
         classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.5.0-x'
+        classpath 'io.fabric.tools:gradle:1.25.4'
     }
 }
 
 apply plugin: 'com.android.application'
 apply plugin: 'jacoco'
 apply plugin: 'com.github.kt3k.coveralls'
+apply plugin: 'io.fabric'
 
 jacoco {
     toolVersion = "0.8.0"
@@ -109,14 +112,14 @@ tasks.withType(Test) {
 }
 
 dependencies {
-    implementation('org.smartregister:opensrp-client-native-form:1.5.5-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-native-form:1.6.1-RTL-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.android.support', module: 'recyclerview-v7'
         exclude group: 'com.android.support', module: 'appcompat-v7'
         exclude group: 'com.android.support', module: 'cardview-v7'
     }
 
-    implementation('org.smartregister:opensrp-client-core:1.6.12-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-core:1.6.17-RTL-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.github.bmelnychuk', module: 'atv'
         exclude group: 'com.google.guava', module: 'guava'
@@ -131,7 +134,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'appcompat-v7'
     }
 
-    implementation('org.smartregister:opensrp-client-family:1.2.5-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-family:1.2.7-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'org.smartregister', module: 'opensrp-client-core'
         exclude group: 'org.smartregister', module: 'opensrp-client-native-form'
@@ -175,6 +178,11 @@ dependencies {
     testImplementation 'org.robolectric:robolectric:3.8'
     testImplementation 'org.robolectric:shadows-multidex:3.8'
     testImplementation 'org.robolectric:shadows-support-v4:3.4-rc2'
+
+
+    implementation('com.crashlytics.sdk.android:crashlytics:2.9.5@aar') {
+        transitive = true
+    }
 
     // PowerMock
     def powerMockVersion = '1.7.1'
