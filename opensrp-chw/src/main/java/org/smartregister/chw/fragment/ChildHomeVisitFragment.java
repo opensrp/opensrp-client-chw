@@ -30,6 +30,7 @@ import com.vijay.jsonwizard.domain.Form;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.ChildProfileActivity;
 import org.smartregister.chw.activity.ChildRegisterActivity;
@@ -42,6 +43,7 @@ import org.smartregister.chw.util.BirthIllnessData;
 import org.smartregister.chw.util.ChildDBConstants;
 import org.smartregister.chw.util.ChildUtils;
 import org.smartregister.chw.util.Constants;
+import org.smartregister.chw.util.Country;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.family.activity.BaseFamilyProfileActivity;
@@ -72,7 +74,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     private CommonPersonObjectClient childClient;
     private TextView nameHeader;
     private TextView textViewBirthCertDueDate;
-    private TextView textViewObsIllnessDesc;
+    private TextView textViewObsIllnessDesc, textViewCounsellingDesc;
     private HomeVisitGrowthAndNutrition homeVisitGrowthAndNutritionLayout;
     private View viewBirthLine;
     public boolean allVaccineStateFullfilled = false;
@@ -83,7 +85,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     private LinearLayout layoutBirthCertGroup;
     private LinearLayout homeVisitLayout;
     private ChildHomeVisitContract.Presenter presenter;
-    private CircleImageView circleImageViewBirthStatus, circleImageViewIllnessStatus;
+    private CircleImageView circleImageViewBirthStatus, circleImageViewIllnessStatus, circleImageViewCousnsellingStatus;
     private String birthCertGiven = BIRTH_CERT_TYPE.NOT_GIVEN.name();
     private JSONObject illnessJson;
     private JSONObject birthCertJson;
@@ -117,15 +119,23 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         nameHeader = view.findViewById(R.id.textview_name_header);
         textViewBirthCertDueDate = view.findViewById(R.id.textview_birth_certification_name);
         textViewObsIllnessDesc = view.findViewById(R.id.textview_obser_illness_name);
+        textViewCounsellingDesc = view.findViewById(R.id.textview_counselling_name);
         TextView textViewObsIllnessTitle = view.findViewById(R.id.textview_obser_illness);
+        TextView textViewCounsellingTitle = view.findViewById(R.id.textview_counselling);
+
         textViewObsIllnessTitle.setText(Html.fromHtml(getString(R.string.observations_illness_episodes)));
+        textViewCounsellingTitle.setText(Html.fromHtml(getString(R.string.counselling)));
+
         view.findViewById(R.id.close).setOnClickListener(this);
         viewBirthLine = view.findViewById(R.id.birth_line_view);
         submit = view.findViewById(R.id.textview_submit);
         circleImageViewBirthStatus = view.findViewById(R.id.birth_status_circle);
         circleImageViewIllnessStatus = view.findViewById(R.id.obs_illness_status_circle);
+        circleImageViewCousnsellingStatus = view.findViewById(R.id.counselling_status_circle);
         layoutBirthCertGroup = view.findViewById(R.id.birth_cert_group);
         LinearLayout layoutIllnessGroup = view.findViewById(R.id.obs_illness_prevention_group);
+        LinearLayout layoutCounsellingGroup = view.findViewById(R.id.counselling_group);
+
         RecyclerView recyclerViewBirthCertData = view.findViewById(R.id.birth_cert_data_recycler);
         RecyclerView recyclerViewIllnessData = view.findViewById(R.id.illness_data_recycler);
         recyclerViewBirthCertData.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -133,6 +143,8 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         view.findViewById(R.id.textview_submit).setOnClickListener(this);
         layoutBirthCertGroup.setOnClickListener(this);
         layoutIllnessGroup.setOnClickListener(this);
+        layoutCounsellingGroup.setOnClickListener(this);
+
         homeVisitGrowthAndNutritionLayout = view.findViewById(R.id.growth_and_nutrition_group);
         homeVisitImmunizationView = view.findViewById(R.id.home_visit_immunization_view);
         homeVisitImmunizationView.setActivity(getActivity());
@@ -143,6 +155,10 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         assignNameHeader();
         submitButtonEnableDisable(false);
         updateGrowthData();
+
+        if (BuildConfig.BUILD_COUNTRY == Country.TANZANIA) {
+            layoutCounsellingGroup.setVisibility(View.VISIBLE);
+        }
     }
 
     private void assignNameHeader() {
@@ -257,6 +273,8 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
             case R.id.layout_add_other_family_member:
                 ((BaseFamilyProfileActivity) context).startFormActivity(Constants.JSON_FORM.FAMILY_MEMBER_REGISTER, null, null);
                 break;
+            case R.id.counselling_group:
+                //do nothing for now;
             default:
                 break;
         }
