@@ -82,14 +82,19 @@
         }
       },
       {
-        "key": "national_id",
+        "key": "unique_id",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "163084AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "label_info_text": "What is their national identity number or their voter registration number?",
-        "label_info_title": "National ID number",
-        "type": "edit_text",
-        "hint": "National ID number"
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "hidden": "true",
+        "type": "barcode",
+        "barcode_type": "qrcode",
+        "hint": "Scan QR code*",
+        "scanButtonText": "Scan QR Code",
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter a valid ID"
+        }
       },
       {
         "key": "surname",
@@ -186,6 +191,10 @@
         "v_regex": {
           "value": "[A-Za-z\\s\\.\\-]*",
           "err": "Please enter a valid name"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the middle name"
         }
       },
       {
@@ -261,34 +270,6 @@
         }
       },
       {
-        "key": "sex",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person",
-        "openmrs_entity_id": "gender",
-        "type": "spinner",
-        "hint": "Sex",
-        "values": [
-          "Male",
-          "Female"
-        ],
-        "v_required": {
-          "value": "true",
-          "err": "Please enter the sex"
-        }
-      },
-      {
-        "key": "primary_caregiver",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "spinner",
-        "hint": "Is primary caregiver?",
-        "values": [
-          "Yes",
-          "No"
-        ]
-      },
-      {
         "key": "id_avail",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
@@ -340,6 +321,13 @@
         "v_required": {
           "value": true,
           "err": "Please specify any other symptoms or select none"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family-member-relevance.yml"
+            }
+          }
         }
       },
       {
@@ -355,7 +343,7 @@
           "err": "Please enter National ID number"
         },
         "relevance": {
-          "step2:id_avail": {
+          "step1:id_avail": {
             "ex-checkbox": [
               {
                 "or": [
@@ -379,7 +367,7 @@
           "err": "Please enter Voter's registration number"
         },
         "relevance": {
-          "step2:id_avail": {
+          "step1:id_avail": {
             "ex-checkbox": [
               {
                 "or": [
@@ -403,7 +391,7 @@
           "err": "Please enter driver's license number"
         },
         "relevance": {
-          "step2:id_avail": {
+          "step1:id_avail": {
             "ex-checkbox": [
               {
                 "or": [
@@ -427,7 +415,7 @@
           "err": "Please enter passport number"
         },
         "relevance": {
-          "step2:id_avail": {
+          "step1:id_avail": {
             "ex-checkbox": [
               {
                 "or": [
@@ -475,6 +463,13 @@
         "v_required": {
           "value": "true",
           "err": "Please specify the insurance provider"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "tz_family_register_relevance.yml"
+            }
+          }
         }
       },
       {
@@ -487,6 +482,13 @@
         "v_required": {
           "value": "true",
           "err": "Please add the health insurance provider iD Number"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "tz_family_register_relevance.yml"
+            }
+          }
         }
       },
       {
@@ -576,6 +578,22 @@
         }
       },
       {
+        "key": "is_primary_caregiver",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "spinner",
+        "hint": "Is primary caregiver?",
+        "values": [
+          "Yes",
+          "No"
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select one"
+        }
+      },
+      {
         "key": "phone_number",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -593,10 +611,17 @@
         "v_required": {
           "value": false,
           "err": "Please specify the phone number"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "tz_family_register_relevance.yml"
+            }
+          }
         }
       },
       {
-        "key": "other_phone_number",
+        "key": "other_number",
         "openmrs_entity_parent": "159635AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -609,55 +634,185 @@
         "v_regex": {
           "value": "(0[0-9]{9})|\\s*",
           "err": "Number must be 10 digits and must start with 0."
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "tz_family_register_relevance.yml"
+            }
+          }
         }
       },
       {
         "key": "service_provider",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "openmrs_data_type": "select one",
-        "type": "spinner",
-        "hint": "Occupation of the family member",
-        "values": [
-          "Community Health Worker (CHW)",
-          "Community Based Distributor",
-          "Community IMCI",
-          "Home Based Care (HBC)",
-          "Community HMIS (cHMIS)",
-          "Traditional Birth Attendant",
-          "Traditional Healer",
-          "Teacher",
-          "Farmer",
-          "Civil Servant",
-          "Nurse",
-          "Other",
-          "None"
+        "openmrs_entity": "Concept - Occupation",
+        "openmrs_entity_id": "1542AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "check_box",
+        "label": "Occupation of the family member",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "exclusive": [
+          "chk_none"
+        ],
+        "options": [
+          {
+            "key": "chk_chw",
+            "text": "Community Health Worker (CHW)",
+            "value": false,
+            "openmrs_entity": "Concept - Community Health Worker",
+            "openmrs_entity_id": "1555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_cbd",
+            "text": "Community Based Distributor",
+            "value": false,
+            "openmrs_entity": "Concept - Pharmacy",
+            "openmrs_entity_id": "1744AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_cimmci",
+            "text": "Community IMCI",
+            "value": false,
+            "openmrs_entity": "Concept - Community Health Care Provider (CHCP)",
+            "openmrs_entity_id": "163096AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_hbc",
+            "text": "Home Based Care (HBC)",
+            "value": false,
+            "openmrs_entity": "Concept - Private home based care",
+            "openmrs_entity_id": "161359AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_chmis",
+            "text": "Community HMIS (cHMIS)",
+            "value": false,
+            "openmrs_entity": "Concept - Reporter",
+            "openmrs_entity_id": "163334AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_tba",
+            "text": "Traditional Birth Attendant",
+            "value": false,
+            "openmrs_entity": "Concept - Traditional Birth Attendant",
+            "openmrs_entity_id": "1575AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_th",
+            "text": "Traditional Healer",
+            "value": false,
+            "openmrs_entity": "Concept - Traditional Healer",
+            "openmrs_entity_id": "1821AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_teacher",
+            "text": "Teacher",
+            "value": false,
+            "openmrs_entity": "Concept - Professeur",
+            "openmrs_entity_id": "162946AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_farmer",
+            "text": "Farmer",
+            "value": false,
+            "openmrs_entity": "Concept - Farmer",
+            "openmrs_entity_id": "1538AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_cs",
+            "text": "Civil Servant",
+            "value": false,
+            "openmrs_entity": "Concept - Fonctionnaire",
+            "openmrs_entity_id": "162944AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_nurse",
+            "text": "Nurse",
+            "value": false,
+            "openmrs_entity": "Concept - Nurse",
+            "openmrs_entity_id": "1577AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_other",
+            "text": "Other",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "chk_none",
+            "text": "None",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "164369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
         ],
         "v_required": {
           "value": "true",
-          "err": "Please select one"
+          "err": "Please pick at least one"
         }
       },
+
       {
         "key": "leader",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "openmrs_data_type": "Any leadership role in the community?",
-        "type": "spinner",
-        "hint": "Any leadership role in the community?",
-        "values": [
-          "Religious leader",
-          "Political leader",
-          "Influential leader",
-          "Traditional leader",
-          "Other",
-          "None"
+        "type": "check_box",
+        "label": "Any leadership role in the community?",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "exclusive": [
+          "chk_none"
+        ],
+        "options": [
+          {
+            "key": "chk_religious",
+            "text": "Religious leader",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "chk_political",
+            "text": "Political leader",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "chk_influential",
+            "text": "Influential leader",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "chk_traditional",
+            "text": "Traditional leader",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "chk_other",
+            "text": "Other",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "chk_none",
+            "text": "None",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
         ],
         "v_required": {
           "value": "true",
-          "err": "Please select one"
+          "err": "Please pick at least one"
         }
       },
       {
@@ -673,10 +828,14 @@
           "err": "Please specify role"
         },
         "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "tz_family_register_relevance.yml"
-            }
+          "step1:leader": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "chk_other"
+                ]
+              }
+            ]
           }
         }
       }

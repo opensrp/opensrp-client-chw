@@ -106,7 +106,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
 
-        return (ViewGroup) inflater.inflate(R.layout.fragment_child_home_visit, container, false);
+        return inflater.inflate(R.layout.fragment_child_home_visit, container, false);
     }
 
     @Override
@@ -121,10 +121,10 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         textViewObsIllnessTitle.setText(Html.fromHtml(getString(R.string.observations_illness_episodes)));
         view.findViewById(R.id.close).setOnClickListener(this);
         viewBirthLine = view.findViewById(R.id.birth_line_view);
+        layoutBirthCertGroup = view.findViewById(R.id.birth_cert_group);
         submit = view.findViewById(R.id.textview_submit);
         circleImageViewBirthStatus = view.findViewById(R.id.birth_status_circle);
         circleImageViewIllnessStatus = view.findViewById(R.id.obs_illness_status_circle);
-        layoutBirthCertGroup = view.findViewById(R.id.birth_cert_group);
         LinearLayout layoutIllnessGroup = view.findViewById(R.id.obs_illness_prevention_group);
         RecyclerView recyclerViewBirthCertData = view.findViewById(R.id.birth_cert_data_recycler);
         RecyclerView recyclerViewIllnessData = view.findViewById(R.id.illness_data_recycler);
@@ -164,8 +164,8 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
             layoutBirthCertGroup.setVisibility(View.GONE);
             viewBirthLine.setVisibility(View.GONE);
         } else {
-            layoutBirthCertGroup.setVisibility(View.VISIBLE);
-            viewBirthLine.setVisibility(View.VISIBLE);
+            layoutBirthCertGroup.setVisibility(View.GONE);
+            viewBirthLine.setVisibility(View.GONE);
             //DateTime ddd = Utils.dobStringToDateTime(dob);
             //check wether it's due or overdue - overdue is 12m+
             BirthCertRule birthCertRule = new BirthCertRule(dob);
@@ -224,7 +224,6 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
             case R.id.textview_submit:
                 if (checkAllGiven()) {
 //                    ChildUtils.updateClientStatusAsEvent(childClient.entityId(), Constants.EventType.CHILD_HOME_VISIT, ChildDBConstants.KEY.LAST_HOME_VISIT, System.currentTimeMillis() + "", Constants.TABLE_NAME.CHILD);
-
 
                     try {
                         JSONArray vaccineGroup = homeVisitImmunizationView.getGroupVaccinesGivenThisVisit();

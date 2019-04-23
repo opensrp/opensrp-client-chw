@@ -40,7 +40,6 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MyViewHold
 
     private Animation slideUp;
     private Animation slideDown;
-    private List<String> eduOptions;
     private MemberAdapterListener memberAdapterListener;
 
     public MemberAdapter(Context context, List<FamilyMember> myDataset, MemberAdapterListener memberAdapterListener) {
@@ -132,25 +131,6 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MyViewHold
     private void renderViews(final MyViewHolder holder, FamilyMember model) {
         holder.etPhone.setText(model.getPhone());
         holder.etAlternatePhone.setText(model.getOtherPhone());
-        if (StringUtils.isNotBlank(model.getEduLevel())) {
-            switch (model.getEduLevel()) {
-                case "None":
-                    holder.spEduLevel.setSelection(0);
-                    break;
-                case "Primary":
-                    holder.spEduLevel.setSelection(1);
-                    break;
-                case "Secondary":
-                    holder.spEduLevel.setSelection(2);
-                    break;
-                case "Post-secondary":
-                    holder.spEduLevel.setSelection(3);
-                    break;
-                default:
-                    holder.spEduLevel.setSelection(0);
-                    break;
-            }
-        }
     }
 
     public boolean validateSave() {
@@ -201,23 +181,11 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MyViewHold
 
                 m.setPhone(currentViewHolder.etPhone.getText().toString());
                 m.setOtherPhone(currentViewHolder.etAlternatePhone.getText().toString());
-                m.setEduLevel(currentViewHolder.spEduLevel.getSelectedItem().toString());
                 return m;
             }
         }
 
         return null;
-    }
-
-    private List<String> getOptions() {
-        if (eduOptions == null) {
-            eduOptions = new ArrayList<>();
-            eduOptions.add("None");
-            eduOptions.add("Primary");
-            eduOptions.add("Secondary");
-            eduOptions.add("Post-secondary");
-        }
-        return eduOptions;
     }
 
     @Override
@@ -228,10 +196,9 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MyViewHold
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView tvName, tvGender;
         public RadioButton radioButton;
-        public LinearLayout llQuestions, llNewPhone, llAltPhone, llHighestEduLevel;
+        public LinearLayout llQuestions, llNewPhone, llAltPhone;
         public View view;
         public EditText etPhone, etAlternatePhone;
-        public Spinner spEduLevel;
 
         private MyViewHolder(View view) {
             super(view);
@@ -244,16 +211,9 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MyViewHold
 
             llNewPhone = view.findViewById(R.id.llNewNumber);
             llAltPhone = view.findViewById(R.id.llOtherNumber);
-            llHighestEduLevel = view.findViewById(R.id.llHighestEduLevel);
 
             etPhone = view.findViewById(R.id.etPhoneNumber);
             etAlternatePhone = view.findViewById(R.id.etOtherNumber);
-            spEduLevel = view.findViewById(R.id.spEducationLevel);
-
-            ArrayAdapter<String> adp1 = new ArrayAdapter<>(context,
-                    android.R.layout.simple_list_item_1, getOptions());
-            adp1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            spEduLevel.setAdapter(adp1);
 
             setLengthErrorMessage(etPhone);
             setLengthErrorMessage(etAlternatePhone);

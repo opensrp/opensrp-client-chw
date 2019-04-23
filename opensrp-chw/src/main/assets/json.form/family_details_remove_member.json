@@ -99,7 +99,7 @@
           "err": "Select the reason for removing the family member's record"
         },
         "values": [
-          "Died",
+          "Death",
           "Moved away",
           "Other"
         ],
