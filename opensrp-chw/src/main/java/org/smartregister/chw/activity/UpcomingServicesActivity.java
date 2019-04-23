@@ -40,7 +40,7 @@ public class UpcomingServicesActivity extends SecuredActivity {
         progressBar = findViewById(R.id.progress_bar);
         CommonPersonObjectClient childClient = (CommonPersonObjectClient) getIntent().getSerializableExtra(Constants.INTENT_KEY.CHILD_COMMON_PERSON);
         name = getValue(childClient.getColumnmaps(), "first_name", true) + " " +
-                getValue(childClient.getColumnmaps(), "last_name", true) + "'s profile";
+                getValue(childClient.getColumnmaps(), "last_name", true);
         upcomingServicesView = (UpcomingServicesFragmentView) findViewById(R.id.upcomingServicesHolder);
         upcomingServicesView.setActivity(this);
         upcomingServicesView.setChildClient(childClient);

@@ -101,7 +101,7 @@ public class ChildRegisterProvider implements RecyclerViewProvider<ChildRegister
         String parentLastName = Utils.getValue(pc.getColumnmaps(), ChildDBConstants.KEY.FAMILY_LAST_NAME, true);
         String parentMiddleName = Utils.getValue(pc.getColumnmaps(), ChildDBConstants.KEY.FAMILY_MIDDLE_NAME, true);
 
-        String parentName = "CG: " + org.smartregister.util.Utils.getName(parentFirstName, parentMiddleName + " " + parentLastName);
+        String parentName = context.getResources().getString(R.string.care_giver_initials) + ": " + org.smartregister.util.Utils.getName(parentFirstName, parentMiddleName + " " + parentLastName);
         String firstName = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.FIRST_NAME, true);
         String middleName = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.MIDDLE_NAME, true);
         String lastName = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.LAST_NAME, true);
@@ -302,15 +302,15 @@ public class ChildRegisterProvider implements RecyclerViewProvider<ChildRegister
                     if (!TextUtils.isEmpty(visitNotDone)) {
                         visitNot = Long.parseLong(visitNotDone);
                     }
-                    if(!TextUtils.isEmpty(lastVisitDate)){
-                        lastVisit =  Long.parseLong(lastVisitDate);
+                    if (!TextUtils.isEmpty(lastVisitDate)) {
+                        lastVisit = Long.parseLong(lastVisitDate);
                     }
-                    if(!TextUtils.isEmpty(strDateCreated)){
-                        dateCreated =  Utils.dobStringToDateTime(strDateCreated).getMillis();
+                    if (!TextUtils.isEmpty(strDateCreated)) {
+                        dateCreated = Utils.dobStringToDateTime(strDateCreated).getMillis();
                     }
 
                     String dobString = Utils.getDuration(Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.DOB, false));
-                    childVisit = ChildUtils.getChildVisitStatus(rules, dobString, lastVisit, visitNot, dateCreated);
+                    childVisit = ChildUtils.getChildVisitStatus(context, rules, dobString, lastVisit, visitNot, dateCreated);
 
                 }
                 return null;
