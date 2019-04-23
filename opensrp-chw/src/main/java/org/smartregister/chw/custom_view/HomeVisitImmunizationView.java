@@ -426,7 +426,7 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
                     Date dob = dateTime.toDate();
                     List<Vaccine> vaccines = (List<Vaccine>) v.getTag(R.id.vaccinelist);
                     HomeVisitVaccineGroup duevaccines = (HomeVisitVaccineGroup) v.getTag(R.id.nextduevaccinelist);
-                    VaccinationDialogFragment customVaccinationDialogFragment = VaccinationDialogFragment.newInstance(dob,new ArrayList<VaccineWrapper>(), presenter.createVaccineWrappers(duevaccines));
+                    VaccinationDialogFragment customVaccinationDialogFragment = VaccinationDialogFragment.newInstance(dob,presenter.getNotGivenVaccines(), presenter.createVaccineWrappers(duevaccines));
                     customVaccinationDialogFragment.setChildDetails(presenter.getchildClient());
                     customVaccinationDialogFragment.setView(this);
                     customVaccinationDialogFragment.show(ft, ChildImmunizationFragment.TAG);
