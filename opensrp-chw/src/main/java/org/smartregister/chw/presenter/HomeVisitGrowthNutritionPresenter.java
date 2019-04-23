@@ -236,6 +236,11 @@ public class HomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNutriti
 
 
     public ServiceWrapper getServiceWrapperExclusive() {
+        if(isEditMode){
+            if(isSave(GrowthNutritionInputFragment.GROWTH_TYPE.EXCLUSIVE.getValue())){
+                return saveStateMap.get(GrowthNutritionInputFragment.GROWTH_TYPE.EXCLUSIVE.getValue());
+            }
+        }
         return serviceWrapperExclusive;
     }
 
