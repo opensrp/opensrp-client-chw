@@ -1,79 +1,55 @@
 package org.smartregister.chw.interactor;
 
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.powermock.api.mockito.PowerMockito;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
-import org.powermock.modules.junit4.rule.PowerMockRule;
 import org.powermock.reflect.Whitebox;
-import org.smartregister.Context;
 import org.smartregister.chw.BaseUnitTest;
-import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.contract.HomeVisitImmunizationContract;
 import org.smartregister.chw.model.VaccineTaskModel;
+import org.smartregister.commonregistry.CommonPersonObjectClient;
+import org.smartregister.family.util.DBConstants;
 import org.smartregister.immunization.domain.VaccineWrapper;
 import org.smartregister.immunization.repository.VaccineRepository;
 import org.smartregister.service.AlertService;
+
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 import io.reactivex.Observable;
-import io.reactivex.Observer;
-import io.reactivex.schedulers.TestScheduler;
+import io.reactivex.observers.TestObserver;
 
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.powermock.api.mockito.PowerMockito.doReturn;
 
-@RunWith(PowerMockRunner.class)
-@PrepareForTest({ChwApplication.class})
 public class HomeVisitImmunizationInteractorTest extends BaseUnitTest {
-    @Mock
     private HomeVisitImmunizationInteractor interactor;
-    @Rule
-    public PowerMockRule rule = new PowerMockRule();
     @Mock
     HomeVisitImmunizationContract.InteractorCallBack callBack;
-    private String dobString = "";
-    private String entityId = "a4fa50a5-12ab-442b-b0e5-49b3ba905b8a";
-    private TestScheduler scheduler;
-    @Mock
-    Observer<VaccineTaskModel> responseObserver;
     @Mock
     AlertService alertService;
     @Mock
     VaccineRepository vaccineRepository;
     @Mock
-    ChwApplication chwApplication;
-    @Mock
-    private Context context;
+    Observable<VaccineTaskModel> responseObserver;
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        PowerMockito.mockStatic(ChwApplication.class);
-        PowerMockito.when(ChwApplication.getInstance()).thenReturn(chwApplication);
-        PowerMockito.when(ChwApplication.getInstance().getContext()).thenReturn(context);
-        PowerMockito.when(ChwApplication.getInstance().getContext().alertService()).thenReturn(alertService);
-        PowerMockito.when(ChwApplication.getInstance().vaccineRepository()).thenReturn(vaccineRepository);
         interactor = Mockito.spy(HomeVisitImmunizationInteractor.class);
-        scheduler = new TestScheduler();
-
+        Whitebox.setInternalState(interactor, "alertService", alertService);
+        Whitebox.setInternalState(interactor, "vaccineRepository", vaccineRepository);
     }
+
     @Test
-    public void updateImmunizationState_WhenDataAvailable_True_Callback() throws Exception{
-        //TestSubject<VaccineTaskModel> eventObservable = TestSubject.create(scheduler);
-        Whitebox.setInternalState(interactor, "processScheduler", scheduler);
-        Whitebox.setInternalState(interactor, "androidScheduler", scheduler);
-        VaccineTaskModel vaccineTaskModel = new VaccineTaskModel();
-        vaccineTaskModel.setNotGivenVaccine(new ArrayList<VaccineWrapper>());
-        interactor.getVaccineTask(dobString, entityId,new ArrayList<VaccineWrapper>());
-       // Whitebox.invokeMethod(interactor, "getVaccineTask", details, entityId,Mockito.any(ArrayList.class));
-        scheduler.triggerActions();
-        scheduler.advanceTimeBy(10,TimeUnit.SECONDS);
-        verify(responseObserver, times(1)).onNext(vaccineTaskModel);
+    public void updateImmunizationStateTest(){
+       Map<String,String> details = new LinkedHashMap<>();
+       details.put(DBConstants.KEY.DOB,"2018-08-17T06:00:00.000+06:00");
+       CommonPersonObjectClient commonPersonObjectClient = new CommonPersonObjectClient("sds",details,"name");
+       doReturn(responseObserver).when(interactor.getVaccineTask(commonPersonObjectClient,new ArrayList<VaccineWrapper>()));
+        TestObserver<VaccineTaskModel> testObserver = interactor.getVaccineTask(commonPersonObjectClient,new ArrayList<VaccineWrapper>()).test();
+        testObserver.dispose();
+        //interactor.updateImmunizationState(commonPersonObjectClient,new ArrayList<VaccineWrapper>(),callBack);
     }
 }
