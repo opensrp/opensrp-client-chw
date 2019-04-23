@@ -151,7 +151,7 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
 
             multiple_immunization_group.setTag(R.id.nextduevaccinelist, presenter.getCurrentActiveGroup());
             multiple_immunization_group.setTag(R.id.vaccinelist, vaccines);
-            multiple_immunization_group.setOnClickListener(this);
+            multiple_immunization_group.setOnClickListener(null);
 
         } else if (presenter.groupIsDue()) {
             String value = presenter.getCurrentActiveGroup().getGroup();
