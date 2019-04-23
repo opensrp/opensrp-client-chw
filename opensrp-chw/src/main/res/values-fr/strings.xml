@@ -51,7 +51,7 @@
     <string name="add_new_family_member">Ajouter un nouveau membre à la famille</string>
     <string name="remove_existing_family_member">Enlever un membre de la famille</string>
     <string name="change_family_head">Changer le chef de famille</string>
-    <string name="change_primary_caregiver">Changer la personne résponsable pour l\'enfant</string>
+    <string name="change_primary_caregiver">Changer la personne résponsable</string>
     <string name="add_other_family_member">Autre membre de famille</string>
     <string name="add_child_under_five">Enfant de moins de 5 ans</string>
     <string name="child_under_five">Enfant de moins de 5 ans</string>
@@ -63,7 +63,7 @@
     <string name="vaccine_service_upcoming"><![CDATA[%1$s <font color=#7f7f7f>prochain (%2$s)</font></b>]]></string>
 
     <string name="family_has_service_overdue"><![CDATA[Famille à <font color=#FF0000>des services en retard</font></b>]]></string>
-    <string name="view_upcoming_services">Voir les prochains services</string>
+    <string name="view_upcoming_services">Voir prochains services</string>
     <string name="upcoming_services">Prochains services</string>
     <string name="overdue_3_oct">en retard(3 oct)</string>
     <string name="penta_1">Penta 1</string>
@@ -77,7 +77,7 @@
     <string name="change_caregiver_member_title_question">Sélectionner un nouveau résponsable pour l\'enfant/les enfants</string>
     <string name="remove_member_title">Enlever membre </string>
     <string name="remove_member_prompt">Quel membre voulez vous enlever?</string>
-    <string name="visit_month">%1$s visite fait</string>
+    <string name="visit_month">Visite fait dans le mois de %1$s</string>
     <string name="not_visiting_this_month">Aucun visite ce mois</string>
     <string name="undo">ANNULER</string>
     <string name="record_visit">Enregistrer visite</string>
@@ -98,7 +98,7 @@
     <string name="visit_not_done">Visite n\'a pas \neu lieu</string>
     <string name="visit_done">Visite fait</string>
     <string name="due_visit">Dernier visite \n %1$s</string>
-    <string name="medical_title">Retour à %1$s</string>
+    <string name="medical_title">Retour au profil de %1$s</string>
     <string name="medical_last_visit">Depuis %1$s </string>
     <string name="growth_and_nutrition">CROISSANCE ET NUTRITION</string>
     <string name="immunization">IMMUNISATION</string>
@@ -121,7 +121,7 @@
     <string name="section_format">Salut le monde de la section: %1$d</string>
     <string name="updating">Mise à jour en cours...</string>
     <string name="birth_certification">Certification de naissance</string>
-    <string name="observations_illness_episodes"><![CDATA[Observations & maladies - <i>optional</i>]]></string>
+    <string name="observations_illness_episodes"><![CDATA[Observations & maladies - <i>optionelle</i>]]></string>
     <string name="observations_illness_episodes_medical"><![CDATA[Observations & Épisodes de maladies]]></string>
     <string name="home_visit_suffix"> &#183; Visite à domicile</string>
     <string name="last_visit_prefix">Dernier visite depuis %1$s </string>
@@ -207,7 +207,7 @@
     <string name="due">Attendu&#160;</string>
     <string name="remove_this_person">Enlever cette personne</string>
     <string name="registration_info">Information d\'enregistrement</string>
-    <string name="log_out_as">Se déconnecter comme</string>
+    <string name="log_out_as">Se déconnecter de le compte</string>
     <string name="job_aids">Outils de travail</string>
     <string name="powered_by">Réalisé par</string>
     <string name="immunisation_and_services"><![CDATA[IMMUNISATION & SERVICES]]></string>
@@ -222,5 +222,22 @@
     <string name="menu_family_planing">PF</string>
     <string name="menu_malaria">PALUDISME</string>
     <string name="refer_to_facility">Référer à la structure sanitaire</string>
+
+    <string name="due_only">Attendu</string>
+    <string name="care_giver_initials">PR</string>
+    <string name="less_than_twenty_four">moins de 24 heures</string>
+
+    <string name="january">janvier</string>
+    <string name="february">février</string>
+    <string name="march">mars</string>
+    <string name="april">avril</string>
+    <string name="may">peut</string>
+    <string name="june">juin</string>
+    <string name="july">juillet</string>
+    <string name="august">août</string>
+    <string name="september">septembre</string>
+    <string name="october">octobre</string>
+    <string name="november">novembre</string>
+    <string name="december">décembre</string>
 
 </resources>
