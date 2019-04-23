@@ -26,7 +26,7 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
     private static final String TAG = FamilyProfileDueFragment.class.getCanonicalName();
 
     private int dueCount = 0;
-    View emptyView;
+    private View emptyView;
 
     public static BaseFamilyProfileDueFragment newInstance(Bundle bundle) {
         Bundle args = bundle;

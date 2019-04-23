@@ -20,7 +20,7 @@ import org.smartregister.family.adapter.FamilyRecyclerViewCustomAdapter;
 public class FamilyProfileDueFragmentTest {
 
     @Mock
-    FamilyRecyclerViewCustomAdapter clientAdapter;
+    private FamilyRecyclerViewCustomAdapter clientAdapter;
 
     @Before
     public void setUp() {
