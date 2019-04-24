@@ -119,7 +119,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         nameHeader = view.findViewById(R.id.textview_name_header);
         textViewBirthCertDueDate = view.findViewById(R.id.textview_birth_certification_name);
         textViewObsIllnessDesc = view.findViewById(R.id.textview_obser_illness_name);
-        View textViewCounsellingDesc = view.findViewById(R.id.textview_counselling_name);
+//        View textViewCounsellingDesc = view.findViewById(R.id.textview_counselling_name);
         TextView textViewObsIllnessTitle = view.findViewById(R.id.textview_obser_illness);
         TextView textViewCounsellingTitle = view.findViewById(R.id.textview_counselling);
 
@@ -131,7 +131,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         submit = view.findViewById(R.id.textview_submit);
         circleImageViewBirthStatus = view.findViewById(R.id.birth_status_circle);
         circleImageViewIllnessStatus = view.findViewById(R.id.obs_illness_status_circle);
-        View circleImageViewCousnsellingStatus = view.findViewById(R.id.counselling_status_circle);
+//        View circleImageViewCousnsellingStatus = view.findViewById(R.id.counselling_status_circle);
         layoutBirthCertGroup = view.findViewById(R.id.birth_cert_group);
         LinearLayout layoutIllnessGroup = view.findViewById(R.id.obs_illness_prevention_group);
         LinearLayout layoutCounsellingGroup = view.findViewById(R.id.counselling_group);
