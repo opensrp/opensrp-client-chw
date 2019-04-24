@@ -70,9 +70,9 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
         emptyView = view.findViewById(R.id.empty_view);
     }
 
-    public void onEmptyRegisterCount(boolean has_records) {
+    public void onEmptyRegisterCount(boolean has_no_records) {
         if (emptyView != null) {
-            emptyView.setVisibility(has_records ? View.VISIBLE : View.GONE);
+            emptyView.setVisibility(has_no_records ? View.VISIBLE : View.GONE);
         }
     }
 
