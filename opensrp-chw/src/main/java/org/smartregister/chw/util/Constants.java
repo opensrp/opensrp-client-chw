@@ -125,16 +125,6 @@ public class Constants {
 
     public static class FORM_CONSTANTS {
 
-        public static HashMap<String, String> EDUCATION_LEVELS;
-
-        static {
-            EDUCATION_LEVELS = new HashMap<>();
-            EDUCATION_LEVELS.put("None", "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-            EDUCATION_LEVELS.put("Primary", "1713AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-            EDUCATION_LEVELS.put("Secondary", "1714AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-            EDUCATION_LEVELS.put("Post-secondary", "159785AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-        }
-
         public static class REMOVE_MEMBER_FORM {
             public static final String REASON = "remove_reason";
             public static final String DATE_DIED = "date_died";
