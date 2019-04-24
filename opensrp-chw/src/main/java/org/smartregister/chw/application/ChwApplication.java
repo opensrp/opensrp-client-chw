@@ -236,7 +236,7 @@ public class ChwApplication extends DrishtiApplication {
                 List<Vaccine> specialVaccines = VaccinatorUtils.getSpecialVaccines(this, "tz");
                 VaccineSchedule.init(childVaccines, specialVaccines, "child");
             }
-            VaccinatorUtils cv=new VaccinatorUtils();
+           // VaccinatorUtils cv=new VaccinatorUtils();
         } catch (Exception e) {
             Log.e(TAG, Log.getStackTraceString(e));
         }
