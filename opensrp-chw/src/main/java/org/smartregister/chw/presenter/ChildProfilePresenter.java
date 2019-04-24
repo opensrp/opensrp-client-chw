@@ -2,6 +2,9 @@ package org.smartregister.chw.presenter;
 
 import android.util.Pair;
 
+import org.apache.commons.lang3.tuple.Triple;
+import org.joda.time.DateTime;
+import org.joda.time.Period;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.contract.ChildProfileContract;
@@ -188,6 +191,9 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
             }
             if (childVisit.getLastVisitTime() != 0) {
                 getView().setLastVisitRowView(childVisit.getLastVisitDays());
+            }
+            if (!childVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.NOT_VISIT_THIS_MONTH.name()) && childVisit.getLastVisitTime() != 0) {
+                getView().enableEdit(new Period(new DateTime(childVisit.getLastVisitTime()) , DateTime.now()).getHours() <= 24);
             }
 
         }

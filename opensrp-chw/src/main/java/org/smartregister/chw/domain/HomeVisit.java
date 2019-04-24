@@ -24,9 +24,15 @@ public class HomeVisit {
     private Map<String, String> formfields;
     private JSONObject VaccineGroupsGiven = new JSONObject();
     private JSONObject singleVaccinesGiven = new JSONObject();
+    private JSONObject vaccineNotGiven = new JSONObject();
     private JSONObject ServicesGiven = new JSONObject();
-    private String birthCertificationState = "";
+    private JSONObject serviceNotGiven = new JSONObject();
+    private JSONObject birthCertificationState =  new JSONObject();
     private JSONObject illness_information = new JSONObject();
+
+    public HomeVisit(){
+
+    }
 
 
     public HomeVisit(Long id, String baseEntityId, String name, Date date, String anmId, String locationId, String syncStatus, Long updatedAt, String eventId, String formSubmissionId, Date createdAt) {
@@ -163,11 +169,11 @@ public class HomeVisit {
         ServicesGiven = servicesGiven;
     }
 
-    public String getBirthCertificationState() {
+    public JSONObject getBirthCertificationState() {
         return birthCertificationState;
     }
 
-    public void setBirthCertificationState(String birthCertificationState) {
+    public void setBirthCertificationState(JSONObject birthCertificationState) {
         this.birthCertificationState = birthCertificationState;
     }
 
@@ -177,5 +183,21 @@ public class HomeVisit {
 
     public void setIllness_information(JSONObject illness_information) {
         this.illness_information = illness_information;
+    }
+
+    public void setServiceNotGiven(JSONObject serviceNotGiven) {
+        this.serviceNotGiven = serviceNotGiven;
+    }
+
+    public void setVaccineNotGiven(JSONObject vaccineNotGiven) {
+        this.vaccineNotGiven = vaccineNotGiven;
+    }
+
+    public JSONObject getServiceNotGiven() {
+        return serviceNotGiven;
+    }
+
+    public JSONObject getVaccineNotGiven() {
+        return vaccineNotGiven;
     }
 }
