@@ -148,10 +148,10 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
 
             immunization_group_status_circle.setCircleBackgroundColor(getResources().getColor(color_res));
             immunization_group_status_circle.setBorderColor(getResources().getColor(color_res));
-
+            multiple_immunization_group.setTag(R.id.nextduevaccinelist, presenter.getCurrentActiveGroup().getGivenVaccines());
             multiple_immunization_group.setTag(R.id.nextduevaccinelist, presenter.getCurrentActiveGroup());
             multiple_immunization_group.setTag(R.id.vaccinelist, vaccines);
-            multiple_immunization_group.setOnClickListener(null);
+            multiple_immunization_group.setOnClickListener(this);
 
         } else if (presenter.groupIsDue()) {
             String value = presenter.getCurrentActiveGroup().getGroup();
@@ -426,6 +426,7 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
                     Date dob = dateTime.toDate();
                     List<Vaccine> vaccines = (List<Vaccine>) v.getTag(R.id.vaccinelist);
                     HomeVisitVaccineGroup duevaccines = (HomeVisitVaccineGroup) v.getTag(R.id.nextduevaccinelist);
+                    HomeVisitVaccineGroup givenVaccines = (HomeVisitVaccineGroup) v.getTag(R.id.givenvaccinelist);
                     VaccinationDialogFragment customVaccinationDialogFragment = VaccinationDialogFragment.newInstance(dob,presenter.getNotGivenVaccines(), presenter.createVaccineWrappers(duevaccines));
                     customVaccinationDialogFragment.setChildDetails(presenter.getchildClient());
                     customVaccinationDialogFragment.setView(this);
