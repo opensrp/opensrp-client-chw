@@ -108,7 +108,7 @@ public class ImmunizationEditView extends LinearLayout implements ImmunizationEd
             String dobString = org.smartregister.util.Utils.getValue(childClient.getColumnmaps(), "dob", false);
             DateTime dateTime = new DateTime(dobString);
             Date dob = dateTime.toDate();
-            VaccinationDialogFragment customVaccinationDialogFragment = VaccinationDialogFragment.newInstance(dob,presenter.getNotGivenVaccineWrappers(homeVisitVaccineGroup),
+            VaccinationDialogFragment customVaccinationDialogFragment = VaccinationDialogFragment.newInstance(dob,presenter.getNotGivenVaccineWrappers(homeVisitVaccineGroup),new ArrayList<VaccineWrapper>(),
                     presenter.getDueVaccineWrappers(homeVisitVaccineGroup));
             customVaccinationDialogFragment.setChildDetails(childClient);
             customVaccinationDialogFragment.setView(ImmunizationEditView.this);

@@ -33,11 +33,13 @@ import org.smartregister.chw.contract.HomeVisitImmunizationContract;
 import org.smartregister.chw.contract.ImmunizationEditContract;
 import org.smartregister.chw.custom_view.ImmunizationEditView;
 import org.smartregister.family.util.DBConstants;
+import org.smartregister.immunization.ImmunizationLibrary;
 import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.immunization.domain.ServiceSchedule;
 import org.smartregister.immunization.domain.Vaccine;
 import org.smartregister.immunization.domain.VaccineSchedule;
 import org.smartregister.immunization.domain.VaccineWrapper;
+import org.smartregister.immunization.repository.VaccineRepository;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -51,11 +53,12 @@ import static org.smartregister.chw.util.ChildUtils.fixVaccineCasing;
 
 @SuppressLint("ValidFragment")
 public class VaccinationDialogFragment extends ChildImmunizationFragment implements View.OnClickListener {
-    private List<VaccineWrapper> tags,notGivenList;
+    private List<VaccineWrapper> tags,notGivenList,givenList;
     private Date dateOfBirth;
     public static final String DIALOG_TAG = "VaccinationDialogFragment";
     public static final String WRAPPER_TAG = "tag";
     public static final String NOT_GIVEN = "not_given";
+    public static final String GIVEN = "given";
     private HomeVisitImmunizationContract.View homeVisitImmunizationView;
     private ImmunizationEditView immunizationEditView;
     private int selectCount = 0;
@@ -66,8 +69,9 @@ public class VaccinationDialogFragment extends ChildImmunizationFragment impleme
     private DatePicker earlierDatePicker;
     private TextView textViewAddDate;
     private Map<VaccineWrapper, DatePicker> singleVaccineMap = new LinkedHashMap<>();
+    private VaccineRepository vaccineRepository;
 
-    public static VaccinationDialogFragment newInstance(Date dateOfBirth,ArrayList<VaccineWrapper> notGiven,
+    public static VaccinationDialogFragment newInstance(Date dateOfBirth,ArrayList<VaccineWrapper> notGiven,ArrayList<VaccineWrapper> given,
                                                         ArrayList<VaccineWrapper> tags) {
 
         VaccinationDialogFragment customVaccinationDialogFragment = new VaccinationDialogFragment();
@@ -75,6 +79,7 @@ public class VaccinationDialogFragment extends ChildImmunizationFragment impleme
         Bundle args = new Bundle();
         args.putSerializable(WRAPPER_TAG, tags);
         args.putSerializable(NOT_GIVEN, notGiven);
+        args.putSerializable(GIVEN, given);
         customVaccinationDialogFragment.setArguments(args);
         customVaccinationDialogFragment.setDateOfBirth(dateOfBirth);
         customVaccinationDialogFragment.setDisableConstraints(true);
@@ -127,6 +132,7 @@ public class VaccinationDialogFragment extends ChildImmunizationFragment impleme
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        vaccineRepository = ImmunizationLibrary.getInstance().vaccineRepository();
         parseBundleData();
         updateDatePicker(earlierDatePicker);
         updateVaccineList();
@@ -137,6 +143,7 @@ public class VaccinationDialogFragment extends ChildImmunizationFragment impleme
         if (serializable instanceof ArrayList) {
             tags = (ArrayList<VaccineWrapper>) serializable;
             notGivenList = (ArrayList<VaccineWrapper>) bundle.getSerializable(NOT_GIVEN);
+            givenList = (ArrayList<VaccineWrapper>) bundle.getSerializable(GIVEN);
         }
     }
     private void updateDatePicker(DatePicker datePicker) {
@@ -313,7 +320,13 @@ public class VaccinationDialogFragment extends ChildImmunizationFragment impleme
             }
         }
         for (VaccineWrapper tags : UngiventagsToUpdate) {
-            if(homeVisitImmunizationView!=null) homeVisitImmunizationView.getPresenter().updateNotGivenVaccine(tags);
+            if(homeVisitImmunizationView!=null){
+                if(isExistInGiven(tags.getName())){
+                    Long dbKey = tags.getDbKey();
+                    if(dbKey!=null) vaccineRepository.deleteVaccine(dbKey);
+                }
+                homeVisitImmunizationView.getPresenter().updateNotGivenVaccine(tags);
+            }
             if(immunizationEditView!=null) immunizationEditView.getPresenter().updateNotGivenVaccine(tags);
         }
 
@@ -408,7 +421,14 @@ public class VaccinationDialogFragment extends ChildImmunizationFragment impleme
         }
         return false;
     }
-
+    private boolean isExistInGiven(String name){
+        for (VaccineWrapper vaccineWrapper : givenList) {
+            if(vaccineWrapper.getName().equalsIgnoreCase(name)){
+                return true;
+            }
+        }
+        return false;
+    }
 
 
     @Override

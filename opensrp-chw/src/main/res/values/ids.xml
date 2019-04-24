@@ -5,5 +5,4 @@
     <item name="vaccinelist" type="id" />
     <item name="singlenextvaccine" type="id" />
     <item name="nextduevaccinelist" type="id" />
-    <item name="givenvaccinelist" type="id" />
 </resources>
