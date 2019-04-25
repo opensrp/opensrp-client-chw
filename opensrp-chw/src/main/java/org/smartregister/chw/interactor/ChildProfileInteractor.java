@@ -167,9 +167,8 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
 
     @Override
     public void updateVisitNotDone(long value) {
-        ChildUtils.updateHomeVisitAsEvent(getpClient().entityId(), Constants.EventType.CHILD_VISIT_NOT_DONE, Constants.TABLE_NAME.CHILD, new JSONObject(), new JSONObject(), new JSONObject(), ChildHomeVisitFragment.BIRTH_CERT_TYPE.NOT_GIVEN.name(), new JSONObject(), ChildDBConstants.KEY.VISIT_NOT_DONE, value + "");
+        ChildUtils.updateHomeVisitAsEvent(getpClient().entityId(), Constants.EventType.CHILD_VISIT_NOT_DONE, Constants.TABLE_NAME.CHILD, new JSONObject(), new JSONObject(), new JSONObject(),new JSONObject(), new JSONObject(),new JSONObject(), new JSONObject(), ChildDBConstants.KEY.VISIT_NOT_DONE, value + "");
 
-//        ChildUtils.updateClientStatusAsEvent(getpClient().entityId(), Constants.EventType.CHILD_VISIT_NOT_DONE, ChildDBConstants.KEY.VISIT_NOT_DONE, value + "", Constants.TABLE_NAME.CHILD);
     }
 
     @Override
@@ -302,7 +301,7 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
                             final HomeVisitGrowthNutritionInteractor homeVisitGrowthNutritionInteractor = new HomeVisitGrowthNutritionInteractor();
                             homeVisitGrowthNutritionInteractor.parseRecordServiceData(getpClient(), new HomeVisitGrowthNutritionContract.InteractorCallBack() {
                                 @Override
-                                public void updateRecordVisitData(Map<String, ServiceWrapper> stringServiceWrapperMap) {
+                                public void updateGivenRecordVisitData(Map<String, ServiceWrapper> stringServiceWrapperMap) {
                                     try {
                                         ChildService childService = null;
                                         ArrayList<GrowthServiceData> growthServiceDataList = homeVisitGrowthNutritionInteractor.getAllDueService(stringServiceWrapperMap);
@@ -325,6 +324,16 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
                                     } catch (Exception e) {
                                         e.printStackTrace();
                                     }
+
+                                }
+
+                                @Override
+                                public void updateNotGivenRecordVisitData(Map<String, ServiceWrapper> stringServiceWrapperMap) {
+                                    //No need to handle not given service
+                                }
+
+                                @Override
+                                public void allDataLoaded() {
 
                                 }
                             });

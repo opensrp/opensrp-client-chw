@@ -37,6 +37,7 @@ public class HomeVisitGrowthAndNutrition extends LinearLayout implements View.On
     private FragmentManager fragmentManager;
     private ChildHomeVisitFragment childHomeVisitFragment;
     private String feedingText;
+    private boolean isEditMode;
 
     public HomeVisitGrowthAndNutrition(Context context) {
         super(context);
@@ -81,11 +82,12 @@ public class HomeVisitGrowthAndNutrition extends LinearLayout implements View.On
         initializePresenter();
     }
 
-    public void setData(ChildHomeVisitFragment childHomeVisitFragment, FragmentManager fragmentManager, CommonPersonObjectClient commonPersonObjectClient) {
+    public void setData(ChildHomeVisitFragment childHomeVisitFragment, FragmentManager fragmentManager, CommonPersonObjectClient commonPersonObjectClient,boolean isEditMode) {
         this.childHomeVisitFragment = childHomeVisitFragment;
         this.fragmentManager = fragmentManager;
         this.commonPersonObjectClient = commonPersonObjectClient;
-        presenter.parseRecordServiceData(commonPersonObjectClient);
+        this.isEditMode = isEditMode;
+        presenter.parseRecordServiceData(commonPersonObjectClient,isEditMode);
     }
 
     @Override
@@ -248,7 +250,8 @@ public class HomeVisitGrowthAndNutrition extends LinearLayout implements View.On
     public void allDataLoaded(){
         if (childHomeVisitFragment != null) {
             childHomeVisitFragment.allServicesDataLoaded=true;
-            childHomeVisitFragment.progressBarInvisible();
+            if(isEditMode)childHomeVisitFragment.forcfullyProgressBarInvisible();
+            else childHomeVisitFragment.progressBarInvisible();
         }
     }
 
@@ -274,8 +277,11 @@ public class HomeVisitGrowthAndNutrition extends LinearLayout implements View.On
         return presenter.isAllSelected();
     }
 
-    public Map<String, String> returnSaveStateMap() {
+    public Map<String, ServiceWrapper> returnSaveStateMap() {
         return presenter.getSaveStateMap();
+    }
+    public Map<String, ServiceWrapper> returnNotSaveStateMap() {
+        return presenter.getNotSaveStateMap();
     }
 
 }

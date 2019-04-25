@@ -16,6 +16,7 @@ import org.joda.time.LocalDate;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.domain.FamilyMember;
 import org.smartregister.chw.repository.ChwRepository;
@@ -50,6 +51,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -182,7 +184,7 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
         String entityId = id;
         form.getJSONObject(METADATA).put(ENCOUNTER_LOCATION, currentLocationId);
 
-        if (Utils.metadata().familyRegister.formName.equals(formName) || Utils.metadata().familyMemberRegister.formName.equals(formName) || formName.equalsIgnoreCase("child_enrollment")) {
+        if (Utils.metadata().familyRegister.formName.equals(formName) || Utils.metadata().familyMemberRegister.formName.equals(formName) || formName.equalsIgnoreCase(org.smartregister.chw.util.Constants.JSON_FORM.CHILD_REGISTER)) {
             if (StringUtils.isNotBlank(entityId)) {
                 entityId = entityId.replace("-", "");
             }
@@ -931,7 +933,7 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
                 toList(familyMember.getOtherPhone()), new ArrayList<>(), null, DBConstants.KEY.OTHER_PHONE_NUMBER));
 
         eventMember.addObs(new Obs("concept", "text", org.smartregister.chw.util.Constants.FORM_CONSTANTS.CHANGE_CARE_GIVER.HIGHEST_EDU_LEVEL.CODE, "",
-                toList(org.smartregister.chw.util.Constants.FORM_CONSTANTS.EDUCATION_LEVELS.get(familyMember.getEduLevel())), toList(familyMember.getEduLevel()), null, DBConstants.KEY.HIGHEST_EDU_LEVEL));
+                toList(getEducationLevels(context).get(familyMember.getEduLevel())), toList(familyMember.getEduLevel()), null, DBConstants.KEY.HIGHEST_EDU_LEVEL));
 
 
         events.add(eventFamily);
@@ -940,12 +942,16 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
         return Pair.create(clients, events);
     }
 
-    public static List<String> toStringList(String... vals) {
-        List<String> res = new ArrayList<>();
-        for (String s : vals) {
-            res.add(s);
-        }
-        return res;
+    private static List<String> toStringList(String... vals) {
+        return new ArrayList<>(Arrays.asList(vals));
     }
 
+    private static HashMap<String, String> getEducationLevels(Context context) {
+        HashMap<String, String> educationLevels = new HashMap<>();
+        educationLevels.put(context.getResources().getString(R.string.edu_level_none), "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+        educationLevels.put(context.getResources().getString(R.string.edu_level_primary), "1713AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+        educationLevels.put(context.getResources().getString(R.string.edu_level_secondary), "1714AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+        educationLevels.put(context.getResources().getString(R.string.edu_level_post_secondary), "159785AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+        return educationLevels;
+    }
 }

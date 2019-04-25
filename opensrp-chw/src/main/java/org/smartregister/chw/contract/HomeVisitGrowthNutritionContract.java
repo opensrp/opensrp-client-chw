@@ -27,7 +27,7 @@ public interface HomeVisitGrowthNutritionContract {
     }
 
     interface Presenter {
-        void parseRecordServiceData(CommonPersonObjectClient commonPersonObjectClient);
+        void parseRecordServiceData(CommonPersonObjectClient commonPersonObjectClient,boolean isEditMode);
 
         void setSaveState(String type, ServiceWrapper serviceWrapper);
 
@@ -41,11 +41,14 @@ public interface HomeVisitGrowthNutritionContract {
 
         void onDestroy(boolean isChangingConfiguration);
 
-        Map<String, String> getSaveStateMap();
+        Map<String, ServiceWrapper> getSaveStateMap();
+        Map<String, ServiceWrapper> getNotSaveStateMap();
 
     }
 
     interface Interactor {
+        void parseEditRecordServiceData(CommonPersonObjectClient commonPersonObjectClient, InteractorCallBack callBack);
+
         void parseRecordServiceData(CommonPersonObjectClient commonPersonObjectClient, InteractorCallBack callBack);
 
         void onDestroy(boolean isChangingConfiguration);
@@ -53,7 +56,9 @@ public interface HomeVisitGrowthNutritionContract {
     }
 
     interface InteractorCallBack {
-        void updateRecordVisitData(Map<String, ServiceWrapper> stringServiceWrapperMap);
+        void allDataLoaded();
+        void updateGivenRecordVisitData(Map<String, ServiceWrapper> stringServiceWrapperMap);
+        void updateNotGivenRecordVisitData(Map<String, ServiceWrapper> stringServiceWrapperMap);
 
     }
 }
