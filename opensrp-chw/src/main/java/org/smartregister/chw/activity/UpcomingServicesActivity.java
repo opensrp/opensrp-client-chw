@@ -42,8 +42,7 @@ public class UpcomingServicesActivity extends SecuredActivity {
         name = getValue(childClient.getColumnmaps(), "first_name", true) + " " +
                 getValue(childClient.getColumnmaps(), "last_name", true);
         upcomingServicesView = (UpcomingServicesFragmentView) findViewById(R.id.upcomingServicesHolder);
-        upcomingServicesView.setActivity(this);
-        upcomingServicesView.setChildClient(childClient);
+        upcomingServicesView.setChildClient(this,childClient);
 
         setUpActionBar();
 
@@ -56,7 +55,7 @@ public class UpcomingServicesActivity extends SecuredActivity {
 
     @Override
     protected void onResumption() {
-        upcomingServicesView.updateImmunizationState();
+       // upcomingServicesView.updateImmunizationState();
     }
 
     private void setUpActionBar() {

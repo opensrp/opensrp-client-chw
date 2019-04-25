@@ -15,6 +15,7 @@ import org.joda.time.DateTime;
 import org.smartregister.chw.R;
 import org.smartregister.chw.listener.OnClickEditAdapter;
 import org.smartregister.chw.util.HomeVisitVaccineGroup;
+import org.smartregister.chw.util.ImmunizationState;
 import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.util.DateUtil;
 
@@ -27,12 +28,12 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 import static org.smartregister.chw.util.ChildUtils.fixVaccineCasing;
 
-public class HomeVisitImmunizationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class ImmunizationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private ArrayList<HomeVisitVaccineGroup> homeVisitVaccineGroupDetailsArrayList;
     private Context context;
     private OnClickEditAdapter onClickEditAdapter;
 
-    public HomeVisitImmunizationAdapter(Context context,OnClickEditAdapter onClickEditAdapter) {
+    public ImmunizationAdapter(Context context, OnClickEditAdapter onClickEditAdapter) {
         this.homeVisitVaccineGroupDetailsArrayList = new ArrayList<>();
         this.context = context;
         this.onClickEditAdapter = onClickEditAdapter;
@@ -47,6 +48,8 @@ public class HomeVisitImmunizationAdapter extends RecyclerView.Adapter<RecyclerV
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         switch (viewType) {
+            case HomeVisitVaccineGroup.TYPE_INITIAL:
+                return new InitialViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.adapter_immunization_inactive, null));
             case HomeVisitVaccineGroup.TYPE_INACTIVE:
                 return new InactiveViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.adapter_immunization_inactive, null));
             case HomeVisitVaccineGroup.TYPE_ACTIVE:
@@ -60,6 +63,33 @@ public class HomeVisitImmunizationAdapter extends RecyclerView.Adapter<RecyclerV
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, final int position) {
 
         switch (viewHolder.getItemViewType()) {
+            case HomeVisitVaccineGroup.TYPE_INITIAL: {
+                final HomeVisitVaccineGroup baseVaccine = homeVisitVaccineGroupDetailsArrayList.get(position);
+                InitialViewHolder inactiveViewHolder = (InitialViewHolder) viewHolder;
+                String immunizations;
+                String value = baseVaccine.getGroup();
+                if (value.contains("birth")) {
+                    immunizations = MessageFormat.format(context.getString(R.string.immunizations_count), value);
+
+                } else {
+                    immunizations = MessageFormat.format(context.getString(R.string.immunizations_count), value.replace("weeks", "w").replace("months", "m").replace(" ", ""));
+
+                }
+                inactiveViewHolder.titleText.setText(immunizations);
+                String message = MessageFormat.format("{0} {1}",
+                        ((baseVaccine.getAlert().equals(ImmunizationState.OVERDUE)) ? context.getResources().getString(R.string.overdue) : context.getResources().getString(R.string.due)),
+                        baseVaccine.getDueDisplayDate());
+                int color_res = ((baseVaccine.getAlert().equals(ImmunizationState.OVERDUE)) ? R.color.alert_urgent_red : android.R.color.darker_gray);
+                inactiveViewHolder.descriptionText.setTextColor(context.getResources().getColor(color_res));
+                inactiveViewHolder.descriptionText.setText(message);
+                inactiveViewHolder.getView().setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        onClickEditAdapter.onClick(position,baseVaccine);
+                    }
+                });
+            }
+                break;
             case HomeVisitVaccineGroup.TYPE_INACTIVE:
                 HomeVisitVaccineGroup baseVaccine = homeVisitVaccineGroupDetailsArrayList.get(position);
                 InactiveViewHolder inactiveViewHolder = (InactiveViewHolder) viewHolder;
@@ -74,6 +104,7 @@ public class HomeVisitImmunizationAdapter extends RecyclerView.Adapter<RecyclerV
                 }
                 inactiveViewHolder.titleText.setText(immunizations);
                 inactiveViewHolder.descriptionText.setText(Html.fromHtml(context.getString(R.string.fill_earler_immunization)));
+                inactiveViewHolder.getView().setOnClickListener(null);
                 break;
             case  HomeVisitVaccineGroup.TYPE_ACTIVE:
                 final HomeVisitVaccineGroup contentImmunization = homeVisitVaccineGroupDetailsArrayList.get(position);
@@ -203,6 +234,23 @@ public class HomeVisitImmunizationAdapter extends RecyclerView.Adapter<RecyclerV
         private InactiveViewHolder(View view) {
             super(view);
             titleText = view.findViewById(R.id.textview_group_immunization);
+            descriptionText = view.findViewById(R.id.textview_immunization_group_secondary_text);
+
+            myView = view;
+        }
+
+        public View getView() {
+            return myView;
+        }
+    }
+    public class InitialViewHolder extends RecyclerView.ViewHolder {
+        public TextView titleText,descriptionText;
+        private View myView;
+
+        private InitialViewHolder(View view) {
+            super(view);
+            titleText = view.findViewById(R.id.textview_group_immunization);
+            titleText.setTextColor(context.getResources().getColor(R.color.black));
             descriptionText = view.findViewById(R.id.textview_immunization_group_secondary_text);
 
             myView = view;

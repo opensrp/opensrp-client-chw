@@ -33,8 +33,7 @@ import org.smartregister.chw.activity.ChildProfileActivity;
 import org.smartregister.chw.activity.ChildRegisterActivity;
 import org.smartregister.chw.contract.ChildHomeVisitContract;
 import org.smartregister.chw.custom_view.HomeVisitGrowthAndNutrition;
-import org.smartregister.chw.custom_view.HomeVisitImmunizationView;
-import org.smartregister.chw.custom_view.ImmunizationEditView;
+import org.smartregister.chw.custom_view.ImmunizationView;
 import org.smartregister.chw.presenter.ChildHomeVisitPresenter;
 import org.smartregister.chw.rule.BirthCertRule;
 import org.smartregister.chw.util.BirthIllnessData;
@@ -78,7 +77,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     public boolean allVaccineDataLoaded = false;
     public boolean allServicesDataLoaded = false;
     private TextView submit;
-    private HomeVisitImmunizationView homeVisitImmunizationView;
+    private ImmunizationView immunizationView;
     private LinearLayout layoutBirthCertGroup;
     private LinearLayout homeVisitLayout;
     private ChildHomeVisitContract.Presenter presenter;
@@ -88,7 +87,6 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     private String jsonString;
     private boolean isEditMode = false;
     private ProgressBar progressBar;
-    private ImmunizationEditView immunizationEditView;
 
     public void setContext(Context context) {
         this.context = context;
@@ -133,24 +131,17 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         layoutBirthCertGroup.setOnClickListener(this);
         layoutIllnessGroup.setOnClickListener(this);
         homeVisitGrowthAndNutritionLayout = view.findViewById(R.id.growth_and_nutrition_group);
-        homeVisitImmunizationView = view.findViewById(R.id.home_visit_immunization_view);
-        immunizationEditView = view.findViewById(R.id.immunization_edit_view);
+        immunizationView = view.findViewById(R.id.immunization_view);
         initializePresenter();
         ((ChildHomeVisitPresenter) presenter).setChildClient(childClient);
         assignNameHeader();
         updateGrowthData();
         if(isEditMode){
-            immunizationEditView.setVisibility(View.VISIBLE);
-            immunizationEditView.setChildClient(getActivity(),childClient);
-            homeVisitImmunizationView.setVisibility(View.GONE);
+            immunizationView.setChildClient(getActivity(),childClient,true);
             ((ChildHomeVisitPresenter) presenter).getLastEditData();
             submitButtonEnableDisable(true);
         }else{
-            homeVisitImmunizationView.setActivity(getActivity());
-            homeVisitImmunizationView.setChildClient(childClient);
-            homeVisitImmunizationView.setEditMode(isEditMode);
-            immunizationEditView.setVisibility(View.GONE);
-            homeVisitImmunizationView.setVisibility(View.VISIBLE);
+            immunizationView.setChildClient(getActivity(),childClient,false);
             submitButtonEnableDisable(false);
         }
 
@@ -245,9 +236,9 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                         //end of not used
                         JSONObject vaccineNotGivenObject;
                         if(isEditMode){
-                            vaccineNotGivenObject = new JSONObject().put("vaccineNotGiven", new JSONArray(ChildUtils.gsonConverter.toJson(immunizationEditView.getNotGivenVaccine())));
+                            vaccineNotGivenObject = new JSONObject().put("vaccineNotGiven", new JSONArray(ChildUtils.gsonConverter.toJson(immunizationView.getNotGivenVaccine())));
                         }else{
-                            vaccineNotGivenObject = new JSONObject().put("vaccineNotGiven", new JSONArray(ChildUtils.gsonConverter.toJson(homeVisitImmunizationView.getNotGivenVaccine())));
+                            vaccineNotGivenObject = new JSONObject().put("vaccineNotGiven", new JSONArray(ChildUtils.gsonConverter.toJson(immunizationView.getNotGivenVaccine())));
 
                         }
                         JSONObject service = new JSONObject(ChildUtils.gsonConverter.toJson(homeVisitGrowthAndNutritionLayout.returnSaveStateMap()));
@@ -312,11 +303,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     private void undoRecord() {
         Observable undoGrowthData = homeVisitGrowthAndNutritionLayout.undoGrowthData();
         Observable undoVaccine;
-        if(isEditMode){
-            undoVaccine = immunizationEditView.undoVaccine();
-        }else{
-            undoVaccine = homeVisitImmunizationView.undoVaccine();
-        }
+        undoVaccine = immunizationView.undoVaccine();
         Observable.zip(undoGrowthData,undoVaccine , new BiFunction() {
             @Override
             public Object apply(Object o, Object o2) throws Exception {
@@ -341,7 +328,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                 .subscribe();
     }
     private void saveEditData(){
-        Observable.zip(immunizationEditView.undoPreviousGivenVaccine(),immunizationEditView.saveGivenThisVaccine() , new BiFunction() {
+        Observable.zip(immunizationView.undoPreviousGivenVaccine(),immunizationView.saveGivenThisVaccine() , new BiFunction() {
             @Override
             public Object apply(Object o, Object o2) throws Exception {
                 return null;
@@ -559,8 +546,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     }
 
     public void updateImmunizationState() {
-      if(homeVisitImmunizationView.getVisibility() == View.VISIBLE)  homeVisitImmunizationView.updateImmunizationState();
-      if(immunizationEditView.getVisibility() == View.VISIBLE) immunizationEditView.updatePosition();
+      if(immunizationView.getVisibility() == View.VISIBLE) immunizationView.updatePosition();
     }
 
     public void setChildClient(CommonPersonObjectClient childClient) {

@@ -13,9 +13,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.contract.ChildProfileContract;
 import org.smartregister.chw.contract.HomeVisitGrowthNutritionContract;
-import org.smartregister.chw.contract.HomeVisitImmunizationContract;
-import org.smartregister.chw.fragment.ChildHomeVisitFragment;
-import org.smartregister.chw.presenter.HomeVisitImmunizationPresenter;
+import org.smartregister.chw.contract.ImmunizationContact;
+import org.smartregister.chw.presenter.ImmunizationViewPresenter;
 import org.smartregister.chw.util.ChildDBConstants;
 import org.smartregister.chw.util.ChildHomeVisit;
 import org.smartregister.chw.util.ChildService;
@@ -31,7 +30,6 @@ import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
-import org.smartregister.domain.Alert;
 import org.smartregister.domain.Photo;
 import org.smartregister.family.FamilyLibrary;
 import org.smartregister.family.util.AppExecutors;
@@ -39,7 +37,6 @@ import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.immunization.domain.ServiceWrapper;
-import org.smartregister.immunization.domain.Vaccine;
 import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.BaseRepository;
@@ -53,7 +50,6 @@ import org.smartregister.view.LocationPickerView;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Observable;
@@ -254,19 +250,18 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
         return Observable.create(new ObservableOnSubscribe<ChildService>() {
             @Override
             public void subscribe(final ObservableEmitter<ChildService> e) throws Exception {
-                final HomeVisitImmunizationPresenter presenter = new HomeVisitImmunizationPresenter();
-                presenter.setChildClient(getpClient());
-                presenter.updateImmunizationState(new HomeVisitImmunizationContract.InteractorCallBack() {
+               final ImmunizationViewPresenter presenter = new ImmunizationViewPresenter();
+                presenter.upcomingServiceFetch(getpClient(), new ImmunizationContact.InteractorCallBack() {
                     @Override
-                    public void immunizationState(List<Alert> alerts, List<Vaccine> vaccines, Map<String, Date> receivedVaccine, List<Map<String, Object>> sch) {
-                        vaccineList = receivedVaccine;
-                        presenter.createAllVaccineGroups(alerts, vaccines, sch);
-                        presenter.getVaccinesNotGivenLastVisit();
-                        presenter.calculateCurrentActiveGroup();
-                        ArrayList<HomeVisitVaccineGroup> homeVisitVaccineGroupDetailsList = presenter.getAllgroups();
+                    public void allDataLoaded() {
+
+                    }
+
+                    @Override
+                    public void updateData(ArrayList<HomeVisitVaccineGroup> homeVisitVaccineGroupDetails) {
                         String dueDate = "", vaccineName = "";
                         ImmunizationState state = ImmunizationState.UPCOMING;
-                        for (HomeVisitVaccineGroup homeVisitVaccineGroupDetail : homeVisitVaccineGroupDetailsList) {
+                        for (HomeVisitVaccineGroup homeVisitVaccineGroupDetail : homeVisitVaccineGroupDetails) {
                             if (homeVisitVaccineGroupDetail.getAlert().equals(ImmunizationState.DUE)
                                     || homeVisitVaccineGroupDetail.getAlert().equals(ImmunizationState.OVERDUE)
                                     || homeVisitVaccineGroupDetail.getAlert().equals(ImmunizationState.UPCOMING)) {
@@ -339,9 +334,15 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
                             });
                         }
 
+                    }
+
+                    @Override
+                    public void updateEditData(ArrayList<HomeVisitVaccineGroup> homeVisitVaccineGroupDetails) {
 
                     }
                 });
+
+
 
             }
         });
