@@ -94,13 +94,6 @@ actions:
 - "isRelevant = true"
 
 ---
-name: step2_preg_1yr
-description: preg_1yr relevance
-priority: 1
-condition: "step2_sex.equals('Female')"
-actions:
-- "isRelevant = true"
----
 name: step2_insurance_provider_other
 descripltion: insurance relevance
 priority: 1
@@ -129,10 +122,10 @@ condition: "!step1_insurance_provider.contains('None')"
 actions:
 - "isRelevant = true"
 ---
-name: step1_preg_1yr
+name: step2_preg_1yr
 description: pregnance 1yr relevance
 priority: 1
-condition: "step1_sex.equals('Female')"
+condition: "step2_wra == 1"
 actions:
 - "isRelevant = true"
 ---

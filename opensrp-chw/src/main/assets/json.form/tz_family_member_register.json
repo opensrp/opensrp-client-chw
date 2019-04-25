@@ -67,33 +67,17 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_identifier",
         "openmrs_entity_id": "opensrp_id",
-        "type": "edit_text",
-        "read_only" : "true",
-        "hint": "UNIQUE ID *",
-        "value": "0",
-        "scanButtonText": "Scan QR Code",
-        "v_numeric": {
-          "value": "true",
-          "err": "Please enter a valid UNIQUE ID"
-        },
-        "v_required": {
-          "value": "true",
-          "err": "Please enter the UNIQUE ID"
-        }
-      },
-      {
-        "key": "unique_id",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "hidden": "true",
         "type": "barcode",
         "barcode_type": "qrcode",
-        "hint": "Scan QR code*",
+        "hint": "Boresha Afya ID",
         "scanButtonText": "Scan QR Code",
         "v_numeric": {
           "value": "true",
           "err": "Please enter a valid ID"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the UNIQUE ID"
         }
       },
       {

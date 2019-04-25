@@ -90,15 +90,20 @@
         }
       },
       {
-        "key": "village_town",
+        "key": "fam_village",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_address",
         "openmrs_entity_id": "cityVillage",
         "type": "edit_text",
-        "hint": "Family Village",
+        "edit_type": "name",
+        "hint": "Village",
         "v_required": {
           "value": "true",
           "err": "Please enter the village or town"
+        },
+        "v_regex": {
+          "value": "[A-Za-z\\s\\.\\-]*",
+          "err": "Please enter a valid village name"
         }
       },
       {
@@ -107,7 +112,8 @@
         "openmrs_entity": "person_address",
         "openmrs_entity_id": "landmark",
         "type": "edit_text",
-        "hint": "Landmark/ description of house location *",
+        "edit_type": "name",
+        "hint": "Landmark/ description of house location",
         "v_required": {
           "value": true,
           "err": "Please enter the landmark/description of location."
@@ -132,8 +138,8 @@
       {
         "key": "nearest_facility",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "162724AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "text",
         "type": "tree",
         "hint": "Nearest health facility",
@@ -216,56 +222,20 @@
         "type": "edit_text",
         "hint": "Surname",
         "edit_type": "name",
-        "v_required": {
-          "value": "true",
-          "err": "Please enter the surname"
-        },
         "v_regex": {
           "value": "[A-Za-z\\s\\.\\-]*",
           "err": "Please enter a valid name"
         },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "tz_family_register_relevance.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "same_as_fam_name",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "check_box",
-        "label": "",
-        "options": [
-          {
-            "key": "same_as_fam_name",
-            "text": "Surname same as family name",
-            "text_size": "18px",
-            "value": "false"
-          }
-        ]
-      },
-      {
-        "key": "surname_calculation",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person",
-        "openmrs_entity_id": "last_name",
-        "type": "edit_text",
-        "hidden": true,
-        "hint": "Surname as Family name",
         "calculation": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "family-register-calculation.yml"
+              "rules-file": "tz_family_register_calculation.yml"
             }
           }
         }
       },
       {
-        "key": "dob",
+        "key": "dob_entered",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person",
         "openmrs_entity_id": "birthdate",
@@ -285,6 +255,20 @@
           "rules-engine": {
             "ex-rules": {
               "rules-file": "tz_family_register_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "age_calculated",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "tz_family_register_calculation.yml"
             }
           }
         }
@@ -393,10 +377,13 @@
         "openmrs_entity_id": "national_id",
         "type": "edit_text",
         "hint": "National ID number",
-        "edit_type": "name",
-        "v_required": {
+        "v_numeric": {
           "value": "true",
-          "err": "Please enter National ID number"
+          "err": "Must be a number"
+        },
+        "v_regex": {
+          "value": "^[0-9]*$",
+          "err": "Number must be 10 digits and must start with 0."
         },
         "relevance": {
           "step2:id_avail": {
@@ -417,7 +404,6 @@
         "openmrs_entity_id": "voter_id",
         "type": "edit_text",
         "hint": "Voter's registration number",
-        "edit_type": "name",
         "relevance": {
           "step2:id_avail": {
             "ex-checkbox": [
@@ -437,7 +423,14 @@
         "openmrs_entity_id": "driver_license",
         "type": "edit_text",
         "hint": "Driver's license number",
-        "edit_type": "name",
+        "v_numeric": {
+          "value": "true",
+          "err": "Must be a number"
+        },
+        "v_regex": {
+          "value": "^[0-9]*$",
+          "err": "Number must be 10 digits and must start with 0."
+        },
         "relevance": {
           "step2:id_avail": {
             "ex-checkbox": [
@@ -457,7 +450,22 @@
         "openmrs_entity_id": "passport",
         "type": "edit_text",
         "hint": "Passport number",
-        "edit_type": "name",
+        "v_numeric": {
+          "value": "true",
+          "err": "Must be a number"
+        },
+        "v_regex": {
+          "value": "^[0-9]*$",
+          "err": "Number must be 10 digits and must start with 0."
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "Must be a number"
+        },
+        "v_regex": {
+          "value": "^[0-9]*$",
+          "err": "Number must be 10 digits and must start with 0."
+        },
         "relevance": {
           "step2:id_avail": {
             "ex-checkbox": [
@@ -504,6 +512,7 @@
         "openmrs_entity_id": "",
         "type": "edit_text",
         "hint": "Other health insurance provider",
+        "edit_type": "name",
         "v_required": {
           "value": "true",
           "err": "Please specify the insurance provider"
@@ -523,6 +532,7 @@
         "openmrs_entity_id": "",
         "type": "edit_text",
         "hint": "Health insurance provider number",
+        "edit_type": "name",
         "v_required": {
           "value": "true",
           "err": "Please add the health insurance provider iD Number"
@@ -557,7 +567,13 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "hidden",
-        "values": ""
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "tz_family_register_calculation.yml"
+            }
+          }
+        }
       },
       {
         "key": "mra",
@@ -593,14 +609,19 @@
       {
         "key": "disabilities",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "162558AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_data_type": "select one",
         "type": "spinner",
         "hint": "Physical disabilities",
         "values": [
           "Yes",
           "No"
         ],
+        "openmrs_choice_ids": {
+          "Health facility": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Home": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
         "v_required": {
           "value": "true",
           "err": "Please select one"
@@ -608,11 +629,12 @@
       },
       {
         "key": "type_of_disability",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity_parent": "162558AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "edit_text",
         "hint": "Type of disability",
+        "edit_type": "name",
         "v_required": {
           "value": "true",
           "err": "Please enter type of disability"
@@ -639,10 +661,6 @@
         "v_regex": {
           "value": "(0[0-9]{9})|\\s*",
           "err": "Number must be 10 digits and must start with 0."
-        },
-        "v_required": {
-          "value": false,
-          "err": "Please specify the phone number"
         }
       },
       {

@@ -67,32 +67,17 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_identifier",
         "openmrs_entity_id": "opensrp_id",
-        "type": "edit_text",
-        "hint": "Boresha Afya ID *",
-        "read_only" : "true",
-        "value": "0",
+        "type": "barcode",
+        "barcode_type": "qrcode",
+        "hint": "Boresha Afya ID",
+        "scanButtonText": "Scan QR Code",
         "v_numeric": {
           "value": "true",
           "err": "Please enter a valid ID"
         },
         "v_required": {
           "value": "true",
-          "err": "Please enter the Child's OpenMRS ID"
-        }
-      },
-      {
-        "key": "unique_id",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "hidden": "true",
-        "type": "barcode",
-        "barcode_type": "qrcode",
-        "hint": "Scan QR code*",
-        "scanButtonText": "Scan QR Code",
-        "v_numeric": {
-          "value": "true",
-          "err": "Please enter a valid ID"
+          "err": "Please enter the UNIQUE ID"
         }
       },
       {
@@ -171,6 +156,7 @@
         "type": "edit_text",
         "hint": "First name",
         "expanded": false,
+        "edit_type": "name",
         "v_required": {
           "value": "true",
           "err": "Please Enter first name"
@@ -189,6 +175,7 @@
         "type": "edit_text",
         "hint": "Middle name",
         "expanded": false,
+        "edit_type": "name",
         "v_required": {
           "value": "true",
           "err": "Please Enter middle name"
@@ -377,6 +364,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
+        "edit_type": "name",
         "hint": "Type of physical disabilities",
         "relevance": {
           "rules-engine": {
@@ -401,12 +389,7 @@
         "values": [
           "Yes",
           "No"
-        ],
-
-        "v_required": {
-          "value": "true",
-          "err": "Please provide birth registration/certificate"
-        }
+        ]
       },
       {
         "key": "birth_regist_number",
@@ -421,10 +404,6 @@
               "rules-file": "family-child-relevance.yml"
             }
           }
-        },
-        "v_required": {
-          "value": true,
-          "err": "Please enter birth registration number"
         }
       },
       {
@@ -437,12 +416,7 @@
         "values": [
           "Yes",
           "No"
-        ],
-
-        "v_required": {
-          "value": "true",
-          "err": "Please provide child growth booklet"
-        }
+        ]
       },
 
       {
