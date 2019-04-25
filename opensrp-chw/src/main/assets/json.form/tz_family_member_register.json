@@ -182,7 +182,7 @@
         }
       },
       {
-        "key": "dob",
+        "key": "dob_entered",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person",
         "openmrs_entity_id": "birthdate",
@@ -202,6 +202,20 @@
           "rules-engine": {
             "ex-rules": {
               "rules-file": "family-member-relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "age_calculated",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "tz_family_member_register_calculation.yml"
             }
           }
         }
@@ -505,7 +519,13 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "hidden",
-        "values": ""
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "tz_family_member_register_calculation.yml"
+            }
+          }
+        }
       },
       {
         "key": "preg_1yr",

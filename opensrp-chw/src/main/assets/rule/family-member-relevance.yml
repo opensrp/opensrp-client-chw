@@ -6,8 +6,8 @@ condition: "!step1_same_as_fam_name.contains('same_as_fam_name')"
 actions:
  - "isRelevant = true"
 ---
-name: step1_dob
-description: dob relevance
+name: step1_dob_entered
+description: dob_entered relevance
 priority: 1
 condition: "!step1_dob_unknown.contains('dob_unknown')"
 actions:
@@ -44,6 +44,6 @@ actions:
 name: step1_id_avail
 description: identity relevance
 priority: 1
-condition: "(step1_dob != '' && helper.formatDate(step1_dob,'y') >= 18) || (step1_age != '' && step1_age >= 18)"
+condition: "(step1_dob_entered != '' && helper.formatDate(step1_dob_entered,'y') >= 18) || (step1_age != '' && step1_age >= 18)"
 actions:
    - "isRelevant = true"
