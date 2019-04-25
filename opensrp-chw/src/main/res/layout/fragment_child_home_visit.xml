@@ -93,6 +93,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="1px"
                 android:background="@color/light_grey" />
+            <org.smartregister.chw.custom_view.ImmunizationEditView
+                android:id="@+id/immunization_edit_view"
+                android:layout_marginEnd="@dimen/child_home_visit_right_margin"
+                android:layout_marginLeft="@dimen/child_home_visit_left_margin"
+                android:layout_marginRight="@dimen/child_home_visit_right_margin"
+                android:layout_marginStart="@dimen/child_home_visit_left_margin"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </org.smartregister.chw.custom_view.ImmunizationEditView>
 
             <org.smartregister.chw.custom_view.HomeVisitImmunizationView
                 android:id="@+id/home_visit_immunization_view"

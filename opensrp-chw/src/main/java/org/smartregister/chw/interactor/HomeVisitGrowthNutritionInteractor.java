@@ -1,12 +1,20 @@
 package org.smartregister.chw.interactor;
 
 import android.support.annotation.VisibleForTesting;
+import android.text.TextUtils;
 import android.util.Log;
 
+import com.google.gson.reflect.TypeToken;
+
+import org.json.JSONObject;
+import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.contract.HomeVisitGrowthNutritionContract;
+import org.smartregister.chw.domain.HomeVisit;
 import org.smartregister.chw.fragment.GrowthNutritionInputFragment;
 import org.smartregister.chw.listener.UpdateServiceListener;
+import org.smartregister.chw.model.ServiceTaskModel;
 import org.smartregister.chw.task.UpdateServiceTask;
+import org.smartregister.chw.util.ChildDBConstants;
 import org.smartregister.chw.util.ChildUtils;
 import org.smartregister.chw.util.GrowthServiceData;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
@@ -16,7 +24,19 @@ import org.smartregister.immunization.domain.ServiceWrapper;
 import org.smartregister.util.DateUtil;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.ObservableSource;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
 
 import static org.smartregister.util.Utils.startAsyncTask;
 
@@ -24,6 +44,7 @@ public class HomeVisitGrowthNutritionInteractor implements HomeVisitGrowthNutrit
     private static final String TAG = HomeVisitGrowthNutritionInteractor.class.toString();
 
     private AppExecutors appExecutors;
+
 
     @VisibleForTesting
     HomeVisitGrowthNutritionInteractor(AppExecutors appExecutors) {
@@ -45,7 +66,7 @@ public class HomeVisitGrowthNutritionInteractor implements HomeVisitGrowthNutrit
                         appExecutors.mainThread().execute(new Runnable() {
                             @Override
                             public void run() {
-                                callBack.updateRecordVisitData(serviceWrapperMap);
+                                callBack.updateGivenRecordVisitData(serviceWrapperMap);
                             }
                         });
                     }
@@ -57,6 +78,67 @@ public class HomeVisitGrowthNutritionInteractor implements HomeVisitGrowthNutrit
 
     }
 
+    @Override
+    public void parseEditRecordServiceData(CommonPersonObjectClient commonPersonObjectClient, final HomeVisitGrowthNutritionContract.InteractorCallBack callBack) {
+
+        getServiceWrapperMapFromLastHomeVisit(commonPersonObjectClient)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<ServiceTaskModel>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(ServiceTaskModel serviceTaskModel) {
+                        if(serviceTaskModel==null){
+                            callBack.allDataLoaded();
+                        }else{
+                            callBack.updateGivenRecordVisitData(serviceTaskModel.getGivenServiceMap());
+                            callBack.updateNotGivenRecordVisitData(serviceTaskModel.getNotGivenServiceMap());
+                        }
+
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+
+
+
+
+    }
+    public Observable<ServiceTaskModel> getServiceWrapperMapFromLastHomeVisit(final CommonPersonObjectClient commonPersonObjectClient){
+        return Observable.create(new ObservableOnSubscribe<ServiceTaskModel>() {
+            @Override
+            public void subscribe(ObservableEmitter<ServiceTaskModel> e) throws Exception {
+                String lastHomeVisitStr=org.smartregister.util.Utils.getValue(commonPersonObjectClient.getColumnmaps(), ChildDBConstants.KEY.LAST_HOME_VISIT, false);
+                long lastHomeVisit= TextUtils.isEmpty(lastHomeVisitStr)?0:Long.parseLong(lastHomeVisitStr);
+                HomeVisit homeVisit = ChwApplication.homeVisitRepository().findByDate(lastHomeVisit);
+                if(homeVisit!=null){
+                    Map<String, ServiceWrapper> serviceGivenWrapper = ChildUtils.gsonConverter.fromJson(homeVisit.getServicesGiven().toString(),new TypeToken<HashMap<String, ServiceWrapper>>(){}.getType());
+                    Map<String, ServiceWrapper> serviceNotGivenWrapper = ChildUtils.gsonConverter.fromJson(homeVisit.getServiceNotGiven().toString(),new TypeToken<HashMap<String, ServiceWrapper>>(){}.getType());
+                    ServiceTaskModel serviceTaskModel = new ServiceTaskModel();
+                    serviceTaskModel.setGivenServiceMap(serviceGivenWrapper);
+                    serviceTaskModel.setNotGivenServiceMap(serviceNotGivenWrapper);
+                    e.onNext(serviceTaskModel);
+                }else{
+                    e.onNext(null);
+                }
+
+            }
+        });
+    }
+  
     public ArrayList<GrowthServiceData> getAllDueService(Map<String, ServiceWrapper> serviceWrapperMap) {
         ArrayList<GrowthServiceData> growthServiceDataList = new ArrayList<>();
 
