@@ -21,6 +21,7 @@ import org.smartregister.chw.repository.HomeVisitRepository;
 import org.smartregister.chw.sync.ChwClientProcessor;
 import org.smartregister.chw.util.ChildDBConstants;
 import org.smartregister.chw.util.Constants;
+import org.smartregister.chw.util.Country;
 import org.smartregister.chw.util.CountryUtils;
 import org.smartregister.commonregistry.AllCommonsRepository;
 import org.smartregister.commonregistry.CommonFtsObject;
@@ -225,9 +226,16 @@ public class ChwApplication extends DrishtiApplication {
 
     public void initOfflineSchedules() {
         try {
-            List<VaccineGroup> childVaccines = VaccinatorUtils.getSupportedVaccines(this);
-            List<Vaccine> specialVaccines = VaccinatorUtils.getSpecialVaccines(this);
-            VaccineSchedule.init(childVaccines, specialVaccines, "child");
+            if (BuildConfig.BUILD_COUNTRY == Country.LIBERIA) {
+                List<VaccineGroup> childVaccines = VaccinatorUtils.getSupportedVaccines(this);
+                List<Vaccine> specialVaccines = VaccinatorUtils.getSpecialVaccines(this);
+                VaccineSchedule.init(childVaccines, specialVaccines, "child");
+
+            } else if (BuildConfig.BUILD_COUNTRY == Country.TANZANIA) {
+                List<VaccineGroup> childVaccines = VaccinatorUtils.getSupportedVaccines(this, "tz");
+                List<Vaccine> specialVaccines = VaccinatorUtils.getSpecialVaccines(this, "tz");
+                VaccineSchedule.init(childVaccines, specialVaccines, "child");
+            }
         } catch (Exception e) {
             Log.e(TAG, Log.getStackTraceString(e));
         }
