@@ -26,7 +26,7 @@ public interface FamilyCallDialogContract {
 
         Presenter initializePresenter();
 
-        Context getContext();
+        Context getCurrentContext();
     }
 
     interface Interactor {
