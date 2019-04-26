@@ -46,8 +46,7 @@ public class  AddMemberFragment extends DialogFragment implements View.OnClickLi
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
 
-        ViewGroup dialogView = (ViewGroup) inflater.inflate(R.layout.fragment_add_member, container, false);
-        return dialogView;
+        return inflater.inflate(R.layout.fragment_add_member, container, false);
     }
 
     @Override
@@ -61,15 +60,6 @@ public class  AddMemberFragment extends DialogFragment implements View.OnClickLi
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        // Verify that the host activity implements the callback interface
-//        try {
-//            // Instantiate the WeightActionListener so we can send events to the host
-//            listener = (WeightActionListener) activity;
-//        } catch (ClassCastException e) {
-//            // The activity doesn't implement the interface, throw exception
-//            throw new ClassCastException(activity.toString()
-//                    + " must implement WeightActionListener");
-//        }
     }
 
     @Override

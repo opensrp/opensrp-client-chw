@@ -302,8 +302,14 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity implements 
         }
     }
 
-    public void updateDueCount(int dueCount) {
-        adapter.updateCount(Pair.create(1, dueCount));
+    public void updateDueCount(final int dueCount) {
+
+        Handler handler = new Handler(Looper.getMainLooper());
+        handler.post(new Runnable() {
+            public void run() {
+                adapter.updateCount(Pair.create(1, dueCount));
+            }
+        });
     }
 
     private void refreshList(Fragment fragment) {

@@ -116,7 +116,10 @@ public class VaccinationDialogFragmentTest extends BaseUnitTest {
 
         doNothing().when(presenter).updateNotGivenVaccine(Mockito.any(VaccineWrapper.class));
 
+        Whitebox.setInternalState(vaccinationDialogFragment, "givenList", new ArrayList<>());
+
         Whitebox.invokeMethod(vaccinationDialogFragment, "handleNotGivenVaccines", getTestVaccineDate(), getTestDateOfBirth().toDate(), uncheckedBox);
+
 
         Mockito.verify(presenter, Mockito.atLeastOnce()).updateNotGivenVaccine(Mockito.any(VaccineWrapper.class));
 

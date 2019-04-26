@@ -295,8 +295,8 @@
         "type": "spinner",
         "hint": "Difficultés physiques?",
         "values": [
-          "Yes",
-          "No"
+          "Oui",
+          "Non"
         ],
         "openmrs_choice_ids": {
           "Oui": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",

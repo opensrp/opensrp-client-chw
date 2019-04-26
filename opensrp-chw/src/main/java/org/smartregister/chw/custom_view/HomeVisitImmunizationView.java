@@ -27,7 +27,7 @@ import org.smartregister.chw.contract.HomeVisitImmunizationContract;
 import org.smartregister.chw.fragment.ChildHomeVisitFragment;
 import org.smartregister.chw.fragment.ChildImmunizationFragment;
 import org.smartregister.chw.fragment.VaccinationDialogFragment;
-import org.smartregister.chw.interactor.HomeVisitImmunizationInteractor;
+import org.smartregister.chw.util.ChildUtils;
 import org.smartregister.chw.presenter.HomeVisitImmunizationPresenter;
 import org.smartregister.chw.util.HomeVisitVaccineGroup;
 import org.smartregister.chw.util.ImmunizationState;
@@ -58,9 +58,6 @@ import static org.smartregister.chw.util.Constants.IMMUNIZATION_CONSTANT.DATE;
 public class HomeVisitImmunizationView extends LinearLayout implements View.OnClickListener, HomeVisitImmunizationContract.View {
     public static final String TAG = "HomeVisitImmunization";
     private HomeVisitImmunizationContract.Presenter presenter;
-    private CommonPersonObjectClient commonPersonObjectClient;
-    private FragmentManager fragmentManager;
-    private ChildHomeVisitFragment childHomeVisitFragment;
     private TextView textview_group_immunization_primary_text;
     private TextView textview_group_immunization_secondary_text;
     private TextView textview_immunization_primary_text;
@@ -98,7 +95,6 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
     public void setActivity(Activity activity) {
         this.context = activity;
     }
-
     private void initUi() {
         inflate(getContext(), R.layout.view_immunization, this);
         textview_group_immunization_primary_text = (TextView) findViewById(R.id.textview_group_immunization);
@@ -152,7 +148,9 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
 
             immunization_group_status_circle.setCircleBackgroundColor(getResources().getColor(color_res));
             immunization_group_status_circle.setBorderColor(getResources().getColor(color_res));
-            multiple_immunization_group.setOnClickListener(null);
+            multiple_immunization_group.setTag(R.id.nextduevaccinelist, presenter.getCurrentActiveGroup());
+            multiple_immunization_group.setTag(R.id.vaccinelist, vaccines);
+            multiple_immunization_group.setOnClickListener(this);
 
         } else if (presenter.groupIsDue()) {
             String value = presenter.getCurrentActiveGroup().getGroup();
@@ -233,7 +231,7 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
         String toReturn = "";
         ImmunizationState currentState = ImmunizationState.NO_ALERT;
         for (VaccineRepo.Vaccine vaccine : vaccinesDueFromLastVisitStillDueState) {
-            ImmunizationState state = ((HomeVisitImmunizationInteractor)presenter.getHomeVisitImmunizationInteractor()).assignAlert(vaccine, alerts);
+            ImmunizationState state = (ChildUtils.assignAlert(vaccine, alerts));
             if ((currentState.equals(ImmunizationState.DUE) && state.equals(ImmunizationState.OVERDUE)) ||
                     (currentState.equals(ImmunizationState.NO_ALERT) && state.equals(ImmunizationState.OVERDUE)) ||
                     (currentState.equals(ImmunizationState.NO_ALERT) && state.equals(ImmunizationState.DUE))) {
@@ -427,7 +425,7 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
                     Date dob = dateTime.toDate();
                     List<Vaccine> vaccines = (List<Vaccine>) v.getTag(R.id.vaccinelist);
                     HomeVisitVaccineGroup duevaccines = (HomeVisitVaccineGroup) v.getTag(R.id.nextduevaccinelist);
-                    VaccinationDialogFragment customVaccinationDialogFragment = VaccinationDialogFragment.newInstance(dob, vaccines, presenter.createVaccineWrappers(duevaccines));
+                    VaccinationDialogFragment customVaccinationDialogFragment = VaccinationDialogFragment.newInstance(dob,presenter.getNotGivenVaccines(),presenter.createGivenVaccineWrappers(duevaccines), presenter.createVaccineWrappers(duevaccines));
                     customVaccinationDialogFragment.setChildDetails(presenter.getchildClient());
                     customVaccinationDialogFragment.setView(this);
                     customVaccinationDialogFragment.show(ft, ChildImmunizationFragment.TAG);
@@ -448,7 +446,7 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
                     }
                     List<Vaccine> vaccines = (List<Vaccine>) v.getTag(R.id.vaccinelist);
                     if (vaccineWrappers.size() >= 1) {
-                        VaccinationDialogFragment customVaccinationDialogFragment = VaccinationDialogFragment.newInstance(dob, vaccines, vaccineWrappers);
+                        VaccinationDialogFragment customVaccinationDialogFragment = VaccinationDialogFragment.newInstance(dob, new ArrayList<VaccineWrapper>(),new ArrayList<VaccineWrapper>(), vaccineWrappers);
                         customVaccinationDialogFragment.setChildDetails(presenter.getchildClient());
                         customVaccinationDialogFragment.setView(this);
                         customVaccinationDialogFragment.show(ft, ChildImmunizationFragment.TAG);
@@ -529,13 +527,16 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
         JSONArray jsonObject = getVaccineWrapperListAsJson(groupVaccinesGivenThisVisit);
         return jsonObject;
     }
+    public ArrayList<VaccineWrapper> getNotGivenVaccine(){
+        return presenter.getNotGivenVaccines();
+    }
 
     private JSONArray getVaccineWrapperListAsJson(ArrayList<VaccineWrapper> groupVaccinesGivenThisVisit) {
         JSONArray arrayOfWrapper = new JSONArray();
         for (VaccineWrapper wrapper : groupVaccinesGivenThisVisit) {
             try {
-                JSONObject wrapperObject = new JSONObject((new Gson()).toJson(wrapper));
-                JSONObject vaccineObject = new JSONObject((new Gson()).toJson(wrapper.getVaccine()));
+                JSONObject wrapperObject = new JSONObject(ChildUtils.gsonConverter.toJson(wrapper));
+                JSONObject vaccineObject = new JSONObject(ChildUtils.gsonConverter.toJson(wrapper.getVaccine()));
                 wrapperObject.put("vaccine", vaccineObject);
                 arrayOfWrapper.put(wrapperObject);
             } catch (JSONException e) {
