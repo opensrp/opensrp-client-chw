@@ -316,10 +316,6 @@
             "openmrs_entity_id": ""
           }
         ],
-        "v_required": {
-          "value": true,
-          "err": "Please specify any other symptoms or select none"
-        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -336,10 +332,6 @@
         "type": "edit_text",
         "hint": "National ID number",
         "edit_type": "name",
-        "v_required": {
-          "value": "true",
-          "err": "Please enter National ID number"
-        },
         "relevance": {
           "step1:id_avail": {
             "ex-checkbox": [
@@ -360,10 +352,6 @@
         "type": "edit_text",
         "hint": "Voter's registration number",
         "edit_type": "name",
-        "v_required": {
-          "value": "true",
-          "err": "Please enter Voter's registration number"
-        },
         "relevance": {
           "step1:id_avail": {
             "ex-checkbox": [
@@ -384,10 +372,6 @@
         "type": "edit_text",
         "hint": "Driver's license number",
         "edit_type": "name",
-        "v_required": {
-          "value": "true",
-          "err": "Please enter driver's license number"
-        },
         "relevance": {
           "step1:id_avail": {
             "ex-checkbox": [
@@ -408,10 +392,6 @@
         "type": "edit_text",
         "hint": "Passport number",
         "edit_type": "name",
-        "v_required": {
-          "value": "true",
-          "err": "Please enter passport number"
-        },
         "relevance": {
           "step1:id_avail": {
             "ex-checkbox": [
@@ -511,7 +491,13 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "hidden",
-        "values": ""
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "tz_family_member_register_calculation.yml"
+            }
+          }
+        }
       },
       {
         "key": "mra",
@@ -541,7 +527,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "tz_family_register_relevance.yml"
+              "rules-file": "tz_family_member_relevance.yml"
             }
           }
         }
