@@ -327,8 +327,8 @@
       {
         "key": "national_id",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "163084AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "National_ID",
         "type": "edit_text",
         "hint": "National ID number",
         "edit_type": "name",
@@ -367,8 +367,8 @@
       {
         "key": "driver_license",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "Driver_License_Number",
         "type": "edit_text",
         "hint": "Driver's license number",
         "edit_type": "name",
@@ -650,14 +650,14 @@
             "key": "chk_chw",
             "text": "Community Health Worker (CHW)",
             "value": false,
-            "openmrs_entity": "Concept - Community Health Worker",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "1555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_cbd",
             "text": "Community Based Distributor",
             "value": false,
-            "openmrs_entity": "Concept - Pharmacy",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "1744AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
@@ -671,56 +671,56 @@
             "key": "chk_hbc",
             "text": "Home Based Care (HBC)",
             "value": false,
-            "openmrs_entity": "Concept - Private home based care",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "161359AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_chmis",
             "text": "Community HMIS (cHMIS)",
             "value": false,
-            "openmrs_entity": "Concept - Reporter",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "163334AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_tba",
             "text": "Traditional Birth Attendant",
             "value": false,
-            "openmrs_entity": "Concept - Traditional Birth Attendant",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "1575AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_th",
             "text": "Traditional Healer",
             "value": false,
-            "openmrs_entity": "Concept - Traditional Healer",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "1821AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_teacher",
             "text": "Teacher",
             "value": false,
-            "openmrs_entity": "Concept - Professeur",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "162946AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_farmer",
             "text": "Farmer",
             "value": false,
-            "openmrs_entity": "Concept - Farmer",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "1538AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_cs",
             "text": "Civil Servant",
             "value": false,
-            "openmrs_entity": "Concept - Fonctionnaire",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "162944AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_nurse",
             "text": "Nurse",
             "value": false,
-            "openmrs_entity": "Concept - Nurse",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "1577AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {

@@ -182,10 +182,9 @@
         },
         {
           "column_name": "national_id",
-          "type": "Event",
+          "type": "Client",
           "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "national_id"
+            "field": "attributes.National_ID"
           }
         },
         {
