@@ -39,6 +39,13 @@
           }
         },
         {
+          "column_name": "landmark",
+          "type": "Client",
+          "json_mapping": {
+            "field": "addresses.landmark"
+          }
+        },
+        {
           "column_name": "gps",
           "type": "Event",
           "json_mapping": {
@@ -48,9 +55,10 @@
         },
         {
           "column_name": "nearest_facility",
-          "type": "Client",
+          "type": "Event",
           "json_mapping": {
-            "field": "attributes.nearest_facility"
+            "field": "obs.fieldCode",
+            "concept": "162724AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         },
         {
