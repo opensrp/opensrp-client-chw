@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.DialogFragment;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -180,6 +182,15 @@ public class FamilyCallDialogFragment extends DialogFragment implements FamilyCa
     @Override
     public FamilyCallDialogContract.Presenter initializePresenter() {
         return new FamilyCallDialogPresenter(this, familyBaseEntityId);
+    }
+
+    @Override
+    public Context getCurrentContext() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            return getContext();
+        }else {
+            return getActivity().getApplicationContext();
+        }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
