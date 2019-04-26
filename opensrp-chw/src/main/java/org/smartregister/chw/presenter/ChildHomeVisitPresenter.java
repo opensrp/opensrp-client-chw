@@ -1,12 +1,20 @@
 package org.smartregister.chw.presenter;
 
+import android.text.TextUtils;
 import android.util.Log;
 
+import com.google.gson.reflect.TypeToken;
+
 import org.json.JSONObject;
+import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.contract.ChildHomeVisitContract;
+import org.smartregister.chw.domain.HomeVisit;
 import org.smartregister.chw.interactor.ChildHomeVisitInteractor;
+import org.smartregister.chw.model.BirthIllnessModel;
 import org.smartregister.chw.model.ChildRegisterModel;
 import org.smartregister.chw.util.BirthIllnessData;
+import org.smartregister.chw.util.ChildDBConstants;
+import org.smartregister.chw.util.ChildUtils;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.JsonFormUtils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
@@ -15,12 +23,19 @@ import org.smartregister.util.FormUtils;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
 
 public class ChildHomeVisitPresenter implements ChildHomeVisitContract.Presenter, ChildHomeVisitContract.InteractorCallback {
     private WeakReference<ChildHomeVisitContract.View> view;
     private ChildHomeVisitContract.Interactor interactor;
     private CommonPersonObjectClient childClient;
     private FormUtils formUtils = null;
+    private String editedBirthCertFormJson,editedIllnessJson;
 
     public ChildHomeVisitPresenter(ChildHomeVisitContract.View view) {
         this.view = new WeakReference<>(view);
@@ -30,6 +45,14 @@ public class ChildHomeVisitPresenter implements ChildHomeVisitContract.Presenter
     public void setChildClient(CommonPersonObjectClient childClient) {
         this.childClient = childClient;
 
+    }
+
+    public String getEditedBirthCertFormJson() {
+        return editedBirthCertFormJson;
+    }
+
+    public String getEditedIllnessJson() {
+        return editedIllnessJson;
     }
 
     public int getSaveSize() {
@@ -92,8 +115,20 @@ public class ChildHomeVisitPresenter implements ChildHomeVisitContract.Presenter
 
     @Override
     public void generateBirthIllnessForm(String jsonString) {
-        interactor.generateBirthIllnessForm(jsonString, this);
+        interactor.generateBirthIllnessForm(jsonString, this,false);
 
+    }
+
+    @Override
+    public void updateBirthCertEditData(String jsonString) {
+        editedBirthCertFormJson = jsonString;
+        interactor.generateBirthIllnessForm(jsonString, this,true);
+    }
+
+    @Override
+    public void updateObsIllnessEditData(String json) {
+        editedIllnessJson = json;
+        interactor.generateBirthIllnessForm(json,this,true);
     }
 
     @Override
@@ -122,6 +157,13 @@ public class ChildHomeVisitPresenter implements ChildHomeVisitContract.Presenter
             return null;
         }
     }
+
+    @Override
+    public void getLastEditData() {
+        interactor.getLastEditData(childClient,this);
+
+    }
+
     public ArrayList<BirthIllnessData> getIllnessDataList(){
         return ((ChildHomeVisitInteractor)interactor).getIllnessDataList();
     }

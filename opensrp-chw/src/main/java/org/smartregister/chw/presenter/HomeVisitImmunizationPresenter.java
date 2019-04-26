@@ -153,6 +153,32 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
             VaccineWrapper vaccineWrapper = new VaccineWrapper();
             vaccineWrapper.setVaccine(vaccine);
             vaccineWrapper.setName(vaccine.display());
+            Long id = getVaccineId(vaccine.display());
+            vaccineWrapper.setDbKey(id);
+            vaccineWrapper.setDefaultName(vaccine.display());
+            vaccineWrappers.add(vaccineWrapper);
+        }
+        return vaccineWrappers;
+    }
+    public Long getVaccineId(String vaccineName){
+        List<Vaccine> vaccines = ((HomeVisitImmunizationInteractor)homeVisitImmunizationInteractor).getVaccines();
+        for(Vaccine vaccine:vaccines){
+            if(vaccine.getName().equalsIgnoreCase(vaccineName)){
+                return vaccine.getId();
+            }
+        }
+        return null;
+    }
+    @Override
+    public ArrayList<VaccineWrapper> createGivenVaccineWrappers(HomeVisitVaccineGroup duevaccines) {
+
+        ArrayList<VaccineWrapper> vaccineWrappers = new ArrayList<VaccineWrapper>();
+        for (VaccineRepo.Vaccine vaccine : duevaccines.getGivenVaccines()) {
+            VaccineWrapper vaccineWrapper = new VaccineWrapper();
+            vaccineWrapper.setVaccine(vaccine);
+            vaccineWrapper.setName(vaccine.display());
+            Long id = getVaccineId(vaccine.display());
+            vaccineWrapper.setDbKey(id);
             vaccineWrapper.setDefaultName(vaccine.display());
             vaccineWrappers.add(vaccineWrapper);
         }
@@ -200,6 +226,7 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
         if (!notGivenVaccines.contains(name)) {
             notGivenVaccines.add(name);
         }
+        vaccinesGivenThisVisit.remove(name);
     }
 
     @Override
@@ -210,6 +237,9 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
     @Override
     public void assigntoGivenVaccines(ArrayList<VaccineWrapper> tagsToUpdate) {
         vaccinesGivenThisVisit.addAll(tagsToUpdate);
+        for (VaccineWrapper vaccineWrapper:tagsToUpdate){
+            notGivenVaccines.remove(vaccineWrapper);
+        }
     }
 
     /**
@@ -226,14 +256,14 @@ public class HomeVisitImmunizationPresenter implements HomeVisitImmunizationCont
                     if (tag != null && tag.getDbKey() != null) {
                         Long dbKey = tag.getDbKey();
                         vaccineRepository.deleteVaccine(dbKey);
-                        String dobString = org.smartregister.util.Utils.getValue(childClient.getColumnmaps(), "dob", false);
-                        if (!TextUtils.isEmpty(dobString)) {
-                            DateTime dateTime = new DateTime(dobString);
-                            VaccineSchedule.updateOfflineAlerts(childClient.entityId(), dateTime, "child");
-                        }
+
                     }
                 }
-
+                String dobString = org.smartregister.util.Utils.getValue(childClient.getColumnmaps(), "dob", false);
+                if (!TextUtils.isEmpty(dobString)) {
+                    DateTime dateTime = new DateTime(dobString);
+                    VaccineSchedule.updateOfflineAlerts(childClient.entityId(), dateTime, "child");
+                }
                 e.onComplete();
             }
         });

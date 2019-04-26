@@ -66,6 +66,8 @@ public interface HomeVisitImmunizationContract {
 
         ArrayList<VaccineWrapper> createVaccineWrappers(HomeVisitVaccineGroup duevaccines);
 
+        ArrayList<VaccineWrapper> createGivenVaccineWrappers(HomeVisitVaccineGroup duevaccines);
+
         CommonPersonObjectClient getchildClient();
 
         void setChildClient(CommonPersonObjectClient childClient);

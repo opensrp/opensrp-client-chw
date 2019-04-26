@@ -70,6 +70,8 @@ public interface ChildProfileContract {
         ChildProfileContract.Presenter presenter();
 
         void updateHasPhone(boolean hasPhone);
+
+        void enableEdit(boolean enable);
         void hideProgressBar();
     }
 

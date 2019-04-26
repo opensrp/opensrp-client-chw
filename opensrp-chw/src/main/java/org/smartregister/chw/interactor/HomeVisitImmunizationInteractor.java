@@ -1,5 +1,6 @@
 package org.smartregister.chw.interactor;
 
+import android.support.annotation.VisibleForTesting;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -12,12 +13,15 @@ import org.smartregister.chw.util.HomeVisitVaccineGroup;
 import org.smartregister.chw.util.ImmunizationState;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.Alert;
+import org.smartregister.family.util.AppExecutors;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.immunization.domain.Vaccine;
 import org.smartregister.immunization.domain.VaccineSchedule;
 import org.smartregister.immunization.domain.VaccineWrapper;
+import org.smartregister.immunization.repository.VaccineRepository;
 import org.smartregister.immunization.util.VaccinateActionUtils;
+import org.smartregister.service.AlertService;
 import org.smartregister.util.DateUtil;
 
 import java.util.ArrayList;
@@ -43,8 +47,12 @@ import static org.smartregister.immunization.util.VaccinatorUtils.receivedVaccin
 
 public class HomeVisitImmunizationInteractor implements HomeVisitImmunizationContract.Interactor {
     private static String TAG = HomeVisitImmunizationInteractor.class.toString();
-
+    private List<Vaccine> vaccines;
+    private AlertService alertService;
+    private VaccineRepository vaccineRepository;
     public HomeVisitImmunizationInteractor() {
+        alertService = ChwApplication.getInstance().getContext().alertService();
+        vaccineRepository = ChwApplication.getInstance().vaccineRepository();
     }
 
     @Override
@@ -189,8 +197,14 @@ public class HomeVisitImmunizationInteractor implements HomeVisitImmunizationCon
         return getNotGivenVaccinesNotInNotGivenThisVisit;
     }
 
+    public List<Vaccine> getVaccines() {
+        return vaccines;
+    }
+
     @Override
     public ArrayList<HomeVisitVaccineGroup> determineAllHomeVisitVaccineGroup(List<Alert> alerts, List<Vaccine> vaccines, ArrayList<VaccineWrapper> notGivenVaccines, List<Map<String, Object>> sch) {
+        if(this.vaccines!=null) this.vaccines.clear();
+        this.vaccines = vaccines;
         Map<String, Date> receivedvaccines = receivedVaccines(vaccines);
         List<VaccineRepo.Vaccine> vList = Arrays.asList(VaccineRepo.Vaccine.values());
 
@@ -225,14 +239,14 @@ public class HomeVisitImmunizationInteractor implements HomeVisitImmunizationCon
         for (int x = 0; x < homeVisitVaccineGroupArrayList.size(); x++) {
             // compute not given vaccines
             homeVisitVaccineGroupArrayList.get(x).calculateNotGivenVaccines();
-
-            for (int i = 0; i < homeVisitVaccineGroupArrayList.get(x).getDueVaccines().size(); i++) {
-                for (VaccineWrapper notgivenVaccine : notGivenVaccines) {
-                    if (homeVisitVaccineGroupArrayList.get(x).getDueVaccines().get(i).display().equalsIgnoreCase(notgivenVaccine.getName())) {
-                        homeVisitVaccineGroupArrayList.get(x).getNotGivenInThisVisitVaccines().add(notgivenVaccine.getVaccine());
+                for (int i = 0; i < homeVisitVaccineGroupArrayList.get(x).getDueVaccines().size(); i++) {
+                    for (VaccineWrapper notgivenVaccine : notGivenVaccines) {
+                        if (homeVisitVaccineGroupArrayList.get(x).getDueVaccines().get(i).display().equalsIgnoreCase(notgivenVaccine.getName())) {
+                            homeVisitVaccineGroupArrayList.get(x).getNotGivenInThisVisitVaccines().add(notgivenVaccine.getVaccine());
+                        }
                     }
                 }
-            }
+
         }
 
         return homeVisitVaccineGroupArrayList;
@@ -265,6 +279,15 @@ public class HomeVisitImmunizationInteractor implements HomeVisitImmunizationCon
                     if (dueDate != null) {
                         homeVisitVaccineGroupArrayList.get(position).setDueDate(dueDate.toLocalDate() + "");
                         homeVisitVaccineGroupArrayList.get(position).setDueDisplayDate(DateUtil.formatDate(dueDate.toLocalDate(), "dd MMM yyyy"));
+                        //add to date wise vaccine list.needed to display vaccine name with date in adapter
+                            if(homeVisitVaccineGroupArrayList.get(position).getGroupedByDate().get(dueDate) == null){
+                                ArrayList<VaccineRepo.Vaccine> vaccineArrayList = new ArrayList<>();
+                                vaccineArrayList.add(vaccine);
+                                homeVisitVaccineGroupArrayList.get(position).getGroupedByDate().put(dueDate,vaccineArrayList);
+                            }else{
+                                homeVisitVaccineGroupArrayList.get(position).getGroupedByDate().get(dueDate).add(vaccine);
+                            }
+
                     }
                 }
             }
@@ -316,7 +339,8 @@ public class HomeVisitImmunizationInteractor implements HomeVisitImmunizationCon
     @Override
     public void updateImmunizationState(CommonPersonObjectClient childClient, ArrayList<VaccineWrapper> notGivenVaccines, final HomeVisitImmunizationContract.InteractorCallBack callBack) {
 
-        getVaccineTask(childClient.getColumnmaps(), childClient.getCaseId(), notGivenVaccines)
+
+        getVaccineTask(childClient, notGivenVaccines)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<VaccineTaskModel>() {
@@ -349,17 +373,16 @@ public class HomeVisitImmunizationInteractor implements HomeVisitImmunizationCon
      * Replacement of previous vaccinationasynctask
      * it'll calculate the received vaccine list of a child.
      *
-     * @param getColumnMaps
-     * @param entityId
+     * @param childClient
      * @param notDoneVaccines
      * @return
      */
-    private Observable<VaccineTaskModel> getVaccineTask(final Map<String, String> getColumnMaps, final String entityId, final ArrayList<VaccineWrapper> notDoneVaccines) {
+    public Observable<VaccineTaskModel> getVaccineTask(final CommonPersonObjectClient childClient, final ArrayList<VaccineWrapper> notDoneVaccines) {
+        final String dobString = org.smartregister.util.Utils.getValue(childClient.getColumnmaps(), DBConstants.KEY.DOB, false);
 
         return Observable.create(new ObservableOnSubscribe<VaccineTaskModel>() {
             @Override
             public void subscribe(ObservableEmitter<VaccineTaskModel> emmiter) throws Exception {
-                String dobString = org.smartregister.util.Utils.getValue(getColumnMaps, DBConstants.KEY.DOB, false);
                 DateTime dob = org.smartregister.chw.util.Utils.dobStringToDateTime(dobString);
                 if (dob == null) {
                     dob = new DateTime();
@@ -368,18 +391,18 @@ public class HomeVisitImmunizationInteractor implements HomeVisitImmunizationCon
                 if (!TextUtils.isEmpty(dobString)) {
                     DateTime dateTime = new DateTime(dobString);
                     try {
-                        VaccineSchedule.updateOfflineAlerts(entityId, dateTime, "child");
+                        VaccineSchedule.updateOfflineAlerts(childClient.getCaseId(), dateTime, "child");
                     } catch (Exception e) {
 
                     }
                     try {
-                        ChwServiceSchedule.updateOfflineAlerts(entityId, dateTime);
+                        ChwServiceSchedule.updateOfflineAlerts(childClient.getCaseId(), dateTime);
                     } catch (Exception e) {
 
                     }
                 }
-                List<Alert> alerts = ChwApplication.getInstance().getContext().alertService().findByEntityIdAndAlertNames(entityId, VaccinateActionUtils.allAlertNames("child"));
-                List<Vaccine> vaccines = ChwApplication.getInstance().vaccineRepository().findByEntityId(entityId);
+                List<Alert> alerts = alertService.findByEntityIdAndAlertNames(childClient.getCaseId(), VaccinateActionUtils.allAlertNames("child"));
+                List<Vaccine> vaccines = vaccineRepository.findByEntityId(childClient.getCaseId());
                 Map<String, Date> recievedVaccines = receivedVaccines(vaccines);
                 int size = notDoneVaccines.size();
                 for (int i = 0; i < size; i++) {
