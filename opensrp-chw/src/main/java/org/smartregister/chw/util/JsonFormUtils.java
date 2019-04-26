@@ -658,8 +658,85 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
 
                 break;
 
+            case org.smartregister.chw.util.Constants.JsonAssets.ID_AVAIL:
+
+                JSONArray options = jsonObject.getJSONArray(org.smartregister.family.util.Constants.JSON_FORM_KEY.OPTIONS);
+                int x = 0;
+                while (x < options.length()) {
+                    JSONObject optionsObject = options.getJSONObject(x);
+                    boolean hasValue;
+
+                    switch (optionsObject.getString(org.smartregister.family.util.JsonFormUtils.KEY)) {
+                        case org.smartregister.chw.util.Constants.JsonAssets.CHK_ID_AVAIL.NATIONAL_ID:
+                            hasValue = StringUtils.isNotBlank(Utils.getValue(client.getColumnmaps(), ChwDBConstants.NATIONAL_ID, false));
+                            optionsObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, hasValue ? "true" : "false");
+                            break;
+                        case org.smartregister.chw.util.Constants.JsonAssets.CHK_ID_AVAIL.VOTER_ID:
+                            hasValue = StringUtils.isNotBlank(Utils.getValue(client.getColumnmaps(), ChwDBConstants.VOTER_ID, false));
+                            optionsObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, hasValue ? "true" : "false");
+                            break;
+                        case org.smartregister.chw.util.Constants.JsonAssets.CHK_ID_AVAIL.DRIVER_LICENSE:
+                            hasValue = StringUtils.isNotBlank(Utils.getValue(client.getColumnmaps(), ChwDBConstants.DRIVER_LICENSE, false));
+                            optionsObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, hasValue ? "true" : "false");
+                            break;
+                        case org.smartregister.chw.util.Constants.JsonAssets.CHK_ID_AVAIL.PASSPORT:
+                            hasValue = StringUtils.isNotBlank(Utils.getValue(client.getColumnmaps(), ChwDBConstants.PASSPORT, false));
+                            optionsObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, hasValue ? "true" : "false");
+                            break;
+                        default:
+                            break;
+                    }
+                    x++;
+                }
+
+                break;
+
             case org.smartregister.chw.util.Constants.JsonAssets.NATIONAL_ID:
                 jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), org.smartregister.chw.util.Constants.JsonAssets.NATIONAL_ID, false));
+                break;
+
+            case org.smartregister.chw.util.Constants.JsonAssets.VOTER_ID:
+                jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), ChwDBConstants.VOTER_ID, false));
+                break;
+
+            case org.smartregister.chw.util.Constants.JsonAssets.DRIVER_LICENSE:
+                jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), ChwDBConstants.DRIVER_LICENSE, false));
+                break;
+
+            case org.smartregister.chw.util.Constants.JsonAssets.PASSPORT:
+                jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), ChwDBConstants.PASSPORT, false));
+                break;
+
+            case org.smartregister.chw.util.Constants.JsonAssets.INSURANCE_PROVIDER:
+                jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), ChwDBConstants.INSURANCE_PROVIDER, false));
+                break;
+
+            case org.smartregister.chw.util.Constants.JsonAssets.INSURANCE_PROVIDER_OTHER:
+                jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), ChwDBConstants.INSURANCE_PROVIDER_OTHER, false));
+                break;
+
+            case org.smartregister.chw.util.Constants.JsonAssets.INSURANCE_PROVIDER_NUMBER:
+                jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), ChwDBConstants.INSURANCE_PROVIDER_NUMBER, false));
+                break;
+
+            case org.smartregister.chw.util.Constants.JsonAssets.DISABILITIES:
+                jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), ChwDBConstants.DISABILITIES, false));
+                break;
+
+            case org.smartregister.chw.util.Constants.JsonAssets.DISABILITY_TYPE:
+                jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), ChwDBConstants.DISABILITY_TYPE, false));
+                break;
+
+            case org.smartregister.chw.util.Constants.JsonAssets.SERVICE_PROVIDER:
+                jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), ChwDBConstants.SERVICE_PROVIDER, false));
+                break;
+
+            case org.smartregister.chw.util.Constants.JsonAssets.LEADER:
+                jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), ChwDBConstants.LEADER, false));
+                break;
+
+            case org.smartregister.chw.util.Constants.JsonAssets.OTHER_LEADER:
+                jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), ChwDBConstants.OTHER_LEADER, false));
                 break;
 
             default:

@@ -125,6 +125,7 @@ public class ChwApplication extends DrishtiApplication {
 
         //Initialize Modules
         CoreLibrary.init(context, new ChwSyncConfiguration(), BuildConfig.BUILD_TIMESTAMP);
+        CountryUtils.switchEcClientFieldProcessor();
         ImmunizationLibrary.init(context, getRepository(), null, BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
 
         ConfigurableViewsLibrary.init(context, getRepository());
@@ -146,7 +147,6 @@ public class ChwApplication extends DrishtiApplication {
         scheduleJobs();
 
         CountryUtils.switchLoginAlias(getPackageManager());
-        CountryUtils.switchEcClientFieldProcessor();
         CountryUtils.setOpenSRPUrl();
 
         Configuration configuration = getApplicationContext().getResources().getConfiguration();

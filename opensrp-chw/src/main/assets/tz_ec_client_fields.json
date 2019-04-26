@@ -257,23 +257,21 @@
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "service_provider"
+            "concept": "1542AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         },
         {
           "column_name": "leader",
-          "type": "Event",
+          "type": "Client",
           "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "leader"
+            "field": "attributes.Community_Leader"
           }
         },
         {
           "column_name": "leader_other",
-          "type": "Event",
+          "type": "Client",
           "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "leader_other"
+            "field": "attributes.Other_Community_Leader_Type_Name"
           }
         },
         {

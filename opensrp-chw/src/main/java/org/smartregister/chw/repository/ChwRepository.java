@@ -89,6 +89,9 @@ public class ChwRepository extends Repository {
                 case 6:
                     upgradeToVersion6(db);
                     break;
+                case 7:
+                    upgradeToVersion7(db);
+                    break;
                 default:
                     break;
             }
@@ -228,6 +231,18 @@ public class ChwRepository extends Repository {
         try {
             if(BuildConfig.BUILD_COUNTRY == Country.TANZANIA){
                 for (String query: RepositoryUtils.UPGRADE_V6) {
+                    db.execSQL(query);
+                }
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "upgradeToVersion6 " + Log.getStackTraceString(e));
+        }
+    }
+
+    private void upgradeToVersion7(SQLiteDatabase db) {
+        try {
+            if(BuildConfig.BUILD_COUNTRY == Country.TANZANIA){
+                for (String query: RepositoryUtils.UPGRADE_V7) {
                     db.execSQL(query);
                 }
             }

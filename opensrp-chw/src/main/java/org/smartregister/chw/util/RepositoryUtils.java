@@ -16,4 +16,8 @@ public interface RepositoryUtils {
             "ALTER TABLE ec_family_member ADD COLUMN leader VARCHAR;",
             "ALTER TABLE ec_family_member ADD COLUMN leader_other VARCHAR;"
     };
+
+    String[] UPGRADE_V7 = {
+            "ALTER TABLE ec_family_member ADD COLUMN type_of_disability VARCHAR;",
+    };
 }

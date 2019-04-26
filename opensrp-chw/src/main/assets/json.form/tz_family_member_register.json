@@ -650,7 +650,7 @@
       {
         "key": "service_provider",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "Concept - Occupation",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": "1542AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "check_box",
         "label": "Occupation of the family member",
@@ -761,8 +761,8 @@
       {
         "key": "leader",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "Community_Leader",
         "type": "check_box",
         "label": "Any leadership role in the community?",
         "label_text_style": "normal",
@@ -822,8 +822,8 @@
       {
         "key": "leader_other",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "Other_Community_Leader_Type_Name",
         "type": "edit_text",
         "hint": "Mention other role in the community",
         "edit_type": "name",

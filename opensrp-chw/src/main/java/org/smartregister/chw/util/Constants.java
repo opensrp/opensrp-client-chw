@@ -109,7 +109,27 @@ public class Constants {
         public static final String SEX = "sex";
         public static final String PRIMARY_CARE_GIVER = "primary_caregiver";
         public static final String AGE = "age";
+        public static final String ID_AVAIL = "id_avail";
         public static final String NATIONAL_ID = "national_id";
+        public static final String VOTER_ID = "voter_id";
+        public static final String DRIVER_LICENSE = "driver_license";
+        public static final String PASSPORT = "passport";
+        public static final String INSURANCE_PROVIDER = "insurance_provider";
+        public static final String INSURANCE_PROVIDER_OTHER = "insurance_provider_other";
+        public static final String INSURANCE_PROVIDER_NUMBER = "insurance_provider_number";
+        public static final String DISABILITIES = "disabilities";
+        public static final String DISABILITY_TYPE = "type_of_disability";
+        public static final String SERVICE_PROVIDER = "service_provider";
+        public static final String LEADER = "leader";
+        public static final String OTHER_LEADER = "leader_other";
+
+        public static class CHK_ID_AVAIL {
+            public static final String NATIONAL_ID = "chk_national_id";
+            public static final String VOTER_ID = "chk_voters_id";
+            public static final String DRIVER_LICENSE = "chk_drivers_license";
+            public static final String PASSPORT = "chk_passport";
+            public static final String NONE = "chk_none";
+        }
 
         public static class FAMILY_MEMBER {
             public static final String HIGHEST_EDUCATION_LEVEL = "highest_edu_level";
