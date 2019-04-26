@@ -99,7 +99,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "family-member-relevance.yml"
+              "rules-file": "tz_family_member_relevance.yml"
             }
           }
         }
@@ -182,7 +182,7 @@
         }
       },
       {
-        "key": "dob_entered",
+        "key": "dob",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person",
         "openmrs_entity_id": "birthdate",
@@ -201,7 +201,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "family-member-relevance.yml"
+              "rules-file": "tz_family_member_relevance.yml"
             }
           }
         }
@@ -258,7 +258,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "family-member-relevance.yml"
+              "rules-file": "tz_family_member_relevance.yml"
             }
           }
         },
@@ -323,7 +323,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "family-member-relevance.yml"
+              "rules-file": "tz_family_member_relevance.yml"
             }
           }
         }
