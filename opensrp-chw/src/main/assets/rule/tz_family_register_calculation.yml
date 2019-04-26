@@ -11,7 +11,7 @@ description: Age calculated
 priority: 1
 condition: "true"
 actions:
-- "calculation = (!step2_dob_unknown.isEmpty() && step2_dob_unknown.contains('dob_unknown')) ? step2_age : helper.getDifferenceDays(step2_dob_entered) / 365.25"
+- "calculation = (!step2_dob_unknown.isEmpty() && step2_dob_unknown.contains('dob_unknown')) ? step2_age : helper.getDifferenceDays(step2_dob) / 365.25"
 ---
 name: step2_wra
 description: wra calculation
