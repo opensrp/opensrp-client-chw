@@ -347,8 +347,8 @@
       {
         "key": "voter_id",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "Voter_Registration_Number",
         "type": "edit_text",
         "hint": "Voter's registration number",
         "edit_type": "name",
@@ -387,8 +387,8 @@
       {
         "key": "passport",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "Passport_Number",
         "type": "edit_text",
         "hint": "Passport number",
         "edit_type": "name",
@@ -407,8 +407,8 @@
       {
         "key": "insurance_provider",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "Health_Insurance_Type",
         "type": "spinner",
         "hint": "Health insurance provider",
         "values": [
@@ -426,6 +426,21 @@
           "Other",
           "None"
         ],
+        "openmrs_choice_ids": {
+          "Community Health Fund (CHF)": "Community_Health_Fund",
+          "iCHF": "iCHF",
+          "National Social Security Fund - Social Health Insurance Benefit (SHIB)": "National_Social_Security_Fund",
+          "Tiba Kwa Kadi (TIKA)": "Tiba_kwa_Kadi",
+          "AAR Healthcare": "AAR_Healthcare",
+          "AAR Strategies Insurance": "Strategies_Insurance",
+          "Milvik Tanzania  Ltd (BIMA Mkononi)": "BIMA_Mkononi",
+          "Britam Insurance Tanzania": "Britam_Insurance_Tanzania",
+          "Jubilee Insurance": "Jubilee_Insurance",
+          "Resolutions Insurance": "Resolutions_Insurance",
+          "Reliance Insurance": "Reliance_Insurance",
+          "Other": "Other_Health_Insurance_Type",
+          "None": "No_Health_Insurance"
+        },
         "v_required": {
           "value": "true",
           "err": "Please enter the insurance provider"
@@ -434,8 +449,8 @@
       {
         "key": "insurance_provider_other",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "Other_Health_Insurance_Type",
         "type": "edit_text",
         "hint": "Other health insurance provider",
         "v_required": {
@@ -453,8 +468,8 @@
       {
         "key": "insurance_provider_number",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "Health_Insurance_Number",
         "type": "edit_text",
         "hint": "Health insurance provider number",
         "v_required": {
@@ -516,14 +531,18 @@
       {
         "key": "preg_1yr",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "160692AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "spinner",
         "hint": "Has the woman delivered in the last 1 year?",
         "values": [
           "Yes",
           "No"
         ],
+        "openmrs_choice_ids": {
+          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -535,14 +554,18 @@
       {
         "key": "disabilities",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "162558AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "spinner",
         "hint": "Physical disabilities",
         "values": [
           "Yes",
           "No"
         ],
+        "openmrs_choice_ids": {
+          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
         "v_required": {
           "value": "true",
           "err": "Please select one"
@@ -550,9 +573,9 @@
       },
       {
         "key": "type_of_disability",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity_parent": "162558AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "edit_text",
         "hint": "Type of disability",
         "v_required": {
@@ -664,7 +687,7 @@
             "key": "chk_cimmci",
             "text": "Community IMCI",
             "value": false,
-            "openmrs_entity": "Concept - Community Health Care Provider (CHCP)",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "163096AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
@@ -727,14 +750,14 @@
             "key": "chk_other",
             "text": "Other",
             "value": false,
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_none",
             "text": "None",
             "value": false,
-            "openmrs_entity": "",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "164369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ],
@@ -761,43 +784,43 @@
             "key": "chk_religious",
             "text": "Religious leader",
             "value": false,
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
+            "openmrs_entity": "person_attribute",
+            "openmrs_entity_id": "Religious_Leader"
           },
           {
             "key": "chk_political",
             "text": "Political leader",
             "value": false,
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
+            "openmrs_entity": "person_attribute",
+            "openmrs_entity_id": "Political_leader"
           },
           {
             "key": "chk_influential",
             "text": "Influential leader",
             "value": false,
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
+            "openmrs_entity": "person_attribute",
+            "openmrs_entity_id": "Influential_Leader"
           },
           {
             "key": "chk_traditional",
             "text": "Traditional leader",
             "value": false,
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
+            "openmrs_entity": "person_attribute",
+            "openmrs_entity_id": "Traditional_leader"
           },
           {
             "key": "chk_other",
             "text": "Other",
             "value": false,
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
+            "openmrs_entity": "person_attribute",
+            "openmrs_entity_id": "Other_Community_Leader_Type"
           },
           {
             "key": "chk_none",
             "text": "None",
             "value": false,
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
+            "openmrs_entity": "person_attribute",
+            "openmrs_entity_id": "Not_a_Community_Leader"
           }
         ],
         "v_required": {

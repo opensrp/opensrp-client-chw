@@ -189,50 +189,44 @@
         },
         {
           "column_name": "voter_id",
-          "type": "Event",
+          "type": "Client",
           "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "voter_id"
+            "field": "attributes.Voter_Registration_Number"
           }
         },
         {
           "column_name": "driver_license",
-          "type": "Event",
+          "type": "Client",
           "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "driver_license"
+            "field": "attributes.Driver_License_Number"
           }
         },
         {
           "column_name": "passport",
-          "type": "Event",
+          "type": "Client",
           "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "passport"
+            "field": "attributes.Passport_Number"
           }
         },
         {
           "column_name": "insurance_provider",
-          "type": "Event",
+          "type": "Client",
           "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "insurance_provider"
+            "field": "attributes.Health_Insurance_Type"
           }
         },
         {
           "column_name": "insurance_provider_other",
-          "type": "Event",
+          "type": "Client",
           "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "insurance_provider_other"
+            "field": "attributes.Other_Health_Insurance_Type"
           }
         },
         {
           "column_name": "insurance_provider_number",
-          "type": "Event",
+          "type": "Client",
           "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "insurance_provider_number"
+            "field": "attributes.Health_Insurance_Number"
           }
         },
         {
@@ -243,12 +237,13 @@
             "concept": "type_of_disability"
           }
         },
+
         {
           "column_name": "disabilities",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "disabilities"
+            "concept": "162558AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         },
         {
