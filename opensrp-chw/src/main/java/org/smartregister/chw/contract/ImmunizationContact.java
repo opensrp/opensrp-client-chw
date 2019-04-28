@@ -4,6 +4,8 @@ import org.smartregister.chw.util.HomeVisitVaccineGroup;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Map;
 
 public interface ImmunizationContact {
 
@@ -32,9 +34,7 @@ public interface ImmunizationContact {
     }
     interface InteractorCallBack {
 
-        void allDataLoaded();
-
-        void updateData(ArrayList<HomeVisitVaccineGroup> homeVisitVaccineGroupDetails);
+        void updateData(ArrayList<HomeVisitVaccineGroup> homeVisitVaccineGroupDetails, Map<String, Date> receivedVaccine);
 
         void updateEditData(ArrayList<HomeVisitVaccineGroup> homeVisitVaccineGroupDetails);
     }

@@ -252,14 +252,11 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
             public void subscribe(final ObservableEmitter<ChildService> e) throws Exception {
                final ImmunizationViewPresenter presenter = new ImmunizationViewPresenter();
                 presenter.upcomingServiceFetch(getpClient(), new ImmunizationContact.InteractorCallBack() {
-                    @Override
-                    public void allDataLoaded() {
-
-                    }
 
                     @Override
-                    public void updateData(ArrayList<HomeVisitVaccineGroup> homeVisitVaccineGroupDetails) {
+                    public void updateData(ArrayList<HomeVisitVaccineGroup> homeVisitVaccineGroupDetails, Map<String, Date> vaccines) {
                         String dueDate = "", vaccineName = "";
+                        vaccineList = vaccines;
                         ImmunizationState state = ImmunizationState.UPCOMING;
                         for (HomeVisitVaccineGroup homeVisitVaccineGroupDetail : homeVisitVaccineGroupDetails) {
                             if (homeVisitVaccineGroupDetail.getAlert().equals(ImmunizationState.DUE)

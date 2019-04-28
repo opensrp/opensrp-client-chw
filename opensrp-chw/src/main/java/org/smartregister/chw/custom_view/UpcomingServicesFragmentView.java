@@ -11,7 +11,6 @@ import android.widget.TextView;
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.UpcomingServicesActivity;
 import org.smartregister.chw.contract.HomeVisitGrowthNutritionContract;
-import org.smartregister.chw.contract.HomeVisitImmunizationContract;
 import org.smartregister.chw.contract.ImmunizationContact;
 import org.smartregister.chw.interactor.HomeVisitGrowthNutritionInteractor;
 import org.smartregister.chw.presenter.ImmunizationViewPresenter;
@@ -20,16 +19,11 @@ import org.smartregister.chw.util.GrowthServiceData;
 import org.smartregister.chw.util.HomeVisitVaccineGroup;
 import org.smartregister.chw.util.ImmunizationState;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
-import org.smartregister.domain.Alert;
 import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.immunization.domain.ServiceWrapper;
-import org.smartregister.immunization.domain.Vaccine;
-
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 
 import static org.apache.commons.lang3.StringUtils.isBlank;
@@ -156,10 +150,6 @@ public class UpcomingServicesFragmentView extends LinearLayout implements View.O
             @Override
             public void updateGivenRecordVisitData(final Map<String, ServiceWrapper> stringServiceWrapperMap) {
 
-//
-//                new Handler().postDelayed(new Runnable() {
-//                    @Override
-//                    public void run() {
                 try {
                     ArrayList<GrowthServiceData> growthServiceDataList = homeVisitGrowthNutritionInteractor.getAllDueService(stringServiceWrapperMap);
                     String lastDate = "";
@@ -203,10 +193,6 @@ public class UpcomingServicesFragmentView extends LinearLayout implements View.O
                     }
                 }
             }
-
-//                }, 200);
-//
-//            }
         });
     }
 

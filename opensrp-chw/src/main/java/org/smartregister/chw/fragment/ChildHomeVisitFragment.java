@@ -260,11 +260,11 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                     if (((ChildHomeVisitPresenter) presenter).getSaveSize() > 0) {
                         presenter.saveForm();
                     }
-                    if(isEditMode){
-                        saveEditData();
-                        return;
-                    }
-                    dismiss();
+                    //if(isEditMode){
+                        saveData();
+//                        return;
+//                    }
+//                    dismiss();
                 }
                 break;
             case R.id.close:
@@ -327,7 +327,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                 })
                 .subscribe();
     }
-    private void saveEditData(){
+    private void saveData(){
         Observable.zip(immunizationView.undoPreviousGivenVaccine(),immunizationView.saveGivenThisVaccine() , new BiFunction() {
             @Override
             public Object apply(Object o, Object o2) throws Exception {

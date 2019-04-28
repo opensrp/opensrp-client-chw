@@ -13,7 +13,6 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.adapter.ImmunizationAdapter;
 import org.smartregister.chw.contract.ImmunizationContact;
 import org.smartregister.chw.fragment.ChildHomeVisitFragment;
-import org.smartregister.chw.fragment.ChildImmunizationFragment;
 import org.smartregister.chw.fragment.VaccinationDialogFragment;
 import org.smartregister.chw.listener.OnClickEditAdapter;
 import org.smartregister.chw.presenter.ImmunizationViewPresenter;
@@ -90,14 +89,23 @@ public class ImmunizationView extends LinearLayout implements ImmunizationContac
         ChildHomeVisitFragment childHomeVisitFragment = (ChildHomeVisitFragment) activity.getFragmentManager().findFragmentByTag(ChildHomeVisitFragment.DIALOG_TAG);
 
         childHomeVisitFragment.allVaccineDataLoaded = true;
-        childHomeVisitFragment.forcfullyProgressBarInvisible();
+        if(isEditMode){
+            childHomeVisitFragment.forcfullyProgressBarInvisible();
+        }
+        else{
+            childHomeVisitFragment.allVaccineStateFullfilled = true;
+            childHomeVisitFragment.progressBarInvisible();
+            childHomeVisitFragment.checkIfSubmitIsToBeEnabled();
+        }
     }
 
     @Override
     public void updateAdapter(int position) {
         ChildHomeVisitFragment childHomeVisitFragment = (ChildHomeVisitFragment) activity.getFragmentManager().findFragmentByTag(ChildHomeVisitFragment.DIALOG_TAG);
-        childHomeVisitFragment.allVaccineDataLoaded = true;
-        childHomeVisitFragment.submitButtonEnableDisable(true);
+        if(isEditMode){
+            childHomeVisitFragment.allVaccineDataLoaded = true;
+            childHomeVisitFragment.submitButtonEnableDisable(true);
+        }
         if(adapter==null){
             adapter = new ImmunizationAdapter(getContext(),onClickEditAdapter);
             adapter.addItem(presenter.getHomeVisitVaccineGroupDetails());
@@ -116,11 +124,11 @@ public class ImmunizationView extends LinearLayout implements ImmunizationContac
             DateTime dateTime = new DateTime(dobString);
             Date dob = dateTime.toDate();
             VaccinationDialogFragment customVaccinationDialogFragment = VaccinationDialogFragment.newInstance(dob,presenter.getNotGivenVaccineWrappers(homeVisitVaccineGroup),new ArrayList<VaccineWrapper>(),
-                    presenter.getDueVaccineWrappers(homeVisitVaccineGroup));
+                    presenter.getDueVaccineWrappers(homeVisitVaccineGroup),homeVisitVaccineGroup.getGroup());
             customVaccinationDialogFragment.setChildDetails(childClient);
             customVaccinationDialogFragment.setView(ImmunizationView.this);
             FragmentTransaction ft = activity.getFragmentManager().beginTransaction();
-            customVaccinationDialogFragment.show(ft, ChildImmunizationFragment.TAG);
+            customVaccinationDialogFragment.show(ft, VaccinationDialogFragment.DIALOG_TAG);
 
         }
     };
@@ -138,7 +146,9 @@ public class ImmunizationView extends LinearLayout implements ImmunizationContac
         updateAdapter(pressPosition);
         if(!isEditMode && (pressPosition+1)<presenter.getHomeVisitVaccineGroupDetails().size()){
             HomeVisitVaccineGroup nextSelectedGroup = presenter.getHomeVisitVaccineGroupDetails().get(pressPosition+1);
-            nextSelectedGroup.setViewType(HomeVisitVaccineGroup.TYPE_INITIAL);
+            if(nextSelectedGroup.getViewType() == HomeVisitVaccineGroup.TYPE_INACTIVE){
+                nextSelectedGroup.setViewType(HomeVisitVaccineGroup.TYPE_INITIAL);
+            }
             updateAdapter(pressPosition+1);
         }
     }

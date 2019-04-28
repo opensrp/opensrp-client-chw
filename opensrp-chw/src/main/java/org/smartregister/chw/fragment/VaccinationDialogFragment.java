@@ -30,14 +30,12 @@ import org.joda.time.DateTime;
 import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.custom_view.ImmunizationView;
+import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.util.DBConstants;
-import org.smartregister.immunization.ImmunizationLibrary;
 import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.immunization.domain.ServiceSchedule;
 import org.smartregister.immunization.domain.VaccineSchedule;
 import org.smartregister.immunization.domain.VaccineWrapper;
-import org.smartregister.immunization.repository.VaccineRepository;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -49,13 +47,14 @@ import java.util.Map;
 import static org.smartregister.chw.util.ChildUtils.fixVaccineCasing;
 
 @SuppressLint("ValidFragment")
-public class VaccinationDialogFragment extends ChildImmunizationFragment implements View.OnClickListener {
+public class VaccinationDialogFragment extends DialogFragment implements View.OnClickListener {
     private List<VaccineWrapper> tags,notGivenList,givenList;
     private Date dateOfBirth;
     public static final String DIALOG_TAG = "VaccinationDialogFragment";
     public static final String WRAPPER_TAG = "tag";
     public static final String NOT_GIVEN = "not_given";
     public static final String GIVEN = "given";
+    public static final String GROUP_NAME = "group_name";
     private ImmunizationView immunizationView;
     private int selectCount = 0;
     private Button saveBtn;
@@ -65,9 +64,11 @@ public class VaccinationDialogFragment extends ChildImmunizationFragment impleme
     private DatePicker earlierDatePicker;
     private TextView textViewAddDate;
     private Map<VaccineWrapper, DatePicker> singleVaccineMap = new LinkedHashMap<>();
+    private CommonPersonObjectClient childDetails;
+    private String groupName;
 
     public static VaccinationDialogFragment newInstance(Date dateOfBirth,ArrayList<VaccineWrapper> notGiven,ArrayList<VaccineWrapper> given,
-                                                        ArrayList<VaccineWrapper> tags) {
+                                                        ArrayList<VaccineWrapper> tags,String groupName) {
 
         VaccinationDialogFragment customVaccinationDialogFragment = new VaccinationDialogFragment();
 
@@ -75,11 +76,15 @@ public class VaccinationDialogFragment extends ChildImmunizationFragment impleme
         args.putSerializable(WRAPPER_TAG, tags);
         args.putSerializable(NOT_GIVEN, notGiven);
         args.putSerializable(GIVEN, given);
+        args.putString(GROUP_NAME, groupName);
         customVaccinationDialogFragment.setArguments(args);
         customVaccinationDialogFragment.setDateOfBirth(dateOfBirth);
         customVaccinationDialogFragment.setDisableConstraints(true);
 
         return customVaccinationDialogFragment;
+    }
+    public void setChildDetails(CommonPersonObjectClient childDetails){
+        this.childDetails = childDetails;
     }
 
     @Override
@@ -139,6 +144,7 @@ public class VaccinationDialogFragment extends ChildImmunizationFragment impleme
             notGivenList = (ArrayList<VaccineWrapper>) bundle.getSerializable(NOT_GIVEN);
             givenList = (ArrayList<VaccineWrapper>) bundle.getSerializable(GIVEN);
         }
+        groupName = bundle.getString(GROUP_NAME,"");
     }
     private void updateDatePicker(DatePicker datePicker) {
         DateTime minDate = new DateTime(dateOfBirth);
@@ -196,6 +202,8 @@ public class VaccinationDialogFragment extends ChildImmunizationFragment impleme
                 }
             });
         }
+
+
     }
     @Override
     public void onClick(View v) {
@@ -210,6 +218,8 @@ public class VaccinationDialogFragment extends ChildImmunizationFragment impleme
             case R.id.save_btn:
                 saveData(earlierDatePicker, singleVaccineMap, selectCount,
                         singleVaccineAddView.getVisibility() == View.VISIBLE, dateOfBirth, findUnSelectedCheckBoxes(vaccinationNameLayout), findSelectedCheckBoxes(vaccinationNameLayout));
+                ((ChildHomeVisitFragment) getActivity().getFragmentManager().findFragmentByTag(ChildHomeVisitFragment.DIALOG_TAG)).updateImmunizationState();
+
                 dismiss();
                 break;
             case R.id.close:
@@ -265,8 +275,8 @@ public class VaccinationDialogFragment extends ChildImmunizationFragment impleme
             }
         }
 
+            immunizationView.getPresenter().assigntoGivenVaccines(tagsToUpdate);
 
-        immunizationView.getPresenter().assigntoGivenVaccines(tagsToUpdate);
 
 
     }
@@ -285,10 +295,9 @@ public class VaccinationDialogFragment extends ChildImmunizationFragment impleme
                 }
             }
         }
-        if (tagsToUpdate.size() > 0) {
 
             immunizationView.getPresenter().assigntoGivenVaccines(tagsToUpdate);
-        }
+
 
     }
 
@@ -306,16 +315,8 @@ public class VaccinationDialogFragment extends ChildImmunizationFragment impleme
                 }
             }
         }
-        for (VaccineWrapper tags : UngiventagsToUpdate) {
-//            if(homeVisitImmunizationView!=null){
-//                if(isExistInGiven(tags.getName())){
-//                    Long dbKey = tags.getDbKey();
-//                    if(dbKey!=null) vaccineRepository.deleteVaccine(dbKey);
-//                }
-//                homeVisitImmunizationView.getPresenter().updateNotGivenVaccine(tags);
-//            }
-            immunizationView.getPresenter().updateNotGivenVaccine(tags);
-        }
+        immunizationView.getPresenter().assignToNotGivenVaccines(UngiventagsToUpdate,groupName);
+
 
     }
 
@@ -364,7 +365,7 @@ public class VaccinationDialogFragment extends ChildImmunizationFragment impleme
         for (String checkedName : selectedCheckboxes) {
             singleVaccineAddView.setVisibility(View.VISIBLE);
             VaccineWrapper tag = searchWrapperByName(checkedName);
-            String dobString = org.smartregister.util.Utils.getValue(getChildDetails().getColumnmaps(), DBConstants.KEY.DOB, false);
+            String dobString = org.smartregister.util.Utils.getValue(childDetails, DBConstants.KEY.DOB, false);
 
             if (tag != null && !TextUtils.isEmpty(dobString)) {
                 View layout = inflater.inflate(R.layout.custom_single_vaccine_view, null);
@@ -422,6 +423,9 @@ public class VaccinationDialogFragment extends ChildImmunizationFragment impleme
     public void onResume() {
         super.onResume();
         updateSaveButton();
+        if(tags.size() == notGivenList.size()) {
+            checkBoxNoVaccine.setChecked(true);
+        }
     }
 
     private boolean validateVaccinationDate(Date dateOfBirth, Date date) {
@@ -564,6 +568,7 @@ public class VaccinationDialogFragment extends ChildImmunizationFragment impleme
     public void setView(ImmunizationView view){
         immunizationView = view;
     }
+
 
 
 }
