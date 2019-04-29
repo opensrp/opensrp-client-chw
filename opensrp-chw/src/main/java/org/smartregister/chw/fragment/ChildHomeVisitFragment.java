@@ -73,7 +73,6 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     private TextView textViewObsIllnessDesc;
     private HomeVisitGrowthAndNutrition homeVisitGrowthAndNutritionLayout;
     private View viewBirthLine;
-    public boolean allVaccineStateFullfilled = false;
     public boolean allVaccineDataLoaded = false;
     public boolean allServicesDataLoaded = false;
     private TextView submit;
@@ -137,11 +136,11 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         assignNameHeader();
         updateGrowthData();
         if(isEditMode){
-            immunizationView.setChildClient(getActivity(),childClient,true);
+            immunizationView.setChildClient(this,getActivity(),childClient,true);
             ((ChildHomeVisitPresenter) presenter).getLastEditData();
             submitButtonEnableDisable(true);
         }else{
-            immunizationView.setChildClient(getActivity(),childClient,false);
+            immunizationView.setChildClient(this,getActivity(),childClient,false);
             submitButtonEnableDisable(false);
         }
 
@@ -364,7 +363,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
 
     private boolean checkAllGiven() {
         if(isEditMode) return true;
-        return allVaccineStateFullfilled && isAllGrowthSelected();
+        return  isAllImmunizationSelected() && isAllGrowthSelected();
     }
 
     public void checkIfSubmitIsToBeEnabled() {
@@ -565,6 +564,9 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
 
     private boolean isAllGrowthSelected() {
         return homeVisitGrowthAndNutritionLayout.isAllSelected();
+    }
+    private boolean isAllImmunizationSelected(){
+        return immunizationView.isAllSelected();
     }
 
     public void setEditMode(boolean isEditMode) {

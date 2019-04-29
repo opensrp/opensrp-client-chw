@@ -1,7 +1,6 @@
 package org.smartregister.chw.presenter;
 
 import android.content.Context;
-import android.util.Log;
 
 import org.smartregister.chw.R;
 import org.smartregister.chw.contract.HomeVisitGrowthNutritionContract;
@@ -15,8 +14,10 @@ import org.smartregister.domain.AlertStatus;
 import org.smartregister.immunization.ImmunizationLibrary;
 import org.smartregister.immunization.domain.ServiceWrapper;
 import org.smartregister.immunization.repository.RecurringServiceRecordRepository;
+import org.smartregister.util.Log;
 
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -38,9 +39,10 @@ public class HomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNutriti
 
     private Map<String, ServiceWrapper> notVisitStateMap = new LinkedHashMap<>();
     private CommonPersonObjectClient commonPersonObjectClient;
-    private int growthListCount = -1;
+    private ArrayList<String> saveGroupList = new ArrayList<>();
     private boolean isEditMode = false;
     private Context context;
+    private int initialCount = 0;
 
     public HomeVisitGrowthNutritionPresenter(HomeVisitGrowthNutritionContract.View view) {
         this.view = new WeakReference<>(view);
@@ -64,6 +66,9 @@ public class HomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNutriti
     @Override
     public void setSaveState(String type, ServiceWrapper serviceWrapper) {
         saveStateMap.put(type, serviceWrapper);
+        if(!saveGroupList.contains(type)){
+            saveGroupList.add(type);
+        }
         saveServiceMap.put(type, serviceWrapper.getAlert().scheduleName());
         if (type.equalsIgnoreCase(GrowthNutritionInputFragment.GROWTH_TYPE.EXCLUSIVE.getValue())) {
             Date date = org.smartregister.family.util.Utils.dobStringToDate(serviceWrapper.getUpdatedVaccineDateAsString());
@@ -82,6 +87,9 @@ public class HomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNutriti
 
         if (isSave(type)) return;
         notVisitStateMap.put(type, serviceWrapper);
+        if(!saveGroupList.contains(type)){
+            saveGroupList.add(type);
+        }
         if (getView() != null)
             getView().statusImageViewUpdate(type, false, context.getString(R.string.not_given), "");
 
@@ -119,11 +127,8 @@ public class HomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNutriti
 
     @Override
     public boolean isAllSelected() {
-        if (growthListCount == (saveStateMap.size() + notVisitStateMap.size())) {
-            return true;
-        } else {
-            return false;
-        }
+        Log.logError("SUBMIT_BUTTON","isAllSelected>>"+saveGroupList.size()+": "+initialCount);
+        return saveGroupList.size() == initialCount;
 
     }
 
@@ -154,14 +159,14 @@ public class HomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNutriti
         }
     }
     private void updateData(Map<String, ServiceWrapper> stringServiceWrapperMap){
-        growthListCount = 0;
+        saveGroupList.clear();
+        initialCount = 0;
         serviceWrapperMap = stringServiceWrapperMap;
         serviceWrapperExclusive = getServiceWrapperByType(GrowthNutritionInputFragment.GROWTH_TYPE.EXCLUSIVE.getValue());
         if (serviceWrapperExclusive != null) {
             Alert alert = serviceWrapperExclusive.getAlert();
             if (alert != null && !alert.status().equals(AlertStatus.expired)) {
-                growthListCount++;
-
+                initialCount++;
                 if (getView() != null)
                     getView().updateExclusiveFeedingData(alert.scheduleName(), alert.startDate());
             } else {
@@ -173,8 +178,7 @@ public class HomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNutriti
         if (serviceWrapperMnp != null) {
             Alert alert = serviceWrapperMnp.getAlert();
             if (alert != null) {
-                growthListCount++;
-
+                initialCount++;
                 if (getView() != null)
                     getView().updateMnpData(alert.scheduleName(), alert.startDate());
             } else {
@@ -186,8 +190,7 @@ public class HomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNutriti
         if (serviceWrapperVitamin != null) {
             Alert alert = serviceWrapperVitamin.getAlert();
             if (alert != null) {
-                growthListCount++;
-
+                initialCount++;
                 if (getView() != null)
                     getView().updateVitaminAData(alert.scheduleName(), alert.startDate());
             } else {
@@ -200,8 +203,7 @@ public class HomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNutriti
         if (serviceWrapperDeworming != null) {
             Alert alert = serviceWrapperDeworming.getAlert();
             if (alert != null) {
-                growthListCount++;
-
+                initialCount++;
                 if (getView() != null)
                     getView().updateDewormingData(alert.scheduleName(), alert.startDate());
             } else {
@@ -245,14 +247,29 @@ public class HomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNutriti
     }
 
     public ServiceWrapper getServiceWrapperMnp() {
+        if(isEditMode){
+            if(isSave(GrowthNutritionInputFragment.GROWTH_TYPE.MNP.getValue())){
+                return saveStateMap.get(GrowthNutritionInputFragment.GROWTH_TYPE.MNP.getValue());
+            }
+        }
         return serviceWrapperMnp;
     }
 
     public ServiceWrapper getServiceWrapperVitamin() {
+        if(isEditMode){
+            if(isSave(GrowthNutritionInputFragment.GROWTH_TYPE.VITAMIN.getValue())){
+                return saveStateMap.get(GrowthNutritionInputFragment.GROWTH_TYPE.VITAMIN.getValue());
+            }
+        }
         return serviceWrapperVitamin;
     }
 
     public ServiceWrapper getServiceWrapperDeworming() {
+        if(isEditMode){
+            if(isSave(GrowthNutritionInputFragment.GROWTH_TYPE.DEWORMING.getValue())){
+                return saveStateMap.get(GrowthNutritionInputFragment.GROWTH_TYPE.DEWORMING.getValue());
+            }
+        }
         return serviceWrapperDeworming;
     }
 

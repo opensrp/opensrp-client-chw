@@ -119,6 +119,11 @@ public class UpcomingServicesFragmentView extends LinearLayout implements View.O
     }
 
     @Override
+    public void updateSubmitBtn() {
+        //no need to do
+    }
+
+    @Override
     public void updateAdapter(int position) {
         ArrayList<HomeVisitVaccineGroup> homeVisitVaccineGroupList = presenter.getHomeVisitVaccineGroupDetails();
         for (HomeVisitVaccineGroup homeVisitVaccineGroup : homeVisitVaccineGroupList) {

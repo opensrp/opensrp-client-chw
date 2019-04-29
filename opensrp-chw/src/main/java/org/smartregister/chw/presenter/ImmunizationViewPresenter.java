@@ -16,6 +16,7 @@ import org.smartregister.immunization.domain.Vaccine;
 import org.smartregister.immunization.domain.VaccineSchedule;
 import org.smartregister.immunization.domain.VaccineWrapper;
 import org.smartregister.immunization.repository.VaccineRepository;
+import org.smartregister.util.Log;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -170,7 +171,7 @@ public class ImmunizationViewPresenter implements ImmunizationContact.Presenter,
                 vaccinesGivenThisVisit.add(name);
             }
         }
-        updateSubmitBtn();
+        getView().updateSubmitBtn();
     }
 
     public void assignToNotGivenVaccines(ArrayList<VaccineWrapper> tagsToUpdate, String groupName) {
@@ -184,16 +185,10 @@ public class ImmunizationViewPresenter implements ImmunizationContact.Presenter,
                 notGivenVaccines.add(name);
             }
         }
-        updateSubmitBtn();
+        getView().updateSubmitBtn();
     }
     public boolean isFirstEntry(String groupName){
         return !saveGroupList.contains(groupName);
-    }
-
-    private void updateSubmitBtn() {
-        if (saveGroupList.size() == homeVisitVaccineGroupDetails.size()) {
-            getView().allDataLoaded();
-        }
     }
 
     public ArrayList<VaccineRepo.Vaccine> convertGivenVaccineWrapperListToVaccineRepo() {
@@ -305,5 +300,8 @@ public class ImmunizationViewPresenter implements ImmunizationContact.Presenter,
         JsonFormUtils.tagSyncMetadata(Utils.context().allSharedPreferences(), vaccine);
         vaccineRepository.add(vaccine);
         tag.setDbKey(vaccine.getId());
+    }
+    public boolean isAllSelected(){
+        return   saveGroupList.size() == homeVisitVaccineGroupDetails.size();
     }
 }

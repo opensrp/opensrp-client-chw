@@ -16,6 +16,8 @@ public interface ImmunizationContact {
         void allDataLoaded();
 
         void updateAdapter(int position);
+
+        void updateSubmitBtn();
     }
 
     interface Presenter {

@@ -137,8 +137,9 @@ public class HomeVisitGrowthAndNutrition extends LinearLayout implements View.On
     }
 
     private void showGrowthNutritionDialog(String type, String title, String question, ServiceWrapper serviceWrapper) {
-        GrowthNutritionInputFragment growthNutritionInputFragment = GrowthNutritionInputFragment.getInstance(title, question, type, serviceWrapper, commonPersonObjectClient);
+        GrowthNutritionInputFragment growthNutritionInputFragment = GrowthNutritionInputFragment.getInstance(title, question, type,commonPersonObjectClient);
         growthNutritionInputFragment.setContext(HomeVisitGrowthAndNutrition.this);
+        growthNutritionInputFragment.setServiceWrapper(serviceWrapper);
         growthNutritionInputFragment.show(fragmentManager, TAG);
     }
 

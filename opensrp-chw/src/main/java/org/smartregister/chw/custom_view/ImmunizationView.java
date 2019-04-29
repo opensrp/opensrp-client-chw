@@ -35,6 +35,7 @@ public class ImmunizationView extends LinearLayout implements ImmunizationContac
     private Activity activity;
     private int pressPosition;
     private boolean isEditMode;
+    private ChildHomeVisitFragment childHomeVisitFragment;
 
     public ImmunizationView(Context context) {
         super(context);
@@ -63,8 +64,9 @@ public class ImmunizationView extends LinearLayout implements ImmunizationContac
         return presenter;
     }
 
-    public void setChildClient(Activity activity, CommonPersonObjectClient childClient, boolean isEditMode) {
+    public void setChildClient(ChildHomeVisitFragment childHomeVisitFragment,Activity activity, CommonPersonObjectClient childClient, boolean isEditMode) {
         this.childClient = childClient;
+        this.childHomeVisitFragment = childHomeVisitFragment;
         this.activity = activity;
         this.isEditMode = isEditMode;
         if (isEditMode) {
@@ -93,21 +95,18 @@ public class ImmunizationView extends LinearLayout implements ImmunizationContac
 
     @Override
     public void allDataLoaded() {
-        ChildHomeVisitFragment childHomeVisitFragment = (ChildHomeVisitFragment) activity.getFragmentManager().findFragmentByTag(ChildHomeVisitFragment.DIALOG_TAG);
 
         childHomeVisitFragment.allVaccineDataLoaded = true;
         if (isEditMode) {
             childHomeVisitFragment.forcfullyProgressBarInvisible();
         } else {
-            childHomeVisitFragment.allVaccineStateFullfilled = true;
             childHomeVisitFragment.progressBarInvisible();
-            childHomeVisitFragment.checkIfSubmitIsToBeEnabled();
         }
     }
 
     @Override
     public void updateAdapter(int position) {
-        ChildHomeVisitFragment childHomeVisitFragment = (ChildHomeVisitFragment) activity.getFragmentManager().findFragmentByTag(ChildHomeVisitFragment.DIALOG_TAG);
+
         if (isEditMode) {
             childHomeVisitFragment.allVaccineDataLoaded = true;
             childHomeVisitFragment.submitButtonEnableDisable(true);
@@ -167,7 +166,15 @@ public class ImmunizationView extends LinearLayout implements ImmunizationContac
         }
     }
 
+    @Override
+    public void updateSubmitBtn() {
+        childHomeVisitFragment.checkIfSubmitIsToBeEnabled();
+    }
+
     public ArrayList<VaccineWrapper> getNotGivenVaccine() {
         return presenter.getNotGivenVaccines();
+    }
+    public boolean isAllSelected() {
+        return presenter.isAllSelected();
     }
 }
