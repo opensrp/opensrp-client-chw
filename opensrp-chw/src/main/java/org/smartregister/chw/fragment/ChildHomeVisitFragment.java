@@ -29,6 +29,7 @@ import com.vijay.jsonwizard.domain.Form;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.ChildProfileActivity;
 import org.smartregister.chw.activity.ChildRegisterActivity;
@@ -42,6 +43,7 @@ import org.smartregister.chw.util.BirthIllnessData;
 import org.smartregister.chw.util.ChildDBConstants;
 import org.smartregister.chw.util.ChildUtils;
 import org.smartregister.chw.util.Constants;
+import org.smartregister.chw.util.Country;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.family.activity.BaseFamilyProfileActivity;
@@ -138,7 +140,15 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         immunizationEditView = view.findViewById(R.id.immunization_edit_view);
         initializePresenter();
         ((ChildHomeVisitPresenter) presenter).setChildClient(childClient);
-        assignNameHeader();
+
+//        hide birth certification
+        if(BuildConfig.BUILD_COUNTRY == Country.TANZANIA) {
+            layoutBirthCertGroup.setVisibility(View.GONE);
+            viewBirthLine.setVisibility(View.GONE);
+        } else {
+            assignNameHeader();
+        }
+
         updateGrowthData();
         if (isEditMode) {
             immunizationEditView.setVisibility(View.VISIBLE);
