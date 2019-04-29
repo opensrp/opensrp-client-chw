@@ -51,7 +51,7 @@
     }
   },
   "step1": {
-    "title": "Ajouter un enfant de moins de 5 ans",
+    "title": "Ajouter enfant",
     "fields": [
       {
         "key": "photo",
@@ -295,8 +295,8 @@
         "type": "spinner",
         "hint": "Difficultés physiques?",
         "values": [
-          "Yes",
-          "No"
+          "Oui",
+          "Non"
         ],
         "openmrs_choice_ids": {
           "Oui": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",

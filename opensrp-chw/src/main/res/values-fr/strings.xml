@@ -98,7 +98,7 @@
     <string name="visit_not_done">Visite n\'a pas \neu lieu</string>
     <string name="visit_done">Visite fait</string>
     <string name="due_visit">Dernier visite \n %1$s</string>
-    <string name="medical_title">Retour à %1$s</string>
+    <string name="medical_title">Retour à profil de 1%1$s</string>
     <string name="medical_last_visit">Depuis %1$s </string>
     <string name="growth_and_nutrition">CROISSANCE ET NUTRITION</string>
     <string name="immunization">IMMUNISATION</string>
@@ -223,4 +223,27 @@
     <string name="menu_malaria">PALUDISME</string>
     <string name="refer_to_facility">Référer à la structure sanitaire</string>
 
+    <string name="due_only">Attendu</string>
+    <string name="care_giver_initials">PR</string>
+    <string name="less_than_twenty_four">moins de 24 h</string>
+
+    <string name="january">Janvier</string>
+    <string name="february">Février</string>
+    <string name="march">Mars</string>
+    <string name="april">Avril</string>
+    <string name="may">Mai</string>
+    <string name="june">Juin</string>
+    <string name="july">Juillet</string>
+    <string name="august">Août</string>
+    <string name="september">Septembre</string>
+    <string name="october">Octobre</string>
+    <string name="november">Novembre</string>
+    <string name="december">Décembre</string>
+    <string name="no_services_due">Aucun service attendu</string>
+    <string name="due_details">Quand une service est attendu pour une membre de famille, elle est affiché içi</string>
+
+    <string name="edu_level_none">Aucun</string>
+    <string name="edu_level_primary">Primaire</string>
+    <string name="edu_level_secondary">Secondaire</string>
+    <string name="edu_level_post_secondary">Postsecondaire</string>
 </resources>

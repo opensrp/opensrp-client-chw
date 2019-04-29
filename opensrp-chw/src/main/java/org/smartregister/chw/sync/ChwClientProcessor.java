@@ -7,6 +7,7 @@ import android.util.Log;
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.repository.HomeVisitRepository;
+import org.smartregister.chw.util.ChildUtils;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.clientandeventmodel.DateUtil;
 import org.smartregister.commonregistry.AllCommonsRepository;
@@ -39,7 +40,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static org.smartregister.chw.util.ChildUtils.addToHomeVisitTable;
 
 
 public class ChwClientProcessor extends ClientProcessorForJava {
@@ -111,7 +111,7 @@ public class ChwClientProcessor extends ClientProcessorForJava {
 
     private void processHomeVisit(EventClient eventClient) {
         List<Obs> observations = eventClient.getEvent().getObs();
-        addToHomeVisitTable(eventClient.getEvent().getBaseEntityId(), observations);
+        ChildUtils.addToHomeVisitTable(eventClient.getEvent().getBaseEntityId(), observations);
     }
 
     private Boolean processVaccine(EventClient vaccine, Table vaccineTable, boolean outOfCatchment) throws Exception {

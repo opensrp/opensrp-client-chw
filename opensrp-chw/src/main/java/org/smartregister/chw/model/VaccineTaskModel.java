@@ -2,7 +2,9 @@ package org.smartregister.chw.model;
 
 import org.smartregister.domain.Alert;
 import org.smartregister.immunization.domain.Vaccine;
+import org.smartregister.immunization.domain.VaccineWrapper;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +14,7 @@ public class VaccineTaskModel {
     private List<Vaccine> vaccines;
     private Map<String, Date> receivedVaccines;
     private List<Map<String, Object>> scheduleList;
+    private ArrayList<VaccineWrapper> notGivenVaccine = new ArrayList<>();
 
     public List<Alert> getAlerts() {
         return alerts;
@@ -45,6 +48,11 @@ public class VaccineTaskModel {
         this.scheduleList = scheduleList;
     }
 
+    public void setNotGivenVaccine(ArrayList<VaccineWrapper> notGivenVaccine) {
+        this.notGivenVaccine = notGivenVaccine;
+    }
 
-
+    public ArrayList<VaccineWrapper> getNotGivenVaccine() {
+        return notGivenVaccine;
+    }
 }

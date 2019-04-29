@@ -35,6 +35,7 @@ public class HomeVisitGrowthAndNutrition extends LinearLayout implements View.On
     private FragmentManager fragmentManager;
     private ChildHomeVisitFragment childHomeVisitFragment;
     private String feedingText;
+    private boolean isEditMode;
 
     public HomeVisitGrowthAndNutrition(Context context) {
         super(context);
@@ -79,11 +80,12 @@ public class HomeVisitGrowthAndNutrition extends LinearLayout implements View.On
         initializePresenter();
     }
 
-    public void setData(ChildHomeVisitFragment childHomeVisitFragment, FragmentManager fragmentManager, CommonPersonObjectClient commonPersonObjectClient) {
+    public void setData(ChildHomeVisitFragment childHomeVisitFragment, FragmentManager fragmentManager, CommonPersonObjectClient commonPersonObjectClient,boolean isEditMode) {
         this.childHomeVisitFragment = childHomeVisitFragment;
         this.fragmentManager = fragmentManager;
         this.commonPersonObjectClient = commonPersonObjectClient;
-        presenter.parseRecordServiceData(commonPersonObjectClient);
+        this.isEditMode = isEditMode;
+        presenter.parseRecordServiceData(commonPersonObjectClient,isEditMode);
     }
 
     @Override
@@ -157,7 +159,7 @@ public class HomeVisitGrowthAndNutrition extends LinearLayout implements View.On
             feedingText = MessageFormat.format("{0} {1} {2}", str, no, getContext().getString(R.string.visit_months));
             textViewExclusiveFeedingTitle.setText(feedingText);
             String status=ChildUtils.getServiceDueStatus(dueDate);
-            textViewExclusiveFeedingName.setText(ChildUtils.dueOverdueCalculation(status,dueDate));
+            textViewExclusiveFeedingName.setText(ChildUtils.dueOverdueCalculation(getContext(), status,dueDate));
         }
 
     }
@@ -173,7 +175,7 @@ public class HomeVisitGrowthAndNutrition extends LinearLayout implements View.On
             String mnpText = MessageFormat.format("{0} {1} {2}", str, ChildUtils.getFirstSecondAsNumber(no), getContext().getString(R.string.visit_pack));
             textViewMnpTitle.setText(mnpText);
             String status=ChildUtils.getServiceDueStatus(dueDate);
-            textViewMnpName.setText(ChildUtils.dueOverdueCalculation(status,dueDate));
+            textViewMnpName.setText(ChildUtils.dueOverdueCalculation(getContext(), status,dueDate));
         }
     }
 
@@ -188,7 +190,7 @@ public class HomeVisitGrowthAndNutrition extends LinearLayout implements View.On
             String vitaminText = MessageFormat.format("{0} {1} {2}", str, ChildUtils.getFirstSecondAsNumber(no), getContext().getString(R.string.visit_dose));
             textViewVitaminTitle.setText(vitaminText);
             String status=ChildUtils.getServiceDueStatus(dueDate);
-            textViewVitaminName.setText(ChildUtils.dueOverdueCalculation(status,dueDate));
+            textViewVitaminName.setText(ChildUtils.dueOverdueCalculation(getContext(), status,dueDate));
         }
     }
 
@@ -203,7 +205,7 @@ public class HomeVisitGrowthAndNutrition extends LinearLayout implements View.On
             String dewormingText = MessageFormat.format("{0}{1} {2}", str, ChildUtils.getFirstSecondAsNumber(no), getContext().getString(R.string.visit_dose));
             textViewDewormingTitle.setText(dewormingText);
             String status=ChildUtils.getServiceDueStatus(dueDate);
-            textViewDewormingName.setText(ChildUtils.dueOverdueCalculation(status,dueDate));
+            textViewDewormingName.setText(ChildUtils.dueOverdueCalculation(getContext(), status,dueDate));
         }
     }
 
@@ -246,7 +248,8 @@ public class HomeVisitGrowthAndNutrition extends LinearLayout implements View.On
     public void allDataLoaded(){
         if (childHomeVisitFragment != null) {
             childHomeVisitFragment.allServicesDataLoaded=true;
-            childHomeVisitFragment.progressBarInvisible();
+            if(isEditMode)childHomeVisitFragment.forcfullyProgressBarInvisible();
+            else childHomeVisitFragment.progressBarInvisible();
         }
     }
 
@@ -272,8 +275,11 @@ public class HomeVisitGrowthAndNutrition extends LinearLayout implements View.On
         return presenter.isAllSelected();
     }
 
-    public Map<String, String> returnSaveStateMap() {
+    public Map<String, ServiceWrapper> returnSaveStateMap() {
         return presenter.getSaveStateMap();
+    }
+    public Map<String, ServiceWrapper> returnNotSaveStateMap() {
+        return presenter.getNotSaveStateMap();
     }
 
 }

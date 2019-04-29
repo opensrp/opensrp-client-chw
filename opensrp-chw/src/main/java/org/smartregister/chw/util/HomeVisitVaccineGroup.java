@@ -1,22 +1,33 @@
 package org.smartregister.chw.util;
 
+import org.joda.time.DateTime;
 import org.smartregister.immunization.db.VaccineRepo;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 /**
  * Created by raihan on 1/15/19.
  */
 
 public class HomeVisitVaccineGroup {
+    public static final int TYPE_INACTIVE = 0;
+    public static final int TYPE_ACTIVE = 1;
     private ArrayList<VaccineRepo.Vaccine> givenVaccines = new ArrayList<VaccineRepo.Vaccine>();
     private ArrayList<VaccineRepo.Vaccine> dueVaccines = new ArrayList<VaccineRepo.Vaccine>();
     private ArrayList<VaccineRepo.Vaccine> notGivenVaccines = new ArrayList<VaccineRepo.Vaccine>();
     private ArrayList<VaccineRepo.Vaccine> notGivenInThisVisitVaccines = new ArrayList<VaccineRepo.Vaccine>();
+    private LinkedHashMap<DateTime, ArrayList<VaccineRepo.Vaccine>> groupedByDate = new LinkedHashMap<>();
+
     private String group = "";
+    private int viewType;
     private ImmunizationState alert = ImmunizationState.NO_ALERT;
     private String dueDisplayDate = "";
     private String dueDate = "";
+
+    public LinkedHashMap<DateTime, ArrayList<VaccineRepo.Vaccine>> getGroupedByDate() {
+        return groupedByDate;
+    }
 
     public String getDueDate() {
         return dueDate;
@@ -50,6 +61,14 @@ public class HomeVisitVaccineGroup {
         return group;
     }
 
+    public int getViewType() {
+        return viewType;
+    }
+
+    public void setViewType(int viewType) {
+        this.viewType = viewType;
+    }
+
     public void setGroup(String group) {
         this.group = group;
     }
@@ -64,13 +83,14 @@ public class HomeVisitVaccineGroup {
 
     public void calculateNotGivenVaccines() {
         for (VaccineRepo.Vaccine vaccine : dueVaccines) {
-            boolean isGiven = false;
-            for (VaccineRepo.Vaccine givenVaccine : givenVaccines) {
-                if (givenVaccine.display().equalsIgnoreCase(vaccine.display())) {
-                    isGiven = true;
-                }
-            }
-            if (!isGiven && !notGivenVaccines.contains(vaccine)) {
+//            boolean isGiven = false;
+//            for (VaccineRepo.Vaccine givenVaccine : givenVaccines) {
+//                if (givenVaccine.display().equalsIgnoreCase(vaccine.display())) {
+//                    isGiven = true;
+//                    break;
+//                }
+//            }
+            if (!notGivenVaccines.contains(vaccine) && !givenVaccines.contains(vaccine)) {
                 notGivenVaccines.add(vaccine);
             }
         }

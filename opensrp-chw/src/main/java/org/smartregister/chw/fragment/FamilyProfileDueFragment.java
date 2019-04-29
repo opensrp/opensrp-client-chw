@@ -26,6 +26,7 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
     private static final String TAG = FamilyProfileDueFragment.class.getCanonicalName();
 
     private int dueCount = 0;
+    private View emptyView;
 
     public static BaseFamilyProfileDueFragment newInstance(Bundle bundle) {
         Bundle args = bundle;
@@ -58,7 +59,20 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
         if (getActivity() != null && count != dueCount) {
             dueCount = count;
             ((FamilyProfileActivity) getActivity()).updateDueCount(dueCount);
+        }
 
+        onEmptyRegisterCount(count < 1);
+    }
+
+    @Override
+    public void setupViews(View view) {
+        super.setupViews(view);
+        emptyView = view.findViewById(R.id.empty_view);
+    }
+
+    public void onEmptyRegisterCount(boolean has_no_records) {
+        if (emptyView != null) {
+            emptyView.setVisibility(has_no_records ? View.VISIBLE : View.GONE);
         }
     }
 

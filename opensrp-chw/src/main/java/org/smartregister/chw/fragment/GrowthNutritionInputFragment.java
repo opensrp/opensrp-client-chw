@@ -369,8 +369,21 @@ public class GrowthNutritionInputFragment extends DialogFragment implements Radi
         ServiceRecord serviceRecord = new ServiceRecord();
         if (tag.getDbKey() != null) {
             serviceRecord = recurringServiceRecordRepository.find(tag.getDbKey());
-            serviceRecord.setDate(tag.getUpdatedVaccineDate().toDate());
-            serviceRecord.setValue(tag.getValue());
+            if(serviceRecord==null){
+                serviceRecord = new ServiceRecord();
+                serviceRecord.setDate(tag.getUpdatedVaccineDate().toDate());
+
+                serviceRecord.setBaseEntityId(baseEntityId);
+                serviceRecord.setRecurringServiceId(tag.getTypeId());
+                serviceRecord.setDate(tag.getUpdatedVaccineDate().toDate());
+                serviceRecord.setValue(tag.getValue());
+
+                JsonFormUtils.tagSyncMetadata(Utils.context().allSharedPreferences(), serviceRecord);
+            }else {
+                serviceRecord.setDate(tag.getUpdatedVaccineDate().toDate());
+                serviceRecord.setValue(tag.getValue());
+            }
+
         } else {
             serviceRecord.setDate(tag.getUpdatedVaccineDate().toDate());
 

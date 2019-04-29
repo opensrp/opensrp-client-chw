@@ -1,6 +1,7 @@
 package org.smartregister.chw.activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
@@ -64,7 +65,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     private int appBarLayoutScrollRange = -1;
     private String childBaseEntityId;
     private boolean isComesFromFamily = false;
-    private TextView textViewTitle, textViewParentName, textViewChildName, textViewGender, textViewAddress, textViewId, textViewRecord, textViewVisitNot;
+    private TextView textViewTitle, textViewParentName, textViewChildName, textViewGender, textViewAddress, textViewId, textViewRecord, textViewVisitNot, tvEdit;
     private CircleImageView imageViewProfile;
     private RelativeLayout layoutNotRecordView, layoutLastVisitRow, layoutMostDueOverdue, layoutFamilyHasRow;
     private RelativeLayout layoutRecordButtonDone;
@@ -82,6 +83,17 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     public void updateHasPhone(boolean hasPhone) {
         if (familyFloatingMenu != null) {
             familyFloatingMenu.reDraw(hasPhone);
+        }
+    }
+
+    @Override
+    public void enableEdit(boolean enable) {
+        if(enable){
+            tvEdit.setVisibility(View.VISIBLE);
+            tvEdit.setOnClickListener(this);
+        }else{
+            tvEdit.setVisibility(View.GONE);
+            tvEdit.setOnClickListener(null);
         }
     }
 
@@ -171,6 +183,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
         textViewGender = findViewById(R.id.textview_gender);
         textViewAddress = findViewById(R.id.textview_address);
         textViewId = findViewById(R.id.textview_id);
+        tvEdit = findViewById(R.id.textview_edit);
         imageViewProfile = findViewById(R.id.imageview_profile);
         textViewRecord = findViewById(R.id.textview_record_visit);
         textViewVisitNot = findViewById(R.id.textview_visit_not);
@@ -257,6 +270,9 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
                     openVisitHomeScreen(true);
                 }
 
+                break;
+            case R.id.textview_edit:
+                openVisitHomeScreen(true);
                 break;
 //            case R.id.cross_image:
 //                openVisitButtonView();
@@ -479,6 +495,11 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
                 presenter().updateChildCommonPerson(childBaseEntityId);
             }
         }, 100);
+    }
+
+    @Override
+    public Context getContext() {
+        return this;
     }
 
     @Override

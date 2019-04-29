@@ -3,6 +3,8 @@ package org.smartregister.chw.presenter;
 import android.util.Pair;
 
 import org.apache.commons.lang3.tuple.Triple;
+import org.joda.time.DateTime;
+import org.joda.time.Period;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.contract.ChildProfileContract;
@@ -103,12 +105,12 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
 
     @Override
     public void fetchVisitStatus(String baseEntityId) {
-        interactor.refreshChildVisitBar(childBaseEntityId, this);
+        interactor.refreshChildVisitBar(view.get().getContext(), childBaseEntityId, this);
     }
 
     @Override
     public void fetchUpcomingServiceAndFamilyDue(String baseEntityId) {
-        interactor.refreshUpcomingServiceAndFamilyDue(getFamilyId(), childBaseEntityId, this);
+        interactor.refreshUpcomingServiceAndFamilyDue(view.get().getContext(), getFamilyId(), childBaseEntityId, this);
     }
 
     @Override
@@ -190,6 +192,9 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
             if (childVisit.getLastVisitTime() != 0) {
                 getView().setLastVisitRowView(childVisit.getLastVisitDays());
             }
+            if (!childVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.NOT_VISIT_THIS_MONTH.name()) && childVisit.getLastVisitTime() != 0) {
+                getView().enableEdit(new Period(new DateTime(childVisit.getLastVisitTime()) , DateTime.now()).getHours() <= 24);
+            }
 
         }
 
@@ -197,8 +202,8 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
 
     @Override
     public void updateChildService(ChildService childService) {
-        if(getView()!=null ){
-            if(childService!= null){
+        if (getView() != null) {
+            if (childService != null) {
                 if (childService.getServiceStatus().equalsIgnoreCase(ChildProfileInteractor.ServiceType.UPCOMING.name())) {
                     getView().setServiceNameUpcoming(childService.getServiceName().trim(), childService.getServiceDate());
                 } else if (childService.getServiceStatus().equalsIgnoreCase(ChildProfileInteractor.ServiceType.OVERDUE.name())) {
@@ -206,7 +211,7 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
                 } else {
                     getView().setServiceNameDue(childService.getServiceName().trim(), childService.getServiceDate());
                 }
-            }else{
+            } else {
                 getView().setServiceNameDue("", "");
             }
 
@@ -243,7 +248,7 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
         String parentLastName = Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.FAMILY_LAST_NAME, true);
         String parentMiddleName = Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.FAMILY_MIDDLE_NAME, true);
 
-        String parentName = "CG: " + org.smartregister.util.Utils.getName(parentFirstName, parentMiddleName + " " + parentLastName);
+        String parentName = view.get().getContext().getResources().getString(R.string.care_giver_initials) + ": " + org.smartregister.util.Utils.getName(parentFirstName, parentMiddleName + " " + parentLastName);
         getView().setParentName(parentName);
         String firstName = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.FIRST_NAME, true);
         String lastName = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.LAST_NAME, true);
