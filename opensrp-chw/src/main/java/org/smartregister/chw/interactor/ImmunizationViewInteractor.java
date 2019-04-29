@@ -1,6 +1,5 @@
 package org.smartregister.chw.interactor;
 
-import android.support.annotation.VisibleForTesting;
 import android.text.TextUtils;
 
 import com.google.gson.reflect.TypeToken;
@@ -41,6 +40,7 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import timber.log.Timber;
 
 import static org.smartregister.immunization.util.VaccinatorUtils.generateScheduleList;
 import static org.smartregister.immunization.util.VaccinatorUtils.receivedVaccines;
@@ -51,7 +51,7 @@ public class ImmunizationViewInteractor implements ImmunizationContact.Interacto
     private AlertService alertService;
     private VaccineRepository vaccineRepository;
 
-    public ImmunizationViewInteractor(){
+    public ImmunizationViewInteractor() {
         model = new ImmunizationModel();
         alertService = ChwApplication.getInstance().getContext().alertService();
         vaccineRepository = ChwApplication.getInstance().vaccineRepository();
@@ -62,7 +62,7 @@ public class ImmunizationViewInteractor implements ImmunizationContact.Interacto
     }
 
     @Override
-    public void fetchImmunizationData(CommonPersonObjectClient commonPersonObjectClient,final ImmunizationContact.InteractorCallBack callBack) {
+    public void fetchImmunizationData(CommonPersonObjectClient commonPersonObjectClient, final ImmunizationContact.InteractorCallBack callBack) {
 
         getVaccineTask(commonPersonObjectClient, new ArrayList<VaccineWrapper>())
                 .subscribeOn(Schedulers.io())
@@ -70,63 +70,63 @@ public class ImmunizationViewInteractor implements ImmunizationContact.Interacto
                 .subscribe(new Observer<VaccineTaskModel>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-
+                        Timber.v("fetchImmunizationData -> onSubscribe");
                     }
 
                     @Override
                     public void onNext(VaccineTaskModel vaccineTaskModel) {
-                        ArrayList<HomeVisitVaccineGroup> homeVisitVaccineGroupsList = model.determineAllHomeVisitVaccineGroup(vaccineTaskModel.getAlerts(),vaccineTaskModel.getVaccines(),vaccineTaskModel.getNotGivenVaccine(),vaccineTaskModel.getScheduleList());
-
-                        callBack.updateData(homeVisitVaccineGroupsList,vaccineTaskModel.getReceivedVaccines());
-
+                        ArrayList<HomeVisitVaccineGroup> homeVisitVaccineGroupsList = model.determineAllHomeVisitVaccineGroup(vaccineTaskModel.getAlerts(), vaccineTaskModel.getVaccines(), vaccineTaskModel.getNotGivenVaccine(), vaccineTaskModel.getScheduleList());
+                        callBack.updateData(homeVisitVaccineGroupsList, vaccineTaskModel.getReceivedVaccines());
                     }
 
                     @Override
                     public void onError(Throwable e) {
-
+                        Timber.e(e);
                     }
 
                     @Override
                     public void onComplete() {
+                        Timber.v("fetchImmunizationData -> onComplete");
                     }
                 });
     }
 
     @Override
-    public void fetchImmunizationEditData(CommonPersonObjectClient commonPersonObjectClient,final ImmunizationContact.InteractorCallBack callBack) {
+    public void fetchImmunizationEditData(CommonPersonObjectClient commonPersonObjectClient, final ImmunizationContact.InteractorCallBack callBack) {
         getLastVaccineTask(commonPersonObjectClient, new ArrayList<VaccineWrapper>())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<VaccineTaskModel>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-
+                        Timber.v("fetchImmunizationData -> onSubscribe");
                     }
 
                     @Override
                     public void onNext(VaccineTaskModel vaccineTaskModel) {
-                        ArrayList<HomeVisitVaccineGroup> homeVisitVaccineGroupsList = model.determineAllHomeVisitVaccineGroup(vaccineTaskModel.getAlerts(),vaccineTaskModel.getVaccines(),vaccineTaskModel.getNotGivenVaccine(),vaccineTaskModel.getScheduleList());
+                        ArrayList<HomeVisitVaccineGroup> homeVisitVaccineGroupsList = model.determineAllHomeVisitVaccineGroup(vaccineTaskModel.getAlerts(), vaccineTaskModel.getVaccines(), vaccineTaskModel.getNotGivenVaccine(), vaccineTaskModel.getScheduleList());
                         for (Iterator<HomeVisitVaccineGroup> iterator = homeVisitVaccineGroupsList.iterator(); iterator.hasNext(); ) {
                             HomeVisitVaccineGroup homeVisitVaccineGroup = iterator.next();
-                            if (homeVisitVaccineGroup.getDueVaccines().size()==0) {
+                            if (homeVisitVaccineGroup.getDueVaccines().size() == 0) {
                                 iterator.remove();
                             }
 
                         }
                         callBack.updateEditData(homeVisitVaccineGroupsList);
-
                     }
 
                     @Override
                     public void onError(Throwable e) {
-
+                        Timber.e(e);
                     }
 
                     @Override
                     public void onComplete() {
+                        Timber.v("fetchImmunizationData -> onComplete");
                     }
                 });
     }
+
     /**
      * Replacement of previous vaccinationasynctask
      * it'll calculate the received vaccine list of a child.
@@ -140,14 +140,14 @@ public class ImmunizationViewInteractor implements ImmunizationContact.Interacto
         return Observable.create(new ObservableOnSubscribe<VaccineTaskModel>() {
             @Override
             public void subscribe(ObservableEmitter<VaccineTaskModel> emmiter) throws Exception {
-                String lastHomeVisitStr=org.smartregister.util.Utils.getValue(childClient.getColumnmaps(), ChildDBConstants.KEY.LAST_HOME_VISIT, false);
-                long lastHomeVisit= TextUtils.isEmpty(lastHomeVisitStr)?0:Long.parseLong(lastHomeVisitStr);
+                String lastHomeVisitStr = org.smartregister.util.Utils.getValue(childClient.getColumnmaps(), ChildDBConstants.KEY.LAST_HOME_VISIT, false);
+                long lastHomeVisit = TextUtils.isEmpty(lastHomeVisitStr) ? 0 : Long.parseLong(lastHomeVisitStr);
                 HomeVisit homeVisit = ChwApplication.homeVisitRepository().findByDate(lastHomeVisit);
 
                 String dobString = org.smartregister.util.Utils.getValue(childClient.getColumnmaps(), DBConstants.KEY.DOB, false);
                 DateTime dob = org.smartregister.chw.util.Utils.dobStringToDateTime(dobString);
 
-                List<Alert> alerts= ChwApplication.getInstance().getContext().alertService().findByEntityIdAndAlertNames(childClient.entityId(), VaccinateActionUtils.allAlertNames("child"));
+                List<Alert> alerts = ChwApplication.getInstance().getContext().alertService().findByEntityIdAndAlertNames(childClient.entityId(), VaccinateActionUtils.allAlertNames("child"));
                 List<Vaccine> vaccines = ChwApplication.getInstance().vaccineRepository().findLatestTwentyFourHoursByEntityId(childClient.entityId());
                 Map<String, Date> recievedVaccines = receivedVaccines(vaccines);
                 List<Map<String, Object>> sch = generateScheduleList("child", dob, recievedVaccines, alerts);
@@ -156,12 +156,13 @@ public class ImmunizationViewInteractor implements ImmunizationContact.Interacto
                 vaccineTaskModel.setVaccines(vaccines);
                 vaccineTaskModel.setReceivedVaccines(recievedVaccines);
                 vaccineTaskModel.setScheduleList(sch);
-                if(homeVisit!=null){
+                if (homeVisit != null) {
                     try {
                         JSONObject jsonObject = new JSONObject(homeVisit.getVaccineNotGiven().toString());
                         JSONArray array = jsonObject.getJSONArray("vaccineNotGiven");
-                        if(array!=null){
-                            ArrayList<VaccineWrapper> notGivenVaccine = ChildUtils.gsonConverter.fromJson(array.toString(),new TypeToken<ArrayList<VaccineWrapper>>(){}.getType());
+                        if (array != null) {
+                            ArrayList<VaccineWrapper> notGivenVaccine = ChildUtils.gsonConverter.fromJson(array.toString(), new TypeToken<ArrayList<VaccineWrapper>>() {
+                            }.getType());
                             vaccineTaskModel.setNotGivenVaccine(notGivenVaccine);
                         }
 
