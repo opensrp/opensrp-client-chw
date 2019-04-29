@@ -123,8 +123,14 @@ public class ImmunizationView extends LinearLayout implements ImmunizationContac
             String dobString = org.smartregister.util.Utils.getValue(childClient.getColumnmaps(), "dob", false);
             DateTime dateTime = new DateTime(dobString);
             Date dob = dateTime.toDate();
-            VaccinationDialogFragment customVaccinationDialogFragment = VaccinationDialogFragment.newInstance(dob,presenter.getNotGivenVaccineWrappers(homeVisitVaccineGroup),new ArrayList<VaccineWrapper>(),
-                    presenter.getDueVaccineWrappers(homeVisitVaccineGroup),homeVisitVaccineGroup.getGroup());
+            VaccinationDialogFragment customVaccinationDialogFragment;
+            if(!isEditMode && presenter.isFirstEntry(homeVisitVaccineGroup.getGroup())){
+                customVaccinationDialogFragment = VaccinationDialogFragment.newInstance(dob,new ArrayList<VaccineWrapper>(),new ArrayList<VaccineWrapper>(),
+                        presenter.getDueVaccineWrappers(homeVisitVaccineGroup),homeVisitVaccineGroup.getGroup());
+            }else{
+                customVaccinationDialogFragment = VaccinationDialogFragment.newInstance(dob,presenter.getNotGivenVaccineWrappers(homeVisitVaccineGroup),new ArrayList<VaccineWrapper>(),
+                        presenter.getDueVaccineWrappers(homeVisitVaccineGroup),homeVisitVaccineGroup.getGroup());
+            }
             customVaccinationDialogFragment.setChildDetails(childClient);
             customVaccinationDialogFragment.setView(ImmunizationView.this);
             FragmentTransaction ft = activity.getFragmentManager().beginTransaction();

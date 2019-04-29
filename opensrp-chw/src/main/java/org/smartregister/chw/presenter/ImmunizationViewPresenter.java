@@ -178,6 +178,9 @@ public class ImmunizationViewPresenter implements ImmunizationContact.Presenter,
         }
         updateSubmitBtn();
     }
+    public boolean isFirstEntry(String groupName){
+       return !saveGroupList.contains(groupName);
+    }
     private void updateSubmitBtn(){
         if(saveGroupList.size()  == homeVisitVaccineGroupDetails.size()){
             getView().allDataLoaded();
