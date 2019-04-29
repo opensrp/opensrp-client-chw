@@ -23,7 +23,6 @@ import static org.smartregister.util.Utils.getValue;
 public class UpcomingServicesActivity extends SecuredActivity {
 
 
-    private UpcomingServicesFragmentView upcomingServicesView;
     private ProgressBar progressBar;
     private String name;
 
@@ -41,21 +40,20 @@ public class UpcomingServicesActivity extends SecuredActivity {
         CommonPersonObjectClient childClient = (CommonPersonObjectClient) getIntent().getSerializableExtra(Constants.INTENT_KEY.CHILD_COMMON_PERSON);
         name = getValue(childClient.getColumnmaps(), "first_name", true) + " " +
                 getValue(childClient.getColumnmaps(), "last_name", true);
-        upcomingServicesView = (UpcomingServicesFragmentView) findViewById(R.id.upcomingServicesHolder);
-        upcomingServicesView.setChildClient(this,childClient);
+        UpcomingServicesFragmentView upcomingServicesView = findViewById(R.id.upcomingServicesHolder);
+        upcomingServicesView.setChildClient(this, childClient);
 
         setUpActionBar();
-
-
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-       return false;
+        return false;
     }
 
     @Override
     protected void onResumption() {
-       // upcomingServicesView.updateImmunizationState();
+        // upcomingServicesView.updateImmunizationState();
     }
 
     private void setUpActionBar() {
@@ -83,8 +81,9 @@ public class UpcomingServicesActivity extends SecuredActivity {
         }
 
     }
-    public void progressBarVisibility(boolean flag){
-        if(flag) progressBar.setVisibility(View.VISIBLE);
+
+    public void progressBarVisibility(boolean flag) {
+        if (flag) progressBar.setVisibility(View.VISIBLE);
         else progressBar.setVisibility(View.GONE);
     }
 

@@ -35,6 +35,7 @@ public class ImmunizationView extends LinearLayout implements ImmunizationContac
     private Activity activity;
     private int pressPosition;
     private boolean isEditMode;
+
     public ImmunizationView(Context context) {
         super(context);
         initUi();
@@ -49,8 +50,9 @@ public class ImmunizationView extends LinearLayout implements ImmunizationContac
         super(context, attrs, defStyleAttr);
         initUi();
     }
-    private void initUi(){
-        inflate(getContext(), R.layout.custom_vaccine_edit,this);
+
+    private void initUi() {
+        inflate(getContext(), R.layout.custom_vaccine_edit, this);
         recyclerView = findViewById(R.id.immunization_recycler_view);
         initializePresenter();
     }
@@ -60,27 +62,32 @@ public class ImmunizationView extends LinearLayout implements ImmunizationContac
         presenter = new ImmunizationViewPresenter(this);
         return presenter;
     }
-    public void setChildClient(Activity activity,CommonPersonObjectClient childClient,boolean isEditMode){
+
+    public void setChildClient(Activity activity, CommonPersonObjectClient childClient, boolean isEditMode) {
         this.childClient = childClient;
         this.activity = activity;
         this.isEditMode = isEditMode;
-        if(isEditMode){
+        if (isEditMode) {
             presenter.fetchImmunizationEditData(childClient);
-        }else{
+        } else {
             presenter.fetchImmunizationData(childClient);
         }
 
     }
+
     public Observable undoVaccine() {
         return presenter.undoVaccine(childClient);
     }
-    public Observable undoPreviousGivenVaccine(){
+
+    public Observable undoPreviousGivenVaccine() {
         return presenter.undoPreviousGivenVaccine(childClient);
     }
-    public Observable saveGivenThisVaccine(){
+
+    public Observable saveGivenThisVaccine() {
         return presenter.saveGivenThisVaccine(childClient);
     }
-    public ImmunizationViewPresenter getPresenter(){
+
+    public ImmunizationViewPresenter getPresenter() {
         return presenter;
     }
 
@@ -89,10 +96,9 @@ public class ImmunizationView extends LinearLayout implements ImmunizationContac
         ChildHomeVisitFragment childHomeVisitFragment = (ChildHomeVisitFragment) activity.getFragmentManager().findFragmentByTag(ChildHomeVisitFragment.DIALOG_TAG);
 
         childHomeVisitFragment.allVaccineDataLoaded = true;
-        if(isEditMode){
+        if (isEditMode) {
             childHomeVisitFragment.forcfullyProgressBarInvisible();
-        }
-        else{
+        } else {
             childHomeVisitFragment.allVaccineStateFullfilled = true;
             childHomeVisitFragment.progressBarInvisible();
             childHomeVisitFragment.checkIfSubmitIsToBeEnabled();
@@ -102,29 +108,30 @@ public class ImmunizationView extends LinearLayout implements ImmunizationContac
     @Override
     public void updateAdapter(int position) {
         ChildHomeVisitFragment childHomeVisitFragment = (ChildHomeVisitFragment) activity.getFragmentManager().findFragmentByTag(ChildHomeVisitFragment.DIALOG_TAG);
-        if(isEditMode){
+        if (isEditMode) {
             childHomeVisitFragment.allVaccineDataLoaded = true;
             childHomeVisitFragment.submitButtonEnableDisable(true);
         }
-        if(adapter==null){
-            adapter = new ImmunizationAdapter(getContext(),onClickEditAdapter);
+        if (adapter == null) {
+            adapter = new ImmunizationAdapter(getContext(), onClickEditAdapter);
             adapter.addItem(presenter.getHomeVisitVaccineGroupDetails());
             recyclerView.setAdapter(adapter);
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        }else{
+        } else {
             adapter.notifyItemChanged(position);
         }
 
     }
-    OnClickEditAdapter onClickEditAdapter = new OnClickEditAdapter() {
+
+    private OnClickEditAdapter onClickEditAdapter = new OnClickEditAdapter() {
         @Override
-        public void onClick(int position,HomeVisitVaccineGroup homeVisitVaccineGroup) {
+        public void onClick(int position, HomeVisitVaccineGroup homeVisitVaccineGroup) {
             pressPosition = position;
             String dobString = org.smartregister.util.Utils.getValue(childClient.getColumnmaps(), "dob", false);
             DateTime dateTime = new DateTime(dobString);
             Date dob = dateTime.toDate();
-            VaccinationDialogFragment customVaccinationDialogFragment = VaccinationDialogFragment.newInstance(dob,presenter.getNotGivenVaccineWrappers(homeVisitVaccineGroup),new ArrayList<VaccineWrapper>(),
-                    presenter.getDueVaccineWrappers(homeVisitVaccineGroup),homeVisitVaccineGroup.getGroup());
+            VaccinationDialogFragment customVaccinationDialogFragment = VaccinationDialogFragment.newInstance(dob, presenter.getNotGivenVaccineWrappers(homeVisitVaccineGroup), new ArrayList<VaccineWrapper>(),
+                    presenter.getDueVaccineWrappers(homeVisitVaccineGroup), homeVisitVaccineGroup.getGroup());
             customVaccinationDialogFragment.setChildDetails(childClient);
             customVaccinationDialogFragment.setView(ImmunizationView.this);
             FragmentTransaction ft = activity.getFragmentManager().beginTransaction();
@@ -132,10 +139,11 @@ public class ImmunizationView extends LinearLayout implements ImmunizationContac
 
         }
     };
-    public void updatePosition(){
+
+    public void updatePosition() {
         ArrayList<VaccineRepo.Vaccine> givenList = presenter.convertGivenVaccineWrapperListToVaccineRepo();
         ArrayList<VaccineRepo.Vaccine> notGiven = presenter.convertNotVaccineWrapperListToVaccineRepo();
-        if(givenList.size() == 0 && notGiven.size() == 0) return;
+        if (givenList.size() == 0 && notGiven.size() == 0) return;
         HomeVisitVaccineGroup selectedGroup = presenter.getHomeVisitVaccineGroupDetails().get(pressPosition);
 
         selectedGroup.setViewType(HomeVisitVaccineGroup.TYPE_ACTIVE);
@@ -144,16 +152,16 @@ public class ImmunizationView extends LinearLayout implements ImmunizationContac
         selectedGroup.getNotGivenVaccines().clear();
         selectedGroup.getNotGivenVaccines().addAll(notGiven);
         updateAdapter(pressPosition);
-        if(!isEditMode && (pressPosition+1)<presenter.getHomeVisitVaccineGroupDetails().size()){
-            HomeVisitVaccineGroup nextSelectedGroup = presenter.getHomeVisitVaccineGroupDetails().get(pressPosition+1);
-            if(nextSelectedGroup.getViewType() == HomeVisitVaccineGroup.TYPE_INACTIVE){
+        if (!isEditMode && (pressPosition + 1) < presenter.getHomeVisitVaccineGroupDetails().size()) {
+            HomeVisitVaccineGroup nextSelectedGroup = presenter.getHomeVisitVaccineGroupDetails().get(pressPosition + 1);
+            if (nextSelectedGroup.getViewType() == HomeVisitVaccineGroup.TYPE_INACTIVE) {
                 nextSelectedGroup.setViewType(HomeVisitVaccineGroup.TYPE_INITIAL);
             }
-            updateAdapter(pressPosition+1);
+            updateAdapter(pressPosition + 1);
         }
     }
 
-    public ArrayList<VaccineWrapper> getNotGivenVaccine(){
+    public ArrayList<VaccineWrapper> getNotGivenVaccine() {
         return presenter.getNotGivenVaccines();
     }
 }

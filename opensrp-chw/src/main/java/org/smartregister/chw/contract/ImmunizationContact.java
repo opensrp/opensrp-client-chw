@@ -17,7 +17,8 @@ public interface ImmunizationContact {
 
         void updateAdapter(int position);
     }
-    interface Presenter{
+
+    interface Presenter {
 
         void fetchImmunizationData(CommonPersonObjectClient commonPersonObjectClient);
 
@@ -26,12 +27,13 @@ public interface ImmunizationContact {
         View getView();
     }
 
-    interface Interactor{
+    interface Interactor {
 
         void fetchImmunizationData(CommonPersonObjectClient commonPersonObjectClient, InteractorCallBack callBack);
 
-        void fetchImmunizationEditData(CommonPersonObjectClient commonPersonObjectClient,InteractorCallBack callBack);
+        void fetchImmunizationEditData(CommonPersonObjectClient commonPersonObjectClient, InteractorCallBack callBack);
     }
+
     interface InteractorCallBack {
 
         void updateData(ArrayList<HomeVisitVaccineGroup> homeVisitVaccineGroupDetails, Map<String, Date> receivedVaccine);

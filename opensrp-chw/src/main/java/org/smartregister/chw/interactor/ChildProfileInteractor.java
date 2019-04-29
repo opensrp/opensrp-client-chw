@@ -59,6 +59,7 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import timber.log.Timber;
 
 import static org.smartregister.chw.util.ChildUtils.fixVaccineCasing;
 import static org.smartregister.util.JsonFormUtils.getFieldJSONObject;
@@ -163,7 +164,7 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
 
     @Override
     public void updateVisitNotDone(long value) {
-        ChildUtils.updateHomeVisitAsEvent(getpClient().entityId(), Constants.EventType.CHILD_VISIT_NOT_DONE, Constants.TABLE_NAME.CHILD, new JSONObject(), new JSONObject(), new JSONObject(),new JSONObject(), new JSONObject(),new JSONObject(), new JSONObject(), ChildDBConstants.KEY.VISIT_NOT_DONE, value + "");
+        ChildUtils.updateHomeVisitAsEvent(getpClient().entityId(), Constants.EventType.CHILD_VISIT_NOT_DONE, Constants.TABLE_NAME.CHILD, new JSONObject(), new JSONObject(), new JSONObject(), new JSONObject(), new JSONObject(), new JSONObject(), new JSONObject(), ChildDBConstants.KEY.VISIT_NOT_DONE, value + "");
 
     }
 
@@ -250,7 +251,7 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
         return Observable.create(new ObservableOnSubscribe<ChildService>() {
             @Override
             public void subscribe(final ObservableEmitter<ChildService> e) throws Exception {
-               final ImmunizationViewPresenter presenter = new ImmunizationViewPresenter();
+                final ImmunizationViewPresenter presenter = new ImmunizationViewPresenter();
                 presenter.upcomingServiceFetch(getpClient(), new ImmunizationContact.InteractorCallBack() {
 
                     @Override
@@ -336,9 +337,10 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
                     @Override
                     public void updateEditData(ArrayList<HomeVisitVaccineGroup> homeVisitVaccineGroupDetails) {
 
+                        //TODO
+                        Timber.v("updateEditData");
                     }
                 });
-
 
 
             }

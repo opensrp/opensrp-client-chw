@@ -8,7 +8,6 @@ import android.graphics.Point;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -36,6 +35,7 @@ import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.immunization.domain.ServiceSchedule;
 import org.smartregister.immunization.domain.VaccineSchedule;
 import org.smartregister.immunization.domain.VaccineWrapper;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -48,7 +48,7 @@ import static org.smartregister.chw.util.ChildUtils.fixVaccineCasing;
 
 @SuppressLint("ValidFragment")
 public class VaccinationDialogFragment extends DialogFragment implements View.OnClickListener {
-    private List<VaccineWrapper> tags,notGivenList,givenList;
+    private List<VaccineWrapper> tags, notGivenList, givenList;
     private Date dateOfBirth;
     public static final String DIALOG_TAG = "VaccinationDialogFragment";
     public static final String WRAPPER_TAG = "tag";
@@ -67,8 +67,8 @@ public class VaccinationDialogFragment extends DialogFragment implements View.On
     private CommonPersonObjectClient childDetails;
     private String groupName;
 
-    public static VaccinationDialogFragment newInstance(Date dateOfBirth,ArrayList<VaccineWrapper> notGiven,ArrayList<VaccineWrapper> given,
-                                                        ArrayList<VaccineWrapper> tags,String groupName) {
+    public static VaccinationDialogFragment newInstance(Date dateOfBirth, ArrayList<VaccineWrapper> notGiven, ArrayList<VaccineWrapper> given,
+                                                        ArrayList<VaccineWrapper> tags, String groupName) {
 
         VaccinationDialogFragment customVaccinationDialogFragment = new VaccinationDialogFragment();
 
@@ -83,7 +83,8 @@ public class VaccinationDialogFragment extends DialogFragment implements View.On
 
         return customVaccinationDialogFragment;
     }
-    public void setChildDetails(CommonPersonObjectClient childDetails){
+
+    public void setChildDetails(CommonPersonObjectClient childDetails) {
         this.childDetails = childDetails;
     }
 
@@ -101,6 +102,7 @@ public class VaccinationDialogFragment extends DialogFragment implements View.On
         initUi(dialogView);
         return dialogView;
     }
+
     private void initUi(View dialogView) {
         multipleVaccineDatePickerView = dialogView.findViewById(R.id.multiple_vaccine_date_pickerview);
         singleVaccineAddView = dialogView.findViewById(R.id.single_vaccine_add_layout);
@@ -136,6 +138,7 @@ public class VaccinationDialogFragment extends DialogFragment implements View.On
         updateDatePicker(earlierDatePicker);
         updateVaccineList();
     }
+
     private void parseBundleData() {
         Bundle bundle = getArguments();
         final Serializable serializable = bundle.getSerializable(WRAPPER_TAG);
@@ -144,8 +147,9 @@ public class VaccinationDialogFragment extends DialogFragment implements View.On
             notGivenList = (ArrayList<VaccineWrapper>) bundle.getSerializable(NOT_GIVEN);
             givenList = (ArrayList<VaccineWrapper>) bundle.getSerializable(GIVEN);
         }
-        groupName = bundle.getString(GROUP_NAME,"");
+        groupName = bundle.getString(GROUP_NAME, "");
     }
+
     private void updateDatePicker(DatePicker datePicker) {
         DateTime minDate = new DateTime(dateOfBirth);
         DateTime dcToday = ServiceSchedule.standardiseDateTime(DateTime.now());
@@ -159,6 +163,7 @@ public class VaccinationDialogFragment extends DialogFragment implements View.On
             datePicker.setMaxDate(maxDate.getMillis());
         }
     }
+
     private void updateVaccineList() {
         if (tags == null) return;
         for (VaccineWrapper vaccineWrapper : tags) {
@@ -181,7 +186,7 @@ public class VaccinationDialogFragment extends DialogFragment implements View.On
             View childView = vaccinationNameLayout.getChildAt(i);
             final CheckBox childSelect = (CheckBox) childView.findViewById(R.id.select);
             TextView vaccineView = (TextView) childView.findViewById(R.id.vaccine);
-            if(isExistInNotGiven(vaccineView.getText().toString())){
+            if (isExistInNotGiven(vaccineView.getText().toString())) {
                 childSelect.toggle();
             }
             childSelect.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -205,6 +210,7 @@ public class VaccinationDialogFragment extends DialogFragment implements View.On
 
 
     }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -275,8 +281,7 @@ public class VaccinationDialogFragment extends DialogFragment implements View.On
             }
         }
 
-            immunizationView.getPresenter().assigntoGivenVaccines(tagsToUpdate);
-
+        immunizationView.getPresenter().assigntoGivenVaccines(tagsToUpdate);
 
 
     }
@@ -296,7 +301,7 @@ public class VaccinationDialogFragment extends DialogFragment implements View.On
             }
         }
 
-            immunizationView.getPresenter().assigntoGivenVaccines(tagsToUpdate);
+        immunizationView.getPresenter().assigntoGivenVaccines(tagsToUpdate);
 
 
     }
@@ -315,7 +320,7 @@ public class VaccinationDialogFragment extends DialogFragment implements View.On
                 }
             }
         }
-        immunizationView.getPresenter().assignToNotGivenVaccines(UngiventagsToUpdate,groupName);
+        immunizationView.getPresenter().assignToNotGivenVaccines(UngiventagsToUpdate, groupName);
 
 
     }
@@ -342,9 +347,6 @@ public class VaccinationDialogFragment extends DialogFragment implements View.On
     }
 
 
-
-
-
     private void resetAllSelectedVaccine() {
         Map<CheckBox, String> getSelectedCheckBox = getSelectedCheckBoxes();
         for (CheckBox checkBox : getSelectedCheckBox.keySet()) {
@@ -353,7 +355,6 @@ public class VaccinationDialogFragment extends DialogFragment implements View.On
         multipleVaccineDatePickerView.setAlpha(0.3f);
 
     }
-
 
 
     private void showSingleVaccineDetailsView() {
@@ -401,29 +402,32 @@ public class VaccinationDialogFragment extends DialogFragment implements View.On
 
         }
     }
-    private boolean isExistInNotGiven(String name){
+
+    private boolean isExistInNotGiven(String name) {
         for (VaccineWrapper vaccineWrapper : notGivenList) {
-            if(vaccineWrapper.getName().equalsIgnoreCase(name)){
-                return true;
-            }
-        }
-        return false;
-    }
-    private boolean isExistInGiven(String name){
-        for (VaccineWrapper vaccineWrapper : givenList) {
-            if(vaccineWrapper.getName().equalsIgnoreCase(name)){
+            if (vaccineWrapper.getName().equalsIgnoreCase(name)) {
                 return true;
             }
         }
         return false;
     }
 
+    /*
+    private boolean isExistInGiven(String name) {
+        for (VaccineWrapper vaccineWrapper : givenList) {
+            if (vaccineWrapper.getName().equalsIgnoreCase(name)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    */
 
     @Override
     public void onResume() {
         super.onResume();
         updateSaveButton();
-        if(tags.size() == notGivenList.size()) {
+        if (tags.size() == notGivenList.size()) {
             checkBoxNoVaccine.setChecked(true);
         }
     }
@@ -565,10 +569,9 @@ public class VaccinationDialogFragment extends DialogFragment implements View.On
         super.onDismiss(dialog);
     }
 
-    public void setView(ImmunizationView view){
+    public void setView(ImmunizationView view) {
         immunizationView = view;
     }
-
 
 
 }

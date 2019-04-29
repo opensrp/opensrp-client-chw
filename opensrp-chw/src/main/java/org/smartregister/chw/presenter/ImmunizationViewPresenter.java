@@ -28,7 +28,7 @@ import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 
-public class ImmunizationViewPresenter implements ImmunizationContact.Presenter, ImmunizationContact.InteractorCallBack{
+public class ImmunizationViewPresenter implements ImmunizationContact.Presenter, ImmunizationContact.InteractorCallBack {
 
     private WeakReference<ImmunizationContact.View> view;
     private ArrayList<HomeVisitVaccineGroup> homeVisitVaccineGroupDetails = new ArrayList<>();
@@ -41,12 +41,13 @@ public class ImmunizationViewPresenter implements ImmunizationContact.Presenter,
     private ArrayList<String> saveGroupList = new ArrayList<>();
     private final VaccineRepository vaccineRepository;
 
-    public ImmunizationViewPresenter(ImmunizationContact.View view){
+    public ImmunizationViewPresenter(ImmunizationContact.View view) {
         this.view = new WeakReference<>(view);
         interactor = new ImmunizationViewInteractor();
         vaccineRepository = ImmunizationLibrary.getInstance().vaccineRepository();
     }
-    public ImmunizationViewPresenter(){
+
+    public ImmunizationViewPresenter() {
         interactor = new ImmunizationViewInteractor();
         vaccineRepository = ImmunizationLibrary.getInstance().vaccineRepository();
     }
@@ -54,18 +55,20 @@ public class ImmunizationViewPresenter implements ImmunizationContact.Presenter,
     public ArrayList<HomeVisitVaccineGroup> getHomeVisitVaccineGroupDetails() {
         return homeVisitVaccineGroupDetails;
     }
+
     @Override
     public void fetchImmunizationData(CommonPersonObjectClient commonPersonObjectClient) {
-        interactor.fetchImmunizationData(commonPersonObjectClient,this);
+        interactor.fetchImmunizationData(commonPersonObjectClient, this);
     }
 
     @Override
     public void fetchImmunizationEditData(CommonPersonObjectClient commonPersonObjectClient) {
-        interactor.fetchImmunizationEditData(commonPersonObjectClient,this);
+        interactor.fetchImmunizationEditData(commonPersonObjectClient, this);
 
     }
-    public void upcomingServiceFetch(CommonPersonObjectClient commonPersonObjectClient,ImmunizationContact.InteractorCallBack callBack){
-        interactor.fetchImmunizationData(commonPersonObjectClient,callBack);
+
+    public void upcomingServiceFetch(CommonPersonObjectClient commonPersonObjectClient, ImmunizationContact.InteractorCallBack callBack) {
+        interactor.fetchImmunizationData(commonPersonObjectClient, callBack);
     }
 
     @Override
@@ -83,22 +86,22 @@ public class ImmunizationViewPresenter implements ImmunizationContact.Presenter,
         //if all due vaccine is same as given vaccine so remove the row
         for (Iterator<HomeVisitVaccineGroup> iterator = homeVisitVaccineGroupDetails.iterator(); iterator.hasNext(); ) {
             HomeVisitVaccineGroup homeVisitVaccineGroup = iterator.next();
-            if (homeVisitVaccineGroup.getDueVaccines().size()==0) {
+            if (homeVisitVaccineGroup.getDueVaccines().size() == 0) {
                 iterator.remove();
             }
-            if (homeVisitVaccineGroup.getDueVaccines().size()!=0 && (
+            if (homeVisitVaccineGroup.getDueVaccines().size() != 0 && (
                     homeVisitVaccineGroup.getDueVaccines().size() == homeVisitVaccineGroup.getGivenVaccines().size())) {
                 iterator.remove();
             }
 
         }
-        for(int i=0;i<homeVisitVaccineGroupDetails.size();i++){
+        for (int i = 0; i < homeVisitVaccineGroupDetails.size(); i++) {
             HomeVisitVaccineGroup homeVisitVaccineGroup = homeVisitVaccineGroupDetails.get(i);
-                if(i==0){
-                    homeVisitVaccineGroup.setViewType(HomeVisitVaccineGroup.TYPE_INITIAL);
-                }else{
-                    homeVisitVaccineGroup.setViewType(HomeVisitVaccineGroup.TYPE_INACTIVE);
-                }
+            if (i == 0) {
+                homeVisitVaccineGroup.setViewType(HomeVisitVaccineGroup.TYPE_INITIAL);
+            } else {
+                homeVisitVaccineGroup.setViewType(HomeVisitVaccineGroup.TYPE_INACTIVE);
+            }
         }
 
         this.homeVisitVaccineGroupDetails = homeVisitVaccineGroupDetails;
@@ -110,11 +113,12 @@ public class ImmunizationViewPresenter implements ImmunizationContact.Presenter,
     public void updateEditData(ArrayList<HomeVisitVaccineGroup> homeVisitVaccineGroupDetails) {
         getView().allDataLoaded();
         this.homeVisitVaccineGroupDetails = homeVisitVaccineGroupDetails;
-        for (HomeVisitVaccineGroup homeVisitVaccineGroup :this.homeVisitVaccineGroupDetails){
+        for (HomeVisitVaccineGroup homeVisitVaccineGroup : this.homeVisitVaccineGroupDetails) {
             homeVisitVaccineGroup.setViewType(HomeVisitVaccineGroup.TYPE_ACTIVE);
         }
         getView().updateAdapter(0);
     }
+
     public ArrayList<VaccineWrapper> getDueVaccineWrappers(HomeVisitVaccineGroup duevaccines) {
 
         ArrayList<VaccineWrapper> vaccineWrappers = new ArrayList<VaccineWrapper>();
@@ -130,6 +134,7 @@ public class ImmunizationViewPresenter implements ImmunizationContact.Presenter,
         }
         return vaccineWrappers;
     }
+
     public ArrayList<VaccineWrapper> getNotGivenVaccineWrappers(HomeVisitVaccineGroup group) {
 
         ArrayList<VaccineWrapper> vaccineWrappers = new ArrayList<VaccineWrapper>();
@@ -142,15 +147,17 @@ public class ImmunizationViewPresenter implements ImmunizationContact.Presenter,
         }
         return vaccineWrappers;
     }
-    public Long getVaccineId(String vaccineName){
-        List<Vaccine> vaccines = ((ImmunizationViewInteractor)interactor).getVaccines();
-        for(Vaccine vaccine:vaccines){
-            if(vaccine.getName().equalsIgnoreCase(vaccineName)){
+
+    public Long getVaccineId(String vaccineName) {
+        List<Vaccine> vaccines = ((ImmunizationViewInteractor) interactor).getVaccines();
+        for (Vaccine vaccine : vaccines) {
+            if (vaccine.getName().equalsIgnoreCase(vaccineName)) {
                 return vaccine.getId();
             }
         }
         return null;
     }
+
     public ArrayList<VaccineWrapper> getNotGivenVaccines() {
         return notGivenVaccines;
     }
@@ -158,49 +165,54 @@ public class ImmunizationViewPresenter implements ImmunizationContact.Presenter,
     public void assigntoGivenVaccines(ArrayList<VaccineWrapper> tagsToUpdate) {
         givenGroupWiseVaccines.clear();
         givenGroupWiseVaccines.addAll(tagsToUpdate);
-        for (VaccineWrapper name:tagsToUpdate){
+        for (VaccineWrapper name : tagsToUpdate) {
             if (!vaccinesGivenThisVisit.contains(name)) {
                 vaccinesGivenThisVisit.add(name);
             }
         }
         updateSubmitBtn();
     }
-    public void assignToNotGivenVaccines(ArrayList<VaccineWrapper> tagsToUpdate,String groupName) {
+
+    public void assignToNotGivenVaccines(ArrayList<VaccineWrapper> tagsToUpdate, String groupName) {
         notGivenGroupWiseVaccines.clear();
         notGivenGroupWiseVaccines.addAll(tagsToUpdate);
-        if(!saveGroupList.contains(groupName)){
+        if (!saveGroupList.contains(groupName)) {
             saveGroupList.add(groupName);
         }
-        for (VaccineWrapper name:tagsToUpdate){
+        for (VaccineWrapper name : tagsToUpdate) {
             if (!notGivenVaccines.contains(name)) {
                 notGivenVaccines.add(name);
             }
         }
         updateSubmitBtn();
     }
-    private void updateSubmitBtn(){
-        if(saveGroupList.size()  == homeVisitVaccineGroupDetails.size()){
+
+    private void updateSubmitBtn() {
+        if (saveGroupList.size() == homeVisitVaccineGroupDetails.size()) {
             getView().allDataLoaded();
         }
     }
-    public ArrayList<VaccineRepo.Vaccine> convertGivenVaccineWrapperListToVaccineRepo(){
+
+    public ArrayList<VaccineRepo.Vaccine> convertGivenVaccineWrapperListToVaccineRepo() {
         ArrayList<VaccineRepo.Vaccine> vaccineArrayList = new ArrayList<>();
-        for (VaccineWrapper vaccineWrapper : givenGroupWiseVaccines){
+        for (VaccineWrapper vaccineWrapper : givenGroupWiseVaccines) {
             VaccineRepo.Vaccine vaccine = vaccineWrapper.getVaccine();
             vaccineArrayList.add(vaccine);
         }
         return vaccineArrayList;
 
     }
-    public ArrayList<VaccineRepo.Vaccine> convertNotVaccineWrapperListToVaccineRepo(){
+
+    public ArrayList<VaccineRepo.Vaccine> convertNotVaccineWrapperListToVaccineRepo() {
         ArrayList<VaccineRepo.Vaccine> vaccineArrayList = new ArrayList<>();
-        for (VaccineWrapper vaccineWrapper : notGivenGroupWiseVaccines){
+        for (VaccineWrapper vaccineWrapper : notGivenGroupWiseVaccines) {
             VaccineRepo.Vaccine vaccine = vaccineWrapper.getVaccine();
             vaccineArrayList.add(vaccine);
         }
         return vaccineArrayList;
 
     }
+
     public Observable undoVaccine(final CommonPersonObjectClient childClient) {
 
         return Observable.create(new ObservableOnSubscribe() {
@@ -222,6 +234,7 @@ public class ImmunizationViewPresenter implements ImmunizationContact.Presenter,
             }
         });
     }
+
     public Observable undoPreviousGivenVaccine(final CommonPersonObjectClient childClient) {
 
         return Observable.create(new ObservableOnSubscribe() {
@@ -244,6 +257,7 @@ public class ImmunizationViewPresenter implements ImmunizationContact.Presenter,
             }
         });
     }
+
     public Observable saveGivenThisVaccine(final CommonPersonObjectClient childClient) {
 
         return Observable.create(new ObservableOnSubscribe() {
@@ -251,7 +265,7 @@ public class ImmunizationViewPresenter implements ImmunizationContact.Presenter,
             public void subscribe(ObservableEmitter e) throws Exception {
                 for (VaccineWrapper tag : vaccinesGivenThisVisit) {
                     //if (tag != null && tag.getDbKey() != null) {
-                    saveVaccine(tag,childClient);
+                    saveVaccine(tag, childClient);
 
                     //}
                 }
@@ -265,7 +279,8 @@ public class ImmunizationViewPresenter implements ImmunizationContact.Presenter,
             }
         });
     }
-    private void saveVaccine(VaccineWrapper tag,CommonPersonObjectClient childClient) {
+
+    private void saveVaccine(VaccineWrapper tag, CommonPersonObjectClient childClient) {
         if (tag.getUpdatedVaccineDate() == null) {
             return;
         }
