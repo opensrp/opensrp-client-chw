@@ -2,8 +2,6 @@ package org.smartregister.chw.util;
 
 import org.smartregister.chw.BuildConfig;
 
-import java.util.HashMap;
-
 public class Constants {
 
     public static class CONFIGURATION {
@@ -38,7 +36,7 @@ public class Constants {
 
     public static class JSON_FORM {
         public static final String BIRTH_CERTIFICATION = Utils.getLocalForm("birth_certification");
-        public static final String OBS_ILLNESS = Utils.getLocalForm("observation_illness");
+        public static final String OBS_ILLNESS = Country.TANZANIA.equals(BuildConfig.BUILD_COUNTRY) ? "tz_observation_illness" : Utils.getLocalForm("observation_illness");
         public static final String FAMILY_REGISTER = Country.TANZANIA.equals(BuildConfig.BUILD_COUNTRY) ? "tz_family_register" : Utils.getLocalForm("family_register");
         public static final String FAMILY_MEMBER_REGISTER = (Country.TANZANIA.equals(BuildConfig.BUILD_COUNTRY) ? "tz_family_member_register" : Utils.getLocalForm("family_member_register"));
         public static final String CHILD_REGISTER = Utils.getLocalForm("child_enrollment");
