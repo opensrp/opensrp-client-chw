@@ -95,6 +95,9 @@ public class ChwRepository extends Repository {
                 case 8:
                     upgradeToVersion8(db);
                     break;
+                case 9:
+                    upgradeToVersion9(db);
+                    break;
                 default:
                     break;
             }
@@ -242,7 +245,6 @@ public class ChwRepository extends Repository {
         }
     }
 
-
     private void upgradeToVersion7(SQLiteDatabase db) {
         try {
             db.execSQL(HomeVisitRepository.UPDATE_TABLE_ADD_VACCINE_NOT_GIVEN);
@@ -252,16 +254,27 @@ public class ChwRepository extends Repository {
         }
     }
 
-
     private void upgradeToVersion8(SQLiteDatabase db) {
         try {
             if (BuildConfig.BUILD_COUNTRY == Country.TANZANIA) {
-                for (String query : RepositoryUtils.UPGRADE_V7) {
+                for (String query : RepositoryUtils.UPGRADE_V8) {
                     db.execSQL(query);
                 }
             }
         }catch (Exception e) {
             Log.e(TAG, "upgradeToVersion8 " + Log.getStackTraceString(e));
+        }
+    }
+
+    private void upgradeToVersion9(SQLiteDatabase db) {
+        try {
+            if (BuildConfig.BUILD_COUNTRY == Country.TANZANIA) {
+                for (String query : RepositoryUtils.UPGRADE_V9) {
+                    db.execSQL(query);
+                }
+            }
+        }catch (Exception e) {
+            Log.e(TAG, "upgradeToVersion9 " + Log.getStackTraceString(e));
         }
     }
 

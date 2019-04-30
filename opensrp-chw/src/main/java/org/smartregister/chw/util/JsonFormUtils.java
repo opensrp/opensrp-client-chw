@@ -192,10 +192,16 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
             // Inject opensrp id into the form
             JSONArray field = fields(form);
             JSONObject uniqueId = getFieldJSONObject(field, DBConstants.KEY.UNIQUE_ID);
+//            JSONObject insurance_provider = getFieldJSONObject(field, org.smartregister.chw.util.Constants.JsonAssets.INSURANCE_PROVIDER);
             if (uniqueId != null) {
                 uniqueId.remove(org.smartregister.family.util.JsonFormUtils.VALUE);
                 uniqueId.put(org.smartregister.family.util.JsonFormUtils.VALUE, entityId);
             }
+
+//            if (insurance_provider != null) {
+//                insurance_provider.remove(org.smartregister.chw.util.Constants.JsonAssets.INSURANCE_PROVIDER);
+//                insurance_provider.put(org.smartregister.chw.util.Constants.JsonAssets.INSURANCE_PROVIDER, insurance_provider);
+//            }
 
             if (!isBlank(familyID)) {
                 JSONObject metaDataJson = form.getJSONObject("metadata");
@@ -203,6 +209,7 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
                 lookup.put("entity_id", "family");
                 lookup.put("value", familyID);
             }
+
 
         } else {
             Log.w(TAG, "Unsupported form requested for launch " + formName);

@@ -29,6 +29,7 @@ import org.joda.time.Days;
 import org.joda.time.LocalDate;
 import org.joda.time.format.ISODateTimeFormat;
 import org.json.JSONObject;
+import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.domain.HomeVisit;
@@ -57,6 +58,7 @@ import java.util.Map;
 
 import static org.apache.commons.lang3.text.WordUtils.capitalize;
 import static org.smartregister.chw.util.Utils.dd_MMM_yyyy;
+import static org.smartregister.util.Utils.readAssetContents;
 
 public class ChildUtils {
 
@@ -243,36 +245,47 @@ public class ChildUtils {
     }
 
     private static String[] mainColumns(String tableName, String familyTable, String familyMemberTable) {
+        ArrayList<String> columnList = new ArrayList<>();
 
-        String[] columns = new String[]{
-                tableName + "." + DBConstants.KEY.RELATIONAL_ID + " as " + ChildDBConstants.KEY.RELATIONAL_ID,
-                tableName + "." + DBConstants.KEY.LAST_INTERACTED_WITH,
-                tableName + "." + DBConstants.KEY.BASE_ENTITY_ID,
-                tableName + "." + DBConstants.KEY.FIRST_NAME,
-                tableName + "." + DBConstants.KEY.MIDDLE_NAME,
-                familyMemberTable + "." + DBConstants.KEY.FIRST_NAME + " as " + ChildDBConstants.KEY.FAMILY_FIRST_NAME,
-                familyMemberTable + "." + DBConstants.KEY.LAST_NAME + " as " + ChildDBConstants.KEY.FAMILY_LAST_NAME,
-                familyMemberTable + "." + DBConstants.KEY.MIDDLE_NAME + " as " + ChildDBConstants.KEY.FAMILY_MIDDLE_NAME,
-                familyTable + "." + DBConstants.KEY.VILLAGE_TOWN + " as " + ChildDBConstants.KEY.FAMILY_HOME_ADDRESS,
-                tableName + "." + DBConstants.KEY.LAST_NAME,
-                tableName + "." + DBConstants.KEY.UNIQUE_ID,
-                tableName + "." + DBConstants.KEY.GENDER,
-                tableName + "." + DBConstants.KEY.DOB,
-                tableName + "." + org.smartregister.family.util.Constants.JSON_FORM_KEY.DOB_UNKNOWN,
-                tableName + "." + ChildDBConstants.KEY.LAST_HOME_VISIT,
-                tableName + "." + ChildDBConstants.KEY.VISIT_NOT_DONE,
-                tableName + "." + ChildDBConstants.KEY.CHILD_BF_HR,
-                tableName + "." + ChildDBConstants.KEY.CHILD_PHYSICAL_CHANGE,
-                tableName + "." + ChildDBConstants.KEY.BIRTH_CERT,
-                tableName + "." + ChildDBConstants.KEY.BIRTH_CERT_ISSUE_DATE,
-                tableName + "." + ChildDBConstants.KEY.BIRTH_CERT_NUMBER,
-                tableName + "." + ChildDBConstants.KEY.BIRTH_CERT_NOTIFIICATION,
-                tableName + "." + ChildDBConstants.KEY.ILLNESS_DATE,
-                tableName + "." + ChildDBConstants.KEY.ILLNESS_DESCRIPTION,
-                tableName + "." + ChildDBConstants.KEY.DATE_CREATED,
-                tableName + "." + ChildDBConstants.KEY.ILLNESS_ACTION
-        };
-        return columns;
+        columnList.add(tableName + "." + DBConstants.KEY.RELATIONAL_ID + " as " + ChildDBConstants.KEY.RELATIONAL_ID);
+        columnList.add(tableName + "." + DBConstants.KEY.LAST_INTERACTED_WITH);
+        columnList.add(tableName + "." + DBConstants.KEY.BASE_ENTITY_ID);
+        columnList.add(tableName + "." + DBConstants.KEY.FIRST_NAME);
+        columnList.add(tableName + "." + DBConstants.KEY.MIDDLE_NAME);
+        columnList.add(familyMemberTable + "." + DBConstants.KEY.FIRST_NAME + " as " + ChildDBConstants.KEY.FAMILY_FIRST_NAME);
+        columnList.add(familyMemberTable + "." + DBConstants.KEY.LAST_NAME + " as " + ChildDBConstants.KEY.FAMILY_LAST_NAME);
+        columnList.add(familyMemberTable + "." + DBConstants.KEY.MIDDLE_NAME + " as " + ChildDBConstants.KEY.FAMILY_MIDDLE_NAME);
+        columnList.add(familyTable + "." + DBConstants.KEY.VILLAGE_TOWN + " as " + ChildDBConstants.KEY.FAMILY_HOME_ADDRESS);
+        columnList.add(tableName + "." + DBConstants.KEY.LAST_NAME);
+        columnList.add(tableName + "." + DBConstants.KEY.UNIQUE_ID);
+        columnList.add(tableName + "." + DBConstants.KEY.GENDER);
+        columnList.add(tableName + "." + DBConstants.KEY.DOB);
+        columnList.add(tableName + "." + org.smartregister.family.util.Constants.JSON_FORM_KEY.DOB_UNKNOWN);
+        columnList.add(tableName + "." + ChildDBConstants.KEY.LAST_HOME_VISIT);
+        columnList.add(tableName + "." + ChildDBConstants.KEY.VISIT_NOT_DONE);
+        columnList.add(tableName + "." + ChildDBConstants.KEY.CHILD_BF_HR);
+        columnList.add(tableName + "." + ChildDBConstants.KEY.CHILD_PHYSICAL_CHANGE);
+        columnList.add(tableName + "." + ChildDBConstants.KEY.BIRTH_CERT);
+        columnList.add(tableName + "." + ChildDBConstants.KEY.BIRTH_CERT_ISSUE_DATE);
+        columnList.add(tableName + "." + ChildDBConstants.KEY.BIRTH_CERT_NUMBER);
+        columnList.add(tableName + "." + ChildDBConstants.KEY.BIRTH_CERT_NOTIFIICATION);
+        columnList.add(tableName + "." + ChildDBConstants.KEY.ILLNESS_DATE);
+        columnList.add(tableName + "." + ChildDBConstants.KEY.ILLNESS_DESCRIPTION);
+        columnList.add(tableName + "." + ChildDBConstants.KEY.DATE_CREATED);
+        columnList.add(tableName + "." + ChildDBConstants.KEY.ILLNESS_ACTION);
+
+        if (BuildConfig.BUILD_COUNTRY == Country.TANZANIA) {
+                columnList.add(tableName + "." + ChildDBConstants.KEY.INSURANCE_PROVIDER);
+                columnList.add(tableName + "." + ChildDBConstants.KEY.INSURANCE_PROVIDER_NUMBER);
+                columnList.add(tableName + "." + ChildDBConstants.KEY.INSURANCE_PROVIDER_OTHER);
+                columnList.add(tableName + "." + ChildDBConstants.KEY.TYPE_OF_DISABILITY);
+                columnList.add(tableName + "." + ChildDBConstants.KEY.RHC_CARD);
+                columnList.add(tableName + "." + ChildDBConstants.KEY.NUTRITION_STATUS);
+        }
+
+        return columnList.toArray(new String[columnList.size()]);
+
+
     }
 
     /**

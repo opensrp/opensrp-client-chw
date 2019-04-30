@@ -14,7 +14,6 @@ import org.json.JSONObject;
 import org.smartregister.chw.contract.ChildProfileContract;
 import org.smartregister.chw.contract.HomeVisitGrowthNutritionContract;
 import org.smartregister.chw.contract.HomeVisitImmunizationContract;
-import org.smartregister.chw.fragment.ChildHomeVisitFragment;
 import org.smartregister.chw.presenter.HomeVisitImmunizationPresenter;
 import org.smartregister.chw.util.ChildDBConstants;
 import org.smartregister.chw.util.ChildHomeVisit;
@@ -167,7 +166,7 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
 
     @Override
     public void updateVisitNotDone(long value) {
-        ChildUtils.updateHomeVisitAsEvent(getpClient().entityId(), Constants.EventType.CHILD_VISIT_NOT_DONE, Constants.TABLE_NAME.CHILD, new JSONObject(), new JSONObject(), new JSONObject(),new JSONObject(), new JSONObject(),new JSONObject(), new JSONObject(), ChildDBConstants.KEY.VISIT_NOT_DONE, value + "");
+        ChildUtils.updateHomeVisitAsEvent(getpClient().entityId(), Constants.EventType.CHILD_VISIT_NOT_DONE, Constants.TABLE_NAME.CHILD, new JSONObject(), new JSONObject(), new JSONObject(), new JSONObject(), new JSONObject(), new JSONObject(), new JSONObject(), ChildDBConstants.KEY.VISIT_NOT_DONE, value + "");
 
     }
 
@@ -546,6 +545,35 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
                     surname.put(org.smartregister.family.util.JsonFormUtils.VALUE, "");
                 }
 
+                break;
+
+            case Constants.JsonAssets.INSURANCE_PROVIDER:
+                jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.INSURANCE_PROVIDER, false));
+                break;
+            case Constants.JsonAssets.INSURANCE_PROVIDER_NUMBER:
+                jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.INSURANCE_PROVIDER_NUMBER, false));
+                break;
+            case Constants.JsonAssets.INSURANCE_PROVIDER_OTHER:
+                jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.INSURANCE_PROVIDER_OTHER, false));
+                break;
+            case Constants.JsonAssets.DISABILITIES:
+                jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.CHILD_PHYSICAL_CHANGE, false));
+                break;
+            case Constants.JsonAssets.DISABILITY_TYPE:
+                jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.TYPE_OF_DISABILITY, false));
+                break;
+
+            case Constants.JsonAssets.BIRTH_CERT_AVAILABLE:
+                jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.BIRTH_CERT, false));
+                break;
+            case Constants.JsonAssets.BIRTH_REGIST_NUMBER:
+                jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.BIRTH_CERT_NUMBER, false));
+                break;
+            case Constants.JsonAssets.RHC_CARD:
+                jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.RHC_CARD, false));
+                break;
+            case Constants.JsonAssets.NUTRITION_STATUS:
+                jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.NUTRITION_STATUS, false));
                 break;
 
             case DBConstants.KEY.GPS:

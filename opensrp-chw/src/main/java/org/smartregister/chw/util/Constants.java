@@ -40,7 +40,7 @@ public class Constants {
         public static final String OBS_ILLNESS = Utils.getLocalForm("observation_illness");
         public static final String FAMILY_REGISTER = Country.TANZANIA.equals(BuildConfig.BUILD_COUNTRY) ? "tz_family_register" : Utils.getLocalForm("family_register");
         public static final String FAMILY_MEMBER_REGISTER = (Country.TANZANIA.equals(BuildConfig.BUILD_COUNTRY) ? "tz_family_member_register" : Utils.getLocalForm("family_member_register"));
-        public static final String CHILD_REGISTER = Utils.getLocalForm("child_enrollment");
+        public static final String CHILD_REGISTER = (Country.TANZANIA.equals(BuildConfig.BUILD_COUNTRY) ? "tz_child_enrollment" : Utils.getLocalForm("child_enrollment"));
         public static final String FAMILY_DETAILS_REGISTER = (Country.TANZANIA.equals(BuildConfig.BUILD_COUNTRY) ? "tz_family_details_register" : Utils.getLocalForm("family_details_register"));
         public static final String FAMILY_DETAILS_REMOVE_MEMBER = Utils.getLocalForm("family_details_remove_member");
         public static final String FAMILY_DETAILS_REMOVE_CHILD = Utils.getLocalForm("family_details_remove_child");
@@ -122,6 +122,10 @@ public class Constants {
         public static final String SERVICE_PROVIDER = "service_provider";
         public static final String LEADER = "leader";
         public static final String OTHER_LEADER = "leader_other";
+        public static final String BIRTH_CERT_AVAILABLE = "birth_cert_available";
+        public static final String BIRTH_REGIST_NUMBER = "birth_regist_number";
+        public static final String RHC_CARD = "rhc_card";
+        public static final String NUTRITION_STATUS = "nutrition_status";
 
         public static class CHK_ID_AVAIL {
             public static final String NATIONAL_ID = "chk_national_id";
