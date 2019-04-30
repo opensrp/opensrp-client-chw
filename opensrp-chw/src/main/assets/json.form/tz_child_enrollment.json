@@ -99,7 +99,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "family-child-relevance.yml"
+              "rules-file": "tz_family-child-relevance.yml"
             }
           }
         }
@@ -205,7 +205,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "family-child-relevance.yml"
+              "rules-file": "tz_family-child-relevance.yml"
             }
           }
         }
@@ -249,7 +249,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "family-child-relevance.yml"
+              "rules-file": "tz_family-child-relevance.yml"
             }
           }
         },
@@ -262,7 +262,7 @@
         "key": "insurance_provider",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "Health_Insurance_Type",
+        "openmrs_entity_id": "insurance_provider",
         "type": "spinner",
         "hint": "Health insurance provider",
         "values": [
@@ -303,39 +303,39 @@
       {
         "key": "insurance_provider_other",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "Other_Health_Insurance_Type",
         "type": "edit_text",
-        "hint": "Other insurance provider",
+        "hint": "Other health insurance provider",
+        "v_required": {
+          "value": "true",
+          "err": "Please specify the insurance provider"
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "family-child-relevance.yml"
+              "rules-file": "tz_family_register_relevance.yml"
             }
           }
-        },
-        "v_required": {
-          "value": true,
-          "err": "Please enter other insurance provider"
         }
       },
       {
         "key": "insurance_provider_number",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "Health_Insurance_Number",
         "type": "edit_text",
         "hint": "Health insurance provider number",
+        "v_required": {
+          "value": "true",
+          "err": "Please add the health insurance provider iD Number"
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "family-child-relevance.yml"
+              "rules-file": "tz_family_register_relevance.yml"
             }
           }
-        },
-        "v_required": {
-          "value": true,
-          "err": "Please enter insurance provider number"
         }
       },
       {
@@ -354,36 +354,38 @@
           "err": "Please enter the sex"
         }
       },
-
       {
         "key": "disabilities",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "162558AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "spinner",
         "hint": "Physical disabilities",
         "values": [
           "Yes",
           "No"
         ],
-
+        "openmrs_choice_ids": {
+          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
         "v_required": {
           "value": "true",
-          "err": "Please enter if there is physical disabilities"
+          "err": "Please select one"
         }
       },
       {
-        "key": "disability_type",
+        "key": "type_of_disability",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "edit_text",
         "edit_type": "name",
         "hint": "Type of physical disabilities",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "family-child-relevance.yml"
+              "rules-file": "tz_family-child-relevance.yml"
             }
           }
         },
@@ -396,26 +398,30 @@
       {
         "key": "birth_cert_available",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "165406AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "spinner",
         "hint": "Birth registration/certificate",
         "values": [
           "Yes",
           "No"
-        ]
+        ],
+        "openmrs_choice_ids": {
+          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        }
       },
       {
         "key": "birth_regist_number",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "162052AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "edit_text",
         "hint": "Birth registration number",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "family-child-relevance.yml"
+              "rules-file": "tz_family-child-relevance.yml"
             }
           }
         }
@@ -423,21 +429,25 @@
       {
         "key": "rhc_card",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "164147AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "spinner",
         "hint": "Does the child have child growth booklet",
         "values": [
           "Yes",
           "No"
-        ]
+        ],
+        "openmrs_choice_ids": {
+          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        }
       },
 
       {
         "key": "nutrition_status",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "163301AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "spinner",
         "hint": "Nutrition status",
         "values": [
@@ -445,6 +455,11 @@
           "Grey",
           "Red"
         ],
+        "openmrs_choice_ids": {
+          "Green": "160909AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Grey": "163639AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Red": "127778AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
         "v_required": {
           "value": "true",
           "err": "Please provide child nutrition status"

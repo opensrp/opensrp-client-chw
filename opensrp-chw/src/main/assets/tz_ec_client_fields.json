@@ -212,7 +212,7 @@
           "column_name": "insurance_provider",
           "type": "Client",
           "json_mapping": {
-            "field": "attributes.Health_Insurance_Type"
+            "field": "attributes.insurance_provider"
           }
         },
         {
@@ -377,7 +377,39 @@
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "159522AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "concept": "162558AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        {
+          "column_name": "type_of_disability",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        {
+          "column_name": "birth_cert",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "165406AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        {
+          "column_name": "rhc_card",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "164147AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        {
+          "column_name": "nutrition_status",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "163301AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         },
         {
@@ -415,14 +447,6 @@
           "type": "Client",
           "json_mapping": {
             "field": "dateCreated"
-          }
-        },
-        {
-          "column_name": "birth_cert",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.fieldCode",
-            "formSubmissionField": "birth_cert"
           }
         },
         {
@@ -471,6 +495,27 @@
           "json_mapping": {
             "field": "obs.fieldCode",
             "concept": "164378AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        {
+          "column_name": "insurance_provider",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.insurance_provider"
+          }
+        },
+        {
+          "column_name": "insurance_provider_other",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.Other_Health_Insurance_Type"
+          }
+        },
+        {
+          "column_name": "insurance_provider_number",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.Health_Insurance_Number"
           }
         }
       ]
