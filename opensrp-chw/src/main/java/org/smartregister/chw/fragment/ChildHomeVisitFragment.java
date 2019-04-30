@@ -22,12 +22,15 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
 
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.ChildProfileActivity;
 import org.smartregister.chw.activity.ChildRegisterActivity;
@@ -41,11 +44,13 @@ import org.smartregister.chw.util.BirthIllnessData;
 import org.smartregister.chw.util.ChildDBConstants;
 import org.smartregister.chw.util.ChildUtils;
 import org.smartregister.chw.util.Constants;
+import org.smartregister.chw.util.Country;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.family.activity.BaseFamilyProfileActivity;
 import org.smartregister.family.util.DBConstants;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -72,6 +77,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     private TextView nameHeader;
     private TextView textViewBirthCertDueDate;
     private TextView textViewObsIllnessDesc;
+    private TextView textViewCounsellingDesc;
     private HomeVisitGrowthAndNutrition homeVisitGrowthAndNutritionLayout;
     private View viewBirthLine;
     public boolean allVaccineStateFullfilled = false;
@@ -82,9 +88,10 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     private LinearLayout layoutBirthCertGroup;
     private LinearLayout homeVisitLayout;
     private ChildHomeVisitContract.Presenter presenter;
-    private CircleImageView circleImageViewBirthStatus, circleImageViewIllnessStatus;
+    private CircleImageView circleImageViewBirthStatus, circleImageViewIllnessStatus, circleImageViewCounseling;
     private JSONObject illnessJson;
     private JSONObject birthCertJson;
+    private JSONObject counselingForm;
     private String jsonString;
     private boolean isEditMode = false;
     private ProgressBar progressBar;
@@ -116,6 +123,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         nameHeader = view.findViewById(R.id.textview_name_header);
         textViewBirthCertDueDate = view.findViewById(R.id.textview_birth_certification_name);
         textViewObsIllnessDesc = view.findViewById(R.id.textview_obser_illness_name);
+        textViewCounsellingDesc = view.findViewById(R.id.tv_counselling_details);
         TextView textViewObsIllnessTitle = view.findViewById(R.id.textview_obser_illness);
         textViewObsIllnessTitle.setText(Html.fromHtml(getString(R.string.observations_illness_episodes)));
         view.findViewById(R.id.close).setOnClickListener(this);
@@ -123,6 +131,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         submit = view.findViewById(R.id.textview_submit);
         circleImageViewBirthStatus = view.findViewById(R.id.birth_status_circle);
         circleImageViewIllnessStatus = view.findViewById(R.id.obs_illness_status_circle);
+        circleImageViewCounseling = view.findViewById(R.id.ci_counselling);
         layoutBirthCertGroup = view.findViewById(R.id.birth_cert_group);
         LinearLayout layoutIllnessGroup = view.findViewById(R.id.obs_illness_prevention_group);
         RecyclerView recyclerViewBirthCertData = view.findViewById(R.id.birth_cert_data_recycler);
@@ -132,6 +141,13 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         view.findViewById(R.id.textview_submit).setOnClickListener(this);
         layoutBirthCertGroup.setOnClickListener(this);
         layoutIllnessGroup.setOnClickListener(this);
+
+        if (BuildConfig.BUILD_COUNTRY == Country.TANZANIA) {
+            LinearLayout linearLayoutCounseling = view.findViewById(R.id.ll_counselling);
+            linearLayoutCounseling.setOnClickListener(this);
+            linearLayoutCounseling.setVisibility(View.VISIBLE);
+        }
+
         homeVisitGrowthAndNutritionLayout = view.findViewById(R.id.growth_and_nutrition_group);
         homeVisitImmunizationView = view.findViewById(R.id.home_visit_immunization_view);
         immunizationEditView = view.findViewById(R.id.immunization_edit_view);
@@ -139,13 +155,13 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         ((ChildHomeVisitPresenter) presenter).setChildClient(childClient);
         assignNameHeader();
         updateGrowthData();
-        if(isEditMode){
+        if (isEditMode) {
             immunizationEditView.setVisibility(View.VISIBLE);
-            immunizationEditView.setChildClient(getActivity(),childClient);
+            immunizationEditView.setChildClient(getActivity(), childClient);
             homeVisitImmunizationView.setVisibility(View.GONE);
             ((ChildHomeVisitPresenter) presenter).getLastEditData();
             submitButtonEnableDisable(true);
-        }else{
+        } else {
             homeVisitImmunizationView.setActivity(getActivity());
             homeVisitImmunizationView.setChildClient(childClient);
             homeVisitImmunizationView.setEditMode(isEditMode);
@@ -169,7 +185,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                 dobString,
                 getString(R.string.home_visit)
         ));
-        // dobString = dobString.contains("y") ? dobString.substring(0, dobString.indexOf("y")) : "";
+
         String status = ChildUtils.getBirthCertDueStatus(dob);
 
         if (!isEditMode && !TextUtils.isEmpty(birthCert)) {
@@ -178,15 +194,15 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         } else {
             layoutBirthCertGroup.setVisibility(View.VISIBLE);
             viewBirthLine.setVisibility(View.VISIBLE);
-            //DateTime ddd = Utils.dobStringToDateTime(dob);
+
             //check wether it's due or overdue - overdue is 12m+
             BirthCertRule birthCertRule = new BirthCertRule(dob);
-            if(birthCertRule.isOverdue(12)) {
-                Date date= org.smartregister.family.util.Utils.dobStringToDate(dob);
+            if (birthCertRule.isOverdue(12)) {
+                Date date = org.smartregister.family.util.Utils.dobStringToDate(dob);
                 textViewBirthCertDueDate.setTextColor(getResources().getColor(R.color.alert_urgent_red));
                 textViewBirthCertDueDate.setText(String.format("%s%s", getString(R.string.overdue), dd_MMM_yyyy.format(date)));
             } else {
-                Date date= org.smartregister.family.util.Utils.dobStringToDate(dob);
+                Date date = org.smartregister.family.util.Utils.dobStringToDate(dob);
                 textViewBirthCertDueDate.setTextColor(getResources().getColor(R.color.grey));
                 textViewBirthCertDueDate.setText(String.format("%s%s", getString(R.string.due), dd_MMM_yyyy.format(date)));
 
@@ -197,7 +213,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
 
 
     private void updateGrowthData() {
-        homeVisitGrowthAndNutritionLayout.setData(this, getActivity().getFragmentManager(), childClient,isEditMode);
+        homeVisitGrowthAndNutritionLayout.setData(this, getActivity().getFragmentManager(), childClient, isEditMode);
     }
 
 
@@ -233,6 +249,9 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                 // selectedForm = "illness";
                 presenter.startObsIllnessCertForm(illnessJson);
                 break;
+            case R.id.ll_counselling:
+                presenter.startCounselingForm(counselingForm);
+                break;
             case R.id.textview_submit:
                 if (checkAllGiven()) {
 
@@ -244,9 +263,9 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                         JSONObject vaccineGroupObject = new JSONObject().put("groupVaccinesGiven", new JSONArray());
                         //end of not used
                         JSONObject vaccineNotGivenObject;
-                        if(isEditMode){
+                        if (isEditMode) {
                             vaccineNotGivenObject = new JSONObject().put("vaccineNotGiven", new JSONArray(ChildUtils.gsonConverter.toJson(immunizationEditView.getNotGivenVaccine())));
-                        }else{
+                        } else {
                             vaccineNotGivenObject = new JSONObject().put("vaccineNotGiven", new JSONArray(ChildUtils.gsonConverter.toJson(homeVisitImmunizationView.getNotGivenVaccine())));
 
                         }
@@ -256,10 +275,13 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                         if (illnessJson == null) {
                             illnessJson = new JSONObject();
                         }
-                        if(birthCertJson == null){
+                        if (birthCertJson == null) {
                             birthCertJson = new JSONObject();
                         }
-                        ChildUtils.updateHomeVisitAsEvent(childClient.entityId(), Constants.EventType.CHILD_HOME_VISIT, Constants.TABLE_NAME.CHILD, singleVaccineObject, vaccineGroupObject,vaccineNotGivenObject, service,serviceNotGiven, birthCertJson, illnessJson, ChildDBConstants.KEY.LAST_HOME_VISIT, System.currentTimeMillis() + "");
+                        if (counselingForm == null) {
+                            counselingForm = new JSONObject();
+                        }
+                        ChildUtils.updateHomeVisitAsEvent(childClient.entityId(), Constants.EventType.CHILD_HOME_VISIT, Constants.TABLE_NAME.CHILD, singleVaccineObject, vaccineGroupObject, vaccineNotGivenObject, service, serviceNotGiven, birthCertJson, illnessJson, counselingForm, ChildDBConstants.KEY.LAST_HOME_VISIT, System.currentTimeMillis() + "");
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -269,7 +291,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                     if (((ChildHomeVisitPresenter) presenter).getSaveSize() > 0) {
                         presenter.saveForm();
                     }
-                    if(isEditMode){
+                    if (isEditMode) {
                         saveEditData();
                         return;
                     }
@@ -312,12 +334,12 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     private void undoRecord() {
         Observable undoGrowthData = homeVisitGrowthAndNutritionLayout.undoGrowthData();
         Observable undoVaccine;
-        if(isEditMode){
+        if (isEditMode) {
             undoVaccine = immunizationEditView.undoVaccine();
-        }else{
+        } else {
             undoVaccine = homeVisitImmunizationView.undoVaccine();
         }
-        Observable.zip(undoGrowthData,undoVaccine , new BiFunction() {
+        Observable.zip(undoGrowthData, undoVaccine, new BiFunction() {
             @Override
             public Object apply(Object o, Object o2) throws Exception {
                 return null;
@@ -340,8 +362,9 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                 })
                 .subscribe();
     }
-    private void saveEditData(){
-        Observable.zip(immunizationEditView.undoPreviousGivenVaccine(),immunizationEditView.saveGivenThisVaccine() , new BiFunction() {
+
+    private void saveEditData() {
+        Observable.zip(immunizationEditView.undoPreviousGivenVaccine(), immunizationEditView.saveGivenThisVaccine(), new BiFunction() {
             @Override
             public Object apply(Object o, Object o2) throws Exception {
                 return null;
@@ -376,7 +399,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     }
 
     private boolean checkAllGiven() {
-        if(isEditMode) return true;
+        if (isEditMode) return true;
         return allVaccineStateFullfilled && isAllGrowthSelected();
     }
 
@@ -397,7 +420,8 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
             homeVisitLayout.setVisibility(View.GONE);
         }
     }
-    public void forcfullyProgressBarInvisible(){
+
+    public void forcfullyProgressBarInvisible() {
         progressBar.setVisibility(View.GONE);
         homeVisitLayout.setVisibility(View.VISIBLE);
     }
@@ -425,9 +449,9 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     @Override
     public void updateBirthStatusTick() {
         try {
-            if(TextUtils.isEmpty(jsonString)){
-                birthCertJson = new JSONObject().put("birtCert", ((ChildHomeVisitPresenter)presenter).getEditedBirthCertFormJson());
-            }else{
+            if (TextUtils.isEmpty(jsonString)) {
+                birthCertJson = new JSONObject().put("birtCert", ((ChildHomeVisitPresenter) presenter).getEditedBirthCertFormJson());
+            } else {
                 birthCertJson = new JSONObject().put("birtCert", jsonString);
             }
 
@@ -442,9 +466,9 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     @Override
     public void updateObsIllnessStatusTick() {
         try {
-            if(TextUtils.isEmpty(jsonString)){
-                illnessJson = new JSONObject().put("birtCert", ((ChildHomeVisitPresenter)presenter).getEditedIllnessJson());
-            }else {
+            if (TextUtils.isEmpty(jsonString)) {
+                illnessJson = new JSONObject().put("birtCert", ((ChildHomeVisitPresenter) presenter).getEditedIllnessJson());
+            } else {
                 illnessJson = new JSONObject().put("obsIllness", jsonString);
             }
         } catch (JSONException e) {
@@ -452,6 +476,45 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         }
         updateStatusTick(circleImageViewIllnessStatus, true);
         updateIllnessData();
+    }
+
+    @Override
+    public void updateCounselingStatusTick() {
+        try {
+            if (TextUtils.isEmpty(jsonString)) {
+                counselingForm = new JSONObject().put("counseling", ((ChildHomeVisitPresenter) presenter).getEditedCounselingJson());
+            } else {
+                counselingForm = new JSONObject().put("counseling", jsonString);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        updateCounselingData();
+    }
+
+
+    private void updateCounselingData() {
+        ArrayList<BirthIllnessData> data = ((ChildHomeVisitPresenter) presenter).getCounselingDataList();
+        if (data.size() > 0) {
+            BirthIllnessData birthIllnessData = data.get(0);
+
+            if (birthIllnessData.getNotCounseled() != null && birthIllnessData.getNotCounseled().size() > 0) {
+                updateStatusTick(circleImageViewCounseling, false);
+            } else {
+                updateStatusTick(circleImageViewCounseling, true);
+            }
+
+            String message = MessageFormat.format("{0} {1}. {2} {3}",
+                    getString(R.string.counseled),
+                    birthIllnessData.getCounseled().size(),
+                    getString(R.string.not_counseled),
+                    birthIllnessData.getNotCounseled().size()
+            );
+
+            textViewCounsellingDesc.setVisibility(View.VISIBLE);
+            textViewCounsellingDesc.setText(message);
+        }
     }
 
     private void updateBirthCertData() {
@@ -466,10 +529,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                 textViewBirthCertDueDate.setText(getString(R.string.not_done));
                 updateStatusTick(circleImageViewBirthStatus, false);
             }
-
         }
-
-
     }
 
     private void updateIllnessData() {
@@ -510,10 +570,19 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                         Log.d("JSONResult", jsonString);
 
                         JSONObject form = new JSONObject(jsonString);
-                        if (form.getString(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_TYPE).equals(Constants.EventType.BIRTH_CERTIFICATION)
-                                || form.getString(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_TYPE).equals(Constants.EventType.OBS_ILLNESS)
-                        ) {
-                            presenter.generateBirthIllnessForm(jsonString);
+
+                        String encounterType = form.getString(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_TYPE);
+
+                        switch (encounterType) {
+                            case Constants.EventType.BIRTH_CERTIFICATION:
+                            case Constants.EventType.OBS_ILLNESS:
+                                presenter.generateBirthIllnessForm(jsonString);
+                                break;
+                            case Constants.EventType.COUNSELING:
+                                presenter.generateCounselingForm(jsonString);
+                                break;
+                            default:
+                                break;
                         }
                     } catch (Exception e) {
                         Log.e(DIALOG_TAG, Log.getStackTraceString(e));
@@ -538,7 +607,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     @Override
     public void onResume() {
         super.onResume();
-        if(!isEditMode){
+        if (!isEditMode) {
             updateImmunizationState();
         }
         if (getView() == null) return;
@@ -559,8 +628,10 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     }
 
     public void updateImmunizationState() {
-      if(homeVisitImmunizationView.getVisibility() == View.VISIBLE)  homeVisitImmunizationView.updateImmunizationState();
-      if(immunizationEditView.getVisibility() == View.VISIBLE) immunizationEditView.updatePosition();
+        if (homeVisitImmunizationView.getVisibility() == View.VISIBLE)
+            homeVisitImmunizationView.updateImmunizationState();
+        if (immunizationEditView.getVisibility() == View.VISIBLE)
+            immunizationEditView.updatePosition();
     }
 
     public void setChildClient(CommonPersonObjectClient childClient) {

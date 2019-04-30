@@ -1,5 +1,8 @@
 package org.smartregister.chw.util;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class BirthIllnessData {
     private String question;
     private String answer;
@@ -8,6 +11,8 @@ public class BirthIllnessData {
     private String illnessDate;
     private String illnessDescription;
     private String actionTaken;
+    private List<String> counseled = new ArrayList<>();
+    private List<String> notCounseled = new ArrayList<>();
 
     public String getQuestion() {
         return question;
@@ -75,4 +80,19 @@ public class BirthIllnessData {
         this.actionTaken = actionTaken;
     }
 
+    public List<String> getCounseled() {
+        return counseled;
+    }
+
+    public void setCounseled(List<String> counseled) {
+        this.counseled = counseled;
+    }
+
+    public List<String> getNotCounseled() {
+        return notCounseled;
+    }
+
+    public void setNotCounseled(List<String> notCounseled) {
+        this.notCounseled = notCounseled;
+    }
 }
