@@ -167,6 +167,9 @@ public class HomeVisitGrowthNutritionInteractor implements HomeVisitGrowthNutrit
                 return str + " " + no + " month";
             } else if (type.equalsIgnoreCase(GrowthNutritionInputFragment.GROWTH_TYPE.MNP.getValue())) {
                 return str + " " + ChildUtils.getFirstSecondAsNumber(no) + " pack";
+
+            } else if (type.equalsIgnoreCase(GrowthNutritionInputFragment.GROWTH_TYPE.DEWORMING.getValue())) {
+                return str + ChildUtils.getFirstSecondAsNumber(no) + " dose";
             } else {
                 return str + " " + ChildUtils.getFirstSecondAsNumber(no) + " dose";
             }
