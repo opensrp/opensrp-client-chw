@@ -143,6 +143,8 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         layoutIllnessGroup.setOnClickListener(this);
 
         if (BuildConfig.BUILD_COUNTRY == Country.TANZANIA) {
+
+            layoutBirthCertGroup.setVisibility(View.GONE);
             LinearLayout linearLayoutCounseling = view.findViewById(R.id.ll_counselling);
             linearLayoutCounseling.setOnClickListener(this);
             linearLayoutCounseling.setVisibility(View.VISIBLE);
@@ -192,8 +194,10 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
             layoutBirthCertGroup.setVisibility(View.GONE);
             viewBirthLine.setVisibility(View.GONE);
         } else {
-            layoutBirthCertGroup.setVisibility(View.VISIBLE);
-            viewBirthLine.setVisibility(View.VISIBLE);
+            if(BuildConfig.BUILD_COUNTRY == Country.LIBERIA){
+                layoutBirthCertGroup.setVisibility(View.VISIBLE);
+                viewBirthLine.setVisibility(View.VISIBLE);
+            }
 
             //check wether it's due or overdue - overdue is 12m+
             BirthCertRule birthCertRule = new BirthCertRule(dob);
