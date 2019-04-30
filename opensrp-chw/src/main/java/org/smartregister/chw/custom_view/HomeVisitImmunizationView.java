@@ -1,7 +1,6 @@
 package org.smartregister.chw.custom_view;
 
 import android.app.Activity;
-import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.graphics.Typeface;
@@ -13,8 +12,6 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
-
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.joda.time.Months;
@@ -22,13 +19,15 @@ import org.joda.time.Weeks;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.contract.HomeVisitImmunizationContract;
 import org.smartregister.chw.fragment.ChildHomeVisitFragment;
 import org.smartregister.chw.fragment.ChildImmunizationFragment;
 import org.smartregister.chw.fragment.VaccinationDialogFragment;
-import org.smartregister.chw.util.ChildUtils;
 import org.smartregister.chw.presenter.HomeVisitImmunizationPresenter;
+import org.smartregister.chw.util.ChildUtils;
+import org.smartregister.chw.util.Country;
 import org.smartregister.chw.util.HomeVisitVaccineGroup;
 import org.smartregister.chw.util.ImmunizationState;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
@@ -95,6 +94,7 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
     public void setActivity(Activity activity) {
         this.context = activity;
     }
+
     private void initUi() {
         inflate(getContext(), R.layout.view_immunization, this);
         textview_group_immunization_primary_text = (TextView) findViewById(R.id.textview_group_immunization);
@@ -242,9 +242,9 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
                         String duedateString = DateUtil.formatDate(dueDate.toLocalDate(), "dd MMM yyyy");
 
                         String status = state.toString();
-                        if(currentState.equals(ImmunizationState.DUE)){
+                        if (currentState.equals(ImmunizationState.DUE)) {
                             status = context.getResources().getString(R.string.due);
-                        }else if(currentState.equals(ImmunizationState.OVERDUE)){
+                        } else if (currentState.equals(ImmunizationState.OVERDUE)) {
                             status = context.getResources().getString(R.string.overdue);
                         }
 
@@ -425,7 +425,7 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
                     Date dob = dateTime.toDate();
                     List<Vaccine> vaccines = (List<Vaccine>) v.getTag(R.id.vaccinelist);
                     HomeVisitVaccineGroup duevaccines = (HomeVisitVaccineGroup) v.getTag(R.id.nextduevaccinelist);
-                    VaccinationDialogFragment customVaccinationDialogFragment = VaccinationDialogFragment.newInstance(dob,presenter.getNotGivenVaccines(),presenter.createGivenVaccineWrappers(duevaccines), presenter.createVaccineWrappers(duevaccines));
+                    VaccinationDialogFragment customVaccinationDialogFragment = VaccinationDialogFragment.newInstance(dob, presenter.getNotGivenVaccines(), presenter.createGivenVaccineWrappers(duevaccines), presenter.createVaccineWrappers(duevaccines));
                     customVaccinationDialogFragment.setChildDetails(presenter.getchildClient());
                     customVaccinationDialogFragment.setView(this);
                     customVaccinationDialogFragment.show(ft, ChildImmunizationFragment.TAG);
@@ -446,7 +446,7 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
                     }
                     List<Vaccine> vaccines = (List<Vaccine>) v.getTag(R.id.vaccinelist);
                     if (vaccineWrappers.size() >= 1) {
-                        VaccinationDialogFragment customVaccinationDialogFragment = VaccinationDialogFragment.newInstance(dob, new ArrayList<VaccineWrapper>(),new ArrayList<VaccineWrapper>(), vaccineWrappers);
+                        VaccinationDialogFragment customVaccinationDialogFragment = VaccinationDialogFragment.newInstance(dob, new ArrayList<VaccineWrapper>(), new ArrayList<VaccineWrapper>(), vaccineWrappers);
                         customVaccinationDialogFragment.setChildDetails(presenter.getchildClient());
                         customVaccinationDialogFragment.setView(this);
                         customVaccinationDialogFragment.show(ft, ChildImmunizationFragment.TAG);
@@ -480,7 +480,7 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
     }
 
     @Override
-    public void immunizationState(List<Alert> alerts, List<Vaccine> vaccines,Map<String, Date> receivedVaccine, List<Map<String, Object>> sch) {
+    public void immunizationState(List<Alert> alerts, List<Vaccine> vaccines, Map<String, Date> receivedVaccine, List<Map<String, Object>> sch) {
         refreshPresenter(alerts, vaccines, sch);
         ChildHomeVisitFragment childHomeVisitFragment = (ChildHomeVisitFragment) context.getFragmentManager().findFragmentByTag(ChildHomeVisitFragment.DIALOG_TAG);
         if (childHomeVisitFragment == null) {
@@ -527,7 +527,8 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
         JSONArray jsonObject = getVaccineWrapperListAsJson(groupVaccinesGivenThisVisit);
         return jsonObject;
     }
-    public ArrayList<VaccineWrapper> getNotGivenVaccine(){
+
+    public ArrayList<VaccineWrapper> getNotGivenVaccine() {
         return presenter.getNotGivenVaccines();
     }
 
@@ -569,8 +570,15 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
             if (months >= 9) {
                 elligibleVaccineGroups.add("9 months");
             }
-            if (months >= 15) {
-                elligibleVaccineGroups.add("15 months");
+            if (BuildConfig.BUILD_COUNTRY == Country.LIBERIA) {
+                if (months >= 15) {
+                    elligibleVaccineGroups.add("15 months");
+                }
+            }
+            if (BuildConfig.BUILD_COUNTRY == Country.TANZANIA) {
+                if (months >= 18) {
+                    elligibleVaccineGroups.add("18 months");
+                }
             }
         }
     }
