@@ -246,4 +246,8 @@
     <string name="edu_level_primary">Primary</string>
     <string name="edu_level_secondary">Secondary</string>
     <string name="edu_level_post_secondary">Post-secondary</string>
+
+    <string name="counseled">Counseled : </string>
+    <string name="not_counseled">Not counseled : </string>
+
 </resources>
