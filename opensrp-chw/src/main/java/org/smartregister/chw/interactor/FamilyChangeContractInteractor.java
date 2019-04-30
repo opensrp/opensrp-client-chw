@@ -8,10 +8,12 @@ import android.util.Pair;
 
 import org.apache.commons.lang3.tuple.Triple;
 import org.json.JSONObject;
+import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.contract.FamilyChangeContract;
 import org.smartregister.chw.domain.FamilyMember;
 import org.smartregister.chw.util.Constants;
+import org.smartregister.chw.util.Country;
 import org.smartregister.chw.util.JsonFormUtils;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.clientandeventmodel.Client;
@@ -179,19 +181,34 @@ public class FamilyChangeContractInteractor implements FamilyChangeContract.Inte
     }
 
     private List<FamilyMember> getFamilyMembers(String familyID) {
+        String info_columns;
+        if (BuildConfig.BUILD_COUNTRY == Country.TANZANIA) {
 
-        String info_columns = DBConstants.KEY.RELATIONAL_ID + " , " +
-                DBConstants.KEY.BASE_ENTITY_ID + " , " +
-                DBConstants.KEY.FIRST_NAME + " , " +
-                DBConstants.KEY.MIDDLE_NAME + " , " +
-                DBConstants.KEY.LAST_NAME + " , " +
-                DBConstants.KEY.PHONE_NUMBER + " , " +
-                DBConstants.KEY.OTHER_PHONE_NUMBER + " , " +
-                DBConstants.KEY.HIGHEST_EDU_LEVEL + " , " +
-                DBConstants.KEY.DOB + " , " +
-                DBConstants.KEY.DOD + " , " +
-                DBConstants.KEY.GENDER;
+            info_columns = DBConstants.KEY.RELATIONAL_ID + " , " +
+                    DBConstants.KEY.BASE_ENTITY_ID + " , " +
+                    DBConstants.KEY.FIRST_NAME + " , " +
+                    DBConstants.KEY.MIDDLE_NAME + " , " +
+                    DBConstants.KEY.LAST_NAME + " , " +
+                    DBConstants.KEY.PHONE_NUMBER + " , " +
+                    DBConstants.KEY.OTHER_PHONE_NUMBER + " , " +
+                    DBConstants.KEY.DOB + " , " +
+                    DBConstants.KEY.DOD + " , " +
+                    DBConstants.KEY.GENDER;
 
+        } else {
+            info_columns = DBConstants.KEY.RELATIONAL_ID + " , " +
+                    DBConstants.KEY.BASE_ENTITY_ID + " , " +
+                    DBConstants.KEY.FIRST_NAME + " , " +
+                    DBConstants.KEY.MIDDLE_NAME + " , " +
+                    DBConstants.KEY.LAST_NAME + " , " +
+                    DBConstants.KEY.PHONE_NUMBER + " , " +
+                    DBConstants.KEY.OTHER_PHONE_NUMBER + " , " +
+                    DBConstants.KEY.HIGHEST_EDU_LEVEL + " , " +
+                    DBConstants.KEY.DOB + " , " +
+                    DBConstants.KEY.DOD + " , " +
+                    DBConstants.KEY.GENDER;
+
+        }
         String sql = String.format("select %s from %s where %s = '%s' and %s is null and %s is null ",
                 info_columns,
                 Utils.metadata().familyMemberRegister.tableName,
