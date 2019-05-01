@@ -100,7 +100,7 @@ public class FamilyChangeContractInteractor implements FamilyChangeContract.Inte
                 String option = familyMember.first; // familyMember.get(Constants.PROFILE_CHANGE_ACTION.ACTION_TYPE);
 
                 final FamilyMember member = familyMember.second;
-                member.setFamilyID(familyID);
+                member.setFamilyID( familyID);
                 member.setPrimaryCareGiver(Constants.PROFILE_CHANGE_ACTION.PRIMARY_CARE_GIVER.equals(option));
                 member.setFamilyHead(Constants.PROFILE_CHANGE_ACTION.HEAD_OF_FAMILY.equals(option));
 
