@@ -1,6 +1,7 @@
 package org.smartregister.chw.util;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.text.TextUtils;
 import android.util.Log;
@@ -16,6 +17,7 @@ import org.joda.time.LocalDate;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.domain.FamilyMember;
@@ -59,7 +61,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import timber.log.Timber;
+
 import static org.apache.commons.lang3.StringUtils.isBlank;
+import static org.smartregister.util.AssetHandler.jsonStringToJava;
 
 /**
  * Created by keyman on 13/11/2018.
@@ -471,8 +476,59 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
         return null;
     }
 
+
+    private static Pair<Event, Client> getEditMemberLatestProperties(String baseEntityID) {
+
+        Event ecEvent = null;
+        Client ecClient = null;
+
+
+        String query_client = "select json from client where baseEntityId = ? order by updatedAt desc";
+        Cursor cursor = ChwApplication.getInstance().getRepository().getReadableDatabase().rawQuery(query_client, new String[]{baseEntityID});
+        try {
+            cursor.moveToFirst();
+
+            while (!cursor.isAfterLast()) {
+                ecClient = jsonStringToJava(cursor.getString(0), Client.class);
+                cursor.moveToNext();
+            }
+        } catch (Exception e) {
+            Timber.e(e, e.toString());
+        } finally {
+            cursor.close();
+        }
+
+
+        String query_event = String.format("select json from event where baseEntityId = '%s' and eventType in ('%s','%s') order by updatedAt desc limit 1;",
+                baseEntityID, org.smartregister.chw.util.Constants.EventType.UPDATE_FAMILY_MEMBER_REGISTRATION, org.smartregister.chw.util.Constants.EventType.FAMILY_MEMBER_REGISTRATION);
+
+        Cursor cursor1 = ChwApplication.getInstance().getRepository().getReadableDatabase().rawQuery(query_event, new String[]{});
+        try {
+            cursor1.moveToFirst();
+
+            while (!cursor1.isAfterLast()) {
+                ecEvent = jsonStringToJava(cursor1.getString(0), Event.class);
+                cursor1.moveToNext();
+            }
+        } catch (Exception e) {
+            Timber.e(e, e.toString());
+        } finally {
+            cursor1.close();
+        }
+
+        return Pair.create(ecEvent, ecClient);
+    }
+
     public static JSONObject getAutoPopulatedJsonEditMemberFormString(String title, String formName, Context context, CommonPersonObjectClient client, String eventType, String familyName, boolean isPrimaryCaregiver) {
         try {
+
+            // get the event and the client from ec model
+            Pair<Event, Client> eventClientPair = Pair.create(null, null);
+            if (BuildConfig.BUILD_COUNTRY == Country.TANZANIA) {
+                eventClientPair = getEditMemberLatestProperties(client.getCaseId());
+            }
+
+
             JSONObject form = FormUtils.getInstance(context).getFormJson(formName);
             LocationPickerView lpv = new LocationPickerView(context);
             lpv.init();
@@ -499,7 +555,7 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
 
-                    processPopulatableFieldsForMemberEdit(client, jsonObject, jsonArray, familyName, isPrimaryCaregiver);
+                    processPopulatableFieldsForMemberEdit(client, jsonObject, jsonArray, familyName, isPrimaryCaregiver, eventClientPair.first, eventClientPair.second);
 
                 }
 
@@ -609,7 +665,7 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
         }
     }
 
-    public static void processPopulatableFieldsForMemberEdit(CommonPersonObjectClient client, JSONObject jsonObject, JSONArray jsonArray, String familyName, boolean isPrimaryCaregiver) throws JSONException {
+    public static void processPopulatableFieldsForMemberEdit(CommonPersonObjectClient client, JSONObject jsonObject, JSONArray jsonArray, String familyName, boolean isPrimaryCaregiver, Event ecEvent, Client ecClient) throws JSONException {
 
         switch (jsonObject.getString(org.smartregister.family.util.JsonFormUtils.KEY).toLowerCase()) {
             case Constants.JSON_FORM_KEY.DOB_UNKNOWN: {
@@ -766,11 +822,41 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
                 break;
 
             case org.smartregister.chw.util.Constants.JsonAssets.SERVICE_PROVIDER:
-                jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), ChwDBConstants.SERVICE_PROVIDER, false));
+
+                // iterate and update all options wit the values from ec object
+
+                if (ecEvent != null) {
+                    for (int i = 0; i < jsonObject.getJSONArray("options").length(); i++) {
+                        JSONObject obj = jsonObject.getJSONArray("options").getJSONObject(i);
+                        String id = obj.getString("openmrs_entity_id");
+                        for (Obs obs : ecEvent.getObs()) {
+                            if (obs.getValues() != null && obs.getValues().contains(id)) {
+                                obj.put("value", true);
+                            }
+                        }
+                    }
+                }
+
+
                 break;
 
             case org.smartregister.chw.util.Constants.JsonAssets.LEADER:
-                jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), ChwDBConstants.LEADER, false));
+
+                if (ecClient != null) {
+                    for (int i = 0; i < jsonObject.getJSONArray("options").length(); i++) {
+                        JSONObject obj = jsonObject.getJSONArray("options").getJSONObject(i);
+                        String key = obj.getString("key");
+
+                        String leader = (String) ecClient.getAttribute("Community_Leader");
+
+                        if (leader.contains(key)) {
+                            obj.put("value", true);
+                        } else {
+                            obj.put("value", false);
+                        }
+                    }
+                }
+
                 break;
 
             case org.smartregister.chw.util.Constants.JsonAssets.OTHER_LEADER:

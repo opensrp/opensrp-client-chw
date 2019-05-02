@@ -135,6 +135,14 @@ public class Constants {
             public static final String NONE = "chk_none";
         }
 
+        public static class CHK_SERVICE_PROVIDER {
+            public static final String chk_chw = "chk_chw";
+            public static final String chk_cbd = "chk_cbd";
+            public static final String chk_cimmci = "chk_cimmci";
+            public static final String PASSPORT = "chk_passport";
+            public static final String NONE = "chk_none";
+        }
+
         public static class FAMILY_MEMBER {
             public static final String HIGHEST_EDUCATION_LEVEL = "highest_edu_level";
             public static final String PHONE_NUMBER = "phone_number";
