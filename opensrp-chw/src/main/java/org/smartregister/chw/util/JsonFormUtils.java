@@ -743,6 +743,7 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
                 break;
 
             case org.smartregister.chw.util.Constants.JsonAssets.PRIMARY_CARE_GIVER:
+            case org.smartregister.chw.util.Constants.JsonAssets.IS_PRIMARY_CARE_GIVER:
                 if (isPrimaryCaregiver) {
                     jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, "Yes");
                     jsonObject.put(org.smartregister.family.util.JsonFormUtils.READ_ONLY, true);
