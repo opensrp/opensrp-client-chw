@@ -273,7 +273,7 @@ public class HomeVisitGrowthAndNutrition extends LinearLayout implements View.On
     }
 
     public boolean isAllSelected() {
-        return presenter.isAllSelected();
+        return ((HomeVisitGrowthNutritionPresenter)presenter).isAllSelected();
     }
 
     public Map<String, ServiceWrapper> returnSaveStateMap() {

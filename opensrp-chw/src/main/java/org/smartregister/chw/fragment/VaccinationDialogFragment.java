@@ -25,16 +25,22 @@ import android.widget.Toast;
 
 import com.vijay.jsonwizard.customviews.CheckBox;
 
+import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.custom_view.ImmunizationView;
+import org.smartregister.chw.util.JsonFormUtils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.util.DBConstants;
+import org.smartregister.family.util.Utils;
+import org.smartregister.immunization.ImmunizationLibrary;
 import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.immunization.domain.ServiceSchedule;
+import org.smartregister.immunization.domain.Vaccine;
 import org.smartregister.immunization.domain.VaccineSchedule;
 import org.smartregister.immunization.domain.VaccineWrapper;
+import org.smartregister.immunization.repository.VaccineRepository;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -43,6 +49,10 @@ import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
 
 import static org.smartregister.chw.util.ChildUtils.fixVaccineCasing;
 
@@ -66,6 +76,7 @@ public class VaccinationDialogFragment extends DialogFragment implements View.On
     private Map<VaccineWrapper, DatePicker> singleVaccineMap = new LinkedHashMap<>();
     private CommonPersonObjectClient childDetails;
     private String groupName;
+    private VaccineRepository vaccineRepository;
 
     public static VaccinationDialogFragment newInstance(Date dateOfBirth, ArrayList<VaccineWrapper> notGiven, ArrayList<VaccineWrapper> given,
                                                         ArrayList<VaccineWrapper> tags, String groupName) {
@@ -134,6 +145,7 @@ public class VaccinationDialogFragment extends DialogFragment implements View.On
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        vaccineRepository = ImmunizationLibrary.getInstance().vaccineRepository();
         parseBundleData();
         updateDatePicker(earlierDatePicker);
         updateVaccineList();
@@ -280,7 +292,9 @@ public class VaccinationDialogFragment extends DialogFragment implements View.On
                 }
             }
         }
-
+        if(tagsToUpdate.size() > 0){
+            saveGivenVaccine(childDetails,tagsToUpdate);
+        }
         immunizationView.getPresenter().assigntoGivenVaccines(tagsToUpdate);
 
 
@@ -300,7 +314,9 @@ public class VaccinationDialogFragment extends DialogFragment implements View.On
                 }
             }
         }
-
+        if(tagsToUpdate.size() > 0){
+            saveGivenVaccine(childDetails,tagsToUpdate);
+        }
         immunizationView.getPresenter().assigntoGivenVaccines(tagsToUpdate);
 
 
@@ -314,15 +330,79 @@ public class VaccinationDialogFragment extends DialogFragment implements View.On
                 if (validateVaccinationDate(dateOfBirth, dateTime.toDate())) {
                     untag.setUpdatedVaccineDate(dateTime, false);
                     UngiventagsToUpdate.add(untag);
+
                 } else {
                     showToast(String.format(getString(R.string.cannot_record_vaccine),
                             untag.getName()));
                 }
             }
         }
+        if(UngiventagsToUpdate.size()>0){
+            undoPreviousGivenVaccine(childDetails,UngiventagsToUpdate);
+        }
+
         immunizationView.getPresenter().assignToNotGivenVaccines(UngiventagsToUpdate, groupName);
 
 
+    }
+    private void saveGivenVaccine(final CommonPersonObjectClient childClient, final ArrayList<VaccineWrapper> givenVaccine) {
+//
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+                for (VaccineWrapper tag : givenVaccine) {
+                    saveVaccine(tag, childClient);
+                }
+                String dobString = org.smartregister.util.Utils.getValue(childClient.getColumnmaps(), "dob", false);
+                if (!TextUtils.isEmpty(dobString)) {
+                    DateTime dateTime = new DateTime(dobString);
+                    VaccineSchedule.updateOfflineAlerts(childClient.entityId(), dateTime, "child");
+                }
+//            }
+//        }).start();
+    }
+    private void undoPreviousGivenVaccine(final CommonPersonObjectClient childClient, final ArrayList<VaccineWrapper> notGivenVaccine) {
+
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+                for(VaccineWrapper untag:notGivenVaccine){
+
+                    if(isExistInGiven(untag.getName())){
+                        Long dbKey = untag.getDbKey();
+                        vaccineRepository.deleteVaccine(dbKey);
+                    }
+                }
+                String dobString = org.smartregister.util.Utils.getValue(childClient.getColumnmaps(), "dob", false);
+                if (!TextUtils.isEmpty(dobString)) {
+                    DateTime dateTime = new DateTime(dobString);
+                    VaccineSchedule.updateOfflineAlerts(childClient.entityId(), dateTime, "child");
+                }
+//            }
+//        }).start();
+    }
+    private void saveVaccine(VaccineWrapper tag, CommonPersonObjectClient childClient) {
+        if (tag.getUpdatedVaccineDate() == null) {
+            return;
+        }
+        Vaccine vaccine = new Vaccine();
+        if (tag.getDbKey() != null) {
+            vaccine = vaccineRepository.find(tag.getDbKey());
+        }
+        vaccine.setBaseEntityId(childClient.entityId());
+        vaccine.setName(tag.getName());
+        vaccine.setDate(tag.getUpdatedVaccineDate().toDate());
+
+        String lastChar = vaccine.getName().substring(vaccine.getName().length() - 1);
+        if (StringUtils.isNumeric(lastChar)) {
+            vaccine.setCalculation(Integer.valueOf(lastChar));
+        } else {
+            vaccine.setCalculation(-1);
+        }
+
+        JsonFormUtils.tagSyncMetadata(Utils.context().allSharedPreferences(), vaccine);
+        vaccineRepository.add(vaccine);
+        tag.setDbKey(vaccine.getId());
     }
 
     private Context getApplicationContext() {
@@ -412,7 +492,7 @@ public class VaccinationDialogFragment extends DialogFragment implements View.On
         return false;
     }
 
-    /*
+
     private boolean isExistInGiven(String name) {
         for (VaccineWrapper vaccineWrapper : givenList) {
             if (vaccineWrapper.getName().equalsIgnoreCase(name)) {
@@ -421,7 +501,7 @@ public class VaccinationDialogFragment extends DialogFragment implements View.On
         }
         return false;
     }
-    */
+
 
     @Override
     public void onResume() {

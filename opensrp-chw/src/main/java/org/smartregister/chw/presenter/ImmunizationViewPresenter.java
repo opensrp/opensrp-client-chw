@@ -41,6 +41,7 @@ public class ImmunizationViewPresenter implements ImmunizationContact.Presenter,
     private ArrayList<VaccineWrapper> notGivenGroupWiseVaccines = new ArrayList<VaccineWrapper>();
     private ArrayList<String> saveGroupList = new ArrayList<>();
     private final VaccineRepository vaccineRepository;
+    private String groupName = "";
 
     public ImmunizationViewPresenter(ImmunizationContact.View view) {
         this.view = new WeakReference<>(view);
@@ -58,7 +59,8 @@ public class ImmunizationViewPresenter implements ImmunizationContact.Presenter,
     }
 
     @Override
-    public void fetchImmunizationData(CommonPersonObjectClient commonPersonObjectClient) {
+    public void fetchImmunizationData(CommonPersonObjectClient commonPersonObjectClient,String groupName) {
+        this.groupName = groupName;
         interactor.fetchImmunizationData(commonPersonObjectClient, this);
     }
 
@@ -83,31 +85,47 @@ public class ImmunizationViewPresenter implements ImmunizationContact.Presenter,
 
     @Override
     public void updateData(ArrayList<HomeVisitVaccineGroup> homeVisitVaccineGroupDetails, Map<String, Date> vaccines) {
-        //remove if no due vaccine found for the group.
-        //if all due vaccine is same as given vaccine so remove the row
-        for (Iterator<HomeVisitVaccineGroup> iterator = homeVisitVaccineGroupDetails.iterator(); iterator.hasNext(); ) {
-            HomeVisitVaccineGroup homeVisitVaccineGroup = iterator.next();
-            if (homeVisitVaccineGroup.getDueVaccines().size() == 0) {
-                iterator.remove();
-            }
-            if (homeVisitVaccineGroup.getDueVaccines().size() != 0 && (
-                    homeVisitVaccineGroup.getDueVaccines().size() == homeVisitVaccineGroup.getGivenVaccines().size())) {
-                iterator.remove();
-            }
 
-        }
-        for (int i = 0; i < homeVisitVaccineGroupDetails.size(); i++) {
-            HomeVisitVaccineGroup homeVisitVaccineGroup = homeVisitVaccineGroupDetails.get(i);
-            if (i == 0) {
-                homeVisitVaccineGroup.setViewType(HomeVisitVaccineGroup.TYPE_INITIAL);
-            } else {
-                homeVisitVaccineGroup.setViewType(HomeVisitVaccineGroup.TYPE_INACTIVE);
+
+        if(!TextUtils.isEmpty(groupName)){
+            saveGroupList.remove(groupName);
+            for(HomeVisitVaccineGroup homeVisitVaccineGroup:homeVisitVaccineGroupDetails){
+                if(isUpdateRow(homeVisitVaccineGroup)){
+                    break;
+                }
+                Log.logError("SUBMIT_CHECK","updateData>>");
+
             }
+            getView().onUpdateNextPosition();
+
+            getView().updateSubmitBtn();
+        }else{
+            this.homeVisitVaccineGroupDetails = homeVisitVaccineGroupDetails;
+            for (int i = 0; i < this.homeVisitVaccineGroupDetails.size(); i++) {
+                HomeVisitVaccineGroup homeVisitVaccineGroup = this.homeVisitVaccineGroupDetails.get(i);
+                if (i == 0) {
+                    homeVisitVaccineGroup.setViewType(HomeVisitVaccineGroup.TYPE_INITIAL);
+                } else {
+                    homeVisitVaccineGroup.setViewType(HomeVisitVaccineGroup.TYPE_INACTIVE);
+                }
+            }
+            getView().allDataLoaded();
+            getView().updateAdapter(0);
+
+            getView().updateSubmitBtn();
         }
 
-        this.homeVisitVaccineGroupDetails = homeVisitVaccineGroupDetails;
-        getView().allDataLoaded();
-        getView().updateAdapter(0);
+    }
+    private boolean isUpdateRow(HomeVisitVaccineGroup homeVisitVaccineGroup){
+        int size = this.homeVisitVaccineGroupDetails.size();
+        for(int i=0;i<size;i++){
+            HomeVisitVaccineGroup hhh = this.homeVisitVaccineGroupDetails.get(i);
+            if(hhh.getGroup().equalsIgnoreCase(homeVisitVaccineGroup.getGroup()) && homeVisitVaccineGroup.getGroup().equalsIgnoreCase(groupName)){
+                this.homeVisitVaccineGroupDetails.set(i,homeVisitVaccineGroup);
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
@@ -171,7 +189,6 @@ public class ImmunizationViewPresenter implements ImmunizationContact.Presenter,
                 vaccinesGivenThisVisit.add(name);
             }
         }
-        getView().updateSubmitBtn();
     }
 
     public void assignToNotGivenVaccines(ArrayList<VaccineWrapper> tagsToUpdate, String groupName) {
@@ -185,7 +202,6 @@ public class ImmunizationViewPresenter implements ImmunizationContact.Presenter,
                 notGivenVaccines.add(name);
             }
         }
-        getView().updateSubmitBtn();
     }
     public boolean isFirstEntry(String groupName){
         return !saveGroupList.contains(groupName);
@@ -302,6 +318,14 @@ public class ImmunizationViewPresenter implements ImmunizationContact.Presenter,
         tag.setDbKey(vaccine.getId());
     }
     public boolean isAllSelected(){
-        return   saveGroupList.size() == homeVisitVaccineGroupDetails.size();
+        for(HomeVisitVaccineGroup homeVisitVaccineGroup:homeVisitVaccineGroupDetails){
+            if(homeVisitVaccineGroup.getViewType()!= HomeVisitVaccineGroup.TYPE_ACTIVE){
+                return false;
+            }
+        }
+        return true;
+//        org.smartregister.util.Log.logError("SUBMIT_BTN","saveGroupList.size()>>"+saveGroupList.size()+": "+homeVisitVaccineGroupDetails.size());
+//
+//        return   saveGroupList.size() == homeVisitVaccineGroupDetails.size();
     }
 }

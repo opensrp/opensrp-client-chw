@@ -18,11 +18,12 @@ public interface ImmunizationContact {
         void updateAdapter(int position);
 
         void updateSubmitBtn();
+        void onUpdateNextPosition();
     }
 
     interface Presenter {
 
-        void fetchImmunizationData(CommonPersonObjectClient commonPersonObjectClient);
+        void fetchImmunizationData(CommonPersonObjectClient commonPersonObjectClient,String groupName);
 
         void fetchImmunizationEditData(CommonPersonObjectClient commonPersonObjectClient);
 

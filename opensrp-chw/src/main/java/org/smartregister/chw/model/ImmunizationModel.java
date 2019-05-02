@@ -9,6 +9,7 @@ import org.smartregister.immunization.domain.Vaccine;
 import org.smartregister.immunization.domain.VaccineWrapper;
 import org.smartregister.immunization.util.VaccinateActionUtils;
 import org.smartregister.util.DateUtil;
+import org.smartregister.util.Log;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -39,6 +40,7 @@ public class ImmunizationModel {
             if (vaccine.category().equalsIgnoreCase("child")) {
 
                 String stateKey = VaccinateActionUtils.stateKey(vaccine);
+                if(stateKey.equalsIgnoreCase("18 months")) continue;
                 if (isNotBlank(stateKey)) {
 
                     Integer position = vaccineGroupMap.get(stateKey);

@@ -20,6 +20,7 @@ import org.smartregister.chw.util.HomeVisitVaccineGroup;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.immunization.domain.VaccineWrapper;
+import org.smartregister.util.Log;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -27,6 +28,9 @@ import java.util.Date;
 import io.reactivex.Observable;
 
 public class ImmunizationView extends LinearLayout implements ImmunizationContact.View {
+
+    private final String W_10 ="10 weeks";
+    private final String W_14 ="14 weeks";
 
     private RecyclerView recyclerView;
     private ImmunizationAdapter adapter;
@@ -72,7 +76,7 @@ public class ImmunizationView extends LinearLayout implements ImmunizationContac
         if (isEditMode) {
             presenter.fetchImmunizationEditData(childClient);
         } else {
-            presenter.fetchImmunizationData(childClient);
+            presenter.fetchImmunizationData(childClient,"");
         }
 
     }
@@ -112,8 +116,7 @@ public class ImmunizationView extends LinearLayout implements ImmunizationContac
             childHomeVisitFragment.submitButtonEnableDisable(true);
         }
         if (adapter == null) {
-            adapter = new ImmunizationAdapter(getContext(), onClickEditAdapter);
-            adapter.addItem(presenter.getHomeVisitVaccineGroupDetails());
+            adapter = new ImmunizationAdapter(getContext(), onClickEditAdapter,presenter);
             recyclerView.setAdapter(adapter);
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         } else {
@@ -150,20 +153,34 @@ public class ImmunizationView extends LinearLayout implements ImmunizationContac
         ArrayList<VaccineRepo.Vaccine> notGiven = presenter.convertNotVaccineWrapperListToVaccineRepo();
         if (givenList.size() == 0 && notGiven.size() == 0) return;
         HomeVisitVaccineGroup selectedGroup = presenter.getHomeVisitVaccineGroupDetails().get(pressPosition);
-
         selectedGroup.setViewType(HomeVisitVaccineGroup.TYPE_ACTIVE);
         selectedGroup.getGivenVaccines().clear();
         selectedGroup.getGivenVaccines().addAll(givenList);
         selectedGroup.getNotGivenVaccines().clear();
         selectedGroup.getNotGivenVaccines().addAll(notGiven);
         updateAdapter(pressPosition);
-        if (!isEditMode && (pressPosition + 1) < presenter.getHomeVisitVaccineGroupDetails().size()) {
+        if ((pressPosition + 1) < presenter.getHomeVisitVaccineGroupDetails().size()) {
             HomeVisitVaccineGroup nextSelectedGroup = presenter.getHomeVisitVaccineGroupDetails().get(pressPosition + 1);
-            if (nextSelectedGroup.getViewType() == HomeVisitVaccineGroup.TYPE_INACTIVE) {
-                nextSelectedGroup.setViewType(HomeVisitVaccineGroup.TYPE_INITIAL);
+            if(nextSelectedGroup.getGroup().equalsIgnoreCase(W_10)
+                    || nextSelectedGroup.getGroup().equalsIgnoreCase(W_14)){
+                presenter.fetchImmunizationData(childClient,nextSelectedGroup.getGroup());
+            }else{
+                if (nextSelectedGroup.getViewType() == HomeVisitVaccineGroup.TYPE_INACTIVE) {
+                    nextSelectedGroup.setViewType(HomeVisitVaccineGroup.TYPE_INITIAL);
+                }
+                updateAdapter(pressPosition + 1);
             }
-            updateAdapter(pressPosition + 1);
+
         }
+    }
+    @Override
+    public void onUpdateNextPosition(){
+        Log.logError("SUBMIT_CHECK","onUpdateNextPosition>>");
+        HomeVisitVaccineGroup nextSelectedGroup = presenter.getHomeVisitVaccineGroupDetails().get(pressPosition + 1);
+        //if (nextSelectedGroup.getViewType() == HomeVisitVaccineGroup.TYPE_INACTIVE) {
+            nextSelectedGroup.setViewType(HomeVisitVaccineGroup.TYPE_INITIAL);
+        //}
+        updateAdapter(pressPosition + 1);
     }
 
     @Override

@@ -115,17 +115,6 @@ public class HomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNutriti
 
     }
 
-    @Override
-    public boolean isSelected(String type) {
-        for (String key : saveStateMap.keySet()) {
-            if (key.equalsIgnoreCase(type)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    @Override
     public boolean isAllSelected() {
         Log.logError("SUBMIT_BUTTON","isAllSelected>>"+saveGroupList.size()+": "+initialCount);
         return saveGroupList.size() == initialCount;

@@ -63,7 +63,7 @@ public class UpcomingServicesFragmentView extends LinearLayout implements View.O
         this.childClient = childClient;
         this.context = context;
         removeAllViews();
-        presenter.fetchImmunizationData(childClient);
+        presenter.fetchImmunizationData(childClient,"");
     }
 
 
@@ -120,6 +120,11 @@ public class UpcomingServicesFragmentView extends LinearLayout implements View.O
 
     @Override
     public void updateSubmitBtn() {
+        //no need to do
+    }
+
+    @Override
+    public void onUpdateNextPosition() {
         //no need to do
     }
 

@@ -56,6 +56,7 @@ import io.reactivex.functions.Action;
 import io.reactivex.functions.BiFunction;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
+import timber.log.Timber;
 
 import static org.smartregister.chw.util.ChildDBConstants.KEY.BIRTH_CERT;
 import static org.smartregister.chw.util.Utils.dd_MMM_yyyy;
@@ -138,7 +139,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         if(isEditMode){
             immunizationView.setChildClient(this,getActivity(),childClient,true);
             ((ChildHomeVisitPresenter) presenter).getLastEditData();
-            submitButtonEnableDisable(true);
+            submitButtonEnableDisable(false);
         }else{
             immunizationView.setChildClient(this,getActivity(),childClient,false);
             submitButtonEnableDisable(false);
@@ -259,11 +260,11 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                     if (((ChildHomeVisitPresenter) presenter).getSaveSize() > 0) {
                         presenter.saveForm();
                     }
-                    //if(isEditMode){
+                    if(isEditMode){
                         saveData();
-//                        return;
-//                    }
-//                    dismiss();
+                        return;
+                    }
+                    dismiss();
                 }
                 break;
             case R.id.close:
@@ -362,7 +363,8 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     }
 
     private boolean checkAllGiven() {
-        if(isEditMode) return true;
+        //if(isEditMode) return true;
+        org.smartregister.util.Log.logError("SUBMIT_BTN","checkAllGiven>>"+isAllImmunizationSelected()+": "+isAllGrowthSelected());
         return  isAllImmunizationSelected() && isAllGrowthSelected();
     }
 
