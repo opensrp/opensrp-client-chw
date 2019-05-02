@@ -754,33 +754,19 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
 
             case org.smartregister.chw.util.Constants.JsonAssets.ID_AVAIL:
 
-                JSONArray options = jsonObject.getJSONArray(org.smartregister.family.util.Constants.JSON_FORM_KEY.OPTIONS);
-                int x = 0;
-                while (x < options.length()) {
-                    JSONObject optionsObject = options.getJSONObject(x);
-                    boolean hasValue;
+                if (ecClient != null) {
+                    for (int i = 0; i < jsonObject.getJSONArray("options").length(); i++) {
+                        JSONObject obj = jsonObject.getJSONArray("options").getJSONObject(i);
+                        String key = obj.getString("key");
 
-                    switch (optionsObject.getString(org.smartregister.family.util.JsonFormUtils.KEY)) {
-                        case org.smartregister.chw.util.Constants.JsonAssets.CHK_ID_AVAIL.NATIONAL_ID:
-                            hasValue = StringUtils.isNotBlank(Utils.getValue(client.getColumnmaps(), ChwDBConstants.NATIONAL_ID, false));
-                            optionsObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, hasValue ? "true" : "false");
-                            break;
-                        case org.smartregister.chw.util.Constants.JsonAssets.CHK_ID_AVAIL.VOTER_ID:
-                            hasValue = StringUtils.isNotBlank(Utils.getValue(client.getColumnmaps(), ChwDBConstants.VOTER_ID, false));
-                            optionsObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, hasValue ? "true" : "false");
-                            break;
-                        case org.smartregister.chw.util.Constants.JsonAssets.CHK_ID_AVAIL.DRIVER_LICENSE:
-                            hasValue = StringUtils.isNotBlank(Utils.getValue(client.getColumnmaps(), ChwDBConstants.DRIVER_LICENSE, false));
-                            optionsObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, hasValue ? "true" : "false");
-                            break;
-                        case org.smartregister.chw.util.Constants.JsonAssets.CHK_ID_AVAIL.PASSPORT:
-                            hasValue = StringUtils.isNotBlank(Utils.getValue(client.getColumnmaps(), ChwDBConstants.PASSPORT, false));
-                            optionsObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, hasValue ? "true" : "false");
-                            break;
-                        default:
-                            break;
+                        String val = (String) ecClient.getAttribute("id_avail");
+
+                        if (val != null && key != null && val.contains(key)) {
+                            obj.put("value", true);
+                        } else {
+                            obj.put("value", false);
+                        }
                     }
-                    x++;
                 }
 
                 break;
@@ -847,9 +833,9 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
                         JSONObject obj = jsonObject.getJSONArray("options").getJSONObject(i);
                         String key = obj.getString("key");
 
-                        String leader = (String) ecClient.getAttribute("Community_Leader");
+                        String val = (String) ecClient.getAttribute("Community_Leader");
 
-                        if (leader.contains(key)) {
+                        if (val != null && key != null && val.contains(key)) {
                             obj.put("value", true);
                         } else {
                             obj.put("value", false);

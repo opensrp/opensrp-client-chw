@@ -270,8 +270,8 @@
       {
         "key": "id_avail",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "id_avail",
         "type": "check_box",
         "label": "Do you have any of the following IDs?",
         "label_text_style": "normal",
@@ -766,7 +766,6 @@
           "err": "Please pick at least one"
         }
       },
-
       {
         "key": "leader",
         "openmrs_entity_parent": "",
