@@ -110,6 +110,7 @@ public class Constants {
         public static final String FAM_NAME = "fam_name";
         public static final String SEX = "sex";
         public static final String PRIMARY_CARE_GIVER = "primary_caregiver";
+        public static final String IS_PRIMARY_CARE_GIVER = "is_primary_caregiver";
         public static final String AGE = "age";
         public static final String ID_AVAIL = "id_avail";
         public static final String NATIONAL_ID = "national_id";
@@ -128,14 +129,6 @@ public class Constants {
         public static final String BIRTH_REGIST_NUMBER = "birth_regist_number";
         public static final String RHC_CARD = "rhc_card";
         public static final String NUTRITION_STATUS = "nutrition_status";
-
-        public static class CHK_ID_AVAIL {
-            public static final String NATIONAL_ID = "chk_national_id";
-            public static final String VOTER_ID = "chk_voters_id";
-            public static final String DRIVER_LICENSE = "chk_drivers_license";
-            public static final String PASSPORT = "chk_passport";
-            public static final String NONE = "chk_none";
-        }
 
         public static class FAMILY_MEMBER {
             public static final String HIGHEST_EDUCATION_LEVEL = "highest_edu_level";

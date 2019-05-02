@@ -270,8 +270,8 @@
       {
         "key": "id_avail",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "id_avail",
         "type": "check_box",
         "label": "Do you have any of the following IDs?",
         "label_text_style": "normal",
@@ -284,36 +284,36 @@
             "key": "chk_national_id",
             "text": "National ID",
             "value": false,
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
+            "openmrs_entity": "person_attribute",
+            "openmrs_entity_id": "chk_national_id"
           },
           {
             "key": "chk_voters_id",
             "text": "Voter's registration ID",
             "value": false,
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
+            "openmrs_entity": "person_attribute",
+            "openmrs_entity_id": "chk_voters_id"
           },
           {
             "key": "chk_drivers_license",
             "text": "Driver's license",
             "value": false,
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
+            "openmrs_entity": "person_attribute",
+            "openmrs_entity_id": "chk_drivers_license"
           },
           {
             "key": "chk_passport",
             "text": "Passport",
             "value": false,
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
+            "openmrs_entity": "person_attribute",
+            "openmrs_entity_id": "chk_passport"
           },
           {
             "key": "chk_none",
             "text": "None",
             "value": false,
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
+            "openmrs_entity": "person_attribute",
+            "openmrs_entity_id": "chk_none"
           }
         ],
         "relevance": {
@@ -766,7 +766,6 @@
           "err": "Please pick at least one"
         }
       },
-
       {
         "key": "leader",
         "openmrs_entity_parent": "",

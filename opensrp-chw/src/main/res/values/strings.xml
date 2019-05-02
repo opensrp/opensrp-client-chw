@@ -250,4 +250,6 @@
     <string name="counseled">Counseled : </string>
     <string name="not_counseled">Not counseled : </string>
 
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 </resources>
