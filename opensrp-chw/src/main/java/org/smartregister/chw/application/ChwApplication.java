@@ -157,8 +157,10 @@ public class ChwApplication extends DrishtiApplication {
         } else {
             language = configuration.locale.getLanguage();
         }
-        if (language.equals(Locale.FRENCH.getLanguage()))
+
+        if (language.equals(Locale.FRENCH.getLanguage())){
             saveLanguage(Locale.FRENCH.getLanguage());
+        }
     }
 
 

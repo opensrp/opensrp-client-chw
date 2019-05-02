@@ -2,8 +2,6 @@ package org.smartregister.chw.util;
 
 import org.smartregister.chw.BuildConfig;
 
-import java.util.HashMap;
-
 public class Constants {
 
     public static class CONFIGURATION {
@@ -16,6 +14,7 @@ public class Constants {
     public static final class EventType {
         public static final String BIRTH_CERTIFICATION = "Birth Certification";
         public static final String OBS_ILLNESS = "Observations Illness";
+        public static final String COUNSELING = "Counseling";
         public static final String FAMILY_REGISTRATION = "Family Registration";
         public static final String FAMILY_MEMBER_REGISTRATION = "Family Member Registration";
 
@@ -37,7 +36,7 @@ public class Constants {
 
     public static class JSON_FORM {
         public static final String BIRTH_CERTIFICATION = Utils.getLocalForm("birth_certification");
-        public static final String OBS_ILLNESS = Utils.getLocalForm("observation_illness");
+        public static final String OBS_ILLNESS = Country.TANZANIA.equals(BuildConfig.BUILD_COUNTRY) ? "tz_observation_illness" : Utils.getLocalForm("observation_illness");
         public static final String FAMILY_REGISTER = Country.TANZANIA.equals(BuildConfig.BUILD_COUNTRY) ? "tz_family_register" : Utils.getLocalForm("family_register");
         public static final String FAMILY_MEMBER_REGISTER = (Country.TANZANIA.equals(BuildConfig.BUILD_COUNTRY) ? "tz_family_member_register" : Utils.getLocalForm("family_member_register"));
         public static final String CHILD_REGISTER = (Country.TANZANIA.equals(BuildConfig.BUILD_COUNTRY) ? "tz_child_enrollment" : Utils.getLocalForm("child_enrollment"));
@@ -45,6 +44,7 @@ public class Constants {
         public static final String FAMILY_DETAILS_REMOVE_MEMBER = Utils.getLocalForm("family_details_remove_member");
         public static final String FAMILY_DETAILS_REMOVE_CHILD = Utils.getLocalForm("family_details_remove_child");
         public static final String FAMILY_DETAILS_REMOVE_FAMILY = Utils.getLocalForm("family_details_remove_family");
+        public static final String HOME_VISIT_COUNSELLING = "tz_routine_home_visit";
     }
 
     public static class RELATIONSHIP {

@@ -117,6 +117,35 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
 
     }
 
+
+    public static Pair<Client, Event> processCounselingForm(AllSharedPreferences allSharedPreferences, String jsonString) {
+        try {
+
+            Triple<Boolean, JSONObject, JSONArray> registrationFormParams = validateParameters(jsonString);
+            if (!registrationFormParams.getLeft()) {
+                return null;
+            }
+
+            JSONObject jsonForm = registrationFormParams.getMiddle();
+            JSONArray fields = registrationFormParams.getRight();
+
+            String entityId = getString(jsonForm, ENTITY_ID);
+
+            lastInteractedWith(fields);
+
+            Client baseClient = org.smartregister.util.JsonFormUtils.createBaseClient(fields, formTag(allSharedPreferences), entityId);
+            Event baseEvent = org.smartregister.util.JsonFormUtils.createEvent(fields, getJSONObject(jsonForm, METADATA), formTag(allSharedPreferences), entityId,
+                    getString(jsonForm, ENCOUNTER_TYPE), org.smartregister.chw.util.Constants.TABLE_NAME.CHILD);
+
+
+            tagSyncMetadata(allSharedPreferences, baseEvent);// tag docs
+
+            return Pair.create(baseClient, baseEvent);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
     public static Pair<Client, Event> processBirthAndIllnessForm(AllSharedPreferences allSharedPreferences, String jsonString) {
         try {
 

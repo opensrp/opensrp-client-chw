@@ -476,7 +476,14 @@
             }
           ]
         }
-      },
+      }
+    ]
+  },
+  {
+    "name": "18 Months",
+    "id": "Eighteen_Months",
+    "days_after_birth_due": 548,
+    "vaccines": [
       {
         "name": "MR 2",
         "type": "MR",

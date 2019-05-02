@@ -342,7 +342,7 @@
         "options": [
           {
             "key": "dob_unknown",
-            "text": "DOB unknown?",
+            "text": "Date de naissance inconnue",
             "text_size": "18px",
             "value": "false"
           }
