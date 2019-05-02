@@ -8,10 +8,12 @@ import android.util.Pair;
 
 import org.apache.commons.lang3.tuple.Triple;
 import org.json.JSONObject;
+import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.contract.FamilyChangeContract;
 import org.smartregister.chw.domain.FamilyMember;
 import org.smartregister.chw.util.Constants;
+import org.smartregister.chw.util.Country;
 import org.smartregister.chw.util.JsonFormUtils;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.clientandeventmodel.Client;
@@ -100,7 +102,7 @@ public class FamilyChangeContractInteractor implements FamilyChangeContract.Inte
                 String option = familyMember.first; // familyMember.get(Constants.PROFILE_CHANGE_ACTION.ACTION_TYPE);
 
                 final FamilyMember member = familyMember.second;
-                member.setFamilyID( familyID);
+                member.setFamilyID(familyID);
                 member.setPrimaryCareGiver(Constants.PROFILE_CHANGE_ACTION.PRIMARY_CARE_GIVER.equals(option));
                 member.setFamilyHead(Constants.PROFILE_CHANGE_ACTION.HEAD_OF_FAMILY.equals(option));
 
@@ -187,10 +189,12 @@ public class FamilyChangeContractInteractor implements FamilyChangeContract.Inte
                 DBConstants.KEY.LAST_NAME + " , " +
                 DBConstants.KEY.PHONE_NUMBER + " , " +
                 DBConstants.KEY.OTHER_PHONE_NUMBER + " , " +
-                DBConstants.KEY.HIGHEST_EDU_LEVEL + " , " +
                 DBConstants.KEY.DOB + " , " +
                 DBConstants.KEY.DOD + " , " +
                 DBConstants.KEY.GENDER;
+        if (BuildConfig.BUILD_COUNTRY == Country.LIBERIA) {
+            info_columns += " , " + DBConstants.KEY.HIGHEST_EDU_LEVEL;
+        }
 
         String sql = String.format("select %s from %s where %s = '%s' and %s is null and %s is null ",
                 info_columns,
