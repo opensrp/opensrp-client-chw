@@ -713,7 +713,7 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
 
                 break;
             case org.smartregister.chw.util.Constants.JsonAssets.PREGNANT_1_YR:
-                if(ecEvent != null){
+                if (ecEvent != null) {
                     String id = jsonObject.getString(JsonFormConstants.OPENMRS_ENTITY_ID);
                     for (Obs obs : ecEvent.getObs()) {
                         if (obs.getValues() != null && obs.getFieldCode().contains(id)) {
@@ -724,34 +724,37 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
                 break;
             case org.smartregister.chw.util.Constants.JsonAssets.SURNAME:
                 if (BuildConfig.BUILD_COUNTRY == Country.TANZANIA && ecClient != null) {
-                    jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, ecClient.getLastName());
+                    jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE,
+                            (ecClient.getLastName() == null ? familyName : ecClient.getLastName()));
                 }
                 break;
             case org.smartregister.chw.util.Constants.JsonAssets.FAM_NAME:
+                if (ecClient.getLastName() != null) {
 
-                final String SAME_AS_FAM_NAME = "same_as_fam_name";
-                final String SURNAME = "surname";
+                    final String SAME_AS_FAM_NAME = "same_as_fam_name";
+                    final String SURNAME = "surname";
 
-                jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, familyName);
+                    jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, familyName);
 
-                String lastName = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.LAST_NAME, false);
+                    String lastName = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.LAST_NAME, false);
 
-                JSONObject sameAsFamName = getFieldJSONObject(jsonArray, SAME_AS_FAM_NAME);
-                JSONObject sameOptions = sameAsFamName.getJSONArray(org.smartregister.family.util.Constants.JSON_FORM_KEY.OPTIONS).getJSONObject(0);
+                    JSONObject sameAsFamName = getFieldJSONObject(jsonArray, SAME_AS_FAM_NAME);
+                    JSONObject sameOptions = sameAsFamName.getJSONArray(org.smartregister.family.util.Constants.JSON_FORM_KEY.OPTIONS).getJSONObject(0);
 
-                if (familyName.equals(lastName)) {
-                    sameOptions.put(org.smartregister.family.util.JsonFormUtils.VALUE, true);
-                } else {
-                    sameOptions.put(org.smartregister.family.util.JsonFormUtils.VALUE, false);
+                    if (familyName.equals(lastName)) {
+                        sameOptions.put(org.smartregister.family.util.JsonFormUtils.VALUE, true);
+                    } else {
+                        sameOptions.put(org.smartregister.family.util.JsonFormUtils.VALUE, false);
+                    }
+
+                    JSONObject surname = getFieldJSONObject(jsonArray, SURNAME);
+                    if (!familyName.equals(lastName)) {
+                        surname.put(org.smartregister.family.util.JsonFormUtils.VALUE, lastName);
+                    } else {
+                        surname.put(org.smartregister.family.util.JsonFormUtils.VALUE, "");
+                    }
+
                 }
-
-                JSONObject surname = getFieldJSONObject(jsonArray, SURNAME);
-                if (!familyName.equals(lastName)) {
-                    surname.put(org.smartregister.family.util.JsonFormUtils.VALUE, lastName);
-                } else {
-                    surname.put(org.smartregister.family.util.JsonFormUtils.VALUE, "");
-                }
-
                 break;
 
             case org.smartregister.chw.util.Constants.JsonAssets.SEX:
