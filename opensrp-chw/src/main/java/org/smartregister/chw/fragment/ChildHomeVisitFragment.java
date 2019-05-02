@@ -155,15 +155,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         immunizationEditView = view.findViewById(R.id.immunization_edit_view);
         initializePresenter();
         ((ChildHomeVisitPresenter) presenter).setChildClient(childClient);
-
-//        hide birth certification
-        if(BuildConfig.BUILD_COUNTRY == Country.TANZANIA) {
-            layoutBirthCertGroup.setVisibility(View.GONE);
-            viewBirthLine.setVisibility(View.GONE);
-        } else {
-            assignNameHeader();
-        }
-
+        assignNameHeader();
         updateGrowthData();
         if (isEditMode) {
             immunizationEditView.setVisibility(View.VISIBLE);
@@ -179,8 +171,6 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
             homeVisitImmunizationView.setVisibility(View.VISIBLE);
             submitButtonEnableDisable(false);
         }
-
-
     }
 
     private void assignNameHeader() {

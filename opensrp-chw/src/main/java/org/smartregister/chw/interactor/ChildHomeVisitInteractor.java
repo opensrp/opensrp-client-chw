@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.util.Pair;
 
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -31,6 +32,7 @@ import org.smartregister.repository.UniqueIdRepository;
 import org.smartregister.sync.ClientProcessorForJava;
 import org.smartregister.sync.helper.ECSyncHelper;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -44,8 +46,10 @@ import static org.smartregister.chw.util.ChildDBConstants.KEY.BIRTH_CERT;
 import static org.smartregister.chw.util.ChildDBConstants.KEY.BIRTH_CERT_ISSUE_DATE;
 import static org.smartregister.chw.util.ChildDBConstants.KEY.BIRTH_CERT_NUMBER;
 import static org.smartregister.chw.util.ChildDBConstants.KEY.ILLNESS_ACTION;
+import static org.smartregister.chw.util.ChildDBConstants.KEY.ILLNESS_ACTION_BA;
 import static org.smartregister.chw.util.ChildDBConstants.KEY.ILLNESS_DATE;
 import static org.smartregister.chw.util.ChildDBConstants.KEY.ILLNESS_DESCRIPTION;
+import static org.smartregister.chw.util.ChildDBConstants.KEY.OTHER_ACTION;
 
 public class ChildHomeVisitInteractor implements ChildHomeVisitContract.Interactor {
 
@@ -241,8 +245,17 @@ public class ChildHomeVisitInteractor implements ChildHomeVisitContract.Interact
 
                             break;
                         case ILLNESS_ACTION:
+                        case ILLNESS_ACTION_BA:
+
                             birthIllnessData.setActionTaken("Action taken: " + jsonObject.optString(org.smartregister.family.util.JsonFormUtils.VALUE));
 
+                            break;
+                        case OTHER_ACTION:
+
+                            String other = jsonObject.optString(org.smartregister.family.util.JsonFormUtils.VALUE);
+                            if (StringUtils.isNotBlank(other)) {
+                                birthIllnessData.setActionTaken(MessageFormat.format("{0} {1}", birthIllnessData.getActionTaken(), other));
+                            }
                             break;
                         default:
                             break;
