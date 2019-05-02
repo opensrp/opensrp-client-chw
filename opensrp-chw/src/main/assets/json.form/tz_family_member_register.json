@@ -460,7 +460,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "tz_family_register_relevance.yml"
+              "rules-file": "tz_family_member_relevance.yml"
             }
           }
         }
@@ -479,7 +479,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "tz_family_register_relevance.yml"
+              "rules-file": "tz_family_member_relevance.yml"
             }
           }
         }

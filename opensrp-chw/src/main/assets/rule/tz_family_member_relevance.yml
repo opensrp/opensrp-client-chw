@@ -54,4 +54,20 @@ description: pregnance 1yr relevance
 priority: 1
 condition: "step1_wra == 1"
 actions:
-- "isRelevant = true"
+  - "isRelevant = true"
+
+---
+name: step1_insurance_provider_other
+description: insurance_provider_other relevance
+priority: 1
+condition: "step1_insurance_provider.equals('Other')"
+actions:
+  - "isRelevant = true"
+
+---
+name: step1_insurance_provider_number
+descripltion: insurance number relevance
+priority: 1
+condition: "!step1_insurance_provider.contains('None')"
+actions:
+  - "isRelevant = true"
