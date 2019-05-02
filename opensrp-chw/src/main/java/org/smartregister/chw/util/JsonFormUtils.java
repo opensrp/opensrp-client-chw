@@ -7,6 +7,8 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.util.Pair;
 
+import com.vijay.jsonwizard.constants.JsonFormConstants;
+
 import net.sqlcipher.database.SQLiteDatabase;
 
 import org.apache.commons.lang3.StringUtils;
@@ -756,16 +758,16 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
             case org.smartregister.chw.util.Constants.JsonAssets.ID_AVAIL:
 
                 if (ecClient != null) {
-                    for (int i = 0; i < jsonObject.getJSONArray("options").length(); i++) {
-                        JSONObject obj = jsonObject.getJSONArray("options").getJSONObject(i);
-                        String key = obj.getString("key");
+                    for (int i = 0; i < jsonObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME).length(); i++) {
+                        JSONObject obj = jsonObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME).getJSONObject(i);
+                        String key = obj.getString(JsonFormConstants.KEY);
 
                         String val = (String) ecClient.getAttribute("id_avail");
 
                         if (val != null && key != null && val.contains(key)) {
-                            obj.put("value", true);
+                            obj.put(JsonFormConstants.VALUE, true);
                         } else {
-                            obj.put("value", false);
+                            obj.put(JsonFormConstants.VALUE, false);
                         }
                     }
                 }
@@ -813,12 +815,12 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
                 // iterate and update all options wit the values from ec object
 
                 if (ecEvent != null) {
-                    for (int i = 0; i < jsonObject.getJSONArray("options").length(); i++) {
-                        JSONObject obj = jsonObject.getJSONArray("options").getJSONObject(i);
-                        String id = obj.getString("openmrs_entity_id");
+                    for (int i = 0; i < jsonObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME).length(); i++) {
+                        JSONObject obj = jsonObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME).getJSONObject(i);
+                        String id = obj.getString(JsonFormConstants.OPENMRS_ENTITY_ID);
                         for (Obs obs : ecEvent.getObs()) {
                             if (obs.getValues() != null && obs.getValues().contains(id)) {
-                                obj.put("value", true);
+                                obj.put(JsonFormConstants.VALUE, true);
                             }
                         }
                     }
@@ -830,16 +832,16 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
             case org.smartregister.chw.util.Constants.JsonAssets.LEADER:
 
                 if (ecClient != null) {
-                    for (int i = 0; i < jsonObject.getJSONArray("options").length(); i++) {
-                        JSONObject obj = jsonObject.getJSONArray("options").getJSONObject(i);
-                        String key = obj.getString("key");
+                    for (int i = 0; i < jsonObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME).length(); i++) {
+                        JSONObject obj = jsonObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME).getJSONObject(i);
+                        String key = obj.getString(JsonFormConstants.KEY);
 
                         String val = (String) ecClient.getAttribute("Community_Leader");
 
                         if (val != null && key != null && val.contains(key)) {
-                            obj.put("value", true);
+                            obj.put(JsonFormConstants.VALUE, true);
                         } else {
-                            obj.put("value", false);
+                            obj.put(JsonFormConstants.VALUE, false);
                         }
                     }
                 }

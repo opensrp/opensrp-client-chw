@@ -31,7 +31,7 @@ public class Constants {
 
         public static final String REMOVE_MEMBER = "Remove Family Member";
         public static final String REMOVE_CHILD = "Remove Child Under 5";
-        public static final String REMOVE_FAMILY = "Remove Faubuntumily";
+        public static final String REMOVE_FAMILY = "Remove Family";
     }
 
     public static class JSON_FORM {
