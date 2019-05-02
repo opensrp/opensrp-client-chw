@@ -127,22 +127,6 @@ public class Constants {
         public static final String RHC_CARD = "rhc_card";
         public static final String NUTRITION_STATUS = "nutrition_status";
 
-        public static class CHK_ID_AVAIL {
-            public static final String NATIONAL_ID = "chk_national_id";
-            public static final String VOTER_ID = "chk_voters_id";
-            public static final String DRIVER_LICENSE = "chk_drivers_license";
-            public static final String PASSPORT = "chk_passport";
-            public static final String NONE = "chk_none";
-        }
-
-        public static class CHK_SERVICE_PROVIDER {
-            public static final String chk_chw = "chk_chw";
-            public static final String chk_cbd = "chk_cbd";
-            public static final String chk_cimmci = "chk_cimmci";
-            public static final String PASSPORT = "chk_passport";
-            public static final String NONE = "chk_none";
-        }
-
         public static class FAMILY_MEMBER {
             public static final String HIGHEST_EDUCATION_LEVEL = "highest_edu_level";
             public static final String PHONE_NUMBER = "phone_number";
