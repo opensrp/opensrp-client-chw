@@ -712,7 +712,21 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
                 jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, uniqueId.replace("-", ""));
 
                 break;
-
+            case org.smartregister.chw.util.Constants.JsonAssets.PREGNANT_1_YR:
+                if(ecEvent != null){
+                    String id = jsonObject.getString(JsonFormConstants.OPENMRS_ENTITY_ID);
+                    for (Obs obs : ecEvent.getObs()) {
+                        if (obs.getValues() != null && obs.getFieldCode().contains(id)) {
+                            jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, obs.getHumanReadableValues().get(0));
+                        }
+                    }
+                }
+                break;
+            case org.smartregister.chw.util.Constants.JsonAssets.SURNAME:
+                if (BuildConfig.BUILD_COUNTRY == Country.TANZANIA && ecClient != null) {
+                    jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, ecClient.getLastName());
+                }
+                break;
             case org.smartregister.chw.util.Constants.JsonAssets.FAM_NAME:
 
                 final String SAME_AS_FAM_NAME = "same_as_fam_name";
@@ -1053,7 +1067,7 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
         member.setEduLevel(getJsonFieldValue(fields, org.smartregister.chw.util.Constants.JsonAssets.FAMILY_MEMBER.HIGHEST_EDUCATION_LEVEL));
         member.setPrimaryCareGiver(
                 getJsonFieldValue(fields, org.smartregister.chw.util.Constants.JsonAssets.PRIMARY_CARE_GIVER).equalsIgnoreCase("Yes") ||
-                getJsonFieldValue(fields, org.smartregister.chw.util.Constants.JsonAssets.IS_PRIMARY_CARE_GIVER).equalsIgnoreCase("Yes")
+                        getJsonFieldValue(fields, org.smartregister.chw.util.Constants.JsonAssets.IS_PRIMARY_CARE_GIVER).equalsIgnoreCase("Yes")
         );
         member.setFamilyHead(false);
 

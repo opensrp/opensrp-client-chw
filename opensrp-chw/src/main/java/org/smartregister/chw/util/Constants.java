@@ -108,6 +108,8 @@ public class Constants {
     public static class JsonAssets {
         public static final String DETAILS = "details";
         public static final String FAM_NAME = "fam_name";
+        public static final String SURNAME = "surname";
+        public static final String PREGNANT_1_YR = "preg_1yr";
         public static final String SEX = "sex";
         public static final String PRIMARY_CARE_GIVER = "primary_caregiver";
         public static final String IS_PRIMARY_CARE_GIVER = "is_primary_caregiver";

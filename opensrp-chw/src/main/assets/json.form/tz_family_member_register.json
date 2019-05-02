@@ -585,7 +585,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "tz_family_register_relevance.yml"
+              "rules-file": "tz_family_member_relevance.yml"
             }
           }
         }
@@ -628,13 +628,13 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "tz_family_register_relevance.yml"
+              "rules-file": "tz_family_member_relevance.yml"
             }
           }
         }
       },
       {
-        "key": "other_number",
+        "key": "other_phone_number",
         "openmrs_entity_parent": "159635AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -651,7 +651,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "tz_family_register_relevance.yml"
+              "rules-file": "tz_family_member_relevance.yml"
             }
           }
         }
