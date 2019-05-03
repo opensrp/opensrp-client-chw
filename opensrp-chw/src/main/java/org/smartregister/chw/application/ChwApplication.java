@@ -38,6 +38,7 @@ import org.smartregister.immunization.repository.VaccineRepository;
 import org.smartregister.immunization.util.VaccinatorUtils;
 import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
+import org.smartregister.reporting.ReportingLibrary;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.Repository;
 import org.smartregister.sync.ClientProcessorForJava;
@@ -64,6 +65,10 @@ public class ChwApplication extends DrishtiApplication {
     private String password;
 
     private RulesEngineHelper rulesEngineHelper;
+
+    private String indicatorsConfigFile = "config/indicator-definitions.yml";
+    private String indicatorDataInitialisedPref = "INDICATOR_DATA_INITIALISED";
+    private String appVersionCodePref = "APP_VERSION_CODE";
 
     public static synchronized ChwApplication getInstance() {
         return (ChwApplication) mInstance;
@@ -139,6 +144,19 @@ public class ChwApplication extends DrishtiApplication {
         // init json helper
         this.jsonSpecHelper = new JsonSpecHelper(this);
 
+        // Init Reporting library
+        ReportingLibrary.init(context, getRepository(), null, BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
+        ReportingLibrary reportingLibraryInstance = ReportingLibrary.getInstance();
+        // Check if indicator data initialised
+        boolean indicatorDataInitialised = Boolean.parseBoolean(reportingLibraryInstance.getContext()
+                .allSharedPreferences().getPreference(indicatorDataInitialisedPref));
+        boolean isUpdated = checkIfAppUpdated();
+        if (!indicatorDataInitialised || isUpdated) {
+            reportingLibraryInstance.initIndicatorData(indicatorsConfigFile); // This will persist the data in the DB
+            reportingLibraryInstance.getContext().allSharedPreferences().savePreference(indicatorDataInitialisedPref, "true");
+            reportingLibraryInstance.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(BuildConfig.VERSION_CODE));
+        }
+
         //init Job Manager
         JobManager.create(this).addJobCreator(new ChwJobCreator());
 
@@ -160,6 +178,15 @@ public class ChwApplication extends DrishtiApplication {
             saveLanguage(Locale.FRENCH.getLanguage());
     }
 
+    private boolean checkIfAppUpdated() {
+        String savedAppVersion = ReportingLibrary.getInstance().getContext().allSharedPreferences().getPreference(appVersionCodePref);
+        if (savedAppVersion.isEmpty()) {
+            return true;
+        } else {
+            int savedVersion = Integer.parseInt(savedAppVersion);
+            return (BuildConfig.VERSION_CODE > savedVersion);
+        }
+    }
 
     private void saveLanguage(String language) {
         AllSharedPreferences allSharedPreferences = ChwApplication.getInstance().getContext().allSharedPreferences();
