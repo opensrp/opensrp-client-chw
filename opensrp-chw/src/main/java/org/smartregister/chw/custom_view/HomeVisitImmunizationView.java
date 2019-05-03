@@ -411,7 +411,6 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
         return false;
     }
 
-
     @Override
     public void onClick(View v) {
         FragmentTransaction ft = context.getFragmentManager().beginTransaction();

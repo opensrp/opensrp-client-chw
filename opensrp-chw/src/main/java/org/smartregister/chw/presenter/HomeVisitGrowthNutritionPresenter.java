@@ -3,10 +3,12 @@ package org.smartregister.chw.presenter;
 import android.content.Context;
 import android.util.Log;
 
+import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.contract.HomeVisitGrowthNutritionContract;
 import org.smartregister.chw.fragment.GrowthNutritionInputFragment;
 import org.smartregister.chw.interactor.HomeVisitGrowthNutritionInteractor;
+import org.smartregister.chw.util.Country;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.chw.util.ChwServiceSchedule;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
@@ -170,7 +172,7 @@ public class HomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNutriti
             }
         }
         serviceWrapperMnp = getServiceWrapperByType(GrowthNutritionInputFragment.GROWTH_TYPE.MNP.getValue());
-        if (serviceWrapperMnp != null) {
+        if (serviceWrapperMnp != null && BuildConfig.BUILD_COUNTRY == Country.LIBERIA) {
             Alert alert = serviceWrapperMnp.getAlert();
             if (alert != null) {
                 growthListCount++;
