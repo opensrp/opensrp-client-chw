@@ -192,7 +192,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
             layoutBirthCertGroup.setVisibility(View.GONE);
             viewBirthLine.setVisibility(View.GONE);
         } else {
-            if(BuildConfig.BUILD_COUNTRY == Country.LIBERIA){
+            if (BuildConfig.BUILD_COUNTRY == Country.LIBERIA) {
                 layoutBirthCertGroup.setVisibility(View.VISIBLE);
                 viewBirthLine.setVisibility(View.VISIBLE);
             }

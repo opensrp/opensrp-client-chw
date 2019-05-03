@@ -47,8 +47,8 @@ import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.sync.helper.ECSyncHelper;
 
-import java.text.MessageFormat;
 import java.lang.reflect.Type;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -58,7 +58,6 @@ import java.util.Map;
 
 import static org.apache.commons.lang3.text.WordUtils.capitalize;
 import static org.smartregister.chw.util.Utils.dd_MMM_yyyy;
-import static org.smartregister.util.Utils.readAssetContents;
 
 public class ChildUtils {
 
@@ -71,11 +70,11 @@ public class ChildUtils {
     };
     public static Gson gsonConverter;
 
-     static {
-         gsonConverter = new GsonBuilder()
+    static {
+        gsonConverter = new GsonBuilder()
                 .setPrettyPrinting()
                 .serializeNulls()
-                .registerTypeAdapter(DateTime.class, new JsonSerializer<DateTime>(){
+                .registerTypeAdapter(DateTime.class, new JsonSerializer<DateTime>() {
                     @Override
                     public JsonElement serialize(DateTime json, Type typeOfSrc, JsonSerializationContext context) {
                         return new JsonPrimitive(ISODateTimeFormat.dateTime().print(json));
@@ -90,6 +89,7 @@ public class ChildUtils {
                 })
                 .create();
     }
+
     public static boolean hasAlert(VaccineRepo.Vaccine vaccine, List<Alert> alerts) {
         for (Alert alert : alerts) {
             if (alert.scheduleName().equalsIgnoreCase(vaccine.display())) {
@@ -275,12 +275,12 @@ public class ChildUtils {
         columnList.add(tableName + "." + ChildDBConstants.KEY.ILLNESS_ACTION);
 
         if (BuildConfig.BUILD_COUNTRY == Country.TANZANIA) {
-                columnList.add(tableName + "." + ChildDBConstants.KEY.INSURANCE_PROVIDER);
-                columnList.add(tableName + "." + ChildDBConstants.KEY.INSURANCE_PROVIDER_NUMBER);
-                columnList.add(tableName + "." + ChildDBConstants.KEY.INSURANCE_PROVIDER_OTHER);
-                columnList.add(tableName + "." + ChildDBConstants.KEY.TYPE_OF_DISABILITY);
-                columnList.add(tableName + "." + ChildDBConstants.KEY.RHC_CARD);
-                columnList.add(tableName + "." + ChildDBConstants.KEY.NUTRITION_STATUS);
+            columnList.add(tableName + "." + ChildDBConstants.KEY.INSURANCE_PROVIDER);
+            columnList.add(tableName + "." + ChildDBConstants.KEY.INSURANCE_PROVIDER_NUMBER);
+            columnList.add(tableName + "." + ChildDBConstants.KEY.INSURANCE_PROVIDER_OTHER);
+            columnList.add(tableName + "." + ChildDBConstants.KEY.TYPE_OF_DISABILITY);
+            columnList.add(tableName + "." + ChildDBConstants.KEY.RHC_CARD);
+            columnList.add(tableName + "." + ChildDBConstants.KEY.NUTRITION_STATUS);
         }
 
         return columnList.toArray(new String[columnList.size()]);
@@ -379,7 +379,7 @@ public class ChildUtils {
     }
 
     //event type="Child Home Visit"/Visit not done
-    public static void updateHomeVisitAsEvent(String entityId, String eventType, String entityType, JSONObject singleVaccineObject, JSONObject vaccineGroupObject,JSONObject vaccineNotGiven, JSONObject service,JSONObject serviceNotGiven, JSONObject birthCert, JSONObject illnessJson, JSONObject counselingForm, String visitStatus, String value) {
+    public static void updateHomeVisitAsEvent(String entityId, String eventType, String entityType, JSONObject singleVaccineObject, JSONObject vaccineGroupObject, JSONObject vaccineNotGiven, JSONObject service, JSONObject serviceNotGiven, JSONObject birthCert, JSONObject illnessJson, JSONObject counselingForm, String visitStatus, String value) {
         try {
 
             ECSyncHelper syncHelper = FamilyLibrary.getInstance().getEcSyncHelper();
@@ -404,6 +404,8 @@ public class ChildUtils {
 
             event.addObs((new Obs()).withFormSubmissionField("birth_certificate").withValue(birthCert.toString()).withFieldCode("birth_certificate").withFieldType("formsubmissionField").withFieldDataType("text").withParentCode("").withHumanReadableValues(new ArrayList<Object>()));
             event.addObs((new Obs()).withFormSubmissionField("illness_information").withValue(illnessJson.toString()).withFieldCode("illness_information").withFieldType("formsubmissionField").withFieldDataType("text").withParentCode("").withHumanReadableValues(new ArrayList<Object>()));
+            event.addObs((new Obs()).withFormSubmissionField("counseling_information").withValue(counselingForm.toString()).withFieldCode("counseling_information").withFieldType("formsubmissionField").withFieldDataType("text").withParentCode("").withHumanReadableValues(new ArrayList<Object>()));
+
 
             JsonFormUtils.tagSyncMetadata(ChwApplication.getInstance().getContext().allSharedPreferences(), event);
             JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(event));
@@ -484,9 +486,9 @@ public class ChildUtils {
                     newHomeVisit.setServiceNotGiven(new JSONObject((String) obs.getValue()));
                 }
                 if (obs.getFormSubmissionField().equalsIgnoreCase("birth_certificate")) {
-                    try{
+                    try {
                         newHomeVisit.setBirthCertificationState(new JSONObject((String) obs.getValue()));
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         e.printStackTrace();
                         //previous support
                         newHomeVisit.setBirthCertificationState(new JSONObject());
@@ -496,9 +498,9 @@ public class ChildUtils {
                     newHomeVisit.setIllness_information(new JSONObject((String) obs.getValue()));
                 }
                 if (obs.getFormSubmissionField().equalsIgnoreCase(ChildDBConstants.KEY.LAST_HOME_VISIT)) {
-                    try{
+                    try {
                         newHomeVisit.setDate(new Date(Long.parseLong((String) obs.getValue())));
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         e.printStackTrace();
                         newHomeVisit.setDate(new Date());
                     }

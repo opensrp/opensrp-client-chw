@@ -12,12 +12,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import org.apache.commons.lang3.StringUtils;
@@ -26,7 +24,6 @@ import org.smartregister.chw.contract.MemberAdapterListener;
 import org.smartregister.chw.domain.FamilyMember;
 import org.smartregister.family.util.Utils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MyViewHolder> {
@@ -58,7 +55,7 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MyViewHold
     public void setSelected(MyViewHolder view, String selected) {
         currentViewHolder = view;
         this.selected = selected;
-        if(memberAdapterListener != null){
+        if (memberAdapterListener != null) {
             memberAdapterListener.onMenuChoiceChange();
         }
     }
@@ -160,7 +157,7 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MyViewHold
         return res;
     }
 
-    private boolean validateTextView(TextView textView){
+    private boolean validateTextView(TextView textView) {
         String text = textView.getText().toString().trim();
         if (text.length() > 0 && !text.substring(0, 1).equals("0")) {
             textView.setError("Must start with 0");

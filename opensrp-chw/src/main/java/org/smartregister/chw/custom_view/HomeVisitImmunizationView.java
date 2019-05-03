@@ -570,15 +570,11 @@ public class HomeVisitImmunizationView extends LinearLayout implements View.OnCl
             if (months >= 9) {
                 elligibleVaccineGroups.add("9 months");
             }
-            if (BuildConfig.BUILD_COUNTRY == Country.LIBERIA) {
-                if (months >= 15) {
-                    elligibleVaccineGroups.add("15 months");
-                }
+            if (BuildConfig.BUILD_COUNTRY == Country.LIBERIA && months >= 15) {
+                elligibleVaccineGroups.add("15 months");
             }
-            if (BuildConfig.BUILD_COUNTRY == Country.TANZANIA) {
-                if (months >= 18) {
-                    elligibleVaccineGroups.add("18 months");
-                }
+            if (BuildConfig.BUILD_COUNTRY == Country.TANZANIA && months >= 18) {
+                elligibleVaccineGroups.add("18 months");
             }
         }
     }
