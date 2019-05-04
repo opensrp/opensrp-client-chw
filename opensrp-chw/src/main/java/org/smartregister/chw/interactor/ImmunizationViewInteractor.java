@@ -63,7 +63,7 @@ public class ImmunizationViewInteractor implements ImmunizationContact.Interacto
     }
 
     @Override
-    public void fetchImmunizationData(CommonPersonObjectClient commonPersonObjectClient, final ImmunizationContact.InteractorCallBack callBack) {
+    public void fetchImmunizationData(final CommonPersonObjectClient commonPersonObjectClient, final ImmunizationContact.InteractorCallBack callBack) {
 
         getVaccineTask(commonPersonObjectClient, new ArrayList<VaccineWrapper>())
                 .subscribeOn(Schedulers.io())
@@ -76,16 +76,12 @@ public class ImmunizationViewInteractor implements ImmunizationContact.Interacto
 
                     @Override
                     public void onNext(VaccineTaskModel vaccineTaskModel) {
-                        ArrayList<HomeVisitVaccineGroup> homeVisitVaccineGroupsList = model.determineAllHomeVisitVaccineGroup(vaccineTaskModel.getAlerts(), vaccineTaskModel.getVaccines(), vaccineTaskModel.getNotGivenVaccine(), vaccineTaskModel.getScheduleList());
+                        ArrayList<HomeVisitVaccineGroup> homeVisitVaccineGroupsList = model.determineAllHomeVisitVaccineGroup(commonPersonObjectClient,vaccineTaskModel.getAlerts(), vaccineTaskModel.getVaccines(), vaccineTaskModel.getNotGivenVaccine(), vaccineTaskModel.getScheduleList());
                         //if all due vaccine is same as given vaccine so remove the row
                         for (Iterator<HomeVisitVaccineGroup> iterator = homeVisitVaccineGroupsList.iterator(); iterator.hasNext(); ) {
                             HomeVisitVaccineGroup homeVisitVaccineGroup = iterator.next();
                             if (homeVisitVaccineGroup.getDueVaccines().size() != 0 && (
                                     homeVisitVaccineGroup.getDueVaccines().size() == homeVisitVaccineGroup.getGivenVaccines().size())) {
-                                iterator.remove();
-                            }
-                            //remove no alert group.
-                            if(homeVisitVaccineGroup.getAlert()==null || homeVisitVaccineGroup.getAlert().equals(ImmunizationState.NO_ALERT)){
                                 iterator.remove();
                             }
 
@@ -108,7 +104,7 @@ public class ImmunizationViewInteractor implements ImmunizationContact.Interacto
     }
 
     @Override
-    public void fetchImmunizationEditData(CommonPersonObjectClient commonPersonObjectClient, final ImmunizationContact.InteractorCallBack callBack) {
+    public void fetchImmunizationEditData(final CommonPersonObjectClient commonPersonObjectClient, final ImmunizationContact.InteractorCallBack callBack) {
         getLastVaccineTask(commonPersonObjectClient, new ArrayList<VaccineWrapper>())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -120,7 +116,7 @@ public class ImmunizationViewInteractor implements ImmunizationContact.Interacto
 
                     @Override
                     public void onNext(VaccineTaskModel vaccineTaskModel) {
-                        ArrayList<HomeVisitVaccineGroup> homeVisitVaccineGroupsList = model.determineAllHomeVisitVaccineGroup(vaccineTaskModel.getAlerts(), vaccineTaskModel.getVaccines(), vaccineTaskModel.getNotGivenVaccine(), vaccineTaskModel.getScheduleList());
+                        ArrayList<HomeVisitVaccineGroup> homeVisitVaccineGroupsList = model.determineAllHomeVisitVaccineGroup(commonPersonObjectClient,vaccineTaskModel.getAlerts(), vaccineTaskModel.getVaccines(), vaccineTaskModel.getNotGivenVaccine(), vaccineTaskModel.getScheduleList());
                         for (Iterator<HomeVisitVaccineGroup> iterator = homeVisitVaccineGroupsList.iterator(); iterator.hasNext(); ) {
                             HomeVisitVaccineGroup homeVisitVaccineGroup = iterator.next();
                             if (homeVisitVaccineGroup.getDueVaccines().size() == 0) {

@@ -1,9 +1,15 @@
 package org.smartregister.chw.model;
 
+import android.text.TextUtils;
+
 import org.joda.time.DateTime;
+import org.joda.time.Months;
+import org.joda.time.Weeks;
 import org.smartregister.chw.util.HomeVisitVaccineGroup;
 import org.smartregister.chw.util.ImmunizationState;
+import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.Alert;
+import org.smartregister.family.util.DBConstants;
 import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.immunization.domain.Vaccine;
 import org.smartregister.immunization.domain.VaccineWrapper;
@@ -14,6 +20,7 @@ import org.smartregister.util.Log;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,10 +34,11 @@ public class ImmunizationModel {
     public List<Vaccine> getVaccines() {
         return vaccines;
     }
-
-    public ArrayList<HomeVisitVaccineGroup> determineAllHomeVisitVaccineGroup(List<Alert> alerts, List<Vaccine> vaccines, ArrayList<VaccineWrapper> notGivenVaccines, List<Map<String, Object>> sch) {
+    private ArrayList<String> elligibleVaccineGroups = new ArrayList<String>();
+    public ArrayList<HomeVisitVaccineGroup> determineAllHomeVisitVaccineGroup(CommonPersonObjectClient client,List<Alert> alerts, List<Vaccine> vaccines, ArrayList<VaccineWrapper> notGivenVaccines, List<Map<String, Object>> sch) {
         if(this.vaccines!=null) this.vaccines.clear();
         this.vaccines = vaccines;
+        setAgeVaccineListElligibleGroups(client);
         Map<String, Date> receivedvaccines = receivedVaccines(vaccines);
         List<VaccineRepo.Vaccine> vList = Arrays.asList(VaccineRepo.Vaccine.values());
 
@@ -72,6 +80,14 @@ public class ImmunizationModel {
                         homeVisitVaccineGroupArrayList.get(x).getNotGivenInThisVisitVaccines().add(notgivenVaccine.getVaccine());
                     }
                 }
+            }
+
+        }
+        //remove unrelated group from homevisitvaccinegroup list.
+        for (Iterator<HomeVisitVaccineGroup> iterator = homeVisitVaccineGroupArrayList.iterator(); iterator.hasNext(); ) {
+            HomeVisitVaccineGroup homeVisitVaccineGroup = iterator.next();
+            if (!inElligibleVaccineMap(homeVisitVaccineGroup)) {
+                iterator.remove();
             }
 
         }
@@ -118,8 +134,6 @@ public class ImmunizationModel {
                     }
                 }
             }
-        } else{
-            homeVisitVaccineGroupArrayList.get(position).setAlert(ImmunizationState.NO_ALERT);
         }
     }
 
@@ -163,5 +177,38 @@ public class ImmunizationModel {
             }
         }
         return ImmunizationState.NO_ALERT;
+    }
+    public void setAgeVaccineListElligibleGroups(CommonPersonObjectClient client) {
+        String dobString = org.smartregister.util.Utils.getValue(client.getColumnmaps(), DBConstants.KEY.DOB, false);
+        if (!TextUtils.isEmpty(dobString)) {
+            DateTime dateTime = new DateTime(dobString);
+            DateTime now = new DateTime();
+            int weeks = Weeks.weeksBetween(dateTime, now).getWeeks();
+            int months = Months.monthsBetween(dateTime, now).getMonths();
+            elligibleVaccineGroups.add("at birth");
+            if (weeks >= 6) {
+                elligibleVaccineGroups.add("6 weeks");
+            }
+            if (weeks >= 10) {
+                elligibleVaccineGroups.add("10 weeks");
+            }
+            if (weeks >= 6) {
+                elligibleVaccineGroups.add("14 weeks");
+            }
+            if (months >= 9) {
+                elligibleVaccineGroups.add("9 months");
+            }
+            if (months >= 15) {
+                elligibleVaccineGroups.add("15 months");
+            }
+        }
+    }
+    private boolean inElligibleVaccineMap(HomeVisitVaccineGroup homeVisitVaccineGroup) {
+        for (String string : elligibleVaccineGroups) {
+            if (string.equalsIgnoreCase(homeVisitVaccineGroup.getGroup())) {
+                return true;
+            }
+        }
+        return false;
     }
 }
