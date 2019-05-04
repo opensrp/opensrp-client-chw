@@ -38,7 +38,7 @@ public interface ChildHomeVisitContract {
 
         void generateBirthIllnessForm(String jsonString, InteractorCallback callback,boolean isEditMode);
 
-        void saveForm();
+        void saveForm(CommonPersonObjectClient childClient);
 
         void onDestroy(boolean isChangingConfiguration);
     }

@@ -50,6 +50,8 @@ import java.util.Date;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
@@ -226,45 +228,29 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                 break;
             case R.id.textview_submit:
                 if (checkAllGiven()) {
-
-                    try {
-                        //JSONArray vaccineGroup = homeVisitImmunizationView.getGroupVaccinesGivenThisVisit();
-                        //JSONArray singleVaccine = homeVisitImmunizationView.getSingleVaccinesGivenThisVisit();
-                        //not needed given vaccine track.
-                        JSONObject singleVaccineObject = new JSONObject().put("singleVaccinesGiven", new JSONArray());
-                        JSONObject vaccineGroupObject = new JSONObject().put("groupVaccinesGiven", new JSONArray());
-                        //end of not used
-                        JSONObject vaccineNotGivenObject;
-                        if(isEditMode){
-                            vaccineNotGivenObject = new JSONObject().put("vaccineNotGiven", new JSONArray(ChildUtils.gsonConverter.toJson(immunizationView.getNotGivenVaccine())));
-                        }else{
-                            vaccineNotGivenObject = new JSONObject().put("vaccineNotGiven", new JSONArray(ChildUtils.gsonConverter.toJson(immunizationView.getNotGivenVaccine())));
-
-                        }
-                        JSONObject service = new JSONObject(ChildUtils.gsonConverter.toJson(homeVisitGrowthAndNutritionLayout.returnSaveStateMap()));
-                        JSONObject serviceNotGiven = new JSONObject(ChildUtils.gsonConverter.toJson(homeVisitGrowthAndNutritionLayout.returnNotSaveStateMap()));
-
-                        if (illnessJson == null) {
-                            illnessJson = new JSONObject();
-                        }
-                        if(birthCertJson == null){
-                            birthCertJson = new JSONObject();
-                        }
-                        ChildUtils.updateHomeVisitAsEvent(childClient.entityId(), Constants.EventType.CHILD_HOME_VISIT, Constants.TABLE_NAME.CHILD, singleVaccineObject, vaccineGroupObject,vaccineNotGivenObject, service,serviceNotGiven, birthCertJson, illnessJson, ChildDBConstants.KEY.LAST_HOME_VISIT, System.currentTimeMillis() + "");
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    if (getActivity() instanceof ChildRegisterActivity) {
-                        ((ChildRegisterActivity) getActivity()).refreshList(FetchStatus.fetched);
-                    }
-                    if (((ChildHomeVisitPresenter) presenter).getSaveSize() > 0) {
-                        presenter.saveForm();
-                    }
-                    if(isEditMode){
-                        saveData();
-                        return;
-                    }
-                    dismiss();
+                    saveCommonData().subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .doOnSubscribe(new Consumer<Disposable>() {
+                                @Override
+                                public void accept(Disposable disposable) throws Exception {
+                                    progressBar.setVisibility(View.VISIBLE);
+                                }
+                            })
+                            .doOnTerminate(new Action() {
+                                @Override
+                                public void run() throws Exception {
+                                    progressBar.setVisibility(View.GONE);
+                                    if (getActivity() instanceof ChildRegisterActivity) {
+                                        ((ChildRegisterActivity) getActivity()).refreshList(FetchStatus.fetched);
+                                    }
+                                    if(isEditMode){
+                                        saveData();
+                                        return;
+                                    }
+                                    dismiss();
+                                }
+                            })
+                            .subscribe();
                 }
                 break;
             case R.id.close:
@@ -276,6 +262,44 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
             default:
                 break;
         }
+    }
+    private Observable saveCommonData(){
+        return Observable.create(new ObservableOnSubscribe() {
+            @Override
+            public void subscribe(ObservableEmitter emitter) throws Exception {
+                try {
+                    //JSONArray vaccineGroup = homeVisitImmunizationView.getGroupVaccinesGivenThisVisit();
+                    //JSONArray singleVaccine = homeVisitImmunizationView.getSingleVaccinesGivenThisVisit();
+                    //not needed given vaccine track.
+                    JSONObject singleVaccineObject = new JSONObject().put("singleVaccinesGiven", new JSONArray());
+                    JSONObject vaccineGroupObject = new JSONObject().put("groupVaccinesGiven", new JSONArray());
+                    //end of not used
+                    JSONObject vaccineNotGivenObject;
+                    if(isEditMode){
+                        vaccineNotGivenObject = new JSONObject().put("vaccineNotGiven", new JSONArray(ChildUtils.gsonConverter.toJson(immunizationView.getNotGivenVaccine())));
+                    }else{
+                        vaccineNotGivenObject = new JSONObject().put("vaccineNotGiven", new JSONArray(ChildUtils.gsonConverter.toJson(immunizationView.getNotGivenVaccine())));
+
+                    }
+                    JSONObject service = new JSONObject(ChildUtils.gsonConverter.toJson(homeVisitGrowthAndNutritionLayout.returnSaveStateMap()));
+                    JSONObject serviceNotGiven = new JSONObject(ChildUtils.gsonConverter.toJson(homeVisitGrowthAndNutritionLayout.returnNotSaveStateMap()));
+
+                    if (illnessJson == null) {
+                        illnessJson = new JSONObject();
+                    }
+                    if(birthCertJson == null){
+                        birthCertJson = new JSONObject();
+                    }
+                    ChildUtils.updateHomeVisitAsEvent(childClient.entityId(), Constants.EventType.CHILD_HOME_VISIT, Constants.TABLE_NAME.CHILD, singleVaccineObject, vaccineGroupObject,vaccineNotGivenObject, service,serviceNotGiven, birthCertJson, illnessJson, ChildDBConstants.KEY.LAST_HOME_VISIT, System.currentTimeMillis() + "");
+                    if (((ChildHomeVisitPresenter) presenter).getSaveSize() > 0) {
+                        ((ChildHomeVisitPresenter) presenter).saveForm();
+                    }
+                    emitter.onComplete();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     private void showCloseDialog() {

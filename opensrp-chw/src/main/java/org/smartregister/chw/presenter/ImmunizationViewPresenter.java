@@ -122,6 +122,7 @@ public class ImmunizationViewPresenter implements ImmunizationContact.Presenter,
             HomeVisitVaccineGroup hhh = this.homeVisitVaccineGroupDetails.get(i);
             if(hhh.getGroup().equalsIgnoreCase(homeVisitVaccineGroup.getGroup()) && homeVisitVaccineGroup.getGroup().equalsIgnoreCase(groupName)){
                 this.homeVisitVaccineGroupDetails.set(i,homeVisitVaccineGroup);
+                if(hhh.getDueVaccines().size() == 0)this.homeVisitVaccineGroupDetails.remove(i);
                 return true;
             }
         }

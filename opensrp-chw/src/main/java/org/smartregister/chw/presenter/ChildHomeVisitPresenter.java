@@ -133,7 +133,7 @@ public class ChildHomeVisitPresenter implements ChildHomeVisitContract.Presenter
 
     @Override
     public void saveForm() {
-        interactor.saveForm();
+        interactor.saveForm(childClient);
     }
 
     @Override

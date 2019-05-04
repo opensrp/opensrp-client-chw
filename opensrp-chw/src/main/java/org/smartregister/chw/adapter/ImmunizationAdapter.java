@@ -71,10 +71,10 @@ public class ImmunizationAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
                 }
                 inactiveViewHolder.titleText.setText(immunizations);
-                String message = MessageFormat.format("{0} {1}",
+                String message = MessageFormat.format("{0}{1}",
                         ((baseVaccine.getAlert().equals(ImmunizationState.OVERDUE)) ? context.getResources().getString(R.string.overdue) : context.getResources().getString(R.string.due)),
                         baseVaccine.getDueDisplayDate());
-                int color_res = ((baseVaccine.getAlert().equals(ImmunizationState.OVERDUE)) ? R.color.alert_urgent_red : android.R.color.darker_gray);
+                int color_res = ((baseVaccine.getAlert().equals(ImmunizationState.OVERDUE)) ? R.color.alert_urgent_red : R.color.grey);
                 inactiveViewHolder.descriptionText.setTextColor(context.getResources().getColor(color_res));
                 inactiveViewHolder.descriptionText.setText(message);
                 inactiveViewHolder.getView().setOnClickListener(new View.OnClickListener() {
@@ -114,7 +114,7 @@ public class ImmunizationAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
                 }
                 contentViewHolder.titleText.setText(cImmunization);
-                contentViewHolder.descriptionText.setTextColor(context.getResources().getColor(android.R.color.darker_gray));
+                contentViewHolder.descriptionText.setTextColor(context.getResources().getColor(R.color.grey));
                 contentViewHolder.descriptionText.setText(getVaccineWithDateText(contentImmunization));
                 contentViewHolder.circleImageView.setImageResource(R.drawable.ic_checked);
                 contentViewHolder.circleImageView.setColorFilter(context.getResources().getColor(R.color.white));

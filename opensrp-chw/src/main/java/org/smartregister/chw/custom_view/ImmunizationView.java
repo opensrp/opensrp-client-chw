@@ -176,11 +176,14 @@ public class ImmunizationView extends LinearLayout implements ImmunizationContac
     @Override
     public void onUpdateNextPosition(){
         Log.logError("SUBMIT_CHECK","onUpdateNextPosition>>");
-        HomeVisitVaccineGroup nextSelectedGroup = presenter.getHomeVisitVaccineGroupDetails().get(pressPosition + 1);
-        //if (nextSelectedGroup.getViewType() == HomeVisitVaccineGroup.TYPE_INACTIVE) {
+        try{
+            HomeVisitVaccineGroup nextSelectedGroup = presenter.getHomeVisitVaccineGroupDetails().get(pressPosition + 1);
             nextSelectedGroup.setViewType(HomeVisitVaccineGroup.TYPE_INITIAL);
-        //}
-        updateAdapter(pressPosition + 1);
+            updateAdapter(pressPosition + 1);
+        }catch (Exception e){
+            adapter.notifyDataSetChanged();
+        }
+
     }
 
     @Override

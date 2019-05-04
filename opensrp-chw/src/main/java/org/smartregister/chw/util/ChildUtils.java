@@ -416,7 +416,7 @@ public class ChildUtils {
         if (diff <= 0) {
             String str = Math.abs(diff) + " days away";
             spannableString = new SpannableString(str);
-            spannableString.setSpan(new ForegroundColorSpan(Color.GRAY), 0, str.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            spannableString.setSpan(new ForegroundColorSpan(ChwApplication.getInstance().getContext().getColorResource(R.color.grey)), 0, str.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             return spannableString;
         } else {
             String str = diff + " days overdue";
@@ -431,12 +431,12 @@ public class ChildUtils {
         Date date = org.smartregister.family.util.Utils.dobStringToDate(dueDate);
         if (status.equalsIgnoreCase(ImmunizationState.DUE.name())) {
 
-            String str = context.getResources().getString(R.string.due) + " " + dd_MMM_yyyy.format(date);
+            String str = context.getResources().getString(R.string.due) + "" + dd_MMM_yyyy.format(date);
             spannableString = new SpannableString(str);
-            spannableString.setSpan(new ForegroundColorSpan(Color.GRAY), 0, str.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            spannableString.setSpan(new ForegroundColorSpan(ChwApplication.getInstance().getContext().getColorResource(R.color.grey)), 0, str.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             return spannableString;
         } else {
-            String str = context.getResources().getString(R.string.overdue) + " " + dd_MMM_yyyy.format(date);
+            String str = context.getResources().getString(R.string.overdue) + "" + dd_MMM_yyyy.format(date);
             spannableString = new SpannableString(str);
             spannableString.setSpan(new ForegroundColorSpan(ChwApplication.getInstance().getContext().getColorResource(R.color.alert_urgent_red)), 0, str.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             return spannableString;
