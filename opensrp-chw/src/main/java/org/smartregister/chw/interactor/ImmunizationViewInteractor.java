@@ -17,6 +17,7 @@ import org.smartregister.chw.util.ChildDBConstants;
 import org.smartregister.chw.util.ChildUtils;
 import org.smartregister.chw.util.ChwServiceSchedule;
 import org.smartregister.chw.util.HomeVisitVaccineGroup;
+import org.smartregister.chw.util.ImmunizationState;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.Alert;
 import org.smartregister.family.util.DBConstants;
@@ -81,6 +82,10 @@ public class ImmunizationViewInteractor implements ImmunizationContact.Interacto
                             HomeVisitVaccineGroup homeVisitVaccineGroup = iterator.next();
                             if (homeVisitVaccineGroup.getDueVaccines().size() != 0 && (
                                     homeVisitVaccineGroup.getDueVaccines().size() == homeVisitVaccineGroup.getGivenVaccines().size())) {
+                                iterator.remove();
+                            }
+                            //remove no alert group.
+                            if(homeVisitVaccineGroup.getAlert()==null || homeVisitVaccineGroup.getAlert().equals(ImmunizationState.NO_ALERT)){
                                 iterator.remove();
                             }
 

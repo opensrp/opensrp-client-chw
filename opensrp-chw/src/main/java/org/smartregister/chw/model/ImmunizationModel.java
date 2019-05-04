@@ -118,6 +118,8 @@ public class ImmunizationModel {
                     }
                 }
             }
+        } else{
+            homeVisitVaccineGroupArrayList.get(position).setAlert(ImmunizationState.NO_ALERT);
         }
     }
 
