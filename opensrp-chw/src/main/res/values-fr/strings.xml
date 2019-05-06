@@ -246,4 +246,7 @@
     <string name="edu_level_primary">Primaire</string>
     <string name="edu_level_secondary">Secondaire</string>
     <string name="edu_level_post_secondary">Postsecondaire</string>
+
+    <string name="yes">Oui</string>
+    <string name="no">Non</string>
 </resources>
