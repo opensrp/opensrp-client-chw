@@ -14,9 +14,11 @@ import org.smartregister.immunization.repository.RecurringServiceTypeRepository;
 import org.smartregister.immunization.util.VaccinateActionUtils;
 import org.smartregister.immunization.util.VaccinatorUtils;
 import org.smartregister.service.AlertService;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
 import timber.log.Timber;
 
 /**
@@ -59,35 +61,31 @@ public class ChwServiceSchedule {
 //                if (curAlert == null ) {
 //                    break;
 //                } else {
-                    // Check if the current alert already exists for the entityId
-                    boolean exists = false;
-                    for (Alert curExistingAlert : existingAlerts) {
-                        if (curAlert!=null && curExistingAlert.scheduleName().equalsIgnoreCase(curAlert.scheduleName())
-                                && curExistingAlert.caseId().equalsIgnoreCase(curAlert.caseId()))
-                         {
+                // Check if the current alert already exists for the entityId
+                boolean exists = false;
+                for (Alert curExistingAlert : existingAlerts) {
+                    if (curAlert != null && curExistingAlert.scheduleName().equalsIgnoreCase(curAlert.scheduleName())
+                            && curExistingAlert.caseId().equalsIgnoreCase(curAlert.caseId())) {
+                        exists = true;
+                        break;
+                    }
+                }
+
+                // Check if service is already given
+                if (!exists) {
+                    for (ServiceRecord serviceRecord : issuedServices) {
+                        if (curAlert != null && curAlert.scheduleName().equalsIgnoreCase(serviceRecord.getName())
+                                || curAlert != null && curAlert.visitCode().equalsIgnoreCase(serviceRecord.getName())) {
                             exists = true;
                             break;
                         }
                     }
+                }
 
-                    // Check if service is already given
-                    if (!exists) {
-                        for (ServiceRecord serviceRecord : issuedServices) {
-                            if (curAlert!=null && curAlert.scheduleName().equalsIgnoreCase(serviceRecord.getName())
-                                    || curAlert!=null && curAlert.visitCode().equalsIgnoreCase(serviceRecord.getName())) {
-                                exists = true;
-                                break;
-                            }
-                        }
-                    }
-
-                    if (!exists) {
-                        // Insert alert into table
-                        if(curAlert!=null && !curAlert.status().value().equalsIgnoreCase(AlertStatus.expired.value())){
-                            alertService.create(curAlert);
-                        }
-
-                    }
+                // Insert alert into table
+                if (!exists && curAlert != null && !curAlert.status().value().equalsIgnoreCase(AlertStatus.expired.value())) {
+                    alertService.create(curAlert);
+                }
                 //}
             }
 
@@ -104,7 +102,7 @@ public class ChwServiceSchedule {
             DateTime dueDateTime = VaccinatorUtils.getServiceDueDate(serviceType, dateOfBirth, issuedServices);
             DateTime expiryDateTime = VaccinatorUtils.getServiceExpiryDate(serviceType, dateOfBirth);
             // Use the trigger date as a reference, since that is what is mostly used
-            AlertStatus alertStatus = calculateAlertStatus(dueDateTime,expiryDateTime);
+            AlertStatus alertStatus = calculateAlertStatus(dueDateTime, expiryDateTime);
 
             if (alertStatus != null) {
                 Date startDate = dueDateTime == null ? dateOfBirth.toDate() : dueDateTime.toDate();
@@ -121,7 +119,7 @@ public class ChwServiceSchedule {
 
     private static AlertStatus calculateAlertStatus(DateTime dueDateTime, DateTime expiryDateTime) {
 
-        try{
+        try {
             Calendar expiredCal = Calendar.getInstance();
             expiredCal.setTime(expiryDateTime.toDate());
             standardiseCalendarDate(expiredCal);
@@ -135,12 +133,12 @@ public class ChwServiceSchedule {
 
             if (expiredCal.getTimeInMillis() < today.getTimeInMillis()) {// expired
                 return AlertStatus.expired;
-            }else if (dueCal.getTimeInMillis() <= today.getTimeInMillis()) {// Due
+            } else if (dueCal.getTimeInMillis() <= today.getTimeInMillis()) {// Due
                 return AlertStatus.normal;
-            }else if(dueCal.getTimeInMillis() == expiredCal.getTimeInMillis()){
+            } else if (dueCal.getTimeInMillis() == expiredCal.getTimeInMillis()) {
                 return AlertStatus.normal;
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             Timber.e(ChwServiceSchedule.class.getName(), e.toString(), e);
         }
         return null;
