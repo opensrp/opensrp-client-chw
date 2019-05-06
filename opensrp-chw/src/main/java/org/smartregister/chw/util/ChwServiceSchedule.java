@@ -3,28 +3,20 @@ package org.smartregister.chw.util;
 import android.util.Log;
 
 import org.joda.time.DateTime;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.smartregister.clientandeventmodel.DateUtil;
 import org.smartregister.domain.Alert;
 import org.smartregister.domain.AlertStatus;
 import org.smartregister.immunization.ImmunizationLibrary;
 import org.smartregister.immunization.domain.ServiceRecord;
-import org.smartregister.immunization.domain.ServiceTrigger;
 import org.smartregister.immunization.domain.ServiceType;
 import org.smartregister.immunization.repository.RecurringServiceRecordRepository;
 import org.smartregister.immunization.repository.RecurringServiceTypeRepository;
 import org.smartregister.immunization.util.VaccinateActionUtils;
 import org.smartregister.immunization.util.VaccinatorUtils;
 import org.smartregister.service.AlertService;
-
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import timber.log.Timber;
 
 /**
@@ -32,22 +24,6 @@ import timber.log.Timber;
  */
 
 public class ChwServiceSchedule {
-
-    private final ServiceTrigger dueTrigger;
-    private final ServiceTrigger expiryTrigger;
-
-
-    public static ChwServiceSchedule getServiceSchedule(JSONObject schedule)
-            throws JSONException {
-        ServiceTrigger dueTrigger = ServiceTrigger.init(schedule.getJSONObject("due"));
-        ServiceTrigger expiryTrigger = ServiceTrigger.init(schedule.optJSONObject("expiry"));
-        return new ChwServiceSchedule(dueTrigger, expiryTrigger);
-    }
-
-    public ChwServiceSchedule(ServiceTrigger dueTrigger, ServiceTrigger expiryTrigger) {
-        this.dueTrigger = dueTrigger;
-        this.expiryTrigger = expiryTrigger;
-    }
 
     public static void updateOfflineAlerts(String baseEntityId, DateTime dob) {
         RecurringServiceTypeRepository recurringServiceTypeRepository = ImmunizationLibrary.getInstance().recurringServiceTypeRepository();
@@ -178,72 +154,5 @@ public class ChwServiceSchedule {
         calendarDate.set(Calendar.MILLISECOND, 0);
     }
 
-    public static DateTime standardiseDateTime(DateTime dateTime) {
-        if (dateTime != null) {
-            return dateTime.withTime(0, 0, 0, 0);
-        }
-        return null;
-    }
-
-    public ServiceTrigger getDueTrigger() {
-        return dueTrigger;
-    }
-
-    public ServiceTrigger getExpiryTrigger() {
-        return expiryTrigger;
-    }
-
-    public static DateTime addOffsetToDateTime(DateTime dateTime, List<String> offsets) {
-        DateTime afterOffset = dateTime;
-        if (dateTime != null && offsets != null && !offsets.isEmpty()) {
-            for (String offset : offsets) {
-                afterOffset = addOffsetToDateTime(afterOffset, offset);
-            }
-        }
-        return afterOffset;
-    }
-
-    public static DateTime addOffsetToDateTime(DateTime dateTime, String offset) {
-        try {
-            DateTime afterOffset = dateTime;
-            if (dateTime != null && offset != null) {
-                String offsetAfterReplace = offset.replace(" ", "").toLowerCase();
-                Pattern p1 = Pattern.compile("([-+]{1})(.*)");
-                Matcher m1 = p1.matcher(offsetAfterReplace);
-                if (m1.find()) {
-                    String comparitorString = m1.group(1);
-                    String valueString = m1.group(2);
-
-                    int comparitor = 1;
-                    if ("-".equals(comparitorString)) {
-                        comparitor = -1;
-                    }
-
-                    String[] values = valueString.split(",");
-                    for (int i = 0; i < values.length; i++) {
-                        Pattern p2 = Pattern.compile("(\\d+)([dwmy]{1})");
-                        Matcher m2 = p2.matcher(values[i]);
-
-                        if (m2.find()) {
-                            int curValue = comparitor * Integer.parseInt(m2.group(1));
-                            String fieldString = m2.group(2);
-                            if ("d".endsWith(fieldString)) {
-                                afterOffset = afterOffset.plusDays(curValue);
-                            } else if ("m".equals(fieldString)) {
-                                afterOffset = afterOffset.plusMonths(curValue);
-                            } else if ("y".equals(fieldString)) {
-                                afterOffset = afterOffset.plusYears(curValue);
-                            }
-                        }
-                    }
-                }
-            }
-
-            return afterOffset;
-        } catch (Exception e) {
-            Log.e(ChwServiceSchedule.class.getName(), e.toString(), e);
-            return dateTime;
-        }
-    }
 }
 
