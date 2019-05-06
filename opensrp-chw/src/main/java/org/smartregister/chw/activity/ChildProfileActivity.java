@@ -490,6 +490,8 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
+                layoutMostDueOverdue.setVisibility(View.GONE);
+                viewMostDueRow.setVisibility(View.GONE);
                 presenter().fetchVisitStatus(childBaseEntityId);
                 presenter().fetchUpcomingServiceAndFamilyDue(childBaseEntityId);
                 presenter().updateChildCommonPerson(childBaseEntityId);
