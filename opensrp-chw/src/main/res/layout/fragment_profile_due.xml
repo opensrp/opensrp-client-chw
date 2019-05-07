@@ -63,8 +63,8 @@
 
             <ImageView
                 android:id="@+id/ivNothingDue"
-                android:layout_width="170dp"
-                android:layout_height="170dp"
+                android:layout_width="140dp"
+                android:layout_height="140dp"
                 android:layout_centerHorizontal="true"
                 app:srcCompat="@drawable/icon_notasks" />
 

@@ -239,8 +239,8 @@
     <string name="october">October</string>
     <string name="november">November</string>
     <string name="december">December</string>
-    <string name="no_services_due">No Services are due</string>
-    <string name="due_details">When a service becomes due for a family member, it shows up here.</string>
+    <string name="no_services_due">No services are due</string>
+    <string name="due_details">When a service becomes due for a family member, it will show up here.</string>
 
     <string name="edu_level_none">None</string>
     <string name="edu_level_primary">Primary</string>
