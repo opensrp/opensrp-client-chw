@@ -120,7 +120,7 @@ public class ImmunizationView extends LinearLayout implements ImmunizationContac
             recyclerView.setAdapter(adapter);
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         } else {
-            adapter.notifyItemChanged(position);
+            adapter.notifyDataSetChanged();
         }
 
     }
