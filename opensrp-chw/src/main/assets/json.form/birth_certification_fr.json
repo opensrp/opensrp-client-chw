@@ -61,6 +61,10 @@
           "Oui",
           "Non"
         ],
+        "keys": [
+          "Yes",
+          "No"
+        ],
         "openmrs_choice_ids": {
           "Oui": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "Non": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -123,6 +127,10 @@
         "values": [
           "Oui",
           "Non"
+        ],
+        "keys": [
+          "Yes",
+          "No"
         ],
         "openmrs_choice_ids": {
           "Oui": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
