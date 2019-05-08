@@ -2,7 +2,6 @@ package org.smartregister.chw.interactor;
 
 import android.content.Context;
 
-import com.evernote.android.job.Job;
 import com.evernote.android.job.JobCreator;
 import com.evernote.android.job.JobManager;
 
@@ -16,10 +15,8 @@ import org.mockito.MockitoAnnotations;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
-import org.smartregister.chw.job.ChwJobCreator;
 import org.smartregister.chw.presenter.LoginPresenter;
 import org.smartregister.job.BaseJob;
-import org.smartregister.reporting.job.RecurringIndicatorGeneratingJob;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({BaseJob.class, JobManager.class})
@@ -28,7 +25,7 @@ public class LoginInteractorTest {
     private LoginInteractor loginInteractor;
 
     @Mock
-    Context context;
+    private Context context;
 
     @Mock
     private LoginPresenter loginPresenter;
@@ -52,7 +49,7 @@ public class LoginInteractorTest {
         PowerMockito.when(JobManager.create(context)).thenReturn(jobManager);
         jobManager.addJobCreator(jobCreator);
         loginInteractor.scheduleJobsPeriodically();
-        PowerMockito.verifyStatic(Mockito.times(5));
+        PowerMockito.verifyStatic(BaseJob.class, Mockito.times(5));
         BaseJob.scheduleJob(ArgumentMatchers.anyString(), ArgumentMatchers.anyLong(), ArgumentMatchers.anyLong());
     }
 }
