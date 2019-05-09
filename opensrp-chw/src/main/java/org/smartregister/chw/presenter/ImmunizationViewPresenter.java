@@ -21,7 +21,7 @@ import org.smartregister.util.Log;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -226,6 +226,21 @@ public class ImmunizationViewPresenter implements ImmunizationContact.Presenter,
         }
         return vaccineArrayList;
 
+    }
+    public LinkedHashMap<DateTime, ArrayList<VaccineRepo.Vaccine>> updateGroupByDate(){
+        LinkedHashMap<DateTime, ArrayList<VaccineRepo.Vaccine>> dueWithDate = new LinkedHashMap<>();
+        for (VaccineWrapper vaccineWrapper : givenGroupWiseVaccines) {
+            VaccineRepo.Vaccine vaccine = vaccineWrapper.getVaccine();
+            DateTime dueDate = vaccineWrapper.getUpdatedVaccineDate();
+            if(dueWithDate.get(dueDate) == null){
+                ArrayList<VaccineRepo.Vaccine> vaccineArrayList = new ArrayList<>();
+                vaccineArrayList.add(vaccine);
+                dueWithDate.put(dueDate,vaccineArrayList);
+            }else{
+                dueWithDate.get(dueDate).add(vaccine);
+            }
+        }
+        return dueWithDate;
     }
 
     public Observable undoVaccine(final CommonPersonObjectClient childClient) {

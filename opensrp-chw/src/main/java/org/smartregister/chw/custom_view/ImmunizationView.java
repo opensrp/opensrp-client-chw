@@ -156,6 +156,10 @@ public class ImmunizationView extends LinearLayout implements ImmunizationContac
         selectedGroup.setViewType(HomeVisitVaccineGroup.TYPE_ACTIVE);
         selectedGroup.getGivenVaccines().clear();
         selectedGroup.getGivenVaccines().addAll(givenList);
+        if(givenList.size()>0){
+            selectedGroup.getGroupedByDate().clear();
+            selectedGroup.getGroupedByDate().putAll(presenter.updateGroupByDate());
+        }
         selectedGroup.getNotGivenVaccines().clear();
         selectedGroup.getNotGivenVaccines().addAll(notGiven);
         updateAdapter(pressPosition);
