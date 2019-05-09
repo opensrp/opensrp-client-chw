@@ -55,13 +55,19 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
     @Override
     public void countExecute() {
         super.countExecute();
-        int count = clientAdapter.getTotalcount();
+        final int count = clientAdapter.getTotalcount();
         if (getActivity() != null && count != dueCount) {
             dueCount = count;
             ((FamilyProfileActivity) getActivity()).updateDueCount(dueCount);
         }
+        //crash occured after create a child
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
 
-        onEmptyRegisterCount(count < 1);
+                onEmptyRegisterCount(count < 1);
+            }
+        });
     }
 
     @Override
