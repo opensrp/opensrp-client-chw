@@ -33,8 +33,8 @@ public class ImmunizationAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private Context context;
     private OnClickEditAdapter onClickEditAdapter;
 
-    public ImmunizationAdapter(Context context, OnClickEditAdapter onClickEditAdapter,ImmunizationViewPresenter presenter) {
-        this.presenter =presenter;
+    public ImmunizationAdapter(Context context, OnClickEditAdapter onClickEditAdapter, ImmunizationViewPresenter presenter) {
+        this.presenter = presenter;
         this.context = context;
         this.onClickEditAdapter = onClickEditAdapter;
     }
@@ -130,6 +130,8 @@ public class ImmunizationAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                     }
                 });
 
+                break;
+            default:
                 break;
         }
 

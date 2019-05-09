@@ -6,8 +6,8 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.contract.HomeVisitGrowthNutritionContract;
 import org.smartregister.chw.fragment.GrowthNutritionInputFragment;
 import org.smartregister.chw.interactor.HomeVisitGrowthNutritionInteractor;
-import org.smartregister.chw.util.Utils;
 import org.smartregister.chw.util.ChwServiceSchedule;
+import org.smartregister.chw.util.Utils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.Alert;
 import org.smartregister.domain.AlertStatus;
@@ -52,12 +52,12 @@ public class HomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNutriti
 
 
     @Override
-    public void parseRecordServiceData(CommonPersonObjectClient commonPersonObjectClient,boolean isEditMode) {
+    public void parseRecordServiceData(CommonPersonObjectClient commonPersonObjectClient, boolean isEditMode) {
         this.commonPersonObjectClient = commonPersonObjectClient;
         this.isEditMode = isEditMode;
-        if(isEditMode){
-            interactor.parseEditRecordServiceData(commonPersonObjectClient,this);
-        }else{
+        if (isEditMode) {
+            interactor.parseEditRecordServiceData(commonPersonObjectClient, this);
+        } else {
             interactor.parseRecordServiceData(commonPersonObjectClient, this);
         }
 
@@ -66,7 +66,7 @@ public class HomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNutriti
     @Override
     public void setSaveState(String type, ServiceWrapper serviceWrapper) {
         saveStateMap.put(type, serviceWrapper);
-        if(!saveGroupList.contains(type)){
+        if (!saveGroupList.contains(type)) {
             saveGroupList.add(type);
         }
         saveServiceMap.put(type, serviceWrapper.getAlert().scheduleName());
@@ -87,7 +87,7 @@ public class HomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNutriti
 
         if (isSave(type)) return;
         notVisitStateMap.put(type, serviceWrapper);
-        if(!saveGroupList.contains(type)){
+        if (!saveGroupList.contains(type)) {
             saveGroupList.add(type);
         }
         if (getView() != null)
@@ -116,7 +116,7 @@ public class HomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNutriti
     }
 
     public boolean isAllSelected() {
-        Log.logError("SUBMIT_BUTTON","isAllSelected>>"+saveGroupList.size()+": "+initialCount);
+        Log.logError("SUBMIT_BUTTON", "isAllSelected>>" + saveGroupList.size() + ": " + initialCount);
         return saveGroupList.size() == initialCount;
 
     }
@@ -124,9 +124,9 @@ public class HomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNutriti
     @Override
     public void updateNotGivenRecordVisitData(Map<String, ServiceWrapper> stringServiceWrapperMap) {
         updateData(stringServiceWrapperMap);
-        for(String type : stringServiceWrapperMap.keySet()){
+        for (String type : stringServiceWrapperMap.keySet()) {
             ServiceWrapper serviceWrapper = stringServiceWrapperMap.get(type);
-            setNotVisitState(type,serviceWrapper);
+            setNotVisitState(type, serviceWrapper);
         }
 
     }
@@ -140,14 +140,15 @@ public class HomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNutriti
     public void updateGivenRecordVisitData(Map<String, ServiceWrapper> stringServiceWrapperMap) {
         getView().allDataLoaded();
         updateData(stringServiceWrapperMap);
-        if(isEditMode){
-            for(String type : stringServiceWrapperMap.keySet()){
+        if (isEditMode) {
+            for (String type : stringServiceWrapperMap.keySet()) {
                 ServiceWrapper serviceWrapper = stringServiceWrapperMap.get(type);
-                setSaveState(type,serviceWrapper);
+                setSaveState(type, serviceWrapper);
             }
         }
     }
-    private void updateData(Map<String, ServiceWrapper> stringServiceWrapperMap){
+
+    private void updateData(Map<String, ServiceWrapper> stringServiceWrapperMap) {
         saveGroupList.clear();
         initialCount = 0;
         serviceWrapperMap = stringServiceWrapperMap;
@@ -227,8 +228,8 @@ public class HomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNutriti
 
 
     public ServiceWrapper getServiceWrapperExclusive() {
-        if(isEditMode){
-            if(isSave(GrowthNutritionInputFragment.GROWTH_TYPE.EXCLUSIVE.getValue())){
+        if (isEditMode) {
+            if (isSave(GrowthNutritionInputFragment.GROWTH_TYPE.EXCLUSIVE.getValue())) {
                 return saveStateMap.get(GrowthNutritionInputFragment.GROWTH_TYPE.EXCLUSIVE.getValue());
             }
         }
@@ -236,28 +237,22 @@ public class HomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNutriti
     }
 
     public ServiceWrapper getServiceWrapperMnp() {
-        if(isEditMode){
-            if(isSave(GrowthNutritionInputFragment.GROWTH_TYPE.MNP.getValue())){
-                return saveStateMap.get(GrowthNutritionInputFragment.GROWTH_TYPE.MNP.getValue());
-            }
+        if (isEditMode && isSave(GrowthNutritionInputFragment.GROWTH_TYPE.MNP.getValue())) {
+            return saveStateMap.get(GrowthNutritionInputFragment.GROWTH_TYPE.MNP.getValue());
         }
         return serviceWrapperMnp;
     }
 
     public ServiceWrapper getServiceWrapperVitamin() {
-        if(isEditMode){
-            if(isSave(GrowthNutritionInputFragment.GROWTH_TYPE.VITAMIN.getValue())){
-                return saveStateMap.get(GrowthNutritionInputFragment.GROWTH_TYPE.VITAMIN.getValue());
-            }
+        if (isEditMode && isSave(GrowthNutritionInputFragment.GROWTH_TYPE.VITAMIN.getValue())) {
+            return saveStateMap.get(GrowthNutritionInputFragment.GROWTH_TYPE.VITAMIN.getValue());
         }
         return serviceWrapperVitamin;
     }
 
     public ServiceWrapper getServiceWrapperDeworming() {
-        if(isEditMode){
-            if(isSave(GrowthNutritionInputFragment.GROWTH_TYPE.DEWORMING.getValue())){
-                return saveStateMap.get(GrowthNutritionInputFragment.GROWTH_TYPE.DEWORMING.getValue());
-            }
+        if (isEditMode && isSave(GrowthNutritionInputFragment.GROWTH_TYPE.DEWORMING.getValue())) {
+            return saveStateMap.get(GrowthNutritionInputFragment.GROWTH_TYPE.DEWORMING.getValue());
         }
         return serviceWrapperDeworming;
     }

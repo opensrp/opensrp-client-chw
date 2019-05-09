@@ -50,10 +50,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
-
 import static org.smartregister.chw.util.ChildUtils.fixVaccineCasing;
 
 @SuppressLint("ValidFragment")
@@ -292,8 +288,8 @@ public class VaccinationDialogFragment extends DialogFragment implements View.On
                 }
             }
         }
-        if(tagsToUpdate.size() > 0){
-            saveGivenVaccine(childDetails,tagsToUpdate);
+        if (tagsToUpdate.size() > 0) {
+            saveGivenVaccine(childDetails, tagsToUpdate);
         }
         immunizationView.getPresenter().assigntoGivenVaccines(tagsToUpdate);
 
@@ -314,8 +310,8 @@ public class VaccinationDialogFragment extends DialogFragment implements View.On
                 }
             }
         }
-        if(tagsToUpdate.size() > 0){
-            saveGivenVaccine(childDetails,tagsToUpdate);
+        if (tagsToUpdate.size() > 0) {
+            saveGivenVaccine(childDetails, tagsToUpdate);
         }
         immunizationView.getPresenter().assigntoGivenVaccines(tagsToUpdate);
 
@@ -337,50 +333,53 @@ public class VaccinationDialogFragment extends DialogFragment implements View.On
                 }
             }
         }
-        if(UngiventagsToUpdate.size()>0){
-            undoPreviousGivenVaccine(childDetails,UngiventagsToUpdate);
+        if (UngiventagsToUpdate.size() > 0) {
+            undoPreviousGivenVaccine(childDetails, UngiventagsToUpdate);
         }
 
         immunizationView.getPresenter().assignToNotGivenVaccines(UngiventagsToUpdate, groupName);
 
 
     }
+
     private void saveGivenVaccine(final CommonPersonObjectClient childClient, final ArrayList<VaccineWrapper> givenVaccine) {
 //
 //        new Thread(new Runnable() {
 //            @Override
 //            public void run() {
-                for (VaccineWrapper tag : givenVaccine) {
-                    saveVaccine(tag, childClient);
-                }
-                String dobString = org.smartregister.util.Utils.getValue(childClient.getColumnmaps(), "dob", false);
-                if (!TextUtils.isEmpty(dobString)) {
-                    DateTime dateTime = new DateTime(dobString);
-                    VaccineSchedule.updateOfflineAlerts(childClient.entityId(), dateTime, "child");
-                }
+        for (VaccineWrapper tag : givenVaccine) {
+            saveVaccine(tag, childClient);
+        }
+        String dobString = org.smartregister.util.Utils.getValue(childClient.getColumnmaps(), "dob", false);
+        if (!TextUtils.isEmpty(dobString)) {
+            DateTime dateTime = new DateTime(dobString);
+            VaccineSchedule.updateOfflineAlerts(childClient.entityId(), dateTime, "child");
+        }
 //            }
 //        }).start();
     }
+
     private void undoPreviousGivenVaccine(final CommonPersonObjectClient childClient, final ArrayList<VaccineWrapper> notGivenVaccine) {
 
 //        new Thread(new Runnable() {
 //            @Override
 //            public void run() {
-                for(VaccineWrapper untag:notGivenVaccine){
+        for (VaccineWrapper untag : notGivenVaccine) {
 
-                    if(isExistInGiven(untag.getName())){
-                        Long dbKey = untag.getDbKey();
-                        vaccineRepository.deleteVaccine(dbKey);
-                    }
-                }
-                String dobString = org.smartregister.util.Utils.getValue(childClient.getColumnmaps(), "dob", false);
-                if (!TextUtils.isEmpty(dobString)) {
-                    DateTime dateTime = new DateTime(dobString);
-                    VaccineSchedule.updateOfflineAlerts(childClient.entityId(), dateTime, "child");
-                }
+            if (isExistInGiven(untag.getName())) {
+                Long dbKey = untag.getDbKey();
+                vaccineRepository.deleteVaccine(dbKey);
+            }
+        }
+        String dobString = org.smartregister.util.Utils.getValue(childClient.getColumnmaps(), "dob", false);
+        if (!TextUtils.isEmpty(dobString)) {
+            DateTime dateTime = new DateTime(dobString);
+            VaccineSchedule.updateOfflineAlerts(childClient.entityId(), dateTime, "child");
+        }
 //            }
 //        }).start();
     }
+
     private void saveVaccine(VaccineWrapper tag, CommonPersonObjectClient childClient) {
         if (tag.getUpdatedVaccineDate() == null) {
             return;

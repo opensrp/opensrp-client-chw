@@ -15,7 +15,6 @@ import org.smartregister.immunization.domain.Vaccine;
 import org.smartregister.immunization.domain.VaccineWrapper;
 import org.smartregister.immunization.util.VaccinateActionUtils;
 import org.smartregister.util.DateUtil;
-import org.smartregister.util.Log;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -31,15 +30,17 @@ import static org.smartregister.immunization.util.VaccinatorUtils.receivedVaccin
 
 public class ImmunizationModel {
     private List<Vaccine> vaccines;
+    private ArrayList<String> elligibleVaccineGroups = new ArrayList<String>();
+
     public List<Vaccine> getVaccines() {
         return vaccines;
     }
-    private ArrayList<String> elligibleVaccineGroups = new ArrayList<String>();
-    public ArrayList<HomeVisitVaccineGroup> determineAllHomeVisitVaccineGroup(CommonPersonObjectClient client,List<Alert> alerts, List<Vaccine> vaccines, ArrayList<VaccineWrapper> notGivenVaccines, List<Map<String, Object>> sch) {
-        if(this.vaccines!=null) this.vaccines.clear();
+
+    public ArrayList<HomeVisitVaccineGroup> determineAllHomeVisitVaccineGroup(CommonPersonObjectClient client, List<Alert> alerts, List<Vaccine> vaccines, ArrayList<VaccineWrapper> notGivenVaccines, List<Map<String, Object>> sch) {
+        if (this.vaccines != null) this.vaccines.clear();
         this.vaccines = vaccines;
         setAgeVaccineListElligibleGroups(client);
-        Map<String, Date> receivedvaccines = receivedVaccines(vaccines);
+        Map<String, Date> receivedVaccines = receivedVaccines(vaccines);
         List<VaccineRepo.Vaccine> vList = Arrays.asList(VaccineRepo.Vaccine.values());
 
         ArrayList<HomeVisitVaccineGroup> homeVisitVaccineGroupArrayList = new ArrayList<>();
@@ -48,7 +49,7 @@ public class ImmunizationModel {
             if (vaccine.category().equalsIgnoreCase("child")) {
 
                 String stateKey = VaccinateActionUtils.stateKey(vaccine);
-                if(stateKey.equalsIgnoreCase("18 months")) continue;
+                if (stateKey.equalsIgnoreCase("18 months")) continue;
                 if (isNotBlank(stateKey)) {
 
                     Integer position = vaccineGroupMap.get(stateKey);
@@ -66,13 +67,31 @@ public class ImmunizationModel {
                     }
 
                     // add due date
-                    computeDueDate(position, vaccine, alerts, receivedvaccines, homeVisitVaccineGroupArrayList, sch);
+                    computeDueDate(position, vaccine, alerts, receivedVaccines, homeVisitVaccineGroupArrayList, sch);
                 }
             }
         }
 
+        // compute not given vaccines
+        computeNotGiven(homeVisitVaccineGroupArrayList, notGivenVaccines);
+
+        //remove unrelated group from homevisitvaccinegroup list.
+        computeGroups(homeVisitVaccineGroupArrayList);
+
+        return homeVisitVaccineGroupArrayList;
+    }
+
+    private void computeGroups(ArrayList<HomeVisitVaccineGroup> homeVisitVaccineGroupArrayList) {
+        for (Iterator<HomeVisitVaccineGroup> iterator = homeVisitVaccineGroupArrayList.iterator(); iterator.hasNext(); ) {
+            HomeVisitVaccineGroup homeVisitVaccineGroup = iterator.next();
+            if (!inElligibleVaccineMap(homeVisitVaccineGroup)) {
+                iterator.remove();
+            }
+        }
+    }
+
+    private void computeNotGiven(ArrayList<HomeVisitVaccineGroup> homeVisitVaccineGroupArrayList, ArrayList<VaccineWrapper> notGivenVaccines) {
         for (int x = 0; x < homeVisitVaccineGroupArrayList.size(); x++) {
-            // compute not given vaccines
             homeVisitVaccineGroupArrayList.get(x).calculateNotGivenVaccines();
             for (int i = 0; i < homeVisitVaccineGroupArrayList.get(x).getDueVaccines().size(); i++) {
                 for (VaccineWrapper notgivenVaccine : notGivenVaccines) {
@@ -81,18 +100,7 @@ public class ImmunizationModel {
                     }
                 }
             }
-
         }
-        //remove unrelated group from homevisitvaccinegroup list.
-        for (Iterator<HomeVisitVaccineGroup> iterator = homeVisitVaccineGroupArrayList.iterator(); iterator.hasNext(); ) {
-            HomeVisitVaccineGroup homeVisitVaccineGroup = iterator.next();
-            if (!inElligibleVaccineMap(homeVisitVaccineGroup)) {
-                iterator.remove();
-            }
-
-        }
-
-        return homeVisitVaccineGroupArrayList;
     }
 
     private void computeDueDate(
@@ -123,11 +131,11 @@ public class ImmunizationModel {
                         homeVisitVaccineGroupArrayList.get(position).setDueDate(dueDate.toLocalDate() + "");
                         homeVisitVaccineGroupArrayList.get(position).setDueDisplayDate(DateUtil.formatDate(dueDate.toLocalDate(), "dd MMM yyyy"));
                         //add to date wise vaccine list.needed to display vaccine name with date in adapter
-                        if(homeVisitVaccineGroupArrayList.get(position).getGroupedByDate().get(dueDate) == null){
+                        if (homeVisitVaccineGroupArrayList.get(position).getGroupedByDate().get(dueDate) == null) {
                             ArrayList<VaccineRepo.Vaccine> vaccineArrayList = new ArrayList<>();
                             vaccineArrayList.add(vaccine);
-                            homeVisitVaccineGroupArrayList.get(position).getGroupedByDate().put(dueDate,vaccineArrayList);
-                        }else{
+                            homeVisitVaccineGroupArrayList.get(position).getGroupedByDate().put(dueDate, vaccineArrayList);
+                        } else {
                             homeVisitVaccineGroupArrayList.get(position).getGroupedByDate().get(dueDate).add(vaccine);
                         }
 
@@ -178,6 +186,7 @@ public class ImmunizationModel {
         }
         return ImmunizationState.NO_ALERT;
     }
+
     public void setAgeVaccineListElligibleGroups(CommonPersonObjectClient client) {
         String dobString = org.smartregister.util.Utils.getValue(client.getColumnmaps(), DBConstants.KEY.DOB, false);
         if (!TextUtils.isEmpty(dobString)) {
@@ -203,6 +212,7 @@ public class ImmunizationModel {
             }
         }
     }
+
     private boolean inElligibleVaccineMap(HomeVisitVaccineGroup homeVisitVaccineGroup) {
         for (String string : elligibleVaccineGroups) {
             if (string.equalsIgnoreCase(homeVisitVaccineGroup.getGroup())) {
