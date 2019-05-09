@@ -7,3 +7,8 @@ indicators:
     description: "Children (0-11 months) who died in the last year"
     indicatorQuery: "select count(distinct event.baseEntityId) from event where eventType = 'Remove Child Under 5' and eventDate = '%s' and event.baseEntityId in (select ec_child.base_entity_id
       from ec_child where date(ec_child.dob) >= date('now', '-11 month') and date(ec_child.dod) >= date('now', '-12 month'))"
+
+  - key: "CHW_003"
+    description: "Children (12-59 months) who died in the last year"
+    indicatorQuery: "select count(distinct event.baseEntityId) from event where eventType = 'Remove Child Under 5' and eventDate = '%s' and event.baseEntityId in (select ec_child.base_entity_id
+                     from ec_child where date(ec_child.dob) >= date('now', '-60 month') and date(ec_child.dob) < date('now', '-11 month') and date(ec_child.dod) >= date('now', '-12 month'))"
