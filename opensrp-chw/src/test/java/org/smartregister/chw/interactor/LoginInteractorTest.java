@@ -12,6 +12,7 @@ import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.mockito.internal.verification.VerificationModeFactory;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
@@ -51,5 +52,6 @@ public class LoginInteractorTest {
         loginInteractor.scheduleJobsPeriodically();
         PowerMockito.verifyStatic(BaseJob.class, Mockito.times(5));
         BaseJob.scheduleJob(ArgumentMatchers.anyString(), ArgumentMatchers.anyLong(), ArgumentMatchers.anyLong());
+        PowerMockito.verifyNoMoreInteractions(BaseJob.class);
     }
 }
