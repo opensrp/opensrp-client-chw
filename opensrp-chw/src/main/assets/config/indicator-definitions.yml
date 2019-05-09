@@ -1,0 +1,4 @@
+indicators:
+  - key: "CHW_001"
+    description: "Total U5 children"
+    indicatorQuery: "select count(distinct baseEntityId) from event where eventType = 'Child Registration' and eventDate = '%s'"

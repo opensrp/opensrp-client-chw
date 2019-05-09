@@ -38,6 +38,7 @@ import org.smartregister.immunization.repository.VaccineRepository;
 import org.smartregister.immunization.util.VaccinatorUtils;
 import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
+import org.smartregister.reporting.ReportingLibrary;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.Repository;
 import org.smartregister.sync.ClientProcessorForJava;
@@ -139,6 +140,9 @@ public class ChwApplication extends DrishtiApplication {
         // init json helper
         this.jsonSpecHelper = new JsonSpecHelper(this);
 
+        // Init Reporting library
+        ReportingLibrary.init(context, getRepository(), null, BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
+
         //init Job Manager
         JobManager.create(this).addJobCreator(new ChwJobCreator());
 
@@ -159,7 +163,6 @@ public class ChwApplication extends DrishtiApplication {
         if (language.equals(Locale.FRENCH.getLanguage()))
             saveLanguage(Locale.FRENCH.getLanguage());
     }
-
 
     private void saveLanguage(String language) {
         AllSharedPreferences allSharedPreferences = ChwApplication.getInstance().getContext().allSharedPreferences();
