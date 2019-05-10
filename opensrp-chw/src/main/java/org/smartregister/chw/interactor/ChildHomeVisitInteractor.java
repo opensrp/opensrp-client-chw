@@ -83,7 +83,7 @@ public class ChildHomeVisitInteractor implements ChildHomeVisitContract.Interact
     @Override
     public void getLastEditData(CommonPersonObjectClient childClient, final ChildHomeVisitContract.InteractorCallback callback) {
 
-        String lastHomeVisitStr = Utils.getValue(childClient, ChildDBConstants.KEY.LAST_HOME_VISIT, false);
+        String lastHomeVisitStr = getValue(childClient, ChildDBConstants.KEY.LAST_HOME_VISIT, false);
         long lastHomeVisit = TextUtils.isEmpty(lastHomeVisitStr) ? 0 : Long.parseLong(lastHomeVisitStr);
         HomeVisit homeVisit = ChwApplication.homeVisitRepository().findByDate(lastHomeVisit);
         if (homeVisit != null) {
