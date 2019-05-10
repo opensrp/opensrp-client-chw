@@ -20,7 +20,6 @@ import org.smartregister.domain.jsonmapping.ClientClassification;
 import org.smartregister.domain.jsonmapping.Column;
 import org.smartregister.domain.jsonmapping.Table;
 import org.smartregister.family.util.DBConstants;
-import org.smartregister.family.util.Utils;
 import org.smartregister.immunization.ImmunizationLibrary;
 import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.immunization.domain.ServiceRecord;

@@ -10,6 +10,7 @@ import com.evernote.android.job.JobCreator;
 import org.smartregister.chw.sync.ChwSyncIntentService;
 import org.smartregister.job.ExtendedSyncServiceJob;
 import org.smartregister.job.ImageUploadServiceJob;
+import org.smartregister.job.P2pServiceJob;
 import org.smartregister.job.PullUniqueIdsServiceJob;
 import org.smartregister.job.SyncServiceJob;
 import org.smartregister.job.ValidateSyncDataServiceJob;
@@ -38,8 +39,12 @@ public class ChwJobCreator implements JobCreator {
             case RecurringIndicatorGeneratingJob.TAG:
                 return new RecurringIndicatorGeneratingJob();
                 */
+
+            case P2pServiceJob.TAG:
+                return new P2pServiceJob();
+
             default:
-                Log.d(ChwJobCreator.class.getCanonicalName(), "Looks like you tried to create a job " + tag + " that is not declared in the Anc Job Creator");
+                Log.d(ChwJobCreator.class.getCanonicalName(), "Looks like you tried to create a job " + tag + " that is not declared in the Chw Job Creator");
                 return null;
         }
     }

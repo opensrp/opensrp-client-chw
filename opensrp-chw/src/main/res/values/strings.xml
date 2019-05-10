@@ -249,4 +249,5 @@
 
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="device_to_device_sync">Device-to-device Sync</string>
 </resources>

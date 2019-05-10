@@ -124,7 +124,10 @@ public class ChwApplication extends DrishtiApplication {
         Fabric.with(this, new Crashlytics.Builder().core(new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build()).build());
 
         //Initialize Modules
-        CoreLibrary.init(context, new ChwSyncConfiguration(), BuildConfig.BUILD_TIMESTAMP);
+        CoreLibrary.P2POptions p2POptions = new CoreLibrary.P2POptions(true);
+        p2POptions.setClientProcessor(ChwClientProcessor.getInstance(this));
+
+        CoreLibrary.init(context, new ChwSyncConfiguration(), BuildConfig.BUILD_TIMESTAMP, p2POptions);
         ImmunizationLibrary.init(context, getRepository(), null, BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
 
         ConfigurableViewsLibrary.init(context, getRepository());

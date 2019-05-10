@@ -169,4 +169,8 @@ public class Constants {
         public static String LIBERIA_EC_CLIENT_FIELDS = "ec_client_fields.json";
         public static String TANZANIA_EC_CLIENT_FIELDS = "tz_ec_client_fields.json";
     }
+
+    public static final class RQ_CODE {
+        public static final int STORAGE_PERMISIONS = 1;
+    }
 }
