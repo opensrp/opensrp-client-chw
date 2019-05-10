@@ -155,6 +155,19 @@
           "Communications, services sociaux et personnelles",
           "Autre"
         ],
+        "keys": [
+          "Petty trade",
+          "Agriculture, hunting and fishing",
+          "Exploitation of mines and quarries",
+          "Manufacturing industry",
+          "Construction",
+          "Electricity, gas and water",
+          "Commercial, hotels and restaurants",
+          "Transport, storage and communications",
+          "Financial institutions",
+          "Communication, social and personal services",
+          "Other"
+        ],
         "openmrs_choice_ids": {
           "Petit commerce": "1539AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "Agriculture, chasse et pêche": "165411AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
