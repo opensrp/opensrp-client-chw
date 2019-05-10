@@ -163,6 +163,19 @@
           "Communications, services sociaux et personnelles",
           "Autre"
         ],
+        "keys": [
+          "Petty trade",
+          "Agriculture, hunting and fishing",
+          "Exploitation of mines and quarries",
+          "Manufacturing industry",
+          "Construction",
+          "Electricity, gas and water",
+          "Commercial, hotels and restaurants",
+          "Transport, storage and communications",
+          "Financial institutions",
+          "Communication, social and personal services",
+          "Other"
+        ],
         "openmrs_choice_ids": {
           "Petty trade": "1539AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "Agriculture, hunting and fishing": "165411AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -390,6 +403,10 @@
           "Mâle",
           "Femelle"
         ],
+        "keys": [
+          "Male",
+          "Female"
+        ],
         "v_required": {
           "value": "true",
           "err": "Veuillez entrer le sexe"
@@ -444,6 +461,12 @@
           "Primaire",
           "Secondaire",
           "Postsecondaire"
+        ],
+        "keys": [
+          "None",
+          "Primary",
+          "Secondary",
+          "Post-secondary"
         ],
         "openmrs_choice_ids": {
           "Aucun": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",

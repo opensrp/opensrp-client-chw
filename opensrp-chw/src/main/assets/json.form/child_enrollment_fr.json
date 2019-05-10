@@ -262,6 +262,10 @@
           "Mâle",
           "Femelle"
         ],
+        "keys": [
+          "Male",
+          "Female"
+        ],
         "v_required": {
           "value": "true",
           "err": "Veuillez entrer le sexe"
@@ -277,6 +281,10 @@
         "values": [
           "Oui",
           "Non"
+        ],
+        "keys": [
+          "Yes",
+          "No"
         ],
         "openmrs_choice_ids": {
           "Oui": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",

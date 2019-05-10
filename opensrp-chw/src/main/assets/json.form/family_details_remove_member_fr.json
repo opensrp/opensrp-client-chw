@@ -103,6 +103,11 @@
           "Déménagé",
           "Autre"
         ],
+        "keys": [
+          "Died",
+          "Moved away",
+          "Other"
+        ],
         "openmrs_choice_ids": {
           "Décédé": "160034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "Déménagé": "160415AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -145,7 +150,7 @@
         "relevance": {
           "step1:remove_reason": {
             "type": "string",
-            "ex": "equalTo(., \"Moved away\")"
+            "ex": "equalTo(., \"Déménagé\")"
           }
         }
       },

@@ -94,6 +94,11 @@
           "Référé",
           "Aucun mesure prise"
         ],
+        "keys": [
+          "Managed",
+          "Referred",
+          "No action taken"
+        ],
         "openmrs_choice_ids": {
           "Géré": "140959AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "Référé": "1648AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
