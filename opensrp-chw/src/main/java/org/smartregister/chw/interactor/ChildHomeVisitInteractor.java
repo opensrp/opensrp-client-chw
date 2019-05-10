@@ -136,7 +136,7 @@ public class ChildHomeVisitInteractor implements ChildHomeVisitContract.Interact
         return Observable.create(new ObservableOnSubscribe<BirthIllnessModel>() {
             @Override
             public void subscribe(ObservableEmitter<BirthIllnessModel> emmiter) throws Exception {
-                String lastHomeVisitStr = org.smartregister.util.Utils.getValue(childClient, ChildDBConstants.KEY.LAST_HOME_VISIT, false);
+                String lastHomeVisitStr = Utils.getValue(childClient, ChildDBConstants.KEY.LAST_HOME_VISIT, false);
                 long lastHomeVisit = TextUtils.isEmpty(lastHomeVisitStr) ? 0 : Long.parseLong(lastHomeVisitStr);
                 HomeVisit homeVisit = ChwApplication.homeVisitRepository().findByDate(lastHomeVisit);
                 if (homeVisit != null) {
