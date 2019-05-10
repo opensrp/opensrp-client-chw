@@ -1,9 +1,11 @@
 package org.smartregister.chw.custom_view;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.support.annotation.NonNull;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -31,9 +33,12 @@ import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.contract.NavigationContract;
 import org.smartregister.chw.model.NavigationOption;
 import org.smartregister.chw.presenter.NavigationPresenter;
+import org.smartregister.chw.util.Constants;
 import org.smartregister.domain.FetchStatus;
+import org.smartregister.p2p.activity.P2pModeSelectActivity;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.util.LangUtils;
+import org.smartregister.util.PermissionUtils;
 
 import java.lang.ref.WeakReference;
 import java.text.MessageFormat;
@@ -172,6 +177,7 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
         registerSync(activity);
         registerLanguageSwitcher(activity);
 
+        registerDeviceToDeviceSync(activity);
         // update all actions
         mPresenter.refreshLastSync();
         mPresenter.refreshNavigationCount(activity);
@@ -292,6 +298,21 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
                 dialog.show();
             }
         });
+    }
+
+    public void registerDeviceToDeviceSync(@NonNull final Activity activity) {
+        if (PermissionUtils.isPermissionGranted(activity
+                , new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}
+                , Constants.RQ_CODE.STORAGE_PERMISIONS)) {
+
+            rootView.findViewById(R.id.btn_navMenu_p2pSyncBtn)
+                    .setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            activity.startActivity(new Intent(activity, P2pModeSelectActivity.class));
+                        }
+                    });
+        }
     }
 
     public boolean onBackPressed() {

@@ -1,6 +1,7 @@
 package org.smartregister.chw.activity;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 
 import org.smartregister.chw.BuildConfig;
@@ -54,5 +55,15 @@ public class FamilyRegisterActivity extends BaseFamilyRegisterActivity {
         super.onResumption();
         NavigationMenu.getInstance(this, null, null).getNavigationAdapter()
                 .setSelectedView(Constants.DrawerMenu.ALL_FAMILIES);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == Constants.RQ_CODE.STORAGE_PERMISIONS) {
+            NavigationMenu navigationMenu = NavigationMenu.getInstance(this, null, null);
+            if (navigationMenu != null) {
+                navigationMenu.registerDeviceToDeviceSync(this);
+            }
+        }
     }
 }
