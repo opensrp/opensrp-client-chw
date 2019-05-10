@@ -300,18 +300,21 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
         });
     }
 
-    public void registerDeviceToDeviceSync(@NonNull final Activity activity) {
+    private void registerDeviceToDeviceSync(@NonNull final Activity activity) {
+        rootView.findViewById(R.id.btn_navMenu_p2pSyncBtn)
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        startP2PActivity(activity);
+                    }
+                });
+    }
+
+    public void startP2PActivity(@NonNull Activity activity) {
         if (PermissionUtils.isPermissionGranted(activity
                 , new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}
                 , Constants.RQ_CODE.STORAGE_PERMISIONS)) {
-
-            rootView.findViewById(R.id.btn_navMenu_p2pSyncBtn)
-                    .setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            activity.startActivity(new Intent(activity, P2pModeSelectActivity.class));
-                        }
-                    });
+            activity.startActivity(new Intent(activity, P2pModeSelectActivity.class));
         }
     }
 

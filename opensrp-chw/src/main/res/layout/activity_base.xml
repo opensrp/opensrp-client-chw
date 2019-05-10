@@ -117,8 +117,9 @@
                         android:paddingTop="10dp"
                         android:paddingBottom="10dp"
                         android:gravity="left"
-                        android:layout_marginLeft="15dp"
+                        android:paddingLeft="15dp"
                         android:layout_below="@id/vDiv2"
+                        style="?android:attr/borderlessButtonStyle"
                         android:layout_marginTop="35dp"/>
 
                     <LinearLayout

@@ -1,5 +1,6 @@
 package org.smartregister.chw.activity;
 
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -59,10 +60,10 @@ public class FamilyRegisterActivity extends BaseFamilyRegisterActivity {
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if (requestCode == Constants.RQ_CODE.STORAGE_PERMISIONS) {
+        if (requestCode == Constants.RQ_CODE.STORAGE_PERMISIONS && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             NavigationMenu navigationMenu = NavigationMenu.getInstance(this, null, null);
             if (navigationMenu != null) {
-                navigationMenu.registerDeviceToDeviceSync(this);
+                navigationMenu.startP2PActivity(this);
             }
         }
     }
