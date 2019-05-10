@@ -408,6 +408,8 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
                             }
                         }
                     });
+                }
+                if (cursor != null) {
                     cursor.close();
                 }
 
