@@ -271,6 +271,10 @@
           "Mâle",
           "Femelle"
         ],
+        "keys": [
+          "Male",
+          "Female"
+        ],
         "v_required": {
           "value": "true",
           "err": "Veuillez entrer le sexe"
@@ -286,6 +290,10 @@
         "values": [
           "Oui",
           "Non"
+        ],
+        "keys": [
+          "Yes",
+          "No"
         ]
       },
       {
@@ -310,7 +318,7 @@
         "relevance": {
           "step1:primary_caregiver": {
             "type": "string",
-            "ex": "equalTo(., \"Yes\")"
+            "ex": "equalTo(., \"Oui\")"
           }
         }
       },
@@ -332,7 +340,7 @@
         "relevance": {
           "step1:primary_caregiver": {
             "type": "string",
-            "ex": "equalTo(., \"Yes\")"
+            "ex": "equalTo(., \"Oui\")"
           }
         }
       },
@@ -350,16 +358,22 @@
           "Secondaire",
           "Postsecondaire"
         ],
+        "keys": [
+          "None",
+          "Primary",
+          "Secondary",
+          "Post-secondary"
+        ],
         "openmrs_choice_ids": {
-          "Aucun": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Primaire": "1713AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Secondaire": "1714AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Postsecondaire": "159785AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          "None": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Primary": "1713AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Secondary": "1714AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Post-secondary": "159785AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         "relevance": {
           "step1:primary_caregiver": {
             "type": "string",
-            "ex": "equalTo(., \"Yes\")"
+            "ex": "equalTo(., \"Oui\")"
           }
         }
       }

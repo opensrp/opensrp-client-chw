@@ -107,6 +107,10 @@
           "Déménagé",
           "Autre"
         ],
+        "keys": [
+          "Moved away",
+          "Other"
+        ],
         "v_required": {
           "value": "true",
           "err": "Sélectionnez la raison pour enlever le dossier de la famille"
@@ -141,7 +145,7 @@
         "relevance": {
           "step1:remove_reason": {
             "type": "string",
-            "ex": "equalTo(., \"Moved away\")"
+            "ex": "equalTo(., \"Déménagé\")"
           }
         }
       }
