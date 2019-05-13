@@ -474,7 +474,7 @@ public class ChildUtils {
                     try {
                         newHomeVisit.setBirthCertificationState(new JSONObject((String) obs.getValue()));
                     } catch (Exception e) {
-                        e.printStackTrace();
+                        // e.printStackTrace();
                         //previous support
                         newHomeVisit.setBirthCertificationState(new JSONObject());
                     }
