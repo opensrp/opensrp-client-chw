@@ -14,6 +14,7 @@ import org.smartregister.family.util.DBConstants;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
+import timber.log.Timber;
 
 public class FamilyInteractor {
 
@@ -23,23 +24,31 @@ public class FamilyInteractor {
             public void subscribe(ObservableEmitter<String> e) throws Exception {
                 ImmunizationState familyImmunizationState = ImmunizationState.NO_ALERT;
                 String query = ChildUtils.getChildListByFamilyId(org.smartregister.chw.util.Constants.TABLE_NAME.CHILD, familyId);
-                Cursor cursor = org.smartregister.family.util.Utils.context().commonrepository(org.smartregister.chw.util.Constants.TABLE_NAME.CHILD).queryTable(query);
-                if (cursor != null && cursor.moveToFirst()) {
-                    do {
-                        switch (getChildStatus(context, childId, cursor)) {
-                            case DUE:
-                                if (familyImmunizationState != ImmunizationState.OVERDUE) {
-                                    familyImmunizationState = ImmunizationState.DUE;
-                                }
-                                break;
-                            case OVERDUE:
-                                familyImmunizationState = ImmunizationState.OVERDUE;
-                                break;
-                            default:
-                                break;
-                        }
-                    } while (cursor.moveToNext());
-                    cursor.close();
+                Cursor cursor = null;
+                try {
+                    cursor = org.smartregister.family.util.Utils.context().commonrepository(org.smartregister.chw.util.Constants.TABLE_NAME.CHILD).queryTable(query);
+                    if (cursor != null && cursor.moveToFirst()) {
+                        do {
+                            switch (getChildStatus(context, childId, cursor)) {
+                                case DUE:
+                                    if (familyImmunizationState != ImmunizationState.OVERDUE) {
+                                        familyImmunizationState = ImmunizationState.DUE;
+                                    }
+                                    break;
+                                case OVERDUE:
+                                    familyImmunizationState = ImmunizationState.OVERDUE;
+                                    break;
+                                default:
+                                    break;
+                            }
+                        } while (cursor.moveToNext());
+                        cursor.close();
+                    }
+                } catch (Exception ex) {
+                    Timber.e(ex.toString());
+                } finally {
+                    if (cursor != null)
+                        cursor.close();
                 }
 
                 e.onNext(toStringFamilyState(familyImmunizationState));
