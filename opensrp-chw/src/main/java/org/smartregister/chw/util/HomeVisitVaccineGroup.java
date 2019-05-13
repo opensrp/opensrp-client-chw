@@ -11,8 +11,9 @@ import java.util.LinkedHashMap;
  */
 
 public class HomeVisitVaccineGroup {
-    public static final int TYPE_INACTIVE = 0;
-    public static final int TYPE_ACTIVE = 1;
+    public static final int TYPE_INACTIVE = 0;//inactive color row
+    public static final int TYPE_ACTIVE = 1;//active means row showing with vaccine name like opv,bcg...
+    public static final int TYPE_INITIAL = 2;//initial view means row with text like immunization(at birth)
     private ArrayList<VaccineRepo.Vaccine> givenVaccines = new ArrayList<VaccineRepo.Vaccine>();
     private ArrayList<VaccineRepo.Vaccine> dueVaccines = new ArrayList<VaccineRepo.Vaccine>();
     private ArrayList<VaccineRepo.Vaccine> notGivenVaccines = new ArrayList<VaccineRepo.Vaccine>();

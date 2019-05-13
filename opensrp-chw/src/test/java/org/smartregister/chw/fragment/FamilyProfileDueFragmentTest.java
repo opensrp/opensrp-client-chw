@@ -45,7 +45,8 @@ public class FamilyProfileDueFragmentTest {
     @Test
     public void testonEmptyRegisterCountHidesViewHideView() {
         FamilyProfileDueFragment spyFragment = Mockito.spy(FamilyProfileDueFragment.class);
-
+        FragmentActivity activity = Mockito.spy(FragmentActivity.class);
+        Mockito.when(spyFragment.getActivity()).thenReturn(activity);
         View emptyView = Mockito.mock(View.class);
         Whitebox.setInternalState(spyFragment, "emptyView", emptyView);
         spyFragment.onEmptyRegisterCount(false);
@@ -56,7 +57,8 @@ public class FamilyProfileDueFragmentTest {
     @Test
     public void testonEmptyRegisterCountHidesViewShowsView() {
         FamilyProfileDueFragment spyFragment = Mockito.spy(FamilyProfileDueFragment.class);
-
+        FragmentActivity activity = Mockito.spy(FragmentActivity.class);
+        Mockito.when(spyFragment.getActivity()).thenReturn(activity);
         View emptyView = Mockito.mock(View.class);
         Whitebox.setInternalState(spyFragment, "emptyView", emptyView);
         spyFragment.onEmptyRegisterCount(true);

@@ -94,14 +94,15 @@ public class MedicalHistoryInteractor implements MedicalHistoryContract.Interact
             String notification = getValue(commonPersonObjectClient.getColumnmaps(), BIRTH_CERT_NOTIFIICATION, true);
 
             if (!TextUtils.isEmpty(notification) && notification.equalsIgnoreCase("Yes")) {
-                birthCertificationContent.add(getContext().getString(R.string.birth_cert_note_1));
                 birthCertificationContent.add(getContext().getString(R.string.birth_cert_notification,"Yes"));
+                birthCertificationContent.add(getContext().getString(R.string.birth_cert_note_1));
             } else if (!TextUtils.isEmpty(notification) && notification.equalsIgnoreCase("No")) {
                 birthCertificationContent.add(getContext().getString(R.string.birth_cert_notification,"No"));
                 birthCertificationContent.add(getContext().getString(R.string.birth_cert_note_2));
-            }else {
-                birthCertificationContent.add(getContext().getString(R.string.birth_cert_notification,"No"));
             }
+//            else {
+//                birthCertificationContent.add(getContext().getString(R.string.birth_cert_notification,"No"));
+//            }
         }
         Runnable runnable = new Runnable() {
             @Override
