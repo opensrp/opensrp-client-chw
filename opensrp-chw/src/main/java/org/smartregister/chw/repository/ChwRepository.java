@@ -6,9 +6,9 @@ import android.util.Log;
 import net.sqlcipher.database.SQLiteDatabase;
 
 import org.apache.commons.lang3.StringUtils;
+import org.smartregister.AllConstants;
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.application.ChwApplication;
-import org.smartregister.AllConstants;
 import org.smartregister.chw.util.Country;
 import org.smartregister.chw.util.RepositoryUtils;
 import org.smartregister.configurableviews.repository.ConfigurableViewsRepository;
@@ -20,10 +20,6 @@ import org.smartregister.immunization.repository.VaccineNameRepository;
 import org.smartregister.immunization.repository.VaccineRepository;
 import org.smartregister.immunization.repository.VaccineTypeRepository;
 import org.smartregister.immunization.util.IMDatabaseUtils;
-import org.smartregister.reporting.ReportingLibrary;
-import org.smartregister.reporting.repository.DailyIndicatorCountRepository;
-import org.smartregister.reporting.repository.IndicatorQueryRepository;
-import org.smartregister.reporting.repository.IndicatorRepository;
 import org.smartregister.repository.AlertRepository;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.repository.Repository;
@@ -65,9 +61,11 @@ public class ChwRepository extends Repository {
         RecurringServiceTypeRepository.createTable(database);
         RecurringServiceRecordRepository.createTable(database);
 
+        /*
         IndicatorRepository.createTable(database);
         IndicatorQueryRepository.createTable(database);
         DailyIndicatorCountRepository.createTable(database);
+        */
 
         //onUpgrade(database, 1, 2);
         RecurringServiceTypeRepository recurringServiceTypeRepository = ImmunizationLibrary.getInstance().recurringServiceTypeRepository();
@@ -75,6 +73,7 @@ public class ChwRepository extends Repository {
 
         onUpgrade(database, 1, BuildConfig.DATABASE_VERSION);
 
+        /*
         ReportingLibrary reportingLibraryInstance = ReportingLibrary.getInstance();
         // Check if indicator data initialised
         boolean indicatorDataInitialised = Boolean.parseBoolean(reportingLibraryInstance.getContext()
@@ -85,6 +84,7 @@ public class ChwRepository extends Repository {
             reportingLibraryInstance.getContext().allSharedPreferences().savePreference(indicatorDataInitialisedPref, "true");
             reportingLibraryInstance.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(BuildConfig.VERSION_CODE));
         }
+        */
 
     }
 
@@ -182,6 +182,7 @@ public class ChwRepository extends Repository {
         super.close();
     }
 
+    /*
     private boolean checkIfAppUpdated() {
         String savedAppVersion = ReportingLibrary.getInstance().getContext().allSharedPreferences().getPreference(appVersionCodePref);
         if (savedAppVersion.isEmpty()) {
@@ -191,6 +192,7 @@ public class ChwRepository extends Repository {
             return (BuildConfig.VERSION_CODE > savedVersion);
         }
     }
+    */
 
     private void upgradeToVersion2(SQLiteDatabase db) {
         try {

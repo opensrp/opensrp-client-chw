@@ -157,7 +157,7 @@ public class Utils extends org.smartregister.family.util.Utils {
         DateTime duration;
         if (StringUtils.isNotBlank(date)) {
             try {
-                duration = new DateTime(date);
+                duration = new DateTime(new Date(Long.valueOf(date)));
                 Days days = Days.daysBetween(duration.withTimeAtStartOfDay(), DateTime.now().withTimeAtStartOfDay());
                 return days.getDays();
             } catch (Exception e) {

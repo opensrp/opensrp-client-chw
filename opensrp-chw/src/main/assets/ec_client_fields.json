@@ -363,7 +363,7 @@
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "formSubmissionField": "birth_cert"
+            "concept": "165406AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         },
         {
@@ -387,7 +387,7 @@
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "formSubmissionField": "birth_notification"
+            "concept": "165405AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         },
         {

@@ -116,7 +116,7 @@ public class CountryUtils {
             }
         } else {
             if (Country.LIBERIA.equals(BuildConfig.BUILD_COUNTRY)) {
-                opensrpUrl = "https://unicefwcaro.smartregister.org/opensrp/";
+                opensrpUrl = "";//https://unicefwcaro.smartregister.org/opensrp/";
             } else if (Country.TANZANIA.equals(BuildConfig.BUILD_COUNTRY)) {
                 opensrpUrl = "https://boresha-afya.smartregister.org/opensrp/";
             }

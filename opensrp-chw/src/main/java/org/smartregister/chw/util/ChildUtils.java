@@ -2,7 +2,6 @@ package org.smartregister.chw.util;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.graphics.Color;
 import android.os.Build;
 import android.text.Html;
 import android.text.Spannable;
@@ -46,8 +45,8 @@ import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.sync.helper.ECSyncHelper;
 
-import java.text.MessageFormat;
 import java.lang.reflect.Type;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -69,11 +68,11 @@ public class ChildUtils {
     };
     public static Gson gsonConverter;
 
-     static {
-         gsonConverter = new GsonBuilder()
+    static {
+        gsonConverter = new GsonBuilder()
                 .setPrettyPrinting()
                 .serializeNulls()
-                .registerTypeAdapter(DateTime.class, new JsonSerializer<DateTime>(){
+                .registerTypeAdapter(DateTime.class, new JsonSerializer<DateTime>() {
                     @Override
                     public JsonElement serialize(DateTime json, Type typeOfSrc, JsonSerializationContext context) {
                         return new JsonPrimitive(ISODateTimeFormat.dateTime().print(json));
@@ -88,6 +87,7 @@ public class ChildUtils {
                 })
                 .create();
     }
+
     public static boolean hasAlert(VaccineRepo.Vaccine vaccine, List<Alert> alerts) {
         for (Alert alert : alerts) {
             if (alert.scheduleName().equalsIgnoreCase(vaccine.display())) {
@@ -366,7 +366,7 @@ public class ChildUtils {
     }
 
     //event type="Child Home Visit"/Visit not done
-    public static void updateHomeVisitAsEvent(String entityId, String eventType, String entityType, JSONObject singleVaccineObject, JSONObject vaccineGroupObject,JSONObject vaccineNotGiven, JSONObject service,JSONObject serviceNotGiven, JSONObject birthCert, JSONObject illnessJson, String visitStatus, String value) {
+    public static void updateHomeVisitAsEvent(String entityId, String eventType, String entityType, JSONObject singleVaccineObject, JSONObject vaccineGroupObject, JSONObject vaccineNotGiven, JSONObject service, JSONObject serviceNotGiven, JSONObject birthCert, JSONObject illnessJson, String visitStatus, String value) {
         try {
 
             ECSyncHelper syncHelper = FamilyLibrary.getInstance().getEcSyncHelper();
@@ -416,7 +416,7 @@ public class ChildUtils {
         if (diff <= 0) {
             String str = Math.abs(diff) + " days away";
             spannableString = new SpannableString(str);
-            spannableString.setSpan(new ForegroundColorSpan(Color.GRAY), 0, str.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            spannableString.setSpan(new ForegroundColorSpan(ChwApplication.getInstance().getContext().getColorResource(R.color.grey)), 0, str.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             return spannableString;
         } else {
             String str = diff + " days overdue";
@@ -431,12 +431,12 @@ public class ChildUtils {
         Date date = org.smartregister.family.util.Utils.dobStringToDate(dueDate);
         if (status.equalsIgnoreCase(ImmunizationState.DUE.name())) {
 
-            String str = context.getResources().getString(R.string.due) + " " + dd_MMM_yyyy.format(date);
+            String str = context.getResources().getString(R.string.due) + "" + dd_MMM_yyyy.format(date);
             spannableString = new SpannableString(str);
-            spannableString.setSpan(new ForegroundColorSpan(Color.GRAY), 0, str.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            spannableString.setSpan(new ForegroundColorSpan(ChwApplication.getInstance().getContext().getColorResource(R.color.grey)), 0, str.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             return spannableString;
         } else {
-            String str = context.getResources().getString(R.string.overdue) + " " + dd_MMM_yyyy.format(date);
+            String str = context.getResources().getString(R.string.overdue) + "" + dd_MMM_yyyy.format(date);
             spannableString = new SpannableString(str);
             spannableString.setSpan(new ForegroundColorSpan(ChwApplication.getInstance().getContext().getColorResource(R.color.alert_urgent_red)), 0, str.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             return spannableString;
@@ -471,9 +471,9 @@ public class ChildUtils {
                     newHomeVisit.setServiceNotGiven(new JSONObject((String) obs.getValue()));
                 }
                 if (obs.getFormSubmissionField().equalsIgnoreCase("birth_certificate")) {
-                    try{
+                    try {
                         newHomeVisit.setBirthCertificationState(new JSONObject((String) obs.getValue()));
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         e.printStackTrace();
                         //previous support
                         newHomeVisit.setBirthCertificationState(new JSONObject());
@@ -483,9 +483,9 @@ public class ChildUtils {
                     newHomeVisit.setIllness_information(new JSONObject((String) obs.getValue()));
                 }
                 if (obs.getFormSubmissionField().equalsIgnoreCase(ChildDBConstants.KEY.LAST_HOME_VISIT)) {
-                    try{
+                    try {
                         newHomeVisit.setDate(new Date(Long.parseLong((String) obs.getValue())));
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         e.printStackTrace();
                         newHomeVisit.setDate(new Date());
                     }
