@@ -3,7 +3,6 @@ package org.smartregister.chw.interactor;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.support.annotation.VisibleForTesting;
-import android.util.Log;
 import android.util.Pair;
 
 import org.apache.commons.lang3.StringUtils;
@@ -33,6 +32,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+
+import timber.log.Timber;
 
 public class FamilyRemoveMemberInteractor implements FamilyRemoveMemberContract.Interactor {
 
@@ -106,8 +107,9 @@ public class FamilyRemoveMemberInteractor implements FamilyRemoveMemberContract.
 
                 CommonRepository commonRepository = Utils.context().commonrepository(Utils.metadata().familyMemberRegister.tableName);
 
-                Cursor cursor = commonRepository.queryTable(sql);
+                Cursor cursor = null;
                 try {
+                    cursor = commonRepository.queryTable(sql);
                     cursor.moveToFirst();
 
                     while (!cursor.isAfterLast()) {
@@ -120,9 +122,10 @@ public class FamilyRemoveMemberInteractor implements FamilyRemoveMemberContract.
                         cursor.moveToNext();
                     }
                 } catch (Exception e) {
-                    Log.e(TAG, e.toString(), e);
+                    Timber.e(e, e.toString());
                 } finally {
-                    cursor.close();
+                    if (cursor != null)
+                        cursor.close();
                 }
 
                 appExecutors.mainThread().execute(new Runnable() {
@@ -192,7 +195,7 @@ public class FamilyRemoveMemberInteractor implements FamilyRemoveMemberContract.
 
     private int getCount(String tableName, String familyID) throws Exception {
 
-        Integer count = null;
+        int count;
         Cursor c = null;
         String mainCondition = String.format(" %s = '%s' and %s is null ", DBConstants.KEY.RELATIONAL_ID, familyID, DBConstants.KEY.DATE_REMOVED);
         try {
@@ -200,7 +203,7 @@ public class FamilyRemoveMemberInteractor implements FamilyRemoveMemberContract.
             SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder();
             String query = sqb.queryForCountOnRegisters(tableName, mainCondition);
             query = sqb.Endquery(query);
-            Log.i(getClass().getName(), "2" + query);
+            Timber.i("2%s", query);
             c = commonRepository(tableName).rawCustomQueryForAdapter(query);
             if (c.moveToFirst()) {
                 count = c.getInt(0);
@@ -261,7 +264,7 @@ public class FamilyRemoveMemberInteractor implements FamilyRemoveMemberContract.
 
         Date date_removed = new Date();
         Date dod = null;
-        if(triple.getLeft() != null && triple.getLeft().first != null ){
+        if (triple.getLeft() != null && triple.getLeft().first != null) {
             dod = triple.getLeft().first;
         }
 

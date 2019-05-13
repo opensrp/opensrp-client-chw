@@ -4,7 +4,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.text.TextUtils;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -31,6 +30,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import timber.log.Timber;
 
 public class ChwMemberRegisterProvider extends FamilyMemberRegisterProvider {
     private static final String TAG = ChwMemberRegisterProvider.class.getCanonicalName();
@@ -78,8 +79,9 @@ public class ChwMemberRegisterProvider extends FamilyMemberRegisterProvider {
         CommonRepository commonRepository = Utils.context().commonrepository(Constants.TABLE_NAME.CHILD);
         List<Map<String, String>> res = new ArrayList<>();
 
-        Cursor cursor = commonRepository.queryTable(query);
+        Cursor cursor = null;
         try {
+            cursor = commonRepository.queryTable(query);
             cursor.moveToFirst();
 
             while (!cursor.isAfterLast()) {
@@ -92,9 +94,10 @@ public class ChwMemberRegisterProvider extends FamilyMemberRegisterProvider {
                 cursor.moveToNext();
             }
         } catch (Exception e) {
-            Log.e(TAG, e.toString(), e);
+            Timber.e(e, e.toString());
         } finally {
-            cursor.close();
+            if (cursor != null)
+                cursor.close();
         }
 
         if (res.isEmpty()) {
