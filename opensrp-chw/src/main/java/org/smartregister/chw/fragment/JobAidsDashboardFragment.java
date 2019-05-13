@@ -27,7 +27,9 @@ import java.util.Map;
 public class JobAidsDashboardFragment extends Fragment implements ReportContract.View, LoaderManager.LoaderCallbacks<List<Map<String, IndicatorTally>>> {
 
     private ViewGroup visualizationsViewGroup;
-    private View numericIndicatorView;
+    private View childrenU5View;
+    private View deceased_0_11_View;
+    private View deceased_12_59_View;
     private static ReportContract.Presenter presenter;
     private List<Map<String, IndicatorTally>> indicatorTallies;
 
@@ -78,20 +80,42 @@ public class JobAidsDashboardFragment extends Fragment implements ReportContract
             return;
         }
         // Aggregate values for display
-        Map<String, IndicatorTally> numericIndicatorValueMap = new HashMap<>();
+        Map<String, IndicatorTally> childrenU5NumericMap = new HashMap<>();
+        Map<String, IndicatorTally> deceased0_11_NumericMap = new HashMap<>();
+        Map<String, IndicatorTally> deceased12_59_NumericMap = new HashMap<>();
 
         for (Map<String, IndicatorTally> indicatorTallyMap : indicatorTallies) {
             if (indicatorTallyMap.containsKey(DashboardUtil.countOfChildrenUnder5)) {
-                updateTotalTally(indicatorTallyMap, numericIndicatorValueMap, DashboardUtil.countOfChildrenUnder5);
+                updateTotalTally(indicatorTallyMap, childrenU5NumericMap, DashboardUtil.countOfChildrenUnder5);
+            }
+            if (indicatorTallyMap.containsKey(DashboardUtil.deceasedChildren0_11Months)) {
+                updateTotalTally(deceased0_11_NumericMap, deceased0_11_NumericMap, DashboardUtil.deceasedChildren0_11Months);
+            }
+            if (indicatorTallyMap.containsKey(DashboardUtil.deceasedChildren12_59Months)) {
+                updateTotalTally(deceased12_59_NumericMap, deceased0_11_NumericMap, DashboardUtil.deceasedChildren12_59Months);
             }
         }
         // Generate numeric indicator visualization
-        NumericIndicatorVisualization numericIndicatorData = new NumericIndicatorVisualization(getResources().getString(R.string.total_under_5_children_label),
-                numericIndicatorValueMap.get(DashboardUtil.countOfChildrenUnder5).getCount());
-
+        NumericIndicatorVisualization numericIndicatorData;
         NumericDisplayFactory numericIndicatorFactory = new NumericDisplayFactory();
-        numericIndicatorView = numericIndicatorFactory.getIndicatorView(numericIndicatorData, getContext());
-        visualizationsViewGroup.addView(numericIndicatorView);
+
+        numericIndicatorData = new NumericIndicatorVisualization(getResources().getString(R.string.total_under_5_children_label),
+                childrenU5NumericMap.get(DashboardUtil.countOfChildrenUnder5).getCount());
+        childrenU5View = numericIndicatorFactory.getIndicatorView(numericIndicatorData, getContext());
+
+        numericIndicatorData = new NumericIndicatorVisualization(getResources().getString(R.string.deceased_children_0_11_months),
+                deceased0_11_NumericMap.get(DashboardUtil.deceasedChildren0_11Months).getCount());
+        deceased_0_11_View = numericIndicatorFactory.getIndicatorView(numericIndicatorData, getContext());
+
+
+        numericIndicatorData = new NumericIndicatorVisualization(getResources().getString(R.string.deceased_children_12_59_months),
+                deceased12_59_NumericMap.get(DashboardUtil.deceasedChildren12_59Months).getCount());
+        deceased_12_59_View = numericIndicatorFactory.getIndicatorView(numericIndicatorData, getContext());
+
+        visualizationsViewGroup.addView(childrenU5View);
+        visualizationsViewGroup.addView(deceased_0_11_View);
+        visualizationsViewGroup.addView(deceased_12_59_View);
+
     }
 
     private void updateTotalTally(Map<String, IndicatorTally> indicatorTallyMap, Map<String, IndicatorTally> currentIndicatorValueMap, String indicatorKey) {
