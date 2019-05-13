@@ -78,16 +78,16 @@ public class JobAidsDashboardFragment extends Fragment implements ReportContract
             return;
         }
         // Aggregate values for display
-        Map<String, IndicatorTally> numericIndicatorValue = new HashMap<>();
+        Map<String, IndicatorTally> numericIndicatorValueMap = new HashMap<>();
 
         for (Map<String, IndicatorTally> indicatorTallyMap : indicatorTallies) {
             if (indicatorTallyMap.containsKey(DashboardUtil.countOfChildrenUnder5)) {
-                updateTotalTally(indicatorTallyMap, numericIndicatorValue, DashboardUtil.countOfChildrenUnder5);
+                updateTotalTally(indicatorTallyMap, numericIndicatorValueMap, DashboardUtil.countOfChildrenUnder5);
             }
         }
         // Generate numeric indicator visualization
         NumericIndicatorVisualization numericIndicatorData = new NumericIndicatorVisualization(getResources().getString(R.string.total_under_5_children_label),
-                numericIndicatorValue.get(DashboardUtil.countOfChildrenUnder5).getCount());
+                numericIndicatorValueMap.get(DashboardUtil.countOfChildrenUnder5).getCount());
 
         NumericDisplayFactory numericIndicatorFactory = new NumericDisplayFactory();
         numericIndicatorView = numericIndicatorFactory.getIndicatorView(numericIndicatorData, getContext());
