@@ -19,8 +19,9 @@
         android:name="org.smartregister.chw.application.ChwApplication"
         android:allowBackup="true"
         android:supportsRtl="true"
+        android:label="@string/liberia_cfc_monitor"
         android:theme="@style/ChwTheme"
-        tools:replace="android:theme">
+        tools:replace="android:theme,android:label">
 
         <meta-data
             android:name="io.fabric.ApiKey"
