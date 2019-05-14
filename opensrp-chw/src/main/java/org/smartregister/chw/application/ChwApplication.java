@@ -9,6 +9,7 @@ import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
 import com.evernote.android.job.JobManager;
 
+import org.smartregister.AllConstants;
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
 import org.smartregister.chw.BuildConfig;
@@ -21,7 +22,7 @@ import org.smartregister.chw.repository.HomeVisitRepository;
 import org.smartregister.chw.sync.ChwClientProcessor;
 import org.smartregister.chw.util.ChildDBConstants;
 import org.smartregister.chw.util.Constants;
-import org.smartregister.chw.util.CountryUtils;
+import org.smartregister.chw.util.Utils;
 import org.smartregister.commonregistry.AllCommonsRepository;
 import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
@@ -44,6 +45,8 @@ import org.smartregister.sync.ClientProcessorForJava;
 import org.smartregister.sync.helper.ECSyncHelper;
 import org.smartregister.view.activity.DrishtiApplication;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
@@ -131,7 +134,8 @@ public class ChwApplication extends DrishtiApplication {
         FamilyLibrary.init(context, getRepository(), getMetadata(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
 
         SyncStatusBroadcastReceiver.init(this);
-        LocationHelper.init(CountryUtils.allowedLevels(), CountryUtils.defaultLevel());
+
+        LocationHelper.init(new ArrayList<>(Arrays.asList(BuildConfig.ALLOWED_LOCATION_LEVELS)), BuildConfig.DEFAULT_LOCATION);
 
         // set up processor
         FamilyLibrary.getInstance().setClientProcessorForJava(ChwClientProcessor.getInstance(getApplicationContext()));
@@ -148,9 +152,8 @@ public class ChwApplication extends DrishtiApplication {
         initOfflineSchedules();
         scheduleJobs();
 
-        CountryUtils.switchLoginAlias(getPackageManager());
-        CountryUtils.switchEcClientFieldProcessor();
-        CountryUtils.setOpenSRPUrl();
+        CoreLibrary.getInstance().setEcClientFieldsFile(Constants.EC_CLIENT_FIELDS);
+        setOpenSRPUrl();
 
         Configuration configuration = getApplicationContext().getResources().getConfiguration();
         String language;
@@ -161,6 +164,16 @@ public class ChwApplication extends DrishtiApplication {
         }
         if (language.equals(Locale.FRENCH.getLanguage()))
             saveLanguage(Locale.FRENCH.getLanguage());
+    }
+
+
+    public void setOpenSRPUrl() {
+        AllSharedPreferences preferences = Utils.getAllSharedPreferences();
+        if (BuildConfig.DEBUG) {
+            preferences.savePreference(AllConstants.DRISHTI_BASE_URL, BuildConfig.opensrp_url_debug);
+        } else {
+            preferences.savePreference(AllConstants.DRISHTI_BASE_URL, BuildConfig.opensrp_url);
+        }
     }
 
     private void saveLanguage(String language) {

@@ -52,6 +52,7 @@ android {
     }
 
     buildTypes {
+
         release {
             minifyEnabled false
             zipAlignEnabled true
@@ -103,6 +104,35 @@ android {
         unitTests {
             returnDefaultValues = true
             includeAndroidResources = true
+        }
+    }
+
+    flavorDimensions 'baseDimension'
+    productFlavors {
+        ba {
+            dimension = 'baseDimension'
+            applicationIdSuffix ".ba"
+            versionCode 1
+            versionName "0.0.1"
+            buildConfigField "String", 'opensrp_url', '"https://boresha-afya.smartregister.org/opensrp/"'
+            buildConfigField "String", 'opensrp_url_debug', '"https://boresha-afya-stage.smartregister.org/opensrp/"'
+            buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"MOH Jhpiego Facility Name" , "Village"}'
+            buildConfigField "String", 'DEFAULT_LOCATION', '"Village"'
+            buildConfigField "boolean", 'SUPPORT_QR', 'true'
+            buildConfigField "int", "DATABASE_VERSION", '6'
+        }
+
+        wcaro {
+            dimension = 'baseDimension'
+            applicationIdSuffix ".wcaro"
+            versionCode 1
+            versionName "0.1.4"
+            buildConfigField "String", 'opensrp_url', '"https://unicefwcaro.smartregister.org/opensrp/"'
+            buildConfigField "String", 'opensrp_url_debug', '"https://unicefwcaro-stage.smartregister.org/opensrp/"'
+            buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"Clinic" , "CHSS" , "CHA"}'
+            buildConfigField "String", 'DEFAULT_LOCATION', '"CHA"'
+            buildConfigField "boolean", 'SUPPORT_QR', 'false'
+            buildConfigField "int", "DATABASE_VERSION", '6'
         }
     }
 }
