@@ -28,9 +28,6 @@ import java.util.Map;
 public class JobAidsDashboardFragment extends Fragment implements ReportContract.View, LoaderManager.LoaderCallbacks<List<Map<String, IndicatorTally>>> {
 
     private ViewGroup visualizationsViewGroup;
-    private View childrenU5View;
-    private View deceased_0_11_View;
-    private View deceased_12_59_View;
     private static ReportContract.Presenter presenter;
     private List<Map<String, IndicatorTally>> indicatorTallies;
     private ProgressBar progressBar;
@@ -58,8 +55,8 @@ public class JobAidsDashboardFragment extends Fragment implements ReportContract
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView =  inflater.inflate(R.layout.fragment_job_aids_dashboard, container, false);
-        progressBar= rootView.findViewById(R.id.progress_bar);
+        View rootView = inflater.inflate(R.layout.fragment_job_aids_dashboard, container, false);
+        progressBar = rootView.findViewById(R.id.progress_bar);
         visualizationsViewGroup = rootView.findViewById(R.id.dashboard_content);
         return rootView;
     }
@@ -104,13 +101,13 @@ public class JobAidsDashboardFragment extends Fragment implements ReportContract
         NumericDisplayFactory numericIndicatorFactory = new NumericDisplayFactory();
 
         numericIndicatorData = getVisualizationCount(DashboardUtil.countOfChildrenUnder5, R.string.total_under_5_children_label, childrenU5NumericMap);
-        childrenU5View = numericIndicatorFactory.getIndicatorView(numericIndicatorData, getContext());
+        View childrenU5View = numericIndicatorFactory.getIndicatorView(numericIndicatorData, getContext());
 
         numericIndicatorData = getVisualizationCount(DashboardUtil.deceasedChildren0_11Months, R.string.deceased_children_0_11_months, deceased0_11_NumericMap);
-        deceased_0_11_View = numericIndicatorFactory.getIndicatorView(numericIndicatorData, getContext());
+        View deceased_0_11_View = numericIndicatorFactory.getIndicatorView(numericIndicatorData, getContext());
 
         numericIndicatorData = getVisualizationCount(DashboardUtil.deceasedChildren12_59Months, R.string.deceased_children_12_59_months, deceased12_59_NumericMap);
-        deceased_12_59_View = numericIndicatorFactory.getIndicatorView(numericIndicatorData, getContext());
+        View deceased_12_59_View = numericIndicatorFactory.getIndicatorView(numericIndicatorData, getContext());
 
         visualizationsViewGroup.addView(childrenU5View);
         visualizationsViewGroup.addView(deceased_0_11_View);
@@ -128,7 +125,8 @@ public class JobAidsDashboardFragment extends Fragment implements ReportContract
     }
 
     private void updateTotalTally(Map<String, IndicatorTally> indicatorTallyMap, Map<String, IndicatorTally> currentIndicatorValueMap, String indicatorKey) {
-        int count, currentValue;
+        int count;
+        int currentValue;
         count = indicatorTallyMap.get(indicatorKey).getCount();
         if (currentIndicatorValueMap.get(indicatorKey) == null) {
             currentIndicatorValueMap.put(indicatorKey, new IndicatorTally(null, count, indicatorKey, null));
@@ -152,7 +150,7 @@ public class JobAidsDashboardFragment extends Fragment implements ReportContract
 
     @Override
     public void onLoaderReset(@NonNull Loader<List<Map<String, IndicatorTally>>> loader) {
-
+        // Clean up or release resources 
     }
 
     @Override
