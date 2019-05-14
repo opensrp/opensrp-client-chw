@@ -93,7 +93,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
         }
     }
 
-    private OnClickFloatingMenu onClickFloatingMenu = ChildProfileActivityFlv.getOnClickFloatingMenu(this, (ChildProfilePresenter) presenter);
+    private OnClickFloatingMenu onClickFloatingMenu;
 
     @Override
     protected void onCreation() {
@@ -122,6 +122,8 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
         imageRenderHelper = new ImageRenderHelper(this);
 
         initializePresenter();
+        onClickFloatingMenu = ChildProfileActivityFlv.getOnClickFloatingMenu(this, (ChildProfilePresenter) presenter);
+
         setupViews();
         setUpToolbar();
     }

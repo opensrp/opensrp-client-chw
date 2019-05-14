@@ -1,7 +1,6 @@
 package org.smartregister.chw.custom_view;
 
 import android.content.Context;
-import android.graphics.Typeface;
 import android.support.design.widget.FloatingActionButton;
 import android.util.AttributeSet;
 import android.view.View;
@@ -9,12 +8,9 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
-import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.listener.OnClickFloatingMenu;
-import org.smartregister.chw.util.Country;
 
 public class FamilyMemberFloatingMenu extends LinearLayout implements View.OnClickListener {
     private RelativeLayout activityMain;
@@ -23,6 +19,7 @@ public class FamilyMemberFloatingMenu extends LinearLayout implements View.OnCli
     private Animation fabOpen, fabClose, rotateForward, rotateBack;
     private boolean isFabMenuOpen = false;
     private OnClickFloatingMenu onClickFloatingMenu;
+    private FamilyMemberFloatingMenuFlv familyMemberFloatingMenuFlv = new FamilyMemberFloatingMenuFlv(this);
 
     private View callLayout;
     private View referLayout;
@@ -30,6 +27,10 @@ public class FamilyMemberFloatingMenu extends LinearLayout implements View.OnCli
     public FamilyMemberFloatingMenu(Context context) {
         super(context);
         initUi();
+    }
+
+    public View getCallLayout() {
+        return callLayout;
     }
 
     public FamilyMemberFloatingMenu(Context context, AttributeSet attrs) {
@@ -43,36 +44,7 @@ public class FamilyMemberFloatingMenu extends LinearLayout implements View.OnCli
     }
 
     public void reDraw(boolean has_phone) {
-        if (Country.TANZANIA.equals(BuildConfig.BUILD_COUNTRY)) {
-
-            redrawWithOption(has_phone);
-
-        } else {
-            this.setVisibility(has_phone ? VISIBLE : GONE);
-        }
-    }
-
-    private void redrawWithOption(boolean has_phone) {
-        TextView callTextView = findViewById(R.id.CallTextView);
-        TextView callTextViewHint = findViewById(R.id.CallTextViewHint);
-
-        if (has_phone) {
-
-            callTextViewHint.setVisibility(GONE);
-            callLayout.setOnClickListener(this);
-            callTextView.setTypeface(null, Typeface.NORMAL);
-            callTextView.setTextColor(getResources().getColor(android.R.color.black));
-            ((FloatingActionButton) findViewById(R.id.callFab)).getDrawable().setAlpha(255);
-
-        } else {
-
-            callTextViewHint.setVisibility(VISIBLE);
-            callLayout.setOnClickListener(null);
-            callTextView.setTypeface(null, Typeface.ITALIC);
-            callTextView.setTextColor(getResources().getColor(R.color.grey));
-            ((FloatingActionButton) findViewById(R.id.callFab)).getDrawable().setAlpha(122);
-
-        }
+        familyMemberFloatingMenuFlv.reDraw(has_phone);
     }
 
     private void initUi() {
@@ -86,21 +58,7 @@ public class FamilyMemberFloatingMenu extends LinearLayout implements View.OnCli
         rotateForward = AnimationUtils.loadAnimation(getContext(), R.anim.rotate_forward);
         rotateBack = AnimationUtils.loadAnimation(getContext(), R.anim.rotate_back);
 
-        if (Country.TANZANIA.equals(BuildConfig.BUILD_COUNTRY)) {
-            fab.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    animateFAB();
-                }
-            });
-        } else {
-            fab.setOnClickListener(this);
-        }
-
-        if (Country.TANZANIA.equals(BuildConfig.BUILD_COUNTRY)) {
-            fab.setImageResource(R.drawable.ic_edit_white);
-        }
-
+        familyMemberFloatingMenuFlv.prepareFab(fab);
 
         callLayout = findViewById(R.id.call_layout);
         callLayout.setOnClickListener(this);
@@ -155,8 +113,6 @@ public class FamilyMemberFloatingMenu extends LinearLayout implements View.OnCli
     @Override
     public void onClick(View v) {
         onClickFloatingMenu.onClickMenu(v.getId());
-        if (Country.TANZANIA.equals(BuildConfig.BUILD_COUNTRY)) {
-            animateFAB();
-        }
+        familyMemberFloatingMenuFlv.fabInteraction();
     }
 }

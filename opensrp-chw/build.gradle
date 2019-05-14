@@ -66,7 +66,6 @@ android {
             buildConfigField "int", "VACCINE_SYNC_PROCESSING_MINUTES", '180'
             buildConfigField "int", "IMAGE_UPLOAD_MINUTES", '180'
             buildConfigField "int", "PULL_UNIQUE_IDS_MINUTES", '180'
-            buildConfigField "org.smartregister.chw.util.Country", "BUILD_COUNTRY", "org.smartregister.chw.util.Country.LIBERIA"
 
         }
 
@@ -80,7 +79,6 @@ android {
             buildConfigField "int", "VACCINE_SYNC_PROCESSING_MINUTES", '180'
             buildConfigField "int", "IMAGE_UPLOAD_MINUTES", '2'
             buildConfigField "int", "PULL_UNIQUE_IDS_MINUTES", '10'
-            buildConfigField "org.smartregister.chw.util.Country", "BUILD_COUNTRY", "org.smartregister.chw.util.Country.LIBERIA"
             testCoverageEnabled true
         }
     }
