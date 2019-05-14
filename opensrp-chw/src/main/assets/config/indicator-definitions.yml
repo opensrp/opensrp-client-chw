@@ -13,7 +13,8 @@ indicators:
      when 'Sep' then '09'
      when 'Oct' then '10'
      when 'Nov' then '11'
-     when 'Dec' then '12' end) ||  substr(eventDate, 9 , 2) = '%s'"
+     when 'Dec' then '12' end) ||  substr(eventDate, 9 , 2) = '%s' and event.baseEntityId not
+     in (select distinct ec_child.base_entity_id from ec_child where ifnull(ec_child.dod,'') != '' or ifnull(ec_child.date_removed,'') != '')"
 
   - key: "CHW_002"
     description: "Children (0-11 months) who died in the last year"

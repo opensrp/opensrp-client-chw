@@ -116,6 +116,7 @@ public class JobAidsDashboardFragment extends Fragment implements ReportContract
         visualizationsViewGroup.addView(deceased_0_11_View);
         visualizationsViewGroup.addView(deceased_12_59_View);
 
+        progressBar.setVisibility(View.GONE);
     }
 
     private NumericIndicatorVisualization getVisualizationCount(String constant, int resource, Map<String, IndicatorTally> indicatorTallyMap) {
@@ -157,7 +158,6 @@ public class JobAidsDashboardFragment extends Fragment implements ReportContract
     @Override
     public void refreshUI() {
         buildVisualisations();
-        progressBar.setVisibility(View.GONE);
     }
 
     private static class ReportIndicatorsLoader extends AsyncTaskLoader<List<Map<String, IndicatorTally>>> {
