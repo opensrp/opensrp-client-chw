@@ -11,6 +11,7 @@ import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import org.smartregister.chw.R;
 import org.smartregister.chw.presenter.JobAidsDashboardFragmentPresenter;
@@ -32,6 +33,7 @@ public class JobAidsDashboardFragment extends Fragment implements ReportContract
     private View deceased_12_59_View;
     private static ReportContract.Presenter presenter;
     private List<Map<String, IndicatorTally>> indicatorTallies;
+    private ProgressBar progressBar;
 
     public JobAidsDashboardFragment() {
         // Required empty public constructor
@@ -56,13 +58,15 @@ public class JobAidsDashboardFragment extends Fragment implements ReportContract
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_job_aids_dashboard, container, false);
+        View rootView =  inflater.inflate(R.layout.fragment_job_aids_dashboard, container, false);
+        progressBar= rootView.findViewById(R.id.progress_bar);
+        visualizationsViewGroup = rootView.findViewById(R.id.dashboard_content);
+        return rootView;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        visualizationsViewGroup = getView().findViewById(R.id.dashboard_content);
     }
 
     @Override
@@ -99,23 +103,27 @@ public class JobAidsDashboardFragment extends Fragment implements ReportContract
         NumericIndicatorVisualization numericIndicatorData;
         NumericDisplayFactory numericIndicatorFactory = new NumericDisplayFactory();
 
-        numericIndicatorData = new NumericIndicatorVisualization(getResources().getString(R.string.total_under_5_children_label),
-                childrenU5NumericMap.get(DashboardUtil.countOfChildrenUnder5).getCount());
+        numericIndicatorData = getVisualizationCount(DashboardUtil.countOfChildrenUnder5, R.string.total_under_5_children_label, childrenU5NumericMap);
         childrenU5View = numericIndicatorFactory.getIndicatorView(numericIndicatorData, getContext());
 
-        numericIndicatorData = new NumericIndicatorVisualization(getResources().getString(R.string.deceased_children_0_11_months),
-                deceased0_11_NumericMap.get(DashboardUtil.deceasedChildren0_11Months).getCount());
+        numericIndicatorData = getVisualizationCount(DashboardUtil.deceasedChildren0_11Months, R.string.deceased_children_0_11_months, deceased0_11_NumericMap);
         deceased_0_11_View = numericIndicatorFactory.getIndicatorView(numericIndicatorData, getContext());
 
-
-        numericIndicatorData = new NumericIndicatorVisualization(getResources().getString(R.string.deceased_children_12_59_months),
-                deceased12_59_NumericMap.get(DashboardUtil.deceasedChildren12_59Months).getCount());
+        numericIndicatorData = getVisualizationCount(DashboardUtil.deceasedChildren12_59Months, R.string.deceased_children_12_59_months, deceased12_59_NumericMap);
         deceased_12_59_View = numericIndicatorFactory.getIndicatorView(numericIndicatorData, getContext());
 
         visualizationsViewGroup.addView(childrenU5View);
         visualizationsViewGroup.addView(deceased_0_11_View);
         visualizationsViewGroup.addView(deceased_12_59_View);
 
+    }
+
+    private NumericIndicatorVisualization getVisualizationCount(String constant, int resource, Map<String, IndicatorTally> indicatorTallyMap) {
+        int cnt = 0;
+        if (indicatorTallyMap.get(constant) != null) {
+            cnt = indicatorTallyMap.get(constant).getCount();
+        }
+        return new NumericIndicatorVisualization(getResources().getString(resource), cnt);
     }
 
     private void updateTotalTally(Map<String, IndicatorTally> indicatorTallyMap, Map<String, IndicatorTally> currentIndicatorValueMap, String indicatorKey) {
@@ -149,6 +157,7 @@ public class JobAidsDashboardFragment extends Fragment implements ReportContract
     @Override
     public void refreshUI() {
         buildVisualisations();
+        progressBar.setVisibility(View.GONE);
     }
 
     private static class ReportIndicatorsLoader extends AsyncTaskLoader<List<Map<String, IndicatorTally>>> {
