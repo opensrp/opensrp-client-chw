@@ -2,6 +2,8 @@ package org.smartregister.chw.util;
 
 public class Constants {
 
+    public static String EC_CLIENT_FIELDS = "ec_client_fields.json";
+
     public static class CONFIGURATION {
         public static final String LOGIN = "login";
         public static final String FAMILY_REGISTER = "family_register";
@@ -160,6 +162,4 @@ public class Constants {
     public static class IDENTIFIER {
         public static final String UNIQUE_IDENTIFIER_KEY = "opensrp_id";
     }
-
-    public static String EC_CLIENT_FIELDS = "ec_client_fields.json";
 }

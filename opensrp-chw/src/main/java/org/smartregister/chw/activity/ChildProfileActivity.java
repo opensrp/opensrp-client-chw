@@ -74,6 +74,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     private Handler handler = new Handler();
     private String lastVisitDay;
     private FamilyMemberFloatingMenu familyFloatingMenu;
+    private OnClickFloatingMenu onClickFloatingMenu;
 
     @Override
     public void updateHasPhone(boolean hasPhone) {
@@ -92,8 +93,6 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
             tvEdit.setOnClickListener(null);
         }
     }
-
-    private OnClickFloatingMenu onClickFloatingMenu;
 
     @Override
     protected void onCreation() {

@@ -5,7 +5,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.view.View;
 import android.widget.TextView;
 
-import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 
 import static android.view.View.GONE;
