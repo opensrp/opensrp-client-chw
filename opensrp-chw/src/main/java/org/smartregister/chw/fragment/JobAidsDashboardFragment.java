@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import org.smartregister.chw.R;
 import org.smartregister.chw.presenter.JobAidsDashboardFragmentPresenter;
@@ -19,8 +20,13 @@ import org.smartregister.chw.util.DashboardUtil;
 import org.smartregister.reporting.contract.ReportContract;
 import org.smartregister.reporting.domain.IndicatorTally;
 import org.smartregister.reporting.domain.NumericIndicatorVisualization;
+import org.smartregister.reporting.domain.PieChartIndicatorVisualization;
+import org.smartregister.reporting.domain.PieChartSlice;
+import org.smartregister.reporting.listener.PieChartSelectListener;
 import org.smartregister.reporting.view.NumericDisplayFactory;
+import org.smartregister.reporting.view.PieChartFactory;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -84,44 +90,91 @@ public class JobAidsDashboardFragment extends Fragment implements ReportContract
         Map<String, IndicatorTally> childrenU5NumericMap = new HashMap<>();
         Map<String, IndicatorTally> deceased0_11_NumericMap = new HashMap<>();
         Map<String, IndicatorTally> deceased12_59_NumericMap = new HashMap<>();
+        Map<String, IndicatorTally> children_0_59_WithCertificateMap = new HashMap<>();
+        Map<String, IndicatorTally> children_0_59_WithNoCertificateMap = new HashMap<>();
+
 
         for (Map<String, IndicatorTally> indicatorTallyMap : indicatorTallies) {
             if (indicatorTallyMap.containsKey(DashboardUtil.countOfChildrenUnder5)) {
                 updateTotalTally(indicatorTallyMap, childrenU5NumericMap, DashboardUtil.countOfChildrenUnder5);
             }
             if (indicatorTallyMap.containsKey(DashboardUtil.deceasedChildren0_11Months)) {
-                updateTotalTally(deceased0_11_NumericMap, deceased0_11_NumericMap, DashboardUtil.deceasedChildren0_11Months);
+                updateTotalTally(indicatorTallyMap, deceased0_11_NumericMap, DashboardUtil.deceasedChildren0_11Months);
             }
             if (indicatorTallyMap.containsKey(DashboardUtil.deceasedChildren12_59Months)) {
-                updateTotalTally(deceased12_59_NumericMap, deceased0_11_NumericMap, DashboardUtil.deceasedChildren12_59Months);
+                updateTotalTally(indicatorTallyMap, deceased0_11_NumericMap, DashboardUtil.deceasedChildren12_59Months);
+            }
+            if (indicatorTallyMap.containsKey(DashboardUtil.countOfChildren0_59WithBirthCert)) {
+                updateTotalTally(indicatorTallyMap, children_0_59_WithCertificateMap, DashboardUtil.countOfChildren0_59WithBirthCert);
+            }
+            if (indicatorTallyMap.containsKey(DashboardUtil.countOfChildren0_59WithNoBirthCert)) {
+                updateTotalTally(indicatorTallyMap, children_0_59_WithNoCertificateMap, DashboardUtil.countOfChildren0_59WithNoBirthCert);
             }
         }
         // Generate numeric indicator visualization
-        NumericIndicatorVisualization numericIndicatorData;
+        NumericIndicatorVisualization numericIndicatorVisualizationData;
+        PieChartIndicatorVisualization pieChartIndicatorVisualizationData;
+
         NumericDisplayFactory numericIndicatorFactory = new NumericDisplayFactory();
+        PieChartFactory pieChartFactory = new PieChartFactory();
 
-        numericIndicatorData = getVisualizationCount(DashboardUtil.countOfChildrenUnder5, R.string.total_under_5_children_label, childrenU5NumericMap);
-        View childrenU5View = numericIndicatorFactory.getIndicatorView(numericIndicatorData, getContext());
+        numericIndicatorVisualizationData = getNumericVisualizationCount(DashboardUtil.countOfChildrenUnder5, R.string.total_under_5_children_label, childrenU5NumericMap);
+        View childrenU5View = numericIndicatorFactory.getIndicatorView(numericIndicatorVisualizationData, getContext());
 
-        numericIndicatorData = getVisualizationCount(DashboardUtil.deceasedChildren0_11Months, R.string.deceased_children_0_11_months, deceased0_11_NumericMap);
-        View deceased_0_11_View = numericIndicatorFactory.getIndicatorView(numericIndicatorData, getContext());
+        numericIndicatorVisualizationData = getNumericVisualizationCount(DashboardUtil.deceasedChildren0_11Months, R.string.deceased_children_0_11_months, deceased0_11_NumericMap);
+        View deceased_0_11_View = numericIndicatorFactory.getIndicatorView(numericIndicatorVisualizationData, getContext());
 
-        numericIndicatorData = getVisualizationCount(DashboardUtil.deceasedChildren12_59Months, R.string.deceased_children_12_59_months, deceased12_59_NumericMap);
-        View deceased_12_59_View = numericIndicatorFactory.getIndicatorView(numericIndicatorData, getContext());
+        numericIndicatorVisualizationData = getNumericVisualizationCount(DashboardUtil.deceasedChildren12_59Months, R.string.deceased_children_12_59_months, deceased12_59_NumericMap);
+        View deceased_12_59_View = numericIndicatorFactory.getIndicatorView(numericIndicatorVisualizationData, getContext());
+
+        pieChartIndicatorVisualizationData = getPieChartVisualizationCount(children_0_59_WithCertificateMap, children_0_59_WithNoCertificateMap, DashboardUtil.countOfChildren0_59WithBirthCert,
+                DashboardUtil.countOfChildren0_59WithNoBirthCert, R.string.children_0_59_months_with_birth_certificate);
+        View children_0_59_WithBirthCertificateView = pieChartFactory.getIndicatorView(pieChartIndicatorVisualizationData, getContext());
 
         visualizationsViewGroup.addView(childrenU5View);
         visualizationsViewGroup.addView(deceased_0_11_View);
         visualizationsViewGroup.addView(deceased_12_59_View);
+        visualizationsViewGroup.addView(children_0_59_WithBirthCertificateView);
 
         progressBar.setVisibility(View.GONE);
     }
 
-    private NumericIndicatorVisualization getVisualizationCount(String constant, int resource, Map<String, IndicatorTally> indicatorTallyMap) {
+    private NumericIndicatorVisualization getNumericVisualizationCount(String constant, int resource, Map<String, IndicatorTally> indicatorTallyMap) {
         int cnt = 0;
         if (indicatorTallyMap.get(constant) != null) {
             cnt = indicatorTallyMap.get(constant).getCount();
         }
         return new NumericIndicatorVisualization(getResources().getString(resource), cnt);
+    }
+
+    private PieChartIndicatorVisualization getPieChartVisualizationCount(Map<String, IndicatorTally> pieChartYesValue, Map<String, IndicatorTally> pieChartNoValue, String yesIndicatorKey,
+                                                                         String noIndicatorKey, int stringResourceId) {
+        // Define pie chart chartSlices
+        List<PieChartSlice> chartSlices = new ArrayList<>();
+        int yesCount = 0;
+        int noCount = 0;
+        if (pieChartYesValue.get(yesIndicatorKey) != null) {
+            yesCount = pieChartYesValue.get(yesIndicatorKey).getCount();
+        }
+        if (pieChartNoValue.get(noIndicatorKey) != null) {
+            noCount = pieChartNoValue.get(noIndicatorKey).getCount();
+        }
+
+        PieChartSlice yesSlice = new PieChartSlice(yesCount, DashboardUtil.YES_GREEN_SLICE_COLOR);
+        PieChartSlice noSlice = new PieChartSlice(noCount, DashboardUtil.NO_RED_SLICE_COLOR);
+        chartSlices.add(yesSlice);
+        chartSlices.add(noSlice);
+
+        // Build the chart
+        PieChartIndicatorVisualization pieChartIndicatorVisualization = new PieChartIndicatorVisualization.PieChartIndicatorVisualizationBuilder()
+                .indicatorLabel(getResources().getString(stringResourceId))
+                .chartHasLabels(true)
+                .chartHasLabelsOutside(true)
+                .chartHasCenterCircle(false)
+                .chartSlices(chartSlices)
+                .chartListener(new ChartListener()).build();
+
+        return pieChartIndicatorVisualization;
     }
 
     private void updateTotalTally(Map<String, IndicatorTally> indicatorTallyMap, Map<String, IndicatorTally> currentIndicatorValueMap, String indicatorKey) {
@@ -168,6 +221,14 @@ public class JobAidsDashboardFragment extends Fragment implements ReportContract
         @Override
         public List<Map<String, IndicatorTally>> loadInBackground() {
             return presenter.fetchIndicatorsDailytallies();
+        }
+    }
+
+    private class ChartListener implements PieChartSelectListener {
+
+        @Override
+        public void handleOnSelectEvent(PieChartSlice sliceValue) {
+            Toast.makeText(getContext(), DashboardUtil.getPieSelectionValue(sliceValue, getContext()), Toast.LENGTH_SHORT).show();
         }
     }
 
