@@ -51,3 +51,11 @@ indicators:
      when 'Dec' then '12' end) ||  substr(eventDate, 9 , 2) = '%s'
        and event.baseEntityId in (select ec_child.base_entity_id
        from ec_child where date(ec_child.dob) >= date('now', '-60 month') and date(ec_child.dob) < date('now', '-11 month') and date(ec_child.dod) >= date('now', '-12 month'))"
+
+  - key: "CHW_004"
+    description: "Children (0-59 months) with a birth certificate"
+    indicatorQuery: "select count(distinct ec_child.base_entity_id) from ec_child where ec_child.birth_cert = 'Yes' and date(ec_child.dob) >= date('now', '-60 month')"
+
+  - key: "CHW_005"
+    description: "Children (0-59 months) without a birth certificate"
+    indicatorQuery: "select count(distinct ec_child.base_entity_id) from ec_child where  ec_child.birth_cert = 'No' and date(ec_child.dob) >= date('now', '-60 month')"
