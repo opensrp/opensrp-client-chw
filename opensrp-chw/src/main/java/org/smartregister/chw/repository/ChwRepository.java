@@ -6,9 +6,9 @@ import android.util.Log;
 import net.sqlcipher.database.SQLiteDatabase;
 
 import org.apache.commons.lang3.StringUtils;
+import org.smartregister.AllConstants;
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.application.ChwApplication;
-import org.smartregister.AllConstants;
 import org.smartregister.chw.util.Country;
 import org.smartregister.chw.util.RepositoryUtils;
 import org.smartregister.configurableviews.repository.ConfigurableViewsRepository;

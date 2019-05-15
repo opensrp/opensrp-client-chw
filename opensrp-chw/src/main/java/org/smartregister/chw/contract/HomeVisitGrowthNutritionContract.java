@@ -33,10 +33,6 @@ public interface HomeVisitGrowthNutritionContract {
 
         void setNotVisitState(String type, ServiceWrapper serviceWrapper);
 
-        boolean isAllSelected();
-
-        boolean isSelected(String type);
-
         HomeVisitGrowthNutritionContract.View getView();
 
         void onDestroy(boolean isChangingConfiguration);
