@@ -212,10 +212,6 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
             case R.id.action_registration:
                 startFormForEdit(R.string.edit_member_form_title);
                 return true;
-            case R.id.action_malaria_confirmation:
-                //TODO open malaria confirmation form
-                Toast.makeText(getApplicationContext(), "Malaria Confirmation", Toast.LENGTH_SHORT).show();
-                return true;
             case R.id.action_remove_member:
                 IndividualProfileRemoveActivity.startIndividualProfileActivity(FamilyOtherMemberProfileActivity.this, commonPersonObject, familyBaseEntityId, familyHead, primaryCaregiver);
                 return true;
