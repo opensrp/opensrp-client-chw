@@ -34,7 +34,6 @@ import org.smartregister.chw.fragment.FamilyOtherMemberProfileFragment;
 import org.smartregister.chw.interactor.ChildProfileInteractor;
 import org.smartregister.chw.listener.FloatingMenuListener;
 import org.smartregister.chw.listener.OnClickFloatingMenu;
-import org.smartregister.chw.model.ChildRegisterModel;
 import org.smartregister.chw.presenter.FamilyOtherMemberActivityPresenter;
 import org.smartregister.chw.presenter.MalariaConfirmationPresenter;
 import org.smartregister.chw.util.ChildUtils;
@@ -52,12 +51,9 @@ import org.smartregister.family.util.Utils;
 import org.smartregister.helper.ImageRenderHelper;
 import org.smartregister.util.FormUtils;
 import org.smartregister.view.fragment.BaseRegisterFragment;
-
 import java.lang.ref.WeakReference;
 
-import timber.log.Timber;
-
-public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfileActivity implements FamilyOtherMemberProfileExtendedContract.View {
+public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfileActivity implements FamilyOtherMemberProfileExtendedContract.View, MalariaConfirmationContract.View {
 
     private String familyBaseEntityId;
     private String baseEntityId;
@@ -223,9 +219,8 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
                 startFormForEdit(R.string.edit_member_form_title);
                 return true;
             case R.id.action_malaria_confirmation:
-                //TODO open malaria confirmation form
-                Toast.makeText(getApplicationContext(), "Malaria Confirmation", Toast.LENGTH_SHORT).show();
-                malariaPresenter().startMalariaConfirmationForm();
+                JSONObject form = getFormUtils().getFormJson(org.smartregister.chw.util.Constants.JSON_FORM.HOME_VISIT_COUNSELLING);
+                startFormActivity(form);
                 return true;
             case R.id.action_remove_member:
                 IndividualProfileRemoveActivity.startIndividualProfileActivity(FamilyOtherMemberProfileActivity.this, commonPersonObject, familyBaseEntityId, familyHead, primaryCaregiver);
@@ -377,7 +372,16 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
         }
     }
 
-    public MalariaConfirmationContract.Presenter malariaPresenter() {
-        return (MalariaConfirmationPresenter) presenter;
+
+    private FormUtils getFormUtils() {
+        if (formUtils == null) {
+            try {
+                formUtils = FormUtils.getInstance(org.smartregister.family.util.Utils.context().applicationContext());
+            } catch (Exception e) {
+                Log.e(MalariaConfirmationPresenter.class.getCanonicalName(), e.getMessage(), e);
+            }
+        }
+        return formUtils;
     }
+
 }
