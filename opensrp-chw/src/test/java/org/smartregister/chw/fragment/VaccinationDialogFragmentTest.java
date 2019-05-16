@@ -57,21 +57,25 @@ public class VaccinationDialogFragmentTest extends BaseUnitTest {
     }
 
     @Test
-    public void testUpdateVaccineList() throws Exception {
-        List<VaccineWrapper> tags = new ArrayList<>();
-        Whitebox.setInternalState(vaccinationDialogFragment, "tags", tags);
+    public void testUpdateVaccineList() {
+        try {
+            List<VaccineWrapper> tags = new ArrayList<>();
+            Whitebox.setInternalState(vaccinationDialogFragment, "tags", tags);
 
-        CheckBox childSelect = Mockito.mock(CheckBox.class);
-        View view = Mockito.mock(View.class);
-        Mockito.when(view.findViewById(R.id.select)).thenReturn(childSelect);
-        LinearLayout vaccinationNameLayout = Mockito.mock(LinearLayout.class);
+            CheckBox childSelect = Mockito.mock(CheckBox.class);
+            View view = Mockito.mock(View.class);
+            Mockito.when(view.findViewById(R.id.select)).thenReturn(childSelect);
+            LinearLayout vaccinationNameLayout = Mockito.mock(LinearLayout.class);
 
-        Mockito.when(vaccinationNameLayout.getChildCount()).thenReturn(1);
-        Mockito.when(vaccinationNameLayout.getChildAt(Mockito.anyInt())).thenReturn(view);
+            Mockito.when(vaccinationNameLayout.getChildCount()).thenReturn(1);
+            Mockito.when(vaccinationNameLayout.getChildAt(Mockito.anyInt())).thenReturn(view);
 
-        Whitebox.setInternalState(vaccinationDialogFragment, "vaccinationNameLayout", vaccinationNameLayout);
+            Whitebox.setInternalState(vaccinationDialogFragment, "vaccinationNameLayout", vaccinationNameLayout);
 
-        Whitebox.invokeMethod(vaccinationDialogFragment, "updateVaccineList");
+            Whitebox.invokeMethod(vaccinationDialogFragment, "updateVaccineList");
+        } catch (Exception e) {
+            fail();
+        }
     }
 
     @Test

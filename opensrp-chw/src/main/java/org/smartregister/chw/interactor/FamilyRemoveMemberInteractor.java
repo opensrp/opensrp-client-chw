@@ -37,8 +37,6 @@ import timber.log.Timber;
 
 public class FamilyRemoveMemberInteractor implements FamilyRemoveMemberContract.Interactor {
 
-    private static String TAG = FamilyRemoveMemberInteractor.class.getCanonicalName();
-
     private AppExecutors appExecutors;
 
     private static FamilyRemoveMemberInteractor instance;

@@ -34,7 +34,6 @@ import java.util.Set;
 import timber.log.Timber;
 
 public class ChwMemberRegisterProvider extends FamilyMemberRegisterProvider {
-    private static final String TAG = ChwMemberRegisterProvider.class.getCanonicalName();
     private Context context;
 
     public ChwMemberRegisterProvider(Context context, CommonRepository commonRepository, Set visibleColumns, View.OnClickListener onClickListener, View.OnClickListener paginationClickListener, String familyHead, String primaryCaregiver) {
