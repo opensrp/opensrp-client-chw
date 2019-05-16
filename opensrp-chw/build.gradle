@@ -15,6 +15,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'jacoco'
 apply plugin: 'com.github.kt3k.coveralls'
 apply plugin: 'io.fabric'
+apply from: "jacoco.gradle"
 
 jacoco {
     toolVersion = "0.8.0"
@@ -52,6 +53,7 @@ android {
     }
 
     buildTypes {
+
         release {
             minifyEnabled false
             zipAlignEnabled true
@@ -65,7 +67,6 @@ android {
             buildConfigField "int", "VACCINE_SYNC_PROCESSING_MINUTES", '180'
             buildConfigField "int", "IMAGE_UPLOAD_MINUTES", '180'
             buildConfigField "int", "PULL_UNIQUE_IDS_MINUTES", '180'
-            buildConfigField "org.smartregister.chw.util.Country", "BUILD_COUNTRY", "org.smartregister.chw.util.Country.LIBERIA"
 
         }
 
@@ -79,7 +80,6 @@ android {
             buildConfigField "int", "VACCINE_SYNC_PROCESSING_MINUTES", '180'
             buildConfigField "int", "IMAGE_UPLOAD_MINUTES", '2'
             buildConfigField "int", "PULL_UNIQUE_IDS_MINUTES", '10'
-            buildConfigField "org.smartregister.chw.util.Country", "BUILD_COUNTRY", "org.smartregister.chw.util.Country.LIBERIA"
             testCoverageEnabled true
         }
     }
@@ -103,6 +103,34 @@ android {
         unitTests {
             returnDefaultValues = true
             includeAndroidResources = true
+        }
+    }
+
+    flavorDimensions 'baseDimension'
+    productFlavors {
+        ba {
+            dimension = 'baseDimension'
+            applicationIdSuffix ".ba"
+            versionCode 1
+            versionName "0.0.1"
+            buildConfigField "String", 'opensrp_url', '"https://boresha-afya.smartregister.org/opensrp/"'
+            buildConfigField "String", 'opensrp_url_debug', '"https://boresha-afya-stage.smartregister.org/opensrp/"'
+            buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"MOH Jhpiego Facility Name" , "Village"}'
+            buildConfigField "String", 'DEFAULT_LOCATION', '"Village"'
+            buildConfigField "boolean", 'SUPPORT_QR', 'true'
+            buildConfigField "int", "DATABASE_VERSION", '6'
+        }
+
+        wcaro {
+            dimension = 'baseDimension'
+            versionCode 1
+            versionName "0.1.4"
+            buildConfigField "String", 'opensrp_url', '"https://unicefwcaro.smartregister.org/opensrp/"'
+            buildConfigField "String", 'opensrp_url_debug', '"https://unicefwcaro-stage.smartregister.org/opensrp/"'
+            buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"Clinic" , "CHSS" , "CHA"}'
+            buildConfigField "String", 'DEFAULT_LOCATION', '"CHA"'
+            buildConfigField "boolean", 'SUPPORT_QR', 'false'
+            buildConfigField "int", "DATABASE_VERSION", '6'
         }
     }
 }
@@ -199,7 +227,7 @@ dependencies {
 }
 
 
-task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest', 'createDebugCoverageReport']) {
+task jacocoTestReport(type: JacocoReport, dependsOn: ['testBaDebugUnitTest', 'createBaDebugCoverageReport', 'testWcaroDebugUnitTest', 'createWcaroDebugCoverageReport']) {
 
     reports {
         xml.enabled = true
@@ -210,13 +238,13 @@ task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest', 'crea
     getReports().getHtml().setDestination(file("${buildDir}/reports/jacoco/jacocoRootReport/html"))
 
     def fileFilter = ['**/R.class', '**/R$*.class', '**/BuildConfig.*', '**/Manifest*.*', '**/*Test*.*', 'android/**/*.*', '**/*$ViewBinder*.*']
-    def debugTree = fileTree(dir: "$project.buildDir/intermediates/classes/debug", excludes: fileFilter)
+    def debugTree = fileTree(dir: "$project.buildDir/intermediates/classes/ba/debug", excludes: fileFilter)
     def mainSrc = "$project.projectDir/src/main/java"
 
     sourceDirectories = files([mainSrc])
     classDirectories = files([debugTree])
     executionData = fileTree(dir: project.buildDir, includes: [
-            'jacoco/testDebugUnitTest.exec', 'outputs/code-coverage/connected/*coverage.ec'
+            'jacoco/testBaDebugUnitTest.exec', 'outputs/code-coverage/connected/*coverage.ec'
     ])
 }
 

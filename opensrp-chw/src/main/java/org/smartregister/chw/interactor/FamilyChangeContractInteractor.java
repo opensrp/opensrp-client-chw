@@ -3,7 +3,6 @@ package org.smartregister.chw.interactor;
 import android.content.Context;
 import android.database.Cursor;
 import android.support.annotation.VisibleForTesting;
-import android.util.Log;
 import android.util.Pair;
 
 import org.apache.commons.lang3.tuple.Triple;
@@ -30,6 +29,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+
+import timber.log.Timber;
 
 import static java.util.Calendar.DATE;
 import static java.util.Calendar.MONTH;
@@ -204,8 +205,9 @@ public class FamilyChangeContractInteractor implements FamilyChangeContract.Inte
         CommonRepository commonRepository = Utils.context().commonrepository(Utils.metadata().familyMemberRegister.tableName);
         List<FamilyMember> res = new ArrayList<>();
 
-        Cursor cursor = commonRepository.queryTable(sql);
+        Cursor cursor = null;
         try {
+            cursor = commonRepository.queryTable(sql);
             cursor.moveToFirst();
 
             while (!cursor.isAfterLast()) {
@@ -266,9 +268,10 @@ public class FamilyChangeContractInteractor implements FamilyChangeContract.Inte
                 cursor.moveToNext();
             }
         } catch (Exception e) {
-            Log.e(TAG, e.toString(), e);
+            Timber.e(e, e.toString());
         } finally {
-            cursor.close();
+            if (cursor != null)
+                cursor.close();
         }
 
         return res;

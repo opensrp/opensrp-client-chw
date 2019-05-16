@@ -10,6 +10,8 @@ import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
 
 import org.json.JSONObject;
+import org.smartregister.AllConstants;
+import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.contract.ChildRegisterContract;
 import org.smartregister.chw.custom_view.NavigationMenu;
@@ -17,8 +19,6 @@ import org.smartregister.chw.fragment.ChildRegisterFragment;
 import org.smartregister.chw.listener.ChwBottomNavigationListener;
 import org.smartregister.chw.model.ChildRegisterModel;
 import org.smartregister.chw.presenter.ChildRegisterPresenter;
-import org.smartregister.chw.util.CountryUtils;
-import org.smartregister.AllConstants;
 import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
@@ -95,7 +95,7 @@ public class ChildRegisterActivity extends BaseRegisterActivity implements Child
                 JSONObject form = new JSONObject(jsonString);
                 if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Utils.metadata().familyRegister.registerEventType)
                         || form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(org.smartregister.chw.util.Constants.EventType.CHILD_REGISTRATION)
-                        ) {
+                ) {
                     presenter().saveForm(jsonString, false);
                 }
             } catch (Exception e) {
@@ -127,7 +127,7 @@ public class ChildRegisterActivity extends BaseRegisterActivity implements Child
 
         }
 
-        if (CountryUtils.hideNavigationQRCode()) {
+        if (!BuildConfig.SUPPORT_QR) {
             bottomNavigationView.getMenu().removeItem(org.smartregister.family.R.id.action_scan_qr);
         }
     }

@@ -1,178 +1,139 @@
-//package org.smartregister.chw.fragment;
-//
-//import android.widget.DatePicker;
-//
-//import org.joda.time.DateTime;
-//import org.junit.Assert;
-//import org.junit.Before;
-//import org.junit.Test;
-//import org.mockito.Mock;
-//import org.mockito.Mockito;
-//import org.mockito.MockitoAnnotations;
-//import org.powermock.core.classloader.annotations.PrepareForTest;
-//import org.powermock.reflect.Whitebox;
-//import org.smartregister.chw.BaseUnitTest;
-//import org.smartregister.chw.contract.ImmunizationContact;
-//import org.smartregister.chw.custom_view.ImmunizationView;
-//import org.smartregister.immunization.db.VaccineRepo;
-//import org.smartregister.immunization.domain.VaccineWrapper;
-//
-//import java.util.ArrayList;
-//import java.util.Calendar;
-//import java.util.LinkedHashMap;
-//import java.util.List;
-//import java.util.Map;
-//
-//import static org.powermock.api.mockito.PowerMockito.doNothing;
-//
-//@PrepareForTest({VaccinationDialogFragment.class})
-//public class VaccinationDialogFragmentTest extends BaseUnitTest {
-//
-//    @Mock
-//    private ImmunizationContact.View homeVisitImmunizationView;
-//
-//    @Mock
-//    private ImmunizationContact.Presenter presenter;
-//
-//    @Mock
-//    private VaccinationDialogFragment vaccinationDialogFragment;
-//
-//    @Before
-//    public void setUp() throws Exception {
-//        MockitoAnnotations.initMocks(this);
-//        vaccinationDialogFragment = Mockito.spy(VaccinationDialogFragment.class);
-//
-//    }
-//
-//    @Test
-//    public void saveData_zero_when_no_vaccine_check() throws Exception {
-//        Map<VaccineWrapper, DatePicker> singleVaccineMap = new LinkedHashMap<>();
-//        VaccineWrapper vaccineWrapper = Mockito.mock(VaccineWrapper.class);
-//
-//        singleVaccineMap.put(vaccineWrapper, getTestDatePicker());
-//        Whitebox.setInternalState(vaccinationDialogFragment, "homeVisitImmunizationView", homeVisitImmunizationView);
-//        Mockito.when(homeVisitImmunizationView.getPresenter()).thenReturn(presenter);
-//        doNothing().when(vaccinationDialogFragment).dismiss();
-//        Whitebox.invokeMethod(vaccinationDialogFragment, "saveData", getTestDatePicker(), singleVaccineMap, 0, false, getTestDateOfBirth().toDate(), new ArrayList<>(), new ArrayList<>());
-//        int size = presenter.getVaccinesGivenThisVisit().size();
-//        Assert.assertEquals(0, size);
-//
-//    }
-//
-//    @Test
-//    public void handleSingleVaccineLogic_true() throws Exception {
-//        Map<VaccineWrapper, DatePicker> singleVaccineMap = new LinkedHashMap<>();
-//        VaccineWrapper vaccineWrapper = Mockito.mock(VaccineWrapper.class);
-//
-//        singleVaccineMap.put(vaccineWrapper, getTestDatePicker());
-//
-//        vaccinationDialogFragment.setDisableConstraints(true);
-//
-//        Whitebox.setInternalState(vaccinationDialogFragment, "dateOfBirth", getTestDateOfBirth().toDate());
-//        Whitebox.setInternalState(vaccinationDialogFragment, "homeVisitImmunizationView", homeVisitImmunizationView);
-//
-//        doNothing().when(vaccinationDialogFragment).onVaccinateEarlier(Mockito.any(ArrayList.class));
-//
-//        Mockito.when(homeVisitImmunizationView.getPresenter()).thenReturn(presenter);
-//
-//        doNothing().when(presenter).assigntoGivenVaccines(Mockito.any(ArrayList.class));
-//
-//        Whitebox.invokeMethod(vaccinationDialogFragment, "handleSingleVaccineLogic", singleVaccineMap, getTestDateOfBirth().toDate());
-//
-//        Mockito.verify(vaccineWrapper, Mockito.atLeastOnce()).setUpdatedVaccineDate(Mockito.any(DateTime.class), Mockito.any(Boolean.class));
-//
-//    }
-//
-//    @Test
-//    public void handleMultipleVaccineGiven_true() throws Exception {
-//        setTagValue();
-//        List<String> selectedCheckBox = new ArrayList<>();
-//
-//        selectedCheckBox.add("OPV 1");
-//
-//        Whitebox.setInternalState(vaccinationDialogFragment, "homeVisitImmunizationView", homeVisitImmunizationView);
-//
-//        doNothing().when(vaccinationDialogFragment).onVaccinateEarlier(Mockito.any(ArrayList.class));
-//
-//        Mockito.when(homeVisitImmunizationView.getPresenter()).thenReturn(presenter);
-//
-//        doNothing().when(presenter).assigntoGivenVaccines(Mockito.any(ArrayList.class));
-//
-//        Whitebox.invokeMethod(vaccinationDialogFragment, "handleMultipleVaccineGiven", getTestVaccineDate(), getTestDateOfBirth().toDate(), selectedCheckBox);
-//
-//        Mockito.verify(presenter, Mockito.atLeastOnce()).assigntoGivenVaccines(Mockito.any(ArrayList.class));
-//
-//    }
-//
-//    @Test
-//    public void handleNotGivenVaccines_true() throws Exception {
-//        setTagValue();
-//        List<String> uncheckedBox = new ArrayList<>();
-//
-//        uncheckedBox.add("OPV 1");
-//
-//        Whitebox.setInternalState(vaccinationDialogFragment, "homeVisitImmunizationView", homeVisitImmunizationView);
-//
-//        Mockito.when(homeVisitImmunizationView.getPresenter()).thenReturn(presenter);
-//
-//        doNothing().when(presenter).updateNotGivenVaccine(Mockito.any(VaccineWrapper.class));
-//
-//        Whitebox.setInternalState(vaccinationDialogFragment, "givenList", new ArrayList<>());
-//
-//        Whitebox.invokeMethod(vaccinationDialogFragment, "handleNotGivenVaccines", getTestVaccineDate(), getTestDateOfBirth().toDate(), uncheckedBox);
-//
-//
-//        Mockito.verify(presenter, Mockito.atLeastOnce()).updateNotGivenVaccine(Mockito.any(VaccineWrapper.class));
-//
-//    }
-//
-//    @Test
-//    public void validateVaccinationDate_true_currentdate() throws Exception {
-//
-//        Boolean value = Whitebox.invokeMethod(vaccinationDialogFragment, "validateVaccinationDate", getTestDateOfBirth().toDate(), getTestVaccineDate().toDate());
-//        Assert.assertTrue(value);
-//
-//    }
-//
-//    @Test
-//    public void searchWrapperByName_true() throws Exception {
-//        setTagValue();
-//        VaccineWrapper value = Whitebox.invokeMethod(vaccinationDialogFragment, "searchWrapperByName", "opv 1");
-//
-//        Assert.assertEquals("OPV 1", value.getName());
-//
-//    }
-//
-//    private void setTagValue() {
-//        VaccineWrapper vaccineWrapper = new VaccineWrapper();
-//        vaccineWrapper.setName("OPV 1");
-//
-//        vaccineWrapper.setVaccine(VaccineRepo.Vaccine.valueOf("opv1"));
-//        List<VaccineWrapper> list = new ArrayList<>();
-//        list.add(vaccineWrapper);
-//        Whitebox.setInternalState(vaccinationDialogFragment, "tags", list);
-//    }
-//
-//    private DateTime getTestDateOfBirth() {
-//        Calendar bcalendar = Calendar.getInstance();
-//        bcalendar.set(2000, 5, 15);
-//        return new DateTime(bcalendar.getTime());
-//    }
-//
-//    private DateTime getTestVaccineDate() {
-//        Calendar calendar = Calendar.getInstance();
-//        calendar.set(2019, 2, 14);
-//
-//        return new DateTime(calendar.getTime());
-//    }
-//
-//    private DatePicker getTestDatePicker() {
-//        DatePicker datePicker = Mockito.mock(DatePicker.class);
-//        Mockito.when(datePicker.getDayOfMonth()).thenReturn(13);
-//        Mockito.when(datePicker.getYear()).thenReturn(2001);
-//        Mockito.when(datePicker.getMonth()).thenReturn(3);
-//        return datePicker;
-//
-//    }
-//
-//}
+package org.smartregister.chw.fragment;
+
+import android.view.View;
+import android.widget.DatePicker;
+import android.widget.LinearLayout;
+
+import com.vijay.jsonwizard.customviews.CheckBox;
+
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.reflect.Whitebox;
+import org.smartregister.chw.BaseUnitTest;
+import org.smartregister.chw.R;
+import org.smartregister.chw.custom_view.ImmunizationView;
+import org.smartregister.chw.presenter.ImmunizationViewPresenter;
+import org.smartregister.immunization.domain.VaccineWrapper;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
+import static junit.framework.TestCase.fail;
+
+
+@PrepareForTest({VaccinationDialogFragment.class})
+public class VaccinationDialogFragmentTest extends BaseUnitTest {
+
+    @Mock
+    private VaccinationDialogFragment vaccinationDialogFragment;
+
+    @Before
+    public void setUp() throws Exception {
+        MockitoAnnotations.initMocks(this);
+        vaccinationDialogFragment = Mockito.spy(VaccinationDialogFragment.class);
+
+    }
+
+    @Test
+    public void newInstanceReturnsFragment() {
+        Date dateOfBirth = new Date();
+        ArrayList<VaccineWrapper> notGiven = new ArrayList<>();
+        ArrayList<VaccineWrapper> given = new ArrayList<>();
+        ArrayList<VaccineWrapper> tags = new ArrayList<>();
+        String groupName = "";
+
+        VaccinationDialogFragment fragment = VaccinationDialogFragment.newInstance(dateOfBirth, notGiven, given, tags, groupName);
+
+        Assert.assertNotNull(fragment);
+    }
+
+    @Test
+    public void testUpdateVaccineList() {
+        try {
+            List<VaccineWrapper> tags = new ArrayList<>();
+            Whitebox.setInternalState(vaccinationDialogFragment, "tags", tags);
+
+            CheckBox childSelect = Mockito.mock(CheckBox.class);
+            View view = Mockito.mock(View.class);
+            Mockito.when(view.findViewById(R.id.select)).thenReturn(childSelect);
+            LinearLayout vaccinationNameLayout = Mockito.mock(LinearLayout.class);
+
+            Mockito.when(vaccinationNameLayout.getChildCount()).thenReturn(1);
+            Mockito.when(vaccinationNameLayout.getChildAt(Mockito.anyInt())).thenReturn(view);
+
+            Whitebox.setInternalState(vaccinationDialogFragment, "vaccinationNameLayout", vaccinationNameLayout);
+
+            Whitebox.invokeMethod(vaccinationDialogFragment, "updateVaccineList");
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testShowSingleVaccineDetailsView() {
+
+        try {
+            View view = Mockito.mock(View.class);
+
+            LinearLayout vaccinationNameLayout = Mockito.mock(LinearLayout.class);
+            Mockito.when(vaccinationNameLayout.getChildAt(Mockito.anyInt())).thenReturn(view);
+            Whitebox.setInternalState(vaccinationDialogFragment, "vaccinationNameLayout", vaccinationNameLayout);
+
+            LinearLayout multipleVaccineDatePickerView = Mockito.mock(LinearLayout.class);
+            Whitebox.setInternalState(vaccinationDialogFragment, "multipleVaccineDatePickerView", multipleVaccineDatePickerView);
+
+            LinearLayout singleVaccineAddView = Mockito.mock(LinearLayout.class);
+            Whitebox.setInternalState(vaccinationDialogFragment, "singleVaccineAddView", singleVaccineAddView);
+
+            Map<VaccineWrapper, DatePicker> singleVaccineMap = new LinkedHashMap<>();
+            Whitebox.setInternalState(vaccinationDialogFragment, "singleVaccineMap", singleVaccineMap);
+
+
+            Whitebox.invokeMethod(vaccinationDialogFragment, "showSingleVaccineDetailsView");
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+
+    @Test
+    public void testHandleSingleVaccineLogic() {
+        try {
+            Map<VaccineWrapper, DatePicker> singleVaccineMap = new HashMap<>();
+            Date dateOfBirth = new Date();
+
+            DatePicker datePicker = Mockito.mock(DatePicker.class);
+            singleVaccineMap.put(new VaccineWrapper(), datePicker);
+
+            Mockito.doReturn(true).when(vaccinationDialogFragment).validateVaccinationDate(Mockito.any(Date.class), Mockito.any(Date.class));
+
+            ImmunizationView immunizationView = Mockito.mock(ImmunizationView.class);
+            ImmunizationViewPresenter presenter = Mockito.mock(ImmunizationViewPresenter.class);
+
+            Mockito.doReturn(presenter).when(immunizationView).getPresenter();
+            Mockito.doReturn(true).when(vaccinationDialogFragment).validateVaccinationDate(Mockito.any(Date.class), Mockito.any(Date.class));
+
+            Whitebox.setInternalState(vaccinationDialogFragment, "immunizationView", immunizationView);
+
+
+            Whitebox.invokeMethod(vaccinationDialogFragment, "handleSingleVaccineLogic", singleVaccineMap, dateOfBirth);
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testValidateVaccinationDate() {
+        Boolean returnedTypeValue = vaccinationDialogFragment.validateVaccinationDate(new Date(), new Date());
+        Assert.assertTrue(returnedTypeValue);
+    }
+}

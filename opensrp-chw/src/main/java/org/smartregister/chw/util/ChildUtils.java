@@ -54,6 +54,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import timber.log.Timber;
+
 import static org.apache.commons.lang3.text.WordUtils.capitalize;
 import static org.smartregister.chw.util.Utils.dd_MMM_yyyy;
 
@@ -210,33 +212,40 @@ public class ChildUtils {
         String query = queryBUilder.mainCondition(tableName + "." + DBConstants.KEY.BASE_ENTITY_ID + " = '" + childId + "'");
 
         ChildHomeVisit childHomeVisit = new ChildHomeVisit();
-        Cursor cursor = Utils.context().commonrepository(org.smartregister.chw.util.Constants.TABLE_NAME.CHILD).queryTable(query);
-        if (cursor != null && cursor.moveToFirst()) {
-            String lastVisitStr = cursor.getString(cursor.getColumnIndex(ChildDBConstants.KEY.LAST_HOME_VISIT));
-            if (!TextUtils.isEmpty(lastVisitStr)) {
-                try {
-                    childHomeVisit.setLastHomeVisitDate(Long.parseLong(lastVisitStr));
-                } catch (Exception e) {
+        Cursor cursor = null;
+        try {
+            cursor = Utils.context().commonrepository(org.smartregister.chw.util.Constants.TABLE_NAME.CHILD).queryTable(query);
+            if (cursor != null && cursor.moveToFirst()) {
+                String lastVisitStr = cursor.getString(cursor.getColumnIndex(ChildDBConstants.KEY.LAST_HOME_VISIT));
+                if (!TextUtils.isEmpty(lastVisitStr)) {
+                    try {
+                        childHomeVisit.setLastHomeVisitDate(Long.parseLong(lastVisitStr));
+                    } catch (Exception e) {
 
+                    }
+                }
+                String visitNotDoneStr = cursor.getString(cursor.getColumnIndex(ChildDBConstants.KEY.VISIT_NOT_DONE));
+                if (!TextUtils.isEmpty(visitNotDoneStr)) {
+                    try {
+                        childHomeVisit.setVisitNotDoneDate(Long.parseLong(visitNotDoneStr));
+                    } catch (Exception e) {
+                        Timber.e(e.toString());
+                    }
+                }
+                String strDateCreated = cursor.getString(cursor.getColumnIndex(ChildDBConstants.KEY.DATE_CREATED));
+                if (!TextUtils.isEmpty(strDateCreated)) {
+                    try {
+                        childHomeVisit.setDateCreated(org.smartregister.family.util.Utils.dobStringToDateTime(strDateCreated).getMillis());
+                    } catch (Exception e) {
+                        Timber.e(e.toString());
+                    }
                 }
             }
-            String visitNotDoneStr = cursor.getString(cursor.getColumnIndex(ChildDBConstants.KEY.VISIT_NOT_DONE));
-            if (!TextUtils.isEmpty(visitNotDoneStr)) {
-                try {
-                    childHomeVisit.setVisitNotDoneDate(Long.parseLong(visitNotDoneStr));
-                } catch (Exception e) {
-
-                }
-            }
-            String strDateCreated = cursor.getString(cursor.getColumnIndex(ChildDBConstants.KEY.DATE_CREATED));
-            if (!TextUtils.isEmpty(strDateCreated)) {
-                try {
-                    childHomeVisit.setDateCreated(org.smartregister.family.util.Utils.dobStringToDateTime(strDateCreated).getMillis());
-                } catch (Exception e) {
-
-                }
-            }
-            cursor.close();
+        } catch (Exception ex) {
+            Timber.e(ex.toString());
+        } finally {
+            if (cursor != null)
+                cursor.close();
         }
 
         return childHomeVisit;
