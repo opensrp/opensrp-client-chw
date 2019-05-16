@@ -252,4 +252,5 @@
 
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="malaria_confirmation">Malaria Confirmation</string>
 </resources>
