@@ -2,6 +2,8 @@ package org.smartregister.chw.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 
@@ -55,13 +57,19 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
     @Override
     public void countExecute() {
         super.countExecute();
-        int count = clientAdapter.getTotalcount();
+        final int count = clientAdapter.getTotalcount();
         if (getActivity() != null && count != dueCount) {
             dueCount = count;
             ((FamilyProfileActivity) getActivity()).updateDueCount(dueCount);
         }
 
-        onEmptyRegisterCount(count < 1);
+        Handler handler = new Handler(Looper.getMainLooper());
+        handler.post(new Runnable() {
+            public void run() {
+                // UI code goes here
+                onEmptyRegisterCount(count < 1);
+            }
+        });
     }
 
     @Override
