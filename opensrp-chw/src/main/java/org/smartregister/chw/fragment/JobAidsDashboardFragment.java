@@ -95,40 +95,43 @@ public class JobAidsDashboardFragment extends Fragment implements ReportContract
         Map<String, IndicatorTally> children_0_59_WithCertificateMap = new HashMap<>();
         Map<String, IndicatorTally> children_0_59_WithNoCertificateMap = new HashMap<>();
 
-        // For each key in indicator tallies List of Maps
         for (Map<String, IndicatorTally> indicatorTallyMap : indicatorTallies) {
-            if (indicatorTallyMap.containsKey(DashboardUtil.countOfChildrenUnder5)) {
-                updateTotalTally(indicatorTallyMap, childrenU5NumericMap, DashboardUtil.countOfChildrenUnder5);
-            }
-            if (indicatorTallyMap.containsKey(DashboardUtil.deceasedChildren0_11Months)) {
-                updateTotalTally(indicatorTallyMap, deceased0_11_NumericMap, DashboardUtil.deceasedChildren0_11Months);
-            }
-            if (indicatorTallyMap.containsKey(DashboardUtil.deceasedChildren12_59Months)) {
-                updateTotalTally(indicatorTallyMap, deceased0_11_NumericMap, DashboardUtil.deceasedChildren12_59Months);
-            }
-            if (indicatorTallyMap.containsKey(DashboardUtil.countOfChildren0_59WithBirthCert)) {
-                updateTotalTally(indicatorTallyMap, children_0_59_WithCertificateMap, DashboardUtil.countOfChildren0_59WithBirthCert);
-            }
-            if (indicatorTallyMap.containsKey(DashboardUtil.countOfChildren0_59WithNoBirthCert)) {
-                updateTotalTally(indicatorTallyMap, children_0_59_WithNoCertificateMap, DashboardUtil.countOfChildren0_59WithNoBirthCert);
+            for (String key : indicatorTallyMap.keySet()) {
+                switch (key) {
+                    case DashboardUtil.countOfChildrenUnder5:
+                        updateTotalTally(indicatorTallyMap, childrenU5NumericMap, DashboardUtil.countOfChildrenUnder5);
+                        break;
+                    case DashboardUtil.deceasedChildren0_11Months:
+                        updateTotalTally(indicatorTallyMap, deceased0_11_NumericMap, DashboardUtil.deceasedChildren0_11Months);
+                        break;
+                    case DashboardUtil.deceasedChildren12_59Months:
+                        updateTotalTally(indicatorTallyMap, deceased12_59_NumericMap, DashboardUtil.deceasedChildren12_59Months);
+                        break;
+                    case DashboardUtil.countOfChildren0_59WithBirthCert:
+                        updateTotalTally(indicatorTallyMap, children_0_59_WithCertificateMap, DashboardUtil.countOfChildren0_59WithBirthCert);
+                        break;
+                    case DashboardUtil.countOfChildren0_59WithNoBirthCert:
+                        updateTotalTally(indicatorTallyMap, children_0_59_WithNoCertificateMap, DashboardUtil.countOfChildren0_59WithNoBirthCert);
+                        break;
+                }
             }
         }
 
         NumericDisplayFactory numericDisplayFactory = new NumericDisplayFactory();
         PieChartFactory pieChartFactory = new PieChartFactory();
 
-        View childrenU5View = generateNumericView(getNumericVisualization(DashboardUtil.countOfChildrenUnder5, R.string.total_under_5_children_label, childrenU5NumericMap),
+        View childrenU5View = getIndicatorView(getNumericVisualization(DashboardUtil.countOfChildrenUnder5, R.string.total_under_5_children_label, childrenU5NumericMap),
                 numericDisplayFactory);
 
-        View deceased_0_11_View = generateNumericView(getNumericVisualization(DashboardUtil.deceasedChildren0_11Months, R.string.deceased_children_0_11_months, deceased0_11_NumericMap),
+        View deceased_0_11_View = getIndicatorView(getNumericVisualization(DashboardUtil.deceasedChildren0_11Months, R.string.deceased_children_0_11_months, deceased0_11_NumericMap),
                 numericDisplayFactory);
 
-        View deceased_12_59_View = generateNumericView(getNumericVisualization(DashboardUtil.deceasedChildren12_59Months, R.string.deceased_children_12_59_months, deceased12_59_NumericMap),
+        View deceased_12_59_View = getIndicatorView(getNumericVisualization(DashboardUtil.deceasedChildren12_59Months, R.string.deceased_children_12_59_months, deceased12_59_NumericMap),
                 numericDisplayFactory);
 
         PieChartIndicatorVisualization pieChartIndicatorVisualizationData = getPieChartVisualization(children_0_59_WithCertificateMap, children_0_59_WithNoCertificateMap, DashboardUtil.countOfChildren0_59WithBirthCert,
                 DashboardUtil.countOfChildren0_59WithNoBirthCert, R.string.children_0_59_months_with_birth_certificate);
-        View children_0_59_WithBirthCertificateView = generateNumericView(pieChartIndicatorVisualizationData, pieChartFactory);
+        View children_0_59_WithBirthCertificateView = getIndicatorView(pieChartIndicatorVisualizationData, pieChartFactory);
 
         visualizationsViewGroup.addView(childrenU5View);
         visualizationsViewGroup.addView(deceased_0_11_View);
@@ -138,7 +141,7 @@ public class JobAidsDashboardFragment extends Fragment implements ReportContract
         progressBar.setVisibility(View.GONE);
     }
 
-    private View generateNumericView(ReportingIndicatorVisualization reportingIndicatorVisualization, IndicatorVisualisationFactory visualisationFactory) {
+    private View getIndicatorView(ReportingIndicatorVisualization reportingIndicatorVisualization, IndicatorVisualisationFactory visualisationFactory) {
         return visualisationFactory.getIndicatorView(reportingIndicatorVisualization, getContext());
     }
 

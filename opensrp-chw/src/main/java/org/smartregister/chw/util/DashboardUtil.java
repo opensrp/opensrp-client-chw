@@ -14,11 +14,11 @@ import org.smartregister.reporting.domain.PieChartSlice;
 public class DashboardUtil {
 
     // Indicator keys which should match values provided in indicator-definitions.yml file
-    public static String countOfChildrenUnder5 = "CHW_001";
-    public static String deceasedChildren0_11Months = "CHW_002";
-    public static String deceasedChildren12_59Months = "CHW_003";
-    public static String countOfChildren0_59WithBirthCert = "CHW_004";
-    public static String countOfChildren0_59WithNoBirthCert = "CHW_005";
+    public final static String countOfChildrenUnder5 = "CHW_001";
+    public final static String deceasedChildren0_11Months = "CHW_002";
+    public final static String deceasedChildren12_59Months = "CHW_003";
+    public final static String countOfChildren0_59WithBirthCert = "CHW_004";
+    public final static String countOfChildren0_59WithNoBirthCert = "CHW_005";
 
     // Color definitions for the chart slices. This could essentially be defined in colors.xml
     public static final int YES_GREEN_SLICE_COLOR = Color.parseColor("#99CC00");
