@@ -2,6 +2,7 @@ package org.smartregister.chw.contract;
 
 import android.content.Context;
 
+import org.json.JSONObject;
 import org.smartregister.family.contract.FamilyOtherMemberContract;
 
 public interface FamilyOtherMemberProfileExtendedContract {
@@ -26,5 +27,7 @@ public interface FamilyOtherMemberProfileExtendedContract {
         void setFamilyServiceStatus(String status);
 
         Context getContext();
+
+        void startFormActivity(JSONObject form);
     }
 }

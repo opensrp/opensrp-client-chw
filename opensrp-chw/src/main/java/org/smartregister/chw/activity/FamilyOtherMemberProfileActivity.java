@@ -27,13 +27,16 @@ import org.json.JSONObject;
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.contract.FamilyOtherMemberProfileExtendedContract;
+import org.smartregister.chw.contract.MalariaConfirmationContract;
 import org.smartregister.chw.custom_view.FamilyMemberFloatingMenu;
 import org.smartregister.chw.fragment.FamilyCallDialogFragment;
 import org.smartregister.chw.fragment.FamilyOtherMemberProfileFragment;
 import org.smartregister.chw.interactor.ChildProfileInteractor;
 import org.smartregister.chw.listener.FloatingMenuListener;
 import org.smartregister.chw.listener.OnClickFloatingMenu;
+import org.smartregister.chw.model.ChildRegisterModel;
 import org.smartregister.chw.presenter.FamilyOtherMemberActivityPresenter;
+import org.smartregister.chw.presenter.MalariaConfirmationPresenter;
 import org.smartregister.chw.util.ChildUtils;
 import org.smartregister.chw.util.Country;
 import org.smartregister.commonregistry.CommonPersonObject;
@@ -47,7 +50,12 @@ import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
 import org.smartregister.helper.ImageRenderHelper;
+import org.smartregister.util.FormUtils;
 import org.smartregister.view.fragment.BaseRegisterFragment;
+
+import java.lang.ref.WeakReference;
+
+import timber.log.Timber;
 
 public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfileActivity implements FamilyOtherMemberProfileExtendedContract.View {
 
@@ -61,6 +69,8 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
     private FamilyMemberFloatingMenu familyFloatingMenu;
     private TextView textViewFamilyHas;
     private RelativeLayout layoutFamilyHasRow;
+    private WeakReference<FamilyOtherMemberProfileExtendedContract.View> view;
+    private FormUtils formUtils = null;
 
     private OnClickFloatingMenu onClickFloatingMenu = new OnClickFloatingMenu() {
         @Override
@@ -215,6 +225,7 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
             case R.id.action_malaria_confirmation:
                 //TODO open malaria confirmation form
                 Toast.makeText(getApplicationContext(), "Malaria Confirmation", Toast.LENGTH_SHORT).show();
+                malariaPresenter().startMalariaConfirmationForm();
                 return true;
             case R.id.action_remove_member:
                 IndividualProfileRemoveActivity.startIndividualProfileActivity(FamilyOtherMemberProfileActivity.this, commonPersonObject, familyBaseEntityId, familyHead, primaryCaregiver);
@@ -356,5 +367,17 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
 
         intent.putExtra(org.smartregister.chw.util.Constants.INTENT_KEY.SERVICE_DUE, true);
         startActivity(intent);
+    }
+
+    public FamilyOtherMemberProfileExtendedContract.View getView() {
+        if (view != null) {
+            return view.get();
+        } else {
+            return null;
+        }
+    }
+
+    public MalariaConfirmationContract.Presenter malariaPresenter() {
+        return (MalariaConfirmationPresenter) presenter;
     }
 }
