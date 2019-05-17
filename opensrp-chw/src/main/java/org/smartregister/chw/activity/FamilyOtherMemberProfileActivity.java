@@ -200,12 +200,18 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
 
+        getMenuInflater().inflate(R.menu.other_member_menu, menu);
+
         MenuItem addMember = menu.findItem(R.id.add_member);
         if (addMember != null) {
             addMember.setVisible(false);
         }
 
-        getMenuInflater().inflate(R.menu.other_member_menu, menu);
+        MenuItem actionMalaria = menu.findItem(R.id.action_malaria_confirmation);
+        if(BuildConfig.BUILD_COUNTRY == Country.LIBERIA && actionMalaria != null) {
+            actionMalaria.setVisible(false);
+        }
+
         return true;
     }
 

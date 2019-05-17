@@ -612,6 +612,13 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.other_member_menu, menu);
+
+
+        MenuItem actionMalaria = menu.findItem(R.id.action_malaria_confirmation);
+        if(BuildConfig.BUILD_COUNTRY == Country.LIBERIA && actionMalaria != null) {
+            actionMalaria.setVisible(false);
+        }
+
         return true;
     }
 
