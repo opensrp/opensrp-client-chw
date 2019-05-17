@@ -50,6 +50,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import timber.log.Timber;
+
 import static org.smartregister.chw.util.ChildUtils.fixVaccineCasing;
 
 @SuppressLint("ValidFragment")
@@ -194,7 +196,7 @@ public class VaccinationDialogFragment extends DialogFragment implements View.On
             View childView = vaccinationNameLayout.getChildAt(i);
             final CheckBox childSelect = (CheckBox) childView.findViewById(R.id.select);
             TextView vaccineView = (TextView) childView.findViewById(R.id.vaccine);
-            if (isExistInNotGiven(vaccineView.getText().toString())) {
+            if (vaccineView != null && isExistInNotGiven(vaccineView.getText().toString())) {
                 childSelect.toggle();
             }
             childSelect.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -342,18 +344,22 @@ public class VaccinationDialogFragment extends DialogFragment implements View.On
 
     }
 
-    private void saveGivenVaccine(final CommonPersonObjectClient childClient, final ArrayList<VaccineWrapper> givenVaccine) {
+    public void saveGivenVaccine(final CommonPersonObjectClient childClient, final List<VaccineWrapper> givenVaccine) {
 //
 //        new Thread(new Runnable() {
 //            @Override
 //            public void run() {
-        for (VaccineWrapper tag : givenVaccine) {
-            saveVaccine(tag, childClient);
-        }
-        String dobString = org.smartregister.util.Utils.getValue(childClient.getColumnmaps(), "dob", false);
-        if (!TextUtils.isEmpty(dobString)) {
-            DateTime dateTime = new DateTime(dobString);
-            VaccineSchedule.updateOfflineAlerts(childClient.entityId(), dateTime, "child");
+        try {
+            for (VaccineWrapper tag : givenVaccine) {
+                saveVaccine(tag, childClient);
+            }
+            String dobString = org.smartregister.util.Utils.getValue(childClient.getColumnmaps(), "dob", false);
+            if (!TextUtils.isEmpty(dobString)) {
+                DateTime dateTime = new DateTime(dobString);
+                VaccineSchedule.updateOfflineAlerts(childClient.entityId(), dateTime, "child");
+            }
+        } catch (Exception e) {
+            Timber.e("saveGivenVaccine %s", e.toString());
         }
 //            }
 //        }).start();
@@ -511,7 +517,7 @@ public class VaccinationDialogFragment extends DialogFragment implements View.On
         }
     }
 
-    private boolean validateVaccinationDate(Date dateOfBirth, Date date) {
+    public boolean validateVaccinationDate(Date dateOfBirth, Date date) {
         // Assuming that the vaccine wrapper provided to this method isn't one where there's more than one vaccine in a wrapper
         Date minDate;
         Date maxDate;

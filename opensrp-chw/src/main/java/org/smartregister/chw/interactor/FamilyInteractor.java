@@ -42,7 +42,6 @@ public class FamilyInteractor {
                                     break;
                             }
                         } while (cursor.moveToNext());
-                        cursor.close();
                     }
                 } catch (Exception ex) {
                     Timber.e(ex.toString());

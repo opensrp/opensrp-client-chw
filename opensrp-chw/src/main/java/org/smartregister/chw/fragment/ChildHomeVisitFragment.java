@@ -146,8 +146,6 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
             immunizationView.setChildClient(this, getActivity(), childClient, false);
             submitButtonEnableDisable(false);
         }
-
-
     }
 
     private void assignNameHeader() {

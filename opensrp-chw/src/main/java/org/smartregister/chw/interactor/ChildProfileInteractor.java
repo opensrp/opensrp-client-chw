@@ -351,13 +351,20 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
     public void updateChildCommonPerson(String baseEntityId) {
         String query = ChildUtils.mainSelect(org.smartregister.chw.util.Constants.TABLE_NAME.CHILD, org.smartregister.chw.util.Constants.TABLE_NAME.FAMILY, org.smartregister.chw.util.Constants.TABLE_NAME.FAMILY_MEMBER, baseEntityId);
 
-        Cursor cursor = getCommonRepository(org.smartregister.chw.util.Constants.TABLE_NAME.CHILD).rawCustomQueryForAdapter(query);
-        if (cursor != null && cursor.moveToFirst()) {
-            CommonPersonObject personObject = getCommonRepository(org.smartregister.chw.util.Constants.TABLE_NAME.CHILD).readAllcommonforCursorAdapter(cursor);
-            pClient = new CommonPersonObjectClient(personObject.getCaseId(),
-                    personObject.getDetails(), "");
-            pClient.setColumnmaps(personObject.getColumnmaps());
-            cursor.close();
+        Cursor cursor = null;
+        try {
+            cursor = getCommonRepository(org.smartregister.chw.util.Constants.TABLE_NAME.CHILD).rawCustomQueryForAdapter(query);
+            if (cursor != null && cursor.moveToFirst()) {
+                CommonPersonObject personObject = getCommonRepository(org.smartregister.chw.util.Constants.TABLE_NAME.CHILD).readAllcommonforCursorAdapter(cursor);
+                pClient = new CommonPersonObjectClient(personObject.getCaseId(),
+                        personObject.getDetails(), "");
+                pClient.setColumnmaps(personObject.getColumnmaps());
+            }
+        } catch (Exception ex) {
+            Timber.e(ex.toString());
+        } finally {
+            if (cursor != null)
+                cursor.close();
         }
     }
 
@@ -375,42 +382,47 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
             public void run() {
                 String query = ChildUtils.mainSelect(org.smartregister.chw.util.Constants.TABLE_NAME.CHILD, org.smartregister.chw.util.Constants.TABLE_NAME.FAMILY, org.smartregister.chw.util.Constants.TABLE_NAME.FAMILY_MEMBER, baseEntityId);
 
-                Cursor cursor = getCommonRepository(org.smartregister.chw.util.Constants.TABLE_NAME.CHILD).rawCustomQueryForAdapter(query);
-                if (cursor != null && cursor.moveToFirst()) {
-                    CommonPersonObject personObject = getCommonRepository(org.smartregister.chw.util.Constants.TABLE_NAME.CHILD).readAllcommonforCursorAdapter(cursor);
-                    pClient = new CommonPersonObjectClient(personObject.getCaseId(),
-                            personObject.getDetails(), "");
-                    pClient.setColumnmaps(personObject.getColumnmaps());
-                    final String familyId = Utils.getValue(pClient.getColumnmaps(), ChildDBConstants.KEY.RELATIONAL_ID, false);
+                Cursor cursor = null;
+                try {
+                    cursor = getCommonRepository(org.smartregister.chw.util.Constants.TABLE_NAME.CHILD).rawCustomQueryForAdapter(query);
+                    if (cursor != null && cursor.moveToFirst()) {
+                        CommonPersonObject personObject = getCommonRepository(org.smartregister.chw.util.Constants.TABLE_NAME.CHILD).readAllcommonforCursorAdapter(cursor);
+                        pClient = new CommonPersonObjectClient(personObject.getCaseId(),
+                                personObject.getDetails(), "");
+                        pClient.setColumnmaps(personObject.getColumnmaps());
+                        final String familyId = Utils.getValue(pClient.getColumnmaps(), ChildDBConstants.KEY.RELATIONAL_ID, false);
 
-                    final CommonPersonObject familyPersonObject = getCommonRepository(Utils.metadata().familyRegister.tableName).findByBaseEntityId(familyId);
-                    final CommonPersonObjectClient client = new CommonPersonObjectClient(familyPersonObject.getCaseId(), familyPersonObject.getDetails(), "");
-                    client.setColumnmaps(familyPersonObject.getColumnmaps());
+                        final CommonPersonObject familyPersonObject = getCommonRepository(Utils.metadata().familyRegister.tableName).findByBaseEntityId(familyId);
+                        final CommonPersonObjectClient client = new CommonPersonObjectClient(familyPersonObject.getCaseId(), familyPersonObject.getDetails(), "");
+                        client.setColumnmaps(familyPersonObject.getColumnmaps());
 
-                    final String primaryCaregiverID = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.PRIMARY_CAREGIVER, false);
-                    final String familyHeadID = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.FAMILY_HEAD, false);
-                    final String familyName = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.FIRST_NAME, false);
+                        final String primaryCaregiverID = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.PRIMARY_CAREGIVER, false);
+                        final String familyHeadID = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.FAMILY_HEAD, false);
+                        final String familyName = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.FIRST_NAME, false);
 
 
-                    appExecutors.mainThread().execute(new Runnable() {
-                        @Override
-                        public void run() {
+                        appExecutors.mainThread().execute(new Runnable() {
+                            @Override
+                            public void run() {
 
-                            callback.setFamilyHeadID(familyHeadID);
-                            callback.setFamilyID(familyId);
-                            callback.setPrimaryCareGiverID(primaryCaregiverID);
-                            callback.setFamilyName(familyName);
+                                callback.setFamilyHeadID(familyHeadID);
+                                callback.setFamilyID(familyId);
+                                callback.setPrimaryCareGiverID(primaryCaregiverID);
+                                callback.setFamilyName(familyName);
 
-                            if (isForEdit) {
-                                callback.startFormForEdit("", pClient);
-                            } else {
-                                callback.refreshProfileTopSection(pClient);
+                                if (isForEdit) {
+                                    callback.startFormForEdit("", pClient);
+                                } else {
+                                    callback.refreshProfileTopSection(pClient);
+                                }
                             }
-                        }
-                    });
-                }
-                if (cursor != null) {
-                    cursor.close();
+                        });
+                    }
+                } catch (Exception ex) {
+                    Timber.e(ex.toString());
+                } finally {
+                    if (cursor != null)
+                        cursor.close();
                 }
 
 

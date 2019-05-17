@@ -1,12 +1,5 @@
 <resources>
 
-    <string name="liberia_app_name">Liberia CFC</string>
-    <string name="liberia_login_title">Liberia CFC Monitor</string>
-    <string name="liberia_nav_logo">Liberia CFC Monitor</string>
-    <string name="tanzania_app_name">Boresha Afya</string>
-    <string name="tanzania_login_title">Boresha Afya</string>
-    <string name="tanzania_nav_logo">Boresha Afya</string>
-
     <string name="login_title">CFC App</string>
     <string name="nav_logo">CFC App</string>
     <string name="logo">logo</string>
