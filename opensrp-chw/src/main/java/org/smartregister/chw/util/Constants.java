@@ -47,8 +47,7 @@ public class Constants {
 
         public static final String FAMILY_DETAILS_REMOVE_FAMILY = (Country.TANZANIA.equals(BuildConfig.BUILD_COUNTRY) ? "tz_family_details_remove_family" : Utils.getLocalForm("family_details_remove_family"));
         public static final String HOME_VISIT_COUNSELLING = "tz_routine_home_visit";
-
-        public static final String MALARIA_CONFIRMATION = "malaria_confirmation_form";
+        public static final String MALARIA_CONFIRMATION = "tz_malaria_confirmation";
     }
 
     public static class RELATIONSHIP {
