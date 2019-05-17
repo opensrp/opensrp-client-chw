@@ -33,7 +33,7 @@ public class JsonFormUtilsFlv implements JsonFormUtils.Flavor {
     public static final String TITLE = "title";
 
     @Override
-    public JSONObject getAutoPopulatedJsonEditMemberFormString(String title, String formName, Context context, CommonPersonObjectClient client, String eventType, String familyName, boolean isPrimaryCaregiver) {
+    public JSONObject getAutoJsonEditMemberFormString(String title, String formName, Context context, CommonPersonObjectClient client, String eventType, String familyName, boolean isPrimaryCaregiver) {
         try {
 
             // get the event and the client from ec model
@@ -66,7 +66,7 @@ public class JsonFormUtilsFlv implements JsonFormUtils.Flavor {
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
 
-                    processPopulatableFieldsForMemberEdit(client, jsonObject, jsonArray, familyName, isPrimaryCaregiver, eventClientPair.first, eventClientPair.second);
+                    processFieldsForMemberEdit(client, jsonObject, jsonArray, familyName, isPrimaryCaregiver, eventClientPair.first, eventClientPair.second);
 
                 }
 
@@ -80,7 +80,7 @@ public class JsonFormUtilsFlv implements JsonFormUtils.Flavor {
     }
 
     @Override
-    public void processPopulatableFieldsForMemberEdit(CommonPersonObjectClient client, JSONObject jsonObject, JSONArray jsonArray, String familyName, boolean isPrimaryCaregiver, Event ecEvent, Client ecClient) throws JSONException {
+    public void processFieldsForMemberEdit(CommonPersonObjectClient client, JSONObject jsonObject, JSONArray jsonArray, String familyName, boolean isPrimaryCaregiver, Event ecEvent, Client ecClient) throws JSONException {
 
 
         switch (jsonObject.getString(org.smartregister.family.util.JsonFormUtils.KEY).toLowerCase()) {
@@ -299,7 +299,6 @@ public class JsonFormUtilsFlv implements JsonFormUtils.Flavor {
 //
 //        }
     }
-
 
     private Pair<Event, Client> getEditMemberLatestProperties(String baseEntityID) {
 

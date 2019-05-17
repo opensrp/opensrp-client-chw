@@ -438,22 +438,22 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
             LocationPickerView lpv = new LocationPickerView(context);
             lpv.init();
             if (form != null) {
-                form.put(org.smartregister.family.util.JsonFormUtils.ENTITY_ID, client.getCaseId());
-                form.put(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_TYPE, Constants.EventType.UPDATE_CHILD_REGISTRATION);
+                form.put(JsonFormUtils.ENTITY_ID, client.getCaseId());
+                form.put(JsonFormUtils.ENCOUNTER_TYPE, Constants.EventType.UPDATE_CHILD_REGISTRATION);
 
-                JSONObject metadata = form.getJSONObject(org.smartregister.family.util.JsonFormUtils.METADATA);
+                JSONObject metadata = form.getJSONObject(JsonFormUtils.METADATA);
                 String lastLocationId = LocationHelper.getInstance().getOpenMrsLocationId(lpv.getSelectedItem());
 
-                metadata.put(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_LOCATION, lastLocationId);
+                metadata.put(JsonFormUtils.ENCOUNTER_LOCATION, lastLocationId);
 
-                form.put(org.smartregister.family.util.JsonFormUtils.CURRENT_OPENSRP_ID, Utils.getValue(client.getColumnmaps(), DBConstants.KEY.UNIQUE_ID, false));
+                form.put(JsonFormUtils.CURRENT_OPENSRP_ID, Utils.getValue(client.getColumnmaps(), DBConstants.KEY.UNIQUE_ID, false));
 
-                JSONObject stepOne = form.getJSONObject(org.smartregister.family.util.JsonFormUtils.STEP1);
+                JSONObject stepOne = form.getJSONObject(JsonFormUtils.STEP1);
 
                 if (StringUtils.isNotBlank(title)) {
                     stepOne.put(org.smartregister.chw.util.JsonFormUtils.TITLE, title);
                 }
-                JSONArray jsonArray = stepOne.getJSONArray(org.smartregister.family.util.JsonFormUtils.FIELDS);
+                JSONArray jsonArray = stepOne.getJSONArray(JsonFormUtils.FIELDS);
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
 
@@ -490,9 +490,9 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
 
     private void processPopulatableFields(CommonPersonObjectClient client, JSONObject jsonObject, JSONArray jsonArray) throws JSONException {
 
-        switch (jsonObject.getString(org.smartregister.family.util.JsonFormUtils.KEY).toLowerCase()) {
+        switch (jsonObject.getString(JsonFormUtils.KEY).toLowerCase()) {
             case org.smartregister.family.util.Constants.JSON_FORM_KEY.DOB_UNKNOWN:
-                jsonObject.put(org.smartregister.family.util.JsonFormUtils.READ_ONLY, false);
+                jsonObject.put(JsonFormUtils.READ_ONLY, false);
                 JSONObject optionsObject = jsonObject.getJSONArray(org.smartregister.family.util.Constants.JSON_FORM_KEY.OPTIONS).getJSONObject(0);
                 optionsObject.put(JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), org.smartregister.family.util.Constants.JSON_FORM_KEY.DOB_UNKNOWN, false));
 
@@ -597,7 +597,7 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
                 break;
 
             default:
-                jsonObject.put(JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), jsonObject.getString(org.smartregister.family.util.JsonFormUtils.KEY), false));
+                jsonObject.put(JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), jsonObject.getString(JsonFormUtils.KEY), false));
 
                 //Log.e(TAG, "ERROR:: Unprocessed Form Object Key " + jsonObject.getString(org.smartregister.family.util.JsonFormUtils.KEY));
 
