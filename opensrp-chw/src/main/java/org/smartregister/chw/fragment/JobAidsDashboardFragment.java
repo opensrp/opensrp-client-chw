@@ -116,6 +116,7 @@ public class JobAidsDashboardFragment extends Fragment implements ReportContract
                         break;
                     default:
                         Log.e(JobAidsDashboardFragment.class.getCanonicalName(), "The Indicator with the Key " + key + " has not been handled");
+                        break;
                 }
             }
         }
