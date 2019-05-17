@@ -40,6 +40,7 @@ import org.smartregister.chw.fragment.FamilyCallDialogFragment;
 import org.smartregister.chw.listener.OnClickFloatingMenu;
 import org.smartregister.chw.model.ChildProfileModel;
 import org.smartregister.chw.presenter.ChildProfilePresenter;
+import org.smartregister.chw.presenter.MalariaConfirmationPresenter;
 import org.smartregister.chw.util.ChildUtils;
 import org.smartregister.chw.util.Country;
 import org.smartregister.domain.FetchStatus;
@@ -47,6 +48,7 @@ import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
 import org.smartregister.helper.ImageRenderHelper;
+import org.smartregister.util.FormUtils;
 import org.smartregister.view.activity.BaseProfileActivity;
 
 import java.util.Date;
@@ -78,6 +80,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     private Handler handler = new Handler();
     private String lastVisitDay;
     private FamilyMemberFloatingMenu familyFloatingMenu;
+    private FormUtils formUtils = null;
 
     @Override
     public void updateHasPhone(boolean hasPhone) {
@@ -623,6 +626,12 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
                 ((ChildProfilePresenter) presenter()).startFormForEdit(getResources().getString(R.string.edit_child_form_title), ((ChildProfilePresenter) presenter()).getChildClient());
                 return true;
 
+            case R.id.action_malaria_confirmation:
+                //TODO make this work on the child profile as well.
+                JSONObject form = getFormUtils().getFormJson(org.smartregister.chw.util.Constants.JSON_FORM.HOME_VISIT_COUNSELLING);
+                startFormActivity(form);
+                return true;
+
             case R.id.action_remove_member:
                 IndividualProfileRemoveActivity.startIndividualProfileActivity(ChildProfileActivity.this, ((ChildProfilePresenter) presenter()).getChildClient(),
                         ((ChildProfilePresenter) presenter()).getFamilyID()
@@ -667,5 +676,17 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
 
 
         }
+    }
+
+
+    private FormUtils getFormUtils() {
+        if (formUtils == null) {
+            try {
+                formUtils = FormUtils.getInstance(org.smartregister.family.util.Utils.context().applicationContext());
+            } catch (Exception e) {
+                Log.e(MalariaConfirmationPresenter.class.getCanonicalName(), e.getMessage(), e);
+            }
+        }
+        return formUtils;
     }
 }
