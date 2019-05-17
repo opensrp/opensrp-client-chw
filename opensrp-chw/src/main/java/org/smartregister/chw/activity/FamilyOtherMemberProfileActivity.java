@@ -27,7 +27,6 @@ import org.json.JSONObject;
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.contract.FamilyOtherMemberProfileExtendedContract;
-import org.smartregister.chw.contract.MalariaConfirmationContract;
 import org.smartregister.chw.custom_view.FamilyMemberFloatingMenu;
 import org.smartregister.chw.fragment.FamilyCallDialogFragment;
 import org.smartregister.chw.fragment.FamilyOtherMemberProfileFragment;
@@ -35,7 +34,6 @@ import org.smartregister.chw.interactor.ChildProfileInteractor;
 import org.smartregister.chw.listener.FloatingMenuListener;
 import org.smartregister.chw.listener.OnClickFloatingMenu;
 import org.smartregister.chw.presenter.FamilyOtherMemberActivityPresenter;
-import org.smartregister.chw.presenter.MalariaConfirmationPresenter;
 import org.smartregister.chw.util.ChildUtils;
 import org.smartregister.chw.util.Country;
 import org.smartregister.commonregistry.CommonPersonObject;
@@ -53,7 +51,7 @@ import org.smartregister.util.FormUtils;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 import java.lang.ref.WeakReference;
 
-public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfileActivity implements FamilyOtherMemberProfileExtendedContract.View, MalariaConfirmationContract.View {
+public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfileActivity implements FamilyOtherMemberProfileExtendedContract.View {
 
     private String familyBaseEntityId;
     private String baseEntityId;
@@ -384,7 +382,7 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
             try {
                 formUtils = FormUtils.getInstance(org.smartregister.family.util.Utils.context().applicationContext());
             } catch (Exception e) {
-                Log.e(MalariaConfirmationPresenter.class.getCanonicalName(), e.getMessage(), e);
+                Log.e(FamilyOtherMemberProfileActivity.class.getCanonicalName(), e.getMessage(), e);
             }
         }
         return formUtils;

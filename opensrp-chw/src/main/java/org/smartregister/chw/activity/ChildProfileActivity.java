@@ -40,7 +40,6 @@ import org.smartregister.chw.fragment.FamilyCallDialogFragment;
 import org.smartregister.chw.listener.OnClickFloatingMenu;
 import org.smartregister.chw.model.ChildProfileModel;
 import org.smartregister.chw.presenter.ChildProfilePresenter;
-import org.smartregister.chw.presenter.MalariaConfirmationPresenter;
 import org.smartregister.chw.util.ChildUtils;
 import org.smartregister.chw.util.Country;
 import org.smartregister.domain.FetchStatus;
@@ -691,7 +690,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
             try {
                 formUtils = FormUtils.getInstance(org.smartregister.family.util.Utils.context().applicationContext());
             } catch (Exception e) {
-                Log.e(MalariaConfirmationPresenter.class.getCanonicalName(), e.getMessage(), e);
+                Log.e(ChildProfileActivity.class.getCanonicalName(), e.getMessage(), e);
             }
         }
         return formUtils;
