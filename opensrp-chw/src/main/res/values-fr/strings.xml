@@ -1,12 +1,5 @@
 <resources>
 
-    <string name="liberia_app_name">CAE Guinée</string>
-    <string name="liberia_login_title">Moniteur CAE Guinée</string>
-    <string name="liberia_nav_logo">Moniteur CAE Guinée</string>
-    <string name="tanzania_app_name">Boresha Afya</string>
-    <string name="tanzania_login_title">Boresha Afya</string>
-    <string name="tanzania_nav_logo">Boresha Afya</string>
-
     <string name="login_title">Appli CAE</string>
     <string name="nav_logo">Appli CAE</string>
     <string name="logo">logo</string>

@@ -1,6 +1,5 @@
 package org.smartregister.chw.fragment;
 
-import android.annotation.SuppressLint;
 import android.app.DialogFragment;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -42,7 +41,6 @@ import org.smartregister.util.DatePickerUtils;
 import java.util.Calendar;
 import java.util.Map;
 
-@SuppressLint("ValidFragment")
 public class GrowthNutritionInputFragment extends DialogFragment implements RadioGroup.OnCheckedChangeListener, View.OnClickListener {
 
     static final Map<String, Integer> imageMap = ImmutableMap.of(
@@ -68,13 +66,10 @@ public class GrowthNutritionInputFragment extends DialogFragment implements Radi
     private ServiceWrapper saveService;
     private String dob;
 
-    public GrowthNutritionInputFragment(ServiceWrapper serviceWrapper) {
-        this.serviceWrapper = serviceWrapper;
-    }
 
-    public static GrowthNutritionInputFragment getInstance(String title, String question, String type, ServiceWrapper serviceWrapper,
+    public static GrowthNutritionInputFragment getInstance(String title, String question, String type,
                                                            CommonPersonObjectClient commonPersonObjectClient) {
-        GrowthNutritionInputFragment growthNutritionInputFragment = new GrowthNutritionInputFragment(serviceWrapper);
+        GrowthNutritionInputFragment growthNutritionInputFragment = new GrowthNutritionInputFragment();
         Bundle bundle = new Bundle();
         bundle.putString(Constants.INTENT_KEY.GROWTH_IMMUNIZATION_TYPE, type);
         bundle.putString(Constants.INTENT_KEY.GROWTH_TITLE, title);
@@ -82,6 +77,10 @@ public class GrowthNutritionInputFragment extends DialogFragment implements Radi
         bundle.putSerializable(Constants.INTENT_KEY.CHILD_COMMON_PERSON, commonPersonObjectClient);
         growthNutritionInputFragment.setArguments(bundle);
         return growthNutritionInputFragment;
+    }
+
+    public void setServiceWrapper(ServiceWrapper serviceWrapper) {
+        this.serviceWrapper = serviceWrapper;
     }
 
     @Override
@@ -369,7 +368,7 @@ public class GrowthNutritionInputFragment extends DialogFragment implements Radi
         ServiceRecord serviceRecord = new ServiceRecord();
         if (tag.getDbKey() != null) {
             serviceRecord = recurringServiceRecordRepository.find(tag.getDbKey());
-            if(serviceRecord==null){
+            if (serviceRecord == null) {
                 serviceRecord = new ServiceRecord();
                 serviceRecord.setDate(tag.getUpdatedVaccineDate().toDate());
 
@@ -379,7 +378,7 @@ public class GrowthNutritionInputFragment extends DialogFragment implements Radi
                 serviceRecord.setValue(tag.getValue());
 
                 JsonFormUtils.tagSyncMetadata(Utils.context().allSharedPreferences(), serviceRecord);
-            }else {
+            } else {
                 serviceRecord.setDate(tag.getUpdatedVaccineDate().toDate());
                 serviceRecord.setValue(tag.getValue());
             }

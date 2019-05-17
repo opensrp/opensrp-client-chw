@@ -15,7 +15,7 @@ public interface ChildHomeVisitContract {
 
         void updateObsIllnessStatusTick();
 
-        void updateCounselingStatusTick();
+        // void updateCounselingStatusTick();
 
         Context getContext();
     }
@@ -29,11 +29,11 @@ public interface ChildHomeVisitContract {
 
         void startObsIllnessCertForm(JSONObject previousJson);
 
-        void startCounselingForm(JSONObject previousJson);
+        //void startCounselingForm(JSONObject previousJson);
 
         void generateBirthIllnessForm(String jsonString);
 
-        void generateCounselingForm(String jsonString);
+        //void generateCounselingForm(String jsonString);
 
         void saveForm();
 
@@ -43,11 +43,11 @@ public interface ChildHomeVisitContract {
     interface Interactor {
         void getLastEditData(CommonPersonObjectClient childClient, InteractorCallback callback);
 
-        void generateBirthIllnessForm(String jsonString, InteractorCallback callback,boolean isEditMode);
+        void generateBirthIllnessForm(String jsonString, InteractorCallback callback, boolean isEditMode);
 
-        void generateCounselingForm(String jsonString, InteractorCallback callback,boolean isEditMode);
+        //void generateCounselingForm(String jsonString, InteractorCallback callback, boolean isEditMode);
 
-        void saveForm();
+        void saveForm(CommonPersonObjectClient childClient);
 
         void onDestroy(boolean isChangingConfiguration);
     }
@@ -61,6 +61,6 @@ public interface ChildHomeVisitContract {
 
         void updateObsIllnessStatusTick();
 
-        void updateCounselingStatusTick();
+        //void updateCounselingStatusTick();
     }
 }

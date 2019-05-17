@@ -13,8 +13,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.contract.ChildProfileContract;
 import org.smartregister.chw.contract.HomeVisitGrowthNutritionContract;
-import org.smartregister.chw.contract.HomeVisitImmunizationContract;
-import org.smartregister.chw.presenter.HomeVisitImmunizationPresenter;
+import org.smartregister.chw.contract.ImmunizationContact;
+import org.smartregister.chw.presenter.ImmunizationViewPresenter;
 import org.smartregister.chw.util.ChildDBConstants;
 import org.smartregister.chw.util.ChildHomeVisit;
 import org.smartregister.chw.util.ChildService;
@@ -30,7 +30,6 @@ import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
-import org.smartregister.domain.Alert;
 import org.smartregister.domain.Photo;
 import org.smartregister.family.FamilyLibrary;
 import org.smartregister.family.util.AppExecutors;
@@ -38,7 +37,6 @@ import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.immunization.domain.ServiceWrapper;
-import org.smartregister.immunization.domain.Vaccine;
 import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.BaseRepository;
@@ -52,7 +50,6 @@ import org.smartregister.view.LocationPickerView;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Observable;
@@ -167,8 +164,7 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
 
     @Override
     public void updateVisitNotDone(long value) {
-        ChildUtils.updateHomeVisitAsEvent(getpClient().entityId(), Constants.EventType.CHILD_VISIT_NOT_DONE, Constants.TABLE_NAME.CHILD, new JSONObject(), new JSONObject(), new JSONObject(), new JSONObject(), new JSONObject(), new JSONObject(), new JSONObject(), new JSONObject(), ChildDBConstants.KEY.VISIT_NOT_DONE, value + "");
-
+        ChildUtils.updateHomeVisitAsEvent(getpClient().entityId(), Constants.EventType.CHILD_VISIT_NOT_DONE, Constants.TABLE_NAME.CHILD, new JSONObject(), new JSONObject(), new JSONObject(), new JSONObject(), new JSONObject(), new JSONObject(), new JSONObject(), ChildDBConstants.KEY.VISIT_NOT_DONE, value + "");
     }
 
     @Override
@@ -254,19 +250,15 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
         return Observable.create(new ObservableOnSubscribe<ChildService>() {
             @Override
             public void subscribe(final ObservableEmitter<ChildService> e) throws Exception {
-                final HomeVisitImmunizationPresenter presenter = new HomeVisitImmunizationPresenter();
-                presenter.setChildClient(getpClient());
-                presenter.updateImmunizationState(new HomeVisitImmunizationContract.InteractorCallBack() {
+                final ImmunizationViewPresenter presenter = new ImmunizationViewPresenter();
+                presenter.upcomingServiceFetch(getpClient(), new ImmunizationContact.InteractorCallBack() {
+
                     @Override
-                    public void immunizationState(List<Alert> alerts, List<Vaccine> vaccines, Map<String, Date> receivedVaccine, List<Map<String, Object>> sch) {
-                        vaccineList = receivedVaccine;
-                        presenter.createAllVaccineGroups(alerts, vaccines, sch);
-                        presenter.getVaccinesNotGivenLastVisit();
-                        presenter.calculateCurrentActiveGroup();
-                        ArrayList<HomeVisitVaccineGroup> homeVisitVaccineGroupDetailsList = presenter.getAllgroups();
+                    public void updateData(ArrayList<HomeVisitVaccineGroup> homeVisitVaccineGroupDetails, Map<String, Date> vaccines) {
                         String dueDate = "", vaccineName = "";
+                        vaccineList = vaccines;
                         ImmunizationState state = ImmunizationState.UPCOMING;
-                        for (HomeVisitVaccineGroup homeVisitVaccineGroupDetail : homeVisitVaccineGroupDetailsList) {
+                        for (HomeVisitVaccineGroup homeVisitVaccineGroupDetail : homeVisitVaccineGroupDetails) {
                             if (homeVisitVaccineGroupDetail.getAlert().equals(ImmunizationState.DUE)
                                     || homeVisitVaccineGroupDetail.getAlert().equals(ImmunizationState.OVERDUE)
                                     || homeVisitVaccineGroupDetail.getAlert().equals(ImmunizationState.UPCOMING)) {
@@ -339,9 +331,16 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
                             });
                         }
 
+                    }
 
+                    @Override
+                    public void updateEditData(ArrayList<HomeVisitVaccineGroup> homeVisitVaccineGroupDetails) {
+
+                        //TODO
+                        Timber.v("updateEditData");
                     }
                 });
+
 
             }
         });
@@ -351,13 +350,20 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
     public void updateChildCommonPerson(String baseEntityId) {
         String query = ChildUtils.mainSelect(org.smartregister.chw.util.Constants.TABLE_NAME.CHILD, org.smartregister.chw.util.Constants.TABLE_NAME.FAMILY, org.smartregister.chw.util.Constants.TABLE_NAME.FAMILY_MEMBER, baseEntityId);
 
-        Cursor cursor = getCommonRepository(org.smartregister.chw.util.Constants.TABLE_NAME.CHILD).rawCustomQueryForAdapter(query);
-        if (cursor != null && cursor.moveToFirst()) {
-            CommonPersonObject personObject = getCommonRepository(org.smartregister.chw.util.Constants.TABLE_NAME.CHILD).readAllcommonforCursorAdapter(cursor);
-            pClient = new CommonPersonObjectClient(personObject.getCaseId(),
-                    personObject.getDetails(), "");
-            pClient.setColumnmaps(personObject.getColumnmaps());
-            cursor.close();
+        Cursor cursor = null;
+        try {
+            cursor = getCommonRepository(org.smartregister.chw.util.Constants.TABLE_NAME.CHILD).rawCustomQueryForAdapter(query);
+            if (cursor != null && cursor.moveToFirst()) {
+                CommonPersonObject personObject = getCommonRepository(org.smartregister.chw.util.Constants.TABLE_NAME.CHILD).readAllcommonforCursorAdapter(cursor);
+                pClient = new CommonPersonObjectClient(personObject.getCaseId(),
+                        personObject.getDetails(), "");
+                pClient.setColumnmaps(personObject.getColumnmaps());
+            }
+        } catch (Exception ex) {
+            Timber.e(ex.toString());
+        } finally {
+            if (cursor != null)
+                cursor.close();
         }
     }
 
@@ -375,40 +381,47 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
             public void run() {
                 String query = ChildUtils.mainSelect(org.smartregister.chw.util.Constants.TABLE_NAME.CHILD, org.smartregister.chw.util.Constants.TABLE_NAME.FAMILY, org.smartregister.chw.util.Constants.TABLE_NAME.FAMILY_MEMBER, baseEntityId);
 
-                Cursor cursor = getCommonRepository(org.smartregister.chw.util.Constants.TABLE_NAME.CHILD).rawCustomQueryForAdapter(query);
-                if (cursor != null && cursor.moveToFirst()) {
-                    CommonPersonObject personObject = getCommonRepository(org.smartregister.chw.util.Constants.TABLE_NAME.CHILD).readAllcommonforCursorAdapter(cursor);
-                    pClient = new CommonPersonObjectClient(personObject.getCaseId(),
-                            personObject.getDetails(), "");
-                    pClient.setColumnmaps(personObject.getColumnmaps());
-                    final String familyId = Utils.getValue(pClient.getColumnmaps(), ChildDBConstants.KEY.RELATIONAL_ID, false);
+                Cursor cursor = null;
+                try {
+                    cursor = getCommonRepository(org.smartregister.chw.util.Constants.TABLE_NAME.CHILD).rawCustomQueryForAdapter(query);
+                    if (cursor != null && cursor.moveToFirst()) {
+                        CommonPersonObject personObject = getCommonRepository(org.smartregister.chw.util.Constants.TABLE_NAME.CHILD).readAllcommonforCursorAdapter(cursor);
+                        pClient = new CommonPersonObjectClient(personObject.getCaseId(),
+                                personObject.getDetails(), "");
+                        pClient.setColumnmaps(personObject.getColumnmaps());
+                        final String familyId = Utils.getValue(pClient.getColumnmaps(), ChildDBConstants.KEY.RELATIONAL_ID, false);
 
-                    final CommonPersonObject familyPersonObject = getCommonRepository(Utils.metadata().familyRegister.tableName).findByBaseEntityId(familyId);
-                    final CommonPersonObjectClient client = new CommonPersonObjectClient(familyPersonObject.getCaseId(), familyPersonObject.getDetails(), "");
-                    client.setColumnmaps(familyPersonObject.getColumnmaps());
+                        final CommonPersonObject familyPersonObject = getCommonRepository(Utils.metadata().familyRegister.tableName).findByBaseEntityId(familyId);
+                        final CommonPersonObjectClient client = new CommonPersonObjectClient(familyPersonObject.getCaseId(), familyPersonObject.getDetails(), "");
+                        client.setColumnmaps(familyPersonObject.getColumnmaps());
 
-                    final String primaryCaregiverID = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.PRIMARY_CAREGIVER, false);
-                    final String familyHeadID = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.FAMILY_HEAD, false);
-                    final String familyName = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.FIRST_NAME, false);
+                        final String primaryCaregiverID = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.PRIMARY_CAREGIVER, false);
+                        final String familyHeadID = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.FAMILY_HEAD, false);
+                        final String familyName = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.FIRST_NAME, false);
 
 
-                    appExecutors.mainThread().execute(new Runnable() {
-                        @Override
-                        public void run() {
+                        appExecutors.mainThread().execute(new Runnable() {
+                            @Override
+                            public void run() {
 
-                            callback.setFamilyHeadID(familyHeadID);
-                            callback.setFamilyID(familyId);
-                            callback.setPrimaryCareGiverID(primaryCaregiverID);
-                            callback.setFamilyName(familyName);
+                                callback.setFamilyHeadID(familyHeadID);
+                                callback.setFamilyID(familyId);
+                                callback.setPrimaryCareGiverID(primaryCaregiverID);
+                                callback.setFamilyName(familyName);
 
-                            if (isForEdit) {
-                                callback.startFormForEdit("", pClient);
-                            } else {
-                                callback.refreshProfileTopSection(pClient);
+                                if (isForEdit) {
+                                    callback.startFormForEdit("", pClient);
+                                } else {
+                                    callback.refreshProfileTopSection(pClient);
+                                }
                             }
-                        }
-                    });
-                    cursor.close();
+                        });
+                    }
+                } catch (Exception ex) {
+                    Timber.e(ex.toString());
+                } finally {
+                    if (cursor != null)
+                        cursor.close();
                 }
 
 

@@ -2,12 +2,9 @@ package org.smartregister.chw.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import org.smartregister.chw.R;
 import org.smartregister.chw.presenter.LoginPresenter;
-import org.smartregister.chw.util.CountryUtils;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.family.util.Constants;
 import org.smartregister.task.SaveTeamLocationsTask;
@@ -31,19 +28,6 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setupViews();
-    }
-
-    private void setupViews() {
-        TextView loginTitleView = findViewById(R.id.login_title_text_view);
-        if (loginTitleView != null) {
-            loginTitleView.setText(CountryUtils.loginTitle());
-        }
-
-        ImageView loginLogo = findViewById(R.id.login_logo);
-        if (loginLogo != null) {
-            loginLogo.setImageResource(CountryUtils.loginLogo());
-        }
     }
 
     @Override

@@ -165,7 +165,7 @@ public class UpdateServiceTask extends AsyncTask<Void, Void, Map<String, UpdateS
         String dobString = Utils.getValue(childDetails.getColumnmaps(), "dob", false);
         if (!TextUtils.isEmpty(dobString)) {
             DateTime dateTime = new DateTime(dobString);
-            VaccineSchedule.updateOfflineAlerts(childDetails.entityId(), dateTime, "child");
+           // VaccineSchedule.updateOfflineAlerts(childDetails.entityId(), dateTime, "child");
             ChwServiceSchedule.updateOfflineAlerts(childDetails.entityId(), dateTime);
         }
 

@@ -44,8 +44,6 @@ public interface NavigationContract {
         List<NavigationOption> getNavigationItems();
 
         String getCurrentUser();
-
-        void setNavigationOptions(List<NavigationOption> navigationOptions);
     }
 
     interface Interactor {

@@ -22,7 +22,6 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
@@ -30,18 +29,15 @@ import com.vijay.jsonwizard.domain.Form;
 import org.apache.commons.lang3.tuple.Triple;
 import org.json.JSONObject;
 import org.opensrp.api.constants.Gender;
-import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.contract.ChildProfileContract;
 import org.smartregister.chw.contract.ChildRegisterContract;
 import org.smartregister.chw.custom_view.FamilyMemberFloatingMenu;
 import org.smartregister.chw.fragment.ChildHomeVisitFragment;
-import org.smartregister.chw.fragment.FamilyCallDialogFragment;
 import org.smartregister.chw.listener.OnClickFloatingMenu;
 import org.smartregister.chw.model.ChildProfileModel;
 import org.smartregister.chw.presenter.ChildProfilePresenter;
 import org.smartregister.chw.util.ChildUtils;
-import org.smartregister.chw.util.Country;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.JsonFormUtils;
@@ -78,6 +74,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     private Handler handler = new Handler();
     private String lastVisitDay;
     private FamilyMemberFloatingMenu familyFloatingMenu;
+    private OnClickFloatingMenu onClickFloatingMenu;
 
     @Override
     public void updateHasPhone(boolean hasPhone) {
@@ -88,43 +85,13 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
 
     @Override
     public void enableEdit(boolean enable) {
-        if(enable){
+        if (enable) {
             tvEdit.setVisibility(View.VISIBLE);
             tvEdit.setOnClickListener(this);
-        }else{
+        } else {
             tvEdit.setVisibility(View.GONE);
             tvEdit.setOnClickListener(null);
         }
-    }
-
-    private OnClickFloatingMenu onClickFloatingMenu = new OnClickFloatingMenu() {
-        @Override
-        public void onClickMenu(int viewId) {
-            if (Country.LIBERIA.equals(BuildConfig.BUILD_COUNTRY)) {
-                switch (viewId) {
-                    case R.id.fab:
-                        FamilyCallDialogFragment.launchDialog(ChildProfileActivity.this, ((ChildProfilePresenter) presenter).getFamilyId());
-                        break;
-                    default:
-                        break;
-                }
-            } else {
-                switch (viewId) {
-                    case R.id.call_layout:
-                        FamilyCallDialogFragment.launchDialog(ChildProfileActivity.this, ((ChildProfilePresenter) presenter).getFamilyId());
-                        break;
-                    case R.id.refer_to_facility_fab:
-                        toast("Refer to facility");
-                        break;
-                    default:
-                        break;
-                }
-            }
-        }
-    };
-
-    private void toast(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -154,6 +121,8 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
         imageRenderHelper = new ImageRenderHelper(this);
 
         initializePresenter();
+        onClickFloatingMenu = ChildProfileActivityFlv.getOnClickFloatingMenu(this, (ChildProfilePresenter) presenter);
+
         setupViews();
         setUpToolbar();
     }
@@ -490,6 +459,8 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
+                layoutMostDueOverdue.setVisibility(View.GONE);
+                viewMostDueRow.setVisibility(View.GONE);
                 presenter().fetchVisitStatus(childBaseEntityId);
                 presenter().fetchUpcomingServiceAndFamilyDue(childBaseEntityId);
                 presenter().updateChildCommonPerson(childBaseEntityId);

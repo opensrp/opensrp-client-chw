@@ -122,7 +122,7 @@ public class MedicalHistoryActivity extends SecuredActivity implements MedicalHi
         if (TextUtils.isEmpty(name)) {
             textViewTitle.setVisibility(View.GONE);
         } else {
-            textViewTitle.setText(getString(R.string.medical_title, name + "'s profile"));
+            textViewTitle.setText(getString(R.string.medical_title, name));
         }
         textViewLastVisit.setText(getString(R.string.medical_last_visit, Utils.firstCharacterUppercase(lastVisitDays)));
         initializePresenter();

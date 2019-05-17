@@ -18,24 +18,20 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
 
 import org.json.JSONObject;
-import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.contract.FamilyOtherMemberProfileExtendedContract;
 import org.smartregister.chw.custom_view.FamilyMemberFloatingMenu;
-import org.smartregister.chw.fragment.FamilyCallDialogFragment;
 import org.smartregister.chw.fragment.FamilyOtherMemberProfileFragment;
 import org.smartregister.chw.interactor.ChildProfileInteractor;
 import org.smartregister.chw.listener.FloatingMenuListener;
 import org.smartregister.chw.listener.OnClickFloatingMenu;
 import org.smartregister.chw.presenter.FamilyOtherMemberActivityPresenter;
 import org.smartregister.chw.util.ChildUtils;
-import org.smartregister.chw.util.Country;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
@@ -62,36 +58,7 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
     private TextView textViewFamilyHas;
     private RelativeLayout layoutFamilyHasRow;
 
-    private OnClickFloatingMenu onClickFloatingMenu = new OnClickFloatingMenu() {
-        @Override
-        public void onClickMenu(int viewId) {
-
-            if (Country.LIBERIA.equals(BuildConfig.BUILD_COUNTRY)) {
-                switch (viewId) {
-                    case R.id.fab:
-                        FamilyCallDialogFragment.launchDialog(FamilyOtherMemberProfileActivity.this, familyBaseEntityId);
-                        break;
-                    default:
-                        break;
-                }
-            } else {
-                switch (viewId) {
-                    case R.id.call_layout:
-                        FamilyCallDialogFragment.launchDialog(FamilyOtherMemberProfileActivity.this, familyBaseEntityId);
-                        break;
-                    case R.id.refer_to_facility_fab:
-                        toast("Refer to facility");
-                        break;
-                    default:
-                        break;
-                }
-            }
-        }
-    };
-
-    private void toast(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-    }
+    private OnClickFloatingMenu onClickFloatingMenu;
 
     @Override
     protected void onCreation() {
@@ -125,6 +92,8 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
         villageTown = getIntent().getStringExtra(Constants.INTENT_KEY.VILLAGE_TOWN);
         familyName = getIntent().getStringExtra(Constants.INTENT_KEY.FAMILY_NAME);
         presenter = new FamilyOtherMemberActivityPresenter(this, new BaseFamilyOtherMemberProfileActivityModel(), null, familyBaseEntityId, baseEntityId, familyHead, primaryCaregiver, villageTown, familyName);
+
+        onClickFloatingMenu = FamilyOtherMemberProfileActivityFlv.getOnClickFloatingMenu(this, familyBaseEntityId);
     }
 
     @Override

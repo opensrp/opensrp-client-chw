@@ -1,12 +1,5 @@
 <resources>
 
-    <string name="liberia_app_name">Liberia CFC</string>
-    <string name="liberia_login_title">Liberia CFC Monitor</string>
-    <string name="liberia_nav_logo">Liberia CFC Monitor</string>
-    <string name="tanzania_app_name">Boresha Afya</string>
-    <string name="tanzania_login_title">Boresha Afya</string>
-    <string name="tanzania_nav_logo">USAID Boresha Afya</string>
-
     <string name="login_title">CFC App</string>
     <string name="nav_logo">CFC App</string>
     <string name="logo">logo</string>
@@ -209,6 +202,9 @@
     <string name="registration_info">Registration info</string>
     <string name="log_out_as">Log out as</string>
     <string name="job_aids">Job Aids</string>
+    <string name="total_under_5_children_label">Total U5 children</string>
+    <string name="deceased_children_0_11_months">Children (0&#8211;11 months) who died in the last year</string>
+    <string name="deceased_children_12_59_months">Children (12&#8211;59 months) who died in the last year</string>
     <string name="powered_by">Powered by</string>
     <string name="immunisation_and_services"><![CDATA[IMMUNISATION & SERVICES]]></string>
     <string name="call_caregiver">Call caregiver</string>
@@ -239,8 +235,8 @@
     <string name="october">October</string>
     <string name="november">November</string>
     <string name="december">December</string>
-    <string name="no_services_due">No Services are due</string>
-    <string name="due_details">When a service becomes due for a family member, it shows up here.</string>
+    <string name="no_services_due">No services are due</string>
+    <string name="due_details">When a service becomes due for a family member, it will show up here.</string>
 
     <string name="edu_level_none">None</string>
     <string name="edu_level_primary">Primary</string>

@@ -26,7 +26,6 @@ import org.smartregister.chw.adapter.NavigationAdapter;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.contract.NavigationContract;
 import org.smartregister.chw.presenter.NavigationPresenter;
-import org.smartregister.chw.util.CountryUtils;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 
@@ -143,11 +142,11 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
         syncProgressBar = rootView.findViewById(R.id.pbSync);
 
         ImageView ivLogo = rootView.findViewById(R.id.ivLogo);
-        ivLogo.setContentDescription(activity.getString(CountryUtils.navLogoString()));
-        ivLogo.setImageResource(CountryUtils.loginLogo());
+        ivLogo.setContentDescription(activity.getString(R.string.nav_logo));
+        ivLogo.setImageResource(R.drawable.ic_logo);
 
         TextView tvLogo = rootView.findViewById(R.id.tvLogo);
-        tvLogo.setText(activity.getString(CountryUtils.navLogoString()));
+        tvLogo.setText(activity.getString(R.string.nav_logo));
 
         if (syncProgressBar != null) {
             FadingCircle circle = new FadingCircle();

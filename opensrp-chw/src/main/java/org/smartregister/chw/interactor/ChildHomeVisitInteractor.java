@@ -6,7 +6,6 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.util.Pair;
 
-import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -16,6 +15,7 @@ import org.smartregister.chw.domain.HomeVisit;
 import org.smartregister.chw.model.BirthIllnessModel;
 import org.smartregister.chw.repository.ChwRepository;
 import org.smartregister.chw.util.BirthIllnessData;
+import org.smartregister.chw.util.BirthIllnessFormModel;
 import org.smartregister.chw.util.ChildDBConstants;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.JsonFormUtils;
@@ -32,7 +32,6 @@ import org.smartregister.repository.UniqueIdRepository;
 import org.smartregister.sync.ClientProcessorForJava;
 import org.smartregister.sync.helper.ECSyncHelper;
 
-import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -46,19 +45,19 @@ import static org.smartregister.chw.util.ChildDBConstants.KEY.BIRTH_CERT;
 import static org.smartregister.chw.util.ChildDBConstants.KEY.BIRTH_CERT_ISSUE_DATE;
 import static org.smartregister.chw.util.ChildDBConstants.KEY.BIRTH_CERT_NUMBER;
 import static org.smartregister.chw.util.ChildDBConstants.KEY.ILLNESS_ACTION;
-import static org.smartregister.chw.util.ChildDBConstants.KEY.ILLNESS_ACTION_BA;
 import static org.smartregister.chw.util.ChildDBConstants.KEY.ILLNESS_DATE;
 import static org.smartregister.chw.util.ChildDBConstants.KEY.ILLNESS_DESCRIPTION;
-import static org.smartregister.chw.util.ChildDBConstants.KEY.OTHER_ACTION;
+import static org.smartregister.util.Utils.getValue;
 
 public class ChildHomeVisitInteractor implements ChildHomeVisitContract.Interactor {
 
     private static final String TAG = "VisitInteractor";
+    private final String FORM_BIRTH = "birth_form";
+    private final String FORM_ILLNESS = "illness_form";
     private AppExecutors appExecutors;
-    private HashMap<String, Pair<Client, Event>> saveList = new HashMap<>();
+    private HashMap<String, BirthIllnessFormModel> saveList = new HashMap<>();
     private ArrayList<BirthIllnessData> birthCertDataList = new ArrayList<>();
     private ArrayList<BirthIllnessData> illnessDataList = new ArrayList<>();
-    private ArrayList<BirthIllnessData> counselingDataList = new ArrayList<>();
 
     @VisibleForTesting
     ChildHomeVisitInteractor(AppExecutors appExecutors) {
@@ -81,14 +80,10 @@ public class ChildHomeVisitInteractor implements ChildHomeVisitContract.Interact
         return birthCertDataList;
     }
 
-    public ArrayList<BirthIllnessData> getCounselingDataList() {
-        return counselingDataList;
-    }
-
     @Override
     public void getLastEditData(CommonPersonObjectClient childClient, final ChildHomeVisitContract.InteractorCallback callback) {
 
-        String lastHomeVisitStr = org.smartregister.util.Utils.getValue(childClient, ChildDBConstants.KEY.LAST_HOME_VISIT, false);
+        String lastHomeVisitStr = getValue(childClient, ChildDBConstants.KEY.LAST_HOME_VISIT, false);
         long lastHomeVisit = TextUtils.isEmpty(lastHomeVisitStr) ? 0 : Long.parseLong(lastHomeVisitStr);
         HomeVisit homeVisit = ChwApplication.homeVisitRepository().findByDate(lastHomeVisit);
         if (homeVisit != null) {
@@ -112,14 +107,14 @@ public class ChildHomeVisitInteractor implements ChildHomeVisitContract.Interact
 //        getLastVisitBirthCertData(childClient)
 //                .subscribeOn(Schedulers.io())
 //                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(new Observer<BirthIllnessModel>() {
+//                .subscribe(new Observer<BirthIllnessFormModel>() {
 //                    @Override
 //                    public void onSubscribe(Disposable d) {
 //
 //                    }
 //
 //                    @Override
-//                    public void onNext(BirthIllnessModel birthIllnessModel) {
+//                    public void onNext(BirthIllnessFormModel birthIllnessModel) {
 //                        callback.updateBirthCertEditData(birthIllnessModel.getLastBirthCertData());
 //                        callback.updateObsIllnessEditData(birthIllnessModel.getLastIllnessData());
 //
@@ -141,7 +136,7 @@ public class ChildHomeVisitInteractor implements ChildHomeVisitContract.Interact
         return Observable.create(new ObservableOnSubscribe<BirthIllnessModel>() {
             @Override
             public void subscribe(ObservableEmitter<BirthIllnessModel> emmiter) throws Exception {
-                String lastHomeVisitStr = org.smartregister.util.Utils.getValue(childClient, ChildDBConstants.KEY.LAST_HOME_VISIT, false);
+                String lastHomeVisitStr = getValue(childClient, ChildDBConstants.KEY.LAST_HOME_VISIT, false);
                 long lastHomeVisit = TextUtils.isEmpty(lastHomeVisitStr) ? 0 : Long.parseLong(lastHomeVisitStr);
                 HomeVisit homeVisit = ChwApplication.homeVisitRepository().findByDate(lastHomeVisit);
                 if (homeVisit != null) {
@@ -215,13 +210,19 @@ public class ChildHomeVisitInteractor implements ChildHomeVisitContract.Interact
                     }
                 };
                 appExecutors.diskIO().execute(runnable);
-                if (!isEditMode) {
-                    Pair<Client, Event> pair = JsonFormUtils.processBirthAndIllnessForm(org.smartregister.family.util.Utils.context().allSharedPreferences(), jsonString);
-                    if (pair == null) {
-                        return;
-                    }
-                    saveList.put(jsonString, pair);
+                //if(!isEditMode){
+                Pair<Client, Event> pair = JsonFormUtils.processBirthAndIllnessForm(org.smartregister.family.util.Utils.context().allSharedPreferences(), jsonString);
+                if (pair == null) {
+                    return;
                 }
+                BirthIllnessFormModel birthIllnessFormModel = new BirthIllnessFormModel(jsonString, pair);
+                if (saveList.get(FORM_BIRTH) != null) {
+                    saveList.remove(FORM_BIRTH);
+                }
+                saveList.put(FORM_BIRTH, birthIllnessFormModel);
+
+
+                //}
 
             }
             if (form.getString(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_TYPE).equals(Constants.EventType.OBS_ILLNESS)) {
@@ -245,17 +246,8 @@ public class ChildHomeVisitInteractor implements ChildHomeVisitContract.Interact
 
                             break;
                         case ILLNESS_ACTION:
-                        case ILLNESS_ACTION_BA:
-
                             birthIllnessData.setActionTaken("Action taken: " + jsonObject.optString(org.smartregister.family.util.JsonFormUtils.VALUE));
 
-                            break;
-                        case OTHER_ACTION:
-
-                            String other = jsonObject.optString(org.smartregister.family.util.JsonFormUtils.VALUE);
-                            if (StringUtils.isNotBlank(other)) {
-                                birthIllnessData.setActionTaken(MessageFormat.format("{0} {1}", birthIllnessData.getActionTaken(), other));
-                            }
                             break;
                         default:
                             break;
@@ -275,13 +267,17 @@ public class ChildHomeVisitInteractor implements ChildHomeVisitContract.Interact
                     }
                 };
                 appExecutors.diskIO().execute(runnable);
-                if (!isEditMode) {
-                    Pair<Client, Event> pair = JsonFormUtils.processBirthAndIllnessForm(org.smartregister.family.util.Utils.context().allSharedPreferences(), jsonString);
-                    if (pair == null) {
-                        return;
-                    }
-                    saveList.put(jsonString, pair);
+                //if(!isEditMode){
+                Pair<Client, Event> pair = JsonFormUtils.processBirthAndIllnessForm(org.smartregister.family.util.Utils.context().allSharedPreferences(), jsonString);
+                if (pair == null) {
+                    return;
                 }
+                BirthIllnessFormModel birthIllnessFormModel = new BirthIllnessFormModel(jsonString, pair);
+                if (saveList.get(FORM_ILLNESS) != null) {
+                    saveList.remove(FORM_ILLNESS);
+                }
+                saveList.put(FORM_ILLNESS, birthIllnessFormModel);
+                //}
 
             }
         } catch (Exception e) {
@@ -292,87 +288,14 @@ public class ChildHomeVisitInteractor implements ChildHomeVisitContract.Interact
     }
 
     @Override
-    public void generateCounselingForm(String jsonString, final ChildHomeVisitContract.InteractorCallback callback, boolean isEditMode) {
-        try {
-            JSONObject form = new JSONObject(jsonString);
-            if (form.getString(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_TYPE).equals(Constants.EventType.COUNSELING)) {
-                counselingDataList.clear();
-
-                BirthIllnessData birthIllnessData = new BirthIllnessData();
-
-                JSONArray jsonArray = form
-                        .getJSONObject(org.smartregister.family.util.JsonFormUtils.STEP1)
-                        .getJSONArray(org.smartregister.family.util.JsonFormUtils.FIELDS)
-                        .getJSONObject(0)
-                        .getJSONArray("options");
-
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    JSONObject jsonObject = jsonArray.getJSONObject(i);
-
-                    if (jsonObject.has("text") && !jsonObject.getString("key").equals("chk_none")) {
-
-                        String title = jsonObject.getString("text");
-                        boolean value = Boolean.parseBoolean(jsonObject.getString(org.smartregister.family.util.JsonFormUtils.VALUE));
-
-                        if (value) {
-                            birthIllnessData.getCounseled().add(title);
-                        } else {
-                            birthIllnessData.getNotCounseled().add(title);
-                        }
-                    }
-
-                }
-                counselingDataList.add(birthIllnessData);
-                Runnable runnable = new Runnable() {
-                    @Override
-                    public void run() {
-                        appExecutors.mainThread().execute(new Runnable() {
-                            @Override
-                            public void run() {
-                                callback.updateCounselingStatusTick();
-                            }
-                        });
-                    }
-                };
-                appExecutors.diskIO().execute(runnable);
-                if (!isEditMode) {
-                    Pair<Client, Event> pair = JsonFormUtils.processCounselingForm(org.smartregister.family.util.Utils.context().allSharedPreferences(), jsonString);
-                    if (pair == null) {
-                        return;
-                    }
-                    saveList.put(jsonString, pair);
-                }
-
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-
+    public void saveForm(CommonPersonObjectClient childClient) {
+        for (String json : saveList.keySet()) {
+            BirthIllnessFormModel birthIllnessFormModel = saveList.get(json);
+            saveRegistration(birthIllnessFormModel.getPair(), childClient);
         }
     }
 
-    @Override
-    public void saveForm() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                for (String json : saveList.keySet()) {
-                    Pair<Client, Event> pair = saveList.get(json);
-                    saveRegistration(pair, json);
-                }
-            }
-        }).start();
-    }
-
-    private void processPopulatableFields(JSONObject previousJson, JSONObject jsonObject, JSONArray jsonArray) {
-        try {
-            jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, previousJson.getString(org.smartregister.family.util.JsonFormUtils.KEY));
-        } catch (Exception e) {
-
-        }
-
-    }
-
-    private void saveRegistration(Pair<Client, Event> pair, String jsonString) {
+    private void saveRegistration(Pair<Client, Event> pair, CommonPersonObjectClient childClient) {
 
         try {
 
@@ -385,7 +308,12 @@ public class ChildHomeVisitInteractor implements ChildHomeVisitContract.Interact
                 EventClientRepository eventClientRepository = new EventClientRepository(pathRepository);
                 JSONObject clientJson = eventClientRepository.getClient(ChwApplication.getInstance().getRepository().getReadableDatabase(), baseClient.getBaseEntityId());
                 updateClientAttributes(clientjsonFromForm, clientJson);
-                getSyncHelper().addClient(baseClient.getBaseEntityId(), clientJson);
+                String birthCert = getValue(childClient.getColumnmaps(), BIRTH_CERT, true);
+                if (TextUtils.isEmpty(birthCert)) {
+                    getSyncHelper().addClient(baseClient.getBaseEntityId(), clientJson);
+                } else {
+                    org.smartregister.family.util.JsonFormUtils.mergeAndSaveClient(getSyncHelper(), baseClient);
+                }
 
             }
 
@@ -394,11 +322,11 @@ public class ChildHomeVisitInteractor implements ChildHomeVisitContract.Interact
                 getSyncHelper().addEvent(baseEvent.getBaseEntityId(), eventJson);
             }
 
-            if (baseClient != null || baseEvent != null) {
-                String imageLocation = org.smartregister.family.util.JsonFormUtils.getFieldValue(jsonString, org.smartregister.family.util.Constants.KEY.PHOTO);
-                org.smartregister.family.util.JsonFormUtils.saveImage(baseEvent.getProviderId(), baseClient.getBaseEntityId(), imageLocation);
-
-            }
+//            if (baseClient != null || baseEvent != null) {
+//                String imageLocation = org.smartregister.family.util.JsonFormUtils.getFieldValue(jsonString, org.smartregister.family.util.Constants.KEY.PHOTO);
+//                org.smartregister.family.util.JsonFormUtils.saveImage(baseEvent.getProviderId(), baseClient.getBaseEntityId(), imageLocation);
+//
+//            }
 
             long lastSyncTimeStamp = getAllSharedPreferences().fetchLastUpdatedAtDate(0);
             Date lastSyncDate = new Date(lastSyncTimeStamp);
