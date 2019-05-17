@@ -22,11 +22,28 @@ import org.smartregister.util.ImageUtils;
 import org.smartregister.view.LocationPickerView;
 
 import java.util.Date;
+import java.util.HashMap;
 
 import timber.log.Timber;
 
 public class JsonFormUtilsFlv implements JsonFormUtils.Flavor {
     public static final String TITLE = "title";
+    private HashMap<String, String> JSON_DB_MAP;
+
+    public JsonFormUtilsFlv() {
+        JSON_DB_MAP = new HashMap<>();
+        JSON_DB_MAP.put(org.smartregister.chw.util.Constants.JsonAssets.SEX, DBConstants.KEY.GENDER);
+        JSON_DB_MAP.put(org.smartregister.chw.util.Constants.JsonAssets.NATIONAL_ID, org.smartregister.chw.util.Constants.JsonAssets.NATIONAL_ID);
+        JSON_DB_MAP.put(org.smartregister.chw.util.Constants.JsonAssets.VOTER_ID, ChwDBConstants.VOTER_ID);
+        JSON_DB_MAP.put(org.smartregister.chw.util.Constants.JsonAssets.DRIVER_LICENSE, ChwDBConstants.DRIVER_LICENSE);
+        JSON_DB_MAP.put(org.smartregister.chw.util.Constants.JsonAssets.PASSPORT, ChwDBConstants.PASSPORT);
+        JSON_DB_MAP.put(org.smartregister.chw.util.Constants.JsonAssets.INSURANCE_PROVIDER, ChwDBConstants.INSURANCE_PROVIDER);
+        JSON_DB_MAP.put(org.smartregister.chw.util.Constants.JsonAssets.INSURANCE_PROVIDER_OTHER, ChwDBConstants.INSURANCE_PROVIDER_OTHER);
+        JSON_DB_MAP.put(org.smartregister.chw.util.Constants.JsonAssets.INSURANCE_PROVIDER_NUMBER, ChwDBConstants.INSURANCE_PROVIDER_NUMBER);
+        JSON_DB_MAP.put(org.smartregister.chw.util.Constants.JsonAssets.DISABILITIES, ChwDBConstants.DISABILITIES);
+        JSON_DB_MAP.put(org.smartregister.chw.util.Constants.JsonAssets.DISABILITY_TYPE, ChwDBConstants.DISABILITY_TYPE);
+        JSON_DB_MAP.put(org.smartregister.chw.util.Constants.JsonAssets.OTHER_LEADER, ChwDBConstants.OTHER_LEADER);
+    }
 
     @Override
     public JSONObject getAutoJsonEditMemberFormString(String title, String formName, Context context, CommonPersonObjectClient client, String eventType, String familyName, boolean isPrimaryCaregiver) {
@@ -83,7 +100,6 @@ public class JsonFormUtilsFlv implements JsonFormUtils.Flavor {
                 jsonObject.put(org.smartregister.family.util.JsonFormUtils.READ_ONLY, false);
                 JSONObject optionsObject = jsonObject.getJSONArray(org.smartregister.family.util.Constants.JSON_FORM_KEY.OPTIONS).getJSONObject(0);
                 optionsObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), org.smartregister.family.util.Constants.JSON_FORM_KEY.DOB_UNKNOWN, false));
-
             }
             break;
             case org.smartregister.chw.util.Constants.JsonAssets.AGE: {
@@ -103,7 +119,6 @@ public class JsonFormUtilsFlv implements JsonFormUtils.Flavor {
                         jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, JsonFormUtils.dd_MM_yyyy.format(dob));
                     }
                 }
-
                 break;
 
             case org.smartregister.family.util.Constants.KEY.PHOTO:
@@ -112,15 +127,14 @@ public class JsonFormUtilsFlv implements JsonFormUtils.Flavor {
                 if (StringUtils.isNotBlank(photo.getFilePath())) {
                     jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, photo.getFilePath());
                 }
-
                 break;
 
             case DBConstants.KEY.UNIQUE_ID:
 
                 String uniqueId = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.UNIQUE_ID, false);
                 jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, uniqueId.replace("-", ""));
-
                 break;
+
             case org.smartregister.chw.util.Constants.JsonAssets.PREGNANT_1_YR:
                 if (ecEvent != null) {
                     String id = jsonObject.getString(JsonFormConstants.OPENMRS_ENTITY_ID);
@@ -131,7 +145,9 @@ public class JsonFormUtilsFlv implements JsonFormUtils.Flavor {
                     }
                 }
                 break;
+
             case org.smartregister.chw.util.Constants.JsonAssets.FAM_NAME:
+
                 if (ecClient.getLastName() != null) {
 
                     final String SAME_AS_FAM_NAME = "same_as_fam_name";
@@ -160,10 +176,6 @@ public class JsonFormUtilsFlv implements JsonFormUtils.Flavor {
                 }
                 break;
 
-            case org.smartregister.chw.util.Constants.JsonAssets.SEX:
-                jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), DBConstants.KEY.GENDER, false));
-                break;
-
             case org.smartregister.chw.util.Constants.JsonAssets.PRIMARY_CARE_GIVER:
             case org.smartregister.chw.util.Constants.JsonAssets.IS_PRIMARY_CARE_GIVER:
                 if (isPrimaryCaregiver) {
@@ -172,62 +184,6 @@ public class JsonFormUtilsFlv implements JsonFormUtils.Flavor {
                 } else {
                     jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, "No");
                 }
-
-                break;
-
-            case org.smartregister.chw.util.Constants.JsonAssets.ID_AVAIL:
-
-                if (ecClient != null) {
-                    for (int i = 0; i < jsonObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME).length(); i++) {
-                        JSONObject obj = jsonObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME).getJSONObject(i);
-                        String key = obj.getString(JsonFormConstants.KEY);
-
-                        String val = (String) ecClient.getAttribute("id_avail");
-
-                        if (val != null && key != null && val.contains(key)) {
-                            obj.put(JsonFormConstants.VALUE, true);
-                        } else {
-                            obj.put(JsonFormConstants.VALUE, false);
-                        }
-                    }
-                }
-
-                break;
-
-            case org.smartregister.chw.util.Constants.JsonAssets.NATIONAL_ID:
-                jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), org.smartregister.chw.util.Constants.JsonAssets.NATIONAL_ID, false));
-                break;
-
-            case org.smartregister.chw.util.Constants.JsonAssets.VOTER_ID:
-                jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), ChwDBConstants.VOTER_ID, false));
-                break;
-
-            case org.smartregister.chw.util.Constants.JsonAssets.DRIVER_LICENSE:
-                jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), ChwDBConstants.DRIVER_LICENSE, false));
-                break;
-
-            case org.smartregister.chw.util.Constants.JsonAssets.PASSPORT:
-                jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), ChwDBConstants.PASSPORT, false));
-                break;
-
-            case org.smartregister.chw.util.Constants.JsonAssets.INSURANCE_PROVIDER:
-                jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), ChwDBConstants.INSURANCE_PROVIDER, false));
-                break;
-
-            case org.smartregister.chw.util.Constants.JsonAssets.INSURANCE_PROVIDER_OTHER:
-                jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), ChwDBConstants.INSURANCE_PROVIDER_OTHER, false));
-                break;
-
-            case org.smartregister.chw.util.Constants.JsonAssets.INSURANCE_PROVIDER_NUMBER:
-                jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), ChwDBConstants.INSURANCE_PROVIDER_NUMBER, false));
-                break;
-
-            case org.smartregister.chw.util.Constants.JsonAssets.DISABILITIES:
-                jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), ChwDBConstants.DISABILITIES, false));
-                break;
-
-            case org.smartregister.chw.util.Constants.JsonAssets.DISABILITY_TYPE:
-                jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), ChwDBConstants.DISABILITY_TYPE, false));
                 break;
 
             case org.smartregister.chw.util.Constants.JsonAssets.SERVICE_PROVIDER:
@@ -245,36 +201,15 @@ public class JsonFormUtilsFlv implements JsonFormUtils.Flavor {
                         }
                     }
                 }
-
-
-                break;
-
-            case org.smartregister.chw.util.Constants.JsonAssets.LEADER:
-
-                if (ecClient != null) {
-                    for (int i = 0; i < jsonObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME).length(); i++) {
-                        JSONObject obj = jsonObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME).getJSONObject(i);
-                        String key = obj.getString(JsonFormConstants.KEY);
-
-                        String val = (String) ecClient.getAttribute("Community_Leader");
-
-                        if (val != null && key != null && val.contains(key)) {
-                            obj.put(JsonFormConstants.VALUE, true);
-                        } else {
-                            obj.put(JsonFormConstants.VALUE, false);
-                        }
-                    }
-                }
-
-                break;
-
-            case org.smartregister.chw.util.Constants.JsonAssets.OTHER_LEADER:
-                jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), ChwDBConstants.OTHER_LEADER, false));
                 break;
 
             default:
-                jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), jsonObject.getString(org.smartregister.family.util.JsonFormUtils.KEY), false));
-
+                String db_key = JSON_DB_MAP.get(jsonObject.getString(org.smartregister.family.util.JsonFormUtils.KEY).toLowerCase());
+                if (StringUtils.isNotBlank(db_key)) {
+                    jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), db_key, false));
+                } else {
+                    jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), jsonObject.getString(org.smartregister.family.util.JsonFormUtils.KEY), false));
+                }
 
                 break;
 
