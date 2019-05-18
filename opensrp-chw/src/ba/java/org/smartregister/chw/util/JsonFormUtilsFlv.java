@@ -83,7 +83,11 @@ public class JsonFormUtilsFlv implements JsonFormUtils.Flavor {
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
 
-                    processFieldsForMemberEdit(client, jsonObject, jsonArray, familyName, isPrimaryCaregiver, eventClientPair.first, eventClientPair.second);
+                    try {
+                        processFieldsForMemberEdit(client, jsonObject, jsonArray, familyName, isPrimaryCaregiver, eventClientPair.first, eventClientPair.second);
+                    } catch (Exception e) {
+                        Timber.e(Log.getStackTraceString(e));
+                    }
 
                 }
 
@@ -101,154 +105,52 @@ public class JsonFormUtilsFlv implements JsonFormUtils.Flavor {
 
 
         switch (jsonObject.getString(org.smartregister.family.util.JsonFormUtils.KEY).toLowerCase()) {
-            case org.smartregister.family.util.Constants.JSON_FORM_KEY.DOB_UNKNOWN: {
-                jsonObject.put(org.smartregister.family.util.JsonFormUtils.READ_ONLY, false);
-                JSONObject optionsObject = jsonObject.getJSONArray(org.smartregister.family.util.Constants.JSON_FORM_KEY.OPTIONS).getJSONObject(0);
-                optionsObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), org.smartregister.family.util.Constants.JSON_FORM_KEY.DOB_UNKNOWN, false));
-
-            }
-            break;
-            case org.smartregister.chw.util.Constants.JsonAssets.AGE: {
-
-                String dobString = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.DOB, false);
-                dobString = org.smartregister.family.util.Utils.getDuration(dobString);
-                dobString = dobString.contains("y") ? dobString.substring(0, dobString.indexOf("y")) : "0";
-                jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, Integer.valueOf(dobString));
-            }
-            break;
+            case org.smartregister.family.util.Constants.JSON_FORM_KEY.DOB_UNKNOWN:
+                computeDOBUnknown(jsonObject, client);
+                break;
+            case org.smartregister.chw.util.Constants.JsonAssets.AGE:
+                computeAge(jsonObject, client);
+                break;
             case DBConstants.KEY.DOB:
-
-                String dobString = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.DOB, false);
-                if (StringUtils.isNotBlank(dobString)) {
-                    Date dob = Utils.dobStringToDate(dobString);
-                    if (dob != null) {
-                        jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, JsonFormUtils.dd_MM_yyyy.format(dob));
-                    }
-                }
+                computeDOB(jsonObject, client);
                 break;
 
             case org.smartregister.family.util.Constants.KEY.PHOTO:
-
-                Photo photo = ImageUtils.profilePhotoByClientID(client.getCaseId(), Utils.getProfileImageResourceIDentifier());
-                if (StringUtils.isNotBlank(photo.getFilePath())) {
-                    jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, photo.getFilePath());
-                }
+                computePhoto(jsonObject, client);
                 break;
 
             case DBConstants.KEY.UNIQUE_ID:
-
                 String uniqueId = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.UNIQUE_ID, false);
                 jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, uniqueId.replace("-", ""));
                 break;
+
             case org.smartregister.chw.util.Constants.JsonAssets.PREGNANT_1_YR:
-
-                if (ecEvent != null) {
-                    String id = jsonObject.getString(JsonFormConstants.OPENMRS_ENTITY_ID);
-                    for (Obs obs : ecEvent.getObs()) {
-                        if (obs.getValues() != null && obs.getFieldCode().contains(id)) {
-                            jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, obs.getHumanReadableValues().get(0));
-                        }
-                    }
-                }
+                computePregnantOneYr(jsonObject, ecEvent);
                 break;
+
             case org.smartregister.chw.util.Constants.JsonAssets.SURNAME:
-
-                if (ecClient != null) {
-                    jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE,
-                            (ecClient.getLastName() == null ? familyName : ecClient.getLastName()));
-                }
+                computeSurname(jsonObject, ecClient, familyName);
                 break;
+
             case org.smartregister.chw.util.Constants.JsonAssets.FAM_NAME:
-
-                if (ecClient.getLastName() != null) {
-
-                    final String SAME_AS_FAM_NAME = "same_as_fam_name";
-                    final String SURNAME = "surname";
-
-                    jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, familyName);
-
-                    String lastName = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.LAST_NAME, false);
-
-                    JSONObject sameAsFamName = JsonFormUtils.getFieldJSONObject(jsonArray, SAME_AS_FAM_NAME);
-                    JSONObject sameOptions = sameAsFamName.getJSONArray(org.smartregister.family.util.Constants.JSON_FORM_KEY.OPTIONS).getJSONObject(0);
-
-                    if (familyName.equals(lastName)) {
-                        sameOptions.put(org.smartregister.family.util.JsonFormUtils.VALUE, true);
-                    } else {
-                        sameOptions.put(org.smartregister.family.util.JsonFormUtils.VALUE, false);
-                    }
-
-                    JSONObject surname = JsonFormUtils.getFieldJSONObject(jsonArray, SURNAME);
-                    if (!familyName.equals(lastName)) {
-                        surname.put(org.smartregister.family.util.JsonFormUtils.VALUE, lastName);
-                    } else {
-                        surname.put(org.smartregister.family.util.JsonFormUtils.VALUE, "");
-                    }
-
-                }
+                computeFamName(client, jsonObject, jsonArray, ecClient, familyName);
                 break;
 
             case org.smartregister.chw.util.Constants.JsonAssets.PRIMARY_CARE_GIVER:
             case org.smartregister.chw.util.Constants.JsonAssets.IS_PRIMARY_CARE_GIVER:
-
-                if (isPrimaryCaregiver) {
-                    jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, "Yes");
-                    jsonObject.put(org.smartregister.family.util.JsonFormUtils.READ_ONLY, true);
-                } else {
-                    jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, "No");
-                }
+                computePrimaryCareGiver(jsonObject, isPrimaryCaregiver);
                 break;
 
             case org.smartregister.chw.util.Constants.JsonAssets.ID_AVAIL:
-
-                if (ecClient != null) {
-                    for (int i = 0; i < jsonObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME).length(); i++) {
-                        JSONObject obj = jsonObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME).getJSONObject(i);
-                        String key = obj.getString(JsonFormConstants.KEY);
-
-                        String val = (String) ecClient.getAttribute("id_avail");
-
-                        if (val != null && key != null && val.contains(key)) {
-                            obj.put(JsonFormConstants.VALUE, true);
-                        } else {
-                            obj.put(JsonFormConstants.VALUE, false);
-                        }
-                    }
-                }
+                computeIDAvail(jsonObject, ecClient);
                 break;
 
             case org.smartregister.chw.util.Constants.JsonAssets.SERVICE_PROVIDER:
-
-                // iterate and update all options wit the values from ec object
-                if (ecEvent != null) {
-                    for (int i = 0; i < jsonObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME).length(); i++) {
-                        JSONObject obj = jsonObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME).getJSONObject(i);
-                        String id = obj.getString(JsonFormConstants.OPENMRS_ENTITY_ID);
-                        for (Obs obs : ecEvent.getObs()) {
-                            if (obs.getValues() != null && obs.getValues().contains(id)) {
-                                obj.put(JsonFormConstants.VALUE, true);
-                            }
-                        }
-                    }
-                }
+                computeServiceProvider(jsonObject, ecEvent);
                 break;
 
             case org.smartregister.chw.util.Constants.JsonAssets.LEADER:
-
-                if (ecClient != null) {
-                    for (int i = 0; i < jsonObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME).length(); i++) {
-                        JSONObject obj = jsonObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME).getJSONObject(i);
-                        String key = obj.getString(JsonFormConstants.KEY);
-
-                        String val = (String) ecClient.getAttribute("Community_Leader");
-
-                        if (val != null && key != null && val.contains(key)) {
-                            obj.put(JsonFormConstants.VALUE, true);
-                        } else {
-                            obj.put(JsonFormConstants.VALUE, false);
-                        }
-                    }
-                }
+                computeLeader(jsonObject, ecClient);
                 break;
 
             default:
@@ -258,8 +160,6 @@ public class JsonFormUtilsFlv implements JsonFormUtils.Flavor {
                 } else {
                     jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), jsonObject.getString(org.smartregister.family.util.JsonFormUtils.KEY), false));
                 }
-
-
                 break;
 
         }
@@ -305,5 +205,145 @@ public class JsonFormUtilsFlv implements JsonFormUtils.Flavor {
         }
 
         return Pair.create(ecEvent, ecClient);
+    }
+
+
+    private void computeAge(JSONObject jsonObject, CommonPersonObjectClient client) throws JSONException {
+        String dobString = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.DOB, false);
+        dobString = org.smartregister.family.util.Utils.getDuration(dobString);
+        dobString = dobString.contains("y") ? dobString.substring(0, dobString.indexOf("y")) : "0";
+        jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, Integer.valueOf(dobString));
+    }
+
+    private void computeDOBUnknown(JSONObject jsonObject, CommonPersonObjectClient client) throws JSONException {
+        jsonObject.put(org.smartregister.family.util.JsonFormUtils.READ_ONLY, false);
+        JSONObject optionsObject = jsonObject.getJSONArray(org.smartregister.family.util.Constants.JSON_FORM_KEY.OPTIONS).getJSONObject(0);
+        optionsObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), org.smartregister.family.util.Constants.JSON_FORM_KEY.DOB_UNKNOWN, false));
+    }
+
+
+    private void computeDOB(JSONObject jsonObject, CommonPersonObjectClient client) throws JSONException {
+
+        String dobString = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.DOB, false);
+        if (StringUtils.isNotBlank(dobString)) {
+            Date dob = Utils.dobStringToDate(dobString);
+            if (dob != null) {
+                jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, JsonFormUtils.dd_MM_yyyy.format(dob));
+            }
+        }
+    }
+
+    private void computePhoto(JSONObject jsonObject, CommonPersonObjectClient client) throws JSONException {
+
+        Photo photo = ImageUtils.profilePhotoByClientID(client.getCaseId(), Utils.getProfileImageResourceIDentifier());
+        if (StringUtils.isNotBlank(photo.getFilePath())) {
+            jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, photo.getFilePath());
+        }
+    }
+
+    private void computePregnantOneYr(JSONObject jsonObject, Event ecEvent) throws JSONException {
+        if (ecEvent != null) {
+            String id = jsonObject.getString(JsonFormConstants.OPENMRS_ENTITY_ID);
+            for (Obs obs : ecEvent.getObs()) {
+                if (obs.getValues() != null && obs.getFieldCode().contains(id)) {
+                    jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, obs.getHumanReadableValues().get(0));
+                }
+            }
+        }
+    }
+
+    private void computeSurname(JSONObject jsonObject, Client ecClient, String familyName) throws JSONException {
+        if (ecClient != null) {
+            jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE,
+                    (ecClient.getLastName() == null ? familyName : ecClient.getLastName()));
+        }
+    }
+
+    private void computeFamName(CommonPersonObjectClient client, JSONObject jsonObject, JSONArray jsonArray, Client ecClient, String familyName) throws JSONException {
+
+        if (ecClient.getLastName() != null) {
+
+            final String SAME_AS_FAM_NAME = "same_as_fam_name";
+            final String SURNAME = "surname";
+
+            jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, familyName);
+
+            String lastName = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.LAST_NAME, false);
+
+            JSONObject sameAsFamName = JsonFormUtils.getFieldJSONObject(jsonArray, SAME_AS_FAM_NAME);
+            JSONObject sameOptions = sameAsFamName.getJSONArray(org.smartregister.family.util.Constants.JSON_FORM_KEY.OPTIONS).getJSONObject(0);
+
+            if (familyName.equals(lastName)) {
+                sameOptions.put(org.smartregister.family.util.JsonFormUtils.VALUE, true);
+            } else {
+                sameOptions.put(org.smartregister.family.util.JsonFormUtils.VALUE, false);
+            }
+
+            JSONObject surname = JsonFormUtils.getFieldJSONObject(jsonArray, SURNAME);
+            if (!familyName.equals(lastName)) {
+                surname.put(org.smartregister.family.util.JsonFormUtils.VALUE, lastName);
+            } else {
+                surname.put(org.smartregister.family.util.JsonFormUtils.VALUE, "");
+            }
+
+        }
+    }
+
+    private void computePrimaryCareGiver(JSONObject jsonObject, boolean isPrimaryCaregiver) throws JSONException {
+        if (isPrimaryCaregiver) {
+            jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, "Yes");
+            jsonObject.put(org.smartregister.family.util.JsonFormUtils.READ_ONLY, true);
+        } else {
+            jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, "No");
+        }
+    }
+
+    private void computeIDAvail(JSONObject jsonObject, Client ecClient) throws JSONException {
+
+        if (ecClient != null) {
+            for (int i = 0; i < jsonObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME).length(); i++) {
+                JSONObject obj = jsonObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME).getJSONObject(i);
+                String key = obj.getString(JsonFormConstants.KEY);
+
+                String val = (String) ecClient.getAttribute("id_avail");
+
+                if (val != null && key != null && val.contains(key)) {
+                    obj.put(JsonFormConstants.VALUE, true);
+                } else {
+                    obj.put(JsonFormConstants.VALUE, false);
+                }
+            }
+        }
+    }
+
+    private void computeServiceProvider(JSONObject jsonObject, Event ecEvent) throws JSONException {
+        if (ecEvent != null) {
+            for (int i = 0; i < jsonObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME).length(); i++) {
+                JSONObject obj = jsonObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME).getJSONObject(i);
+                String id = obj.getString(JsonFormConstants.OPENMRS_ENTITY_ID);
+                for (Obs obs : ecEvent.getObs()) {
+                    if (obs.getValues() != null && obs.getValues().contains(id)) {
+                        obj.put(JsonFormConstants.VALUE, true);
+                    }
+                }
+            }
+        }
+    }
+
+    private void computeLeader(JSONObject jsonObject, Client ecClient) throws JSONException {
+        if (ecClient != null) {
+            for (int i = 0; i < jsonObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME).length(); i++) {
+                JSONObject obj = jsonObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME).getJSONObject(i);
+                String key = obj.getString(JsonFormConstants.KEY);
+
+                String val = (String) ecClient.getAttribute("Community_Leader");
+
+                if (val != null && key != null && val.contains(key)) {
+                    obj.put(JsonFormConstants.VALUE, true);
+                } else {
+                    obj.put(JsonFormConstants.VALUE, false);
+                }
+            }
+        }
     }
 }
