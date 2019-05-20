@@ -222,7 +222,7 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
                 startFormForEdit(R.string.edit_member_form_title);
                 return true;
             case R.id.action_malaria_confirmation:
-                JSONObject form = getFormUtils().getFormJson(org.smartregister.chw.util.Constants.JSON_FORM.HOME_VISIT_COUNSELLING);
+                JSONObject form = getFormUtils().getFormJson(org.smartregister.chw.util.Constants.JSON_FORM.MALARIA_CONFIRMATION);
                 startFormActivity(form);
                 return true;
             case R.id.action_remove_member:

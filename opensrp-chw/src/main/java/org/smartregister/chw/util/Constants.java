@@ -32,6 +32,7 @@ public class Constants {
         public static final String REMOVE_MEMBER = "Remove Family Member";
         public static final String REMOVE_CHILD = "Remove Child Under 5";
         public static final String REMOVE_FAMILY = "Remove Family";
+        public static final String MALARIA_CONFIRMATION = "Malaria Confirmation";
     }
 
     public static class JSON_FORM {
@@ -48,6 +49,8 @@ public class Constants {
 
         public static final String FAMILY_DETAILS_REMOVE_FAMILY = Utils.getLocalForm("family_details_remove_family");
         public static final String HOME_VISIT_COUNSELLING = "routine_home_visit";
+
+        public static final String MALARIA_CONFIRMATION = Utils.getLocalForm("malaria_confirmation");
     }
 
     public static class RELATIONSHIP {

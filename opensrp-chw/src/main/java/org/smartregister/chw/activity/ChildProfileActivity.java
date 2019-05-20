@@ -629,8 +629,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
                 return true;
 
             case R.id.action_malaria_confirmation:
-                //TODO make this work on the child profile as well.
-                JSONObject form = getFormUtils().getFormJson(org.smartregister.chw.util.Constants.JSON_FORM.HOME_VISIT_COUNSELLING);
+                JSONObject form = getFormUtils().getFormJson(org.smartregister.chw.util.Constants.JSON_FORM.MALARIA_CONFIRMATION);
                 startFormActivity(form);
                 return true;
 
