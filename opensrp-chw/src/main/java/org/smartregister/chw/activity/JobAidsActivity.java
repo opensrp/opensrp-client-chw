@@ -10,11 +10,11 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 
+import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.fragment.JobAidsDashboardFragment;
 import org.smartregister.chw.fragment.JobAidsGuideBooksFragment;
 import org.smartregister.chw.listener.JobsAidsBottomNavigationListener;
-import org.smartregister.chw.util.CountryUtils;
 import org.smartregister.helper.BottomNavigationHelper;
 
 public class JobAidsActivity extends FamilyRegisterActivity {
@@ -97,7 +97,7 @@ public class JobAidsActivity extends FamilyRegisterActivity {
 
         }
 
-        if (CountryUtils.hideNavigationQRCode()) {
+        if (!BuildConfig.SUPPORT_QR) {
             bottomNavigationView.getMenu().removeItem(org.smartregister.family.R.id.action_scan_qr);
         }
     }

@@ -45,6 +45,8 @@
                     android:layout_height="75dp"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
+                    android:contentDescription="@string/nav_logo"
+                    android:src="@drawable/ic_logo"
                     android:visibility="gone" />
 
                 <TextView

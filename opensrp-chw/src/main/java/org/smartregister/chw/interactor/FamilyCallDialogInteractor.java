@@ -67,7 +67,9 @@ public class FamilyCallDialogInteractor implements FamilyCallDialogContract.Inte
             }
         };
 
-        appExecutors.diskIO().execute(runnable);
+        if(familyBaseEntityId != null){
+            appExecutors.diskIO().execute(runnable);
+        }
     }
 
     private FamilyCallDialogModel prepareModel(

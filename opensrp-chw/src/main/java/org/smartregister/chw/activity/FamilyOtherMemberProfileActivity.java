@@ -129,6 +129,8 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
         villageTown = getIntent().getStringExtra(Constants.INTENT_KEY.VILLAGE_TOWN);
         familyName = getIntent().getStringExtra(Constants.INTENT_KEY.FAMILY_NAME);
         presenter = new FamilyOtherMemberActivityPresenter(this, new BaseFamilyOtherMemberProfileActivityModel(), null, familyBaseEntityId, baseEntityId, familyHead, primaryCaregiver, villageTown, familyName);
+
+        onClickFloatingMenu = FamilyOtherMemberProfileActivityFlv.getOnClickFloatingMenu(this, familyBaseEntityId);
     }
 
     @Override

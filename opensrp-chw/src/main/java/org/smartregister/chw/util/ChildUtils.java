@@ -2,7 +2,6 @@ package org.smartregister.chw.util;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.graphics.Color;
 import android.os.Build;
 import android.text.Html;
 import android.text.Spannable;
@@ -29,7 +28,6 @@ import org.joda.time.Days;
 import org.joda.time.LocalDate;
 import org.joda.time.format.ISODateTimeFormat;
 import org.json.JSONObject;
-import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.domain.HomeVisit;
@@ -56,6 +54,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import timber.log.Timber;
+
 import static org.apache.commons.lang3.text.WordUtils.capitalize;
 import static org.smartregister.chw.util.Utils.dd_MMM_yyyy;
 
@@ -69,6 +69,8 @@ public class ChildUtils {
             "yellowfever", "mcv2"
     };
     public static Gson gsonConverter;
+
+    private static final Flavor childUtilsFlv = new ChildUtilsFlv();
 
     static {
         gsonConverter = new GsonBuilder()
@@ -212,33 +214,40 @@ public class ChildUtils {
         String query = queryBUilder.mainCondition(tableName + "." + DBConstants.KEY.BASE_ENTITY_ID + " = '" + childId + "'");
 
         ChildHomeVisit childHomeVisit = new ChildHomeVisit();
-        Cursor cursor = Utils.context().commonrepository(org.smartregister.chw.util.Constants.TABLE_NAME.CHILD).queryTable(query);
-        if (cursor != null && cursor.moveToFirst()) {
-            String lastVisitStr = cursor.getString(cursor.getColumnIndex(ChildDBConstants.KEY.LAST_HOME_VISIT));
-            if (!TextUtils.isEmpty(lastVisitStr)) {
-                try {
-                    childHomeVisit.setLastHomeVisitDate(Long.parseLong(lastVisitStr));
-                } catch (Exception e) {
+        Cursor cursor = null;
+        try {
+            cursor = Utils.context().commonrepository(org.smartregister.chw.util.Constants.TABLE_NAME.CHILD).queryTable(query);
+            if (cursor != null && cursor.moveToFirst()) {
+                String lastVisitStr = cursor.getString(cursor.getColumnIndex(ChildDBConstants.KEY.LAST_HOME_VISIT));
+                if (!TextUtils.isEmpty(lastVisitStr)) {
+                    try {
+                        childHomeVisit.setLastHomeVisitDate(Long.parseLong(lastVisitStr));
+                    } catch (Exception e) {
 
+                    }
+                }
+                String visitNotDoneStr = cursor.getString(cursor.getColumnIndex(ChildDBConstants.KEY.VISIT_NOT_DONE));
+                if (!TextUtils.isEmpty(visitNotDoneStr)) {
+                    try {
+                        childHomeVisit.setVisitNotDoneDate(Long.parseLong(visitNotDoneStr));
+                    } catch (Exception e) {
+                        Timber.e(e.toString());
+                    }
+                }
+                String strDateCreated = cursor.getString(cursor.getColumnIndex(ChildDBConstants.KEY.DATE_CREATED));
+                if (!TextUtils.isEmpty(strDateCreated)) {
+                    try {
+                        childHomeVisit.setDateCreated(org.smartregister.family.util.Utils.dobStringToDateTime(strDateCreated).getMillis());
+                    } catch (Exception e) {
+                        Timber.e(e.toString());
+                    }
                 }
             }
-            String visitNotDoneStr = cursor.getString(cursor.getColumnIndex(ChildDBConstants.KEY.VISIT_NOT_DONE));
-            if (!TextUtils.isEmpty(visitNotDoneStr)) {
-                try {
-                    childHomeVisit.setVisitNotDoneDate(Long.parseLong(visitNotDoneStr));
-                } catch (Exception e) {
-
-                }
-            }
-            String strDateCreated = cursor.getString(cursor.getColumnIndex(ChildDBConstants.KEY.DATE_CREATED));
-            if (!TextUtils.isEmpty(strDateCreated)) {
-                try {
-                    childHomeVisit.setDateCreated(org.smartregister.family.util.Utils.dobStringToDateTime(strDateCreated).getMillis());
-                } catch (Exception e) {
-
-                }
-            }
-            cursor.close();
+        } catch (Exception ex) {
+            Timber.e(ex.toString());
+        } finally {
+            if (cursor != null)
+                cursor.close();
         }
 
         return childHomeVisit;
@@ -274,14 +283,7 @@ public class ChildUtils {
         columnList.add(tableName + "." + ChildDBConstants.KEY.DATE_CREATED);
         columnList.add(tableName + "." + ChildDBConstants.KEY.ILLNESS_ACTION);
 
-        if (BuildConfig.BUILD_COUNTRY == Country.TANZANIA) {
-            columnList.add(tableName + "." + ChildDBConstants.KEY.INSURANCE_PROVIDER);
-            columnList.add(tableName + "." + ChildDBConstants.KEY.INSURANCE_PROVIDER_NUMBER);
-            columnList.add(tableName + "." + ChildDBConstants.KEY.INSURANCE_PROVIDER_OTHER);
-            columnList.add(tableName + "." + ChildDBConstants.KEY.TYPE_OF_DISABILITY);
-            columnList.add(tableName + "." + ChildDBConstants.KEY.RHC_CARD);
-            columnList.add(tableName + "." + ChildDBConstants.KEY.NUTRITION_STATUS);
-        }
+        columnList.addAll(childUtilsFlv.mainColumns(tableName, familyTable, familyMemberTable));
 
         return columnList.toArray(new String[columnList.size()]);
 
@@ -379,7 +381,8 @@ public class ChildUtils {
     }
 
     //event type="Child Home Visit"/Visit not done
-    public static void updateHomeVisitAsEvent(String entityId, String eventType, String entityType, JSONObject singleVaccineObject, JSONObject vaccineGroupObject, JSONObject vaccineNotGiven, JSONObject service, JSONObject serviceNotGiven, JSONObject birthCert, JSONObject illnessJson, JSONObject counselingForm, String visitStatus, String value) {
+
+    public static void updateHomeVisitAsEvent(String entityId, String eventType, String entityType, JSONObject singleVaccineObject, JSONObject vaccineGroupObject, JSONObject vaccineNotGiven, JSONObject service, JSONObject serviceNotGiven, JSONObject birthCert, JSONObject illnessJson, String visitStatus, String value) {
         try {
 
             ECSyncHelper syncHelper = FamilyLibrary.getInstance().getEcSyncHelper();
@@ -404,8 +407,6 @@ public class ChildUtils {
 
             event.addObs((new Obs()).withFormSubmissionField("birth_certificate").withValue(birthCert.toString()).withFieldCode("birth_certificate").withFieldType("formsubmissionField").withFieldDataType("text").withParentCode("").withHumanReadableValues(new ArrayList<Object>()));
             event.addObs((new Obs()).withFormSubmissionField("illness_information").withValue(illnessJson.toString()).withFieldCode("illness_information").withFieldType("formsubmissionField").withFieldDataType("text").withParentCode("").withHumanReadableValues(new ArrayList<Object>()));
-            event.addObs((new Obs()).withFormSubmissionField("counseling_information").withValue(counselingForm.toString()).withFieldCode("counseling_information").withFieldType("formsubmissionField").withFieldDataType("text").withParentCode("").withHumanReadableValues(new ArrayList<Object>()));
-
 
             JsonFormUtils.tagSyncMetadata(ChwApplication.getInstance().getContext().allSharedPreferences(), event);
             JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(event));
@@ -431,7 +432,7 @@ public class ChildUtils {
         if (diff <= 0) {
             String str = Math.abs(diff) + " days away";
             spannableString = new SpannableString(str);
-            spannableString.setSpan(new ForegroundColorSpan(Color.GRAY), 0, str.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            spannableString.setSpan(new ForegroundColorSpan(ChwApplication.getInstance().getContext().getColorResource(R.color.grey)), 0, str.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             return spannableString;
         } else {
             String str = diff + " days overdue";
@@ -446,12 +447,12 @@ public class ChildUtils {
         Date date = org.smartregister.family.util.Utils.dobStringToDate(dueDate);
         if (status.equalsIgnoreCase(ImmunizationState.DUE.name())) {
 
-            String str = context.getResources().getString(R.string.due) + " " + dd_MMM_yyyy.format(date);
+            String str = context.getResources().getString(R.string.due) + "" + dd_MMM_yyyy.format(date);
             spannableString = new SpannableString(str);
-            spannableString.setSpan(new ForegroundColorSpan(Color.GRAY), 0, str.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            spannableString.setSpan(new ForegroundColorSpan(ChwApplication.getInstance().getContext().getColorResource(R.color.grey)), 0, str.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             return spannableString;
         } else {
-            String str = context.getResources().getString(R.string.overdue) + " " + dd_MMM_yyyy.format(date);
+            String str = context.getResources().getString(R.string.overdue) + "" + dd_MMM_yyyy.format(date);
             spannableString = new SpannableString(str);
             spannableString.setSpan(new ForegroundColorSpan(ChwApplication.getInstance().getContext().getColorResource(R.color.alert_urgent_red)), 0, str.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             return spannableString;
@@ -489,7 +490,7 @@ public class ChildUtils {
                     try {
                         newHomeVisit.setBirthCertificationState(new JSONObject((String) obs.getValue()));
                     } catch (Exception e) {
-                        e.printStackTrace();
+                        // e.printStackTrace();
                         //previous support
                         newHomeVisit.setBirthCertificationState(new JSONObject());
                     }
@@ -521,5 +522,9 @@ public class ChildUtils {
             display = capitalize(display.toLowerCase());
         }
         return display;
+    }
+
+    public interface Flavor {
+        ArrayList<String> mainColumns(String tableName, String familyTable, String familyMemberTable);
     }
 }

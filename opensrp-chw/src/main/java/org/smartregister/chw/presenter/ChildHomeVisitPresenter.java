@@ -91,6 +91,7 @@ public class ChildHomeVisitPresenter implements ChildHomeVisitContract.Presenter
 
     }
 
+    /*
     @Override
     public void startCounselingForm(JSONObject previousJson) {
         try {
@@ -107,6 +108,7 @@ public class ChildHomeVisitPresenter implements ChildHomeVisitContract.Presenter
 
         }
     }
+    */
 
     @Override
     public void updateBirthStatusTick() {
@@ -119,20 +121,24 @@ public class ChildHomeVisitPresenter implements ChildHomeVisitContract.Presenter
 
     }
 
+    /*
     @Override
     public void updateCounselingStatusTick() {
         getView().updateCounselingStatusTick();
     }
+    */
 
     @Override
     public void generateBirthIllnessForm(String jsonString) {
         interactor.generateBirthIllnessForm(jsonString, this, false);
     }
 
+    /*
     @Override
     public void generateCounselingForm(String jsonString) {
         interactor.generateCounselingForm(jsonString, this, false);
     }
+    */
 
     @Override
     public void updateBirthCertEditData(String jsonString) {
@@ -148,7 +154,7 @@ public class ChildHomeVisitPresenter implements ChildHomeVisitContract.Presenter
 
     @Override
     public void saveForm() {
-        interactor.saveForm();
+        interactor.saveForm(childClient);
     }
 
     @Override
@@ -187,9 +193,11 @@ public class ChildHomeVisitPresenter implements ChildHomeVisitContract.Presenter
         return ((ChildHomeVisitInteractor) interactor).getBirthCertDataList();
     }
 
+    /*
     public ArrayList<BirthIllnessData> getCounselingDataList() {
         return ((ChildHomeVisitInteractor) interactor).getCounselingDataList();
     }
+    */
 
 
     private FormUtils getFormUtils() {

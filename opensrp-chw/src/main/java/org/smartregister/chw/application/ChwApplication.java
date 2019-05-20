@@ -9,6 +9,7 @@ import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
 import com.evernote.android.job.JobManager;
 
+import org.smartregister.AllConstants;
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
 import org.smartregister.chw.BuildConfig;
@@ -21,8 +22,7 @@ import org.smartregister.chw.repository.HomeVisitRepository;
 import org.smartregister.chw.sync.ChwClientProcessor;
 import org.smartregister.chw.util.ChildDBConstants;
 import org.smartregister.chw.util.Constants;
-import org.smartregister.chw.util.Country;
-import org.smartregister.chw.util.CountryUtils;
+import org.smartregister.chw.util.Utils;
 import org.smartregister.commonregistry.AllCommonsRepository;
 import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
@@ -39,12 +39,15 @@ import org.smartregister.immunization.repository.VaccineRepository;
 import org.smartregister.immunization.util.VaccinatorUtils;
 import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
+import org.smartregister.reporting.ReportingLibrary;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.Repository;
 import org.smartregister.sync.ClientProcessorForJava;
 import org.smartregister.sync.helper.ECSyncHelper;
 import org.smartregister.view.activity.DrishtiApplication;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
@@ -126,14 +129,16 @@ public class ChwApplication extends DrishtiApplication {
 
         //Initialize Modules
         CoreLibrary.init(context, new ChwSyncConfiguration(), BuildConfig.BUILD_TIMESTAMP);
-        CountryUtils.switchEcClientFieldProcessor();
+        CoreLibrary.getInstance().setEcClientFieldsFile(Constants.EC_CLIENT_FIELDS);
+
         ImmunizationLibrary.init(context, getRepository(), null, BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
 
         ConfigurableViewsLibrary.init(context, getRepository());
         FamilyLibrary.init(context, getRepository(), getMetadata(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
 
         SyncStatusBroadcastReceiver.init(this);
-        LocationHelper.init(CountryUtils.allowedLevels(), CountryUtils.defaultLevel());
+
+        LocationHelper.init(new ArrayList<>(Arrays.asList(BuildConfig.ALLOWED_LOCATION_LEVELS)), BuildConfig.DEFAULT_LOCATION);
 
         // set up processor
         FamilyLibrary.getInstance().setClientProcessorForJava(ChwClientProcessor.getInstance(getApplicationContext()));
@@ -141,14 +146,17 @@ public class ChwApplication extends DrishtiApplication {
         // init json helper
         this.jsonSpecHelper = new JsonSpecHelper(this);
 
+        // Init Reporting library
+        ReportingLibrary.init(context, getRepository(), null, BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
+        ReportingLibrary.getInstance().setDateFormat("yyyyMMdd");
+
         //init Job Manager
         JobManager.create(this).addJobCreator(new ChwJobCreator());
 
         initOfflineSchedules();
         scheduleJobs();
 
-        CountryUtils.switchLoginAlias(getPackageManager());
-        CountryUtils.setOpenSRPUrl();
+        setOpenSRPUrl();
 
         Configuration configuration = getApplicationContext().getResources().getConfiguration();
         String language;
@@ -158,11 +166,20 @@ public class ChwApplication extends DrishtiApplication {
             language = configuration.locale.getLanguage();
         }
 
-        if (language.equals(Locale.FRENCH.getLanguage())){
+        if (language.equals(Locale.FRENCH.getLanguage())) {
             saveLanguage(Locale.FRENCH.getLanguage());
         }
     }
 
+
+    public void setOpenSRPUrl() {
+        AllSharedPreferences preferences = Utils.getAllSharedPreferences();
+        if (BuildConfig.DEBUG) {
+            preferences.savePreference(AllConstants.DRISHTI_BASE_URL, BuildConfig.opensrp_url_debug);
+        } else {
+            preferences.savePreference(AllConstants.DRISHTI_BASE_URL, BuildConfig.opensrp_url);
+        }
+    }
 
     private void saveLanguage(String language) {
         AllSharedPreferences allSharedPreferences = ChwApplication.getInstance().getContext().allSharedPreferences();
@@ -228,16 +245,9 @@ public class ChwApplication extends DrishtiApplication {
 
     public void initOfflineSchedules() {
         try {
-            if (BuildConfig.BUILD_COUNTRY == Country.LIBERIA) {
-                List<VaccineGroup> childVaccines = VaccinatorUtils.getSupportedVaccines(this);
-                List<Vaccine> specialVaccines = VaccinatorUtils.getSpecialVaccines(this);
-                VaccineSchedule.init(childVaccines, specialVaccines, "child");
-
-            } else if (BuildConfig.BUILD_COUNTRY == Country.TANZANIA) {
-                List<VaccineGroup> childVaccines = VaccinatorUtils.getSupportedVaccines(this, "tz");
-                List<Vaccine> specialVaccines = VaccinatorUtils.getSpecialVaccines(this, "tz");
-                VaccineSchedule.init(childVaccines, specialVaccines, "child");
-            }
+            List<VaccineGroup> childVaccines = VaccinatorUtils.getSupportedVaccines(this);
+            List<Vaccine> specialVaccines = VaccinatorUtils.getSpecialVaccines(this);
+            VaccineSchedule.init(childVaccines, specialVaccines, "child");
         } catch (Exception e) {
             Log.e(TAG, Log.getStackTraceString(e));
         }
