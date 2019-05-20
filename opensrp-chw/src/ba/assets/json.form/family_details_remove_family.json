@@ -96,15 +96,15 @@
         "spacer_height": "20sp"
       },
       {
-        "key": "remove_reason",
+        "key": "closure_reason_fam",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "160417AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Reason",
+        "hint": "Reason for closure",
         "values": [
-          "Moved away",
+          "Relocation",
           "Other"
         ],
         "v_required": {
@@ -112,36 +112,49 @@
           "err": "Select the reason for removing the family's record."
         },
         "openmrs_choice_ids": {
-          "Moved away": "160415AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Relocation": "160415AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "Other": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         }
       },
       {
-        "key": "date_moved",
-        "openmrs_entity_parent": "",
+        "key": "closure_reason_other_fam",
+        "openmrs_entity_parent": "160417AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "164133AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "text",
-        "type": "date_picker",
-        "label": "Date moved away",
-        "hint": "Date moved away",
-        "expanded": false,
-        "min_date": "today-10y",
-        "max_date": "today",
+        "type": "edit_text",
+        "hint": "Other reason",
         "v_required": {
           "value": "true",
-          "err": "Enter the date that the member moved away"
+          "err": "Enter reason of closure"
         },
-        "constraints": [
-          {
-            "type": "date",
-            "err": "Date moved away occur before date of birth"
-          }
-        ],
         "relevance": {
-          "step1:remove_reason": {
+          "step1:closure_reason_fam": {
             "type": "string",
-            "ex": "equalTo(., \"Moved away\")"
+            "ex": "equalTo(., \"Other\")"
+          }
+        }
+      },
+      {
+        "key": "closure_reason_relocation_fam",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "Household relocation",
+        "values": [
+          "Within the district",
+          "Outside the district"
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Enter reason of closure"
+        },
+        "relevance": {
+          "step1:closure_reason_fam": {
+            "type": "string",
+            "ex": "equalTo(., \"Relocation\")"
           }
         }
       }

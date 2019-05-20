@@ -29,7 +29,6 @@ public class NavigationListener implements View.OnClickListener {
 
                 switch (tag) {
                     case Constants.DrawerMenu.CHILD_CLIENTS:
-                    case Constants.DrawerMenu.CH:
                         startRegisterActivity(ChildRegisterActivity.class);
                         break;
                     case Constants.DrawerMenu.ALL_FAMILIES:
@@ -44,8 +43,8 @@ public class NavigationListener implements View.OnClickListener {
                     case Constants.DrawerMenu.PNC:
                         Toast.makeText(activity.getApplicationContext(), Constants.DrawerMenu.PNC, Toast.LENGTH_SHORT).show();
                         break;
-                    case Constants.DrawerMenu.FP:
-                        Toast.makeText(activity.getApplicationContext(), Constants.DrawerMenu.FP, Toast.LENGTH_SHORT).show();
+                    case Constants.DrawerMenu.FAMILY_PLANNING:
+                        Toast.makeText(activity.getApplicationContext(), Constants.DrawerMenu.FAMILY_PLANNING, Toast.LENGTH_SHORT).show();
                         break;
                     case Constants.DrawerMenu.MALARIA:
                         Toast.makeText(activity.getApplicationContext(), Constants.DrawerMenu.MALARIA, Toast.LENGTH_SHORT).show();

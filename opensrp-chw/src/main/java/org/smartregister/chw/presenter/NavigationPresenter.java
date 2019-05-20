@@ -54,7 +54,6 @@ public class NavigationPresenter implements NavigationContract.Presenter {
                     });
                     break;
                 case Constants.DrawerMenu.CHILD_CLIENTS:
-                case Constants.DrawerMenu.CH:
                     mInteractor.getChildrenCount(new NavigationContract.InteractorCallback<Integer>() {
                         @Override
                         public void onResult(Integer result) {
