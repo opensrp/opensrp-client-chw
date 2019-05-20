@@ -45,6 +45,8 @@ import org.smartregister.family.util.Utils;
 import org.smartregister.helper.ImageRenderHelper;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
+import timber.log.Timber;
+
 public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfileActivity implements FamilyOtherMemberProfileExtendedContract.View {
 
     private String familyBaseEntityId;
@@ -211,7 +213,7 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
         try {
             startFormActivity(form);
         } catch (Exception e) {
-            Log.e("TAG", e.getMessage());
+            Timber.e(e.getMessage());
         }
     }
 

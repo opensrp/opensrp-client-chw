@@ -44,6 +44,8 @@ public class HomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNutriti
     private Context context;
     private int initialCount = 0;
 
+    private static final Flavor homeVisitGrowthNutritionPresenterFlv = new HomeVisitGrowthNutritionPresenterFlv();
+
     public HomeVisitGrowthNutritionPresenter(HomeVisitGrowthNutritionContract.View view) {
         this.view = new WeakReference<>(view);
         context = view.getViewContext();
@@ -165,7 +167,7 @@ public class HomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNutriti
             }
         }
         serviceWrapperMnp = getServiceWrapperByType(GrowthNutritionInputFragment.GROWTH_TYPE.MNP.getValue());
-        if (serviceWrapperMnp != null) {
+        if (serviceWrapperMnp != null && homeVisitGrowthNutritionPresenterFlv.hasMNP()) {
             Alert alert = serviceWrapperMnp.getAlert();
             if (alert != null) {
                 initialCount++;
@@ -287,5 +289,12 @@ public class HomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNutriti
     @Override
     public Map<String, ServiceWrapper> getNotSaveStateMap() {
         return notVisitStateMap;
+    }
+
+
+    public interface Flavor {
+
+        boolean hasMNP();
+
     }
 }

@@ -70,6 +70,8 @@ public class ChildUtils {
     };
     public static Gson gsonConverter;
 
+    private static final Flavor childUtilsFlv = new ChildUtilsFlv();
+
     static {
         gsonConverter = new GsonBuilder()
                 .setPrettyPrinting()
@@ -252,36 +254,40 @@ public class ChildUtils {
     }
 
     private static String[] mainColumns(String tableName, String familyTable, String familyMemberTable) {
+        ArrayList<String> columnList = new ArrayList<>();
 
-        String[] columns = new String[]{
-                tableName + "." + DBConstants.KEY.RELATIONAL_ID + " as " + ChildDBConstants.KEY.RELATIONAL_ID,
-                tableName + "." + DBConstants.KEY.LAST_INTERACTED_WITH,
-                tableName + "." + DBConstants.KEY.BASE_ENTITY_ID,
-                tableName + "." + DBConstants.KEY.FIRST_NAME,
-                tableName + "." + DBConstants.KEY.MIDDLE_NAME,
-                familyMemberTable + "." + DBConstants.KEY.FIRST_NAME + " as " + ChildDBConstants.KEY.FAMILY_FIRST_NAME,
-                familyMemberTable + "." + DBConstants.KEY.LAST_NAME + " as " + ChildDBConstants.KEY.FAMILY_LAST_NAME,
-                familyMemberTable + "." + DBConstants.KEY.MIDDLE_NAME + " as " + ChildDBConstants.KEY.FAMILY_MIDDLE_NAME,
-                familyTable + "." + DBConstants.KEY.VILLAGE_TOWN + " as " + ChildDBConstants.KEY.FAMILY_HOME_ADDRESS,
-                tableName + "." + DBConstants.KEY.LAST_NAME,
-                tableName + "." + DBConstants.KEY.UNIQUE_ID,
-                tableName + "." + DBConstants.KEY.GENDER,
-                tableName + "." + DBConstants.KEY.DOB,
-                tableName + "." + org.smartregister.family.util.Constants.JSON_FORM_KEY.DOB_UNKNOWN,
-                tableName + "." + ChildDBConstants.KEY.LAST_HOME_VISIT,
-                tableName + "." + ChildDBConstants.KEY.VISIT_NOT_DONE,
-                tableName + "." + ChildDBConstants.KEY.CHILD_BF_HR,
-                tableName + "." + ChildDBConstants.KEY.CHILD_PHYSICAL_CHANGE,
-                tableName + "." + ChildDBConstants.KEY.BIRTH_CERT,
-                tableName + "." + ChildDBConstants.KEY.BIRTH_CERT_ISSUE_DATE,
-                tableName + "." + ChildDBConstants.KEY.BIRTH_CERT_NUMBER,
-                tableName + "." + ChildDBConstants.KEY.BIRTH_CERT_NOTIFIICATION,
-                tableName + "." + ChildDBConstants.KEY.ILLNESS_DATE,
-                tableName + "." + ChildDBConstants.KEY.ILLNESS_DESCRIPTION,
-                tableName + "." + ChildDBConstants.KEY.DATE_CREATED,
-                tableName + "." + ChildDBConstants.KEY.ILLNESS_ACTION
-        };
-        return columns;
+        columnList.add(tableName + "." + DBConstants.KEY.RELATIONAL_ID + " as " + ChildDBConstants.KEY.RELATIONAL_ID);
+        columnList.add(tableName + "." + DBConstants.KEY.LAST_INTERACTED_WITH);
+        columnList.add(tableName + "." + DBConstants.KEY.BASE_ENTITY_ID);
+        columnList.add(tableName + "." + DBConstants.KEY.FIRST_NAME);
+        columnList.add(tableName + "." + DBConstants.KEY.MIDDLE_NAME);
+        columnList.add(familyMemberTable + "." + DBConstants.KEY.FIRST_NAME + " as " + ChildDBConstants.KEY.FAMILY_FIRST_NAME);
+        columnList.add(familyMemberTable + "." + DBConstants.KEY.LAST_NAME + " as " + ChildDBConstants.KEY.FAMILY_LAST_NAME);
+        columnList.add(familyMemberTable + "." + DBConstants.KEY.MIDDLE_NAME + " as " + ChildDBConstants.KEY.FAMILY_MIDDLE_NAME);
+        columnList.add(familyTable + "." + DBConstants.KEY.VILLAGE_TOWN + " as " + ChildDBConstants.KEY.FAMILY_HOME_ADDRESS);
+        columnList.add(tableName + "." + DBConstants.KEY.LAST_NAME);
+        columnList.add(tableName + "." + DBConstants.KEY.UNIQUE_ID);
+        columnList.add(tableName + "." + DBConstants.KEY.GENDER);
+        columnList.add(tableName + "." + DBConstants.KEY.DOB);
+        columnList.add(tableName + "." + org.smartregister.family.util.Constants.JSON_FORM_KEY.DOB_UNKNOWN);
+        columnList.add(tableName + "." + ChildDBConstants.KEY.LAST_HOME_VISIT);
+        columnList.add(tableName + "." + ChildDBConstants.KEY.VISIT_NOT_DONE);
+        columnList.add(tableName + "." + ChildDBConstants.KEY.CHILD_BF_HR);
+        columnList.add(tableName + "." + ChildDBConstants.KEY.CHILD_PHYSICAL_CHANGE);
+        columnList.add(tableName + "." + ChildDBConstants.KEY.BIRTH_CERT);
+        columnList.add(tableName + "." + ChildDBConstants.KEY.BIRTH_CERT_ISSUE_DATE);
+        columnList.add(tableName + "." + ChildDBConstants.KEY.BIRTH_CERT_NUMBER);
+        columnList.add(tableName + "." + ChildDBConstants.KEY.BIRTH_CERT_NOTIFIICATION);
+        columnList.add(tableName + "." + ChildDBConstants.KEY.ILLNESS_DATE);
+        columnList.add(tableName + "." + ChildDBConstants.KEY.ILLNESS_DESCRIPTION);
+        columnList.add(tableName + "." + ChildDBConstants.KEY.DATE_CREATED);
+        columnList.add(tableName + "." + ChildDBConstants.KEY.ILLNESS_ACTION);
+
+        columnList.addAll(childUtilsFlv.mainColumns(tableName, familyTable, familyMemberTable));
+
+        return columnList.toArray(new String[columnList.size()]);
+
+
     }
 
     /**
@@ -375,6 +381,7 @@ public class ChildUtils {
     }
 
     //event type="Child Home Visit"/Visit not done
+
     public static void updateHomeVisitAsEvent(String entityId, String eventType, String entityType, JSONObject singleVaccineObject, JSONObject vaccineGroupObject, JSONObject vaccineNotGiven, JSONObject service, JSONObject serviceNotGiven, JSONObject birthCert, JSONObject illnessJson, String visitStatus, String value) {
         try {
 
@@ -515,5 +522,9 @@ public class ChildUtils {
             display = capitalize(display.toLowerCase());
         }
         return display;
+    }
+
+    public interface Flavor {
+        ArrayList<String> mainColumns(String tableName, String familyTable, String familyMemberTable);
     }
 }
