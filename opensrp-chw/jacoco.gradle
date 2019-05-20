@@ -23,7 +23,7 @@ project.afterEvaluate {
         def unitTestsTaskName = "test${taskNameWithFlavor.capitalize()}UnitTest"
         def uiTestsTaskName = "connected${taskNameWithFlavor.capitalize()}AndroidTest"
 
-        // Create coverage task ex: 'jacocoTestReport<Flavor>' depending on
+        // Create coverage task ex: 'jacocoTestReport<HomeVisitInfoProcessor>' depending on
         // 'testFlavorDebugUnitTest - unit tests' & connectedFlavorDebugAndroidTest - integration tests.
         task "jacocoTestReport${productFlavorName.capitalize()}"(type: JacocoReport, dependsOn: [unitTestsTaskName, uiTestsTaskName]) {
             group = "Reporting"
