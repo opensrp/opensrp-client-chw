@@ -1,6 +1,8 @@
 package org.smartregister.chw.activity;
 
 import android.app.Activity;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import org.smartregister.chw.R;
 import org.smartregister.chw.fragment.FamilyCallDialogFragment;
@@ -21,6 +23,10 @@ public class FamilyOtherMemberProfileActivityFlv {
                 }
             }
         };
+    }
+
+    public static boolean onCreateOptionsMenu(Menu menu) {
+        return true;
     }
 
 }

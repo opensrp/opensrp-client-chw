@@ -1,6 +1,9 @@
 package org.smartregister.chw.activity;
 
 import android.app.Activity;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import org.smartregister.chw.R;
@@ -26,5 +29,11 @@ public class ChildProfileActivityFlv {
                 }
             }
         };
+    }
+
+    public static boolean onCreateOptionsMenu(Menu menu) {
+        MenuItem actionMalaria = menu.findItem(R.id.action_malaria_confirmation);
+        actionMalaria.setVisible(true);
+        return true;
     }
 }

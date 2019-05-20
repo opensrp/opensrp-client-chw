@@ -35,7 +35,7 @@ import org.smartregister.chw.listener.FloatingMenuListener;
 import org.smartregister.chw.listener.OnClickFloatingMenu;
 import org.smartregister.chw.presenter.FamilyOtherMemberActivityPresenter;
 import org.smartregister.chw.util.ChildUtils;
-import org.smartregister.chw.util.Country;
+//import org.smartregister.chw.util.Country;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
@@ -70,26 +70,26 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
         @Override
         public void onClickMenu(int viewId) {
 
-            if (Country.LIBERIA.equals(BuildConfig.BUILD_COUNTRY)) {
-                switch (viewId) {
-                    case R.id.fab:
-                        FamilyCallDialogFragment.launchDialog(FamilyOtherMemberProfileActivity.this, familyBaseEntityId);
-                        break;
-                    default:
-                        break;
-                }
-            } else {
-                switch (viewId) {
-                    case R.id.call_layout:
-                        FamilyCallDialogFragment.launchDialog(FamilyOtherMemberProfileActivity.this, familyBaseEntityId);
-                        break;
-                    case R.id.refer_to_facility_fab:
-                        toast("Refer to facility");
-                        break;
-                    default:
-                        break;
-                }
-            }
+//            if (Country.LIBERIA.equals(BuildConfig.BUILD_COUNTRY)) {
+//                switch (viewId) {
+//                    case R.id.fab:
+//                        FamilyCallDialogFragment.launchDialog(FamilyOtherMemberProfileActivity.this, familyBaseEntityId);
+//                        break;
+//                    default:
+//                        break;
+//                }
+////            } else {
+//                switch (viewId) {
+//                    case R.id.call_layout:
+//                        FamilyCallDialogFragment.launchDialog(FamilyOtherMemberProfileActivity.this, familyBaseEntityId);
+//                        break;
+//                    case R.id.refer_to_facility_fab:
+//                        toast("Refer to facility");
+//                        break;
+//                    default:
+//                        break;
+//                }
+//            }
         }
     };
 
@@ -207,10 +207,7 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
             addMember.setVisible(false);
         }
 
-        MenuItem actionMalaria = menu.findItem(R.id.action_malaria_confirmation);
-        if(BuildConfig.BUILD_COUNTRY == Country.LIBERIA && actionMalaria != null) {
-            actionMalaria.setVisible(false);
-        }
+        FamilyOtherMemberProfileActivityFlv.onCreateOptionsMenu(menu);
 
         return true;
     }

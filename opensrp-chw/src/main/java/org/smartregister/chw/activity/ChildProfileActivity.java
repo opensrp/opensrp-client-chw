@@ -22,6 +22,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
@@ -96,31 +97,31 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
         }
     }
 
-    private OnClickFloatingMenu onClickFloatingMenu = new OnClickFloatingMenu() {
-        @Override
-        public void onClickMenu(int viewId) {
-            if (Country.LIBERIA.equals(BuildConfig.BUILD_COUNTRY)) {
-                switch (viewId) {
-                    case R.id.fab:
-                        FamilyCallDialogFragment.launchDialog(ChildProfileActivity.this, ((ChildProfilePresenter) presenter).getFamilyId());
-                        break;
-                    default:
-                        break;
-                }
-            } else {
-                switch (viewId) {
-                    case R.id.call_layout:
-                        FamilyCallDialogFragment.launchDialog(ChildProfileActivity.this, ((ChildProfilePresenter) presenter).getFamilyId());
-                        break;
-                    case R.id.refer_to_facility_fab:
-                        toast("Refer to facility");
-                        break;
-                    default:
-                        break;
-                }
-            }
-        }
-    };
+//    private OnClickFloatingMenu onClickFloatingMenu = new OnClickFloatingMenu() {
+//        @Override
+//        public void onClickMenu(int viewId) {
+//            if (Country.LIBERIA.equals(BuildConfig.BUILD_COUNTRY)) {
+//                switch (viewId) {
+//                    case R.id.fab:
+//                        FamilyCallDialogFragment.launchDialog(ChildProfileActivity.this, ((ChildProfilePresenter) presenter).getFamilyId());
+//                        break;
+//                    default:
+//                        break;
+//                }
+//            } else {
+//                switch (viewId) {
+//                    case R.id.call_layout:
+//                        FamilyCallDialogFragment.launchDialog(ChildProfileActivity.this, ((ChildProfilePresenter) presenter).getFamilyId());
+//                        break;
+//                    case R.id.refer_to_facility_fab:
+//                        toast("Refer to facility");
+//                        break;
+//                    default:
+//                        break;
+//                }
+//            }
+//        }
+//    };
 
     private void toast(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
@@ -612,13 +613,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.other_member_menu, menu);
-
-
-        MenuItem actionMalaria = menu.findItem(R.id.action_malaria_confirmation);
-        if(BuildConfig.BUILD_COUNTRY == Country.LIBERIA && actionMalaria != null) {
-            actionMalaria.setVisible(false);
-        }
-
+        ChildProfileActivityFlv.onCreateOptionsMenu(menu);
         return true;
     }
 
