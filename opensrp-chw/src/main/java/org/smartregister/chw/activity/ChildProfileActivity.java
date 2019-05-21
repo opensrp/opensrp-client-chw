@@ -75,6 +75,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     private String lastVisitDay;
     private FamilyMemberFloatingMenu familyFloatingMenu;
     private OnClickFloatingMenu onClickFloatingMenu;
+    private ChildProfileActivityFlv flavor = new ChildProfileActivityFlv();
 
     @Override
     public void updateHasPhone(boolean hasPhone) {
@@ -121,7 +122,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
         imageRenderHelper = new ImageRenderHelper(this);
 
         initializePresenter();
-        onClickFloatingMenu = ChildProfileActivityFlv.getOnClickFloatingMenu(this, (ChildProfilePresenter) presenter);
+        onClickFloatingMenu = flavor.getOnClickFloatingMenu(this, (ChildProfilePresenter) presenter);
 
         setupViews();
         setUpToolbar();
@@ -638,5 +639,9 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
 
 
         }
+    }
+
+    public interface Flavor {
+        OnClickFloatingMenu getOnClickFloatingMenu(Activity activity, ChildProfilePresenter presenter);
     }
 }

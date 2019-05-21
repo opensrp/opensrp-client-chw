@@ -10,7 +10,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -61,6 +60,7 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
     private RelativeLayout layoutFamilyHasRow;
 
     private OnClickFloatingMenu onClickFloatingMenu;
+    private FamilyOtherMemberProfileActivityFlv flavor = new FamilyOtherMemberProfileActivityFlv();
 
     @Override
     protected void onCreation() {
@@ -95,7 +95,7 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
         familyName = getIntent().getStringExtra(Constants.INTENT_KEY.FAMILY_NAME);
         presenter = new FamilyOtherMemberActivityPresenter(this, new BaseFamilyOtherMemberProfileActivityModel(), null, familyBaseEntityId, baseEntityId, familyHead, primaryCaregiver, villageTown, familyName);
 
-        onClickFloatingMenu = FamilyOtherMemberProfileActivityFlv.getOnClickFloatingMenu(this, familyBaseEntityId);
+        onClickFloatingMenu = flavor.getOnClickFloatingMenu(this, familyBaseEntityId);
     }
 
     @Override
@@ -171,6 +171,12 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
         }
 
         getMenuInflater().inflate(R.menu.other_member_menu, menu);
+
+        if (flavor.isWra(commonPersonObject)) {
+            menu.findItem(R.id.action_anc_registration).setVisible(true);
+        } else {
+            menu.findItem(R.id.action_anc_registration).setVisible(false);
+        }
         return true;
     }
 
@@ -323,5 +329,23 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
 
         intent.putExtra(org.smartregister.chw.util.Constants.INTENT_KEY.SERVICE_DUE, true);
         startActivity(intent);
+    }
+
+    /**
+     * build implementation differences file
+     */
+    public interface Flavor {
+        /**
+         * Return implementation menu
+         */
+        OnClickFloatingMenu getOnClickFloatingMenu(final Activity activity, final String familyBaseEntityId);
+
+        /**
+         * calculate wra validity for each implementation
+         *
+         * @param commonPersonObject
+         * @return
+         */
+        boolean isWra(CommonPersonObjectClient commonPersonObject);
     }
 }
