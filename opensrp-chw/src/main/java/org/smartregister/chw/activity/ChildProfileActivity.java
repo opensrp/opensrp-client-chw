@@ -97,10 +97,6 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
         }
     }
 
-    private void toast(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-    }
-
     @Override
     protected void onCreation() {
         setContentView(R.layout.activity_child_profile);
