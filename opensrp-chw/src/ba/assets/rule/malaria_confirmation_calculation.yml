@@ -1,0 +1,7 @@
+---
+name: step1_malaria_test_date
+description: date of malaria test calculation
+priority: 1
+condition: "true"
+actions:
+  - "calculation = step1_date_hf_malaria_test != ''? step1_date_hf_malaria_test : step1_date_chw_malaria_test"
