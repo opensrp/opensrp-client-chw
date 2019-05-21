@@ -58,6 +58,24 @@
     "next": "step2",
     "fields": [
       {
+        "key": "date_chw_malaria_test",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "date_picker",
+        "hint": "Today",
+        "expanded": false,
+        "duration": {
+          "label": "Registration date"
+        },
+        "min_date": "today",
+        "max_date": "today",
+        "v_required": {
+          "value": "true",
+          "err": "Please pick the date"
+        }
+      },
+      {
         "key": "fever_malaria_chw",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
@@ -129,7 +147,7 @@
         "hint": "Date of malaria test at health facility",
         "expanded": false,
         "duration": {
-          "label": "Date of malaria test at health facility"
+          "label": "Date"
         },
         "min_date": "today-120y",
         "max_date": "today",
@@ -141,6 +159,31 @@
           "rules-engine": {
             "ex-rules": {
               "rules-file": "tz_malaria_confirmation_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "malaria_test_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "date_picker",
+        "hint": "Today",
+        "expanded": false,
+        "duration": {
+          "label": "test date"
+        },
+        "min_date": "today",
+        "max_date": "today",
+        "v_required": {
+          "value": "true",
+          "err": "Please pick the date"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "tz_malaria_confirmation_calculation.yml"
             }
           }
         }

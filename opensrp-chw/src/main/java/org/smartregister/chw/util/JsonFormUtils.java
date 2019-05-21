@@ -124,7 +124,6 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
 
     }
 
-
     public static Pair<Client, Event> processCounselingForm(AllSharedPreferences allSharedPreferences, String jsonString) {
         try {
 
