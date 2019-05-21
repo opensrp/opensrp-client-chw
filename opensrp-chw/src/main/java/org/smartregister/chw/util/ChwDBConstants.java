@@ -14,5 +14,6 @@ public interface ChwDBConstants {
     String SERVICE_PROVIDER = "service_provider";
     String LEADER = "leader";
     String OTHER_LEADER = "leader_other";
+    String WRA = "wra";
 
 }
