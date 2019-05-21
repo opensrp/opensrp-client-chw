@@ -18,6 +18,7 @@ import org.smartregister.chw.activity.LoginActivity;
 import org.smartregister.chw.helper.RulesEngineHelper;
 import org.smartregister.chw.job.ChwJobCreator;
 import org.smartregister.chw.repository.ChwRepository;
+import org.smartregister.chw.repository.HomeVisitIndicatorInfoRepository;
 import org.smartregister.chw.repository.HomeVisitRepository;
 import org.smartregister.chw.sync.ChwClientProcessor;
 import org.smartregister.chw.util.ChildDBConstants;
@@ -62,6 +63,7 @@ public class ChwApplication extends DrishtiApplication {
 
     private static CommonFtsObject commonFtsObject;
     private static HomeVisitRepository homeVisitRepository;
+    private static HomeVisitIndicatorInfoRepository homeVisitIndicatorInfoRepository;
 
     private JsonSpecHelper jsonSpecHelper;
     private ECSyncHelper ecSyncHelper;
@@ -114,6 +116,28 @@ public class ChwApplication extends DrishtiApplication {
                     .LAST_INTERACTED_WITH, ChildDBConstants.KEY.DATE_CREATED, DBConstants.KEY.DATE_REMOVED, DBConstants.KEY.DOB};
         }
         return null;
+    }
+
+    public static ClientProcessorForJava getClientProcessor(android.content.Context context) {
+        if (clientProcessor == null) {
+            clientProcessor = ChwClientProcessor.getInstance(context);
+//            clientProcessor = FamilyLibrary.getInstance().getClientProcessorForJava();
+        }
+        return clientProcessor;
+    }
+
+    public static HomeVisitRepository homeVisitRepository() {
+        if (homeVisitRepository == null) {
+            homeVisitRepository = new HomeVisitRepository(getInstance().getRepository(), getInstance().getContext().commonFtsObject(), getInstance().getContext().alertService());
+        }
+        return homeVisitRepository;
+    }
+
+    public static HomeVisitIndicatorInfoRepository homeVisitIndicatorInfoRepository() {
+        if (homeVisitIndicatorInfoRepository == null) {
+            homeVisitIndicatorInfoRepository = new HomeVisitIndicatorInfoRepository(getInstance().getRepository());
+        }
+        return homeVisitIndicatorInfoRepository;
     }
 
     @Override
@@ -171,7 +195,6 @@ public class ChwApplication extends DrishtiApplication {
         }
     }
 
-
     public void setOpenSRPUrl() {
         AllSharedPreferences preferences = Utils.getAllSharedPreferences();
         if (BuildConfig.DEBUG) {
@@ -185,7 +208,6 @@ public class ChwApplication extends DrishtiApplication {
         AllSharedPreferences allSharedPreferences = ChwApplication.getInstance().getContext().allSharedPreferences();
         allSharedPreferences.saveLanguagePreference(language);
     }
-
 
     @Override
     public void logoutCurrentUser() {
@@ -278,20 +300,5 @@ public class ChwApplication extends DrishtiApplication {
 
     public AllCommonsRepository getAllCommonsRepository(String table) {
         return ChwApplication.getInstance().getContext().allCommonsRepositoryobjects(table);
-    }
-
-    public static ClientProcessorForJava getClientProcessor(android.content.Context context) {
-        if (clientProcessor == null) {
-            clientProcessor = ChwClientProcessor.getInstance(context);
-//            clientProcessor = FamilyLibrary.getInstance().getClientProcessorForJava();
-        }
-        return clientProcessor;
-    }
-
-    public static HomeVisitRepository homeVisitRepository() {
-        if (homeVisitRepository == null) {
-            homeVisitRepository = new HomeVisitRepository(getInstance().getRepository(), getInstance().getContext().commonFtsObject(), getInstance().getContext().alertService());
-        }
-        return homeVisitRepository;
     }
 }
