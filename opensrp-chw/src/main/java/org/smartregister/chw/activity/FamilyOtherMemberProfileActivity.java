@@ -65,33 +65,7 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
     private RelativeLayout layoutFamilyHasRow;
     private WeakReference<FamilyOtherMemberProfileExtendedContract.View> view;
     private FormUtils formUtils = null;
-
-    private OnClickFloatingMenu onClickFloatingMenu = new OnClickFloatingMenu() {
-        @Override
-        public void onClickMenu(int viewId) {
-
-//            if (Country.LIBERIA.equals(BuildConfig.BUILD_COUNTRY)) {
-//                switch (viewId) {
-//                    case R.id.fab:
-//                        FamilyCallDialogFragment.launchDialog(FamilyOtherMemberProfileActivity.this, familyBaseEntityId);
-//                        break;
-//                    default:
-//                        break;
-//                }
-////            } else {
-//                switch (viewId) {
-//                    case R.id.call_layout:
-//                        FamilyCallDialogFragment.launchDialog(FamilyOtherMemberProfileActivity.this, familyBaseEntityId);
-//                        break;
-//                    case R.id.refer_to_facility_fab:
-//                        toast("Refer to facility");
-//                        break;
-//                    default:
-//                        break;
-//                }
-//            }
-        }
-    };
+    private OnClickFloatingMenu onClickFloatingMenu;
 
     private void toast(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
