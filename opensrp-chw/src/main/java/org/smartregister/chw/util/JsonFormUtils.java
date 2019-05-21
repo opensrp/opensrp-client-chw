@@ -165,12 +165,16 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
         }
         return actionMap;
     }
+    public static HashMap<String, String> getChoice(Context context) {
+        HashMap<String, String> choices = new HashMap<>();
+        choices.put(context.getResources().getString(R.string.yes), "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+        choices.put(context.getResources().getString(R.string.no), "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+        return choices;
+    }
 
-    private static List<Object> toList(String... vals) {
+    public static List<Object> toList(String... vals) {
         List<Object> res = new ArrayList<>();
-        for (String s : vals) {
-            res.add(s);
-        }
+        res.addAll(Arrays.asList(vals));
         return res;
     }
 

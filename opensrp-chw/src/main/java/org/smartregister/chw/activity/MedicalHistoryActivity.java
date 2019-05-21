@@ -36,9 +36,10 @@ public class MedicalHistoryActivity extends SecuredActivity implements MedicalHi
 
     private TextView textViewTitle;
     private TextView textViewLastVisit;
-    private LinearLayout layoutImmunization, layoutGrowthAndNutrition, layoutBirthCert, layoutIllness;
+    private LinearLayout layoutImmunization, layoutGrowthAndNutrition, layoutBirthCert, layoutIllness,layoutVaccineCard;
     private RelativeLayout layoutFullyImmunizationBarAge1, layoutFullyImmunizationBarAge2;
     private RecyclerView recyclerViewImmunization, recyclerViewGrowthNutrition, recyclerViewBirthCert, recyclerViewIllness;
+    private TextView textViewVaccineCardText;
     private Map<String, Date> vaccineList;
     private String dateOfBirth;
     private CommonPersonObjectClient childClient;
@@ -69,7 +70,8 @@ public class MedicalHistoryActivity extends SecuredActivity implements MedicalHi
         layoutFullyImmunizationBarAge2 = findViewById(R.id.immu_bar_age_2);
         layoutBirthCert = findViewById(R.id.birth_cert_list);
         layoutIllness = findViewById(R.id.illness_list);
-        // TextView textViewFullyImmunization = findViewById(R.id.fully_immunized);
+        layoutVaccineCard = findViewById(R.id.vaccine_card_list);
+        textViewVaccineCardText = findViewById(R.id.vaccine_card_text);
         recyclerViewImmunization = findViewById(R.id.immunization_recycler_view);
         recyclerViewGrowthNutrition = findViewById(R.id.recycler_view_growth);
         recyclerViewBirthCert = findViewById(R.id.recycler_view_birth);
@@ -233,6 +235,11 @@ public class MedicalHistoryActivity extends SecuredActivity implements MedicalHi
         }
     }
 
+    @Override
+    public void updateVaccineCard(String value) {
+        layoutVaccineCard.setVisibility(View.VISIBLE);
+        textViewVaccineCardText.setText(String.format("%s %s",getString(R.string.vaccine_card_text),value));
+    }
 
     @Override
     public MedicalHistoryContract.Presenter initializePresenter() {

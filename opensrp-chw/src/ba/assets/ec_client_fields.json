@@ -472,6 +472,14 @@
             "field": "obs.fieldCode",
             "concept": "164378AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
+        },
+        {
+          "column_name": "vaccine_card",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "formSubmissionField": "vaccine_card"
+          }
         }
       ]
     },

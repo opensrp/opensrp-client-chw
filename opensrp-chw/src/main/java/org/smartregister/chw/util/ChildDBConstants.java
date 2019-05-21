@@ -29,6 +29,7 @@ public class ChildDBConstants {
         public static final String ILLNESS_ACTION = "action_taken";
         public static final String EVENT_DATE = "event_date";
         public static final String EVENT_TYPE = "event_type";
+        public static final String VACCINE_CARD = "vaccine_card";
 
         // Family child visit status
         //public static final String CHILD_VISIT_STATUS = "child_visit_status";
