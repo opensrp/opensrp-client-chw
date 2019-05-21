@@ -13,6 +13,7 @@ import org.smartregister.job.ImageUploadServiceJob;
 import org.smartregister.job.PullUniqueIdsServiceJob;
 import org.smartregister.job.SyncServiceJob;
 import org.smartregister.job.ValidateSyncDataServiceJob;
+import org.smartregister.reporting.job.RecurringIndicatorGeneratingJob;
 
 /**
  * Created by keyman on 27/11/2018.
@@ -34,6 +35,8 @@ public class ChwJobCreator implements JobCreator {
                 return new VaccineRecurringServiceJob();
             case ImageUploadServiceJob.TAG:
                 return new ImageUploadServiceJob();
+            case RecurringIndicatorGeneratingJob.TAG:
+                return new RecurringIndicatorGeneratingJob();
             default:
                 Log.d(ChwJobCreator.class.getCanonicalName(), "Looks like you tried to create a job " + tag + " that is not declared in the Anc Job Creator");
                 return null;

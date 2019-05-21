@@ -94,20 +94,8 @@
                 android:layout_height="1px"
                 android:background="@color/light_grey" />
 
-            <org.smartregister.chw.custom_view.ImmunizationEditView
-                android:id="@+id/immunization_edit_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/child_home_visit_left_margin"
-                android:layout_marginLeft="@dimen/child_home_visit_left_margin"
-                android:layout_marginEnd="@dimen/child_home_visit_right_margin"
-                android:layout_marginRight="@dimen/child_home_visit_right_margin"
-                android:visibility="gone">
-
-            </org.smartregister.chw.custom_view.ImmunizationEditView>
-
-            <org.smartregister.chw.custom_view.HomeVisitImmunizationView
-                android:id="@+id/home_visit_immunization_view"
+            <org.smartregister.chw.custom_view.ImmunizationView
+                android:id="@+id/immunization_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/child_home_visit_left_margin"
@@ -115,7 +103,8 @@
                 android:layout_marginEnd="@dimen/child_home_visit_right_margin"
                 android:layout_marginRight="@dimen/child_home_visit_right_margin">
 
-            </org.smartregister.chw.custom_view.HomeVisitImmunizationView>
+            </org.smartregister.chw.custom_view.ImmunizationView>
+
 
             <org.smartregister.chw.custom_view.HomeVisitGrowthAndNutrition
                 android:id="@+id/growth_and_nutrition_group"
@@ -127,6 +116,7 @@
                 android:layout_marginRight="@dimen/child_home_visit_right_margin">
 
             </org.smartregister.chw.custom_view.HomeVisitGrowthAndNutrition>
+
 
             <LinearLayout
                 android:id="@+id/birth_cert_group"
@@ -262,74 +252,6 @@
                         android:visibility="gone">
 
                     </android.support.v7.widget.RecyclerView>
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <View
-                android:id="@+id/line_obs_illness_prevention_group"
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:layout_marginStart="@dimen/child_home_visit_left_margin"
-                android:layout_marginLeft="@dimen/child_home_visit_left_margin"
-                android:layout_marginEnd="@dimen/child_home_visit_right_margin"
-                android:layout_marginRight="@dimen/child_home_visit_right_margin"
-                android:background="@color/light_grey" />
-
-            <LinearLayout
-                android:id="@+id/ll_counselling"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/child_home_visit_left_margin"
-                android:layout_marginLeft="@dimen/child_home_visit_left_margin"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="@dimen/child_home_visit_right_margin"
-                android:layout_marginRight="@dimen/child_home_visit_right_margin"
-                android:layout_marginBottom="20dp"
-                android:orientation="horizontal"
-                android:visibility="gone">
-
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/ci_counselling"
-                    android:layout_width="@dimen/immunization_status_circle_size"
-                    android:layout_height="@dimen/immunization_status_circle_size"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
-                    android:src="@color/white"
-                    app:civ_border_color="@color/dark_grey"
-                    app:civ_border_width="1dp" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <org.smartregister.view.customcontrols.CustomFontTextView
-                        android:id="@+id/tv_counselling"
-                        style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Counselling"
-
-                        android:gravity="center_vertical"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                        android:textColor="@android:color/black" />
-
-                    <org.smartregister.view.customcontrols.CustomFontTextView
-                        android:id="@+id/tv_counselling_details"
-                        style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:clickable="false"
-                        android:gravity="center_vertical"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                        android:textColor="@android:color/darker_gray"
-                        android:visibility="gone" />
 
                 </LinearLayout>
 

@@ -2,8 +2,6 @@ package org.smartregister.chw.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 
@@ -62,14 +60,15 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
             dueCount = count;
             ((FamilyProfileActivity) getActivity()).updateDueCount(dueCount);
         }
+        if (getActivity() != null) {
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
 
-        Handler handler = new Handler(Looper.getMainLooper());
-        handler.post(new Runnable() {
-            public void run() {
-                // UI code goes here
-                onEmptyRegisterCount(count < 1);
-            }
-        });
+                    onEmptyRegisterCount(count < 1);
+                }
+            });
+        }
     }
 
     @Override
@@ -78,7 +77,7 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
         emptyView = view.findViewById(R.id.empty_view);
     }
 
-    public void onEmptyRegisterCount(boolean has_no_records) {
+    public void onEmptyRegisterCount(final boolean has_no_records) {
         if (emptyView != null) {
             emptyView.setVisibility(has_no_records ? View.VISIBLE : View.GONE);
         }

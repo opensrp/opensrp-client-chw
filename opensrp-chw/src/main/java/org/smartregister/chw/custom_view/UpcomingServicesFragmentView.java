@@ -11,35 +11,30 @@ import android.widget.TextView;
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.UpcomingServicesActivity;
 import org.smartregister.chw.contract.HomeVisitGrowthNutritionContract;
-import org.smartregister.chw.contract.HomeVisitImmunizationContract;
+import org.smartregister.chw.contract.ImmunizationContact;
 import org.smartregister.chw.interactor.HomeVisitGrowthNutritionInteractor;
-import org.smartregister.chw.presenter.HomeVisitImmunizationPresenter;
+import org.smartregister.chw.presenter.ImmunizationViewPresenter;
 import org.smartregister.chw.util.ChildUtils;
 import org.smartregister.chw.util.GrowthServiceData;
 import org.smartregister.chw.util.HomeVisitVaccineGroup;
 import org.smartregister.chw.util.ImmunizationState;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
-import org.smartregister.domain.Alert;
 import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.immunization.domain.ServiceWrapper;
-import org.smartregister.immunization.domain.Vaccine;
-
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 
 import static org.apache.commons.lang3.StringUtils.isBlank;
 
-public class UpcomingServicesFragmentView extends LinearLayout implements View.OnClickListener, HomeVisitImmunizationContract.View {
+public class UpcomingServicesFragmentView extends LinearLayout implements View.OnClickListener, ImmunizationContact.View {
 
 
-    private HomeVisitImmunizationPresenter presenter;
-    private Activity context;
-    private CommonPersonObjectClient childClient;
+    private ImmunizationViewPresenter presenter;
     private Map<String, View> viewMap = new LinkedHashMap<>();
+    private CommonPersonObjectClient childClient;
+    private Activity context;
 
     public UpcomingServicesFragmentView(Context context) {
         super(context);
@@ -64,38 +59,13 @@ public class UpcomingServicesFragmentView extends LinearLayout implements View.O
 
     }
 
-    @Override
-    public void setActivity(Activity activity) {
-
-        this.context = activity;
-    }
-
-
-    @Override
-    public void setChildClient(CommonPersonObjectClient childClient) {
-        presenter.setChildClient(childClient);
+    public void setChildClient(Activity context,CommonPersonObjectClient childClient){
         this.childClient = childClient;
-
+        this.context = context;
+        removeAllViews();
+        presenter.fetchImmunizationData(childClient,"");
     }
 
-    @Override
-    public void refreshPresenter(List<Alert> alerts, List<Vaccine> vaccines, List<Map<String, Object>> sch) {
-        presenter.createAllVaccineGroups(alerts, vaccines, sch);
-        presenter.getVaccinesNotGivenLastVisit();
-        presenter.calculateCurrentActiveGroup();
-
-        ArrayList<HomeVisitVaccineGroup> homeVisitVaccineGroupList = presenter.getAllgroups();
-        for (HomeVisitVaccineGroup homeVisitVaccineGroup : homeVisitVaccineGroupList) {
-            if (homeVisitVaccineGroup.getNotGivenVaccines().size() > 0 && (homeVisitVaccineGroup.getAlert().equals(ImmunizationState.DUE)
-                    || homeVisitVaccineGroup.getAlert().equals(ImmunizationState.OVERDUE)
-                    || homeVisitVaccineGroup.getAlert().equals(ImmunizationState.UPCOMING))) {
-                    addView(createUpcomingServicesCard(homeVisitVaccineGroup));
-            }
-        }
-
-        getUpcomingGrowthNutritonData();
-
-    }
 
     private View createUpcomingServicesCard(HomeVisitVaccineGroup homeVisitVaccineGroupDetail) {
         View view = context.getLayoutInflater().inflate(R.layout.upcoming_service_row, null);
@@ -136,16 +106,43 @@ public class UpcomingServicesFragmentView extends LinearLayout implements View.O
         return view;
     }
 
+
     @Override
-    public HomeVisitImmunizationContract.Presenter initializePresenter() {
-        presenter = new HomeVisitImmunizationPresenter(this);
+    public ImmunizationContact.Presenter initializePresenter() {
+        presenter = new ImmunizationViewPresenter(this);
         return presenter;
     }
 
     @Override
-    public HomeVisitImmunizationContract.Presenter getPresenter() {
-        return presenter;
+    public void allDataLoaded() {
+
     }
+
+    @Override
+    public void updateSubmitBtn() {
+        //no need to do
+    }
+
+    @Override
+    public void onUpdateNextPosition() {
+        //no need to do
+    }
+
+    @Override
+    public void updateAdapter(int position) {
+        ArrayList<HomeVisitVaccineGroup> homeVisitVaccineGroupList = presenter.getHomeVisitVaccineGroupDetails();
+        for (HomeVisitVaccineGroup homeVisitVaccineGroup : homeVisitVaccineGroupList) {
+            if (homeVisitVaccineGroup.getNotGivenVaccines().size() > 0 && (homeVisitVaccineGroup.getAlert().equals(ImmunizationState.DUE)
+                    || homeVisitVaccineGroup.getAlert().equals(ImmunizationState.OVERDUE)
+                    || homeVisitVaccineGroup.getAlert().equals(ImmunizationState.UPCOMING))) {
+                addView(createUpcomingServicesCard(homeVisitVaccineGroup));
+            }
+        }
+
+        getUpcomingGrowthNutritonData();
+
+    }
+
 
     private void getUpcomingGrowthNutritonData() {
         final HomeVisitGrowthNutritionInteractor homeVisitGrowthNutritionInteractor = new HomeVisitGrowthNutritionInteractor();
@@ -163,10 +160,6 @@ public class UpcomingServicesFragmentView extends LinearLayout implements View.O
             @Override
             public void updateGivenRecordVisitData(final Map<String, ServiceWrapper> stringServiceWrapperMap) {
 
-//
-//                new Handler().postDelayed(new Runnable() {
-//                    @Override
-//                    public void run() {
                 try {
                     ArrayList<GrowthServiceData> growthServiceDataList = homeVisitGrowthNutritionInteractor.getAllDueService(stringServiceWrapperMap);
                     String lastDate = "";
@@ -210,10 +203,6 @@ public class UpcomingServicesFragmentView extends LinearLayout implements View.O
                     }
                 }
             }
-
-//                }, 200);
-//
-//            }
         });
     }
 
@@ -228,19 +217,7 @@ public class UpcomingServicesFragmentView extends LinearLayout implements View.O
     }
 
     @Override
-    public void updateImmunizationState() {
-        removeAllViews();
-        presenter.updateImmunizationState(this);
-
-    }
-
-    @Override
     public void onClick(View v) {
 
-    }
-
-    @Override
-    public void immunizationState(List<Alert> alerts, List<Vaccine> vaccines, Map<String, Date> receivedVaccine, List<Map<String, Object>> sch) {
-        refreshPresenter(alerts, vaccines, sch);
     }
 }

@@ -6,13 +6,10 @@ import android.util.Log;
 import net.sqlcipher.database.SQLiteDatabase;
 
 import org.apache.commons.lang3.StringUtils;
+import org.smartregister.AllConstants;
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.application.ChwApplication;
-import org.smartregister.AllConstants;
-import org.smartregister.chw.util.Country;
-import org.smartregister.chw.util.RepositoryUtils;
 import org.smartregister.configurableviews.repository.ConfigurableViewsRepository;
-import org.smartregister.domain.db.Column;
 import org.smartregister.immunization.ImmunizationLibrary;
 import org.smartregister.immunization.repository.RecurringServiceRecordRepository;
 import org.smartregister.immunization.repository.RecurringServiceTypeRepository;
@@ -20,7 +17,10 @@ import org.smartregister.immunization.repository.VaccineNameRepository;
 import org.smartregister.immunization.repository.VaccineRepository;
 import org.smartregister.immunization.repository.VaccineTypeRepository;
 import org.smartregister.immunization.util.IMDatabaseUtils;
-import org.smartregister.repository.AlertRepository;
+import org.smartregister.reporting.ReportingLibrary;
+import org.smartregister.reporting.repository.DailyIndicatorCountRepository;
+import org.smartregister.reporting.repository.IndicatorQueryRepository;
+import org.smartregister.reporting.repository.IndicatorRepository;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.repository.Repository;
 import org.smartregister.repository.SettingsRepository;
@@ -35,6 +35,9 @@ public class ChwRepository extends Repository {
     protected SQLiteDatabase readableDatabase;
     protected SQLiteDatabase writableDatabase;
     private Context context;
+    private String indicatorsConfigFile = "config/indicator-definitions.yml";
+    private String indicatorDataInitialisedPref = "INDICATOR_DATA_INITIALISED";
+    private String appVersionCodePref = "APP_VERSION_CODE";
 
     public ChwRepository(Context context, org.smartregister.Context openSRPContext) {
         super(context, AllConstants.DATABASE_NAME, BuildConfig.DATABASE_VERSION, openSRPContext.session(), ChwApplication.createCommonFtsObject(), openSRPContext.sharedRepositoriesArray());
@@ -57,12 +60,27 @@ public class ChwRepository extends Repository {
 
         RecurringServiceTypeRepository.createTable(database);
         RecurringServiceRecordRepository.createTable(database);
+
+        IndicatorRepository.createTable(database);
+        IndicatorQueryRepository.createTable(database);
+        DailyIndicatorCountRepository.createTable(database);
+
         //onUpgrade(database, 1, 2);
         RecurringServiceTypeRepository recurringServiceTypeRepository = ImmunizationLibrary.getInstance().recurringServiceTypeRepository();
         IMDatabaseUtils.populateRecurringServices(context, database, recurringServiceTypeRepository);
 
-
         onUpgrade(database, 1, BuildConfig.DATABASE_VERSION);
+
+        ReportingLibrary reportingLibraryInstance = ReportingLibrary.getInstance();
+        // Check if indicator data initialised
+        boolean indicatorDataInitialised = Boolean.parseBoolean(reportingLibraryInstance.getContext()
+                .allSharedPreferences().getPreference(indicatorDataInitialisedPref));
+        boolean isUpdated = checkIfAppUpdated();
+        if (!indicatorDataInitialised || isUpdated) {
+            reportingLibraryInstance.initIndicatorData(indicatorsConfigFile, database); // This will persist the data in the DB
+            reportingLibraryInstance.getContext().allSharedPreferences().savePreference(indicatorDataInitialisedPref, "true");
+            reportingLibraryInstance.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(BuildConfig.VERSION_CODE));
+        }
 
     }
 
@@ -71,47 +89,17 @@ public class ChwRepository extends Repository {
         Log.w(ChwRepository.class.getName(),
                 "Upgrading database from version " + oldVersion + " to "
                         + newVersion + ", which will destroy all old data");
-        int upgradeTo = oldVersion + 1;
-        while (upgradeTo <= newVersion) {
-            switch (upgradeTo) {
-                case 2:
-                    upgradeToVersion2(db);
-                    break;
-                case 3:
-                    upgradeToVersion3(db);
-                    break;
-                case 4:
-                    upgradeToVersion4(db);
-                    break;
-                case 5:
-                    upgradeToVersion5(db);
-                    break;
-                case 6:
-                    upgradeToVersion6(db);
-                    break;
-                case 7:
-                    upgradeToVersion7(db);
-                    break;
-                case 8:
-                    upgradeToVersion8(db);
-                    break;
-                case 9:
-                    upgradeToVersion9(db);
-                    break;
-                default:
-                    break;
-            }
-            upgradeTo++;
-        }
+
+        ChwRepositoryFlv.onUpgrade(context, db, oldVersion, newVersion);
     }
 
 
     @Override
     public SQLiteDatabase getReadableDatabase() {
         String pass = ChwApplication.getInstance().getPassword();
-        if(StringUtils.isNotBlank(pass)){
+        if (StringUtils.isNotBlank(pass)) {
             return getReadableDatabase(pass);
-        }else{
+        } else {
             throw new IllegalStateException("Password is blank");
         }
     }
@@ -119,9 +107,9 @@ public class ChwRepository extends Repository {
     @Override
     public SQLiteDatabase getWritableDatabase() {
         String pass = ChwApplication.getInstance().getPassword();
-        if(StringUtils.isNotBlank(pass)){
+        if (StringUtils.isNotBlank(pass)) {
             return getWritableDatabase(pass);
-        }else{
+        } else {
             throw new IllegalStateException("Password is blank");
         }
     }
@@ -166,116 +154,13 @@ public class ChwRepository extends Repository {
         super.close();
     }
 
-    private void upgradeToVersion2(SQLiteDatabase db) {
-        try {
-            db.execSQL(VaccineRepository.UPDATE_TABLE_ADD_EVENT_ID_COL);
-            db.execSQL(VaccineRepository.EVENT_ID_INDEX);
-            db.execSQL(VaccineRepository.UPDATE_TABLE_ADD_FORMSUBMISSION_ID_COL);
-            db.execSQL(VaccineRepository.FORMSUBMISSION_INDEX);
-
-            db.execSQL(VaccineRepository.UPDATE_TABLE_ADD_OUT_OF_AREA_COL);
-            db.execSQL(VaccineRepository.UPDATE_TABLE_ADD_OUT_OF_AREA_COL_INDEX);
-
-//            EventClientRepository.createTable(db, EventClientRepository.Table.path_reports, EventClientRepository.report_column.values());
-            db.execSQL(VaccineRepository.UPDATE_TABLE_ADD_HIA2_STATUS_COL);
-
-            IMDatabaseUtils.accessAssetsAndFillDataBaseForVaccineTypes(context, db);
-
-        } catch (Exception e) {
-            Log.e(TAG, "upgradeToVersion2 " + Log.getStackTraceString(e));
-        }
-
-    }
-
-    private void upgradeToVersion3(SQLiteDatabase db) {
-        try {
-            Column[] columns = {EventClientRepository.event_column.formSubmissionId};
-            EventClientRepository.createIndex(db, EventClientRepository.Table.event, columns);
-
-            db.execSQL(VaccineRepository.ALTER_ADD_CREATED_AT_COLUMN);
-            VaccineRepository.migrateCreatedAt(db);
-
-            db.execSQL(RecurringServiceRecordRepository.ALTER_ADD_CREATED_AT_COLUMN);
-            RecurringServiceRecordRepository.migrateCreatedAt(db);
-        } catch (Exception e) {
-            Log.e(TAG, "upgradeToVersion3 " + Log.getStackTraceString(e));
-        }
-        try {
-            Column[] columns = {EventClientRepository.event_column.formSubmissionId};
-            EventClientRepository.createIndex(db, EventClientRepository.Table.event, columns);
-
-
-        } catch (Exception e) {
-            Log.e(TAG, "upgradeToVersion3 " + e.getMessage());
+    private boolean checkIfAppUpdated() {
+        String savedAppVersion = ReportingLibrary.getInstance().getContext().allSharedPreferences().getPreference(appVersionCodePref);
+        if (savedAppVersion.isEmpty()) {
+            return true;
+        } else {
+            int savedVersion = Integer.parseInt(savedAppVersion);
+            return (BuildConfig.VERSION_CODE > savedVersion);
         }
     }
-
-    private void upgradeToVersion4(SQLiteDatabase db) {
-        try {
-            db.execSQL(AlertRepository.ALTER_ADD_OFFLINE_COLUMN);
-            db.execSQL(AlertRepository.OFFLINE_INDEX);
-            db.execSQL(VaccineRepository.UPDATE_TABLE_ADD_TEAM_COL);
-            db.execSQL(VaccineRepository.UPDATE_TABLE_ADD_TEAM_ID_COL);
-            db.execSQL(RecurringServiceRecordRepository.UPDATE_TABLE_ADD_TEAM_COL);
-            db.execSQL(RecurringServiceRecordRepository.UPDATE_TABLE_ADD_TEAM_ID_COL);
-        } catch (Exception e) {
-            Log.e(TAG, "upgradeToVersion4 " + Log.getStackTraceString(e));
-        }
-
-    }
-
-    private void upgradeToVersion5(SQLiteDatabase db) {
-        try {
-            db.execSQL(VaccineRepository.UPDATE_TABLE_ADD_CHILD_LOCATION_ID_COL);
-            db.execSQL(RecurringServiceRecordRepository.UPDATE_TABLE_ADD_CHILD_LOCATION_ID_COL);
-        } catch (Exception e) {
-            Log.e(TAG, "upgradeToVersion5 " + Log.getStackTraceString(e));
-        }
-    }
-
-    private void upgradeToVersion6(SQLiteDatabase db) {
-        try {
-            if (BuildConfig.BUILD_COUNTRY == Country.TANZANIA) {
-                for (String query : RepositoryUtils.UPGRADE_V6) {
-                    db.execSQL(query);
-                }
-            }
-        } catch (Exception e) {
-            Log.e(TAG, "upgradeToVersion6 " + Log.getStackTraceString(e));
-        }
-    }
-
-    private void upgradeToVersion7(SQLiteDatabase db) {
-        try {
-            db.execSQL(HomeVisitRepository.UPDATE_TABLE_ADD_VACCINE_NOT_GIVEN);
-            db.execSQL(HomeVisitRepository.UPDATE_TABLE_ADD_SERVICE_NOT_GIVEN);
-        } catch (Exception e) {
-            Log.e(TAG, "upgradeToVersion7 " + Log.getStackTraceString(e));
-        }
-    }
-
-    private void upgradeToVersion8(SQLiteDatabase db) {
-        try {
-            if (BuildConfig.BUILD_COUNTRY == Country.TANZANIA) {
-                for (String query : RepositoryUtils.UPGRADE_V8) {
-                    db.execSQL(query);
-                }
-            }
-        }catch (Exception e) {
-            Log.e(TAG, "upgradeToVersion8 " + Log.getStackTraceString(e));
-        }
-    }
-
-    private void upgradeToVersion9(SQLiteDatabase db) {
-        try {
-            if (BuildConfig.BUILD_COUNTRY == Country.TANZANIA) {
-                for (String query : RepositoryUtils.UPGRADE_V9) {
-                    db.execSQL(query);
-                }
-            }
-        }catch (Exception e) {
-            Log.e(TAG, "upgradeToVersion9 " + Log.getStackTraceString(e));
-        }
-    }
-
 }
