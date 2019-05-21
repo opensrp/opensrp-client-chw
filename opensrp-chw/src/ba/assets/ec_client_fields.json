@@ -39,6 +39,13 @@
           }
         },
         {
+          "column_name": "landmark",
+          "type": "Client",
+          "json_mapping": {
+            "field": "addresses.landmark"
+          }
+        },
+        {
           "column_name": "gps",
           "type": "Event",
           "json_mapping": {
@@ -48,9 +55,10 @@
         },
         {
           "column_name": "nearest_facility",
-          "type": "Client",
+          "type": "Event",
           "json_mapping": {
-            "field": "attributes.nearest_facility"
+            "field": "obs.fieldCode",
+            "concept": "162724AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         },
         {
@@ -174,58 +182,51 @@
         },
         {
           "column_name": "national_id",
-          "type": "Event",
+          "type": "Client",
           "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "national_id"
+            "field": "attributes.National_ID"
           }
         },
         {
           "column_name": "voter_id",
-          "type": "Event",
+          "type": "Client",
           "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "voter_id"
+            "field": "attributes.Voter_Registration_Number"
           }
         },
         {
           "column_name": "driver_license",
-          "type": "Event",
+          "type": "Client",
           "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "driver_license"
+            "field": "attributes.Driver_License_Number"
           }
         },
         {
           "column_name": "passport",
-          "type": "Event",
+          "type": "Client",
           "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "passport"
+            "field": "attributes.Passport_Number"
           }
         },
         {
           "column_name": "insurance_provider",
-          "type": "Event",
+          "type": "Client",
           "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "insurance_provider"
+            "field": "attributes.Health_Insurance_Type"
           }
         },
         {
           "column_name": "insurance_provider_other",
-          "type": "Event",
+          "type": "Client",
           "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "insurance_provider_other"
+            "field": "attributes.Other_Health_Insurance_Type"
           }
         },
         {
           "column_name": "insurance_provider_number",
-          "type": "Event",
+          "type": "Client",
           "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "insurance_provider_number"
+            "field": "attributes.Health_Insurance_Number"
           }
         },
         {
@@ -233,7 +234,7 @@
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "type_of_disability"
+            "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         },
         {
@@ -241,7 +242,7 @@
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "disabilities"
+            "concept": "162558AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         },
         {
@@ -249,23 +250,21 @@
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "service_provider"
+            "concept": "1542AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         },
         {
           "column_name": "leader",
-          "type": "Event",
+          "type": "Client",
           "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "leader"
+            "field": "attributes.Community_Leader"
           }
         },
         {
           "column_name": "leader_other",
-          "type": "Event",
+          "type": "Client",
           "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "leader_other"
+            "field": "attributes.Other_Community_Leader_Type_Name"
           }
         },
         {
@@ -377,7 +376,39 @@
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "159522AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "concept": "162558AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        {
+          "column_name": "type_of_disability",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        {
+          "column_name": "birth_cert",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "165406AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        {
+          "column_name": "rhc_card",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "164147AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        {
+          "column_name": "nutrition_status",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "163301AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         },
         {
@@ -479,6 +510,27 @@
           "json_mapping": {
             "field": "obs.fieldCode",
             "formSubmissionField": "vaccine_card"
+          }
+        },
+        {
+          "column_name": "insurance_provider",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.insurance_provider"
+          }
+        },
+        {
+          "column_name": "insurance_provider_other",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.Other_Health_Insurance_Type"
+          }
+        },
+        {
+          "column_name": "insurance_provider_number",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.Health_Insurance_Number"
           }
         }
       ]

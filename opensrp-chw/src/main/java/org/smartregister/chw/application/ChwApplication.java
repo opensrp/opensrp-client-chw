@@ -129,6 +129,8 @@ public class ChwApplication extends DrishtiApplication {
 
         //Initialize Modules
         CoreLibrary.init(context, new ChwSyncConfiguration(), BuildConfig.BUILD_TIMESTAMP);
+        CoreLibrary.getInstance().setEcClientFieldsFile(Constants.EC_CLIENT_FIELDS);
+
         ImmunizationLibrary.init(context, getRepository(), null, BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
 
         ConfigurableViewsLibrary.init(context, getRepository());
@@ -154,7 +156,6 @@ public class ChwApplication extends DrishtiApplication {
         initOfflineSchedules();
         scheduleJobs();
 
-        CoreLibrary.getInstance().setEcClientFieldsFile(Constants.EC_CLIENT_FIELDS);
         setOpenSRPUrl();
 
         Configuration configuration = getApplicationContext().getResources().getConfiguration();
@@ -164,8 +165,10 @@ public class ChwApplication extends DrishtiApplication {
         } else {
             language = configuration.locale.getLanguage();
         }
-        if (language.equals(Locale.FRENCH.getLanguage()))
+
+        if (language.equals(Locale.FRENCH.getLanguage())) {
             saveLanguage(Locale.FRENCH.getLanguage());
+        }
     }
 
 

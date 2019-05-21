@@ -57,7 +57,7 @@
                     android:layout_alignParentTop="true"
                     android:layout_margin="15dp"
                     android:fontFamily="sans-serif"
-                    android:textColor="@color/light_grey"
+                    android:textColor="#959595"
                     android:textSize="24sp"
                     android:textStyle="bold" />
 

@@ -93,13 +93,13 @@
         "openmrs_entity_id": "160417AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Reason",
+        "hint": "Reason for removal",
         "v_required": {
           "value": "true",
           "err": "Select the reason for removing the family member's record"
         },
         "values": [
-          "Died",
+          "Death",
           "Moved away",
           "Other"
         ],

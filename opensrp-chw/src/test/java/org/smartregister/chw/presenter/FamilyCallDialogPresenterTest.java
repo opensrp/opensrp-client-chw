@@ -52,7 +52,7 @@ public class FamilyCallDialogPresenterTest {
 
         // second call for stubbed interactor
         presenter.initalize();
-        Mockito.verify(mInteractor).getHeadOfFamily(presenter, view.getContext());
+        Mockito.verify(mInteractor).getHeadOfFamily(presenter, view.getCurrentContext());
     }
 
 }

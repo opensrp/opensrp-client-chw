@@ -14,6 +14,7 @@ public class Constants {
     public static final class EventType {
         public static final String BIRTH_CERTIFICATION = "Birth Certification";
         public static final String OBS_ILLNESS = "Observations Illness";
+        public static final String COUNSELING = "Counseling";
         public static final String FAMILY_REGISTRATION = "Family Registration";
         public static final String FAMILY_MEMBER_REGISTRATION = "Family Member Registration";
 
@@ -30,19 +31,23 @@ public class Constants {
 
         public static final String REMOVE_MEMBER = "Remove Family Member";
         public static final String REMOVE_CHILD = "Remove Child Under 5";
-        public static final String REMOVE_FAMILY = "Remove Faubuntumily";
+        public static final String REMOVE_FAMILY = "Remove Family";
     }
 
     public static class JSON_FORM {
         public static final String BIRTH_CERTIFICATION = Utils.getLocalForm("birth_certification");
+
         public static final String OBS_ILLNESS = Utils.getLocalForm("observation_illness");
         public static final String FAMILY_REGISTER = Utils.getLocalForm("family_register");
         public static final String FAMILY_MEMBER_REGISTER = Utils.getLocalForm("family_member_register");
         public static final String CHILD_REGISTER = Utils.getLocalForm("child_enrollment");
         public static final String FAMILY_DETAILS_REGISTER = Utils.getLocalForm("family_details_register");
         public static final String FAMILY_DETAILS_REMOVE_MEMBER = Utils.getLocalForm("family_details_remove_member");
+
         public static final String FAMILY_DETAILS_REMOVE_CHILD = Utils.getLocalForm("family_details_remove_child");
+
         public static final String FAMILY_DETAILS_REMOVE_FAMILY = Utils.getLocalForm("family_details_remove_family");
+        public static final String HOME_VISIT_COUNSELLING = "routine_home_visit";
     }
 
     public static class RELATIONSHIP {
@@ -85,8 +90,7 @@ public class Constants {
         public static final String ANC = "ANC";
         public static final String LD = "L&D";
         public static final String PNC = "PNC";
-        public static final String CH = "CH";
-        public static final String FP = "FP";
+        public static final String FAMILY_PLANNING = "Family Planning";
         public static final String MALARIA = "MALARIA";
     }
 
@@ -105,10 +109,29 @@ public class Constants {
     public static class JsonAssets {
         public static final String DETAILS = "details";
         public static final String FAM_NAME = "fam_name";
+        public static final String SURNAME = "surname";
+        public static final String PREGNANT_1_YR = "preg_1yr";
         public static final String SEX = "sex";
         public static final String PRIMARY_CARE_GIVER = "primary_caregiver";
+        public static final String IS_PRIMARY_CARE_GIVER = "is_primary_caregiver";
         public static final String AGE = "age";
+        public static final String ID_AVAIL = "id_avail";
         public static final String NATIONAL_ID = "national_id";
+        public static final String VOTER_ID = "voter_id";
+        public static final String DRIVER_LICENSE = "driver_license";
+        public static final String PASSPORT = "passport";
+        public static final String INSURANCE_PROVIDER = "insurance_provider";
+        public static final String INSURANCE_PROVIDER_OTHER = "insurance_provider_other";
+        public static final String INSURANCE_PROVIDER_NUMBER = "insurance_provider_number";
+        public static final String DISABILITIES = "disabilities";
+        public static final String DISABILITY_TYPE = "type_of_disability";
+        public static final String SERVICE_PROVIDER = "service_provider";
+        public static final String LEADER = "leader";
+        public static final String OTHER_LEADER = "leader_other";
+        public static final String BIRTH_CERT_AVAILABLE = "birth_cert_available";
+        public static final String BIRTH_REGIST_NUMBER = "birth_regist_number";
+        public static final String RHC_CARD = "rhc_card";
+        public static final String NUTRITION_STATUS = "nutrition_status";
 
         public static class FAMILY_MEMBER {
             public static final String HIGHEST_EDUCATION_LEVEL = "highest_edu_level";
