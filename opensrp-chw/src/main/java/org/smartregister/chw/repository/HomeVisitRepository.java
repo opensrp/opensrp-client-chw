@@ -13,7 +13,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.ei.drishti.dto.AlertStatus;
 import org.json.JSONObject;
 import org.smartregister.chw.domain.HomeVisit;
-import org.smartregister.chw.util.RxUtils;
 import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.domain.Alert;
 import org.smartregister.immunization.ImmunizationLibrary;
@@ -30,18 +29,12 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.Callable;
 
-import io.reactivex.Observable;
+import timber.log.Timber;
 
 public class HomeVisitRepository extends BaseRepository {
     public static final String EVENT_TYPE = "Child Home Visit";
     public static final String NOT_DONE_EVENT_TYPE = "Visit not done";
-    public static DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
-    private static final String TAG = HomeVisitRepository.class.getCanonicalName();
-    private static final String HomeVisit_SQL = "CREATE TABLE home_visit (_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,base_entity_id VARCHAR NOT NULL,name VARCHAR NOT NULL,date DATETIME NOT NULL,anmid VARCHAR NULL,location_id VARCHAR NULL,event_id VARCHAR NULL,formSubmissionId VARCHAR,sync_status VARCHAR,updated_at INTEGER NULL," +
-            "formfields VARCHAR,created_at DATETIME NOT NULL,vaccine_group VARCHAR,single_vaccine VARCHAR,vaccine_not_given VARCHAR,service VARCHAR,service_not_given VARCHAR,birth_certification VARCHAR,illness_information VARCHAR)";
     public static final String HomeVisitTABLE_NAME = "home_visit";
     public static final String ID_COLUMN = "_id";
     public static final String BASE_ENTITY_ID = "base_entity_id";
@@ -62,23 +55,22 @@ public class HomeVisitRepository extends BaseRepository {
     public static final String SERVICE_NOT_GIVEN = "service_not_given";
     public static final String BIRTH_CERTIFICATION = "birth_certification";
     public static final String illness_information = "illness_information";
-
-
-    public static final String[] HomeVisit_TABLE_COLUMNS = {ID_COLUMN, BASE_ENTITY_ID, NAME, LAST_HOME_VISIT_DATE, ANMID, LOCATIONID, SYNC_STATUS, UPDATED_AT_COLUMN, EVENT_ID, FORMSUBMISSION_ID, CREATED_AT, FORMFIELDS, VACCCINE_GROUP, SINGLE_VACCINE,VACCINE_NOT_GIVEN, SERVICE,SERVICE_NOT_GIVEN, BIRTH_CERTIFICATION, illness_information};
-
-    private static final String BASE_ENTITY_ID_INDEX = "CREATE INDEX " + HomeVisitTABLE_NAME + "_" + BASE_ENTITY_ID + "_index ON " + HomeVisitTABLE_NAME + "(" + BASE_ENTITY_ID + " COLLATE NOCASE);";
-    private static final String UPDATED_AT_INDEX = "CREATE INDEX " + HomeVisitTABLE_NAME + "_" + UPDATED_AT_COLUMN + "_index ON " + HomeVisitTABLE_NAME + "(" + UPDATED_AT_COLUMN + ");";
+    public static final String[] HomeVisit_TABLE_COLUMNS = {ID_COLUMN, BASE_ENTITY_ID, NAME, LAST_HOME_VISIT_DATE, ANMID, LOCATIONID, SYNC_STATUS, UPDATED_AT_COLUMN, EVENT_ID, FORMSUBMISSION_ID, CREATED_AT, FORMFIELDS, VACCCINE_GROUP, SINGLE_VACCINE, VACCINE_NOT_GIVEN, SERVICE, SERVICE_NOT_GIVEN, BIRTH_CERTIFICATION, illness_information};
     public static final String UPDATE_TABLE_ADD_VACCINE_NOT_GIVEN = "ALTER TABLE " + HomeVisitTABLE_NAME + " ADD COLUMN " + VACCINE_NOT_GIVEN + " VARCHAR;";
     public static final String UPDATE_TABLE_ADD_SERVICE_NOT_GIVEN = "ALTER TABLE " + HomeVisitTABLE_NAME + " ADD COLUMN " + SERVICE_NOT_GIVEN + " VARCHAR;";
-//
+    private static final String TAG = HomeVisitRepository.class.getCanonicalName();
+    private static final String HomeVisit_SQL = "CREATE TABLE home_visit (_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,base_entity_id VARCHAR NOT NULL,name VARCHAR NOT NULL,date DATETIME NOT NULL,anmid VARCHAR NULL,location_id VARCHAR NULL,event_id VARCHAR NULL,formSubmissionId VARCHAR,sync_status VARCHAR,updated_at INTEGER NULL," +
+            "formfields VARCHAR,created_at DATETIME NOT NULL,vaccine_group VARCHAR,single_vaccine VARCHAR,vaccine_not_given VARCHAR,service VARCHAR,service_not_given VARCHAR,birth_certification VARCHAR,illness_information VARCHAR)";
+    private static final String BASE_ENTITY_ID_INDEX = "CREATE INDEX " + HomeVisitTABLE_NAME + "_" + BASE_ENTITY_ID + "_index ON " + HomeVisitTABLE_NAME + "(" + BASE_ENTITY_ID + " COLLATE NOCASE);";
+    private static final String UPDATED_AT_INDEX = "CREATE INDEX " + HomeVisitTABLE_NAME + "_" + UPDATED_AT_COLUMN + "_index ON " + HomeVisitTABLE_NAME + "(" + UPDATED_AT_COLUMN + ");";
+    public static DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    //
 //    public static final String UPDATE_TABLE_ADD_EVENT_ID_COL = "ALTER TABLE " + COUNSELLING_TABLE_NAME + " ADD COLUMN " + EVENT_ID + " VARCHAR;";
 //    public static final String EVENT_ID_INDEX = "CREATE INDEX " + COUNSELLING_TABLE_NAME + "_" + EVENT_ID + "_index ON " + COUNSELLING_TABLE_NAME + "(" + EVENT_ID + " COLLATE NOCASE);";
 //
 //    public static final String UPDATE_TABLE_ADD_FORMSUBMISSION_ID_COL = "ALTER TABLE " + COUNSELLING_TABLE_NAME + " ADD COLUMN " + FORMSUBMISSION_ID + " VARCHAR;";
 //    public static final String FORMSUBMISSION_INDEX = "CREATE INDEX " + COUNSELLING_TABLE_NAME + "_" + FORMSUBMISSION_ID + "_index ON " + COUNSELLING_TABLE_NAME + "(" + FORMSUBMISSION_ID + " COLLATE NOCASE);";
 //
-
-
     private CommonFtsObject commonFtsObject;
     private AlertService alertService;
 
@@ -92,6 +84,36 @@ public class HomeVisitRepository extends BaseRepository {
         database.execSQL(HomeVisit_SQL);
         database.execSQL(BASE_ENTITY_ID_INDEX);
         database.execSQL(UPDATED_AT_INDEX);
+    }
+
+    public static String addHyphen(String s) {
+        if (StringUtils.isNotBlank(s)) {
+            return s.replace(" ", "_");
+        }
+        return s;
+    }
+
+    public static String removeHyphen(String s) {
+        if (StringUtils.isNotBlank(s)) {
+            return s.replace("_", " ");
+        }
+        return s;
+    }
+
+    public static void migrateCreatedAt(SQLiteDatabase database) {
+        try {
+            String sql = "UPDATE " + HomeVisitTABLE_NAME +
+                    " SET " + CREATED_AT + " = " +
+                    " ( SELECT " + EventClientRepository.event_column.dateCreated.name() +
+                    "   FROM " + EventClientRepository.Table.event.name() +
+                    "   WHERE " + EventClientRepository.event_column.eventId.name() + " = " + HomeVisitTABLE_NAME + "." + EVENT_ID +
+                    "   OR " + EventClientRepository.event_column.formSubmissionId.name() + " = " + HomeVisitTABLE_NAME + "." + FORMSUBMISSION_ID +
+                    " ) " +
+                    " WHERE " + CREATED_AT + " is null ";
+            database.execSQL(sql);
+        } catch (Exception e) {
+            Log.e(TAG, Log.getStackTraceString(e));
+        }
     }
 
     public void add(HomeVisit homeVisit) {
@@ -172,7 +194,6 @@ public class HomeVisitRepository extends BaseRepository {
         return homeVisits;
     }
 
-
     public List<HomeVisit> findByEntityId(String entityId) {
         SQLiteDatabase database = getReadableDatabase();
         Cursor cursor = database.query(HomeVisitTABLE_NAME, HomeVisit_TABLE_COLUMNS, BASE_ENTITY_ID + " = ? " + COLLATE_NOCASE + " ORDER BY " + UPDATED_AT_COLUMN, new String[]{entityId}, null, null, null, null);
@@ -233,6 +254,24 @@ public class HomeVisitRepository extends BaseRepository {
 
     }
 
+    public List<HomeVisit> getLatestHomeVisitsByDate(String lastProcessedDate) {
+        List<HomeVisit> homeVisits = new ArrayList<>();
+        Cursor cursor;
+        try {
+            if (lastProcessedDate == null || lastProcessedDate.isEmpty()) {
+                cursor = getWritableDatabase().query(HomeVisitTABLE_NAME, HomeVisit_TABLE_COLUMNS, null, null, null, null, null);
+            } else {
+                String selection = " WHERE " + UPDATED_AT_COLUMN + " > ?  OR " + CREATED_AT + " > ?";
+                String[] selectionArgs = new String[]{lastProcessedDate};
+                cursor = getWritableDatabase().query(HomeVisitTABLE_NAME, HomeVisit_TABLE_COLUMNS, selection, selectionArgs, null, null, null);
+            }
+            homeVisits = readAllHomeVisits(cursor);
+        } catch (Exception ex) {
+            Timber.e(ex.toString());
+        }
+
+        return homeVisits;
+    }
 
     public void deleteCounselling(Long caseId) {
         try {
@@ -256,7 +295,6 @@ public class HomeVisitRepository extends BaseRepository {
             Log.e(TAG, Log.getStackTraceString(e));
         }
     }
-
 
     private List<HomeVisit> readAllHomeVisits(Cursor cursor) {
         List<HomeVisit> homeVisits = new ArrayList<HomeVisit>();
@@ -300,9 +338,9 @@ public class HomeVisitRepository extends BaseRepository {
                     homeVisit.setVaccineNotGiven(new JSONObject(cursor.getString(cursor.getColumnIndex(VACCINE_NOT_GIVEN))));
                     homeVisit.setServicesGiven(new JSONObject(cursor.getString(cursor.getColumnIndex(SERVICE))));
                     homeVisit.setServiceNotGiven(new JSONObject(cursor.getString(cursor.getColumnIndex(SERVICE_NOT_GIVEN))));
-                    try{
+                    try {
                         homeVisit.setBirthCertificationState(new JSONObject((cursor.getString(cursor.getColumnIndex(BIRTH_CERTIFICATION)))));
-                    }catch (Exception e){
+                    } catch (Exception e) {
                     }
                     homeVisit.setIllness_information(new JSONObject(cursor.getString(cursor.getColumnIndex(illness_information))));
 
@@ -317,7 +355,6 @@ public class HomeVisitRepository extends BaseRepository {
         }
         return homeVisits;
     }
-
 
     private ContentValues createValuesFor(HomeVisit homeVisit) {
         ContentValues values = new ContentValues();
@@ -395,40 +432,11 @@ public class HomeVisitRepository extends BaseRepository {
         return alertService;
     }
 
-    public static String addHyphen(String s) {
-        if (StringUtils.isNotBlank(s)) {
-            return s.replace(" ", "_");
-        }
-        return s;
-    }
-
-    public static String removeHyphen(String s) {
-        if (StringUtils.isNotBlank(s)) {
-            return s.replace("_", " ");
-        }
-        return s;
-    }
-
-    public static void migrateCreatedAt(SQLiteDatabase database) {
-        try {
-            String sql = "UPDATE " + HomeVisitTABLE_NAME +
-                    " SET " + CREATED_AT + " = " +
-                    " ( SELECT " + EventClientRepository.event_column.dateCreated.name() +
-                    "   FROM " + EventClientRepository.Table.event.name() +
-                    "   WHERE " + EventClientRepository.event_column.eventId.name() + " = " + HomeVisitTABLE_NAME + "." + EVENT_ID +
-                    "   OR " + EventClientRepository.event_column.formSubmissionId.name() + " = " + HomeVisitTABLE_NAME + "." + FORMSUBMISSION_ID +
-                    " ) " +
-                    " WHERE " + CREATED_AT + " is null ";
-            database.execSQL(sql);
-        } catch (Exception e) {
-            Log.e(TAG, Log.getStackTraceString(e));
-        }
-    }
     public HomeVisit findByDate(long lastHomeVisit) {
         SQLiteDatabase database = getReadableDatabase();
         Cursor cursor = database.query(HomeVisitTABLE_NAME, HomeVisit_TABLE_COLUMNS, LAST_HOME_VISIT_DATE + " = ? " + COLLATE_NOCASE + " ORDER BY " + UPDATED_AT_COLUMN, new String[]{String.valueOf(lastHomeVisit)}, null, null, null, null);
         List<HomeVisit> homeVisits = readAllHomeVisits(cursor);
-        if(homeVisits.size()>0){
+        if (homeVisits.size() > 0) {
             return homeVisits.get(0);
         }
         return null;
