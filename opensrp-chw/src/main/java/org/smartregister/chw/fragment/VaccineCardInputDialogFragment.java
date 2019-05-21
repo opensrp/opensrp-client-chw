@@ -22,6 +22,7 @@ public class VaccineCardInputDialogFragment extends DialogFragment implements Vi
 
     private String choiceValue;
     private RadioButton yesButton,noButton;
+    private Button buttonSave;
 
     public static VaccineCardInputDialogFragment getInstance(String choiceValue){
         VaccineCardInputDialogFragment vaccineCardInputDialogFragment = new VaccineCardInputDialogFragment();
@@ -31,13 +32,11 @@ public class VaccineCardInputDialogFragment extends DialogFragment implements Vi
         return vaccineCardInputDialogFragment;
     }
 
-    private Button buttonSave;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setStyle(android.app.DialogFragment.STYLE_NORMAL, android.R.style.Theme_Holo_Light_NoActionBar);
+        setStyle(DialogFragment.STYLE_NORMAL, android.R.style.Theme_Holo_Light_NoActionBar);
     }
 
     @Override

@@ -521,7 +521,6 @@ public class ChildUtils {
                 List<Object> hu = obs.getHumanReadableValues();
                 for (Object object : hu) {
                     value = (String) object;
-                    break;
                 }
 
             }
