@@ -449,6 +449,14 @@
           }
         },
         {
+          "column_name": "birth_cert",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "formSubmissionField": "birth_cert"
+          }
+        },
+        {
           "column_name": "birth_cert_issue_date",
           "type": "Event",
           "json_mapping": {
@@ -494,6 +502,14 @@
           "json_mapping": {
             "field": "obs.fieldCode",
             "concept": "164378AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        {
+          "column_name": "vaccine_card",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "formSubmissionField": "vaccine_card"
           }
         },
         {
