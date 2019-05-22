@@ -28,8 +28,14 @@ public class AncRegisterActivity extends BaseAncRegisterActivity {
 
     public static void startAncRegistrationActivity(Activity activity, String memberBaseEntityID) {
         Intent intent = new Intent(activity, AncRegisterActivity.class);
-        intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.BASE_ENTITY_ID, memberBaseEntityID);
-        activity.startActivityForResult(intent, org.smartregister.chw.util.Constants.ProfileActivityResults.CHANGE_COMPLETED);
+        intent.putExtra(org.smartregister.chw.anc.util.Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID, memberBaseEntityID);
+        intent.putExtra(org.smartregister.chw.anc.util.Constants.ACTIVITY_PAYLOAD.ACTION, org.smartregister.chw.anc.util.Constants.ACTIVITY_PAYLOAD_TYPE.REGISTRATION);
+        activity.startActivity(intent);
+    }
+
+    @Override
+    public String getRegistrationForm() {
+        return Constants.JSON_FORM.ANC_REGISTRATION;
     }
 
     @Override
