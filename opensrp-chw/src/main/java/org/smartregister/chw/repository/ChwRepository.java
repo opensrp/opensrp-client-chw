@@ -64,6 +64,7 @@ public class ChwRepository extends Repository {
         IndicatorRepository.createTable(database);
         IndicatorQueryRepository.createTable(database);
         DailyIndicatorCountRepository.createTable(database);
+        HomeVisitIndicatorInfoRepository.createTable(database);
 
         //onUpgrade(database, 1, 2);
         RecurringServiceTypeRepository recurringServiceTypeRepository = ImmunizationLibrary.getInstance().recurringServiceTypeRepository();
