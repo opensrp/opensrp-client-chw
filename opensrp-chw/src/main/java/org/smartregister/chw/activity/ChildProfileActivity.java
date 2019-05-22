@@ -581,6 +581,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.other_member_menu, menu);
+        menu.findItem(R.id.action_anc_registration).setVisible(false);
         return true;
     }
 
