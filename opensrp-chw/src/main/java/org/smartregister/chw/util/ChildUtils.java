@@ -90,6 +90,21 @@ public class ChildUtils {
                 .create();
     }
 
+    public static Integer dobStringToYear(String yearOfBirthString) {
+        if (!TextUtils.isEmpty(yearOfBirthString)) {
+            try {
+                String year = yearOfBirthString.contains("y") ? yearOfBirthString.substring(0, yearOfBirthString.indexOf("y")) : "";
+                if (StringUtils.isNotBlank(year)) {
+                    return Integer.valueOf(year);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        return null;
+    }
+
     public static boolean hasAlert(VaccineRepo.Vaccine vaccine, List<Alert> alerts) {
         for (Alert alert : alerts) {
             if (alert.scheduleName().equalsIgnoreCase(vaccine.display())) {

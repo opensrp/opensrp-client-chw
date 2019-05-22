@@ -6,17 +6,20 @@ import android.util.Log;
 import android.view.View;
 
 import org.smartregister.chw.R;
+import org.smartregister.chw.activity.AboveFiveChildProfileActivity;
 import org.smartregister.chw.activity.ChildProfileActivity;
 import org.smartregister.chw.activity.FamilyOtherMemberProfileActivity;
 import org.smartregister.chw.model.FamilyProfileMemberModel;
 import org.smartregister.chw.provider.ChwMemberRegisterProvider;
 import org.smartregister.chw.util.ChildDBConstants;
+import org.smartregister.chw.util.ChildUtils;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
 import org.smartregister.family.fragment.BaseFamilyProfileMemberFragment;
 import org.smartregister.family.presenter.BaseFamilyProfileMemberPresenter;
 import org.smartregister.family.util.Constants;
+import org.smartregister.family.util.DBConstants;
 
 import java.util.HashMap;
 import java.util.Set;
@@ -94,7 +97,14 @@ public class FamilyProfileMemberFragment extends BaseFamilyProfileMemberFragment
     }
 
     public void goToChildProfileActivity(CommonPersonObjectClient patient) {
-        Intent intent = new Intent(getActivity(), ChildProfileActivity.class);
+        String dobString = Utils.getDuration(Utils.getValue(patient.getColumnmaps(), DBConstants.KEY.DOB, false));
+        Integer yearOfBirth = ChildUtils.dobStringToYear(dobString);
+        Intent intent;
+        if(yearOfBirth!=null && yearOfBirth >= 5){
+            intent = new Intent(getActivity(), AboveFiveChildProfileActivity.class);
+        }else{
+            intent = new Intent(getActivity(),ChildProfileActivity.class);
+        }
         intent.putExtras(getArguments());
         intent.putExtra(IS_COMES_FROM_FAMILY, true);
         intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, patient.getCaseId());
