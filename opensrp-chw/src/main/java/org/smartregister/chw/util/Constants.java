@@ -65,6 +65,7 @@ public class Constants {
         public static final String FAMILY_MEMBER = "ec_family_member";
         public static final String CHILD = "ec_child";
         public static final String CHILD_ACTIVITY = "ec_child_activity";
+        public static final String ANC_MEMBER = "ec_anc_register";
     }
 
     public static final class INTENT_KEY {
