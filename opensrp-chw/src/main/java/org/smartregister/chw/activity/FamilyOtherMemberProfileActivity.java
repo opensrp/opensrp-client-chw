@@ -186,6 +186,10 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
             case android.R.id.home:
                 onBackPressed();
                 return true;
+            case R.id.action_anc_registration:
+                startFormForEdit(R.string.edit_member_form_title);
+                AncRegisterActivity.startAncRegistrationActivity(FamilyOtherMemberProfileActivity.this, baseEntityId);
+                return true;
             case R.id.action_registration:
                 startFormForEdit(R.string.edit_member_form_title);
                 return true;

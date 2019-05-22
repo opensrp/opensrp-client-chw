@@ -1,8 +1,14 @@
 package org.smartregister.chw.activity;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.bottomnavigation.LabelVisibilityMode;
 
+import com.vijay.jsonwizard.constants.JsonFormConstants;
+import com.vijay.jsonwizard.domain.Form;
+
+import org.json.JSONObject;
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.activity.BaseAncRegisterActivity;
@@ -10,10 +16,21 @@ import org.smartregister.chw.custom_view.NavigationMenu;
 import org.smartregister.chw.fragment.AncRegisterFragment;
 import org.smartregister.chw.listener.ChwBottomNavigationListener;
 import org.smartregister.chw.util.Constants;
+import org.smartregister.family.util.JsonFormUtils;
+import org.smartregister.family.util.Utils;
 import org.smartregister.helper.BottomNavigationHelper;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class AncRegisterActivity extends BaseAncRegisterActivity {
+
+    public static void startAncRegistrationActivity(Activity activity, String memberBaseEntityID) {
+        Intent intent = new Intent(activity, AncRegisterActivity.class);
+        intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.BASE_ENTITY_ID, memberBaseEntityID);
+        activity.startActivityForResult(intent, org.smartregister.chw.util.Constants.ProfileActivityResults.CHANGE_COMPLETED);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,11 +70,35 @@ public class AncRegisterActivity extends BaseAncRegisterActivity {
         }
     }
 
-
     @Override
     protected void onResumption() {
         super.onResumption();
         NavigationMenu.getInstance(this, null, null).getNavigationAdapter()
                 .setSelectedView(Constants.DrawerMenu.ANC);
+    }
+
+    @Override
+    public List<String> getViewIdentifiers() {
+        return Arrays.asList(Constants.CONFIGURATION.ANC_REGISTER);
+    }
+
+    public void startFormActivity(JSONObject jsonForm) {
+
+        Intent intent = new Intent(this, Utils.metadata().familyMemberFormActivity);
+        intent.putExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON, jsonForm.toString());
+
+        Form form = new Form();
+        form.setActionBarBackground(R.color.family_actionbar);
+        form.setWizard(false);
+        intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);
+
+
+        startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
     }
 }

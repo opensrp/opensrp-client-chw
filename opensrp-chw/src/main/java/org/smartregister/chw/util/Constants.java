@@ -8,6 +8,7 @@ public class Constants {
         public static final String LOGIN = "login";
         public static final String FAMILY_REGISTER = "family_register";
         public static final String FAMILY_MEMBER_REGISTER = "family_member_register";
+        public static final String ANC_REGISTER = "anc_register";
 
     }
 
@@ -32,6 +33,8 @@ public class Constants {
         public static final String REMOVE_MEMBER = "Remove Family Member";
         public static final String REMOVE_CHILD = "Remove Child Under 5";
         public static final String REMOVE_FAMILY = "Remove Family";
+
+        public static final String ANC_REGISTRATION = "ANC Registration";
     }
 
     public static class JSON_FORM {
@@ -45,9 +48,10 @@ public class Constants {
         public static final String FAMILY_DETAILS_REMOVE_MEMBER = Utils.getLocalForm("family_details_remove_member");
 
         public static final String FAMILY_DETAILS_REMOVE_CHILD = Utils.getLocalForm("family_details_remove_child");
-
         public static final String FAMILY_DETAILS_REMOVE_FAMILY = Utils.getLocalForm("family_details_remove_family");
         public static final String HOME_VISIT_COUNSELLING = "routine_home_visit";
+
+        public static final String ANC_REGISTRATION = "anc_member_registration";
     }
 
     public static class RELATIONSHIP {
