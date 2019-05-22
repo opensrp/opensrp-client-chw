@@ -7,7 +7,7 @@ import org.smartregister.reporting.job.RecurringIndicatorGeneratingJob;
 
 public class ChwIndicatorGeneratingJob extends RecurringIndicatorGeneratingJob {
 
-    private HomeVisitInfoProcessor processorFlv = new ChwIndicatorGeneratingJobFlv();
+    private HomeVisitInfoProcessorFlv processorFlv = new ChwIndicatorGeneratingJobFlv();
 
     @NonNull
     protected Result onRunJob(@NonNull Params params) {
@@ -16,7 +16,7 @@ public class ChwIndicatorGeneratingJob extends RecurringIndicatorGeneratingJob {
         return params != null && params.getExtras().getBoolean("to_reschedule", false) ? Result.RESCHEDULE : Result.SUCCESS;
     }
 
-    public interface HomeVisitInfoProcessor {
+    public interface HomeVisitInfoProcessorFlv {
         void processHomeVisitDetails(Context context);
     }
 }
