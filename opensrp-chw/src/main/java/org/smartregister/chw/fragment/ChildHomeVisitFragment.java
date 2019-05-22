@@ -168,16 +168,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                 dobString,
                 getString(R.string.home_visit)
         ));
-        String vaccineCard = getValue(childClient.getColumnmaps(), VACCINE_CARD, true);
-        if(isEditMode || TextUtils.isEmpty(vaccineCard)){
-            layoutVaccineCard.setVisibility(View.VISIBLE);
-            if(!TextUtils.isEmpty(vaccineCard)){
-                updateVaccineCard(vaccineCard);
-            }
-        }else{
-            layoutVaccineCard.setVisibility(View.GONE);
-            viewVaccineCardLine.setVisibility(View.GONE);
-        }
+        vaccineCardVisibility(dob);
 
         if (!isEditMode && !TextUtils.isEmpty(birthCert)) {
             layoutBirthCertGroup.setVisibility(View.GONE);
@@ -199,6 +190,42 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
 
             }
 
+        }
+    }
+
+    /**
+     * vaccine card will be not visible when expired(dob>24month) or already given.
+     * For edit it'll display the last state or present status.
+     * @param dob
+     */
+
+    private void vaccineCardVisibility(String dob) {
+
+        String vaccineCard = getValue(childClient.getColumnmaps(), VACCINE_CARD, true);
+
+        BirthCertRule birthCertRule = new BirthCertRule(dob);
+        if(birthCertRule.isExpire(24) || !TextUtils.isEmpty(vaccineCard) ){
+            layoutVaccineCard.setVisibility(View.GONE);
+            viewVaccineCardLine.setVisibility(View.GONE);
+        }else{
+            textViewVaccineCardText.setVisibility(View.VISIBLE);
+            if (birthCertRule.isOverdue(12)) {
+                Date date = org.smartregister.family.util.Utils.dobStringToDate(dob);
+                textViewVaccineCardText.setTextColor(getResources().getColor(R.color.alert_urgent_red));
+                textViewVaccineCardText.setText(String.format("%s%s", getString(R.string.overdue), dd_MMM_yyyy.format(date)));
+            } else {
+                Date date = org.smartregister.family.util.Utils.dobStringToDate(dob);
+                textViewVaccineCardText.setTextColor(getResources().getColor(R.color.grey));
+                textViewVaccineCardText.setText(String.format("%s%s", getString(R.string.due), dd_MMM_yyyy.format(date)));
+
+            }
+        }
+        if(isEditMode){
+            layoutVaccineCard.setVisibility(View.VISIBLE);
+            viewVaccineCardLine.setVisibility(View.VISIBLE);
+            if(!TextUtils.isEmpty(vaccineCard)){
+                updateVaccineCard(vaccineCard);
+            }
         }
     }
 
