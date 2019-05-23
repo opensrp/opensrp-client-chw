@@ -61,7 +61,7 @@
                     android:layout_height="80dp"
                     android:layout_gravity="center_horizontal"
                     android:src="@drawable/rowavatar_child"
-                    app:civ_border_color="@color/light_blue"
+                    app:civ_border_color="@color/transparent"
                     app:civ_border_width="3dp" />
 
                 <org.smartregister.view.customcontrols.CustomFontTextView
@@ -164,7 +164,7 @@
             android:background="@color/light_grey"
             android:visibility="visible" />
 
-        <include layout="@layout/view_record_visit" />
+        <include android:id="@+id/record_visit_panel" layout="@layout/view_record_visit" />
 
         <include layout="@layout/content_profile" />
 
