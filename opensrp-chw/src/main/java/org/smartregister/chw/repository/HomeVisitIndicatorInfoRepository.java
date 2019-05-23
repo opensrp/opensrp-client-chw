@@ -22,7 +22,7 @@ public class HomeVisitIndicatorInfoRepository extends BaseRepository {
     private static final String BASE_ENTITY_ID = "base_entity_id";
     private static final String UPDATED_AT = "updated_at";
     private static final String CREATE_HOME_VISIT_INDICATOR_INFO_TABLE = "CREATE TABLE " + HOME_VISIT_INDICATOR_INFO_TABLE + "(" + ID + " INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, "
-            + HOME_VISIT_ID + " INTEGER NOT NULL, " + HOME_VISIT_DATE + " DATE NOT NULL " + SERVICE + " VARCHAR NOT NULL, " + SERVICE_DATE + " DATE, " + SERVICE_UPDATE_DATE + " DATE, " + BASE_ENTITY_ID + " VARCHAR NOT NULL, " + UPDATED_AT + " INTEGER)";
+            + HOME_VISIT_ID + " INTEGER NOT NULL, " + HOME_VISIT_DATE + " DATE NOT NULL, " + SERVICE + " VARCHAR NOT NULL, " + SERVICE_DATE + " DATE, " + SERVICE_UPDATE_DATE + " DATE, " + BASE_ENTITY_ID + " VARCHAR NOT NULL, " + UPDATED_AT + " INTEGER)";
 
     public HomeVisitIndicatorInfoRepository(Repository repository) {
         super(repository);
