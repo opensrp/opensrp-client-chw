@@ -224,24 +224,14 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
                 openFamilyDueTab();
                 break;
             case R.id.textview_visit_not:
+                showProgressBar();
                 presenter().updateVisitNotDone(System.currentTimeMillis());
+                tvEdit.setVisibility(View.GONE);
 
-                openVisitMonthView();
                 break;
             case R.id.textview_undo:
-
-                if (textViewUndo.getText().toString().equalsIgnoreCase(getString(R.string.undo))) {
-                    presenter().updateVisitNotDone(0);
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            presenter().fetchVisitStatus(childBaseEntityId);
-                        }
-                    }, 200);
-
-                } else {
-                    openVisitHomeScreen(true);
-                }
+                showProgressBar();
+                presenter().updateVisitNotDone(0);
 
                 break;
             case R.id.textview_edit:
@@ -288,7 +278,12 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
         childHomeVisitFragment.show(getFragmentManager(), ChildHomeVisitFragment.DIALOG_TAG);
     }
 
-    private void openVisitMonthView() {
+    @Override
+    public void showUndoVisitNotDoneView() {
+        presenter().fetchVisitStatus(childBaseEntityId);
+    }
+
+    public void openVisitMonthView() {
         layoutNotRecordView.setVisibility(View.VISIBLE);
         layoutRecordButtonDone.setVisibility(View.GONE);
         layoutRecordView.setVisibility(View.GONE);
@@ -311,6 +306,10 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     @Override
     public void hideProgressBar() {
         progressBar.setVisibility(View.GONE);
+    }
+
+    private void showProgressBar(){
+        progressBar.setVisibility(View.VISIBLE);
     }
 
     @Override

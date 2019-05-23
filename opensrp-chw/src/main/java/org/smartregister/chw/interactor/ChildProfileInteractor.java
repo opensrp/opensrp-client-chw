@@ -163,9 +163,36 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
     }
 
     @Override
-    public void updateVisitNotDone(long value) {
-        ChildUtils.updateHomeVisitAsEvent(getpClient().entityId(), Constants.EventType.CHILD_VISIT_NOT_DONE, Constants.TABLE_NAME.CHILD, new JSONObject(), new JSONObject(), new JSONObject(), new JSONObject(), new JSONObject(), new JSONObject(), new JSONObject(), ChildDBConstants.KEY.VISIT_NOT_DONE, value + "");
+    public void updateVisitNotDone(final long value, final ChildProfileContract.InteractorCallBack callback) {
 
+        updateHomeVisitAsEvent(value)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Object>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Object o) {
+                        if(value==0){
+                            callback.undoVisitNotDone();
+                        }else{
+                            callback.updateVisitNotDone();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        callback.hideProgressBar();
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+                    }
+                });
     }
 
     @Override
@@ -245,6 +272,16 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
                     }
                 });
 
+    }
+    private Observable<Object> updateHomeVisitAsEvent(final long value){
+        return Observable.create(new ObservableOnSubscribe<Object>() {
+            @Override
+            public void subscribe(ObservableEmitter<Object> e) throws Exception {
+                ChildUtils.updateHomeVisitAsEvent(getpClient().entityId(), Constants.EventType.CHILD_VISIT_NOT_DONE, Constants.TABLE_NAME.CHILD,
+                        new JSONObject(), new JSONObject(), new JSONObject(), new JSONObject(), new JSONObject(), new JSONObject(), new JSONObject(), ChildDBConstants.KEY.VISIT_NOT_DONE, value + "");
+                e.onNext("");
+            }
+        });
     }
 
     private Observable<ChildService> updateUpcomingServices() {
