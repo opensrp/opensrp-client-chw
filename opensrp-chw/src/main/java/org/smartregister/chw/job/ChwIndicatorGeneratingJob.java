@@ -1,22 +1,26 @@
 package org.smartregister.chw.job;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 
 import org.smartregister.reporting.job.RecurringIndicatorGeneratingJob;
 
+/**
+ * Specialised CHW RecurringIndicatorGeneratingJob that processes
+ * home visit details before starting the tally generating service
+ *
+ * @author Allan
+ */
 public class ChwIndicatorGeneratingJob extends RecurringIndicatorGeneratingJob {
 
-    private HomeVisitInfoProcessorFlv processorFlv = new ChwIndicatorGeneratingJobFlv();
+    private HomeVisitInfoProcessorFlv processorFlv = new HomeVisitIndicatorInfoProcessorFlv();
 
     @NonNull
     protected Result onRunJob(@NonNull Params params) {
-        super.onRunJob(params);
-        processorFlv.processHomeVisitDetails(getContext());
-        return params != null && params.getExtras().getBoolean("to_reschedule", false) ? Result.RESCHEDULE : Result.SUCCESS;
+        processorFlv.processHomeVisitDetails();
+        return super.onRunJob(params);
     }
 
     public interface HomeVisitInfoProcessorFlv {
-        void processHomeVisitDetails(Context context);
+        void processHomeVisitDetails();
     }
 }

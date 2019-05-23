@@ -1,25 +1,35 @@
 package org.smartregister.chw.domain;
 
+/**
+ * A class that models the home visit info required for processing home visit
+ * related indicators
+ *
+ * @author Allan
+ */
 public class HomeVisitIndicatorInfo {
 
-    private int homeVisitId;
+    private long homeVisitId;
+    private String baseEntityId;
     private String service;
     private String serviceDate;
-    private String status;
-    private String baseEntityId;
-    private String eventType;
+    private String serviceUpdateDate;
+    private long lastHomeVisitDate;
     private long updatedAt;
 
-    public HomeVisitIndicatorInfo() {
-
-    }
-
-    public int getHomeVisitId() {
+    public long getHomeVisitId() {
         return homeVisitId;
     }
 
-    public void setHomeVisitId(int homeVisitId) {
+    public void setHomeVisitId(long homeVisitId) {
         this.homeVisitId = homeVisitId;
+    }
+
+    public String getBaseEntityId() {
+        return baseEntityId;
+    }
+
+    public void setBaseEntityId(String baseEntityId) {
+        this.baseEntityId = baseEntityId;
     }
 
     public String getService() {
@@ -38,28 +48,20 @@ public class HomeVisitIndicatorInfo {
         this.serviceDate = serviceDate;
     }
 
-    public String getStatus() {
-        return status;
+    public String getServiceUpdateDate() {
+        return serviceUpdateDate;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setServiceUpdateDate(String serviceUpdateDate) {
+        this.serviceUpdateDate = serviceUpdateDate;
     }
 
-    public String getBaseEntityId() {
-        return baseEntityId;
+    public long getLastHomeVisitDate() {
+        return lastHomeVisitDate;
     }
 
-    public void setBaseEntityId(String baseEntityId) {
-        this.baseEntityId = baseEntityId;
-    }
-
-    public String getEventType() {
-        return eventType;
-    }
-
-    public void setEventType(String eventType) {
-        this.eventType = eventType;
+    public void setLastHomeVisitDate(long lastHomeVisitDate) {
+        this.lastHomeVisitDate = lastHomeVisitDate;
     }
 
     public long getUpdatedAt() {
