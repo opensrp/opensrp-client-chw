@@ -1,5 +1,6 @@
 package org.smartregister.chw.util;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Build;
@@ -37,6 +38,7 @@ import org.smartregister.chw.rule.HomeAlertRule;
 import org.smartregister.chw.rule.ServiceRule;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.clientandeventmodel.Obs;
+import org.smartregister.commonregistry.AllCommonsRepository;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.domain.Alert;
 import org.smartregister.family.FamilyLibrary;
@@ -69,6 +71,8 @@ public class ChildUtils {
             "yellowfever", "mcv2"
     };
     public static Gson gsonConverter;
+
+    private static final Flavor childUtilsFlv = new ChildUtilsFlv();
 
     static {
         gsonConverter = new GsonBuilder()
@@ -267,36 +271,40 @@ public class ChildUtils {
     }
 
     private static String[] mainColumns(String tableName, String familyTable, String familyMemberTable) {
+        ArrayList<String> columnList = new ArrayList<>();
 
-        String[] columns = new String[]{
-                tableName + "." + DBConstants.KEY.RELATIONAL_ID + " as " + ChildDBConstants.KEY.RELATIONAL_ID,
-                tableName + "." + DBConstants.KEY.LAST_INTERACTED_WITH,
-                tableName + "." + DBConstants.KEY.BASE_ENTITY_ID,
-                tableName + "." + DBConstants.KEY.FIRST_NAME,
-                tableName + "." + DBConstants.KEY.MIDDLE_NAME,
-                familyMemberTable + "." + DBConstants.KEY.FIRST_NAME + " as " + ChildDBConstants.KEY.FAMILY_FIRST_NAME,
-                familyMemberTable + "." + DBConstants.KEY.LAST_NAME + " as " + ChildDBConstants.KEY.FAMILY_LAST_NAME,
-                familyMemberTable + "." + DBConstants.KEY.MIDDLE_NAME + " as " + ChildDBConstants.KEY.FAMILY_MIDDLE_NAME,
-                familyTable + "." + DBConstants.KEY.VILLAGE_TOWN + " as " + ChildDBConstants.KEY.FAMILY_HOME_ADDRESS,
-                tableName + "." + DBConstants.KEY.LAST_NAME,
-                tableName + "." + DBConstants.KEY.UNIQUE_ID,
-                tableName + "." + DBConstants.KEY.GENDER,
-                tableName + "." + DBConstants.KEY.DOB,
-                tableName + "." + org.smartregister.family.util.Constants.JSON_FORM_KEY.DOB_UNKNOWN,
-                tableName + "." + ChildDBConstants.KEY.LAST_HOME_VISIT,
-                tableName + "." + ChildDBConstants.KEY.VISIT_NOT_DONE,
-                tableName + "." + ChildDBConstants.KEY.CHILD_BF_HR,
-                tableName + "." + ChildDBConstants.KEY.CHILD_PHYSICAL_CHANGE,
-                tableName + "." + ChildDBConstants.KEY.BIRTH_CERT,
-                tableName + "." + ChildDBConstants.KEY.BIRTH_CERT_ISSUE_DATE,
-                tableName + "." + ChildDBConstants.KEY.BIRTH_CERT_NUMBER,
-                tableName + "." + ChildDBConstants.KEY.BIRTH_CERT_NOTIFIICATION,
-                tableName + "." + ChildDBConstants.KEY.ILLNESS_DATE,
-                tableName + "." + ChildDBConstants.KEY.ILLNESS_DESCRIPTION,
-                tableName + "." + ChildDBConstants.KEY.DATE_CREATED,
-                tableName + "." + ChildDBConstants.KEY.ILLNESS_ACTION
-        };
-        return columns;
+        columnList.add(tableName + "." + DBConstants.KEY.RELATIONAL_ID + " as " + ChildDBConstants.KEY.RELATIONAL_ID);
+        columnList.add(tableName + "." + DBConstants.KEY.LAST_INTERACTED_WITH);
+        columnList.add(tableName + "." + DBConstants.KEY.BASE_ENTITY_ID);
+        columnList.add(tableName + "." + DBConstants.KEY.FIRST_NAME);
+        columnList.add(tableName + "." + DBConstants.KEY.MIDDLE_NAME);
+        columnList.add(familyMemberTable + "." + DBConstants.KEY.FIRST_NAME + " as " + ChildDBConstants.KEY.FAMILY_FIRST_NAME);
+        columnList.add(familyMemberTable + "." + DBConstants.KEY.LAST_NAME + " as " + ChildDBConstants.KEY.FAMILY_LAST_NAME);
+        columnList.add(familyMemberTable + "." + DBConstants.KEY.MIDDLE_NAME + " as " + ChildDBConstants.KEY.FAMILY_MIDDLE_NAME);
+        columnList.add(familyTable + "." + DBConstants.KEY.VILLAGE_TOWN + " as " + ChildDBConstants.KEY.FAMILY_HOME_ADDRESS);
+        columnList.add(tableName + "." + DBConstants.KEY.LAST_NAME);
+        columnList.add(tableName + "." + DBConstants.KEY.UNIQUE_ID);
+        columnList.add(tableName + "." + DBConstants.KEY.GENDER);
+        columnList.add(tableName + "." + DBConstants.KEY.DOB);
+        columnList.add(tableName + "." + org.smartregister.family.util.Constants.JSON_FORM_KEY.DOB_UNKNOWN);
+        columnList.add(tableName + "." + ChildDBConstants.KEY.LAST_HOME_VISIT);
+        columnList.add(tableName + "." + ChildDBConstants.KEY.VISIT_NOT_DONE);
+        columnList.add(tableName + "." + ChildDBConstants.KEY.CHILD_BF_HR);
+        columnList.add(tableName + "." + ChildDBConstants.KEY.CHILD_PHYSICAL_CHANGE);
+        columnList.add(tableName + "." + ChildDBConstants.KEY.BIRTH_CERT);
+        columnList.add(tableName + "." + ChildDBConstants.KEY.BIRTH_CERT_ISSUE_DATE);
+        columnList.add(tableName + "." + ChildDBConstants.KEY.BIRTH_CERT_NUMBER);
+        columnList.add(tableName + "." + ChildDBConstants.KEY.BIRTH_CERT_NOTIFIICATION);
+        columnList.add(tableName + "." + ChildDBConstants.KEY.ILLNESS_DATE);
+        columnList.add(tableName + "." + ChildDBConstants.KEY.ILLNESS_DESCRIPTION);
+        columnList.add(tableName + "." + ChildDBConstants.KEY.DATE_CREATED);
+        columnList.add(tableName + "." + ChildDBConstants.KEY.ILLNESS_ACTION);
+        columnList.add(tableName + "." + ChildDBConstants.KEY.VACCINE_CARD);
+        columnList.addAll(childUtilsFlv.mainColumns(tableName, familyTable, familyMemberTable));
+
+        return columnList.toArray(new String[columnList.size()]);
+
+
     }
 
     /**
@@ -360,36 +368,6 @@ public class ChildUtils {
     }
 
     //event type="Child Home Visit"/Visit not done
-    public static void updateClientStatusAsEvent(String entityId, String eventType, String attributeName, Object attributeValue, String entityType) {
-        try {
-
-            ECSyncHelper syncHelper = FamilyLibrary.getInstance().getEcSyncHelper();
-
-            Event event = (Event) new Event()
-                    .withBaseEntityId(entityId)
-                    .withEventDate(new Date())
-                    .withEventType(eventType)
-                    .withEntityType(entityType)
-                    .withFormSubmissionId(JsonFormUtils.generateRandomUUIDString())
-                    .withDateCreated(new Date());
-            event.addObs((new Obs()).withFormSubmissionField(attributeName).withValue(attributeValue).withFieldCode(attributeName).withFieldType("formsubmissionField").withFieldDataType("text").withParentCode("").withHumanReadableValues(new ArrayList<Object>()));
-            JsonFormUtils.tagSyncMetadata(ChwApplication.getInstance().getContext().allSharedPreferences(), event);
-            JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(event));
-            syncHelper.addEvent(entityId, eventJson);
-            long lastSyncTimeStamp = ChwApplication.getInstance().getContext().allSharedPreferences().fetchLastUpdatedAtDate(0);
-            Date lastSyncDate = new Date(lastSyncTimeStamp);
-            FamilyLibrary.getInstance().getClientProcessorForJava().processClient(syncHelper.getEvents(lastSyncDate, BaseRepository.TYPE_Unsynced));
-            ChwApplication.getInstance().getContext().allSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
-
-            //update details
-
-
-        } catch (Exception e) {
-            Log.e("Error in adding event", e.getMessage());
-        }
-    }
-
-    //event type="Child Home Visit"/Visit not done
     public static void updateHomeVisitAsEvent(String entityId, String eventType, String entityType, JSONObject singleVaccineObject, JSONObject vaccineGroupObject, JSONObject vaccineNotGiven, JSONObject service, JSONObject serviceNotGiven, JSONObject birthCert, JSONObject illnessJson, String visitStatus, String value) {
         try {
 
@@ -430,6 +408,35 @@ public class ChildUtils {
         } catch (Exception e) {
             Log.e("Error in adding event", e.getMessage());
         }
+    }
+    public static void updateVaccineCardAsEvent(Context context,String entityId,String choiceValue){
+        try{
+            ECSyncHelper syncHelper = FamilyLibrary.getInstance().getEcSyncHelper();
+            Event baseEvent = (Event) new Event()
+                    .withBaseEntityId(entityId)
+                    .withEventDate(new Date())
+                    .withEntityType(Constants.TABLE_NAME.CHILD)
+                    .withEventType(Constants.EventType.VACCINE_CARD_RECEIVED)
+                    .withFormSubmissionId(JsonFormUtils.generateRandomUUIDString())
+                    .withDateCreated(new Date());
+            List<Object> huValue = new ArrayList<>();
+            huValue.add(choiceValue);
+
+            baseEvent.addObs(new Obs("concept", "text",Constants.FORM_CONSTANTS.VACCINE_CARD.CODE, "",
+                    JsonFormUtils.toList(JsonFormUtils.getChoice(context).get(choiceValue)), JsonFormUtils.toList(choiceValue), null,
+                    ChildDBConstants.KEY.VACCINE_CARD).withHumanReadableValues(huValue));
+            JsonFormUtils.tagSyncMetadata(ChwApplication.getInstance().getContext().allSharedPreferences(), baseEvent);
+            JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(baseEvent));
+            syncHelper.addEvent(entityId, eventJson);
+            long lastSyncTimeStamp = ChwApplication.getInstance().getContext().allSharedPreferences().fetchLastUpdatedAtDate(0);
+            Date lastSyncDate = new Date(lastSyncTimeStamp);
+            ChwApplication.getClientProcessor(ChwApplication.getInstance().getContext().applicationContext()).processClient(syncHelper.getEvents(lastSyncDate, BaseRepository.TYPE_Unsynced));
+            ChwApplication.getInstance().getContext().allSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
 
     public static SpannableString daysAway(String dueDate) {
@@ -522,6 +529,24 @@ public class ChildUtils {
         newHomeVisit.setFormfields(new HashMap<String, String>());
         ChwApplication.homeVisitRepository().add(newHomeVisit);
     }
+    public static void addToChildTable(String baseEntityID, List<org.smartregister.domain.db.Obs> observations){
+        String value ="";
+        for (org.smartregister.domain.db.Obs obs : observations)
+            if (obs.getFormSubmissionField().equalsIgnoreCase(ChildDBConstants.KEY.VACCINE_CARD)) {
+                List<Object> hu = obs.getHumanReadableValues();
+                for (Object object : hu) {
+                    value = (String) object;
+                }
+
+            }
+        if(!TextUtils.isEmpty(value)){
+            AllCommonsRepository commonsRepository = ChwApplication.getInstance().getAllCommonsRepository(Constants.TABLE_NAME.CHILD);
+            ContentValues values = new ContentValues();
+            values.put(ChildDBConstants.KEY.VACCINE_CARD, value);
+            commonsRepository.update(Constants.TABLE_NAME.CHILD, values, baseEntityID);
+        }
+
+    }
 
 
     public static String fixVaccineCasing(String display) {
@@ -530,5 +555,9 @@ public class ChildUtils {
             display = capitalize(display.toLowerCase());
         }
         return display;
+    }
+
+    public interface Flavor {
+        ArrayList<String> mainColumns(String tableName, String familyTable, String familyMemberTable);
     }
 }

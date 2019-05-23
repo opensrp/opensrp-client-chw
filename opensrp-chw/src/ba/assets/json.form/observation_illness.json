@@ -78,7 +78,7 @@
         }
       },
       {
-        "key": "action_taken",
+        "key": "action_taken_1m5yr",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "164378AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -90,14 +90,28 @@
           "err": "Please select action"
         },
         "values": [
-          "Managed",
-          "Referred",
-          "No action taken"
-        ],
-        "openmrs_choice_ids": {
-          "Managed": "140959AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Referred": "1648AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "No action taken" : "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          "ORS 5",
+          "Zinc 10",
+          "Paracetamol",
+          "Other treatment"
+        ]
+      },
+      {
+        "key": "other_treat_1m5yr",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "Other treatment",
+        "v_required": {
+          "value": "true",
+          "err": "Please specify the other treatment"
+        },
+        "relevance": {
+          "step1:action_taken_1m5yr": {
+            "type": "string",
+            "ex": "equalTo(., \"Other treatment\")"
+          }
         }
       }
     ]

@@ -131,49 +131,7 @@
                 android:textSize="@dimen/login_edit_text_textSize"
                 android:typeface="sans" />
 
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:layout_marginTop="10dp"
-                android:background="@color/light_grey" />
-
         </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/llHighestEduLevel"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:orientation="vertical">
-
-            <org.smartregister.view.customcontrols.CustomFontTextView
-                style="@style/CustomFontTextViewStyle.ClientList.Light"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:maxLines="5"
-                android:text="@string/highest_education_level"
-                android:textColor="@color/black"
-                android:textSize="@dimen/change_member_list_main" />
-
-            <Spinner
-                android:id="@+id/spEducationLevel"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/change_member_padding"
-                android:hint="@string/highest_education_level"
-                android:textColor="#666666"
-                android:textColorHint="#bfbfbf"
-                android:typeface="sans" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:layout_marginTop="10dp"
-                android:background="@color/light_grey" />
-
-        </LinearLayout>
-
     </LinearLayout>
 
 </RelativeLayout>

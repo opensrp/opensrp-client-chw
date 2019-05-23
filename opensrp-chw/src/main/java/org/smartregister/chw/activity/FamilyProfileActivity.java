@@ -240,9 +240,9 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity implements 
                             if (presenter().updatePrimaryCareGiver(getApplicationContext(), jsonString, familyBaseEntityId, careGiver)) {
                                 setPrimaryCaregiver(careGiver);
                                 refreshPresenter();
+                                refreshMemberFragment(careGiver, null);
                             }
 
-                            refreshMemberFragment(careGiver, null);
                             presenter().verifyHasPhone();
                         }
                     } catch (Exception e) {
