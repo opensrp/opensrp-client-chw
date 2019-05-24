@@ -95,6 +95,10 @@ public class JobAidsDashboardFragment extends Fragment implements ReportContract
         Map<String, IndicatorTally> deceased12_59_NumericMap = new HashMap<>();
         Map<String, IndicatorTally> children_0_59_WithCertificateMap = new HashMap<>();
         Map<String, IndicatorTally> children_0_59_WithNoCertificateMap = new HashMap<>();
+        Map<String, IndicatorTally> children_12_59_DewormedMap = new HashMap<>();
+        Map<String, IndicatorTally> children_12_59_Not_DewormedMap = new HashMap<>();
+        Map<String, IndicatorTally> children_6_59_ReceivedVitaminA = new HashMap<>();
+        Map<String, IndicatorTally> children_6_59_NotReceivedVitaminA = new HashMap<>();
 
         for (Map<String, IndicatorTally> indicatorTallyMap : indicatorTallies) {
             for (String key : indicatorTallyMap.keySet()) {
@@ -114,6 +118,18 @@ public class JobAidsDashboardFragment extends Fragment implements ReportContract
                     case DashboardUtil.countOfChildren0_59WithNoBirthCert:
                         updateTotalTally(indicatorTallyMap, children_0_59_WithNoCertificateMap, DashboardUtil.countOfChildren0_59WithNoBirthCert);
                         break;
+                    case DashboardUtil.countOfChildren12_59Dewormed:
+                        updateTotalTally(indicatorTallyMap, children_12_59_DewormedMap, DashboardUtil.countOfChildren12_59Dewormed);
+                        break;
+                    case DashboardUtil.countOfChildren12_59NotDewormed:
+                        updateTotalTally(indicatorTallyMap, children_12_59_Not_DewormedMap, DashboardUtil.countOfChildren12_59NotDewormed);
+                        break;
+                    case DashboardUtil.countOfChildren6_59VitaminRecievedA:
+                        updateTotalTally(indicatorTallyMap, children_6_59_ReceivedVitaminA, DashboardUtil.countOfChildren6_59VitaminRecievedA);
+                        break;
+                    case DashboardUtil.countOfChildren6_59VitaminNotReceivedA:
+                        updateTotalTally(indicatorTallyMap, children_6_59_NotReceivedVitaminA, DashboardUtil.countOfChildren6_59VitaminNotReceivedA);
+                        break;
                     default:
                         Log.e(JobAidsDashboardFragment.class.getCanonicalName(), "The Indicator with the Key " + key + " has not been handled");
                         break;
@@ -124,6 +140,7 @@ public class JobAidsDashboardFragment extends Fragment implements ReportContract
         NumericDisplayFactory numericDisplayFactory = new NumericDisplayFactory();
         PieChartFactory pieChartFactory = new PieChartFactory();
 
+        // Numeric Indicators
         View childrenU5View = getIndicatorView(getNumericVisualization(DashboardUtil.countOfChildrenUnder5, R.string.total_under_5_children_label, childrenU5NumericMap),
                 numericDisplayFactory);
 
@@ -133,14 +150,27 @@ public class JobAidsDashboardFragment extends Fragment implements ReportContract
         View deceased_12_59_View = getIndicatorView(getNumericVisualization(DashboardUtil.deceasedChildren12_59Months, R.string.deceased_children_12_59_months, deceased12_59_NumericMap),
                 numericDisplayFactory);
 
-        PieChartIndicatorVisualization pieChartIndicatorVisualizationData = getPieChartVisualization(children_0_59_WithCertificateMap, children_0_59_WithNoCertificateMap, DashboardUtil.countOfChildren0_59WithBirthCert,
+        // Pie Chart Indicators
+        PieChartIndicatorVisualization pieChartIndicatorVisualizationData;
+
+        pieChartIndicatorVisualizationData = getPieChartVisualization(children_0_59_WithCertificateMap, children_0_59_WithNoCertificateMap, DashboardUtil.countOfChildren0_59WithBirthCert,
                 DashboardUtil.countOfChildren0_59WithNoBirthCert, R.string.children_0_59_months_with_birth_certificate);
         View children_0_59_WithBirthCertificateView = getIndicatorView(pieChartIndicatorVisualizationData, pieChartFactory);
+
+        pieChartIndicatorVisualizationData = getPieChartVisualization(children_12_59_DewormedMap, children_12_59_Not_DewormedMap, DashboardUtil.countOfChildren12_59Dewormed,
+                DashboardUtil.countOfChildren12_59NotDewormed, R.string.children_12_59_months_dewormed);
+        View children_12_59_months_dewormed = getIndicatorView(pieChartIndicatorVisualizationData, pieChartFactory);
+
+        pieChartIndicatorVisualizationData = getPieChartVisualization(children_6_59_ReceivedVitaminA, children_6_59_NotReceivedVitaminA, DashboardUtil.countOfChildren6_59VitaminRecievedA,
+                DashboardUtil.countOfChildren6_59VitaminNotReceivedA, R.string.children_6_59_months_received_vitamin_A);
+        View children_6_59_months_received_vitamin_A = getIndicatorView(pieChartIndicatorVisualizationData, pieChartFactory);
 
         visualizationsViewGroup.addView(childrenU5View);
         visualizationsViewGroup.addView(deceased_0_11_View);
         visualizationsViewGroup.addView(deceased_12_59_View);
         visualizationsViewGroup.addView(children_0_59_WithBirthCertificateView);
+        visualizationsViewGroup.addView(children_12_59_months_dewormed);
+        visualizationsViewGroup.addView(children_6_59_months_received_vitamin_A);
 
         progressBar.setVisibility(View.GONE);
     }
