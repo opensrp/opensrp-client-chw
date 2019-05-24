@@ -10,6 +10,7 @@ import org.smartregister.chw.util.ChildUtils;
 import org.smartregister.immunization.domain.ServiceWrapper;
 import org.smartregister.util.Log;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -73,7 +74,8 @@ public class HomeVisitIndicatorInfoProcessorFlv implements ChwIndicatorGeneratin
 
     private Date parseDate(String date, String format) {
         try {
-            return (new SimpleDateFormat(format, Locale.getDefault()).parse(date));
+            DateFormat dateFormat = new SimpleDateFormat(format);
+            return dateFormat.parse(date);
         } catch (ParseException pe) {
             Log.logError(TAG, "Error parsing the date");
             return null;
