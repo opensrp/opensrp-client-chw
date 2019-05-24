@@ -99,7 +99,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type": "normal_edit_text",
+        "type": "edit_text",
         "edit_type": "number",
         "hint": "No. of previous pregnancies",
         "v_required": {
@@ -134,7 +134,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "164894AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "normal_edit_text",
+        "type": "edit_text",
         "edit_type": "number",
         "hint": "No. of surviving children",
         "v_required": {
