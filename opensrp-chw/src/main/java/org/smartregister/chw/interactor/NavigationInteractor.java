@@ -36,11 +36,6 @@ public class NavigationInteractor implements NavigationContract.Interactor {
     }
 
     @Override
-    public String getUser() {
-        return null;
-    }
-
-    @Override
     public Date getLastSync() {
         return null;
     }

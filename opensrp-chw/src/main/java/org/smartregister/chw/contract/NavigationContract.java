@@ -48,8 +48,6 @@ public interface NavigationContract {
 
     interface Interactor {
 
-        String getUser();
-
         Date getLastSync();
 
         void getRegisterCount(String tableName, InteractorCallback<Integer> callback);

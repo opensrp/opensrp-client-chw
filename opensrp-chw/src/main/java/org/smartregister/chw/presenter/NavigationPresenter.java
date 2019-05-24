@@ -13,6 +13,8 @@ import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.List;
 
+import timber.log.Timber;
+
 public class NavigationPresenter implements NavigationContract.Presenter {
 
     private NavigationContract.Model mModel;
@@ -55,7 +57,8 @@ public class NavigationPresenter implements NavigationContract.Presenter {
 
                 @Override
                 public void onError(Exception e) {
-                    getNavigationView().displayToast(activity, "Error retrieving count for " + tableMap.get(mModel.getNavigationItems().get(finalX).getMenuTitle()));
+                    // getNavigationView().displayToast(activity, "Error retrieving count for " + tableMap.get(mModel.getNavigationItems().get(finalX).getMenuTitle()));
+                    Timber.e("Error retrieving count for %s", tableMap.get(mModel.getNavigationItems().get(finalX).getMenuTitle()));
                 }
             });
             x++;
