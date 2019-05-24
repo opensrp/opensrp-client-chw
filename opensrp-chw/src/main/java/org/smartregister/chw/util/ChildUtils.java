@@ -1,5 +1,6 @@
 package org.smartregister.chw.util;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Build;
@@ -37,6 +38,7 @@ import org.smartregister.chw.rule.HomeAlertRule;
 import org.smartregister.chw.rule.ServiceRule;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.clientandeventmodel.Obs;
+import org.smartregister.commonregistry.AllCommonsRepository;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.domain.Alert;
 import org.smartregister.family.FamilyLibrary;
@@ -90,6 +92,21 @@ public class ChildUtils {
                     }
                 })
                 .create();
+    }
+
+    public static Integer dobStringToYear(String yearOfBirthString) {
+        if (!TextUtils.isEmpty(yearOfBirthString)) {
+            try {
+                String year = yearOfBirthString.contains("y") ? yearOfBirthString.substring(0, yearOfBirthString.indexOf("y")) : "";
+                if (StringUtils.isNotBlank(year)) {
+                    return Integer.valueOf(year);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        return null;
     }
 
     public static boolean hasAlert(VaccineRepo.Vaccine vaccine, List<Alert> alerts) {
@@ -282,7 +299,7 @@ public class ChildUtils {
         columnList.add(tableName + "." + ChildDBConstants.KEY.ILLNESS_DESCRIPTION);
         columnList.add(tableName + "." + ChildDBConstants.KEY.DATE_CREATED);
         columnList.add(tableName + "." + ChildDBConstants.KEY.ILLNESS_ACTION);
-
+        columnList.add(tableName + "." + ChildDBConstants.KEY.VACCINE_CARD);
         columnList.addAll(childUtilsFlv.mainColumns(tableName, familyTable, familyMemberTable));
 
         return columnList.toArray(new String[columnList.size()]);
@@ -351,37 +368,6 @@ public class ChildUtils {
     }
 
     //event type="Child Home Visit"/Visit not done
-    public static void updateClientStatusAsEvent(String entityId, String eventType, String attributeName, Object attributeValue, String entityType) {
-        try {
-
-            ECSyncHelper syncHelper = FamilyLibrary.getInstance().getEcSyncHelper();
-
-            Event event = (Event) new Event()
-                    .withBaseEntityId(entityId)
-                    .withEventDate(new Date())
-                    .withEventType(eventType)
-                    .withEntityType(entityType)
-                    .withFormSubmissionId(JsonFormUtils.generateRandomUUIDString())
-                    .withDateCreated(new Date());
-            event.addObs((new Obs()).withFormSubmissionField(attributeName).withValue(attributeValue).withFieldCode(attributeName).withFieldType("formsubmissionField").withFieldDataType("text").withParentCode("").withHumanReadableValues(new ArrayList<Object>()));
-            JsonFormUtils.tagSyncMetadata(ChwApplication.getInstance().getContext().allSharedPreferences(), event);
-            JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(event));
-            syncHelper.addEvent(entityId, eventJson);
-            long lastSyncTimeStamp = ChwApplication.getInstance().getContext().allSharedPreferences().fetchLastUpdatedAtDate(0);
-            Date lastSyncDate = new Date(lastSyncTimeStamp);
-            FamilyLibrary.getInstance().getClientProcessorForJava().processClient(syncHelper.getEvents(lastSyncDate, BaseRepository.TYPE_Unsynced));
-            ChwApplication.getInstance().getContext().allSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
-
-            //update details
-
-
-        } catch (Exception e) {
-            Log.e("Error in adding event", e.getMessage());
-        }
-    }
-
-    //event type="Child Home Visit"/Visit not done
-
     public static void updateHomeVisitAsEvent(String entityId, String eventType, String entityType, JSONObject singleVaccineObject, JSONObject vaccineGroupObject, JSONObject vaccineNotGiven, JSONObject service, JSONObject serviceNotGiven, JSONObject birthCert, JSONObject illnessJson, String visitStatus, String value) {
         try {
 
@@ -422,6 +408,35 @@ public class ChildUtils {
         } catch (Exception e) {
             Log.e("Error in adding event", e.getMessage());
         }
+    }
+    public static void updateVaccineCardAsEvent(Context context,String entityId,String choiceValue){
+        try{
+            ECSyncHelper syncHelper = FamilyLibrary.getInstance().getEcSyncHelper();
+            Event baseEvent = (Event) new Event()
+                    .withBaseEntityId(entityId)
+                    .withEventDate(new Date())
+                    .withEntityType(Constants.TABLE_NAME.CHILD)
+                    .withEventType(Constants.EventType.VACCINE_CARD_RECEIVED)
+                    .withFormSubmissionId(JsonFormUtils.generateRandomUUIDString())
+                    .withDateCreated(new Date());
+            List<Object> huValue = new ArrayList<>();
+            huValue.add(choiceValue);
+
+            baseEvent.addObs(new Obs("concept", "text",Constants.FORM_CONSTANTS.VACCINE_CARD.CODE, "",
+                    JsonFormUtils.toList(JsonFormUtils.getChoice(context).get(choiceValue)), JsonFormUtils.toList(choiceValue), null,
+                    ChildDBConstants.KEY.VACCINE_CARD).withHumanReadableValues(huValue));
+            JsonFormUtils.tagSyncMetadata(ChwApplication.getInstance().getContext().allSharedPreferences(), baseEvent);
+            JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(baseEvent));
+            syncHelper.addEvent(entityId, eventJson);
+            long lastSyncTimeStamp = ChwApplication.getInstance().getContext().allSharedPreferences().fetchLastUpdatedAtDate(0);
+            Date lastSyncDate = new Date(lastSyncTimeStamp);
+            ChwApplication.getClientProcessor(ChwApplication.getInstance().getContext().applicationContext()).processClient(syncHelper.getEvents(lastSyncDate, BaseRepository.TYPE_Unsynced));
+            ChwApplication.getInstance().getContext().allSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
 
     public static SpannableString daysAway(String dueDate) {
@@ -513,6 +528,24 @@ public class ChildUtils {
         }
         newHomeVisit.setFormfields(new HashMap<String, String>());
         ChwApplication.homeVisitRepository().add(newHomeVisit);
+    }
+    public static void addToChildTable(String baseEntityID, List<org.smartregister.domain.db.Obs> observations){
+        String value ="";
+        for (org.smartregister.domain.db.Obs obs : observations)
+            if (obs.getFormSubmissionField().equalsIgnoreCase(ChildDBConstants.KEY.VACCINE_CARD)) {
+                List<Object> hu = obs.getHumanReadableValues();
+                for (Object object : hu) {
+                    value = (String) object;
+                }
+
+            }
+        if(!TextUtils.isEmpty(value)){
+            AllCommonsRepository commonsRepository = ChwApplication.getInstance().getAllCommonsRepository(Constants.TABLE_NAME.CHILD);
+            ContentValues values = new ContentValues();
+            values.put(ChildDBConstants.KEY.VACCINE_CARD, value);
+            commonsRepository.update(Constants.TABLE_NAME.CHILD, values, baseEntityID);
+        }
+
     }
 
 
