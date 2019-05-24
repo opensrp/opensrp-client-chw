@@ -1,17 +1,31 @@
 package org.smartregister.chw.fragment;
 
+import android.database.Cursor;
+import android.os.Bundle;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.fragment.BaseAncRegisterFragment;
 import org.smartregister.chw.custom_view.NavigationMenu;
 import org.smartregister.chw.model.AncRegisterFragmentModel;
 import org.smartregister.chw.presenter.AncRegisterFragmentPresenter;
+import org.smartregister.chw.util.ChildDBConstants;
+import org.smartregister.chw.util.Constants;
+import org.smartregister.chw.util.QueryBuilder;
 import org.smartregister.chw.util.Utils;
+import org.smartregister.commonregistry.CommonFtsObject;
+import org.smartregister.commonregistry.CommonRepository;
+import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.view.customcontrols.CustomFontTextView;
+
+import java.util.List;
 
 public class AncRegisterFragment extends BaseAncRegisterFragment {
 

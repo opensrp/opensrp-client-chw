@@ -1,7 +1,6 @@
 package org.smartregister.chw.presenter;
 
 import android.app.Activity;
-import android.util.Log;
 
 import org.smartregister.chw.contract.NavigationContract;
 import org.smartregister.chw.interactor.NavigationInteractor;
@@ -11,6 +10,7 @@ import org.smartregister.chw.util.Constants;
 import org.smartregister.job.SyncServiceJob;
 
 import java.lang.ref.WeakReference;
+import java.util.HashMap;
 import java.util.List;
 
 public class NavigationPresenter implements NavigationContract.Presenter {
@@ -19,10 +19,20 @@ public class NavigationPresenter implements NavigationContract.Presenter {
     private NavigationContract.Interactor mInteractor;
     private WeakReference<NavigationContract.View> mView;
 
+    private HashMap<String, String> tableMap = new HashMap<>();
+
     public NavigationPresenter(NavigationContract.View view) {
         mView = new WeakReference<>(view);
         mInteractor = NavigationInteractor.getInstance();
         mModel = NavigationModel.getInstance();
+        initialize();
+    }
+
+    private void initialize() {
+        tableMap.put(Constants.DrawerMenu.ALL_FAMILIES, Constants.TABLE_NAME.FAMILY);
+        tableMap.put(Constants.DrawerMenu.CHILD_CLIENTS, Constants.TABLE_NAME.CHILD);
+        tableMap.put(Constants.DrawerMenu.ANC_CLIENTS, Constants.TABLE_NAME.ANC_MEMBER);
+        tableMap.put(Constants.DrawerMenu.ANC, Constants.TABLE_NAME.ANC_MEMBER);
     }
 
     @Override
@@ -35,42 +45,19 @@ public class NavigationPresenter implements NavigationContract.Presenter {
 
         int x = 0;
         while (x < mModel.getNavigationItems().size()) {
-
             final int finalX = x;
-            switch (mModel.getNavigationItems().get(x).getMenuTitle()) {
-                case Constants.DrawerMenu.ALL_FAMILIES:
-                    mInteractor.getFamilyCount(new NavigationContract.InteractorCallback<Integer>() {
-                        @Override
-                        public void onResult(Integer result) {
-                            mModel.getNavigationItems().get(finalX).setRegisterCount(result);
-                            Log.d("NavigationPresenter", String.valueOf(result));
-                            getNavigationView().refreshCount();
-                        }
+            mInteractor.getRegisterCount(tableMap.get(mModel.getNavigationItems().get(x).getMenuTitle()), new NavigationContract.InteractorCallback<Integer>() {
+                @Override
+                public void onResult(Integer result) {
+                    mModel.getNavigationItems().get(finalX).setRegisterCount(result);
+                    getNavigationView().refreshCount();
+                }
 
-                        @Override
-                        public void onError(Exception e) {
-                            getNavigationView().displayToast(activity, "Error retrieving count for " + Constants.DrawerMenu.ALL_FAMILIES);
-                        }
-                    });
-                    break;
-                case Constants.DrawerMenu.CHILD_CLIENTS:
-                    mInteractor.getChildrenCount(new NavigationContract.InteractorCallback<Integer>() {
-                        @Override
-                        public void onResult(Integer result) {
-                            mModel.getNavigationItems().get(finalX).setRegisterCount(result);
-                            getNavigationView().refreshCount();
-                        }
-
-                        @Override
-                        public void onError(Exception e) {
-                            getNavigationView().displayToast(activity, "Error retrieving count for " + Constants.DrawerMenu.CHILD_CLIENTS);
-                        }
-                    });
-                    break;
-                default:
-                    break;
-            }
-
+                @Override
+                public void onError(Exception e) {
+                    getNavigationView().displayToast(activity, "Error retrieving count for " + tableMap.get(mModel.getNavigationItems().get(finalX).getMenuTitle()));
+                }
+            });
             x++;
         }
 
