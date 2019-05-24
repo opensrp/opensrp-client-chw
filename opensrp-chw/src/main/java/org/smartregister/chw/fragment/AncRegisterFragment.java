@@ -6,8 +6,8 @@ import android.widget.LinearLayout;
 
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.fragment.BaseAncRegisterFragment;
-import org.smartregister.chw.anc.model.BaseAncRegisterFragmentModel;
 import org.smartregister.chw.custom_view.NavigationMenu;
+import org.smartregister.chw.model.AncRegisterFragmentModel;
 import org.smartregister.chw.presenter.AncRegisterFragmentPresenter;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.view.customcontrols.CustomFontTextView;
@@ -89,7 +89,7 @@ public class AncRegisterFragment extends BaseAncRegisterFragment {
         if (getActivity() == null) {
             return;
         }
-        presenter = new AncRegisterFragmentPresenter(this, new BaseAncRegisterFragmentModel(), null);
+        presenter = new AncRegisterFragmentPresenter(this, new AncRegisterFragmentModel(), null);
     }
 
     @Override
