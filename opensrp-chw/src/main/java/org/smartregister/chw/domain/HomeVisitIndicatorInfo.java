@@ -1,5 +1,7 @@
 package org.smartregister.chw.domain;
 
+import java.util.Date;
+
 /**
  * A class that models the home visit info required for processing home visit
  * related indicators
@@ -11,10 +13,11 @@ public class HomeVisitIndicatorInfo {
     private long homeVisitId;
     private String baseEntityId;
     private String service;
-    private String serviceDate;
-    private String serviceUpdateDate;
-    private long lastHomeVisitDate;
-    private long updatedAt;
+    private Date serviceDate;
+    private Date serviceUpdateDate;
+    private Date lastHomeVisitDate;
+    private Date updatedAt;
+    private Date createdAt;
 
     public long getHomeVisitId() {
         return homeVisitId;
@@ -40,35 +43,43 @@ public class HomeVisitIndicatorInfo {
         this.service = service;
     }
 
-    public String getServiceDate() {
+    public Date getServiceDate() {
         return serviceDate;
     }
 
-    public void setServiceDate(String serviceDate) {
+    public void setServiceDate(Date serviceDate) {
         this.serviceDate = serviceDate;
     }
 
-    public String getServiceUpdateDate() {
+    public Date getServiceUpdateDate() {
         return serviceUpdateDate;
     }
 
-    public void setServiceUpdateDate(String serviceUpdateDate) {
+    public void setServiceUpdateDate(Date serviceUpdateDate) {
         this.serviceUpdateDate = serviceUpdateDate;
     }
 
-    public long getLastHomeVisitDate() {
+    public Date getLastHomeVisitDate() {
         return lastHomeVisitDate;
     }
 
-    public void setLastHomeVisitDate(long lastHomeVisitDate) {
+    public void setLastHomeVisitDate(Date lastHomeVisitDate) {
         this.lastHomeVisitDate = lastHomeVisitDate;
     }
 
-    public long getUpdatedAt() {
+    public Date getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(long updatedAt) {
+    public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 }

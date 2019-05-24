@@ -256,18 +256,23 @@ public class HomeVisitRepository extends BaseRepository {
 
     public List<HomeVisit> getLatestHomeVisitsByDate(String lastProcessedDate) {
         List<HomeVisit> homeVisits = new ArrayList<>();
-        Cursor cursor;
+        Cursor cursor = null;
+        String orderBy = CREATED_AT + " ASC";
         try {
             if (lastProcessedDate == null || lastProcessedDate.isEmpty()) {
-                cursor = getWritableDatabase().query(HomeVisitTABLE_NAME, HomeVisit_TABLE_COLUMNS, null, null, null, null, null);
+                cursor = getWritableDatabase().query(HomeVisitTABLE_NAME, HomeVisit_TABLE_COLUMNS, null, null, null, null, orderBy);
             } else {
                 String selection = " WHERE " + UPDATED_AT_COLUMN + " > ?  OR " + CREATED_AT + " > ?";
                 String[] selectionArgs = new String[]{lastProcessedDate};
-                cursor = getWritableDatabase().query(HomeVisitTABLE_NAME, HomeVisit_TABLE_COLUMNS, selection, selectionArgs, null, null, null);
+                cursor = getWritableDatabase().query(HomeVisitTABLE_NAME, HomeVisit_TABLE_COLUMNS, selection, selectionArgs, null, null, orderBy);
             }
             homeVisits = readAllHomeVisits(cursor);
         } catch (Exception ex) {
             Timber.e(ex.toString());
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
         }
 
         return homeVisits;
