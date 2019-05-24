@@ -248,4 +248,9 @@ public class AncRegisterFragment extends BaseAncRegisterFragment {
         }
         return super.onCreateLoader(id, args);
     }
+
+    @Override
+    protected String getMainCondition() {
+        return presenter().getMainCondition();
+    }
 }
