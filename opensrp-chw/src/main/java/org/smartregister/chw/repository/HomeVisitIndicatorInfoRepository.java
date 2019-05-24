@@ -24,12 +24,13 @@ public class HomeVisitIndicatorInfoRepository extends BaseRepository {
     private static final String SERVICE = "service";
     private static final String SERVICE_DATE = "service_date";
     private static final String SERVICE_UPDATE_DATE = "service_update_date";
+    private static final String SERVICE_GIVEN = "service_given";
     private static final String BASE_ENTITY_ID = "base_entity_id";
     private static final String UPDATED_AT = "updated_at";
     private static final String CREATED_AT = "created_at";
     private static final String CREATE_HOME_VISIT_INDICATOR_INFO_TABLE = "CREATE TABLE " + HOME_VISIT_INDICATOR_INFO_TABLE + "(" + ID + " INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, "
             + HOME_VISIT_ID + " INTEGER NOT NULL, " + HOME_VISIT_DATE + " DATETIME NOT NULL, " + SERVICE + " VARCHAR NOT NULL, " + SERVICE_DATE + " DATETIME, " + SERVICE_UPDATE_DATE + " DATETIME, "
-            + BASE_ENTITY_ID + " VARCHAR NOT NULL, " + UPDATED_AT + " DATETIME, " + CREATED_AT + " DATETIME NOT NULL)";
+            + SERVICE_GIVEN + " BOOLEAN NOT NULL, " + BASE_ENTITY_ID + " VARCHAR NOT NULL, " + UPDATED_AT + " DATETIME, " + CREATED_AT + " DATETIME NOT NULL)";
 
     public HomeVisitIndicatorInfoRepository(Repository repository) {
         super(repository);
@@ -39,7 +40,7 @@ public class HomeVisitIndicatorInfoRepository extends BaseRepository {
         database.execSQL(CREATE_HOME_VISIT_INDICATOR_INFO_TABLE);
     }
 
-    public void saveHomeVisitInfo(HomeVisitIndicatorInfo homeVisitIndicatorInfo) {
+    public void addHomeVisitInfo(HomeVisitIndicatorInfo homeVisitIndicatorInfo) {
         if (homeVisitIndicatorInfo == null) {
             return;
         }
@@ -57,6 +58,7 @@ public class HomeVisitIndicatorInfoRepository extends BaseRepository {
         values.put(SERVICE, homeVisitIndicatorInfo.getService());
         values.put(SERVICE_DATE, formatDate(homeVisitIndicatorInfo.getServiceDate(), dateFormat));
         values.put(SERVICE_UPDATE_DATE, formatDate(homeVisitIndicatorInfo.getServiceUpdateDate(), dateFormat));
+        values.put(SERVICE_GIVEN, homeVisitIndicatorInfo.isServiceGiven());
         values.put(BASE_ENTITY_ID, homeVisitIndicatorInfo.getBaseEntityId());
         values.put(UPDATED_AT, formatDate(homeVisitIndicatorInfo.getUpdatedAt(), dateFormat));
         values.put(CREATED_AT, formatDate(homeVisitIndicatorInfo.getCreatedAt(), dateFormat));

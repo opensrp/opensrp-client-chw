@@ -254,7 +254,13 @@ public class HomeVisitRepository extends BaseRepository {
 
     }
 
-    public List<HomeVisit> getLatestHomeVisitsByDate(String lastProcessedDate) {
+    /**
+     * Return a list of home visits that are recorded later than the date provided
+     *
+     * @param lastProcessedDate to filter by
+     * @return HomeVisit List
+     */
+    public List<HomeVisit> getLatestHomeVisitsLaterThanDate(String lastProcessedDate) {
         List<HomeVisit> homeVisits = new ArrayList<>();
         Cursor cursor = null;
         String orderBy = CREATED_AT + " ASC";
@@ -262,7 +268,7 @@ public class HomeVisitRepository extends BaseRepository {
             if (lastProcessedDate == null || lastProcessedDate.isEmpty()) {
                 cursor = getWritableDatabase().query(HomeVisitTABLE_NAME, HomeVisit_TABLE_COLUMNS, null, null, null, null, orderBy);
             } else {
-                String selection = " WHERE " + UPDATED_AT_COLUMN + " > ?  OR " + CREATED_AT + " > ?";
+                String selection = UPDATED_AT_COLUMN + " > ?  OR " + CREATED_AT + " > ?";
                 String[] selectionArgs = new String[]{lastProcessedDate};
                 cursor = getWritableDatabase().query(HomeVisitTABLE_NAME, HomeVisit_TABLE_COLUMNS, selection, selectionArgs, null, null, orderBy);
             }

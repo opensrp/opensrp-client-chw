@@ -27,7 +27,7 @@ import timber.log.Timber;
  */
 public class HomeVisitIndicatorInfoProcessorFlv implements ChwIndicatorGeneratingJob.HomeVisitInfoProcessorFlv {
 
-    public static final String HOME_VISIT_INDICATOR_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
+    public static final String HOME_VISIT_INDICATOR_DATE_FORMAT = "yyyy-MM-dd hh:mm:ss";
     private static final String HOME_VISIT_INFO_LAST_PROCESSED_DATE = "home_visit_info_last_processed_date";
     private static final String TAG = HomeVisitIndicatorInfoProcessorFlv.class.getCanonicalName();
 
@@ -38,37 +38,50 @@ public class HomeVisitIndicatorInfoProcessorFlv implements ChwIndicatorGeneratin
     @Override
     public void processHomeVisitDetails() {
         String lastProcessedDate = ChwApplication.getInstance().getContext().allSharedPreferences().getPreference(HOME_VISIT_INFO_LAST_PROCESSED_DATE);
-        List<HomeVisit> homeVisitList = ChwApplication.homeVisitRepository().getLatestHomeVisitsByDate(lastProcessedDate);
+        List<HomeVisit> homeVisitList = ChwApplication.homeVisitRepository().getLatestHomeVisitsLaterThanDate(lastProcessedDate);
         Timber.d(TAG, "processHomeVisitDetails#lastprocessedDate :: %s", lastProcessedDate);
         HomeVisitIndicatorInfoRepository indicatorInfoRepo = ChwApplication.homeVisitIndicatorInfoRepository();
-        String vaccineDateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
-        String serviceJSONString;
+        String serviceGivenJSONString;
+        String serviceNotGivenJSONString;
+        boolean serviceGiven;
         HashMap<String, ServiceWrapper> serviceWrapperMap;
-        HomeVisitIndicatorInfo homeVisitIndicatorInfo;
         for (HomeVisit homeVisit : homeVisitList) {
-            serviceJSONString = homeVisit.getServicesGiven().toString();
-            if (!serviceJSONString.isEmpty()) {
-                serviceWrapperMap = ChildUtils.gsonConverter.fromJson(serviceJSONString, new TypeToken<HashMap<String, ServiceWrapper>>() {
-                }.getType());
-                // Build home visit indicator info and persist info
-                if (serviceWrapperMap != null) {
-                    for (String key : serviceWrapperMap.keySet()) {
-                        ServiceWrapper serviceWrapper = serviceWrapperMap.get(key);
-                        homeVisitIndicatorInfo = new HomeVisitIndicatorInfo();
-                        homeVisitIndicatorInfo.setBaseEntityId(homeVisit.getBaseEntityId());
-                        homeVisitIndicatorInfo.setLastHomeVisitDate(homeVisit.getDate());
-                        homeVisitIndicatorInfo.setHomeVisitId(homeVisit.getId());
-                        homeVisitIndicatorInfo.setService(serviceWrapper.getServiceType().getName());
-                        homeVisitIndicatorInfo.setServiceDate(parseDate(serviceWrapper.getVaccineDateAsString(), vaccineDateFormat));
-                        homeVisitIndicatorInfo.setServiceUpdateDate(parseDate(serviceWrapper.getUpdatedVaccineDateAsString(), vaccineDateFormat));
-                        homeVisitIndicatorInfo.setUpdatedAt(new Date(homeVisit.getUpdatedAt()));
-                        homeVisitIndicatorInfo.setCreatedAt(homeVisit.getCreatedAt());
-                        indicatorInfoRepo.saveHomeVisitInfo(homeVisitIndicatorInfo);
-                    }
-                }
+            serviceGivenJSONString = homeVisit.getServicesGiven().toString();
+            serviceNotGivenJSONString = homeVisit.getServiceNotGiven().toString();
+            // Build home visit indicator info and persist info
+            if (!serviceGivenJSONString.isEmpty()) {
+                serviceWrapperMap = ChildUtils.gsonConverter.fromJson(serviceGivenJSONString, new TypeToken<HashMap<String, ServiceWrapper>>() {}.getType());
+                serviceGiven = true;
+                saveHomeVisitInfo(serviceWrapperMap, homeVisit, indicatorInfoRepo, serviceGiven);
+            }
+            if (!serviceNotGivenJSONString.isEmpty()) {
+                serviceWrapperMap = ChildUtils.gsonConverter.fromJson(serviceNotGivenJSONString, new TypeToken<HashMap<String, ServiceWrapper>>() {}.getType());
+                serviceGiven = false;
+                saveHomeVisitInfo(serviceWrapperMap, homeVisit, indicatorInfoRepo, serviceGiven);
             }
             ChwApplication.getInstance().getContext().
                     allSharedPreferences().savePreference(HOME_VISIT_INFO_LAST_PROCESSED_DATE, new SimpleDateFormat(HOME_VISIT_INDICATOR_DATE_FORMAT, Locale.getDefault()).format(homeVisit.getCreatedAt()));
+        }
+    }
+
+    private void saveHomeVisitInfo(HashMap<String, ServiceWrapper> serviceWrapperMap, HomeVisit homeVisit, HomeVisitIndicatorInfoRepository indicatorInfoRepo, boolean serviceGiven) {
+        String vaccineDateFormat = "yyyy-MM-dd";
+        HomeVisitIndicatorInfo homeVisitIndicatorInfo;
+        if (serviceWrapperMap != null) {
+            for (String key : serviceWrapperMap.keySet()) {
+                ServiceWrapper serviceWrapper = serviceWrapperMap.get(key);
+                homeVisitIndicatorInfo = new HomeVisitIndicatorInfo();
+                homeVisitIndicatorInfo.setBaseEntityId(homeVisit.getBaseEntityId());
+                homeVisitIndicatorInfo.setLastHomeVisitDate(homeVisit.getDate());
+                homeVisitIndicatorInfo.setHomeVisitId(homeVisit.getId());
+                homeVisitIndicatorInfo.setService(serviceWrapper.getServiceType().getName());
+                homeVisitIndicatorInfo.setServiceDate(parseDate(serviceWrapper.getVaccineDateAsString(), vaccineDateFormat));
+                homeVisitIndicatorInfo.setServiceUpdateDate(parseDate(serviceWrapper.getUpdatedVaccineDateAsString(), vaccineDateFormat));
+                homeVisitIndicatorInfo.setServiceGiven(serviceGiven);
+                homeVisitIndicatorInfo.setUpdatedAt(new Date(homeVisit.getUpdatedAt()));
+                homeVisitIndicatorInfo.setCreatedAt(homeVisit.getCreatedAt());
+                indicatorInfoRepo.addHomeVisitInfo(homeVisitIndicatorInfo);
+            }
         }
     }
 
