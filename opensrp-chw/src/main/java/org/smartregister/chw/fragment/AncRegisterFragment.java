@@ -3,6 +3,7 @@ package org.smartregister.chw.fragment;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.fragment.BaseAncRegisterFragment;
@@ -70,6 +71,58 @@ public class AncRegisterFragment extends BaseAncRegisterFragment {
         }
 
         NavigationMenu.getInstance(getActivity(), null, toolbar);
+    }
+
+    @Override
+    protected void onViewClicked(View view) {
+
+        if (view.getId() == R.id.due_only_layout) {
+            toggleFilterSelection(view);
+        }
+    }
+
+    private void toggleFilterSelection(View dueOnlyLayout) {
+        if (dueOnlyLayout != null) {
+            if (dueOnlyLayout.getTag() == null) {
+                dueFilterActive = true;
+                dueFilter(dueOnlyLayout);
+            } else if (dueOnlyLayout.getTag().toString().equals(DUE_FILTER_TAG)) {
+                dueFilterActive = false;
+                normalFilter(dueOnlyLayout);
+            }
+        }
+    }
+
+    protected void filter(String filterString, String joinTableString, String mainConditionString) {
+        filters = filterString;
+        joinTable = joinTableString;
+        mainCondition = mainConditionString;
+        filterandSortExecute(countBundle());
+    }
+
+    private void dueFilter(View dueOnlyLayout) {
+        filter(searchText(), "", presenter().getDueFilterCondition());
+        dueOnlyLayout.setTag(DUE_FILTER_TAG);
+        switchViews(dueOnlyLayout, true);
+    }
+
+    private void normalFilter(View dueOnlyLayout) {
+        filter(searchText(), "", presenter().getMainCondition());
+        dueOnlyLayout.setTag(null);
+        switchViews(dueOnlyLayout, false);
+    }
+
+    private String searchText() {
+        return (getSearchView() == null) ? "" : getSearchView().getText().toString();
+    }
+
+    private void switchViews(View dueOnlyLayout, boolean isPress) {
+        TextView dueOnlyTextView = dueOnlyLayout.findViewById(R.id.due_only_text_view);
+        if (isPress) {
+            dueOnlyTextView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_due_filter_on, 0);
+        } else {
+            dueOnlyTextView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_due_filter_off, 0);
+        }
     }
 
     @Override

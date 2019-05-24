@@ -22,4 +22,5 @@ public class AncRegisterFragmentPresenter extends BaseAncRegisterFragmentPresent
     public String getMainTable() {
         return Constants.TABLE_NAME.ANC_MEMBER;
     }
+
 }
