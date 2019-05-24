@@ -93,6 +93,8 @@ public class AncRegisterFragment extends BaseAncRegisterFragment {
 
         if (view.getId() == R.id.due_only_layout) {
             toggleFilterSelection(view);
+        }else{
+            super.onViewClicked(view);
         }
     }
 
