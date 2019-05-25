@@ -50,14 +50,24 @@ public class HomeVisitIndicatorInfoProcessorFlv implements ChwIndicatorGeneratin
             serviceNotGivenJSONString = homeVisit.getServiceNotGiven().toString();
             // Build home visit indicator info and persist info
             if (!serviceGivenJSONString.isEmpty()) {
-                serviceWrapperMap = ChildUtils.gsonConverter.fromJson(serviceGivenJSONString, new TypeToken<HashMap<String, ServiceWrapper>>() {}.getType());
-                serviceGiven = true;
-                saveHomeVisitInfo(serviceWrapperMap, homeVisit, indicatorInfoRepo, serviceGiven);
+                try {
+                    serviceWrapperMap = ChildUtils.gsonConverter.fromJson(serviceGivenJSONString, new TypeToken<HashMap<String, ServiceWrapper>>() {
+                    }.getType());
+                    serviceGiven = true;
+                    saveHomeVisitInfo(serviceWrapperMap, homeVisit, indicatorInfoRepo, serviceGiven);
+                } catch (Exception ex) {
+                    Timber.e(ex.toString());
+                }
             }
             if (!serviceNotGivenJSONString.isEmpty()) {
-                serviceWrapperMap = ChildUtils.gsonConverter.fromJson(serviceNotGivenJSONString, new TypeToken<HashMap<String, ServiceWrapper>>() {}.getType());
-                serviceGiven = false;
-                saveHomeVisitInfo(serviceWrapperMap, homeVisit, indicatorInfoRepo, serviceGiven);
+                try {
+                    serviceWrapperMap = ChildUtils.gsonConverter.fromJson(serviceNotGivenJSONString, new TypeToken<HashMap<String, ServiceWrapper>>() {
+                    }.getType());
+                    serviceGiven = false;
+                    saveHomeVisitInfo(serviceWrapperMap, homeVisit, indicatorInfoRepo, serviceGiven);
+                } catch (Exception ex) {
+                    Timber.e(ex.toString());
+                }
             }
             ChwApplication.getInstance().getContext().
                     allSharedPreferences().savePreference(HOME_VISIT_INFO_LAST_PROCESSED_DATE, new SimpleDateFormat(HOME_VISIT_INDICATOR_DATE_FORMAT, Locale.getDefault()).format(homeVisit.getCreatedAt()));
