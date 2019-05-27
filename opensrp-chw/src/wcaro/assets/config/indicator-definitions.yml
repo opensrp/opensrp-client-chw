@@ -89,20 +89,76 @@ indicators:
 
   - key: "CHW_006"
     description: "Children (12-59 months) who were dewormed in the last 6 months"
-    indicatorQuery: "select count(distinct ec_child.base_entity_id) from ec_child where date(ec_child.dob) > date('now', '-60 month') and date(ec_child.dob) <= date('now', '-11 month') and ifnull(ec_child.dod,'') = '' and ifnull(ec_child.date_removed,'') = ''
-                     and ec_child.base_entity_id in (select home_visit_indicator_info.base_entity_id from home_visit_indicator_info where home_visit_indicator_info.service like 'Deworming%' and home_visit_indicator_info.service_given = 1 and (date(home_visit_indicator_info.created_at >= date('now', '-6 month')) or date(home_visit_indicator_info.updated_at >= date('now', '-6 month'))))"
+    indicatorQuery: "select count(distinct ev.baseEntityId) from event ev inner join ec_child ec where ev.baseEntityId = ec.base_entity_id and date(ec.dob) > date('now', '-60 month') and date(ec.dob) <= date('now', '-11 month')
+                     and ifnull(ec.dod,'') = '' and ifnull(ec.date_removed,'') = '' and
+                         substr(ev.eventDate, 31 , 4) || (case substr(ev.eventDate, 5,3) when 'Jan' then '01'
+                                                       when 'Feb' then '02'
+                                                       when 'Mar' then '03'
+                                                       when 'Apr' then '04'
+                                                       when 'May' then '05'
+                                                       when 'Jun' then '06'
+                                                       when 'Jul' then '07'
+                                                       when 'Aug' then '08'
+                                                       when 'Sep' then '09'
+                                                       when 'Oct' then '10'
+                                                       when 'Nov' then '11'
+                                                       when 'Dec' then '12' end) ||  substr(ev.eventDate, 9 , 2) = '%s' and ev.eventType = 'Child Home Visit'
+                     and ec.base_entity_id in (select home_visit_indicator_info.base_entity_id from home_visit_indicator_info where home_visit_indicator_info.service like 'Deworming%%' and home_visit_indicator_info.service_given = 1 and (date(home_visit_indicator_info.created_at >= date('now', '-6 month')) or date(home_visit_indicator_info.updated_at >= date('now', '-6 month'))))"
 
   - key: "CHW_007"
     description: "Children (12-59 months) who were not dewormed in the last 6 months"
-    indicatorQuery: "select count(distinct ec_child.base_entity_id) from ec_child where date(ec_child.dob) > date('now', '-60 month') and date(ec_child.dob) <= date('now', '-11 month') and ifnull(ec_child.dod,'') = '' and ifnull(ec_child.date_removed,'') = ''
-                   and ec_child.base_entity_id in (select home_visit_indicator_info.base_entity_id from home_visit_indicator_info where home_visit_indicator_info.service like 'Deworming%' and home_visit_indicator_info.service_given = 0 and (date(home_visit_indicator_info.created_at >= date('now', '-6 month')) or date(home_visit_indicator_info.updated_at >= date('now', '-6 month'))))"
+    indicatorQuery: "select count(distinct ev.baseEntityId) from event ev inner join ec_child ec where ev.baseEntityId = ec.base_entity_id and date(ec.dob) > date('now', '-60 month') and date(ec.dob) <= date('now', '-11 month')
+                     and ifnull(ec.dod,'') = '' and ifnull(ec.date_removed,'') = '' and
+                         substr(ev.eventDate, 31 , 4) || (case substr(ev.eventDate, 5,3) when 'Jan' then '01'
+                                                       when 'Feb' then '02'
+                                                       when 'Mar' then '03'
+                                                       when 'Apr' then '04'
+                                                       when 'May' then '05'
+                                                       when 'Jun' then '06'
+                                                       when 'Jul' then '07'
+                                                       when 'Aug' then '08'
+                                                       when 'Sep' then '09'
+                                                       when 'Oct' then '10'
+                                                       when 'Nov' then '11'
+                                                       when 'Dec' then '12' end) ||  substr(ev.eventDate, 9 , 2) = '%s' and ev.eventType = 'Child Home Visit'
+                     and ec.base_entity_id in (select home_visit_indicator_info.base_entity_id from home_visit_indicator_info where home_visit_indicator_info.service like 'Deworming%%'
+                     and home_visit_indicator_info.service_given = 0 and (date(home_visit_indicator_info.created_at >= date('now', '-6 month')) or date(home_visit_indicator_info.updated_at >= date('now', '-6 month'))))"
 
   - key: "CHW_008"
     description: "Children (6-59 months) who received Vitamin A in the last 6 months"
-    indicatorQuery: "select count(distinct ec_child.base_entity_id) from ec_child where date(ec_child.dob) > date('now', '-60 month') and date(ec_child.dob) <= date('now', '-6 month') and ifnull(ec_child.dod,'') = '' and ifnull(ec_child.date_removed,'') = ''
-                  and ec_child.base_entity_id in (select home_visit_indicator_info.base_entity_id from home_visit_indicator_info where home_visit_indicator_info.service like 'Vitamin A%' and home_visit_indicator_info.service_given = 1 and (date(home_visit_indicator_info.created_at >= date('now', '-6 month')) or date(home_visit_indicator_info.updated_at >= date('now', '-6 month'))))"
+    indicatorQuery: "select count(ev.baseEntityId) from event ev inner join ec_child ec where ev.baseEntityId = ec.base_entity_id and date(ec.dob) > date('now', '-60 month')
+    and date(ec.dob) <= date('now', '-6 month') and ifnull(ec.dod,'') = '' and ifnull(ec.date_removed,'') = '' and
+     substr(ev.eventDate, 31 , 4) || (case substr(ev.eventDate, 5,3) when 'Jan' then '01'
+                              when 'Feb' then '02'
+                              when 'Mar' then '03'
+                              when 'Apr' then '04'
+                              when 'May' then '05'
+                              when 'Jun' then '06'
+                              when 'Jul' then '07'
+                              when 'Aug' then '08'
+                              when 'Sep' then '09'
+                              when 'Oct' then '10'
+                              when 'Nov' then '11'
+                              when 'Dec' then '12' end) ||  substr(ev.eventDate, 9 , 2) = '%s'
+    and ev.eventType = 'Child Home Visit' and ec.base_entity_id in (select home_visit_indicator_info.base_entity_id from home_visit_indicator_info where home_visit_indicator_info.service like 'Vitamin A%%'
+    and home_visit_indicator_info.service_given = 1 and (date(home_visit_indicator_info.created_at >= date('now', '-6 month'))
+    or date(home_visit_indicator_info.updated_at >= date('now', '-6 month'))))"
 
   - key: "CHW_009"
     description: "Children (6-59 months) who did not receive Vitamin A in the last 6 months"
-    indicatorQuery: "select count(distinct ec_child.base_entity_id) from ec_child where date(ec_child.dob) > date('now', '-60 month') and date(ec_child.dob) <= date('now', '-6 month') and ifnull(ec_child.dod,'') = '' and ifnull(ec_child.date_removed,'') = ''
-                  and ec_child.base_entity_id in (select home_visit_indicator_info.base_entity_id from home_visit_indicator_info where home_visit_indicator_info.service like 'Vitamin A%' and home_visit_indicator_info.service_given = 0 and (date(home_visit_indicator_info.created_at >= date('now', '-6 month')) or date(home_visit_indicator_info.updated_at >= date('now', '-6 month'))))"
+    indicatorQuery: "select count(ev.baseEntityId) from event ev inner join ec_child ec where ev.baseEntityId = ec.base_entity_id and date(ec.dob) > date('now', '-60 month')
+    and date(ec.dob) <= date('now', '-6 month') and ifnull(ec.dod,'') = '' and ifnull(ec.date_removed,'') = '' and
+    substr(ev.eventDate, 31 , 4) || (case substr(ev.eventDate, 5,3) when 'Jan' then '01'
+                                  when 'Feb' then '02'
+                                  when 'Mar' then '03'
+                                  when 'Apr' then '04'
+                                  when 'May' then '05'
+                                  when 'Jun' then '06'
+                                  when 'Jul' then '07'
+                                  when 'Aug' then '08'
+                                  when 'Sep' then '09'
+                                  when 'Oct' then '10'
+                                  when 'Nov' then '11'
+                                  when 'Dec' then '12' end) ||  substr(ev.eventDate, 9 , 2) = '%s' and ev.eventType = 'Child Home Visit'
+                                       and ec.base_entity_id in (select home_visit_indicator_info.base_entity_id from home_visit_indicator_info where home_visit_indicator_info.service
+                                       like 'Vitamin A%%' and home_visit_indicator_info.service_given = 0 and (date(home_visit_indicator_info.created_at >= date('now', '-6 month')) or date(home_visit_indicator_info.updated_at >= date('now', '-6 month'))))"
