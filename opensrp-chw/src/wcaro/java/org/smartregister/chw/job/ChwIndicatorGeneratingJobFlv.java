@@ -8,7 +8,6 @@ import org.smartregister.chw.domain.HomeVisitIndicatorInfo;
 import org.smartregister.chw.repository.HomeVisitIndicatorInfoRepository;
 import org.smartregister.chw.util.ChildUtils;
 import org.smartregister.immunization.domain.ServiceWrapper;
-import org.smartregister.util.Log;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -25,11 +24,7 @@ import timber.log.Timber;
  *
  * @author Allan
  */
-public class HomeVisitIndicatorInfoProcessorFlv implements ChwIndicatorGeneratingJob.Flavor {
-
-    public static final String HOME_VISIT_INDICATOR_DATE_FORMAT = "yyyy-MM-dd hh:mm:ss";
-    private static final String HOME_VISIT_INFO_LAST_PROCESSED_DATE = "home_visit_info_last_processed_date";
-    private static final String TAG = HomeVisitIndicatorInfoProcessorFlv.class.getCanonicalName();
+public class ChwIndicatorGeneratingJobFlv implements ChwIndicatorGeneratingJob.Flavor {
 
     /**
      * Get the latest home visit entries then parses the service JSON details and saves them
@@ -37,9 +32,11 @@ public class HomeVisitIndicatorInfoProcessorFlv implements ChwIndicatorGeneratin
      */
     @Override
     public void processHomeVisitDetails() {
+        String HOME_VISIT_INFO_LAST_PROCESSED_DATE = "home_visit_info_last_processed_date";
+
         String lastProcessedDate = ChwApplication.getInstance().getContext().allSharedPreferences().getPreference(HOME_VISIT_INFO_LAST_PROCESSED_DATE);
         List<HomeVisit> homeVisitList = ChwApplication.homeVisitRepository().getLatestHomeVisitsLaterThanDate(lastProcessedDate);
-        Timber.d(TAG, "processHomeVisitDetails#lastprocessedDate :: %s", lastProcessedDate);
+        Timber.d("processHomeVisitDetails#lastprocessedDate :: %s", lastProcessedDate);
         HomeVisitIndicatorInfoRepository indicatorInfoRepo = ChwApplication.homeVisitIndicatorInfoRepository();
         String serviceGivenJSONString;
         String serviceNotGivenJSONString;
@@ -70,7 +67,7 @@ public class HomeVisitIndicatorInfoProcessorFlv implements ChwIndicatorGeneratin
                 }
             }
             ChwApplication.getInstance().getContext().
-                    allSharedPreferences().savePreference(HOME_VISIT_INFO_LAST_PROCESSED_DATE, new SimpleDateFormat(HOME_VISIT_INDICATOR_DATE_FORMAT, Locale.getDefault()).format(homeVisit.getCreatedAt()));
+                    allSharedPreferences().savePreference(HOME_VISIT_INFO_LAST_PROCESSED_DATE, new SimpleDateFormat(HomeVisitIndicatorInfoRepository.HOME_VISIT_INDICATOR_DATE_FORMAT, Locale.getDefault()).format(homeVisit.getCreatedAt()));
         }
     }
 
@@ -100,7 +97,7 @@ public class HomeVisitIndicatorInfoProcessorFlv implements ChwIndicatorGeneratin
             DateFormat dateFormat = new SimpleDateFormat(format);
             return dateFormat.parse(date);
         } catch (ParseException pe) {
-            Log.logError(TAG, "Error parsing the date");
+            Timber.e("Error parsing the date");
             return null;
         }
     }

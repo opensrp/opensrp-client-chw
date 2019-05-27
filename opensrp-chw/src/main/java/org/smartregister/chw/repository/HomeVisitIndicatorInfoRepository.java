@@ -5,7 +5,6 @@ import android.content.ContentValues;
 import net.sqlcipher.database.SQLiteDatabase;
 
 import org.smartregister.chw.domain.HomeVisitIndicatorInfo;
-import org.smartregister.chw.job.HomeVisitIndicatorInfoProcessorFlv;
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.repository.Repository;
 
@@ -14,7 +13,7 @@ import java.util.Date;
 import java.util.Locale;
 
 public class HomeVisitIndicatorInfoRepository extends BaseRepository {
-    
+    public static final String HOME_VISIT_INDICATOR_DATE_FORMAT = "yyyy-MM-dd hh:mm:ss";
     private static final String HOME_VISIT_INDICATOR_INFO_TABLE = "home_visit_indicator_info";
     private static final String ID = "_id";
     private static final String HOME_VISIT_ID = "home_visit_id";
@@ -49,7 +48,7 @@ public class HomeVisitIndicatorInfoRepository extends BaseRepository {
     }
 
     private ContentValues createValuesFor(HomeVisitIndicatorInfo homeVisitIndicatorInfo) {
-        String dateFormat = HomeVisitIndicatorInfoProcessorFlv.HOME_VISIT_INDICATOR_DATE_FORMAT;
+        String dateFormat = HomeVisitIndicatorInfoRepository.HOME_VISIT_INDICATOR_DATE_FORMAT;
         ContentValues values = new ContentValues();
         values.put(HOME_VISIT_ID, homeVisitIndicatorInfo.getHomeVisitId());
         values.put(HOME_VISIT_DATE, formatDate(homeVisitIndicatorInfo.getLastHomeVisitDate(), dateFormat));

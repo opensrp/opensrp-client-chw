@@ -12,7 +12,7 @@ import org.smartregister.reporting.job.RecurringIndicatorGeneratingJob;
  */
 public class ChwIndicatorGeneratingJob extends RecurringIndicatorGeneratingJob {
 
-    private Flavor processorFlv = new HomeVisitIndicatorInfoProcessorFlv();
+    private Flavor processorFlv = new ChwIndicatorGeneratingJobFlv();
 
     @NonNull
     protected Result onRunJob(@NonNull Params params) {
