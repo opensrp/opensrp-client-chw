@@ -13,7 +13,7 @@ import java.util.Date;
 import java.util.Locale;
 
 public class HomeVisitIndicatorInfoRepository extends BaseRepository {
-    public static final String HOME_VISIT_INDICATOR_DATE_FORMAT = "yyyy-MM-dd hh:mm:ss";
+    public static final String HOME_VISIT_INDICATOR_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
     private static final String HOME_VISIT_INDICATOR_INFO_TABLE = "home_visit_indicator_info";
     private static final String ID = "_id";
     private static final String HOME_VISIT_ID = "home_visit_id";
