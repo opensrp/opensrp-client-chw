@@ -25,18 +25,16 @@ import timber.log.Timber;
  *
  * @author Allan
  */
-public class HomeVisitIndicatorInfoProcessorFlv implements ChwIndicatorGeneratingJob.HomeVisitInfoProcessorFlv {
 
-    public static final String HOME_VISIT_INDICATOR_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
-    private static final String HOME_VISIT_INFO_LAST_PROCESSED_DATE = "home_visit_info_last_processed_date";
-    private static final String TAG = HomeVisitIndicatorInfoProcessorFlv.class.getCanonicalName();
-
+public class ChwIndicatorGeneratingJobFlv implements ChwIndicatorGeneratingJob.Flavor {
     /**
      * Get the latest home visit entries then parses the service JSON details and saves them
      * in the home visit indicator info table for use by indicator queries
      */
     @Override
     public void processHomeVisitDetails() {
+        String HOME_VISIT_INFO_LAST_PROCESSED_DATE = "home_visit_info_last_processed_date";
+
         String lastProcessedDate = ChwApplication.getInstance().getContext().allSharedPreferences().getPreference(HOME_VISIT_INFO_LAST_PROCESSED_DATE);
         List<HomeVisit> homeVisitList = ChwApplication.homeVisitRepository().getLatestHomeVisitsLaterThanDate(lastProcessedDate);
         Log.logDebug("processHomeVisitDetails#lastprocessedDate ::" + lastProcessedDate);
@@ -70,7 +68,7 @@ public class HomeVisitIndicatorInfoProcessorFlv implements ChwIndicatorGeneratin
                 }
             }
             ChwApplication.getInstance().getContext().
-                    allSharedPreferences().savePreference(HOME_VISIT_INFO_LAST_PROCESSED_DATE, new SimpleDateFormat(HOME_VISIT_INDICATOR_DATE_FORMAT, Locale.getDefault()).format(homeVisit.getCreatedAt()));
+                    allSharedPreferences().savePreference(HOME_VISIT_INFO_LAST_PROCESSED_DATE, new SimpleDateFormat(HomeVisitIndicatorInfoRepository.HOME_VISIT_INDICATOR_DATE_FORMAT, Locale.getDefault()).format(homeVisit.getCreatedAt()));
         }
     }
 
@@ -100,7 +98,7 @@ public class HomeVisitIndicatorInfoProcessorFlv implements ChwIndicatorGeneratin
             DateFormat dateFormat = new SimpleDateFormat(format);
             return dateFormat.parse(date);
         } catch (ParseException pe) {
-            Log.logError(TAG, "Error parsing the date");
+            Timber.e("Error parsing the date");
             return null;
         }
     }
