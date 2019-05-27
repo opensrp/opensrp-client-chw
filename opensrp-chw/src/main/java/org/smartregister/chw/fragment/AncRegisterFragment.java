@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.R;
+import org.smartregister.chw.activity.AncHomeVisitActivity;
 import org.smartregister.chw.anc.fragment.BaseAncRegisterFragment;
 import org.smartregister.chw.anc.util.DBConstants;
 import org.smartregister.chw.custom_view.NavigationMenu;
@@ -21,6 +22,7 @@ import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.QueryBuilder;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.commonregistry.CommonFtsObject;
+import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.view.customcontrols.CustomFontTextView;
@@ -93,7 +95,7 @@ public class AncRegisterFragment extends BaseAncRegisterFragment {
 
         if (view.getId() == R.id.due_only_layout) {
             toggleFilterSelection(view);
-        }else{
+        } else {
             super.onViewClicked(view);
         }
     }
@@ -131,6 +133,12 @@ public class AncRegisterFragment extends BaseAncRegisterFragment {
 
     private String searchText() {
         return (getSearchView() == null) ? "" : getSearchView().getText().toString();
+    }
+
+    @Override
+    protected void openHomeVisit(CommonPersonObjectClient client) {
+        String baseEntityId = org.smartregister.util.Utils.getValue(client.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, true);
+        AncHomeVisitActivity.startMe(getActivity(), baseEntityId);
     }
 
     private void switchViews(View dueOnlyLayout, boolean isPress) {
