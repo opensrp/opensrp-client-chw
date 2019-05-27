@@ -14,9 +14,7 @@ import java.util.Date;
 import java.util.Locale;
 
 public class HomeVisitIndicatorInfoRepository extends BaseRepository {
-
-    private static final String TAG = HomeVisitIndicatorInfoRepository.class.getCanonicalName();
-
+    
     private static final String HOME_VISIT_INDICATOR_INFO_TABLE = "home_visit_indicator_info";
     private static final String ID = "_id";
     private static final String HOME_VISIT_ID = "home_visit_id";
