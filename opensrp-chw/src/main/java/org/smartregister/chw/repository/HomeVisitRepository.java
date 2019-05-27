@@ -1,12 +1,12 @@
 package org.smartregister.chw.repository;
 
 import android.content.ContentValues;
-import android.database.Cursor;
 import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import net.sqlcipher.Cursor;
 import net.sqlcipher.database.SQLiteDatabase;
 
 import org.apache.commons.lang3.StringUtils;
@@ -29,8 +29,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-
-import timber.log.Timber;
 
 public class HomeVisitRepository extends BaseRepository {
     public static final String EVENT_TYPE = "Child Home Visit";
@@ -261,26 +259,17 @@ public class HomeVisitRepository extends BaseRepository {
      * @return HomeVisit List
      */
     public List<HomeVisit> getLatestHomeVisitsLaterThanDate(String lastProcessedDate) {
-        List<HomeVisit> homeVisits = new ArrayList<>();
-        Cursor cursor = null;
+        List<HomeVisit> homeVisits;
         String orderBy = CREATED_AT + " ASC";
-        try {
-            if (lastProcessedDate == null || lastProcessedDate.isEmpty()) {
-                cursor = getWritableDatabase().query(HomeVisitTABLE_NAME, HomeVisit_TABLE_COLUMNS, null, null, null, null, orderBy);
-            } else {
-                String selection = UPDATED_AT_COLUMN + " > ?  OR " + CREATED_AT + " > ?";
-                String[] selectionArgs = new String[]{lastProcessedDate};
-                cursor = getWritableDatabase().query(HomeVisitTABLE_NAME, HomeVisit_TABLE_COLUMNS, selection, selectionArgs, null, null, orderBy);
-            }
-            homeVisits = readAllHomeVisits(cursor);
-        } catch (Exception ex) {
-            Timber.e(ex.toString());
-        } finally {
-            if (cursor != null) {
-                cursor.close();
-            }
+        Cursor cursor;
+        if (lastProcessedDate == null || lastProcessedDate.isEmpty()) {
+            cursor = getReadableDatabase().query(HomeVisitTABLE_NAME, HomeVisit_TABLE_COLUMNS, null, null, null, null, orderBy);
+        } else {
+            String selection = CREATED_AT + " > ?";
+            String[] selectionArgs = new String[]{lastProcessedDate};
+            cursor = getReadableDatabase().query(HomeVisitTABLE_NAME, HomeVisit_TABLE_COLUMNS, selection, selectionArgs, null, null, orderBy);
         }
-
+        homeVisits = readAllHomeVisits(cursor);
         return homeVisits;
     }
 

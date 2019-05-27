@@ -27,7 +27,7 @@ import timber.log.Timber;
  */
 public class HomeVisitIndicatorInfoProcessorFlv implements ChwIndicatorGeneratingJob.HomeVisitInfoProcessorFlv {
 
-    public static final String HOME_VISIT_INDICATOR_DATE_FORMAT = "yyyy-MM-dd hh:mm:ss";
+    public static final String HOME_VISIT_INDICATOR_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
     private static final String HOME_VISIT_INFO_LAST_PROCESSED_DATE = "home_visit_info_last_processed_date";
     private static final String TAG = HomeVisitIndicatorInfoProcessorFlv.class.getCanonicalName();
 
@@ -39,7 +39,7 @@ public class HomeVisitIndicatorInfoProcessorFlv implements ChwIndicatorGeneratin
     public void processHomeVisitDetails() {
         String lastProcessedDate = ChwApplication.getInstance().getContext().allSharedPreferences().getPreference(HOME_VISIT_INFO_LAST_PROCESSED_DATE);
         List<HomeVisit> homeVisitList = ChwApplication.homeVisitRepository().getLatestHomeVisitsLaterThanDate(lastProcessedDate);
-        Timber.d(TAG, "processHomeVisitDetails#lastprocessedDate :: %s", lastProcessedDate);
+        Log.logDebug("processHomeVisitDetails#lastprocessedDate ::" + lastProcessedDate);
         HomeVisitIndicatorInfoRepository indicatorInfoRepo = ChwApplication.homeVisitIndicatorInfoRepository();
         String serviceGivenJSONString;
         String serviceNotGivenJSONString;
