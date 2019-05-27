@@ -107,6 +107,8 @@
     <string name="exclusive_breastfeeding">Exclusive breastfeeding</string>
     <string name="vitamin_a">Vitamin A</string>
     <string name="deworming">Deworming</string>
+    <string name="vaccine_card_text">Did the child receive their vaccine card?</string>
+    <string name="vaccine_card_title">Child vaccine card received</string>
     <string name="record_immunizations">Record vaccinations</string>
     <string name="tab_text_1">DASHBOARD</string>
     <string name="tab_text_2">GUIDEBOOKS</string>

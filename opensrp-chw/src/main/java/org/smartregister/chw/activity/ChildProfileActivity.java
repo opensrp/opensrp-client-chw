@@ -61,13 +61,14 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     private int appBarLayoutScrollRange = -1;
     private String childBaseEntityId;
     private boolean isComesFromFamily = false;
-    private TextView textViewTitle, textViewParentName, textViewChildName, textViewGender, textViewAddress, textViewId, textViewRecord, textViewVisitNot, tvEdit;
+    protected TextView textViewParentName,textViewLastVisit,textViewMedicalHistory;
+    private TextView textViewTitle, textViewChildName, textViewGender, textViewAddress, textViewId, textViewRecord, textViewVisitNot, tvEdit;
     private CircleImageView imageViewProfile;
     private RelativeLayout layoutNotRecordView, layoutLastVisitRow, layoutMostDueOverdue, layoutFamilyHasRow;
     private RelativeLayout layoutRecordButtonDone;
     private LinearLayout layoutRecordView;
     private View viewLastVisitRow, viewMostDueRow, viewFamilyRow;
-    private TextView textViewNotVisitMonth, textViewUndo, textViewLastVisit, textViewNameDue, textViewFamilyHas;
+    private TextView textViewNotVisitMonth, textViewUndo,textViewNameDue, textViewFamilyHas;
     private ImageView imageViewCross;
     private ProgressBar progressBar;
     private String gender;
@@ -75,6 +76,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     private String lastVisitDay;
     private FamilyMemberFloatingMenu familyFloatingMenu;
     private OnClickFloatingMenu onClickFloatingMenu;
+    protected View recordVisitPanel;
 
     @Override
     public void updateHasPhone(boolean hasPhone) {
@@ -154,6 +156,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
         textViewId = findViewById(R.id.textview_id);
         tvEdit = findViewById(R.id.textview_edit);
         imageViewProfile = findViewById(R.id.imageview_profile);
+        recordVisitPanel = findViewById(R.id.record_visit_panel);
         textViewRecord = findViewById(R.id.textview_record_visit);
         textViewVisitNot = findViewById(R.id.textview_visit_not);
         textViewNotVisitMonth = findViewById(R.id.textview_not_visit_this_month);
@@ -163,6 +166,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
         layoutRecordView = findViewById(R.id.record_visit_bar);
         layoutNotRecordView = findViewById(R.id.record_visit_status_bar);
         layoutLastVisitRow = findViewById(R.id.last_visit_row);
+        textViewMedicalHistory = findViewById(R.id.text_view_medical_hstory);
         layoutMostDueOverdue = findViewById(R.id.most_due_overdue_row);
         textViewNameDue = findViewById(R.id.textview_name_due);
         layoutFamilyHasRow = findViewById(R.id.family_has_row);
@@ -220,24 +224,14 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
                 openFamilyDueTab();
                 break;
             case R.id.textview_visit_not:
+                showProgressBar();
                 presenter().updateVisitNotDone(System.currentTimeMillis());
+                tvEdit.setVisibility(View.GONE);
 
-                openVisitMonthView();
                 break;
             case R.id.textview_undo:
-
-                if (textViewUndo.getText().toString().equalsIgnoreCase(getString(R.string.undo))) {
-                    presenter().updateVisitNotDone(0);
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            presenter().fetchVisitStatus(childBaseEntityId);
-                        }
-                    }, 200);
-
-                } else {
-                    openVisitHomeScreen(true);
-                }
+                showProgressBar();
+                presenter().updateVisitNotDone(0);
 
                 break;
             case R.id.textview_edit:
@@ -284,7 +278,12 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
         childHomeVisitFragment.show(getFragmentManager(), ChildHomeVisitFragment.DIALOG_TAG);
     }
 
-    private void openVisitMonthView() {
+    @Override
+    public void showUndoVisitNotDoneView() {
+        presenter().fetchVisitStatus(childBaseEntityId);
+    }
+
+    public void openVisitMonthView() {
         layoutNotRecordView.setVisibility(View.VISIBLE);
         layoutRecordButtonDone.setVisibility(View.GONE);
         layoutRecordView.setVisibility(View.GONE);
@@ -307,6 +306,10 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     @Override
     public void hideProgressBar() {
         progressBar.setVisibility(View.GONE);
+    }
+
+    private void showProgressBar(){
+        progressBar.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -417,7 +420,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
 
     }
 
-    private void updateTopbar() {
+    protected void updateTopbar() {
         if (gender.equalsIgnoreCase(Gender.MALE.toString())) {
             imageViewProfile.setBorderColor(getResources().getColor(R.color.light_blue));
         } else if (gender.equalsIgnoreCase(Gender.FEMALE.toString())) {

@@ -1,15 +1,12 @@
 package org.smartregister.chw.rule;
 
 import android.content.Context;
-import android.text.TextUtils;
-import android.util.Log;
-
-import org.apache.commons.lang3.StringUtils;
 import org.joda.time.Days;
 import org.joda.time.LocalDate;
 import org.joda.time.Months;
 import org.smartregister.chw.R;
 import org.smartregister.chw.interactor.ChildProfileInteractor;
+import org.smartregister.chw.util.ChildUtils;
 
 //All date formats ISO 8601 yyyy-mm-dd
 
@@ -33,7 +30,7 @@ public class HomeAlertRule implements ICommonRule {
     private Context context;
 
     public HomeAlertRule(Context context, String yearOfBirthString, long lastVisitDateLong, long visitNotDoneValue, long dateCreatedLong) {
-        yearOfBirth = dobStringToYear(yearOfBirthString);
+        yearOfBirth = ChildUtils.dobStringToYear(yearOfBirthString);
 
         this.context = context;
 
@@ -110,21 +107,6 @@ public class HomeAlertRule implements ICommonRule {
         return Months.monthsBetween(
                 date1.withDayOfMonth(1),
                 date2.withDayOfMonth(1)).getMonths();
-    }
-
-    private Integer dobStringToYear(String yearOfBirthString) {
-        if (!TextUtils.isEmpty(yearOfBirthString)) {
-            try {
-                String year = yearOfBirthString.contains("y") ? yearOfBirthString.substring(0, yearOfBirthString.indexOf("y")) : "";
-                if (StringUtils.isNotBlank(year)) {
-                    return Integer.valueOf(year);
-                }
-            } catch (Exception e) {
-                Log.e(getClass().getCanonicalName(), e.toString(), e);
-            }
-        }
-
-        return null;
     }
 
     @Override
