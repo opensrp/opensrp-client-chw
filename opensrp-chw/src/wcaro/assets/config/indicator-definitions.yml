@@ -14,7 +14,7 @@ indicators:
      when 'Oct' then '10'
      when 'Nov' then '11'
      when 'Dec' then '12' end) ||  substr(eventDate, 9 , 2) = '%s' and event.baseEntityId not
-     in (select distinct ec_child.base_entity_id from ec_child where ifnull(ec_child.dod,'') != '' or ifnull(ec_child.date_removed,'') != '')"
+     in (select distinct ec_child.base_entity_id from ec_child where ifnull(ec_child.dod,'') != '' or ifnull(ec_child.date_removed,'') != '') and date(ch.dob) > date('now', '-60 month')"
 
   - key: "CHW_002"
     description: "Children (0-11 months) who died in the last year"
@@ -68,7 +68,7 @@ indicators:
                           when 'Nov' then '11'
                           when 'Dec' then '12' end) ||  substr(eventDate, 9 , 2) = '%s'
                           and event.baseEntityId in (select distinct ec_child.base_entity_id from ec_child where ec_child.birth_cert = 'Yes'
-                          and date(ec_child.dob) >= date('now', '-60 month'))"
+                          and date(ec_child.dob) >= date('now', '-60 month') and ifnull(ec_child.dod,'') = '' and ifnull(ec_child.date_removed,'') = '')"
 
   - key: "CHW_005"
     description: "Children (0-59 months) without a birth certificate"
@@ -85,24 +85,24 @@ indicators:
                           when 'Oct' then '10'
                           when 'Nov' then '11'
                           when 'Dec' then '12' end) ||  substr(eventDate, 9 , 2) = '%s' and event.baseEntityId in (select distinct ec_child.base_entity_id from ec_child where ec_child.birth_cert = 'No'
-                          and date(ec_child.dob) >= date('now', '-60 month'))"
+                          and date(ec_child.dob) >= date('now', '-60 month') and ifnull(ec_child.dod,'') = '' and ifnull(ec_child.date_removed,'') = '')"
 
   - key: "CHW_006"
     description: "Children (12-59 months) who were dewormed in the last 6 months"
-    indicatorQuery: "select count(distinct ec_child.base_entity_id) from ec_child where date(ec_child.dob) > date('now', '-60 month') and date(ec_child.dob) <= date('now', '-11 month')
+    indicatorQuery: "select count(distinct ec_child.base_entity_id) from ec_child where date(ec_child.dob) > date('now', '-60 month') and date(ec_child.dob) <= date('now', '-11 month') and ifnull(ec_child.dod,'') = '' and ifnull(ec_child.date_removed,'') = ''
                      and ec_child.base_entity_id in (select home_visit_indicator_info.base_entity_id from home_visit_indicator_info where home_visit_indicator_info.service like 'Deworming%' and home_visit_indicator_info.service_given = 1 and (date(home_visit_indicator_info.created_at >= date('now', '-6 month')) or date(home_visit_indicator_info.updated_at >= date('now', '-6 month'))))"
 
   - key: "CHW_007"
     description: "Children (12-59 months) who were not dewormed in the last 6 months"
-    indicatorQuery: "select count(distinct ec_child.base_entity_id) from ec_child where date(ec_child.dob) > date('now', '-60 month') and date(ec_child.dob) <= date('now', '-11 month')
+    indicatorQuery: "select count(distinct ec_child.base_entity_id) from ec_child where date(ec_child.dob) > date('now', '-60 month') and date(ec_child.dob) <= date('now', '-11 month') and ifnull(ec_child.dod,'') = '' and ifnull(ec_child.date_removed,'') = ''
                    and ec_child.base_entity_id in (select home_visit_indicator_info.base_entity_id from home_visit_indicator_info where home_visit_indicator_info.service like 'Deworming%' and home_visit_indicator_info.service_given = 0 and (date(home_visit_indicator_info.created_at >= date('now', '-6 month')) or date(home_visit_indicator_info.updated_at >= date('now', '-6 month'))))"
 
   - key: "CHW_008"
     description: "Children (6-59 months) who received Vitamin A in the last 6 months"
-    indicatorQuery: "select count(distinct ec_child.base_entity_id) from ec_child where date(ec_child.dob) > date('now', '-60 month') and date(ec_child.dob) <= date('now', '-6 month')
+    indicatorQuery: "select count(distinct ec_child.base_entity_id) from ec_child where date(ec_child.dob) > date('now', '-60 month') and date(ec_child.dob) <= date('now', '-6 month') and ifnull(ec_child.dod,'') = '' and ifnull(ec_child.date_removed,'') = ''
                   and ec_child.base_entity_id in (select home_visit_indicator_info.base_entity_id from home_visit_indicator_info where home_visit_indicator_info.service like 'Vitamin A%' and home_visit_indicator_info.service_given = 1 and (date(home_visit_indicator_info.created_at >= date('now', '-6 month')) or date(home_visit_indicator_info.updated_at >= date('now', '-6 month'))))"
 
   - key: "CHW_009"
     description: "Children (6-59 months) who did not receive Vitamin A in the last 6 months"
-    indicatorQuery: "select count(distinct ec_child.base_entity_id) from ec_child where date(ec_child.dob) > date('now', '-60 month') and date(ec_child.dob) <= date('now', '-6 month')
+    indicatorQuery: "select count(distinct ec_child.base_entity_id) from ec_child where date(ec_child.dob) > date('now', '-60 month') and date(ec_child.dob) <= date('now', '-6 month') and ifnull(ec_child.dod,'') = '' and ifnull(ec_child.date_removed,'') = ''
                   and ec_child.base_entity_id in (select home_visit_indicator_info.base_entity_id from home_visit_indicator_info where home_visit_indicator_info.service like 'Vitamin A%' and home_visit_indicator_info.service_given = 0 and (date(home_visit_indicator_info.created_at >= date('now', '-6 month')) or date(home_visit_indicator_info.updated_at >= date('now', '-6 month'))))"
