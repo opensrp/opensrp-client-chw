@@ -449,14 +449,6 @@
           }
         },
         {
-          "column_name": "birth_cert",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.fieldCode",
-            "formSubmissionField": "birth_cert"
-          }
-        },
-        {
           "column_name": "birth_cert_issue_date",
           "type": "Event",
           "json_mapping": {
