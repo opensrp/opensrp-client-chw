@@ -54,43 +54,118 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "160939AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "openmrs_data_type": "select one",
-        "type": "spinner",
-        "hint": "Any danger signs present?",
-        "values": [
-          "None",
-          "Fever",
-          "Bleeding vaginally",
-          "Severe headache",
-          "Convulsions",
-          "Difficulty breathing",
-          "Severe abdominal pain",
-          "Swollen face and legs"
+        "type": "check_box",
+        "label": "Does the mother have any danger signs?",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "exclusive": [
+          "chk_none"
         ],
-        "openmrs_choice_ids": {
-          "None": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Fever": "140238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Bleeding vaginally": "150802AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Severe headache": "139081AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Convulsions": "164483AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Difficulty breathing": "142373AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Severe abdominal pain": "165271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Swollen face and legs": "460AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "v_required": {
-            "value": "true",
-            "err": "Please select one option"
+        "options": [
+          {
+            "key": "chk_fever",
+            "text": "Fever",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "140238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_bleeding_vaginally",
+            "text": "Bleeding vaginally",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "150802AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_server_headache",
+            "text": "Severe headache",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "139081AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_convulsions",
+            "text": "Convulsions",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "164483AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_difficulty_breathing",
+            "text": "Difficulty breathing",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "142373AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_severe_abdominal_pain",
+            "text": "Severe abdominal pain",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "165271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_swelling",
+            "text": "Swelling of the face and/or hands",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "460AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_vaginal_discharge",
+            "text": "Discoloured or watery, liquid vaginal discharge with a bad smell",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "123395AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_unusual_movement",
+            "text": "No movement / unusual movement for a child in the womb",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "113377AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_none",
+            "text": "None",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please pick at least one"
         }
       },
       {
         "key": "danger_signs_present_toaster",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "toaster_notes",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
         "type": "toaster_notes",
         "text": "Danger sign! \nRefer immediately to health facility.",
         "text_color": "#CF0800",
-        "toaster_type": "problem"
+        "toaster_type": "problem",
+        "relevance": {
+          "step1:danger_signs_present": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "chk_fever",
+                  "chk_bleeding_vaginally",
+                  "chk_server_headache",
+                  "chk_convulsions",
+                  "chk_difficulty_breathing",
+                  "chk_severe_abdominal_pain",
+                  "chk_swelling",
+                  "chk_vaginal_discharge",
+                  "chk_unusual_movement"
+                ]
+              }
+            ]
+          }
+        }
       },
       {
         "key": "danger_signs_counseling",
@@ -99,7 +174,7 @@
         "openmrs_entity_id": "165310AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Counseling on seeking care immediately for danger signs",
+        "hint": "Did the mother receive counselling on danger signs at the health facility recently?",
         "values": [
           "Yes",
           "No"
