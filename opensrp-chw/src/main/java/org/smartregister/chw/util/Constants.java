@@ -52,6 +52,10 @@ public class Constants {
         public static final String HOME_VISIT_COUNSELLING = "routine_home_visit";
 
         public static final String ANC_REGISTRATION = "anc_member_registration";
+
+        public static class ANC_HOME_VISIT {
+            public static final String DANGER_SIGNS = "anc_hv_danger_signs";
+        }
     }
 
     public static class RELATIONSHIP {
