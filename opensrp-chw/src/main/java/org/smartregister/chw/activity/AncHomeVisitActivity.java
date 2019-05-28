@@ -28,14 +28,20 @@ public class AncHomeVisitActivity extends BaseAncHomeVisitActivity {
         actionList.put("Danger Signs", new BaseAncHomeVisitAction("Danger Signs", "", false, null, ANC_HOME_VISIT.DANGER_SIGNS));
         actionList.put("ANC Counseling", new BaseAncHomeVisitAction("ANC Counseling", "", false, null, ANC_HOME_VISIT.ANC_COUNSELING));
 
-        BaseAncHomeVisitFragment llitn = BaseAncHomeVisitFragment.getInstance(this, "Sleeping under a LLITN",
+        BaseAncHomeVisitFragment fragmentLLTIN = BaseAncHomeVisitFragment.getInstance(this, "Sleeping under a LLITN",
                 "Is the woman sleeping under a Long Lasting Insecticide-Treated Net (LLITN)?",
                 R.drawable.form_llitn,
                 BaseAncHomeVisitFragment.QuestionType.BOOLEAN
         );
-        actionList.put("Sleeping under a LLITN", new BaseAncHomeVisitAction("Sleeping under a LLITN", "", false, llitn, null));
+        actionList.put("Sleeping under a LLITN", new BaseAncHomeVisitAction("Sleeping under a LLITN", "", false, fragmentLLTIN, null));
 
-        actionList.put("ANC Card Received", new BaseAncHomeVisitAction("ANC Card Received", "", false, null, "anc"));
+        BaseAncHomeVisitFragment ancCardFragment = BaseAncHomeVisitFragment.getInstance(this, "ANC Card Received",
+                "ANC card received?",
+                org.smartregister.chw.opensrp_chw_anc.R.drawable.avatar_woman,
+                BaseAncHomeVisitFragment.QuestionType.BOOLEAN
+        );
+        actionList.put("ANC Card Received", new BaseAncHomeVisitAction("ANC Card Received", "", false, ancCardFragment, null));
+
         actionList.put("ANC Health Facility Visit 1", new BaseAncHomeVisitAction("ANC Health Facility Visit 1", "", false, null, "anc"));
         actionList.put("TT Immunization 1", new BaseAncHomeVisitAction("TT Immunization 1", "", false, null, "anc"));
         actionList.put("IPTp-SP dose 1", new BaseAncHomeVisitAction("IPTp-SP dose 1", "", false, null, "anc"));
