@@ -33,7 +33,6 @@ import java.util.List;
 public class AncRegisterFragment extends BaseAncRegisterFragment {
 
     private View view;
-    private View dueOnlyLayout;
 
     private boolean dueFilterActive = false;
     private static final String DUE_FILTER_TAG = "PRESSED";
@@ -77,7 +76,7 @@ public class AncRegisterFragment extends BaseAncRegisterFragment {
         View filterSortLayout = view.findViewById(R.id.filter_sort_layout);
         filterSortLayout.setVisibility(View.GONE);
 
-        dueOnlyLayout = view.findViewById(R.id.due_only_layout);
+        View dueOnlyLayout = view.findViewById(R.id.due_only_layout);
         dueOnlyLayout.setVisibility(View.VISIBLE);
         dueOnlyLayout.setOnClickListener(registerActionHandler);
 

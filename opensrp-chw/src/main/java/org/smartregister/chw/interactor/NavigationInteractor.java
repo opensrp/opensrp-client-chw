@@ -1,11 +1,8 @@
 package org.smartregister.chw.interactor;
 
-import android.app.Activity;
 import android.database.Cursor;
 
 import org.apache.commons.lang3.StringUtils;
-import org.smartregister.Context;
-import org.smartregister.CoreLibrary;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.contract.NavigationContract;
 import org.smartregister.chw.util.ChildDBConstants;
