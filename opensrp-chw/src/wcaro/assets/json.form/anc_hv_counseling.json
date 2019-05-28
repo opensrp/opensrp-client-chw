@@ -47,7 +47,7 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "Anc Counseling",
+    "title": "ANC counseling",
     "fields": [
       {
         "key": "anc_counseling",
