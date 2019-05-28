@@ -25,7 +25,7 @@ public class AncHomeVisitActivity extends BaseAncHomeVisitActivity {
     @Override
     protected void initializeActions() throws BaseAncHomeVisitAction.ValidationException {
         actionList.put("Danger Signs", new BaseAncHomeVisitAction("Danger Signs", "", false, null, ANC_HOME_VISIT.DANGER_SIGNS));
-        actionList.put("ANC Counseling", new BaseAncHomeVisitAction("ANC Counseling", "", false, null, "anc"));
+        actionList.put("ANC Counseling", new BaseAncHomeVisitAction("ANC Counseling", "", false, null, ANC_HOME_VISIT.ANC_COUNSELING));
         actionList.put("Sleeping under a LLITN", new BaseAncHomeVisitAction("Sleeping under a LLITN", "", false, null, "anc"));
         actionList.put("ANC Card Received", new BaseAncHomeVisitAction("ANC Card Received", "", false, null, "anc"));
         actionList.put("ANC Health Facility Visit 1", new BaseAncHomeVisitAction("ANC Health Facility Visit 1", "", false, null, "anc"));
