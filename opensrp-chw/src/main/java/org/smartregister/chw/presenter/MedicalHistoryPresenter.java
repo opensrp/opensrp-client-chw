@@ -102,6 +102,11 @@ public class MedicalHistoryPresenter implements MedicalHistoryContract.Presenter
     }
 
     @Override
+    public void updateVaccineCard(String value) {
+        getView().updateVaccineCard(value);
+    }
+
+    @Override
     public void onDestroy(boolean isChangingConfiguration) {
         view = null;//set to null on destroy
 

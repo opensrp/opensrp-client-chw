@@ -107,6 +107,8 @@
     <string name="exclusive_breastfeeding">Exclusive breastfeeding</string>
     <string name="vitamin_a">Vitamin A</string>
     <string name="deworming">Deworming</string>
+    <string name="vaccine_card_text">Did the child receive their vaccine card?</string>
+    <string name="vaccine_card_title">Child vaccine card received</string>
     <string name="record_immunizations">Record vaccinations</string>
     <string name="tab_text_1">DASHBOARD</string>
     <string name="tab_text_2">GUIDEBOOKS</string>
@@ -206,6 +208,14 @@
     <string name="total_under_5_children_label">Total U5 children</string>
     <string name="deceased_children_0_11_months">Children (0&#8211;11 months) who died in the last year</string>
     <string name="deceased_children_12_59_months">Children (12&#8211;59 months) who died in the last year</string>
+    <string name="children_0_59_months_with_birth_certificate">Children (0&#8211;59 months) with a birth certificate</string>
+    <string name="children_0_59_months_without_birth__certificate">Children (0&#8211;59 months) without a birth certificate </string>
+    <string name="children_12_59_months_dewormed">Children (12&#8211;59 months) who were dewormed in the last 6 months</string>
+    <string name="children_12_59_months_not_dewormed">Children (12&#8211;59 months) who were not dewormed in the last 6 months</string>
+    <string name="children_6_59_months_received_vitamin_A">Children (6&#8211;59 months) who received Vitamin A in the last 6 months</string>
+    <string name="children_6_59_months_not_received_vitamin_A">Children (6&#8211;59 months) who did not receive Vitamin A in the last 6 months</string>
+    <string name="yes_slice_label">Yes</string>
+    <string name="no_slice_label">No</string>
     <string name="powered_by">Powered by</string>
     <string name="immunisation_and_services"><![CDATA[IMMUNISATION & SERVICES]]></string>
     <string name="call_caregiver">Call caregiver</string>

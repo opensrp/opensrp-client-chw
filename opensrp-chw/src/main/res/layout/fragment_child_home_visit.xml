@@ -89,9 +89,78 @@
             android:orientation="vertical"
             android:visibility="gone">
 
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
+                android:background="@color/light_grey" />
+            <LinearLayout
+                android:id="@+id/vc_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:layout_marginEnd="@dimen/child_home_visit_right_margin"
+                android:layout_marginLeft="@dimen/child_home_visit_left_margin"
+                android:layout_marginRight="@dimen/child_home_visit_right_margin"
+                android:layout_marginStart="@dimen/child_home_visit_left_margin"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/vc_status_circle"
+                    android:layout_width="@dimen/immunization_status_circle_size"
+                    android:layout_height="@dimen/immunization_status_circle_size"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:clickable="false"
+                    android:src="@color/white"
+                    app:civ_border_color="@color/dark_grey"
+                    app:civ_border_width="1dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="false"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <org.smartregister.view.customcontrols.CustomFontTextView
+                        android:id="@+id/textview_vc"
+                        style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:clickable="false"
+                        android:gravity="center_vertical"
+                        android:text="@string/vaccine_card_title"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                        android:textColor="@android:color/black" />
+
+                    <org.smartregister.view.customcontrols.CustomFontTextView
+                        android:id="@+id/textview_vc_name"
+                        style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:visibility="gone"
+                        android:clickable="false"
+                        android:gravity="center_vertical"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textColor="@android:color/darker_gray" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/vc_line_view"
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginEnd="@dimen/child_home_visit_right_margin"
+                android:layout_marginLeft="@dimen/child_home_visit_left_margin"
+                android:layout_marginRight="@dimen/child_home_visit_right_margin"
+                android:layout_marginStart="@dimen/child_home_visit_left_margin"
                 android:background="@color/light_grey" />
 
             <org.smartregister.chw.custom_view.ImmunizationView

@@ -104,6 +104,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".activity.AboveFiveChildProfileActivity" android:label="@string/child_details"
+            android:theme="@style/ChwTheme.NoActionBar"/>
 
         <provider
             android:name="android.support.v4.content.FileProvider"

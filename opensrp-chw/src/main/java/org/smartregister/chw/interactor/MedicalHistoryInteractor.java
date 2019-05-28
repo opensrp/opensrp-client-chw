@@ -42,6 +42,7 @@ import static org.smartregister.chw.util.ChildDBConstants.KEY.BIRTH_CERT_NUMBER;
 import static org.smartregister.chw.util.ChildDBConstants.KEY.ILLNESS_ACTION;
 import static org.smartregister.chw.util.ChildDBConstants.KEY.ILLNESS_DATE;
 import static org.smartregister.chw.util.ChildDBConstants.KEY.ILLNESS_DESCRIPTION;
+import static org.smartregister.chw.util.ChildDBConstants.KEY.VACCINE_CARD;
 import static org.smartregister.chw.util.ChildUtils.fixVaccineCasing;
 import static org.smartregister.util.Utils.getValue;
 
@@ -139,6 +140,22 @@ public class MedicalHistoryInteractor implements MedicalHistoryContract.Interact
             }
         };
         appExecutors.diskIO().execute(runnable2);
+        final String vaccineCard = getValue(commonPersonObjectClient.getColumnmaps(), VACCINE_CARD, true);
+        if(!TextUtils.isEmpty(vaccineCard)){
+            Runnable runnable3 = new Runnable() {
+                @Override
+                public void run() {
+                    appExecutors.mainThread().execute(new Runnable() {
+                        @Override
+                        public void run() {
+                            callBack.updateVaccineCard(vaccineCard);
+                        }
+                    });
+                }
+            };
+            appExecutors.diskIO().execute(runnable3);
+        }
+
 
     }
 

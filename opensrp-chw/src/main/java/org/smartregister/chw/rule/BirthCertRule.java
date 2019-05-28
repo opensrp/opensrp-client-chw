@@ -31,6 +31,12 @@ public class BirthCertRule implements ICommonRule {
         return todayDate.isBefore(birthDay.plusMonths(month));
 
     }
+    public boolean isExpire(Integer month) {
+
+
+        return todayDate.isAfter(birthDay.plusMonths(month));
+
+    }
 
     private String getFormateDate(String dateOfBirth){
         return DateUtil.formatDate(dateOfBirth);

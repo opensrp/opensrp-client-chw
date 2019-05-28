@@ -107,6 +107,7 @@
     <string name="exclusive_breastfeeding">Allaitement exclusif au sein</string>
     <string name="vitamin_a">Vitamine A</string>
     <string name="deworming">Déparasitage</string>
+    <string name="vaccine_card_text">L\'enfant a-t-il ou elle reçu son carnet de vaccination?</string>
     <string name="record_immunizations">Enregistrer immunisations</string>
     <string name="tab_text_1">TABLEAU DE BORD</string>
     <string name="tab_text_2">GUIDES DE RÉFERENCES</string>
@@ -114,6 +115,7 @@
     <string name="section_format">Salut le monde de la section: %1$d</string>
     <string name="updating">Mise à jour en cours...</string>
     <string name="birth_certification">Certification de naissance</string>
+    <string name="vaccine_card_title">Carnet de vaccination reçu</string>
     <string name="observations_illness_episodes"><![CDATA[Observations & maladies - <i>optional</i>]]></string>
     <string name="observations_illness_episodes_medical"><![CDATA[Observations & Épisodes de maladies]]></string>
     <string name="home_visit_suffix"> &#183; Visite à domicile</string>
