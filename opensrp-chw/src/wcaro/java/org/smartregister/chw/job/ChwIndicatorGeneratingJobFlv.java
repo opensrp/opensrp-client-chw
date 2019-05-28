@@ -86,6 +86,7 @@ public class ChwIndicatorGeneratingJobFlv implements ChwIndicatorGeneratingJob.F
                 homeVisitIndicatorInfo.setServiceDate(parseDate(serviceWrapper.getVaccineDateAsString(), vaccineDateFormat));
                 homeVisitIndicatorInfo.setServiceUpdateDate(parseDate(serviceWrapper.getUpdatedVaccineDateAsString(), vaccineDateFormat));
                 homeVisitIndicatorInfo.setServiceGiven(serviceGiven);
+                homeVisitIndicatorInfo.setValue(serviceWrapper.getValue());
                 homeVisitIndicatorInfo.setUpdatedAt(new Date(homeVisit.getUpdatedAt()));
                 homeVisitIndicatorInfo.setCreatedAt(homeVisit.getCreatedAt());
                 indicatorInfoRepo.addHomeVisitInfo(homeVisitIndicatorInfo);
