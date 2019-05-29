@@ -37,7 +37,7 @@ public class ChwIndicatorGeneratingJobFlv implements ChwIndicatorGeneratingJob.F
 
         String lastProcessedDate = ChwApplication.getInstance().getContext().allSharedPreferences().getPreference(HOME_VISIT_INFO_LAST_PROCESSED_DATE);
         List<HomeVisit> homeVisitList = ChwApplication.homeVisitRepository().getLatestHomeVisitsLaterThanDate(lastProcessedDate);
-        Log.logDebug("processHomeVisitDetails#lastprocessedDate ::" + lastProcessedDate);
+        Log.logDebug("processHomeVisitDetails#lastprocessedDate :: " + lastProcessedDate);
         HomeVisitIndicatorInfoRepository indicatorInfoRepo = ChwApplication.homeVisitIndicatorInfoRepository();
         String serviceGivenJSONString;
         String serviceNotGivenJSONString;
@@ -82,7 +82,7 @@ public class ChwIndicatorGeneratingJobFlv implements ChwIndicatorGeneratingJob.F
                 homeVisitIndicatorInfo.setBaseEntityId(homeVisit.getBaseEntityId());
                 homeVisitIndicatorInfo.setLastHomeVisitDate(homeVisit.getDate());
                 homeVisitIndicatorInfo.setHomeVisitId(homeVisit.getId());
-                homeVisitIndicatorInfo.setService(serviceWrapper.getServiceType().getName());
+                homeVisitIndicatorInfo.setService(serviceWrapper.getDefaultName());
                 homeVisitIndicatorInfo.setServiceDate(parseDate(serviceWrapper.getVaccineDateAsString(), vaccineDateFormat));
                 homeVisitIndicatorInfo.setServiceUpdateDate(parseDate(serviceWrapper.getUpdatedVaccineDateAsString(), vaccineDateFormat));
                 homeVisitIndicatorInfo.setServiceGiven(serviceGiven);
