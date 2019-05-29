@@ -60,10 +60,11 @@
       {
         "key": "date_chw_malaria_test",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "Date",
+        "openmrs_entity_id": "162869AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "date_picker",
         "hint": "Today",
+        "hidden": "true",
         "expanded": false,
         "duration": {
           "label": "Registration date"
@@ -95,13 +96,16 @@
         "key": "fever_duration",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity_id": "1731AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "spinner",
         "hint": "Duration of fever?",
         "values": [
           "Less than 24 hrs",
           "More than 24 hrs"
         ],
+        "openmrs_choice_ids": {
+          "Less than 24 hrs": "164449AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
         "v_required": {
           "value": "true",
           "err": "Please select one choice"
@@ -118,7 +122,7 @@
         "key": "malaria_results",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity_id": "1643AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "spinner",
         "hint": "mRDT results",
         "values": [
@@ -126,6 +130,11 @@
           "Negative",
           "Not done"
         ],
+        "openmrs_choice_ids": {
+          "Positive": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Negative": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Not done": "160414AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
         "v_required": {
           "value": "true",
           "err": "Please select one choice"
@@ -167,10 +176,11 @@
         "key": "malaria_test_date",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity_id": "163724AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "date_picker",
         "hint": "Today",
         "expanded": false,
+        "hidden": true,
         "duration": {
           "label": "test date"
         },
@@ -203,6 +213,14 @@
           "Not given",
           "Other treatment"
         ],
+        "openmrs_choice_ids": {
+          "ALU 6": "1072AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "ALU 12": "1072AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "ALU 18": "1072AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "ALU 24": "1072AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Not given": "164369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Other treatment": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
         "v_required": {
           "value": "true",
           "err": "Please select one choice"
@@ -286,7 +304,7 @@
         "key": "malaria_edu_chw",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity_id": "1379AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "spinner",
         "hint": "Malaria topics covered",
         "values": [
@@ -297,6 +315,14 @@
           "Malaria in pregnancy",
           "None"
         ],
+        "openmrs_choice_ids": {
+          "Overview on malaria": "116128AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Malaria prevention": "164884AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Uncomplicated malaria": "159950AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Severe malaria": "160155AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Malaria in pregnancy": "135361AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "None": "164369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
         "v_required": {
           "value": "true",
           "err": "Please select one choice"

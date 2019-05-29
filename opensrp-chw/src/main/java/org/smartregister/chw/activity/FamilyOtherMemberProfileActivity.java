@@ -235,16 +235,13 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
 
     public void startFormActivity(JSONObject jsonForm) {
 
+        //Intent intent = new Intent(this, org.smartregister.chw.malaria.util.Utils.metadata().familyMemberFormActivity);
         Intent intent = new Intent(this, Utils.metadata().familyMemberFormActivity);
         intent.putExtra(Constants.JSON_FORM_EXTRA.JSON, jsonForm.toString());
-
-
         Form form = new Form();
         form.setActionBarBackground(R.color.family_actionbar);
         form.setWizard(false);
         intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);
-
-
         startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
     }
 

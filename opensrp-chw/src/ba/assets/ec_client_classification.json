@@ -92,6 +92,13 @@
             "creates_case": [
               "ec_child"
             ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Malaria registration",
+            "creates_case": [
+              "ec_malaria"
+            ]
           }
         ]
       }
