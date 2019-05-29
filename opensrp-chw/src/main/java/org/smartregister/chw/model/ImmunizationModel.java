@@ -201,7 +201,7 @@ public class ImmunizationModel {
             if (weeks >= 10) {
                 elligibleVaccineGroups.add("10 weeks");
             }
-            if (weeks >= 6) {
+            if (weeks >= 14) {
                 elligibleVaccineGroups.add("14 weeks");
             }
             if (months >= 9) {

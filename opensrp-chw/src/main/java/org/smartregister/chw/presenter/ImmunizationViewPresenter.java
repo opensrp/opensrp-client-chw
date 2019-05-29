@@ -98,7 +98,7 @@ public class ImmunizationViewPresenter implements ImmunizationContact.Presenter,
             }
             getView().onUpdateNextPosition();
 
-            getView().updateSubmitBtn();
+            //getView().updateSubmitBtn();
         }else{
             this.homeVisitVaccineGroupDetails = homeVisitVaccineGroupDetails;
             for (int i = 0; i < this.homeVisitVaccineGroupDetails.size(); i++) {
@@ -112,7 +112,7 @@ public class ImmunizationViewPresenter implements ImmunizationContact.Presenter,
             getView().allDataLoaded();
             getView().updateAdapter(0);
 
-            getView().updateSubmitBtn();
+            //getView().updateSubmitBtn();
         }
 
     }
@@ -335,6 +335,7 @@ public class ImmunizationViewPresenter implements ImmunizationContact.Presenter,
     }
     public boolean isAllSelected(){
         for(HomeVisitVaccineGroup homeVisitVaccineGroup:homeVisitVaccineGroupDetails){
+            org.smartregister.util.Log.logError("SUBMIT_BTN","get view type"+homeVisitVaccineGroup.getViewType());
             if(homeVisitVaccineGroup.getViewType()!= HomeVisitVaccineGroup.TYPE_ACTIVE){
                 return false;
             }

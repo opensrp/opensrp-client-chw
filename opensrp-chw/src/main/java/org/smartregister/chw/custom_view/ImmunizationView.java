@@ -31,6 +31,7 @@ public class ImmunizationView extends LinearLayout implements ImmunizationContac
 
     private final String W_10 ="10 weeks";
     private final String W_14 ="14 weeks";
+    private final String W_6 ="6 weeks";
 
     private RecyclerView recyclerView;
     private ImmunizationAdapter adapter;
@@ -110,6 +111,7 @@ public class ImmunizationView extends LinearLayout implements ImmunizationContac
 
     @Override
     public void updateAdapter(int position) {
+        updateSubmitBtn();
 
         if (isEditMode) {
             childHomeVisitFragment.allVaccineDataLoaded = true;
@@ -177,13 +179,31 @@ public class ImmunizationView extends LinearLayout implements ImmunizationContac
 
         }
     }
+
+    /**
+     * this method called when 6w vaccine/10w vaccine row is selected.
+     * When 6w row is selected from edit mode it'll reset the 14 week row as initial stage.
+     */
     @Override
     public void onUpdateNextPosition(){
-        Log.logError("SUBMIT_CHECK","onUpdateNextPosition>>");
         try{
             HomeVisitVaccineGroup nextSelectedGroup = presenter.getHomeVisitVaccineGroupDetails().get(pressPosition + 1);
             nextSelectedGroup.setViewType(HomeVisitVaccineGroup.TYPE_INITIAL);
+            if(isEditMode){
+                HomeVisitVaccineGroup selectedGroup = presenter.getHomeVisitVaccineGroupDetails().get(pressPosition);
+                if(selectedGroup.getGroup().equalsIgnoreCase(W_6)){
+                    for(int i = 0; i<presenter.getHomeVisitVaccineGroupDetails().size();i++){
+                        if(presenter.getHomeVisitVaccineGroupDetails().get(i).getGroup().equalsIgnoreCase(W_14)){
+                            presenter.getHomeVisitVaccineGroupDetails().get(i).setViewType(HomeVisitVaccineGroup.TYPE_INACTIVE);
+                            break;
+                        }
+                    }
+                }
+
+
+            }
             updateAdapter(pressPosition + 1);
+
         }catch (Exception e){
             adapter.notifyDataSetChanged();
         }

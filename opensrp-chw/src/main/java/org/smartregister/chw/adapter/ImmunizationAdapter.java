@@ -70,6 +70,8 @@ public class ImmunizationAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                     immunizations = MessageFormat.format(context.getString(R.string.immunizations_count), value.replace("weeks", "w").replace("months", "m").replace(" ", ""));
 
                 }
+                inactiveViewHolder.circleImageView.setCircleBackgroundColor(context.getResources().getColor(R.color.white));
+                inactiveViewHolder.circleImageView.setBorderColor(context.getResources().getColor(R.color.dark_grey));
                 inactiveViewHolder.titleText.setText(immunizations);
                 String message = MessageFormat.format("{0}{1}",
                         ((baseVaccine.getAlert().equals(ImmunizationState.OVERDUE)) ? context.getResources().getString(R.string.overdue) : context.getResources().getString(R.string.due)),
@@ -246,6 +248,7 @@ public class ImmunizationAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     public class InitialViewHolder extends RecyclerView.ViewHolder {
         public TextView titleText, descriptionText;
+        public CircleImageView circleImageView;
         private View myView;
 
         private InitialViewHolder(View view) {
@@ -253,7 +256,7 @@ public class ImmunizationAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             titleText = view.findViewById(R.id.textview_group_immunization);
             titleText.setTextColor(context.getResources().getColor(R.color.black));
             descriptionText = view.findViewById(R.id.textview_immunization_group_secondary_text);
-
+            circleImageView = view.findViewById(R.id.immunization_group_status_circle);
             myView = view;
         }
 
