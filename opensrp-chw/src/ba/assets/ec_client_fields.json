@@ -589,7 +589,6 @@
         }
       ]
     },
-    ///
     {
       "name": "ec_malaria",
       "columns": [
@@ -660,21 +659,6 @@
           "json_mapping": {
             "field": "obs.fieldCode",
             "concept": "1379AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          }
-        },
-        {
-          "column_name": "fever_malaria_chw",
-          "type": "Client",
-          "json_mapping": {
-            "field": "malaria_fever"
-          }
-        },
-        {
-          "column_name": "fever_duration",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "1731AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         }
       ]
