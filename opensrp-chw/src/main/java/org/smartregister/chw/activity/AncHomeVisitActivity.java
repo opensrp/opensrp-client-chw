@@ -9,9 +9,8 @@ import com.vijay.jsonwizard.domain.Form;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.activity.BaseAncHomeVisitActivity;
-import org.smartregister.chw.anc.fragment.BaseAncHomeVisitFragment;
-import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
-import org.smartregister.chw.util.Constants.JSON_FORM.ANC_HOME_VISIT;
+import org.smartregister.chw.anc.presenter.BaseAncHomeVisitPresenter;
+import org.smartregister.chw.interactor.AncHomeVisitInteractor;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
 
@@ -24,28 +23,8 @@ public class AncHomeVisitActivity extends BaseAncHomeVisitActivity {
     }
 
     @Override
-    protected void initializeActions() throws BaseAncHomeVisitAction.ValidationException {
-        actionList.put("Danger Signs", new BaseAncHomeVisitAction("Danger Signs", "", false, null, ANC_HOME_VISIT.DANGER_SIGNS));
-        actionList.put("ANC Counseling", new BaseAncHomeVisitAction("ANC Counseling", "", false, null, ANC_HOME_VISIT.ANC_COUNSELING));
-
-        BaseAncHomeVisitFragment fragmentLLTIN = BaseAncHomeVisitFragment.getInstance(this, "Sleeping under a LLITN",
-                "Is the woman sleeping under a Long Lasting Insecticide-Treated Net (LLITN)?",
-                R.drawable.form_llitn,
-                BaseAncHomeVisitFragment.QuestionType.BOOLEAN
-        );
-        actionList.put("Sleeping under a LLITN", new BaseAncHomeVisitAction("Sleeping under a LLITN", "", false, fragmentLLTIN, null));
-
-        BaseAncHomeVisitFragment ancCardFragment = BaseAncHomeVisitFragment.getInstance(this, "ANC Card Received",
-                "ANC card received?",
-                org.smartregister.chw.opensrp_chw_anc.R.drawable.avatar_woman,
-                BaseAncHomeVisitFragment.QuestionType.BOOLEAN
-        );
-        actionList.put("ANC Card Received", new BaseAncHomeVisitAction("ANC Card Received", "", false, ancCardFragment, null));
-
-        actionList.put("ANC Health Facility Visit 1", new BaseAncHomeVisitAction("ANC Health Facility Visit 1", "", false, null, ANC_HOME_VISIT.HEALTH_FACILITY_VISIT));
-        actionList.put("TT Immunization 1", new BaseAncHomeVisitAction("TT Immunization 1", "", false, null, "anc"));
-        actionList.put("IPTp-SP dose 1", new BaseAncHomeVisitAction("IPTp-SP dose 1", "", false, null, "anc"));
-        actionList.put("Observation & Illness", new BaseAncHomeVisitAction("Observation & Illness", "", true, null, "anc"));
+    protected void registerPresenter() {
+        presenter = new BaseAncHomeVisitPresenter(BASE_ENTITY_ID, this, new AncHomeVisitInteractor());
     }
 
     @Override
