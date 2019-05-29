@@ -61,14 +61,14 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     private int appBarLayoutScrollRange = -1;
     private String childBaseEntityId;
     private boolean isComesFromFamily = false;
-    protected TextView textViewParentName,textViewLastVisit,textViewMedicalHistory;
+    protected TextView textViewParentName, textViewLastVisit, textViewMedicalHistory;
     private TextView textViewTitle, textViewChildName, textViewGender, textViewAddress, textViewId, textViewRecord, textViewVisitNot, tvEdit;
     private CircleImageView imageViewProfile;
     private RelativeLayout layoutNotRecordView, layoutLastVisitRow, layoutMostDueOverdue, layoutFamilyHasRow;
     private RelativeLayout layoutRecordButtonDone;
     private LinearLayout layoutRecordView;
     private View viewLastVisitRow, viewMostDueRow, viewFamilyRow;
-    private TextView textViewNotVisitMonth, textViewUndo,textViewNameDue, textViewFamilyHas;
+    private TextView textViewNotVisitMonth, textViewUndo, textViewNameDue, textViewFamilyHas;
     private ImageView imageViewCross;
     private ProgressBar progressBar;
     private String gender;
@@ -77,6 +77,8 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     private FamilyMemberFloatingMenu familyFloatingMenu;
     private OnClickFloatingMenu onClickFloatingMenu;
     protected View recordVisitPanel;
+
+    private ChildProfileActivityFlv flavor = new ChildProfileActivityFlv();
 
     @Override
     public void updateHasPhone(boolean hasPhone) {
@@ -123,7 +125,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
         imageRenderHelper = new ImageRenderHelper(this);
 
         initializePresenter();
-        onClickFloatingMenu = ChildProfileActivityFlv.getOnClickFloatingMenu(this, (ChildProfilePresenter) presenter);
+        onClickFloatingMenu = flavor.getOnClickFloatingMenu(this, (ChildProfilePresenter) presenter);
 
         setupViews();
         setUpToolbar();
@@ -308,7 +310,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
         progressBar.setVisibility(View.GONE);
     }
 
-    private void showProgressBar(){
+    private void showProgressBar() {
         progressBar.setVisibility(View.VISIBLE);
     }
 
@@ -583,6 +585,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.other_member_menu, menu);
+        menu.findItem(R.id.action_anc_registration).setVisible(false);
         return true;
     }
 
@@ -641,5 +644,9 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
 
 
         }
+    }
+
+    public interface Flavor {
+        OnClickFloatingMenu getOnClickFloatingMenu(Activity activity, ChildProfilePresenter presenter);
     }
 }
