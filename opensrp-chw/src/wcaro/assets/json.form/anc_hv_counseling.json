@@ -65,11 +65,11 @@
         ],
         "openmrs_choice_ids": {
           "Yes": "1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "No": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "v_required": {
-            "value": "true",
-            "err": "Please select one option"
-          }
+          "No": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select one option"
         }
       },
       {
@@ -98,11 +98,11 @@
         ],
         "openmrs_choice_ids": {
           "Yes": "1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "No": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "v_required": {
-            "value": "true",
-            "err": "Please select one option"
-          }
+          "No": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select one option"
         }
       },
       {
@@ -121,11 +121,11 @@
         ],
         "openmrs_choice_ids": {
           "Yes": "1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "No": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "v_required": {
-            "value": "true",
-            "err": "Please select one option"
-          }
+          "No": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select one option"
         }
       }
     ]

@@ -75,11 +75,11 @@
           "Convulsions": "164483AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "Difficulty breathing": "142373AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "Severe abdominal pain": "165271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Swollen face and legs": "460AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "v_required": {
-            "value": "true",
-            "err": "Please select one option"
-          }
+          "Swollen face and legs": "460AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select one option"
         }
       },
       {
@@ -113,11 +113,11 @@
         ],
         "openmrs_choice_ids": {
           "Yes": "1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "No": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "v_required": {
-            "value": "true",
-            "err": "Please select one option"
-          }
+          "No": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select one option"
         }
       }
     ]
