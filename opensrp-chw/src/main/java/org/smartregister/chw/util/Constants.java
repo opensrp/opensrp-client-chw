@@ -56,6 +56,7 @@ public class Constants {
         public static class ANC_HOME_VISIT {
             public static final String DANGER_SIGNS = "anc_hv_danger_signs";
             public static final String ANC_COUNSELING = "anc_hv_counseling";
+            public static final String HEALTH_FACILITY_VISIT = "anc_hv_health_facility_visit";
         }
     }
 
