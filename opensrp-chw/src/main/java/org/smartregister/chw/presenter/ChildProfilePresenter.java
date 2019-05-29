@@ -87,6 +87,19 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
         this.primaryCareGiverID = primaryCareGiverID;
     }
 
+    @Override
+    public void updateVisitNotDone() {
+        hideProgressBar();
+        getView().openVisitMonthView();
+
+    }
+
+    @Override
+    public void undoVisitNotDone() {
+        hideProgressBar();
+        getView().showUndoVisitNotDoneView();
+    }
+
     public CommonPersonObjectClient getChildClient() {
         return ((ChildProfileInteractor) interactor).getpClient();
     }
@@ -126,7 +139,7 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
 
     @Override
     public void updateVisitNotDone(long value) {
-        interactor.updateVisitNotDone(value);
+        interactor.updateVisitNotDone(value,this);
     }
 
 

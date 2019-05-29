@@ -2,6 +2,7 @@ package org.smartregister.chw.fragment;
 
 import android.app.Activity;
 import android.app.DialogFragment;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -61,6 +62,7 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 import static org.smartregister.chw.util.ChildDBConstants.KEY.BIRTH_CERT;
+import static org.smartregister.chw.util.ChildDBConstants.KEY.VACCINE_CARD;
 import static org.smartregister.chw.util.Utils.dd_MMM_yyyy;
 import static org.smartregister.util.Utils.getValue;
 
@@ -72,18 +74,18 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     private Context context;
     private CommonPersonObjectClient childClient;
     private TextView nameHeader;
-    private TextView textViewBirthCertDueDate;
+    private TextView textViewBirthCertDueDate,textViewVaccineCardText;
     private TextView textViewObsIllnessDesc;
     private HomeVisitGrowthAndNutrition homeVisitGrowthAndNutritionLayout;
-    private View viewBirthLine;
+    private View viewBirthLine,viewVaccineCardLine;
     public boolean allVaccineDataLoaded = false;
     public boolean allServicesDataLoaded = false;
     private TextView submit;
     private ImmunizationView immunizationView;
-    private LinearLayout layoutBirthCertGroup;
+    private LinearLayout layoutBirthCertGroup,layoutVaccineCard;
     private LinearLayout homeVisitLayout;
     private ChildHomeVisitContract.Presenter presenter;
-    private CircleImageView circleImageViewBirthStatus, circleImageViewIllnessStatus;
+    private CircleImageView circleImageViewBirthStatus, circleImageViewIllnessStatus,circleImageViewVaccineCard;
     private JSONObject illnessJson;
     private JSONObject birthCertJson;
     private String jsonString;
@@ -114,15 +116,20 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         homeVisitLayout = view.findViewById(R.id.home_visit_layout);
         progressBar = view.findViewById(R.id.progress_bar);
         nameHeader = view.findViewById(R.id.textview_name_header);
+        textViewVaccineCardText  = view.findViewById(R.id.textview_vc_name);
+        layoutVaccineCard = view.findViewById(R.id.vc_group);
+        viewVaccineCardLine = view.findViewById(R.id.vc_line_view);
         textViewBirthCertDueDate = view.findViewById(R.id.textview_birth_certification_name);
         textViewObsIllnessDesc = view.findViewById(R.id.textview_obser_illness_name);
         TextView textViewObsIllnessTitle = view.findViewById(R.id.textview_obser_illness);
         textViewObsIllnessTitle.setText(Html.fromHtml(getString(R.string.observations_illness_episodes)));
         view.findViewById(R.id.close).setOnClickListener(this);
+        view.findViewById(R.id.vc_group).setOnClickListener(this);
         viewBirthLine = view.findViewById(R.id.birth_line_view);
         submit = view.findViewById(R.id.textview_submit);
         circleImageViewBirthStatus = view.findViewById(R.id.birth_status_circle);
         circleImageViewIllnessStatus = view.findViewById(R.id.obs_illness_status_circle);
+        circleImageViewVaccineCard = view.findViewById(R.id.vc_status_circle);
         layoutBirthCertGroup = view.findViewById(R.id.birth_cert_group);
         LinearLayout layoutIllnessGroup = view.findViewById(R.id.obs_illness_prevention_group);
         RecyclerView recyclerViewBirthCertData = view.findViewById(R.id.birth_cert_data_recycler);
@@ -131,6 +138,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         recyclerViewIllnessData.setLayoutManager(new LinearLayoutManager(getActivity()));
         view.findViewById(R.id.textview_submit).setOnClickListener(this);
         layoutBirthCertGroup.setOnClickListener(this);
+        layoutVaccineCard.setOnClickListener(this);
         layoutIllnessGroup.setOnClickListener(this);
         homeVisitGrowthAndNutritionLayout = view.findViewById(R.id.growth_and_nutrition_group);
         immunizationView = view.findViewById(R.id.immunization_view);
@@ -160,8 +168,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                 dobString,
                 getString(R.string.home_visit)
         ));
-        // dobString = dobString.contains("y") ? dobString.substring(0, dobString.indexOf("y")) : "";
-        String status = ChildUtils.getBirthCertDueStatus(dob);
+        vaccineCardVisibility(dob);
 
         if (!isEditMode && !TextUtils.isEmpty(birthCert)) {
             layoutBirthCertGroup.setVisibility(View.GONE);
@@ -183,6 +190,42 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
 
             }
 
+        }
+    }
+
+    /**
+     * vaccine card will be not visible when expired(dob>24month) or already given.
+     * For edit it'll display the last state or present status.
+     * @param dob
+     */
+
+    private void vaccineCardVisibility(String dob) {
+
+        String vaccineCard = getValue(childClient.getColumnmaps(), VACCINE_CARD, true);
+
+        BirthCertRule birthCertRule = new BirthCertRule(dob);
+        if(birthCertRule.isExpire(24) || !TextUtils.isEmpty(vaccineCard) ){
+            layoutVaccineCard.setVisibility(View.GONE);
+            viewVaccineCardLine.setVisibility(View.GONE);
+        }else{
+            textViewVaccineCardText.setVisibility(View.VISIBLE);
+            if (birthCertRule.isOverdue(12)) {
+                Date date = org.smartregister.family.util.Utils.dobStringToDate(dob);
+                textViewVaccineCardText.setTextColor(getResources().getColor(R.color.alert_urgent_red));
+                textViewVaccineCardText.setText(String.format("%s%s", getString(R.string.overdue), dd_MMM_yyyy.format(date)));
+            } else {
+                Date date = org.smartregister.family.util.Utils.dobStringToDate(dob);
+                textViewVaccineCardText.setTextColor(getResources().getColor(R.color.grey));
+                textViewVaccineCardText.setText(String.format("%s%s", getString(R.string.due), dd_MMM_yyyy.format(date)));
+
+            }
+        }
+        if(isEditMode){
+            layoutVaccineCard.setVisibility(View.VISIBLE);
+            viewVaccineCardLine.setVisibility(View.VISIBLE);
+            if(!TextUtils.isEmpty(vaccineCard)){
+                updateVaccineCard(vaccineCard);
+            }
         }
     }
 
@@ -216,6 +259,11 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     public void onClick(View v) {
 
         switch (v.getId()) {
+            case R.id.vc_group:
+                VaccineCardInputDialogFragment dialogFragment = VaccineCardInputDialogFragment.getInstance(textViewVaccineCardText.getText().toString());
+                FragmentTransaction ft = getActivity().getFragmentManager().beginTransaction();
+                dialogFragment.show(ft, VaccinationDialogFragment.DIALOG_TAG);
+                break;
             case R.id.birth_cert_group:
                 // String selectedForm = "Birth";
                 presenter.startBirthCertForm(birthCertJson);
@@ -244,6 +292,10 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                                     if (isEditMode) {
                                         saveData();
                                         return;
+                                    }
+                                    if(layoutVaccineCard.getVisibility() == View.VISIBLE &&
+                                            !TextUtils.isEmpty(textViewVaccineCardText.getText().toString())){
+                                        ChildUtils.updateVaccineCardAsEvent(context,childClient.getCaseId(),textViewVaccineCardText.getText().toString());
                                     }
                                     dismiss();
                                 }
@@ -573,6 +625,18 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
 
     public void updateImmunizationState() {
         if (immunizationView.getVisibility() == View.VISIBLE) immunizationView.updatePosition();
+    }
+    public void updateVaccineCard(String option){
+        textViewVaccineCardText.setVisibility(View.VISIBLE);
+        if (option.equalsIgnoreCase(getContext().getString(R.string.yes))){
+            textViewVaccineCardText.setText(getContext().getString(R.string.yes));
+            updateStatusTick(circleImageViewVaccineCard, true);
+
+        }else {
+            textViewVaccineCardText.setText(getContext().getString(R.string.no));
+            updateStatusTick(circleImageViewVaccineCard, false);
+        }
+
     }
 
     public void setChildClient(CommonPersonObjectClient childClient) {

@@ -23,6 +23,8 @@ public interface MedicalHistoryContract {
         void updateObsIllness();
 
         void updateFullyImmunization(String text);
+
+        void updateVaccineCard(String value);
     }
 
     interface Presenter {
@@ -72,6 +74,8 @@ public interface MedicalHistoryContract {
         void updateGrowthNutrition(ArrayList<BaseService> services);
 
         void updateFullyImmunization(String text);
+
+        void updateVaccineCard(String value);
 
     }
 }

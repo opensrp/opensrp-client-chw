@@ -95,7 +95,11 @@ public class ChwClientProcessor extends ClientProcessorForJava {
                     processRemoveMember(eventClient.getClient().getBaseEntityId(), event.getEventDate().toDate());
                 } else if (eventType.equals(Constants.EventType.REMOVE_CHILD) && eventClient.getClient() != null) {
                     processRemoveChild(eventClient.getClient().getBaseEntityId(), event.getEventDate().toDate());
-                } else {
+                } else if(eventType.equals(Constants.EventType.VACCINE_CARD_RECEIVED) && eventClient.getClient() != null){
+                    processVaccineCardEvent(eventClient);
+                    processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
+                }
+                else {
                     if (eventClient.getClient() != null) {
                         if (eventType.equals(Constants.EventType.UPDATE_FAMILY_RELATIONS) && event.getEntityType().equalsIgnoreCase(Constants.TABLE_NAME.FAMILY_MEMBER)) {
                             event.setEventType(Constants.EventType.UPDATE_FAMILY_MEMBER_RELATIONS);
@@ -112,6 +116,10 @@ public class ChwClientProcessor extends ClientProcessorForJava {
     private void processHomeVisit(EventClient eventClient) {
         List<Obs> observations = eventClient.getEvent().getObs();
         ChildUtils.addToHomeVisitTable(eventClient.getEvent().getBaseEntityId(), observations);
+    }
+    private void processVaccineCardEvent(EventClient eventClient){
+        List<Obs> observations = eventClient.getEvent().getObs();
+        ChildUtils.addToChildTable(eventClient.getEvent().getBaseEntityId(), observations);
     }
 
     private Boolean processVaccine(EventClient vaccine, Table vaccineTable, boolean outOfCatchment) throws Exception {

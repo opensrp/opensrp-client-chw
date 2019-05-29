@@ -497,6 +497,14 @@
           }
         },
         {
+          "column_name": "vaccine_card",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "formSubmissionField": "vaccine_card"
+          }
+        },
+        {
           "column_name": "insurance_provider",
           "type": "Client",
           "json_mapping": {
