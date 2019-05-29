@@ -57,6 +57,12 @@ public class Constants {
             public static final String DANGER_SIGNS = "anc_hv_danger_signs";
             public static final String ANC_COUNSELING = "anc_hv_counseling";
             public static final String HEALTH_FACILITY_VISIT = "anc_hv_health_facility_visit";
+            public static final String FAMILY_PLANNING = "anc_hv_family_planning";
+            public static final String NUTRITION_STATUS = "anc_hv_nutrition_status";
+            public static final String COUNSELLING = "anc_hv_counselling";
+            public static final String MALARIA = "anc_hv_malaria";
+            public static final String OBSERVATION_AND_ILLNESS = "anc_hv_observations";
+            public static final String REMARKS_AND_COMMENTS = "anc_hv_remarks_and_comments";
         }
     }
 
@@ -181,6 +187,7 @@ public class Constants {
         public static class ILLNESS_ACTION_TAKEN_LEVEL {
             public static final String CODE = "164378AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
         }
+
         public static class VACCINE_CARD {
             public static final String CODE = "164147AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
         }
