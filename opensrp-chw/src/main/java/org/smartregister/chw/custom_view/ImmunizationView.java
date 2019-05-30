@@ -208,7 +208,6 @@ public class ImmunizationView extends LinearLayout implements ImmunizationContac
                     }
                     if(dfd.getGroup().equalsIgnoreCase(W_14)){
                         if(isHidden){
-                            presenter.getHomeVisitVaccineGroupDetails().get(i).getGivenVaccines().clear();
                             presenter.getHomeVisitVaccineGroupDetails().get(i).setViewType(HomeVisitVaccineGroup.TYPE_INITIAL);
                             break;
                         }
