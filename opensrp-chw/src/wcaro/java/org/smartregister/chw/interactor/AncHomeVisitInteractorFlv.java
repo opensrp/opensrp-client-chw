@@ -4,6 +4,7 @@ import android.content.Context;
 
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.contract.BaseAncHomeVisitContract;
+import org.smartregister.chw.anc.fragment.BaseAncHomeVisitFragment;
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
 import org.smartregister.chw.util.Constants.JSON_FORM.ANC_HOME_VISIT;
 
@@ -24,14 +25,10 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         actionList.put(context.getString(R.string.anc_home_visit_counseling), new BaseAncHomeVisitAction(context.getString(R.string.anc_home_visit_counseling), "", false, null,
                 ANC_HOME_VISIT.ANC_COUNSELING));
 
-        /*
-        BaseAncHomeVisitFragment fragmentLLTIN = BaseAncHomeVisitFragment.getInstance(view, context.getString(R.string.anc_home_visit_sleeping_under_llitn_net),
-                "Is the woman sleeping under a Long Lasting Insecticide-Treated Net (LLITN)?",
-                R.drawable.form_llitn,
-                BaseAncHomeVisitFragment.QuestionType.BOOLEAN
-        );
-        actionList.put(context.getString(R.string.anc_home_visit_sleeping_under_llitn_net), new BaseAncHomeVisitAction(context.getString(R.string.anc_home_visit_sleeping_under_llitn_net), "", false, fragmentLLTIN, null));
-*/
+
+        actionList.put(context.getString(R.string.anc_home_visit_sleeping_under_llitn_net), new BaseAncHomeVisitAction(context.getString(R.string.anc_home_visit_sleeping_under_llitn_net), "", false, BaseAncHomeVisitFragment.getInstance(view, ANC_HOME_VISIT.SLEEPING_UNDER_LLITN, null),
+                null));
+
         /*
         BaseAncHomeVisitFragment ancCardFragment = BaseAncHomeVisitFragment.getInstance(view, context.getString(R.string.anc_home_visit_anc_card_received),
                 "ANC card received?",
