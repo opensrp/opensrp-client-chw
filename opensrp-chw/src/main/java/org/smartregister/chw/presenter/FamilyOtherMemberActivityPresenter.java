@@ -7,11 +7,11 @@ import org.smartregister.chw.contract.FamilyOtherMemberProfileExtendedContract;
 import org.smartregister.chw.contract.FamilyProfileExtendedContract;
 import org.smartregister.chw.interactor.FamilyInteractor;
 import org.smartregister.chw.interactor.FamilyProfileInteractor;
+import org.smartregister.chw.model.FamilyProfileModel;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.contract.FamilyOtherMemberContract;
 import org.smartregister.family.contract.FamilyProfileContract;
 import org.smartregister.family.domain.FamilyEventClient;
-import org.smartregister.family.model.BaseFamilyProfileModel;
 import org.smartregister.family.presenter.BaseFamilyOtherMemberProfileActivityPresenter;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.Utils;
@@ -45,7 +45,7 @@ public class FamilyOtherMemberActivityPresenter extends BaseFamilyOtherMemberPro
         this.familyName = familyName;
 
         this.profileInteractor = new FamilyProfileInteractor();
-        this.profileModel = new BaseFamilyProfileModel(familyName);
+        this.profileModel = new FamilyProfileModel(familyName);
 
         verifyHasPhone();
         initializeServiceStatus();

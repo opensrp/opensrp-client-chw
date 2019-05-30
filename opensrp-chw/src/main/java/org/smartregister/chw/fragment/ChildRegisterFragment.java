@@ -240,6 +240,13 @@ public class ChildRegisterFragment extends BaseRegisterFragment implements Child
         } else {
             super.onSyncComplete(fetchStatus);
         }
+
+        if (syncProgressBar != null) {
+            syncProgressBar.setVisibility(View.GONE);
+        }
+        if (syncButton != null) {
+            syncButton.setVisibility(View.GONE);
+        }
     }
 
     private void toggleFilterSelection(View dueOnlyLayout) {
