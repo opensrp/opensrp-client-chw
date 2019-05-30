@@ -26,17 +26,14 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                 ANC_HOME_VISIT.ANC_COUNSELING));
 
 
-        actionList.put(context.getString(R.string.anc_home_visit_sleeping_under_llitn_net), new BaseAncHomeVisitAction(context.getString(R.string.anc_home_visit_sleeping_under_llitn_net), "", false, BaseAncHomeVisitFragment.getInstance(view, ANC_HOME_VISIT.SLEEPING_UNDER_LLITN, null),
+        actionList.put(context.getString(R.string.anc_home_visit_sleeping_under_llitn_net), new BaseAncHomeVisitAction(context.getString(R.string.anc_home_visit_sleeping_under_llitn_net), "", false,
+                BaseAncHomeVisitFragment.getInstance(view, ANC_HOME_VISIT.SLEEPING_UNDER_LLITN, null),
                 null));
 
-        /*
-        BaseAncHomeVisitFragment ancCardFragment = BaseAncHomeVisitFragment.getInstance(view, context.getString(R.string.anc_home_visit_anc_card_received),
-                "ANC card received?",
-                org.smartregister.chw.opensrp_chw_anc.R.drawable.avatar_woman,
-                BaseAncHomeVisitFragment.QuestionType.BOOLEAN
-        );
-        actionList.put(context.getString(R.string.anc_home_visit_anc_card_received), new BaseAncHomeVisitAction(context.getString(R.string.anc_home_visit_anc_card_received), "", false, ancCardFragment, null));
-*/
+        actionList.put(context.getString(R.string.anc_home_visit_anc_card_received), new BaseAncHomeVisitAction(context.getString(R.string.anc_home_visit_anc_card_received), "", false,
+                BaseAncHomeVisitFragment.getInstance(view, ANC_HOME_VISIT.ANC_CARD_RECEIVED, null),
+                null));
+
         String visit = MessageFormat.format(context.getString(R.string.anc_home_visit_facility_visit), 1);
         actionList.put(visit, new BaseAncHomeVisitAction(visit, "", false, null, ANC_HOME_VISIT.HEALTH_FACILITY_VISIT));
 
