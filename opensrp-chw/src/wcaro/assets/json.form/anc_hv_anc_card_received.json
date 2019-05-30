@@ -56,7 +56,7 @@
         "openmrs_entity_id": "1719AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "image": "avatar_woman",
+        "image": "form_received_card",
         "hint": "ANC card received?",
         "values": [
           "Yes",
