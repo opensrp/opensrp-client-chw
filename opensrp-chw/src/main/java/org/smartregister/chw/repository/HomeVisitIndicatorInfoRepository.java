@@ -48,8 +48,9 @@ public class HomeVisitIndicatorInfoRepository extends BaseRepository {
         }
         SQLiteDatabase database = getWritableDatabase();
         // Handle updated home visit details
+        String createdAtDateString = formatDate(homeVisitIndicatorInfo.getCreatedAt(), dateFormat);
         database.delete(HOME_VISIT_INDICATOR_INFO_TABLE, SERVICE + " = ? AND " +
-                CREATED_AT + " = ? ", new String[]{homeVisitIndicatorInfo.getService(), homeVisitIndicatorInfo.getCreatedAt().toString()});
+                CREATED_AT + " = ? ", new String[]{homeVisitIndicatorInfo.getService(), createdAtDateString});
         database.insert(HOME_VISIT_INDICATOR_INFO_TABLE, null, createValuesFor(homeVisitIndicatorInfo));
     }
 
