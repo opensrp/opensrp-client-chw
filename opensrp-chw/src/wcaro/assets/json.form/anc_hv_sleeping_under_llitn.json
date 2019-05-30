@@ -50,10 +50,10 @@
     "title": "Sleeping under a LLITN",
     "fields": [
       {
-        "key": "anc_card",
+        "key": "sleeping_llitn",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "1719AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "1802AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "select one",
         "type": "spinner",
         "image": "form_llitn",
