@@ -297,7 +297,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                                             !TextUtils.isEmpty(textViewVaccineCardText.getText().toString())){
                                         ChildUtils.updateVaccineCardAsEvent(context,childClient.getCaseId(),textViewVaccineCardText.getText().toString());
                                     }
-                                    dismiss();
+                                    closeScreen();
                                 }
                             })
                             .subscribe();
@@ -312,6 +312,14 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
             default:
                 break;
         }
+    }
+    private void closeScreen(){
+        dismiss();
+        if (context instanceof ChildProfileActivity) {
+            ChildProfileActivity activity = (ChildProfileActivity) context;
+            activity.updateImmunizationData();
+        }
+
     }
 
     private Observable saveCommonData() {
@@ -422,7 +430,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                     @Override
                     public void run() throws Exception {
                         progressBar.setVisibility(View.GONE);
-                        dismiss();
+                        closeScreen();
                     }
                 })
                 .subscribe();
@@ -641,16 +649,6 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
 
     public void setChildClient(CommonPersonObjectClient childClient) {
         this.childClient = childClient;
-    }
-
-
-    @Override
-    public void onDestroy() {
-        if (context instanceof ChildProfileActivity) {
-            ChildProfileActivity activity = (ChildProfileActivity) context;
-            activity.updateImmunizationData();
-        }
-        super.onDestroy();
     }
 
     private boolean isAllGrowthSelected() {

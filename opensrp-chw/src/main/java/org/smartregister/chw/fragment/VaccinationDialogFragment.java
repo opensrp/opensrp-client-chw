@@ -438,6 +438,7 @@ public class VaccinationDialogFragment extends DialogFragment implements View.On
             checkBox.toggle();
         }
         multipleVaccineDatePickerView.setAlpha(0.3f);
+        selectCount = 0;
 
     }
 

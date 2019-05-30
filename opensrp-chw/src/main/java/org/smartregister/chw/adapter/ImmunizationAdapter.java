@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.joda.time.DateTime;
@@ -18,6 +19,7 @@ import org.smartregister.chw.util.HomeVisitVaccineGroup;
 import org.smartregister.chw.util.ImmunizationState;
 import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.util.DateUtil;
+import org.smartregister.util.Log;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -49,6 +51,8 @@ public class ImmunizationAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 return new InactiveViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.adapter_immunization_inactive, null));
             case HomeVisitVaccineGroup.TYPE_ACTIVE:
                 return new ContentViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.adapter_immunization_active, null));
+            case HomeVisitVaccineGroup.TYPE_HIDDEN:
+                return new HiddenViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.adapter_immunization_hidden, null));
             default:
                 return new InitialViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.adapter_immunization_inactive, null));
         }
@@ -133,6 +137,11 @@ public class ImmunizationAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 });
 
                 break;
+            case HomeVisitVaccineGroup.TYPE_HIDDEN:
+                Log.logError("HIDDEN_VIEW","HomeVisitVaccineGroup.TYPE_HIDDEN");
+                HiddenViewHolder hiddenViewHolder = (HiddenViewHolder) viewHolder;
+                hiddenViewHolder.hiddenView.setVisibility(View.GONE);
+                break;
             default:
                 break;
         }
@@ -192,7 +201,9 @@ public class ImmunizationAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private StringBuilder getNotGivenVaccineName(HomeVisitVaccineGroup contentImmunization) {
         StringBuilder groupSecondaryText = new StringBuilder();
         for (VaccineRepo.Vaccine notGiven : contentImmunization.getNotGivenVaccines()) {
-            groupSecondaryText.append(fixVaccineCasing(notGiven.display())).append(", ");
+           if(isExistInDueVaccine(contentImmunization,notGiven.display())){
+               groupSecondaryText.append(fixVaccineCasing(notGiven.display())).append(", ");
+           }
         }
         if (groupSecondaryText.toString().endsWith(", ")) {
             groupSecondaryText = new StringBuilder(groupSecondaryText.toString().trim());
@@ -205,9 +216,25 @@ public class ImmunizationAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     private boolean isExistInGivenVaccine(HomeVisitVaccineGroup contentImmunization, String name) {
         for (VaccineRepo.Vaccine vaccineGiven : contentImmunization.getGivenVaccines()) {
-            if (vaccineGiven.display().equalsIgnoreCase(name)) {
+            if (vaccineGiven.display().equalsIgnoreCase(name)
+                    && isExistInDueVaccine(contentImmunization,vaccineGiven.display())
+                    && !isExistInNotGiven(contentImmunization,vaccineGiven.display())) {
                 return true;
             }
+        }
+        return false;
+    }
+    private boolean isExistInDueVaccine(HomeVisitVaccineGroup contentImmunization,String name){
+        for(VaccineRepo.Vaccine dueList:contentImmunization.getDueVaccines()){
+            if(dueList.display().equalsIgnoreCase(name))
+                return true;
+        }
+        return false;
+    }
+    private boolean isExistInNotGiven(HomeVisitVaccineGroup contentImmunization,String name){
+        for(VaccineRepo.Vaccine dueList:contentImmunization.getNotGivenVaccines()){
+            if(dueList.display().equalsIgnoreCase(name))
+                return true;
         }
         return false;
     }
@@ -275,6 +302,19 @@ public class ImmunizationAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             titleText = view.findViewById(R.id.textview_group_immunization);
             descriptionText = view.findViewById(R.id.textview_immunization_group_secondary_text);
             circleImageView = view.findViewById(R.id.immunization_group_status_circle);
+            myView = view;
+        }
+
+        public View getView() {
+            return myView;
+        }
+    }
+    public class HiddenViewHolder extends RecyclerView.ViewHolder {
+        private View myView;
+        public LinearLayout hiddenView;
+        private HiddenViewHolder(View view) {
+            super(view);
+            hiddenView = view.findViewById(R.id.parent_view);
             myView = view;
         }
 

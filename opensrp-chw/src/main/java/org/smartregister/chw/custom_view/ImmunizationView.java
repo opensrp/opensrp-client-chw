@@ -139,7 +139,8 @@ public class ImmunizationView extends LinearLayout implements ImmunizationContac
                 customVaccinationDialogFragment = VaccinationDialogFragment.newInstance(dob,new ArrayList<VaccineWrapper>(),new ArrayList<VaccineWrapper>(),
                         presenter.getDueVaccineWrappers(homeVisitVaccineGroup),homeVisitVaccineGroup.getGroup());
             }else{
-                customVaccinationDialogFragment = VaccinationDialogFragment.newInstance(dob,presenter.getNotGivenVaccineWrappers(homeVisitVaccineGroup),new ArrayList<VaccineWrapper>(),
+                customVaccinationDialogFragment = VaccinationDialogFragment.newInstance(dob,presenter.getNotGivenVaccineWrappers(homeVisitVaccineGroup),
+                        presenter.getGivenVaccineWrappers(homeVisitVaccineGroup),
                         presenter.getDueVaccineWrappers(homeVisitVaccineGroup),homeVisitVaccineGroup.getGroup());
             }
             customVaccinationDialogFragment.setChildDetails(childClient);
@@ -181,26 +182,42 @@ public class ImmunizationView extends LinearLayout implements ImmunizationContac
     }
 
     /**
-     * this method called when 6w vaccine/10w vaccine row is selected.
-     * When 6w row is selected from edit mode it'll reset the 14 week row as initial stage.
+     * after press 6w row.
+     * if 6w vaccine == not done it'll remove the 10w row but should selected 14w row.
+     * if 6w vaccine pertially done it'll display 10w row but deselect 14w row.
      */
     @Override
     public void onUpdateNextPosition(){
         try{
             HomeVisitVaccineGroup nextSelectedGroup = presenter.getHomeVisitVaccineGroupDetails().get(pressPosition + 1);
-            nextSelectedGroup.setViewType(HomeVisitVaccineGroup.TYPE_INITIAL);
-            if(isEditMode){
-                HomeVisitVaccineGroup selectedGroup = presenter.getHomeVisitVaccineGroupDetails().get(pressPosition);
-                if(selectedGroup.getGroup().equalsIgnoreCase(W_6)){
-                    for(int i = 0; i<presenter.getHomeVisitVaccineGroupDetails().size();i++){
-                        if(presenter.getHomeVisitVaccineGroupDetails().get(i).getGroup().equalsIgnoreCase(W_14)){
+            if(nextSelectedGroup.getViewType()!= HomeVisitVaccineGroup.TYPE_HIDDEN){
+                nextSelectedGroup.setViewType(HomeVisitVaccineGroup.TYPE_INITIAL);
+            }
+            HomeVisitVaccineGroup selectedGroup = presenter.getHomeVisitVaccineGroupDetails().get(pressPosition);
+            if(selectedGroup.getGroup().equalsIgnoreCase(W_6)){
+                boolean isHidden = false,isInitial = false;
+                for(int i = 0; i<presenter.getHomeVisitVaccineGroupDetails().size();i++){
+                    HomeVisitVaccineGroup dfd = presenter.getHomeVisitVaccineGroupDetails().get(i);
+                    if(dfd.getGroup().equalsIgnoreCase(W_10)){
+                        if(dfd.getViewType() == HomeVisitVaccineGroup.TYPE_HIDDEN){
+                            isHidden =true;
+                        }
+                        if(dfd.getViewType() == HomeVisitVaccineGroup.TYPE_INITIAL){
+                            isInitial =true;
+                        }
+                    }
+                    if(dfd.getGroup().equalsIgnoreCase(W_14)){
+                        if(isHidden){
+                            presenter.getHomeVisitVaccineGroupDetails().get(i).getGivenVaccines().clear();
+                            presenter.getHomeVisitVaccineGroupDetails().get(i).setViewType(HomeVisitVaccineGroup.TYPE_INITIAL);
+                            break;
+                        }
+                        if(isInitial){
                             presenter.getHomeVisitVaccineGroupDetails().get(i).setViewType(HomeVisitVaccineGroup.TYPE_INACTIVE);
                             break;
                         }
                     }
                 }
-
-
             }
             updateAdapter(pressPosition + 1);
 

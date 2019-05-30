@@ -119,7 +119,8 @@ public class ImmunizationViewInteractor implements ImmunizationContact.Interacto
                         for (Iterator<HomeVisitVaccineGroup> iterator = homeVisitVaccineGroupsList.iterator(); iterator.hasNext(); ) {
                             HomeVisitVaccineGroup homeVisitVaccineGroup = iterator.next();
                             if (homeVisitVaccineGroup.getDueVaccines().size() == 0) {
-                                iterator.remove();
+                                //iterator.remove();
+                                homeVisitVaccineGroup.setViewType(HomeVisitVaccineGroup.TYPE_HIDDEN);
                             }
 
                         }
