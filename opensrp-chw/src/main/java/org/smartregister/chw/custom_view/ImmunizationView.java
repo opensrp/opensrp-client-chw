@@ -191,7 +191,7 @@ public class ImmunizationView extends LinearLayout implements ImmunizationContac
         try{
             HomeVisitVaccineGroup nextSelectedGroup = presenter.getHomeVisitVaccineGroupDetails().get(pressPosition + 1);
             if(nextSelectedGroup.getViewType()!= HomeVisitVaccineGroup.TYPE_HIDDEN){
-                nextSelectedGroup.setViewType(HomeVisitVaccineGroup.TYPE_INITIAL);
+                presenter.getHomeVisitVaccineGroupDetails().get(pressPosition + 1).setViewType(HomeVisitVaccineGroup.TYPE_INITIAL);
             }
             HomeVisitVaccineGroup selectedGroup = presenter.getHomeVisitVaccineGroupDetails().get(pressPosition);
             if(selectedGroup.getGroup().equalsIgnoreCase(W_6)){
