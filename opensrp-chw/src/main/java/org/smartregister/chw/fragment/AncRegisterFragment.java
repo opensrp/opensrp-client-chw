@@ -13,8 +13,11 @@ import android.widget.TextView;
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.AncHomeVisitActivity;
+import org.smartregister.chw.activity.AncMemberProfileActivity;
+import org.smartregister.chw.anc.activity.BaseAncMemberProfileActivity;
 import org.smartregister.chw.anc.fragment.BaseAncRegisterFragment;
 import org.smartregister.chw.anc.util.DBConstants;
+import org.smartregister.chw.anc.util.MemberObject;
 import org.smartregister.chw.custom_view.NavigationMenu;
 import org.smartregister.chw.model.AncRegisterFragmentModel;
 import org.smartregister.chw.presenter.AncRegisterFragmentPresenter;
@@ -140,6 +143,12 @@ public class AncRegisterFragment extends BaseAncRegisterFragment {
         AncHomeVisitActivity.startMe(getActivity(), baseEntityId);
     }
 
+    @Override
+    protected void openProfile(CommonPersonObjectClient client) {
+        MemberObject memberObject = new MemberObject(client.getColumnmaps().get("first_name"));
+        AncMemberProfileActivity.startMe(getActivity(), memberObject);
+    }
+
     private void switchViews(View dueOnlyLayout, boolean isPress) {
         TextView dueOnlyTextView = dueOnlyLayout.findViewById(R.id.due_only_text_view);
         if (isPress) {
@@ -148,6 +157,8 @@ public class AncRegisterFragment extends BaseAncRegisterFragment {
             dueOnlyTextView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_due_filter_off, 0);
         }
     }
+
+
 
     @Override
     public void onResume() {
