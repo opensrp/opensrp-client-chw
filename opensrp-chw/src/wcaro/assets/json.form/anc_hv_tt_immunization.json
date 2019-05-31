@@ -55,6 +55,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "date_picker",
+        "image": "form_immunization",
         "hint": "When was TT 1 immunization done?",
         "min_date": "today-120y",
         "max_date": "today",

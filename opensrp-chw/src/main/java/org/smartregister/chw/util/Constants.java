@@ -35,6 +35,7 @@ public class Constants {
         public static final String REMOVE_FAMILY = "Remove Family";
 
         public static final String ANC_REGISTRATION = "ANC Registration";
+        public static final String ANC_HOME_VISIT = "ANC Home Visit";
     }
 
     public static class JSON_FORM {
