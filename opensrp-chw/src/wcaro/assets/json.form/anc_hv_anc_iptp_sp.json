@@ -47,15 +47,15 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "TT 1 immunization",
+    "title": "IPTp-SP 1st dose",
     "fields": [
       {
-        "key": "tt1_date",
+        "key": "iptp_date",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "date_picker",
-        "hint": "When was TT 1 immunization done?",
+        "hint": "When was IPTp-SP 1st dose given?",
         "min_date": "today-120y",
         "max_date": "today",
         "v_required": {
