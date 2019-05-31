@@ -2,9 +2,6 @@ package org.smartregister.chw.interactor;
 
 import android.content.Context;
 
-import com.vijay.jsonwizard.constants.JsonFormConstants;
-
-import org.json.JSONArray;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.contract.BaseAncHomeVisitContract;
@@ -18,6 +15,8 @@ import java.util.LinkedHashMap;
 import java.util.Locale;
 
 import timber.log.Timber;
+
+import static org.smartregister.chw.util.JsonFormUtils.getValue;
 
 public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor {
 
@@ -264,30 +263,6 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         });
 
         actionList.put(iptp, ba);
-    }
-
-    /**
-     * Returns a value from json form field
-     *
-     * @param jsonObject native forms jsonObject
-     * @param key        field object key
-     * @return value
-     */
-    private String getValue(JSONObject jsonObject, String key) {
-        try {
-            JSONArray jsonArray = jsonObject.getJSONObject(JsonFormConstants.STEP1).getJSONArray(JsonFormConstants.FIELDS);
-            int x = 0;
-            while (jsonArray.length() > x) {
-                JSONObject jo = jsonArray.getJSONObject(x);
-                if (jo.getString(JsonFormConstants.KEY).equalsIgnoreCase(key)) {
-                    return jo.getString(JsonFormConstants.VALUE);
-                }
-                x++;
-            }
-        } catch (Exception e) {
-            Timber.e(e);
-        }
-        return "";
     }
 
 }

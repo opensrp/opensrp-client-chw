@@ -6,6 +6,8 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.util.Pair;
 
+import com.vijay.jsonwizard.constants.JsonFormConstants;
+
 import net.sqlcipher.database.SQLiteDatabase;
 
 import org.apache.commons.lang3.StringUtils;
@@ -58,6 +60,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+
+import timber.log.Timber;
 
 import static org.apache.commons.lang3.StringUtils.isBlank;
 
@@ -118,9 +122,9 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
 
     }
 
-    public static Pair<Client, Event> processAncRegistrationForm(AllSharedPreferences allSharedPreferences, String jsonString){
+    public static Pair<Client, Event> processAncRegistrationForm(AllSharedPreferences allSharedPreferences, String jsonString) {
         Triple<Boolean, JSONObject, JSONArray> ancFormParams = validateParameters(jsonString);
-        if(!ancFormParams.getLeft()){
+        if (!ancFormParams.getLeft()) {
             return null;
         }
 
@@ -218,6 +222,7 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
         }
         return actionMap;
     }
+
     public static HashMap<String, String> getChoice(Context context) {
         HashMap<String, String> choices = new HashMap<>();
         choices.put(context.getResources().getString(R.string.yes), "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
@@ -875,6 +880,30 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
         educationLevels.put(context.getResources().getString(R.string.edu_level_secondary), "1714AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
         educationLevels.put(context.getResources().getString(R.string.edu_level_post_secondary), "159785AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
         return educationLevels;
+    }
+
+    /**
+     * Returns a value from json form field
+     *
+     * @param jsonObject native forms jsonObject
+     * @param key        field object key
+     * @return value
+     */
+    public static String getValue(JSONObject jsonObject, String key) {
+        try {
+            JSONArray jsonArray = jsonObject.getJSONObject(JsonFormConstants.STEP1).getJSONArray(JsonFormConstants.FIELDS);
+            int x = 0;
+            while (jsonArray.length() > x) {
+                JSONObject jo = jsonArray.getJSONObject(x);
+                if (jo.getString(JsonFormConstants.KEY).equalsIgnoreCase(key)) {
+                    return jo.getString(JsonFormConstants.VALUE);
+                }
+                x++;
+            }
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+        return "";
     }
 
     public interface Flavor {
