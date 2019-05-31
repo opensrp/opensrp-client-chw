@@ -234,8 +234,6 @@ public class JobAidsDashboardFragment extends Fragment implements ReportContract
     private void updateTotalTally(Map<String, IndicatorTally> indicatorTallyMap, Map<String, IndicatorTally> currentIndicatorValueMap, String indicatorKey) {
         int count;
         int currentValue;
-        Log.d("JAidsFragment", "key " + indicatorKey);
-        Log.d("JAidsFragment", "tally map " + indicatorTallyMap.get(indicatorKey).toString());
         count = indicatorTallyMap.get(indicatorKey).getCount();
         if (currentIndicatorValueMap.get(indicatorKey) == null) {
             currentIndicatorValueMap.put(indicatorKey, new IndicatorTally(null, count, indicatorKey, null));
