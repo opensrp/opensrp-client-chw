@@ -27,13 +27,9 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
 
         evaluateDangerSigns(actionList, context);
 
-        actionList.put(context.getString(R.string.anc_home_visit_counseling), new BaseAncHomeVisitAction(context.getString(R.string.anc_home_visit_counseling), "", false, null,
-                ANC_HOME_VISIT.ANC_COUNSELING));
+        evaluateANCCounseling(actionList, context);
 
-
-        actionList.put(context.getString(R.string.anc_home_visit_sleeping_under_llitn_net), new BaseAncHomeVisitAction(context.getString(R.string.anc_home_visit_sleeping_under_llitn_net), "", false,
-                BaseAncHomeVisitFragment.getInstance(view, ANC_HOME_VISIT.SLEEPING_UNDER_LLITN, null),
-                null));
+        evaluateSleepingUnderLLITN(view, actionList, context);
 
         actionList.put(context.getString(R.string.anc_home_visit_anc_card_received), new BaseAncHomeVisitAction(context.getString(R.string.anc_home_visit_anc_card_received), "", false,
                 BaseAncHomeVisitFragment.getInstance(view, ANC_HOME_VISIT.ANC_CARD_RECEIVED, null),
@@ -84,7 +80,70 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                 return ba.computedStatus();
             }
         });
+
         actionList.put(context.getString(R.string.anc_home_visit_danger_signs), ba);
+    }
+
+    private void evaluateANCCounseling(LinkedHashMap<String, BaseAncHomeVisitAction> actionList, Context context) throws BaseAncHomeVisitAction.ValidationException {
+        final BaseAncHomeVisitAction ba = new BaseAncHomeVisitAction(context.getString(R.string.anc_home_visit_counseling), "", false, null,
+                ANC_HOME_VISIT.ANC_COUNSELING);
+
+        ba.setAncHomeVisitActionHelper(new BaseAncHomeVisitAction.AncHomeVisitActionHelper() {
+            @Override
+            public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
+                if (ba.getJsonPayload() != null) {
+                    try {
+                        JSONObject jsonObject = new JSONObject(ba.getJsonPayload());
+
+                        String value1 = getValue(jsonObject, "anc_counseling");
+                        String value2 = getValue(jsonObject, "birth_hf_counseling");
+                        String value3 = getValue(jsonObject, "nutrition_counseling");
+
+                        if (value1.equalsIgnoreCase("Yes") && value2.equalsIgnoreCase("Yes") && value3.equalsIgnoreCase("Yes")) {
+                            return BaseAncHomeVisitAction.Status.COMPLETED;
+                        } else {
+                            return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
+                        }
+                    } catch (Exception e) {
+                        Timber.e(e);
+                    }
+                }
+                return ba.computedStatus();
+            }
+        });
+
+        actionList.put(context.getString(R.string.anc_home_visit_counseling), ba);
+    }
+
+    private void evaluateSleepingUnderLLITN(BaseAncHomeVisitContract.View view, LinkedHashMap<String, BaseAncHomeVisitAction> actionList, Context context) throws BaseAncHomeVisitAction.ValidationException {
+        final BaseAncHomeVisitAction ba = new BaseAncHomeVisitAction(context.getString(R.string.anc_home_visit_sleeping_under_llitn_net), "", false,
+                BaseAncHomeVisitFragment.getInstance(view, ANC_HOME_VISIT.SLEEPING_UNDER_LLITN, null),
+                null);
+
+        ba.setAncHomeVisitActionHelper(new BaseAncHomeVisitAction.AncHomeVisitActionHelper() {
+            @Override
+            public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
+                if (ba.getJsonPayload() != null) {
+                    try {
+                        JSONObject jsonObject = new JSONObject(ba.getJsonPayload());
+
+                        String value = getValue(jsonObject, "sleeping_llitn");
+
+                        if (value.equalsIgnoreCase("Yes")) {
+                            return BaseAncHomeVisitAction.Status.COMPLETED;
+                        } else {
+                            return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
+                        }
+                    } catch (Exception e) {
+                        Timber.e(e);
+                    }
+                }
+                return ba.computedStatus();
+            }
+        });
+
+        actionList.put(context.getString(R.string.anc_home_visit_sleeping_under_llitn_net), ba);
+
     }
 
     /**
