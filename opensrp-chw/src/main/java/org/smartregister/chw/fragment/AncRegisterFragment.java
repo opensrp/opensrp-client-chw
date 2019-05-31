@@ -14,7 +14,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.AncHomeVisitActivity;
 import org.smartregister.chw.activity.AncMemberProfileActivity;
-import org.smartregister.chw.anc.activity.BaseAncMemberProfileActivity;
 import org.smartregister.chw.anc.fragment.BaseAncRegisterFragment;
 import org.smartregister.chw.anc.util.DBConstants;
 import org.smartregister.chw.anc.util.MemberObject;
@@ -145,7 +144,17 @@ public class AncRegisterFragment extends BaseAncRegisterFragment {
 
     @Override
     protected void openProfile(CommonPersonObjectClient client) {
-        MemberObject memberObject = new MemberObject(client.getColumnmaps().get("first_name"));
+
+        String memberName = Utils.getAncMemberNameAndAge(
+                client.getColumnmaps().get(DBConstants.KEY.FIRST_NAME),
+                client.getColumnmaps().get(DBConstants.KEY.MIDDLE_NAME),
+                client.getColumnmaps().get(DBConstants.KEY.LAST_NAME),
+                client.getColumnmaps().get(DBConstants.KEY.DOB));
+
+        MemberObject memberObject = new MemberObject(memberName);
+
+        String chwMemberId = client.getColumnmaps().get(DBConstants.KEY.UNIQUE_ID);
+
         AncMemberProfileActivity.startMe(getActivity(), memberObject);
     }
 
@@ -157,7 +166,6 @@ public class AncRegisterFragment extends BaseAncRegisterFragment {
             dueOnlyTextView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_due_filter_off, 0);
         }
     }
-
 
 
     @Override
