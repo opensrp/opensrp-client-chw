@@ -134,10 +134,10 @@ public class JobAidsDashboardFragment extends Fragment implements ReportContract
                         updateTotalTally(indicatorTallyMap, children_6_59_NotReceivedVitaminA, DashboardUtil.countOfChildren6_59VitaminNotReceivedA);
                         break;
                     case DashboardUtil.countOfChildren0_5ExclusivelyBreastfeeding:
-                        updateTotalTally(indicatorTallyMap, children_0_5_exclusiveBreastfeeding, DashboardUtil.countOfChildren6_59VitaminNotReceivedA);
+                        updateTotalTally(indicatorTallyMap, children_0_5_exclusiveBreastfeeding, DashboardUtil.countOfChildren0_5ExclusivelyBreastfeeding);
                         break;
                     case DashboardUtil.countOfChildren0_5NotExclusivelyBreastfeeding:
-                        updateTotalTally(indicatorTallyMap, children_0_5_NotExclusiveBreastfeeding, DashboardUtil.countOfChildren6_59VitaminNotReceivedA);
+                        updateTotalTally(indicatorTallyMap, children_0_5_NotExclusiveBreastfeeding, DashboardUtil.countOfChildren0_5NotExclusivelyBreastfeeding);
                         break;
                     default:
                         Log.e(JobAidsDashboardFragment.class.getCanonicalName(), "The Indicator with the Key " + key + " has not been handled");
@@ -175,7 +175,7 @@ public class JobAidsDashboardFragment extends Fragment implements ReportContract
         View children_6_59_months_received_vitamin_A = getIndicatorView(pieChartIndicatorVisualizationData, pieChartFactory);
 
         pieChartIndicatorVisualizationData = getPieChartVisualization(children_0_5_exclusiveBreastfeeding, children_0_5_NotExclusiveBreastfeeding, DashboardUtil.countOfChildren0_5ExclusivelyBreastfeeding,
-                DashboardUtil.countOfChildren0_5ExclusivelyBreastfeeding, R.string.children_0_5_months_exclusively_breastfeeding);
+                DashboardUtil.countOfChildren0_5NotExclusivelyBreastfeeding, R.string.children_0_5_months_exclusively_breastfeeding);
         View children_0_5__months_exclusive_breastfeeding = getIndicatorView(pieChartIndicatorVisualizationData, pieChartFactory);
 
         visualizationsViewGroup.addView(childrenU5View);
@@ -234,6 +234,8 @@ public class JobAidsDashboardFragment extends Fragment implements ReportContract
     private void updateTotalTally(Map<String, IndicatorTally> indicatorTallyMap, Map<String, IndicatorTally> currentIndicatorValueMap, String indicatorKey) {
         int count;
         int currentValue;
+        Log.d("JAidsFragment", "key " + indicatorKey);
+        Log.d("JAidsFragment", "tally map " + indicatorTallyMap.get(indicatorKey).toString());
         count = indicatorTallyMap.get(indicatorKey).getCount();
         if (currentIndicatorValueMap.get(indicatorKey) == null) {
             currentIndicatorValueMap.put(indicatorKey, new IndicatorTally(null, count, indicatorKey, null));
