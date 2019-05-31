@@ -33,8 +33,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
 
         evaluateANCCard(view, actionList, context);
 
-        String visit = MessageFormat.format(context.getString(R.string.anc_home_visit_facility_visit), 1);
-        actionList.put(visit, new BaseAncHomeVisitAction(visit, "", false, null, ANC_HOME_VISIT.HEALTH_FACILITY_VISIT));
+        evaluateHealthFacilityVisit(actionList, context);
 
         String immunization = MessageFormat.format(context.getString(R.string.anc_home_visit_tt_immunization), 1);
         actionList.put(immunization, new BaseAncHomeVisitAction(immunization, "", false,
@@ -172,6 +171,37 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         });
 
         actionList.put(context.getString(R.string.anc_home_visit_anc_card_received), ba);
+    }
+
+    private void evaluateHealthFacilityVisit(LinkedHashMap<String, BaseAncHomeVisitAction> actionList, Context context) throws BaseAncHomeVisitAction.ValidationException {
+
+        String visit = MessageFormat.format(context.getString(R.string.anc_home_visit_facility_visit), 1);
+        final BaseAncHomeVisitAction ba = new BaseAncHomeVisitAction(visit, "", false, null, ANC_HOME_VISIT.HEALTH_FACILITY_VISIT);
+        ba.setAncHomeVisitActionHelper(new BaseAncHomeVisitAction.AncHomeVisitActionHelper() {
+            @Override
+            public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
+                if (ba.getJsonPayload() != null) {
+                    try {
+                        JSONObject jsonObject = new JSONObject(ba.getJsonPayload());
+
+                        String value = getValue(jsonObject, "anc_hf_visit");
+
+                        if (value.equalsIgnoreCase("Yes")) {
+                            return BaseAncHomeVisitAction.Status.COMPLETED;
+                        } else if (value.equalsIgnoreCase("No")) {
+                            return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
+                        } else {
+                            return BaseAncHomeVisitAction.Status.PENDING;
+                        }
+                    } catch (Exception e) {
+                        Timber.e(e);
+                    }
+                }
+                return ba.computedStatus();
+            }
+        });
+
+        actionList.put(visit, ba);
     }
 
     /**
