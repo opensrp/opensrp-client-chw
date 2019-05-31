@@ -13,7 +13,9 @@ import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
 import org.smartregister.chw.util.Constants.JSON_FORM.ANC_HOME_VISIT;
 
 import java.text.MessageFormat;
+import java.text.SimpleDateFormat;
 import java.util.LinkedHashMap;
+import java.util.Locale;
 
 import timber.log.Timber;
 
@@ -35,10 +37,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
 
         evaluateHealthFacilityVisit(actionList, context);
 
-        String immunization = MessageFormat.format(context.getString(R.string.anc_home_visit_tt_immunization), 1);
-        actionList.put(immunization, new BaseAncHomeVisitAction(immunization, "", false,
-                BaseAncHomeVisitFragment.getInstance(view, ANC_HOME_VISIT.TT_IMMUNIZATION, null),
-                null));
+        evaluateImmunization(view, actionList, context);
 
         String iptp = MessageFormat.format(context.getString(R.string.anc_home_visit_iptp_sp), 1);
         actionList.put(iptp, new BaseAncHomeVisitAction(iptp, "", false,
@@ -202,6 +201,39 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         });
 
         actionList.put(visit, ba);
+    }
+
+    private void evaluateImmunization(BaseAncHomeVisitContract.View view, LinkedHashMap<String, BaseAncHomeVisitAction> actionList, Context context) throws BaseAncHomeVisitAction.ValidationException {
+
+        String immunization = MessageFormat.format(context.getString(R.string.anc_home_visit_tt_immunization), 1);
+        final BaseAncHomeVisitAction ba = new BaseAncHomeVisitAction(immunization, "", false,
+                BaseAncHomeVisitFragment.getInstance(view, ANC_HOME_VISIT.TT_IMMUNIZATION, null),
+                null);
+        ba.setAncHomeVisitActionHelper(new BaseAncHomeVisitAction.AncHomeVisitActionHelper() {
+            @Override
+            public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
+                if (ba.getJsonPayload() != null) {
+                    try {
+                        JSONObject jsonObject = new JSONObject(ba.getJsonPayload());
+
+                        String value = getValue(jsonObject, MessageFormat.format("tt{0}_date", 1));
+
+                        try {
+                            new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).parse(value);
+                            return BaseAncHomeVisitAction.Status.COMPLETED;
+                        } catch (Exception e) {
+                            return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
+                        }
+
+                    } catch (Exception e) {
+                        Timber.e(e);
+                    }
+                }
+                return ba.computedStatus();
+            }
+        });
+
+        actionList.put(immunization, ba);
     }
 
     /**
