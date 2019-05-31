@@ -271,4 +271,8 @@
     <string name="anc_home_visit_malaria_prevention">Malaria prevention</string>
     <string name="anc_home_visit_observations_n_illnes">Observations and Illness</string>
     <string name="anc_home_visit_remarks_and_comments">Remarks / Comments</string>
+
+    <string name="anc_home_visit_anc_card_received">ANC Card Received</string>
+    <string name="anc_home_visit_sleeping_under_llitn_net">Sleeping under a LLITN</string>
+    <string name="anc_home_visit_counseling">ANC Counseling</string>
 </resources>
