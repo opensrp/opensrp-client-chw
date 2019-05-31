@@ -39,10 +39,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
 
         evaluateImmunization(view, actionList, context);
 
-        String iptp = MessageFormat.format(context.getString(R.string.anc_home_visit_iptp_sp), 1);
-        actionList.put(iptp, new BaseAncHomeVisitAction(iptp, "", false,
-                BaseAncHomeVisitFragment.getInstance(view, ANC_HOME_VISIT.IPTP_SP, null),
-                null));
+        evaluateIPTP(view, actionList, context);
 
         actionList.put(context.getString(R.string.anc_home_visit_observations_n_illnes), new BaseAncHomeVisitAction(context.getString(R.string.anc_home_visit_observations_n_illnes), "", true, null,
                 ANC_HOME_VISIT.OBSERVATION_AND_ILLNESS));
@@ -234,6 +231,39 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         });
 
         actionList.put(immunization, ba);
+    }
+
+    private void evaluateIPTP(BaseAncHomeVisitContract.View view, LinkedHashMap<String, BaseAncHomeVisitAction> actionList, Context context) throws BaseAncHomeVisitAction.ValidationException {
+
+        String iptp = MessageFormat.format(context.getString(R.string.anc_home_visit_iptp_sp), 1);
+        final BaseAncHomeVisitAction ba = new BaseAncHomeVisitAction(iptp, "", false,
+                BaseAncHomeVisitFragment.getInstance(view, ANC_HOME_VISIT.IPTP_SP, null),
+                null);
+        ba.setAncHomeVisitActionHelper(new BaseAncHomeVisitAction.AncHomeVisitActionHelper() {
+            @Override
+            public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
+                if (ba.getJsonPayload() != null) {
+                    try {
+                        JSONObject jsonObject = new JSONObject(ba.getJsonPayload());
+
+                        String value = getValue(jsonObject, MessageFormat.format("iptp{0}_date", 1));
+
+                        try {
+                            new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).parse(value);
+                            return BaseAncHomeVisitAction.Status.COMPLETED;
+                        } catch (Exception e) {
+                            return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
+                        }
+
+                    } catch (Exception e) {
+                        Timber.e(e);
+                    }
+                }
+                return ba.computedStatus();
+            }
+        });
+
+        actionList.put(iptp, ba);
     }
 
     /**

@@ -50,7 +50,7 @@
     "title": "IPTp-SP 1st dose",
     "fields": [
       {
-        "key": "iptp_date",
+        "key": "iptp1_date",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
