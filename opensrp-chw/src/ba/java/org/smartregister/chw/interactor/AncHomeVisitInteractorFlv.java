@@ -26,8 +26,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
 
         evaluateHealthFacilityVisit(actionList, context);
 
-        actionList.put(context.getString(R.string.anc_home_visit_family_planning), new BaseAncHomeVisitAction(context.getString(R.string.anc_home_visit_family_planning), "", false, null,
-                ANC_HOME_VISIT.FAMILY_PLANNING));
+        evaluateFamilyPlanning(actionList, context);
 
         actionList.put(context.getString(R.string.anc_home_visit_nutrition_status), new BaseAncHomeVisitAction(context.getString(R.string.anc_home_visit_nutrition_status), "", false, null,
                 ANC_HOME_VISIT.NUTRITION_STATUS));
@@ -106,5 +105,33 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         });
 
         actionList.put(visit, ba);
+    }
+
+    private void evaluateFamilyPlanning(LinkedHashMap<String, BaseAncHomeVisitAction> actionList, Context context) throws BaseAncHomeVisitAction.ValidationException {
+        final BaseAncHomeVisitAction ba = new BaseAncHomeVisitAction(context.getString(R.string.anc_home_visit_family_planning), "", false, null,
+                ANC_HOME_VISIT.FAMILY_PLANNING);
+        ba.setAncHomeVisitActionHelper(new BaseAncHomeVisitAction.AncHomeVisitActionHelper() {
+            @Override
+            public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
+                if (ba.getJsonPayload() != null) {
+                    try {
+                        JSONObject jsonObject = new JSONObject(ba.getJsonPayload());
+
+                        String value = getValue(jsonObject, "fam_planning");
+
+                        if (value.equalsIgnoreCase("Yes")) {
+                            return BaseAncHomeVisitAction.Status.COMPLETED;
+                        } else {
+                            return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
+                        }
+                    } catch (Exception e) {
+                        Timber.e(e);
+                    }
+                }
+                return ba.computedStatus();
+            }
+        });
+
+        actionList.put(context.getString(R.string.anc_home_visit_family_planning), ba);
     }
 }
