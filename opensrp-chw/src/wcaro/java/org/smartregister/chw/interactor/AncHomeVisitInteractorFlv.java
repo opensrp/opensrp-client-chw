@@ -31,9 +31,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
 
         evaluateSleepingUnderLLITN(view, actionList, context);
 
-        actionList.put(context.getString(R.string.anc_home_visit_anc_card_received), new BaseAncHomeVisitAction(context.getString(R.string.anc_home_visit_anc_card_received), "", false,
-                BaseAncHomeVisitFragment.getInstance(view, ANC_HOME_VISIT.ANC_CARD_RECEIVED, null),
-                null));
+        evaluateANCCard(view, actionList, context);
 
         String visit = MessageFormat.format(context.getString(R.string.anc_home_visit_facility_visit), 1);
         actionList.put(visit, new BaseAncHomeVisitAction(visit, "", false, null, ANC_HOME_VISIT.HEALTH_FACILITY_VISIT));
@@ -146,12 +144,42 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
 
     }
 
+    private void evaluateANCCard(BaseAncHomeVisitContract.View view, LinkedHashMap<String, BaseAncHomeVisitAction> actionList, Context context) throws BaseAncHomeVisitAction.ValidationException {
+        final BaseAncHomeVisitAction ba = new BaseAncHomeVisitAction(context.getString(R.string.anc_home_visit_anc_card_received), "", false,
+                BaseAncHomeVisitFragment.getInstance(view, ANC_HOME_VISIT.ANC_CARD_RECEIVED, null),
+                null);
+
+        ba.setAncHomeVisitActionHelper(new BaseAncHomeVisitAction.AncHomeVisitActionHelper() {
+            @Override
+            public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
+                if (ba.getJsonPayload() != null) {
+                    try {
+                        JSONObject jsonObject = new JSONObject(ba.getJsonPayload());
+
+                        String value = getValue(jsonObject, "anc_card");
+
+                        if (value.equalsIgnoreCase("Yes")) {
+                            return BaseAncHomeVisitAction.Status.COMPLETED;
+                        } else {
+                            return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
+                        }
+                    } catch (Exception e) {
+                        Timber.e(e);
+                    }
+                }
+                return ba.computedStatus();
+            }
+        });
+
+        actionList.put(context.getString(R.string.anc_home_visit_anc_card_received), ba);
+    }
+
     /**
      * Returns a value from json form field
      *
-     * @param jsonObject
-     * @param key
-     * @return
+     * @param jsonObject native forms jsonObject
+     * @param key        field object key
+     * @return value
      */
     private String getValue(JSONObject jsonObject, String key) {
         try {
