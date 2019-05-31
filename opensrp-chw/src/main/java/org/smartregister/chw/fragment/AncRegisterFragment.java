@@ -11,6 +11,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.apache.commons.lang3.StringUtils;
+import org.joda.time.DateTime;
+import org.joda.time.Days;
+import org.joda.time.format.DateTimeFormat;
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.AncHomeVisitActivity;
 import org.smartregister.chw.activity.AncMemberProfileActivity;
@@ -144,6 +147,10 @@ public class AncRegisterFragment extends BaseAncRegisterFragment {
 
     @Override
     protected void openProfile(CommonPersonObjectClient client) {
+        String lmp = client.getColumnmaps().get(DBConstants.KEY.LAST_MENSTRUAL_PERIOD);
+        int ga = Days.daysBetween(DateTimeFormat.forPattern("dd-MM-yyyy").parseDateTime(lmp), new DateTime()).getDays() / 7;
+        String uniqueId = String.format(getString(R.string.unique_id_text), client.getColumnmaps().get(DBConstants.KEY.UNIQUE_ID));
+        String gest_age = String.format(getString(R.string.gest_age), String.valueOf(ga)) + " " + getString(R.string.gest_age_weeks);
 
         String memberName = Utils.getAncMemberNameAndAge(
                 client.getColumnmaps().get(DBConstants.KEY.FIRST_NAME),
@@ -151,9 +158,10 @@ public class AncRegisterFragment extends BaseAncRegisterFragment {
                 client.getColumnmaps().get(DBConstants.KEY.LAST_NAME),
                 client.getColumnmaps().get(DBConstants.KEY.DOB));
 
-        MemberObject memberObject = new MemberObject(memberName);
-
-        String chwMemberId = client.getColumnmaps().get(DBConstants.KEY.UNIQUE_ID);
+        MemberObject memberObject = new MemberObject(memberName,
+                gest_age,
+                client.getColumnmaps().get(DBConstants.KEY.VILLAGE_TOWN),
+                uniqueId);
 
         AncMemberProfileActivity.startMe(getActivity(), memberObject);
     }
