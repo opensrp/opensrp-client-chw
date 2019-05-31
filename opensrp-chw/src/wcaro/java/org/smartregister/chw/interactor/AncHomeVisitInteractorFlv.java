@@ -2,6 +2,10 @@ package org.smartregister.chw.interactor;
 
 import android.content.Context;
 
+import com.vijay.jsonwizard.constants.JsonFormConstants;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.contract.BaseAncHomeVisitContract;
 import org.smartregister.chw.anc.fragment.BaseAncHomeVisitFragment;
@@ -11,6 +15,8 @@ import org.smartregister.chw.util.Constants.JSON_FORM.ANC_HOME_VISIT;
 import java.text.MessageFormat;
 import java.util.LinkedHashMap;
 
+import timber.log.Timber;
+
 public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor {
 
     @Override
@@ -19,8 +25,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
 
         Context context = view.getContext();
 
-        actionList.put(context.getString(R.string.anc_home_visit_danger_signs), new BaseAncHomeVisitAction(context.getString(R.string.anc_home_visit_danger_signs), "", false, null,
-                ANC_HOME_VISIT.DANGER_SIGNS));
+        evaluateDangerSigns(actionList, context);
 
         actionList.put(context.getString(R.string.anc_home_visit_counseling), new BaseAncHomeVisitAction(context.getString(R.string.anc_home_visit_counseling), "", false, null,
                 ANC_HOME_VISIT.ANC_COUNSELING));
@@ -51,6 +56,59 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                 ANC_HOME_VISIT.OBSERVATION_AND_ILLNESS));
 
         return actionList;
+    }
+
+    private void evaluateDangerSigns(LinkedHashMap<String, BaseAncHomeVisitAction> actionList, Context context) throws BaseAncHomeVisitAction.ValidationException {
+        final BaseAncHomeVisitAction ba = new BaseAncHomeVisitAction(context.getString(R.string.anc_home_visit_danger_signs), "", false, null,
+                ANC_HOME_VISIT.DANGER_SIGNS);
+        ba.setAncHomeVisitActionHelper(new BaseAncHomeVisitAction.AncHomeVisitActionHelper() {
+            @Override
+            public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
+                if (ba.getJsonPayload() != null) {
+                    try {
+                        JSONObject jsonObject = new JSONObject(ba.getJsonPayload());
+
+                        String value = getValue(jsonObject, "danger_signs_counseling");
+
+                        if (value.equalsIgnoreCase("Yes")) {
+                            return BaseAncHomeVisitAction.Status.COMPLETED;
+                        } else if (value.equalsIgnoreCase("No")) {
+                            return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
+                        } else {
+                            return BaseAncHomeVisitAction.Status.PENDING;
+                        }
+                    } catch (Exception e) {
+                        Timber.e(e);
+                    }
+                }
+                return ba.computedStatus();
+            }
+        });
+        actionList.put(context.getString(R.string.anc_home_visit_danger_signs), ba);
+    }
+
+    /**
+     * Returns a value from json form field
+     *
+     * @param jsonObject
+     * @param key
+     * @return
+     */
+    private String getValue(JSONObject jsonObject, String key) {
+        try {
+            JSONArray jsonArray = jsonObject.getJSONObject(JsonFormConstants.STEP1).getJSONArray(JsonFormConstants.FIELDS);
+            int x = 0;
+            while (jsonArray.length() > x) {
+                JSONObject jo = jsonArray.getJSONObject(x);
+                if (jo.getString(JsonFormConstants.KEY).equalsIgnoreCase(key)) {
+                    return jo.getString(JsonFormConstants.VALUE);
+                }
+                x++;
+            }
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+        return "";
     }
 
 }
