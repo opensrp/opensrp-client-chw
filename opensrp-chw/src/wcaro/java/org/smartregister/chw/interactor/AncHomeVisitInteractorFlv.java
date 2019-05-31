@@ -37,8 +37,16 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         String visit = MessageFormat.format(context.getString(R.string.anc_home_visit_facility_visit), 1);
         actionList.put(visit, new BaseAncHomeVisitAction(visit, "", false, null, ANC_HOME_VISIT.HEALTH_FACILITY_VISIT));
 
-        actionList.put("TT 1 Immunization", new BaseAncHomeVisitAction("TT 1 Immunization", "", false, null, "anc"));
-        actionList.put("IPTp-SP dose 1", new BaseAncHomeVisitAction("IPTp-SP dose 1", "", false, null, "anc"));
+        String immunization = MessageFormat.format(context.getString(R.string.anc_home_visit_tt_immunization), 1);
+        actionList.put(immunization, new BaseAncHomeVisitAction(immunization, "", false,
+                BaseAncHomeVisitFragment.getInstance(view, ANC_HOME_VISIT.TT_IMMUNIZATION, null),
+                null));
+
+        String iptp = MessageFormat.format(context.getString(R.string.anc_home_visit_iptp_sp), 1);
+        actionList.put(iptp, new BaseAncHomeVisitAction(iptp, "", false,
+                BaseAncHomeVisitFragment.getInstance(view, ANC_HOME_VISIT.IPTP_SP, null),
+                null));
+
         actionList.put(context.getString(R.string.anc_home_visit_observations_n_illnes), new BaseAncHomeVisitAction(context.getString(R.string.anc_home_visit_observations_n_illnes), "", true, null,
                 ANC_HOME_VISIT.OBSERVATION_AND_ILLNESS));
 

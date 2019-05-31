@@ -273,4 +273,6 @@
     <string name="anc_home_visit_anc_card_received">ANC Card Received</string>
     <string name="anc_home_visit_sleeping_under_llitn_net">Sleeping under a LLITN</string>
     <string name="anc_home_visit_counseling">ANC Counseling</string>
+    <string name="anc_home_visit_tt_immunization">TT {0} Immunization</string>
+    <string name="anc_home_visit_iptp_sp">IPTp-SP dose {0}</string>
 </resources>
