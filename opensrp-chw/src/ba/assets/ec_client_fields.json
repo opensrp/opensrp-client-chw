@@ -590,7 +590,7 @@
       ]
     },
     {
-      "name": "ec_malaria",
+      "name": "ec_malaria_registration",
       "columns": [
         {
           "column_name": "fever_malaria_chw",

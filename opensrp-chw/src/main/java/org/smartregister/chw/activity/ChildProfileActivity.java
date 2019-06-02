@@ -52,6 +52,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import timber.log.Timber;
 
 import static org.smartregister.chw.util.Constants.INTENT_KEY.IS_COMES_FROM_FAMILY;
 
@@ -482,14 +483,25 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
         Intent intent = new Intent(this, Utils.metadata().familyMemberFormActivity);
         intent.putExtra(Constants.JSON_FORM_EXTRA.JSON, jsonForm.toString());
 
+        Form form = new Form();
+        form.setActionBarBackground(R.color.family_actionbar);
+        form.setWizard(false);
+        intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);
+
+        startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
+    }
+
+    @Override
+    public void startFormActivityForMalaria(JSONObject jsonForm) {
+        Intent intent = new Intent(this, Utils.metadata().familyMemberFormActivity);
+        intent.putExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON, jsonForm.toString());
 
         Form form = new Form();
         form.setActionBarBackground(R.color.family_actionbar);
         form.setWizard(false);
         intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);
 
-
-        startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
+        startActivityForResult(intent, 11114);
     }
 
     @Override
@@ -554,7 +566,6 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     @Override
     public void setAge(String age) {
         textViewChildName.append(", " + age);
-
     }
 
     @Override
@@ -599,8 +610,9 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
                 return true;
 
             case R.id.action_malaria_confirmation:
-                JSONObject form = getFormUtils().getFormJson(org.smartregister.chw.util.Constants.JSON_FORM.MALARIA_CONFIRMATION);
-                startFormActivity(form);
+                ((ChildProfilePresenter) presenter()).startFormMalariaConfirmation(org.smartregister.chw.util.Constants.JSON_FORM.MALARIA_CONFIRMATION);
+//                JSONObject form = getFormUtils().getFormJson(org.smartregister.chw.util.Constants.JSON_FORM.MALARIA_CONFIRMATION);
+//                startFormActivity(form);
                 return true;
 
             case R.id.action_remove_member:
@@ -642,6 +654,14 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
+                }
+                break;
+            case 11114:
+                try {
+                    String jsonString = data.getStringExtra(Constants.JSON_FORM_EXTRA.JSON);
+                    presenter().saveMalariaConfirmation(jsonString);
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
                 break;
 

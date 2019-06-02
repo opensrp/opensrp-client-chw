@@ -307,6 +307,65 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
         }
     }
 
+    public static Pair<Client, Event> processMalariaRegistrationForm(AllSharedPreferences allSharedPreferences, String jsonString) {
+
+        try {
+            Triple<Boolean, JSONObject, JSONArray> registrationFormParams = validateParameters(jsonString);
+
+            if (!registrationFormParams.getLeft()) {
+                return null;
+            }
+
+            JSONObject jsonForm = registrationFormParams.getMiddle();
+            JSONArray fields = registrationFormParams.getRight();
+
+            String entityId = getString(jsonForm, ENTITY_ID);
+            if (isBlank(entityId)) {
+                entityId = generateRandomUUIDString();
+            }
+
+            lastInteractedWith(fields);
+
+//            dobUnknownUpdateFromAge(fields);
+
+//            processChildEnrollMent(jsonForm, fields);
+
+            Client baseClient = org.smartregister.util.JsonFormUtils.createBaseClient(fields, formTag(allSharedPreferences), entityId);
+
+            Event baseEvent = org.smartregister.util.JsonFormUtils.createEvent(fields, getJSONObject(jsonForm, METADATA), formTag(allSharedPreferences), entityId, getString(jsonForm, ENCOUNTER_TYPE), org.smartregister.chw.util.Constants.TABLE_NAME.MALARIA_REGISTRATION);
+            tagSyncMetadata(allSharedPreferences, baseEvent);
+
+//            if (baseClient != null || baseEvent != null) {
+//                String imageLocation = org.smartregister.family.util.JsonFormUtils.getFieldValue(jsonString, Constants.KEY.PHOTO);
+//                org.smartregister.family.util.JsonFormUtils.saveImage(baseEvent.getProviderId(), baseClient.getBaseEntityId(), imageLocation);
+//            }
+
+//            JSONObject lookUpJSONObject = getJSONObject(getJSONObject(jsonForm, METADATA), "look_up");
+//            String lookUpEntityId = "";
+//            String lookUpBaseEntityId = "";
+//            if (lookUpJSONObject != null) {
+//                lookUpEntityId = getString(lookUpJSONObject, "entity_id");
+//                lookUpBaseEntityId = getString(lookUpJSONObject, "value");
+//            }
+//            if (lookUpEntityId.equals("family") && StringUtils.isNotBlank(lookUpBaseEntityId)) {
+//                Client ss = new Client(lookUpBaseEntityId);
+//                Context context = ChwApplication.getInstance().getContext().applicationContext();
+//                addRelationship(context, ss, baseClient);
+//                SQLiteDatabase db = ChwApplication.getInstance().getRepository().getReadableDatabase();
+//                ChwRepository pathRepository = new ChwRepository(context, ChwApplication.getInstance().getContext());
+//                EventClientRepository eventClientRepository = new EventClientRepository(pathRepository);
+//                JSONObject clientjson = eventClientRepository.getClient(db, lookUpBaseEntityId);
+//                baseClient.setAddresses(getAddressFromClientJson(clientjson));
+//            }
+
+
+            return Pair.create(baseClient, baseEvent);
+        } catch (Exception e) {
+            Log.e(TAG, Log.getStackTraceString(e));
+            return null;
+        }
+    }
+
     private static void processChildEnrollMent(JSONObject jsonForm, JSONArray fields) {
 
         try {

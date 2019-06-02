@@ -25,6 +25,8 @@ public interface ChildProfileContract {
 
         void startFormActivity(JSONObject form);
 
+        void startFormActivityForMalaria(JSONObject form);
+
         void refreshProfile(final FetchStatus fetchStatus);
 
         void displayShortToast(int resourceId);
@@ -79,6 +81,8 @@ public interface ChildProfileContract {
 
         void updateChildProfile(String jsonObject);
 
+        void saveMalariaConfirmation(String jsonObject);
+
         ChildProfileContract.View getView();
 
         void fetchProfileData();
@@ -107,6 +111,7 @@ public interface ChildProfileContract {
         void refreshProfileView(String baseEntityId, boolean isForEdit, ChildProfileContract.InteractorCallBack callback);
 
         void saveRegistration(final Pair<Client, Event> pair, final String jsonString, final boolean isEditMode, final ChildProfileContract.InteractorCallBack callBack);
+
 
         JSONObject getAutoPopulatedJsonEditFormString(String formName, String title, Context context, CommonPersonObjectClient client);
     }

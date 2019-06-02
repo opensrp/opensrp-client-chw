@@ -32,7 +32,7 @@ public class Constants {
         public static final String REMOVE_MEMBER = "Remove Family Member";
         public static final String REMOVE_CHILD = "Remove Child Under 5";
         public static final String REMOVE_FAMILY = "Remove Family";
-        public static final String MALARIA_CONFIRMATION = "Malaria Confirmation";
+        public static final String MALARIA_REGISTRATION = "Malaria Registration";
     }
 
     public static class JSON_FORM {
@@ -64,6 +64,7 @@ public class Constants {
         public static final String FAMILY_MEMBER = "ec_family_member";
         public static final String CHILD = "ec_child";
         public static final String CHILD_ACTIVITY = "ec_child_activity";
+        public static final String MALARIA_REGISTRATION = "ec_malaria_registration";
     }
 
     public static final class INTENT_KEY {

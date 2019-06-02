@@ -1,6 +1,12 @@
 package org.smartregister.chw.presenter;
 
+import android.content.Intent;
+import android.util.Log;
 import android.util.Pair;
+import android.widget.Toast;
+
+import com.vijay.jsonwizard.constants.JsonFormConstants;
+import com.vijay.jsonwizard.domain.Form;
 
 import org.apache.commons.lang3.tuple.Triple;
 import org.joda.time.DateTime;
@@ -12,19 +18,25 @@ import org.smartregister.chw.contract.FamilyProfileExtendedContract;
 import org.smartregister.chw.interactor.ChildProfileInteractor;
 import org.smartregister.chw.interactor.FamilyProfileInteractor;
 import org.smartregister.chw.model.ChildRegisterModel;
+import org.smartregister.chw.model.MalariaRegisterModel;
 import org.smartregister.chw.util.ChildDBConstants;
 import org.smartregister.chw.util.ChildService;
 import org.smartregister.chw.util.ChildVisit;
+import org.smartregister.chw.util.Constants;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.family.util.DBConstants;
+import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
+import org.smartregister.util.FormUtils;
 
 import java.lang.ref.WeakReference;
 import java.util.Date;
 import java.util.Map;
+
+import timber.log.Timber;
 
 import static org.apache.commons.lang3.StringUtils.isBlank;
 
@@ -160,6 +172,16 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
 //        }
     }
 
+    public void startFormMalariaConfirmation(String title) {
+        try {
+            JSONObject form =
+                    FormUtils.getInstance(org.smartregister.family.util.Utils.context().applicationContext()).getFormJson(title);
+            getView().startFormActivityForMalaria(form);
+        } catch (Exception e) {
+            Toast.makeText(org.smartregister.family.util.Utils.context().applicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+    }
+
     @Override
     public void updateChildProfile(String jsonString) {
         getView().showProgressDialog(R.string.updating);
@@ -169,6 +191,18 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
         }
 
         interactor.saveRegistration(pair, jsonString, true, this);
+    }
+
+
+    @Override
+    public void saveMalariaConfirmation(String jsonString) {
+        getView().showProgressDialog(R.string.saving_dialog_title);
+        Pair<Client, Event> pair = new MalariaRegisterModel().processMalariaRegistration(jsonString);
+        if (pair == null) {
+            return;
+        }
+
+        interactor.saveRegistration(pair, jsonString, false, this);
     }
 
     @Override
@@ -280,6 +314,8 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
         if (isEditMode) {
             getView().hideProgressDialog();
             getView().refreshProfile(FetchStatus.fetched);
+        } else {
+            getView().hideProgressDialog();
         }
     }
 

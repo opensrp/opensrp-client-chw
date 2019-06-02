@@ -158,6 +158,7 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
             getClientProcessorForJava().processClient(getSyncHelper().getEvents(lastSyncDate, BaseRepository.TYPE_Unsynced));
             getAllSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
         } catch (Exception e) {
+            Log.e("WE ARE HERE EXCEPTION", e.getMessage());
             Timber.e(Log.getStackTraceString(e));
         }
     }

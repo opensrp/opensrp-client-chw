@@ -95,9 +95,9 @@
           },
           {
             "field": "eventType",
-            "field_value": "Malaria registration",
+            "field_value": "Malaria Registration",
             "creates_case": [
-              "ec_malaria"
+              "ec_malaria_registration"
             ]
           }
         ]
