@@ -601,40 +601,18 @@
       "name": "ec_malaria_registration",
       "columns": [
         {
-          "column_name": "fever_malaria_chw",
-          "type": "Client",
-          "json_mapping": {
-            "field": "malaria_fever_test"
-          }
-        },
-
-        {
-          "column_name": "fam_llin",
-          "type": "Client",
-          "json_mapping": {
-            "field": "family_llin"
-          }
-        },
-        {
-          "column_name": "llin_2days",
-          "type": "Client",
-          "json_mapping": {
-            "field": "family_llin_2days"
-          }
-        },
-        {
-          "column_name": "llin_condition",
-          "type": "Client",
-          "json_mapping": {
-            "field": "family_llin_condition"
-          }
-        },
-        {
           "column_name": "date_chw_malaria_test",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
             "concept": "162869AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        {
+          "column_name": "fever_malaria_chw",
+          "type": "Client",
+          "json_mapping": {
+            "field": "fever_malaria_chw"
           }
         },
         {
@@ -659,6 +637,42 @@
           "json_mapping": {
             "field": "obs.fieldCode",
             "concept": "163724AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        {
+          "column_name": "malaria_treat",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "Antimalarial treatment plan"
+          }
+        },
+        {
+          "column_name": "date_hf_malaria_test",
+          "type": "Client",
+          "json_mapping": {
+            "field": "date_hf_malaria_test"
+          }
+        },
+        {
+          "column_name": "fam_llin",
+          "type": "Client",
+          "json_mapping": {
+            "field": "fam_llin"
+          }
+        },
+        {
+          "column_name": "llin_2days",
+          "type": "Client",
+          "json_mapping": {
+            "field": "llin_2days"
+          }
+        },
+        {
+          "column_name": "llin_condition",
+          "type": "Client",
+          "json_mapping": {
+            "field": "llin_condition"
           }
         },
         {

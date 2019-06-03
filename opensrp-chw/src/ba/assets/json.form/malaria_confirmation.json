@@ -95,7 +95,7 @@
       {
         "key": "fever_duration",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": "1731AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "spinner",
         "hint": "Duration of fever?",
@@ -121,7 +121,7 @@
       {
         "key": "malaria_results",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": "1643AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "spinner",
         "hint": "mRDT results",
@@ -175,7 +175,7 @@
       {
         "key": "malaria_test_date",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": "163724AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "date_picker",
         "hint": "Today",
@@ -201,8 +201,8 @@
       {
         "key": "malaria_treat",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "Antimalarial treatment plan",
         "type": "spinner",
         "hint": "Treatment given",
         "values": [
@@ -303,7 +303,7 @@
       {
         "key": "malaria_edu_chw",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": "1379AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "spinner",
         "hint": "Malaria topics covered",

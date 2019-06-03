@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -47,6 +48,8 @@ import org.smartregister.family.util.Utils;
 import org.smartregister.helper.ImageRenderHelper;
 import org.smartregister.util.FormUtils;
 import org.smartregister.view.fragment.BaseRegisterFragment;
+import timber.log.Timber;
+
 import java.lang.ref.WeakReference;
 
 public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfileActivity implements FamilyOtherMemberProfileExtendedContract.View {
@@ -384,6 +387,4 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
          */
         boolean isWra(CommonPersonObjectClient commonPersonObject);
     }
-}
-
 }
