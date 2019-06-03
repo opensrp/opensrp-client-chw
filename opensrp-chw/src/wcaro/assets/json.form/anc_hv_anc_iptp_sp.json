@@ -55,6 +55,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "date_picker",
+        "image": "form_iptp_sp",
         "hint": "When was IPTp-SP 1st dose given?",
         "min_date": "today-120y",
         "max_date": "today",
