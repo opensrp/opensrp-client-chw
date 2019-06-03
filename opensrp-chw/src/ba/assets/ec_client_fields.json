@@ -679,19 +679,19 @@
           }
         },
         {
+          "column_name": "anc_visit_date",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "anc_visit_date"
+          }
+        },
+        {
           "column_name": "visit_not_done",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
             "concept": "anc_visit_not_done_date"
-          }
-        },
-        {
-          "column_name": "last_home_visit",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "anc_visit_date"
           }
         }
       ]

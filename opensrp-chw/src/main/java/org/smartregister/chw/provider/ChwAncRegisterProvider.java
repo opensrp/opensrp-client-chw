@@ -14,6 +14,7 @@ import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.interactor.ChildProfileInteractor;
 import org.smartregister.chw.util.AncHomeVisitUtil;
 import org.smartregister.chw.util.AncVisit;
+import org.smartregister.chw.util.ChwDBConstants;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
@@ -111,19 +112,18 @@ public class ChwAncRegisterProvider extends AncRegisterProvider {
         protected Void doInBackground(Void... params) {
             //map = getChildDetails(pc.getCaseId());
 
-            String lmpDate = org.smartregister.util.Utils.getValue(pc.getColumnmaps(), "last_menstrual_period", false);
-            String visitDate = org.smartregister.util.Utils.getValue(pc.getColumnmaps(), "anc_visit_date", false);
-            String lastVisitDate = org.smartregister.util.Utils.getValue(pc.getColumnmaps(), "last_home_visit", false);
-            String lastVisitNotDone = org.smartregister.util.Utils.getValue(pc.getColumnmaps(), "visit_not_done", false);
+            String lmpDate = org.smartregister.util.Utils.getValue(pc.getColumnmaps(), ChwDBConstants.LMP, false);
+            String visitDate = org.smartregister.util.Utils.getValue(pc.getColumnmaps(), ChwDBConstants.ANC_VISIT_DATE, false);
+            String lastVisitNotDone = org.smartregister.util.Utils.getValue(pc.getColumnmaps(), ChwDBConstants.VISIT_NOT_DONE, false);
 
-            ancVisit = AncHomeVisitUtil.getVisitStatus(context, rules, lmpDate, visitDate, lastVisitDate, lastVisitNotDone);
+            ancVisit = AncHomeVisitUtil.getVisitStatus(context, rules, lmpDate, visitDate, lastVisitNotDone);
             return null;
         }
 
         @Override
         protected void onPostExecute(Void param) {
             // Update status column
-            if (ancVisit != null) {
+            if (ancVisit != null && !ancVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.EXPIRY.name())) {
                 updateDueColumn(context, viewHolder, ancVisit);
             }
         }

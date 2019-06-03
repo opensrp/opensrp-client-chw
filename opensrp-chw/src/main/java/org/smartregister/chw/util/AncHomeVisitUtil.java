@@ -10,20 +10,20 @@ import org.smartregister.chw.rule.AncVisitAlertRule;
 
 public class AncHomeVisitUtil {
 
-    public static AncVisit getVisitStatus(Context context, Rules rules, String lmpDate, String visitDate, String lastVisitDate, String visitNotDate) {
-        AncVisitAlertRule ancVisitAlertRule = new AncVisitAlertRule(context, lmpDate, visitDate, lastVisitDate, visitNotDate);
+    public static AncVisit getVisitStatus(Context context, Rules rules, String lmpDate, String visitDate, String visitNotDate) {
+        AncVisitAlertRule ancVisitAlertRule = new AncVisitAlertRule(context, lmpDate, visitDate, visitNotDate);
         ChwApplication.getInstance().getRulesEngineHelper().getButtonAlertStatus(ancVisitAlertRule, rules);
-        return getVisitStatus(ancVisitAlertRule, lastVisitDate);
+        return getVisitStatus(ancVisitAlertRule, visitDate);
     }
 
-    public static AncVisit getVisitStatus(AncVisitAlertRule homeAlertRule, String lastVisitDate) {
+    public static AncVisit getVisitStatus(AncVisitAlertRule homeAlertRule, String visitDate) {
         AncVisit ancVisit = new AncVisit();
         ancVisit.setVisitStatus(homeAlertRule.buttonStatus);
         ancVisit.setNoOfMonthDue(homeAlertRule.noOfMonthDue);
         ancVisit.setLastVisitDays(homeAlertRule.noOfDayDue);
         ancVisit.setLastVisitMonthName(homeAlertRule.visitMonthName);
-        if (StringUtils.isNotBlank(lastVisitDate)) {
-            ancVisit.setLastVisitTime(DateTimeFormat.forPattern("dd-MM-yyyy").parseDateTime(lastVisitDate).getMillis());
+        if (StringUtils.isNotBlank(visitDate)) {
+            ancVisit.setLastVisitTime(DateTimeFormat.forPattern("dd-MM-yyyy").parseDateTime(visitDate).getMillis());
         }
         return ancVisit;
     }

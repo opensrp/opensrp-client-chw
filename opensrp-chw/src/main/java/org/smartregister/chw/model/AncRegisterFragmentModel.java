@@ -2,6 +2,7 @@ package org.smartregister.chw.model;
 
 import org.smartregister.chw.anc.model.BaseAncRegisterFragmentModel;
 import org.smartregister.chw.util.ChildDBConstants;
+import org.smartregister.chw.util.ChwDBConstants;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.family.util.DBConstants;
@@ -27,6 +28,9 @@ public class AncRegisterFragmentModel extends BaseAncRegisterFragmentModel {
 
         columnList.add(tableName + "." + DBConstants.KEY.LAST_INTERACTED_WITH);
         columnList.add(tableName + "." + DBConstants.KEY.BASE_ENTITY_ID);
+        columnList.add(tableName + "." + ChwDBConstants.LMP);
+        columnList.add(tableName + "." + ChwDBConstants.ANC_VISIT_DATE);
+        columnList.add(tableName + "." + ChwDBConstants.VISIT_NOT_DONE);
         columnList.add(Constants.TABLE_NAME.FAMILY_MEMBER + "." + DBConstants.KEY.RELATIONAL_ID + " as " + ChildDBConstants.KEY.RELATIONAL_ID);
         columnList.add(tableName + "." + org.smartregister.chw.anc.util.DBConstants.KEY.LAST_MENSTRUAL_PERIOD);
         columnList.add(Constants.TABLE_NAME.FAMILY_MEMBER + "." + DBConstants.KEY.FIRST_NAME);

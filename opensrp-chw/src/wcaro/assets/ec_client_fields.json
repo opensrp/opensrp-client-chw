@@ -592,14 +592,6 @@
           }
         },
         {
-          "column_name": "last_home_visit",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "anc_visit_date"
-          }
-        },
-        {
           "column_name": "anc_card",
           "type": "Event",
           "json_mapping": {
