@@ -120,6 +120,7 @@ public class Constants {
 
     public static final class RULE_FILE {
         public static final String HOME_VISIT = "home-visit-rules.yml";
+        public static final String ANC_HOME_VISIT = "anc-home-visit-rules.yml";
         public static final String BIRTH_CERT = "birth-cert-rules.yml";
         public static final String SERVICE = "service-rules.yml";
     }

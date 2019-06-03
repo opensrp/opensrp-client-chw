@@ -18,17 +18,20 @@ import org.smartregister.chw.anc.util.DBConstants;
 import org.smartregister.chw.custom_view.NavigationMenu;
 import org.smartregister.chw.model.AncRegisterFragmentModel;
 import org.smartregister.chw.presenter.AncRegisterFragmentPresenter;
+import org.smartregister.chw.provider.ChwAncRegisterProvider;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.QueryBuilder;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
+import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.view.customcontrols.CustomFontTextView;
 
 import java.text.MessageFormat;
 import java.util.List;
+import java.util.Set;
 
 public class AncRegisterFragment extends BaseAncRegisterFragment {
 
@@ -87,6 +90,14 @@ public class AncRegisterFragment extends BaseAncRegisterFragment {
         }
 
         NavigationMenu.getInstance(getActivity(), null, toolbar);
+    }
+
+    @Override
+    public void initializeAdapter(Set<org.smartregister.configurableviews.model.View> visibleColumns) {
+        ChwAncRegisterProvider ancRegisterProvider = new ChwAncRegisterProvider(getActivity(), commonRepository(), visibleColumns, registerActionHandler, paginationViewHandler);
+        clientAdapter = new RecyclerViewPaginatedAdapter(null, ancRegisterProvider, context().commonrepository(this.tablename));
+        clientAdapter.setCurrentlimit(20);
+        clientsView.setAdapter(clientAdapter);
     }
 
     @Override
