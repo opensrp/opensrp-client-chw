@@ -23,9 +23,16 @@ import timber.log.Timber;
 
 public class AncMemberProfileActivity extends BaseAncMemberProfileActivity {
     static String baseEntityId;
+    static String familyBaseEntityId;
+    static String familyHead;
+    static String primaryCareGiver;
+
 
     public static void startMe(Activity activity, MemberObject memberObject) {
         baseEntityId = memberObject.getBaseEntityId();
+        familyBaseEntityId = memberObject.getFamilyBaseEntityId();
+        familyHead = memberObject.getFamilyHead();
+        primaryCareGiver = memberObject.getPrimaryCareGiver();
         Intent intent = new Intent(activity, AncMemberProfileActivity.class);
         intent.putExtra(Constants.ANC_MEMBER_OBJECTS.MEMBER_PROFILE_OBJECT, memberObject);
         activity.startActivity(intent);
@@ -46,12 +53,21 @@ public class AncMemberProfileActivity extends BaseAncMemberProfileActivity {
             case R.id.action_anc_member_registration:
                 startFormForEdit(R.string.edit_member_form_title,
                         org.smartregister.chw.util.Constants.JSON_FORM.FAMILY_MEMBER_REGISTER);
-                break;
+                return true;
             case R.id.action_anc_registration:
                 startFormForEdit(R.string.edit_member_form_title,
                         org.smartregister.chw.util.Constants.JSON_FORM.ANC_REGISTRATION);
                 return true;
             case R.id.action_remove_member:
+
+                CommonRepository commonRepository = org.smartregister.chw.util.Utils.context().commonrepository(org.smartregister.chw.util.Utils.metadata().familyMemberRegister.tableName);
+
+                final CommonPersonObject commonPersonObject = commonRepository.findByBaseEntityId(baseEntityId);
+                final CommonPersonObjectClient client =
+                        new CommonPersonObjectClient(commonPersonObject.getCaseId(), commonPersonObject.getDetails(), "");
+                client.setColumnmaps(commonPersonObject.getColumnmaps());
+
+                IndividualProfileRemoveActivity.startIndividualProfileActivity(AncMemberProfileActivity.this, client, familyBaseEntityId, familyHead, primaryCareGiver);
                 return true;
             default:
                 break;

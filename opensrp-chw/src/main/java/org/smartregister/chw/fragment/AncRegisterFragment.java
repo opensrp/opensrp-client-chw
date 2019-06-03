@@ -162,7 +162,11 @@ public class AncRegisterFragment extends BaseAncRegisterFragment {
                 gest_age,
                 client.getColumnmaps().get(DBConstants.KEY.VILLAGE_TOWN),
                 uniqueId,
-                client.getCaseId());
+                client.getCaseId(),
+                client.getColumnmaps().get(DBConstants.KEY.RELATIONAL_ID),
+                client.getColumnmaps().get(DBConstants.KEY.FAMILY_HEAD),
+                client.getColumnmaps().get(DBConstants.KEY.PRIMARY_CAREGIVER)
+        );
 
         AncMemberProfileActivity.startMe(getActivity(), memberObject);
     }
