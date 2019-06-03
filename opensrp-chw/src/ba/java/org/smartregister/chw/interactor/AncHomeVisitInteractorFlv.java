@@ -34,8 +34,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         actionList.put(context.getString(R.string.anc_home_visit_counselling_task), new BaseAncHomeVisitAction(context.getString(R.string.anc_home_visit_counselling_task), "", false, null,
                 ANC_HOME_VISIT.COUNSELLING));
 
-        actionList.put(context.getString(R.string.anc_home_visit_malaria_prevention), new BaseAncHomeVisitAction(context.getString(R.string.anc_home_visit_malaria_prevention), "", false, null,
-                ANC_HOME_VISIT.MALARIA));
+        evaluateMalaria(actionList, context);
 
         actionList.put(context.getString(R.string.anc_home_visit_observations_n_illnes), new BaseAncHomeVisitAction(context.getString(R.string.anc_home_visit_observations_n_illnes), "", true, null,
                 ANC_HOME_VISIT.OBSERVATION_AND_ILLNESS));
@@ -133,5 +132,36 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         });
 
         actionList.put(context.getString(R.string.anc_home_visit_family_planning), ba);
+    }
+
+    private void evaluateMalaria(LinkedHashMap<String, BaseAncHomeVisitAction> actionList, Context context) throws BaseAncHomeVisitAction.ValidationException {
+        final BaseAncHomeVisitAction ba = new BaseAncHomeVisitAction(context.getString(R.string.anc_home_visit_malaria_prevention), "", false, null,
+                ANC_HOME_VISIT.MALARIA);
+
+        ba.setAncHomeVisitActionHelper(new BaseAncHomeVisitAction.AncHomeVisitActionHelper() {
+            @Override
+            public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
+                if (ba.getJsonPayload() != null) {
+                    try {
+                        JSONObject jsonObject = new JSONObject(ba.getJsonPayload());
+
+                        String value1 = getValue(jsonObject, "fam_llin");
+                        String value2 = getValue(jsonObject, "llin_2days");
+                        String value3 = getValue(jsonObject, "llin_condition");
+
+                        if (value1.equalsIgnoreCase("Yes") && value2.equalsIgnoreCase("Yes") && value3.equalsIgnoreCase("Okay")) {
+                            return BaseAncHomeVisitAction.Status.COMPLETED;
+                        } else {
+                            return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
+                        }
+                    } catch (Exception e) {
+                        Timber.e(e);
+                    }
+                }
+                return ba.computedStatus();
+            }
+        });
+
+        actionList.put(context.getString(R.string.anc_home_visit_malaria_prevention), ba);
     }
 }
