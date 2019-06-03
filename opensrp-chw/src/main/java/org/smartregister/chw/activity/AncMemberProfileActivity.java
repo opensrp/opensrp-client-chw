@@ -22,10 +22,10 @@ import org.smartregister.family.util.Utils;
 import timber.log.Timber;
 
 public class AncMemberProfileActivity extends BaseAncMemberProfileActivity {
-    static String baseEntityId;
-    static String familyBaseEntityId;
-    static String familyHead;
-    static String primaryCareGiver;
+    private static String baseEntityId;
+    private static String familyBaseEntityId;
+    private static String familyHead;
+    private static String primaryCareGiver;
 
 
     public static void startMe(Activity activity, MemberObject memberObject) {

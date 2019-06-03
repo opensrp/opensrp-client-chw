@@ -226,10 +226,10 @@ public class Utils extends org.smartregister.family.util.Utils {
         int integerAge = new Period(new DateTime(age), new DateTime()).getYears();
         firstName = firstName.trim();
         middleName = middleName.trim();
-        surName = surName != null ? surName.trim() : "";
+        String sur_name = surName != null ? surName.trim() : "";
 
         if (StringUtils.isNotBlank(firstName) && StringUtils.isNotBlank(middleName) && StringUtils.isNotBlank(age)) {
-            return (firstName + " " + middleName + " " + surName).trim() + ", " + integerAge;
+            return (firstName + " " + middleName + " " + sur_name).trim() + ", " + integerAge;
         }
         return "";
     }
