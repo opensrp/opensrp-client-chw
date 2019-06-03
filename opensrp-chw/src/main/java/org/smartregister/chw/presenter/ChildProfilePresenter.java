@@ -162,7 +162,7 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
                 lookup.put("entity_id", "family");
                 lookup.put("value", client.getColumnmaps().get(ChildDBConstants.KEY.RELATIONAL_ID));
             }
-            getView().startFormActivity(form);
+            getView().startFormActivity(form, JsonFormUtils.REQUEST_CODE_GET_JSON);
         } catch (Exception e) {
 
         }
@@ -176,7 +176,7 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
         try {
             JSONObject form =
                     FormUtils.getInstance(org.smartregister.family.util.Utils.context().applicationContext()).getFormJson(title);
-            getView().startFormActivityForMalaria(form);
+            getView().startFormActivity(form, 1114);
         } catch (Exception e) {
             Toast.makeText(org.smartregister.family.util.Utils.context().applicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
         }

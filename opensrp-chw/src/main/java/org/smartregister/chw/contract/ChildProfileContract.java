@@ -25,7 +25,9 @@ public interface ChildProfileContract {
 
         void startFormActivity(JSONObject form);
 
-        void startFormActivityForMalaria(JSONObject form);
+        void startFormActivity(JSONObject form, int request_code);
+
+//        void startFormActivityForMalaria(JSONObject form);
 
         void refreshProfile(final FetchStatus fetchStatus);
 

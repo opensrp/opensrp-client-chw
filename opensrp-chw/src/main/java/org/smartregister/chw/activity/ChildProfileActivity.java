@@ -478,30 +478,19 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     }
 
     @Override
-    public void startFormActivity(JSONObject jsonForm) {
-
-        Intent intent = new Intent(this, Utils.metadata().familyMemberFormActivity);
-        intent.putExtra(Constants.JSON_FORM_EXTRA.JSON, jsonForm.toString());
-
-        Form form = new Form();
-        form.setActionBarBackground(R.color.family_actionbar);
-        form.setWizard(false);
-        intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);
-
-        startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
+    public void startFormActivity(JSONObject form) {
+//        Intent intent = new Intent(this, Utils.metadata().familyMemberFormActivity);
+//        intent.putExtra(Constants.JSON_FORM_EXTRA.JSON, jsonForm.toString());
+//
+//        Form form = new Form();
+//        form.setActionBarBackground(R.color.family_actionbar);
+//        form.setWizard(false);
+//        intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);
     }
 
     @Override
-    public void startFormActivityForMalaria(JSONObject jsonForm) {
-        Intent intent = new Intent(this, Utils.metadata().familyMemberFormActivity);
-        intent.putExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON, jsonForm.toString());
-
-        Form form = new Form();
-        form.setActionBarBackground(R.color.family_actionbar);
-        form.setWizard(false);
-        intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);
-
-        startActivityForResult(intent, 11114);
+    public void startFormActivity(JSONObject jsonForm, int request_code) {
+        startActivityForResult(ChildProfileActivityFlv.startFormActivityForIntent(this, jsonForm), request_code);
     }
 
     @Override
