@@ -161,7 +161,8 @@ public class AncRegisterFragment extends BaseAncRegisterFragment {
         MemberObject memberObject = new MemberObject(memberName,
                 gest_age,
                 client.getColumnmaps().get(DBConstants.KEY.VILLAGE_TOWN),
-                uniqueId);
+                uniqueId,
+                client.getCaseId());
 
         AncMemberProfileActivity.startMe(getActivity(), memberObject);
     }
