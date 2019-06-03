@@ -76,7 +76,12 @@ public interface ChildProfileContract {
         void updateHasPhone(boolean hasPhone);
 
         void enableEdit(boolean enable);
+
         void hideProgressBar();
+
+        void openVisitMonthView();
+
+        void showUndoVisitNotDoneView();
     }
 
     interface Presenter extends BaseProfileContract.Presenter {
@@ -93,6 +98,8 @@ public interface ChildProfileContract {
 
         void updateVisitNotDone(long value);
 
+        void undoVisitNotDone();
+
         void fetchVisitStatus(String baseEntityId);
 
         void fetchUpcomingServiceAndFamilyDue(String baseEntityId);
@@ -100,7 +107,7 @@ public interface ChildProfileContract {
     }
 
     interface Interactor {
-        void updateVisitNotDone(long value);
+        void updateVisitNotDone(long value, ChildProfileContract.InteractorCallBack callback);
 
         void refreshChildVisitBar(Context context, String baseEntityId, ChildProfileContract.InteractorCallBack callback);
 
@@ -140,6 +147,10 @@ public interface ChildProfileContract {
         void setFamilyHeadID(String familyHeadID);
 
         void setPrimaryCareGiverID(String primaryCareGiverID);
+
+        void updateVisitNotDone();
+
+        void undoVisitNotDone();
     }
 
     interface Model {

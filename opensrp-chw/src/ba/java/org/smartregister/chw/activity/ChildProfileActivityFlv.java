@@ -21,9 +21,10 @@ import org.smartregister.family.util.Utils;
 
 import static android.support.v4.app.ActivityCompat.startActivityForResult;
 
-public class ChildProfileActivityFlv {
+public class ChildProfileActivityFlv implements ChildProfileActivity.Flavor {
 
-    public static OnClickFloatingMenu getOnClickFloatingMenu(final Activity activity, final ChildProfilePresenter presenter) {
+    @Override
+    public OnClickFloatingMenu getOnClickFloatingMenu(final Activity activity, final ChildProfilePresenter presenter) {
         return new OnClickFloatingMenu() {
             @Override
             public void onClickMenu(int viewId) {

@@ -1,6 +1,7 @@
 package org.smartregister.chw.interactor;
 
 import org.smartregister.chw.BuildConfig;
+import org.smartregister.chw.job.ChwIndicatorGeneratingJob;
 import org.smartregister.chw.job.VaccineRecurringServiceJob;
 import org.smartregister.job.ImageUploadServiceJob;
 import org.smartregister.job.PullUniqueIdsServiceJob;
@@ -30,7 +31,7 @@ public class LoginInteractor extends BaseLoginInteractor implements BaseLoginCon
         PullUniqueIdsServiceJob.scheduleJob(PullUniqueIdsServiceJob.TAG, TimeUnit.MINUTES.toMillis(BuildConfig.PULL_UNIQUE_IDS_MINUTES), getFlexValue
                 (BuildConfig.PULL_UNIQUE_IDS_MINUTES));
 
-        RecurringIndicatorGeneratingJob.scheduleJob(RecurringIndicatorGeneratingJob.TAG,
+        ChwIndicatorGeneratingJob.scheduleJob(ChwIndicatorGeneratingJob.TAG,
                 TimeUnit.MINUTES.toMillis(org.smartregister.reporting.BuildConfig.REPORT_INDICATOR_GENERATION_MINUTES), TimeUnit.MINUTES.toMillis(1));
 
     }

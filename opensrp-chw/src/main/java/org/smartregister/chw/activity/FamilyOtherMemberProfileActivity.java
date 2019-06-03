@@ -10,7 +10,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -35,7 +34,6 @@ import org.smartregister.chw.listener.FloatingMenuListener;
 import org.smartregister.chw.listener.OnClickFloatingMenu;
 import org.smartregister.chw.presenter.FamilyOtherMemberActivityPresenter;
 import org.smartregister.chw.util.ChildUtils;
-//import org.smartregister.chw.util.Country;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
@@ -66,6 +64,7 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
     private WeakReference<FamilyOtherMemberProfileExtendedContract.View> view;
     private FormUtils formUtils = null;
     private OnClickFloatingMenu onClickFloatingMenu;
+    private FamilyOtherMemberProfileActivityFlv flavor = new FamilyOtherMemberProfileActivityFlv();
 
     private void toast(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
@@ -104,7 +103,7 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
         familyName = getIntent().getStringExtra(Constants.INTENT_KEY.FAMILY_NAME);
         presenter = new FamilyOtherMemberActivityPresenter(this, new BaseFamilyOtherMemberProfileActivityModel(), null, familyBaseEntityId, baseEntityId, familyHead, primaryCaregiver, villageTown, familyName);
 
-        onClickFloatingMenu = FamilyOtherMemberProfileActivityFlv.getOnClickFloatingMenu(this, familyBaseEntityId);
+        onClickFloatingMenu = flavor.getOnClickFloatingMenu(this, familyBaseEntityId);
     }
 
     @Override
@@ -181,6 +180,13 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
             addMember.setVisible(false);
         }
 
+        getMenuInflater().inflate(R.menu.other_member_menu, menu);
+
+        if (flavor.isWra(commonPersonObject)) {
+            menu.findItem(R.id.action_anc_registration).setVisible(true);
+        } else {
+            menu.findItem(R.id.action_anc_registration).setVisible(false);
+        }
         FamilyOtherMemberProfileActivityFlv.onCreateOptionsMenu(menu);
 
         return true;
@@ -191,6 +197,10 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
         switch (item.getItemId()) {
             case android.R.id.home:
                 onBackPressed();
+                return true;
+            case R.id.action_anc_registration:
+                startFormForEdit(R.string.edit_member_form_title);
+                AncRegisterActivity.startAncRegistrationActivity(FamilyOtherMemberProfileActivity.this, baseEntityId);
                 return true;
             case R.id.action_registration:
                 startFormForEdit(R.string.edit_member_form_title);
@@ -229,13 +239,12 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
         try {
             startFormActivity(form);
         } catch (Exception e) {
-            Log.e("TAG", e.getMessage());
+            Timber.e(e.getMessage());
         }
     }
 
     public void startFormActivity(JSONObject jsonForm) {
 
-        //Intent intent = new Intent(this, org.smartregister.chw.malaria.util.Utils.metadata().familyMemberFormActivity);
         Intent intent = new Intent(this, Utils.metadata().familyMemberFormActivity);
         intent.putExtra(Constants.JSON_FORM_EXTRA.JSON, jsonForm.toString());
         Form form = new Form();
@@ -357,5 +366,24 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
         }
         return formUtils;
     }
+
+    /**
+     * build implementation differences file
+     */
+    public interface Flavor {
+        /**
+         * Return implementation menu
+         */
+        OnClickFloatingMenu getOnClickFloatingMenu(final Activity activity, final String familyBaseEntityId);
+
+        /**
+         * calculate wra validity for each implementation
+         *
+         * @param commonPersonObject
+         * @return
+         */
+        boolean isWra(CommonPersonObjectClient commonPersonObject);
+    }
+}
 
 }

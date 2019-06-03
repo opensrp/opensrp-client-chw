@@ -118,6 +118,30 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
 
     }
 
+    public static Pair<Client, Event> processAncRegistrationForm(AllSharedPreferences allSharedPreferences, String jsonString){
+        Triple<Boolean, JSONObject, JSONArray> ancFormParams = validateParameters(jsonString);
+        if(!ancFormParams.getLeft()){
+            return null;
+        }
+
+        JSONObject jsonForm = ancFormParams.getMiddle();
+        JSONArray fields = ancFormParams.getRight();
+        String entityId = getString(jsonForm, ENTITY_ID);
+        lastInteractedWith(fields);
+
+
+        Event baseEvent = org.smartregister.util.JsonFormUtils.createEvent(fields, getJSONObject(jsonForm, METADATA), formTag(allSharedPreferences), entityId,
+                getString(jsonForm, ENCOUNTER_TYPE), org.smartregister.chw.util.Constants.TABLE_NAME.ANC_MEMBER);
+
+        Client baseClient = org.smartregister.util.JsonFormUtils.createBaseClient(fields, formTag(allSharedPreferences), entityId);
+        tagSyncMetadata(allSharedPreferences, baseEvent);
+
+
+        return Pair.create(baseClient, baseEvent);
+
+    }
+
+
     public static Pair<Client, Event> processCounselingForm(AllSharedPreferences allSharedPreferences, String jsonString) {
         try {
 
@@ -194,12 +218,16 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
         }
         return actionMap;
     }
+    public static HashMap<String, String> getChoice(Context context) {
+        HashMap<String, String> choices = new HashMap<>();
+        choices.put(context.getResources().getString(R.string.yes), "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+        choices.put(context.getResources().getString(R.string.no), "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+        return choices;
+    }
 
-    private static List<Object> toList(String... vals) {
+    public static List<Object> toList(String... vals) {
         List<Object> res = new ArrayList<>();
-        for (String s : vals) {
-            res.add(s);
-        }
+        res.addAll(Arrays.asList(vals));
         return res;
     }
 

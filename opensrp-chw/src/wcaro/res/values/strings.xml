@@ -2,4 +2,6 @@
     <string name="app_name">Liberia CFC</string>
     <string name="login_title">Liberia CFC Monitor</string>
     <string name="nav_logo">Liberia CFC Monitor</string>
+    <string name="menu_anc">ANC Clients</string>
+    <string name="menu_pnc">PNC Clients</string>
 </resources>
