@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/action_registration"
+        android:id="@+id/action_anc_member_registration"
         android:enabled="true"
         android:title="@string/registration_info"
         app:showAsAction="never" />
@@ -11,13 +11,19 @@
     <item
         android:id="@+id/action_anc_registration"
         android:enabled="true"
-        android:title="@string/anc_registration"
+        android:title="@string/anc_registration_info"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/action_remove_member"
         android:enabled="true"
         android:title="@string/remove_this_person"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_pregnancy_out_come"
+        android:enabled="true"
+        android:title="@string/anc_pregnancy_out_come"
         app:showAsAction="never" />
 
 </menu>
