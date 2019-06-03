@@ -68,7 +68,7 @@ public class ChwAncRegisterProvider extends AncRegisterProvider {
         dueButton.setOnClickListener(null);
     }
 
-    private void setVisitLessTwentyFourView(Context context, Button dueButton, String lastVisitMonth) {
+    private void setVisitLessTwentyFourView(Context context, Button dueButton) {
         setVisitAboveTwentyFourView(context, dueButton);
     }
 
@@ -86,7 +86,7 @@ public class ChwAncRegisterProvider extends AncRegisterProvider {
         } else if (ancVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.OVERDUE.name())) {
             setVisitButtonOverdueStatus(context, viewHolder.dueButton, ancVisit.getNoOfMonthDue());
         } else if (ancVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.LESS_TWENTY_FOUR.name())) {
-            setVisitLessTwentyFourView(context, viewHolder.dueButton, ancVisit.getLastVisitDays());
+            setVisitLessTwentyFourView(context, viewHolder.dueButton);
         } else if (ancVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.VISIT_THIS_MONTH.name())) {
             setVisitAboveTwentyFourView(context, viewHolder.dueButton);
         } else if (ancVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.NOT_VISIT_THIS_MONTH.name())) {
