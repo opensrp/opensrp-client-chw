@@ -14,6 +14,7 @@ import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.interactor.ChildProfileInteractor;
 import org.smartregister.chw.util.AncHomeVisitUtil;
 import org.smartregister.chw.util.AncVisit;
+import org.smartregister.chw.util.ChildDBConstants;
 import org.smartregister.chw.util.ChwDBConstants;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.Utils;
@@ -113,7 +114,7 @@ public class ChwAncRegisterProvider extends AncRegisterProvider {
             //map = getChildDetails(pc.getCaseId());
 
             String lmpDate = org.smartregister.util.Utils.getValue(pc.getColumnmaps(), ChwDBConstants.LMP, false);
-            String visitDate = org.smartregister.util.Utils.getValue(pc.getColumnmaps(), ChwDBConstants.ANC_VISIT_DATE, false);
+            String visitDate = org.smartregister.util.Utils.getValue(pc.getColumnmaps(), ChildDBConstants.KEY.LAST_HOME_VISIT, false);
             String lastVisitNotDone = org.smartregister.util.Utils.getValue(pc.getColumnmaps(), ChwDBConstants.VISIT_NOT_DONE, false);
 
             ancVisit = AncHomeVisitUtil.getVisitStatus(context, rules, lmpDate, visitDate, lastVisitNotDone);

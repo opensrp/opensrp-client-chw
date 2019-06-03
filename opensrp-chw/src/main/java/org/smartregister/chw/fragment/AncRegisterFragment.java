@@ -200,7 +200,7 @@ public class AncRegisterFragment extends BaseAncRegisterFragment {
                         .searchQueryFts(tablename, joinTable, mainCondition, filters, Sortqueries,
                                 clientAdapter.getCurrentlimit(), clientAdapter.getCurrentoffset());
                 sql = sql.replace(CommonFtsObject.idColumn, CommonFtsObject.relationalIdColumn);
-                sql = sql.replace(CommonFtsObject.searchTableName(Constants.TABLE_NAME.FAMILY), CommonFtsObject.searchTableName(Constants.TABLE_NAME.CHILD));
+                sql = sql.replace(CommonFtsObject.searchTableName(Constants.TABLE_NAME.FAMILY), CommonFtsObject.searchTableName(Constants.TABLE_NAME.ANC_MEMBER));
                 List<String> ids = commonRepository().findSearchIds(sql);
                 query = sqb.toStringFts(ids, tablename, CommonRepository.ID_COLUMN,
                         Sortqueries);
@@ -224,10 +224,14 @@ public class AncRegisterFragment extends BaseAncRegisterFragment {
         String query = "";
         StringBuilder customFilter = new StringBuilder();
         if (StringUtils.isNotBlank(filters)) {
-            customFilter.append(MessageFormat.format(" where {0}.{1} like ''%{2}%'' ", Constants.TABLE_NAME.FAMILY_MEMBER, DBConstants.KEY.FIRST_NAME, filters));
+            customFilter.append(MessageFormat.format(" where ( {0}.{1} like ''%{2}%'' ", Constants.TABLE_NAME.FAMILY_MEMBER, DBConstants.KEY.FIRST_NAME, filters));
             customFilter.append(MessageFormat.format(" or {0}.{1} like ''%{2}%'' ", Constants.TABLE_NAME.FAMILY_MEMBER, DBConstants.KEY.LAST_NAME, filters));
             customFilter.append(MessageFormat.format(" or {0}.{1} like ''%{2}%'' ", Constants.TABLE_NAME.FAMILY_MEMBER, DBConstants.KEY.MIDDLE_NAME, filters));
-            customFilter.append(MessageFormat.format(" or {0}.{1} = ''{2}'' ", Constants.TABLE_NAME.FAMILY_MEMBER, DBConstants.KEY.UNIQUE_ID, filters));
+            customFilter.append(MessageFormat.format(" or {0}.{1} = ''{2}'' ) ", Constants.TABLE_NAME.FAMILY_MEMBER, DBConstants.KEY.UNIQUE_ID, filters));
+
+            if (dueFilterActive) {
+                customFilter.append(MessageFormat.format(" and ( {0}) ", presenter().getDueFilterCondition()));
+            }
         }
         try {
             if (isValidFilterForFts(commonRepository())) {
@@ -272,5 +276,42 @@ public class AncRegisterFragment extends BaseAncRegisterFragment {
     @Override
     protected String getMainCondition() {
         return presenter().getMainCondition();
+    }
+
+    @Override
+    public void countExecute() {
+
+        Cursor c = null;
+        try {
+
+            String query = "select count(*) from " + presenter().getMainTable() + " inner join " + Constants.TABLE_NAME.FAMILY_MEMBER +
+                    " on " + presenter().getMainTable() + "." + DBConstants.KEY.BASE_ENTITY_ID + " = " +
+                    Constants.TABLE_NAME.FAMILY_MEMBER + "." + DBConstants.KEY.BASE_ENTITY_ID +
+                    " where " + presenter().getMainCondition();
+
+            if (StringUtils.isNotBlank(filters)) {
+                query = query + " and ( " + filters + " ) ";
+            }
+
+            if (dueFilterActive) {
+                query = query + " and ( " + presenter().getDueFilterCondition() + " ) ";
+            }
+
+            c = commonRepository().rawCustomQueryForAdapter(query);
+            c.moveToFirst();
+            clientAdapter.setTotalcount(c.getInt(0));
+            Log.v("total count here", "" + clientAdapter.getTotalcount());
+
+            clientAdapter.setCurrentlimit(20);
+            clientAdapter.setCurrentoffset(0);
+
+
+        } catch (Exception e) {
+            Log.e(getClass().getName(), e.toString(), e);
+        } finally {
+            if (c != null) {
+                c.close();
+            }
+        }
     }
 }

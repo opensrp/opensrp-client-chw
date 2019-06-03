@@ -16,7 +16,6 @@ public interface ChwDBConstants {
     String OTHER_LEADER = "leader_other";
     String WRA = "wra";
     String LMP = "last_menstrual_period";
-    String ANC_VISIT_DATE = "anc_visit_date";
     String VISIT_NOT_DONE = "visit_not_done";
 
 }
