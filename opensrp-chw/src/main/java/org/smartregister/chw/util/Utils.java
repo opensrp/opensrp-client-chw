@@ -224,12 +224,12 @@ public class Utils extends org.smartregister.family.util.Utils {
 
     public static String getAncMemberNameAndAge(String firstName, String middleName, String surName, String age) {
         int integerAge = new Period(new DateTime(age), new DateTime()).getYears();
-        firstName = firstName.trim();
-        middleName = middleName.trim();
+        String first_name = firstName.trim();
+        String middle_name = middleName.trim();
         String sur_name = surName != null ? surName.trim() : "";
 
         if (StringUtils.isNotBlank(firstName) && StringUtils.isNotBlank(middleName) && StringUtils.isNotBlank(age)) {
-            return (firstName + " " + middleName + " " + sur_name).trim() + ", " + integerAge;
+            return (first_name + " " + middle_name + " " + sur_name).trim() + ", " + integerAge;
         }
         return "";
     }
