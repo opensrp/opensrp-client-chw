@@ -69,6 +69,22 @@
         }
       },
       {
+        "key": "gest_age_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "Gestational Age (GA)",
+        "read_only": true,
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_member_registration_calculation.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "gest_age",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -87,7 +103,9 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "5596AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "hidden",
+        "type": "edit_text",
+        "hint": "Expected Date of Delivery (EDD)",
+        "read_only": true,
         "calculation": {
           "rules-engine": {
             "ex-rules": {
@@ -99,8 +117,8 @@
       {
         "key": "no_prev_preg",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "no_prev_preg",
         "type": "edit_text",
         "edit_type": "number",
         "hint": "No. of previous pregnancies",
@@ -132,6 +150,27 @@
         }
       },
       {
+        "key": "delivery_method",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "5630AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "Have you delivered your child(ren) vaginally or by ceasarian section?",
+        "values": [
+          "Vaginally",
+          "Caesarian section"
+        ],
+        "openmrs_choice_ids": {
+          "Vaginally": "1170AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Caesarian section": "1171AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "v_required": {
+            "value": "true",
+            "err": "Please select one option"
+          }
+        }
+      },
+      {
         "key": "no_surv_children",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -150,6 +189,29 @@
         "v_min": {
           "value": "0",
           "err": "Age must be equal or greater than 0"
+        }
+      },
+      {
+        "key": "marital_status",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1054AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "Marital status",
+        "values": [
+          "Married",
+          "Co-habiting",
+          "Single"
+        ],
+        "openmrs_choice_ids": {
+          "Married": "5555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Co-habiting": "1060AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Single": "5615AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "v_required": {
+            "value": "true",
+            "err": "Please select one option"
+          }
         }
       },
       {
@@ -180,26 +242,71 @@
         }
       },
       {
-        "key": "marital_status",
+        "key": "person_assist",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "1054AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "159771AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Marital status",
+        "hint": "Does the mother have anyone, 18 years or older, who would be able to assist her during her pregnancy?",
         "values": [
-          "Married",
-          "Co-habiting",
-          "Single"
+          "Yes",
+          "No"
         ],
         "openmrs_choice_ids": {
-          "Married": "5555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Co-habiting": "1060AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Single": "5615AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "v_required": {
             "value": "true",
             "err": "Please select one option"
           }
+        }
+      },
+      {
+        "key": "name_person_assist",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "160638AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "edit_text",
+        "hint": "Name of close person/relative who lives with her and is 18 years or olders",
+        "edit_type": "name",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_member_registration_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the family name"
+        }
+      },
+      {
+        "key": "phone_person_assist",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "159635AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "edit_text",
+        "hint": "Phone number",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_member_registration_relevance.yml"
+            }
+          }
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "Number must be a total of 10 digits in length"
+        },
+        "v_regex": {
+          "value": "(0[0-9]{9})|\\s*",
+          "err": "Number must be 10 digits and must start with 0."
+        },
+        "v_required": {
+          "value": true,
+          "err": "Please specify the phone number"
         }
       }
     ]
