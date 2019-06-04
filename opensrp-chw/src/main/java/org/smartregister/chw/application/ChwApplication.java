@@ -11,8 +11,9 @@ import com.evernote.android.job.JobManager;
 
 import org.smartregister.AllConstants;
 import org.smartregister.Context;
-import org.smartregister.CoreLibrary;
+import org.smartregister.P2POptions;
 import org.smartregister.chw.BuildConfig;
+import org.smartregister.chw.ChwLibrary;
 import org.smartregister.chw.activity.FamilyProfileActivity;
 import org.smartregister.chw.activity.LoginActivity;
 import org.smartregister.chw.anc.AncLibrary;
@@ -153,11 +154,10 @@ public class ChwApplication extends DrishtiApplication {
         Fabric.with(this, new Crashlytics.Builder().core(new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build()).build());
 
         //Initialize Modules
-        CoreLibrary.P2POptions p2POptions = new CoreLibrary.P2POptions(true);
-        p2POptions.setClientProcessor(ChwClientProcessor.getInstance(this));
+        P2POptions p2POptions = new P2POptions(true);
 
-        CoreLibrary.init(context, new ChwSyncConfiguration(), BuildConfig.BUILD_TIMESTAMP, p2POptions);
-        CoreLibrary.getInstance().setEcClientFieldsFile(Constants.EC_CLIENT_FIELDS);
+        ChwLibrary.init(context, new ChwSyncConfiguration(), BuildConfig.BUILD_TIMESTAMP, p2POptions);
+        ChwLibrary.getInstance().setEcClientFieldsFile(Constants.EC_CLIENT_FIELDS);
 
         ImmunizationLibrary.init(context, getRepository(), null, BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
 
