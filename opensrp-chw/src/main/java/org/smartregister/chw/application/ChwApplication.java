@@ -11,8 +11,8 @@ import com.evernote.android.job.JobManager;
 
 import org.smartregister.AllConstants;
 import org.smartregister.Context;
-import org.smartregister.CoreLibrary;
 import org.smartregister.P2POptions;
+import org.smartregister.CoreLibrary;
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.activity.FamilyProfileActivity;
 import org.smartregister.chw.activity.LoginActivity;
