@@ -168,10 +168,11 @@
     <string name="confirm_remove_text">Are you sure you want to remove %s\'s record? This will remove their entire health record from your device. This action cannot be undone.</string>
     <string name="remove">REMOVE</string>
     <string name="birth_date">Birth Date</string>
-    <string name="age">Age</string>
+    <string name="age">Age</string> registration
     <string name="when_vaccine">When was %s immunization done?</string>
     <string name="no_vaccines_were_done">No vaccines were done</string>
     <string name="edit_member_form_title">Edit Family Member</string>
+    <string name="edit_anc_registration_form_title">Edit ANC Registration</string>
 
     <string name="last_visit">LAST VISIT</string>
     <string name="edit_child_form_title">Edit Child Under 5</string>
@@ -203,6 +204,8 @@
     <string name="remove_this_person">Remove this person</string>
     <string name="registration_info">Registration info</string>
     <string name="anc_registration">ANC Registration</string>
+    <string name="anc_registration_info">ANC Registration info</string>
+    <string name="anc_pregnancy_out_come">Pregnancy outcome</string>
     <string name="log_out_as">Log out as</string>
     <string name="job_aids">Job Aids</string>
     <string name="total_under_5_children_label">Total U5 children</string>
@@ -275,4 +278,8 @@
     <string name="anc_home_visit_counseling">ANC Counseling</string>
     <string name="anc_home_visit_tt_immunization">TT {0} Immunization</string>
     <string name="anc_home_visit_iptp_sp">IPTp-SP dose {0}</string>
+    <string name="gest_age">GA: %1$s</string>
+    <string name="gest_age_weeks">weeks</string>
+
+
 </resources>
