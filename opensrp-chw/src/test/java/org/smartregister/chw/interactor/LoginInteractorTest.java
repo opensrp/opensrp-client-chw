@@ -50,7 +50,7 @@ public class LoginInteractorTest {
         PowerMockito.when(JobManager.create(context)).thenReturn(jobManager);
         jobManager.addJobCreator(jobCreator);
         loginInteractor.scheduleJobsPeriodically();
-        PowerMockito.verifyStatic(BaseJob.class, Mockito.times(4));
+        PowerMockito.verifyStatic(BaseJob.class, Mockito.times(5));
         BaseJob.scheduleJob(ArgumentMatchers.anyString(), ArgumentMatchers.anyLong(), ArgumentMatchers.anyLong());
         PowerMockito.verifyNoMoreInteractions(BaseJob.class);
     }

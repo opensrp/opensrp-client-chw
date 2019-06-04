@@ -60,16 +60,15 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
             dueCount = count;
             ((FamilyProfileActivity) getActivity()).updateDueCount(dueCount);
         }
-        //crash occured after create a child
-       if(getActivity()!=null){
-           getActivity().runOnUiThread(new Runnable() {
-               @Override
-               public void run() {
+        if (getActivity() != null) {
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
 
-                   onEmptyRegisterCount(count < 1);
-               }
-           });
-       }
+                    onEmptyRegisterCount(count < 1);
+                }
+            });
+        }
     }
 
     @Override
@@ -79,9 +78,9 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
     }
 
     public void onEmptyRegisterCount(final boolean has_no_records) {
-                if (emptyView != null) {
-                    emptyView.setVisibility(has_no_records ? View.VISIBLE : View.GONE);
-                }
+        if (emptyView != null) {
+            emptyView.setVisibility(has_no_records ? View.VISIBLE : View.GONE);
+        }
     }
 
     @Override

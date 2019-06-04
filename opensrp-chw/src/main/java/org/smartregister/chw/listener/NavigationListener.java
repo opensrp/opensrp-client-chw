@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import org.smartregister.chw.R;
+import org.smartregister.chw.activity.AncRegisterActivity;
 import org.smartregister.chw.activity.ChildRegisterActivity;
 import org.smartregister.chw.activity.FamilyRegisterActivity;
 import org.smartregister.chw.adapter.NavigationAdapter;
@@ -29,14 +30,13 @@ public class NavigationListener implements View.OnClickListener {
 
                 switch (tag) {
                     case Constants.DrawerMenu.CHILD_CLIENTS:
-                    case Constants.DrawerMenu.CH:
                         startRegisterActivity(ChildRegisterActivity.class);
                         break;
                     case Constants.DrawerMenu.ALL_FAMILIES:
                         startRegisterActivity(FamilyRegisterActivity.class);
                         break;
                     case Constants.DrawerMenu.ANC:
-                        Toast.makeText(activity.getApplicationContext(), Constants.DrawerMenu.ANC, Toast.LENGTH_SHORT).show();
+                        startRegisterActivity(AncRegisterActivity.class);
                         break;
                     case Constants.DrawerMenu.LD:
                         Toast.makeText(activity.getApplicationContext(), Constants.DrawerMenu.LD, Toast.LENGTH_SHORT).show();
@@ -44,8 +44,8 @@ public class NavigationListener implements View.OnClickListener {
                     case Constants.DrawerMenu.PNC:
                         Toast.makeText(activity.getApplicationContext(), Constants.DrawerMenu.PNC, Toast.LENGTH_SHORT).show();
                         break;
-                    case Constants.DrawerMenu.FP:
-                        Toast.makeText(activity.getApplicationContext(), Constants.DrawerMenu.FP, Toast.LENGTH_SHORT).show();
+                    case Constants.DrawerMenu.FAMILY_PLANNING:
+                        Toast.makeText(activity.getApplicationContext(), Constants.DrawerMenu.FAMILY_PLANNING, Toast.LENGTH_SHORT).show();
                         break;
                     case Constants.DrawerMenu.MALARIA:
                         Toast.makeText(activity.getApplicationContext(), Constants.DrawerMenu.MALARIA, Toast.LENGTH_SHORT).show();

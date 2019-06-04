@@ -3,7 +3,6 @@ package org.smartregister.chw.interactor;
 import android.content.Context;
 import android.database.Cursor;
 import android.support.annotation.VisibleForTesting;
-import android.util.Log;
 import android.util.Pair;
 
 import org.apache.commons.lang3.tuple.Triple;
@@ -31,6 +30,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import timber.log.Timber;
+
 import static java.util.Calendar.DATE;
 import static java.util.Calendar.MONTH;
 import static java.util.Calendar.YEAR;
@@ -40,6 +41,7 @@ public class FamilyChangeContractInteractor implements FamilyChangeContract.Inte
     private static String TAG = FamilyChangeContractInteractor.class.getCanonicalName();
 
     private AppExecutors appExecutors;
+    private Flavor flavor = new FamilyChangeContractInteractorFlv();
 
     @VisibleForTesting
     FamilyChangeContractInteractor(AppExecutors appExecutors) {
@@ -179,21 +181,8 @@ public class FamilyChangeContractInteractor implements FamilyChangeContract.Inte
     }
 
     private List<FamilyMember> getFamilyMembers(String familyID) {
-
-        String info_columns = DBConstants.KEY.RELATIONAL_ID + " , " +
-                DBConstants.KEY.BASE_ENTITY_ID + " , " +
-                DBConstants.KEY.FIRST_NAME + " , " +
-                DBConstants.KEY.MIDDLE_NAME + " , " +
-                DBConstants.KEY.LAST_NAME + " , " +
-                DBConstants.KEY.PHONE_NUMBER + " , " +
-                DBConstants.KEY.OTHER_PHONE_NUMBER + " , " +
-                DBConstants.KEY.HIGHEST_EDU_LEVEL + " , " +
-                DBConstants.KEY.DOB + " , " +
-                DBConstants.KEY.DOD + " , " +
-                DBConstants.KEY.GENDER;
-
         String sql = String.format("select %s from %s where %s = '%s' and %s is null and %s is null ",
-                info_columns,
+                flavor.getFamilyMembersSql(familyID),
                 Utils.metadata().familyMemberRegister.tableName,
                 DBConstants.KEY.RELATIONAL_ID,
                 familyID,
@@ -204,8 +193,9 @@ public class FamilyChangeContractInteractor implements FamilyChangeContract.Inte
         CommonRepository commonRepository = Utils.context().commonrepository(Utils.metadata().familyMemberRegister.tableName);
         List<FamilyMember> res = new ArrayList<>();
 
-        Cursor cursor = commonRepository.queryTable(sql);
+        Cursor cursor = null;
         try {
+            cursor = commonRepository.queryTable(sql);
             cursor.moveToFirst();
 
             while (!cursor.isAfterLast()) {
@@ -266,9 +256,10 @@ public class FamilyChangeContractInteractor implements FamilyChangeContract.Inte
                 cursor.moveToNext();
             }
         } catch (Exception e) {
-            Log.e(TAG, e.toString(), e);
+            Timber.e(e, e.toString());
         } finally {
-            cursor.close();
+            if (cursor != null)
+                cursor.close();
         }
 
         return res;
@@ -289,5 +280,9 @@ public class FamilyChangeContractInteractor implements FamilyChangeContract.Inte
         Calendar cal = Calendar.getInstance(Locale.US);
         cal.setTime(date);
         return cal;
+    }
+
+    public interface Flavor {
+        String getFamilyMembersSql(String familyID);
     }
 }

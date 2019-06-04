@@ -5,11 +5,11 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 
+import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.custom_view.NavigationMenu;
 import org.smartregister.chw.fragment.FamilyRegisterFragment;
 import org.smartregister.chw.listener.FamilyBottomNavigationListener;
 import org.smartregister.chw.util.Constants;
-import org.smartregister.chw.util.CountryUtils;
 import org.smartregister.family.activity.BaseFamilyRegisterActivity;
 import org.smartregister.family.model.BaseFamilyRegisterModel;
 import org.smartregister.family.presenter.BaseFamilyRegisterPresenter;
@@ -36,7 +36,7 @@ public class FamilyRegisterActivity extends BaseFamilyRegisterActivity {
     protected void registerBottomNavigation() {
         super.registerBottomNavigation();
 
-        if (CountryUtils.hideNavigationQRCode()) {
+        if (!BuildConfig.SUPPORT_QR) {
             bottomNavigationView.getMenu().removeItem(org.smartregister.family.R.id.action_scan_qr);
         }
 

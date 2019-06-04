@@ -35,10 +35,8 @@ public class ChwJobCreator implements JobCreator {
                 return new VaccineRecurringServiceJob();
             case ImageUploadServiceJob.TAG:
                 return new ImageUploadServiceJob();
-                /*
-            case RecurringIndicatorGeneratingJob.TAG:
-                return new RecurringIndicatorGeneratingJob();
-                */
+            case ChwIndicatorGeneratingJob.TAG:
+                return new ChwIndicatorGeneratingJob();
 
             case P2pServiceJob.TAG:
                 return new P2pServiceJob();

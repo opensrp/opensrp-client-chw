@@ -44,19 +44,13 @@ public interface NavigationContract {
         List<NavigationOption> getNavigationItems();
 
         String getCurrentUser();
-
-        void setNavigationOptions(List<NavigationOption> navigationOptions);
     }
 
     interface Interactor {
 
-        String getUser();
-
         Date getLastSync();
 
-        void getFamilyCount(InteractorCallback<Integer> callback);
-
-        void getChildrenCount(InteractorCallback<Integer> callback);
+        void getRegisterCount(String tableName, InteractorCallback<Integer> callback);
 
         Date Sync();
 

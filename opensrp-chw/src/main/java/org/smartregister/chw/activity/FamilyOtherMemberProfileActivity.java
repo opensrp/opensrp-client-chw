@@ -10,7 +10,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,24 +17,20 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
 
 import org.json.JSONObject;
-import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.contract.FamilyOtherMemberProfileExtendedContract;
 import org.smartregister.chw.custom_view.FamilyMemberFloatingMenu;
-import org.smartregister.chw.fragment.FamilyCallDialogFragment;
 import org.smartregister.chw.fragment.FamilyOtherMemberProfileFragment;
 import org.smartregister.chw.interactor.ChildProfileInteractor;
 import org.smartregister.chw.listener.FloatingMenuListener;
 import org.smartregister.chw.listener.OnClickFloatingMenu;
 import org.smartregister.chw.presenter.FamilyOtherMemberActivityPresenter;
 import org.smartregister.chw.util.ChildUtils;
-import org.smartregister.chw.util.Country;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
@@ -48,6 +43,8 @@ import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
 import org.smartregister.helper.ImageRenderHelper;
 import org.smartregister.view.fragment.BaseRegisterFragment;
+
+import timber.log.Timber;
 
 public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfileActivity implements FamilyOtherMemberProfileExtendedContract.View {
 
@@ -62,36 +59,8 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
     private TextView textViewFamilyHas;
     private RelativeLayout layoutFamilyHasRow;
 
-    private OnClickFloatingMenu onClickFloatingMenu = new OnClickFloatingMenu() {
-        @Override
-        public void onClickMenu(int viewId) {
-
-            if (Country.LIBERIA.equals(BuildConfig.BUILD_COUNTRY)) {
-                switch (viewId) {
-                    case R.id.fab:
-                        FamilyCallDialogFragment.launchDialog(FamilyOtherMemberProfileActivity.this, familyBaseEntityId);
-                        break;
-                    default:
-                        break;
-                }
-            } else {
-                switch (viewId) {
-                    case R.id.call_layout:
-                        FamilyCallDialogFragment.launchDialog(FamilyOtherMemberProfileActivity.this, familyBaseEntityId);
-                        break;
-                    case R.id.refer_to_facility_fab:
-                        toast("Refer to facility");
-                        break;
-                    default:
-                        break;
-                }
-            }
-        }
-    };
-
-    private void toast(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-    }
+    private OnClickFloatingMenu onClickFloatingMenu;
+    private FamilyOtherMemberProfileActivityFlv flavor = new FamilyOtherMemberProfileActivityFlv();
 
     @Override
     protected void onCreation() {
@@ -125,6 +94,8 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
         villageTown = getIntent().getStringExtra(Constants.INTENT_KEY.VILLAGE_TOWN);
         familyName = getIntent().getStringExtra(Constants.INTENT_KEY.FAMILY_NAME);
         presenter = new FamilyOtherMemberActivityPresenter(this, new BaseFamilyOtherMemberProfileActivityModel(), null, familyBaseEntityId, baseEntityId, familyHead, primaryCaregiver, villageTown, familyName);
+
+        onClickFloatingMenu = flavor.getOnClickFloatingMenu(this, familyBaseEntityId);
     }
 
     @Override
@@ -200,6 +171,12 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
         }
 
         getMenuInflater().inflate(R.menu.other_member_menu, menu);
+
+        if (flavor.isWra(commonPersonObject)) {
+            menu.findItem(R.id.action_anc_registration).setVisible(true);
+        } else {
+            menu.findItem(R.id.action_anc_registration).setVisible(false);
+        }
         return true;
     }
 
@@ -208,6 +185,10 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
         switch (item.getItemId()) {
             case android.R.id.home:
                 onBackPressed();
+                return true;
+            case R.id.action_anc_registration:
+                startFormForEdit(R.string.edit_member_form_title);
+                AncRegisterActivity.startAncRegistrationActivity(FamilyOtherMemberProfileActivity.this, baseEntityId);
                 return true;
             case R.id.action_registration:
                 startFormForEdit(R.string.edit_member_form_title);
@@ -242,7 +223,7 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
         try {
             startFormActivity(form);
         } catch (Exception e) {
-            Log.e("TAG", e.getMessage());
+            Timber.e(e.getMessage());
         }
     }
 
@@ -352,5 +333,23 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
 
         intent.putExtra(org.smartregister.chw.util.Constants.INTENT_KEY.SERVICE_DUE, true);
         startActivity(intent);
+    }
+
+    /**
+     * build implementation differences file
+     */
+    public interface Flavor {
+        /**
+         * Return implementation menu
+         */
+        OnClickFloatingMenu getOnClickFloatingMenu(final Activity activity, final String familyBaseEntityId);
+
+        /**
+         * calculate wra validity for each implementation
+         *
+         * @param commonPersonObject
+         * @return
+         */
+        boolean isWra(CommonPersonObjectClient commonPersonObject);
     }
 }

@@ -1,21 +1,21 @@
 package org.smartregister.chw.util;
 
-import org.smartregister.chw.BuildConfig;
-
-import java.util.HashMap;
-
 public class Constants {
+
+    public static String EC_CLIENT_FIELDS = "ec_client_fields.json";
 
     public static class CONFIGURATION {
         public static final String LOGIN = "login";
         public static final String FAMILY_REGISTER = "family_register";
         public static final String FAMILY_MEMBER_REGISTER = "family_member_register";
+        public static final String ANC_REGISTER = "anc_register";
 
     }
 
     public static final class EventType {
         public static final String BIRTH_CERTIFICATION = "Birth Certification";
         public static final String OBS_ILLNESS = "Observations Illness";
+        public static final String COUNSELING = "Counseling";
         public static final String FAMILY_REGISTRATION = "Family Registration";
         public static final String FAMILY_MEMBER_REGISTRATION = "Family Member Registration";
 
@@ -23,7 +23,7 @@ public class Constants {
         public static final String UPDATE_CHILD_REGISTRATION = "Update Child Registration";
         public static final String CHILD_HOME_VISIT = "Child Home Visit";
         public static final String CHILD_VISIT_NOT_DONE = "Visit not done";
-
+        public static final String VACCINE_CARD_RECEIVED = "Child vaccine card received";
         public static final String UPDATE_FAMILY_RELATIONS = "Update Family Relations";
         public static final String UPDATE_FAMILY_MEMBER_RELATIONS = "Update Family Member Relations";
 
@@ -32,19 +32,42 @@ public class Constants {
 
         public static final String REMOVE_MEMBER = "Remove Family Member";
         public static final String REMOVE_CHILD = "Remove Child Under 5";
-        public static final String REMOVE_FAMILY = "Remove Faubuntumily";
+        public static final String REMOVE_FAMILY = "Remove Family";
+
+        public static final String ANC_REGISTRATION = "ANC Registration";
     }
 
     public static class JSON_FORM {
         public static final String BIRTH_CERTIFICATION = Utils.getLocalForm("birth_certification");
+
         public static final String OBS_ILLNESS = Utils.getLocalForm("observation_illness");
-        public static final String FAMILY_REGISTER = Country.TANZANIA.equals(BuildConfig.BUILD_COUNTRY) ? "tz_family_register" : Utils.getLocalForm("family_register");
-        public static final String FAMILY_MEMBER_REGISTER = (Country.TANZANIA.equals(BuildConfig.BUILD_COUNTRY) ? "tz_family_member_register" : Utils.getLocalForm("family_member_register"));
+        public static final String FAMILY_REGISTER = Utils.getLocalForm("family_register");
+        public static final String FAMILY_MEMBER_REGISTER = Utils.getLocalForm("family_member_register");
         public static final String CHILD_REGISTER = Utils.getLocalForm("child_enrollment");
-        public static final String FAMILY_DETAILS_REGISTER = (Country.TANZANIA.equals(BuildConfig.BUILD_COUNTRY) ? "tz_family_details_register" : Utils.getLocalForm("family_details_register"));
+        public static final String FAMILY_DETAILS_REGISTER = Utils.getLocalForm("family_details_register");
         public static final String FAMILY_DETAILS_REMOVE_MEMBER = Utils.getLocalForm("family_details_remove_member");
+
         public static final String FAMILY_DETAILS_REMOVE_CHILD = Utils.getLocalForm("family_details_remove_child");
         public static final String FAMILY_DETAILS_REMOVE_FAMILY = Utils.getLocalForm("family_details_remove_family");
+        public static final String HOME_VISIT_COUNSELLING = "routine_home_visit";
+
+        public static final String ANC_REGISTRATION = "anc_member_registration";
+
+        public static class ANC_HOME_VISIT {
+            public static final String DANGER_SIGNS = "anc_hv_danger_signs";
+            public static final String ANC_COUNSELING = "anc_hv_counseling";
+            public static final String SLEEPING_UNDER_LLITN = "anc_hv_sleeping_under_llitn";
+            public static final String ANC_CARD_RECEIVED = "anc_hv_anc_card_received";
+
+
+            public static final String HEALTH_FACILITY_VISIT = "anc_hv_health_facility_visit";
+            public static final String FAMILY_PLANNING = "anc_hv_family_planning";
+            public static final String NUTRITION_STATUS = "anc_hv_nutrition_status";
+            public static final String COUNSELLING = "anc_hv_counselling";
+            public static final String MALARIA = "anc_hv_malaria";
+            public static final String OBSERVATION_AND_ILLNESS = "anc_hv_observations";
+            public static final String REMARKS_AND_COMMENTS = "anc_hv_remarks_and_comments";
+        }
     }
 
     public static class RELATIONSHIP {
@@ -58,6 +81,7 @@ public class Constants {
         public static final String FAMILY_MEMBER = "ec_family_member";
         public static final String CHILD = "ec_child";
         public static final String CHILD_ACTIVITY = "ec_child_activity";
+        public static final String ANC_MEMBER = "ec_anc_register";
     }
 
     public static final class INTENT_KEY {
@@ -87,8 +111,7 @@ public class Constants {
         public static final String ANC = "ANC";
         public static final String LD = "L&D";
         public static final String PNC = "PNC";
-        public static final String CH = "CH";
-        public static final String FP = "FP";
+        public static final String FAMILY_PLANNING = "Family Planning";
         public static final String MALARIA = "MALARIA";
     }
 
@@ -107,10 +130,29 @@ public class Constants {
     public static class JsonAssets {
         public static final String DETAILS = "details";
         public static final String FAM_NAME = "fam_name";
+        public static final String SURNAME = "surname";
+        public static final String PREGNANT_1_YR = "preg_1yr";
         public static final String SEX = "sex";
         public static final String PRIMARY_CARE_GIVER = "primary_caregiver";
+        public static final String IS_PRIMARY_CARE_GIVER = "is_primary_caregiver";
         public static final String AGE = "age";
+        public static final String ID_AVAIL = "id_avail";
         public static final String NATIONAL_ID = "national_id";
+        public static final String VOTER_ID = "voter_id";
+        public static final String DRIVER_LICENSE = "driver_license";
+        public static final String PASSPORT = "passport";
+        public static final String INSURANCE_PROVIDER = "insurance_provider";
+        public static final String INSURANCE_PROVIDER_OTHER = "insurance_provider_other";
+        public static final String INSURANCE_PROVIDER_NUMBER = "insurance_provider_number";
+        public static final String DISABILITIES = "disabilities";
+        public static final String DISABILITY_TYPE = "type_of_disability";
+        public static final String SERVICE_PROVIDER = "service_provider";
+        public static final String LEADER = "leader";
+        public static final String OTHER_LEADER = "leader_other";
+        public static final String BIRTH_CERT_AVAILABLE = "birth_cert_available";
+        public static final String BIRTH_REGIST_NUMBER = "birth_regist_number";
+        public static final String RHC_CARD = "rhc_card";
+        public static final String NUTRITION_STATUS = "nutrition_status";
 
         public static class FAMILY_MEMBER {
             public static final String HIGHEST_EDUCATION_LEVEL = "highest_edu_level";
@@ -148,6 +190,10 @@ public class Constants {
 
         public static class ILLNESS_ACTION_TAKEN_LEVEL {
             public static final String CODE = "164378AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+        }
+
+        public static class VACCINE_CARD {
+            public static final String CODE = "164147AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
         }
     }
 
