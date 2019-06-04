@@ -17,6 +17,7 @@ import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.activity.FamilyProfileActivity;
 import org.smartregister.chw.activity.LoginActivity;
 import org.smartregister.chw.anc.AncLibrary;
+import org.smartregister.chw.contract.ChwAuthorizationService;
 import org.smartregister.chw.helper.RulesEngineHelper;
 import org.smartregister.chw.job.ChwJobCreator;
 import org.smartregister.chw.malaria.MalariaLibrary;
@@ -167,6 +168,7 @@ public class ChwApplication extends DrishtiApplication {
 
         //Initialize Modules
         P2POptions p2POptions = new P2POptions(true);
+        p2POptions.setAuthorizationService(new ChwAuthorizationService());
 
         CoreLibrary.init(context, new ChwSyncConfiguration(), BuildConfig.BUILD_TIMESTAMP, p2POptions);
         CoreLibrary.getInstance().setEcClientFieldsFile(Constants.EC_CLIENT_FIELDS);
