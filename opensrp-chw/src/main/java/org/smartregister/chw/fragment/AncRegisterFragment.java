@@ -176,7 +176,8 @@ public class AncRegisterFragment extends BaseAncRegisterFragment {
                 client.getCaseId(),
                 client.getColumnmaps().get(DBConstants.KEY.RELATIONAL_ID),
                 client.getColumnmaps().get(DBConstants.KEY.FAMILY_HEAD),
-                client.getColumnmaps().get(DBConstants.KEY.PRIMARY_CAREGIVER)
+                client.getColumnmaps().get(DBConstants.KEY.PRIMARY_CAREGIVER),
+                client.getColumnmaps().get(DBConstants.KEY.FIRST_NAME)
         );
 
         AncMemberProfileActivity.startMe(getActivity(), memberObject);

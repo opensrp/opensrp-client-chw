@@ -13,9 +13,14 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.anc.activity.BaseAncMemberProfileActivity;
 import org.smartregister.chw.anc.util.Constants;
 import org.smartregister.chw.anc.util.MemberObject;
+import org.smartregister.chw.interactor.FamilyProfileInteractor;
+import org.smartregister.chw.model.FamilyProfileModel;
+import org.smartregister.chw.presenter.AncMemberProfilePresenter;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
+import org.smartregister.family.contract.FamilyProfileContract;
+import org.smartregister.family.domain.FamilyEventClient;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
 
@@ -26,17 +31,24 @@ public class AncMemberProfileActivity extends BaseAncMemberProfileActivity {
     private static String familyBaseEntityId;
     private static String familyHead;
     private static String primaryCareGiver;
-
+    private static String familyName;
+    private static FamilyProfileContract.Interactor profileInteractor;
+    private static FamilyProfileContract.Model profileModel;
+    private AncMemberProfilePresenter ancMemberProfilePresenter;
 
     public static void startMe(Activity activity, MemberObject memberObject) {
         baseEntityId = memberObject.getBaseEntityId();
         familyBaseEntityId = memberObject.getFamilyBaseEntityId();
         familyHead = memberObject.getFamilyHead();
         primaryCareGiver = memberObject.getPrimaryCareGiver();
+        familyName = memberObject.getFamilyName();
         Intent intent = new Intent(activity, AncMemberProfileActivity.class);
         intent.putExtra(Constants.ANC_MEMBER_OBJECTS.MEMBER_PROFILE_OBJECT, memberObject);
+        profileInteractor = new FamilyProfileInteractor();
+        profileModel = new FamilyProfileModel(memberObject.getFamilyName());
         activity.startActivity(intent);
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -90,10 +102,10 @@ public class AncMemberProfileActivity extends BaseAncMemberProfileActivity {
             form = org.smartregister.chw.util.JsonFormUtils.getAutoPopulatedJsonEditMemberFormString(
                     (title_resource != null) ? getResources().getString(title_resource) : null,
                     org.smartregister.chw.util.Constants.JSON_FORM.FAMILY_MEMBER_REGISTER,
-                    this, client, org.smartregister.chw.util.Utils.metadata().familyMemberRegister.updateEventType, "familyName", false);
+                    this, client, org.smartregister.chw.util.Utils.metadata().familyMemberRegister.updateEventType, familyName, false);
         } else if (formName.equals(org.smartregister.chw.util.Constants.JSON_FORM.ANC_REGISTRATION)) {
             form = org.smartregister.chw.util.JsonFormUtils.getAutoJsonEditAncFormString(
-                    baseEntityId, this, formName, org.smartregister.chw.util.Constants.EventType.ANC_REGISTRATION, getResources().getString(title_resource));
+                    baseEntityId, this, formName, org.smartregister.chw.util.Constants.EventType.UPDATE_ANC_REGISTRATION, getResources().getString(title_resource));
         }
 
         try {
@@ -108,12 +120,51 @@ public class AncMemberProfileActivity extends BaseAncMemberProfileActivity {
         Intent intent = new Intent(this, Utils.metadata().familyMemberFormActivity);
         intent.putExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON, jsonForm.toString());
 
+
         Form form = new Form();
         form.setActionBarBackground(R.color.family_actionbar);
         form.setWizard(false);
         intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);
 
+
         startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
+    }
+
+    public AncMemberProfilePresenter ancMemberProfilePresenter() {
+        ancMemberProfilePresenter = new AncMemberProfilePresenter(this, MEMBER_OBJECT);
+        return ancMemberProfilePresenter;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case org.smartregister.chw.util.Constants.ProfileActivityResults.CHANGE_COMPLETED:
+                if (resultCode == Activity.RESULT_OK) {
+                    Intent intent = new Intent(AncMemberProfileActivity.this, AncRegisterActivity.class);
+                    intent.putExtras(getIntent().getExtras());
+                    startActivity(intent);
+                    finish();
+                }
+                break;
+            case JsonFormUtils.REQUEST_CODE_GET_JSON:
+                if (resultCode == RESULT_OK) {
+                    try {
+                        String jsonString = data.getStringExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON);
+                        JSONObject form = new JSONObject(jsonString);
+                        if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Utils.metadata().familyMemberRegister.updateEventType)) {
+                            FamilyEventClient familyEventClient = profileModel.processUpdateMemberRegistration(jsonString, baseEntityId);
+                            profileInteractor.saveRegistration(familyEventClient, jsonString, true, ancMemberProfilePresenter());
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                break;
+            default:
+                break;
+
+        }
     }
 
 

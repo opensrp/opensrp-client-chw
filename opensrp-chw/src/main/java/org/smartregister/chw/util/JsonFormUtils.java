@@ -888,9 +888,7 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
         try {
 
             Event event = getEditAncLatestProperties(baseEntityID);
-
             final List<Obs> observations = event.getObs();
-
             JSONObject form = FormUtils.getInstance(context).getFormJson(formName);
             LocationPickerView lpv = new LocationPickerView(context);
             lpv.init();
@@ -902,7 +900,6 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
                 String lastLocationId = LocationHelper.getInstance().getOpenMrsLocationId(lpv.getSelectedItem());
 
                 metadata.put(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_LOCATION, lastLocationId);
-
                 JSONObject stepOne = form.getJSONObject(org.smartregister.family.util.JsonFormUtils.STEP1);
 
                 if (StringUtils.isNotBlank(title)) {
@@ -916,7 +913,7 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
                     try {
                         for (Obs obs : observations) {
                             if (obs.getFormSubmissionField().equalsIgnoreCase(jsonObject.getString("key"))) {
-                                if (jsonObject.getString("key").equals("marital_status"))
+                                if (jsonObject.getString("type").equals("spinner"))
                                     jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, obs.getHumanReadableValues().get(0));
                                 else
                                     jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, obs.getValue());
