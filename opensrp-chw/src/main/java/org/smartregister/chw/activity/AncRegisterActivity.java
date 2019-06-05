@@ -21,6 +21,7 @@ import org.smartregister.family.util.Utils;
 import org.smartregister.helper.BottomNavigationHelper;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
@@ -30,6 +31,14 @@ public class AncRegisterActivity extends BaseAncRegisterActivity {
         Intent intent = new Intent(activity, AncRegisterActivity.class);
         intent.putExtra(org.smartregister.chw.anc.util.Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID, memberBaseEntityID);
         intent.putExtra(org.smartregister.chw.anc.util.Constants.ACTIVITY_PAYLOAD.ACTION, org.smartregister.chw.anc.util.Constants.ACTIVITY_PAYLOAD_TYPE.REGISTRATION);
+        activity.startActivity(intent);
+    }
+
+    public static void startEditAncRegistrationActivity(Activity activity, String memberBaseEntityID, JSONObject form) {
+        Intent intent = new Intent(activity, AncRegisterActivity.class);
+        intent.putExtra(org.smartregister.chw.anc.util.Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID, memberBaseEntityID);
+        intent.putExtra(org.smartregister.chw.anc.util.Constants.ACTIVITY_PAYLOAD.ACTION, org.smartregister.chw.anc.util.Constants.ACTIVITY_PAYLOAD_TYPE.REGISTRATION);
+        intent.putExtra("REGISTRATION_FORM",(Serializable) form);
         activity.startActivity(intent);
     }
 

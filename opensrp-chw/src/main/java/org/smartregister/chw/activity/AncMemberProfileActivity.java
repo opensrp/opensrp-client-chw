@@ -13,9 +13,11 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.anc.activity.BaseAncMemberProfileActivity;
 import org.smartregister.chw.anc.util.Constants;
 import org.smartregister.chw.anc.util.MemberObject;
+import org.smartregister.chw.anc.util.Util;
 import org.smartregister.chw.interactor.FamilyProfileInteractor;
 import org.smartregister.chw.model.FamilyProfileModel;
 import org.smartregister.chw.presenter.AncMemberProfilePresenter;
+import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
@@ -23,8 +25,11 @@ import org.smartregister.family.contract.FamilyProfileContract;
 import org.smartregister.family.domain.FamilyEventClient;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
+import org.smartregister.repository.AllSharedPreferences;
 
 import timber.log.Timber;
+
+import static org.smartregister.util.Utils.getAllSharedPreferences;
 
 public class AncMemberProfileActivity extends BaseAncMemberProfileActivity {
     private static String baseEntityId;
@@ -67,7 +72,7 @@ public class AncMemberProfileActivity extends BaseAncMemberProfileActivity {
                         org.smartregister.chw.util.Constants.JSON_FORM.FAMILY_MEMBER_REGISTER);
                 return true;
             case R.id.action_anc_registration:
-                startFormForEdit(R.string.edit_member_form_title,
+                startFormForEdit(R.string.edit_anc_registration_form_title,
                         org.smartregister.chw.util.Constants.JSON_FORM.ANC_REGISTRATION);
                 return true;
             case R.id.action_remove_member:
@@ -155,6 +160,10 @@ public class AncMemberProfileActivity extends BaseAncMemberProfileActivity {
                         if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Utils.metadata().familyMemberRegister.updateEventType)) {
                             FamilyEventClient familyEventClient = profileModel.processUpdateMemberRegistration(jsonString, baseEntityId);
                             profileInteractor.saveRegistration(familyEventClient, jsonString, true, ancMemberProfilePresenter());
+                        } else if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(org.smartregister.chw.util.Constants.EventType.UPDATE_ANC_REGISTRATION)) {
+                            AllSharedPreferences allSharedPreferences = getAllSharedPreferences();
+                            Event baseEvent = org.smartregister.chw.anc.util.JsonFormUtils.processJsonForm(allSharedPreferences, jsonString);
+                            Util.processEvent(allSharedPreferences, baseEvent);
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
