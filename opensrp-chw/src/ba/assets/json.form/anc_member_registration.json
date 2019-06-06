@@ -157,17 +157,17 @@
         "openmrs_data_type": "select one",
         "type": "spinner",
         "hint": "Have you delivered your child(ren) vaginally or by ceasarian section?",
+        "v_required": {
+          "value": "true",
+          "err": "Please select one option"
+        },
         "values": [
           "Vaginally",
           "Caesarian section"
         ],
         "openmrs_choice_ids": {
           "Vaginally": "1170AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Caesarian section": "1171AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "v_required": {
-            "value": "true",
-            "err": "Please select one option"
-          }
+          "Caesarian section": "1171AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         }
       },
       {
@@ -199,6 +199,10 @@
         "openmrs_data_type": "select one",
         "type": "spinner",
         "hint": "Marital status",
+        "v_required": {
+          "value": "true",
+          "err": "Please select one option"
+        },
         "values": [
           "Married",
           "Co-habiting",
@@ -207,11 +211,7 @@
         "openmrs_choice_ids": {
           "Married": "5555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "Co-habiting": "1060AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Single": "5615AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "v_required": {
-            "value": "true",
-            "err": "Please select one option"
-          }
+          "Single": "5615AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         }
       },
       {
@@ -221,6 +221,10 @@
         "openmrs_entity_id": "159635AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "edit_text",
         "hint": "Phone number",
+        "v_required": {
+          "value": true,
+          "err": "Please specify the phone number"
+        },
         "v_numeric": {
           "value": "true",
           "err": "Number must be a total of 10 digits in length"
@@ -242,17 +246,17 @@
         "openmrs_data_type": "select one",
         "type": "spinner",
         "hint": "Does the mother have anyone, 18 years or older, who would be able to assist her during her pregnancy?",
+        "v_required": {
+          "value": "true",
+          "err": "Please select one option"
+        },
         "values": [
           "Yes",
           "No"
         ],
         "openmrs_choice_ids": {
           "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "v_required": {
-            "value": "true",
-            "err": "Please select one option"
-          }
+          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         }
       },
       {
@@ -282,6 +286,10 @@
         "openmrs_entity_id": "159635AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "edit_text",
         "hint": "Phone number",
+        "v_required": {
+          "value": true,
+          "err": "Please specify the phone number"
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -296,10 +304,6 @@
         "v_regex": {
           "value": "(0[0-9]{9})|\\s*",
           "err": "Number must be 10 digits and must start with 0."
-        },
-        "v_required": {
-          "value": true,
-          "err": "Please specify the phone number"
         }
       }
     ]

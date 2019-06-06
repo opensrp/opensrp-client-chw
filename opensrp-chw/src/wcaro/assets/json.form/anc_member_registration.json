@@ -198,6 +198,10 @@
         "openmrs_data_type": "select one",
         "type": "spinner",
         "hint": "Marital status",
+        "v_required": {
+          "value": "true",
+          "err": "Please select one option"
+        },
         "values": [
           "Married",
           "Co-habiting",
@@ -206,11 +210,7 @@
         "openmrs_choice_ids": {
           "Married": "5555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "Co-habiting": "1060AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Single": "5615AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "v_required": {
-            "value": "true",
-            "err": "Please select one option"
-          }
+          "Single": "5615AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         }
       }
     ]
