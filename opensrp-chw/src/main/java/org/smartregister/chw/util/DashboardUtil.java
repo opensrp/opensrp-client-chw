@@ -27,6 +27,8 @@ public class DashboardUtil {
     public final static String countOfChildren0_5NotExclusivelyBreastfeeding = "CHW_011";
     public final static String countOfChildren_6_23UptoDateMNP = "CHW_012";
     public final static String countOfChildren_6_23OverdueMNP = "CHW_013";
+    public final static String countOfChildren_0_24UptoDateVaccinations = "CHW_014";
+    public final static String countOfChildren_0_24OverdueVaccinations = "CHW_015";
 
     // Color definitions for the chart slices. This could essentially be defined in colors.xml
     public static final int YES_GREEN_SLICE_COLOR = Color.parseColor("#99CC00");
