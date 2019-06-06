@@ -245,10 +245,13 @@ public class JobAidsDashboardFragment extends Fragment implements ReportContract
         if (indicatorKey.equals(DashboardUtil.countOfChildren0_5ExclusivelyBreastfeeding) || indicatorKey.equals(DashboardUtil.countOfChildren0_5NotExclusivelyBreastfeeding)) {
             Date date = indicatorTallyMap.get(indicatorKey).getCreatedAt();
             Date currentDate = currentIndicatorValueMap.get(indicatorKey).getCreatedAt();
-            if (date.after(currentDate)) {
-                currentIndicatorValueMap.get(indicatorKey).setCount(count);
-                currentIndicatorValueMap.get(indicatorKey).setCreatedAt(date);
+            if (currentDate != null) {
+                if (date.before(currentDate)) {
+                    date = currentDate;
+                }
             }
+            currentIndicatorValueMap.get(indicatorKey).setCreatedAt(date);
+            currentIndicatorValueMap.get(indicatorKey).setCount(count);
             return;
         }
         currentValue = currentIndicatorValueMap.get(indicatorKey).getCount();
