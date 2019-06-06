@@ -123,6 +123,7 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
         return form;
 
     }
+
     public static Pair<Client, Event> processBirthAndIllnessForm(AllSharedPreferences allSharedPreferences, String jsonString) {
         try {
 
@@ -909,6 +910,10 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
 
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
+                    if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase("last_menstrual_period") ||
+                            jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase("delivery_method")) {
+                        jsonObject.put(JsonFormUtils.READ_ONLY, true);
+                    }
 
                     try {
                         for (Obs obs : observations) {

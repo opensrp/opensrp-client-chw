@@ -55,9 +55,9 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "1427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "date_picker",
-        "label_info_title": "LMP",
-        "label_info_text": "First day of Last Menstrual Period. If the exact date is unknown, but the period of the month is known, use day 5 for beginning of the month, day 15 for middle of the month and day 25 for end of the month.",
         "hint": "Last Menstrual Period (LMP)",
+        "label_info_title": "LMP",
+        "label_info_text": "LMP = first day of Last Menstrual Period. If the exact date is unknown, but the period of the month is known, use day 5 for beginning of the month, day 15 for middle of the month and day 25 for end of the month.",
         "expanded": false,
         "duration": {
           "label": "lmp"
@@ -132,7 +132,7 @@
         },
         "v_min": {
           "value": "0",
-          "err": "Age must be equal or greater than 0"
+          "err": "Number must be equal or greater than 0"
         }
       },
       {
@@ -232,13 +232,6 @@
         "v_required": {
           "value": false,
           "err": "Please specify the phone number"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "family_member_relevance.yml"
-            }
-          }
         }
       },
       {
