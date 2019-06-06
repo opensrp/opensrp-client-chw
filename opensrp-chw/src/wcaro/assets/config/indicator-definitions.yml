@@ -83,3 +83,16 @@ indicators:
                  inner join ec_child ec
                  on ec.base_entity_id = hi.base_entity_id
                  where date(ec.dob) > date('now', '-6 month')"
+
+
+  - key: "CHW_012"
+    description: "Children (6-23 months) up to date on MNP supplementation"
+    indicatorQuery: "select count(distinct alerts.caseID) from alerts where alerts.scheduleName like 'MNP%%' and (alerts.status = 'upcoming' or alerts.status = 'normal')
+      and alerts.caseID in (select ec_child.base_entity_id from ec_child where date(ec_child.dob) < date('now', '-6 month') and  date(ec_child.dob) > date('now', '-23 month')
+      and ifnull(ec_child.dod,'') = '' and ifnull(ec_child.date_removed,'') = '')"
+
+  - key: "CHW_013"
+    description: "Children (6-23 months) overdue for MNP supplementation"
+    indicatorQuery: "select count(distinct alerts.caseID) from alerts where alerts.scheduleName like 'MNP%%' and alerts.status = 'urgent'
+                           and alerts.caseID in (select ec_child.base_entity_id from ec_child where date(ec_child.dob) < date('now', '-6 month') and  date(ec_child.dob) > date('now', '-23 month')
+                           and ifnull(ec_child.dod,'') = '' and ifnull(ec_child.date_removed,'') = '')"
