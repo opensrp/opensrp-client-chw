@@ -30,6 +30,7 @@ import org.smartregister.reporting.view.NumericDisplayFactory;
 import org.smartregister.reporting.view.PieChartFactory;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -99,6 +100,8 @@ public class JobAidsDashboardFragment extends Fragment implements ReportContract
         Map<String, IndicatorTally> children_12_59_Not_DewormedMap = new HashMap<>();
         Map<String, IndicatorTally> children_6_59_ReceivedVitaminA = new HashMap<>();
         Map<String, IndicatorTally> children_6_59_NotReceivedVitaminA = new HashMap<>();
+        Map<String, IndicatorTally> children_0_5_exclusiveBreastfeeding = new HashMap<>();
+        Map<String, IndicatorTally> children_0_5_NotExclusiveBreastfeeding = new HashMap<>();
 
         for (Map<String, IndicatorTally> indicatorTallyMap : indicatorTallies) {
             for (String key : indicatorTallyMap.keySet()) {
@@ -129,6 +132,12 @@ public class JobAidsDashboardFragment extends Fragment implements ReportContract
                         break;
                     case DashboardUtil.countOfChildren6_59VitaminNotReceivedA:
                         updateTotalTally(indicatorTallyMap, children_6_59_NotReceivedVitaminA, DashboardUtil.countOfChildren6_59VitaminNotReceivedA);
+                        break;
+                    case DashboardUtil.countOfChildren0_5ExclusivelyBreastfeeding:
+                        updateTotalTally(indicatorTallyMap, children_0_5_exclusiveBreastfeeding, DashboardUtil.countOfChildren0_5ExclusivelyBreastfeeding);
+                        break;
+                    case DashboardUtil.countOfChildren0_5NotExclusivelyBreastfeeding:
+                        updateTotalTally(indicatorTallyMap, children_0_5_NotExclusiveBreastfeeding, DashboardUtil.countOfChildren0_5NotExclusivelyBreastfeeding);
                         break;
                     default:
                         Log.e(JobAidsDashboardFragment.class.getCanonicalName(), "The Indicator with the Key " + key + " has not been handled");
@@ -165,12 +174,17 @@ public class JobAidsDashboardFragment extends Fragment implements ReportContract
                 DashboardUtil.countOfChildren6_59VitaminNotReceivedA, R.string.children_6_59_months_received_vitamin_A);
         View children_6_59_months_received_vitamin_A = getIndicatorView(pieChartIndicatorVisualizationData, pieChartFactory);
 
+        pieChartIndicatorVisualizationData = getPieChartVisualization(children_0_5_exclusiveBreastfeeding, children_0_5_NotExclusiveBreastfeeding, DashboardUtil.countOfChildren0_5ExclusivelyBreastfeeding,
+                DashboardUtil.countOfChildren0_5NotExclusivelyBreastfeeding, R.string.children_0_5_months_exclusively_breastfeeding);
+        View children_0_5__months_exclusive_breastfeeding = getIndicatorView(pieChartIndicatorVisualizationData, pieChartFactory);
+
         visualizationsViewGroup.addView(childrenU5View);
         visualizationsViewGroup.addView(deceased_0_11_View);
         visualizationsViewGroup.addView(deceased_12_59_View);
         visualizationsViewGroup.addView(children_0_59_WithBirthCertificateView);
         visualizationsViewGroup.addView(children_12_59_months_dewormed);
         visualizationsViewGroup.addView(children_6_59_months_received_vitamin_A);
+        visualizationsViewGroup.addView(children_0_5__months_exclusive_breastfeeding);
 
         progressBar.setVisibility(View.GONE);
     }
@@ -223,6 +237,18 @@ public class JobAidsDashboardFragment extends Fragment implements ReportContract
         count = indicatorTallyMap.get(indicatorKey).getCount();
         if (currentIndicatorValueMap.get(indicatorKey) == null) {
             currentIndicatorValueMap.put(indicatorKey, new IndicatorTally(null, count, indicatorKey, null));
+            return;
+        }
+
+        // Count of children exclusively breastfeeding is not aggregated
+        // We're only interested in displaying the latest count
+        if (indicatorKey.equals(DashboardUtil.countOfChildren0_5ExclusivelyBreastfeeding) || indicatorKey.equals(DashboardUtil.countOfChildren0_5NotExclusivelyBreastfeeding)) {
+            Date date = indicatorTallyMap.get(indicatorKey).getCreatedAt();
+            Date currentDate = currentIndicatorValueMap.get(indicatorKey).getCreatedAt();
+            if (date.after(currentDate)) {
+                currentIndicatorValueMap.get(indicatorKey).setCount(count);
+                currentIndicatorValueMap.get(indicatorKey).setCreatedAt(date);
+            }
             return;
         }
         currentValue = currentIndicatorValueMap.get(indicatorKey).getCount();

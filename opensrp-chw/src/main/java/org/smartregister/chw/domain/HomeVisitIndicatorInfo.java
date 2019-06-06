@@ -17,6 +17,7 @@ public class HomeVisitIndicatorInfo {
     private Date serviceUpdateDate;
     private boolean serviceGiven;
     private Date lastHomeVisitDate;
+    private String value;
     private Date updatedAt;
     private Date createdAt;
 
@@ -66,6 +67,14 @@ public class HomeVisitIndicatorInfo {
 
     public void setServiceGiven(boolean serviceGiven) {
         this.serviceGiven = serviceGiven;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
     }
 
     public Date getLastHomeVisitDate() {
