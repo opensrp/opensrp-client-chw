@@ -102,6 +102,8 @@ public class JobAidsDashboardFragment extends Fragment implements ReportContract
         Map<String, IndicatorTally> children_6_59_NotReceivedVitaminA = new HashMap<>();
         Map<String, IndicatorTally> children_0_5_exclusiveBreastfeeding = new HashMap<>();
         Map<String, IndicatorTally> children_0_5_NotExclusiveBreastfeeding = new HashMap<>();
+        Map<String, IndicatorTally> children_6_23_UpToDateMnp = new HashMap<>();
+        Map<String, IndicatorTally> children_6_23_OverdueMnp = new HashMap<>();
 
         for (Map<String, IndicatorTally> indicatorTallyMap : indicatorTallies) {
             for (String key : indicatorTallyMap.keySet()) {
@@ -127,17 +129,23 @@ public class JobAidsDashboardFragment extends Fragment implements ReportContract
                     case DashboardUtil.countOfChildren12_59NotDewormed:
                         updateTotalTally(indicatorTallyMap, children_12_59_Not_DewormedMap, DashboardUtil.countOfChildren12_59NotDewormed);
                         break;
-                    case DashboardUtil.countOfChildren6_59VitaminRecievedA:
-                        updateTotalTally(indicatorTallyMap, children_6_59_ReceivedVitaminA, DashboardUtil.countOfChildren6_59VitaminRecievedA);
+                    case DashboardUtil.countOfChildren6_59VitaminReceivedA:
+                        updateTotalTally(indicatorTallyMap, children_6_59_ReceivedVitaminA, DashboardUtil.countOfChildren6_59VitaminReceivedA);
                         break;
                     case DashboardUtil.countOfChildren6_59VitaminNotReceivedA:
                         updateTotalTally(indicatorTallyMap, children_6_59_NotReceivedVitaminA, DashboardUtil.countOfChildren6_59VitaminNotReceivedA);
                         break;
                     case DashboardUtil.countOfChildren0_5ExclusivelyBreastfeeding:
-                        updateTotalTally(indicatorTallyMap, children_0_5_exclusiveBreastfeeding, DashboardUtil.countOfChildren0_5ExclusivelyBreastfeeding);
+                        updateLatestCount(indicatorTallyMap, children_0_5_exclusiveBreastfeeding, DashboardUtil.countOfChildren0_5ExclusivelyBreastfeeding);
                         break;
                     case DashboardUtil.countOfChildren0_5NotExclusivelyBreastfeeding:
-                        updateTotalTally(indicatorTallyMap, children_0_5_NotExclusiveBreastfeeding, DashboardUtil.countOfChildren0_5NotExclusivelyBreastfeeding);
+                        updateLatestCount(indicatorTallyMap, children_0_5_NotExclusiveBreastfeeding, DashboardUtil.countOfChildren0_5NotExclusivelyBreastfeeding);
+                        break;
+                    case DashboardUtil.countOfChildren_6_23UptoDateMNP:
+                        updateLatestCount(indicatorTallyMap, children_6_23_UpToDateMnp, DashboardUtil.countOfChildren_6_23UptoDateMNP);
+                        break;
+                    case DashboardUtil.countOfChildren_6_23OverdueMNP:
+                        updateLatestCount(indicatorTallyMap, children_6_23_OverdueMnp, DashboardUtil.countOfChildren_6_23OverdueMNP);
                         break;
                     default:
                         Log.e(JobAidsDashboardFragment.class.getCanonicalName(), "The Indicator with the Key " + key + " has not been handled");
@@ -170,13 +178,18 @@ public class JobAidsDashboardFragment extends Fragment implements ReportContract
                 DashboardUtil.countOfChildren12_59NotDewormed, R.string.children_12_59_months_dewormed);
         View children_12_59_months_dewormed = getIndicatorView(pieChartIndicatorVisualizationData, pieChartFactory);
 
-        pieChartIndicatorVisualizationData = getPieChartVisualization(children_6_59_ReceivedVitaminA, children_6_59_NotReceivedVitaminA, DashboardUtil.countOfChildren6_59VitaminRecievedA,
+        pieChartIndicatorVisualizationData = getPieChartVisualization(children_6_59_ReceivedVitaminA, children_6_59_NotReceivedVitaminA, DashboardUtil.countOfChildren6_59VitaminReceivedA,
                 DashboardUtil.countOfChildren6_59VitaminNotReceivedA, R.string.children_6_59_months_received_vitamin_A);
         View children_6_59_months_received_vitamin_A = getIndicatorView(pieChartIndicatorVisualizationData, pieChartFactory);
 
         pieChartIndicatorVisualizationData = getPieChartVisualization(children_0_5_exclusiveBreastfeeding, children_0_5_NotExclusiveBreastfeeding, DashboardUtil.countOfChildren0_5ExclusivelyBreastfeeding,
                 DashboardUtil.countOfChildren0_5NotExclusivelyBreastfeeding, R.string.children_0_5_months_exclusively_breastfeeding);
         View children_0_5__months_exclusive_breastfeeding = getIndicatorView(pieChartIndicatorVisualizationData, pieChartFactory);
+
+        pieChartIndicatorVisualizationData = getPieChartVisualization(children_6_23_UpToDateMnp, children_6_23_OverdueMnp, DashboardUtil.countOfChildren_6_23UptoDateMNP,
+                DashboardUtil.countOfChildren_6_23OverdueMNP, R.string.children_6_23_months_upto_date_mnp);
+
+        View children_6_23_months_up_to_date_mnp = getIndicatorView(pieChartIndicatorVisualizationData, pieChartFactory);
 
         visualizationsViewGroup.addView(childrenU5View);
         visualizationsViewGroup.addView(deceased_0_11_View);
@@ -185,6 +198,7 @@ public class JobAidsDashboardFragment extends Fragment implements ReportContract
         visualizationsViewGroup.addView(children_12_59_months_dewormed);
         visualizationsViewGroup.addView(children_6_59_months_received_vitamin_A);
         visualizationsViewGroup.addView(children_0_5__months_exclusive_breastfeeding);
+        visualizationsViewGroup.addView(children_6_23_months_up_to_date_mnp);
 
         progressBar.setVisibility(View.GONE);
     }
@@ -231,6 +245,13 @@ public class JobAidsDashboardFragment extends Fragment implements ReportContract
         return pieChartIndicatorVisualization;
     }
 
+    /**
+     * Perform summation and update Indicator tally sum
+     *
+     * @param indicatorTallyMap        containing all indicators
+     * @param currentIndicatorValueMap holds total sum
+     * @param indicatorKey             is the key for the indicator of interest
+     */
     private void updateTotalTally(Map<String, IndicatorTally> indicatorTallyMap, Map<String, IndicatorTally> currentIndicatorValueMap, String indicatorKey) {
         int count;
         int currentValue;
@@ -239,23 +260,33 @@ public class JobAidsDashboardFragment extends Fragment implements ReportContract
             currentIndicatorValueMap.put(indicatorKey, new IndicatorTally(null, count, indicatorKey, null));
             return;
         }
-
-        // Count of children exclusively breastfeeding is not aggregated
-        // We're only interested in displaying the latest count
-        if (indicatorKey.equals(DashboardUtil.countOfChildren0_5ExclusivelyBreastfeeding) || indicatorKey.equals(DashboardUtil.countOfChildren0_5NotExclusivelyBreastfeeding)) {
-            Date date = indicatorTallyMap.get(indicatorKey).getCreatedAt();
-            Date currentDate = currentIndicatorValueMap.get(indicatorKey).getCreatedAt();
-            if (currentDate != null) {
-                if (date.before(currentDate)) {
-                    date = currentDate;
-                }
-            }
-            currentIndicatorValueMap.get(indicatorKey).setCreatedAt(date);
-            currentIndicatorValueMap.get(indicatorKey).setCount(count);
-            return;
-        }
         currentValue = currentIndicatorValueMap.get(indicatorKey).getCount();
         currentIndicatorValueMap.get(indicatorKey).setCount(count + currentValue);
+    }
+
+    /**
+     * Update Indicator tally with latest computed indicator count value
+     *
+     * @param indicatorTallyMap        contains all indicators
+     * @param currentIndicatorValueMap contains latest indicator count
+     * @param indicatorKey             is the key for the indicator of interest
+     */
+    private void updateLatestCount(Map<String, IndicatorTally> indicatorTallyMap, Map<String, IndicatorTally> currentIndicatorValueMap, String indicatorKey) {
+        int count;
+        count = indicatorTallyMap.get(indicatorKey).getCount();
+        if (currentIndicatorValueMap.get(indicatorKey) == null) {
+            currentIndicatorValueMap.put(indicatorKey, new IndicatorTally(null, count, indicatorKey, null));
+            return;
+        }
+        // Count of children exclusively breastfeeding is not aggregated
+        // We're only interested in displaying the latest count
+        Date date = indicatorTallyMap.get(indicatorKey).getCreatedAt();
+        Date currentDate = currentIndicatorValueMap.get(indicatorKey).getCreatedAt();
+        if (currentDate != null && date.before(currentDate)) {
+            date = currentDate;
+        }
+        currentIndicatorValueMap.get(indicatorKey).setCreatedAt(date);
+        currentIndicatorValueMap.get(indicatorKey).setCount(count);
     }
 
     @NonNull
@@ -272,7 +303,7 @@ public class JobAidsDashboardFragment extends Fragment implements ReportContract
 
     @Override
     public void onLoaderReset(@NonNull Loader<List<Map<String, IndicatorTally>>> loader) {
-        // Clean up or release resources 
+        // Clean up or release resources
     }
 
     @Override

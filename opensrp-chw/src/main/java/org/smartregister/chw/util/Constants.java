@@ -116,7 +116,7 @@ public class Constants {
         public static final String LD = "L&D";
         public static final String PNC = "PNC";
         public static final String FAMILY_PLANNING = "Family Planning";
-        public static final String MALARIA = "MALARIA";
+        public static final String MALARIA = "Malaria";
     }
 
     public static final class RULE_FILE {
