@@ -601,15 +601,13 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
                 return true;
 
             case R.id.action_registration:
-//                ((ChildProfilePresenter) presenter()).startFormForEdit(getResources().getString(R.string.edit_child_form_title), ((ChildProfilePresenter) presenter()).getChildClient());
-                ((ChildProfilePresenter) presenter()).startFormMalariaConfirmation(org.smartregister.chw.util.Constants.JSON_FORM.MALARIA_CONFIRMATION);
+                ((ChildProfilePresenter) presenter()).startFormForEdit(getResources().getString(R.string.edit_child_form_title), ((ChildProfilePresenter) presenter()).getChildClient());
+//                ((ChildProfilePresenter) presenter()).startFormMalariaConfirmation(org.smartregister.chw.util.Constants.JSON_FORM.MALARIA_CONFIRMATION);
                 return true;
 
-//            case R.id.action_malaria_confirmation:
-//                ((ChildProfilePresenter) presenter()).startFormMalariaConfirmation(org.smartregister.chw.util.Constants.JSON_FORM.MALARIA_CONFIRMATION);
-////                JSONObject form = getFormUtils().getFormJson(org.smartregister.chw.util.Constants.JSON_FORM.MALARIA_CONFIRMATION);
-////                startFormActivity(form);
-//                return true;
+            case R.id.action_malaria_confirmation:
+                ((ChildProfilePresenter) presenter()).startFormMalariaConfirmation(org.smartregister.chw.util.Constants.JSON_FORM.MALARIA_CONFIRMATION);
+                return true;
 
             case R.id.action_remove_member:
                 IndividualProfileRemoveActivity.startIndividualProfileActivity(ChildProfileActivity.this, ((ChildProfilePresenter) presenter()).getChildClient(),

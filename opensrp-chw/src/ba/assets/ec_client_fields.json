@@ -684,6 +684,13 @@
       "name": "ec_malaria_confirmation",
       "columns": [
         {
+          "column_name": "base_entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "baseEntityId"
+          }
+        },
+        {
           "column_name": "date_chw_malaria_test",
           "type": "Event",
           "json_mapping": {
@@ -746,7 +753,6 @@
             "field": "obs.fieldCode",
             "concept": "fam_llin"
           }
-        }
         },
         {
           "column_name": "llin_2days",
