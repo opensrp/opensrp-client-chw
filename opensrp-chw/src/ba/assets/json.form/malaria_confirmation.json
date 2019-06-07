@@ -2,7 +2,7 @@
   "validate_on_submit": true,
   "show_errors_on_submit": false,
   "count": "2",
-  "encounter_type": "Malaria Registration",
+  "encounter_type": "Malaria Confirmation",
   "entity_id": "",
   "relational_id": "",
   "metadata": {
@@ -60,27 +60,22 @@
       {
         "key": "date_chw_malaria_test",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "Date",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": "162869AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "date_picker",
-        "hint": "Today",
-        "hidden": "true",
-        "expanded": false,
-        "duration": {
-          "label": "Registration date"
-        },
-        "min_date": "today",
-        "max_date": "today",
-        "v_required": {
-          "value": "true",
-          "err": "Please pick the date"
+        "type": "edit_text",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "malaria_confirmation_calculation.yml"
+            }
+          }
         }
       },
       {
         "key": "fever_malaria_chw",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "fever_malaria_chw",
         "type": "spinner",
         "hint": "Does this person have a fever or did they test positive for malaria in the last 14 days at a health facility?",
         "values": [
@@ -104,7 +99,8 @@
           "More than 24 hrs"
         ],
         "openmrs_choice_ids": {
-          "Less than 24 hrs": "164449AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          "Less than 24 hrs": "164449AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "More than 24 hrs": "164449AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         "v_required": {
           "value": "true",
@@ -150,15 +146,14 @@
       {
         "key": "date_hf_malaria_test",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "date_hf_malaria_test",
         "type": "date_picker",
         "hint": "Date of malaria test at health facility",
         "expanded": false,
         "duration": {
           "label": "Date"
         },
-        "min_date": "today-120y",
         "max_date": "today",
         "v_required": {
           "value": "true",
@@ -172,25 +167,14 @@
           }
         }
       },
+
       {
         "key": "malaria_test_date",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "163724AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "date_picker",
-        "hint": "Today",
-        "expanded": false,
-        "hidden": true,
-        "duration": {
-          "label": "test date"
-        },
-        "min_date": "today",
-        "max_date": "today",
-        "v_required": {
-          "value": "true",
-          "err": "Please pick the date"
-        },
-        "relevance": {
+        "type": "edit_text",
+        "calculation": {
           "rules-engine": {
             "ex-rules": {
               "rules-file": "malaria_confirmation_calculation.yml"
@@ -198,11 +182,12 @@
           }
         }
       },
+
       {
         "key": "malaria_treat",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "Antimalarial treatment plan",
+        "openmrs_entity_id": "malaria_treat",
         "type": "spinner",
         "hint": "Treatment given",
         "values": [
@@ -241,14 +226,18 @@
       {
         "key": "fam_llin",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "fam_llin",
         "type": "spinner",
         "hint": "Do you have a long lasting insecticide net (LLIN)?",
         "values": [
           "Yes",
           "No"
         ],
+        "openmrs_choice_ids": {
+          "yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
         "v_required": {
           "value": "true",
           "err": "Please select one choice"
@@ -257,14 +246,18 @@
       {
         "key": "llin_2days",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "llin_2days",
         "type": "spinner",
         "hint": "Did you sleep under the LLIN last night?",
         "values": [
           "Yes",
           "No"
         ],
+        "openmrs_choice_ids": {
+          "yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
         "v_required": {
           "value": "true",
           "err": "Please select one choice"
@@ -280,14 +273,18 @@
       {
         "key": "llin_condition",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "llin_condition",
         "type": "spinner",
         "hint": "LLIN condition",
         "values": [
           "Okay",
           "Bad"
         ],
+        "openmrs_choice_ids": {
+          "Okay": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Bad": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
         "v_required": {
           "value": "true",
           "err": "Please select one choice"
