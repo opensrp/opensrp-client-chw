@@ -679,6 +679,99 @@
           }
         }
       ]
+    },
+    {
+      "name": "ec_malaria_confirmation",
+      "columns": [
+        {
+          "column_name": "date_chw_malaria_test",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "162869AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        {
+          "column_name": "fever_malaria_chw",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "fever_malaria_chw"
+          }
+        },
+        {
+          "column_name": "fever_duration",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "1731AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        {
+          "column_name": "malaria_results",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "1643AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        {
+          "column_name": "date_hf_malaria_test",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "date_hf_malaria_test"
+          }
+        },
+        {
+          "column_name": "malaria_test_date",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "163724AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        {
+          "column_name": "malaria_treat",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "malaria_treat"
+          }
+        },
+        {
+          "column_name": "fam_llin",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "fam_llin"
+          }
+        },
+        {
+          "column_name": "llin_2days",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "llin_2days"
+          }
+        },
+        {
+          "column_name": "llin_condition",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "llin_condition"
+          }
+        },
+        {
+          "column_name": "malaria_edu_chw",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "1379AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        }
+      ]
     }
   ]
 }

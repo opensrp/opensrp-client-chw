@@ -26,6 +26,9 @@
         <activity
             android:name=".activity.AncRegisterActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.MalariaRegisterActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
 
         <meta-data
             android:name="io.fabric.ApiKey"

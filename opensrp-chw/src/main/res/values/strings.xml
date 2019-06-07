@@ -203,6 +203,7 @@
     <string name="remove_this_person">Remove this person</string>
     <string name="registration_info">Registration info</string>
     <string name="anc_registration">ANC Registration</string>
+    <string name="malaria_registration">Malaria Confirmation</string>
     <string name="log_out_as">Log out as</string>
     <string name="job_aids">Job Aids</string>
     <string name="total_under_5_children_label">Total U5 children</string>

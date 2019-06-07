@@ -1,0 +1,7 @@
+---
+name: step1_date_chw_malaria_test
+description: date of malaria test calculation
+priority: 1
+condition: "true"
+actions:
+  - "calculation = helper.getDateToday()"

@@ -190,6 +190,10 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
                 startFormForEdit(R.string.edit_member_form_title);
                 AncRegisterActivity.startAncRegistrationActivity(FamilyOtherMemberProfileActivity.this, baseEntityId);
                 return true;
+            case R.id.action_malaria_registration:
+//                startFormForEdit(R.string.edit_member_form_title);
+                MalariaRegisterActivity.startAncRegistrationActivity(this, baseEntityId);
+                return true;
             case R.id.action_registration:
                 startFormForEdit(R.string.edit_member_form_title);
                 return true;
@@ -237,7 +241,6 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
         form.setActionBarBackground(R.color.family_actionbar);
         form.setWizard(false);
         intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);
-
 
         startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
     }
@@ -351,5 +354,6 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
          * @return
          */
         boolean isWra(CommonPersonObjectClient commonPersonObject);
+
     }
 }
