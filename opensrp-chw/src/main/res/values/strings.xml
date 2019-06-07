@@ -217,6 +217,11 @@
     <string name="children_6_59_months_not_received_vitamin_A">Children (6&#8211;59 months) who did not receive Vitamin A in the last 6 months</string>
     <string name="children_0_5_months_exclusively_breastfeeding">Children (0&#8211;5 months) exclusively breastfeeding</string>
     <string name="children_0_5_months_not_exclusively_breastfeeding">Children (0&#8211;5 months) not exclusively breastfeeding</string>
+    <string name="children_6_23_months_upto_date_mnp">Children (6&#8211;23 months) up to date on MNP supplementation</string>
+    <string name="children_6_23_months_overdue_mnp">Children (6&#8211;23 months) overdue on MNP supplementation</string>
+    <string name="children_0_24_months_upto_date_vaccinations">Children (0&#8211;23 months) up to date on immunizations</string>
+    <string name="children_0_24_months_overdue_vaccinations">Children (6&#8211;23 months) who are currently overdue for at least one or more vaccinations</string>
+    <string name="opv_0_not_included">OPV 0 not included</string>
     <string name="yes_slice_label">Yes</string>
     <string name="no_slice_label">No</string>
     <string name="powered_by">Powered by</string>

@@ -177,7 +177,6 @@ public class ChwApplication extends DrishtiApplication {
 
         // Init Reporting library
         ReportingLibrary.init(context, getRepository(), null, BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
-        ReportingLibrary.getInstance().setDateFormat("yyyyMMdd");
 
         //init Job Manager
         JobManager.create(this).addJobCreator(new ChwJobCreator());
