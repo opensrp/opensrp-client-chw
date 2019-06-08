@@ -62,7 +62,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "162869AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "edit_text",
+        "type": "hidden",
         "calculation": {
           "rules-engine": {
             "ex-rules": {
@@ -85,6 +85,10 @@
         "v_required": {
           "value": "true",
           "err": "Please select one choice"
+        },
+        "openmrs_choice_ids": {
+          "Has a fever": "has_fever_conceptID",
+          "Tested positive for malaria in the last 14 days at a health facility": "positive_for_malaria_conceptID"
         }
       },
       {
@@ -173,7 +177,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "163724AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "edit_text",
+        "type": "hidden",
         "calculation": {
           "rules-engine": {
             "ex-rules": {
@@ -235,7 +239,7 @@
           "No"
         ],
         "openmrs_choice_ids": {
-          "yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         "v_required": {
@@ -255,7 +259,7 @@
           "No"
         ],
         "openmrs_choice_ids": {
-          "yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         "v_required": {

@@ -684,6 +684,13 @@
       "name": "ec_malaria_confirmation",
       "columns": [
         {
+          "column_name": "base_entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "baseEntityId"
+          }
+        },
+        {
           "column_name": "date_chw_malaria_test",
           "type": "Event",
           "json_mapping": {
@@ -720,7 +727,7 @@
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "date_hf_malaria_test"
+            "formSubmissionField": "date_hf_malaria_test"
           }
         },
         {
@@ -736,7 +743,7 @@
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "malaria_treat"
+            "formSubmissionField": "malaria_treat"
           }
         },
         {
@@ -744,7 +751,7 @@
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "fam_llin"
+            "formSubmissionField": "fam_llin"
           }
         },
         {
@@ -752,7 +759,7 @@
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "llin_2days"
+            "formSubmissionField": "llin_2days"
           }
         },
         {
@@ -760,7 +767,7 @@
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "llin_condition"
+            "formSubmissionField": "llin_condition"
           }
         },
         {
@@ -769,6 +776,13 @@
           "json_mapping": {
             "field": "obs.fieldCode",
             "concept": "1379AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        {
+          "column_name": "last_interacted_with",
+          "type": "Event",
+          "json_mapping": {
+            "field": "version"
           }
         }
       ]

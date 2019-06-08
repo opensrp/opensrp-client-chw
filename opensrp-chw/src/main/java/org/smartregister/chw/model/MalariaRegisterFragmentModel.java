@@ -1,7 +1,6 @@
 package org.smartregister.chw.model;
 
 import org.smartregister.chw.anc.model.BaseAncRegisterFragmentModel;
-import org.smartregister.chw.malaria.model.BaseMalariaRegisterFragmentModel;
 import org.smartregister.chw.util.ChildDBConstants;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
@@ -10,7 +9,7 @@ import org.smartregister.family.util.DBConstants;
 import java.util.HashSet;
 import java.util.Set;
 
-public class MalariaRegisterFragmentModel extends BaseMalariaRegisterFragmentModel {
+public class MalariaRegisterFragmentModel extends BaseAncRegisterFragmentModel {
 
     @Override
     public String mainSelect(String tableName, String mainCondition) {

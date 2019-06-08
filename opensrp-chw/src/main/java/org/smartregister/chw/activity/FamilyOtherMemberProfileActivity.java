@@ -187,12 +187,10 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
                 onBackPressed();
                 return true;
             case R.id.action_anc_registration:
-                startFormForEdit(R.string.edit_member_form_title);
                 AncRegisterActivity.startAncRegistrationActivity(FamilyOtherMemberProfileActivity.this, baseEntityId);
                 return true;
             case R.id.action_malaria_registration:
-//                startFormForEdit(R.string.edit_member_form_title);
-                MalariaRegisterActivity.startAncRegistrationActivity(this, baseEntityId);
+                MalariaRegisterActivity.startMalariaRegistrationActivity(FamilyOtherMemberProfileActivity.this, baseEntityId);
                 return true;
             case R.id.action_registration:
                 startFormForEdit(R.string.edit_member_form_title);
