@@ -172,6 +172,12 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
 
         getMenuInflater().inflate(R.menu.other_member_menu, menu);
 
+        if (flavor.showMalariaConfirmationMenu()) {
+            menu.findItem(R.id.action_malaria_registration).setVisible(true);
+        } else {
+            menu.findItem(R.id.action_malaria_registration).setVisible(false);
+        }
+
         if (flavor.isWra(commonPersonObject)) {
             menu.findItem(R.id.action_anc_registration).setVisible(true);
         } else {
@@ -352,6 +358,8 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
          * @return
          */
         boolean isWra(CommonPersonObjectClient commonPersonObject);
+
+        boolean showMalariaConfirmationMenu();
 
     }
 }
