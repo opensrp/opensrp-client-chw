@@ -8,12 +8,9 @@ import org.smartregister.chw.presenter.MalariaRegisterFragmentPresenter;
 
 public class MalariaRegisterFragment extends BaseMalariaRegisterFragment {
 
-    private View view;
-
     @Override
     public void setupViews(View view) {
         super.setupViews(view);
-        this.view = view;
     }
 
     @Override
