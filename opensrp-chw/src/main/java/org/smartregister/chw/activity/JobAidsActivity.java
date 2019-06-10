@@ -5,7 +5,6 @@ import android.support.design.bottomnavigation.LabelVisibilityMode;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -14,6 +13,7 @@ import android.view.MenuItem;
 
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
+import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.fragment.JobAidsDashboardFragment;
 import org.smartregister.chw.fragment.JobAidsGuideBooksFragment;
 import org.smartregister.chw.job.ChwIndicatorGeneratingJob;
@@ -22,6 +22,7 @@ import org.smartregister.helper.BottomNavigationHelper;
 
 public class JobAidsActivity extends FamilyRegisterActivity {
 
+    private static final String REPORT_LAST_PROCESSED_DATE = "REPORT_LAST_PROCESSED_DATE";
     private ViewPager mViewPager;
 
     @Override
@@ -103,6 +104,8 @@ public class JobAidsActivity extends FamilyRegisterActivity {
      * then triggering the reloading of the Fragment
      */
     public void refreshIndicatorData() {
+        // Compute everything afresh. LPD is set to null to avoid messing with the processing timeline
+        ChwApplication.getInstance().getContext().allSharedPreferences().savePreference(REPORT_LAST_PROCESSED_DATE, null);
         ChwIndicatorGeneratingJob.scheduleJobImmediately(ChwIndicatorGeneratingJob.TAG);
         if (mViewPager != null) {
             mViewPager.getAdapter().notifyDataSetChanged();
@@ -110,7 +113,7 @@ public class JobAidsActivity extends FamilyRegisterActivity {
         Log.d(TAG, "Refreshing indicators...");
     }
 
-    public class SectionsPagerAdapter extends FragmentPagerAdapter {
+    public class SectionsPagerAdapter extends android.support.v4.app.FragmentStatePagerAdapter {
 
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
@@ -126,7 +129,6 @@ public class JobAidsActivity extends FamilyRegisterActivity {
                 default:
                     return JobAidsDashboardFragment.newInstance();
             }
-
         }
 
         @Override
@@ -138,10 +140,9 @@ public class JobAidsActivity extends FamilyRegisterActivity {
         @Override
         public int getItemPosition(Object object) {
             if (object instanceof JobAidsDashboardFragment) {
-                return POSITION_NONE;
-            } else {
-                return POSITION_UNCHANGED;
+                ((JobAidsDashboardFragment) object).loadIndicatorTallies();
             }
+            return super.getItemPosition(object);
         }
     }
 }
