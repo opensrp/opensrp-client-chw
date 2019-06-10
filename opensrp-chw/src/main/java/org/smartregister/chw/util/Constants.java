@@ -8,6 +8,7 @@ public class Constants {
         public static final String LOGIN = "login";
         public static final String FAMILY_REGISTER = "family_register";
         public static final String FAMILY_MEMBER_REGISTER = "family_member_register";
+        public static final String ANC_REGISTER = "anc_register";
 
     }
 
@@ -32,6 +33,8 @@ public class Constants {
         public static final String REMOVE_MEMBER = "Remove Family Member";
         public static final String REMOVE_CHILD = "Remove Child Under 5";
         public static final String REMOVE_FAMILY = "Remove Family";
+
+        public static final String ANC_REGISTRATION = "ANC Registration";
     }
 
     public static class JSON_FORM {
@@ -45,9 +48,26 @@ public class Constants {
         public static final String FAMILY_DETAILS_REMOVE_MEMBER = Utils.getLocalForm("family_details_remove_member");
 
         public static final String FAMILY_DETAILS_REMOVE_CHILD = Utils.getLocalForm("family_details_remove_child");
-
         public static final String FAMILY_DETAILS_REMOVE_FAMILY = Utils.getLocalForm("family_details_remove_family");
         public static final String HOME_VISIT_COUNSELLING = "routine_home_visit";
+
+        public static final String ANC_REGISTRATION = "anc_member_registration";
+
+        public static class ANC_HOME_VISIT {
+            public static final String DANGER_SIGNS = "anc_hv_danger_signs";
+            public static final String ANC_COUNSELING = "anc_hv_counseling";
+            public static final String SLEEPING_UNDER_LLITN = "anc_hv_sleeping_under_llitn";
+            public static final String ANC_CARD_RECEIVED = "anc_hv_anc_card_received";
+
+
+            public static final String HEALTH_FACILITY_VISIT = "anc_hv_health_facility_visit";
+            public static final String FAMILY_PLANNING = "anc_hv_family_planning";
+            public static final String NUTRITION_STATUS = "anc_hv_nutrition_status";
+            public static final String COUNSELLING = "anc_hv_counselling";
+            public static final String MALARIA = "anc_hv_malaria";
+            public static final String OBSERVATION_AND_ILLNESS = "anc_hv_observations";
+            public static final String REMARKS_AND_COMMENTS = "anc_hv_remarks_and_comments";
+        }
     }
 
     public static class RELATIONSHIP {
@@ -61,6 +81,7 @@ public class Constants {
         public static final String FAMILY_MEMBER = "ec_family_member";
         public static final String CHILD = "ec_child";
         public static final String CHILD_ACTIVITY = "ec_child_activity";
+        public static final String ANC_MEMBER = "ec_anc_register";
     }
 
     public static final class INTENT_KEY {
@@ -170,6 +191,7 @@ public class Constants {
         public static class ILLNESS_ACTION_TAKEN_LEVEL {
             public static final String CODE = "164378AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
         }
+
         public static class VACCINE_CARD {
             public static final String CODE = "164147AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
         }
