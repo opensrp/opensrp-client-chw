@@ -1,8 +1,10 @@
 package org.smartregister.chw.activity;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -56,7 +58,13 @@ import static org.smartregister.chw.util.Constants.INTENT_KEY.IS_COMES_FROM_FAMI
 
 public class ChildProfileActivity extends BaseProfileActivity implements ChildProfileContract.View, ChildRegisterContract.InteractorCallBack {
     private static final String TAG = ChildProfileActivity.class.getCanonicalName();
-
+    private static IntentFilter sIntentFilter;
+    static {
+        sIntentFilter = new IntentFilter();
+        sIntentFilter.addAction(Intent.ACTION_DATE_CHANGED);
+        sIntentFilter.addAction(Intent.ACTION_TIMEZONE_CHANGED);
+        sIntentFilter.addAction(Intent.ACTION_TIME_CHANGED);
+    }
     private boolean appBarTitleIsShown = true;
     private int appBarLayoutScrollRange = -1;
     private String childBaseEntityId;
@@ -129,6 +137,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
 
         setupViews();
         setUpToolbar();
+        registerReceiver(mDateTimeChangedReceiver, sIntentFilter);
     }
 
     @Override
@@ -615,6 +624,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        unregisterReceiver(mDateTimeChangedReceiver);
         handler.removeCallbacksAndMessages(null);
     }
 
@@ -649,4 +659,17 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     public interface Flavor {
         OnClickFloatingMenu getOnClickFloatingMenu(Activity activity, ChildProfilePresenter presenter);
     }
+
+    private final BroadcastReceiver mDateTimeChangedReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            final String action = intent.getAction();
+            assert action!=null;
+            if (action.equals(Intent.ACTION_TIME_CHANGED) ||
+                    action.equals(Intent.ACTION_TIMEZONE_CHANGED)) {
+                fetchProfileData();
+
+            }
+        }
+    };
 }
