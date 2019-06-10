@@ -20,8 +20,6 @@ import org.smartregister.chw.util.HomeVisitVaccineGroup;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.immunization.domain.VaccineWrapper;
-import org.smartregister.util.Log;
-
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -195,7 +193,8 @@ public class ImmunizationView extends LinearLayout implements ImmunizationContac
             }
             HomeVisitVaccineGroup selectedGroup = presenter.getHomeVisitVaccineGroupDetails().get(pressPosition);
             if(selectedGroup.getGroup().equalsIgnoreCase(W_6)){
-                boolean isHidden = false,isInitial = false;
+                boolean isHidden = false;
+                boolean isInitial = false;
                 for(int i = 0; i<presenter.getHomeVisitVaccineGroupDetails().size();i++){
                     HomeVisitVaccineGroup dfd = presenter.getHomeVisitVaccineGroupDetails().get(i);
                     if(dfd.getGroup().equalsIgnoreCase(W_10)){
