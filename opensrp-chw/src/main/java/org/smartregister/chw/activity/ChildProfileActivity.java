@@ -63,7 +63,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     private boolean isComesFromFamily = false;
     protected TextView textViewParentName, textViewLastVisit, textViewMedicalHistory;
     private TextView textViewTitle, textViewChildName, textViewGender, textViewAddress, textViewId, textViewRecord, textViewVisitNot, tvEdit;
-    private CircleImageView imageViewProfile;
+    protected CircleImageView imageViewProfile;
     private RelativeLayout layoutNotRecordView, layoutLastVisitRow, layoutMostDueOverdue, layoutFamilyHasRow;
     private RelativeLayout layoutRecordButtonDone;
     private LinearLayout layoutRecordView;

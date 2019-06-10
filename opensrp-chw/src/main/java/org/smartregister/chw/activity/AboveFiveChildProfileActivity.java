@@ -30,6 +30,13 @@ public class AboveFiveChildProfileActivity extends ChildProfileActivity {
     }
 
     @Override
+    public void setProfileImage(String baseEntityId) {
+        imageViewProfile.setBorderWidth(2);
+        imageRenderHelper.refreshProfileImage(baseEntityId, imageViewProfile, R.mipmap.ic_member);
+        imageViewProfile.setBorderColor(getResources().getColor(R.color.white));
+    }
+
+    @Override
     public void setServiceNameDue(String serviceName, String dueDate) {
         //no need to do anything
     }
