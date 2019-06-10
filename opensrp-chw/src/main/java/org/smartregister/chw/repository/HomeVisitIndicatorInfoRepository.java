@@ -1,9 +1,7 @@
 package org.smartregister.chw.repository;
 
 import android.content.ContentValues;
-import android.util.Log;
 
-import net.sqlcipher.Cursor;
 import net.sqlcipher.database.SQLiteDatabase;
 
 import org.smartregister.chw.domain.HomeVisitIndicatorInfo;
