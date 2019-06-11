@@ -96,10 +96,10 @@ public class AncRegisterActivity extends BaseAncRegisterActivity {
 
         try {
             JSONObject stepOne = jsonForm.getJSONObject(JsonFormUtils.STEP1);
-            JSONArray jsonArray = stepOne.getJSONArray(org.smartregister.family.util.JsonFormUtils.FIELDS);
+            JSONArray jsonArray = stepOne.getJSONArray(JsonFormUtils.FIELDS);
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
-                if (jsonObject.getString(org.smartregister.chw.util.JsonFormUtils.KEY).equalsIgnoreCase(org.smartregister.chw.util.Constants.JsonAssets.FAMILY_MEMBER.PHONE_NUMBER)) {
+                if (jsonObject.getString(org.smartregister.chw.util.JsonFormUtils.KEY).equalsIgnoreCase(Constants.JsonAssets.FAMILY_MEMBER.PHONE_NUMBER)) {
                     jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, phone_number);
                 }
             }

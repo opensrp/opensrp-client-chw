@@ -19,7 +19,7 @@ import org.smartregister.chw.activity.AncHomeVisitActivity;
 import org.smartregister.chw.activity.AncMemberProfileActivity;
 import org.smartregister.chw.anc.fragment.BaseAncRegisterFragment;
 import org.smartregister.chw.anc.util.DBConstants;
-import org.smartregister.chw.anc.util.MemberObject;
+import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.custom_view.NavigationMenu;
 import org.smartregister.chw.model.AncRegisterFragmentModel;
 import org.smartregister.chw.presenter.AncRegisterFragmentPresenter;
