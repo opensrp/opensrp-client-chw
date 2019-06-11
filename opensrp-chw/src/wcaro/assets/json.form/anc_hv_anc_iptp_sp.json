@@ -1,6 +1,6 @@
 {
   "count": "1",
-  "encounter_type": "Home Visit - Observations Illness",
+  "encounter_type": "ANC Registration",
   "entity_id": "",
   "metadata": {
     "start": {
@@ -47,57 +47,21 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "Observations & Illness Episodes",
+    "title": "IPTp-SP 1st dose",
     "fields": [
       {
-        "key": "date_of_illness",
+        "key": "iptp1_date",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "1730AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
         "type": "date_picker",
-        "hint": "Date",
-        "expanded": false,
+        "image": "form_iptp_sp",
+        "hint": "When was IPTp-SP 1st dose given?",
+        "min_date": "today-120y",
         "max_date": "today",
-        "min_date": "",
         "v_required": {
           "value": "true",
-          "err": "Please enter illness date"
-        }
-      },
-      {
-        "key": "illness_description",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "1390AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "openmrs_data_type": "text",
-        "type": "edit_text",
-        "hint": "Description",
-        "v_required": {
-          "value": "true",
-          "err": "Please enter description"
-        }
-      },
-      {
-        "key": "action_taken",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "164378AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "openmrs_data_type": "select one",
-        "type": "spinner",
-        "hint": "Action taken",
-        "v_required": {
-          "value": "true",
-          "err": "Please select action"
-        },
-        "values": [
-          "Managed",
-          "Referred",
-          "No action taken"
-        ],
-        "openmrs_choice_ids": {
-          "Managed": "140959AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Referred": "1648AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "No action taken": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          "err": "Please enter the date of birth"
         }
       }
     ]

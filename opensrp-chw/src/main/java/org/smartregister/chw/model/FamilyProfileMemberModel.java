@@ -10,7 +10,8 @@ public class FamilyProfileMemberModel extends BaseFamilyProfileMemberModel {
     protected String[] mainColumns(String tableName) {
         String[] columns = super.mainColumns(tableName);
         String[] newColumns = new String[]{
-                tableName + "." + ChildDBConstants.KEY.ENTITY_TYPE
+                tableName + "." + ChildDBConstants.KEY.ENTITY_TYPE,
+                tableName + "." + org.smartregister.chw.util.Constants.JsonAssets.FAMILY_MEMBER.PHONE_NUMBER
         };
 
         return ArrayUtils.addAll(columns, newColumns);
