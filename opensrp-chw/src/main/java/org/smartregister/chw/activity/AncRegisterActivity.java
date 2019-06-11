@@ -100,7 +100,7 @@ public class AncRegisterActivity extends BaseAncRegisterActivity {
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 if (jsonObject.getString(org.smartregister.chw.util.JsonFormUtils.KEY).equalsIgnoreCase(Constants.JsonAssets.FAMILY_MEMBER.PHONE_NUMBER)) {
-                    jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, phone_number);
+                    jsonObject.put(JsonFormUtils.VALUE, phone_number);
                 }
             }
             Intent intent = new Intent(this, Utils.metadata().familyMemberFormActivity);

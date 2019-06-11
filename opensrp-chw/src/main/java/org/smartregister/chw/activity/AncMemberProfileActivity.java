@@ -39,7 +39,6 @@ public class AncMemberProfileActivity extends BaseAncMemberProfileActivity {
     private static String familyName;
     private static FamilyProfileContract.Interactor profileInteractor;
     private static FamilyProfileContract.Model profileModel;
-    private AncMemberProfilePresenter ancMemberProfilePresenter;
 
     public static void startMe(Activity activity, MemberObject memberObject) {
         baseEntityId = memberObject.getBaseEntityId();
@@ -136,8 +135,7 @@ public class AncMemberProfileActivity extends BaseAncMemberProfileActivity {
     }
 
     public AncMemberProfilePresenter ancMemberProfilePresenter() {
-        ancMemberProfilePresenter = new AncMemberProfilePresenter(this, MEMBER_OBJECT);
-        return ancMemberProfilePresenter;
+        return new AncMemberProfilePresenter(this, MEMBER_OBJECT);
     }
 
     @Override
