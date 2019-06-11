@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/white"
+              android:id="@+id/record_visit"
+              android:orientation="vertical"
+              android:paddingTop="10dp">
+
+    <LinearLayout
+            android:id="@+id/record_visit_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:visibility="visible"
+            android:weightSum="1">
+
+        <org.smartregister.view.customcontrols.CustomFontTextView
+                android:id="@+id/textview_record_visit"
+                style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/record_btn_selector"
+                android:gravity="center_horizontal"
+                android:paddingLeft="30dp"
+                android:paddingTop="10dp"
+                android:paddingRight="30dp"
+                android:paddingBottom="10dp"
+                android:layout_marginHorizontal="30dp"
+                android:text="@string/record_visit"
+                android:textColor="@color/white"/>
+
+    </LinearLayout>
+
+    <!--<RelativeLayout-->
+    <!--android:id="@+id/record_visit_done_bar"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:background="@color/white"-->
+    <!--android:padding="10dp"-->
+    <!--android:visibility="gone">-->
+
+    <!--<org.smartregister.view.customcontrols.CustomFontTextView-->
+    <!--android:id="@+id/textview_record_visit_done"-->
+    <!--style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_centerInParent="true"-->
+    <!--android:layout_centerHorizontal="true"-->
+    <!--android:background="@drawable/record_btn_selector_above_twentyfr"-->
+    <!--android:gravity="center_horizontal"-->
+    <!--android:paddingLeft="30dp"-->
+    <!--android:paddingTop="10dp"-->
+    <!--android:paddingRight="30dp"-->
+    <!--android:paddingBottom="10dp"-->
+    <!--android:text="@string/record_visit"-->
+    <!--android:textColor="@color/grey" />-->
+    <!--</RelativeLayout>-->
+
+    <!--<RelativeLayout-->
+    <!--android:id="@+id/record_visit_status_bar"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:background="@color/white"-->
+    <!--android:padding="10dp"-->
+    <!--android:visibility="gone">-->
+
+    <!--<ImageView-->
+    <!--android:id="@+id/cross_image"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_centerVertical="true"-->
+    <!--android:padding="10dp" />-->
+
+    <!--&lt;!&ndash;<org.smartregister.view.customcontrols.CustomFontTextView&ndash;&gt;-->
+    <!--&lt;!&ndash;android:id="@+id/textview_not_visit_this_month"&ndash;&gt;-->
+    <!--&lt;!&ndash;style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_centerVertical="true"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_toLeftOf="@+id/textview_undo"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_toRightOf="@+id/cross_image"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:padding="10dp"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:text="@string/not_visiting_this_month"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:textColor="@color/black" />&ndash;&gt;-->
+
+    <!--&lt;!&ndash;<org.smartregister.view.customcontrols.CustomFontTextView&ndash;&gt;-->
+    <!--&lt;!&ndash;android:id="@+id/textview_undo"&ndash;&gt;-->
+    <!--&lt;!&ndash;style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_alignParentRight="true"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:padding="10dp"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:text="@string/undo"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:textColor="@color/primary" />&ndash;&gt;-->
+
+    <!--&lt;!&ndash;<org.smartregister.view.customcontrols.CustomFontTextView&ndash;&gt;-->
+    <!--&lt;!&ndash;android:id="@+id/textview_edit"&ndash;&gt;-->
+    <!--&lt;!&ndash;style="@style/CustomFontTextViewStyle.ListView.Normal.Bold"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_alignParentRight="true"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:padding="10dp"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:text="@string/edit"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:textColor="@color/primary"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:visibility="gone" />&ndash;&gt;-->
+
+    <!--</RelativeLayout>-->
+
+    <View
+            android:id="@+id/view_record"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginTop="5dp"
+            android:background="@color/light_grey"/>
+</LinearLayout>

@@ -90,8 +90,12 @@
             android:label="@string/upcoming_services"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
-            android:name=".activity.IndividualProfileRemoveActivity"
-            android:theme="@style/ChwTheme.NoActionBar" />
+                android:name=".activity.MalariaProfileActivity"
+                android:label="@string/malaria"
+                android:theme="@style/ChwTheme.NoActionBar"/>
+        <activity
+                android:name=".activity.IndividualProfileRemoveActivity"
+                android:theme="@style/ChwTheme.NoActionBar"/>
         <activity
             android:name=".activity.LoginActivity"
             android:icon="@mipmap/ic_launcher"

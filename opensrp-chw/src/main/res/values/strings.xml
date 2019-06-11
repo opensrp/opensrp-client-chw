@@ -282,4 +282,5 @@
     <string name="anc_home_visit_anc_card_received">ANC Card Received</string>
     <string name="anc_home_visit_sleeping_under_llitn_net">Sleeping under a LLITN</string>
     <string name="anc_home_visit_counseling">ANC Counseling</string>
+    <string name="return_to_profile">Return to profile</string>
 </resources>
