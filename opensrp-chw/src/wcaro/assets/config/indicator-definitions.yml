@@ -96,3 +96,15 @@ indicators:
     indicatorQuery: "select count(distinct alerts.caseID) from alerts where alerts.scheduleName like 'MNP%%' and alerts.status = 'urgent'
                            and alerts.caseID in (select ec_child.base_entity_id from ec_child where date(ec_child.dob) < date('now', '-6 month') and  date(ec_child.dob) > date('now', '-23 month')
                            and ifnull(ec_child.dod,'') = '' and ifnull(ec_child.date_removed,'') = '')"
+
+  - key: "CHW_014"
+    description: "Children (0-23 months) up to date on immunizations"
+    indicatorQuery: "select ec_child.base_entity_id from ec_child where date(ec_child.dob) > date('now', '-24 month')
+                     and ifnull(ec_child.dod,'') = '' and ifnull(ec_child.date_removed,'') = '' and ec_child.base_entity_id not in
+                     (select distinct alerts.caseID from alerts where alerts.status = 'upcoming' or alerts.status = 'normal'and alerts.scheduleName != 'OPV 0')"
+
+  - key: "CHW_015"
+    description: "Children (0-23 months)  who are currently overdue for at least one or more vaccinations"
+    indicatorQuery: "select ec_child.base_entity_id from ec_child where date(ec_child.dob) > date('now', '-24 month')
+                     and ifnull(ec_child.dod,'') = '' and ifnull(ec_child.date_removed,'') = '' and ec_child.base_entity_id in
+                     (select distinct alerts.caseID from alerts where alerts.status = 'urgent' and alerts.scheduleName != 'OPV 0')"
