@@ -37,7 +37,7 @@ public class ChwIndicatorGeneratingJobFlv implements ChwIndicatorGeneratingJob.F
 
         String lastProcessedDate = ChwApplication.getInstance().getContext().allSharedPreferences().getPreference(HOME_VISIT_INFO_LAST_PROCESSED_DATE);
         List<HomeVisit> homeVisitList = ChwApplication.homeVisitRepository().getLatestHomeVisitsLaterThanDate(lastProcessedDate);
-        Log.logDebug("processHomeVisitDetails#lastprocessedDate ::" + lastProcessedDate);
+        Log.logDebug("processHomeVisitDetails#lastprocessedDate :: " + lastProcessedDate);
         HomeVisitIndicatorInfoRepository indicatorInfoRepo = ChwApplication.homeVisitIndicatorInfoRepository();
         String serviceGivenJSONString;
         String serviceNotGivenJSONString;
@@ -78,17 +78,20 @@ public class ChwIndicatorGeneratingJobFlv implements ChwIndicatorGeneratingJob.F
         if (serviceWrapperMap != null) {
             for (String key : serviceWrapperMap.keySet()) {
                 ServiceWrapper serviceWrapper = serviceWrapperMap.get(key);
-                homeVisitIndicatorInfo = new HomeVisitIndicatorInfo();
-                homeVisitIndicatorInfo.setBaseEntityId(homeVisit.getBaseEntityId());
-                homeVisitIndicatorInfo.setLastHomeVisitDate(homeVisit.getDate());
-                homeVisitIndicatorInfo.setHomeVisitId(homeVisit.getId());
-                homeVisitIndicatorInfo.setService(serviceWrapper.getServiceType().getName());
-                homeVisitIndicatorInfo.setServiceDate(parseDate(serviceWrapper.getVaccineDateAsString(), vaccineDateFormat));
-                homeVisitIndicatorInfo.setServiceUpdateDate(parseDate(serviceWrapper.getUpdatedVaccineDateAsString(), vaccineDateFormat));
-                homeVisitIndicatorInfo.setServiceGiven(serviceGiven);
-                homeVisitIndicatorInfo.setUpdatedAt(new Date(homeVisit.getUpdatedAt()));
-                homeVisitIndicatorInfo.setCreatedAt(homeVisit.getCreatedAt());
-                indicatorInfoRepo.addHomeVisitInfo(homeVisitIndicatorInfo);
+                if (serviceWrapper.getDefaultName() != null) {
+                    homeVisitIndicatorInfo = new HomeVisitIndicatorInfo();
+                    homeVisitIndicatorInfo.setBaseEntityId(homeVisit.getBaseEntityId());
+                    homeVisitIndicatorInfo.setLastHomeVisitDate(homeVisit.getDate());
+                    homeVisitIndicatorInfo.setHomeVisitId(homeVisit.getId());
+                    homeVisitIndicatorInfo.setService(serviceWrapper.getDefaultName());
+                    homeVisitIndicatorInfo.setServiceDate(parseDate(serviceWrapper.getVaccineDateAsString(), vaccineDateFormat));
+                    homeVisitIndicatorInfo.setServiceUpdateDate(parseDate(serviceWrapper.getUpdatedVaccineDateAsString(), vaccineDateFormat));
+                    homeVisitIndicatorInfo.setServiceGiven(serviceGiven);
+                    homeVisitIndicatorInfo.setValue(serviceWrapper.getValue());
+                    homeVisitIndicatorInfo.setUpdatedAt(new Date(homeVisit.getUpdatedAt()));
+                    homeVisitIndicatorInfo.setCreatedAt(homeVisit.getCreatedAt());
+                    indicatorInfoRepo.addHomeVisitInfo(homeVisitIndicatorInfo);
+                }
             }
         }
     }
