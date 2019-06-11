@@ -169,9 +169,12 @@
     <string name="remove">REMOVE</string>
     <string name="birth_date">Birth Date</string>
     <string name="age">Age</string>
+    registration
     <string name="when_vaccine">When was %s immunization done?</string>
     <string name="no_vaccines_were_done">No vaccines were done</string>
     <string name="edit_member_form_title">Edit Family Member</string>
+    <string name="edit_anc_registration_form_title">Edit ANC Registration</string>
+    <string name="anc_registration_form_title">ANC Registration</string>
 
     <string name="last_visit">LAST VISIT</string>
     <string name="edit_child_form_title">Edit Child Under 5</string>
@@ -204,6 +207,8 @@
     <string name="registration_info">Registration info</string>
     <string name="anc_registration">ANC Registration</string>
     <string name="malaria_registration">Malaria Confirmation</string>
+    <string name="anc_registration_info">ANC Registration info</string>
+    <string name="anc_pregnancy_out_come">Pregnancy outcome</string>
     <string name="log_out_as">Log out as</string>
     <string name="job_aids">Job Aids</string>
     <string name="refresh_indicators">Refresh indicators</string>
@@ -216,14 +221,16 @@
     <string name="children_12_59_months_not_dewormed">Children (12&#8211;59 months) who were not dewormed in the last 6 months</string>
     <string name="children_6_59_months_received_vitamin_A">Children (6&#8211;59 months) who received Vitamin A in the last 6 months</string>
     <string name="children_6_59_months_not_received_vitamin_A">Children (6&#8211;59 months) who did not receive Vitamin A in the last 6 months</string>
-    <string name="children_0_5_months_exclusively_breastfeeding">Children (0&#8211;5 months) exclusively breastfeeding</string>
     <string name="children_0_5_months_not_exclusively_breastfeeding">Children (0&#8211;5 months) not exclusively breastfeeding</string>
+
+    <string name="children_0_5_months_exclusively_breastfeeding">Children (0&#8211;5 months) exclusively breastfeeding</string>
     <string name="children_6_23_months_upto_date_mnp">Children (6&#8211;23 months) up to date on MNP supplementation</string>
     <string name="children_6_23_months_overdue_mnp">Children (6&#8211;23 months) overdue on MNP supplementation</string>
 
     <string name="children_0_24_months_upto_date_vaccinations">Children (0&#8211;23 months) up to date on immunizations</string>
     <string name="children_0_24_months_overdue_vaccinations">Children (6&#8211;23 months) who are currently overdue for at least one or more vaccinations</string>
     <string name="opv_0_not_included">OPV 0 not included</string>
+
     <string name="yes_slice_label">Yes</string>
     <string name="no_slice_label">No</string>
     <string name="powered_by">Powered by</string>
@@ -237,7 +244,7 @@
     <string name="menu_anc">ANC</string>
     <string name="menu_pnc">PNC</string>
     <string name="menu_family_planing">FP</string>
-    <string name="menu_malaria">MALARIA</string>
+    <string name="menu_malaria">Malaria</string>
     <string name="refer_to_facility">Refer to facility</string>
 
     <string name="due_only">Due only</string>
@@ -283,4 +290,10 @@
     <string name="anc_home_visit_anc_card_received">ANC Card Received</string>
     <string name="anc_home_visit_sleeping_under_llitn_net">Sleeping under a LLITN</string>
     <string name="anc_home_visit_counseling">ANC Counseling</string>
+    <string name="anc_home_visit_tt_immunization">TT {0} Immunization</string>
+    <string name="anc_home_visit_iptp_sp">IPTp-SP dose {0}</string>
+    <string name="gest_age">GA: %1$s</string>
+    <string name="gest_age_weeks">weeks</string>
+
+
 </resources>
