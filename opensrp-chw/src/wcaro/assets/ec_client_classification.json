@@ -92,6 +92,13 @@
             "creates_case": [
               "ec_child"
             ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "ANC Registration",
+            "creates_case": [
+              "ec_anc_register"
+            ]
           }
         ]
       }
