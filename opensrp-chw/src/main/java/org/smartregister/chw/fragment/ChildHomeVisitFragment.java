@@ -215,10 +215,13 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         String vaccineCard = getValue(childClient.getColumnmaps(), VACCINE_CARD, true);
 
         BirthCertRule birthCertRule = new BirthCertRule(dob);
-        if(birthCertRule.isExpire(24) || !TextUtils.isEmpty(vaccineCard) ){
+        if(birthCertRule.isExpire(24) ||
+                (!TextUtils.isEmpty(vaccineCard) &&  vaccineCard.equalsIgnoreCase(getString(R.string.yes)))){
             layoutVaccineCard.setVisibility(View.GONE);
             viewVaccineCardLine.setVisibility(View.GONE);
         }else{
+            layoutVaccineCard.setVisibility(View.VISIBLE);
+            viewVaccineCardLine.setVisibility(View.VISIBLE);
             textViewVaccineCardText.setVisibility(View.VISIBLE);
             if (birthCertRule.isOverdue(12)) {
                 Date date = org.smartregister.family.util.Utils.dobStringToDate(dob);
