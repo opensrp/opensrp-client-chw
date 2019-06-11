@@ -12,6 +12,7 @@ import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.family.util.AppExecutors;
 import org.smartregister.family.util.DBConstants;
 
+import java.text.MessageFormat;
 import java.util.Date;
 
 import timber.log.Timber;
@@ -56,6 +57,12 @@ public class NavigationInteractor implements NavigationContract.Interactor {
             mainCondition = String.format(" %s is null AND %s", DBConstants.KEY.DATE_REMOVED, ChildDBConstants.childAgeLimitFilter());
         } else if (tableName.equalsIgnoreCase(Constants.TABLE_NAME.FAMILY)) {
             mainCondition = String.format(" %s is null ", DBConstants.KEY.DATE_REMOVED);
+        } else if (tableName.equalsIgnoreCase(Constants.TABLE_NAME.ANC_MEMBER)) {
+            mainCondition = MessageFormat.format(" inner join {0} on {1}.{2} = {3}.{4} where {5}.{6} is null ",
+                    Constants.TABLE_NAME.FAMILY_MEMBER,
+                    Constants.TABLE_NAME.FAMILY_MEMBER, DBConstants.KEY.BASE_ENTITY_ID,
+                    Constants.TABLE_NAME.ANC_MEMBER, DBConstants.KEY.BASE_ENTITY_ID,
+                    DBConstants.KEY.DATE_REMOVED); // String.format(" %s is null ", DBConstants.KEY.DATE_REMOVED);
         } else {
             mainCondition = " 1 = 1 ";
         }

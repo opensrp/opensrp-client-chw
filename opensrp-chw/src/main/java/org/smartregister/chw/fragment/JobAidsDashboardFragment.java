@@ -110,6 +110,7 @@ public class JobAidsDashboardFragment extends Fragment implements ReportContract
         Map<String, IndicatorTally> children_0_24_UpToDateVaccinations = new HashMap<>();
         Map<String, IndicatorTally> children_0_24_OverdueVaccinations = new HashMap<>();
 
+
         for (Map<String, IndicatorTally> indicatorTallyMap : indicatorTallies) {
             for (String key : indicatorTallyMap.keySet()) {
                 switch (key) {
@@ -321,7 +322,7 @@ public class JobAidsDashboardFragment extends Fragment implements ReportContract
 
     @Override
     public void onLoaderReset(@NonNull Loader<List<Map<String, IndicatorTally>>> loader) {
-        // Clean up or release resources 
+        // Clean up or release resources
     }
 
     @Override
