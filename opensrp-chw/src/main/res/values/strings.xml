@@ -205,6 +205,7 @@
     <string name="anc_registration">ANC Registration</string>
     <string name="log_out_as">Log out as</string>
     <string name="job_aids">Job Aids</string>
+    <string name="refresh_indicators">Refresh indicators</string>
     <string name="total_under_5_children_label">Total U5 children</string>
     <string name="deceased_children_0_11_months">Children (0&#8211;11 months) who died in the last year</string>
     <string name="deceased_children_12_59_months">Children (12&#8211;59 months) who died in the last year</string>
