@@ -56,9 +56,8 @@ public class JobAidsDashboardFragment extends Fragment implements ReportContract
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Fetch Indicator data
         presenter = new JobAidsDashboardFragmentPresenter(this);
-        getLoaderManager().initLoader(0, null, this).forceLoad();
+        loadIndicatorTallies();
     }
 
     @Override
@@ -84,6 +83,10 @@ public class JobAidsDashboardFragment extends Fragment implements ReportContract
     @Override
     public void onDetach() {
         super.onDetach();
+    }
+
+    public void loadIndicatorTallies() {
+        getLoaderManager().initLoader(0, null, this).forceLoad();
     }
 
     private void buildVisualisations() {
@@ -204,6 +207,7 @@ public class JobAidsDashboardFragment extends Fragment implements ReportContract
 
         View children_0_24_months_up_to_date_vaccinations = getIndicatorView(pieChartIndicatorVisualizationData, pieChartFactory);
 
+        visualizationsViewGroup.removeAllViews();
         visualizationsViewGroup.addView(childrenU5View);
         visualizationsViewGroup.addView(deceased_0_11_View);
         visualizationsViewGroup.addView(deceased_12_59_View);
