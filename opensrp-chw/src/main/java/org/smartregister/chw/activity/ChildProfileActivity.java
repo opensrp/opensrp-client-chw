@@ -594,6 +594,11 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.other_member_menu, menu);
+        if (flavor.showMalariaConfirmationMenu()) {
+            menu.findItem(R.id.action_malaria_registration).setVisible(true);
+        } else {
+            menu.findItem(R.id.action_malaria_registration).setVisible(false);
+        }
         menu.findItem(R.id.action_anc_registration).setVisible(false);
         return true;
     }
@@ -606,7 +611,14 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
                 return true;
 
             case R.id.action_registration:
-                ((ChildProfilePresenter) presenter()).startFormForEdit(getResources().getString(R.string.edit_child_form_title), ((ChildProfilePresenter) presenter()).getChildClient());
+                ((ChildProfilePresenter) presenter()).startFormForEdit(getResources().getString(R.string.edit_child_form_title),
+                        ((ChildProfilePresenter) presenter()).getChildClient());
+                return true;
+
+
+            case R.id.action_malaria_registration:
+                MalariaRegisterActivity.startMalariaRegistrationActivity(ChildProfileActivity.this,
+                        ((ChildProfilePresenter) presenter()).getChildClient().getCaseId());
                 return true;
 
             case R.id.action_remove_member:
@@ -658,6 +670,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
 
     public interface Flavor {
         OnClickFloatingMenu getOnClickFloatingMenu(Activity activity, ChildProfilePresenter presenter);
+        boolean showMalariaConfirmationMenu();
     }
 
     private final BroadcastReceiver mDateTimeChangedReceiver = new BroadcastReceiver() {

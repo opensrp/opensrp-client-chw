@@ -9,6 +9,7 @@ public class Constants {
         public static final String FAMILY_REGISTER = "family_register";
         public static final String FAMILY_MEMBER_REGISTER = "family_member_register";
         public static final String ANC_REGISTER = "anc_register";
+        public static final String MALARIA_REGISTER = "anc_malaria_confirmation";
 
     }
 
@@ -54,6 +55,7 @@ public class Constants {
         public static final String HOME_VISIT_COUNSELLING = "routine_home_visit";
 
         public static final String ANC_REGISTRATION = "anc_member_registration";
+        public static final String MALARIA_CONFIRMATION = "malaria_confirmation";
 
         public static class ANC_HOME_VISIT {
             public static final String DANGER_SIGNS = "anc_hv_danger_signs";
@@ -86,6 +88,7 @@ public class Constants {
         public static final String CHILD = "ec_child";
         public static final String CHILD_ACTIVITY = "ec_child_activity";
         public static final String ANC_MEMBER = "ec_anc_register";
+        public static final String MALARIA_CONFIRMATION = "ec_malaria_confirmation";
     }
 
     public static final class INTENT_KEY {
