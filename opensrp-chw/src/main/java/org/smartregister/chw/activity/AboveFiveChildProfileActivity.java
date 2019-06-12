@@ -9,6 +9,9 @@ public class AboveFiveChildProfileActivity extends ChildProfileActivity {
     @Override
     protected void onCreation() {
         super.onCreation();
+        invisibleRecordVisitPanel();
+    }
+    private void invisibleRecordVisitPanel(){
         recordVisitPanel.setVisibility(View.GONE);
     }
 
