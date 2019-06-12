@@ -25,6 +25,7 @@ import android.widget.Toast;
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
+import org.joda.time.Period;
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.contract.FamilyCallDialogContract;
@@ -219,5 +220,17 @@ public class Utils extends org.smartregister.family.util.Utils {
     public static String getLocalForm(String jsonForm) {
         String suffix = Locale.getDefault().getLanguage().equals("fr") ? "_fr" : "";
         return MessageFormat.format("{0}{1}", jsonForm, suffix);
+    }
+
+    public static String getAncMemberNameAndAge(String firstName, String middleName, String surName, String age) {
+        int integerAge = new Period(new DateTime(age), new DateTime()).getYears();
+        String first_name = firstName.trim();
+        String middle_name = middleName.trim();
+        String sur_name = surName != null ? surName.trim() : "";
+
+        if (StringUtils.isNotBlank(firstName) && StringUtils.isNotBlank(middleName) && StringUtils.isNotBlank(age)) {
+            return (first_name + " " + middle_name + " " + sur_name).trim() + ", " + integerAge;
+        }
+        return "";
     }
 }
