@@ -55,6 +55,7 @@ import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import io.fabric.sdk.android.Fabric;
+import timber.log.Timber;
 
 public class ChwApplication extends DrishtiApplication {
 
@@ -240,7 +241,7 @@ public class ChwApplication extends DrishtiApplication {
                 repository = new ChwRepository(getInstance().getApplicationContext(), context);
             }
         } catch (UnsatisfiedLinkError e) {
-            Log.e(TAG, e.getMessage(), e);
+            Timber.e(e);
         }
         return repository;
     }
