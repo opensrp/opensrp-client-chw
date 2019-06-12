@@ -80,7 +80,7 @@
         "label": "ANC visit date",
         "hint": "ANC visit date",
         "expanded": false,
-        "min_date": "",
+        "min_date": "today-10y",
         "max_date": "today",
         "v_required": {
           "value": "true",

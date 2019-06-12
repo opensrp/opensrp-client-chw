@@ -80,7 +80,7 @@
         "label": "Date of visit",
         "hint": "Date of visit",
         "expanded": false,
-        "min_date": "",
+        "min_date": "today-10y",
         "max_date": "today",
         "v_required": {
           "value": "true",
