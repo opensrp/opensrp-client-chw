@@ -11,24 +11,32 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.apache.commons.lang3.StringUtils;
+import org.joda.time.DateTime;
+import org.joda.time.Days;
+import org.joda.time.format.DateTimeFormat;
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.AncHomeVisitActivity;
+import org.smartregister.chw.activity.AncMemberProfileActivity;
 import org.smartregister.chw.anc.fragment.BaseAncRegisterFragment;
 import org.smartregister.chw.anc.util.DBConstants;
+import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.custom_view.NavigationMenu;
 import org.smartregister.chw.model.AncRegisterFragmentModel;
 import org.smartregister.chw.presenter.AncRegisterFragmentPresenter;
+import org.smartregister.chw.provider.ChwAncRegisterProvider;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.QueryBuilder;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
+import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.view.customcontrols.CustomFontTextView;
 
 import java.text.MessageFormat;
 import java.util.List;
+import java.util.Set;
 
 public class AncRegisterFragment extends BaseAncRegisterFragment {
 
@@ -90,6 +98,14 @@ public class AncRegisterFragment extends BaseAncRegisterFragment {
     }
 
     @Override
+    public void initializeAdapter(Set<org.smartregister.configurableviews.model.View> visibleColumns) {
+        ChwAncRegisterProvider ancRegisterProvider = new ChwAncRegisterProvider(getActivity(), commonRepository(), visibleColumns, registerActionHandler, paginationViewHandler);
+        clientAdapter = new RecyclerViewPaginatedAdapter(null, ancRegisterProvider, context().commonrepository(this.tablename));
+        clientAdapter.setCurrentlimit(20);
+        clientsView.setAdapter(clientAdapter);
+    }
+
+    @Override
     protected void onViewClicked(View view) {
 
         if (view.getId() == R.id.due_only_layout) {
@@ -140,6 +156,33 @@ public class AncRegisterFragment extends BaseAncRegisterFragment {
         AncHomeVisitActivity.startMe(getActivity(), baseEntityId);
     }
 
+    @Override
+    protected void openProfile(CommonPersonObjectClient client) {
+        String lmp = client.getColumnmaps().get(DBConstants.KEY.LAST_MENSTRUAL_PERIOD);
+        int ga = Days.daysBetween(DateTimeFormat.forPattern("dd-MM-yyyy").parseDateTime(lmp), new DateTime()).getDays() / 7;
+        String uniqueId = String.format(getString(R.string.unique_id_text), client.getColumnmaps().get(DBConstants.KEY.UNIQUE_ID));
+        String gest_age = String.format(getString(R.string.gest_age), String.valueOf(ga)) + " " + getString(R.string.gest_age_weeks);
+
+        String memberName = Utils.getAncMemberNameAndAge(
+                client.getColumnmaps().get(DBConstants.KEY.FIRST_NAME),
+                client.getColumnmaps().get(DBConstants.KEY.MIDDLE_NAME),
+                client.getColumnmaps().get(DBConstants.KEY.LAST_NAME),
+                client.getColumnmaps().get(DBConstants.KEY.DOB));
+
+        MemberObject memberObject = new MemberObject(memberName,
+                gest_age,
+                client.getColumnmaps().get(DBConstants.KEY.VILLAGE_TOWN),
+                uniqueId,
+                client.getCaseId(),
+                client.getColumnmaps().get(DBConstants.KEY.RELATIONAL_ID),
+                client.getColumnmaps().get(DBConstants.KEY.FAMILY_HEAD),
+                client.getColumnmaps().get(DBConstants.KEY.PRIMARY_CAREGIVER),
+                client.getColumnmaps().get(DBConstants.KEY.FIRST_NAME)
+        );
+
+        AncMemberProfileActivity.startMe(getActivity(), memberObject);
+    }
+
     private void switchViews(View dueOnlyLayout, boolean isPress) {
         TextView dueOnlyTextView = dueOnlyLayout.findViewById(R.id.due_only_text_view);
         if (isPress) {
@@ -148,6 +191,7 @@ public class AncRegisterFragment extends BaseAncRegisterFragment {
             dueOnlyTextView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_due_filter_off, 0);
         }
     }
+
 
     @Override
     public void onResume() {
@@ -189,7 +233,7 @@ public class AncRegisterFragment extends BaseAncRegisterFragment {
                         .searchQueryFts(tablename, joinTable, mainCondition, filters, Sortqueries,
                                 clientAdapter.getCurrentlimit(), clientAdapter.getCurrentoffset());
                 sql = sql.replace(CommonFtsObject.idColumn, CommonFtsObject.relationalIdColumn);
-                sql = sql.replace(CommonFtsObject.searchTableName(Constants.TABLE_NAME.FAMILY), CommonFtsObject.searchTableName(Constants.TABLE_NAME.CHILD));
+                sql = sql.replace(CommonFtsObject.searchTableName(Constants.TABLE_NAME.FAMILY), CommonFtsObject.searchTableName(Constants.TABLE_NAME.ANC_MEMBER));
                 List<String> ids = commonRepository().findSearchIds(sql);
                 query = sqb.toStringFts(ids, tablename, CommonRepository.ID_COLUMN,
                         Sortqueries);
@@ -213,10 +257,14 @@ public class AncRegisterFragment extends BaseAncRegisterFragment {
         String query = "";
         StringBuilder customFilter = new StringBuilder();
         if (StringUtils.isNotBlank(filters)) {
-            customFilter.append(MessageFormat.format(" where {0}.{1} like ''%{2}%'' ", Constants.TABLE_NAME.FAMILY_MEMBER, DBConstants.KEY.FIRST_NAME, filters));
+            customFilter.append(MessageFormat.format(" where ( {0}.{1} like ''%{2}%'' ", Constants.TABLE_NAME.FAMILY_MEMBER, DBConstants.KEY.FIRST_NAME, filters));
             customFilter.append(MessageFormat.format(" or {0}.{1} like ''%{2}%'' ", Constants.TABLE_NAME.FAMILY_MEMBER, DBConstants.KEY.LAST_NAME, filters));
             customFilter.append(MessageFormat.format(" or {0}.{1} like ''%{2}%'' ", Constants.TABLE_NAME.FAMILY_MEMBER, DBConstants.KEY.MIDDLE_NAME, filters));
-            customFilter.append(MessageFormat.format(" or {0}.{1} = ''{2}'' ", Constants.TABLE_NAME.FAMILY_MEMBER, DBConstants.KEY.UNIQUE_ID, filters));
+            customFilter.append(MessageFormat.format(" or {0}.{1} = ''{2}'' ) ", Constants.TABLE_NAME.FAMILY_MEMBER, DBConstants.KEY.UNIQUE_ID, filters));
+
+            if (dueFilterActive) {
+                customFilter.append(MessageFormat.format(" and ( {0}) ", presenter().getDueFilterCondition()));
+            }
         }
         try {
             if (isValidFilterForFts(commonRepository())) {
@@ -261,5 +309,42 @@ public class AncRegisterFragment extends BaseAncRegisterFragment {
     @Override
     protected String getMainCondition() {
         return presenter().getMainCondition();
+    }
+
+    @Override
+    public void countExecute() {
+
+        Cursor c = null;
+        try {
+
+            String query = "select count(*) from " + presenter().getMainTable() + " inner join " + Constants.TABLE_NAME.FAMILY_MEMBER +
+                    " on " + presenter().getMainTable() + "." + DBConstants.KEY.BASE_ENTITY_ID + " = " +
+                    Constants.TABLE_NAME.FAMILY_MEMBER + "." + DBConstants.KEY.BASE_ENTITY_ID +
+                    " where " + presenter().getMainCondition();
+
+            if (StringUtils.isNotBlank(filters)) {
+                query = query + " and ( " + filters + " ) ";
+            }
+
+            if (dueFilterActive) {
+                query = query + " and ( " + presenter().getDueFilterCondition() + " ) ";
+            }
+
+            c = commonRepository().rawCustomQueryForAdapter(query);
+            c.moveToFirst();
+            clientAdapter.setTotalcount(c.getInt(0));
+            Log.v("total count here", "" + clientAdapter.getTotalcount());
+
+            clientAdapter.setCurrentlimit(20);
+            clientAdapter.setCurrentoffset(0);
+
+
+        } catch (Exception e) {
+            Log.e(getClass().getName(), e.toString(), e);
+        } finally {
+            if (c != null) {
+                c.close();
+            }
+        }
     }
 }

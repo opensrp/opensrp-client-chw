@@ -36,6 +36,8 @@ public class Constants {
         public static final String REMOVE_FAMILY = "Remove Family";
 
         public static final String ANC_REGISTRATION = "ANC Registration";
+        public static final String ANC_HOME_VISIT = "ANC Home Visit";
+        public static final String UPDATE_ANC_REGISTRATION = "Update ANC Registration";
     }
 
     public static class JSON_FORM {
@@ -60,6 +62,8 @@ public class Constants {
             public static final String ANC_COUNSELING = "anc_hv_counseling";
             public static final String SLEEPING_UNDER_LLITN = "anc_hv_sleeping_under_llitn";
             public static final String ANC_CARD_RECEIVED = "anc_hv_anc_card_received";
+            public static final String TT_IMMUNIZATION = "anc_hv_tt_immunization";
+            public static final String IPTP_SP = "anc_hv_anc_iptp_sp";
 
 
             public static final String HEALTH_FACILITY_VISIT = "anc_hv_health_facility_visit";
@@ -115,11 +119,12 @@ public class Constants {
         public static final String LD = "L&D";
         public static final String PNC = "PNC";
         public static final String FAMILY_PLANNING = "Family Planning";
-        public static final String MALARIA = "MALARIA";
+        public static final String MALARIA = "Malaria";
     }
 
     public static final class RULE_FILE {
         public static final String HOME_VISIT = "home-visit-rules.yml";
+        public static final String ANC_HOME_VISIT = "anc-home-visit-rules.yml";
         public static final String BIRTH_CERT = "birth-cert-rules.yml";
         public static final String SERVICE = "service-rules.yml";
     }

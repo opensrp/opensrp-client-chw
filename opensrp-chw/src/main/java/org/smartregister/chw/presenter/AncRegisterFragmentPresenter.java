@@ -3,6 +3,7 @@ package org.smartregister.chw.presenter;
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.contract.AncRegisterFragmentContract;
 import org.smartregister.chw.anc.presenter.BaseAncRegisterFragmentPresenter;
+import org.smartregister.chw.anc.util.DBConstants;
 import org.smartregister.chw.util.Constants;
 
 public class AncRegisterFragmentPresenter extends BaseAncRegisterFragmentPresenter {
@@ -23,4 +24,8 @@ public class AncRegisterFragmentPresenter extends BaseAncRegisterFragmentPresent
         return Constants.TABLE_NAME.ANC_MEMBER;
     }
 
+    @Override
+    public String getMainCondition() {
+            return " " + Constants.TABLE_NAME.FAMILY_MEMBER + "." + DBConstants.KEY.DATE_REMOVED + " is null ";
+    }
 }
