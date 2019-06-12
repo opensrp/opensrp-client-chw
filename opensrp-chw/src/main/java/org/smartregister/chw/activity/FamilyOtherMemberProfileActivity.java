@@ -54,6 +54,7 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
     private String primaryCaregiver;
     private String villageTown;
     private String familyName;
+    private String PhoneNumber;
     private CommonPersonObjectClient commonPersonObject;
     private FamilyMemberFloatingMenu familyFloatingMenu;
     private TextView textViewFamilyHas;
@@ -93,6 +94,7 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
         primaryCaregiver = getIntent().getStringExtra(Constants.INTENT_KEY.PRIMARY_CAREGIVER);
         villageTown = getIntent().getStringExtra(Constants.INTENT_KEY.VILLAGE_TOWN);
         familyName = getIntent().getStringExtra(Constants.INTENT_KEY.FAMILY_NAME);
+        PhoneNumber = commonPersonObject.getColumnmaps().get(org.smartregister.chw.util.Constants.JsonAssets.FAMILY_MEMBER.PHONE_NUMBER);
         presenter = new FamilyOtherMemberActivityPresenter(this, new BaseFamilyOtherMemberProfileActivityModel(), null, familyBaseEntityId, baseEntityId, familyHead, primaryCaregiver, villageTown, familyName);
 
         onClickFloatingMenu = flavor.getOnClickFloatingMenu(this, familyBaseEntityId);
@@ -187,11 +189,10 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
                 onBackPressed();
                 return true;
             case R.id.action_anc_registration:
-                startFormForEdit(R.string.edit_member_form_title);
-                AncRegisterActivity.startAncRegistrationActivity(FamilyOtherMemberProfileActivity.this, baseEntityId);
+                AncRegisterActivity.startAncRegistrationActivity(FamilyOtherMemberProfileActivity.this, baseEntityId, PhoneNumber);
                 return true;
             case R.id.action_registration:
-                startFormForEdit(R.string.edit_member_form_title);
+                startFormForEdit(R.string.anc_registration_form_title);
                 return true;
             case R.id.action_remove_member:
                 IndividualProfileRemoveActivity.startIndividualProfileActivity(FamilyOtherMemberProfileActivity.this, commonPersonObject, familyBaseEntityId, familyHead, primaryCaregiver);
@@ -248,9 +249,6 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
         switch (requestCode) {
             case org.smartregister.chw.util.Constants.ProfileActivityResults.CHANGE_COMPLETED:
                 if (resultCode == Activity.RESULT_OK) {
-                    //TODO need to refresh FamilyProfileActivity
-//                    Intent intent = getIntent();
-//                    setResult(RESULT_OK, intent);
                     Intent intent = new Intent(FamilyOtherMemberProfileActivity.this, FamilyProfileActivity.class);
                     intent.putExtras(getIntent().getExtras());
                     startActivity(intent);
@@ -261,7 +259,6 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
                 if (resultCode == RESULT_OK) {
                     try {
                         String jsonString = data.getStringExtra(Constants.JSON_FORM_EXTRA.JSON);
-
                         JSONObject form = new JSONObject(jsonString);
                         if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Utils.metadata().familyMemberRegister.updateEventType)) {
                             presenter().updateFamilyMember(jsonString);
@@ -273,7 +270,6 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
                 break;
             default:
                 break;
-
         }
     }
 
@@ -308,7 +304,6 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
             }
         }
     }
-
 
     @Override
     public void onClick(View view) {
