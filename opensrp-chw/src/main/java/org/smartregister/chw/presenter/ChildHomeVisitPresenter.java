@@ -66,7 +66,6 @@ public class ChildHomeVisitPresenter implements ChildHomeVisitContract.Presenter
         } catch (Exception e) {
 
         }
-
     }
 
     @Override
