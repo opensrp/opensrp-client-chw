@@ -95,7 +95,6 @@ public class FamilyOtherMemberActivityPresenter extends BaseFamilyOtherMemberPro
             if (familyEventClient == null) {
                 return;
             }
-
             profileInteractor.saveRegistration(familyEventClient, jsonString, true, this);
         } catch (Exception e) {
             getView().hideProgressDialog();
