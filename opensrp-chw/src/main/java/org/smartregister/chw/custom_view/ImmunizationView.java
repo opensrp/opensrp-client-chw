@@ -181,8 +181,10 @@ public class ImmunizationView extends LinearLayout implements ImmunizationContac
 
     /**
      * after press 6w row.
-     * if 6w vaccine == not done it'll remove the 10w row but should selected 14w row.
+     * if 6w vaccine == not done it'll remove the 10w row but should selected 14w row as "iPV" not depended on 10w.
      * if 6w vaccine pertially done it'll display 10w row but deselect 14w row.
+     * after press 10w row and vaccine == not done. it'll reset previous 14w
+     * dueList
      */
     @Override
     public void onUpdateNextPosition(){
