@@ -482,7 +482,7 @@ public class ChildUtils {
     }
 
 
-    public static void addToHomeVisitTable(String baseEntityID, List<org.smartregister.domain.db.Obs> observations) {
+    public static void addToHomeVisitTable(String baseEntityID,String formSubmissionId, List<org.smartregister.domain.db.Obs> observations) {
         HomeVisit newHomeVisit = new HomeVisit(null, baseEntityID, HomeVisitRepository.EVENT_TYPE, new Date(), "", "", "", 0l, "", "", new Date());
         try {
             for (org.smartregister.domain.db.Obs obs : observations) {
@@ -526,6 +526,7 @@ public class ChildUtils {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        newHomeVisit.setFormSubmissionId(formSubmissionId);
         newHomeVisit.setFormfields(new HashMap<String, String>());
         ChwApplication.homeVisitRepository().add(newHomeVisit);
     }
