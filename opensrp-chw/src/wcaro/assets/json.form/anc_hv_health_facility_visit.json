@@ -132,13 +132,17 @@
         "label_info_title": "Systolic BP (mmHg)",
         "label_info_text": "Systolic blood pressure of the woman. ",
         "hint": "Systolic BP (mmHg)",
+        "v_min": {
+          "value": "0",
+          "err": "The value must be greater than or equal to 0"
+        },
         "v_required": {
           "value": "false",
           "err": "Required"
         },
-        "v_numeric": {
+        "v_numeric_integer": {
           "value": "true",
-          "err": ""
+          "err": "Must be a rounded number"
         },
         "relevance": {
           "step1:anc_hf_visit": {
@@ -157,13 +161,17 @@
         "label_info_title": "Diastolic BP (mmHg)",
         "label_info_text": "Diastolic blood pressure of the woman. ",
         "hint": "Diastolic BP (mmHg)",
+        "v_min": {
+          "value": "0",
+          "err": "The value must be greater than or equal to 0"
+        },
         "v_required": {
           "value": "false",
           "err": "Required"
         },
-        "v_numeric": {
+        "v_numeric_integer": {
           "value": "true",
-          "err": ""
+          "err": "Must be a rounded number"
         },
         "relevance": {
           "step1:anc_hf_visit": {
