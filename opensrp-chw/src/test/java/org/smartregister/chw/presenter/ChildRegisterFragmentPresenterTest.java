@@ -26,14 +26,14 @@ public class ChildRegisterFragmentPresenterTest extends BaseUnitTest {
 
     @Test
     public void testMainCondition() {
-        Assert.assertEquals(" date_removed is null AND  (( strftime('%Y','now') - strftime('%Y',dob))<5)", presenter.getMainCondition());
+        Assert.assertEquals(" date_removed is null AND  ((( julianday('now') - julianday(dob))/365.25) <5)", presenter.getMainCondition());
 
     }
 
     @Test
     public void testMainConditionWithTableName() {
         String tableName = "table_a";
-        Assert.assertEquals(" table_a.date_removed is null AND  (( strftime('%Y','now') - strftime('%Y',table_a.dob))<5)", presenter.getMainCondition(tableName));
+        Assert.assertEquals(" table_a.date_removed is null AND  ((( julianday('now') - julianday(table_a.dob))/365.25) <5)", presenter.getMainCondition(tableName));
 
     }
 
