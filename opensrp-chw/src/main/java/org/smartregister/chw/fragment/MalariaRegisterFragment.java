@@ -12,7 +12,7 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.activity.MalariaProfileActivity;
 import org.smartregister.chw.custom_view.NavigationMenu;
 import org.smartregister.chw.malaria.fragment.BaseMalariaRegisterFragment;
-import org.smartregister.chw.malaria.provider.MalariaRegisterProvider;
+import org.smartregister.chw.provider.MalariaRegisterProvider;
 import org.smartregister.chw.model.MalariaRegisterFragmentModel;
 import org.smartregister.chw.presenter.MalariaRegisterFragmentPresenter;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
@@ -24,6 +24,9 @@ import org.smartregister.view.customcontrols.CustomFontTextView;
 import org.smartregister.view.customcontrols.FontVariant;
 
 import java.util.Set;
+
+import static org.smartregister.chw.provider.MalariaRegisterProvider.CLICK_VIEW_DOSAGE_STATUS;
+import static org.smartregister.chw.provider.MalariaRegisterProvider.CLICK_VIEW_NORMAL;
 
 public class MalariaRegisterFragment extends BaseMalariaRegisterFragment {
     private static final String TAG = MalariaRegisterFragment.class.getCanonicalName();
