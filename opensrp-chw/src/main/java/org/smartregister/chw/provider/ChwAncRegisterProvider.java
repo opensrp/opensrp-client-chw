@@ -20,6 +20,7 @@ import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
+import org.smartregister.family.util.DBConstants;
 import org.smartregister.view.contract.SmartRegisterClient;
 
 import java.util.Set;
@@ -116,8 +117,9 @@ public class ChwAncRegisterProvider extends AncRegisterProvider {
             String lmpDate = org.smartregister.util.Utils.getValue(pc.getColumnmaps(), ChwDBConstants.LMP, false);
             String visitDate = org.smartregister.util.Utils.getValue(pc.getColumnmaps(), ChildDBConstants.KEY.LAST_HOME_VISIT, false);
             String lastVisitNotDone = org.smartregister.util.Utils.getValue(pc.getColumnmaps(), ChwDBConstants.VISIT_NOT_DONE, false);
+            Long dateCreated = Long.valueOf(org.smartregister.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.LAST_INTERACTED_WITH, false));
 
-            ancVisit = AncHomeVisitUtil.getVisitStatus(context, rules, lmpDate, visitDate, lastVisitNotDone);
+            ancVisit = AncHomeVisitUtil.getVisitStatus(context, rules, lmpDate, visitDate, lastVisitNotDone, dateCreated);
             return null;
         }
 

@@ -10,8 +10,8 @@ import org.smartregister.chw.rule.AncVisitAlertRule;
 
 public class AncHomeVisitUtil {
 
-    public static AncVisit getVisitStatus(Context context, Rules rules, String lmpDate, String visitDate, String visitNotDate) {
-        AncVisitAlertRule ancVisitAlertRule = new AncVisitAlertRule(context, lmpDate, visitDate, visitNotDate);
+    public static AncVisit getVisitStatus(Context context, Rules rules, String lmpDate, String visitDate, String visitNotDate, Long dateCreatedLong) {
+        AncVisitAlertRule ancVisitAlertRule = new AncVisitAlertRule(context, lmpDate, visitDate, visitNotDate, dateCreatedLong);
         ChwApplication.getInstance().getRulesEngineHelper().getButtonAlertStatus(ancVisitAlertRule, rules);
         return getVisitStatus(ancVisitAlertRule, visitDate);
     }

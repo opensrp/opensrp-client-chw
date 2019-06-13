@@ -16,6 +16,7 @@ public class AncVisitAlertRule implements ICommonRule {
     public String buttonStatus = ChildProfileInteractor.VisitType.DUE.name();
     private final int[] monthNames = {R.string.january, R.string.february, R.string.march, R.string.april, R.string.may, R.string.june, R.string.july, R.string.august, R.string.september, R.string.october, R.string.november, R.string.december};
 
+    private LocalDate dateCreated;
     private LocalDate todayDate;
     private LocalDate lastVisitDate;
     private LocalDate visitNotDoneDate;
@@ -26,7 +27,7 @@ public class AncVisitAlertRule implements ICommonRule {
     private Context context;
     private LocalDate lmpDate;
 
-    public AncVisitAlertRule(Context context, String lmpDate, String visitDate, String visitNotDoneDate) {
+    public AncVisitAlertRule(Context context, String lmpDate, String visitDate, String visitNotDoneDate, long dateCreatedLong) {
         this.context = context;
 
         DateTimeFormatter formatter = DateTimeFormat.forPattern("dd-MM-yyyy");
@@ -35,13 +36,16 @@ public class AncVisitAlertRule implements ICommonRule {
         this.todayDate = new LocalDate();
         if (StringUtils.isNotBlank(visitDate)) {
             this.lastVisitDate = formatter.parseDateTime(visitDate).toLocalDate();
-        } else {
-            this.lastVisitDate = formatter.parseDateTime(lmpDate).toLocalDate();
         }
-        noOfDayDue = dayDifference(this.lastVisitDate, todayDate) + " days";
+
+        noOfDayDue = ((lastVisitDate == null) ? dayDifference(this.lmpDate, todayDate) : dayDifference(lastVisitDate, todayDate)) + " days";
 
         if (StringUtils.isNotBlank(visitNotDoneDate)) {
             this.visitNotDoneDate = formatter.parseDateTime(visitNotDoneDate).toLocalDate();
+        }
+
+        if (dateCreatedLong > 0) {
+            this.dateCreated = new LocalDate(dateCreatedLong);
         }
     }
 
@@ -53,13 +57,14 @@ public class AncVisitAlertRule implements ICommonRule {
         return (visitNotDoneDate != null && getMonthsDifference(visitNotDoneDate, todayDate) < 1);
     }
 
-    // if lmp is greater than 1 year
+    // never expire
     public boolean isExpiry() {
-        return (lmpDate != null) && Months.monthsBetween(lmpDate, todayDate).getMonths() > 11;
+        //return (lmpDate != null) && Months.monthsBetween(lmpDate, todayDate).getMonths() > 11;
+        return false;
     }
 
     public boolean isOverdueWithinMonth(Integer value) {
-        int diff = getMonthsDifference((lastVisitDate != null ? lastVisitDate : lmpDate), todayDate);
+        int diff = getMonthsDifference((lastVisitDate != null ? lastVisitDate : dateCreated), todayDate);
         if (diff >= value) {
             noOfMonthDue = diff + "M";
             return true;
@@ -72,7 +77,7 @@ public class AncVisitAlertRule implements ICommonRule {
             return true;
         }
         if (lastVisitDate == null) {
-            return !isVisitThisMonth(lmpDate, todayDate);
+            return !isVisitThisMonth(dateCreated, todayDate);
         }
 
         return !isVisitThisMonth(lastVisitDate, todayDate);
