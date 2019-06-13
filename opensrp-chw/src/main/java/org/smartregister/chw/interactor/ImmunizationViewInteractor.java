@@ -77,14 +77,14 @@ public class ImmunizationViewInteractor implements ImmunizationContact.Interacto
                     public void onNext(VaccineTaskModel vaccineTaskModel) {
                         ArrayList<HomeVisitVaccineGroup> homeVisitVaccineGroupsList = model.determineAllHomeVisitVaccineGroup(commonPersonObjectClient, vaccineTaskModel.getAlerts(), vaccineTaskModel.getVaccines(), vaccineTaskModel.getNotGivenVaccine(), vaccineTaskModel.getScheduleList());
                         //if all due vaccine is same as given vaccine so remove the row
-                        for (Iterator<HomeVisitVaccineGroup> iterator = homeVisitVaccineGroupsList.iterator(); iterator.hasNext(); ) {
-                            HomeVisitVaccineGroup homeVisitVaccineGroup = iterator.next();
-                            if (homeVisitVaccineGroup.getDueVaccines().size() != 0 && (
-                                    homeVisitVaccineGroup.getDueVaccines().size() == homeVisitVaccineGroup.getGivenVaccines().size())) {
-                                iterator.remove();
-                            }
-
-                        }
+//                        for (Iterator<HomeVisitVaccineGroup> iterator = homeVisitVaccineGroupsList.iterator(); iterator.hasNext(); ) {
+//                            HomeVisitVaccineGroup homeVisitVaccineGroup = iterator.next();
+//                            if (homeVisitVaccineGroup.getDueVaccines().size() != 0 && (
+//                                    homeVisitVaccineGroup.getDueVaccines().size() == homeVisitVaccineGroup.getGivenVaccines().size())) {
+//                                iterator.remove();
+//                            }
+//
+//                        }
 
 
                         callBack.updateData(homeVisitVaccineGroupsList, vaccineTaskModel.getReceivedVaccines());
@@ -119,7 +119,8 @@ public class ImmunizationViewInteractor implements ImmunizationContact.Interacto
                         for (Iterator<HomeVisitVaccineGroup> iterator = homeVisitVaccineGroupsList.iterator(); iterator.hasNext(); ) {
                             HomeVisitVaccineGroup homeVisitVaccineGroup = iterator.next();
                             if (homeVisitVaccineGroup.getDueVaccines().size() == 0) {
-                                iterator.remove();
+                                //iterator.remove();
+                                homeVisitVaccineGroup.setViewType(HomeVisitVaccineGroup.TYPE_HIDDEN);
                             }
 
                         }
