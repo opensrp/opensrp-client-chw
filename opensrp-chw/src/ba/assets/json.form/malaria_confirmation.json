@@ -188,6 +188,21 @@
       },
 
       {
+        "key": "malaria",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "163725AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "malaria_confirmation_calculation.yml"
+            }
+          }
+        }
+      },
+
+      {
         "key": "malaria_treat",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",

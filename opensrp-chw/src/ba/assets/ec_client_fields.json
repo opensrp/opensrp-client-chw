@@ -739,6 +739,14 @@
           }
         },
         {
+          "column_name": "malaria",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "163725AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        {
           "column_name": "malaria_treat",
           "type": "Event",
           "json_mapping": {

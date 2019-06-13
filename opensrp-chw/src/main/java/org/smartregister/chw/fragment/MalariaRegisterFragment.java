@@ -9,9 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import org.smartregister.chw.R;
-import org.smartregister.chw.contract.RegisterFragmentContract;
 import org.smartregister.chw.custom_view.NavigationMenu;
 import org.smartregister.chw.malaria.fragment.BaseMalariaRegisterFragment;
 import org.smartregister.chw.model.MalariaRegisterFragmentModel;
@@ -24,7 +22,6 @@ import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.view.activity.BaseRegisterActivity;
 import org.smartregister.view.customcontrols.CustomFontTextView;
-
 import java.util.HashMap;
 import java.util.List;
 
@@ -121,11 +118,6 @@ public class MalariaRegisterFragment extends BaseMalariaRegisterFragment {
         super.filter(filterString, joinTableString, mainConditionString, qrCode);
     }
 
-    private void dueFilter(String mainConditionString) {
-        this.joinTables = null;
-        super.filter(searchText(), "", mainConditionString, false);
-    }
-
     private void toggleFilterSelection(View dueOnlyLayout) {
         if (dueOnlyLayout != null) {
             if (dueOnlyLayout.getTag() == null) {
@@ -138,10 +130,8 @@ public class MalariaRegisterFragment extends BaseMalariaRegisterFragment {
         }
     }
 
-    //TODO: ADD FILTER CONDITION ON THE MALARIA PRESENTER
     private void dueFilter(View dueOnlyLayout) {
-        //dueFilter(presenter().getDueFilterCondition());
-        //dueFilter(presenter().getDueFilterCondition());
+        filter(searchText(),"",presenter().getDueFilterCondition(),false);
         dueOnlyLayout.setTag(DUE_FILTER_TAG);
         switchViews(dueOnlyLayout, true);
     }
