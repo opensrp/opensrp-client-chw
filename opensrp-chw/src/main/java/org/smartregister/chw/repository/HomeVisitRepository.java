@@ -125,9 +125,6 @@ public class HomeVisitRepository extends BaseRepository {
             if (StringUtils.isBlank(homeVisit.getSyncStatus())) {
                 homeVisit.setSyncStatus(TYPE_Unsynced);
             }
-//            if (StringUtils.isBlank(homeVisit.getFormSubmissionId())) {
-//                homeVisit.setFormSubmissionId(generateRandomUUIDString());
-//            }
 
             if (homeVisit.getUpdatedAt() == null) {
                 homeVisit.setUpdatedAt(Calendar.getInstance().getTimeInMillis());
