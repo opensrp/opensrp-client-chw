@@ -284,7 +284,7 @@
     <string name="anc_home_visit_nutrition_status">Nutrition status</string>
     <string name="anc_home_visit_counselling_task">Counselling</string>
     <string name="anc_home_visit_malaria_prevention">Malaria prevention</string>
-    <string name="anc_home_visit_observations_n_illnes">Observations and illness</string>
+    <string name="anc_home_visit_observations_n_illnes">Observations &amp; illness</string>
     <string name="anc_home_visit_remarks_and_comments">Remarks / Comments</string>
 
     <string name="anc_home_visit_anc_card_received">ANC card received</string>
