@@ -127,6 +127,7 @@ public class Constants {
         public static final String ANC_HOME_VISIT = "anc-home-visit-rules.yml";
         public static final String BIRTH_CERT = "birth-cert-rules.yml";
         public static final String SERVICE = "service-rules.yml";
+        public static final String IMMUNIZATION_EXPIRED = "immunization-expire-rules.yml";
     }
 
     public static class PROFILE_CHANGE_ACTION {
