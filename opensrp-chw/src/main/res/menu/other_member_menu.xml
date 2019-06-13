@@ -13,6 +13,11 @@
         android:enabled="true"
         android:title="@string/anc_registration"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/action_malaria_registration"
+        android:enabled="true"
+        android:title="@string/malaria_registration"
+        app:showAsAction="never" />
 
     <item
         android:id="@+id/action_remove_member"

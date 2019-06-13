@@ -29,7 +29,7 @@ public class FamilyOtherMemberProfileActivityFlv implements FamilyOtherMemberPro
 
     @Override
     public boolean isWra(CommonPersonObjectClient commonPersonObject) {
-        if(commonPersonObject == null){
+        if (commonPersonObject == null) {
             return false;
         }
 
@@ -42,6 +42,11 @@ public class FamilyOtherMemberProfileActivityFlv implements FamilyOtherMemberPro
             return age >= 10 && age <= 49;
         }
 
+        return false;
+    }
+
+    @Override
+    public boolean showMalariaConfirmationMenu() {
         return false;
     }
 
