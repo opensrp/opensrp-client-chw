@@ -223,17 +223,13 @@ public class ImmunizationView extends LinearLayout implements ImmunizationContac
                 boolean isEmpty = false;
                 for(int i = 0; i<presenter.getHomeVisitVaccineGroupDetails().size();i++){
                     HomeVisitVaccineGroup dfd = presenter.getHomeVisitVaccineGroupDetails().get(i);
-                    if(dfd.getGroup().equalsIgnoreCase(W_10)){
-                        if(dfd.getDueVaccines().size() == 0){
+                    if(dfd.getGroup().equalsIgnoreCase(W_10) && (dfd.getDueVaccines().size() == 0)){
                             isEmpty =true;
-                        }
                     }
-                    if(dfd.getGroup().equalsIgnoreCase(W_14)){
-                        if(isEmpty){
+                    if(dfd.getGroup().equalsIgnoreCase(W_14) && isEmpty){
                             presenter.getHomeVisitVaccineGroupDetails().get(i).getDueVaccines().clear();
                             presenter.getHomeVisitVaccineGroupDetails().get(i).setViewType(HomeVisitVaccineGroup.TYPE_INITIAL);
                             break;
-                        }
                     }
                 }
 
