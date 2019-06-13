@@ -98,6 +98,7 @@ public class MalariaRegisterFragment extends BaseMalariaRegisterFragment {
         switch (view.getId()) {
             case R.id.due_only_layout:
                 toggleFilterSelection(view);
+                break;
             default:
                 break;
         }
