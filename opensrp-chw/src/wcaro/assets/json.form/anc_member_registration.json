@@ -56,6 +56,8 @@
         "openmrs_entity_id": "1427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "date_picker",
         "hint": "Last Menstrual Period (LMP)",
+        "label_info_title": "LMP",
+        "label_info_text": "LMP = first day of Last Menstrual Period. If the exact date is unknown, but the period of the month is known, use day 5 for beginning of the month, day 15 for middle of the month and day 25 for end of the month.",
         "expanded": false,
         "duration": {
           "label": "lmp"
@@ -64,6 +66,22 @@
         "v_required": {
           "value": "true",
           "err": "LMP required"
+        }
+      },
+      {
+        "key": "gest_age_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "Gestational Age (GA)",
+        "read_only": true,
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_member_registration_calculation.yml"
+            }
+          }
         }
       },
       {
@@ -85,7 +103,9 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "5596AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "hidden",
+        "type": "edit_text",
+        "hint": "Expected Date of Delivery (EDD)",
+        "read_only": true,
         "calculation": {
           "rules-engine": {
             "ex-rules": {
@@ -97,8 +117,8 @@
       {
         "key": "no_prev_preg",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "no_prev_preg",
         "type": "edit_text",
         "edit_type": "number",
         "hint": "No. of previous pregnancies",
@@ -147,7 +167,7 @@
         },
         "v_min": {
           "value": "0",
-          "err": "Age must be equal or greater than 0"
+          "err": "Number must be equal or greater than 0"
         }
       },
       {
@@ -168,13 +188,6 @@
         "v_required": {
           "value": false,
           "err": "Please specify the phone number"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "family_member_relevance.yml"
-            }
-          }
         }
       },
       {
@@ -185,6 +198,10 @@
         "openmrs_data_type": "select one",
         "type": "spinner",
         "hint": "Marital status",
+        "v_required": {
+          "value": "true",
+          "err": "Please select one option"
+        },
         "values": [
           "Married",
           "Co-habiting",
@@ -193,11 +210,7 @@
         "openmrs_choice_ids": {
           "Married": "5555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "Co-habiting": "1060AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Single": "5615AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "v_required": {
-            "value": "true",
-            "err": "Please select one option"
-          }
+          "Single": "5615AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         }
       }
     ]
