@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import org.joda.time.DateTime;
 import org.joda.time.Months;
 import org.joda.time.Weeks;
+import org.smartregister.chw.util.ChildUtils;
 import org.smartregister.chw.util.HomeVisitVaccineGroup;
 import org.smartregister.chw.util.ImmunizationState;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
@@ -47,6 +48,11 @@ public class ImmunizationModel {
         LinkedHashMap<String, Integer> vaccineGroupMap = new LinkedHashMap<>();
         for (VaccineRepo.Vaccine vaccine : vList) {
             if (vaccine.category().equalsIgnoreCase("child")) {
+                String dobString = org.smartregister.util.Utils.getValue(client.getColumnmaps(), DBConstants.KEY.DOB, false);
+
+                if(ChildUtils.getImmunizationExpired(dobString,vaccine.display()).equalsIgnoreCase("true")){
+                    continue;
+                }
 
                 String stateKey = VaccinateActionUtils.stateKey(vaccine);
                 if (stateKey.equalsIgnoreCase("18 months")) continue;
@@ -201,7 +207,7 @@ public class ImmunizationModel {
             if (weeks >= 10) {
                 elligibleVaccineGroups.add("10 weeks");
             }
-            if (weeks >= 6) {
+            if (weeks >= 14) {
                 elligibleVaccineGroups.add("14 weeks");
             }
             if (months >= 9) {

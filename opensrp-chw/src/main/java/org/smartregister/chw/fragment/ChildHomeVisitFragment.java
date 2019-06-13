@@ -3,9 +3,11 @@ package org.smartregister.chw.fragment;
 import android.app.Activity;
 import android.app.DialogFragment;
 import android.app.FragmentTransaction;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -68,6 +70,14 @@ import static org.smartregister.util.Utils.getValue;
 
 public class ChildHomeVisitFragment extends DialogFragment implements View.OnClickListener, ChildHomeVisitContract.View {
 
+
+    private static IntentFilter sIntentFilter;
+    static {
+        sIntentFilter = new IntentFilter();
+        sIntentFilter.addAction(Intent.ACTION_DATE_CHANGED);
+        sIntentFilter.addAction(Intent.ACTION_TIMEZONE_CHANGED);
+        sIntentFilter.addAction(Intent.ACTION_TIME_CHANGED);
+    }
 
     private static final String TAG = "ChildHomeVisitFragment";
     public static String DIALOG_TAG = "child_home_visit_dialog";
@@ -154,6 +164,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
             immunizationView.setChildClient(this, getActivity(), childClient, false);
             submitButtonEnableDisable(false);
         }
+        getActivity().registerReceiver(mDateTimeChangedReceiver, sIntentFilter);
     }
 
     private void assignNameHeader() {
@@ -204,10 +215,13 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         String vaccineCard = getValue(childClient.getColumnmaps(), VACCINE_CARD, true);
 
         BirthCertRule birthCertRule = new BirthCertRule(dob);
-        if(birthCertRule.isExpire(24) || !TextUtils.isEmpty(vaccineCard) ){
+        if(birthCertRule.isExpire(24) ||
+                (!TextUtils.isEmpty(vaccineCard) &&  vaccineCard.equalsIgnoreCase(getString(R.string.yes)))){
             layoutVaccineCard.setVisibility(View.GONE);
             viewVaccineCardLine.setVisibility(View.GONE);
         }else{
+            layoutVaccineCard.setVisibility(View.VISIBLE);
+            viewVaccineCardLine.setVisibility(View.VISIBLE);
             textViewVaccineCardText.setVisibility(View.VISIBLE);
             if (birthCertRule.isOverdue(12)) {
                 Date date = org.smartregister.family.util.Utils.dobStringToDate(dob);
@@ -297,7 +311,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                                             !TextUtils.isEmpty(textViewVaccineCardText.getText().toString())){
                                         ChildUtils.updateVaccineCardAsEvent(context,childClient.getCaseId(),textViewVaccineCardText.getText().toString());
                                     }
-                                    dismiss();
+                                    closeScreen();
                                 }
                             })
                             .subscribe();
@@ -312,6 +326,14 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
             default:
                 break;
         }
+    }
+    private void closeScreen(){
+        dismiss();
+        if (context instanceof ChildProfileActivity) {
+            ChildProfileActivity activity = (ChildProfileActivity) context;
+            activity.updateImmunizationData();
+        }
+
     }
 
     private Observable saveCommonData() {
@@ -422,7 +444,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                     @Override
                     public void run() throws Exception {
                         progressBar.setVisibility(View.GONE);
-                        dismiss();
+                        closeScreen();
                     }
                 })
                 .subscribe();
@@ -650,6 +672,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
             ChildProfileActivity activity = (ChildProfileActivity) context;
             activity.updateImmunizationData();
         }
+        getActivity().unregisterReceiver(mDateTimeChangedReceiver);
         super.onDestroy();
     }
 
@@ -666,5 +689,17 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
 
     }
 
-    public enum BIRTH_CERT_TYPE {GIVEN, NOT_GIVEN}
+    private final BroadcastReceiver mDateTimeChangedReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            final String action = intent.getAction();
+
+            assert action != null;
+            if (action.equals(Intent.ACTION_TIME_CHANGED) ||
+                    action.equals(Intent.ACTION_TIMEZONE_CHANGED)) {
+                assignNameHeader();
+
+            }
+        }
+    };
 }
