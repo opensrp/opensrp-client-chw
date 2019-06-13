@@ -206,6 +206,7 @@
     <string name="remove_this_person">Remove this person</string>
     <string name="registration_info">Registration info</string>
     <string name="anc_registration">ANC Registration</string>
+    <string name="malaria_registration">Malaria Confirmation</string>
     <string name="anc_registration_info">ANC Registration info</string>
     <string name="anc_pregnancy_out_come">Pregnancy outcome</string>
     <string name="log_out_as">Log out as</string>
@@ -225,6 +226,7 @@
     <string name="children_0_5_months_exclusively_breastfeeding">Children (0&#8211;5 months) exclusively breastfeeding</string>
     <string name="children_6_23_months_upto_date_mnp">Children (6&#8211;23 months) up to date on MNP supplementation</string>
     <string name="children_6_23_months_overdue_mnp">Children (6&#8211;23 months) overdue on MNP supplementation</string>
+
     <string name="children_0_24_months_upto_date_vaccinations">Children (0&#8211;23 months) up to date on immunizations</string>
     <string name="children_0_24_months_overdue_vaccinations">Children (6&#8211;23 months) who are currently overdue for at least one or more vaccinations</string>
     <string name="opv_0_not_included">OPV 0 not included</string>
