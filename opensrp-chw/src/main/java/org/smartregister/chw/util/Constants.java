@@ -38,6 +38,7 @@ public class Constants {
         public static final String ANC_REGISTRATION = "ANC Registration";
         public static final String ANC_HOME_VISIT = "ANC Home Visit";
         public static final String UPDATE_ANC_REGISTRATION = "Update ANC Registration";
+        public static final String PREGNANCY_OUTCOME = "Pregnancy Outcome";
     }
 
     public static class JSON_FORM {
@@ -55,6 +56,7 @@ public class Constants {
         public static final String HOME_VISIT_COUNSELLING = "routine_home_visit";
 
         public static final String ANC_REGISTRATION = "anc_member_registration";
+        public static final String PREGNANCY_OUTCOME = "anc_pregnancy_outcome";
         public static final String MALARIA_CONFIRMATION = "malaria_confirmation";
 
         public static class ANC_HOME_VISIT {
