@@ -42,7 +42,6 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
 
         Context context = view.getContext();
 
-
         // get contact
         LocalDate lastContact = new DateTime(memberObject.getDateCreated()).toLocalDate();
         boolean isFirst = (StringUtils.isNotBlank(memberObject.getLastContactVisit()));
@@ -51,9 +50,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         if (StringUtils.isNotBlank(memberObject.getLastContactVisit()))
             lastContact = DateTimeFormat.forPattern("dd-MM-yyyy").parseLocalDate(memberObject.getLastContactVisit());
 
-
         Map<Integer, LocalDate> dateMap = ContactUtil.getContactWeeks(isFirst, lastContact, lastMenstrualPeriod);
-
 
         evaluateDangerSigns(actionList, context);
         evaluateANCCounseling(actionList, memberObject, dateMap, context);

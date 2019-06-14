@@ -38,8 +38,18 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
 
         Context context = view.getContext();
 
+        // get contact
+        LocalDate lastContact = new DateTime(memberObject.getDateCreated()).toLocalDate();
+        boolean isFirst = (StringUtils.isNotBlank(memberObject.getLastContactVisit()));
+        LocalDate lastMenstrualPeriod = DateTimeFormat.forPattern("dd-MM-yyyy").parseLocalDate(memberObject.getLastMenstrualPeriod());
+
+        if (StringUtils.isNotBlank(memberObject.getLastContactVisit()))
+            lastContact = DateTimeFormat.forPattern("dd-MM-yyyy").parseLocalDate(memberObject.getLastContactVisit());
+
+        Map<Integer, LocalDate> dateMap = ContactUtil.getContactWeeks(isFirst, lastContact, lastMenstrualPeriod);
+
         evaluateDangerSigns(actionList, context);
-        evaluateHealthFacilityVisit(actionList, memberObject, context);
+        evaluateHealthFacilityVisit(actionList, memberObject, dateMap, context);
         evaluateFamilyPlanning(actionList, context);
 
         actionList.put(context.getString(R.string.anc_home_visit_nutrition_status), new BaseAncHomeVisitAction(context.getString(R.string.anc_home_visit_nutrition_status), "", false, null,
@@ -55,6 +65,13 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                 ANC_HOME_VISIT.REMARKS_AND_COMMENTS));
 
         return actionList;
+    }
+
+    private JSONObject getJson(BaseAncHomeVisitAction ba, MemberObject memberObject) throws Exception {
+        String locationId = ChwApplication.getInstance().getContext().allSharedPreferences().getPreference(AllConstants.CURRENT_LOCATION_ID);
+        JSONObject jsonObject = JsonFormUtils.getFormAsJson(ba.getFormName());
+        JsonFormUtils.getRegistrationForm(jsonObject, memberObject.getBaseEntityId(), locationId);
+        return jsonObject;
     }
 
     private void evaluateDangerSigns(LinkedHashMap<String, BaseAncHomeVisitAction> actionList, Context context) throws BaseAncHomeVisitAction.ValidationException {
@@ -87,7 +104,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         actionList.put(context.getString(R.string.anc_home_visit_danger_signs), ba);
     }
 
-    private void evaluateHealthFacilityVisit(LinkedHashMap<String, BaseAncHomeVisitAction> actionList, final MemberObject memberObject, Context context) throws BaseAncHomeVisitAction.ValidationException {
+    private void evaluateHealthFacilityVisit(LinkedHashMap<String, BaseAncHomeVisitAction> actionList, final MemberObject memberObject, Map<Integer, LocalDate> dateMap, Context context) throws BaseAncHomeVisitAction.ValidationException {
 
         String visit = MessageFormat.format(context.getString(R.string.anc_home_visit_facility_visit), memberObject.getConfirmedContacts() + 1);
         final BaseAncHomeVisitAction ba = new BaseAncHomeVisitAction(visit, "", false, null, ANC_HOME_VISIT.HEALTH_FACILITY_VISIT);
@@ -96,37 +113,8 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         try {
             if (StringUtils.isBlank(ba.getJsonPayload())) {
 
-                String locationId = ChwApplication.getInstance().getContext().allSharedPreferences().getPreference(AllConstants.CURRENT_LOCATION_ID);
-                JSONObject jsonObject = JsonFormUtils.getFormAsJson(ANC_HOME_VISIT.HEALTH_FACILITY_VISIT);
-                JsonFormUtils.getRegistrationForm(jsonObject, memberObject.getBaseEntityId(), locationId);
-
-                // inject the values in the data
-                LocalDate lastContact = new DateTime(memberObject.getDateCreated()).toLocalDate();
-                boolean isFirst = true;
-                LocalDate lastMenstrualPeriod = null;
-
-                if (StringUtils.isNotBlank(memberObject.getLastContactVisit())) {
-                    try {
-                        lastContact = DateTimeFormat.forPattern("dd-MM-yyyy").parseLocalDate(memberObject.getLastContactVisit());
-                        isFirst = false;
-                    } catch (Exception e) {
-                        Timber.e(e);
-                    }
-                }
-
-                if (StringUtils.isNotBlank(memberObject.getLastMenstrualPeriod())) {
-                    try {
-                        lastMenstrualPeriod = DateTimeFormat.forPattern("dd-MM-yyyy").parseLocalDate(memberObject.getLastMenstrualPeriod());
-                    } catch (Exception e) {
-                        Timber.e(e);
-                    }
-                }
-
-                Map<Integer, LocalDate> dateMap = ContactUtil.getContactWeeks(
-                        isFirst,
-                        lastContact,
-                        lastMenstrualPeriod
-                );
+                JSONObject jsonObject = getJson(ba, memberObject);
+                JSONArray fields = fields(jsonObject);
 
                 JSONArray field = fields(jsonObject);
 
