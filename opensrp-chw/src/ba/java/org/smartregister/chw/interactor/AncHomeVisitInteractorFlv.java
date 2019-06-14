@@ -116,8 +116,6 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                 JSONObject jsonObject = getJson(ba, memberObject);
                 JSONArray fields = fields(jsonObject);
 
-                JSONArray field = fields(jsonObject);
-
                 if (dateMap.size() > 0) {
                     Map.Entry<Integer, LocalDate> entry = dateMap.entrySet().iterator().next();
                     LocalDate visitDate = entry.getValue();
@@ -133,12 +131,12 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                         ba.setScheduleStatus(BaseAncHomeVisitAction.ScheduleStatus.DUE);
                     }
 
-                    JSONObject visit_field = getFieldJSONObject(field, "anc_hf_visit");
+                    JSONObject visit_field = getFieldJSONObject(fields, "anc_hf_visit");
                     visit_field.put("label_info_title", MessageFormat.format(visit_field.getString("label_info_title"), memberObject.getConfirmedContacts() + 1));
                     visit_field.put("hint", MessageFormat.format(visit_field.getString("hint"), memberObject.getConfirmedContacts() + 1, visitDate));
 
                     // current visit count
-                    JSONObject confirmed_visits = getFieldJSONObject(field, "confirmed_visits");
+                    JSONObject confirmed_visits = getFieldJSONObject(fields, "confirmed_visits");
                     confirmed_visits.put(JsonFormConstants.VALUE, memberObject.getConfirmedContacts());
                 }
 
