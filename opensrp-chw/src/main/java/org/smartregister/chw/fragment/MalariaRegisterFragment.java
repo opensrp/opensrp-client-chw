@@ -14,13 +14,10 @@ import org.smartregister.view.customcontrols.CustomFontTextView;
 
 public class MalariaRegisterFragment extends BaseMalariaRegisterFragment {
 
-    private View view;
-    private View dueOnlyLayout;
-
     @Override
     public void setupViews(View view) {
         super.setupViews(view);
-        this.view = view;
+//        this.view = view;
 
         Toolbar toolbar = view.findViewById(org.smartregister.R.id.register_toolbar);
         toolbar.setContentInsetsAbsolute(0, 0);
@@ -55,7 +52,8 @@ public class MalariaRegisterFragment extends BaseMalariaRegisterFragment {
         View filterSortLayout = view.findViewById(R.id.filter_sort_layout);
         filterSortLayout.setVisibility(View.GONE);
 
-        dueOnlyLayout = view.findViewById(R.id.due_only_layout);
+        //    private View view;
+        View dueOnlyLayout = view.findViewById(R.id.due_only_layout);
         dueOnlyLayout.setVisibility(View.VISIBLE);
         dueOnlyLayout.setOnClickListener(registerActionHandler);
 
