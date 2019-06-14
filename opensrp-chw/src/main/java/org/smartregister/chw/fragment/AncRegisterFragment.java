@@ -151,8 +151,7 @@ public class AncRegisterFragment extends BaseAncRegisterFragment {
 
     @Override
     protected void openHomeVisit(CommonPersonObjectClient client) {
-        String baseEntityId = org.smartregister.util.Utils.getValue(client.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, true);
-        AncHomeVisitActivity.startMe(getActivity(), baseEntityId);
+        AncHomeVisitActivity.startMe(getActivity(), new MemberObject(client));
     }
 
     @Override

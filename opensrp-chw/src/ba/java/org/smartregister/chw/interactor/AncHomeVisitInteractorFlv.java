@@ -5,6 +5,7 @@ import android.content.Context;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.contract.BaseAncHomeVisitContract;
+import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
 import org.smartregister.chw.util.Constants.JSON_FORM.ANC_HOME_VISIT;
 
@@ -17,7 +18,7 @@ import static org.smartregister.chw.util.JsonFormUtils.getValue;
 
 public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor {
     @Override
-    public LinkedHashMap<String, BaseAncHomeVisitAction> calculateActions(BaseAncHomeVisitContract.View view, String memberID, BaseAncHomeVisitContract.InteractorCallBack callBack) throws BaseAncHomeVisitAction.ValidationException {
+    public LinkedHashMap<String, BaseAncHomeVisitAction> calculateActions(BaseAncHomeVisitContract.View view, MemberObject memberObject, BaseAncHomeVisitContract.InteractorCallBack callBack) throws BaseAncHomeVisitAction.ValidationException {
         LinkedHashMap<String, BaseAncHomeVisitAction> actionList = new LinkedHashMap<>();
 
         Context context = view.getContext();
