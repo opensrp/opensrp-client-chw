@@ -88,6 +88,7 @@ public class Constants {
         public static final String CHILD = "ec_child";
         public static final String CHILD_ACTIVITY = "ec_child_activity";
         public static final String ANC_MEMBER = "ec_anc_register";
+        public static final String ANC_MEMBER_LOG = "ec_anc_log";
         public static final String MALARIA_CONFIRMATION = "ec_malaria_confirmation";
     }
 
@@ -128,6 +129,7 @@ public class Constants {
         public static final String BIRTH_CERT = "birth-cert-rules.yml";
         public static final String SERVICE = "service-rules.yml";
         public static final String IMMUNIZATION_EXPIRED = "immunization-expire-rules.yml";
+        public static final String CONTACT_RULES = "contact-rules.yml";
     }
 
     public static class PROFILE_CHANGE_ACTION {

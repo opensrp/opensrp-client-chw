@@ -27,7 +27,7 @@ public class AncVisitAlertRule implements ICommonRule {
     private Context context;
     private LocalDate lmpDate;
 
-    public AncVisitAlertRule(Context context, String lmpDate, String visitDate, String visitNotDoneDate, long dateCreatedLong) {
+    public AncVisitAlertRule(Context context, String lmpDate, String visitDate, String visitNotDoneDate, LocalDate dateCreated) {
         this.context = context;
 
         DateTimeFormatter formatter = DateTimeFormat.forPattern("dd-MM-yyyy");
@@ -44,9 +44,7 @@ public class AncVisitAlertRule implements ICommonRule {
             this.visitNotDoneDate = formatter.parseDateTime(visitNotDoneDate).toLocalDate();
         }
 
-        if (dateCreatedLong > 0) {
-            this.dateCreated = new LocalDate(dateCreatedLong);
-        }
+        this.dateCreated = dateCreated;
     }
 
     public String getButtonStatus() {

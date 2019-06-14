@@ -693,6 +693,41 @@
             "field": "obs.fieldCode",
             "concept": "anc_visit_not_done_date"
           }
+        },
+        {
+          "column_name": "confirmed_visits",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "confirmed_visits"
+          }
+        },
+        {
+          "column_name": "last_contact_visit",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "159590AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        }
+      ]
+    },
+    {
+      "name": "ec_anc_log",
+      "columns": [
+        {
+          "column_name": "base_entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "baseEntityId"
+          }
+        },
+        {
+          "column_name": "date_created",
+          "type": "Event",
+          "json_mapping": {
+            "field": "eventDate"
+          }
         }
       ]
     },
