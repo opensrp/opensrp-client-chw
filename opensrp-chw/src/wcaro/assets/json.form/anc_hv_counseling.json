@@ -78,7 +78,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Upcoming visit dates:\n\nVisit 5 · [due date]\nVisit 6 · [due date]\nVisit 7 · [due date].",
+        "text": "Upcoming visit dates:\n\n{0}.",
         "text_color": "#1199F9",
         "toaster_type": "info"
       },

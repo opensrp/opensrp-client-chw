@@ -42,11 +42,24 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
 
         Context context = view.getContext();
 
+
+        // get contact
+        LocalDate lastContact = new DateTime(memberObject.getDateCreated()).toLocalDate();
+        boolean isFirst = (StringUtils.isNotBlank(memberObject.getLastContactVisit()));
+        LocalDate lastMenstrualPeriod = DateTimeFormat.forPattern("dd-MM-yyyy").parseLocalDate(memberObject.getLastMenstrualPeriod());
+
+        if (StringUtils.isNotBlank(memberObject.getLastContactVisit()))
+            lastContact = DateTimeFormat.forPattern("dd-MM-yyyy").parseLocalDate(memberObject.getLastContactVisit());
+
+
+        Map<Integer, LocalDate> dateMap = ContactUtil.getContactWeeks(isFirst, lastContact, lastMenstrualPeriod);
+
+
         evaluateDangerSigns(actionList, context);
-        evaluateANCCounseling(actionList, context);
+        evaluateANCCounseling(actionList, memberObject, dateMap, context);
         evaluateSleepingUnderLLITN(view, actionList, context);
         evaluateANCCard(view, actionList, context);
-        evaluateHealthFacilityVisit(actionList, memberObject, context);
+        evaluateHealthFacilityVisit(actionList, memberObject, dateMap, context);
         evaluateImmunization(view, actionList, context);
         evaluateIPTP(view, actionList, context);
 
@@ -54,6 +67,13 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                 ANC_HOME_VISIT.OBSERVATION_AND_ILLNESS));
 
         return actionList;
+    }
+
+    private JSONObject getJson(BaseAncHomeVisitAction ba, MemberObject memberObject) throws Exception {
+        String locationId = ChwApplication.getInstance().getContext().allSharedPreferences().getPreference(AllConstants.CURRENT_LOCATION_ID);
+        JSONObject jsonObject = JsonFormUtils.getFormAsJson(ba.getFormName());
+        JsonFormUtils.getRegistrationForm(jsonObject, memberObject.getBaseEntityId(), locationId);
+        return jsonObject;
     }
 
     private void evaluateDangerSigns(LinkedHashMap<String, BaseAncHomeVisitAction> actionList, Context context) throws BaseAncHomeVisitAction.ValidationException {
@@ -86,9 +106,36 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         actionList.put(context.getString(R.string.anc_home_visit_danger_signs), ba);
     }
 
-    private void evaluateANCCounseling(LinkedHashMap<String, BaseAncHomeVisitAction> actionList, Context context) throws BaseAncHomeVisitAction.ValidationException {
+    private void evaluateANCCounseling(LinkedHashMap<String, BaseAncHomeVisitAction> actionList, MemberObject memberObject, Map<Integer, LocalDate> dateMap, Context context) throws BaseAncHomeVisitAction.ValidationException {
         final BaseAncHomeVisitAction ba = new BaseAncHomeVisitAction(context.getString(R.string.anc_home_visit_counseling), "", false, null,
                 ANC_HOME_VISIT.ANC_COUNSELING);
+        // open the form and inject the values
+        try {
+            if (StringUtils.isBlank(ba.getJsonPayload())) {
+
+                JSONObject jsonObject = getJson(ba, memberObject);
+                JSONArray fields = fields(jsonObject);
+
+                int x = 1;
+                StringBuilder builder = new StringBuilder();
+                for (Map.Entry<Integer, LocalDate> entry : dateMap.entrySet()) {
+                    builder.append(MessageFormat.format("{0} {1} · {2} \n",
+                            context.getString(R.string.counseling_visit),
+                            memberObject.getConfirmedContacts() + x,
+                            entry.getValue())
+                    );
+                    x++;
+                }
+
+                JSONObject visit_field = getFieldJSONObject(fields, "anc_counseling_toaster");
+                visit_field.put("text", MessageFormat.format(visit_field.getString("text"), builder.toString()));
+
+                ba.setJsonPayload(jsonObject.toString());
+                ba.setActionStatus(BaseAncHomeVisitAction.Status.PENDING);
+            }
+        } catch (Exception e) {
+            Timber.e(e);
+        }
 
         ba.setAncHomeVisitActionHelper(new BaseAncHomeVisitAction.AncHomeVisitActionHelper() {
             @Override
@@ -103,8 +150,10 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
 
                         if (value1.equalsIgnoreCase("Yes") && value2.equalsIgnoreCase("Yes") && value3.equalsIgnoreCase("Yes")) {
                             return BaseAncHomeVisitAction.Status.COMPLETED;
-                        } else {
+                        } else if (StringUtils.isNotBlank(value1) & StringUtils.isNotBlank(value2) & StringUtils.isNotBlank(value3)) {
                             return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
+                        } else {
+                            return BaseAncHomeVisitAction.Status.PENDING;
                         }
                     } catch (Exception e) {
                         Timber.e(e);
@@ -178,7 +227,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         actionList.put(context.getString(R.string.anc_home_visit_anc_card_received), ba);
     }
 
-    private void evaluateHealthFacilityVisit(LinkedHashMap<String, BaseAncHomeVisitAction> actionList, final MemberObject memberObject, Context context) throws BaseAncHomeVisitAction.ValidationException {
+    private void evaluateHealthFacilityVisit(LinkedHashMap<String, BaseAncHomeVisitAction> actionList, final MemberObject memberObject, Map<Integer, LocalDate> dateMap, Context context) throws BaseAncHomeVisitAction.ValidationException {
 
         String visit = MessageFormat.format(context.getString(R.string.anc_home_visit_facility_visit), memberObject.getConfirmedContacts() + 1);
         final BaseAncHomeVisitAction ba = new BaseAncHomeVisitAction(visit, "", false, null, ANC_HOME_VISIT.HEALTH_FACILITY_VISIT);
@@ -187,31 +236,8 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         try {
             if (StringUtils.isBlank(ba.getJsonPayload())) {
 
-                String locationId = ChwApplication.getInstance().getContext().allSharedPreferences().getPreference(AllConstants.CURRENT_LOCATION_ID);
-                JSONObject jsonObject = JsonFormUtils.getFormAsJson(ANC_HOME_VISIT.HEALTH_FACILITY_VISIT);
-                JsonFormUtils.getRegistrationForm(jsonObject, memberObject.getBaseEntityId(), locationId);
-
-                // inject the values in the data
-                LocalDate lastContact = new DateTime(memberObject.getDateCreated()).toLocalDate();
-                boolean isFirst = true;
-                LocalDate lastMenstrualPeriod = null;
-
-                if (StringUtils.isNotBlank(memberObject.getLastContactVisit())) {
-                    lastContact = DateTimeFormat.forPattern("dd-MM-yyyy").parseLocalDate(memberObject.getLastContactVisit());
-                    isFirst = false;
-                }
-
-                if (StringUtils.isNotBlank(memberObject.getLastMenstrualPeriod())) {
-                    lastMenstrualPeriod = DateTimeFormat.forPattern("dd-MM-yyyy").parseLocalDate(memberObject.getLastMenstrualPeriod());
-                }
-
-                Map<Integer, LocalDate> dateMap = ContactUtil.getContactWeeks(
-                        isFirst,
-                        lastContact,
-                        lastMenstrualPeriod
-                );
-
-                JSONArray field = fields(jsonObject);
+                JSONObject jsonObject = getJson(ba, memberObject);
+                JSONArray fields = fields(jsonObject);
 
                 if (dateMap.size() > 0) {
                     Map.Entry<Integer, LocalDate> entry = dateMap.entrySet().iterator().next();
@@ -219,22 +245,18 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
 
                     ba.setTitle(MessageFormat.format(context.getString(R.string.anc_home_visit_facility_visit), memberObject.getConfirmedContacts() + 1));
 
-                    // update form
-                    if (visitDate.isBefore(LocalDate.now())) {
-                        ba.setSubTitle(MessageFormat.format("{0} {1}", context.getString(R.string.overdue), DateTimeFormat.forPattern("dd MMM yyyy").print(visitDate)));
-                        ba.setScheduleStatus(BaseAncHomeVisitAction.ScheduleStatus.OVERDUE);
-                    } else {
-                        ba.setSubTitle(MessageFormat.format("{0} {1}", context.getString(R.string.due), DateTimeFormat.forPattern("dd MMM yyyy").print(visitDate)));
-                        ba.setScheduleStatus(BaseAncHomeVisitAction.ScheduleStatus.DUE);
-                    }
+                    BaseAncHomeVisitAction.ScheduleStatus scheduleStatus = (visitDate.isBefore(LocalDate.now())) ? BaseAncHomeVisitAction.ScheduleStatus.OVERDUE : BaseAncHomeVisitAction.ScheduleStatus.DUE;
+                    String due = (visitDate.isBefore(LocalDate.now())) ? context.getString(R.string.overdue) : context.getString(R.string.due);
 
-                    JSONObject visit_field = getFieldJSONObject(field, "anc_hf_visit");
+                    ba.setSubTitle(MessageFormat.format("{0} {1}", due, DateTimeFormat.forPattern("dd MMM yyyy").print(visitDate)));
+                    ba.setScheduleStatus(scheduleStatus);
+
+                    JSONObject visit_field = getFieldJSONObject(fields, "anc_hf_visit");
                     visit_field.put("label_info_title", MessageFormat.format(visit_field.getString("label_info_title"), memberObject.getConfirmedContacts() + 1));
                     visit_field.put("hint", MessageFormat.format(visit_field.getString("hint"), memberObject.getConfirmedContacts() + 1, visitDate));
 
                     // current visit count
-                    JSONObject confirmed_visits = getFieldJSONObject(field, "confirmed_visits");
-                    confirmed_visits.put(JsonFormConstants.VALUE, memberObject.getConfirmedContacts());
+                    getFieldJSONObject(fields, "confirmed_visits").put(JsonFormConstants.VALUE, memberObject.getConfirmedContacts());
                 }
 
                 ba.setJsonPayload(jsonObject.toString());

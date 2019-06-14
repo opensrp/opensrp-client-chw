@@ -34,7 +34,7 @@ public class ContactUtil {
                     .getContactVisitSchedule(contactRule, Constants.RULE_FILE.CONTACT_RULES);
 
             for (Integer i : weeks) {
-                dateMap.put(i, lastContact.plusWeeks(i));
+                dateMap.put(i, lastMenstrualPeriod.plusWeeks(i));
             }
 
             return dateMap;
