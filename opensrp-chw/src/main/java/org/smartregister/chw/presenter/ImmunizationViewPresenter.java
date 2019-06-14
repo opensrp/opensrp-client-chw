@@ -98,7 +98,7 @@ public class ImmunizationViewPresenter implements ImmunizationContact.Presenter,
             }
             getView().onUpdateNextPosition();
 
-            getView().updateSubmitBtn();
+            //getView().updateSubmitBtn();
         }else{
             this.homeVisitVaccineGroupDetails = homeVisitVaccineGroupDetails;
             for (int i = 0; i < this.homeVisitVaccineGroupDetails.size(); i++) {
@@ -112,7 +112,7 @@ public class ImmunizationViewPresenter implements ImmunizationContact.Presenter,
             getView().allDataLoaded();
             getView().updateAdapter(0);
 
-            getView().updateSubmitBtn();
+            //getView().updateSubmitBtn();
         }
 
     }
@@ -120,9 +120,14 @@ public class ImmunizationViewPresenter implements ImmunizationContact.Presenter,
         int size = this.homeVisitVaccineGroupDetails.size();
         for(int i=0;i<size;i++){
             HomeVisitVaccineGroup hhh = this.homeVisitVaccineGroupDetails.get(i);
-            if(hhh.getGroup().equalsIgnoreCase(homeVisitVaccineGroup.getGroup()) && homeVisitVaccineGroup.getGroup().equalsIgnoreCase(groupName)){
+            if(hhh.getGroup().equalsIgnoreCase(homeVisitVaccineGroup.getGroup())
+                    && homeVisitVaccineGroup.getGroup().equalsIgnoreCase(groupName)){
                 this.homeVisitVaccineGroupDetails.set(i,homeVisitVaccineGroup);
-                if(this.homeVisitVaccineGroupDetails.get(i).getDueVaccines().size() == 0)this.homeVisitVaccineGroupDetails.remove(i);
+                if(this.homeVisitVaccineGroupDetails.get(i).getDueVaccines().size() == 0){
+                    this.homeVisitVaccineGroupDetails.get(i).setViewType(HomeVisitVaccineGroup.TYPE_HIDDEN);
+                }else{
+                    this.homeVisitVaccineGroupDetails.get(i).setViewType(HomeVisitVaccineGroup.TYPE_INITIAL);
+                }
                 return true;
             }
         }
@@ -134,8 +139,12 @@ public class ImmunizationViewPresenter implements ImmunizationContact.Presenter,
         getView().allDataLoaded();
         this.homeVisitVaccineGroupDetails = homeVisitVaccineGroupDetails;
         for (HomeVisitVaccineGroup homeVisitVaccineGroup : this.homeVisitVaccineGroupDetails) {
-            homeVisitVaccineGroup.setViewType(HomeVisitVaccineGroup.TYPE_ACTIVE);
-        }
+            if(homeVisitVaccineGroup.getDueVaccines().size()== 0){
+                homeVisitVaccineGroup.setViewType(HomeVisitVaccineGroup.TYPE_HIDDEN);
+            }else{
+                homeVisitVaccineGroup.setViewType(HomeVisitVaccineGroup.TYPE_ACTIVE);
+            }
+         }
         getView().updateAdapter(0);
     }
 
@@ -159,6 +168,18 @@ public class ImmunizationViewPresenter implements ImmunizationContact.Presenter,
 
         ArrayList<VaccineWrapper> vaccineWrappers = new ArrayList<VaccineWrapper>();
         for (VaccineRepo.Vaccine vaccine : group.getNotGivenVaccines()) {
+            VaccineWrapper vaccineWrapper = new VaccineWrapper();
+            vaccineWrapper.setVaccine(vaccine);
+            vaccineWrapper.setName(vaccine.display());
+            vaccineWrapper.setDefaultName(vaccine.display());
+            vaccineWrappers.add(vaccineWrapper);
+        }
+        return vaccineWrappers;
+    }
+    public ArrayList<VaccineWrapper> getGivenVaccineWrappers(HomeVisitVaccineGroup group) {
+
+        ArrayList<VaccineWrapper> vaccineWrappers = new ArrayList<VaccineWrapper>();
+        for (VaccineRepo.Vaccine vaccine : group.getGivenVaccines()) {
             VaccineWrapper vaccineWrapper = new VaccineWrapper();
             vaccineWrapper.setVaccine(vaccine);
             vaccineWrapper.setName(vaccine.display());
@@ -335,7 +356,8 @@ public class ImmunizationViewPresenter implements ImmunizationContact.Presenter,
     }
     public boolean isAllSelected(){
         for(HomeVisitVaccineGroup homeVisitVaccineGroup:homeVisitVaccineGroupDetails){
-            if(homeVisitVaccineGroup.getViewType()!= HomeVisitVaccineGroup.TYPE_ACTIVE){
+            if(homeVisitVaccineGroup.getViewType()!= HomeVisitVaccineGroup.TYPE_ACTIVE
+                    && homeVisitVaccineGroup.getViewType()!= HomeVisitVaccineGroup.TYPE_HIDDEN){
                 return false;
             }
         }

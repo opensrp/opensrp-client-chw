@@ -21,7 +21,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_gravity="center_horizontal"
                 android:paddingTop="10dp"
-                android:src="@drawable/ic_form_deworming" />
+                android:src="@drawable/ic_form_vaccine_card" />
 
             <LinearLayout
                 android:layout_width="match_parent"
