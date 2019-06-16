@@ -294,6 +294,7 @@
     <string name="anc_home_visit_iptp_sp">IPTp-SP dose {0}</string>
     <string name="gest_age">GA: %1$s</string>
     <string name="gest_age_weeks">weeks</string>
+    <string name="return_to_profile">Return to profiles</string>
 
 
 </resources>
