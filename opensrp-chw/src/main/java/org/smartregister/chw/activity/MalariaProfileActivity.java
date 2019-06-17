@@ -8,10 +8,14 @@ import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import org.smartregister.chw.R;
+import org.smartregister.chw.anc.util.DBConstants;
+import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.helper.ImageRenderHelper;
+import org.smartregister.util.Utils;
 import org.smartregister.view.activity.BaseProfileActivity;
 
 public class MalariaProfileActivity extends BaseProfileActivity {
@@ -19,14 +23,15 @@ public class MalariaProfileActivity extends BaseProfileActivity {
     private String location;
     private String gender;
     private String unique_id;
+    private CommonPersonObjectClient client;
     private TextView textViewFullName;
     private TextView textViewLocation;
     private TextView textViewGender;
     private TextView textViewUniqueId;
+    private TextView textViewTitle;
 
     @SuppressLint("DefaultLocale")
     protected void onCreation() {
-        setContentView(R.layout.activity_malaria_profile_chw);
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -34,6 +39,8 @@ public class MalariaProfileActivity extends BaseProfileActivity {
             location = extras.getString("location");
             gender = extras.getString("gender");
             unique_id = extras.getString("unique_id");
+            client = (CommonPersonObjectClient) getIntent().getSerializableExtra("client");
+
         }
 
         textViewFullName = findViewById(R.id.textview_name);
@@ -59,10 +66,14 @@ public class MalariaProfileActivity extends BaseProfileActivity {
     }
 
     private void fillValues(String full_name, String location, String gender, String unique_id) {
+        String baseEntityId = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, true);
         textViewFullName.setText(full_name);
         textViewLocation.setText(location);
         textViewLocation.setText(location);
         textViewGender.setText(gender);
         textViewUniqueId.setText(unique_id);
+
+        Log.e("COMMON PERSON", client.getColumnmaps() + "");
+        Log.e("COMMON PERSON", Utils.getValue(client.getColumnmaps(), DBConstants.KEY.FIRST_NAME, true));
     }
 }
