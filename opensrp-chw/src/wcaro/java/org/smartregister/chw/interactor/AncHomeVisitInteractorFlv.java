@@ -5,9 +5,11 @@ import android.content.Context;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.tuple.Triple;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.joda.time.LocalDate;
+import org.joda.time.Period;
 import org.joda.time.format.DateTimeFormat;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -24,6 +26,7 @@ import org.smartregister.chw.model.VaccineTaskModel;
 import org.smartregister.chw.util.Constants.JSON_FORM.ANC_HOME_VISIT;
 import org.smartregister.chw.util.ContactUtil;
 import org.smartregister.domain.Alert;
+import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.immunization.domain.Vaccine;
 import org.smartregister.immunization.domain.VaccineSchedule;
 import org.smartregister.immunization.domain.VaccineWrapper;
@@ -359,16 +362,32 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
 
     private void evaluateTTImmunization(BaseAncHomeVisitContract.View view, LinkedHashMap<String, BaseAncHomeVisitAction> actionList, VaccineTaskModel vaccineTaskModel, Context context) throws BaseAncHomeVisitAction.ValidationException {
 
-        // String ttVaccination = string.substring(string.length() - 1));
         // if there are no pending vaccines
-        if (vaccineTaskModel == null) {
+        if (vaccineTaskModel == null || vaccineTaskModel.getScheduleList().size() < 1) {
+            return;
+        }
+        // compute the due date
+        Triple<DateTime, VaccineRepo.Vaccine, String> details = getIndividualVaccine(vaccineTaskModel, "TT");
+        if (details == null || details.getLeft().isAfter(new DateTime())) {
             return;
         }
 
-        String immunization = MessageFormat.format(context.getString(R.string.anc_home_visit_tt_immunization), 1);
+        String immunization = MessageFormat.format(context.getString(R.string.anc_home_visit_tt_immunization), details.getRight());
         final BaseAncHomeVisitAction ba = new BaseAncHomeVisitAction(immunization, "", false,
                 BaseAncHomeVisitFragment.getInstance(view, ANC_HOME_VISIT.TT_IMMUNIZATION, null),
                 null);
+
+        int overdueMonth = new Period(details.getLeft(), new DateTime()).getMonths();
+        String dueState;
+        if (overdueMonth > 0) {
+            dueState = context.getString(R.string.due);
+            ba.setScheduleStatus(BaseAncHomeVisitAction.ScheduleStatus.DUE);
+        } else {
+            dueState = context.getString(R.string.overdue);
+            ba.setScheduleStatus(BaseAncHomeVisitAction.ScheduleStatus.OVERDUE);
+        }
+
+        ba.setSubTitle(MessageFormat.format("{0} {1}", dueState, DateTimeFormat.forPattern("dd MMM yyyy").print(new DateTime(details.getLeft()))));
         ba.setAncHomeVisitActionHelper(new BaseAncHomeVisitAction.AncHomeVisitActionHelper() {
             @Override
             public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
@@ -459,6 +478,31 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         vaccineTaskModel.setScheduleList(sch);
 
         return vaccineTaskModel;
+    }
+
+    private Triple<DateTime, VaccineRepo.Vaccine, String> getIndividualVaccine(VaccineTaskModel vaccineTaskModel, String type) {
+        // compute the due date
+        Map<String, Object> map = null;
+        for (Map<String, Object> mapVac : vaccineTaskModel.getScheduleList()) {
+            VaccineRepo.Vaccine myVac = (VaccineRepo.Vaccine) mapVac.get("vaccine");
+            if (myVac != null && myVac.display().toLowerCase().contains(type.toLowerCase())) {
+                map = mapVac;
+                break;
+            }
+        }
+
+        if (map == null) {
+            return null;
+        }
+
+        DateTime date = (DateTime) map.get("date");
+        VaccineRepo.Vaccine vaccine = (VaccineRepo.Vaccine) map.get("vaccine");
+        if (vaccine == null || date == null) {
+            return null;
+        }
+        String vc_count = vaccine.name().substring(vaccine.name().length() - 1);
+
+        return Triple.of(date, vaccine, vc_count);
     }
 
     // read vaccine repo for all not given vaccines
