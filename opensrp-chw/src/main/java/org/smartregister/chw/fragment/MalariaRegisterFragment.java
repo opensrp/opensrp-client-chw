@@ -132,13 +132,13 @@ public class MalariaRegisterFragment extends BaseMalariaRegisterFragment {
     }
 
     private void dueFilter(View dueOnlyLayout) {
-        filter(searchText(),"",presenter().getDueFilterCondition(),false);
+        //filter(searchText(),"",presenter().getDueFilterCondition(),false);
         dueOnlyLayout.setTag(DUE_FILTER_TAG);
         switchViews(dueOnlyLayout, true);
     }
 
     private void normalFilter(View dueOnlyLayout) {
-        filter(searchText(), "", presenter().getMainCondition(), false);
+        //filter(searchText(), "", presenter().getMainCondition(), false);
         dueOnlyLayout.setTag(null);
         switchViews(dueOnlyLayout, false);
     }
