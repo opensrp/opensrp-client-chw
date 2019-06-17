@@ -11,5 +11,9 @@ public interface ChwDBConstants {
     String DISABILITIES = "disabilities";
     String DISABILITY_TYPE = "type_of_disability";
     String OTHER_LEADER = "leader_other";
+    String WRA = "wra";
+    String LMP = "last_menstrual_period";
+    String VISIT_NOT_DONE = "visit_not_done";
+    String PHONE_NUMBER = "phone_number";
 
 }
