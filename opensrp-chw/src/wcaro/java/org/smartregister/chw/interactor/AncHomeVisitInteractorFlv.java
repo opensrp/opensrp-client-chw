@@ -44,13 +44,20 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
 
         // get contact
         LocalDate lastContact = new DateTime(memberObject.getDateCreated()).toLocalDate();
-        boolean isFirst = (StringUtils.isNotBlank(memberObject.getLastContactVisit()));
+        boolean isFirst = (StringUtils.isBlank(memberObject.getLastContactVisit()));
         LocalDate lastMenstrualPeriod = DateTimeFormat.forPattern("dd-MM-yyyy").parseLocalDate(memberObject.getLastMenstrualPeriod());
 
         if (StringUtils.isNotBlank(memberObject.getLastContactVisit()))
             lastContact = DateTimeFormat.forPattern("dd-MM-yyyy").parseLocalDate(memberObject.getLastContactVisit());
 
-        Map<Integer, LocalDate> dateMap = ContactUtil.getContactWeeks(isFirst, lastContact, lastMenstrualPeriod);
+        Map<Integer, LocalDate> dateMap = new LinkedHashMap<>();
+
+        // today is the due date for the very first visit
+        if (isFirst) {
+            dateMap.put(0, LocalDate.now());
+        }
+
+        dateMap.putAll(ContactUtil.getContactWeeks(isFirst, lastContact, lastMenstrualPeriod));
 
         evaluateDangerSigns(actionList, context);
         evaluateANCCounseling(actionList, memberObject, dateMap, context);
