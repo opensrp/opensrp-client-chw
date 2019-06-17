@@ -10,6 +10,7 @@ import com.vijay.jsonwizard.domain.Form;
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
+import org.smartregister.chw.activity.AncRegisterActivity;
 import org.smartregister.chw.activity.FamilyRegisterActivity;
 import org.smartregister.chw.activity.IndividualProfileRemoveActivity;
 import org.smartregister.chw.contract.FamilyRemoveMemberContract;
@@ -104,6 +105,9 @@ public class IndividualProfileRemoveFragment extends BaseFamilyProfileMemberFrag
                 @Override
                 public void run() {
                     getPresenter().processRemoveForm(form);
+                    Intent intent = new Intent(getActivity(), AncRegisterActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
                 }
             });
             dialog.setOnRemoveActivity(new Runnable() {

@@ -23,7 +23,7 @@
           },
           "expiry": {
             "reference": "dob",
-            "offset": "+30d"
+            "offset": "+1m"
           }
         }
       },
@@ -33,11 +33,11 @@
         "schedule": {
           "due": {
             "reference": "dob",
-            "offset": "+31d"
+            "offset": "+1m"
           },
           "expiry": {
             "reference": "dob",
-            "offset": "+60d"
+            "offset": "+2m"
           }
         }
       },
@@ -47,11 +47,11 @@
         "schedule": {
           "due": {
             "reference": "dob",
-            "offset": "+61d"
+            "offset": "+1m"
           },
           "expiry": {
             "reference": "dob",
-            "offset": "+90d"
+            "offset": "+3m"
           }
         }
       },
@@ -61,11 +61,11 @@
         "schedule": {
           "due": {
             "reference": "dob",
-            "offset": "+91d"
+            "offset": "+1m"
           },
           "expiry": {
             "reference": "dob",
-            "offset": "+120d"
+            "offset": "+4m"
           }
         }
       },
@@ -75,11 +75,11 @@
         "schedule": {
           "due": {
             "reference": "dob",
-            "offset": "+121d"
+            "offset": "+1m"
           },
           "expiry": {
             "reference": "dob",
-            "offset": "+150d"
+            "offset": "+5m"
           }
         }
       },
@@ -89,11 +89,11 @@
         "schedule": {
           "due": {
             "reference": "dob",
-            "offset": "+151d"
+            "offset": "+1m"
           },
           "expiry": {
             "reference": "dob",
-            "offset": "+180d"
+            "offset": "+6m"
           }
         }
       }

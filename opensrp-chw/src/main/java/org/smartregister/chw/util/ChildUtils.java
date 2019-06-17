@@ -35,6 +35,7 @@ import org.smartregister.chw.domain.HomeVisit;
 import org.smartregister.chw.repository.HomeVisitRepository;
 import org.smartregister.chw.rule.BirthCertRule;
 import org.smartregister.chw.rule.HomeAlertRule;
+import org.smartregister.chw.rule.ImmunizationExpiredRule;
 import org.smartregister.chw.rule.ServiceRule;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.clientandeventmodel.Obs;
@@ -92,6 +93,12 @@ public class ChildUtils {
                     }
                 })
                 .create();
+    }
+    public static String getImmunizationExpired(String dateOfBirth,String vaccineName) {
+        //String dob = org.smartregister.family.util.Utils.getValue(childClient.getColumnmaps(), DBConstants.KEY.DOB, false);
+        ImmunizationExpiredRule immunizationExpiredRule = new ImmunizationExpiredRule(dateOfBirth,vaccineName);
+        ChwApplication.getInstance().getRulesEngineHelper().getButtonAlertStatus(immunizationExpiredRule, Constants.RULE_FILE.IMMUNIZATION_EXPIRED);
+        return immunizationExpiredRule.getButtonStatus();
     }
 
     public static Integer dobStringToYear(String yearOfBirthString) {
@@ -482,7 +489,7 @@ public class ChildUtils {
     }
 
 
-    public static void addToHomeVisitTable(String baseEntityID, List<org.smartregister.domain.db.Obs> observations) {
+    public static void addToHomeVisitTable(String baseEntityID,String formSubmissionId, List<org.smartregister.domain.db.Obs> observations) {
         HomeVisit newHomeVisit = new HomeVisit(null, baseEntityID, HomeVisitRepository.EVENT_TYPE, new Date(), "", "", "", 0l, "", "", new Date());
         try {
             for (org.smartregister.domain.db.Obs obs : observations) {
@@ -526,6 +533,7 @@ public class ChildUtils {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        newHomeVisit.setFormSubmissionId(formSubmissionId);
         newHomeVisit.setFormfields(new HashMap<String, String>());
         ChwApplication.homeVisitRepository().add(newHomeVisit);
     }

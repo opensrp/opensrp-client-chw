@@ -56,9 +56,8 @@ public class JobAidsDashboardFragment extends Fragment implements ReportContract
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Fetch Indicator data
         presenter = new JobAidsDashboardFragmentPresenter(this);
-        getLoaderManager().initLoader(0, null, this).forceLoad();
+        loadIndicatorTallies();
     }
 
     @Override
@@ -86,6 +85,10 @@ public class JobAidsDashboardFragment extends Fragment implements ReportContract
         super.onDetach();
     }
 
+    public void loadIndicatorTallies() {
+        getLoaderManager().initLoader(0, null, this).forceLoad();
+    }
+
     private void buildVisualisations() {
         if (indicatorTallies == null || indicatorTallies.isEmpty()) {
             return;
@@ -106,6 +109,7 @@ public class JobAidsDashboardFragment extends Fragment implements ReportContract
         Map<String, IndicatorTally> children_6_23_OverdueMnp = new HashMap<>();
         Map<String, IndicatorTally> children_0_24_UpToDateVaccinations = new HashMap<>();
         Map<String, IndicatorTally> children_0_24_OverdueVaccinations = new HashMap<>();
+
 
         for (Map<String, IndicatorTally> indicatorTallyMap : indicatorTallies) {
             for (String key : indicatorTallyMap.keySet()) {
@@ -204,6 +208,7 @@ public class JobAidsDashboardFragment extends Fragment implements ReportContract
 
         View children_0_24_months_up_to_date_vaccinations = getIndicatorView(pieChartIndicatorVisualizationData, pieChartFactory);
 
+        visualizationsViewGroup.removeAllViews();
         visualizationsViewGroup.addView(childrenU5View);
         visualizationsViewGroup.addView(deceased_0_11_View);
         visualizationsViewGroup.addView(deceased_12_59_View);
@@ -317,7 +322,7 @@ public class JobAidsDashboardFragment extends Fragment implements ReportContract
 
     @Override
     public void onLoaderReset(@NonNull Loader<List<Map<String, IndicatorTally>>> loader) {
-        // Clean up or release resources 
+        // Clean up or release resources
     }
 
     @Override

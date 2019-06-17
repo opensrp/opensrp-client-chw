@@ -9,6 +9,9 @@ public class AboveFiveChildProfileActivity extends ChildProfileActivity {
     @Override
     protected void onCreation() {
         super.onCreation();
+        invisibleRecordVisitPanel();
+    }
+    private void invisibleRecordVisitPanel(){
         recordVisitPanel.setVisibility(View.GONE);
     }
 
@@ -27,6 +30,13 @@ public class AboveFiveChildProfileActivity extends ChildProfileActivity {
         super.setLastVisitRowView(days);
         textViewLastVisit.setVisibility(View.GONE);
         textViewMedicalHistory.setTextColor(getResources().getColor(R.color.black));
+    }
+
+    @Override
+    public void setProfileImage(String baseEntityId) {
+        imageViewProfile.setBorderWidth(2);
+        imageRenderHelper.refreshProfileImage(baseEntityId, imageViewProfile, R.mipmap.ic_member);
+        imageViewProfile.setBorderColor(getResources().getColor(R.color.white));
     }
 
     @Override

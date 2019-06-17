@@ -98,7 +98,7 @@ public class ChildDBConstants {
 
 
     private static String childAgeLimitFilter(String dateColumn, int age) {
-        return " (( strftime('%Y','now') - strftime('%Y'," + dateColumn + "))<" + age + ")";
+        return " ((( julianday('now') - julianday(" + dateColumn + "))/365.25) <" + age + ")";
     }
 
     private static String tableColConcat(String tableName, String columnName) {
