@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">CFC-RTM - RDC</string>
+    <string name="login_title">Communauté Amies des Enfants Suivi en Temps Réel - RDC</string>
+    <string name="nav_logo">CFC-RTM - RDC</string>
+    <string name="menu_anc">ANC Clients</string>
+    <string name="menu_pnc">PNC Clients</string>
+</resources>
