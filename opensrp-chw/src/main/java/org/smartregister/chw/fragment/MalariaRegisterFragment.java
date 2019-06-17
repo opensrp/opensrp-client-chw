@@ -143,10 +143,6 @@ public class MalariaRegisterFragment extends BaseMalariaRegisterFragment {
         switchViews(dueOnlyLayout, false);
     }
 
-    private String searchText() {
-        return (getSearchView() == null) ? "" : getSearchView().getText().toString();
-    }
-
     private void switchViews(View dueOnlyLayout, boolean isPress) {
         TextView dueOnlyTextView = dueOnlyLayout.findViewById(R.id.due_only_text_view);
         if (isPress) {
