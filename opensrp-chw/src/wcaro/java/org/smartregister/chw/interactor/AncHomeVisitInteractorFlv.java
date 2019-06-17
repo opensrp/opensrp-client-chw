@@ -6,6 +6,7 @@ import com.vijay.jsonwizard.constants.JsonFormConstants;
 
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
+import org.joda.time.Days;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 import org.json.JSONArray;
@@ -19,12 +20,23 @@ import org.smartregister.chw.anc.fragment.BaseAncHomeVisitFragment;
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
 import org.smartregister.chw.anc.util.JsonFormUtils;
 import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.chw.model.VaccineTaskModel;
 import org.smartregister.chw.util.Constants.JSON_FORM.ANC_HOME_VISIT;
 import org.smartregister.chw.util.ContactUtil;
+import org.smartregister.domain.Alert;
+import org.smartregister.immunization.domain.Vaccine;
+import org.smartregister.immunization.domain.VaccineSchedule;
+import org.smartregister.immunization.domain.VaccineWrapper;
+import org.smartregister.immunization.repository.VaccineRepository;
+import org.smartregister.immunization.util.VaccinateActionUtils;
+import org.smartregister.service.AlertService;
 
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -32,6 +44,8 @@ import timber.log.Timber;
 
 import static org.smartregister.chw.malaria.util.JsonFormUtils.fields;
 import static org.smartregister.chw.util.JsonFormUtils.getValue;
+import static org.smartregister.immunization.util.VaccinatorUtils.generateScheduleList;
+import static org.smartregister.immunization.util.VaccinatorUtils.receivedVaccines;
 import static org.smartregister.util.JsonFormUtils.getFieldJSONObject;
 
 public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor {
@@ -42,7 +56,36 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
 
         Context context = view.getContext();
 
+        // get contact schedule
+        Map<Integer, LocalDate> dateMap = getContactSchedule(memberObject);
+
+        // get vaccine schedule if ga > 13
+        VaccineTaskModel vaccineTaskModel = null;
+
+        DateTime lastMenstrualPeriod = DateTimeFormat.forPattern("dd-MM-yyyy").parseDateTime(memberObject.getLastMenstrualPeriod());
+        int ga = Days.daysBetween(lastMenstrualPeriod, new DateTime()).getDays() / 7;
+
+        if (ga >= 13) {
+            vaccineTaskModel = getWomanVaccine(memberObject.getBaseEntityId(), lastMenstrualPeriod, getNotGivenVaccines());
+        }
+
+        evaluateDangerSigns(actionList, context);
+        evaluateANCCounseling(actionList, memberObject, dateMap, context);
+        evaluateSleepingUnderLLITN(view, actionList, context);
+        evaluateANCCard(view, actionList, context);
+        evaluateHealthFacilityVisit(actionList, memberObject, dateMap, context);
+        evaluateTTImmunization(view, actionList, vaccineTaskModel, context);
+        evaluateIPTP(view, actionList, vaccineTaskModel, context);
+
+        actionList.put(context.getString(R.string.anc_home_visit_observations_n_illnes), new BaseAncHomeVisitAction(context.getString(R.string.anc_home_visit_observations_n_illnes), "", true, null,
+                ANC_HOME_VISIT.OBSERVATION_AND_ILLNESS));
+
+        return actionList;
+    }
+
+    private Map<Integer, LocalDate> getContactSchedule(MemberObject memberObject) {
         // get contact
+
         LocalDate lastContact = new DateTime(memberObject.getDateCreated()).toLocalDate();
         boolean isFirst = (StringUtils.isBlank(memberObject.getLastContactVisit()));
         LocalDate lastMenstrualPeriod = DateTimeFormat.forPattern("dd-MM-yyyy").parseLocalDate(memberObject.getLastMenstrualPeriod());
@@ -59,18 +102,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
 
         dateMap.putAll(ContactUtil.getContactWeeks(isFirst, lastContact, lastMenstrualPeriod));
 
-        evaluateDangerSigns(actionList, context);
-        evaluateANCCounseling(actionList, memberObject, dateMap, context);
-        evaluateSleepingUnderLLITN(view, actionList, context);
-        evaluateANCCard(view, actionList, context);
-        evaluateHealthFacilityVisit(actionList, memberObject, dateMap, context);
-        evaluateImmunization(view, actionList, context);
-        evaluateIPTP(view, actionList, context);
-
-        actionList.put(context.getString(R.string.anc_home_visit_observations_n_illnes), new BaseAncHomeVisitAction(context.getString(R.string.anc_home_visit_observations_n_illnes), "", true, null,
-                ANC_HOME_VISIT.OBSERVATION_AND_ILLNESS));
-
-        return actionList;
+        return dateMap;
     }
 
     private JSONObject getJson(BaseAncHomeVisitAction ba, MemberObject memberObject) throws Exception {
@@ -325,7 +357,13 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         actionList.put(visit, ba);
     }
 
-    private void evaluateImmunization(BaseAncHomeVisitContract.View view, LinkedHashMap<String, BaseAncHomeVisitAction> actionList, Context context) throws BaseAncHomeVisitAction.ValidationException {
+    private void evaluateTTImmunization(BaseAncHomeVisitContract.View view, LinkedHashMap<String, BaseAncHomeVisitAction> actionList, VaccineTaskModel vaccineTaskModel, Context context) throws BaseAncHomeVisitAction.ValidationException {
+
+        // String ttVaccination = string.substring(string.length() - 1));
+        // if there are no pending vaccines
+        if (vaccineTaskModel == null) {
+            return;
+        }
 
         String immunization = MessageFormat.format(context.getString(R.string.anc_home_visit_tt_immunization), 1);
         final BaseAncHomeVisitAction ba = new BaseAncHomeVisitAction(immunization, "", false,
@@ -358,7 +396,11 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         actionList.put(immunization, ba);
     }
 
-    private void evaluateIPTP(BaseAncHomeVisitContract.View view, LinkedHashMap<String, BaseAncHomeVisitAction> actionList, Context context) throws BaseAncHomeVisitAction.ValidationException {
+    private void evaluateIPTP(BaseAncHomeVisitContract.View view, LinkedHashMap<String, BaseAncHomeVisitAction> actionList, VaccineTaskModel vaccineTaskModel, Context context) throws BaseAncHomeVisitAction.ValidationException {
+        // if there are no pending vaccines
+        if (vaccineTaskModel == null) {
+            return;
+        }
 
         String iptp = MessageFormat.format(context.getString(R.string.anc_home_visit_iptp_sp), 1);
         final BaseAncHomeVisitAction ba = new BaseAncHomeVisitAction(iptp, "", false,
@@ -391,4 +433,36 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         actionList.put(iptp, ba);
     }
 
+    private VaccineTaskModel getWomanVaccine(String baseEntityID, DateTime lmpDate, List<VaccineWrapper> notDoneVaccines) {
+        AlertService alertService = ChwApplication.getInstance().getContext().alertService();
+        VaccineRepository vaccineRepository = ChwApplication.getInstance().vaccineRepository();
+
+        // get offline alerts
+        VaccineSchedule.updateOfflineAlerts(baseEntityID, lmpDate, "woman");
+
+        //
+        List<Alert> alerts = alertService.findByEntityIdAndAlertNames(baseEntityID, VaccinateActionUtils.allAlertNames("woman"));
+        List<Vaccine> vaccines = vaccineRepository.findByEntityId(baseEntityID);
+        Map<String, Date> receivedVaccines = receivedVaccines(vaccines);
+
+        if (notDoneVaccines != null) {
+            for (int i = 0; i < notDoneVaccines.size(); i++) {
+                receivedVaccines.put(notDoneVaccines.get(i).getName().toLowerCase(), new Date());
+            }
+        }
+
+        List<Map<String, Object>> sch = generateScheduleList("woman", lmpDate, receivedVaccines, alerts);
+        VaccineTaskModel vaccineTaskModel = new VaccineTaskModel();
+        vaccineTaskModel.setAlerts(alerts);
+        vaccineTaskModel.setVaccines(vaccines);
+        vaccineTaskModel.setReceivedVaccines(receivedVaccines);
+        vaccineTaskModel.setScheduleList(sch);
+
+        return vaccineTaskModel;
+    }
+
+    // read vaccine repo for all not given vaccines
+    private List<VaccineWrapper> getNotGivenVaccines() {
+        return new ArrayList<>();
+    }
 }
