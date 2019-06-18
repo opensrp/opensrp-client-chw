@@ -55,10 +55,10 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "160939AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "select one",
-        "label_info_title": "Did the woman attend her ANC [1-8] visit at the health facility?",
+        "label_info_title": "Did the woman attend her ANC {0} visit at the health facility?",
         "label_info_text": "Whether or not the woman attended her ANC visit at the health facility.",
         "type": "spinner",
-        "hint": "Did the woman attend her ANC [1-8] visit at the health facility?\n\nVisit due date: [due date of visit]",
+        "hint": "Did the woman attend her ANC {0} visit at the health facility?\n\nVisit due date: {1}",
         "values": [
           "Yes",
           "No"
@@ -80,7 +80,7 @@
         "label": "Date of visit",
         "hint": "Date of visit",
         "expanded": false,
-        "min_date": "",
+        "min_date": "today-10y",
         "max_date": "today",
         "v_required": {
           "value": "true",
@@ -132,13 +132,17 @@
         "label_info_title": "Systolic BP (mmHg)",
         "label_info_text": "Systolic blood pressure of the woman. ",
         "hint": "Systolic BP (mmHg)",
+        "v_min": {
+          "value": "0",
+          "err": "The value must be greater than or equal to 0"
+        },
         "v_required": {
           "value": "false",
           "err": "Required"
         },
-        "v_numeric": {
+        "v_numeric_integer": {
           "value": "true",
-          "err": ""
+          "err": "Must be a rounded number"
         },
         "relevance": {
           "step1:anc_hf_visit": {
@@ -157,13 +161,17 @@
         "label_info_title": "Diastolic BP (mmHg)",
         "label_info_text": "Diastolic blood pressure of the woman. ",
         "hint": "Diastolic BP (mmHg)",
+        "v_min": {
+          "value": "0",
+          "err": "The value must be greater than or equal to 0"
+        },
         "v_required": {
           "value": "false",
           "err": "Required"
         },
-        "v_numeric": {
+        "v_numeric_integer": {
           "value": "true",
-          "err": ""
+          "err": "Must be a rounded number"
         },
         "relevance": {
           "step1:anc_hf_visit": {
@@ -281,6 +289,16 @@
             "ex": "equalTo(., \"Yes\")"
           }
         }
+      },
+      {
+        "key": "confirmed_visits",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "confirmed_visits",
+        "type": "spacer",
+        "read_only": "true",
+        "hidden": "true",
+        "value": "0"
       }
     ]
   }

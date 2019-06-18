@@ -56,6 +56,7 @@ import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import io.fabric.sdk.android.Fabric;
+import timber.log.Timber;
 
 public class ChwApplication extends DrishtiApplication {
 
@@ -157,13 +158,12 @@ public class ChwApplication extends DrishtiApplication {
         CoreLibrary.init(context, new ChwSyncConfiguration(), BuildConfig.BUILD_TIMESTAMP);
         CoreLibrary.getInstance().setEcClientFieldsFile(Constants.EC_CLIENT_FIELDS);
 
-        MalariaLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
-
+        // init libraries
         ImmunizationLibrary.init(context, getRepository(), null, BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
-
         ConfigurableViewsLibrary.init(context, getRepository());
         FamilyLibrary.init(context, getRepository(), getMetadata(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
         AncLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
+        MalariaLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
 
         SyncStatusBroadcastReceiver.init(this);
 
@@ -243,7 +243,7 @@ public class ChwApplication extends DrishtiApplication {
                 repository = new ChwRepository(getInstance().getApplicationContext(), context);
             }
         } catch (UnsatisfiedLinkError e) {
-            Log.e(TAG, e.getMessage(), e);
+            Timber.e(e);
         }
         return repository;
     }
@@ -271,11 +271,16 @@ public class ChwApplication extends DrishtiApplication {
 
     public void initOfflineSchedules() {
         try {
+            // child schedules
             List<VaccineGroup> childVaccines = VaccinatorUtils.getSupportedVaccines(this);
             List<Vaccine> specialVaccines = VaccinatorUtils.getSpecialVaccines(this);
             VaccineSchedule.init(childVaccines, specialVaccines, "child");
+
+            // mother vaccines
+            List<VaccineGroup> womanVaccines = VaccinatorUtils.getSupportedWomanVaccines(this);
+            VaccineSchedule.init(womanVaccines, null, "woman");
         } catch (Exception e) {
-            Log.e(TAG, Log.getStackTraceString(e));
+            Timber.e(e);
         }
     }
 

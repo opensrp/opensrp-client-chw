@@ -17,9 +17,9 @@ import org.joda.time.format.DateTimeFormat;
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.AncHomeVisitActivity;
 import org.smartregister.chw.activity.AncMemberProfileActivity;
+import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.fragment.BaseAncRegisterFragment;
 import org.smartregister.chw.anc.util.DBConstants;
-import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.custom_view.NavigationMenu;
 import org.smartregister.chw.model.AncRegisterFragmentModel;
 import org.smartregister.chw.presenter.AncRegisterFragmentPresenter;
@@ -27,7 +27,6 @@ import org.smartregister.chw.provider.ChwAncRegisterProvider;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.QueryBuilder;
 import org.smartregister.chw.util.Utils;
-import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
@@ -152,8 +151,7 @@ public class AncRegisterFragment extends BaseAncRegisterFragment {
 
     @Override
     protected void openHomeVisit(CommonPersonObjectClient client) {
-        String baseEntityId = org.smartregister.util.Utils.getValue(client.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, true);
-        AncHomeVisitActivity.startMe(getActivity(), baseEntityId);
+        AncHomeVisitActivity.startMe(getActivity(), new MemberObject(client));
     }
 
     @Override
@@ -223,49 +221,22 @@ public class AncRegisterFragment extends BaseAncRegisterFragment {
         }
     }
 
-    private String dueFilterAndSortQuery() {
-        SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder(mainSelect);
-
-        String query = "";
-        try {
-            if (isValidFilterForFts(commonRepository())) {
-                String sql = sqb
-                        .searchQueryFts(tablename, joinTable, mainCondition, filters, Sortqueries,
-                                clientAdapter.getCurrentlimit(), clientAdapter.getCurrentoffset());
-                sql = sql.replace(CommonFtsObject.idColumn, CommonFtsObject.relationalIdColumn);
-                sql = sql.replace(CommonFtsObject.searchTableName(Constants.TABLE_NAME.FAMILY), CommonFtsObject.searchTableName(Constants.TABLE_NAME.ANC_MEMBER));
-                List<String> ids = commonRepository().findSearchIds(sql);
-                query = sqb.toStringFts(ids, tablename, CommonRepository.ID_COLUMN,
-                        Sortqueries);
-                query = sqb.Endquery(query);
-            } else {
-                sqb.addCondition(filters);
-                query = sqb.orderbyCondition(Sortqueries);
-                query = sqb.Endquery(sqb.addlimitandOffset(query, clientAdapter.getCurrentlimit(), clientAdapter.getCurrentoffset()));
-
-            }
-        } catch (Exception e) {
-            Log.e(getClass().getName(), e.toString(), e);
-        }
-
-        return query;
-    }
-
     private String defaultFilterAndSortQuery() {
         SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder(mainSelect);
 
         String query = "";
         StringBuilder customFilter = new StringBuilder();
         if (StringUtils.isNotBlank(filters)) {
-            customFilter.append(MessageFormat.format(" where ( {0}.{1} like ''%{2}%'' ", Constants.TABLE_NAME.FAMILY_MEMBER, DBConstants.KEY.FIRST_NAME, filters));
+            customFilter.append(MessageFormat.format(" and ( {0}.{1} like ''%{2}%'' ", Constants.TABLE_NAME.FAMILY_MEMBER, DBConstants.KEY.FIRST_NAME, filters));
             customFilter.append(MessageFormat.format(" or {0}.{1} like ''%{2}%'' ", Constants.TABLE_NAME.FAMILY_MEMBER, DBConstants.KEY.LAST_NAME, filters));
             customFilter.append(MessageFormat.format(" or {0}.{1} like ''%{2}%'' ", Constants.TABLE_NAME.FAMILY_MEMBER, DBConstants.KEY.MIDDLE_NAME, filters));
             customFilter.append(MessageFormat.format(" or {0}.{1} = ''{2}'' ) ", Constants.TABLE_NAME.FAMILY_MEMBER, DBConstants.KEY.UNIQUE_ID, filters));
-
-            if (dueFilterActive) {
-                customFilter.append(MessageFormat.format(" and ( {0}) ", presenter().getDueFilterCondition()));
-            }
         }
+
+        if (dueFilterActive) {
+            customFilter.append(MessageFormat.format(" and ( {0} ) ", presenter().getDueFilterCondition()));
+        }
+
         try {
             if (isValidFilterForFts(commonRepository())) {
 
@@ -298,7 +269,7 @@ public class AncRegisterFragment extends BaseAncRegisterFragment {
                     if (args != null && args.getBoolean(COUNT)) {
                         countExecute();
                     }
-                    String query = (dueFilterActive ? dueFilterAndSortQuery() : defaultFilterAndSortQuery());
+                    String query = defaultFilterAndSortQuery();
                     return commonRepository().rawCustomQueryForAdapter(query);
                 }
             };

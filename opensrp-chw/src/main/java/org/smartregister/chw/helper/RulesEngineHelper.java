@@ -10,14 +10,19 @@ import org.jeasy.rules.core.InferenceRulesEngine;
 import org.jeasy.rules.core.RulesEngineParameters;
 import org.jeasy.rules.mvel.MVELRuleFactory;
 import org.smartregister.chw.rule.AncVisitAlertRule;
+import org.smartregister.chw.rule.ContactRule;
 import org.smartregister.chw.rule.HomeAlertRule;
 import org.smartregister.chw.rule.ICommonRule;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class RulesEngineHelper {
     private Context context;
@@ -101,6 +106,24 @@ public class RulesEngineHelper {
         return alertRule.getButtonStatus();
     }
 
+    public List<Integer> getContactVisitSchedule(ContactRule contactRule, String rulesFile) {
+
+        Facts facts = new Facts();
+        facts.put(ContactRule.RULE_KEY, contactRule);
+
+        Rules rules = getRulesFromAsset(RULE_FOLDER_PATH + rulesFile);
+        if (rules == null) {
+            return null;
+        }
+
+        processInferentialRules(rules, facts);
+
+        Set<Integer> contactList = contactRule.set;
+        List<Integer> list = new ArrayList<>(contactList);
+        Collections.sort(list);
+
+        return list;
+    }
 
     public Rules rules(String rulesFile) {
         return getRulesFromAsset(RULE_FOLDER_PATH + rulesFile);
