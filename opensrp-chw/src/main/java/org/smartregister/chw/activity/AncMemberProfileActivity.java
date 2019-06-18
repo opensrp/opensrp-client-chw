@@ -10,6 +10,7 @@ import com.vijay.jsonwizard.domain.Form;
 
 import org.json.JSONObject;
 import org.smartregister.chw.R;
+import org.smartregister.chw.anc.AncLibrary;
 import org.smartregister.chw.anc.activity.BaseAncMemberProfileActivity;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.util.Constants;
@@ -75,7 +76,6 @@ public class AncMemberProfileActivity extends BaseAncMemberProfileActivity {
                         org.smartregister.chw.util.Constants.JSON_FORM.ANC_REGISTRATION);
                 return true;
             case R.id.action_remove_member:
-
                 CommonRepository commonRepository = org.smartregister.chw.util.Utils.context().commonrepository(org.smartregister.chw.util.Utils.metadata().familyMemberRegister.tableName);
 
                 final CommonPersonObject commonPersonObject = commonRepository.findByBaseEntityId(baseEntityId);
@@ -84,6 +84,10 @@ public class AncMemberProfileActivity extends BaseAncMemberProfileActivity {
                 client.setColumnmaps(commonPersonObject.getColumnmaps());
 
                 IndividualProfileRemoveActivity.startIndividualProfileActivity(AncMemberProfileActivity.this, client, familyBaseEntityId, familyHead, primaryCareGiver);
+                return true;
+            case R.id.action_pregnancy_out_come:
+                AncRegisterActivity.startAncRegistrationActivity(AncMemberProfileActivity.this, baseEntityId, null,
+                        org.smartregister.chw.util.Constants.JSON_FORM.PREGNANCY_OUTCOME, AncLibrary.getInstance().getUniqueIdRepository().getNextUniqueId().getOpenmrsId());
                 return true;
             default:
                 break;
@@ -160,7 +164,7 @@ public class AncMemberProfileActivity extends BaseAncMemberProfileActivity {
                             profileInteractor.saveRegistration(familyEventClient, jsonString, true, ancMemberProfilePresenter());
                         } else if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(org.smartregister.chw.util.Constants.EventType.UPDATE_ANC_REGISTRATION)) {
                             AllSharedPreferences allSharedPreferences = getAllSharedPreferences();
-                            Event baseEvent = org.smartregister.chw.anc.util.JsonFormUtils.processJsonForm(allSharedPreferences, jsonString);
+                            Event baseEvent = org.smartregister.chw.anc.util.JsonFormUtils.processJsonForm(allSharedPreferences, jsonString, Constants.TABLES.ANC_MEMBERS);
                             Util.processEvent(allSharedPreferences, baseEvent);
                         }
                     } catch (Exception e) {

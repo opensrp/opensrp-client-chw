@@ -885,12 +885,10 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
         return ecEvent;
     }
 
-    public static JSONObject getAutoJsonEditAncFormString(String baseEntityID, Context context, String formName, String eventType, String title) {
+    private static JSONObject getFormWithMetaData(String baseEntityID, Context context, String formName, String eventType) {
+        JSONObject form = null;
         try {
-
-            Event event = getEditAncLatestProperties(baseEntityID);
-            final List<Obs> observations = event.getObs();
-            JSONObject form = FormUtils.getInstance(context).getFormJson(formName);
+            form = FormUtils.getInstance(context).getFormJson(formName);
             LocationPickerView lpv = new LocationPickerView(context);
             lpv.init();
             if (form != null) {
@@ -901,6 +899,23 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
                 String lastLocationId = LocationHelper.getInstance().getOpenMrsLocationId(lpv.getSelectedItem());
 
                 metadata.put(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_LOCATION, lastLocationId);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return form;
+
+    }
+
+    public static JSONObject getAutoJsonEditAncFormString(String baseEntityID, Context context, String formName, String eventType, String title) {
+        try {
+
+            Event event = getEditAncLatestProperties(baseEntityID);
+            final List<Obs> observations = event.getObs();
+            JSONObject form = getFormWithMetaData(baseEntityID, context, formName, eventType);
+            LocationPickerView lpv = new LocationPickerView(context);
+            lpv.init();
+            if (form != null) {
                 JSONObject stepOne = form.getJSONObject(org.smartregister.family.util.JsonFormUtils.STEP1);
 
                 if (StringUtils.isNotBlank(title)) {
@@ -914,17 +929,15 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
                             jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase("delivery_method")) {
                         jsonObject.put(JsonFormUtils.READ_ONLY, true);
                     }
-
                     try {
                         for (Obs obs : observations) {
-                            if (obs.getFormSubmissionField().equalsIgnoreCase(jsonObject.getString("key"))) {
+                            if (obs.getFormSubmissionField().equalsIgnoreCase(jsonObject.getString(JsonFormUtils.KEY))) {
                                 if (jsonObject.getString("type").equals("spinner"))
                                     jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, obs.getHumanReadableValues().get(0));
                                 else
                                     jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, obs.getValue());
                             }
                         }
-
                     } catch (Exception e) {
                         Timber.e(Log.getStackTraceString(e));
                     }

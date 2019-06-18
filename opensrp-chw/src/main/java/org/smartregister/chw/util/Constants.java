@@ -91,6 +91,7 @@ public class Constants {
         public static final String CHILD_ACTIVITY = "ec_child_activity";
         public static final String ANC_MEMBER = "ec_anc_register";
         public static final String MALARIA_CONFIRMATION = "ec_malaria_confirmation";
+        public static final String ANC_PREGNANCY_OUTCOME= "ec_pregnancy_outcome";
     }
 
     public static final class INTENT_KEY {

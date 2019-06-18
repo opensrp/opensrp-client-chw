@@ -195,7 +195,8 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
                 onBackPressed();
                 return true;
             case R.id.action_anc_registration:
-                AncRegisterActivity.startAncRegistrationActivity(FamilyOtherMemberProfileActivity.this, baseEntityId, PhoneNumber);
+                AncRegisterActivity.startAncRegistrationActivity(FamilyOtherMemberProfileActivity.this, baseEntityId, PhoneNumber,
+                        org.smartregister.chw.util.Constants.JSON_FORM.ANC_REGISTRATION, null);
                 return true;
             case R.id.action_malaria_registration:
                 MalariaRegisterActivity.startMalariaRegistrationActivity(FamilyOtherMemberProfileActivity.this, baseEntityId);
