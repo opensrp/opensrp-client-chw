@@ -254,11 +254,7 @@
             "openmrs_entity": "concept",
             "openmrs_entity_id": "125872AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
-        ],
-        "v_required": {
-          "value": "true",
-          "err": "Please enter the current weight"
-        }
+        ]
       },
       {
         "key": "delivery_hf",
