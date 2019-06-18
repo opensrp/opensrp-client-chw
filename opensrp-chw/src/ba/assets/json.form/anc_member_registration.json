@@ -149,27 +149,50 @@
           }
         }
       },
+
+
+
+
+
+
       {
         "key": "delivery_method",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "5630AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "openmrs_data_type": "select one",
-        "type": "spinner",
-        "hint": "Have you delivered your child(ren) vaginally or by ceasarian section?",
+        "type": "check_box",
+        "label": "Have you delivered your child(ren) vaginally or by cesarean section?",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_member_registration_relevance.yml"
+            }
+          }
+        },
+        "options": [
+          {
+            "key": "chk_vaginally",
+            "text": "Vaginally",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1170AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_cesarean_section",
+            "text": "Cesarean section",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1171AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
         "v_required": {
           "value": "true",
-          "err": "Please select one option"
-        },
-        "values": [
-          "Vaginally",
-          "Caesarian section"
-        ],
-        "openmrs_choice_ids": {
-          "Vaginally": "1170AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Caesarian section": "1171AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          "err": "Please enter the current weight"
         }
       },
+
       {
         "key": "no_surv_children",
         "openmrs_entity_parent": "",
@@ -178,6 +201,13 @@
         "type": "edit_text",
         "edit_type": "number",
         "hint": "No. of surviving children",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_member_registration_relevance.yml"
+            }
+          }
+        },
         "v_required": {
           "value": "true",
           "err": "Required"
