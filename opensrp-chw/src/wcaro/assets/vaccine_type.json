@@ -40,5 +40,12 @@
     "openmrs_parent_entity_id": "",
     "openmrs_date_concept_id": "",
     "openmrs_dose_concept_id": ""
+  },
+  {
+    "doses": "5",
+    "name": "TT",
+    "openmrs_parent_entity_id": "",
+    "openmrs_date_concept_id": "",
+    "openmrs_dose_concept_id": ""
   }
 ]
