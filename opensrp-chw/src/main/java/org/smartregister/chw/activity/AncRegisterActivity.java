@@ -120,7 +120,7 @@ public class AncRegisterActivity extends BaseAncRegisterActivity {
             if (formObject != null) {
                 try {
                     formObject.remove(org.smartregister.util.JsonFormUtils.VALUE);
-                    formObject.put(org.smartregister.util.JsonFormUtils.VALUE, unique_id);
+                    formObject.put(org.smartregister.util.JsonFormUtils.VALUE, updateValue);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
