@@ -175,6 +175,7 @@
     <string name="edit_member_form_title">Edit Family Member</string>
     <string name="edit_anc_registration_form_title">Edit ANC Registration</string>
     <string name="anc_registration_form_title">ANC Registration</string>
+    <string name="anc_pregnancy_outcome_form_title">Pregnancy Outcome</string>
 
     <string name="last_visit">LAST VISIT</string>
     <string name="edit_child_form_title">Edit Child Under 5</string>
