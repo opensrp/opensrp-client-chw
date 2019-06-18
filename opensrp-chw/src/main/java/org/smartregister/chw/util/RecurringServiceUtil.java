@@ -50,7 +50,7 @@ public class RecurringServiceUtil {
         return serviceWrapperMap;
     }
 
-    private static RecurringServiceModel getServiceModel(String baseEntityID, DateTime anchorDate) {
+    public static RecurringServiceModel getServiceModel(String baseEntityID, DateTime anchorDate) {
         // get the services
         if (anchorDate != null) {
             ChwServiceSchedule.updateOfflineAlerts(baseEntityID, anchorDate);
@@ -89,7 +89,7 @@ public class RecurringServiceUtil {
         return new RecurringServiceModel(alertList, serviceTypeMap, serviceRecords);
     }
 
-    private static Map<String, List<ServiceType>> getServiceGroup(RecurringServiceModel model) {
+    public static Map<String, List<ServiceType>> getServiceGroup(RecurringServiceModel model) {
         Map<String, List<ServiceType>> foundServiceTypeMap = new LinkedHashMap<>();
         for (String type : model.getServiceTypes().keySet()) {
             if (foundServiceTypeMap.containsKey(type)) {
@@ -118,7 +118,7 @@ public class RecurringServiceUtil {
         return foundServiceTypeMap;
     }
 
-    private static Map<String, Object> nextServiceDueBasedOnExpire(List<Map<String, Object>> schedule, List<ServiceType> serviceTypeList) {
+    public static Map<String, Object> nextServiceDueBasedOnExpire(List<Map<String, Object>> schedule, List<ServiceType> serviceTypeList) {
         Map<String, Object> v = null;
         try {
             for (Map<String, Object> m : schedule) {
@@ -162,7 +162,7 @@ public class RecurringServiceUtil {
         return v;
     }
 
-    private static void updateWrapperStatus(List<ServiceRecord> serviceRecords, List<Alert> alertList, ServiceWrapper tag, DateTime anchorDate, List<ServiceType> serviceTypes) {
+    public static void updateWrapperStatus(List<ServiceRecord> serviceRecords, List<Alert> alertList, ServiceWrapper tag, DateTime anchorDate, List<ServiceType> serviceTypes) {
         List<ServiceRecord> serviceRecordList = new ArrayList<>();
         for (ServiceRecord serviceRecord : serviceRecords) {
             if (serviceRecord.getRecurringServiceId().equals(tag.getTypeId())) {
@@ -211,7 +211,7 @@ public class RecurringServiceUtil {
         }
     }
 
-    private static void updateWrapper(ServiceWrapper tag, List<ServiceRecord> serviceRecordList) {
+    public static void updateWrapper(ServiceWrapper tag, List<ServiceRecord> serviceRecordList) {
         if (!serviceRecordList.isEmpty()) {
             for (ServiceRecord serviceRecord : serviceRecordList) {
                 if (tag.getName().toLowerCase().contains(serviceRecord.getName().toLowerCase()) && serviceRecord.getDate() != null) {
