@@ -23,10 +23,12 @@ import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
 import org.smartregister.chw.anc.util.JsonFormUtils;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.model.VaccineTaskModel;
+import org.smartregister.chw.util.ChwServiceSchedule;
 import org.smartregister.chw.util.Constants.JSON_FORM.ANC_HOME_VISIT;
 import org.smartregister.chw.util.ContactUtil;
 import org.smartregister.domain.Alert;
 import org.smartregister.immunization.db.VaccineRepo;
+import org.smartregister.immunization.domain.ServiceWrapper;
 import org.smartregister.immunization.domain.Vaccine;
 import org.smartregister.immunization.domain.VaccineSchedule;
 import org.smartregister.immunization.domain.VaccineWrapper;
@@ -47,6 +49,7 @@ import timber.log.Timber;
 
 import static org.smartregister.chw.malaria.util.JsonFormUtils.fields;
 import static org.smartregister.chw.util.JsonFormUtils.getValue;
+import static org.smartregister.chw.util.RecurringServiceUtil.getRecurringServices;
 import static org.smartregister.immunization.util.VaccinatorUtils.generateScheduleList;
 import static org.smartregister.immunization.util.VaccinatorUtils.receivedVaccines;
 import static org.smartregister.util.JsonFormUtils.getFieldJSONObject;
@@ -78,7 +81,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         evaluateANCCard(view, actionList, context);
         evaluateHealthFacilityVisit(actionList, memberObject, dateMap, context);
         evaluateTTImmunization(view, actionList, vaccineTaskModel, context);
-        evaluateIPTP(view, actionList, vaccineTaskModel, context);
+        evaluateIPTP(view, actionList, memberObject, context);
 
         actionList.put(context.getString(R.string.anc_home_visit_observations_n_illnes), new BaseAncHomeVisitAction(context.getString(R.string.anc_home_visit_observations_n_illnes), "", true, null,
                 ANC_HOME_VISIT.OBSERVATION_AND_ILLNESS));
@@ -381,7 +384,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
 
         int overdueMonth = new Period(details.getLeft(), new DateTime()).getMonths();
         String dueState;
-        if (overdueMonth > 0) {
+        if (overdueMonth < 1) {
             dueState = context.getString(R.string.due);
             ba.setScheduleStatus(BaseAncHomeVisitAction.ScheduleStatus.DUE);
         } else {
@@ -424,8 +427,10 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                     String value = getValue(jsonObject, MessageFormat.format("tt{0}_date", details.getRight()));
 
                     try {
-                        DateTime updateDate = DateTimeFormat.forPattern("dd-MM-yyyy").parseDateTime(value);
-                        ba.getVaccineWrapper().setUpdatedVaccineDate(updateDate, false);
+                        if (ba.getVaccineWrapper() != null) {
+                            DateTime updateDate = DateTimeFormat.forPattern("dd-MM-yyyy").parseDateTime(value);
+                            ba.getVaccineWrapper().setUpdatedVaccineDate(updateDate, false);
+                        }
                     } catch (Exception e) {
                         Timber.e(e);
                     }
@@ -439,16 +444,37 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         actionList.put(immunization, ba);
     }
 
-    private void evaluateIPTP(BaseAncHomeVisitContract.View view, LinkedHashMap<String, BaseAncHomeVisitAction> actionList, VaccineTaskModel vaccineTaskModel, Context context) throws BaseAncHomeVisitAction.ValidationException {
+    private void evaluateIPTP(BaseAncHomeVisitContract.View view, LinkedHashMap<String, BaseAncHomeVisitAction> actionList, MemberObject memberObject, Context context) throws BaseAncHomeVisitAction.ValidationException {
         // if there are no pending vaccines
-        if (vaccineTaskModel == null) {
+
+        DateTime lmp = DateTimeFormat.forPattern("dd-MM-yyyy").parseDateTime(memberObject.getLastMenstrualPeriod());
+        Map<String, ServiceWrapper> serviceWrapperMap = getRecurringServices(memberObject.getBaseEntityId(), lmp);
+        ServiceWrapper serviceWrapper = serviceWrapperMap.get("IPTp-SP");
+
+        if (serviceWrapper == null) {
             return;
         }
 
-        String iptp = MessageFormat.format(context.getString(R.string.anc_home_visit_iptp_sp), 1);
+        final String serviceIteration = serviceWrapper.getName().substring(serviceWrapper.getName().length() - 1);
+
+        String iptp = MessageFormat.format(context.getString(R.string.anc_home_visit_iptp_sp), serviceIteration);
         final BaseAncHomeVisitAction ba = new BaseAncHomeVisitAction(iptp, "", false,
-                BaseAncHomeVisitFragment.getInstance(view, ANC_HOME_VISIT.IPTP_SP, null, null),
+                BaseAncHomeVisitFragment.getInstance(view, ANC_HOME_VISIT.IPTP_SP, null, serviceIteration),
                 null);
+
+        ba.setServiceWrapper(serviceWrapper);
+
+        String dueState;
+        int overdueMonth = new Period(serviceWrapper.getVaccineDate(), new DateTime()).getMonths();
+        if (overdueMonth < 1) {
+            dueState = context.getString(R.string.due);
+            ba.setScheduleStatus(BaseAncHomeVisitAction.ScheduleStatus.DUE);
+        } else {
+            dueState = context.getString(R.string.overdue);
+            ba.setScheduleStatus(BaseAncHomeVisitAction.ScheduleStatus.OVERDUE);
+        }
+
+        ba.setSubTitle(MessageFormat.format("{0} {1}", dueState, DateTimeFormat.forPattern("dd MMM yyyy").print(new DateTime(serviceWrapper.getVaccineDate()))));
         ba.setAncHomeVisitActionHelper(new BaseAncHomeVisitAction.AncHomeVisitActionHelper() {
             @Override
             public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
@@ -456,7 +482,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                     try {
                         JSONObject jsonObject = new JSONObject(ba.getJsonPayload());
 
-                        String value = getValue(jsonObject, MessageFormat.format("iptp{0}_date", 1));
+                        String value = getValue(jsonObject, MessageFormat.format("iptp{0}_date", serviceIteration));
 
                         try {
                             new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).parse(value);
@@ -473,6 +499,30 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
             }
         });
 
+        // update vaccine date
+        ba.setOnPayLoadReceived(new Runnable() {
+            @Override
+            public void run() {
+
+                try {
+                    JSONObject jsonObject = new JSONObject(ba.getJsonPayload());
+                    String value = getValue(jsonObject, MessageFormat.format("iptp{0}_date", serviceIteration));
+
+                    try {
+                        if (ba.getServiceWrapper() != null) {
+                            DateTime updateDate = DateTimeFormat.forPattern("dd-MM-yyyy").parseDateTime(value);
+                            ba.getServiceWrapper().setUpdatedVaccineDate(updateDate, false);
+                        }
+                    } catch (Exception e) {
+                        Timber.e(e);
+                    }
+
+                } catch (JSONException e) {
+                    Timber.e(e);
+                }
+            }
+        });
+
         actionList.put(iptp, ba);
     }
 
@@ -482,6 +532,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
 
         // get offline alerts
         VaccineSchedule.updateOfflineAlerts(baseEntityID, lmpDate, "woman");
+        ChwServiceSchedule.updateOfflineAlerts(baseEntityID, lmpDate); // get services
 
         //
         List<Alert> alerts = alertService.findByEntityIdAndAlertNames(baseEntityID, VaccinateActionUtils.allAlertNames("woman"));
@@ -504,6 +555,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         return vaccineTaskModel;
     }
 
+    // vaccine utils
     private Triple<DateTime, VaccineRepo.Vaccine, String> getIndividualVaccine(VaccineTaskModel vaccineTaskModel, String type) {
         // compute the due date
         Map<String, Object> map = null;
@@ -551,4 +603,5 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         }
         return null;
     }
+
 }
