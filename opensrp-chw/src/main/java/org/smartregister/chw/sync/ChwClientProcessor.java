@@ -112,7 +112,8 @@ public class ChwClientProcessor extends ClientProcessorForJava {
 
     private void processHomeVisit(EventClient eventClient) {
         List<Obs> observations = eventClient.getEvent().getObs();
-        ChildUtils.addToHomeVisitTable(eventClient.getEvent().getBaseEntityId(), observations);
+
+        ChildUtils.addToHomeVisitTable(eventClient.getEvent().getBaseEntityId(),eventClient.getEvent().getFormSubmissionId(), observations);
     }
 
     private void processVaccineCardEvent(EventClient eventClient) {
