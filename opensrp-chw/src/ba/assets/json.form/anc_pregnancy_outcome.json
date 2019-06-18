@@ -317,11 +317,7 @@
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
-        ],
-        "v_required": {
-          "value": "true",
-          "err": "Please enter the current weight"
-        }
+        ]
       },
 
       {
