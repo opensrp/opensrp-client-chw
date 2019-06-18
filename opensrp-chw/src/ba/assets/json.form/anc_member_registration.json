@@ -149,12 +149,6 @@
           }
         }
       },
-
-
-
-
-
-
       {
         "key": "delivery_method",
         "openmrs_entity_parent": "",
@@ -192,7 +186,6 @@
           "err": "Please enter the current weight"
         }
       },
-
       {
         "key": "no_surv_children",
         "openmrs_entity_parent": "",
