@@ -40,11 +40,11 @@ public class AncRegisterActivity extends BaseAncRegisterActivity {
                                                     String uniqueId) {
         Intent intent = new Intent(activity, AncRegisterActivity.class);
         intent.putExtra(org.smartregister.chw.anc.util.Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID, memberBaseEntityID);
+        intent.putExtra(TABLE_NAME, getFormTable());
         phone_number = phoneNumber;
         form_name = formName;
         unique_id = uniqueId;
         intent.putExtra(org.smartregister.chw.anc.util.Constants.ACTIVITY_PAYLOAD.ACTION, org.smartregister.chw.anc.util.Constants.ACTIVITY_PAYLOAD_TYPE.REGISTRATION);
-        intent.putExtra(TABLE_NAME, getFormTable());
         activity.startActivity(intent);
     }
 
@@ -54,7 +54,7 @@ public class AncRegisterActivity extends BaseAncRegisterActivity {
     }
 
     private static String getFormTable() {
-        if (form_name.equals(org.smartregister.chw.util.Constants.JSON_FORM.PREGNANCY_OUTCOME)) {
+        if (form_name.equals(Constants.JSON_FORM.ANC_REGISTRATION)) {
             return ANC_MEMBER;
         }
         return ANC_PREGNANCY_OUTCOME;
