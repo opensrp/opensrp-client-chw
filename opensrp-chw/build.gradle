@@ -109,7 +109,7 @@ android {
             dimension = 'baseDimension'
             applicationIdSuffix ".ba"
             versionCode 1
-            versionName "0.0.2"
+            versionName "0.0.1"
             buildConfigField "String", 'opensrp_url', '"https://boresha-afya.smartregister.org/opensrp/"'
             buildConfigField "String", 'opensrp_url_debug', '"https://boresha-afya-stage.smartregister.org/opensrp/"'
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"MOH Jhpiego Facility Name" , "Village"}'
@@ -121,7 +121,7 @@ android {
         wcaro {
             dimension = 'baseDimension'
             versionCode 1
-            versionName "0.1.5"
+            versionName "0.1.6"
             buildConfigField "String", 'opensrp_url', '"https://unicefwcaro.smartregister.org/opensrp/"'
             buildConfigField "String", 'opensrp_url_debug', '"https://unicefwcaro-stage.smartregister.org/opensrp/"'
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"Clinic" , "CHSS" , "CHA"}'
