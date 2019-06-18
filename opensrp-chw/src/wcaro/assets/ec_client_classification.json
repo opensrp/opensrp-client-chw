@@ -106,6 +106,20 @@
             "creates_case": [
               "ec_anc_register"
             ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Pregnancy Outcome",
+            "closes_case": [
+              "ec_anc_register"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Pregnancy Outcome",
+            "creates_case": [
+              "ec_pregnancy_outcome"
+            ]
           }
         ]
       }
