@@ -1,140 +1,141 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="org.smartregister.chw">
+          xmlns:tools="http://schemas.android.com/tools"
+          package="org.smartregister.chw">
 
-    <uses-feature android:name="android.hardware.camera" />
-    <uses-feature android:name="android.hardware.camera.autofocus" />
+    <uses-feature android:name="android.hardware.camera"/>
+    <uses-feature android:name="android.hardware.camera.autofocus"/>
 
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
 
     <application
-        android:name=".application.ChwApplication"
-        android:allowBackup="true"
-        android:supportsRtl="true"
-        android:theme="@style/ChwTheme"
-        tools:replace="android:theme">
+            android:name=".application.ChwApplication"
+            android:allowBackup="true"
+            android:supportsRtl="true"
+            android:theme="@style/ChwTheme"
+            tools:replace="android:theme">
         <activity android:name=".activity.AncHomeVisitActivity"
-            android:theme="@style/ChwTheme.NoActionBar"></activity>
+                  android:theme="@style/ChwTheme.NoActionBar"></activity>
         <activity
-            android:name=".activity.AncRegisterActivity"
-            android:theme="@style/ChwTheme.NoActionBar" />
+                android:name=".activity.AncRegisterActivity"
+                android:theme="@style/ChwTheme.NoActionBar"/>
         <activity
-            android:name=".activity.MalariaRegisterActivity"
-            android:theme="@style/ChwTheme.NoActionBar" />
+                android:name=".activity.MalariaRegisterActivity"
+                android:theme="@style/ChwTheme.NoActionBar"/>
         <activity
-            android:name=".activity.AncMemberProfileActivity"
-            android:theme="@style/ChwTheme.NoActionBar" />
+                android:name=".activity.AncMemberProfileActivity"
+                android:theme="@style/ChwTheme.NoActionBar"/>
 
         <meta-data
-            android:name="io.fabric.ApiKey"
-            android:value="3f94f9c3caeff331b3a2bd8c2182b663ad6a955a" />
+                android:name="io.fabric.ApiKey"
+                android:value="3f94f9c3caeff331b3a2bd8c2182b663ad6a955a"/>
 
         <activity
-            android:name=".activity.JobAidsActivity"
-            android:theme="@style/ChwTheme.NoActionBar" />
+                android:name=".activity.JobAidsActivity"
+                android:theme="@style/ChwTheme.NoActionBar"/>
         <activity
-            android:name=".activity.FamilyRemoveMemberActivity"
-            android:theme="@style/ChwTheme.NoActionBar" />
+                android:name=".activity.FamilyRemoveMemberActivity"
+                android:theme="@style/ChwTheme.NoActionBar"/>
         <activity
-            android:name=".activity.FamilyProfileMenuActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/ChwTheme.NoActionBar" />
+                android:name=".activity.FamilyProfileMenuActivity"
+                android:screenOrientation="portrait"
+                android:theme="@style/ChwTheme.NoActionBar"/>
         <activity
-            android:name=".activity.FamilyRegisterActivity"
-            android:label="@string/app_name"
-            android:screenOrientation="portrait"
-            android:theme="@style/ChwTheme.NoActionBar" />
+                android:name=".activity.FamilyRegisterActivity"
+                android:label="@string/app_name"
+                android:screenOrientation="portrait"
+                android:theme="@style/ChwTheme.NoActionBar"/>
         <activity
-            android:name=".activity.FamilyProfileActivity"
-            android:label="@string/title_family_detail"
-            android:parentActivityName=".activity.FamilyRegisterActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/ChwTheme.NoActionBar">
+                android:name=".activity.FamilyProfileActivity"
+                android:label="@string/title_family_detail"
+                android:parentActivityName=".activity.FamilyRegisterActivity"
+                android:screenOrientation="portrait"
+                android:theme="@style/ChwTheme.NoActionBar">
             <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.smartregister.chw.activity.FamilyRegisterActivity" />
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value="org.smartregister.chw.activity.FamilyRegisterActivity"/>
         </activity>
         <activity
-            android:name=".activity.FamilyOtherMemberProfileActivity"
-            android:label="@string/title_family_detail"
-            android:parentActivityName=".activity.FamilyRegisterActivity"
-            android:theme="@style/FamilyTheme.NoActionBar">
+                android:name=".activity.FamilyOtherMemberProfileActivity"
+                android:label="@string/title_family_detail"
+                android:parentActivityName=".activity.FamilyRegisterActivity"
+                android:theme="@style/FamilyTheme.NoActionBar">
             <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.smartregister.chw.activity.FamilyProfileActivity" />
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value="org.smartregister.chw.activity.FamilyProfileActivity"/>
         </activity>
         <activity
-            android:name="org.smartregister.family.activity.FamilyWizardFormActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            android:theme="@style/FamilyTheme.NoActionBar"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
+                android:name="org.smartregister.family.activity.FamilyWizardFormActivity"
+                android:launchMode="singleTask"
+                android:screenOrientation="portrait"
+                android:theme="@style/FamilyTheme.NoActionBar"
+                android:windowSoftInputMode="stateAlwaysHidden|adjustResize"/>
         <activity
-            android:name=".activity.ChildRegisterActivity"
-            android:theme="@style/ChwTheme.NoActionBar" />
+                android:name=".activity.ChildRegisterActivity"
+                android:theme="@style/ChwTheme.NoActionBar"/>
         <activity
-            android:name=".activity.ChildProfileActivity"
-            android:label="@string/child_details"
-            android:theme="@style/ChwTheme.NoActionBar" />
+                android:name=".activity.ChildProfileActivity"
+                android:label="@string/child_details"
+                android:theme="@style/ChwTheme.NoActionBar"/>
         <activity
-            android:name=".activity.MedicalHistoryActivity"
-            android:label="@string/medical_history"
-            android:theme="@style/ChwTheme.NoActionBar" />
+                android:name=".activity.MedicalHistoryActivity"
+                android:label="@string/medical_history"
+                android:theme="@style/ChwTheme.NoActionBar"/>
         <activity
-            android:name=".activity.UpcomingServicesActivity"
-            android:label="@string/upcoming_services"
-            android:theme="@style/ChwTheme.NoActionBar" />
+                android:name=".activity.UpcomingServicesActivity"
+                android:label="@string/upcoming_services"
+                android:theme="@style/ChwTheme.NoActionBar"/>
         <activity
-            android:name=".activity.IndividualProfileRemoveActivity"
-            android:theme="@style/ChwTheme.NoActionBar" />
+                android:name=".activity.IndividualProfileRemoveActivity"
+                android:theme="@style/ChwTheme.NoActionBar"/>
         <activity
-            android:name=".activity.LoginActivity"
-            android:icon="@drawable/ic_launcher"
-            android:label="@string/app_name"
-            android:launchMode="singleTask"
-            android:roundIcon="@drawable/ic_launcher_round"
-            android:screenOrientation="portrait"
-            android:theme="@style/ChwTheme.Login"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustResize">
+                android:name=".activity.LoginActivity"
+                android:icon="@drawable/ic_launcher"
+                android:label="@string/app_name"
+                android:launchMode="singleTask"
+                android:roundIcon="@drawable/ic_launcher_round"
+                android:screenOrientation="portrait"
+                android:theme="@style/ChwTheme.Login"
+                android:windowSoftInputMode="stateAlwaysHidden|adjustResize">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
         <activity android:name=".activity.AboveFiveChildProfileActivity" android:label="@string/child_details"
-            android:theme="@style/ChwTheme.NoActionBar"/>
-        <activity android:name=".activity.MalariaProfileActivity"/>
+                  android:theme="@style/ChwTheme.NoActionBar"/>
+        <activity android:name=".activity.MalariaProfileActivity"
+                  android:theme="@style/ChwTheme.NoActionBar"/>
 
         <provider
-            android:name="android.support.v4.content.FileProvider"
-            android:authorities="${applicationId}.fileprovider"
-            android:exported="false"
-            android:grantUriPermissions="true">
+                android:name="android.support.v4.content.FileProvider"
+                android:authorities="${applicationId}.fileprovider"
+                android:exported="false"
+                android:grantUriPermissions="true">
             <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/captured_images_path" />
+                    android:name="android.support.FILE_PROVIDER_PATHS"
+                    android:resource="@xml/captured_images_path"/>
         </provider>
 
-        <service android:name="org.smartregister.immunization.service.intent.VaccineIntentService" />
-        <service android:name="org.smartregister.immunization.service.intent.RecurringIntentService" />
-        <service android:name="org.smartregister.sync.intent.PullUniqueIdsIntentService" />
-        <service android:name=".sync.ChwSyncIntentService" />
-        <service android:name="org.smartregister.sync.intent.ExtendedSyncIntentService" />
-        <service android:name="org.smartregister.sync.intent.ValidateIntentService" />
-        <service android:name="org.smartregister.service.ImageUploadSyncService" />
+        <service android:name="org.smartregister.immunization.service.intent.VaccineIntentService"/>
+        <service android:name="org.smartregister.immunization.service.intent.RecurringIntentService"/>
+        <service android:name="org.smartregister.sync.intent.PullUniqueIdsIntentService"/>
+        <service android:name=".sync.ChwSyncIntentService"/>
+        <service android:name="org.smartregister.sync.intent.ExtendedSyncIntentService"/>
+        <service android:name="org.smartregister.sync.intent.ValidateIntentService"/>
+        <service android:name="org.smartregister.service.ImageUploadSyncService"/>
 
         <uses-library
-            android:name="org.apache.http.legacy"
-            android:required="false" />
+                android:name="org.apache.http.legacy"
+                android:required="false"/>
     </application>
 
 </manifest>

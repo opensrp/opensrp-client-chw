@@ -5,16 +5,12 @@ import android.view.View;
 
 import android.widget.Toast;
 import org.smartregister.chw.activity.MalariaProfileActivity;
-import org.smartregister.chw.malaria.contract.MalariaProfileContract;
 import org.smartregister.chw.malaria.fragment.BaseMalariaRegisterFragment;
 import org.smartregister.chw.model.MalariaRegisterFragmentModel;
 import org.smartregister.chw.presenter.MalariaRegisterFragmentPresenter;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 
-import java.lang.ref.WeakReference;
-
 public class MalariaRegisterFragment extends BaseMalariaRegisterFragment {
-    private WeakReference<MalariaProfileContract.View> view;
 
     @Override
     public void setupViews(View view) {
@@ -30,13 +26,12 @@ public class MalariaRegisterFragment extends BaseMalariaRegisterFragment {
     }
 
     @Override
-    protected void onViewClicked(android.view.View view) {
+    protected void onViewClicked(View view) {
         if (view.getId() == org.smartregister.malaria.R.id.due_button) {
-            Toast.makeText(getActivity().getApplicationContext(), "CLICKED", Toast.LENGTH_LONG).show();
             goToPatientProfile();
         } else {
-            Boolean cpo = view.getTag() instanceof CommonPersonObjectClient;
-            Toast.makeText(getActivity().getApplicationContext(), cpo.toString(), Toast.LENGTH_LONG).show();
+            boolean cpo = view.getTag() instanceof CommonPersonObjectClient;
+            Toast.makeText(getActivity().getApplicationContext(), Boolean.toString(cpo), Toast.LENGTH_LONG).show();
         }
 
 
@@ -51,12 +46,8 @@ public class MalariaRegisterFragment extends BaseMalariaRegisterFragment {
         intent.putExtra("unique_id", "ID#1231232");
         intent.putExtra("client", "client");
         MalariaProfileActivity.startMalariaActivity(getActivity(), intent);
-//        malariaPresenter().startProfileActivity(intent);
     }
 
-//    private MalariaProfileContract.Presenter malariaPresenter() {
-//        return malariaPresenter();
-//    }
 
 
 }
