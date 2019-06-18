@@ -77,7 +77,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         evaluateSleepingUnderLLITN(view, actionList, context);
         evaluateANCCard(view, actionList, context);
         evaluateHealthFacilityVisit(actionList, memberObject, dateMap, context);
-        evaluateTTImmunization(view, actionList, vaccineTaskModel, context);
+        evaluateTTImmunization(view, actionList, memberObject, vaccineTaskModel, context);
         evaluateIPTP(view, actionList, vaccineTaskModel, context);
 
         actionList.put(context.getString(R.string.anc_home_visit_observations_n_illnes), new BaseAncHomeVisitAction(context.getString(R.string.anc_home_visit_observations_n_illnes), "", true, null,
@@ -108,10 +108,10 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         return dateMap;
     }
 
-    private JSONObject getJson(BaseAncHomeVisitAction ba, MemberObject memberObject) throws Exception {
+    private JSONObject getJson(BaseAncHomeVisitAction ba, String baseEntityID) throws Exception {
         String locationId = ChwApplication.getInstance().getContext().allSharedPreferences().getPreference(AllConstants.CURRENT_LOCATION_ID);
         JSONObject jsonObject = JsonFormUtils.getFormAsJson(ba.getFormName());
-        JsonFormUtils.getRegistrationForm(jsonObject, memberObject.getBaseEntityId(), locationId);
+        JsonFormUtils.getRegistrationForm(jsonObject, baseEntityID, locationId);
         return jsonObject;
     }
 
@@ -152,7 +152,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         try {
             if (StringUtils.isBlank(ba.getJsonPayload())) {
 
-                JSONObject jsonObject = getJson(ba, memberObject);
+                JSONObject jsonObject = getJson(ba, memberObject.getBaseEntityId());
                 JSONArray fields = fields(jsonObject);
 
                 int x = 1;
@@ -207,7 +207,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
 
     private void evaluateSleepingUnderLLITN(BaseAncHomeVisitContract.View view, LinkedHashMap<String, BaseAncHomeVisitAction> actionList, Context context) throws BaseAncHomeVisitAction.ValidationException {
         final BaseAncHomeVisitAction ba = new BaseAncHomeVisitAction(context.getString(R.string.anc_home_visit_sleeping_under_llitn_net), "", false,
-                BaseAncHomeVisitFragment.getInstance(view, ANC_HOME_VISIT.SLEEPING_UNDER_LLITN, null),
+                BaseAncHomeVisitFragment.getInstance(view, ANC_HOME_VISIT.SLEEPING_UNDER_LLITN, null, null),
                 null);
 
         ba.setAncHomeVisitActionHelper(new BaseAncHomeVisitAction.AncHomeVisitActionHelper() {
@@ -238,7 +238,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
 
     private void evaluateANCCard(BaseAncHomeVisitContract.View view, LinkedHashMap<String, BaseAncHomeVisitAction> actionList, Context context) throws BaseAncHomeVisitAction.ValidationException {
         final BaseAncHomeVisitAction ba = new BaseAncHomeVisitAction(context.getString(R.string.anc_home_visit_anc_card_received), "", false,
-                BaseAncHomeVisitFragment.getInstance(view, ANC_HOME_VISIT.ANC_CARD_RECEIVED, null),
+                BaseAncHomeVisitFragment.getInstance(view, ANC_HOME_VISIT.ANC_CARD_RECEIVED, null, null),
                 null);
 
         ba.setAncHomeVisitActionHelper(new BaseAncHomeVisitAction.AncHomeVisitActionHelper() {
@@ -275,7 +275,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         try {
             if (StringUtils.isBlank(ba.getJsonPayload())) {
 
-                JSONObject jsonObject = getJson(ba, memberObject);
+                JSONObject jsonObject = getJson(ba, memberObject.getBaseEntityId());
                 JSONArray fields = fields(jsonObject);
 
                 if (dateMap.size() > 0) {
@@ -360,22 +360,24 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         actionList.put(visit, ba);
     }
 
-    private void evaluateTTImmunization(BaseAncHomeVisitContract.View view, LinkedHashMap<String, BaseAncHomeVisitAction> actionList, VaccineTaskModel vaccineTaskModel, Context context) throws BaseAncHomeVisitAction.ValidationException {
+    private void evaluateTTImmunization(BaseAncHomeVisitContract.View view, LinkedHashMap<String, BaseAncHomeVisitAction> actionList, MemberObject memberObject, VaccineTaskModel vaccineTaskModel, Context context) throws BaseAncHomeVisitAction.ValidationException {
 
         // if there are no pending vaccines
         if (vaccineTaskModel == null || vaccineTaskModel.getScheduleList().size() < 1) {
             return;
         }
         // compute the due date
-        Triple<DateTime, VaccineRepo.Vaccine, String> details = getIndividualVaccine(vaccineTaskModel, "TT");
+        final Triple<DateTime, VaccineRepo.Vaccine, String> details = getIndividualVaccine(vaccineTaskModel, "TT");
         if (details == null || details.getLeft().isAfter(new DateTime())) {
             return;
         }
 
         String immunization = MessageFormat.format(context.getString(R.string.anc_home_visit_tt_immunization), details.getRight());
         final BaseAncHomeVisitAction ba = new BaseAncHomeVisitAction(immunization, "", false,
-                BaseAncHomeVisitFragment.getInstance(view, ANC_HOME_VISIT.TT_IMMUNIZATION, null),
+                BaseAncHomeVisitFragment.getInstance(view, ANC_HOME_VISIT.TT_IMMUNIZATION, null, details.getRight()),
                 null);
+
+        ba.setVaccineWrapper(getVaccineWrapper(details.getMiddle(), vaccineTaskModel));
 
         int overdueMonth = new Period(details.getLeft(), new DateTime()).getMonths();
         String dueState;
@@ -395,7 +397,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                     try {
                         JSONObject jsonObject = new JSONObject(ba.getJsonPayload());
 
-                        String value = getValue(jsonObject, MessageFormat.format("tt{0}_date", 1));
+                        String value = getValue(jsonObject, MessageFormat.format("tt{0}_date", details.getRight()));
 
                         try {
                             new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).parse(value);
@@ -412,6 +414,28 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
             }
         });
 
+        // update vaccine date
+        ba.setOnPayLoadReceived(new Runnable() {
+            @Override
+            public void run() {
+
+                try {
+                    JSONObject jsonObject = new JSONObject(ba.getJsonPayload());
+                    String value = getValue(jsonObject, MessageFormat.format("tt{0}_date", details.getRight()));
+
+                    try {
+                        DateTime updateDate = DateTimeFormat.forPattern("dd-MM-yyyy").parseDateTime(value);
+                        ba.getVaccineWrapper().setUpdatedVaccineDate(updateDate, false);
+                    } catch (Exception e) {
+                        Timber.e(e);
+                    }
+
+                } catch (JSONException e) {
+                    Timber.e(e);
+                }
+            }
+        });
+
         actionList.put(immunization, ba);
     }
 
@@ -423,7 +447,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
 
         String iptp = MessageFormat.format(context.getString(R.string.anc_home_visit_iptp_sp), 1);
         final BaseAncHomeVisitAction ba = new BaseAncHomeVisitAction(iptp, "", false,
-                BaseAncHomeVisitFragment.getInstance(view, ANC_HOME_VISIT.IPTP_SP, null),
+                BaseAncHomeVisitFragment.getInstance(view, ANC_HOME_VISIT.IPTP_SP, null, null),
                 null);
         ba.setAncHomeVisitActionHelper(new BaseAncHomeVisitAction.AncHomeVisitActionHelper() {
             @Override
@@ -508,5 +532,23 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
     // read vaccine repo for all not given vaccines
     private List<VaccineWrapper> getNotGivenVaccines() {
         return new ArrayList<>();
+    }
+
+    private VaccineWrapper getVaccineWrapper(VaccineRepo.Vaccine vaccine, VaccineTaskModel vaccineTaskModel) {
+        VaccineWrapper vaccineWrapper = new VaccineWrapper();
+        vaccineWrapper.setVaccine(vaccine);
+        vaccineWrapper.setName(vaccine.display());
+        vaccineWrapper.setDbKey(getVaccineId(vaccine.display(), vaccineTaskModel));
+        vaccineWrapper.setDefaultName(vaccine.display());
+        return vaccineWrapper;
+    }
+
+    private Long getVaccineId(String vaccineName, VaccineTaskModel vaccineTaskModel) {
+        for (Vaccine vaccine : vaccineTaskModel.getVaccines()) {
+            if (vaccine.getName().equalsIgnoreCase(vaccineName)) {
+                return vaccine.getId();
+            }
+        }
+        return null;
     }
 }

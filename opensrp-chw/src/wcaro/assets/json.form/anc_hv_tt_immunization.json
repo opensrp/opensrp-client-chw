@@ -47,16 +47,16 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "TT 1 immunization",
+    "title": "TT {0} immunization",
     "fields": [
       {
-        "key": "tt1_date",
-        "openmrs_entity_parent": "",
+        "key": "tt{0}_date",
+        "openmrs_entity_parent": "84879AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity_id": "1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "date_picker",
         "image": "form_immunization",
-        "hint": "When was TT 1 immunization done?",
+        "hint": "When was TT {0} immunization done?",
         "min_date": "today-120y",
         "max_date": "today",
         "v_required": {
