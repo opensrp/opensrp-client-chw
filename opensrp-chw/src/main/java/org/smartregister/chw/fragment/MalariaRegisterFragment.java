@@ -44,7 +44,6 @@ public class MalariaRegisterFragment extends BaseMalariaRegisterFragment {
         intent.putExtra("gender", "Male");
         intent.putExtra("location", "Tabata");
         intent.putExtra("unique_id", "ID#1231232");
-        intent.putExtra("client", "client");
         MalariaProfileActivity.startMalariaActivity(getActivity(), intent);
     }
 
