@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
@@ -40,6 +41,10 @@ public class AncMemberProfileActivity extends BaseAncMemberProfileActivity {
     private static String familyName;
     private static FamilyProfileContract.Interactor profileInteractor;
     private static FamilyProfileContract.Model profileModel;
+    private static CommonPersonObject personObject;
+    private static CommonPersonObjectClient client;
+    private static CommonRepository commonRepository = org.smartregister.chw.util.Utils.context().commonrepository(org.smartregister.chw.util.Utils.metadata().familyMemberRegister.tableName);
+
 
     public static void startMe(Activity activity, MemberObject memberObject) {
         baseEntityId = memberObject.getBaseEntityId();
@@ -51,6 +56,9 @@ public class AncMemberProfileActivity extends BaseAncMemberProfileActivity {
         intent.putExtra(Constants.ANC_MEMBER_OBJECTS.MEMBER_PROFILE_OBJECT, memberObject);
         profileInteractor = new FamilyProfileInteractor();
         profileModel = new FamilyProfileModel(memberObject.getFamilyName());
+        personObject = commonRepository.findByBaseEntityId(baseEntityId);
+        client = new CommonPersonObjectClient(personObject.getCaseId(), personObject.getDetails(), "");
+        client.setColumnmaps(personObject.getColumnmaps());
         activity.startActivity(intent);
     }
 
@@ -97,13 +105,6 @@ public class AncMemberProfileActivity extends BaseAncMemberProfileActivity {
 
     public void startFormForEdit(Integer title_resource, String formName) {
 
-        CommonRepository commonRepository = org.smartregister.chw.util.Utils.context().commonrepository(org.smartregister.chw.util.Utils.metadata().familyMemberRegister.tableName);
-
-        final CommonPersonObject personObject = commonRepository.findByBaseEntityId(baseEntityId);
-        final CommonPersonObjectClient client =
-                new CommonPersonObjectClient(personObject.getCaseId(), personObject.getDetails(), "");
-        client.setColumnmaps(personObject.getColumnmaps());
-
         JSONObject form = null;
 
         if (formName.equals(org.smartregister.chw.util.Constants.JSON_FORM.FAMILY_MEMBER_REGISTER)) {
@@ -140,6 +141,19 @@ public class AncMemberProfileActivity extends BaseAncMemberProfileActivity {
 
     public AncMemberProfilePresenter ancMemberProfilePresenter() {
         return new AncMemberProfilePresenter(this, MEMBER_OBJECT);
+    }
+
+
+    @Override
+    public void onClick(View view) {
+
+        switch (view.getId()) {
+            case R.id.textview_record_anc_visit:
+                AncHomeVisitActivity.startMe(this, new MemberObject(client));
+                break;
+            default:
+                break;
+        }
     }
 
     @Override
