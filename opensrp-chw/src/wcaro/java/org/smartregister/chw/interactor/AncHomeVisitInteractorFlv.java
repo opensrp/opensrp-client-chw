@@ -37,6 +37,7 @@ import org.smartregister.immunization.util.VaccinateActionUtils;
 import org.smartregister.service.AlertService;
 
 import java.text.MessageFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -188,7 +189,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                 JSONObject visit_field = getFieldJSONObject(fields, "anc_counseling_toaster");
                 visit_field.put("text", MessageFormat.format(visit_field.getString("text"), builder.toString()));
 
-                ba.setJsonPayload(jsonObject.toString());
+                ba.setProcessedJsonPayload(jsonObject.toString());
                 ba.setActionStatus(BaseAncHomeVisitAction.Status.PENDING);
             }
         } catch (Exception e) {
@@ -213,7 +214,6 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                         } else if (StringUtils.isNotBlank(value1) & StringUtils.isNotBlank(value2) & StringUtils.isNotBlank(value3)) {
                             return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
                         } else {
-
                             ba.setSubTitle("");
                             return BaseAncHomeVisitAction.Status.PENDING;
                         }
@@ -342,7 +342,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         actionList.put(context.getString(R.string.anc_home_visit_anc_card_received), ba);
     }
 
-    private void evaluateHealthFacilityVisit(LinkedHashMap<String, BaseAncHomeVisitAction> actionList, final MemberObject memberObject, Map<Integer, LocalDate> dateMap, Context context) throws BaseAncHomeVisitAction.ValidationException {
+    private void evaluateHealthFacilityVisit(LinkedHashMap<String, BaseAncHomeVisitAction> actionList, final MemberObject memberObject, Map<Integer, LocalDate> dateMap, final Context context) throws BaseAncHomeVisitAction.ValidationException {
 
         String visit = MessageFormat.format(context.getString(R.string.anc_home_visit_facility_visit), memberObject.getConfirmedContacts() + 1);
         final BaseAncHomeVisitAction ba = new BaseAncHomeVisitAction(visit, "", false, null, ANC_HOME_VISIT.HEALTH_FACILITY_VISIT);
@@ -366,6 +366,9 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                     ba.setSubTitle(MessageFormat.format("{0} {1}", due, DateTimeFormat.forPattern("dd MMM yyyy").print(visitDate)));
                     ba.setScheduleStatus(scheduleStatus);
 
+                    String title = jsonObject.getJSONObject(JsonFormConstants.STEP1).getString("title");
+                    jsonObject.getJSONObject(JsonFormConstants.STEP1).put("title", MessageFormat.format(title, memberObject.getConfirmedContacts() + 1));
+
                     JSONObject visit_field = getFieldJSONObject(fields, "anc_hf_visit");
                     visit_field.put("label_info_title", MessageFormat.format(visit_field.getString("label_info_title"), memberObject.getConfirmedContacts() + 1));
                     visit_field.put("hint", MessageFormat.format(visit_field.getString("hint"), memberObject.getConfirmedContacts() + 1, visitDate));
@@ -374,7 +377,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                     getFieldJSONObject(fields, "confirmed_visits").put(JsonFormConstants.VALUE, memberObject.getConfirmedContacts());
                 }
 
-                ba.setJsonPayload(jsonObject.toString());
+                ba.setProcessedJsonPayload(jsonObject.toString());
                 ba.setActionStatus(BaseAncHomeVisitAction.Status.PENDING);
             }
         } catch (Exception e) {
@@ -390,12 +393,13 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
 
                         String value = getValue(jsonObject, "anc_hf_visit");
 
+                        ba.setSubTitle(getHealthFacilityVisitText(jsonObject, context));
                         if (value.equalsIgnoreCase("Yes")) {
-
                             return BaseAncHomeVisitAction.Status.COMPLETED;
                         } else if (value.equalsIgnoreCase("No")) {
                             return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
                         } else {
+                            ba.setSubTitle("");
                             return BaseAncHomeVisitAction.Status.PENDING;
                         }
                     } catch (Exception e) {
@@ -424,7 +428,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
 
                     if (!confirmed_visits.getString(JsonFormConstants.VALUE).equals(count)) {
                         confirmed_visits.put(JsonFormConstants.VALUE, memberObject.getConfirmedContacts() + 1);
-                        ba.setJsonPayload(jsonObject.toString());
+                        ba.setProcessedJsonPayload(jsonObject.toString());
                     }
 
                 } catch (JSONException e) {
@@ -434,6 +438,36 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         });
 
         actionList.put(visit, ba);
+    }
+
+
+    private String getHealthFacilityVisitText(JSONObject jsonObject, Context context) throws ParseException {
+
+        String value = getValue(jsonObject, "anc_hf_visit");
+        StringBuilder stringBuilder = new StringBuilder();
+        if (value.equalsIgnoreCase("No")) {
+            stringBuilder.append(context.getString(R.string.visit_not_done).replace("\n", ""));
+        } else {
+
+            String date_str = getValue(jsonObject, "anc_hf_visit_date");
+            String weight = getValue(jsonObject, "weight");
+            String bp = getValue(jsonObject, "sys_bp");
+            String dia_bp = getValue(jsonObject, "dia_bp");
+            String hb = getValue(jsonObject, "hb_level");
+            String ifa = getValue(jsonObject, "ifa_received");
+            String testsDone = getCheckBoxValue(jsonObject, "tests_done");
+
+            Date date = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).parse(date_str);
+
+            stringBuilder.append(MessageFormat.format("{0}: {1}\n", context.getString(R.string.date), new SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(date)));
+            stringBuilder.append(MessageFormat.format("{0}: {1} {2}\n", context.getString(R.string.weight), weight, context.getString(R.string.kg)));
+            stringBuilder.append(MessageFormat.format("{0} {1}/{2} {3}\n", context.getString(R.string.str_bp), bp, dia_bp, context.getString(R.string.mmHg)));
+            stringBuilder.append(MessageFormat.format("{0} {1}\n", context.getString(R.string.hb_level), hb));
+            stringBuilder.append(MessageFormat.format("{0} {1}\n", context.getString(R.string.ifa_received), ifa));
+            stringBuilder.append(MessageFormat.format("{0} {1}\n", context.getString(R.string.tests_done), testsDone));
+        }
+
+        return stringBuilder.toString();
     }
 
     private void evaluateTTImmunization(BaseAncHomeVisitContract.View view, LinkedHashMap<String, BaseAncHomeVisitAction> actionList, VaccineTaskModel vaccineTaskModel, final Context context) throws BaseAncHomeVisitAction.ValidationException {
