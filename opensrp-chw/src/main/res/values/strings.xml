@@ -296,5 +296,6 @@
     <string name="gest_age">GA: %1$s</string>
     <string name="gest_age_weeks">weeks</string>
 
+    <string name="action_taken">Action taken</string>
 
 </resources>

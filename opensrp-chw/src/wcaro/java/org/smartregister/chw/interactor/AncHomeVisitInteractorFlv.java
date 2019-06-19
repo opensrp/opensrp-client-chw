@@ -83,9 +83,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         evaluateHealthFacilityVisit(actionList, memberObject, dateMap, context);
         evaluateTTImmunization(view, actionList, vaccineTaskModel, context);
         evaluateIPTP(view, actionList, memberObject, context);
-
-        actionList.put(context.getString(R.string.anc_home_visit_observations_n_illnes), new BaseAncHomeVisitAction(context.getString(R.string.anc_home_visit_observations_n_illnes), "", true, null,
-                ANC_HOME_VISIT.OBSERVATION_AND_ILLNESS));
+        evaluateObservation(view, actionList, context);
 
         return actionList;
     }
@@ -599,6 +597,40 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         });
 
         actionList.put(iptp, ba);
+    }
+
+    private void evaluateObservation(BaseAncHomeVisitContract.View view, LinkedHashMap<String, BaseAncHomeVisitAction> actionList, final Context context) throws BaseAncHomeVisitAction.ValidationException {
+
+        final BaseAncHomeVisitAction ba = new BaseAncHomeVisitAction(context.getString(R.string.anc_home_visit_observations_n_illnes), "", true, null,
+                ANC_HOME_VISIT.OBSERVATION_AND_ILLNESS);
+        actionList.put(context.getString(R.string.anc_home_visit_observations_n_illnes), ba);
+
+        ba.setAncHomeVisitActionHelper(new BaseAncHomeVisitAction.AncHomeVisitActionHelper() {
+            @Override
+            public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
+                ba.setSubTitle("");
+                if (ba.getJsonPayload() != null) {
+                    try {
+                        JSONObject jsonObject = new JSONObject(ba.getJsonPayload());
+
+                        LocalDate illnessDate = DateTimeFormat.forPattern("dd-MM-yyyy").parseLocalDate(getValue(jsonObject, "date_of_illness"));
+                        String desc = getValue(jsonObject, "illness_description");
+                        String action = getValue(jsonObject, "action_taken");
+
+                        String builder = MessageFormat.format("{0}: {1}\n {2}: {3}",
+                                DateTimeFormat.forPattern("dd MMM yyyy").print(illnessDate),
+                                desc, context.getString(R.string.action_taken), action
+                        );
+                        ba.setSubTitle(builder);
+                    } catch (Exception e) {
+                        Timber.e(e);
+                    }
+                } else {
+                    ba.setSubTitle("");
+                }
+                return ba.computedStatus();
+            }
+        });
     }
 
     private VaccineTaskModel getWomanVaccine(String baseEntityID, DateTime lmpDate, List<VaccineWrapper> notDoneVaccines) {
