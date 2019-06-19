@@ -311,4 +311,9 @@ public class ChwApplication extends DrishtiApplication {
     public AllCommonsRepository getAllCommonsRepository(String table) {
         return ChwApplication.getInstance().getContext().allCommonsRepositoryobjects(table);
     }
+
+    @Override
+    public ClientProcessorForJava getClientProcessor() {
+        return ChwApplication.getClientProcessor(ChwApplication.getInstance().getApplicationContext());
+    }
 }
