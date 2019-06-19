@@ -27,6 +27,7 @@ import java.util.Map;
 
 import timber.log.Timber;
 
+import static org.smartregister.chw.util.JsonFormUtils.getCheckBoxValue;
 import static org.smartregister.chw.util.JsonFormUtils.getValue;
 import static org.smartregister.util.JsonFormUtils.fields;
 import static org.smartregister.util.JsonFormUtils.getFieldJSONObject;
@@ -81,7 +82,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         return jsonObject;
     }
 
-    private void evaluateDangerSigns(LinkedHashMap<String, BaseAncHomeVisitAction> actionList, Context context) throws BaseAncHomeVisitAction.ValidationException {
+    private void evaluateDangerSigns(LinkedHashMap<String, BaseAncHomeVisitAction> actionList, final Context context) throws BaseAncHomeVisitAction.ValidationException {
         final BaseAncHomeVisitAction ba = new BaseAncHomeVisitAction(context.getString(R.string.anc_home_visit_danger_signs), "", false, null,
                 ANC_HOME_VISIT.DANGER_SIGNS);
         ba.setAncHomeVisitActionHelper(new BaseAncHomeVisitAction.AncHomeVisitActionHelper() {
@@ -93,11 +94,13 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
 
                         String value = getValue(jsonObject, "danger_signs_counseling");
 
+                        ba.setSubTitle(getDangerSignsText(jsonObject, context));
                         if (value.equalsIgnoreCase("Yes")) {
                             return BaseAncHomeVisitAction.Status.COMPLETED;
                         } else if (value.equalsIgnoreCase("No")) {
                             return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
                         } else {
+                            ba.setSubTitle("");
                             return BaseAncHomeVisitAction.Status.PENDING;
                         }
                     } catch (Exception e) {
@@ -109,6 +112,20 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         });
 
         actionList.put(context.getString(R.string.anc_home_visit_danger_signs), ba);
+    }
+
+    private String getDangerSignsText(JSONObject jsonObject, Context context) {
+        StringBuilder stringBuilder = new StringBuilder();
+
+        String signs_present = getCheckBoxValue(jsonObject, "danger_signs_present");
+        String counseling = getValue(jsonObject, "danger_signs_counseling");
+
+        stringBuilder.append(MessageFormat.format("Danger signs: {0}", signs_present));
+        stringBuilder.append("\n");
+        stringBuilder.append(MessageFormat.format("Health facility counselling {0}",
+                (counseling.equalsIgnoreCase("Yes") ? context.getString(R.string.done).toLowerCase() : context.getString(R.string.not_done).toLowerCase())
+        ));
+        return stringBuilder.toString();
     }
 
     private void evaluateHealthFacilityVisit(LinkedHashMap<String, BaseAncHomeVisitAction> actionList, final MemberObject memberObject, Map<Integer, LocalDate> dateMap, Context context) throws BaseAncHomeVisitAction.ValidationException {
