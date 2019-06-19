@@ -22,7 +22,11 @@ import org.smartregister.chw.util.Constants.JSON_FORM.ANC_HOME_VISIT;
 import org.smartregister.chw.util.ContactUtil;
 
 import java.text.MessageFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.LinkedHashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import timber.log.Timber;
@@ -128,7 +132,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         return stringBuilder.toString();
     }
 
-    private void evaluateHealthFacilityVisit(LinkedHashMap<String, BaseAncHomeVisitAction> actionList, final MemberObject memberObject, Map<Integer, LocalDate> dateMap, Context context) throws BaseAncHomeVisitAction.ValidationException {
+    private void evaluateHealthFacilityVisit(LinkedHashMap<String, BaseAncHomeVisitAction> actionList, final MemberObject memberObject, Map<Integer, LocalDate> dateMap, final Context context) throws BaseAncHomeVisitAction.ValidationException {
 
         String visit = MessageFormat.format(context.getString(R.string.anc_home_visit_facility_visit), memberObject.getConfirmedContacts() + 1);
         final BaseAncHomeVisitAction ba = new BaseAncHomeVisitAction(visit, "", false, null, ANC_HOME_VISIT.HEALTH_FACILITY_VISIT);
@@ -155,6 +159,10 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                         ba.setScheduleStatus(BaseAncHomeVisitAction.ScheduleStatus.DUE);
                     }
 
+
+                    String title = jsonObject.getJSONObject(JsonFormConstants.STEP1).getString("title");
+                    jsonObject.getJSONObject(JsonFormConstants.STEP1).put("title", MessageFormat.format(title, memberObject.getConfirmedContacts() + 1));
+
                     JSONObject visit_field = getFieldJSONObject(fields, "anc_hf_visit");
                     visit_field.put("label_info_title", MessageFormat.format(visit_field.getString("label_info_title"), memberObject.getConfirmedContacts() + 1));
                     visit_field.put("hint", MessageFormat.format(visit_field.getString("hint"), memberObject.getConfirmedContacts() + 1, visitDate));
@@ -164,7 +172,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                     confirmed_visits.put(JsonFormConstants.VALUE, memberObject.getConfirmedContacts());
                 }
 
-                ba.setJsonPayload(jsonObject.toString());
+                ba.setProcessedJsonPayload(jsonObject.toString());
                 ba.setActionStatus(BaseAncHomeVisitAction.Status.PENDING);
             }
         } catch (Exception e) {
@@ -179,7 +187,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                         JSONObject jsonObject = new JSONObject(ba.getJsonPayload());
 
                         String value = getValue(jsonObject, "anc_hf_visit");
-
+                        ba.setSubTitle(getHealthFacilityVisitText(jsonObject, context));
                         if (value.equalsIgnoreCase("Yes")) {
 
                             return BaseAncHomeVisitAction.Status.COMPLETED;
@@ -214,7 +222,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
 
                     if (!confirmed_visits.getString(JsonFormConstants.VALUE).equals(count)) {
                         confirmed_visits.put(JsonFormConstants.VALUE, memberObject.getConfirmedContacts() + 1);
-                        ba.setJsonPayload(jsonObject.toString());
+                        ba.setProcessedJsonPayload(jsonObject.toString());
                     }
 
                 } catch (JSONException e) {
@@ -226,7 +234,33 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         actionList.put(visit, ba);
     }
 
-    private void evaluateFamilyPlanning(LinkedHashMap<String, BaseAncHomeVisitAction> actionList, Context context) throws BaseAncHomeVisitAction.ValidationException {
+    private String getHealthFacilityVisitText(JSONObject jsonObject, Context context) throws ParseException {
+
+        String value = getValue(jsonObject, "anc_hf_visit");
+        StringBuilder stringBuilder = new StringBuilder();
+        if (value.equalsIgnoreCase("No")) {
+            stringBuilder.append(context.getString(R.string.visit_not_done).replace("\n", ""));
+        } else {
+
+            String date_str = getValue(jsonObject, "anc_hf_visit_date");
+            String testsDone = getCheckBoxValue(jsonObject, "tests_done");
+            String treatments = getCheckBoxValue(jsonObject, "imm_medicine_given");
+            String llin_given = getValue(jsonObject, "llin_given");
+
+            Date date = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).parse(date_str);
+
+            stringBuilder.append(MessageFormat.format("{0}: {1}\n", context.getString(R.string.date), new SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(date)));
+            stringBuilder.append(MessageFormat.format("{0}: {1}\n", context.getString(R.string.tests_done), testsDone));
+            stringBuilder.append(MessageFormat.format("{0}: {1}\n", context.getString(R.string.treatment_given), treatments));
+            if (llin_given.equalsIgnoreCase("Yes")) {
+                stringBuilder.append(context.getString(R.string.received_llin));
+            }
+        }
+
+        return stringBuilder.toString();
+    }
+
+    private void evaluateFamilyPlanning(LinkedHashMap<String, BaseAncHomeVisitAction> actionList, final Context context) throws BaseAncHomeVisitAction.ValidationException {
         final BaseAncHomeVisitAction ba = new BaseAncHomeVisitAction(context.getString(R.string.anc_home_visit_family_planning), "", false, null,
                 ANC_HOME_VISIT.FAMILY_PLANNING);
         ba.setAncHomeVisitActionHelper(new BaseAncHomeVisitAction.AncHomeVisitActionHelper() {
@@ -238,6 +272,8 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
 
                         String value = getValue(jsonObject, "fam_planning");
 
+                        String subTitle = (value.equalsIgnoreCase("Yes") ? context.getString(R.string.done).toLowerCase() : context.getString(R.string.not_done).toLowerCase());
+                        ba.setSubTitle(StringUtils.capitalize(subTitle));
                         if (value.equalsIgnoreCase("Yes")) {
                             return BaseAncHomeVisitAction.Status.COMPLETED;
                         } else {
