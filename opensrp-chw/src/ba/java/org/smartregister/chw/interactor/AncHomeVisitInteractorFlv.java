@@ -130,47 +130,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         String visit = MessageFormat.format(context.getString(R.string.anc_home_visit_facility_visit), memberObject.getConfirmedContacts() + 1);
         final BaseAncHomeVisitAction ba = new BaseAncHomeVisitAction(visit, "", false, null, ANC_HOME_VISIT.HEALTH_FACILITY_VISIT);
 
-        // open the form and inject the values
-        try {
-            if (StringUtils.isBlank(ba.getJsonPayload())) {
-
-                JSONObject jsonObject = getJson(ba, memberObject);
-                JSONArray fields = fields(jsonObject);
-
-                if (dateMap.size() > 0) {
-                    Map.Entry<Integer, LocalDate> entry = dateMap.entrySet().iterator().next();
-                    LocalDate visitDate = entry.getValue();
-
-                    ba.setTitle(MessageFormat.format(context.getString(R.string.anc_home_visit_facility_visit), memberObject.getConfirmedContacts() + 1));
-
-                    // update form
-                    if (visitDate.isBefore(LocalDate.now())) {
-                        ba.setSubTitle(MessageFormat.format("{0} {1}", context.getString(R.string.overdue), DateTimeFormat.forPattern("dd MMM yyyy").print(visitDate)));
-                        ba.setScheduleStatus(BaseAncHomeVisitAction.ScheduleStatus.OVERDUE);
-                    } else {
-                        ba.setSubTitle(MessageFormat.format("{0} {1}", context.getString(R.string.due), DateTimeFormat.forPattern("dd MMM yyyy").print(visitDate)));
-                        ba.setScheduleStatus(BaseAncHomeVisitAction.ScheduleStatus.DUE);
-                    }
-
-
-                    String title = jsonObject.getJSONObject(JsonFormConstants.STEP1).getString("title");
-                    jsonObject.getJSONObject(JsonFormConstants.STEP1).put("title", MessageFormat.format(title, memberObject.getConfirmedContacts() + 1));
-
-                    JSONObject visit_field = getFieldJSONObject(fields, "anc_hf_visit");
-                    visit_field.put("label_info_title", MessageFormat.format(visit_field.getString("label_info_title"), memberObject.getConfirmedContacts() + 1));
-                    visit_field.put("hint", MessageFormat.format(visit_field.getString("hint"), memberObject.getConfirmedContacts() + 1, visitDate));
-
-                    // current visit count
-                    JSONObject confirmed_visits = getFieldJSONObject(fields, "confirmed_visits");
-                    confirmed_visits.put(JsonFormConstants.VALUE, memberObject.getConfirmedContacts());
-                }
-
-                ba.setProcessedJsonPayload(jsonObject.toString());
-                ba.setActionStatus(BaseAncHomeVisitAction.Status.PENDING);
-            }
-        } catch (Exception e) {
-            Timber.e(e);
-        }
+        evaluateHealthFacilityVisitPre(ba, memberObject, dateMap, context);
 
         ba.setAncHomeVisitActionHelper(new BaseAncHomeVisitAction.AncHomeVisitActionHelper() {
             @Override
@@ -225,6 +185,51 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         });
 
         actionList.put(visit, ba);
+    }
+
+    private void evaluateHealthFacilityVisitPre(BaseAncHomeVisitAction ba, MemberObject memberObject, Map<Integer, LocalDate> dateMap, Context context) {
+        // open the form and inject the values
+        try {
+            if (StringUtils.isBlank(ba.getJsonPayload())) {
+
+                JSONObject jsonObject = getJson(ba, memberObject);
+                JSONArray fields = fields(jsonObject);
+
+                if (dateMap.size() > 0) {
+                    Map.Entry<Integer, LocalDate> entry = dateMap.entrySet().iterator().next();
+                    LocalDate visitDate = entry.getValue();
+
+                    ba.setTitle(MessageFormat.format(context.getString(R.string.anc_home_visit_facility_visit), memberObject.getConfirmedContacts() + 1));
+
+                    // update form
+                    if (visitDate.isBefore(LocalDate.now())) {
+                        ba.setSubTitle(MessageFormat.format("{0} {1}", context.getString(R.string.overdue), DateTimeFormat.forPattern("dd MMM yyyy").print(visitDate)));
+                        ba.setScheduleStatus(BaseAncHomeVisitAction.ScheduleStatus.OVERDUE);
+                    } else {
+                        ba.setSubTitle(MessageFormat.format("{0} {1}", context.getString(R.string.due), DateTimeFormat.forPattern("dd MMM yyyy").print(visitDate)));
+                        ba.setScheduleStatus(BaseAncHomeVisitAction.ScheduleStatus.DUE);
+                    }
+
+
+                    String title = jsonObject.getJSONObject(JsonFormConstants.STEP1).getString("title");
+                    jsonObject.getJSONObject(JsonFormConstants.STEP1).put("title", MessageFormat.format(title, memberObject.getConfirmedContacts() + 1));
+
+                    JSONObject visit_field = getFieldJSONObject(fields, "anc_hf_visit");
+                    visit_field.put("label_info_title", MessageFormat.format(visit_field.getString("label_info_title"), memberObject.getConfirmedContacts() + 1));
+                    visit_field.put("hint", MessageFormat.format(visit_field.getString("hint"), memberObject.getConfirmedContacts() + 1, visitDate));
+
+                    // current visit count
+                    JSONObject confirmed_visits = getFieldJSONObject(fields, "confirmed_visits");
+                    confirmed_visits.put(JsonFormConstants.VALUE, memberObject.getConfirmedContacts());
+                }
+
+                ba.setProcessedJsonPayload(jsonObject.toString());
+                ba.setActionStatus(BaseAncHomeVisitAction.Status.PENDING);
+            }
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+
     }
 
     private String getHealthFacilityVisitText(JSONObject jsonObject, Context context) throws ParseException {
