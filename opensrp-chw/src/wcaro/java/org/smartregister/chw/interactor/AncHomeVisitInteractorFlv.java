@@ -517,7 +517,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         actionList.put(immunization, ba);
     }
 
-    private void evaluateIPTP(BaseAncHomeVisitContract.View view, LinkedHashMap<String, BaseAncHomeVisitAction> actionList, MemberObject memberObject, Context context) throws BaseAncHomeVisitAction.ValidationException {
+    private void evaluateIPTP(BaseAncHomeVisitContract.View view, LinkedHashMap<String, BaseAncHomeVisitAction> actionList, MemberObject memberObject, final Context context) throws BaseAncHomeVisitAction.ValidationException {
         // if there are no pending vaccines
 
         DateTime lmp = DateTimeFormat.forPattern("dd-MM-yyyy").parseDateTime(memberObject.getLastMenstrualPeriod());
@@ -557,10 +557,13 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
 
                         String value = getValue(jsonObject, MessageFormat.format("iptp{0}_date", serviceIteration));
 
+                        ba.setScheduleStatus(BaseAncHomeVisitAction.ScheduleStatus.DUE);
                         try {
-                            new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).parse(value);
+                            Date date = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).parse(value);
+                            ba.setSubTitle(context.getString(R.string.given_on, new SimpleDateFormat("dd MMM yyyy").format(date)));
                             return BaseAncHomeVisitAction.Status.COMPLETED;
                         } catch (Exception e) {
+                            ba.setSubTitle(context.getString(R.string.not_given));
                             return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
                         }
 
