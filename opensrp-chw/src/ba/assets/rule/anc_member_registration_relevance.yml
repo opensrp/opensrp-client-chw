@@ -17,7 +17,15 @@ actions:
 name: step1_delivery_method
 description: delivery_method relevance
 priority: 1
-condition: "step1_no_prev_preg >= 1"
+condition: "step1_no_prev_preg >= 2"
+actions:
+  - "isRelevant = true"
+
+---
+name: step1_delivery_method_one
+description: delivery_method relevance
+priority: 1
+condition: "step1_no_prev_preg == 1"
 actions:
   - "isRelevant = true"
 
