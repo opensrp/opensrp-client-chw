@@ -295,6 +295,7 @@
     <string name="gest_age">GA: %1$s</string>
     <string name="gest_age_weeks">weeks</string>
     <string name="return_to_profile">Return to profiles</string>
+    <string name="malaria_followup_visti">Follow-up visit</string>
 
 
 </resources>

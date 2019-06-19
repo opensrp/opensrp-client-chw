@@ -18,6 +18,11 @@
         android:enabled="true"
         android:title="@string/malaria_registration"
         app:showAsAction="never" />
+    <item
+            android:id="@+id/action_malaria_followup_visit"
+            android:enabled="true"
+            android:title="@string/malaria_followup_visti"
+            app:showAsAction="never"/>
 
     <item
         android:id="@+id/action_remove_member"

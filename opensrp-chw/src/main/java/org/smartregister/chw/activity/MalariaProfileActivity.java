@@ -4,13 +4,15 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import org.joda.time.DateTime;
 import org.joda.time.Period;
+import org.smartregister.chw.R;
 import org.smartregister.chw.malaria.activity.BaseMalariaProfileActivity;
-import org.smartregister.chw.util.ChildDBConstants;
+import org.smartregister.chw.presenter.ChildProfilePresenter;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.util.Utils;
 
@@ -19,6 +21,7 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity {
     private int age;
     private CommonPersonObjectClient client;
     private View view;
+    private ChildProfileActivityFlv flavor = new ChildProfileActivityFlv();
 
     public static void startMalariaActivity(Activity activity, Intent intent) {
         activity.startActivity(intent);
@@ -64,5 +67,37 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity {
         if (view.getId() == org.smartregister.malaria.R.id.toolbar_title) {
             onBackPressed();
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.other_member_menu, menu);
+        if (flavor.showMalariaConfirmationMenu()) {
+            menu.findItem(R.id.action_malaria_registration).setVisible(false);
+            menu.findItem(R.id.action_malaria_followup_visit).setVisible(true);
+        }
+        menu.findItem(R.id.action_anc_registration).setVisible(false);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            case R.id.action_anc_registration:
+//                AncRegisterActivity.startAncRegistrationActivity(FamilyOtherMemberProfileActivity.this, baseEntityId, PhoneNumber);
+                return true;
+            case R.id.action_malaria_followup_visit:
+//                MalariaRegisterActivity.startMalariaRegistrationActivity(FamilyOtherMemberProfileActivity.this, baseEntityId);
+                return true;
+            case R.id.action_remove_member:
+//                IndividualProfileRemoveActivity.startIndividualProfileActivity(FamilyOtherMemberProfileActivity.this, commonPersonObject, familyBaseEntityId, familyHead, primaryCaregiver);
+                return true;
+            default:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
