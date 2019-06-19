@@ -84,7 +84,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         evaluateHealthFacilityVisit(actionList, memberObject, dateMap, context);
         evaluateTTImmunization(view, actionList, vaccineTaskModel, context);
         evaluateIPTP(view, actionList, memberObject, context);
-        evaluateObservation(view, actionList, context);
+        evaluateObservation(actionList, context);
 
         return actionList;
     }
@@ -638,7 +638,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         actionList.put(iptp, ba);
     }
 
-    private void evaluateObservation(BaseAncHomeVisitContract.View view, LinkedHashMap<String, BaseAncHomeVisitAction> actionList, final Context context) throws BaseAncHomeVisitAction.ValidationException {
+    private void evaluateObservation(LinkedHashMap<String, BaseAncHomeVisitAction> actionList, final Context context) throws BaseAncHomeVisitAction.ValidationException {
 
         final BaseAncHomeVisitAction ba = new BaseAncHomeVisitAction(context.getString(R.string.anc_home_visit_observations_n_illnes), "", true, null,
                 ANC_HOME_VISIT.OBSERVATION_AND_ILLNESS);
