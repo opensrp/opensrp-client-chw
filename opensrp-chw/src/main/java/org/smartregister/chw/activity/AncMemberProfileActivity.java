@@ -146,6 +146,7 @@ public class AncMemberProfileActivity extends BaseAncMemberProfileActivity {
         if (!ancVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.DUE.name()) &&
                 !ancVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.OVERDUE.name())) {
             textview_record_anc_visit.setVisibility(View.GONE);
+            view_anc_record.setVisibility(View.GONE);
         }
     }
 
