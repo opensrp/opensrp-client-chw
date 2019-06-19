@@ -867,26 +867,27 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
         try {
             JSONArray jsonArray = jsonObject.getJSONObject(JsonFormConstants.STEP1).getJSONArray(JsonFormConstants.FIELDS);
 
-            String value = null;
+            JSONObject jo = null;
             int x = 0;
             while (jsonArray.length() > x) {
-                JSONObject jo = jsonArray.getJSONObject(x);
+                jo = jsonArray.getJSONObject(x);
                 if (jo.getString(JsonFormConstants.KEY).equalsIgnoreCase(key)) {
-                    value = jo.getString(JsonFormConstants.VALUE);
                     break;
                 }
                 x++;
             }
 
             StringBuilder resBuilder = new StringBuilder();
-            if (value != null) {
+            if (jo != null) {
                 // read all the checkboxes
-                JSONArray jaOptions = jsonArray.getJSONObject(x).getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
-                // get all the texts in the values array
-                JSONArray jaRes = new JSONArray(value);
+                JSONArray jaOptions = jo.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
+
                 int y = 0;
-                while (jaRes.length() > y) {
-                    resBuilder.append(getOptionText(jaOptions, jaRes.getString(y))).append(", ");
+                while (jaOptions.length() > y) {
+                    JSONObject options = jaOptions.getJSONObject(y);
+                    if (options.getBoolean(JsonFormConstants.VALUE)) {
+                        resBuilder.append(options.getString(JsonFormConstants.TEXT)).append(", ");
+                    }
                     y++;
                 }
 
@@ -897,18 +898,6 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
 
         } catch (Exception e) {
             Timber.e(e);
-        }
-        return "";
-    }
-
-    private static String getOptionText(JSONArray jaOptions, String key) throws JSONException {
-        int x = 0;
-        while (jaOptions.length() > x) {
-            JSONObject jo = jaOptions.getJSONObject(x);
-            if (jo.getString(JsonFormConstants.KEY).equalsIgnoreCase(key)) {
-                return jo.getString(JsonFormConstants.TEXT);
-            }
-            x++;
         }
         return "";
     }
