@@ -41,10 +41,6 @@ public class AncMemberProfileActivity extends BaseAncMemberProfileActivity {
     private static String familyName;
     private static FamilyProfileContract.Interactor profileInteractor;
     private static FamilyProfileContract.Model profileModel;
-    private static CommonPersonObject personObject;
-    private static CommonPersonObjectClient client;
-    private static CommonRepository commonRepository = org.smartregister.chw.util.Utils.context().commonrepository(org.smartregister.chw.util.Utils.metadata().familyMemberRegister.tableName);
-
 
     public static void startMe(Activity activity, MemberObject memberObject) {
         baseEntityId = memberObject.getBaseEntityId();
@@ -56,9 +52,6 @@ public class AncMemberProfileActivity extends BaseAncMemberProfileActivity {
         intent.putExtra(Constants.ANC_MEMBER_OBJECTS.MEMBER_PROFILE_OBJECT, memberObject);
         profileInteractor = new FamilyProfileInteractor();
         profileModel = new FamilyProfileModel(memberObject.getFamilyName());
-        personObject = commonRepository.findByBaseEntityId(baseEntityId);
-        client = new CommonPersonObjectClient(personObject.getCaseId(), personObject.getDetails(), "");
-        client.setColumnmaps(personObject.getColumnmaps());
         activity.startActivity(intent);
     }
 
@@ -106,6 +99,10 @@ public class AncMemberProfileActivity extends BaseAncMemberProfileActivity {
     public void startFormForEdit(Integer title_resource, String formName) {
 
         JSONObject form = null;
+        CommonRepository commonRepository = org.smartregister.chw.util.Utils.context().commonrepository(org.smartregister.chw.util.Utils.metadata().familyMemberRegister.tableName);
+        CommonPersonObject personObject = commonRepository.findByBaseEntityId(baseEntityId);
+        CommonPersonObjectClient client = new CommonPersonObjectClient(personObject.getCaseId(), personObject.getDetails(), "");
+        client.setColumnmaps(personObject.getColumnmaps());
 
         if (formName.equals(org.smartregister.chw.util.Constants.JSON_FORM.FAMILY_MEMBER_REGISTER)) {
             form = org.smartregister.chw.util.JsonFormUtils.getAutoPopulatedJsonEditMemberFormString(
@@ -149,7 +146,7 @@ public class AncMemberProfileActivity extends BaseAncMemberProfileActivity {
 
         switch (view.getId()) {
             case R.id.textview_record_anc_visit:
-                AncHomeVisitActivity.startMe(this, new MemberObject(client));
+                AncHomeVisitActivity.startMe(this, MEMBER_OBJECT);
                 break;
             default:
                 break;

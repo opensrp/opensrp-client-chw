@@ -30,7 +30,7 @@ public class AncRegisterFragmentModel extends BaseAncRegisterFragmentModel {
         columnList.add(tableName + "." + DBConstants.KEY.LAST_INTERACTED_WITH);
         columnList.add(tableName + "." + DBConstants.KEY.BASE_ENTITY_ID);
         columnList.add(tableName + "." + ChwDBConstants.LMP);
-        columnList.add(Constants.TABLE_NAME.ANC_MEMBER_LOG + "." + ChildDBConstants.KEY.DATE_CREATED);
+        columnList.add(Constants.TABLE_NAME.ANC_MEMBER_LOG + "." + org.smartregister.chw.anc.util.DBConstants.KEY.DATE_CREATED);
         columnList.add(tableName + "." + org.smartregister.chw.anc.util.DBConstants.KEY.CONFIRMED_VISITS);
         columnList.add(tableName + "." + org.smartregister.chw.anc.util.DBConstants.KEY.LAST_HOME_VISIT);
         columnList.add(tableName + "." + ChwDBConstants.VISIT_NOT_DONE);
@@ -45,6 +45,7 @@ public class AncRegisterFragmentModel extends BaseAncRegisterFragmentModel {
         columnList.add(Constants.TABLE_NAME.FAMILY + "." + DBConstants.KEY.VILLAGE_TOWN);
         columnList.add(Constants.TABLE_NAME.FAMILY + "." + DBConstants.KEY.FAMILY_HEAD);
         columnList.add(Constants.TABLE_NAME.FAMILY + "." + DBConstants.KEY.PRIMARY_CAREGIVER);
+        columnList.add(Constants.TABLE_NAME.FAMILY + "." + DBConstants.KEY.FIRST_NAME + " as " + org.smartregister.chw.anc.util.DBConstants.KEY.FAMILY_NAME);
 
         return columnList.toArray(new String[columnList.size()]);
     }
