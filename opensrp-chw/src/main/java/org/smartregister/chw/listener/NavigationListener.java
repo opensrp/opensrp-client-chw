@@ -49,7 +49,7 @@ public class NavigationListener implements View.OnClickListener {
                         Toast.makeText(activity.getApplicationContext(), Constants.DrawerMenu.FAMILY_PLANNING, Toast.LENGTH_SHORT).show();
                         break;
                     case Constants.DrawerMenu.MALARIA:
-                        startRegisterActivity(MalariaRegisterActivity.class);
+                        Toast.makeText(activity.getApplicationContext(), Constants.DrawerMenu.MALARIA, Toast.LENGTH_SHORT).show();
                         break;
                     default:
                         break;
