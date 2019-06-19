@@ -66,9 +66,8 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         evaluateNutritionStatus(actionList, context);
         evaluateCounsellingStatus(actionList, context);
         evaluateMalaria(actionList, context);
+        evaluateObservation(actionList, context);
 
-        actionList.put(context.getString(R.string.anc_home_visit_observations_n_illnes), new BaseAncHomeVisitAction(context.getString(R.string.anc_home_visit_observations_n_illnes), "", true, null,
-                ANC_HOME_VISIT.OBSERVATION_AND_ILLNESS));
         actionList.put(context.getString(R.string.anc_home_visit_remarks_and_comments), new BaseAncHomeVisitAction(context.getString(R.string.anc_home_visit_remarks_and_comments), "", true, null,
                 ANC_HOME_VISIT.REMARKS_AND_COMMENTS));
 
@@ -374,6 +373,41 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
 
         actionList.put(context.getString(R.string.anc_home_visit_malaria_prevention), ba);
     }
+
+    private void evaluateObservation(LinkedHashMap<String, BaseAncHomeVisitAction> actionList, final Context context) throws BaseAncHomeVisitAction.ValidationException {
+        final BaseAncHomeVisitAction ba = new BaseAncHomeVisitAction(context.getString(R.string.anc_home_visit_observations_n_illnes), "", true, null,
+                ANC_HOME_VISIT.OBSERVATION_AND_ILLNESS);
+
+        ba.setAncHomeVisitActionHelper(new BaseAncHomeVisitAction.AncHomeVisitActionHelper() {
+            @Override
+            public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
+                if (ba.getJsonPayload() != null) {
+                    try {
+                        JSONObject jsonObject = new JSONObject(ba.getJsonPayload());
+
+
+                        LocalDate illnessDate = DateTimeFormat.forPattern("dd-MM-yyyy").parseLocalDate(getValue(jsonObject, "date_of_illness"));
+                        String desc = getValue(jsonObject, "illness_description");
+                        String action = getCheckBoxValue(jsonObject, "action_taken");
+
+                        String builder = MessageFormat.format("{0}: {1}\n {2}: {3}",
+                                DateTimeFormat.forPattern("dd MMM yyyy").print(illnessDate),
+                                desc, context.getString(R.string.action_taken), action
+                        );
+                        ba.setSubTitle(builder);
+
+                        return BaseAncHomeVisitAction.Status.COMPLETED;
+                    } catch (Exception e) {
+                        Timber.e(e);
+                    }
+                }
+                return ba.computedStatus();
+            }
+        });
+
+        actionList.put(context.getString(R.string.anc_home_visit_observations_n_illnes), ba);
+    }
+
 
     private String getMalariaText(JSONObject jsonObject, Context context) {
 
