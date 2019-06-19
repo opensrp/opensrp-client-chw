@@ -9,7 +9,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.R;
+import org.smartregister.chw.anc.util.DBConstants;
 import org.smartregister.chw.custom_view.NavigationMenu;
 import org.smartregister.chw.malaria.fragment.BaseMalariaRegisterFragment;
 import org.smartregister.chw.model.MalariaRegisterFragmentModel;
@@ -22,6 +24,7 @@ import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.view.activity.BaseRegisterActivity;
 import org.smartregister.view.customcontrols.CustomFontTextView;
+import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.List;
 
@@ -131,12 +134,14 @@ public class MalariaRegisterFragment extends BaseMalariaRegisterFragment {
         }
     }
 
+    //due filter for the client
     private void dueFilter(View dueOnlyLayout) {
-        filter(searchText(),"",presenter().getDueFilterCondition(),false);
+        filter(searchText(),"",presenter().getMainCondition(),false);
         dueOnlyLayout.setTag(DUE_FILTER_TAG);
         switchViews(dueOnlyLayout, true);
     }
 
+    //normal search for the client
     private void normalFilter(View dueOnlyLayout) {
         filter(searchText(), "", presenter().getMainCondition(), false);
         dueOnlyLayout.setTag(null);
@@ -189,16 +194,27 @@ public class MalariaRegisterFragment extends BaseMalariaRegisterFragment {
         SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder(mainSelect);
 
         String query = "";
+        StringBuilder customFilter = new StringBuilder();
+        if (StringUtils.isNotBlank(filters)) {
+            customFilter.append(MessageFormat.format(" and ( {0}.{1} like ''%{2}%'' ", Constants.TABLE_NAME.FAMILY_MEMBER, DBConstants.KEY.FIRST_NAME, filters));
+            customFilter.append(MessageFormat.format(" or {0}.{1} like ''%{2}%'' ", Constants.TABLE_NAME.FAMILY_MEMBER, DBConstants.KEY.LAST_NAME, filters));
+            customFilter.append(MessageFormat.format(" or {0}.{1} like ''%{2}%'' ", Constants.TABLE_NAME.FAMILY_MEMBER, DBConstants.KEY.MIDDLE_NAME, filters));
+            customFilter.append(MessageFormat.format(" or {0}.{1} = ''{2}'' ) ", Constants.TABLE_NAME.FAMILY_MEMBER, DBConstants.KEY.UNIQUE_ID, filters));
+
+            if (dueFilterActive) {
+                customFilter.append(MessageFormat.format(" and ( {0}) ", presenter().getDueFilterCondition()));
+            }
+        }
         try {
             if (isValidFilterForFts(commonRepository())) {
 
-                String myquery = QueryBuilder.getQuery(joinTables, mainCondition, tablename, filters, clientAdapter, Sortqueries);
+                String myquery = QueryBuilder.getQuery(joinTables, mainCondition, tablename, customFilter.toString(), clientAdapter, Sortqueries);
                 List<String> ids = commonRepository().findSearchIds(myquery);
                 query = sqb.toStringFts(ids, tablename, CommonRepository.ID_COLUMN,
                         Sortqueries);
                 query = sqb.Endquery(query);
             } else {
-                sqb.addCondition(filters);
+                sqb.addCondition(customFilter.toString());
                 query = sqb.orderbyCondition(Sortqueries);
                 query = sqb.Endquery(sqb.addlimitandOffset(query, clientAdapter.getCurrentlimit(), clientAdapter.getCurrentoffset()));
 
