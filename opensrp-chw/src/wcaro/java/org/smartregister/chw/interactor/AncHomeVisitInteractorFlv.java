@@ -131,12 +131,11 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                         JSONObject jsonObject = new JSONObject(ba.getJsonPayload());
 
                         String value = getValue(jsonObject, "danger_signs_counseling");
+                        ba.setSubTitle(getDangerSignsText(jsonObject, context));
 
                         if (value.equalsIgnoreCase("Yes")) {
-                            ba.setSubTitle(getDangerSignsText(jsonObject, context));
                             return BaseAncHomeVisitAction.Status.COMPLETED;
                         } else if (value.equalsIgnoreCase("No")) {
-                            ba.setSubTitle(getDangerSignsText(jsonObject, context));
                             return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
                         } else {
                             ba.setSubTitle("");
@@ -167,7 +166,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         return stringBuilder.toString();
     }
 
-    private void evaluateANCCounseling(LinkedHashMap<String, BaseAncHomeVisitAction> actionList, MemberObject memberObject, Map<Integer, LocalDate> dateMap, Context context) throws BaseAncHomeVisitAction.ValidationException {
+    private void evaluateANCCounseling(LinkedHashMap<String, BaseAncHomeVisitAction> actionList, MemberObject memberObject, Map<Integer, LocalDate> dateMap, final Context context) throws BaseAncHomeVisitAction.ValidationException {
         final BaseAncHomeVisitAction ba = new BaseAncHomeVisitAction(context.getString(R.string.anc_home_visit_counseling), "", false, null,
                 ANC_HOME_VISIT.ANC_COUNSELING);
         // open the form and inject the values
@@ -209,11 +208,15 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                         String value2 = getValue(jsonObject, "birth_hf_counseling");
                         String value3 = getValue(jsonObject, "nutrition_counseling");
 
+                        ba.setSubTitle(getANCCounselingText(jsonObject, context));
+
                         if (value1.equalsIgnoreCase("Yes") && value2.equalsIgnoreCase("Yes") && value3.equalsIgnoreCase("Yes")) {
                             return BaseAncHomeVisitAction.Status.COMPLETED;
                         } else if (StringUtils.isNotBlank(value1) & StringUtils.isNotBlank(value2) & StringUtils.isNotBlank(value3)) {
                             return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
                         } else {
+
+                            ba.setSubTitle("");
                             return BaseAncHomeVisitAction.Status.PENDING;
                         }
                     } catch (Exception e) {
@@ -225,6 +228,52 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         });
 
         actionList.put(context.getString(R.string.anc_home_visit_counseling), ba);
+    }
+
+    private String getANCCounselingText(JSONObject jsonObject, Context context) {
+
+        List<String> yes = new ArrayList<>();
+        List<String> nos = new ArrayList<>();
+        if (getValue(jsonObject, "anc_counseling").equals("Yes")) {
+            yes.add("ANC visit counseling");
+        } else {
+            nos.add("ANC visit counseling");
+        }
+
+        if (getValue(jsonObject, "birth_hf_counseling").equals("Yes")) {
+            yes.add("Delivery at health facility counseling");
+        } else {
+            nos.add("Delivery at health facility counseling");
+        }
+
+        if (getValue(jsonObject, "nutrition_counseling").equals("Yes")) {
+            yes.add("Nutrition counseling");
+        } else {
+            nos.add("Nutrition counseling");
+        }
+        StringBuilder stringBuilder = new StringBuilder();
+
+        if (yes.size() > 0) {
+            for (String s : yes) {
+                stringBuilder.append(s).append(", ");
+            }
+            stringBuilder.deleteCharAt(stringBuilder.length() - 2);
+            stringBuilder.append(context.getString(R.string.done).toLowerCase());
+        }
+
+        if (nos.size() > 0) {
+            if (stringBuilder.toString().trim().length() > 0) {
+                stringBuilder.append(" · ");
+            }
+
+            for (String s : nos) {
+                stringBuilder.append(s).append(", ");
+            }
+            stringBuilder.deleteCharAt(stringBuilder.length() - 2);
+            stringBuilder.append(context.getString(R.string.not_done).toLowerCase());
+        }
+
+        return stringBuilder.toString();
     }
 
     private void evaluateSleepingUnderLLITN(BaseAncHomeVisitContract.View view, LinkedHashMap<String, BaseAncHomeVisitAction> actionList, Context context) throws BaseAncHomeVisitAction.ValidationException {
