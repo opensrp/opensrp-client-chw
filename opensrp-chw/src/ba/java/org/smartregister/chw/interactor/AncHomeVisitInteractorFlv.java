@@ -342,7 +342,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         actionList.put(context.getString(R.string.anc_home_visit_counselling_task), ba);
     }
 
-    private void evaluateMalaria(LinkedHashMap<String, BaseAncHomeVisitAction> actionList, Context context) throws BaseAncHomeVisitAction.ValidationException {
+    private void evaluateMalaria(LinkedHashMap<String, BaseAncHomeVisitAction> actionList, final Context context) throws BaseAncHomeVisitAction.ValidationException {
         final BaseAncHomeVisitAction ba = new BaseAncHomeVisitAction(context.getString(R.string.anc_home_visit_malaria_prevention), "", false, null,
                 ANC_HOME_VISIT.MALARIA);
 
@@ -356,6 +356,8 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                         String value1 = getValue(jsonObject, "fam_llin");
                         String value2 = getValue(jsonObject, "llin_2days");
                         String value3 = getValue(jsonObject, "llin_condition");
+
+                        ba.setSubTitle(getMalariaText(jsonObject, context));
 
                         if (value1.equalsIgnoreCase("Yes") && value2.equalsIgnoreCase("Yes") && value3.equalsIgnoreCase("Okay")) {
                             return BaseAncHomeVisitAction.Status.COMPLETED;
@@ -371,5 +373,24 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         });
 
         actionList.put(context.getString(R.string.anc_home_visit_malaria_prevention), ba);
+    }
+
+    private String getMalariaText(JSONObject jsonObject, Context context) {
+
+        String fam_llin = getValue(jsonObject, "fam_llin");
+        String llin_2days = getValue(jsonObject, "llin_2days");
+        String llin_condition = getValue(jsonObject, "llin_condition");
+
+        StringBuilder stringBuilder = new StringBuilder();
+        if (fam_llin.equalsIgnoreCase("No")) {
+            stringBuilder.append(MessageFormat.format("{0}: {1}\n", context.getString(R.string.uses_net), StringUtils.capitalize(fam_llin.trim().toLowerCase())));
+        } else {
+
+            stringBuilder.append(MessageFormat.format("{0}: {1} · ", context.getString(R.string.uses_net), StringUtils.capitalize(fam_llin.trim().toLowerCase())));
+            stringBuilder.append(MessageFormat.format("{0}: {1} · ", context.getString(R.string.slept_under_net), StringUtils.capitalize(llin_2days.trim().toLowerCase())));
+            stringBuilder.append(MessageFormat.format("{0}: {1}", context.getString(R.string.net_condition), StringUtils.capitalize(llin_condition.trim().toLowerCase())));
+        }
+
+        return stringBuilder.toString();
     }
 }
