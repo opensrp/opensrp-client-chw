@@ -307,5 +307,7 @@
     <string name="tests_done">Tests done</string>
     <string name="treatment_given">Treatment given</string>
     <string name="received_llin">Received LLIN</string>
+    <string name="nutrition_status">Status</string>
+
 
 </resources>

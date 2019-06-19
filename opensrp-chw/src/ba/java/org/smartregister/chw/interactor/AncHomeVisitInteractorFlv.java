@@ -63,9 +63,8 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         evaluateDangerSigns(actionList, context);
         evaluateHealthFacilityVisit(actionList, memberObject, dateMap, context);
         evaluateFamilyPlanning(actionList, context);
+        evaluateNutritionStatus(actionList, context);
 
-        actionList.put(context.getString(R.string.anc_home_visit_nutrition_status), new BaseAncHomeVisitAction(context.getString(R.string.anc_home_visit_nutrition_status), "", false, null,
-                ANC_HOME_VISIT.NUTRITION_STATUS));
         actionList.put(context.getString(R.string.anc_home_visit_counselling_task), new BaseAncHomeVisitAction(context.getString(R.string.anc_home_visit_counselling_task), "", false, null,
                 ANC_HOME_VISIT.COUNSELLING));
 
@@ -288,6 +287,34 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         });
 
         actionList.put(context.getString(R.string.anc_home_visit_family_planning), ba);
+    }
+
+    private void evaluateNutritionStatus(LinkedHashMap<String, BaseAncHomeVisitAction> actionList, final Context context) throws BaseAncHomeVisitAction.ValidationException {
+        final BaseAncHomeVisitAction ba = new BaseAncHomeVisitAction(context.getString(R.string.anc_home_visit_nutrition_status), "", false, null,
+                ANC_HOME_VISIT.NUTRITION_STATUS);
+
+        ba.setAncHomeVisitActionHelper(new BaseAncHomeVisitAction.AncHomeVisitActionHelper() {
+            @Override
+            public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
+                if (ba.getJsonPayload() != null) {
+                    try {
+                        JSONObject jsonObject = new JSONObject(ba.getJsonPayload());
+
+                        String value = getValue(jsonObject, "nutrition_status").toLowerCase();
+
+                        String subTitle = MessageFormat.format("{0}: {1}", context.getString(R.string.nutrition_status), StringUtils.capitalize(value));
+                        ba.setSubTitle(subTitle);
+
+                        return BaseAncHomeVisitAction.Status.COMPLETED;
+                    } catch (Exception e) {
+                        Timber.e(e);
+                    }
+                }
+                return ba.computedStatus();
+            }
+        });
+
+        actionList.put(context.getString(R.string.anc_home_visit_nutrition_status), ba);
     }
 
     private void evaluateMalaria(LinkedHashMap<String, BaseAncHomeVisitAction> actionList, Context context) throws BaseAncHomeVisitAction.ValidationException {
