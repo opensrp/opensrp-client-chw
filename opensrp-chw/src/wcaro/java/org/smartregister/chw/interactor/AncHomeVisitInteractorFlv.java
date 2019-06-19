@@ -290,10 +290,14 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
 
                         String value = getValue(jsonObject, "sleeping_llitn");
 
+                        ba.setSubTitle(value.trim().toUpperCase());
+
                         if (value.equalsIgnoreCase("Yes")) {
                             return BaseAncHomeVisitAction.Status.COMPLETED;
-                        } else {
+                        } else if (value.equalsIgnoreCase("No")) {
                             return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
+                        } else {
+                            return BaseAncHomeVisitAction.Status.PENDING;
                         }
                     } catch (Exception e) {
                         Timber.e(e);
@@ -320,11 +324,14 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                         JSONObject jsonObject = new JSONObject(ba.getJsonPayload());
 
                         String value = getValue(jsonObject, "anc_card");
+                        ba.setSubTitle(value.trim().toUpperCase());
 
                         if (value.equalsIgnoreCase("Yes")) {
                             return BaseAncHomeVisitAction.Status.COMPLETED;
-                        } else {
+                        } else if (value.equalsIgnoreCase("No")) {
                             return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
+                        } else {
+                            return BaseAncHomeVisitAction.Status.PENDING;
                         }
                     } catch (Exception e) {
                         Timber.e(e);
