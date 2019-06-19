@@ -152,7 +152,8 @@ public class ChwApplication extends DrishtiApplication {
         context.updateApplicationContext(getApplicationContext());
         context.updateCommonFtsObject(createCommonFtsObject());
 
-        Fabric.with(this, new Crashlytics.Builder().core(new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build()).build());
+        //Fabric.with(this, new Crashlytics.Builder().core(new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build()).build());
+        Fabric.with(this, new Crashlytics.Builder().core(new CrashlyticsCore.Builder().build()).build());
 
         //Initialize Modules
         CoreLibrary.init(context, new ChwSyncConfiguration(), BuildConfig.BUILD_TIMESTAMP);
@@ -275,7 +276,11 @@ public class ChwApplication extends DrishtiApplication {
             List<VaccineGroup> childVaccines = VaccinatorUtils.getSupportedVaccines(this);
             List<Vaccine> specialVaccines = VaccinatorUtils.getSpecialVaccines(this);
             VaccineSchedule.init(childVaccines, specialVaccines, "child");
+        } catch (Exception e) {
+            Timber.e(e);
+        }
 
+        try {
             // mother vaccines
             List<VaccineGroup> womanVaccines = VaccinatorUtils.getSupportedWomanVaccines(this);
             VaccineSchedule.init(womanVaccines, null, "woman");
@@ -310,4 +315,11 @@ public class ChwApplication extends DrishtiApplication {
     public AllCommonsRepository getAllCommonsRepository(String table) {
         return ChwApplication.getInstance().getContext().allCommonsRepositoryobjects(table);
     }
+
+    @Override
+    public ClientProcessorForJava getClientProcessor() {
+        return ChwApplication.getClientProcessor(ChwApplication.getInstance().getApplicationContext());
+    }
+
+
 }
