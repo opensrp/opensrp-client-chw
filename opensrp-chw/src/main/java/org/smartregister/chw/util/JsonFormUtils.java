@@ -856,6 +856,63 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
         return "";
     }
 
+    /**
+     * Returns a value from a native forms checkbox field and returns an comma separated string
+     *
+     * @param jsonObject native forms jsonObject
+     * @param key        field object key
+     * @return value
+     */
+    public static String getCheckBoxValue(JSONObject jsonObject, String key) {
+        try {
+            JSONArray jsonArray = jsonObject.getJSONObject(JsonFormConstants.STEP1).getJSONArray(JsonFormConstants.FIELDS);
+
+            String value = null;
+            int x = 0;
+            while (jsonArray.length() > x) {
+                JSONObject jo = jsonArray.getJSONObject(x);
+                if (jo.getString(JsonFormConstants.KEY).equalsIgnoreCase(key)) {
+                    value = jo.getString(JsonFormConstants.VALUE);
+                    break;
+                }
+                x++;
+            }
+
+            StringBuilder resBuilder = new StringBuilder();
+            if (value != null) {
+                // read all the checkboxes
+                JSONArray jaOptions = jsonArray.getJSONObject(x).getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
+                // get all the texts in the values array
+                JSONArray jaRes = new JSONArray(value);
+                int y = 0;
+                while (jaRes.length() > y) {
+                    resBuilder.append(getOptionText(jaOptions, jaRes.getString(y))).append(", ");
+                    y++;
+                }
+
+                String res = resBuilder.toString();
+                res = res.substring(0, res.length() - 2);
+                return res;
+            }
+
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+        return "";
+    }
+
+    private static String getOptionText(JSONArray jaOptions, String key) throws JSONException {
+        int x = 0;
+        while (jaOptions.length() > x) {
+            JSONObject jo = jaOptions.getJSONObject(x);
+            if (jo.getString(JsonFormConstants.KEY).equalsIgnoreCase(key)) {
+                return jo.getString(JsonFormConstants.TEXT);
+            }
+            x++;
+        }
+        return "";
+    }
+
     public interface Flavor {
         JSONObject getAutoJsonEditMemberFormString(String title, String formName, Context context, CommonPersonObjectClient client, String eventType, String familyName, boolean isPrimaryCaregiver);
 
