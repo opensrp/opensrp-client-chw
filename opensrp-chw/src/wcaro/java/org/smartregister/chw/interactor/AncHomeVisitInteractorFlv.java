@@ -436,7 +436,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         actionList.put(visit, ba);
     }
 
-    private void evaluateTTImmunization(BaseAncHomeVisitContract.View view, LinkedHashMap<String, BaseAncHomeVisitAction> actionList, VaccineTaskModel vaccineTaskModel, Context context) throws BaseAncHomeVisitAction.ValidationException {
+    private void evaluateTTImmunization(BaseAncHomeVisitContract.View view, LinkedHashMap<String, BaseAncHomeVisitAction> actionList, VaccineTaskModel vaccineTaskModel, final Context context) throws BaseAncHomeVisitAction.ValidationException {
 
         // if there are no pending vaccines
         if (vaccineTaskModel == null || vaccineTaskModel.getScheduleList().size() < 1) {
@@ -475,10 +475,13 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
 
                         String value = getValue(jsonObject, MessageFormat.format("tt{0}_date", details.getRight()));
 
+                        ba.setScheduleStatus(BaseAncHomeVisitAction.ScheduleStatus.DUE);
                         try {
-                            new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).parse(value);
+                            Date date = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).parse(value);
+                            ba.setSubTitle(context.getString(R.string.given_on, new SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(date)));
                             return BaseAncHomeVisitAction.Status.COMPLETED;
                         } catch (Exception e) {
+                            ba.setSubTitle(context.getString(R.string.not_given));
                             return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
                         }
 
@@ -560,7 +563,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                         ba.setScheduleStatus(BaseAncHomeVisitAction.ScheduleStatus.DUE);
                         try {
                             Date date = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).parse(value);
-                            ba.setSubTitle(context.getString(R.string.given_on, new SimpleDateFormat("dd MMM yyyy").format(date)));
+                            ba.setSubTitle(context.getString(R.string.given_on, new SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(date)));
                             return BaseAncHomeVisitAction.Status.COMPLETED;
                         } catch (Exception e) {
                             ba.setSubTitle(context.getString(R.string.not_given));
