@@ -86,7 +86,7 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity {
             case android.R.id.home:
                 onBackPressed();
                 return true;
-            case R.id.action_anc_registration:
+            case R.id.action_registration:
 //                AncRegisterActivity.startAncRegistrationActivity(FamilyOtherMemberProfileActivity.this, baseEntityId, PhoneNumber);
                 return true;
             case R.id.action_malaria_followup_visit:
