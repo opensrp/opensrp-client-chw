@@ -67,9 +67,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         evaluateCounsellingStatus(actionList, context);
         evaluateMalaria(actionList, context);
         evaluateObservation(actionList, context);
-
-        actionList.put(context.getString(R.string.anc_home_visit_remarks_and_comments), new BaseAncHomeVisitAction(context.getString(R.string.anc_home_visit_remarks_and_comments), "", true, null,
-                ANC_HOME_VISIT.REMARKS_AND_COMMENTS));
+        evaluateRemarks(actionList, context);
 
         return actionList;
     }
@@ -408,7 +406,6 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         actionList.put(context.getString(R.string.anc_home_visit_observations_n_illnes), ba);
     }
 
-
     private String getMalariaText(JSONObject jsonObject, Context context) {
 
         String fam_llin = getValue(jsonObject, "fam_llin");
@@ -426,5 +423,34 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         }
 
         return stringBuilder.toString();
+    }
+
+    private void evaluateRemarks(LinkedHashMap<String, BaseAncHomeVisitAction> actionList, final Context context) throws BaseAncHomeVisitAction.ValidationException {
+        final BaseAncHomeVisitAction ba = new BaseAncHomeVisitAction(context.getString(R.string.anc_home_visit_remarks_and_comments), "", true, null,
+                ANC_HOME_VISIT.REMARKS_AND_COMMENTS);
+
+        ba.setAncHomeVisitActionHelper(new BaseAncHomeVisitAction.AncHomeVisitActionHelper() {
+            @Override
+            public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
+                if (ba.getJsonPayload() != null) {
+                    try {
+                        JSONObject jsonObject = new JSONObject(ba.getJsonPayload());
+
+                        String value = getValue(jsonObject, "chw_comment_anc");
+                        String builder = MessageFormat.format("{0}: {1}",
+                                context.getString(R.string.remarks_and__comments), StringUtils.capitalize(value));
+
+                        ba.setSubTitle(builder);
+
+                        return BaseAncHomeVisitAction.Status.COMPLETED;
+                    } catch (Exception e) {
+                        Timber.e(e);
+                    }
+                }
+                return ba.computedStatus();
+            }
+        });
+
+        actionList.put(context.getString(R.string.anc_home_visit_remarks_and_comments), ba);
     }
 }

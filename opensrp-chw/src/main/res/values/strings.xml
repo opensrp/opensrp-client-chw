@@ -313,5 +313,6 @@
     <string name="uses_net">Uses Net</string>
     <string name="slept_under_net">Slept under net</string>
     <string name="net_condition">Net Condition</string>
+    <string name="remarks_and__comments">Remarks / Comments</string>
 
 </resources>
