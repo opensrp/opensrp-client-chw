@@ -308,6 +308,6 @@
     <string name="treatment_given">Treatment given</string>
     <string name="received_llin">Received LLIN</string>
     <string name="nutrition_status">Status</string>
-
+    <string name="counselling">Counselling</string>
 
 </resources>

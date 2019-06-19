@@ -64,10 +64,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         evaluateHealthFacilityVisit(actionList, memberObject, dateMap, context);
         evaluateFamilyPlanning(actionList, context);
         evaluateNutritionStatus(actionList, context);
-
-        actionList.put(context.getString(R.string.anc_home_visit_counselling_task), new BaseAncHomeVisitAction(context.getString(R.string.anc_home_visit_counselling_task), "", false, null,
-                ANC_HOME_VISIT.COUNSELLING));
-
+        evaluateCounsellingStatus(actionList, context);
         evaluateMalaria(actionList, context);
 
         actionList.put(context.getString(R.string.anc_home_visit_observations_n_illnes), new BaseAncHomeVisitAction(context.getString(R.string.anc_home_visit_observations_n_illnes), "", true, null,
@@ -315,6 +312,34 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         });
 
         actionList.put(context.getString(R.string.anc_home_visit_nutrition_status), ba);
+    }
+
+    private void evaluateCounsellingStatus(LinkedHashMap<String, BaseAncHomeVisitAction> actionList, final Context context) throws BaseAncHomeVisitAction.ValidationException {
+        final BaseAncHomeVisitAction ba = new BaseAncHomeVisitAction(context.getString(R.string.anc_home_visit_counselling_task), "", false, null,
+                ANC_HOME_VISIT.COUNSELLING);
+
+        ba.setAncHomeVisitActionHelper(new BaseAncHomeVisitAction.AncHomeVisitActionHelper() {
+            @Override
+            public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
+                if (ba.getJsonPayload() != null) {
+                    try {
+                        JSONObject jsonObject = new JSONObject(ba.getJsonPayload());
+
+                        String value = getCheckBoxValue(jsonObject, "counselling_given").toLowerCase();
+
+                        String subTitle = (!value.contains("none") ? context.getString(R.string.done).toLowerCase() : context.getString(R.string.not_done).toLowerCase());
+                        ba.setSubTitle(MessageFormat.format("{0} {1}", context.getString(R.string.counselling), subTitle));
+
+                        return BaseAncHomeVisitAction.Status.COMPLETED;
+                    } catch (Exception e) {
+                        Timber.e(e);
+                    }
+                }
+                return ba.computedStatus();
+            }
+        });
+
+        actionList.put(context.getString(R.string.anc_home_visit_counselling_task), ba);
     }
 
     private void evaluateMalaria(LinkedHashMap<String, BaseAncHomeVisitAction> actionList, Context context) throws BaseAncHomeVisitAction.ValidationException {
