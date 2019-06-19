@@ -302,7 +302,17 @@
     <string name="kg">kg</string>
     <string name="mmHg">mmHg</string>
     <string name="hb_level">Hb level</string>
+    <string name="gdl">g/dl</string>
     <string name="ifa_received">IFA received</string>
     <string name="tests_done">Tests done</string>
+    <string name="treatment_given">Treatment given</string>
+    <string name="received_llin">Received LLIN</string>
+    <string name="nutrition_status">Status</string>
+    <string name="counselling">Counselling</string>
+
+    <string name="uses_net">Uses Net</string>
+    <string name="slept_under_net">Slept under net</string>
+    <string name="net_condition">Net Condition</string>
+    <string name="remarks_and__comments">Remarks / Comments</string>
 
 </resources>

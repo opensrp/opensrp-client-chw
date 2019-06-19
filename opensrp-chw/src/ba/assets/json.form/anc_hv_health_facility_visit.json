@@ -47,7 +47,7 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "ANC 1 health facility visit",
+    "title": "ANC {0} health facility visit",
     "fields": [
       {
         "key": "anc_hf_visit",

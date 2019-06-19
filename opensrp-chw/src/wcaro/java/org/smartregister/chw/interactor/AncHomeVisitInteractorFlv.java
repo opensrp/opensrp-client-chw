@@ -84,7 +84,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         evaluateHealthFacilityVisit(actionList, memberObject, dateMap, context);
         evaluateTTImmunization(view, actionList, vaccineTaskModel, context);
         evaluateIPTP(view, actionList, memberObject, context);
-        evaluateObservation(view, actionList, context);
+        evaluateObservation(actionList, context);
 
         return actionList;
     }
@@ -322,7 +322,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                         JSONObject jsonObject = new JSONObject(ba.getJsonPayload());
 
                         String value = getValue(jsonObject, "anc_card");
-                        ba.setSubTitle(value.trim().toUpperCase());
+                        ba.setSubTitle(StringUtils.capitalize(value.trim()));
 
                         if (value.equalsIgnoreCase("Yes")) {
                             return BaseAncHomeVisitAction.Status.COMPLETED;
@@ -440,7 +440,6 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         actionList.put(visit, ba);
     }
 
-
     private String getHealthFacilityVisitText(JSONObject jsonObject, Context context) throws ParseException {
 
         String value = getValue(jsonObject, "anc_hf_visit");
@@ -461,10 +460,10 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
 
             stringBuilder.append(MessageFormat.format("{0}: {1}\n", context.getString(R.string.date), new SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(date)));
             stringBuilder.append(MessageFormat.format("{0}: {1} {2}\n", context.getString(R.string.weight), weight, context.getString(R.string.kg)));
-            stringBuilder.append(MessageFormat.format("{0} {1}/{2} {3}\n", context.getString(R.string.str_bp), bp, dia_bp, context.getString(R.string.mmHg)));
-            stringBuilder.append(MessageFormat.format("{0} {1}\n", context.getString(R.string.hb_level), hb));
-            stringBuilder.append(MessageFormat.format("{0} {1}\n", context.getString(R.string.ifa_received), ifa));
-            stringBuilder.append(MessageFormat.format("{0} {1}\n", context.getString(R.string.tests_done), testsDone));
+            stringBuilder.append(MessageFormat.format("{0}: {1}/{2} {3}\n", context.getString(R.string.str_bp), bp, dia_bp, context.getString(R.string.mmHg)));
+            stringBuilder.append(MessageFormat.format("{0}: {1} {2}\n", context.getString(R.string.hb_level), hb, context.getString(R.string.gdl)));
+            stringBuilder.append(MessageFormat.format("{0}: {1}\n", context.getString(R.string.ifa_received), ifa));
+            stringBuilder.append(MessageFormat.format("{0}: {1}\n", context.getString(R.string.tests_done), testsDone));
         }
 
         return stringBuilder.toString();
@@ -639,7 +638,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         actionList.put(iptp, ba);
     }
 
-    private void evaluateObservation(BaseAncHomeVisitContract.View view, LinkedHashMap<String, BaseAncHomeVisitAction> actionList, final Context context) throws BaseAncHomeVisitAction.ValidationException {
+    private void evaluateObservation(LinkedHashMap<String, BaseAncHomeVisitAction> actionList, final Context context) throws BaseAncHomeVisitAction.ValidationException {
 
         final BaseAncHomeVisitAction ba = new BaseAncHomeVisitAction(context.getString(R.string.anc_home_visit_observations_n_illnes), "", true, null,
                 ANC_HOME_VISIT.OBSERVATION_AND_ILLNESS);
