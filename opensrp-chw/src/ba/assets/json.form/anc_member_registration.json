@@ -121,11 +121,11 @@
         "hint": "No. of previous pregnancies",
         "v_required": {
           "value": "true",
-          "err": "Required"
+          "err": "Equal or greater than 0"
         },
         "v_numeric": {
           "value": "true",
-          "err": ""
+          "err": "Equal or greater than 0"
         },
         "v_min": {
           "value": "0",
@@ -152,6 +152,43 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "5630AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "check_box",
+        "label": "Have you delivered your child(ren) vaginally or by cesarean section?",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_member_registration_relevance.yml"
+            }
+          }
+        },
+        "options": [
+          {
+            "key": "chk_vaginally",
+            "text": "Vaginally",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1170AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_cesarean_section",
+            "text": "Cesarean section",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1171AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the current weight"
+        }
+      },
+      {
+        "key": "delivery_method_one",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "5630AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "native_radio",
         "label": "Have you delivered your child(ren) vaginally or by cesarean section?",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
