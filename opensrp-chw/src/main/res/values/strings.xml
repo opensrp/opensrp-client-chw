@@ -296,5 +296,13 @@
     <string name="gest_age">GA: %1$s</string>
     <string name="gest_age_weeks">weeks</string>
 
+    <string name="action_taken">Action taken</string>
+    <string name="date">Date</string>
+    <string name="weight">Weight</string>
+    <string name="kg">kg</string>
+    <string name="mmHg">mmHg</string>
+    <string name="hb_level">Hb level</string>
+    <string name="ifa_received">IFA received</string>
+    <string name="tests_done">Tests done</string>
 
 </resources>
