@@ -47,7 +47,6 @@ import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.Repository;
 import org.smartregister.sync.ClientProcessorForJava;
 import org.smartregister.sync.helper.ECSyncHelper;
-import org.smartregister.util.LangUtils;
 import org.smartregister.view.activity.DrishtiApplication;
 
 import java.util.ArrayList;
