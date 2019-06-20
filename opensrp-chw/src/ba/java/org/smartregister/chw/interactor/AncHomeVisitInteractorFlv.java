@@ -250,9 +250,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
             stringBuilder.append(MessageFormat.format("{0}: {1}\n", context.getString(R.string.date), new SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(date)));
             stringBuilder.append(MessageFormat.format("{0}: {1}\n", context.getString(R.string.tests_done), testsDone));
             stringBuilder.append(MessageFormat.format("{0}: {1}\n", context.getString(R.string.treatment_given), treatments));
-            if (llin_given.equalsIgnoreCase("Yes")) {
-                stringBuilder.append(context.getString(R.string.received_llin));
-            }
+            stringBuilder.append(MessageFormat.format("{0}: {1}", context.getString(R.string.received_llin), llin_given));
         }
 
         return stringBuilder.toString();
