@@ -288,7 +288,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
 
                         String value = getValue(jsonObject, "sleeping_llitn");
 
-                        ba.setSubTitle(value.trim().toUpperCase());
+                        ba.setSubTitle(StringUtils.capitalize(value.trim().toLowerCase()));
 
                         if (value.equalsIgnoreCase("Yes")) {
                             return BaseAncHomeVisitAction.Status.COMPLETED;

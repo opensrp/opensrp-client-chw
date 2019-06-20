@@ -9,7 +9,6 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.activity.AncRegisterActivity;
 import org.smartregister.chw.activity.ChildRegisterActivity;
 import org.smartregister.chw.activity.FamilyRegisterActivity;
-import org.smartregister.chw.activity.MalariaRegisterActivity;
 import org.smartregister.chw.adapter.NavigationAdapter;
 import org.smartregister.chw.util.Constants;
 
