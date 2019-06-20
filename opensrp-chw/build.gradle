@@ -144,7 +144,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'cardview-v7'
     }
 
-    implementation('org.smartregister:opensrp-client-core:1.6.35-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-core:1.6.37-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.github.bmelnychuk', module: 'atv'
         exclude group: 'com.google.guava', module: 'guava'
@@ -185,12 +185,15 @@ dependencies {
         exclude group: 'org.smartregister', module: 'opensrp-client-core'
         exclude group: 'com.android.support', module: 'appcompat-v7'
         exclude group: 'org.smartregister', module: 'opensrp-client-native-form'
+        exclude group: 'org.smartregister', module: 'opensrp-client-configurable-views'
         exclude group: 'org.smartregister', module: 'opensrp-client-immunization'
     }
 
     implementation('org.smartregister:opensrp-client-chw-malaria:1.0.0-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'org.smartregister', module: 'opensrp-client-core'
+        exclude group: 'org.smartregister', module: 'opensrp-client-native-form'
+        exclude group: 'org.smartregister', module: 'opensrp-client-configurable-views'
         exclude group: 'com.android.support', module: 'appcompat-v7'
     }
 

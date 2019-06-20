@@ -47,6 +47,7 @@ import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.Repository;
 import org.smartregister.sync.ClientProcessorForJava;
 import org.smartregister.sync.helper.ECSyncHelper;
+import org.smartregister.util.LangUtils;
 import org.smartregister.view.activity.DrishtiApplication;
 
 import java.util.ArrayList;
@@ -151,6 +152,8 @@ public class ChwApplication extends DrishtiApplication {
         context = Context.getInstance();
         context.updateApplicationContext(getApplicationContext());
         context.updateCommonFtsObject(createCommonFtsObject());
+
+        Timber.plant(new Timber.DebugTree());
 
         //Fabric.with(this, new Crashlytics.Builder().core(new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build()).build());
         Fabric.with(this, new Crashlytics.Builder().core(new CrashlyticsCore.Builder().build()).build());
