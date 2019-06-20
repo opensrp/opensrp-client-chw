@@ -515,7 +515,12 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                         ba.setScheduleStatus(BaseAncHomeVisitAction.ScheduleStatus.DUE);
                         try {
                             Date date = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).parse(value);
-                            ba.setSubTitle(context.getString(R.string.given_on, new SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(date)));
+
+                            String subText = MessageFormat.format("{0} {1}",
+                                    context.getString(R.string.date_given),
+                                    new SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(date));
+
+                            ba.setSubTitle(subText);
                             return BaseAncHomeVisitAction.Status.COMPLETED;
                         } catch (Exception e) {
                             ba.setSubTitle(context.getString(R.string.not_given));
@@ -600,7 +605,14 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                         ba.setScheduleStatus(BaseAncHomeVisitAction.ScheduleStatus.DUE);
                         try {
                             Date date = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).parse(value);
-                            ba.setSubTitle(context.getString(R.string.given_on, new SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(date)));
+
+
+                            String subText = MessageFormat.format("{0} {1}",
+                                    context.getString(R.string.date_given),
+                                    new SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(date));
+
+                            ba.setSubTitle(subText);
+
                             return BaseAncHomeVisitAction.Status.COMPLETED;
                         } catch (Exception e) {
                             ba.setSubTitle(context.getString(R.string.not_given));

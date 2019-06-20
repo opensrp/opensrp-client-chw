@@ -314,5 +314,6 @@
     <string name="slept_under_net">Slept under net</string>
     <string name="net_condition">Net Condition</string>
     <string name="remarks_and__comments">Remarks / Comments</string>
+    <string name="date_given">Given on</string>
 
 </resources>
