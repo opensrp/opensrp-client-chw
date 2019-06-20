@@ -316,4 +316,7 @@
     <string name="remarks_and__comments">Remarks / Comments</string>
     <string name="date_given">Given on</string>
 
+
+    <string name="device_to_device">Device-to-device sync</string>
+
 </resources>
