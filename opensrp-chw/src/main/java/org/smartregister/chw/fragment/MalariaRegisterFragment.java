@@ -5,7 +5,7 @@ import android.view.View;
 
 import org.smartregister.chw.activity.MalariaProfileActivity;
 import org.smartregister.chw.malaria.fragment.BaseMalariaRegisterFragment;
-import org.smartregister.chw.malaria.provider.MalariaRegisterProvider;
+import org.smartregister.chw.malaria.model.MemberObject;
 import org.smartregister.chw.model.MalariaRegisterFragmentModel;
 import org.smartregister.chw.presenter.MalariaRegisterFragmentPresenter;
 
@@ -35,7 +35,7 @@ public class MalariaRegisterFragment extends BaseMalariaRegisterFragment {
 
     protected void goToClient() {
         Intent intent = new Intent(getActivity(), MalariaProfileActivity.class);
-        intent.putExtra("client", MalariaRegisterProvider.getClient());
+        intent.putExtra("client", MemberObject.getClient());
         MalariaProfileActivity.startMalariaActivity(getActivity(), intent);
     }
 
