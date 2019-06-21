@@ -318,5 +318,6 @@
 
 
     <string name="device_to_device">Device-to-device sync</string>
+    <string name="choose_language">Choose language</string>
 
 </resources>
