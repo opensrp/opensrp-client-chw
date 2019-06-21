@@ -1,73 +1,25 @@
 package org.smartregister.chw.activity;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
-import org.joda.time.DateTime;
-import org.joda.time.Period;
+import android.widget.Toast;
 import org.smartregister.chw.R;
 import org.smartregister.chw.malaria.activity.BaseMalariaProfileActivity;
-import org.smartregister.chw.presenter.ChildProfilePresenter;
-import org.smartregister.commonregistry.CommonPersonObjectClient;
-import org.smartregister.util.Utils;
+import org.smartregister.chw.malaria.domain.MemberObject;
+import org.smartregister.chw.malaria.util.Constants;
 
 public class MalariaProfileActivity extends BaseMalariaProfileActivity {
-    private String first_name, middle_name, last_name, address, id, gender;
-    private int age;
-    private CommonPersonObjectClient client;
-    private View view;
     private ChildProfileActivityFlv flavor = new ChildProfileActivityFlv();
 
-    public static void startMalariaActivity(Activity activity, Intent intent) {
+    public static void startMalariaActivity(Activity activity, MemberObject client) {
+        Intent intent = new Intent(activity, MalariaProfileActivity.class);
+        intent.putExtra(Constants.MALARIA_MEMBER_OBJECT.MEMBER_OBJECT, client);
         activity.startActivity(intent);
     }
 
-    @Override
-    protected void onCreation() {
-        super.onCreation();
-        Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            client = (CommonPersonObjectClient) getIntent().getSerializableExtra("client");
-            first_name = Utils.getValue(client.getColumnmaps(), "first_name", true);
-            middle_name = Utils.getValue(client.getColumnmaps(), "middle_name", true);
-            last_name = Utils.getValue(client.getColumnmaps(), "last_name", true);
-            age = (new Period(new DateTime(Utils.getValue(client.getColumnmaps(), "dob", false)), new DateTime())).getYears();
-            gender = Utils.getValue(client.getColumnmaps(), "gender", true);
-            address = Utils.getValue(client.getColumnmaps(), "village_town", true);
-        }
-        setupViews(view);
-
-    }
-
-    @SuppressLint("DefaultLocale")
-    private void setupViews(View view) {
-        this.view = view;
-        TextView patientName = findViewById(org.smartregister.malaria.R.id.textview_name);
-        patientName.setText(String.format("%s %s %s, %d", first_name, middle_name, last_name, age));
-
-        TextView patientAddress = findViewById(org.smartregister.malaria.R.id.textview_address);
-        patientAddress.setText(address);
-
-        TextView patientId = findViewById(org.smartregister.malaria.R.id.textview_id);
-        patientId.setText(id);
-
-        TextView patientGender = findViewById(org.smartregister.malaria.R.id.textview_gender);
-        patientGender.setText(gender);
-
-
-    }
-
-    @Override
-    public void onClick(View view) {
-        if (view.getId() == org.smartregister.malaria.R.id.toolbar_title) {
-            onBackPressed();
-        }
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -87,17 +39,29 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity {
                 onBackPressed();
                 return true;
             case R.id.action_registration:
-//                AncRegisterActivity.startAncRegistrationActivity(FamilyOtherMemberProfileActivity.this, baseEntityId, PhoneNumber);
+                Toast.makeText(getApplicationContext(), "Registration", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.action_malaria_followup_visit:
-//                MalariaRegisterActivity.startMalariaRegistrationActivity(FamilyOtherMemberProfileActivity.this, baseEntityId);
+                Toast.makeText(getApplicationContext(), "Malaria Follow up", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.action_remove_member:
-//                IndividualProfileRemoveActivity.startIndividualProfileActivity(FamilyOtherMemberProfileActivity.this, commonPersonObject, familyBaseEntityId, familyHead, primaryCaregiver);
+                Toast.makeText(getApplicationContext(), "Remove Member", Toast.LENGTH_SHORT).show();
                 return true;
             default:
                 break;
         }
         return super.onOptionsItemSelected(item);
     }
+
+
+    @Override
+    public void onClick(View view) {
+        int id = view.getId();
+        if (id == org.smartregister.malaria.R.id.title_layout) {
+            onBackPressed();
+        } else if (id == org.smartregister.malaria.R.id.record_visit_malaria) {
+            Toast.makeText(this, "Record Malaria", Toast.LENGTH_SHORT).show();
+        }
+    }
+
 }

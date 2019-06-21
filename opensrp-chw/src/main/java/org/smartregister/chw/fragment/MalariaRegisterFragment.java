@@ -1,13 +1,13 @@
 package org.smartregister.chw.fragment;
 
-import android.content.Intent;
 import android.view.View;
 
 import org.smartregister.chw.activity.MalariaProfileActivity;
+import org.smartregister.chw.malaria.domain.MemberObject;
 import org.smartregister.chw.malaria.fragment.BaseMalariaRegisterFragment;
-import org.smartregister.chw.malaria.model.MemberObject;
 import org.smartregister.chw.model.MalariaRegisterFragmentModel;
 import org.smartregister.chw.presenter.MalariaRegisterFragmentPresenter;
+import org.smartregister.commonregistry.CommonPersonObjectClient;
 
 public class MalariaRegisterFragment extends BaseMalariaRegisterFragment {
 
@@ -24,23 +24,11 @@ public class MalariaRegisterFragment extends BaseMalariaRegisterFragment {
         presenter = new MalariaRegisterFragmentPresenter(this, new MalariaRegisterFragmentModel(), null);
     }
 
+
     @Override
-    protected void onViewClicked(View view) {
-        if (view.getId() == org.smartregister.malaria.R.id.due_button) {
-            goToClient();
-        }
-
-
+    protected void openProfile(CommonPersonObjectClient client) {
+        MalariaProfileActivity.startMalariaActivity(getActivity(), new MemberObject(client));
     }
-
-    protected void goToClient() {
-        Intent intent = new Intent(getActivity(), MalariaProfileActivity.class);
-        intent.putExtra("client", MemberObject.getClient());
-        MalariaProfileActivity.startMalariaActivity(getActivity(), intent);
-    }
-
-
-
 }
 
 
