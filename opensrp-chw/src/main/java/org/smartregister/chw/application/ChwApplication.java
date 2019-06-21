@@ -268,8 +268,10 @@ public class ChwApplication extends DrishtiApplication {
         return metadata;
     }
 
-    public void notifyAppContextChange(){
+    public void notifyAppContextChange() {
         FamilyLibrary.getInstance().setMetadata(getMetadata());
+        Locale current = getApplicationContext().getResources().getConfiguration().locale;
+        saveLanguage(current.getLanguage());
     }
 
     public VaccineRepository vaccineRepository() {

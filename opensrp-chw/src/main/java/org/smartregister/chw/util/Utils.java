@@ -33,6 +33,10 @@ import org.smartregister.chw.contract.FamilyCallDialogContract;
 import org.smartregister.chw.fragment.CopyToClipboardDialog;
 import org.smartregister.util.PermissionUtils;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.text.MessageFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -220,10 +224,25 @@ public class Utils extends org.smartregister.family.util.Utils {
 
     public static String getLocalForm(String form_name) {
         Locale current = ChwApplication.getCurrentLocale();
-        if (current.getLanguage().equalsIgnoreCase("en")) {
+
+        String formIdentity = MessageFormat.format("{0}_{1}", form_name, current.getLanguage());
+        // validate variant exists
+        try {
+            InputStream inputStream = ChwApplication.getInstance().getApplicationContext().getAssets()
+                    .open("json.form/" + formIdentity + ".json");
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream,
+                    "UTF-8"));
+            String jsonString;
+            StringBuilder stringBuilder = new StringBuilder();
+            while ((jsonString = reader.readLine()) != null) {
+                stringBuilder.append(jsonString);
+            }
+            inputStream.close();
+
+            return formIdentity;
+        } catch (IOException e) {
+            // return default
             return form_name;
-        } else {
-            return MessageFormat.format("{0}_{1}", form_name, current.getLanguage());
         }
     }
 
