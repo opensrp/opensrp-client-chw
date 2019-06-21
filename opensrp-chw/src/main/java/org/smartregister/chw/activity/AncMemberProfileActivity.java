@@ -67,11 +67,11 @@ public class AncMemberProfileActivity extends BaseAncMemberProfileActivity {
                 return true;
             case R.id.action_anc_member_registration:
                 startFormForEdit(R.string.edit_member_form_title,
-                        org.smartregister.chw.util.Constants.JSON_FORM.FAMILY_MEMBER_REGISTER);
+                        org.smartregister.chw.util.Constants.JSON_FORM.getFamilyMemberRegister());
                 return true;
             case R.id.action_anc_registration:
                 startFormForEdit(R.string.edit_anc_registration_form_title,
-                        org.smartregister.chw.util.Constants.JSON_FORM.ANC_REGISTRATION);
+                        org.smartregister.chw.util.Constants.JSON_FORM.getAncRegistration());
                 return true;
             case R.id.action_remove_member:
                 CommonRepository commonRepository = org.smartregister.chw.util.Utils.context().commonrepository(org.smartregister.chw.util.Utils.metadata().familyMemberRegister.tableName);
@@ -85,7 +85,7 @@ public class AncMemberProfileActivity extends BaseAncMemberProfileActivity {
                 return true;
             case R.id.action_pregnancy_out_come:
                 AncRegisterActivity.startAncRegistrationActivity(AncMemberProfileActivity.this, MEMBER_OBJECT.getBaseEntityId(), null,
-                        org.smartregister.chw.util.Constants.JSON_FORM.PREGNANCY_OUTCOME, AncLibrary.getInstance().getUniqueIdRepository().getNextUniqueId().getOpenmrsId());
+                        org.smartregister.chw.util.Constants.JSON_FORM.getPregnancyOutcome(), AncLibrary.getInstance().getUniqueIdRepository().getNextUniqueId().getOpenmrsId());
                 return true;
             default:
                 break;
@@ -102,12 +102,12 @@ public class AncMemberProfileActivity extends BaseAncMemberProfileActivity {
         CommonPersonObjectClient client = new CommonPersonObjectClient(personObject.getCaseId(), personObject.getDetails(), "");
         client.setColumnmaps(personObject.getColumnmaps());
 
-        if (formName.equals(org.smartregister.chw.util.Constants.JSON_FORM.FAMILY_MEMBER_REGISTER)) {
+        if (formName.equals(org.smartregister.chw.util.Constants.JSON_FORM.getFamilyMemberRegister())) {
             form = org.smartregister.chw.util.JsonFormUtils.getAutoPopulatedJsonEditMemberFormString(
                     (title_resource != null) ? getResources().getString(title_resource) : null,
-                    org.smartregister.chw.util.Constants.JSON_FORM.FAMILY_MEMBER_REGISTER,
+                    org.smartregister.chw.util.Constants.JSON_FORM.getFamilyMemberRegister(),
                     this, client, org.smartregister.chw.util.Utils.metadata().familyMemberRegister.updateEventType, MEMBER_OBJECT.getFamilyName(), false);
-        } else if (formName.equals(org.smartregister.chw.util.Constants.JSON_FORM.ANC_REGISTRATION)) {
+        } else if (formName.equals(org.smartregister.chw.util.Constants.JSON_FORM.getAncRegistration())) {
             form = org.smartregister.chw.util.JsonFormUtils.getAutoJsonEditAncFormString(
                     MEMBER_OBJECT.getBaseEntityId(), this, formName, org.smartregister.chw.util.Constants.EventType.UPDATE_ANC_REGISTRATION, getResources().getString(title_resource));
         }

@@ -28,6 +28,7 @@ import org.joda.time.Days;
 import org.joda.time.Period;
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
+import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.contract.FamilyCallDialogContract;
 import org.smartregister.chw.fragment.CopyToClipboardDialog;
 import org.smartregister.util.PermissionUtils;
@@ -217,9 +218,13 @@ public class Utils extends org.smartregister.family.util.Utils {
         return " " + context.getString(resId);
     }
 
-    public static String getLocalForm(String jsonForm) {
-        String suffix = Locale.getDefault().getLanguage().equals("fr") ? "_fr" : "";
-        return MessageFormat.format("{0}{1}", jsonForm, suffix);
+    public static String getLocalForm(String form_name) {
+        Locale current = ChwApplication.getCurrentLocale();
+        if (current.getLanguage().equalsIgnoreCase("en")) {
+            return form_name;
+        } else {
+            return MessageFormat.format("{0}_{1}", form_name, current.getLanguage());
+        }
     }
 
     public static String getAncMemberNameAndAge(String firstName, String middleName, String surName, String age) {

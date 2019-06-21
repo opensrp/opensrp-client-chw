@@ -83,7 +83,7 @@ public class FamilyRemoveMemberModel extends FamilyProfileMemberModel implements
     public JSONObject prepareFamilyRemovalForm(String familyID, String familyName, String details) {
         try {
             FormUtils formUtils = FormUtils.getInstance(Utils.context().applicationContext());
-            JSONObject form = formUtils.getFormJson(Constants.JSON_FORM.FAMILY_DETAILS_REMOVE_FAMILY);
+            JSONObject form = formUtils.getFormJson(Constants.JSON_FORM.getFamilyDetailsRemoveFamily());
             form.put(JsonFormUtils.ENTITY_ID, familyID);
 
             JSONObject stepOne = form.getJSONObject(org.smartregister.family.util.JsonFormUtils.STEP1);
@@ -107,7 +107,7 @@ public class FamilyRemoveMemberModel extends FamilyProfileMemberModel implements
     }
     public String getForm(CommonPersonObjectClient client) {
         Date dob = Utils.dobStringToDate(Utils.getValue(client.getColumnmaps(), DBConstants.KEY.DOB, false));
-        return ((dob != null && getDiffYears(dob, new Date()) >= 5) ? Constants.JSON_FORM.FAMILY_DETAILS_REMOVE_MEMBER : Constants.JSON_FORM.FAMILY_DETAILS_REMOVE_CHILD);
+        return ((dob != null && getDiffYears(dob, new Date()) >= 5) ? Constants.JSON_FORM.getFamilyDetailsRemoveMember() : Constants.JSON_FORM.getFamilyDetailsRemoveChild());
     }
 
     public int getDiffYears(Date first, Date last) {

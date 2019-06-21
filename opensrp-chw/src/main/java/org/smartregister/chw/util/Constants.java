@@ -41,40 +41,146 @@ public class Constants {
         public static final String PREGNANCY_OUTCOME = "Pregnancy Outcome";
     }
 
+    /**
+     * Only access form constants via the getter
+     */
     public static class JSON_FORM {
-        public static final String BIRTH_CERTIFICATION = Utils.getLocalForm("birth_certification");
+        private static final String BIRTH_CERTIFICATION = "birth_certification";
 
-        public static final String OBS_ILLNESS = Utils.getLocalForm("observation_illness");
-        public static final String FAMILY_REGISTER = Utils.getLocalForm("family_register");
-        public static final String FAMILY_MEMBER_REGISTER = Utils.getLocalForm("family_member_register");
-        public static final String CHILD_REGISTER = Utils.getLocalForm("child_enrollment");
-        public static final String FAMILY_DETAILS_REGISTER = Utils.getLocalForm("family_details_register");
-        public static final String FAMILY_DETAILS_REMOVE_MEMBER = Utils.getLocalForm("family_details_remove_member");
+        private static final String OBS_ILLNESS = "observation_illness";
+        private static final String FAMILY_REGISTER = "family_register";
+        private static final String FAMILY_MEMBER_REGISTER = "family_member_register";
+        private static final String CHILD_REGISTER = "child_enrollment";
+        private static final String FAMILY_DETAILS_REGISTER = "family_details_register";
+        private static final String FAMILY_DETAILS_REMOVE_MEMBER = "family_details_remove_member";
 
-        public static final String FAMILY_DETAILS_REMOVE_CHILD = Utils.getLocalForm("family_details_remove_child");
-        public static final String FAMILY_DETAILS_REMOVE_FAMILY = Utils.getLocalForm("family_details_remove_family");
-        public static final String HOME_VISIT_COUNSELLING = "routine_home_visit";
+        private static final String FAMILY_DETAILS_REMOVE_CHILD = "family_details_remove_child";
+        private static final String FAMILY_DETAILS_REMOVE_FAMILY = "family_details_remove_family";
+        private static final String HOME_VISIT_COUNSELLING = "routine_home_visit";
 
-        public static final String ANC_REGISTRATION = "anc_member_registration";
-        public static final String PREGNANCY_OUTCOME = "anc_pregnancy_outcome";
-        public static final String MALARIA_CONFIRMATION = "malaria_confirmation";
+        private static final String ANC_REGISTRATION = "anc_member_registration";
+        private static final String PREGNANCY_OUTCOME = "anc_pregnancy_outcome";
+        private static final String MALARIA_CONFIRMATION = "malaria_confirmation";
+
+        public static String getBirthCertification() {
+            return Utils.getLocalForm(BIRTH_CERTIFICATION);
+        }
+
+        public static String getObsIllness() {
+            return Utils.getLocalForm(OBS_ILLNESS);
+        }
+
+        public static String getFamilyRegister() {
+            return Utils.getLocalForm(FAMILY_REGISTER);
+        }
+
+        public static String getFamilyMemberRegister() {
+            return Utils.getLocalForm(FAMILY_MEMBER_REGISTER);
+        }
+
+        public static String getChildRegister() {
+            return Utils.getLocalForm(CHILD_REGISTER);
+        }
+
+        public static String getFamilyDetailsRegister() {
+            return Utils.getLocalForm(FAMILY_DETAILS_REGISTER);
+        }
+
+        public static String getFamilyDetailsRemoveMember() {
+            return Utils.getLocalForm(FAMILY_DETAILS_REMOVE_MEMBER);
+        }
+
+        public static String getFamilyDetailsRemoveChild() {
+            return Utils.getLocalForm(FAMILY_DETAILS_REMOVE_CHILD);
+        }
+
+        public static String getFamilyDetailsRemoveFamily() {
+            return Utils.getLocalForm(FAMILY_DETAILS_REMOVE_FAMILY);
+        }
+
+        public static String getHomeVisitCounselling() {
+            return Utils.getLocalForm(HOME_VISIT_COUNSELLING);
+        }
+
+        public static String getAncRegistration() {
+            return Utils.getLocalForm(ANC_REGISTRATION);
+        }
+
+        public static String getPregnancyOutcome() {
+            return Utils.getLocalForm(PREGNANCY_OUTCOME);
+        }
+
+        public static String getMalariaConfirmation() {
+            return Utils.getLocalForm(MALARIA_CONFIRMATION);
+        }
 
         public static class ANC_HOME_VISIT {
-            public static final String DANGER_SIGNS = "anc_hv_danger_signs";
-            public static final String ANC_COUNSELING = "anc_hv_counseling";
-            public static final String SLEEPING_UNDER_LLITN = "anc_hv_sleeping_under_llitn";
-            public static final String ANC_CARD_RECEIVED = "anc_hv_anc_card_received";
-            public static final String TT_IMMUNIZATION = "anc_hv_tt_immunization";
-            public static final String IPTP_SP = "anc_hv_anc_iptp_sp";
+            private static final String DANGER_SIGNS = "anc_hv_danger_signs";
+            private static final String ANC_COUNSELING = "anc_hv_counseling";
+            private static final String SLEEPING_UNDER_LLITN = "anc_hv_sleeping_under_llitn";
+            private static final String ANC_CARD_RECEIVED = "anc_hv_anc_card_received";
+            private static final String TT_IMMUNIZATION = "anc_hv_tt_immunization";
+            private static final String IPTP_SP = "anc_hv_anc_iptp_sp";
 
+            private static final String HEALTH_FACILITY_VISIT = "anc_hv_health_facility_visit";
+            private static final String FAMILY_PLANNING = "anc_hv_family_planning";
+            private static final String NUTRITION_STATUS = "anc_hv_nutrition_status";
+            private static final String COUNSELLING = "anc_hv_counselling";
+            private static final String MALARIA = "anc_hv_malaria";
+            private static final String OBSERVATION_AND_ILLNESS = "anc_hv_observations";
+            private static final String REMARKS_AND_COMMENTS = "anc_hv_remarks_and_comments";
 
-            public static final String HEALTH_FACILITY_VISIT = "anc_hv_health_facility_visit";
-            public static final String FAMILY_PLANNING = "anc_hv_family_planning";
-            public static final String NUTRITION_STATUS = "anc_hv_nutrition_status";
-            public static final String COUNSELLING = "anc_hv_counselling";
-            public static final String MALARIA = "anc_hv_malaria";
-            public static final String OBSERVATION_AND_ILLNESS = "anc_hv_observations";
-            public static final String REMARKS_AND_COMMENTS = "anc_hv_remarks_and_comments";
+            public static String getDangerSigns() {
+                return Utils.getLocalForm(DANGER_SIGNS);
+            }
+
+            public static String getAncCounseling() {
+                return Utils.getLocalForm(ANC_COUNSELING);
+            }
+
+            public static String getSleepingUnderLlitn() {
+                return Utils.getLocalForm(SLEEPING_UNDER_LLITN);
+            }
+
+            public static String getAncCardReceived() {
+                return Utils.getLocalForm(ANC_CARD_RECEIVED);
+            }
+
+            public static String getTtImmunization() {
+                return Utils.getLocalForm(TT_IMMUNIZATION);
+            }
+
+            public static String getIptpSp() {
+                return Utils.getLocalForm(IPTP_SP);
+            }
+
+            public static String getHealthFacilityVisit() {
+                return Utils.getLocalForm(HEALTH_FACILITY_VISIT);
+            }
+
+            public static String getFamilyPlanning() {
+                return Utils.getLocalForm(FAMILY_PLANNING);
+            }
+
+            public static String getNutritionStatus() {
+                return Utils.getLocalForm(NUTRITION_STATUS);
+            }
+
+            public static String getCOUNSELLING() {
+                return Utils.getLocalForm(COUNSELLING);
+            }
+
+            public static String getMALARIA() {
+                return Utils.getLocalForm(MALARIA);
+            }
+
+            public static String getObservationAndIllness() {
+                return Utils.getLocalForm(OBSERVATION_AND_ILLNESS);
+            }
+
+            public static String getRemarksAndComments() {
+                return Utils.getLocalForm(REMARKS_AND_COMMENTS);
+            }
         }
     }
 
@@ -92,7 +198,7 @@ public class Constants {
         public static final String ANC_MEMBER = "ec_anc_register";
         public static final String ANC_MEMBER_LOG = "ec_anc_log";
         public static final String MALARIA_CONFIRMATION = "ec_malaria_confirmation";
-        public static final String ANC_PREGNANCY_OUTCOME= "ec_pregnancy_outcome";
+        public static final String ANC_PREGNANCY_OUTCOME = "ec_pregnancy_outcome";
     }
 
     public static final class INTENT_KEY {

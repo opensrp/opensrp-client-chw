@@ -283,6 +283,7 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
                         Intent intent = context.getIntent();
                         context.finish();
                         context.startActivity(intent);
+                        ChwApplication.getInstance().notifyAppContextChange();
 
                     }
                 });

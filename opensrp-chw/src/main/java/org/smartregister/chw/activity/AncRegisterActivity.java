@@ -54,7 +54,7 @@ public class AncRegisterActivity extends BaseAncRegisterActivity {
     }
 
     private static String getFormTable() {
-        if (form_name != null && form_name.equals(Constants.JSON_FORM.ANC_REGISTRATION)) {
+        if (form_name != null && form_name.equals(Constants.JSON_FORM.getAncRegistration())) {
             return ANC_MEMBER;
         }
         return ANC_PREGNANCY_OUTCOME;

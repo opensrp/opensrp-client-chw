@@ -196,7 +196,7 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
                 return true;
             case R.id.action_anc_registration:
                 AncRegisterActivity.startAncRegistrationActivity(FamilyOtherMemberProfileActivity.this, baseEntityId, PhoneNumber,
-                        org.smartregister.chw.util.Constants.JSON_FORM.ANC_REGISTRATION, null);
+                        org.smartregister.chw.util.Constants.JSON_FORM.getAncRegistration(), null);
                 return true;
             case R.id.action_malaria_registration:
                 MalariaRegisterActivity.startMalariaRegistrationActivity(FamilyOtherMemberProfileActivity.this, baseEntityId);
@@ -229,7 +229,7 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
 
         JSONObject form = org.smartregister.chw.util.JsonFormUtils.getAutoPopulatedJsonEditMemberFormString(
                 (title_resource != null) ? getResources().getString(title_resource) : null,
-                org.smartregister.chw.util.Constants.JSON_FORM.FAMILY_MEMBER_REGISTER,
+                org.smartregister.chw.util.Constants.JSON_FORM.getFamilyMemberRegister(),
                 this, client, org.smartregister.chw.util.Utils.metadata().familyMemberRegister.updateEventType, familyName, commonPersonObject.getCaseId().equalsIgnoreCase(primaryCaregiver));
         try {
             startFormActivity(form);

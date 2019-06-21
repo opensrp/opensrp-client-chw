@@ -196,7 +196,7 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
         String entityId = id;
         form.getJSONObject(METADATA).put(ENCOUNTER_LOCATION, currentLocationId);
 
-        if (Utils.metadata().familyRegister.formName.equals(formName) || Utils.metadata().familyMemberRegister.formName.equals(formName) || formName.equalsIgnoreCase(org.smartregister.chw.util.Constants.JSON_FORM.CHILD_REGISTER)) {
+        if (Utils.metadata().familyRegister.formName.equals(formName) || Utils.metadata().familyMemberRegister.formName.equals(formName) || formName.equalsIgnoreCase(org.smartregister.chw.util.Constants.JSON_FORM.getChildRegister())) {
             if (StringUtils.isNotBlank(entityId)) {
                 entityId = entityId.replace("-", "");
             }
