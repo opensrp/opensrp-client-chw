@@ -116,7 +116,7 @@ public class FamilyProfileActivityTest {
     public void testOnActivityResultVerifyJsonReceived() throws Exception {
 
         FamilyProfileActivity spyActivity = Mockito.spy(activity);
-        JSONObject form = getFormJson(RuntimeEnvironment.application, org.smartregister.chw.util.Constants.JSON_FORM.FAMILY_MEMBER_REGISTER);
+        JSONObject form = getFormJson(RuntimeEnvironment.application, org.smartregister.chw.util.Constants.JSON_FORM.getFamilyMemberRegister());
 
         FamilyProfilePresenter presenter = mock(FamilyProfilePresenter.class);
         Whitebox.setInternalState(spyActivity, "presenter", presenter);

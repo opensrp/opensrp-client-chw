@@ -147,7 +147,7 @@ public class ChwApplication extends DrishtiApplication {
      * Update application contants to fit current context
      */
     public static Locale getCurrentLocale() {
-        return mInstance.getResources().getConfiguration().locale;
+        return mInstance == null ? Locale.getDefault() : mInstance.getResources().getConfiguration().locale;
     }
 
     @Override
