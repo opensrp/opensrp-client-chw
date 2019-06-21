@@ -246,7 +246,6 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
         View rlIconLang = rootView.findViewById(R.id.rlIconLang);
         final TextView tvLang = rootView.findViewById(R.id.tvLang);
 
-// check current context
         final String[] languages = flavour.getSupportedLanguages();
         Locale current = context.getResources().getConfiguration().locale;
         tvLang.setText(StringUtils.capitalize(current.getDisplayLanguage()));
