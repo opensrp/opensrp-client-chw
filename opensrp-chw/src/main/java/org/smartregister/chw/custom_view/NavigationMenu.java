@@ -301,7 +301,7 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
     }
 
     private void registerDeviceToDeviceSync(@NonNull final Activity activity) {
-        rootView.findViewById(R.id.btn_navMenu_p2pSyncBtn)
+        rootView.findViewById(R.id.rlIconDevice)
                 .setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

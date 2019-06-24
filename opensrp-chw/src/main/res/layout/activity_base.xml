@@ -8,7 +8,6 @@
     android:fitsSystemWindows="true"
     tools:openDrawer="start">
 
-
     <RelativeLayout
         android:id="@+id/nav_content"
         android:layout_width="match_parent"
@@ -107,25 +106,10 @@
                         android:layout_below="@+id/rvOptions"
                         android:background="#000000" />
 
-                    <Button
-                        android:id="@+id/btn_navMenu_p2pSyncBtn"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:clickable="true"
-                        android:background="@drawable/btn_device_to_device_sync_selector"
-                        android:text="@string/device_to_device_sync"
-                        android:paddingTop="10dp"
-                        android:paddingBottom="10dp"
-                        android:gravity="left"
-                        android:paddingLeft="15dp"
-                        android:layout_below="@id/vDiv2"
-                        style="?android:attr/borderlessButtonStyle"
-                        android:layout_marginTop="35dp"/>
-
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/btn_navMenu_p2pSyncBtn"
+                        android:layout_below="@+id/vDiv2"
                         android:layout_marginLeft="15dp"
                         android:layout_marginTop="20dp"
                         android:layout_marginRight="15dp"
