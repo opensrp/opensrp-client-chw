@@ -5,7 +5,6 @@ import android.support.annotation.Nullable;
 
 import org.smartregister.AllConstants;
 import org.smartregister.CoreLibrary;
-import org.smartregister.chw.ChwLibrary;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.domain.jsonmapping.Location;
 import org.smartregister.domain.jsonmapping.util.LocationTree;
@@ -111,8 +110,7 @@ public class ChwAuthorizationService implements P2PAuthorizationService {
 
         return false;
     }
-
-
+    
     @Nullable
     private LinkedHashMap<String, TreeNode<String, Location>> retrieveLocationHierarchyMap() {
         String locationData = CoreLibrary.getInstance().context().anmLocationController().get();
@@ -127,7 +125,7 @@ public class ChwAuthorizationService implements P2PAuthorizationService {
     @Override
     public void getAuthorizationDetails(@NonNull OnAuthorizationDetailsProvidedCallback onAuthorizationDetailsProvidedCallback) {
         // Load the preferences here
-        AllSharedPreferences allSharedPreferences = ChwLibrary.getInstance().context().allSharedPreferences();
+        AllSharedPreferences allSharedPreferences = CoreLibrary.getInstance().context().allSharedPreferences();
 
         authorizationDetails.put(AllConstants.PeerToPeer.KEY_TEAM_ID, allSharedPreferences.fetchDefaultTeamId(allSharedPreferences.fetchRegisteredANM()));
         authorizationDetails.put(Constants.PEER_TO_PEER.LOCATION_ID, allSharedPreferences.fetchUserLocalityId(allSharedPreferences.fetchRegisteredANM()));

@@ -22,7 +22,6 @@ import org.robolectric.android.controller.ActivityController;
 import org.robolectric.annotation.Config;
 import org.smartregister.Context;
 import org.smartregister.chw.BuildConfig;
-import org.smartregister.chw.ChwLibrary;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.presenter.FamilyProfilePresenter;
 import org.smartregister.domain.FetchStatus;
