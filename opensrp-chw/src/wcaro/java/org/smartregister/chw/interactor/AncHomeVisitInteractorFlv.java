@@ -52,6 +52,7 @@ import static org.smartregister.chw.malaria.util.JsonFormUtils.fields;
 import static org.smartregister.chw.util.JsonFormUtils.getCheckBoxValue;
 import static org.smartregister.chw.util.JsonFormUtils.getValue;
 import static org.smartregister.chw.util.RecurringServiceUtil.getRecurringServices;
+import static org.smartregister.chw.util.Utils.getDayOfMonthSuffix;
 import static org.smartregister.immunization.util.VaccinatorUtils.generateScheduleList;
 import static org.smartregister.immunization.util.VaccinatorUtils.receivedVaccines;
 import static org.smartregister.util.JsonFormUtils.getFieldJSONObject;
@@ -112,8 +113,12 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
     }
 
     private JSONObject getJson(BaseAncHomeVisitAction ba, String baseEntityID) throws Exception {
+        return getJson(ba.getFormName(), baseEntityID);
+    }
+
+    private JSONObject getJson(String formName, String baseEntityID) throws Exception {
         String locationId = ChwApplication.getInstance().getContext().allSharedPreferences().getPreference(AllConstants.CURRENT_LOCATION_ID);
-        JSONObject jsonObject = JsonFormUtils.getFormAsJson(ba.getFormName());
+        JSONObject jsonObject = JsonFormUtils.getFormAsJson(formName);
         JsonFormUtils.getRegistrationForm(jsonObject, baseEntityID, locationId);
         return jsonObject;
     }
@@ -579,10 +584,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         final String serviceIteration = serviceWrapper.getName().substring(serviceWrapper.getName().length() - 1);
 
         String iptp = MessageFormat.format(context.getString(R.string.anc_home_visit_iptp_sp), serviceIteration);
-        final BaseAncHomeVisitAction ba = new BaseAncHomeVisitAction(iptp, "", false,
-                BaseAncHomeVisitFragment.getInstance(view, ANC_HOME_VISIT.getIptpSp(), null, serviceIteration),
-                null);
-
+        final BaseAncHomeVisitAction ba = evaluateIPTPPreExec(view, iptp, ANC_HOME_VISIT.getIptpSp(), memberObject, serviceIteration);
         ba.setServiceWrapper(serviceWrapper);
 
         String dueState;
@@ -658,6 +660,30 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         if (!serviceWrapper.getVaccineDate().isAfterNow()) {
             actionList.put(iptp, ba);
         }
+    }
+
+    private BaseAncHomeVisitAction evaluateIPTPPreExec(BaseAncHomeVisitContract.View view, String curTitle, String formName, final MemberObject memberObject, String iteration) throws BaseAncHomeVisitAction.ValidationException {
+        // open the form and inject the values
+
+        try {
+            JSONObject jsonObject = getJson(formName, memberObject.getBaseEntityId());
+            JSONArray fields = fields(jsonObject);
+
+            String title = jsonObject.getJSONObject(JsonFormConstants.STEP1).getString("title");
+            String formatted_count = MessageFormat.format("{0}{1}", iteration, getDayOfMonthSuffix(iteration));
+            jsonObject.getJSONObject(JsonFormConstants.STEP1).put("title", MessageFormat.format(title, formatted_count));
+
+            JSONObject visit_field = getFieldJSONObject(fields, "iptp{0}_date");
+            visit_field.put("key", MessageFormat.format(visit_field.getString("key"), iteration));
+            visit_field.put("hint", MessageFormat.format(visit_field.getString("hint"), iteration));
+
+            return new BaseAncHomeVisitAction(curTitle, "", false,
+                    BaseAncHomeVisitFragment.getInstance(view, null, jsonObject, iteration),
+                    null);
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+        return null;
     }
 
     private void evaluateObservation(LinkedHashMap<String, BaseAncHomeVisitAction> actionList, final Context context) throws BaseAncHomeVisitAction.ValidationException {

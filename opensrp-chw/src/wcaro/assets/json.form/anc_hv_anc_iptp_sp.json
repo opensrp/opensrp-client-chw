@@ -47,16 +47,16 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "IPTp-SP 1st dose",
+    "title": "IPTp-SP {0} dose",
     "fields": [
       {
-        "key": "iptp1_date",
+        "key": "iptp{0}_date",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "date_picker",
         "image": "form_iptp_sp",
-        "hint": "When was IPTp-SP 1st dose given?",
+        "hint": "When was IPTp-SP {0} dose given?",
         "min_date": "today-120y",
         "max_date": "today",
         "v_required": {
