@@ -21,6 +21,7 @@ import org.robolectric.RuntimeEnvironment;
 import org.robolectric.android.controller.ActivityController;
 import org.robolectric.annotation.Config;
 import org.smartregister.Context;
+import org.smartregister.CoreLibrary;
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.presenter.FamilyProfilePresenter;
@@ -60,7 +61,7 @@ public class FamilyProfileActivityTest {
 
 
         Context context = Context.getInstance();
-        ChwLibrary.init(context);
+        CoreLibrary.init(context);
 
         //Auto login by default
         String password = "pwd";
