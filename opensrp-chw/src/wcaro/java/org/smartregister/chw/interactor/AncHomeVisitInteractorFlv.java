@@ -559,7 +559,9 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
             }
         });
 
-        actionList.put(immunization, ba);
+        if (details.getLeft().isAfter(new DateTime())) {
+            actionList.put(immunization, ba);
+        }
     }
 
     private void evaluateIPTP(BaseAncHomeVisitContract.View view, LinkedHashMap<String, BaseAncHomeVisitAction> actionList, MemberObject memberObject, final Context context) throws BaseAncHomeVisitAction.ValidationException {
@@ -723,7 +725,8 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         Map<String, Object> map = null;
         for (Map<String, Object> mapVac : vaccineTaskModel.getScheduleList()) {
             VaccineRepo.Vaccine myVac = (VaccineRepo.Vaccine) mapVac.get("vaccine");
-            if (myVac != null && myVac.display().toLowerCase().contains(type.toLowerCase())) {
+            String status = (String) mapVac.get("status");
+            if (myVac != null && myVac.display().toLowerCase().contains(type.toLowerCase()) && status != null && status.equals("due")) {
                 map = mapVac;
                 break;
             }
