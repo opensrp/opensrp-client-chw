@@ -15,6 +15,8 @@ public interface ChildHomeVisitContract {
 
         void updateObsIllnessStatusTick();
 
+        void updateTaskService();
+
         // void updateCounselingStatusTick();
 
         Context getContext();
@@ -35,6 +37,8 @@ public interface ChildHomeVisitContract {
 
         //void generateCounselingForm(String jsonString);
 
+        void generateTaskService();
+
         void saveForm();
 
         void onDestroy(boolean isChangingConfiguration);
@@ -46,6 +50,7 @@ public interface ChildHomeVisitContract {
         void generateBirthIllnessForm(String jsonString, InteractorCallback callback, boolean isEditMode);
 
         //void generateCounselingForm(String jsonString, InteractorCallback callback, boolean isEditMode);
+        void generateTaskService(CommonPersonObjectClient childClient, InteractorCallback callback, boolean isEditMode);
 
         void saveForm(CommonPersonObjectClient childClient);
 
@@ -60,6 +65,8 @@ public interface ChildHomeVisitContract {
         void updateBirthStatusTick();
 
         void updateObsIllnessStatusTick();
+
+        void updateTaskAdapter();
 
         //void updateCounselingStatusTick();
     }

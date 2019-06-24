@@ -101,6 +101,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     private String jsonString;
     private boolean isEditMode = false;
     private ProgressBar progressBar;
+    private RecyclerView taskServiceRecyclerView;
 
     public void setContext(Context context) {
         this.context = context;
@@ -131,6 +132,8 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         viewVaccineCardLine = view.findViewById(R.id.vc_line_view);
         textViewBirthCertDueDate = view.findViewById(R.id.textview_birth_certification_name);
         textViewObsIllnessDesc = view.findViewById(R.id.textview_obser_illness_name);
+        taskServiceRecyclerView = view.findViewById(R.id.task_service_recycler_view);
+        taskServiceRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         TextView textViewObsIllnessTitle = view.findViewById(R.id.textview_obser_illness);
         textViewObsIllnessTitle.setText(Html.fromHtml(getString(R.string.observations_illness_episodes)));
         view.findViewById(R.id.close).setOnClickListener(this);

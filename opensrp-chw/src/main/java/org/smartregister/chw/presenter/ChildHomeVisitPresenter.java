@@ -9,6 +9,7 @@ import org.smartregister.chw.model.ChildRegisterModel;
 import org.smartregister.chw.util.BirthIllnessData;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.JsonFormUtils;
+import org.smartregister.chw.util.ServiceTask;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.util.FormUtils;
@@ -22,6 +23,7 @@ public class ChildHomeVisitPresenter implements ChildHomeVisitContract.Presenter
     private CommonPersonObjectClient childClient;
     private FormUtils formUtils = null;
     private String editedBirthCertFormJson, editedIllnessJson, editedCounselingJson;
+    private ArrayList<ServiceTask> serviceTasks = new ArrayList<>();
 
     public ChildHomeVisitPresenter(ChildHomeVisitContract.View view) {
         this.view = new WeakReference<>(view);
@@ -43,6 +45,9 @@ public class ChildHomeVisitPresenter implements ChildHomeVisitContract.Presenter
 
     public String getEditedCounselingJson() {
         return editedCounselingJson;
+    }
+    public ArrayList<ServiceTask> getServiceTasks() {
+        return serviceTasks;
     }
 
     public int getSaveSize() {
@@ -210,4 +215,6 @@ public class ChildHomeVisitPresenter implements ChildHomeVisitContract.Presenter
         }
         return formUtils;
     }
+
+
 }
