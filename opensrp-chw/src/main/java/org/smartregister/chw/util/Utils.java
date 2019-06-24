@@ -28,10 +28,14 @@ import org.joda.time.Days;
 import org.joda.time.Period;
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
+import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.contract.FamilyCallDialogContract;
 import org.smartregister.chw.fragment.CopyToClipboardDialog;
 import org.smartregister.util.PermissionUtils;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.text.MessageFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -217,9 +221,28 @@ public class Utils extends org.smartregister.family.util.Utils {
         return " " + context.getString(resId);
     }
 
-    public static String getLocalForm(String jsonForm) {
-        String suffix = Locale.getDefault().getLanguage().equals("fr") ? "_fr" : "";
-        return MessageFormat.format("{0}{1}", jsonForm, suffix);
+    public static String getLocalForm(String form_name) {
+        Locale current = ChwApplication.getCurrentLocale();
+
+        String formIdentity = MessageFormat.format("{0}_{1}", form_name, current.getLanguage());
+        // validate variant exists
+        try {
+            InputStream inputStream = ChwApplication.getInstance().getApplicationContext().getAssets()
+                    .open("json.form/" + formIdentity + ".json");
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream,
+                    "UTF-8"));
+            String jsonString;
+            StringBuilder stringBuilder = new StringBuilder();
+            while ((jsonString = reader.readLine()) != null) {
+                stringBuilder.append(jsonString);
+            }
+            inputStream.close();
+
+            return formIdentity;
+        } catch (Exception e) {
+            // return default
+            return form_name;
+        }
     }
 
     public static String getAncMemberNameAndAge(String firstName, String middleName, String surName, String age) {

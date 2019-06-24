@@ -1,6 +1,7 @@
 package org.smartregister.chw.interactor;
 
 import org.smartregister.chw.anc.contract.BaseAncHomeVisitContract;
+import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.interactor.BaseAncHomeVisitInteractor;
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
 
@@ -12,14 +13,14 @@ public class AncHomeVisitInteractor extends BaseAncHomeVisitInteractor {
     private Flavor flavor = new AncHomeVisitInteractorFlv();
 
     @Override
-    public void calculateActions(final BaseAncHomeVisitContract.View view, final String memberID, final BaseAncHomeVisitContract.InteractorCallBack callBack) {
+    public void calculateActions(final BaseAncHomeVisitContract.View view, final MemberObject memberObject, final BaseAncHomeVisitContract.InteractorCallBack callBack) {
         final Runnable runnable = new Runnable() {
             @Override
             public void run() {
                 final LinkedHashMap<String, BaseAncHomeVisitAction> actionList = new LinkedHashMap<>();
 
                 try {
-                    for (Map.Entry<String, BaseAncHomeVisitAction> entry : flavor.calculateActions(view, memberID, callBack).entrySet()) {
+                    for (Map.Entry<String, BaseAncHomeVisitAction> entry : flavor.calculateActions(view, memberObject, callBack).entrySet()) {
                         actionList.put(entry.getKey(), entry.getValue());
                     }
                 } catch (BaseAncHomeVisitAction.ValidationException e) {
@@ -40,7 +41,7 @@ public class AncHomeVisitInteractor extends BaseAncHomeVisitInteractor {
 
     public interface Flavor {
 
-        LinkedHashMap<String, BaseAncHomeVisitAction> calculateActions(final BaseAncHomeVisitContract.View view, String memberID, final BaseAncHomeVisitContract.InteractorCallBack callBack) throws BaseAncHomeVisitAction.ValidationException;
+        LinkedHashMap<String, BaseAncHomeVisitAction> calculateActions(final BaseAncHomeVisitContract.View view, MemberObject memberObject, final BaseAncHomeVisitContract.InteractorCallBack callBack) throws BaseAncHomeVisitAction.ValidationException;
 
     }
 }

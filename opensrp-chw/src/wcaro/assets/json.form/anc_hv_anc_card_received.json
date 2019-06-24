@@ -47,7 +47,7 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "ANC card task",
+    "title": "ANC card received",
     "fields": [
       {
         "key": "anc_card",

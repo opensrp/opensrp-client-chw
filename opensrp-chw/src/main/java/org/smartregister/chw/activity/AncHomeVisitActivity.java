@@ -9,22 +9,24 @@ import com.vijay.jsonwizard.domain.Form;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.activity.BaseAncHomeVisitActivity;
+import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.presenter.BaseAncHomeVisitPresenter;
 import org.smartregister.chw.interactor.AncHomeVisitInteractor;
+import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
 
 public class AncHomeVisitActivity extends BaseAncHomeVisitActivity {
 
-    public static void startMe(Activity activity, String memberBaseEntityID) {
+    public static void startMe(Activity activity, MemberObject memberObject) {
         Intent intent = new Intent(activity, AncHomeVisitActivity.class);
-        intent.putExtra("BASE_ENTITY_ID", memberBaseEntityID);
+        intent.putExtra(org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.MEMBER_PROFILE_OBJECT, memberObject);
         activity.startActivity(intent);
     }
 
     @Override
     protected void registerPresenter() {
-        presenter = new BaseAncHomeVisitPresenter(BASE_ENTITY_ID, this, new AncHomeVisitInteractor());
+        presenter = new BaseAncHomeVisitPresenter(memberObject, this, new AncHomeVisitInteractor());
     }
 
     @Override
@@ -32,7 +34,7 @@ public class AncHomeVisitActivity extends BaseAncHomeVisitActivity {
 
         Intent intent = new Intent(this, Utils.metadata().familyMemberFormActivity);
         intent.putExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON, jsonForm.toString());
-
+        intent.putExtra(Constants.WizardFormActivity.EnableOnCloseDialog, false);
         Form form = new Form();
         form.setActionBarBackground(R.color.family_actionbar);
         form.setWizard(false);
