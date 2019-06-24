@@ -54,35 +54,39 @@ public class NavigationInteractor implements NavigationContract.Interactor {
         Cursor c = null;
         String mainCondition;
         if (tableName.equalsIgnoreCase(Constants.TABLE_NAME.CHILD)) {
-            mainCondition = String.format(" %s is null AND %s", DBConstants.KEY.DATE_REMOVED, ChildDBConstants.childAgeLimitFilter());
+            mainCondition = String.format(" where %s is null AND %s", DBConstants.KEY.DATE_REMOVED, ChildDBConstants.childAgeLimitFilter());
         } else if (tableName.equalsIgnoreCase(Constants.TABLE_NAME.FAMILY)) {
-            mainCondition = String.format(" %s is null ", DBConstants.KEY.DATE_REMOVED);
+            mainCondition = String.format(" where %s is null ", DBConstants.KEY.DATE_REMOVED);
         } else if (tableName.equalsIgnoreCase(Constants.TABLE_NAME.ANC_MEMBER)) {
-            mainCondition = MessageFormat.format(" inner join {0} on {1}.{2} = {3}.{4} where {5}.{6} is null ",
-                    Constants.TABLE_NAME.FAMILY_MEMBER,
-                    Constants.TABLE_NAME.FAMILY_MEMBER, DBConstants.KEY.BASE_ENTITY_ID,
-                    Constants.TABLE_NAME.ANC_MEMBER, DBConstants.KEY.BASE_ENTITY_ID,
-                    DBConstants.KEY.DATE_REMOVED); // String.format(" %s is null ", DBConstants.KEY.DATE_REMOVED);
+            StringBuilder stb = new StringBuilder();
+
+            stb.append(MessageFormat.format(" inner join {0} ", Constants.TABLE_NAME.FAMILY_MEMBER));
+            stb.append(MessageFormat.format(" on {0}.{1} = {2}.{3} ", Constants.TABLE_NAME.FAMILY_MEMBER, DBConstants.KEY.BASE_ENTITY_ID,
+                    Constants.TABLE_NAME.ANC_MEMBER, DBConstants.KEY.BASE_ENTITY_ID));
+
+            stb.append(MessageFormat.format(" inner join {0} ", Constants.TABLE_NAME.FAMILY));
+            stb.append(MessageFormat.format(" on {0}.{1} = {2}.{3} ", Constants.TABLE_NAME.FAMILY, DBConstants.KEY.BASE_ENTITY_ID,
+                    Constants.TABLE_NAME.FAMILY_MEMBER, DBConstants.KEY.RELATIONAL_ID));
+
+            stb.append(MessageFormat.format(" where {0}.{1} is null ", Constants.TABLE_NAME.FAMILY_MEMBER, DBConstants.KEY.DATE_REMOVED));
+            stb.append(MessageFormat.format(" and {0}.{1} is 0 ", Constants.TABLE_NAME.ANC_MEMBER, org.smartregister.chw.anc.util.DBConstants.KEY.IS_CLOSED));
+
+
+            mainCondition = stb.toString();
         } else {
-            mainCondition = " 1 = 1 ";
+            mainCondition = " where 1 = 1 ";
         }
         try {
 
             SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder();
-            if (isValidFilterForFts(commonRepository(tableName), "")) {
-                String sql = sqb.countQueryFts(tableName, null, mainCondition, null);
-                Timber.i("1%s", sql);
-                count = commonRepository(tableName).countSearchIds(sql);
+            String query = MessageFormat.format("select count(*) from {0} {1}", tableName, mainCondition);
+            query = sqb.Endquery(query);
+            Timber.i("2%s", query);
+            c = commonRepository(tableName).rawCustomQueryForAdapter(query);
+            if (c.moveToFirst()) {
+                count = c.getInt(0);
             } else {
-                String query = sqb.queryForCountOnRegisters(tableName, mainCondition);
-                query = sqb.Endquery(query);
-                Timber.i("2%s", query);
-                c = commonRepository(tableName).rawCustomQueryForAdapter(query);
-                if (c.moveToFirst()) {
-                    count = c.getInt(0);
-                } else {
-                    count = 0;
-                }
+                count = 0;
             }
 
         } finally {

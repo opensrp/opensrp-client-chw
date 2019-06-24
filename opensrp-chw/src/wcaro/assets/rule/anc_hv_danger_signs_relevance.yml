@@ -1,6 +1,0 @@
-name: step1_danger_signs_present_toaster
-description: danger_signs_present_toaster
-priority: 1
-condition: "!step1_danger_signs_present.equals('None') && !step1_danger_signs_present.equals('Any danger signs present?')"
-actions:
-  - "isRelevant = true"

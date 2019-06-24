@@ -35,7 +35,7 @@ public class MalariaRegisterActivity extends BaseMalariaRegisterActivity {
 
     @Override
     public String getRegistrationForm() {
-        return Constants.JSON_FORM.MALARIA_CONFIRMATION;
+        return Constants.JSON_FORM.getMalariaConfirmation();
     }
 
     @Override

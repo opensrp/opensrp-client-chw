@@ -26,6 +26,7 @@ public class AncRegisterFragmentPresenter extends BaseAncRegisterFragmentPresent
 
     @Override
     public String getMainCondition() {
-            return " " + Constants.TABLE_NAME.FAMILY_MEMBER + "." + DBConstants.KEY.DATE_REMOVED + " is null ";
+        return " " + Constants.TABLE_NAME.FAMILY_MEMBER + "." + DBConstants.KEY.DATE_REMOVED + " is null " +
+                "AND " + Constants.TABLE_NAME.ANC_MEMBER + "." + DBConstants.KEY.IS_CLOSED + " is 0 ";
     }
 }
