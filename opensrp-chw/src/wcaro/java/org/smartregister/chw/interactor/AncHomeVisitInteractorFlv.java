@@ -559,7 +559,8 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
             }
         });
 
-        if (details.getLeft().isAfter(new DateTime())) {
+        // don't show if its after now
+        if (!details.getLeft().isAfterNow()) {
             actionList.put(immunization, ba);
         }
     }
@@ -653,7 +654,10 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
             }
         });
 
-        actionList.put(iptp, ba);
+        // don't show if its after now
+        if (!serviceWrapper.getVaccineDate().isAfterNow()) {
+            actionList.put(iptp, ba);
+        }
     }
 
     private void evaluateObservation(LinkedHashMap<String, BaseAncHomeVisitAction> actionList, final Context context) throws BaseAncHomeVisitAction.ValidationException {
