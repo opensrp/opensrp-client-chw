@@ -27,7 +27,7 @@ public class MalariaRegisterFragment extends BaseMalariaRegisterFragment {
 
     @Override
     protected void openProfile(CommonPersonObjectClient client) {
-        MalariaProfileActivity.startMalariaActivity(getActivity(), new MemberObject(client));
+        MalariaProfileActivity.startMalariaActivity(getActivity(), new MemberObject(client), client);
     }
 }
 
