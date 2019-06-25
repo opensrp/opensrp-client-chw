@@ -17,6 +17,7 @@ import org.smartregister.chw.activity.AncMemberProfileActivity;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.fragment.BaseAncRegisterFragment;
 import org.smartregister.chw.anc.util.DBConstants;
+import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.custom_view.NavigationMenu;
 import org.smartregister.chw.model.AncRegisterFragmentModel;
 import org.smartregister.chw.presenter.AncRegisterFragmentPresenter;
@@ -153,7 +154,8 @@ public class AncRegisterFragment extends BaseAncRegisterFragment {
 
     @Override
     protected void openProfile(CommonPersonObjectClient client) {
-        AncMemberProfileActivity.startMe(getActivity(), new MemberObject(client));
+        String familyName = ChwApplication.ancRegisterRepository().familyHeadName(Utils.getValue(client.getColumnmaps(), org.smartregister.family.util.DBConstants.KEY.FAMILY_HEAD, false));
+        AncMemberProfileActivity.startMe(getActivity(), new MemberObject(client), familyName, Utils.getValue(client.getColumnmaps(), DBConstants.KEY.PHONE_NUMBER, false));
     }
 
     private void switchViews(View dueOnlyLayout, boolean isPress) {

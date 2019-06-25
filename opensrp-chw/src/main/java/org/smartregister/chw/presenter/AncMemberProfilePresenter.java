@@ -3,7 +3,7 @@ package org.smartregister.chw.presenter;
 import android.util.Log;
 
 import org.apache.commons.lang3.tuple.Triple;
-import org.smartregister.chw.anc.contract.AncMemberProfileContract;
+import org.smartregister.chw.anc.contract.BaseAncMemberProfileContract;
 import org.smartregister.chw.anc.presenter.BaseAncMemberProfilePresenter;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
@@ -13,7 +13,7 @@ public class AncMemberProfilePresenter extends BaseAncMemberProfilePresenter imp
 
     private static final String TAG = AncMemberProfilePresenter.class.getCanonicalName();
 
-    public AncMemberProfilePresenter(AncMemberProfileContract.View view, MemberObject memberObject) {
+    public AncMemberProfilePresenter(BaseAncMemberProfileContract.View view, MemberObject memberObject) {
         super(view, memberObject);
     }
 
@@ -44,7 +44,7 @@ public class AncMemberProfilePresenter extends BaseAncMemberProfilePresenter imp
         Log.d(TAG, "onRegistrationSaved unimplemented");
     }
 
-    public AncMemberProfileContract.View getView() {
+    public BaseAncMemberProfileContract.View getView() {
         if (view != null) {
             return view.get();
         } else {

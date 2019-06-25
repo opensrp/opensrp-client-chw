@@ -44,9 +44,11 @@ public class AncMemberProfileActivity extends BaseAncMemberProfileActivity {
     private static FamilyProfileContract.Interactor profileInteractor;
     private static FamilyProfileContract.Model profileModel;
 
-    public static void startMe(Activity activity, MemberObject memberObject) {
+    public static void startMe(Activity activity, MemberObject memberObject, String familyHeadName, String familyHeadPhoneNumber) {
         Intent intent = new Intent(activity, AncMemberProfileActivity.class);
         intent.putExtra(Constants.ANC_MEMBER_OBJECTS.MEMBER_PROFILE_OBJECT, memberObject);
+        intent.putExtra(Constants.ANC_MEMBER_OBJECTS.FAMILY_HEAD_NAME, familyHeadName);
+        intent.putExtra(Constants.ANC_MEMBER_OBJECTS.FAMILY_HEAD_PHONE, familyHeadPhoneNumber);
         profileInteractor = new FamilyProfileInteractor();
         profileModel = new FamilyProfileModel(memberObject.getFamilyName());
         activity.startActivity(intent);
