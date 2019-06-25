@@ -881,9 +881,9 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
             if (jo != null) {
                 // read all the checkboxes
                 JSONArray jaOptions = jo.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
-
+                int optionSize = jaOptions.length();
                 int y = 0;
-                while (jaOptions.length() > y) {
+                while (optionSize > y) {
                     JSONObject options = jaOptions.getJSONObject(y);
                     if (options.getBoolean(JsonFormConstants.VALUE)) {
                         resBuilder.append(options.getString(JsonFormConstants.TEXT)).append(", ");

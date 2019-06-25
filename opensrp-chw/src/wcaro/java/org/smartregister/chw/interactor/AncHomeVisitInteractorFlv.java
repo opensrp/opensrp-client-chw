@@ -327,11 +327,12 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                         JSONObject jsonObject = new JSONObject(ba.getJsonPayload());
 
                         String value = getValue(jsonObject, "anc_card");
-                        ba.setSubTitle(StringUtils.capitalize(value.trim()));
 
                         if (value.equalsIgnoreCase("Yes")) {
+                            ba.setSubTitle(StringUtils.capitalize(value.trim()));
                             return BaseAncHomeVisitAction.Status.COMPLETED;
                         } else if (value.equalsIgnoreCase("No")) {
+                            ba.setSubTitle(StringUtils.capitalize(value.trim()));
                             return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
                         } else {
                             return BaseAncHomeVisitAction.Status.PENDING;
@@ -363,13 +364,13 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
 
                         String value = getValue(jsonObject, "anc_hf_visit");
 
-                        ba.setSubTitle(getHealthFacilityVisitText(jsonObject, context));
                         if (value.equalsIgnoreCase("Yes")) {
+                            ba.setSubTitle(getHealthFacilityVisitText(jsonObject, context));
                             return BaseAncHomeVisitAction.Status.COMPLETED;
                         } else if (value.equalsIgnoreCase("No")) {
+                            ba.setSubTitle(getHealthFacilityVisitText(jsonObject, context));
                             return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
                         } else {
-                            ba.setSubTitle("");
                             return BaseAncHomeVisitAction.Status.PENDING;
                         }
                     } catch (Exception e) {
@@ -397,7 +398,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                     }
 
                     if (!confirmed_visits.getString(JsonFormConstants.VALUE).equals(count)) {
-                        confirmed_visits.put(JsonFormConstants.VALUE, memberObject.getConfirmedContacts() + 1);
+                        confirmed_visits.put(JsonFormConstants.VALUE, count);
                         ba.setProcessedJsonPayload(jsonObject.toString());
                     }
 
@@ -430,12 +431,12 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                     ba.setSubTitle(MessageFormat.format("{0} {1}", due, DateTimeFormat.forPattern("dd MMM yyyy").print(visitDate)));
                     ba.setScheduleStatus(scheduleStatus);
 
-                    String title = jsonObject.getJSONObject(JsonFormConstants.STEP1).getString("title");
+                    String title = jsonObject.getJSONObject(JsonFormConstants.STEP1).getString(JsonFormConstants.STEP_TITLE);
                     jsonObject.getJSONObject(JsonFormConstants.STEP1).put("title", MessageFormat.format(title, memberObject.getConfirmedContacts() + 1));
 
                     JSONObject visit_field = getFieldJSONObject(fields, "anc_hf_visit");
-                    visit_field.put("label_info_title", MessageFormat.format(visit_field.getString("label_info_title"), memberObject.getConfirmedContacts() + 1));
-                    visit_field.put("hint", MessageFormat.format(visit_field.getString("hint"), memberObject.getConfirmedContacts() + 1, visitDate));
+                    visit_field.put("label_info_title", MessageFormat.format(visit_field.getString(JsonFormConstants.LABEL_INFO_TITLE), memberObject.getConfirmedContacts() + 1));
+                    visit_field.put("hint", MessageFormat.format(visit_field.getString(JsonFormConstants.HINT), memberObject.getConfirmedContacts() + 1, visitDate));
 
                     // current visit count
                     getFieldJSONObject(fields, "confirmed_visits").put(JsonFormConstants.VALUE, memberObject.getConfirmedContacts());
