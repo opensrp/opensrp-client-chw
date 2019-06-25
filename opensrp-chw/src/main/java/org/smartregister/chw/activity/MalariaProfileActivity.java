@@ -72,12 +72,14 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity {
 
             case R.id.action_remove_member:
 
-//                final CommonPersonObject commonPersonObject = commonRepository.findByBaseEntityId(memberObject.getBaseEntityId());
-//                final CommonPersonObjectClient client =
-//                        new CommonPersonObjectClient(commonPersonObject.getCaseId(), commonPersonObject.getDetails(), "");
-//                client.setColumnmaps(commonPersonObject.getColumnmaps());
+                CommonRepository commonRepository = org.smartregister.chw.util.Utils.context().commonrepository(org.smartregister.chw.util.Utils.metadata().familyMemberRegister.tableName);
 
-//                IndividualProfileRemoveActivity.startIndividualProfileActivity(MalariaProfileActivity.this, client, memberObject.getBaseEntityId(), familyHead, primaryCareGiver);
+                final CommonPersonObject commonPersonObject = commonRepository.findByBaseEntityId(memberObject.getBaseEntityId());
+                final CommonPersonObjectClient client =
+                        new CommonPersonObjectClient(commonPersonObject.getCaseId(), commonPersonObject.getDetails(), "");
+                client.setColumnmaps(commonPersonObject.getColumnmaps());
+
+                IndividualProfileRemoveActivity.startIndividualProfileActivity(MalariaProfileActivity.this, client, memberObject.getFamilyBaseEntityId(), memberObject.getFamilyHead(), memberObject.getPrimaryCareGiver());
                 return true;
             default:
                 break;
@@ -102,7 +104,7 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity {
                     this, client, org.smartregister.chw.util.Utils.metadata().familyMemberRegister.updateEventType, familyName, false);
         } else if (formName.equals(org.smartregister.chw.util.Constants.JSON_FORM.MALARIA_CONFIRMATION)) {
             form = org.smartregister.chw.util.JsonFormUtils.getAutoJsonEditAncFormString(
-                    baseEntityId, this, formName, "update malaria confirmation", getResources().getString(title_resource));
+                    baseEntityId, this, formName, Constants.EVENT_TYPE.UPDATE_MALARIA_CONFIRMATION, getResources().getString(title_resource));
         }
 
         try {
