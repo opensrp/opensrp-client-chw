@@ -24,7 +24,7 @@ public class ChildProfileModel implements ChildProfileContract.Model {
             return null;
         }
         form = JsonFormUtils.getFormAsJson(form, formName, entityId, currentLocationId, familyID);
-        if (formName.equals(Constants.JSON_FORM.CHILD_REGISTER)) {
+        if (formName.equals(Constants.JSON_FORM.getChildRegister())) {
             JsonFormUtils.updateJsonForm(form, familyName);
         }
 
