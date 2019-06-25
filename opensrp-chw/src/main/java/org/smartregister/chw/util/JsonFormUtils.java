@@ -188,9 +188,9 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
     }
     public static HashMap<String, String> getChoiceMuac(Context context) {
         HashMap<String, String> choices = new HashMap<>();
-        choices.put(context.getResources().getString(R.string.minimum_dietary_choice_1), "");
-        choices.put(context.getResources().getString(R.string.minimum_dietary_choice_2), "");
-        choices.put(context.getResources().getString(R.string.minimum_dietary_choice_3), "");
+        choices.put(context.getResources().getString(R.string.muac_choice_1), "160909AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+        choices.put(context.getResources().getString(R.string.muac_choice_2), "160910AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+        choices.put(context.getResources().getString(R.string.muac_choice_3), "127778AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
         return choices;
     }
     public static List<Object> toList(String... vals) {

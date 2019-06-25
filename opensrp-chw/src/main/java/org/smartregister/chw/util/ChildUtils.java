@@ -497,7 +497,7 @@ public class ChildUtils {
             List<Object> huValue = new ArrayList<>();
             huValue.add(choiceValue);
 
-            baseEvent.addObs(new Obs("concept", "text",Constants.FORM_CONSTANTS.MINIMUM_DIETARY.CODE, "",
+            baseEvent.addObs(new Obs("concept", "text",Constants.FORM_CONSTANTS.MUAC.CODE, "",
                     JsonFormUtils.toList(JsonFormUtils.getChoiceMuac(context).get(choiceValue)), JsonFormUtils.toList(choiceValue), null,
                     Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.TASK_MUAC).withHumanReadableValues(huValue));
             baseEvent.addObs((new Obs()).withFormSubmissionField(Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_DATE_LONG).withValue(homeVisitDate)
