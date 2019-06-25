@@ -312,11 +312,11 @@ public class ChildHomeVisitInteractor implements ChildHomeVisitContract.Interact
                serviceTaskDiversity.setTaskType(TaskServiceCalculate.TASK_TYPE.Minimum_dietary.name());
                serviceTasks.add(serviceTaskDiversity);
            }
-//           ServiceTask serviceTaskMuac = new ServiceTask();
-//           if(taskServiceCalculate.isDue(6) && !taskServiceCalculate.isExpire(60)){
-//               serviceTaskMuac.setTaskTitle(getContext().getResources().getString(R.string.muac_title));
-//               serviceTasks.add(serviceTaskMuac);
-//           }
+           ServiceTask serviceTaskMuac = new ServiceTask();
+           if(taskServiceCalculate.isDue(6) && !taskServiceCalculate.isExpire(60)){
+               serviceTaskMuac.setTaskTitle(getContext().getResources().getString(R.string.muac_title));
+               serviceTasks.add(serviceTaskMuac);
+           }
 //           ServiceTask serviceTaskLlitn = new ServiceTask();
 //           if(!taskServiceCalculate.isExpire(60)){
 //               serviceTaskLlitn.setTaskTitle(getContext().getResources().getString(R.string.llitn_title));

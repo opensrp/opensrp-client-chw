@@ -301,6 +301,10 @@
     <string name="minimum_dietary_choice_2">1 - one animal product OR one fruit</string>
     <string name="minimum_dietary_choice_3">2 - one animal product AND one fruit</string>
     <string name="muac_title">Mid-upper arm circumference (MUAC)</string>
+    <string name="muac_question_label">What is the color of the MUAC tape for the child?</string>
+    <string name="muac_choice_1">Green</string>
+    <string name="muac_choice_2">Yellow</string>
+    <string name="muac_choice_3">Red</string>
     <string name="llitn_title">Sleeping under a LLITN</string>
     <string name="ecd_title">Early childhood development (ECD)</string>
 

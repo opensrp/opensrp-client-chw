@@ -302,7 +302,8 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                 break;
             case R.id.textview_submit:
                 if (checkAllGiven()) {
-                    saveCommonData().subscribeOn(Schedulers.io())
+                    final String homeVisitDateLong = System.currentTimeMillis() + "";
+                    saveCommonData(homeVisitDateLong).subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
                             .doOnSubscribe(new Consumer<Disposable>() {
                                 @Override
@@ -317,14 +318,18 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                                     if (getActivity() instanceof ChildRegisterActivity) {
                                         ((ChildRegisterActivity) getActivity()).refreshList(FetchStatus.fetched);
                                     }
-                                    if (isEditMode) {
-                                        saveData();
-                                        return;
-                                    }
                                     if(layoutVaccineCard.getVisibility() == View.VISIBLE &&
                                             !TextUtils.isEmpty(textViewVaccineCardText.getText().toString())){
                                         ChildUtils.updateVaccineCardAsEvent(context,childClient.getCaseId(),textViewVaccineCardText.getText().toString());
                                     }
+                                    if(serviceTaskAdapter!=null){
+                                        serviceTaskAdapter.makeEvent(homeVisitDateLong,childClient.getCaseId());
+                                    }
+                                    if (isEditMode) {
+                                        saveData();
+                                        return;
+                                    }
+
                                     closeScreen();
                                 }
                             })
@@ -350,7 +355,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
 
     }
 
-    private Observable saveCommonData() {
+    private Observable saveCommonData(final String homeVisitDateLong) {
         return Observable.create(new ObservableOnSubscribe() {
             @Override
             public void subscribe(ObservableEmitter emitter) throws Exception {
@@ -377,7 +382,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                     if (birthCertJson == null) {
                         birthCertJson = new JSONObject();
                     }
-                    ChildUtils.updateHomeVisitAsEvent(childClient.entityId(), Constants.EventType.CHILD_HOME_VISIT, Constants.TABLE_NAME.CHILD, singleVaccineObject, vaccineGroupObject, vaccineNotGivenObject, service, serviceNotGiven, birthCertJson, illnessJson, ChildDBConstants.KEY.LAST_HOME_VISIT, System.currentTimeMillis() + "");
+                    ChildUtils.updateHomeVisitAsEvent(childClient.entityId(), Constants.EventType.CHILD_HOME_VISIT, Constants.TABLE_NAME.CHILD, singleVaccineObject, vaccineGroupObject, vaccineNotGivenObject, service, serviceNotGiven, birthCertJson, illnessJson, ChildDBConstants.KEY.LAST_HOME_VISIT, homeVisitDateLong);
                     if (((ChildHomeVisitPresenter) presenter).getSaveSize() > 0) {
                         ((ChildHomeVisitPresenter) presenter).saveForm();
                     }
@@ -568,10 +573,17 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                 serviceTaskAdapter = new ServiceTaskAdapter((ChildHomeVisitPresenter)presenter, getContext(), new OnClickServiceTaskAdapter() {
                     @Override
                     public void onClick(int position, ServiceTask serviceTask) {
+                        if(serviceTask.getTaskType().equalsIgnoreCase(TaskServiceCalculate.TASK_TYPE.Minimum_dietary.name())){
+                            DietaryInputDialogFragment dialogFragment = DietaryInputDialogFragment.getInstance(serviceTask.getTaskLabel());
+                            FragmentTransaction ft = getActivity().getFragmentManager().beginTransaction();
+                            dialogFragment.show(ft, DietaryInputDialogFragment.DIALOG_TAG);
+                        }else if(serviceTask.getTaskType().equalsIgnoreCase(TaskServiceCalculate.TASK_TYPE.MUAC.name())){
+                            MuacInputDialogFragment dialogFragment = MuacInputDialogFragment.getInstance(serviceTask.getTaskLabel());
+                            FragmentTransaction ft = getActivity().getFragmentManager().beginTransaction();
+                            dialogFragment.show(ft, MuacInputDialogFragment.DIALOG_TAG);
 
-                        DietaryInputDialogFragment dialogFragment = DietaryInputDialogFragment.getInstance(serviceTask.getTaskLabel());
-                        FragmentTransaction ft = getActivity().getFragmentManager().beginTransaction();
-                        dialogFragment.show(ft, DietaryInputDialogFragment.DIALOG_TAG);
+                        }
+
 
                     }
                 });
@@ -708,6 +720,21 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
             if(serviceTask.getTaskType().equalsIgnoreCase(TaskServiceCalculate.TASK_TYPE.Minimum_dietary.name())){
                 serviceTask.setTaskLabel(option);
                 if(option.equalsIgnoreCase(context.getString(R.string.minimum_dietary_choice_3))){
+                    serviceTask.setGreen(true);
+                }else{
+                    serviceTask.setGreen(false);
+                }
+                break;
+            }
+        }
+        updateTaskService();
+        checkIfSubmitIsToBeEnabled();
+    }
+    public void updateMuac(String option){
+        for(ServiceTask serviceTask : presenter.getServiceTasks()){
+            if(serviceTask.getTaskType().equalsIgnoreCase(TaskServiceCalculate.TASK_TYPE.MUAC.name())){
+                serviceTask.setTaskLabel(option);
+                if(option.equalsIgnoreCase(context.getString(R.string.muac_choice_1))){
                     serviceTask.setGreen(true);
                 }else{
                     serviceTask.setGreen(false);

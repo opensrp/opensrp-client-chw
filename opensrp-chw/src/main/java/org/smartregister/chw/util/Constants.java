@@ -25,6 +25,8 @@ public class Constants {
         public static final String CHILD_HOME_VISIT = "Child Home Visit";
         public static final String CHILD_VISIT_NOT_DONE = "Visit not done";
         public static final String VACCINE_CARD_RECEIVED = "Child vaccine card received";
+        public static final String MINIMUM_DIETARY_DIVERSITY = "Minimum dietary diversity";
+        public static final String MUAC = "Mid-upper arm circumference (MUAC)";
         public static final String UPDATE_FAMILY_RELATIONS = "Update Family Relations";
         public static final String UPDATE_FAMILY_MEMBER_RELATIONS = "Update Family Member Relations";
 
@@ -86,6 +88,7 @@ public class Constants {
         public static final String FAMILY = "ec_family";
         public static final String FAMILY_MEMBER = "ec_family_member";
         public static final String CHILD = "ec_child";
+        public static final String TASK_SERVICE = "ec_task_service";
         public static final String CHILD_ACTIVITY = "ec_child_activity";
         public static final String ANC_MEMBER = "ec_anc_register";
         public static final String MALARIA_CONFIRMATION = "ec_malaria_confirmation";
@@ -203,6 +206,25 @@ public class Constants {
 
         public static class VACCINE_CARD {
             public static final String CODE = "164147AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+        }
+        public static class MINIMUM_DIETARY {
+            public static final String CODE = "";
+        }
+        public static class MUAC {
+            public static final String CODE = "160908AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+        }
+        public static class FORM_SUBMISSION_FIELD {
+            public static final String TASK_MINIMUM_DIETARY = "task_minimum_dietary";
+            public static final String TASK_MUAC = "task_muac";
+            public static final String HOME_VISIT_DATE_LONG= "home_visit_date";
+            public static final String HOME_VISIT_SINGLE_VACCINE= "singleVaccine";
+            public static final String HOME_VISIT_GROUP_VACCINE= "groupVaccine";
+            public static final String HOME_VISIT_VACCINE_NOT_GIVEN= "vaccineNotGiven";
+            public static final String HOME_VISIT_SERVICE= "service";
+            public static final String HOME_VISIT_SERVICE_NOT_GIVEN= "serviceNotGiven";
+            public static final String HOME_VISIT_BIRTH_CERT= "birth_certificate";
+            public static final String HOME_VISIT_ILLNESS= "illness_information";
+
         }
     }
 

@@ -12,9 +12,14 @@ import android.widget.TextView;
 import org.smartregister.chw.R;
 import org.smartregister.chw.listener.OnClickServiceTaskAdapter;
 import org.smartregister.chw.presenter.ChildHomeVisitPresenter;
+import org.smartregister.chw.util.ChildUtils;
 import org.smartregister.chw.util.ServiceTask;
+import org.smartregister.chw.util.TaskServiceCalculate;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
 
 public class ServiceTaskAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     private ChildHomeVisitPresenter presenter;
@@ -62,6 +67,24 @@ public class ServiceTaskAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             }
         });
 
+
+    }
+    public void makeEvent(String homeVisitDate,String entityId){
+//        Observable.create(new ObservableOnSubscribe<Object>() {
+//            @Override
+//            public void subscribe(ObservableEmitter<Object> e) throws Exception {
+
+                for(ServiceTask serviceTask : presenter.getServiceTasks()){
+                    if(serviceTask.getTaskType().equalsIgnoreCase(TaskServiceCalculate.TASK_TYPE.Minimum_dietary.name())){
+                        ChildUtils.updateMinimumDietaryAsEvent(context,entityId,serviceTask.getTaskLabel(),homeVisitDate);
+                    }else if(serviceTask.getTaskType().equalsIgnoreCase(TaskServiceCalculate.TASK_TYPE.MUAC.name())){
+                        ChildUtils.updateMinimumDietaryAsEvent(context,entityId,serviceTask.getTaskLabel(),homeVisitDate);
+
+                    }
+                }
+
+//            }
+//        });
 
     }
 
