@@ -152,6 +152,7 @@ public class AncMemberProfileActivity extends BaseAncMemberProfileActivity {
 
     @Override
     public void onClick(View view) {
+        super.onClick(view);
 
         switch (view.getId()) {
             case R.id.textview_record_anc_visit:
