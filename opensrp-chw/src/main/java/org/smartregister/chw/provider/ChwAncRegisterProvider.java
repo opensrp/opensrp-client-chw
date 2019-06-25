@@ -8,8 +8,11 @@ import android.view.View;
 import android.widget.Button;
 
 import org.jeasy.rules.api.Rules;
+import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.provider.AncRegisterProvider;
+import org.smartregister.chw.anc.util.DBConstants;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.interactor.ChildProfileInteractor;
 import org.smartregister.chw.util.AncHomeVisitUtil;
@@ -116,8 +119,9 @@ public class ChwAncRegisterProvider extends AncRegisterProvider {
             String lmpDate = org.smartregister.util.Utils.getValue(pc.getColumnmaps(), ChwDBConstants.LMP, false);
             String visitDate = org.smartregister.util.Utils.getValue(pc.getColumnmaps(), ChildDBConstants.KEY.LAST_HOME_VISIT, false);
             String lastVisitNotDone = org.smartregister.util.Utils.getValue(pc.getColumnmaps(), ChwDBConstants.VISIT_NOT_DONE, false);
+            LocalDate dateCreated = (new DateTime(org.smartregister.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.DATE_CREATED, false))).toLocalDate();
 
-            ancVisit = AncHomeVisitUtil.getVisitStatus(context, rules, lmpDate, visitDate, lastVisitNotDone);
+            ancVisit = AncHomeVisitUtil.getVisitStatus(context, rules, lmpDate, visitDate, lastVisitNotDone, dateCreated);
             return null;
         }
 
