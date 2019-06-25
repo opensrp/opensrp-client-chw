@@ -264,10 +264,6 @@
                 android:background="@color/light_grey" />
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/task_service_recycler_view"
-                android:layout_marginStart="@dimen/child_home_visit_left_margin"
-                android:layout_marginLeft="@dimen/child_home_visit_left_margin"
-                android:layout_marginEnd="@dimen/child_home_visit_right_margin"
-                android:layout_marginRight="@dimen/child_home_visit_right_margin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -283,6 +279,7 @@
                 android:layout_marginEnd="@dimen/child_home_visit_right_margin"
                 android:layout_marginRight="@dimen/child_home_visit_right_margin"
                 android:layout_marginBottom="20dp"
+                android:visibility="gone"
                 android:orientation="horizontal">
 
                 <de.hdodenhof.circleimageview.CircleImageView

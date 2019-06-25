@@ -32,18 +32,23 @@ import com.vijay.jsonwizard.domain.Form;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.ChildProfileActivity;
 import org.smartregister.chw.activity.ChildRegisterActivity;
+import org.smartregister.chw.adapter.ServiceTaskAdapter;
 import org.smartregister.chw.contract.ChildHomeVisitContract;
 import org.smartregister.chw.custom_view.HomeVisitGrowthAndNutrition;
 import org.smartregister.chw.custom_view.ImmunizationView;
+import org.smartregister.chw.listener.OnClickServiceTaskAdapter;
 import org.smartregister.chw.presenter.ChildHomeVisitPresenter;
 import org.smartregister.chw.rule.BirthCertRule;
 import org.smartregister.chw.util.BirthIllnessData;
 import org.smartregister.chw.util.ChildDBConstants;
 import org.smartregister.chw.util.ChildUtils;
 import org.smartregister.chw.util.Constants;
+import org.smartregister.chw.util.ServiceTask;
+import org.smartregister.chw.util.TaskServiceCalculate;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.family.activity.BaseFamilyProfileActivity;
@@ -102,6 +107,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     private boolean isEditMode = false;
     private ProgressBar progressBar;
     private RecyclerView taskServiceRecyclerView;
+    private ServiceTaskAdapter serviceTaskAdapter;
 
     public void setContext(Context context) {
         this.context = context;
@@ -145,6 +151,11 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         circleImageViewVaccineCard = view.findViewById(R.id.vc_status_circle);
         layoutBirthCertGroup = view.findViewById(R.id.birth_cert_group);
         LinearLayout layoutIllnessGroup = view.findViewById(R.id.obs_illness_prevention_group);
+        if(BuildConfig.OBS_ILLNESS_VISIBILITY){
+            layoutIllnessGroup.setVisibility(View.VISIBLE);
+        }else{
+            layoutIllnessGroup.setVisibility(View.GONE);
+        }
         RecyclerView recyclerViewBirthCertData = view.findViewById(R.id.birth_cert_data_recycler);
         RecyclerView recyclerViewIllnessData = view.findViewById(R.id.illness_data_recycler);
         recyclerViewBirthCertData.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -466,7 +477,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     private boolean checkAllGiven() {
         //if(isEditMode) return true;
         org.smartregister.util.Log.logError("SUBMIT_BTN", "checkAllGiven>>" + isAllImmunizationSelected() + ": " + isAllGrowthSelected());
-        return isAllImmunizationSelected() && isAllGrowthSelected();
+        return isAllImmunizationSelected() && isAllGrowthSelected() && isAllTaskDone();
     }
 
     public void checkIfSubmitIsToBeEnabled() {
@@ -481,6 +492,10 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         if (allVaccineDataLoaded && allServicesDataLoaded) {
             progressBar.setVisibility(View.GONE);
             homeVisitLayout.setVisibility(View.VISIBLE);
+            if(BuildConfig.TASK_VISIBILITY){
+                presenter.generateTaskService(isEditMode);
+            }
+
         } else {
             progressBar.setVisibility(View.VISIBLE);
             homeVisitLayout.setVisibility(View.GONE);
@@ -542,6 +557,31 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         }
         updateStatusTick(circleImageViewIllnessStatus, true);
         updateIllnessData();
+    }
+
+    @Override
+    public void updateTaskService() {
+        ArrayList<ServiceTask> serviceTasks = ((ChildHomeVisitPresenter) presenter).getServiceTasks();
+        if(serviceTasks.size()>0){
+            taskServiceRecyclerView.setVisibility(View.VISIBLE);
+            if (serviceTaskAdapter == null) {
+                serviceTaskAdapter = new ServiceTaskAdapter((ChildHomeVisitPresenter)presenter, getContext(), new OnClickServiceTaskAdapter() {
+                    @Override
+                    public void onClick(int position, ServiceTask serviceTask) {
+
+                        DietaryInputDialogFragment dialogFragment = DietaryInputDialogFragment.getInstance(serviceTask.getTaskLabel());
+                        FragmentTransaction ft = getActivity().getFragmentManager().beginTransaction();
+                        dialogFragment.show(ft, DietaryInputDialogFragment.DIALOG_TAG);
+
+                    }
+                });
+                taskServiceRecyclerView.setAdapter(serviceTaskAdapter);
+            } else {
+                serviceTaskAdapter.notifyDataSetChanged();
+            }
+        }else{
+            taskServiceRecyclerView.setVisibility(View.GONE);
+        }
     }
 
     private void updateBirthCertData() {
@@ -663,6 +703,21 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         }
 
     }
+    public void updateDietary(String option){
+        for(ServiceTask serviceTask : presenter.getServiceTasks()){
+            if(serviceTask.getTaskType().equalsIgnoreCase(TaskServiceCalculate.TASK_TYPE.Minimum_dietary.name())){
+                serviceTask.setTaskLabel(option);
+                if(option.equalsIgnoreCase(context.getString(R.string.minimum_dietary_choice_3))){
+                    serviceTask.setGreen(true);
+                }else{
+                    serviceTask.setGreen(false);
+                }
+                break;
+            }
+        }
+        updateTaskService();
+        checkIfSubmitIsToBeEnabled();
+    }
 
     public void setChildClient(CommonPersonObjectClient childClient) {
         this.childClient = childClient;
@@ -677,6 +732,12 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
 
     private boolean isAllGrowthSelected() {
         return homeVisitGrowthAndNutritionLayout.isAllSelected();
+    }
+    private boolean isAllTaskDone(){
+        for(ServiceTask serviceTask : presenter.getServiceTasks()){
+            if(TextUtils.isEmpty(serviceTask.getTaskLabel())) return false;
+        }
+        return true;
     }
 
     private boolean isAllImmunizationSelected() {

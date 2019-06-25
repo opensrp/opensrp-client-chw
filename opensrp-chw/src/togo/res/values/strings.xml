@@ -4,12 +4,4 @@
     <string name="nav_logo">CFC-RTM - Togo</string>
     <string name="menu_anc">ANC Clients</string>
     <string name="menu_pnc">PNC Clients</string>
-    <string name="minimum_dietary_title">Minimum dietary diversity </string>
-    <string name="minimum_question_lebel">Has the child received, in the previous 24 hours, any animal products (e.g. eggs, liver, milk) or fruit?</string>
-    <string name="minimum_dietary_choice_1">0 - no animal products or fruit</string>
-    <string name="minimum_dietary_choice_2">1 - one animal product OR one fruit</string>
-    <string name="minimum_dietary_choice_3">2 - one animal product AND one fruit</string>
-    <string name="muac_title">Mid-upper arm circumference (MUAC)</string>
-    <string name="llitn_title">Sleeping under a LLITN</string>
-    <string name="ecd_title">Early childhood development (ECD)</string>
 </resources>

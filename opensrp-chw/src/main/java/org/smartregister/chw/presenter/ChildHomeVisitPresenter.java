@@ -35,23 +35,9 @@ public class ChildHomeVisitPresenter implements ChildHomeVisitContract.Presenter
 
     }
 
-    public String getEditedBirthCertFormJson() {
-        return editedBirthCertFormJson;
-    }
-
-    public String getEditedIllnessJson() {
-        return editedIllnessJson;
-    }
-
-    public String getEditedCounselingJson() {
-        return editedCounselingJson;
-    }
-    public ArrayList<ServiceTask> getServiceTasks() {
-        return serviceTasks;
-    }
-
-    public int getSaveSize() {
-        return ((ChildHomeVisitInteractor) interactor).getSaveSize();
+    @Override
+    public void generateTaskService(boolean isEditMode) {
+        interactor.generateTaskService(childClient,this,isEditMode);
     }
 
     @Override
@@ -126,6 +112,12 @@ public class ChildHomeVisitPresenter implements ChildHomeVisitContract.Presenter
 
     }
 
+    @Override
+    public void updateTaskAdapter(ArrayList<ServiceTask> serviceTasks) {
+        this.serviceTasks.clear();
+        this.serviceTasks.addAll(serviceTasks);
+        getView().updateTaskService();
+    }
     /*
     @Override
     public void updateCounselingStatusTick() {
@@ -198,6 +190,27 @@ public class ChildHomeVisitPresenter implements ChildHomeVisitContract.Presenter
         return ((ChildHomeVisitInteractor) interactor).getBirthCertDataList();
     }
 
+    public String getEditedBirthCertFormJson() {
+        return editedBirthCertFormJson;
+    }
+
+    public String getEditedIllnessJson() {
+        return editedIllnessJson;
+    }
+
+    public String getEditedCounselingJson() {
+        return editedCounselingJson;
+    }
+
+    @Override
+
+    public ArrayList<ServiceTask> getServiceTasks() {
+        return serviceTasks;
+    }
+
+    public int getSaveSize() {
+        return ((ChildHomeVisitInteractor) interactor).getSaveSize();
+    }
     /*
     public ArrayList<BirthIllnessData> getCounselingDataList() {
         return ((ChildHomeVisitInteractor) interactor).getCounselingDataList();

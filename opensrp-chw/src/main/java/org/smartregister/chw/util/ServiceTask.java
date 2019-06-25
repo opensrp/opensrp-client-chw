@@ -4,6 +4,19 @@ public class ServiceTask {
     private String taskTitle;
     private String taskLabel;
     private boolean isGreen;
+    private String taskType;
+
+    public String getTaskType() {
+        return taskType;
+    }
+
+    public void setTaskType(String taskType) {
+        this.taskType = taskType;
+    }
+
+    public void setGreen(boolean green) {
+        isGreen = green;
+    }
 
     public String getTaskTitle() {
         return taskTitle;
@@ -25,7 +38,4 @@ public class ServiceTask {
         return isGreen;
     }
 
-    public void setIsGreen(boolean isGreen) {
-        this.isGreen = isGreen;
-    }
 }

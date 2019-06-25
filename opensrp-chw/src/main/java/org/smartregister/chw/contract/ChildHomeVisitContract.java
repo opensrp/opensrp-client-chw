@@ -3,7 +3,10 @@ package org.smartregister.chw.contract;
 import android.content.Context;
 
 import org.json.JSONObject;
+import org.smartregister.chw.util.ServiceTask;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
+
+import java.util.ArrayList;
 
 public interface ChildHomeVisitContract {
     interface View {
@@ -37,7 +40,9 @@ public interface ChildHomeVisitContract {
 
         //void generateCounselingForm(String jsonString);
 
-        void generateTaskService();
+        void generateTaskService(boolean isEditMode);
+
+        ArrayList<ServiceTask> getServiceTasks();
 
         void saveForm();
 
@@ -66,7 +71,7 @@ public interface ChildHomeVisitContract {
 
         void updateObsIllnessStatusTick();
 
-        void updateTaskAdapter();
+        void updateTaskAdapter(ArrayList<ServiceTask> serviceTasks);
 
         //void updateCounselingStatusTick();
     }

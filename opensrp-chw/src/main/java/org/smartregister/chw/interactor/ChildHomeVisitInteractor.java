@@ -9,22 +9,26 @@ import android.util.Pair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.contract.ChildHomeVisitContract;
 import org.smartregister.chw.domain.HomeVisit;
 import org.smartregister.chw.model.BirthIllnessModel;
 import org.smartregister.chw.repository.ChwRepository;
+import org.smartregister.chw.util.TaskServiceCalculate;
 import org.smartregister.chw.util.BirthIllnessData;
 import org.smartregister.chw.util.BirthIllnessFormModel;
 import org.smartregister.chw.util.ChildDBConstants;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.JsonFormUtils;
+import org.smartregister.chw.util.ServiceTask;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.FamilyLibrary;
 import org.smartregister.family.util.AppExecutors;
+import org.smartregister.family.util.DBConstants;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.repository.EventClientRepository;
@@ -293,6 +297,51 @@ public class ChildHomeVisitInteractor implements ChildHomeVisitContract.Interact
             BirthIllnessFormModel birthIllnessFormModel = saveList.get(json);
             saveRegistration(birthIllnessFormModel.getPair(), childClient);
         }
+    }
+
+    @Override
+    public void generateTaskService(CommonPersonObjectClient childClient,final ChildHomeVisitContract.InteractorCallback callback, boolean isEditMode) {
+        final ArrayList<ServiceTask> serviceTasks = new ArrayList<>();
+        if(!isEditMode){
+           String dob = org.smartregister.family.util.Utils.getValue(childClient.getColumnmaps(), DBConstants.KEY.DOB, false);
+
+           TaskServiceCalculate taskServiceCalculate = new TaskServiceCalculate(dob);
+           ServiceTask serviceTaskDiversity = new ServiceTask();
+           if(taskServiceCalculate.isDue(6) && !taskServiceCalculate.isExpire(60)){
+               serviceTaskDiversity.setTaskTitle(getContext().getResources().getString(R.string.minimum_dietary_title));
+               serviceTaskDiversity.setTaskType(TaskServiceCalculate.TASK_TYPE.Minimum_dietary.name());
+               serviceTasks.add(serviceTaskDiversity);
+           }
+//           ServiceTask serviceTaskMuac = new ServiceTask();
+//           if(taskServiceCalculate.isDue(6) && !taskServiceCalculate.isExpire(60)){
+//               serviceTaskMuac.setTaskTitle(getContext().getResources().getString(R.string.muac_title));
+//               serviceTasks.add(serviceTaskMuac);
+//           }
+//           ServiceTask serviceTaskLlitn = new ServiceTask();
+//           if(!taskServiceCalculate.isExpire(60)){
+//               serviceTaskLlitn.setTaskTitle(getContext().getResources().getString(R.string.llitn_title));
+//               serviceTasks.add(serviceTaskLlitn);
+//           }
+//           ServiceTask serviceTaskEcd = new ServiceTask();
+//           if(!taskServiceCalculate.isExpire(60)){
+//               serviceTaskEcd.setTaskTitle(getContext().getResources().getString(R.string.ecd_title));
+//               serviceTasks.add(serviceTaskEcd);
+//           }
+       }
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                appExecutors.mainThread().execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        callback.updateTaskAdapter(serviceTasks);
+                    }
+                });
+            }
+        };
+        appExecutors.diskIO().execute(runnable);
+
+
     }
 
     private void saveRegistration(Pair<Client, Event> pair, CommonPersonObjectClient childClient) {
