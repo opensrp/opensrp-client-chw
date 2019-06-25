@@ -3,6 +3,7 @@ package org.smartregister.chw.interactor;
 import android.content.Context;
 import android.support.annotation.VisibleForTesting;
 
+import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.R;
 import org.smartregister.chw.contract.FamilyCallDialogContract;
 import org.smartregister.chw.model.FamilyCallDialogModel;
@@ -67,7 +68,7 @@ public class FamilyCallDialogInteractor implements FamilyCallDialogContract.Inte
             }
         };
 
-        if(familyBaseEntityId != null){
+        if (familyBaseEntityId != null) {
             appExecutors.diskIO().execute(runnable);
         }
     }
@@ -82,7 +83,7 @@ public class FamilyCallDialogInteractor implements FamilyCallDialogContract.Inte
             return null;
         }
 
-        String baseID = (isHead) ? familyHeadID : primaryCaregiverID;
+        String baseID = (isHead && StringUtils.isNotBlank(familyHeadID)) ? familyHeadID : primaryCaregiverID;
 
 
         final CommonPersonObject personObject = getCommonRepository(Utils.metadata().familyMemberRegister.tableName).findByBaseEntityId(baseID);

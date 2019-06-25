@@ -91,7 +91,7 @@
     <string name="visit_not_done">Visite n\'a pas \neu lieu</string>
     <string name="visit_done">Visite fait</string>
     <string name="due_visit">Dernier visite \n %1$s</string>
-    <string name="medical_title">Retour à profil de 1%1$s</string>
+    <string name="medical_title">Retour à profil de %1$s</string>
     <string name="medical_last_visit">Depuis %1$s </string>
     <string name="growth_and_nutrition">CROISSANCE ET NUTRITION</string>
     <string name="immunization">IMMUNISATION</string>
@@ -107,7 +107,8 @@
     <string name="exclusive_breastfeeding">Allaitement exclusif au sein</string>
     <string name="vitamin_a">Vitamine A</string>
     <string name="deworming">Déparasitage</string>
-    <string name="vaccine_card_text">L\'enfant a-t-il ou elle reçu son carnet de vaccination?</string>
+    <string name="vaccine_card_text">L\'enfant a t-il ou elle reçu son carnet de vaccination?</string>
+    <string name="vaccine_card_title">Carnet de vaccination enfantil reçu</string>
     <string name="record_immunizations">Enregistrer immunisations</string>
     <string name="tab_text_1">TABLEAU DE BORD</string>
     <string name="tab_text_2">GUIDES DE RÉFERENCES</string>
@@ -115,7 +116,6 @@
     <string name="section_format">Salut le monde de la section: %1$d</string>
     <string name="updating">Mise à jour en cours...</string>
     <string name="birth_certification">Certification de naissance</string>
-    <string name="vaccine_card_title">Carnet de vaccination reçu</string>
     <string name="observations_illness_episodes"><![CDATA[Observations & maladies - <i>optional</i>]]></string>
     <string name="observations_illness_episodes_medical"><![CDATA[Observations & Épisodes de maladies]]></string>
     <string name="home_visit_suffix"> &#183; Visite à domicile</string>
@@ -202,8 +202,28 @@
     <string name="due">Attendu&#160;</string>
     <string name="remove_this_person">Enlever cette personne</string>
     <string name="registration_info">Information d\'enregistrement</string>
+    <string name="anc_registration">Enregistrement SPN</string>
     <string name="log_out_as">Se déconnecter comme</string>
     <string name="job_aids">Outils de travail</string>
+    <string name="refresh_indicators">Rafraîchir indicateurs</string>
+    <string name="total_under_5_children_label">Totale enfants en bas de 5</string>
+    <string name="deceased_children_0_11_months">Enfants (0&#8211;11 mois) qui sont décédés durant l\'année passée</string>
+    <string name="deceased_children_12_59_months">Enfants (12&#8211;59 mois) qui sont décédés durant l\'année passée</string>
+    <string name="children_0_59_months_with_birth_certificate">Enfants (0&#8211;59 mois) avec certificat de naissance</string>
+    <string name="children_0_59_months_without_birth__certificate">Enants (0&#8211;59 mois) sans certificat de naissance </string>
+    <string name="children_12_59_months_dewormed">Enfants (12&#8211;59 mois) déparasités dans les 6 derniers mois </string>
+    <string name="children_12_59_months_not_dewormed">Enfants (12&#8211;59 mois) non-déparasités dans les 6 derniers mois</string>
+    <string name="children_6_59_months_received_vitamin_A">Enfants (6&#8211;59 mois) Qui on reçu la vitamine A dans les 6 derniers mois</string>
+    <string name="children_6_59_months_not_received_vitamin_A">Enfants (6&#8211;59 mois) Qui n\'ont pas reçu la vitamine A dans les 6 derniers mois</string>
+    <string name="children_0_5_months_exclusively_breastfeeding">Enfants (0&#8211;5 mois) allaitant exclusivement au sein</string>
+    <string name="children_0_5_months_not_exclusively_breastfeeding">Enfants (0&#8211;5 mois) qui ne sont pas allaité exclusivement au sein</string>
+    <string name="children_6_23_months_upto_date_mnp">Enfants (6&#8211;23 mois) à jour avec supplémentation PMN</string>
+    <string name="children_6_23_months_overdue_mnp">Enfants (6&#8211;23 mois) qui ne sont pas à jour avec supplémentation PMN</string>
+    <string name="children_0_24_months_upto_date_vaccinations">Enfants (0&#8211;23 mois) avec immunisations à jour</string>
+    <string name="children_0_24_months_overdue_vaccinations">Enfants (6&#8211;23 mois) qui sont présementement en retard pour au moins un vaccin ou plus</string>
+    <string name="opv_0_not_included">VPO 0 non-inclu</string>
+    <string name="yes_slice_label">Oui</string>
+    <string name="no_slice_label">Non</string>
     <string name="powered_by">Réalisé par</string>
     <string name="immunisation_and_services"><![CDATA[IMMUNISATION & SERVICES]]></string>
     <string name="call_caregiver">Appellez la personne responsable pour l\'enfant</string>
@@ -213,7 +233,7 @@
     <string name="menu_labour_and_delivery"><![CDATA[L&D]]></string>
     <string name="menu_child">CH</string>
     <string name="menu_anc">SPN</string>
-    <string name="menu_pnc">Consultation post natale (CPN)</string>
+    <string name="menu_pnc">CPN</string>
     <string name="menu_family_planing">PF</string>
     <string name="menu_malaria">PALUDISME</string>
     <string name="refer_to_facility">Référer à la structure sanitaire</string>
@@ -234,14 +254,31 @@
     <string name="october">Octobre</string>
     <string name="november">Novembre</string>
     <string name="december">Décembre</string>
-    <string name="no_services_due">Aucun service attendu</string>
-    <string name="due_details">Quand une service est attendu pour une membre de famille, elle est affiché içi</string>
+    <string name="no_services_due">Aucun services due</string>
+    <string name="due_details">Quand une membre de famille doit recevoir une service elle sera affiché içi</string>
 
     <string name="edu_level_none">Aucun</string>
     <string name="edu_level_primary">Primaire</string>
     <string name="edu_level_secondary">Secondaire</string>
     <string name="edu_level_post_secondary">Postsecondaire</string>
 
+    <string name="counseled">Conseillée: </string>
+    <string name="not_counseled">Non conseillée:</string>
+
     <string name="yes">Oui</string>
     <string name="no">Non</string>
+
+    <!-- home visit strings-->
+    <string name="anc_home_visit_danger_signs">Signes de danger</string>
+    <string name="anc_home_visit_facility_visit">SPN {0} tâche liée à la visite au structure sanitaire</string>
+    <string name="anc_home_visit_family_planning">Tâche de planification familiale</string>
+    <string name="anc_home_visit_nutrition_status">État nutritionnel</string>
+    <string name="anc_home_visit_counselling_task">Consultation</string>
+    <string name="anc_home_visit_malaria_prevention">Prévention du paludisme</string>
+    <string name="anc_home_visit_observations_n_illnes">Observations et maladies</string>
+    <string name="anc_home_visit_remarks_and_comments">Remarques/commentaires</string>
+
+    <string name="anc_home_visit_anc_card_received">Carnet de SPN reçu</string>
+    <string name="anc_home_visit_sleeping_under_llitn_net">Dors sous un MIILD </string>
+    <string name="anc_home_visit_counseling">Consultation prénatal</string>
 </resources>
