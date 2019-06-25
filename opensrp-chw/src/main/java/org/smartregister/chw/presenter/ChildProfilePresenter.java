@@ -154,7 +154,7 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
 
     @Override
     public void startFormForEdit(String title, CommonPersonObjectClient client) {
-        JSONObject form = interactor.getAutoPopulatedJsonEditFormString(org.smartregister.chw.util.Constants.JSON_FORM.CHILD_REGISTER, title, getView().getApplicationContext(), client);
+        JSONObject form = interactor.getAutoPopulatedJsonEditFormString(org.smartregister.chw.util.Constants.JSON_FORM.getChildRegister(), title, getView().getApplicationContext(), client);
         try {
 
             if (!isBlank(client.getColumnmaps().get(ChildDBConstants.KEY.RELATIONAL_ID))) {

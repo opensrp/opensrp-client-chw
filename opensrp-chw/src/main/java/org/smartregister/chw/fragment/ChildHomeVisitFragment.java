@@ -321,7 +321,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                 showCloseDialog();
                 break;
             case R.id.layout_add_other_family_member:
-                ((BaseFamilyProfileActivity) context).startFormActivity(Constants.JSON_FORM.FAMILY_MEMBER_REGISTER, null, null);
+                ((BaseFamilyProfileActivity) context).startFormActivity(Constants.JSON_FORM.getFamilyMemberRegister(), null, null);
                 break;
             default:
                 break;
@@ -668,10 +668,6 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
 
     @Override
     public void onDestroy() {
-        if (context instanceof ChildProfileActivity) {
-            ChildProfileActivity activity = (ChildProfileActivity) context;
-            activity.updateImmunizationData();
-        }
         getActivity().unregisterReceiver(mDateTimeChangedReceiver);
         super.onDestroy();
     }

@@ -59,11 +59,12 @@ public class ImmunizationAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, final int position) {
+    public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder viewHolder,int pos) {
 
         switch (viewHolder.getItemViewType()) {
             case HomeVisitVaccineGroup.TYPE_INITIAL: {
-                final HomeVisitVaccineGroup baseVaccine = presenter.getHomeVisitVaccineGroupDetails().get(position);
+                ArrayList<HomeVisitVaccineGroup> list =  presenter.getHomeVisitVaccineGroupDetails();
+                final HomeVisitVaccineGroup baseVaccine = list.get(viewHolder.getAdapterPosition());
                 InitialViewHolder inactiveViewHolder = (InitialViewHolder) viewHolder;
                 String immunizations;
                 String value = baseVaccine.getGroup();
@@ -86,13 +87,13 @@ public class ImmunizationAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 inactiveViewHolder.getView().setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        onClickEditAdapter.onClick(position, baseVaccine);
+                        onClickEditAdapter.onClick(viewHolder.getAdapterPosition(), baseVaccine);
                     }
                 });
             }
             break;
             case HomeVisitVaccineGroup.TYPE_INACTIVE:
-                HomeVisitVaccineGroup baseVaccine = presenter.getHomeVisitVaccineGroupDetails().get(position);
+                HomeVisitVaccineGroup baseVaccine = presenter.getHomeVisitVaccineGroupDetails().get(viewHolder.getAdapterPosition());
                 InactiveViewHolder inactiveViewHolder = (InactiveViewHolder) viewHolder;
                 String immunizations;
                 String value = baseVaccine.getGroup();
@@ -108,7 +109,7 @@ public class ImmunizationAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 inactiveViewHolder.getView().setOnClickListener(null);
                 break;
             case HomeVisitVaccineGroup.TYPE_ACTIVE:
-                final HomeVisitVaccineGroup contentImmunization = presenter.getHomeVisitVaccineGroupDetails().get(position);
+                final HomeVisitVaccineGroup contentImmunization = presenter.getHomeVisitVaccineGroupDetails().get(viewHolder.getAdapterPosition());
                 ContentViewHolder contentViewHolder = (ContentViewHolder) viewHolder;
                 String cImmunization;
                 String cValue = contentImmunization.getGroup();
@@ -132,7 +133,7 @@ public class ImmunizationAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 contentViewHolder.getView().setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        onClickEditAdapter.onClick(position, contentImmunization);
+                        onClickEditAdapter.onClick(viewHolder.getAdapterPosition(), contentImmunization);
                     }
                 });
 

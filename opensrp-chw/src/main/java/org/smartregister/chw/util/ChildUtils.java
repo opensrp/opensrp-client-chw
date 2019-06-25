@@ -556,12 +556,25 @@ public class ChildUtils {
 
     }
 
+    /**
+     * This method return the vaccine name first character as capital for selected vaccines
+     * other's return as capital form like : input opv 1 output OPV 1,rota 1 as Rota 1,mena as MenA
+     * @param "opv 1","rota 1","mena"
+     * @return "OPV 1","Rota 1","MenA"
+     */
 
     public static String fixVaccineCasing(String display) {
         display = display.toUpperCase();
-        if (display.toLowerCase().contains("rota") || display.toLowerCase().contains("penta") || display.toLowerCase().contains("yellow fever")) {
+        if(display.toLowerCase().contains("mena")){
+            return "MenA";
+        }
+        if (display.toLowerCase().contains("rota")
+                || display.toLowerCase().contains("penta")
+                || display.toLowerCase().contains("yellow fever")
+                || display.toLowerCase().contains("rubella")) {
             display = capitalize(display.toLowerCase());
         }
+
         return display;
     }
 

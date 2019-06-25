@@ -1,0 +1,14 @@
+---
+name: step1_name_person_assist
+description: assist person relevance
+priority: 1
+condition: "step1_person_assist == 'Yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_phone_person_assist
+description: assist person phone number relevance
+priority: 1
+condition: "step1_person_assist == 'Yes'"
+actions:
+  - "isRelevant = true"

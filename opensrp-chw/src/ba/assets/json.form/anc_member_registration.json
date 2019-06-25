@@ -59,9 +59,6 @@
         "label_info_title": "LMP",
         "label_info_text": "LMP = first day of Last Menstrual Period. If the exact date is unknown, but the period of the month is known, use day 5 for beginning of the month, day 15 for middle of the month and day 25 for end of the month.",
         "expanded": false,
-        "duration": {
-          "label": "lmp"
-        },
         "max_date": "today",
         "v_required": {
           "value": "true",
@@ -124,11 +121,11 @@
         "hint": "No. of previous pregnancies",
         "v_required": {
           "value": "true",
-          "err": "Required"
+          "err": "Equal or greater than 0"
         },
         "v_numeric": {
           "value": "true",
-          "err": ""
+          "err": "Equal or greater than 0"
         },
         "v_min": {
           "value": "0",
@@ -154,20 +151,73 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "5630AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "openmrs_data_type": "select one",
-        "type": "spinner",
-        "hint": "Have you delivered your child(ren) vaginally or by ceasarian section?",
+        "type": "check_box",
+        "label": "Have you delivered your child(ren) vaginally or by cesarean section?",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_member_registration_relevance.yml"
+            }
+          }
+        },
+        "options": [
+          {
+            "key": "chk_vaginally",
+            "text": "Vaginally",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1170AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_cesarean_section",
+            "text": "Cesarean section",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1171AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
         "v_required": {
           "value": "true",
-          "err": "Please select one option"
+          "err": "Please enter the current weight"
+        }
+      },
+      {
+        "key": "delivery_method_one",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "5630AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "native_radio",
+        "label": "Have you delivered your child(ren) vaginally or by cesarean section?",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_member_registration_relevance.yml"
+            }
+          }
         },
-        "values": [
-          "Vaginally",
-          "Caesarian section"
+        "options": [
+          {
+            "key": "chk_vaginally",
+            "text": "Vaginally",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1170AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_cesarean_section",
+            "text": "Cesarean section",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1171AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
         ],
-        "openmrs_choice_ids": {
-          "Vaginally": "1170AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Caesarian section": "1171AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the current weight"
         }
       },
       {
@@ -178,6 +228,13 @@
         "type": "edit_text",
         "edit_type": "number",
         "hint": "No. of surviving children",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_member_registration_relevance.yml"
+            }
+          }
+        },
         "v_required": {
           "value": "true",
           "err": "Required"

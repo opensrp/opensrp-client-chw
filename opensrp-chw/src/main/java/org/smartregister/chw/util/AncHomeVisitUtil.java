@@ -4,14 +4,15 @@ import android.content.Context;
 
 import org.apache.commons.lang3.StringUtils;
 import org.jeasy.rules.api.Rules;
+import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.rule.AncVisitAlertRule;
 
 public class AncHomeVisitUtil {
 
-    public static AncVisit getVisitStatus(Context context, Rules rules, String lmpDate, String visitDate, String visitNotDate) {
-        AncVisitAlertRule ancVisitAlertRule = new AncVisitAlertRule(context, lmpDate, visitDate, visitNotDate);
+    public static AncVisit getVisitStatus(Context context, Rules rules, String lmpDate, String visitDate, String visitNotDate, LocalDate dateCreated) {
+        AncVisitAlertRule ancVisitAlertRule = new AncVisitAlertRule(context, lmpDate, visitDate, visitNotDate, dateCreated);
         ChwApplication.getInstance().getRulesEngineHelper().getButtonAlertStatus(ancVisitAlertRule, rules);
         return getVisitStatus(ancVisitAlertRule, visitDate);
     }
