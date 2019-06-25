@@ -115,8 +115,6 @@ android {
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"MOH Jhpiego Facility Name" , "Village"}'
             buildConfigField "String", 'DEFAULT_LOCATION', '"Village"'
             buildConfigField "boolean", 'SUPPORT_QR', 'true'
-            buildConfigField "boolean", 'TASK_VISIBILITY', 'false'
-            buildConfigField "boolean", 'OBS_ILLNESS_VISIBILITY', 'true'
             buildConfigField "int", "DATABASE_VERSION", '9'
         }
 
@@ -129,8 +127,6 @@ android {
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"Clinic" , "CHSS" , "CHA"}'
             buildConfigField "String", 'DEFAULT_LOCATION', '"CHA"'
             buildConfigField "boolean", 'SUPPORT_QR', 'false'
-            buildConfigField "boolean", 'TASK_VISIBILITY', 'false'
-            buildConfigField "boolean", 'OBS_ILLNESS_VISIBILITY', 'true'
             buildConfigField "int", "DATABASE_VERSION", '6'
         }
         togo {
@@ -143,9 +139,7 @@ android {
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"Clinic" , "CHSS" , "CHA"}'
             buildConfigField "String", 'DEFAULT_LOCATION', '"CHA"'
             buildConfigField "boolean", 'SUPPORT_QR', 'false'
-            buildConfigField "boolean", 'TASK_VISIBILITY', 'true'
-            buildConfigField "boolean", 'OBS_ILLNESS_VISIBILITY', 'false'
-            buildConfigField "int", "DATABASE_VERSION", '6'
+            buildConfigField "int", "DATABASE_VERSION", '8'
         }
         guinea {
             dimension = 'baseDimension'
@@ -157,8 +151,6 @@ android {
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"Clinic" , "CHSS" , "CHA"}'
             buildConfigField "String", 'DEFAULT_LOCATION', '"CHA"'
             buildConfigField "boolean", 'SUPPORT_QR', 'false'
-            buildConfigField "boolean", 'TASK_VISIBILITY', 'true'
-            buildConfigField "boolean", 'OBS_ILLNESS_VISIBILITY', 'false'
             buildConfigField "int", "DATABASE_VERSION", '6'
         }
         chad {
@@ -171,8 +163,6 @@ android {
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"Clinic" , "CHSS" , "CHA"}'
             buildConfigField "String", 'DEFAULT_LOCATION', '"CHA"'
             buildConfigField "boolean", 'SUPPORT_QR', 'false'
-            buildConfigField "boolean", 'TASK_VISIBILITY', 'true'
-            buildConfigField "boolean", 'OBS_ILLNESS_VISIBILITY', 'false'
             buildConfigField "int", "DATABASE_VERSION", '6'
         }
         drc {
@@ -185,8 +175,6 @@ android {
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"Clinic" , "CHSS" , "CHA"}'
             buildConfigField "String", 'DEFAULT_LOCATION', '"CHA"'
             buildConfigField "boolean", 'SUPPORT_QR', 'false'
-            buildConfigField "boolean", 'TASK_VISIBILITY', 'true'
-            buildConfigField "boolean", 'OBS_ILLNESS_VISIBILITY', 'false'
             buildConfigField "int", "DATABASE_VERSION", '6'
         }
     }

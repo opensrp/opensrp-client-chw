@@ -32,7 +32,6 @@ import com.vijay.jsonwizard.domain.Form;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.ChildProfileActivity;
 import org.smartregister.chw.activity.ChildRegisterActivity;
@@ -112,6 +111,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     public void setContext(Context context) {
         this.context = context;
     }
+    private ChildHomeVisitFragmentFlv flavor = new ChildHomeVisitFragmentFlv();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -151,7 +151,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         circleImageViewVaccineCard = view.findViewById(R.id.vc_status_circle);
         layoutBirthCertGroup = view.findViewById(R.id.birth_cert_group);
         LinearLayout layoutIllnessGroup = view.findViewById(R.id.obs_illness_prevention_group);
-        if(BuildConfig.OBS_ILLNESS_VISIBILITY){
+        if(flavor.onObsIllnessVisibility()){
             layoutIllnessGroup.setVisibility(View.VISIBLE);
         }else{
             layoutIllnessGroup.setVisibility(View.GONE);
@@ -497,7 +497,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         if (allVaccineDataLoaded && allServicesDataLoaded) {
             progressBar.setVisibility(View.GONE);
             homeVisitLayout.setVisibility(View.VISIBLE);
-            if(BuildConfig.TASK_VISIBILITY){
+            if(flavor.onTaskVisibility()){
                 presenter.generateTaskService(isEditMode);
             }
 
@@ -789,4 +789,8 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
             }
         }
     };
+    public interface flavor{
+        boolean onTaskVisibility();
+        boolean onObsIllnessVisibility();
+    }
 }
