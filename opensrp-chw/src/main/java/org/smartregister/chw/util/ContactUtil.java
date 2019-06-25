@@ -29,12 +29,26 @@ public class ContactUtil {
             Map<Integer, LocalDate> dateMap = new LinkedHashMap<>();
             ContactRule contactRule = new ContactRule(gestationAge, isFirst);
 
+            LocalDate expectedDeliveryDate = lastMenstrualPeriod.plusDays(280);
+
             // gets the list of contacts
             List<Integer> weeks = ChwApplication.getInstance().getRulesEngineHelper()
                     .getContactVisitSchedule(contactRule, Constants.RULE_FILE.CONTACT_RULES);
 
+            boolean visitAfterEdd = false;
             for (Integer i : weeks) {
-                dateMap.put(i, lastMenstrualPeriod.plusWeeks(i));
+
+                LocalDate visitDate = lastMenstrualPeriod.plusWeeks(i).plusDays(1);
+                if (visitDate.isBefore(expectedDeliveryDate) || visitDate.isEqual(expectedDeliveryDate)) {
+                    dateMap.put(i, visitDate);
+                } else {
+                    visitAfterEdd = true;
+                }
+            }
+
+            // remove a day form the last day
+            if (visitAfterEdd) {
+                dateMap.put(weeks.get(dateMap.size()), expectedDeliveryDate);
             }
 
             return dateMap;
