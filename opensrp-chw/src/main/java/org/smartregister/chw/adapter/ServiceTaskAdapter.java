@@ -78,7 +78,7 @@ public class ServiceTaskAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                     if(serviceTask.getTaskType().equalsIgnoreCase(TaskServiceCalculate.TASK_TYPE.Minimum_dietary.name())){
                         ChildUtils.updateMinimumDietaryAsEvent(context,entityId,serviceTask.getTaskLabel(),homeVisitDate);
                     }else if(serviceTask.getTaskType().equalsIgnoreCase(TaskServiceCalculate.TASK_TYPE.MUAC.name())){
-                        ChildUtils.updateMinimumDietaryAsEvent(context,entityId,serviceTask.getTaskLabel(),homeVisitDate);
+                        ChildUtils.updateMuacAsEvent(context,entityId,serviceTask.getTaskLabel(),homeVisitDate);
 
                     }
                 }
