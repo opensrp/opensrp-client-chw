@@ -53,7 +53,7 @@ public class ChwRepository extends Repository {
         VaccineNameRepository.createTable(database);
         VaccineTypeRepository.createTable(database);
         HomeVisitRepository.createTable(database);
-        //HomeVisitServiceRepository.createTable(database);
+        HomeVisitServiceRepository.createTable(database);
         ConfigurableViewsRepository.createTable(database);
 
         UniqueIdRepository.createTable(database);
