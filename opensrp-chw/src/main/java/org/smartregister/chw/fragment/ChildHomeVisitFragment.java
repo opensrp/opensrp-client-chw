@@ -42,10 +42,11 @@ import org.smartregister.chw.custom_view.ImmunizationView;
 import org.smartregister.chw.listener.OnClickServiceTaskAdapter;
 import org.smartregister.chw.presenter.ChildHomeVisitPresenter;
 import org.smartregister.chw.rule.BirthCertRule;
-import org.smartregister.chw.util.BirthIllnessData;
+import org.smartregister.chw.util.BirthCertDataModel;
 import org.smartregister.chw.util.ChildDBConstants;
 import org.smartregister.chw.util.ChildUtils;
 import org.smartregister.chw.util.Constants;
+import org.smartregister.chw.util.ObsIllnessDataModel;
 import org.smartregister.chw.util.ServiceTask;
 import org.smartregister.chw.util.TaskServiceCalculate;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
@@ -597,11 +598,11 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     }
 
     private void updateBirthCertData() {
-        ArrayList<BirthIllnessData> data = ((ChildHomeVisitPresenter) presenter).getBirthCertDataList();
+        ArrayList<BirthCertDataModel> data = ((ChildHomeVisitPresenter) presenter).getBirthCertDataList();
         if (data.size() > 0) {
-            BirthIllnessData birthIllnessData = data.get(0);
-            if (birthIllnessData.isBirthCertHas()) {
-                String message = birthIllnessData.getBirthCertDate() + " (" + birthIllnessData.getBirthCertNumber() + ")";
+            BirthCertDataModel birthCertDataModel = data.get(0);
+            if (birthCertDataModel.isBirthCertHas()) {
+                String message = birthCertDataModel.getBirthCertDate() + " (" + birthCertDataModel.getBirthCertNumber() + ")";
                 textViewBirthCertDueDate.setText(message);
                 updateStatusTick(circleImageViewBirthStatus, true);
             } else {
@@ -615,11 +616,11 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     }
 
     private void updateIllnessData() {
-        ArrayList<BirthIllnessData> data = ((ChildHomeVisitPresenter) presenter).getIllnessDataList();
+        ArrayList<ObsIllnessDataModel> data = ((ChildHomeVisitPresenter) presenter).getIllnessDataList();
         if (data.size() > 0) {
             textViewObsIllnessDesc.setVisibility(View.VISIBLE);
-            BirthIllnessData birthIllnessData = data.get(0);
-            String message = birthIllnessData.getIllnessDate() + ": " + birthIllnessData.getIllnessDescription() + "\n" + birthIllnessData.getActionTaken();
+            ObsIllnessDataModel obsIllnessDataModel = data.get(0);
+            String message = obsIllnessDataModel.getIllnessDate() + ": " + obsIllnessDataModel.getIllnessDescription() + "\n" + obsIllnessDataModel.getActionTaken();
             textViewObsIllnessDesc.setText(message);
 
         } else {
@@ -649,26 +650,18 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                 if (resultCode == Activity.RESULT_OK) {
                     try {
                         jsonString = data.getStringExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON);
-                        Log.d("JSONResult", jsonString);
-
                         JSONObject form = new JSONObject(jsonString);
                         if (form.getString(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_TYPE).equals(Constants.EventType.BIRTH_CERTIFICATION)
-                                || form.getString(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_TYPE).equals(Constants.EventType.OBS_ILLNESS)
                         ) {
-                            presenter.generateBirthIllnessForm(jsonString);
+                            presenter.generateBirthCertForm(jsonString);
+                        }
+                        else if( form.getString(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_TYPE).equals(Constants.EventType.OBS_ILLNESS)){
+                            presenter.generateObsIllnessForm(jsonString);
                         }
                     } catch (Exception e) {
                         Log.e(DIALOG_TAG, Log.getStackTraceString(e));
                     }
                 }
-//                else{
-//                    if(selectedForm.equalsIgnoreCase("Birth")){
-//                        updateStatusTick(circleImageViewBirthStatus, false);
-//                        textViewBirthCertDueDate.setText(R.string.not_given);
-//                    }else if(selectedForm.equalsIgnoreCase("illness")){
-//                        updateStatusTick(circleImageViewIllnessStatus, false);
-//                    }
-//                }
                 break;
         }
     }
@@ -793,4 +786,5 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         boolean onTaskVisibility();
         boolean onObsIllnessVisibility();
     }
+
 }

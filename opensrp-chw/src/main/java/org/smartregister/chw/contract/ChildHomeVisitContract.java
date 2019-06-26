@@ -36,9 +36,10 @@ public interface ChildHomeVisitContract {
 
         //void startCounselingForm(JSONObject previousJson);
 
-        void generateBirthIllnessForm(String jsonString);
+        void generateBirthCertForm(String jsonString);
 
         //void generateCounselingForm(String jsonString);
+        void generateObsIllnessForm(String jsonString);
 
         void generateTaskService(boolean isEditMode);
 
@@ -52,7 +53,9 @@ public interface ChildHomeVisitContract {
     interface Interactor {
         void getLastEditData(CommonPersonObjectClient childClient, InteractorCallback callback);
 
-        void generateBirthIllnessForm(String jsonString, InteractorCallback callback, boolean isEditMode);
+        void generateBirthCertForm(String jsonString, InteractorCallback callback, boolean isEditMode);
+
+        void generateObsIllnessForm(String jsonString, InteractorCallback callback, boolean isEditMode);
 
         //void generateCounselingForm(String jsonString, InteractorCallback callback, boolean isEditMode);
         void generateTaskService(CommonPersonObjectClient childClient, InteractorCallback callback, boolean isEditMode);

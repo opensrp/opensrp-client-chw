@@ -6,9 +6,10 @@ import org.json.JSONObject;
 import org.smartregister.chw.contract.ChildHomeVisitContract;
 import org.smartregister.chw.interactor.ChildHomeVisitInteractor;
 import org.smartregister.chw.model.ChildRegisterModel;
-import org.smartregister.chw.util.BirthIllnessData;
+import org.smartregister.chw.util.BirthCertDataModel;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.JsonFormUtils;
+import org.smartregister.chw.util.ObsIllnessDataModel;
 import org.smartregister.chw.util.ServiceTask;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.util.DBConstants;
@@ -126,8 +127,13 @@ public class ChildHomeVisitPresenter implements ChildHomeVisitContract.Presenter
     */
 
     @Override
-    public void generateBirthIllnessForm(String jsonString) {
-        interactor.generateBirthIllnessForm(jsonString, this, false);
+    public void generateBirthCertForm(String jsonString) {
+        interactor.generateBirthCertForm(jsonString, this, false);
+    }
+
+    @Override
+    public void generateObsIllnessForm(String jsonString) {
+        interactor.generateObsIllnessForm(jsonString, this, false);
     }
 
     /*
@@ -140,13 +146,13 @@ public class ChildHomeVisitPresenter implements ChildHomeVisitContract.Presenter
     @Override
     public void updateBirthCertEditData(String jsonString) {
         editedBirthCertFormJson = jsonString;
-        interactor.generateBirthIllnessForm(jsonString, this, true);
+        interactor.generateBirthCertForm(jsonString, this, true);
     }
 
     @Override
     public void updateObsIllnessEditData(String json) {
         editedIllnessJson = json;
-        interactor.generateBirthIllnessForm(json, this, true);
+        interactor.generateObsIllnessForm(json, this, true);
     }
 
     @Override
@@ -182,11 +188,11 @@ public class ChildHomeVisitPresenter implements ChildHomeVisitContract.Presenter
 
     }
 
-    public ArrayList<BirthIllnessData> getIllnessDataList() {
+    public ArrayList<ObsIllnessDataModel> getIllnessDataList() {
         return ((ChildHomeVisitInteractor) interactor).getIllnessDataList();
     }
 
-    public ArrayList<BirthIllnessData> getBirthCertDataList() {
+    public ArrayList<BirthCertDataModel> getBirthCertDataList() {
         return ((ChildHomeVisitInteractor) interactor).getBirthCertDataList();
     }
 
