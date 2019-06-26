@@ -65,12 +65,7 @@ import static org.smartregister.chw.util.Utils.dd_MMM_yyyy;
 public class ChildUtils {
 
     private static final String[] firstSecondNumber = {"Zero", "1st", "2nd", "3rd", "4th", "5th", "6th", "7th", "8th", "9th"};
-    private static final String[] ONE_YR = {"bcg", "opv1", "penta1", "pcv1", "rota1", "opv2", "penta2", "pcv2", "rota2", "opv3", "penta3", "pcv3", "ipv", "mcv1",
-            "yellowfever"
-    };
-    private static final String[] TWO_YR = {"bcg", "opv1", "penta1", "pcv1", "rota1", "opv2", "penta2", "pcv2", "rota2", "opv3", "penta3", "pcv3", "ipv", "mcv1",
-            "yellowfever", "mcv2"
-    };
+
     public static Gson gsonConverter;
 
     private static final Flavor childUtilsFlv = new ChildUtilsFlv();
@@ -167,12 +162,12 @@ public class ChildUtils {
      * @return
      */
     public static String isFullyImmunized(List<String> vaccineGiven) {
-        List<String> twoYrVac = Arrays.asList(TWO_YR);
+        List<String> twoYrVac = Arrays.asList(childUtilsFlv.getTwoYearVaccines());
         if (vaccineGiven.containsAll(twoYrVac)) {
             return "2";
         }
 
-        List<String> oneYrVac = Arrays.asList(ONE_YR);
+        List<String> oneYrVac = Arrays.asList(childUtilsFlv.getOneYearVaccines());
         if (vaccineGiven.containsAll(oneYrVac)) {
             return "1";
         }
@@ -651,5 +646,7 @@ public class ChildUtils {
 
     public interface Flavor {
         ArrayList<String> mainColumns(String tableName, String familyTable, String familyMemberTable);
+        String[] getOneYearVaccines();
+        String[] getTwoYearVaccines();
     }
 }

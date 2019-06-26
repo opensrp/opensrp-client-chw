@@ -128,7 +128,7 @@ public class ChwRepositoryFlv {
         try {
             db.execSQL(HomeVisitRepository.UPDATE_TABLE_ADD_HOME_VISIT_ID);
         } catch (Exception e) {
-            Log.e(TAG, "upgradeToVersion7 " + Log.getStackTraceString(e));
+            Log.e(TAG, "upgradeToVersion8 " + Log.getStackTraceString(e));
         }
     }
 }
