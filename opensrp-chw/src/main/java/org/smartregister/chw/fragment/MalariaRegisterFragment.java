@@ -32,5 +32,3 @@ public class MalariaRegisterFragment extends BaseMalariaRegisterFragment {
     }
 
 }
-
-
