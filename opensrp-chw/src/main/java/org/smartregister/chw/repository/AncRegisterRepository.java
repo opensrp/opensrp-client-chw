@@ -5,6 +5,7 @@ import net.sqlcipher.database.SQLiteDatabase;
 
 import org.smartregister.chw.anc.util.Constants;
 import org.smartregister.commonregistry.CommonFtsObject;
+import org.smartregister.family.util.DBConstants;
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.repository.Repository;
 import org.smartregister.service.AlertService;
@@ -21,15 +22,11 @@ public class AncRegisterRepository extends BaseRepository {
     public static final String BASE_ENTITY_ID = "base_entity_id";
 
     public static final String[] TABLE_COLUMNS = {FIRST_NAME, MIDDLE_NAME, LAST_NAME, PHONE_NUMBER};
+    public static final String[] ANC_COUNT_TABLE_COLUMNS = {BASE_ENTITY_ID};
 
-
-    private CommonFtsObject commonFtsObject;
-    private AlertService alertService;
 
     public AncRegisterRepository(Repository repository, CommonFtsObject commonFtsObject, AlertService alertService) {
         super(repository);
-        this.commonFtsObject = commonFtsObject;
-        this.alertService = alertService;
     }
 
     public HashMap<String, String> getFamilyNameAndPhone(String baseEntityID) {
@@ -64,6 +61,33 @@ public class AncRegisterRepository extends BaseRepository {
             }
         }
         return null;
+
+    }
+
+    public int getancWomenCount(String familyBaseID) {
+        SQLiteDatabase database = getReadableDatabase();
+        Cursor cursor = null;
+        try {
+            if (database == null) {
+                return 0;
+            }
+            String selection = DBConstants.KEY.RELATIONAL_ID + " = ? " + COLLATE_NOCASE + " AND " +
+                    org.smartregister.chw.anc.util.DBConstants.KEY.IS_CLOSED + " = ? " + COLLATE_NOCASE;
+            String[] selectionArgs = new String[]{familyBaseID, "0"};
+
+            cursor = database.query(org.smartregister.chw.util.Constants.TABLE_NAME.ANC_MEMBER,
+                    ANC_COUNT_TABLE_COLUMNS, selection, selectionArgs, null, null, null);
+
+            return cursor.getCount();
+
+        } catch (Exception e) {
+
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+        return 0;
 
     }
 }
