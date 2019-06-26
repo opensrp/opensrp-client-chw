@@ -53,23 +53,6 @@ public class JobAidsActivity extends FamilyRegisterActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.job_aids_menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem menuItem) {
-        switch (menuItem.getItemId()) {
-            case R.id.action_refresh_indicators:
-                refreshIndicatorData();
-                return true;
-            default:
-                return super.onOptionsItemSelected(menuItem);
-        }
-    }
-
-    @Override
     protected void registerBottomNavigation() {
 
         bottomNavigationHelper = new BottomNavigationHelper();
