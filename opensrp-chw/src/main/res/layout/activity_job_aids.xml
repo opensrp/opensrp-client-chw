@@ -37,6 +37,34 @@
                 android:textColor="@color/white"
                 android:textSize="24sp" />
 
+            <RelativeLayout
+                android:id="@+id/refreshIndicatorsLayout"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                >
+
+                <ImageView
+                    android:id="@+id/refreshIndicatorsIcon"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:clickable="true"
+                    android:contentDescription="Refresh indicators"
+                    android:focusable="true"
+                    app:srcCompat="@mipmap/sidemenu_sync" />
+
+                <ProgressBar
+                    android:id="@+id/refreshIndicatorsPB"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:indeterminate="true" />
+
+            </RelativeLayout>
+
         </android.support.v7.widget.Toolbar>
 
         <android.support.design.widget.TabLayout
