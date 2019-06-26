@@ -46,6 +46,7 @@ import org.smartregister.chw.util.BirthCertDataModel;
 import org.smartregister.chw.util.ChildDBConstants;
 import org.smartregister.chw.util.ChildUtils;
 import org.smartregister.chw.util.Constants;
+import org.smartregister.chw.util.JsonFormUtils;
 import org.smartregister.chw.util.ObsIllnessDataModel;
 import org.smartregister.chw.util.ServiceTask;
 import org.smartregister.chw.util.TaskServiceCalculate;
@@ -303,8 +304,8 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                 break;
             case R.id.textview_submit:
                 if (checkAllGiven()) {
-                    final String homeVisitDateLong = System.currentTimeMillis() + "";
-                    saveCommonData(homeVisitDateLong).subscribeOn(Schedulers.io())
+                    final String homeVisitId = JsonFormUtils.generateRandomUUIDString();
+                    saveCommonData(System.currentTimeMillis() + "").subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
                             .doOnSubscribe(new Consumer<Disposable>() {
                                 @Override
@@ -324,7 +325,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                                         ChildUtils.updateVaccineCardAsEvent(context,childClient.getCaseId(),textViewVaccineCardText.getText().toString());
                                     }
                                     if(serviceTaskAdapter!=null){
-                                        serviceTaskAdapter.makeEvent(homeVisitDateLong,childClient.getCaseId());
+                                        serviceTaskAdapter.makeEvent(homeVisitId,childClient.getCaseId());
                                     }
                                     if (isEditMode) {
                                         saveData();

@@ -87,7 +87,13 @@ public class ChwClientProcessor extends ClientProcessorForJava {
                 } else if (eventType.equals(HomeVisitRepository.EVENT_TYPE) || eventType.equals(HomeVisitRepository.NOT_DONE_EVENT_TYPE)) {
                     processHomeVisit(eventClient);
                     processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
-                } else if (eventType.equals(Constants.EventType.REMOVE_FAMILY) && eventClient.getClient() != null) {
+                }
+                else if (eventType.equals(Constants.EventType.MINIMUM_DIETARY_DIVERSITY)
+                        || eventType.equals(Constants.EventType.MUAC)) {
+                    processHomeVisitService(eventClient);
+                    processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
+                }
+                else if (eventType.equals(Constants.EventType.REMOVE_FAMILY) && eventClient.getClient() != null) {
                     processRemoveFamily(eventClient.getClient().getBaseEntityId(), event.getEventDate().toDate());
                 } else if (eventType.equals(Constants.EventType.REMOVE_MEMBER) && eventClient.getClient() != null) {
                     processRemoveMember(eventClient.getClient().getBaseEntityId(), event.getEventDate().toDate());
@@ -119,6 +125,10 @@ public class ChwClientProcessor extends ClientProcessorForJava {
     private void processVaccineCardEvent(EventClient eventClient) {
         List<Obs> observations = eventClient.getEvent().getObs();
         ChildUtils.addToChildTable(eventClient.getEvent().getBaseEntityId(), observations);
+    }
+    private void  processHomeVisitService(EventClient eventClient){
+
+        ChildUtils.addToHomeVisitService(eventClient.getEvent().getEventType(),eventClient.getEvent().getObs(), eventClient.getEvent().getEventDate().toDate(),ChildUtils.gsonConverter.toJson(eventClient.getEvent()));
     }
 
     private Boolean processVaccine(EventClient vaccine, Table vaccineTable, boolean outOfCatchment) throws Exception {

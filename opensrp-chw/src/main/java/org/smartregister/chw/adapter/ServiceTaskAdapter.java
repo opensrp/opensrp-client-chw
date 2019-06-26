@@ -69,16 +69,16 @@ public class ServiceTaskAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
 
     }
-    public void makeEvent(String homeVisitDate,String entityId){
+    public void makeEvent(String homeVisitId,String entityId){
 //        Observable.create(new ObservableOnSubscribe<Object>() {
 //            @Override
 //            public void subscribe(ObservableEmitter<Object> e) throws Exception {
 
                 for(ServiceTask serviceTask : presenter.getServiceTasks()){
                     if(serviceTask.getTaskType().equalsIgnoreCase(TaskServiceCalculate.TASK_TYPE.Minimum_dietary.name())){
-                        ChildUtils.updateMinimumDietaryAsEvent(context,entityId,serviceTask.getTaskLabel(),homeVisitDate);
+                        ChildUtils.updateMinimumDietaryAsEvent(context,entityId,serviceTask.getTaskLabel(),homeVisitId);
                     }else if(serviceTask.getTaskType().equalsIgnoreCase(TaskServiceCalculate.TASK_TYPE.MUAC.name())){
-                        ChildUtils.updateMuacAsEvent(context,entityId,serviceTask.getTaskLabel(),homeVisitDate);
+                        ChildUtils.updateMuacAsEvent(context,entityId,serviceTask.getTaskLabel(),homeVisitId);
 
                     }
                 }

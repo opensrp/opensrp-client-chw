@@ -33,6 +33,7 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.domain.HomeVisit;
 import org.smartregister.chw.repository.HomeVisitRepository;
+import org.smartregister.chw.repository.HomeVisitServiceRepository;
 import org.smartregister.chw.rule.BirthCertRule;
 import org.smartregister.chw.rule.HomeAlertRule;
 import org.smartregister.chw.rule.ImmunizationExpiredRule;
@@ -447,13 +448,13 @@ public class ChildUtils {
         }
 
     }
-    public static void updateMinimumDietaryAsEvent(Context context,String entityId,String choiceValue,String homeVisitDate){
+    public static void updateMinimumDietaryAsEvent(Context context,String entityId,String choiceValue,String homeVisitId){
         try{
             ECSyncHelper syncHelper = FamilyLibrary.getInstance().getEcSyncHelper();
             Event baseEvent = (Event) new Event()
                     .withBaseEntityId(entityId)
                     .withEventDate(new Date())
-                    .withEntityType(Constants.TABLE_NAME.TASK_SERVICE)
+                    .withEntityType(HomeVisitServiceRepository.HOME_VISIT_SERVICE_TABLE_NAME)
                     .withEventType(Constants.EventType.MINIMUM_DIETARY_DIVERSITY)
                     .withFormSubmissionId(JsonFormUtils.generateRandomUUIDString())
                     .withDateCreated(new Date());
@@ -463,8 +464,8 @@ public class ChildUtils {
             baseEvent.addObs(new Obs("concept", "text",Constants.FORM_CONSTANTS.MINIMUM_DIETARY.CODE, "",
                     JsonFormUtils.toList(JsonFormUtils.getChoiceDietary(context).get(choiceValue)), JsonFormUtils.toList(choiceValue), null,
                     Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.TASK_MINIMUM_DIETARY).withHumanReadableValues(huValue));
-            baseEvent.addObs((new Obs()).withFormSubmissionField(Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_DATE_LONG).withValue(homeVisitDate)
-                    .withFieldCode(Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_DATE_LONG).withFieldType("formsubmissionField").withFieldDataType("text").withParentCode("").withHumanReadableValues(new ArrayList<Object>()));
+            baseEvent.addObs((new Obs()).withFormSubmissionField(Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_ID).withValue(homeVisitId)
+                    .withFieldCode(Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_ID).withFieldType("formsubmissionField").withFieldDataType("text").withParentCode("").withHumanReadableValues(new ArrayList<Object>()));
 
             JsonFormUtils.tagSyncMetadata(ChwApplication.getInstance().getContext().allSharedPreferences(), baseEvent);
             JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(baseEvent));
@@ -479,13 +480,13 @@ public class ChildUtils {
         }
 
     }
-    public static void updateMuacAsEvent(Context context,String entityId,String choiceValue,String homeVisitDate){
+    public static void updateMuacAsEvent(Context context,String entityId,String choiceValue,String homeVisitId){
         try{
             ECSyncHelper syncHelper = FamilyLibrary.getInstance().getEcSyncHelper();
             Event baseEvent = (Event) new Event()
                     .withBaseEntityId(entityId)
                     .withEventDate(new Date())
-                    .withEntityType(Constants.TABLE_NAME.TASK_SERVICE)
+                    .withEntityType(HomeVisitServiceRepository.HOME_VISIT_SERVICE_TABLE_NAME)
                     .withEventType(Constants.EventType.MUAC)
                     .withFormSubmissionId(JsonFormUtils.generateRandomUUIDString())
                     .withDateCreated(new Date());
@@ -495,8 +496,8 @@ public class ChildUtils {
             baseEvent.addObs(new Obs("concept", "text",Constants.FORM_CONSTANTS.MUAC.CODE, "",
                     JsonFormUtils.toList(JsonFormUtils.getChoiceMuac(context).get(choiceValue)), JsonFormUtils.toList(choiceValue), null,
                     Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.TASK_MUAC).withHumanReadableValues(huValue));
-            baseEvent.addObs((new Obs()).withFormSubmissionField(Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_DATE_LONG).withValue(homeVisitDate)
-                    .withFieldCode(Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_DATE_LONG).withFieldType("formsubmissionField").withFieldDataType("text").withParentCode("").withHumanReadableValues(new ArrayList<Object>()));
+            baseEvent.addObs((new Obs()).withFormSubmissionField(Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_ID).withValue(homeVisitId)
+                    .withFieldCode(Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_ID).withFieldType("formsubmissionField").withFieldDataType("text").withParentCode("").withHumanReadableValues(new ArrayList<Object>()));
 
             JsonFormUtils.tagSyncMetadata(ChwApplication.getInstance().getContext().allSharedPreferences(), baseEvent);
             JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(baseEvent));
@@ -559,22 +560,22 @@ public class ChildUtils {
         HomeVisit newHomeVisit = new HomeVisit(null, baseEntityID, HomeVisitRepository.EVENT_TYPE, new Date(), "", "", "", 0l, "", "", new Date());
         try {
             for (org.smartregister.domain.db.Obs obs : observations) {
-                if (obs.getFormSubmissionField().equalsIgnoreCase("singleVaccine")) {
+                if (obs.getFormSubmissionField().equalsIgnoreCase(Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_SINGLE_VACCINE)) {
                     newHomeVisit.setSingleVaccinesGiven(new JSONObject((String) obs.getValue()));
                 }
-                if (obs.getFormSubmissionField().equalsIgnoreCase("groupVaccine")) {
+                if (obs.getFormSubmissionField().equalsIgnoreCase(Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_GROUP_VACCINE)) {
                     newHomeVisit.setVaccineGroupsGiven(new JSONObject((String) obs.getValue()));
                 }
-                if (obs.getFormSubmissionField().equalsIgnoreCase("vaccineNotGiven")) {
+                if (obs.getFormSubmissionField().equalsIgnoreCase(Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_VACCINE_NOT_GIVEN)) {
                     newHomeVisit.setVaccineNotGiven(new JSONObject((String) obs.getValue()));
                 }
-                if (obs.getFormSubmissionField().equalsIgnoreCase("service")) {
+                if (obs.getFormSubmissionField().equalsIgnoreCase(Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_SERVICE)) {
                     newHomeVisit.setServicesGiven(new JSONObject((String) obs.getValue()));
                 }
-                if (obs.getFormSubmissionField().equalsIgnoreCase("serviceNotGiven")) {
+                if (obs.getFormSubmissionField().equalsIgnoreCase(Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_SERVICE_NOT_GIVEN)) {
                     newHomeVisit.setServiceNotGiven(new JSONObject((String) obs.getValue()));
                 }
-                if (obs.getFormSubmissionField().equalsIgnoreCase("birth_certificate")) {
+                if (obs.getFormSubmissionField().equalsIgnoreCase(Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_BIRTH_CERT)) {
                     try {
                         newHomeVisit.setBirthCertificationState(new JSONObject((String) obs.getValue()));
                     } catch (Exception e) {
@@ -583,10 +584,10 @@ public class ChildUtils {
                         newHomeVisit.setBirthCertificationState(new JSONObject());
                     }
                 }
-                if (obs.getFormSubmissionField().equalsIgnoreCase("illness_information")) {
+                if (obs.getFormSubmissionField().equalsIgnoreCase(Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_ILLNESS)) {
                     newHomeVisit.setIllness_information(new JSONObject((String) obs.getValue()));
                 }
-                if (obs.getFormSubmissionField().equalsIgnoreCase(ChildDBConstants.KEY.LAST_HOME_VISIT)) {
+                if (obs.getFormSubmissionField().equalsIgnoreCase(Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.LAST_HOME_VISIT)) {
                     try {
                         newHomeVisit.setDate(new Date(Long.parseLong((String) obs.getValue())));
                     } catch (Exception e) {
@@ -595,6 +596,9 @@ public class ChildUtils {
                     }
 
                 }
+                if(obs.getFormSubmissionField().equalsIgnoreCase(Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_ID)){
+                    newHomeVisit.setHomeVisitId((String) obs.getValue());
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -602,6 +606,18 @@ public class ChildUtils {
         newHomeVisit.setFormSubmissionId(formSubmissionId);
         newHomeVisit.setFormfields(new HashMap<String, String>());
         ChwApplication.homeVisitRepository().add(newHomeVisit);
+    }
+    public static void addToHomeVisitService(String eventType,List<org.smartregister.domain.db.Obs> observations,Date evenDate,String details){
+        HomeVisitServiceDataModel homeVisitServiceDataModel = new HomeVisitServiceDataModel();
+        for (org.smartregister.domain.db.Obs obs : observations) {
+            if(obs.getFormSubmissionField().equalsIgnoreCase(Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_ID)){
+                homeVisitServiceDataModel.setHomeVisitId((String) obs.getValue());
+            }
+        }
+        homeVisitServiceDataModel.setEventType(eventType);
+        homeVisitServiceDataModel.setHomeVisitDate(evenDate);
+        homeVisitServiceDataModel.setHomeVisitDetails(details);
+        ChwApplication.getHomeVisitServiceRepository().add(homeVisitServiceDataModel);
     }
     public static void addToChildTable(String baseEntityID, List<org.smartregister.domain.db.Obs> observations){
         String value ="";

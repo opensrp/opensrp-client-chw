@@ -344,7 +344,7 @@ public class HomeVisitRepository extends BaseRepository {
                     } catch (Exception e) {
                     }
                     homeVisit.setIllness_information(new JSONObject(cursor.getString(cursor.getColumnIndex(illness_information))));
-
+                    homeVisit.setHomeVisitId(cursor.getString(cursor.getColumnIndex(HOME_VISIT_ID)));
                     homeVisits.add(homeVisit);
                     cursor.moveToNext();
                 }
@@ -378,6 +378,7 @@ public class HomeVisitRepository extends BaseRepository {
         values.put(SERVICE_NOT_GIVEN, homeVisit.getServiceNotGiven().toString());
         values.put(BIRTH_CERTIFICATION, homeVisit.getBirthCertificationState().toString());
         values.put(illness_information, homeVisit.getIllness_information().toString());
+        values.put(HOME_VISIT_ID,homeVisit.getHomeVisitId());
         return values;
     }
 

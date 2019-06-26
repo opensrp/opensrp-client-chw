@@ -196,7 +196,6 @@ public class Constants {
         public static final String FAMILY = "ec_family";
         public static final String FAMILY_MEMBER = "ec_family_member";
         public static final String CHILD = "ec_child";
-        public static final String TASK_SERVICE = "ec_task_service";
         public static final String CHILD_ACTIVITY = "ec_child_activity";
         public static final String ANC_MEMBER = "ec_anc_register";
         public static final String ANC_MEMBER_LOG = "ec_anc_log";
@@ -327,7 +326,9 @@ public class Constants {
         public static class FORM_SUBMISSION_FIELD {
             public static final String TASK_MINIMUM_DIETARY = "task_minimum_dietary";
             public static final String TASK_MUAC = "task_muac";
+            public static final String HOME_VISIT_ID= "home_visit_id";
             public static final String HOME_VISIT_DATE_LONG= "home_visit_date";
+            public static final String LAST_HOME_VISIT = "last_home_visit";
             public static final String HOME_VISIT_SINGLE_VACCINE= "singleVaccine";
             public static final String HOME_VISIT_GROUP_VACCINE= "groupVaccine";
             public static final String HOME_VISIT_VACCINE_NOT_GIVEN= "vaccineNotGiven";
