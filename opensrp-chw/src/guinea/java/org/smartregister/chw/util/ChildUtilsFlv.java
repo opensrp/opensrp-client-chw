@@ -10,13 +10,13 @@ public class ChildUtilsFlv implements ChildUtils.Flavor {
     @Override
     public String[] getOneYearVaccines() {
         return new String[]  {"bcg", "opv1", "penta1", "pcv1", "rota1", "opv2", "penta2", "pcv2", "rota2", "opv3", "penta3", "pcv3", "ipv", "mcv1",
-                "yellowfever"
+                "yellowfever","rota3", "mena"
         };
     }
 
     @Override
     public String[] getTwoYearVaccines() {
         return new String[] {"bcg", "opv1", "penta1", "pcv1", "rota1", "opv2", "penta2", "pcv2", "rota2", "opv3", "penta3", "pcv3", "ipv", "mcv1",
-                "yellowfever", "mcv2"};
+                "yellowfever", "mcv2","rota3", "mena"};
     }
 }
