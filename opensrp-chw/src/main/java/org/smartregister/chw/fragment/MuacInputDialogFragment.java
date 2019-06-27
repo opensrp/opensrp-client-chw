@@ -57,7 +57,7 @@ public class MuacInputDialogFragment extends DialogFragment implements View.OnCl
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_dietary, container, false);
+        return inflater.inflate(R.layout.fragment_muac, container, false);
     }
 
     @Override
