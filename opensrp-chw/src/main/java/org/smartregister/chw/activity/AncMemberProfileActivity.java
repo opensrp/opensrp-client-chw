@@ -1,6 +1,7 @@
 package org.smartregister.chw.activity;
 
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -11,12 +12,14 @@ import com.vijay.jsonwizard.domain.Form;
 
 import org.jeasy.rules.api.Rules;
 import org.joda.time.DateTime;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.AncLibrary;
 import org.smartregister.chw.anc.activity.BaseAncMemberProfileActivity;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.util.Constants;
+import org.smartregister.chw.anc.util.DBConstants;
 import org.smartregister.chw.anc.util.Util;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.interactor.ChildProfileInteractor;
@@ -26,6 +29,7 @@ import org.smartregister.chw.presenter.AncMemberProfilePresenter;
 import org.smartregister.chw.util.AncHomeVisitUtil;
 import org.smartregister.chw.util.AncVisit;
 import org.smartregister.clientandeventmodel.Event;
+import org.smartregister.commonregistry.AllCommonsRepository;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
@@ -37,6 +41,8 @@ import org.smartregister.repository.AllSharedPreferences;
 
 import timber.log.Timber;
 
+import static org.smartregister.util.JsonFormUtils.fields;
+import static org.smartregister.util.JsonFormUtils.getFieldJSONObject;
 import static org.smartregister.util.Utils.getAllSharedPreferences;
 
 public class AncMemberProfileActivity extends BaseAncMemberProfileActivity {
@@ -189,6 +195,19 @@ public class AncMemberProfileActivity extends BaseAncMemberProfileActivity {
                             AllSharedPreferences allSharedPreferences = getAllSharedPreferences();
                             Event baseEvent = org.smartregister.chw.anc.util.JsonFormUtils.processJsonForm(allSharedPreferences, jsonString, Constants.TABLES.ANC_MEMBERS);
                             Util.processEvent(allSharedPreferences, baseEvent);
+                            AllCommonsRepository commonsRepository = ChwApplication.getInstance().getAllCommonsRepository(org.smartregister.chw.util.Constants.TABLE_NAME.ANC_MEMBER);
+
+                            JSONArray field = fields(form);
+                            JSONObject phoneNumberObject = getFieldJSONObject(field, DBConstants.KEY.PHONE_NUMBER);
+                            String phoneNumber = phoneNumberObject.getString(org.smartregister.chw.util.JsonFormUtils.VALUE);
+                            String baseEntityId = baseEvent.getBaseEntityId();
+                            if (commonsRepository != null) {
+                                ContentValues values = new ContentValues();
+                                values.put(DBConstants.KEY.PHONE_NUMBER, phoneNumber);
+                                ChwApplication.getInstance().getRepository().getWritableDatabase().update(org.smartregister.chw.util.Constants.TABLE_NAME.ANC_MEMBER, values, DBConstants.KEY.BASE_ENTITY_ID + " = ?  ", new String[]{baseEntityId});
+
+                            }
+
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
