@@ -841,15 +841,12 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
      */
     public static String getValue(JSONObject jsonObject, String key) {
         try {
-            JSONArray jsonArray = jsonObject.getJSONObject(JsonFormConstants.STEP1).getJSONArray(JsonFormConstants.FIELDS);
-            int x = 0;
-            while (jsonArray.length() > x) {
-                JSONObject jo = jsonArray.getJSONObject(x);
-                if (jo.getString(JsonFormConstants.KEY).equalsIgnoreCase(key)) {
-                    return jo.getString(JsonFormConstants.VALUE);
-                }
-                x++;
+            JSONObject formField = com.vijay.jsonwizard.utils.FormUtils.getFieldFromForm(jsonObject, key);
+
+            if (formField != null && formField.has(JsonFormConstants.VALUE)) {
+                return formField.getString(JsonFormConstants.VALUE);
             }
+//
         } catch (Exception e) {
             Timber.e(e);
         }
@@ -865,22 +862,13 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
      */
     public static String getCheckBoxValue(JSONObject jsonObject, String key) {
         try {
-            JSONArray jsonArray = jsonObject.getJSONObject(JsonFormConstants.STEP1).getJSONArray(JsonFormConstants.FIELDS);
-
-            JSONObject jo = null;
-            int x = 0;
-            while (jsonArray.length() > x) {
-                jo = jsonArray.getJSONObject(x);
-                if (jo.getString(JsonFormConstants.KEY).equalsIgnoreCase(key)) {
-                    break;
-                }
-                x++;
-            }
+            JSONObject fieldObject = com.vijay.jsonwizard.utils.FormUtils.getFieldFromForm(jsonObject, key);
 
             StringBuilder resBuilder = new StringBuilder();
-            if (jo != null) {
+            if (fieldObject != null && fieldObject.getString(JsonFormConstants.TYPE)
+                    .equals(JsonFormConstants.CHECK_BOX)) {
                 // read all the checkboxes
-                JSONArray jaOptions = jo.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
+                JSONArray jaOptions = fieldObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
 
                 int y = 0;
                 while (jaOptions.length() > y) {
