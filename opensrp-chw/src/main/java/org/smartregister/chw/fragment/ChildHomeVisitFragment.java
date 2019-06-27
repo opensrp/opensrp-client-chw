@@ -572,7 +572,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         if(serviceTasks.size()>0){
             taskServiceRecyclerView.setVisibility(View.VISIBLE);
             if (serviceTaskAdapter == null) {
-                serviceTaskAdapter = new ServiceTaskAdapter((ChildHomeVisitPresenter)presenter, getContext(), new OnClickServiceTaskAdapter() {
+                serviceTaskAdapter = new ServiceTaskAdapter((ChildHomeVisitPresenter)presenter, context, new OnClickServiceTaskAdapter() {
                     @Override
                     public void onClick(int position, ServiceTask serviceTask) {
                         if(serviceTask.getTaskType().equalsIgnoreCase(TaskServiceCalculate.TASK_TYPE.Minimum_dietary.name())){
@@ -699,12 +699,12 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     }
     public void updateVaccineCard(String option){
         textViewVaccineCardText.setVisibility(View.VISIBLE);
-        if (option.equalsIgnoreCase(getContext().getString(R.string.yes))){
-            textViewVaccineCardText.setText(getContext().getString(R.string.yes));
+        if (option.equalsIgnoreCase(context.getString(R.string.yes))){
+            textViewVaccineCardText.setText(context.getString(R.string.yes));
             updateStatusTick(circleImageViewVaccineCard, true);
 
         }else {
-            textViewVaccineCardText.setText(getContext().getString(R.string.no));
+            textViewVaccineCardText.setText(context.getString(R.string.no));
             updateStatusTick(circleImageViewVaccineCard, false);
         }
 

@@ -44,6 +44,7 @@ public class ChildHomeVisitInteractorFlv implements ChildHomeVisitInteractor.Fla
             ServiceTask serviceTaskMuac = new ServiceTask();
             if(taskServiceCalculate.isDue(6) && !taskServiceCalculate.isExpire(60)){
                 serviceTaskMuac.setTaskTitle(context.getResources().getString(R.string.muac_title));
+                serviceTaskMuac.setTaskType(TaskServiceCalculate.TASK_TYPE.MUAC.name());
                 serviceTasks.add(serviceTaskMuac);
             }
 //           ServiceTask serviceTaskLlitn = new ServiceTask();
