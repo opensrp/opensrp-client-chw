@@ -87,6 +87,9 @@ public class ChwClientProcessor extends ClientProcessorForJava {
                 } else if (eventType.equals(HomeVisitRepository.EVENT_TYPE) || eventType.equals(HomeVisitRepository.NOT_DONE_EVENT_TYPE)) {
                     processHomeVisit(eventClient);
                     processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
+                } else if (eventType.equals(Constants.EventType.ANC_HOME_VISIT) && eventClient.getEvent() != null) {
+                    processAncHomeVisit(eventClient);
+                    processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
                 } else if (eventType.equals(Constants.EventType.REMOVE_FAMILY) && eventClient.getClient() != null) {
                     processRemoveFamily(eventClient.getClient().getBaseEntityId(), event.getEventDate().toDate());
                 } else if (eventType.equals(Constants.EventType.REMOVE_MEMBER) && eventClient.getClient() != null) {
@@ -113,12 +116,16 @@ public class ChwClientProcessor extends ClientProcessorForJava {
     private void processHomeVisit(EventClient eventClient) {
         List<Obs> observations = eventClient.getEvent().getObs();
 
-        ChildUtils.addToHomeVisitTable(eventClient.getEvent().getBaseEntityId(),eventClient.getEvent().getFormSubmissionId(), observations);
+        ChildUtils.addToHomeVisitTable(eventClient.getEvent().getBaseEntityId(), eventClient.getEvent().getFormSubmissionId(), observations);
     }
 
     private void processVaccineCardEvent(EventClient eventClient) {
         List<Obs> observations = eventClient.getEvent().getObs();
         ChildUtils.addToChildTable(eventClient.getEvent().getBaseEntityId(), observations);
+    }
+
+    private void processAncHomeVisit(EventClient eventClient) {
+        org.smartregister.chw.anc.util.Util.processAncHomeVisit(eventClient); // save locally
     }
 
     private Boolean processVaccine(EventClient vaccine, Table vaccineTable, boolean outOfCatchment) throws Exception {
@@ -171,7 +178,6 @@ public class ChwClientProcessor extends ClientProcessorForJava {
             return null;
         }
     }
-
 
     private Boolean processService(EventClient service, Table serviceTable) throws Exception {
 
