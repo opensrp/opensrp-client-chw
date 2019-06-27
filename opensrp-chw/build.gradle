@@ -195,7 +195,7 @@ dependencies {
         exclude group: 'io.ona.rdt-capture', module: 'lib'
     }
 
-    implementation('org.smartregister:opensrp-client-core:1.6.37-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-core:1.6.39-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.github.bmelnychuk', module: 'atv'
         exclude group: 'com.google.guava', module: 'guava'
@@ -284,6 +284,8 @@ dependencies {
     implementation('com.crashlytics.sdk.android:crashlytics:2.9.5@aar') {
         transitive = true
     }
+
+    implementation "org.smartregister:android-p2p-sync:0.2.1-SNAPSHOT"
 
     // PowerMock
     def powerMockVersion = '1.7.1'

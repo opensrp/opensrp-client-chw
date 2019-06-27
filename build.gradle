@@ -25,6 +25,9 @@ allprojects {
         maven { url "http://repo.maven.apache.org/maven2" }
         maven { url "http://cloudant.github.io/cloudant-sync-eap/repository" }
         maven { url 'https://maven.fabric.io/public' }
+        maven {
+            url "https://s3.amazonaws.com/repo.commonsware.com"
+        }
         google()
         jcenter()
         maven { url "https://s3.amazonaws.com/repo.commonsware.com" }
