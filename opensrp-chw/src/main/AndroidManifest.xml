@@ -21,6 +21,7 @@
         android:supportsRtl="true"
         android:theme="@style/ChwTheme"
         tools:replace="android:theme">
+
         <activity android:name=".activity.AncHomeVisitActivity"
             android:theme="@style/ChwTheme.NoActionBar"></activity>
         <activity
