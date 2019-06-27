@@ -8,6 +8,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.chw.domain.HomeVisit;
 import org.smartregister.chw.util.BirthCertDataModel;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.ObsIllnessDataModel;
@@ -118,6 +119,12 @@ public class ChildHomeVisitInteractorFlv implements ChildHomeVisitInteractor.Fla
         }
         return null;
     }
+
+    @Override
+    public void generateServiceData(HomeVisit homeVisit) {
+        // no need to do anything
+    }
+
     private Context getContext() {
         return ChwApplication.getInstance().getApplicationContext();
     }

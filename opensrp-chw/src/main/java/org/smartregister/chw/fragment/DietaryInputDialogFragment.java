@@ -15,22 +15,28 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import org.smartregister.chw.R;
+import org.smartregister.chw.listener.OnUpdateServiceTask;
+import org.smartregister.chw.util.ServiceTask;
 
 public class DietaryInputDialogFragment extends DialogFragment implements View.OnClickListener, RadioGroup.OnCheckedChangeListener {
 
     public static final String DIALOG_TAG = "VaccineCardInputDialog";
-    private static final String EXTRA_CHOICE_VALUE = "choice_value";
 
     private String choiceValue;
     private RadioButton choiceOne,choiceTwo,choiceThree;
     private Button buttonSave;
+    private OnUpdateServiceTask onUpdateServiceTask;
+    private ServiceTask serviceTask;
 
-    public static DietaryInputDialogFragment getInstance(String choiceValue){
+    public static DietaryInputDialogFragment getInstance(){
         DietaryInputDialogFragment vaccineCardInputDialogFragment = new DietaryInputDialogFragment();
         Bundle bundle = new Bundle();
-        bundle.putString(EXTRA_CHOICE_VALUE,choiceValue);
         vaccineCardInputDialogFragment.setArguments(bundle);
         return vaccineCardInputDialogFragment;
+    }
+    public void setServiceTask(ServiceTask serviceTask,OnUpdateServiceTask onUpdateServiceTask){
+        this.onUpdateServiceTask = onUpdateServiceTask;
+        this.serviceTask = serviceTask;
     }
 
     @Override
@@ -69,7 +75,7 @@ public class DietaryInputDialogFragment extends DialogFragment implements View.O
         buttonSave.setOnClickListener(this);
         view.findViewById(R.id.close).setOnClickListener(this);
         ((RadioGroup) view.findViewById(R.id.radio_group_exclusive)).setOnCheckedChangeListener(this);
-        choiceValue = getArguments().getString(EXTRA_CHOICE_VALUE,"");
+        choiceValue = serviceTask.getTaskLabel();
         if(TextUtils.isEmpty(choiceValue)){
             enableDisableSaveBtn(false);
         }else{
@@ -102,7 +108,8 @@ public class DietaryInputDialogFragment extends DialogFragment implements View.O
     }
 
     private void saveVaccineCardData() {
-        ((ChildHomeVisitFragment) getActivity().getFragmentManager().findFragmentByTag(ChildHomeVisitFragment.DIALOG_TAG)).updateDietary(choiceValue);
+        serviceTask.setTaskLabel(choiceValue);
+        onUpdateServiceTask.onUpdateServiceTask(serviceTask);
         dismiss();
     }
 

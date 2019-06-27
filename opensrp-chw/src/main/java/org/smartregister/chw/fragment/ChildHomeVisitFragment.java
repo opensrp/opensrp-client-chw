@@ -40,6 +40,7 @@ import org.smartregister.chw.contract.ChildHomeVisitContract;
 import org.smartregister.chw.custom_view.HomeVisitGrowthAndNutrition;
 import org.smartregister.chw.custom_view.ImmunizationView;
 import org.smartregister.chw.listener.OnClickServiceTaskAdapter;
+import org.smartregister.chw.listener.OnUpdateServiceTask;
 import org.smartregister.chw.presenter.ChildHomeVisitPresenter;
 import org.smartregister.chw.rule.BirthCertRule;
 import org.smartregister.chw.util.BirthCertDataModel;
@@ -513,6 +514,9 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     public void forcfullyProgressBarInvisible() {
         progressBar.setVisibility(View.GONE);
         homeVisitLayout.setVisibility(View.VISIBLE);
+        if(flavor.onTaskVisibility()){
+            presenter.generateTaskService(isEditMode);
+        }
     }
 
     @Override
@@ -569,7 +573,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
 
     @Override
     public void updateTaskService() {
-        ArrayList<ServiceTask> serviceTasks = ((ChildHomeVisitPresenter) presenter).getServiceTasks();
+        ArrayList<ServiceTask> serviceTasks = presenter.getServiceTasks();
         if(serviceTasks.size()>0){
             taskServiceRecyclerView.setVisibility(View.VISIBLE);
             if (serviceTaskAdapter == null) {
@@ -577,11 +581,13 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                     @Override
                     public void onClick(int position, ServiceTask serviceTask) {
                         if(serviceTask.getTaskType().equalsIgnoreCase(TaskServiceCalculate.TASK_TYPE.Minimum_dietary.name())){
-                            DietaryInputDialogFragment dialogFragment = DietaryInputDialogFragment.getInstance(serviceTask.getTaskLabel());
+                            DietaryInputDialogFragment dialogFragment = DietaryInputDialogFragment.getInstance();
+                            dialogFragment.setServiceTask(serviceTask,onUpdateServiceTask);
                             FragmentTransaction ft = getActivity().getFragmentManager().beginTransaction();
                             dialogFragment.show(ft, DietaryInputDialogFragment.DIALOG_TAG);
                         }else if(serviceTask.getTaskType().equalsIgnoreCase(TaskServiceCalculate.TASK_TYPE.MUAC.name())){
-                            MuacInputDialogFragment dialogFragment = MuacInputDialogFragment.getInstance(serviceTask.getTaskLabel());
+                            MuacInputDialogFragment dialogFragment = MuacInputDialogFragment.getInstance();
+                            dialogFragment.setServiceTask(serviceTask,onUpdateServiceTask);
                             FragmentTransaction ft = getActivity().getFragmentManager().beginTransaction();
                             dialogFragment.show(ft, MuacInputDialogFragment.DIALOG_TAG);
 
@@ -598,6 +604,13 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
             taskServiceRecyclerView.setVisibility(View.GONE);
         }
     }
+    OnUpdateServiceTask onUpdateServiceTask = new OnUpdateServiceTask() {
+        @Override
+        public void onUpdateServiceTask(ServiceTask serviceTask) {
+            updateTaskService();
+            checkIfSubmitIsToBeEnabled();
+        }
+    };
 
     private void updateBirthCertData() {
         ArrayList<BirthCertDataModel> data = ((ChildHomeVisitPresenter) presenter).getBirthCertDataList();
@@ -709,36 +722,6 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
             updateStatusTick(circleImageViewVaccineCard, false);
         }
 
-    }
-    public void updateDietary(String option){
-        for(ServiceTask serviceTask : presenter.getServiceTasks()){
-            if(serviceTask.getTaskType().equalsIgnoreCase(TaskServiceCalculate.TASK_TYPE.Minimum_dietary.name())){
-                serviceTask.setTaskLabel(option);
-                if(option.equalsIgnoreCase(context.getString(R.string.minimum_dietary_choice_3))){
-                    serviceTask.setGreen(true);
-                }else{
-                    serviceTask.setGreen(false);
-                }
-                break;
-            }
-        }
-        updateTaskService();
-        checkIfSubmitIsToBeEnabled();
-    }
-    public void updateMuac(String option){
-        for(ServiceTask serviceTask : presenter.getServiceTasks()){
-            if(serviceTask.getTaskType().equalsIgnoreCase(TaskServiceCalculate.TASK_TYPE.MUAC.name())){
-                serviceTask.setTaskLabel(option);
-                if(option.equalsIgnoreCase(context.getString(R.string.muac_choice_1))){
-                    serviceTask.setGreen(true);
-                }else{
-                    serviceTask.setGreen(false);
-                }
-                break;
-            }
-        }
-        updateTaskService();
-        checkIfSubmitIsToBeEnabled();
     }
 
     public void setChildClient(CommonPersonObjectClient childClient) {

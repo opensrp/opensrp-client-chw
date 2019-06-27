@@ -88,6 +88,7 @@ public class ChildHomeVisitInteractor implements ChildHomeVisitContract.Interact
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+            flavor.generateServiceData(homeVisit);
 
         }
     }
@@ -272,5 +273,6 @@ public class ChildHomeVisitInteractor implements ChildHomeVisitContract.Interact
         ArrayList<ServiceTask> getTaskService(CommonPersonObjectClient childClient,boolean isEditMode,Context context);
         BirthCertDataModel getBirthCertDataList(String jsonString,boolean isEditMode);
         ObsIllnessDataModel getObsIllnessDataList(String jsonString,boolean isEditMode);
+        void generateServiceData(HomeVisit homeVisit);
     }
 }

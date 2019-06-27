@@ -49,6 +49,15 @@ public class ServiceTaskAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             contentViewHolder.labelText.setText(serviceTask.getTaskLabel());
             contentViewHolder.circleImageView.setImageResource(R.drawable.ic_checked);
             contentViewHolder.circleImageView.setColorFilter(context.getResources().getColor(R.color.white));
+            if(serviceTask.getTaskType().equalsIgnoreCase(TaskServiceCalculate.TASK_TYPE.Minimum_dietary.name())
+               && serviceTask.getTaskLabel().equalsIgnoreCase(context.getString(R.string.minimum_dietary_choice_3))){
+                serviceTask.setGreen(true);
+            }else if(serviceTask.getTaskType().equalsIgnoreCase(TaskServiceCalculate.TASK_TYPE.MUAC.name())
+                    && serviceTask.getTaskLabel().equalsIgnoreCase(context.getString(R.string.muac_choice_1))){
+                serviceTask.setGreen(true);
+            }else{
+                serviceTask.setGreen(false);
+            }
 
             int color_res = serviceTask.isGreen() ? R.color.alert_complete_green : R.color.pnc_circle_yellow;
 

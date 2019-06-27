@@ -65,7 +65,7 @@ public class HomeVisitServiceRepository extends BaseRepository {
         String selection = null;
         String[] selectionArgs = null;
         if (!TextUtils.isEmpty(homeVisitServiceDataModel.getHomeVisitId())) {
-            selection = HOME_VISIT_ID + " = ? " + COLLATE_NOCASE+" and "+EVENT_TYPE+" = ?";
+            selection = HOME_VISIT_ID + " = ? " + COLLATE_NOCASE+" and "+EVENT_TYPE+" = ? "+COLLATE_NOCASE;
             selectionArgs = new String[]{homeVisitServiceDataModel.getHomeVisitId(),homeVisitServiceDataModel.getEventType()};
         }
         net.sqlcipher.Cursor cursor = database.query(HOME_VISIT_SERVICE_TABLE_NAME, TABLE_COLUMNS, selection, selectionArgs, null, null, null, null);
@@ -97,7 +97,10 @@ public class HomeVisitServiceRepository extends BaseRepository {
                     homeVisitServiceDataModel.setHomeVisitDate(new Date(cursor.getString(cursor.getColumnIndex(DATE))));
                     homeVisitServiceDataModel.setHomeVisitDetails(cursor.getString(cursor.getColumnIndex(DETAILS)));
                     homeVisitServiceDataModel.setHomeVisitId(cursor.getString(cursor.getColumnIndex(HOME_VISIT_ID)));
-                    homeVisitServiceDataModels.add(homeVisitServiceDataModel);
+                    //duplicate handle
+                    if(!isExist(homeVisitServiceDataModels,homeVisitServiceDataModel.getEventType())){
+                        homeVisitServiceDataModels.add(homeVisitServiceDataModel);
+                    }
                     cursor.moveToNext();
                 }
             }
@@ -109,6 +112,14 @@ public class HomeVisitServiceRepository extends BaseRepository {
         }
         return homeVisitServiceDataModels;
 
+    }
+    private boolean isExist(List<HomeVisitServiceDataModel> homeVisitServiceDataModels, String type){
+        for(HomeVisitServiceDataModel homeVisitServiceDataModel:homeVisitServiceDataModels){
+            if(homeVisitServiceDataModel.getEventType().equalsIgnoreCase(type)){
+                return true;
+            }
+        }
+        return false;
     }
     public void update(SQLiteDatabase database, HomeVisitServiceDataModel homeVisitServiceDataModel) {
         if (homeVisitServiceDataModel == null || homeVisitServiceDataModel.getHomeVisitId() == null) {

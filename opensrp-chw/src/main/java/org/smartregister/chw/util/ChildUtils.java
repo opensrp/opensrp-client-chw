@@ -21,6 +21,7 @@ import com.google.gson.JsonParseException;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
+import com.google.gson.reflect.TypeToken;
 
 import org.apache.commons.lang3.StringUtils;
 import org.jeasy.rules.api.Rules;
@@ -622,6 +623,46 @@ public class ChildUtils {
         homeVisitServiceDataModel.setHomeVisitDate(evenDate);
         homeVisitServiceDataModel.setHomeVisitDetails(details);
         ChwApplication.getHomeVisitServiceRepository().add(homeVisitServiceDataModel);
+    }
+    public static ServiceTask createDiateryFromEvent(Context context,String details){
+        ServiceTask serviceTask = new ServiceTask();
+        org.smartregister.domain.db.Event event = ChildUtils.gsonConverter.fromJson(details,new TypeToken<org.smartregister.domain.db.Event>() {
+        }.getType());
+        List<org.smartregister.domain.db.Obs> observations = event.getObs();
+        for(org.smartregister.domain.db.Obs obs : observations){
+            if (obs.getFormSubmissionField().equalsIgnoreCase("task_minimum_dietary")) {
+                List<Object> hu = obs.getHumanReadableValues();
+                String value ="";
+                for (Object object : hu) {
+                    value = (String) object;
+                }
+                serviceTask.setTaskLabel(value);
+            }
+        }
+        serviceTask.setTaskTitle(context.getString(R.string.minimum_dietary_title));
+        serviceTask.setTaskType(TaskServiceCalculate.TASK_TYPE.Minimum_dietary.name());
+        return serviceTask;
+
+    }
+    public static ServiceTask createMuacFromEvent(Context context,String details){
+        ServiceTask serviceTask = new ServiceTask();
+        org.smartregister.domain.db.Event event = ChildUtils.gsonConverter.fromJson(details,new TypeToken<org.smartregister.domain.db.Event>() {
+        }.getType());
+        List<org.smartregister.domain.db.Obs> observations = event.getObs();
+        for(org.smartregister.domain.db.Obs obs : observations){
+            if (obs.getFormSubmissionField().equalsIgnoreCase("task_muac")) {
+                List<Object> hu = obs.getHumanReadableValues();
+                String value ="";
+                for (Object object : hu) {
+                    value = (String) object;
+                }
+                serviceTask.setTaskLabel(value);
+            }
+        }
+        serviceTask.setTaskTitle(context.getString(R.string.muac_title));
+        serviceTask.setTaskType(TaskServiceCalculate.TASK_TYPE.MUAC.name());
+        return serviceTask;
+
     }
     public static void addToChildTable(String baseEntityID, List<org.smartregister.domain.db.Obs> observations){
         String value ="";

@@ -63,10 +63,11 @@ public class MedicalHistoryInteractor implements MedicalHistoryContract.Interact
 
     @Override
     public void generateHomeVisitServiceList(long lastHomeVisit) {
-        HomeVisit homeVisit = ChwApplication.homeVisitRepository().findByDate(lastHomeVisit);
-        if(homeVisit!=null){
-            homeVisitServiceDataModels = ChwApplication.getHomeVisitServiceRepository().getHomeVisitServiceList(homeVisit.getHomeVisitId());
-        }
+        //TODO need to work
+//        HomeVisit homeVisit = ChwApplication.homeVisitRepository().findByDate(lastHomeVisit);
+//        if(homeVisit!=null){
+//            homeVisitServiceDataModels = ChwApplication.getHomeVisitServiceRepository().getHomeVisitServiceList(homeVisit.getHomeVisitId());
+//        }
     }
 
     @Override

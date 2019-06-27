@@ -8,8 +8,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.chw.domain.HomeVisit;
 import org.smartregister.chw.util.BirthCertDataModel;
+import org.smartregister.chw.util.ChildUtils;
 import org.smartregister.chw.util.Constants;
+import org.smartregister.chw.util.HomeVisitServiceDataModel;
 import org.smartregister.chw.util.ObsIllnessDataModel;
 import org.smartregister.chw.util.ServiceTask;
 import org.smartregister.chw.util.TaskServiceCalculate;
@@ -18,6 +21,7 @@ import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.util.DBConstants;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.smartregister.chw.util.ChildDBConstants.KEY.BIRTH_CERT;
 import static org.smartregister.chw.util.ChildDBConstants.KEY.BIRTH_CERT_ISSUE_DATE;
@@ -27,6 +31,7 @@ import static org.smartregister.chw.util.ChildDBConstants.KEY.ILLNESS_DATE;
 import static org.smartregister.chw.util.ChildDBConstants.KEY.ILLNESS_DESCRIPTION;
 
 public class ChildHomeVisitInteractorFlv implements ChildHomeVisitInteractor.Flavor {
+    private List<HomeVisitServiceDataModel> homeVisitServiceDataModels = new ArrayList<>();
 
     @Override
     public ArrayList<ServiceTask> getTaskService(CommonPersonObjectClient childClient, boolean isEditMode, Context context) {
@@ -57,8 +62,25 @@ public class ChildHomeVisitInteractorFlv implements ChildHomeVisitInteractor.Fla
 //               serviceTaskEcd.setTaskTitle(getContext().getResources().getString(R.string.ecd_title));
 //               serviceTasks.add(serviceTaskEcd);
 //           }
+        }else{
+            for (HomeVisitServiceDataModel homeVisitServiceDataModel : homeVisitServiceDataModels){
+                if(homeVisitServiceDataModel.getEventType().equalsIgnoreCase(Constants.EventType.MINIMUM_DIETARY_DIVERSITY)){
+                    serviceTasks.add(ChildUtils.createDiateryFromEvent(context,homeVisitServiceDataModel.getHomeVisitDetails()));
+                }else if(homeVisitServiceDataModel.getEventType().equalsIgnoreCase(Constants.EventType.MUAC)){
+                    serviceTasks.add(ChildUtils.createMuacFromEvent(context,homeVisitServiceDataModel.getHomeVisitDetails()));
+                }
+            }
         }
         return serviceTasks;
+    }
+
+    @Override
+    public void generateServiceData(HomeVisit homeVisit) {
+        if(homeVisit.getHomeVisitId()!=null){
+            homeVisitServiceDataModels.clear();
+            homeVisitServiceDataModels = ChwApplication.getHomeVisitServiceRepository().getHomeVisitServiceList(homeVisit.getHomeVisitId());
+
+        }
     }
 
     @Override
