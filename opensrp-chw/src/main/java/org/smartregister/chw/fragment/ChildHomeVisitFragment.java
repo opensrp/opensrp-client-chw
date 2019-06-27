@@ -305,7 +305,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
             case R.id.textview_submit:
                 if (checkAllGiven()) {
                     final String homeVisitId = JsonFormUtils.generateRandomUUIDString();
-                    saveCommonData(System.currentTimeMillis() + "").subscribeOn(Schedulers.io())
+                    saveCommonData(System.currentTimeMillis() + "",homeVisitId).subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
                             .doOnSubscribe(new Consumer<Disposable>() {
                                 @Override
@@ -357,7 +357,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
 
     }
 
-    private Observable saveCommonData(final String homeVisitDateLong) {
+    private Observable saveCommonData(final String homeVisitDateLong,final String homeVisitId) {
         return Observable.create(new ObservableOnSubscribe() {
             @Override
             public void subscribe(ObservableEmitter emitter) throws Exception {
@@ -384,7 +384,8 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                     if (birthCertJson == null) {
                         birthCertJson = new JSONObject();
                     }
-                    ChildUtils.updateHomeVisitAsEvent(childClient.entityId(), Constants.EventType.CHILD_HOME_VISIT, Constants.TABLE_NAME.CHILD, singleVaccineObject, vaccineGroupObject, vaccineNotGivenObject, service, serviceNotGiven, birthCertJson, illnessJson, ChildDBConstants.KEY.LAST_HOME_VISIT, homeVisitDateLong);
+                    ChildUtils.updateHomeVisitAsEvent(childClient.entityId(), Constants.EventType.CHILD_HOME_VISIT, Constants.TABLE_NAME.CHILD, singleVaccineObject, vaccineGroupObject, vaccineNotGivenObject, service, serviceNotGiven, birthCertJson,
+                            illnessJson, ChildDBConstants.KEY.LAST_HOME_VISIT, homeVisitDateLong,homeVisitId);
                     if (((ChildHomeVisitPresenter) presenter).getSaveSize() > 0) {
                         ((ChildHomeVisitPresenter) presenter).saveForm();
                     }

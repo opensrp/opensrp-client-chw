@@ -54,7 +54,8 @@ public class HomeVisitRepository extends BaseRepository {
     public static final String BIRTH_CERTIFICATION = "birth_certification";
     public static final String illness_information = "illness_information";
     public static final String HOME_VISIT_ID = "home_visit_id";
-    public static final String[] HomeVisit_TABLE_COLUMNS = {ID_COLUMN, BASE_ENTITY_ID, NAME, LAST_HOME_VISIT_DATE, ANMID, LOCATIONID, SYNC_STATUS, UPDATED_AT_COLUMN, EVENT_ID, FORMSUBMISSION_ID, CREATED_AT, FORMFIELDS, VACCCINE_GROUP, SINGLE_VACCINE, VACCINE_NOT_GIVEN, SERVICE, SERVICE_NOT_GIVEN, BIRTH_CERTIFICATION, illness_information};
+    public static final String[] HomeVisit_TABLE_COLUMNS = {ID_COLUMN, BASE_ENTITY_ID, NAME, LAST_HOME_VISIT_DATE, ANMID, LOCATIONID, SYNC_STATUS, UPDATED_AT_COLUMN, EVENT_ID, FORMSUBMISSION_ID, CREATED_AT, FORMFIELDS, VACCCINE_GROUP, SINGLE_VACCINE, VACCINE_NOT_GIVEN,
+            SERVICE, SERVICE_NOT_GIVEN, BIRTH_CERTIFICATION, illness_information,HOME_VISIT_ID};
     public static final String UPDATE_TABLE_ADD_VACCINE_NOT_GIVEN = "ALTER TABLE " + HomeVisitTABLE_NAME + " ADD COLUMN " + VACCINE_NOT_GIVEN + " VARCHAR;";
     public static final String UPDATE_TABLE_ADD_SERVICE_NOT_GIVEN = "ALTER TABLE " + HomeVisitTABLE_NAME + " ADD COLUMN " + SERVICE_NOT_GIVEN + " VARCHAR;";
     public static final String UPDATE_TABLE_ADD_HOME_VISIT_ID = "ALTER TABLE " + HomeVisitTABLE_NAME + " ADD COLUMN " + HOME_VISIT_ID + " VARCHAR;";
@@ -330,7 +331,6 @@ public class HomeVisitRepository extends BaseRepository {
                             cursor.getString(cursor.getColumnIndex(FORMSUBMISSION_ID)),
                             createdAt
                     );
-                    int columnindex = cursor.getColumnIndex(FORMFIELDS);
                     homeVisit.setFormfields(new Gson().<Map<String, String>>fromJson(cursor.getString(cursor.getColumnIndex(FORMFIELDS)),
                             new TypeToken<Map<String, String>>() {
                             }.getType()));
@@ -379,6 +379,7 @@ public class HomeVisitRepository extends BaseRepository {
         values.put(BIRTH_CERTIFICATION, homeVisit.getBirthCertificationState().toString());
         values.put(illness_information, homeVisit.getIllness_information().toString());
         values.put(HOME_VISIT_ID,homeVisit.getHomeVisitId());
+        Log.e("CONTENT_VALUES","createValuesForHomvisit>>"+values);
         return values;
     }
 

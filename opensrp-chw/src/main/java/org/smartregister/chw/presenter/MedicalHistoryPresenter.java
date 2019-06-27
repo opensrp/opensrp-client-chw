@@ -26,6 +26,11 @@ public class MedicalHistoryPresenter implements MedicalHistoryContract.Presenter
     }
 
     @Override
+    public void generateHomeVisitServiceList(long homeVisitDate) {
+        interactor.generateHomeVisitServiceList(homeVisitDate);
+    }
+
+    @Override
     public void setInitialVaccineList(Map<String, Date> veccineList) {
         recievedVaccines = veccineList;
         interactor.setInitialVaccineList(recievedVaccines, this);

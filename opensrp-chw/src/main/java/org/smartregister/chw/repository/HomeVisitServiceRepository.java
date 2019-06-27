@@ -75,6 +75,18 @@ public class HomeVisitServiceRepository extends BaseRepository {
         }
         return null;
     }
+    public List<HomeVisitServiceDataModel> getHomeVisitServiceList(String homeVisitId){
+        SQLiteDatabase database = getReadableDatabase();
+        String selection = null;
+        String[] selectionArgs = null;
+        if (!TextUtils.isEmpty(homeVisitId)) {
+            selection = HOME_VISIT_ID + " = ? " + COLLATE_NOCASE;
+            selectionArgs = new String[]{homeVisitId};
+        }
+        net.sqlcipher.Cursor cursor = database.query(HOME_VISIT_SERVICE_TABLE_NAME, TABLE_COLUMNS, selection, selectionArgs, null, null, null, null);
+        List<HomeVisitServiceDataModel> homeVisitList = getAllHomeVisitService(cursor);
+        return homeVisitList;
+    }
     public List<HomeVisitServiceDataModel> getAllHomeVisitService(Cursor cursor){
         List<HomeVisitServiceDataModel> homeVisitServiceDataModels = new ArrayList<>();
         try{
@@ -90,10 +102,10 @@ public class HomeVisitServiceRepository extends BaseRepository {
                 }
             }
         }catch (Exception e){
-
+            e.printStackTrace();
         }
         finally {
-            cursor.close();
+          if(cursor!=null)  cursor.close();
         }
         return homeVisitServiceDataModels;
 
@@ -116,7 +128,8 @@ public class HomeVisitServiceRepository extends BaseRepository {
         values.put(HOME_VISIT_ID, homeVisitServiceDataModel.getHomeVisitId());
         values.put(DETAILS, homeVisitServiceDataModel.getHomeVisitDetails());
         values.put(EVENT_TYPE, homeVisitServiceDataModel.getEventType());
-        values.put(DATE, dateFormat.format(homeVisitServiceDataModel.getHomeVisitDate()));
+        values.put(DATE, homeVisitServiceDataModel.getHomeVisitDate()+"");
+        Log.e("CONTENT_VALUES","createValuesForService>>"+values);
         return values;
     }
 

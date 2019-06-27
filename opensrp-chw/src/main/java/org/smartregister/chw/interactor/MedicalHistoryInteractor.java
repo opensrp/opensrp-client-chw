@@ -8,11 +8,13 @@ import org.apache.commons.lang3.text.WordUtils;
 import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.contract.MedicalHistoryContract;
+import org.smartregister.chw.domain.HomeVisit;
 import org.smartregister.chw.fragment.GrowthNutritionInputFragment;
 import org.smartregister.chw.util.BaseService;
 import org.smartregister.chw.util.BaseVaccine;
 import org.smartregister.chw.util.ChildDBConstants;
 import org.smartregister.chw.util.ChildUtils;
+import org.smartregister.chw.util.HomeVisitServiceDataModel;
 import org.smartregister.chw.util.ReceivedVaccine;
 import org.smartregister.chw.util.ServiceContent;
 import org.smartregister.chw.util.ServiceHeader;
@@ -56,6 +58,15 @@ public class MedicalHistoryInteractor implements MedicalHistoryContract.Interact
 
     public MedicalHistoryInteractor() {
         this(new AppExecutors());
+    }
+    List<HomeVisitServiceDataModel> homeVisitServiceDataModels = new ArrayList<>();
+
+    @Override
+    public void generateHomeVisitServiceList(long lastHomeVisit) {
+        HomeVisit homeVisit = ChwApplication.homeVisitRepository().findByDate(lastHomeVisit);
+        if(homeVisit!=null){
+            homeVisitServiceDataModels = ChwApplication.getHomeVisitServiceRepository().getHomeVisitServiceList(homeVisit.getHomeVisitId());
+        }
     }
 
     @Override
@@ -311,5 +322,8 @@ public class MedicalHistoryInteractor implements MedicalHistoryContract.Interact
     }
     public Context getContext(){
         return ChwApplication.getInstance().getApplicationContext();
+    }
+
+    public interface Flavor{
     }
 }
