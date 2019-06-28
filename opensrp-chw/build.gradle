@@ -137,7 +137,7 @@ tasks.withType(Test) {
 }
 
 dependencies {
-    implementation('org.smartregister:opensrp-client-native-form:1.6.12-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-native-form:1.6.18-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.android.support', module: 'appcompat-v7'
         exclude group: 'com.android.support', module: 'cardview-v7'
