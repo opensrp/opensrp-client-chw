@@ -227,7 +227,7 @@ public class AncMemberProfileActivity extends BaseAncMemberProfileActivity {
 
     @Override
     public void openUpcomingService() {
-        // TODO implement
+        AncUpcomingServicesActivity.startMe(this, MEMBER_OBJECT);
     }
 
     @Override
