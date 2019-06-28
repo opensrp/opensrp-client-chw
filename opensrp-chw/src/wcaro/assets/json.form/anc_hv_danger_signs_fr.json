@@ -47,7 +47,7 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "Danger signs",
+    "title": "Signes de danger",
     "fields": [
       {
         "key": "danger_signs_present",
@@ -55,7 +55,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "160939AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "check_box",
-        "label": "Any danger signs present?",
+        "label": "Signes de danger présents?",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
         "exclusive": [
@@ -64,28 +64,28 @@
         "options": [
           {
             "key": "chk_none",
-            "text": "None",
+            "text": "Aucun",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_fever",
-            "text": "Fever",
+            "text": "Fièvre",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "140238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_bleeding_vaginally",
-            "text": "Bleeding vaginally",
+            "text": "Saignement vaginale",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "150802AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_server_headache",
-            "text": "Severe headache",
+            "text": "Mal de tête grave",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "139081AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -99,21 +99,21 @@
           },
           {
             "key": "chk_difficulty_breathing",
-            "text": "Difficulty breathing",
+            "text": "Difficulté de respiration",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "142373AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_severe_abdominal_pain",
-            "text": "Severe abdominal pain",
+            "text": "Douleur abdominale sévère",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "165271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_swollen_face",
-            "text": "Swollen face and legs",
+            "text": "Visage et jambes enflés",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "460AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -130,7 +130,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Danger sign! \nRefer immediately to health facility.",
+        "text": "Signe de danger! \nReferez immédiatement au structure sanitaire.",
         "text_color": "#CF0800",
         "toaster_type": "problem",
         "relevance": {
@@ -158,10 +158,10 @@
         "openmrs_entity_id": "165310AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Counseling on seeking care immediately for danger signs",
+        "hint": "Conseils sur chercher des soins immédiatement en case de signes de danger",
         "values": [
-          "Yes",
-          "No"
+          "Oui",
+          "Non"
         ],
         "openmrs_choice_ids": {
           "COMPLETED": "1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",

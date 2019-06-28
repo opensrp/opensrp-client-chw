@@ -47,24 +47,21 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "ANC card received",
+    "title": "IPTp-SP dose",
     "fields": [
       {
-        "key": "anc_card",
+        "key": "iptp1_date",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "1719AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "openmrs_data_type": "select one",
-        "type": "spinner",
-        "image": "form_received_card",
-        "hint": "ANC card received?",
-        "values": [
-          "Yes",
-          "No"
-        ],
-        "openmrs_choice_ids": {
-          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "date_picker",
+        "image": "form_iptp_sp",
+        "hint": "Quand est-ce que l'immunisation IPTp-SP dose 1 a été administré?",
+        "min_date": "today-120y",
+        "max_date": "today",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the dose date"
         }
       }
     ]
