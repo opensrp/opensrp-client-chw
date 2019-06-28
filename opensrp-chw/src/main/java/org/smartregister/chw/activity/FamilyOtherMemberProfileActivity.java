@@ -175,7 +175,7 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
         getMenuInflater().inflate(R.menu.other_member_menu, menu);
 
         if (flavor.showMalariaConfirmationMenu()) {
-            menu.findItem(R.id.action_malaria_registration).setVisible(true);
+            menu.findItem(R.id.action_malaria_registration).setVisible(false);
         } else {
             menu.findItem(R.id.action_malaria_registration).setVisible(false);
         }
