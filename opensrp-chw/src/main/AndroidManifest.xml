@@ -21,13 +21,15 @@
         android:supportsRtl="true"
         android:theme="@style/ChwTheme"
         tools:replace="android:theme">
-        <activity android:name=".activity.AncUpcomingServicesActivity"></activity>
+
         <activity
-            android:name=".activity.AncMedicalHistoryActivity"
+            android:name=".activity.AncUpcomingServicesActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
+
         <activity
             android:name=".activity.AncHomeVisitActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
+
         <activity
             android:name=".activity.AncRegisterActivity"
             android:theme="@style/ChwTheme.NoActionBar" />

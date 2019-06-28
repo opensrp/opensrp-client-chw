@@ -34,6 +34,12 @@ public class ChildUtilsTest extends BaseUnitTest {
         List<String> receivedVaccine = Arrays.asList(list);
         Assert.assertEquals("", ChildUtils.isFullyImmunized(receivedVaccine));
     }
+    @Test
+    public void lowerCaseVaccineName(){
+        Assert.assertEquals("MenA",ChildUtils.fixVaccineCasing("MENA"));
+        Assert.assertEquals("Rubella 1",ChildUtils.fixVaccineCasing("RUBELLA 1"));
+        Assert.assertEquals("Rubella 2",ChildUtils.fixVaccineCasing("RUBELLA 2"));
+    }
 
     /*
     @Test

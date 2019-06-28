@@ -668,10 +668,6 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
 
     @Override
     public void onDestroy() {
-        if (context instanceof ChildProfileActivity) {
-            ChildProfileActivity activity = (ChildProfileActivity) context;
-            activity.updateImmunizationData();
-        }
         getActivity().unregisterReceiver(mDateTimeChangedReceiver);
         super.onDestroy();
     }
