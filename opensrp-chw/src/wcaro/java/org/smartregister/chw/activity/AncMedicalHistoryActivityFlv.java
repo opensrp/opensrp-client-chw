@@ -174,7 +174,7 @@ public class AncMedicalHistoryActivityFlv implements AncMedicalHistoryActivity.F
 
             int x = 0;
             for (Map<String, String> vals : hf_visits) {
-                View view = inflater.inflate(R.layout.medial_history_anc_visit, linearLayoutHealthFacilityVisitDetails);
+                View view = inflater.inflate(R.layout.medial_history_anc_visit, null);
 
                 TextView tvTitle = view.findViewById(R.id.title);
                 TextView tvWeight = view.findViewById(R.id.weight);
@@ -183,13 +183,14 @@ public class AncMedicalHistoryActivityFlv implements AncMedicalHistoryActivity.F
                 TextView tvIfa = view.findViewById(R.id.ifa_received);
                 TextView tvTests = view.findViewById(R.id.tests);
 
-                // {"anc_visit_date", "hb_level", "dia_bp", "weight", "ifa_received", "tests_done"};
                 tvTitle.setText(MessageFormat.format(context.getString(R.string.anc_visit_date), (hf_visits.size() - x), vals.get("anc_visit_date")));
                 tvWeight.setText(MessageFormat.format(context.getString(R.string.weight_in_kgs), vals.get("weight")));
                 tvBP.setText(MessageFormat.format(context.getString(R.string.bp_in_mmhg), vals.get("hb_level"), vals.get("hb_level")));
                 tvHB.setText(MessageFormat.format(context.getString(R.string.hb_level_in_g_dl), vals.get("dia_bp")));
                 tvIfa.setText(MessageFormat.format(context.getString(R.string.ifa_received_status), vals.get("ifa_received")));
                 tvTests.setText(MessageFormat.format(context.getString(R.string.tests_done_details), vals.get("tests_done")));
+
+                linearLayoutHealthFacilityVisitDetails.addView(view, 0);
 
                 x++;
             }
@@ -203,9 +204,11 @@ public class AncMedicalHistoryActivityFlv implements AncMedicalHistoryActivity.F
             String val = vals.getValue();
 
             if (!val.contains("not")) {
-                View view = inflater.inflate(R.layout.vaccine_content_view, linearLayoutTTImmunizationDetails);
+                View view = inflater.inflate(R.layout.vaccine_content_view, null);
                 TextView info = view.findViewById(R.id.name_date_tv);
                 info.setText(MessageFormat.format(context.getString(R.string.vaccines_done_date), key, val));
+
+                linearLayoutTTImmunizationDetails.addView(view, visible);
                 visible++;
             }
         }
@@ -219,9 +222,11 @@ public class AncMedicalHistoryActivityFlv implements AncMedicalHistoryActivity.F
             String val = vals.getValue();
 
             if (!val.contains("not")) {
-                View view = inflater.inflate(R.layout.vaccine_content_view, linearLayoutIPTpDetails);
+                View view = inflater.inflate(R.layout.vaccine_content_view, null);
                 TextView info = view.findViewById(R.id.name_date_tv);
                 info.setText(MessageFormat.format(context.getString(R.string.vaccines_done_date), key, val));
+
+                linearLayoutIPTpDetails.addView(view, visible);
                 visible++;
             }
         }
