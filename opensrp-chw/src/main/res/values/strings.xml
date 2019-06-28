@@ -320,4 +320,18 @@
     <string name="device_to_device">Device-to-device sync</string>
     <string name="choose_language">Choose language</string>
 
+    <string name="anc_last_visit">LAST VISIT</string>
+    <string name="anc_health_facility_visits">ANC HEALTH FACILITY VISITS</string>
+    <string name="anc_card">ANC CARD</string>
+    <string name="anc_tt_immunization">TT IMMUNIZATION</string>
+    <string name="anc_iptp_sp">IPTp-SP DOSE</string>
+
+    <string name="days_ago">{0} days ago</string>
+    <string name="vaccines_done_date">{0} - done {1}</string>
+    <string name="anc_visit_date">ANC visit {0}: {1}</string>
+    <string name="weight_in_kgs">Weight: {0} kgs</string>
+    <string name="bp_in_mmhg">BP: {0}/{1} mmHg</string>
+    <string name="hb_level_in_g_dl">Hb level: {0} g/dl</string>
+    <string name="ifa_received_status">IFA received: {0}</string>
+    <string name="tests_done_details">Tests done: {0}</string>
 </resources>
