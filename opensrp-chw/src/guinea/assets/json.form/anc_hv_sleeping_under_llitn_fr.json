@@ -47,22 +47,27 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "ANC card received",
+    "title": "Dormir sous un MIILD",
     "fields": [
       {
-        "key": "anc_card",
+        "key": "sleeping_llitn",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "1719AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "1802AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "image": "form_received_card",
-        "hint": "ANC card received?",
+        "image": "form_llitn",
+        "hint": "La femme dors-t-elle sous une moustiquaires imprégnées d'insecticide (MIILD)?",
+        "label_info_title": "Si une femme enceinte dort sous un MIILD",
+        "label_info_text": "Le paludisme est très dangereux pour les femmes enceintes. En tout lieu ou le paludisme est commun, les femmes devraient le prévenir en prenant de comprimés antipaludéens tels que recommandés par un travailleur de santé formé. Elles devraient aussi dormir en dessous d’une moustiquaire imprégnée d'insecticide.",
         "values": [
+          "Oui",
+          "Non"
+        ],
+        "keys": [
           "Yes",
           "No"
-        ],
-        "openmrs_choice_ids": {
+        ],"openmrs_choice_ids": {
           "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         }
