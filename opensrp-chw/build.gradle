@@ -115,7 +115,7 @@ android {
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"MOH Jhpiego Facility Name" , "Village"}'
             buildConfigField "String", 'DEFAULT_LOCATION', '"Village"'
             buildConfigField "boolean", 'SUPPORT_QR', 'true'
-            buildConfigField "int", "DATABASE_VERSION", '9'
+            buildConfigField "int", "DATABASE_VERSION", '10'
         }
 
         wcaro {
@@ -185,7 +185,7 @@ tasks.withType(Test) {
 }
 
 dependencies {
-    implementation('org.smartregister:opensrp-client-native-form:1.6.12-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-native-form:1.6.18-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.android.support', module: 'appcompat-v7'
         exclude group: 'com.android.support', module: 'cardview-v7'
@@ -195,7 +195,7 @@ dependencies {
         exclude group: 'io.ona.rdt-capture', module: 'lib'
     }
 
-    implementation('org.smartregister:opensrp-client-core:1.6.39-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-core:1.6.40-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.github.bmelnychuk', module: 'atv'
         exclude group: 'com.google.guava', module: 'guava'
@@ -218,14 +218,14 @@ dependencies {
         exclude group: 'com.android.support', module: 'appcompat-v7'
     }
 
-    implementation('org.smartregister:opensrp-client-immunization:1.4.12-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-immunization:1.4.14-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'org.smartregister', module: 'opensrp-client-core'
         exclude group: 'org.smartregister', module: 'opensrp-client-native-form'
         exclude group: 'com.android.support', module: 'appcompat-v7'
     }
 
-    implementation('org.smartregister:opensrp-client-reporting:0.0.1-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-reporting:0.0.2-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'org.smartregister', module: 'opensrp-client-core'
         exclude group: 'com.android.support', module: 'appcompat-v7'

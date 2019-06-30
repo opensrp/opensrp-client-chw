@@ -21,6 +21,7 @@ import org.smartregister.chw.contract.ChwAuthorizationService;
 import org.smartregister.chw.helper.RulesEngineHelper;
 import org.smartregister.chw.job.ChwJobCreator;
 import org.smartregister.chw.malaria.MalariaLibrary;
+import org.smartregister.chw.repository.AncRegisterRepository;
 import org.smartregister.chw.repository.ChwRepository;
 import org.smartregister.chw.repository.HomeVisitIndicatorInfoRepository;
 import org.smartregister.chw.repository.HomeVisitRepository;
@@ -70,6 +71,7 @@ public class ChwApplication extends DrishtiApplication {
     private static CommonFtsObject commonFtsObject;
     private static HomeVisitRepository homeVisitRepository;
     private static HomeVisitServiceRepository homeVisitServiceRepository;
+    private static AncRegisterRepository ancRegisterRepository;
     private static HomeVisitIndicatorInfoRepository homeVisitIndicatorInfoRepository;
 
     private JsonSpecHelper jsonSpecHelper;
@@ -144,6 +146,13 @@ public class ChwApplication extends DrishtiApplication {
             homeVisitServiceRepository = new HomeVisitServiceRepository(getInstance().getRepository());
         }
         return homeVisitServiceRepository;
+    }
+
+    public static AncRegisterRepository ancRegisterRepository() {
+        if (ancRegisterRepository == null) {
+            ancRegisterRepository = new AncRegisterRepository(getInstance().getRepository(), getInstance().getContext().commonFtsObject(), getInstance().getContext().alertService());
+        }
+        return ancRegisterRepository;
     }
 
     public static HomeVisitIndicatorInfoRepository homeVisitIndicatorInfoRepository() {

@@ -22,8 +22,18 @@
         android:theme="@style/ChwTheme"
         tools:replace="android:theme">
 
-        <activity android:name=".activity.AncHomeVisitActivity"
-            android:theme="@style/ChwTheme.NoActionBar"></activity>
+        <activity
+            android:name=".activity.AncUpcomingServicesActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+
+        <activity
+            android:name=".activity.AncMedicalHistoryActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+
+        <activity
+            android:name=".activity.AncHomeVisitActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+
         <activity
             android:name=".activity.AncRegisterActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
@@ -111,8 +121,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.AboveFiveChildProfileActivity" android:label="@string/child_details"
-            android:theme="@style/ChwTheme.NoActionBar"/>
+        <activity
+            android:name=".activity.AboveFiveChildProfileActivity"
+            android:label="@string/child_details"
+            android:theme="@style/ChwTheme.NoActionBar" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"

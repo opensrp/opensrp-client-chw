@@ -8,6 +8,8 @@ import net.sqlcipher.database.SQLiteDatabase;
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.AllConstants;
 import org.smartregister.chw.BuildConfig;
+import org.smartregister.chw.anc.repository.VisitDetailsRepository;
+import org.smartregister.chw.anc.repository.VisitRepository;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.configurableviews.repository.ConfigurableViewsRepository;
 import org.smartregister.immunization.ImmunizationLibrary;
@@ -66,6 +68,9 @@ public class ChwRepository extends Repository {
         IndicatorQueryRepository.createTable(database);
         DailyIndicatorCountRepository.createTable(database);
         HomeVisitIndicatorInfoRepository.createTable(database);
+
+        VisitRepository.createTable(database);
+        VisitDetailsRepository.createTable(database);
 
         //onUpgrade(database, 1, 2);
         RecurringServiceTypeRepository recurringServiceTypeRepository = ImmunizationLibrary.getInstance().recurringServiceTypeRepository();

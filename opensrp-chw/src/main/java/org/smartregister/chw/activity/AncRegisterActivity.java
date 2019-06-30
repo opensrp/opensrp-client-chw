@@ -35,12 +35,14 @@ public class AncRegisterActivity extends BaseAncRegisterActivity {
     private static String phone_number;
     private static String form_name;
     private static String unique_id;
+    private static String familyBaseEntityId;
 
     public static void startAncRegistrationActivity(Activity activity, String memberBaseEntityID, String phoneNumber, String formName,
-                                                    String uniqueId) {
+                                                    String uniqueId, String familyBaseID) {
         Intent intent = new Intent(activity, AncRegisterActivity.class);
         intent.putExtra(org.smartregister.chw.anc.util.Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID, memberBaseEntityID);
         phone_number = phoneNumber;
+        familyBaseEntityId = familyBaseID;
         form_name = formName;
         unique_id = uniqueId;
         intent.putExtra(org.smartregister.chw.anc.util.Constants.ACTIVITY_PAYLOAD.ACTION, org.smartregister.chw.anc.util.Constants.ACTIVITY_PAYLOAD_TYPE.REGISTRATION);
@@ -135,6 +137,7 @@ public class AncRegisterActivity extends BaseAncRegisterActivity {
             JSONArray jsonArray = stepOne.getJSONArray(JsonFormUtils.FIELDS);
             updateFormField(jsonArray, DBConstants.KEY.TEMP_UNIQUE_ID, unique_id);
             updateFormField(jsonArray, org.smartregister.chw.util.Constants.JsonAssets.FAMILY_MEMBER.PHONE_NUMBER, phone_number);
+            updateFormField(jsonArray, org.smartregister.family.util.DBConstants.KEY.RELATIONAL_ID, familyBaseEntityId);
 
             Intent intent = new Intent(this, Utils.metadata().familyMemberFormActivity);
             intent.putExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON, jsonForm.toString());
