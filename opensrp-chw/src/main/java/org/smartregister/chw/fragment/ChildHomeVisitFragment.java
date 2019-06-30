@@ -767,7 +767,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
             }
         }
     };
-    public interface flavor{
+    public interface Flavor {
         boolean onTaskVisibility();
         boolean onObsIllnessVisibility();
     }
