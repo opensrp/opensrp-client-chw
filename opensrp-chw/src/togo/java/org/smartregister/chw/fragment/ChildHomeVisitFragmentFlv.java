@@ -10,4 +10,14 @@ public class ChildHomeVisitFragmentFlv implements ChildHomeVisitFragment.Flavor 
     public boolean onObsIllnessVisibility() {
         return false;
     }
+
+    @Override
+    public boolean onSleepingUnderLLITNVisibility() {
+        return true;
+    }
+
+    @Override
+    public boolean onMUACVisibility() {
+        return true;
+    }
 }

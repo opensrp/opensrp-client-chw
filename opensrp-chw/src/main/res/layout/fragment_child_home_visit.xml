@@ -89,21 +89,21 @@
             android:orientation="vertical"
             android:visibility="gone">
 
-
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
                 android:background="@color/light_grey" />
+
             <LinearLayout
                 android:id="@+id/vc_group"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:layout_marginEnd="@dimen/child_home_visit_right_margin"
-                android:layout_marginLeft="@dimen/child_home_visit_left_margin"
-                android:layout_marginRight="@dimen/child_home_visit_right_margin"
                 android:layout_marginStart="@dimen/child_home_visit_left_margin"
+                android:layout_marginLeft="@dimen/child_home_visit_left_margin"
                 android:layout_marginTop="20dp"
+                android:layout_marginEnd="@dimen/child_home_visit_right_margin"
+                android:layout_marginRight="@dimen/child_home_visit_right_margin"
+                android:layout_marginBottom="20dp"
                 android:orientation="horizontal">
 
                 <de.hdodenhof.circleimageview.CircleImageView
@@ -143,11 +143,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:visibility="gone"
                         android:clickable="false"
                         android:gravity="center_vertical"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                        android:textColor="@android:color/darker_gray" />
+                        android:textColor="@android:color/darker_gray"
+                        android:visibility="gone" />
 
                 </LinearLayout>
 
@@ -157,10 +157,10 @@
                 android:id="@+id/vc_line_view"
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:layout_marginEnd="@dimen/child_home_visit_right_margin"
-                android:layout_marginLeft="@dimen/child_home_visit_left_margin"
-                android:layout_marginRight="@dimen/child_home_visit_right_margin"
                 android:layout_marginStart="@dimen/child_home_visit_left_margin"
+                android:layout_marginLeft="@dimen/child_home_visit_left_margin"
+                android:layout_marginEnd="@dimen/child_home_visit_right_margin"
+                android:layout_marginRight="@dimen/child_home_visit_right_margin"
                 android:background="@color/light_grey" />
 
             <org.smartregister.chw.custom_view.ImmunizationView
@@ -262,6 +262,7 @@
                 android:layout_marginEnd="@dimen/child_home_visit_right_margin"
                 android:layout_marginRight="@dimen/child_home_visit_right_margin"
                 android:background="@color/light_grey" />
+
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/task_service_recycler_view"
                 android:layout_width="match_parent"
@@ -279,8 +280,8 @@
                 android:layout_marginEnd="@dimen/child_home_visit_right_margin"
                 android:layout_marginRight="@dimen/child_home_visit_right_margin"
                 android:layout_marginBottom="20dp"
-                android:visibility="gone"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/obs_illness_status_circle"
