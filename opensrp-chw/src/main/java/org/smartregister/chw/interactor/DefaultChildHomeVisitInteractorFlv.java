@@ -10,13 +10,18 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.domain.HomeVisit;
 import org.smartregister.chw.util.BirthCertDataModel;
+import org.smartregister.chw.util.ChildUtils;
 import org.smartregister.chw.util.Constants;
+import org.smartregister.chw.util.HomeVisitServiceDataModel;
 import org.smartregister.chw.util.ObsIllnessDataModel;
 import org.smartregister.chw.util.ServiceTask;
+import org.smartregister.chw.util.TaskServiceCalculate;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
+import org.smartregister.family.util.DBConstants;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.smartregister.chw.util.ChildDBConstants.KEY.BIRTH_CERT;
 import static org.smartregister.chw.util.ChildDBConstants.KEY.BIRTH_CERT_ISSUE_DATE;
@@ -26,11 +31,49 @@ import static org.smartregister.chw.util.ChildDBConstants.KEY.ILLNESS_DATE;
 import static org.smartregister.chw.util.ChildDBConstants.KEY.ILLNESS_DESCRIPTION;
 
 public class DefaultChildHomeVisitInteractorFlv implements ChildHomeVisitInteractor.Flavor {
-
     @Override
     public ArrayList<ServiceTask> getTaskService(CommonPersonObjectClient childClient, boolean isEditMode, Context context) {
-
         return new ArrayList<>();
+    }
+
+    protected ArrayList<ServiceTask> getCustomTasks(List<HomeVisitServiceDataModel> homeVisitServiceDataModels, CommonPersonObjectClient childClient, boolean isEditMode, Context context) {
+        final ArrayList<ServiceTask> serviceTasks = new ArrayList<>();
+        if (!isEditMode) {
+            String dob = org.smartregister.family.util.Utils.getValue(childClient.getColumnmaps(), DBConstants.KEY.DOB, false);
+
+            TaskServiceCalculate taskServiceCalculate = new TaskServiceCalculate(dob);
+            ServiceTask serviceTaskDiversity = new ServiceTask();
+            if (taskServiceCalculate.isDue(6) && !taskServiceCalculate.isExpire(60)) {
+                serviceTaskDiversity.setTaskTitle(context.getResources().getString(R.string.minimum_dietary_title));
+                serviceTaskDiversity.setTaskType(TaskServiceCalculate.TASK_TYPE.Minimum_dietary.name());
+                serviceTasks.add(serviceTaskDiversity);
+            }
+            ServiceTask serviceTaskMuac = new ServiceTask();
+            if (taskServiceCalculate.isDue(6) && !taskServiceCalculate.isExpire(60)) {
+                serviceTaskMuac.setTaskTitle(context.getResources().getString(R.string.muac_title));
+                serviceTaskMuac.setTaskType(TaskServiceCalculate.TASK_TYPE.MUAC.name());
+                serviceTasks.add(serviceTaskMuac);
+            }
+//           ServiceTask serviceTaskLlitn = new ServiceTask();
+//           if(!taskServiceCalculate.isExpire(60)){
+//               serviceTaskLlitn.setTaskTitle(getContext().getResources().getString(R.string.llitn_title));
+//               serviceTasks.add(serviceTaskLlitn);
+//           }
+//           ServiceTask serviceTaskEcd = new ServiceTask();
+//           if(!taskServiceCalculate.isExpire(60)){
+//               serviceTaskEcd.setTaskTitle(getContext().getResources().getString(R.string.ecd_title));
+//               serviceTasks.add(serviceTaskEcd);
+//           }
+        } else {
+            for (HomeVisitServiceDataModel homeVisitServiceDataModel : homeVisitServiceDataModels) {
+                if (homeVisitServiceDataModel.getEventType().equalsIgnoreCase(Constants.EventType.MINIMUM_DIETARY_DIVERSITY)) {
+                    serviceTasks.add(ChildUtils.createDiateryFromEvent(context, homeVisitServiceDataModel.getHomeVisitDetails()));
+                } else if (homeVisitServiceDataModel.getEventType().equalsIgnoreCase(Constants.EventType.MUAC)) {
+                    serviceTasks.add(ChildUtils.createMuacFromEvent(context, homeVisitServiceDataModel.getHomeVisitDetails()));
+                }
+            }
+        }
+        return serviceTasks;
     }
 
     @Override
@@ -123,7 +166,7 @@ public class DefaultChildHomeVisitInteractorFlv implements ChildHomeVisitInterac
         // no need to do anything
     }
 
-    private Context getContext() {
+    protected Context getContext() {
         return ChwApplication.getInstance().getApplicationContext();
     }
 }
