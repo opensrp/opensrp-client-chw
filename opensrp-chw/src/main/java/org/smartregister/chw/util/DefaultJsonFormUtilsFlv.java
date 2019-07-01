@@ -28,7 +28,7 @@ import timber.log.Timber;
 
 import static org.smartregister.util.JsonFormUtils.getFieldJSONObject;
 
-public class DefaultJsonFormUtilsFlv implements JsonFormUtils.Flavor {
+public abstract class DefaultJsonFormUtilsFlv implements JsonFormUtils.Flavor {
     public static final String TITLE = "title";
     private HashMap<String, String> JSON_DB_MAP;
 

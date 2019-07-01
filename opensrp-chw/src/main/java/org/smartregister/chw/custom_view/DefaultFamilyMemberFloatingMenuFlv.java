@@ -7,7 +7,7 @@ import timber.log.Timber;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
-public class DefaultFamilyMemberFloatingMenuFlv implements FamilyMemberFloatingMenu.Flavor {
+public abstract class DefaultFamilyMemberFloatingMenuFlv implements FamilyMemberFloatingMenu.Flavor {
 
     @Override
     public void reDraw(FamilyMemberFloatingMenu menu, boolean has_phone) {

@@ -11,7 +11,7 @@ import org.smartregister.family.domain.FamilyEventClient;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DefaultFamilyProfileModelFlv implements FamilyProfileModel.Flavor {
+public abstract class DefaultFamilyProfileModelFlv implements FamilyProfileModel.Flavor {
     @Override
     public void updateWra(FamilyEventClient familyEventClient) {
         Client client = familyEventClient.getClient();

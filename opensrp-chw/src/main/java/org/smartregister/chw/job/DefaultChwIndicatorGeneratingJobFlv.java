@@ -20,7 +20,7 @@ import java.util.Locale;
 
 import timber.log.Timber;
 
-public class DefaultChwIndicatorGeneratingJobFlv implements ChwIndicatorGeneratingJob.Flavor {
+public abstract class DefaultChwIndicatorGeneratingJobFlv implements ChwIndicatorGeneratingJob.Flavor {
     /**
      * Get the latest home visit entries then parses the service JSON details and saves them
      * in the home visit indicator info table for use by indicator queries

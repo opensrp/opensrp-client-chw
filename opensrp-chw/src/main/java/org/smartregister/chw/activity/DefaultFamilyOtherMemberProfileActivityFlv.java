@@ -10,7 +10,7 @@ import org.smartregister.chw.fragment.FamilyCallDialogFragment;
 import org.smartregister.chw.listener.OnClickFloatingMenu;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 
-public class DefaultFamilyOtherMemberProfileActivityFlv implements FamilyOtherMemberProfileActivity.Flavor {
+public abstract class DefaultFamilyOtherMemberProfileActivityFlv implements FamilyOtherMemberProfileActivity.Flavor {
 
     public OnClickFloatingMenu getOnClickFloatingMenu(final Activity activity, final String familyBaseEntityId) {
         return new OnClickFloatingMenu() {

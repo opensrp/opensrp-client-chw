@@ -30,7 +30,7 @@ import static org.smartregister.chw.util.ChildDBConstants.KEY.ILLNESS_ACTION;
 import static org.smartregister.chw.util.ChildDBConstants.KEY.ILLNESS_DATE;
 import static org.smartregister.chw.util.ChildDBConstants.KEY.ILLNESS_DESCRIPTION;
 
-public class DefaultChildHomeVisitInteractorFlv implements ChildHomeVisitInteractor.Flavor {
+public abstract class DefaultChildHomeVisitInteractorFlv implements ChildHomeVisitInteractor.Flavor {
     @Override
     public ArrayList<ServiceTask> getTaskService(CommonPersonObjectClient childClient, boolean isEditMode, Context context) {
         return new ArrayList<>();

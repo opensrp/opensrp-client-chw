@@ -6,7 +6,7 @@ import org.smartregister.chw.util.Constants;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DefaultNavigationModelFlv implements NavigationModel.Flavor {
+public abstract class DefaultNavigationModelFlv implements NavigationModel.Flavor {
 
     private List<NavigationOption> navigationOptions = new ArrayList<>();
 
