@@ -47,7 +47,7 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "ANC card received",
+    "title": "Carnet CPN reçu",
     "fields": [
       {
         "key": "anc_card",
@@ -57,8 +57,12 @@
         "openmrs_data_type": "select one",
         "type": "spinner",
         "image": "form_received_card",
-        "hint": "ANC card received?",
+        "hint": "Carnet CPN reçu?",
         "values": [
+          "Oui",
+          "Non"
+        ],
+        "keys": [
           "Yes",
           "No"
         ],

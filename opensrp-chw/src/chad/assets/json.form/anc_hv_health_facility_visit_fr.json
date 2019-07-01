@@ -47,7 +47,7 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "ANC {0} health facility visit",
+    "title": "Visite CPN {0} à la structure sanitaire",
     "fields": [
       {
         "key": "anc_hf_visit",
@@ -55,13 +55,13 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "160939AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "select one",
-        "label_info_title": "Did the woman attend her ANC {0} visit at the health facility?",
-        "label_info_text": "Whether or not the woman attended her ANC visit at the health facility.",
+        "label_info_title": "La femme à t-elle assisté à sa visite {0} à la structure sanitaire?",
+        "label_info_text": "Si oui ou non La femme à t-elle assisté à sa visite à la structure sanitaire.",
         "type": "spinner",
-        "hint": "Did the woman attend her ANC {0} visit at the health facility?\n\nVisit due date: {1}",
+        "hint": "La femme à t-elle assisté à sa visite {0} à la structure sanitaire? \n\nDate prévu de la visite: {1}",
         "values": [
-          "Yes",
-          "No"
+          "Oui",
+          "Non"
         ],
         "v_required": {
           "value": "true",
@@ -74,11 +74,11 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "159590AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "text",
-        "label_info_title": "Date of visit",
-        "label_info_text": "The date of the last ANC visit the woman attended at the health facility.",
+        "label_info_title": "Date de la visite",
+        "label_info_text": "La date de la dernière visite CPN de la femme visitée à la structure de santé.",
         "type": "date_picker",
-        "label": "Date of visit",
-        "hint": "Date of visit",
+        "label": "Date de la visit",
+        "hint": "Date de la visite",
         "expanded": false,
         "min_date": "today-10y",
         "max_date": "today",
@@ -99,10 +99,10 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "5089AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "edit_text",
-        "label_info_title": "Weight (kg)",
-        "label_info_text": "Weight (in kg) of the woman.",
+        "label_info_title": "Poids (kg)",
+        "label_info_text": "poids (en kg) de la femme.",
         "edit_type": "number",
-        "hint": "Weight (kg)",
+        "hint": "Poids (kg)",
         "v_required": {
           "value": "false",
           "err": "Required"
@@ -129,9 +129,9 @@
         "openmrs_entity_id": "5085AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "edit_text",
         "edit_type": "number",
-        "label_info_title": "Systolic BP (mmHg)",
-        "label_info_text": "Systolic blood pressure of the woman. ",
-        "hint": "Systolic BP (mmHg)",
+        "label_info_title": "Pression systolique (mmHg)",
+        "label_info_text": "Pression systolique de la femme. ",
+        "hint": "Pression systolique (mmHg)",
         "v_min": {
           "value": "0",
           "err": "The value must be greater than or equal to 0"
@@ -158,9 +158,9 @@
         "openmrs_entity_id": "5086AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "edit_text",
         "edit_type": "number",
-        "label_info_title": "Diastolic BP (mmHg)",
-        "label_info_text": "Diastolic blood pressure of the woman. ",
-        "hint": "Diastolic BP (mmHg)",
+        "label_info_title": "Pression diastolique (mmHg)",
+        "label_info_text": "Pression diastolique de la femme. ",
+        "hint": "Pression diastolique (mmHg)",
         "v_min": {
           "value": "0",
           "err": "The value must be greater than or equal to 0"
@@ -187,9 +187,9 @@
         "openmrs_entity_id": "21AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "edit_text",
         "edit_type": "number",
-        "label_info_title": "Haemoglobin level (g/dl)",
+        "label_info_title": "Niveau d'hémoglobine g/dl",
         "label_info_text": "The woman's haemoglobin level (g/dl).",
-        "hint": "Haemoglobin level (g/dl)",
+        "hint": "Niveau d'hémoglobine g/dl",
         "v_required": {
           "value": "false",
           "err": "Required"
@@ -211,9 +211,9 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "104677AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "spinner",
-        "label_info_title": "IFA received?",
+        "label_info_title": "FAF reçu??",
         "label_info_text": "Whether the woman has received IFA tablets.",
-        "hint": "IFA received?",
+        "hint": "FAF reçu??",
         "v_required": {
           "value": "true",
           "err": "Required"
@@ -223,8 +223,8 @@
           "err": ""
         },
         "values": [
-          "Yes",
-          "No"
+          "Oui",
+          "Non"
         ],
         "openmrs_choice_ids": {
           "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -243,7 +243,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "1271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "check_box",
-        "label": "Which tests were done?",
+        "label": "Quels examens ont été administrés?",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
         "exclusive": [
@@ -252,28 +252,28 @@
         "options": [
           {
             "key": "chk_none",
-            "text": "None",
+            "text": "Aucun",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_urine",
-            "text": "Urine analysis",
+            "text": "Analyse urinaire",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "161156AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_hiv",
-            "text": "HIV test",
+            "text": "Dépistage VIH",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1356AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_syphilis",
-            "text": "Syphilis test",
+            "text": "Dépistage Syphilis",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "299AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"

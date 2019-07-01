@@ -1,6 +1,6 @@
 {
   "count": "1",
-  "encounter_type": "ANC Registration",
+  "encounter_type": "Home Visit - Observations Illness",
   "entity_id": "",
   "metadata": {
     "start": {
@@ -47,24 +47,57 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "ANC card received",
+    "title": "Observations et maladies - optionnel",
     "fields": [
       {
-        "key": "anc_card",
+        "key": "date_of_illness",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "1719AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "1730AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "date_picker",
+        "hint": "Date",
+        "expanded": false,
+        "max_date": "today",
+        "min_date": "today-10y",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter illness date"
+        }
+      },
+      {
+        "key": "illness_description",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1390AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_data_type": "text",
+        "type": "edit_text",
+        "hint": "Description",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter description"
+        }
+      },
+      {
+        "key": "action_taken",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "164378AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "image": "form_received_card",
-        "hint": "ANC card received?",
+        "hint": "Action prise",
+        "v_required": {
+          "value": "true",
+          "err": "Please select action"
+        },
         "values": [
-          "Yes",
-          "No"
+          "Géré",
+          "Reféré",
+          "Aucun action prise"
         ],
         "openmrs_choice_ids": {
-          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          "Managed": "140959AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Referred": "1648AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "No action taken": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         }
       }
     ]
