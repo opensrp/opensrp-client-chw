@@ -87,10 +87,10 @@ public abstract class DefaultAncHomeVisitInteractorFlv implements AncHomeVisitIn
             evaluateTTImmunization(view, actionList, memberObject, vaccineTaskModel, context);
             evaluateIPTP(view, actionList, memberObject, context);
             evaluateObservation(actionList, context);
+        } catch (BaseAncHomeVisitAction.ValidationException e) {
+            throw(e);
         } catch (Exception e) {
-            if (e instanceof BaseAncHomeVisitAction.ValidationException) {
-                throw ((BaseAncHomeVisitAction.ValidationException) e);
-            }
+            Timber.e(e);
         }
 
         return actionList;

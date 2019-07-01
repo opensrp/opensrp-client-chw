@@ -67,9 +67,9 @@ public class AncHomeVisitInteractorFlvTest {
     public void testCalculateActions() throws Exception {
         PowerMockito.mockStatic(ImmunizationLibrary.class);
         PowerMockito.mockStatic(Utils.class);
-        PowerMockito.when(Utils.getLocalForm(ArgumentMatchers.anyString())).thenReturn("anc_hv_anc_iptp_sp");
+        when(Utils.getLocalForm(ArgumentMatchers.anyString())).thenReturn("anc_hv_anc_iptp_sp");
 
-        PowerMockito.when(immunizationLibrary.recurringServiceRecordRepository()).thenReturn(recurringServiceRecordRepository);
+        when(immunizationLibrary.recurringServiceRecordRepository()).thenReturn(recurringServiceRecordRepository);
         when(ImmunizationLibrary.getInstance()).thenReturn(immunizationLibrary);
 
         AncHomeVisitInteractorFlv flv = PowerMockito.spy(new AncHomeVisitInteractorFlv());
