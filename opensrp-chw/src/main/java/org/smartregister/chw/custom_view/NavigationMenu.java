@@ -1,10 +1,15 @@
 package org.smartregister.chw.custom_view;
 
+import android.Manifest;
 import android.app.Activity;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.Configuration;
+import android.support.annotation.NonNull;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,18 +26,25 @@ import android.widget.Toast;
 
 import com.github.ybq.android.spinkit.style.FadingCircle;
 
+import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.R;
 import org.smartregister.chw.adapter.NavigationAdapter;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.contract.NavigationContract;
+import org.smartregister.chw.model.NavigationOption;
 import org.smartregister.chw.presenter.NavigationPresenter;
+import org.smartregister.chw.util.Constants;
 import org.smartregister.domain.FetchStatus;
+import org.smartregister.p2p.activity.P2pModeSelectActivity;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
+import org.smartregister.util.LangUtils;
+import org.smartregister.util.PermissionUtils;
 
 import java.lang.ref.WeakReference;
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 public class NavigationMenu implements NavigationContract.View, SyncStatusBroadcastReceiver.SyncStatusListener {
@@ -51,6 +63,10 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
 
     private NavigationContract.Presenter mPresenter;
     private static WeakReference<Activity> activityWeakReference;
+    private View parentView;
+    private List<NavigationOption> navigationOptions;
+
+    private Flavour flavour = new NavigationMenuFlv();
 
 
     private NavigationMenu() {
@@ -78,11 +94,12 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
         return navigationAdapter;
     }
 
-    private void init(Activity activity, View parentView, Toolbar myToolbar) {
+    private void init(Activity activity, View myParentView, Toolbar myToolbar) {
         // parentActivity = activity;
         try {
             setParentView(activity, parentView);
             toolbar = myToolbar;
+            parentView = myParentView;
             mPresenter = new NavigationPresenter(this);
             prepareViews(activity);
         } catch (Exception e) {
@@ -158,7 +175,9 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
         registerNavigation(activity);
         registerLogout(activity);
         registerSync(activity);
+        registerLanguageSwitcher(activity);
 
+        registerDeviceToDeviceSync(activity);
         // update all actions
         mPresenter.refreshLastSync();
         mPresenter.refreshNavigationCount(activity);
@@ -185,8 +204,9 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
     private void registerNavigation(Activity parentActivity) {
         if (recyclerView != null) {
 
+            navigationOptions = mPresenter.getOptions();
             if (navigationAdapter == null) {
-                navigationAdapter = new NavigationAdapter(mPresenter.getOptions(), parentActivity);
+                navigationAdapter = new NavigationAdapter(navigationOptions, parentActivity);
             }
 
             RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(parentActivity);
@@ -225,6 +245,77 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
         ivSync.setOnClickListener(syncClicker);
 
         refreshSyncProgressSpinner();
+    }
+
+    private void registerLanguageSwitcher(final Activity context) {
+
+        View rlIconLang = rootView.findViewById(R.id.rlIconLang);
+        final TextView tvLang = rootView.findViewById(R.id.tvLang);
+
+        final String[] languages = flavour.getSupportedLanguages();
+        Locale current = context.getResources().getConfiguration().locale;
+        tvLang.setText(StringUtils.capitalize(current.getDisplayLanguage()));
+
+        rlIconLang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setTitle(context.getString(R.string.choose_language));
+                builder.setItems(languages, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String lang = languages[which];
+                        Locale LOCALE;
+                        switch (lang) {
+                            case "English":
+                                LOCALE = Locale.ENGLISH;
+                                break;
+                            case "Française":
+                                LOCALE = Locale.FRENCH;
+                                break;
+                            case "Kiswahili":
+                                LOCALE = new Locale("sw");
+                                break;
+                            default:
+                                LOCALE = Locale.ENGLISH;
+                                break;
+                        }
+                        tvLang.setText(languages[which]);
+                        LangUtils.saveLanguage(context.getApplicationContext(), LOCALE.getLanguage());
+
+                        // destroy current instance
+                        drawer.closeDrawers();
+                        instance = null;
+                        Intent intent = context.getIntent();
+                        context.finish();
+                        context.startActivity(intent);
+                        ChwApplication.getInstance().notifyAppContextChange();
+
+                    }
+                });
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
+        });
+    }
+
+    private void registerDeviceToDeviceSync(@NonNull final Activity activity) {
+        rootView.findViewById(R.id.rlIconDevice)
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        startP2PActivity(activity);
+                    }
+                });
+    }
+
+    public void startP2PActivity(@NonNull Activity activity) {
+        if (PermissionUtils.isPermissionGranted(activity
+                , new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}
+                , Constants.RQ_CODE.STORAGE_PERMISIONS)) {
+            activity.startActivity(new Intent(activity, P2pModeSelectActivity.class));
+        }
     }
 
     public boolean onBackPressed() {
@@ -309,4 +400,7 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
         }
     }
 
+    interface Flavour {
+        String[] getSupportedLanguages();
+    }
 }

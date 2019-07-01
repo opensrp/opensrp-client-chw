@@ -49,7 +49,7 @@ public class FamilyProfilePresenter extends BaseFamilyProfilePresenter implement
 
     @Override
     public void startFormForEdit(CommonPersonObjectClient client) {
-        JSONObject form = JsonFormUtils.getAutoPopulatedJsonEditFormString(Constants.JSON_FORM.FAMILY_DETAILS_REGISTER, getView().getApplicationContext(), client, Utils.metadata().familyRegister.updateEventType);
+        JSONObject form = JsonFormUtils.getAutoPopulatedJsonEditFormString(Constants.JSON_FORM.getFamilyDetailsRegister(), getView().getApplicationContext(), client, Utils.metadata().familyRegister.updateEventType);
         try {
             getView().startFormActivity(form);
         } catch (Exception e) {
