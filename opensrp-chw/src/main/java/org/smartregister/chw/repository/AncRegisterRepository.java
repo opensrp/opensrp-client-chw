@@ -4,11 +4,9 @@ import net.sqlcipher.Cursor;
 import net.sqlcipher.database.SQLiteDatabase;
 
 import org.smartregister.chw.anc.util.Constants;
-import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.repository.Repository;
-import org.smartregister.service.AlertService;
 
 import java.util.HashMap;
 
