@@ -4,4 +4,6 @@
     <string name="nav_logo">Liberia CFC Monitor</string>
     <string name="menu_anc">ANC Clients</string>
     <string name="menu_pnc">PNC Clients</string>
+
+    <string name="counseling_visit">Visit</string>
 </resources>

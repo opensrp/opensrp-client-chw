@@ -210,14 +210,14 @@ public class JobAidsDashboardFragment extends Fragment implements ReportContract
 
         visualizationsViewGroup.removeAllViews();
         visualizationsViewGroup.addView(childrenU5View);
+        visualizationsViewGroup.addView(children_0_24_months_up_to_date_vaccinations);
+        visualizationsViewGroup.addView(children_0_5__months_exclusive_breastfeeding);
+        visualizationsViewGroup.addView(children_6_59_months_received_vitamin_A);
+        visualizationsViewGroup.addView(children_12_59_months_dewormed);
+        visualizationsViewGroup.addView(children_6_23_months_up_to_date_mnp);
+        visualizationsViewGroup.addView(children_0_59_WithBirthCertificateView);
         visualizationsViewGroup.addView(deceased_0_11_View);
         visualizationsViewGroup.addView(deceased_12_59_View);
-        visualizationsViewGroup.addView(children_0_59_WithBirthCertificateView);
-        visualizationsViewGroup.addView(children_12_59_months_dewormed);
-        visualizationsViewGroup.addView(children_6_59_months_received_vitamin_A);
-        visualizationsViewGroup.addView(children_0_5__months_exclusive_breastfeeding);
-        visualizationsViewGroup.addView(children_6_23_months_up_to_date_mnp);
-        visualizationsViewGroup.addView(children_0_24_months_up_to_date_vaccinations);
 
         progressBar.setVisibility(View.GONE);
     }
