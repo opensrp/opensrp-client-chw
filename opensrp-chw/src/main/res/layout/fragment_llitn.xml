@@ -40,7 +40,7 @@
                 android:layout_toRightOf="@+id/close"
                 android:paddingLeft="0dp"
                 android:paddingStart="0dp"
-                android:text="@string/muac_title"
+                android:text="@string/llitn_title"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/activity_title_size" />

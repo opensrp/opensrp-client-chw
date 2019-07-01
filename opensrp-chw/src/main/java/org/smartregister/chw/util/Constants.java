@@ -131,6 +131,7 @@ public class Constants {
             private static final String MALARIA = "anc_hv_malaria";
             private static final String OBSERVATION_AND_ILLNESS = "anc_hv_observations";
             private static final String REMARKS_AND_COMMENTS = "anc_hv_remarks_and_comments";
+            private static final String EARLY_CHILDHOOD_DEVELOPMENT = "early_childhood_development";
 
             public static String getDangerSigns() {
                 return Utils.getLocalForm(DANGER_SIGNS);
@@ -182,6 +183,10 @@ public class Constants {
 
             public static String getRemarksAndComments() {
                 return Utils.getLocalForm(REMARKS_AND_COMMENTS);
+            }
+
+            public static String getEarlyChildhoodDevelopment() {
+                return Utils.getLocalForm(EARLY_CHILDHOOD_DEVELOPMENT);
             }
         }
     }
