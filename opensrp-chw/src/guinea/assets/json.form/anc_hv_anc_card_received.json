@@ -47,7 +47,7 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "ANC card task",
+    "title": "ANC card received",
     "fields": [
       {
         "key": "anc_card",
@@ -63,8 +63,8 @@
           "No"
         ],
         "openmrs_choice_ids": {
-          "Normal": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Moderate": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         }
       }
     ]

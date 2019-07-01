@@ -61,7 +61,7 @@
         "max_date": "today",
         "v_required": {
           "value": "true",
-          "err": "Please enter the date of birth"
+          "err": "Please enter the date of immunization"
         }
       }
     ]

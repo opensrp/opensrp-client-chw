@@ -1,6 +1,7 @@
 package org.smartregister.chw.activity;
 
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -11,14 +12,18 @@ import com.vijay.jsonwizard.domain.Form;
 
 import org.jeasy.rules.api.Rules;
 import org.joda.time.DateTime;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.AncLibrary;
 import org.smartregister.chw.anc.activity.BaseAncMemberProfileActivity;
 import org.smartregister.chw.anc.domain.MemberObject;
+import org.smartregister.chw.anc.presenter.BaseAncMemberProfilePresenter;
 import org.smartregister.chw.anc.util.Constants;
+import org.smartregister.chw.anc.util.DBConstants;
 import org.smartregister.chw.anc.util.Util;
 import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.chw.interactor.AncMemberProfileInteractor;
 import org.smartregister.chw.interactor.ChildProfileInteractor;
 import org.smartregister.chw.interactor.FamilyProfileInteractor;
 import org.smartregister.chw.model.FamilyProfileModel;
@@ -26,6 +31,7 @@ import org.smartregister.chw.presenter.AncMemberProfilePresenter;
 import org.smartregister.chw.util.AncHomeVisitUtil;
 import org.smartregister.chw.util.AncVisit;
 import org.smartregister.clientandeventmodel.Event;
+import org.smartregister.commonregistry.AllCommonsRepository;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
@@ -37,6 +43,8 @@ import org.smartregister.repository.AllSharedPreferences;
 
 import timber.log.Timber;
 
+import static org.smartregister.util.JsonFormUtils.fields;
+import static org.smartregister.util.JsonFormUtils.getFieldJSONObject;
 import static org.smartregister.util.Utils.getAllSharedPreferences;
 
 public class AncMemberProfileActivity extends BaseAncMemberProfileActivity {
@@ -44,9 +52,11 @@ public class AncMemberProfileActivity extends BaseAncMemberProfileActivity {
     private static FamilyProfileContract.Interactor profileInteractor;
     private static FamilyProfileContract.Model profileModel;
 
-    public static void startMe(Activity activity, MemberObject memberObject) {
+    public static void startMe(Activity activity, MemberObject memberObject, String familyHeadName, String familyHeadPhoneNumber) {
         Intent intent = new Intent(activity, AncMemberProfileActivity.class);
         intent.putExtra(Constants.ANC_MEMBER_OBJECTS.MEMBER_PROFILE_OBJECT, memberObject);
+        intent.putExtra(Constants.ANC_MEMBER_OBJECTS.FAMILY_HEAD_NAME, familyHeadName);
+        intent.putExtra(Constants.ANC_MEMBER_OBJECTS.FAMILY_HEAD_PHONE, familyHeadPhoneNumber);
         profileInteractor = new FamilyProfileInteractor();
         profileModel = new FamilyProfileModel(memberObject.getFamilyName());
         activity.startActivity(intent);
@@ -85,7 +95,7 @@ public class AncMemberProfileActivity extends BaseAncMemberProfileActivity {
                 return true;
             case R.id.action_pregnancy_out_come:
                 AncRegisterActivity.startAncRegistrationActivity(AncMemberProfileActivity.this, MEMBER_OBJECT.getBaseEntityId(), null,
-                        org.smartregister.chw.util.Constants.JSON_FORM.getPregnancyOutcome(), AncLibrary.getInstance().getUniqueIdRepository().getNextUniqueId().getOpenmrsId());
+                        org.smartregister.chw.util.Constants.JSON_FORM.getPregnancyOutcome(), AncLibrary.getInstance().getUniqueIdRepository().getNextUniqueId().getOpenmrsId(), null);
                 return true;
             default:
                 break;
@@ -133,7 +143,12 @@ public class AncMemberProfileActivity extends BaseAncMemberProfileActivity {
     }
 
     public AncMemberProfilePresenter ancMemberProfilePresenter() {
-        return new AncMemberProfilePresenter(this, MEMBER_OBJECT);
+        return new AncMemberProfilePresenter(this, new AncMemberProfileInteractor(), MEMBER_OBJECT);
+    }
+
+    @Override
+    protected void registerPresenter() {
+        presenter = new BaseAncMemberProfilePresenter(this, new AncMemberProfileInteractor(), MEMBER_OBJECT);
     }
 
     @Override
@@ -152,6 +167,7 @@ public class AncMemberProfileActivity extends BaseAncMemberProfileActivity {
 
     @Override
     public void onClick(View view) {
+        super.onClick(view);
 
         switch (view.getId()) {
             case R.id.textview_record_anc_visit:
@@ -186,6 +202,19 @@ public class AncMemberProfileActivity extends BaseAncMemberProfileActivity {
                             AllSharedPreferences allSharedPreferences = getAllSharedPreferences();
                             Event baseEvent = org.smartregister.chw.anc.util.JsonFormUtils.processJsonForm(allSharedPreferences, jsonString, Constants.TABLES.ANC_MEMBERS);
                             Util.processEvent(allSharedPreferences, baseEvent);
+                            AllCommonsRepository commonsRepository = ChwApplication.getInstance().getAllCommonsRepository(org.smartregister.chw.util.Constants.TABLE_NAME.ANC_MEMBER);
+
+                            JSONArray field = fields(form);
+                            JSONObject phoneNumberObject = getFieldJSONObject(field, DBConstants.KEY.PHONE_NUMBER);
+                            String phoneNumber = phoneNumberObject.getString(org.smartregister.chw.util.JsonFormUtils.VALUE);
+                            String baseEntityId = baseEvent.getBaseEntityId();
+                            if (commonsRepository != null) {
+                                ContentValues values = new ContentValues();
+                                values.put(DBConstants.KEY.PHONE_NUMBER, phoneNumber);
+                                ChwApplication.getInstance().getRepository().getWritableDatabase().update(org.smartregister.chw.util.Constants.TABLE_NAME.ANC_MEMBER, values, DBConstants.KEY.BASE_ENTITY_ID + " = ?  ", new String[]{baseEntityId});
+
+                            }
+
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -197,4 +226,28 @@ public class AncMemberProfileActivity extends BaseAncMemberProfileActivity {
 
         }
     }
+
+    @Override
+    public void openMedicalHistory() {
+        AncMedicalHistoryActivity.startMe(this, MEMBER_OBJECT);
+    }
+
+    @Override
+    public void openUpcomingService() {
+        AncUpcomingServicesActivity.startMe(this, MEMBER_OBJECT);
+    }
+
+    @Override
+    public void openFamilyDueServices() {
+        Intent intent = new Intent(this, FamilyProfileActivity.class);
+
+        intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID, MEMBER_OBJECT.getFamilyBaseEntityId());
+        intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.FAMILY_HEAD, MEMBER_OBJECT.getFamilyHead());
+        intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.PRIMARY_CAREGIVER, MEMBER_OBJECT.getPrimaryCareGiver());
+        intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.FAMILY_NAME, MEMBER_OBJECT.getFamilyName());
+
+        intent.putExtra(org.smartregister.chw.util.Constants.INTENT_KEY.SERVICE_DUE, true);
+        startActivity(intent);
+    }
+
 }

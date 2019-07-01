@@ -11,6 +11,7 @@ public class NavigationModel implements NavigationContract.Model {
 
     private static NavigationModel instance;
     private String TAG = NavigationModel.class.getCanonicalName();
+    private static Flavor flavor = new NavigationModelFlv();
 
     public static NavigationModel getInstance() {
         if (instance == null)
@@ -21,7 +22,7 @@ public class NavigationModel implements NavigationContract.Model {
 
     @Override
     public List<NavigationOption> getNavigationItems() {
-        return NavigationModelFlv.getNavigationItems();
+        return flavor.getNavigationItems();
     }
 
     @Override
@@ -36,4 +37,7 @@ public class NavigationModel implements NavigationContract.Model {
         return res;
     }
 
+    interface Flavor {
+        List<NavigationOption> getNavigationItems();
+    }
 }

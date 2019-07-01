@@ -205,6 +205,7 @@ public class JobAidsDashboardFragment extends Fragment implements ReportContract
 
         pieChartIndicatorVisualizationData = getPieChartVisualization(children_0_24_UpToDateVaccinations, children_0_24_OverdueVaccinations, DashboardUtil.countOfChildren_0_24UptoDateVaccinations,
                 DashboardUtil.countOfChildren_0_24OverdueVaccinations, R.string.children_0_24_months_upto_date_vaccinations);
+        pieChartIndicatorVisualizationData.setIndicatorNote(getString(R.string.opv_0_not_included));
 
         View children_0_24_months_up_to_date_vaccinations = getIndicatorView(pieChartIndicatorVisualizationData, pieChartFactory);
 

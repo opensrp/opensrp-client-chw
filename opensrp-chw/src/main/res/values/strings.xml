@@ -213,6 +213,8 @@
     <string name="log_out_as">Log out as</string>
     <string name="job_aids">Job Aids</string>
     <string name="refresh_indicators">Refresh indicators</string>
+    <string name="indicators_udpating">Updating&#8230;</string>
+    <string name="indicators_updating_complete">Update complete</string>
     <string name="total_under_5_children_label">Total U5 children</string>
     <string name="deceased_children_0_11_months">Children (0&#8211;11 months) who died in the last year</string>
     <string name="deceased_children_12_59_months">Children (12&#8211;59 months) who died in the last year</string>
@@ -320,5 +322,33 @@
 
     <string name="device_to_device">Device-to-device sync</string>
     <string name="choose_language">Choose language</string>
+    <string name="minimum_dietary_title">Minimum dietary diversity </string>
+    <string name="minimum_question_lebel">Has the child received, in the previous 24 hours, any animal products (e.g. eggs, liver, milk) or fruit?</string>
+    <string name="minimum_dietary_choice_1">0 - no animal products or fruit</string>
+    <string name="minimum_dietary_choice_2">1 - one animal product OR one fruit</string>
+    <string name="minimum_dietary_choice_3">2 - one animal product AND one fruit</string>
+    <string name="muac_title">Mid-upper arm circumference (MUAC)</string>
+    <string name="muac_question_label">What is the color of the MUAC tape for the child?</string>
+    <string name="muac_choice_1">Green</string>
+    <string name="muac_choice_2">Yellow</string>
+    <string name="muac_choice_3">Red</string>
+    <string name="llitn_title">Sleeping under a LLITN</string>
+    <string name="ecd_title">Early childhood development (ECD)</string>
 
+    <string name="counseling_visit">Visit</string>
+
+    <string name="anc_last_visit">LAST VISIT</string>
+    <string name="anc_health_facility_visits">ANC HEALTH FACILITY VISITS</string>
+    <string name="anc_card">ANC CARD</string>
+    <string name="anc_tt_immunization">TT IMMUNIZATION</string>
+    <string name="anc_iptp_sp">IPTp-SP DOSE</string>
+
+    <string name="days_ago">{0} days ago</string>
+    <string name="vaccines_done_date">{0} - done {1}</string>
+    <string name="anc_visit_date">ANC visit {0}: {1}</string>
+    <string name="weight_in_kgs">Weight: {0} kgs</string>
+    <string name="bp_in_mmhg">BP: {0}/{1} mmHg</string>
+    <string name="hb_level_in_g_dl">Hb level: {0} g/dl</string>
+    <string name="ifa_received_status">IFA received: {0}</string>
+    <string name="tests_done_details">Tests done: {0}</string>
 </resources>

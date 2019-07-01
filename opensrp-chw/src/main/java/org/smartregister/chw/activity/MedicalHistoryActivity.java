@@ -22,6 +22,7 @@ import org.smartregister.chw.adapter.GrowthAdapter;
 import org.smartregister.chw.adapter.VaccineAdapter;
 import org.smartregister.chw.contract.MedicalHistoryContract;
 import org.smartregister.chw.presenter.MedicalHistoryPresenter;
+import org.smartregister.chw.util.ChildDBConstants;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
@@ -30,6 +31,8 @@ import org.smartregister.view.activity.SecuredActivity;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
+
+import static org.smartregister.util.Utils.getValue;
 
 public class MedicalHistoryActivity extends SecuredActivity implements MedicalHistoryContract.View {
     private static final String TAG = MedicalHistoryActivity.class.getCanonicalName();
@@ -128,6 +131,7 @@ public class MedicalHistoryActivity extends SecuredActivity implements MedicalHi
         }
         textViewLastVisit.setText(getString(R.string.medical_last_visit, Utils.firstCharacterUppercase(lastVisitDays)));
         initializePresenter();
+        generateHomeVisitServiceList();
         setInitialVaccineList();
         fetchFullYImmunization();
         fetchGrowthNutrition();
@@ -137,6 +141,12 @@ public class MedicalHistoryActivity extends SecuredActivity implements MedicalHi
 
     private void fetchFullYImmunization() {
         presenter.fetchFullyImmunization(dateOfBirth);
+    }
+
+    private void generateHomeVisitServiceList() {
+        String lastHomeVisitStr = getValue(childClient, ChildDBConstants.KEY.LAST_HOME_VISIT, false);
+        long lastHomeVisit= TextUtils.isEmpty(lastHomeVisitStr)?0:Long.parseLong(lastHomeVisitStr);
+        presenter.generateHomeVisitServiceList(lastHomeVisit);
     }
 
     private void setInitialVaccineList() {
