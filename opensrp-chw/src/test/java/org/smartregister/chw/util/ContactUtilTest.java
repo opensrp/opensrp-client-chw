@@ -8,7 +8,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
@@ -24,7 +23,6 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import static junit.framework.TestCase.assertNotNull;
-import static junit.framework.TestCase.assertTrue;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(application = ChwApplication.class, constants = BuildConfig.class, sdk = 22)
