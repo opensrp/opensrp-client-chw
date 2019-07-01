@@ -297,7 +297,7 @@ dependencies {
 
 
 task jacocoTestReport(type: JacocoReport, dependsOn: [
-        'testBaDebugUnitTest', 'createBaDebugCoverageReport',
+        //'testBaDebugUnitTest', 'createBaDebugCoverageReport',
         'testWcaroDebugUnitTest', 'createWcaroDebugCoverageReport'
 ]) {
 
