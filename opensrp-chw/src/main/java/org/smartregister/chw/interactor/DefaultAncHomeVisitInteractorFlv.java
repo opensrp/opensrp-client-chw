@@ -78,14 +78,20 @@ public abstract class DefaultAncHomeVisitInteractorFlv implements AncHomeVisitIn
             vaccineTaskModel = getWomanVaccine(memberObject.getBaseEntityId(), lastMenstrualPeriod, getNotGivenVaccines());
         }
 
-        evaluateDangerSigns(actionList, context);
-        evaluateANCCounseling(actionList, memberObject, dateMap, context);
-        evaluateSleepingUnderLLITN(view, actionList, context);
-        evaluateANCCard(view, actionList, context);
-        evaluateHealthFacilityVisit(actionList, memberObject, dateMap, context);
-        evaluateTTImmunization(view, actionList, memberObject, vaccineTaskModel, context);
-        evaluateIPTP(view, actionList, memberObject, context);
-        evaluateObservation(actionList, context);
+        try {
+            evaluateDangerSigns(actionList, context);
+            evaluateANCCounseling(actionList, memberObject, dateMap, context);
+            evaluateSleepingUnderLLITN(view, actionList, context);
+            evaluateANCCard(view, actionList, context);
+            evaluateHealthFacilityVisit(actionList, memberObject, dateMap, context);
+            evaluateTTImmunization(view, actionList, memberObject, vaccineTaskModel, context);
+            evaluateIPTP(view, actionList, memberObject, context);
+            evaluateObservation(actionList, context);
+        } catch (Exception e) {
+            if (e instanceof BaseAncHomeVisitAction.ValidationException) {
+                throw ((BaseAncHomeVisitAction.ValidationException) e);
+            }
+        }
 
         return actionList;
     }
@@ -123,7 +129,7 @@ public abstract class DefaultAncHomeVisitInteractorFlv implements AncHomeVisitIn
         return jsonObject;
     }
 
-    private void evaluateDangerSigns(LinkedHashMap<String, BaseAncHomeVisitAction> actionList, final Context context) throws BaseAncHomeVisitAction.ValidationException {
+    private void evaluateDangerSigns(LinkedHashMap<String, BaseAncHomeVisitAction> actionList, final Context context) throws Exception {
         final BaseAncHomeVisitAction ba = new BaseAncHomeVisitAction(context.getString(R.string.anc_home_visit_danger_signs), "", false, null,
                 Constants.JSON_FORM.ANC_HOME_VISIT.getDangerSigns());
         ba.setAncHomeVisitActionHelper(new BaseAncHomeVisitAction.AncHomeVisitActionHelper() {
@@ -170,7 +176,7 @@ public abstract class DefaultAncHomeVisitInteractorFlv implements AncHomeVisitIn
         return stringBuilder.toString();
     }
 
-    private void evaluateANCCounseling(LinkedHashMap<String, BaseAncHomeVisitAction> actionList, MemberObject memberObject, Map<Integer, LocalDate> dateMap, final Context context) throws BaseAncHomeVisitAction.ValidationException {
+    private void evaluateANCCounseling(LinkedHashMap<String, BaseAncHomeVisitAction> actionList, MemberObject memberObject, Map<Integer, LocalDate> dateMap, final Context context) throws Exception {
         final BaseAncHomeVisitAction ba = new BaseAncHomeVisitAction(context.getString(R.string.anc_home_visit_counseling), "", false, null,
                 Constants.JSON_FORM.ANC_HOME_VISIT.getAncCounseling());
         // open the form and inject the values
@@ -279,7 +285,7 @@ public abstract class DefaultAncHomeVisitInteractorFlv implements AncHomeVisitIn
         return stringBuilder.toString();
     }
 
-    private void evaluateSleepingUnderLLITN(BaseAncHomeVisitContract.View view, LinkedHashMap<String, BaseAncHomeVisitAction> actionList, Context context) throws BaseAncHomeVisitAction.ValidationException {
+    private void evaluateSleepingUnderLLITN(BaseAncHomeVisitContract.View view, LinkedHashMap<String, BaseAncHomeVisitAction> actionList, Context context) throws Exception {
         final BaseAncHomeVisitAction ba = new BaseAncHomeVisitAction(context.getString(R.string.anc_home_visit_sleeping_under_llitn_net), "", false,
                 BaseAncHomeVisitFragment.getInstance(view, Constants.JSON_FORM.ANC_HOME_VISIT.getSleepingUnderLlitn(), null, null),
                 null);
@@ -314,7 +320,7 @@ public abstract class DefaultAncHomeVisitInteractorFlv implements AncHomeVisitIn
 
     }
 
-    private void evaluateANCCard(BaseAncHomeVisitContract.View view, LinkedHashMap<String, BaseAncHomeVisitAction> actionList, Context context) throws BaseAncHomeVisitAction.ValidationException {
+    private void evaluateANCCard(BaseAncHomeVisitContract.View view, LinkedHashMap<String, BaseAncHomeVisitAction> actionList, Context context) throws Exception {
         final BaseAncHomeVisitAction ba = new BaseAncHomeVisitAction(context.getString(R.string.anc_home_visit_anc_card_received), "", false,
                 BaseAncHomeVisitFragment.getInstance(view, Constants.JSON_FORM.ANC_HOME_VISIT.getAncCardReceived(), null, null),
                 null);
@@ -348,7 +354,7 @@ public abstract class DefaultAncHomeVisitInteractorFlv implements AncHomeVisitIn
         actionList.put(context.getString(R.string.anc_home_visit_anc_card_received), ba);
     }
 
-    private void evaluateHealthFacilityVisit(LinkedHashMap<String, BaseAncHomeVisitAction> actionList, final MemberObject memberObject, Map<Integer, LocalDate> dateMap, final Context context) throws BaseAncHomeVisitAction.ValidationException {
+    private void evaluateHealthFacilityVisit(LinkedHashMap<String, BaseAncHomeVisitAction> actionList, final MemberObject memberObject, Map<Integer, LocalDate> dateMap, final Context context) throws Exception {
 
         String visit = MessageFormat.format(context.getString(R.string.anc_home_visit_facility_visit), memberObject.getConfirmedContacts() + 1);
         final BaseAncHomeVisitAction ba = new BaseAncHomeVisitAction(visit, "", false, null, Constants.JSON_FORM.ANC_HOME_VISIT.getHealthFacilityVisit());
@@ -479,7 +485,7 @@ public abstract class DefaultAncHomeVisitInteractorFlv implements AncHomeVisitIn
         return stringBuilder.toString();
     }
 
-    private void evaluateTTImmunization(BaseAncHomeVisitContract.View view, LinkedHashMap<String, BaseAncHomeVisitAction> actionList, final MemberObject memberObject, VaccineTaskModel vaccineTaskModel, final Context context) throws BaseAncHomeVisitAction.ValidationException {
+    private void evaluateTTImmunization(BaseAncHomeVisitContract.View view, LinkedHashMap<String, BaseAncHomeVisitAction> actionList, final MemberObject memberObject, VaccineTaskModel vaccineTaskModel, final Context context) throws Exception {
 
         // if there are no pending vaccines
         if (vaccineTaskModel == null || vaccineTaskModel.getScheduleList().size() < 1) {
@@ -574,7 +580,7 @@ public abstract class DefaultAncHomeVisitInteractorFlv implements AncHomeVisitIn
         }
     }
 
-    private BaseAncHomeVisitAction evaluateTTImmunizationPreExec(BaseAncHomeVisitContract.View view, String curTitle, String formName, final MemberObject memberObject, String iteration) throws BaseAncHomeVisitAction.ValidationException {
+    private BaseAncHomeVisitAction evaluateTTImmunizationPreExec(BaseAncHomeVisitContract.View view, String curTitle, String formName, final MemberObject memberObject, String iteration) throws Exception {
         // open the form and inject the values
 
         try {
@@ -598,7 +604,7 @@ public abstract class DefaultAncHomeVisitInteractorFlv implements AncHomeVisitIn
         return null;
     }
 
-    private void evaluateIPTP(BaseAncHomeVisitContract.View view, LinkedHashMap<String, BaseAncHomeVisitAction> actionList, MemberObject memberObject, final Context context) throws BaseAncHomeVisitAction.ValidationException {
+    private void evaluateIPTP(BaseAncHomeVisitContract.View view, LinkedHashMap<String, BaseAncHomeVisitAction> actionList, MemberObject memberObject, final Context context) throws Exception {
         // if there are no pending vaccines
 
         DateTime lmp = DateTimeFormat.forPattern("dd-MM-yyyy").parseDateTime(memberObject.getLastMenstrualPeriod());
@@ -690,7 +696,7 @@ public abstract class DefaultAncHomeVisitInteractorFlv implements AncHomeVisitIn
         }
     }
 
-    private BaseAncHomeVisitAction evaluateIPTPPreExec(BaseAncHomeVisitContract.View view, String curTitle, String formName, final MemberObject memberObject, String iteration) throws BaseAncHomeVisitAction.ValidationException {
+    private BaseAncHomeVisitAction evaluateIPTPPreExec(BaseAncHomeVisitContract.View view, String curTitle, String formName, final MemberObject memberObject, String iteration) throws Exception {
         // open the form and inject the values
 
         try {
@@ -714,7 +720,7 @@ public abstract class DefaultAncHomeVisitInteractorFlv implements AncHomeVisitIn
         return null;
     }
 
-    private void evaluateObservation(LinkedHashMap<String, BaseAncHomeVisitAction> actionList, final Context context) throws BaseAncHomeVisitAction.ValidationException {
+    private void evaluateObservation(LinkedHashMap<String, BaseAncHomeVisitAction> actionList, final Context context) throws Exception {
 
         final BaseAncHomeVisitAction ba = new BaseAncHomeVisitAction(context.getString(R.string.anc_home_visit_observations_n_illnes), "", true, null,
                 Constants.JSON_FORM.ANC_HOME_VISIT.getObservationAndIllness());
@@ -748,7 +754,7 @@ public abstract class DefaultAncHomeVisitInteractorFlv implements AncHomeVisitIn
         });
     }
 
-    private VaccineTaskModel getWomanVaccine(String baseEntityID, DateTime lmpDate, List<VaccineWrapper> notDoneVaccines) {
+    public VaccineTaskModel getWomanVaccine(String baseEntityID, DateTime lmpDate, List<VaccineWrapper> notDoneVaccines) {
         AlertService alertService = ChwApplication.getInstance().getContext().alertService();
         VaccineRepository vaccineRepository = ChwApplication.getInstance().vaccineRepository();
 
