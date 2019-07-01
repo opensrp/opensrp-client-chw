@@ -6,7 +6,6 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.powermock.reflect.Whitebox;
 import org.smartregister.chw.BaseUnitTest;
 
 import java.lang.reflect.Field;
@@ -18,7 +17,7 @@ public class ChildUtilsTest extends BaseUnitTest {
 
 
     @Mock
-    ChildUtils.Flavor childUtilsFlv;
+    private ChildUtils.Flavor childUtilsFlv;
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
