@@ -174,6 +174,8 @@
         "openmrs_entity_id": "165310AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "select one",
         "type": "spinner",
+        "label_info_title": "Did the mother receive counselling",
+        "label_info_text": "Did the mother receive counselling on danger signs at the health facility recently?",
         "hint": "Did the mother receive counselling on danger signs at the health facility recently?",
         "values": [
           "Yes",

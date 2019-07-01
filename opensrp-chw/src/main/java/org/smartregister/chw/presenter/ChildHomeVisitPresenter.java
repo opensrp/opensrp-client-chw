@@ -52,7 +52,7 @@ public class ChildHomeVisitPresenter implements ChildHomeVisitContract.Presenter
     @Override
     public void startBirthCertForm(JSONObject previousJson) {
         try {
-            JSONObject form = getFormUtils().getFormJson(Constants.JSON_FORM.BIRTH_CERTIFICATION);
+            JSONObject form = getFormUtils().getFormJson(Constants.JSON_FORM.getBirthCertification());
             String dobString = org.smartregister.family.util.Utils.getValue
                     (childClient.getColumnmaps(), DBConstants.KEY.DOB, false);
             if (previousJson != null) {
@@ -73,7 +73,7 @@ public class ChildHomeVisitPresenter implements ChildHomeVisitContract.Presenter
     public void startObsIllnessCertForm(JSONObject previousJson) {
         try {
 
-            JSONObject form = getFormUtils().getFormJson(Constants.JSON_FORM.OBS_ILLNESS);
+            JSONObject form = getFormUtils().getFormJson(Constants.JSON_FORM.getObsIllness());
             String dobString = org.smartregister.family.util.Utils.getValue
                     (childClient.getColumnmaps(), DBConstants.KEY.DOB, false);
             if (previousJson != null) {

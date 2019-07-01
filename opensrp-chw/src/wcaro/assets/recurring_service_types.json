@@ -488,5 +488,65 @@
         }
       }
     ]
+  },
+  {
+    "type": "IPTp-SP",
+    "service_logic": "",
+    "openmrs_service_name": {
+      "parent_entity": "",
+      "entity": "concept",
+      "entity_id": "159922AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "openmrs_date": {
+      "parent_entity": "",
+      "entity": "encounter",
+      "entity_id": "encounter_date"
+    },
+    "services": [
+      {
+        "id": "30",
+        "name": "IPTp-SP dose 1",
+        "schedule": {
+          "due": {
+            "reference": "dob",
+            "offset": "+91d"
+          },
+          "expiry": {
+            "reference": "dob",
+            "offset": "+5y"
+          }
+        }
+      },
+      {
+        "id": "31",
+        "name": "IPTp-SP dose 2",
+        "schedule": {
+          "due": {
+            "reference": "prerequisite",
+            "prerequisite": "IPTp-SP dose 1",
+            "offset": "+1m"
+          },
+          "expiry": {
+            "reference": "dob",
+            "offset": "+5y"
+          }
+        }
+      },
+      {
+        "id": "32",
+        "name": "IPTp-SP dose 3",
+        "schedule": {
+          "due": {
+            "reference": "prerequisite",
+            "prerequisite": "IPTp-SP dose 2",
+            "offset": "+1m"
+          },
+          "expiry": {
+            "reference": "dob",
+            "offset": "+5y"
+          }
+        }
+      }
+    ]
   }
 ]

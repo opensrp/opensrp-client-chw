@@ -163,7 +163,7 @@ public class ChildRegisterFragment extends BaseRegisterFragment implements Child
 
     @Override
     protected void startRegistration() {
-        ((ChildRegisterActivity) getActivity()).startFormActivity(Constants.JSON_FORM.CHILD_REGISTER, null, null);
+        ((ChildRegisterActivity) getActivity()).startFormActivity(Constants.JSON_FORM.getChildRegister(), null, null);
         //getActivity().startFormActivity(Utils.metadata().familyRegister.formName, null, null);
     }
 

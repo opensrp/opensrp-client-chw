@@ -8,7 +8,6 @@
     android:fitsSystemWindows="true"
     tools:openDrawer="start">
 
-
     <RelativeLayout
         android:id="@+id/nav_content"
         android:layout_width="match_parent"
@@ -75,7 +74,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_above="@+id/rlSync"
-                android:layout_below="@+id/vDiv1" >
+                android:layout_below="@+id/vDiv1">
 
                 <RelativeLayout
                     android:id="@+id/rlMid"
@@ -107,18 +106,114 @@
                         android:layout_below="@+id/rvOptions"
                         android:background="#000000" />
 
-                    <TextView
-                        android:id="@+id/tvLogout"
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/vDiv2"
                         android:layout_marginLeft="15dp"
-                        android:layout_marginTop="35dp"
+                        android:layout_marginTop="20dp"
                         android:layout_marginRight="15dp"
                         android:layout_marginBottom="25dp"
-                        android:fontFamily="sans-serif"
-                        android:text="@string/log_out_as"
-                        android:textSize="16sp" />
+                        android:orientation="vertical">
+
+                        <RelativeLayout
+                            android:id="@+id/rlIconLang"
+                            android:layout_width="match_parent"
+                            android:layout_height="55dp"
+                            android:paddingStart="15dp"
+                            android:paddingLeft="15dp"
+                            android:paddingBottom="15dp">
+
+                            <ImageView
+                                android:id="@+id/ivIconLang"
+                                android:layout_width="33dp"
+                                android:layout_height="33dp"
+                                android:layout_alignParentStart="true"
+                                android:layout_centerVertical="true"
+                                android:scaleType="fitXY"
+                                app:srcCompat="@mipmap/ic_nav_logout" />
+
+                            <TextView
+                                android:id="@+id/tvLang"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_toEndOf="@+id/ivIconLang"
+                                android:layout_toRightOf="@+id/ivIconLang"
+                                android:fontFamily="sans-serif"
+                                android:text="English"
+                                android:textSize="20sp" />
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/rlIconDevice"
+                            android:layout_width="match_parent"
+                            android:layout_height="55dp"
+                            android:paddingStart="15dp"
+                            android:paddingLeft="15dp"
+                            android:paddingBottom="15dp">
+
+                            <ImageView
+                                android:id="@+id/ivIconDevice"
+                                android:layout_width="33dp"
+                                android:layout_height="33dp"
+                                android:layout_alignParentStart="true"
+                                android:layout_centerVertical="true"
+                                android:scaleType="fitXY"
+                                app:srcCompat="@mipmap/ic_nav_logout" />
+
+                            <TextView
+                                android:id="@+id/tvDeviceToDevice"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_toEndOf="@+id/ivIconDevice"
+                                android:layout_toRightOf="@+id/ivIconDevice"
+                                android:fontFamily="sans-serif"
+                                android:text="@string/device_to_device"
+                                android:textSize="20sp" />
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/rlLogout"
+                            android:layout_width="match_parent"
+                            android:layout_height="55dp"
+                            android:paddingStart="15dp"
+                            android:paddingLeft="15dp"
+                            android:paddingBottom="15dp">
+
+                            <ImageView
+                                android:id="@+id/ivLogout"
+                                android:layout_width="33dp"
+                                android:layout_height="33dp"
+                                android:layout_alignParentStart="true"
+                                android:layout_centerVertical="true"
+                                android:scaleType="fitXY"
+                                app:srcCompat="@mipmap/ic_nav_logout" />
+
+                            <TextView
+                                android:id="@+id/tvLogout"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_toEndOf="@+id/ivLogout"
+                                android:layout_toRightOf="@+id/ivLogout"
+                                android:fontFamily="sans-serif"
+                                android:text="@string/log_out_as"
+                                android:textSize="20sp" />
+
+                        </RelativeLayout>
+
+
+                    </LinearLayout>
 
                 </RelativeLayout>
 
@@ -130,12 +225,12 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:background="#3d3d3d"
-                android:paddingBottom="@dimen/sync_time_padding"
-                android:paddingEnd="@dimen/sync_time_padding_right"
-                android:paddingLeft="@dimen/sync_time_padding"
-                android:paddingRight="@dimen/sync_time_padding_right"
                 android:paddingStart="@dimen/sync_time_padding"
-                android:paddingTop="@dimen/sync_time_padding">
+                android:paddingLeft="@dimen/sync_time_padding"
+                android:paddingTop="@dimen/sync_time_padding"
+                android:paddingEnd="@dimen/sync_time_padding_right"
+                android:paddingRight="@dimen/sync_time_padding_right"
+                android:paddingBottom="@dimen/sync_time_padding">
 
                 <RelativeLayout
                     android:id="@+id/rlIconSync"
@@ -171,11 +266,11 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:layout_toEndOf="@+id/rlIconSync"
-                    android:ellipsize="end"
-                    android:maxLines="1"
                     android:clickable="true"
+                    android:ellipsize="end"
                     android:focusable="true"
                     android:fontFamily="sans-serif"
+                    android:maxLines="1"
                     android:text="@string/nav_sync"
                     android:textColor="@color/white"
                     android:textSize="18sp" />

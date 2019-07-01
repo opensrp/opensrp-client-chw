@@ -16,11 +16,11 @@
     <uses-permission android:name="android.permission.CALL_PHONE"/>
 
     <application
-            android:name=".application.ChwApplication"
-            android:allowBackup="true"
-            android:supportsRtl="true"
-            android:theme="@style/ChwTheme"
-            tools:replace="android:theme">
+        android:name=".application.ChwApplication"
+        android:allowBackup="true"
+        android:supportsRtl="true"
+        android:theme="@style/ChwTheme"
+        tools:replace="android:theme">
         <activity android:name=".activity.AncHomeVisitActivity"
                   android:theme="@style/ChwTheme.NoActionBar"></activity>
         <activity
@@ -124,14 +124,17 @@
                     android:name="android.support.FILE_PROVIDER_PATHS"
                     android:resource="@xml/captured_images_path"/>
         </provider>
-
         <service android:name="org.smartregister.immunization.service.intent.VaccineIntentService"/>
         <service android:name="org.smartregister.immunization.service.intent.RecurringIntentService"/>
         <service android:name="org.smartregister.sync.intent.PullUniqueIdsIntentService"/>
         <service android:name=".sync.ChwSyncIntentService"/>
-        <service android:name="org.smartregister.sync.intent.ExtendedSyncIntentService"/>
-        <service android:name="org.smartregister.sync.intent.ValidateIntentService"/>
-        <service android:name="org.smartregister.service.ImageUploadSyncService"/>
+        <service android:name="org.smartregister.immunization.service.intent.VaccineIntentService" />
+        <service android:name="org.smartregister.immunization.service.intent.RecurringIntentService" />
+        <service android:name="org.smartregister.sync.intent.PullUniqueIdsIntentService" />
+        <service android:name="org.smartregister.sync.intent.SyncIntentService" />
+        <service android:name="org.smartregister.sync.intent.ExtendedSyncIntentService" />
+        <service android:name="org.smartregister.sync.intent.ValidateIntentService" />
+        <service android:name="org.smartregister.service.ImageUploadSyncService" />
 
         <uses-library
                 android:name="org.apache.http.legacy"
