@@ -10,8 +10,6 @@ import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
-import android.util.Log;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializationContext;
@@ -70,7 +68,7 @@ public class ChildUtils {
 
     public static Gson gsonConverter;
 
-    private static final Flavor childUtilsFlv = new ChildUtilsFlv();
+    private static Flavor childUtilsFlv = new ChildUtilsFlv();
 
     static {
         gsonConverter = new GsonBuilder()
