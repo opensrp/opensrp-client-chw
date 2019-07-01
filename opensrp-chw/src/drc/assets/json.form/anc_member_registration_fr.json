@@ -47,24 +47,17 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "ANC Registration",
+    "title": "Enregistrement CPN",
     "fields": [
-      {
-        "key": "relational_id",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "relational_id",
-        "type": "hidden"
-      },
       {
         "key": "last_menstrual_period",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "1427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "date_picker",
-        "hint": "Last Menstrual Period (LMP)",
-        "label_info_title": "LMP",
-        "label_info_text": "LMP = first day of Last Menstrual Period. If the exact date is unknown, but the period of the month is known, use day 5 for beginning of the month, day 15 for middle of the month and day 25 for end of the month.",
+        "hint": "Date de dernières règles (DDR)",
+        "label_info_title": "DDR",
+        "label_info_text": "DDR = La première journée des dernières règles. Si la date exacte est inconnue mais la période du mois est connue, utiliser jour 5 pour le début du mois, jour 15 pour le milieu du mois, et jour 25 pour la fin du mois.",
         "expanded": false,
         "max_date": "today",
         "v_required": {
@@ -78,7 +71,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
-        "hint": "Gestational Age (GA)",
+        "hint": "Âge gestationnel (AG)",
         "read_only": true,
         "calculation": {
           "rules-engine": {
@@ -108,7 +101,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "5596AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "edit_text",
-        "hint": "Expected Date of Delivery (EDD)",
+        "hint": "Date probable d'accouchement (DPA)",
         "read_only": true,
         "calculation": {
           "rules-engine": {
@@ -125,7 +118,7 @@
         "openmrs_entity_id": "no_prev_preg",
         "type": "edit_text",
         "edit_type": "number",
-        "hint": "No. of previous pregnancies",
+        "hint": "Nombre de grossesses antérieures",
         "v_required": {
           "value": "true",
           "err": "Required"
@@ -160,7 +153,7 @@
         "openmrs_entity_id": "164894AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "edit_text",
         "edit_type": "number",
-        "hint": "No. of surviving children",
+        "hint": "Nombre d'enfants survivants",
         "v_required": {
           "value": "true",
           "err": "Required"
@@ -180,7 +173,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "159635AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "edit_text",
-        "hint": "Phone number",
+        "hint": "Numéro de téléphone",
         "v_numeric": {
           "value": "true",
           "err": "Number must be a total of 10 digits in length"
@@ -201,15 +194,15 @@
         "openmrs_entity_id": "1054AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Marital status",
+        "hint": "État matrimonial",
         "v_required": {
           "value": "true",
           "err": "Please select one option"
         },
         "values": [
-          "Married",
-          "Co-habiting",
-          "Single"
+          "Mariée",
+          "Cohabite",
+          "Célibataire"
         ],
         "openmrs_choice_ids": {
           "Married": "5555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",

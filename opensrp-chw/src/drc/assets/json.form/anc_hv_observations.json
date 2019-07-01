@@ -58,7 +58,7 @@
         "hint": "Date",
         "expanded": false,
         "max_date": "today",
-        "min_date": "",
+        "min_date": "today-10y",
         "v_required": {
           "value": "true",
           "err": "Please enter illness date"
