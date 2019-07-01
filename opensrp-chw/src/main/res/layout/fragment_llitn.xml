@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/detail_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/pagination_bar_height"
+        android:layout_alignParentTop="true"
+        android:background="@color/opensrp_primary"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/close"
+                android:layout_width="@dimen/tool_bar_image"
+                android:layout_height="@dimen/tool_bar_image"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/dialog_toolbar_close_margin"
+                android:layout_marginRight="@dimen/dialog_toolbar_close_margin"
+                android:tint="@color/white"
+                app:srcCompat="@drawable/ic_action_close" />
+
+            <org.smartregister.view.customcontrols.CustomFontTextView
+                android:id="@+id/textview_dietary_title"
+                style="@style/CustomFontTextViewStyle.ClientList"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/close"
+                android:layout_toRightOf="@+id/close"
+                android:paddingLeft="0dp"
+                android:paddingStart="0dp"
+                android:text="@string/muac_title"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/activity_title_size" />
+        </RelativeLayout>
+    </android.support.v7.widget.Toolbar>
+
+    <ImageView
+        android:layout_below="@+id/detail_toolbar"
+        android:id="@+id/info_icon"
+        android:layout_width="@dimen/default_info_icon_size"
+        android:layout_height="@dimen/default_info_icon_size"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp"
+        android:contentDescription="@string/the_extra_info_icon"
+        android:src="@drawable/ic_icon_info_filled" />
+
+    <include
+        android:id="@+id/dietary_bar"
+        layout="@layout/view_llitn"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/info_icon"
+        android:visibility="visible" />
+
+</RelativeLayout>

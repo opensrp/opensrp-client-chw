@@ -606,9 +606,15 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                             FragmentTransaction ft = getActivity().getFragmentManager().beginTransaction();
                             dialogFragment.show(ft, MuacInputDialogFragment.DIALOG_TAG);
 
+                        } else if (serviceTask.getTaskType().equalsIgnoreCase(TaskServiceCalculate.TASK_TYPE.LLITN.name())) {
+                            LLITNInputDialogFragment dialogFragment = LLITNInputDialogFragment.getInstance();
+                            dialogFragment.setServiceTask(serviceTask, onUpdateServiceTask);
+                            FragmentTransaction ft = getActivity().getFragmentManager().beginTransaction();
+                            dialogFragment.show(ft, MuacInputDialogFragment.DIALOG_TAG);
+
+                        } else if (serviceTask.getTaskType().equalsIgnoreCase(TaskServiceCalculate.TASK_TYPE.ECD.name())) {
+                            // open native forms
                         }
-
-
                     }
                 });
                 taskServiceRecyclerView.setAdapter(serviceTaskAdapter);
@@ -642,8 +648,6 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
             }
 
         }
-
-
     }
 
     private void updateIllnessData() {

@@ -54,16 +54,18 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements ChildHomeVis
                 serviceTaskMuac.setTaskType(TaskServiceCalculate.TASK_TYPE.MUAC.name());
                 serviceTasks.add(serviceTaskMuac);
             }
-//           ServiceTask serviceTaskLlitn = new ServiceTask();
-//           if(!taskServiceCalculate.isExpire(60)){
-//               serviceTaskLlitn.setTaskTitle(getContext().getResources().getString(R.string.llitn_title));
-//               serviceTasks.add(serviceTaskLlitn);
-//           }
-//           ServiceTask serviceTaskEcd = new ServiceTask();
-//           if(!taskServiceCalculate.isExpire(60)){
-//               serviceTaskEcd.setTaskTitle(getContext().getResources().getString(R.string.ecd_title));
-//               serviceTasks.add(serviceTaskEcd);
-//           }
+            ServiceTask serviceTaskLlitn = new ServiceTask();
+            if (!taskServiceCalculate.isExpire(60)) {
+                serviceTaskLlitn.setTaskTitle(getContext().getResources().getString(R.string.llitn_title));
+                serviceTaskLlitn.setTaskType(TaskServiceCalculate.TASK_TYPE.LLITN.name());
+                serviceTasks.add(serviceTaskLlitn);
+            }
+            ServiceTask serviceTaskEcd = new ServiceTask();
+            if (!taskServiceCalculate.isExpire(60)) {
+                serviceTaskEcd.setTaskTitle(getContext().getResources().getString(R.string.ecd_title));
+                serviceTaskEcd.setTaskType(TaskServiceCalculate.TASK_TYPE.ECD.name());
+                serviceTasks.add(serviceTaskEcd);
+            }
         } else {
             for (HomeVisitServiceDataModel homeVisitServiceDataModel : homeVisitServiceDataModels) {
                 if (homeVisitServiceDataModel.getEventType().equalsIgnoreCase(Constants.EventType.MINIMUM_DIETARY_DIVERSITY)) {
