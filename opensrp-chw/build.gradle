@@ -296,7 +296,14 @@ dependencies {
 }
 
 
-task jacocoTestReport(type: JacocoReport, dependsOn: ['testBaDebugUnitTest', 'createBaDebugCoverageReport', 'testWcaroDebugUnitTest', 'createWcaroDebugCoverageReport']) {
+task jacocoTestReport(type: JacocoReport, dependsOn: [
+        'testBaDebugUnitTest', 'createBaDebugCoverageReport',
+        'testWcaroDebugUnitTest', 'createWcaroDebugCoverageReport',
+        'testTogoDebugUnitTest', 'createTogoDebugCoverageReport',
+        'testGuineaDebugUnitTest', 'createGuineaDebugCoverageReport',
+        'testChadDebugUnitTest', 'createChadDebugCoverageReport',
+        'testDrcDebugUnitTest', 'createDrcDebugCoverageReport'
+]) {
 
     reports {
         xml.enabled = true
