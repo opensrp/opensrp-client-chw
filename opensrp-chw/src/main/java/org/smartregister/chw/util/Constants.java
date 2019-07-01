@@ -27,6 +27,7 @@ public class Constants {
         public static final String VACCINE_CARD_RECEIVED = "Child vaccine card received";
         public static final String MINIMUM_DIETARY_DIVERSITY = "Minimum dietary diversity";
         public static final String MUAC = "Mid-upper arm circumference (MUAC)";
+        public static final String LLITN = "Sleeping under a LLITN";
         public static final String UPDATE_FAMILY_RELATIONS = "Update Family Relations";
         public static final String UPDATE_FAMILY_MEMBER_RELATIONS = "Update Family Member Relations";
 
@@ -331,6 +332,7 @@ public class Constants {
         public static class FORM_SUBMISSION_FIELD {
             public static final String TASK_MINIMUM_DIETARY = "task_minimum_dietary";
             public static final String TASK_MUAC = "task_muac";
+            public static final String TASK_LLITN = "task_llitn";
             public static final String HOME_VISIT_ID= "home_visit_id";
             public static final String HOME_VISIT_DATE_LONG= "home_visit_date";
             public static final String LAST_HOME_VISIT = "last_home_visit";
