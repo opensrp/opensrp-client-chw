@@ -70,7 +70,7 @@ public class ChildUtils {
 
     public static Gson gsonConverter;
 
-    private static final Flavor childUtilsFlv = new ChildUtilsFlv();
+    private static Flavor childUtilsFlv = new ChildUtilsFlv();
 
     static {
         gsonConverter = new GsonBuilder()

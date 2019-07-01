@@ -1,30 +1,50 @@
 package org.smartregister.chw.util;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
+import org.powermock.reflect.Whitebox;
 import org.smartregister.chw.BaseUnitTest;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.List;
 
 public class ChildUtilsTest extends BaseUnitTest {
 
-    @Test
-    public void isFullyImmunizedForTwoYears() {
-        String[] list = {"OPV0".toLowerCase(), "BCG".toLowerCase(), "OPV1".toLowerCase(), "OPV2".toLowerCase(), "OPV3".toLowerCase()
-                , "Penta1".toLowerCase(), "Penta2".toLowerCase(), "Penta3".toLowerCase(), "PCV1".toLowerCase(), "PCV2".toLowerCase()
-                , "PCV3".toLowerCase(), "Rota1".toLowerCase(), "Rota2".toLowerCase(), "IPV".toLowerCase(), "MCV1".toLowerCase()
-                , "MCV2".toLowerCase(), "yellowfever".toLowerCase()};
-        List<String> receivedVaccine = Arrays.asList(list);
-        Assert.assertEquals("2", ChildUtils.isFullyImmunized(receivedVaccine));
+
+    @Mock
+    ChildUtils.Flavor childUtilsFlv;
+    @Before
+    public void setUp() throws Exception {
+        MockitoAnnotations.initMocks(this);
+        childUtilsFlv = Mockito.spy(ChildUtilsFlv.class);
     }
 
     @Test
-    public void isFullyImmunizedForOneYears() {
-        String[] list = {"OPV0".toLowerCase(), "BCG".toLowerCase(), "OPV1".toLowerCase(), "OPV2".toLowerCase(), "OPV3".toLowerCase()
-                , "Penta1".toLowerCase(), "Penta2".toLowerCase(), "Penta3".toLowerCase(), "PCV1".toLowerCase(), "PCV2".toLowerCase()
-                , "PCV3".toLowerCase(), "Rota1".toLowerCase(), "Rota2".toLowerCase(), "IPV".toLowerCase(), "MCV1".toLowerCase(), "yellowfever".toLowerCase()};
-        List<String> receivedVaccine = Arrays.asList(list);
+    public void isFullyImmunizedForTwoYears() throws Exception{
+
+        List<String> receivedVaccine = Arrays.asList(TestConstant.getTestReceivedTwoYearVaccine());
+        setFinalStatic(ChildUtils.class.getDeclaredField("childUtilsFlv"), childUtilsFlv);
+
+        Assert.assertEquals("2", ChildUtils.isFullyImmunized(receivedVaccine));
+    }
+    private static void setFinalStatic(Field field, Object newValue) throws Exception {
+        field.setAccessible(true);
+        Field modifiersField = Field.class.getDeclaredField("modifiers");
+        modifiersField.setAccessible(true);
+        modifiersField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
+        field.set(null, newValue);
+    }
+
+    @Test
+    public void isFullyImmunizedForOneYears() throws Exception {
+        List<String> receivedVaccine = Arrays.asList(TestConstant.getTestReceivedOneYearVaccine());
+        setFinalStatic(ChildUtils.class.getDeclaredField("childUtilsFlv"), childUtilsFlv);
         Assert.assertEquals("1", ChildUtils.isFullyImmunized(receivedVaccine));
     }
 
