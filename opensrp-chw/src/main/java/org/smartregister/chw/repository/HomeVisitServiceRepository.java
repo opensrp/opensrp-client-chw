@@ -4,10 +4,13 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.text.TextUtils;
 import android.util.Log;
+
 import net.sqlcipher.database.SQLiteDatabase;
+
 import org.smartregister.chw.util.HomeVisitServiceDataModel;
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.repository.Repository;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -23,7 +26,7 @@ public class HomeVisitServiceRepository extends BaseRepository {
     public static final String DATE = "date";
     public static final String DETAILS = "details";
 
-    public static final String[] TABLE_COLUMNS = {HOME_VISIT_ID, EVENT_TYPE, DATE,DETAILS};
+    public static final String[] TABLE_COLUMNS = {HOME_VISIT_ID, EVENT_TYPE, DATE, DETAILS};
     public static DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     public HomeVisitServiceRepository(Repository repository) {
@@ -40,11 +43,11 @@ public class HomeVisitServiceRepository extends BaseRepository {
         }
         try {
             SQLiteDatabase database = getWritableDatabase();
-            if(homeVisitServiceDataModel.getHomeVisitId() != null){
-                HomeVisitServiceDataModel uniqueVisit  = findUnique(database,homeVisitServiceDataModel);
-                if(uniqueVisit!=null){
-                    update(database,homeVisitServiceDataModel);
-                }else{
+            if (homeVisitServiceDataModel.getHomeVisitId() != null) {
+                HomeVisitServiceDataModel uniqueVisit = findUnique(database, homeVisitServiceDataModel);
+                if (uniqueVisit != null) {
+                    update(database, homeVisitServiceDataModel);
+                } else {
                     database.insert(HOME_VISIT_SERVICE_TABLE_NAME, null, createValuesFor(homeVisitServiceDataModel));
                 }
             }
@@ -55,18 +58,16 @@ public class HomeVisitServiceRepository extends BaseRepository {
 
     }
 
-    public HomeVisitServiceDataModel findUnique(SQLiteDatabase database,HomeVisitServiceDataModel homeVisitServiceDataModel){
-        if(homeVisitServiceDataModel == null || TextUtils.isEmpty(homeVisitServiceDataModel.getHomeVisitId())){
+    public HomeVisitServiceDataModel findUnique(SQLiteDatabase db, HomeVisitServiceDataModel homeVisitServiceDataModel) {
+        if (homeVisitServiceDataModel == null || TextUtils.isEmpty(homeVisitServiceDataModel.getHomeVisitId())) {
             return null;
         }
-        if (database == null) {
-            database = getReadableDatabase();
-        }
+        SQLiteDatabase database = (db == null) ? getReadableDatabase() : db;
         String selection = null;
         String[] selectionArgs = null;
         if (!TextUtils.isEmpty(homeVisitServiceDataModel.getHomeVisitId())) {
-            selection = HOME_VISIT_ID + " = ? " + COLLATE_NOCASE+" and "+EVENT_TYPE+" = ? "+COLLATE_NOCASE;
-            selectionArgs = new String[]{homeVisitServiceDataModel.getHomeVisitId(),homeVisitServiceDataModel.getEventType()};
+            selection = HOME_VISIT_ID + " = ? " + COLLATE_NOCASE + " and " + EVENT_TYPE + " = ? " + COLLATE_NOCASE;
+            selectionArgs = new String[]{homeVisitServiceDataModel.getHomeVisitId(), homeVisitServiceDataModel.getEventType()};
         }
         net.sqlcipher.Cursor cursor = database.query(HOME_VISIT_SERVICE_TABLE_NAME, TABLE_COLUMNS, selection, selectionArgs, null, null, null, null);
         List<HomeVisitServiceDataModel> homeVisitList = getAllHomeVisitService(cursor);
@@ -75,7 +76,8 @@ public class HomeVisitServiceRepository extends BaseRepository {
         }
         return null;
     }
-    public List<HomeVisitServiceDataModel> getHomeVisitServiceList(String homeVisitId){
+
+    public List<HomeVisitServiceDataModel> getHomeVisitServiceList(String homeVisitId) {
         SQLiteDatabase database = getReadableDatabase();
         String selection = null;
         String[] selectionArgs = null;
@@ -87,9 +89,10 @@ public class HomeVisitServiceRepository extends BaseRepository {
         List<HomeVisitServiceDataModel> homeVisitList = getAllHomeVisitService(cursor);
         return homeVisitList;
     }
-    public List<HomeVisitServiceDataModel> getAllHomeVisitService(Cursor cursor){
+
+    public List<HomeVisitServiceDataModel> getAllHomeVisitService(Cursor cursor) {
         List<HomeVisitServiceDataModel> homeVisitServiceDataModels = new ArrayList<>();
-        try{
+        try {
             if (cursor != null && cursor.getCount() > 0 && cursor.moveToFirst()) {
                 while (!cursor.isAfterLast()) {
                     HomeVisitServiceDataModel homeVisitServiceDataModel = new HomeVisitServiceDataModel();
@@ -98,29 +101,30 @@ public class HomeVisitServiceRepository extends BaseRepository {
                     homeVisitServiceDataModel.setHomeVisitDetails(cursor.getString(cursor.getColumnIndex(DETAILS)));
                     homeVisitServiceDataModel.setHomeVisitId(cursor.getString(cursor.getColumnIndex(HOME_VISIT_ID)));
                     //duplicate handle
-                    if(!isExist(homeVisitServiceDataModels,homeVisitServiceDataModel.getEventType())){
+                    if (!isExist(homeVisitServiceDataModels, homeVisitServiceDataModel.getEventType())) {
                         homeVisitServiceDataModels.add(homeVisitServiceDataModel);
                     }
                     cursor.moveToNext();
                 }
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
-          if(cursor!=null)  cursor.close();
+        } finally {
+            if (cursor != null) cursor.close();
         }
         return homeVisitServiceDataModels;
 
     }
-    private boolean isExist(List<HomeVisitServiceDataModel> homeVisitServiceDataModels, String type){
-        for(HomeVisitServiceDataModel homeVisitServiceDataModel:homeVisitServiceDataModels){
-            if(homeVisitServiceDataModel.getEventType().equalsIgnoreCase(type)){
+
+    private boolean isExist(List<HomeVisitServiceDataModel> homeVisitServiceDataModels, String type) {
+        for (HomeVisitServiceDataModel homeVisitServiceDataModel : homeVisitServiceDataModels) {
+            if (homeVisitServiceDataModel.getEventType().equalsIgnoreCase(type)) {
                 return true;
             }
         }
         return false;
     }
+
     public void update(SQLiteDatabase database, HomeVisitServiceDataModel homeVisitServiceDataModel) {
         if (homeVisitServiceDataModel == null || homeVisitServiceDataModel.getHomeVisitId() == null) {
             return;
@@ -139,12 +143,10 @@ public class HomeVisitServiceRepository extends BaseRepository {
         values.put(HOME_VISIT_ID, homeVisitServiceDataModel.getHomeVisitId());
         values.put(DETAILS, homeVisitServiceDataModel.getHomeVisitDetails());
         values.put(EVENT_TYPE, homeVisitServiceDataModel.getEventType());
-        values.put(DATE, homeVisitServiceDataModel.getHomeVisitDate()+"");
-        Log.e("CONTENT_VALUES","createValuesForService>>"+values);
+        values.put(DATE, homeVisitServiceDataModel.getHomeVisitDate() + "");
+        Log.e("CONTENT_VALUES", "createValuesForService>>" + values);
         return values;
     }
-
-
 
 
 }

@@ -111,12 +111,11 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     private ProgressBar progressBar;
     private RecyclerView taskServiceRecyclerView;
     private ServiceTaskAdapter serviceTaskAdapter;
+    private ChildHomeVisitFragmentFlv flavor = new ChildHomeVisitFragmentFlv();
 
     public void setContext(Context context) {
         this.context = context;
     }
-
-    private ChildHomeVisitFragmentFlv flavor = new ChildHomeVisitFragmentFlv();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -609,7 +608,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         }
     }
 
-    OnUpdateServiceTask onUpdateServiceTask = new OnUpdateServiceTask() {
+    private OnUpdateServiceTask onUpdateServiceTask = new OnUpdateServiceTask() {
         @Override
         public void onUpdateServiceTask(ServiceTask serviceTask) {
             updateTaskService();

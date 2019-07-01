@@ -91,9 +91,10 @@ public class ChildUtils {
                 })
                 .create();
     }
-    public static String getImmunizationExpired(String dateOfBirth,String vaccineName) {
+
+    public static String getImmunizationExpired(String dateOfBirth, String vaccineName) {
         //String dob = org.smartregister.family.util.Utils.getValue(childClient.getColumnmaps(), DBConstants.KEY.DOB, false);
-        ImmunizationExpiredRule immunizationExpiredRule = new ImmunizationExpiredRule(dateOfBirth,vaccineName);
+        ImmunizationExpiredRule immunizationExpiredRule = new ImmunizationExpiredRule(dateOfBirth, vaccineName);
         ChwApplication.getInstance().getRulesEngineHelper().getButtonAlertStatus(immunizationExpiredRule, Constants.RULE_FILE.IMMUNIZATION_EXPIRED);
         return immunizationExpiredRule.getButtonStatus();
     }
@@ -374,7 +375,7 @@ public class ChildUtils {
     //event type="Child Home Visit"/Visit not done
     public static void updateHomeVisitAsEvent(String entityId, String eventType, String entityType, JSONObject singleVaccineObject, JSONObject vaccineGroupObject,
                                               JSONObject vaccineNotGiven, JSONObject service, JSONObject serviceNotGiven, JSONObject birthCert, JSONObject illnessJson,
-                                              String visitStatus, String value,String homeVisitId) {
+                                              String visitStatus, String value, String homeVisitId) {
         try {
 
             ECSyncHelper syncHelper = FamilyLibrary.getInstance().getEcSyncHelper();
@@ -424,8 +425,9 @@ public class ChildUtils {
             Log.e("Error in adding event", e.getMessage());
         }
     }
-    public static void updateVaccineCardAsEvent(Context context,String entityId,String choiceValue){
-        try{
+
+    public static void updateVaccineCardAsEvent(Context context, String entityId, String choiceValue) {
+        try {
             ECSyncHelper syncHelper = FamilyLibrary.getInstance().getEcSyncHelper();
             Event baseEvent = (Event) new Event()
                     .withBaseEntityId(entityId)
@@ -437,7 +439,7 @@ public class ChildUtils {
             List<Object> huValue = new ArrayList<>();
             huValue.add(choiceValue);
 
-            baseEvent.addObs(new Obs("concept", "text",Constants.FORM_CONSTANTS.VACCINE_CARD.CODE, "",
+            baseEvent.addObs(new Obs("concept", "text", Constants.FORM_CONSTANTS.VACCINE_CARD.CODE, "",
                     JsonFormUtils.toList(JsonFormUtils.getChoice(context).get(choiceValue)), JsonFormUtils.toList(choiceValue), null,
                     ChildDBConstants.KEY.VACCINE_CARD).withHumanReadableValues(huValue));
             JsonFormUtils.tagSyncMetadata(ChwApplication.getInstance().getContext().allSharedPreferences(), baseEvent);
@@ -448,13 +450,14 @@ public class ChildUtils {
             ChwApplication.getClientProcessor(ChwApplication.getInstance().getContext().applicationContext()).processClient(syncHelper.getEvents(lastSyncDate, BaseRepository.TYPE_Unsynced));
             ChwApplication.getInstance().getContext().allSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
 
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
     }
-    public static void updateMinimumDietaryAsEvent(Context context,String entityId,String choiceValue,String homeVisitId){
-        try{
+
+    public static void updateMinimumDietaryAsEvent(Context context, String entityId, String choiceValue, String homeVisitId) {
+        try {
             ECSyncHelper syncHelper = FamilyLibrary.getInstance().getEcSyncHelper();
             Event baseEvent = (Event) new Event()
                     .withBaseEntityId(entityId)
@@ -466,7 +469,7 @@ public class ChildUtils {
             List<Object> huValue = new ArrayList<>();
             huValue.add(choiceValue);
 
-            baseEvent.addObs(new Obs("concept", "text",Constants.FORM_CONSTANTS.MINIMUM_DIETARY.CODE, "",
+            baseEvent.addObs(new Obs("concept", "text", Constants.FORM_CONSTANTS.MINIMUM_DIETARY.CODE, "",
                     JsonFormUtils.toList(JsonFormUtils.getChoiceDietary(context).get(choiceValue)), JsonFormUtils.toList(choiceValue), null,
                     Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.TASK_MINIMUM_DIETARY).withHumanReadableValues(huValue));
             baseEvent.addObs((new Obs()).withFormSubmissionField(Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_ID).withValue(homeVisitId)
@@ -480,13 +483,14 @@ public class ChildUtils {
             ChwApplication.getClientProcessor(ChwApplication.getInstance().getContext().applicationContext()).processClient(syncHelper.getEvents(lastSyncDate, BaseRepository.TYPE_Unsynced));
             ChwApplication.getInstance().getContext().allSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
 
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
     }
-    public static void updateMuacAsEvent(Context context,String entityId,String choiceValue,String homeVisitId){
-        try{
+
+    public static void updateMuacAsEvent(Context context, String entityId, String choiceValue, String homeVisitId) {
+        try {
             ECSyncHelper syncHelper = FamilyLibrary.getInstance().getEcSyncHelper();
             Event baseEvent = (Event) new Event()
                     .withBaseEntityId(entityId)
@@ -498,7 +502,7 @@ public class ChildUtils {
             List<Object> huValue = new ArrayList<>();
             huValue.add(choiceValue);
 
-            baseEvent.addObs(new Obs("concept", "text",Constants.FORM_CONSTANTS.MUAC.CODE, "",
+            baseEvent.addObs(new Obs("concept", "text", Constants.FORM_CONSTANTS.MUAC.CODE, "",
                     JsonFormUtils.toList(JsonFormUtils.getChoiceMuac(context).get(choiceValue)), JsonFormUtils.toList(choiceValue), null,
                     Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.TASK_MUAC).withHumanReadableValues(huValue));
             baseEvent.addObs((new Obs()).withFormSubmissionField(Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_ID).withValue(homeVisitId)
@@ -512,7 +516,7 @@ public class ChildUtils {
             ChwApplication.getClientProcessor(ChwApplication.getInstance().getContext().applicationContext()).processClient(syncHelper.getEvents(lastSyncDate, BaseRepository.TYPE_Unsynced));
             ChwApplication.getInstance().getContext().allSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
 
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -561,7 +565,7 @@ public class ChildUtils {
     }
 
 
-    public static void addToHomeVisitTable(String baseEntityID,String formSubmissionId, List<org.smartregister.domain.db.Obs> observations) {
+    public static void addToHomeVisitTable(String baseEntityID, String formSubmissionId, List<org.smartregister.domain.db.Obs> observations) {
         HomeVisit newHomeVisit = new HomeVisit(null, baseEntityID, HomeVisitRepository.EVENT_TYPE, new Date(), "", "", "", 0l, "", "", new Date());
         try {
             for (org.smartregister.domain.db.Obs obs : observations) {
@@ -601,7 +605,7 @@ public class ChildUtils {
                     }
 
                 }
-                if(obs.getFormSubmissionField().equalsIgnoreCase(Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_ID)){
+                if (obs.getFormSubmissionField().equalsIgnoreCase(Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_ID)) {
                     newHomeVisit.setHomeVisitId((String) obs.getValue());
                 }
             }
@@ -612,10 +616,11 @@ public class ChildUtils {
         newHomeVisit.setFormfields(new HashMap<String, String>());
         ChwApplication.homeVisitRepository().add(newHomeVisit);
     }
-    public static void addToHomeVisitService(String eventType,List<org.smartregister.domain.db.Obs> observations,Date evenDate,String details){
+
+    public static void addToHomeVisitService(String eventType, List<org.smartregister.domain.db.Obs> observations, Date evenDate, String details) {
         HomeVisitServiceDataModel homeVisitServiceDataModel = new HomeVisitServiceDataModel();
         for (org.smartregister.domain.db.Obs obs : observations) {
-            if(obs.getFormSubmissionField().equalsIgnoreCase(Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_ID)){
+            if (obs.getFormSubmissionField().equalsIgnoreCase(Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_ID)) {
                 homeVisitServiceDataModel.setHomeVisitId((String) obs.getValue());
             }
         }
@@ -624,15 +629,16 @@ public class ChildUtils {
         homeVisitServiceDataModel.setHomeVisitDetails(details);
         ChwApplication.getHomeVisitServiceRepository().add(homeVisitServiceDataModel);
     }
-    public static ServiceTask createDiateryFromEvent(Context context,String details){
+
+    public static ServiceTask createDiateryFromEvent(Context context, String details) {
         ServiceTask serviceTask = new ServiceTask();
-        org.smartregister.domain.db.Event event = ChildUtils.gsonConverter.fromJson(details,new TypeToken<org.smartregister.domain.db.Event>() {
+        org.smartregister.domain.db.Event event = ChildUtils.gsonConverter.fromJson(details, new TypeToken<org.smartregister.domain.db.Event>() {
         }.getType());
         List<org.smartregister.domain.db.Obs> observations = event.getObs();
-        for(org.smartregister.domain.db.Obs obs : observations){
+        for (org.smartregister.domain.db.Obs obs : observations) {
             if (obs.getFormSubmissionField().equalsIgnoreCase("task_minimum_dietary")) {
                 List<Object> hu = obs.getHumanReadableValues();
-                String value ="";
+                String value = "";
                 for (Object object : hu) {
                     value = (String) object;
                 }
@@ -644,15 +650,16 @@ public class ChildUtils {
         return serviceTask;
 
     }
-    public static ServiceTask createMuacFromEvent(Context context,String details){
+
+    public static ServiceTask createMuacFromEvent(Context context, String details) {
         ServiceTask serviceTask = new ServiceTask();
-        org.smartregister.domain.db.Event event = ChildUtils.gsonConverter.fromJson(details,new TypeToken<org.smartregister.domain.db.Event>() {
+        org.smartregister.domain.db.Event event = ChildUtils.gsonConverter.fromJson(details, new TypeToken<org.smartregister.domain.db.Event>() {
         }.getType());
         List<org.smartregister.domain.db.Obs> observations = event.getObs();
-        for(org.smartregister.domain.db.Obs obs : observations){
+        for (org.smartregister.domain.db.Obs obs : observations) {
             if (obs.getFormSubmissionField().equalsIgnoreCase("task_muac")) {
                 List<Object> hu = obs.getHumanReadableValues();
-                String value ="";
+                String value = "";
                 for (Object object : hu) {
                     value = (String) object;
                 }
@@ -664,8 +671,9 @@ public class ChildUtils {
         return serviceTask;
 
     }
-    public static void addToChildTable(String baseEntityID, List<org.smartregister.domain.db.Obs> observations){
-        String value ="";
+
+    public static void addToChildTable(String baseEntityID, List<org.smartregister.domain.db.Obs> observations) {
+        String value = "";
         for (org.smartregister.domain.db.Obs obs : observations)
             if (obs.getFormSubmissionField().equalsIgnoreCase(ChildDBConstants.KEY.VACCINE_CARD)) {
                 List<Object> hu = obs.getHumanReadableValues();
@@ -674,7 +682,7 @@ public class ChildUtils {
                 }
 
             }
-        if(!TextUtils.isEmpty(value)){
+        if (!TextUtils.isEmpty(value)) {
             AllCommonsRepository commonsRepository = ChwApplication.getInstance().getAllCommonsRepository(Constants.TABLE_NAME.CHILD);
             ContentValues values = new ContentValues();
             values.put(ChildDBConstants.KEY.VACCINE_CARD, value);
@@ -686,13 +694,14 @@ public class ChildUtils {
     /**
      * This method return the vaccine name first character as capital for selected vaccines
      * other's return as capital form like : input opv 1 output OPV 1,rota 1 as Rota 1,mena as MenA
+     *
      * @param "opv 1","rota 1","mena"
      * @return "OPV 1","Rota 1","MenA"
      */
 
     public static String fixVaccineCasing(String display) {
         display = display.toUpperCase();
-        if(display.toLowerCase().contains("mena")){
+        if (display.toLowerCase().contains("mena")) {
             return "MenA";
         }
         if (display.toLowerCase().contains("rota")
@@ -707,7 +716,9 @@ public class ChildUtils {
 
     public interface Flavor {
         ArrayList<String> mainColumns(String tableName, String familyTable, String familyMemberTable);
+
         String[] getOneYearVaccines();
+
         String[] getTwoYearVaccines();
     }
 }

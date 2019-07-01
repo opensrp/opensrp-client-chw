@@ -150,7 +150,7 @@ public class ChwApplication extends DrishtiApplication {
 
     public static AncRegisterRepository ancRegisterRepository() {
         if (ancRegisterRepository == null) {
-            ancRegisterRepository = new AncRegisterRepository(getInstance().getRepository(), getInstance().getContext().commonFtsObject(), getInstance().getContext().alertService());
+            ancRegisterRepository = new AncRegisterRepository(getInstance().getRepository());
         }
         return ancRegisterRepository;
     }

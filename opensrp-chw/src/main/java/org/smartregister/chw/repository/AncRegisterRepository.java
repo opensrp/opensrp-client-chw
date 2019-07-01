@@ -25,7 +25,7 @@ public class AncRegisterRepository extends BaseRepository {
     public static final String[] ANC_COUNT_TABLE_COLUMNS = {BASE_ENTITY_ID};
 
 
-    public AncRegisterRepository(Repository repository, CommonFtsObject commonFtsObject, AlertService alertService) {
+    public AncRegisterRepository(Repository repository) {
         super(repository);
     }
 

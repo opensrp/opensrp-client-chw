@@ -106,6 +106,8 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements ChildHomeVis
                             }
 
                             break;
+                        default:
+                            break;
 
                     }
 

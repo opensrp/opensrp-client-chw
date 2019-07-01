@@ -43,6 +43,7 @@ public class ChildHomeVisitInteractor implements ChildHomeVisitContract.Interact
     private HashMap<String, BirthIllnessFormModel> saveList = new HashMap<>();
     private ArrayList<BirthCertDataModel> birthCertDataList = new ArrayList<>();
     private ArrayList<ObsIllnessDataModel> illnessDataList = new ArrayList<>();
+    private Flavor flavor = new ChildHomeVisitInteractorFlv();
 
     @VisibleForTesting
     ChildHomeVisitInteractor(AppExecutors appExecutors) {
@@ -64,7 +65,6 @@ public class ChildHomeVisitInteractor implements ChildHomeVisitContract.Interact
     public ArrayList<BirthCertDataModel> getBirthCertDataList() {
         return birthCertDataList;
     }
-    private Flavor flavor = new ChildHomeVisitInteractorFlv();
 
     @Override
     public void getLastEditData(CommonPersonObjectClient childClient, final ChildHomeVisitContract.InteractorCallback callback) {

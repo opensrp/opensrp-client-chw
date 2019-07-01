@@ -8,7 +8,6 @@ import org.apache.commons.lang3.text.WordUtils;
 import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.contract.MedicalHistoryContract;
-import org.smartregister.chw.domain.HomeVisit;
 import org.smartregister.chw.fragment.GrowthNutritionInputFragment;
 import org.smartregister.chw.util.BaseService;
 import org.smartregister.chw.util.BaseVaccine;
@@ -50,6 +49,7 @@ import static org.smartregister.util.Utils.getValue;
 
 public class MedicalHistoryInteractor implements MedicalHistoryContract.Interactor {
     private AppExecutors appExecutors;
+    public List<HomeVisitServiceDataModel> homeVisitServiceDataModels = new ArrayList<>();
 
     @VisibleForTesting
     MedicalHistoryInteractor(AppExecutors appExecutors) {
@@ -59,7 +59,7 @@ public class MedicalHistoryInteractor implements MedicalHistoryContract.Interact
     public MedicalHistoryInteractor() {
         this(new AppExecutors());
     }
-    List<HomeVisitServiceDataModel> homeVisitServiceDataModels = new ArrayList<>();
+
 
     @Override
     public void generateHomeVisitServiceList(long lastHomeVisit) {
@@ -98,19 +98,19 @@ public class MedicalHistoryInteractor implements MedicalHistoryContract.Interact
         String birthCert = getValue(commonPersonObjectClient.getColumnmaps(), BIRTH_CERT, true);
         final ArrayList<String> birthCertificationContent = new ArrayList<>();
         if (!TextUtils.isEmpty(birthCert) && birthCert.equalsIgnoreCase("Yes")) {
-            birthCertificationContent.add(getContext().getString(R.string.birth_cert_value,birthCert));
-            birthCertificationContent.add(getContext().getString(R.string.birth_cert_date,getValue(commonPersonObjectClient.getColumnmaps(), BIRTH_CERT_ISSUE_DATE, true)));
-            birthCertificationContent.add(getContext().getString(R.string.birth_cert_number,getValue(commonPersonObjectClient.getColumnmaps(), BIRTH_CERT_NUMBER, true)));
+            birthCertificationContent.add(getContext().getString(R.string.birth_cert_value, birthCert));
+            birthCertificationContent.add(getContext().getString(R.string.birth_cert_date, getValue(commonPersonObjectClient.getColumnmaps(), BIRTH_CERT_ISSUE_DATE, true)));
+            birthCertificationContent.add(getContext().getString(R.string.birth_cert_number, getValue(commonPersonObjectClient.getColumnmaps(), BIRTH_CERT_NUMBER, true)));
 
         } else if (!TextUtils.isEmpty(birthCert) && birthCert.equalsIgnoreCase("No")) {
-            birthCertificationContent.add(getContext().getString(R.string.birth_cert_value,birthCert));
+            birthCertificationContent.add(getContext().getString(R.string.birth_cert_value, birthCert));
             String notification = getValue(commonPersonObjectClient.getColumnmaps(), BIRTH_CERT_NOTIFIICATION, true);
 
             if (!TextUtils.isEmpty(notification) && notification.equalsIgnoreCase("Yes")) {
-                birthCertificationContent.add(getContext().getString(R.string.birth_cert_notification,"Yes"));
+                birthCertificationContent.add(getContext().getString(R.string.birth_cert_notification, "Yes"));
                 birthCertificationContent.add(getContext().getString(R.string.birth_cert_note_1));
             } else if (!TextUtils.isEmpty(notification) && notification.equalsIgnoreCase("No")) {
-                birthCertificationContent.add(getContext().getString(R.string.birth_cert_notification,"No"));
+                birthCertificationContent.add(getContext().getString(R.string.birth_cert_notification, "No"));
                 birthCertificationContent.add(getContext().getString(R.string.birth_cert_note_2));
             }
 //            else {
@@ -132,12 +132,12 @@ public class MedicalHistoryInteractor implements MedicalHistoryContract.Interact
         final ArrayList<String> illnessContent = new ArrayList<>();
 
         String illnessDate = getValue(commonPersonObjectClient.getColumnmaps(), ILLNESS_DATE, true);
-        if(!TextUtils.isEmpty(illnessDate)){
+        if (!TextUtils.isEmpty(illnessDate)) {
             String illnessDescription = getValue(commonPersonObjectClient.getColumnmaps(), ILLNESS_DESCRIPTION, true);
             String illnessAction = getValue(commonPersonObjectClient.getColumnmaps(), ILLNESS_ACTION, true);
             illnessContent.add(getContext().getString(R.string.illness_date_with_value, illnessDate));
             illnessContent.add(getContext().getString(R.string.illness_des_with_value, illnessDescription));
-            illnessContent.add(getContext().getString(R.string.illness_action_value,illnessAction));
+            illnessContent.add(getContext().getString(R.string.illness_action_value, illnessAction));
 
         }
         Runnable runnable2 = new Runnable() {
@@ -153,7 +153,7 @@ public class MedicalHistoryInteractor implements MedicalHistoryContract.Interact
         };
         appExecutors.diskIO().execute(runnable2);
         final String vaccineCard = getValue(commonPersonObjectClient.getColumnmaps(), VACCINE_CARD, true);
-        if(!TextUtils.isEmpty(vaccineCard)){
+        if (!TextUtils.isEmpty(vaccineCard)) {
             Runnable runnable3 = new Runnable() {
                 @Override
                 public void run() {
@@ -183,9 +183,9 @@ public class MedicalHistoryInteractor implements MedicalHistoryContract.Interact
                     String stateKey = VaccinateActionUtils.stateKey(vaccine);
                     ReceivedVaccine receivedVaccine = new ReceivedVaccine();
                     receivedVaccine.setVaccineCategory(stateKey);
-                    receivedVaccine.setVaccineName(fixVaccineCasing(name).replace("MEASLES","MCV"));
-                    if(receivedVaccine.getVaccineName().contains("MEASLES")){
-                        receivedVaccine.setVaccineName(receivedVaccine.getVaccineName().replace("MEASLES","MCV"));
+                    receivedVaccine.setVaccineName(fixVaccineCasing(name).replace("MEASLES", "MCV"));
+                    if (receivedVaccine.getVaccineName().contains("MEASLES")) {
+                        receivedVaccine.setVaccineName(receivedVaccine.getVaccineName().replace("MEASLES", "MCV"));
                     }
                     receivedVaccine.setVaccineDate(recievedVaccines.get(name));
                     receivedVaccine.setVaccineIndex(vList.indexOf(vaccine));
@@ -243,7 +243,7 @@ public class MedicalHistoryInteractor implements MedicalHistoryContract.Interact
     }
 
     @Override
-    public void fetchGrowthNutritionData(CommonPersonObjectClient commonPersonObjectClient,final MedicalHistoryContract.InteractorCallBack callBack) {
+    public void fetchGrowthNutritionData(CommonPersonObjectClient commonPersonObjectClient, final MedicalHistoryContract.InteractorCallBack callBack) {
         String initialFeedingValue = getValue(commonPersonObjectClient.getColumnmaps(), ChildDBConstants.KEY.CHILD_BF_HR, true);
         RecurringServiceRecordRepository recurringServiceRecordRepository = ImmunizationLibrary.getInstance().recurringServiceRecordRepository();
         List<ServiceRecord> serviceRecordList = recurringServiceRecordRepository.findByEntityId(commonPersonObjectClient.entityId());
@@ -264,7 +264,7 @@ public class MedicalHistoryInteractor implements MedicalHistoryContract.Interact
         initialServiceRecord.setType(GrowthNutritionInputFragment.GROWTH_TYPE.EXCLUSIVE.getValue());
         initialServiceRecord.setName(ChildDBConstants.KEY.CHILD_BF_HR);
         initialServiceRecord.setValue(initialFeedingValue);
-        serviceRecordList.add(0,initialServiceRecord);
+        serviceRecordList.add(0, initialServiceRecord);
         final ArrayList<BaseService> baseServiceArrayList = new ArrayList<>();
         String lastType = "";
         for (ServiceRecord serviceRecord : serviceRecordList) {
@@ -273,12 +273,12 @@ public class MedicalHistoryInteractor implements MedicalHistoryContract.Interact
                 serviceHeader.setServiceHeaderName(serviceRecord.getType());
                 baseServiceArrayList.add(serviceHeader);
                 ServiceContent content = new ServiceContent();
-                addContent(content,serviceRecord);
+                addContent(content, serviceRecord);
                 baseServiceArrayList.add(content);
                 lastType = serviceRecord.getType();
             } else {
                 ServiceContent content = new ServiceContent();
-                addContent(content,serviceRecord);
+                addContent(content, serviceRecord);
                 baseServiceArrayList.add(content);
             }
         }
@@ -295,13 +295,13 @@ public class MedicalHistoryInteractor implements MedicalHistoryContract.Interact
         };
         appExecutors.diskIO().execute(runnable);
     }
-    private void addContent(ServiceContent content,ServiceRecord serviceRecord){
+
+    private void addContent(ServiceContent content, ServiceRecord serviceRecord) {
         if (serviceRecord.getType().equalsIgnoreCase(GrowthNutritionInputFragment.GROWTH_TYPE.EXCLUSIVE.getValue())) {
             //String[] values = serviceRecord.getValue().split("_");
             if (serviceRecord.getName().equalsIgnoreCase(ChildDBConstants.KEY.CHILD_BF_HR)) {
                 content.setServiceName(getContext().getString(R.string.initial_breastfeed_value, WordUtils.capitalize(serviceRecord.getValue())));
-            }
-            else if (serviceRecord.getName().equalsIgnoreCase("exclusive breastfeeding0")) {
+            } else if (serviceRecord.getName().equalsIgnoreCase("exclusive breastfeeding0")) {
                 content.setServiceName(getContext().getString(R.string.zero_month_breastfeed_value, WordUtils.capitalize(serviceRecord.getValue())));
             } else {
                 Object[] objects = ChildUtils.getStringWithNumber(serviceRecord.getName());
@@ -321,10 +321,11 @@ public class MedicalHistoryInteractor implements MedicalHistoryContract.Interact
     public void onDestroy(boolean isChangingConfiguration) {
 
     }
-    public Context getContext(){
+
+    public Context getContext() {
         return ChwApplication.getInstance().getApplicationContext();
     }
 
-    public interface Flavor{
+    public interface Flavor {
     }
 }
