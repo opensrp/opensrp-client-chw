@@ -112,48 +112,6 @@ public class ChildUtils {
         return null;
     }
 
-    public static boolean hasAlert(VaccineRepo.Vaccine vaccine, List<Alert> alerts) {
-        for (Alert alert : alerts) {
-            if (alert.scheduleName().equalsIgnoreCase(vaccine.display())) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public static ImmunizationState alertState(Alert toProcess) {
-        if (toProcess == null) {
-            return ImmunizationState.NO_ALERT;
-        } else if (toProcess.status().value().equalsIgnoreCase(ImmunizationState.NORMAL.name())) {
-            return ImmunizationState.DUE;
-        } else if (toProcess.status().value().equalsIgnoreCase(ImmunizationState.UPCOMING.name())) {
-            return ImmunizationState.UPCOMING;
-        } else if (toProcess.status().value().equalsIgnoreCase(ImmunizationState.URGENT.name())) {
-            return ImmunizationState.OVERDUE;
-        } else if (toProcess.status().value().equalsIgnoreCase(ImmunizationState.EXPIRED.name())) {
-            return ImmunizationState.EXPIRED;
-        }
-        return ImmunizationState.NO_ALERT;
-    }
-
-    public static boolean isReceived(String s, Map<String, Date> receivedvaccines) {
-        for (String name : receivedvaccines.keySet()) {
-            if (s.equalsIgnoreCase(name)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public static ImmunizationState assignAlert(VaccineRepo.Vaccine vaccine, List<Alert> alerts) {
-        for (Alert alert : alerts) {
-            if (alert.scheduleName().equalsIgnoreCase(vaccine.display())) {
-                return alertState(alert);
-            }
-        }
-        return ImmunizationState.NO_ALERT;
-    }
-
     /**
      * Based on received vaccine list it'll return the fully immunized year.
      * Firstly it'll check with 2years vaccine list if it's match then return 2 year fully immunized.
@@ -324,12 +282,6 @@ public class ChildUtils {
         return getChildVisitStatus(homeAlertRule, lastVisitDate);
     }
 
-    public static String getBirthCertDueStatus(String dateOfBirth) {
-        BirthCertRule birthCertRule = new BirthCertRule(dateOfBirth);
-        ChwApplication.getInstance().getRulesEngineHelper().getButtonAlertStatus(birthCertRule, Constants.RULE_FILE.BIRTH_CERT);
-        return birthCertRule.getButtonStatus();
-    }
-
     public static String getServiceDueStatus(String dueDate) {
         ServiceRule serviceRule = new ServiceRule(dueDate);
         ChwApplication.getInstance().getRulesEngineHelper().getButtonAlertStatus(serviceRule, Constants.RULE_FILE.SERVICE);
@@ -462,56 +414,22 @@ public class ChildUtils {
         }
 
     }
-
-    public static void updateMinimumDietaryAsEvent(Context context, String entityId, String choiceValue, String homeVisitId) {
+    public static void updateTaskAsEvent(String eventType,String formSubmissionField,List<Object> values,List<Object> humenread,
+            String entityId, String choiceValue, String homeVisitId) {
         try {
             ECSyncHelper syncHelper = FamilyLibrary.getInstance().getEcSyncHelper();
             Event baseEvent = (Event) new Event()
                     .withBaseEntityId(entityId)
                     .withEventDate(new Date())
                     .withEntityType(HomeVisitServiceRepository.HOME_VISIT_SERVICE_TABLE_NAME)
-                    .withEventType(Constants.EventType.MINIMUM_DIETARY_DIVERSITY)
-                    .withFormSubmissionId(JsonFormUtils.generateRandomUUIDString())
-                    .withDateCreated(new Date());
-            List<Object> huValue = new ArrayList<>();
-            huValue.add(choiceValue);
-
-            baseEvent.addObs(new Obs("concept", "text", Constants.FORM_CONSTANTS.MINIMUM_DIETARY.CODE, "",
-                    JsonFormUtils.toList(JsonFormUtils.getChoiceDietary(context).get(choiceValue)), JsonFormUtils.toList(choiceValue), null,
-                    Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.TASK_MINIMUM_DIETARY).withHumanReadableValues(huValue));
-            baseEvent.addObs((new Obs()).withFormSubmissionField(Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_ID).withValue(homeVisitId)
-                    .withFieldCode(Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_ID).withFieldType("formsubmissionField").withFieldDataType("text").withParentCode("").withHumanReadableValues(new ArrayList<>()));
-
-            JsonFormUtils.tagSyncMetadata(ChwApplication.getInstance().getContext().allSharedPreferences(), baseEvent);
-            JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(baseEvent));
-            syncHelper.addEvent(entityId, eventJson);
-            long lastSyncTimeStamp = ChwApplication.getInstance().getContext().allSharedPreferences().fetchLastUpdatedAtDate(0);
-            Date lastSyncDate = new Date(lastSyncTimeStamp);
-            ChwApplication.getClientProcessor(ChwApplication.getInstance().getContext().applicationContext()).processClient(syncHelper.getEvents(lastSyncDate, BaseRepository.TYPE_Unsynced));
-            ChwApplication.getInstance().getContext().allSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    public static void updateMuacAsEvent(Context context, String entityId, String choiceValue, String homeVisitId) {
-        try {
-            ECSyncHelper syncHelper = FamilyLibrary.getInstance().getEcSyncHelper();
-            Event baseEvent = (Event) new Event()
-                    .withBaseEntityId(entityId)
-                    .withEventDate(new Date())
-                    .withEntityType(HomeVisitServiceRepository.HOME_VISIT_SERVICE_TABLE_NAME)
-                    .withEventType(Constants.EventType.MUAC)
+                    .withEventType(eventType)
                     .withFormSubmissionId(JsonFormUtils.generateRandomUUIDString())
                     .withDateCreated(new Date());
             List<Object> huValue = new ArrayList<>();
             huValue.add(choiceValue);
 
             baseEvent.addObs(new Obs("concept", "text", Constants.FORM_CONSTANTS.MUAC.CODE, "",
-                    JsonFormUtils.toList(JsonFormUtils.getChoiceMuac(context).get(choiceValue)), JsonFormUtils.toList(choiceValue), null,
-                    Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.TASK_MUAC).withHumanReadableValues(huValue));
+                    values, humenread, null,formSubmissionField).withHumanReadableValues(huValue));
             baseEvent.addObs((new Obs()).withFormSubmissionField(Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_ID).withValue(homeVisitId)
                     .withFieldCode(Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_ID).withFieldType("formsubmissionField").withFieldDataType("text").withParentCode("").withHumanReadableValues(new ArrayList<>()));
 
@@ -636,14 +554,13 @@ public class ChildUtils {
         homeVisitServiceDataModel.setHomeVisitDetails(details);
         ChwApplication.getHomeVisitServiceRepository().add(homeVisitServiceDataModel);
     }
-
-    public static ServiceTask createDiateryFromEvent(Context context, String details) {
+    public static ServiceTask createServiceTaskFromEvent(String taskType ,String details,String title,String formSubmissionId) {
         ServiceTask serviceTask = new ServiceTask();
         org.smartregister.domain.db.Event event = ChildUtils.gsonConverter.fromJson(details, new TypeToken<org.smartregister.domain.db.Event>() {
         }.getType());
         List<org.smartregister.domain.db.Obs> observations = event.getObs();
         for (org.smartregister.domain.db.Obs obs : observations) {
-            if (obs.getFormSubmissionField().equalsIgnoreCase("task_minimum_dietary")) {
+            if (obs.getFormSubmissionField().equalsIgnoreCase(formSubmissionId)) {
                 List<Object> hu = obs.getHumanReadableValues();
                 String value = "";
                 for (Object object : hu) {
@@ -652,29 +569,8 @@ public class ChildUtils {
                 serviceTask.setTaskLabel(value);
             }
         }
-        serviceTask.setTaskTitle(context.getString(R.string.minimum_dietary_title));
-        serviceTask.setTaskType(TaskServiceCalculate.TASK_TYPE.Minimum_dietary.name());
-        return serviceTask;
-
-    }
-
-    public static ServiceTask createMuacFromEvent(Context context, String details) {
-        ServiceTask serviceTask = new ServiceTask();
-        org.smartregister.domain.db.Event event = ChildUtils.gsonConverter.fromJson(details, new TypeToken<org.smartregister.domain.db.Event>() {
-        }.getType());
-        List<org.smartregister.domain.db.Obs> observations = event.getObs();
-        for (org.smartregister.domain.db.Obs obs : observations) {
-            if (obs.getFormSubmissionField().equalsIgnoreCase("task_muac")) {
-                List<Object> hu = obs.getHumanReadableValues();
-                String value = "";
-                for (Object object : hu) {
-                    value = (String) object;
-                }
-                serviceTask.setTaskLabel(value);
-            }
-        }
-        serviceTask.setTaskTitle(context.getString(R.string.muac_title));
-        serviceTask.setTaskType(TaskServiceCalculate.TASK_TYPE.MUAC.name());
+        serviceTask.setTaskTitle(title);
+        serviceTask.setTaskType(taskType);
         return serviceTask;
 
     }

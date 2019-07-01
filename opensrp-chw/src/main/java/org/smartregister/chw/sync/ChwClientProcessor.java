@@ -88,7 +88,7 @@ public class ChwClientProcessor extends ClientProcessorForJava {
                     processHomeVisit(eventClient);
                     processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
                 } else if (eventType.equals(Constants.EventType.MINIMUM_DIETARY_DIVERSITY)
-                        || eventType.equals(Constants.EventType.MUAC)) {
+                        || eventType.equals(Constants.EventType.MUAC) || eventType.equals(Constants.EventType.LLITN)) {
                     processHomeVisitService(eventClient);
                     processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
                 } else if (eventType.equals(Constants.EventType.ANC_HOME_VISIT) && eventClient.getEvent() != null) {

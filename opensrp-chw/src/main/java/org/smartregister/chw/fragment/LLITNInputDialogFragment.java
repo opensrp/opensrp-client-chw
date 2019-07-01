@@ -82,12 +82,10 @@ public class LLITNInputDialogFragment  extends DialogFragment implements View.On
         if(TextUtils.isEmpty(choiceValue)){
             enableDisableSaveBtn(false);
         }else{
-            if(choiceValue.equalsIgnoreCase(getString(R.string.muac_choice_1))){
+            if(choiceValue.equalsIgnoreCase(getString(R.string.yes))){
                 choiceOne.setChecked(true);
-            }else if(choiceValue.equalsIgnoreCase(getString(R.string.muac_choice_2))){
+            }else if(choiceValue.equalsIgnoreCase(getString(R.string.no))){
                 choiceTwo.setChecked(true);
-            }else if(choiceValue.equalsIgnoreCase(getString(R.string.muac_choice_3))){
-                choiceThree.setChecked(true);
             }
         }
 
@@ -146,10 +144,6 @@ public class LLITNInputDialogFragment  extends DialogFragment implements View.On
                 break;
             case R.id.choice_2:
                 choiceValue = choiceTwo.getText().toString();
-                enableDisableSaveBtn(true);
-                break;
-            case R.id.choice_3:
-                choiceValue = choiceThree.getText().toString();
                 enableDisableSaveBtn(true);
                 break;
             default:
