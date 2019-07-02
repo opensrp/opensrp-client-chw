@@ -150,7 +150,7 @@ public class AncRegisterFragment extends BaseAncRegisterFragment {
 
     @Override
     protected void openHomeVisit(CommonPersonObjectClient client) {
-        AncHomeVisitActivity.startMe(getActivity(), new MemberObject(client));
+        AncHomeVisitActivity.startMe(getActivity(), new MemberObject(client), false);
     }
 
     @Override
