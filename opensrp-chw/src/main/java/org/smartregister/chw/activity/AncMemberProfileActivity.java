@@ -162,7 +162,10 @@ public class AncMemberProfileActivity extends BaseAncMemberProfileActivity {
                 !ancVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.OVERDUE.name())) {
             textview_record_anc_visit.setVisibility(View.GONE);
             view_anc_record.setVisibility(View.GONE);
+            textViewAncVisitNot.setVisibility(View.GONE);
         }
+        if (ancVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.OVERDUE.name()))
+            textview_record_anc_visit.setBackgroundResource(R.drawable.record_btn_selector_overdue);
     }
 
     @Override
