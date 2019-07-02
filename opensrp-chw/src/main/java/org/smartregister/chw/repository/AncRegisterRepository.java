@@ -64,7 +64,7 @@ public class AncRegisterRepository extends BaseRepository {
 
     }
 
-    public int getancWomenCount(String familyBaseID) {
+    public int getAncWomenCount(String familyBaseID) {
         SQLiteDatabase database = getReadableDatabase();
         Cursor cursor = null;
         try {

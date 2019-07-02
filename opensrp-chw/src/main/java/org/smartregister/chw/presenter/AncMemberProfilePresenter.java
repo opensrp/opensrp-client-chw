@@ -4,8 +4,8 @@ import android.util.Log;
 
 import org.apache.commons.lang3.tuple.Triple;
 import org.smartregister.chw.anc.contract.BaseAncMemberProfileContract;
-import org.smartregister.chw.anc.presenter.BaseAncMemberProfilePresenter;
 import org.smartregister.chw.anc.domain.MemberObject;
+import org.smartregister.chw.anc.presenter.BaseAncMemberProfilePresenter;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.contract.FamilyProfileContract;
 
@@ -13,8 +13,8 @@ public class AncMemberProfilePresenter extends BaseAncMemberProfilePresenter imp
 
     private static final String TAG = AncMemberProfilePresenter.class.getCanonicalName();
 
-    public AncMemberProfilePresenter(BaseAncMemberProfileContract.View view, MemberObject memberObject) {
-        super(view, memberObject);
+    public AncMemberProfilePresenter(BaseAncMemberProfileContract.View view, BaseAncMemberProfileContract.Interactor interactor, MemberObject memberObject) {
+        super(view, interactor, memberObject);
     }
 
     public void startFormForEdit(CommonPersonObjectClient commonPersonObject) {

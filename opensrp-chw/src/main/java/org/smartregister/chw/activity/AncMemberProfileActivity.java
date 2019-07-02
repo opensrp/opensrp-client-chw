@@ -17,6 +17,7 @@ import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.AncLibrary;
 import org.smartregister.chw.anc.activity.BaseAncMemberProfileActivity;
+import org.smartregister.chw.anc.contract.BaseAncMemberProfileContract;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.util.Constants;
 import org.smartregister.chw.anc.util.DBConstants;
@@ -141,7 +142,8 @@ public class AncMemberProfileActivity extends BaseAncMemberProfileActivity {
     }
 
     public AncMemberProfilePresenter ancMemberProfilePresenter() {
-        return new AncMemberProfilePresenter(this, MEMBER_OBJECT);
+        BaseAncMemberProfileContract.Interactor interactor = null;
+        return new AncMemberProfilePresenter(this, interactor, MEMBER_OBJECT);
     }
 
     @Override
@@ -163,7 +165,7 @@ public class AncMemberProfileActivity extends BaseAncMemberProfileActivity {
         super.onClick(view);
 
         switch (view.getId()) {
-            case R.id.textview_record_anc_visit:
+            case R.id.textview_record_visit:
                 AncHomeVisitActivity.startMe(this, MEMBER_OBJECT);
                 break;
             default:
