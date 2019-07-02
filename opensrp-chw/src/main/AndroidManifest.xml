@@ -27,6 +27,10 @@
             android:theme="@style/ChwTheme.NoActionBar" />
 
         <activity
+            android:name=".activity.AncMedicalHistoryActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+
+        <activity
             android:name=".activity.AncHomeVisitActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
 

@@ -3,7 +3,10 @@ package org.smartregister.chw.contract;
 import android.content.Context;
 
 import org.json.JSONObject;
+import org.smartregister.chw.util.ServiceTask;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
+
+import java.util.ArrayList;
 
 public interface ChildHomeVisitContract {
     interface View {
@@ -14,6 +17,8 @@ public interface ChildHomeVisitContract {
         void updateBirthStatusTick();
 
         void updateObsIllnessStatusTick();
+
+        void updateTaskService();
 
         // void updateCounselingStatusTick();
 
@@ -31,9 +36,14 @@ public interface ChildHomeVisitContract {
 
         //void startCounselingForm(JSONObject previousJson);
 
-        void generateBirthIllnessForm(String jsonString);
+        void generateBirthCertForm(String jsonString);
 
         //void generateCounselingForm(String jsonString);
+        void generateObsIllnessForm(String jsonString);
+
+        void generateTaskService(boolean isEditMode);
+
+        ArrayList<ServiceTask> getServiceTasks();
 
         void saveForm();
 
@@ -43,9 +53,12 @@ public interface ChildHomeVisitContract {
     interface Interactor {
         void getLastEditData(CommonPersonObjectClient childClient, InteractorCallback callback);
 
-        void generateBirthIllnessForm(String jsonString, InteractorCallback callback, boolean isEditMode);
+        void generateBirthCertForm(String jsonString, InteractorCallback callback, boolean isEditMode);
+
+        void generateObsIllnessForm(String jsonString, InteractorCallback callback, boolean isEditMode);
 
         //void generateCounselingForm(String jsonString, InteractorCallback callback, boolean isEditMode);
+        void generateTaskService(CommonPersonObjectClient childClient, InteractorCallback callback, boolean isEditMode);
 
         void saveForm(CommonPersonObjectClient childClient);
 
@@ -60,6 +73,8 @@ public interface ChildHomeVisitContract {
         void updateBirthStatusTick();
 
         void updateObsIllnessStatusTick();
+
+        void updateTaskAdapter(ArrayList<ServiceTask> serviceTasks);
 
         //void updateCounselingStatusTick();
     }

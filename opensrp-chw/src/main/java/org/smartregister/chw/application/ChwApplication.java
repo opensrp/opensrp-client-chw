@@ -25,6 +25,7 @@ import org.smartregister.chw.repository.AncRegisterRepository;
 import org.smartregister.chw.repository.ChwRepository;
 import org.smartregister.chw.repository.HomeVisitIndicatorInfoRepository;
 import org.smartregister.chw.repository.HomeVisitRepository;
+import org.smartregister.chw.repository.HomeVisitServiceRepository;
 import org.smartregister.chw.sync.ChwClientProcessor;
 import org.smartregister.chw.util.ChildDBConstants;
 import org.smartregister.chw.util.Constants;
@@ -69,6 +70,7 @@ public class ChwApplication extends DrishtiApplication {
 
     private static CommonFtsObject commonFtsObject;
     private static HomeVisitRepository homeVisitRepository;
+    private static HomeVisitServiceRepository homeVisitServiceRepository;
     private static AncRegisterRepository ancRegisterRepository;
     private static HomeVisitIndicatorInfoRepository homeVisitIndicatorInfoRepository;
 
@@ -139,10 +141,16 @@ public class ChwApplication extends DrishtiApplication {
         }
         return homeVisitRepository;
     }
+    public static HomeVisitServiceRepository getHomeVisitServiceRepository(){
+        if(homeVisitServiceRepository == null){
+            homeVisitServiceRepository = new HomeVisitServiceRepository(getInstance().getRepository());
+        }
+        return homeVisitServiceRepository;
+    }
 
     public static AncRegisterRepository ancRegisterRepository() {
         if (ancRegisterRepository == null) {
-            ancRegisterRepository = new AncRegisterRepository(getInstance().getRepository(), getInstance().getContext().commonFtsObject(), getInstance().getContext().alertService());
+            ancRegisterRepository = new AncRegisterRepository(getInstance().getRepository());
         }
         return ancRegisterRepository;
     }

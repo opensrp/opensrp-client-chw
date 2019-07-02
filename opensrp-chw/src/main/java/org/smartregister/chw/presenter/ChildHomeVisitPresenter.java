@@ -6,9 +6,11 @@ import org.json.JSONObject;
 import org.smartregister.chw.contract.ChildHomeVisitContract;
 import org.smartregister.chw.interactor.ChildHomeVisitInteractor;
 import org.smartregister.chw.model.ChildRegisterModel;
-import org.smartregister.chw.util.BirthIllnessData;
+import org.smartregister.chw.util.BirthCertDataModel;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.JsonFormUtils;
+import org.smartregister.chw.util.ObsIllnessDataModel;
+import org.smartregister.chw.util.ServiceTask;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.util.FormUtils;
@@ -22,6 +24,7 @@ public class ChildHomeVisitPresenter implements ChildHomeVisitContract.Presenter
     private CommonPersonObjectClient childClient;
     private FormUtils formUtils = null;
     private String editedBirthCertFormJson, editedIllnessJson, editedCounselingJson;
+    private ArrayList<ServiceTask> serviceTasks = new ArrayList<>();
 
     public ChildHomeVisitPresenter(ChildHomeVisitContract.View view) {
         this.view = new WeakReference<>(view);
@@ -33,20 +36,9 @@ public class ChildHomeVisitPresenter implements ChildHomeVisitContract.Presenter
 
     }
 
-    public String getEditedBirthCertFormJson() {
-        return editedBirthCertFormJson;
-    }
-
-    public String getEditedIllnessJson() {
-        return editedIllnessJson;
-    }
-
-    public String getEditedCounselingJson() {
-        return editedCounselingJson;
-    }
-
-    public int getSaveSize() {
-        return ((ChildHomeVisitInteractor) interactor).getSaveSize();
+    @Override
+    public void generateTaskService(boolean isEditMode) {
+        interactor.generateTaskService(childClient,this,isEditMode);
     }
 
     @Override
@@ -121,6 +113,12 @@ public class ChildHomeVisitPresenter implements ChildHomeVisitContract.Presenter
 
     }
 
+    @Override
+    public void updateTaskAdapter(ArrayList<ServiceTask> serviceTasks) {
+        this.serviceTasks.clear();
+        this.serviceTasks.addAll(serviceTasks);
+        getView().updateTaskService();
+    }
     /*
     @Override
     public void updateCounselingStatusTick() {
@@ -129,8 +127,13 @@ public class ChildHomeVisitPresenter implements ChildHomeVisitContract.Presenter
     */
 
     @Override
-    public void generateBirthIllnessForm(String jsonString) {
-        interactor.generateBirthIllnessForm(jsonString, this, false);
+    public void generateBirthCertForm(String jsonString) {
+        interactor.generateBirthCertForm(jsonString, this, false);
+    }
+
+    @Override
+    public void generateObsIllnessForm(String jsonString) {
+        interactor.generateObsIllnessForm(jsonString, this, false);
     }
 
     /*
@@ -143,13 +146,13 @@ public class ChildHomeVisitPresenter implements ChildHomeVisitContract.Presenter
     @Override
     public void updateBirthCertEditData(String jsonString) {
         editedBirthCertFormJson = jsonString;
-        interactor.generateBirthIllnessForm(jsonString, this, true);
+        interactor.generateBirthCertForm(jsonString, this, true);
     }
 
     @Override
     public void updateObsIllnessEditData(String json) {
         editedIllnessJson = json;
-        interactor.generateBirthIllnessForm(json, this, true);
+        interactor.generateObsIllnessForm(json, this, true);
     }
 
     @Override
@@ -185,14 +188,35 @@ public class ChildHomeVisitPresenter implements ChildHomeVisitContract.Presenter
 
     }
 
-    public ArrayList<BirthIllnessData> getIllnessDataList() {
+    public ArrayList<ObsIllnessDataModel> getIllnessDataList() {
         return ((ChildHomeVisitInteractor) interactor).getIllnessDataList();
     }
 
-    public ArrayList<BirthIllnessData> getBirthCertDataList() {
+    public ArrayList<BirthCertDataModel> getBirthCertDataList() {
         return ((ChildHomeVisitInteractor) interactor).getBirthCertDataList();
     }
 
+    public String getEditedBirthCertFormJson() {
+        return editedBirthCertFormJson;
+    }
+
+    public String getEditedIllnessJson() {
+        return editedIllnessJson;
+    }
+
+    public String getEditedCounselingJson() {
+        return editedCounselingJson;
+    }
+
+    @Override
+
+    public ArrayList<ServiceTask> getServiceTasks() {
+        return serviceTasks;
+    }
+
+    public int getSaveSize() {
+        return ((ChildHomeVisitInteractor) interactor).getSaveSize();
+    }
     /*
     public ArrayList<BirthIllnessData> getCounselingDataList() {
         return ((ChildHomeVisitInteractor) interactor).getCounselingDataList();
@@ -210,4 +234,6 @@ public class ChildHomeVisitPresenter implements ChildHomeVisitContract.Presenter
         }
         return formUtils;
     }
+
+
 }

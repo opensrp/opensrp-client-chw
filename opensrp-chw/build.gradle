@@ -139,7 +139,7 @@ android {
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"Clinic" , "CHSS" , "CHA"}'
             buildConfigField "String", 'DEFAULT_LOCATION', '"CHA"'
             buildConfigField "boolean", 'SUPPORT_QR', 'false'
-            buildConfigField "int", "DATABASE_VERSION", '6'
+            buildConfigField "int", "DATABASE_VERSION", '8'
         }
         guinea {
             dimension = 'baseDimension'
@@ -195,7 +195,7 @@ dependencies {
         exclude group: 'io.ona.rdt-capture', module: 'lib'
     }
 
-    implementation('org.smartregister:opensrp-client-core:1.6.39-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-core:1.6.40-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.github.bmelnychuk', module: 'atv'
         exclude group: 'com.google.guava', module: 'guava'
@@ -225,7 +225,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'appcompat-v7'
     }
 
-    implementation('org.smartregister:opensrp-client-reporting:0.0.1-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-reporting:0.0.2-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'org.smartregister', module: 'opensrp-client-core'
         exclude group: 'com.android.support', module: 'appcompat-v7'
@@ -233,7 +233,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'design'
     }
 
-    implementation('org.smartregister:opensrp-client-chw-anc:0.0.5-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-chw-anc:0.0.6-BETA1-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'org.smartregister', module: 'opensrp-client-core'
         exclude group: 'com.android.support', module: 'appcompat-v7'
@@ -296,7 +296,10 @@ dependencies {
 }
 
 
-task jacocoTestReport(type: JacocoReport, dependsOn: ['testBaDebugUnitTest', 'createBaDebugCoverageReport', 'testWcaroDebugUnitTest', 'createWcaroDebugCoverageReport']) {
+task jacocoTestReport(type: JacocoReport, dependsOn: [
+        //'testBaDebugUnitTest', 'createBaDebugCoverageReport',
+        'testWcaroDebugUnitTest', 'createWcaroDebugCoverageReport'
+]) {
 
     reports {
         xml.enabled = true
@@ -307,13 +310,13 @@ task jacocoTestReport(type: JacocoReport, dependsOn: ['testBaDebugUnitTest', 'cr
     getReports().getHtml().setDestination(file("${buildDir}/reports/jacoco/jacocoRootReport/html"))
 
     def fileFilter = ['**/R.class', '**/R$*.class', '**/BuildConfig.*', '**/Manifest*.*', '**/*Test*.*', 'android/**/*.*', '**/*$ViewBinder*.*']
-    def debugTree = fileTree(dir: "$project.buildDir/intermediates/classes/ba/debug", excludes: fileFilter)
+    def debugTree = fileTree(dir: "$project.buildDir/intermediates/classes/wcaro/debug", excludes: fileFilter)
     def mainSrc = "$project.projectDir/src/main/java"
 
     sourceDirectories = files([mainSrc])
     classDirectories = files([debugTree])
     executionData = fileTree(dir: project.buildDir, includes: [
-            'jacoco/testBaDebugUnitTest.exec', 'outputs/code-coverage/connected/*coverage.ec'
+            'jacoco/testWcaroDebugUnitTest.exec', 'outputs/code-coverage/connected/*coverage.ec'
     ])
 }
 

@@ -17,12 +17,13 @@ import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.AncLibrary;
 import org.smartregister.chw.anc.activity.BaseAncMemberProfileActivity;
-import org.smartregister.chw.anc.contract.BaseAncMemberProfileContract;
 import org.smartregister.chw.anc.domain.MemberObject;
+import org.smartregister.chw.anc.presenter.BaseAncMemberProfilePresenter;
 import org.smartregister.chw.anc.util.Constants;
 import org.smartregister.chw.anc.util.DBConstants;
 import org.smartregister.chw.anc.util.Util;
 import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.chw.interactor.AncMemberProfileInteractor;
 import org.smartregister.chw.interactor.ChildProfileInteractor;
 import org.smartregister.chw.interactor.FamilyProfileInteractor;
 import org.smartregister.chw.model.FamilyProfileModel;
@@ -142,8 +143,12 @@ public class AncMemberProfileActivity extends BaseAncMemberProfileActivity {
     }
 
     public AncMemberProfilePresenter ancMemberProfilePresenter() {
-        BaseAncMemberProfileContract.Interactor interactor = null;
-        return new AncMemberProfilePresenter(this, interactor, MEMBER_OBJECT);
+        return new AncMemberProfilePresenter(this, new AncMemberProfileInteractor(), MEMBER_OBJECT);
+    }
+
+    @Override
+    protected void registerPresenter() {
+        presenter = new BaseAncMemberProfilePresenter(this, new AncMemberProfileInteractor(), MEMBER_OBJECT);
     }
 
     @Override
