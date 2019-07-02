@@ -10,6 +10,7 @@ import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializationContext;
@@ -20,6 +21,7 @@ import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 import com.google.gson.reflect.TypeToken;
+
 import org.apache.commons.lang3.StringUtils;
 import org.jeasy.rules.api.Rules;
 import org.joda.time.DateTime;
@@ -43,6 +45,7 @@ import org.smartregister.family.FamilyLibrary;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.sync.helper.ECSyncHelper;
+
 import java.lang.reflect.Type;
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -51,7 +54,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import timber.log.Timber;
+
 import static org.apache.commons.lang3.text.WordUtils.capitalize;
 import static org.smartregister.chw.util.JsonFormUtils.getValue;
 import static org.smartregister.chw.util.JsonFormUtils.tagSyncMetadata;
@@ -409,8 +414,9 @@ public class ChildUtils {
         }
 
     }
-    public static void updateTaskAsEvent(String eventType,String formSubmissionField,List<Object> values,List<Object> humenread,
-            String entityId, String choiceValue, String homeVisitId) {
+
+    public static void updateTaskAsEvent(String eventType, String formSubmissionField, List<Object> values, List<Object> humenread,
+                                         String entityId, String choiceValue, String homeVisitId) {
         try {
             ECSyncHelper syncHelper = FamilyLibrary.getInstance().getEcSyncHelper();
             Event baseEvent = (Event) new Event()
@@ -424,7 +430,7 @@ public class ChildUtils {
             huValue.add(choiceValue);
 
             baseEvent.addObs(new Obs("concept", "text", Constants.FORM_CONSTANTS.MUAC.CODE, "",
-                    values, humenread, null,formSubmissionField).withHumanReadableValues(huValue));
+                    values, humenread, null, formSubmissionField).withHumanReadableValues(huValue));
             baseEvent.addObs((new Obs()).withFormSubmissionField(Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_ID).withValue(homeVisitId)
                     .withFieldCode(Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_ID).withFieldType("formsubmissionField").withFieldDataType("text").withParentCode("").withHumanReadableValues(new ArrayList<>()));
 
@@ -441,11 +447,12 @@ public class ChildUtils {
         }
 
     }
-    public static void updateECDTaskAsEvent(String homeVisitId,String entityId,String jsonString){
-        try{
+
+    public static void updateECDTaskAsEvent(String homeVisitId, String entityId, String jsonString) {
+        try {
             ECSyncHelper syncHelper = FamilyLibrary.getInstance().getEcSyncHelper();
-            Event baseEvent = JsonFormUtils.getECDEvent(jsonString,homeVisitId,entityId);
-            if(baseEvent != null){
+            Event baseEvent = JsonFormUtils.getECDEvent(jsonString, homeVisitId, entityId);
+            if (baseEvent != null) {
                 JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(baseEvent));
                 syncHelper.addEvent(entityId, eventJson);
                 long lastSyncTimeStamp = ChwApplication.getInstance().getContext().allSharedPreferences().fetchLastUpdatedAtDate(0);
@@ -455,7 +462,7 @@ public class ChildUtils {
 
             }
 
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -568,7 +575,8 @@ public class ChildUtils {
         homeVisitServiceDataModel.setHomeVisitDetails(details);
         ChwApplication.getHomeVisitServiceRepository().add(homeVisitServiceDataModel);
     }
-    public static ServiceTask createServiceTaskFromEvent(String taskType ,String details,String title,String formSubmissionId) {
+
+    public static ServiceTask createServiceTaskFromEvent(String taskType, String details, String title, String formSubmissionId) {
         ServiceTask serviceTask = new ServiceTask();
         org.smartregister.domain.db.Event event = ChildUtils.gsonConverter.fromJson(details, new TypeToken<org.smartregister.domain.db.Event>() {
         }.getType());
@@ -588,12 +596,13 @@ public class ChildUtils {
         return serviceTask;
 
     }
-    public static ServiceTask createECDTaskFromEvent(Context context,String taskType ,String details,String title) {
+
+    public static ServiceTask createECDTaskFromEvent(Context context, String taskType, String details, String title) {
         ServiceTask serviceTask = new ServiceTask();
         org.smartregister.domain.db.Event event = ChildUtils.gsonConverter.fromJson(details, new TypeToken<org.smartregister.domain.db.Event>() {
         }.getType());
         List<org.smartregister.domain.db.Obs> observations = event.getObs();
-        String label="";
+        String label = "";
         for (org.smartregister.domain.db.Obs obs : observations) {
             if (obs.getFormSubmissionField().equalsIgnoreCase("develop_warning_signs")) {
                 List<Object> hu = obs.getHumanReadableValues();
@@ -601,7 +610,7 @@ public class ChildUtils {
                 for (Object object : hu) {
                     value = (String) object;
                 }
-                label = context.getString(R.string.dev_warning_sign)+value;
+                label = context.getString(R.string.dev_warning_sign) + value;
             }
             if (obs.getFormSubmissionField().equalsIgnoreCase("stim_skills")) {
                 List<Object> hu = obs.getHumanReadableValues();
@@ -609,7 +618,7 @@ public class ChildUtils {
                 for (Object object : hu) {
                     value = (String) object;
                 }
-                label = label+"\n"+context.getString(R.string.care_stim_skill)+value;
+                label = label + "\n" + context.getString(R.string.care_stim_skill) + value;
             }
             if (obs.getFormSubmissionField().equalsIgnoreCase("early_learning")) {
                 List<Object> hu = obs.getHumanReadableValues();
@@ -617,7 +626,7 @@ public class ChildUtils {
                 for (Object object : hu) {
                     value = (String) object;
                 }
-                label =label+"\n"+ context.getString(R.string.early_learning)+value;
+                label = label + "\n" + context.getString(R.string.early_learning) + value;
             }
         }
         serviceTask.setTaskLabel(label);
@@ -626,9 +635,10 @@ public class ChildUtils {
         return serviceTask;
 
     }
-    public static ServiceTask createECDFromJson(Context context,String json){
+
+    public static ServiceTask createECDFromJson(Context context, String json) {
         ServiceTask serviceTask = new ServiceTask();
-        try{
+        try {
 
             JSONObject jsonObject = new JSONObject(json);
 
@@ -637,30 +647,31 @@ public class ChildUtils {
             String value3 = getValue(jsonObject, "early_learning");
             String yesVale = context.getString(R.string.yes);
             String noValue = context.getString(R.string.no);
-            if(value3.equalsIgnoreCase(yesVale) || value3.equalsIgnoreCase(noValue)){
-                serviceTask.setTaskLabel(context.getString(R.string.dev_warning_sign)+value1+"\n"+context.getString(R.string.care_stim_skill)+value2
-                        +"\n"+context.getString(R.string.early_learning)+value3);
-            }else{
-                serviceTask.setTaskLabel(context.getString(R.string.dev_warning_sign)+value1+"\n"+context.getString(R.string.care_stim_skill)+value2
-                        );
+            if (value3.equalsIgnoreCase(yesVale) || value3.equalsIgnoreCase(noValue)) {
+                serviceTask.setTaskLabel(context.getString(R.string.dev_warning_sign) + value1 + "\n" + context.getString(R.string.care_stim_skill) + value2
+                        + "\n" + context.getString(R.string.early_learning) + value3);
+            } else {
+                serviceTask.setTaskLabel(context.getString(R.string.dev_warning_sign) + value1 + "\n" + context.getString(R.string.care_stim_skill) + value2
+                );
             }
 
-            serviceTask.setGreen(isComplete(context,value1,value2,value3));
+            serviceTask.setGreen(isComplete(context, value1, value2));
             serviceTask.setTaskTitle(context.getString(R.string.ecd_title));
             serviceTask.setTaskJson(jsonObject);
             serviceTask.setTaskType(TaskServiceCalculate.TASK_TYPE.ECD.name());
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
-       return serviceTask;
+        return serviceTask;
     }
-    private static boolean isComplete(Context context,String value1,String value2,String value3){
+
+    private static boolean isComplete(Context context, String value1, String value2) {
         String yesVale = context.getString(R.string.yes);
         String noValue = context.getString(R.string.no);
-        if(value1.equalsIgnoreCase(noValue) && value2.equalsIgnoreCase(yesVale)){
+        if (value1.equalsIgnoreCase(noValue) && value2.equalsIgnoreCase(yesVale)) {
             return true;
         }
-        if(value1.equalsIgnoreCase(yesVale) && value2.equalsIgnoreCase(noValue)){
+        if (value1.equalsIgnoreCase(yesVale) && value2.equalsIgnoreCase(noValue)) {
             return false;
         }
         return false;
