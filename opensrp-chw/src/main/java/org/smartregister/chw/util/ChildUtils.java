@@ -609,7 +609,7 @@ public class ChildUtils {
                 for (Object object : hu) {
                     value = (String) object;
                 }
-                label = "\n"+context.getString(R.string.care_stim_skill)+value;
+                label = label+"\n"+context.getString(R.string.care_stim_skill)+value;
             }
             if (obs.getFormSubmissionField().equalsIgnoreCase("early_learning")) {
                 List<Object> hu = obs.getHumanReadableValues();
@@ -617,7 +617,7 @@ public class ChildUtils {
                 for (Object object : hu) {
                     value = (String) object;
                 }
-                label ="\n"+ context.getString(R.string.early_learning)+value;
+                label =label+"\n"+ context.getString(R.string.early_learning)+value;
             }
         }
         serviceTask.setTaskLabel(label);
