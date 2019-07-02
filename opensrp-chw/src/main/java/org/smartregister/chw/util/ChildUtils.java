@@ -20,7 +20,6 @@ import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 import com.google.gson.reflect.TypeToken;
-
 import org.apache.commons.lang3.StringUtils;
 import org.jeasy.rules.api.Rules;
 import org.joda.time.DateTime;
@@ -33,7 +32,6 @@ import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.domain.HomeVisit;
 import org.smartregister.chw.repository.HomeVisitRepository;
 import org.smartregister.chw.repository.HomeVisitServiceRepository;
-import org.smartregister.chw.rule.BirthCertRule;
 import org.smartregister.chw.rule.HomeAlertRule;
 import org.smartregister.chw.rule.ImmunizationExpiredRule;
 import org.smartregister.chw.rule.ServiceRule;
@@ -41,13 +39,10 @@ import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.clientandeventmodel.Obs;
 import org.smartregister.commonregistry.AllCommonsRepository;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
-import org.smartregister.domain.Alert;
 import org.smartregister.family.FamilyLibrary;
 import org.smartregister.family.util.DBConstants;
-import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.sync.helper.ECSyncHelper;
-
 import java.lang.reflect.Type;
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -56,11 +51,10 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import timber.log.Timber;
-
 import static org.apache.commons.lang3.text.WordUtils.capitalize;
 import static org.smartregister.chw.util.JsonFormUtils.getValue;
+import static org.smartregister.chw.util.JsonFormUtils.tagSyncMetadata;
 import static org.smartregister.chw.util.Utils.dd_MMM_yyyy;
 
 public class ChildUtils {
@@ -371,7 +365,7 @@ public class ChildUtils {
             event.addObs((new Obs()).withFormSubmissionField(Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_ILLNESS).withValue(illnessJson == null ? "" : illnessJson.toString())
                     .withFieldCode(Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_ILLNESS).withFieldType("formsubmissionField").withFieldDataType("text").withParentCode("").withHumanReadableValues(new ArrayList<>()));
 
-            JsonFormUtils.tagSyncMetadata(ChwApplication.getInstance().getContext().allSharedPreferences(), event);
+            tagSyncMetadata(ChwApplication.getInstance().getContext().allSharedPreferences(), event);
             JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(event));
             syncHelper.addEvent(entityId, eventJson);
             long lastSyncTimeStamp = ChwApplication.getInstance().getContext().allSharedPreferences().fetchLastUpdatedAtDate(0);
@@ -402,7 +396,7 @@ public class ChildUtils {
             baseEvent.addObs(new Obs("concept", "text", Constants.FORM_CONSTANTS.VACCINE_CARD.CODE, "",
                     JsonFormUtils.toList(JsonFormUtils.getChoice(context).get(choiceValue)), JsonFormUtils.toList(choiceValue), null,
                     ChildDBConstants.KEY.VACCINE_CARD).withHumanReadableValues(huValue));
-            JsonFormUtils.tagSyncMetadata(ChwApplication.getInstance().getContext().allSharedPreferences(), baseEvent);
+            tagSyncMetadata(ChwApplication.getInstance().getContext().allSharedPreferences(), baseEvent);
             JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(baseEvent));
             syncHelper.addEvent(entityId, eventJson);
             long lastSyncTimeStamp = ChwApplication.getInstance().getContext().allSharedPreferences().fetchLastUpdatedAtDate(0);
@@ -434,7 +428,7 @@ public class ChildUtils {
             baseEvent.addObs((new Obs()).withFormSubmissionField(Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_ID).withValue(homeVisitId)
                     .withFieldCode(Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_ID).withFieldType("formsubmissionField").withFieldDataType("text").withParentCode("").withHumanReadableValues(new ArrayList<>()));
 
-            JsonFormUtils.tagSyncMetadata(ChwApplication.getInstance().getContext().allSharedPreferences(), baseEvent);
+            tagSyncMetadata(ChwApplication.getInstance().getContext().allSharedPreferences(), baseEvent);
             JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(baseEvent));
             syncHelper.addEvent(entityId, eventJson);
             long lastSyncTimeStamp = ChwApplication.getInstance().getContext().allSharedPreferences().fetchLastUpdatedAtDate(0);
@@ -443,6 +437,25 @@ public class ChildUtils {
             ChwApplication.getInstance().getContext().allSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
 
         } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+    public static void updateECDTaskAsEvent(String homeVisitId,String entityId,String jsonString){
+        try{
+            ECSyncHelper syncHelper = FamilyLibrary.getInstance().getEcSyncHelper();
+            Event baseEvent = JsonFormUtils.getECDEvent(jsonString,homeVisitId,entityId);
+            if(baseEvent != null){
+                JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(baseEvent));
+                syncHelper.addEvent(entityId, eventJson);
+                long lastSyncTimeStamp = ChwApplication.getInstance().getContext().allSharedPreferences().fetchLastUpdatedAtDate(0);
+                Date lastSyncDate = new Date(lastSyncTimeStamp);
+                ChwApplication.getClientProcessor(ChwApplication.getInstance().getContext().applicationContext()).processClient(syncHelper.getEvents(lastSyncDate, BaseRepository.TYPE_Unsynced));
+                ChwApplication.getInstance().getContext().allSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
+
+            }
+
+        }catch (Exception e){
             e.printStackTrace();
         }
 
@@ -622,13 +635,22 @@ public class ChildUtils {
             String value1 = getValue(jsonObject, "develop_warning_signs");
             String value2 = getValue(jsonObject, "stim_skills");
             String value3 = getValue(jsonObject, "early_learning");
-            serviceTask.setTaskLabel(context.getString(R.string.dev_warning_sign)+value1+"\n"+context.getString(R.string.care_stim_skill)+value2
-            +"\n"+context.getString(R.string.early_learning)+value3);
+            String yesVale = context.getString(R.string.yes);
+            String noValue = context.getString(R.string.no);
+            if(value3.equalsIgnoreCase(yesVale) || value3.equalsIgnoreCase(noValue)){
+                serviceTask.setTaskLabel(context.getString(R.string.dev_warning_sign)+value1+"\n"+context.getString(R.string.care_stim_skill)+value2
+                        +"\n"+context.getString(R.string.early_learning)+value3);
+            }else{
+                serviceTask.setTaskLabel(context.getString(R.string.dev_warning_sign)+value1+"\n"+context.getString(R.string.care_stim_skill)+value2
+                        );
+            }
+
             serviceTask.setGreen(isComplete(context,value1,value2,value3));
             serviceTask.setTaskTitle(context.getString(R.string.ecd_title));
-
+            serviceTask.setTaskJson(jsonObject);
+            serviceTask.setTaskType(TaskServiceCalculate.TASK_TYPE.ECD.name());
         }catch (Exception e){
-
+            e.printStackTrace();
         }
        return serviceTask;
     }
