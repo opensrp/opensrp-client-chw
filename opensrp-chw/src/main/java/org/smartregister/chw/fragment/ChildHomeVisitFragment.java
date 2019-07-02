@@ -55,6 +55,7 @@ import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.family.activity.BaseFamilyProfileActivity;
 import org.smartregister.family.util.DBConstants;
+import org.smartregister.util.FormUtils;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -108,7 +109,6 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     private CircleImageView circleImageViewBirthStatus, circleImageViewIllnessStatus, circleImageViewVaccineCard;
     private JSONObject illnessJson;
     private JSONObject birthCertJson;
-    private String jsonString;
     private boolean isEditMode = false;
     private ProgressBar progressBar;
     private RecyclerView taskServiceRecyclerView;
@@ -555,7 +555,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     }
 
     @Override
-    public void updateBirthStatusTick() {
+    public void updateBirthStatusTick(String jsonString) {
         try {
             if (TextUtils.isEmpty(jsonString)) {
                 birthCertJson = new JSONObject().put("birtCert", ((ChildHomeVisitPresenter) presenter).getEditedBirthCertFormJson());
@@ -572,7 +572,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
 
 
     @Override
-    public void updateObsIllnessStatusTick() {
+    public void updateObsIllnessStatusTick(String jsonString) {
         try {
             if (TextUtils.isEmpty(jsonString)) {
                 illnessJson = new JSONObject().put("birtCert", ((ChildHomeVisitPresenter) presenter).getEditedIllnessJson());
@@ -606,9 +606,29 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                             FragmentTransaction ft = getActivity().getFragmentManager().beginTransaction();
                             dialogFragment.show(ft, MuacInputDialogFragment.DIALOG_TAG);
 
+                        } else if (serviceTask.getTaskType().equalsIgnoreCase(TaskServiceCalculate.TASK_TYPE.LLITN.name())) {
+                            LLITNInputDialogFragment dialogFragment = LLITNInputDialogFragment.getInstance();
+                            dialogFragment.setServiceTask(serviceTask, onUpdateServiceTask);
+                            FragmentTransaction ft = getActivity().getFragmentManager().beginTransaction();
+                            dialogFragment.show(ft, MuacInputDialogFragment.DIALOG_TAG);
+
+                        } else if (serviceTask.getTaskType().equalsIgnoreCase(TaskServiceCalculate.TASK_TYPE.ECD.name())) {
+                            try{
+                                if(serviceTask.getTaskJson()==null){
+                                    JSONObject form = FormUtils.getInstance(org.smartregister.family.util.Utils.context().applicationContext()).getFormJson(Constants.JSON_FORM.ANC_HOME_VISIT.getEarlyChildhoodDevelopment());
+                                    startFormActivity(form);
+                                }else{
+                                    JSONObject form = JsonFormUtils.getPreviousECDAsJson(serviceTask.getTaskJson(),childClient.getCaseId());
+                                    startFormActivity(form);
+                                }
+
+                            }catch (Exception e){
+                                e.printStackTrace();
+
+                            }
+
+                            // open native forms
                         }
-
-
                     }
                 });
                 taskServiceRecyclerView.setAdapter(serviceTaskAdapter);
@@ -642,8 +662,6 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
             }
 
         }
-
-
     }
 
     private void updateIllnessData() {
@@ -680,13 +698,29 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
             case org.smartregister.family.util.JsonFormUtils.REQUEST_CODE_GET_JSON:
                 if (resultCode == Activity.RESULT_OK) {
                     try {
-                        jsonString = data.getStringExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON);
+                        String jsonString = data.getStringExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON);
                         JSONObject form = new JSONObject(jsonString);
                         if (form.getString(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_TYPE).equals(Constants.EventType.BIRTH_CERTIFICATION)
                         ) {
                             presenter.generateBirthCertForm(jsonString);
                         } else if (form.getString(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_TYPE).equals(Constants.EventType.OBS_ILLNESS)) {
                             presenter.generateObsIllnessForm(jsonString);
+                        }
+                        else if(form.getString(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_TYPE).equals(Constants.EventType.ECD)){
+                            ServiceTask serviceTask = ChildUtils.createECDFromJson(context,jsonString);
+                            if(serviceTask != null){
+                                for(int i = 0; i< presenter.getServiceTasks().size();i++){
+                                    ServiceTask serviceTask1 = presenter.getServiceTasks().get(i);
+                                    if(serviceTask1.getTaskType().equalsIgnoreCase(TaskServiceCalculate.TASK_TYPE.ECD.name())){
+                                        presenter.getServiceTasks().set(i,serviceTask);
+                                        break;
+                                    }
+                                }
+                                updateTaskService();
+                                checkIfSubmitIsToBeEnabled();
+                            }
+
+
                         }
                     } catch (Exception e) {
                         Log.e(DIALOG_TAG, Log.getStackTraceString(e));

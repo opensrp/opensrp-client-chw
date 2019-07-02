@@ -8,7 +8,7 @@ public class ChildHomeVisitFragmentFlv implements ChildHomeVisitFragment.Flavor 
 
     @Override
     public boolean onObsIllnessVisibility() {
-        return false;
+        return true;
     }
 
     @Override
