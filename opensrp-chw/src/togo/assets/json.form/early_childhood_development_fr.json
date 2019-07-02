@@ -62,6 +62,10 @@
         "values": [
           "Oui",
           "Non"
+        ],
+        "keys": [
+          "Yes",
+          "No"
         ]
       },
       {
@@ -77,6 +81,10 @@
         "values": [
           "Oui",
           "Non"
+        ],
+        "keys": [
+          "Yes",
+          "No"
         ]
       },
       {
@@ -88,6 +96,10 @@
         "type": "spinner",
         "hint": "Is the child regularly attending an early learning program (formal or not formal)?",
         "values": [
+          "Oui",
+          "Non"
+        ],
+        "keys": [
           "Yes",
           "No"
         ]
