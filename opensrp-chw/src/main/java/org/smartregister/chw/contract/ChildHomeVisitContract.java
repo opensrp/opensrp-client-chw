@@ -14,9 +14,9 @@ public interface ChildHomeVisitContract {
 
         void startFormActivity(JSONObject jsonForm);
 
-        void updateBirthStatusTick();
+        void updateBirthStatusTick(String jsonString);
 
-        void updateObsIllnessStatusTick();
+        void updateObsIllnessStatusTick(String jsonString);
 
         void updateTaskService();
 
@@ -70,9 +70,9 @@ public interface ChildHomeVisitContract {
 
         void updateObsIllnessEditData(String json);
 
-        void updateBirthStatusTick();
+        void updateBirthStatusTick(String jsonString);
 
-        void updateObsIllnessStatusTick();
+        void updateObsIllnessStatusTick(String jsonString);
 
         void updateTaskAdapter(ArrayList<ServiceTask> serviceTasks);
 

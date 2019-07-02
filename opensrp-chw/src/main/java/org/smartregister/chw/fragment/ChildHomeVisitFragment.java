@@ -109,7 +109,6 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     private CircleImageView circleImageViewBirthStatus, circleImageViewIllnessStatus, circleImageViewVaccineCard;
     private JSONObject illnessJson;
     private JSONObject birthCertJson;
-    private String jsonString;
     private boolean isEditMode = false;
     private ProgressBar progressBar;
     private RecyclerView taskServiceRecyclerView;
@@ -556,7 +555,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     }
 
     @Override
-    public void updateBirthStatusTick() {
+    public void updateBirthStatusTick(String jsonString) {
         try {
             if (TextUtils.isEmpty(jsonString)) {
                 birthCertJson = new JSONObject().put("birtCert", ((ChildHomeVisitPresenter) presenter).getEditedBirthCertFormJson());
@@ -573,7 +572,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
 
 
     @Override
-    public void updateObsIllnessStatusTick() {
+    public void updateObsIllnessStatusTick(String jsonString) {
         try {
             if (TextUtils.isEmpty(jsonString)) {
                 illnessJson = new JSONObject().put("birtCert", ((ChildHomeVisitPresenter) presenter).getEditedIllnessJson());
@@ -699,7 +698,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
             case org.smartregister.family.util.JsonFormUtils.REQUEST_CODE_GET_JSON:
                 if (resultCode == Activity.RESULT_OK) {
                     try {
-                        jsonString = data.getStringExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON);
+                        String jsonString = data.getStringExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON);
                         JSONObject form = new JSONObject(jsonString);
                         if (form.getString(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_TYPE).equals(Constants.EventType.BIRTH_CERTIFICATION)
                         ) {

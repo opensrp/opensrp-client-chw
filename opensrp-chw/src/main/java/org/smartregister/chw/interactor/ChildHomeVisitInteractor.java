@@ -94,7 +94,7 @@ public class ChildHomeVisitInteractor implements ChildHomeVisitContract.Interact
     }
 
     @Override
-    public void generateBirthCertForm(String jsonString,final ChildHomeVisitContract.InteractorCallback callback, boolean isEditMode) {
+    public void generateBirthCertForm(final String jsonString,final ChildHomeVisitContract.InteractorCallback callback, boolean isEditMode) {
         birthCertDataList.clear();
         BirthCertDataModel birthCertDataModel = flavor.getBirthCertDataList(jsonString,isEditMode);
         if(birthCertDataModel !=null ){
@@ -114,7 +114,7 @@ public class ChildHomeVisitInteractor implements ChildHomeVisitContract.Interact
                     appExecutors.mainThread().execute(new Runnable() {
                         @Override
                         public void run() {
-                            callback.updateBirthStatusTick();
+                            callback.updateBirthStatusTick(jsonString);
                         }
                     });
                 }
@@ -126,7 +126,7 @@ public class ChildHomeVisitInteractor implements ChildHomeVisitContract.Interact
     }
 
     @Override
-    public void generateObsIllnessForm(String jsonString, final ChildHomeVisitContract.InteractorCallback callback, boolean isEditMode) {
+    public void generateObsIllnessForm(final String jsonString, final ChildHomeVisitContract.InteractorCallback callback, boolean isEditMode) {
         illnessDataList.clear();
         ObsIllnessDataModel obsIllnessDataModel = flavor.getObsIllnessDataList(jsonString,isEditMode);
         if(obsIllnessDataModel !=null){
@@ -146,7 +146,7 @@ public class ChildHomeVisitInteractor implements ChildHomeVisitContract.Interact
                     appExecutors.mainThread().execute(new Runnable() {
                         @Override
                         public void run() {
-                            callback.updateObsIllnessStatusTick();
+                            callback.updateObsIllnessStatusTick(jsonString);
                         }
                     });
                 }
