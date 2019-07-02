@@ -169,7 +169,7 @@
     <string name="remove">REMOVE</string>
     <string name="birth_date">Birth Date</string>
     <string name="age">Age</string>
-    registration
+
     <string name="when_vaccine">When was %s immunization done?</string>
     <string name="no_vaccines_were_done">No vaccines were done</string>
     <string name="edit_member_form_title">Edit Family Member</string>
@@ -351,4 +351,16 @@
     <string name="hb_level_in_g_dl">Hb level: {0} g/dl</string>
     <string name="ifa_received_status">IFA received: {0}</string>
     <string name="tests_done_details">Tests done: {0}</string>
+
+    <string name="danger_signs_counselling">Danger signs counselling</string>
+    <string name="anc_visit_counselling">ANC visit counseling</string>
+    <string name="delivery_at_facilty_counselling">Delivery at health facility counseling</string>
+    <string name="nutrition_counselling">Nutrition counseling</string>
+
+    <string name="llitn_label">Is the woman sleeping under a Long Lasting Insecticide-Treated Net (LLITN)?</string>
+    <string name="llitn_info_title">Whether the pregnant woman sleeps under a LLITN</string>
+    <string name="llitn_info_text">Malaria is very dangerous for pregnant women. Wherever malaria is common, women should prevent malaria by taking anti-malarial tablets recommended by a trained health worker and by sleeping under an insecticide-treated mosquito net.</string>
+    <string name="dev_warning_sign">Developmental warning signs:</string>
+    <string name="care_stim_skill">Caregiver stimulation skills:</string>
+    <string name="early_learning">Early learning program:</string>
 </resources>

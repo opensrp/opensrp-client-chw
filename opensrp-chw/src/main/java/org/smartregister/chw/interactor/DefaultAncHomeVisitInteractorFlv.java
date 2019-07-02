@@ -88,7 +88,7 @@ public abstract class DefaultAncHomeVisitInteractorFlv implements AncHomeVisitIn
             evaluateIPTP(view, actionList, memberObject, context);
             evaluateObservation(actionList, context);
         } catch (BaseAncHomeVisitAction.ValidationException e) {
-            throw(e);
+            throw (e);
         } catch (Exception e) {
             Timber.e(e);
         }
@@ -168,9 +168,10 @@ public abstract class DefaultAncHomeVisitInteractorFlv implements AncHomeVisitIn
         String signs_present = getCheckBoxValue(jsonObject, "danger_signs_present");
         String counseling = getValue(jsonObject, "danger_signs_counseling");
 
-        stringBuilder.append(MessageFormat.format("Danger signs: {0}", signs_present));
+        stringBuilder.append(MessageFormat.format("{0}: {1}", context.getString(R.string.anc_home_visit_danger_signs), signs_present));
         stringBuilder.append("\n");
-        stringBuilder.append(MessageFormat.format("Danger signs counseling {0}",
+        stringBuilder.append(MessageFormat.format("{0} {1}",
+                context.getString(R.string.danger_signs_counselling),
                 (counseling.equalsIgnoreCase("Yes") ? context.getString(R.string.done).toLowerCase() : context.getString(R.string.not_done).toLowerCase())
         ));
         return stringBuilder.toString();
@@ -244,21 +245,21 @@ public abstract class DefaultAncHomeVisitInteractorFlv implements AncHomeVisitIn
         List<String> yes = new ArrayList<>();
         List<String> nos = new ArrayList<>();
         if (getValue(jsonObject, "anc_counseling").equals("Yes")) {
-            yes.add("ANC visit counseling");
+            yes.add(context.getString(R.string.anc_visit_counselling));
         } else {
-            nos.add("ANC visit counseling");
+            nos.add(context.getString(R.string.anc_visit_counselling));
         }
 
         if (getValue(jsonObject, "birth_hf_counseling").equals("Yes")) {
-            yes.add("Delivery at health facility counseling");
+            yes.add(context.getString(R.string.delivery_at_facilty_counselling));
         } else {
-            nos.add("Delivery at health facility counseling");
+            nos.add(context.getString(R.string.delivery_at_facilty_counselling));
         }
 
         if (getValue(jsonObject, "nutrition_counseling").equals("Yes")) {
-            yes.add("Nutrition counseling");
+            yes.add(context.getString(R.string.nutrition_counselling));
         } else {
-            nos.add("Nutrition counseling");
+            nos.add(context.getString(R.string.nutrition_counselling));
         }
         StringBuilder stringBuilder = new StringBuilder();
 
@@ -285,7 +286,7 @@ public abstract class DefaultAncHomeVisitInteractorFlv implements AncHomeVisitIn
         return stringBuilder.toString();
     }
 
-    private void evaluateSleepingUnderLLITN(BaseAncHomeVisitContract.View view, LinkedHashMap<String, BaseAncHomeVisitAction> actionList, Context context) throws Exception {
+    private void evaluateSleepingUnderLLITN(BaseAncHomeVisitContract.View view, LinkedHashMap<String, BaseAncHomeVisitAction> actionList, final Context context) throws Exception {
         final BaseAncHomeVisitAction ba = new BaseAncHomeVisitAction(context.getString(R.string.anc_home_visit_sleeping_under_llitn_net), "", false,
                 BaseAncHomeVisitFragment.getInstance(view, Constants.JSON_FORM.ANC_HOME_VISIT.getSleepingUnderLlitn(), null, null),
                 null);
@@ -299,7 +300,8 @@ public abstract class DefaultAncHomeVisitInteractorFlv implements AncHomeVisitIn
 
                         String value = getValue(jsonObject, "sleeping_llitn");
 
-                        ba.setSubTitle(StringUtils.capitalize(value.trim().toLowerCase()));
+                        String details = value.equalsIgnoreCase("Yes") ? context.getString(R.string.yes) : context.getString(R.string.no);
+                        ba.setSubTitle(details);
 
                         if (value.equalsIgnoreCase("Yes")) {
                             return BaseAncHomeVisitAction.Status.COMPLETED;
@@ -320,7 +322,7 @@ public abstract class DefaultAncHomeVisitInteractorFlv implements AncHomeVisitIn
 
     }
 
-    private void evaluateANCCard(BaseAncHomeVisitContract.View view, LinkedHashMap<String, BaseAncHomeVisitAction> actionList, Context context) throws Exception {
+    private void evaluateANCCard(BaseAncHomeVisitContract.View view, LinkedHashMap<String, BaseAncHomeVisitAction> actionList, final Context context) throws Exception {
         final BaseAncHomeVisitAction ba = new BaseAncHomeVisitAction(context.getString(R.string.anc_home_visit_anc_card_received), "", false,
                 BaseAncHomeVisitFragment.getInstance(view, Constants.JSON_FORM.ANC_HOME_VISIT.getAncCardReceived(), null, null),
                 null);
@@ -334,11 +336,13 @@ public abstract class DefaultAncHomeVisitInteractorFlv implements AncHomeVisitIn
 
                         String value = getValue(jsonObject, "anc_card");
 
+                        String details = value.equalsIgnoreCase("Yes") ? context.getString(R.string.yes) : context.getString(R.string.no);
+
                         if (value.equalsIgnoreCase("Yes")) {
-                            ba.setSubTitle(StringUtils.capitalize(value.trim()));
+                            ba.setSubTitle(StringUtils.capitalize(details));
                             return BaseAncHomeVisitAction.Status.COMPLETED;
                         } else if (value.equalsIgnoreCase("No")) {
-                            ba.setSubTitle(StringUtils.capitalize(value.trim()));
+                            ba.setSubTitle(StringUtils.capitalize(details));
                             return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
                         } else {
                             return BaseAncHomeVisitAction.Status.PENDING;
@@ -588,8 +592,8 @@ public abstract class DefaultAncHomeVisitInteractorFlv implements AncHomeVisitIn
             JSONArray fields = fields(jsonObject);
 
             String title = jsonObject.getJSONObject(JsonFormConstants.STEP1).getString("title");
-            String formatted_count = MessageFormat.format("{0}{1}", iteration, getDayOfMonthSuffix(iteration));
-            jsonObject.getJSONObject(JsonFormConstants.STEP1).put("title", MessageFormat.format(title, formatted_count));
+            //String formatted_count = MessageFormat.format("{0}{1}", iteration, getDayOfMonthSuffix(iteration));
+            jsonObject.getJSONObject(JsonFormConstants.STEP1).put("title", MessageFormat.format(title, iteration));
 
             JSONObject visit_field = getFieldJSONObject(fields, "tt{0}_date");
             visit_field.put("key", MessageFormat.format(visit_field.getString("key"), iteration));

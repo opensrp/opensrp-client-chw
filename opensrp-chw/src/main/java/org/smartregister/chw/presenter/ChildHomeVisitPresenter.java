@@ -103,13 +103,13 @@ public class ChildHomeVisitPresenter implements ChildHomeVisitContract.Presenter
     */
 
     @Override
-    public void updateBirthStatusTick() {
-        getView().updateBirthStatusTick();
+    public void updateBirthStatusTick(String jsonString) {
+        getView().updateBirthStatusTick(jsonString);
     }
 
     @Override
-    public void updateObsIllnessStatusTick() {
-        getView().updateObsIllnessStatusTick();
+    public void updateObsIllnessStatusTick(String jsonString) {
+        getView().updateObsIllnessStatusTick(jsonString);
 
     }
 

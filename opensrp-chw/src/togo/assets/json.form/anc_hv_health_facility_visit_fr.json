@@ -63,6 +63,10 @@
           "Oui",
           "Non"
         ],
+        "keys": [
+          "Yes",
+          "No"
+        ],
         "v_required": {
           "value": "true",
           "err": "Please select one option"
