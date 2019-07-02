@@ -592,8 +592,8 @@ public abstract class DefaultAncHomeVisitInteractorFlv implements AncHomeVisitIn
             JSONArray fields = fields(jsonObject);
 
             String title = jsonObject.getJSONObject(JsonFormConstants.STEP1).getString("title");
-            String formatted_count = MessageFormat.format("{0}{1}", iteration, getDayOfMonthSuffix(iteration));
-            jsonObject.getJSONObject(JsonFormConstants.STEP1).put("title", MessageFormat.format(title, formatted_count));
+            //String formatted_count = MessageFormat.format("{0}{1}", iteration, getDayOfMonthSuffix(iteration));
+            jsonObject.getJSONObject(JsonFormConstants.STEP1).put("title", MessageFormat.format(title, iteration));
 
             JSONObject visit_field = getFieldJSONObject(fields, "tt{0}_date");
             visit_field.put("key", MessageFormat.format(visit_field.getString("key"), iteration));

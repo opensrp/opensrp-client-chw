@@ -18,6 +18,7 @@ import org.smartregister.chw.anc.util.DBConstants;
 import org.smartregister.chw.custom_view.NavigationMenu;
 import org.smartregister.chw.fragment.AncRegisterFragment;
 import org.smartregister.chw.listener.ChwBottomNavigationListener;
+import org.smartregister.chw.listener.FamilyBottomNavigationListener;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
@@ -80,28 +81,14 @@ public class AncRegisterActivity extends BaseAncRegisterActivity {
 
     @Override
     protected void registerBottomNavigation() {
-
-        bottomNavigationHelper = new BottomNavigationHelper();
-        bottomNavigationView = findViewById(org.smartregister.R.id.bottom_navigation);
-
-        if (bottomNavigationView != null) {
-            bottomNavigationView.setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_LABELED);
-            bottomNavigationView.getMenu().removeItem(R.id.action_clients);
-            bottomNavigationView.getMenu().removeItem(R.id.action_register);
-            bottomNavigationView.getMenu().removeItem(R.id.action_search);
-            bottomNavigationView.getMenu().removeItem(R.id.action_library);
-
-            bottomNavigationView.inflateMenu(R.menu.bottom_nav_family_menu);
-
-            bottomNavigationHelper.disableShiftMode(bottomNavigationView);
-
-            ChwBottomNavigationListener childBottomNavigationListener = new ChwBottomNavigationListener(this);
-            bottomNavigationView.setOnNavigationItemSelectedListener(childBottomNavigationListener);
-        }
+        super.registerBottomNavigation();
 
         if (!BuildConfig.SUPPORT_QR) {
             bottomNavigationView.getMenu().removeItem(org.smartregister.family.R.id.action_scan_qr);
         }
+
+        FamilyBottomNavigationListener familyBottomNavigationListener = new FamilyBottomNavigationListener(this, bottomNavigationView);
+        bottomNavigationView.setOnNavigationItemSelectedListener(familyBottomNavigationListener);
     }
 
     @Override
