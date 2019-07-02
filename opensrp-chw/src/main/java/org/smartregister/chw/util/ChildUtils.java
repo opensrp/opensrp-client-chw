@@ -645,7 +645,7 @@ public class ChildUtils {
                         );
             }
 
-            serviceTask.setGreen(isComplete(context,value1,value2,value3));
+            serviceTask.setGreen(isComplete(context,value1,value2));
             serviceTask.setTaskTitle(context.getString(R.string.ecd_title));
             serviceTask.setTaskJson(jsonObject);
             serviceTask.setTaskType(TaskServiceCalculate.TASK_TYPE.ECD.name());
@@ -654,16 +654,10 @@ public class ChildUtils {
         }
        return serviceTask;
     }
-    private static boolean isComplete(Context context,String value1,String value2,String value3){
+    private static boolean isComplete(Context context,String value1,String value2){
         String yesVale = context.getString(R.string.yes);
         String noValue = context.getString(R.string.no);
-        if(value1.equalsIgnoreCase(noValue) && value2.equalsIgnoreCase(yesVale)){
-            return true;
-        }
-        if(value1.equalsIgnoreCase(yesVale) && value2.equalsIgnoreCase(noValue)){
-            return false;
-        }
-        return false;
+        return value1.equalsIgnoreCase(noValue) && value2.equalsIgnoreCase(yesVale);
     }
 
     public static void addToChildTable(String baseEntityID, List<org.smartregister.domain.db.Obs> observations) {
