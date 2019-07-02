@@ -50,6 +50,14 @@
     "title": "Dévéloppement de la petite enfance (DPE)",
     "fields": [
       {
+        "key": "date_pass",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "value":"",
+        "type": "hidden"
+      },
+      {
         "key": "develop_warning_signs",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -102,7 +110,14 @@
         "keys": [
           "Yes",
           "No"
-        ]
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "early_child_development.yml"
+            }
+          }
+        }
       }
     ]
   }

@@ -99,6 +99,18 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
         return form;
 
     }
+    public static JSONObject getEcdWithDatePass(JSONObject form, String dateOfBirthString) throws Exception {
+
+        if (form == null) {
+            return null;
+        }
+        JSONArray field = fields(form);
+        JSONObject datePass = getFieldJSONObject(field, "date_pass");
+        int days = getDayFromDate(dateOfBirthString);
+        datePass.put("value", days);
+        return form;
+
+    }
 
     public static JSONObject getPreviousECDAsJson(JSONObject form, String baseEntityId) throws Exception {
 

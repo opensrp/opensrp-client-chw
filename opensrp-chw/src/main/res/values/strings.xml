@@ -358,6 +358,7 @@
     <string name="nutrition_counselling">Nutrition counseling</string>
 
     <string name="llitn_label">Is the woman sleeping under a Long Lasting Insecticide-Treated Net (LLITN)?</string>
+    <string name="llitn_label_child">Is the child sleeping under a Long Lasting Insecticide-Treated Net (LLITN)?</string>
     <string name="llitn_info_title">Whether the pregnant woman sleeps under a LLITN</string>
     <string name="llitn_info_text">Malaria is very dangerous for pregnant women. Wherever malaria is common, women should prevent malaria by taking anti-malarial tablets recommended by a trained health worker and by sleeping under an insecticide-treated mosquito net.</string>
     <string name="dev_warning_sign">Developmental warning signs:</string>

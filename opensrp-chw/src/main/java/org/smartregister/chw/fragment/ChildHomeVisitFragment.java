@@ -616,6 +616,9 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                             try{
                                 if(serviceTask.getTaskJson()==null){
                                     JSONObject form = FormUtils.getInstance(org.smartregister.family.util.Utils.context().applicationContext()).getFormJson(Constants.JSON_FORM.ANC_HOME_VISIT.getEarlyChildhoodDevelopment());
+                                    String dobString = org.smartregister.family.util.Utils.getValue
+                                            (childClient.getColumnmaps(), DBConstants.KEY.DOB, false);
+                                    form = JsonFormUtils.getEcdWithDatePass(form,dobString);
                                     startFormActivity(form);
                                 }else{
                                     JSONObject form = JsonFormUtils.getPreviousECDAsJson(serviceTask.getTaskJson(),childClient.getCaseId());
