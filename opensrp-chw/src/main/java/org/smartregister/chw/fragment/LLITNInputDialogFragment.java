@@ -25,7 +25,7 @@ public class LLITNInputDialogFragment  extends DialogFragment implements View.On
     public static final String DIALOG_TAG = "LLITNInputDialogFragment";
 
     private String choiceValue;
-    private RadioButton choiceOne,choiceTwo,choiceThree;
+    private RadioButton choiceOne,choiceTwo;
     private Button buttonSave;
     private OnUpdateServiceTask onUpdateServiceTask;
     private ServiceTask serviceTask;
@@ -73,7 +73,6 @@ public class LLITNInputDialogFragment  extends DialogFragment implements View.On
         buttonSave = view.findViewById(R.id.save_bf_btn);
         choiceOne = view.findViewById(R.id.choice_1);
         choiceTwo = view.findViewById(R.id.choice_2);
-        choiceThree = view.findViewById(R.id.choice_3);
         buttonSave.setOnClickListener(this);
         view.findViewById(R.id.close).setOnClickListener(this);
         view.findViewById(R.id.info_icon).setOnClickListener(this);
