@@ -188,7 +188,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     }
 
     private void assignNameHeader() {
-        String dob = org.smartregister.family.util.Utils.getValue(childClient.getColumnmaps(), DBConstants.KEY.DOB, false);
+        String dob = getValue(childClient.getColumnmaps(), DBConstants.KEY.DOB, false);
         String dobString = org.smartregister.family.util.Utils.getDuration(dob);
         String birthCert = getValue(childClient.getColumnmaps(), BIRTH_CERT, true);
 
