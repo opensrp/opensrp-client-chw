@@ -281,4 +281,7 @@
     <string name="anc_home_visit_anc_card_received">Carnet de SPN reçu</string>
     <string name="anc_home_visit_sleeping_under_llitn_net">Dors sous un MIILD </string>
     <string name="anc_home_visit_counseling">Consultation prénatal</string>
+    <string name="llitn_label">La femme dors-t-elle sous une moustiquaires imprégnées d\'insecticide (MIILD)?</string>
+    <string name="llitn_info_title">Si une femme enceinte dort sous un MIILD</string>
+    <string name="llitn_info_text">Le paludisme est très dangereux pour les femmes enceintes. En tout lieu ou le paludisme est commun, les femmes devraient le prévenir en prenant de comprimés antipaludéens tels que recommandés par un travailleur de santé formé. Elles devraient aussi dormir en dessous d’une moustiquaire imprégnée d\'insecticide.</string>
 </resources>

@@ -1,10 +1,21 @@
 package org.smartregister.chw.util;
 
+import org.json.JSONObject;
+
 public class ServiceTask {
     private String taskTitle;
     private String taskLabel;
     private boolean isGreen;
     private String taskType;
+    private JSONObject taskJson;
+
+    public JSONObject getTaskJson() {
+        return taskJson;
+    }
+
+    public void setTaskJson(JSONObject taskJson) {
+        this.taskJson = taskJson;
+    }
 
     public String getTaskType() {
         return taskType;
