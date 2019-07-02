@@ -615,14 +615,16 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
 
                         } else if (serviceTask.getTaskType().equalsIgnoreCase(TaskServiceCalculate.TASK_TYPE.ECD.name())) {
                             try{
-                                //if(serviceTask.getTaskJson()==null){
+                                if(serviceTask.getTaskJson()==null){
                                     JSONObject form = FormUtils.getInstance(org.smartregister.family.util.Utils.context().applicationContext()).getFormJson(Constants.JSON_FORM.ANC_HOME_VISIT.getEarlyChildhoodDevelopment());
                                     startFormActivity(form);
-//                                }else{
-//                                    //TODO need to update the json
-//                                }
+                                }else{
+                                    JSONObject form = JsonFormUtils.getPreviousECDAsJson(serviceTask.getTaskJson(),childClient.getCaseId());
+                                    startFormActivity(form);
+                                }
 
                             }catch (Exception e){
+                                e.printStackTrace();
 
                             }
 

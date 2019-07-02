@@ -99,7 +99,16 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
         return form;
 
     }
+    public static JSONObject getPreviousECDAsJson(JSONObject form, String baseEntityId) throws Exception {
 
+        if (form == null) {
+            return null;
+        }
+        form.put(ENTITY_ID, baseEntityId);
+
+        return form;
+
+    }
     public static int getDayFromDate(String dateOfBirth) {
         DateTime date = DateTime.parse(dateOfBirth);
         Days days = Days.daysBetween(date.toLocalDate(), LocalDate.now());
