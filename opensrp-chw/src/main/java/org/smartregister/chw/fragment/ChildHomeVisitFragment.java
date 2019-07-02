@@ -615,12 +615,12 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
 
                         } else if (serviceTask.getTaskType().equalsIgnoreCase(TaskServiceCalculate.TASK_TYPE.ECD.name())) {
                             try{
-                                if(serviceTask.getTaskJson()==null){
-                                    JSONObject form = FormUtils.getInstance(org.smartregister.family.util.Utils.context().applicationContext()).getFormJson(Constants.JSON_FORM.getBirthCertification());
+                                //if(serviceTask.getTaskJson()==null){
+                                    JSONObject form = FormUtils.getInstance(org.smartregister.family.util.Utils.context().applicationContext()).getFormJson(Constants.JSON_FORM.ANC_HOME_VISIT.getEarlyChildhoodDevelopment());
                                     startFormActivity(form);
-                                }else{
-                                    //TODO
-                                }
+//                                }else{
+//                                    //TODO need to update the json
+//                                }
 
                             }catch (Exception e){
 
@@ -704,6 +704,22 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                             presenter.generateBirthCertForm(jsonString);
                         } else if (form.getString(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_TYPE).equals(Constants.EventType.OBS_ILLNESS)) {
                             presenter.generateObsIllnessForm(jsonString);
+                        }
+                        else if(form.getString(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_TYPE).equals(Constants.EventType.ECD)){
+                            ServiceTask serviceTask = ChildUtils.createECDFromJson(context,jsonString);
+                            if(serviceTask != null){
+                                for(int i = 0; i< presenter.getServiceTasks().size();i++){
+                                    ServiceTask serviceTask1 = presenter.getServiceTasks().get(i);
+                                    if(serviceTask1.getTaskType().equalsIgnoreCase(TaskServiceCalculate.TASK_TYPE.ECD.name())){
+                                        presenter.getServiceTasks().set(i,serviceTask);
+                                        break;
+                                    }
+                                }
+                                updateTaskService();
+                                checkIfSubmitIsToBeEnabled();
+                            }
+
+
                         }
                     } catch (Exception e) {
                         Log.e(DIALOG_TAG, Log.getStackTraceString(e));

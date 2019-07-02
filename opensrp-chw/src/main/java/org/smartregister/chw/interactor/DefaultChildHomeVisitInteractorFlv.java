@@ -80,6 +80,14 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements ChildHomeVis
                     serviceTasks.add(ChildUtils.createServiceTaskFromEvent(TaskServiceCalculate.TASK_TYPE.LLITN.name(), homeVisitServiceDataModel.getHomeVisitDetails(),
                             context.getString(R.string.llitn_title),Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.TASK_LLITN));
                 }
+                else if (homeVisitServiceDataModel.getEventType().equalsIgnoreCase(Constants.EventType.ECD)) {
+                    try{
+                        serviceTasks.add(ChildUtils.createECDTaskFromEvent(context,TaskServiceCalculate.TASK_TYPE.ECD.name(), homeVisitServiceDataModel.getHomeVisitDetails(),
+                                context.getString(R.string.ecd_title)));
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+                }
             }
         }
         return serviceTasks;

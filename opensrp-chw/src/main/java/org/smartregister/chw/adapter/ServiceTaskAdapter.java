@@ -104,6 +104,9 @@ public class ServiceTaskAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                         ,entityId,serviceTask.getTaskLabel(),homeVisitId);
 
             }
+            else if (serviceTask.getTaskType().equalsIgnoreCase(TaskServiceCalculate.TASK_TYPE.ECD.name())){
+                ChildUtils.updateECDTaskAsEvent(homeVisitId,entityId,serviceTask.getTaskJson().toString());
+            }
         }
 
 //            }
