@@ -60,6 +60,7 @@ import java.util.Map;
 import timber.log.Timber;
 
 import static org.apache.commons.lang3.text.WordUtils.capitalize;
+import static org.smartregister.chw.util.JsonFormUtils.getValue;
 import static org.smartregister.chw.util.Utils.dd_MMM_yyyy;
 
 public class ChildUtils {
@@ -573,6 +574,74 @@ public class ChildUtils {
         serviceTask.setTaskType(taskType);
         return serviceTask;
 
+    }
+    public static ServiceTask createECDTaskFromEvent(Context context,String taskType ,String details,String title) {
+        ServiceTask serviceTask = new ServiceTask();
+        org.smartregister.domain.db.Event event = ChildUtils.gsonConverter.fromJson(details, new TypeToken<org.smartregister.domain.db.Event>() {
+        }.getType());
+        List<org.smartregister.domain.db.Obs> observations = event.getObs();
+        String label="";
+        for (org.smartregister.domain.db.Obs obs : observations) {
+            if (obs.getFormSubmissionField().equalsIgnoreCase("develop_warning_signs")) {
+                List<Object> hu = obs.getHumanReadableValues();
+                String value = "";
+                for (Object object : hu) {
+                    value = (String) object;
+                }
+                label = context.getString(R.string.dev_warning_sign)+value;
+            }
+            if (obs.getFormSubmissionField().equalsIgnoreCase("stim_skills")) {
+                List<Object> hu = obs.getHumanReadableValues();
+                String value = "";
+                for (Object object : hu) {
+                    value = (String) object;
+                }
+                label = "\n"+context.getString(R.string.care_stim_skill)+value;
+            }
+            if (obs.getFormSubmissionField().equalsIgnoreCase("early_learning")) {
+                List<Object> hu = obs.getHumanReadableValues();
+                String value = "";
+                for (Object object : hu) {
+                    value = (String) object;
+                }
+                label ="\n"+ context.getString(R.string.early_learning)+value;
+            }
+        }
+        serviceTask.setTaskLabel(label);
+        serviceTask.setTaskTitle(title);
+        serviceTask.setTaskType(taskType);
+        return serviceTask;
+
+    }
+    public static ServiceTask createECDFromJson(Context context,String json){
+        ServiceTask serviceTask = new ServiceTask();
+        try{
+
+            JSONObject jsonObject = new JSONObject(json);
+
+            String value1 = getValue(jsonObject, "develop_warning_signs");
+            String value2 = getValue(jsonObject, "stim_skills");
+            String value3 = getValue(jsonObject, "early_learning");
+            serviceTask.setTaskLabel(context.getString(R.string.dev_warning_sign)+value1+"\n"+context.getString(R.string.care_stim_skill)+value2
+            +"\n"+context.getString(R.string.early_learning)+value3);
+            serviceTask.setGreen(isComplete(context,value1,value2,value3));
+            serviceTask.setTaskTitle(context.getString(R.string.ecd_title));
+
+        }catch (Exception e){
+
+        }
+       return serviceTask;
+    }
+    private static boolean isComplete(Context context,String value1,String value2,String value3){
+        String yesVale = context.getString(R.string.yes);
+        String noValue = context.getString(R.string.no);
+        if(value1.equalsIgnoreCase(noValue) && value2.equalsIgnoreCase(yesVale)){
+            return true;
+        }
+        if(value1.equalsIgnoreCase(yesVale) && value2.equalsIgnoreCase(noValue)){
+            return false;
+        }
+        return false;
     }
 
     public static void addToChildTable(String baseEntityID, List<org.smartregister.domain.db.Obs> observations) {

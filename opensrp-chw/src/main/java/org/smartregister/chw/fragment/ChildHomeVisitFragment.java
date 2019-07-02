@@ -55,6 +55,7 @@ import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.family.activity.BaseFamilyProfileActivity;
 import org.smartregister.family.util.DBConstants;
+import org.smartregister.util.FormUtils;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -613,6 +614,18 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                             dialogFragment.show(ft, MuacInputDialogFragment.DIALOG_TAG);
 
                         } else if (serviceTask.getTaskType().equalsIgnoreCase(TaskServiceCalculate.TASK_TYPE.ECD.name())) {
+                            try{
+                                if(serviceTask.getTaskJson()==null){
+                                    JSONObject form = FormUtils.getInstance(org.smartregister.family.util.Utils.context().applicationContext()).getFormJson(Constants.JSON_FORM.getBirthCertification());
+                                    startFormActivity(form);
+                                }else{
+                                    //TODO
+                                }
+
+                            }catch (Exception e){
+
+                            }
+
                             // open native forms
                         }
                     }

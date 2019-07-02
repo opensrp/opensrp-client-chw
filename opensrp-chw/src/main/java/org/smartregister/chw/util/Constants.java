@@ -19,7 +19,7 @@ public class Constants {
         public static final String COUNSELING = "Counseling";
         public static final String FAMILY_REGISTRATION = "Family Registration";
         public static final String FAMILY_MEMBER_REGISTRATION = "Family Member Registration";
-
+        public static final String ECD = "Early childhood development";
         public static final String CHILD_REGISTRATION = "Child Registration";
         public static final String UPDATE_CHILD_REGISTRATION = "Update Child Registration";
         public static final String CHILD_HOME_VISIT = "Child Home Visit";
@@ -330,9 +330,9 @@ public class Constants {
             public static final String CODE = "160908AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
         }
         public static class FORM_SUBMISSION_FIELD {
-            public static final String TASK_MINIMUM_DIETARY = "task_minimum_dietary";
-            public static final String TASK_MUAC = "task_muac";
-            public static final String TASK_LLITN = "task_llitn";
+            public static final String TASK_MINIMUM_DIETARY = "diet_diversity";
+            public static final String TASK_MUAC = "muac";
+            public static final String TASK_LLITN = "llitn";
             public static final String HOME_VISIT_ID= "home_visit_id";
             public static final String HOME_VISIT_DATE_LONG= "home_visit_date";
             public static final String LAST_HOME_VISIT = "last_home_visit";
