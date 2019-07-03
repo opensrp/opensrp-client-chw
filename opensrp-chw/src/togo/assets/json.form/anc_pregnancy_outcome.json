@@ -540,13 +540,6 @@
         "hint": "BCG date",
         "expanded": false,
         "max_date": "today",
-        "constraints": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "anc_pregnancy_outcome_constraints.yml"
-            }
-          }
-        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {

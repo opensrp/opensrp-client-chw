@@ -110,6 +110,20 @@ public class AncRegisterActivity extends BaseAncRegisterActivity {
         presenter = new AncRegisterPresenter(this, new AncRegisterModel(), new AncRegisterInteractor());
     }
 
+    private void startRegisterActivity(Class registerClass) {
+        Intent intent = new Intent(this, registerClass);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        this.startActivity(intent);
+        this.overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
+        this.finish();
+    }
+
+    @Override
+    public void onRegistrationSaved(boolean isEdit) {
+        finish();
+        startRegisterActivity(AncRegisterActivity.class);
+    }
+
     @Override
     protected void onResumption() {
         super.onResumption();
