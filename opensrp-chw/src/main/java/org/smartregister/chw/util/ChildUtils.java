@@ -647,7 +647,7 @@ public class ChildUtils {
             String value3 = getValue(jsonObject, "early_learning");
             String yesVale = context.getString(R.string.yes);
             String noValue = context.getString(R.string.no);
-            if (value3.equalsIgnoreCase(yesVale) || value3.equalsIgnoreCase(noValue)) {
+            if (!TextUtils.isEmpty(value3) && (value3.equalsIgnoreCase(yesVale) || value3.equalsIgnoreCase(noValue))) {
                 serviceTask.setTaskLabel(context.getString(R.string.dev_warning_sign) + value1 + "\n" + context.getString(R.string.care_stim_skill) + value2
                         + "\n" + context.getString(R.string.early_learning) + value3);
             } else {

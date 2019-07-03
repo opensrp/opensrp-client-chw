@@ -356,7 +356,7 @@
     <string name="anc_visit_counselling">Visite de suivi CPN </string>
     <string name="delivery_at_facilty_counselling">Conseils sur l\'accouchement dans une centre de santé</string>
     <string name="nutrition_counselling">Conseils en nutrition</string>
-
+    <string name="llitn_label_child">L\'enfant dors-t-il ou elle sous une moustiquaire imprégnée d\'insecticides de longue durée</string>
     <string name="llitn_label">La femme dors-t-elle sous une moustiquaires imprégnées d\'insecticide (MIILD)?</string>
     <string name="llitn_info_title">Si la femme enceinte dors en dessous d\'une MILD</string>
     <string name="llitn_info_text">Le paludisme est très dangereux pour les femmes enceintes. Dans les zones où le paludisme est présente, les femmes devraient prévenir la maladie en prennant les comprimés antipaludéens tels que recommandées par un agent sanitaires formé et en dormant en dessous d\'une moustiquaire imprégnée d\'insecticide.</string>
