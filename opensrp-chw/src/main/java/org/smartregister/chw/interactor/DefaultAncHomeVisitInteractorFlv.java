@@ -475,11 +475,7 @@ public abstract class DefaultAncHomeVisitInteractorFlv implements AncHomeVisitIn
         }
 
         String immunization = MessageFormat.format(context.getString(R.string.anc_home_visit_tt_immunization), details.getRight());
-        /*
-        final BaseAncHomeVisitAction ba = new BaseAncHomeVisitAction(immunization, "", false,
-                BaseAncHomeVisitFragment.getInstance(view, ANC_HOME_VISIT.getTtImmunization(), null, details.getRight()),
-                null);
-                */
+
         final BaseAncHomeVisitAction ba = evaluateTTImmunizationPreExec(view, immunization, Constants.JSON_FORM.ANC_HOME_VISIT.getTtImmunization(), memberObject, details.getRight());
 
         ba.setVaccineWrapper(getVaccineWrapper(details.getMiddle(), vaccineTaskModel));
