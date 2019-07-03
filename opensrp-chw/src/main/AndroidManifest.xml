@@ -96,7 +96,7 @@
             android:label="@string/child_details"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
-            android:name=".activity.MedicalHistoryActivity"
+            android:name=".activity.ChildChildMedicalHistory"
             android:label="@string/medical_history"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity

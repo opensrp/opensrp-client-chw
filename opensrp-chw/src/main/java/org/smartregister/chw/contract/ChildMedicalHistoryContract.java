@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
 
-public interface MedicalHistoryContract {
+public interface ChildMedicalHistoryContract {
     interface View {
 
         Presenter initializePresenter();
@@ -25,6 +25,14 @@ public interface MedicalHistoryContract {
         void updateFullyImmunization(String text);
 
         void updateVaccineCard(String value);
+
+        void updateDietaryData();
+
+        void updateMuacData();
+
+        void updateLLitnData();
+
+        void updateEcdData();
     }
 
     interface Presenter {
@@ -33,21 +41,39 @@ public interface MedicalHistoryContract {
 
         void setInitialVaccineList(Map<String, Date> veccineList);
 
-        void fetchGrowthNutrition(CommonPersonObjectClient commonPersonObjectClient);
-
         void fetchFullyImmunization(String dateOfBirth);
 
-        void fetchBirthAndIllnessData(CommonPersonObjectClient commonPersonObjectClient);
+        void fetchGrowthNutrition(CommonPersonObjectClient commonPersonObjectClient);
+
+        void fetchDietaryData(CommonPersonObjectClient commonPersonObjectClient);
+
+        void fetchMuacData(CommonPersonObjectClient commonPersonObjectClient);
+
+        void fetchLLitnData(CommonPersonObjectClient commonPersonObjectClient);
+
+        void fetchEcdData(CommonPersonObjectClient commonPersonObjectClient);
+
+        void fetchBirthData(CommonPersonObjectClient commonPersonObjectClient);
+
+        void fetchIllnessData(CommonPersonObjectClient commonPersonObjectClient);
 
         ArrayList<BaseVaccine> getVaccineBaseItem();
 
         ArrayList<BaseService> getGrowthNutrition();
 
+        ArrayList<BaseService> getDietaryList();
+
+        ArrayList<BaseService> getMuacList();
+
+        ArrayList<BaseService> getLlitnList();
+
+        ArrayList<BaseService> getEcdList();
+
         ArrayList<String> getBirthCertification();
 
         ArrayList<String> getObsIllness();
 
-        MedicalHistoryContract.View getView();
+        ChildMedicalHistoryContract.View getView();
 
         void onDestroy(boolean isChangingConfiguration);
     }
@@ -56,11 +82,21 @@ public interface MedicalHistoryContract {
 
         void generateHomeVisitServiceList(long homeVisitDate);
 
-        void fetchBirthAndIllnessData(CommonPersonObjectClient commonPersonObjectClient, InteractorCallBack callBack);
+        void fetchBirthCertificateData(CommonPersonObjectClient commonPersonObjectClient, InteractorCallBack callBack);
+
+        void fetchIllnessData(CommonPersonObjectClient commonPersonObjectClient, InteractorCallBack callBack);
 
         void setInitialVaccineList(Map<String, Date> recievedVaccines, InteractorCallBack callBack);
 
         void fetchGrowthNutritionData(CommonPersonObjectClient commonPersonObjectClient,InteractorCallBack callBack);
+
+        void fetchDietaryData(CommonPersonObjectClient commonPersonObjectClient,InteractorCallBack callBack);
+
+        void fetchMuacData(CommonPersonObjectClient commonPersonObjectClient,InteractorCallBack callBack);
+
+        void fetchLLitnData(CommonPersonObjectClient commonPersonObjectClient,InteractorCallBack callBack);
+
+        void fetchEcdData(CommonPersonObjectClient commonPersonObjectClient,InteractorCallBack callBack);
 
         void fetchFullyImmunizationData(String dob, Map<String, Date> recievedVaccines, InteractorCallBack callBack);
 
@@ -76,6 +112,14 @@ public interface MedicalHistoryContract {
         void updateVaccineData(ArrayList<BaseVaccine> recievedVaccines);
 
         void updateGrowthNutrition(ArrayList<BaseService> services);
+
+        void updateDietaryData(ArrayList<BaseService> services);
+
+        void updateMuacData(ArrayList<BaseService> services);
+
+        void updateLLitnDataData(ArrayList<BaseService> services);
+
+        void updateEcdDataData(ArrayList<BaseService> services);
 
         void updateFullyImmunization(String text);
 

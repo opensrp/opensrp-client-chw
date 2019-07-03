@@ -89,6 +89,14 @@ public class HomeVisitServiceRepository extends BaseRepository {
         List<HomeVisitServiceDataModel> homeVisitList = getAllHomeVisitService(cursor);
         return homeVisitList;
     }
+    public List<HomeVisitServiceDataModel> getLatestThreeEntry(String eventType) {
+        SQLiteDatabase database = getReadableDatabase();
+        String selection  = EVENT_TYPE + " = ? " + COLLATE_NOCASE;
+        String[] selectionArgs = new String[]{eventType};
+        net.sqlcipher.Cursor cursor = database.query(HOME_VISIT_SERVICE_TABLE_NAME, TABLE_COLUMNS, selection, selectionArgs, null, null, DATE+ " DESC", "3");
+        List<HomeVisitServiceDataModel> homeVisitList = getAllHomeVisitService(cursor);
+        return homeVisitList;
+    }
 
     public List<HomeVisitServiceDataModel> getAllHomeVisitService(Cursor cursor) {
         List<HomeVisitServiceDataModel> homeVisitServiceDataModels = new ArrayList<>();

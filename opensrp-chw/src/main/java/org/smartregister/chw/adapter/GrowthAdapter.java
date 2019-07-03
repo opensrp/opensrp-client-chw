@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import org.smartregister.chw.R;
 import org.smartregister.chw.util.BaseService;
-import org.smartregister.chw.util.BaseVaccine;
 import org.smartregister.chw.util.ServiceContent;
 import org.smartregister.chw.util.ServiceHeader;
 
@@ -31,10 +30,12 @@ public class GrowthAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         switch (viewType) {
-            case BaseVaccine.TYPE_HEADER:
-                return new HeaderViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.vaccine_header_view, null));
-            case BaseVaccine.TYPE_CONTENT:
-                return new ContentViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.vaccine_content_view, null));
+            case BaseService.TYPE_HEADER:
+                return new HeaderViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.growth_header_view, null));
+            case BaseService.TYPE_CONTENT:
+                return new ContentViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.growth_content_view, null));
+            case BaseService.TYPE_LINE:
+                return new HeaderViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.view_line, null));
 
         }
         return null;
@@ -44,13 +45,13 @@ public class GrowthAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
 
         switch (viewHolder.getItemViewType()) {
-            case BaseVaccine.TYPE_HEADER:
+            case BaseService.TYPE_HEADER:
                 BaseService baseService = baseServices.get(position);
                 ServiceHeader serviceHeader = (ServiceHeader) baseService;
                 HeaderViewHolder headerViewHolder = (HeaderViewHolder) viewHolder;
                 headerViewHolder.headerTitle.setText(serviceHeader.getServiceHeaderName());
                 break;
-            case BaseVaccine.TYPE_CONTENT:
+            case BaseService.TYPE_CONTENT:
                 BaseService content = baseServices.get(position);
                 ServiceContent serviceContent = (ServiceContent) content;
                 ContentViewHolder contentViewHolder = (ContentViewHolder) viewHolder;

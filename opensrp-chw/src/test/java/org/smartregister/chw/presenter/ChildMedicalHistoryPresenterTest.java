@@ -7,8 +7,8 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.powermock.reflect.Whitebox;
-import org.smartregister.chw.contract.MedicalHistoryContract;
-import org.smartregister.chw.interactor.MedicalHistoryInteractor;
+import org.smartregister.chw.contract.ChildMedicalHistoryContract;
+import org.smartregister.chw.interactor.ChildMedicalHistoryInteractor;
 import org.smartregister.chw.util.BaseVaccine;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 
@@ -17,16 +17,16 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MedicalHistoryPresenterTest {
+public class ChildMedicalHistoryPresenterTest {
 
 
-    MedicalHistoryPresenter presenter;
-
-    @Mock
-    MedicalHistoryContract.View view;
+    ChildMedicalHistoryPresenter presenter;
 
     @Mock
-    MedicalHistoryInteractor interactor;
+    ChildMedicalHistoryContract.View view;
+
+    @Mock
+    ChildMedicalHistoryInteractor interactor;
 
     @Mock
     CommonPersonObjectClient commonPersonObjectClient;
@@ -34,7 +34,7 @@ public class MedicalHistoryPresenterTest {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        presenter = new MedicalHistoryPresenter(view);
+        presenter = new ChildMedicalHistoryPresenter(view);
         Whitebox.setInternalState(presenter, "interactor", interactor);
     }
 

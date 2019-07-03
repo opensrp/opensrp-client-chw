@@ -1,7 +1,7 @@
 package org.smartregister.chw.presenter;
 
-import org.smartregister.chw.contract.MedicalHistoryContract;
-import org.smartregister.chw.interactor.MedicalHistoryInteractor;
+import org.smartregister.chw.contract.ChildMedicalHistoryContract;
+import org.smartregister.chw.interactor.ChildMedicalHistoryInteractor;
 import org.smartregister.chw.util.BaseService;
 import org.smartregister.chw.util.BaseVaccine;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
@@ -11,18 +11,18 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
 
-public class MedicalHistoryPresenter implements MedicalHistoryContract.Presenter, MedicalHistoryContract.InteractorCallBack {
-    private WeakReference<MedicalHistoryContract.View> view;
-    private MedicalHistoryContract.Interactor interactor;
+public class ChildMedicalHistoryPresenter implements ChildMedicalHistoryContract.Presenter, ChildMedicalHistoryContract.InteractorCallBack {
+    private WeakReference<ChildMedicalHistoryContract.View> view;
+    private ChildMedicalHistoryContract.Interactor interactor;
     private Map<String, Date> recievedVaccines;
     private ArrayList<BaseVaccine> baseVaccineArrayList;
-    private ArrayList<BaseService> growthNutritionArrayList;
+    private ArrayList<BaseService> growthNutritionArrayList,dietaryArrayList,muacArrayList,llitnDataArrayList,ecdDataArrayList;
     private ArrayList<String> birthCertifications;
     private ArrayList<String> obsIllnesses;
 
-    public MedicalHistoryPresenter(MedicalHistoryContract.View view) {
+    public ChildMedicalHistoryPresenter(ChildMedicalHistoryContract.View view) {
         this.view = new WeakReference<>(view);
-        interactor = new MedicalHistoryInteractor();
+        interactor = new ChildMedicalHistoryInteractor();
     }
 
     @Override
@@ -47,10 +47,35 @@ public class MedicalHistoryPresenter implements MedicalHistoryContract.Presenter
     }
 
     @Override
-    public void fetchBirthAndIllnessData(CommonPersonObjectClient commonPersonObjectClient) {
-        interactor.fetchBirthAndIllnessData(commonPersonObjectClient, this);
-
+    public void fetchBirthData(CommonPersonObjectClient commonPersonObjectClient) {
+        interactor.fetchBirthCertificateData(commonPersonObjectClient,this);
     }
+
+    @Override
+    public void fetchIllnessData(CommonPersonObjectClient commonPersonObjectClient) {
+        interactor.fetchIllnessData(commonPersonObjectClient,this);
+    }
+
+    @Override
+    public void fetchDietaryData(CommonPersonObjectClient commonPersonObjectClient) {
+        interactor.fetchDietaryData(commonPersonObjectClient,this);
+    }
+
+    @Override
+    public void fetchMuacData(CommonPersonObjectClient commonPersonObjectClient) {
+        interactor.fetchMuacData(commonPersonObjectClient,this);
+    }
+
+    @Override
+    public void fetchEcdData(CommonPersonObjectClient commonPersonObjectClient) {
+        interactor.fetchEcdData(commonPersonObjectClient,this);
+    }
+
+    @Override
+    public void fetchLLitnData(CommonPersonObjectClient commonPersonObjectClient) {
+        interactor.fetchLLitnData(commonPersonObjectClient,this);
+    }
+
 
     @Override
     public void updateFullyImmunization(String text) {
@@ -78,6 +103,53 @@ public class MedicalHistoryPresenter implements MedicalHistoryContract.Presenter
     }
 
     @Override
+    public ArrayList<BaseService> getDietaryList() {
+        return dietaryArrayList;
+    }
+
+    @Override
+    public ArrayList<BaseService> getMuacList() {
+        return muacArrayList;
+    }
+
+    @Override
+    public ArrayList<BaseService> getLlitnList() {
+        return llitnDataArrayList;
+    }
+
+    @Override
+    public ArrayList<BaseService> getEcdList() {
+        return ecdDataArrayList;
+    }
+
+    @Override
+    public void updateDietaryData(ArrayList<BaseService> services) {
+        this.dietaryArrayList = services;
+        getView().updateDietaryData();
+
+    }
+
+    @Override
+    public void updateMuacData(ArrayList<BaseService> services) {
+        this.muacArrayList = services;
+        getView().updateMuacData();
+    }
+
+    @Override
+    public void updateLLitnDataData(ArrayList<BaseService> services) {
+        this.llitnDataArrayList = services;
+        getView().updateLLitnData();
+
+    }
+
+    @Override
+    public void updateEcdDataData(ArrayList<BaseService> services) {
+        this.ecdDataArrayList = services;
+        getView().updateEcdData();
+
+    }
+
+    @Override
     public void updateBirthCertification(ArrayList<String> birthCertification) {
         this.birthCertifications = birthCertification;
         getView().updateBirthCertification();
@@ -94,7 +166,6 @@ public class MedicalHistoryPresenter implements MedicalHistoryContract.Presenter
     @Override
     public void updateVaccineData(ArrayList<BaseVaccine> baseVaccines) {
         this.baseVaccineArrayList = baseVaccines;
-
         getView().updateVaccinationData();
 
     }
@@ -125,7 +196,7 @@ public class MedicalHistoryPresenter implements MedicalHistoryContract.Presenter
     }
 
     @Override
-    public MedicalHistoryContract.View getView() {
+    public ChildMedicalHistoryContract.View getView() {
         return (view != null) ? view.get() : null;
     }
 

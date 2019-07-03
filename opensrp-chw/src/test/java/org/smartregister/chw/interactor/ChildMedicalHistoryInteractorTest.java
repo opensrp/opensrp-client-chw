@@ -12,7 +12,7 @@ import org.mockito.MockitoAnnotations;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.reflect.Whitebox;
 import org.smartregister.chw.BaseUnitTest;
-import org.smartregister.chw.contract.MedicalHistoryContract;
+import org.smartregister.chw.contract.ChildMedicalHistoryContract;
 import org.smartregister.chw.fragment.GrowthNutritionInputFragment;
 import org.smartregister.chw.util.ChildDBConstants;
 import org.smartregister.chw.util.ServiceContent;
@@ -32,17 +32,17 @@ import static org.smartregister.chw.util.ChildDBConstants.KEY.ILLNESS_ACTION;
 import static org.smartregister.chw.util.ChildDBConstants.KEY.ILLNESS_DATE;
 import static org.smartregister.chw.util.ChildDBConstants.KEY.ILLNESS_DESCRIPTION;
 
-public class MedicalHistoryInteractorTest extends BaseUnitTest {
-    private static final String TAG = MedicalHistoryInteractorTest.class.getCanonicalName();
+public class ChildMedicalHistoryInteractorTest extends BaseUnitTest {
+    private static final String TAG = ChildMedicalHistoryInteractorTest.class.getCanonicalName();
 
-    private MedicalHistoryInteractor interactor;
+    private ChildMedicalHistoryInteractor interactor;
     @Mock
-    private MedicalHistoryContract.InteractorCallBack callBack;
+    private ChildMedicalHistoryContract.InteractorCallBack callBack;
 
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        interactor = Mockito.spy(MedicalHistoryInteractor.class);
+        interactor = Mockito.spy(ChildMedicalHistoryInteractor.class);
     }
 
     @After
