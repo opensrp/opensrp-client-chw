@@ -176,6 +176,9 @@ public class AncMemberProfileActivity extends BaseAncMemberProfileActivity {
             case R.id.textview_record_visit:
                 AncHomeVisitActivity.startMe(this, MEMBER_OBJECT, false);
                 break;
+            case R.id.textview_edit:
+                AncHomeVisitActivity.startMe(this, MEMBER_OBJECT, true);
+                break;
             default:
                 break;
         }
