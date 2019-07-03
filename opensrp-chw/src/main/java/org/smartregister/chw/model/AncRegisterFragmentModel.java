@@ -12,6 +12,8 @@ import java.util.Set;
 
 public class AncRegisterFragmentModel extends BaseAncRegisterFragmentModel {
 
+    private Flavor flavor = new AncRegisterFragmentModelFlv();
+
     @Override
     public String mainSelect(String tableName, String mainCondition) {
         SmartRegisterQueryBuilder queryBuilder = new SmartRegisterQueryBuilder();
@@ -30,7 +32,6 @@ public class AncRegisterFragmentModel extends BaseAncRegisterFragmentModel {
         columnList.add(tableName + "." + DBConstants.KEY.LAST_INTERACTED_WITH);
         columnList.add(tableName + "." + DBConstants.KEY.BASE_ENTITY_ID);
         columnList.add(tableName + "." + ChwDBConstants.LMP);
-        columnList.add(tableName + "." + org.smartregister.chw.anc.util.DBConstants.KEY.HAS_ANC_CARD);
         columnList.add(Constants.TABLE_NAME.ANC_MEMBER_LOG + "." + org.smartregister.chw.anc.util.DBConstants.KEY.DATE_CREATED);
         columnList.add(tableName + "." + org.smartregister.chw.anc.util.DBConstants.KEY.CONFIRMED_VISITS);
         columnList.add(tableName + "." + org.smartregister.chw.anc.util.DBConstants.KEY.LAST_HOME_VISIT);
@@ -49,6 +50,13 @@ public class AncRegisterFragmentModel extends BaseAncRegisterFragmentModel {
         columnList.add(Constants.TABLE_NAME.FAMILY + "." + DBConstants.KEY.PRIMARY_CAREGIVER);
         columnList.add(Constants.TABLE_NAME.FAMILY + "." + DBConstants.KEY.FIRST_NAME + " as " + org.smartregister.chw.anc.util.DBConstants.KEY.FAMILY_NAME);
 
+        columnList.addAll(flavor.mainColumns(tableName));
+
         return columnList.toArray(new String[columnList.size()]);
+    }
+
+
+    interface Flavor {
+        Set<String> mainColumns(String tableName);
     }
 }

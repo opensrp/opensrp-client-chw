@@ -45,13 +45,15 @@ public abstract class DefaultAncUpcomingServicesInteractorFlv implements AncUpco
             return services;
 
         // anc card
-        if (memberObject.getHasAncCard() != null && !memberObject.getHasAncCard().equalsIgnoreCase("Yes")) {
-            BaseUpcomingService cardService = new BaseUpcomingService();
-            cardService.setServiceName(context.getString(R.string.anc_card));
-            cardService.setServiceDate(createDate);
-            services.add(cardService);
-        }
+        evaluateANCCard(services, memberObject, context, createDate);
+        evaluateHealthFacility(services, memberObject, context);
+        evaluateTT(services, memberObject, context);
+        evaluateIPTP(services, memberObject, context);
 
+        return services;
+    }
+
+    protected void evaluateHealthFacility(List<BaseUpcomingService> services, MemberObject memberObject, Context context) {
         // hfv
         LocalDate dateCreated = new DateTime(memberObject.getDateCreated()).toLocalDate();
         List<LocalDate> dateList = new ArrayList<>(ContactUtil.getContactSchedule(memberObject, dateCreated).values());
@@ -61,9 +63,9 @@ public abstract class DefaultAncUpcomingServicesInteractorFlv implements AncUpco
             healthFacilityService.setServiceDate(dateList.get(0).toDate());
             services.add(healthFacilityService);
         }
+    }
 
-        // tt
-
+    protected void evaluateTT(List<BaseUpcomingService> services, MemberObject memberObject, Context context) {
         Triple<DateTime, VaccineRepo.Vaccine, String> ttIteration = getNextTT(memberObject);
         if (ttIteration != null && StringUtils.isNotBlank(ttIteration.getRight())) {
             BaseUpcomingService ttService = new BaseUpcomingService();
@@ -71,8 +73,9 @@ public abstract class DefaultAncUpcomingServicesInteractorFlv implements AncUpco
             ttService.setServiceDate(ttIteration.getLeft().toDate());
             services.add(ttService);
         }
+    }
 
-        // iptp
+    protected void evaluateIPTP(List<BaseUpcomingService> services, MemberObject memberObject, Context context) {
         Pair<String, Date> iptp = getNextIPTP(memberObject);
         if (iptp != null) {
             BaseUpcomingService iptpService = new BaseUpcomingService();
@@ -80,8 +83,15 @@ public abstract class DefaultAncUpcomingServicesInteractorFlv implements AncUpco
             iptpService.setServiceDate(iptp.getRight());
             services.add(iptpService);
         }
+    }
 
-        return services;
+    protected void evaluateANCCard(List<BaseUpcomingService> services, MemberObject memberObject, Context context, Date createDate) {
+        if (memberObject.getHasAncCard() != null && !memberObject.getHasAncCard().equalsIgnoreCase("Yes")) {
+            BaseUpcomingService cardService = new BaseUpcomingService();
+            cardService.setServiceName(context.getString(R.string.anc_card));
+            cardService.setServiceDate(createDate);
+            services.add(cardService);
+        }
     }
 
     private Pair<String, Date> getNextIPTP(MemberObject memberObject) {
