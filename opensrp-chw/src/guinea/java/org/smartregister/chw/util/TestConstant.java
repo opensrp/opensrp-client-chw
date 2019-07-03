@@ -15,4 +15,5 @@ public class TestConstant {
                 "MCV1".toLowerCase(), "yellowfever".toLowerCase(),"rota3", "mena"};
         return list;
     }
+    public static boolean IS_TASK_VISIBLE = true;
 }
