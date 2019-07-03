@@ -76,6 +76,9 @@ import io.reactivex.schedulers.Schedulers;
 import static org.smartregister.chw.util.ChildDBConstants.KEY.BIRTH_CERT;
 import static org.smartregister.chw.util.ChildDBConstants.KEY.VACCINE_CARD;
 import static org.smartregister.chw.util.Utils.dd_MMM_yyyy;
+import static org.smartregister.family.util.Utils.metadata;
+import static org.smartregister.util.Utils.dobStringToDate;
+import static org.smartregister.util.Utils.getDuration;
 import static org.smartregister.util.Utils.getValue;
 
 public class ChildHomeVisitFragment extends DialogFragment implements View.OnClickListener, ChildHomeVisitContract.View {
@@ -188,8 +191,8 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     }
 
     private void assignNameHeader() {
-        String dob = org.smartregister.family.util.Utils.getValue(childClient.getColumnmaps(), DBConstants.KEY.DOB, false);
-        String dobString = org.smartregister.family.util.Utils.getDuration(dob);
+        String dob = getValue(childClient.getColumnmaps(), DBConstants.KEY.DOB, false);
+        String dobString = getDuration(dob);
         String birthCert = getValue(childClient.getColumnmaps(), BIRTH_CERT, true);
 
         nameHeader.setText(String.format("%s %s %s, %s \u00B7 %s",
@@ -211,11 +214,11 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
             //check wether it's due or overdue - overdue is 12m+
             BirthCertRule birthCertRule = new BirthCertRule(dob);
             if (birthCertRule.isOverdue(12)) {
-                Date date = org.smartregister.family.util.Utils.dobStringToDate(dob);
+                Date date = dobStringToDate(dob);
                 textViewBirthCertDueDate.setTextColor(getResources().getColor(R.color.alert_urgent_red));
                 textViewBirthCertDueDate.setText(String.format("%s%s", getString(R.string.overdue), dd_MMM_yyyy.format(date)));
             } else {
-                Date date = org.smartregister.family.util.Utils.dobStringToDate(dob);
+                Date date = dobStringToDate(dob);
                 textViewBirthCertDueDate.setTextColor(getResources().getColor(R.color.grey));
                 textViewBirthCertDueDate.setText(String.format("%s%s", getString(R.string.due), dd_MMM_yyyy.format(date)));
 
@@ -245,11 +248,11 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
             viewVaccineCardLine.setVisibility(View.VISIBLE);
             textViewVaccineCardText.setVisibility(View.VISIBLE);
             if (birthCertRule.isOverdue(12)) {
-                Date date = org.smartregister.family.util.Utils.dobStringToDate(dob);
+                Date date = dobStringToDate(dob);
                 textViewVaccineCardText.setTextColor(getResources().getColor(R.color.alert_urgent_red));
                 textViewVaccineCardText.setText(String.format("%s%s", getString(R.string.overdue), dd_MMM_yyyy.format(date)));
             } else {
-                Date date = org.smartregister.family.util.Utils.dobStringToDate(dob);
+                Date date = dobStringToDate(dob);
                 textViewVaccineCardText.setTextColor(getResources().getColor(R.color.grey));
                 textViewVaccineCardText.setText(String.format("%s%s", getString(R.string.due), dd_MMM_yyyy.format(date)));
 
@@ -542,7 +545,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
 
     @Override
     public void startFormActivity(JSONObject jsonForm) {
-        Intent intent = new Intent(context, org.smartregister.family.util.Utils.metadata().familyMemberFormActivity);
+        Intent intent = new Intent(context, metadata().familyMemberFormActivity);
         intent.putExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON, jsonForm.toString());
 
         Form form = new Form();
@@ -615,7 +618,9 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                         } else if (serviceTask.getTaskType().equalsIgnoreCase(TaskServiceCalculate.TASK_TYPE.ECD.name())) {
                             try{
                                 if(serviceTask.getTaskJson()==null){
-                                    JSONObject form = FormUtils.getInstance(org.smartregister.family.util.Utils.context().applicationContext()).getFormJson(Constants.JSON_FORM.ANC_HOME_VISIT.getEarlyChildhoodDevelopment());
+                                    JSONObject form = FormUtils.getInstance(context).getFormJson(Constants.JSON_FORM.ANC_HOME_VISIT.getEarlyChildhoodDevelopment());
+                                    String dobString = getValue(childClient.getColumnmaps(), DBConstants.KEY.DOB, false);
+                                    form = JsonFormUtils.getEcdWithDatePass(form,dobString);
                                     startFormActivity(form);
                                 }else{
                                     JSONObject form = JsonFormUtils.getPreviousECDAsJson(serviceTask.getTaskJson(),childClient.getCaseId());

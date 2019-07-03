@@ -38,7 +38,7 @@
                     android:layout_marginStart="10dp"
                     android:gravity="center_vertical"
                     android:padding="20dp"
-                    android:text="@string/llitn_label"
+                    android:text="@string/llitn_label_child"
                     android:textColor="@color/text_black"
                     android:textSize="18dp" />
 
