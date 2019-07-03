@@ -1,6 +1,9 @@
 package org.smartregister.chw.util;
 
 public class TestConstant {
+
+    public static boolean IS_TASK_VISIBLE = true;
+
     public static String[] getTestReceivedTwoYearVaccine(){
         String[] list = {"OPV0".toLowerCase(), "BCG".toLowerCase(), "OPV1".toLowerCase(), "OPV2".toLowerCase(), "OPV3".toLowerCase()
                 , "Penta1".toLowerCase(), "Penta2".toLowerCase(), "Penta3".toLowerCase(), "PCV1".toLowerCase(), "PCV2".toLowerCase()
