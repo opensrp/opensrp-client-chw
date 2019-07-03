@@ -78,6 +78,12 @@
           "Fausse couche",
           "Autre"
         ],
+        "keys": [
+          "Live birth",
+          "Stillbirth",
+          "Miscarriage",
+          "Other"
+        ],
         "openmrs_choice_ids": {
           "Live birth": "151849AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "Stillbirth": "125872AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -143,6 +149,11 @@
           "Maison",
           "Structure sanitaire",
           "Autre"
+        ],
+        "keys": [
+          "Home",
+          "Health facility",
+          "Other"
         ],
         "openmrs_choice_ids": {
           "Home": "1536AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
