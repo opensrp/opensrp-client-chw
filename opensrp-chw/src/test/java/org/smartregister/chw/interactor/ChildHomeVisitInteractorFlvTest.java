@@ -18,10 +18,10 @@ import static org.powermock.api.mockito.PowerMockito.mock;
 
 public class ChildHomeVisitInteractorFlvTest extends BaseUnitTest {
 
-    ChildHomeVisitInteractorFlv childHomeVisitInteractorFlv;
+    private ChildHomeVisitInteractorFlv childHomeVisitInteractorFlv;
 //    @Mock
-//    TaskServiceCalculate taskServiceCalculate;
-//    String today = "2019-12-12T03:00:00.000+03:00";
+//    private TaskServiceCalculate taskServiceCalculate;
+//    private String today = "2019-12-12T03:00:00.000+03:00";
 
     @Before
     public void setUp() {
