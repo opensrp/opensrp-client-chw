@@ -182,6 +182,13 @@
         }
       },
       {
+        "key": "temp_unique_id",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "temp_unique_id",
+        "type": "hidden"
+      },
+      {
         "key": "unique_id",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_identifier",
@@ -197,6 +204,13 @@
         "v_required": {
           "value": "true",
           "err": "Please enter the ID"
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_pregnancy_outcome_calculation.yml"
+            }
+          }
         },
         "relevance": {
           "rules-engine": {
@@ -499,7 +513,6 @@
           }
         ]
       },
-
       {
         "key": "opv0_date",
         "openmrs_entity_parent": "",
@@ -526,8 +539,14 @@
         "type": "date_picker",
         "hint": "BCG date",
         "expanded": false,
-        "min_date": "today-120y",
         "max_date": "today",
+        "constraints": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_pregnancy_outcome_constraints.yml"
+            }
+          }
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {

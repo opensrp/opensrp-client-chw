@@ -364,4 +364,8 @@
     <string name="dev_warning_sign">Developmental warning signs:</string>
     <string name="care_stim_skill">Caregiver stimulation skills:</string>
     <string name="early_learning">Early learning program:</string>
+
+    <string name="health_facility_visit_num">ANC health facility visit {0}</string>
+    <string name="tt_dose">TT {0}</string>
+    <string name="iptp_sp_dose">IPTP-sp {0}</string>
 </resources>

@@ -17,7 +17,7 @@ import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.activity.FamilyProfileActivity;
 import org.smartregister.chw.activity.LoginActivity;
 import org.smartregister.chw.anc.AncLibrary;
-import org.smartregister.chw.contract.ChwAuthorizationService;
+import org.smartregister.chw.service.ChwAuthorizationService;
 import org.smartregister.chw.helper.RulesEngineHelper;
 import org.smartregister.chw.job.ChwJobCreator;
 import org.smartregister.chw.malaria.MalariaLibrary;
