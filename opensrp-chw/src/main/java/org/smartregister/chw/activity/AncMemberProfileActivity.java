@@ -174,6 +174,7 @@ public class AncMemberProfileActivity extends BaseAncMemberProfileActivity {
 
         switch (view.getId()) {
             case R.id.textview_record_visit:
+            case R.id.textview_record_reccuring_visit:
                 AncHomeVisitActivity.startMe(this, MEMBER_OBJECT, false);
                 break;
             case R.id.textview_edit:
