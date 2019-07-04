@@ -25,10 +25,10 @@ public class ChildMedicalHistoryPresenter implements ChildMedicalHistoryContract
         interactor = new ChildMedicalHistoryInteractor();
     }
 
-    @Override
-    public void generateHomeVisitServiceList(long homeVisitDate) {
-        interactor.generateHomeVisitServiceList(homeVisitDate);
-    }
+//    @Override
+//    public void generateHomeVisitServiceList(long homeVisitDate) {
+//        interactor.generateHomeVisitServiceList(homeVisitDate);
+//    }
 
     @Override
     public void setInitialVaccineList(Map<String, Date> veccineList) {

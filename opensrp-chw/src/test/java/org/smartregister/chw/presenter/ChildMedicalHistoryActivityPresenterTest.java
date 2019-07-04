@@ -17,7 +17,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ChildMedicalHistoryPresenterTest {
+public class ChildMedicalHistoryActivityPresenterTest {
 
 
     ChildMedicalHistoryPresenter presenter;
@@ -67,8 +67,8 @@ public class ChildMedicalHistoryPresenterTest {
 
         CommonPersonObjectClient commonPersonObjectClient = Mockito.mock(CommonPersonObjectClient.class);
 
-        presenter.fetchBirthAndIllnessData(commonPersonObjectClient);
-        Mockito.verify(interactor).fetchBirthAndIllnessData(commonPersonObjectClient, presenter);
+        presenter.fetchBirthData(commonPersonObjectClient);
+        Mockito.verify(interactor).fetchBirthCertificateData(commonPersonObjectClient, presenter);
     }
 
 

@@ -11,11 +11,11 @@ import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class ChildChildMedicalHistory extends BaseChildMedicalHistory {
+public class ChildMedicalHistoryActivity extends BaseChildMedicalHistory {
 
     public static void startMedicalHistoryActivity(Activity activity, CommonPersonObjectClient childClient, String childName, String lastVisitDays, String dateOfirth,
                                                    LinkedHashMap<String, Date> receivedVaccine) {
-        Intent intent = new Intent(activity, ChildChildMedicalHistory.class);
+        Intent intent = new Intent(activity, ChildMedicalHistoryActivity.class);
         intent.putExtra(Constants.INTENT_KEY.CHILD_COMMON_PERSON, childClient);
         intent.putExtra(Constants.INTENT_KEY.CHILD_NAME, childName);
         intent.putExtra(Constants.INTENT_KEY.CHILD_DATE_OF_BIRTH, dateOfirth);

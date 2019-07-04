@@ -27,7 +27,6 @@ public class HomeVisitServiceRepository extends BaseRepository {
     public static final String DETAILS = "details";
 
     public static final String[] TABLE_COLUMNS = {HOME_VISIT_ID, EVENT_TYPE, DATE, DETAILS};
-    public static DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     public HomeVisitServiceRepository(Repository repository) {
         super(repository);
@@ -48,7 +47,8 @@ public class HomeVisitServiceRepository extends BaseRepository {
                 if (uniqueVisit != null) {
                     update(database, homeVisitServiceDataModel);
                 } else {
-                    database.insert(HOME_VISIT_SERVICE_TABLE_NAME, null, createValuesFor(homeVisitServiceDataModel));
+                   database.insert(HOME_VISIT_SERVICE_TABLE_NAME, null, createValuesFor(homeVisitServiceDataModel));
+
                 }
             }
 
@@ -109,7 +109,7 @@ public class HomeVisitServiceRepository extends BaseRepository {
                     homeVisitServiceDataModel.setHomeVisitDetails(cursor.getString(cursor.getColumnIndex(DETAILS)));
                     homeVisitServiceDataModel.setHomeVisitId(cursor.getString(cursor.getColumnIndex(HOME_VISIT_ID)));
                     //duplicate handle
-                    if (!isExist(homeVisitServiceDataModels, homeVisitServiceDataModel.getEventType())) {
+                    if (homeVisitServiceDataModel.getHomeVisitId() !=null && !isExist(homeVisitServiceDataModels, homeVisitServiceDataModel.getEventType(),homeVisitServiceDataModel.getHomeVisitId())) {
                         homeVisitServiceDataModels.add(homeVisitServiceDataModel);
                     }
                     cursor.moveToNext();
@@ -124,9 +124,10 @@ public class HomeVisitServiceRepository extends BaseRepository {
 
     }
 
-    private boolean isExist(List<HomeVisitServiceDataModel> homeVisitServiceDataModels, String type) {
+    private boolean isExist(List<HomeVisitServiceDataModel> homeVisitServiceDataModels, String type,String homeVisitId) {
         for (HomeVisitServiceDataModel homeVisitServiceDataModel : homeVisitServiceDataModels) {
-            if (homeVisitServiceDataModel.getEventType().equalsIgnoreCase(type)) {
+            if (homeVisitServiceDataModel.getEventType().equalsIgnoreCase(type)
+                    && homeVisitServiceDataModel.getHomeVisitId().equalsIgnoreCase(homeVisitId)) {
                 return true;
             }
         }
@@ -139,8 +140,8 @@ public class HomeVisitServiceRepository extends BaseRepository {
         }
 
         try {
-            String idSelection = HOME_VISIT_ID + " = ?";
-            database.update(HOME_VISIT_SERVICE_TABLE_NAME, createValuesFor(homeVisitServiceDataModel), idSelection, new String[]{homeVisitServiceDataModel.getHomeVisitId()});
+            String idSelection = HOME_VISIT_ID + " = ? and "+EVENT_TYPE+" = ?";
+            database.update(HOME_VISIT_SERVICE_TABLE_NAME, createValuesFor(homeVisitServiceDataModel), idSelection, new String[]{homeVisitServiceDataModel.getHomeVisitId(),homeVisitServiceDataModel.getEventType()});
         } catch (Exception e) {
             Log.e(TAG, Log.getStackTraceString(e));
         }
@@ -152,7 +153,7 @@ public class HomeVisitServiceRepository extends BaseRepository {
         values.put(DETAILS, homeVisitServiceDataModel.getHomeVisitDetails());
         values.put(EVENT_TYPE, homeVisitServiceDataModel.getEventType());
         values.put(DATE, homeVisitServiceDataModel.getHomeVisitDate() + "");
-        Log.e("CONTENT_VALUES", "createValuesForService>>" + values);
+
         return values;
     }
 

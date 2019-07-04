@@ -37,7 +37,7 @@ public interface ChildMedicalHistoryContract {
 
     interface Presenter {
 
-        void generateHomeVisitServiceList(long homeVisitDate);
+        //void generateHomeVisitServiceList(long homeVisitDate);
 
         void setInitialVaccineList(Map<String, Date> veccineList);
 
@@ -80,7 +80,7 @@ public interface ChildMedicalHistoryContract {
 
     interface Interactor {
 
-        void generateHomeVisitServiceList(long homeVisitDate);
+        //void generateHomeVisitServiceList(long homeVisitDate);
 
         void fetchBirthCertificateData(CommonPersonObjectClient commonPersonObjectClient, InteractorCallBack callBack);
 

@@ -22,10 +22,6 @@ public class ChildMedicalHistoryActivityFlv extends DefaultChildMedicalHistoryAc
         setInitialVaccineList(vaccineList);
         fetchFullYImmunization(dateOfBirth);
         fetchGrowthNutrition(childClient);
-        fetchDietaryData(childClient);
-        fetchMuacData(childClient);
-        fetchLlitnData(childClient);
-        fetchEcdData(childClient);
         fetchBirthCertificateData(childClient);
         fetchIllnessData(childClient);
     }

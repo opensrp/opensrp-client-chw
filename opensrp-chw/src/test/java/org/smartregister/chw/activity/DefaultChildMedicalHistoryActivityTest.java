@@ -1,10 +1,11 @@
 package org.smartregister.chw.activity;
 
+
 import org.smartregister.chw.BaseActivityTest;
 
-public class DefaultChildMedicalHistoryActivityTest extends BaseActivityTest<DefaultChildMedicalHistoryActivity> {
+public class DefaultChildMedicalHistoryActivityTest extends BaseActivityTest<ChildMedicalHistoryActivity> {
     @Override
-    protected Class<DefaultChildMedicalHistoryActivity> getActivityClass() {
-        return DefaultChildMedicalHistoryActivity.class;
+    protected Class<ChildMedicalHistoryActivity> getActivityClass() {
+        return ChildMedicalHistoryActivity.class;
     }
 }
