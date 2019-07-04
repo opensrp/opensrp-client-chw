@@ -364,4 +364,11 @@
     <string name="dev_warning_sign">Signes d\'avertissement d\'un délai potentiel dans le développment de l\'enfant:</string>
     <string name="care_stim_skill">Compétences de stimulation de la gardienne:</string>
     <string name="early_learning"> Programme d\'apprentissage pour la petite enfance:</string>
+
+
+    <string name="rubella">Rubéole</string>
+    <string name="opv_0">VPO 0</string>
+    <string name="opv_1">VPO 1</string>
+    <string name="opv_2">VPO 2</string>
+    <string name="yellow_fever">Fièvre Jaune</string>
 </resources>
