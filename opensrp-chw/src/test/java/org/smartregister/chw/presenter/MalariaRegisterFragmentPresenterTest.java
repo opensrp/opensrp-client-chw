@@ -6,7 +6,6 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.smartregister.chw.BaseUnitTest;
-import org.smartregister.chw.contract.ChildRegisterFragmentContract;
 import org.smartregister.chw.malaria.contract.MalariaRegisterFragmentContract;
 
 public class MalariaRegisterFragmentPresenterTest extends BaseUnitTest {
