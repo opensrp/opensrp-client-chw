@@ -1,5 +1,6 @@
 package org.smartregister.chw.presenter;
 
+import org.smartregister.chw.R;
 import org.smartregister.chw.malaria.contract.MalariaRegisterFragmentContract;
 import org.smartregister.chw.malaria.presenter.BaseMalariaRegisterFragmentPresenter;
 import org.smartregister.chw.malaria.util.DBConstants;
@@ -12,13 +13,21 @@ public class MalariaRegisterFragmentPresenter extends BaseMalariaRegisterFragmen
     }
 
     @Override
+    public void processViewConfigurations() {
+        super.processViewConfigurations();
+        if (config.getSearchBarText() != null && getView() != null) {
+            getView().updateSearchBarHint(getView().getContext().getString(R.string.search_name_or_id));
+        }
+    }
+
+    @Override
     public String getMainTable() {
         return Constants.TABLE_NAME.MALARIA_CONFIRMATION;
     }
 
     @Override
     public String getMainCondition() {
-        return " WHERE " + Constants.TABLE_NAME.MALARIA_CONFIRMATION + "." + DBConstants.KEY.MALARIA + " = 1";
+        return " " + Constants.TABLE_NAME.MALARIA_CONFIRMATION + "." + DBConstants.KEY.DATE_REMOVED + " is null ";
     }
 
 }
