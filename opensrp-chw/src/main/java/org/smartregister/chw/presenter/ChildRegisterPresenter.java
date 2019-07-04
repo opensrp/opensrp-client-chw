@@ -115,6 +115,7 @@ public class ChildRegisterPresenter implements ChildRegisterContract.Presenter, 
                 if (fevent == null) {
                     return;
                 }
+
                 new FamilyRegisterInteractor().saveRegistration(fevent, jsonString, isEditMode, new FamilyRegisterContract.InteractorCallBack() {
                     @Override
                     public void onUniqueIdFetched(Triple<String, String, String> triple, String entityId) {
@@ -130,8 +131,6 @@ public class ChildRegisterPresenter implements ChildRegisterContract.Presenter, 
                     public void onRegistrationSaved(boolean isEdit) {
                         getView().hideProgressDialog();
                         getView().openFamilyListView();
-
-
                     }
                 });
 

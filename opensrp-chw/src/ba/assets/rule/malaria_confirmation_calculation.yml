@@ -13,3 +13,11 @@ priority: 1
 condition: "true"
 actions:
   - "calculation = step1_date_hf_malaria_test"
+---
+
+name: step1_malaria
+description: client has malaria
+priority: 1
+condition: "step1_malaria_results.contains('Positive') || step1_fever_malaria_chw.contains('Tested positive for malaria in the last 14 days in a health facility')"
+actions:
+- "calculation = 1"
