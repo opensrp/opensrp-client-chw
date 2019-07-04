@@ -87,13 +87,13 @@ public class JobAidsDashboardFragment extends Fragment implements ReportContract
             return;
         }
 
-        //Create report for child indicators
+        //Generate report for child indicators
         childReportingModule.setIndicatorTallies(indicatorTallies);
-        childReportingModule.createReport(visualizationsViewGroup);
+        childReportingModule.generateReport(visualizationsViewGroup);
 
-        //Create report for anc indicators
+        //Generate report for anc indicators
         ancReportingModule.setIndicatorTallies(indicatorTallies);
-        ancReportingModule.createReport(visualizationsViewGroup);
+        ancReportingModule.generateReport(visualizationsViewGroup);
 
         progressBar.setVisibility(View.GONE);
     }

@@ -12,7 +12,7 @@ public class AncReportingModule implements ReportingModule {
     private List<Map<String, IndicatorTally>> indicatorTallies;
 
     @Override
-    public void createReport(ViewGroup mainLayout) {
+    public void generateReport(ViewGroup mainLayout) {
 
     }
 

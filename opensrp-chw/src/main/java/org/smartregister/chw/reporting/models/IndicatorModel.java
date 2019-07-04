@@ -2,7 +2,7 @@ package org.smartregister.chw.reporting.models;
 
 import org.smartregister.chw.reporting.views.IndicatorView;
 
-public class NumericViewModel {
+public class IndicatorModel {
 
     private String indicatorCode;
     private int labelStringResource;
@@ -10,7 +10,7 @@ public class NumericViewModel {
     private long totalCount;
 
 
-    public NumericViewModel(IndicatorView.CountType countType, String indicatorCode, int labelStringResource, long count) {
+    public IndicatorModel(IndicatorView.CountType countType, String indicatorCode, int labelStringResource, long count) {
         this.countType = countType;
         this.indicatorCode = indicatorCode;
         this.labelStringResource = labelStringResource;

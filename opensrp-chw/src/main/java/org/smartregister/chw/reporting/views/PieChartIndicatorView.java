@@ -18,15 +18,13 @@ import static org.smartregister.chw.reporting.ReportingUtil.getIndicatorView;
 
 public class PieChartIndicatorView implements IndicatorView {
 
-    private PieChartFactory pieChartFactory;
-    private PieChartViewModel pieChartYes;
-    private PieChartViewModel pieChartNo;
     private Context context;
+    private PieChartFactory pieChartFactory;
+    private PieChartViewModel pieChartViewModel;
 
-    public PieChartIndicatorView(PieChartViewModel pieChartYes, PieChartViewModel pieChartNo, Context context) {
+    public PieChartIndicatorView(Context context, PieChartViewModel pieChartViewModel) {
         pieChartFactory = new PieChartFactory();
-        this.pieChartYes = pieChartYes;
-        this.pieChartNo = pieChartNo;
+        this.pieChartViewModel = pieChartViewModel;
         this.context = context;
     }
 
@@ -39,23 +37,13 @@ public class PieChartIndicatorView implements IndicatorView {
     private PieChartIndicatorVisualization getPieChartVisualization() {
         // Define pie chart chartSlices
         List<PieChartSlice> chartSlices = new ArrayList<>();
-        int yesCount = 0;
-        int noCount = 0;
-        if (pieChartYes.getIndicatorTallyMap().get(pieChartYes.getYesIndicatorKey()) != null) {
-            yesCount = pieChartYes.getIndicatorTallyMap().get(pieChartYes.getYesIndicatorKey()).getCount();
-        }
-        if (pieChartNo.getIndicatorTallyMap().get(pieChartYes.getNoIndicatorKey()) != null) {
-            noCount = pieChartNo.getIndicatorTallyMap().get(pieChartYes.getNoIndicatorKey()).getCount();
-        }
-
-        PieChartSlice yesSlice = new PieChartSlice(yesCount, DashboardUtil.YES_GREEN_SLICE_COLOR);
-        PieChartSlice noSlice = new PieChartSlice(noCount, DashboardUtil.NO_RED_SLICE_COLOR);
-        chartSlices.add(yesSlice);
-        chartSlices.add(noSlice);
-
+        int yesCount = (int) pieChartViewModel.getYesSlice().getTotalCount();
+        int noCount = (int) pieChartViewModel.getNoSlice().getTotalCount();
+        chartSlices.add(new PieChartSlice(yesCount, DashboardUtil.YES_GREEN_SLICE_COLOR));
+        chartSlices.add(new PieChartSlice(noCount, DashboardUtil.NO_RED_SLICE_COLOR));
         // Build the chart
         return new PieChartIndicatorVisualization.PieChartIndicatorVisualizationBuilder()
-                .indicatorLabel(context.getResources().getString(pieChartYes.getLabelStringResource()))
+                .indicatorLabel(context.getResources().getString(pieChartViewModel.getYesSlice().getLabelStringResource()))
                 .chartHasLabels(true)
                 .chartHasLabelsOutside(true)
                 .chartHasCenterCircle(false)
