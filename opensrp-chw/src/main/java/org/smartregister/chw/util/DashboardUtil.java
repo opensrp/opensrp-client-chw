@@ -13,7 +13,7 @@ import org.smartregister.reporting.domain.PieChartSlice;
  */
 public class DashboardUtil {
 
-    // Indicator keys which should match values provided in indicator-definitions.yml file
+    // Indicator keys which should match values provided in child-reporting-indicator-definitions.yml file
     public final static String countOfChildrenUnder5 = "CHW_001";
     public final static String deceasedChildren0_11Months = "CHW_002";
     public final static String deceasedChildren12_59Months = "CHW_003";
@@ -29,6 +29,23 @@ public class DashboardUtil {
     public final static String countOfChildren_6_23OverdueMNP = "CHW_013";
     public final static String countOfChildren_0_24UptoDateVaccinations = "CHW_014";
     public final static String countOfChildren_0_24OverdueVaccinations = "CHW_015";
+
+    public static final class AncReportingIndicators {
+        public static final String COUNT_WRA = "anc_report_indicator_1";
+        public static final String COUNT_PREGNANT_WOMEN = "anc_report_indicator_2";
+        public static final String COUNT_WOMEN_DUE_HOME_VISIT = "anc_report_indicator_3_1";
+        public static final String COUNT_WOMEN_OVERDUE_HOME_VISIT = "anc_report_indicator_3_2";
+        public static final String COUNT_WOMEN_DUE_HEALTH_FACILITY_VISIT = "anc_report_indicator_4_1";
+        public static final String COUNT_WOMEN_OVERDUE_HEALTH_FACILITY_VISIT = "anc_report_indicator_4_2";
+        public static final String COUNT_WOMEN_TESTED_HIV = "anc_report_indicator_5_1";
+        public static final String COUNT_WOMEN_NOT_TESTED_HIV = "anc_report_indicator_5_2";
+        public static final String COUNT_WOMEN_TESTED_SYPHILIS = "anc_report_indicator_6_1";
+        public static final String COUNT_WOMEN_NOT_TESTED_SYPHILIS= "anc_report_indicator_6_2";
+        public static final String COUNT_WOMEN_DUE_TT_IMMUNIZATION = "anc_report_indicator_7_1";
+        public static final String COUNT_WOMEN_OVERDUE_TT_IMMUNIZATION = "anc_report_indicator_7_2";
+        public static final String COUNT_WOMEN_DUE_IPTPSP = "anc_report_indicator_8_1";
+        public static final String COUNT_WOMEN_OVERDUE_IPTPSP = "anc_report_indicator_8_2";
+    }
 
     // Color definitions for the chart slices. This could essentially be defined in colors.xml
     public static final int YES_GREEN_SLICE_COLOR = Color.parseColor("#99CC00");

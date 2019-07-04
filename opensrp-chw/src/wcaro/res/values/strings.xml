@@ -4,4 +4,7 @@
     <string name="nav_logo">Liberia CFC Monitor</string>
     <string name="menu_anc">ANC Clients</string>
     <string name="menu_pnc">PNC Clients</string>
+
+    <!-- ANC Reporting indicators label -->
+    <string name="anc_total_pregnant_women">Total pregnant women</string>
 </resources>

@@ -37,8 +37,6 @@ public class ChwRepository extends Repository {
     protected SQLiteDatabase readableDatabase;
     protected SQLiteDatabase writableDatabase;
     private Context context;
-    private String indicatorsConfigFile = "config/indicator-definitions.yml";
-    private String indicatorDataInitialisedPref = "INDICATOR_DATA_INITIALISED";
     private String appVersionCodePref = "APP_VERSION_CODE";
 
     public ChwRepository(Context context, org.smartregister.Context openSRPContext) {
@@ -80,15 +78,26 @@ public class ChwRepository extends Repository {
 
         ReportingLibrary reportingLibraryInstance = ReportingLibrary.getInstance();
         // Check if indicator data initialised
+        String indicatorDataInitialisedPref = "INDICATOR_DATA_INITIALISED";
         boolean indicatorDataInitialised = Boolean.parseBoolean(reportingLibraryInstance.getContext()
                 .allSharedPreferences().getPreference(indicatorDataInitialisedPref));
         boolean isUpdated = checkIfAppUpdated();
         if (!indicatorDataInitialised || isUpdated) {
-            reportingLibraryInstance.initIndicatorData(indicatorsConfigFile, database); // This will persist the data in the DB
-            reportingLibraryInstance.getContext().allSharedPreferences().savePreference(indicatorDataInitialisedPref, "true");
+            initializeReportIndicators(database, reportingLibraryInstance);
+            reportingLibraryInstance.getContext().allSharedPreferences().savePreference(
+                indicatorDataInitialisedPref, "true");
             reportingLibraryInstance.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(BuildConfig.VERSION_CODE));
         }
 
+    }
+
+    private void initializeReportIndicators(SQLiteDatabase database,
+        ReportingLibrary reportingLibraryInstance) {
+        String childIndicatorsConfigFile = "config/child-reporting-indicator-definitions.yml";
+        String ancIndicatorConfigFile = "config/anc-reporting-indicator-definitions.yml";
+        // This will persist the data in the DB
+        reportingLibraryInstance.initIndicatorData(childIndicatorsConfigFile, database);
+        reportingLibraryInstance.initIndicatorData(ancIndicatorConfigFile, database);
     }
 
     @Override
