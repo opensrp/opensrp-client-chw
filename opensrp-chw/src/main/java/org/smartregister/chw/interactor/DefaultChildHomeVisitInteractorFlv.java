@@ -44,25 +44,25 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements ChildHomeVis
             TaskServiceCalculate taskServiceCalculate = new TaskServiceCalculate(dob);
             ServiceTask serviceTaskDiversity = new ServiceTask();
             if (taskServiceCalculate.isDue(6) && !taskServiceCalculate.isExpire(60)) {
-                serviceTaskDiversity.setTaskTitle(context.getResources().getString(R.string.minimum_dietary_title));
+                serviceTaskDiversity.setTaskTitle(context.getString(R.string.minimum_dietary_title));
                 serviceTaskDiversity.setTaskType(TaskServiceCalculate.TASK_TYPE.Minimum_dietary.name());
                 serviceTasks.add(serviceTaskDiversity);
             }
             ServiceTask serviceTaskMuac = new ServiceTask();
             if (taskServiceCalculate.isDue(6) && !taskServiceCalculate.isExpire(60)) {
-                serviceTaskMuac.setTaskTitle(context.getResources().getString(R.string.muac_title));
+                serviceTaskMuac.setTaskTitle(context.getString(R.string.muac_title));
                 serviceTaskMuac.setTaskType(TaskServiceCalculate.TASK_TYPE.MUAC.name());
                 serviceTasks.add(serviceTaskMuac);
             }
             ServiceTask serviceTaskLlitn = new ServiceTask();
             if (!taskServiceCalculate.isExpire(60)) {
-                serviceTaskLlitn.setTaskTitle(getContext().getResources().getString(R.string.llitn_title));
+                serviceTaskLlitn.setTaskTitle(context.getString(R.string.llitn_title));
                 serviceTaskLlitn.setTaskType(TaskServiceCalculate.TASK_TYPE.LLITN.name());
                 serviceTasks.add(serviceTaskLlitn);
             }
             ServiceTask serviceTaskEcd = new ServiceTask();
             if (!taskServiceCalculate.isExpire(60)) {
-                serviceTaskEcd.setTaskTitle(getContext().getResources().getString(R.string.ecd_title));
+                serviceTaskEcd.setTaskTitle(context.getString(R.string.ecd_title));
                 serviceTaskEcd.setTaskType(TaskServiceCalculate.TASK_TYPE.ECD.name());
                 serviceTasks.add(serviceTaskEcd);
             }
