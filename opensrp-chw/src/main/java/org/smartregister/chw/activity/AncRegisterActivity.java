@@ -3,7 +3,6 @@ package org.smartregister.chw.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
@@ -11,17 +10,13 @@ import com.vijay.jsonwizard.domain.Form;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.smartregister.AllConstants;
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.activity.BaseAncRegisterActivity;
 import org.smartregister.chw.anc.util.DBConstants;
 import org.smartregister.chw.custom_view.NavigationMenu;
 import org.smartregister.chw.fragment.AncRegisterFragment;
-import org.smartregister.chw.interactor.AncRegisterInteractor;
 import org.smartregister.chw.listener.AncBottomNavigationListener;
-import org.smartregister.chw.model.AncRegisterModel;
-import org.smartregister.chw.presenter.AncRegisterPresenter;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
@@ -29,8 +24,6 @@ import org.smartregister.view.fragment.BaseRegisterFragment;
 
 import java.util.Arrays;
 import java.util.List;
-
-import timber.log.Timber;
 
 import static org.smartregister.chw.anc.util.Constants.ACTIVITY_PAYLOAD.TABLE_NAME;
 import static org.smartregister.chw.util.Constants.TABLE_NAME.ANC_MEMBER;
@@ -96,18 +89,7 @@ public class AncRegisterActivity extends BaseAncRegisterActivity {
     }
 
     public void startFamilyRegistration() {
-        try {
-            String locationId = Utils.context().allSharedPreferences().getPreference(AllConstants.CURRENT_LOCATION_ID);
-            ((AncRegisterPresenter) presenter()).startFamilyForm(Utils.metadata().familyRegister.formName, null, null, locationId);
-        } catch (Exception e) {
-            Timber.e(e);
-            displayToast(getString(org.smartregister.family.R.string.error_unable_to_start_form));
-        }
-    }
-
-    @Override
-    protected void initializePresenter() {
-        presenter = new AncRegisterPresenter(this, new AncRegisterModel(), new AncRegisterInteractor());
+        FamilyRegisterActivity.startFamilyRegisterForm(this);
     }
 
     private void startRegisterActivity(Class registerClass) {
@@ -171,24 +153,5 @@ public class AncRegisterActivity extends BaseAncRegisterActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == JsonFormUtils.REQUEST_CODE_GET_JSON && resultCode == RESULT_OK) {
-            try {
-                String jsonString = data.getStringExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON);
-                Timber.d(jsonString);
-
-                JSONObject form = new JSONObject(jsonString);
-                if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Utils.metadata().familyRegister.registerEventType)) {
-                    ((AncRegisterPresenter) presenter()).saveForm(jsonString, false);
-                }
-            } catch (Exception e) {
-                Timber.e(Log.getStackTraceString(e));
-            }
-
-        }
-        super.onActivityResult(requestCode, resultCode, data);
     }
 }

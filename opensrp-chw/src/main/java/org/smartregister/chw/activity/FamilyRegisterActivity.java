@@ -1,5 +1,7 @@
 package org.smartregister.chw.activity;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -16,6 +18,12 @@ import org.smartregister.family.presenter.BaseFamilyRegisterPresenter;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
 public class FamilyRegisterActivity extends BaseFamilyRegisterActivity {
+
+    public static void startFamilyRegisterForm(Activity activity) {
+        Intent intent = new Intent(activity, FamilyRegisterActivity.class);
+        intent.putExtra(Constants.ACTIVITY_PAYLOAD.ACTION, Constants.ACTION.START_REGISTRATION);
+        activity.startActivity(intent);
+    }
 
     @Override
     protected void initializePresenter() {
@@ -48,8 +56,17 @@ public class FamilyRegisterActivity extends BaseFamilyRegisterActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         NavigationMenu.getInstance(this, null, null);
+
+        String action = getIntent().getStringExtra(Constants.ACTIVITY_PAYLOAD.ACTION);
+        if (action != null && action.equals(Constants.ACTION.START_REGISTRATION)) {
+            startRegistration();
+        }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 
     @Override
     protected void onResumption() {
