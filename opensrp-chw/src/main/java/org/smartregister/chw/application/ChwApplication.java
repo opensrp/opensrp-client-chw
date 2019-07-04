@@ -231,7 +231,6 @@ public class ChwApplication extends DrishtiApplication {
             saveLanguage(Locale.FRENCH.getLanguage());
         }
 
-        FamilyLibrary.getInstance().setMetadata(getMetadata());
     }
 
     public void setOpenSRPUrl() {

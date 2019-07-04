@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.BuildConfig;
+import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.custom_view.NavigationMenu;
 import org.smartregister.chw.fragment.FamilyRegisterFragment;
 import org.smartregister.chw.listener.FamilyBottomNavigationListener;
@@ -60,6 +61,7 @@ public class FamilyRegisterActivity extends BaseFamilyRegisterActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         NavigationMenu.getInstance(this, null, null);
+        ChwApplication.getInstance().notifyAppContextChange(); // initialize the language (bug in translation)
 
         action = getIntent().getStringExtra(Constants.ACTIVITY_PAYLOAD.ACTION);
         if (action != null && action.equals(Constants.ACTION.START_REGISTRATION)) {
