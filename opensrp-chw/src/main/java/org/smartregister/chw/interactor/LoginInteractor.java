@@ -19,19 +19,19 @@ public class LoginInteractor extends BaseLoginInteractor implements BaseLoginCon
 
     @Override
     protected void scheduleJobsPeriodically() {
-        SyncServiceJob.scheduleJob(SyncServiceJob.TAG, TimeUnit.MINUTES.toMillis(BuildConfig.DATA_SYNC_DURATION_MINUTES), getFlexValue(BuildConfig
+        SyncServiceJob.scheduleJob(SyncServiceJob.TAG, TimeUnit.MINUTES.toMinutes(BuildConfig.DATA_SYNC_DURATION_MINUTES), getFlexValue(BuildConfig
                 .DATA_SYNC_DURATION_MINUTES));
 
-        VaccineRecurringServiceJob.scheduleJob(VaccineRecurringServiceJob.TAG, TimeUnit.MINUTES.toMillis(BuildConfig.VACCINE_SYNC_PROCESSING_MINUTES), getFlexValue(BuildConfig.VACCINE_SYNC_PROCESSING_MINUTES));
+        VaccineRecurringServiceJob.scheduleJob(VaccineRecurringServiceJob.TAG, TimeUnit.MINUTES.toMinutes(BuildConfig.VACCINE_SYNC_PROCESSING_MINUTES), getFlexValue(BuildConfig.VACCINE_SYNC_PROCESSING_MINUTES));
 
-        ImageUploadServiceJob.scheduleJob(ImageUploadServiceJob.TAG, TimeUnit.MINUTES.toMillis(BuildConfig.IMAGE_UPLOAD_MINUTES), getFlexValue(BuildConfig
+        ImageUploadServiceJob.scheduleJob(ImageUploadServiceJob.TAG, TimeUnit.MINUTES.toMinutes(BuildConfig.IMAGE_UPLOAD_MINUTES), getFlexValue(BuildConfig
                 .IMAGE_UPLOAD_MINUTES));
 
-        PullUniqueIdsServiceJob.scheduleJob(PullUniqueIdsServiceJob.TAG, TimeUnit.MINUTES.toMillis(BuildConfig.PULL_UNIQUE_IDS_MINUTES), getFlexValue
+        PullUniqueIdsServiceJob.scheduleJob(PullUniqueIdsServiceJob.TAG, TimeUnit.MINUTES.toMinutes(BuildConfig.PULL_UNIQUE_IDS_MINUTES), getFlexValue
                 (BuildConfig.PULL_UNIQUE_IDS_MINUTES));
 
         ChwIndicatorGeneratingJob.scheduleJob(ChwIndicatorGeneratingJob.TAG,
-                TimeUnit.MINUTES.toMillis(org.smartregister.reporting.BuildConfig.REPORT_INDICATOR_GENERATION_MINUTES), TimeUnit.MINUTES.toMillis(1));
+                TimeUnit.MINUTES.toMinutes(org.smartregister.reporting.BuildConfig.REPORT_INDICATOR_GENERATION_MINUTES), TimeUnit.MINUTES.toMillis(1));
 
     }
 
