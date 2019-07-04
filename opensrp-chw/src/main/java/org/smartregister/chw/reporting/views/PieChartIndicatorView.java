@@ -31,6 +31,15 @@ public class PieChartIndicatorView implements IndicatorView {
     @Override
     public View createView() {
         PieChartIndicatorVisualization pieChartIndicatorVisualization = getPieChartVisualization();
+
+        if (pieChartViewModel.getIndicatorLabel() != null) {
+            pieChartIndicatorVisualization.setIndicatorLabel(pieChartViewModel.getIndicatorLabel());
+        }
+
+        if (pieChartViewModel.getIndicatorNote() != null) {
+            pieChartIndicatorVisualization.setIndicatorNote(pieChartViewModel.getIndicatorNote());
+        }
+
         return getIndicatorView(pieChartIndicatorVisualization, pieChartFactory, context);
     }
 

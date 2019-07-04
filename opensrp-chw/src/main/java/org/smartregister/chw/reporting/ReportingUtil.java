@@ -1,6 +1,7 @@
 package org.smartregister.chw.reporting;
 
 import android.content.Context;
+import android.support.annotation.Nullable;
 import android.view.View;
 
 import org.smartregister.chw.reporting.models.IndicatorModel;
@@ -42,7 +43,8 @@ public class ReportingUtil {
         return new IndicatorModel(countType, indicatorCode, labelResource, count);
     }
 
-    public static PieChartViewModel getPieChartViewModel(IndicatorModel yesPart, IndicatorModel noPart) {
-        return new PieChartViewModel(yesPart, noPart);
+    public static PieChartViewModel getPieChartViewModel(IndicatorModel yesPart, IndicatorModel noPart,
+                                                         @Nullable String indicatorLabel, @Nullable String indicatorNote) {
+        return new PieChartViewModel(yesPart, noPart, indicatorLabel, indicatorNote);
     }
 }
