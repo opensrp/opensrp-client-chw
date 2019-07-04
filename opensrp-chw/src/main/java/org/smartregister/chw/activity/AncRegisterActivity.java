@@ -178,14 +178,14 @@ public class AncRegisterActivity extends BaseAncRegisterActivity {
         if (requestCode == JsonFormUtils.REQUEST_CODE_GET_JSON && resultCode == RESULT_OK) {
             try {
                 String jsonString = data.getStringExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON);
-                Log.d("JSONResult", jsonString);
+                Timber.d(jsonString);
 
                 JSONObject form = new JSONObject(jsonString);
                 if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Utils.metadata().familyRegister.registerEventType)) {
-                    //  presenter().saveForm(jsonString, false);
+                    ((AncRegisterPresenter) presenter()).saveForm(jsonString, false);
                 }
             } catch (Exception e) {
-                Log.e(TAG, Log.getStackTraceString(e));
+                Timber.e(Log.getStackTraceString(e));
             }
 
         }

@@ -44,7 +44,7 @@
     <string name="add_new_family_member">Ajouter un nouveau membre à la famille</string>
     <string name="remove_existing_family_member">Enlever un membre de la famille</string>
     <string name="change_family_head">Changer le chef de famille</string>
-    <string name="change_primary_caregiver">Changer la personne résponsable pour l\'enfant</string>
+    <string name="change_primary_caregiver">Changer la gardienne</string>
     <string name="add_other_family_member">Autre membre de famille</string>
     <string name="add_child_under_five">Enfant de moins de 5 ans</string>
     <string name="child_under_five">Enfant de moins de 5 ans</string>
@@ -66,7 +66,7 @@
     <string name="add_member_title_question">Quel type de rappel voulez vous ajouter?</string>
     <string name="change_head_member_title">Changer chef de famille</string>
     <string name="change_head_member_title_question">Sélectionner nouveau chef de famille</string>
-    <string name="change_caregiver_member_title">Changer la personne résponsable pour l\'enfant/les enfants</string>
+    <string name="change_caregiver_member_title">Changer la gardienne</string>
     <string name="change_caregiver_member_title_question">Sélectionner un nouveau résponsable pour l\'enfant/les enfants</string>
     <string name="remove_member_title">Enlever membre </string>
     <string name="remove_member_prompt">Quel membre voulez vous enlever?</string>
@@ -307,9 +307,9 @@
     <string name="hb_level">Niveau d\'hémoglobine</string>
     <string name="gdl">g/dl</string>
     <string name="ifa_received">Réviser ENR CPN</string>
-    <string name="tests_done">Examens effectuésù</string>
+    <string name="tests_done">Examens effectués</string>
     <string name="treatment_given">Traitement administré </string>
-    <string name="received_llin">MILD Reçu</string>
+    <string name="received_llin">MIILD Reçu</string>
     <string name="nutrition_status">État</string>
     <string name="counselling">Suivi</string>
 
@@ -350,17 +350,25 @@
     <string name="bp_in_mmhg">PD: {0}/{1} mmHg</string>
     <string name="hb_level_in_g_dl">Niveau d\'hémoglobine: {0} g/dl</string>
     <string name="ifa_received_status">FAF reçu: {0}</string>
-    <string name="tests_done_details">Examens effectués : {0}</string>
+    <string name="tests_done_details">Examens effectués: {0}</string>
 
     <string name="danger_signs_counselling">Conseils sur les signes de danger</string>
     <string name="anc_visit_counselling">Visite de suivi CPN </string>
     <string name="delivery_at_facilty_counselling">Conseils sur l\'accouchement dans une centre de santé</string>
     <string name="nutrition_counselling">Conseils en nutrition</string>
-    <string name="llitn_label_child">L\'enfant dors-t-il ou elle sous une moustiquaire imprégnée d\'insecticides de longue durée</string>
+
     <string name="llitn_label">La femme dors-t-elle sous une moustiquaires imprégnées d\'insecticide (MIILD)?</string>
+    <string name="llitn_label_child">L\'enfant dors-t-il ou elle sous une moustiquaire imprégnée d\'insecticides de longue durée?</string>
     <string name="llitn_info_title">Si la femme enceinte dors en dessous d\'une MILD</string>
     <string name="llitn_info_text">Le paludisme est très dangereux pour les femmes enceintes. Dans les zones où le paludisme est présente, les femmes devraient prévenir la maladie en prennant les comprimés antipaludéens tels que recommandées par un agent sanitaires formé et en dormant en dessous d\'une moustiquaire imprégnée d\'insecticide.</string>
-    <string name="dev_warning_sign">Signes d\'avertissement d\'une anomalie du développement:</string>
+    <string name="dev_warning_sign">Signes d\'avertissement d\'un délai potentiel dans le développment de l\'enfant:</string>
     <string name="care_stim_skill">Compétences de stimulation de la gardienne:</string>
     <string name="early_learning"> Programme d\'apprentissage pour la petite enfance:</string>
+
+
+    <string name="rubella">Rubéole</string>
+    <string name="opv_0">VPO 0</string>
+    <string name="opv_1">VPO 1</string>
+    <string name="opv_2">VPO 2</string>
+    <string name="yellow_fever">Fièvre Jaune</string>
 </resources>
