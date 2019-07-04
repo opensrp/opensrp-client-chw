@@ -3,8 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="org.smartregister.chw">
 
-    <uses-feature android:name="android.hardware.camera" />
-    <uses-feature android:name="android.hardware.camera.autofocus" />
+    <uses-feature
+        android:required="false"
+        android:name="android.hardware.camera" />
+    <uses-feature
+        android:required="false"
+        android:name="android.hardware.camera.autofocus" />
+    <uses-feature
+        android:required="false"
+        android:name="android.hardware.telephony" />
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -125,10 +132,11 @@
                 android:resource="@xml/captured_images_path" />
         </provider>
 
+
         <service android:name="org.smartregister.immunization.service.intent.VaccineIntentService" />
         <service android:name="org.smartregister.immunization.service.intent.RecurringIntentService" />
         <service android:name="org.smartregister.sync.intent.PullUniqueIdsIntentService" />
-        <service android:name=".sync.ChwSyncIntentService" />
+        <service android:name="org.smartregister.sync.intent.SyncIntentService" />
         <service android:name="org.smartregister.sync.intent.ExtendedSyncIntentService" />
         <service android:name="org.smartregister.sync.intent.ValidateIntentService" />
         <service android:name="org.smartregister.service.ImageUploadSyncService" />
