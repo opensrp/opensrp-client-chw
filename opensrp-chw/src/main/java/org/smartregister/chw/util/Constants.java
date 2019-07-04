@@ -19,7 +19,7 @@ public class Constants {
         public static final String COUNSELING = "Counseling";
         public static final String FAMILY_REGISTRATION = "Family Registration";
         public static final String FAMILY_MEMBER_REGISTRATION = "Family Member Registration";
-
+        public static final String ECD = "Early childhood development";
         public static final String CHILD_REGISTRATION = "Child Registration";
         public static final String UPDATE_CHILD_REGISTRATION = "Update Child Registration";
         public static final String CHILD_HOME_VISIT = "Child Home Visit";
@@ -27,6 +27,7 @@ public class Constants {
         public static final String VACCINE_CARD_RECEIVED = "Child vaccine card received";
         public static final String MINIMUM_DIETARY_DIVERSITY = "Minimum dietary diversity";
         public static final String MUAC = "Mid-upper arm circumference (MUAC)";
+        public static final String LLITN = "Sleeping under a LLITN";
         public static final String UPDATE_FAMILY_RELATIONS = "Update Family Relations";
         public static final String UPDATE_FAMILY_MEMBER_RELATIONS = "Update Family Member Relations";
 
@@ -131,6 +132,7 @@ public class Constants {
             private static final String MALARIA = "anc_hv_malaria";
             private static final String OBSERVATION_AND_ILLNESS = "anc_hv_observations";
             private static final String REMARKS_AND_COMMENTS = "anc_hv_remarks_and_comments";
+            private static final String EARLY_CHILDHOOD_DEVELOPMENT = "early_childhood_development";
 
             public static String getDangerSigns() {
                 return Utils.getLocalForm(DANGER_SIGNS);
@@ -182,6 +184,10 @@ public class Constants {
 
             public static String getRemarksAndComments() {
                 return Utils.getLocalForm(REMARKS_AND_COMMENTS);
+            }
+
+            public static String getEarlyChildhoodDevelopment() {
+                return Utils.getLocalForm(EARLY_CHILDHOOD_DEVELOPMENT);
             }
         }
     }
@@ -324,8 +330,9 @@ public class Constants {
             public static final String CODE = "160908AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
         }
         public static class FORM_SUBMISSION_FIELD {
-            public static final String TASK_MINIMUM_DIETARY = "task_minimum_dietary";
-            public static final String TASK_MUAC = "task_muac";
+            public static final String TASK_MINIMUM_DIETARY = "diet_diversity";
+            public static final String TASK_MUAC = "muac";
+            public static final String TASK_LLITN = "llitn";
             public static final String HOME_VISIT_ID= "home_visit_id";
             public static final String HOME_VISIT_DATE_LONG= "home_visit_date";
             public static final String LAST_HOME_VISIT = "last_home_visit";

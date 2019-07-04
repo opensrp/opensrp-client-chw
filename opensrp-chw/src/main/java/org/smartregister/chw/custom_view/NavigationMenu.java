@@ -270,7 +270,7 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
                             case "English":
                                 LOCALE = Locale.ENGLISH;
                                 break;
-                            case "Française":
+                            case "Français":
                                 LOCALE = Locale.FRENCH;
                                 break;
                             case "Kiswahili":
