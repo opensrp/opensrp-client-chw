@@ -11,17 +11,21 @@ import com.evernote.android.job.JobManager;
 
 import org.smartregister.AllConstants;
 import org.smartregister.Context;
+import org.smartregister.P2POptions;
 import org.smartregister.CoreLibrary;
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.activity.FamilyProfileActivity;
 import org.smartregister.chw.activity.LoginActivity;
 import org.smartregister.chw.anc.AncLibrary;
+import org.smartregister.chw.contract.ChwAuthorizationService;
 import org.smartregister.chw.helper.RulesEngineHelper;
 import org.smartregister.chw.job.ChwJobCreator;
 import org.smartregister.chw.malaria.MalariaLibrary;
+import org.smartregister.chw.repository.AncRegisterRepository;
 import org.smartregister.chw.repository.ChwRepository;
 import org.smartregister.chw.repository.HomeVisitIndicatorInfoRepository;
 import org.smartregister.chw.repository.HomeVisitRepository;
+import org.smartregister.chw.repository.HomeVisitServiceRepository;
 import org.smartregister.chw.sync.ChwClientProcessor;
 import org.smartregister.chw.util.ChildDBConstants;
 import org.smartregister.chw.util.Constants;
@@ -66,6 +70,8 @@ public class ChwApplication extends DrishtiApplication {
 
     private static CommonFtsObject commonFtsObject;
     private static HomeVisitRepository homeVisitRepository;
+    private static HomeVisitServiceRepository homeVisitServiceRepository;
+    private static AncRegisterRepository ancRegisterRepository;
     private static HomeVisitIndicatorInfoRepository homeVisitIndicatorInfoRepository;
 
     private JsonSpecHelper jsonSpecHelper;
@@ -135,6 +141,19 @@ public class ChwApplication extends DrishtiApplication {
         }
         return homeVisitRepository;
     }
+    public static HomeVisitServiceRepository getHomeVisitServiceRepository(){
+        if(homeVisitServiceRepository == null){
+            homeVisitServiceRepository = new HomeVisitServiceRepository(getInstance().getRepository());
+        }
+        return homeVisitServiceRepository;
+    }
+
+    public static AncRegisterRepository ancRegisterRepository() {
+        if (ancRegisterRepository == null) {
+            ancRegisterRepository = new AncRegisterRepository(getInstance().getRepository());
+        }
+        return ancRegisterRepository;
+    }
 
     public static HomeVisitIndicatorInfoRepository homeVisitIndicatorInfoRepository() {
         if (homeVisitIndicatorInfoRepository == null) {
@@ -165,7 +184,10 @@ public class ChwApplication extends DrishtiApplication {
         Fabric.with(this, new Crashlytics.Builder().core(new CrashlyticsCore.Builder().build()).build());
 
         //Initialize Modules
-        CoreLibrary.init(context, new ChwSyncConfiguration(), BuildConfig.BUILD_TIMESTAMP);
+        P2POptions p2POptions = new P2POptions(true);
+        p2POptions.setAuthorizationService(new ChwAuthorizationService());
+
+        CoreLibrary.init(context, new ChwSyncConfiguration(), BuildConfig.BUILD_TIMESTAMP, p2POptions);
         CoreLibrary.getInstance().setEcClientFieldsFile(Constants.EC_CLIENT_FIELDS);
 
         // init libraries

@@ -91,7 +91,7 @@ public class NavigationPresenterTest {
         NavigationContract.Presenter presenter = PowerMockito.spy(new NavigationPresenter(view));
         AppCompatActivity activity = Mockito.mock(AppCompatActivity.class);
 
-        presenter.Sync(activity);
+        presenter.sync(activity);
         verify(interactor).Sync();
     }
 

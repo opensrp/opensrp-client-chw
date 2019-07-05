@@ -38,6 +38,9 @@ public class ChwRepositoryFlv {
                 case 7:
                     upgradeToVersion7(db);
                     break;
+                case 8:
+                    upgradeToVersion8(db);
+                    break;
                 default:
                     break;
             }
@@ -119,6 +122,13 @@ public class ChwRepositoryFlv {
             db.execSQL(HomeVisitRepository.UPDATE_TABLE_ADD_SERVICE_NOT_GIVEN);
         } catch (Exception e) {
             Log.e(TAG, "upgradeToVersion7 " + Log.getStackTraceString(e));
+        }
+    }
+    private static void upgradeToVersion8(SQLiteDatabase db) {
+        try {
+            db.execSQL(HomeVisitRepository.UPDATE_TABLE_ADD_HOME_VISIT_ID);
+        } catch (Exception e) {
+            Log.e(TAG, "upgradeToVersion8 " + Log.getStackTraceString(e));
         }
     }
 }

@@ -44,6 +44,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import static com.google.android.gms.common.internal.Preconditions.checkArgument;
+
 public class Utils extends org.smartregister.family.util.Utils {
 
     private static String TAG = Utils.class.getCanonicalName();
@@ -255,5 +257,22 @@ public class Utils extends org.smartregister.family.util.Utils {
             return (first_name + " " + middle_name + " " + sur_name).trim() + ", " + integerAge;
         }
         return "";
+    }
+
+    public static String getDayOfMonthSuffix(String n) {
+        return getDayOfMonthSuffix(Integer.parseInt(n));
+    }
+
+    public static String getDayOfMonthSuffix(final int n) {
+        checkArgument(n >= 1 && n <= 31, "illegal day of month: " + n);
+        if (n >= 11 && n <= 13) {
+            return "th";
+        }
+        switch (n % 10) {
+            case 1:  return "st";
+            case 2:  return "nd";
+            case 3:  return "rd";
+            default: return "th";
+        }
     }
 }

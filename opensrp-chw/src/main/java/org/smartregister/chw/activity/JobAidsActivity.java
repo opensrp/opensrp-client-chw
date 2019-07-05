@@ -9,8 +9,16 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
+import com.github.ybq.android.spinkit.style.FadingCircle;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
@@ -19,11 +27,15 @@ import org.smartregister.chw.fragment.JobAidsGuideBooksFragment;
 import org.smartregister.chw.job.ChwIndicatorGeneratingJob;
 import org.smartregister.chw.listener.JobsAidsBottomNavigationListener;
 import org.smartregister.helper.BottomNavigationHelper;
+import org.smartregister.reporting.domain.TallyStatus;
+import org.smartregister.reporting.event.IndicatorTallyEvent;
 
 public class JobAidsActivity extends FamilyRegisterActivity {
 
     private static final String REPORT_LAST_PROCESSED_DATE = "REPORT_LAST_PROCESSED_DATE";
     private ViewPager mViewPager;
+    private ImageView refreshIndicatorsIcon;
+    private ProgressBar refreshIndicatorsProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +46,7 @@ public class JobAidsActivity extends FamilyRegisterActivity {
     }
 
     private void setUpView() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle(" ");
@@ -43,30 +55,41 @@ public class JobAidsActivity extends FamilyRegisterActivity {
         // primary sections of the activity.
         SectionsPagerAdapter mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
-        mViewPager = (ViewPager) findViewById(R.id.container);
+        mViewPager = findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        TabLayout tabLayout = findViewById(R.id.tabs);
 
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
-    }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.job_aids_menu, menu);
-        return true;
-    }
+        refreshIndicatorsIcon = findViewById(R.id.refreshIndicatorsIcon);
+        refreshIndicatorsProgressBar = findViewById(R.id.refreshIndicatorsPB);
+        // Initial view until we determined by the refresh function
+        refreshIndicatorsProgressBar.setVisibility(View.GONE);
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem menuItem) {
-        switch (menuItem.getItemId()) {
-            case R.id.action_refresh_indicators:
+        refreshIndicatorsIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                refreshIndicatorsIcon.setVisibility(View.GONE);
+                FadingCircle circle = new FadingCircle();
+                refreshIndicatorsProgressBar.setIndeterminateDrawable(circle);
+                refreshIndicatorsProgressBar.setVisibility(View.VISIBLE);
                 refreshIndicatorData();
-                return true;
-            default:
-                return super.onOptionsItemSelected(menuItem);
-        }
+            }
+        });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        EventBus.getDefault().unregister(this);
     }
 
     @Override
@@ -100,17 +123,31 @@ public class JobAidsActivity extends FamilyRegisterActivity {
     }
 
     /**
-     * Refresh the indicator data by clearing the view and scheduling the IndicatorGeneratingJob immediately
-     * then triggering the reloading of the Fragment
+     * Refresh the indicator data by scheduling the IndicatorGeneratingJob immediately
      */
     public void refreshIndicatorData() {
-        // Compute everything afresh. LPD is set to null to avoid messing with the processing timeline
+        // Compute everything afresh. Last processed date is set to null to avoid messing with the processing timeline
         ChwApplication.getInstance().getContext().allSharedPreferences().savePreference(REPORT_LAST_PROCESSED_DATE, null);
         ChwIndicatorGeneratingJob.scheduleJobImmediately(ChwIndicatorGeneratingJob.TAG);
-        if (mViewPager != null) {
-            mViewPager.getAdapter().notifyDataSetChanged();
+        Log.d(TAG, "ChwIndicatorGeneratingJob scheduled immediately to compute latest counts...");
+        Toast.makeText(getApplicationContext(), getString(R.string.indicators_udpating), Toast.LENGTH_LONG).show();
+    }
+
+    /**
+     * Handle Indicator Tallying complete event from reporting lib
+     * When done tallying counts, update view
+     * @param event The Indicator tally event we're handling
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onIndicatorTallyingComplete(IndicatorTallyEvent event) {
+        if (event.getStatus() == TallyStatus.COMPLETE) {
+            if (mViewPager != null) {
+                mViewPager.getAdapter().notifyDataSetChanged();
+            }
+            refreshIndicatorsProgressBar.setVisibility(View.GONE);
+            refreshIndicatorsIcon.setVisibility(View.VISIBLE);
+            Toast.makeText(getApplicationContext(), getString(R.string.indicators_updating_complete), Toast.LENGTH_LONG).show();
         }
-        Log.d(TAG, "Refreshing indicators...");
     }
 
     public class SectionsPagerAdapter extends android.support.v4.app.FragmentStatePagerAdapter {

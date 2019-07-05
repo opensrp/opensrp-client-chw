@@ -62,20 +62,31 @@ public class ChwRegisterProvider extends FamilyRegisterProvider {
 
     }
 
-    private void updateChildIcons(RegisterViewHolder viewHolder, List<Map<String, String>> list) {
+    private void updateChildIcons(RegisterViewHolder viewHolder, List<Map<String, String>> list, int ancWomanCount) {
+        ImageView imageView;
+        LinearLayout linearLayout;
+        if (ancWomanCount > 0) {
+            for (int i = 1; i <= ancWomanCount; i++) {
+                imageView = new ImageView(context);
+                imageView.setImageResource(R.mipmap.ic_anc_pink);
+                linearLayout = (LinearLayout) viewHolder.memberIcon;
+                linearLayout.addView(imageView);
+            }
+        }
         if (list != null && !list.isEmpty()) {
             for (Map<String, String> map : list) {
-                ImageView imageView = new ImageView(context);
+                imageView = new ImageView(context);
                 String gender = map.get(DBConstants.KEY.GENDER);
                 if ("Male".equalsIgnoreCase(gender)) {
                     imageView.setImageResource(R.mipmap.ic_boy_child);
                 } else {
                     imageView.setImageResource(R.mipmap.ic_girl_child);
                 }
-                LinearLayout linearLayout = (LinearLayout) viewHolder.memberIcon;
+                linearLayout = (LinearLayout) viewHolder.memberIcon;
                 linearLayout.addView(imageView);
             }
         }
+
     }
 
     private void updateDueColumn(Context context, RegisterViewHolder viewHolder, ChildVisit childVisit) {
@@ -259,6 +270,7 @@ public class ChwRegisterProvider extends FamilyRegisterProvider {
         private final Rules rules;
 
         private List<Map<String, String>> list;
+        private int ancWomanCount;
         private ChildVisit childVisit;
 
         private UpdateAsyncTask(Context context, RegisterViewHolder viewHolder, String familyBaseEntityId) {
@@ -271,7 +283,7 @@ public class ChwRegisterProvider extends FamilyRegisterProvider {
         @Override
         protected Void doInBackground(Void... params) {
             list = getChildren(familyBaseEntityId);
-
+            ancWomanCount = ChwApplication.ancRegisterRepository().getancWomenCount(familyBaseEntityId);
             childVisit = mergeChildVisits(retrieveChildVisitList(rules, list));
 
             return null;
@@ -280,7 +292,7 @@ public class ChwRegisterProvider extends FamilyRegisterProvider {
         @Override
         protected void onPostExecute(Void param) {
             // Update child Icon
-            updateChildIcons(viewHolder, list);
+            updateChildIcons(viewHolder, list, ancWomanCount);
 
             // Update due column
             updateDueColumn(context, viewHolder, childVisit);

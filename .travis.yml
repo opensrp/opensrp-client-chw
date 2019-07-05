@@ -14,14 +14,6 @@ cache:
     - $HOME/.gradle/caches/
     - $HOME/.gradle/wrapper/
 
-env:
-  matrix:
-    - ANDROID_TARGET=android-22 ANDROID_ABI=armeabi-v7a
-  global:
-    # wait up to 10 minutes for adb to connect to emulator
-    - MALLOC_ARENA_MAX=2
-    - ADB_INSTALL_TIMEOUT=20 #increment timeout to 20 mins
-
 android:
   components:
     # tools required
@@ -34,17 +26,6 @@ android:
     # Additional components
     - extra-google-m2repository
     - extra-android-m2repository
-
-    # Specify at least one system image,
-    # if you need to run emulator(s) during your tests
-    - sys-img-armeabi-v7a-android-22
-
-before_script:
-  # Emulator Management: Create, Start and Wait
-  - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI
-  - emulator -avd test -no-skin -no-audio -no-window &
-  - android-wait-for-emulator
-  - adb shell input keyevent 82 &
 
 script:
   - echo "Travis branch is $TRAVIS_BRANCH"
