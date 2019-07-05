@@ -39,13 +39,10 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity {
                 onBackPressed();
                 return true;
             case R.id.action_registration:
-                Toast.makeText(getApplicationContext(), "Registration", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.action_malaria_followup_visit:
-                Toast.makeText(getApplicationContext(), "Malaria Follow up", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.action_remove_member:
-                Toast.makeText(getApplicationContext(), "Remove Member", Toast.LENGTH_SHORT).show();
                 return true;
             default:
                 break;
@@ -60,7 +57,7 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity {
         if (id == org.smartregister.malaria.R.id.title_layout) {
             onBackPressed();
         } else if (id == org.smartregister.malaria.R.id.record_visit_malaria) {
-            Toast.makeText(this, "Record Malaria", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.record_malaria), Toast.LENGTH_SHORT).show();
         }
     }
 
