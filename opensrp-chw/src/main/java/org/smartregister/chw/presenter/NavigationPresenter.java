@@ -4,9 +4,11 @@ import android.app.Activity;
 
 import org.smartregister.chw.contract.NavigationContract;
 import org.smartregister.chw.interactor.NavigationInteractor;
+import org.smartregister.chw.job.VaccineRecurringServiceJob;
 import org.smartregister.chw.model.NavigationModel;
 import org.smartregister.chw.model.NavigationOption;
 import org.smartregister.chw.util.Constants;
+import org.smartregister.job.ImageUploadServiceJob;
 import org.smartregister.job.SyncServiceJob;
 
 import java.lang.ref.WeakReference;
@@ -79,7 +81,9 @@ public class NavigationPresenter implements NavigationContract.Presenter {
     }
 
     @Override
-    public void Sync(Activity activity) {
+    public void sync(Activity activity) {
+        VaccineRecurringServiceJob.scheduleJobImmediately(VaccineRecurringServiceJob.TAG);
+        ImageUploadServiceJob.scheduleJobImmediately(ImageUploadServiceJob.TAG);
         SyncServiceJob.scheduleJobImmediately(SyncServiceJob.TAG);
     }
 

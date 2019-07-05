@@ -19,7 +19,7 @@ public interface NavigationContract {
 
         void displayCurrentUser();
 
-        void Sync(Activity activity);
+        void sync(Activity activity);
 
         List<NavigationOption> getOptions();
     }

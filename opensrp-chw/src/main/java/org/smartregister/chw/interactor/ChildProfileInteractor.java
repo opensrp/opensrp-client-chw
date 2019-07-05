@@ -49,6 +49,7 @@ import org.smartregister.view.LocationPickerView;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -176,9 +177,9 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
 
                     @Override
                     public void onNext(Object o) {
-                        if(value==0){
+                        if (value == 0) {
                             callback.undoVisitNotDone();
-                        }else{
+                        } else {
                             callback.updateVisitNotDone();
                         }
                     }
@@ -273,12 +274,16 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
                 });
 
     }
-    private Observable<Object> updateHomeVisitAsEvent(final long value){
+
+    private Observable<Object> updateHomeVisitAsEvent(final long value) {
         return Observable.create(new ObservableOnSubscribe<Object>() {
             @Override
             public void subscribe(ObservableEmitter<Object> e) throws Exception {
+                final String homeVisitId = org.smartregister.chw.util.JsonFormUtils.generateRandomUUIDString();
+
+                Map<String, JSONObject> fields = new HashMap<>();
                 ChildUtils.updateHomeVisitAsEvent(getpClient().entityId(), Constants.EventType.CHILD_VISIT_NOT_DONE, Constants.TABLE_NAME.CHILD,
-                        new JSONObject(), new JSONObject(), new JSONObject(), new JSONObject(), new JSONObject(), new JSONObject(), new JSONObject(), ChildDBConstants.KEY.VISIT_NOT_DONE, value + "");
+                        fields, ChildDBConstants.KEY.VISIT_NOT_DONE, value + "", homeVisitId);
                 e.onNext("");
             }
         });
