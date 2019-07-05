@@ -175,7 +175,7 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
         getMenuInflater().inflate(R.menu.other_member_menu, menu);
 
         if (flavor.showMalariaConfirmationMenu()) {
-            menu.findItem(R.id.action_malaria_registration).setVisible(true);
+            menu.findItem(R.id.action_malaria_registration).setVisible(false);
         } else {
             menu.findItem(R.id.action_malaria_registration).setVisible(false);
         }
@@ -196,7 +196,7 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
                 return true;
             case R.id.action_anc_registration:
                 AncRegisterActivity.startAncRegistrationActivity(FamilyOtherMemberProfileActivity.this, baseEntityId, PhoneNumber,
-                        org.smartregister.chw.util.Constants.JSON_FORM.getAncRegistration(), null);
+                        org.smartregister.chw.util.Constants.JSON_FORM.getAncRegistration(), null, familyBaseEntityId);
                 return true;
             case R.id.action_malaria_registration:
                 MalariaRegisterActivity.startMalariaRegistrationActivity(FamilyOtherMemberProfileActivity.this, baseEntityId);

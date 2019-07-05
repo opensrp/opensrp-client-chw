@@ -77,7 +77,6 @@ public class FamilyProfileActivityTest {
 
         activity = controller.get();
         Whitebox.setInternalState(activity, "presenter", presenter);
-
     }
 
     @After

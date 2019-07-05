@@ -50,6 +50,13 @@
     "title": "ANC Registration",
     "fields": [
       {
+        "key": "relational_id",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "relational_id",
+        "type": "hidden"
+      },
+      {
         "key": "last_menstrual_period",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -59,9 +66,6 @@
         "label_info_title": "LMP",
         "label_info_text": "LMP = first day of Last Menstrual Period. If the exact date is unknown, but the period of the month is known, use day 5 for beginning of the month, day 15 for middle of the month and day 25 for end of the month.",
         "expanded": false,
-        "duration": {
-          "label": "lmp"
-        },
         "max_date": "today",
         "v_required": {
           "value": "true",
@@ -132,7 +136,7 @@
         },
         "v_min": {
           "value": "0",
-          "err": "Age must be equal or greater than 0"
+          "err": "Number must be equal or greater than 0"
         }
       },
       {

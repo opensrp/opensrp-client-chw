@@ -29,6 +29,8 @@ public interface MedicalHistoryContract {
 
     interface Presenter {
 
+        void generateHomeVisitServiceList(long homeVisitDate);
+
         void setInitialVaccineList(Map<String, Date> veccineList);
 
         void fetchGrowthNutrition(CommonPersonObjectClient commonPersonObjectClient);
@@ -51,6 +53,8 @@ public interface MedicalHistoryContract {
     }
 
     interface Interactor {
+
+        void generateHomeVisitServiceList(long homeVisitDate);
 
         void fetchBirthAndIllnessData(CommonPersonObjectClient commonPersonObjectClient, InteractorCallBack callBack);
 
