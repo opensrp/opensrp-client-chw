@@ -17,6 +17,7 @@ import org.smartregister.chw.activity.AncMemberProfileActivity;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.fragment.BaseAncRegisterFragment;
 import org.smartregister.chw.anc.util.DBConstants;
+import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.custom_view.NavigationMenu;
 import org.smartregister.chw.model.AncRegisterFragmentModel;
 import org.smartregister.chw.presenter.AncRegisterFragmentPresenter;
@@ -31,6 +32,7 @@ import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.view.customcontrols.CustomFontTextView;
 
 import java.text.MessageFormat;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
@@ -153,7 +155,17 @@ public class AncRegisterFragment extends BaseAncRegisterFragment {
 
     @Override
     protected void openProfile(CommonPersonObjectClient client) {
-        AncMemberProfileActivity.startMe(getActivity(), new MemberObject(client));
+
+        HashMap<String, String> detailsMap = ChwApplication.ancRegisterRepository().getFamilyNameAndPhone(Utils.getValue(client.getColumnmaps(), org.smartregister.family.util.DBConstants.KEY.FAMILY_HEAD, false));
+
+        String familyName = "";
+        String familyHeadPhone = "";
+        if (detailsMap != null) {
+            familyName = detailsMap.get(org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.FAMILY_HEAD_NAME);
+            familyHeadPhone = detailsMap.get(org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.FAMILY_HEAD_PHONE);
+        }
+
+        AncMemberProfileActivity.startMe(getActivity(), new MemberObject(client), familyName, familyHeadPhone);
     }
 
     private void switchViews(View dueOnlyLayout, boolean isPress) {

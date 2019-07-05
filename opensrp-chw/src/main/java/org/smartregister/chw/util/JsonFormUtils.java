@@ -99,6 +99,29 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
         return form;
 
     }
+    public static JSONObject getEcdWithDatePass(JSONObject form, String dateOfBirthString) throws Exception {
+
+        if (form == null) {
+            return null;
+        }
+        JSONArray field = fields(form);
+        JSONObject datePass = getFieldJSONObject(field, "date_pass");
+        int days = getDayFromDate(dateOfBirthString);
+        datePass.put("value", days);
+        return form;
+
+    }
+
+    public static JSONObject getPreviousECDAsJson(JSONObject form, String baseEntityId) throws Exception {
+
+        if (form == null) {
+            return null;
+        }
+        form.put(ENTITY_ID, baseEntityId);
+
+        return form;
+
+    }
 
     public static int getDayFromDate(String dateOfBirth) {
         DateTime date = DateTime.parse(dateOfBirth);
@@ -121,6 +144,28 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
         mindate.put("min_date", "today-" + days + "d");
         //}
         return form;
+
+    }
+
+    public static Event getECDEvent(String jsonString, String homeVisitId, String entityId) {
+        Triple<Boolean, JSONObject, JSONArray> registrationFormParams = validateParameters(jsonString);
+        if (!registrationFormParams.getLeft()) {
+            return null;
+        }
+        JSONObject jsonForm = registrationFormParams.getMiddle();
+        JSONArray fields = registrationFormParams.getRight();
+
+        // String entityIdForm = getString(jsonForm, ENTITY_ID);
+
+        lastInteractedWith(fields);
+        //Client baseClient = org.smartregister.util.JsonFormUtils.createBaseClient(fields, formTag(org.smartregister.family.util.Utils.context().allSharedPreferences()), entityId);
+        Event baseEvent = org.smartregister.util.JsonFormUtils.createEvent(fields, getJSONObject(jsonForm, METADATA), formTag(org.smartregister.family.util.Utils.context().allSharedPreferences()),
+                entityId, getString(jsonForm, ENCOUNTER_TYPE), org.smartregister.chw.util.Constants.TABLE_NAME.CHILD);
+        baseEvent.addObs((new Obs()).withFormSubmissionField(org.smartregister.chw.util.Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_ID).withValue(homeVisitId)
+                .withFieldCode(org.smartregister.chw.util.Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_ID).withFieldType("formsubmissionField").withFieldDataType("text").withParentCode("").withHumanReadableValues(new ArrayList<>()));
+
+        tagSyncMetadata(org.smartregister.family.util.Utils.context().allSharedPreferences(), baseEvent);// tag docs
+        return baseEvent;
 
     }
 
@@ -177,6 +222,22 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
         HashMap<String, String> choices = new HashMap<>();
         choices.put(context.getResources().getString(R.string.yes), "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
         choices.put(context.getResources().getString(R.string.no), "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+        return choices;
+    }
+
+    public static HashMap<String, String> getChoiceDietary(Context context) {
+        HashMap<String, String> choices = new HashMap<>();
+        choices.put(context.getResources().getString(R.string.minimum_dietary_choice_1), "");
+        choices.put(context.getResources().getString(R.string.minimum_dietary_choice_2), "");
+        choices.put(context.getResources().getString(R.string.minimum_dietary_choice_3), "");
+        return choices;
+    }
+
+    public static HashMap<String, String> getChoiceMuac(Context context) {
+        HashMap<String, String> choices = new HashMap<>();
+        choices.put(context.getResources().getString(R.string.muac_choice_1), "160909AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+        choices.put(context.getResources().getString(R.string.muac_choice_2), "160910AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+        choices.put(context.getResources().getString(R.string.muac_choice_3), "127778AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
         return choices;
     }
 
@@ -881,9 +942,9 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
             if (jo != null) {
                 // read all the checkboxes
                 JSONArray jaOptions = jo.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
-
+                int optionSize = jaOptions.length();
                 int y = 0;
-                while (jaOptions.length() > y) {
+                while (optionSize > y) {
                     JSONObject options = jaOptions.getJSONObject(y);
                     if (options.getBoolean(JsonFormConstants.VALUE)) {
                         resBuilder.append(options.getString(JsonFormConstants.TEXT)).append(", ");

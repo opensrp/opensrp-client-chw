@@ -29,6 +29,8 @@ public class HomeVisit {
     private JSONObject serviceNotGiven = new JSONObject();
     private JSONObject birthCertificationState =  new JSONObject();
     private JSONObject illness_information = new JSONObject();
+    private String homeVisitId;
+
 
     public HomeVisit(){
 
@@ -47,6 +49,14 @@ public class HomeVisit {
         this.eventId = eventId;
         this.formSubmissionId = formSubmissionId;
         this.createdAt = createdAt;
+    }
+
+    public String getHomeVisitId() {
+        return homeVisitId;
+    }
+
+    public void setHomeVisitId(String homeVisitId) {
+        this.homeVisitId = homeVisitId;
     }
 
     public Long getId() {
