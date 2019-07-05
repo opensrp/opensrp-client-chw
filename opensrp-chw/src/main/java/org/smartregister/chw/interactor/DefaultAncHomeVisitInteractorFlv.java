@@ -97,10 +97,6 @@ public abstract class DefaultAncHomeVisitInteractorFlv implements AncHomeVisitIn
         return actionList;
     }
 
-    private JSONObject getJson(BaseAncHomeVisitAction ba, String baseEntityID) throws Exception {
-        return getJson(ba.getFormName(), baseEntityID);
-    }
-
     private JSONObject getJson(String formName, String baseEntityID) throws Exception {
         String locationId = ChwApplication.getInstance().getContext().allSharedPreferences().getPreference(AllConstants.CURRENT_LOCATION_ID);
         JSONObject jsonObject = JsonFormUtils.getFormAsJson(formName);
