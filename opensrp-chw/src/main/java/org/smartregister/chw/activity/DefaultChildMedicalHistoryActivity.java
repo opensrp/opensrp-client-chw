@@ -24,19 +24,17 @@ import java.util.Date;
 import java.util.Map;
 
 public abstract class DefaultChildMedicalHistoryActivity implements ChildMedicalHistoryContract.View {
-    private LinearLayout layoutImmunization, layoutBirthCert, layoutIllness,layoutVaccineCard;
+    private LinearLayout layoutImmunization;
     private RelativeLayout layoutFullyImmunizationBarAge1, layoutFullyImmunizationBarAge2;
-    private RecyclerView recyclerViewImmunization, recyclerViewBirthCert, recyclerViewIllness;
-    private TextView textViewVaccineCardText;
-
+    private RecyclerView recyclerViewImmunization;
     private ChildMedicalHistoryContract.Presenter presenter;
     private VaccineAdapter vaccineAdapter;
     private GrowthAdapter growthAdapter,llitnAdapter,ecdAdapter;
-    private BirthAndIllnessAdapter birthCertAdapter, illnessAdapter;
     private Activity activity;
     private LinearLayout linearLayoutServiceDetails;
     private LayoutInflater inflater;
     private GrowthNutritionViewHolder growthNutritionViewHolder;
+    private VaccineCardViewHolder vaccineCardViewHolder;
 
     public void onViewUpdated(Activity activity) {
         this.activity = activity;
@@ -45,17 +43,9 @@ public abstract class DefaultChildMedicalHistoryActivity implements ChildMedical
         layoutFullyImmunizationBarAge1 = activity.findViewById(R.id.immu_bar_age_1);
         layoutFullyImmunizationBarAge2 = activity.findViewById(R.id.immu_bar_age_2);
         linearLayoutServiceDetails = activity.findViewById(R.id.service_other_contnt_layout);
-        layoutBirthCert = activity.findViewById(R.id.birth_cert_list);
-        layoutIllness = activity.findViewById(R.id.illness_list);
-        layoutVaccineCard = activity.findViewById(R.id.vaccine_card_list);
-        textViewVaccineCardText = activity.findViewById(R.id.vaccine_card_text);
         recyclerViewImmunization = activity.findViewById(R.id.immunization_recycler_view);
-        recyclerViewBirthCert = activity.findViewById(R.id.recycler_view_birth);
-        recyclerViewIllness = activity.findViewById(R.id.recycler_view_illness);
         recyclerViewImmunization.setLayoutManager(new LinearLayoutManager(activity));
 
-        recyclerViewIllness.setLayoutManager(new LinearLayoutManager(activity));
-        recyclerViewBirthCert.setLayoutManager(new LinearLayoutManager(activity));
         initializePresenter();
     }
 
@@ -145,16 +135,10 @@ public abstract class DefaultChildMedicalHistoryActivity implements ChildMedical
     @Override
     public void updateBirthCertification() {
         if (presenter.getBirthCertification() != null && presenter.getBirthCertification().size() > 0) {
-            layoutBirthCert.setVisibility(View.VISIBLE);
-            if (birthCertAdapter == null) {
-                birthCertAdapter = new BirthAndIllnessAdapter();
+                MedicalContentDetailsViewHolder medicalContentDetailsViewHolder = new MedicalContentDetailsViewHolder(activity.getString(R.string.birth_certification));
+                BirthAndIllnessAdapter birthCertAdapter = new BirthAndIllnessAdapter();
                 birthCertAdapter.setData(presenter.getBirthCertification());
-                recyclerViewBirthCert.setAdapter(birthCertAdapter);
-            } else {
-                birthCertAdapter.notifyDataSetChanged();
-            }
-        } else {
-            layoutBirthCert.setVisibility(View.GONE);
+                medicalContentDetailsViewHolder.recyclerView.setAdapter(birthCertAdapter);
         }
 
     }
@@ -162,16 +146,10 @@ public abstract class DefaultChildMedicalHistoryActivity implements ChildMedical
     @Override
     public void updateObsIllness() {
         if (presenter.getObsIllness() != null && presenter.getObsIllness().size() > 0) {
-            layoutIllness.setVisibility(View.VISIBLE);
-            if (illnessAdapter == null) {
-                illnessAdapter = new BirthAndIllnessAdapter();
-                illnessAdapter.setData(presenter.getObsIllness());
-                recyclerViewIllness.setAdapter(illnessAdapter);
-            } else {
-                illnessAdapter.notifyDataSetChanged();
-            }
-        } else {
-            layoutIllness.setVisibility(View.GONE);
+            MedicalContentDetailsViewHolder medicalContentDetailsViewHolder = new MedicalContentDetailsViewHolder(activity.getString(R.string.observations_illness_episodes_medical));
+            BirthAndIllnessAdapter birthCertAdapter = new BirthAndIllnessAdapter();
+            birthCertAdapter.setData(presenter.getObsIllness());
+            medicalContentDetailsViewHolder.recyclerView.setAdapter(birthCertAdapter);
         }
     }
 
@@ -235,8 +213,10 @@ public abstract class DefaultChildMedicalHistoryActivity implements ChildMedical
 
     @Override
     public void updateVaccineCard(String value) {
-        layoutVaccineCard.setVisibility(View.VISIBLE);
-        textViewVaccineCardText.setText(String.format("%s %s",activity.getString(R.string.vaccine_card_text),value));
+        if(vaccineCardViewHolder == null){
+            vaccineCardViewHolder = new VaccineCardViewHolder();
+        }
+        vaccineCardViewHolder.textViewVaccineCardText.setText(String.format("%s %s",activity.getString(R.string.vaccine_card_text),value));
     }
 
     @Override
@@ -283,6 +263,14 @@ public abstract class DefaultChildMedicalHistoryActivity implements ChildMedical
             titleText.setAllCaps(true);
             recyclerView.setLayoutManager(new LinearLayoutManager(activity));
             linearLayoutServiceDetails.addView(contentView);
+        }
+    }
+    private class VaccineCardViewHolder{
+        private TextView textViewVaccineCardText;
+        VaccineCardViewHolder(){
+            View view = inflater.inflate(R.layout.view_vaccine_card_record,null);
+            textViewVaccineCardText = view.findViewById(R.id.vaccine_card_text);
+            linearLayoutServiceDetails.addView(view);
         }
     }
 }
