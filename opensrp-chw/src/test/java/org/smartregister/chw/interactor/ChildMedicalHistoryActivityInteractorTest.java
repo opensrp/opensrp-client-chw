@@ -45,20 +45,8 @@ public class ChildMedicalHistoryActivityInteractorTest extends BaseUnitTest {
         interactor = Mockito.spy(ChildMedicalHistoryInteractor.class);
     }
 
-    @After
-    public void tearDown() throws Exception {
-        // TODO
-        Log.d(TAG, "tearDown implementation");
-    }
-
     @Test
-    public void fetchFullyImmunizationData() {
-        // TODO
-        Log.d(TAG, "fetchFullyImmunizationData implementation");
-    }
-
-    @Test
-    public void fetchBirthAndIllnessData_true_birthdata() {
+    public void fetchBirthAndIllnessDataTrueBirthdata() {
 
         AppExecutors appExecutors = Mockito.spy(AppExecutors.class);
         Whitebox.setInternalState(interactor, "appExecutors", appExecutors);
@@ -75,7 +63,7 @@ public class ChildMedicalHistoryActivityInteractorTest extends BaseUnitTest {
     }
 
     @Test
-    public void fetchBirthAndIllnessData_true_illnessdata() {
+    public void fetchBirthAndIllnessDataTrueIllnessdata() {
 
         AppExecutors appExecutors = Mockito.spy(AppExecutors.class);
         Whitebox.setInternalState(interactor, "appExecutors", appExecutors);

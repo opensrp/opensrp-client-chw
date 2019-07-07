@@ -4,15 +4,10 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.text.TextUtils;
 import android.util.Log;
-
 import net.sqlcipher.database.SQLiteDatabase;
-
 import org.smartregister.chw.util.HomeVisitServiceDataModel;
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.repository.Repository;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;

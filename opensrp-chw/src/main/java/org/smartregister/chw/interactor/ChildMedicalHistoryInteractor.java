@@ -43,6 +43,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import timber.log.Timber;
+
 import static org.smartregister.chw.util.ChildDBConstants.KEY.BIRTH_CERT;
 import static org.smartregister.chw.util.ChildDBConstants.KEY.BIRTH_CERT_ISSUE_DATE;
 import static org.smartregister.chw.util.ChildDBConstants.KEY.BIRTH_CERT_NOTIFIICATION;
@@ -497,7 +499,7 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
 
     @Override
     public void onDestroy(boolean isChangingConfiguration) {
-
+        Timber.v("onDestroy");
     }
 
     public Context getContext() {
