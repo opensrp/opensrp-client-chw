@@ -20,13 +20,16 @@ import org.smartregister.view.activity.SecuredActivity;
 import java.util.Date;
 import java.util.Map;
 
+import timber.log.Timber;
+
 public abstract class BaseChildMedicalHistory extends SecuredActivity {
 
-    abstract void onViewCreated(Activity activity);
     private TextView textViewTitle,textViewLastVisit;
     protected Map<String, Date> vaccineList;
     protected String dateOfBirth;
     protected CommonPersonObjectClient childClient;
+
+    public abstract void onViewCreated(Activity activity);
 
     @Override
     protected void onCreation() {
@@ -77,6 +80,7 @@ public abstract class BaseChildMedicalHistory extends SecuredActivity {
 
     @Override
     protected void onResumption() {
+        Timber.v("onResumption");
 
     }
 }

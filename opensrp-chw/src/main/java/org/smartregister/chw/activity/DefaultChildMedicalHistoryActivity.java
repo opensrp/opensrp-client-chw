@@ -22,8 +22,6 @@ import java.util.Date;
 import java.util.Map;
 
 public abstract class DefaultChildMedicalHistoryActivity implements ChildMedicalHistoryContract.View {
-    private static final String TAG = DefaultChildMedicalHistoryActivity.class.getCanonicalName();
-
     private LinearLayout layoutImmunization, layoutBirthCert, layoutIllness,layoutVaccineCard;
     private RelativeLayout layoutFullyImmunizationBarAge1, layoutFullyImmunizationBarAge2;
     private RecyclerView recyclerViewImmunization, recyclerViewBirthCert, recyclerViewIllness;
@@ -38,7 +36,7 @@ public abstract class DefaultChildMedicalHistoryActivity implements ChildMedical
     private LayoutInflater inflater;
     private GrowthNutritionViewHolder growthNutritionViewHolder;
 
-    void onViewUpdated(Activity activity) {
+    public void onViewUpdated(Activity activity) {
         this.activity = activity;
         inflater = activity.getLayoutInflater();
         layoutImmunization = activity.findViewById(R.id.immunization_bar);

@@ -1,6 +1,5 @@
 package org.smartregister.chw.presenter;
 
-import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.contract.ChildMedicalHistoryContract;
 import org.smartregister.chw.interactor.ChildMedicalHistoryInteractor;
 import org.smartregister.chw.repository.HomeVisitServiceRepository;

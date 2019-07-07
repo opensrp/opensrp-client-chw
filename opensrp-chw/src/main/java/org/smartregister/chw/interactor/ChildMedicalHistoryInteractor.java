@@ -58,13 +58,14 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
     private AppExecutors appExecutors;
     //public List<HomeVisitServiceDataModel> homeVisitServiceDataModels = new ArrayList<>();
 
-    public  ArrayList<BaseService> baseServiceArrayList = new ArrayList<>();
+    private ArrayList<BaseService> baseServiceArrayList = new ArrayList<>();
+
+    private HomeVisitServiceRepository homeVisitServiceRepository;
 
     @VisibleForTesting
     ChildMedicalHistoryInteractor(AppExecutors appExecutors) {
         this.appExecutors = appExecutors;
     }
-    private HomeVisitServiceRepository homeVisitServiceRepository;
 
     public ChildMedicalHistoryInteractor(HomeVisitServiceRepository homeVisitServiceRepository) {
         this(new AppExecutors());

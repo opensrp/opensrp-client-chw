@@ -13,6 +13,8 @@ import java.util.Map;
 
 public class ChildMedicalHistoryActivity extends BaseChildMedicalHistory {
 
+    private Flavor flavor = new ChildMedicalHistoryActivityFlv();
+
     public static void startMedicalHistoryActivity(Activity activity, CommonPersonObjectClient childClient, String childName, String lastVisitDays, String dateOfirth,
                                                    LinkedHashMap<String, Date> receivedVaccine) {
         Intent intent = new Intent(activity, ChildMedicalHistoryActivity.class);
@@ -24,11 +26,10 @@ public class ChildMedicalHistoryActivity extends BaseChildMedicalHistory {
 
         activity.startActivity(intent);
     }
-    private Flavor flavor = new ChildMedicalHistoryActivityFlv();
 
 
     @Override
-    void onViewCreated(Activity activity) {
+    public void onViewCreated(Activity activity) {
         flavor.renderView(this);
         flavor.fetchData(activity,vaccineList,dateOfBirth,childClient);
 
