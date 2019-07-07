@@ -12,6 +12,7 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.adapter.BirthAndIllnessAdapter;
 import org.smartregister.chw.adapter.GrowthAdapter;
 import org.smartregister.chw.adapter.VaccineAdapter;
+import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.contract.ChildMedicalHistoryContract;
 import org.smartregister.chw.presenter.ChildMedicalHistoryPresenter;
 import org.smartregister.chw.util.BaseService;
@@ -240,7 +241,7 @@ public abstract class DefaultChildMedicalHistoryActivity implements ChildMedical
 
     @Override
     public ChildMedicalHistoryContract.Presenter initializePresenter() {
-        presenter = new ChildMedicalHistoryPresenter(this);
+        presenter = new ChildMedicalHistoryPresenter(this, ChwApplication.getHomeVisitServiceRepository());
         return presenter;
     }
     private void createGrowthNutritionView(ArrayList<BaseService> baseServices){

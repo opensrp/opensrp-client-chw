@@ -1,7 +1,9 @@
 package org.smartregister.chw.presenter;
 
+import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.contract.ChildMedicalHistoryContract;
 import org.smartregister.chw.interactor.ChildMedicalHistoryInteractor;
+import org.smartregister.chw.repository.HomeVisitServiceRepository;
 import org.smartregister.chw.util.BaseService;
 import org.smartregister.chw.util.BaseVaccine;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
@@ -20,9 +22,9 @@ public class ChildMedicalHistoryPresenter implements ChildMedicalHistoryContract
     private ArrayList<String> birthCertifications;
     private ArrayList<String> obsIllnesses;
 
-    public ChildMedicalHistoryPresenter(ChildMedicalHistoryContract.View view) {
+    public ChildMedicalHistoryPresenter(ChildMedicalHistoryContract.View view, HomeVisitServiceRepository homeVisitServiceRepository) {
         this.view = new WeakReference<>(view);
-        interactor = new ChildMedicalHistoryInteractor();
+        interactor = new ChildMedicalHistoryInteractor(homeVisitServiceRepository);
     }
 
 //    @Override

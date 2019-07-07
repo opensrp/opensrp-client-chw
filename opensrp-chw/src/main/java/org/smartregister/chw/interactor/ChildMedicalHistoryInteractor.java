@@ -66,9 +66,9 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
     }
     private HomeVisitServiceRepository homeVisitServiceRepository;
 
-    public ChildMedicalHistoryInteractor() {
+    public ChildMedicalHistoryInteractor(HomeVisitServiceRepository homeVisitServiceRepository) {
         this(new AppExecutors());
-        homeVisitServiceRepository =  ChwApplication.getHomeVisitServiceRepository();
+        this.homeVisitServiceRepository = homeVisitServiceRepository ;
     }
 
 
