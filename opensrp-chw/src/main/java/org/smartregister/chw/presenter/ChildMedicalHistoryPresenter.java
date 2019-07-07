@@ -6,6 +6,7 @@ import org.smartregister.chw.repository.HomeVisitServiceRepository;
 import org.smartregister.chw.util.BaseService;
 import org.smartregister.chw.util.BaseVaccine;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
+import org.smartregister.family.util.AppExecutors;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -21,9 +22,9 @@ public class ChildMedicalHistoryPresenter implements ChildMedicalHistoryContract
     private ArrayList<String> birthCertifications;
     private ArrayList<String> obsIllnesses;
 
-    public ChildMedicalHistoryPresenter(ChildMedicalHistoryContract.View view, HomeVisitServiceRepository homeVisitServiceRepository) {
+    public ChildMedicalHistoryPresenter(ChildMedicalHistoryContract.View view, AppExecutors appExecutors, HomeVisitServiceRepository homeVisitServiceRepository) {
         this.view = new WeakReference<>(view);
-        interactor = new ChildMedicalHistoryInteractor(homeVisitServiceRepository);
+        interactor = new ChildMedicalHistoryInteractor(appExecutors,homeVisitServiceRepository);
     }
 
 //    @Override

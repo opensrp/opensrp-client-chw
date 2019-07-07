@@ -12,6 +12,7 @@ import org.smartregister.chw.interactor.ChildMedicalHistoryInteractor;
 import org.smartregister.chw.repository.HomeVisitServiceRepository;
 import org.smartregister.chw.util.BaseVaccine;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
+import org.smartregister.family.util.AppExecutors;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -33,11 +34,13 @@ public class ChildMedicalHistoryActivityPresenterTest {
     private CommonPersonObjectClient commonPersonObjectClient;
     @Mock
     private HomeVisitServiceRepository homeVisitServiceRepository;
+    @Mock
+    private AppExecutors appExecutors;
 
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        presenter = new ChildMedicalHistoryPresenter(view,homeVisitServiceRepository);
+        presenter = new ChildMedicalHistoryPresenter(view,appExecutors,homeVisitServiceRepository);
         Whitebox.setInternalState(presenter, "interactor", interactor);
     }
 

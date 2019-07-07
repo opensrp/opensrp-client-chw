@@ -1,8 +1,5 @@
 package org.smartregister.chw.interactor;
 
-import android.util.Log;
-
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,11 +16,9 @@ import org.smartregister.chw.util.ServiceContent;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.util.AppExecutors;
 import org.smartregister.immunization.domain.ServiceRecord;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.smartregister.chw.util.ChildDBConstants.KEY.BIRTH_CERT;
@@ -33,22 +28,22 @@ import static org.smartregister.chw.util.ChildDBConstants.KEY.ILLNESS_DATE;
 import static org.smartregister.chw.util.ChildDBConstants.KEY.ILLNESS_DESCRIPTION;
 
 public class ChildMedicalHistoryActivityInteractorTest extends BaseUnitTest {
-    private static final String TAG = ChildMedicalHistoryActivityInteractorTest.class.getCanonicalName();
 
     private ChildMedicalHistoryInteractor interactor;
+    private AppExecutors appExecutors;
     @Mock
     private ChildMedicalHistoryContract.InteractorCallBack callBack;
 
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
+        appExecutors = Mockito.spy(AppExecutors.class);
         interactor = Mockito.spy(ChildMedicalHistoryInteractor.class);
     }
 
     @Test
     public void fetchBirthAndIllnessDataTrueBirthdata() {
 
-        AppExecutors appExecutors = Mockito.spy(AppExecutors.class);
         Whitebox.setInternalState(interactor, "appExecutors", appExecutors);
         String caseId = "cd6f66c8-3587-4c4d-b26d-f8753ba9dfa4";
         String name = "";
@@ -65,7 +60,6 @@ public class ChildMedicalHistoryActivityInteractorTest extends BaseUnitTest {
     @Test
     public void fetchBirthAndIllnessDataTrueIllnessdata() {
 
-        AppExecutors appExecutors = Mockito.spy(AppExecutors.class);
         Whitebox.setInternalState(interactor, "appExecutors", appExecutors);
         String caseId = "cd6f66c8-3587-4c4d-b26d-f8753ba9dfa4";
         String name = "";

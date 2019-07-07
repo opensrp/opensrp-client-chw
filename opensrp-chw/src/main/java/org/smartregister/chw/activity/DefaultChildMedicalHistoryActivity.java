@@ -17,6 +17,8 @@ import org.smartregister.chw.contract.ChildMedicalHistoryContract;
 import org.smartregister.chw.presenter.ChildMedicalHistoryPresenter;
 import org.smartregister.chw.util.BaseService;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
+import org.smartregister.family.util.AppExecutors;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
@@ -239,7 +241,7 @@ public abstract class DefaultChildMedicalHistoryActivity implements ChildMedical
 
     @Override
     public ChildMedicalHistoryContract.Presenter initializePresenter() {
-        presenter = new ChildMedicalHistoryPresenter(this, ChwApplication.getHomeVisitServiceRepository());
+        presenter = new ChildMedicalHistoryPresenter(this,new AppExecutors(), ChwApplication.getHomeVisitServiceRepository());
         return presenter;
     }
     private void createGrowthNutritionView(ArrayList<BaseService> baseServices){
