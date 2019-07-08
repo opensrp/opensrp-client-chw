@@ -236,7 +236,7 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
             @Override
             public void onClick(View v) {
                 Toast.makeText(parentActivity, parentActivity.getResources().getText(R.string.action_start_sync), Toast.LENGTH_SHORT).show();
-                mPresenter.Sync(parentActivity);
+                mPresenter.sync(parentActivity);
             }
         };
 
@@ -270,7 +270,7 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
                             case "English":
                                 LOCALE = Locale.ENGLISH;
                                 break;
-                            case "Française":
+                            case "Français":
                                 LOCALE = Locale.FRENCH;
                                 break;
                             case "Kiswahili":

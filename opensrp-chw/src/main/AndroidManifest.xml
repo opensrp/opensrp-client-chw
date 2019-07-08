@@ -3,15 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="org.smartregister.chw">
 
-    <uses-feature
-        android:required="false"
-        android:name="android.hardware.camera" />
-    <uses-feature
-        android:required="false"
-        android:name="android.hardware.camera.autofocus" />
-    <uses-feature
-        android:required="false"
-        android:name="android.hardware.telephony" />
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -23,13 +16,24 @@
     <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
-            android:name=".application.ChwApplication"
-            android:allowBackup="true"
-            android:supportsRtl="true"
-            android:theme="@style/ChwTheme"
-            tools:replace="android:theme">
-        <activity android:name=".activity.AncHomeVisitActivity"
-            android:theme="@style/ChwTheme.NoActionBar"></activity>
+        android:name=".application.ChwApplication"
+        android:allowBackup="true"
+        android:supportsRtl="true"
+        android:theme="@style/ChwTheme"
+        tools:replace="android:theme">
+
+        <activity
+            android:name=".activity.AncUpcomingServicesActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+
+        <activity
+            android:name=".activity.AncMedicalHistoryActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+
+        <activity
+            android:name=".activity.AncHomeVisitActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+
         <activity
             android:name=".activity.AncRegisterActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
@@ -117,10 +121,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.AboveFiveChildProfileActivity" android:label="@string/child_details"
-                  android:theme="@style/ChwTheme.NoActionBar"/>
-        <activity android:name=".activity.MalariaProfileActivity"
-                  android:theme="@style/ChwTheme.NoActionBar"/>
+        <activity
+            android:name=".activity.AboveFiveChildProfileActivity"
+            android:label="@string/child_details"
+            android:theme="@style/ChwTheme.NoActionBar" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -131,7 +135,6 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/captured_images_path" />
         </provider>
-
 
         <service android:name="org.smartregister.immunization.service.intent.VaccineIntentService" />
         <service android:name="org.smartregister.immunization.service.intent.RecurringIntentService" />

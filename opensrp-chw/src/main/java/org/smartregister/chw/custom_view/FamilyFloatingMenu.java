@@ -109,7 +109,7 @@ public class FamilyFloatingMenu extends LinearLayout implements View.OnClickList
             isFabMenuOpen = false;
 
         } else {
-            activityMain.setBackgroundResource(R.color.black_tranparent_50);
+            activityMain.setBackgroundResource(R.color.grey_tranparent_50);
 
             fab.startAnimation(rotateForward);
             fab.setImageResource(R.drawable.ic_input_add);

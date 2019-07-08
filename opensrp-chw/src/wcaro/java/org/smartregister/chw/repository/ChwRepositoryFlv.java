@@ -5,6 +5,8 @@ import android.util.Log;
 
 import net.sqlcipher.database.SQLiteDatabase;
 
+import org.smartregister.chw.anc.repository.VisitDetailsRepository;
+import org.smartregister.chw.anc.repository.VisitRepository;
 import org.smartregister.domain.db.Column;
 import org.smartregister.immunization.repository.RecurringServiceRecordRepository;
 import org.smartregister.immunization.repository.VaccineRepository;
@@ -37,6 +39,9 @@ public class ChwRepositoryFlv {
                     break;
                 case 7:
                     upgradeToVersion7(db);
+                    break;
+                case 8:
+                    upgradeToVersion8(db);
                     break;
                 default:
                     break;
@@ -119,6 +124,15 @@ public class ChwRepositoryFlv {
             db.execSQL(HomeVisitRepository.UPDATE_TABLE_ADD_SERVICE_NOT_GIVEN);
         } catch (Exception e) {
             Log.e(TAG, "upgradeToVersion7 " + Log.getStackTraceString(e));
+        }
+    }
+
+    private static void upgradeToVersion8(SQLiteDatabase db) {
+        try {
+            VisitRepository.createTable(db);
+            VisitDetailsRepository.createTable(db);
+        } catch (Exception e) {
+            Log.e(TAG, "upgradeToVersion8 " + Log.getStackTraceString(e));
         }
     }
 }

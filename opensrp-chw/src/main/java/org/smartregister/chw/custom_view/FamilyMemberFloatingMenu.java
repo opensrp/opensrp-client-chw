@@ -19,7 +19,7 @@ public class FamilyMemberFloatingMenu extends LinearLayout implements View.OnCli
     private Animation fabOpen, fabClose, rotateForward, rotateBack;
     private boolean isFabMenuOpen = false;
     private OnClickFloatingMenu onClickFloatingMenu;
-    private FamilyMemberFloatingMenuFlv familyMemberFloatingMenuFlv = new FamilyMemberFloatingMenuFlv(this);
+    private Flavor flavor = new FamilyMemberFloatingMenuFlv();
 
     private View callLayout;
     private View referLayout;
@@ -44,7 +44,7 @@ public class FamilyMemberFloatingMenu extends LinearLayout implements View.OnCli
     }
 
     public void reDraw(boolean has_phone) {
-        familyMemberFloatingMenuFlv.reDraw(has_phone);
+        flavor.reDraw(this, has_phone);
     }
 
     private void initUi() {
@@ -58,7 +58,7 @@ public class FamilyMemberFloatingMenu extends LinearLayout implements View.OnCli
         rotateForward = AnimationUtils.loadAnimation(getContext(), R.anim.rotate_forward);
         rotateBack = AnimationUtils.loadAnimation(getContext(), R.anim.rotate_back);
 
-        familyMemberFloatingMenuFlv.prepareFab(fab);
+        flavor.prepareFab(this, fab);
 
         callLayout = findViewById(R.id.call_layout);
         callLayout.setOnClickListener(this);
@@ -113,6 +113,15 @@ public class FamilyMemberFloatingMenu extends LinearLayout implements View.OnCli
     @Override
     public void onClick(View v) {
         onClickFloatingMenu.onClickMenu(v.getId());
-        familyMemberFloatingMenuFlv.fabInteraction();
+        flavor.fabInteraction(this);
+    }
+
+
+    interface Flavor {
+        void reDraw(FamilyMemberFloatingMenu menu, boolean has_phone);
+
+        void prepareFab(FamilyMemberFloatingMenu menu, FloatingActionButton fab);
+
+        void fabInteraction(FamilyMemberFloatingMenu menu);
     }
 }

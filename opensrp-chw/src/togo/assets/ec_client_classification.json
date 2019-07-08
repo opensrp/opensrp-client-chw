@@ -97,7 +97,8 @@
             "field": "eventType",
             "field_value": "ANC Registration",
             "creates_case": [
-              "ec_anc_register"
+              "ec_anc_register",
+              "ec_anc_log"
             ]
           },
           {
@@ -105,6 +106,20 @@
             "field_value": "ANC Home Visit",
             "creates_case": [
               "ec_anc_register"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Pregnancy Outcome",
+            "closes_case": [
+              "ec_anc_register"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Pregnancy Outcome",
+            "creates_case": [
+              "ec_pregnancy_outcome"
             ]
           }
         ]

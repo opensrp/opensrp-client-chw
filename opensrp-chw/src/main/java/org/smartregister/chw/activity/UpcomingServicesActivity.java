@@ -83,8 +83,7 @@ public class UpcomingServicesActivity extends SecuredActivity {
     }
 
     public void progressBarVisibility(boolean flag) {
-        if (flag) progressBar.setVisibility(View.VISIBLE);
-        else progressBar.setVisibility(View.GONE);
+        progressBar.setVisibility(flag ? View.VISIBLE : View.GONE);
     }
 
 }

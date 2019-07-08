@@ -84,7 +84,7 @@
         "max_date": "today",
         "v_required": {
           "value": "true",
-          "err": "Enter the date that the member moved away"
+          "err": "Enter the date of the ANC visit"
         },
         "relevance": {
           "step1:anc_hf_visit": {
