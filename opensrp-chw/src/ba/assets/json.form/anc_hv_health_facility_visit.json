@@ -300,6 +300,11 @@
           "step1:anc_hf_visit": {
             "type": "string",
             "ex": "equalTo(., \"Yes\")"
+          },
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc-home-visit-rules.yml"
+            }
           }
         }
       },
