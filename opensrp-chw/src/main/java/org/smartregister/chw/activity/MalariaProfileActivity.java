@@ -10,6 +10,7 @@ import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
+import org.smartregister.chw.common.Helper;
 import org.smartregister.chw.malaria.activity.BaseMalariaProfileActivity;
 import org.smartregister.chw.malaria.domain.MemberObject;
 import org.smartregister.chw.malaria.util.Constants;
@@ -67,19 +68,11 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity {
                 return true;
 
             case R.id.action_malaria_followup_visit:
-                Toast.makeText(getApplicationContext(), "Malaria Follow up", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), R.string.malaria_follow_up, Toast.LENGTH_SHORT).show();
                 return true;
 
             case R.id.action_remove_member:
-
-                CommonRepository commonRepository = org.smartregister.chw.util.Utils.context().commonrepository(org.smartregister.chw.util.Utils.metadata().familyMemberRegister.tableName);
-
-                final CommonPersonObject commonPersonObject = commonRepository.findByBaseEntityId(memberObject.getBaseEntityId());
-                final CommonPersonObjectClient client =
-                        new CommonPersonObjectClient(commonPersonObject.getCaseId(), commonPersonObject.getDetails(), "");
-                client.setColumnmaps(commonPersonObject.getColumnmaps());
-
-                IndividualProfileRemoveActivity.startIndividualProfileActivity(MalariaProfileActivity.this, client, memberObject.getFamilyBaseEntityId(), memberObject.getFamilyHead(), memberObject.getPrimaryCareGiver());
+                IndividualProfileRemoveActivity.startIndividualProfileActivity(MalariaProfileActivity.this, Helper.getClientDetailsByBaseEntityID(memberObject.getBaseEntityId()), memberObject.getFamilyBaseEntityId(), memberObject.getFamilyHead(), memberObject.getPrimaryCareGiver());
                 return true;
             default:
                 break;
@@ -128,4 +121,6 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity {
 
         startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
     }
+
+
 }

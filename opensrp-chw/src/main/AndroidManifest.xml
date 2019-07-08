@@ -3,8 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="org.smartregister.chw">
 
-    <uses-feature android:name="android.hardware.camera" />
-    <uses-feature android:name="android.hardware.camera.autofocus" />
+    <uses-feature
+        android:required="false"
+        android:name="android.hardware.camera" />
+    <uses-feature
+        android:required="false"
+        android:name="android.hardware.camera.autofocus" />
+    <uses-feature
+        android:name="android.hardware.telephony"
+        android:required="false" />
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -124,6 +131,10 @@
         <activity
             android:name=".activity.AboveFiveChildProfileActivity"
             android:label="@string/child_details"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.MalariaProfileActivity"
+            android:label="@string/malaria"
             android:theme="@style/ChwTheme.NoActionBar" />
 
         <provider
