@@ -22,9 +22,7 @@ import org.smartregister.family.util.Utils;
 import timber.log.Timber;
 
 public class MalariaProfileActivity extends BaseMalariaProfileActivity {
-    private final String TAG = MalariaProfileActivity.class.getCanonicalName();
     private static final String CLIENT = "client";
-    private View view;
     private MemberObject memberObject;
     private ChildProfileActivityFlv flavor = new ChildProfileActivityFlv();
 
