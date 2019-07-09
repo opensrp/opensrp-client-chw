@@ -21,10 +21,24 @@
         android:supportsRtl="true"
         android:theme="@style/ChwTheme"
         tools:replace="android:theme">
-        <activity android:name=".activity.AncHomeVisitActivity"
-            android:theme="@style/ChwTheme.NoActionBar"></activity>
+
+        <activity
+            android:name=".activity.AncUpcomingServicesActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+
+        <activity
+            android:name=".activity.AncMedicalHistoryActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+
+        <activity
+            android:name=".activity.AncHomeVisitActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+
         <activity
             android:name=".activity.AncRegisterActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.MalariaRegisterActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
             android:name=".activity.AncMemberProfileActivity"
@@ -82,7 +96,7 @@
             android:label="@string/child_details"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
-            android:name=".activity.MedicalHistoryActivity"
+            android:name=".activity.ChildMedicalHistoryActivity"
             android:label="@string/medical_history"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
@@ -107,8 +121,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.AboveFiveChildProfileActivity" android:label="@string/child_details"
-            android:theme="@style/ChwTheme.NoActionBar"/>
+        <activity
+            android:name=".activity.AboveFiveChildProfileActivity"
+            android:label="@string/child_details"
+            android:theme="@style/ChwTheme.NoActionBar" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -123,7 +139,7 @@
         <service android:name="org.smartregister.immunization.service.intent.VaccineIntentService" />
         <service android:name="org.smartregister.immunization.service.intent.RecurringIntentService" />
         <service android:name="org.smartregister.sync.intent.PullUniqueIdsIntentService" />
-        <service android:name=".sync.ChwSyncIntentService" />
+        <service android:name="org.smartregister.sync.intent.SyncIntentService" />
         <service android:name="org.smartregister.sync.intent.ExtendedSyncIntentService" />
         <service android:name="org.smartregister.sync.intent.ValidateIntentService" />
         <service android:name="org.smartregister.service.ImageUploadSyncService" />

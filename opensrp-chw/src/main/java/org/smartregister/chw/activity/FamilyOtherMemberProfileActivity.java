@@ -174,6 +174,12 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
 
         getMenuInflater().inflate(R.menu.other_member_menu, menu);
 
+        if (flavor.showMalariaConfirmationMenu()) {
+            menu.findItem(R.id.action_malaria_registration).setVisible(false);
+        } else {
+            menu.findItem(R.id.action_malaria_registration).setVisible(false);
+        }
+
         if (flavor.isWra(commonPersonObject)) {
             menu.findItem(R.id.action_anc_registration).setVisible(true);
         } else {
@@ -189,10 +195,14 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
                 onBackPressed();
                 return true;
             case R.id.action_anc_registration:
-                AncRegisterActivity.startAncRegistrationActivity(FamilyOtherMemberProfileActivity.this, baseEntityId, PhoneNumber);
+                AncRegisterActivity.startAncRegistrationActivity(FamilyOtherMemberProfileActivity.this, baseEntityId, PhoneNumber,
+                        org.smartregister.chw.util.Constants.JSON_FORM.getAncRegistration(), null, familyBaseEntityId);
+                return true;
+            case R.id.action_malaria_registration:
+                MalariaRegisterActivity.startMalariaRegistrationActivity(FamilyOtherMemberProfileActivity.this, baseEntityId);
                 return true;
             case R.id.action_registration:
-                startFormForEdit(R.string.anc_registration_form_title);
+                startFormForEdit(R.string.edit_member_form_title);
                 return true;
             case R.id.action_remove_member:
                 IndividualProfileRemoveActivity.startIndividualProfileActivity(FamilyOtherMemberProfileActivity.this, commonPersonObject, familyBaseEntityId, familyHead, primaryCaregiver);
@@ -219,7 +229,7 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
 
         JSONObject form = org.smartregister.chw.util.JsonFormUtils.getAutoPopulatedJsonEditMemberFormString(
                 (title_resource != null) ? getResources().getString(title_resource) : null,
-                org.smartregister.chw.util.Constants.JSON_FORM.FAMILY_MEMBER_REGISTER,
+                org.smartregister.chw.util.Constants.JSON_FORM.getFamilyMemberRegister(),
                 this, client, org.smartregister.chw.util.Utils.metadata().familyMemberRegister.updateEventType, familyName, commonPersonObject.getCaseId().equalsIgnoreCase(primaryCaregiver));
         try {
             startFormActivity(form);
@@ -238,7 +248,6 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
         form.setActionBarBackground(R.color.family_actionbar);
         form.setWizard(false);
         intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);
-
 
         startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
     }
@@ -346,5 +355,8 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
          * @return
          */
         boolean isWra(CommonPersonObjectClient commonPersonObject);
+
+        boolean showMalariaConfirmationMenu();
+
     }
 }

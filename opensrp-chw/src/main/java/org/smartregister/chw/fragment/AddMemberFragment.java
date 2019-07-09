@@ -22,8 +22,7 @@ public class  AddMemberFragment extends DialogFragment implements View.OnClickLi
     private Context context;
 
     public static AddMemberFragment newInstance() {
-        AddMemberFragment addMemberFragment = new AddMemberFragment();
-        return addMemberFragment;
+        return new AddMemberFragment();
     }
 
     public void setContext(Context context) {
@@ -85,11 +84,11 @@ public class  AddMemberFragment extends DialogFragment implements View.OnClickLi
                     dismiss();
                     break;
                 case R.id.layout_add_child_under_five:
-                    ((FamilyProfileActivity) context).startChildForm(Constants.JSON_FORM.CHILD_REGISTER, "", "", "");
+                    ((FamilyProfileActivity) context).startChildForm(Constants.JSON_FORM.getChildRegister(), "", "", "");
                     dismiss();
                     break;
                 case R.id.layout_add_other_family_member:
-                    ((FamilyProfileActivity) context).startFormActivity(Constants.JSON_FORM.FAMILY_MEMBER_REGISTER, null, null);
+                    ((FamilyProfileActivity) context).startFormActivity(Constants.JSON_FORM.getFamilyMemberRegister(), null, null);
                     dismiss();
                     break;
             }

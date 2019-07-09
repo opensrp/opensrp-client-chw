@@ -9,6 +9,7 @@ public class Constants {
         public static final String FAMILY_REGISTER = "family_register";
         public static final String FAMILY_MEMBER_REGISTER = "family_member_register";
         public static final String ANC_REGISTER = "anc_register";
+        public static final String MALARIA_REGISTER = "anc_malaria_confirmation";
 
     }
 
@@ -18,12 +19,15 @@ public class Constants {
         public static final String COUNSELING = "Counseling";
         public static final String FAMILY_REGISTRATION = "Family Registration";
         public static final String FAMILY_MEMBER_REGISTRATION = "Family Member Registration";
-
+        public static final String ECD = "Early childhood development";
         public static final String CHILD_REGISTRATION = "Child Registration";
         public static final String UPDATE_CHILD_REGISTRATION = "Update Child Registration";
         public static final String CHILD_HOME_VISIT = "Child Home Visit";
         public static final String CHILD_VISIT_NOT_DONE = "Visit not done";
         public static final String VACCINE_CARD_RECEIVED = "Child vaccine card received";
+        public static final String MINIMUM_DIETARY_DIVERSITY = "Minimum dietary diversity";
+        public static final String MUAC = "Mid-upper arm circumference (MUAC)";
+        public static final String LLITN = "Sleeping under a LLITN";
         public static final String UPDATE_FAMILY_RELATIONS = "Update Family Relations";
         public static final String UPDATE_FAMILY_MEMBER_RELATIONS = "Update Family Member Relations";
 
@@ -37,40 +41,154 @@ public class Constants {
         public static final String ANC_REGISTRATION = "ANC Registration";
         public static final String ANC_HOME_VISIT = "ANC Home Visit";
         public static final String UPDATE_ANC_REGISTRATION = "Update ANC Registration";
+        public static final String PREGNANCY_OUTCOME = "Pregnancy Outcome";
     }
 
+    /**
+     * Only access form constants via the getter
+     */
     public static class JSON_FORM {
-        public static final String BIRTH_CERTIFICATION = Utils.getLocalForm("birth_certification");
+        private static final String BIRTH_CERTIFICATION = "birth_certification";
 
-        public static final String OBS_ILLNESS = Utils.getLocalForm("observation_illness");
-        public static final String FAMILY_REGISTER = Utils.getLocalForm("family_register");
-        public static final String FAMILY_MEMBER_REGISTER = Utils.getLocalForm("family_member_register");
-        public static final String CHILD_REGISTER = Utils.getLocalForm("child_enrollment");
-        public static final String FAMILY_DETAILS_REGISTER = Utils.getLocalForm("family_details_register");
-        public static final String FAMILY_DETAILS_REMOVE_MEMBER = Utils.getLocalForm("family_details_remove_member");
+        private static final String OBS_ILLNESS = "observation_illness";
+        private static final String FAMILY_REGISTER = "family_register";
+        private static final String FAMILY_MEMBER_REGISTER = "family_member_register";
+        private static final String CHILD_REGISTER = "child_enrollment";
+        private static final String FAMILY_DETAILS_REGISTER = "family_details_register";
+        private static final String FAMILY_DETAILS_REMOVE_MEMBER = "family_details_remove_member";
 
-        public static final String FAMILY_DETAILS_REMOVE_CHILD = Utils.getLocalForm("family_details_remove_child");
-        public static final String FAMILY_DETAILS_REMOVE_FAMILY = Utils.getLocalForm("family_details_remove_family");
-        public static final String HOME_VISIT_COUNSELLING = "routine_home_visit";
+        private static final String FAMILY_DETAILS_REMOVE_CHILD = "family_details_remove_child";
+        private static final String FAMILY_DETAILS_REMOVE_FAMILY = "family_details_remove_family";
+        private static final String HOME_VISIT_COUNSELLING = "routine_home_visit";
 
-        public static final String ANC_REGISTRATION = "anc_member_registration";
+        private static final String ANC_REGISTRATION = "anc_member_registration";
+        private static final String PREGNANCY_OUTCOME = "anc_pregnancy_outcome";
+        private static final String MALARIA_CONFIRMATION = "malaria_confirmation";
+
+        public static String getBirthCertification() {
+            return Utils.getLocalForm(BIRTH_CERTIFICATION);
+        }
+
+        public static String getObsIllness() {
+            return Utils.getLocalForm(OBS_ILLNESS);
+        }
+
+        public static String getFamilyRegister() {
+            return Utils.getLocalForm(FAMILY_REGISTER);
+        }
+
+        public static String getFamilyMemberRegister() {
+            return Utils.getLocalForm(FAMILY_MEMBER_REGISTER);
+        }
+
+        public static String getChildRegister() {
+            return Utils.getLocalForm(CHILD_REGISTER);
+        }
+
+        public static String getFamilyDetailsRegister() {
+            return Utils.getLocalForm(FAMILY_DETAILS_REGISTER);
+        }
+
+        public static String getFamilyDetailsRemoveMember() {
+            return Utils.getLocalForm(FAMILY_DETAILS_REMOVE_MEMBER);
+        }
+
+        public static String getFamilyDetailsRemoveChild() {
+            return Utils.getLocalForm(FAMILY_DETAILS_REMOVE_CHILD);
+        }
+
+        public static String getFamilyDetailsRemoveFamily() {
+            return Utils.getLocalForm(FAMILY_DETAILS_REMOVE_FAMILY);
+        }
+
+        public static String getHomeVisitCounselling() {
+            return Utils.getLocalForm(HOME_VISIT_COUNSELLING);
+        }
+
+        public static String getAncRegistration() {
+            return Utils.getLocalForm(ANC_REGISTRATION);
+        }
+
+        public static String getPregnancyOutcome() {
+            return Utils.getLocalForm(PREGNANCY_OUTCOME);
+        }
+
+        public static String getMalariaConfirmation() {
+            return Utils.getLocalForm(MALARIA_CONFIRMATION);
+        }
 
         public static class ANC_HOME_VISIT {
-            public static final String DANGER_SIGNS = "anc_hv_danger_signs";
-            public static final String ANC_COUNSELING = "anc_hv_counseling";
-            public static final String SLEEPING_UNDER_LLITN = "anc_hv_sleeping_under_llitn";
-            public static final String ANC_CARD_RECEIVED = "anc_hv_anc_card_received";
-            public static final String TT_IMMUNIZATION = "anc_hv_tt_immunization";
-            public static final String IPTP_SP = "anc_hv_anc_iptp_sp";
+            private static final String DANGER_SIGNS = "anc_hv_danger_signs";
+            private static final String ANC_COUNSELING = "anc_hv_counseling";
+            private static final String SLEEPING_UNDER_LLITN = "anc_hv_sleeping_under_llitn";
+            private static final String ANC_CARD_RECEIVED = "anc_hv_anc_card_received";
+            private static final String TT_IMMUNIZATION = "anc_hv_tt_immunization";
+            private static final String IPTP_SP = "anc_hv_anc_iptp_sp";
 
+            private static final String HEALTH_FACILITY_VISIT = "anc_hv_health_facility_visit";
+            private static final String FAMILY_PLANNING = "anc_hv_family_planning";
+            private static final String NUTRITION_STATUS = "anc_hv_nutrition_status";
+            private static final String COUNSELLING = "anc_hv_counselling";
+            private static final String MALARIA = "anc_hv_malaria";
+            private static final String OBSERVATION_AND_ILLNESS = "anc_hv_observations";
+            private static final String REMARKS_AND_COMMENTS = "anc_hv_remarks_and_comments";
+            private static final String EARLY_CHILDHOOD_DEVELOPMENT = "early_childhood_development";
 
-            public static final String HEALTH_FACILITY_VISIT = "anc_hv_health_facility_visit";
-            public static final String FAMILY_PLANNING = "anc_hv_family_planning";
-            public static final String NUTRITION_STATUS = "anc_hv_nutrition_status";
-            public static final String COUNSELLING = "anc_hv_counselling";
-            public static final String MALARIA = "anc_hv_malaria";
-            public static final String OBSERVATION_AND_ILLNESS = "anc_hv_observations";
-            public static final String REMARKS_AND_COMMENTS = "anc_hv_remarks_and_comments";
+            public static String getDangerSigns() {
+                return Utils.getLocalForm(DANGER_SIGNS);
+            }
+
+            public static String getAncCounseling() {
+                return Utils.getLocalForm(ANC_COUNSELING);
+            }
+
+            public static String getSleepingUnderLlitn() {
+                return Utils.getLocalForm(SLEEPING_UNDER_LLITN);
+            }
+
+            public static String getAncCardReceived() {
+                return Utils.getLocalForm(ANC_CARD_RECEIVED);
+            }
+
+            public static String getTtImmunization() {
+                return Utils.getLocalForm(TT_IMMUNIZATION);
+            }
+
+            public static String getIptpSp() {
+                return Utils.getLocalForm(IPTP_SP);
+            }
+
+            public static String getHealthFacilityVisit() {
+                return Utils.getLocalForm(HEALTH_FACILITY_VISIT);
+            }
+
+            public static String getFamilyPlanning() {
+                return Utils.getLocalForm(FAMILY_PLANNING);
+            }
+
+            public static String getNutritionStatus() {
+                return Utils.getLocalForm(NUTRITION_STATUS);
+            }
+
+            public static String getCOUNSELLING() {
+                return Utils.getLocalForm(COUNSELLING);
+            }
+
+            public static String getMALARIA() {
+                return Utils.getLocalForm(MALARIA);
+            }
+
+            public static String getObservationAndIllness() {
+                return Utils.getLocalForm(OBSERVATION_AND_ILLNESS);
+            }
+
+            public static String getRemarksAndComments() {
+                return Utils.getLocalForm(REMARKS_AND_COMMENTS);
+            }
+
+            public static String getEarlyChildhoodDevelopment() {
+                return Utils.getLocalForm(EARLY_CHILDHOOD_DEVELOPMENT);
+            }
         }
     }
 
@@ -86,6 +204,9 @@ public class Constants {
         public static final String CHILD = "ec_child";
         public static final String CHILD_ACTIVITY = "ec_child_activity";
         public static final String ANC_MEMBER = "ec_anc_register";
+        public static final String ANC_MEMBER_LOG = "ec_anc_log";
+        public static final String MALARIA_CONFIRMATION = "ec_malaria_confirmation";
+        public static final String ANC_PREGNANCY_OUTCOME = "ec_pregnancy_outcome";
     }
 
     public static final class INTENT_KEY {
@@ -124,6 +245,8 @@ public class Constants {
         public static final String ANC_HOME_VISIT = "anc-home-visit-rules.yml";
         public static final String BIRTH_CERT = "birth-cert-rules.yml";
         public static final String SERVICE = "service-rules.yml";
+        public static final String IMMUNIZATION_EXPIRED = "immunization-expire-rules.yml";
+        public static final String CONTACT_RULES = "contact-rules.yml";
     }
 
     public static class PROFILE_CHANGE_ACTION {
@@ -200,6 +323,32 @@ public class Constants {
         public static class VACCINE_CARD {
             public static final String CODE = "164147AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
         }
+        public static class MINIMUM_DIETARY {
+            public static final String CODE = "";
+        }
+        public static class MUAC {
+            public static final String CODE = "160908AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+        }
+        public static class LLITN {
+            public static final String CODE = "1802AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+        }
+
+        public static class FORM_SUBMISSION_FIELD {
+            public static final String TASK_MINIMUM_DIETARY = "diet_diversity";
+            public static final String TASK_MUAC = "muac";
+            public static final String TASK_LLITN = "llitn";
+            public static final String HOME_VISIT_ID= "home_visit_id";
+            public static final String HOME_VISIT_DATE_LONG= "home_visit_date";
+            public static final String LAST_HOME_VISIT = "last_home_visit";
+            public static final String HOME_VISIT_SINGLE_VACCINE= "singleVaccine";
+            public static final String HOME_VISIT_GROUP_VACCINE= "groupVaccine";
+            public static final String HOME_VISIT_VACCINE_NOT_GIVEN= "vaccineNotGiven";
+            public static final String HOME_VISIT_SERVICE= "service";
+            public static final String HOME_VISIT_SERVICE_NOT_GIVEN= "serviceNotGiven";
+            public static final String HOME_VISIT_BIRTH_CERT= "birth_certificate";
+            public static final String HOME_VISIT_ILLNESS= "illness_information";
+
+        }
     }
 
     public static class GLOBAL {
@@ -214,5 +363,26 @@ public class Constants {
 
     public static class IDENTIFIER {
         public static final String UNIQUE_IDENTIFIER_KEY = "opensrp_id";
+    }
+
+    public static class ECClientConfig {
+        public static String LIBERIA_EC_CLIENT_FIELDS = "ec_client_fields.json";
+        public static String TANZANIA_EC_CLIENT_FIELDS = "tz_ec_client_fields.json";
+    }
+
+    public static final class RQ_CODE {
+        public static final int STORAGE_PERMISIONS = 1;
+    }
+
+    public static final class PEER_TO_PEER {
+
+        public static final String LOCATION_ID = "location-id";
+    }
+
+    public static final class ACTIVITY_PAYLOAD {
+        public static final String ACTION = "action";
+    }
+    public static final class ACTION {
+        public static final String START_REGISTRATION = "start_registration";
     }
 }

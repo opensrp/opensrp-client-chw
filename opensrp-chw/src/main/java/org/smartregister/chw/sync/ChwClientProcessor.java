@@ -20,7 +20,6 @@ import org.smartregister.domain.jsonmapping.ClientClassification;
 import org.smartregister.domain.jsonmapping.Column;
 import org.smartregister.domain.jsonmapping.Table;
 import org.smartregister.family.util.DBConstants;
-import org.smartregister.family.util.Utils;
 import org.smartregister.immunization.ImmunizationLibrary;
 import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.immunization.domain.ServiceRecord;
@@ -39,7 +38,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 
 
 public class ChwClientProcessor extends ClientProcessorForJava {
@@ -89,17 +87,25 @@ public class ChwClientProcessor extends ClientProcessorForJava {
                 } else if (eventType.equals(HomeVisitRepository.EVENT_TYPE) || eventType.equals(HomeVisitRepository.NOT_DONE_EVENT_TYPE)) {
                     processHomeVisit(eventClient);
                     processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
+                } else if (eventType.equals(Constants.EventType.MINIMUM_DIETARY_DIVERSITY)
+                        || eventType.equals(Constants.EventType.MUAC) ||
+                        eventType.equals(Constants.EventType.LLITN) ||
+                        eventType.equals(Constants.EventType.ECD)) {
+                    processHomeVisitService(eventClient);
+                    processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
+                } else if (eventType.equals(Constants.EventType.ANC_HOME_VISIT) && eventClient.getEvent() != null) {
+                    processAncHomeVisit(eventClient);
+                    processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
                 } else if (eventType.equals(Constants.EventType.REMOVE_FAMILY) && eventClient.getClient() != null) {
                     processRemoveFamily(eventClient.getClient().getBaseEntityId(), event.getEventDate().toDate());
                 } else if (eventType.equals(Constants.EventType.REMOVE_MEMBER) && eventClient.getClient() != null) {
                     processRemoveMember(eventClient.getClient().getBaseEntityId(), event.getEventDate().toDate());
                 } else if (eventType.equals(Constants.EventType.REMOVE_CHILD) && eventClient.getClient() != null) {
                     processRemoveChild(eventClient.getClient().getBaseEntityId(), event.getEventDate().toDate());
-                } else if(eventType.equals(Constants.EventType.VACCINE_CARD_RECEIVED) && eventClient.getClient() != null){
+                } else if (eventType.equals(Constants.EventType.VACCINE_CARD_RECEIVED) && eventClient.getClient() != null) {
                     processVaccineCardEvent(eventClient);
                     processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
-                }
-                else {
+                } else {
                     if (eventClient.getClient() != null) {
                         if (eventType.equals(Constants.EventType.UPDATE_FAMILY_RELATIONS) && event.getEntityType().equalsIgnoreCase(Constants.TABLE_NAME.FAMILY_MEMBER)) {
                             event.setEventType(Constants.EventType.UPDATE_FAMILY_MEMBER_RELATIONS);
@@ -115,11 +121,22 @@ public class ChwClientProcessor extends ClientProcessorForJava {
 
     private void processHomeVisit(EventClient eventClient) {
         List<Obs> observations = eventClient.getEvent().getObs();
-        ChildUtils.addToHomeVisitTable(eventClient.getEvent().getBaseEntityId(), observations);
+
+        ChildUtils.addToHomeVisitTable(eventClient.getEvent().getBaseEntityId(), eventClient.getEvent().getFormSubmissionId(), observations);
     }
-    private void processVaccineCardEvent(EventClient eventClient){
+
+    private void processVaccineCardEvent(EventClient eventClient) {
         List<Obs> observations = eventClient.getEvent().getObs();
         ChildUtils.addToChildTable(eventClient.getEvent().getBaseEntityId(), observations);
+    }
+
+    private void processHomeVisitService(EventClient eventClient) {
+
+        ChildUtils.addToHomeVisitService(eventClient.getEvent().getEventType(), eventClient.getEvent().getObs(), eventClient.getEvent().getEventDate().toDate(), ChildUtils.gsonConverter.toJson(eventClient.getEvent()));
+    }
+
+    private void processAncHomeVisit(EventClient eventClient) {
+        org.smartregister.chw.anc.util.Util.processAncHomeVisit(eventClient); // save locally
     }
 
     private Boolean processVaccine(EventClient vaccine, Table vaccineTable, boolean outOfCatchment) throws Exception {
@@ -172,7 +189,6 @@ public class ChwClientProcessor extends ClientProcessorForJava {
             return null;
         }
     }
-
 
     private Boolean processService(EventClient service, Table serviceTable) throws Exception {
 
@@ -442,10 +458,10 @@ public class ChwClientProcessor extends ClientProcessorForJava {
                     CommonFtsObject.idColumn + " = ?  ", new String[]{familyID});
 
             ChwApplication.getInstance().getRepository().getWritableDatabase().update(CommonFtsObject.searchTableName(Constants.TABLE_NAME.CHILD), values,
-                    String.format(" %s in (select base_entity_id from %s where relational_id = ? )  ", CommonFtsObject.idColumn , Constants.TABLE_NAME.CHILD), new String[]{familyID});
+                    String.format(" %s in (select base_entity_id from %s where relational_id = ? )  ", CommonFtsObject.idColumn, Constants.TABLE_NAME.CHILD), new String[]{familyID});
 
             ChwApplication.getInstance().getRepository().getWritableDatabase().update(CommonFtsObject.searchTableName(Constants.TABLE_NAME.FAMILY_MEMBER), values,
-                    String.format(" %s in (select base_entity_id from %s where relational_id = ? )  ", CommonFtsObject.idColumn , Constants.TABLE_NAME.FAMILY_MEMBER), new String[]{familyID});
+                    String.format(" %s in (select base_entity_id from %s where relational_id = ? )  ", CommonFtsObject.idColumn, Constants.TABLE_NAME.FAMILY_MEMBER), new String[]{familyID});
 
         }
     }

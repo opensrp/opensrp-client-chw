@@ -7,12 +7,13 @@ import android.util.Log;
 import com.evernote.android.job.Job;
 import com.evernote.android.job.JobCreator;
 
-import org.smartregister.chw.sync.ChwSyncIntentService;
 import org.smartregister.job.ExtendedSyncServiceJob;
 import org.smartregister.job.ImageUploadServiceJob;
+import org.smartregister.job.P2pServiceJob;
 import org.smartregister.job.PullUniqueIdsServiceJob;
 import org.smartregister.job.SyncServiceJob;
 import org.smartregister.job.ValidateSyncDataServiceJob;
+import org.smartregister.sync.intent.SyncIntentService;
 
 /**
  * Created by keyman on 27/11/2018.
@@ -23,7 +24,7 @@ public class ChwJobCreator implements JobCreator {
     public Job create(@NonNull String tag) {
         switch (tag) {
             case SyncServiceJob.TAG:
-                return new SyncServiceJob(ChwSyncIntentService.class);
+                return new SyncServiceJob(SyncIntentService.class);
             case ExtendedSyncServiceJob.TAG:
                 return new ExtendedSyncServiceJob();
             case PullUniqueIdsServiceJob.TAG:
@@ -36,8 +37,11 @@ public class ChwJobCreator implements JobCreator {
                 return new ImageUploadServiceJob();
             case ChwIndicatorGeneratingJob.TAG:
                 return new ChwIndicatorGeneratingJob();
+            case P2pServiceJob.TAG:
+                return new P2pServiceJob();
+
             default:
-                Log.d(ChwJobCreator.class.getCanonicalName(), "Looks like you tried to create a job " + tag + " that is not declared in the Anc Job Creator");
+                Log.d(ChwJobCreator.class.getCanonicalName(), "Looks like you tried to create a job " + tag + " that is not declared in the Chw Job Creator");
                 return null;
         }
     }

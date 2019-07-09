@@ -1,0 +1,16 @@
+---
+name: overdue
+description: overdue dob plus 24 month
+priority: 2
+condition: "birthCertAlertRule.isOverdue(24)"
+actions:
+  - "birthCertAlertRule.buttonStatus = 'OVERDUE'"
+---
+name: due
+description: due at dob plus 12 month to 24 month
+priority: 3
+condition: "birthCertAlertRule.isDue(24)"
+actions:
+  - "birthCertAlertRule.buttonStatus = 'DUE'"
+
+

@@ -8,11 +8,12 @@ import java.util.List;
 
 import static java.util.Arrays.asList;
 
-public class NavigationModelFlv {
+public class NavigationModelFlv implements NavigationModel.Flavor {
 
     private static List<NavigationOption> navigationOptions = new ArrayList<>();
 
-    public static List<NavigationOption> getNavigationItems() {
+    @Override
+    public List<NavigationOption> getNavigationItems() {
 
         if (navigationOptions.size() == 0) {
             NavigationOption op1 = new NavigationOption(R.mipmap.sidemenu_families, R.mipmap.sidemenu_families_active, R.string.menu_all_families, Constants.DrawerMenu.ALL_FAMILIES, 0);
