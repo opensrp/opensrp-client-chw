@@ -198,7 +198,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
             try {
                 JSONObject jsonObject = new JSONObject(jsonPayload);
                 danger_signs_counseling = getValue(jsonObject, "danger_signs_counseling");
-                danger_signs_present = JsonFormUtils.getCheckBoxValue(jsonObject, "danger_signs_present");
+                danger_signs_present = getCheckBoxValue(jsonObject, "danger_signs_present");
             } catch (JSONException e) {
                 e.printStackTrace();
             }
