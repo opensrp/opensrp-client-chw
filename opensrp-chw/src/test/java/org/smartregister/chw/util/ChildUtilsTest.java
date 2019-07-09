@@ -7,11 +7,16 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.smartregister.chw.BaseUnitTest;
+import org.smartregister.commonregistry.CommonPersonObjectClient;
+import org.smartregister.family.util.DBConstants;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ChildUtilsTest extends BaseUnitTest {
 
@@ -58,6 +63,26 @@ public class ChildUtilsTest extends BaseUnitTest {
         Assert.assertEquals("MenA",ChildUtils.fixVaccineCasing("MENA"));
         Assert.assertEquals("Rubella 1",ChildUtils.fixVaccineCasing("RUBELLA 1"));
         Assert.assertEquals("Rubella 2",ChildUtils.fixVaccineCasing("RUBELLA 2"));
+    }
+    @Test
+    public void threeTextAfterNewlineSplit(){
+        String str = "Developmental warning signs:no"+"\n"+"Caregiver stimulation skills:no"+"\n"+"Early learning program:yes";
+        String[] strings = ChildUtils.splitStringByNewline(str);
+        List<String> list = Arrays.asList(strings);
+        Assert.assertEquals(3,list.size());
+
+    }
+    @Test
+    public void durationWithTwoDate(){
+        CommonPersonObjectClient childClient = new CommonPersonObjectClient("",null,"");
+        Map<String,String> map = new HashMap<>();
+        map.put(DBConstants.KEY.DOB,"2019-03-01T03:00:00.000+03:00");
+        childClient.setColumnmaps(map);
+        String dateOfBirth = org.smartregister.family.util.Utils.getValue(childClient.getColumnmaps(), DBConstants.KEY.DOB, false);
+        Date date1 =  Utils.dobStringToDate(dateOfBirth);
+        Date date2 =  Utils.dobStringToDate("2019-06-01T03:00:00.000+03:00");
+        String str2 = ChildUtils.getDurationFromTwoDate(date1,date2);
+        Assert.assertEquals("13w 1d",str2);
     }
 
     /*

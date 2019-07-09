@@ -306,7 +306,7 @@
     <string name="mmHg">mmHg</string>
     <string name="hb_level">Niveau d\'hémoglobine</string>
     <string name="gdl">g/dl</string>
-    <string name="ifa_received">Réviser ENR CPN</string>
+    <string name="ifa_received">FAF reçu</string>
     <string name="tests_done">Examens effectués</string>
     <string name="treatment_given">Traitement administré </string>
     <string name="received_llin">MIILD Reçu</string>

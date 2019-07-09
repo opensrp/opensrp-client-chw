@@ -379,7 +379,6 @@ public class HomeVisitRepository extends BaseRepository {
         values.put(BIRTH_CERTIFICATION, homeVisit.getBirthCertificationState().toString());
         values.put(illness_information, homeVisit.getIllness_information().toString());
         values.put(HOME_VISIT_ID,homeVisit.getHomeVisitId());
-        Log.e("CONTENT_VALUES","createValuesForHomvisit>>"+values);
         return values;
     }
 

@@ -1,23 +1,51 @@
 package org.smartregister.chw.activity;
 
-import android.app.Activity;
 import android.content.Context;
-import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.TextView;
 
-import org.smartregister.chw.anc.domain.Visit;
+import org.smartregister.chw.R;
 
+import java.text.MessageFormat;
 import java.util.List;
+import java.util.Map;
 
-public class AncMedicalHistoryActivityFlv implements AncMedicalHistoryActivity.Flavor {
+public class AncMedicalHistoryActivityFlv extends DefaultAncMedicalHistoryActivityFlv {
+
     @Override
-    public View bindViews(Activity activity) {
-        LayoutInflater inflater = activity.getLayoutInflater();
-        return inflater.inflate(org.smartregister.chw.opensrp_chw_anc.R.layout.medical_history_details, null);
+    protected void processHealthFacilityVisit(List<Map<String, String>> hf_visits, Context context) {
+        //super.processHealthFacilityVisit(hf_visits, context);
+
+        if (hf_visits != null && hf_visits.size() > 0) {
+            linearLayoutHealthFacilityVisit.setVisibility(View.VISIBLE);
+
+            int x = 0;
+            for (Map<String, String> vals : hf_visits) {
+                View view = inflater.inflate(R.layout.medial_history_anc_visit, null);
+
+                TextView tvTitle = view.findViewById(R.id.title);
+                TextView tvTests = view.findViewById(R.id.tests);
+
+                view.findViewById(R.id.weight).setVisibility(View.GONE);
+                view.findViewById(R.id.bp).setVisibility(View.GONE);
+                view.findViewById(R.id.hb).setVisibility(View.GONE);
+                view.findViewById(R.id.ifa_received).setVisibility(View.GONE);
+
+
+
+                tvTitle.setText(MessageFormat.format(context.getString(R.string.anc_visit_date), (hf_visits.size() - x), vals.get("anc_visit_date")));
+                tvTests.setText(MessageFormat.format(context.getString(R.string.tests_done_details), vals.get("tests_done")));
+
+                linearLayoutHealthFacilityVisitDetails.addView(view, 0);
+
+                x++;
+            }
+        }
     }
 
     @Override
-    public void processViewData(List<Visit> visits, Context context) {
-//TODO
+    protected void processAncCard(String has_card, Context context) {
+       // super.processAncCard(has_card, context);
+        linearLayoutAncCard.setVisibility(View.GONE);
     }
 }

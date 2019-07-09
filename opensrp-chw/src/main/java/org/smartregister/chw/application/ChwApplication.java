@@ -11,13 +11,12 @@ import com.evernote.android.job.JobManager;
 
 import org.smartregister.AllConstants;
 import org.smartregister.Context;
-import org.smartregister.P2POptions;
 import org.smartregister.CoreLibrary;
+import org.smartregister.P2POptions;
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.activity.FamilyProfileActivity;
 import org.smartregister.chw.activity.LoginActivity;
 import org.smartregister.chw.anc.AncLibrary;
-import org.smartregister.chw.service.ChwAuthorizationService;
 import org.smartregister.chw.helper.RulesEngineHelper;
 import org.smartregister.chw.job.ChwJobCreator;
 import org.smartregister.chw.malaria.MalariaLibrary;
@@ -26,6 +25,7 @@ import org.smartregister.chw.repository.ChwRepository;
 import org.smartregister.chw.repository.HomeVisitIndicatorInfoRepository;
 import org.smartregister.chw.repository.HomeVisitRepository;
 import org.smartregister.chw.repository.HomeVisitServiceRepository;
+import org.smartregister.chw.service.ChwAuthorizationService;
 import org.smartregister.chw.sync.ChwClientProcessor;
 import org.smartregister.chw.util.ChildDBConstants;
 import org.smartregister.chw.util.Constants;
@@ -141,8 +141,9 @@ public class ChwApplication extends DrishtiApplication {
         }
         return homeVisitRepository;
     }
-    public static HomeVisitServiceRepository getHomeVisitServiceRepository(){
-        if(homeVisitServiceRepository == null){
+
+    public static HomeVisitServiceRepository getHomeVisitServiceRepository() {
+        if (homeVisitServiceRepository == null) {
             homeVisitServiceRepository = new HomeVisitServiceRepository(getInstance().getRepository());
         }
         return homeVisitServiceRepository;
@@ -229,6 +230,7 @@ public class ChwApplication extends DrishtiApplication {
         if (language.equals(Locale.FRENCH.getLanguage())) {
             saveLanguage(Locale.FRENCH.getLanguage());
         }
+
     }
 
     public void setOpenSRPUrl() {
@@ -291,9 +293,9 @@ public class ChwApplication extends DrishtiApplication {
     }
 
     public void notifyAppContextChange() {
-        FamilyLibrary.getInstance().setMetadata(getMetadata());
         Locale current = getApplicationContext().getResources().getConfiguration().locale;
         saveLanguage(current.getLanguage());
+        FamilyLibrary.getInstance().setMetadata(getMetadata());
     }
 
     public VaccineRepository vaccineRepository() {

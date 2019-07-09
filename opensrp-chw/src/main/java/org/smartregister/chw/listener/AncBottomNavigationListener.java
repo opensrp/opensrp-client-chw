@@ -19,15 +19,15 @@ public class AncBottomNavigationListener extends FamilyBottomNavigationListener 
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        AncRegisterActivity baseRegisterActivity = (AncRegisterActivity) this.context;
+        AncRegisterActivity ancRegisterActivity = (AncRegisterActivity) this.context;
 
         if (item.getItemId() == org.smartregister.family.R.id.action_family) {
-            baseRegisterActivity.switchToBaseFragment();
+            ancRegisterActivity.switchToBaseFragment();
         } else if (item.getItemId() == org.smartregister.family.R.id.action_scan_qr) {
-            baseRegisterActivity.startQrCodeScanner();
+            ancRegisterActivity.startQrCodeScanner();
             return false;
         } else if (item.getItemId() == org.smartregister.family.R.id.action_register) {
-            baseRegisterActivity.startFamilyRegistration();
+            ancRegisterActivity.startFamilyRegistration();
             return false;
         } else if (item.getItemId() == org.smartregister.family.R.id.action_job_aids) {
             //view.setSelectedItemId(R.id.action_family);
