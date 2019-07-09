@@ -56,6 +56,7 @@ public class TTAction implements BaseAncHomeVisitAction.AncHomeVisitActionHelper
 
     @Override
     public void onJsonFormLoaded(String jsonPayload, Context context, Map<String, List<VisitDetail>> map) {
+        Timber.v("onJsonFormLoaded");
     }
 
     @Override

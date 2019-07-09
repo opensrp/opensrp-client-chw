@@ -56,6 +56,7 @@ public class IPTPAction implements BaseAncHomeVisitAction.AncHomeVisitActionHelp
 
     @Override
     public void onJsonFormLoaded(String s, Context context, Map<String, List<VisitDetail>> map) {
+        Timber.v("onJsonFormLoaded");
     }
 
     @Override

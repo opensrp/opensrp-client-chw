@@ -197,7 +197,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         public void onPayloadReceived(String jsonPayload) {
             try {
                 JSONObject jsonObject = new JSONObject(jsonPayload);
-                danger_signs_counseling = JsonFormUtils.getValue(jsonObject, "danger_signs_counseling");
+                danger_signs_counseling = getValue(jsonObject, "danger_signs_counseling");
                 danger_signs_present = JsonFormUtils.getCheckBoxValue(jsonObject, "danger_signs_present");
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -519,9 +519,9 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         public void onPayloadReceived(String jsonPayload) {
             try {
                 JSONObject jsonObject = new JSONObject(jsonPayload);
-                fam_llin = JsonFormUtils.getValue(jsonObject, "fam_llin");
-                llin_2days = JsonFormUtils.getValue(jsonObject, "llin_2days");
-                llin_condition = JsonFormUtils.getValue(jsonObject, "llin_condition");
+                fam_llin = getValue(jsonObject, "fam_llin");
+                llin_2days = getValue(jsonObject, "llin_2days");
+                llin_condition = getValue(jsonObject, "llin_condition");
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -663,7 +663,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         public void onPayloadReceived(String jsonPayload) {
             try {
                 JSONObject jsonObject = new JSONObject(jsonPayload);
-                chw_comment_anc = JsonFormUtils.getValue(jsonObject, "chw_comment_anc");
+                chw_comment_anc = getValue(jsonObject, "chw_comment_anc");
             } catch (JSONException e) {
                 e.printStackTrace();
             }

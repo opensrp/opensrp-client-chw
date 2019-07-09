@@ -16,6 +16,8 @@ import java.text.MessageFormat;
 import java.util.List;
 import java.util.Map;
 
+import timber.log.Timber;
+
 public class ObservationAction implements BaseAncHomeVisitAction.AncHomeVisitActionHelper {
     private Context context;
     private String date_of_illness;
@@ -86,6 +88,6 @@ public class ObservationAction implements BaseAncHomeVisitAction.AncHomeVisitAct
 
     @Override
     public void onPayloadReceived(BaseAncHomeVisitAction baseAncHomeVisitAction) {
-
+        Timber.v("onPayloadReceived");
     }
 }

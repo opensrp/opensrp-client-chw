@@ -102,19 +102,19 @@ public class ANCCounselingAction implements BaseAncHomeVisitAction.AncHomeVisitA
     public String evaluateSubTitle() {
         List<String> yes = new ArrayList<>();
         List<String> nos = new ArrayList<>();
-        if (anc_counseling.equals("Yes")) {
+        if ("Yes".equalsIgnoreCase(anc_counseling)) {
             yes.add(context.getString(R.string.anc_visit_counselling));
         } else {
             nos.add(context.getString(R.string.anc_visit_counselling));
         }
 
-        if (birth_hf_counseling.equals("Yes")) {
+        if ("Yes".equalsIgnoreCase(birth_hf_counseling)) {
             yes.add(context.getString(R.string.delivery_at_facilty_counselling));
         } else {
             nos.add(context.getString(R.string.delivery_at_facilty_counselling));
         }
 
-        if (nutrition_counseling.equals("Yes")) {
+        if ("Yes".equalsIgnoreCase(nutrition_counseling)) {
             yes.add(context.getString(R.string.nutrition_counselling));
         } else {
             nos.add(context.getString(R.string.nutrition_counselling));
