@@ -1,5 +1,8 @@
 package org.smartregister.chw.interactor;
 
+import android.content.Context;
+
+import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.interactor.BaseAncUpcomingServicesInteractor;
 import org.smartregister.chw.anc.model.BaseUpcomingService;
 
@@ -9,18 +12,12 @@ public class AncUpcomingServicesInteractor extends BaseAncUpcomingServicesIntera
 
     private Flavor flavor = new AncUpcomingServicesInteractorFlv();
 
-    /**
-     * This method is already in a thread
-     *
-     * @param memberID
-     * @return
-     */
     @Override
-    protected List<BaseUpcomingService> getMemberServices(String memberID) {
-        return flavor.getMemberServices(memberID);
+    protected List<BaseUpcomingService> getMemberServices(Context context, MemberObject memberObject) {
+        return flavor.getMemberServices(context, memberObject);
     }
 
     public interface Flavor {
-        List<BaseUpcomingService> getMemberServices(String memberID);
+        List<BaseUpcomingService> getMemberServices(Context context, MemberObject memberObject);
     }
 }

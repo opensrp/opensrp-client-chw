@@ -378,4 +378,11 @@ public class Constants {
 
         public static final String LOCATION_ID = "location-id";
     }
+
+    public static final class ACTIVITY_PAYLOAD {
+        public static final String ACTION = "action";
+    }
+    public static final class ACTION {
+        public static final String START_REGISTRATION = "start_registration";
+    }
 }

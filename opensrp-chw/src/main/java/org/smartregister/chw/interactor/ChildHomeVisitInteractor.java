@@ -165,9 +165,9 @@ public class ChildHomeVisitInteractor implements ChildHomeVisitContract.Interact
     }
 
     @Override
-    public void generateTaskService(CommonPersonObjectClient childClient,final ChildHomeVisitContract.InteractorCallback callback, boolean isEditMode) {
+    public void generateTaskService(CommonPersonObjectClient childClient,final ChildHomeVisitContract.InteractorCallback callback, Context context, boolean isEditMode) {
 
-       final ArrayList<ServiceTask> serviceTasks = flavor.getTaskService(childClient,isEditMode,getContext());
+       final ArrayList<ServiceTask> serviceTasks = flavor.getTaskService(childClient,isEditMode,context);
 
 
         Runnable runnable = new Runnable() {
@@ -258,10 +258,6 @@ public class ChildHomeVisitInteractor implements ChildHomeVisitContract.Interact
 
     public ClientProcessorForJava getClientProcessorForJava() {
         return FamilyLibrary.getInstance().getClientProcessorForJava();
-    }
-
-    private Context getContext() {
-        return ChwApplication.getInstance().getApplicationContext();
     }
 
     @Override

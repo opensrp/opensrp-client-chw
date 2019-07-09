@@ -23,18 +23,12 @@ import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
 import org.smartregister.chw.anc.util.JsonFormUtils;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.model.VaccineTaskModel;
-import org.smartregister.chw.util.ChwServiceSchedule;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.ContactUtil;
-import org.smartregister.domain.Alert;
 import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.immunization.domain.ServiceWrapper;
 import org.smartregister.immunization.domain.Vaccine;
-import org.smartregister.immunization.domain.VaccineSchedule;
 import org.smartregister.immunization.domain.VaccineWrapper;
-import org.smartregister.immunization.repository.VaccineRepository;
-import org.smartregister.immunization.util.VaccinateActionUtils;
-import org.smartregister.service.AlertService;
 
 import java.text.MessageFormat;
 import java.text.ParseException;
@@ -52,8 +46,6 @@ import static org.smartregister.chw.util.JsonFormUtils.getCheckBoxValue;
 import static org.smartregister.chw.util.JsonFormUtils.getValue;
 import static org.smartregister.chw.util.RecurringServiceUtil.getRecurringServices;
 import static org.smartregister.chw.util.Utils.getDayOfMonthSuffix;
-import static org.smartregister.immunization.util.VaccinatorUtils.generateScheduleList;
-import static org.smartregister.immunization.util.VaccinatorUtils.receivedVaccines;
 import static org.smartregister.util.JsonFormUtils.fields;
 import static org.smartregister.util.JsonFormUtils.getFieldJSONObject;
 
@@ -66,7 +58,7 @@ public abstract class DefaultAncHomeVisitInteractorFlv implements AncHomeVisitIn
         Context context = view.getContext();
 
         // get contact schedule
-        Map<Integer, LocalDate> dateMap = getContactSchedule(memberObject);
+        Map<Integer, LocalDate> dateMap = ContactUtil.getContactSchedule(memberObject);
 
         // get vaccine schedule if ga > 13
         VaccineTaskModel vaccineTaskModel = null;
@@ -82,7 +74,7 @@ public abstract class DefaultAncHomeVisitInteractorFlv implements AncHomeVisitIn
             evaluateDangerSigns(actionList, context);
             evaluateANCCounseling(actionList, memberObject, dateMap, context);
             evaluateSleepingUnderLLITN(view, actionList, context);
-            evaluateANCCard(view, actionList, context);
+            evaluateANCCard(view, memberObject, actionList, context);
             evaluateHealthFacilityVisit(actionList, memberObject, dateMap, context);
             evaluateTTImmunization(view, actionList, memberObject, vaccineTaskModel, context);
             evaluateIPTP(view, actionList, memberObject, context);
@@ -94,28 +86,6 @@ public abstract class DefaultAncHomeVisitInteractorFlv implements AncHomeVisitIn
         }
 
         return actionList;
-    }
-
-    private Map<Integer, LocalDate> getContactSchedule(MemberObject memberObject) {
-        // get contact
-
-        LocalDate lastContact = new DateTime(memberObject.getDateCreated()).toLocalDate();
-        boolean isFirst = (StringUtils.isBlank(memberObject.getLastContactVisit()));
-        LocalDate lastMenstrualPeriod = DateTimeFormat.forPattern("dd-MM-yyyy").parseLocalDate(memberObject.getLastMenstrualPeriod());
-
-        if (StringUtils.isNotBlank(memberObject.getLastContactVisit()))
-            lastContact = DateTimeFormat.forPattern("dd-MM-yyyy").parseLocalDate(memberObject.getLastContactVisit());
-
-        Map<Integer, LocalDate> dateMap = new LinkedHashMap<>();
-
-        // today is the due date for the very first visit
-        if (isFirst) {
-            dateMap.put(0, LocalDate.now());
-        }
-
-        dateMap.putAll(ContactUtil.getContactWeeks(isFirst, lastContact, lastMenstrualPeriod));
-
-        return dateMap;
     }
 
     private JSONObject getJson(BaseAncHomeVisitAction ba, String baseEntityID) throws Exception {
@@ -322,7 +292,10 @@ public abstract class DefaultAncHomeVisitInteractorFlv implements AncHomeVisitIn
 
     }
 
-    private void evaluateANCCard(BaseAncHomeVisitContract.View view, LinkedHashMap<String, BaseAncHomeVisitAction> actionList, final Context context) throws Exception {
+    private void evaluateANCCard(BaseAncHomeVisitContract.View view, MemberObject memberObject, LinkedHashMap<String, BaseAncHomeVisitAction> actionList, final Context context) throws Exception {
+        if (memberObject.getHasAncCard() != null && memberObject.getHasAncCard().equals("Yes"))
+            return;
+
         final BaseAncHomeVisitAction ba = new BaseAncHomeVisitAction(context.getString(R.string.anc_home_visit_anc_card_received), "", false,
                 BaseAncHomeVisitFragment.getInstance(view, Constants.JSON_FORM.ANC_HOME_VISIT.getAncCardReceived(), null, null),
                 null);
@@ -480,7 +453,7 @@ public abstract class DefaultAncHomeVisitInteractorFlv implements AncHomeVisitIn
 
             stringBuilder.append(MessageFormat.format("{0}: {1}\n", context.getString(R.string.date), new SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(date)));
             stringBuilder.append(MessageFormat.format("{0}: {1} {2}\n", context.getString(R.string.weight), weight, context.getString(R.string.kg)));
-            stringBuilder.append(MessageFormat.format("{0}: {1}/{2} {3}\n", context.getString(R.string.str_bp), bp, dia_bp, context.getString(R.string.mmHg)));
+            stringBuilder.append(MessageFormat.format("{0}: {1}/{2} {3}\n", context.getString(R.string.str_bp).replace(":", ""), bp, dia_bp, context.getString(R.string.mmHg)));
             stringBuilder.append(MessageFormat.format("{0}: {1} {2}\n", context.getString(R.string.hb_level), hb, context.getString(R.string.gdl)));
             stringBuilder.append(MessageFormat.format("{0}: {1}\n", context.getString(R.string.ifa_received), ifa));
             stringBuilder.append(MessageFormat.format("{0}: {1}\n", context.getString(R.string.tests_done), testsDone));
@@ -496,17 +469,13 @@ public abstract class DefaultAncHomeVisitInteractorFlv implements AncHomeVisitIn
             return;
         }
         // compute the due date
-        final Triple<DateTime, VaccineRepo.Vaccine, String> details = getIndividualVaccine(vaccineTaskModel, "TT");
+        final Triple<DateTime, VaccineRepo.Vaccine, String> details = ContactUtil.getIndividualVaccine(vaccineTaskModel, "TT");
         if (details == null || details.getLeft().isAfter(new DateTime())) {
             return;
         }
 
         String immunization = MessageFormat.format(context.getString(R.string.anc_home_visit_tt_immunization), details.getRight());
-        /*
-        final BaseAncHomeVisitAction ba = new BaseAncHomeVisitAction(immunization, "", false,
-                BaseAncHomeVisitFragment.getInstance(view, ANC_HOME_VISIT.getTtImmunization(), null, details.getRight()),
-                null);
-                */
+
         final BaseAncHomeVisitAction ba = evaluateTTImmunizationPreExec(view, immunization, Constants.JSON_FORM.ANC_HOME_VISIT.getTtImmunization(), memberObject, details.getRight());
 
         ba.setVaccineWrapper(getVaccineWrapper(details.getMiddle(), vaccineTaskModel));
@@ -759,59 +728,7 @@ public abstract class DefaultAncHomeVisitInteractorFlv implements AncHomeVisitIn
     }
 
     public VaccineTaskModel getWomanVaccine(String baseEntityID, DateTime lmpDate, List<VaccineWrapper> notDoneVaccines) {
-        AlertService alertService = ChwApplication.getInstance().getContext().alertService();
-        VaccineRepository vaccineRepository = ChwApplication.getInstance().vaccineRepository();
-
-        // get offline alerts
-        VaccineSchedule.updateOfflineAlerts(baseEntityID, lmpDate, "woman");
-        ChwServiceSchedule.updateOfflineAlerts(baseEntityID, lmpDate); // get services
-
-        //
-        List<Alert> alerts = alertService.findByEntityIdAndAlertNames(baseEntityID, VaccinateActionUtils.allAlertNames("woman"));
-        List<Vaccine> vaccines = vaccineRepository.findByEntityId(baseEntityID);
-        Map<String, Date> receivedVaccines = receivedVaccines(vaccines);
-
-        if (notDoneVaccines != null) {
-            for (int i = 0; i < notDoneVaccines.size(); i++) {
-                receivedVaccines.put(notDoneVaccines.get(i).getName().toLowerCase(), new Date());
-            }
-        }
-
-        List<Map<String, Object>> sch = generateScheduleList("woman", lmpDate, receivedVaccines, alerts);
-        VaccineTaskModel vaccineTaskModel = new VaccineTaskModel();
-        vaccineTaskModel.setAlerts(alerts);
-        vaccineTaskModel.setVaccines(vaccines);
-        vaccineTaskModel.setReceivedVaccines(receivedVaccines);
-        vaccineTaskModel.setScheduleList(sch);
-
-        return vaccineTaskModel;
-    }
-
-    // vaccine utils
-    private Triple<DateTime, VaccineRepo.Vaccine, String> getIndividualVaccine(VaccineTaskModel vaccineTaskModel, String type) {
-        // compute the due date
-        Map<String, Object> map = null;
-        for (Map<String, Object> mapVac : vaccineTaskModel.getScheduleList()) {
-            VaccineRepo.Vaccine myVac = (VaccineRepo.Vaccine) mapVac.get("vaccine");
-            String status = (String) mapVac.get("status");
-            if (myVac != null && myVac.display().toLowerCase().contains(type.toLowerCase()) && status != null && status.equals("due")) {
-                map = mapVac;
-                break;
-            }
-        }
-
-        if (map == null) {
-            return null;
-        }
-
-        DateTime date = (DateTime) map.get("date");
-        VaccineRepo.Vaccine vaccine = (VaccineRepo.Vaccine) map.get("vaccine");
-        if (vaccine == null || date == null) {
-            return null;
-        }
-        String vc_count = vaccine.name().substring(vaccine.name().length() - 1);
-
-        return Triple.of(date, vaccine, vc_count);
+        return ContactUtil.getWomanVaccine(baseEntityID, lmpDate, notDoneVaccines);
     }
 
     // read vaccine repo for all not given vaccines

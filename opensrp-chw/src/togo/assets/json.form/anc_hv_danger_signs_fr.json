@@ -55,6 +55,8 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "160939AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "check_box",
+        "label_info_image_src": "img/chw.png",
+        "label_info_has_image": true,
         "label": "Signes de danger présents?",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
@@ -168,8 +170,8 @@
           "No"
         ],
         "openmrs_choice_ids": {
-          "COMPLETED": "1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Not done": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          "Yes": "1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "No": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         "v_required": {
           "value": "true",
