@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/growth_and_nutrition_list"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <org.smartregister.view.customcontrols.CustomFontTextView
+        android:id="@+id/service_content_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/growth_and_nutrition"
+        android:background="@color/medical_bar"
+        style="@style/CustomFontTextViewStyle.ClientList"
+        android:textColor="@color/white"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:textSize="@dimen/px_14_to_sp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/white_rounded_bg"
+        >
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view_service_content"
+            android:paddingLeft="10dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </android.support.v7.widget.RecyclerView>
+    </RelativeLayout>
+
+</LinearLayout>

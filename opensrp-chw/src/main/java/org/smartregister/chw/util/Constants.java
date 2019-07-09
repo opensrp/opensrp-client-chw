@@ -329,6 +329,10 @@ public class Constants {
         public static class MUAC {
             public static final String CODE = "160908AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
         }
+        public static class LLITN {
+            public static final String CODE = "1802AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+        }
+
         public static class FORM_SUBMISSION_FIELD {
             public static final String TASK_MINIMUM_DIETARY = "diet_diversity";
             public static final String TASK_MUAC = "muac";
