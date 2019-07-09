@@ -1,6 +1,8 @@
 package org.smartregister.chw.contract;
 
 
+import android.content.Context;
+
 import org.smartregister.chw.util.BaseService;
 import org.smartregister.chw.util.BaseVaccine;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
@@ -33,6 +35,8 @@ public interface ChildMedicalHistoryContract {
         void updateLLitnData();
 
         void updateEcdData();
+
+        Context getContext();
     }
 
     interface Presenter {

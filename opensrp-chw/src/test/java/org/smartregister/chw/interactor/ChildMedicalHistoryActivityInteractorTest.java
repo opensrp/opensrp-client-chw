@@ -1,5 +1,7 @@
 package org.smartregister.chw.interactor;
 
+import android.content.Context;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -9,6 +11,7 @@ import org.mockito.MockitoAnnotations;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.reflect.Whitebox;
 import org.smartregister.chw.BaseUnitTest;
+import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.contract.ChildMedicalHistoryContract;
 import org.smartregister.chw.fragment.GrowthNutritionInputFragment;
 import org.smartregister.chw.util.ChildDBConstants;
@@ -33,12 +36,16 @@ public class ChildMedicalHistoryActivityInteractorTest extends BaseUnitTest {
     private AppExecutors appExecutors;
     @Mock
     private ChildMedicalHistoryContract.InteractorCallBack callBack;
+    @Mock
+    private Context context;
 
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
         appExecutors = Mockito.spy(AppExecutors.class);
         interactor = Mockito.spy(ChildMedicalHistoryInteractor.class);
+        context = ChwApplication.getInstance().getApplicationContext();
+
     }
 
     @Test
@@ -52,6 +59,7 @@ public class ChildMedicalHistoryActivityInteractorTest extends BaseUnitTest {
         mapBirth.put(BIRTH_CERT_NOTIFIICATION, "no");
         CommonPersonObjectClient commonPersonObjectClient = new CommonPersonObjectClient(caseId, mapBirth, name);
         commonPersonObjectClient.setColumnmaps(mapBirth);
+        PowerMockito.when(interactor.getContext()).thenReturn(context);
         interactor.fetchBirthCertificateData(commonPersonObjectClient, callBack);
         verify(callBack, never()).updateBirthCertification(Mockito.any(ArrayList.class));
 
@@ -69,8 +77,7 @@ public class ChildMedicalHistoryActivityInteractorTest extends BaseUnitTest {
         mapIllness.put(ILLNESS_ACTION, "managed");
         CommonPersonObjectClient commonPersonObjectClient = new CommonPersonObjectClient(caseId, mapIllness, name);
         commonPersonObjectClient.setColumnmaps(mapIllness);
-        android.content.Context ctx = Mockito.mock(android.content.Context.class);
-        PowerMockito.when(interactor.getContext()).thenReturn(ctx);
+        PowerMockito.when(interactor.getContext()).thenReturn(context);
         interactor.fetchBirthCertificateData(commonPersonObjectClient, callBack);
         verify(callBack, never()).updateBirthCertification(Mockito.any(ArrayList.class));
 
@@ -78,6 +85,7 @@ public class ChildMedicalHistoryActivityInteractorTest extends BaseUnitTest {
 
     @Test
     public void addContentInitialBreastfeeding() throws Exception{
+        PowerMockito.when(interactor.getContext()).thenReturn(context);
         ServiceContent serviceContent = new ServiceContent();
         ServiceRecord initialServiceRecord = new ServiceRecord();
         initialServiceRecord.setType(GrowthNutritionInputFragment.GROWTH_TYPE.EXCLUSIVE.getValue());

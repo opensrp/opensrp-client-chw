@@ -24,7 +24,7 @@ public class ChildMedicalHistoryPresenter implements ChildMedicalHistoryContract
 
     public ChildMedicalHistoryPresenter(ChildMedicalHistoryContract.View view, AppExecutors appExecutors, HomeVisitServiceRepository homeVisitServiceRepository) {
         this.view = new WeakReference<>(view);
-        interactor = new ChildMedicalHistoryInteractor(appExecutors,homeVisitServiceRepository);
+        interactor = new ChildMedicalHistoryInteractor(appExecutors,homeVisitServiceRepository,getView().getContext());
     }
 
 //    @Override

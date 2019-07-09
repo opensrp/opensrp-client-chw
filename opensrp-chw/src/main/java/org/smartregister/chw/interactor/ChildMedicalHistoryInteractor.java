@@ -6,7 +6,6 @@ import android.text.TextUtils;
 
 import org.apache.commons.lang3.text.WordUtils;
 import org.smartregister.chw.R;
-import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.contract.ChildMedicalHistoryContract;
 import org.smartregister.chw.fragment.GrowthNutritionInputFragment;
 import org.smartregister.chw.repository.HomeVisitServiceRepository;
@@ -63,14 +62,18 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
     private ArrayList<BaseService> baseServiceArrayList = new ArrayList<>();
 
     private HomeVisitServiceRepository homeVisitServiceRepository;
+
+    private Context context;
+
     @VisibleForTesting
     public ChildMedicalHistoryInteractor(){
         Timber.v("constructor");
     }
 
-    public ChildMedicalHistoryInteractor(AppExecutors appExecutors,HomeVisitServiceRepository homeVisitServiceRepository) {
+    public ChildMedicalHistoryInteractor(AppExecutors appExecutors,HomeVisitServiceRepository homeVisitServiceRepository,Context context) {
         this.appExecutors = appExecutors;
         this.homeVisitServiceRepository = homeVisitServiceRepository ;
+        this.context = context;
     }
 
 
@@ -502,7 +505,7 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
     }
 
     public Context getContext() {
-        return ChwApplication.getInstance().getApplicationContext();
+        return context;
     }
 
     public interface Flavor {

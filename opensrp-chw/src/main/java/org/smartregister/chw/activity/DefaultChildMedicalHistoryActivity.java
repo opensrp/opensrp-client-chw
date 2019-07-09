@@ -1,6 +1,7 @@
 package org.smartregister.chw.activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -224,6 +225,12 @@ public abstract class DefaultChildMedicalHistoryActivity implements ChildMedical
         presenter = new ChildMedicalHistoryPresenter(this,new AppExecutors(), ChwApplication.getHomeVisitServiceRepository());
         return presenter;
     }
+
+    @Override
+    public Context getContext() {
+        return activity;
+    }
+
     private void createGrowthNutritionView(ArrayList<BaseService> baseServices){
         if(growthNutritionViewHolder == null){
             growthNutritionViewHolder = new GrowthNutritionViewHolder();
