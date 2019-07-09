@@ -31,7 +31,7 @@ public class LoginInteractor extends BaseLoginInteractor implements BaseLoginCon
                 (BuildConfig.PULL_UNIQUE_IDS_MINUTES));
 
         ChwIndicatorGeneratingJob.scheduleJob(ChwIndicatorGeneratingJob.TAG,
-                TimeUnit.MINUTES.toMinutes(org.smartregister.reporting.BuildConfig.REPORT_INDICATOR_GENERATION_MINUTES), TimeUnit.MINUTES.toMillis(15));
+                TimeUnit.MINUTES.toMinutes(15), TimeUnit.MINUTES.toMinutes(15));
 
     }
 
