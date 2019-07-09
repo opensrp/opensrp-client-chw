@@ -56,7 +56,7 @@
         "openmrs_entity_id": "165406AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": ":L'enfant a-t-il un certificat de naissance?",
+        "hint": "L'enfant a-t-il un certificat de naissance?",
         "values": [
           "Oui",
           "Non"

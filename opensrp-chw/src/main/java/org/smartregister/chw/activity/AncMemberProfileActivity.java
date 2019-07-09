@@ -162,7 +162,10 @@ public class AncMemberProfileActivity extends BaseAncMemberProfileActivity {
                 !ancVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.OVERDUE.name())) {
             textview_record_anc_visit.setVisibility(View.GONE);
             view_anc_record.setVisibility(View.GONE);
+            textViewAncVisitNot.setVisibility(View.GONE);
         }
+        if (ancVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.OVERDUE.name()))
+            textview_record_anc_visit.setBackgroundResource(R.drawable.record_btn_selector_overdue);
     }
 
     @Override
@@ -170,8 +173,12 @@ public class AncMemberProfileActivity extends BaseAncMemberProfileActivity {
         super.onClick(view);
 
         switch (view.getId()) {
-            case R.id.textview_record_anc_visit:
-                AncHomeVisitActivity.startMe(this, MEMBER_OBJECT);
+            case R.id.textview_record_visit:
+            case R.id.textview_record_reccuring_visit:
+                AncHomeVisitActivity.startMe(this, MEMBER_OBJECT, false);
+                break;
+            case R.id.textview_edit:
+                AncHomeVisitActivity.startMe(this, MEMBER_OBJECT, true);
                 break;
             default:
                 break;

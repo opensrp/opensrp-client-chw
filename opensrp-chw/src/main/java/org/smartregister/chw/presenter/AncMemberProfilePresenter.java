@@ -4,8 +4,8 @@ import android.util.Log;
 
 import org.apache.commons.lang3.tuple.Triple;
 import org.smartregister.chw.anc.contract.BaseAncMemberProfileContract;
-import org.smartregister.chw.anc.presenter.BaseAncMemberProfilePresenter;
 import org.smartregister.chw.anc.domain.MemberObject;
+import org.smartregister.chw.anc.presenter.BaseAncMemberProfilePresenter;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.contract.FamilyProfileContract;
 
