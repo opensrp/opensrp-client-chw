@@ -29,6 +29,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import timber.log.Timber;
+
 import static org.smartregister.chw.util.JsonFormUtils.getCheckBoxValue;
 import static org.smartregister.chw.util.JsonFormUtils.getValue;
 
@@ -244,7 +246,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
 
         @Override
         public void onPayloadReceived(BaseAncHomeVisitAction baseAncHomeVisitAction) {
-
+            Timber.v("onPayloadReceived");
         }
     }
 
@@ -315,7 +317,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
 
         @Override
         public void onPayloadReceived(BaseAncHomeVisitAction baseAncHomeVisitAction) {
-
+            Timber.v("onPayloadReceived");
         }
     }
 
@@ -378,7 +380,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
 
         @Override
         public void onPayloadReceived(BaseAncHomeVisitAction baseAncHomeVisitAction) {
-
+            Timber.v("onPayloadReceived");
         }
     }
 
@@ -436,7 +438,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
 
         @Override
         public void onPayloadReceived(BaseAncHomeVisitAction baseAncHomeVisitAction) {
-
+            Timber.v("onPayloadReceived");
         }
     }
 
@@ -495,7 +497,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
 
         @Override
         public void onPayloadReceived(BaseAncHomeVisitAction baseAncHomeVisitAction) {
-
+            Timber.v("onPayloadReceived");
         }
     }
 
@@ -571,7 +573,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
 
         @Override
         public void onPayloadReceived(BaseAncHomeVisitAction baseAncHomeVisitAction) {
-
+            Timber.v("onPayloadReceived");
         }
     }
 
@@ -641,7 +643,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
 
         @Override
         public void onPayloadReceived(BaseAncHomeVisitAction baseAncHomeVisitAction) {
-
+            Timber.v("onPayloadReceived");
         }
     }
 
@@ -700,7 +702,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
 
         @Override
         public void onPayloadReceived(BaseAncHomeVisitAction baseAncHomeVisitAction) {
-
+            Timber.v("onPayloadReceived");
         }
     }
 }
