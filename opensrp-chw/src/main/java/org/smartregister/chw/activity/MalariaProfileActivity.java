@@ -27,7 +27,6 @@ import timber.log.Timber;
 public class MalariaProfileActivity extends BaseMalariaProfileActivity {
     private static final String CLIENT = "client";
     private MemberObject memberObject;
-//    private ChildProfileActivityFlv flavor = new ChildProfileActivityFlv();
 
     public static void startMalariaActivity(Activity activity, MemberObject memberObject, CommonPersonObjectClient client) {
         Intent intent = new Intent(activity, MalariaProfileActivity.class);

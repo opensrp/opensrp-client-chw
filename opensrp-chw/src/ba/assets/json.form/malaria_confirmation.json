@@ -155,9 +155,6 @@
         "type": "date_picker",
         "hint": "Date of malaria test at health facility",
         "expanded": false,
-        "duration": {
-          "label": "Date"
-        },
         "max_date": "today",
         "v_required": {
           "value": "true",
