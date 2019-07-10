@@ -596,9 +596,11 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.other_member_menu, menu);
+
         menu.findItem(R.id.action_malaria_registration).setVisible(true);
         menu.findItem(R.id.action_malaria_followup_visit).setVisible(false);
         menu.findItem(R.id.action_anc_registration).setVisible(false);
+
         return true;
     }
 
@@ -669,8 +671,6 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
 
     public interface Flavor {
         OnClickFloatingMenu getOnClickFloatingMenu(Activity activity, ChildProfilePresenter presenter);
-
-        boolean showMalariaConfirmationMenu();
     }
 
     private final BroadcastReceiver mDateTimeChangedReceiver = new BroadcastReceiver() {
