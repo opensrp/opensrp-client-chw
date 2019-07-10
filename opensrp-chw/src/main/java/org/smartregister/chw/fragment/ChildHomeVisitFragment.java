@@ -473,27 +473,19 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                     fields.put(Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_SERVICE_NOT_GIVEN, serviceNotGiven);
                     fields.put(Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_BIRTH_CERT, birthCertJson);
                     fields.put(Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_ILLNESS, illnessJson);
-                    Log.d("TAKING_TIME","in same common data1:"+(System.currentTimeMillis() - startTime));
                     ChildUtils.updateHomeVisitAsEvent(childClient.entityId(), Constants.EventType.CHILD_HOME_VISIT, Constants.TABLE_NAME.CHILD, fields, ChildDBConstants.KEY.LAST_HOME_VISIT, homeVisitDateLong, homeVisitId);
-                    Log.d("TAKING_TIME","in same common data2:"+(System.currentTimeMillis() - startTime));
                     if (((ChildHomeVisitPresenter) presenter).getSaveSize() > 0) {
                         presenter.saveForm();
                     }
-                    Log.d("TAKING_TIME","in same common data3:"+(System.currentTimeMillis() - startTime));
                     if (serviceTaskAdapter != null) {
                         serviceTaskAdapter.makeEvent(homeVisitId, childClient.getCaseId());
                     }
-                    Log.d("TAKING_TIME","in same common data4:"+(System.currentTimeMillis() - startTime));
                     if(!TextUtils.isEmpty(vaccineCardData)){
                         ChildUtils.updateVaccineCardAsEvent(context, childClient.getCaseId(), vaccineCardData);
 
                     }
-
-                    long lastSyncTimeStamp = ChwApplication.getInstance().getContext().allSharedPreferences().fetchLastUpdatedAtDate(0);
-                    Date lastSyncDate = new Date(lastSyncTimeStamp);
-                    ChwApplication.getClientProcessor(ChwApplication.getInstance().getContext().applicationContext()).processClient(FamilyLibrary.getInstance().getEcSyncHelper().getEvents(lastSyncDate, BaseRepository.TYPE_Unsynced));
-                    ChwApplication.getInstance().getContext().allSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
-                    Log.d("TAKING_TIME","in same common data5:"+(System.currentTimeMillis() - startTime));
+                    processClientInBackground();
+                    Log.d("TAKING_TIME","in same common data6:"+(System.currentTimeMillis() - startTime));
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -503,6 +495,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                 appExecutors.mainThread().execute(new Runnable() {
                     @Override
                     public void run() {
+                        Log.d("TAKING_TIME","in same common data7:"+(System.currentTimeMillis() - startTime));
                         progressBar.setVisibility(View.GONE);
                         closeScreen();
                         if (getActivity() instanceof ChildRegisterActivity) {
@@ -513,6 +506,23 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
             }
         };
         appExecutors.diskIO().execute(runnable);
+    }
+    private void processClientInBackground(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                long lastSyncTimeStamp = ChwApplication.getInstance().getContext().allSharedPreferences().fetchLastUpdatedAtDate(0);
+                Date lastSyncDate = new Date(lastSyncTimeStamp);
+                try {
+                    ChwApplication.getClientProcessor(ChwApplication.getInstance().getContext().applicationContext()).processClient(FamilyLibrary.getInstance().getEcSyncHelper().getEvents(lastSyncDate, BaseRepository.TYPE_Unsynced));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                ChwApplication.getInstance().getContext().allSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
+                Log.d("TAKING_TIME","in same common data5:"+(System.currentTimeMillis() - startTime));
+
+            }
+        }).start();
     }
 
     private void showCloseDialog() {

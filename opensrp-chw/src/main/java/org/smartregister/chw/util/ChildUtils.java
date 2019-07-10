@@ -371,21 +371,15 @@ public class ChildUtils {
             event.addObs((new Obs()).withFormSubmissionField(Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_ILLNESS).withValue(illnessJson == null ? "" : illnessJson.toString())
                     .withFieldCode(Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_ILLNESS).withFieldType("formsubmissionField").withFieldDataType("text").withParentCode("").withHumanReadableValues(new ArrayList<>()));
 
-            Log.d("TAKING_TIME","updateHomeVisitAsEvent1:"+(System.currentTimeMillis() - startTime));
             tagSyncMetadata(ChwApplication.getInstance().getContext().allSharedPreferences(), event);
 
-            Log.d("TAKING_TIME","updateHomeVisitAsEvent2:"+(System.currentTimeMillis() - startTime));
             JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(event));
             syncHelper.addEvent(entityId, eventJson);
-            Log.d("TAKING_TIME","updateHomeVisitAsEvent3:"+(System.currentTimeMillis() - startTime));
-//            long lastSyncTimeStamp = ChwApplication.getInstance().getContext().allSharedPreferences().fetchLastUpdatedAtDate(0);
-//            Log.d("TAKING_TIME","updateHomeVisitAsEvent4:"+(System.currentTimeMillis() - startTime));
-//            Date lastSyncDate = new Date(lastSyncTimeStamp);
-//            ChwApplication.getClientProcessor(ChwApplication.getInstance().getContext().applicationContext()).processClient(syncHelper.getEvents(lastSyncDate, BaseRepository.TYPE_Unsynced));
-//            Log.d("TAKING_TIME","updateHomeVisitAsEvent5:"+(System.currentTimeMillis() - startTime));
-//
-//            ChwApplication.getInstance().getContext().allSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
-//            Log.d("TAKING_TIME","updateHomeVisitAsEvent6:"+(System.currentTimeMillis() - startTime));
+            long lastSyncTimeStamp = ChwApplication.getInstance().getContext().allSharedPreferences().fetchLastUpdatedAtDate(0);
+            Date lastSyncDate = new Date(lastSyncTimeStamp);
+            ChwApplication.getClientProcessor(ChwApplication.getInstance().getContext().applicationContext()).processClient(syncHelper.getEvents(lastSyncDate, BaseRepository.TYPE_Unsynced));
+            ChwApplication.getInstance().getContext().allSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
+            Log.d("TAKING_TIME","updateHomeVisitAsEvent6:"+(System.currentTimeMillis() - startTime));
 
             //update details
 
