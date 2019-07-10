@@ -50,9 +50,4 @@ public class FamilyOtherMemberProfileActivityFlv implements FamilyOtherMemberPro
         return false;
     }
 
-    @Override
-    public boolean showMalariaConfirmationMenu(){
-        return true;
-    }
-
 }

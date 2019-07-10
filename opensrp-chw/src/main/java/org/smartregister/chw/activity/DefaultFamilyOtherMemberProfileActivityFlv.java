@@ -45,9 +45,4 @@ public abstract class DefaultFamilyOtherMemberProfileActivityFlv implements Fami
         return false;
     }
 
-    @Override
-    public boolean showMalariaConfirmationMenu() {
-        return false;
-    }
-
 }
