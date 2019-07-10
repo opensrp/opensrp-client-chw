@@ -19,7 +19,7 @@ public class BirthAndIllnessAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     }
 
     public void setData(ArrayList<String> contentList) {
-        this.contentList = contentList;
+        this.contentList.addAll(contentList);
     }
 
     @NonNull

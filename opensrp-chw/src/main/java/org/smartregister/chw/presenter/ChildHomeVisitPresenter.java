@@ -38,7 +38,7 @@ public class ChildHomeVisitPresenter implements ChildHomeVisitContract.Presenter
 
     @Override
     public void generateTaskService(boolean isEditMode) {
-        interactor.generateTaskService(childClient,this,isEditMode);
+        interactor.generateTaskService(childClient,this, getView().getContext(),isEditMode);
     }
 
     @Override

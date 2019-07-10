@@ -365,8 +365,18 @@
     <string name="care_stim_skill">Caregiver stimulation skills:</string>
     <string name="early_learning">Early learning program:</string>
 
+    <string name="health_facility_visit_num">ANC health facility visit {0}</string>
+    <string name="tt_dose">TT {0}</string>
+    <string name="iptp_sp_dose">IPTP-sp {0}</string>
+
+    <string name="rubella">Rubella</string>
+    <string name="opv_0">OPV 0</string>
+    <string name="opv_1">OPV 1</string>
+    <string name="opv_2">OPV 2</string>
+    <string name="yellow_fever">Yellow Fever</string>
+
     <!-- ANC Reporting indicators labels: Check anc reporting data dictionary. Strings are named by number
-    as defined in the data dictionary -->
+ as defined in the data dictionary -->
     <string name="anc_indicator1">Total WRA (10–49 years)</string>
     <string name="anc_indicator2">Total pregnant women</string>
     <string name="anc_indicator3">Pregnant women up to date with their ANC home visits</string>
@@ -375,5 +385,4 @@
     <string name="anc_indicator6">Pregnant women tested for syphilis</string>
     <string name="anc_indicator7">Pregnant women up to date on TT immunization</string>
     <string name="anc_indicator8">Pregnant women up to date on IPTp-SP doses</string>
-
 </resources>

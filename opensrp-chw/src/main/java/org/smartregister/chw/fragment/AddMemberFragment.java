@@ -22,8 +22,7 @@ public class  AddMemberFragment extends DialogFragment implements View.OnClickLi
     private Context context;
 
     public static AddMemberFragment newInstance() {
-        AddMemberFragment addMemberFragment = new AddMemberFragment();
-        return addMemberFragment;
+        return new AddMemberFragment();
     }
 
     public void setContext(Context context) {
