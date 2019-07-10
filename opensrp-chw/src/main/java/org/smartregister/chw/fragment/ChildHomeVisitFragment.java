@@ -36,6 +36,7 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.activity.ChildProfileActivity;
 import org.smartregister.chw.activity.ChildRegisterActivity;
 import org.smartregister.chw.adapter.ServiceTaskAdapter;
+import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.contract.ChildHomeVisitContract;
 import org.smartregister.chw.custom_view.HomeVisitGrowthAndNutrition;
 import org.smartregister.chw.custom_view.ImmunizationView;
@@ -53,9 +54,11 @@ import org.smartregister.chw.util.ServiceTask;
 import org.smartregister.chw.util.TaskServiceCalculate;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.FetchStatus;
+import org.smartregister.family.FamilyLibrary;
 import org.smartregister.family.activity.BaseFamilyProfileActivity;
 import org.smartregister.family.util.AppExecutors;
 import org.smartregister.family.util.DBConstants;
+import org.smartregister.repository.BaseRepository;
 import org.smartregister.util.FormUtils;
 
 import java.util.ArrayList;
@@ -485,9 +488,16 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                         ChildUtils.updateVaccineCardAsEvent(context, childClient.getCaseId(), vaccineCardData);
 
                     }
+
+                    long lastSyncTimeStamp = ChwApplication.getInstance().getContext().allSharedPreferences().fetchLastUpdatedAtDate(0);
+                    Date lastSyncDate = new Date(lastSyncTimeStamp);
+                    ChwApplication.getClientProcessor(ChwApplication.getInstance().getContext().applicationContext()).processClient(FamilyLibrary.getInstance().getEcSyncHelper().getEvents(lastSyncDate, BaseRepository.TYPE_Unsynced));
+                    ChwApplication.getInstance().getContext().allSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
                     Log.d("TAKING_TIME","in same common data5:"+(System.currentTimeMillis() - startTime));
 
                 } catch (JSONException e) {
+                    e.printStackTrace();
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
                 appExecutors.mainThread().execute(new Runnable() {

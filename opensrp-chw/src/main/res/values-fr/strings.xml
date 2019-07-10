@@ -116,7 +116,7 @@
     <string name="section_format">Salut le monde de la section: %1$d</string>
     <string name="updating">Mise à jour en cours...</string>
     <string name="birth_certification">Certification de naissance</string>
-    <string name="observations_illness_episodes"><![CDATA[Observations & maladies - <i>optional</i>]]></string>
+    <string name="observations_illness_episodes"><![CDATA[Observations & maladies - <i>optionelle</i>]]></string>
     <string name="observations_illness_episodes_medical"><![CDATA[Observations & Épisodes de maladies]]></string>
     <string name="home_visit_suffix"> &#183; Visite à domicile</string>
     <string name="last_visit_prefix">Dernier visite depuis %1$s </string>

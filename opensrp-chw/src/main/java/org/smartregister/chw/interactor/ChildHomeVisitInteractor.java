@@ -213,16 +213,11 @@ public class ChildHomeVisitInteractor implements ChildHomeVisitContract.Interact
                 getSyncHelper().addEvent(baseEvent.getBaseEntityId(), eventJson);
             }
 
-//            if (baseClient != null || baseEvent != null) {
-//                String imageLocation = org.smartregister.family.util.JsonFormUtils.getFieldValue(jsonString, org.smartregister.family.util.Constants.KEY.PHOTO);
-//                org.smartregister.family.util.JsonFormUtils.saveImage(baseEvent.getProviderId(), baseClient.getBaseEntityId(), imageLocation);
 //
-//            }
-
-            long lastSyncTimeStamp = getAllSharedPreferences().fetchLastUpdatedAtDate(0);
-            Date lastSyncDate = new Date(lastSyncTimeStamp);
-            getClientProcessorForJava().processClient(getSyncHelper().getEvents(lastSyncDate, BaseRepository.TYPE_Unsynced));
-            getAllSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
+//            long lastSyncTimeStamp = getAllSharedPreferences().fetchLastUpdatedAtDate(0);
+//            Date lastSyncDate = new Date(lastSyncTimeStamp);
+//            getClientProcessorForJava().processClient(getSyncHelper().getEvents(lastSyncDate, BaseRepository.TYPE_Unsynced));
+//            getAllSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
 
 
         } catch (Exception e) {

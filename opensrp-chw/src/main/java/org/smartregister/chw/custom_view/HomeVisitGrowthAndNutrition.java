@@ -203,7 +203,7 @@ public class HomeVisitGrowthAndNutrition extends LinearLayout implements View.On
             Object[] displayName = ChildUtils.getStringWithNumber(name);
             String str = (String) displayName[0];
             String no = (String) displayName[1];
-            String dewormingText = MessageFormat.format("{0}{1} {2}", str, ChildUtils.getFirstSecondAsNumber(no), getContext().getString(R.string.visit_dose));
+            String dewormingText = MessageFormat.format("{0} {1} {2}", str, ChildUtils.getFirstSecondAsNumber(no), getContext().getString(R.string.visit_dose));
             textViewDewormingTitle.setText(dewormingText);
             String status=ChildUtils.getServiceDueStatus(dueDate);
             textViewDewormingName.setText(ChildUtils.dueOverdueCalculation(getContext(), status,dueDate));

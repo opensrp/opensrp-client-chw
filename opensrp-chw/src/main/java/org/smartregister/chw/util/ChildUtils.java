@@ -378,14 +378,14 @@ public class ChildUtils {
             JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(event));
             syncHelper.addEvent(entityId, eventJson);
             Log.d("TAKING_TIME","updateHomeVisitAsEvent3:"+(System.currentTimeMillis() - startTime));
-            long lastSyncTimeStamp = ChwApplication.getInstance().getContext().allSharedPreferences().fetchLastUpdatedAtDate(0);
-            Log.d("TAKING_TIME","updateHomeVisitAsEvent4:"+(System.currentTimeMillis() - startTime));
-            Date lastSyncDate = new Date(lastSyncTimeStamp);
-            ChwApplication.getClientProcessor(ChwApplication.getInstance().getContext().applicationContext()).processClient(syncHelper.getEvents(lastSyncDate, BaseRepository.TYPE_Unsynced));
-            Log.d("TAKING_TIME","updateHomeVisitAsEvent5:"+(System.currentTimeMillis() - startTime));
-
-            ChwApplication.getInstance().getContext().allSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
-            Log.d("TAKING_TIME","updateHomeVisitAsEvent6:"+(System.currentTimeMillis() - startTime));
+//            long lastSyncTimeStamp = ChwApplication.getInstance().getContext().allSharedPreferences().fetchLastUpdatedAtDate(0);
+//            Log.d("TAKING_TIME","updateHomeVisitAsEvent4:"+(System.currentTimeMillis() - startTime));
+//            Date lastSyncDate = new Date(lastSyncTimeStamp);
+//            ChwApplication.getClientProcessor(ChwApplication.getInstance().getContext().applicationContext()).processClient(syncHelper.getEvents(lastSyncDate, BaseRepository.TYPE_Unsynced));
+//            Log.d("TAKING_TIME","updateHomeVisitAsEvent5:"+(System.currentTimeMillis() - startTime));
+//
+//            ChwApplication.getInstance().getContext().allSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
+//            Log.d("TAKING_TIME","updateHomeVisitAsEvent6:"+(System.currentTimeMillis() - startTime));
 
             //update details
 
@@ -414,12 +414,12 @@ public class ChildUtils {
             tagSyncMetadata(ChwApplication.getInstance().getContext().allSharedPreferences(), baseEvent);
             JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(baseEvent));
             syncHelper.addEvent(entityId, eventJson);
-            long lastSyncTimeStamp = ChwApplication.getInstance().getContext().allSharedPreferences().fetchLastUpdatedAtDate(0);
-            Date lastSyncDate = new Date(lastSyncTimeStamp);
-            Log.d("TAKING_TIME","updateVaccineCardAsEvent1:"+(System.currentTimeMillis() - startTime));
-            ChwApplication.getClientProcessor(ChwApplication.getInstance().getContext().applicationContext()).processClient(syncHelper.getEvents(lastSyncDate, BaseRepository.TYPE_Unsynced));
-            Log.d("TAKING_TIME","updateVaccineCardAsEvent2:"+(System.currentTimeMillis() - startTime));
-            ChwApplication.getInstance().getContext().allSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
+//            long lastSyncTimeStamp = ChwApplication.getInstance().getContext().allSharedPreferences().fetchLastUpdatedAtDate(0);
+//            Date lastSyncDate = new Date(lastSyncTimeStamp);
+//            Log.d("TAKING_TIME","updateVaccineCardAsEvent1:"+(System.currentTimeMillis() - startTime));
+//            ChwApplication.getClientProcessor(ChwApplication.getInstance().getContext().applicationContext()).processClient(syncHelper.getEvents(lastSyncDate, BaseRepository.TYPE_Unsynced));
+//            Log.d("TAKING_TIME","updateVaccineCardAsEvent2:"+(System.currentTimeMillis() - startTime));
+//            ChwApplication.getInstance().getContext().allSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -450,12 +450,6 @@ public class ChildUtils {
             tagSyncMetadata(ChwApplication.getInstance().getContext().allSharedPreferences(), baseEvent);
             JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(baseEvent));
             syncHelper.addEvent(entityId, eventJson);
-            long lastSyncTimeStamp = ChwApplication.getInstance().getContext().allSharedPreferences().fetchLastUpdatedAtDate(0);
-            Date lastSyncDate = new Date(lastSyncTimeStamp);
-            Log.d("TAKING_TIME","updateTaskAsEvent1:"+(System.currentTimeMillis() - startTime));
-            ChwApplication.getClientProcessor(ChwApplication.getInstance().getContext().applicationContext()).processClient(syncHelper.getEvents(lastSyncDate, BaseRepository.TYPE_Unsynced));
-            Log.d("TAKING_TIME","updateTaskAsEvent2:"+(System.currentTimeMillis() - startTime));
-            ChwApplication.getInstance().getContext().allSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -470,10 +464,10 @@ public class ChildUtils {
             if (baseEvent != null) {
                 JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(baseEvent));
                 syncHelper.addEvent(entityId, eventJson);
-                long lastSyncTimeStamp = ChwApplication.getInstance().getContext().allSharedPreferences().fetchLastUpdatedAtDate(0);
-                Date lastSyncDate = new Date(lastSyncTimeStamp);
-                ChwApplication.getClientProcessor(ChwApplication.getInstance().getContext().applicationContext()).processClient(syncHelper.getEvents(lastSyncDate, BaseRepository.TYPE_Unsynced));
-                ChwApplication.getInstance().getContext().allSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
+//                long lastSyncTimeStamp = ChwApplication.getInstance().getContext().allSharedPreferences().fetchLastUpdatedAtDate(0);
+//                Date lastSyncDate = new Date(lastSyncTimeStamp);
+//                ChwApplication.getClientProcessor(ChwApplication.getInstance().getContext().applicationContext()).processClient(syncHelper.getEvents(lastSyncDate, BaseRepository.TYPE_Unsynced));
+//                ChwApplication.getInstance().getContext().allSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
 
             }
 
