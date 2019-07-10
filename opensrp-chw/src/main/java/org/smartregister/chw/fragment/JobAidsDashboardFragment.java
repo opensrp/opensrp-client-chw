@@ -19,6 +19,7 @@ import org.smartregister.chw.reporting.modules.AncReportingModule;
 import org.smartregister.chw.reporting.modules.ChildReportingModule;
 import org.smartregister.reporting.contract.ReportContract;
 import org.smartregister.reporting.domain.IndicatorTally;
+import org.smartregister.reporting.impl.ReportingModule;
 
 import java.util.List;
 import java.util.Map;
@@ -29,8 +30,8 @@ public class JobAidsDashboardFragment extends Fragment implements ReportContract
     private ViewGroup visualizationsViewGroup;
     private List<Map<String, IndicatorTally>> indicatorTallies;
     private ProgressBar progressBar;
-    private ChildReportingModule childReportingModule;
-    private AncReportingModule ancReportingModule;
+    private ReportingModule childReportingModule;
+    private ReportingModule ancReportingModule;
 
     public JobAidsDashboardFragment() {
         // Required empty public constructor
@@ -83,15 +84,12 @@ public class JobAidsDashboardFragment extends Fragment implements ReportContract
 
     private void buildVisualisations() {
 
-        if (indicatorTallies == null || indicatorTallies.isEmpty()) {
-            return;
-        }
+        //Refresh view with new indicators
+        visualizationsViewGroup.removeAllViews();
 
-        //Generate report for child indicators
-        childReportingModule.setIndicatorTallies(indicatorTallies);
+       /* childReportingModule.setIndicatorTallies(indicatorTallies);
         childReportingModule.generateReport(visualizationsViewGroup);
-
-        //Generate report for anc indicators
+*/
         ancReportingModule.setIndicatorTallies(indicatorTallies);
         ancReportingModule.generateReport(visualizationsViewGroup);
 

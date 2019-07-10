@@ -85,26 +85,25 @@ public class ChwRepository extends Repository {
         if (!indicatorDataInitialised || isUpdated) {
             initializeReportIndicators(database, reportingLibraryInstance);
             reportingLibraryInstance.getContext().allSharedPreferences().savePreference(
-                indicatorDataInitialisedPref, "true");
+                    indicatorDataInitialisedPref, "false");
             reportingLibraryInstance.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(BuildConfig.VERSION_CODE));
         }
 
     }
 
     private void initializeReportIndicators(SQLiteDatabase database,
-        ReportingLibrary reportingLibraryInstance) {
-        String childIndicatorsConfigFile = "config/child-reporting-indicator-definitions.yml";
+                                            ReportingLibrary reportingLibraryInstance) {
+  //      String childIndicatorsConfigFile = "config/child-reporting-indicator-definitions.yml";
         String ancIndicatorConfigFile = "config/anc-reporting-indicator-definitions.yml";
         // This will persist the data in the DB
-        reportingLibraryInstance.initIndicatorData(childIndicatorsConfigFile, database);
+ //       reportingLibraryInstance.initIndicatorData(childIndicatorsConfigFile, database);
         reportingLibraryInstance.initIndicatorData(ancIndicatorConfigFile, database);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        Log.w(ChwRepository.class.getName(),
-                "Upgrading database from version " + oldVersion + " to "
-                        + newVersion + ", which will destroy all old data");
+        Log.w(ChwRepository.class.getName(), "Upgrading database from version " + oldVersion + " to "
+                + newVersion + ", which will destroy all old data");
 
         ChwRepositoryFlv.onUpgrade(context, db, oldVersion, newVersion);
     }

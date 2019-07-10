@@ -3,19 +3,21 @@ package org.smartregister.chw.reporting.modules;
 import android.view.ViewGroup;
 
 import org.smartregister.chw.R;
-import org.smartregister.chw.reporting.models.IndicatorModel;
-import org.smartregister.chw.reporting.views.NumericIndicatorView;
-import org.smartregister.chw.reporting.views.PieChartIndicatorView;
 import org.smartregister.reporting.domain.IndicatorTally;
+import org.smartregister.reporting.impl.ReportingModule;
+import org.smartregister.reporting.impl.models.IndicatorModel;
+import org.smartregister.reporting.impl.views.NumericIndicatorView;
+import org.smartregister.reporting.impl.views.PieChartIndicatorView;
 
 import java.util.List;
 import java.util.Map;
 
-import static org.smartregister.chw.reporting.ReportingUtil.getIndicatorModel;
-import static org.smartregister.chw.reporting.ReportingUtil.getPieChartViewModel;
-import static org.smartregister.chw.reporting.views.IndicatorView.CountType.LATEST_COUNT;
-import static org.smartregister.chw.reporting.views.IndicatorView.CountType.STATIC_COUNT;
-import static org.smartregister.chw.reporting.views.IndicatorViewFactory.createView;
+import static org.smartregister.reporting.impl.ReportingUtil.getIndicatorModel;
+import static org.smartregister.reporting.impl.ReportingUtil.getPieChartViewModel;
+import static org.smartregister.reporting.impl.views.IndicatorView.CountType.LATEST_COUNT;
+import static org.smartregister.reporting.impl.views.IndicatorView.CountType.STATIC_COUNT;
+import static org.smartregister.reporting.impl.views.IndicatorViewFactory.createView;
+
 
 public class ChildReportingModule implements ReportingModule {
 
@@ -39,7 +41,6 @@ public class ChildReportingModule implements ReportingModule {
 
     @Override
     public void generateReport(ViewGroup mainLayout) {
-        mainLayout.removeAllViews();
         //Disclaimer: Pie charts have binary slices yes and no with different tallying done separately ;)
         IndicatorModel indicator1 = getIndicatorModel(STATIC_COUNT, countOfChildrenUnder5, R.string.total_under_5_children_label, indicatorTallies);
         mainLayout.addView(createView(new NumericIndicatorView(mainLayout.getContext(), indicator1)));
