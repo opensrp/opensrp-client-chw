@@ -6,8 +6,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
+
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
+
 import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.common.Helper;
@@ -19,12 +21,13 @@ import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
+
 import timber.log.Timber;
 
 public class MalariaProfileActivity extends BaseMalariaProfileActivity {
     private static final String CLIENT = "client";
     private MemberObject memberObject;
-    private ChildProfileActivityFlv flavor = new ChildProfileActivityFlv();
+//    private ChildProfileActivityFlv flavor = new ChildProfileActivityFlv();
 
     public static void startMalariaActivity(Activity activity, MemberObject memberObject, CommonPersonObjectClient client) {
         Intent intent = new Intent(activity, MalariaProfileActivity.class);
@@ -47,10 +50,8 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.other_member_menu, menu);
-        if (flavor.showMalariaConfirmationMenu()) {
-            menu.findItem(R.id.action_malaria_registration).setVisible(false);
-            menu.findItem(R.id.action_malaria_followup_visit).setVisible(true);
-        }
+        menu.findItem(R.id.action_malaria_registration).setVisible(false);
+        menu.findItem(R.id.action_malaria_followup_visit).setVisible(true);
         menu.findItem(R.id.action_anc_registration).setVisible(false);
         return true;
     }

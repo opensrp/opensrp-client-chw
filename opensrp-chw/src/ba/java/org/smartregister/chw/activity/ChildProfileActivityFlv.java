@@ -20,7 +20,7 @@ public class ChildProfileActivityFlv implements ChildProfileActivity.Flavor {
                         FamilyCallDialogFragment.launchDialog(activity, presenter.getFamilyId());
                         break;
                     case R.id.refer_to_facility_fab:
-                        Toast.makeText(activity, "Refer to facility", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(activity, R.string.refer_to_facilty, Toast.LENGTH_SHORT).show();
                         break;
                     default:
                         break;

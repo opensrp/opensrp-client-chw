@@ -367,4 +367,5 @@
     <string name="care_stim_skill">Caregiver stimulation skills:</string>
     <string name="early_learning">Early learning program:</string>
     <string name="malaria_follow_up">Malaria Follow up</string>
+    <string name="refer_to_facilty">Refer to facility</string>
 </resources>

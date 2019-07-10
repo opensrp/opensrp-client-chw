@@ -59,12 +59,14 @@ import static org.smartregister.chw.util.Constants.INTENT_KEY.IS_COMES_FROM_FAMI
 public class ChildProfileActivity extends BaseProfileActivity implements ChildProfileContract.View, ChildRegisterContract.InteractorCallBack {
     private static final String TAG = ChildProfileActivity.class.getCanonicalName();
     private static IntentFilter sIntentFilter;
+
     static {
         sIntentFilter = new IntentFilter();
         sIntentFilter.addAction(Intent.ACTION_DATE_CHANGED);
         sIntentFilter.addAction(Intent.ACTION_TIMEZONE_CHANGED);
         sIntentFilter.addAction(Intent.ACTION_TIME_CHANGED);
     }
+
     private boolean appBarTitleIsShown = true;
     private int appBarLayoutScrollRange = -1;
     private String childBaseEntityId;
@@ -594,11 +596,8 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.other_member_menu, menu);
-        if (flavor.showMalariaConfirmationMenu()) {
-            menu.findItem(R.id.action_malaria_registration).setVisible(true);
-        } else {
-            menu.findItem(R.id.action_malaria_registration).setVisible(false);
-        }
+        menu.findItem(R.id.action_malaria_registration).setVisible(true);
+        menu.findItem(R.id.action_malaria_followup_visit).setVisible(false);
         menu.findItem(R.id.action_anc_registration).setVisible(false);
         return true;
     }
@@ -670,6 +669,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
 
     public interface Flavor {
         OnClickFloatingMenu getOnClickFloatingMenu(Activity activity, ChildProfilePresenter presenter);
+
         boolean showMalariaConfirmationMenu();
     }
 
@@ -677,7 +677,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
         @Override
         public void onReceive(Context context, Intent intent) {
             final String action = intent.getAction();
-            assert action!=null;
+            assert action != null;
             if (action.equals(Intent.ACTION_TIME_CHANGED) ||
                     action.equals(Intent.ACTION_TIMEZONE_CHANGED)) {
                 fetchProfileData();
