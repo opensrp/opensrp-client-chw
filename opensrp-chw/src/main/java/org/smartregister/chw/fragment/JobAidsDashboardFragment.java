@@ -45,6 +45,11 @@ public class JobAidsDashboardFragment extends Fragment implements ReportContract
     }
 
     @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         presenter = new JobAidsDashboardFragmentPresenter(this);
@@ -69,11 +74,6 @@ public class JobAidsDashboardFragment extends Fragment implements ReportContract
     }
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-    }
-
-    @Override
     public void onDetach() {
         super.onDetach();
     }
@@ -87,9 +87,9 @@ public class JobAidsDashboardFragment extends Fragment implements ReportContract
         //Refresh view with new indicators
         visualizationsViewGroup.removeAllViews();
 
-       /* childReportingModule.setIndicatorTallies(indicatorTallies);
+        childReportingModule.setIndicatorTallies(indicatorTallies);
         childReportingModule.generateReport(visualizationsViewGroup);
-*/
+
         ancReportingModule.setIndicatorTallies(indicatorTallies);
         ancReportingModule.generateReport(visualizationsViewGroup);
 
