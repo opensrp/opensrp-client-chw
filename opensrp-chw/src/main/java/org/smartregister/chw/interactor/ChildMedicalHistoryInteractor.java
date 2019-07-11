@@ -6,21 +6,27 @@ import android.text.TextUtils;
 
 import org.apache.commons.lang3.text.WordUtils;
 import org.smartregister.chw.R;
-import org.smartregister.chw.application.ChwApplication;
-import org.smartregister.chw.contract.MedicalHistoryContract;
+import org.smartregister.chw.contract.ChildMedicalHistoryContract;
 import org.smartregister.chw.fragment.GrowthNutritionInputFragment;
+import org.smartregister.chw.repository.HomeVisitServiceRepository;
 import org.smartregister.chw.util.BaseService;
 import org.smartregister.chw.util.BaseVaccine;
 import org.smartregister.chw.util.ChildDBConstants;
 import org.smartregister.chw.util.ChildUtils;
+import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.HomeVisitServiceDataModel;
 import org.smartregister.chw.util.ReceivedVaccine;
 import org.smartregister.chw.util.ServiceContent;
 import org.smartregister.chw.util.ServiceHeader;
+import org.smartregister.chw.util.ServiceLine;
+import org.smartregister.chw.util.ServiceTask;
+import org.smartregister.chw.util.TaskServiceCalculate;
+import org.smartregister.chw.util.Utils;
 import org.smartregister.chw.util.VaccineContent;
 import org.smartregister.chw.util.VaccineHeader;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.util.AppExecutors;
+import org.smartregister.family.util.DBConstants;
 import org.smartregister.immunization.ImmunizationLibrary;
 import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.immunization.domain.ServiceRecord;
@@ -36,6 +42,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import timber.log.Timber;
+
 import static org.smartregister.chw.util.ChildDBConstants.KEY.BIRTH_CERT;
 import static org.smartregister.chw.util.ChildDBConstants.KEY.BIRTH_CERT_ISSUE_DATE;
 import static org.smartregister.chw.util.ChildDBConstants.KEY.BIRTH_CERT_NOTIFIICATION;
@@ -47,31 +55,38 @@ import static org.smartregister.chw.util.ChildDBConstants.KEY.VACCINE_CARD;
 import static org.smartregister.chw.util.ChildUtils.fixVaccineCasing;
 import static org.smartregister.util.Utils.getValue;
 
-public class MedicalHistoryInteractor implements MedicalHistoryContract.Interactor {
+public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContract.Interactor {
     private AppExecutors appExecutors;
-    public List<HomeVisitServiceDataModel> homeVisitServiceDataModels = new ArrayList<>();
+    //public List<HomeVisitServiceDataModel> homeVisitServiceDataModels = new ArrayList<>();
+
+    private ArrayList<BaseService> baseServiceArrayList = new ArrayList<>();
+
+    private HomeVisitServiceRepository homeVisitServiceRepository;
+
+    private Context context;
 
     @VisibleForTesting
-    MedicalHistoryInteractor(AppExecutors appExecutors) {
+    public ChildMedicalHistoryInteractor(){
+        Timber.v("constructor");
+    }
+
+    public ChildMedicalHistoryInteractor(AppExecutors appExecutors,HomeVisitServiceRepository homeVisitServiceRepository,Context context) {
         this.appExecutors = appExecutors;
+        this.homeVisitServiceRepository = homeVisitServiceRepository ;
+        this.context = context;
     }
 
-    public MedicalHistoryInteractor() {
-        this(new AppExecutors());
-    }
 
-
-    @Override
-    public void generateHomeVisitServiceList(long lastHomeVisit) {
-        //TODO need to work
+//    @Override
+//    public void generateHomeVisitServiceList(long lastHomeVisit) {
 //        HomeVisit homeVisit = ChwApplication.homeVisitRepository().findByDate(lastHomeVisit);
 //        if(homeVisit!=null){
-//            homeVisitServiceDataModels = ChwApplication.getHomeVisitServiceRepository().getHomeVisitServiceList(homeVisit.getHomeVisitId());
+//            homeVisitServiceDataModels = homeVisitServiceRepository.getHomeVisitServiceList(homeVisit.getHomeVisitId());
 //        }
-    }
+//    }
 
     @Override
-    public void fetchFullyImmunizationData(String dob, Map<String, Date> recievedVaccines, final MedicalHistoryContract.InteractorCallBack callBack) {
+    public void fetchFullyImmunizationData(String dob, Map<String, Date> recievedVaccines, final ChildMedicalHistoryContract.InteractorCallBack callBack) {
 
         List<String> vacList = new ArrayList<>();
         for (String name : recievedVaccines.keySet()) {
@@ -94,7 +109,8 @@ public class MedicalHistoryInteractor implements MedicalHistoryContract.Interact
     }
 
     @Override
-    public void fetchBirthAndIllnessData(CommonPersonObjectClient commonPersonObjectClient, final MedicalHistoryContract.InteractorCallBack callBack) {
+    public void fetchBirthCertificateData(CommonPersonObjectClient commonPersonObjectClient, final ChildMedicalHistoryContract.InteractorCallBack callBack) {
+
         String birthCert = getValue(commonPersonObjectClient.getColumnmaps(), BIRTH_CERT, true);
         final ArrayList<String> birthCertificationContent = new ArrayList<>();
         if (!TextUtils.isEmpty(birthCert) && birthCert.equalsIgnoreCase("Yes")) {
@@ -129,6 +145,11 @@ public class MedicalHistoryInteractor implements MedicalHistoryContract.Interact
             }
         };
         appExecutors.diskIO().execute(runnable);
+    }
+
+    @Override
+    public void fetchIllnessData(CommonPersonObjectClient commonPersonObjectClient, final ChildMedicalHistoryContract.InteractorCallBack callBack) {
+
         final ArrayList<String> illnessContent = new ArrayList<>();
 
         String illnessDate = getValue(commonPersonObjectClient.getColumnmaps(), ILLNESS_DATE, true);
@@ -167,12 +188,10 @@ public class MedicalHistoryInteractor implements MedicalHistoryContract.Interact
             };
             appExecutors.diskIO().execute(runnable3);
         }
-
-
     }
 
     @Override
-    public void setInitialVaccineList(Map<String, Date> recievedVaccines, final MedicalHistoryContract.InteractorCallBack callBack) {
+    public void setInitialVaccineList(Map<String, Date> recievedVaccines, final ChildMedicalHistoryContract.InteractorCallBack callBack) {
 
         ArrayList<ReceivedVaccine> receivedVaccineArrayList = new ArrayList<>();
         final ArrayList<BaseVaccine> baseVaccineArrayList = new ArrayList<>();
@@ -243,10 +262,11 @@ public class MedicalHistoryInteractor implements MedicalHistoryContract.Interact
     }
 
     @Override
-    public void fetchGrowthNutritionData(CommonPersonObjectClient commonPersonObjectClient, final MedicalHistoryContract.InteractorCallBack callBack) {
+    public void fetchGrowthNutritionData(CommonPersonObjectClient commonPersonObjectClient, final ChildMedicalHistoryContract.InteractorCallBack callBack) {
         String initialFeedingValue = getValue(commonPersonObjectClient.getColumnmaps(), ChildDBConstants.KEY.CHILD_BF_HR, true);
         RecurringServiceRecordRepository recurringServiceRecordRepository = ImmunizationLibrary.getInstance().recurringServiceRecordRepository();
         List<ServiceRecord> serviceRecordList = recurringServiceRecordRepository.findByEntityId(commonPersonObjectClient.entityId());
+        baseServiceArrayList.clear();
         if (serviceRecordList.size() > 0) {
             Collections.sort(serviceRecordList, new Comparator<ServiceRecord>() {
                 public int compare(ServiceRecord serviceRecord1, ServiceRecord serviceRecord2) {
@@ -265,10 +285,13 @@ public class MedicalHistoryInteractor implements MedicalHistoryContract.Interact
         initialServiceRecord.setName(ChildDBConstants.KEY.CHILD_BF_HR);
         initialServiceRecord.setValue(initialFeedingValue);
         serviceRecordList.add(0, initialServiceRecord);
-        final ArrayList<BaseService> baseServiceArrayList = new ArrayList<>();
         String lastType = "";
         for (ServiceRecord serviceRecord : serviceRecordList) {
             if (!serviceRecord.getType().equalsIgnoreCase(lastType)) {
+                if(!TextUtils.isEmpty(lastType)){
+                    ServiceLine serviceLine = new ServiceLine();
+                    baseServiceArrayList.add(serviceLine);
+                }
                 ServiceHeader serviceHeader = new ServiceHeader();
                 serviceHeader.setServiceHeaderName(serviceRecord.getType());
                 baseServiceArrayList.add(serviceHeader);
@@ -289,6 +312,165 @@ public class MedicalHistoryInteractor implements MedicalHistoryContract.Interact
                     @Override
                     public void run() {
                         callBack.updateGrowthNutrition(baseServiceArrayList);
+                    }
+                });
+            }
+        };
+        appExecutors.diskIO().execute(runnable);
+    }
+
+    @Override
+    public void fetchDietaryData(CommonPersonObjectClient commonPersonObjectClient, final ChildMedicalHistoryContract.InteractorCallBack callBack) {
+        List<HomeVisitServiceDataModel> homeVisitDietary = homeVisitServiceRepository.getLatestThreeEntry(Constants.EventType.MINIMUM_DIETARY_DIVERSITY);
+        final ArrayList<BaseService> baseServiceArrayList = new ArrayList<>();
+        if(homeVisitDietary.size()>0) {
+
+            ServiceLine serviceLine = new ServiceLine();
+            baseServiceArrayList.add(serviceLine);
+
+            ServiceHeader serviceHeader = new ServiceHeader();
+            serviceHeader.setServiceHeaderName(getContext().getString(R.string.minimum_dietary_title));
+            baseServiceArrayList.add(serviceHeader);
+            SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
+
+            for (HomeVisitServiceDataModel homeVisitServiceDataModel : homeVisitDietary) {
+                ServiceTask serviceTask = ChildUtils.createServiceTaskFromEvent(TaskServiceCalculate.TASK_TYPE.Minimum_dietary.name(),
+                        homeVisitServiceDataModel.getHomeVisitDetails(), getContext().getString(R.string.minimum_dietary_title),
+                        Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.TASK_MINIMUM_DIETARY);
+                if(serviceTask.getTaskLabel()!=null){
+                    ServiceContent content = new ServiceContent();
+                    String date = DATE_FORMAT.format(homeVisitServiceDataModel.getHomeVisitDate());
+                    content.setServiceName(serviceTask.getTaskLabel() + " - done " + date);
+                    baseServiceArrayList.add(content);
+                }
+
+            }
+        }
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                appExecutors.mainThread().execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        callBack.updateDietaryData(baseServiceArrayList);
+                    }
+                });
+            }
+        };
+        appExecutors.diskIO().execute(runnable);
+    }
+
+    @Override
+    public void fetchMuacData(CommonPersonObjectClient commonPersonObjectClient,final ChildMedicalHistoryContract.InteractorCallBack callBack) {
+
+        List<HomeVisitServiceDataModel> homeVisitMUAC = homeVisitServiceRepository.getLatestThreeEntry(Constants.EventType.MUAC);
+        final ArrayList<BaseService> baseServiceArrayList = new ArrayList<>();
+        if(homeVisitMUAC.size()>0) {
+
+            ServiceLine serviceLine = new ServiceLine();
+            baseServiceArrayList.add(serviceLine);
+
+            ServiceHeader serviceHeader = new ServiceHeader();
+            serviceHeader.setServiceHeaderName(getContext().getString(R.string.muac_title));
+            baseServiceArrayList.add(serviceHeader);
+            SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
+
+            for (HomeVisitServiceDataModel homeVisitServiceDataModel : homeVisitMUAC) {
+                ServiceTask serviceTask = ChildUtils.createServiceTaskFromEvent(TaskServiceCalculate.TASK_TYPE.MUAC.name(),
+                        homeVisitServiceDataModel.getHomeVisitDetails(), getContext().getString(R.string.muac_title),
+                        Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.TASK_MUAC);
+                if(serviceTask.getTaskLabel()!=null){
+                    ServiceContent content = new ServiceContent();
+                    String date = DATE_FORMAT.format(homeVisitServiceDataModel.getHomeVisitDate());
+                    content.setServiceName(serviceTask.getTaskLabel() + " - done " + date);
+                    baseServiceArrayList.add(content);
+                }
+
+            }
+        }
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                appExecutors.mainThread().execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        callBack.updateMuacData(baseServiceArrayList);
+                    }
+                });
+            }
+        };
+        appExecutors.diskIO().execute(runnable);
+    }
+
+    @Override
+    public void fetchLLitnData(CommonPersonObjectClient commonPersonObjectClient,final ChildMedicalHistoryContract.InteractorCallBack callBack) {
+
+        List<HomeVisitServiceDataModel> homeVisitLlitn = homeVisitServiceRepository.getLatestThreeEntry(Constants.EventType.LLITN);
+        final ArrayList<BaseService> baseServiceArrayList = new ArrayList<>();
+        if(homeVisitLlitn.size()>0) {
+
+            SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
+
+            for (HomeVisitServiceDataModel homeVisitServiceDataModel : homeVisitLlitn) {
+                ServiceTask serviceTask = ChildUtils.createServiceTaskFromEvent(TaskServiceCalculate.TASK_TYPE.LLITN.name(),
+                        homeVisitServiceDataModel.getHomeVisitDetails(), getContext().getString(R.string.llitn_title),
+                        Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.TASK_LLITN);
+                ServiceContent content = new ServiceContent();
+                String date = DATE_FORMAT.format(homeVisitServiceDataModel.getHomeVisitDate());
+                content.setServiceName(serviceTask.getTaskLabel() + " on " + date);
+                baseServiceArrayList.add(content);
+            }
+        }
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                appExecutors.mainThread().execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        callBack.updateLLitnDataData(baseServiceArrayList);
+                    }
+                });
+            }
+        };
+        appExecutors.diskIO().execute(runnable);
+    }
+
+    @Override
+    public void fetchEcdData(CommonPersonObjectClient commonPersonObjectClient, final ChildMedicalHistoryContract.InteractorCallBack callBack) {
+        String dateOfBirth = getValue(commonPersonObjectClient.getColumnmaps(), DBConstants.KEY.DOB, false);
+
+        List<HomeVisitServiceDataModel> homeVisitEcd = homeVisitServiceRepository.getLatestThreeEntry(Constants.EventType.ECD);
+        final ArrayList<BaseService> baseServiceArrayList = new ArrayList<>();
+        if(homeVisitEcd.size()>0) {
+
+            SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
+
+            for (HomeVisitServiceDataModel homeVisitServiceDataModel : homeVisitEcd) {
+                ServiceTask serviceTask = ChildUtils.createECDTaskFromEvent(getContext(),TaskServiceCalculate.TASK_TYPE.ECD.name(),
+                        homeVisitServiceDataModel.getHomeVisitDetails(),
+                        getContext().getString(R.string.ecd_title));
+
+                String date = DATE_FORMAT.format(homeVisitServiceDataModel.getHomeVisitDate());
+                String difference = ChildUtils.getDurationFromTwoDate(Utils.dobStringToDate(dateOfBirth),homeVisitServiceDataModel.getHomeVisitDate());
+                ServiceHeader serviceHeader = new ServiceHeader();
+                serviceHeader.setServiceHeaderName(date+" ("+difference+")");
+                baseServiceArrayList.add(serviceHeader);
+                String[] label = ChildUtils.splitStringByNewline(serviceTask.getTaskLabel());
+                for(String s : label){
+                    ServiceContent content = new ServiceContent();
+                    content.setServiceName(s);
+                    baseServiceArrayList.add(content);
+                }
+
+            }
+        }
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                appExecutors.mainThread().execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        callBack.updateEcdDataData(baseServiceArrayList);
                     }
                 });
             }
@@ -319,11 +501,11 @@ public class MedicalHistoryInteractor implements MedicalHistoryContract.Interact
 
     @Override
     public void onDestroy(boolean isChangingConfiguration) {
-
+        Timber.v("onDestroy");
     }
 
     public Context getContext() {
-        return ChwApplication.getInstance().getApplicationContext();
+        return context;
     }
 
     public interface Flavor {

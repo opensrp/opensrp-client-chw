@@ -2,7 +2,6 @@ package org.smartregister.chw.presenter;
 
 import android.util.Pair;
 
-import org.apache.commons.lang3.tuple.Triple;
 import org.joda.time.DateTime;
 import org.joda.time.Period;
 import org.json.JSONObject;
@@ -139,7 +138,7 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
 
     @Override
     public void updateVisitNotDone(long value) {
-        interactor.updateVisitNotDone(value,this);
+        interactor.updateVisitNotDone(value, this);
     }
 
 
@@ -206,7 +205,7 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
                 getView().setLastVisitRowView(childVisit.getLastVisitDays());
             }
             if (!childVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.NOT_VISIT_THIS_MONTH.name()) && childVisit.getLastVisitTime() != 0) {
-                getView().enableEdit(new Period(new DateTime(childVisit.getLastVisitTime()) , DateTime.now()).getHours() <= 24);
+                getView().enableEdit(new Period(new DateTime(childVisit.getLastVisitTime()), DateTime.now()).getHours() <= 24);
             }
 
         }
@@ -268,7 +267,7 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
         String middleName = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.MIDDLE_NAME, true);
         String childName = org.smartregister.util.Utils.getName(firstName, middleName + " " + lastName);
         getView().setProfileName(childName);
-        getView().setAge(Utils.getDuration(Utils.getValue(client.getColumnmaps(), DBConstants.KEY.DOB, false)));
+        getView().setAge(Utils.getTranslatedDate(Utils.getDuration(Utils.getValue(client.getColumnmaps(), DBConstants.KEY.DOB, false)), view.get().getContext()));
 
         dob = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.DOB, false);
 

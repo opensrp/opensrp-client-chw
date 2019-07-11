@@ -45,6 +45,7 @@ import org.smartregister.family.FamilyLibrary;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.sync.helper.ECSyncHelper;
+import org.smartregister.util.DateUtil;
 
 import java.lang.reflect.Type;
 import java.text.MessageFormat;
@@ -416,7 +417,7 @@ public class ChildUtils {
     }
 
     public static void updateTaskAsEvent(String eventType, String formSubmissionField, List<Object> values, List<Object> humenread,
-                                         String entityId, String choiceValue, String homeVisitId) {
+                                         String entityId, String choiceValue, String homeVisitId,String openMrsCode) {
         try {
             ECSyncHelper syncHelper = FamilyLibrary.getInstance().getEcSyncHelper();
             Event baseEvent = (Event) new Event()
@@ -429,7 +430,7 @@ public class ChildUtils {
             List<Object> huValue = new ArrayList<>();
             huValue.add(choiceValue);
 
-            baseEvent.addObs(new Obs("concept", "text", Constants.FORM_CONSTANTS.MUAC.CODE, "",
+            baseEvent.addObs(new Obs("concept", "text", openMrsCode, "",
                     values, humenread, null, formSubmissionField).withHumanReadableValues(huValue));
             baseEvent.addObs((new Obs()).withFormSubmissionField(Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_ID).withValue(homeVisitId)
                     .withFieldCode(Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_ID).withFieldType("formsubmissionField").withFieldDataType("text").withParentCode("").withHumanReadableValues(new ArrayList<>()));
@@ -669,6 +670,16 @@ public class ChildUtils {
         String yesVale = context.getString(R.string.yes);
         String noValue = context.getString(R.string.no);
         return value1.equalsIgnoreCase(noValue) && value2.equalsIgnoreCase(yesVale);
+    }
+    public static String[] splitStringByNewline(String strWithNewline){
+        return strWithNewline.split("\n");
+    }
+    public static String getDurationFromTwoDate(Date dob, Date homeVisitServiceDate){
+
+        long timeDiff = Math.abs(homeVisitServiceDate.getTime() - dob.getTime());
+        String difStr = DateUtil.getDuration(timeDiff);
+        return difStr;
+
     }
 
     public static void addToChildTable(String baseEntityID, List<org.smartregister.domain.db.Obs> observations) {

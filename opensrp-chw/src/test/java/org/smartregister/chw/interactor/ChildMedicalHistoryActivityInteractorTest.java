@@ -1,8 +1,7 @@
 package org.smartregister.chw.interactor;
 
-import android.util.Log;
+import android.content.Context;
 
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,18 +11,17 @@ import org.mockito.MockitoAnnotations;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.reflect.Whitebox;
 import org.smartregister.chw.BaseUnitTest;
-import org.smartregister.chw.contract.MedicalHistoryContract;
+import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.chw.contract.ChildMedicalHistoryContract;
 import org.smartregister.chw.fragment.GrowthNutritionInputFragment;
 import org.smartregister.chw.util.ChildDBConstants;
 import org.smartregister.chw.util.ServiceContent;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.util.AppExecutors;
 import org.smartregister.immunization.domain.ServiceRecord;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.smartregister.chw.util.ChildDBConstants.KEY.BIRTH_CERT;
@@ -32,35 +30,27 @@ import static org.smartregister.chw.util.ChildDBConstants.KEY.ILLNESS_ACTION;
 import static org.smartregister.chw.util.ChildDBConstants.KEY.ILLNESS_DATE;
 import static org.smartregister.chw.util.ChildDBConstants.KEY.ILLNESS_DESCRIPTION;
 
-public class MedicalHistoryInteractorTest extends BaseUnitTest {
-    private static final String TAG = MedicalHistoryInteractorTest.class.getCanonicalName();
+public class ChildMedicalHistoryActivityInteractorTest extends BaseUnitTest {
 
-    private MedicalHistoryInteractor interactor;
+    private ChildMedicalHistoryInteractor interactor;
+    private AppExecutors appExecutors;
     @Mock
-    private MedicalHistoryContract.InteractorCallBack callBack;
+    private ChildMedicalHistoryContract.InteractorCallBack callBack;
+    @Mock
+    private Context context;
 
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        interactor = Mockito.spy(MedicalHistoryInteractor.class);
-    }
+        appExecutors = Mockito.spy(AppExecutors.class);
+        interactor = Mockito.spy(ChildMedicalHistoryInteractor.class);
+        context = ChwApplication.getInstance().getApplicationContext();
 
-    @After
-    public void tearDown() throws Exception {
-        // TODO
-        Log.d(TAG, "tearDown implementation");
     }
 
     @Test
-    public void fetchFullyImmunizationData() {
-        // TODO
-        Log.d(TAG, "fetchFullyImmunizationData implementation");
-    }
+    public void fetchBirthAndIllnessDataTrueBirthdata() {
 
-    @Test
-    public void fetchBirthAndIllnessData_true_birthdata() {
-
-        AppExecutors appExecutors = Mockito.spy(AppExecutors.class);
         Whitebox.setInternalState(interactor, "appExecutors", appExecutors);
         String caseId = "cd6f66c8-3587-4c4d-b26d-f8753ba9dfa4";
         String name = "";
@@ -69,15 +59,15 @@ public class MedicalHistoryInteractorTest extends BaseUnitTest {
         mapBirth.put(BIRTH_CERT_NOTIFIICATION, "no");
         CommonPersonObjectClient commonPersonObjectClient = new CommonPersonObjectClient(caseId, mapBirth, name);
         commonPersonObjectClient.setColumnmaps(mapBirth);
-        interactor.fetchBirthAndIllnessData(commonPersonObjectClient, callBack);
+        PowerMockito.when(interactor.getContext()).thenReturn(context);
+        interactor.fetchBirthCertificateData(commonPersonObjectClient, callBack);
         verify(callBack, never()).updateBirthCertification(Mockito.any(ArrayList.class));
 
     }
 
     @Test
-    public void fetchBirthAndIllnessData_true_illnessdata() {
+    public void fetchBirthAndIllnessDataTrueIllnessdata() {
 
-        AppExecutors appExecutors = Mockito.spy(AppExecutors.class);
         Whitebox.setInternalState(interactor, "appExecutors", appExecutors);
         String caseId = "cd6f66c8-3587-4c4d-b26d-f8753ba9dfa4";
         String name = "";
@@ -87,15 +77,15 @@ public class MedicalHistoryInteractorTest extends BaseUnitTest {
         mapIllness.put(ILLNESS_ACTION, "managed");
         CommonPersonObjectClient commonPersonObjectClient = new CommonPersonObjectClient(caseId, mapIllness, name);
         commonPersonObjectClient.setColumnmaps(mapIllness);
-        android.content.Context ctx = Mockito.mock(android.content.Context.class);
-        PowerMockito.when(interactor.getContext()).thenReturn(ctx);
-        interactor.fetchBirthAndIllnessData(commonPersonObjectClient, callBack);
+        PowerMockito.when(interactor.getContext()).thenReturn(context);
+        interactor.fetchBirthCertificateData(commonPersonObjectClient, callBack);
         verify(callBack, never()).updateBirthCertification(Mockito.any(ArrayList.class));
 
     }
 
     @Test
     public void addContentInitialBreastfeeding() throws Exception{
+        PowerMockito.when(interactor.getContext()).thenReturn(context);
         ServiceContent serviceContent = new ServiceContent();
         ServiceRecord initialServiceRecord = new ServiceRecord();
         initialServiceRecord.setType(GrowthNutritionInputFragment.GROWTH_TYPE.EXCLUSIVE.getValue());

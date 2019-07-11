@@ -3,7 +3,6 @@ package org.smartregister.chw.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.bottomnavigation.LabelVisibilityMode;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
@@ -17,12 +16,10 @@ import org.smartregister.chw.anc.activity.BaseAncRegisterActivity;
 import org.smartregister.chw.anc.util.DBConstants;
 import org.smartregister.chw.custom_view.NavigationMenu;
 import org.smartregister.chw.fragment.AncRegisterFragment;
-import org.smartregister.chw.listener.ChwBottomNavigationListener;
-import org.smartregister.chw.listener.FamilyBottomNavigationListener;
+import org.smartregister.chw.listener.AncBottomNavigationListener;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
-import org.smartregister.helper.BottomNavigationHelper;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
 import java.util.Arrays;
@@ -87,8 +84,26 @@ public class AncRegisterActivity extends BaseAncRegisterActivity {
             bottomNavigationView.getMenu().removeItem(org.smartregister.family.R.id.action_scan_qr);
         }
 
-        FamilyBottomNavigationListener familyBottomNavigationListener = new FamilyBottomNavigationListener(this, bottomNavigationView);
-        bottomNavigationView.setOnNavigationItemSelectedListener(familyBottomNavigationListener);
+        AncBottomNavigationListener listener = new AncBottomNavigationListener(this, bottomNavigationView);
+        bottomNavigationView.setOnNavigationItemSelectedListener(listener);
+    }
+
+    public void startFamilyRegistration() {
+        FamilyRegisterActivity.startFamilyRegisterForm(this);
+    }
+
+    private void startRegisterActivity(Class registerClass) {
+        Intent intent = new Intent(this, registerClass);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        this.startActivity(intent);
+        this.overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
+        this.finish();
+    }
+
+    @Override
+    public void onRegistrationSaved(boolean isEdit) {
+        finish();
+        startRegisterActivity(AncRegisterActivity.class);
     }
 
     @Override
@@ -138,10 +153,5 @@ public class AncRegisterActivity extends BaseAncRegisterActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
     }
 }

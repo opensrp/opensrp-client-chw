@@ -368,4 +368,14 @@
     <string name="early_learning">Early learning program:</string>
     <string name="malaria_follow_up">Malaria Follow up</string>
     <string name="refer_to_facilty">Refer to facility</string>
+
+    <string name="health_facility_visit_num">ANC health facility visit {0}</string>
+    <string name="tt_dose">TT {0}</string>
+    <string name="iptp_sp_dose">IPTP-sp {0}</string>
+
+    <string name="rubella">Rubella</string>
+    <string name="opv_0">OPV 0</string>
+    <string name="opv_1">OPV 1</string>
+    <string name="opv_2">OPV 2</string>
+    <string name="yellow_fever">Yellow Fever</string>
 </resources>

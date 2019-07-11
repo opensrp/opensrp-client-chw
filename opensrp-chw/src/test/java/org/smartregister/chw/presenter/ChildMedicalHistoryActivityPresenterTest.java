@@ -7,34 +7,40 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.powermock.reflect.Whitebox;
-import org.smartregister.chw.contract.MedicalHistoryContract;
-import org.smartregister.chw.interactor.MedicalHistoryInteractor;
+import org.smartregister.chw.contract.ChildMedicalHistoryContract;
+import org.smartregister.chw.interactor.ChildMedicalHistoryInteractor;
+import org.smartregister.chw.repository.HomeVisitServiceRepository;
 import org.smartregister.chw.util.BaseVaccine;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
+import org.smartregister.family.util.AppExecutors;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MedicalHistoryPresenterTest {
+public class ChildMedicalHistoryActivityPresenterTest {
 
 
-    MedicalHistoryPresenter presenter;
-
-    @Mock
-    MedicalHistoryContract.View view;
+    private ChildMedicalHistoryPresenter presenter;
 
     @Mock
-    MedicalHistoryInteractor interactor;
+    private ChildMedicalHistoryContract.View view;
 
     @Mock
-    CommonPersonObjectClient commonPersonObjectClient;
+    private ChildMedicalHistoryInteractor interactor;
+
+    @Mock
+    private CommonPersonObjectClient commonPersonObjectClient;
+    @Mock
+    private HomeVisitServiceRepository homeVisitServiceRepository;
+    @Mock
+    private AppExecutors appExecutors;
 
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        presenter = new MedicalHistoryPresenter(view);
+        presenter = new ChildMedicalHistoryPresenter(view,appExecutors,homeVisitServiceRepository);
         Whitebox.setInternalState(presenter, "interactor", interactor);
     }
 
@@ -67,8 +73,8 @@ public class MedicalHistoryPresenterTest {
 
         CommonPersonObjectClient commonPersonObjectClient = Mockito.mock(CommonPersonObjectClient.class);
 
-        presenter.fetchBirthAndIllnessData(commonPersonObjectClient);
-        Mockito.verify(interactor).fetchBirthAndIllnessData(commonPersonObjectClient, presenter);
+        presenter.fetchBirthData(commonPersonObjectClient);
+        Mockito.verify(interactor).fetchBirthCertificateData(commonPersonObjectClient, presenter);
     }
 
 

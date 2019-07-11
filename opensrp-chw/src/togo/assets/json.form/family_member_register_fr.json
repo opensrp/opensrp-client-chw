@@ -318,7 +318,7 @@
         "relevance": {
           "step1:primary_caregiver": {
             "type": "string",
-            "ex": "equalTo(., \"Oui\")"
+            "ex": "equalTo(., \"Yes\")"
           }
         }
       },
@@ -340,7 +340,7 @@
         "relevance": {
           "step1:primary_caregiver": {
             "type": "string",
-            "ex": "equalTo(., \"Oui\")"
+            "ex": "equalTo(., \"Yes\")"
           }
         }
       },
@@ -373,7 +373,7 @@
         "relevance": {
           "step1:primary_caregiver": {
             "type": "string",
-            "ex": "equalTo(., \"Oui\")"
+            "ex": "equalTo(., \"Yes\")"
           }
         }
       }

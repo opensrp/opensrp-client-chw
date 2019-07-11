@@ -12,6 +12,8 @@ import java.util.Set;
 
 public class AncRegisterFragmentModel extends BaseAncRegisterFragmentModel {
 
+    private Flavor flavor = new AncRegisterFragmentModelFlv();
+
     @Override
     public String mainSelect(String tableName, String mainCondition) {
         SmartRegisterQueryBuilder queryBuilder = new SmartRegisterQueryBuilder();
@@ -48,6 +50,13 @@ public class AncRegisterFragmentModel extends BaseAncRegisterFragmentModel {
         columnList.add(Constants.TABLE_NAME.FAMILY + "." + DBConstants.KEY.PRIMARY_CAREGIVER);
         columnList.add(Constants.TABLE_NAME.FAMILY + "." + DBConstants.KEY.FIRST_NAME + " as " + org.smartregister.chw.anc.util.DBConstants.KEY.FAMILY_NAME);
 
+        columnList.addAll(flavor.mainColumns(tableName));
+
         return columnList.toArray(new String[columnList.size()]);
+    }
+
+
+    interface Flavor {
+        Set<String> mainColumns(String tableName);
     }
 }

@@ -21,6 +21,7 @@ import org.smartregister.util.Log;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -101,6 +102,16 @@ public class ImmunizationViewPresenter implements ImmunizationContact.Presenter,
             //getView().updateSubmitBtn();
         }else{
             this.homeVisitVaccineGroupDetails = homeVisitVaccineGroupDetails;
+            //if all due vaccine is same as given vaccine so remove the row.
+            // has an issue after 24 hours/next visit all given vaccine showing again
+            for (Iterator<HomeVisitVaccineGroup> iterator = this.homeVisitVaccineGroupDetails.iterator(); iterator.hasNext(); ) {
+                            HomeVisitVaccineGroup homeVisitVaccineGroup = iterator.next();
+                            if (homeVisitVaccineGroup.getDueVaccines().size() == 0 ||
+                                    (homeVisitVaccineGroup.getDueVaccines().size() == homeVisitVaccineGroup.getGivenVaccines().size())) {
+                                iterator.remove();
+                            }
+
+            }
             for (int i = 0; i < this.homeVisitVaccineGroupDetails.size(); i++) {
                 HomeVisitVaccineGroup homeVisitVaccineGroup = this.homeVisitVaccineGroupDetails.get(i);
                 if (i == 0) {
