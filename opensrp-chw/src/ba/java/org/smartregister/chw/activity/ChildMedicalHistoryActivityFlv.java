@@ -8,12 +8,11 @@ import org.smartregister.commonregistry.CommonPersonObjectClient;
 import java.util.Date;
 import java.util.Map;
 
-public class ChildMedicalHistoryActivityFlv extends DefaultChildMedicalHistoryActivity implements ChildMedicalHistoryActivity.Flavor {
+public class ChildMedicalHistoryActivityFlv extends DefaultChildMedicalHistoryActivity implements ChildMedicalHistoryActivity.Flavor{
 
     @Override
     public void renderView(Activity activity) {
         super.onViewUpdated(activity);
-
     }
 
     @Override
@@ -24,6 +23,5 @@ public class ChildMedicalHistoryActivityFlv extends DefaultChildMedicalHistoryAc
         fetchGrowthNutrition(childClient);
         fetchBirthCertificateData(childClient);
         fetchIllnessData(childClient);
-
     }
 }
