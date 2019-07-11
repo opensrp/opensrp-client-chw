@@ -21,7 +21,7 @@
     <item
             android:id="@+id/action_malaria_followup_visit"
             android:enabled="true"
-            android:title="@string/malaria_followup_visit"
+        android:title="@string/follow_up_visit"
             app:showAsAction="never"/>
 
     <item

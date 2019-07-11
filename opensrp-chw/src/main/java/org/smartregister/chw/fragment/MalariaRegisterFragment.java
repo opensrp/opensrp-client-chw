@@ -9,12 +9,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.R;
-import org.smartregister.chw.anc.util.DBConstants;
-
-import org.smartregister.chw.custom_view.NavigationMenu;
 import org.smartregister.chw.activity.MalariaProfileActivity;
+import org.smartregister.chw.anc.util.DBConstants;
+import org.smartregister.chw.custom_view.NavigationMenu;
 import org.smartregister.chw.malaria.domain.MemberObject;
 import org.smartregister.chw.malaria.fragment.BaseMalariaRegisterFragment;
 import org.smartregister.chw.model.MalariaRegisterFragmentModel;
@@ -23,14 +23,15 @@ import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.QueryBuilder;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.commonregistry.CommonFtsObject;
+import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.view.activity.BaseRegisterActivity;
 import org.smartregister.view.customcontrols.CustomFontTextView;
+
 import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.List;
-import org.smartregister.commonregistry.CommonPersonObjectClient;
 
 public class MalariaRegisterFragment extends BaseMalariaRegisterFragment {
 
@@ -102,12 +103,8 @@ public class MalariaRegisterFragment extends BaseMalariaRegisterFragment {
     protected void onViewClicked(View view) {
         super.onViewClicked(view);
 
-        switch (view.getId()) {
-            case R.id.due_only_layout:
-                toggleFilterSelection(view);
-                break;
-            default:
-                break;
+        if (view.getId() == R.id.due_only_layout) {
+            toggleFilterSelection(view);
         }
     }
 
