@@ -470,6 +470,17 @@ public class ChildUtils {
         }
 
     }
+    public static void processClientProcessInBackground(){
+        long lastSyncTimeStamp = ChwApplication.getInstance().getContext().allSharedPreferences().fetchLastUpdatedAtDate(0);
+        Date lastSyncDate = new Date(lastSyncTimeStamp);
+        try {
+            ChwApplication.getClientProcessor(ChwApplication.getInstance().getContext().applicationContext()).processClient(FamilyLibrary.getInstance().getEcSyncHelper().getEvents(lastSyncDate, BaseRepository.TYPE_Unsynced));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        ChwApplication.getInstance().getContext().allSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
+
+    }
 
     public static SpannableString daysAway(String dueDate) {
         SpannableString spannableString;

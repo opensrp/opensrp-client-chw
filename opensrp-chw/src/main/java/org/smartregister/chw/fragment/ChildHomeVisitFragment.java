@@ -379,7 +379,11 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         dismiss();
         if (context instanceof ChildProfileActivity) {
             ChildProfileActivity activity = (ChildProfileActivity) context;
-            activity.updateImmunizationData();
+            activity.processBackgroundEvent();
+        }
+        else if (context instanceof ChildRegisterActivity) {
+            ChildUtils.processClientProcessInBackground();
+            ((ChildRegisterActivity) getActivity()).refreshList(FetchStatus.fetched);
         }
 
     }
@@ -484,8 +488,6 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                         ChildUtils.updateVaccineCardAsEvent(context, childClient.getCaseId(), vaccineCardData);
 
                     }
-                    processClientInBackground();
-                    Log.d("TAKING_TIME","in same common data6:"+(System.currentTimeMillis() - startTime));
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -495,34 +497,18 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                 appExecutors.mainThread().execute(new Runnable() {
                     @Override
                     public void run() {
-                        Log.d("TAKING_TIME","in same common data7:"+(System.currentTimeMillis() - startTime));
+                        if(isEditMode){
+                            saveData();
+                            return;
+                        }
                         progressBar.setVisibility(View.GONE);
                         closeScreen();
-                        if (getActivity() instanceof ChildRegisterActivity) {
-                            ((ChildRegisterActivity) getActivity()).refreshList(FetchStatus.fetched);
-                        }
+
                     }
                 });
             }
         };
         appExecutors.diskIO().execute(runnable);
-    }
-    private void processClientInBackground(){
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                long lastSyncTimeStamp = ChwApplication.getInstance().getContext().allSharedPreferences().fetchLastUpdatedAtDate(0);
-                Date lastSyncDate = new Date(lastSyncTimeStamp);
-                try {
-                    ChwApplication.getClientProcessor(ChwApplication.getInstance().getContext().applicationContext()).processClient(FamilyLibrary.getInstance().getEcSyncHelper().getEvents(lastSyncDate, BaseRepository.TYPE_Unsynced));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                ChwApplication.getInstance().getContext().allSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
-                Log.d("TAKING_TIME","in same common data5:"+(System.currentTimeMillis() - startTime));
-
-            }
-        }).start();
     }
 
     private void showCloseDialog() {
