@@ -67,6 +67,7 @@ android {
             buildConfigField "int", "IMAGE_UPLOAD_MINUTES", '180'
             buildConfigField "int", "PULL_UNIQUE_IDS_MINUTES", '180'
             buildConfigField "int", "REPORT_INDICATOR_GENERATION_MINUTES", '180'
+            buildConfigField "int", "HOME_VISIT_MINUTES", '60'
         }
 
         debug {
@@ -79,6 +80,7 @@ android {
             buildConfigField "int", "IMAGE_UPLOAD_MINUTES", '15'
             buildConfigField "int", "PULL_UNIQUE_IDS_MINUTES", '15'
             buildConfigField "int", "REPORT_INDICATOR_GENERATION_MINUTES", '15'
+            buildConfigField "int", "HOME_VISIT_MINUTES", '60'
             testCoverageEnabled true
         }
     }
@@ -135,8 +137,8 @@ android {
             applicationIdSuffix ".togo"
             versionCode 1
             versionName "0.0.3"
-            buildConfigField "String", 'opensrp_url', '"https://wcaro-togo-preview.smartregister.org/opensrp/"'
-            buildConfigField "String", 'opensrp_url_debug', '"https://wcaro-togo-preview.smartregister.org/opensrp/"'
+            buildConfigField "String", 'opensrp_url', '"https://unicefwcaro.smartregister.org/opensrp/"'
+            buildConfigField "String", 'opensrp_url_debug', '"https://unicefwcaro-stage.smartregister.org/opensrp/"'
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"Country", "Clinic" , "CHSS" , "CHA", "Supervisor", "CHW"}'
             buildConfigField "String", 'DEFAULT_LOCATION', '"CHW"'
             buildConfigField "boolean", 'SUPPORT_QR', 'false'
@@ -236,7 +238,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'design'
     }
 
-    implementation('org.smartregister:opensrp-client-chw-anc:0.0.7-BETA8-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-chw-anc:0.0.7-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'org.smartregister', module: 'opensrp-client-core'
         exclude group: 'com.android.support', module: 'appcompat-v7'
