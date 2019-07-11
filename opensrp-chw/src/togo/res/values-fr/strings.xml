@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">CAE Togo</string>
-    <string name="login_title">Moniteur CAE Togo</string>
-    <string name="nav_logo">Moniteur CAE Togo</string>
-    <string name="menu_anc">SPN</string>
-    <string name="menu_pnc">Consultation post natale (CPN)</string>
+    <string name="app_name">CFC-RTM - Togo</string>
+    <string name="login_title">Communauté Amies des Enfants Suivi en Temps Réel - Togo</string>
+    <string name="nav_logo">CFC-RTM - Togo</string>
+    <string name="menu_anc">CPN</string>
+    <string name="menu_pnc">CoPN</string>
 </resources>

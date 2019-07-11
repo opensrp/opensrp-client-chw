@@ -11,6 +11,7 @@ import org.jeasy.rules.api.Rules;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.smartregister.chw.R;
+import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.provider.AncRegisterProvider;
 import org.smartregister.chw.anc.util.DBConstants;
 import org.smartregister.chw.application.ChwApplication;
@@ -25,7 +26,11 @@ import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.view.contract.SmartRegisterClient;
 
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 import java.util.Set;
+
+import static org.smartregister.chw.anc.AncLibrary.getInstance;
 
 public class ChwAncRegisterProvider extends AncRegisterProvider {
 
@@ -116,10 +121,16 @@ public class ChwAncRegisterProvider extends AncRegisterProvider {
         protected Void doInBackground(Void... params) {
             //map = getChildDetails(pc.getCaseId());
 
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
             String lmpDate = org.smartregister.util.Utils.getValue(pc.getColumnmaps(), ChwDBConstants.LMP, false);
-            String visitDate = org.smartregister.util.Utils.getValue(pc.getColumnmaps(), ChildDBConstants.KEY.LAST_HOME_VISIT, false);
-            String lastVisitNotDone = org.smartregister.util.Utils.getValue(pc.getColumnmaps(), ChwDBConstants.VISIT_NOT_DONE, false);
+            String baseEntityID = org.smartregister.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, false);
+
             LocalDate dateCreated = (new DateTime(org.smartregister.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.DATE_CREATED, false))).toLocalDate();
+
+            Visit lastNotDoneVisit = getInstance().visitRepository().getLatestVisit(baseEntityID, org.smartregister.chw.anc.util.Constants.EVENT_TYPE.ANC_HOME_VISIT_NOT_DONE);
+            Visit lastVisit = getInstance().visitRepository().getLatestVisit(baseEntityID, org.smartregister.chw.anc.util.Constants.EVENT_TYPE.ANC_HOME_VISIT);
+            String visitDate = lastVisit != null ? sdf.format(lastVisit.getDate()) : null;
+            String lastVisitNotDone = lastNotDoneVisit != null ? sdf.format(lastNotDoneVisit.getDate()) : null;
 
             ancVisit = AncHomeVisitUtil.getVisitStatus(context, rules, lmpDate, visitDate, lastVisitNotDone, dateCreated);
             return null;

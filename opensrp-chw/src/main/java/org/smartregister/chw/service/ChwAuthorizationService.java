@@ -1,4 +1,4 @@
-package org.smartregister.chw.contract;
+package org.smartregister.chw.service;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;

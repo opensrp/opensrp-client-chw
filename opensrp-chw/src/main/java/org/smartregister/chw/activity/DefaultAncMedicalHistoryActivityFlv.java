@@ -24,14 +24,15 @@ import java.util.TreeMap;
 public abstract class DefaultAncMedicalHistoryActivityFlv implements AncMedicalHistoryActivity.Flavor {
 
     private LinearLayout linearLayoutLastVisit;
-    private LinearLayout linearLayoutAncCard;
-    private LinearLayout linearLayoutHealthFacilityVisit, linearLayoutHealthFacilityVisitDetails;
+    protected LinearLayout linearLayoutAncCard;
+    protected LinearLayout linearLayoutHealthFacilityVisit;
+    protected LinearLayout linearLayoutHealthFacilityVisitDetails;
     private LinearLayout linearLayoutTTImmunization, linearLayoutTTImmunizationDetails;
     private LinearLayout linearLayoutIPTp, linearLayoutIPTpDetails;
     private TextView customFontTextViewLastVisit;
     private TextView customFontTextViewAncCard;
 
-    private LayoutInflater inflater;
+    protected LayoutInflater inflater;
 
     private String[] hf_params = {"anc_visit_date", "hb_level", "dia_bp", "weight", "ifa_received", "tests_done"};
 
@@ -163,12 +164,12 @@ public abstract class DefaultAncMedicalHistoryActivityFlv implements AncMedicalH
 
     }
 
-    private void processAncCard(String has_card, Context context) {
+    protected void processAncCard(String has_card, Context context) {
         linearLayoutAncCard.setVisibility(View.VISIBLE);
         customFontTextViewAncCard.setText(MessageFormat.format("{0}: {1}", context.getString(R.string.anc_home_visit_anc_card_received), has_card.toLowerCase()));
     }
 
-    private void processHealthFacilityVisit(List<Map<String, String>> hf_visits, Context context) {
+    protected void processHealthFacilityVisit(List<Map<String, String>> hf_visits, Context context) {
         if (hf_visits != null && hf_visits.size() > 0) {
             linearLayoutHealthFacilityVisit.setVisibility(View.VISIBLE);
 

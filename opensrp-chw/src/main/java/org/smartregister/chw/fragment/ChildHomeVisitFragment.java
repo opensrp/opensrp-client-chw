@@ -111,7 +111,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     private ProgressBar progressBar;
     private RecyclerView taskServiceRecyclerView;
     private ServiceTaskAdapter serviceTaskAdapter;
-    private ChildHomeVisitFragmentFlv flavor = new ChildHomeVisitFragmentFlv();
+    private Flavor flavor = new ChildHomeVisitFragmentFlv();
 
     public void setContext(Context context) {
         this.context = context;

@@ -252,10 +252,10 @@
         }
       },
       {
-        "key": "genre",
+        "key": "gender",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person",
-        "openmrs_entity_id": "genre",
+        "openmrs_entity_id": "gender",
         "type": "spinner",
         "hint": "Sexe",
         "values": [
@@ -305,6 +305,10 @@
         "values": [
           "Oui",
           "Non"
+        ],
+        "keys": [
+          "Yes",
+          "No"
         ],
         "openmrs_choice_ids": {
           "Oui": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
