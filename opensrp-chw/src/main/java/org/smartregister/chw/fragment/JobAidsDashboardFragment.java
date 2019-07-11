@@ -15,11 +15,9 @@ import android.widget.ProgressBar;
 
 import org.smartregister.chw.R;
 import org.smartregister.chw.presenter.JobAidsDashboardFragmentPresenter;
-import org.smartregister.chw.reporting.modules.AncReportingModule;
-import org.smartregister.chw.reporting.modules.ChildReportingModule;
+import org.smartregister.chw.reporting.ChwReport;
 import org.smartregister.reporting.contract.ReportContract;
 import org.smartregister.reporting.domain.IndicatorTally;
-import org.smartregister.reporting.impl.ReportingModule;
 
 import java.util.List;
 import java.util.Map;
@@ -28,10 +26,8 @@ public class JobAidsDashboardFragment extends Fragment implements ReportContract
 
     private static ReportContract.Presenter presenter;
     private ViewGroup visualizationsViewGroup;
-    private List<Map<String, IndicatorTally>> indicatorTallies;
     private ProgressBar progressBar;
-    private ReportingModule childReportingModule;
-    private ReportingModule ancReportingModule;
+    private List<Map<String, IndicatorTally>> indicatorTallies;
 
     public JobAidsDashboardFragment() {
         // Required empty public constructor
@@ -53,14 +49,11 @@ public class JobAidsDashboardFragment extends Fragment implements ReportContract
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         presenter = new JobAidsDashboardFragmentPresenter(this);
-        childReportingModule = new ChildReportingModule();
-        ancReportingModule = new AncReportingModule();
         loadIndicatorTallies();
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_job_aids_dashboard, container, false);
         progressBar = rootView.findViewById(R.id.progress_bar);
@@ -82,20 +75,6 @@ public class JobAidsDashboardFragment extends Fragment implements ReportContract
         getLoaderManager().initLoader(0, null, this).forceLoad();
     }
 
-    private void buildVisualisations() {
-
-        //Refresh view with new indicators
-        visualizationsViewGroup.removeAllViews();
-
-        childReportingModule.setIndicatorTallies(indicatorTallies);
-        childReportingModule.generateReport(visualizationsViewGroup);
-
-        ancReportingModule.setIndicatorTallies(indicatorTallies);
-        ancReportingModule.generateReport(visualizationsViewGroup);
-
-        progressBar.setVisibility(View.GONE);
-    }
-
     @NonNull
     @Override
     public Loader<List<Map<String, IndicatorTally>>> onCreateLoader(int i, @Nullable Bundle bundle) {
@@ -104,7 +83,7 @@ public class JobAidsDashboardFragment extends Fragment implements ReportContract
 
     @Override
     public void onLoadFinished(@NonNull Loader<List<Map<String, IndicatorTally>>> loader, List<Map<String, IndicatorTally>> indicatorTallies) {
-        this.indicatorTallies = indicatorTallies;
+        setIndicatorTallies(indicatorTallies);
         refreshUI();
     }
 
@@ -115,7 +94,25 @@ public class JobAidsDashboardFragment extends Fragment implements ReportContract
 
     @Override
     public void refreshUI() {
-        buildVisualisations();
+        buildVisualization(visualizationsViewGroup);
+        progressBar.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void buildVisualization(ViewGroup viewGroup) {
+        //Refresh view with new indicators
+        viewGroup.removeAllViews();
+        ChwReport.createChildReportViews(viewGroup, indicatorTallies);
+        ChwReport.createAncReportViews(viewGroup, indicatorTallies);
+
+    }
+
+    public List<Map<String, IndicatorTally>> getIndicatorTallies() {
+        return this.indicatorTallies;
+    }
+
+    public void setIndicatorTallies(List<Map<String, IndicatorTally>> indicatorTallies) {
+        this.indicatorTallies = indicatorTallies;
     }
 
     private static class ReportIndicatorsLoader extends AsyncTaskLoader<List<Map<String, IndicatorTally>>> {
