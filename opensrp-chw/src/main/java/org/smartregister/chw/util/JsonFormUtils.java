@@ -540,7 +540,7 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
 
                 break;
 
-            case org.smartregister.family.util.Constants.KEY.PHOTO:
+            case Constants.KEY.PHOTO:
 
                 Photo photo = ImageUtils.profilePhotoByClientID(client.getCaseId(), Utils.getProfileImageResourceIDentifier());
                 if (StringUtils.isNotBlank(photo.getFilePath())) {
@@ -590,6 +590,12 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
             case DBConstants.KEY.FAMILY_SOURCE_INCOME:
 
                 jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), DBConstants.KEY.FAMILY_SOURCE_INCOME, false));
+
+                break;
+
+            case ChwDBConstants.NEAREST_HEALTH_FACILITY:
+
+                jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), ChwDBConstants.NEAREST_HEALTH_FACILITY, false));
 
                 break;
 
