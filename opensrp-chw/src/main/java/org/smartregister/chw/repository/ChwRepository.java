@@ -85,7 +85,7 @@ public class ChwRepository extends Repository {
         if (!indicatorDataInitialised || isUpdated) {
             initializeReportIndicators(database, reportingLibraryInstance);
             reportingLibraryInstance.getContext().allSharedPreferences().savePreference(
-                    indicatorDataInitialisedPref, "false");
+                    indicatorDataInitialisedPref, "true");
             reportingLibraryInstance.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(BuildConfig.VERSION_CODE));
         }
 
@@ -93,10 +93,10 @@ public class ChwRepository extends Repository {
 
     private void initializeReportIndicators(SQLiteDatabase database,
                                             ReportingLibrary reportingLibraryInstance) {
-  //      String childIndicatorsConfigFile = "config/child-reporting-indicator-definitions.yml";
-        String ancIndicatorConfigFile = "config/anc-reporting-indicator-definitions.yml";
         // This will persist the data in the DB
- //       reportingLibraryInstance.initIndicatorData(childIndicatorsConfigFile, database);
+        String childIndicatorsConfigFile = "config/child-reporting-indicator-definitions.yml";
+        String ancIndicatorConfigFile = "config/anc-reporting-indicator-definitions.yml";
+        reportingLibraryInstance.initIndicatorData(childIndicatorsConfigFile, database);
         reportingLibraryInstance.initIndicatorData(ancIndicatorConfigFile, database);
     }
 
