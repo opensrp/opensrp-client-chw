@@ -36,7 +36,6 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.activity.ChildProfileActivity;
 import org.smartregister.chw.activity.ChildRegisterActivity;
 import org.smartregister.chw.adapter.ServiceTaskAdapter;
-import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.contract.ChildHomeVisitContract;
 import org.smartregister.chw.custom_view.HomeVisitGrowthAndNutrition;
 import org.smartregister.chw.custom_view.ImmunizationView;
@@ -54,29 +53,22 @@ import org.smartregister.chw.util.ServiceTask;
 import org.smartregister.chw.util.TaskServiceCalculate;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.FetchStatus;
-import org.smartregister.family.FamilyLibrary;
 import org.smartregister.family.activity.BaseFamilyProfileActivity;
 import org.smartregister.family.util.AppExecutors;
 import org.smartregister.family.util.DBConstants;
-import org.smartregister.repository.BaseRepository;
 import org.smartregister.util.FormUtils;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-
 import de.hdodenhof.circleimageview.CircleImageView;
 import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
 import io.reactivex.functions.BiFunction;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
-
 import static org.smartregister.chw.util.ChildDBConstants.KEY.BIRTH_CERT;
 import static org.smartregister.chw.util.ChildDBConstants.KEY.VACCINE_CARD;
 import static org.smartregister.chw.util.Utils.dd_MMM_yyyy;
@@ -86,7 +78,6 @@ import static org.smartregister.util.Utils.getDuration;
 import static org.smartregister.util.Utils.getValue;
 
 public class ChildHomeVisitFragment extends DialogFragment implements View.OnClickListener, ChildHomeVisitContract.View {
-    long startTime;
 
     private static IntentFilter sIntentFilter;
 
@@ -322,46 +313,12 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                 break;
             case R.id.textview_submit:
                 if (checkAllGiven()) {
-                    startTime = System.currentTimeMillis();
                     final String homeVisitId = JsonFormUtils.generateRandomUUIDString();
                     String vaccineCardData = (layoutVaccineCard.getVisibility() == View.VISIBLE &&
                             !TextUtils.isEmpty(textViewVaccineCardText.getText().toString()))?
                             textViewVaccineCardText.getText().toString():"";
                     submitData(System.currentTimeMillis() + "", homeVisitId,vaccineCardData);
-//                    saveCommonData(System.currentTimeMillis() + "", homeVisitId).subscribeOn(Schedulers.io())
-//                            .observeOn(AndroidSchedulers.mainThread())
-//                            .doOnSubscribe(new Consumer<Disposable>() {
-//                                @Override
-//                                public void accept(Disposable disposable) throws Exception {
-//                                    progressBar.setVisibility(View.VISIBLE);
-//                                }
-//                            })
-//                            .doOnTerminate(new Action() {
-//                                @Override
-//                                public void run() throws Exception {
-//                                    progressBar.setVisibility(View.GONE);
-//                                    Log.d("TAKING_TIME","doOnTerminate:"+(startTime - System.currentTimeMillis()));
-//                                    if (layoutVaccineCard.getVisibility() == View.VISIBLE &&
-//                                            !TextUtils.isEmpty(textViewVaccineCardText.getText().toString())) {
-//                                        ChildUtils.updateVaccineCardAsEvent(context, childClient.getCaseId(), textViewVaccineCardText.getText().toString());
-//                                    }
-//                                    Log.d("TAKING_TIME","doOnTerminate 2:"+(startTime - System.currentTimeMillis()));
-//
-//                                    if (isEditMode) {
-//                                        saveData();
-//                                        return;
-//                                    }
-//                                    Log.d("TAKING_TIME","doOnTerminate 3:"+(startTime - System.currentTimeMillis()));
-//
-//                                    closeScreen();
-//                                    if (getActivity() instanceof ChildRegisterActivity) {
-//                                        ((ChildRegisterActivity) getActivity()).refreshList(FetchStatus.fetched);
-//                                    }
-//                                    Log.d("TAKING_TIME","doOnTerminate4:"+(startTime - System.currentTimeMillis()));
-//
-//                                }
-//                            })
-//                            .subscribe();
+
                 }
                 break;
             case R.id.close:
@@ -388,61 +345,6 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
 
     }
 
-//    private Observable saveCommonData(final String homeVisitDateLong, final String homeVisitId) {
-//        return Observable.create(new ObservableOnSubscribe() {
-//            @Override
-//            public void subscribe(ObservableEmitter emitter) throws Exception {
-//                try {
-//                    //JSONArray vaccineGroup = homeVisitImmunizationView.getGroupVaccinesGivenThisVisit();
-//                    //JSONArray singleVaccine = homeVisitImmunizationView.getSingleVaccinesGivenThisVisit();
-//                    //not needed given vaccine track.
-//                    JSONObject singleVaccineObject = new JSONObject().put("singleVaccinesGiven", new JSONArray());
-//                    JSONObject vaccineGroupObject = new JSONObject().put("groupVaccinesGiven", new JSONArray());
-//                    //end of not used
-//                    JSONObject vaccineNotGivenObject;
-//                    if (isEditMode) {
-//                        vaccineNotGivenObject = new JSONObject().put("vaccineNotGiven", new JSONArray(ChildUtils.gsonConverter.toJson(immunizationView.getNotGivenVaccine())));
-//                    } else {
-//                        vaccineNotGivenObject = new JSONObject().put("vaccineNotGiven", new JSONArray(ChildUtils.gsonConverter.toJson(immunizationView.getNotGivenVaccine())));
-//
-//                    }
-//                    JSONObject service = new JSONObject(ChildUtils.gsonConverter.toJson(homeVisitGrowthAndNutritionLayout.returnSaveStateMap()));
-//                    JSONObject serviceNotGiven = new JSONObject(ChildUtils.gsonConverter.toJson(homeVisitGrowthAndNutritionLayout.returnNotSaveStateMap()));
-//
-//                    if (illnessJson == null) {
-//                        illnessJson = new JSONObject();
-//                    }
-//                    if (birthCertJson == null) {
-//                        birthCertJson = new JSONObject();
-//                    }
-//
-//                    Map<String, JSONObject> fields = new HashMap<>();
-//                    fields.put(Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_SINGLE_VACCINE, singleVaccineObject);
-//                    fields.put(Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_GROUP_VACCINE, vaccineGroupObject);
-//                    fields.put(Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_VACCINE_NOT_GIVEN, vaccineNotGivenObject);
-//                    fields.put(Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_SERVICE, service);
-//                    fields.put(Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_SERVICE_NOT_GIVEN, serviceNotGiven);
-//                    fields.put(Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_BIRTH_CERT, birthCertJson);
-//                    fields.put(Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_ILLNESS, illnessJson);
-//                    Log.d("TAKING_TIME","in same common data1:"+(System.currentTimeMillis() - startTime));
-//                    ChildUtils.updateHomeVisitAsEvent(childClient.entityId(), Constants.EventType.CHILD_HOME_VISIT, Constants.TABLE_NAME.CHILD, fields, ChildDBConstants.KEY.LAST_HOME_VISIT, homeVisitDateLong, homeVisitId);
-//                    Log.d("TAKING_TIME","in same common data2:"+(System.currentTimeMillis() - startTime));
-//                    if (((ChildHomeVisitPresenter) presenter).getSaveSize() > 0) {
-//                        presenter.saveForm();
-//                    }
-//                    Log.d("TAKING_TIME","in same common data3:"+(System.currentTimeMillis() - startTime));
-//                    if (serviceTaskAdapter != null) {
-//                        serviceTaskAdapter.makeEvent(homeVisitId, childClient.getCaseId());
-//                    }
-//                    Log.d("TAKING_TIME","in same common data4:"+(System.currentTimeMillis() - startTime));
-//
-//                    emitter.onComplete();
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        });
-//    }
     private void submitData(final String homeVisitDateLong, final String homeVisitId, final String vaccineCardData){
         progressBar.setVisibility(View.VISIBLE);
         Runnable runnable = new Runnable() {
@@ -598,7 +500,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
 
     private boolean checkAllGiven() {
         //if(isEditMode) return true;
-        org.smartregister.util.Log.logError("SUBMIT_BTN", "checkAllGiven>>" + isAllImmunizationSelected() + ": " + isAllGrowthSelected());
+        //org.smartregister.util.Log.logError("SUBMIT_BTN", "checkAllGiven>>" + isAllImmunizationSelected() + ": " + isAllGrowthSelected());
         return isAllImmunizationSelected() && isAllGrowthSelected() && isAllTaskDone();
     }
 
