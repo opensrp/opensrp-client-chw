@@ -26,7 +26,7 @@ public class MalariaRegisterFragmentTest {
     private View dueOnlyLayout;
 
     @Before
-    public void setup() {
+    public void setUp() {
         malariaRegisterFragment = spy(MalariaRegisterFragment.class);
         dueOnlyLayout = spy(View.class);
     }
