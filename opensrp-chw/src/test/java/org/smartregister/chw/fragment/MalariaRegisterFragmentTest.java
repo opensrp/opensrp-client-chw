@@ -1,7 +1,6 @@
 package org.smartregister.chw.fragment;
 
 import org.junit.Before;
-import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.MockitoAnnotations;
 import org.robolectric.RobolectricTestRunner;
@@ -15,9 +14,5 @@ public class MalariaRegisterFragmentTest {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-    }
-
-    @Test
-    public void testonEmptyMalariaCountIsCalled() {
     }
 }
