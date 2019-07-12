@@ -136,20 +136,20 @@ public class MalariaRegisterFragment extends BaseMalariaRegisterFragment {
     }
 
     //due filter for the client
-    private void dueFilter(View dueOnlyLayout) {
+    protected void dueFilter(View dueOnlyLayout) {
         filter(searchText(),"",presenter().getMainCondition(),false);
         dueOnlyLayout.setTag(DUE_FILTER_TAG);
         switchViews(dueOnlyLayout, true);
     }
 
     //normal search for the client
-    private void normalFilter(View dueOnlyLayout) {
+    protected void normalFilter(View dueOnlyLayout) {
         filter(searchText(), "", presenter().getMainCondition(), false);
         dueOnlyLayout.setTag(null);
         switchViews(dueOnlyLayout, false);
     }
 
-    private String searchText() {
+    protected String searchText() {
         return (getSearchView() == null) ? "" : getSearchView().getText().toString();
     }
 
@@ -163,7 +163,7 @@ public class MalariaRegisterFragment extends BaseMalariaRegisterFragment {
         }
     }
 
-    private String dueFilterAndSortQuery() {
+    protected String dueFilterAndSortQuery() {
         SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder(mainSelect);
 
         String query = "";
