@@ -2,7 +2,7 @@ package org.smartregister.chw.interactor;
 
 import android.support.annotation.VisibleForTesting;
 import android.text.TextUtils;
-import android.util.Log;
+
 
 import com.google.gson.reflect.TypeToken;
 
@@ -37,6 +37,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
+import timber.log.Timber;
 
 import static org.smartregister.util.Utils.startAsyncTask;
 
@@ -178,6 +179,6 @@ public class HomeVisitGrowthNutritionInteractor implements HomeVisitGrowthNutrit
     @Override
     public void onDestroy(boolean isChangingConfiguration) {
         //TODO Implement onDestroy
-        Log.d(TAG, "onDestroy unimplemented");
+        Timber.d( "onDestroy unimplemented");
     }
 }

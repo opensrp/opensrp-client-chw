@@ -1,7 +1,6 @@
 package org.smartregister.chw.fragment;
 
 import android.os.Bundle;
-import android.util.Log;
 
 import org.smartregister.chw.model.FamilyProfileActivityModel;
 import org.smartregister.chw.presenter.FamilyProfileActivityPresenter;
@@ -14,6 +13,8 @@ import org.smartregister.family.util.Utils;
 
 import java.util.HashMap;
 import java.util.Set;
+
+import timber.log.Timber;
 
 public class FamilyProfileActivityFragment extends BaseFamilyProfileActivityFragment {
     private static final String TAG = FamilyProfileActivityFragment.class.getCanonicalName();
@@ -45,7 +46,7 @@ public class FamilyProfileActivityFragment extends BaseFamilyProfileActivityFrag
     @Override
     public void setAdvancedSearchFormData(HashMap<String, String> hashMap) {
         //TODO
-        Log.d(TAG, "setAdvancedSearchFormData");
+        Timber.d("setAdvancedSearchFormData");
     }
 
 }
