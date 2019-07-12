@@ -2,7 +2,7 @@ package org.smartregister.chw.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+
 import android.view.View;
 
 import org.smartregister.chw.R;
@@ -19,6 +19,8 @@ import org.smartregister.family.util.Utils;
 
 import java.util.HashMap;
 import java.util.Set;
+
+import timber.log.Timber;
 
 import static org.smartregister.chw.util.Constants.INTENT_KEY.IS_COMES_FROM_FAMILY;
 
@@ -117,7 +119,7 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
     @Override
     public void setAdvancedSearchFormData(HashMap<String, String> hashMap) {
         //TODO
-        Log.d(TAG, "setAdvancedSearchFormData");
+        Timber.d( "setAdvancedSearchFormData");
     }
 
 }

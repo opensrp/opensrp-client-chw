@@ -14,7 +14,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,6 +46,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+
+import timber.log.Timber;
 
 public class NavigationMenu implements NavigationContract.View, SyncStatusBroadcastReceiver.SyncStatusListener {
 
@@ -103,7 +105,7 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
             mPresenter = new NavigationPresenter(this);
             prepareViews(activity);
         } catch (Exception e) {
-            Log.e(TAG, e.toString());
+            Timber.e(e);
         }
     }
 
@@ -374,7 +376,7 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
 
     @Override
     public void onSyncInProgress(FetchStatus fetchStatus) {
-        Log.v(TAG, "onSyncInProgress");
+        Timber.v( "onSyncInProgress");
     }
 
     @Override

@@ -1,6 +1,5 @@
 package org.smartregister.chw.presenter;
 
-import android.util.Log;
 
 import org.json.JSONObject;
 import org.smartregister.chw.contract.ChildHomeVisitContract;
@@ -17,6 +16,8 @@ import org.smartregister.util.FormUtils;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+
+import timber.log.Timber;
 
 public class ChildHomeVisitPresenter implements ChildHomeVisitContract.Presenter, ChildHomeVisitContract.InteractorCallback {
     private WeakReference<ChildHomeVisitContract.View> view;
@@ -38,7 +39,7 @@ public class ChildHomeVisitPresenter implements ChildHomeVisitContract.Presenter
 
     @Override
     public void generateTaskService(boolean isEditMode) {
-        interactor.generateTaskService(childClient,this, getView().getContext(),isEditMode);
+        interactor.generateTaskService(childClient, this, getView().getContext(), isEditMode);
     }
 
     @Override
@@ -229,7 +230,7 @@ public class ChildHomeVisitPresenter implements ChildHomeVisitContract.Presenter
             try {
                 formUtils = FormUtils.getInstance(org.smartregister.family.util.Utils.context().applicationContext());
             } catch (Exception e) {
-                Log.e(ChildRegisterModel.class.getCanonicalName(), e.getMessage(), e);
+                Timber.e(e);
             }
         }
         return formUtils;

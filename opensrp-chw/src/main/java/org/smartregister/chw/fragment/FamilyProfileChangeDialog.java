@@ -11,7 +11,7 @@ import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
-import android.util.Log;
+
 import android.util.Pair;
 import android.view.Display;
 import android.view.Gravity;
@@ -36,6 +36,8 @@ import org.smartregister.chw.util.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import timber.log.Timber;
 
 public class FamilyProfileChangeDialog extends DialogFragment implements View.OnClickListener, FamilyChangeContract.View, MemberAdapterListener {
     private static String TAG =  FamilyProfileChangeDialog.class.getCanonicalName();
@@ -149,7 +151,7 @@ public class FamilyProfileChangeDialog extends DialogFragment implements View.On
 
     @Override
     public void onMenuChoiceChange() {
-        Log.v(TAG, "onMenuChoiceChange Fired");
+        Timber.v( "onMenuChoiceChange Fired");
     }
 
     @Override

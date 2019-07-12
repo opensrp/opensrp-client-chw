@@ -1,13 +1,13 @@
 package org.smartregister.chw.model;
 
-import android.util.Log;
-
 import org.json.JSONObject;
 import org.smartregister.chw.contract.ChildProfileContract;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
 import org.smartregister.util.FormUtils;
+
+import timber.log.Timber;
 
 public class ChildProfileModel implements ChildProfileContract.Model {
 
@@ -38,7 +38,7 @@ public class ChildProfileModel implements ChildProfileContract.Model {
             try {
                 formUtils = FormUtils.getInstance(Utils.context().applicationContext());
             } catch (Exception e) {
-                Log.e(ChildRegisterModel.class.getCanonicalName(), e.getMessage(), e);
+                Timber.e(e);
             }
         }
         return formUtils;
