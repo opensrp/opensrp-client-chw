@@ -3,7 +3,6 @@ package org.smartregister.chw.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
-import android.util.Log;
 import android.view.View;
 
 import org.json.JSONObject;
@@ -11,6 +10,8 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.fragment.FamilyRemoveMemberFragment;
 import org.smartregister.family.util.Constants;
 import org.smartregister.view.activity.SecuredActivity;
+
+import timber.log.Timber;
 
 public class FamilyRemoveMemberActivity extends SecuredActivity implements View.OnClickListener {
 
@@ -55,12 +56,12 @@ public class FamilyRemoveMemberActivity extends SecuredActivity implements View.
         if (resultCode == RESULT_OK) {
             try {
                 String jsonString = data.getStringExtra(Constants.JSON_FORM_EXTRA.JSON);
-                Log.d("JSONResult", jsonString);
+                Timber.d("JSONResult", jsonString);
 
                 JSONObject form = new JSONObject(jsonString);
                 removeMemberFragment.confirmRemove(form);
             } catch (Exception e) {
-                Log.e(TAG, Log.getStackTraceString(e));
+                Timber.e(e);
             }
         }
     }

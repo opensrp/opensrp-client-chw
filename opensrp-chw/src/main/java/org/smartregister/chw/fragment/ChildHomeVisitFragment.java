@@ -16,7 +16,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.text.TextUtils;
-import android.util.Log;
+
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -72,6 +72,7 @@ import io.reactivex.functions.Action;
 import io.reactivex.functions.BiFunction;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
+import timber.log.Timber;
 
 import static org.smartregister.chw.util.ChildDBConstants.KEY.BIRTH_CERT;
 import static org.smartregister.chw.util.ChildDBConstants.KEY.VACCINE_CARD;
@@ -728,7 +729,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
 
                         }
                     } catch (Exception e) {
-                        Log.e(DIALOG_TAG, Log.getStackTraceString(e));
+                        Timber.e(e);
                     }
                 }
                 break;
