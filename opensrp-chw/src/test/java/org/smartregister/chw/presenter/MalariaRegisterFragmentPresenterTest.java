@@ -7,6 +7,8 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.smartregister.chw.BaseUnitTest;
 import org.smartregister.chw.malaria.contract.MalariaRegisterFragmentContract;
+import org.smartregister.chw.malaria.util.DBConstants;
+import org.smartregister.chw.util.Constants;
 
 public class MalariaRegisterFragmentPresenterTest extends BaseUnitTest {
 
@@ -32,7 +34,9 @@ public class MalariaRegisterFragmentPresenterTest extends BaseUnitTest {
 
     @Test
     public void testMainCondition() {
-        Assert.assertEquals(" date_removed is null AND  ((( julianday('now') - julianday(dob))/365.25) <5)", presenter.getMainCondition());
+        String main_condition = " " + Constants.TABLE_NAME.MALARIA_CONFIRMATION + "." + DBConstants.KEY.DATE_REMOVED +
+                " is null ";
+        Assert.assertEquals(main_condition, presenter.getMainCondition());
 
     }
 
