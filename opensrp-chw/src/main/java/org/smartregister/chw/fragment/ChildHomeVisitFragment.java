@@ -699,7 +699,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
 
     }
     private void updateLabelText(TextView textView, boolean isYes) {
-        textViewVaccineCardText.setTextColor(isYes?getResources().getColor(R.color.grey):getResources().getColor(R.color.alert_urgent_red));
+        textView.setTextColor(isYes?getResources().getColor(R.color.grey):getResources().getColor(R.color.alert_urgent_red));
 
     }
 

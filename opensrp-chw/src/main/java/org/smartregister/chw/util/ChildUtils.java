@@ -10,8 +10,6 @@ import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
-import android.util.Log;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializationContext;
@@ -328,7 +326,6 @@ public class ChildUtils {
 
     public static void updateHomeVisitAsEvent(String entityId, String eventType, String entityType, Map<String, JSONObject> fieldObjects, String visitStatus, String value, String homeVisitId) {
         try {
-            long startTime = System.currentTimeMillis();
             ECSyncHelper syncHelper = FamilyLibrary.getInstance().getEcSyncHelper();
 
             Event event = (Event) new Event()
@@ -380,9 +377,6 @@ public class ChildUtils {
             Date lastSyncDate = new Date(lastSyncTimeStamp);
             ChwApplication.getClientProcessor(ChwApplication.getInstance().getContext().applicationContext()).processClient(syncHelper.getEvents(lastSyncDate, BaseRepository.TYPE_Unsynced));
             ChwApplication.getInstance().getContext().allSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
-            Log.d("TAKING_TIME","updateHomeVisitAsEvent6:"+(System.currentTimeMillis() - startTime));
-
-            //update details
 
         } catch (Exception e) {
             Timber.e(e);
@@ -391,7 +385,6 @@ public class ChildUtils {
 
     public static void updateVaccineCardAsEvent(Context context, String entityId, String choiceValue) {
         try {
-            long startTime = System.currentTimeMillis();
             ECSyncHelper syncHelper = FamilyLibrary.getInstance().getEcSyncHelper();
             Event baseEvent = (Event) new Event()
                     .withBaseEntityId(entityId)
@@ -409,15 +402,8 @@ public class ChildUtils {
             tagSyncMetadata(ChwApplication.getInstance().getContext().allSharedPreferences(), baseEvent);
             JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(baseEvent));
             syncHelper.addEvent(entityId, eventJson);
-//            long lastSyncTimeStamp = ChwApplication.getInstance().getContext().allSharedPreferences().fetchLastUpdatedAtDate(0);
-//            Date lastSyncDate = new Date(lastSyncTimeStamp);
-//            Log.d("TAKING_TIME","updateVaccineCardAsEvent1:"+(System.currentTimeMillis() - startTime));
-//            ChwApplication.getClientProcessor(ChwApplication.getInstance().getContext().applicationContext()).processClient(syncHelper.getEvents(lastSyncDate, BaseRepository.TYPE_Unsynced));
-//            Log.d("TAKING_TIME","updateVaccineCardAsEvent2:"+(System.currentTimeMillis() - startTime));
-//            ChwApplication.getInstance().getContext().allSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
-
         } catch (Exception e) {
-            e.printStackTrace();
+            Timber.e(e);
         }
 
     }
@@ -425,7 +411,6 @@ public class ChildUtils {
     public static void updateTaskAsEvent(String eventType, String formSubmissionField, List<Object> values, List<Object> humenread,
                                          String entityId, String choiceValue, String homeVisitId,String openMrsCode) {
         try {
-            long startTime = System.currentTimeMillis();
             ECSyncHelper syncHelper = FamilyLibrary.getInstance().getEcSyncHelper();
             Event baseEvent = (Event) new Event()
                     .withBaseEntityId(entityId)
@@ -447,7 +432,7 @@ public class ChildUtils {
             syncHelper.addEvent(entityId, eventJson);
 
         } catch (Exception e) {
-            e.printStackTrace();
+            Timber.e(e);
         }
 
     }
@@ -459,27 +444,22 @@ public class ChildUtils {
             if (baseEvent != null) {
                 JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(baseEvent));
                 syncHelper.addEvent(entityId, eventJson);
-//                long lastSyncTimeStamp = ChwApplication.getInstance().getContext().allSharedPreferences().fetchLastUpdatedAtDate(0);
-//                Date lastSyncDate = new Date(lastSyncTimeStamp);
-//                ChwApplication.getClientProcessor(ChwApplication.getInstance().getContext().applicationContext()).processClient(syncHelper.getEvents(lastSyncDate, BaseRepository.TYPE_Unsynced));
-//                ChwApplication.getInstance().getContext().allSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
-
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
+            Timber.e(e);
         }
 
     }
     public static void processClientProcessInBackground(){
+        try {
         long lastSyncTimeStamp = ChwApplication.getInstance().getContext().allSharedPreferences().fetchLastUpdatedAtDate(0);
         Date lastSyncDate = new Date(lastSyncTimeStamp);
-        try {
-            ChwApplication.getClientProcessor(ChwApplication.getInstance().getContext().applicationContext()).processClient(FamilyLibrary.getInstance().getEcSyncHelper().getEvents(lastSyncDate, BaseRepository.TYPE_Unsynced));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        ChwApplication.getClientProcessor(ChwApplication.getInstance().getContext().applicationContext()).processClient(FamilyLibrary.getInstance().getEcSyncHelper().getEvents(lastSyncDate, BaseRepository.TYPE_Unsynced));
         ChwApplication.getInstance().getContext().allSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
+        } catch (Exception e) {
+            Timber.e(e);
+        }
 
     }
 
@@ -691,8 +671,7 @@ public class ChildUtils {
     public static String getDurationFromTwoDate(Date dob, Date homeVisitServiceDate){
 
         long timeDiff = Math.abs(homeVisitServiceDate.getTime() - dob.getTime());
-        String difStr = DateUtil.getDuration(timeDiff);
-        return difStr;
+        return DateUtil.getDuration(timeDiff);
 
     }
 
