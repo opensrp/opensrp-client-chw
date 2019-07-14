@@ -3,7 +3,7 @@ package org.smartregister.chw.interactor;
 import android.content.Context;
 import android.support.annotation.VisibleForTesting;
 import android.text.TextUtils;
-import android.util.Log;
+
 import android.util.Pair;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -31,6 +31,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+
+import timber.log.Timber;
+
 import static org.smartregister.chw.util.ChildDBConstants.KEY.BIRTH_CERT;
 import static org.smartregister.util.Utils.getValue;
 
@@ -221,7 +224,7 @@ public class ChildHomeVisitInteractor implements ChildHomeVisitContract.Interact
 
 
         } catch (Exception e) {
-            Log.e(TAG, Log.getStackTraceString(e));
+            Timber.e(e);
         }
     }
 
@@ -257,7 +260,7 @@ public class ChildHomeVisitInteractor implements ChildHomeVisitContract.Interact
 
     @Override
     public void onDestroy(boolean isChangingConfiguration) {
-        Log.d(TAG, "onDestroy called");
+        Timber.d( "onDestroy called");
     }
 
     public interface Flavor{

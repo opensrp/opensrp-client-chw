@@ -1,7 +1,6 @@
 package org.smartregister.chw.repository;
 
 import android.content.ContentValues;
-import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -29,6 +28,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+
+import timber.log.Timber;
 
 public class HomeVisitRepository extends BaseRepository {
     public static final String EVENT_TYPE = "Child Home Visit";
@@ -115,7 +116,7 @@ public class HomeVisitRepository extends BaseRepository {
                     " WHERE " + CREATED_AT + " is null ";
             database.execSQL(sql);
         } catch (Exception e) {
-            Log.e(TAG, Log.getStackTraceString(e));
+            Timber.e(e);
         }
     }
 
@@ -155,7 +156,7 @@ public class HomeVisitRepository extends BaseRepository {
                 update(database, homeVisit);
             }
         } catch (Exception e) {
-            Log.e(TAG, Log.getStackTraceString(e));
+            Timber.e(e);
         }
         updateFtsSearch(homeVisit);
     }
@@ -169,7 +170,7 @@ public class HomeVisitRepository extends BaseRepository {
             String idSelection = ID_COLUMN + " = ?";
             database.update(HomeVisitTABLE_NAME, createValuesFor(homeVisit), idSelection, new String[]{homeVisit.getId().toString()});
         } catch (Exception e) {
-            Log.e(TAG, Log.getStackTraceString(e));
+            Timber.e(e);
         }
     }
 
@@ -185,7 +186,7 @@ public class HomeVisitRepository extends BaseRepository {
             cursor = getReadableDatabase().query(HomeVisitTABLE_NAME, HomeVisit_TABLE_COLUMNS, UPDATED_AT_COLUMN + " < ? AND " + SYNC_STATUS + " = ? ", new String[]{time.toString(), TYPE_Unsynced}, null, null, null, null);
             homeVisits = readAllHomeVisits(cursor);
         } catch (Exception e) {
-            Log.e(TAG, Log.getStackTraceString(e));
+            Timber.e(e);
         } finally {
             if (cursor != null) {
                 cursor.close();
@@ -210,7 +211,7 @@ public class HomeVisitRepository extends BaseRepository {
                 homeVisit = vaccines.get(0);
             }
         } catch (Exception e) {
-            Log.e(TAG, e.getMessage(), e);
+            Timber.e(e);
         } finally {
             if (cursor != null) {
                 cursor.close();
@@ -248,7 +249,7 @@ public class HomeVisitRepository extends BaseRepository {
                 return homeVisitList.get(0);
             }
         } catch (Exception e) {
-            Log.e(TAG, Log.getStackTraceString(e));
+            Timber.e(e);
         }
         return null;
 
@@ -284,7 +285,7 @@ public class HomeVisitRepository extends BaseRepository {
                 updateFtsSearch(counselling.getBaseEntityId(), counselling.getName());
             }
         } catch (Exception e) {
-            Log.e(TAG, Log.getStackTraceString(e));
+            Timber.e(e);
         }
     }
 
@@ -294,7 +295,7 @@ public class HomeVisitRepository extends BaseRepository {
             values.put(SYNC_STATUS, TYPE_Synced);
             getWritableDatabase().update(HomeVisitTABLE_NAME, values, ID_COLUMN + " = ?", new String[]{caseId.toString()});
         } catch (Exception e) {
-            Log.e(TAG, Log.getStackTraceString(e));
+            Timber.e(e);
         }
     }
 
@@ -316,7 +317,7 @@ public class HomeVisitRepository extends BaseRepository {
                         try {
                             createdAt = dateFormat.parse(dateCreatedString);
                         } catch (ParseException e) {
-                            Log.e(TAG, Log.getStackTraceString(e));
+                            Timber.e(e);
                         }
                     }
                     HomeVisit homeVisit = new HomeVisit(cursor.getLong(cursor.getColumnIndex(ID_COLUMN)),
@@ -403,7 +404,7 @@ public class HomeVisitRepository extends BaseRepository {
                 }
             }
         } catch (Exception e) {
-            Log.e(TAG, Log.getStackTraceString(e));
+            Timber.e(e);
         }
 
     }
@@ -423,7 +424,7 @@ public class HomeVisitRepository extends BaseRepository {
                 }
             }
         } catch (Exception e) {
-            Log.e(TAG, Log.getStackTraceString(e));
+            Timber.e(e);
         }
     }
 

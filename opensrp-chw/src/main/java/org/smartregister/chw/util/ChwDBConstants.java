@@ -15,5 +15,6 @@ public interface ChwDBConstants {
     String LMP = "last_menstrual_period";
     String VISIT_NOT_DONE = "visit_not_done";
     String PHONE_NUMBER = "phone_number";
+    String NEAREST_HEALTH_FACILITY = "nearest_facility";
 
 }
