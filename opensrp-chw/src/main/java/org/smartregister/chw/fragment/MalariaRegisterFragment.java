@@ -123,7 +123,7 @@ public class MalariaRegisterFragment extends BaseMalariaRegisterFragment {
         super.filter(filterString, joinTableString, mainConditionString, qrCode);
     }
 
-    private void toggleFilterSelection(View dueOnlyLayout) {
+    protected void toggleFilterSelection(View dueOnlyLayout) {
         if (dueOnlyLayout != null) {
             if (dueOnlyLayout.getTag() == null) {
                 dueFilterActive = true;
