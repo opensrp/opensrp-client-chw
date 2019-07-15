@@ -2,6 +2,7 @@ package org.smartregister.chw.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,7 +13,6 @@ import com.vijay.jsonwizard.domain.Form;
 
 import org.json.JSONObject;
 import org.smartregister.chw.R;
-import org.smartregister.chw.common.Helper;
 import org.smartregister.chw.malaria.activity.BaseMalariaProfileActivity;
 import org.smartregister.chw.malaria.domain.MemberObject;
 import org.smartregister.chw.malaria.util.Constants;
@@ -52,27 +52,15 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity {
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                onBackPressed();
-                return true;
-            case R.id.action_registration:
-                startFormForEdit(memberObject.getBaseEntityId(), org.smartregister.chw.util.Constants.JSON_FORM.FAMILY_MEMBER_REGISTER, R.string.registration_info, memberObject.getLastName());
-                return true;
+    private static CommonPersonObjectClient getClientDetailsByBaseEntityID(@NonNull String baseEntityId) {
+        CommonRepository commonRepository = org.smartregister.chw.util.Utils.context().commonrepository(org.smartregister.chw.util.Utils.metadata().familyMemberRegister.tableName);
 
-            case R.id.action_malaria_followup_visit:
-                Toast.makeText(getApplicationContext(), R.string.malaria_follow_up, Toast.LENGTH_SHORT).show();
-                return true;
+        final CommonPersonObject commonPersonObject = commonRepository.findByBaseEntityId(baseEntityId);
+        final CommonPersonObjectClient client =
+                new CommonPersonObjectClient(commonPersonObject.getCaseId(), commonPersonObject.getDetails(), "");
+        client.setColumnmaps(commonPersonObject.getColumnmaps());
+        return client;
 
-            case R.id.action_remove_member:
-                IndividualProfileRemoveActivity.startIndividualProfileActivity(MalariaProfileActivity.this, Helper.getClientDetailsByBaseEntityID(memberObject.getBaseEntityId()), memberObject.getFamilyBaseEntityId(), memberObject.getFamilyHead(), memberObject.getPrimaryCareGiver());
-                return true;
-            default:
-                break;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     private void startFormForEdit(String baseEntityId, String formName, Integer title_resource, String familyName) {
@@ -100,6 +88,29 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity {
         } catch (Exception e) {
             Timber.e(e);
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            case R.id.action_registration:
+                startFormForEdit(memberObject.getBaseEntityId(), org.smartregister.chw.util.Constants.JSON_FORM.FAMILY_MEMBER_REGISTER, R.string.registration_info, memberObject.getLastName());
+                return true;
+
+            case R.id.action_malaria_followup_visit:
+                Toast.makeText(getApplicationContext(), R.string.malaria_follow_up, Toast.LENGTH_SHORT).show();
+                return true;
+
+            case R.id.action_remove_member:
+                IndividualProfileRemoveActivity.startIndividualProfileActivity(MalariaProfileActivity.this, getClientDetailsByBaseEntityID(memberObject.getBaseEntityId()), memberObject.getFamilyBaseEntityId(), memberObject.getFamilyHead(), memberObject.getPrimaryCareGiver());
+                return true;
+            default:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void startFormActivity(JSONObject jsonForm) {
