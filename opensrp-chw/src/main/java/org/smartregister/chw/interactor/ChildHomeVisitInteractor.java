@@ -23,12 +23,9 @@ import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.FamilyLibrary;
 import org.smartregister.family.util.AppExecutors;
 import org.smartregister.repository.AllSharedPreferences;
-import org.smartregister.repository.BaseRepository;
 import org.smartregister.repository.EventClientRepository;
-import org.smartregister.sync.ClientProcessorForJava;
 import org.smartregister.sync.helper.ECSyncHelper;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 
@@ -40,8 +37,6 @@ import static org.smartregister.util.Utils.getValue;
 public class ChildHomeVisitInteractor implements ChildHomeVisitContract.Interactor {
 
     private static final String TAG = "VisitInteractor";
-    private final String FORM_BIRTH = "birth_form";
-    private final String FORM_ILLNESS = "illness_form";
     private AppExecutors appExecutors;
     private HashMap<String, BirthIllnessFormModel> saveList = new HashMap<>();
     private ArrayList<BirthCertDataModel> birthCertDataList = new ArrayList<>();
@@ -107,10 +102,10 @@ public class ChildHomeVisitInteractor implements ChildHomeVisitContract.Interact
                 return;
             }
             BirthIllnessFormModel birthIllnessFormModel = new BirthIllnessFormModel(jsonString, pair);
-            if (saveList.get(FORM_BIRTH) != null) {
-                saveList.remove(FORM_BIRTH);
+            if (saveList.get("birth_form") != null) {
+                saveList.remove("birth_form");
             }
-            saveList.put(FORM_BIRTH, birthIllnessFormModel);
+            saveList.put("birth_form", birthIllnessFormModel);
             Runnable runnable = new Runnable() {
                 @Override
                 public void run() {
@@ -139,10 +134,10 @@ public class ChildHomeVisitInteractor implements ChildHomeVisitContract.Interact
                 return;
             }
             BirthIllnessFormModel birthIllnessFormModel = new BirthIllnessFormModel(jsonString, pair);
-            if (saveList.get(FORM_ILLNESS) != null) {
-                saveList.remove(FORM_ILLNESS);
+            if (saveList.get("illness_form") != null) {
+                saveList.remove("illness_form");
             }
-            saveList.put(FORM_ILLNESS, birthIllnessFormModel);
+            saveList.put("illness_form", birthIllnessFormModel);
             Runnable runnable = new Runnable() {
                 @Override
                 public void run() {
@@ -216,18 +211,6 @@ public class ChildHomeVisitInteractor implements ChildHomeVisitContract.Interact
                 getSyncHelper().addEvent(baseEvent.getBaseEntityId(), eventJson);
             }
 
-//            if (baseClient != null || baseEvent != null) {
-//                String imageLocation = org.smartregister.family.util.JsonFormUtils.getFieldValue(jsonString, org.smartregister.family.util.Constants.KEY.PHOTO);
-//                org.smartregister.family.util.JsonFormUtils.saveImage(baseEvent.getProviderId(), baseClient.getBaseEntityId(), imageLocation);
-//
-//            }
-
-            long lastSyncTimeStamp = getAllSharedPreferences().fetchLastUpdatedAtDate(0);
-            Date lastSyncDate = new Date(lastSyncTimeStamp);
-            getClientProcessorForJava().processClient(getSyncHelper().getEvents(lastSyncDate, BaseRepository.TYPE_Unsynced));
-            getAllSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
-
-
         } catch (Exception e) {
             Timber.e(e);
         }
@@ -255,12 +238,8 @@ public class ChildHomeVisitInteractor implements ChildHomeVisitContract.Interact
         return org.smartregister.family.util.Utils.context().allSharedPreferences();
     }
 
-    public ECSyncHelper getSyncHelper() {
+    private ECSyncHelper getSyncHelper() {
         return FamilyLibrary.getInstance().getEcSyncHelper();
-    }
-
-    public ClientProcessorForJava getClientProcessorForJava() {
-        return FamilyLibrary.getInstance().getClientProcessorForJava();
     }
 
     @Override

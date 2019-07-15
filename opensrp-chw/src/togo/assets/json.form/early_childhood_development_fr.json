@@ -102,7 +102,7 @@
         "openmrs_entity_id": "1802AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Is the child regularly attending an early learning program (formal or not formal)?",
+        "hint": "L'enfant assiste-il ou elle régulièrement à une programme d'apprentissage pour la petite enfance?",
         "values": [
           "Oui",
           "Non"

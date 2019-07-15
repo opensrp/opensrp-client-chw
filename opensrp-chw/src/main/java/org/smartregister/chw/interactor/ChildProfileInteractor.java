@@ -275,6 +275,23 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
 
     }
 
+    @Override
+    public void processBackGroundEvent(final ChildProfileContract.InteractorCallBack callback) {
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                ChildUtils.processClientProcessInBackground();
+                appExecutors.mainThread().execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        callback.updateAfterBackGroundProcessed();
+                    }
+                });
+            }
+        };
+        appExecutors.diskIO().execute(runnable);
+    }
+
     private Observable<Object> updateHomeVisitAsEvent(final long value) {
         return Observable.create(new ObservableOnSubscribe<Object>() {
             @Override
