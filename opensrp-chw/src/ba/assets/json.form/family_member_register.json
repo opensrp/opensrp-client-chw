@@ -543,6 +543,10 @@
           "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
+        "v_required": {
+          "value": "true",
+          "err": "Please select if the woman has delivered in the last 1 year"
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {

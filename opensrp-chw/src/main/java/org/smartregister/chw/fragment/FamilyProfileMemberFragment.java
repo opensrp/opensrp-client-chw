@@ -2,7 +2,6 @@ package org.smartregister.chw.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import org.smartregister.chw.R;
@@ -23,6 +22,8 @@ import org.smartregister.family.util.DBConstants;
 
 import java.util.HashMap;
 import java.util.Set;
+
+import timber.log.Timber;
 
 import static org.smartregister.chw.util.Constants.INTENT_KEY.IS_COMES_FROM_FAMILY;
 
@@ -100,10 +101,10 @@ public class FamilyProfileMemberFragment extends BaseFamilyProfileMemberFragment
         String dobString = Utils.getDuration(Utils.getValue(patient.getColumnmaps(), DBConstants.KEY.DOB, false));
         Integer yearOfBirth = ChildUtils.dobStringToYear(dobString);
         Intent intent;
-        if(yearOfBirth!=null && yearOfBirth >= 5){
+        if (yearOfBirth != null && yearOfBirth >= 5) {
             intent = new Intent(getActivity(), AboveFiveChildProfileActivity.class);
-        }else{
-            intent = new Intent(getActivity(),ChildProfileActivity.class);
+        } else {
+            intent = new Intent(getActivity(), ChildProfileActivity.class);
         }
         intent.putExtras(getArguments());
         intent.putExtra(IS_COMES_FROM_FAMILY, true);
@@ -113,7 +114,7 @@ public class FamilyProfileMemberFragment extends BaseFamilyProfileMemberFragment
 
     @Override
     public void setAdvancedSearchFormData(HashMap<String, String> hashMap) {
-        Log.v(TAG, "setAdvancedSearchFormData");
+        Timber.v("setAdvancedSearchFormData");
     }
 
 }

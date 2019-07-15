@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
+
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -35,6 +35,8 @@ import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
+
+import timber.log.Timber;
 
 public class AncRegisterFragment extends BaseAncRegisterFragment {
 
@@ -239,7 +241,7 @@ public class AncRegisterFragment extends BaseAncRegisterFragment {
 
             }
         } catch (Exception e) {
-            Log.e(getClass().getName(), e.toString(), e);
+            Timber.e(e);
         }
 
         return query;
@@ -291,14 +293,14 @@ public class AncRegisterFragment extends BaseAncRegisterFragment {
             c = commonRepository().rawCustomQueryForAdapter(query);
             c.moveToFirst();
             clientAdapter.setTotalcount(c.getInt(0));
-            Log.v("total count here", "" + clientAdapter.getTotalcount());
+            Timber.v("total count here", "" + clientAdapter.getTotalcount());
 
             clientAdapter.setCurrentlimit(20);
             clientAdapter.setCurrentoffset(0);
 
 
         } catch (Exception e) {
-            Log.e(getClass().getName(), e.toString(), e);
+            Timber.e(e);
         } finally {
             if (c != null) {
                 c.close();

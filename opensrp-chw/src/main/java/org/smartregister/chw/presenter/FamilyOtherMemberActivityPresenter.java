@@ -1,6 +1,5 @@
 package org.smartregister.chw.presenter;
 
-import android.util.Log;
 
 import org.apache.commons.lang3.tuple.Triple;
 import org.smartregister.chw.anc.util.Util;
@@ -25,6 +24,7 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import timber.log.Timber;
 
 import static org.smartregister.util.Utils.getName;
 
@@ -60,7 +60,7 @@ public class FamilyOtherMemberActivityPresenter extends BaseFamilyOtherMemberPro
                 .subscribe(new Observer<String>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-                        Log.v(TAG, "initializeServiceStatus onSubscribe");
+                        Timber.v(TAG, "initializeServiceStatus onSubscribe");
                     }
 
                     @Override
@@ -70,12 +70,12 @@ public class FamilyOtherMemberActivityPresenter extends BaseFamilyOtherMemberPro
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.e(TAG, "initializeServiceStatus " + e.toString());
+                        Timber.e("initializeServiceStatus " + e.toString());
                     }
 
                     @Override
                     public void onComplete() {
-                        Log.v(TAG, "initializeServiceStatus onComplete");
+                        Timber.v("initializeServiceStatus onComplete");
                     }
                 });
     }
@@ -100,7 +100,7 @@ public class FamilyOtherMemberActivityPresenter extends BaseFamilyOtherMemberPro
             profileInteractor.saveRegistration(familyEventClient, jsonString, true, this);
         } catch (Exception e) {
             getView().hideProgressDialog();
-            Log.e(TAG, e.getMessage(), e);
+            Timber.e(e);
         }
     }
 
@@ -127,13 +127,13 @@ public class FamilyOtherMemberActivityPresenter extends BaseFamilyOtherMemberPro
     @Override
     public void onUniqueIdFetched(Triple<String, String, String> triple, String entityId) {
         //TODO Implement
-        Log.d(TAG, "onUniqueIdFetched unimplemented");
+        Timber.d("onUniqueIdFetched unimplemented");
     }
 
     @Override
     public void onNoUniqueId() {
         //TODO Implement
-        Log.d(TAG, "onNoUniqueId unimplemented");
+        Timber.d("onNoUniqueId unimplemented");
     }
 
     @Override

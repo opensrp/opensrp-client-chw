@@ -4,7 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.support.annotation.VisibleForTesting;
 import android.text.TextUtils;
-import android.util.Log;
+
 import android.util.Pair;
 
 import org.apache.commons.lang3.StringUtils;
@@ -159,7 +159,7 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
             getClientProcessorForJava().processClient(getSyncHelper().getEvents(lastSyncDate, BaseRepository.TYPE_Unsynced));
             getAllSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
         } catch (Exception e) {
-            Timber.e(Log.getStackTraceString(e));
+            Timber.e(e);
         }
     }
 
@@ -507,7 +507,7 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
                 return form;
             }
         } catch (Exception e) {
-            Log.e(TAG, Log.getStackTraceString(e));
+            Timber.e(e);
         }
 
         return null;

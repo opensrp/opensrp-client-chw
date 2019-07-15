@@ -8,7 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
-import android.util.Log;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +34,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import timber.log.Timber;
 
 public class JobAidsDashboardFragment extends Fragment implements ReportContract.View, LoaderManager.LoaderCallbacks<List<Map<String, IndicatorTally>>> {
 
@@ -160,7 +162,7 @@ public class JobAidsDashboardFragment extends Fragment implements ReportContract
                         updateLatestCount(indicatorTallyMap, children_0_24_OverdueVaccinations, DashboardUtil.countOfChildren_0_24OverdueVaccinations);
                         break;
                     default:
-                        Log.e(JobAidsDashboardFragment.class.getCanonicalName(), "The Indicator with the Key " + key + " has not been handled");
+                        Timber.e("The Indicator with the Key " + key + " has not been handled");
                         break;
                 }
             }
