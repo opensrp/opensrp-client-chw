@@ -14,7 +14,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -52,6 +51,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import timber.log.Timber;
 
 import static org.smartregister.chw.util.Constants.INTENT_KEY.IS_COMES_FROM_FAMILY;
 
@@ -578,19 +578,19 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     @Override
     public void onNoUniqueId() {
         //TODO
-        Log.d(TAG, "onNoUniqueId unimplemented");
+        Timber.d( "onNoUniqueId unimplemented");
     }
 
     @Override
     public void onUniqueIdFetched(Triple<String, String, String> triple, String entityId, String familyId) {
         //TODO
-        Log.d(TAG, "onUniqueIdFetched unimplemented");
+        Timber.d( "onUniqueIdFetched unimplemented");
     }
 
     @Override
     public void onRegistrationSaved(boolean isEdit) {
         //TODO
-        Log.d(TAG, "onRegistrationSaved unimplemented");
+        Timber.d("onRegistrationSaved unimplemented");
     }
 
     @Override
