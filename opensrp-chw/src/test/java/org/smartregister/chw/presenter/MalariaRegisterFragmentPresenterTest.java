@@ -8,6 +8,7 @@ import org.mockito.MockitoAnnotations;
 import org.smartregister.chw.BaseUnitTest;
 import org.smartregister.chw.malaria.contract.MalariaRegisterFragmentContract;
 import org.smartregister.chw.malaria.util.DBConstants;
+import org.smartregister.chw.util.Constants;
 
 public class MalariaRegisterFragmentPresenterTest extends BaseUnitTest {
 
@@ -33,7 +34,8 @@ public class MalariaRegisterFragmentPresenterTest extends BaseUnitTest {
 
     @Test
     public void testMainCondition() {
-        String main_condition = " " + DBConstants.TABLE_NAME + "." + DBConstants.KEY.DATE_REMOVED + " is null " + " COLLATE NOCASE WHERE ec_malaria_confirmation.malaria = 1";
+        String main_condition =
+                " " + Constants.TABLE_NAME.MALARIA_CONFIRMATION + "." + DBConstants.KEY.DATE_REMOVED + " is null " + " COLLATE NOCASE WHERE ec_malaria_confirmation.malaria = 1";
         Assert.assertEquals(main_condition, presenter.getMainCondition());
 
     }
