@@ -1,7 +1,7 @@
 package org.smartregister.chw.interactor;
 
 import android.support.annotation.VisibleForTesting;
-import android.util.Log;
+
 import android.util.Pair;
 
 import org.apache.commons.lang3.StringUtils;
@@ -23,6 +23,8 @@ import org.smartregister.sync.ClientProcessorForJava;
 import org.smartregister.sync.helper.ECSyncHelper;
 
 import java.util.Date;
+
+import timber.log.Timber;
 
 /**
  * Created by keyman 12/11/2018.
@@ -148,7 +150,7 @@ public class ChildRegisterInteractor implements ChildRegisterContract.Interactor
             getClientProcessorForJava().processClient(getSyncHelper().getEvents(lastSyncDate, BaseRepository.TYPE_Unsynced));
             getAllSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
         } catch (Exception e) {
-            Log.e(TAG, Log.getStackTraceString(e));
+            Timber.e(e);
         }
     }
 

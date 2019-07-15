@@ -135,8 +135,8 @@ android {
             applicationIdSuffix ".togo"
             versionCode 1
             versionName "0.0.3"
-            buildConfigField "String", 'opensrp_url', '"https://wcaro-togo-preview.smartregister.org/opensrp/"'
-            buildConfigField "String", 'opensrp_url_debug', '"https://wcaro-togo-preview.smartregister.org/opensrp/"'
+            buildConfigField "String", 'opensrp_url', '"https://unicefwcaro.smartregister.org/opensrp/"'
+            buildConfigField "String", 'opensrp_url_debug', '"https://unicefwcaro-stage.smartregister.org/opensrp/"'
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"Country", "Clinic" , "CHSS" , "CHA", "Supervisor", "CHW"}'
             buildConfigField "String", 'DEFAULT_LOCATION', '"CHW"'
             buildConfigField "boolean", 'SUPPORT_QR', 'false'
@@ -300,8 +300,12 @@ dependencies {
 
 
 task jacocoTestReport(type: JacocoReport, dependsOn: [
-        //'testBaDebugUnitTest', 'createBaDebugCoverageReport',
-        'testWcaroDebugUnitTest', 'createWcaroDebugCoverageReport'
+        'testBaDebugUnitTest', 'createBaDebugCoverageReport',
+        'testWcaroDebugUnitTest', 'createWcaroDebugCoverageReport',
+        'testTogoDebugUnitTest', 'createTogoDebugCoverageReport',
+        'testGuineaDebugUnitTest', 'createGuineaDebugCoverageReport',
+        'testChadDebugUnitTest', 'createChadDebugCoverageReport',
+        'testDrcDebugUnitTest', 'createDrcDebugCoverageReport'
 ]) {
 
     reports {

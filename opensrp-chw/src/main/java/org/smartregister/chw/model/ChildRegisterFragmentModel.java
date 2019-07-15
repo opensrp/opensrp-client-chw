@@ -1,7 +1,5 @@
 package org.smartregister.chw.model;
 
-import android.util.Log;
-
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.smartregister.chw.contract.ChildRegisterFragmentContract;
@@ -20,6 +18,8 @@ import org.smartregister.family.util.Utils;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+
+import timber.log.Timber;
 
 public class ChildRegisterFragmentModel implements ChildRegisterFragmentContract.Model {
     @Override
@@ -84,7 +84,7 @@ public class ChildRegisterFragmentModel implements ChildRegisterFragmentContract
                 return new JSONArray(response.payload());
             }
         } catch (Exception e) {
-            Log.e(getClass().getName(), "", e);
+            Timber.e(e);
         }
         return null;
     }

@@ -3,7 +3,6 @@ package org.smartregister.chw.application;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Build;
-import android.util.Log;
 
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
@@ -29,6 +28,7 @@ import org.smartregister.chw.service.ChwAuthorizationService;
 import org.smartregister.chw.sync.ChwClientProcessor;
 import org.smartregister.chw.util.ChildDBConstants;
 import org.smartregister.chw.util.Constants;
+import org.smartregister.chw.util.CrashlyticsTree;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.commonregistry.AllCommonsRepository;
 import org.smartregister.commonregistry.CommonFtsObject;
@@ -174,12 +174,18 @@ public class ChwApplication extends DrishtiApplication {
     public void onCreate() {
         super.onCreate();
 
+        if (BuildConfig.DEBUG) {
+            Timber.plant(new Timber.DebugTree());
+        } else {
+            Timber.plant(new CrashlyticsTree());
+        }
+
+
         mInstance = this;
         context = Context.getInstance();
         context.updateApplicationContext(getApplicationContext());
         context.updateCommonFtsObject(createCommonFtsObject());
 
-        Timber.plant(new Timber.DebugTree());
 
         Fabric.with(this, new Crashlytics.Builder().core(new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build()).build());
         //Fabric.with(this, new Crashlytics.Builder().core(new CrashlyticsCore.Builder().build()).build());
@@ -330,7 +336,7 @@ public class ChwApplication extends DrishtiApplication {
 
     private void scheduleJobs() {
         // TODO implement job scheduling
-        Log.d(TAG, "scheduleJobs pending implementation");
+        Timber.d("scheduleJobs pending implementation");
     }
 
     private long getFlexValue(int value) {
