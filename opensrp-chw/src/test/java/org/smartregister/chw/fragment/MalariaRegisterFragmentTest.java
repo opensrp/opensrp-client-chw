@@ -4,25 +4,21 @@ import android.view.View;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 import org.powermock.reflect.Whitebox;
+import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
+import org.smartregister.chw.BuildConfig;
+import org.smartregister.chw.application.ChwApplication;
 
 import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.spy;
 
-//import org.smartregister.view.fragment.BaseRegisterFragment;
-//import static org.mockito.ArgumentMatchers.isNull;
-
-//import static org.mockito.ArgumentMatchers.anyBoolean;
-//import static org.mockito.ArgumentMatchers.anyString;
-//import static org.mockito.Mockito.verify;
-
-//@RunWith(RobolectricTestRunner.class)
-//@Config(application = ChwApplication.class, constants = BuildConfig.class, sdk = 22)
+@RunWith(RobolectricTestRunner.class)
+@Config(application = ChwApplication.class, constants = BuildConfig.class, sdk = 22)
 public class MalariaRegisterFragmentTest {
-    //    @Mock
-//    private BaseRegisterFragment baseRegisterFragment;
     @Mock
     private MalariaRegisterFragment malariaRegisterFragment;
 
@@ -31,24 +27,9 @@ public class MalariaRegisterFragmentTest {
 
     @Before
     public void setUp() {
-        MockitoAnnotations.initMocks(this);
+        malariaRegisterFragment = spy(MalariaRegisterFragment.class);
+        dueOnlyLayout = spy(View.class);
     }
-
-
-//    @Test
-//    public void testDueFilter() throws Exception {
-//        malariaRegisterFragment.dueFilter(dueOnlyLayout);
-//        verify(baseRegisterFragment).filter(anyString(), anyString(), anyString(), anyBoolean());
-//        verify(dueOnlyLayout).setTag(anyString());
-//        PowerMockito.verifyPrivate(malariaRegisterFragment).invoke("switchViews", dueOnlyLayout, anyBoolean());
-//    }
-
-//    @Test
-//    public void testToggleFilterSelection() {
-//        dueOnlyLayout.setTag(isNull());
-//        malariaRegisterFragment.toggleFilterSelection(dueOnlyLayout);
-//        Mockito.verify(malariaRegisterFragment).dueFilter(dueOnlyLayout);
-//    }
 
     @Test
     public void testToggleFilterSelectionNeverCallsNormalFilter() {
@@ -58,13 +39,13 @@ public class MalariaRegisterFragmentTest {
         }
     }
 
-//    @Test
-//    public void testToggleFilterSelectionWhenDueOnlyLayoutHasTagNeverCallsDueFilter() {
-//        Whitebox.setInternalState(malariaRegisterFragment, "dueOnlyLayout", dueOnlyLayout);
-//        dueOnlyLayout.setTag("PRESSED");
-//        if (dueOnlyLayout.getTag().toString().equals("PRESSED")) {
-//            Mockito.verify(malariaRegisterFragment, never()).dueFilter(dueOnlyLayout);
-//        }
+    @Test
+    public void testToggleFilterSelectionWhenDueOnlyLayoutHasTagNeverCallsDueFilter() {
+        Whitebox.setInternalState(malariaRegisterFragment, "dueOnlyLayout", dueOnlyLayout);
+        dueOnlyLayout.setTag("PRESSED");
+        if (dueOnlyLayout.getTag().toString().equals("PRESSED")) {
+            Mockito.verify(malariaRegisterFragment, never()).dueFilter(dueOnlyLayout);
+        }
 
-//    }
+    }
 }
