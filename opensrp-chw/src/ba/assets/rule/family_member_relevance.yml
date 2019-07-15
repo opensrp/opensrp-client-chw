@@ -77,5 +77,6 @@ actions:
 name: step1_preg_1yr
 description: pregnance 1yr relevance
 priority: 1
-actions: "step1_sex.equals('Female')"
+condition: "step1_wra == 1"
+actions:
   - "isRelevant = true"
