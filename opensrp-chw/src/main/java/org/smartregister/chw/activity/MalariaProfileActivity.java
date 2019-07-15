@@ -48,10 +48,7 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.other_member_menu, menu);
-        menu.findItem(R.id.action_malaria_registration).setVisible(false);
-        menu.findItem(R.id.action_malaria_followup_visit).setVisible(true);
-        menu.findItem(R.id.action_anc_registration).setVisible(false);
+        getMenuInflater().inflate(R.menu.malaria_profile_menu, menu);
         return true;
     }
 
