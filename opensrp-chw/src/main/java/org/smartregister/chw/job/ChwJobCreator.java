@@ -2,7 +2,6 @@ package org.smartregister.chw.job;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 
 import com.evernote.android.job.Job;
 import com.evernote.android.job.JobCreator;
@@ -45,7 +44,7 @@ public class ChwJobCreator implements JobCreator {
                 return new HomeVisitServiceJob();
 
             default:
-                Timber.d("Looks like you tried to create a job " + tag + " that is not declared in the Chw Job Creator");
+                Timber.d( "Looks like you tried to create a job " + tag + " that is not declared in the Chw Job Creator");
                 return null;
         }
     }

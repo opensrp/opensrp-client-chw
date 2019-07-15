@@ -126,6 +126,12 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
     }
 
     @Override
+    public void processBackGroundEvent() {
+        interactor.processBackGroundEvent(this);
+
+    }
+
+    @Override
     public void fetchProfileData() {
         interactor.refreshProfileView(childBaseEntityId, false, this);
 
@@ -181,6 +187,13 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
         }
 
         interactor.saveRegistration(pair, jsonString, true, this);
+    }
+    @Override
+    public void updateAfterBackGroundProcessed() {
+        if(getView() != null){
+            getView().updateAfterBackgroundProcessed();
+        }
+
     }
 
     @Override

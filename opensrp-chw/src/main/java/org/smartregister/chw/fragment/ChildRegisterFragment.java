@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
+
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -41,6 +41,8 @@ import org.smartregister.view.fragment.BaseRegisterFragment;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
+
+import timber.log.Timber;
 
 public class ChildRegisterFragment extends BaseRegisterFragment implements ChildRegisterFragmentContract.View {
 
@@ -290,7 +292,7 @@ public class ChildRegisterFragment extends BaseRegisterFragment implements Child
     private void goToChildDetailActivity(CommonPersonObjectClient patient,
                                          boolean launchDialog) {
         if (launchDialog) {
-            Log.i(ChildRegisterFragment.TAG, patient.name);
+            Timber.i(patient.name);
         }
 
         Intent intent = new Intent(getActivity(), ChildProfileActivity.class);
@@ -332,7 +334,7 @@ public class ChildRegisterFragment extends BaseRegisterFragment implements Child
 
             }
         } catch (Exception e) {
-            Log.e(getClass().getName(), e.toString(), e);
+            Timber.e(e);
         }
 
         return query;
