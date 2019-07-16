@@ -38,7 +38,7 @@ import static org.powermock.api.mockito.PowerMockito.when;
 @Config(application = TestChwApplication.class, constants = BuildConfig.class, sdk = 22)
 @PowerMockIgnore({"org.mockito.*", "org.robolectric.*", "android.*", "androidx.*"})
 @PrepareForTest({ImmunizationLibrary.class, Utils.class})
-public class AncHomeVisitInteractorFlvTest {
+public class DefaultAncHomeVisitInteractorFlvTest {
 
     @Rule
     public PowerMockRule rule = new PowerMockRule();
@@ -72,7 +72,7 @@ public class AncHomeVisitInteractorFlvTest {
         when(immunizationLibrary.recurringServiceRecordRepository()).thenReturn(recurringServiceRecordRepository);
         when(ImmunizationLibrary.getInstance()).thenReturn(immunizationLibrary);
 
-        AncHomeVisitInteractorFlv flv = PowerMockito.spy(new AncHomeVisitInteractorFlv());
+        DefaultAncHomeVisitInteractorFlv flv = Mockito.mock(DefaultAncHomeVisitInteractorFlv.class, Mockito.CALLS_REAL_METHODS);
 
         Context context = Mockito.mock(Context.class);
         Mockito.doReturn("").when(context).getString(ArgumentMatchers.anyInt());

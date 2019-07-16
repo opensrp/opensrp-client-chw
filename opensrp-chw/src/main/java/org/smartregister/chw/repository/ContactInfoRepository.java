@@ -1,7 +1,6 @@
 package org.smartregister.chw.repository;
 
 import android.content.ContentValues;
-import android.util.Log;
 
 import net.sqlcipher.Cursor;
 import net.sqlcipher.database.SQLiteDatabase;
@@ -12,6 +11,8 @@ import org.joda.time.format.DateTimeFormat;
 import org.smartregister.chw.domain.ContactInfo;
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.repository.Repository;
+
+import timber.log.Timber;
 
 
 public class ContactInfoRepository extends BaseRepository {
@@ -93,7 +94,7 @@ public class ContactInfoRepository extends BaseRepository {
                 dbContactInfo = getContactResult(mCursor);
             }
         } catch (Exception e) {
-            Log.e(TAG, e.getMessage());
+            Timber.e(e);
 
         } finally {
             if (mCursor != null) {

@@ -4,7 +4,8 @@ import android.view.ViewGroup;
 
 import org.smartregister.chw.R;
 import org.smartregister.reporting.domain.IndicatorTally;
-import org.smartregister.reporting.model.IndicatorDisplayModel;
+import org.smartregister.reporting.domain.PieChartSlice;
+import org.smartregister.reporting.model.NumericDisplayModel;
 import org.smartregister.reporting.view.NumericIndicatorView;
 import org.smartregister.reporting.view.PieChartIndicatorView;
 
@@ -41,79 +42,81 @@ import static org.smartregister.chw.util.ReportingConstants.ChildIndicatorKeys.c
 import static org.smartregister.chw.util.ReportingConstants.ChildIndicatorKeys.deceasedChildren0_11Months;
 import static org.smartregister.chw.util.ReportingConstants.ChildIndicatorKeys.deceasedChildren12_59Months;
 import static org.smartregister.reporting.contract.ReportContract.IndicatorView.CountType.LATEST_COUNT;
-import static org.smartregister.reporting.contract.ReportContract.IndicatorView.CountType.STATIC_COUNT;
-import static org.smartregister.reporting.util.ReportingUtil.getIndicatorModel;
-import static org.smartregister.reporting.util.ReportingUtil.getPieChartViewModel;
+import static org.smartregister.reporting.contract.ReportContract.IndicatorView.CountType.TOTAL_COUNT;
+import static org.smartregister.reporting.util.ReportingUtil.addPieChartSlices;
+import static org.smartregister.reporting.util.ReportingUtil.getIndicatorDisplayModel;
+import static org.smartregister.reporting.util.ReportingUtil.getPieChartDisplayModel;
+import static org.smartregister.reporting.util.ReportingUtil.getPieChartSlice;
 
 public class ChwReport {
 
 
     public static void createAncReportViews(ViewGroup mainLayout, List<Map<String, IndicatorTally>> indicatorTallies) {
         //Disclaimer: Pie charts have binary slices yes and no with different tallying done separately ;)
-        IndicatorDisplayModel anc_indicator1 = getIndicatorModel(LATEST_COUNT, COUNT_WRA, R.string.anc_indicator1, indicatorTallies);
+        NumericDisplayModel anc_indicator1 = getIndicatorDisplayModel(LATEST_COUNT, COUNT_WRA, R.string.anc_indicator1, indicatorTallies);
         mainLayout.addView(new NumericIndicatorView(mainLayout.getContext(), anc_indicator1).createView());
 
-        IndicatorDisplayModel anc_indicator2 = getIndicatorModel(LATEST_COUNT, COUNT_PREGNANT_WOMEN, R.string.anc_indicator2, indicatorTallies);
+        NumericDisplayModel anc_indicator2 = getIndicatorDisplayModel(LATEST_COUNT, COUNT_PREGNANT_WOMEN, R.string.anc_indicator2, indicatorTallies);
         mainLayout.addView(new NumericIndicatorView(mainLayout.getContext(), anc_indicator2).createView());
 
-        IndicatorDisplayModel anc_indicator3_1 = getIndicatorModel(LATEST_COUNT, COUNT_WOMEN_DUE_HOME_VISIT, R.string.anc_indicator3, indicatorTallies);
-        IndicatorDisplayModel anc_indicator3_2 = getIndicatorModel(LATEST_COUNT, COUNT_WOMEN_OVERDUE_HOME_VISIT, R.string.anc_indicator3, indicatorTallies);
-        mainLayout.addView(new PieChartIndicatorView(mainLayout.getContext(), getPieChartViewModel(anc_indicator3_1, anc_indicator3_2, null, null)).createView());
+        PieChartSlice anc_indicator3_1 = getPieChartSlice(LATEST_COUNT, COUNT_WOMEN_DUE_HOME_VISIT, mainLayout.getContext().getResources().getString(R.string.anc_indicator3), mainLayout.getContext().getResources().getColor(R.color.pie_chart_yes), indicatorTallies);
+        PieChartSlice anc_indicator3_2 = getPieChartSlice(LATEST_COUNT, COUNT_WOMEN_OVERDUE_HOME_VISIT, mainLayout.getContext().getResources().getString(R.string.anc_indicator3), mainLayout.getContext().getResources().getColor(R.color.pie_chart_no), indicatorTallies);
+        mainLayout.addView(new PieChartIndicatorView(mainLayout.getContext(), getPieChartDisplayModel(addPieChartSlices(anc_indicator3_1, anc_indicator3_2), null, null)).createView());
 
-        IndicatorDisplayModel anc_indicator4_1 = getIndicatorModel(LATEST_COUNT, COUNT_WOMEN_DUE_HEALTH_FACILITY_VISIT, R.string.anc_indicator4, indicatorTallies);
-        IndicatorDisplayModel anc_indicator4_2 = getIndicatorModel(LATEST_COUNT, COUNT_WOMEN_OVERDUE_HEALTH_FACILITY_VISIT, R.string.anc_indicator4, indicatorTallies);
-        mainLayout.addView(new PieChartIndicatorView(mainLayout.getContext(), getPieChartViewModel(anc_indicator4_1, anc_indicator4_2, null, null)).createView());
+        PieChartSlice anc_indicator4_1 = getPieChartSlice(LATEST_COUNT, COUNT_WOMEN_DUE_HEALTH_FACILITY_VISIT, mainLayout.getContext().getResources().getString(R.string.anc_indicator4), mainLayout.getContext().getResources().getColor(R.color.pie_chart_yes), indicatorTallies);
+        PieChartSlice anc_indicator4_2 = getPieChartSlice(LATEST_COUNT, COUNT_WOMEN_OVERDUE_HEALTH_FACILITY_VISIT, mainLayout.getContext().getResources().getString(R.string.anc_indicator4), mainLayout.getContext().getResources().getColor(R.color.pie_chart_no), indicatorTallies);
+        mainLayout.addView(new PieChartIndicatorView(mainLayout.getContext(), getPieChartDisplayModel(addPieChartSlices(anc_indicator4_1, anc_indicator4_2), null, null)).createView());
 
-        IndicatorDisplayModel anc_indicator5_1 = getIndicatorModel(LATEST_COUNT, COUNT_WOMEN_TESTED_HIV, R.string.anc_indicator5, indicatorTallies);
-        IndicatorDisplayModel anc_indicator5_2 = getIndicatorModel(LATEST_COUNT, COUNT_WOMEN_NOT_TESTED_HIV, R.string.anc_indicator5, indicatorTallies);
-        mainLayout.addView(new PieChartIndicatorView(mainLayout.getContext(), getPieChartViewModel(anc_indicator5_1, anc_indicator5_2, null, null)).createView());
+        PieChartSlice anc_indicator5_1 = getPieChartSlice(LATEST_COUNT, COUNT_WOMEN_TESTED_HIV, mainLayout.getContext().getResources().getString(R.string.anc_indicator5), mainLayout.getContext().getResources().getColor(R.color.pie_chart_yes), indicatorTallies);
+        PieChartSlice anc_indicator5_2 = getPieChartSlice(LATEST_COUNT, COUNT_WOMEN_NOT_TESTED_HIV, mainLayout.getContext().getResources().getString(R.string.anc_indicator5), mainLayout.getContext().getResources().getColor(R.color.pie_chart_no), indicatorTallies);
+        mainLayout.addView(new PieChartIndicatorView(mainLayout.getContext(), getPieChartDisplayModel(addPieChartSlices(anc_indicator5_1, anc_indicator5_2), null, null)).createView());
 
-        IndicatorDisplayModel anc_indicator6_1 = getIndicatorModel(LATEST_COUNT, COUNT_WOMEN_TESTED_SYPHILIS, R.string.anc_indicator6, indicatorTallies);
-        IndicatorDisplayModel anc_indicator6_2 = getIndicatorModel(LATEST_COUNT, COUNT_WOMEN_NOT_TESTED_SYPHILIS, R.string.anc_indicator6, indicatorTallies);
-        mainLayout.addView(new PieChartIndicatorView(mainLayout.getContext(), getPieChartViewModel(anc_indicator6_1, anc_indicator6_2, null, null)).createView());
+        PieChartSlice anc_indicator6_1 = getPieChartSlice(LATEST_COUNT, COUNT_WOMEN_TESTED_SYPHILIS, mainLayout.getContext().getResources().getString(R.string.anc_indicator6), mainLayout.getContext().getResources().getColor(R.color.pie_chart_yes), indicatorTallies);
+        PieChartSlice anc_indicator6_2 = getPieChartSlice(LATEST_COUNT, COUNT_WOMEN_NOT_TESTED_SYPHILIS, mainLayout.getContext().getResources().getString(R.string.anc_indicator6), mainLayout.getContext().getResources().getColor(R.color.pie_chart_no), indicatorTallies);
+        mainLayout.addView(new PieChartIndicatorView(mainLayout.getContext(), getPieChartDisplayModel(addPieChartSlices(anc_indicator6_1, anc_indicator6_2), null, null)).createView());
 
-        IndicatorDisplayModel anc_indicator7_1 = getIndicatorModel(LATEST_COUNT, COUNT_WOMEN_DUE_TT_IMMUNIZATION, R.string.anc_indicator7, indicatorTallies);
-        IndicatorDisplayModel anc_indicator7_2 = getIndicatorModel(LATEST_COUNT, COUNT_WOMEN_OVERDUE_TT_IMMUNIZATION, R.string.anc_indicator7, indicatorTallies);
-        mainLayout.addView(new PieChartIndicatorView(mainLayout.getContext(), getPieChartViewModel(anc_indicator7_1, anc_indicator7_2, null, null)).createView());
+        PieChartSlice anc_indicator7_1 = getPieChartSlice(LATEST_COUNT, COUNT_WOMEN_DUE_TT_IMMUNIZATION, mainLayout.getContext().getResources().getString(R.string.anc_indicator7), mainLayout.getContext().getResources().getColor(R.color.pie_chart_yes), indicatorTallies);
+        PieChartSlice anc_indicator7_2 = getPieChartSlice(LATEST_COUNT, COUNT_WOMEN_OVERDUE_TT_IMMUNIZATION, mainLayout.getContext().getResources().getString(R.string.anc_indicator7), mainLayout.getContext().getResources().getColor(R.color.pie_chart_no), indicatorTallies);
+        mainLayout.addView(new PieChartIndicatorView(mainLayout.getContext(), getPieChartDisplayModel(addPieChartSlices(anc_indicator7_1, anc_indicator7_2), null, null)).createView());
 
-        IndicatorDisplayModel anc_indicator8_1 = getIndicatorModel(LATEST_COUNT, COUNT_WOMEN_DUE_IPTPSP, R.string.anc_indicator8, indicatorTallies);
-        IndicatorDisplayModel anc_indicator8_2 = getIndicatorModel(LATEST_COUNT, COUNT_WOMEN_OVERDUE_IPTPSP, R.string.anc_indicator8, indicatorTallies);
-        mainLayout.addView(new PieChartIndicatorView(mainLayout.getContext(), getPieChartViewModel(anc_indicator8_1, anc_indicator8_2, null, null)).createView());
+        PieChartSlice anc_indicator8_1 = getPieChartSlice(LATEST_COUNT, COUNT_WOMEN_DUE_IPTPSP, mainLayout.getContext().getResources().getString(R.string.anc_indicator8), mainLayout.getContext().getResources().getColor(R.color.pie_chart_yes), indicatorTallies);
+        PieChartSlice anc_indicator8_2 = getPieChartSlice(LATEST_COUNT, COUNT_WOMEN_OVERDUE_IPTPSP, mainLayout.getContext().getResources().getString(R.string.anc_indicator8), mainLayout.getContext().getResources().getColor(R.color.pie_chart_no), indicatorTallies);
+        mainLayout.addView(new PieChartIndicatorView(mainLayout.getContext(), getPieChartDisplayModel(addPieChartSlices(anc_indicator8_1, anc_indicator8_2), null, null)).createView());
     }
 
     public static void createChildReportViews(ViewGroup mainLayout, List<Map<String, IndicatorTally>> indicatorTallies) {
         //Disclaimer: Pie charts have binary slices yes and no with different tallying done separately ;)
-        IndicatorDisplayModel indicator1 = getIndicatorModel(STATIC_COUNT, countOfChildrenUnder5, R.string.total_under_5_children_label, indicatorTallies);
+        NumericDisplayModel indicator1 = getIndicatorDisplayModel(TOTAL_COUNT, countOfChildrenUnder5, R.string.total_under_5_children_label, indicatorTallies);
         mainLayout.addView(new NumericIndicatorView(mainLayout.getContext(), indicator1).createView());
 
-        IndicatorDisplayModel indicator2_1 = getIndicatorModel(LATEST_COUNT, countOfChildren_0_24UptoDateVaccinations, R.string.children_0_24_months_upto_date_vaccinations, indicatorTallies);
-        IndicatorDisplayModel indicator2_2 = getIndicatorModel(LATEST_COUNT, countOfChildren_0_24OverdueVaccinations, R.string.children_0_24_months_overdue_vaccinations, indicatorTallies);
-        mainLayout.addView(new PieChartIndicatorView(mainLayout.getContext(), getPieChartViewModel(indicator2_1, indicator2_2, null, mainLayout.getContext().getResources().getString(R.string.opv_0_not_included))).createView());
+        PieChartSlice indicator2_1 = getPieChartSlice(LATEST_COUNT, countOfChildren_0_24UptoDateVaccinations,mainLayout.getContext().getResources().getString(R.string.children_0_24_months_upto_date_vaccinations),mainLayout.getContext().getResources().getColor(R.color.pie_chart_yes), indicatorTallies);
+        PieChartSlice indicator2_2 = getPieChartSlice(LATEST_COUNT, countOfChildren_0_24OverdueVaccinations, mainLayout.getContext().getResources().getString(R.string.children_0_24_months_overdue_vaccinations),mainLayout.getContext().getResources().getColor(R.color.pie_chart_no), indicatorTallies);
+        mainLayout.addView(new PieChartIndicatorView(mainLayout.getContext(), getPieChartDisplayModel(addPieChartSlices(indicator2_1, indicator2_2), null, R.string.opv_0_not_included)).createView());
 
-        IndicatorDisplayModel indicator3_1 = getIndicatorModel(LATEST_COUNT, countOfChildren0_5ExclusivelyBreastfeeding, R.string.children_0_5_months_exclusively_breastfeeding, indicatorTallies);
-        IndicatorDisplayModel indicator3_2 = getIndicatorModel(LATEST_COUNT, countOfChildren0_5NotExclusivelyBreastfeeding, R.string.children_0_5_months_not_exclusively_breastfeeding, indicatorTallies);
-        mainLayout.addView(new PieChartIndicatorView(mainLayout.getContext(), getPieChartViewModel(indicator3_1, indicator3_2, null, null)).createView());
+        PieChartSlice indicator3_1 = getPieChartSlice(LATEST_COUNT, countOfChildren0_5ExclusivelyBreastfeeding, mainLayout.getContext().getResources().getString(R.string.children_0_5_months_exclusively_breastfeeding),mainLayout.getContext().getResources().getColor(R.color.pie_chart_yes), indicatorTallies);
+        PieChartSlice indicator3_2 = getPieChartSlice(LATEST_COUNT, countOfChildren0_5NotExclusivelyBreastfeeding,mainLayout.getContext().getResources().getString( R.string.children_0_5_months_not_exclusively_breastfeeding),mainLayout.getContext().getResources().getColor(R.color.pie_chart_no), indicatorTallies);
+        mainLayout.addView(new PieChartIndicatorView(mainLayout.getContext(), getPieChartDisplayModel(addPieChartSlices(indicator3_1, indicator3_2), null, null)).createView());
 
-        IndicatorDisplayModel indicator4_1 = getIndicatorModel(STATIC_COUNT, countOfChildren6_59VitaminReceivedA, R.string.children_6_59_months_received_vitamin_A, indicatorTallies);
-        IndicatorDisplayModel indicator4_2 = getIndicatorModel(STATIC_COUNT, countOfChildren6_59VitaminNotReceivedA, R.string.children_6_59_months_not_received_vitamin_A, indicatorTallies);
-        mainLayout.addView(new PieChartIndicatorView(mainLayout.getContext(), getPieChartViewModel(indicator4_1, indicator4_2, null, null)).createView());
+        PieChartSlice indicator4_1 = getPieChartSlice(TOTAL_COUNT, countOfChildren6_59VitaminReceivedA, mainLayout.getContext().getResources().getString(R.string.children_6_59_months_received_vitamin_A),mainLayout.getContext().getResources().getColor(R.color.pie_chart_yes), indicatorTallies);
+        PieChartSlice indicator4_2 = getPieChartSlice(TOTAL_COUNT, countOfChildren6_59VitaminNotReceivedA, mainLayout.getContext().getResources().getString(R.string.children_6_59_months_not_received_vitamin_A), mainLayout.getContext().getResources().getColor(R.color.pie_chart_no),indicatorTallies);
+        mainLayout.addView(new PieChartIndicatorView(mainLayout.getContext(), getPieChartDisplayModel(addPieChartSlices(indicator4_1, indicator4_2), null, null)).createView());
 
-        IndicatorDisplayModel indicator5_1 = getIndicatorModel(STATIC_COUNT, countOfChildren12_59Dewormed, R.string.children_12_59_months_dewormed, indicatorTallies);
-        IndicatorDisplayModel indicator5_2 = getIndicatorModel(STATIC_COUNT, countOfChildren12_59NotDewormed, R.string.children_12_59_months_not_dewormed, indicatorTallies);
-        mainLayout.addView(new PieChartIndicatorView(mainLayout.getContext(), getPieChartViewModel(indicator5_1, indicator5_2, null, null)).createView());
+        PieChartSlice indicator5_1 = getPieChartSlice(TOTAL_COUNT, countOfChildren12_59Dewormed, mainLayout.getContext().getResources().getString(R.string.children_12_59_months_dewormed),mainLayout.getContext().getResources().getColor(R.color.pie_chart_yes), indicatorTallies);
+        PieChartSlice indicator5_2 = getPieChartSlice(TOTAL_COUNT, countOfChildren12_59NotDewormed, mainLayout.getContext().getResources().getString(R.string.children_12_59_months_not_dewormed), mainLayout.getContext().getResources().getColor(R.color.pie_chart_no),indicatorTallies);
+        mainLayout.addView(new PieChartIndicatorView(mainLayout.getContext(), getPieChartDisplayModel(addPieChartSlices(indicator5_1, indicator5_2), null, null)).createView());
 
-        IndicatorDisplayModel indicator6_1 = getIndicatorModel(LATEST_COUNT, countOfChildren_6_23UptoDateMNP, R.string.children_6_23_months_upto_date_mnp, indicatorTallies);
-        IndicatorDisplayModel indicator6_2 = getIndicatorModel(LATEST_COUNT, countOfChildren_6_23OverdueMNP, R.string.children_6_23_months_overdue_mnp, indicatorTallies);
-        mainLayout.addView(new PieChartIndicatorView(mainLayout.getContext(), getPieChartViewModel(indicator6_1, indicator6_2, null, null)).createView());
+        PieChartSlice indicator6_1 = getPieChartSlice(LATEST_COUNT, countOfChildren_6_23UptoDateMNP, mainLayout.getContext().getResources().getString(R.string.children_6_23_months_upto_date_mnp),mainLayout.getContext().getResources().getColor(R.color.pie_chart_yes), indicatorTallies);
+        PieChartSlice indicator6_2 = getPieChartSlice(LATEST_COUNT, countOfChildren_6_23OverdueMNP, mainLayout.getContext().getResources().getString(R.string.children_6_23_months_overdue_mnp),mainLayout.getContext().getResources().getColor(R.color.pie_chart_no), indicatorTallies);
+        mainLayout.addView(new PieChartIndicatorView(mainLayout.getContext(), getPieChartDisplayModel(addPieChartSlices(indicator6_1, indicator6_2), null, null)).createView());
 
-        IndicatorDisplayModel indicator7_1 = getIndicatorModel(STATIC_COUNT, countOfChildren0_59WithBirthCert, R.string.children_0_59_months_with_birth_certificate, indicatorTallies);
-        IndicatorDisplayModel indicator7_2 = getIndicatorModel(STATIC_COUNT, countOfChildren0_59WithNoBirthCert, R.string.children_0_59_months_without_birth__certificate, indicatorTallies);
-        mainLayout.addView(new PieChartIndicatorView(mainLayout.getContext(), getPieChartViewModel(indicator7_1, indicator7_2, null, null)).createView());
+        PieChartSlice indicator7_1 = getPieChartSlice(TOTAL_COUNT, countOfChildren0_59WithBirthCert, mainLayout.getContext().getResources().getString(R.string.children_0_59_months_with_birth_certificate), mainLayout.getContext().getResources().getColor(R.color.pie_chart_yes),indicatorTallies);
+        PieChartSlice indicator7_2 = getPieChartSlice(TOTAL_COUNT, countOfChildren0_59WithNoBirthCert, mainLayout.getContext().getResources().getString(R.string.children_0_59_months_without_birth__certificate),mainLayout.getContext().getResources().getColor(R.color.pie_chart_no), indicatorTallies);
+        mainLayout.addView(new PieChartIndicatorView(mainLayout.getContext(), getPieChartDisplayModel(addPieChartSlices(indicator7_1, indicator7_2), null, null)).createView());
 
-        IndicatorDisplayModel indicator8 = getIndicatorModel(STATIC_COUNT, deceasedChildren0_11Months, R.string.deceased_children_0_11_months, indicatorTallies);
+        NumericDisplayModel indicator8 = getIndicatorDisplayModel(TOTAL_COUNT, deceasedChildren0_11Months, R.string.deceased_children_0_11_months, indicatorTallies);
         mainLayout.addView(new NumericIndicatorView(mainLayout.getContext(), indicator8).createView());
 
-        IndicatorDisplayModel indicator9 = getIndicatorModel(STATIC_COUNT, deceasedChildren12_59Months, R.string.deceased_children_12_59_months, indicatorTallies);
+        NumericDisplayModel indicator9 = getIndicatorDisplayModel(TOTAL_COUNT, deceasedChildren12_59Months, R.string.deceased_children_12_59_months, indicatorTallies);
         mainLayout.addView(new NumericIndicatorView(mainLayout.getContext(), indicator9).createView());
     }
 }

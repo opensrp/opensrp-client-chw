@@ -1,7 +1,6 @@
 package org.smartregister.chw.repository;
 
 import android.content.Context;
-import android.util.Log;
 
 import net.sqlcipher.database.SQLiteDatabase;
 
@@ -27,6 +26,8 @@ import org.smartregister.repository.EventClientRepository;
 import org.smartregister.repository.Repository;
 import org.smartregister.repository.SettingsRepository;
 import org.smartregister.repository.UniqueIdRepository;
+
+import timber.log.Timber;
 
 /**
  * Created by keyman on 27/11/2018.
@@ -91,23 +92,12 @@ public class ChwRepository extends Repository {
 
     }
 
-    private void initializeReportIndicators(SQLiteDatabase database,
-                                            ReportingLibrary reportingLibraryInstance) {
-        // This will persist the data in the DB
-        String childIndicatorsConfigFile = "config/child-reporting-indicator-definitions.yml";
-        String ancIndicatorConfigFile = "config/anc-reporting-indicator-definitions.yml";
-        reportingLibraryInstance.initIndicatorData(childIndicatorsConfigFile, database);
-        reportingLibraryInstance.initIndicatorData(ancIndicatorConfigFile, database);
-    }
-
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        Log.w(ChwRepository.class.getName(), "Upgrading database from version " + oldVersion + " to "
-                + newVersion + ", which will destroy all old data");
-
+        Timber.w(ChwRepository.class.getName(), "Upgrading database from version "
+                + oldVersion + " to " + newVersion + ", which will destroy all old data");
         ChwRepositoryFlv.onUpgrade(context, db, oldVersion, newVersion);
     }
-
 
     @Override
     public SQLiteDatabase getReadableDatabase() {
@@ -129,21 +119,13 @@ public class ChwRepository extends Repository {
         }
     }
 
-    @Override
-    public synchronized SQLiteDatabase getReadableDatabase(String password) {
-        try {
-            if (readableDatabase == null || !readableDatabase.isOpen()) {
-                if (readableDatabase != null) {
-                    readableDatabase.close();
-                }
-                readableDatabase = super.getReadableDatabase(password);
-            }
-            return readableDatabase;
-        } catch (Exception e) {
-            Log.e(TAG, "Database Error. " + e.getMessage());
-            return null;
-        }
-
+    private void initializeReportIndicators(SQLiteDatabase database,
+                                            ReportingLibrary reportingLibraryInstance) {
+        // This will persist the data in the DB
+        String childIndicatorsConfigFile = "config/child-reporting-indicator-definitions.yml";
+        String ancIndicatorConfigFile = "config/anc-reporting-indicator-definitions.yml";
+        reportingLibraryInstance.initIndicatorData(childIndicatorsConfigFile, database);
+        reportingLibraryInstance.initIndicatorData(ancIndicatorConfigFile, database);
     }
 
     @Override
@@ -155,6 +137,23 @@ public class ChwRepository extends Repository {
             writableDatabase = super.getWritableDatabase(password);
         }
         return writableDatabase;
+    }
+
+    @Override
+    public synchronized SQLiteDatabase getReadableDatabase(String password) {
+        try {
+            if (readableDatabase == null || !readableDatabase.isOpen()) {
+                if (readableDatabase != null) {
+                    readableDatabase.close();
+                }
+                readableDatabase = super.getReadableDatabase(password);
+            }
+            return readableDatabase;
+        } catch (Exception e) {
+            Timber.e("Database Error. " + e.getMessage());
+            return null;
+        }
+
     }
 
     @Override

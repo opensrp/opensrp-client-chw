@@ -6,12 +6,14 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.util.Log;
+
 import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
 
 import org.smartregister.chw.R;
+
+import timber.log.Timber;
 
 public class CopyToClipboardDialog extends Dialog implements View.OnClickListener {
     private Context context;
@@ -46,7 +48,7 @@ public class CopyToClipboardDialog extends Dialog implements View.OnClickListene
 
             dismiss();
         } catch (Exception e) {
-            Log.e(TAG, e.getMessage());
+            Timber.e(e);
         }
     }
 
