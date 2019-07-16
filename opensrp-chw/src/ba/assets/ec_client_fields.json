@@ -625,6 +625,9 @@
         {
           "column_name": "last_menstrual_period",
           "type": "Event",
+          "data_type": "date",
+          "source_format": "dd-MM-yyyy",
+          "save_format": "yyyy-MM-dd",
           "json_mapping": {
             "field": "obs.fieldCode",
             "concept": "1427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -641,6 +644,9 @@
         {
           "column_name": "edd",
           "type": "Event",
+          "data_type": "date",
+          "source_format": "dd-MM-yyyy",
+          "save_format": "yyyy-MM-dd",
           "json_mapping": {
             "field": "obs.fieldCode",
             "concept": "5596AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -689,6 +695,9 @@
         {
           "column_name": "last_home_visit",
           "type": "Event",
+          "data_type": "date",
+          "source_format": "dd-MM-yyyy",
+          "save_format": "yyyy-MM-dd",
           "json_mapping": {
             "field": "obs.fieldCode",
             "concept": "anc_visit_date"
@@ -697,6 +706,9 @@
         {
           "column_name": "visit_not_done",
           "type": "Event",
+          "data_type": "date",
+          "source_format": "dd-MM-yyyy",
+          "save_format": "yyyy-MM-dd",
           "json_mapping": {
             "field": "obs.fieldCode",
             "concept": "anc_visit_not_done_date"
@@ -713,6 +725,9 @@
         {
           "column_name": "last_contact_visit",
           "type": "Event",
+          "data_type": "date",
+          "source_format": "dd-MM-yyyy",
+          "save_format": "yyyy-MM-dd",
           "json_mapping": {
             "field": "obs.fieldCode",
             "concept": "159590AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
