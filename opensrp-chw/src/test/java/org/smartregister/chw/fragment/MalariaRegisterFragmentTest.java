@@ -4,48 +4,59 @@ import android.view.View;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.powermock.reflect.Whitebox;
-import org.robolectric.RobolectricTestRunner;
-import org.robolectric.annotation.Config;
-import org.smartregister.chw.BuildConfig;
-import org.smartregister.chw.application.ChwApplication;
+import org.mockito.MockitoAnnotations;
+import org.mockito.Spy;
 
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.when;
 
-@RunWith(RobolectricTestRunner.class)
-@Config(application = ChwApplication.class, constants = BuildConfig.class, sdk = 22)
 public class MalariaRegisterFragmentTest {
-    @Mock
-    private MalariaRegisterFragment malariaRegisterFragment;
+    private MalariaRegisterFragment malariaRegisterFragment = new MalariaRegisterFragment();
+
+    @Spy
+    private MalariaRegisterFragment spy;
 
     @Mock
     private View dueOnlyLayout;
 
     @Before
     public void setUp() {
-        malariaRegisterFragment = spy(MalariaRegisterFragment.class);
-        dueOnlyLayout = spy(View.class);
+        MockitoAnnotations.initMocks(this);
+        spy = Mockito.spy(malariaRegisterFragment);
     }
 
     @Test
-    public void testToggleFilterSelectionNeverCallsNormalFilter() {
-        Whitebox.setInternalState(malariaRegisterFragment, "dueOnlyLayout", dueOnlyLayout);
-        if (dueOnlyLayout.getTag() == null) {
-            Mockito.verify(malariaRegisterFragment, never()).normalFilter(dueOnlyLayout);
-        }
+    public void testToggleFilterSelectionCallsDueFilterWhenTagIsNull() {
+        dueOnlyLayout.setTag(null);
+        doNothing().when(spy).dueFilter(dueOnlyLayout);
+        spy.toggleFilterSelection(dueOnlyLayout);
+        Mockito.verify(spy).dueFilter(dueOnlyLayout);
     }
 
     @Test
-    public void testToggleFilterSelectionWhenDueOnlyLayoutHasTagNeverCallsDueFilter() {
-        Whitebox.setInternalState(malariaRegisterFragment, "dueOnlyLayout", dueOnlyLayout);
-        dueOnlyLayout.setTag("PRESSED");
-        if (dueOnlyLayout.getTag().toString().equals("PRESSED")) {
-            Mockito.verify(malariaRegisterFragment, never()).dueFilter(dueOnlyLayout);
-        }
+    public void testToggleFilterSelectionNeverCallsNormalFilterWhenTagIsNull() {
+        dueOnlyLayout.setTag(null);
+        doNothing().when(spy).dueFilter(dueOnlyLayout);
+        spy.toggleFilterSelection(dueOnlyLayout);
+        Mockito.verify(spy, never()).normalFilter(dueOnlyLayout);
+    }
 
+    @Test
+    public void testToggleFilterSelectionCallsNormalFilterWhenTagIsPressed() {
+        when(dueOnlyLayout.getTag()).thenReturn("PRESSED");
+        doNothing().when(spy).normalFilter(dueOnlyLayout);
+        spy.toggleFilterSelection(dueOnlyLayout);
+        Mockito.verify(spy).normalFilter(dueOnlyLayout);
+    }
+
+    @Test
+    public void testToggleFilterSelectionCallsDueFilterWhenTagIsPressed() {
+        when(dueOnlyLayout.getTag()).thenReturn("PRESSED");
+        doNothing().when(spy).normalFilter(dueOnlyLayout);
+        spy.toggleFilterSelection(dueOnlyLayout);
+        Mockito.verify(spy, never()).dueFilter(dueOnlyLayout);
     }
 }
