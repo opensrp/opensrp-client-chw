@@ -30,7 +30,7 @@ public class MalariaRegisterFragmentTest {
     }
 
     @Test
-    public void assertLayoutNotNull() {
+    public void assertViewLayoutNotNull() {
         Assert.assertNotNull(dueOnlyLayout);
     }
 
@@ -59,7 +59,7 @@ public class MalariaRegisterFragmentTest {
     }
 
     @Test
-    public void testToggleFilterSelectionCallsDueFilterWhenTagIsPressed() {
+    public void testToggleFilterSelectionNeverCallsDueFilterWhenTagIsPressed() {
         when(dueOnlyLayout.getTag()).thenReturn("PRESSED");
         doNothing().when(spy).normalFilter(dueOnlyLayout);
         spy.toggleFilterSelection(dueOnlyLayout);
