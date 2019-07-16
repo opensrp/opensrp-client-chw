@@ -65,4 +65,10 @@ public class MalariaRegisterFragmentTest {
         spy.toggleFilterSelection(dueOnlyLayout);
         Mockito.verify(spy, never()).dueFilter(dueOnlyLayout);
     }
+
+    @Test
+    public void testSearchTextNull() {
+        Assert.assertEquals("", spy.searchText());
+    }
+
 }
