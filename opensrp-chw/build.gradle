@@ -67,6 +67,7 @@ android {
             buildConfigField "int", "IMAGE_UPLOAD_MINUTES", '180'
             buildConfigField "int", "PULL_UNIQUE_IDS_MINUTES", '180'
             buildConfigField "int", "REPORT_INDICATOR_GENERATION_MINUTES", '180'
+            buildConfigField "int", "HOME_VISIT_MINUTES", '60'
         }
 
         debug {
@@ -79,6 +80,7 @@ android {
             buildConfigField "int", "IMAGE_UPLOAD_MINUTES", '15'
             buildConfigField "int", "PULL_UNIQUE_IDS_MINUTES", '15'
             buildConfigField "int", "REPORT_INDICATOR_GENERATION_MINUTES", '15'
+            buildConfigField "int", "HOME_VISIT_MINUTES", '60'
             testCoverageEnabled true
         }
     }
