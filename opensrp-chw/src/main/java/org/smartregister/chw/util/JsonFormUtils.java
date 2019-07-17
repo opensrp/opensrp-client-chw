@@ -44,7 +44,6 @@ import org.smartregister.sync.helper.ECSyncHelper;
 import org.smartregister.util.AssetHandler;
 import org.smartregister.util.FormUtils;
 import org.smartregister.util.ImageUtils;
-import org.smartregister.util.StringUtil;
 import org.smartregister.view.LocationPickerView;
 import org.smartregister.view.activity.DrishtiApplication;
 
@@ -53,13 +52,18 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import java.util.TimeZone;
 import java.util.UUID;
 
 import timber.log.Timber;
@@ -828,6 +832,15 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
         return "";
     }
 
+    public static String getTimeZone() {
+        Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("GMT"),
+                Locale.getDefault());
+        Date currentLocalTime = calendar.getTime();
+        DateFormat date = new SimpleDateFormat("Z");
+        String localTime = date.format(currentLocalTime);
+        return localTime.substring(0, 3) + ":" + localTime.substring(3, 5);
+    }
+
     public static Pair<List<Client>, List<Event>> processFamilyUpdateRelations(Context context, FamilyMember familyMember, String lastLocationId) throws Exception {
         List<Client> clients = new ArrayList<>();
         List<Event> events = new ArrayList<>();
@@ -836,10 +849,10 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
         ECSyncHelper syncHelper = ChwApplication.getInstance().getEcSyncHelper();
         JSONObject clientObject = syncHelper.getClient(familyMember.getFamilyID());
         Client familyClient = syncHelper.convert(clientObject, Client.class);
-        if(familyClient == null){
+        if (familyClient == null) {
             String birthDate = clientObject.getString("birthdate");
-            if(StringUtils.isNotBlank(birthDate)){
-                birthDate = birthDate.replace("-00:44:30","+02:00");
+            if (StringUtils.isNotBlank(birthDate)) {
+                birthDate = birthDate.replace("-00:44:30", getTimeZone());
                 clientObject.put("birthdate", birthDate);
             }
 
