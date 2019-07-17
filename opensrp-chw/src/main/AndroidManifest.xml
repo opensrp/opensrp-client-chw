@@ -154,6 +154,7 @@
         <service android:name="org.smartregister.sync.intent.ExtendedSyncIntentService" />
         <service android:name="org.smartregister.sync.intent.ValidateIntentService" />
         <service android:name="org.smartregister.service.ImageUploadSyncService" />
+        <service android:name="org.smartregister.chw.anc.intent.HomeVisitIntent" />
 
         <uses-library
             android:name="org.apache.http.legacy"

@@ -67,6 +67,7 @@ android {
             buildConfigField "int", "IMAGE_UPLOAD_MINUTES", '180'
             buildConfigField "int", "PULL_UNIQUE_IDS_MINUTES", '180'
             buildConfigField "int", "REPORT_INDICATOR_GENERATION_MINUTES", '180'
+            buildConfigField "int", "HOME_VISIT_MINUTES", '60'
         }
 
         debug {
@@ -79,6 +80,7 @@ android {
             buildConfigField "int", "IMAGE_UPLOAD_MINUTES", '15'
             buildConfigField "int", "PULL_UNIQUE_IDS_MINUTES", '15'
             buildConfigField "int", "REPORT_INDICATOR_GENERATION_MINUTES", '15'
+            buildConfigField "int", "HOME_VISIT_MINUTES", '60'
             testCoverageEnabled true
         }
     }
@@ -236,7 +238,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'design'
     }
 
-    implementation('org.smartregister:opensrp-client-chw-anc:0.0.7-BETA8-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-chw-anc:0.0.8-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'org.smartregister', module: 'opensrp-client-core'
         exclude group: 'com.android.support', module: 'appcompat-v7'
