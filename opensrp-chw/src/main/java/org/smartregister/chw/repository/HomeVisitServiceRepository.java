@@ -3,14 +3,18 @@ package org.smartregister.chw.repository;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.text.TextUtils;
-import android.util.Log;
+
 import net.sqlcipher.database.SQLiteDatabase;
+
 import org.smartregister.chw.util.HomeVisitServiceDataModel;
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.repository.Repository;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import timber.log.Timber;
 
 public class HomeVisitServiceRepository extends BaseRepository {
     private static final String TAG = HomeVisitServiceRepository.class.getCanonicalName();
@@ -42,13 +46,13 @@ public class HomeVisitServiceRepository extends BaseRepository {
                 if (uniqueVisit != null) {
                     update(database, homeVisitServiceDataModel);
                 } else {
-                   database.insert(HOME_VISIT_SERVICE_TABLE_NAME, null, createValuesFor(homeVisitServiceDataModel));
+                    database.insert(HOME_VISIT_SERVICE_TABLE_NAME, null, createValuesFor(homeVisitServiceDataModel));
 
                 }
             }
 
         } catch (Exception e) {
-            Log.e(TAG, Log.getStackTraceString(e));
+            Timber.e(e);
         }
 
     }
@@ -84,11 +88,12 @@ public class HomeVisitServiceRepository extends BaseRepository {
         List<HomeVisitServiceDataModel> homeVisitList = getAllHomeVisitService(cursor);
         return homeVisitList;
     }
+
     public List<HomeVisitServiceDataModel> getLatestThreeEntry(String eventType) {
         SQLiteDatabase database = getReadableDatabase();
-        String selection  = EVENT_TYPE + " = ? " + COLLATE_NOCASE;
+        String selection = EVENT_TYPE + " = ? " + COLLATE_NOCASE;
         String[] selectionArgs = new String[]{eventType};
-        net.sqlcipher.Cursor cursor = database.query(HOME_VISIT_SERVICE_TABLE_NAME, TABLE_COLUMNS, selection, selectionArgs, null, null, DATE+ " DESC", "3");
+        net.sqlcipher.Cursor cursor = database.query(HOME_VISIT_SERVICE_TABLE_NAME, TABLE_COLUMNS, selection, selectionArgs, null, null, DATE + " DESC", "3");
         List<HomeVisitServiceDataModel> homeVisitList = getAllHomeVisitService(cursor);
         return homeVisitList;
     }
@@ -104,7 +109,7 @@ public class HomeVisitServiceRepository extends BaseRepository {
                     homeVisitServiceDataModel.setHomeVisitDetails(cursor.getString(cursor.getColumnIndex(DETAILS)));
                     homeVisitServiceDataModel.setHomeVisitId(cursor.getString(cursor.getColumnIndex(HOME_VISIT_ID)));
                     //duplicate handle
-                    if (homeVisitServiceDataModel.getHomeVisitId() !=null && !isExist(homeVisitServiceDataModels, homeVisitServiceDataModel.getEventType(),homeVisitServiceDataModel.getHomeVisitId())) {
+                    if (homeVisitServiceDataModel.getHomeVisitId() != null && !isExist(homeVisitServiceDataModels, homeVisitServiceDataModel.getEventType(), homeVisitServiceDataModel.getHomeVisitId())) {
                         homeVisitServiceDataModels.add(homeVisitServiceDataModel);
                     }
                     cursor.moveToNext();
@@ -119,7 +124,7 @@ public class HomeVisitServiceRepository extends BaseRepository {
 
     }
 
-    private boolean isExist(List<HomeVisitServiceDataModel> homeVisitServiceDataModels, String type,String homeVisitId) {
+    private boolean isExist(List<HomeVisitServiceDataModel> homeVisitServiceDataModels, String type, String homeVisitId) {
         for (HomeVisitServiceDataModel homeVisitServiceDataModel : homeVisitServiceDataModels) {
             if (homeVisitServiceDataModel.getEventType().equalsIgnoreCase(type)
                     && homeVisitServiceDataModel.getHomeVisitId().equalsIgnoreCase(homeVisitId)) {
@@ -135,10 +140,10 @@ public class HomeVisitServiceRepository extends BaseRepository {
         }
 
         try {
-            String idSelection = HOME_VISIT_ID + " = ? and "+EVENT_TYPE+" = ?";
-            database.update(HOME_VISIT_SERVICE_TABLE_NAME, createValuesFor(homeVisitServiceDataModel), idSelection, new String[]{homeVisitServiceDataModel.getHomeVisitId(),homeVisitServiceDataModel.getEventType()});
+            String idSelection = HOME_VISIT_ID + " = ? and " + EVENT_TYPE + " = ?";
+            database.update(HOME_VISIT_SERVICE_TABLE_NAME, createValuesFor(homeVisitServiceDataModel), idSelection, new String[]{homeVisitServiceDataModel.getHomeVisitId(), homeVisitServiceDataModel.getEventType()});
         } catch (Exception e) {
-            Log.e(TAG, Log.getStackTraceString(e));
+            Timber.e(e);
         }
     }
 

@@ -10,7 +10,6 @@ import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializationContext;
@@ -327,7 +326,6 @@ public class ChildUtils {
 
     public static void updateHomeVisitAsEvent(String entityId, String eventType, String entityType, Map<String, JSONObject> fieldObjects, String visitStatus, String value, String homeVisitId) {
         try {
-
             ECSyncHelper syncHelper = FamilyLibrary.getInstance().getEcSyncHelper();
 
             Event event = (Event) new Event()
@@ -372,14 +370,13 @@ public class ChildUtils {
                     .withFieldCode(Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_ILLNESS).withFieldType("formsubmissionField").withFieldDataType("text").withParentCode("").withHumanReadableValues(new ArrayList<>()));
 
             tagSyncMetadata(ChwApplication.getInstance().getContext().allSharedPreferences(), event);
+
             JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(event));
             syncHelper.addEvent(entityId, eventJson);
             long lastSyncTimeStamp = ChwApplication.getInstance().getContext().allSharedPreferences().fetchLastUpdatedAtDate(0);
             Date lastSyncDate = new Date(lastSyncTimeStamp);
             ChwApplication.getClientProcessor(ChwApplication.getInstance().getContext().applicationContext()).processClient(syncHelper.getEvents(lastSyncDate, BaseRepository.TYPE_Unsynced));
             ChwApplication.getInstance().getContext().allSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
-
-            //update details
 
         } catch (Exception e) {
             Timber.e(e);
@@ -405,13 +402,8 @@ public class ChildUtils {
             tagSyncMetadata(ChwApplication.getInstance().getContext().allSharedPreferences(), baseEvent);
             JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(baseEvent));
             syncHelper.addEvent(entityId, eventJson);
-            long lastSyncTimeStamp = ChwApplication.getInstance().getContext().allSharedPreferences().fetchLastUpdatedAtDate(0);
-            Date lastSyncDate = new Date(lastSyncTimeStamp);
-            ChwApplication.getClientProcessor(ChwApplication.getInstance().getContext().applicationContext()).processClient(syncHelper.getEvents(lastSyncDate, BaseRepository.TYPE_Unsynced));
-            ChwApplication.getInstance().getContext().allSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
-
         } catch (Exception e) {
-            e.printStackTrace();
+            Timber.e(e);
         }
 
     }
@@ -438,13 +430,9 @@ public class ChildUtils {
             tagSyncMetadata(ChwApplication.getInstance().getContext().allSharedPreferences(), baseEvent);
             JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(baseEvent));
             syncHelper.addEvent(entityId, eventJson);
-            long lastSyncTimeStamp = ChwApplication.getInstance().getContext().allSharedPreferences().fetchLastUpdatedAtDate(0);
-            Date lastSyncDate = new Date(lastSyncTimeStamp);
-            ChwApplication.getClientProcessor(ChwApplication.getInstance().getContext().applicationContext()).processClient(syncHelper.getEvents(lastSyncDate, BaseRepository.TYPE_Unsynced));
-            ChwApplication.getInstance().getContext().allSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
 
         } catch (Exception e) {
-            e.printStackTrace();
+            Timber.e(e);
         }
 
     }
@@ -456,15 +444,21 @@ public class ChildUtils {
             if (baseEvent != null) {
                 JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(baseEvent));
                 syncHelper.addEvent(entityId, eventJson);
-                long lastSyncTimeStamp = ChwApplication.getInstance().getContext().allSharedPreferences().fetchLastUpdatedAtDate(0);
-                Date lastSyncDate = new Date(lastSyncTimeStamp);
-                ChwApplication.getClientProcessor(ChwApplication.getInstance().getContext().applicationContext()).processClient(syncHelper.getEvents(lastSyncDate, BaseRepository.TYPE_Unsynced));
-                ChwApplication.getInstance().getContext().allSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
-
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
+            Timber.e(e);
+        }
+
+    }
+    public static void processClientProcessInBackground(){
+        try {
+        long lastSyncTimeStamp = ChwApplication.getInstance().getContext().allSharedPreferences().fetchLastUpdatedAtDate(0);
+        Date lastSyncDate = new Date(lastSyncTimeStamp);
+        ChwApplication.getClientProcessor(ChwApplication.getInstance().getContext().applicationContext()).processClient(FamilyLibrary.getInstance().getEcSyncHelper().getEvents(lastSyncDate, BaseRepository.TYPE_Unsynced));
+        ChwApplication.getInstance().getContext().allSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
+        } catch (Exception e) {
+            Timber.e(e);
         }
 
     }
@@ -677,8 +671,7 @@ public class ChildUtils {
     public static String getDurationFromTwoDate(Date dob, Date homeVisitServiceDate){
 
         long timeDiff = Math.abs(homeVisitServiceDate.getTime() - dob.getTime());
-        String difStr = DateUtil.getDuration(timeDiff);
-        return difStr;
+        return DateUtil.getDuration(timeDiff);
 
     }
 

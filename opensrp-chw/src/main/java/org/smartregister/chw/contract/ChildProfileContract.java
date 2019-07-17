@@ -78,6 +78,8 @@ public interface ChildProfileContract {
         void openVisitMonthView();
 
         void showUndoVisitNotDoneView();
+
+        void updateAfterBackgroundProcessed();
     }
 
     interface Presenter extends BaseProfileContract.Presenter {
@@ -98,6 +100,8 @@ public interface ChildProfileContract {
 
         void fetchUpcomingServiceAndFamilyDue(String baseEntityId);
 
+        void processBackGroundEvent();
+
     }
 
     interface Interactor {
@@ -116,6 +120,8 @@ public interface ChildProfileContract {
         void saveRegistration(final Pair<Client, Event> pair, final String jsonString, final boolean isEditMode, final ChildProfileContract.InteractorCallBack callBack);
 
         JSONObject getAutoPopulatedJsonEditFormString(String formName, String title, Context context, CommonPersonObjectClient client);
+
+        void processBackGroundEvent(final ChildProfileContract.InteractorCallBack callback);
     }
 
     interface InteractorCallBack {
@@ -144,6 +150,8 @@ public interface ChildProfileContract {
         void updateVisitNotDone();
 
         void undoVisitNotDone();
+
+        void updateAfterBackGroundProcessed();
     }
 
     interface Model {

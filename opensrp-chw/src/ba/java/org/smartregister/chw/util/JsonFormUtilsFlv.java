@@ -2,7 +2,7 @@ package org.smartregister.chw.util;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.util.Log;
+
 import android.util.Pair;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
@@ -86,7 +86,7 @@ public class JsonFormUtilsFlv implements JsonFormUtils.Flavor {
                     try {
                         processFieldsForMemberEdit(client, jsonObject, jsonArray, familyName, isPrimaryCaregiver, eventClientPair.first, eventClientPair.second);
                     } catch (Exception e) {
-                        Timber.e(Log.getStackTraceString(e));
+                        Timber.e(e);
                     }
 
                 }
@@ -94,7 +94,7 @@ public class JsonFormUtilsFlv implements JsonFormUtils.Flavor {
                 return form;
             }
         } catch (Exception e) {
-            Timber.e(Log.getStackTraceString(e));
+            Timber.e(e);
         }
 
         return null;
