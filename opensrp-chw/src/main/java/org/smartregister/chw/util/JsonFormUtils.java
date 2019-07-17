@@ -44,6 +44,7 @@ import org.smartregister.sync.helper.ECSyncHelper;
 import org.smartregister.util.AssetHandler;
 import org.smartregister.util.FormUtils;
 import org.smartregister.util.ImageUtils;
+import org.smartregister.util.StringUtil;
 import org.smartregister.view.LocationPickerView;
 import org.smartregister.view.activity.DrishtiApplication;
 
@@ -833,7 +834,18 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
 
 
         ECSyncHelper syncHelper = ChwApplication.getInstance().getEcSyncHelper();
-        Client familyClient = syncHelper.convert(syncHelper.getClient(familyMember.getFamilyID()), Client.class);
+        JSONObject clientObject = syncHelper.getClient(familyMember.getFamilyID());
+        Client familyClient = syncHelper.convert(clientObject, Client.class);
+        if(familyClient == null){
+            String birthDate = clientObject.getString("birthdate");
+            if(StringUtils.isNotBlank(birthDate)){
+                birthDate = birthDate.replace("-00:44:30","+02:00");
+                clientObject.put("birthdate", birthDate);
+            }
+
+            familyClient = syncHelper.convert(clientObject, Client.class);
+        }
+
         Map<String, List<String>> relationships = familyClient.getRelationships();
 
         if (familyMember.getPrimaryCareGiver()) {
