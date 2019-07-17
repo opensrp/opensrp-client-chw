@@ -201,7 +201,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                 danger_signs_counseling = getValue(jsonObject, "danger_signs_counseling");
                 danger_signs_present = getCheckBoxValue(jsonObject, "danger_signs_present");
             } catch (JSONException e) {
-                e.printStackTrace();
+                Timber.e(e);
             }
         }
 
@@ -284,7 +284,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                 visitDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).parse(anc_hf_visit_date);
 
             } catch (Exception e) {
-                e.printStackTrace();
+                Timber.e(e);
             }
         }
 
@@ -340,7 +340,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                 JSONObject jsonObject = new JSONObject(jsonPayload);
                 fam_planning = getValue(jsonObject, "fam_planning").toLowerCase();
             } catch (JSONException e) {
-                e.printStackTrace();
+                Timber.e(e);
             }
         }
 
@@ -403,7 +403,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                 JSONObject jsonObject = new JSONObject(jsonPayload);
                 nutrition_status = getValue(jsonObject, "nutrition_status").toLowerCase();
             } catch (JSONException e) {
-                e.printStackTrace();
+                Timber.e(e);
             }
         }
 
@@ -461,7 +461,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                 JSONObject jsonObject = new JSONObject(jsonPayload);
                 counselling_given = getCheckBoxValue(jsonObject, "counselling_given").toLowerCase();
             } catch (JSONException e) {
-                e.printStackTrace();
+                Timber.e(e);
             }
         }
 
@@ -524,7 +524,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                 llin_2days = getValue(jsonObject, "llin_2days");
                 llin_condition = getValue(jsonObject, "llin_condition");
             } catch (JSONException e) {
-                e.printStackTrace();
+                Timber.e(e);
             }
         }
 
@@ -602,7 +602,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                 action_taken = getCheckBoxValue(jsonObject, "action_taken");
                 illnessDate = DateTimeFormat.forPattern("dd-MM-yyyy").parseLocalDate(date_of_illness);
             } catch (Exception e) {
-                e.printStackTrace();
+                Timber.e(e);
             }
         }
 
@@ -666,7 +666,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                 JSONObject jsonObject = new JSONObject(jsonPayload);
                 chw_comment_anc = getValue(jsonObject, "chw_comment_anc");
             } catch (JSONException e) {
-                e.printStackTrace();
+                Timber.e(e);
             }
         }
 
