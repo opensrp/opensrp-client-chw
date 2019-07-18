@@ -71,10 +71,10 @@ public class ChildRegisterInteractor implements ChildRegisterContract.Interactor
     @Override
     public void saveRegistration(final Pair<Client, Event> pair, final String jsonString, final boolean isEditMode, final ChildRegisterContract.InteractorCallBack callBack) {
 
-        saveRegistration(pair, jsonString, isEditMode);
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
+                saveRegistration(pair, jsonString, isEditMode);
                 appExecutors.mainThread().execute(new Runnable() {
                     @Override
                     public void run() {
