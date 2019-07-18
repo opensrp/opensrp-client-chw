@@ -142,7 +142,7 @@ android {
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"Country", "Clinic" , "CHSS" , "CHA", "Supervisor", "CHW"}'
             buildConfigField "String", 'DEFAULT_LOCATION', '"CHW"'
             buildConfigField "boolean", 'SUPPORT_QR', 'false'
-            buildConfigField "int", "DATABASE_VERSION", '8'
+            buildConfigField "int", "DATABASE_VERSION", '9'
         }
         guinea {
             dimension = 'baseDimension'
@@ -199,7 +199,7 @@ dependencies {
         exclude group: 'io.ona.rdt-capture', module: 'lib'
     }
 
-    implementation('org.smartregister:opensrp-client-core:1.6.42-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-core:1.6.47-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.github.bmelnychuk', module: 'atv'
         exclude group: 'com.google.guava', module: 'guava'
