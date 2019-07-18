@@ -220,7 +220,7 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity implements 
                 case org.smartregister.family.util.JsonFormUtils.REQUEST_CODE_GET_JSON:
                     try {
                         String jsonString = data.getStringExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON);
-                        Timber.d("JSONResult", jsonString);
+                        Timber.d("JSONResult : %s", jsonString);
 
                         JSONObject form = new JSONObject(jsonString);
                         String encounter_type = form.getString(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_TYPE);
