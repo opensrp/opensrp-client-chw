@@ -3,7 +3,7 @@ package org.smartregister.chw.presenter;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
-import android.util.Log;
+
 import android.util.Pair;
 
 import org.apache.commons.lang3.StringUtils;
@@ -25,6 +25,8 @@ import org.smartregister.repository.AllSharedPreferences;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
+
+import timber.log.Timber;
 
 public class ChildRegisterPresenter implements ChildRegisterContract.Presenter, ChildRegisterContract.InteractorCallBack {
     public static final String TAG = ChildRegisterPresenter.class.getName();
@@ -90,13 +92,13 @@ public class ChildRegisterPresenter implements ChildRegisterContract.Presenter, 
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getView().getContext());
             AllSharedPreferences allSharedPreferences = new AllSharedPreferences(preferences);
 
-            Log.d("JSONResult", jsonString);
+            Timber.d("JSONResult", jsonString);
             //getView().showProgressDialog(jsonString.contains(Constants.EventType.CLOSE) ? R.string.removing_dialog_title : R.string.saving_dialog_title);
 
             interactor.removeChildFromRegister(jsonString, allSharedPreferences.fetchRegisteredANM());
 
         } catch (Exception e) {
-            Log.e(TAG, Log.getStackTraceString(e));
+            Timber.e(e);
 
         }
     }
@@ -147,7 +149,7 @@ public class ChildRegisterPresenter implements ChildRegisterContract.Presenter, 
 
 
         } catch (Exception e) {
-            Log.e(TAG, Log.getStackTraceString(e));
+            Timber.e(e);
         }
     }
 
@@ -161,7 +163,7 @@ public class ChildRegisterPresenter implements ChildRegisterContract.Presenter, 
         try {
             startForm(triple.getLeft(), entityId, triple.getMiddle(), triple.getRight(), familyId);
         } catch (Exception e) {
-            Log.e(TAG, Log.getStackTraceString(e));
+            Timber.e(e);
             getView().displayToast(R.string.error_unable_to_start_form);
         }
     }

@@ -3,7 +3,6 @@ package org.smartregister.chw.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.support.v4.app.FragmentManager;
-import android.util.Log;
 import android.view.View;
 
 import org.json.JSONObject;
@@ -12,6 +11,8 @@ import org.smartregister.chw.fragment.IndividualProfileRemoveFragment;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.view.activity.SecuredActivity;
+
+import timber.log.Timber;
 
 public class IndividualProfileRemoveActivity extends SecuredActivity {
     private static final String TAG = "IndividualProfile";
@@ -56,7 +57,7 @@ public class IndividualProfileRemoveActivity extends SecuredActivity {
                 JSONObject form = new JSONObject(jsonString);
                 individualProfileRemoveFragment.confirmRemove(form);
             } catch (Exception e) {
-                Log.e(TAG, Log.getStackTraceString(e));
+                Timber.e(e);
             }
         } else {
             finish();

@@ -2,7 +2,7 @@ package org.smartregister.chw.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
@@ -28,6 +28,8 @@ import org.smartregister.family.util.Utils;
 
 import java.util.HashMap;
 import java.util.Set;
+
+import timber.log.Timber;
 
 public class IndividualProfileRemoveFragment extends BaseFamilyProfileMemberFragment implements FamilyRemoveMemberContract.View {
 
@@ -70,7 +72,7 @@ public class IndividualProfileRemoveFragment extends BaseFamilyProfileMemberFrag
 
     @Override
     public void setAdvancedSearchFormData(HashMap<String, String> hashMap) {
-        Log.d(TAG,"setAdvancedSearchFormData");
+        Timber.d("setAdvancedSearchFormData");
     }
 
     public FamilyRemoveMemberContract.Presenter getPresenter() {

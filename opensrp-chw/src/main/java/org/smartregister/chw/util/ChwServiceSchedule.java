@@ -1,7 +1,5 @@
 package org.smartregister.chw.util;
 
-import android.util.Log;
-
 import org.joda.time.DateTime;
 import org.smartregister.clientandeventmodel.DateUtil;
 import org.smartregister.domain.Alert;
@@ -90,7 +88,7 @@ public class ChwServiceSchedule {
             }
 
         } catch (Exception e) {
-            Log.e(ChwServiceSchedule.class.getName(), e.toString(), e);
+            Timber.e(e);
         }
 
     }
@@ -112,7 +110,7 @@ public class ChwServiceSchedule {
             }
             return null;
         } catch (Exception e) {
-            Log.e(ChwServiceSchedule.class.getName(), e.toString(), e);
+            Timber.e(e);
             return null;
         }
     }
