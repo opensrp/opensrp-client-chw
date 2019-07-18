@@ -40,6 +40,8 @@ public class ChwJobCreator implements JobCreator {
                 return new ChwIndicatorGeneratingJob();
             case P2pServiceJob.TAG:
                 return new P2pServiceJob();
+            case HomeVisitServiceJob.TAG:
+                return new HomeVisitServiceJob();
 
             default:
                 Timber.d( "Looks like you tried to create a job " + tag + " that is not declared in the Chw Job Creator");
