@@ -27,7 +27,7 @@ public class MalariaRegisterFragmentPresenter extends BaseMalariaRegisterFragmen
 
     @Override
     public String getMainCondition() {
-        return " " + Constants.TABLE_NAME.MALARIA_CONFIRMATION + "." + DBConstants.KEY.DATE_REMOVED + " is null" +
-                " " + " COLLATE NOCASE WHERE ec_malaria_confirmation.malaria = 1";
+        return " " + Constants.TABLE_NAME.FAMILY_MEMBER + "." + org.smartregister.chw.malaria.util.DBConstants.KEY.DATE_REMOVED + " is null " +
+                "AND " + Constants.TABLE_NAME.MALARIA_CONFIRMATION + "." + DBConstants.KEY.MALARIA + " = 1 ";
     }
 }
