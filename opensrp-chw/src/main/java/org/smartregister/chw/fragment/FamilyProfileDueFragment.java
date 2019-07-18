@@ -3,7 +3,13 @@ package org.smartregister.chw.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.ChildProfileActivity;
@@ -29,6 +35,9 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
 
     private int dueCount = 0;
     private View emptyView;
+    private View washView;
+    private String familyName;
+    private long lastWashTime;
 
     public static BaseFamilyProfileDueFragment newInstance(Bundle bundle) {
         Bundle args = bundle;
@@ -43,6 +52,7 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
     @Override
     protected void initializePresenter() {
         String familyBaseEntityId = getArguments().getString(Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID);
+        familyName = getArguments().getString(Constants.INTENT_KEY.FAMILY_NAME);
         presenter = new FamilyProfileDuePresenter(this, new FamilyProfileDueModel(), null, familyBaseEntityId);
     }
 
@@ -77,6 +87,32 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
     public void setupViews(View view) {
         super.setupViews(view);
         emptyView = view.findViewById(R.id.empty_view);
+        addWashCheckView(view);
+
+    }
+    private void addWashCheckView(View view){
+        RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
+        washView = getLayoutInflater().inflate(R.layout.view_wash_check, null, false);
+        washView.setId(View.generateViewId());
+        RelativeLayout relativeLayout = view.findViewById(R.id.rl_due);
+        relativeLayout.addView(washView,0);
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        params.addRule(RelativeLayout.BELOW, washView.getId());
+        recyclerView.setLayoutParams(params);
+
+        //washView = view.findViewById(R.id.wash_view);
+        washView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startFormActivity(org.smartregister.chw.util.Constants.JSON_FORM.getWashCheck(), "", "");
+
+            }
+        });
+    }
+    private void updateWashView(){
+        TextView name = washView.findViewById(R.id.patient_name_age);
+        name.setText(getActivity().getString(R.string.family,familyName)+" "+getActivity().getString(R.string.wash_check_suffix));
+
     }
 
     public void onEmptyRegisterCount(final boolean has_no_records) {
@@ -98,6 +134,7 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
                 if (view.getTag() != null && view.getTag(org.smartregister.family.R.id.VIEW_ID) == CLICK_VIEW_NEXT_ARROW) {
                     goToChildProfileActivity(view);
                 }
+                break;
             default:
                 break;
         }

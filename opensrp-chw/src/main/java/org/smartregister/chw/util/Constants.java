@@ -64,6 +64,7 @@ public class Constants {
         private static final String ANC_REGISTRATION = "anc_member_registration";
         private static final String PREGNANCY_OUTCOME = "anc_pregnancy_outcome";
         private static final String MALARIA_CONFIRMATION = "malaria_confirmation";
+        private static final String WASH_CHECK = "wash_check";
 
         public static String getBirthCertification() {
             return Utils.getLocalForm(BIRTH_CERTIFICATION);
@@ -115,6 +116,9 @@ public class Constants {
 
         public static String getMalariaConfirmation() {
             return Utils.getLocalForm(MALARIA_CONFIRMATION);
+        }
+        public static String getWashCheck(){
+            return Utils.getLocalForm(WASH_CHECK);
         }
 
         public static class ANC_HOME_VISIT {

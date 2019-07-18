@@ -119,6 +119,7 @@
     <string name="observations_illness_episodes"><![CDATA[Observations & Illness - <i>optional</i>]]></string>
     <string name="observations_illness_episodes_medical"><![CDATA[Observations & Illness Episodes]]></string>
     <string name="home_visit_suffix"> &#183; Home Visit</string>
+    <string name="wash_check_suffix"> &#183; Wash check</string>
     <string name="last_visit_prefix">Last visit %1$s ago</string>
 
     <string name="profile_activity_completed">Completed on %s</string>

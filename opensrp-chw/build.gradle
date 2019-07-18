@@ -213,7 +213,7 @@ dependencies {
     }
 
 
-    implementation('org.smartregister:opensrp-client-family:1.2.13-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-family:1.2.15-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'org.smartregister', module: 'opensrp-client-core'
         exclude group: 'org.smartregister', module: 'opensrp-client-native-form'
