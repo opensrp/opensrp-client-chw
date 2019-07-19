@@ -6,6 +6,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.contract.NavigationContract;
 import org.smartregister.chw.util.ChildDBConstants;
+import org.smartregister.chw.util.ChwDBConstants;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
@@ -73,7 +74,11 @@ public class NavigationInteractor implements NavigationContract.Interactor {
 
 
             mainCondition = stb.toString();
-        } else {
+        }
+        else if(tableName.equalsIgnoreCase(Constants.TABLE_NAME.ANC_PREGNANCY_OUTCOME)){
+            mainCondition = String.format("where %s is 0", ChwDBConstants.IS_CLOSED);
+        }
+    else {
             mainCondition = " where 1 = 1 ";
         }
         try {
