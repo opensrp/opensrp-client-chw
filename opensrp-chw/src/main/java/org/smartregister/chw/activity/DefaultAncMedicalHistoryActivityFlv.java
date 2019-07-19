@@ -95,8 +95,17 @@ public abstract class DefaultAncMedicalHistoryActivityFlv implements AncMedicalH
         }
     }
 
+    @Deprecated
     private String cleanString(String dirtyString) {
-        return dirtyString.substring(1, dirtyString.length() - 1);
+        if (StringUtils.isBlank(dirtyString))
+            return dirtyString;
+
+
+        if (dirtyString.startsWith("[") && dirtyString.endsWith("]")) {
+            return dirtyString.substring(1, dirtyString.length() - 1);
+        } else {
+            return dirtyString;
+        }
     }
 
     private void extractHFVisit(List<Visit> sourceVisits, List<Map<String, String>> immunization, int iteration) {
