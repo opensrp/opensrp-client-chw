@@ -3,8 +3,6 @@
     <string name="login_title">CFC App</string>
     <string name="nav_logo">CFC App</string>
     <string name="logo">logo</string>
-    <string name="username">Username</string>
-    <string name="password">Password</string>
 
     <string name="menu_all_families">All Families</string>
     <string name="menu_anc_clients">ANC Clients</string>
@@ -236,7 +234,7 @@
 
     <string name="yes_slice_label">Yes</string>
     <string name="no_slice_label">No</string>
-    <string name="powered_by">Powered by</string>
+
     <string name="immunisation_and_services"><![CDATA[IMMUNISATION & SERVICES]]></string>
     <string name="call_caregiver">Call caregiver</string>
     <string name="caregiver">Caregiver</string>
