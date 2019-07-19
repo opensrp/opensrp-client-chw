@@ -4,6 +4,7 @@ import android.app.Activity;
 
 import org.smartregister.chw.contract.NavigationContract;
 import org.smartregister.chw.interactor.NavigationInteractor;
+import org.smartregister.chw.job.HomeVisitServiceJob;
 import org.smartregister.chw.job.VaccineRecurringServiceJob;
 import org.smartregister.chw.model.NavigationModel;
 import org.smartregister.chw.model.NavigationOption;
@@ -37,6 +38,7 @@ public class NavigationPresenter implements NavigationContract.Presenter {
         tableMap.put(Constants.DrawerMenu.CHILD_CLIENTS, Constants.TABLE_NAME.CHILD);
         tableMap.put(Constants.DrawerMenu.ANC_CLIENTS, Constants.TABLE_NAME.ANC_MEMBER);
         tableMap.put(Constants.DrawerMenu.ANC, Constants.TABLE_NAME.ANC_MEMBER);
+        tableMap.put(Constants.DrawerMenu.PNC,Constants.TABLE_NAME.ANC_PREGNANCY_OUTCOME);
     }
 
     @Override
@@ -82,6 +84,7 @@ public class NavigationPresenter implements NavigationContract.Presenter {
 
     @Override
     public void sync(Activity activity) {
+        HomeVisitServiceJob.scheduleJobImmediately(HomeVisitServiceJob.TAG);
         VaccineRecurringServiceJob.scheduleJobImmediately(VaccineRecurringServiceJob.TAG);
         ImageUploadServiceJob.scheduleJobImmediately(ImageUploadServiceJob.TAG);
         SyncServiceJob.scheduleJobImmediately(SyncServiceJob.TAG);
