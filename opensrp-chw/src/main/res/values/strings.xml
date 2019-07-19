@@ -213,6 +213,8 @@
     <string name="refresh_indicators">Refresh indicators</string>
     <string name="indicators_udpating">Updating&#8230;</string>
     <string name="indicators_updating_complete">Update complete</string>
+
+    <!-- Child indicators-->
     <string name="total_under_5_children_label">Total U5 children</string>
     <string name="deceased_children_0_11_months">Children (0&#8211;11 months) who died in the last year</string>
     <string name="deceased_children_12_59_months">Children (12&#8211;59 months) who died in the last year</string>
@@ -372,4 +374,15 @@
     <string name="opv_1">OPV 1</string>
     <string name="opv_2">OPV 2</string>
     <string name="yellow_fever">Yellow Fever</string>
+
+    <!-- ANC Reporting indicators labels: Check anc reporting data dictionary. Strings are named by number
+ as defined in the data dictionary -->
+    <string name="anc_indicator1">Total WRA (10–49 years)</string>
+    <string name="anc_indicator2">Total pregnant women</string>
+    <string name="anc_indicator3">Pregnant women up to date with their ANC home visits</string>
+    <string name="anc_indicator4">Pregnant women up to date with their ANC health facility visits</string>
+    <string name="anc_indicator5">Pregnant women tested for HIV</string>
+    <string name="anc_indicator6">Pregnant women tested for syphilis</string>
+    <string name="anc_indicator7">Pregnant women up to date on TT immunization</string>
+    <string name="anc_indicator8">Pregnant women up to date on IPTp-SP doses</string>
 </resources>
