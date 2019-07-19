@@ -37,7 +37,6 @@ import timber.log.Timber;
  */
 public class ChwRepository extends Repository {
 
-    private static final String TAG = ChwRepository.class.getCanonicalName();
     protected SQLiteDatabase readableDatabase;
     protected SQLiteDatabase writableDatabase;
     private Context context;

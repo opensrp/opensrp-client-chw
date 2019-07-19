@@ -156,7 +156,7 @@ public class FamilyChangeContractInteractor implements FamilyChangeContract.Inte
         // call processor
         long lastSyncTimeStamp = Utils.context().allSharedPreferences().fetchLastUpdatedAtDate(0);
         Date lastSyncDate = new Date(lastSyncTimeStamp);
-        FamilyLibrary.getInstance().getClientProcessorForJava().processClient(syncHelper.getEvents(lastSyncDate, BaseRepository.TYPE_Unsynced));
+        FamilyLibrary.getInstance().getClientProcessorForJava().processClient(syncHelper.getEvents(lastSyncDate, BaseRepository.TYPE_Unprocessed));
         Utils.context().allSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
     }
 
