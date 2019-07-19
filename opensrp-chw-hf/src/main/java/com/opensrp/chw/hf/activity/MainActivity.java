@@ -1,4 +1,4 @@
-package com.opensrp.chw.hf;
+package com.opensrp.chw.hf.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

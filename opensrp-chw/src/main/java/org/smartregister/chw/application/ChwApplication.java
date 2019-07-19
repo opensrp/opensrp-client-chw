@@ -7,6 +7,7 @@ import android.os.Build;
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
 import com.evernote.android.job.JobManager;
+import com.opensrp.chw.core.loggers.CrashlyticsTree;
 
 import org.smartregister.AllConstants;
 import org.smartregister.Context;
@@ -28,7 +29,6 @@ import org.smartregister.chw.service.ChwAuthorizationService;
 import org.smartregister.chw.sync.ChwClientProcessor;
 import org.smartregister.chw.util.ChildDBConstants;
 import org.smartregister.chw.util.Constants;
-import org.smartregister.chw.util.CrashlyticsTree;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.commonregistry.AllCommonsRepository;
 import org.smartregister.commonregistry.CommonFtsObject;
@@ -177,7 +177,7 @@ public class ChwApplication extends DrishtiApplication {
         if (BuildConfig.DEBUG) {
             Timber.plant(new Timber.DebugTree());
         } else {
-            Timber.plant(new CrashlyticsTree());
+            Timber.plant(new CrashlyticsTree(ChwApplication.getInstance().getContext().allSharedPreferences().fetchRegisteredANM()));
         }
 
 

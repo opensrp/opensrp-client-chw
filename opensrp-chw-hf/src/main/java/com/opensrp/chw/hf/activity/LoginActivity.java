@@ -1,4 +1,4 @@
-package com.opensrp.chw.hf;
+package com.opensrp.chw.hf.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,7 +20,7 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
 
     @Override
     protected void initializePresenter() {
-     //   mLoginPresenter = new LoginPresenter(this);
+     //   mLoginPresenter = new HfLoginPresenter(this);
     }
 
     @Override

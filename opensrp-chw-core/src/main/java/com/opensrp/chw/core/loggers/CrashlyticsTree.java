@@ -1,4 +1,4 @@
-package org.smartregister.chw.util;
+package com.opensrp.chw.core.loggers;
 
 import android.util.Log;
 
@@ -6,7 +6,6 @@ import com.crashlytics.android.Crashlytics;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.smartregister.chw.application.ChwApplication;
 
 import timber.log.Timber;
 
@@ -16,6 +15,9 @@ public class CrashlyticsTree extends Timber.Tree {
     private static final String CRASHLYTICS_KEY_TAG = "tag";
     private static final String CRASHLYTICS_KEY_MESSAGE = "message";
 
+    public CrashlyticsTree(String userName) {
+        this.userName = userName;
+    }
 
     private String userName;
 
@@ -23,10 +25,6 @@ public class CrashlyticsTree extends Timber.Tree {
     protected void log(int priority, @Nullable String tag, @NotNull String message, @Nullable Throwable t) {
         if (priority == Log.VERBOSE || priority == Log.DEBUG || priority == Log.INFO) {
             return;
-        }
-
-        if (userName == null) {
-            userName = ChwApplication.getInstance().getContext().allSharedPreferences().fetchRegisteredANM();
         }
 
         Crashlytics.setInt(CRASHLYTICS_KEY_PRIORITY, priority);
