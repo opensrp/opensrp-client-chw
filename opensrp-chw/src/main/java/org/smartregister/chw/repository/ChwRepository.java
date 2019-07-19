@@ -27,6 +27,9 @@ import org.smartregister.repository.Repository;
 import org.smartregister.repository.SettingsRepository;
 import org.smartregister.repository.UniqueIdRepository;
 
+import java.util.Arrays;
+import java.util.Collections;
+
 import timber.log.Timber;
 
 /**
@@ -38,7 +41,6 @@ public class ChwRepository extends Repository {
     protected SQLiteDatabase readableDatabase;
     protected SQLiteDatabase writableDatabase;
     private Context context;
-    private String appVersionCodePref = "APP_VERSION_CODE";
 
     public ChwRepository(Context context, org.smartregister.Context openSRPContext) {
         super(context, AllConstants.DATABASE_NAME, BuildConfig.DATABASE_VERSION, openSRPContext.session(), ChwApplication.createCommonFtsObject(), openSRPContext.sharedRepositoriesArray());
@@ -78,17 +80,10 @@ public class ChwRepository extends Repository {
         onUpgrade(database, 1, BuildConfig.DATABASE_VERSION);
 
         ReportingLibrary reportingLibraryInstance = ReportingLibrary.getInstance();
-        // Check if indicator data initialised
-        String indicatorDataInitialisedPref = "INDICATOR_DATA_INITIALISED";
-        boolean indicatorDataInitialised = Boolean.parseBoolean(reportingLibraryInstance.getContext()
-                .allSharedPreferences().getPreference(indicatorDataInitialisedPref));
-        boolean isUpdated = checkIfAppUpdated();
-        if (!indicatorDataInitialised || isUpdated) {
-            initializeReportIndicators(database, reportingLibraryInstance);
-            reportingLibraryInstance.getContext().allSharedPreferences().savePreference(
-                    indicatorDataInitialisedPref, "true");
-            reportingLibraryInstance.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(BuildConfig.VERSION_CODE));
-        }
+        String childIndicatorsConfigFile = "config/child-reporting-indicator-definitions.yml";
+        String ancIndicatorConfigFile = "config/anc-reporting-indicator-definitions.yml";
+        reportingLibraryInstance.initMultipleIndicatorsData(Collections.unmodifiableList(
+                Arrays.asList(childIndicatorsConfigFile, ancIndicatorConfigFile)), database);
 
     }
 
@@ -117,15 +112,6 @@ public class ChwRepository extends Repository {
         } else {
             throw new IllegalStateException("Password is blank");
         }
-    }
-
-    private void initializeReportIndicators(SQLiteDatabase database,
-                                            ReportingLibrary reportingLibraryInstance) {
-        // This will persist the data in the DB
-        String childIndicatorsConfigFile = "config/child-reporting-indicator-definitions.yml";
-        String ancIndicatorConfigFile = "config/anc-reporting-indicator-definitions.yml";
-        reportingLibraryInstance.initIndicatorData(childIndicatorsConfigFile, database);
-        reportingLibraryInstance.initIndicatorData(ancIndicatorConfigFile, database);
     }
 
     @Override
@@ -168,13 +154,4 @@ public class ChwRepository extends Repository {
         super.close();
     }
 
-    private boolean checkIfAppUpdated() {
-        String savedAppVersion = ReportingLibrary.getInstance().getContext().allSharedPreferences().getPreference(appVersionCodePref);
-        if (savedAppVersion.isEmpty()) {
-            return true;
-        } else {
-            int savedVersion = Integer.parseInt(savedAppVersion);
-            return (BuildConfig.VERSION_CODE > savedVersion);
-        }
-    }
 }
