@@ -56,7 +56,7 @@ public class FamilyRemoveMemberActivity extends SecuredActivity implements View.
         if (resultCode == RESULT_OK) {
             try {
                 String jsonString = data.getStringExtra(Constants.JSON_FORM_EXTRA.JSON);
-                Timber.d("JSONResult", jsonString);
+                Timber.d("JSONResult : %s", jsonString);
 
                 JSONObject form = new JSONObject(jsonString);
                 removeMemberFragment.confirmRemove(form);
