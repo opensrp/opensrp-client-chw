@@ -1,19 +1,18 @@
-package org.smartregister.chw.presenter;
+package com.opensrp.chw.hf.presenter;
 
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
-
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.volley.toolbox.ImageLoader;
-
-import org.smartregister.chw.R;
-import org.smartregister.chw.application.ChwApplication;
-import org.smartregister.chw.interactor.LoginInteractor;
 import com.opensrp.chw.core.utils.ImageLoaderRequest;
+import com.opensrp.chw.hf.HealthFacilityApp;
+import com.opensrp.chw.hf.interactor.LoginInteractor;
+import com.opensrp.hf.R;
+
 import org.smartregister.configurableviews.model.LoginConfiguration;
 import org.smartregister.configurableviews.model.ViewConfiguration;
 import org.smartregister.configurableviews.util.Constants;
@@ -26,9 +25,6 @@ import java.lang.ref.WeakReference;
 import timber.log.Timber;
 
 public class LoginPresenter extends BaseLoginPresenter implements BaseLoginContract.Presenter {
-
-    private static final String TAG = LoginPresenter.class.getCanonicalName();
-
     public LoginPresenter(BaseLoginContract.View loginView) {
         mLoginView = new WeakReference<>(loginView);
         mLoginInteractor = new LoginInteractor(this);
@@ -43,7 +39,7 @@ public class LoginPresenter extends BaseLoginPresenter implements BaseLoginContr
                 return;
             }
 
-            ViewConfiguration loginView = ChwApplication.getJsonSpecHelper().getConfigurableView(jsonString);
+            ViewConfiguration loginView = HealthFacilityApp.getJsonSpecHelper().getConfigurableView(jsonString);
             LoginConfiguration metadata = (LoginConfiguration) loginView.getMetadata();
             LoginConfiguration.Background background = metadata.getBackground();
 
@@ -68,12 +64,6 @@ public class LoginPresenter extends BaseLoginPresenter implements BaseLoginContr
                 loginLayout.setBackground(gradientDrawable);
             }
 
-            ImageView imageView = getLoginView().getActivityContext().findViewById(R.id.login_logo);
-            if (metadata.getLogoUrl() != null) {
-                ImageLoaderRequest.getInstance(getLoginView().getActivityContext()).getImageLoader()
-                        .get(metadata.getLogoUrl(), ImageLoader.getImageListener(imageView,
-                                R.drawable.ic_who_logo, R.drawable.ic_who_logo)).getBitmap();
-            }
 
         } catch (Exception e) {
             Timber.e(e);

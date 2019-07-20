@@ -1,4 +1,4 @@
-package org.smartregister.chw.util;
+package com.opensrp.chw.core.utils;
 
 import android.content.Context;
 import android.graphics.Bitmap;

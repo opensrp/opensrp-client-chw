@@ -12,7 +12,9 @@ import com.opensrp.hf.BuildConfig;
 
 import org.smartregister.AllConstants;
 import org.smartregister.Context;
+import org.smartregister.CoreLibrary;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
+import org.smartregister.configurableviews.helper.JsonSpecHelper;
 import org.smartregister.immunization.ImmunizationLibrary;
 import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
@@ -31,6 +33,7 @@ public class HealthFacilityApp extends DrishtiApplication {
 
     private static final String TAG = HealthFacilityApp.class.getCanonicalName();
     private String password;
+    private JsonSpecHelper jsonSpecHelper;
 
     public static synchronized HealthFacilityApp getInstance() {
         return (HealthFacilityApp) mInstance;
@@ -55,8 +58,10 @@ public class HealthFacilityApp extends DrishtiApplication {
         Fabric.with(this, new Crashlytics.Builder().core(new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build()).build());
         //Fabric.with(this, new Crashlytics.Builder().core(new CrashlyticsCore.Builder().build()).build());
 
-
+        // init json helper
+        this.jsonSpecHelper = new JsonSpecHelper(this);
         // init libraries
+        CoreLibrary.init(context);
         ImmunizationLibrary.init(context, getRepository(), null, BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
         ConfigurableViewsLibrary.init(context, getRepository());
 
@@ -117,5 +122,8 @@ public class HealthFacilityApp extends DrishtiApplication {
         return context;
     }
 
+    public static JsonSpecHelper getJsonSpecHelper() {
+        return getInstance().jsonSpecHelper;
+    }
 
 }
