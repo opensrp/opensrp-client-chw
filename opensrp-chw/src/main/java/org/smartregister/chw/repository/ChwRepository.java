@@ -27,6 +27,9 @@ import org.smartregister.repository.Repository;
 import org.smartregister.repository.SettingsRepository;
 import org.smartregister.repository.UniqueIdRepository;
 
+import java.util.Arrays;
+import java.util.Collections;
+
 import timber.log.Timber;
 
 /**
@@ -34,13 +37,9 @@ import timber.log.Timber;
  */
 public class ChwRepository extends Repository {
 
-    private static final String TAG = ChwRepository.class.getCanonicalName();
     protected SQLiteDatabase readableDatabase;
     protected SQLiteDatabase writableDatabase;
     private Context context;
-    private String indicatorsConfigFile = "config/indicator-definitions.yml";
-    private String indicatorDataInitialisedPref = "INDICATOR_DATA_INITIALISED";
-    private String appVersionCodePref = "APP_VERSION_CODE";
 
     public ChwRepository(Context context, org.smartregister.Context openSRPContext) {
         super(context, AllConstants.DATABASE_NAME, BuildConfig.DATABASE_VERSION, openSRPContext.session(), ChwApplication.createCommonFtsObject(), openSRPContext.sharedRepositoriesArray());
@@ -80,27 +79,19 @@ public class ChwRepository extends Repository {
         onUpgrade(database, 1, BuildConfig.DATABASE_VERSION);
 
         ReportingLibrary reportingLibraryInstance = ReportingLibrary.getInstance();
-        // Check if indicator data initialised
-        boolean indicatorDataInitialised = Boolean.parseBoolean(reportingLibraryInstance.getContext()
-                .allSharedPreferences().getPreference(indicatorDataInitialisedPref));
-        boolean isUpdated = checkIfAppUpdated();
-        if (!indicatorDataInitialised || isUpdated) {
-            reportingLibraryInstance.initIndicatorData(indicatorsConfigFile, database); // This will persist the data in the DB
-            reportingLibraryInstance.getContext().allSharedPreferences().savePreference(indicatorDataInitialisedPref, "true");
-            reportingLibraryInstance.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(BuildConfig.VERSION_CODE));
-        }
+        String childIndicatorsConfigFile = "config/child-reporting-indicator-definitions.yml";
+        String ancIndicatorConfigFile = "config/anc-reporting-indicator-definitions.yml";
+        reportingLibraryInstance.initMultipleIndicatorsData(Collections.unmodifiableList(
+                Arrays.asList(childIndicatorsConfigFile, ancIndicatorConfigFile)), database);
 
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        Timber.w(ChwRepository.class.getName(),
-                "Upgrading database from version " + oldVersion + " to "
-                        + newVersion + ", which will destroy all old data");
-
+        Timber.w(ChwRepository.class.getName(), "Upgrading database from version "
+                + oldVersion + " to " + newVersion + ", which will destroy all old data");
         ChwRepositoryFlv.onUpgrade(context, db, oldVersion, newVersion);
     }
-
 
     @Override
     public SQLiteDatabase getReadableDatabase() {
@@ -123,6 +114,17 @@ public class ChwRepository extends Repository {
     }
 
     @Override
+    public synchronized SQLiteDatabase getWritableDatabase(String password) {
+        if (writableDatabase == null || !writableDatabase.isOpen()) {
+            if (writableDatabase != null) {
+                writableDatabase.close();
+            }
+            writableDatabase = super.getWritableDatabase(password);
+        }
+        return writableDatabase;
+    }
+
+    @Override
     public synchronized SQLiteDatabase getReadableDatabase(String password) {
         try {
             if (readableDatabase == null || !readableDatabase.isOpen()) {
@@ -140,17 +142,6 @@ public class ChwRepository extends Repository {
     }
 
     @Override
-    public synchronized SQLiteDatabase getWritableDatabase(String password) {
-        if (writableDatabase == null || !writableDatabase.isOpen()) {
-            if (writableDatabase != null) {
-                writableDatabase.close();
-            }
-            writableDatabase = super.getWritableDatabase(password);
-        }
-        return writableDatabase;
-    }
-
-    @Override
     public synchronized void close() {
         if (readableDatabase != null) {
             readableDatabase.close();
@@ -162,13 +153,4 @@ public class ChwRepository extends Repository {
         super.close();
     }
 
-    private boolean checkIfAppUpdated() {
-        String savedAppVersion = ReportingLibrary.getInstance().getContext().allSharedPreferences().getPreference(appVersionCodePref);
-        if (savedAppVersion.isEmpty()) {
-            return true;
-        } else {
-            int savedVersion = Integer.parseInt(savedAppVersion);
-            return (BuildConfig.VERSION_CODE > savedVersion);
-        }
-    }
 }

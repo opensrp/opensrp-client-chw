@@ -37,14 +37,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import timber.log.Timber;
 
 
 public class ChwClientProcessor extends ClientProcessorForJava {
-
-    private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS", Locale.getDefault());
 
     private ClientClassification classification;
     private Table vaccineTable;
@@ -84,13 +81,11 @@ public class ChwClientProcessor extends ClientProcessorForJava {
 
     @Override
     public synchronized void processClient(List<EventClient> eventClients) throws Exception {
-        Timber.d("%s : processClient. Payload size %s", sdf.format(new Date()), eventClients.size());
 
         ClientClassification clientClassification = getClassification();
         Table vaccineTable = getVaccineTable();
         Table serviceTable = getServiceTable();
 
-        Timber.d("%s : Deserialize assets ", sdf.format(new Date()));
         if (!eventClients.isEmpty()) {
             List<Event> unsyncEvents = new ArrayList<>();
             for (EventClient eventClient : eventClients) {
@@ -99,7 +94,6 @@ public class ChwClientProcessor extends ClientProcessorForJava {
                     return;
                 }
 
-                Timber.d("%s : Processing %s . BEID %s ", sdf.format(new Date()), event.getEventType(), event.getBaseEntityId());
                 String eventType = event.getEventType();
                 if (eventType == null) {
                     continue;
@@ -144,7 +138,6 @@ public class ChwClientProcessor extends ClientProcessorForJava {
                     }
                 }
 
-                Timber.d("%s : Processing %s . BEID %s  completed ", sdf.format(new Date()), event.getEventType(), event.getBaseEntityId());
             }
 
         }
