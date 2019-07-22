@@ -52,7 +52,7 @@ public class Utils extends org.smartregister.family.util.Utils {
             if (((TelephonyManager) activity.getSystemService(Context.TELEPHONY_SERVICE)).getLine1Number()
                     == null) {
 
-                Timber.i( "No dial application so we launch copy to clipboard...");
+                Timber.i("No dial application so we launch copy to clipboard...");
 
                 ClipboardManager clipboard = (ClipboardManager) activity.getSystemService(Context.CLIPBOARD_SERVICE);
                 ClipData clip = ClipData.newPlainText(activity.getText(R.string.copied_phone_number), phoneNumber);

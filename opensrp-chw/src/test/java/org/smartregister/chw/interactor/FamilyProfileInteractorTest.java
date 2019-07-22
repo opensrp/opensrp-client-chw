@@ -1,5 +1,9 @@
 package org.smartregister.chw.interactor;
 
+import android.content.Context;
+import android.content.res.AssetManager;
+
+import org.apache.commons.io.IOUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,6 +17,7 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.reflect.Whitebox;
 import org.smartregister.chw.activity.FamilyProfileActivity;
+import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.presenter.FamilyProfilePresenter;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.commonregistry.CommonPersonObject;
@@ -22,11 +27,14 @@ import org.smartregister.family.domain.FamilyMetadata;
 import org.smartregister.family.util.AppExecutors;
 import org.smartregister.family.util.Utils;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.concurrent.Executor;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest(Utils.class)
+@PrepareForTest({Utils.class, ChwApplication.class})
 public class FamilyProfileInteractorTest {
 
     private FamilyProfileInteractor interactor;
@@ -37,9 +45,38 @@ public class FamilyProfileInteractorTest {
     @Mock
     private FamilyProfilePresenter profilePresenter;
 
+    @Mock
+    private ChwApplication chwApplication;
+
+    @Mock
+    private Context context;
+
+    @Mock
+    private AssetManager assetManager;
+
     @Before
-    public void setUp() {
+    public void setUp() throws IOException {
         MockitoAnnotations.initMocks(this);
+
+        PowerMockito.mockStatic(ChwApplication.class);
+
+        /* Mock reading of assets*/
+        PowerMockito.when(ChwApplication.getInstance()).thenReturn(chwApplication);
+        PowerMockito.when(ChwApplication.getCurrentLocale()).thenReturn(new Locale("fr", "FR"));
+        PowerMockito.when(chwApplication.getApplicationContext()).thenReturn(context);
+        PowerMockito.when(context.getAssets()).thenReturn(assetManager);
+
+        String sampleJson = " " +
+                "{ " +
+                "  \"validate_on_submit\": true,\n" +
+                "  \"show_errors_on_submit\": false,\n" +
+                "  \"count\": \"2\",\n" +
+                "  \"encounter_type\": \"Family Registration\",\n" +
+                "  \"entity_id\": \"\"" +
+                "}";
+
+        InputStream inputStream = IOUtils.toInputStream(sampleJson);
+        Mockito.when(assetManager.open(Mockito.anyString())).thenReturn(inputStream);
 
         AppExecutors appExecutors = Mockito.spy(AppExecutors.class);
         Executor executor = Mockito.mock(Executor.class);

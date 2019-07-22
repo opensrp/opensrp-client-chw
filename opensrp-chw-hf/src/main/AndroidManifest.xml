@@ -23,6 +23,10 @@
         android:supportsRtl="true"
         android:theme="@style/HFTheme">
 
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="3f94f9c3caeff331b3a2bd8c2182b663ad6a955a" />
+
         <activity
             android:launchMode="singleTask"
             android:roundIcon="@drawable/ic_launcher_round"
