@@ -1,20 +1,20 @@
 <resources>
 
-    <string name="login_title">Appli CAE</string>
-    <string name="nav_logo">Appli CAE</string>
+    <string name="login_title">Appli CFC</string>
+    <string name="nav_logo">Appli CFC</string>
     <string name="logo">logo</string>
     <string name="username">Nom d\'utilisateur</string>
     <string name="password">Mot de passe</string>
 
-    <string name="menu_all_families">Familles</string>
+    <string name="menu_all_families">Ménages</string>
     <string name="menu_anc_clients">Clients CPN</string>
     <string name="menu_child_clients">Enfants Clients</string>
     <string name="menu_hiv_clients">Clients VIH</string>
 
     <string name="title_family_detail">Détails sur la Famille</string>
     <string name="child_register_title">Enfants Clients</string>
-    <string name="return_to_all_children">Retournez à tous les enfants</string>
-    <string name="back_to_children">Retournez à %1$s</string>
+    <string name="return_to_all_children">Revenir à tous les enfants</string>
+    <string name="back_to_children">Revenir à %1$s</string>
     <string name="child_details">Détails sur l\'enfant %1$s</string>
     <string name="not_given">N\'a pas été donné</string>
     <string name="not_done">N\'a pas été fait</string>
@@ -28,13 +28,13 @@
     <string name="navigation_drawer_close">Fermer</string>
 
     <string name="action_log_out">Déconnexion</string>
-    <string name="action_start_sync">Synchronisation commencée</string>
+    <string name="action_start_sync">Synchronisation démarrée</string>
     <string name="action_sync_failed">Synchronisation échouée</string>
 
     <!-- Navigation Strings -->
     <string name="nav_registers">Registres</string>
     <string name="nav_logout_as">Déconnexion</string>
-    <string name="nav_sync">Sync.</string>
+    <string name="nav_sync">Synchro.</string>
     <string name="nav_last">Dernier:</string>
     <string name="nav_last_sync_time">HH:mm a , MMM DD</string>
 
@@ -48,14 +48,14 @@
     <string name="add_other_family_member">Autre membre de famille</string>
     <string name="add_child_under_five">Enfant de moins de 5 ans</string>
     <string name="child_under_five">Enfant de moins de 5 ans</string>
-    <string name="go_to_family_s_profile">Aller au profil de la famille</string>
-    <string name="family_has_nothing_due">La famille n\'a pas de service attendu</string>
-    <string name="family_has_services_due">La famille à des services attendues</string>
+    <string name="go_to_family_s_profile">Aller au profil du ménage</string>
+    <string name="family_has_nothing_due">Le ménage n\'a pas de service attendu</string>
+    <string name="family_has_services_due">Le ménage a des services attendus</string>
     <string name="vaccine_service_overdue"><![CDATA[%1$s <font color=#f04646>en retard (%2$s)</font></b>]]></string>
     <string name="vaccine_service_due"><![CDATA[%1$s <font color=#000000>attendu (%2$s)</font></b>]]></string>
     <string name="vaccine_service_upcoming"><![CDATA[%1$s <font color=#7f7f7f>prochain (%2$s)</font></b>]]></string>
 
-    <string name="family_has_service_overdue"><![CDATA[Famille à <font color=#FF0000>des services en retard</font></b>]]></string>
+    <string name="family_has_service_overdue"><![CDATA[Ménage a <font color=#FF0000>des services en retard</font></b>]]></string>
     <string name="view_upcoming_services">Voir les prochains services</string>
     <string name="upcoming_services">Prochains services</string>
     <string name="overdue_3_oct">en retard(3 oct)</string>
@@ -63,65 +63,65 @@
     <string name="view_medical_history">Voir historique médical</string>
     <string name="last_visit_40_days_ago">Dernier visite il y a %1$s </string>
     <string name="add_member_title">Ajouter un membre de famille</string>
-    <string name="add_member_title_question">Quel type de rappel voulez vous ajouter?</string>
-    <string name="change_head_member_title">Changer chef de famille</string>
+    <string name="add_member_title_question">Quel type de membre voulez vous ajouter?</string>
+    <string name="change_head_member_title">Changer le chef de famille</string>
     <string name="change_head_member_title_question">Sélectionner nouveau chef de famille</string>
     <string name="change_caregiver_member_title">Changer la gardienne</string>
-    <string name="change_caregiver_member_title_question">Sélectionner un nouveau résponsable pour l\'enfant/les enfants</string>
+    <string name="change_caregiver_member_title_question">Sélectionner un nouveau gardienne</string>
     <string name="remove_member_title">Enlever membre </string>
     <string name="remove_member_prompt">Quel membre voulez vous enlever?</string>
-    <string name="visit_month">%1$s visite fait</string>
-    <string name="not_visiting_this_month">Aucun visite ce mois</string>
+    <string name="visit_month">Visite de %1$s faite</string>
+    <string name="not_visiting_this_month">Aucune visite ce mois</string>
     <string name="undo">ANNULER</string>
     <string name="record_visit">Enregistrer visite</string>
     <string name="edit">ÉDITER</string>
-    <string name="return_to_family_name">Retourner à %1$s Famille</string>
+    <string name="return_to_family_name">Retourner à la famille %1$s</string>
     <string name="return_to_family_members">Retourner aux membres de la famille</string>
     <string name="save_title">ENREGISTRER</string>
 
-    <string name="allow_calls_denied">Veuillez permettre les appels içi</string>
-    <string name="copy_to_clipboard">Copier dans le presse-papiers</string>
-    <string name="copied_phone_number">Numéro de téléphone copié dans le presse-papiers</string>
+    <string name="allow_calls_denied">Veuillez autoriser les appels ici</string>
+    <string name="copy_to_clipboard">Copier dans le presse-papier</string>
+    <string name="copied_phone_number">Numéro de téléphone copié dans le presse-papier</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Bonjour fragment vierge</string>
-    <string name="visit_not_done_btn_child_profile">Visite n\'a pas eu lieu</string>
+    <string name="visit_not_done_btn_child_profile">Visite non effectuée</string>
     <string name="medical_history">Historique médical</string>
-    <string name="record_home_visit">Enregistrer \nVisite</string>
+    <string name="record_home_visit">Enregistrer \nVisite a Domicile</string>
     <string name="visit_not_done">Visite n\'a pas \neu lieu</string>
-    <string name="visit_done">Visite fait</string>
-    <string name="due_visit">Dernier visite \n %1$s</string>
+    <string name="visit_done">Visite faite</string>
+    <string name="due_visit">Dernière visite \n %1$s</string>
     <string name="medical_title">Retour à profil de %1$s</string>
     <string name="medical_last_visit">Depuis %1$s </string>
     <string name="growth_and_nutrition">CROISSANCE ET NUTRITION</string>
     <string name="immunization">IMMUNISATION</string>
-    <string name="fully_immunized_at_age">Immunisations complétés à l\'âge de %1$s</string>
-    <string name="add_date_separately">+ AJOUTER UN DATE POUR CHAQUE IMMUNISATION</string>
-    <string name="which_vaccines_given_text">Quels immunisations ont été effectués?</string>
-    <string name="when_vaccines_given_text">Quand est-ce que ces immunisations ont été effectués?</string>
-    <string name="fully_immunized_at_age_2">Complètement immunisé à l\'âge de 2 ans</string>
-    <string name="fully_immunized_at_age_1">Complètement immunisé à l\'âge de 1 ans</string>
-    <string name="health_child_milestone">Étape importante pour un enfant en bonne santé</string>
-    <string name="exclusive_feeding">L\'enfant a t-il bu ou mangé de liquide ou de nourriture autre que le lait maternelle depuis hier et hier soir?</string>
+    <string name="fully_immunized_at_age">Complètment vaccinés à l\'âge de %1$s</string>
+    <string name="add_date_separately">+ AJOUTER UNE DATE POUR CHAQUE VACCIN</string>
+    <string name="which_vaccines_given_text">Quels vaccinations ont été effectuées?</string>
+    <string name="when_vaccines_given_text">Quand est-ce que ces vaccinaitons ont été effectuées?</string>
+    <string name="fully_immunized_at_age_2">Complètement Vacciné à l\'âge de 2 ans</string>
+    <string name="fully_immunized_at_age_1">Complètement Vacciné à l\'âge de 1 ans</string>
+    <string name="health_child_milestone">Étape -Jalon- importante pour un enfant en bonne santé</string>
+    <string name="exclusive_feeding">L\'enfant a t-il bu ou mangé du liquide ou de la nourriture autre que le lait maternel depuis hier et hier soir?</string>
     <string name="vitamin_given">Quand est-ce que %1$s a était donné?</string>
-    <string name="exclusive_breastfeeding">Allaitement exclusif au sein</string>
+    <string name="exclusive_breastfeeding">Allaitement maternel exclusif</string>
     <string name="vitamin_a">Vitamine A</string>
     <string name="deworming">Déparasitage</string>
-    <string name="vaccine_card_text">L\'enfant a t-il ou elle reçu son carnet de vaccination?</string>
-    <string name="vaccine_card_title">Carnet de vaccination enfantil reçu</string>
-    <string name="record_immunizations">Enregistrer immunisations</string>
+    <string name="vaccine_card_text">L\'enfant a t-il ou elle reçu son carnet de vaccination ou carnet mère et Enfant?</string>
+    <string name="vaccine_card_title">Carnet de vaccination infantile reçu</string>
+    <string name="record_immunizations">Enregistrer les Vaccinaitons</string>
     <string name="tab_text_1">TABLEAU DE BORD</string>
     <string name="tab_text_2">GUIDES</string>
     <string name="action_settings">Paramètres</string>
-    <string name="section_format">Salut le monde de la section: %1$d</string>
+    <string name="section_format">Salut le monde, de la section: %1$d</string>
     <string name="updating">Mise à jour en cours...</string>
-    <string name="birth_certification">Certification de naissance</string>
-    <string name="observations_illness_episodes"><![CDATA[Observations & maladies - <i>optionelle</i>]]></string>
+    <string name="birth_certification">Acte de naissance</string>
+    <string name="observations_illness_episodes"><![CDATA[Observations & maladies - <i>optional</i>]]></string>
     <string name="observations_illness_episodes_medical"><![CDATA[Observations & Épisodes de maladies]]></string>
     <string name="home_visit_suffix"> &#183; Visite à domicile</string>
-    <string name="last_visit_prefix">Dernier visite depuis %1$s </string>
+    <string name="last_visit_prefix">Dernière visite depuis %1$s </string>
 
-    <string name="profile_activity_completed">Complété %s</string>
+    <string name="profile_activity_completed">Complété le %s</string>
     <string name="interpunct">・</string>
     <string name="home_visit">Visite à domicile</string>
     <string name="profile_activity_not_visited">Marqué comme non-visité le %s</string>
@@ -135,70 +135,70 @@
     <string name="year">année</string>
     <string name="years">années</string>
 
-    <string name="family">%s Famille</string>
-    <string name="remove_entire_family">Enlever la famille</string>
-    <string name="remove_warning_family">Êtes-vous certain de vouloir supprimer le dossier de la famille %s ? Cette action va enlever le dossier au complet ET toutes les donées de santé sur la famille %sseront éffacées de votre appareil. Cette action ne peût pas être annulée.</string>
+    <string name="family">Ménage %s </string>
+    <string name="remove_entire_family">Enlever le ménage</string>
+    <string name="remove_warning_family">Êtes-vous certain de vouloir supprimer le dossier du ménage %s ? Cette action va enlever le dossier au complet ET toutes les données de santé sur le ménage %sseront éffacées de votre appareil. Cette action ne peût pas être annulée.</string>
     <string name="cancel">ANNULER</string>
-    <string name="submit">SOUMETTRE</string>
-    <string name="profile_change_dialog_message">Avant d\'enlever cet membre de famille, vous devez sélectionner un noveau chef de famille.</string>
-    <string name="select_caregiver">Sélectionner un nouveau résponsable des enfants</string>
-    <string name="select_family_head">Sélectionner un nouveau chef de famille</string>
-    <string name="remove_caregiver_warning_message">Avant d\'enlever cet membre de famille vous devez sélectionner un nouveu résponsable des enfants.</string>
-    <string name="remove_familyhead_warning_message">Avant d\'enlever cet membre de famille vous devez sélectionner un noveau chef de famille.</string>
+    <string name="submit">VALIDER</string>
+    <string name="profile_change_dialog_message">Avant d\'enlever ce membre du ménage, vous devez sélectionner un nouveau chef de famille.</string>
+    <string name="select_caregiver">Sélectionner un nouveau gardienne</string>
+    <string name="select_family_head">Sélectionner un nouveau chef de ménage</string>
+    <string name="remove_caregiver_warning_message">Avant d\'enlever ce membre du ménage, vous devez sélectionner un nouveau gardienne.</string>
+    <string name="remove_familyhead_warning_message">Avant d\'enlever ce membre du ménage vous devez sélectionner un nouveau chef de ménage</string>
 
     <string name="visit_months">mois</string>
     <string name="visit_dose">dose</string>
     <string name="visit_pack">sachet</string>
-    <string name="visit_exclusive_breastfeeding">Allaitement exclusif au sein</string>
-    <string name="visit_mnp_dose">Dose de MNP</string>
+    <string name="visit_exclusive_breastfeeding">Allaitement maternel exclusif</string>
+    <string name="visit_mnp_dose">Dose de PMN</string>
     <string name="visit_vitamin_a_dose">Dose de Vitamine A</string>
     <string name="visit_deworming_dose">Dose de déparasitant</string>
 
     <string name="growth_nutrition">Croissance et nutrition</string>
-    <string name="dose_not_given">Dose n\'a pas été donnée</string>
-    <string name="has_birt_cert">Possède un certificat de naissance?</string>
+    <string name="dose_not_given">La dose n\'a pas été donnée</string>
+    <string name="has_birt_cert">Possède un acte de naissance?</string>
     <string name="issuance_date">Date de délivrance</string>
     <string name="number">Numéro</string>
-    <string name="notification">Déclaration de naissance fait?</string>
+    <string name="notification">Déclaration de naissance faite?</string>
     <string name="call_prompt">APPELER %s</string>
     <string name="head_of_family">Chef de famille</string>
     <string name="care_giver">Gardienne</string>
-    <string name="status_saving">Enregistration</string>
-    <string name="fill_earler_immunization"><![CDATA[<i>Enregistrer les immunisations effectués avant aujourd\'hui</i>]]></string>
+    <string name="status_saving">Enregistrement</string>
+    <string name="fill_earler_immunization"><![CDATA[<i>Enregistrer les vaccinations effectuées avant aujourd\'hui</i>]]></string>
     <string name="confirm_remove_text">Êtes-vous certain de vouloir supprimer le dossier de %s? Cette action va enlever le dossier au complet de votre appareil. Cette action ne peût pas être annulée.</string>
     <string name="remove">ENLEVER</string>
     <string name="birth_date">Date de naissance</string>
     <string name="age">Âge</string>
 
-    <string name="when_vaccine">Quand est-ce que l\'immunisation %s a été éffectué?</string>
-    <string name="no_vaccines_were_done">Aucun immunisation n\'a été effectué</string>
-    <string name="edit_member_form_title">Éditer membre de famille</string>
-    <string name="edit_anc_registration_form_title">Réviser ENR CPN</string>
-    <string name="anc_registration_form_title">ENR CPN</string>
-    <string name="anc_pregnancy_outcome_form_title">Issue de Grossesse</string>
+    <string name="when_vaccine">Quand est-ce que la vaccination de %s a été éffectuée?</string>
+    <string name="no_vaccines_were_done">Aucun vaccinations n\'a été effectuée</string>
+    <string name="edit_member_form_title">Corriger membre du ménage</string>
+    <string name="edit_anc_registration_form_title">Corriger Enregistrement CPN</string>
+    <string name="anc_registration_form_title">Enregistrement CPN</string>
+    <string name="anc_pregnancy_outcome_form_title">Issue de la grossesse</string>
 
     <string name="last_visit">DERNIÈRE VISITE</string>
-    <string name="edit_child_form_title">Éditer enfant de moins de 5 ans</string>
-    <string name="birth_cert_value">L\'enfant a-t-il  un certificat de naissance? %s</string>
-    <string name="birth_cert_date">Date de délivrance du certificat de naissance: %s</string>
-    <string name="birth_cert_number">Numéro du certificat de naissance: %s</string>
-    <string name="birth_cert_notification">Notification de naissance fait? %s</string>
-    <string name="birth_cert_note_1">Demandez au responsable de l\'enfant de vous montrer la notification de naissance et instruisez la d\'enregistrer la naissance au Départment sanitaire de la commune.</string>
-    <string name="birth_cert_note_2">Demandez au responsable de l\'enfant d\'enregistrer la naissance au Départment sanitaire de la commune.</string>
+    <string name="edit_child_form_title">Corriger enfant de moins de 5 ans</string>
+    <string name="birth_cert_value">L\'enfant a-t-il  un Acte de naissance? %s</string>
+    <string name="birth_cert_date">Date de délivrance de l\'Acte de naissance: %s</string>
+    <string name="birth_cert_number">Numéro de l\'Acte de naissance: %s</string>
+    <string name="birth_cert_notification">Déclaration de naissance faite?%s</string>
+    <string name="birth_cert_note_1">Demandez au responsable de l\'enfant de vous montrer la declaration de naissance et instruisez la d\'enregistrer la naissance a l\'Etat civil.</string>
+    <string name="birth_cert_note_2">Demandez a la gardienne d\'enregistrer la naissance a l\'Etat Civile.</string>
     <string name="illness_date_with_value">Date: %s</string>
     <string name="illness_des_with_value">Description: %s</string>
-    <string name="illness_action_value">Mesure prise: %s</string>
-    <string name="initial_breastfeed_value">Initiation précoce à l\'allaitement: %s</string>
-    <string name="zero_month_breastfeed_value">Allaitement au sein exclusif 0 mois: %s</string>
+    <string name="illness_action_value">Action prise: %s</string>
+    <string name="initial_breastfeed_value">Mise au sein précoce: %s</string>
+    <string name="zero_month_breastfeed_value">Allaitement maternel exclusif 0 mois: %s</string>
 
-    <string name="vaccination_done_earlier">Immunisation effectué plus tôt</string>
-    <string name="vaccines_not_done">IMMUNISATIONS NON EFFECTUÉES</string>
+    <string name="vaccination_done_earlier">Vaccinaiton effectuée plus tôt</string>
+    <string name="vaccines_not_done">VACCINATION NON EFFECTUÉES</string>
     <string name="set">Set</string>
     <string name="remove_family_count">%s adultes et %s enfants de moins de 5 ans</string>
     <string name="not_given_with_spaces">&#160;n\'a pas été donné&#160;</string>
     <string name="given_on_with_spaces">&#160;Donné le&#160;</string>
-    <string name="immunizations">Immunisations (%s)</string>
-    <string name="immunizations_count">Immunisations ({0})</string>
+    <string name="immunizations">Vaccination (%s)</string>
+    <string name="immunizations_count">Vaccination ({0})</string>
     <string name="phone_number">Numéro de téléphone</string>
     <string name="other_phone_number">Autre numéro de téléphone</string>
     <string name="highest_education_level">Plus haut niveau d\'études/de formation</string>
@@ -207,48 +207,50 @@
     <string name="remove_this_person">Enlever cette personne</string>
     <string name="registration_info">Information d\'enregistrement</string>
     <string name="anc_registration">Enregistrement CPN</string>
-    <string name="malaria_registration">Paludisme confirmé</string>
-    <string name="anc_registration_info">Infos d\'ENR CPN</string>
-    <string name="anc_pregnancy_out_come">Issue de grossesse</string>
+    <string name="malaria_registration">Confirmation pour paludisme</string>
+    <string name="anc_registration_info">Infos d\'Enregistrement CPN</string>
+    <string name="anc_pregnancy_out_come">Issue de la grossesse</string>
     <string name="log_out_as">Déconnexion</string>
-    <string name="job_aids">Outils de travail</string>
-    <string name="refresh_indicators">Rafraîchir indicateurs</string>
+    <string name="job_aids">Boite à outils</string>
+    <string name="refresh_indicators">Actualiser les indicateurs</string>
     <string name="indicators_udpating">Mise à jour &#8230;</string>
     <string name="indicators_updating_complete">Mise à jour terminée</string>
-    <string name="total_under_5_children_label">Totale enfants en bas de 5</string>
+
+    <!-- Child indicators-->
+    <string name="total_under_5_children_label">Total enfants de moins de 5ans</string>
     <string name="deceased_children_0_11_months">Enfants (0&#8211;11 mois) qui sont décédés durant l\'année passée</string>
     <string name="deceased_children_12_59_months">Enfants (12&#8211;59 mois) qui sont décédés durant l\'année passée</string>
-    <string name="children_0_59_months_with_birth_certificate">Enfants (0&#8211;59 mois) avec certificat de naissance</string>
-    <string name="children_0_59_months_without_birth__certificate">Enants (0&#8211;59 mois) sans certificat de naissance </string>
+    <string name="children_0_59_months_with_birth_certificate">Enfants (0&#8211;59 mois) avec acte de naissance</string>
+    <string name="children_0_59_months_without_birth__certificate">Enants (0&#8211;59 mois) sans acte de naissance </string>
     <string name="children_12_59_months_dewormed">Enfants (12&#8211;59 mois) déparasités dans les 6 derniers mois </string>
     <string name="children_12_59_months_not_dewormed">Enfants (12&#8211;59 mois) non-déparasités dans les 6 derniers mois</string>
     <string name="children_6_59_months_received_vitamin_A">Enfants (6&#8211;59 mois) Qui on reçu la vitamine A dans les 6 derniers mois</string>
     <string name="children_6_59_months_not_received_vitamin_A">Enfants (6&#8211;59 mois) Qui n\'ont pas reçu la vitamine A dans les 6 derniers mois</string>
     <string name="children_0_5_months_not_exclusively_breastfeeding">Enfants (0&#8211;5 mois) qui ne sont pas allaité exclusivement au sein</string>
 
-    <string name="children_0_5_months_exclusively_breastfeeding">Enfants (0&#8211;5 mois) allaitant exclusivement au sein</string>
-    <string name="children_6_23_months_upto_date_mnp">Enfants (6&#8211;23 mois) à jour avec supplémentation PMN</string>
-    <string name="children_6_23_months_overdue_mnp">Enfants (6&#8211;23 mois) qui ne sont pas à jour avec supplémentation PMN</string>
+    <string name="children_0_5_months_exclusively_breastfeeding">Enfants (0&#8211;5 mois) allaitant exclusivement au sein </string>
+    <string name="children_6_23_months_upto_date_mnp">Enfants (6&#8211;23 mois) à jour avec la supplémentation PMN</string>
+    <string name="children_6_23_months_overdue_mnp">Enfants (6&#8211;23 mois) qui ne sont pas à jour avec la supplémentation PMN</string>
 
-    <string name="children_0_24_months_upto_date_vaccinations">Enfants (0&#8211;23 mois) avec immunisations à jour</string>
+    <string name="children_0_24_months_upto_date_vaccinations">Enfants (0&#8211;23 mois) à jour selon le Calendrier vaccinale</string>
     <string name="children_0_24_months_overdue_vaccinations">Enfants (6&#8211;23 mois) qui sont présementement en retard pour au moins un vaccin ou plus</string>
     <string name="opv_0_not_included">VPO 0 non-inclu</string>
 
     <string name="yes_slice_label">Oui</string>
     <string name="no_slice_label">Non</string>
     <string name="powered_by">Réalisé par</string>
-    <string name="immunisation_and_services"><![CDATA[IMMUNISATION & SERVICES]]></string>
+    <string name="immunisation_and_services"><![CDATA[VACCINATIONS& SERVICES]]></string>
     <string name="call_caregiver">Appellez la gardienne</string>
     <string name="caregiver">Gardienne</string>
-    <string name="select_a_new_family_head">Sélectionner un nouveau chef de famille</string>
-    <string name="all_registers">Tous registres</string>
+    <string name="select_a_new_family_head">Sélectionner un nouveau chef de ménage</string>
+    <string name="all_registers">Toutes les registres</string>
     <string name="menu_labour_and_delivery"><![CDATA[L&D]]></string>
     <string name="menu_child">CH</string>
     <string name="menu_anc">CPN</string>
-    <string name="menu_pnc">CoPN</string>
+    <string name="menu_pnc">CPoN</string>
     <string name="menu_family_planing">PF</string>
     <string name="menu_malaria">Paludisme</string>
-    <string name="refer_to_facility">Référer à la structure sanitaire</string>
+    <string name="refer_to_facility">Référer au centre de santé</string>
 
     <string name="due_only">Attendu</string>
     <string name="care_giver_initials">G</string>
@@ -266,8 +268,8 @@
     <string name="october">Octobre</string>
     <string name="november">Novembre</string>
     <string name="december">Décembre</string>
-    <string name="no_services_due">Aucun services attendu</string>
-    <string name="due_details">Quand une membre de famille doit recevoir une service elle sera affiché içi</string>
+    <string name="no_services_due">Aucun service attendu</string>
+    <string name="due_details">Quand un membre du ménage doit recevoir une service, il sera affiché ici</string>
 
     <string name="edu_level_none">Aucun</string>
     <string name="edu_level_primary">Primaire</string>
@@ -279,7 +281,7 @@
 
     <string name="yes">Oui</string>
     <string name="no">Non</string>
-    <string name="device_to_device_sync">Sync entre appareils</string>
+    <string name="device_to_device_sync">Synchro entre appareils</string>
 
     <!-- home visit strings-->
     <string name="anc_home_visit_danger_signs">Signes de danger</string>
@@ -288,14 +290,14 @@
     <string name="anc_home_visit_nutrition_status">État nutritionnel</string>
     <string name="anc_home_visit_counselling_task">Consultation</string>
     <string name="anc_home_visit_malaria_prevention">Prévention du paludisme</string>
-    <string name="anc_home_visit_observations_n_illnes">Observations et maladies</string>
-    <string name="anc_home_visit_remarks_and_comments">Remarques/commentaires</string>
+    <string name="anc_home_visit_observations_n_illnes">En Cas de maladie</string>
+    <string name="anc_home_visit_remarks_and_comments">Observations/commentaires</string>
 
     <string name="anc_home_visit_anc_card_received">Carnet CPN reçu</string>
     <string name="anc_home_visit_sleeping_under_llitn_net">Dors sous un MIILD </string>
     <string name="anc_home_visit_counseling">Conseils CPN</string>
-    <string name="anc_home_visit_tt_immunization">Immunisation TM {0}</string>
-    <string name="anc_home_visit_iptp_sp">IPTp-SP dose {0}</string>
+    <string name="anc_home_visit_tt_immunization">VAT {0}</string>
+    <string name="anc_home_visit_iptp_sp">SP dose {0}</string>
     <string name="gest_age">AG: %1$s</string>
     <string name="gest_age_weeks">semaines</string>
 
@@ -304,44 +306,44 @@
     <string name="weight">Poids</string>
     <string name="kg">kg</string>
     <string name="mmHg">mmHg</string>
-    <string name="hb_level">Niveau d\'hémoglobine</string>
+    <string name="hb_level">Hémoglobine-TH</string>
     <string name="gdl">g/dl</string>
     <string name="ifa_received">FAF reçu</string>
     <string name="tests_done">Examens effectués</string>
     <string name="treatment_given">Traitement administré </string>
-    <string name="received_llin">MIILD Reçu</string>
-    <string name="nutrition_status">État</string>
-    <string name="counselling">Suivi</string>
+    <string name="received_llin">MILDA Reçu</string>
+    <string name="nutrition_status">Statut</string>
+    <string name="counselling">Counselling</string>
 
     <string name="uses_net">Utilise moustiquaire</string>
-    <string name="slept_under_net">À dormi sous une moustiquaire</string>
-    <string name="net_condition">Condition de la moustiquaire</string>
-    <string name="remarks_and__comments">Remarques / commentaires</string>
-    <string name="date_given">Date donné</string>
+    <string name="slept_under_net">À dormi sous un moustiquaire</string>
+    <string name="net_condition">Condition du moustiquaire</string>
+    <string name="remarks_and__comments">Observations/commentaires</string>
+    <string name="date_given">Donné le</string>
 
 
-    <string name="device_to_device">Sync entre appareils</string>
-    <string name="choose_language">Choisir langue</string>
+    <string name="device_to_device">Synchro entre appareils</string>
+    <string name="choose_language">Choisir la langue</string>
     <string name="minimum_dietary_title">Diversité alimentaire minimum</string>
-    <string name="minimum_question_lebel">L\'enfant a-t-il ou elle reçu de produits animaux (tels que des oeufs, le foie, le lait) ou des fruits dans les derniers 24 heures?</string>
-    <string name="minimum_dietary_choice_1">0 - aucun produits animaux ou fruits</string>
+    <string name="minimum_question_lebel">L\'enfant a-t-il ou elle reçu des produits animaliers (tels que des oeufs, le foie, le lait) ou des fruits dans les dernières 24 heures?</string>
+    <string name="minimum_dietary_choice_1">0 - aucun produits animal ou fruits</string>
     <string name="minimum_dietary_choice_2">1 - un produit animal ou un fruit</string>
     <string name="minimum_dietary_choice_3">2 - un produit animal ET un fruit</string>
-    <string name="muac_title">Périmètre brachial (PB)</string>
+    <string name="muac_title">Périmètre Brachial (PB)</string>
     <string name="muac_question_label">Quel est la couleur du ruban PB pour l\'enfant?</string>
     <string name="muac_choice_1">Vert</string>
     <string name="muac_choice_2">Jaune</string>
     <string name="muac_choice_3">Rouge</string>
-    <string name="llitn_title">Dors sous un MIILD</string>
+    <string name="llitn_title">Dors sous un MILDA</string>
     <string name="ecd_title">Dévéloppement de la petite enfance (DPE)</string>
 
     <string name="counseling_visit">Visite</string>
 
-    <string name="anc_last_visit">DERNIER VISITE</string>
-    <string name="anc_health_facility_visits">VISITE CPN AU STRUCTURE SANITAIRE</string>
+    <string name="anc_last_visit">DERNIERE VISITE</string>
+    <string name="anc_health_facility_visits">VISITE CPN A LA FORMATION SANITAIRE</string>
     <string name="anc_card">CARNET CPN</string>
-    <string name="anc_tt_immunization">IMMUNISATION TM</string>
-    <string name="anc_iptp_sp">IPTp-SP DOSE</string>
+    <string name="anc_tt_immunization">VAT</string>
+    <string name="anc_iptp_sp">DOSE SP</string>
 
     <string name="days_ago">il y a {0} jours</string>
     <string name="vaccines_done_date">{0} - fait {1}</string>
@@ -354,24 +356,35 @@
 
     <string name="danger_signs_counselling">Conseils sur les signes de danger</string>
     <string name="anc_visit_counselling">Visite de suivi CPN </string>
-    <string name="delivery_at_facilty_counselling">Conseils sur l\'accouchement dans une centre de santé</string>
-    <string name="nutrition_counselling">Conseils en nutrition</string>
+    <string name="delivery_at_facilty_counselling">Conseils sur l\'accouchement au centre de santé</string>
+    <string name="nutrition_counselling">Conseils nutritionnels</string>
 
-    <string name="llitn_label">La femme dors-t-elle sous une moustiquaires imprégnées d\'insecticide (MIILD)?</string>
-    <string name="llitn_label_child">L\'enfant dors-t-il ou elle sous une moustiquaire imprégnée d\'insecticides de longue durée (MIILD)?</string>
-    <string name="llitn_info_title">Si la femme enceinte dors en dessous d\'une MILD</string>
-    <string name="llitn_info_text">Le paludisme est très dangereux pour les femmes enceintes. Dans les zones où le paludisme est présente, les femmes devraient prévenir la maladie en prennant les comprimés antipaludéens tels que recommandées par un agent sanitaires formé et en dormant en dessous d\'une moustiquaire imprégnée d\'insecticide.</string>
-    <string name="dev_warning_sign">Signes d\'avertissement d\'un délai potentiel dans le développment de l\'enfant:</string>
+    <string name="llitn_label">La femme dors-t-elle sous un moustiquaire imprégnée d\'insecticide de longue d\'Action (MILDA)?</string>
+    <string name="llitn_label_child">L\'enfant dors-t-il ou elle sous un moustiquaire imprégnée d\'insecticides de longue d\'Action (MILDA)?</string>
+    <string name="llitn_info_title">La femme enceinte dors - t-ell sous MILDA</string>
+    <string name="llitn_info_text">Le paludisme est très dangereux pour les femmes enceintes. Dans les zones où le paludisme est présent, les femmes devraient prévenir la maladie en prennant les comprimés antipaludéens tels que recommandées par un agent sanitaires formé et en dormant sou une moustiquaire imprégnée d\'insecticide.</string>
+    <string name="dev_warning_sign">Signes d\'avertissement d\'un retard potentiel dans le développment de l\'enfant:</string>
     <string name="care_stim_skill">Compétences de stimulation de la gardienne:</string>
-    <string name="early_learning"> Programme d\'apprentissage pour la petite enfance:</string>
+    <string name="early_learning"> Programme d\'apprentissage précoce pour la petite enfance:</string>
 
-    <string name="health_facility_visit_num">Visite CPN {0} à la structure sanitaire</string>
-    <string name="tt_dose">TM {0}</string>
-    <string name="iptp_sp_dose">IPTp-SP {0}</string>
+    <string name="health_facility_visit_num">Visite CPN {0} à la formation sanitaire</string>
+    <string name="tt_dose">VAT {0}</string>
+    <string name="iptp_sp_dose">SP {0}</string>
 
     <string name="rubella">Rubéole</string>
     <string name="opv_0">VPO 0</string>
     <string name="opv_1">VPO 1</string>
     <string name="opv_2">VPO 2</string>
     <string name="yellow_fever">Fièvre Jaune</string>
+
+    <!-- ANC Reporting indicators labels: Check anc reporting data dictionary. Strings are named by number
+ as defined in the data dictionary -->
+    <string name="anc_indicator1">Total Femmes en Age de Procrée  (10-49 ans)</string>
+    <string name="anc_indicator2">Total femmes enceintes</string>
+    <string name="anc_indicator3">Femmes enceintes à jour avec leurs visites CPN à domicile</string>
+    <string name="anc_indicator4">Femmes enceintes à jour avec leurs visites CPN au centres de santé</string>
+    <string name="anc_indicator5">Femmes enceintes dépistée au VIH</string>
+    <string name="anc_indicator6">Femmes enceintes dépistées pour la syphilis</string>
+    <string name="anc_indicator7">Femmes enceintes à jour avec leurs VAT</string>
+    <string name="anc_indicator8">Femmes enceintes à jour avec leurs Doses de SP</string>
 </resources>
