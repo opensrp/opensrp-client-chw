@@ -1,7 +1,6 @@
 package org.smartregister.chw.interactor;
 
 import android.support.annotation.VisibleForTesting;
-
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.contract.FamilyProfileExtendedContract;
 import org.smartregister.commonregistry.CommonPersonObject;
@@ -47,13 +46,17 @@ public class FamilyProfileInteractor extends org.smartregister.family.interactor
     private boolean hasPhone(String familyBaseEntityId){
 
         final CommonPersonObject personObject = getCommonRepository(Utils.metadata().familyRegister.tableName).findByBaseEntityId(familyBaseEntityId);
-        final CommonPersonObjectClient client = new CommonPersonObjectClient(personObject.getCaseId(), personObject.getDetails(), "");
-        client.setColumnmaps(personObject.getColumnmaps());
+        if (personObject != null) {
+            final CommonPersonObjectClient client = new CommonPersonObjectClient(personObject.getCaseId(), personObject.getDetails(), "");
+            client.setColumnmaps(personObject.getColumnmaps());
 
-        String primaryCaregiverID = getValue(client.getColumnmaps(), DBConstants.KEY.PRIMARY_CAREGIVER);
-        String familyHeadID = getValue(client.getColumnmaps(), DBConstants.KEY.FAMILY_HEAD);
+            String primaryCaregiverID = getValue(client.getColumnmaps(), DBConstants.KEY.PRIMARY_CAREGIVER);
+            String familyHeadID = getValue(client.getColumnmaps(), DBConstants.KEY.FAMILY_HEAD);
 
-        return hasNumber(primaryCaregiverID) || hasNumber(familyHeadID);
+            return hasNumber(primaryCaregiverID) || hasNumber(familyHeadID);
+        }
+        return false;
+
     }
 
     private boolean hasNumber(String baseID) {

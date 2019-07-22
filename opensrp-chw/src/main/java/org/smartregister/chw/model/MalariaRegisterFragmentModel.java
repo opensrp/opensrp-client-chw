@@ -26,6 +26,7 @@ public class MalariaRegisterFragmentModel extends BaseMalariaRegisterFragmentMod
 
         columnList.add(tableName + "." + DBConstants.KEY.LAST_INTERACTED_WITH);
         columnList.add(tableName + "." + DBConstants.KEY.BASE_ENTITY_ID);
+        columnList.add(tableName + "." + org.smartregister.chw.malaria.util.DBConstants.KEY.MALARIA_TEST_DATE);
         columnList.add(Constants.TABLE_NAME.FAMILY_MEMBER + "." + DBConstants.KEY.RELATIONAL_ID + " as " + ChildDBConstants.KEY.RELATIONAL_ID);
         columnList.add(Constants.TABLE_NAME.FAMILY_MEMBER + "." + DBConstants.KEY.FIRST_NAME);
         columnList.add(Constants.TABLE_NAME.FAMILY_MEMBER + "." + DBConstants.KEY.MIDDLE_NAME);
@@ -37,7 +38,6 @@ public class MalariaRegisterFragmentModel extends BaseMalariaRegisterFragmentMod
         columnList.add(Constants.TABLE_NAME.FAMILY + "." + DBConstants.KEY.VILLAGE_TOWN);
         columnList.add(Constants.TABLE_NAME.FAMILY + "." + DBConstants.KEY.FAMILY_HEAD);
         columnList.add(Constants.TABLE_NAME.FAMILY + "." + DBConstants.KEY.PRIMARY_CAREGIVER);
-        columnList.add(Constants.TABLE_NAME.MALARIA_CONFIRMATION + "." + org.smartregister.chw.malaria.util.DBConstants.KEY.MALARIA_TEST_DATE);
         return columnList.toArray(new String[columnList.size()]);
     }
 }
