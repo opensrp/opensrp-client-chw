@@ -7,6 +7,11 @@
         <item name="colorAccent">@color/hf_accent</item>
     </style>
 
+    <style name="HFTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
     <style name="HFTheme.Login" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorControlNormal">@android:color/white</item>
         <item name="android:textSize">@dimen/login_font_size</item>

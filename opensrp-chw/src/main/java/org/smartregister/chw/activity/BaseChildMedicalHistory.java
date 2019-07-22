@@ -22,6 +22,8 @@ import java.util.Map;
 
 import timber.log.Timber;
 
+import static com.opensrp.chw.core.utils.Utils.firstCharacterUppercase;
+
 public abstract class BaseChildMedicalHistory extends SecuredActivity {
 
     private TextView textViewTitle,textViewLastVisit;
@@ -69,7 +71,7 @@ public abstract class BaseChildMedicalHistory extends SecuredActivity {
         } else {
             textViewTitle.setText(getString(R.string.medical_title, name));
         }
-        textViewLastVisit.setText(getString(R.string.medical_last_visit, Utils.firstCharacterUppercase(lastVisitDays)));
+        textViewLastVisit.setText(getString(R.string.medical_last_visit, firstCharacterUppercase(lastVisitDays)));
         onViewCreated(this);
 
     }

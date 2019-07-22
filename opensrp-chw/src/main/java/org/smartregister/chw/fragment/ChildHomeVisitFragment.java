@@ -71,9 +71,9 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
+import static com.opensrp.chw.core.utils.Utils.DD_MM_YYYY;
 import static org.smartregister.chw.util.ChildDBConstants.KEY.BIRTH_CERT;
 import static org.smartregister.chw.util.ChildDBConstants.KEY.VACCINE_CARD;
-import static org.smartregister.chw.util.Utils.dd_MMM_yyyy;
 import static org.smartregister.family.util.Utils.metadata;
 import static org.smartregister.util.Utils.dobStringToDate;
 import static org.smartregister.util.Utils.getDuration;
@@ -216,11 +216,11 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
             if (birthCertRule.isOverdue(12)) {
                 Date date = dobStringToDate(dob);
                 textViewBirthCertDueDate.setTextColor(getResources().getColor(R.color.alert_urgent_red));
-                textViewBirthCertDueDate.setText(String.format("%s%s", getString(R.string.overdue), dd_MMM_yyyy.format(date)));
+                textViewBirthCertDueDate.setText(String.format("%s%s", getString(R.string.overdue), DD_MM_YYYY.format(date)));
             } else {
                 Date date = dobStringToDate(dob);
                 textViewBirthCertDueDate.setTextColor(getResources().getColor(R.color.grey));
-                textViewBirthCertDueDate.setText(String.format("%s%s", getString(R.string.due), dd_MMM_yyyy.format(date)));
+                textViewBirthCertDueDate.setText(String.format("%s%s", getString(R.string.due), DD_MM_YYYY.format(date)));
 
             }
 
@@ -250,11 +250,11 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
             if (birthCertRule.isOverdue(12)) {
                 Date date = dobStringToDate(dob);
                 textViewVaccineCardText.setTextColor(getResources().getColor(R.color.alert_urgent_red));
-                textViewVaccineCardText.setText(String.format("%s%s", getString(R.string.overdue), dd_MMM_yyyy.format(date)));
+                textViewVaccineCardText.setText(String.format("%s%s", getString(R.string.overdue), DD_MM_YYYY.format(date)));
             } else {
                 Date date = dobStringToDate(dob);
                 textViewVaccineCardText.setTextColor(getResources().getColor(R.color.grey));
-                textViewVaccineCardText.setText(String.format("%s%s", getString(R.string.due), dd_MMM_yyyy.format(date)));
+                textViewVaccineCardText.setText(String.format("%s%s", getString(R.string.due), DD_MM_YYYY.format(date)));
 
             }
         }

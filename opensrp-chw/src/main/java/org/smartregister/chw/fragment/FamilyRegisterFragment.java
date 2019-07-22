@@ -34,6 +34,8 @@ import java.util.Set;
 
 import timber.log.Timber;
 
+import static com.opensrp.chw.core.utils.Utils.convertDpToPixel;
+
 public class FamilyRegisterFragment extends BaseFamilyRegisterFragment {
     private static final String TAG = FamilyRegisterFragment.class.getCanonicalName();
 
@@ -62,7 +64,7 @@ public class FamilyRegisterFragment extends BaseFamilyRegisterFragment {
         View searchBarLayout = view.findViewById(R.id.search_bar_layout);
         searchBarLayout.setLayoutParams(params);
         searchBarLayout.setBackgroundResource(R.color.chw_primary);
-        searchBarLayout.setPadding(searchBarLayout.getPaddingLeft(), searchBarLayout.getPaddingTop(), searchBarLayout.getPaddingRight(), (int) Utils.convertDpToPixel(10, getActivity()));
+        searchBarLayout.setPadding(searchBarLayout.getPaddingLeft(), searchBarLayout.getPaddingTop(), searchBarLayout.getPaddingRight(), (int) convertDpToPixel(10, getActivity()));
 
         CustomFontTextView titleView = view.findViewById(R.id.txt_title_label);
         if (titleView != null) {

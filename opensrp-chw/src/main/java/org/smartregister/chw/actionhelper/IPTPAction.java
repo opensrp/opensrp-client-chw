@@ -24,8 +24,8 @@ import java.util.Map;
 
 import timber.log.Timber;
 
+import static com.opensrp.chw.core.utils.Utils.getDayOfMonthSuffix;
 import static org.smartregister.chw.util.JsonFormUtils.getValue;
-import static org.smartregister.chw.util.Utils.getDayOfMonthSuffix;
 import static org.smartregister.util.JsonFormUtils.fields;
 import static org.smartregister.util.JsonFormUtils.getFieldJSONObject;
 

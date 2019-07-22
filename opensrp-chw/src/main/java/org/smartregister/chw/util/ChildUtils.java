@@ -57,10 +57,11 @@ import java.util.Map;
 
 import timber.log.Timber;
 
+import static com.opensrp.chw.core.utils.Utils.DD_MM_YYYY;
 import static org.apache.commons.lang3.text.WordUtils.capitalize;
+import static org.smartregister.chw.anc.util.Utils.dd_MMM_yyyy;
 import static org.smartregister.chw.util.JsonFormUtils.getValue;
 import static org.smartregister.chw.util.JsonFormUtils.tagSyncMetadata;
-import static org.smartregister.chw.util.Utils.dd_MMM_yyyy;
 
 public class ChildUtils {
 
@@ -486,12 +487,12 @@ public class ChildUtils {
         Date date = org.smartregister.family.util.Utils.dobStringToDate(dueDate);
         if (status.equalsIgnoreCase(ImmunizationState.DUE.name())) {
 
-            String str = context.getResources().getString(R.string.due) + "" + dd_MMM_yyyy.format(date);
+            String str = context.getResources().getString(R.string.due) + "" + DD_MM_YYYY.format(date);
             spannableString = new SpannableString(str);
             spannableString.setSpan(new ForegroundColorSpan(ChwApplication.getInstance().getContext().getColorResource(R.color.grey)), 0, str.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             return spannableString;
         } else {
-            String str = context.getResources().getString(R.string.overdue) + "" + dd_MMM_yyyy.format(date);
+            String str = context.getResources().getString(R.string.overdue) + "" +  DD_MM_YYYY.format(date);
             spannableString = new SpannableString(str);
             spannableString.setSpan(new ForegroundColorSpan(ChwApplication.getInstance().getContext().getColorResource(R.color.alert_urgent_red)), 0, str.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             return spannableString;

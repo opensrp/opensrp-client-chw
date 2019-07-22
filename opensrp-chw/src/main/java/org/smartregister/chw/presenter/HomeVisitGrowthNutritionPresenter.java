@@ -26,6 +26,8 @@ import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 
+import static com.opensrp.chw.core.utils.Utils.DD_MM_YYYY;
+
 public class HomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNutritionContract.Presenter, HomeVisitGrowthNutritionContract.InteractorCallBack {
     private WeakReference<HomeVisitGrowthNutritionContract.View> view;
     private HomeVisitGrowthNutritionContract.Interactor interactor;
@@ -75,11 +77,11 @@ public class HomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNutriti
         if (type.equalsIgnoreCase(GrowthNutritionInputFragment.GROWTH_TYPE.EXCLUSIVE.getValue())) {
             Date date = org.smartregister.family.util.Utils.dobStringToDate(serviceWrapper.getUpdatedVaccineDateAsString());
             if (getView() != null)
-                getView().statusImageViewUpdate(type, true, context.getString(R.string.given_on, Utils.dd_MMM_yyyy.format(date)), serviceWrapper.getValue());
+                getView().statusImageViewUpdate(type, true, context.getString(R.string.given_on, DD_MM_YYYY.format(date)), serviceWrapper.getValue());
         } else {
             Date date = org.smartregister.family.util.Utils.dobStringToDate(serviceWrapper.getUpdatedVaccineDateAsString());
             if (getView() != null)
-                getView().statusImageViewUpdate(type, true, context.getString(R.string.given_on, Utils.dd_MMM_yyyy.format(date)), "");
+                getView().statusImageViewUpdate(type, true, context.getString(R.string.given_on, DD_MM_YYYY.format(date)), "");
 
         }
     }

@@ -8,6 +8,7 @@ import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
 import com.opensrp.chw.core.loggers.CrashlyticsTree;
 import com.opensrp.chw.hf.activity.LoginActivity;
+import com.opensrp.chw.hf.sync.HfSyncConfiguration;
 import com.opensrp.hf.BuildConfig;
 
 import org.smartregister.AllConstants;
@@ -15,7 +16,6 @@ import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
 import org.smartregister.configurableviews.helper.JsonSpecHelper;
-import org.smartregister.immunization.ImmunizationLibrary;
 import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.repository.AllSharedPreferences;
@@ -61,11 +61,13 @@ public class HealthFacilityApp extends DrishtiApplication {
         // init json helper
         this.jsonSpecHelper = new JsonSpecHelper(this);
         // init libraries
-        CoreLibrary.init(context);
-        ImmunizationLibrary.init(context, getRepository(), null, BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
+
+        CoreLibrary.init(context, new HfSyncConfiguration(), BuildConfig.BUILD_TIMESTAMP, null);
+
         ConfigurableViewsLibrary.init(context, getRepository());
 
         SyncStatusBroadcastReceiver.init(this);
+
 
         LocationHelper.init(new ArrayList<>(Arrays.asList(BuildConfig.ALLOWED_LOCATION_LEVELS)), BuildConfig.DEFAULT_LOCATION);
 

@@ -1,15 +1,15 @@
-package org.smartregister.chw.application;
+package com.opensrp.chw.hf.sync;
 
 import com.opensrp.chw.core.utils.Utils;
+import com.opensrp.hf.BuildConfig;
 
 import org.smartregister.SyncConfiguration;
 import org.smartregister.SyncFilter;
-import org.smartregister.chw.BuildConfig;
 
 /**
- * Created by samuelgithengi on 10/19/18.
+ * @author  Elly Nerdstone
  */
-public class ChwSyncConfiguration extends SyncConfiguration {
+public class HfSyncConfiguration extends SyncConfiguration {
     @Override
     public int getSyncMaxRetries() {
         return BuildConfig.MAX_SYNC_RETRIES;
@@ -22,7 +22,6 @@ public class ChwSyncConfiguration extends SyncConfiguration {
 
     @Override
     public String getSyncFilterValue() {
-
         return Utils.getSyncFilterValue();
     }
 

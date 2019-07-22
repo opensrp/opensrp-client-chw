@@ -23,6 +23,8 @@ import org.smartregister.family.util.DBConstants;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.opensrp.chw.core.utils.Utils.DD_MM_YYYY;
+import static com.opensrp.chw.core.utils.Utils.convertToDateFormateString;
 import static org.smartregister.chw.util.ChildDBConstants.KEY.BIRTH_CERT;
 import static org.smartregister.chw.util.ChildDBConstants.KEY.BIRTH_CERT_ISSUE_DATE;
 import static org.smartregister.chw.util.ChildDBConstants.KEY.BIRTH_CERT_NUMBER;
@@ -112,7 +114,7 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements ChildHomeVis
                         case BIRTH_CERT_ISSUE_DATE:
                             String value = jsonObject.optString(org.smartregister.family.util.JsonFormUtils.VALUE);
                             if (!TextUtils.isEmpty(value)) {
-                                birthCertDataModel.setBirthCertDate("Issued " + Utils.convertToDateFormateString(value, Utils.dd_MMM_yyyy));
+                                birthCertDataModel.setBirthCertDate("Issued " + convertToDateFormateString(value, DD_MM_YYYY));
                             }
 
                             break;
@@ -155,7 +157,7 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements ChildHomeVis
                         case ILLNESS_DATE:
                             String value = jsonObject.optString(org.smartregister.family.util.JsonFormUtils.VALUE);
 
-                            obsIllnessDataModel.setIllnessDate(Utils.convertToDateFormateString(value, Utils.dd_MMM_yyyy));
+                            obsIllnessDataModel.setIllnessDate(convertToDateFormateString(value, DD_MM_YYYY));
 
                             break;
                         case ILLNESS_DESCRIPTION:

@@ -37,6 +37,11 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name="com.opensrp.chw.hf.activity.MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/HFTheme.NoActionBar" />
+
         <service android:name="org.smartregister.service.ImageUploadSyncService" />
         <service android:name="org.smartregister.sync.intent.PullUniqueIdsIntentService" />
         <service android:name="org.smartregister.sync.intent.SyncIntentService" />

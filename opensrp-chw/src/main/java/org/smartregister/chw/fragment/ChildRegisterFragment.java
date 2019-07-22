@@ -44,6 +44,8 @@ import java.util.Set;
 
 import timber.log.Timber;
 
+import static com.opensrp.chw.core.utils.Utils.convertDpToPixel;
+
 public class ChildRegisterFragment extends BaseRegisterFragment implements ChildRegisterFragmentContract.View {
 
     private static final String TAG = ChildRegisterFragment.class.getCanonicalName();
@@ -103,7 +105,7 @@ public class ChildRegisterFragment extends BaseRegisterFragment implements Child
         View searchBarLayout = view.findViewById(R.id.search_bar_layout);
         searchBarLayout.setLayoutParams(params);
         searchBarLayout.setBackgroundResource(R.color.chw_primary);
-        searchBarLayout.setPadding(searchBarLayout.getPaddingLeft(), searchBarLayout.getPaddingTop(), searchBarLayout.getPaddingRight(), (int) org.smartregister.chw.util.Utils.convertDpToPixel(10, getActivity()));
+        searchBarLayout.setPadding(searchBarLayout.getPaddingLeft(), searchBarLayout.getPaddingTop(), searchBarLayout.getPaddingRight(), (int) convertDpToPixel(10, getActivity()));
 
 
         if (getSearchView() != null) {

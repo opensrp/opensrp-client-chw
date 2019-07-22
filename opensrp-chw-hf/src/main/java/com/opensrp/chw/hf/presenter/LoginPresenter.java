@@ -4,11 +4,8 @@ import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.view.View;
 import android.widget.CheckBox;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.android.volley.toolbox.ImageLoader;
-import com.opensrp.chw.core.utils.ImageLoaderRequest;
 import com.opensrp.chw.hf.HealthFacilityApp;
 import com.opensrp.chw.hf.interactor.LoginInteractor;
 import com.opensrp.hf.R;
