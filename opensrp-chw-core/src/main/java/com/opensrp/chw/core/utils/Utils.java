@@ -31,7 +31,7 @@ import java.util.Locale;
 import timber.log.Timber;
 
 import static com.google.android.gms.common.internal.Preconditions.checkArgument;
-import static org.smartregister.util.Utils.*;
+import static org.smartregister.util.Utils.isEmptyCollection;
 
 public class Utils {
 

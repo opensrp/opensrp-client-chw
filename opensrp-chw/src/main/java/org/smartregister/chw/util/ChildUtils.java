@@ -10,6 +10,7 @@ import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializationContext;
@@ -59,7 +60,6 @@ import timber.log.Timber;
 
 import static com.opensrp.chw.core.utils.Utils.DD_MM_YYYY;
 import static org.apache.commons.lang3.text.WordUtils.capitalize;
-import static org.smartregister.chw.anc.util.Utils.dd_MMM_yyyy;
 import static org.smartregister.chw.util.JsonFormUtils.getValue;
 import static org.smartregister.chw.util.JsonFormUtils.tagSyncMetadata;
 

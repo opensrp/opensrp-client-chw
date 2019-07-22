@@ -4,7 +4,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.support.annotation.VisibleForTesting;
 import android.text.TextUtils;
-
 import android.util.Pair;
 
 import org.apache.commons.lang3.StringUtils;

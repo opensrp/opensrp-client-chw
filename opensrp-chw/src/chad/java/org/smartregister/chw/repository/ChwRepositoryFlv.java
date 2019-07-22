@@ -2,7 +2,6 @@ package org.smartregister.chw.repository;
 
 import android.content.Context;
 
-
 import net.sqlcipher.database.SQLiteDatabase;
 
 import org.smartregister.domain.db.Column;

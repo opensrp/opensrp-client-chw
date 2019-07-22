@@ -39,6 +39,10 @@ public class HealthFacilityApp extends DrishtiApplication {
         return (HealthFacilityApp) mInstance;
     }
 
+    public static JsonSpecHelper getJsonSpecHelper() {
+        return getInstance().jsonSpecHelper;
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -46,29 +50,25 @@ public class HealthFacilityApp extends DrishtiApplication {
         if (BuildConfig.DEBUG) {
             Timber.plant(new Timber.DebugTree());
         } else {
-            Timber.plant(new CrashlyticsTree(HealthFacilityApp.getInstance().getContext().allSharedPreferences().fetchRegisteredANM()));
+            Timber.plant(new CrashlyticsTree(HealthFacilityApp.getInstance().getContext()
+                    .allSharedPreferences().fetchRegisteredANM()));
         }
-
 
         mInstance = this;
         context = Context.getInstance();
         context.updateApplicationContext(getApplicationContext());
 
-
-        Fabric.with(this, new Crashlytics.Builder().core(new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build()).build());
-        //Fabric.with(this, new Crashlytics.Builder().core(new CrashlyticsCore.Builder().build()).build());
+        Fabric.with(this, new Crashlytics.Builder().core(new CrashlyticsCore.Builder()
+                .disabled(BuildConfig.DEBUG).build()).build());
 
         // init json helper
         this.jsonSpecHelper = new JsonSpecHelper(this);
+
         // init libraries
-
         CoreLibrary.init(context, new HfSyncConfiguration(), BuildConfig.BUILD_TIMESTAMP, null);
-
         ConfigurableViewsLibrary.init(context, getRepository());
 
         SyncStatusBroadcastReceiver.init(this);
-
-
         LocationHelper.init(new ArrayList<>(Arrays.asList(BuildConfig.ALLOWED_LOCATION_LEVELS)), BuildConfig.DEFAULT_LOCATION);
 
         setOpenSRPUrl();
@@ -87,6 +87,26 @@ public class HealthFacilityApp extends DrishtiApplication {
 
     }
 
+    @Override
+    public void logoutCurrentUser() {
+        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        getApplicationContext().startActivity(intent);
+        context.userService().logoutSession();
+        Timber.tag(TAG).i("Logged out user %s", getContext().allSharedPreferences().fetchRegisteredANM());
+    }
+
+    public String getPassword() {
+        if (password == null) {
+            String username = getContext().allSharedPreferences().fetchRegisteredANM();
+            password = getContext().userService().getGroupId(username);
+        }
+        return password;
+    }
+
     public void setOpenSRPUrl() {
         AllSharedPreferences preferences = Utils.getAllSharedPreferences();
         if (BuildConfig.DEBUG) {
@@ -101,31 +121,7 @@ public class HealthFacilityApp extends DrishtiApplication {
         allSharedPreferences.saveLanguagePreference(language);
     }
 
-    @Override
-    public void logoutCurrentUser() {
-        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.addCategory(Intent.CATEGORY_HOME);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        getApplicationContext().startActivity(intent);
-        context.userService().logoutSession();
-    }
-
-    public String getPassword() {
-        if (password == null) {
-            String username = getContext().allSharedPreferences().fetchRegisteredANM();
-            password = getContext().userService().getGroupId(username);
-        }
-        return password;
-    }
-
     public Context getContext() {
         return context;
     }
-
-    public static JsonSpecHelper getJsonSpecHelper() {
-        return getInstance().jsonSpecHelper;
-    }
-
 }

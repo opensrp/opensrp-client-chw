@@ -3,6 +3,7 @@ package org.smartregister.chw.activity;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,6 +17,7 @@ import org.smartregister.chw.BaseActivityTest;
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.helper.ImageRenderHelper;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 @RunWith(RobolectricTestRunner.class)

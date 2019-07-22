@@ -1,6 +1,5 @@
 package org.smartregister.chw.listener;
 
-import org.smartregister.chw.util.ImmunizationState;
 import org.smartregister.domain.Alert;
 import org.smartregister.immunization.domain.Vaccine;
 

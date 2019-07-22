@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import org.smartregister.chw.R;
 import org.smartregister.chw.util.Constants;
-import org.smartregister.chw.util.Utils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.view.activity.SecuredActivity;
 

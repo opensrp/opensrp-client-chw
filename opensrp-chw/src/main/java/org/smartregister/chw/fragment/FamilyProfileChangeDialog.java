@@ -11,7 +11,6 @@ import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
-
 import android.util.Pair;
 import android.view.Display;
 import android.view.Gravity;

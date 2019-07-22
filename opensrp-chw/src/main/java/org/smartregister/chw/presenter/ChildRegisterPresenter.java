@@ -3,7 +3,6 @@ package org.smartregister.chw.presenter;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
-
 import android.util.Pair;
 
 import org.apache.commons.lang3.StringUtils;

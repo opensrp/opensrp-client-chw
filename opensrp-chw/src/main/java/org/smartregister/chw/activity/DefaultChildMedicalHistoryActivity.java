@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
 import org.smartregister.chw.R;
 import org.smartregister.chw.adapter.BirthAndIllnessAdapter;
 import org.smartregister.chw.adapter.GrowthAdapter;

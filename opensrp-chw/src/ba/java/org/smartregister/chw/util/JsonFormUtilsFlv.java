@@ -2,7 +2,6 @@ package org.smartregister.chw.util;
 
 import android.content.Context;
 import android.database.Cursor;
-
 import android.util.Pair;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
