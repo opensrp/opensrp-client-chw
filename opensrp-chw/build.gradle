@@ -100,6 +100,10 @@ android {
             returnDefaultValues = true
             includeAndroidResources = true
         }
+        unitTests.all {
+            systemProperty 'robolectric.enabledSdks', '28'
+            jvmArgs '-noverify'
+        }
     }
 
     flavorDimensions 'baseDimension'
@@ -192,7 +196,7 @@ dependencies {
     androidTestImplementation 'org.mockito:mockito-android:2.7.22'
 
     testImplementation 'junit:junit:4.12'
-    testImplementation 'org.mockito:mockito-core:2.7.22'
+    testImplementation 'org.mockito:mockito-core:2.8.47'
     testImplementation 'org.robolectric:robolectric:3.8'
     testImplementation 'org.robolectric:shadows-multidex:3.8'
     testImplementation 'org.robolectric:shadows-support-v4:3.4-rc2'
@@ -216,12 +220,18 @@ task jacocoTestReport(type: JacocoReport, dependsOn: [
 ]) {
 
     reports {
-        xml.enabled = true
-        html.enabled = true
+        html{
+            html.enabled = true
+            destination file("${buildDir}/reports/jacoco/jacocoRootReport/chw-coverage")
+        }
+
+        xml{
+            xml.enabled = true
+            destination file("${buildDir}/reports/jacoco/jacocoRootReport/chw-coverage.xml")
+        }
     }
 
-    getReports().getXml().setDestination(file("${buildDir}/reports/jacoco/jacocoRootReport/merged.xml"))
-    getReports().getHtml().setDestination(file("${buildDir}/reports/jacoco/jacocoRootReport/html"))
+
 
     def fileFilter = ['**/R.class', '**/R$*.class', '**/BuildConfig.*', '**/Manifest*.*', '**/*Test*.*', 'android/**/*.*', '**/*$ViewBinder*.*']
     def debugTree = fileTree(dir: "$project.buildDir/intermediates/classes/wcaro/debug", excludes: fileFilter)
@@ -236,8 +246,4 @@ task jacocoTestReport(type: JacocoReport, dependsOn: [
 
 tasks.withType(Test) {
     jacoco.includeNoLocationClasses = true
-}
-
-coveralls {
-    jacocoReportPath = "${buildDir}/reports/jacoco/jacocoRootReport/merged.xml"
 }
