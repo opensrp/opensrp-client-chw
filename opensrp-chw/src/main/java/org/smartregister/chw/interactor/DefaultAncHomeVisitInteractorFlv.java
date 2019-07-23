@@ -216,7 +216,7 @@ public abstract class DefaultAncHomeVisitInteractorFlv implements AncHomeVisitIn
     private void evaluateIPTP(BaseAncHomeVisitContract.View view, LinkedHashMap<String, BaseAncHomeVisitAction> actionList, Map<String, List<VisitDetail>> details, MemberObject memberObject, final Context context) throws Exception {
         // if there are no pending vaccines
         DateTime lmp = DateTimeFormat.forPattern("dd-MM-yyyy").parseDateTime(memberObject.getLastMenstrualPeriod());
-        Map<String, ServiceWrapper> serviceWrapperMap = getRecurringServices(memberObject.getBaseEntityId(), lmp);
+        Map<String, ServiceWrapper> serviceWrapperMap = getRecurringServices(memberObject.getBaseEntityId(), lmp, "woman");
         ServiceWrapper serviceWrapper = serviceWrapperMap.get("IPTp-SP");
 
         if (serviceWrapper == null) {

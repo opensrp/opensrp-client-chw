@@ -135,7 +135,7 @@ public class ContactUtil {
 
         // get offline alerts
         VaccineSchedule.updateOfflineAlerts(baseEntityID, lmpDate, "woman");
-        ChwServiceSchedule.updateOfflineAlerts(baseEntityID, lmpDate); // get services
+        ChwServiceSchedule.updateOfflineAlerts(baseEntityID, lmpDate, "woman"); // get services
 
         //
         List<Alert> alerts = alertService.findByEntityIdAndAlertNames(baseEntityID, VaccinateActionUtils.allAlertNames("woman"));
