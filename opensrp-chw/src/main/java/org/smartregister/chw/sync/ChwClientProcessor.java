@@ -2,7 +2,6 @@ package org.smartregister.chw.sync;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.util.Log;
 
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.application.ChwApplication;
@@ -39,11 +38,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import timber.log.Timber;
+
 
 public class ChwClientProcessor extends ClientProcessorForJava {
 
-//    private static final String TAG = ChwClientProcessor.class.getName();
-//    private static ClientProcessorForJava instance;
+    private ClientClassification classification;
+    private Table vaccineTable;
+    private Table serviceTable;
 
     private ChwClientProcessor(Context context) {
         super(context);
@@ -56,12 +58,34 @@ public class ChwClientProcessor extends ClientProcessorForJava {
         return instance;
     }
 
+    private Table getVaccineTable() {
+        if (vaccineTable == null) {
+            vaccineTable = assetJsonToJava("ec_client_vaccine.json", Table.class);
+        }
+        return vaccineTable;
+    }
+
+    private Table getServiceTable() {
+        if (serviceTable == null) {
+            serviceTable = assetJsonToJava("ec_client_service.json", Table.class);
+        }
+        return serviceTable;
+    }
+
+    private ClientClassification getClassification() {
+        if (classification == null) {
+            classification = assetJsonToJava("ec_client_classification.json", ClientClassification.class);
+        }
+        return classification;
+    }
+
     @Override
     public synchronized void processClient(List<EventClient> eventClients) throws Exception {
-        ClientClassification clientClassification = assetJsonToJava("ec_client_classification.json", ClientClassification.class);
-        Table vaccineTable = assetJsonToJava("ec_client_vaccine.json", Table.class);
-//        Table weightTable = assetJsonToJava("ec_client_weight.json", Table.class);
-        Table serviceTable = assetJsonToJava("ec_client_service.json", Table.class);
+
+        ClientClassification clientClassification = getClassification();
+        Table vaccineTable = getVaccineTable();
+        Table serviceTable = getServiceTable();
+
         if (!eventClients.isEmpty()) {
             List<Event> unsyncEvents = new ArrayList<>();
             for (EventClient eventClient : eventClients) {
@@ -115,8 +139,8 @@ public class ChwClientProcessor extends ClientProcessorForJava {
                 }
 
             }
+
         }
-//        super.processClient(eventClients);
     }
 
     private void processHomeVisit(EventClient eventClient) {
@@ -131,15 +155,16 @@ public class ChwClientProcessor extends ClientProcessorForJava {
     }
 
     private void processHomeVisitService(EventClient eventClient) {
-
         ChildUtils.addToHomeVisitService(eventClient.getEvent().getEventType(), eventClient.getEvent().getObs(), eventClient.getEvent().getEventDate().toDate(), ChildUtils.gsonConverter.toJson(eventClient.getEvent()));
     }
 
+    // possible to delegate
     private void processAncHomeVisit(EventClient eventClient) {
         org.smartregister.chw.anc.util.Util.processAncHomeVisit(eventClient); // save locally
     }
 
-    private Boolean processVaccine(EventClient vaccine, Table vaccineTable, boolean outOfCatchment) throws Exception {
+    // possible to delegate
+    private Boolean processVaccine(EventClient vaccine, Table vaccineTable, boolean outOfCatchment) {
 
         try {
             if (vaccine == null || vaccine.getEvent() == null) {
@@ -150,7 +175,7 @@ public class ChwClientProcessor extends ClientProcessorForJava {
                 return false;
             }
 
-            Log.d(TAG, "Starting processVaccine table: " + vaccineTable.name);
+            Timber.d("Starting processVaccine table: " + vaccineTable.name);
 
             ContentValues contentValues = processCaseModel(vaccine, vaccineTable);
 
@@ -180,17 +205,19 @@ public class ChwClientProcessor extends ClientProcessorForJava {
 
                 addVaccine(vaccineRepository, vaccineObj);
 
-                Log.d(TAG, "Ending processVaccine table: " + vaccineTable.name);
+                Timber.d("Ending processVaccine table: " + vaccineTable.name);
             }
             return true;
 
         } catch (Exception e) {
-            Log.e(TAG, "Process Vaccine Error", e);
+
+            Timber.e(e, "Process Vaccine Error");
             return null;
         }
     }
 
-    private Boolean processService(EventClient service, Table serviceTable) throws Exception {
+    // possible to delegate
+    private Boolean processService(EventClient service, Table serviceTable) {
 
         try {
 
@@ -202,7 +229,7 @@ public class ChwClientProcessor extends ClientProcessorForJava {
                 return false;
             }
 
-            Log.d(TAG, "Starting processService table: " + serviceTable.name);
+            Timber.d("Starting processService table: " + serviceTable.name);
 
             ContentValues contentValues = processCaseModel(service, serviceTable);
 
@@ -252,12 +279,12 @@ public class ChwClientProcessor extends ClientProcessorForJava {
 
                 recurringServiceRecordRepository.add(serviceObj);
 
-                Log.d(TAG, "Ending processService table: " + serviceTable.name);
+                Timber.d("Ending processService table: " + serviceTable.name);
             }
             return true;
 
         } catch (Exception e) {
-            Log.e(TAG, "Process Service Error", e);
+            Timber.e(e, "Process Service Error");
             return null;
         }
     }
@@ -266,7 +293,7 @@ public class ChwClientProcessor extends ClientProcessorForJava {
         try {
             return Integer.valueOf(string);
         } catch (NumberFormatException e) {
-            Log.e(TAG, e.toString(), e);
+            Timber.e(e);
         }
         return null;
     }
@@ -275,7 +302,7 @@ public class ChwClientProcessor extends ClientProcessorForJava {
         try {
             return Float.valueOf(string);
         } catch (NumberFormatException e) {
-            Log.e(TAG, e.toString(), e);
+            Timber.e(e);
         }
         return null;
     }
@@ -294,7 +321,7 @@ public class ChwClientProcessor extends ClientProcessorForJava {
                     try {
                         date = DateUtil.parseDate(eventDateStr);
                     } catch (ParseException pee) {
-                        Log.e(TAG, pee.toString(), pee);
+                        Timber.e(pee, pee.toString());
                     }
                 }
             }
@@ -313,7 +340,7 @@ public class ChwClientProcessor extends ClientProcessorForJava {
 
             return contentValues;
         } catch (Exception e) {
-            Log.e(TAG, e.toString(), e);
+            Timber.e(e);
         }
         return null;
     }
@@ -356,7 +383,7 @@ public class ChwClientProcessor extends ClientProcessorForJava {
             }
 
         } catch (Exception e) {
-            Log.e(ChwClientProcessor.class.getCanonicalName(), Log.getStackTraceString(e));
+            Timber.e(e);
         }
 
     }
@@ -468,8 +495,8 @@ public class ChwClientProcessor extends ClientProcessorForJava {
 
     @Override
     public void updateClientDetailsTable(Event event, Client client) {
-        Log.d(TAG, "Started updateClientDetailsTable");
+        Timber.d("Started updateClientDetailsTable");
         event.addDetails("detailsUpdated", Boolean.TRUE.toString());
-        Log.d(TAG, "Finished updateClientDetailsTable");
+        Timber.d("Finished updateClientDetailsTable");
     }
 }

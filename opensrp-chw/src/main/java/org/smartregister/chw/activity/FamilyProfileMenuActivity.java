@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 
 import org.json.JSONObject;
 import org.smartregister.chw.R;
@@ -14,6 +13,8 @@ import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
 import org.smartregister.view.activity.SecuredActivity;
+
+import timber.log.Timber;
 
 public class FamilyProfileMenuActivity extends SecuredActivity {
 
@@ -48,12 +49,12 @@ public class FamilyProfileMenuActivity extends SecuredActivity {
 
     @Override
     protected void onCreation() {
-        Log.v(TAG,"onCreation");
+        Timber.v("onCreation");
     }
 
     @Override
     protected void onResumption() {
-        Log.v(TAG,"onResumption");
+        Timber.v("onResumption");
     }
 
 
@@ -62,7 +63,7 @@ public class FamilyProfileMenuActivity extends SecuredActivity {
         if (requestCode == JsonFormUtils.REQUEST_CODE_GET_JSON && resultCode == RESULT_OK) {
             try {
                 String jsonString = data.getStringExtra(Constants.JSON_FORM_EXTRA.JSON);
-                Log.d("JSONResult", jsonString);
+                Timber.d("JSONResult : %s", jsonString);
 
                 JSONObject form = new JSONObject(jsonString);
                 if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Utils.metadata().familyRegister.updateEventType)) {
@@ -71,7 +72,7 @@ public class FamilyProfileMenuActivity extends SecuredActivity {
                     //presenter().saveFamilyMember(jsonString);
                 }
             } catch (Exception e) {
-                Log.e(TAG, Log.getStackTraceString(e));
+                Timber.e(e);
             }
         }
     }

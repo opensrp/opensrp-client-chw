@@ -1,7 +1,7 @@
 package org.smartregister.chw.interactor;
 
 import android.support.annotation.VisibleForTesting;
-import android.util.Log;
+
 import android.util.Pair;
 
 import org.apache.commons.lang3.StringUtils;
@@ -23,6 +23,8 @@ import org.smartregister.sync.ClientProcessorForJava;
 import org.smartregister.sync.helper.ECSyncHelper;
 
 import java.util.Date;
+
+import timber.log.Timber;
 
 /**
  * Created by keyman 12/11/2018.
@@ -69,10 +71,10 @@ public class ChildRegisterInteractor implements ChildRegisterContract.Interactor
     @Override
     public void saveRegistration(final Pair<Client, Event> pair, final String jsonString, final boolean isEditMode, final ChildRegisterContract.InteractorCallBack callBack) {
 
-        saveRegistration(pair, jsonString, isEditMode);
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
+                saveRegistration(pair, jsonString, isEditMode);
                 appExecutors.mainThread().execute(new Runnable() {
                     @Override
                     public void run() {
@@ -145,10 +147,10 @@ public class ChildRegisterInteractor implements ChildRegisterContract.Interactor
 
             long lastSyncTimeStamp = getAllSharedPreferences().fetchLastUpdatedAtDate(0);
             Date lastSyncDate = new Date(lastSyncTimeStamp);
-            getClientProcessorForJava().processClient(getSyncHelper().getEvents(lastSyncDate, BaseRepository.TYPE_Unsynced));
+            getClientProcessorForJava().processClient(getSyncHelper().getEvents(lastSyncDate, BaseRepository.TYPE_Unprocessed));
             getAllSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
         } catch (Exception e) {
-            Log.e(TAG, Log.getStackTraceString(e));
+            Timber.e(e);
         }
     }
 

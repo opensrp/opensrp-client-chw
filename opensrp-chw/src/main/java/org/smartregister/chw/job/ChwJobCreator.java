@@ -2,7 +2,6 @@ package org.smartregister.chw.job;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 
 import com.evernote.android.job.Job;
 import com.evernote.android.job.JobCreator;
@@ -14,6 +13,8 @@ import org.smartregister.job.PullUniqueIdsServiceJob;
 import org.smartregister.job.SyncServiceJob;
 import org.smartregister.job.ValidateSyncDataServiceJob;
 import org.smartregister.sync.intent.SyncIntentService;
+
+import timber.log.Timber;
 
 /**
  * Created by keyman on 27/11/2018.
@@ -39,9 +40,11 @@ public class ChwJobCreator implements JobCreator {
                 return new ChwIndicatorGeneratingJob();
             case P2pServiceJob.TAG:
                 return new P2pServiceJob();
+            case HomeVisitServiceJob.TAG:
+                return new HomeVisitServiceJob();
 
             default:
-                Log.d(ChwJobCreator.class.getCanonicalName(), "Looks like you tried to create a job " + tag + " that is not declared in the Chw Job Creator");
+                Timber.d( "Looks like you tried to create a job " + tag + " that is not declared in the Chw Job Creator");
                 return null;
         }
     }

@@ -14,7 +14,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -52,6 +51,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import timber.log.Timber;
 
 import static org.smartregister.chw.util.Constants.INTENT_KEY.IS_COMES_FROM_FAMILY;
 
@@ -132,7 +132,6 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
         }
         imageRenderHelper = new ImageRenderHelper(this);
 
-        initializePresenter();
         onClickFloatingMenu = flavor.getOnClickFloatingMenu(this, (ChildProfilePresenter) presenter);
 
         setupViews();
@@ -205,6 +204,8 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
         addContentView(familyFloatingMenu, linearLayoutParams);
 
         familyFloatingMenu.setClickListener(onClickFloatingMenu);
+
+        initializePresenter();
 
     }
 
@@ -468,8 +469,9 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     /**
      * update immunization data and commonpersonobject for child as data may be updated
      * from childhomevisitfragment screen and need at medical history/upcoming service data.
+     * need postdelay to update the client map
      */
-    public void updateImmunizationData() {
+    private void updateImmunizationData() {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -480,6 +482,26 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
                 presenter().updateChildCommonPerson(childBaseEntityId);
             }
         }, 100);
+    }
+
+    /**
+     * By this method it'll process the event client at home visit in background. After finish
+     * it'll update the child client because for edit it's need the vaccine card,illness,birthcert.
+     */
+    public void processBackgroundEvent(){
+
+        layoutMostDueOverdue.setVisibility(View.GONE);
+        viewMostDueRow.setVisibility(View.GONE);
+        presenter().fetchVisitStatus(childBaseEntityId);
+        presenter().fetchUpcomingServiceAndFamilyDue(childBaseEntityId);
+        presenter().updateChildCommonPerson(childBaseEntityId);
+        presenter().processBackGroundEvent();
+    }
+
+    @Override
+    public void updateAfterBackgroundProcessed() {
+
+        presenter().updateChildCommonPerson(childBaseEntityId);
     }
 
     @Override
@@ -576,19 +598,19 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     @Override
     public void onNoUniqueId() {
         //TODO
-        Log.d(TAG, "onNoUniqueId unimplemented");
+        Timber.d( "onNoUniqueId unimplemented");
     }
 
     @Override
     public void onUniqueIdFetched(Triple<String, String, String> triple, String entityId, String familyId) {
         //TODO
-        Log.d(TAG, "onUniqueIdFetched unimplemented");
+        Timber.d( "onUniqueIdFetched unimplemented");
     }
 
     @Override
     public void onRegistrationSaved(boolean isEdit) {
         //TODO
-        Log.d(TAG, "onRegistrationSaved unimplemented");
+        Timber.d("onRegistrationSaved unimplemented");
     }
 
     @Override

@@ -18,6 +18,7 @@ import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
 import java.text.MessageFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -66,8 +67,8 @@ public class HealthFacilityVisitAction implements BaseAncHomeVisitAction.AncHome
             JSONArray fields = fields(jsonObject);
 
             if (dateMap.size() > 0) {
-                Map.Entry<Integer, LocalDate> entry = dateMap.entrySet().iterator().next();
-                LocalDate visitDate = entry.getValue();
+                List<LocalDate> dateList = new ArrayList<>(dateMap.values());
+                LocalDate visitDate = dateList.get(0);
 
                 scheduleStatus = (visitDate.isBefore(LocalDate.now())) ? BaseAncHomeVisitAction.ScheduleStatus.OVERDUE : BaseAncHomeVisitAction.ScheduleStatus.DUE;
                 String due = (visitDate.isBefore(LocalDate.now())) ? context.getString(R.string.overdue) : context.getString(R.string.due);
@@ -80,6 +81,12 @@ public class HealthFacilityVisitAction implements BaseAncHomeVisitAction.AncHome
                 JSONObject visit_field = getFieldJSONObject(fields, "anc_hf_visit");
                 visit_field.put("label_info_title", MessageFormat.format(visit_field.getString(JsonFormConstants.LABEL_INFO_TITLE), memberObject.getConfirmedContacts() + 1));
                 visit_field.put("hint", MessageFormat.format(visit_field.getString(JsonFormConstants.HINT), memberObject.getConfirmedContacts() + 1, visitDate));
+
+
+                if (dateList.size() > 1) {
+                    JSONObject anc_hf_next_visit_date = getFieldJSONObject(fields, "anc_hf_next_visit_date");
+                    anc_hf_next_visit_date.put(JsonFormConstants.VALUE, DateTimeFormat.forPattern("dd-MM-yyyy").print(dateList.get(1)));
+                }
 
                 // current visit count
                 getFieldJSONObject(fields, "confirmed_visits").put(JsonFormConstants.VALUE, memberObject.getConfirmedContacts());
@@ -126,11 +133,14 @@ public class HealthFacilityVisitAction implements BaseAncHomeVisitAction.AncHome
 
             JSONArray field = fields(jsonObject);
             JSONObject confirmed_visits = getFieldJSONObject(field, "confirmed_visits");
+            JSONObject anc_hf_next_visit_date = getFieldJSONObject(field, "anc_hf_next_visit_date");
 
             String count = String.valueOf(memberObject.getConfirmedContacts());
             String value = getValue(jsonObject, "anc_hf_visit");
             if (value.equalsIgnoreCase("Yes")) {
                 count = String.valueOf(memberObject.getConfirmedContacts() + 1);
+            } else {
+                anc_hf_next_visit_date.put(JsonFormConstants.VALUE, "");
             }
 
             if (!confirmed_visits.getString(JsonFormConstants.VALUE).equals(count)) {

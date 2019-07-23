@@ -1,6 +1,5 @@
 package org.smartregister.chw.model;
 
-import android.util.Log;
 import android.util.Pair;
 
 import org.json.JSONObject;
@@ -14,6 +13,8 @@ import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.util.FormUtils;
 
 import java.util.List;
+
+import timber.log.Timber;
 
 public class ChildRegisterModel implements ChildRegisterContract.Model {
     private FormUtils formUtils;
@@ -64,7 +65,7 @@ public class ChildRegisterModel implements ChildRegisterContract.Model {
             try {
                 formUtils = FormUtils.getInstance(Utils.context().applicationContext());
             } catch (Exception e) {
-                Log.e(ChildRegisterModel.class.getCanonicalName(), e.getMessage(), e);
+                Timber.e(e);
             }
         }
         return formUtils;

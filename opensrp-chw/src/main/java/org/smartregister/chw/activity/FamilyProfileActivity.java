@@ -7,7 +7,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.util.Pair;
 import android.view.Gravity;
 import android.view.Menu;
@@ -41,6 +40,7 @@ import org.smartregister.util.PermissionUtils;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import timber.log.Timber;
 
 public class FamilyProfileActivity extends BaseFamilyProfileActivity implements FamilyProfileExtendedContract.View {
 
@@ -220,7 +220,7 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity implements 
                 case org.smartregister.family.util.JsonFormUtils.REQUEST_CODE_GET_JSON:
                     try {
                         String jsonString = data.getStringExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON);
-                        Log.d("JSONResult", jsonString);
+                        Timber.d("JSONResult : %s", jsonString);
 
                         JSONObject form = new JSONObject(jsonString);
                         String encounter_type = form.getString(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_TYPE);
@@ -246,7 +246,7 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity implements 
                             presenter().verifyHasPhone();
                         }
                     } catch (Exception e) {
-                        Log.e(TAG, Log.getStackTraceString(e));
+                        Timber.e(e);
                         Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                     break;
@@ -263,7 +263,7 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity implements 
                         presenter().verifyHasPhone();
 
                     } catch (Exception e) {
-                        Log.e(TAG, Log.getStackTraceString(e));
+                        Timber.e(e);
                         Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                     break;

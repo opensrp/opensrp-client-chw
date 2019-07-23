@@ -5,7 +5,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
+
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
@@ -30,6 +30,8 @@ import org.smartregister.family.util.Utils;
 
 import java.util.HashMap;
 import java.util.Set;
+
+import timber.log.Timber;
 
 public class FamilyRemoveMemberFragment extends BaseFamilyProfileMemberFragment implements FamilyRemoveMemberContract.View {
 
@@ -246,7 +248,7 @@ public class FamilyRemoveMemberFragment extends BaseFamilyProfileMemberFragment 
     }
 
     public void setAdvancedSearchFormData(HashMap<String, String> hashMap) {
-        Log.v(DIALOG_TAG, "setAdvancedSearchFormData");
+        Timber.v(DIALOG_TAG, "setAdvancedSearchFormData");
     }
 
 }

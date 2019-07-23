@@ -4,7 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.support.annotation.VisibleForTesting;
 import android.text.TextUtils;
-import android.util.Log;
+
 import android.util.Pair;
 
 import org.apache.commons.lang3.StringUtils;
@@ -156,10 +156,10 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
 
             long lastSyncTimeStamp = getAllSharedPreferences().fetchLastUpdatedAtDate(0);
             Date lastSyncDate = new Date(lastSyncTimeStamp);
-            getClientProcessorForJava().processClient(getSyncHelper().getEvents(lastSyncDate, BaseRepository.TYPE_Unsynced));
+            getClientProcessorForJava().processClient(getSyncHelper().getEvents(lastSyncDate, BaseRepository.TYPE_Unprocessed));
             getAllSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
         } catch (Exception e) {
-            Timber.e(Log.getStackTraceString(e));
+            Timber.e(e);
         }
     }
 
@@ -273,6 +273,23 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
                     }
                 });
 
+    }
+
+    @Override
+    public void processBackGroundEvent(final ChildProfileContract.InteractorCallBack callback) {
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                ChildUtils.processClientProcessInBackground();
+                appExecutors.mainThread().execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        callback.updateAfterBackGroundProcessed();
+                    }
+                });
+            }
+        };
+        appExecutors.diskIO().execute(runnable);
     }
 
     private Observable<Object> updateHomeVisitAsEvent(final long value) {
@@ -507,7 +524,7 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
                 return form;
             }
         } catch (Exception e) {
-            Log.e(TAG, Log.getStackTraceString(e));
+            Timber.e(e);
         }
 
         return null;
