@@ -47,10 +47,10 @@ actions:
   - "isRelevant = true"
 
 ---
-name: step1_disability_type
-description: disability_type relevance
+name: step1_type_of_disability
+description: type_of_disability relevance
 priority: 1
-condition: "step1_physically_challenged == 'Yes' && (step1_preg_outcome == 'born_alive' || step1_preg_outcome == 'alive_with_problem')"
+condition: "step1_disabilities == 'Yes' && (step1_preg_outcome == 'born_alive' || step1_preg_outcome == 'alive_with_problem')"
 actions:
   - "isRelevant = true"
 
@@ -119,8 +119,8 @@ actions:
   - "isRelevant = true"
 
 ---
-name: step1_physically_challenged
-description: physically_challenged relevance
+name: step1_disabilities
+description: disabilities relevance
 priority: 1
 condition: "step1_preg_outcome == 'born_alive' || step1_preg_outcome == 'alive_with_problem'"
 actions:
