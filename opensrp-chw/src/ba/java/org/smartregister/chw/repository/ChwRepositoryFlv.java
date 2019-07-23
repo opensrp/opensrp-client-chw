@@ -131,7 +131,7 @@ public class ChwRepositoryFlv {
     private static void upgradeToVersion6(SQLiteDatabase db) {
         try {
             for (String query : RepositoryUtils.UPGRADE_V6) {
-                db.execSQL(query);
+                //db.execSQL(query);
             }
         } catch (Exception e) {
             Log.e(TAG, "upgradeToVersion6 " + Log.getStackTraceString(e));
@@ -150,7 +150,7 @@ public class ChwRepositoryFlv {
     private static void upgradeToVersion8(SQLiteDatabase db) {
         try {
             for (String query : RepositoryUtils.UPGRADE_V8) {
-                db.execSQL(query);
+                //db.execSQL(query);
             }
         } catch (Exception e) {
             Log.e(TAG, "upgradeToVersion8 " + Log.getStackTraceString(e));
@@ -160,7 +160,7 @@ public class ChwRepositoryFlv {
     private static void upgradeToVersion9(SQLiteDatabase db) {
         try {
             for (String query : RepositoryUtils.UPGRADE_V9) {
-                db.execSQL(query);
+                //db.execSQL(query);
             }
         } catch (Exception e) {
             Log.e(TAG, "upgradeToVersion9 " + Log.getStackTraceString(e));

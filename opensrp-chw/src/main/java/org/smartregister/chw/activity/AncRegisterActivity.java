@@ -14,6 +14,7 @@ import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.activity.BaseAncRegisterActivity;
 import org.smartregister.chw.anc.util.DBConstants;
+import org.smartregister.chw.contract.ChwBottomNavigator;
 import org.smartregister.chw.custom_view.NavigationMenu;
 import org.smartregister.chw.fragment.AncRegisterFragment;
 import org.smartregister.chw.listener.AncBottomNavigationListener;
@@ -29,7 +30,7 @@ import static org.smartregister.chw.anc.util.Constants.ACTIVITY_PAYLOAD.TABLE_NA
 import static org.smartregister.chw.util.Constants.TABLE_NAME.ANC_MEMBER;
 import static org.smartregister.chw.util.Constants.TABLE_NAME.ANC_PREGNANCY_OUTCOME;
 
-public class AncRegisterActivity extends BaseAncRegisterActivity {
+public class AncRegisterActivity extends BaseAncRegisterActivity implements ChwBottomNavigator {
     private static String phone_number;
     private static String form_name;
     private static String unique_id;
@@ -46,6 +47,13 @@ public class AncRegisterActivity extends BaseAncRegisterActivity {
         intent.putExtra(org.smartregister.chw.anc.util.Constants.ACTIVITY_PAYLOAD.ACTION, org.smartregister.chw.anc.util.Constants.ACTIVITY_PAYLOAD_TYPE.REGISTRATION);
         intent.putExtra(TABLE_NAME, getFormTable());
         activity.startActivity(intent);
+    }
+
+    @Override
+    public void switchToBaseFragment() {
+        Intent intent = new Intent(this, FamilyRegisterActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     @Override

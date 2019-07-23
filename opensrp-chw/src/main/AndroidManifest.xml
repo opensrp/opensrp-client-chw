@@ -37,6 +37,11 @@
         <activity
             android:name=".activity.AncRegisterActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
+
+        <activity
+            android:name=".activity.PncRegisterActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+
         <activity
             android:name=".activity.MalariaRegisterActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
