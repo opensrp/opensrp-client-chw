@@ -47,11 +47,6 @@ android {
         javaMaxHeapSize "4g"
     }
 
-    lintOptions {
-        lintConfig file("lint.xml")
-        abortOnError false
-    }
-
     buildTypes {
 
         release {
