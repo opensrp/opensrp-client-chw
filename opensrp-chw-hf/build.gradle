@@ -17,7 +17,9 @@ buildscript {
 }
 
 android {
+    useLibrary 'org.apache.http.legacy'
     compileSdkVersion 28
+    buildToolsVersion androidBuildToolsVersion
 
     defaultConfig {
         applicationId "com.opensrp.chw.hf"

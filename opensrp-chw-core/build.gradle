@@ -15,7 +15,9 @@ buildscript {
 }
 
 android {
+    useLibrary 'org.apache.http.legacy'
     compileSdkVersion 28
+    buildToolsVersion androidBuildToolsVersion
 
     repositories {
         google()
