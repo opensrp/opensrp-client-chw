@@ -1046,8 +1046,6 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
             Event event = getEditAncLatestProperties(baseEntityID);
             final List<Obs> observations = event.getObs();
             JSONObject form = getFormWithMetaData(baseEntityID, context, formName, eventType);
-            LocationPickerView lpv = new LocationPickerView(context);
-            lpv.init();
             if (form != null) {
                 JSONObject stepOne = form.getJSONObject(org.smartregister.family.util.JsonFormUtils.STEP1);
 
