@@ -6,7 +6,7 @@ import net.sqlcipher.database.SQLiteDatabase;
 
 import org.smartregister.chw.anc.repository.VisitDetailsRepository;
 import org.smartregister.chw.anc.repository.VisitRepository;
-import org.smartregister.chw.util.RepositoryUtils;
+import org.smartregister.chw.util.RepositoryUtilsFlv;
 import org.smartregister.domain.db.Column;
 import org.smartregister.immunization.repository.RecurringServiceRecordRepository;
 import org.smartregister.immunization.repository.VaccineRepository;
@@ -17,8 +17,6 @@ import org.smartregister.repository.EventClientRepository;
 import timber.log.Timber;
 
 public class ChwRepositoryFlv {
-
-    private static final String TAG = ChwRepositoryFlv.class.getCanonicalName();
 
     public static void onUpgrade(Context context, SQLiteDatabase db, int oldVersion, int newVersion) {
         Timber.w(ChwRepository.class.getName(),
@@ -131,8 +129,8 @@ public class ChwRepositoryFlv {
 
     private static void upgradeToVersion6(SQLiteDatabase db) {
         try {
-            for (String query : RepositoryUtils.UPGRADE_V6) {
-                //db.execSQL(query);
+            for (String query : RepositoryUtilsFlv.UPGRADE_V6) {
+                db.execSQL(query);
             }
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion6 ");
@@ -150,8 +148,8 @@ public class ChwRepositoryFlv {
 
     private static void upgradeToVersion8(SQLiteDatabase db) {
         try {
-            for (String query : RepositoryUtils.UPGRADE_V8) {
-                //db.execSQL(query);
+            for (String query : RepositoryUtilsFlv.UPGRADE_V8) {
+                db.execSQL(query);
             }
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion8 ");
@@ -160,8 +158,8 @@ public class ChwRepositoryFlv {
 
     private static void upgradeToVersion9(SQLiteDatabase db) {
         try {
-            for (String query : RepositoryUtils.UPGRADE_V9) {
-                //db.execSQL(query);
+            for (String query : RepositoryUtilsFlv.UPGRADE_V9) {
+                db.execSQL(query);
             }
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion9 ");

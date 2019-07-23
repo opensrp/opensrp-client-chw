@@ -1,14 +1,15 @@
 package org.smartregister.chw.interactor;
 
-import org.apache.commons.lang3.StringUtils;
 import org.ei.drishti.dto.AlertStatus;
 import org.smartregister.chw.anc.contract.BaseAncMemberProfileContract;
 import org.smartregister.chw.anc.domain.MemberObject;
+import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.interactor.BaseAncMemberProfileInteractor;
+import org.smartregister.chw.anc.util.Constants;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import static org.smartregister.chw.anc.AncLibrary.getInstance;
 
 public class AncMemberProfileInteractor extends BaseAncMemberProfileInteractor {
 
@@ -41,12 +42,9 @@ public class AncMemberProfileInteractor extends BaseAncMemberProfileInteractor {
 
     private Date getLastVisitDate(MemberObject memberObject) {
         Date lastVisitDate = null;
-        if (StringUtils.isNotBlank(memberObject.getLastContactVisit())) {
-            try {
-                lastVisitDate = new SimpleDateFormat("dd-MM-yyyy").parse(memberObject.getLastContactVisit());
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
+        Visit lastVisit = getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EVENT_TYPE.ANC_HOME_VISIT);
+        if (lastVisit != null) {
+            lastVisitDate = lastVisit.getDate();
         }
 
         return lastVisitDate;

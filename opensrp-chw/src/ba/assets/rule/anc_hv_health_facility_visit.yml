@@ -4,3 +4,11 @@ priority: 1
 condition: "step1_imm_medicine_given.contains('chk_other')"
 actions:
   - "isRelevant = true"
+
+---
+name: step1_llin_given
+description: llin  given after the first visit
+priority: 1
+condition: "step1_confirmed_visits == 0 "
+actions:
+  - "isRelevant = true"

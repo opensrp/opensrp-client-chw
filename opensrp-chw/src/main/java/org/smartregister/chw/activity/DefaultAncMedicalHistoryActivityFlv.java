@@ -34,8 +34,6 @@ public abstract class DefaultAncMedicalHistoryActivityFlv implements AncMedicalH
 
     protected LayoutInflater inflater;
 
-    private String[] hf_params = {"anc_visit_date", "hb_level", "dia_bp", "weight", "ifa_received", "tests_done"};
-
     @Override
     public View bindViews(Activity activity) {
         inflater = activity.getLayoutInflater();
@@ -77,10 +75,13 @@ public abstract class DefaultAncMedicalHistoryActivityFlv implements AncMedicalH
                 if (has_card.equalsIgnoreCase("No")) {
                     List<VisitDetail> details = visits.get(x).getVisitDetails().get("anc_card");
                     if (details != null && StringUtils.isNotBlank(details.get(0).getHumanReadable()))
-                        has_card = cleanString(details.get(0).getHumanReadable());
+                        has_card = details.get(0).getHumanReadable();
 
                 }
-                extractHFVisit(visits, hf_visits, x);
+
+
+                String[] hf_params = {"anc_visit_date", "weight", "sys_bp", "dia_bp", "hb_level", "ifa_received", "tests_done"};
+                extractHFVisit(visits, hf_params, hf_visits, x);
                 extractImmunization(visits, immunizations, x);
                 extractIPSp(visits, services, x);
 
@@ -95,33 +96,20 @@ public abstract class DefaultAncMedicalHistoryActivityFlv implements AncMedicalH
         }
     }
 
-    @Deprecated
-    private String cleanString(String dirtyString) {
-        if (StringUtils.isBlank(dirtyString))
-            return dirtyString;
-
-
-        if (dirtyString.startsWith("[") && dirtyString.endsWith("]")) {
-            return dirtyString.substring(1, dirtyString.length() - 1);
-        } else {
-            return dirtyString;
-        }
-    }
-
-    private void extractHFVisit(List<Visit> sourceVisits, List<Map<String, String>> immunization, int iteration) {
+    private void extractHFVisit(List<Visit> sourceVisits, String[] hf_params, List<Map<String, String>> hf_visits, int iteration) {
         List<VisitDetail> hf_details = sourceVisits.get(iteration).getVisitDetails().get("anc_hf_visit");
         if (hf_details != null) {
             String val = hf_details.get(0).getHumanReadable();
-            if (StringUtils.isNotBlank(val) && cleanString(val).equalsIgnoreCase("Yes")) {
+            if (StringUtils.isNotBlank(val) && val.equalsIgnoreCase("Yes")) {
                 // get the hf details
                 Map<String, String> map = new HashMap<>();
                 for (String param : hf_params) {
                     List<VisitDetail> details = sourceVisits.get(iteration).getVisitDetails().get(param);
                     if (details != null) {
                         for (VisitDetail d : details) {
-                            String hr_val = cleanString(d.getHumanReadable());
+                            String hr_val = d.getHumanReadable();
                             if (StringUtils.isBlank(hr_val))
-                                hr_val = cleanString(d.getDetails());
+                                hr_val = d.getDetails();
 
                             String cur_val = map.get(param);
                             if (StringUtils.isNotBlank(cur_val)) {
@@ -133,7 +121,7 @@ public abstract class DefaultAncMedicalHistoryActivityFlv implements AncMedicalH
                         }
                     }
                 }
-                immunization.add(map);
+                hf_visits.add(map);
             }
         }
     }
@@ -144,8 +132,8 @@ public abstract class DefaultAncMedicalHistoryActivityFlv implements AncMedicalH
             String name = MessageFormat.format("tt{0}_date", tt_x);
             List<VisitDetail> details = sourceVisits.get(iteration).getVisitDetails().get(name);
 
-            if (details != null && StringUtils.isNotBlank(details.get(0).getHumanReadable())) {
-                String tt_date = cleanString(details.get(0).getDetails());
+            if (details != null && StringUtils.isNotBlank(details.get(0).getDetails())) {
+                String tt_date = details.get(0).getDetails();
                 destinationMap.put(name, tt_date);
             }
             tt_x++;
@@ -158,8 +146,8 @@ public abstract class DefaultAncMedicalHistoryActivityFlv implements AncMedicalH
             String name = MessageFormat.format("iptp{0}_date", ipsp_x);
             List<VisitDetail> details = sourceVisits.get(iteration).getVisitDetails().get(name);
 
-            if (details != null && StringUtils.isNotBlank(details.get(0).getHumanReadable())) {
-                String date = cleanString(details.get(0).getDetails());
+            if (details != null && StringUtils.isNotBlank(details.get(0).getDetails())) {
+                String date = details.get(0).getDetails();
                 destinationMap.put(name, date);
             }
             ipsp_x++;
@@ -193,12 +181,12 @@ public abstract class DefaultAncMedicalHistoryActivityFlv implements AncMedicalH
                 TextView tvIfa = view.findViewById(R.id.ifa_received);
                 TextView tvTests = view.findViewById(R.id.tests);
 
-                tvTitle.setText(MessageFormat.format(context.getString(R.string.anc_visit_date), (hf_visits.size() - x), vals.get("anc_visit_date")));
-                tvWeight.setText(MessageFormat.format(context.getString(R.string.weight_in_kgs), vals.get("weight")));
-                tvBP.setText(MessageFormat.format(context.getString(R.string.bp_in_mmhg), vals.get("hb_level"), vals.get("hb_level")));
-                tvHB.setText(MessageFormat.format(context.getString(R.string.hb_level_in_g_dl), vals.get("dia_bp")));
-                tvIfa.setText(MessageFormat.format(context.getString(R.string.ifa_received_status), vals.get("ifa_received")));
-                tvTests.setText(MessageFormat.format(context.getString(R.string.tests_done_details), vals.get("tests_done")));
+                tvTitle.setText(MessageFormat.format(context.getString(R.string.anc_visit_date), (hf_visits.size() - x), getMapValue(vals, "anc_visit_date")));
+                tvWeight.setText(MessageFormat.format(context.getString(R.string.weight_in_kgs), getMapValue(vals, "weight")));
+                tvBP.setText(MessageFormat.format(context.getString(R.string.bp_in_mmhg), getMapValue(vals, "sys_bp"), getMapValue(vals, "dia_bp")));
+                tvHB.setText(MessageFormat.format(context.getString(R.string.hb_level_in_g_dl), getMapValue(vals, "hb_level")));
+                tvIfa.setText(MessageFormat.format(context.getString(R.string.ifa_received_status), getMapValue(vals, "ifa_received")));
+                tvTests.setText(MessageFormat.format(context.getString(R.string.tests_done_details), getMapValue(vals, "tests_done")));
 
                 linearLayoutHealthFacilityVisitDetails.addView(view, 0);
 
@@ -207,10 +195,17 @@ public abstract class DefaultAncMedicalHistoryActivityFlv implements AncMedicalH
         }
     }
 
+    private String getMapValue(Map<String, String> map, String key) {
+        if (map.containsKey(key)) {
+            return map.get(key);
+        }
+        return "";
+    }
+
     private void processTTImmunization(Map<String, String> immunizations, Context context) {
         int visible = 0;
         for (Map.Entry<String, String> vals : new TreeMap<>(immunizations).entrySet()) {
-            String key = vals.getKey().replace("_", " ").toUpperCase();
+            String key = vals.getKey().toLowerCase().replace("_date", "").toUpperCase();
             String val = vals.getValue();
 
             if (!val.contains("not")) {
