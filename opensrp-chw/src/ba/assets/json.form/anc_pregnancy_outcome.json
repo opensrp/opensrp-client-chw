@@ -515,7 +515,7 @@
         }
       },
       {
-        "key": "sex",
+        "key": "gender",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person",
         "openmrs_entity_id": "gender",
@@ -538,7 +538,7 @@
         }
       },
       {
-        "key": "physically_challenged",
+        "key": "disabilities",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "159522AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -565,7 +565,7 @@
         }
       },
       {
-        "key": "disability_type",
+        "key": "type_of_disability",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
