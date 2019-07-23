@@ -216,18 +216,12 @@ task jacocoTestReport(type: JacocoReport, dependsOn: [
 ]) {
 
     reports {
-        html{
-            html.enabled = true
-            destination file("${buildDir}/reports/jacoco/jacocoRootReport/chw-coverage.html")
-        }
-
-        xml{
-            xml.enabled = true
-            destination file("${buildDir}/reports/jacoco/jacocoRootReport/chw-coverage.xml")
-        }
+        xml.enabled = true
+        html.enabled = true
     }
 
-
+    getReports().getXml().setDestination(file("${buildDir}/reports/jacoco/jacocoRootReport/merged.xml"))
+    getReports().getHtml().setDestination(file("${buildDir}/reports/jacoco/jacocoRootReport/html"))
 
     def fileFilter = ['**/R.class', '**/R$*.class', '**/BuildConfig.*', '**/Manifest*.*', '**/*Test*.*', 'android/**/*.*', '**/*$ViewBinder*.*']
     def debugTree = fileTree(dir: "$project.buildDir/intermediates/classes/wcaro/debug", excludes: fileFilter)
@@ -242,4 +236,8 @@ task jacocoTestReport(type: JacocoReport, dependsOn: [
 
 tasks.withType(Test) {
     jacoco.includeNoLocationClasses = true
+}
+
+coveralls {
+    jacocoReportPath = "${buildDir}/reports/jacoco/jacocoRootReport/merged.xml"
 }
