@@ -18,6 +18,7 @@ import org.joda.time.LocalDate;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.smartregister.AllConstants;
 import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.domain.FamilyMember;
@@ -1085,5 +1086,11 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
         return null;
     }
 
+    public static JSONObject getJson(String formName, String baseEntityID) throws Exception {
+        String locationId = ChwApplication.getInstance().getContext().allSharedPreferences().getPreference(AllConstants.CURRENT_LOCATION_ID);
+        JSONObject jsonObject = org.smartregister.chw.anc.util.JsonFormUtils.getFormAsJson(formName);
+        org.smartregister.chw.anc.util.JsonFormUtils.getRegistrationForm(jsonObject, baseEntityID, locationId);
+        return jsonObject;
+    }
 
 }

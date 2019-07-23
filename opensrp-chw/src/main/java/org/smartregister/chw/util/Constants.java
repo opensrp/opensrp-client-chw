@@ -40,6 +40,7 @@ public class Constants {
 
         public static final String ANC_REGISTRATION = "ANC Registration";
         public static final String ANC_HOME_VISIT = "ANC Home Visit";
+        public static final String PNC_HOME_VISIT = "PNC Home Visit";
         public static final String UPDATE_ANC_REGISTRATION = "Update ANC Registration";
         public static final String PREGNANCY_OUTCOME = "Pregnancy Outcome";
     }
