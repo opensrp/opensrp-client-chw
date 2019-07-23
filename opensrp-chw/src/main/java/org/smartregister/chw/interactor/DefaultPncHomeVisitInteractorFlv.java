@@ -21,9 +21,9 @@ import timber.log.Timber;
 
 public class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitInteractor.Flavor {
 
-    private LinkedHashMap<String, BaseAncHomeVisitAction> actionList;
-    private Context context;
-    private Map<String, List<VisitDetail>> details = null;
+    protected LinkedHashMap<String, BaseAncHomeVisitAction> actionList;
+    protected Context context;
+    protected Map<String, List<VisitDetail>> details = null;
 
     @Override
     public LinkedHashMap<String, BaseAncHomeVisitAction> calculateActions(BaseAncHomeVisitContract.View view, MemberObject memberObject, BaseAncHomeVisitContract.InteractorCallBack callBack) throws BaseAncHomeVisitAction.ValidationException {
@@ -38,7 +38,17 @@ public class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitInteractor.
         }
 
         try {
-            evaluateDangerSigns();
+            evaluateDangerSignsMother();
+            evaluateDangerSignsBaby();
+            evaluatePNCHealthFacilityVisit();
+            evaluateChildVaccineCard();
+            evaluateImmunization();
+            evaluateUmbilicalCord();
+            evaluateExclusiveBreastFeeding();
+            evaluateKangerooMotherCare();
+            evaluateFamilyPlanning();
+            evaluateObservationAndIllnessMother();
+            evaluateObservationAndIllnessBaby();
         } catch (BaseAncHomeVisitAction.ValidationException e) {
             throw (e);
         } catch (Exception e) {
@@ -47,11 +57,111 @@ public class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitInteractor.
         return actionList;
     }
 
-    private void evaluateDangerSigns() throws Exception {
+    private void evaluateDangerSignsMother() throws Exception {
         BaseAncHomeVisitAction danger_signs = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_danger_signs))
                 .withOptional(false)
                 .withDetails(details)
-                .withFormName(Constants.JSON_FORM.ANC_HOME_VISIT.getDangerSigns())
+                .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getDangerSigns())
+                .withHelper(new DangerSignsAction())
+                .build();
+        actionList.put(context.getString(R.string.anc_home_visit_danger_signs), danger_signs);
+    }
+
+    private void evaluateDangerSignsBaby() throws Exception {
+        BaseAncHomeVisitAction danger_signs = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_danger_signs))
+                .withOptional(false)
+                .withDetails(details)
+                .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getDangerSigns())
+                .withHelper(new DangerSignsAction())
+                .build();
+        actionList.put(context.getString(R.string.anc_home_visit_danger_signs), danger_signs);
+    }
+
+    private void evaluatePNCHealthFacilityVisit() throws Exception {
+        BaseAncHomeVisitAction danger_signs = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_danger_signs))
+                .withOptional(false)
+                .withDetails(details)
+                .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getDangerSigns())
+                .withHelper(new DangerSignsAction())
+                .build();
+        actionList.put(context.getString(R.string.anc_home_visit_danger_signs), danger_signs);
+    }
+
+    private void evaluateChildVaccineCard() throws Exception {
+        BaseAncHomeVisitAction danger_signs = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_danger_signs))
+                .withOptional(false)
+                .withDetails(details)
+                .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getDangerSigns())
+                .withHelper(new DangerSignsAction())
+                .build();
+        actionList.put(context.getString(R.string.anc_home_visit_danger_signs), danger_signs);
+    }
+
+    private void evaluateImmunization() throws Exception {
+        BaseAncHomeVisitAction danger_signs = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_danger_signs))
+                .withOptional(false)
+                .withDetails(details)
+                .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getDangerSigns())
+                .withHelper(new DangerSignsAction())
+                .build();
+        actionList.put(context.getString(R.string.anc_home_visit_danger_signs), danger_signs);
+    }
+
+    private void evaluateUmbilicalCord() throws Exception {
+        BaseAncHomeVisitAction danger_signs = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_danger_signs))
+                .withOptional(false)
+                .withDetails(details)
+                .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getDangerSigns())
+                .withHelper(new DangerSignsAction())
+                .build();
+        actionList.put(context.getString(R.string.anc_home_visit_danger_signs), danger_signs);
+    }
+
+    private void evaluateExclusiveBreastFeeding() throws Exception {
+        BaseAncHomeVisitAction danger_signs = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_danger_signs))
+                .withOptional(false)
+                .withDetails(details)
+                .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getDangerSigns())
+                .withHelper(new DangerSignsAction())
+                .build();
+        actionList.put(context.getString(R.string.anc_home_visit_danger_signs), danger_signs);
+    }
+
+    private void evaluateKangerooMotherCare() throws Exception {
+        BaseAncHomeVisitAction danger_signs = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_danger_signs))
+                .withOptional(false)
+                .withDetails(details)
+                .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getDangerSigns())
+                .withHelper(new DangerSignsAction())
+                .build();
+        actionList.put(context.getString(R.string.anc_home_visit_danger_signs), danger_signs);
+    }
+
+    private void evaluateFamilyPlanning() throws Exception {
+        BaseAncHomeVisitAction danger_signs = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_danger_signs))
+                .withOptional(false)
+                .withDetails(details)
+                .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getDangerSigns())
+                .withHelper(new DangerSignsAction())
+                .build();
+        actionList.put(context.getString(R.string.anc_home_visit_danger_signs), danger_signs);
+    }
+
+    private void evaluateObservationAndIllnessMother() throws Exception {
+        BaseAncHomeVisitAction danger_signs = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_danger_signs))
+                .withOptional(false)
+                .withDetails(details)
+                .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getDangerSigns())
+                .withHelper(new DangerSignsAction())
+                .build();
+        actionList.put(context.getString(R.string.anc_home_visit_danger_signs), danger_signs);
+    }
+
+    private void evaluateObservationAndIllnessBaby() throws Exception {
+        BaseAncHomeVisitAction danger_signs = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_danger_signs))
+                .withOptional(false)
+                .withDetails(details)
+                .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getDangerSigns())
                 .withHelper(new DangerSignsAction())
                 .build();
         actionList.put(context.getString(R.string.anc_home_visit_danger_signs), danger_signs);

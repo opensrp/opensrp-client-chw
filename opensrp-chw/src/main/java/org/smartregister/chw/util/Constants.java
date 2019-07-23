@@ -191,6 +191,14 @@ public class Constants {
                 return Utils.getLocalForm(EARLY_CHILDHOOD_DEVELOPMENT);
             }
         }
+
+        public static class PNC_HOME_VISIT {
+            private static final String DANGER_SIGNS = "pnc_hv_danger_signs";
+
+            public static String getDangerSigns() {
+                return DANGER_SIGNS;
+            }
+        }
     }
 
     public static class RELATIONSHIP {
