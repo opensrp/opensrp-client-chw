@@ -35,7 +35,6 @@ import java.util.Set;
 import timber.log.Timber;
 
 public class FamilyRegisterFragment extends BaseFamilyRegisterFragment {
-    private static final String TAG = FamilyRegisterFragment.class.getCanonicalName();
 
     private View view;
     private View dueOnlyLayout;
@@ -290,7 +289,7 @@ public class FamilyRegisterFragment extends BaseFamilyRegisterFragment {
                     Timber.i(query);
 
                     clientAdapter.setTotalcount(commonRepository().countSearchIds(sql));
-                    Timber.v("total count here", "" + clientAdapter.getTotalcount());
+                    Timber.v("total count here %s", clientAdapter.getTotalcount());
 
 
                 } else {
@@ -302,7 +301,7 @@ public class FamilyRegisterFragment extends BaseFamilyRegisterFragment {
                     c = commonRepository().rawCustomQueryForAdapter(query);
                     c.moveToFirst();
                     clientAdapter.setTotalcount(c.getInt(0));
-                    Timber.v("total count here", "" + clientAdapter.getTotalcount());
+                    Timber.v("total count here %s", clientAdapter.getTotalcount());
                 }
 
                 clientAdapter.setCurrentlimit(20);
