@@ -1,15 +1,15 @@
-package org.smartregister.chw.presenter;
+package com.opensrp.chw.core.presenter;
 
-import org.smartregister.chw.R;
-import org.smartregister.chw.contract.RegisterFragmentContract;
+import com.opensrp.chw.core.R;
+import com.opensrp.chw.core.contract.CoreFamilyRegisterFragmentContract;
 import com.opensrp.chw.core.utils.ChildDBConstants;
-import org.smartregister.family.contract.FamilyRegisterFragmentContract;
+
 import org.smartregister.family.presenter.BaseFamilyRegisterFragmentPresenter;
 import org.smartregister.family.util.DBConstants;
 
-public class FamilyRegisterFragmentPresenter extends BaseFamilyRegisterFragmentPresenter implements RegisterFragmentContract.Presenter {
+public class FamilyRegisterFragmentPresenter extends BaseFamilyRegisterFragmentPresenter implements CoreFamilyRegisterFragmentContract.Presenter {
 
-    public FamilyRegisterFragmentPresenter(FamilyRegisterFragmentContract.View view, FamilyRegisterFragmentContract.Model model, String viewConfigurationIdentifier) {
+    public FamilyRegisterFragmentPresenter(org.smartregister.family.contract.FamilyRegisterFragmentContract.View view, org.smartregister.family.contract.FamilyRegisterFragmentContract.Model model, String viewConfigurationIdentifier) {
         super(view, model, viewConfigurationIdentifier);
     }
 

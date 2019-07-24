@@ -22,7 +22,7 @@ import org.smartregister.chw.model.AncRegisterFragmentModel;
 import org.smartregister.chw.presenter.AncRegisterFragmentPresenter;
 import org.smartregister.chw.provider.ChwAncRegisterProvider;
 import com.opensrp.chw.core.utils.Constants;
-import org.smartregister.chw.util.QueryBuilder;
+import com.opensrp.chw.core.utils.QueryBuilder;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;

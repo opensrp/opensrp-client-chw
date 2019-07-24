@@ -1,8 +1,8 @@
-package org.smartregister.chw.contract;
+package com.opensrp.chw.core.contract;
 
 import org.smartregister.family.contract.FamilyRegisterFragmentContract;
 
-public interface RegisterFragmentContract {
+public interface CoreFamilyRegisterFragmentContract {
 
     interface Presenter extends FamilyRegisterFragmentContract.Presenter {
 

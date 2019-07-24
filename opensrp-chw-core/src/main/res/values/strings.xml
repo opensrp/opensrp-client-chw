@@ -34,4 +34,12 @@
     <string name="device_to_device">Device-to-device sync</string>
     <string name="choose_language">Choose language</string>
 
+    <!-- Family Register -->
+    <string name="search_name_or_id">Search name or ID</string>
+    <string name="visit_not_done">Visit not \ndone</string>
+    <string name="visit_done">Visit done</string>
+    <string name="record_visit">Record visit</string>
+    <string name="due_visit">Last visit \n %1$s</string>
+    <string name="record_home_visit">Record \nHome visit</string>
+
 </resources>

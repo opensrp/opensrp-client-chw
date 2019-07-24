@@ -8,7 +8,7 @@ import com.opensrp.chw.core.utils.Constants;
 
 import com.opensrp.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.util.ChildUtils;
-import org.smartregister.chw.util.ChildVisit;
+import com.opensrp.chw.core.model.ChildVisit;
 import org.smartregister.chw.util.ImmunizationState;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.family.util.DBConstants;

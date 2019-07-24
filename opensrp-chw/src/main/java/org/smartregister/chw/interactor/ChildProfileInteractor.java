@@ -20,7 +20,7 @@ import com.opensrp.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.util.ChildHomeVisit;
 import org.smartregister.chw.util.ChildService;
 import org.smartregister.chw.util.ChildUtils;
-import org.smartregister.chw.util.ChildVisit;
+import com.opensrp.chw.core.model.ChildVisit;
 import org.smartregister.chw.util.GrowthServiceData;
 import org.smartregister.chw.util.HomeVisitVaccineGroup;
 import org.smartregister.chw.util.ImmunizationState;

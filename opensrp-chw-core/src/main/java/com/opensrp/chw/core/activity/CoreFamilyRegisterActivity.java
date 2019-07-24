@@ -2,6 +2,7 @@ package com.opensrp.chw.core.activity;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 
@@ -15,9 +16,20 @@ import org.smartregister.family.presenter.BaseFamilyRegisterPresenter;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
-public class CoreFamilyRegisterActivity extends BaseFamilyRegisterActivity {
-    private String action = null;
-    protected NavigationMenu navigationMenu = NavigationMenu.getInstance(this, null, null);
+public abstract class CoreFamilyRegisterActivity extends BaseFamilyRegisterActivity {
+
+    protected String action = null;
+
+    @Override
+    protected void registerBottomNavigation() {
+        super.registerBottomNavigation();
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        NavigationMenu.getInstance(this, null, null);
+    }
 
     @Override
     protected void initializePresenter() {
@@ -25,10 +37,7 @@ public class CoreFamilyRegisterActivity extends BaseFamilyRegisterActivity {
     }
 
     @Override
-    protected BaseRegisterFragment getRegisterFragment() {
-        return null;
-    }
-
+    protected abstract BaseRegisterFragment getRegisterFragment();
 
     @Override
     protected Fragment[] getOtherFragments() {
@@ -38,7 +47,8 @@ public class CoreFamilyRegisterActivity extends BaseFamilyRegisterActivity {
     @Override
     protected void onResumption() {
         super.onResumption();
-        navigationMenu.getNavigationAdapter().setSelectedView(Constants.DrawerMenu.ALL_FAMILIES);
+        NavigationMenu.getInstance(this, null, null).getNavigationAdapter()
+                .setSelectedView(Constants.DrawerMenu.ALL_FAMILIES);
     }
 
     @Override
@@ -52,6 +62,7 @@ public class CoreFamilyRegisterActivity extends BaseFamilyRegisterActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCode == Constants.RQ_CODE.STORAGE_PERMISIONS && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            NavigationMenu navigationMenu = NavigationMenu.getInstance(this, null, null);
             if (navigationMenu != null) {
                 navigationMenu.startP2PActivity(this);
             }

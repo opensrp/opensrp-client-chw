@@ -15,7 +15,7 @@ import org.smartregister.chw.interactor.FamilyProfileInteractor;
 import org.smartregister.chw.model.ChildRegisterModel;
 import com.opensrp.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.util.ChildService;
-import org.smartregister.chw.util.ChildVisit;
+import com.opensrp.chw.core.model.ChildVisit;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.CommonPersonObjectClient;

@@ -1,4 +1,4 @@
-package org.smartregister.chw.util;
+package com.opensrp.chw.core.utils;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;

@@ -2,28 +2,20 @@ package org.smartregister.chw.activity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
 
+import com.opensrp.chw.core.activity.CoreFamilyRegisterActivity;
 import com.opensrp.chw.core.custom_views.NavigationMenu;
 import com.opensrp.chw.core.utils.Constants;
 
-import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.fragment.FamilyRegisterFragment;
 import org.smartregister.chw.listener.FamilyBottomNavigationListener;
-import org.smartregister.family.activity.BaseFamilyRegisterActivity;
-import org.smartregister.family.model.BaseFamilyRegisterModel;
-import org.smartregister.family.presenter.BaseFamilyRegisterPresenter;
-import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
-public class FamilyRegisterActivity extends BaseFamilyRegisterActivity {
+public class FamilyRegisterActivity extends CoreFamilyRegisterActivity {
 
-    private String action = null;
 
     public static void startFamilyRegisterForm(Activity activity) {
         Intent intent = new Intent(activity, FamilyRegisterActivity.class);
@@ -31,19 +23,10 @@ public class FamilyRegisterActivity extends BaseFamilyRegisterActivity {
         activity.startActivity(intent);
     }
 
-    @Override
-    protected void initializePresenter() {
-        presenter = new BaseFamilyRegisterPresenter(this, new BaseFamilyRegisterModel());
-    }
 
     @Override
     protected BaseRegisterFragment getRegisterFragment() {
         return new FamilyRegisterFragment();
-    }
-
-    @Override
-    protected Fragment[] getOtherFragments() {
-        return new Fragment[0];
     }
 
     @Override
@@ -54,8 +37,7 @@ public class FamilyRegisterActivity extends BaseFamilyRegisterActivity {
             bottomNavigationView.getMenu().removeItem(org.smartregister.family.R.id.action_scan_qr);
         }
 
-        FamilyBottomNavigationListener familyBottomNavigationListener = new FamilyBottomNavigationListener(this, bottomNavigationView);
-        bottomNavigationView.setOnNavigationItemSelectedListener(familyBottomNavigationListener);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new FamilyBottomNavigationListener(this, bottomNavigationView));
     }
 
     @Override
@@ -67,31 +49,6 @@ public class FamilyRegisterActivity extends BaseFamilyRegisterActivity {
         action = getIntent().getStringExtra(Constants.ACTIVITY_PAYLOAD.ACTION);
         if (action != null && action.equals(Constants.ACTION.START_REGISTRATION)) {
             startRegistration();
-        }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == JsonFormUtils.REQUEST_CODE_GET_JSON && resultCode != RESULT_OK && StringUtils.isNotBlank(action)) {
-            finish();
-        }
-    }
-
-    @Override
-    protected void onResumption() {
-        super.onResumption();
-        NavigationMenu.getInstance(this, null, null).getNavigationAdapter()
-                .setSelectedView(Constants.DrawerMenu.ALL_FAMILIES);
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if (requestCode == Constants.RQ_CODE.STORAGE_PERMISIONS && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            NavigationMenu navigationMenu = NavigationMenu.getInstance(this, null, null);
-            if (navigationMenu != null) {
-                navigationMenu.startP2PActivity(this);
-            }
         }
     }
 }
