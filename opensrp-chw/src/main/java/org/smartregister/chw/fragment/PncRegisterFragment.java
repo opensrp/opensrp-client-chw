@@ -126,12 +126,6 @@ public class PncRegisterFragment extends BasePncRegisterFragment {
         return (getSearchView() == null) ? "" : getSearchView().getText().toString();
     }
 
-    private void normalFilter(View dueOnlyLayout) {
-        filter(searchText(), "", presenter().getMainCondition());
-        dueOnlyLayout.setTag(null);
-        // switchViews(dueOnlyLayout, false);
-    }
-
     private String defaultFilterAndSortQuery() {
         SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder(mainSelect);
 
