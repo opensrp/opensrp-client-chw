@@ -159,6 +159,7 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
 
     @Override
     public void setProfileImage(String s, String s1) {
+        //implement
 
     }
 
