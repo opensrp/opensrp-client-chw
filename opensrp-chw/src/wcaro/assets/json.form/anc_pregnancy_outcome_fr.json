@@ -342,7 +342,7 @@
         }
       },
       {
-        "key": "sex",
+        "key": "gender",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person",
         "openmrs_entity_id": "gender",
