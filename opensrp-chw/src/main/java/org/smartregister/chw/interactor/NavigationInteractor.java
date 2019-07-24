@@ -1,7 +1,6 @@
 package org.smartregister.chw.interactor;
 
 import android.database.Cursor;
-
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.contract.NavigationContract;
@@ -12,11 +11,10 @@ import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.family.util.AppExecutors;
 import org.smartregister.family.util.DBConstants;
+import timber.log.Timber;
 
 import java.text.MessageFormat;
 import java.util.Date;
-
-import timber.log.Timber;
 
 public class NavigationInteractor implements NavigationContract.Interactor {
 
@@ -81,10 +79,6 @@ public class NavigationInteractor implements NavigationContract.Interactor {
             stb.append(MessageFormat.format(" inner join {0} ", Constants.TABLE_NAME.FAMILY_MEMBER));
             stb.append(MessageFormat.format(" on {0}.{1} = {2}.{3} ", Constants.TABLE_NAME.FAMILY_MEMBER, DBConstants.KEY.BASE_ENTITY_ID,
                     Constants.TABLE_NAME.MALARIA_CONFIRMATION, DBConstants.KEY.BASE_ENTITY_ID));
-
-            stb.append(MessageFormat.format(" inner join {0} ", Constants.TABLE_NAME.FAMILY));
-            stb.append(MessageFormat.format(" on {0}.{1} = {2}.{3} ", Constants.TABLE_NAME.FAMILY, DBConstants.KEY.BASE_ENTITY_ID,
-                    Constants.TABLE_NAME.FAMILY_MEMBER, DBConstants.KEY.RELATIONAL_ID));
 
             stb.append(MessageFormat.format(" where {0}.{1} is null ", Constants.TABLE_NAME.FAMILY_MEMBER, DBConstants.KEY.DATE_REMOVED));
             stb.append(MessageFormat.format(" and {0}.{1} = 1 ", Constants.TABLE_NAME.MALARIA_CONFIRMATION, org.smartregister.chw.malaria.util.DBConstants.KEY.MALARIA));
