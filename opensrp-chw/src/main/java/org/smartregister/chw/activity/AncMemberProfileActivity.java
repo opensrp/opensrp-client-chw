@@ -120,7 +120,7 @@ public class AncMemberProfileActivity extends BaseAncMemberProfileActivity {
         try {
             startFormActivity(form);
         } catch (Exception e) {
-            Timber.e(e.getMessage());
+            Timber.e(e);
         }
     }
 

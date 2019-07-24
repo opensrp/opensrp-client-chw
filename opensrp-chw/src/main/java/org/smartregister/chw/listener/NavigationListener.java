@@ -8,6 +8,7 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.activity.AncRegisterActivity;
 import org.smartregister.chw.activity.ChildRegisterActivity;
 import org.smartregister.chw.activity.FamilyRegisterActivity;
+import org.smartregister.chw.activity.PncRegisterActivity;
 import org.smartregister.chw.activity.MalariaRegisterActivity;
 import org.smartregister.chw.adapter.NavigationAdapter;
 import org.smartregister.chw.util.Constants;
@@ -42,7 +43,7 @@ public class NavigationListener implements View.OnClickListener {
                         Toast.makeText(activity.getApplicationContext(), Constants.DrawerMenu.LD, Toast.LENGTH_SHORT).show();
                         break;
                     case Constants.DrawerMenu.PNC:
-                        Toast.makeText(activity.getApplicationContext(), Constants.DrawerMenu.PNC, Toast.LENGTH_SHORT).show();
+                        startRegisterActivity(PncRegisterActivity.class);
                         break;
                     case Constants.DrawerMenu.FAMILY_PLANNING:
                         Toast.makeText(activity.getApplicationContext(), Constants.DrawerMenu.FAMILY_PLANNING, Toast.LENGTH_SHORT).show();
