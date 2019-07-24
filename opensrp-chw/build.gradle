@@ -247,3 +247,8 @@ task jacocoTestReport(type: JacocoReport, dependsOn: [
 tasks.withType(Test) {
     jacoco.includeNoLocationClasses = true
 }
+
+
+coveralls {
+    jacocoReportPath = "${buildDir}/reports/jacoco/jacocoRootReport/chw-coverage.xml"
+}

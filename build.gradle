@@ -15,6 +15,12 @@ buildscript {
 }
 
 apply plugin: 'com.github.kt3k.coveralls'
+apply plugin: 'jacoco'
+
+jacoco {
+    toolVersion = "0.8.0"
+}
+
 
 allprojects {
 
@@ -22,12 +28,6 @@ allprojects {
         if (task.name == "lint") {
             task.enabled = false
         }
-    }
-
-    apply plugin: 'jacoco'
-
-    jacoco {
-        toolVersion = "0.8.0"
     }
 
     repositories {
@@ -127,8 +127,4 @@ task jacocoTestReport(type: JacocoReport) {
 
 task build {
     dependsOn tasks.jacocoTestReport
-}
-
-coveralls {
-    jacocoReportPath = "${buildDir}/reports/jacoco/jacocoRootReport/jacocoFullReport.xml"
 }
