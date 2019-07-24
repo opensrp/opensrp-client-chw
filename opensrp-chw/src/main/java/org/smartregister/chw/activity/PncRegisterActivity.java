@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import org.smartregister.chw.BuildConfig;
+import org.smartregister.chw.R;
 import org.smartregister.chw.contract.ChwBottomNavigator;
 import org.smartregister.chw.custom_view.NavigationMenu;
 import org.smartregister.chw.fragment.PncRegisterFragment;
@@ -37,7 +38,7 @@ public class PncRegisterActivity extends BasePncRegisterActivity implements ChwB
         super.registerBottomNavigation();
 
         if (!BuildConfig.SUPPORT_QR) {
-            bottomNavigationView.getMenu().removeItem(org.smartregister.family.R.id.action_scan_qr);
+            bottomNavigationView.getMenu().removeItem(R.id.action_scan_qr);
         }
 
         AncBottomNavigationListener listener = new AncBottomNavigationListener(this, bottomNavigationView);
