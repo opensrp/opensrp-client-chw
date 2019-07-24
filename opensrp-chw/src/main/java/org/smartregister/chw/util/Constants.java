@@ -40,6 +40,7 @@ public class Constants {
 
         public static final String ANC_REGISTRATION = "ANC Registration";
         public static final String ANC_HOME_VISIT = "ANC Home Visit";
+        public static final String PNC_HOME_VISIT = "PNC Home Visit";
         public static final String UPDATE_ANC_REGISTRATION = "Update ANC Registration";
         public static final String PREGNANCY_OUTCOME = "Pregnancy Outcome";
     }
@@ -188,6 +189,14 @@ public class Constants {
 
             public static String getEarlyChildhoodDevelopment() {
                 return Utils.getLocalForm(EARLY_CHILDHOOD_DEVELOPMENT);
+            }
+        }
+
+        public static class PNC_HOME_VISIT {
+            private static final String DANGER_SIGNS = "pnc_hv_danger_signs";
+
+            public static String getDangerSigns() {
+                return DANGER_SIGNS;
             }
         }
     }

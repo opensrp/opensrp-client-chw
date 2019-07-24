@@ -310,7 +310,7 @@
           },
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "anc-home-visit-rules.yml"
+              "rules-file": "anc_hv_health_facility_visit.yml"
             }
           }
         }
