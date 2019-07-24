@@ -111,8 +111,8 @@ actions:
   - "isRelevant = true"
 
 ---
-name: step1_sex
-description: sex relevance
+name: step1_gender
+description: gender relevance
 priority: 1
 condition: "step1_preg_outcome == 'born_alive' || step1_preg_outcome == 'alive_with_problem'"
 actions:
