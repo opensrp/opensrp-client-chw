@@ -50,14 +50,6 @@
     "title": "WASH check",
     "fields": [
       {
-        "key": "date_pass",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "value":"",
-        "type": "hidden"
-      },
-      {
         "key": "handwashing_facilities",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",

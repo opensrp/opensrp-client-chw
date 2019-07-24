@@ -45,7 +45,7 @@ public class ChwDueRegisterProvider extends FamilyDueRegisterProvider {
     public void getView(Cursor cursor, SmartRegisterClient client, RegisterViewHolder viewHolder) {
         CommonPersonObjectClient pc = (CommonPersonObjectClient) client;
         populatePatientColumn(pc, client, viewHolder);
-        populateIdentifierColumn(pc, viewHolder);
+       // populateIdentifierColumn(pc, viewHolder);
 
         viewHolder.status.setVisibility(View.GONE);
         Utils.startAsyncTask(new UpdateAsyncTask(viewHolder, pc), null);

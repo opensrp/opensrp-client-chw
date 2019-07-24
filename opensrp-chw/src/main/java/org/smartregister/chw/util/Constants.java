@@ -42,6 +42,7 @@ public class Constants {
         public static final String ANC_HOME_VISIT = "ANC Home Visit";
         public static final String UPDATE_ANC_REGISTRATION = "Update ANC Registration";
         public static final String PREGNANCY_OUTCOME = "Pregnancy Outcome";
+        public static final String WASH_CHECK = "WASH check";
     }
 
     /**
@@ -211,6 +212,7 @@ public class Constants {
         public static final String ANC_MEMBER_LOG = "ec_anc_log";
         public static final String MALARIA_CONFIRMATION = "ec_malaria_confirmation";
         public static final String ANC_PREGNANCY_OUTCOME = "ec_pregnancy_outcome";
+        public static final String WASH_CHECK_LOG = "ec_wash_check_log";
     }
 
     public static final class INTENT_KEY {
@@ -351,6 +353,8 @@ public class Constants {
             public static final String HOME_VISIT_SERVICE_NOT_GIVEN= "serviceNotGiven";
             public static final String HOME_VISIT_BIRTH_CERT= "birth_certificate";
             public static final String HOME_VISIT_ILLNESS= "illness_information";
+            public static final String WASH_CHECK_DETAILS= "details_info";
+            public static final String WASH_CHECK_LAST_VISIT= "last_visit";
 
         }
     }

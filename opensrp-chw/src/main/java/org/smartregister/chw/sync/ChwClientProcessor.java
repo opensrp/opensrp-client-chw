@@ -2,6 +2,7 @@ package org.smartregister.chw.sync;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.util.Log;
 
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.application.ChwApplication;
@@ -129,7 +130,11 @@ public class ChwClientProcessor extends ClientProcessorForJava {
                 } else if (eventType.equals(Constants.EventType.VACCINE_CARD_RECEIVED) && eventClient.getClient() != null) {
                     processVaccineCardEvent(eventClient);
                     processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
-                } else {
+                }else if(eventType.equals(Constants.EventType.WASH_CHECK)){
+                    processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
+
+                }
+                else {
                     if (eventClient.getClient() != null) {
                         if (eventType.equals(Constants.EventType.UPDATE_FAMILY_RELATIONS) && event.getEntityType().equalsIgnoreCase(Constants.TABLE_NAME.FAMILY_MEMBER)) {
                             event.setEventType(Constants.EventType.UPDATE_FAMILY_MEMBER_RELATIONS);

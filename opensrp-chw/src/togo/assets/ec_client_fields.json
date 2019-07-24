@@ -696,5 +696,34 @@
         }
       ]
     }
+  ,
+    {
+      "name": "ec_wash_check_log",
+      "columns": [
+        {
+          "column_name": "base_entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "baseEntityId"
+          }
+        },
+        {
+          "column_name": "last_visit",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "formSubmissionField": "last_visit"
+          }
+        },
+        {
+          "column_name": "details_info",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "formSubmissionField": "details_info"
+          }
+        }
+      ]
+    }
   ]
 }

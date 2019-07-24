@@ -38,6 +38,7 @@ import org.smartregister.immunization.domain.ServiceRecord;
 import org.smartregister.immunization.domain.Vaccine;
 import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.repository.AllSharedPreferences;
+import org.smartregister.repository.BaseRepository;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.repository.ImageRepository;
 import org.smartregister.sync.helper.ECSyncHelper;
@@ -79,11 +80,49 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
     public static final String TITLE = "title";
     public static final String ENCOUNTER_TYPE = "encounter_type";
     public static final int REQUEST_CODE_GET_JSON = 2244;
+    public static final int REQUEST_CODE_GET_JSON_WASH = 22444;
+
     public static final String CURRENT_OPENSRP_ID = "current_opensrp_id";
     public static final String READ_ONLY = "read_only";
     private static final String TAG = org.smartregister.util.JsonFormUtils.class.getCanonicalName();
     private static HashMap<String, String> actionMap = null;
     private static Flavor flavor = new JsonFormUtilsFlv();
+
+    public static boolean saveWashCheckEvent(String jsonString,String familyId){
+        try{
+            Triple<Boolean, JSONObject, JSONArray> registrationFormParams = validateParameters(jsonString);
+            //if (!registrationFormParams.getLeft()) {
+                ECSyncHelper syncHelper = FamilyLibrary.getInstance().getEcSyncHelper();
+                JSONObject jsonForm = registrationFormParams.getMiddle();
+                JSONArray fields = registrationFormParams.getRight();
+
+                // String entityIdForm = getString(jsonForm, ENTITY_ID);
+
+                lastInteractedWith(fields);
+                //Client baseClient = org.smartregister.util.JsonFormUtils.createBaseClient(fields, formTag(org.smartregister.family.util.Utils.context().allSharedPreferences()), entityId);
+                Event baseEvent = org.smartregister.util.JsonFormUtils.createEvent(fields, getJSONObject(jsonForm, METADATA), formTag(org.smartregister.family.util.Utils.context().allSharedPreferences()),
+                        familyId, getString(jsonForm, ENCOUNTER_TYPE), org.smartregister.chw.util.Constants.TABLE_NAME.WASH_CHECK_LOG);
+                baseEvent.addObs((new Obs()).withFormSubmissionField(org.smartregister.chw.util.Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.WASH_CHECK_DETAILS).withValue(jsonString)
+                        .withFieldCode(org.smartregister.chw.util.Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.WASH_CHECK_DETAILS).withFieldType("formsubmissionField").withFieldDataType("text").withParentCode("").withHumanReadableValues(new ArrayList<>()));
+                baseEvent.addObs((new Obs()).withFormSubmissionField(org.smartregister.chw.util.Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.WASH_CHECK_LAST_VISIT).withValue(System.currentTimeMillis()+"")
+                    .withFieldCode(org.smartregister.chw.util.Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.WASH_CHECK_LAST_VISIT).withFieldType("formsubmissionField").withFieldDataType("text").withParentCode("").withHumanReadableValues(new ArrayList<>()));
+
+                tagSyncMetadata(org.smartregister.family.util.Utils.context().allSharedPreferences(), baseEvent);// tag docs
+
+                JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(baseEvent));
+                syncHelper.addEvent(familyId, eventJson);
+                long lastSyncTimeStamp = ChwApplication.getInstance().getContext().allSharedPreferences().fetchLastUpdatedAtDate(0);
+                Date lastSyncDate = new Date(lastSyncTimeStamp);
+                ChwApplication.getClientProcessor(ChwApplication.getInstance().getContext().applicationContext()).processClient(syncHelper.getEvents(lastSyncDate, BaseRepository.TYPE_Unsynced));
+                ChwApplication.getInstance().getContext().allSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
+                return true;
+           // }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return false;
+    }
 
 
     public static JSONObject getBirthCertFormAsJson(JSONObject form, String baseEntityId, String currentLocationId, String dateOfBirthString) throws Exception {

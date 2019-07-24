@@ -51,6 +51,7 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity implements 
     private String familyName;
 
     private FamilyFloatingMenu familyFloatingMenu;
+    private BaseFamilyProfileDueFragment profileDueFragment;
 
     @Override
     protected void initializePresenter() {
@@ -81,13 +82,12 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity implements 
                 FloatingMenuListener.getInstance(this, presenter().familyBaseEntityId())
         );
     }
-
     @Override
     protected ViewPager setupViewPager(ViewPager viewPager) {
         adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
         BaseFamilyProfileMemberFragment profileMemberFragment = FamilyProfileMemberFragment.newInstance(this.getIntent().getExtras());
-        BaseFamilyProfileDueFragment profileDueFragment = FamilyProfileDueFragment.newInstance(this.getIntent().getExtras());
+        profileDueFragment = FamilyProfileDueFragment.newInstance(this.getIntent().getExtras());
         BaseFamilyProfileActivityFragment profileActivityFragment = FamilyProfileActivityFragment.newInstance(this.getIntent().getExtras());
 
         adapter.addFragment(profileMemberFragment, this.getString(org.smartregister.family.R.string.member).toUpperCase());
@@ -216,6 +216,7 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity implements 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK) {
+            profileDueFragment.onActivityResult(requestCode,resultCode,data);
             switch (requestCode) {
                 case org.smartregister.family.util.JsonFormUtils.REQUEST_CODE_GET_JSON:
                     try {

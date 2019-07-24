@@ -613,7 +613,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                             LLITNInputDialogFragment dialogFragment = LLITNInputDialogFragment.getInstance();
                             dialogFragment.setServiceTask(serviceTask, onUpdateServiceTask);
                             FragmentTransaction ft = getActivity().getFragmentManager().beginTransaction();
-                            dialogFragment.show(ft, MuacInputDialogFragment.DIALOG_TAG);
+                            dialogFragment.show(ft, LLITNInputDialogFragment.DIALOG_TAG);
 
                         } else if (serviceTask.getTaskType().equalsIgnoreCase(TaskServiceCalculate.TASK_TYPE.ECD.name())) {
                             try{

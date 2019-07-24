@@ -121,6 +121,13 @@
             "creates_case": [
               "ec_pregnancy_outcome"
             ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "WASH check",
+            "creates_case": [
+              "ec_wash_check_log"
+            ]
           }
         ]
       }

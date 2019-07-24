@@ -3,6 +3,7 @@ package org.smartregister.chw.fragment;
 import android.os.Bundle;
 
 import org.smartregister.chw.model.FamilyProfileActivityModel;
+import org.smartregister.chw.model.WashCheckModel;
 import org.smartregister.chw.presenter.FamilyProfileActivityPresenter;
 import org.smartregister.chw.provider.FamilyActivityRegisterProvider;
 import org.smartregister.configurableviews.model.View;
@@ -11,6 +12,7 @@ import org.smartregister.family.fragment.BaseFamilyProfileActivityFragment;
 import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.Utils;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
 
@@ -18,6 +20,7 @@ import timber.log.Timber;
 
 public class FamilyProfileActivityFragment extends BaseFamilyProfileActivityFragment {
     private static final String TAG = FamilyProfileActivityFragment.class.getCanonicalName();
+    private String familyBaseEntityId;
 
     public static BaseFamilyProfileActivityFragment newInstance(Bundle bundle) {
         Bundle args = bundle;
@@ -30,6 +33,12 @@ public class FamilyProfileActivityFragment extends BaseFamilyProfileActivityFrag
     }
 
     @Override
+    public void setupViews(android.view.View view) {
+        super.setupViews(view);
+        ((FamilyProfileActivityPresenter)presenter).fetchLastWashCheck(familyBaseEntityId);
+    }
+
+    @Override
     public void initializeAdapter(Set<View> visibleColumns) {
         FamilyActivityRegisterProvider familyActivityRegisterProvider = new FamilyActivityRegisterProvider(getActivity(), commonRepository(), visibleColumns, registerActionHandler, paginationViewHandler);
         clientAdapter = new FamilyRecyclerViewCustomAdapter(null, familyActivityRegisterProvider, context().commonrepository(this.tablename), Utils.metadata().familyActivityRegister.showPagination);
@@ -39,7 +48,7 @@ public class FamilyProfileActivityFragment extends BaseFamilyProfileActivityFrag
 
     @Override
     protected void initializePresenter() {
-        String familyBaseEntityId = getArguments().getString(Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID);
+        familyBaseEntityId = getArguments().getString(Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID);
         presenter = new FamilyProfileActivityPresenter(this, new FamilyProfileActivityModel(), null, familyBaseEntityId);
     }
 
@@ -47,6 +56,11 @@ public class FamilyProfileActivityFragment extends BaseFamilyProfileActivityFrag
     public void setAdvancedSearchFormData(HashMap<String, String> hashMap) {
         //TODO
         Timber.d("setAdvancedSearchFormData");
+    }
+    public void updateWashCheckBar(ArrayList<WashCheckModel> washCheckModelList){
+        for(WashCheckModel washCheckModel : washCheckModelList){
+
+        }
     }
 
 }
