@@ -5,8 +5,6 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import org.smartregister.chw.R;
-import org.smartregister.chw.activity.AncHomeVisitActivity;
-import org.smartregister.chw.activity.AncMemberProfileActivity;
 import org.smartregister.chw.activity.PncHomeVisitActivity;
 import org.smartregister.chw.activity.PncMemberProfileActivity;
 import org.smartregister.chw.anc.domain.MemberObject;
@@ -72,9 +70,9 @@ public class PncRegisterFragment extends BasePncRegisterFragment {
         View filterSortLayout = view.findViewById(R.id.filter_sort_layout);
         filterSortLayout.setVisibility(View.GONE);
 
-       View dueOnlyLayout = view.findViewById(R.id.due_only_layout);
-       dueOnlyLayout.setVisibility(View.VISIBLE);
-       dueOnlyLayout.setOnClickListener(registerActionHandler);
+        View dueOnlyLayout = view.findViewById(R.id.due_only_layout);
+        dueOnlyLayout.setVisibility(View.VISIBLE);
+        dueOnlyLayout.setOnClickListener(registerActionHandler);
 
         if (getSearchView() != null) {
             getSearchView().setBackgroundResource(org.smartregister.family.R.color.white);

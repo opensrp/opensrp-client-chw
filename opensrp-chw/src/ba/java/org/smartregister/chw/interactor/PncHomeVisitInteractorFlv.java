@@ -31,10 +31,10 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
         try {
             evaluateDangerSignsMother();
             evaluateDangerSignsBaby();
-            evaluatePNCHealthFacilityVisit_1();
-            evaluatePNCHealthFacilityVisit_2();
-            evaluatePNCHealthFacilityVisit_3();
-            evaluatePNCHealthFacilityVisit_4();
+            evaluatePNCHealthFacilityVisitOne();
+            evaluatePNCHealthFacilityVisitTwo();
+            evaluatePNCHealthFacilityVisitThree();
+            evaluatePNCHealthFacilityVisitFour();
             evaluateFamilyPlanning();
             evaluateImmunization();
             evaluateExclusiveBreastFeeding();
@@ -71,7 +71,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
         actionList.put(context.getString(R.string.pnc_danger_signs_baby), action);
     }
 
-    private void evaluatePNCHealthFacilityVisit_1() throws Exception {
+    private void evaluatePNCHealthFacilityVisitOne() throws Exception {
         BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.pnc_health_facility_visit_within_fourty_eight_hours))
                 .withOptional(false)
                 .withDetails(details)
@@ -81,7 +81,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
         actionList.put(context.getString(R.string.pnc_health_facility_visit_within_fourty_eight_hours), action);
     }
 
-    private void evaluatePNCHealthFacilityVisit_2() throws Exception {
+    private void evaluatePNCHealthFacilityVisitTwo() throws Exception {
         BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.pnc_health_facility_visit_days_three_to_seven))
                 .withOptional(false)
                 .withDetails(details)
@@ -91,7 +91,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
         actionList.put(context.getString(R.string.pnc_health_facility_visit_days_three_to_seven), action);
     }
 
-    private void evaluatePNCHealthFacilityVisit_3() throws Exception {
+    private void evaluatePNCHealthFacilityVisitThree() throws Exception {
         BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.pnc_health_facility_visit_days_eight_to_twenty_eight))
                 .withOptional(false)
                 .withDetails(details)
@@ -101,7 +101,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
         actionList.put(context.getString(R.string.pnc_health_facility_visit_days_eight_to_twenty_eight), action);
     }
 
-    private void evaluatePNCHealthFacilityVisit_4() throws Exception {
+    private void evaluatePNCHealthFacilityVisitFour() throws Exception {
         BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.pnc_health_facility_visit_days_twenty_nine_to_forty_two))
                 .withOptional(false)
                 .withDetails(details)
