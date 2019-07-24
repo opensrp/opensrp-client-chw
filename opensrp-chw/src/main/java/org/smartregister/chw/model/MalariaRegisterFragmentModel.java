@@ -1,5 +1,6 @@
 package org.smartregister.chw.model;
 
+import android.support.annotation.NonNull;
 import org.smartregister.chw.malaria.model.BaseMalariaRegisterFragmentModel;
 import org.smartregister.chw.util.ChildDBConstants;
 import org.smartregister.chw.util.Constants;
@@ -11,8 +12,9 @@ import java.util.Set;
 
 public class MalariaRegisterFragmentModel extends BaseMalariaRegisterFragmentModel {
 
+    @NonNull
     @Override
-    public String mainSelect(String tableName, String mainCondition) {
+    public String mainSelect(@NonNull String tableName, @NonNull String mainCondition) {
         SmartRegisterQueryBuilder queryBuilder = new SmartRegisterQueryBuilder();
         queryBuilder.SelectInitiateMainTable(tableName, mainColumns(tableName));
         queryBuilder.customJoin("INNER JOIN " + Constants.TABLE_NAME.FAMILY_MEMBER + " ON  " + tableName + "." + DBConstants.KEY.BASE_ENTITY_ID + " = " + Constants.TABLE_NAME.FAMILY_MEMBER + "." + DBConstants.KEY.BASE_ENTITY_ID + " COLLATE NOCASE ");

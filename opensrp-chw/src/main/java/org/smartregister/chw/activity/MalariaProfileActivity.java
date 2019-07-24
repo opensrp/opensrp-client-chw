@@ -28,7 +28,6 @@ import timber.log.Timber;
 
 public class MalariaProfileActivity extends BaseMalariaProfileActivity implements FamilyOtherMemberProfileExtendedContract.View, FamilyProfileExtendedContract.PresenterCallBack {
     private static final String CLIENT = "client";
-    private MemberObject memberObject;
     private TextView textViewName, textViewGender, textViewLocation, textViewUniqueID, textViewRecordMalaria;
 
     public static void startMalariaActivity(Activity activity, MemberObject memberObject, CommonPersonObjectClient client) {
@@ -41,7 +40,6 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
     @Override
     protected void onCreation() {
         super.onCreation();
-        memberObject = (MemberObject) getIntent().getSerializableExtra(Constants.MALARIA_MEMBER_OBJECT.MEMBER_OBJECT);
     }
 
     @Override
@@ -83,7 +81,7 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
                 return true;
 
             case R.id.action_remove_member:
-                IndividualProfileRemoveActivity.startIndividualProfileActivity(MalariaProfileActivity.this, getClientDetailsByBaseEntityID(memberObject.getBaseEntityId()), memberObject.getFamilyBaseEntityId(), memberObject.getFamilyHead(), memberObject.getPrimaryCareGiver());
+                IndividualProfileRemoveActivity.startIndividualProfileActivity(MalariaProfileActivity.this, getClientDetailsByBaseEntityID(MEMBER_OBJECT.getBaseEntityId()), MEMBER_OBJECT.getFamilyBaseEntityId(), MEMBER_OBJECT.getFamilyHead(), MEMBER_OBJECT.getPrimaryCareGiver());
                 return true;
             default:
                 break;
@@ -109,14 +107,15 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
 
         try {
             assert form != null;
-            startFormActivity(form);
+            startFormActivity(form, MEMBER_OBJECT);
         } catch (Exception e) {
             Timber.e(e);
         }
     }
 
-    private void startFormActivity(JSONObject jsonForm) {
+    private void startFormActivity(JSONObject jsonForm, MemberObject memberObject) {
         Intent intent = Common.formActivityIntent(this, jsonForm.toString());
+        intent.putExtra(Constants.MALARIA_MEMBER_OBJECT.MEMBER_OBJECT, memberObject);
         startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
     }
 
@@ -139,6 +138,7 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
                         JSONObject form = new JSONObject(jsonString);
                         if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Utils.metadata().familyMemberRegister.updateEventType)) {
                             presenter().updateFamilyMember(jsonString);
+
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -152,8 +152,10 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
 
 
     @NonNull
+    @Override
     public FamilyOtherMemberActivityPresenter presenter() {
-        return new FamilyOtherMemberActivityPresenter(this, new BaseFamilyOtherMemberProfileActivityModel(), null, MEMBER_OBJECT.getFamilyBaseEntityId(), MEMBER_OBJECT.getBaseEntityId(), MEMBER_OBJECT.getFamilyHead(), MEMBER_OBJECT.getPrimaryCareGiver(), MEMBER_OBJECT.getAddress(), MEMBER_OBJECT.getLastName());
+        MemberObject memberObject = (MemberObject) getIntent().getSerializableExtra(Constants.MALARIA_MEMBER_OBJECT.MEMBER_OBJECT);
+        return new FamilyOtherMemberActivityPresenter(this, new BaseFamilyOtherMemberProfileActivityModel(), null, memberObject.getRelationalId(), memberObject.getBaseEntityId(), memberObject.getFamilyHead(), memberObject.getPrimaryCareGiver(), memberObject.getAddress(), memberObject.getLastName());
     }
 
     @Override
