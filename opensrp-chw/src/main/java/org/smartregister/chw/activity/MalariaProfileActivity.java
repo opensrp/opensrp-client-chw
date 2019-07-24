@@ -28,7 +28,6 @@ import timber.log.Timber;
 
 public class MalariaProfileActivity extends BaseMalariaProfileActivity implements FamilyOtherMemberProfileExtendedContract.View, FamilyProfileExtendedContract.PresenterCallBack {
     private static final String CLIENT = "client";
-    private TextView textViewName, textViewGender, textViewLocation, textViewUniqueID, textViewRecordMalaria;
 
     public static void startMalariaActivity(Activity activity, MemberObject memberObject, CommonPersonObjectClient client) {
         Intent intent = new Intent(activity, MalariaProfileActivity.class);
@@ -183,33 +182,33 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
 
     @Override
     public void setProfileDetailThree(String s) {
-
+        //implement
     }
 
     @Override
     public void toggleFamilyHead(boolean b) {
-
+        //implement
     }
 
     @Override
     public void togglePrimaryCaregiver(boolean b) {
-
+        //implement
     }
 
 
     @Override
     public void refreshList() {
-
+        //implement
     }
 
     @Override
     public void updateHasPhone(boolean hasPhone) {
-
+        //implement
     }
 
     @Override
     public void setFamilyServiceStatus(String status) {
-
+        //implement
     }
 
     @Override
@@ -219,11 +218,11 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
 
     @Override
     public void verifyHasPhone() {
-
+        //implement
     }
 
     @Override
     public void notifyHasPhone(boolean hasPhone) {
-
+        //implement
     }
 }
