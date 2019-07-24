@@ -26,4 +26,9 @@ public interface RepositoryUtils {
             "ALTER TABLE ec_child ADD COLUMN insurance_provider_other VARCHAR;",
             "ALTER TABLE ec_child ADD COLUMN type_of_disability VARCHAR;"
     };
+
+    String[] UPGRADE_V10 = {
+            "ALTER TABLE ec_child ADD COLUMN mother_entity_id VARCHAR;",
+            "ALTER TABLE ec_child ADD COLUMN entry_point VARCHAR;"
+    };
 }
