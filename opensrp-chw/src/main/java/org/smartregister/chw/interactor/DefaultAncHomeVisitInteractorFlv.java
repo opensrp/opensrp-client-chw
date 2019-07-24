@@ -9,7 +9,6 @@ import org.joda.time.LocalDate;
 import org.joda.time.Period;
 import org.joda.time.format.DateTimeFormat;
 import org.json.JSONObject;
-import org.smartregister.AllConstants;
 import org.smartregister.chw.R;
 import org.smartregister.chw.actionhelper.ANCCardAction;
 import org.smartregister.chw.actionhelper.ANCCounselingAction;
@@ -26,9 +25,7 @@ import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.domain.VisitDetail;
 import org.smartregister.chw.anc.fragment.BaseAncHomeVisitFragment;
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
-import org.smartregister.chw.anc.util.JsonFormUtils;
 import org.smartregister.chw.anc.util.VisitUtils;
-import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.model.VaccineTaskModel;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.ContactUtil;
@@ -93,13 +90,6 @@ public abstract class DefaultAncHomeVisitInteractorFlv implements AncHomeVisitIn
         }
 
         return actionList;
-    }
-
-    private JSONObject getJson(String formName, String baseEntityID) throws Exception {
-        String locationId = ChwApplication.getInstance().getContext().allSharedPreferences().getPreference(AllConstants.CURRENT_LOCATION_ID);
-        JSONObject jsonObject = JsonFormUtils.getFormAsJson(formName);
-        JsonFormUtils.getRegistrationForm(jsonObject, baseEntityID, locationId);
-        return jsonObject;
     }
 
     private void evaluateDangerSigns(LinkedHashMap<String, BaseAncHomeVisitAction> actionList, Map<String, List<VisitDetail>> details, final Context context) throws Exception {
@@ -194,7 +184,7 @@ public abstract class DefaultAncHomeVisitInteractorFlv implements AncHomeVisitIn
         String dueState = (overdueMonth < 1) ? context.getString(R.string.due) : context.getString(R.string.overdue);
 
         TTAction helper = new TTAction(individualVaccine, context);
-        JSONObject jsonObject = getJson(Constants.JSON_FORM.ANC_HOME_VISIT.getTtImmunization(), memberObject.getBaseEntityId());
+        JSONObject jsonObject = org.smartregister.chw.util.JsonFormUtils.getJson(Constants.JSON_FORM.ANC_HOME_VISIT.getTtImmunization(), memberObject.getBaseEntityId());
         JSONObject preProcessObject = helper.preProcess(jsonObject, individualVaccine.getRight());
 
         BaseAncHomeVisitAction tt_immunization = new BaseAncHomeVisitAction.Builder(context, title)
@@ -216,7 +206,7 @@ public abstract class DefaultAncHomeVisitInteractorFlv implements AncHomeVisitIn
     private void evaluateIPTP(BaseAncHomeVisitContract.View view, LinkedHashMap<String, BaseAncHomeVisitAction> actionList, Map<String, List<VisitDetail>> details, MemberObject memberObject, final Context context) throws Exception {
         // if there are no pending vaccines
         DateTime lmp = DateTimeFormat.forPattern("dd-MM-yyyy").parseDateTime(memberObject.getLastMenstrualPeriod());
-        Map<String, ServiceWrapper> serviceWrapperMap = getRecurringServices(memberObject.getBaseEntityId(), lmp);
+        Map<String, ServiceWrapper> serviceWrapperMap = getRecurringServices(memberObject.getBaseEntityId(), lmp, "woman");
         ServiceWrapper serviceWrapper = serviceWrapperMap.get("IPTp-SP");
 
         if (serviceWrapper == null) {
@@ -230,7 +220,7 @@ public abstract class DefaultAncHomeVisitInteractorFlv implements AncHomeVisitIn
         String dueState = (overdueMonth < 1) ? context.getString(R.string.due) : context.getString(R.string.overdue);
 
         IPTPAction helper = new IPTPAction(context, serviceIteration);
-        JSONObject jsonObject = getJson(Constants.JSON_FORM.ANC_HOME_VISIT.getIptpSp(), memberObject.getBaseEntityId());
+        JSONObject jsonObject = org.smartregister.chw.util.JsonFormUtils.getJson(Constants.JSON_FORM.ANC_HOME_VISIT.getIptpSp(), memberObject.getBaseEntityId());
         JSONObject preProcessObject = helper.preProcess(jsonObject, serviceIteration);
 
         BaseAncHomeVisitAction iptp_action = new BaseAncHomeVisitAction.Builder(context, iptp)

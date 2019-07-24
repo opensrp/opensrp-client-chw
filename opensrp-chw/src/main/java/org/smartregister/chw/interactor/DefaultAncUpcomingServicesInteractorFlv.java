@@ -96,7 +96,7 @@ public abstract class DefaultAncUpcomingServicesInteractorFlv implements AncUpco
 
     private Pair<String, Date> getNextIPTP(MemberObject memberObject) {
         DateTime lmp = DateTimeFormat.forPattern("dd-MM-yyyy").parseDateTime(memberObject.getLastMenstrualPeriod());
-        Map<String, ServiceWrapper> serviceWrapperMap = getRecurringServices(memberObject.getBaseEntityId(), lmp);
+        Map<String, ServiceWrapper> serviceWrapperMap = getRecurringServices(memberObject.getBaseEntityId(), lmp, "woman");
         ServiceWrapper serviceWrapper = serviceWrapperMap.get("IPTp-SP");
 
 

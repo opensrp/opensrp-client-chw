@@ -293,7 +293,7 @@ public class AncRegisterFragment extends BaseAncRegisterFragment {
             c = commonRepository().rawCustomQueryForAdapter(query);
             c.moveToFirst();
             clientAdapter.setTotalcount(c.getInt(0));
-            Timber.v("total count here", "" + clientAdapter.getTotalcount());
+            Timber.v("total count here %s", clientAdapter.getTotalcount());
 
             clientAdapter.setCurrentlimit(20);
             clientAdapter.setCurrentoffset(0);

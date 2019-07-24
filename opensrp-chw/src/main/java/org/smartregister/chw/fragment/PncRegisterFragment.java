@@ -10,7 +10,11 @@ import android.widget.LinearLayout;
 
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.R;
+import org.smartregister.chw.activity.PncHomeVisitActivity;
+import org.smartregister.chw.activity.PncMemberProfileActivity;
+import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.util.DBConstants;
+import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.custom_view.NavigationMenu;
 import org.smartregister.chw.model.PncRegisterFragmentModel;
 import org.smartregister.chw.pnc.fragment.BasePncRegisterFragment;
@@ -18,14 +22,17 @@ import org.smartregister.chw.pnc.presenter.BasePncRegisterFragmentPresenter;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.QueryBuilder;
 import org.smartregister.chw.util.Utils;
+import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.view.customcontrols.CustomFontTextView;
 
 import java.text.MessageFormat;
+import java.util.HashMap;
 import java.util.List;
 
 import timber.log.Timber;
+
 
 public class PncRegisterFragment extends BasePncRegisterFragment {
 
@@ -115,7 +122,8 @@ public class PncRegisterFragment extends BasePncRegisterFragment {
         }
     }
 
-;
+    ;
+
     private String defaultFilterAndSortQuery() {
         SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder(mainSelect);
 
@@ -212,6 +220,23 @@ public class PncRegisterFragment extends BasePncRegisterFragment {
 
     }
 
+    @Override
+    protected void openHomeVisit(CommonPersonObjectClient client) {
+        PncHomeVisitActivity.startMe(getActivity(), new MemberObject(client), false);
+    }
 
+    @Override
+    protected void openProfile(CommonPersonObjectClient client) {
 
+        HashMap<String, String> detailsMap = ChwApplication.ancRegisterRepository().getFamilyNameAndPhone(Utils.getValue(client.getColumnmaps(), org.smartregister.family.util.DBConstants.KEY.FAMILY_HEAD, false));
+
+        String familyName = "";
+        String familyHeadPhone = "";
+        if (detailsMap != null) {
+            familyName = detailsMap.get(org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.FAMILY_HEAD_NAME);
+            familyHeadPhone = detailsMap.get(org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.FAMILY_HEAD_PHONE);
+        }
+
+        PncMemberProfileActivity.startMe(getActivity(), new MemberObject(client), familyName, familyHeadPhone);
+    }
 }
