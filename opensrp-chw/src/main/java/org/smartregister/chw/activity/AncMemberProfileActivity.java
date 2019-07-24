@@ -77,11 +77,11 @@ public class AncMemberProfileActivity extends BaseAncMemberProfileActivity {
                 return true;
             case R.id.action_anc_member_registration:
                 startFormForEdit(R.string.edit_member_form_title,
-                        org.smartregister.chw.util.Constants.JSON_FORM.getFamilyMemberRegister());
+                        com.opensrp.chw.core.utils.Constants.JSON_FORM.getFamilyMemberRegister());
                 return true;
             case R.id.action_anc_registration:
                 startFormForEdit(R.string.edit_anc_registration_form_title,
-                        org.smartregister.chw.util.Constants.JSON_FORM.getAncRegistration());
+                        com.opensrp.chw.core.utils.Constants.JSON_FORM.getAncRegistration());
                 return true;
             case R.id.action_remove_member:
                 CommonRepository commonRepository = org.smartregister.chw.util.Utils.context().commonrepository(org.smartregister.chw.util.Utils.metadata().familyMemberRegister.tableName);
@@ -95,7 +95,7 @@ public class AncMemberProfileActivity extends BaseAncMemberProfileActivity {
                 return true;
             case R.id.action_pregnancy_out_come:
                 AncRegisterActivity.startAncRegistrationActivity(AncMemberProfileActivity.this, MEMBER_OBJECT.getBaseEntityId(), null,
-                        org.smartregister.chw.util.Constants.JSON_FORM.getPregnancyOutcome(), AncLibrary.getInstance().getUniqueIdRepository().getNextUniqueId().getOpenmrsId(), null);
+                        com.opensrp.chw.core.utils.Constants.JSON_FORM.getPregnancyOutcome(), AncLibrary.getInstance().getUniqueIdRepository().getNextUniqueId().getOpenmrsId(), null);
                 return true;
             default:
                 break;
@@ -112,14 +112,14 @@ public class AncMemberProfileActivity extends BaseAncMemberProfileActivity {
         CommonPersonObjectClient client = new CommonPersonObjectClient(personObject.getCaseId(), personObject.getDetails(), "");
         client.setColumnmaps(personObject.getColumnmaps());
 
-        if (formName.equals(org.smartregister.chw.util.Constants.JSON_FORM.getFamilyMemberRegister())) {
+        if (formName.equals(com.opensrp.chw.core.utils.Constants.JSON_FORM.getFamilyMemberRegister())) {
             form = org.smartregister.chw.util.JsonFormUtils.getAutoPopulatedJsonEditMemberFormString(
                     (title_resource != null) ? getResources().getString(title_resource) : null,
-                    org.smartregister.chw.util.Constants.JSON_FORM.getFamilyMemberRegister(),
+                    com.opensrp.chw.core.utils.Constants.JSON_FORM.getFamilyMemberRegister(),
                     this, client, org.smartregister.chw.util.Utils.metadata().familyMemberRegister.updateEventType, MEMBER_OBJECT.getFamilyName(), false);
-        } else if (formName.equals(org.smartregister.chw.util.Constants.JSON_FORM.getAncRegistration())) {
+        } else if (formName.equals(com.opensrp.chw.core.utils.Constants.JSON_FORM.getAncRegistration())) {
             form = org.smartregister.chw.util.JsonFormUtils.getAutoJsonEditAncFormString(
-                    MEMBER_OBJECT.getBaseEntityId(), this, formName, org.smartregister.chw.util.Constants.EventType.UPDATE_ANC_REGISTRATION, getResources().getString(title_resource));
+                    MEMBER_OBJECT.getBaseEntityId(), this, formName, com.opensrp.chw.core.utils.Constants.EventType.UPDATE_ANC_REGISTRATION, getResources().getString(title_resource));
         }
 
         try {
@@ -154,7 +154,7 @@ public class AncMemberProfileActivity extends BaseAncMemberProfileActivity {
     @Override
     public void setupViews() {
         super.setupViews();
-        Rules rules = ChwApplication.getInstance().getRulesEngineHelper().rules(org.smartregister.chw.util.Constants.RULE_FILE.ANC_HOME_VISIT);
+        Rules rules = ChwApplication.getInstance().getRulesEngineHelper().rules(com.opensrp.chw.core.utils.Constants.RULE_FILE.ANC_HOME_VISIT);
 
         AncVisit ancVisit = AncHomeVisitUtil.getVisitStatus(this, rules, MEMBER_OBJECT.getLastMenstrualPeriod(), MEMBER_OBJECT.getLastContactVisit(), null, new DateTime(MEMBER_OBJECT.getDateCreated()).toLocalDate());
 
@@ -189,7 +189,7 @@ public class AncMemberProfileActivity extends BaseAncMemberProfileActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
-            case org.smartregister.chw.util.Constants.ProfileActivityResults.CHANGE_COMPLETED:
+            case com.opensrp.chw.core.utils.Constants.ProfileActivityResults.CHANGE_COMPLETED:
                 if (resultCode == Activity.RESULT_OK) {
                     Intent intent = new Intent(AncMemberProfileActivity.this, AncRegisterActivity.class);
                     intent.putExtras(getIntent().getExtras());
@@ -205,11 +205,11 @@ public class AncMemberProfileActivity extends BaseAncMemberProfileActivity {
                         if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Utils.metadata().familyMemberRegister.updateEventType)) {
                             FamilyEventClient familyEventClient = profileModel.processUpdateMemberRegistration(jsonString, MEMBER_OBJECT.getBaseEntityId());
                             profileInteractor.saveRegistration(familyEventClient, jsonString, true, ancMemberProfilePresenter());
-                        } else if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(org.smartregister.chw.util.Constants.EventType.UPDATE_ANC_REGISTRATION)) {
+                        } else if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(com.opensrp.chw.core.utils.Constants.EventType.UPDATE_ANC_REGISTRATION)) {
                             AllSharedPreferences allSharedPreferences = getAllSharedPreferences();
                             Event baseEvent = org.smartregister.chw.anc.util.JsonFormUtils.processJsonForm(allSharedPreferences, jsonString, Constants.TABLES.ANC_MEMBERS);
                             Util.processEvent(baseEvent.getBaseEntityId(), new JSONObject(org.smartregister.chw.anc.util.JsonFormUtils.gson.toJson(baseEvent)));
-                            AllCommonsRepository commonsRepository = ChwApplication.getInstance().getAllCommonsRepository(org.smartregister.chw.util.Constants.TABLE_NAME.ANC_MEMBER);
+                            AllCommonsRepository commonsRepository = ChwApplication.getInstance().getAllCommonsRepository(com.opensrp.chw.core.utils.Constants.TABLE_NAME.ANC_MEMBER);
 
                             JSONArray field = fields(form);
                             JSONObject phoneNumberObject = getFieldJSONObject(field, DBConstants.KEY.PHONE_NUMBER);
@@ -218,7 +218,7 @@ public class AncMemberProfileActivity extends BaseAncMemberProfileActivity {
                             if (commonsRepository != null) {
                                 ContentValues values = new ContentValues();
                                 values.put(DBConstants.KEY.PHONE_NUMBER, phoneNumber);
-                                ChwApplication.getInstance().getRepository().getWritableDatabase().update(org.smartregister.chw.util.Constants.TABLE_NAME.ANC_MEMBER, values, DBConstants.KEY.BASE_ENTITY_ID + " = ?  ", new String[]{baseEntityId});
+                                ChwApplication.getInstance().getRepository().getWritableDatabase().update(com.opensrp.chw.core.utils.Constants.TABLE_NAME.ANC_MEMBER, values, DBConstants.KEY.BASE_ENTITY_ID + " = ?  ", new String[]{baseEntityId});
 
                             }
 
@@ -253,7 +253,7 @@ public class AncMemberProfileActivity extends BaseAncMemberProfileActivity {
         intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.PRIMARY_CAREGIVER, MEMBER_OBJECT.getPrimaryCareGiver());
         intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.FAMILY_NAME, MEMBER_OBJECT.getFamilyName());
 
-        intent.putExtra(org.smartregister.chw.util.Constants.INTENT_KEY.SERVICE_DUE, true);
+        intent.putExtra(com.opensrp.chw.core.utils.Constants.INTENT_KEY.SERVICE_DUE, true);
         startActivity(intent);
     }
 

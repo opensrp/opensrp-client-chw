@@ -8,7 +8,7 @@ import android.view.View;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.fragment.IndividualProfileRemoveFragment;
-import org.smartregister.chw.util.Constants;
+import com.opensrp.chw.core.utils.Constants;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.view.activity.SecuredActivity;
 
@@ -25,7 +25,7 @@ public class IndividualProfileRemoveActivity extends SecuredActivity {
         intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID, familyBaseEntityId);
         intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.FAMILY_HEAD, familyHead);
         intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.PRIMARY_CAREGIVER, primaryCareGiver);
-        activity.startActivityForResult(intent, org.smartregister.chw.util.Constants.ProfileActivityResults.CHANGE_COMPLETED);
+        activity.startActivityForResult(intent, Constants.ProfileActivityResults.CHANGE_COMPLETED);
     }
 
     @Override

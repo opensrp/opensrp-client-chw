@@ -53,7 +53,7 @@ import java.util.Map;
 import de.hdodenhof.circleimageview.CircleImageView;
 import timber.log.Timber;
 
-import static org.smartregister.chw.util.Constants.INTENT_KEY.IS_COMES_FROM_FAMILY;
+import static com.opensrp.chw.core.utils.Constants.INTENT_KEY.IS_COMES_FROM_FAMILY;
 
 
 public class ChildProfileActivity extends BaseProfileActivity implements ChildProfileContract.View, ChildRegisterContract.InteractorCallBack {
@@ -265,7 +265,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
         intent.putExtra(Constants.INTENT_KEY.PRIMARY_CAREGIVER, ((ChildProfilePresenter) presenter()).getPrimaryCareGiverID());
         intent.putExtra(Constants.INTENT_KEY.FAMILY_NAME, ((ChildProfilePresenter) presenter()).getFamilyName());
 
-        intent.putExtra(org.smartregister.chw.util.Constants.INTENT_KEY.SERVICE_DUE, true);
+        intent.putExtra(com.opensrp.chw.core.utils.Constants.INTENT_KEY.SERVICE_DUE, true);
         startActivity(intent);
     }
 
@@ -666,7 +666,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
-            case org.smartregister.chw.util.Constants.ProfileActivityResults.CHANGE_COMPLETED:
+            case com.opensrp.chw.core.utils.Constants.ProfileActivityResults.CHANGE_COMPLETED:
                 if (resultCode == Activity.RESULT_OK) {
                     finish();
                 }
@@ -677,7 +677,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
                         String jsonString = data.getStringExtra(Constants.JSON_FORM_EXTRA.JSON);
 
                         JSONObject form = new JSONObject(jsonString);
-                        if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(org.smartregister.chw.util.Constants.EventType.UPDATE_CHILD_REGISTRATION)) {
+                        if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(com.opensrp.chw.core.utils.Constants.EventType.UPDATE_CHILD_REGISTRATION)) {
                             presenter().updateChildProfile(jsonString);
                         }
                     } catch (Exception e) {

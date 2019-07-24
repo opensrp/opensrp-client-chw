@@ -1,7 +1,6 @@
 <resources>
 
     <string name="login_title">CFC App</string>
-    <string name="nav_logo">CFC App</string>
     <string name="logo">logo</string>
 
     <string name="menu_all_families">All Families</string>
@@ -21,20 +20,6 @@
     <string name="provided_on">Provided on %1$s</string>
     <string name="given_on">Given on %1$s</string>
     <string name="search_name_or_id">Search name or ID</string>
-
-    <string name="navigation_drawer_open">Open</string>
-    <string name="navigation_drawer_close">Close</string>
-
-    <string name="action_log_out">Logging Out</string>
-    <string name="action_start_sync">Sync Started</string>
-    <string name="action_sync_failed">Sync Failed</string>
-
-    <!-- Navigation Strings -->
-    <string name="nav_registers">Registers</string>
-    <string name="nav_logout_as">Logout as</string>
-    <string name="nav_sync">Sync</string>
-    <string name="nav_last">"Last: </string>
-    <string name="nav_last_sync_time">HH:mm a , MMM DD</string>
 
     <string name="call">Call</string>
     <string name="call_no_number_provided">(no number provided)</string>
@@ -199,7 +184,7 @@
     <string name="malaria_registration">Malaria Confirmation</string>
     <string name="anc_registration_info">ANC Registration info</string>
     <string name="anc_pregnancy_out_come">Pregnancy outcome</string>
-    <string name="log_out_as">Log out as</string>
+
     <string name="job_aids">Job Aids</string>
     <string name="refresh_indicators">Refresh indicators</string>
     <string name="indicators_udpating">Updating&#8230;</string>
@@ -232,7 +217,6 @@
     <string name="call_caregiver">Call caregiver</string>
     <string name="caregiver">Caregiver</string>
     <string name="select_a_new_family_head">Select a new family head</string>
-    <string name="all_registers">All Registers</string>
     <string name="menu_labour_and_delivery"><![CDATA[L&D]]></string>
     <string name="menu_child">CH</string>
     <string name="menu_anc">ANC</string>
@@ -310,9 +294,6 @@
     <string name="remarks_and__comments">Remarks / Comments</string>
     <string name="date_given">Given on</string>
 
-
-    <string name="device_to_device">Device-to-device sync</string>
-    <string name="choose_language">Choose language</string>
     <string name="minimum_dietary_title">Minimum dietary diversity </string>
     <string name="minimum_question_lebel">Has the child received, in the previous 24 hours, any animal products (e.g. eggs, liver, milk) or fruit?</string>
     <string name="minimum_dietary_choice_1">0 - no animal products or fruit</string>

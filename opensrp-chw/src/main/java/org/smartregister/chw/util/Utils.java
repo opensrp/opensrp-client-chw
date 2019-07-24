@@ -7,6 +7,7 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.AssetManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
@@ -16,10 +17,11 @@ import android.telephony.TelephonyManager;
 import android.widget.Toast;
 
 import org.smartregister.chw.R;
-import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.contract.FamilyCallDialogContract;
 import org.smartregister.chw.fragment.CopyToClipboardDialog;
 import org.smartregister.util.PermissionUtils;
+
+import java.util.Locale;
 
 import timber.log.Timber;
 
@@ -81,8 +83,4 @@ public class Utils extends org.smartregister.family.util.Utils {
         return R.color.visit_status_ok;
     }
 
-    public static String getLocalForm(String form_name) {
-        return readFile(form_name, ChwApplication.getCurrentLocale(),
-                ChwApplication.getInstance().getApplicationContext().getAssets());
-    }
 }

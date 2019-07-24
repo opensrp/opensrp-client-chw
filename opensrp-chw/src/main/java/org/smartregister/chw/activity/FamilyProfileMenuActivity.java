@@ -32,10 +32,10 @@ public class FamilyProfileMenuActivity extends SecuredActivity {
 
         Fragment fragment;
         switch (menuOption) {
-            case org.smartregister.chw.util.Constants.MenuType.ChangeHead:
+            case com.opensrp.chw.core.utils.Constants.MenuType.ChangeHead:
                 fragment = FamilyProfileChangeHead.newInstance(familyBaseEntityId);
                 break;
-            case org.smartregister.chw.util.Constants.MenuType.ChangePrimaryCare:
+            case com.opensrp.chw.core.utils.Constants.MenuType.ChangePrimaryCare:
                 fragment = FamilyProfileChangePrimaryCG.newInstance(familyBaseEntityId);
                 break;
             default:

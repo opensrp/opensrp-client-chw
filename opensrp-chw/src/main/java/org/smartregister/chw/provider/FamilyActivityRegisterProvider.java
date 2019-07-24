@@ -9,8 +9,8 @@ import android.view.View;
 
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.R;
-import org.smartregister.chw.util.ChildDBConstants;
-import org.smartregister.chw.util.Constants;
+import com.opensrp.chw.core.utils.ChildDBConstants;
+import com.opensrp.chw.core.utils.Constants;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.family.fragment.BaseFamilyProfileMemberFragment;

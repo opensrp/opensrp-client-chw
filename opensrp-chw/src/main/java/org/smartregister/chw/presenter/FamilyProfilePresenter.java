@@ -15,7 +15,7 @@ import org.smartregister.chw.interactor.FamilyChangeContractInteractor;
 import org.smartregister.chw.interactor.FamilyProfileInteractor;
 import org.smartregister.chw.model.ChildProfileModel;
 import org.smartregister.chw.model.ChildRegisterModel;
-import org.smartregister.chw.util.Constants;
+import com.opensrp.chw.core.utils.Constants;
 import org.smartregister.chw.util.JsonFormUtils;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.clientandeventmodel.Client;

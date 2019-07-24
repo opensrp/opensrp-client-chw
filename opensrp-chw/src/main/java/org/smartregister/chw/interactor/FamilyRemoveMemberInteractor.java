@@ -11,7 +11,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.contract.FamilyRemoveMemberContract;
-import org.smartregister.chw.util.Constants;
+import com.opensrp.chw.core.utils.Constants;
 import org.smartregister.chw.util.JsonFormUtils;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.AllCommonsRepository;

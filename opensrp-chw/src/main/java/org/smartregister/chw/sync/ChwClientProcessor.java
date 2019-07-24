@@ -7,7 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.repository.HomeVisitRepository;
 import org.smartregister.chw.util.ChildUtils;
-import org.smartregister.chw.util.Constants;
+import com.opensrp.chw.core.utils.Constants;
 import org.smartregister.clientandeventmodel.DateUtil;
 import org.smartregister.commonregistry.AllCommonsRepository;
 import org.smartregister.commonregistry.CommonFtsObject;

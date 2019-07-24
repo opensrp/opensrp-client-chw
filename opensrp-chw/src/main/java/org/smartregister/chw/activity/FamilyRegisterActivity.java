@@ -7,13 +7,14 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 
+import com.opensrp.chw.core.custom_views.NavigationMenu;
+import com.opensrp.chw.core.utils.Constants;
+
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.application.ChwApplication;
-import org.smartregister.chw.custom_view.NavigationMenu;
 import org.smartregister.chw.fragment.FamilyRegisterFragment;
 import org.smartregister.chw.listener.FamilyBottomNavigationListener;
-import org.smartregister.chw.util.Constants;
 import org.smartregister.family.activity.BaseFamilyRegisterActivity;
 import org.smartregister.family.model.BaseFamilyRegisterModel;
 import org.smartregister.family.presenter.BaseFamilyRegisterPresenter;

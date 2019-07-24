@@ -6,6 +6,8 @@ import android.support.annotation.VisibleForTesting;
 import android.text.TextUtils;
 import android.util.Pair;
 
+import com.opensrp.chw.core.utils.Constants;
+
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -14,12 +16,11 @@ import org.smartregister.chw.contract.ChildProfileContract;
 import org.smartregister.chw.contract.HomeVisitGrowthNutritionContract;
 import org.smartregister.chw.contract.ImmunizationContact;
 import org.smartregister.chw.presenter.ImmunizationViewPresenter;
-import org.smartregister.chw.util.ChildDBConstants;
+import com.opensrp.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.util.ChildHomeVisit;
 import org.smartregister.chw.util.ChildService;
 import org.smartregister.chw.util.ChildUtils;
 import org.smartregister.chw.util.ChildVisit;
-import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.GrowthServiceData;
 import org.smartregister.chw.util.HomeVisitVaccineGroup;
 import org.smartregister.chw.util.ImmunizationState;
@@ -197,7 +198,7 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
 
     @Override
     public void refreshChildVisitBar(Context context, String baseEntityId, final ChildProfileContract.InteractorCallBack callback) {
-        ChildHomeVisit childHomeVisit = ChildUtils.getLastHomeVisit(org.smartregister.chw.util.Constants.TABLE_NAME.CHILD, baseEntityId);
+        ChildHomeVisit childHomeVisit = ChildUtils.getLastHomeVisit(Constants.TABLE_NAME.CHILD, baseEntityId);
 
         String dobString = Utils.getDuration(Utils.getValue(pClient.getColumnmaps(), DBConstants.KEY.DOB, false));
 
@@ -407,13 +408,13 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
 
     @Override
     public void updateChildCommonPerson(String baseEntityId) {
-        String query = ChildUtils.mainSelect(org.smartregister.chw.util.Constants.TABLE_NAME.CHILD, org.smartregister.chw.util.Constants.TABLE_NAME.FAMILY, org.smartregister.chw.util.Constants.TABLE_NAME.FAMILY_MEMBER, baseEntityId);
+        String query = ChildUtils.mainSelect(Constants.TABLE_NAME.CHILD, Constants.TABLE_NAME.FAMILY, Constants.TABLE_NAME.FAMILY_MEMBER, baseEntityId);
 
         Cursor cursor = null;
         try {
-            cursor = getCommonRepository(org.smartregister.chw.util.Constants.TABLE_NAME.CHILD).rawCustomQueryForAdapter(query);
+            cursor = getCommonRepository(Constants.TABLE_NAME.CHILD).rawCustomQueryForAdapter(query);
             if (cursor != null && cursor.moveToFirst()) {
-                CommonPersonObject personObject = getCommonRepository(org.smartregister.chw.util.Constants.TABLE_NAME.CHILD).readAllcommonforCursorAdapter(cursor);
+                CommonPersonObject personObject = getCommonRepository(Constants.TABLE_NAME.CHILD).readAllcommonforCursorAdapter(cursor);
                 pClient = new CommonPersonObjectClient(personObject.getCaseId(),
                         personObject.getDetails(), "");
                 pClient.setColumnmaps(personObject.getColumnmaps());
@@ -438,13 +439,13 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
-                String query = ChildUtils.mainSelect(org.smartregister.chw.util.Constants.TABLE_NAME.CHILD, org.smartregister.chw.util.Constants.TABLE_NAME.FAMILY, org.smartregister.chw.util.Constants.TABLE_NAME.FAMILY_MEMBER, baseEntityId);
+                String query = ChildUtils.mainSelect(Constants.TABLE_NAME.CHILD, Constants.TABLE_NAME.FAMILY, Constants.TABLE_NAME.FAMILY_MEMBER, baseEntityId);
 
                 Cursor cursor = null;
                 try {
-                    cursor = getCommonRepository(org.smartregister.chw.util.Constants.TABLE_NAME.CHILD).rawCustomQueryForAdapter(query);
+                    cursor = getCommonRepository(Constants.TABLE_NAME.CHILD).rawCustomQueryForAdapter(query);
                     if (cursor != null && cursor.moveToFirst()) {
-                        CommonPersonObject personObject = getCommonRepository(org.smartregister.chw.util.Constants.TABLE_NAME.CHILD).readAllcommonforCursorAdapter(cursor);
+                        CommonPersonObject personObject = getCommonRepository(Constants.TABLE_NAME.CHILD).readAllcommonforCursorAdapter(cursor);
                         pClient = new CommonPersonObjectClient(personObject.getCaseId(),
                                 personObject.getDetails(), "");
                         pClient.setColumnmaps(personObject.getColumnmaps());
@@ -592,7 +593,7 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
 
                 break;
 
-            case org.smartregister.chw.util.Constants.JsonAssets.FAM_NAME:
+            case Constants.JsonAssets.FAM_NAME:
 
                 final String SAME_AS_FAM_NAME = "same_as_fam_name";
                 final String SURNAME = "surname";

@@ -3,6 +3,8 @@ package org.smartregister.chw.util;
 import android.content.Context;
 import android.util.Pair;
 
+import com.opensrp.chw.core.utils.ChwDBConstants;
+import com.opensrp.chw.core.utils.Constants;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 
 import org.apache.commons.lang3.StringUtils;
@@ -33,17 +35,17 @@ public abstract class DefaultJsonFormUtilsFlv implements JsonFormUtils.Flavor {
 
     public DefaultJsonFormUtilsFlv() {
         JSON_DB_MAP = new HashMap<>();
-        JSON_DB_MAP.put(org.smartregister.chw.util.Constants.JsonAssets.SEX, DBConstants.KEY.GENDER);
-        JSON_DB_MAP.put(org.smartregister.chw.util.Constants.JsonAssets.NATIONAL_ID, org.smartregister.chw.util.Constants.JsonAssets.NATIONAL_ID);
-        JSON_DB_MAP.put(org.smartregister.chw.util.Constants.JsonAssets.VOTER_ID, ChwDBConstants.VOTER_ID);
-        JSON_DB_MAP.put(org.smartregister.chw.util.Constants.JsonAssets.DRIVER_LICENSE, ChwDBConstants.DRIVER_LICENSE);
-        JSON_DB_MAP.put(org.smartregister.chw.util.Constants.JsonAssets.PASSPORT, ChwDBConstants.PASSPORT);
-        JSON_DB_MAP.put(org.smartregister.chw.util.Constants.JsonAssets.INSURANCE_PROVIDER, ChwDBConstants.INSURANCE_PROVIDER);
-        JSON_DB_MAP.put(org.smartregister.chw.util.Constants.JsonAssets.INSURANCE_PROVIDER_OTHER, ChwDBConstants.INSURANCE_PROVIDER_OTHER);
-        JSON_DB_MAP.put(org.smartregister.chw.util.Constants.JsonAssets.INSURANCE_PROVIDER_NUMBER, ChwDBConstants.INSURANCE_PROVIDER_NUMBER);
-        JSON_DB_MAP.put(org.smartregister.chw.util.Constants.JsonAssets.DISABILITIES, ChwDBConstants.DISABILITIES);
-        JSON_DB_MAP.put(org.smartregister.chw.util.Constants.JsonAssets.DISABILITY_TYPE, ChwDBConstants.DISABILITY_TYPE);
-        JSON_DB_MAP.put(org.smartregister.chw.util.Constants.JsonAssets.OTHER_LEADER, ChwDBConstants.OTHER_LEADER);
+        JSON_DB_MAP.put(Constants.JsonAssets.SEX, DBConstants.KEY.GENDER);
+        JSON_DB_MAP.put(Constants.JsonAssets.NATIONAL_ID, Constants.JsonAssets.NATIONAL_ID);
+        JSON_DB_MAP.put(Constants.JsonAssets.VOTER_ID, ChwDBConstants.VOTER_ID);
+        JSON_DB_MAP.put(Constants.JsonAssets.DRIVER_LICENSE, ChwDBConstants.DRIVER_LICENSE);
+        JSON_DB_MAP.put(Constants.JsonAssets.PASSPORT, ChwDBConstants.PASSPORT);
+        JSON_DB_MAP.put(Constants.JsonAssets.INSURANCE_PROVIDER, ChwDBConstants.INSURANCE_PROVIDER);
+        JSON_DB_MAP.put(Constants.JsonAssets.INSURANCE_PROVIDER_OTHER, ChwDBConstants.INSURANCE_PROVIDER_OTHER);
+        JSON_DB_MAP.put(Constants.JsonAssets.INSURANCE_PROVIDER_NUMBER, ChwDBConstants.INSURANCE_PROVIDER_NUMBER);
+        JSON_DB_MAP.put(Constants.JsonAssets.DISABILITIES, ChwDBConstants.DISABILITIES);
+        JSON_DB_MAP.put(Constants.JsonAssets.DISABILITY_TYPE, ChwDBConstants.DISABILITY_TYPE);
+        JSON_DB_MAP.put(Constants.JsonAssets.OTHER_LEADER, ChwDBConstants.OTHER_LEADER);
     }
 
     @Override
@@ -105,7 +107,7 @@ public abstract class DefaultJsonFormUtilsFlv implements JsonFormUtils.Flavor {
                 computeDOBUnknown(jsonObject, client);
                 break;
 
-            case org.smartregister.chw.util.Constants.JsonAssets.AGE:
+            case Constants.JsonAssets.AGE:
                 computeAge(jsonObject, client);
                 break;
 
@@ -121,20 +123,20 @@ public abstract class DefaultJsonFormUtilsFlv implements JsonFormUtils.Flavor {
                 computeID(jsonObject, client);
                 break;
 
-            case org.smartregister.chw.util.Constants.JsonAssets.PREGNANT_1_YR:
+            case Constants.JsonAssets.PREGNANT_1_YR:
                 computePregnantOneYr(jsonObject, ecEvent);
                 break;
 
-            case org.smartregister.chw.util.Constants.JsonAssets.FAM_NAME:
+            case Constants.JsonAssets.FAM_NAME:
                 computeFamName(client, jsonObject, jsonArray, familyName);
                 break;
 
-            case org.smartregister.chw.util.Constants.JsonAssets.PRIMARY_CARE_GIVER:
-            case org.smartregister.chw.util.Constants.JsonAssets.IS_PRIMARY_CARE_GIVER:
+            case Constants.JsonAssets.PRIMARY_CARE_GIVER:
+            case Constants.JsonAssets.IS_PRIMARY_CARE_GIVER:
                 computePrimaryCareGiver(jsonObject, isPrimaryCaregiver);
                 break;
 
-            case org.smartregister.chw.util.Constants.JsonAssets.SERVICE_PROVIDER:
+            case Constants.JsonAssets.SERVICE_PROVIDER:
                 computeServiceProvider(jsonObject, ecEvent);
                 break;
 

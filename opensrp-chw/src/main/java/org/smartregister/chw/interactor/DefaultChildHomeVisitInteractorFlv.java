@@ -11,7 +11,7 @@ import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.domain.HomeVisit;
 import org.smartregister.chw.util.BirthCertDataModel;
 import org.smartregister.chw.util.ChildUtils;
-import org.smartregister.chw.util.Constants;
+import com.opensrp.chw.core.utils.Constants;
 import org.smartregister.chw.util.HomeVisitServiceDataModel;
 import org.smartregister.chw.util.ObsIllnessDataModel;
 import org.smartregister.chw.util.ServiceTask;
@@ -24,12 +24,12 @@ import java.util.List;
 
 import static com.opensrp.chw.core.utils.Utils.DD_MM_YYYY;
 import static com.opensrp.chw.core.utils.Utils.convertToDateFormateString;
-import static org.smartregister.chw.util.ChildDBConstants.KEY.BIRTH_CERT;
-import static org.smartregister.chw.util.ChildDBConstants.KEY.BIRTH_CERT_ISSUE_DATE;
-import static org.smartregister.chw.util.ChildDBConstants.KEY.BIRTH_CERT_NUMBER;
-import static org.smartregister.chw.util.ChildDBConstants.KEY.ILLNESS_ACTION;
-import static org.smartregister.chw.util.ChildDBConstants.KEY.ILLNESS_DATE;
-import static org.smartregister.chw.util.ChildDBConstants.KEY.ILLNESS_DESCRIPTION;
+import static com.opensrp.chw.core.utils.ChildDBConstants.KEY.BIRTH_CERT;
+import static com.opensrp.chw.core.utils.ChildDBConstants.KEY.BIRTH_CERT_ISSUE_DATE;
+import static com.opensrp.chw.core.utils.ChildDBConstants.KEY.BIRTH_CERT_NUMBER;
+import static com.opensrp.chw.core.utils.ChildDBConstants.KEY.ILLNESS_ACTION;
+import static com.opensrp.chw.core.utils.ChildDBConstants.KEY.ILLNESS_DATE;
+import static com.opensrp.chw.core.utils.ChildDBConstants.KEY.ILLNESS_DESCRIPTION;
 
 public abstract class DefaultChildHomeVisitInteractorFlv implements ChildHomeVisitInteractor.Flavor {
     @Override

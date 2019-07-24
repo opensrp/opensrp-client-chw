@@ -11,9 +11,9 @@ import org.smartregister.chw.fragment.GrowthNutritionInputFragment;
 import org.smartregister.chw.repository.HomeVisitServiceRepository;
 import org.smartregister.chw.util.BaseService;
 import org.smartregister.chw.util.BaseVaccine;
-import org.smartregister.chw.util.ChildDBConstants;
+import com.opensrp.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.util.ChildUtils;
-import org.smartregister.chw.util.Constants;
+import com.opensrp.chw.core.utils.Constants;
 import org.smartregister.chw.util.HomeVisitServiceDataModel;
 import org.smartregister.chw.util.ReceivedVaccine;
 import org.smartregister.chw.util.ServiceContent;
@@ -44,14 +44,14 @@ import java.util.Map;
 
 import timber.log.Timber;
 
-import static org.smartregister.chw.util.ChildDBConstants.KEY.BIRTH_CERT;
-import static org.smartregister.chw.util.ChildDBConstants.KEY.BIRTH_CERT_ISSUE_DATE;
-import static org.smartregister.chw.util.ChildDBConstants.KEY.BIRTH_CERT_NOTIFIICATION;
-import static org.smartregister.chw.util.ChildDBConstants.KEY.BIRTH_CERT_NUMBER;
-import static org.smartregister.chw.util.ChildDBConstants.KEY.ILLNESS_ACTION;
-import static org.smartregister.chw.util.ChildDBConstants.KEY.ILLNESS_DATE;
-import static org.smartregister.chw.util.ChildDBConstants.KEY.ILLNESS_DESCRIPTION;
-import static org.smartregister.chw.util.ChildDBConstants.KEY.VACCINE_CARD;
+import static com.opensrp.chw.core.utils.ChildDBConstants.KEY.BIRTH_CERT;
+import static com.opensrp.chw.core.utils.ChildDBConstants.KEY.BIRTH_CERT_ISSUE_DATE;
+import static com.opensrp.chw.core.utils.ChildDBConstants.KEY.BIRTH_CERT_NOTIFIICATION;
+import static com.opensrp.chw.core.utils.ChildDBConstants.KEY.BIRTH_CERT_NUMBER;
+import static com.opensrp.chw.core.utils.ChildDBConstants.KEY.ILLNESS_ACTION;
+import static com.opensrp.chw.core.utils.ChildDBConstants.KEY.ILLNESS_DATE;
+import static com.opensrp.chw.core.utils.ChildDBConstants.KEY.ILLNESS_DESCRIPTION;
+import static com.opensrp.chw.core.utils.ChildDBConstants.KEY.VACCINE_CARD;
 import static org.smartregister.chw.util.ChildUtils.fixVaccineCasing;
 import static org.smartregister.util.Utils.getValue;
 

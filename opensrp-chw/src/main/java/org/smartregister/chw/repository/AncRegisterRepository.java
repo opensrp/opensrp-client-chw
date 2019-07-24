@@ -73,7 +73,7 @@ public class AncRegisterRepository extends BaseRepository {
                     org.smartregister.chw.anc.util.DBConstants.KEY.IS_CLOSED + " = ? " + COLLATE_NOCASE;
             String[] selectionArgs = new String[]{familyBaseID, "0"};
 
-            cursor = database.query(org.smartregister.chw.util.Constants.TABLE_NAME.ANC_MEMBER,
+            cursor = database.query(com.opensrp.chw.core.utils.Constants.TABLE_NAME.ANC_MEMBER,
                     ANC_COUNT_TABLE_COLUMNS, selection, selectionArgs, null, null, null);
 
             return cursor.getCount();

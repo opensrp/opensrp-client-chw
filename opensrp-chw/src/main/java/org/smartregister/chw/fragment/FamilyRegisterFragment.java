@@ -11,11 +11,11 @@ import android.widget.TextView;
 
 import org.smartregister.chw.R;
 import org.smartregister.chw.contract.RegisterFragmentContract;
-import org.smartregister.chw.custom_view.NavigationMenu;
+import com.opensrp.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.model.FamilyRegisterFramentModel;
 import org.smartregister.chw.presenter.FamilyRegisterFragmentPresenter;
 import org.smartregister.chw.provider.ChwRegisterProvider;
-import org.smartregister.chw.util.Constants;
+import com.opensrp.chw.core.utils.Constants;
 import org.smartregister.chw.util.QueryBuilder;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.commonregistry.CommonFtsObject;
@@ -292,7 +292,7 @@ public class FamilyRegisterFragment extends BaseFamilyRegisterFragment {
                     Timber.i(query);
 
                     clientAdapter.setTotalcount(commonRepository().countSearchIds(sql));
-                    Timber.v("total count here", "" + clientAdapter.getTotalcount());
+                    Timber.v("total count here %d",  + clientAdapter.getTotalcount());
 
 
                 } else {
@@ -304,7 +304,7 @@ public class FamilyRegisterFragment extends BaseFamilyRegisterFragment {
                     c = commonRepository().rawCustomQueryForAdapter(query);
                     c.moveToFirst();
                     clientAdapter.setTotalcount(c.getInt(0));
-                    Timber.v("total count here", "" + clientAdapter.getTotalcount());
+                    Timber.v("total count here  %d" , clientAdapter.getTotalcount());
                 }
 
                 clientAdapter.setCurrentlimit(20);

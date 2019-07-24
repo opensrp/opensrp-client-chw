@@ -13,7 +13,7 @@ import org.smartregister.AllConstants;
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.contract.ChildRegisterContract;
-import org.smartregister.chw.custom_view.NavigationMenu;
+import com.opensrp.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.fragment.ChildRegisterFragment;
 import org.smartregister.chw.listener.ChwBottomNavigationListener;
 import org.smartregister.chw.model.ChildRegisterModel;
@@ -95,7 +95,7 @@ public class ChildRegisterActivity extends BaseRegisterActivity implements Child
 
                 JSONObject form = new JSONObject(jsonString);
                 if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Utils.metadata().familyRegister.registerEventType)
-                        || form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(org.smartregister.chw.util.Constants.EventType.CHILD_REGISTRATION)
+                        || form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(com.opensrp.chw.core.utils.Constants.EventType.CHILD_REGISTRATION)
                 ) {
                     presenter().saveForm(jsonString, false);
                 }
@@ -159,6 +159,6 @@ public class ChildRegisterActivity extends BaseRegisterActivity implements Child
     protected void onResumption() {
         super.onResumption();
         NavigationMenu.getInstance(this, null, null).getNavigationAdapter()
-                .setSelectedView(org.smartregister.chw.util.Constants.DrawerMenu.CHILD_CLIENTS);
+                .setSelectedView(com.opensrp.chw.core.utils.Constants.DrawerMenu.CHILD_CLIENTS);
     }
 }

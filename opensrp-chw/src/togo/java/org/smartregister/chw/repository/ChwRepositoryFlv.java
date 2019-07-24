@@ -3,6 +3,8 @@ package org.smartregister.chw.repository;
 import android.content.Context;
 import android.database.Cursor;
 
+import com.opensrp.chw.core.utils.Constants;
+
 import net.sqlcipher.database.SQLiteDatabase;
 
 import org.json.JSONObject;
@@ -10,7 +12,6 @@ import org.smartregister.chw.anc.repository.VisitDetailsRepository;
 import org.smartregister.chw.anc.repository.VisitRepository;
 import org.smartregister.chw.anc.util.Util;
 import org.smartregister.chw.application.ChwApplication;
-import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.RepositoryUtilsFlv;
 import org.smartregister.domain.db.Column;
 import org.smartregister.domain.db.Event;

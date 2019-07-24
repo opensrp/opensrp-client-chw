@@ -226,4 +226,7 @@ public class Utils {
         return str.substring(0, 1).toUpperCase() + str.substring(1).toLowerCase();
     }
 
+    public static String getLocalForm(String form_name, Locale locale, AssetManager assetManager) {
+        return readFile(form_name, locale, assetManager);
+    }
 }

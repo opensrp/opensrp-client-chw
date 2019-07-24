@@ -13,7 +13,7 @@ import org.smartregister.chw.contract.ImmunizationContact;
 import org.smartregister.chw.domain.HomeVisit;
 import org.smartregister.chw.model.ImmunizationModel;
 import org.smartregister.chw.model.VaccineTaskModel;
-import org.smartregister.chw.util.ChildDBConstants;
+import com.opensrp.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.util.ChildUtils;
 import org.smartregister.chw.util.ChwServiceSchedule;
 import org.smartregister.chw.util.HomeVisitVaccineGroup;

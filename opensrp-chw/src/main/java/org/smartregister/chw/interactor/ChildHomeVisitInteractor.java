@@ -13,7 +13,7 @@ import org.smartregister.chw.domain.HomeVisit;
 import org.smartregister.chw.repository.ChwRepository;
 import org.smartregister.chw.util.BirthCertDataModel;
 import org.smartregister.chw.util.BirthIllnessFormModel;
-import org.smartregister.chw.util.ChildDBConstants;
+import com.opensrp.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.util.JsonFormUtils;
 import org.smartregister.chw.util.ObsIllnessDataModel;
 import org.smartregister.chw.util.ServiceTask;
@@ -32,7 +32,7 @@ import java.util.Iterator;
 
 import timber.log.Timber;
 
-import static org.smartregister.chw.util.ChildDBConstants.KEY.BIRTH_CERT;
+import static com.opensrp.chw.core.utils.ChildDBConstants.KEY.BIRTH_CERT;
 import static org.smartregister.util.Utils.getValue;
 
 public class ChildHomeVisitInteractor implements ChildHomeVisitContract.Interactor {

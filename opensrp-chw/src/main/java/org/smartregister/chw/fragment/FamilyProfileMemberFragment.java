@@ -10,7 +10,7 @@ import org.smartregister.chw.activity.ChildProfileActivity;
 import org.smartregister.chw.activity.FamilyOtherMemberProfileActivity;
 import org.smartregister.chw.model.FamilyProfileMemberModel;
 import org.smartregister.chw.provider.ChwMemberRegisterProvider;
-import org.smartregister.chw.util.ChildDBConstants;
+import com.opensrp.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.util.ChildUtils;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
@@ -25,7 +25,8 @@ import java.util.Set;
 
 import timber.log.Timber;
 
-import static org.smartregister.chw.util.Constants.INTENT_KEY.IS_COMES_FROM_FAMILY;
+import static com.opensrp.chw.core.utils.Constants.*;
+import static com.opensrp.chw.core.utils.Constants.INTENT_KEY.IS_COMES_FROM_FAMILY;
 
 public class FamilyProfileMemberFragment extends BaseFamilyProfileMemberFragment {
 
@@ -79,7 +80,7 @@ public class FamilyProfileMemberFragment extends BaseFamilyProfileMemberFragment
         if (view.getTag() instanceof CommonPersonObjectClient) {
             CommonPersonObjectClient commonPersonObjectClient = (CommonPersonObjectClient) view.getTag();
             String entityType = Utils.getValue(commonPersonObjectClient.getColumnmaps(), ChildDBConstants.KEY.ENTITY_TYPE, false);
-            if (org.smartregister.chw.util.Constants.TABLE_NAME.FAMILY_MEMBER.equals(entityType)) {
+            if (TABLE_NAME.FAMILY_MEMBER.equals(entityType)) {
                 goToOtherMemberProfileActivity(commonPersonObjectClient);
             } else {
                 goToChildProfileActivity(commonPersonObjectClient);
@@ -91,7 +92,7 @@ public class FamilyProfileMemberFragment extends BaseFamilyProfileMemberFragment
         Intent intent = new Intent(getActivity(), FamilyOtherMemberProfileActivity.class);
         intent.putExtras(getArguments());
         intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, patient.getCaseId());
-        intent.putExtra(org.smartregister.chw.util.Constants.INTENT_KEY.CHILD_COMMON_PERSON, patient);
+        intent.putExtra(INTENT_KEY.CHILD_COMMON_PERSON, patient);
         intent.putExtra(Constants.INTENT_KEY.FAMILY_HEAD, ((BaseFamilyProfileMemberPresenter) presenter).getFamilyHead());
         intent.putExtra(Constants.INTENT_KEY.PRIMARY_CAREGIVER, ((BaseFamilyProfileMemberPresenter) presenter).getPrimaryCaregiver());
         startActivity(intent);

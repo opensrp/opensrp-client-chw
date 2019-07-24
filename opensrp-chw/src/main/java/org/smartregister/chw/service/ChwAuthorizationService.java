@@ -5,7 +5,7 @@ import android.support.annotation.Nullable;
 
 import org.smartregister.AllConstants;
 import org.smartregister.CoreLibrary;
-import org.smartregister.chw.util.Constants;
+import com.opensrp.chw.core.utils.Constants;
 import org.smartregister.domain.jsonmapping.Location;
 import org.smartregister.domain.jsonmapping.util.LocationTree;
 import org.smartregister.domain.jsonmapping.util.TreeNode;

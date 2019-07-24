@@ -1,8 +1,8 @@
 package org.smartregister.chw.model;
 
 import org.smartregister.chw.malaria.model.BaseMalariaRegisterFragmentModel;
-import org.smartregister.chw.util.ChildDBConstants;
-import org.smartregister.chw.util.Constants;
+import com.opensrp.chw.core.utils.ChildDBConstants;
+import com.opensrp.chw.core.utils.Constants;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.family.util.DBConstants;
 

@@ -13,7 +13,7 @@ import android.widget.FrameLayout;
 
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.FamilyProfileActivity;
-import org.smartregister.chw.util.Constants;
+import com.opensrp.chw.core.utils.Constants;
 
 public class  AddMemberFragment extends DialogFragment implements View.OnClickListener {
 

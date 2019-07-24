@@ -4,7 +4,7 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.anc.contract.BaseAncRegisterFragmentContract;
 import org.smartregister.chw.anc.presenter.BaseAncRegisterFragmentPresenter;
 import org.smartregister.chw.anc.util.DBConstants;
-import org.smartregister.chw.util.Constants;
+import com.opensrp.chw.core.utils.Constants;
 
 public class AncRegisterFragmentPresenter extends BaseAncRegisterFragmentPresenter {
     public AncRegisterFragmentPresenter(BaseAncRegisterFragmentContract.View view, BaseAncRegisterFragmentContract.Model model, String viewConfigurationIdentifier) {

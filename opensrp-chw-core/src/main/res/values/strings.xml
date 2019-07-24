@@ -1,8 +1,9 @@
 <resources>
-    <!--Login -->
+    <!--Login and app strings-->
     <string name="powered_by">Powered by</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
+    <string name="nav_logo">Boresha Afya App</string>
 
     <!-- Date manipulation-->
     <string name="day">day</string>
@@ -13,5 +14,24 @@
     <string name="months">months</string>
     <string name="year">year</string>
     <string name="years">years</string>
+
+
+    <string name="navigation_drawer_open">Open</string>
+    <string name="navigation_drawer_close">Close</string>
+
+    <string name="action_log_out">Logging Out</string>
+    <string name="action_start_sync">Sync Started</string>
+    <string name="action_sync_failed">Sync Failed</string>
+
+    <!-- Navigation Strings -->
+    <string name="nav_registers">Registers</string>
+    <string name="nav_logout_as">Logout as</string>
+    <string name="nav_sync">Sync</string>
+    <string name="nav_last">"Last: </string>
+    <string name="nav_last_sync_time">HH:mm a , MMM DD</string>
+    <string name="all_registers">All Registers</string>
+    <string name="log_out_as">Log out as</string>
+    <string name="device_to_device">Device-to-device sync</string>
+    <string name="choose_language">Choose language</string>
 
 </resources>

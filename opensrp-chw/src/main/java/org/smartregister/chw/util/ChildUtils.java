@@ -21,6 +21,8 @@ import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 import com.google.gson.reflect.TypeToken;
+import com.opensrp.chw.core.utils.ChildDBConstants;
+import com.opensrp.chw.core.utils.Constants;
 
 import org.apache.commons.lang3.StringUtils;
 import org.jeasy.rules.api.Rules;
@@ -195,7 +197,7 @@ public class ChildUtils {
         ChildHomeVisit childHomeVisit = new ChildHomeVisit();
         Cursor cursor = null;
         try {
-            cursor = Utils.context().commonrepository(org.smartregister.chw.util.Constants.TABLE_NAME.CHILD).queryTable(query);
+            cursor = Utils.context().commonrepository(Constants.TABLE_NAME.CHILD).queryTable(query);
             if (cursor != null && cursor.moveToFirst()) {
                 String lastVisitStr = cursor.getString(cursor.getColumnIndex(ChildDBConstants.KEY.LAST_HOME_VISIT));
                 if (!TextUtils.isEmpty(lastVisitStr)) {

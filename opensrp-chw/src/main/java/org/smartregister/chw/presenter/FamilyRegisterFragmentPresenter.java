@@ -2,7 +2,7 @@ package org.smartregister.chw.presenter;
 
 import org.smartregister.chw.R;
 import org.smartregister.chw.contract.RegisterFragmentContract;
-import org.smartregister.chw.util.ChildDBConstants;
+import com.opensrp.chw.core.utils.ChildDBConstants;
 import org.smartregister.family.contract.FamilyRegisterFragmentContract;
 import org.smartregister.family.presenter.BaseFamilyRegisterFragmentPresenter;
 import org.smartregister.family.util.DBConstants;

@@ -2,7 +2,7 @@ package org.smartregister.chw.presenter;
 
 import org.smartregister.chw.malaria.contract.MalariaRegisterFragmentContract;
 import org.smartregister.chw.malaria.presenter.BaseMalariaRegisterFragmentPresenter;
-import org.smartregister.chw.util.Constants;
+import com.opensrp.chw.core.utils.Constants;
 
 public class MalariaRegisterFragmentPresenter extends BaseMalariaRegisterFragmentPresenter {
 

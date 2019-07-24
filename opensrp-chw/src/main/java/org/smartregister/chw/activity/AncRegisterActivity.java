@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.opensrp.chw.core.utils.Constants;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
 
@@ -14,10 +15,9 @@ import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.activity.BaseAncRegisterActivity;
 import org.smartregister.chw.anc.util.DBConstants;
-import org.smartregister.chw.custom_view.NavigationMenu;
+import com.opensrp.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.fragment.AncRegisterFragment;
 import org.smartregister.chw.listener.AncBottomNavigationListener;
-import org.smartregister.chw.util.Constants;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
 import org.smartregister.view.fragment.BaseRegisterFragment;
@@ -26,8 +26,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.smartregister.chw.anc.util.Constants.ACTIVITY_PAYLOAD.TABLE_NAME;
-import static org.smartregister.chw.util.Constants.TABLE_NAME.ANC_MEMBER;
-import static org.smartregister.chw.util.Constants.TABLE_NAME.ANC_PREGNANCY_OUTCOME;
+import static com.opensrp.chw.core.utils.Constants.TABLE_NAME.ANC_MEMBER;
+import static com.opensrp.chw.core.utils.Constants.TABLE_NAME.ANC_PREGNANCY_OUTCOME;
 
 public class AncRegisterActivity extends BaseAncRegisterActivity {
     private static String phone_number;
@@ -138,7 +138,7 @@ public class AncRegisterActivity extends BaseAncRegisterActivity {
             JSONObject stepOne = jsonForm.getJSONObject(JsonFormUtils.STEP1);
             JSONArray jsonArray = stepOne.getJSONArray(JsonFormUtils.FIELDS);
             updateFormField(jsonArray, DBConstants.KEY.TEMP_UNIQUE_ID, unique_id);
-            updateFormField(jsonArray, org.smartregister.chw.util.Constants.JsonAssets.FAMILY_MEMBER.PHONE_NUMBER, phone_number);
+            updateFormField(jsonArray, Constants.JsonAssets.FAMILY_MEMBER.PHONE_NUMBER, phone_number);
             updateFormField(jsonArray, org.smartregister.family.util.DBConstants.KEY.RELATIONAL_ID, familyBaseEntityId);
 
             Intent intent = new Intent(this, Utils.metadata().familyMemberFormActivity);

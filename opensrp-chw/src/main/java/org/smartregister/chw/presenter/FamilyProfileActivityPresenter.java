@@ -1,7 +1,7 @@
 package org.smartregister.chw.presenter;
 
-import org.smartregister.chw.util.ChildDBConstants;
-import org.smartregister.chw.util.Constants;
+import com.opensrp.chw.core.utils.ChildDBConstants;
+import com.opensrp.chw.core.utils.Constants;
 import org.smartregister.family.contract.FamilyProfileActivityContract;
 import org.smartregister.family.presenter.BaseFamilyProfileActivityPresenter;
 import org.smartregister.family.util.DBConstants;

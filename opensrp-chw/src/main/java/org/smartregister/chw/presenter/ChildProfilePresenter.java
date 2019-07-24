@@ -2,6 +2,8 @@ package org.smartregister.chw.presenter;
 
 import android.util.Pair;
 
+import com.opensrp.chw.core.utils.Constants;
+
 import org.joda.time.DateTime;
 import org.joda.time.Period;
 import org.json.JSONObject;
@@ -11,7 +13,7 @@ import org.smartregister.chw.contract.FamilyProfileExtendedContract;
 import org.smartregister.chw.interactor.ChildProfileInteractor;
 import org.smartregister.chw.interactor.FamilyProfileInteractor;
 import org.smartregister.chw.model.ChildRegisterModel;
-import org.smartregister.chw.util.ChildDBConstants;
+import com.opensrp.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.util.ChildService;
 import org.smartregister.chw.util.ChildVisit;
 import org.smartregister.clientandeventmodel.Client;
@@ -159,7 +161,7 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
 
     @Override
     public void startFormForEdit(String title, CommonPersonObjectClient client) {
-        JSONObject form = interactor.getAutoPopulatedJsonEditFormString(org.smartregister.chw.util.Constants.JSON_FORM.getChildRegister(), title, getView().getApplicationContext(), client);
+        JSONObject form = interactor.getAutoPopulatedJsonEditFormString(Constants.JSON_FORM.getChildRegister(), title, getView().getApplicationContext(), client);
         try {
 
             if (!isBlank(client.getColumnmaps().get(ChildDBConstants.KEY.RELATIONAL_ID))) {

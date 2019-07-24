@@ -17,11 +17,11 @@ import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.fragment.BaseAncRegisterFragment;
 import org.smartregister.chw.anc.util.DBConstants;
 import org.smartregister.chw.application.ChwApplication;
-import org.smartregister.chw.custom_view.NavigationMenu;
+import com.opensrp.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.model.AncRegisterFragmentModel;
 import org.smartregister.chw.presenter.AncRegisterFragmentPresenter;
 import org.smartregister.chw.provider.ChwAncRegisterProvider;
-import org.smartregister.chw.util.Constants;
+import com.opensrp.chw.core.utils.Constants;
 import org.smartregister.chw.util.QueryBuilder;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
@@ -294,7 +294,7 @@ public class AncRegisterFragment extends BaseAncRegisterFragment {
             c = commonRepository().rawCustomQueryForAdapter(query);
             c.moveToFirst();
             clientAdapter.setTotalcount(c.getInt(0));
-            Timber.v("total count here", "" + clientAdapter.getTotalcount());
+            Timber.v("total count here %d", clientAdapter.getTotalcount());
 
             clientAdapter.setCurrentlimit(20);
             clientAdapter.setCurrentoffset(0);

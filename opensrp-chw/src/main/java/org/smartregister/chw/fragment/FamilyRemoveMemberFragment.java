@@ -81,7 +81,7 @@ public class FamilyRemoveMemberFragment extends BaseFamilyProfileMemberFragment 
     @Override
     public void displayChangeFamilyHeadDialog(final CommonPersonObjectClient client, final String familyHeadID) {
         FamilyProfileChangeDialog dialog = FamilyProfileChangeDialog.newInstance(getContext(), familyBaseEntityId,
-                org.smartregister.chw.util.Constants.PROFILE_CHANGE_ACTION.HEAD_OF_FAMILY);
+                com.opensrp.chw.core.utils.Constants.PROFILE_CHANGE_ACTION.HEAD_OF_FAMILY);
         dialog.setOnSaveAndClose(new Runnable() {
             @Override
             public void run() {
@@ -97,7 +97,7 @@ public class FamilyRemoveMemberFragment extends BaseFamilyProfileMemberFragment 
     @Override
     public void displayChangeCareGiverDialog(final CommonPersonObjectClient client, final String careGiverID) {
         FamilyProfileChangeDialog dialog = FamilyProfileChangeDialog.newInstance(getContext(), familyBaseEntityId,
-                org.smartregister.chw.util.Constants.PROFILE_CHANGE_ACTION.PRIMARY_CARE_GIVER);
+                com.opensrp.chw.core.utils.Constants.PROFILE_CHANGE_ACTION.PRIMARY_CARE_GIVER);
         dialog.setOnSaveAndClose(new Runnable() {
             @Override
             public void run() {
@@ -143,7 +143,7 @@ public class FamilyRemoveMemberFragment extends BaseFamilyProfileMemberFragment 
     public void onMemberRemoved(String removalType) {
         // display alert
         if (getActivity() != null) {
-            if (org.smartregister.chw.util.Constants.EventType.REMOVE_FAMILY.equalsIgnoreCase(removalType)) {
+            if (com.opensrp.chw.core.utils.Constants.EventType.REMOVE_FAMILY.equalsIgnoreCase(removalType)) {
                 Intent intent = new Intent(getActivity(), FamilyRegisterActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);

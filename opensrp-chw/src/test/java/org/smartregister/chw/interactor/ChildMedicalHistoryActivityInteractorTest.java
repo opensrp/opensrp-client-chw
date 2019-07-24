@@ -14,7 +14,7 @@ import org.smartregister.chw.BaseUnitTest;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.contract.ChildMedicalHistoryContract;
 import org.smartregister.chw.fragment.GrowthNutritionInputFragment;
-import org.smartregister.chw.util.ChildDBConstants;
+import com.opensrp.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.util.ServiceContent;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.util.AppExecutors;
@@ -26,11 +26,11 @@ import java.util.Map;
 
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
-import static org.smartregister.chw.util.ChildDBConstants.KEY.BIRTH_CERT;
-import static org.smartregister.chw.util.ChildDBConstants.KEY.BIRTH_CERT_NOTIFIICATION;
-import static org.smartregister.chw.util.ChildDBConstants.KEY.ILLNESS_ACTION;
-import static org.smartregister.chw.util.ChildDBConstants.KEY.ILLNESS_DATE;
-import static org.smartregister.chw.util.ChildDBConstants.KEY.ILLNESS_DESCRIPTION;
+import static com.opensrp.chw.core.utils.ChildDBConstants.KEY.BIRTH_CERT;
+import static com.opensrp.chw.core.utils.ChildDBConstants.KEY.BIRTH_CERT_NOTIFIICATION;
+import static com.opensrp.chw.core.utils.ChildDBConstants.KEY.ILLNESS_ACTION;
+import static com.opensrp.chw.core.utils.ChildDBConstants.KEY.ILLNESS_DATE;
+import static com.opensrp.chw.core.utils.ChildDBConstants.KEY.ILLNESS_DESCRIPTION;
 
 public class ChildMedicalHistoryActivityInteractorTest extends BaseUnitTest {
 

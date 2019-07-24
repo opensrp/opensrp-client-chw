@@ -67,7 +67,7 @@ public class DefaultAncHomeVisitInteractorFlvTest {
     public void testCalculateActions() throws Exception {
         PowerMockito.mockStatic(ImmunizationLibrary.class);
         PowerMockito.mockStatic(Utils.class);
-        when(Utils.getLocalForm(ArgumentMatchers.anyString())).thenReturn("anc_hv_anc_iptp_sp");
+        when(com.opensrp.chw.core.utils.Utils.getLocalForm(ArgumentMatchers.anyString())).thenReturn("anc_hv_anc_iptp_sp");
 
         when(immunizationLibrary.recurringServiceRecordRepository()).thenReturn(recurringServiceRecordRepository);
         when(ImmunizationLibrary.getInstance()).thenReturn(immunizationLibrary);

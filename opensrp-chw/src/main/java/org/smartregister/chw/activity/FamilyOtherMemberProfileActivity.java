@@ -87,14 +87,14 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
 
     @Override
     protected void initializePresenter() {
-        commonPersonObject = (CommonPersonObjectClient) getIntent().getSerializableExtra(org.smartregister.chw.util.Constants.INTENT_KEY.CHILD_COMMON_PERSON);
+        commonPersonObject = (CommonPersonObjectClient) getIntent().getSerializableExtra(com.opensrp.chw.core.utils.Constants.INTENT_KEY.CHILD_COMMON_PERSON);
         familyBaseEntityId = getIntent().getStringExtra(Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID);
         baseEntityId = getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID);
         familyHead = getIntent().getStringExtra(Constants.INTENT_KEY.FAMILY_HEAD);
         primaryCaregiver = getIntent().getStringExtra(Constants.INTENT_KEY.PRIMARY_CAREGIVER);
         villageTown = getIntent().getStringExtra(Constants.INTENT_KEY.VILLAGE_TOWN);
         familyName = getIntent().getStringExtra(Constants.INTENT_KEY.FAMILY_NAME);
-        PhoneNumber = commonPersonObject.getColumnmaps().get(org.smartregister.chw.util.Constants.JsonAssets.FAMILY_MEMBER.PHONE_NUMBER);
+        PhoneNumber = commonPersonObject.getColumnmaps().get(com.opensrp.chw.core.utils.Constants.JsonAssets.FAMILY_MEMBER.PHONE_NUMBER);
         presenter = new FamilyOtherMemberActivityPresenter(this, new BaseFamilyOtherMemberProfileActivityModel(), null, familyBaseEntityId, baseEntityId, familyHead, primaryCaregiver, villageTown, familyName);
 
         onClickFloatingMenu = flavor.getOnClickFloatingMenu(this, familyBaseEntityId);
@@ -196,7 +196,7 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
                 return true;
             case R.id.action_anc_registration:
                 AncRegisterActivity.startAncRegistrationActivity(FamilyOtherMemberProfileActivity.this, baseEntityId, PhoneNumber,
-                        org.smartregister.chw.util.Constants.JSON_FORM.getAncRegistration(), null, familyBaseEntityId);
+                        com.opensrp.chw.core.utils.Constants.JSON_FORM.getAncRegistration(), null, familyBaseEntityId);
                 return true;
             case R.id.action_malaria_registration:
                 MalariaRegisterActivity.startMalariaRegistrationActivity(FamilyOtherMemberProfileActivity.this, baseEntityId);
@@ -229,7 +229,7 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
 
         JSONObject form = org.smartregister.chw.util.JsonFormUtils.getAutoPopulatedJsonEditMemberFormString(
                 (title_resource != null) ? getResources().getString(title_resource) : null,
-                org.smartregister.chw.util.Constants.JSON_FORM.getFamilyMemberRegister(),
+                com.opensrp.chw.core.utils.Constants.JSON_FORM.getFamilyMemberRegister(),
                 this, client, org.smartregister.chw.util.Utils.metadata().familyMemberRegister.updateEventType, familyName, commonPersonObject.getCaseId().equalsIgnoreCase(primaryCaregiver));
         try {
             startFormActivity(form);
@@ -256,7 +256,7 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
-            case org.smartregister.chw.util.Constants.ProfileActivityResults.CHANGE_COMPLETED:
+            case com.opensrp.chw.core.utils.Constants.ProfileActivityResults.CHANGE_COMPLETED:
                 if (resultCode == Activity.RESULT_OK) {
                     Intent intent = new Intent(FamilyOtherMemberProfileActivity.this, FamilyProfileActivity.class);
                     intent.putExtras(getIntent().getExtras());
@@ -335,7 +335,7 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
         intent.putExtra(Constants.INTENT_KEY.PRIMARY_CAREGIVER, primaryCaregiver);
         intent.putExtra(Constants.INTENT_KEY.FAMILY_NAME, familyName);
 
-        intent.putExtra(org.smartregister.chw.util.Constants.INTENT_KEY.SERVICE_DUE, true);
+        intent.putExtra(com.opensrp.chw.core.utils.Constants.INTENT_KEY.SERVICE_DUE, true);
         startActivity(intent);
     }
 

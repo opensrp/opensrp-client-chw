@@ -21,7 +21,7 @@ import java.util.Set;
 
 import timber.log.Timber;
 
-import static org.smartregister.chw.util.Constants.INTENT_KEY.IS_COMES_FROM_FAMILY;
+import static com.opensrp.chw.core.utils.Constants.INTENT_KEY.IS_COMES_FROM_FAMILY;
 
 public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
     private static final String TAG = FamilyProfileDueFragment.class.getCanonicalName();

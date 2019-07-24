@@ -12,7 +12,7 @@ import org.smartregister.chw.fragment.GrowthNutritionInputFragment;
 import org.smartregister.chw.listener.UpdateServiceListener;
 import org.smartregister.chw.model.ServiceTaskModel;
 import org.smartregister.chw.task.UpdateServiceTask;
-import org.smartregister.chw.util.ChildDBConstants;
+import com.opensrp.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.util.ChildUtils;
 import org.smartregister.chw.util.GrowthServiceData;
 import org.smartregister.commonregistry.CommonPersonObjectClient;

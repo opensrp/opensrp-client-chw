@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import org.smartregister.chw.R;
 import org.smartregister.chw.contract.FamilyRemoveMemberContract;
 import org.smartregister.chw.interactor.FamilyRemoveMemberInteractor;
-import org.smartregister.chw.util.Constants;
+import com.opensrp.chw.core.utils.Constants;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.family.provider.FamilyMemberRegisterProvider;
 import org.smartregister.view.customcontrols.CustomFontTextView;

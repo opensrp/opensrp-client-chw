@@ -42,6 +42,8 @@ import org.smartregister.view.fragment.BaseRegisterFragment;
 import de.hdodenhof.circleimageview.CircleImageView;
 import timber.log.Timber;
 
+import static com.opensrp.chw.core.utils.Constants.*;
+
 public class FamilyProfileActivity extends BaseFamilyProfileActivity implements FamilyProfileExtendedContract.View {
 
     private static final String TAG = FamilyProfileActivity.class.getCanonicalName();
@@ -96,7 +98,7 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity implements 
 
         viewPager.setAdapter(adapter);
 
-        if (getIntent().getBooleanExtra(org.smartregister.chw.util.Constants.INTENT_KEY.SERVICE_DUE, false) || getIntent().getBooleanExtra(Constants.INTENT_KEY.GO_TO_DUE_PAGE, false)) {
+        if (getIntent().getBooleanExtra(INTENT_KEY.SERVICE_DUE, false) || getIntent().getBooleanExtra(Constants.INTENT_KEY.GO_TO_DUE_PAGE, false)) {
             viewPager.setCurrentItem(1);
         }
 
@@ -133,15 +135,15 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity implements 
                 frm_intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID, getFamilyBaseEntityId());
                 frm_intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.FAMILY_HEAD, familyHead);
                 frm_intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.PRIMARY_CAREGIVER, primaryCaregiver);
-                startActivityForResult(frm_intent, org.smartregister.chw.util.Constants.ProfileActivityResults.CHANGE_COMPLETED);
+                startActivityForResult(frm_intent, ProfileActivityResults.CHANGE_COMPLETED);
 
                 break;
             case R.id.action_change_head:
 
                 Intent fh_intent = new Intent(this, FamilyProfileMenuActivity.class);
                 fh_intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.BASE_ENTITY_ID, getFamilyBaseEntityId());
-                fh_intent.putExtra(FamilyProfileMenuActivity.MENU, org.smartregister.chw.util.Constants.MenuType.ChangeHead);
-                startActivityForResult(fh_intent, org.smartregister.chw.util.Constants.ProfileActivityResults.CHANGE_COMPLETED);
+                fh_intent.putExtra(FamilyProfileMenuActivity.MENU, MenuType.ChangeHead);
+                startActivityForResult(fh_intent, ProfileActivityResults.CHANGE_COMPLETED);
 
                 break;
             case R.id.action_change_care_giver:
@@ -149,8 +151,8 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity implements 
 
                 Intent pc_intent = new Intent(this, FamilyProfileMenuActivity.class);
                 pc_intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.BASE_ENTITY_ID, getFamilyBaseEntityId());
-                pc_intent.putExtra(FamilyProfileMenuActivity.MENU, org.smartregister.chw.util.Constants.MenuType.ChangePrimaryCare);
-                startActivityForResult(pc_intent, org.smartregister.chw.util.Constants.ProfileActivityResults.CHANGE_COMPLETED);
+                pc_intent.putExtra(FamilyProfileMenuActivity.MENU, MenuType.ChangePrimaryCare);
+                startActivityForResult(pc_intent, ProfileActivityResults.CHANGE_COMPLETED);
 
                 break;
             default:
@@ -230,7 +232,7 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity implements 
                             presenter().updateFamilyRegister(jsonString);
                             presenter().verifyHasPhone();
 
-                        } else if (encounter_type.equals(org.smartregister.chw.util.Constants.EventType.CHILD_REGISTRATION)) {
+                        } else if (encounter_type.equals(EventType.CHILD_REGISTRATION)) {
 
                             presenter().saveChildForm(jsonString, false);
 
@@ -250,7 +252,7 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity implements 
                         Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                     break;
-                case org.smartregister.chw.util.Constants.ProfileActivityResults.CHANGE_COMPLETED:
+                case ProfileActivityResults.CHANGE_COMPLETED:
                     try {
 
                         String careGiverID = data.getStringExtra(Constants.INTENT_KEY.PRIMARY_CAREGIVER);

@@ -4,7 +4,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.text.TextUtils;
 
-import org.smartregister.chw.util.ChildDBConstants;
+import com.opensrp.chw.core.utils.Constants;
+
+import com.opensrp.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.util.ChildUtils;
 import org.smartregister.chw.util.ChildVisit;
 import org.smartregister.chw.util.ImmunizationState;
@@ -23,10 +25,10 @@ public class FamilyInteractor {
             @Override
             public void subscribe(ObservableEmitter<String> e) throws Exception {
                 ImmunizationState familyImmunizationState = ImmunizationState.NO_ALERT;
-                String query = ChildUtils.getChildListByFamilyId(org.smartregister.chw.util.Constants.TABLE_NAME.CHILD, familyId);
+                String query = ChildUtils.getChildListByFamilyId(Constants.TABLE_NAME.CHILD, familyId);
                 Cursor cursor = null;
                 try {
-                    cursor = org.smartregister.family.util.Utils.context().commonrepository(org.smartregister.chw.util.Constants.TABLE_NAME.CHILD).queryTable(query);
+                    cursor = org.smartregister.family.util.Utils.context().commonrepository(Constants.TABLE_NAME.CHILD).queryTable(query);
                     if (cursor != null && cursor.moveToFirst()) {
                         do {
                             switch (getChildStatus(context, childId, cursor)) {
@@ -67,7 +69,7 @@ public class FamilyInteractor {
     }
 
     private static ImmunizationState getChildStatus(Context context, final String childId, Cursor cursor) {
-        CommonPersonObject personObject = org.smartregister.family.util.Utils.context().commonrepository(org.smartregister.chw.util.Constants.TABLE_NAME.CHILD).findByBaseEntityId(cursor.getString(1));
+        CommonPersonObject personObject = org.smartregister.family.util.Utils.context().commonrepository(Constants.TABLE_NAME.CHILD).findByBaseEntityId(cursor.getString(1));
         if (!personObject.getCaseId().equalsIgnoreCase(childId)) {
 
             String dobString = org.smartregister.util.Utils.getValue(personObject.getColumnmaps(), DBConstants.KEY.DOB, false);

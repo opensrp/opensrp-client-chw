@@ -6,7 +6,9 @@ import android.os.Build;
 
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
+import com.opensrp.chw.core.contract.CoreApplication;
 import com.opensrp.chw.core.loggers.CrashlyticsTree;
+import com.opensrp.chw.core.utils.Constants;
 import com.opensrp.chw.hf.activity.LoginActivity;
 import com.opensrp.chw.hf.sync.HfSyncConfiguration;
 import com.opensrp.hf.BuildConfig;
@@ -19,6 +21,7 @@ import org.smartregister.configurableviews.helper.JsonSpecHelper;
 import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.repository.AllSharedPreferences;
+import org.smartregister.sync.helper.ECSyncHelper;
 import org.smartregister.util.Utils;
 import org.smartregister.view.activity.DrishtiApplication;
 
@@ -29,11 +32,12 @@ import java.util.Locale;
 import io.fabric.sdk.android.Fabric;
 import timber.log.Timber;
 
-public class HealthFacilityApp extends DrishtiApplication {
+public class HealthFacilityApp extends DrishtiApplication implements CoreApplication {
 
     private static final String TAG = HealthFacilityApp.class.getCanonicalName();
     private String password;
     private JsonSpecHelper jsonSpecHelper;
+    private ECSyncHelper ecSyncHelper;
 
     public static synchronized HealthFacilityApp getInstance() {
         return (HealthFacilityApp) mInstance;
@@ -43,9 +47,17 @@ public class HealthFacilityApp extends DrishtiApplication {
         return getInstance().jsonSpecHelper;
     }
 
+    public static Locale getCurrentLocale() {
+        return mInstance == null ? Locale.getDefault() : mInstance.getResources().getConfiguration().locale;
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
+
+        //Necessary to determine the right form to pick from assets
+        Constants.JSON_FORM.setLocaleAndAssetManager(HealthFacilityApp.getCurrentLocale(),
+                HealthFacilityApp.getInstance().getApplicationContext().getAssets());
 
         if (BuildConfig.DEBUG) {
             Timber.plant(new Timber.DebugTree());
@@ -67,6 +79,8 @@ public class HealthFacilityApp extends DrishtiApplication {
         // init libraries
         CoreLibrary.init(context, new HfSyncConfiguration(), BuildConfig.BUILD_TIMESTAMP, null);
         ConfigurableViewsLibrary.init(context, getRepository());
+
+        //     FamilyLibrary.init(context, getRepository(), getFamilyMetadata(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
 
         SyncStatusBroadcastReceiver.init(this);
         LocationHelper.init(new ArrayList<>(Arrays.asList(BuildConfig.ALLOWED_LOCATION_LEVELS)), BuildConfig.DEFAULT_LOCATION);
@@ -116,12 +130,24 @@ public class HealthFacilityApp extends DrishtiApplication {
         }
     }
 
-    private void saveLanguage(String language) {
-        AllSharedPreferences allSharedPreferences = HealthFacilityApp.getInstance().getContext().allSharedPreferences();
-        allSharedPreferences.saveLanguagePreference(language);
+    public void saveLanguage(String language) {
+        HealthFacilityApp.getInstance().getContext().allSharedPreferences().saveLanguagePreference(language);
     }
 
     public Context getContext() {
         return context;
+    }
+
+    @Override
+    public ECSyncHelper getEcSyncHelper() {
+        if (ecSyncHelper == null) {
+            ecSyncHelper = ECSyncHelper.getInstance(getApplicationContext());
+        }
+        return ecSyncHelper;
+    }
+
+    @Override
+    public void notifyAppContextChange() {
+
     }
 }
