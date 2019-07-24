@@ -115,17 +115,7 @@ public class PncRegisterFragment extends BasePncRegisterFragment {
         }
     }
 
-    protected void filter(String filterString, String joinTableString, String mainConditionString) {
-        filters = filterString;
-        joinTable = joinTableString;
-        mainCondition = mainConditionString;
-        filterandSortExecute(countBundle());
-    }
-
-    private String searchText() {
-        return (getSearchView() == null) ? "" : getSearchView().getText().toString();
-    }
-
+;
     private String defaultFilterAndSortQuery() {
         SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder(mainSelect);
 
