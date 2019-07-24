@@ -55,6 +55,21 @@
   "step1": {
     "fields": [
       {
+        "key": "mother_entity_id",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "mother_entity_id",
+        "type": "hidden"
+      },
+      {
+        "key": "entry_point",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "entry_point",
+        "type": "edit_text",
+        "value": "PNC"
+      },
+      {
         "key": "unique_id",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_identifier",
@@ -87,13 +102,6 @@
         "v_required": {
           "value": "true",
           "err": "Please enter the surname"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "family-child-relevance.yml"
-            }
-          }
         }
       },
       {
@@ -130,14 +138,7 @@
         "openmrs_entity": "person",
         "openmrs_entity_id": "last_name",
         "type": "hidden",
-        "hint": "Surname as Family name",
-        "calculation": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "family-child-calculation.yml"
-            }
-          }
-        }
+        "hint": "Surname as Family name"
       },
       {
         "key": "first_name",
@@ -193,13 +194,6 @@
         "v_required": {
           "value": "true",
           "err": "Please enter the date of birth"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "family-child-relevance.yml"
-            }
-          }
         }
       },
       {
@@ -207,16 +201,8 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "person",
         "openmrs_entity_id": "gender",
-        "type": "spinner",
-        "hint": "Sex",
-        "values": [
-          "Male",
-          "Female"
-        ],
-        "v_required": {
-          "value": "true",
-          "err": "Please enter the sex"
-        }
+        "type": "edit_text",
+        "hint": "Sex"
       },
       {
         "key": "disabilities",
@@ -246,13 +232,6 @@
         "type": "edit_text",
         "edit_type": "name",
         "hint": "Type of physical disabilities",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "family-child-relevance.yml"
-            }
-          }
-        },
         "v_required": {
           "value": true,
           "err": "Please enter type of physical disabilities"
