@@ -1,7 +1,6 @@
 package org.smartregister.chw.interactor;
 
 import android.database.Cursor;
-
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.contract.NavigationContract;
@@ -12,11 +11,10 @@ import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.family.util.AppExecutors;
 import org.smartregister.family.util.DBConstants;
+import timber.log.Timber;
 
 import java.text.MessageFormat;
 import java.util.Date;
-
-import timber.log.Timber;
 
 public class NavigationInteractor implements NavigationContract.Interactor {
 
@@ -74,24 +72,37 @@ public class NavigationInteractor implements NavigationContract.Interactor {
 
 
             mainCondition = stb.toString();
-        }
-        else if(tableName.equalsIgnoreCase(Constants.TABLE_NAME.ANC_PREGNANCY_OUTCOME)){
+        } else if (tableName.equalsIgnoreCase(Constants.TABLE_NAME.ANC_PREGNANCY_OUTCOME)) {
             StringBuilder build = new StringBuilder();
             build.append(MessageFormat.format(" inner join {0} ", Constants.TABLE_NAME.FAMILY_MEMBER));
             build.append(MessageFormat.format(" on {0}.{1} = {2}.{3} ", Constants.TABLE_NAME.FAMILY_MEMBER, DBConstants.KEY.BASE_ENTITY_ID,
                     Constants.TABLE_NAME.ANC_PREGNANCY_OUTCOME, DBConstants.KEY.BASE_ENTITY_ID));
 
-           build.append(MessageFormat.format(" inner join {0} ", Constants.TABLE_NAME.FAMILY));
-           build.append(MessageFormat.format(" on {0}.{1} = {2}.{3} ", Constants.TABLE_NAME.FAMILY, DBConstants.KEY.BASE_ENTITY_ID,
-                  Constants.TABLE_NAME.FAMILY_MEMBER, DBConstants.KEY.RELATIONAL_ID));
+            build.append(MessageFormat.format(" inner join {0} ", Constants.TABLE_NAME.FAMILY));
+            build.append(MessageFormat.format(" on {0}.{1} = {2}.{3} ", Constants.TABLE_NAME.FAMILY, DBConstants.KEY.BASE_ENTITY_ID,
+                    Constants.TABLE_NAME.FAMILY_MEMBER, DBConstants.KEY.RELATIONAL_ID));
 
-           build.append(MessageFormat.format(" where {0}.{1} is not null AND {0}.{2} is 0 ", Constants.TABLE_NAME.ANC_PREGNANCY_OUTCOME, ChwDBConstants.DELIVERY_DATE, ChwDBConstants.IS_CLOSED));
+            build.append(MessageFormat.format(" where {0}.{1} is not null AND {0}.{2} is 0 ", Constants.TABLE_NAME.ANC_PREGNANCY_OUTCOME, ChwDBConstants.DELIVERY_DATE, ChwDBConstants.IS_CLOSED));
 
             mainCondition = build.toString();
 
 
-        }
-    else {
+        } else if (tableName.equalsIgnoreCase(Constants.TABLE_NAME.MALARIA_CONFIRMATION)) {
+            StringBuilder stb = new StringBuilder();
+
+            stb.append(MessageFormat.format(" inner join {0} ", Constants.TABLE_NAME.FAMILY_MEMBER));
+            stb.append(MessageFormat.format(" on {0}.{1} = {2}.{3} ", Constants.TABLE_NAME.FAMILY_MEMBER, DBConstants.KEY.BASE_ENTITY_ID,
+                    Constants.TABLE_NAME.MALARIA_CONFIRMATION, DBConstants.KEY.BASE_ENTITY_ID));
+
+            stb.append(MessageFormat.format(" inner join {0} ", Constants.TABLE_NAME.FAMILY));
+            stb.append(MessageFormat.format(" on {0}.{1} = {2}.{3} ", Constants.TABLE_NAME.FAMILY, DBConstants.KEY.BASE_ENTITY_ID,
+                    Constants.TABLE_NAME.FAMILY_MEMBER, DBConstants.KEY.RELATIONAL_ID));
+
+            stb.append(MessageFormat.format(" where {0}.{1} is null ", Constants.TABLE_NAME.FAMILY_MEMBER, DBConstants.KEY.DATE_REMOVED));
+            stb.append(MessageFormat.format(" and {0}.{1} = 1 ", Constants.TABLE_NAME.MALARIA_CONFIRMATION, org.smartregister.chw.malaria.util.DBConstants.KEY.MALARIA));
+
+            mainCondition = stb.toString();
+        } else {
             mainCondition = " where 1 = 1 ";
         }
         try {
@@ -118,7 +129,8 @@ public class NavigationInteractor implements NavigationContract.Interactor {
     }
 
     @Override
-    public void getRegisterCount(final String tableName, final NavigationContract.InteractorCallback<Integer> callback) {
+    public void getRegisterCount(final String tableName,
+                                 final NavigationContract.InteractorCallback<Integer> callback) {
         if (callback != null) {
             appExecutors.diskIO().execute(new Runnable() {
                 @Override
