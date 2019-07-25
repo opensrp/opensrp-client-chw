@@ -1,21 +1,35 @@
 package org.smartregister.chw.repository;
 
 import android.content.Context;
+import android.database.Cursor;
 
 import net.sqlcipher.database.SQLiteDatabase;
 
+import org.json.JSONObject;
+import org.smartregister.chw.anc.repository.VisitDetailsRepository;
+import org.smartregister.chw.anc.repository.VisitRepository;
+import org.smartregister.chw.anc.util.Util;
+import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.chw.util.Constants;
+import org.smartregister.chw.util.RepositoryUtils;
+import org.smartregister.chw.util.RepositoryUtilsFlv;
 import org.smartregister.domain.db.Column;
+import org.smartregister.domain.db.Event;
+import org.smartregister.domain.db.EventClient;
 import org.smartregister.immunization.repository.RecurringServiceRecordRepository;
+import org.smartregister.immunization.repository.RecurringServiceTypeRepository;
 import org.smartregister.immunization.repository.VaccineRepository;
 import org.smartregister.immunization.util.IMDatabaseUtils;
 import org.smartregister.repository.AlertRepository;
 import org.smartregister.repository.EventClientRepository;
+import org.smartregister.sync.helper.ECSyncHelper;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import timber.log.Timber;
 
 public class ChwRepositoryFlv {
-
-    private static final String TAG = ChwRepositoryFlv.class.getCanonicalName();
 
     public static void onUpgrade(Context context, SQLiteDatabase db, int oldVersion, int newVersion) {
         Timber.w(ChwRepository.class.getName(),
@@ -41,6 +55,9 @@ public class ChwRepositoryFlv {
                     break;
                 case 8:
                     upgradeToVersion8(db);
+                    break;
+                case 10:
+                    upgradeToVersion9(db);
                     break;
                 default:
                     break;
@@ -132,5 +149,73 @@ public class ChwRepositoryFlv {
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion8 ");
         }
+    }
+
+    private static void upgradeToVersion9(SQLiteDatabase db) {
+        try {
+            for (String query : RepositoryUtilsFlv.UPGRADE_V9) {
+                db.execSQL(query);
+            }
+
+            // recreate tables
+            VisitRepository.createTable(db);
+            VisitDetailsRepository.createTable(db);
+
+            //reprocess all the anc visit events
+            List<Event> events = getEvents(db);
+            for (Event event : events) {
+                Util.processAncHomeVisit(new EventClient(event), db);
+            }
+
+            // update recurring services
+            db.execSQL(RecurringServiceTypeRepository.ADD_SERVICE_GROUP_COLUMN);
+            // merge service records
+
+            for (String query : RepositoryUtils.UPDATE_REPOSITORY_TYPES) {
+                db.execSQL(query);
+            }
+
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion9 ");
+        }
+    }
+
+
+    // helpers
+    private static List<Event> getEvents(SQLiteDatabase db) {
+        List<Event> events = new ArrayList<>();
+        Cursor cursor = null;
+        try {
+            String[] myStringArray = {"json"};
+            cursor = db.query(EventClientRepository.Table.event.name(), myStringArray, " eventType = ? ", new String[]{Constants.EventType.ANC_HOME_VISIT}, null, null, " eventDate ASC ", null);
+            events = readEvents(cursor);
+        } catch (Exception e) {
+            Timber.e(e);
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+        return events;
+    }
+
+    private static List<Event> readEvents(Cursor cursor) {
+        List<Event> events = new ArrayList<>();
+        ECSyncHelper syncHelper = ChwApplication.getInstance().getEcSyncHelper();
+        try {
+            if (cursor != null && cursor.getCount() > 0 && cursor.moveToFirst()) {
+                while (!cursor.isAfterLast()) {
+                    String json = cursor.getString(cursor.getColumnIndex("json"));
+                    Event event = syncHelper.convert(new JSONObject(json), Event.class);
+                    events.add(event);
+                    cursor.moveToNext();
+                }
+            }
+        } catch (Exception e) {
+            Timber.e(e);
+        } finally {
+            cursor.close();
+        }
+        return events;
     }
 }

@@ -96,6 +96,13 @@
         }
       },
       {
+        "key": "anc_hf_next_visit_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "anc_hf_next_visit_date",
+        "type": "spacer"
+      },
+      {
         "key": "tests_done",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -303,7 +310,7 @@
           },
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "anc-home-visit-rules.yml"
+              "rules-file": "anc_hv_health_facility_visit.yml"
             }
           }
         }

@@ -215,6 +215,8 @@
     <string name="refresh_indicators">Refresh indicators</string>
     <string name="indicators_udpating">Updating&#8230;</string>
     <string name="indicators_updating_complete">Update complete</string>
+
+    <!-- Child indicators-->
     <string name="total_under_5_children_label">Total U5 children</string>
     <string name="deceased_children_0_11_months">Children (0&#8211;11 months) who died in the last year</string>
     <string name="deceased_children_12_59_months">Children (12&#8211;59 months) who died in the last year</string>
@@ -377,4 +379,35 @@
     <string name="opv_2">OPV 2</string>
     <string name="yellow_fever">Yellow Fever</string>
     <string name="follow_up_visit">Follow-up Visit</string>
+
+    <!-- ANC Reporting indicators labels: Check anc reporting data dictionary. Strings are named by number
+ as defined in the data dictionary -->
+    <string name="anc_indicator1">Total WRA (10–49 years)</string>
+    <string name="anc_indicator2">Total pregnant women</string>
+    <string name="anc_indicator3">Pregnant women up to date with their ANC home visits</string>
+    <string name="anc_indicator4">Pregnant women up to date with their ANC health facility visits</string>
+    <string name="anc_indicator5">Pregnant women tested for HIV</string>
+    <string name="anc_indicator6">Pregnant women tested for syphilis</string>
+    <string name="anc_indicator7">Pregnant women up to date on TT immunization</string>
+    <string name="anc_indicator8">Pregnant women up to date on IPTp-SP doses</string>
+
+    <string name="pnc_danger_signs_mother">Danger signs - mother</string>
+    <string name="pnc_danger_signs_baby">Danger signs - baby ({0})</string>
+    <string name="pnc_health_facility_visit">PNC health facility visit - day {0}</string>
+    <string name="pnc_child_vaccine_card_recevied">Child vaccine card received</string>
+    <string name="pnc_immunization_at_birth">Immunizations (at birth)</string>
+    <string name="pnc_umblicord_care">Umbilical cord care</string>
+    <string name="pnc_exclusive_breastfeeding">Exclusive breastfeeding</string>
+    <string name="pnc_kangeroo_mother_care">Kangeroo mother care (KNC)</string>
+    <string name="pnc_family_planning">Family planning</string>
+    <string name="pnc_observation_and_illness_mother">Observations &amp; illness - mother </string>
+    <string name="pnc_observation_and_illness_baby">Observations &amp; illness - baby {0} </string>
+
+    <string name="pnc_counselling">Counselling</string>
+    <string name="pnc_nutrition_status">Nutrition status</string>
+    <string name="pnc_malaria_prevention">Malaria prevention</string>
+    <string name="pnc_health_facility_visit_within_fourty_eight_hours">PNC health facility visit - within 48 hours </string>
+    <string name="pnc_health_facility_visit_days_three_to_seven">PNC health facility visit - days 3 - 7</string>
+    <string name="pnc_health_facility_visit_days_eight_to_twenty_eight">PNC health facility visit - days 8 - 28</string>
+    <string name="pnc_health_facility_visit_days_twenty_nine_to_forty_two">PNC health facility visit - days 29 - 42</string>
 </resources>

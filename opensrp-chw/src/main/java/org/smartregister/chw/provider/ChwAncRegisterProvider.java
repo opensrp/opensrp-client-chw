@@ -18,7 +18,6 @@ import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.interactor.ChildProfileInteractor;
 import org.smartregister.chw.util.AncHomeVisitUtil;
 import org.smartregister.chw.util.AncVisit;
-import org.smartregister.chw.util.ChildDBConstants;
 import org.smartregister.chw.util.ChwDBConstants;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.Utils;
@@ -128,6 +127,14 @@ public class ChwAncRegisterProvider extends AncRegisterProvider {
             LocalDate dateCreated = (new DateTime(org.smartregister.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.DATE_CREATED, false))).toLocalDate();
 
             Visit lastNotDoneVisit = getInstance().visitRepository().getLatestVisit(baseEntityID, org.smartregister.chw.anc.util.Constants.EVENT_TYPE.ANC_HOME_VISIT_NOT_DONE);
+            if (lastNotDoneVisit != null) {
+                Visit lastNotDoneVisitUndo = getInstance().visitRepository().getLatestVisit(baseEntityID, org.smartregister.chw.anc.util.Constants.EVENT_TYPE.ANC_HOME_VISIT_NOT_DONE_UNDO);
+                if (lastNotDoneVisitUndo != null
+                        && lastNotDoneVisitUndo.getDate().after(lastNotDoneVisit.getDate())) {
+                    lastNotDoneVisit = null;
+                }
+            }
+
             Visit lastVisit = getInstance().visitRepository().getLatestVisit(baseEntityID, org.smartregister.chw.anc.util.Constants.EVENT_TYPE.ANC_HOME_VISIT);
             String visitDate = lastVisit != null ? sdf.format(lastVisit.getDate()) : null;
             String lastVisitNotDone = lastNotDoneVisit != null ? sdf.format(lastNotDoneVisit.getDate()) : null;
