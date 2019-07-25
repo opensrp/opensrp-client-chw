@@ -38,8 +38,8 @@ public class NavigationPresenter implements NavigationContract.Presenter {
         tableMap.put(Constants.DrawerMenu.CHILD_CLIENTS, Constants.TABLE_NAME.CHILD);
         tableMap.put(Constants.DrawerMenu.ANC_CLIENTS, Constants.TABLE_NAME.ANC_MEMBER);
         tableMap.put(Constants.DrawerMenu.ANC, Constants.TABLE_NAME.ANC_MEMBER);
-        tableMap.put(Constants.DrawerMenu.MALARIA, Constants.TABLE_NAME.MALARIA_CONFIRMATION);
         tableMap.put(Constants.DrawerMenu.PNC,Constants.TABLE_NAME.ANC_PREGNANCY_OUTCOME);
+        tableMap.put(Constants.DrawerMenu.MALARIA, Constants.TABLE_NAME.MALARIA_CONFIRMATION);
     }
 
     @Override

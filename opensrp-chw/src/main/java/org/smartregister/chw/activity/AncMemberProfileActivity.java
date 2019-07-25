@@ -6,10 +6,8 @@ import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
-
 import org.jeasy.rules.api.Rules;
 import org.joda.time.DateTime;
 import org.json.JSONArray;
@@ -30,6 +28,7 @@ import org.smartregister.chw.model.FamilyProfileModel;
 import org.smartregister.chw.presenter.AncMemberProfilePresenter;
 import org.smartregister.chw.util.AncHomeVisitUtil;
 import org.smartregister.chw.util.AncVisit;
+import org.smartregister.chw.util.Common;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.AllCommonsRepository;
 import org.smartregister.commonregistry.CommonPersonObject;
@@ -40,7 +39,6 @@ import org.smartregister.family.domain.FamilyEventClient;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
 import org.smartregister.repository.AllSharedPreferences;
-
 import timber.log.Timber;
 
 import static org.smartregister.util.JsonFormUtils.fields;
@@ -107,10 +105,7 @@ public class AncMemberProfileActivity extends BaseAncMemberProfileActivity {
 
         JSONObject form = null;
 
-        CommonRepository commonRepository = org.smartregister.chw.util.Utils.context().commonrepository(org.smartregister.chw.util.Utils.metadata().familyMemberRegister.tableName);
-        CommonPersonObject personObject = commonRepository.findByBaseEntityId(MEMBER_OBJECT.getBaseEntityId());
-        CommonPersonObjectClient client = new CommonPersonObjectClient(personObject.getCaseId(), personObject.getDetails(), "");
-        client.setColumnmaps(personObject.getColumnmaps());
+        CommonPersonObjectClient client = Common.clientForEdit(MEMBER_OBJECT.getBaseEntityId());
 
         if (formName.equals(org.smartregister.chw.util.Constants.JSON_FORM.getFamilyMemberRegister())) {
             form = org.smartregister.chw.util.JsonFormUtils.getAutoPopulatedJsonEditMemberFormString(

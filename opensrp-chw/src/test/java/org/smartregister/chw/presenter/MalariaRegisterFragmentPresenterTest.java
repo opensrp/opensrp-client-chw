@@ -34,9 +34,8 @@ public class MalariaRegisterFragmentPresenterTest extends BaseUnitTest {
 
     @Test
     public void testMainCondition() {
-        String main_condition =
-                " " + Constants.TABLE_NAME.FAMILY_MEMBER +org.smartregister.chw.malaria.util.DBConstants.KEY.DATE_REMOVED +" is null"+
-                        "AND" + Constants.TABLE_NAME.MALARIA_CONFIRMATION + "." + DBConstants.KEY.MALARIA + " = 1";
+        String main_condition = " " + Constants.TABLE_NAME.FAMILY_MEMBER + "." + org.smartregister.chw.malaria.util.DBConstants.KEY.DATE_REMOVED + " is null " +
+                "AND " + Constants.TABLE_NAME.MALARIA_CONFIRMATION + "." + DBConstants.KEY.MALARIA + " = 1 ";
         Assert.assertEquals(main_condition, presenter.getMainCondition());
 
     }
