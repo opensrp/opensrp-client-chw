@@ -902,6 +902,35 @@
             "field": "obs.fieldCode",
             "concept": "1572AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
+        },
+        {
+          "column_name": "last_visit_date",
+          "type": "Event",
+          "data_type": "date",
+          "source_format": "dd-MM-yyyy",
+          "save_format": "yyyy-MM-dd",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "last_visit_date"
+          }
+        },
+        {
+          "column_name": "next_visit_date",
+          "type": "Event",
+          "data_type": "date",
+          "source_format": "dd-MM-yyyy",
+          "save_format": "yyyy-MM-dd",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "next_visit_date"
+          }
+        },
+        {
+          "column_name": "last_interacted_with",
+          "type": "Event",
+          "json_mapping": {
+            "field": "version"
+          }
         }
       ]
     }

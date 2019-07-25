@@ -10,7 +10,6 @@ import timber.log.Timber;
 public class NavigationModel implements NavigationContract.Model {
 
     private static NavigationModel instance;
-    private String TAG = NavigationModel.class.getCanonicalName();
     private static Flavor flavor = new NavigationModelFlv();
 
     public static NavigationModel getInstance() {

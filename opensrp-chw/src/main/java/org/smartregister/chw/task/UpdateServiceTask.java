@@ -81,7 +81,7 @@ public class UpdateServiceTask extends AsyncTask<Void, Void, RecurringServiceMod
             RecurringServiceUtil.updateWrapper(serviceWrapper, map.getServiceRecords());
             displayServiceWrapper.put(type, serviceWrapper);
         }
-        Timber.v("Service_wrapper", "service wrapper" + displayServiceWrapper);
+        Timber.v("Service_wrapper %s", displayServiceWrapper);
         listener.onUpdateServiceList(displayServiceWrapper);
     }
 
@@ -93,7 +93,7 @@ public class UpdateServiceTask extends AsyncTask<Void, Void, RecurringServiceMod
             dateOfBirth = new DateTime(dobString);
         }
 
-        return RecurringServiceUtil.getServiceModel(childDetails.entityId(), dateOfBirth);
+        return RecurringServiceUtil.getServiceModel(childDetails.entityId(), dateOfBirth, "child");
     }
 
 }
