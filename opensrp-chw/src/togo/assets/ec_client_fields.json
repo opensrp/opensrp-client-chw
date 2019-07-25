@@ -257,6 +257,21 @@
           }
         },
         {
+          "column_name": "mother_entity_id",
+          "type": "Client",
+          "json_mapping": {
+            "field": "relationships.mother"
+          }
+        },
+        {
+          "column_name": "entry_point",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "entry_point"
+          }
+        },
+        {
           "column_name": "first_name",
           "type": "Client",
           "json_mapping": {
