@@ -121,6 +121,7 @@
     <string name="home_visit_suffix"> &#183; Home Visit</string>
     <string name="wash_check_suffix"> &#183; Wash check</string>
     <string name="last_visit_prefix">Last visit %1$s ago</string>
+    <string name="completed_on_prefix">Completed on %1$s</string>
 
     <string name="profile_activity_completed">Completed on %s</string>
     <string name="interpunct">・</string>
@@ -388,4 +389,9 @@
     <string name="anc_indicator6">Pregnant women tested for syphilis</string>
     <string name="anc_indicator7">Pregnant women up to date on TT immunization</string>
     <string name="anc_indicator8">Pregnant women up to date on IPTp-SP doses</string>
+    <string name="handwashing_facilities">Does the household have handwashing facilities?</string>
+    <string name="drinking_water">Does the household have access to clean drinking water?</string>
+    <string name="hygienic_latrine">Do household members use a hygienic latrine for the disposal of feces?</string>
+    <string name="wash_check">WASH check</string>
+
 </resources>

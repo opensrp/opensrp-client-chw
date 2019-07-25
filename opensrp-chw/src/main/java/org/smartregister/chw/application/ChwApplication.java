@@ -24,6 +24,7 @@ import org.smartregister.chw.repository.ChwRepository;
 import org.smartregister.chw.repository.HomeVisitIndicatorInfoRepository;
 import org.smartregister.chw.repository.HomeVisitRepository;
 import org.smartregister.chw.repository.HomeVisitServiceRepository;
+import org.smartregister.chw.repository.WashCheckRepository;
 import org.smartregister.chw.service.ChwAuthorizationService;
 import org.smartregister.chw.sync.ChwClientProcessor;
 import org.smartregister.chw.util.ChildDBConstants;
@@ -73,6 +74,7 @@ public class ChwApplication extends DrishtiApplication {
     private static HomeVisitServiceRepository homeVisitServiceRepository;
     private static AncRegisterRepository ancRegisterRepository;
     private static HomeVisitIndicatorInfoRepository homeVisitIndicatorInfoRepository;
+    private static WashCheckRepository washCheckRepository;
 
     private JsonSpecHelper jsonSpecHelper;
     private ECSyncHelper ecSyncHelper;
@@ -147,6 +149,12 @@ public class ChwApplication extends DrishtiApplication {
             homeVisitServiceRepository = new HomeVisitServiceRepository(getInstance().getRepository());
         }
         return homeVisitServiceRepository;
+    }
+    public static WashCheckRepository getWashCheckRepo() {
+        if (washCheckRepository == null) {
+            washCheckRepository = new WashCheckRepository(getInstance().getRepository());
+        }
+        return washCheckRepository;
     }
 
     public static AncRegisterRepository ancRegisterRepository() {

@@ -9,6 +9,7 @@ import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.repository.HomeVisitRepository;
 import org.smartregister.chw.util.ChildUtils;
 import org.smartregister.chw.util.Constants;
+import org.smartregister.chw.util.WashCheck;
 import org.smartregister.clientandeventmodel.DateUtil;
 import org.smartregister.commonregistry.AllCommonsRepository;
 import org.smartregister.commonregistry.CommonFtsObject;
@@ -96,6 +97,8 @@ public class ChwClientProcessor extends ClientProcessorForJava {
                 }
 
                 String eventType = event.getEventType();
+
+                Log.v("WASH_CHECK","eventType?>>>"+eventType);
                 if (eventType == null) {
                     continue;
                 } else if (eventType.equals(VaccineIntentService.EVENT_TYPE) || eventType.equals(VaccineIntentService.EVENT_TYPE_OUT_OF_CATCHMENT)) {
@@ -131,6 +134,8 @@ public class ChwClientProcessor extends ClientProcessorForJava {
                     processVaccineCardEvent(eventClient);
                     processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
                 }else if(eventType.equals(Constants.EventType.WASH_CHECK)){
+                    Log.v("WASH_CHECK","eventType?>>>"+eventType);
+                    processWashCheckEvent(eventClient);
                     processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
 
                 }
@@ -161,6 +166,23 @@ public class ChwClientProcessor extends ClientProcessorForJava {
 
     private void processHomeVisitService(EventClient eventClient) {
         ChildUtils.addToHomeVisitService(eventClient.getEvent().getEventType(), eventClient.getEvent().getObs(), eventClient.getEvent().getEventDate().toDate(), ChildUtils.gsonConverter.toJson(eventClient.getEvent()));
+    }
+    private void processWashCheckEvent(EventClient eventClient){
+        WashCheck washCheck = new WashCheck();
+        for (org.smartregister.domain.db.Obs obs : eventClient.getEvent().getObs()) {
+
+            Log.v("WASH_CHECK","obs.getFormSubmissionField()?>>>"+obs.getFormSubmissionField());
+            if (obs.getFormSubmissionField().equalsIgnoreCase(Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.FAMILY_ID)) {
+                washCheck.setFamilyBaseEntityId((String) obs.getValue());
+            }
+            if (obs.getFormSubmissionField().equalsIgnoreCase(Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.WASH_CHECK_DETAILS)) {
+                washCheck.setDetailsJson((String) obs.getValue());
+            }
+            if (obs.getFormSubmissionField().equalsIgnoreCase(Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.WASH_CHECK_LAST_VISIT)) {
+                washCheck.setLastVisit(Long.parseLong((String) obs.getValue()));
+            }
+        }
+        ChwApplication.getWashCheckRepo().add(washCheck);
     }
 
     // possible to delegate

@@ -18,10 +18,9 @@ import org.smartregister.chw.activity.ChildProfileActivity;
 import org.smartregister.chw.activity.FamilyProfileActivity;
 import org.smartregister.chw.interactor.ChildProfileInteractor;
 import org.smartregister.chw.model.FamilyProfileDueModel;
-import org.smartregister.chw.model.WashCheckModel;
+import org.smartregister.chw.util.WashCheck;
 import org.smartregister.chw.presenter.FamilyProfileDuePresenter;
 import org.smartregister.chw.provider.ChwDueRegisterProvider;
-import org.smartregister.chw.util.JsonFormUtils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.adapter.FamilyRecyclerViewCustomAdapter;
 import org.smartregister.family.fragment.BaseFamilyProfileDueFragment;
@@ -101,7 +100,7 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
         emptyView = view.findViewById(R.id.empty_view);
         washCheckView = view.findViewById(R.id.wash_check_layout);
 
-        ((FamilyProfileDuePresenter)presenter).fetchLastWashCheck(familyBaseEntityId,0);
+        ((FamilyProfileDuePresenter)presenter).fetchLastWashCheck(0);
 
     }
     private void addWashCheckView(){
@@ -180,7 +179,7 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
                         if (form.getString(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_TYPE).equals(org.smartregister.chw.util.Constants.EventType.WASH_CHECK)
                         )
                         {
-                            boolean isSave = JsonFormUtils.saveWashCheckEvent(jsonString,familyBaseEntityId);
+                            boolean isSave = ((FamilyProfileDuePresenter)presenter).saveData(jsonString);
                             Log.v(TAG,"is save:"+isSave);
                             if(isSave){
                                 washCheckView.setVisibility(View.GONE);
@@ -196,26 +195,26 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
                 break;
         }
     }
-    public void updateWashCheckBar(WashCheckModel washCheckModel){
+    public void updateWashCheckBar(WashCheck washCheck){
         addWashCheckView();
         TextView name = washCheckView.findViewById(R.id.patient_name_age);
         TextView lastVisit = washCheckView.findViewById(R.id.last_visit);
         ImageView status = washCheckView.findViewById(R.id.status);
-        if(washCheckModel == null || washCheckModel.getStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.DUE.name())){
+        if(washCheck == null || washCheck.getStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.DUE.name())){
             washCheckView.setVisibility(View.VISIBLE);
             status.setImageResource(org.smartregister.chw.util.Utils.getDueProfileImageResourceIDentifier());
-            if(washCheckModel == null){
+            if(washCheck == null){
               lastVisit.setVisibility(View.GONE);
             }else{
-                lastVisit.setText(String.format(getActivity().getString(R.string.last_visit_prefix),washCheckModel!=null? washCheckModel.getLastVisitDate():0));
+                lastVisit.setText(String.format(getActivity().getString(R.string.last_visit_prefix),  washCheck.getLastVisitDate()));
             }
             name.setText(getActivity().getString(R.string.family,familyName)+" "+getActivity().getString(R.string.wash_check_suffix));
 
 
-        } else if(washCheckModel.getStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.OVERDUE.name())){
+        } else if(washCheck.getStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.OVERDUE.name())){
+            washCheckView.setVisibility(View.VISIBLE);
             status.setImageResource(org.smartregister.chw.util.Utils.getOverDueProfileImageResourceIDentifier());
-            String lastVisitString = org.smartregister.chw.util.Utils.actualDaysBetweenDateAndNow(getActivity(), washCheckModel.getLastVisit()+"");
-            lastVisit.setText(String.format(getActivity().getString(R.string.last_visit_prefix), lastVisitString));
+            lastVisit.setText(String.format(getActivity().getString(R.string.last_visit_prefix),  washCheck.getLastVisitDate()));
             name.setText(getActivity().getString(R.string.family,familyName)+" "+getActivity().getString(R.string.wash_check_suffix));
 
         }else{

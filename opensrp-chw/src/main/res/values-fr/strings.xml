@@ -374,4 +374,8 @@
     <string name="opv_1">VPO 1</string>
     <string name="opv_2">VPO 2</string>
     <string name="yellow_fever">Fièvre Jaune</string>
+    <string name="handwashing_facilities">Does the household have handwashing facilities?</string>
+    <string name="drinking_water">Does the household have access to clean drinking water?</string>
+    <string name="hygienic_latrine">Do household members use a hygienic latrine for the disposal of feces?</string>
+    <string name="wash_check">WASH check</string>
 </resources>

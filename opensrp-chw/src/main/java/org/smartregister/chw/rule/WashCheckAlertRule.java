@@ -47,8 +47,6 @@ public class WashCheckAlertRule implements ICommonRule {
         return buttonStatus;
     }
 
-
-
     public boolean isExpiry(Integer calYr) {
         return false;
     }

@@ -355,6 +355,7 @@ public class Constants {
             public static final String HOME_VISIT_ILLNESS= "illness_information";
             public static final String WASH_CHECK_DETAILS= "details_info";
             public static final String WASH_CHECK_LAST_VISIT= "last_visit";
+            public static final String FAMILY_ID= "family_id";
 
         }
     }
