@@ -92,7 +92,7 @@ public class ChildRegisterPresenter implements ChildRegisterContract.Presenter, 
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getView().getContext());
             AllSharedPreferences allSharedPreferences = new AllSharedPreferences(preferences);
 
-            Timber.d("JSONResult", jsonString);
+            Timber.d("JSONResult : %s", jsonString);
             //getView().showProgressDialog(jsonString.contains(Constants.EventType.CLOSE) ? R.string.removing_dialog_title : R.string.saving_dialog_title);
 
             interactor.removeChildFromRegister(jsonString, allSharedPreferences.fetchRegisteredANM());

@@ -33,6 +33,8 @@ import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.List;
 
+import timber.log.Timber;
+
 public class MalariaRegisterFragment extends BaseMalariaRegisterFragment {
 
     private View view;
@@ -200,7 +202,7 @@ public class MalariaRegisterFragment extends BaseMalariaRegisterFragment {
             customFilter.append(MessageFormat.format(" and ( {0}.{1} like ''%{2}%'' ", Constants.TABLE_NAME.FAMILY_MEMBER, DBConstants.KEY.FIRST_NAME, filters));
             customFilter.append(MessageFormat.format(" or {0}.{1} like ''%{2}%'' ", Constants.TABLE_NAME.FAMILY_MEMBER, DBConstants.KEY.LAST_NAME, filters));
             customFilter.append(MessageFormat.format(" or {0}.{1} like ''%{2}%'' ", Constants.TABLE_NAME.FAMILY_MEMBER, DBConstants.KEY.MIDDLE_NAME, filters));
-            customFilter.append(MessageFormat.format(" or {0}.{1} = ''{2}'' ) ", Constants.TABLE_NAME.FAMILY_MEMBER, DBConstants.KEY.UNIQUE_ID, filters));
+            customFilter.append(MessageFormat.format(" or {0}.{1} like ''%{2}%'' ) ", Constants.TABLE_NAME.FAMILY_MEMBER, DBConstants.KEY.UNIQUE_ID, filters));
 
             if (dueFilterActive) {
                 customFilter.append(MessageFormat.format(" and ( {0}) ", presenter().getDueFilterCondition()));
@@ -229,47 +231,36 @@ public class MalariaRegisterFragment extends BaseMalariaRegisterFragment {
 
     @Override
     public void countExecute() {
-        if (!dueFilterActive) {
-            super.countExecute();
-        } else {
-            Cursor c = null;
+        Cursor c = null;
+        try {
 
-            try {
-                SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder(countSelect);
-                String query = "";
-                if (isValidFilterForFts(commonRepository())) {
-                    String sql = sqb.countQueryFts(tablename, joinTable, mainCondition, filters);
-                    sql = sql.replace(CommonFtsObject.idColumn, CommonFtsObject.relationalIdColumn);
-                    sql = sql.replace(CommonFtsObject.searchTableName(Constants.TABLE_NAME.MALARIA_CONFIRMATION), CommonFtsObject.searchTableName(Constants.TABLE_NAME.CHILD));
-                    sql = sql + " GROUP BY " + CommonFtsObject.relationalIdColumn;
-                    Log.i(getClass().getName(), query);
+            String query = "select count(*) from " + presenter().getMainTable() + " inner join " + Constants.TABLE_NAME.FAMILY_MEMBER +
+                    " on " + presenter().getMainTable() + "." + DBConstants.KEY.BASE_ENTITY_ID + " = " +
+                    Constants.TABLE_NAME.FAMILY_MEMBER + "." + DBConstants.KEY.BASE_ENTITY_ID +
+                    " where " + presenter().getMainCondition();
 
-                    clientAdapter.setTotalcount(commonRepository().countSearchIds(sql));
-                    Log.v("total count here", "" + clientAdapter.getTotalcount());
+            if (StringUtils.isNotBlank(filters)) {
+                query = query + " and ( " + filters + " ) ";
+            }
 
+            if (dueFilterActive) {
+                query = query + " and ( " + presenter().getDueFilterCondition() + " ) ";
+            }
 
-                } else {
-                    sqb.addCondition(filters);
-                    query = sqb.orderbyCondition(Sortqueries);
-                    query = sqb.Endquery(query);
+            c = commonRepository().rawCustomQueryForAdapter(query);
+            c.moveToFirst();
+            clientAdapter.setTotalcount(c.getInt(0));
+            Timber.v("total count here", "" + clientAdapter.getTotalcount());
 
-                    Log.i(getClass().getName(), query);
-                    c = commonRepository().rawCustomQueryForAdapter(query);
-                    c.moveToFirst();
-                    clientAdapter.setTotalcount(c.getInt(0));
-                    Log.v("total count here", "" + clientAdapter.getTotalcount());
-                }
-
-                clientAdapter.setCurrentlimit(20);
-                clientAdapter.setCurrentoffset(0);
+            clientAdapter.setCurrentlimit(20);
+            clientAdapter.setCurrentoffset(0);
 
 
-            } catch (Exception e) {
-                Log.e(getClass().getName(), e.toString(), e);
-            } finally {
-                if (c != null) {
-                    c.close();
-                }
+        } catch (Exception e) {
+            Timber.e(e);
+        } finally {
+            if (c != null) {
+                c.close();
             }
         }
 
