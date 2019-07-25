@@ -18,6 +18,7 @@ import org.smartregister.chw.activity.ChildProfileActivity;
 import org.smartregister.chw.activity.FamilyProfileActivity;
 import org.smartregister.chw.interactor.ChildProfileInteractor;
 import org.smartregister.chw.model.FamilyProfileDueModel;
+import org.smartregister.chw.util.TestConstant;
 import org.smartregister.chw.util.WashCheck;
 import org.smartregister.chw.presenter.FamilyProfileDuePresenter;
 import org.smartregister.chw.provider.ChwDueRegisterProvider;
@@ -99,8 +100,8 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
         super.setupViews(view);
         emptyView = view.findViewById(R.id.empty_view);
         washCheckView = view.findViewById(R.id.wash_check_layout);
-
-        ((FamilyProfileDuePresenter)presenter).fetchLastWashCheck(0);
+        //TODO nned to replace by flavor
+        if(TestConstant.IS_WASH_CHECK_VISIBLE) ((FamilyProfileDuePresenter)presenter).fetchLastWashCheck(0);
 
     }
     private void addWashCheckView(){
