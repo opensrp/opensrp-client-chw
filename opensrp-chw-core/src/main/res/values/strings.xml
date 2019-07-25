@@ -34,6 +34,19 @@
     <string name="device_to_device">Device-to-device sync</string>
     <string name="choose_language">Choose language</string>
 
+    <!--Navigation side menu -->
+    <string name="menu_all_clients">All Clients</string>
+    <string name="menu_all_families">All Families</string>
+    <string name="menu_anc_clients">ANC Clients</string>
+    <string name="menu_child_clients">Child Clients</string>
+    <string name="menu_hiv_clients">HIV Clients</string>
+    <string name="menu_anc">ANC</string>
+    <string name="menu_pnc">PNC</string>
+    <string name="menu_child">Child</string>
+    <string name="menu_family_planning">Family Planning</string>
+    <string name="menu_malaria">Malaria</string>
+    <string name="menu_referrals">Referrals</string>
+
     <!-- Family Register -->
     <string name="search_name_or_id">Search name or ID</string>
     <string name="visit_not_done">Visit not \ndone</string>

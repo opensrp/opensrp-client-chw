@@ -1,6 +1,4 @@
-package org.smartregister.chw.custom_view;
-
-import com.opensrp.chw.core.custom_views.NavigationMenu;
+package com.opensrp.chw.core.custom_views;
 
 public abstract class DefaultNavigationMenuFlv implements NavigationMenu.Flavour {
     @Override

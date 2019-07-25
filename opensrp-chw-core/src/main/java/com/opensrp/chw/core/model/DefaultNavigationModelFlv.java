@@ -1,9 +1,7 @@
-package org.smartregister.chw.model;
+package com.opensrp.chw.core.model;
 
-import org.smartregister.chw.R;
 
-import com.opensrp.chw.core.model.NavigationModel;
-import com.opensrp.chw.core.model.NavigationOption;
+import com.opensrp.chw.core.R;
 import com.opensrp.chw.core.utils.Constants;
 
 import java.util.ArrayList;

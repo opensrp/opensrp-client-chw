@@ -23,32 +23,61 @@
         android:supportsRtl="true"
         android:theme="@style/HFTheme">
 
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/captured_images_path" />
+        </provider>
+
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="3f94f9c3caeff331b3a2bd8c2182b663ad6a955a" />
 
         <activity
+            android:name="com.opensrp.chw.hf.activity.LoginActivity"
             android:launchMode="singleTask"
             android:roundIcon="@drawable/ic_launcher_round"
             android:screenOrientation="portrait"
             android:theme="@style/HFTheme.Login"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
-            android:name="com.opensrp.chw.hf.activity.LoginActivity">
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
-            android:name="com.opensrp.chw.hf.activity.MainActivity"
+            android:name="org.smartregister.family.activity.FamilyWizardFormActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/FamilyTheme.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
+        <activity
+            android:name="com.opensrp.chw.hf.activity.FamilyRegisterActivity"
             android:screenOrientation="portrait"
             android:theme="@style/HFTheme.NoActionBar" />
+
+        <activity
+            android:name="com.opensrp.chw.hf.activity.FamilyProfileActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/title_family_detail"
+            android:parentActivityName="com.opensrp.chw.hf.activity.FamilyRegisterActivity"
+            android:theme="@style/HFTheme.NoActionBar" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.opensrp.chw.hf.activity.FamilyRegisterActivity" />
+        </activity>
 
         <service android:name="org.smartregister.service.ImageUploadSyncService" />
         <service android:name="org.smartregister.sync.intent.PullUniqueIdsIntentService" />
         <service android:name="org.smartregister.sync.intent.SyncIntentService" />
+        <service android:name="org.smartregister.sync.intent.ExtendedSyncIntentService" />
+        <service android:name="org.smartregister.sync.intent.ValidateIntentService" />
+        <service android:name="org.smartregister.immunization.service.intent.VaccineIntentService" />
 
         <uses-library
             android:name="org.apache.http.legacy"

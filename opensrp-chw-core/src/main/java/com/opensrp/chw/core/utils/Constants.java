@@ -247,15 +247,18 @@ public class Constants {
     }
 
     public static final class DrawerMenu {
+        public static final String ALL_CLIENTS = "All Clients";
         public static final String ALL_FAMILIES = "All Families";
         public static final String ANC_CLIENTS = "ANC Clients";
         public static final String CHILD_CLIENTS = "Child Clients";
+        public static final String CHILD = "Child";
         public static final String HIV_CLIENTS = "Hiv Clients";
         public static final String ANC = "ANC";
         public static final String LD = "L&D";
         public static final String PNC = "PNC";
         public static final String FAMILY_PLANNING = "Family Planning";
         public static final String MALARIA = "Malaria";
+        public static final String REFERRALS = "Referrals";
     }
 
     public static final class RULE_FILE {

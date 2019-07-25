@@ -1,4 +1,4 @@
-package org.smartregister.chw.service;
+package com.opensrp.chw.core.service;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -22,7 +22,7 @@ import java.util.Map;
  * Created by Ephraim Kigamba - ekigamba@ona.io on 2019-06-04
  */
 
-public class ChwAuthorizationService implements P2PAuthorizationService {
+public class CoreAuthorizationService implements P2PAuthorizationService {
 
     private Map<String, Object> authorizationDetails = new HashMap<>();
 

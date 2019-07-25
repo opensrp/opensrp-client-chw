@@ -117,7 +117,9 @@ public abstract class CoreFamilyRegisterFragment extends BaseFamilyRegisterFragm
     }
 
     @Override
-    public abstract void initializeAdapter(Set<org.smartregister.configurableviews.model.View> visibleColumns);
+    public  void initializeAdapter(Set<org.smartregister.configurableviews.model.View> visibleColumns){
+        super.initializeAdapter(visibleColumns);
+    }
 
     @Override
     public void setupViews(View view) {

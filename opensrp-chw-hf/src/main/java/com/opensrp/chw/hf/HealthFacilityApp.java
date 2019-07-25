@@ -6,35 +6,56 @@ import android.os.Build;
 
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
+import com.evernote.android.job.JobManager;
 import com.opensrp.chw.core.contract.CoreApplication;
+import com.opensrp.chw.core.custom_views.NavigationMenu;
 import com.opensrp.chw.core.loggers.CrashlyticsTree;
+import com.opensrp.chw.core.service.CoreAuthorizationService;
 import com.opensrp.chw.core.utils.Constants;
+import com.opensrp.chw.hf.activity.FamilyProfileActivity;
+import com.opensrp.chw.hf.activity.FamilyRegisterActivity;
 import com.opensrp.chw.hf.activity.LoginActivity;
+import com.opensrp.chw.hf.job.HfJobCreator;
+import com.opensrp.chw.hf.model.HfNavigationModel;
+import com.opensrp.chw.hf.repository.HfRepository;
 import com.opensrp.chw.hf.sync.HfSyncConfiguration;
+import com.opensrp.chw.hf.view.HfNavigationMenu;
 import com.opensrp.hf.BuildConfig;
 
+import org.jetbrains.annotations.NotNull;
 import org.smartregister.AllConstants;
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
+import org.smartregister.P2POptions;
+import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
 import org.smartregister.configurableviews.helper.JsonSpecHelper;
+import org.smartregister.family.FamilyLibrary;
+import org.smartregister.immunization.ImmunizationLibrary;
 import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.repository.AllSharedPreferences;
+import org.smartregister.repository.Repository;
 import org.smartregister.sync.helper.ECSyncHelper;
 import org.smartregister.util.Utils;
 import org.smartregister.view.activity.DrishtiApplication;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 import io.fabric.sdk.android.Fabric;
 import timber.log.Timber;
 
+import static com.opensrp.chw.core.utils.ApplicationUtils.getCommonFtsObject;
+import static com.opensrp.chw.core.utils.FormUtils.getFamilyMetadata;
+
 public class HealthFacilityApp extends DrishtiApplication implements CoreApplication {
 
     private static final String TAG = HealthFacilityApp.class.getCanonicalName();
+    private static CommonFtsObject commonFtsObject = null;
     private String password;
     private JsonSpecHelper jsonSpecHelper;
     private ECSyncHelper ecSyncHelper;
@@ -55,9 +76,15 @@ public class HealthFacilityApp extends DrishtiApplication implements CoreApplica
     public void onCreate() {
         super.onCreate();
 
+        //init Job Manager
+        JobManager.create(this).addJobCreator(new HfJobCreator());
+
         //Necessary to determine the right form to pick from assets
         Constants.JSON_FORM.setLocaleAndAssetManager(HealthFacilityApp.getCurrentLocale(),
                 HealthFacilityApp.getInstance().getApplicationContext().getAssets());
+
+        //Setup Navigation menu. Done only once when app is created
+        NavigationMenu.setupNavigationMenu(this, new HfNavigationMenu(), new HfNavigationModel(), getRegisteredActivities());
 
         if (BuildConfig.DEBUG) {
             Timber.plant(new Timber.DebugTree());
@@ -69,6 +96,7 @@ public class HealthFacilityApp extends DrishtiApplication implements CoreApplica
         mInstance = this;
         context = Context.getInstance();
         context.updateApplicationContext(getApplicationContext());
+        context.updateCommonFtsObject(createCommonFtsObject());
 
         Fabric.with(this, new Crashlytics.Builder().core(new CrashlyticsCore.Builder()
                 .disabled(BuildConfig.DEBUG).build()).build());
@@ -76,12 +104,15 @@ public class HealthFacilityApp extends DrishtiApplication implements CoreApplica
         // init json helper
         this.jsonSpecHelper = new JsonSpecHelper(this);
 
+        //Initialize Peer to peer modules
+        P2POptions p2POptions = new P2POptions(true);
+        p2POptions.setAuthorizationService(new CoreAuthorizationService());
+
         // init libraries
-        CoreLibrary.init(context, new HfSyncConfiguration(), BuildConfig.BUILD_TIMESTAMP, null);
+        CoreLibrary.init(context, new HfSyncConfiguration(), BuildConfig.BUILD_TIMESTAMP, p2POptions);
         ConfigurableViewsLibrary.init(context, getRepository());
-
-        //     FamilyLibrary.init(context, getRepository(), getFamilyMetadata(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
-
+        FamilyLibrary.init(context, getRepository(), getFamilyMetadata(new FamilyProfileActivity()), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
+        ImmunizationLibrary.init(context, getRepository(), null, BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
         SyncStatusBroadcastReceiver.init(this);
         LocationHelper.init(new ArrayList<>(Arrays.asList(BuildConfig.ALLOWED_LOCATION_LEVELS)), BuildConfig.DEFAULT_LOCATION);
 
@@ -130,6 +161,15 @@ public class HealthFacilityApp extends DrishtiApplication implements CoreApplica
         }
     }
 
+    @Override
+    public @NotNull Map<String, Class> getRegisteredActivities() {
+        Map<String, Class> registeredActivities = new HashMap<>();
+        registeredActivities.put(Constants.REGISTERED_ACTIVITIES.ANC_REGISTER_ACTIVITY, FamilyRegisterActivity.class);
+        registeredActivities.put(Constants.REGISTERED_ACTIVITIES.FAMILY_REGISTER_ACTIVITY, FamilyRegisterActivity.class);
+        registeredActivities.put(Constants.REGISTERED_ACTIVITIES.CHILD_REGISTER_ACTIVITY, FamilyRegisterActivity.class);
+        return registeredActivities;
+    }
+
     public void saveLanguage(String language) {
         HealthFacilityApp.getInstance().getContext().allSharedPreferences().saveLanguagePreference(language);
     }
@@ -149,5 +189,20 @@ public class HealthFacilityApp extends DrishtiApplication implements CoreApplica
     @Override
     public void notifyAppContextChange() {
 
+    }
+
+    @Override
+    public Repository getRepository() {
+        try {
+            if (repository == null) {
+                repository = new HfRepository(getInstance().getApplicationContext(), context);
+            }
+        } catch (UnsatisfiedLinkError e) {
+            Timber.e(e);
+        }
+        return repository;
+    }
+    public static CommonFtsObject createCommonFtsObject() {
+        return getCommonFtsObject(commonFtsObject);
     }
 }

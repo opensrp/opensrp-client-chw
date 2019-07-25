@@ -2,8 +2,8 @@ package org.smartregister.chw.interactor;
 
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.job.ChwIndicatorGeneratingJob;
-import org.smartregister.chw.job.HomeVisitServiceJob;
-import org.smartregister.chw.job.VaccineRecurringServiceJob;
+import com.opensrp.chw.core.job.HomeVisitServiceJob;
+import com.opensrp.chw.core.job.VaccineRecurringServiceJob;
 import org.smartregister.job.ImageUploadServiceJob;
 import org.smartregister.job.PullUniqueIdsServiceJob;
 import org.smartregister.job.SyncServiceJob;

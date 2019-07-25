@@ -2,6 +2,8 @@ package org.smartregister.chw.repository;
 
 import android.content.Context;
 
+import com.opensrp.chw.core.repository.CoreRepository;
+
 import net.sqlcipher.database.SQLiteDatabase;
 
 import org.apache.commons.lang3.StringUtils;
@@ -35,10 +37,8 @@ import timber.log.Timber;
 /**
  * Created by keyman on 27/11/2018.
  */
-public class ChwRepository extends Repository {
+public class ChwRepository extends CoreRepository {
 
-    protected SQLiteDatabase readableDatabase;
-    protected SQLiteDatabase writableDatabase;
     private Context context;
 
     public ChwRepository(Context context, org.smartregister.Context openSRPContext) {
@@ -49,34 +49,9 @@ public class ChwRepository extends Repository {
     @Override
     public void onCreate(SQLiteDatabase database) {
         super.onCreate(database);
-        EventClientRepository.createTable(database, EventClientRepository.Table.client, EventClientRepository.client_column.values());
-        EventClientRepository.createTable(database, EventClientRepository.Table.event, EventClientRepository.event_column.values());
-        VaccineRepository.createTable(database);
-        VaccineNameRepository.createTable(database);
-        VaccineTypeRepository.createTable(database);
+        HomeVisitIndicatorInfoRepository.createTable(database);
         HomeVisitRepository.createTable(database);
         HomeVisitServiceRepository.createTable(database);
-        ConfigurableViewsRepository.createTable(database);
-
-        UniqueIdRepository.createTable(database);
-        SettingsRepository.onUpgrade(database);
-
-        RecurringServiceTypeRepository.createTable(database);
-        RecurringServiceRecordRepository.createTable(database);
-
-        IndicatorRepository.createTable(database);
-        IndicatorQueryRepository.createTable(database);
-        DailyIndicatorCountRepository.createTable(database);
-        HomeVisitIndicatorInfoRepository.createTable(database);
-
-        VisitRepository.createTable(database);
-        VisitDetailsRepository.createTable(database);
-
-        //onUpgrade(database, 1, 2);
-        RecurringServiceTypeRepository recurringServiceTypeRepository = ImmunizationLibrary.getInstance().recurringServiceTypeRepository();
-        IMDatabaseUtils.populateRecurringServices(context, database, recurringServiceTypeRepository);
-
-        onUpgrade(database, 1, BuildConfig.DATABASE_VERSION);
 
         ReportingLibrary reportingLibraryInstance = ReportingLibrary.getInstance();
         String childIndicatorsConfigFile = "config/child-reporting-indicator-definitions.yml";
@@ -112,45 +87,4 @@ public class ChwRepository extends Repository {
             throw new IllegalStateException("Password is blank");
         }
     }
-
-    @Override
-    public synchronized SQLiteDatabase getWritableDatabase(String password) {
-        if (writableDatabase == null || !writableDatabase.isOpen()) {
-            if (writableDatabase != null) {
-                writableDatabase.close();
-            }
-            writableDatabase = super.getWritableDatabase(password);
-        }
-        return writableDatabase;
-    }
-
-    @Override
-    public synchronized SQLiteDatabase getReadableDatabase(String password) {
-        try {
-            if (readableDatabase == null || !readableDatabase.isOpen()) {
-                if (readableDatabase != null) {
-                    readableDatabase.close();
-                }
-                readableDatabase = super.getReadableDatabase(password);
-            }
-            return readableDatabase;
-        } catch (Exception e) {
-            Timber.e("Database Error. " + e.getMessage());
-            return null;
-        }
-
-    }
-
-    @Override
-    public synchronized void close() {
-        if (readableDatabase != null) {
-            readableDatabase.close();
-        }
-
-        if (writableDatabase != null) {
-            writableDatabase.close();
-        }
-        super.close();
-    }
-
 }

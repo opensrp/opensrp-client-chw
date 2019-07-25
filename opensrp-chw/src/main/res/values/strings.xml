@@ -3,11 +3,6 @@
     <string name="login_title">CFC App</string>
     <string name="logo">logo</string>
 
-    <string name="menu_all_families">All Families</string>
-    <string name="menu_anc_clients">ANC Clients</string>
-    <string name="menu_child_clients">Child Clients</string>
-    <string name="menu_hiv_clients">HIV Clients</string>
-
     <string name="title_family_detail">Family Detail</string>
     <string name="child_register_title">Child Clients</string>
     <string name="return_to_all_children">Return to all children</string>
@@ -214,8 +209,6 @@
     <string name="select_a_new_family_head">Select a new family head</string>
     <string name="menu_labour_and_delivery"><![CDATA[L&D]]></string>
     <string name="menu_child">CH</string>
-    <string name="menu_anc">ANC</string>
-    <string name="menu_pnc">PNC</string>
     <string name="menu_family_planing">FP</string>
     <string name="menu_malaria">Malaria</string>
     <string name="refer_to_facility">Refer to facility</string>

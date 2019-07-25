@@ -10,7 +10,6 @@ import com.evernote.android.job.JobManager;
 import com.opensrp.chw.core.contract.CoreApplication;
 import com.opensrp.chw.core.custom_views.NavigationMenu;
 import com.opensrp.chw.core.loggers.CrashlyticsTree;
-import com.opensrp.chw.core.utils.ChildDBConstants;
 import com.opensrp.chw.core.utils.Constants;
 
 import org.jetbrains.annotations.NotNull;
@@ -35,7 +34,7 @@ import org.smartregister.chw.repository.ChwRepository;
 import org.smartregister.chw.repository.HomeVisitIndicatorInfoRepository;
 import org.smartregister.chw.repository.HomeVisitRepository;
 import org.smartregister.chw.repository.HomeVisitServiceRepository;
-import org.smartregister.chw.service.ChwAuthorizationService;
+import com.opensrp.chw.core.service.CoreAuthorizationService;
 import org.smartregister.chw.sync.ChwClientProcessor;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.commonregistry.AllCommonsRepository;
@@ -43,7 +42,6 @@ import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
 import org.smartregister.configurableviews.helper.JsonSpecHelper;
 import org.smartregister.family.FamilyLibrary;
-import org.smartregister.family.util.DBConstants;
 import org.smartregister.immunization.ImmunizationLibrary;
 import org.smartregister.immunization.domain.VaccineSchedule;
 import org.smartregister.immunization.domain.jsonmapping.Vaccine;
@@ -70,6 +68,7 @@ import java.util.concurrent.TimeUnit;
 import io.fabric.sdk.android.Fabric;
 import timber.log.Timber;
 
+import static com.opensrp.chw.core.utils.ApplicationUtils.getCommonFtsObject;
 import static com.opensrp.chw.core.utils.FormUtils.getFamilyMetadata;
 
 public class ChwApplication extends DrishtiApplication implements CoreApplication {
@@ -78,7 +77,7 @@ public class ChwApplication extends DrishtiApplication implements CoreApplicatio
     private static final int MINIMUM_JOB_FLEX_VALUE = 1;
     private static ClientProcessorForJava clientProcessor;
 
-    private static CommonFtsObject commonFtsObject;
+    private static CommonFtsObject commonFtsObject = null;
     private static HomeVisitRepository homeVisitRepository;
     private static HomeVisitServiceRepository homeVisitServiceRepository;
     private static AncRegisterRepository ancRegisterRepository;
@@ -99,42 +98,7 @@ public class ChwApplication extends DrishtiApplication implements CoreApplicatio
     }
 
     public static CommonFtsObject createCommonFtsObject() {
-        if (commonFtsObject == null) {
-            commonFtsObject = new CommonFtsObject(getFtsTables());
-            for (String ftsTable : commonFtsObject.getTables()) {
-                commonFtsObject.updateSearchFields(ftsTable, getFtsSearchFields(ftsTable));
-                commonFtsObject.updateSortFields(ftsTable, getFtsSortFields(ftsTable));
-            }
-        }
-        return commonFtsObject;
-    }
-
-    private static String[] getFtsTables() {
-        return new String[]{Constants.TABLE_NAME.FAMILY, Constants.TABLE_NAME.FAMILY_MEMBER, Constants.TABLE_NAME.CHILD};
-    }
-
-    private static String[] getFtsSearchFields(String tableName) {
-        if (tableName.equals(Constants.TABLE_NAME.FAMILY)) {
-            return new String[]{DBConstants.KEY.BASE_ENTITY_ID, DBConstants.KEY.VILLAGE_TOWN, DBConstants.KEY.FIRST_NAME,
-                    DBConstants.KEY.LAST_NAME, DBConstants.KEY.UNIQUE_ID};
-        } else if (tableName.equals(Constants.TABLE_NAME.FAMILY_MEMBER) || tableName.equals(Constants.TABLE_NAME.CHILD)) {
-            return new String[]{DBConstants.KEY.BASE_ENTITY_ID, DBConstants.KEY.FIRST_NAME, DBConstants.KEY.MIDDLE_NAME,
-                    DBConstants.KEY.LAST_NAME, DBConstants.KEY.UNIQUE_ID};
-        }
-        return null;
-    }
-
-    private static String[] getFtsSortFields(String tableName) {
-        if (tableName.equals(Constants.TABLE_NAME.FAMILY)) {
-            return new String[]{DBConstants.KEY.LAST_INTERACTED_WITH, DBConstants.KEY.DATE_REMOVED, DBConstants.KEY.FAMILY_HEAD, DBConstants.KEY.PRIMARY_CAREGIVER};
-        } else if (tableName.equals(Constants.TABLE_NAME.FAMILY_MEMBER)) {
-            return new String[]{DBConstants.KEY.DOB, DBConstants.KEY.DOD, DBConstants.KEY
-                    .LAST_INTERACTED_WITH, DBConstants.KEY.DATE_REMOVED};
-        } else if (tableName.equals(Constants.TABLE_NAME.CHILD)) {
-            return new String[]{ChildDBConstants.KEY.LAST_HOME_VISIT, ChildDBConstants.KEY.VISIT_NOT_DONE, DBConstants.KEY
-                    .LAST_INTERACTED_WITH, ChildDBConstants.KEY.DATE_CREATED, DBConstants.KEY.DATE_REMOVED, DBConstants.KEY.DOB};
-        }
-        return null;
+        return getCommonFtsObject(commonFtsObject);
     }
 
     public static ClientProcessorForJava getClientProcessor(android.content.Context context) {
@@ -210,7 +174,7 @@ public class ChwApplication extends DrishtiApplication implements CoreApplicatio
 
         //Initialize Modules
         P2POptions p2POptions = new P2POptions(true);
-        p2POptions.setAuthorizationService(new ChwAuthorizationService());
+        p2POptions.setAuthorizationService(new CoreAuthorizationService());
 
         CoreLibrary.init(context, new ChwSyncConfiguration(), BuildConfig.BUILD_TIMESTAMP, p2POptions);
         CoreLibrary.getInstance().setEcClientFieldsFile(Constants.EC_CLIENT_FIELDS);
@@ -293,8 +257,9 @@ public class ChwApplication extends DrishtiApplication implements CoreApplicatio
         return ChwApplication.getClientProcessor(ChwApplication.getInstance().getApplicationContext());
     }
 
+    @Override
     @NotNull
-    private Map<String, Class> getRegisteredActivities() {
+    public Map<String, Class> getRegisteredActivities() {
         Map<String, Class> registeredActivities = new HashMap<>();
         registeredActivities.put(Constants.REGISTERED_ACTIVITIES.ANC_REGISTER_ACTIVITY, AncRegisterActivity.class);
         registeredActivities.put(Constants.REGISTERED_ACTIVITIES.FAMILY_REGISTER_ACTIVITY, FamilyRegisterActivity.class);
