@@ -13,11 +13,15 @@ import org.smartregister.chw.custom_view.NavigationMenu;
 import org.smartregister.chw.model.PncRegisterFragmentModel;
 import org.smartregister.chw.pnc.fragment.BasePncRegisterFragment;
 import org.smartregister.chw.pnc.presenter.BasePncRegisterFragmentPresenter;
+import org.smartregister.chw.provider.ChwAncRegisterProvider;
+import org.smartregister.chw.provider.ChwPncRegisterProvider;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
+import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
 import org.smartregister.view.customcontrols.CustomFontTextView;
 
 import java.util.HashMap;
+import java.util.Set;
 
 public class PncRegisterFragment extends BasePncRegisterFragment {
 
@@ -81,6 +85,14 @@ public class PncRegisterFragment extends BasePncRegisterFragment {
         }
 
         NavigationMenu.getInstance(getActivity(), null, toolbar);
+    }
+
+    @Override
+    public void initializeAdapter(Set<org.smartregister.configurableviews.model.View> visibleColumns) {
+        ChwPncRegisterProvider provider = new ChwPncRegisterProvider(getActivity(), commonRepository(), visibleColumns, registerActionHandler, paginationViewHandler);
+        clientAdapter = new RecyclerViewPaginatedAdapter(null, provider, context().commonrepository(this.tablename));
+        clientAdapter.setCurrentlimit(20);
+        clientsView.setAdapter(clientAdapter);
     }
 
     @Override
