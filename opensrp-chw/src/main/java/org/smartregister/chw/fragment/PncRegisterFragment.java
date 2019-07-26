@@ -171,7 +171,6 @@ public class PncRegisterFragment extends BasePncRegisterFragment {
 
 
     private String getDueCondition() {
-
         return "(( " + ChwDBConstants.NEXT_VISIT_DATE  +  "< STRFTIME('%Y%m%d', datetime('now')) " +
 
                 " ))";
