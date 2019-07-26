@@ -20,6 +20,7 @@ import org.smartregister.chw.custom_view.NavigationMenu;
 import org.smartregister.chw.model.PncRegisterFragmentModel;
 import org.smartregister.chw.pnc.fragment.BasePncRegisterFragment;
 import org.smartregister.chw.pnc.presenter.BasePncRegisterFragmentPresenter;
+import org.smartregister.chw.provider.ChwPncRegisterProvider;
 import org.smartregister.chw.util.ChwDBConstants;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.QueryBuilder;
@@ -35,9 +36,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
-import provider.PncRegisterProvider;
 import timber.log.Timber;
-
 
 public class PncRegisterFragment extends BasePncRegisterFragment {
 
@@ -105,15 +104,6 @@ public class PncRegisterFragment extends BasePncRegisterFragment {
         }
 
         NavigationMenu.getInstance(getActivity(), null, toolbar);
-    }
-
-
-    @Override
-    public void initializeAdapter(Set<org.smartregister.configurableviews.model.View> visibleColumns) {
-        PncRegisterProvider pncRegisterProvider = new PncRegisterProvider(getActivity(), commonRepository(), visibleColumns, registerActionHandler, paginationViewHandler);
-        clientAdapter = new RecyclerViewPaginatedAdapter(null, pncRegisterProvider, context().commonrepository(this.tablename));
-        clientAdapter.setCurrentlimit(20);
-        clientsView.setAdapter(clientAdapter);
     }
 
     @Override
@@ -185,6 +175,14 @@ public class PncRegisterFragment extends BasePncRegisterFragment {
         }
     }
 
+
+    @Override
+    public void initializeAdapter(Set<org.smartregister.configurableviews.model.View> visibleColumns) {
+        ChwPncRegisterProvider provider = new ChwPncRegisterProvider(getActivity(), commonRepository(), visibleColumns, registerActionHandler, paginationViewHandler);
+        clientAdapter = new RecyclerViewPaginatedAdapter(null, provider, context().commonrepository(this.tablename));
+        clientAdapter.setCurrentlimit(20);
+        clientsView.setAdapter(clientAdapter);
+    }
 
     @Override
     public void onResume() {
