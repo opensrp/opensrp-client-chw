@@ -79,7 +79,7 @@ actions:
   - "isRelevant = true"
 
 ---
-name: step1_sex
+name: step1_gender
 description: sex relevance
 priority: 1
 condition: "step1_preg_outcome == 'Live birth'"
