@@ -41,12 +41,13 @@ import timber.log.Timber;
 
 public class PncRegisterFragment extends BasePncRegisterFragment {
 
+    private static final String DUE_FILTER_TAG = "PRESSED";
     private View view;
     private boolean dueFilterActive = false;
-    private static final String DUE_FILTER_TAG = "PRESSED";
 
 
     @Override
+
     protected void initializePresenter() {
         if (getActivity() == null) {
             return;
@@ -157,8 +158,6 @@ public class PncRegisterFragment extends BasePncRegisterFragment {
     }
 
 
-
-
     private void normalFilter(View dueOnlyLayout) {
         filter(searchText(), "", getCondition());
         dueOnlyLayout.setTag(null);
@@ -171,7 +170,7 @@ public class PncRegisterFragment extends BasePncRegisterFragment {
 
 
     private String getDueCondition() {
-        return "(( " + ChwDBConstants.NEXT_VISIT_DATE  +  "< STRFTIME('%Y%m%d', datetime('now')) " +
+        return "(( " + ChwDBConstants.NEXT_VISIT_DATE + " < STRFTIME('%Y%m%d', datetime('now')) " +
 
                 " ))";
     }
@@ -246,8 +245,6 @@ public class PncRegisterFragment extends BasePncRegisterFragment {
         return query;
     }
 
-
-
     @Override
     public void countExecute() {
 
@@ -275,8 +272,7 @@ public class PncRegisterFragment extends BasePncRegisterFragment {
             clientAdapter.setCurrentlimit(20);
             clientAdapter.setCurrentoffset(0);
 
-
-        }  catch (Exception e) {
+        } catch (Exception e) {
             Timber.e(e);
         } finally {
             if (c != null) {
