@@ -37,12 +37,6 @@ public class PncRegisterFragmentTest extends BaseUnitTest {
         assertNotNull(pncRegisterFragment.presenter());
     }
 
-    @Test
-    public void testDefaultFilterAndSortQuery(){
-
-
-    }
-
 
 }
 
