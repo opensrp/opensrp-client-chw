@@ -213,10 +213,10 @@ dependencies {
 task jacocoTestReport(type: JacocoReport, dependsOn: [
         'testBaDebugUnitTest', 'createBaDebugCoverageReport',
         'testWcaroDebugUnitTest', 'createWcaroDebugCoverageReport',
-        'testTogoDebugUnitTest', 'createTogoDebugCoverageReport',
+        /*'testTogoDebugUnitTest', 'createTogoDebugCoverageReport',
         'testGuineaDebugUnitTest', 'createGuineaDebugCoverageReport',
         'testChadDebugUnitTest', 'createChadDebugCoverageReport',
-        'testDrcDebugUnitTest', 'createDrcDebugCoverageReport'
+        'testDrcDebugUnitTest', 'createDrcDebugCoverageReport'*/
 ]) {
 
     reports {

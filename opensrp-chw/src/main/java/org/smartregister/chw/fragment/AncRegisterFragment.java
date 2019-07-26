@@ -90,8 +90,8 @@ public class AncRegisterFragment extends BaseAncRegisterFragment {
         dueOnlyLayout.setOnClickListener(registerActionHandler);
 
         if (getSearchView() != null) {
-            getSearchView().setBackgroundResource(org.smartregister.family.R.color.white);
-            getSearchView().setCompoundDrawablesWithIntrinsicBounds(org.smartregister.family.R.drawable.ic_action_search, 0, 0, 0);
+            getSearchView().setBackgroundResource(R.color.white);
+            getSearchView().setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_action_search, 0, 0, 0);
             getSearchView().setTextColor(getResources().getColor(R.color.text_black));
         }
 
@@ -294,7 +294,7 @@ public class AncRegisterFragment extends BaseAncRegisterFragment {
             c = commonRepository().rawCustomQueryForAdapter(query);
             c.moveToFirst();
             clientAdapter.setTotalcount(c.getInt(0));
-            Timber.v("total count here", "" + clientAdapter.getTotalcount());
+            Timber.v("total count here %s", clientAdapter.getTotalcount());
 
             clientAdapter.setCurrentlimit(20);
             clientAdapter.setCurrentoffset(0);
