@@ -42,7 +42,6 @@ public class Constants {
         public static final String ANC_HOME_VISIT = "ANC Home Visit";
         public static final String PNC_HOME_VISIT = "PNC Home Visit";
         public static final String UPDATE_ANC_REGISTRATION = "Update ANC Registration";
-        public static final String PREGNANCY_OUTCOME = "Pregnancy Outcome";
     }
 
     /**
@@ -252,6 +251,7 @@ public class Constants {
     public static final class RULE_FILE {
         public static final String HOME_VISIT = "home-visit-rules.yml";
         public static final String ANC_HOME_VISIT = "anc-home-visit-rules.yml";
+        public static final String PNC_HOME_VISIT = "pnc-home-visit-rules.yml";
         public static final String BIRTH_CERT = "birth-cert-rules.yml";
         public static final String SERVICE = "service-rules.yml";
         public static final String IMMUNIZATION_EXPIRED = "immunization-expire-rules.yml";
