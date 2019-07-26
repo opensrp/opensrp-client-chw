@@ -237,7 +237,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'design'
     }
 
-    implementation('org.smartregister:opensrp-client-chw-anc:0.1.0-ALPHA1-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-chw-anc:0.1.0-ALPHA13-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'org.smartregister', module: 'opensrp-client-core'
         exclude group: 'com.android.support', module: 'appcompat-v7'
@@ -247,16 +247,6 @@ dependencies {
     }
 
     implementation('org.smartregister:opensrp-client-chw-pnc:0.0.1-ALPHA1-SNAPSHOT@aar') {
-        transitive = true
-        exclude group: 'org.smartregister', module: 'opensrp-client-chw-anc'
-        exclude group: 'org.smartregister', module: 'opensrp-client-core'
-        exclude group: 'com.android.support', module: 'appcompat-v7'
-        exclude group: 'org.smartregister', module: 'opensrp-client-native-form'
-        exclude group: 'org.smartregister', module: 'opensrp-client-configurable-views'
-        exclude group: 'org.smartregister', module: 'opensrp-client-immunization'
-    }
-
-    implementation('org.smartregister:opensrp-client-chw-pnc:0.0.1-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'org.smartregister', module: 'opensrp-client-chw-anc'
         exclude group: 'org.smartregister', module: 'opensrp-client-core'
