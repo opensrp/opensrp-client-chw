@@ -1,10 +1,11 @@
-package org.smartregister.chw.listener;
+package com.opensrp.chw.core.listener;
 
 import android.app.Activity;
 
-import org.smartregister.chw.R;
-import org.smartregister.chw.fragment.AddMemberFragment;
-import org.smartregister.chw.fragment.FamilyCallDialogFragment;
+
+import com.opensrp.chw.core.R;
+import com.opensrp.chw.core.fragment.AddMemberFragment;
+import com.opensrp.chw.core.fragment.FamilyCallDialogFragment;
 
 import java.lang.ref.WeakReference;
 
@@ -52,18 +53,12 @@ public class FloatingMenuListener implements OnClickFloatingMenu {
                 return;
             }
 
-            switch (viewId) {
-                case R.id.call_layout:
-                    FamilyCallDialogFragment.launchDialog(context.get(), familyBaseEntityId);
-                    break;
-
-                case R.id.add_new_member_layout:
-
-                    AddMemberFragment addmemberFragment = AddMemberFragment.newInstance();
-                    addmemberFragment.setContext(context.get());
-                    addmemberFragment.show(context.get().getFragmentManager(), AddMemberFragment.DIALOG_TAG);
-
-                    break;
+            if (viewId == R.id.call_layout) {
+                FamilyCallDialogFragment.launchDialog(context.get(), familyBaseEntityId);
+            } else if (viewId == R.id.add_new_member_layout) {
+                AddMemberFragment addmemberFragment = AddMemberFragment.newInstance();
+                addmemberFragment.setContext(context.get());
+                addmemberFragment.show(context.get().getFragmentManager(), AddMemberFragment.DIALOG_TAG);
             }
         }
     }

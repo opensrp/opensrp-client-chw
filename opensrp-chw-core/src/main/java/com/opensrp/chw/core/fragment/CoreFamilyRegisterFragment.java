@@ -38,8 +38,8 @@ import static com.opensrp.chw.core.utils.Utils.convertDpToPixel;
 public abstract class CoreFamilyRegisterFragment extends BaseFamilyRegisterFragment {
     private static final String TAG = CoreFamilyRegisterFragment.class.getCanonicalName();
     private static final String DUE_FILTER_TAG = "PRESSED";
-    private View view;
-    private View dueOnlyLayout;
+    protected View view;
+    protected View dueOnlyLayout;
     private boolean dueFilterActive = false;
 
     @Override
@@ -85,7 +85,8 @@ public abstract class CoreFamilyRegisterFragment extends BaseFamilyRegisterFragm
 
     @Override
     public void onSyncInProgress(FetchStatus fetchStatus) {
-        if (!SyncStatusBroadcastReceiver.getInstance().isSyncing() && (FetchStatus.fetched.equals(fetchStatus) || FetchStatus.nothingFetched.equals(fetchStatus)) && dueFilterActive && dueOnlyLayout != null) {
+        if (!SyncStatusBroadcastReceiver.getInstance().isSyncing() && (FetchStatus.fetched.equals(fetchStatus)
+                || FetchStatus.nothingFetched.equals(fetchStatus)) && dueFilterActive && dueOnlyLayout != null) {
             dueFilter(dueOnlyLayout);
             Utils.showShortToast(getActivity(), getString(R.string.sync_complete));
             refreshSyncProgressSpinner();
@@ -96,7 +97,8 @@ public abstract class CoreFamilyRegisterFragment extends BaseFamilyRegisterFragm
 
     @Override
     public void onSyncComplete(FetchStatus fetchStatus) {
-        if (!SyncStatusBroadcastReceiver.getInstance().isSyncing() && (FetchStatus.fetched.equals(fetchStatus) || FetchStatus.nothingFetched.equals(fetchStatus)) && (dueFilterActive && dueOnlyLayout != null)) {
+        if (!SyncStatusBroadcastReceiver.getInstance().isSyncing() && (FetchStatus.fetched.equals(fetchStatus)
+                || FetchStatus.nothingFetched.equals(fetchStatus)) && (dueFilterActive && dueOnlyLayout != null)) {
             dueFilter(dueOnlyLayout);
             Utils.showShortToast(getActivity(), getString(R.string.sync_complete));
             refreshSyncProgressSpinner();
@@ -136,11 +138,14 @@ public abstract class CoreFamilyRegisterFragment extends BaseFamilyRegisterFragm
         View navbarContainer = view.findViewById(R.id.register_nav_bar_container);
         navbarContainer.setFocusable(false);
 
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+
         View searchBarLayout = view.findViewById(R.id.search_bar_layout);
         searchBarLayout.setLayoutParams(params);
         searchBarLayout.setBackgroundResource(R.color.primary);
-        searchBarLayout.setPadding(searchBarLayout.getPaddingLeft(), searchBarLayout.getPaddingTop(), searchBarLayout.getPaddingRight(), (int) convertDpToPixel(10, getActivity()));
+        searchBarLayout.setPadding(searchBarLayout.getPaddingLeft(), searchBarLayout.getPaddingTop(),
+                searchBarLayout.getPaddingRight(), (int) convertDpToPixel(10, getActivity()));
 
         CustomFontTextView titleView = view.findViewById(R.id.txt_title_label);
         if (titleView != null) {

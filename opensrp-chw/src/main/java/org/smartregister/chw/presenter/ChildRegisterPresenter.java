@@ -9,7 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
-import org.smartregister.chw.contract.ChildRegisterContract;
+import com.opensrp.chw.core.contract.ChildRegisterContract;
 import org.smartregister.chw.interactor.ChildRegisterInteractor;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;

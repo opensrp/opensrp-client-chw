@@ -1,4 +1,4 @@
-package org.smartregister.chw.fragment;
+package com.opensrp.chw.core.fragment;
 
 import android.app.Activity;
 import android.app.DialogFragment;
@@ -15,23 +15,22 @@ import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.opensrp.chw.core.R;
+import com.opensrp.chw.core.contract.FamilyCallDialogContract;
+import com.opensrp.chw.core.event.PermissionEvent;
+import com.opensrp.chw.core.listener.CallWidgetDialogListener;
+import com.opensrp.chw.core.presenter.FamilyCallDialogPresenter;
+
 import org.apache.commons.lang3.StringUtils;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-import org.smartregister.chw.R;
-import org.smartregister.chw.contract.FamilyCallDialogContract;
-import org.smartregister.chw.event.PermissionEvent;
-import org.smartregister.chw.listener.CallWidgetDialogListener;
-import org.smartregister.chw.presenter.FamilyCallDialogPresenter;
 import org.smartregister.util.PermissionUtils;
 
 
 public class FamilyCallDialogFragment extends DialogFragment implements FamilyCallDialogContract.View {
 
-
     public static final String DIALOG_TAG = "FamilyCallWidgetDialogFragment_DIALOG_TAG";
-
     private View.OnClickListener listener = null;
     private FamilyCallDialogContract.Dialer mDialer;
     private String familyBaseEntityId;

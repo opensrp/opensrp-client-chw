@@ -1,4 +1,4 @@
-package org.smartregister.chw.activity;
+package com.opensrp.chw.core.activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -14,19 +14,15 @@ import android.view.MenuItem;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import org.apache.commons.lang3.StringUtils;
-import org.greenrobot.eventbus.EventBus;
-import org.json.JSONObject;
-import org.smartregister.chw.R;
+import com.opensrp.chw.core.R;
 import com.opensrp.chw.core.contract.FamilyProfileExtendedContract;
 import com.opensrp.chw.core.custom_views.FamilyFloatingMenu;
 import com.opensrp.chw.core.event.PermissionEvent;
-import org.smartregister.chw.fragment.FamilyProfileActivityFragment;
-import org.smartregister.chw.fragment.FamilyProfileDueFragment;
-import org.smartregister.chw.fragment.FamilyProfileMemberFragment;
 import com.opensrp.chw.core.listener.FloatingMenuListener;
-import org.smartregister.chw.model.FamilyProfileModel;
-import org.smartregister.chw.presenter.FamilyProfilePresenter;
+
+import org.apache.commons.lang3.StringUtils;
+import org.greenrobot.eventbus.EventBus;
+import org.json.JSONObject;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.family.activity.BaseFamilyProfileActivity;
 import org.smartregister.family.adapter.ViewPagerAdapter;
@@ -42,11 +38,9 @@ import org.smartregister.view.fragment.BaseRegisterFragment;
 import de.hdodenhof.circleimageview.CircleImageView;
 import timber.log.Timber;
 
-import static com.opensrp.chw.core.utils.Constants.*;
+public abstract class CoreFamilyProfileActivity extends BaseFamilyProfileActivity implements FamilyProfileExtendedContract.View {
 
-public class FamilyProfileActivity extends BaseFamilyProfileActivity implements FamilyProfileExtendedContract.View {
-
-    private static final String TAG = FamilyProfileActivity.class.getCanonicalName();
+    private static final String TAG = CoreFamilyProfileActivity.class.getCanonicalName();
     private String familyBaseEntityId;
     private String familyHead;
     private String primaryCaregiver;
@@ -61,6 +55,27 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity implements 
         primaryCaregiver = getIntent().getStringExtra(Constants.INTENT_KEY.PRIMARY_CAREGIVER);
         familyName = getIntent().getStringExtra(Constants.INTENT_KEY.FAMILY_NAME);
         presenter = new FamilyProfilePresenter(this, new FamilyProfileModel(familyName), familyBaseEntityId, familyHead, primaryCaregiver, familyName);
+    }
+
+    @Override
+    protected ViewPager setupViewPager(ViewPager viewPager) {
+        adapter = new ViewPagerAdapter(getSupportFragmentManager());
+
+        BaseFamilyProfileMemberFragment profileMemberFragment = FamilyProfileMemberFragment.newInstance(this.getIntent().getExtras());
+        BaseFamilyProfileDueFragment profileDueFragment = FamilyProfileDueFragment.newInstance(this.getIntent().getExtras());
+        BaseFamilyProfileActivityFragment profileActivityFragment = FamilyProfileActivityFragment.newInstance(this.getIntent().getExtras());
+
+        adapter.addFragment(profileMemberFragment, this.getString(org.smartregister.family.R.string.member).toUpperCase());
+        adapter.addFragment(profileDueFragment, this.getString(org.smartregister.family.R.string.due).toUpperCase());
+        adapter.addFragment(profileActivityFragment, this.getString(org.smartregister.family.R.string.activity).toUpperCase());
+
+        viewPager.setAdapter(adapter);
+
+        if (getIntent().getBooleanExtra(com.opensrp.chw.core.utils.Constants.INTENT_KEY.SERVICE_DUE, false) || getIntent().getBooleanExtra(Constants.INTENT_KEY.GO_TO_DUE_PAGE, false)) {
+            viewPager.setCurrentItem(1);
+        }
+
+        return viewPager;
     }
 
     @Override
@@ -85,24 +100,9 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity implements 
     }
 
     @Override
-    protected ViewPager setupViewPager(ViewPager viewPager) {
-        adapter = new ViewPagerAdapter(getSupportFragmentManager());
-
-        BaseFamilyProfileMemberFragment profileMemberFragment = FamilyProfileMemberFragment.newInstance(this.getIntent().getExtras());
-        BaseFamilyProfileDueFragment profileDueFragment = FamilyProfileDueFragment.newInstance(this.getIntent().getExtras());
-        BaseFamilyProfileActivityFragment profileActivityFragment = FamilyProfileActivityFragment.newInstance(this.getIntent().getExtras());
-
-        adapter.addFragment(profileMemberFragment, this.getString(org.smartregister.family.R.string.member).toUpperCase());
-        adapter.addFragment(profileDueFragment, this.getString(org.smartregister.family.R.string.due).toUpperCase());
-        adapter.addFragment(profileActivityFragment, this.getString(org.smartregister.family.R.string.activity).toUpperCase());
-
-        viewPager.setAdapter(adapter);
-
-        if (getIntent().getBooleanExtra(INTENT_KEY.SERVICE_DUE, false) || getIntent().getBooleanExtra(Constants.INTENT_KEY.GO_TO_DUE_PAGE, false)) {
-            viewPager.setCurrentItem(1);
-        }
-
-        return viewPager;
+    protected void onResumption() {
+        super.onResumption();
+        FloatingMenuListener.getInstance(this, presenter().familyBaseEntityId());
     }
 
     @Override
@@ -119,50 +119,117 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity implements 
         return true;
     }
 
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
-        switch (item.getItemId()) {
-            case R.id.action_family_details:
-
-                startFormForEdit();
-
-                break;
-            case R.id.action_remove_member:
-
-                Intent frm_intent = new Intent(this, FamilyRemoveMemberActivity.class);
-                frm_intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID, getFamilyBaseEntityId());
-                frm_intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.FAMILY_HEAD, familyHead);
-                frm_intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.PRIMARY_CAREGIVER, primaryCaregiver);
-                startActivityForResult(frm_intent, ProfileActivityResults.CHANGE_COMPLETED);
-
-                break;
-            case R.id.action_change_head:
-
-                Intent fh_intent = new Intent(this, FamilyProfileMenuActivity.class);
-                fh_intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.BASE_ENTITY_ID, getFamilyBaseEntityId());
-                fh_intent.putExtra(FamilyProfileMenuActivity.MENU, MenuType.ChangeHead);
-                startActivityForResult(fh_intent, ProfileActivityResults.CHANGE_COMPLETED);
-
-                break;
-            case R.id.action_change_care_giver:
-
-
-                Intent pc_intent = new Intent(this, FamilyProfileMenuActivity.class);
-                pc_intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.BASE_ENTITY_ID, getFamilyBaseEntityId());
-                pc_intent.putExtra(FamilyProfileMenuActivity.MENU, MenuType.ChangePrimaryCare);
-                startActivityForResult(pc_intent, ProfileActivityResults.CHANGE_COMPLETED);
-
-                break;
-            default:
-                super.onOptionsItemSelected(item);
-                break;
+        int i = item.getItemId();
+        if (i == R.id.action_family_details) {
+            startFormForEdit();
+        } else if (i == R.id.action_remove_member) {
+            Intent frm_intent = new Intent(this, FamilyRemoveMemberActivity.class);
+            frm_intent.putExtra(Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID, getFamilyBaseEntityId());
+            frm_intent.putExtra(Constants.INTENT_KEY.FAMILY_HEAD, familyHead);
+            frm_intent.putExtra(Constants.INTENT_KEY.PRIMARY_CAREGIVER, primaryCaregiver);
+            startActivityForResult(frm_intent, com.opensrp.chw.core.utils.Constants.ProfileActivityResults.CHANGE_COMPLETED);
+        } else if (i == R.id.action_change_head) {
+            Intent fh_intent = new Intent(this, FamilyProfileMenuActivity.class);
+            fh_intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, getFamilyBaseEntityId());
+            fh_intent.putExtra(FamilyProfileMenuActivity.MENU, com.opensrp.chw.core.utils.Constants.MenuType.ChangeHead);
+            startActivityForResult(fh_intent, com.opensrp.chw.core.utils.Constants.ProfileActivityResults.CHANGE_COMPLETED);
+        } else if (i == R.id.action_change_care_giver) {
+            Intent pc_intent = new Intent(this, FamilyProfileMenuActivity.class);
+            pc_intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, getFamilyBaseEntityId());
+            pc_intent.putExtra(FamilyProfileMenuActivity.MENU, com.opensrp.chw.core.utils.Constants.MenuType.ChangePrimaryCare);
+            startActivityForResult(pc_intent, com.opensrp.chw.core.utils.Constants.ProfileActivityResults.CHANGE_COMPLETED);
+        } else {
+            super.onOptionsItemSelected(item);
         }
 
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == Activity.RESULT_OK) {
+            switch (requestCode) {
+                case org.smartregister.family.util.JsonFormUtils.REQUEST_CODE_GET_JSON:
+                    try {
+                        String jsonString = data.getStringExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON);
+                        Timber.d("JSONResult : %s", jsonString);
+
+                        JSONObject form = new JSONObject(jsonString);
+                        String encounter_type = form.getString(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_TYPE);
+                        // process child registration
+                        if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Utils.metadata().familyRegister.updateEventType)) {
+
+                            presenter().updateFamilyRegister(jsonString);
+                            presenter().verifyHasPhone();
+
+                        } else if (encounter_type.equals(com.opensrp.chw.core.utils.Constants.EventType.CHILD_REGISTRATION)) {
+
+                            presenter().saveChildForm(jsonString, false);
+
+                        } else if (encounter_type.equals(Utils.metadata().familyMemberRegister.registerEventType)) {
+
+                            String careGiver = presenter().saveChwFamilyMember(jsonString);
+                            if (presenter().updatePrimaryCareGiver(getApplicationContext(), jsonString, familyBaseEntityId, careGiver)) {
+                                setPrimaryCaregiver(careGiver);
+                                refreshPresenter();
+                                refreshMemberFragment(careGiver, null);
+                            }
+
+                            presenter().verifyHasPhone();
+                        }
+                    } catch (Exception e) {
+                        Timber.e(e);
+                        Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                    break;
+                case com.opensrp.chw.core.utils.Constants.ProfileActivityResults.CHANGE_COMPLETED:
+                    try {
+
+                        String careGiverID = data.getStringExtra(Constants.INTENT_KEY.PRIMARY_CAREGIVER);
+                        String familyHeadID = data.getStringExtra(Constants.INTENT_KEY.FAMILY_HEAD);
+
+                        setPrimaryCaregiver(careGiverID);
+                        setFamilyHead(familyHeadID);
+
+                        refreshMemberFragment(careGiverID, familyHeadID);
+                        presenter().verifyHasPhone();
+
+                    } catch (Exception e) {
+                        Timber.e(e);
+                        Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                    break;
+            }
+        }
+    }
+
+    @Override
+    public void refreshMemberList(FetchStatus fetchStatus) {
+        if (Looper.myLooper() == Looper.getMainLooper()) {
+            for (int i = 0; i < adapter.getCount(); i++) {
+                refreshList(adapter.getItem(i));
+            }
+        } else {
+            Handler handler = new Handler(Looper.getMainLooper());
+            handler.post(new Runnable() {
+                public void run() {
+                    for (int i = 0; i < adapter.getCount(); i++) {
+                        refreshList(adapter.getItem(i));
+                    }
+                }
+            });
+        }
+    }
+
+    // Child Form
+
+    @Override
+    public FamilyProfileExtendedContract.Presenter presenter() {
+        return (FamilyProfilePresenter) presenter;
+    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode,
@@ -197,8 +264,6 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity implements 
         }
     }
 
-    // Child Form
-
     @Override
     public void startChildForm(String formName, String entityId, String metadata, String currentLocationId) throws Exception {
         presenter().startChildForm(formName, entityId, metadata, currentLocationId);
@@ -215,64 +280,6 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity implements 
         presenter = new FamilyProfilePresenter(this, new FamilyProfileModel(familyName), familyBaseEntityId, familyHead, primaryCaregiver, familyName);
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == Activity.RESULT_OK) {
-            switch (requestCode) {
-                case org.smartregister.family.util.JsonFormUtils.REQUEST_CODE_GET_JSON:
-                    try {
-                        String jsonString = data.getStringExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON);
-                        Timber.d("JSONResult : %s", jsonString);
-
-                        JSONObject form = new JSONObject(jsonString);
-                        String encounter_type = form.getString(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_TYPE);
-                        // process child registration
-                        if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Utils.metadata().familyRegister.updateEventType)) {
-
-                            presenter().updateFamilyRegister(jsonString);
-                            presenter().verifyHasPhone();
-
-                        } else if (encounter_type.equals(EventType.CHILD_REGISTRATION)) {
-
-                            presenter().saveChildForm(jsonString, false);
-
-                        } else if (encounter_type.equals(Utils.metadata().familyMemberRegister.registerEventType)) {
-
-                            String careGiver = presenter().saveChwFamilyMember(jsonString);
-                            if (presenter().updatePrimaryCareGiver(getApplicationContext(), jsonString, familyBaseEntityId, careGiver)) {
-                                setPrimaryCaregiver(careGiver);
-                                refreshPresenter();
-                                refreshMemberFragment(careGiver, null);
-                            }
-
-                            presenter().verifyHasPhone();
-                        }
-                    } catch (Exception e) {
-                        Timber.e(e);
-                        Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                    break;
-                case ProfileActivityResults.CHANGE_COMPLETED:
-                    try {
-
-                        String careGiverID = data.getStringExtra(Constants.INTENT_KEY.PRIMARY_CAREGIVER);
-                        String familyHeadID = data.getStringExtra(Constants.INTENT_KEY.FAMILY_HEAD);
-
-                        setPrimaryCaregiver(careGiverID);
-                        setFamilyHead(familyHeadID);
-
-                        refreshMemberFragment(careGiverID, familyHeadID);
-                        presenter().verifyHasPhone();
-
-                    } catch (Exception e) {
-                        Timber.e(e);
-                        Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                    break;
-            }
-        }
-    }
-
     private void refreshMemberFragment(String careGiverID, String familyHeadID) {
         BaseFamilyProfileMemberFragment memberFragment = this.getProfileMemberFragment();
         if (memberFragment != null) {
@@ -283,24 +290,6 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity implements 
                 memberFragment.setFamilyHead(familyHeadID);
             }
             refreshMemberList(FetchStatus.fetched);
-        }
-    }
-
-    @Override
-    public void refreshMemberList(FetchStatus fetchStatus) {
-        if (Looper.myLooper() == Looper.getMainLooper()) {
-            for (int i = 0; i < adapter.getCount(); i++) {
-                refreshList(adapter.getItem(i));
-            }
-        } else {
-            Handler handler = new Handler(Looper.getMainLooper());
-            handler.post(new Runnable() {
-                public void run() {
-                    for (int i = 0; i < adapter.getCount(); i++) {
-                        refreshList(adapter.getItem(i));
-                    }
-                }
-            });
         }
     }
 
@@ -335,12 +324,6 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity implements 
         }
     }
 
-    @Override
-    protected void onResumption() {
-        super.onResumption();
-        FloatingMenuListener.getInstance(this, presenter().familyBaseEntityId());
-    }
-
     public void setPrimaryCaregiver(String caregiver) {
         if (StringUtils.isNotBlank(caregiver)) {
             this.primaryCaregiver = caregiver;
@@ -353,11 +336,6 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity implements 
             this.familyHead = head;
             getIntent().putExtra(Constants.INTENT_KEY.FAMILY_HEAD, head);
         }
-    }
-
-    @Override
-    public FamilyProfileExtendedContract.Presenter presenter() {
-        return (FamilyProfilePresenter) presenter;
     }
 
     //    @Override

@@ -4,8 +4,8 @@ import android.app.Activity;
 import android.widget.Toast;
 
 import org.smartregister.chw.R;
-import org.smartregister.chw.fragment.FamilyCallDialogFragment;
-import org.smartregister.chw.listener.OnClickFloatingMenu;
+import com.opensrp.chw.core.fragment.FamilyCallDialogFragment;
+import com.opensrp.chw.core.listener.OnClickFloatingMenu;
 import org.smartregister.chw.presenter.ChildProfilePresenter;
 
 public class ChildProfileActivityFlv implements ChildProfileActivity.Flavor {

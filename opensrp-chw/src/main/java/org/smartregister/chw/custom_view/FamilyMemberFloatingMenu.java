@@ -10,7 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import org.smartregister.chw.R;
-import org.smartregister.chw.listener.OnClickFloatingMenu;
+import com.opensrp.chw.core.listener.OnClickFloatingMenu;
 
 public class FamilyMemberFloatingMenu extends LinearLayout implements View.OnClickListener {
     private RelativeLayout activityMain;

@@ -6,9 +6,11 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.powermock.reflect.Whitebox;
-import org.smartregister.chw.contract.FamilyCallDialogContract;
-import org.smartregister.chw.interactor.FamilyCallDialogInteractor;
-import org.smartregister.chw.model.FamilyCallDialogModel;
+import com.opensrp.chw.core.contract.FamilyCallDialogContract;
+import com.opensrp.chw.core.presenter.FamilyCallDialogPresenter;
+
+import com.opensrp.chw.core.interactor.FamilyCallDialogInteractor;
+import com.opensrp.chw.core.model.FamilyCallDialogModel;
 
 public class FamilyCallDialogPresenterTest {
 

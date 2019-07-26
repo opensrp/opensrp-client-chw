@@ -12,7 +12,7 @@ import org.json.JSONObject;
 import org.smartregister.AllConstants;
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
-import org.smartregister.chw.contract.ChildRegisterContract;
+import com.opensrp.chw.core.contract.ChildRegisterContract;
 import com.opensrp.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.fragment.ChildRegisterFragment;
 import org.smartregister.chw.listener.ChwBottomNavigationListener;

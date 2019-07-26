@@ -7,8 +7,8 @@ import android.widget.Toast;
 import org.joda.time.DateTime;
 import org.joda.time.Period;
 import org.smartregister.chw.R;
-import org.smartregister.chw.fragment.FamilyCallDialogFragment;
-import org.smartregister.chw.listener.OnClickFloatingMenu;
+import com.opensrp.chw.core.fragment.FamilyCallDialogFragment;
+import com.opensrp.chw.core.listener.OnClickFloatingMenu;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 
 public class FamilyOtherMemberProfileActivityFlv implements FamilyOtherMemberProfileActivity.Flavor {

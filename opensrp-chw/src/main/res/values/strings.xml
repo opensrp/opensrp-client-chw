@@ -15,15 +15,6 @@
     <string name="provided_on">Provided on %1$s</string>
     <string name="given_on">Given on %1$s</string>
 
-    <string name="call">Call</string>
-    <string name="call_no_number_provided">(no number provided)</string>
-    <string name="family_details">Family details</string>
-    <string name="add_new_family_member">Add new family member</string>
-    <string name="remove_existing_family_member">Remove existing family member</string>
-    <string name="change_family_head">Change family head</string>
-    <string name="change_primary_caregiver">Change primary caregiver</string>
-    <string name="add_other_family_member">Other family member</string>
-    <string name="add_child_under_five">Child under 5 years</string>
     <string name="child_under_five">Child under 5 years</string>
     <string name="go_to_family_s_profile">Go to family\'s profile</string>
     <string name="family_has_nothing_due">Family has nothing due</string>
@@ -39,8 +30,8 @@
     <string name="penta_1">Penta 1</string>
     <string name="view_medical_history">View medical history</string>
     <string name="last_visit_40_days_ago">Last visit %1$s ago</string>
-    <string name="add_member_title">Add family member</string>
-    <string name="add_member_title_question">What kind of family member do you want to add?</string>
+
+
     <string name="change_head_member_title">Change family head</string>
     <string name="change_head_member_title_question">Select a new family head</string>
     <string name="change_caregiver_member_title">Change primary caregiver</string>
@@ -55,10 +46,6 @@
     <string name="return_to_family_name">Return to %1$s Family</string>
     <string name="return_to_family_members">Return to family members</string>
     <string name="save_title">SAVE</string>
-
-    <string name="allow_calls_denied">Kindly allow calls to be made here</string>
-    <string name="copy_to_clipboard">Copy to clipboard</string>
-    <string name="copied_phone_number">PhoneNumber copied to clipboard</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -124,9 +111,8 @@
     <string name="issuance_date">Issuance date</string>
     <string name="number">Number</string>
     <string name="notification">Birth notification done?</string>
-    <string name="call_prompt">CALL %s</string>
     <string name="head_of_family">Head of family</string>
-    <string name="care_giver">Caregiver</string>
+
     <string name="status_saving">Saving</string>
     <string name="fill_earler_immunization"><![CDATA[<i>Record earlier immunizations</i>]]></string>
     <string name="confirm_remove_text">Are you sure you want to remove %s\'s record? This will remove their entire health record from your device. This action cannot be undone.</string>
@@ -204,8 +190,6 @@
     <string name="no_slice_label">No</string>
 
     <string name="immunisation_and_services"><![CDATA[IMMUNISATION & SERVICES]]></string>
-    <string name="call_caregiver">Call caregiver</string>
-    <string name="caregiver">Caregiver</string>
     <string name="select_a_new_family_head">Select a new family head</string>
     <string name="menu_labour_and_delivery"><![CDATA[L&D]]></string>
     <string name="menu_child">CH</string>

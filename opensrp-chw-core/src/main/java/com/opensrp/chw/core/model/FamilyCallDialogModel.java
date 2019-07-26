@@ -1,6 +1,6 @@
-package org.smartregister.chw.model;
+package com.opensrp.chw.core.model;
 
-import org.smartregister.chw.contract.FamilyCallDialogContract;
+import com.opensrp.chw.core.contract.FamilyCallDialogContract;
 
 public class FamilyCallDialogModel implements FamilyCallDialogContract.Model {
 
