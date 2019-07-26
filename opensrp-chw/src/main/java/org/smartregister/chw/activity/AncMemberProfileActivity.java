@@ -164,8 +164,16 @@ public class AncMemberProfileActivity extends BaseAncMemberProfileActivity {
             view_anc_record.setVisibility(View.GONE);
             textViewAncVisitNot.setVisibility(View.GONE);
         }
-        if (visitSummary.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.OVERDUE.name()))
+        if (!visitSummary.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.DUE.name()) &&
+                !visitSummary.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.OVERDUE.name())) {
+            view_anc_record.setVisibility(View.GONE);
+            textViewAncVisitNot.setVisibility(View.GONE);
+        }
+        if (visitSummary.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.OVERDUE.name())) {
             textview_record_anc_visit.setBackgroundResource(R.drawable.record_btn_selector_overdue);
+            layoutRecordView.setVisibility(View.VISIBLE);
+            record_reccuringvisit_done_bar.setVisibility(View.GONE);
+        }
     }
 
     @Override
