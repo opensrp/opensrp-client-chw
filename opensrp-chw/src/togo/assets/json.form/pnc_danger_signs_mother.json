@@ -1,0 +1,75 @@
+{
+    "encounter_type": "Danger Signs -Mother",
+    "danger_signs_mama": {
+        "title": "Danger Signs Mama",
+        "fields": [
+            {
+                "key": "danger_signs_present",
+                "type": "spinner",
+                "openmrs_entity": "",
+                "openmrs_entity_id": "",
+                "openmrs_entity_parent": "",
+                "values": [
+                    "None",
+                    "Fever",
+                    "Prolonged bleeding",
+                    "Severe headache",
+                    "Convulsions",
+                    "Difficulty breathing",
+                    "Severe abdominal pain"
+                ],
+                "keys": [
+                    "None",
+                    "Fever",
+                    "Prolonged_bleeding",
+                    "Severe_headache",
+                    "Convulsions",
+                    "Difficulty_breathing",
+                    "Severe_abdominal_pain"
+                ],
+                "openmrs_choice_ids": {
+                    "None": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "Fever": "140238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "Prolonged_bleeding": "150802AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "Severe_headache": "139081AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "Convulsions": "164483AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "Difficulty_breathing": "142373AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "Severe_abdominal_pain": "165271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                },
+                "hint": "Are any danger signs present?",
+                "v_required": {
+                    "value": "true",
+                    "err": null
+                }
+            },
+            {
+                "key": "danger_signs_counseling",
+                "type": "native_radio",
+                "openmrs_entity": "",
+                "openmrs_entity_id": "",
+                "openmrs_entity_parent": "",
+                "label": "Counseling on seeking care immediately for danger signs",
+                "options": [
+                    {
+                        "key": "yes",
+                        "openmrs_entity": "",
+                        "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "openmrs_entity_parent": "",
+                        "text": "Yes"
+                    },
+                    {
+                        "key": "no",
+                        "openmrs_entity": "",
+                        "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        "openmrs_entity_parent": "",
+                        "text": "No"
+                    }
+                ],
+                "v_required": {
+                    "value": "true",
+                    "err": null
+                }
+            }
+        ]
+    }
+}
