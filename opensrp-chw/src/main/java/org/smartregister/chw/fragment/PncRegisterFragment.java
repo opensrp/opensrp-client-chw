@@ -21,7 +21,6 @@ import org.smartregister.chw.model.PncRegisterFragmentModel;
 import org.smartregister.chw.pnc.fragment.BasePncRegisterFragment;
 import org.smartregister.chw.pnc.presenter.BasePncRegisterFragmentPresenter;
 import org.smartregister.chw.provider.ChwPncRegisterProvider;
-import org.smartregister.chw.util.ChwDBConstants;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.QueryBuilder;
 import org.smartregister.chw.util.Utils;
@@ -160,9 +159,8 @@ public class PncRegisterFragment extends BasePncRegisterFragment {
 
 
     private String getDueCondition() {
-        return "(( " + ChwDBConstants.NEXT_VISIT_DATE + " < STRFTIME('%Y%m%d', datetime('now')) " +
-
-                " ))";
+        return " ifnull(substr(delivery_date, 7, 4)||'-'||substr(delivery_date, 4, 2)||'-'||substr(delivery_date, 1, 2), '+2 day') < STRFTIME('%Y%m%d', datetime('now')) " +
+                " and julianday() - julianday(substr(delivery_date, 7, 4)||'-'||substr(delivery_date, 4, 2)||'-'||substr(delivery_date, 1, 2)) >= 2   ";
     }
 
 
