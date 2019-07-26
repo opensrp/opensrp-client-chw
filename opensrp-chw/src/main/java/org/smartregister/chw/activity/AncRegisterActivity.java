@@ -87,7 +87,6 @@ public class AncRegisterActivity extends BaseAncRegisterActivity implements ChwB
     @Override
     protected void registerBottomNavigation() {
         super.registerBottomNavigation();
-
         if (!BuildConfig.SUPPORT_QR) {
             bottomNavigationView.getMenu().removeItem(R.id.action_scan_qr);
         }
