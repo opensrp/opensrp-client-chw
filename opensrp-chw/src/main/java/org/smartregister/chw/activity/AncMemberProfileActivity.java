@@ -125,7 +125,7 @@ public class AncMemberProfileActivity extends BaseAncMemberProfileActivity {
         try {
             startFormActivity(form);
         } catch (Exception e) {
-            Timber.e(e.getMessage());
+            Timber.e(e);
         }
     }
 
@@ -160,12 +160,14 @@ public class AncMemberProfileActivity extends BaseAncMemberProfileActivity {
 
         if (!ancVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.DUE.name()) &&
                 !ancVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.OVERDUE.name())) {
-            textview_record_anc_visit.setVisibility(View.GONE);
             view_anc_record.setVisibility(View.GONE);
             textViewAncVisitNot.setVisibility(View.GONE);
         }
-        if (ancVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.OVERDUE.name()))
+        if (ancVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.OVERDUE.name())) {
             textview_record_anc_visit.setBackgroundResource(R.drawable.record_btn_selector_overdue);
+            layoutRecordView.setVisibility(View.VISIBLE);
+            record_reccuringvisit_done_bar.setVisibility(View.GONE);
+        }
     }
 
     @Override
