@@ -3,7 +3,7 @@ package org.smartregister.chw.fragment;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.os.Handler;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -64,6 +64,7 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
         familyBaseEntityId = getArguments().getString(Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID);
         familyName = getArguments().getString(Constants.INTENT_KEY.FAMILY_NAME);
         presenter = new FamilyProfileDuePresenter(this, new FamilyProfileDueModel(), null, familyBaseEntityId);
+        //TODO need to pass this value as this value using at homevisit rule
         dateFamilyCreated = getArguments().getLong("");
 
     }
@@ -74,6 +75,16 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
         this.clientAdapter = new FamilyRecyclerViewCustomAdapter(null, chwDueRegisterProvider, this.context().commonrepository(this.tablename), Utils.metadata().familyDueRegister.showPagination);
         this.clientAdapter.setCurrentlimit(Utils.metadata().familyDueRegister.currentLimit);
         this.clientsView.setAdapter(this.clientAdapter);
+        //need some delay to ready the adapter
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                //TODO nned to replace by flavor
+                if(TestConstant.IS_WASH_CHECK_VISIBLE) ((FamilyProfileDuePresenter)presenter).fetchLastWashCheck(0);
+
+            }
+        },500);
+
     }
 
     @Override
@@ -100,8 +111,6 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
         super.setupViews(view);
         emptyView = view.findViewById(R.id.empty_view);
         washCheckView = view.findViewById(R.id.wash_check_layout);
-        //TODO nned to replace by flavor
-        if(TestConstant.IS_WASH_CHECK_VISIBLE) ((FamilyProfileDuePresenter)presenter).fetchLastWashCheck(0);
 
     }
     private void addWashCheckView(){
@@ -181,18 +190,17 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
                         )
                         {
                             boolean isSave = ((FamilyProfileDuePresenter)presenter).saveData(jsonString);
-                            Log.v(TAG,"is save:"+isSave);
                             if(isSave){
-                                washCheckView.setVisibility(View.GONE);
+                                visibilityWashView(false);
                                 if(getActivity()!=null && getActivity() instanceof FamilyProfileActivity){
-                                    FamilyProfileActivity familyProfileActivity = (FamilyProfileActivity)getActivity();
-                                    familyProfileActivity.updateWashCheckActivity();
+                                 FamilyProfileActivity familyProfileActivity = (FamilyProfileActivity)getActivity();
+                                 familyProfileActivity.updateWashCheckActivity();
+
                                 }
                             }
                         }
 
                     }catch (Exception e){
-                        Log.v(TAG,"is save:Exception"+e);
                         e.printStackTrace();
                     }
 
@@ -206,7 +214,7 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
         TextView lastVisit = washCheckView.findViewById(R.id.last_visit);
         ImageView status = washCheckView.findViewById(R.id.status);
         if(washCheck == null || washCheck.getStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.DUE.name())){
-            washCheckView.setVisibility(View.VISIBLE);
+            visibilityWashView(true);
             status.setImageResource(org.smartregister.chw.util.Utils.getDueProfileImageResourceIDentifier());
             if(washCheck == null){
               lastVisit.setVisibility(View.GONE);
@@ -217,7 +225,7 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
 
 
         } else if(washCheck.getStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.OVERDUE.name())){
-            washCheckView.setVisibility(View.VISIBLE);
+            visibilityWashView(true);
             status.setImageResource(org.smartregister.chw.util.Utils.getOverDueProfileImageResourceIDentifier());
             lastVisit.setText(String.format(getActivity().getString(R.string.last_visit_prefix),  washCheck.getLastVisitDate()));
             name.setText(getActivity().getString(R.string.family,familyName)+" "+getActivity().getString(R.string.wash_check_suffix));
@@ -226,6 +234,17 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
             washCheckView.setVisibility(View.GONE);
         }
 
+    }
+    private void visibilityWashView(boolean isVisible){
+        if ((isVisible)) {
+            washCheckView.setVisibility(View.VISIBLE);
+            emptyView.setVisibility(View.GONE);
+            dueCount++;
+        } else {
+            dueCount--;
+            washCheckView.setVisibility(View.GONE);
+        }
+        ((FamilyProfileActivity) getActivity()).updateDueCount(dueCount);
     }
 
     @Override

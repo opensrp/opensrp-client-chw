@@ -2,8 +2,6 @@ package org.smartregister.chw.sync;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.util.Log;
-
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.repository.HomeVisitRepository;
@@ -197,7 +195,6 @@ public class ChwClientProcessor extends ClientProcessorForJava {
         WashCheck washCheck = new WashCheck();
         for (org.smartregister.domain.db.Obs obs : eventClient.getEvent().getObs()) {
 
-            Log.v("WASH_CHECK","obs.getFormSubmissionField()?>>>"+obs.getFormSubmissionField());
             if (obs.getFormSubmissionField().equalsIgnoreCase(Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.FAMILY_ID)) {
                 washCheck.setFamilyBaseEntityId((String) obs.getValue());
             }

@@ -1,6 +1,5 @@
 package org.smartregister.chw.util;
 
-import java.util.Date;
 
 public class WashCheck {
     private String familyBaseEntityId;

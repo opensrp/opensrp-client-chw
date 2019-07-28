@@ -3,8 +3,6 @@ package org.smartregister.chw.repository;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.text.TextUtils;
-import android.util.Log;
-
 import net.sqlcipher.database.SQLiteDatabase;
 import org.smartregister.chw.util.WashCheck;
 import org.smartregister.repository.BaseRepository;
@@ -12,8 +10,6 @@ import org.smartregister.repository.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import timber.log.Timber;
 
 public class WashCheckRepository extends BaseRepository {
     private static final String TAG = WashCheckRepository.class.getCanonicalName();
@@ -41,8 +37,7 @@ public class WashCheckRepository extends BaseRepository {
             SQLiteDatabase database = getWritableDatabase();
             if (washCheck.getFamilyBaseEntityId() != null) {
                 if(findUnique(database,washCheck) == null){
-                   long inserted =  database.insert(WASH_CHECK_TABLE_NAME, null, createValuesFor(washCheck));
-                    Log.v("WASH_CHECK","inserted>>"+inserted);
+                   database.insert(WASH_CHECK_TABLE_NAME, null, createValuesFor(washCheck));
                 }
             }
 
@@ -74,8 +69,7 @@ public class WashCheckRepository extends BaseRepository {
         String selection = FAMILY_ID + " = ? " + COLLATE_NOCASE;
         String[] selectionArgs = new String[]{familyId};
         net.sqlcipher.Cursor cursor = database.query(WASH_CHECK_TABLE_NAME, TABLE_COLUMNS, selection, selectionArgs, null, null, LAST_VISIT + " DESC");
-        ArrayList<WashCheck> washChecks = getAllWashCheck(cursor);
-        return washChecks;
+        return getAllWashCheck(cursor);
     }
 
     public WashCheck getLatestEntry(String familyId) {
@@ -115,8 +109,6 @@ public class WashCheckRepository extends BaseRepository {
         values.put(FAMILY_ID, washCheck.getFamilyBaseEntityId());
         values.put(DETAILS, washCheck.getDetailsJson());
         values.put(LAST_VISIT, washCheck.getLastVisit());
-        Log.v("WASH_CHECK","createValuesFor>>"+values);
-
         return values;
     }
 
