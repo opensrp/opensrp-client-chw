@@ -52,6 +52,7 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity implements 
 
     private FamilyFloatingMenu familyFloatingMenu;
     private BaseFamilyProfileDueFragment profileDueFragment;
+    private FamilyProfileActivityFragment profileActivityFragment;
 
     @Override
     protected void initializePresenter() {
@@ -88,7 +89,7 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity implements 
 
         BaseFamilyProfileMemberFragment profileMemberFragment = FamilyProfileMemberFragment.newInstance(this.getIntent().getExtras());
         profileDueFragment = FamilyProfileDueFragment.newInstance(this.getIntent().getExtras());
-        BaseFamilyProfileActivityFragment profileActivityFragment = FamilyProfileActivityFragment.newInstance(this.getIntent().getExtras());
+        profileActivityFragment =(FamilyProfileActivityFragment) FamilyProfileActivityFragment.newInstance(this.getIntent().getExtras());
 
         adapter.addFragment(profileMemberFragment, this.getString(org.smartregister.family.R.string.member).toUpperCase());
         adapter.addFragment(profileDueFragment, this.getString(org.smartregister.family.R.string.due).toUpperCase());
@@ -357,6 +358,9 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity implements 
     @Override
     public FamilyProfileExtendedContract.Presenter presenter() {
         return (FamilyProfilePresenter) presenter;
+    }
+    public void updateWashCheckActivity(){
+        profileActivityFragment.updateWashCheck();
     }
 
     //    @Override

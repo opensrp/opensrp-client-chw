@@ -48,6 +48,7 @@
                         android:padding="10dp"
                         android:text="@string/yes"
                         android:checked="false"
+                        android:clickable="false"
                         android:textColor="@color/text_black"
                         android:textSize="@dimen/register_list_desc_size" />
 
@@ -58,6 +59,7 @@
                         android:padding="10dp"
                         android:text="@string/no"
                         android:checked="false"
+                        android:clickable="false"
                         android:textColor="@color/text_black"
                         android:textSize="@dimen/register_list_desc_size" />\
                 </RadioGroup>
@@ -97,6 +99,7 @@
                         android:padding="10dp"
                         android:text="@string/yes"
                         android:checked="false"
+                        android:clickable="false"
                         android:textColor="@color/text_black"
                         android:textSize="@dimen/register_list_desc_size" />
 
@@ -107,6 +110,7 @@
                         android:padding="10dp"
                         android:text="@string/no"
                         android:checked="false"
+                        android:clickable="false"
                         android:textColor="@color/text_black"
                         android:textSize="@dimen/register_list_desc_size" />\
                 </RadioGroup>
@@ -146,6 +150,7 @@
                         android:padding="10dp"
                         android:text="@string/yes"
                         android:checked="false"
+                        android:clickable="false"
                         android:textColor="@color/text_black"
                         android:textSize="@dimen/register_list_desc_size" />
 
@@ -156,6 +161,7 @@
                         android:padding="10dp"
                         android:text="@string/no"
                         android:checked="false"
+                        android:clickable="false"
                         android:textColor="@color/text_black"
                         android:textSize="@dimen/register_list_desc_size" />\
                 </RadioGroup>

@@ -11,15 +11,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.RadioButton;
-import com.google.gson.reflect.TypeToken;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
-import org.smartregister.chw.util.ChildUtils;
-import org.smartregister.domain.db.Event;
-import org.smartregister.domain.db.Obs;
 
-import java.util.List;
+import static org.smartregister.util.JsonFormUtils.VALUE;
+import static org.smartregister.util.JsonFormUtils.fields;
+import static org.smartregister.util.JsonFormUtils.getFieldJSONObject;
 
 public class WashCheckDialogFragment extends DialogFragment implements View.OnClickListener {
 
@@ -82,62 +81,44 @@ public class WashCheckDialogFragment extends DialogFragment implements View.OnCl
     private void parseData(){
         try{
             JSONObject jsonObject = new JSONObject(jsonData);
-            org.smartregister.domain.db.Event event = ChildUtils.gsonConverter.fromJson(jsonObject.toString(), new TypeToken<Event>() {
-            }.getType());
-            List<Obs> observations = event.getObs();
-            for (org.smartregister.domain.db.Obs obs : observations) {
-                if(obs.getFormSubmissionField().equalsIgnoreCase("handwashing_facilities")){
-                    handwashingValue = getObservationValue(obs);
-                }
-                if (obs.getFormSubmissionField().equalsIgnoreCase("drinking_water")) {
-                    drinkingValue = getObservationValue(obs);
-                }
-                if (obs.getFormSubmissionField().equalsIgnoreCase("hygienic_latrine")) {
-                    latrineValue = getObservationValue(obs);
-                }
-            }
+            JSONArray field = fields(jsonObject);
+            JSONObject handwashing_facilities = getFieldJSONObject(field, "handwashing_facilities");
+            handwashingValue = handwashing_facilities.optString(VALUE);
+            JSONObject drinking_water = getFieldJSONObject(field, "drinking_water");
+            drinkingValue = drinking_water.optString(VALUE);
+            JSONObject hygienic_latrine = getFieldJSONObject(field, "hygienic_latrine");
+            latrineValue = hygienic_latrine.optString(VALUE);
+
         }catch (Exception e){
             e.printStackTrace();
         }
         if(!TextUtils.isEmpty(handwashingValue)){
             if ((handwashingValue.equalsIgnoreCase(getString(R.string.yes)))) {
                 handwashingYes.setChecked(true);
+                handwashingNo.setEnabled(false);
             } else {
                 handwashingNo.setChecked(true);
+                handwashingYes.setEnabled(false);
             }
         }
         if(!TextUtils.isEmpty(drinkingValue)){
             if ((drinkingValue.equalsIgnoreCase(getString(R.string.yes)))) {
                 drinkingYes.setChecked(true);
+                drinkingNo.setEnabled(false);
             } else {
                 drinkingNo.setChecked(true);
+                drinkingYes.setEnabled(false);
             }
         }
         if(!TextUtils.isEmpty(latrineValue)){
             if ((latrineValue.equalsIgnoreCase(getString(R.string.yes)))) {
                 latrineYes.setChecked(true);
+                latrineNo.setEnabled(false);
             } else {
                 latrineNo.setChecked(true);
+                latrineYes.setEnabled(false);
             }
         }
-    }
-
-    private String getObservationValue(org.smartregister.domain.db.Obs obs){
-            List<Object> hu = obs.getHumanReadableValues();
-            String value = "";
-            for (Object object : hu) {
-                value = (String) object;
-            }
-            if(!value.isEmpty()){
-                return value;
-            }else{
-                List<Object> values = obs.getValues();
-                for (Object object : hu) {
-                    value = (String) object;
-                }
-                return value;
-            }
-
     }
 
     @Override

@@ -184,6 +184,10 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
                             Log.v(TAG,"is save:"+isSave);
                             if(isSave){
                                 washCheckView.setVisibility(View.GONE);
+                                if(getActivity()!=null && getActivity() instanceof FamilyProfileActivity){
+                                    FamilyProfileActivity familyProfileActivity = (FamilyProfileActivity)getActivity();
+                                    familyProfileActivity.updateWashCheckActivity();
+                                }
                             }
                         }
 
