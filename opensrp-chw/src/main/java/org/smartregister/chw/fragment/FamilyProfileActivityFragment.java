@@ -26,7 +26,6 @@ import timber.log.Timber;
 
 public class FamilyProfileActivityFragment extends BaseFamilyProfileActivityFragment {
     private static final String TAG = FamilyProfileActivityFragment.class.getCanonicalName();
-    private String familyBaseEntityId;
     private String familyName;
     private RecyclerView washCheckRecyclerView;
     private WashCheckAdapter washCheckAdapter;
@@ -58,7 +57,7 @@ public class FamilyProfileActivityFragment extends BaseFamilyProfileActivityFrag
 
     @Override
     protected void initializePresenter() {
-        familyBaseEntityId = getArguments().getString(Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID);
+        String familyBaseEntityId = getArguments().getString(Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID);
         familyName = getArguments().getString(Constants.INTENT_KEY.FAMILY_NAME);
         presenter = new FamilyProfileActivityPresenter(this, new FamilyProfileActivityModel(), null, familyBaseEntityId);
     }

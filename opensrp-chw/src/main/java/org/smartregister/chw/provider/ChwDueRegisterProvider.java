@@ -100,11 +100,6 @@ public class ChwDueRegisterProvider extends FamilyDueRegisterProvider {
         attachNextArrowOnclickListener(viewHolder.nextArrow, client);
     }
 
-    private void populateIdentifierColumn(CommonPersonObjectClient pc, RegisterViewHolder viewHolder) {
-        String uniqueId = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.UNIQUE_ID, false);
-        //fillValue(viewHolder.ancId, String.format(context.getString(R.string.unique_id_text), uniqueId));
-    }
-
     private void attachPatientOnclickListener(View view, SmartRegisterClient client) {
         view.setOnClickListener(onClickListener);
         view.setTag(client);

@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WashCheckRepository extends BaseRepository {
-    private static final String TAG = WashCheckRepository.class.getCanonicalName();
     private static final String WASH_CHECK_SQL = "CREATE TABLE ec_wash_check_log (family_id VARCHAR NOT NULL,last_visit VARCHAR,details_info TEXT)";
     public static final String WASH_CHECK_TABLE_NAME = "ec_wash_check_log";
     public static final String FAMILY_ID = "family_id";
@@ -35,10 +34,8 @@ public class WashCheckRepository extends BaseRepository {
         }
         try {
             SQLiteDatabase database = getWritableDatabase();
-            if (washCheck.getFamilyBaseEntityId() != null) {
-                if(findUnique(database,washCheck) == null){
+            if (washCheck.getFamilyBaseEntityId() != null && findUnique(database,washCheck) == null) {
                    database.insert(WASH_CHECK_TABLE_NAME, null, createValuesFor(washCheck));
-                }
             }
 
         } catch (Exception e) {
@@ -52,10 +49,8 @@ public class WashCheckRepository extends BaseRepository {
             return null;
         }
         SQLiteDatabase database = (db == null) ? getReadableDatabase() : db;
-        String selection = null;
-        String[] selectionArgs = null;
-            selection = FAMILY_ID + " = ? " + COLLATE_NOCASE + " and " + LAST_VISIT + " = ? " + COLLATE_NOCASE;
-            selectionArgs = new String[]{washCheck.getFamilyBaseEntityId(), washCheck.getLastVisit()+""};
+        String selection = FAMILY_ID + " = ? " + COLLATE_NOCASE + " and " + LAST_VISIT + " = ? " + COLLATE_NOCASE;
+        String[] selectionArgs = new String[]{washCheck.getFamilyBaseEntityId(), washCheck.getLastVisit() + ""};
         net.sqlcipher.Cursor cursor = database.query(WASH_CHECK_TABLE_NAME, TABLE_COLUMNS, selection, selectionArgs, null, null, null, null);
         List<WashCheck> homeVisitList = getAllWashCheck(cursor);
         if (homeVisitList.size()>0) {

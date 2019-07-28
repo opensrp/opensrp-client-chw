@@ -193,7 +193,7 @@ public class ChwClientProcessor extends ClientProcessorForJava {
     }
     private void processWashCheckEvent(EventClient eventClient){
         WashCheck washCheck = new WashCheck();
-        for (org.smartregister.domain.db.Obs obs : eventClient.getEvent().getObs()) {
+        for (Obs obs : eventClient.getEvent().getObs()) {
 
             if (obs.getFormSubmissionField().equalsIgnoreCase(Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.FAMILY_ID)) {
                 washCheck.setFamilyBaseEntityId((String) obs.getValue());

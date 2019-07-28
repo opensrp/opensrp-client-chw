@@ -7,7 +7,6 @@ import org.joda.time.LocalDate;
 import org.joda.time.Months;
 import org.smartregister.chw.R;
 import org.smartregister.chw.interactor.ChildProfileInteractor;
-import org.smartregister.chw.util.ChildUtils;
 
 //All date formats ISO 8601 yyyy-mm-dd
 

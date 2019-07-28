@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class WashCheckAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    ArrayList<WashCheck> contentList;
+    private ArrayList<WashCheck> contentList;
     private Context context;
     private String familyName;
     private OnClickAdapter onClickAdapter;
@@ -65,24 +65,14 @@ public class WashCheckAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     }
     private class RegisterViewHolder extends RecyclerView.ViewHolder {
         public ImageView status;
-        public CustomFontTextView patientNameAge;
+        private CustomFontTextView patientNameAge;
         public TextView lastVisit;
-        public ImageView nextArrow;
-        public android.view.View patientColumn;
-        public android.view.View nextArrowColumn;
-        public android.view.View statusColumn;
-        public android.view.View registerColumns;
 
-        public RegisterViewHolder(android.view.View itemView) {
+        private RegisterViewHolder(android.view.View itemView) {
             super(itemView);
-            this.status = (ImageView)itemView.findViewById(org.smartregister.family.R.id.status);
-            this.patientNameAge = (CustomFontTextView)itemView.findViewById(org.smartregister.family.R.id.patient_name_age);
-            this.lastVisit = (TextView)itemView.findViewById(org.smartregister.family.R.id.last_visit);
-            this.nextArrow = (ImageView)itemView.findViewById(org.smartregister.family.R.id.next_arrow);
-            this.patientColumn = itemView.findViewById(org.smartregister.family.R.id.patient_column);
-            this.nextArrowColumn = itemView.findViewById(org.smartregister.family.R.id.next_arrow_column);
-            this.statusColumn = itemView.findViewById(org.smartregister.family.R.id.status_layout);
-            this.registerColumns = itemView.findViewById(org.smartregister.family.R.id.register_columns);
+            this.status = itemView.findViewById(org.smartregister.family.R.id.status);
+            this.patientNameAge = itemView.findViewById(org.smartregister.family.R.id.patient_name_age);
+            this.lastVisit = itemView.findViewById(org.smartregister.family.R.id.last_visit);
         }
     }
     public interface OnClickAdapter{

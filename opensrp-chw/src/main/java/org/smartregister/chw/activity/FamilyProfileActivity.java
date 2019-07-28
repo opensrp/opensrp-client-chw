@@ -30,7 +30,6 @@ import org.smartregister.chw.presenter.FamilyProfilePresenter;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.family.activity.BaseFamilyProfileActivity;
 import org.smartregister.family.adapter.ViewPagerAdapter;
-import org.smartregister.family.fragment.BaseFamilyProfileActivityFragment;
 import org.smartregister.family.fragment.BaseFamilyProfileDueFragment;
 import org.smartregister.family.fragment.BaseFamilyProfileMemberFragment;
 import org.smartregister.family.util.Constants;

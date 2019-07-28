@@ -40,7 +40,6 @@ import static org.smartregister.family.util.Utils.metadata;
 import static org.smartregister.util.JsonFormUtils.ENTITY_ID;
 
 public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
-    private static final String TAG = FamilyProfileDueFragment.class.getCanonicalName();
 
     private int dueCount = 0;
     private View emptyView;
@@ -72,15 +71,15 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
     @Override
     public void initializeAdapter(Set<org.smartregister.configurableviews.model.View> visibleColumns) {
         ChwDueRegisterProvider chwDueRegisterProvider = new ChwDueRegisterProvider(this.getActivity(), this.commonRepository(), visibleColumns, this.registerActionHandler, this.paginationViewHandler);
-        this.clientAdapter = new FamilyRecyclerViewCustomAdapter(null, chwDueRegisterProvider, this.context().commonrepository(this.tablename), Utils.metadata().familyDueRegister.showPagination);
-        this.clientAdapter.setCurrentlimit(Utils.metadata().familyDueRegister.currentLimit);
+        this.clientAdapter = new FamilyRecyclerViewCustomAdapter(null, chwDueRegisterProvider, this.context().commonrepository(this.tablename), metadata().familyDueRegister.showPagination);
+        this.clientAdapter.setCurrentlimit(metadata().familyDueRegister.currentLimit);
         this.clientsView.setAdapter(this.clientAdapter);
         //need some delay to ready the adapter
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 //TODO nned to replace by flavor
-                if(TestConstant.IS_WASH_CHECK_VISIBLE) ((FamilyProfileDuePresenter)presenter).fetchLastWashCheck(0);
+                if(TestConstant.IS_WASH_CHECK_VISIBLE) ((FamilyProfileDuePresenter)presenter).fetchLastWashCheck(dateFamilyCreated);
 
             }
         },500);
@@ -206,6 +205,8 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
 
                 }
                 break;
+                default:
+                    break;
         }
     }
     public void updateWashCheckBar(WashCheck washCheck){
