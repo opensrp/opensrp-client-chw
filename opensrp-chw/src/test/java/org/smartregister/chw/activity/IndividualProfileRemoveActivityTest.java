@@ -16,16 +16,16 @@ import static org.mockito.Mockito.never;
 
 public class IndividualProfileRemoveActivityTest extends BaseActivityTest<IndividualProfileRemoveActivity> {
     @Mock
-    IndividualProfileRemoveActivity individualProfileRemoveActivity;
+    private IndividualProfileRemoveActivity individualProfileRemoveActivity;
 
     @Mock
-    IndividualProfileRemoveFragment individualProfileRemoveFragment;
+    private IndividualProfileRemoveFragment individualProfileRemoveFragment;
 
     @Mock
-    JSONObject jsonObject;
+    private JSONObject jsonObject;
 
     @Mock
-    Intent intent;
+    private Intent intent;
 
     @Before
     public void setUp() {
