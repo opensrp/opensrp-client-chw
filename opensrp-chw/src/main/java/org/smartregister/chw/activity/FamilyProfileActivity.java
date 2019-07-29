@@ -18,13 +18,15 @@ import org.apache.commons.lang3.StringUtils;
 import org.greenrobot.eventbus.EventBus;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
-import org.smartregister.chw.contract.FamilyProfileExtendedContract;
-import org.smartregister.chw.custom_view.FamilyFloatingMenu;
-import org.smartregister.chw.event.PermissionEvent;
+
+import com.opensrp.chw.core.activity.CoreFamilyProfileActivity;
+import com.opensrp.chw.core.contract.FamilyProfileExtendedContract;
+import com.opensrp.chw.core.custom_views.FamilyFloatingMenu;
+import com.opensrp.chw.core.event.PermissionEvent;
 import org.smartregister.chw.fragment.FamilyProfileActivityFragment;
 import org.smartregister.chw.fragment.FamilyProfileDueFragment;
 import org.smartregister.chw.fragment.FamilyProfileMemberFragment;
-import org.smartregister.chw.listener.FloatingMenuListener;
+import com.opensrp.chw.core.listener.FloatingMenuListener;
 import org.smartregister.chw.model.FamilyProfileModel;
 import org.smartregister.chw.presenter.FamilyProfilePresenter;
 import org.smartregister.domain.FetchStatus;
@@ -44,7 +46,7 @@ import timber.log.Timber;
 
 import static com.opensrp.chw.core.utils.Constants.*;
 
-public class FamilyProfileActivity extends BaseFamilyProfileActivity implements FamilyProfileExtendedContract.View {
+public class FamilyProfileActivity extends CoreFamilyProfileActivity {
 
     private static final String TAG = FamilyProfileActivity.class.getCanonicalName();
     private String familyBaseEntityId;

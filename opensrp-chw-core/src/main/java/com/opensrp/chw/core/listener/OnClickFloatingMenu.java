@@ -1,4 +1,4 @@
-package org.smartregister.chw.listener;
+package com.opensrp.chw.core.listener;
 
 public interface OnClickFloatingMenu {
     void onClickMenu(int viewId);

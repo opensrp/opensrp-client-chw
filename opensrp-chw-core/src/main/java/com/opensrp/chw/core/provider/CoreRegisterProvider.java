@@ -53,8 +53,6 @@ public abstract class CoreRegisterProvider extends FamilyRegisterProvider {
 
         ((LinearLayout) viewHolder.memberIcon).removeAllViews();
 
-        viewHolder.dueButton.setVisibility(View.GONE);
-
         if (updateAsyncTask != null) {
             Utils.startAsyncTask(updateAsyncTask, null);
         }

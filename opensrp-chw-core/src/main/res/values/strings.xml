@@ -55,4 +55,29 @@
     <string name="due_visit">Last visit \n %1$s</string>
     <string name="record_home_visit">Record \nHome visit</string>
 
+    <!-- Floating menu -->
+    <string name="family_details">Family details</string>
+    <string name="add_new_family_member">Add new family member</string>
+    <string name="remove_existing_family_member">Remove existing family member</string>
+    <string name="change_family_head">Change family head</string>
+    <string name="change_primary_caregiver">Change primary caregiver</string>
+    <string name="care_giver">Caregiver</string>
+
+    <!-- Call dialog and clipboard -->
+    <string name="allow_calls_denied">Kindly allow calls to be made here</string>
+    <string name="copy_to_clipboard">Copy to clipboard</string>
+    <string name="copied_phone_number">PhoneNumber copied to clipboard</string>
+    <string name="call_prompt">CALL %s</string>
+    <string name="call_caregiver">Call caregiver</string>
+    <string name="caregiver">Caregiver</string>
+    <string name="call">Call</string>
+    <string name="call_no_number_provided">(no number provided)</string>
+
+
+    <!--Add family fragment -->
+    <string name="add_member_title">Add family member</string>
+    <string name="add_member_title_question">What kind of family member do you want to add?</string>
+    <string name="add_other_family_member">Other family member</string>
+    <string name="add_child_under_five">Child under 5 years</string>
+
 </resources>

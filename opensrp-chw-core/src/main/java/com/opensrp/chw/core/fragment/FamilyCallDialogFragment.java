@@ -1,4 +1,4 @@
-package org.smartregister.chw.fragment;
+package com.opensrp.chw.core.fragment;
 
 import android.app.Activity;
 import android.app.DialogFragment;
@@ -19,11 +19,13 @@ import org.apache.commons.lang3.StringUtils;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-import org.smartregister.chw.R;
-import org.smartregister.chw.contract.FamilyCallDialogContract;
-import org.smartregister.chw.event.PermissionEvent;
-import org.smartregister.chw.listener.CallWidgetDialogListener;
-import org.smartregister.chw.presenter.FamilyCallDialogPresenter;
+
+import com.opensrp.chw.core.R;
+import com.opensrp.chw.core.contract.FamilyCallDialogContract;
+import com.opensrp.chw.core.event.PermissionEvent;
+import com.opensrp.chw.core.listener.CallWidgetDialogListener;
+import com.opensrp.chw.core.presenter.FamilyCallDialogPresenter;
+
 import org.smartregister.util.PermissionUtils;
 
 

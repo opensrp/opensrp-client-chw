@@ -1,7 +1,7 @@
-package org.smartregister.chw.presenter;
+package com.opensrp.chw.core.presenter;
 
-import org.smartregister.chw.contract.FamilyCallDialogContract;
-import org.smartregister.chw.interactor.FamilyCallDialogInteractor;
+import com.opensrp.chw.core.contract.FamilyCallDialogContract;
+import com.opensrp.chw.core.interactor.FamilyCallDialogInteractor;
 
 import java.lang.ref.WeakReference;
 

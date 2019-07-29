@@ -15,11 +15,11 @@ import com.opensrp.chw.core.utils.Constants;
 import com.opensrp.chw.hf.activity.FamilyProfileActivity;
 import com.opensrp.chw.hf.activity.FamilyRegisterActivity;
 import com.opensrp.chw.hf.activity.LoginActivity;
+import com.opensrp.chw.hf.custom_view.HfNavigationMenu;
 import com.opensrp.chw.hf.job.HfJobCreator;
 import com.opensrp.chw.hf.model.HfNavigationModel;
 import com.opensrp.chw.hf.repository.HfRepository;
 import com.opensrp.chw.hf.sync.HfSyncConfiguration;
-import com.opensrp.chw.hf.view.HfNavigationMenu;
 import com.opensrp.hf.BuildConfig;
 
 import org.jetbrains.annotations.NotNull;

@@ -1,4 +1,4 @@
-package org.smartregister.chw.fragment;
+package com.opensrp.chw.core.fragment;
 
 import android.app.Dialog;
 import android.content.ClipData;
@@ -10,7 +10,8 @@ import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
 
-import org.smartregister.chw.R;
+
+import com.opensrp.chw.core.R;
 
 import timber.log.Timber;
 
