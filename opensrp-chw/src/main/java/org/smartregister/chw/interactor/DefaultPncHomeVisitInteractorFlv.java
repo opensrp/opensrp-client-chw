@@ -4,6 +4,7 @@ import android.content.Context;
 
 import org.smartregister.chw.R;
 import org.smartregister.chw.actionhelper.DangerSignsAction;
+import org.smartregister.chw.actionhelper.ObservationAction;
 import org.smartregister.chw.anc.AncLibrary;
 import org.smartregister.chw.anc.contract.BaseAncHomeVisitContract;
 import org.smartregister.chw.anc.domain.MemberObject;
@@ -168,8 +169,8 @@ public class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitInteractor.
         BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.pnc_observation_and_illness_mother))
                 .withOptional(false)
                 .withDetails(details)
-                .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getDangerSigns())
-                .withHelper(new DangerSignsAction())
+                .withFormName(Constants.JSON_FORM.ANC_HOME_VISIT.getObservationAndIllness())
+                .withHelper(new ObservationAction())
                 .build();
         actionList.put(context.getString(R.string.pnc_observation_and_illness_mother), action);
     }
@@ -179,8 +180,8 @@ public class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitInteractor.
             BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, MessageFormat.format(context.getString(R.string.pnc_observation_and_illness_baby), baby))
                     .withOptional(false)
                     .withDetails(details)
-                    .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getDangerSigns())
-                    .withHelper(new DangerSignsAction())
+                    .withFormName(Constants.JSON_FORM.ANC_HOME_VISIT.getObservationAndIllness())
+                    .withHelper(new ObservationAction())
                     .build();
             actionList.put(MessageFormat.format(context.getString(R.string.pnc_observation_and_illness_baby), baby), action);
         }
