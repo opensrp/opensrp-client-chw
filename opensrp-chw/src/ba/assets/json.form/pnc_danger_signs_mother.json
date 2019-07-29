@@ -123,6 +123,33 @@
           "value": "true",
           "err": "Please pick at least one"
         }
+      },
+      {
+        "key": "danger_signs_present_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Danger sign! \nRefer immediately to health facility.",
+        "text_color": "#CF0800",
+        "toaster_type": "problem",
+        "relevance": {
+          "step1:danger_signs_present": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "chk_fever",
+                  "chk_bleeding_vaginally",
+                  "chk_server_headache",
+                  "chk_convulsions",
+                  "chk_difficulty_breathing",
+                  "chk_severe_abdominal_pain",
+                  "chk_vaginal_discharge"
+                ]
+              }
+            ]
+          }
+        }
       }
     ]
   }

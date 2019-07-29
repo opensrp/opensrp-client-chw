@@ -144,6 +144,36 @@
           "value": "true",
           "err": "Please pick at least one"
         }
+      },
+      {
+        "key": "danger_signs_present_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Danger sign! \nRefer immediately to health facility.",
+        "text_color": "#CF0800",
+        "toaster_type": "problem",
+        "relevance": {
+          "step1:danger_signs_present": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "chk_fever",
+                  "chk_redness_around_umbilical_cord",
+                  "chk_excessive_crying",
+                  "chk_fast_breathing",
+                  "chk_chest_indrawing",
+                  "chk_unable_to_suck",
+                  "chk_no_movement",
+                  "chk_convulsions",
+                  "chk_pale",
+                  "chk_lethargy"
+                ]
+              }
+            ]
+          }
+        }
       }
     ]
   }
