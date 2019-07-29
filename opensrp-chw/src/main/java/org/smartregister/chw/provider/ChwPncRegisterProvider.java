@@ -123,11 +123,11 @@ public class ChwPncRegisterProvider extends PncRegisterProvider {
                 Timber.e(e);
             }
 
-            Visit lastVisit = getInstance().visitRepository().getLatestVisit(baseEntityID, "PNC Home Visit");
+            Visit lastVisit = getInstance().visitRepository().getLatestVisit(baseEntityID, org.smartregister.chw.anc.util.Constants.EVENT_TYPE.PNC_HOME_VISIT);
             if (lastVisit != null)
                 lastVisitDate = lastVisit.getDate();
 
-            Visit lastNotVisit = getInstance().visitRepository().getLatestVisit(baseEntityID, "PNC Home Visit");
+            Visit lastNotVisit = getInstance().visitRepository().getLatestVisit(baseEntityID, org.smartregister.chw.anc.util.Constants.EVENT_TYPE.PNC_HOME_VISIT_NOT_DONE);
             if (lastNotVisit != null)
                 lastNotVisitDate = lastNotVisit.getDate();
 
