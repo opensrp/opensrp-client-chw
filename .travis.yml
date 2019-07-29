@@ -42,8 +42,9 @@ script:
   - echo "Travis branch is in pull request $TRAVIS_PULL+REQUEST"
   - chmod 755 gradlew
   - ls -la
-  #Run jacocoTestReport -> Runs all unit tests & instrumentation tests
+  #Run jacocoTestReport -> Runs all unit tests & instrumentation test
   - travis_wait ./gradlew clean && ./gradlew  jacocoTestReport coveralls --stacktrace
+
 after_failure:
   - pandoc opensrp-client-chw/build/reports/tests/index.html -t plain
 
