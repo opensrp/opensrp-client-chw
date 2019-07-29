@@ -200,6 +200,8 @@ public class Constants {
             private static final String NUTRITION_STATUS_MOTHER = "pnc_nutrition_status_mother";
             private static final String NUTRITION_STATUS_INFANT = "pnc_nutrition_status_infant";
             private static final String MALARIA_PREVENTION = "pnc_malaria_prevention";
+            private static final String OBSERVATION_AND_ILLNESS_MOTHER  = "pnc_hv_observations_mother";
+            private static final String OBSERVATION_AND_ILLNESS_INFANT = "pnc_hv_observations_infant";
 
             public static String getDangerSigns() {
                 return Utils.getLocalForm(DANGER_SIGNS);
@@ -231,6 +233,14 @@ public class Constants {
 
             public static String getMalariaPrevention() {
                 return Utils.getLocalForm(MALARIA_PREVENTION);
+            }
+
+            public static String getObservationAndIllnessMother() {
+                return Utils.getLocalForm(OBSERVATION_AND_ILLNESS_MOTHER);
+            }
+
+            public static String getObservationAndIllnessInfant() {
+                return Utils.getLocalForm(OBSERVATION_AND_ILLNESS_INFANT);
             }
         }
     }

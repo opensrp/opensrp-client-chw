@@ -1,6 +1,8 @@
 package org.smartregister.chw.interactor;
 
 import org.apache.commons.lang3.StringUtils;
+import org.joda.time.LocalDate;
+import org.joda.time.format.DateTimeFormat;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
@@ -23,6 +25,7 @@ import java.util.LinkedHashMap;
 
 import timber.log.Timber;
 
+import static org.smartregister.chw.util.JsonFormUtils.getCheckBoxValue;
 import static org.smartregister.chw.util.JsonFormUtils.getValue;
 
 public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv {
@@ -411,10 +414,49 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
         BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.pnc_observation_and_illness_mother))
                 .withOptional(true)
                 .withDetails(details)
-                .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getDangerSigns())
-                .withHelper(new DangerSignsAction())
+                .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getObservationAndIllnessMother())
+                .withHelper(new ObsIllnessMotherHelper())
                 .build();
         actionList.put(context.getString(R.string.pnc_observation_and_illness_mother), action);
+    }
+
+    private class ObsIllnessMotherHelper extends HomeVisitActionHelper {
+        private String date_of_illness;
+        private String illness_description;
+        private String action_taken;
+        private LocalDate illnessDate;
+
+        @Override
+        public void onPayloadReceived(String jsonPayload) {
+            try {
+                JSONObject jsonObject = new JSONObject(jsonPayload);
+                date_of_illness = getValue(jsonObject, "date_of_illness_mama");
+                illness_description = getValue(jsonObject, "illness_description_mama");
+                action_taken = getCheckBoxValue(jsonObject, "action_taken_mama");
+                illnessDate = DateTimeFormat.forPattern("dd-MM-yyyy").parseLocalDate(date_of_illness);
+            } catch (Exception e) {
+                Timber.e(e);
+            }
+        }
+
+        @Override
+        public String evaluateSubTitle() {
+            if (illnessDate == null)
+                return "";
+
+            return MessageFormat.format("{0}: {1}\n {2}: {3}",
+                    DateTimeFormat.forPattern("dd MMM yyyy").print(illnessDate),
+                    illness_description, context.getString(R.string.action_taken), action_taken
+            );
+        }
+
+        @Override
+        public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
+            if (StringUtils.isBlank(date_of_illness))
+                return BaseAncHomeVisitAction.Status.PENDING;
+
+            return BaseAncHomeVisitAction.Status.COMPLETED;
+        }
     }
 
     private void evaluateObsIllnessBaby() throws Exception {
@@ -422,10 +464,49 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
             BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, MessageFormat.format(context.getString(R.string.pnc_observation_and_illness_baby), baby.getFullName()))
                     .withOptional(true)
                     .withDetails(details)
-                    .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getDangerSigns())
-                    .withHelper(new DangerSignsAction())
+                    .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getObservationAndIllnessInfant())
+                    .withHelper(new ObsIllnessBabyHelper())
                     .build();
             actionList.put(MessageFormat.format(context.getString(R.string.pnc_observation_and_illness_baby), baby.getFullName()), action);
+        }
+    }
+
+    private class ObsIllnessBabyHelper extends HomeVisitActionHelper {
+        private String date_of_illness;
+        private String illness_description;
+        private String action_taken;
+        private LocalDate illnessDate;
+
+        @Override
+        public void onPayloadReceived(String jsonPayload) {
+            try {
+                JSONObject jsonObject = new JSONObject(jsonPayload);
+                date_of_illness = getValue(jsonObject, "date_of_illness_child");
+                illness_description = getValue(jsonObject, "illness_description_child");
+                action_taken = getCheckBoxValue(jsonObject, "action_taken_child");
+                illnessDate = DateTimeFormat.forPattern("dd-MM-yyyy").parseLocalDate(date_of_illness);
+            } catch (Exception e) {
+                Timber.e(e);
+            }
+        }
+
+        @Override
+        public String evaluateSubTitle() {
+            if (illnessDate == null)
+                return "";
+
+            return MessageFormat.format("{0}: {1}\n {2}: {3}",
+                    DateTimeFormat.forPattern("dd MMM yyyy").print(illnessDate),
+                    illness_description, context.getString(R.string.action_taken), action_taken
+            );
+        }
+
+        @Override
+        public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
+            if (StringUtils.isBlank(date_of_illness))
+                return BaseAncHomeVisitAction.Status.PENDING;
+
+            return BaseAncHomeVisitAction.Status.COMPLETED;
         }
     }
 
