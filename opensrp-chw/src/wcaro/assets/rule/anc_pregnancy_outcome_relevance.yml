@@ -10,7 +10,7 @@ actions:
 name: step1_delivery_date
 description: miscarriage_date relevance
 priority: 1
-condition: "step1_preg_outcome == 'Live birth'"
+condition: "step1_preg_outcome == 'Live birth' || step1_preg_outcome == 'Stillbirth'"
 actions:
   - "isRelevant = true"
 
@@ -103,8 +103,8 @@ actions:
   - "isRelevant = true"
 
 ---
-name: step1_physically_challenged
-description: physically_challenged relevance
+name: step1_disabilities
+description: disabilities relevance
 priority: 1
 condition: "step1_preg_outcome == 'Live birth'"
 actions:
