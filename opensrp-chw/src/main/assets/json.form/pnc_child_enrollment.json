@@ -125,15 +125,7 @@
         ]
       },
       {
-        "key": "fam_name",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "label",
-        "hidden": "true"
-      },
-      {
-        "key": "surname_calculation",
+        "key": "last_name",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person",
         "openmrs_entity_id": "last_name",

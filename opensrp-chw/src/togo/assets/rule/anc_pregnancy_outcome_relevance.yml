@@ -103,8 +103,8 @@ actions:
   - "isRelevant = true"
 
 ---
-name: step1_physically_challenged
-description: physically_challenged relevance
+name: step1_disabilities
+description: disabilities relevance
 priority: 1
 condition: "step1_preg_outcome == 'Live birth'"
 actions:
