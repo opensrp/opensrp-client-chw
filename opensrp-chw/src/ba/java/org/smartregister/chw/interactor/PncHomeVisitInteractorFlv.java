@@ -8,8 +8,12 @@ import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
 import org.smartregister.chw.anc.util.VisitUtils;
+import org.smartregister.chw.dao.PersonDao;
+import org.smartregister.chw.domain.Person;
 import org.smartregister.chw.util.Constants;
 
+import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 import timber.log.Timber;
@@ -27,6 +31,10 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
                 details = VisitUtils.getVisitGroups(AncLibrary.getInstance().visitDetailsRepository().getVisits(lastVisit.getVisitId()));
             }
         }
+
+        children = PersonDao.getMothersChildren(memberObject.getBaseEntityId());
+        if (children == null)
+            children = new ArrayList<>();
 
         try {
             evaluateDangerSignsMother();
@@ -62,13 +70,15 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
     }
 
     private void evaluateDangerSignsBaby() throws Exception {
-        BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.pnc_danger_signs_baby))
-                .withOptional(false)
-                .withDetails(details)
-                .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getDangerSignsBaby())
-                .withHelper(new DangerSignsAction())
-                .build();
-        actionList.put(context.getString(R.string.pnc_danger_signs_baby), action);
+        for (Person baby : children) {
+            BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, MessageFormat.format(context.getString(R.string.pnc_danger_signs_baby), baby.getFullName()))
+                    .withOptional(false)
+                    .withDetails(details)
+                    .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getDangerSignsBaby())
+                    .withHelper(new DangerSignsAction())
+                    .build();
+            actionList.put(MessageFormat.format(context.getString(R.string.pnc_danger_signs_baby), baby.getFullName()), action);
+        }
     }
 
     private void evaluatePNCHealthFacilityVisitOne() throws Exception {
@@ -182,13 +192,15 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
     }
 
     private void evaluateObsIllnessBaby() throws Exception {
-        BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.pnc_observation_and_illness_baby))
-                .withOptional(true)
-                .withDetails(details)
-                .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getDangerSigns())
-                .withHelper(new DangerSignsAction())
-                .build();
-        actionList.put(context.getString(R.string.pnc_observation_and_illness_baby), action);
+        for (Person baby : children) {
+            BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, MessageFormat.format(context.getString(R.string.pnc_observation_and_illness_baby), baby.getFullName()))
+                    .withOptional(true)
+                    .withDetails(details)
+                    .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getDangerSigns())
+                    .withHelper(new DangerSignsAction())
+                    .build();
+            actionList.put(MessageFormat.format(context.getString(R.string.pnc_observation_and_illness_baby), baby.getFullName()), action);
+        }
     }
 
 

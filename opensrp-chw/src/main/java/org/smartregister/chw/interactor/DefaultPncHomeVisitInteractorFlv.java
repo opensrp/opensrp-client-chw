@@ -11,8 +11,11 @@ import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.domain.VisitDetail;
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
 import org.smartregister.chw.anc.util.VisitUtils;
+import org.smartregister.chw.dao.PersonDao;
+import org.smartregister.chw.domain.Person;
 import org.smartregister.chw.util.Constants;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,6 +27,7 @@ public class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitInteractor.
     protected LinkedHashMap<String, BaseAncHomeVisitAction> actionList;
     protected Context context;
     protected Map<String, List<VisitDetail>> details = null;
+    protected List<Person> children;
 
     @Override
     public LinkedHashMap<String, BaseAncHomeVisitAction> calculateActions(BaseAncHomeVisitContract.View view, MemberObject memberObject, BaseAncHomeVisitContract.InteractorCallBack callBack) throws BaseAncHomeVisitAction.ValidationException {
@@ -36,6 +40,10 @@ public class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitInteractor.
                 details = VisitUtils.getVisitGroups(AncLibrary.getInstance().visitDetailsRepository().getVisits(lastVisit.getVisitId()));
             }
         }
+
+        children = PersonDao.getMothersChildren(memberObject.getBaseEntityId());
+        if (children == null)
+            children = new ArrayList<>();
 
         try {
             evaluateDangerSignsMother();
