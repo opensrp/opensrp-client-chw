@@ -72,12 +72,13 @@
                 android:value="com.opensrp.chw.hf.activity.FamilyRegisterActivity" />
         </activity>
 
-        <service android:name="org.smartregister.service.ImageUploadSyncService" />
+        <service android:name="org.smartregister.immunization.service.intent.VaccineIntentService" />
+        <service android:name="org.smartregister.immunization.service.intent.RecurringIntentService" />
         <service android:name="org.smartregister.sync.intent.PullUniqueIdsIntentService" />
         <service android:name="org.smartregister.sync.intent.SyncIntentService" />
         <service android:name="org.smartregister.sync.intent.ExtendedSyncIntentService" />
         <service android:name="org.smartregister.sync.intent.ValidateIntentService" />
-        <service android:name="org.smartregister.immunization.service.intent.VaccineIntentService" />
+        <service android:name="org.smartregister.service.ImageUploadSyncService" />
 
         <uses-library
             android:name="org.apache.http.legacy"

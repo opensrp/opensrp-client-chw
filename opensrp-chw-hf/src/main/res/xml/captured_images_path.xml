@@ -2,5 +2,5 @@
 <paths>
     <external-path
         name="captured_photos"
-        path="Android/data/com.opensrp.hf/files/Pictures" />
+        path="Android/data/com.opensrp.chw.hf/files/Pictures" />
 </paths>
