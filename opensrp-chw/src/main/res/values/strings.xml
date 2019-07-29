@@ -391,10 +391,10 @@
     <string name="pnc_danger_signs_mother">Danger signs - mother</string>
     <string name="pnc_danger_signs_baby">Danger signs - baby ({0})</string>
     <string name="pnc_health_facility_visit">PNC health facility visit - day {0}</string>
-    <string name="pnc_child_vaccine_card_recevied">Child vaccine card received</string>
-    <string name="pnc_immunization_at_birth">Immunizations (at birth)</string>
+    <string name="pnc_child_vaccine_card_recevied">Child vaccine card received ({0})</string>
+    <string name="pnc_immunization_at_birth">Immunizations (at birth) ({0})</string>
     <string name="pnc_umblicord_care">Umbilical cord care</string>
-    <string name="pnc_exclusive_breastfeeding">Exclusive breastfeeding</string>
+    <string name="pnc_exclusive_breastfeeding">Exclusive breastfeeding ({0})</string>
     <string name="pnc_kangeroo_mother_care">Kangeroo mother care (KNC)</string>
     <string name="pnc_family_planning">Family planning</string>
     <string name="pnc_observation_and_illness_mother">Observations &amp; illness - mother </string>

@@ -30,10 +30,10 @@ public class PersonDao extends AbstractDao {
                     Timber.e(e);
                 }
                 return new Person(
-                        c.getString(c.getColumnIndex("base_entity_id")),
-                        c.getString(c.getColumnIndex("first_name")),
-                        c.getString(c.getColumnIndex("last_name")),
-                        c.getString(c.getColumnIndex("middle_name")),
+                        getCursorValue(c,"base_entity_id"),
+                        getCursorValue(c,"first_name"),
+                        getCursorValue(c,"last_name"),
+                        getCursorValue(c,"middle_name"),
                         dob
                 );
             }
