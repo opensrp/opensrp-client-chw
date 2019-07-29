@@ -23,6 +23,8 @@ import java.util.LinkedHashMap;
 
 import timber.log.Timber;
 
+import static org.smartregister.chw.util.JsonFormUtils.getValue;
+
 public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv {
 
     @Override
@@ -354,10 +356,55 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
         BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.pnc_malaria_prevention))
                 .withOptional(false)
                 .withDetails(details)
-                .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getDangerSigns())
-                .withHelper(new DangerSignsAction())
+                .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getMalariaPrevention())
+                .withHelper(new MalariaPreventionHelper())
                 .build();
         actionList.put(context.getString(R.string.pnc_malaria_prevention), action);
+    }
+
+    private class MalariaPreventionHelper extends HomeVisitActionHelper {
+        private String fam_llin;
+        private String llin_2days;
+        private String llin_condition;
+
+        @Override
+        public void onPayloadReceived(String jsonPayload) {
+            try {
+                JSONObject jsonObject = new JSONObject(jsonPayload);
+                fam_llin = getValue(jsonObject, "fam_llin");
+                llin_2days = getValue(jsonObject, "llin_2days");
+                llin_condition = getValue(jsonObject, "llin_condition");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        public String evaluateSubTitle() {
+            StringBuilder stringBuilder = new StringBuilder();
+            if (fam_llin.equalsIgnoreCase("No")) {
+                stringBuilder.append(MessageFormat.format("{0}: {1}\n", context.getString(R.string.uses_net), StringUtils.capitalize(fam_llin.trim().toLowerCase())));
+            } else {
+
+                stringBuilder.append(MessageFormat.format("{0}: {1} · ", context.getString(R.string.uses_net), StringUtils.capitalize(fam_llin.trim().toLowerCase())));
+                stringBuilder.append(MessageFormat.format("{0}: {1} · ", context.getString(R.string.slept_under_net), StringUtils.capitalize(llin_2days.trim().toLowerCase())));
+                stringBuilder.append(MessageFormat.format("{0}: {1}", context.getString(R.string.net_condition), StringUtils.capitalize(llin_condition.trim().toLowerCase())));
+            }
+
+            return stringBuilder.toString();
+        }
+
+        @Override
+        public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
+            if (StringUtils.isBlank(fam_llin))
+                return BaseAncHomeVisitAction.Status.PENDING;
+
+            if (fam_llin.equalsIgnoreCase("Yes") && llin_2days.equalsIgnoreCase("Yes") && llin_condition.equalsIgnoreCase("Okay")) {
+                return BaseAncHomeVisitAction.Status.COMPLETED;
+            } else {
+                return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
+            }
+        }
     }
 
     private void evaluateObsIllnessMother() throws Exception {
