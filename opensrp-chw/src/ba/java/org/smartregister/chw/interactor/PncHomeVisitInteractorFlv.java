@@ -234,10 +234,39 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
         BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.pnc_counselling))
                 .withOptional(false)
                 .withDetails(details)
-                .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getDangerSigns())
-                .withHelper(new DangerSignsAction())
+                .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getCOUNSELLING())
+                .withHelper(new CounsellingHelper())
                 .build();
         actionList.put(context.getString(R.string.pnc_counselling), action);
+    }
+
+    private class CounsellingHelper extends HomeVisitActionHelper{
+
+        private String couselling_pnc;
+
+        @Override
+        public void onPayloadReceived(String jsonPayload) {
+            try {
+                JSONObject jsonObject = new JSONObject(jsonPayload);
+                couselling_pnc = JsonFormUtils.getCheckBoxValue(jsonObject, "couselling_pnc");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        public String evaluateSubTitle() {
+            return MessageFormat.format("{0}: {1}", "Counselling", couselling_pnc);
+        }
+
+        @Override
+        public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
+            if (StringUtils.isNotBlank(couselling_pnc)) {
+                return BaseAncHomeVisitAction.Status.COMPLETED;
+            } else {
+                return BaseAncHomeVisitAction.Status.PENDING;
+            }
+        }
     }
 
     private void evaluateNutritionStatus() throws Exception {

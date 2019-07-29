@@ -196,6 +196,7 @@ public class Constants {
             private static final String DANGER_SIGNS_MOTHER = "pnc_danger_signs_mother";
             private static final String DANGER_SIGNS_BABY = "pnc_danger_signs_baby";
             private static final String HEALTH_FACILITY_VISIT_ONE = "pnc_health_facility_visit_one";
+            private static final String COUNSELLING = "pnc_counselling";
 
             public static String getDangerSigns() {
                 return Utils.getLocalForm(DANGER_SIGNS);
@@ -211,6 +212,10 @@ public class Constants {
 
             public static String getHealthFacilityVisitOne() {
                 return Utils.getLocalForm(HEALTH_FACILITY_VISIT_ONE);
+            }
+
+            public static String getCOUNSELLING() {
+                return Utils.getLocalForm(COUNSELLING);
             }
         }
     }
