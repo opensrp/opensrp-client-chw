@@ -49,10 +49,10 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
         try {
             evaluateDangerSignsMother();
             evaluateDangerSignsBaby();
-            evaluatePNCHealthFacilityVisit();
+            //evaluatePNCHealthFacilityVisit();
             evaluateFamilyPlanning();
-            evaluateImmunization();
-            evaluateExclusiveBreastFeeding();
+            //evaluateImmunization();
+            //evaluateExclusiveBreastFeeding();
             evaluateCounselling();
             evaluateNutritionStatusMother();
             evaluateNutritionStatusBaby();

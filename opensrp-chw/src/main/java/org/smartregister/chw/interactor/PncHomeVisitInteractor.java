@@ -4,6 +4,7 @@ import org.smartregister.chw.anc.contract.BaseAncHomeVisitContract;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.interactor.BaseAncHomeVisitInteractor;
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
+import org.smartregister.chw.anc.util.Constants;
 import org.smartregister.chw.anc.util.VisitUtils;
 
 import java.util.LinkedHashMap;
@@ -47,6 +48,11 @@ public class PncHomeVisitInteractor extends BaseAncHomeVisitInteractor {
         };
 
         appExecutors.diskIO().execute(runnable);
+    }
+
+    @Override
+    protected String getEncounterType() {
+        return Constants.EVENT_TYPE.PNC_HOME_VISIT;
     }
 
     public interface Flavor {
