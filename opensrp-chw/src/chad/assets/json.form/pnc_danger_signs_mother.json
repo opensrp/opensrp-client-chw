@@ -1,6 +1,6 @@
 {
   "count": "1",
-  "encounter_type": "Home Visit - Danger signs",
+  "encounter_type": "Danger signs - Mother",
   "entity_id": "",
   "metadata": {
     "start": {
@@ -79,14 +79,14 @@
             "openmrs_entity_id": "140238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
-            "key": "chk_bleeding_vaginally",
-            "text": "Bleeding vaginally",
+            "key": "chk_prolonged_bleeding",
+            "text": "Prolonged bleeding",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "150802AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
-            "key": "chk_server_headache",
+            "key": "chk_severe_headache",
             "text": "Severe headache",
             "value": false,
             "openmrs_entity": "concept",
@@ -112,13 +112,6 @@
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "165271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "chk_swollen_face",
-            "text": "Swollen face and legs",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "460AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ],
         "v_required": {
@@ -141,12 +134,11 @@
               {
                 "or": [
                   "chk_fever",
-                  "chk_bleeding_vaginally",
-                  "chk_server_headache",
+                  "chk_prolonged_bleeding",
+                  "chk_severe_headache",
                   "chk_convulsions",
                   "chk_difficulty_breathing",
-                  "chk_severe_abdominal_pain",
-                  "chk_swollen_face"
+                  "chk_severe_abdominal_pain"
                 ]
               }
             ]
@@ -157,7 +149,7 @@
         "key": "danger_signs_counseling",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "165310AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "161541AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "select one",
         "type": "spinner",
         "hint": "Counseling on seeking care immediately for danger signs",
@@ -166,8 +158,8 @@
           "No"
         ],
         "openmrs_choice_ids": {
-          "Yes": "1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "No": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         "v_required": {
           "value": "true",
