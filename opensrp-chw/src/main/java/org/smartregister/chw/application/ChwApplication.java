@@ -65,7 +65,6 @@ import timber.log.Timber;
 
 public class ChwApplication extends DrishtiApplication {
 
-    private static final String TAG = ChwApplication.class.getCanonicalName();
     private static final int MINIMUM_JOB_FLEX_VALUE = 1;
     private static ClientProcessorForJava clientProcessor;
 

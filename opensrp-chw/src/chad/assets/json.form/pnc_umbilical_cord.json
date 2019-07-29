@@ -1,6 +1,6 @@
 {
   "count": "1",
-  "encounter_type": "ANC Registration",
+  "encounter_type": "Umbilical cord care",
   "entity_id": "",
   "metadata": {
     "start": {
@@ -47,21 +47,29 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "IPTp-SP dose",
+    "title": "Umbilical cord care",
     "fields": [
       {
-        "key": "iptp{0}_date",
+        "key": "cord_care",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "date_picker",
-        "image": "form_iptp_sp",
-        "hint": "Quand est-ce que le comprimé IPTp-SP dose {0} a été administré?",
-        "min_date": "today-120y",
-        "max_date": "today",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "161541AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "Are any products being applied to the umbilical cord stump?",
+        "values": [
+          "No products",
+          "Chlorhexidine",
+          "Other"
+        ],
+        "openmrs_choice_ids": {
+          "No products": "products",
+          "Chlorhexidine": "73263AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Other": "Other"
+        },
         "v_required": {
           "value": "true",
-          "err": "Please enter the dose date"
+          "err": "Please select one option"
         }
       }
     ]
