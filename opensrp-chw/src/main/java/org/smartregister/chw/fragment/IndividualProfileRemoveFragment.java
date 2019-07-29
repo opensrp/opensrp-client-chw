@@ -33,7 +33,7 @@ public class IndividualProfileRemoveFragment extends BaseFamilyProfileMemberFrag
     private String familyBaseEntityId;
     private CommonPersonObjectClient pc;
     private String memberName;
-    static String className;
+    private static String className;
 
     public static IndividualProfileRemoveFragment newInstance(Bundle bundle) {
         Bundle args = bundle;
