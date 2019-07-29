@@ -50,13 +50,13 @@
     "title": "IPTp-SP dose",
     "fields": [
       {
-        "key": "iptp1_date",
+        "key": "iptp{0}_date",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "date_picker",
         "image": "form_iptp_sp",
-        "hint": "Quand est-ce que le comprimé IPTp-SP dose 1 a été administré?",
+        "hint": "Quand est-ce que le comprimé IPTp-SP dose {0} a été administré?",
         "min_date": "today-120y",
         "max_date": "today",
         "v_required": {
