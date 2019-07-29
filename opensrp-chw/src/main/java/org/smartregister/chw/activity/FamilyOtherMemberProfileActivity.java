@@ -17,10 +17,8 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
-
 import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.contract.FamilyOtherMemberProfileExtendedContract;
@@ -43,7 +41,6 @@ import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
 import org.smartregister.helper.ImageRenderHelper;
 import org.smartregister.view.fragment.BaseRegisterFragment;
-
 import timber.log.Timber;
 
 public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfileActivity implements FamilyOtherMemberProfileExtendedContract.View {
@@ -202,7 +199,7 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
                 startFormForEdit(R.string.edit_member_form_title);
                 return true;
             case R.id.action_remove_member:
-                IndividualProfileRemoveActivity.startIndividualProfileActivity(FamilyOtherMemberProfileActivity.this, commonPersonObject, familyBaseEntityId, familyHead, primaryCaregiver);
+                IndividualProfileRemoveActivity.startIndividualProfileActivity(FamilyOtherMemberProfileActivity.this, commonPersonObject, familyBaseEntityId, familyHead, primaryCaregiver, null);
                 return true;
             default:
                 break;

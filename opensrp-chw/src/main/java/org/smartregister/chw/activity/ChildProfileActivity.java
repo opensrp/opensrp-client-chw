@@ -18,15 +18,10 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-
+import android.widget.*;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
-
+import de.hdodenhof.circleimageview.CircleImageView;
 import org.apache.commons.lang3.tuple.Triple;
 import org.json.JSONObject;
 import org.opensrp.api.constants.Gender;
@@ -45,13 +40,11 @@ import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
 import org.smartregister.helper.ImageRenderHelper;
 import org.smartregister.view.activity.BaseProfileActivity;
+import timber.log.Timber;
 
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
-
-import de.hdodenhof.circleimageview.CircleImageView;
-import timber.log.Timber;
 
 import static org.smartregister.chw.util.Constants.INTENT_KEY.IS_COMES_FROM_FAMILY;
 
@@ -647,7 +640,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
             case R.id.action_remove_member:
                 IndividualProfileRemoveActivity.startIndividualProfileActivity(ChildProfileActivity.this, ((ChildProfilePresenter) presenter()).getChildClient(),
                         ((ChildProfilePresenter) presenter()).getFamilyID()
-                        , ((ChildProfilePresenter) presenter()).getFamilyHeadID(), ((ChildProfilePresenter) presenter()).getPrimaryCareGiverID());
+                        , ((ChildProfilePresenter) presenter()).getFamilyHeadID(), ((ChildProfilePresenter) presenter()).getPrimaryCareGiverID(), null);
 
                 return true;
             default:

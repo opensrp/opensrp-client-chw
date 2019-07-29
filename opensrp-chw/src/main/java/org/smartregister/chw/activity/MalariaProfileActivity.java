@@ -80,7 +80,7 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
                 return true;
 
             case R.id.action_remove_member:
-                IndividualProfileRemoveActivity.startIndividualProfileActivity(MalariaProfileActivity.this, getClientDetailsByBaseEntityID(MEMBER_OBJECT.getBaseEntityId()), MEMBER_OBJECT.getFamilyBaseEntityId(), MEMBER_OBJECT.getFamilyHead(), MEMBER_OBJECT.getPrimaryCareGiver());
+                IndividualProfileRemoveActivity.startIndividualProfileActivity(MalariaProfileActivity.this, getClientDetailsByBaseEntityID(MEMBER_OBJECT.getBaseEntityId()), MEMBER_OBJECT.getFamilyBaseEntityId(), MEMBER_OBJECT.getFamilyHead(), MEMBER_OBJECT.getPrimaryCareGiver(), MalariaRegisterActivity.class.getCanonicalName());
                 return true;
             default:
                 break;

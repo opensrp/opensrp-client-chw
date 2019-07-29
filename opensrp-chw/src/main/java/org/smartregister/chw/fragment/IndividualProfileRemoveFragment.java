@@ -38,6 +38,7 @@ public class IndividualProfileRemoveFragment extends BaseFamilyProfileMemberFrag
     private String familyBaseEntityId;
     private CommonPersonObjectClient pc;
     private String memberName;
+    static String className;
 
     public static IndividualProfileRemoveFragment newInstance(Bundle bundle) {
         Bundle args = bundle;
@@ -45,6 +46,7 @@ public class IndividualProfileRemoveFragment extends BaseFamilyProfileMemberFrag
         if (args == null) {
             args = new Bundle();
         }
+        className = args.getString(org.smartregister.chw.util.Constants.INTENT_KEY.CLASS);
         fragment.setArguments(args);
         return fragment;
     }
@@ -106,10 +108,15 @@ public class IndividualProfileRemoveFragment extends BaseFamilyProfileMemberFrag
             dialog.setOnRemove(new Runnable() {
                 @Override
                 public void run() {
-                    getPresenter().processRemoveForm(form);
-                    Intent intent = new Intent(getActivity(), AncRegisterActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(intent);
+                    try {
+                        Class fallbackClass = Class.forName(className);
+                        getPresenter().processRemoveForm(form);
+                        Intent intent = new Intent(getActivity(), className != null ? fallbackClass : AncRegisterActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
+                    } catch (ClassNotFoundException e) {
+                        Timber.e(e);
+                    }
                 }
             });
             dialog.setOnRemoveActivity(new Runnable() {
@@ -122,6 +129,7 @@ public class IndividualProfileRemoveFragment extends BaseFamilyProfileMemberFrag
             });
         }
     }
+
 
     @Override
     public void displayChangeFamilyHeadDialog(final CommonPersonObjectClient client, final String familyHeadID) {
@@ -221,8 +229,8 @@ public class IndividualProfileRemoveFragment extends BaseFamilyProfileMemberFrag
     @Override
     public void onEveryoneRemoved() {
         if (getActivity() != null && getActivity() instanceof IndividualProfileRemoveActivity) {
-                IndividualProfileRemoveActivity p = (IndividualProfileRemoveActivity) getActivity();
-                p.onRemoveMember();
+            IndividualProfileRemoveActivity p = (IndividualProfileRemoveActivity) getActivity();
+            p.onRemoveMember();
         }
     }
 
