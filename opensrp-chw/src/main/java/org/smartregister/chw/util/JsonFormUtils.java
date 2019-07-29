@@ -919,6 +919,7 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
     private static HashMap<String, String> getEducationLevels(Context context) {
         HashMap<String, String> educationLevels = new HashMap<>();
         educationLevels.put(context.getResources().getString(R.string.edu_level_none), "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+        educationLevels.put(context.getResources().getString(R.string.edu_level_literacy), "");
         educationLevels.put(context.getResources().getString(R.string.edu_level_primary), "1713AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
         educationLevels.put(context.getResources().getString(R.string.edu_level_secondary), "1714AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
         educationLevels.put(context.getResources().getString(R.string.edu_level_post_secondary), "159785AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");

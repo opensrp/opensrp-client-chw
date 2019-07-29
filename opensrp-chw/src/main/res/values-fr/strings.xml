@@ -272,9 +272,10 @@
     <string name="due_details">Quand un membre du ménage doit recevoir une service, il sera affiché ici</string>
 
     <string name="edu_level_none">Aucun</string>
+    <string name="edu_level_literacy">Alphabétiser</string>
     <string name="edu_level_primary">Primaire</string>
     <string name="edu_level_secondary">Secondaire</string>
-    <string name="edu_level_post_secondary">Postsecondaire</string>
+    <string name="edu_level_post_secondary">Universite</string>
 
     <string name="counseled">Conseillée: </string>
     <string name="not_counseled">Non conseillée:</string>
