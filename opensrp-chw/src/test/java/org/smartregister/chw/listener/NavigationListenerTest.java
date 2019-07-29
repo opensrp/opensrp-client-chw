@@ -18,8 +18,6 @@ public class NavigationListenerTest {
     protected Activity activity = mock(Activity.class);
 
     @Mock
-    protected Intent intent = mock(Intent.class);
-    @Mock
     protected View view = mock(View.class);
     @Spy
     protected NavigationListener navigationListenerSpy;
@@ -70,6 +68,16 @@ public class NavigationListenerTest {
         doNothing().when(navigationListenerSpy).startRegisterActivity(MalariaRegisterActivity.class);
         navigationListenerSpy.onClick(view);
         verify(navigationListenerSpy).startRegisterActivity(MalariaRegisterActivity.class);
+    }
+
+    @Test
+    public void testStartRegisterActivity() {
+        Intent intent = new Intent(activity, MalariaRegisterActivity.class);
+        navigationListenerSpy.startRegisterActivity(MalariaRegisterActivity.class);
+
+//        verify(activity).startActivity(intent);
+        verify(activity).overridePendingTransition(anyInt(), anyInt());
+        verify(activity).finish();
     }
 
 }
