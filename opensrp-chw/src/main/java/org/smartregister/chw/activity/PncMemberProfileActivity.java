@@ -2,6 +2,7 @@ package org.smartregister.chw.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.view.View;
 
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.presenter.BaseAncMemberProfilePresenter;
@@ -19,11 +20,12 @@ public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
         activity.startActivity(intent);
     }
 
-    //TODO
+    //TODO clean up library side
     @Override
     protected void setupViews() {
         super.setupViews();
         textViewAncVisitNot.setOnClickListener(null);
+        recordRecurringVisit.setVisibility(View.GONE);
     }
 
     @Override
