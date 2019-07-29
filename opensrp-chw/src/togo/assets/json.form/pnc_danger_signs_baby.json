@@ -1,78 +1,178 @@
 {
-    "encounter_type": "Danger signs - Baby",
-    "danger_signs_baby": {
-        "title": "Danger Signs Baby",
-        "fields": [
-            {
-                "key": "danger_signs_present",
-                "type": "spinner",
-                "openmrs_entity": "",
-                "openmrs_entity_id": "",
-                "openmrs_entity_parent": "",
-                "values": [
-                    "None",
-                    "Fast breathing",
-                    "Chest indrawing",
-                    "Low or high temperature",
-                    "Refuses to suckle",
-                    "No movement",
-                    "Convulsions",
-                    "Jaundice"
-                ],
-                "keys": [
-                    "None",
-                    "Fast_breathing",
-                    "Chest_indrawing",
-                    "Low_or_high_temperature",
-                    "Refuses_to_suckle",
-                    "No_movement",
-                    "Convulsions",
-                    "Jaundice"
-                ],
-                "openmrs_choice_ids": {
-                    "None": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "Fast_breathing": "125061AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "Chest_indrawing": "136768AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "Low_or_high_temperature": "159366AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "Refuses_to_suckle": "159861AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "No_movement": "164455AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "Convulsions": "164483AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    "Jaundice": "115368AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-                },
-                "hint": "Any danger signs present?",
-                "v_required": {
-                    "value": "true",
-                    "err": null
-                }
-            },
-            {
-                "key": "danger_signs_counseling",
-                "type": "native_radio",
-                "openmrs_entity": "",
-                "openmrs_entity_id": "",
-                "openmrs_entity_parent": "",
-                "label": "Counseling on seeking care immediately for danger signs",
-                "options": [
-                    {
-                        "key": "yes",
-                        "openmrs_entity": "",
-                        "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "openmrs_entity_parent": "",
-                        "text": "Yes"
-                    },
-                    {
-                        "key": "no",
-                        "openmrs_entity": "",
-                        "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        "openmrs_entity_parent": "",
-                        "text": "No"
-                    }
-                ],
-                "v_required": {
-                    "value": "true",
-                    "err": null
-                }
-            }
-        ]
-    }
+  "count": "1",
+  "encounter_type": "Danger signs - Baby",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "step1": {
+    "title": "Danger signs",
+    "fields": [
+      {
+        "key": "danger_signs_present",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "159860AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "check_box",
+        "label_info_image_src": "img/chw.png",
+        "label_info_has_image": true,
+        "label": "Any danger signs present?",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "exclusive": [
+          "chk_none"
+        ],
+        "options": [
+          {
+            "key": "chk_none",
+            "text": "None",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_fast_breathing",
+            "text": "Fast breathing",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "125061AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_chest_indrawing",
+            "text": "Chest indrawing",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "136768AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_low_or_high_temp",
+            "text": "Low or high temperature",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "159366AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_refuses_to_suckle",
+            "text": "Refuses to suckle",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "159861AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_no_movement",
+            "text": "No movement",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "164455AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_convulsion",
+            "text": "Convulsions",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "164483AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_jaundice",
+            "text": "Jaundice",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "115368AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please pick at least one"
+        }
+      },
+      {
+        "key": "danger_signs_present_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Danger sign! \nRefer immediately to health facility.",
+        "text_color": "#CF0800",
+        "toaster_type": "problem",
+        "relevance": {
+          "step1:danger_signs_present": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "chk_fever",
+                  "chk_prolonged_bleeding",
+                  "chk_severe_headache",
+                  "chk_convulsions",
+                  "chk_convulsion",
+                  "chk_jaundice"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "danger_signs_counseling",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "161541AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "Counseling on seeking care immediately for danger signs",
+        "values": [
+          "Yes",
+          "No"
+        ],
+        "openmrs_choice_ids": {
+          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select one option"
+        }
+      }
+    ]
+  }
 }
