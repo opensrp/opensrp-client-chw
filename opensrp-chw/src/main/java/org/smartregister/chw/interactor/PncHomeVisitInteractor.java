@@ -6,8 +6,15 @@ import org.smartregister.chw.anc.interactor.BaseAncHomeVisitInteractor;
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
 import org.smartregister.chw.anc.util.Constants;
 import org.smartregister.chw.anc.util.VisitUtils;
+import org.smartregister.clientandeventmodel.Event;
+import org.smartregister.clientandeventmodel.Obs;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import timber.log.Timber;
@@ -53,6 +60,21 @@ public class PncHomeVisitInteractor extends BaseAncHomeVisitInteractor {
     @Override
     protected String getEncounterType() {
         return Constants.EVENT_TYPE.PNC_HOME_VISIT;
+    }
+
+    /**
+     * Injects implementation specific changes to the event
+     *
+     * @param baseEvent
+     */
+    protected void prepareEvent(Event baseEvent) {
+        if (baseEvent != null) {
+            // add anc date obs and last
+            List<Object> list = new ArrayList<>();
+            list.add(new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date()));
+            baseEvent.addObs(new Obs("concept", "text", "pnc_visit_date", "",
+                    list, new ArrayList<>(), null, "pnc_visit_date"));
+        }
     }
 
     public interface Flavor {
