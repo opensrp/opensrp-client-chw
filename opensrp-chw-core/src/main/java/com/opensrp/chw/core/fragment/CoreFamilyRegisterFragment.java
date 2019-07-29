@@ -39,7 +39,7 @@ public abstract class CoreFamilyRegisterFragment extends BaseFamilyRegisterFragm
     private static final String TAG = CoreFamilyRegisterFragment.class.getCanonicalName();
     private static final String DUE_FILTER_TAG = "PRESSED";
     private View view;
-    private View dueOnlyLayout;
+    protected View dueOnlyLayout;
     private boolean dueFilterActive = false;
 
     @Override
