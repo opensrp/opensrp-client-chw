@@ -412,4 +412,6 @@
 
     <string name="pnc_visit_day_due">DAY %s VISIT DUE</string>
     <string name="pnc_visit_day_overdue">DAY %s OVERDUE</string>
+    <string name="pnc_visit">PNC Visit</string>
+    <string name="anc_visit">ANC Visit</string>
 </resources>

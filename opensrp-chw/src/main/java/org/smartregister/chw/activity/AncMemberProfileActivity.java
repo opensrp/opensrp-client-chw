@@ -143,12 +143,12 @@ public class AncMemberProfileActivity extends BaseAncMemberProfileActivity {
     }
 
     public AncMemberProfilePresenter ancMemberProfilePresenter() {
-        return new AncMemberProfilePresenter(this, new AncMemberProfileInteractor(), MEMBER_OBJECT);
+        return new AncMemberProfilePresenter(this, new AncMemberProfileInteractor(this), MEMBER_OBJECT);
     }
 
     @Override
     protected void registerPresenter() {
-        presenter = new BaseAncMemberProfilePresenter(this, new AncMemberProfileInteractor(), MEMBER_OBJECT);
+        presenter = new BaseAncMemberProfilePresenter(this, new AncMemberProfileInteractor(this), MEMBER_OBJECT);
     }
 
     @Override

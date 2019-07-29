@@ -14,10 +14,10 @@ import java.util.Date;
 
 import static org.smartregister.chw.anc.AncLibrary.getInstance;
 
-public class AncMemberProfileInteractor extends BaseAncMemberProfileInteractor {
+public class PncMemberProfileInteractor extends BaseAncMemberProfileInteractor {
     private Context context;
 
-    public AncMemberProfileInteractor(Context context) {
+    public PncMemberProfileInteractor(Context context) {
         this.context = context;
     }
 
@@ -40,7 +40,7 @@ public class AncMemberProfileInteractor extends BaseAncMemberProfileInteractor {
                     public void run() {
                         callback.refreshLastVisit(lastVisitDate);
                         callback.refreshFamilyStatus(AlertStatus.normal);
-                        callback.refreshUpComingServicesStatus(context.getString(R.string.anc_visit), AlertStatus.normal, new Date());
+                        callback.refreshUpComingServicesStatus(context.getString(R.string.pnc_visit), AlertStatus.normal, new Date());
                     }
                 });
             }
@@ -50,12 +50,11 @@ public class AncMemberProfileInteractor extends BaseAncMemberProfileInteractor {
 
     private Date getLastVisitDate(MemberObject memberObject) {
         Date lastVisitDate = null;
-        Visit lastVisit = getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EVENT_TYPE.ANC_HOME_VISIT);
+        Visit lastVisit = getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EVENT_TYPE.PNC_HOME_VISIT);
         if (lastVisit != null) {
             lastVisitDate = lastVisit.getDate();
         }
 
         return lastVisitDate;
     }
-
 }

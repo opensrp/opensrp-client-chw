@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 
 import org.smartregister.chw.anc.domain.MemberObject;
+import org.smartregister.chw.anc.presenter.BaseAncMemberProfilePresenter;
 import org.smartregister.chw.anc.util.Constants;
+import org.smartregister.chw.interactor.PncMemberProfileInteractor;
 import org.smartregister.chw.pnc.activity.BasePncMemberProfileActivity;
 
 public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
@@ -17,6 +19,17 @@ public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
         activity.startActivity(intent);
     }
 
+    //TODO
+    @Override
+    protected void setupViews() {
+        super.setupViews();
+        textViewAncVisitNot.setOnClickListener(null);
+    }
+
+    @Override
+    protected void registerPresenter() {
+        presenter = new BaseAncMemberProfilePresenter(this, new PncMemberProfileInteractor(this), MEMBER_OBJECT);
+    }
 
     @Override
     public void openMedicalHistory() {
