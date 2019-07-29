@@ -308,7 +308,7 @@
           "err": "Numéro doit consister de 10 chiffres au total"
         },
         "v_regex": {
-          "value": "(0[0-9]{9})|\\s*",
+          "value": "([0-9]{8,16})|\\s*",
           "err": "Le Numéro doit commencer avec 0 et doit consister de 10 chiffres au total."
         },
         "v_required": {
@@ -334,7 +334,7 @@
           "err": "Numéro doit consister de 10 chiffres au total"
         },
         "v_regex": {
-          "value": "(0[0-9]{9})|\\s*",
+          "value": "([0-9]{8,16})|\\s*",
           "err": "Le Numéro doit commencer avec 0 et doit consister de 10 chiffres au total."
         },
         "relevance": {
