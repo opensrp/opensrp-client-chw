@@ -16,4 +16,15 @@ public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
         intent.putExtra(Constants.ANC_MEMBER_OBJECTS.FAMILY_HEAD_PHONE, familyHeadPhoneNumber);
         activity.startActivity(intent);
     }
+
+
+    @Override
+    public void openMedicalHistory() {
+        PncMedicalHistoryActivity.startMe(this, MEMBER_OBJECT);
+    }
+
+    @Override
+    public void openUpcomingService() {
+        PncUpcomingServicesActivity.startMe(this, MEMBER_OBJECT);
+    }
 }
