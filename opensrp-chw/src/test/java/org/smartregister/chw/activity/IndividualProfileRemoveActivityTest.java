@@ -8,13 +8,12 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.smartregister.chw.BaseActivityTest;
 import org.smartregister.chw.fragment.IndividualProfileRemoveFragment;
 
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.never;
 
-public class IndividualProfileRemoveActivityTest extends BaseActivityTest<IndividualProfileRemoveActivity> {
+public class IndividualProfileRemoveActivityTest {
     @Mock
     private IndividualProfileRemoveActivity individualProfileRemoveActivity;
 
@@ -30,11 +29,6 @@ public class IndividualProfileRemoveActivityTest extends BaseActivityTest<Indivi
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-    }
-
-    @Override
-    protected Class<IndividualProfileRemoveActivity> getActivityClass() {
-        return IndividualProfileRemoveActivity.class;
     }
 
     @Test
