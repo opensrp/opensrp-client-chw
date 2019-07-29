@@ -70,7 +70,7 @@ public class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitInteractor.
         BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.pnc_danger_signs_mother))
                 .withOptional(false)
                 .withDetails(details)
-                .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getDangerSigns())
+                .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getDangerSignsMother())
                 .withHelper(new DangerSignsAction())
                 .build();
         actionList.put(context.getString(R.string.pnc_danger_signs_mother), action);
@@ -81,7 +81,7 @@ public class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitInteractor.
             BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, MessageFormat.format(context.getString(R.string.pnc_danger_signs_baby), baby))
                     .withOptional(false)
                     .withDetails(details)
-                    .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getDangerSigns())
+                    .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getDangerSignsBaby())
                     .withHelper(new DangerSignsAction())
                     .build();
             actionList.put(MessageFormat.format(context.getString(R.string.pnc_danger_signs_baby), baby), action);
