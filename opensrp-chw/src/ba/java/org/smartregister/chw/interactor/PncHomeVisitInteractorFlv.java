@@ -52,7 +52,8 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
             evaluateImmunization();
             evaluateExclusiveBreastFeeding();
             evaluateCounselling();
-            evaluateNutritionStatus();
+            evaluateNutritionStatusMother();
+            evaluateNutritionStatusBaby();
             evaluateMalariaPrevention();
             evaluateObsIllnessMother();
             evaluateObsIllnessBaby();
@@ -240,7 +241,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
         actionList.put(context.getString(R.string.pnc_counselling), action);
     }
 
-    private class CounsellingHelper extends HomeVisitActionHelper{
+    private class CounsellingHelper extends HomeVisitActionHelper {
 
         private String couselling_pnc;
 
@@ -269,14 +270,84 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
         }
     }
 
-    private void evaluateNutritionStatus() throws Exception {
+    private void evaluateNutritionStatusMother() throws Exception {
         BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.pnc_nutrition_status))
                 .withOptional(false)
                 .withDetails(details)
-                .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getDangerSigns())
-                .withHelper(new DangerSignsAction())
+                .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getNutritionStatusMother())
+                .withHelper(new NutritionStatusMotherHelper())
                 .build();
         actionList.put(context.getString(R.string.pnc_nutrition_status), action);
+    }
+
+    private class NutritionStatusMotherHelper extends HomeVisitActionHelper {
+
+        private String nutrition_status_mama;
+
+        @Override
+        public void onPayloadReceived(String jsonPayload) {
+            try {
+                JSONObject jsonObject = new JSONObject(jsonPayload);
+                nutrition_status_mama = JsonFormUtils.getValue(jsonObject, "nutrition_status_mama");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        public String evaluateSubTitle() {
+            return MessageFormat.format("{0}: {1}", "Nutrition Status ", nutrition_status_mama);
+        }
+
+        @Override
+        public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
+            if (StringUtils.isNotBlank(nutrition_status_mama)) {
+                return BaseAncHomeVisitAction.Status.COMPLETED;
+            } else {
+                return BaseAncHomeVisitAction.Status.PENDING;
+            }
+        }
+    }
+
+    private void evaluateNutritionStatusBaby() throws Exception {
+        for (Person baby : children) {
+            BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, MessageFormat.format(context.getString(R.string.pnc_nutrition_status_baby_name), baby.getFullName()))
+                    .withOptional(false)
+                    .withDetails(details)
+                    .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getNutritionStatusInfant())
+                    .withHelper(new NutritionStatusBabyHelper())
+                    .build();
+            actionList.put(MessageFormat.format(context.getString(R.string.pnc_nutrition_status_baby_name), baby.getFullName()), action);
+        }
+    }
+
+    private class NutritionStatusBabyHelper extends HomeVisitActionHelper {
+
+        private String nutrition_status_1m;
+
+        @Override
+        public void onPayloadReceived(String jsonPayload) {
+            try {
+                JSONObject jsonObject = new JSONObject(jsonPayload);
+                nutrition_status_1m = JsonFormUtils.getValue(jsonObject, "nutrition_status_1m");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        public String evaluateSubTitle() {
+            return MessageFormat.format("{0}: {1}", "Nutrition Status ", nutrition_status_1m);
+        }
+
+        @Override
+        public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
+            if (StringUtils.isNotBlank(nutrition_status_1m)) {
+                return BaseAncHomeVisitAction.Status.COMPLETED;
+            } else {
+                return BaseAncHomeVisitAction.Status.PENDING;
+            }
+        }
     }
 
     private void evaluateMalariaPrevention() throws Exception {
