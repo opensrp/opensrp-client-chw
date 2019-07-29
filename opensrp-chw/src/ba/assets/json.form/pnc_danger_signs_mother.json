@@ -1,73 +1,127 @@
 {
-  "encounter_type": "Danger Signs -Mother",
+  "count": "1",
+  "encounter_type": "Danger signs - Baby",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
   "step1": {
-    "title": "Danger Signs Mama",
+    "title": "Danger Signs Mother",
     "fields": [
       {
-        "key": "danger_signs_present",
-        "type": "spinner",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "key": "danger_signs_present_mama",
         "openmrs_entity_parent": "",
-        "values": [
-          "None",
-          "Fever",
-          "Prolonged bleeding",
-          "Severe headache",
-          "Convulsions",
-          "Difficulty breathing",
-          "Severe abdominal pain"
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "160939AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "check_box",
+        "label": "Does the mother have any danger signs?",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "exclusive": [
+          "chk_none"
         ],
-        "keys": [
-          "None",
-          "Fever",
-          "Prolonged_bleeding",
-          "Severe_headache",
-          "Convulsions",
-          "Difficulty_breathing",
-          "Severe_abdominal_pain"
-        ],
-        "openmrs_choice_ids": {
-          "None": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Fever": "140238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Prolonged_bleeding": "150802AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Severe_headache": "139081AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Convulsions": "164483AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Difficulty_breathing": "142373AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Severe_abdominal_pain": "165271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
-        "hint": "Are any danger signs present?",
-        "v_required": {
-          "value": "true",
-          "err": null
-        }
-      },
-      {
-        "key": "danger_signs_counseling",
-        "type": "native_radio",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "openmrs_entity_parent": "",
-        "label": "Counseling on seeking care immediately for danger signs",
         "options": [
           {
-            "key": "yes",
-            "openmrs_entity": "",
-            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": "",
-            "text": "Yes"
+            "key": "chk_fever",
+            "text": "Fever",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "140238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
-            "key": "no",
-            "openmrs_entity": "",
-            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": "",
-            "text": "No"
+            "key": "chk_bleeding_vaginally",
+            "text": "Bleeding vaginally",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "150802AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_server_headache",
+            "text": "Severe headache",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "139081AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_convulsions",
+            "text": "Convulsions",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "164483AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_difficulty_breathing",
+            "text": "Difficulty breathing",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "142373AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_severe_abdominal_pain",
+            "text": "Severe abdominal pain",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "165271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_vaginal_discharge",
+            "text": "Discoloured or watery, liquid vaginal discharge with a bad smell",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "123395AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_none",
+            "text": "None",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": null
+          "err": "Please pick at least one"
         }
       }
     ]

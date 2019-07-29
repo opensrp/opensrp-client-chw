@@ -50,7 +50,7 @@
     "title": "Danger Signs Baby",
     "fields": [
       {
-        "key": "danger_signs_present_mama",
+        "key": "danger_signs_present_child",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "159860AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",

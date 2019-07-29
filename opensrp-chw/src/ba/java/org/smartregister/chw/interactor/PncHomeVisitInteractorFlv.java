@@ -1,5 +1,8 @@
 package org.smartregister.chw.interactor;
 
+import org.apache.commons.lang3.StringUtils;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.actionhelper.DangerSignsAction;
 import org.smartregister.chw.anc.AncLibrary;
@@ -8,6 +11,7 @@ import org.smartregister.chw.anc.contract.BaseAncHomeVisitContract;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
+import org.smartregister.chw.anc.util.JsonFormUtils;
 import org.smartregister.chw.anc.util.VisitUtils;
 import org.smartregister.chw.dao.PersonDao;
 import org.smartregister.chw.domain.Person;
@@ -71,20 +75,30 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
     }
 
     private class PNCDangerSignsMotherHelper extends HomeVisitActionHelper {
+        private String danger_signs_present_mama;
 
         @Override
         public void onPayloadReceived(String s) {
-
+            try {
+                JSONObject jsonObject = new JSONObject(s);
+                danger_signs_present_mama = JsonFormUtils.getCheckBoxValue(jsonObject, "danger_signs_present_mama");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
 
         @Override
         public String evaluateSubTitle() {
-            return null;
+            return MessageFormat.format("{0}: {1}", context.getString(R.string.anc_home_visit_danger_signs), danger_signs_present_mama);
         }
 
         @Override
         public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
-            return null;
+            if (StringUtils.isNotBlank(danger_signs_present_mama)) {
+                return BaseAncHomeVisitAction.Status.COMPLETED;
+            } else {
+                return BaseAncHomeVisitAction.Status.PENDING;
+            }
         }
     }
 
@@ -101,20 +115,30 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
     }
 
     private class PNCDangerSignsBabyHelper extends HomeVisitActionHelper {
+        private String danger_signs_present_child;
 
         @Override
         public void onPayloadReceived(String s) {
-
+            try {
+                JSONObject jsonObject = new JSONObject(s);
+                danger_signs_present_child = JsonFormUtils.getCheckBoxValue(jsonObject, "danger_signs_present_child");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
 
         @Override
         public String evaluateSubTitle() {
-            return null;
+            return MessageFormat.format("{0}: {1}", context.getString(R.string.anc_home_visit_danger_signs), danger_signs_present_child);
         }
 
         @Override
         public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
-            return null;
+            if (StringUtils.isNotBlank(danger_signs_present_child)) {
+                return BaseAncHomeVisitAction.Status.COMPLETED;
+            } else {
+                return BaseAncHomeVisitAction.Status.PENDING;
+            }
         }
     }
 
