@@ -197,6 +197,13 @@ public class Constants {
             private static final String DANGER_SIGNS_BABY = "pnc_danger_signs_baby";
             private static final String HEALTH_FACILITY_VISIT_ONE = "pnc_health_facility_visit_one";
             private static final String COUNSELLING = "pnc_counselling";
+            private static final String UMBILICAL_CORD = "pnc_umbilical_cord";
+            private static final String NUTRITION_STATUS_MOTHER = "pnc_nutrition_status_mother";
+            private static final String NUTRITION_STATUS_INFANT = "pnc_nutrition_status_infant";
+            private static final String MALARIA_PREVENTION = "pnc_malaria_prevention";
+            private static final String FAMILY_PLANNING = "pnc_family_planning";
+            private static final String OBSERVATION_AND_ILLNESS_MOTHER = "pnc_hv_observations_mother";
+            private static final String OBSERVATION_AND_ILLNESS_INFANT = "pnc_hv_observations_infant";
 
             public static String getDangerSigns() {
                 return Utils.getLocalForm(DANGER_SIGNS);
@@ -216,6 +223,34 @@ public class Constants {
 
             public static String getCOUNSELLING() {
                 return Utils.getLocalForm(COUNSELLING);
+            }
+
+            public static String getUmbilicalCord() {
+                return Utils.getLocalForm(UMBILICAL_CORD);
+            }
+
+            public static String getNutritionStatusMother() {
+                return Utils.getLocalForm(NUTRITION_STATUS_MOTHER);
+            }
+
+            public static String getNutritionStatusInfant() {
+                return Utils.getLocalForm(NUTRITION_STATUS_INFANT);
+            }
+
+            public static String getMalariaPrevention() {
+                return Utils.getLocalForm(MALARIA_PREVENTION);
+            }
+
+            public static String getFamilyPlanning() {
+                return Utils.getLocalForm(FAMILY_PLANNING);
+            }
+
+            public static String getObservationAndIllnessMother() {
+                return Utils.getLocalForm(OBSERVATION_AND_ILLNESS_MOTHER);
+            }
+
+            public static String getObservationAndIllnessInfant() {
+                return Utils.getLocalForm(OBSERVATION_AND_ILLNESS_INFANT);
             }
         }
     }

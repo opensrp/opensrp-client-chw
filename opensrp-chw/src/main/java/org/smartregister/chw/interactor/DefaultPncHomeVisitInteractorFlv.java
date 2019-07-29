@@ -2,14 +2,20 @@ package org.smartregister.chw.interactor;
 
 import android.content.Context;
 
+import org.apache.commons.lang3.StringUtils;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.actionhelper.DangerSignsAction;
+import org.smartregister.chw.actionhelper.ObservationAction;
 import org.smartregister.chw.anc.AncLibrary;
+import org.smartregister.chw.anc.actionhelper.HomeVisitActionHelper;
 import org.smartregister.chw.anc.contract.BaseAncHomeVisitContract;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.domain.VisitDetail;
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
+import org.smartregister.chw.anc.util.JsonFormUtils;
 import org.smartregister.chw.anc.util.VisitUtils;
 import org.smartregister.chw.dao.PersonDao;
 import org.smartregister.chw.domain.Person;
@@ -126,10 +132,39 @@ public class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitInteractor.
         BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.pnc_umblicord_care))
                 .withOptional(false)
                 .withDetails(details)
-                .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getDangerSigns())
-                .withHelper(new DangerSignsAction())
+                .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getUmbilicalCord())
+                .withHelper(new UmbilicalCordHelper())
                 .build();
         actionList.put(context.getString(R.string.pnc_umblicord_care), action);
+    }
+
+    private class UmbilicalCordHelper extends HomeVisitActionHelper {
+
+        private String cord_care;
+
+        @Override
+        public void onPayloadReceived(String jsonPayload) {
+            try {
+                JSONObject jsonObject = new JSONObject(jsonPayload);
+                cord_care = JsonFormUtils.getValue(jsonObject, "cord_care");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        public String evaluateSubTitle() {
+            return MessageFormat.format("{0}: {1}", "Cord Care", cord_care);
+        }
+
+        @Override
+        public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
+            if (StringUtils.isNotBlank(cord_care)) {
+                return BaseAncHomeVisitAction.Status.COMPLETED;
+            } else {
+                return BaseAncHomeVisitAction.Status.PENDING;
+            }
+        }
     }
 
     private void evaluateExclusiveBreastFeeding() throws Exception {
@@ -158,18 +193,47 @@ public class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitInteractor.
         BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.pnc_family_planning))
                 .withOptional(false)
                 .withDetails(details)
-                .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getDangerSigns())
-                .withHelper(new DangerSignsAction())
+                .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getFamilyPlanning())
+                .withHelper(new FamilyPlanningHelper())
                 .build();
         actionList.put(context.getString(R.string.pnc_family_planning), action);
+    }
+
+    private class FamilyPlanningHelper extends HomeVisitActionHelper {
+
+        private String fp_counseling;
+
+        @Override
+        public void onPayloadReceived(String jsonPayload) {
+            try {
+                JSONObject jsonObject = new JSONObject(jsonPayload);
+                fp_counseling = JsonFormUtils.getValue(jsonObject, "fp_counseling");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        public String evaluateSubTitle() {
+            return MessageFormat.format("{0}: {1}", "Family Planning ", fp_counseling);
+        }
+
+        @Override
+        public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
+            if (StringUtils.isNotBlank(fp_counseling)) {
+                return BaseAncHomeVisitAction.Status.COMPLETED;
+            } else {
+                return BaseAncHomeVisitAction.Status.PENDING;
+            }
+        }
     }
 
     private void evaluateObservationAndIllnessMother() throws Exception {
         BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.pnc_observation_and_illness_mother))
                 .withOptional(false)
                 .withDetails(details)
-                .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getDangerSigns())
-                .withHelper(new DangerSignsAction())
+                .withFormName(Constants.JSON_FORM.ANC_HOME_VISIT.getObservationAndIllness())
+                .withHelper(new ObservationAction())
                 .build();
         actionList.put(context.getString(R.string.pnc_observation_and_illness_mother), action);
     }
@@ -179,8 +243,8 @@ public class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitInteractor.
             BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, MessageFormat.format(context.getString(R.string.pnc_observation_and_illness_baby), baby))
                     .withOptional(false)
                     .withDetails(details)
-                    .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getDangerSigns())
-                    .withHelper(new DangerSignsAction())
+                    .withFormName(Constants.JSON_FORM.ANC_HOME_VISIT.getObservationAndIllness())
+                    .withHelper(new ObservationAction())
                     .build();
             actionList.put(MessageFormat.format(context.getString(R.string.pnc_observation_and_illness_baby), baby), action);
         }
