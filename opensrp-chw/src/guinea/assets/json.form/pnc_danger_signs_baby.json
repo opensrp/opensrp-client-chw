@@ -1,6 +1,6 @@
 {
   "count": "1",
-  "encounter_type": "Home Visit - Danger signs",
+  "encounter_type": "Danger signs - Baby",
   "entity_id": "",
   "metadata": {
     "start": {
@@ -53,7 +53,7 @@
         "key": "danger_signs_present",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "160939AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "159860AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "check_box",
         "label_info_image_src": "img/chw.png",
         "label_info_has_image": true,
@@ -72,53 +72,53 @@
             "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
-            "key": "chk_fever",
-            "text": "Fever",
+            "key": "chk_fast_breathing",
+            "text": "Fast breathing",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "140238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "125061AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
-            "key": "chk_bleeding_vaginally",
-            "text": "Bleeding vaginally",
+            "key": "chk_chest_indrawing",
+            "text": "Chest indrawing",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "150802AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "136768AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
-            "key": "chk_server_headache",
-            "text": "Severe headache",
+            "key": "chk_low_or_high_temp",
+            "text": "Low or high temperature",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "139081AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "159366AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
-            "key": "chk_convulsions",
+            "key": "chk_refuses_to_suckle",
+            "text": "Refuses to suckle",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "159861AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_no_movement",
+            "text": "No movement",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "164455AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_convulsion",
             "text": "Convulsions",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "164483AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
-            "key": "chk_difficulty_breathing",
-            "text": "Difficulty breathing",
+            "key": "chk_jaundice",
+            "text": "Jaundice",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "142373AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "chk_severe_abdominal_pain",
-            "text": "Severe abdominal pain",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "165271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "chk_swollen_face",
-            "text": "Swollen face and legs",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "460AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "115368AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ],
         "v_required": {
@@ -141,12 +141,11 @@
               {
                 "or": [
                   "chk_fever",
-                  "chk_bleeding_vaginally",
-                  "chk_server_headache",
+                  "chk_prolonged_bleeding",
+                  "chk_severe_headache",
                   "chk_convulsions",
-                  "chk_difficulty_breathing",
-                  "chk_severe_abdominal_pain",
-                  "chk_swollen_face"
+                  "chk_convulsion",
+                  "chk_jaundice"
                 ]
               }
             ]
@@ -157,7 +156,7 @@
         "key": "danger_signs_counseling",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "165310AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "161541AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "select one",
         "type": "spinner",
         "hint": "Counseling on seeking care immediately for danger signs",
@@ -166,8 +165,8 @@
           "No"
         ],
         "openmrs_choice_ids": {
-          "Yes": "1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "No": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         "v_required": {
           "value": "true",
