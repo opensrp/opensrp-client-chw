@@ -2,15 +2,11 @@ package org.smartregister.chw.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
-
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
-import org.smartregister.chw.activity.AncRegisterActivity;
 import org.smartregister.chw.activity.FamilyRegisterActivity;
 import org.smartregister.chw.activity.IndividualProfileRemoveActivity;
 import org.smartregister.chw.contract.FamilyRemoveMemberContract;
@@ -25,11 +21,10 @@ import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
+import timber.log.Timber;
 
 import java.util.HashMap;
 import java.util.Set;
-
-import timber.log.Timber;
 
 public class IndividualProfileRemoveFragment extends BaseFamilyProfileMemberFragment implements FamilyRemoveMemberContract.View {
 
@@ -109,9 +104,8 @@ public class IndividualProfileRemoveFragment extends BaseFamilyProfileMemberFrag
                 @Override
                 public void run() {
                     try {
-                        Class fallbackClass = Class.forName(className);
                         getPresenter().processRemoveForm(form);
-                        Intent intent = new Intent(getActivity(), className != null ? fallbackClass : AncRegisterActivity.class);
+                        Intent intent = new Intent(getActivity(), Class.forName(className));
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
                     } catch (ClassNotFoundException e) {
