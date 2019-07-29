@@ -388,4 +388,5 @@
     <string name="anc_indicator6">Femmes enceintes dépistées pour la syphilis</string>
     <string name="anc_indicator7">Femmes enceintes à jour avec leurs VAT</string>
     <string name="anc_indicator8">Femmes enceintes à jour avec leurs Doses de SP</string>
+    <string name="number_8_16">Number must be 8 to 16 digits</string>
 </resources>
