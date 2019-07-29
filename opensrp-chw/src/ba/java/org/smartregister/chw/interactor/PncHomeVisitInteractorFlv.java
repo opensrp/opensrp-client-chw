@@ -3,6 +3,7 @@ package org.smartregister.chw.interactor;
 import org.smartregister.chw.R;
 import org.smartregister.chw.actionhelper.DangerSignsAction;
 import org.smartregister.chw.anc.AncLibrary;
+import org.smartregister.chw.anc.actionhelper.HomeVisitActionHelper;
 import org.smartregister.chw.anc.contract.BaseAncHomeVisitContract;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.domain.Visit;
@@ -64,9 +65,27 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
                 .withOptional(false)
                 .withDetails(details)
                 .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getDangerSignsMother())
-                .withHelper(new DangerSignsAction())
+                .withHelper(new PNCDangerSignsMotherHelper())
                 .build();
         actionList.put(context.getString(R.string.pnc_danger_signs_mother), action);
+    }
+
+    private class PNCDangerSignsMotherHelper extends HomeVisitActionHelper {
+
+        @Override
+        public void onPayloadReceived(String s) {
+
+        }
+
+        @Override
+        public String evaluateSubTitle() {
+            return null;
+        }
+
+        @Override
+        public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
+            return null;
+        }
     }
 
     private void evaluateDangerSignsBaby() throws Exception {
@@ -75,9 +94,27 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
                     .withOptional(false)
                     .withDetails(details)
                     .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getDangerSignsBaby())
-                    .withHelper(new DangerSignsAction())
+                    .withHelper(new PNCDangerSignsBabyHelper())
                     .build();
             actionList.put(MessageFormat.format(context.getString(R.string.pnc_danger_signs_baby), baby.getFullName()), action);
+        }
+    }
+
+    private class PNCDangerSignsBabyHelper extends HomeVisitActionHelper {
+
+        @Override
+        public void onPayloadReceived(String s) {
+
+        }
+
+        @Override
+        public String evaluateSubTitle() {
+            return null;
+        }
+
+        @Override
+        public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
+            return null;
         }
     }
 
@@ -86,9 +123,27 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
                 .withOptional(false)
                 .withDetails(details)
                 .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getHealthFacilityVisitOne())
-                .withHelper(new DangerSignsAction())
+                .withHelper(new PNCHealthFacilityVisitHelper())
                 .build();
         actionList.put(context.getString(R.string.pnc_health_facility_visit_within_fourty_eight_hours), action);
+    }
+
+    private class PNCHealthFacilityVisitHelper extends HomeVisitActionHelper {
+
+        @Override
+        public void onPayloadReceived(String s) {
+
+        }
+
+        @Override
+        public String evaluateSubTitle() {
+            return null;
+        }
+
+        @Override
+        public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
+            return null;
+        }
     }
 
     private void evaluatePNCHealthFacilityVisitTwo() throws Exception {

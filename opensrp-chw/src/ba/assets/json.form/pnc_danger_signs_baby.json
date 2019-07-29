@@ -50,54 +50,99 @@
     "title": "Danger Signs Baby",
     "fields": [
       {
-        "key": "danger_signs_present_child",
-        "type": "spinner",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "key": "danger_signs_present_mama",
         "openmrs_entity_parent": "",
-        "values": [
-          "Fever",
-          "Redness around the umbilical cord, foul-smelling discharge from the umbilical cord",
-          "Excessive crying",
-          "Fast breathing",
-          "Chest indrawing",
-          "Unable to suck",
-          "No movement",
-          "Convulsions",
-          "Pale or jaundiced",
-          "Lethargy",
-          "None"
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "159860AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "check_box",
+        "label": "Does the baby have any danger signs?",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "exclusive": [
+          "chk_none"
         ],
-        "keys": [
-          "Fever",
-          "Redness_around_the_umbilical_cord_foul_smelling_discharge_from_the_umbilical_cord",
-          "Excessive_crying",
-          "Fast_breathing",
-          "Chest_indrawing",
-          "Unable_to_suck",
-          "No_movement",
-          "Convulsions",
-          "Pale_or_jaundiced",
-          "Lethargy",
-          "None"
+        "options": [
+          {
+            "key": "chk_fever",
+            "text": "Fever",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "140238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_redness_around_umbilical_cord",
+            "text": "Redness around the umbilical cord, foul-smelling discharge from the umbilical cord",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "132407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_excessive_crying",
+            "text": "Excessive crying",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "110540AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_fast_breathing",
+            "text": "Fast breathing",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "125061AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_chest_indrawing",
+            "text": "Chest indrawing",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "136768AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_unable_to_suck",
+            "text": "Unable to suck",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "159861AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_no_movement",
+            "text": "No movement",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "164455AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_convulsions",
+            "text": "Convulsions",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "164483AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_pale",
+            "text": "Pale or jaundiced",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "136443AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_lethargy",
+            "text": "Lethargy",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "116334AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_none",
+            "text": "None",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
         ],
-        "openmrs_choice_ids": {
-          "Fever": "140238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Redness_around_the_umbilical_cord_foul_smelling_discharge_from_the_umbilical_cord": "132407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Excessive_crying": "110540AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Fast_breathing": "125061AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Chest_indrawing": "136768AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Unable_to_suck": "159861AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "No_movement": "164455AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Convulsions": "164483AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Pale_or_jaundiced": "136443AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Lethargy": "116334AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "None": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
-        "hint": "Does the baby have any danger signs?",
         "v_required": {
           "value": "true",
-          "err": null
+          "err": "Please pick at least one"
         }
       }
     ]
