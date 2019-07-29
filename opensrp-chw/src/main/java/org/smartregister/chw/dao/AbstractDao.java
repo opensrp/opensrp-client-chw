@@ -34,7 +34,7 @@ public class AbstractDao {
 
     /**
      * Returns a mapped pojo by reading the sqlite adapter
-     *
+     * handles iteration and cursor disposable
      * @param query
      * @param dataMap
      * @param <T>
@@ -59,48 +59,6 @@ public class AbstractDao {
         return null;
     }
 
-    /*
-        private Map<String, String> getChildDetails(String baseEntityId) {
-            SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
-            queryBUilder.SelectInitiateMainTable(CommonFtsObject.searchTableName(Constants.TABLE_NAME.CHILD), new String[]{CommonFtsObject.idColumn, ChildDBConstants.KEY.LAST_HOME_VISIT, ChildDBConstants.KEY.VISIT_NOT_DONE, ChildDBConstants.KEY.DATE_CREATED});
-            String query = queryBUilder.mainCondition(String.format(" %s is null AND %s = '%s' AND %s ",
-                    DBConstants.KEY.DATE_REMOVED,
-                    CommonFtsObject.idColumn,
-                    baseEntityId,
-                    ChildDBConstants.childAgeLimitFilter()));
-
-            query = query.replace(CommonFtsObject.searchTableName(Constants.TABLE_NAME.CHILD) + ".id as _id ,", "");
-
-            CommonRepository commonRepository = Utils.context().commonrepository(Constants.TABLE_NAME.CHILD);
-            List<Map<String, String>> res = new ArrayList<>();
-
-            Cursor cursor = null;
-            try {
-                cursor = commonRepository.queryTable(query);
-                cursor.moveToFirst();
-
-                while (!cursor.isAfterLast()) {
-                    int columncount = cursor.getColumnCount();
-                    Map<String, String> columns = new HashMap<>();
-                    for (int i = 0; i < columncount; i++) {
-                        columns.put(cursor.getColumnName(i), cursor.getType(i) == Cursor.FIELD_TYPE_NULL ? null : String.valueOf(cursor.getString(i)));
-                    }
-                    res.add(columns);
-                    cursor.moveToNext();
-                }
-            } catch (Exception e) {
-                Timber.e(e, e.toString());
-            } finally {
-                if (cursor != null)
-                    cursor.close();
-            }
-
-            if (res.isEmpty()) {
-                return null;
-            }
-            return res.get(0);
-        }
-    */
     public interface DataMap<T> {
         T readCursor(Cursor cursor);
     }
