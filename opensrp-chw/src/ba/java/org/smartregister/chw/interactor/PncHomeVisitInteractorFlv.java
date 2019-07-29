@@ -84,7 +84,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
         public void onPayloadReceived(String s) {
             try {
                 JSONObject jsonObject = new JSONObject(s);
-                danger_signs_present_mama = JsonFormUtils.getCheckBoxValue(jsonObject, "danger_signs_present_mama");
+                danger_signs_present_mama = getCheckBoxValue(jsonObject, "danger_signs_present_mama");
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -124,7 +124,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
         public void onPayloadReceived(String s) {
             try {
                 JSONObject jsonObject = new JSONObject(s);
-                danger_signs_present_child = JsonFormUtils.getCheckBoxValue(jsonObject, "danger_signs_present_child");
+                danger_signs_present_child = getCheckBoxValue(jsonObject, "danger_signs_present_child");
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -200,7 +200,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
         public void onPayloadReceived(String jsonPayload) {
             try {
                 JSONObject jsonObject = new JSONObject(jsonPayload);
-                fp_counseling = JsonFormUtils.getValue(jsonObject, "fp_counseling");
+                fp_counseling = getValue(jsonObject, "fp_counseling");
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -259,7 +259,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
         public void onPayloadReceived(String jsonPayload) {
             try {
                 JSONObject jsonObject = new JSONObject(jsonPayload);
-                couselling_pnc = JsonFormUtils.getCheckBoxValue(jsonObject, "couselling_pnc");
+                couselling_pnc = getCheckBoxValue(jsonObject, "couselling_pnc");
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -298,7 +298,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
         public void onPayloadReceived(String jsonPayload) {
             try {
                 JSONObject jsonObject = new JSONObject(jsonPayload);
-                nutrition_status_mama = JsonFormUtils.getValue(jsonObject, "nutrition_status_mama");
+                nutrition_status_mama = getValue(jsonObject, "nutrition_status_mama");
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -339,7 +339,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
         public void onPayloadReceived(String jsonPayload) {
             try {
                 JSONObject jsonObject = new JSONObject(jsonPayload);
-                nutrition_status_1m = JsonFormUtils.getValue(jsonObject, "nutrition_status_1m");
+                nutrition_status_1m = getValue(jsonObject, "nutrition_status_1m");
             } catch (JSONException e) {
                 e.printStackTrace();
             }
