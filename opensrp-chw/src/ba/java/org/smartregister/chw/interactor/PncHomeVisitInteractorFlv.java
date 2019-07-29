@@ -55,7 +55,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
         BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.pnc_danger_signs_mother))
                 .withOptional(false)
                 .withDetails(details)
-                .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getDangerSigns())
+                .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getDangerSignsMother())
                 .withHelper(new DangerSignsAction())
                 .build();
         actionList.put(context.getString(R.string.pnc_danger_signs_mother), action);
@@ -65,7 +65,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
         BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.pnc_danger_signs_baby))
                 .withOptional(false)
                 .withDetails(details)
-                .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getDangerSigns())
+                .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getDangerSignsBaby())
                 .withHelper(new DangerSignsAction())
                 .build();
         actionList.put(context.getString(R.string.pnc_danger_signs_baby), action);
@@ -75,7 +75,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
         BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.pnc_health_facility_visit_within_fourty_eight_hours))
                 .withOptional(false)
                 .withDetails(details)
-                .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getDangerSigns())
+                .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getHealthFacilityVisitOne())
                 .withHelper(new DangerSignsAction())
                 .build();
         actionList.put(context.getString(R.string.pnc_health_facility_visit_within_fourty_eight_hours), action);

@@ -193,9 +193,24 @@ public class Constants {
 
         public static class PNC_HOME_VISIT {
             private static final String DANGER_SIGNS = "pnc_hv_danger_signs";
+            private static final String DANGER_SIGNS_MOTHER = "pnc_danger_signs_mother";
+            private static final String DANGER_SIGNS_BABY = "pnc_danger_signs_baby";
+            private static final String HEALTH_FACILITY_VISIT_ONE = "pnc_health_facility_visit_one";
 
             public static String getDangerSigns() {
-                return DANGER_SIGNS;
+                return Utils.getLocalForm(DANGER_SIGNS);
+            }
+
+            public static String getDangerSignsMother() {
+                return Utils.getLocalForm(DANGER_SIGNS_MOTHER);
+            }
+
+            public static String getDangerSignsBaby() {
+                return Utils.getLocalForm(DANGER_SIGNS_BABY);
+            }
+
+            public static String getHealthFacilityVisitOne() {
+                return Utils.getLocalForm(HEALTH_FACILITY_VISIT_ONE);
             }
         }
     }
@@ -332,12 +347,15 @@ public class Constants {
         public static class VACCINE_CARD {
             public static final String CODE = "164147AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
         }
+
         public static class MINIMUM_DIETARY {
             public static final String CODE = "";
         }
+
         public static class MUAC {
             public static final String CODE = "160908AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
         }
+
         public static class LLITN {
             public static final String CODE = "1802AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
         }
@@ -346,16 +364,16 @@ public class Constants {
             public static final String TASK_MINIMUM_DIETARY = "diet_diversity";
             public static final String TASK_MUAC = "muac";
             public static final String TASK_LLITN = "llitn";
-            public static final String HOME_VISIT_ID= "home_visit_id";
-            public static final String HOME_VISIT_DATE_LONG= "home_visit_date";
+            public static final String HOME_VISIT_ID = "home_visit_id";
+            public static final String HOME_VISIT_DATE_LONG = "home_visit_date";
             public static final String LAST_HOME_VISIT = "last_home_visit";
-            public static final String HOME_VISIT_SINGLE_VACCINE= "singleVaccine";
-            public static final String HOME_VISIT_GROUP_VACCINE= "groupVaccine";
-            public static final String HOME_VISIT_VACCINE_NOT_GIVEN= "vaccineNotGiven";
-            public static final String HOME_VISIT_SERVICE= "service";
-            public static final String HOME_VISIT_SERVICE_NOT_GIVEN= "serviceNotGiven";
-            public static final String HOME_VISIT_BIRTH_CERT= "birth_certificate";
-            public static final String HOME_VISIT_ILLNESS= "illness_information";
+            public static final String HOME_VISIT_SINGLE_VACCINE = "singleVaccine";
+            public static final String HOME_VISIT_GROUP_VACCINE = "groupVaccine";
+            public static final String HOME_VISIT_VACCINE_NOT_GIVEN = "vaccineNotGiven";
+            public static final String HOME_VISIT_SERVICE = "service";
+            public static final String HOME_VISIT_SERVICE_NOT_GIVEN = "serviceNotGiven";
+            public static final String HOME_VISIT_BIRTH_CERT = "birth_certificate";
+            public static final String HOME_VISIT_ILLNESS = "illness_information";
 
         }
     }
@@ -391,6 +409,7 @@ public class Constants {
     public static final class ACTIVITY_PAYLOAD {
         public static final String ACTION = "action";
     }
+
     public static final class ACTION {
         public static final String START_REGISTRATION = "start_registration";
     }

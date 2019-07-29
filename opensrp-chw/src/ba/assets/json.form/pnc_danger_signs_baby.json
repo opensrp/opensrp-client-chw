@@ -1,0 +1,105 @@
+{
+  "count": "1",
+  "encounter_type": "Danger signs - Baby",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "step1": {
+    "title": "Danger Signs Baby",
+    "fields": [
+      {
+        "key": "danger_signs_present_child",
+        "type": "spinner",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "openmrs_entity_parent": "",
+        "values": [
+          "Fever",
+          "Redness around the umbilical cord, foul-smelling discharge from the umbilical cord",
+          "Excessive crying",
+          "Fast breathing",
+          "Chest indrawing",
+          "Unable to suck",
+          "No movement",
+          "Convulsions",
+          "Pale or jaundiced",
+          "Lethargy",
+          "None"
+        ],
+        "keys": [
+          "Fever",
+          "Redness_around_the_umbilical_cord_foul_smelling_discharge_from_the_umbilical_cord",
+          "Excessive_crying",
+          "Fast_breathing",
+          "Chest_indrawing",
+          "Unable_to_suck",
+          "No_movement",
+          "Convulsions",
+          "Pale_or_jaundiced",
+          "Lethargy",
+          "None"
+        ],
+        "openmrs_choice_ids": {
+          "Fever": "140238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Redness_around_the_umbilical_cord_foul_smelling_discharge_from_the_umbilical_cord": "132407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Excessive_crying": "110540AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Fast_breathing": "125061AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Chest_indrawing": "136768AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Unable_to_suck": "159861AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "No_movement": "164455AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Convulsions": "164483AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Pale_or_jaundiced": "136443AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Lethargy": "116334AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "None": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "hint": "Does the baby have any danger signs?",
+        "v_required": {
+          "value": "true",
+          "err": null
+        }
+      }
+    ]
+  }
+}
