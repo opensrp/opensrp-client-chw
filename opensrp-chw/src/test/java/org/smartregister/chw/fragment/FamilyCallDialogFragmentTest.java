@@ -3,8 +3,6 @@ package org.smartregister.chw.fragment;
 import android.view.View;
 import android.widget.LinearLayout;
 
-import com.opensrp.chw.core.fragment.FamilyCallDialogFragment;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,7 +15,7 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.application.ChwApplication;
-import com.opensrp.chw.core.model.FamilyCallDialogModel;
+import org.smartregister.chw.model.FamilyCallDialogModel;
 
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.doNothing;

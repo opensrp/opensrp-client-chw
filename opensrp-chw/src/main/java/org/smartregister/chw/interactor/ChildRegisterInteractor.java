@@ -6,7 +6,7 @@ import android.util.Pair;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;
 import org.json.JSONObject;
-import com.opensrp.chw.core.contract.ChildRegisterContract;
+import org.smartregister.chw.contract.ChildRegisterContract;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;

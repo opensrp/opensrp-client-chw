@@ -1,4 +1,4 @@
-package com.opensrp.chw.core.contract;
+package org.smartregister.chw.contract;
 
 import android.util.Pair;
 

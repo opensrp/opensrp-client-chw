@@ -1,4 +1,4 @@
-package com.opensrp.chw.core.fragment;
+package org.smartregister.chw.fragment;
 
 import android.app.Activity;
 import android.app.DialogFragment;
@@ -11,8 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
-import com.opensrp.chw.core.R;
-import com.opensrp.chw.core.activity.CoreFamilyProfileActivity;
+import org.smartregister.chw.R;
+import org.smartregister.chw.activity.FamilyProfileActivity;
 import com.opensrp.chw.core.utils.Constants;
 
 public class  AddMemberFragment extends DialogFragment implements View.OnClickListener {
@@ -79,15 +79,18 @@ public class  AddMemberFragment extends DialogFragment implements View.OnClickLi
     @Override
     public void onClick(View v) {
         try {
-            int i = v.getId();
-            if (i == R.id.close) {
-                dismiss();
-            } else if (i == R.id.layout_add_child_under_five) {
-                ((CoreFamilyProfileActivity) context).startChildForm(Constants.JSON_FORM.getChildRegister(), "", "", "");
-                dismiss();
-            } else if (i == R.id.layout_add_other_family_member) {
-                ((CoreFamilyProfileActivity) context).startFormActivity(Constants.JSON_FORM.getFamilyMemberRegister(), null, null);
-                dismiss();
+            switch (v.getId()) {
+                case R.id.close:
+                    dismiss();
+                    break;
+                case R.id.layout_add_child_under_five:
+                    ((FamilyProfileActivity) context).startChildForm(Constants.JSON_FORM.getChildRegister(), "", "", "");
+                    dismiss();
+                    break;
+                case R.id.layout_add_other_family_member:
+                    ((FamilyProfileActivity) context).startFormActivity(Constants.JSON_FORM.getFamilyMemberRegister(), null, null);
+                    dismiss();
+                    break;
             }
         } catch (Exception e) {
             e.printStackTrace();

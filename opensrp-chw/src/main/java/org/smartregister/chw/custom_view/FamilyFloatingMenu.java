@@ -1,4 +1,4 @@
-package com.opensrp.chw.core.custom_views;
+package org.smartregister.chw.custom_view;
 
 import android.content.Context;
 import android.graphics.Typeface;
@@ -11,9 +11,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.opensrp.chw.core.R;
-import com.opensrp.chw.core.listener.OnClickFloatingMenu;
-
+import org.smartregister.chw.R;
+import org.smartregister.chw.listener.OnClickFloatingMenu;
 
 public class FamilyFloatingMenu extends LinearLayout implements View.OnClickListener {
     private RelativeLayout activityMain;

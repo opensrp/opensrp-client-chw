@@ -9,7 +9,7 @@ import org.joda.time.Period;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.contract.ChildProfileContract;
-import com.opensrp.chw.core.contract.FamilyProfileExtendedContract;
+import org.smartregister.chw.contract.FamilyProfileExtendedContract;
 import org.smartregister.chw.interactor.ChildProfileInteractor;
 import org.smartregister.chw.interactor.FamilyProfileInteractor;
 import org.smartregister.chw.model.ChildRegisterModel;

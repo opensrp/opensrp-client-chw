@@ -3,8 +3,8 @@ package org.smartregister.chw.activity;
 import android.app.Activity;
 
 import org.smartregister.chw.R;
-import com.opensrp.chw.core.fragment.FamilyCallDialogFragment;
-import com.opensrp.chw.core.listener.OnClickFloatingMenu;
+import org.smartregister.chw.fragment.FamilyCallDialogFragment;
+import org.smartregister.chw.listener.OnClickFloatingMenu;
 import org.smartregister.chw.presenter.ChildProfilePresenter;
 
 public abstract class DefaultChildProfileActivityFlv implements ChildProfileActivity.Flavor {

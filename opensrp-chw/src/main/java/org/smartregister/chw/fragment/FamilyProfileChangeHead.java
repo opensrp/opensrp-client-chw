@@ -20,7 +20,7 @@ import org.smartregister.chw.adapter.MemberAdapter;
 import org.smartregister.chw.contract.FamilyChangeContract;
 import org.smartregister.chw.contract.MemberAdapterListener;
 import org.smartregister.chw.domain.FamilyMember;
-import com.opensrp.chw.core.listener.FloatingMenuListener;
+import org.smartregister.chw.listener.FloatingMenuListener;
 import org.smartregister.chw.presenter.FamilyChangePresenter;
 import com.opensrp.chw.core.utils.Constants;
 

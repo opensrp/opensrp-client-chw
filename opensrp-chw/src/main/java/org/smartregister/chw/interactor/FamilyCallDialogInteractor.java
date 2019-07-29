@@ -1,14 +1,12 @@
-package com.opensrp.chw.core.interactor;
+package org.smartregister.chw.interactor;
 
 import android.content.Context;
 import android.support.annotation.VisibleForTesting;
 
 import org.apache.commons.lang3.StringUtils;
-
-import com.opensrp.chw.core.R;
-import com.opensrp.chw.core.contract.FamilyCallDialogContract;
-import com.opensrp.chw.core.model.FamilyCallDialogModel;
-
+import org.smartregister.chw.R;
+import org.smartregister.chw.contract.FamilyCallDialogContract;
+import org.smartregister.chw.model.FamilyCallDialogModel;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;

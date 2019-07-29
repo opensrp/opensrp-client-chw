@@ -3,7 +3,7 @@ package org.smartregister.chw.model;
 import android.util.Pair;
 
 import org.json.JSONObject;
-import com.opensrp.chw.core.contract.ChildRegisterContract;
+import org.smartregister.chw.contract.ChildRegisterContract;
 import org.smartregister.chw.util.JsonFormUtils;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;

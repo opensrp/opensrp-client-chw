@@ -1,4 +1,4 @@
-package com.opensrp.chw.core.event;
+package org.smartregister.chw.event;
 
 public class PermissionEvent {
 
