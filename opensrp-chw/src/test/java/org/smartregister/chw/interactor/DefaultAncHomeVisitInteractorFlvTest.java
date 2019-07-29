@@ -35,7 +35,7 @@ import static junit.framework.TestCase.assertTrue;
 import static org.powermock.api.mockito.PowerMockito.when;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(application = TestChwApplication.class, constants = BuildConfig.class, sdk = 22)
+@Config(application = TestChwApplication.class,  sdk = 22)
 @PowerMockIgnore({"org.mockito.*", "org.robolectric.*", "android.*", "androidx.*"})
 @PrepareForTest({ImmunizationLibrary.class, Utils.class})
 public class DefaultAncHomeVisitInteractorFlvTest {

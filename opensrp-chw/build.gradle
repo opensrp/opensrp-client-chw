@@ -5,9 +5,9 @@ buildscript {
         maven { url 'https://maven.fabric.io/public' }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.1.4'
-        classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.5.0-x'
-        classpath 'io.fabric.tools:gradle:1.25.4'
+        classpath 'com.android.tools.build:gradle:3.4.2'
+        classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.8.2'
+        classpath 'io.fabric.tools:gradle:1.30.0'
     }
 }
 
@@ -197,7 +197,7 @@ dependencies {
 
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.mockito:mockito-core:2.8.47'
-    testImplementation 'org.robolectric:robolectric:3.8'
+    testImplementation 'org.robolectric:robolectric:4.0.1'
     testImplementation 'org.robolectric:shadows-multidex:3.8'
     testImplementation 'org.robolectric:shadows-support-v4:3.4-rc2'
 
@@ -210,14 +210,13 @@ dependencies {
 }
 
 
-task jacocoTestReport(type: JacocoReport, dependsOn: [
+/*task jacocoTestReport(type: JacocoReport, dependsOn: [
         'testBaDebugUnitTest', 'createBaDebugCoverageReport',
         'testWcaroDebugUnitTest', 'createWcaroDebugCoverageReport',
         'testTogoDebugUnitTest', 'createTogoDebugCoverageReport',
         'testGuineaDebugUnitTest', 'createGuineaDebugCoverageReport',
         'testChadDebugUnitTest', 'createChadDebugCoverageReport',
-        'testDrcDebugUnitTest', 'createDrcDebugCoverageReport'
-]) {
+        'testDrcDebugUnitTest', 'createDrcDebugCoverageReport']) {
 
     reports {
         html{
@@ -229,26 +228,28 @@ task jacocoTestReport(type: JacocoReport, dependsOn: [
             xml.enabled = true
             destination file("${buildDir}/reports/jacoco/jacocoRootReport/chw-coverage.xml")
         }
-    }
+    }*/
 
 
 
-    def fileFilter = ['**/R.class', '**/R$*.class', '**/BuildConfig.*', '**/Manifest*.*', '**/*Test*.*', 'android/**/*.*', '**/*$ViewBinder*.*']
-    def debugTree = fileTree(dir: "$project.buildDir/intermediates/classes/wcaro/debug", excludes: fileFilter)
-    def mainSrc = "$project.projectDir/src/main/java"
+    //def fileFilter = ['**/R.class', '**/R$*.class', '**/BuildConfig.*', '**/Manifest*.*', '**/*Test*.*', 'android/**/*.*', '**/*$ViewBinder*.*']
+    //def debugTree = fileTree(dir: "$project.buildDir/intermediates/classes/wcaro/debug", excludes: fileFilter)
+    //def mainSrc = "$project.projectDir/src/main/java"
 
-    sourceDirectories = files([mainSrc])
+/*    sourceDirectories = files([mainSrc])
     classDirectories = files([debugTree])
     executionData = fileTree(dir: project.buildDir, includes: [
             'jacoco/testWcaroDebugUnitTest.exec', 'outputs/code-coverage/connected/*coverage.ec'
     ])
-}
+}*/
 
 tasks.withType(Test) {
     jacoco.includeNoLocationClasses = true
 }
 
+/*
 
 coveralls {
     jacocoReportPath = "${buildDir}/reports/jacoco/jacocoRootReport/chw-coverage.xml"
 }
+*/

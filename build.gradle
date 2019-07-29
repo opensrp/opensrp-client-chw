@@ -7,8 +7,8 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.1.4'
-        classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.5.0-x'
+        classpath 'com.android.tools.build:gradle:3.4.2'
+        classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.8.2'
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -21,6 +21,22 @@ jacoco {
     toolVersion = "0.8.0"
 }
 
+apply plugin: 'build-dashboard'
+
+buildDashboard {
+    reports.html.setDestination(file("build/"))
+}
+
+def isReleaseBuild() {
+    return version.contains("SNAPSHOT") == false
+}
+
+/**
+ *  List of modules that don't require Jacoco
+ */
+def ignoredByJacoco = [
+        "opensrp-chw-core"
+]
 
 allprojects {
 
@@ -52,12 +68,12 @@ allprojects {
 
 project.ext.preDexLibs = !project.hasProperty('disablePreDex')
 
-subprojects {
+subprojects { prj ->
 
     group = 'org.smartregister'
 
-    ext.androidToolsBuildGradle = '28.0.0'
-    ext.androidBuildToolsVersion = '28.0.0'
+    ext.androidToolsBuildGradle = '28.0.3'
+    ext.androidBuildToolsVersion = '28.0.3'
     ext.androidMinSdkVersion = 18
     ext.androidCompileSdkVersion = 28
     ext.androidTargetSdkVersion = 28
@@ -74,57 +90,110 @@ subprojects {
             project.android.dexOptions.preDexLibraries = rootProject.ext.preDexLibs
         }
     }
+
+    // Apply Jacoco only if the project is not in the ignore list
+    if (!ignoredByJacoco.contains(prj.name)) {
+
+        apply plugin: 'jacoco'
+
+        jacoco {
+            toolVersion = '0.8.0'
+        }
+
+        task jacocoTestReport(type: JacocoReport, dependsOn: [
+                'testBaDebugUnitTest', 'createBaDebugCoverageReport',
+                'testWcaroDebugUnitTest', 'createWcaroDebugCoverageReport',
+                'testTogoDebugUnitTest', 'createTogoDebugCoverageReport',
+                'testGuineaDebugUnitTest', 'createGuineaDebugCoverageReport',
+                'testChadDebugUnitTest', 'createChadDebugCoverageReport',
+                'testDrcDebugUnitTest', 'createDrcDebugCoverageReport']) {
+
+            reports {
+                html{
+                    html.enabled = true
+                    destination file("${project.buildDir}/reports/jacoco/jacocoRootReport/chw-coverage")
+                }
+
+                xml{
+                    xml.enabled = true
+                    destination file("${project.buildDir}/reports/jacoco/jacocoRootReport/chw-coverage.xml")
+                }
+
+                csv.enabled =false
+            }
+
+            getReports().getXml().setDestination(file("${project.buildDir}/reports/jacoco/jacocoRootReport/merged.xml"))
+            getReports().getHtml().setDestination(file("${project.buildDir}/reports/jacoco/jacocoRootReport/html"))
+
+            def fileFilter = ['**/R.class', '**/R$*.class', '**/BuildConfig.*', '**/Manifest*.*', '**/*Test*.*', 'android/**/*.*', '**/*$ViewBinder*.*']
+            def debugTree = fileTree(dir: "$project.buildDir/intermediates/classes/wcaro/debug", excludes: fileFilter)
+            def mainSrc = "$project.projectDir/src/main/java"
+
+            sourceDirectories = files([mainSrc])
+            classDirectories = files([debugTree])
+            executionData = fileTree(dir: project.buildDir, includes: [
+                    'jacoco/testBaDebugUnitTest.exec', 'outputs/code-coverage/connected/*coverage.ec',
+                    'jacoco/testWcaroDebugUnitTest.exec', 'outputs/code-coverage/connected/*coverage.ec',
+                    'jacoco/testTogoDebugUnitTest.exec', 'outputs/code-coverage/connected/*coverage.ec',
+                    'jacoco/testGuineaDebugUnitTest.exec', 'outputs/code-coverage/connected/*coverage.ec',
+                    'jacoco/testChadDebugUnitTest.exec', 'outputs/code-coverage/connected/*coverage.ec',
+                    'jacoco/testDrcDebugUnitTest.exec', 'outputs/code-coverage/connected/*coverage.ec'
+            ])
+        }
+
+    }
 }
 
-task clean(type: Delete) {
-    delete rootProject.buildDir
-}
+// Only report code coverage for projects that are distributed
+def publishedProjects = subprojects.findAll {it.path != ':opensrp-chw-core'}
 
-task jacocoTestReport(type: JacocoReport) {
-    sourceDirectories = files()
-    classDirectories = files()
-    executionData = files()
+task jacocoRootReport(type: JacocoReport, group: 'Coverage reports') {
+    description = 'Generates an aggregate report from all subprojects'
+    dependsOn publishedProjects.jacocoTestReport
+
+    sourceDirectories = files(publishedProjects.jacocoTestReport.sourceDirectories)
+    classDirectories = files(publishedProjects.jacocoTestReport.classDirectories)
+    executionData = files(publishedProjects.jacocoTestReport.executionData)
+
+    getReports().getXml().setDestination(file("${project.buildDir}/reports/jacoco/jacocoRootReport/jacocoRootReport.xml"))
+    getReports().getHtml().setDestination(file("${project.buildDir}/reports/jacoco/jacocoRootReport/html"))
 
     reports {
         html{
             html.enabled = true
-            destination file("${buildDir}/reports/jacoco/jacocoRootReport/jacocoFullReport")
+            destination file("${project.buildDir}/reports/jacoco/jacocoRootReport/chw-coverage")
         }
 
         xml{
             xml.enabled = true
-            destination file("${buildDir}/reports/jacoco/jacocoRootReport/jacocoFullReport.xml")
+            destination file("${project.buildDir}/reports/jacoco/jacocoRootReport/chw-coverage.xml")
         }
 
-        csv.enabled = false
     }
 
-    // Work-around to allow us to build list of executionData files in doFirst
     onlyIf = {
         true
     }
 
-    /*
-     * Builds list of source dirs, class dirs, and executionData files
-     * when task is run, not at script evaluation time
-     */
     doFirst {
-        subprojects.findAll { subproject ->
-            subproject.pluginManager.hasPlugin('java')
-        }.each { subproject ->
-            additionalSourceDirs files((Set<File>) subproject.sourceSets.main.allJava.srcDirs)
-            additionalClassDirs ((FileCollection) subproject.sourceSets.main.output)
-            if (subproject.pluginManager.hasPlugin('jacoco')) {
-                executionData subproject.tasks.jacocoTestReport.executionData
-            }
-        }
-
         executionData = files(executionData.findAll {
             it.exists()
         })
     }
 }
 
-task build {
-    dependsOn tasks.jacocoTestReport
+coveralls {
+    for (int i = 0; i < publishedProjects.jacocoTestReport.sourceDirectories.size(); i++) {
+        sourceDirs.add(publishedProjects.jacocoTestReport.sourceDirectories.get(i).getAsPath())
+    }
+
+    jacocoReportPath = "${project.buildDir}/reports/jacoco/jacocoRootReport/jacocoRootReport.xml"
 }
+
+tasks.coveralls {
+    group = 'Coverage reports'
+    description = 'Uploads the aggregated coverage report to Coveralls'
+    dependsOn jacocoRootReport
+}
+
+

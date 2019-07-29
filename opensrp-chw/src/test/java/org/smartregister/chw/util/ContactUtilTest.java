@@ -25,7 +25,7 @@ import java.util.Map;
 import static junit.framework.TestCase.assertNotNull;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(application = ChwApplication.class, constants = BuildConfig.class, sdk = 22)
+@Config(application = ChwApplication.class,  sdk = 22)
 public class ContactUtilTest {
 
     private FamilyProfileActivity activity;

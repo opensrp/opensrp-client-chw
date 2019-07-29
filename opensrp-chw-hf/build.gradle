@@ -10,9 +10,9 @@ buildscript {
         maven { url 'https://maven.fabric.io/public' }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.1.4'
-        classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.5.0-x'
-        classpath 'io.fabric.tools:gradle:1.25.4'
+        classpath 'com.android.tools.build:gradle:3.4.2'
+        classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.8.2'
+        classpath 'io.fabric.tools:gradle:1.30.0'
     }
 }
 
@@ -87,6 +87,81 @@ android {
         }
     }
 
+    flavorDimensions 'baseDimension'
+    productFlavors {
+        ba {
+            dimension = 'baseDimension'
+            applicationIdSuffix ".ba"
+            versionCode 1
+            versionName "0.0.2"
+            buildConfigField "String", 'opensrp_url', '"https://boresha-afya.smartregister.org/opensrp/"'
+            buildConfigField "String", 'opensrp_url_debug', '"https://boresha-afya-stage.smartregister.org/opensrp/"'
+            buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"MOH Jhpiego Facility Name" , "Village"}'
+            buildConfigField "String", 'DEFAULT_LOCATION', '"Village"'
+            buildConfigField "boolean", 'SUPPORT_QR', 'true'
+            buildConfigField "int", "DATABASE_VERSION", '10'
+        }
+        wcaro {
+            dimension = 'baseDimension'
+            versionCode 1
+            versionName "0.1.6"
+            buildConfigField "String", 'opensrp_url', '"https://unicefwcaro.smartregister.org/opensrp/"'
+            buildConfigField "String", 'opensrp_url_debug', '"https://unicefwcaro-stage.smartregister.org/opensrp/"'
+            buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"Clinic" , "CHSS" , "CHA"}'
+            buildConfigField "String", 'DEFAULT_LOCATION', '"CHA"'
+            buildConfigField "boolean", 'SUPPORT_QR', 'false'
+            buildConfigField "int", "DATABASE_VERSION", '6'
+        }
+        togo {
+            dimension = 'baseDimension'
+            applicationIdSuffix ".togo"
+            versionCode 1
+            versionName "0.0.3"
+            buildConfigField "String", 'opensrp_url', '"https://unicefwcaro.smartregister.org/opensrp/"'
+            buildConfigField "String", 'opensrp_url_debug', '"https://unicefwcaro-stage.smartregister.org/opensrp/"'
+            buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"Country", "Clinic" , "CHSS" , "CHA", "Supervisor", "CHW"}'
+            buildConfigField "String", 'DEFAULT_LOCATION', '"CHW"'
+            buildConfigField "boolean", 'SUPPORT_QR', 'false'
+            buildConfigField "int", "DATABASE_VERSION", '9'
+        }
+        guinea {
+            dimension = 'baseDimension'
+            applicationIdSuffix ".guinea"
+            versionCode 1
+            versionName "0.0.1"
+            buildConfigField "String", 'opensrp_url', '"https://unicefwcaro.smartregister.org/opensrp/"'
+            buildConfigField "String", 'opensrp_url_debug', '"https://unicefwcaro-stage.smartregister.org/opensrp/"'
+            buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"Clinic" , "CHSS" , "CHA"}'
+            buildConfigField "String", 'DEFAULT_LOCATION', '"CHA"'
+            buildConfigField "boolean", 'SUPPORT_QR', 'false'
+            buildConfigField "int", "DATABASE_VERSION", '6'
+        }
+        chad {
+            dimension = 'baseDimension'
+            applicationIdSuffix ".chad"
+            versionCode 1
+            versionName "0.0.1"
+            buildConfigField "String", 'opensrp_url', '"https://unicefwcaro.smartregister.org/opensrp/"'
+            buildConfigField "String", 'opensrp_url_debug', '"https://unicefwcaro-stage.smartregister.org/opensrp/"'
+            buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"Clinic" , "CHSS" , "CHA"}'
+            buildConfigField "String", 'DEFAULT_LOCATION', '"CHA"'
+            buildConfigField "boolean", 'SUPPORT_QR', 'false'
+            buildConfigField "int", "DATABASE_VERSION", '6'
+        }
+        drc {
+            dimension = 'baseDimension'
+            applicationIdSuffix ".drc"
+            versionCode 1
+            versionName "0.0.1"
+            buildConfigField "String", 'opensrp_url', '"https://unicefwcaro.smartregister.org/opensrp/"'
+            buildConfigField "String", 'opensrp_url_debug', '"https://unicefwcaro-stage.smartregister.org/opensrp/"'
+            buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"Clinic" , "CHSS" , "CHA"}'
+            buildConfigField "String", 'DEFAULT_LOCATION', '"CHA"'
+            buildConfigField "boolean", 'SUPPORT_QR', 'false'
+            buildConfigField "int", "DATABASE_VERSION", '6'
+        }
+    }
+
 }
 
 dependencies {
@@ -105,7 +180,7 @@ dependencies {
 
     testImplementation 'org.mockito:mockito-core:2.8.47'
     testImplementation 'junit:junit:4.12'
-    testImplementation 'org.robolectric:robolectric:3.8'
+    testImplementation 'org.robolectric:robolectric:4.0.1'
     testImplementation 'org.robolectric:shadows-multidex:3.8'
     testImplementation 'org.robolectric:shadows-support-v4:3.4-rc2'
 
@@ -117,11 +192,7 @@ dependencies {
     testImplementation "org.powermock:powermock-classloading-xstream:$powerMockVersion"
 }
 
-
-tasks.withType(Test) {
-    jacoco.includeNoLocationClasses = true
-}
-
+/*
 task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest', 'createDebugCoverageReport']) {
 
     reports {
@@ -135,17 +206,18 @@ task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest', 'crea
             destination file("${buildDir}/reports/jacoco/jacocoRootReport/chw-hf-coverage.xml")
         }
     }
+*/
 
-    def fileFilter = ['**/R.class', '**/R$*.class', '**/BuildConfig.*', '**/Manifest*.*', '**/*Test*.*', 'android/**/*.*', '**/*$ViewBinder*.*']
-    def debugTree = fileTree(dir: "$project.buildDir/intermediates/classes/debug", excludes: fileFilter)
-    def mainSrc = "$project.projectDir/src/main/java"
-
+    //def fileFilter = ['**/R.class', '**/R$*.class', '**/BuildConfig.*', '**/Manifest*.*', '**/*Test*.*', 'android/**/*.*', '**/*$ViewBinder*.*']
+    //def debugTree = fileTree(dir: "$project.buildDir/intermediates/classes/debug", excludes: fileFilter)
+    //def mainSrc = "$project.projectDir/src/main/java"
+/*
     sourceDirectories = files([mainSrc])
     classDirectories = files([debugTree])
     executionData = fileTree(dir: project.buildDir, includes: [
             'jacoco/testDebugUnitTest.exec', 'outputs/code-coverage/connected/*coverage.ec'
     ])
-}
+}*/
 
 tasks.withType(Test) {
     jacoco.includeNoLocationClasses = true

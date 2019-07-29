@@ -20,7 +20,7 @@ import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(application = ChwApplication.class, constants = BuildConfig.class, sdk = 22)
+@Config(application = ChwApplication.class,  sdk = 22)
 public class NavigationAdapterTest {
 
     private LoginActivity activity;

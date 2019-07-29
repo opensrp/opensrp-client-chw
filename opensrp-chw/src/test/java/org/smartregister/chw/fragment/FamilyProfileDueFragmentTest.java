@@ -17,7 +17,7 @@ import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.family.adapter.FamilyRecyclerViewCustomAdapter;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(application = ChwApplication.class, constants = BuildConfig.class, sdk = 22)
+@Config(application = ChwApplication.class,  sdk = 22)
 public class FamilyProfileDueFragmentTest {
 
     @Mock
