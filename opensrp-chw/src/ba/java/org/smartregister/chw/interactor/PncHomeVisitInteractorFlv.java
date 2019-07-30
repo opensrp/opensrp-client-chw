@@ -49,10 +49,10 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
         try {
             evaluateDangerSignsMother();
             evaluateDangerSignsBaby();
-            //evaluatePNCHealthFacilityVisit();
+            evaluatePNCHealthFacilityVisit();
             evaluateFamilyPlanning();
-            //evaluateImmunization();
-            //evaluateExclusiveBreastFeeding();
+            evaluateImmunization();
+            evaluateExclusiveBreastFeeding();
             evaluateCounselling();
             evaluateNutritionStatusMother();
             evaluateNutritionStatusBaby();
@@ -162,7 +162,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
         public void onPayloadReceived(String jsonPayload) {
             try {
                 JSONObject jsonObject = new JSONObject(jsonPayload);
-                fp_counseling = JsonFormUtils.getValue(jsonObject, "fp_counseling");
+                fp_counseling = getValue(jsonObject, "fp_counseling");
             } catch (JSONException e) {
                 e.printStackTrace();
             }
