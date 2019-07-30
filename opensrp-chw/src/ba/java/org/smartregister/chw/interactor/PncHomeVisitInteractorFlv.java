@@ -13,7 +13,6 @@ import org.smartregister.chw.anc.contract.BaseAncHomeVisitContract;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
-import org.smartregister.chw.anc.util.JsonFormUtils;
 import org.smartregister.chw.anc.util.VisitUtils;
 import org.smartregister.chw.dao.PersonDao;
 import org.smartregister.chw.domain.Person;
@@ -193,7 +192,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
         actionList.put(context.getString(R.string.pnc_family_planning), action);
     }
 
-    private class FamilyPlanningHelper extends HomeVisitActionHelper{
+    private class FamilyPlanningHelper extends HomeVisitActionHelper {
         private String fp_counseling;
 
         @Override
