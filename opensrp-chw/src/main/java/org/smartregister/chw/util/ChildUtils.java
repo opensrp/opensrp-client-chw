@@ -62,6 +62,7 @@ import static com.opensrp.chw.core.utils.Utils.DD_MM_YYYY;
 import static org.apache.commons.lang3.text.WordUtils.capitalize;
 import static org.smartregister.chw.util.JsonFormUtils.getValue;
 import static org.smartregister.chw.util.JsonFormUtils.tagSyncMetadata;
+import static org.smartregister.util.JsonFormUtils.TAG;
 
 public class ChildUtils {
 
@@ -162,7 +163,7 @@ public class ChildUtils {
             int index = Integer.parseInt(number);
             return firstSecondNumber[index];
         } catch (Exception e) {
-
+            Timber.tag(TAG).e(e);
         }
         return "";
 
@@ -410,7 +411,7 @@ public class ChildUtils {
     }
 
     public static void updateTaskAsEvent(String eventType, String formSubmissionField, List<Object> values, List<Object> humenread,
-                                         String entityId, String choiceValue, String homeVisitId,String openMrsCode) {
+                                         String entityId, String choiceValue, String homeVisitId, String openMrsCode) {
         try {
             ECSyncHelper syncHelper = FamilyLibrary.getInstance().getEcSyncHelper();
             Event baseEvent = (Event) new Event()
@@ -452,12 +453,13 @@ public class ChildUtils {
         }
 
     }
-    public static void processClientProcessInBackground(){
+
+    public static void processClientProcessInBackground() {
         try {
-        long lastSyncTimeStamp = ChwApplication.getInstance().getContext().allSharedPreferences().fetchLastUpdatedAtDate(0);
-        Date lastSyncDate = new Date(lastSyncTimeStamp);
-        ChwApplication.getClientProcessor(ChwApplication.getInstance().getContext().applicationContext()).processClient(FamilyLibrary.getInstance().getEcSyncHelper().getEvents(lastSyncDate, BaseRepository.TYPE_Unprocessed));
-        ChwApplication.getInstance().getContext().allSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
+            long lastSyncTimeStamp = ChwApplication.getInstance().getContext().allSharedPreferences().fetchLastUpdatedAtDate(0);
+            Date lastSyncDate = new Date(lastSyncTimeStamp);
+            ChwApplication.getClientProcessor(ChwApplication.getInstance().getContext().applicationContext()).processClient(FamilyLibrary.getInstance().getEcSyncHelper().getEvents(lastSyncDate, BaseRepository.TYPE_Unprocessed));
+            ChwApplication.getInstance().getContext().allSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
         } catch (Exception e) {
             Timber.e(e);
         }
@@ -492,7 +494,7 @@ public class ChildUtils {
             spannableString.setSpan(new ForegroundColorSpan(ChwApplication.getInstance().getContext().getColorResource(R.color.grey)), 0, str.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             return spannableString;
         } else {
-            String str = context.getResources().getString(R.string.overdue) + "" +  DD_MM_YYYY.format(date);
+            String str = context.getResources().getString(R.string.overdue) + "" + DD_MM_YYYY.format(date);
             spannableString = new SpannableString(str);
             spannableString.setSpan(new ForegroundColorSpan(ChwApplication.getInstance().getContext().getColorResource(R.color.alert_urgent_red)), 0, str.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             return spannableString;
@@ -661,15 +663,17 @@ public class ChildUtils {
         return serviceTask;
     }
 
-    private static boolean isComplete(Context context, String value1, String value2){
+    private static boolean isComplete(Context context, String value1, String value2) {
         String yesVale = context.getString(R.string.yes);
         String noValue = context.getString(R.string.no);
         return value1.equalsIgnoreCase(noValue) && value2.equalsIgnoreCase(yesVale);
     }
-    public static String[] splitStringByNewline(String strWithNewline){
+
+    public static String[] splitStringByNewline(String strWithNewline) {
         return strWithNewline.split("\n");
     }
-    public static String getDurationFromTwoDate(Date dob, Date homeVisitServiceDate){
+
+    public static String getDurationFromTwoDate(Date dob, Date homeVisitServiceDate) {
 
         long timeDiff = Math.abs(homeVisitServiceDate.getTime() - dob.getTime());
         return DateUtil.getDuration(timeDiff);
