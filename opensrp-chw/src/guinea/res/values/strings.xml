@@ -2,6 +2,4 @@
     <string name="app_name">CFC-RTM - Guinée</string>
     <string name="login_title">Communauté Amies des Enfants Suivi en Temps Réel - Guinée</string>
     <string name="nav_logo">CFC-RTM - Guinée</string>
-    <string name="menu_anc">ANC Clients</string>
-    <string name="menu_pnc">PNC Clients</string>
 </resources>

@@ -1,7 +1,5 @@
 <resources>
-    <string name="app_name">CAE Guinée</string>
-    <string name="login_title">Moniteur CAE Guinée</string>
-    <string name="nav_logo">Moniteur CAE Guinée</string>
-    <string name="menu_anc">SPN</string>
-    <string name="menu_pnc">Consultation post natale (CPN)</string>
+    <string name="app_name">Liberia CFC</string>
+    <string name="login_title">Liberia CFC Monitor</string>
+    <string name="nav_logo">Liberia CFC Monitor</string>
 </resources>
