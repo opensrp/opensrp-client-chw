@@ -19,6 +19,7 @@ import org.smartregister.chw.anc.AncLibrary;
 import org.smartregister.chw.helper.RulesEngineHelper;
 import org.smartregister.chw.job.ChwJobCreator;
 import org.smartregister.chw.malaria.MalariaLibrary;
+import org.smartregister.chw.pnc.PncLibrary;
 import org.smartregister.chw.repository.AncRegisterRepository;
 import org.smartregister.chw.repository.ChwRepository;
 import org.smartregister.chw.repository.HomeVisitIndicatorInfoRepository;
@@ -64,7 +65,6 @@ import timber.log.Timber;
 
 public class ChwApplication extends DrishtiApplication {
 
-    private static final String TAG = ChwApplication.class.getCanonicalName();
     private static final int MINIMUM_JOB_FLEX_VALUE = 1;
     private static ClientProcessorForJava clientProcessor;
 
@@ -174,12 +174,14 @@ public class ChwApplication extends DrishtiApplication {
     public void onCreate() {
         super.onCreate();
 
+        /*
         if (BuildConfig.DEBUG) {
             Timber.plant(new Timber.DebugTree());
         } else {
             Timber.plant(new CrashlyticsTree());
         }
-
+*/
+        Timber.plant(new CrashlyticsTree());
 
         mInstance = this;
         context = Context.getInstance();
@@ -187,8 +189,8 @@ public class ChwApplication extends DrishtiApplication {
         context.updateCommonFtsObject(createCommonFtsObject());
 
 
-        Fabric.with(this, new Crashlytics.Builder().core(new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build()).build());
-        //Fabric.with(this, new Crashlytics.Builder().core(new CrashlyticsCore.Builder().build()).build());
+        //Fabric.with(this, new Crashlytics.Builder().core(new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build()).build());
+        Fabric.with(this, new Crashlytics.Builder().core(new CrashlyticsCore.Builder().build()).build());
 
         //Initialize Modules
         P2POptions p2POptions = new P2POptions(true);
@@ -202,6 +204,7 @@ public class ChwApplication extends DrishtiApplication {
         ConfigurableViewsLibrary.init(context, getRepository());
         FamilyLibrary.init(context, getRepository(), getMetadata(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
         AncLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
+        PncLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
         MalariaLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
 
         SyncStatusBroadcastReceiver.init(this);

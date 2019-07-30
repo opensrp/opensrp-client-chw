@@ -78,6 +78,12 @@
           "Fausse couche",
           "Autre"
         ],
+        "keys": [
+          "Live birth",
+          "Stillbirth",
+          "Miscarriage",
+          "Other"
+        ],
         "openmrs_choice_ids": {
           "Live birth": "151849AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "Stillbirth": "125872AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -144,6 +150,11 @@
           "Structure sanitaire",
           "Autre"
         ],
+        "keys": [
+          "Home",
+          "Health facility",
+          "Other"
+        ],
         "openmrs_choice_ids": {
           "Home": "1536AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "Health facility": "1588AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -182,6 +193,13 @@
         }
       },
       {
+        "key": "temp_unique_id",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "temp_unique_id",
+        "type": "hidden"
+      },
+      {
         "key": "unique_id",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_identifier",
@@ -197,6 +215,13 @@
         "v_required": {
           "value": "true",
           "err": "Please enter the ID"
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_pregnancy_outcome_calculation.yml"
+            }
+          }
         },
         "relevance": {
           "rules-engine": {
@@ -329,7 +354,7 @@
         "calculation": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "anc_pregnancy_out_come_calculation.yml"
+              "rules-file": "anc_pregnancy_outcome_calculation.yml"
             }
           }
         },
@@ -342,7 +367,7 @@
         }
       },
       {
-        "key": "sex",
+        "key": "gender",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person",
         "openmrs_entity_id": "gender",
