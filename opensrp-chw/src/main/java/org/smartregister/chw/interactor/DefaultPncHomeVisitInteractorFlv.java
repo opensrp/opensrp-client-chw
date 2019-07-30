@@ -29,7 +29,7 @@ import java.util.Map;
 
 import timber.log.Timber;
 
-public class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitInteractor.Flavor {
+public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitInteractor.Flavor {
 
     protected LinkedHashMap<String, BaseAncHomeVisitAction> actionList;
     protected Context context;
