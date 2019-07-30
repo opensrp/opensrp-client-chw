@@ -2,6 +2,7 @@ package org.smartregister.chw.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -11,7 +12,9 @@ import org.smartregister.chw.anc.AncLibrary;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.presenter.BaseAncMemberProfilePresenter;
 import org.smartregister.chw.anc.util.Constants;
+import org.smartregister.chw.interactor.PncMemberProfileInteractor;
 import org.smartregister.chw.pnc.activity.BasePncMemberProfileActivity;
+import org.smartregister.chw.presenter.ChildProfilePresenter;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
@@ -30,6 +33,12 @@ public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.pnc_member_profile_menu, menu);
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
@@ -40,8 +49,8 @@ public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
                         org.smartregister.chw.util.Constants.JSON_FORM.getFamilyMemberRegister());
                 return true;
             case R.id.action_pnc_registration:
-                startFormForEdit(R.string.edit_anc_registration_form_title,
-                        org.smartregister.chw.util.Constants.JSON_FORM.getAncRegistration());
+                ((ChildProfilePresenter) presenter()).startFormForEdit(getResources().getString(R.string.edit_child_form_title),
+                        ((ChildProfilePresenter) presenter()).getChildClient());
                 return true;
             case R.id.action__pnc_remove_member:
                 CommonRepository commonRepository = org.smartregister.chw.util.Utils.context().commonrepository(org.smartregister.chw.util.Utils.metadata().familyMemberRegister.tableName);
