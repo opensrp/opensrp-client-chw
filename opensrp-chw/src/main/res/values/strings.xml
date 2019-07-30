@@ -272,9 +272,10 @@
     <string name="due_details">When a service becomes due for a family member, it will show up here.</string>
 
     <string name="edu_level_none">None</string>
+    <string name="edu_level_literacy">Literacy</string>
     <string name="edu_level_primary">Primary</string>
     <string name="edu_level_secondary">Secondary</string>
-    <string name="edu_level_post_secondary">Post-secondary</string>
+    <string name="edu_level_post_secondary">University</string>
 
     <string name="counseled">Counseled : </string>
     <string name="not_counseled">Not counseled : </string>
@@ -391,20 +392,28 @@
     <string name="pnc_danger_signs_mother">Danger signs - mother</string>
     <string name="pnc_danger_signs_baby">Danger signs - baby ({0})</string>
     <string name="pnc_health_facility_visit">PNC health facility visit - day {0}</string>
-    <string name="pnc_child_vaccine_card_recevied">Child vaccine card received</string>
-    <string name="pnc_immunization_at_birth">Immunizations (at birth)</string>
+    <string name="pnc_child_vaccine_card_recevied">Child vaccine card received ({0})</string>
+    <string name="pnc_immunization_at_birth">Immunizations (at birth) ({0})</string>
     <string name="pnc_umblicord_care">Umbilical cord care</string>
-    <string name="pnc_exclusive_breastfeeding">Exclusive breastfeeding</string>
+    <string name="pnc_exclusive_breastfeeding">Exclusive breastfeeding ({0})</string>
     <string name="pnc_kangeroo_mother_care">Kangeroo mother care (KNC)</string>
     <string name="pnc_family_planning">Family planning</string>
     <string name="pnc_observation_and_illness_mother">Observations &amp; illness - mother </string>
-    <string name="pnc_observation_and_illness_baby">Observations &amp; illness - baby {0} </string>
+    <string name="pnc_observation_and_illness_baby">Observations &amp; illness - baby ({0}) </string>
 
     <string name="pnc_counselling">Counselling</string>
     <string name="pnc_nutrition_status">Nutrition status</string>
+    <string name="pnc_nutrition_status_baby_name">Nutrition status baby ({0})</string>
     <string name="pnc_malaria_prevention">Malaria prevention</string>
     <string name="pnc_health_facility_visit_within_fourty_eight_hours">PNC health facility visit - within 48 hours </string>
     <string name="pnc_health_facility_visit_days_three_to_seven">PNC health facility visit - days 3 - 7</string>
     <string name="pnc_health_facility_visit_days_eight_to_twenty_eight">PNC health facility visit - days 8 - 28</string>
     <string name="pnc_health_facility_visit_days_twenty_nine_to_forty_two">PNC health facility visit - days 29 - 42</string>
+
+    <string name="pnc_visit_day_due">DAY %s VISIT DUE</string>
+    <string name="pnc_visit_day_overdue">DAY %s OVERDUE</string>
+    <string name="pnc_visit">PNC Visit</string>
+    <string name="anc_visit">ANC Visit</string>
+    <string name="number_8_16">Number must be 8 to 16 digits</string>
+
 </resources>

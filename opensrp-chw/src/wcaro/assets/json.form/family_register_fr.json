@@ -458,21 +458,24 @@
         "hint": "Niveau plus haut d'éducation/de formation",
         "values": [
           "Aucun",
+          "Alphabétiser",
           "Primaire",
           "Secondaire",
-          "Postsecondaire"
+          "Universite"
         ],
         "keys": [
           "None",
+          "Literacy",
           "Primary",
           "Secondary",
           "Post-secondary"
         ],
         "openmrs_choice_ids": {
           "Aucun": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Alphabétiser":"",
           "Primaire": "1713AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "Secondaire": "1714AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Postsecondaire": "159785AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          "Universite": "159785AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         }
       }
     ]
