@@ -94,6 +94,13 @@
         }
       },
       {
+        "key": "anc_hf_next_visit_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "anc_hf_next_visit_date",
+        "type": "spacer"
+      },
+      {
         "key": "weight",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
