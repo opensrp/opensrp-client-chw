@@ -28,7 +28,6 @@ import org.smartregister.chw.model.FamilyProfileModel;
 import org.smartregister.chw.presenter.AncMemberProfilePresenter;
 import org.smartregister.chw.util.HomeVisitUtil;
 import org.smartregister.chw.util.VisitSummary;
-import org.smartregister.chw.util.Common;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.AllCommonsRepository;
 import org.smartregister.commonregistry.CommonPersonObject;
@@ -41,6 +40,7 @@ import org.smartregister.family.util.Utils;
 import org.smartregister.repository.AllSharedPreferences;
 import timber.log.Timber;
 
+import static org.smartregister.chw.util.Utils.clientForEdit;
 import static org.smartregister.util.JsonFormUtils.fields;
 import static org.smartregister.util.JsonFormUtils.getFieldJSONObject;
 import static org.smartregister.util.Utils.getAllSharedPreferences;
@@ -105,7 +105,7 @@ public class AncMemberProfileActivity extends BaseAncMemberProfileActivity {
 
         JSONObject form = null;
 
-        CommonPersonObjectClient client = Common.clientForEdit(MEMBER_OBJECT.getBaseEntityId());
+        CommonPersonObjectClient client = clientForEdit(MEMBER_OBJECT.getBaseEntityId());
 
         if (formName.equals(org.smartregister.chw.util.Constants.JSON_FORM.getFamilyMemberRegister())) {
             form = org.smartregister.chw.util.JsonFormUtils.getAutoPopulatedJsonEditMemberFormString(

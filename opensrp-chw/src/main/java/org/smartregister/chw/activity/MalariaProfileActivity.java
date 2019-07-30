@@ -17,7 +17,6 @@ import org.smartregister.chw.malaria.activity.BaseMalariaProfileActivity;
 import org.smartregister.chw.malaria.domain.MemberObject;
 import org.smartregister.chw.malaria.util.Constants;
 import org.smartregister.chw.presenter.FamilyOtherMemberActivityPresenter;
-import org.smartregister.chw.util.Common;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
@@ -25,6 +24,9 @@ import org.smartregister.family.model.BaseFamilyOtherMemberProfileActivityModel;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
 import timber.log.Timber;
+
+import static org.smartregister.chw.util.Utils.clientForEdit;
+import static org.smartregister.chw.util.Utils.formActivityIntent;
 
 public class MalariaProfileActivity extends BaseMalariaProfileActivity implements FamilyOtherMemberProfileExtendedContract.View, FamilyProfileExtendedContract.PresenterCallBack {
     private static final String CLIENT = "client";
@@ -91,7 +93,7 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
     public void startFormForEdit(Integer title_resource, String formName) {
 
         JSONObject form = null;
-        CommonPersonObjectClient client = Common.clientForEdit(MEMBER_OBJECT.getBaseEntityId());
+        CommonPersonObjectClient client = clientForEdit(MEMBER_OBJECT.getBaseEntityId());
 
         if (formName.equals(org.smartregister.chw.util.Constants.JSON_FORM.getFamilyMemberRegister())) {
             form = org.smartregister.chw.util.JsonFormUtils.getAutoPopulatedJsonEditMemberFormString(
@@ -113,7 +115,7 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
     }
 
     private void startFormActivity(JSONObject jsonForm, MemberObject memberObject) {
-        Intent intent = Common.formActivityIntent(this, jsonForm.toString());
+        Intent intent = formActivityIntent(this, jsonForm.toString());
         intent.putExtra(Constants.MALARIA_MEMBER_OBJECT.MEMBER_OBJECT, memberObject);
         startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
     }

@@ -14,13 +14,15 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.widget.Toast;
-
+import com.vijay.jsonwizard.constants.JsonFormConstants;
+import com.vijay.jsonwizard.domain.Form;
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
@@ -30,11 +32,16 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.contract.FamilyCallDialogContract;
 import org.smartregister.chw.fragment.CopyToClipboardDialog;
+import org.smartregister.commonregistry.CommonPersonObject;
+import org.smartregister.commonregistry.CommonPersonObjectClient;
+import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.util.PermissionUtils;
+import timber.log.Timber;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.text.MessageFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -42,8 +49,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-
-import timber.log.Timber;
 
 import static com.google.android.gms.common.internal.Preconditions.checkArgument;
 
@@ -233,7 +238,7 @@ public class Utils extends org.smartregister.family.util.Utils {
             InputStream inputStream = ChwApplication.getInstance().getApplicationContext().getAssets()
                     .open("json.form/" + formIdentity + ".json");
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream,
-                    "UTF-8"));
+                    StandardCharsets.UTF_8));
             String jsonString;
             StringBuilder stringBuilder = new StringBuilder();
             while ((jsonString = reader.readLine()) != null) {
@@ -275,5 +280,27 @@ public class Utils extends org.smartregister.family.util.Utils {
             case 3:  return "rd";
             default: return "th";
         }
+    }
+
+    @NonNull
+    public static CommonPersonObjectClient clientForEdit(@NonNull String baseEntityId) {
+        CommonRepository commonRepository = org.smartregister.chw.util.Utils.context().commonrepository(org.smartregister.chw.util.Utils.metadata().familyMemberRegister.tableName);
+        CommonPersonObject personObject = commonRepository.findByBaseEntityId(baseEntityId);
+        CommonPersonObjectClient client = new CommonPersonObjectClient(personObject.getCaseId(), personObject.getDetails(), "");
+        client.setColumnmaps(personObject.getColumnmaps());
+        return client;
+    }
+
+    @NonNull
+    public static Intent formActivityIntent(@NonNull Activity activity, @NonNull String jsonForm) {
+        Intent intent = new Intent(activity, org.smartregister.family.util.Utils.metadata().familyMemberFormActivity);
+        intent.putExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON, jsonForm);
+
+        Form form = new Form();
+        form.setActionBarBackground(R.color.family_actionbar);
+        form.setWizard(false);
+        intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);
+
+        return intent;
     }
 }
