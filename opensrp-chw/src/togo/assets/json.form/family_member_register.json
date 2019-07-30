@@ -89,7 +89,15 @@
         "label_info_text": "What is their national identity number or their voter registration number?",
         "label_info_title": "National ID number",
         "type": "edit_text",
-        "hint": "National ID number"
+        "hint": "National ID number",
+        "v_numeric": {
+          "value": "true",
+          "err": "Number must be 11 digits."
+        },
+        "v_regex": {
+          "value": "([0-9]{11})|\\s*",
+          "err": "Number must be 11 digits."
+        }
       },
       {
         "key": "surname",
