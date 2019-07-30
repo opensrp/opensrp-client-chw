@@ -1,7 +1,6 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 apply plugin: 'com.github.kt3k.coveralls'
 apply plugin: 'jacoco'
-apply plugin: 'build-dashboard'
 
 buildscript {
 
@@ -21,9 +20,6 @@ jacoco {
     toolVersion = "0.8.0"
 }
 
-buildDashboard {
-    reports.html.setDestination(file("build/"))
-}
 /**
  *  List of modules that don't require Jacoco
  */
@@ -31,7 +27,7 @@ def ignoredByJacoco = [
         "opensrp-chw-core"
 ]
 
-allprojects {
+configure(allprojects) { project ->
 
     tasks.whenTaskAdded { task ->
         if (task.name == "lint") {
@@ -60,6 +56,7 @@ project.ext.preDexLibs = !project.hasProperty('disablePreDex')
 
 subprojects { superProject ->
     group = 'org.smartregister'
+    apply plugin: "jacoco"
 
     ext.androidToolsBuildGradle = '28.0.3'
     ext.androidBuildToolsVersion = '28.0.3'
@@ -81,61 +78,38 @@ subprojects { superProject ->
     }
 
     // Apply Jacoco only if the project is not in the ignore list
-    if (!ignoredByJacoco.contains(superProject.name)) {
-        task jacocoTestReport(type: JacocoReport, dependsOn: [
-                'testBaDebugUnitTest', 'createBaDebugCoverageReport',
-                'testWcaroDebugUnitTest', 'createWcaroDebugCoverageReport',
-                'testTogoDebugUnitTest', 'createTogoDebugCoverageReport',
-                'testGuineaDebugUnitTest', 'createGuineaDebugCoverageReport',
-                'testChadDebugUnitTest', 'createChadDebugCoverageReport',
-                'testDrcDebugUnitTest', 'createDrcDebugCoverageReport']) {
-
-            reports {
-                html.enabled = true
-                xml.enabled = true
-                csv.enabled = false
-            }
-
-            getReports().getXml().setDestination(file("${project.buildDir}/reports/jacoco/jacocoRootReport/merged.xml"))
-            getReports().getHtml().setDestination(file("${project.buildDir}/reports/jacoco/jacocoRootReport/html"))
-
-            def fileFilter = ['**/R.class', '**/R$*.class', '**/BuildConfig.*', '**/Manifest*.*', '**/*Test*.*', 'android/**/*.*', '**/*$ViewBinder*.*']
-            def baDebugTree = fileTree(dir: "$project.buildDir/intermediates/classes/debug", excludes: fileFilter)
-            def wcaroDebugTree = fileTree(dir: "$project.buildDir/intermediates/classes/debug", excludes: fileFilter)
-            def togoDebugTree = fileTree(dir: "$project.buildDir/intermediates/classes/debug", excludes: fileFilter)
-            def guineaDebugTree = fileTree(dir: "$project.buildDir/intermediates/classes/debug", excludes: fileFilter)
-            def chadDebugTree = fileTree(dir: "$project.buildDir/intermediates/classes/debug", excludes: fileFilter)
-            def drcDebugTree = fileTree(dir: "$project.buildDir/intermediates/classes/debug", excludes: fileFilter)
-            def mainSrc = "$project.projectDir/src/main/java"
-
-            sourceDirectories = files([mainSrc])
-            classDirectories = files([baDebugTree, wcaroDebugTree, togoDebugTree, guineaDebugTree, chadDebugTree, drcDebugTree])
-            executionData = fileTree(dir: project.buildDir, includes: [
-                    'jacoco/testBaDebugUnitTest.exec', 'outputs/code-coverage/connected/*coverage.ec',
-                    'jacoco/testWcaroDebugUnitTest.exec', 'outputs/code-coverage/connected/*coverage.ec',
-                    'jacoco/testTogoDebugUnitTest.exec', 'outputs/code-coverage/connected/*coverage.ec',
-                    'jacoco/testGuineaDebugUnitTest.exec', 'outputs/code-coverage/connected/*coverage.ec',
-                    'jacoco/testChadDebugUnitTest.exec', 'outputs/code-coverage/connected/*coverage.ec',
-                    'jacoco/testDrcDebugUnitTest.exec', 'outputs/code-coverage/connected/*coverage.ec'
-            ])
+   /* if (!ignoredByJacoco.contains(superProject.name)) {
+        if (superProject.name == "opensrp-chw") {
+            evaluationDependsOn(':opensrp-chw')
+            task jacocoAllTestReport(type: JacocoReport, dependsOn: ':opensrp-chw:jacocoTestReport')
+        } else {
+            evaluationDependsOn(':opensrp-chw-hf')
+            task jacocoAllTestReport(type: JacocoReport, dependsOn: ':opensrp-chw-hf:jacocoTestReport')
         }
-
-    }
+    }*/
 }
 
 // Only report code coverage for projects that are distributed
-def publishedProjects = subprojects.findAll { it.path != ':opensrp-chw-core' }
+def publishedProjects = subprojects.findAll { it.project.path != ':opensrp-chw-core' }
+println("===================================================")
+println(publishedProjects)
+println("====================================================")
 
-task jacocoRootReport(type: JacocoReport, group: 'Coverage reports') {
+
+/*task jacocoRootReport(type: JacocoReport, group: 'Coverage reports') {
     description = 'Generates an aggregate report from all subprojects'
-    dependsOn publishedProjects.jacocoTestReport
+    dependsOn(publishedProjects.jacocoAllTestReport)
 
-    sourceDirectories = files(publishedProjects.jacocoTestReport.sourceDirectories)
-    classDirectories = files(publishedProjects.jacocoTestReport.classDirectories)
-    executionData = files(publishedProjects.jacocoTestReport.executionData)
+    sourceDirectories = files(publishedProjects.jacocoAllTestReport.sourceDirectories)
+    classDirectories = files(publishedProjects.jacocoAllTestReport.classDirectories)
+    executionData = files(publishedProjects.jacocoAllTestReport.executionData)
 
-    getReports().getXml().setDestination(file("build/reports/jacoco/jacocoRootReport/jacocoRootReport.xml"))
-    getReports().getHtml().setDestination(file("build/reports/jacoco/jacocoRootReport/html"))
+    println("-------------------------------------------------------")
+    println(sourceDirectories.size())
+    println("--------------------------------------------------------")
+
+    getReports().getXml().setDestination(file("${buildDir}/reports/jacoco/jacocoRootReport/jacocoRootReport.xml"))
+    getReports().getHtml().setDestination(file("${buildDir}/reports/jacoco/jacocoRootReport/html"))
 
     reports {
         html.enabled = true
@@ -149,20 +123,15 @@ task jacocoRootReport(type: JacocoReport, group: 'Coverage reports') {
             it.exists()
         })
     }
-}
+}*/
 
 coveralls {
-    for (int i = 0; i < publishedProjects.jacocoTestReport.sourceDirectories.size(); i++) {
-        sourceDirs.add(publishedProjects.jacocoTestReport.sourceDirectories.get(i).getAsPath())
-    }
-
-    jacocoReportPath = file("build/reports/jacoco/jacocoRootReport/jacocoRootReport.xml")
+    //dependsOn(jacocoRootReport)
+   /* for (int i = 0; i < publishedProjects.jacocoAllTestReport.sourceDirectories.size(); i++) {
+        sourceDirs.add(publishedProjects.jacocoAllTestReport.sourceDirectories.get(i).getAsPath())
+    }*/
+/*
+    sourceDirs = publishedProjects.test.sourceDirectories.flatten()*/
+    jacocoReportPath = file("${buildDir}/reports/jacoco/jacocoRootReport/jacocoRootReport.xml")
 }
-
-tasks.coveralls {
-    group = 'Coverage reports'
-    description = 'Uploads the aggregated coverage report to Coveralls'
-    dependsOn jacocoRootReport
-}
-
 
