@@ -3,6 +3,7 @@ package org.smartregister.chw.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.MenuItem;
+import android.view.View;
 
 import org.json.JSONObject;
 import org.smartregister.chw.R;
@@ -62,11 +63,12 @@ public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    //TODO
+    //TODO clean up library side
     @Override
     protected void setupViews() {
         super.setupViews();
         textViewAncVisitNot.setOnClickListener(null);
+        recordRecurringVisit.setVisibility(View.GONE);
     }
 
     @Override

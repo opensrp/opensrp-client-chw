@@ -13,7 +13,6 @@ import org.smartregister.chw.anc.contract.BaseAncHomeVisitContract;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
-import org.smartregister.chw.anc.util.JsonFormUtils;
 import org.smartregister.chw.anc.util.VisitUtils;
 import org.smartregister.chw.dao.PersonDao;
 import org.smartregister.chw.domain.Person;
@@ -49,10 +48,10 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
         try {
             evaluateDangerSignsMother();
             evaluateDangerSignsBaby();
-            //evaluatePNCHealthFacilityVisit();
+            evaluatePNCHealthFacilityVisit();
             evaluateFamilyPlanning();
-            //evaluateImmunization();
-            //evaluateExclusiveBreastFeeding();
+            evaluateImmunization();
+            evaluateExclusiveBreastFeeding();
             evaluateCounselling();
             evaluateNutritionStatusMother();
             evaluateNutritionStatusBaby();
@@ -162,7 +161,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
         public void onPayloadReceived(String jsonPayload) {
             try {
                 JSONObject jsonObject = new JSONObject(jsonPayload);
-                fp_counseling = JsonFormUtils.getValue(jsonObject, "fp_counseling");
+                fp_counseling = getValue(jsonObject, "fp_counseling");
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -193,7 +192,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
         actionList.put(context.getString(R.string.pnc_family_planning), action);
     }
 
-    private class FamilyPlanningHelper extends HomeVisitActionHelper{
+    private class FamilyPlanningHelper extends HomeVisitActionHelper {
         private String fp_counseling;
 
         @Override

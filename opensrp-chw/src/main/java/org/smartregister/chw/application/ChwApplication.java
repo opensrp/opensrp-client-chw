@@ -174,12 +174,14 @@ public class ChwApplication extends DrishtiApplication {
     public void onCreate() {
         super.onCreate();
 
+        /*
         if (BuildConfig.DEBUG) {
             Timber.plant(new Timber.DebugTree());
         } else {
             Timber.plant(new CrashlyticsTree());
         }
-
+*/
+        Timber.plant(new CrashlyticsTree());
 
         mInstance = this;
         context = Context.getInstance();
@@ -187,8 +189,8 @@ public class ChwApplication extends DrishtiApplication {
         context.updateCommonFtsObject(createCommonFtsObject());
 
 
-        Fabric.with(this, new Crashlytics.Builder().core(new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build()).build());
-        //Fabric.with(this, new Crashlytics.Builder().core(new CrashlyticsCore.Builder().build()).build());
+        //Fabric.with(this, new Crashlytics.Builder().core(new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build()).build());
+        Fabric.with(this, new Crashlytics.Builder().core(new CrashlyticsCore.Builder().build()).build());
 
         //Initialize Modules
         P2POptions p2POptions = new P2POptions(true);
