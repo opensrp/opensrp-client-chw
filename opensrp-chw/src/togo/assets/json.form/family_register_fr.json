@@ -424,7 +424,7 @@
           "err": "Numéro doit consister de 10 chiffres au total"
         },
         "v_regex": {
-          "value": "(0[0-9]{9})|\\s*",
+          "value": "([0-9]{8,16})|\\s*",
           "err": "Numéro doit commencer avec 0 et doit consister de 10 chiffres au total."
         },
         "v_required": {
@@ -444,7 +444,7 @@
           "err": "Numéro doit consister de 10 chiffres au total"
         },
         "v_regex": {
-          "value": "(0[0-9]{9})|\\s*",
+          "value": "([0-9]{8,16})|\\s*",
           "err": "Numéro doit commencer avec 0 et doit consister de 10 chiffres au total."
         }
       },
@@ -458,21 +458,24 @@
         "hint": "Niveau plus haut d'éducation/de formation",
         "values": [
           "Aucun",
+          "Alphabétiser",
           "Primaire",
           "Secondaire",
-          "Postsecondaire"
+          "Universite"
         ],
         "keys": [
           "None",
+          "Literacy",
           "Primary",
           "Secondary",
-          "Post-secondary"
+          "University"
         ],
         "openmrs_choice_ids": {
           "Aucun": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Alphabétiser" :"",
           "Primaire": "1713AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "Secondaire": "1714AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Postsecondaire": "159785AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          "Universite": "159785AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         }
       }
     ]

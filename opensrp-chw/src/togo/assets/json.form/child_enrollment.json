@@ -205,6 +205,22 @@
         }
       },
       {
+        "key": "dob_estimated",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "check_box",
+        "label": "",
+        "options": [
+          {
+            "key": "dob_estimated",
+            "text": "DOB is estimated",
+            "text_size": "18px",
+            "value": "false"
+          }
+        ]
+      },
+      {
         "key": "dob_unknown",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person",
