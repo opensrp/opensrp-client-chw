@@ -43,19 +43,16 @@ public class FamilyProfileInteractor extends org.smartregister.family.interactor
         appExecutors.diskIO().execute(runnable);
     }
 
-    private boolean hasPhone(String familyBaseEntityId){
+    private boolean hasPhone(String familyBaseEntityId) {
 
         final CommonPersonObject personObject = getCommonRepository(Utils.metadata().familyRegister.tableName).findByBaseEntityId(familyBaseEntityId);
-        if (personObject != null) {
-            final CommonPersonObjectClient client = new CommonPersonObjectClient(personObject.getCaseId(), personObject.getDetails(), "");
-            client.setColumnmaps(personObject.getColumnmaps());
+        final CommonPersonObjectClient client = new CommonPersonObjectClient(personObject.getCaseId(), personObject.getDetails(), "");
+        client.setColumnmaps(personObject.getColumnmaps());
 
-            String primaryCaregiverID = getValue(client.getColumnmaps(), DBConstants.KEY.PRIMARY_CAREGIVER);
-            String familyHeadID = getValue(client.getColumnmaps(), DBConstants.KEY.FAMILY_HEAD);
+        String primaryCaregiverID = getValue(client.getColumnmaps(), DBConstants.KEY.PRIMARY_CAREGIVER);
+        String familyHeadID = getValue(client.getColumnmaps(), DBConstants.KEY.FAMILY_HEAD);
 
-            return hasNumber(primaryCaregiverID) || hasNumber(familyHeadID);
-        }
-        return false;
+        return hasNumber(primaryCaregiverID) || hasNumber(familyHeadID);
 
     }
 
@@ -71,7 +68,7 @@ public class FamilyProfileInteractor extends org.smartregister.family.interactor
         }
     }
 
-    public String getValue(Map<String,String> map, String field){
+    public String getValue(Map<String, String> map, String field) {
         return Utils.getValue(map, field, false);
     }
 
