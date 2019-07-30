@@ -392,21 +392,28 @@
     <string name="pnc_danger_signs_mother">Signes de danger - femme</string>
     <string name="pnc_danger_signs_baby">Signes de danger - enfant ({0})</string>
     <string name="pnc_health_facility_visit">Visit CPoN au centre de santé - jour {0}</string>
-    <string name="pnc_child_vaccine_card_recevied">Carte de vaccination enfant reçu</string>
-    <string name="pnc_immunization_at_birth">Immunisations (à la naissance)</string>
+    <string name="pnc_child_vaccine_card_recevied">Carte de vaccination enfant reçu ({0})</string>
+    <string name="pnc_immunization_at_birth">Immunisations (à la naissance) ({0})</string>
     <string name="pnc_umblicord_care">Soins du cordon ombilical</string>
-    <string name="pnc_exclusive_breastfeeding">Allaitement maternel exclusif</string>
+    <string name="pnc_exclusive_breastfeeding">Allaitement maternel exclusif ({0})</string>
     <string name="pnc_kangeroo_mother_care">Soins maternels kangourou (SMK)</string>
     <string name="pnc_family_planning">Planification familiale</string>
     <string name="pnc_observation_and_illness_mother">Observations &amp; maladie - femme </string>
-    <string name="pnc_observation_and_illness_baby">Observations &amp; maladie - enfant {0}</string>
+    <string name="pnc_observation_and_illness_baby">Observations &amp; maladie - enfant ({0})</string>
 
     <string name="pnc_counselling">Conseils</string>
     <string name="pnc_nutrition_status">État nutritionnel</string>
+    <string name="pnc_nutrition_status_baby_name">État nutritionnel de l\'enfant ({0})</string>
     <string name="pnc_malaria_prevention">Prévention du paludisme</string>
     <string name="pnc_health_facility_visit_within_fourty_eight_hours">Visit CPoN au centre de santé - dans les 48 heures</string>
     <string name="pnc_health_facility_visit_days_three_to_seven">Visit CPoN au centre de santé - jours 3-7</string>
     <string name="pnc_health_facility_visit_days_eight_to_twenty_eight">Visit CPoN au centre de santé - jours 8-28</string>
     <string name="pnc_health_facility_visit_days_twenty_nine_to_forty_two">Visit CPoN au centre de santé - jours 29-42</string>
+
+    <string name="pnc_visit_day_due">JOUR %s VISITE DUE</string>
+    <string name="pnc_visit_day_overdue">JOUR %s VISITE EN RETARD</string>
+    <string name="pnc_visit">Visite CPoN</string>
+    <string name="anc_visit">Visite CPN</string>
     <string name="number_8_16">Le numéro doit être composé de 8 à 16 chiffres</string>
+
 </resources>
