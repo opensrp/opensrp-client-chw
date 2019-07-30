@@ -272,9 +272,10 @@
     <string name="due_details">When a service becomes due for a family member, it will show up here.</string>
 
     <string name="edu_level_none">None</string>
+    <string name="edu_level_literacy">Literacy</string>
     <string name="edu_level_primary">Primary</string>
     <string name="edu_level_secondary">Secondary</string>
-    <string name="edu_level_post_secondary">Post-secondary</string>
+    <string name="edu_level_post_secondary">University</string>
 
     <string name="counseled">Counseled : </string>
     <string name="not_counseled">Not counseled : </string>
@@ -407,4 +408,5 @@
     <string name="pnc_health_facility_visit_days_three_to_seven">PNC health facility visit - days 3 - 7</string>
     <string name="pnc_health_facility_visit_days_eight_to_twenty_eight">PNC health facility visit - days 8 - 28</string>
     <string name="pnc_health_facility_visit_days_twenty_nine_to_forty_two">PNC health facility visit - days 29 - 42</string>
+    <string name="number_8_16">Number must be 8 to 16 digits</string>
 </resources>
