@@ -1,0 +1,36 @@
+{
+    "encounter_type": "PNC health facility visit - Day 1",
+    "pnc_hf_visitday1": {
+        "title": "PNC Health Facility Visit Day 1",
+        "fields": [
+            {
+                "key": "pnc_hf_visit1",
+                "type": "native_radio",
+                "openmrs_entity": "",
+                "openmrs_entity_id": "",
+                "openmrs_entity_parent": "",
+                "label": "Did the woman attend her PNC visit (Day 1) at the health facility?",
+                "options": [
+                    {
+                        "key": "yes",
+                        "openmrs_entity": "",
+                        "openmrs_entity_id": "NA",
+                        "openmrs_entity_parent": "",
+                        "text": "Yes"
+                    },
+                    {
+                        "key": "no",
+                        "openmrs_entity": "",
+                        "openmrs_entity_id": "NA",
+                        "openmrs_entity_parent": "",
+                        "text": "No"
+                    }
+                ],
+                "v_required": {
+                    "value": "true",
+                    "err": null
+                }
+            }
+        ]
+    }
+}

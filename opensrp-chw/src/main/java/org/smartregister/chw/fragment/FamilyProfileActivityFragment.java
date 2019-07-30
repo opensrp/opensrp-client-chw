@@ -17,7 +17,6 @@ import java.util.Set;
 import timber.log.Timber;
 
 public class FamilyProfileActivityFragment extends BaseFamilyProfileActivityFragment {
-    private static final String TAG = FamilyProfileActivityFragment.class.getCanonicalName();
 
     public static BaseFamilyProfileActivityFragment newInstance(Bundle bundle) {
         Bundle args = bundle;
