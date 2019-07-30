@@ -8,10 +8,11 @@ import android.support.v7.widget.RecyclerView;
 import org.smartregister.chw.R;
 import org.smartregister.chw.adapter.WashCheckAdapter;
 import org.smartregister.chw.model.FamilyProfileActivityModel;
-import org.smartregister.chw.util.TestConstant;
+import org.smartregister.chw.util.FlavorWashCheck;
 import org.smartregister.chw.util.WashCheck;
 import org.smartregister.chw.presenter.FamilyProfileActivityPresenter;
 import org.smartregister.chw.provider.FamilyActivityRegisterProvider;
+import org.smartregister.chw.util.WashCheckFlv;
 import org.smartregister.configurableviews.model.View;
 import org.smartregister.family.adapter.FamilyRecyclerViewCustomAdapter;
 import org.smartregister.family.fragment.BaseFamilyProfileActivityFragment;
@@ -29,6 +30,7 @@ public class FamilyProfileActivityFragment extends BaseFamilyProfileActivityFrag
     private String familyName;
     private RecyclerView washCheckRecyclerView;
     private WashCheckAdapter washCheckAdapter;
+    private FlavorWashCheck flavorWashCheck = new WashCheckFlv();
 
     public static BaseFamilyProfileActivityFragment newInstance(Bundle bundle) {
         Bundle args = bundle;
@@ -92,7 +94,7 @@ public class FamilyProfileActivityFragment extends BaseFamilyProfileActivityFrag
 
     }
     public void updateWashCheck(){
-        if(TestConstant.IS_WASH_CHECK_VISIBLE){
+        if(flavorWashCheck.isWashCheckVisible()){
             ((FamilyProfileActivityPresenter)presenter).fetchLastWashCheck();
         }
     }

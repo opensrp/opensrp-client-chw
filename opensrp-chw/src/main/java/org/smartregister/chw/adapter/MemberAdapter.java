@@ -22,7 +22,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.R;
 import org.smartregister.chw.contract.MemberAdapterListener;
 import org.smartregister.chw.domain.FamilyMember;
-import org.smartregister.chw.util.TestConstant;
+import org.smartregister.chw.util.FlavorPhoneNumberLength;
+import org.smartregister.chw.util.PhoneNumberFlv;
 import org.smartregister.family.util.Utils;
 
 import java.util.List;
@@ -33,18 +34,17 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MyViewHold
     private List<FamilyMember> familyMembers;
     private MyViewHolder currentViewHolder;
     private Context context;
-
     private String selected = null;
-
     private Animation slideUp;
     private Animation slideDown;
     private MemberAdapterListener memberAdapterListener;
+    private FlavorPhoneNumberLength flavorPhoneNumberLength;
 
     public MemberAdapter(Context context, List<FamilyMember> myDataset, MemberAdapterListener memberAdapterListener) {
         familyMembers = myDataset;
         this.context = context;
         this.memberAdapterListener = memberAdapterListener;
-
+        flavorPhoneNumberLength = new PhoneNumberFlv();
         slideUp = AnimationUtils.loadAnimation(context, R.anim.slide_up);
         slideDown = AnimationUtils.loadAnimation(context, R.anim.slide_up);
     }
@@ -161,7 +161,7 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MyViewHold
     private boolean validateTextView(TextView textView) {
         String text = textView.getText().toString().trim();
 
-        if(TestConstant.IS_PHONE_NO_CHECK){
+        if(flavorPhoneNumberLength.isPhoneNumberLength16Digit()){
             if(text.length()<8){
                 textView.setError(context.getString(R.string.number_8_16));
                 return false;
@@ -247,7 +247,7 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MyViewHold
                 @Override
                 public void afterTextChanged(Editable s) {
                     String text = et.getText().toString().trim();
-                    if(TestConstant.IS_PHONE_NO_CHECK){
+                    if(flavorPhoneNumberLength.isPhoneNumberLength16Digit()){
                         if(text.length()<8){
                             et.setError(context.getString(R.string.number_8_16));
                         }

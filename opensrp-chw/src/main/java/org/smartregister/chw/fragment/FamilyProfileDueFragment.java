@@ -18,15 +18,15 @@ import org.smartregister.chw.activity.ChildProfileActivity;
 import org.smartregister.chw.activity.FamilyProfileActivity;
 import org.smartregister.chw.interactor.ChildProfileInteractor;
 import org.smartregister.chw.model.FamilyProfileDueModel;
-import org.smartregister.chw.util.TestConstant;
+import org.smartregister.chw.util.FlavorWashCheck;
 import org.smartregister.chw.util.WashCheck;
 import org.smartregister.chw.presenter.FamilyProfileDuePresenter;
 import org.smartregister.chw.provider.ChwDueRegisterProvider;
+import org.smartregister.chw.util.WashCheckFlv;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.adapter.FamilyRecyclerViewCustomAdapter;
 import org.smartregister.family.fragment.BaseFamilyProfileDueFragment;
 import org.smartregister.family.util.Constants;
-import org.smartregister.family.util.Utils;
 import org.smartregister.util.FormUtils;
 
 import java.util.HashMap;
@@ -47,6 +47,7 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
     private long dateFamilyCreated;
     private String familyBaseEntityId;
     private LinearLayout washCheckView;
+    private FlavorWashCheck flavorWashCheck = new WashCheckFlv();
 
     public static BaseFamilyProfileDueFragment newInstance(Bundle bundle) {
         Bundle args = bundle;
@@ -78,8 +79,7 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                //TODO nned to replace by flavor
-                if(TestConstant.IS_WASH_CHECK_VISIBLE) ((FamilyProfileDuePresenter)presenter).fetchLastWashCheck(dateFamilyCreated);
+                if(flavorWashCheck.isWashCheckVisible()) ((FamilyProfileDuePresenter)presenter).fetchLastWashCheck(dateFamilyCreated);
 
             }
         },500);

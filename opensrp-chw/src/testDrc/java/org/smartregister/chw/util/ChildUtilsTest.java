@@ -89,14 +89,14 @@ public class ChildUtilsTest extends BaseUnitTest {
         String[] list = {"OPV0".toLowerCase(), "BCG".toLowerCase(), "OPV1".toLowerCase(), "OPV2".toLowerCase(), "OPV3".toLowerCase()
                 , "Penta1".toLowerCase(), "Penta2".toLowerCase(), "Penta3".toLowerCase(), "PCV1".toLowerCase(), "PCV2".toLowerCase()
                 , "PCV3".toLowerCase(), "Rota1".toLowerCase(), "Rota2".toLowerCase(), "IPV".toLowerCase(), "MCV1".toLowerCase()
-                , "MCV2".toLowerCase(), "yellowfever".toLowerCase(),"mcv2","rota3", "mena"};
+                , "MCV2".toLowerCase(), "yellowfever".toLowerCase(),"mcv2","rota3", "mena","rubella1","rubella2"};
         return list;
     }
     public static String[] getTestReceivedOneYearVaccine(){
         String[] list = {"OPV0".toLowerCase(), "BCG".toLowerCase(), "OPV1".toLowerCase(), "OPV2".toLowerCase(), "OPV3".toLowerCase()
                 , "Penta1".toLowerCase(), "Penta2".toLowerCase(), "Penta3".toLowerCase(), "PCV1".toLowerCase(), "PCV2".toLowerCase()
                 , "PCV3".toLowerCase(), "Rota1".toLowerCase(), "Rota2".toLowerCase(), "IPV".toLowerCase(),
-                "MCV1".toLowerCase(), "yellowfever".toLowerCase(),"rota3", "mena"};
+                "MCV1".toLowerCase(), "yellowfever".toLowerCase(),"rota3", "mena","rubella1"};
         return list;
     }
 
