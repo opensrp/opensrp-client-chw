@@ -113,7 +113,7 @@ android {
             dimension = 'baseDimension'
             applicationIdSuffix ".ba"
             versionCode 1
-            versionName "0.0.2"
+            versionName "0.0.3"
             buildConfigField "String", 'opensrp_url', '"https://boresha-afya.smartregister.org/opensrp/"'
             buildConfigField "String", 'opensrp_url_debug', '"https://boresha-afya-stage.smartregister.org/opensrp/"'
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"MOH Jhpiego Facility Name" , "Village"}'
@@ -124,7 +124,7 @@ android {
         wcaro {
             dimension = 'baseDimension'
             versionCode 1
-            versionName "0.1.6"
+            versionName "0.1.7"
             buildConfigField "String", 'opensrp_url', '"https://unicefwcaro.smartregister.org/opensrp/"'
             buildConfigField "String", 'opensrp_url_debug', '"https://unicefwcaro-stage.smartregister.org/opensrp/"'
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"Clinic" , "CHSS" , "CHA"}'
@@ -136,7 +136,7 @@ android {
             dimension = 'baseDimension'
             applicationIdSuffix ".togo"
             versionCode 1
-            versionName "0.0.3"
+            versionName "0.0.4"
             buildConfigField "String", 'opensrp_url', '"https://unicefwcaro.smartregister.org/opensrp/"'
             buildConfigField "String", 'opensrp_url_debug', '"https://unicefwcaro-stage.smartregister.org/opensrp/"'
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"Country", "Clinic" , "CHSS" , "CHA", "Supervisor", "CHW"}'
@@ -214,7 +214,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'appcompat-v7'
     }
 
-    implementation('org.smartregister:opensrp-client-family:1.2.15-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-family:1.2.16-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'org.smartregister', module: 'opensrp-client-core'
         exclude group: 'org.smartregister', module: 'opensrp-client-native-form'
@@ -237,7 +237,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'design'
     }
 
-    implementation('org.smartregister:opensrp-client-chw-anc:0.1.0-ALPHA1-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-chw-anc:0.1.2-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'org.smartregister', module: 'opensrp-client-core'
         exclude group: 'com.android.support', module: 'appcompat-v7'
@@ -246,17 +246,7 @@ dependencies {
         exclude group: 'org.smartregister', module: 'opensrp-client-immunization'
     }
 
-    implementation('org.smartregister:opensrp-client-chw-pnc:0.0.1-ALPHA1-SNAPSHOT@aar') {
-        transitive = true
-        exclude group: 'org.smartregister', module: 'opensrp-client-chw-anc'
-        exclude group: 'org.smartregister', module: 'opensrp-client-core'
-        exclude group: 'com.android.support', module: 'appcompat-v7'
-        exclude group: 'org.smartregister', module: 'opensrp-client-native-form'
-        exclude group: 'org.smartregister', module: 'opensrp-client-configurable-views'
-        exclude group: 'org.smartregister', module: 'opensrp-client-immunization'
-    }
-
-    implementation('org.smartregister:opensrp-client-chw-pnc:0.0.1-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-chw-pnc:0.0.3-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'org.smartregister', module: 'opensrp-client-chw-anc'
         exclude group: 'org.smartregister', module: 'opensrp-client-core'

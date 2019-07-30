@@ -56,7 +56,7 @@
         "openmrs_entity_id": "1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "date_picker",
         "image": "form_immunization",
-        "hint": "Quand est-ce que l'immunisation TM {0} a été administré?",
+        "hint": "Quand est-ce que l''immunisation TM {0} a été administré?",
         "min_date": "today-120y",
         "max_date": "today",
         "v_required": {

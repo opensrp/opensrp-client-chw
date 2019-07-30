@@ -22,6 +22,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.R;
 import org.smartregister.chw.contract.MemberAdapterListener;
 import org.smartregister.chw.domain.FamilyMember;
+import org.smartregister.chw.util.TestConstant;
 import org.smartregister.family.util.Utils;
 
 import java.util.List;
@@ -159,15 +160,28 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MyViewHold
 
     private boolean validateTextView(TextView textView) {
         String text = textView.getText().toString().trim();
-        if (text.length() > 0 && !text.substring(0, 1).equals("0")) {
-            textView.setError("Must start with 0");
-            return false;
+
+        if(TestConstant.IS_PHONE_NO_CHECK){
+            if(text.length()<8){
+                textView.setError(context.getString(R.string.number_8_16));
+                return false;
+            }
+            if (text.length() > 16) {
+                textView.setError(context.getString(R.string.number_8_16));
+                return false;
+            }
+        }else{
+            if (text.length() > 0 && !text.substring(0, 1).equals("0")) {
+                textView.setError("Must start with 0");
+                return false;
+            }
+
+            if (text.length() > 0 && text.length() != 10) {
+                textView.setError("Length must be equal to 10");
+                return false;
+            }
         }
 
-        if (text.length() > 0 && text.length() != 10) {
-            textView.setError("Length must be equal to 10");
-            return false;
-        }
         return true;
     }
 
@@ -218,7 +232,6 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MyViewHold
         }
 
         private void setLengthErrorMessage(final EditText et) {
-            String error = "Length must be equal to 10";
 
             TextWatcher tw = new TextWatcher() {
                 @Override
@@ -234,12 +247,23 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MyViewHold
                 @Override
                 public void afterTextChanged(Editable s) {
                     String text = et.getText().toString().trim();
-                    if (text.length() > 0 && text.length() != 10) {
-                        et.setError("Length must be equal to 10");
+                    if(TestConstant.IS_PHONE_NO_CHECK){
+                        if(text.length()<8){
+                            et.setError(context.getString(R.string.number_8_16));
+                        }
+                        if (text.length() > 16) {
+                            et.setError(context.getString(R.string.number_8_16));
+                        }
+
+                    }else{
+                        if (text.length() > 0 && text.length() != 10) {
+                            et.setError("Length must be equal to 10");
+                        }
+                        if (text.length() > 0 && !text.substring(0, 1).equals("0")) {
+                            et.setError("Must start with 0");
+                        }
                     }
-                    if (text.length() > 0 && !text.substring(0, 1).equals("0")) {
-                        et.setError("Must start with 0");
-                    }
+
                 }
             };
 

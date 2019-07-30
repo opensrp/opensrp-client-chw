@@ -6,6 +6,7 @@ import net.sqlcipher.database.SQLiteDatabase;
 
 import org.smartregister.chw.anc.repository.VisitDetailsRepository;
 import org.smartregister.chw.anc.repository.VisitRepository;
+import org.smartregister.chw.util.RepositoryUtils;
 import org.smartregister.chw.util.RepositoryUtilsFlv;
 import org.smartregister.domain.db.Column;
 import org.smartregister.immunization.repository.RecurringServiceRecordRepository;
@@ -51,6 +52,9 @@ public class ChwRepositoryFlv {
                     break;
                 case 10:
                     upgradeToVersion10(db);
+                    break;
+                case 11:
+                    upgradeToVersion11(db);
                     break;
                 default:
                     break;
@@ -172,6 +176,16 @@ public class ChwRepositoryFlv {
             VisitDetailsRepository.createTable(db);
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion10 ");
+        }
+    }
+
+    private static void upgradeToVersion11(SQLiteDatabase db) {
+        try {
+            for (String query : RepositoryUtils.UPGRADE_V10) {
+                db.execSQL(query);
+            }
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion11 ");
         }
     }
 }
