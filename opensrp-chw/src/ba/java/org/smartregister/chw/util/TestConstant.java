@@ -2,6 +2,7 @@ package org.smartregister.chw.util;
 
 public class TestConstant {
 
+    public static boolean IS_PHONE_NO_CHECK = false;
     public static boolean IS_TASK_VISIBLE = false;
 
     public static String[] getTestReceivedTwoYearVaccine(){

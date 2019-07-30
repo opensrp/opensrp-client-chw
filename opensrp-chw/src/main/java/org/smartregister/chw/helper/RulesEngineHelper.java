@@ -9,9 +9,7 @@ import org.jeasy.rules.core.DefaultRulesEngine;
 import org.jeasy.rules.core.InferenceRulesEngine;
 import org.jeasy.rules.core.RulesEngineParameters;
 import org.jeasy.rules.mvel.MVELRuleFactory;
-import org.smartregister.chw.rule.AncVisitAlertRule;
 import org.smartregister.chw.rule.ContactRule;
-import org.smartregister.chw.rule.HomeAlertRule;
 import org.smartregister.chw.rule.ICommonRule;
 
 import java.io.BufferedReader;
@@ -78,21 +76,7 @@ public class RulesEngineHelper {
         return alertRule.getButtonStatus();
     }
 
-    public String getButtonAlertStatus(HomeAlertRule alertRule, Rules rules) {
-
-        if (rules == null) {
-            return null;
-        }
-
-        Facts facts = new Facts();
-        facts.put(alertRule.getRuleKey(), alertRule);
-
-        processDefaultRules(rules, facts);
-
-        return alertRule.getButtonStatus();
-    }
-
-    public String getButtonAlertStatus(AncVisitAlertRule alertRule, Rules rules) {
+    public String getButtonAlertStatus(ICommonRule alertRule, Rules rules) {
 
         if (rules == null) {
             return null;

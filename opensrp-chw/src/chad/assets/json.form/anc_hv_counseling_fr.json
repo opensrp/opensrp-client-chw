@@ -63,9 +63,13 @@
           "Oui",
           "Non"
         ],
+        "keys": [
+          "Yes",
+          "No"
+        ],
         "openmrs_choice_ids": {
-          "COMPLETED": "1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Not done": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          "Oui": "1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Non": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         "v_required": {
           "value": "true",
@@ -78,7 +82,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Upcoming visit dates:\n\n{0}.",
+        "text": "Dates de visites à venir:\n\n{0}.",
         "text_color": "#1199F9",
         "toaster_type": "info"
       },
@@ -96,9 +100,13 @@
           "Oui",
           "Non"
         ],
+        "keys": [
+          "Yes",
+          "No"
+        ],
         "openmrs_choice_ids": {
-          "COMPLETED": "1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Not done": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          "Oui": "1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Non": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         "v_required": {
           "value": "true",
@@ -119,9 +127,13 @@
           "Oui",
           "Non"
         ],
+        "keys": [
+          "Yes",
+          "No"
+        ],
         "openmrs_choice_ids": {
-          "COMPLETED": "1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Not done": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          "Oui": "1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Non": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         "v_required": {
           "value": "true",

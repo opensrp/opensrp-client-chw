@@ -100,8 +100,8 @@ public class AncRegisterFragment extends BaseAncRegisterFragment {
 
     @Override
     public void initializeAdapter(Set<org.smartregister.configurableviews.model.View> visibleColumns) {
-        ChwAncRegisterProvider ancRegisterProvider = new ChwAncRegisterProvider(getActivity(), commonRepository(), visibleColumns, registerActionHandler, paginationViewHandler);
-        clientAdapter = new RecyclerViewPaginatedAdapter(null, ancRegisterProvider, context().commonrepository(this.tablename));
+        ChwAncRegisterProvider provider = new ChwAncRegisterProvider(getActivity(), commonRepository(), visibleColumns, registerActionHandler, paginationViewHandler);
+        clientAdapter = new RecyclerViewPaginatedAdapter(null, provider, context().commonrepository(this.tablename));
         clientAdapter.setCurrentlimit(20);
         clientsView.setAdapter(clientAdapter);
     }

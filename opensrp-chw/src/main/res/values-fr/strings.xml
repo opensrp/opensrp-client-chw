@@ -272,9 +272,10 @@
     <string name="due_details">Quand un membre du ménage doit recevoir une service, il sera affiché ici</string>
 
     <string name="edu_level_none">Aucun</string>
+    <string name="edu_level_literacy">Alphabétiser</string>
     <string name="edu_level_primary">Primaire</string>
     <string name="edu_level_secondary">Secondaire</string>
-    <string name="edu_level_post_secondary">Postsecondaire</string>
+    <string name="edu_level_post_secondary">Universite</string>
 
     <string name="counseled">Conseillée: </string>
     <string name="not_counseled">Non conseillée:</string>
@@ -387,4 +388,5 @@
     <string name="anc_indicator6">Femmes enceintes dépistées pour la syphilis</string>
     <string name="anc_indicator7">Femmes enceintes à jour avec leurs VAT</string>
     <string name="anc_indicator8">Femmes enceintes à jour avec leurs Doses de SP</string>
+    <string name="number_8_16">Number must be 8 to 16 digits</string>
 </resources>

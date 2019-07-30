@@ -183,17 +183,34 @@
         "hint": "Phone number",
         "v_numeric": {
           "value": "true",
-          "err": "Number must be a total of 10 digits in length"
+          "err": "Number must be 8 to 16 digits."
         },
         "v_regex": {
-          "value": "(0[0-9]{9})|\\s*",
-          "err": "Number must be 10 digits and must start with 0."
+          "value": "([0-9]{8,16})|\\s*",
+          "err": "Number must be 8 to 16 digits."
         },
         "v_required": {
           "value": false,
           "err": "Please specify the phone number"
         }
       },
+      {
+        "key": "other_phone_number",
+        "openmrs_entity_parent": "159635AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "edit_text",
+        "hint": "Other phone number",
+        "v_numeric": {
+          "value": "true",
+          "err": "Number must be 8 to 16 digits."
+        },
+        "v_regex": {
+          "value": "([0-9]{8,16})|\\s*",
+          "err": "Number must be 8 to 16 digits."
+        }
+      }
+    ,
       {
         "key": "marital_status",
         "openmrs_entity_parent": "",
