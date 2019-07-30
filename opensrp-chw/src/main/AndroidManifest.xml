@@ -39,11 +39,23 @@
             android:theme="@style/ChwTheme.NoActionBar" />
 
         <activity
-            android:name=".activity.PncRegisterActivity"
+            android:name=".activity.AncMemberProfileActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+
+        <activity
+            android:name=".activity.PncUpcomingServicesActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+
+        <activity
+            android:name=".activity.PncMedicalHistoryActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
 
         <activity
             android:name=".activity.PncHomeVisitActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+
+        <activity
+            android:name=".activity.PncRegisterActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
 
         <activity
@@ -52,9 +64,6 @@
 
         <activity
             android:name=".activity.MalariaRegisterActivity"
-            android:theme="@style/ChwTheme.NoActionBar" />
-        <activity
-            android:name=".activity.AncMemberProfileActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
 
         <meta-data
