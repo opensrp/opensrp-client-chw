@@ -8,6 +8,8 @@ import org.apache.commons.lang3.text.WordUtils;
 import org.smartregister.chw.R;
 import org.smartregister.chw.contract.ChildMedicalHistoryContract;
 import org.smartregister.chw.fragment.GrowthNutritionInputFragment;
+import org.smartregister.chw.presenter.HomeVisitGrowthNutritionPresenter;
+import org.smartregister.chw.presenter.HomeVisitGrowthNutritionPresenterFlv;
 import org.smartregister.chw.repository.HomeVisitServiceRepository;
 import org.smartregister.chw.util.BaseService;
 import org.smartregister.chw.util.BaseVaccine;
@@ -64,6 +66,7 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
     private HomeVisitServiceRepository homeVisitServiceRepository;
 
     private Context context;
+    private HomeVisitGrowthNutritionPresenter.Flavor homeVisitGrowthNutritionPresenterFlv = new HomeVisitGrowthNutritionPresenterFlv();
 
     @VisibleForTesting
     public ChildMedicalHistoryInteractor(){
@@ -287,6 +290,8 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
         serviceRecordList.add(0, initialServiceRecord);
         String lastType = "";
         for (ServiceRecord serviceRecord : serviceRecordList) {
+            if(serviceRecord.getType().equalsIgnoreCase(GrowthNutritionInputFragment.GROWTH_TYPE.MNP.getValue())
+                    && !homeVisitGrowthNutritionPresenterFlv.hasMNP()) continue;
             if (!serviceRecord.getType().equalsIgnoreCase(lastType)) {
                 if(!TextUtils.isEmpty(lastType)){
                     ServiceLine serviceLine = new ServiceLine();
