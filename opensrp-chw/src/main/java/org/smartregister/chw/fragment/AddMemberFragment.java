@@ -11,9 +11,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
+import com.opensrp.chw.core.utils.Constants;
+
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.FamilyProfileActivity;
-import com.opensrp.chw.core.utils.Constants;
 
 public class  AddMemberFragment extends DialogFragment implements View.OnClickListener {
 

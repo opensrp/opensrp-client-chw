@@ -187,7 +187,8 @@ public class Utils {
     }
 
     public static String readFile(String form_name, Locale current, AssetManager assetManager) {
-        String formIdentity = MessageFormat.format("{0}_{1}", form_name, current.getLanguage());
+        String formIdentity = MessageFormat.format("{0}_{1}", form_name,
+                current == null ? "" : current.getLanguage());
         // validate variant exists
         try {
             InputStream inputStream = assetManager.open("json.form/" + formIdentity + ".json");
@@ -203,6 +204,7 @@ public class Utils {
             return formIdentity;
         } catch (Exception e) {
             // return default
+            Timber.e(e);
             return form_name;
         }
     }

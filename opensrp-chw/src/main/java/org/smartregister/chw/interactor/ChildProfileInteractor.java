@@ -6,6 +6,8 @@ import android.support.annotation.VisibleForTesting;
 import android.text.TextUtils;
 import android.util.Pair;
 
+import com.opensrp.chw.core.model.ChildVisit;
+import com.opensrp.chw.core.utils.ChildDBConstants;
 import com.opensrp.chw.core.utils.Constants;
 
 import org.apache.commons.lang3.StringUtils;
@@ -16,11 +18,9 @@ import org.smartregister.chw.contract.ChildProfileContract;
 import org.smartregister.chw.contract.HomeVisitGrowthNutritionContract;
 import org.smartregister.chw.contract.ImmunizationContact;
 import org.smartregister.chw.presenter.ImmunizationViewPresenter;
-import com.opensrp.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.util.ChildHomeVisit;
 import org.smartregister.chw.util.ChildService;
 import org.smartregister.chw.util.ChildUtils;
-import com.opensrp.chw.core.model.ChildVisit;
 import org.smartregister.chw.util.GrowthServiceData;
 import org.smartregister.chw.util.HomeVisitVaccineGroup;
 import org.smartregister.chw.util.ImmunizationState;

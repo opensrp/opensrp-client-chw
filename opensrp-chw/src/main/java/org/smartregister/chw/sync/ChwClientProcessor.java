@@ -3,11 +3,12 @@ package org.smartregister.chw.sync;
 import android.content.ContentValues;
 import android.content.Context;
 
+import com.opensrp.chw.core.utils.Constants;
+
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.repository.HomeVisitRepository;
 import org.smartregister.chw.util.ChildUtils;
-import com.opensrp.chw.core.utils.Constants;
 import org.smartregister.clientandeventmodel.DateUtil;
 import org.smartregister.commonregistry.AllCommonsRepository;
 import org.smartregister.commonregistry.CommonFtsObject;

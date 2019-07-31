@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.opensrp.chw.core.custom_views.NavigationMenu;
 import com.opensrp.chw.core.utils.Constants;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
@@ -15,7 +16,6 @@ import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.activity.BaseAncRegisterActivity;
 import org.smartregister.chw.anc.util.DBConstants;
-import com.opensrp.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.contract.ChwBottomNavigator;
 import org.smartregister.chw.fragment.AncRegisterFragment;
 import org.smartregister.chw.listener.AncBottomNavigationListener;
@@ -26,9 +26,9 @@ import org.smartregister.view.fragment.BaseRegisterFragment;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.smartregister.chw.anc.util.Constants.ACTIVITY_PAYLOAD.TABLE_NAME;
 import static com.opensrp.chw.core.utils.Constants.TABLE_NAME.ANC_MEMBER;
 import static com.opensrp.chw.core.utils.Constants.TABLE_NAME.ANC_PREGNANCY_OUTCOME;
+import static org.smartregister.chw.anc.util.Constants.ACTIVITY_PAYLOAD.TABLE_NAME;
 
 public class AncRegisterActivity extends BaseAncRegisterActivity implements ChwBottomNavigator {
     private static String phone_number;

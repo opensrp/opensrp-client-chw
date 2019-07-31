@@ -20,13 +20,13 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.google.common.collect.ImmutableMap;
+import com.opensrp.chw.core.utils.Constants;
 
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.smartregister.chw.R;
 import org.smartregister.chw.custom_view.HomeVisitGrowthAndNutrition;
 import org.smartregister.chw.util.ChwServiceSchedule;
-import com.opensrp.chw.core.utils.Constants;
 import org.smartregister.chw.util.JsonFormUtils;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;

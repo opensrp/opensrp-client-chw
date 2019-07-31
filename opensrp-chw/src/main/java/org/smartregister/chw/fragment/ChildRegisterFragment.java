@@ -11,17 +11,18 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.opensrp.chw.core.custom_views.NavigationMenu;
+import com.opensrp.chw.core.utils.ChildDBConstants;
+import com.opensrp.chw.core.utils.Constants;
+
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.ChildProfileActivity;
 import org.smartregister.chw.activity.ChildRegisterActivity;
 import org.smartregister.chw.contract.ChildRegisterFragmentContract;
-import com.opensrp.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.model.ChildRegisterFragmentModel;
 import org.smartregister.chw.presenter.ChildRegisterFragmentPresenter;
 import org.smartregister.chw.provider.ChildRegisterProvider;
-import com.opensrp.chw.core.utils.ChildDBConstants;
-import com.opensrp.chw.core.utils.Constants;
 import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;

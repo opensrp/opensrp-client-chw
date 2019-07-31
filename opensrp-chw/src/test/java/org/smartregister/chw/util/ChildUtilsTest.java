@@ -2,6 +2,8 @@ package org.smartregister.chw.util;
 
 import android.text.SpannableString;
 
+import com.opensrp.chw.core.model.ChildVisit;
+
 import org.joda.time.LocalDate;
 import org.junit.Assert;
 import org.junit.Before;

@@ -7,7 +7,6 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.content.res.AssetManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
@@ -21,11 +20,7 @@ import org.smartregister.chw.contract.FamilyCallDialogContract;
 import org.smartregister.chw.fragment.CopyToClipboardDialog;
 import org.smartregister.util.PermissionUtils;
 
-import java.util.Locale;
-
 import timber.log.Timber;
-
-import static com.opensrp.chw.core.utils.Utils.readFile;
 
 public class Utils extends org.smartregister.family.util.Utils {
 

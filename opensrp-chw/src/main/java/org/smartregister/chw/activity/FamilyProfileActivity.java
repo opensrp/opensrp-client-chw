@@ -42,7 +42,10 @@ import org.smartregister.view.fragment.BaseRegisterFragment;
 import de.hdodenhof.circleimageview.CircleImageView;
 import timber.log.Timber;
 
-import static com.opensrp.chw.core.utils.Constants.*;
+import static com.opensrp.chw.core.utils.Constants.EventType;
+import static com.opensrp.chw.core.utils.Constants.INTENT_KEY;
+import static com.opensrp.chw.core.utils.Constants.MenuType;
+import static com.opensrp.chw.core.utils.Constants.ProfileActivityResults;
 
 public class FamilyProfileActivity extends BaseFamilyProfileActivity implements FamilyProfileExtendedContract.View {
 

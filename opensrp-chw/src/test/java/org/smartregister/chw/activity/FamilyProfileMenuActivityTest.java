@@ -2,8 +2,9 @@ package org.smartregister.chw.activity;
 
 import android.content.Intent;
 
-import org.smartregister.chw.BaseActivityTest;
 import com.opensrp.chw.core.utils.Constants;
+
+import org.smartregister.chw.BaseActivityTest;
 
 public class FamilyProfileMenuActivityTest extends BaseActivityTest<FamilyProfileMenuActivity> {
     @Override
