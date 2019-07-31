@@ -98,7 +98,7 @@
     <string name="fully_immunized_at_age">Complètment vaccinés à l\'âge de %1$s</string>
     <string name="add_date_separately">+ AJOUTER UNE DATE POUR CHAQUE VACCIN</string>
     <string name="which_vaccines_given_text">Quels vaccinations ont été effectuées?</string>
-    <string name="when_vaccines_given_text">Quand est-ce que ces vaccinaitons ont été effectuées?</string>
+    <string name="when_vaccines_given_text">Quand est-ce que ces vaccinations ont été effectuées?</string>
     <string name="fully_immunized_at_age_2">Complètement Vacciné à l\'âge de 2 ans</string>
     <string name="fully_immunized_at_age_1">Complètement Vacciné à l\'âge de 1 ans</string>
     <string name="health_child_milestone">Étape -Jalon- importante pour un enfant en bonne santé</string>
@@ -246,8 +246,8 @@
     <string name="all_registers">Toutes les registres</string>
     <string name="menu_labour_and_delivery"><![CDATA[L&D]]></string>
     <string name="menu_child">CH</string>
-    <string name="menu_anc">CPN</string>
-    <string name="menu_pnc">CoPN</string>
+    <string name="menu_anc">Clients CPN</string>
+    <string name="menu_pnc">Clients CPoN</string>
     <string name="menu_family_planing">PF</string>
     <string name="menu_malaria">Paludisme</string>
     <string name="refer_to_facility">Référer au centre de santé</string>
@@ -415,8 +415,5 @@
     <string name="pnc_visit">Visite CPoN</string>
     <string name="anc_visit">Visite CPN</string>
     <string name="number_8_16">Le numéro doit être composé de 8 à 16 chiffres</string>
-    <string name="handwashing_facilities">Does the household have handwashing facilities?</string>
-    <string name="drinking_water">Does the household have access to clean drinking water?</string>
-    <string name="hygienic_latrine">Do household members use a hygienic latrine for the disposal of feces?</string>
-    <string name="wash_check">WASH check</string>
+
 </resources>
