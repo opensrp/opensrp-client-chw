@@ -29,7 +29,6 @@ public class WashCheckDialogFragment extends DialogFragment implements View.OnCl
     private String jsonData;
     private RadioButton handwashingYes,handwashingNo,drinkingYes,drinkingNo;
     private RadioButton latrineYes,latrineNo;
-    private String handwashingValue,drinkingValue,latrineValue;
 
     public static WashCheckDialogFragment getInstance(String jsonString){
         WashCheckDialogFragment washCheckDialogFragment = new WashCheckDialogFragment();
@@ -79,11 +78,13 @@ public class WashCheckDialogFragment extends DialogFragment implements View.OnCl
         parseData();
     }
     private void parseData(){
+        String handwashingValue = "",drinkingValue = "",latrineValue = "";
+
         try{
             JSONObject jsonObject = new JSONObject(jsonData);
             JSONArray field = fields(jsonObject);
             JSONObject handwashing_facilities = getFieldJSONObject(field, "handwashing_facilities");
-            handwashingValue = handwashing_facilities.optString(VALUE);
+            handwashingValue= handwashing_facilities.optString(VALUE);
             JSONObject drinking_water = getFieldJSONObject(field, "drinking_water");
             drinkingValue = drinking_water.optString(VALUE);
             JSONObject hygienic_latrine = getFieldJSONObject(field, "hygienic_latrine");

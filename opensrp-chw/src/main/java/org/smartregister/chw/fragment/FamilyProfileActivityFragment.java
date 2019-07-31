@@ -25,7 +25,6 @@ import java.util.Set;
 import timber.log.Timber;
 
 public class FamilyProfileActivityFragment extends BaseFamilyProfileActivityFragment {
-    private static final String TAG = FamilyProfileActivityFragment.class.getCanonicalName();
     private String familyName;
     private RecyclerView washCheckRecyclerView;
     private WashCheckAdapter washCheckAdapter;

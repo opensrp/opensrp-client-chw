@@ -68,7 +68,7 @@ public class WashCheckAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         private CustomFontTextView patientNameAge;
         public TextView lastVisit;
 
-        private RegisterViewHolder(android.view.View itemView) {
+        private RegisterViewHolder(View itemView) {
             super(itemView);
             this.status = itemView.findViewById(org.smartregister.family.R.id.status);
             this.patientNameAge = itemView.findViewById(org.smartregister.family.R.id.patient_name_age);
