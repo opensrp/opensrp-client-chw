@@ -645,12 +645,15 @@ public class ChildUtils {
             if (!TextUtils.isEmpty(value3) && (value3.equalsIgnoreCase(yesVale) || value3.equalsIgnoreCase(noValue))) {
                 serviceTask.setTaskLabel(context.getString(R.string.dev_warning_sign) + value1 + "\n" + context.getString(R.string.care_stim_skill) + value2
                         + "\n" + context.getString(R.string.early_learning) + value3);
+
+                serviceTask.setGreen(isComplete(context, value1, value2,value3));
             } else {
+
+                serviceTask.setGreen(isComplete(context, value1, value2));
                 serviceTask.setTaskLabel(context.getString(R.string.dev_warning_sign) + value1 + "\n" + context.getString(R.string.care_stim_skill) + value2
                 );
             }
 
-            serviceTask.setGreen(isComplete(context, value1, value2));
             serviceTask.setTaskTitle(context.getString(R.string.ecd_title));
             serviceTask.setTaskJson(jsonObject);
             serviceTask.setTaskType(TaskServiceCalculate.TASK_TYPE.ECD.name());
@@ -659,11 +662,15 @@ public class ChildUtils {
         }
         return serviceTask;
     }
-
     private static boolean isComplete(Context context, String value1, String value2){
         String yesVale = context.getString(R.string.yes);
         String noValue = context.getString(R.string.no);
         return value1.equalsIgnoreCase(noValue) && value2.equalsIgnoreCase(yesVale);
+    }
+    private static boolean isComplete(Context context, String value1, String value2, String value3){
+        String yesVale = context.getString(R.string.yes);
+        String noValue = context.getString(R.string.no);
+        return value1.equalsIgnoreCase(noValue) && value2.equalsIgnoreCase(yesVale) && value3.equalsIgnoreCase(yesVale);
     }
     public static String[] splitStringByNewline(String strWithNewline){
         return strWithNewline.split("\n");
