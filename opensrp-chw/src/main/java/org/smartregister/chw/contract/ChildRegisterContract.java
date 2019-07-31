@@ -17,6 +17,7 @@ public interface ChildRegisterContract {
 
     interface View extends BaseRegisterContract.View {
         ChildRegisterContract.Presenter presenter();
+
         void openFamilyListView();
     }
 

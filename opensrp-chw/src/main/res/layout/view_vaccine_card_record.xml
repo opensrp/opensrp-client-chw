@@ -1,43 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/vaccine_card_list"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
     <org.smartregister.view.customcontrols.CustomFontTextView
         android:id="@+id/vaccine_card_txt"
+        style="@style/CustomFontTextViewStyle.ClientList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/vaccine_card_title"
-        android:textAllCaps="true"
         android:background="@color/medical_bar"
-        style="@style/CustomFontTextViewStyle.ClientList"
-        android:textColor="@color/white"
         android:paddingLeft="20dp"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
+        android:text="@string/vaccine_card_title"
+        android:textAllCaps="true"
+        android:textColor="@color/white"
         android:textSize="@dimen/px_14_to_sp" />
+
     <LinearLayout
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
         android:background="@drawable/white_rounded_bg"
-        android:layout_height="wrap_content">
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
 
         <org.smartregister.view.customcontrols.CustomFontTextView
             android:id="@+id/vaccine_card_text"
+            style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
-            android:singleLine="false"
-            android:textColor="@color/medical_text_inner"
             android:paddingLeft="20dp"
             android:paddingTop="5dp"
             android:paddingBottom="5dp"
+            android:singleLine="false"
+            android:textColor="@color/medical_text_inner"
             android:textSize="@dimen/px_16_to_sp" />
 
     </LinearLayout>

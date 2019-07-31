@@ -4,7 +4,7 @@ description: birth certification issue date
 priority: 1
 condition: "step1_birth_cert == 'Yes'"
 actions:
- - "isRelevant = true"
+  - "isRelevant = true"
 ---
 name: step1_birth_cert_num
 description: birth certification number

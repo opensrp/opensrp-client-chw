@@ -104,7 +104,7 @@
         "openmrs_entity": "person_address",
         "openmrs_entity_id": "commune",
         "type": "edit_text",
-        "hint": "Quartier/Clan",
+        "hint": "Quartier",
         "v_required": {
           "value": "true",
           "err": "Veuillez entrer le quartier ou clan"

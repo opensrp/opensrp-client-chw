@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+
 import org.smartregister.chw.R;
 
 public class VaccineCardInputDialogFragment extends DialogFragment implements View.OnClickListener, RadioGroup.OnCheckedChangeListener {
@@ -21,13 +22,13 @@ public class VaccineCardInputDialogFragment extends DialogFragment implements Vi
     private static final String EXTRA_CHOICE_VALUE = "choice_value";
 
     private String choiceValue;
-    private RadioButton yesButton,noButton;
+    private RadioButton yesButton, noButton;
     private Button buttonSave;
 
-    public static VaccineCardInputDialogFragment getInstance(String choiceValue){
+    public static VaccineCardInputDialogFragment getInstance(String choiceValue) {
         VaccineCardInputDialogFragment vaccineCardInputDialogFragment = new VaccineCardInputDialogFragment();
         Bundle bundle = new Bundle();
-        bundle.putString(EXTRA_CHOICE_VALUE,choiceValue);
+        bundle.putString(EXTRA_CHOICE_VALUE, choiceValue);
         vaccineCardInputDialogFragment.setArguments(bundle);
         return vaccineCardInputDialogFragment;
     }
@@ -67,13 +68,13 @@ public class VaccineCardInputDialogFragment extends DialogFragment implements Vi
         buttonSave.setOnClickListener(this);
         view.findViewById(R.id.close).setOnClickListener(this);
         ((RadioGroup) view.findViewById(R.id.radio_group_exclusive)).setOnCheckedChangeListener(this);
-        choiceValue = getArguments().getString(EXTRA_CHOICE_VALUE,"");
-        if(TextUtils.isEmpty(choiceValue)){
+        choiceValue = getArguments().getString(EXTRA_CHOICE_VALUE, "");
+        if (TextUtils.isEmpty(choiceValue)) {
             enableDisableSaveBtn(false);
-        }else{
-            if(choiceValue.equalsIgnoreCase(getString(R.string.yes))){
+        } else {
+            if (choiceValue.equalsIgnoreCase(getString(R.string.yes))) {
                 yesButton.setChecked(true);
-            }else if(choiceValue.equalsIgnoreCase(getString(R.string.no))){
+            } else if (choiceValue.equalsIgnoreCase(getString(R.string.no))) {
                 noButton.setChecked(true);
             }
         }
@@ -82,17 +83,17 @@ public class VaccineCardInputDialogFragment extends DialogFragment implements Vi
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.close:
                 dismiss();
                 break;
             case R.id.save_bf_btn:
-                if(!TextUtils.isEmpty(choiceValue)){
+                if (!TextUtils.isEmpty(choiceValue)) {
                     saveVaccineCardData();
                 }
                 break;
-                default:
-                    break;
+            default:
+                break;
         }
 
     }
@@ -119,8 +120,9 @@ public class VaccineCardInputDialogFragment extends DialogFragment implements Vi
                 break;
         }
     }
-    private void enableDisableSaveBtn(boolean isEnable){
-        if(isEnable)buttonSave.setAlpha(1.0f);
-        else  buttonSave.setAlpha(0.3f);
+
+    private void enableDisableSaveBtn(boolean isEnable) {
+        if (isEnable) buttonSave.setAlpha(1.0f);
+        else buttonSave.setAlpha(0.3f);
     }
 }

@@ -19,9 +19,11 @@ import org.smartregister.chw.util.ServiceContent;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.util.AppExecutors;
 import org.smartregister.immunization.domain.ServiceRecord;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.smartregister.chw.util.ChildDBConstants.KEY.BIRTH_CERT;
@@ -84,15 +86,15 @@ public class ChildMedicalHistoryActivityInteractorTest extends BaseUnitTest {
     }
 
     @Test
-    public void addContentInitialBreastfeeding() throws Exception{
+    public void addContentInitialBreastfeeding() throws Exception {
         PowerMockito.when(interactor.getContext()).thenReturn(context);
         ServiceContent serviceContent = new ServiceContent();
         ServiceRecord initialServiceRecord = new ServiceRecord();
         initialServiceRecord.setType(GrowthNutritionInputFragment.GROWTH_TYPE.EXCLUSIVE.getValue());
         initialServiceRecord.setName(ChildDBConstants.KEY.CHILD_BF_HR);
         initialServiceRecord.setValue("yes");
-        Whitebox.invokeMethod(interactor,"addContent",serviceContent,initialServiceRecord);
-        Assert.assertEquals("Early initiation breastfeeding: Yes",serviceContent.getServiceName());
+        Whitebox.invokeMethod(interactor, "addContent", serviceContent, initialServiceRecord);
+        Assert.assertEquals("Early initiation breastfeeding: Yes", serviceContent.getServiceName());
     }
 
 }

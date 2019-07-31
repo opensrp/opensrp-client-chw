@@ -59,19 +59,22 @@ import static org.smartregister.chw.util.Constants.INTENT_KEY.IS_COMES_FROM_FAMI
 public class ChildProfileActivity extends BaseProfileActivity implements ChildProfileContract.View, ChildRegisterContract.InteractorCallBack {
     private static final String TAG = ChildProfileActivity.class.getCanonicalName();
     private static IntentFilter sIntentFilter;
+
     static {
         sIntentFilter = new IntentFilter();
         sIntentFilter.addAction(Intent.ACTION_DATE_CHANGED);
         sIntentFilter.addAction(Intent.ACTION_TIMEZONE_CHANGED);
         sIntentFilter.addAction(Intent.ACTION_TIME_CHANGED);
     }
+
+    protected TextView textViewParentName, textViewLastVisit, textViewMedicalHistory;
+    protected CircleImageView imageViewProfile;
+    protected View recordVisitPanel;
     private boolean appBarTitleIsShown = true;
     private int appBarLayoutScrollRange = -1;
     private String childBaseEntityId;
     private boolean isComesFromFamily = false;
-    protected TextView textViewParentName, textViewLastVisit, textViewMedicalHistory;
     private TextView textViewTitle, textViewChildName, textViewGender, textViewAddress, textViewId, textViewRecord, textViewVisitNot, tvEdit;
-    protected CircleImageView imageViewProfile;
     private RelativeLayout layoutNotRecordView, layoutLastVisitRow, layoutMostDueOverdue, layoutFamilyHasRow;
     private RelativeLayout layoutRecordButtonDone;
     private LinearLayout layoutRecordView;
@@ -81,11 +84,21 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     private ProgressBar progressBar;
     private String gender;
     private Handler handler = new Handler();
+    private final BroadcastReceiver mDateTimeChangedReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            final String action = intent.getAction();
+            assert action != null;
+            if (action.equals(Intent.ACTION_TIME_CHANGED) ||
+                    action.equals(Intent.ACTION_TIMEZONE_CHANGED)) {
+                fetchProfileData();
+
+            }
+        }
+    };
     private String lastVisitDay;
     private FamilyMemberFloatingMenu familyFloatingMenu;
     private OnClickFloatingMenu onClickFloatingMenu;
-    protected View recordVisitPanel;
-
     private ChildProfileActivityFlv flavor = new ChildProfileActivityFlv();
 
     @Override
@@ -279,7 +292,6 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
                 ((ChildProfilePresenter) presenter()).getDateOfBirth(), new LinkedHashMap<>(vaccine));
 
     }
-
 
     private void openVisitHomeScreen(boolean isEditMode) {
         ChildHomeVisitFragment childHomeVisitFragment = ChildHomeVisitFragment.newInstance();
@@ -488,7 +500,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
      * By this method it'll process the event client at home visit in background. After finish
      * it'll update the child client because for edit it's need the vaccine card,illness,birthcert.
      */
-    public void processBackgroundEvent(){
+    public void processBackgroundEvent() {
 
         layoutMostDueOverdue.setVisibility(View.GONE);
         viewMostDueRow.setVisibility(View.GONE);
@@ -598,13 +610,13 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     @Override
     public void onNoUniqueId() {
         //TODO
-        Timber.d( "onNoUniqueId unimplemented");
+        Timber.d("onNoUniqueId unimplemented");
     }
 
     @Override
     public void onUniqueIdFetched(Triple<String, String, String> triple, String entityId, String familyId) {
         //TODO
-        Timber.d( "onUniqueIdFetched unimplemented");
+        Timber.d("onUniqueIdFetched unimplemented");
     }
 
     @Override
@@ -692,19 +704,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
 
     public interface Flavor {
         OnClickFloatingMenu getOnClickFloatingMenu(Activity activity, ChildProfilePresenter presenter);
+
         boolean showMalariaConfirmationMenu();
     }
-
-    private final BroadcastReceiver mDateTimeChangedReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            final String action = intent.getAction();
-            assert action!=null;
-            if (action.equals(Intent.ACTION_TIME_CHANGED) ||
-                    action.equals(Intent.ACTION_TIMEZONE_CHANGED)) {
-                fetchProfileData();
-
-            }
-        }
-    };
 }

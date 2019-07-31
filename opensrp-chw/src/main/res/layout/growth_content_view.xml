@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
-    android:gravity="center_vertical"
     android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:layout_marginTop="2dp"
-    android:layout_height="wrap_content">
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
 
     <View
         android:id="@+id/imageView"
@@ -16,10 +16,10 @@
 
     <org.smartregister.view.customcontrols.CustomFontTextView
         android:id="@+id/name_date_tv"
+        style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
         android:singleLine="false"
         android:textColor="@color/medical_text_inner"
         android:textSize="@dimen/px_16_to_sp" />

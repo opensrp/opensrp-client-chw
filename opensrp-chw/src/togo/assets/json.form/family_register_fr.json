@@ -104,7 +104,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_address",
         "openmrs_entity_id": "commune",
-        "hint": "Quartier/Clan",
+        "hint": "Quartier",
         "v_required": {
           "value": "true",
           "err": "Veuillez entrer le quartier ou clan"
@@ -480,7 +480,7 @@
         ],
         "openmrs_choice_ids": {
           "Aucun": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Alphabétiser" :"",
+          "Alphabétiser": "",
           "Primaire": "1713AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "Secondaire": "1714AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "Universite": "159785AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"

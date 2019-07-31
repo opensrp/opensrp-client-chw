@@ -4,11 +4,11 @@ description: date_died
 priority: 1
 condition: "step1_remove_reason.equals('Death')"
 actions:
-- "isRelevant = true"
+  - "isRelevant = true"
 ---
 name: step1_age_at_death
 description: age_at_death
 priority: 1
 condition: "step1_remove_reason.equals('Death')"
 actions:
-- "isRelevant = true"
+  - "isRelevant = true"
