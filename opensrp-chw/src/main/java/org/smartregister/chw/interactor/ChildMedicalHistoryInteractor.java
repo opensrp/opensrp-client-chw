@@ -290,7 +290,7 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
         serviceRecordList.add(0, initialServiceRecord);
         String lastType = "";
         for (ServiceRecord serviceRecord : serviceRecordList) {
-            if(serviceRecord.getType().equalsIgnoreCase(GrowthNutritionInputFragment.GROWTH_TYPE.MNP.getValue())
+            if (serviceRecord.getType().equalsIgnoreCase(GrowthNutritionInputFragment.GROWTH_TYPE.MNP.getValue())
                     && !homeVisitGrowthNutritionPresenterFlv.hasMNP()) continue;
             if (!serviceRecord.getType().equalsIgnoreCase(lastType)) {
                 if (!TextUtils.isEmpty(lastType)) {
