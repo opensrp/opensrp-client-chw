@@ -4,6 +4,7 @@ public class TestConstant {
 
     public static boolean IS_PHONE_NO_CHECK = false;
     public static boolean IS_TASK_VISIBLE = false;
+    public static boolean IS_WASH_CHECK_VISIBLE = false;
 
     public static String[] getTestReceivedTwoYearVaccine(){
         String[] list = {"OPV0".toLowerCase(), "BCG".toLowerCase(), "OPV1".toLowerCase(), "OPV2".toLowerCase(), "OPV3".toLowerCase()

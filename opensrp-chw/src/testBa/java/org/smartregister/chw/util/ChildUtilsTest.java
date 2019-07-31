@@ -23,6 +23,7 @@ public class ChildUtilsTest extends BaseUnitTest {
 
     @Mock
     private ChildUtils.Flavor childUtilsFlv;
+
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
@@ -31,8 +32,11 @@ public class ChildUtilsTest extends BaseUnitTest {
 
     @Test
     public void isFullyImmunizedForTwoYears() throws Exception{
-
-        List<String> receivedVaccine = Arrays.asList(TestConstant.getTestReceivedTwoYearVaccine());
+        String[] list = {"OPV0".toLowerCase(), "BCG".toLowerCase(), "OPV1".toLowerCase(), "OPV2".toLowerCase(), "OPV3".toLowerCase()
+                , "Penta1".toLowerCase(), "Penta2".toLowerCase(), "Penta3".toLowerCase(), "PCV1".toLowerCase(), "PCV2".toLowerCase()
+                , "PCV3".toLowerCase(), "Rota1".toLowerCase(), "Rota2".toLowerCase(), "IPV".toLowerCase(), "MCV1".toLowerCase()
+                , "MCV2".toLowerCase(), "yellowfever".toLowerCase(),"mcv2","rota3", "mena"};
+        List<String> receivedVaccine = Arrays.asList(list);
         setFinalStatic(ChildUtils.class.getDeclaredField("childUtilsFlv"), childUtilsFlv);
 
         Assert.assertEquals("2", ChildUtils.isFullyImmunized(receivedVaccine));
@@ -47,7 +51,11 @@ public class ChildUtilsTest extends BaseUnitTest {
 
     @Test
     public void isFullyImmunizedForOneYears() throws Exception {
-        List<String> receivedVaccine = Arrays.asList(TestConstant.getTestReceivedOneYearVaccine());
+        String[] list = {"OPV0".toLowerCase(), "BCG".toLowerCase(), "OPV1".toLowerCase(), "OPV2".toLowerCase(), "OPV3".toLowerCase()
+                , "Penta1".toLowerCase(), "Penta2".toLowerCase(), "Penta3".toLowerCase(), "PCV1".toLowerCase(), "PCV2".toLowerCase()
+                , "PCV3".toLowerCase(), "Rota1".toLowerCase(), "Rota2".toLowerCase(), "IPV".toLowerCase(),
+                "MCV1".toLowerCase(), "yellowfever".toLowerCase(),"rota3", "mena"};
+        List<String> receivedVaccine = Arrays.asList(list);
         setFinalStatic(ChildUtils.class.getDeclaredField("childUtilsFlv"), childUtilsFlv);
         Assert.assertEquals("1", ChildUtils.isFullyImmunized(receivedVaccine));
     }

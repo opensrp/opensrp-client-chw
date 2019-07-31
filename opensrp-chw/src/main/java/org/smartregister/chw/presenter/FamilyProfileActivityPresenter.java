@@ -1,5 +1,7 @@
 package org.smartregister.chw.presenter;
 
+import org.smartregister.chw.fragment.FamilyProfileActivityFragment;
+import org.smartregister.chw.model.WashCheckModel;
 import org.smartregister.chw.util.ChildDBConstants;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.family.contract.FamilyProfileActivityContract;
@@ -7,9 +9,11 @@ import org.smartregister.family.presenter.BaseFamilyProfileActivityPresenter;
 import org.smartregister.family.util.DBConstants;
 
 public class FamilyProfileActivityPresenter extends BaseFamilyProfileActivityPresenter {
+    private WashCheckModel washCheckModel;
 
     public FamilyProfileActivityPresenter(FamilyProfileActivityContract.View view, FamilyProfileActivityContract.Model model, String viewConfigurationIdentifier, String familyBaseEntityId) {
         super(view, model, viewConfigurationIdentifier, familyBaseEntityId);
+        washCheckModel = new WashCheckModel(familyBaseEntityId);
     }
 
     @Override
@@ -20,5 +24,12 @@ public class FamilyProfileActivityPresenter extends BaseFamilyProfileActivityPre
     @Override
     public String getDefaultSortQuery() {
         return Constants.TABLE_NAME.CHILD_ACTIVITY + "." + ChildDBConstants.KEY.EVENT_DATE + " DESC";
+    }
+    public void fetchLastWashCheck() {
+
+        if(getView() instanceof FamilyProfileActivityFragment){
+            FamilyProfileActivityFragment familyProfileActivityFragment = (FamilyProfileActivityFragment)getView();
+            familyProfileActivityFragment.updateWashCheckBar(washCheckModel.getAllWashCheckList());
+        }
     }
 }

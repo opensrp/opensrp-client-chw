@@ -2,12 +2,12 @@ package org.smartregister.chw.sync;
 
 import android.content.ContentValues;
 import android.content.Context;
-
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.repository.HomeVisitRepository;
 import org.smartregister.chw.util.ChildUtils;
 import org.smartregister.chw.util.Constants;
+import org.smartregister.chw.util.WashCheck;
 import org.smartregister.clientandeventmodel.DateUtil;
 import org.smartregister.commonregistry.AllCommonsRepository;
 import org.smartregister.commonregistry.CommonFtsObject;
@@ -157,6 +157,11 @@ public class ChwClientProcessor extends ClientProcessorForJava {
                         processVaccineCardEvent(eventClient);
                         processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
                         break;
+                    case Constants.EventType.WASH_CHECK:
+                        processWashCheckEvent(eventClient);
+                        processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
+
+                        break;
                     default:
                         if (eventClient.getClient() != null) {
                             if (eventType.equals(Constants.EventType.UPDATE_FAMILY_RELATIONS) && event.getEntityType().equalsIgnoreCase(Constants.TABLE_NAME.FAMILY_MEMBER)) {
@@ -185,6 +190,22 @@ public class ChwClientProcessor extends ClientProcessorForJava {
 
     private void processHomeVisitService(EventClient eventClient) {
         ChildUtils.addToHomeVisitService(eventClient.getEvent().getEventType(), eventClient.getEvent().getObs(), eventClient.getEvent().getEventDate().toDate(), ChildUtils.gsonConverter.toJson(eventClient.getEvent()));
+    }
+    private void processWashCheckEvent(EventClient eventClient){
+        WashCheck washCheck = new WashCheck();
+        for (Obs obs : eventClient.getEvent().getObs()) {
+
+            if (obs.getFormSubmissionField().equalsIgnoreCase(Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.FAMILY_ID)) {
+                washCheck.setFamilyBaseEntityId((String) obs.getValue());
+            }
+            if (obs.getFormSubmissionField().equalsIgnoreCase(Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.WASH_CHECK_DETAILS)) {
+                washCheck.setDetailsJson((String) obs.getValue());
+            }
+            if (obs.getFormSubmissionField().equalsIgnoreCase(Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.WASH_CHECK_LAST_VISIT)) {
+                washCheck.setLastVisit(Long.parseLong((String) obs.getValue()));
+            }
+        }
+        ChwApplication.getWashCheckRepo().add(washCheck);
     }
 
     // possible to delegate

@@ -1,0 +1,172 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="0dp">
+
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/scroll_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <org.smartregister.view.customcontrols.CustomFontTextView
+                    android:id="@+id/textview_handwashing_facilities"
+                    style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
+                    android:gravity="center_vertical"
+                    android:padding="20dp"
+                    android:text="@string/handwashing_facilities"
+                    android:textColor="@color/text_black"
+                    android:textSize="18dp" />
+
+                <RadioGroup
+                    android:id="@+id/radio_group_handwashing"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:paddingBottom="20dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp">
+
+                    <RadioButton
+                        android:id="@+id/choice_1_handwashing"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:text="@string/yes"
+                        android:checked="false"
+                        android:clickable="false"
+                        android:textColor="@color/text_black"
+                        android:textSize="@dimen/register_list_desc_size" />
+
+                    <RadioButton
+                        android:id="@+id/choice_2_handwashing"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:text="@string/no"
+                        android:checked="false"
+                        android:clickable="false"
+                        android:textColor="@color/text_black"
+                        android:textSize="@dimen/register_list_desc_size" />\
+                </RadioGroup>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <org.smartregister.view.customcontrols.CustomFontTextView
+                    android:id="@+id/textview_drinking_water"
+                    style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
+                    android:gravity="center_vertical"
+                    android:padding="20dp"
+                    android:text="@string/drinking_water"
+                    android:textColor="@color/text_black"
+                    android:textSize="18dp" />
+
+                <RadioGroup
+                    android:id="@+id/radio_group_drinking"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:paddingBottom="20dp"
+                    android:clickable="false"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp">
+
+                    <RadioButton
+                        android:id="@+id/choice_1_drinking"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:text="@string/yes"
+                        android:checked="false"
+                        android:clickable="false"
+                        android:textColor="@color/text_black"
+                        android:textSize="@dimen/register_list_desc_size" />
+
+                    <RadioButton
+                        android:id="@+id/choice_2_drinking"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:text="@string/no"
+                        android:checked="false"
+                        android:clickable="false"
+                        android:textColor="@color/text_black"
+                        android:textSize="@dimen/register_list_desc_size" />\
+                </RadioGroup>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <org.smartregister.view.customcontrols.CustomFontTextView
+                    android:id="@+id/textview_hygienic_latrine"
+                    style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
+                    android:gravity="center_vertical"
+                    android:padding="20dp"
+                    android:text="@string/hygienic_latrine"
+                    android:textColor="@color/text_black"
+                    android:textSize="18dp" />
+
+                <RadioGroup
+                    android:id="@+id/radio_group_latrine"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:clickable="false"
+                    android:paddingBottom="20dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp">
+
+                    <RadioButton
+                        android:id="@+id/choice_1_latrine"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:text="@string/yes"
+                        android:checked="false"
+                        android:clickable="false"
+                        android:textColor="@color/text_black"
+                        android:textSize="@dimen/register_list_desc_size" />
+
+                    <RadioButton
+                        android:id="@+id/choice_2_latrine"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:text="@string/no"
+                        android:checked="false"
+                        android:clickable="false"
+                        android:textColor="@color/text_black"
+                        android:textSize="@dimen/register_list_desc_size" />\
+                </RadioGroup>
+            </LinearLayout>
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+</RelativeLayout>

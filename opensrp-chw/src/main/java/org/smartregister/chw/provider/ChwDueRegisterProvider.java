@@ -45,7 +45,7 @@ public class ChwDueRegisterProvider extends FamilyDueRegisterProvider {
     public void getView(Cursor cursor, SmartRegisterClient client, RegisterViewHolder viewHolder) {
         CommonPersonObjectClient pc = (CommonPersonObjectClient) client;
         populatePatientColumn(pc, client, viewHolder);
-        populateIdentifierColumn(pc, viewHolder);
+       // populateIdentifierColumn(pc, viewHolder);
 
         viewHolder.status.setVisibility(View.GONE);
         Utils.startAsyncTask(new UpdateAsyncTask(viewHolder, pc), null);
@@ -98,11 +98,6 @@ public class ChwDueRegisterProvider extends FamilyDueRegisterProvider {
         attachPatientOnclickListener(viewHolder.patientColumn, client);
 
         attachNextArrowOnclickListener(viewHolder.nextArrow, client);
-    }
-
-    private void populateIdentifierColumn(CommonPersonObjectClient pc, RegisterViewHolder viewHolder) {
-        String uniqueId = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.UNIQUE_ID, false);
-        //fillValue(viewHolder.ancId, String.format(context.getString(R.string.unique_id_text), uniqueId));
     }
 
     private void attachPatientOnclickListener(View view, SmartRegisterClient client) {
