@@ -33,6 +33,7 @@ public class PncRegisterActivity extends BasePncRegisterActivity implements ChwB
         super.onCreate(savedInstanceState);
         NavigationMenu.getInstance(this, null, null);
     }
+
     @Override
     protected void registerBottomNavigation() {
         super.registerBottomNavigation();

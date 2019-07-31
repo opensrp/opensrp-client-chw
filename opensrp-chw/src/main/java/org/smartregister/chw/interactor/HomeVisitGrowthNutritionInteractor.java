@@ -3,10 +3,8 @@ package org.smartregister.chw.interactor;
 import android.support.annotation.VisibleForTesting;
 import android.text.TextUtils;
 
-
 import com.google.gson.reflect.TypeToken;
 
-import org.json.JSONObject;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.contract.HomeVisitGrowthNutritionContract;
 import org.smartregister.chw.domain.HomeVisit;
@@ -25,17 +23,14 @@ import org.smartregister.util.DateUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
-import io.reactivex.ObservableSource;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
@@ -93,9 +88,9 @@ public class HomeVisitGrowthNutritionInteractor implements HomeVisitGrowthNutrit
 
                     @Override
                     public void onNext(ServiceTaskModel serviceTaskModel) {
-                        if(serviceTaskModel==null){
+                        if (serviceTaskModel == null) {
                             callBack.allDataLoaded();
-                        }else{
+                        } else {
                             callBack.updateGivenRecordVisitData(serviceTaskModel.getGivenServiceMap());
                             callBack.updateNotGivenRecordVisitData(serviceTaskModel.getNotGivenServiceMap());
                         }
@@ -115,31 +110,32 @@ public class HomeVisitGrowthNutritionInteractor implements HomeVisitGrowthNutrit
                 });
 
 
-
-
     }
-    public Observable<ServiceTaskModel> getServiceWrapperMapFromLastHomeVisit(final CommonPersonObjectClient commonPersonObjectClient){
+
+    public Observable<ServiceTaskModel> getServiceWrapperMapFromLastHomeVisit(final CommonPersonObjectClient commonPersonObjectClient) {
         return Observable.create(new ObservableOnSubscribe<ServiceTaskModel>() {
             @Override
             public void subscribe(ObservableEmitter<ServiceTaskModel> e) throws Exception {
-                String lastHomeVisitStr=org.smartregister.util.Utils.getValue(commonPersonObjectClient.getColumnmaps(), ChildDBConstants.KEY.LAST_HOME_VISIT, false);
-                long lastHomeVisit= TextUtils.isEmpty(lastHomeVisitStr)?0:Long.parseLong(lastHomeVisitStr);
+                String lastHomeVisitStr = org.smartregister.util.Utils.getValue(commonPersonObjectClient.getColumnmaps(), ChildDBConstants.KEY.LAST_HOME_VISIT, false);
+                long lastHomeVisit = TextUtils.isEmpty(lastHomeVisitStr) ? 0 : Long.parseLong(lastHomeVisitStr);
                 HomeVisit homeVisit = ChwApplication.homeVisitRepository().findByDate(lastHomeVisit);
-                if(homeVisit!=null){
-                    Map<String, ServiceWrapper> serviceGivenWrapper = ChildUtils.gsonConverter.fromJson(homeVisit.getServicesGiven().toString(),new TypeToken<HashMap<String, ServiceWrapper>>(){}.getType());
-                    Map<String, ServiceWrapper> serviceNotGivenWrapper = ChildUtils.gsonConverter.fromJson(homeVisit.getServiceNotGiven().toString(),new TypeToken<HashMap<String, ServiceWrapper>>(){}.getType());
+                if (homeVisit != null) {
+                    Map<String, ServiceWrapper> serviceGivenWrapper = ChildUtils.gsonConverter.fromJson(homeVisit.getServicesGiven().toString(), new TypeToken<HashMap<String, ServiceWrapper>>() {
+                    }.getType());
+                    Map<String, ServiceWrapper> serviceNotGivenWrapper = ChildUtils.gsonConverter.fromJson(homeVisit.getServiceNotGiven().toString(), new TypeToken<HashMap<String, ServiceWrapper>>() {
+                    }.getType());
                     ServiceTaskModel serviceTaskModel = new ServiceTaskModel();
                     serviceTaskModel.setGivenServiceMap(serviceGivenWrapper);
                     serviceTaskModel.setNotGivenServiceMap(serviceNotGivenWrapper);
                     e.onNext(serviceTaskModel);
-                }else{
+                } else {
                     e.onNext(null);
                 }
 
             }
         });
     }
-  
+
     public ArrayList<GrowthServiceData> getAllDueService(Map<String, ServiceWrapper> serviceWrapperMap) {
         ArrayList<GrowthServiceData> growthServiceDataList = new ArrayList<>();
 
@@ -179,6 +175,6 @@ public class HomeVisitGrowthNutritionInteractor implements HomeVisitGrowthNutrit
     @Override
     public void onDestroy(boolean isChangingConfiguration) {
         //TODO Implement onDestroy
-        Timber.d( "onDestroy unimplemented");
+        Timber.d("onDestroy unimplemented");
     }
 }

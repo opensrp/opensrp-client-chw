@@ -30,10 +30,10 @@ public class PersonDao extends AbstractDao {
                     Timber.e(e);
                 }
                 return new Person(
-                        getCursorValue(c,"base_entity_id"),
-                        getCursorValue(c,"first_name"),
-                        getCursorValue(c,"last_name"),
-                        getCursorValue(c,"middle_name"),
+                        getCursorValue(c, "base_entity_id"),
+                        getCursorValue(c, "first_name"),
+                        getCursorValue(c, "last_name"),
+                        getCursorValue(c, "middle_name"),
                         dob
                 );
             }

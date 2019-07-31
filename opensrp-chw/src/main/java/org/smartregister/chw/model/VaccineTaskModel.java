@@ -48,11 +48,11 @@ public class VaccineTaskModel {
         this.scheduleList = scheduleList;
     }
 
-    public void setNotGivenVaccine(ArrayList<VaccineWrapper> notGivenVaccine) {
-        this.notGivenVaccine = notGivenVaccine;
-    }
-
     public ArrayList<VaccineWrapper> getNotGivenVaccine() {
         return notGivenVaccine;
+    }
+
+    public void setNotGivenVaccine(ArrayList<VaccineWrapper> notGivenVaccine) {
+        this.notGivenVaccine = notGivenVaccine;
     }
 }

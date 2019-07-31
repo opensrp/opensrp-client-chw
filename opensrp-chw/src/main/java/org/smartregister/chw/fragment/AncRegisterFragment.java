@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.widget.Toolbar;
-
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -40,10 +39,9 @@ import timber.log.Timber;
 
 public class AncRegisterFragment extends BaseAncRegisterFragment {
 
-    private View view;
-
-    private boolean dueFilterActive = false;
     private static final String DUE_FILTER_TAG = "PRESSED";
+    private View view;
+    private boolean dueFilterActive = false;
 
     @Override
     public void setupViews(View view) {

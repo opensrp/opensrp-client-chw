@@ -1,7 +1,6 @@
 package org.smartregister.chw.fragment;
 
 import android.os.Bundle;
-
 import android.view.View;
 
 import org.smartregister.chw.R;

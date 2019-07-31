@@ -30,7 +30,7 @@ public class ChildProfileActivityFlv implements ChildProfileActivity.Flavor {
     }
 
     @Override
-    public boolean showMalariaConfirmationMenu(){
+    public boolean showMalariaConfirmationMenu() {
         return true;
     }
 }

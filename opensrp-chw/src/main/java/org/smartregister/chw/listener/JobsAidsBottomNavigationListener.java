@@ -6,8 +6,8 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.view.MenuItem;
 
-import org.smartregister.chw.activity.FamilyRegisterActivity;
 import org.smartregister.AllConstants;
+import org.smartregister.chw.activity.FamilyRegisterActivity;
 import org.smartregister.listener.BottomNavigationListener;
 import org.smartregister.util.PermissionUtils;
 import org.smartregister.util.Utils;

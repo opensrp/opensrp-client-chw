@@ -415,5 +415,8 @@
     <string name="pnc_visit">Visite CPoN</string>
     <string name="anc_visit">Visite CPN</string>
     <string name="number_8_16">Le numéro doit être composé de 8 à 16 chiffres</string>
-  
+    <string name="handwashing_facilities">Does the household have handwashing facilities?</string>
+    <string name="drinking_water">Does the household have access to clean drinking water?</string>
+    <string name="hygienic_latrine">Do household members use a hygienic latrine for the disposal of feces?</string>
+    <string name="wash_check">WASH check</string>
 </resources>

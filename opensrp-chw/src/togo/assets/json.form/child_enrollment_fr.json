@@ -317,7 +317,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "159522AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "spinner",
-        "hint": "Difficultés physiques?",
+        "hint": "Enfant vivant avec un handicap?",
         "values": [
           "Oui",
           "Non"

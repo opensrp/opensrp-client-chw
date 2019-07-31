@@ -82,6 +82,8 @@ import static org.smartregister.util.Utils.getValue;
 
 public class ChildHomeVisitFragment extends DialogFragment implements View.OnClickListener, ChildHomeVisitContract.View {
 
+    private static final String TAG = "ChildHomeVisitFragment";
+    public static String DIALOG_TAG = "child_home_visit_dialog";
     private static IntentFilter sIntentFilter;
 
     static {
@@ -91,8 +93,8 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         sIntentFilter.addAction(Intent.ACTION_TIME_CHANGED);
     }
 
-    private static final String TAG = "ChildHomeVisitFragment";
-    public static String DIALOG_TAG = "child_home_visit_dialog";
+    public boolean allVaccineDataLoaded = false;
+    public boolean allServicesDataLoaded = false;
     private Context context;
     private CommonPersonObjectClient childClient;
     private TextView nameHeader;
@@ -100,8 +102,6 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     private TextView textViewObsIllnessDesc;
     private HomeVisitGrowthAndNutrition homeVisitGrowthAndNutritionLayout;
     private View viewBirthLine, viewVaccineCardLine;
-    public boolean allVaccineDataLoaded = false;
-    public boolean allServicesDataLoaded = false;
     private TextView submit;
     private ImmunizationView immunizationView;
     private LinearLayout layoutBirthCertGroup, layoutVaccineCard;
@@ -111,11 +111,35 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     private JSONObject illnessJson;
     private JSONObject birthCertJson;
     private boolean isEditMode = false;
+    private final BroadcastReceiver mDateTimeChangedReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            final String action = intent.getAction();
+
+            assert action != null;
+            if (action.equals(Intent.ACTION_TIME_CHANGED) ||
+                    action.equals(Intent.ACTION_TIMEZONE_CHANGED)) {
+                assignNameHeader();
+
+            }
+        }
+    };
     private ProgressBar progressBar;
     private RecyclerView taskServiceRecyclerView;
     private ServiceTaskAdapter serviceTaskAdapter;
     private AppExecutors appExecutors;
     private Flavor flavor = new ChildHomeVisitFragmentFlv();
+    private OnUpdateServiceTask onUpdateServiceTask = new OnUpdateServiceTask() {
+        @Override
+        public void onUpdateServiceTask(ServiceTask serviceTask) {
+            updateTaskService();
+            checkIfSubmitIsToBeEnabled();
+        }
+    };
+
+    public static ChildHomeVisitFragment newInstance() {
+        return new ChildHomeVisitFragment();
+    }
 
     public void setContext(Context context) {
         this.context = context;
@@ -134,7 +158,6 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
 
         return (ViewGroup) inflater.inflate(R.layout.fragment_child_home_visit, container, false);
     }
-
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -275,11 +298,9 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         }
     }
 
-
     private void updateGrowthData() {
         homeVisitGrowthAndNutritionLayout.setData(this, getActivity().getFragmentManager(), childClient, isEditMode);
     }
-
 
     @Override
     public void onStart() {
@@ -295,11 +316,6 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         });
 
     }
-
-    public static ChildHomeVisitFragment newInstance() {
-        return new ChildHomeVisitFragment();
-    }
-
 
     @Override
     public void onClick(View v) {
@@ -494,7 +510,6 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                 .subscribe();
     }
 
-
     public void submitButtonEnableDisable(boolean isEnable) {
         if (isEnable) {
             submit.setAlpha(1.0f);
@@ -576,7 +591,6 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         updateBirthCertData();
     }
 
-
     @Override
     public void updateObsIllnessStatusTick(String jsonString) {
         try {
@@ -616,7 +630,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
                             LLITNInputDialogFragment dialogFragment = LLITNInputDialogFragment.getInstance();
                             dialogFragment.setServiceTask(serviceTask, onUpdateServiceTask);
                             FragmentTransaction ft = getActivity().getFragmentManager().beginTransaction();
-                            dialogFragment.show(ft, MuacInputDialogFragment.DIALOG_TAG);
+                            dialogFragment.show(ft, LLITNInputDialogFragment.DIALOG_TAG);
 
                         } else if (serviceTask.getTaskType().equalsIgnoreCase(TaskServiceCalculate.TASK_TYPE.ECD.name())) {
                             try {
@@ -647,14 +661,6 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
             taskServiceRecyclerView.setVisibility(View.GONE);
         }
     }
-
-    private OnUpdateServiceTask onUpdateServiceTask = new OnUpdateServiceTask() {
-        @Override
-        public void onUpdateServiceTask(ServiceTask serviceTask) {
-            updateTaskService();
-            checkIfSubmitIsToBeEnabled();
-        }
-    };
 
     private void updateBirthCertData() {
         ArrayList<BirthCertDataModel> data = ((ChildHomeVisitPresenter) presenter).getBirthCertDataList();
@@ -794,7 +800,6 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         this.childClient = childClient;
     }
 
-
     @Override
     public void onDestroy() {
         getActivity().unregisterReceiver(mDateTimeChangedReceiver);
@@ -820,20 +825,6 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         this.isEditMode = isEditMode;
 
     }
-
-    private final BroadcastReceiver mDateTimeChangedReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            final String action = intent.getAction();
-
-            assert action != null;
-            if (action.equals(Intent.ACTION_TIME_CHANGED) ||
-                    action.equals(Intent.ACTION_TIMEZONE_CHANGED)) {
-                assignNameHeader();
-
-            }
-        }
-    };
 
     public interface Flavor {
         boolean onTaskVisibility();

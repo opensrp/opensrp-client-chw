@@ -26,7 +26,7 @@ public abstract class DefaultChildProfileActivityFlv implements ChildProfileActi
     }
 
     @Override
-    public boolean showMalariaConfirmationMenu(){
+    public boolean showMalariaConfirmationMenu() {
         return false;
     }
 }
