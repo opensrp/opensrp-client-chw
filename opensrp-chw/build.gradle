@@ -314,6 +314,8 @@ task jacocoTestReport(type: JacocoReport, dependsOn: [
         'testBaDebugUnitTest', 'createBaDebugCoverageReport',
         'testWcaroDebugUnitTest', 'createWcaroDebugCoverageReport'/*,
         'testTogoDebugUnitTest', 'createTogoDebugCoverageReport',
+        'testWcaroDebugUnitTest', 'createWcaroDebugCoverageReport'
+        /*'testTogoDebugUnitTest', 'createTogoDebugCoverageReport',
         'testGuineaDebugUnitTest', 'createGuineaDebugCoverageReport',
         'testChadDebugUnitTest', 'createChadDebugCoverageReport',
         'testDrcDebugUnitTest', 'createDrcDebugCoverageReport'*/
