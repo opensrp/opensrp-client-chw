@@ -90,36 +90,36 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
     private static HashMap<String, String> actionMap = null;
     private static Flavor flavor = new JsonFormUtilsFlv();
 
-    public static boolean saveWashCheckEvent(String jsonString,String familyId){
-        try{
-                ECSyncHelper syncHelper = FamilyLibrary.getInstance().getEcSyncHelper();
-                Event baseEvent = (Event) new Event()
+    public static boolean saveWashCheckEvent(String jsonString, String familyId) {
+        try {
+            ECSyncHelper syncHelper = FamilyLibrary.getInstance().getEcSyncHelper();
+            Event baseEvent = (Event) new Event()
                     .withBaseEntityId(familyId)
                     .withEventDate(new Date())
                     .withEntityType(WashCheckRepository.WASH_CHECK_TABLE_NAME)
                     .withEventType(org.smartregister.chw.util.Constants.EventType.WASH_CHECK)
                     .withFormSubmissionId(JsonFormUtils.generateRandomUUIDString())
                     .withDateCreated(new Date());
-                String lastTime = System.currentTimeMillis()+"";
+            String lastTime = System.currentTimeMillis() + "";
 
-                baseEvent.addObs((new Obs()).withFormSubmissionField(org.smartregister.chw.util.Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.FAMILY_ID).withValue(familyId)
-                        .withFieldCode(org.smartregister.chw.util.Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.FAMILY_ID).withFieldType("formsubmissionField").withFieldDataType("text").withParentCode("").withHumanReadableValues(new ArrayList<>()));
-                baseEvent.addObs((new Obs()).withFormSubmissionField(org.smartregister.chw.util.Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.WASH_CHECK_LAST_VISIT).withValue(lastTime)
+            baseEvent.addObs((new Obs()).withFormSubmissionField(org.smartregister.chw.util.Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.FAMILY_ID).withValue(familyId)
+                    .withFieldCode(org.smartregister.chw.util.Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.FAMILY_ID).withFieldType("formsubmissionField").withFieldDataType("text").withParentCode("").withHumanReadableValues(new ArrayList<>()));
+            baseEvent.addObs((new Obs()).withFormSubmissionField(org.smartregister.chw.util.Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.WASH_CHECK_LAST_VISIT).withValue(lastTime)
                     .withFieldCode(org.smartregister.chw.util.Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.WASH_CHECK_LAST_VISIT).withFieldType("formsubmissionField").withFieldDataType("text").withParentCode("").withHumanReadableValues(new ArrayList<>()));
-                baseEvent.addObs((new Obs()).withFormSubmissionField(org.smartregister.chw.util.Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.WASH_CHECK_DETAILS).withValue(jsonString)
+            baseEvent.addObs((new Obs()).withFormSubmissionField(org.smartregister.chw.util.Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.WASH_CHECK_DETAILS).withValue(jsonString)
                     .withFieldCode(org.smartregister.chw.util.Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.WASH_CHECK_DETAILS).withFieldType("formsubmissionField").withFieldDataType("text").withParentCode("").withHumanReadableValues(new ArrayList<>()));
 
-                tagSyncMetadata(org.smartregister.family.util.Utils.context().allSharedPreferences(), baseEvent);// tag docs
+            tagSyncMetadata(org.smartregister.family.util.Utils.context().allSharedPreferences(), baseEvent);// tag docs
 
-                JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(baseEvent));
-                syncHelper.addEvent(familyId, eventJson);
-                long lastSyncTimeStamp = ChwApplication.getInstance().getContext().allSharedPreferences().fetchLastUpdatedAtDate(0);
-                Date lastSyncDate = new Date(lastSyncTimeStamp);
-                ChwApplication.getClientProcessor(ChwApplication.getInstance().getContext().applicationContext()).processClient(syncHelper.getEvents(lastSyncDate, BaseRepository.TYPE_Unprocessed));
-                ChwApplication.getInstance().getContext().allSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
-                return true;
-           // }
-        }catch (Exception e){
+            JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(baseEvent));
+            syncHelper.addEvent(familyId, eventJson);
+            long lastSyncTimeStamp = ChwApplication.getInstance().getContext().allSharedPreferences().fetchLastUpdatedAtDate(0);
+            Date lastSyncDate = new Date(lastSyncTimeStamp);
+            ChwApplication.getClientProcessor(ChwApplication.getInstance().getContext().applicationContext()).processClient(syncHelper.getEvents(lastSyncDate, BaseRepository.TYPE_Unprocessed));
+            ChwApplication.getInstance().getContext().allSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
+            return true;
+            // }
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -1031,12 +1031,6 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
         return "";
     }
 
-    public interface Flavor {
-        JSONObject getAutoJsonEditMemberFormString(String title, String formName, Context context, CommonPersonObjectClient client, String eventType, String familyName, boolean isPrimaryCaregiver);
-
-        void processFieldsForMemberEdit(CommonPersonObjectClient client, JSONObject jsonObject, JSONArray jsonArray, String familyName, boolean isPrimaryCaregiver, Event ecEvent, Client ecClient) throws JSONException;
-    }
-
     private static Event getEditAncLatestProperties(String baseEntityID) {
 
         Event ecEvent = null;
@@ -1130,6 +1124,12 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
         JSONObject jsonObject = org.smartregister.chw.anc.util.JsonFormUtils.getFormAsJson(formName);
         org.smartregister.chw.anc.util.JsonFormUtils.getRegistrationForm(jsonObject, baseEntityID, locationId);
         return jsonObject;
+    }
+
+    public interface Flavor {
+        JSONObject getAutoJsonEditMemberFormString(String title, String formName, Context context, CommonPersonObjectClient client, String eventType, String familyName, boolean isPrimaryCaregiver);
+
+        void processFieldsForMemberEdit(CommonPersonObjectClient client, JSONObject jsonObject, JSONArray jsonArray, String familyName, boolean isPrimaryCaregiver, Event ecEvent, Client ecClient) throws JSONException;
     }
 
 }

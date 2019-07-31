@@ -209,8 +209,7 @@
           "value": "([0-9]{8,16})|\\s*",
           "err": "Number must be 8 to 16 digits."
         }
-      }
-    ,
+      },
       {
         "key": "marital_status",
         "openmrs_entity_parent": "",

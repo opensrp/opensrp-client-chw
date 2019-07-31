@@ -10,6 +10,7 @@ import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializationContext;
@@ -409,7 +410,7 @@ public class ChildUtils {
     }
 
     public static void updateTaskAsEvent(String eventType, String formSubmissionField, List<Object> values, List<Object> humenread,
-                                         String entityId, String choiceValue, String homeVisitId,String openMrsCode) {
+                                         String entityId, String choiceValue, String homeVisitId, String openMrsCode) {
         try {
             ECSyncHelper syncHelper = FamilyLibrary.getInstance().getEcSyncHelper();
             Event baseEvent = (Event) new Event()
@@ -451,12 +452,13 @@ public class ChildUtils {
         }
 
     }
-    public static void processClientProcessInBackground(){
+
+    public static void processClientProcessInBackground() {
         try {
-        long lastSyncTimeStamp = ChwApplication.getInstance().getContext().allSharedPreferences().fetchLastUpdatedAtDate(0);
-        Date lastSyncDate = new Date(lastSyncTimeStamp);
-        ChwApplication.getClientProcessor(ChwApplication.getInstance().getContext().applicationContext()).processClient(FamilyLibrary.getInstance().getEcSyncHelper().getEvents(lastSyncDate, BaseRepository.TYPE_Unprocessed));
-        ChwApplication.getInstance().getContext().allSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
+            long lastSyncTimeStamp = ChwApplication.getInstance().getContext().allSharedPreferences().fetchLastUpdatedAtDate(0);
+            Date lastSyncDate = new Date(lastSyncTimeStamp);
+            ChwApplication.getClientProcessor(ChwApplication.getInstance().getContext().applicationContext()).processClient(FamilyLibrary.getInstance().getEcSyncHelper().getEvents(lastSyncDate, BaseRepository.TYPE_Unprocessed));
+            ChwApplication.getInstance().getContext().allSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
         } catch (Exception e) {
             Timber.e(e);
         }
@@ -646,7 +648,7 @@ public class ChildUtils {
                 serviceTask.setTaskLabel(context.getString(R.string.dev_warning_sign) + value1 + "\n" + context.getString(R.string.care_stim_skill) + value2
                         + "\n" + context.getString(R.string.early_learning) + value3);
 
-                serviceTask.setGreen(isComplete(context, value1, value2,value3));
+                serviceTask.setGreen(isComplete(context, value1, value2, value3));
             } else {
 
                 serviceTask.setGreen(isComplete(context, value1, value2));
@@ -662,20 +664,24 @@ public class ChildUtils {
         }
         return serviceTask;
     }
-    private static boolean isComplete(Context context, String value1, String value2){
+
+    private static boolean isComplete(Context context, String value1, String value2) {
         String yesVale = context.getString(R.string.yes);
         String noValue = context.getString(R.string.no);
         return value1.equalsIgnoreCase(noValue) && value2.equalsIgnoreCase(yesVale);
     }
-    private static boolean isComplete(Context context, String value1, String value2, String value3){
+
+    private static boolean isComplete(Context context, String value1, String value2, String value3) {
         String yesVale = context.getString(R.string.yes);
         String noValue = context.getString(R.string.no);
         return value1.equalsIgnoreCase(noValue) && value2.equalsIgnoreCase(yesVale) && value3.equalsIgnoreCase(yesVale);
     }
-    public static String[] splitStringByNewline(String strWithNewline){
+
+    public static String[] splitStringByNewline(String strWithNewline) {
         return strWithNewline.split("\n");
     }
-    public static String getDurationFromTwoDate(Date dob, Date homeVisitServiceDate){
+
+    public static String getDurationFromTwoDate(Date dob, Date homeVisitServiceDate) {
 
         long timeDiff = Math.abs(homeVisitServiceDate.getTime() - dob.getTime());
         return DateUtil.getDuration(timeDiff);

@@ -1,7 +1,6 @@
 package org.smartregister.chw.presenter;
 
 import android.content.Context;
-
 import android.util.Pair;
 
 import org.apache.commons.lang3.StringUtils;
@@ -32,7 +31,7 @@ import java.lang.ref.WeakReference;
 
 import timber.log.Timber;
 
-public class FamilyProfilePresenter extends BaseFamilyProfilePresenter implements FamilyProfileExtendedContract.Presenter, ChildRegisterContract.InteractorCallBack , FamilyProfileExtendedContract.PresenterCallBack {
+public class FamilyProfilePresenter extends BaseFamilyProfilePresenter implements FamilyProfileExtendedContract.Presenter, ChildRegisterContract.InteractorCallBack, FamilyProfileExtendedContract.PresenterCallBack {
     private static final String TAG = FamilyProfilePresenter.class.getCanonicalName();
 
     private WeakReference<FamilyProfileExtendedContract.View> viewReference;

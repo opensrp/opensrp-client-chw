@@ -27,12 +27,12 @@ public class HomeVisit {
     private JSONObject vaccineNotGiven = new JSONObject();
     private JSONObject ServicesGiven = new JSONObject();
     private JSONObject serviceNotGiven = new JSONObject();
-    private JSONObject birthCertificationState =  new JSONObject();
+    private JSONObject birthCertificationState = new JSONObject();
     private JSONObject illness_information = new JSONObject();
     private String homeVisitId;
 
 
-    public HomeVisit(){
+    public HomeVisit() {
 
     }
 
@@ -195,19 +195,19 @@ public class HomeVisit {
         this.illness_information = illness_information;
     }
 
-    public void setServiceNotGiven(JSONObject serviceNotGiven) {
-        this.serviceNotGiven = serviceNotGiven;
-    }
-
-    public void setVaccineNotGiven(JSONObject vaccineNotGiven) {
-        this.vaccineNotGiven = vaccineNotGiven;
-    }
-
     public JSONObject getServiceNotGiven() {
         return serviceNotGiven;
     }
 
+    public void setServiceNotGiven(JSONObject serviceNotGiven) {
+        this.serviceNotGiven = serviceNotGiven;
+    }
+
     public JSONObject getVaccineNotGiven() {
         return vaccineNotGiven;
+    }
+
+    public void setVaccineNotGiven(JSONObject vaccineNotGiven) {
+        this.vaccineNotGiven = vaccineNotGiven;
     }
 }

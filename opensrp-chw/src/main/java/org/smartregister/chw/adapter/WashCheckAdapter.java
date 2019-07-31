@@ -23,8 +23,7 @@ public class WashCheckAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     private String familyName;
     private OnClickAdapter onClickAdapter;
 
-    public WashCheckAdapter(Context context,String familyName,OnClickAdapter onClickAdapter)
-    {
+    public WashCheckAdapter(Context context, String familyName, OnClickAdapter onClickAdapter) {
         this.context = context;
         this.familyName = familyName;
         this.onClickAdapter = onClickAdapter;
@@ -47,13 +46,13 @@ public class WashCheckAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder viewHolder, int position) {
         final WashCheck content = contentList.get(position);
         RegisterViewHolder contentViewHolder = (RegisterViewHolder) viewHolder;
-        contentViewHolder.patientNameAge.setText(context.getString(R.string.family,familyName)+" "+context.getString(R.string.wash_check_suffix));
-        contentViewHolder.lastVisit.setText(context.getString(R.string.completed_on_prefix,new SimpleDateFormat("dd MMM yyyy").format(new Date(content.getLastVisit()))));
+        contentViewHolder.patientNameAge.setText(context.getString(R.string.family, familyName) + " " + context.getString(R.string.wash_check_suffix));
+        contentViewHolder.lastVisit.setText(context.getString(R.string.completed_on_prefix, new SimpleDateFormat("dd MMM yyyy").format(new Date(content.getLastVisit()))));
         contentViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                onClickAdapter.onClick(viewHolder.getAdapterPosition(),content);
+                onClickAdapter.onClick(viewHolder.getAdapterPosition(), content);
             }
         });
     }
@@ -63,10 +62,15 @@ public class WashCheckAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     public int getItemCount() {
         return contentList.size();
     }
+
+    public interface OnClickAdapter {
+        void onClick(int position, WashCheck washCheck);
+    }
+
     private class RegisterViewHolder extends RecyclerView.ViewHolder {
         public ImageView status;
-        private CustomFontTextView patientNameAge;
         public TextView lastVisit;
+        private CustomFontTextView patientNameAge;
 
         private RegisterViewHolder(View itemView) {
             super(itemView);
@@ -74,8 +78,5 @@ public class WashCheckAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             this.patientNameAge = itemView.findViewById(org.smartregister.family.R.id.patient_name_age);
             this.lastVisit = itemView.findViewById(org.smartregister.family.R.id.last_visit);
         }
-    }
-    public interface OnClickAdapter{
-         void onClick(int position,WashCheck washCheck);
     }
 }

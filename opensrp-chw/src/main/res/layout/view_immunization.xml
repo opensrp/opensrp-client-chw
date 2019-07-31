@@ -4,13 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
     <LinearLayout
         android:id="@+id/immunization_done_before_active_groups_holder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        >
-    </LinearLayout>
+        android:orientation="vertical"></LinearLayout>
 
     <LinearLayout
         android:id="@+id/immunization_group"
@@ -55,9 +54,9 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
-                android:visibility="gone"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:textColor="@android:color/darker_gray" />
+                android:textColor="@android:color/darker_gray"
+                android:visibility="gone" />
         </LinearLayout>
 
     </LinearLayout>
@@ -67,14 +66,15 @@
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:background="@color/light_grey" />
+
     <LinearLayout
         android:id="@+id/immunization_undue_groups_holder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        >
+        android:orientation="vertical">
 
     </LinearLayout>
+
     <View
         android:id="@+id/line_group_immunization"
         android:layout_width="match_parent"
@@ -125,9 +125,9 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
-                android:visibility="gone"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:textColor="@android:color/darker_gray" />
+                android:textColor="@android:color/darker_gray"
+                android:visibility="gone" />
         </LinearLayout>
 
     </LinearLayout>

@@ -37,16 +37,8 @@ import timber.log.Timber;
 
 public class FamilyRemoveMemberInteractor implements FamilyRemoveMemberContract.Interactor {
 
-    private AppExecutors appExecutors;
-
     private static FamilyRemoveMemberInteractor instance;
-
-    public static FamilyRemoveMemberInteractor getInstance() {
-        if (instance == null)
-            instance = new FamilyRemoveMemberInteractor();
-
-        return instance;
-    }
+    private AppExecutors appExecutors;
 
     @VisibleForTesting
     FamilyRemoveMemberInteractor(AppExecutors appExecutors) {
@@ -55,6 +47,13 @@ public class FamilyRemoveMemberInteractor implements FamilyRemoveMemberContract.
 
     public FamilyRemoveMemberInteractor() {
         this(new AppExecutors());
+    }
+
+    public static FamilyRemoveMemberInteractor getInstance() {
+        if (instance == null)
+            instance = new FamilyRemoveMemberInteractor();
+
+        return instance;
     }
 
     @Override

@@ -20,7 +20,6 @@ public class BirthAndIllnessAdapterTest extends BaseUnitTest {
 
     private Context context = RuntimeEnvironment.application;
 
-
     private ArrayList<String> getSamples(int count) {
         int x = 0;
         ArrayList<String> contentList = new ArrayList<>();

@@ -13,10 +13,10 @@ public class RxUtils {
         return Observable.create(new ObservableOnSubscribe<T>() {
             @Override
             public void subscribe(ObservableEmitter<T> emmiter) throws Exception {
-                if(emmiter!=null){
+                if (emmiter != null) {
                     emmiter.onNext(func.call());
                 }
-                if(emmiter!=null && !emmiter.isDisposed()){
+                if (emmiter != null && !emmiter.isDisposed()) {
                     emmiter.onComplete();
                 }
 

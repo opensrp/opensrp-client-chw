@@ -116,7 +116,7 @@ public class FamilyOtherMemberActivityPresenter extends BaseFamilyOtherMemberPro
             this.getView().setProfileName(MessageFormat.format("{0}, {1}", getName(getName(firstName, middleName), lastName), age));
             String gestationAge = ChwApplication.ancRegisterRepository().getGaIfAncWoman(client.getCaseId());
             if (gestationAge != null) {
-                this.getView().setProfileDetailOne(Util.gestationAgeString(gestationAge, viewReference.get().getContext(),true));
+                this.getView().setProfileDetailOne(Util.gestationAgeString(gestationAge, viewReference.get().getContext(), true));
             }
         }
     }

@@ -150,6 +150,7 @@ public class ChwApplication extends DrishtiApplication {
         }
         return homeVisitServiceRepository;
     }
+
     public static WashCheckRepository getWashCheckRepo() {
         if (washCheckRepository == null) {
             washCheckRepository = new WashCheckRepository(getInstance().getRepository());

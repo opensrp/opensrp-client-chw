@@ -15,16 +15,14 @@ import org.smartregister.chw.interactor.ChildProfileInteractor;
  */
 public class WashCheckAlertRule implements ICommonRule {
 
-    public String buttonStatus = ChildProfileInteractor.VisitType.DUE.name();
     private final int[] monthNames = {R.string.january, R.string.february, R.string.march, R.string.april, R.string.may, R.string.june, R.string.july, R.string.august, R.string.september, R.string.october, R.string.november, R.string.december};
-
-    private LocalDate dateCreated;
-    private LocalDate todayDate;
-    private LocalDate lastVisitDate;
-
+    public String buttonStatus = ChildProfileInteractor.VisitType.DUE.name();
     public String noOfMonthDue;
     public String noOfDayDue;
     public String visitMonthName;
+    private LocalDate dateCreated;
+    private LocalDate todayDate;
+    private LocalDate lastVisitDate;
     private Context context;
 
     public WashCheckAlertRule(Context context, long lastVisitDateLong, long dateCreatedLong) {
@@ -49,6 +47,7 @@ public class WashCheckAlertRule implements ICommonRule {
     public boolean isExpiry(Integer calYr) {
         return false;
     }
+
     public boolean isVisitNotDone() {
         return false;
     }

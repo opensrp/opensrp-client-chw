@@ -160,8 +160,8 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MyViewHold
     private boolean validateTextView(TextView textView) {
         String text = textView.getText().toString().trim();
 
-        if(flavorPhoneNumberLength.isPhoneNumberLength16Digit()){
-            if(text.length()<8){
+        if (flavorPhoneNumberLength.isPhoneNumberLength16Digit()) {
+            if (text.length() < 8) {
                 textView.setError(context.getString(R.string.number_8_16));
                 return false;
             }
@@ -169,7 +169,7 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MyViewHold
                 textView.setError(context.getString(R.string.number_8_16));
                 return false;
             }
-        }else{
+        } else {
             if (text.length() > 0 && !text.substring(0, 1).equals("0")) {
                 textView.setError("Must start with 0");
                 return false;
@@ -201,6 +201,10 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MyViewHold
     @Override
     public int getItemCount() {
         return familyMembers.size();
+    }
+
+    public interface Flavor {
+        boolean isPhoneNumberLength16Digit();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -246,15 +250,15 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MyViewHold
                 @Override
                 public void afterTextChanged(Editable s) {
                     String text = et.getText().toString().trim();
-                    if(flavorPhoneNumberLength.isPhoneNumberLength16Digit()){
-                        if(text.length()<8){
+                    if (flavorPhoneNumberLength.isPhoneNumberLength16Digit()) {
+                        if (text.length() < 8) {
                             et.setError(context.getString(R.string.number_8_16));
                         }
                         if (text.length() > 16) {
                             et.setError(context.getString(R.string.number_8_16));
                         }
 
-                    }else{
+                    } else {
                         if (text.length() > 0 && text.length() != 10) {
                             et.setError("Length must be equal to 10");
                         }
@@ -269,9 +273,6 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MyViewHold
             et.addTextChangedListener(tw);
         }
 
-    }
-    public interface Flavor {
-        boolean isPhoneNumberLength16Digit();
     }
 
 }

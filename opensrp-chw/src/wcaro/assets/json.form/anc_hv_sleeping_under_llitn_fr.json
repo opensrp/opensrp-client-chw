@@ -67,7 +67,8 @@
         "keys": [
           "Yes",
           "No"
-        ],"openmrs_choice_ids": {
+        ],
+        "openmrs_choice_ids": {
           "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         }
