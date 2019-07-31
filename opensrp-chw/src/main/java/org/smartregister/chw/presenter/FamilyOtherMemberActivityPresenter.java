@@ -1,6 +1,6 @@
 package org.smartregister.chw.presenter;
 
-
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;
 import org.smartregister.chw.anc.util.Util;
 import org.smartregister.chw.application.ChwApplication;
@@ -111,7 +111,9 @@ public class FamilyOtherMemberActivityPresenter extends BaseFamilyOtherMemberPro
             String firstName = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.FIRST_NAME, true);
             String middleName = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.MIDDLE_NAME, true);
             String lastName = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.LAST_NAME, true);
-            int age = Utils.getAgeFromDate(Utils.getValue(client.getColumnmaps(), DBConstants.KEY.DOB, true));
+
+            String dob = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.DOB, true);
+            int age = StringUtils.isNotBlank(dob) ? Utils.getAgeFromDate(dob) : 0;
 
             this.getView().setProfileName(MessageFormat.format("{0}, {1}", getName(getName(firstName, middleName), lastName), age));
             String gestationAge = ChwApplication.ancRegisterRepository().getGaIfAncWoman(client.getCaseId());

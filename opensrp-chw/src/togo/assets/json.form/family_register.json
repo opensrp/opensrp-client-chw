@@ -110,7 +110,7 @@
         "hint": "Quarter",
         "v_required": {
           "value": "true",
-          "err": "Please enter the quarter or clan"
+          "err": "Please enter the quarter"
         }
       },
       {

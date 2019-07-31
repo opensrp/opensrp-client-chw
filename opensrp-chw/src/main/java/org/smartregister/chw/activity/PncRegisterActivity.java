@@ -49,8 +49,11 @@ public class PncRegisterActivity extends BasePncRegisterActivity implements ChwB
     @Override
     protected void onResumption() {
         super.onResumption();
-        NavigationMenu.getInstance(this, null, null).getNavigationAdapter()
-                .setSelectedView(Constants.DrawerMenu.PNC);
+        NavigationMenu menu = NavigationMenu.getInstance(this, null, null);
+        if(menu != null){
+            menu.getNavigationAdapter()
+                    .setSelectedView(Constants.DrawerMenu.PNC);
+        }
     }
 
     @Override

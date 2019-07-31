@@ -116,8 +116,11 @@ public class AncRegisterActivity extends BaseAncRegisterActivity implements ChwB
     @Override
     protected void onResumption() {
         super.onResumption();
-        NavigationMenu.getInstance(this, null, null).getNavigationAdapter()
-                .setSelectedView(Constants.DrawerMenu.ANC);
+        NavigationMenu menu = NavigationMenu.getInstance(this, null, null);
+        if(menu != null){
+            menu.getNavigationAdapter()
+                    .setSelectedView(Constants.DrawerMenu.ANC);
+        }
     }
 
     @Override

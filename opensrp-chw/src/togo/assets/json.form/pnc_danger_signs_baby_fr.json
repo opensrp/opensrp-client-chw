@@ -1,6 +1,6 @@
 {
   "count": "1",
-  "encounter_type": "Danger signs - Mother",
+  "encounter_type": "Danger signs - Baby",
   "entity_id": "",
   "metadata": {
     "start": {
@@ -47,17 +47,17 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "Danger signs - Mother",
+    "title": "Signes de danger - Enfant",
     "fields": [
       {
         "key": "danger_signs_present",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "160939AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "159860AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "check_box",
         "label_info_image_src": "img/chw.png",
         "label_info_has_image": true,
-        "label": "Any danger signs present?",
+        "label": "Y a-t-il des signes de danger?",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
         "exclusive": [
@@ -66,52 +66,59 @@
         "options": [
           {
             "key": "chk_none",
-            "text": "None",
+            "text": "Aucun",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
-            "key": "chk_fever",
-            "text": "Fever",
+            "key": "chk_fast_breathing",
+            "text": "Respiration rapide",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "140238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "125061AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
-            "key": "chk_prolonged_bleeding",
-            "text": "Prolonged bleeding",
+            "key": "chk_chest_indrawing",
+            "text": "Tirage respiratoire",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "150802AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "136768AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
-            "key": "chk_severe_headache",
-            "text": "Severe headache",
+            "key": "chk_low_or_high_temp",
+            "text": "Basse ou haute température",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "139081AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "159366AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
-            "key": "chk_convulsions",
+            "key": "chk_refuses_to_suckle",
+            "text": "Refuse de téter",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "159861AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_no_movement",
+            "text": "Pas de mouvement",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "164455AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_convulsion",
             "text": "Convulsions",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "164483AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
-            "key": "chk_difficulty_breathing",
-            "text": "Difficulty breathing",
+            "key": "chk_jaundice",
+            "text": "Jaunisse",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "142373AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "chk_severe_abdominal_pain",
-            "text": "Severe abdominal pain",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "165271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "115368AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ],
         "v_required": {
@@ -125,7 +132,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Danger sign! \nRefer immediately to health facility.",
+        "text": "Signe de danger! \nRéférer immédiatement à l'établissement de santé.",
         "text_color": "#CF0800",
         "toaster_type": "problem",
         "relevance": {
@@ -137,8 +144,8 @@
                   "chk_prolonged_bleeding",
                   "chk_severe_headache",
                   "chk_convulsions",
-                  "chk_difficulty_breathing",
-                  "chk_severe_abdominal_pain"
+                  "chk_convulsion",
+                  "chk_jaundice"
                 ]
               }
             ]
@@ -152,8 +159,12 @@
         "openmrs_entity_id": "161541AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Counseling on seeking care immediately for danger signs",
+        "hint": "Conseil pour rechercher immédiatement des soins pour les signes de danger",
         "values": [
+          "Oui",
+          "Non"
+        ],
+        "keys": [
           "Yes",
           "No"
         ],

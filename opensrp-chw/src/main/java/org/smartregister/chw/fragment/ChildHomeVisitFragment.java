@@ -215,6 +215,9 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
     }
 
     private void assignNameHeader() {
+        if (childClient == null || childClient.getColumnmaps() == null)
+            return;
+
         String dob = getValue(childClient.getColumnmaps(), DBConstants.KEY.DOB, false);
         String dobString = getDuration(dob);
         String birthCert = getValue(childClient.getColumnmaps(), BIRTH_CERT, true);
