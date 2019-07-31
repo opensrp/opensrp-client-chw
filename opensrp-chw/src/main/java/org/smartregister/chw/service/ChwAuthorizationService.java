@@ -75,13 +75,13 @@ public class ChwAuthorizationService implements P2PAuthorizationService {
         LinkedHashMap<String, TreeNode<String, Location>> locationHierarchyMap = retrieveLocationHierarchyMap();
 
         if (locationHierarchyMap != null) {
-            for (String locationId: locationHierarchyMap.keySet()) {
+            for (String locationId : locationHierarchyMap.keySet()) {
                 // If the lower location is higher than the expected high location
                 boolean foundHighLocation = false;
 
                 if (locationId.equals(lowerLocationId)) {
                     return false;
-                } else if(locationId.equals(highLocationId)) {
+                } else if (locationId.equals(highLocationId)) {
                     foundHighLocation = true;
                 }
 
@@ -110,7 +110,7 @@ public class ChwAuthorizationService implements P2PAuthorizationService {
 
         return false;
     }
-    
+
     @Nullable
     private LinkedHashMap<String, TreeNode<String, Location>> retrieveLocationHierarchyMap() {
         String locationData = CoreLibrary.getInstance().context().anmLocationController().get();

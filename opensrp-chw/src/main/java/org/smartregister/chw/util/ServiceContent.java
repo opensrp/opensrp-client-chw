@@ -3,6 +3,7 @@ package org.smartregister.chw.util;
 
 public class ServiceContent implements BaseService {
     private String serviceName;
+
     public String getServiceName() {
         return serviceName;
     }

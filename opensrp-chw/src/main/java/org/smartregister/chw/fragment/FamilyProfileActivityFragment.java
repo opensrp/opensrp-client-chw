@@ -8,9 +8,9 @@ import android.support.v7.widget.RecyclerView;
 import org.smartregister.chw.R;
 import org.smartregister.chw.adapter.WashCheckAdapter;
 import org.smartregister.chw.model.FamilyProfileActivityModel;
-import org.smartregister.chw.util.WashCheck;
 import org.smartregister.chw.presenter.FamilyProfileActivityPresenter;
 import org.smartregister.chw.provider.FamilyActivityRegisterProvider;
+import org.smartregister.chw.util.WashCheck;
 import org.smartregister.chw.util.WashCheckFlv;
 import org.smartregister.configurableviews.model.View;
 import org.smartregister.family.adapter.FamilyRecyclerViewCustomAdapter;
@@ -67,11 +67,12 @@ public class FamilyProfileActivityFragment extends BaseFamilyProfileActivityFrag
         //TODO
         Timber.d("setAdvancedSearchFormData");
     }
-    public void updateWashCheckBar(ArrayList<WashCheck> washCheckList){
-        if(washCheckList.size()>0){
+
+    public void updateWashCheckBar(ArrayList<WashCheck> washCheckList) {
+        if (washCheckList.size() > 0) {
             washCheckRecyclerView.setVisibility(android.view.View.VISIBLE);
-            if(washCheckAdapter == null){
-                washCheckAdapter =new WashCheckAdapter(getActivity(), familyName, new WashCheckAdapter.OnClickAdapter() {
+            if (washCheckAdapter == null) {
+                washCheckAdapter = new WashCheckAdapter(getActivity(), familyName, new WashCheckAdapter.OnClickAdapter() {
                     @Override
                     public void onClick(int position, WashCheck washCheck) {
                         WashCheckDialogFragment dialogFragment = WashCheckDialogFragment.getInstance(washCheck.getDetailsJson());
@@ -83,7 +84,7 @@ public class FamilyProfileActivityFragment extends BaseFamilyProfileActivityFrag
                 washCheckRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                 washCheckRecyclerView.setAdapter(washCheckAdapter);
 
-            }else{
+            } else {
                 washCheckAdapter.setData(washCheckList);
                 washCheckAdapter.notifyDataSetChanged();
             }
@@ -91,9 +92,10 @@ public class FamilyProfileActivityFragment extends BaseFamilyProfileActivityFrag
 
 
     }
-    public void updateWashCheck(){
-        if(flavorWashCheck.isWashCheckVisible()){
-            ((FamilyProfileActivityPresenter)presenter).fetchLastWashCheck();
+
+    public void updateWashCheck() {
+        if (flavorWashCheck.isWashCheckVisible()) {
+            ((FamilyProfileActivityPresenter) presenter).fetchLastWashCheck();
         }
     }
 

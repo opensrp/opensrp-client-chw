@@ -25,10 +25,6 @@ public class ServiceTask {
         this.taskType = taskType;
     }
 
-    public void setGreen(boolean green) {
-        isGreen = green;
-    }
-
     public String getTaskTitle() {
         return taskTitle;
     }
@@ -47,6 +43,10 @@ public class ServiceTask {
 
     public boolean isGreen() {
         return isGreen;
+    }
+
+    public void setGreen(boolean green) {
+        isGreen = green;
     }
 
 }

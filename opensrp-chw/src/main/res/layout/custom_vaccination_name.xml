@@ -35,8 +35,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
+        android:paddingLeft="0dp"
         android:text="vaccine"
         android:textColor="@color/text_black"
-        android:textSize="@dimen/vaccine_text_size"
-        android:paddingLeft="0dp" />
+        android:textSize="@dimen/vaccine_text_size" />
 </LinearLayout>

@@ -1,10 +1,10 @@
 package org.smartregister.chw.application;
 
 import org.apache.commons.lang3.StringUtils;
-import org.smartregister.chw.BuildConfig;
-import org.smartregister.chw.util.Utils;
 import org.smartregister.SyncConfiguration;
 import org.smartregister.SyncFilter;
+import org.smartregister.chw.BuildConfig;
+import org.smartregister.chw.util.Utils;
 import org.smartregister.location.helper.LocationHelper;
 
 import java.util.List;

@@ -66,13 +66,13 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
     private Context context;
 
     @VisibleForTesting
-    public ChildMedicalHistoryInteractor(){
+    public ChildMedicalHistoryInteractor() {
         Timber.v("constructor");
     }
 
-    public ChildMedicalHistoryInteractor(AppExecutors appExecutors,HomeVisitServiceRepository homeVisitServiceRepository,Context context) {
+    public ChildMedicalHistoryInteractor(AppExecutors appExecutors, HomeVisitServiceRepository homeVisitServiceRepository, Context context) {
         this.appExecutors = appExecutors;
-        this.homeVisitServiceRepository = homeVisitServiceRepository ;
+        this.homeVisitServiceRepository = homeVisitServiceRepository;
         this.context = context;
     }
 
@@ -288,7 +288,7 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
         String lastType = "";
         for (ServiceRecord serviceRecord : serviceRecordList) {
             if (!serviceRecord.getType().equalsIgnoreCase(lastType)) {
-                if(!TextUtils.isEmpty(lastType)){
+                if (!TextUtils.isEmpty(lastType)) {
                     ServiceLine serviceLine = new ServiceLine();
                     baseServiceArrayList.add(serviceLine);
                 }
@@ -323,7 +323,7 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
     public void fetchDietaryData(CommonPersonObjectClient commonPersonObjectClient, final ChildMedicalHistoryContract.InteractorCallBack callBack) {
         List<HomeVisitServiceDataModel> homeVisitDietary = homeVisitServiceRepository.getLatestThreeEntry(Constants.EventType.MINIMUM_DIETARY_DIVERSITY);
         final ArrayList<BaseService> baseServiceArrayList = new ArrayList<>();
-        if(homeVisitDietary.size()>0) {
+        if (homeVisitDietary.size() > 0) {
 
             ServiceLine serviceLine = new ServiceLine();
             baseServiceArrayList.add(serviceLine);
@@ -337,7 +337,7 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
                 ServiceTask serviceTask = ChildUtils.createServiceTaskFromEvent(TaskServiceCalculate.TASK_TYPE.Minimum_dietary.name(),
                         homeVisitServiceDataModel.getHomeVisitDetails(), getContext().getString(R.string.minimum_dietary_title),
                         Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.TASK_MINIMUM_DIETARY);
-                if(serviceTask.getTaskLabel()!=null){
+                if (serviceTask.getTaskLabel() != null) {
                     ServiceContent content = new ServiceContent();
                     String date = DATE_FORMAT.format(homeVisitServiceDataModel.getHomeVisitDate());
                     content.setServiceName(serviceTask.getTaskLabel() + " - done " + date);
@@ -361,11 +361,11 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
     }
 
     @Override
-    public void fetchMuacData(CommonPersonObjectClient commonPersonObjectClient,final ChildMedicalHistoryContract.InteractorCallBack callBack) {
+    public void fetchMuacData(CommonPersonObjectClient commonPersonObjectClient, final ChildMedicalHistoryContract.InteractorCallBack callBack) {
 
         List<HomeVisitServiceDataModel> homeVisitMUAC = homeVisitServiceRepository.getLatestThreeEntry(Constants.EventType.MUAC);
         final ArrayList<BaseService> baseServiceArrayList = new ArrayList<>();
-        if(homeVisitMUAC.size()>0) {
+        if (homeVisitMUAC.size() > 0) {
 
             ServiceLine serviceLine = new ServiceLine();
             baseServiceArrayList.add(serviceLine);
@@ -379,7 +379,7 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
                 ServiceTask serviceTask = ChildUtils.createServiceTaskFromEvent(TaskServiceCalculate.TASK_TYPE.MUAC.name(),
                         homeVisitServiceDataModel.getHomeVisitDetails(), getContext().getString(R.string.muac_title),
                         Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.TASK_MUAC);
-                if(serviceTask.getTaskLabel()!=null){
+                if (serviceTask.getTaskLabel() != null) {
                     ServiceContent content = new ServiceContent();
                     String date = DATE_FORMAT.format(homeVisitServiceDataModel.getHomeVisitDate());
                     content.setServiceName(serviceTask.getTaskLabel() + " - done " + date);
@@ -403,11 +403,11 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
     }
 
     @Override
-    public void fetchLLitnData(CommonPersonObjectClient commonPersonObjectClient,final ChildMedicalHistoryContract.InteractorCallBack callBack) {
+    public void fetchLLitnData(CommonPersonObjectClient commonPersonObjectClient, final ChildMedicalHistoryContract.InteractorCallBack callBack) {
 
         List<HomeVisitServiceDataModel> homeVisitLlitn = homeVisitServiceRepository.getLatestThreeEntry(Constants.EventType.LLITN);
         final ArrayList<BaseService> baseServiceArrayList = new ArrayList<>();
-        if(homeVisitLlitn.size()>0) {
+        if (homeVisitLlitn.size() > 0) {
 
             SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
 
@@ -441,22 +441,22 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
 
         List<HomeVisitServiceDataModel> homeVisitEcd = homeVisitServiceRepository.getLatestThreeEntry(Constants.EventType.ECD);
         final ArrayList<BaseService> baseServiceArrayList = new ArrayList<>();
-        if(homeVisitEcd.size()>0) {
+        if (homeVisitEcd.size() > 0) {
 
             SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
 
             for (HomeVisitServiceDataModel homeVisitServiceDataModel : homeVisitEcd) {
-                ServiceTask serviceTask = ChildUtils.createECDTaskFromEvent(getContext(),TaskServiceCalculate.TASK_TYPE.ECD.name(),
+                ServiceTask serviceTask = ChildUtils.createECDTaskFromEvent(getContext(), TaskServiceCalculate.TASK_TYPE.ECD.name(),
                         homeVisitServiceDataModel.getHomeVisitDetails(),
                         getContext().getString(R.string.ecd_title));
 
                 String date = DATE_FORMAT.format(homeVisitServiceDataModel.getHomeVisitDate());
-                String difference = ChildUtils.getDurationFromTwoDate(Utils.dobStringToDate(dateOfBirth),homeVisitServiceDataModel.getHomeVisitDate());
+                String difference = ChildUtils.getDurationFromTwoDate(Utils.dobStringToDate(dateOfBirth), homeVisitServiceDataModel.getHomeVisitDate());
                 ServiceHeader serviceHeader = new ServiceHeader();
-                serviceHeader.setServiceHeaderName(date+" ("+difference+")");
+                serviceHeader.setServiceHeaderName(date + " (" + difference + ")");
                 baseServiceArrayList.add(serviceHeader);
                 String[] label = ChildUtils.splitStringByNewline(serviceTask.getTaskLabel());
-                for(String s : label){
+                for (String s : label) {
                     ServiceContent content = new ServiceContent();
                     content.setServiceName(s);
                     baseServiceArrayList.add(content);

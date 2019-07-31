@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/immunization_group"
@@ -15,14 +15,14 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/immunization_group_status_circle"
-            app:civ_border_color="#EEEEEE"
-            app:civ_border_width="1dp"
             android:layout_width="@dimen/immunization_status_circle_size"
             android:layout_height="@dimen/immunization_status_circle_size"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
-            android:src="@color/white" />
+            android:src="@color/white"
+            app:civ_border_color="#EEEEEE"
+            app:civ_border_width="1dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -50,11 +50,12 @@
                 android:gravity="center_vertical"
                 android:text="Due 25 dec 2018"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:textStyle="italic"
-                android:textColor="@android:color/darker_gray" />
+                android:textColor="@android:color/darker_gray"
+                android:textStyle="italic" />
         </LinearLayout>
 
     </LinearLayout>
+
     <View
         android:id="@+id/line_view"
         android:layout_width="match_parent"

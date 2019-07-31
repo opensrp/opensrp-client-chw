@@ -82,13 +82,14 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity implements 
                 FloatingMenuListener.getInstance(this, presenter().familyBaseEntityId())
         );
     }
+
     @Override
     protected ViewPager setupViewPager(ViewPager viewPager) {
         adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
         BaseFamilyProfileMemberFragment profileMemberFragment = FamilyProfileMemberFragment.newInstance(this.getIntent().getExtras());
         profileDueFragment = FamilyProfileDueFragment.newInstance(this.getIntent().getExtras());
-        profileActivityFragment =(FamilyProfileActivityFragment) FamilyProfileActivityFragment.newInstance(this.getIntent().getExtras());
+        profileActivityFragment = (FamilyProfileActivityFragment) FamilyProfileActivityFragment.newInstance(this.getIntent().getExtras());
 
         adapter.addFragment(profileMemberFragment, this.getString(org.smartregister.family.R.string.member).toUpperCase());
         adapter.addFragment(profileDueFragment, this.getString(org.smartregister.family.R.string.due).toUpperCase());
@@ -216,7 +217,7 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity implements 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK) {
-            profileDueFragment.onActivityResult(requestCode,resultCode,data);
+            profileDueFragment.onActivityResult(requestCode, resultCode, data);
             switch (requestCode) {
                 case org.smartregister.family.util.JsonFormUtils.REQUEST_CODE_GET_JSON:
                     try {
@@ -358,7 +359,8 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity implements 
     public FamilyProfileExtendedContract.Presenter presenter() {
         return (FamilyProfilePresenter) presenter;
     }
-    public void updateWashCheckActivity(){
+
+    public void updateWashCheckActivity() {
         profileActivityFragment.updateWashCheck();
     }
 

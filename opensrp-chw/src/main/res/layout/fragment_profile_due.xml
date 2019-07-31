@@ -37,20 +37,22 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:background="@drawable/listview_background_rounded">
+
         <LinearLayout
             android:id="@+id/wash_check_layout"
-            android:orientation="vertical"
-            android:visibility="gone"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
 
         </LinearLayout>
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_view"
-            android:layout_below="@+id/wash_check_layout"
-            android:layout_alignWithParentIfMissing="true"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_alignWithParentIfMissing="true"
+            android:layout_below="@+id/wash_check_layout"
             android:scrollbars="vertical"
             android:visibility="visible" />
 

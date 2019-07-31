@@ -24,6 +24,14 @@ public class ChildUtilsTest extends BaseUnitTest {
     @Mock
     private ChildUtils.Flavor childUtilsFlv;
 
+    private static void setFinalStatic(Field field, Object newValue) throws Exception {
+        field.setAccessible(true);
+        Field modifiersField = Field.class.getDeclaredField("modifiers");
+        modifiersField.setAccessible(true);
+        modifiersField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
+        field.set(null, newValue);
+    }
+
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
@@ -31,7 +39,7 @@ public class ChildUtilsTest extends BaseUnitTest {
     }
 
     @Test
-    public void isFullyImmunizedForTwoYears() throws Exception{
+    public void isFullyImmunizedForTwoYears() throws Exception {
         String[] list = {"OPV0".toLowerCase(), "BCG".toLowerCase(), "OPV1".toLowerCase(), "OPV2".toLowerCase(), "OPV3".toLowerCase()
                 , "Penta1".toLowerCase(), "Penta2".toLowerCase(), "Penta3".toLowerCase(), "PCV1".toLowerCase(), "PCV2".toLowerCase()
                 , "PCV3".toLowerCase(), "Rota1".toLowerCase(), "Rota2".toLowerCase(), "IPV".toLowerCase(), "MCV1".toLowerCase()
@@ -40,13 +48,6 @@ public class ChildUtilsTest extends BaseUnitTest {
         setFinalStatic(ChildUtils.class.getDeclaredField("childUtilsFlv"), childUtilsFlv);
 
         Assert.assertEquals("2", ChildUtils.isFullyImmunized(receivedVaccine));
-    }
-    private static void setFinalStatic(Field field, Object newValue) throws Exception {
-        field.setAccessible(true);
-        Field modifiersField = Field.class.getDeclaredField("modifiers");
-        modifiersField.setAccessible(true);
-        modifiersField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
-        field.set(null, newValue);
     }
 
     @Test
@@ -66,31 +67,34 @@ public class ChildUtilsTest extends BaseUnitTest {
         List<String> receivedVaccine = Arrays.asList(list);
         Assert.assertEquals("", ChildUtils.isFullyImmunized(receivedVaccine));
     }
+
     @Test
-    public void lowerCaseVaccineName(){
-        Assert.assertEquals("MenA",ChildUtils.fixVaccineCasing("MENA"));
-        Assert.assertEquals("Rubella 1",ChildUtils.fixVaccineCasing("RUBELLA 1"));
-        Assert.assertEquals("Rubella 2",ChildUtils.fixVaccineCasing("RUBELLA 2"));
+    public void lowerCaseVaccineName() {
+        Assert.assertEquals("MenA", ChildUtils.fixVaccineCasing("MENA"));
+        Assert.assertEquals("Rubella 1", ChildUtils.fixVaccineCasing("RUBELLA 1"));
+        Assert.assertEquals("Rubella 2", ChildUtils.fixVaccineCasing("RUBELLA 2"));
     }
+
     @Test
-    public void threeTextAfterNewlineSplit(){
-        String str = "Developmental warning signs:no"+"\n"+"Caregiver stimulation skills:no"+"\n"+"Early learning program:yes";
+    public void threeTextAfterNewlineSplit() {
+        String str = "Developmental warning signs:no" + "\n" + "Caregiver stimulation skills:no" + "\n" + "Early learning program:yes";
         String[] strings = ChildUtils.splitStringByNewline(str);
         List<String> list = Arrays.asList(strings);
-        Assert.assertEquals(3,list.size());
+        Assert.assertEquals(3, list.size());
 
     }
+
     @Test
-    public void durationWithTwoDate(){
-        CommonPersonObjectClient childClient = new CommonPersonObjectClient("",null,"");
-        Map<String,String> map = new HashMap<>();
-        map.put(DBConstants.KEY.DOB,"2019-03-01T03:00:00.000+03:00");
+    public void durationWithTwoDate() {
+        CommonPersonObjectClient childClient = new CommonPersonObjectClient("", null, "");
+        Map<String, String> map = new HashMap<>();
+        map.put(DBConstants.KEY.DOB, "2019-03-01T03:00:00.000+03:00");
         childClient.setColumnmaps(map);
         String dateOfBirth = org.smartregister.family.util.Utils.getValue(childClient.getColumnmaps(), DBConstants.KEY.DOB, false);
-        Date date1 =  Utils.dobStringToDate(dateOfBirth);
-        Date date2 =  Utils.dobStringToDate("2019-06-01T03:00:00.000+03:00");
-        String str2 = ChildUtils.getDurationFromTwoDate(date1,date2);
-        Assert.assertEquals("13w 1d",str2);
+        Date date1 = Utils.dobStringToDate(dateOfBirth);
+        Date date2 = Utils.dobStringToDate("2019-06-01T03:00:00.000+03:00");
+        String str2 = ChildUtils.getDurationFromTwoDate(date1, date2);
+        Assert.assertEquals("13w 1d", str2);
     }
 
     /*

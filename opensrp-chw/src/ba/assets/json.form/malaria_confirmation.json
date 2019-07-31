@@ -171,7 +171,6 @@
           }
         }
       },
-
       {
         "key": "malaria_test_date",
         "openmrs_entity_parent": "",
@@ -186,7 +185,6 @@
           }
         }
       },
-
       {
         "key": "malaria_treat",
         "openmrs_entity_parent": "",

@@ -4,4 +4,4 @@ description: Calculated age_at_death
 priority: 1
 condition: "step1_date_died != '' && step1_dob != ''"
 actions:
-- "calculation =  helper.getDuration(step1_date_died , step1_dob)"
+  - "calculation =  helper.getDuration(step1_date_died , step1_dob)"

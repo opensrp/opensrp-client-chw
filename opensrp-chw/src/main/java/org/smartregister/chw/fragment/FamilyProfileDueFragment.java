@@ -18,9 +18,9 @@ import org.smartregister.chw.activity.ChildProfileActivity;
 import org.smartregister.chw.activity.FamilyProfileActivity;
 import org.smartregister.chw.interactor.ChildProfileInteractor;
 import org.smartregister.chw.model.FamilyProfileDueModel;
-import org.smartregister.chw.util.WashCheck;
 import org.smartregister.chw.presenter.FamilyProfileDuePresenter;
 import org.smartregister.chw.provider.ChwDueRegisterProvider;
+import org.smartregister.chw.util.WashCheck;
 import org.smartregister.chw.util.WashCheckFlv;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.adapter.FamilyRecyclerViewCustomAdapter;
@@ -78,10 +78,11 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                if(flavorWashCheck.isWashCheckVisible()) ((FamilyProfileDuePresenter)presenter).fetchLastWashCheck(dateFamilyCreated);
+                if (flavorWashCheck.isWashCheckVisible())
+                    ((FamilyProfileDuePresenter) presenter).fetchLastWashCheck(dateFamilyCreated);
 
             }
-        },500);
+        }, 500);
 
     }
 
@@ -111,13 +112,14 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
         washCheckView = view.findViewById(R.id.wash_check_layout);
 
     }
-    private void addWashCheckView(){
+
+    private void addWashCheckView() {
         View inflatLayout = getLayoutInflater().inflate(R.layout.view_wash_check, null);
         washCheckView.addView(inflatLayout);
         washCheckView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try{
+                try {
                     JSONObject jsonForm = FormUtils.getInstance(getActivity()).getFormJson(org.smartregister.chw.util.Constants.JSON_FORM.getWashCheck());
                     jsonForm.put(ENTITY_ID, familyBaseEntityId);
                     Intent intent = new Intent(getActivity(), metadata().familyMemberFormActivity);
@@ -130,7 +132,7 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
                     intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);
                     intent.putExtra(org.smartregister.family.util.Constants.WizardFormActivity.EnableOnCloseDialog, true);
                     getActivity().startActivityForResult(intent, REQUEST_CODE_GET_JSON_WASH);
-                }catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
 
@@ -181,61 +183,62 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
         switch (requestCode) {
             case REQUEST_CODE_GET_JSON_WASH:
                 if (resultCode == Activity.RESULT_OK) {
-                    try{
+                    try {
                         String jsonString = data.getStringExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON);
                         JSONObject form = new JSONObject(jsonString);
                         if (form.getString(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_TYPE).equals(org.smartregister.chw.util.Constants.EventType.WASH_CHECK)
-                        )
-                        {
-                            boolean isSave = ((FamilyProfileDuePresenter)presenter).saveData(jsonString);
-                            if(isSave){
+                        ) {
+                            boolean isSave = ((FamilyProfileDuePresenter) presenter).saveData(jsonString);
+                            if (isSave) {
                                 visibilityWashView(false);
-                                if(getActivity()!=null && getActivity() instanceof FamilyProfileActivity){
-                                 FamilyProfileActivity familyProfileActivity = (FamilyProfileActivity)getActivity();
-                                 familyProfileActivity.updateWashCheckActivity();
+                                if (getActivity() != null && getActivity() instanceof FamilyProfileActivity) {
+                                    FamilyProfileActivity familyProfileActivity = (FamilyProfileActivity) getActivity();
+                                    familyProfileActivity.updateWashCheckActivity();
 
                                 }
                             }
                         }
 
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
 
                 }
                 break;
-                default:
-                    break;
+            default:
+                break;
         }
     }
-    public void updateWashCheckBar(WashCheck washCheck){
+
+    public void updateWashCheckBar(WashCheck washCheck) {
         addWashCheckView();
         TextView name = washCheckView.findViewById(R.id.patient_name_age);
         TextView lastVisit = washCheckView.findViewById(R.id.last_visit);
         ImageView status = washCheckView.findViewById(R.id.status);
-        if(washCheck == null || washCheck.getStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.DUE.name())){
+        if (washCheck == null || washCheck.getStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.DUE.name())) {
             visibilityWashView(true);
             status.setImageResource(org.smartregister.chw.util.Utils.getDueProfileImageResourceIDentifier());
-            if(washCheck == null){
-              lastVisit.setVisibility(View.GONE);
-            }else{
-                lastVisit.setText(String.format(getActivity().getString(R.string.last_visit_prefix),  washCheck.getLastVisitDate()));
+            if (washCheck == null) {
+                lastVisit.setVisibility(View.GONE);
+            } else {
+                lastVisit.setText(String.format(getActivity().getString(R.string.last_visit_prefix), washCheck.getLastVisitDate()));
             }
-            name.setText(getActivity().getString(R.string.family,familyName)+" "+getActivity().getString(R.string.wash_check_suffix));
+            name.setText(getActivity().getString(R.string.family, familyName) + " " + getActivity().getString(R.string.wash_check_suffix));
 
 
-        } else if(washCheck.getStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.OVERDUE.name())){
+        } else if (washCheck.getStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.OVERDUE.name())) {
             visibilityWashView(true);
             status.setImageResource(org.smartregister.chw.util.Utils.getOverDueProfileImageResourceIDentifier());
-            lastVisit.setText(String.format(getActivity().getString(R.string.last_visit_prefix),  washCheck.getLastVisitDate()));
-            name.setText(getActivity().getString(R.string.family,familyName)+" "+getActivity().getString(R.string.wash_check_suffix));
+            lastVisit.setText(String.format(getActivity().getString(R.string.last_visit_prefix), washCheck.getLastVisitDate()));
+            name.setText(getActivity().getString(R.string.family, familyName) + " " + getActivity().getString(R.string.wash_check_suffix));
 
-        }else{
+        } else {
             washCheckView.setVisibility(View.GONE);
         }
 
     }
-    private void visibilityWashView(boolean isVisible){
+
+    private void visibilityWashView(boolean isVisible) {
         if ((isVisible)) {
             washCheckView.setVisibility(View.VISIBLE);
             emptyView.setVisibility(View.GONE);
@@ -250,8 +253,9 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
     @Override
     public void setAdvancedSearchFormData(HashMap<String, String> hashMap) {
         //TODO
-        Timber.d( "setAdvancedSearchFormData");
+        Timber.d("setAdvancedSearchFormData");
     }
+
     public interface Flavor {
         boolean isWashCheckVisible();
     }
