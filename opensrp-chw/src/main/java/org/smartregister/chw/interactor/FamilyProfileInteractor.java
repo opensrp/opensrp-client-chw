@@ -2,8 +2,9 @@ package org.smartregister.chw.interactor;
 
 import android.support.annotation.VisibleForTesting;
 
-import org.apache.commons.lang3.StringUtils;
 import com.opensrp.chw.core.contract.FamilyProfileExtendedContract;
+
+import org.apache.commons.lang3.StringUtils;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.util.AppExecutors;

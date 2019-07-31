@@ -38,7 +38,6 @@ import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.Repository;
 import org.smartregister.sync.helper.ECSyncHelper;
 import org.smartregister.util.Utils;
-import org.smartregister.view.activity.DrishtiApplication;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -52,16 +51,16 @@ import timber.log.Timber;
 import static com.opensrp.chw.core.utils.ApplicationUtils.getCommonFtsObject;
 import static com.opensrp.chw.core.utils.FormUtils.getFamilyMetadata;
 
-public class HealthFacilityApp extends DrishtiApplication implements CoreApplication {
+public class HealthFacilityApplication extends CoreChwApplication implements CoreApplication {
 
-    private static final String TAG = HealthFacilityApp.class.getCanonicalName();
+    private static final String TAG = HealthFacilityApplication.class.getCanonicalName();
     private static CommonFtsObject commonFtsObject = null;
     private String password;
     private JsonSpecHelper jsonSpecHelper;
     private ECSyncHelper ecSyncHelper;
 
-    public static synchronized HealthFacilityApp getInstance() {
-        return (HealthFacilityApp) mInstance;
+    public static synchronized HealthFacilityApplication getInstance() {
+        return (HealthFacilityApplication) mInstance;
     }
 
     public static JsonSpecHelper getJsonSpecHelper() {
@@ -80,8 +79,8 @@ public class HealthFacilityApp extends DrishtiApplication implements CoreApplica
         JobManager.create(this).addJobCreator(new HfJobCreator());
 
         //Necessary to determine the right form to pick from assets
-        Constants.JSON_FORM.setLocaleAndAssetManager(HealthFacilityApp.getCurrentLocale(),
-                HealthFacilityApp.getInstance().getApplicationContext().getAssets());
+        Constants.JSON_FORM.setLocaleAndAssetManager(HealthFacilityApplication.getCurrentLocale(),
+                HealthFacilityApplication.getInstance().getApplicationContext().getAssets());
 
         //Setup Navigation menu. Done only once when app is created
         NavigationMenu.setupNavigationMenu(this, new HfNavigationMenu(), new HfNavigationModel(), getRegisteredActivities());
@@ -89,7 +88,7 @@ public class HealthFacilityApp extends DrishtiApplication implements CoreApplica
         if (BuildConfig.DEBUG) {
             Timber.plant(new Timber.DebugTree());
         } else {
-            Timber.plant(new CrashlyticsTree(HealthFacilityApp.getInstance().getContext()
+            Timber.plant(new CrashlyticsTree(HealthFacilityApplication.getInstance().getContext()
                     .allSharedPreferences().fetchRegisteredANM()));
         }
 
@@ -171,7 +170,7 @@ public class HealthFacilityApp extends DrishtiApplication implements CoreApplica
     }
 
     public void saveLanguage(String language) {
-        HealthFacilityApp.getInstance().getContext().allSharedPreferences().saveLanguagePreference(language);
+        HealthFacilityApplication.getInstance().getContext().allSharedPreferences().saveLanguagePreference(language);
     }
 
     public Context getContext() {

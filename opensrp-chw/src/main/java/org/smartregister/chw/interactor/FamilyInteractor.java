@@ -4,11 +4,11 @@ import android.content.Context;
 import android.database.Cursor;
 import android.text.TextUtils;
 
+import com.opensrp.chw.core.model.ChildVisit;
+import com.opensrp.chw.core.utils.ChildDBConstants;
 import com.opensrp.chw.core.utils.Constants;
 
-import com.opensrp.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.util.ChildUtils;
-import com.opensrp.chw.core.model.ChildVisit;
 import org.smartregister.chw.util.ImmunizationState;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.family.util.DBConstants;

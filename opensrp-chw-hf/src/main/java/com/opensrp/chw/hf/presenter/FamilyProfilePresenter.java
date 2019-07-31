@@ -3,7 +3,7 @@ package com.opensrp.chw.hf.presenter;
 import android.content.Context;
 import android.util.Pair;
 
-import com.opensrp.chw.core.contract.ChildRegisterContract;
+import com.opensrp.chw.core.contract.CoreChildRegisterContract;
 import com.opensrp.chw.core.contract.FamilyProfileExtendedContract;
 
 import org.apache.commons.lang3.tuple.Triple;
@@ -12,7 +12,7 @@ import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.family.contract.FamilyProfileContract;
 import org.smartregister.family.presenter.BaseFamilyProfilePresenter;
 
-public class FamilyProfilePresenter extends BaseFamilyProfilePresenter implements FamilyProfileExtendedContract.Presenter, ChildRegisterContract.InteractorCallBack , FamilyProfileExtendedContract.PresenterCallBack {
+public class FamilyProfilePresenter extends BaseFamilyProfilePresenter implements FamilyProfileExtendedContract.Presenter, CoreChildRegisterContract.InteractorCallBack , FamilyProfileExtendedContract.PresenterCallBack {
 
     public FamilyProfilePresenter(FamilyProfileContract.View loginView, FamilyProfileContract.Model model, String familyBaseEntityId, String familyHead, String primaryCaregiver, String familyName) {
         super(loginView, model, familyBaseEntityId, familyHead, primaryCaregiver, familyName);
@@ -24,7 +24,7 @@ public class FamilyProfilePresenter extends BaseFamilyProfilePresenter implement
     }
 
     @Override
-    public void saveChildRegistration(Pair<Client, Event> pair, String jsonString, boolean isEditMode, ChildRegisterContract.InteractorCallBack callBack) {
+    public void saveChildRegistration(Pair<Client, Event> pair, String jsonString, boolean isEditMode, CoreChildRegisterContract.InteractorCallBack callBack) {
 
     }
 

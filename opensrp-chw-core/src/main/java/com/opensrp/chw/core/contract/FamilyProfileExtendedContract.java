@@ -11,7 +11,7 @@ public interface FamilyProfileExtendedContract {
 
     interface Presenter extends FamilyProfileContract.Presenter {
 
-        void saveChildRegistration(final Pair<Client, Event> pair, final String jsonString, final boolean isEditMode, final ChildRegisterContract.InteractorCallBack callBack);
+        void saveChildRegistration(final Pair<Client, Event> pair, final String jsonString, final boolean isEditMode, final CoreChildRegisterContract.InteractorCallBack callBack);
 
         void startChildForm(String formName, String entityId, String metadata, String currentLocationId) throws Exception;
 

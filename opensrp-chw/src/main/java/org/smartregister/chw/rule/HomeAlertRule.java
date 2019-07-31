@@ -2,12 +2,13 @@ package org.smartregister.chw.rule;
 
 import android.content.Context;
 
+import com.opensrp.chw.core.utils.CoreChildUtils;
+
 import org.joda.time.Days;
 import org.joda.time.LocalDate;
 import org.joda.time.Months;
 import org.smartregister.chw.R;
 import org.smartregister.chw.interactor.ChildProfileInteractor;
-import org.smartregister.chw.util.ChildUtils;
 
 //All date formats ISO 8601 yyyy-mm-dd
 
@@ -31,7 +32,7 @@ public class HomeAlertRule implements ICommonRule {
     private Context context;
 
     public HomeAlertRule(Context context, String yearOfBirthString, long lastVisitDateLong, long visitNotDoneValue, long dateCreatedLong) {
-        yearOfBirth = ChildUtils.dobStringToYear(yearOfBirthString);
+        yearOfBirth = CoreChildUtils.dobStringToYear(yearOfBirthString);
 
         this.context = context;
 

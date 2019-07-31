@@ -10,6 +10,7 @@ import com.evernote.android.job.JobManager;
 import com.opensrp.chw.core.contract.CoreApplication;
 import com.opensrp.chw.core.custom_views.NavigationMenu;
 import com.opensrp.chw.core.loggers.CrashlyticsTree;
+import com.opensrp.chw.core.service.CoreAuthorizationService;
 import com.opensrp.chw.core.utils.Constants;
 
 import org.jetbrains.annotations.NotNull;
@@ -34,7 +35,6 @@ import org.smartregister.chw.repository.ChwRepository;
 import org.smartregister.chw.repository.HomeVisitIndicatorInfoRepository;
 import org.smartregister.chw.repository.HomeVisitRepository;
 import org.smartregister.chw.repository.HomeVisitServiceRepository;
-import com.opensrp.chw.core.service.CoreAuthorizationService;
 import org.smartregister.chw.sync.ChwClientProcessor;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.commonregistry.AllCommonsRepository;

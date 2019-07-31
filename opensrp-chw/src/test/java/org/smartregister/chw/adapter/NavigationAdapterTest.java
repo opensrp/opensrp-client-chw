@@ -1,5 +1,9 @@
 package org.smartregister.chw.adapter;
 
+import com.opensrp.chw.core.adapter.NavigationAdapter;
+import com.opensrp.chw.core.model.NavigationOption;
+import com.opensrp.chw.core.utils.Constants;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,10 +17,6 @@ import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.LoginActivity;
 import org.smartregister.chw.application.ChwApplication;
-
-import com.opensrp.chw.core.adapter.NavigationAdapter;
-import com.opensrp.chw.core.model.NavigationOption;
-import com.opensrp.chw.core.utils.Constants;
 
 import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;

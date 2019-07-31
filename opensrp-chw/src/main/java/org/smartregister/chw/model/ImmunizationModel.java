@@ -25,8 +25,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.apache.commons.lang3.StringUtils.isNotBlank;
 import static com.opensrp.chw.core.utils.Constants.IMMUNIZATION_CONSTANT.DATE;
+import static org.apache.commons.lang3.StringUtils.isNotBlank;
 import static org.smartregister.immunization.util.VaccinatorUtils.receivedVaccines;
 
 public class ImmunizationModel {

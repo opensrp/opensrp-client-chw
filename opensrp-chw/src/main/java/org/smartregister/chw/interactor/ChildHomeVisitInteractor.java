@@ -5,6 +5,8 @@ import android.support.annotation.VisibleForTesting;
 import android.text.TextUtils;
 import android.util.Pair;
 
+import com.opensrp.chw.core.utils.ChildDBConstants;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.application.ChwApplication;
@@ -13,7 +15,6 @@ import org.smartregister.chw.domain.HomeVisit;
 import org.smartregister.chw.repository.ChwRepository;
 import org.smartregister.chw.util.BirthCertDataModel;
 import org.smartregister.chw.util.BirthIllnessFormModel;
-import com.opensrp.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.util.JsonFormUtils;
 import org.smartregister.chw.util.ObsIllnessDataModel;
 import org.smartregister.chw.util.ServiceTask;

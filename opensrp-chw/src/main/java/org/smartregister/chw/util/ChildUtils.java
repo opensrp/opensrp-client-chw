@@ -3,11 +3,8 @@ package org.smartregister.chw.util;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.os.Build;
-import android.text.Html;
 import android.text.Spannable;
 import android.text.SpannableString;
-import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 
@@ -24,6 +21,7 @@ import com.google.gson.reflect.TypeToken;
 import com.opensrp.chw.core.model.ChildVisit;
 import com.opensrp.chw.core.utils.ChildDBConstants;
 import com.opensrp.chw.core.utils.Constants;
+import com.opensrp.chw.core.utils.CoreChildUtils;
 
 import org.apache.commons.lang3.StringUtils;
 import org.jeasy.rules.api.Rules;
@@ -66,7 +64,7 @@ import static org.apache.commons.lang3.text.WordUtils.capitalize;
 import static org.smartregister.chw.util.JsonFormUtils.getValue;
 import static org.smartregister.chw.util.JsonFormUtils.tagSyncMetadata;
 
-public class ChildUtils {
+public class ChildUtils extends CoreChildUtils {
 
     private static final String[] firstSecondNumber = {"Zero", "1st", "2nd", "3rd", "4th", "5th", "6th", "7th", "8th", "9th"};
 
@@ -101,20 +99,7 @@ public class ChildUtils {
         return immunizationExpiredRule.getButtonStatus();
     }
 
-    public static Integer dobStringToYear(String yearOfBirthString) {
-        if (!TextUtils.isEmpty(yearOfBirthString)) {
-            try {
-                String year = yearOfBirthString.contains("y") ? yearOfBirthString.substring(0, yearOfBirthString.indexOf("y")) : "";
-                if (StringUtils.isNotBlank(year)) {
-                    return Integer.valueOf(year);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
 
-        return null;
-    }
 
     /**
      * Based on received vaccine list it'll return the fully immunized year.
@@ -171,18 +156,7 @@ public class ChildUtils {
 
     }
 
-    public static String mainSelectRegisterWithoutGroupby(String tableName, String familyTableName, String familyMemberTableName, String mainCondition) {
-        SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
-        queryBUilder.SelectInitiateMainTable(tableName, mainColumns(tableName, familyTableName, familyMemberTableName));
-        queryBUilder.customJoin("LEFT JOIN " + familyTableName + " ON  " + tableName + "." + DBConstants.KEY.RELATIONAL_ID + " = " + familyTableName + ".id COLLATE NOCASE ");
-        queryBUilder.customJoin("LEFT JOIN " + familyMemberTableName + " ON  " + familyMemberTableName + "." + DBConstants.KEY.BASE_ENTITY_ID + " = " + familyTableName + ".primary_caregiver COLLATE NOCASE ");
 
-        return queryBUilder.mainCondition(mainCondition);
-    }
-
-    public static String mainSelect(String tableName, String familyTableName, String familyMemberTableName, String mainCondition) {
-        return mainSelectRegisterWithoutGroupby(tableName, familyTableName, familyMemberTableName, tableName + "." + DBConstants.KEY.BASE_ENTITY_ID + " = '" + mainCondition + "'");
-    }
 
     public static String getChildListByFamilyId(String tableName, String familyId) {
         SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
@@ -235,9 +209,8 @@ public class ChildUtils {
         return childHomeVisit;
     }
 
-    private static String[] mainColumns(String tableName, String familyTable, String familyMemberTable) {
+    public static String[] mainColumns(String tableName, String familyTable, String familyMemberTable) {
         ArrayList<String> columnList = new ArrayList<>();
-
         columnList.add(tableName + "." + DBConstants.KEY.RELATIONAL_ID + " as " + ChildDBConstants.KEY.RELATIONAL_ID);
         columnList.add(tableName + "." + DBConstants.KEY.LAST_INTERACTED_WITH);
         columnList.add(tableName + "." + DBConstants.KEY.BASE_ENTITY_ID);
@@ -315,15 +288,6 @@ public class ChildUtils {
         childVisit.setLastVisitMonthName(homeAlertRule.visitMonthName);
         childVisit.setLastVisitTime(lastVisitDate);
         return childVisit;
-    }
-
-    @SuppressWarnings("deprecation")
-    public static Spanned fromHtml(String text) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            return Html.fromHtml(text, Html.FROM_HTML_MODE_LEGACY);
-        } else {
-            return Html.fromHtml(text);
-        }
     }
 
     //event type="Child Home Visit"/Visit not done
@@ -413,7 +377,7 @@ public class ChildUtils {
     }
 
     public static void updateTaskAsEvent(String eventType, String formSubmissionField, List<Object> values, List<Object> humenread,
-                                         String entityId, String choiceValue, String homeVisitId,String openMrsCode) {
+                                         String entityId, String choiceValue, String homeVisitId, String openMrsCode) {
         try {
             ECSyncHelper syncHelper = FamilyLibrary.getInstance().getEcSyncHelper();
             Event baseEvent = (Event) new Event()
@@ -455,12 +419,13 @@ public class ChildUtils {
         }
 
     }
-    public static void processClientProcessInBackground(){
+
+    public static void processClientProcessInBackground() {
         try {
-        long lastSyncTimeStamp = ChwApplication.getInstance().getContext().allSharedPreferences().fetchLastUpdatedAtDate(0);
-        Date lastSyncDate = new Date(lastSyncTimeStamp);
-        ChwApplication.getClientProcessor(ChwApplication.getInstance().getContext().applicationContext()).processClient(FamilyLibrary.getInstance().getEcSyncHelper().getEvents(lastSyncDate, BaseRepository.TYPE_Unprocessed));
-        ChwApplication.getInstance().getContext().allSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
+            long lastSyncTimeStamp = ChwApplication.getInstance().getContext().allSharedPreferences().fetchLastUpdatedAtDate(0);
+            Date lastSyncDate = new Date(lastSyncTimeStamp);
+            ChwApplication.getClientProcessor(ChwApplication.getInstance().getContext().applicationContext()).processClient(FamilyLibrary.getInstance().getEcSyncHelper().getEvents(lastSyncDate, BaseRepository.TYPE_Unprocessed));
+            ChwApplication.getInstance().getContext().allSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
         } catch (Exception e) {
             Timber.e(e);
         }
@@ -495,7 +460,7 @@ public class ChildUtils {
             spannableString.setSpan(new ForegroundColorSpan(ChwApplication.getInstance().getContext().getColorResource(R.color.grey)), 0, str.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             return spannableString;
         } else {
-            String str = context.getResources().getString(R.string.overdue) + "" +  DD_MM_YYYY.format(date);
+            String str = context.getResources().getString(R.string.overdue) + "" + DD_MM_YYYY.format(date);
             spannableString = new SpannableString(str);
             spannableString.setSpan(new ForegroundColorSpan(ChwApplication.getInstance().getContext().getColorResource(R.color.alert_urgent_red)), 0, str.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             return spannableString;
@@ -664,15 +629,17 @@ public class ChildUtils {
         return serviceTask;
     }
 
-    private static boolean isComplete(Context context, String value1, String value2){
+    private static boolean isComplete(Context context, String value1, String value2) {
         String yesVale = context.getString(R.string.yes);
         String noValue = context.getString(R.string.no);
         return value1.equalsIgnoreCase(noValue) && value2.equalsIgnoreCase(yesVale);
     }
-    public static String[] splitStringByNewline(String strWithNewline){
+
+    public static String[] splitStringByNewline(String strWithNewline) {
         return strWithNewline.split("\n");
     }
-    public static String getDurationFromTwoDate(Date dob, Date homeVisitServiceDate){
+
+    public static String getDurationFromTwoDate(Date dob, Date homeVisitServiceDate) {
 
         long timeDiff = Math.abs(homeVisitServiceDate.getTime() - dob.getTime());
         return DateUtil.getDuration(timeDiff);

@@ -93,7 +93,7 @@ public class NavigationInteractor implements NavigationContract.Interactor {
     private int getCount(String tableName) {
 
         int count;
-        Cursor c = null;
+        Cursor cursor = null;
         String mainCondition;
         if (tableName.equalsIgnoreCase(Constants.TABLE_NAME.CHILD)) {
             mainCondition = String.format(" where %s is null AND %s", DBConstants.KEY.DATE_REMOVED, ChildDBConstants.childAgeLimitFilter());
@@ -120,22 +120,20 @@ public class NavigationInteractor implements NavigationContract.Interactor {
         } else {
             mainCondition = " where 1 = 1 ";
         }
+
         try {
 
             SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder();
             String query = MessageFormat.format("select count(*) from {0} {1}", tableName, mainCondition);
             query = sqb.Endquery(query);
             Timber.i("2%s", query);
-            c = commonRepository(tableName).rawCustomQueryForAdapter(query);
-            if (c != null && c.moveToFirst()) {
-                count = c.getInt(0);
-            } else {
-                count = 0;
-            }
+
+            cursor = commonRepository(tableName).rawCustomQueryForAdapter(query);
+            count = cursor != null && cursor.moveToFirst() ? cursor.getInt(0) : 0;
 
         } finally {
-            if (c != null) {
-                c.close();
+            if (cursor != null) {
+                cursor.close();
             }
         }
 

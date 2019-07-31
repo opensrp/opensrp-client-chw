@@ -3,6 +3,8 @@ package org.smartregister.chw.interactor;
 import android.content.Context;
 import android.text.TextUtils;
 
+import com.opensrp.chw.core.utils.Constants;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -11,7 +13,6 @@ import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.domain.HomeVisit;
 import org.smartregister.chw.util.BirthCertDataModel;
 import org.smartregister.chw.util.ChildUtils;
-import com.opensrp.chw.core.utils.Constants;
 import org.smartregister.chw.util.HomeVisitServiceDataModel;
 import org.smartregister.chw.util.ObsIllnessDataModel;
 import org.smartregister.chw.util.ServiceTask;
@@ -22,14 +23,14 @@ import org.smartregister.family.util.DBConstants;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.opensrp.chw.core.utils.Utils.DD_MM_YYYY;
-import static com.opensrp.chw.core.utils.Utils.convertToDateFormateString;
 import static com.opensrp.chw.core.utils.ChildDBConstants.KEY.BIRTH_CERT;
 import static com.opensrp.chw.core.utils.ChildDBConstants.KEY.BIRTH_CERT_ISSUE_DATE;
 import static com.opensrp.chw.core.utils.ChildDBConstants.KEY.BIRTH_CERT_NUMBER;
 import static com.opensrp.chw.core.utils.ChildDBConstants.KEY.ILLNESS_ACTION;
 import static com.opensrp.chw.core.utils.ChildDBConstants.KEY.ILLNESS_DATE;
 import static com.opensrp.chw.core.utils.ChildDBConstants.KEY.ILLNESS_DESCRIPTION;
+import static com.opensrp.chw.core.utils.Utils.DD_MM_YYYY;
+import static com.opensrp.chw.core.utils.Utils.convertToDateFormateString;
 
 public abstract class DefaultChildHomeVisitInteractorFlv implements ChildHomeVisitInteractor.Flavor {
     @Override

@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
 
-
 import com.opensrp.chw.core.R;
 
 import timber.log.Timber;

@@ -4,8 +4,6 @@
     <string name="logo">logo</string>
 
     <string name="title_family_detail">Family Detail</string>
-    <string name="child_register_title">Child Clients</string>
-    <string name="return_to_all_children">Return to all children</string>
     <string name="back_to_children">Back to %1$s</string>
     <string name="child_details">Child details %1$s</string>
     <string name="not_given">Not given</string>
@@ -37,7 +35,6 @@
     <string name="change_caregiver_member_title_question">Select a new primary caregiver</string>
     <string name="remove_member_title">Remove member</string>
     <string name="remove_member_prompt">Which member do you want to remove?</string>
-    <string name="visit_month">%1$s visit done</string>
     <string name="not_visiting_this_month">Not visiting this month</string>
     <string name="undo">UNDO</string>
 
@@ -128,7 +125,6 @@
     <string name="anc_pregnancy_outcome_form_title">Pregnancy Outcome</string>
 
     <string name="last_visit">LAST VISIT</string>
-    <string name="edit_child_form_title">Edit Child Under 5</string>
     <string name="birth_cert_value">Does the child have a birth certificate? %s</string>
     <string name="birth_cert_date">Birth certificate issuance date: %s</string>
     <string name="birth_cert_number">Birth certificate number: %s</string>
@@ -154,10 +150,6 @@
     <string name="highest_education_level">Highest education level</string>
     <string name="overdue">Overdue&#160;</string>
     <string name="due">Due&#160;</string>
-    <string name="remove_this_person">Remove this person</string>
-    <string name="registration_info">Registration info</string>
-    <string name="anc_registration">ANC Registration</string>
-    <string name="malaria_registration">Malaria Confirmation</string>
     <string name="anc_registration_info">ANC Registration info</string>
     <string name="anc_pregnancy_out_come">Pregnancy outcome</string>
 
@@ -197,10 +189,6 @@
     <string name="menu_malaria">Malaria</string>
     <string name="refer_to_facility">Refer to facility</string>
 
-    <string name="due_only">Due only</string>
-    <string name="care_giver_initials">CG</string>
-    <string name="less_than_twenty_four">less than 24 hrs</string>
-
     <string name="january">January</string>
     <string name="february">February</string>
     <string name="march">March</string>
@@ -215,11 +203,6 @@
     <string name="december">December</string>
     <string name="no_services_due">No services are due</string>
     <string name="due_details">When a service becomes due for a family member, it will show up here.</string>
-
-    <string name="edu_level_none">None</string>
-    <string name="edu_level_primary">Primary</string>
-    <string name="edu_level_secondary">Secondary</string>
-    <string name="edu_level_post_secondary">Post-secondary</string>
 
     <string name="counseled">Counseled : </string>
     <string name="not_counseled">Not counseled : </string>
@@ -265,19 +248,6 @@
     <string name="net_condition">Net Condition</string>
     <string name="remarks_and__comments">Remarks / Comments</string>
     <string name="date_given">Given on</string>
-
-    <string name="minimum_dietary_title">Minimum dietary diversity </string>
-    <string name="minimum_question_lebel">Has the child received, in the previous 24 hours, any animal products (e.g. eggs, liver, milk) or fruit?</string>
-    <string name="minimum_dietary_choice_1">0 - no animal products or fruit</string>
-    <string name="minimum_dietary_choice_2">1 - one animal product OR one fruit</string>
-    <string name="minimum_dietary_choice_3">2 - one animal product AND one fruit</string>
-    <string name="muac_title">Mid-upper arm circumference (MUAC)</string>
-    <string name="muac_question_label">What is the color of the MUAC tape for the child?</string>
-    <string name="muac_choice_1">Green</string>
-    <string name="muac_choice_2">Yellow</string>
-    <string name="muac_choice_3">Red</string>
-    <string name="llitn_title">Sleeping under a LLITN</string>
-    <string name="ecd_title">Early childhood development (ECD)</string>
 
     <string name="counseling_visit">Visit</string>
 

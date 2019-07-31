@@ -4,7 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.smartregister.chw.BaseUnitTest;
 
-import static com.opensrp.chw.core.utils.Utils.*;
+import static com.opensrp.chw.core.utils.Utils.firstCharacterUppercase;
 
 public class UtilsTest extends BaseUnitTest {
 

@@ -79,5 +79,54 @@
     <string name="add_member_title_question">What kind of family member do you want to add?</string>
     <string name="add_other_family_member">Other family member</string>
     <string name="add_child_under_five">Child under 5 years</string>
+    <string name="return_to_all_children">Return to all children</string>
+
+    <string name="january">January</string>
+    <string name="february">February</string>
+    <string name="march">March</string>
+    <string name="april">April</string>
+    <string name="may">May</string>
+    <string name="june">June</string>
+    <string name="july">July</string>
+    <string name="august">August</string>
+    <string name="september">September</string>
+    <string name="october">October</string>
+    <string name="november">November</string>
+    <string name="december">December</string>
+    <string name="no_services_due">No services are due</string>
+    <string name="due_details">When a service becomes due for a family member, it will show up here.</string>
+
+    <string name="due_only">Due only</string>
+    <string name="care_giver_initials">CG</string>
+    <string name="less_than_twenty_four">less than 24 hrs</string>
+    <string name="child_register_title">Child Clients</string>
+
+    <color name="chw_primary">#218CC5</color>
+    <color name="chw_primary_dark">#0d384e</color>
+
+
+    <string name="minimum_dietary_title">Minimum dietary diversity </string>
+    <string name="minimum_question_lebel">Has the child received, in the previous 24 hours, any animal products (e.g. eggs, liver, milk) or fruit?</string>
+    <string name="minimum_dietary_choice_1">0 - no animal products or fruit</string>
+    <string name="minimum_dietary_choice_2">1 - one animal product OR one fruit</string>
+    <string name="minimum_dietary_choice_3">2 - one animal product AND one fruit</string>
+    <string name="muac_title">Mid-upper arm circumference (MUAC)</string>
+    <string name="muac_question_label">What is the color of the MUAC tape for the child?</string>
+    <string name="muac_choice_1">Green</string>
+    <string name="muac_choice_2">Yellow</string>
+    <string name="muac_choice_3">Red</string>
+    <string name="llitn_title">Sleeping under a LLITN</string>
+    <string name="ecd_title">Early childhood development (ECD)</string>
+
+    <string name="edu_level_none">None</string>
+    <string name="edu_level_primary">Primary</string>
+    <string name="edu_level_secondary">Secondary</string>
+    <string name="edu_level_post_secondary">Post-secondary</string>
+    <string name="remove_this_person">Remove this person</string>
+    <string name="registration_info">Registration info</string>
+    <string name="anc_registration">ANC Registration</string>
+    <string name="malaria_registration">Malaria Confirmation</string>
+    <string name="edit_child_form_title">Edit Child Under 5</string>
+    <string name="visit_month">%1$s visit done</string>
 
 </resources>

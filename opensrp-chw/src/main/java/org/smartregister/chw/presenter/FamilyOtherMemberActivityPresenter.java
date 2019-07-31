@@ -1,9 +1,10 @@
 package org.smartregister.chw.presenter;
 
 
+import com.opensrp.chw.core.contract.FamilyProfileExtendedContract;
+
 import org.apache.commons.lang3.tuple.Triple;
 import org.smartregister.chw.contract.FamilyOtherMemberProfileExtendedContract;
-import com.opensrp.chw.core.contract.FamilyProfileExtendedContract;
 import org.smartregister.chw.interactor.FamilyInteractor;
 import org.smartregister.chw.interactor.FamilyProfileInteractor;
 import org.smartregister.chw.model.FamilyProfileModel;

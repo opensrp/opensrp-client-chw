@@ -3,7 +3,7 @@ package com.opensrp.chw.hf.repository;
 import android.content.Context;
 
 import com.opensrp.chw.core.repository.CoreRepository;
-import com.opensrp.chw.hf.HealthFacilityApp;
+import com.opensrp.chw.hf.HealthFacilityApplication;
 import com.opensrp.hf.BuildConfig;
 
 import net.sqlcipher.database.SQLiteDatabase;
@@ -15,7 +15,7 @@ import timber.log.Timber;
 
 public class HfRepository extends CoreRepository {
     public HfRepository(Context context, org.smartregister.Context openSRPContext) {
-        super(context, AllConstants.DATABASE_NAME, BuildConfig.DATABASE_VERSION, openSRPContext.session(), HealthFacilityApp.createCommonFtsObject(), openSRPContext.sharedRepositoriesArray());
+        super(context, AllConstants.DATABASE_NAME, BuildConfig.DATABASE_VERSION, openSRPContext.session(), HealthFacilityApplication.createCommonFtsObject(), openSRPContext.sharedRepositoriesArray());
     }
 
     @Override
@@ -27,7 +27,7 @@ public class HfRepository extends CoreRepository {
 
     @Override
     public SQLiteDatabase getReadableDatabase() {
-        String pass = HealthFacilityApp.getInstance().getPassword();
+        String pass = HealthFacilityApplication.getInstance().getPassword();
         if (StringUtils.isNotBlank(pass)) {
             return getReadableDatabase(pass);
         } else {
@@ -37,7 +37,7 @@ public class HfRepository extends CoreRepository {
 
     @Override
     public SQLiteDatabase getWritableDatabase() {
-        String pass = HealthFacilityApp.getInstance().getPassword();
+        String pass = HealthFacilityApplication.getInstance().getPassword();
         if (StringUtils.isNotBlank(pass)) {
             return getWritableDatabase(pass);
         } else {

@@ -3,9 +3,10 @@ package com.opensrp.chw.core.service;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.opensrp.chw.core.utils.Constants;
+
 import org.smartregister.AllConstants;
 import org.smartregister.CoreLibrary;
-import com.opensrp.chw.core.utils.Constants;
 import org.smartregister.domain.jsonmapping.Location;
 import org.smartregister.domain.jsonmapping.util.LocationTree;
 import org.smartregister.domain.jsonmapping.util.TreeNode;

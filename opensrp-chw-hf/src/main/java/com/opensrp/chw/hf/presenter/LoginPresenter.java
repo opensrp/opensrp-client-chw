@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
-import com.opensrp.chw.hf.HealthFacilityApp;
+import com.opensrp.chw.hf.HealthFacilityApplication;
 import com.opensrp.chw.hf.interactor.LoginInteractor;
 import com.opensrp.hf.R;
 
@@ -36,7 +36,7 @@ public class LoginPresenter extends BaseLoginPresenter implements BaseLoginContr
                 return;
             }
 
-            ViewConfiguration loginView = HealthFacilityApp.getJsonSpecHelper().getConfigurableView(jsonString);
+            ViewConfiguration loginView = HealthFacilityApplication.getJsonSpecHelper().getConfigurableView(jsonString);
             LoginConfiguration metadata = (LoginConfiguration) loginView.getMetadata();
             LoginConfiguration.Background background = metadata.getBackground();
 

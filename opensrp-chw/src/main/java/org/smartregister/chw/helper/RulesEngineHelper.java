@@ -106,10 +106,10 @@ public class RulesEngineHelper {
         return alertRule.getButtonStatus();
     }
 
-    public List<Integer> getContactVisitSchedule(ContactRule contactRule, String rulesFile) {
+    public List<Integer> getContactVisitSchedule(ContactRule coreContactRule, String rulesFile) {
 
         Facts facts = new Facts();
-        facts.put(ContactRule.RULE_KEY, contactRule);
+        facts.put(ContactRule.RULE_KEY, coreContactRule);
 
         Rules rules = getRulesFromAsset(RULE_FOLDER_PATH + rulesFile);
         if (rules == null) {
@@ -118,7 +118,7 @@ public class RulesEngineHelper {
 
         processInferentialRules(rules, facts);
 
-        Set<Integer> contactList = contactRule.set;
+        Set<Integer> contactList = coreContactRule.set;
         List<Integer> list = new ArrayList<>(contactList);
         Collections.sort(list);
 

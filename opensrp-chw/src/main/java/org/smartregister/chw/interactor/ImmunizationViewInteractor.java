@@ -3,6 +3,7 @@ package org.smartregister.chw.interactor;
 import android.text.TextUtils;
 
 import com.google.gson.reflect.TypeToken;
+import com.opensrp.chw.core.utils.ChildDBConstants;
 
 import org.joda.time.DateTime;
 import org.json.JSONArray;
@@ -13,7 +14,6 @@ import org.smartregister.chw.contract.ImmunizationContact;
 import org.smartregister.chw.domain.HomeVisit;
 import org.smartregister.chw.model.ImmunizationModel;
 import org.smartregister.chw.model.VaccineTaskModel;
-import com.opensrp.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.util.ChildUtils;
 import org.smartregister.chw.util.ChwServiceSchedule;
 import org.smartregister.chw.util.HomeVisitVaccineGroup;

@@ -3,19 +3,20 @@ package org.smartregister.chw.presenter;
 import android.content.Context;
 import android.util.Pair;
 
+import com.opensrp.chw.core.contract.CoreChildRegisterContract;
+import com.opensrp.chw.core.contract.FamilyProfileExtendedContract;
+import com.opensrp.chw.core.interactor.CoreChildRegisterInteractor;
+import com.opensrp.chw.core.model.CoreChildProfileModel;
+import com.opensrp.chw.core.utils.Constants;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
-import com.opensrp.chw.core.contract.ChildRegisterContract;
-import com.opensrp.chw.core.contract.FamilyProfileExtendedContract;
 import org.smartregister.chw.domain.FamilyMember;
-import org.smartregister.chw.interactor.ChildRegisterInteractor;
 import org.smartregister.chw.interactor.FamilyChangeContractInteractor;
 import org.smartregister.chw.interactor.FamilyProfileInteractor;
-import org.smartregister.chw.model.ChildProfileModel;
 import org.smartregister.chw.model.ChildRegisterModel;
-import com.opensrp.chw.core.utils.Constants;
 import org.smartregister.chw.util.JsonFormUtils;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.clientandeventmodel.Client;
@@ -31,19 +32,19 @@ import java.lang.ref.WeakReference;
 
 import timber.log.Timber;
 
-public class FamilyProfilePresenter extends BaseFamilyProfilePresenter implements FamilyProfileExtendedContract.Presenter, ChildRegisterContract.InteractorCallBack , FamilyProfileExtendedContract.PresenterCallBack {
+public class FamilyProfilePresenter extends BaseFamilyProfilePresenter implements FamilyProfileExtendedContract.Presenter, CoreChildRegisterContract.InteractorCallBack , FamilyProfileExtendedContract.PresenterCallBack {
     private static final String TAG = FamilyProfilePresenter.class.getCanonicalName();
 
     private WeakReference<FamilyProfileExtendedContract.View> viewReference;
-    private ChildRegisterInteractor childRegisterInteractor;
-    private ChildProfileModel childProfileModel;
+    private CoreChildRegisterInteractor childRegisterInteractor;
+    private CoreChildProfileModel childProfileModel;
 
 
     public FamilyProfilePresenter(FamilyProfileExtendedContract.View view, FamilyProfileContract.Model model, String familyBaseEntityId, String familyHead, String primaryCaregiver, String familyName) {
         super(view, model, familyBaseEntityId, familyHead, primaryCaregiver, familyName);
         viewReference = new WeakReference<>(view);
-        childRegisterInteractor = new ChildRegisterInteractor();
-        childProfileModel = new ChildProfileModel(familyName);
+        childRegisterInteractor = new CoreChildRegisterInteractor();
+        childProfileModel = new CoreChildProfileModel(familyName);
         interactor = new FamilyProfileInteractor();
         verifyHasPhone();
     }
@@ -84,7 +85,7 @@ public class FamilyProfilePresenter extends BaseFamilyProfilePresenter implement
     }
 
     @Override
-    public void saveChildRegistration(Pair<Client, Event> pair, String jsonString, boolean isEditMode, ChildRegisterContract.InteractorCallBack callBack) {
+    public void saveChildRegistration(Pair<Client, Event> pair, String jsonString, boolean isEditMode, CoreChildRegisterContract.InteractorCallBack callBack) {
         childRegisterInteractor.saveRegistration(pair, jsonString, isEditMode, this);
     }
 

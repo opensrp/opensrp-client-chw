@@ -3,6 +3,8 @@ package org.smartregister.chw.interactor;
 import android.content.Context;
 import android.content.res.AssetManager;
 
+import com.opensrp.chw.core.utils.Constants;
+
 import org.apache.commons.io.IOUtils;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,7 +21,6 @@ import org.powermock.reflect.Whitebox;
 import org.smartregister.chw.activity.FamilyProfileActivity;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.presenter.FamilyProfilePresenter;
-import com.opensrp.chw.core.utils.Constants;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.family.activity.FamilyWizardFormActivity;

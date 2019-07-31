@@ -1,10 +1,10 @@
 package org.smartregister.chw.model;
 
-import org.junit.Test;
-import org.smartregister.chw.R;
-
 import com.opensrp.chw.core.model.NavigationOption;
 import com.opensrp.chw.core.utils.Constants;
+
+import org.junit.Test;
+import org.smartregister.chw.R;
 
 import static org.junit.Assert.assertEquals;
 

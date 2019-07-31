@@ -15,17 +15,16 @@ import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import org.apache.commons.lang3.StringUtils;
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
-
 import com.opensrp.chw.core.R;
 import com.opensrp.chw.core.contract.FamilyCallDialogContract;
 import com.opensrp.chw.core.event.PermissionEvent;
 import com.opensrp.chw.core.listener.CallWidgetDialogListener;
 import com.opensrp.chw.core.presenter.FamilyCallDialogPresenter;
 
+import org.apache.commons.lang3.StringUtils;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.smartregister.util.PermissionUtils;
 
 
