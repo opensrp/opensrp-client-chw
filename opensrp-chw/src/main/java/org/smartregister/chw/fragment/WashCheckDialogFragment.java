@@ -78,7 +78,9 @@ public class WashCheckDialogFragment extends DialogFragment implements View.OnCl
         parseData();
     }
     private void parseData(){
-        String handwashingValue = "",drinkingValue = "",latrineValue = "";
+        String handwashingValue = "";
+        String drinkingValue = "";
+        String latrineValue = "";
 
         try{
             JSONObject jsonObject = new JSONObject(jsonData);

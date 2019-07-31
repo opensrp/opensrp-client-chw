@@ -1,6 +1,8 @@
 package org.smartregister.chw.util;
 
-public class WashCheckFlv implements FlavorWashCheck {
+import org.smartregister.chw.fragment.FamilyProfileDueFragment;
+
+public class WashCheckFlv implements FamilyProfileDueFragment.Flavor {
     @Override
     public boolean isWashCheckVisible() {
         return false;
