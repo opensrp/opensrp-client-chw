@@ -309,15 +309,16 @@ dependencies {
     testImplementation "org.powermock:powermock-classloading-xstream:$powerMockVersion"
 }
 
+def flavors = android.productFlavors.collect { flavor -> flavor.name }
+if (!flavors) flavors.add('')
 
-task jacocoTestReport(type: JacocoReport, dependsOn: [
-        'testBaDebugUnitTest', 'createBaDebugCoverageReport',
-        'testWcaroDebugUnitTest', 'createWcaroDebugCoverageReport',
-        /*'testTogoDebugUnitTest', 'createTogoDebugCoverageReport',
-        'testGuineaDebugUnitTest', 'createGuineaDebugCoverageReport',
-        'testChadDebugUnitTest', 'createChadDebugCoverageReport',
-        'testDrcDebugUnitTest', 'createDrcDebugCoverageReport'*/
-]) {
+def testDependencies = []
+flavors.each { productFlavorName ->
+    testDependencies.add("test${productFlavorName.capitalize()}DebugUnitTest")
+    testDependencies.add("create${productFlavorName.capitalize()}DebugCoverageReport")
+}
+
+task jacocoTestReport(type: JacocoReport, dependsOn: testDependencies) {
 
     reports {
         xml.enabled = true
