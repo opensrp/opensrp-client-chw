@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.design.bottomnavigation.LabelVisibilityMode;
 import android.support.v4.app.Fragment;
 
+import com.opensrp.chw.core.custom_views.NavigationMenu;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
 
@@ -13,7 +14,6 @@ import org.smartregister.AllConstants;
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import com.opensrp.chw.core.contract.ChildRegisterContract;
-import com.opensrp.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.fragment.ChildRegisterFragment;
 import org.smartregister.chw.listener.ChwBottomNavigationListener;
 import org.smartregister.chw.model.ChildRegisterModel;

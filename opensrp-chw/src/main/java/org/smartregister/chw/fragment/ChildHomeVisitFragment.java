@@ -25,6 +25,8 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.opensrp.chw.core.utils.ChildDBConstants;
+import com.opensrp.chw.core.utils.Constants;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
 
@@ -43,9 +45,7 @@ import org.smartregister.chw.listener.OnUpdateServiceTask;
 import org.smartregister.chw.presenter.ChildHomeVisitPresenter;
 import org.smartregister.chw.rule.BirthCertRule;
 import org.smartregister.chw.util.BirthCertDataModel;
-import com.opensrp.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.util.ChildUtils;
-import com.opensrp.chw.core.utils.Constants;
 import org.smartregister.chw.util.JsonFormUtils;
 import org.smartregister.chw.util.ObsIllnessDataModel;
 import org.smartregister.chw.util.ServiceTask;
@@ -72,9 +72,9 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
-import static com.opensrp.chw.core.utils.Utils.DD_MM_YYYY;
 import static com.opensrp.chw.core.utils.ChildDBConstants.KEY.BIRTH_CERT;
 import static com.opensrp.chw.core.utils.ChildDBConstants.KEY.VACCINE_CARD;
+import static com.opensrp.chw.core.utils.Utils.DD_MM_YYYY;
 import static org.smartregister.family.util.Utils.metadata;
 import static org.smartregister.util.Utils.dobStringToDate;
 import static org.smartregister.util.Utils.getDuration;

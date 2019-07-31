@@ -11,15 +11,16 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.opensrp.chw.core.model.ChildVisit;
+import com.opensrp.chw.core.utils.ChildDBConstants;
+import com.opensrp.chw.core.utils.Constants;
+
 import org.apache.commons.lang3.text.WordUtils;
 import org.jeasy.rules.api.Rules;
 import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.interactor.ChildProfileInteractor;
-import com.opensrp.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.util.ChildUtils;
-import com.opensrp.chw.core.model.ChildVisit;
-import com.opensrp.chw.core.utils.Constants;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;

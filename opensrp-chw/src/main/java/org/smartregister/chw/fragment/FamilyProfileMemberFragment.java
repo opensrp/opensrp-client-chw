@@ -4,13 +4,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.opensrp.chw.core.utils.ChildDBConstants;
+
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.AboveFiveChildProfileActivity;
 import org.smartregister.chw.activity.ChildProfileActivity;
 import org.smartregister.chw.activity.FamilyOtherMemberProfileActivity;
 import org.smartregister.chw.model.FamilyProfileMemberModel;
 import org.smartregister.chw.provider.ChwMemberRegisterProvider;
-import com.opensrp.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.util.ChildUtils;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
@@ -25,12 +26,11 @@ import java.util.Set;
 
 import timber.log.Timber;
 
-import static com.opensrp.chw.core.utils.Constants.*;
+import static com.opensrp.chw.core.utils.Constants.INTENT_KEY;
 import static com.opensrp.chw.core.utils.Constants.INTENT_KEY.IS_COMES_FROM_FAMILY;
+import static com.opensrp.chw.core.utils.Constants.TABLE_NAME;
 
 public class FamilyProfileMemberFragment extends BaseFamilyProfileMemberFragment {
-
-    private static final String TAG = FamilyProfileMemberFragment.class.getCanonicalName();
 
     public static BaseFamilyProfileMemberFragment newInstance(Bundle bundle) {
         Bundle args = bundle;

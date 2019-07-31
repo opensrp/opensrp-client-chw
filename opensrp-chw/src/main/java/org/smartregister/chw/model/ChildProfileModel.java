@@ -1,8 +1,9 @@
 package org.smartregister.chw.model;
 
+import com.opensrp.chw.core.utils.Constants;
+
 import org.json.JSONObject;
 import org.smartregister.chw.contract.ChildProfileContract;
-import com.opensrp.chw.core.utils.Constants;
 import org.smartregister.chw.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
 import org.smartregister.util.FormUtils;

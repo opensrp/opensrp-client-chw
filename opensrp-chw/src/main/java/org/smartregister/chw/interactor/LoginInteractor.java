@@ -1,9 +1,10 @@
 package org.smartregister.chw.interactor;
 
-import org.smartregister.chw.BuildConfig;
-import org.smartregister.chw.job.ChwIndicatorGeneratingJob;
 import com.opensrp.chw.core.job.HomeVisitServiceJob;
 import com.opensrp.chw.core.job.VaccineRecurringServiceJob;
+
+import org.smartregister.chw.BuildConfig;
+import org.smartregister.chw.job.ChwIndicatorGeneratingJob;
 import org.smartregister.job.ImageUploadServiceJob;
 import org.smartregister.job.PullUniqueIdsServiceJob;
 import org.smartregister.job.SyncServiceJob;
@@ -40,5 +41,6 @@ public class LoginInteractor extends BaseLoginInteractor implements BaseLoginCon
         super.scheduleJobsImmediately();
         // Run initial job immediately on log in since the job will run a bit later (~ 15 mins +)
         ChwIndicatorGeneratingJob.scheduleJobImmediately(ChwIndicatorGeneratingJob.TAG);
+        HomeVisitServiceJob.scheduleJobImmediately(HomeVisitServiceJob.TAG);
     }
 }

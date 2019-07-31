@@ -100,7 +100,7 @@
         "hint": "Surname",
         "edit_type": "name",
         "v_regex": {
-          "value": "[A-Za-z\\s\\.\\-]*",
+          "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-]*",
           "err": "Please enter a valid name"
         },
         "v_required": {
@@ -171,7 +171,7 @@
           "err": "Please enter the first name"
         },
         "v_regex": {
-          "value": "[A-Za-z\\s\\.\\-]*",
+          "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-]*",
           "err": "Please enter a valid name"
         }
       },
@@ -184,7 +184,7 @@
         "hint": "Middle name",
         "edit_type": "name",
         "v_regex": {
-          "value": "[A-Za-z\\s\\.\\-]*",
+          "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-]*",
           "err": "Please enter a valid name"
         }
       },
@@ -346,15 +346,17 @@
         "hint": "Highest education level",
         "values": [
           "None",
+          "Literacy",
           "Primary",
           "Secondary",
-          "Post-secondary"
+          "University"
         ],
         "openmrs_choice_ids": {
           "None": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Literacy":"",
           "Primary": "1713AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "Secondary": "1714AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Post-secondary": "159785AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          "University": "159785AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         "relevance": {
           "step1:primary_caregiver": {

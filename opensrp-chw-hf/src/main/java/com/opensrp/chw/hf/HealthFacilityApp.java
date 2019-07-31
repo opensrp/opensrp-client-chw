@@ -27,6 +27,7 @@ import org.smartregister.AllConstants;
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
 import org.smartregister.P2POptions;
+import org.smartregister.chw.pnc.activity.BasePncRegisterActivity;
 import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
 import org.smartregister.configurableviews.helper.JsonSpecHelper;
@@ -167,6 +168,7 @@ public class HealthFacilityApp extends DrishtiApplication implements CoreApplica
         registeredActivities.put(Constants.REGISTERED_ACTIVITIES.ANC_REGISTER_ACTIVITY, FamilyRegisterActivity.class);
         registeredActivities.put(Constants.REGISTERED_ACTIVITIES.FAMILY_REGISTER_ACTIVITY, FamilyRegisterActivity.class);
         registeredActivities.put(Constants.REGISTERED_ACTIVITIES.CHILD_REGISTER_ACTIVITY, FamilyRegisterActivity.class);
+        registeredActivities.put(Constants.REGISTERED_ACTIVITIES.PNC_REGISTER_ACTIVITY, FamilyRegisterActivity.class);
         return registeredActivities;
     }
 

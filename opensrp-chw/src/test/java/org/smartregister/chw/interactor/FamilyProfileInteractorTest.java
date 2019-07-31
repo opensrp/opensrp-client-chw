@@ -3,6 +3,8 @@ package org.smartregister.chw.interactor;
 import android.content.Context;
 import android.content.res.AssetManager;
 
+import com.opensrp.chw.core.utils.Constants;
+
 import org.apache.commons.io.IOUtils;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,7 +21,6 @@ import org.powermock.reflect.Whitebox;
 import org.smartregister.chw.activity.FamilyProfileActivity;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.presenter.FamilyProfilePresenter;
-import com.opensrp.chw.core.utils.Constants;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.family.activity.FamilyWizardFormActivity;
@@ -34,7 +35,7 @@ import java.util.Locale;
 import java.util.concurrent.Executor;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({Utils.class, ChwApplication.class})
+@PrepareForTest({Utils.class, ChwApplication.class, Constants.class})
 public class FamilyProfileInteractorTest {
 
     private FamilyProfileInteractor interactor;
@@ -65,6 +66,10 @@ public class FamilyProfileInteractorTest {
         PowerMockito.when(ChwApplication.getCurrentLocale()).thenReturn(new Locale("fr", "FR"));
         PowerMockito.when(chwApplication.getApplicationContext()).thenReturn(context);
         PowerMockito.when(context.getAssets()).thenReturn(assetManager);
+
+        //Set asset manager and locale for JSON_FORM class
+        Whitebox.setInternalState( Constants.JSON_FORM.class, "assetManager", assetManager );
+        Whitebox.setInternalState( Constants.JSON_FORM.class, "locale", new Locale("fr", "FR") );
 
         String sampleJson = " " +
                 "{ " +

@@ -5,10 +5,11 @@ import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 import android.view.View;
 
+import com.opensrp.chw.core.utils.Constants;
+
 import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.fragment.IndividualProfileRemoveFragment;
-import com.opensrp.chw.core.utils.Constants;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.view.activity.SecuredActivity;
 

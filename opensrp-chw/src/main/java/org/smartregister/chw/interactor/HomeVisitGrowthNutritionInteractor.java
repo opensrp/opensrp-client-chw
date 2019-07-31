@@ -4,6 +4,7 @@ import android.support.annotation.VisibleForTesting;
 import android.text.TextUtils;
 
 import com.google.gson.reflect.TypeToken;
+import com.opensrp.chw.core.utils.ChildDBConstants;
 
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.contract.HomeVisitGrowthNutritionContract;
@@ -12,7 +13,6 @@ import org.smartregister.chw.fragment.GrowthNutritionInputFragment;
 import org.smartregister.chw.listener.UpdateServiceListener;
 import org.smartregister.chw.model.ServiceTaskModel;
 import org.smartregister.chw.task.UpdateServiceTask;
-import com.opensrp.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.util.ChildUtils;
 import org.smartregister.chw.util.GrowthServiceData;
 import org.smartregister.commonregistry.CommonPersonObjectClient;

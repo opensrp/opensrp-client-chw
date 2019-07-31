@@ -1,10 +1,11 @@
 package org.smartregister.chw.model;
 
+import com.opensrp.chw.core.utils.ConfigHelper;
+
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.smartregister.chw.contract.ChildRegisterFragmentContract;
 import org.smartregister.chw.util.ChildUtils;
-import com.opensrp.chw.core.utils.ConfigHelper;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
 import org.smartregister.configurableviews.model.Field;
 import org.smartregister.configurableviews.model.RegisterConfiguration;

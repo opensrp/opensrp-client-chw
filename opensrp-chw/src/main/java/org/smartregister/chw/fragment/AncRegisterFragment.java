@@ -9,6 +9,10 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.opensrp.chw.core.custom_views.NavigationMenu;
+import com.opensrp.chw.core.utils.Constants;
+import com.opensrp.chw.core.utils.QueryBuilder;
+
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.AncHomeVisitActivity;
@@ -17,12 +21,9 @@ import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.fragment.BaseAncRegisterFragment;
 import org.smartregister.chw.anc.util.DBConstants;
 import org.smartregister.chw.application.ChwApplication;
-import com.opensrp.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.model.AncRegisterFragmentModel;
 import org.smartregister.chw.presenter.AncRegisterFragmentPresenter;
 import org.smartregister.chw.provider.ChwAncRegisterProvider;
-import com.opensrp.chw.core.utils.Constants;
-import com.opensrp.chw.core.utils.QueryBuilder;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
@@ -90,8 +91,8 @@ public class AncRegisterFragment extends BaseAncRegisterFragment {
         dueOnlyLayout.setOnClickListener(registerActionHandler);
 
         if (getSearchView() != null) {
-            getSearchView().setBackgroundResource(org.smartregister.family.R.color.white);
-            getSearchView().setCompoundDrawablesWithIntrinsicBounds(org.smartregister.family.R.drawable.ic_action_search, 0, 0, 0);
+            getSearchView().setBackgroundResource(R.color.white);
+            getSearchView().setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_action_search, 0, 0, 0);
             getSearchView().setTextColor(getResources().getColor(R.color.text_black));
         }
 
@@ -100,8 +101,8 @@ public class AncRegisterFragment extends BaseAncRegisterFragment {
 
     @Override
     public void initializeAdapter(Set<org.smartregister.configurableviews.model.View> visibleColumns) {
-        ChwAncRegisterProvider ancRegisterProvider = new ChwAncRegisterProvider(getActivity(), commonRepository(), visibleColumns, registerActionHandler, paginationViewHandler);
-        clientAdapter = new RecyclerViewPaginatedAdapter(null, ancRegisterProvider, context().commonrepository(this.tablename));
+        ChwAncRegisterProvider provider = new ChwAncRegisterProvider(getActivity(), commonRepository(), visibleColumns, registerActionHandler, paginationViewHandler);
+        clientAdapter = new RecyclerViewPaginatedAdapter(null, provider, context().commonrepository(this.tablename));
         clientAdapter.setCurrentlimit(20);
         clientsView.setAdapter(clientAdapter);
     }

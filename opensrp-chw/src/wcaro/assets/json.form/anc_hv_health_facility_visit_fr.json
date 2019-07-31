@@ -63,6 +63,10 @@
           "Oui",
           "Non"
         ],
+        "keys": [
+          "Yes",
+          "No"
+        ],
         "v_required": {
           "value": "true",
           "err": "Please select one option"
@@ -121,6 +125,13 @@
             "ex": "equalTo(., \"Yes\")"
           }
         }
+      },
+      {
+        "key": "anc_hf_next_visit_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "anc_hf_next_visit_date",
+        "type": "spacer"
       },
       {
         "key": "sys_bp",

@@ -3,8 +3,6 @@ package org.smartregister.chw.repository;
 import android.content.Context;
 import android.database.Cursor;
 
-import com.opensrp.chw.core.utils.Constants;
-
 import net.sqlcipher.database.SQLiteDatabase;
 
 import org.json.JSONObject;
@@ -12,11 +10,14 @@ import org.smartregister.chw.anc.repository.VisitDetailsRepository;
 import org.smartregister.chw.anc.repository.VisitRepository;
 import org.smartregister.chw.anc.util.Util;
 import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.chw.util.Constants;
+import org.smartregister.chw.util.RepositoryUtils;
 import org.smartregister.chw.util.RepositoryUtilsFlv;
 import org.smartregister.domain.db.Column;
 import org.smartregister.domain.db.Event;
 import org.smartregister.domain.db.EventClient;
 import org.smartregister.immunization.repository.RecurringServiceRecordRepository;
+import org.smartregister.immunization.repository.RecurringServiceTypeRepository;
 import org.smartregister.immunization.repository.VaccineRepository;
 import org.smartregister.immunization.util.IMDatabaseUtils;
 import org.smartregister.repository.AlertRepository;
@@ -55,7 +56,7 @@ public class ChwRepositoryFlv {
                 case 8:
                     upgradeToVersion8(db);
                     break;
-                case 9:
+                case 10:
                     upgradeToVersion9(db);
                     break;
                 default:
@@ -164,6 +165,14 @@ public class ChwRepositoryFlv {
             List<Event> events = getEvents(db);
             for (Event event : events) {
                 Util.processAncHomeVisit(new EventClient(event), db);
+            }
+
+            // update recurring services
+            db.execSQL(RecurringServiceTypeRepository.ADD_SERVICE_GROUP_COLUMN);
+            // merge service records
+
+            for (String query : RepositoryUtils.UPDATE_REPOSITORY_TYPES) {
+                db.execSQL(query);
             }
 
         } catch (Exception e) {

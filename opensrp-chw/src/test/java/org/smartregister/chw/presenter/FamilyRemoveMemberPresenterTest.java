@@ -1,5 +1,7 @@
 package org.smartregister.chw.presenter;
 
+import com.opensrp.chw.core.utils.Constants;
+
 import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
@@ -9,7 +11,6 @@ import org.mockito.MockitoAnnotations;
 import org.powermock.reflect.Whitebox;
 import org.smartregister.chw.contract.FamilyRemoveMemberContract;
 import org.smartregister.chw.interactor.FamilyRemoveMemberInteractor;
-import com.opensrp.chw.core.utils.Constants;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.util.DBConstants;
 

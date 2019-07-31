@@ -6,8 +6,8 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.view.MenuItem;
 
-import org.smartregister.chw.activity.AncRegisterActivity;
 import org.smartregister.chw.activity.JobAidsActivity;
+import org.smartregister.chw.contract.ChwBottomNavigator;
 
 public class AncBottomNavigationListener extends FamilyBottomNavigationListener {
     private Activity context;
@@ -19,7 +19,7 @@ public class AncBottomNavigationListener extends FamilyBottomNavigationListener 
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        AncRegisterActivity ancRegisterActivity = (AncRegisterActivity) this.context;
+        ChwBottomNavigator ancRegisterActivity = (ChwBottomNavigator) this.context;
 
         if (item.getItemId() == org.smartregister.family.R.id.action_family) {
             ancRegisterActivity.switchToBaseFragment();

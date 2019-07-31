@@ -64,8 +64,8 @@ public class ANCCounselingAction implements BaseAncHomeVisitAction.AncHomeVisitA
             visit_field.put("text", MessageFormat.format(visit_field.getString("text"), builder.toString()));
 
             return jsonObject.toString();
-        } catch (JSONException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            Timber.e(e);
         }
 
         return null;

@@ -1,9 +1,9 @@
 package org.smartregister.chw.model;
 
+import com.opensrp.chw.core.utils.ChildDBConstants;
 import com.opensrp.chw.core.utils.Constants;
 
 import org.apache.commons.lang3.ArrayUtils;
-import com.opensrp.chw.core.utils.ChildDBConstants;
 import org.smartregister.family.model.BaseFamilyProfileMemberModel;
 
 public class FamilyProfileMemberModel extends BaseFamilyProfileMemberModel {
@@ -17,5 +17,7 @@ public class FamilyProfileMemberModel extends BaseFamilyProfileMemberModel {
         };
 
         return ArrayUtils.addAll(columns, newColumns);
+
+
     }
 }

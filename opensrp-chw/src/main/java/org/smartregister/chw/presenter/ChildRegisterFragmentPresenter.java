@@ -1,10 +1,11 @@
 package org.smartregister.chw.presenter;
 
+import com.opensrp.chw.core.utils.ChildDBConstants;
+import com.opensrp.chw.core.utils.Constants;
+
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.R;
 import org.smartregister.chw.contract.ChildRegisterFragmentContract;
-import com.opensrp.chw.core.utils.ChildDBConstants;
-import com.opensrp.chw.core.utils.Constants;
 import org.smartregister.configurableviews.model.Field;
 import org.smartregister.configurableviews.model.RegisterConfiguration;
 import org.smartregister.configurableviews.model.View;

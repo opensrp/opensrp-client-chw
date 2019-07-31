@@ -3,6 +3,12 @@ package org.smartregister.chw.presenter;
 
 import android.support.v7.app.AppCompatActivity;
 
+import com.opensrp.chw.core.contract.CoreApplication;
+import com.opensrp.chw.core.contract.NavigationContract;
+import com.opensrp.chw.core.interactor.NavigationInteractor;
+import com.opensrp.chw.core.model.NavigationModel;
+import com.opensrp.chw.core.presenter.NavigationPresenter;
+
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -13,10 +19,6 @@ import org.mockito.MockitoAnnotations;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
-import com.opensrp.chw.core.contract.NavigationContract;
-import com.opensrp.chw.core.interactor.NavigationInteractor;
-import com.opensrp.chw.core.model.NavigationModel;
-import com.opensrp.chw.core.presenter.NavigationPresenter;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -39,6 +41,11 @@ public class NavigationPresenterTest {
     @Mock
     NavigationInteractor interactor;
 
+    @Mock
+    private CoreApplication application;
+
+    @Mock NavigationModel.Flavor modelFlavor;
+
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
@@ -47,7 +54,7 @@ public class NavigationPresenterTest {
         when(NavigationModel.getInstance()).thenReturn(model);
 
         PowerMockito.mockStatic(NavigationInteractor.class);
-        when(NavigationInteractor.getInstance(application)).thenReturn(interactor);
+        when(NavigationInteractor.getInstance()).thenReturn(interactor);
     }
 
     @Test

@@ -9,11 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.opensrp.chw.core.utils.Constants;
+
 import org.smartregister.chw.R;
 import org.smartregister.chw.listener.OnClickServiceTaskAdapter;
 import org.smartregister.chw.presenter.ChildHomeVisitPresenter;
 import org.smartregister.chw.util.ChildUtils;
-import com.opensrp.chw.core.utils.Constants;
 import org.smartregister.chw.util.JsonFormUtils;
 import org.smartregister.chw.util.ServiceTask;
 import org.smartregister.chw.util.TaskServiceCalculate;

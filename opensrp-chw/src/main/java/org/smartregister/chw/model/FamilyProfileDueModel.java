@@ -1,7 +1,8 @@
 package org.smartregister.chw.model;
 
-import org.apache.commons.lang3.ArrayUtils;
 import com.opensrp.chw.core.utils.ChildDBConstants;
+
+import org.apache.commons.lang3.ArrayUtils;
 import org.smartregister.family.model.BaseFamilyProfileDueModel;
 
 public class FamilyProfileDueModel extends BaseFamilyProfileDueModel {

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.opensrp.chw.core.custom_views.NavigationMenu;
 import com.opensrp.chw.core.utils.Constants;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
@@ -15,7 +16,7 @@ import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.activity.BaseAncRegisterActivity;
 import org.smartregister.chw.anc.util.DBConstants;
-import com.opensrp.chw.core.custom_views.NavigationMenu;
+import org.smartregister.chw.contract.ChwBottomNavigator;
 import org.smartregister.chw.fragment.AncRegisterFragment;
 import org.smartregister.chw.listener.AncBottomNavigationListener;
 import org.smartregister.family.util.JsonFormUtils;
@@ -25,11 +26,11 @@ import org.smartregister.view.fragment.BaseRegisterFragment;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.smartregister.chw.anc.util.Constants.ACTIVITY_PAYLOAD.TABLE_NAME;
 import static com.opensrp.chw.core.utils.Constants.TABLE_NAME.ANC_MEMBER;
 import static com.opensrp.chw.core.utils.Constants.TABLE_NAME.ANC_PREGNANCY_OUTCOME;
+import static org.smartregister.chw.anc.util.Constants.ACTIVITY_PAYLOAD.TABLE_NAME;
 
-public class AncRegisterActivity extends BaseAncRegisterActivity {
+public class AncRegisterActivity extends BaseAncRegisterActivity implements ChwBottomNavigator {
     private static String phone_number;
     private static String form_name;
     private static String unique_id;
@@ -46,6 +47,13 @@ public class AncRegisterActivity extends BaseAncRegisterActivity {
         intent.putExtra(org.smartregister.chw.anc.util.Constants.ACTIVITY_PAYLOAD.ACTION, org.smartregister.chw.anc.util.Constants.ACTIVITY_PAYLOAD_TYPE.REGISTRATION);
         intent.putExtra(TABLE_NAME, getFormTable());
         activity.startActivity(intent);
+    }
+
+    @Override
+    public void switchToBaseFragment() {
+        Intent intent = new Intent(this, FamilyRegisterActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     @Override
@@ -79,9 +87,8 @@ public class AncRegisterActivity extends BaseAncRegisterActivity {
     @Override
     protected void registerBottomNavigation() {
         super.registerBottomNavigation();
-
         if (!BuildConfig.SUPPORT_QR) {
-            bottomNavigationView.getMenu().removeItem(org.smartregister.family.R.id.action_scan_qr);
+            bottomNavigationView.getMenu().removeItem(R.id.action_scan_qr);
         }
 
         AncBottomNavigationListener listener = new AncBottomNavigationListener(this, bottomNavigationView);

@@ -2,6 +2,8 @@ package org.smartregister.chw.presenter;
 
 import android.util.Pair;
 
+import com.opensrp.chw.core.model.ChildVisit;
+import com.opensrp.chw.core.utils.ChildDBConstants;
 import com.opensrp.chw.core.utils.Constants;
 
 import org.joda.time.DateTime;
@@ -13,9 +15,7 @@ import com.opensrp.chw.core.contract.FamilyProfileExtendedContract;
 import org.smartregister.chw.interactor.ChildProfileInteractor;
 import org.smartregister.chw.interactor.FamilyProfileInteractor;
 import org.smartregister.chw.model.ChildRegisterModel;
-import com.opensrp.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.util.ChildService;
-import com.opensrp.chw.core.model.ChildVisit;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
