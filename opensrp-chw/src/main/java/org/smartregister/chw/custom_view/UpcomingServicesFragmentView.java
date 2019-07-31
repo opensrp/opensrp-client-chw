@@ -21,6 +21,7 @@ import org.smartregister.chw.util.ImmunizationState;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.immunization.domain.ServiceWrapper;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -59,11 +60,11 @@ public class UpcomingServicesFragmentView extends LinearLayout implements View.O
 
     }
 
-    public void setChildClient(Activity context,CommonPersonObjectClient childClient){
+    public void setChildClient(Activity context, CommonPersonObjectClient childClient) {
         this.childClient = childClient;
         this.context = context;
         removeAllViews();
-        presenter.fetchImmunizationData(childClient,"");
+        presenter.fetchImmunizationData(childClient, "");
     }
 
 

@@ -22,8 +22,8 @@
                 android:id="@+id/close"
                 android:layout_width="@dimen/tool_bar_image"
                 android:layout_height="@dimen/tool_bar_image"
-                android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="@dimen/dialog_toolbar_close_margin"
                 android:layout_marginRight="@dimen/dialog_toolbar_close_margin"
@@ -38,8 +38,8 @@
                 android:layout_centerVertical="true"
                 android:layout_toEndOf="@+id/close"
                 android:layout_toRightOf="@+id/close"
-                android:paddingLeft="0dp"
                 android:paddingStart="0dp"
+                android:paddingLeft="0dp"
                 android:text="@string/llitn_title"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="@android:color/white"
@@ -48,10 +48,10 @@
     </android.support.v7.widget.Toolbar>
 
     <ImageView
-        android:layout_below="@+id/detail_toolbar"
         android:id="@+id/info_icon"
         android:layout_width="@dimen/default_info_icon_size"
         android:layout_height="@dimen/default_info_icon_size"
+        android:layout_below="@+id/detail_toolbar"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_marginStart="8dp"

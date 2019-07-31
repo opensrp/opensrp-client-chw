@@ -27,13 +27,13 @@ public class WashCheckDialogFragment extends DialogFragment implements View.OnCl
 
 
     private String jsonData;
-    private RadioButton handwashingYes,handwashingNo,drinkingYes,drinkingNo;
-    private RadioButton latrineYes,latrineNo;
+    private RadioButton handwashingYes, handwashingNo, drinkingYes, drinkingNo;
+    private RadioButton latrineYes, latrineNo;
 
-    public static WashCheckDialogFragment getInstance(String jsonString){
+    public static WashCheckDialogFragment getInstance(String jsonString) {
         WashCheckDialogFragment washCheckDialogFragment = new WashCheckDialogFragment();
         Bundle bundle = new Bundle();
-        bundle.putString(EXTRA_DETAILS,jsonString);
+        bundle.putString(EXTRA_DETAILS, jsonString);
         washCheckDialogFragment.setArguments(bundle);
         return washCheckDialogFragment;
     }
@@ -77,25 +77,26 @@ public class WashCheckDialogFragment extends DialogFragment implements View.OnCl
         view.findViewById(R.id.close).setOnClickListener(this);
         parseData();
     }
-    private void parseData(){
+
+    private void parseData() {
         String handwashingValue = "";
         String drinkingValue = "";
         String latrineValue = "";
 
-        try{
+        try {
             JSONObject jsonObject = new JSONObject(jsonData);
             JSONArray field = fields(jsonObject);
             JSONObject handwashing_facilities = getFieldJSONObject(field, "handwashing_facilities");
-            handwashingValue= handwashing_facilities.optString(VALUE);
+            handwashingValue = handwashing_facilities.optString(VALUE);
             JSONObject drinking_water = getFieldJSONObject(field, "drinking_water");
             drinkingValue = drinking_water.optString(VALUE);
             JSONObject hygienic_latrine = getFieldJSONObject(field, "hygienic_latrine");
             latrineValue = hygienic_latrine.optString(VALUE);
 
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        if(!TextUtils.isEmpty(handwashingValue)){
+        if (!TextUtils.isEmpty(handwashingValue)) {
             if ((handwashingValue.equalsIgnoreCase(getString(R.string.yes)))) {
                 handwashingYes.setChecked(true);
                 handwashingNo.setEnabled(false);
@@ -104,7 +105,7 @@ public class WashCheckDialogFragment extends DialogFragment implements View.OnCl
                 handwashingYes.setEnabled(false);
             }
         }
-        if(!TextUtils.isEmpty(drinkingValue)){
+        if (!TextUtils.isEmpty(drinkingValue)) {
             if ((drinkingValue.equalsIgnoreCase(getString(R.string.yes)))) {
                 drinkingYes.setChecked(true);
                 drinkingNo.setEnabled(false);
@@ -113,7 +114,7 @@ public class WashCheckDialogFragment extends DialogFragment implements View.OnCl
                 drinkingYes.setEnabled(false);
             }
         }
-        if(!TextUtils.isEmpty(latrineValue)){
+        if (!TextUtils.isEmpty(latrineValue)) {
             if ((latrineValue.equalsIgnoreCase(getString(R.string.yes)))) {
                 latrineYes.setChecked(true);
                 latrineNo.setEnabled(false);
@@ -126,7 +127,7 @@ public class WashCheckDialogFragment extends DialogFragment implements View.OnCl
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.close:
                 dismiss();
                 break;

@@ -30,19 +30,19 @@ public class AncMemberProfilePresenter extends BaseAncMemberProfilePresenter imp
     @Override
     public void onUniqueIdFetched(Triple<String, String, String> triple, String entityId) {
 //        TODO Implement
-        Timber.d( "onUniqueIdFetched unimplemented");
+        Timber.d("onUniqueIdFetched unimplemented");
     }
 
     @Override
     public void onNoUniqueId() {
 //        TODO Implement
-        Timber.d( "onNoUniqueId unimplemented");
+        Timber.d("onNoUniqueId unimplemented");
     }
 
     @Override
     public void onRegistrationSaved(boolean isEditMode) {
 //     TODO Implement
-        Timber.d( "onRegistrationSaved unimplemented");
+        Timber.d("onRegistrationSaved unimplemented");
     }
 
     public BaseAncMemberProfileContract.View getView() {

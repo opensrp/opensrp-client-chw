@@ -3,7 +3,9 @@ package org.smartregister.chw.repository;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.text.TextUtils;
+
 import net.sqlcipher.database.SQLiteDatabase;
+
 import org.smartregister.chw.util.WashCheck;
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.repository.Repository;
@@ -12,13 +14,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WashCheckRepository extends BaseRepository {
-    private static final String WASH_CHECK_SQL = "CREATE TABLE ec_wash_check_log (family_id VARCHAR NOT NULL,last_visit VARCHAR,details_info TEXT)";
     public static final String WASH_CHECK_TABLE_NAME = "ec_wash_check_log";
     public static final String FAMILY_ID = "family_id";
     public static final String LAST_VISIT = "last_visit";
     public static final String DETAILS = "details_info";
-
-    public static final String[] TABLE_COLUMNS = {FAMILY_ID, LAST_VISIT,DETAILS};
+    public static final String[] TABLE_COLUMNS = {FAMILY_ID, LAST_VISIT, DETAILS};
+    private static final String WASH_CHECK_SQL = "CREATE TABLE ec_wash_check_log (family_id VARCHAR NOT NULL,last_visit VARCHAR,details_info TEXT)";
 
     public WashCheckRepository(Repository repository) {
         super(repository);
@@ -34,8 +35,8 @@ public class WashCheckRepository extends BaseRepository {
         }
         try {
             SQLiteDatabase database = getWritableDatabase();
-            if (washCheck.getFamilyBaseEntityId() != null && findUnique(database,washCheck) == null) {
-                   database.insert(WASH_CHECK_TABLE_NAME, null, createValuesFor(washCheck));
+            if (washCheck.getFamilyBaseEntityId() != null && findUnique(database, washCheck) == null) {
+                database.insert(WASH_CHECK_TABLE_NAME, null, createValuesFor(washCheck));
             }
 
         } catch (Exception e) {
@@ -53,7 +54,7 @@ public class WashCheckRepository extends BaseRepository {
         String[] selectionArgs = new String[]{washCheck.getFamilyBaseEntityId(), washCheck.getLastVisit() + ""};
         net.sqlcipher.Cursor cursor = database.query(WASH_CHECK_TABLE_NAME, TABLE_COLUMNS, selection, selectionArgs, null, null, null, null);
         List<WashCheck> homeVisitList = getAllWashCheck(cursor);
-        if (homeVisitList.size()>0) {
+        if (homeVisitList.size() > 0) {
             return homeVisitList.get(0);
         }
         return null;
@@ -73,7 +74,7 @@ public class WashCheckRepository extends BaseRepository {
         String[] selectionArgs = new String[]{familyId};
         net.sqlcipher.Cursor cursor = database.query(WASH_CHECK_TABLE_NAME, TABLE_COLUMNS, selection, selectionArgs, null, null, LAST_VISIT + " DESC", "1");
         ArrayList<WashCheck> washChecks = getAllWashCheck(cursor);
-        if(washChecks.size()>0) return washChecks.get(0);
+        if (washChecks.size() > 0) return washChecks.get(0);
         return null;
     }
 

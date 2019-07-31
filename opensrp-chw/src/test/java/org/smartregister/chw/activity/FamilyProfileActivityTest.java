@@ -33,6 +33,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -43,13 +44,10 @@ import static org.powermock.api.mockito.PowerMockito.verifyPrivate;
 @Config(application = ChwApplication.class, constants = BuildConfig.class, sdk = 22)
 public class FamilyProfileActivityTest {
 
-    private FamilyProfileActivity activity;
-    private ActivityController<FamilyProfileActivity> controller;
-
-
     private final String TEST_CARE_GIVER = "45645sdfs64564544";
     private final String TEST_FAMILY_HEAD = "hsdf34453";
-
+    private FamilyProfileActivity activity;
+    private ActivityController<FamilyProfileActivity> controller;
     @Mock
     private FamilyProfilePresenter presenter;
 
@@ -138,7 +136,7 @@ public class FamilyProfileActivityTest {
                 InputStream inputStream = mContext.getApplicationContext().getAssets()
                         .open("json" + ".form/" + formIdentity + ".json");
                 BufferedReader reader = new BufferedReader(
-                        new InputStreamReader(inputStream, "UTF-8"));
+                        new InputStreamReader(inputStream, StandardCharsets.UTF_8));
                 String jsonString;
                 StringBuilder stringBuilder = new StringBuilder();
 

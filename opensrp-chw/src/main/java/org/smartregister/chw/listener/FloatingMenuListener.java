@@ -12,6 +12,7 @@ import timber.log.Timber;
 
 public class FloatingMenuListener implements OnClickFloatingMenu {
     private static String TAG = FloatingMenuListener.class.getCanonicalName();
+    private static FloatingMenuListener instance;
     private WeakReference<Activity> context;
     private String familyBaseEntityId;
 
@@ -19,8 +20,6 @@ public class FloatingMenuListener implements OnClickFloatingMenu {
         this.context = new WeakReference<>(context);
         this.familyBaseEntityId = familyBaseEntityId;
     }
-
-    private static FloatingMenuListener instance;
 
     public static FloatingMenuListener getInstance(Activity context, String familyBaseEntityId) {
         if (instance == null) {
@@ -48,7 +47,7 @@ public class FloatingMenuListener implements OnClickFloatingMenu {
         if (context.get() != null) {
 
             if (context.get().isDestroyed()) {
-                Timber.d( "Activity Destroyed");
+                Timber.d("Activity Destroyed");
                 return;
             }
 

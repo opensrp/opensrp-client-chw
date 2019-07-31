@@ -11,14 +11,14 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_centerVertical="true"
-        android:layout_marginBottom="@dimen/register_list_top_bottom_margin"
-        android:layout_marginEnd="@dimen/register_list_item_margin"
-        android:layout_marginLeft="@dimen/register_list_item_margin"
-        android:layout_marginRight="@dimen/register_list_item_margin"
         android:layout_marginStart="@dimen/register_list_item_margin"
+        android:layout_marginLeft="@dimen/register_list_item_margin"
         android:layout_marginTop="@dimen/register_list_top_bottom_margin"
-        android:layout_toLeftOf="@+id/due_button_wrapper"
+        android:layout_marginEnd="@dimen/register_list_item_margin"
+        android:layout_marginRight="@dimen/register_list_item_margin"
+        android:layout_marginBottom="@dimen/register_list_top_bottom_margin"
         android:layout_toStartOf="@+id/due_button_wrapper"
+        android:layout_toLeftOf="@+id/due_button_wrapper"
         android:orientation="vertical">
 
         <org.smartregister.view.customcontrols.CustomFontTextView
@@ -26,11 +26,11 @@
             style="@style/CustomFontTextViewStyle.ClientList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="0dp"
-            android:text="CG:Parent Name"
-            android:maxLines="1"
-            android:singleLine="true"
             android:ellipsize="end"
+            android:maxLines="1"
+            android:paddingLeft="0dp"
+            android:singleLine="true"
+            android:text="CG:Parent Name"
             android:textColor="@color/text_black"
             android:textSize="@dimen/child_register_title_size" />
 
@@ -40,13 +40,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
+            android:ellipsize="end"
             android:maxLines="1"
             android:paddingLeft="0dp"
-            android:ellipsize="end"
-            android:textStyle="normal"
             android:text="Patient Name"
             android:textColor="@color/text_black"
-            android:textSize="@dimen/child_register_title_size" />
+            android:textSize="@dimen/child_register_title_size"
+            android:textStyle="normal" />
 
         <org.smartregister.view.customcontrols.CustomFontTextView
             android:id="@+id/text_view_address_gender"
@@ -54,8 +54,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="left|center_horizontal"
-            android:paddingTop="7dp"
             android:paddingLeft="0dp"
+            android:paddingTop="7dp"
             android:text="Age. 33"
             android:textColor="@color/light_grey_text"
             android:textSize="@dimen/child_register_list_desc_size"
@@ -72,12 +72,12 @@
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:background="@drawable/grey_left_border"
-        android:paddingBottom="@dimen/register_list_top_bottom_padding"
-        android:paddingEnd="@dimen/register_list_item_padding"
-        android:paddingLeft="@dimen/register_list_item_padding"
-        android:paddingRight="@dimen/register_list_item_padding"
         android:paddingStart="@dimen/register_list_item_padding"
-        android:paddingTop="@dimen/register_list_top_bottom_padding">
+        android:paddingLeft="@dimen/register_list_item_padding"
+        android:paddingTop="@dimen/register_list_top_bottom_padding"
+        android:paddingEnd="@dimen/register_list_item_padding"
+        android:paddingRight="@dimen/register_list_item_padding"
+        android:paddingBottom="@dimen/register_list_top_bottom_padding">
 
         <Button
             android:id="@+id/due_button"

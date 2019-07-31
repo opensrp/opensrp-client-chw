@@ -270,15 +270,12 @@ public class ChildRegisterProvider implements RecyclerViewProvider<ChildRegister
     }
 
     private class UpdateLastAsyncTask extends AsyncTask<Void, Void, Void> {
-        private String TAG = UpdateLastAsyncTask.class.getCanonicalName();
-
         private final Context context;
         private final CommonRepository commonRepository;
-
         private final RegisterViewHolder viewHolder;
         private final String baseEntityId;
         private final Rules rules;
-
+        private String TAG = UpdateLastAsyncTask.class.getCanonicalName();
         private CommonPersonObject commonPersonObject;
         private ChildVisit childVisit;
 

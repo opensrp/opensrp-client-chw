@@ -3,7 +3,6 @@ package org.smartregister.chw.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 
-
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
 
@@ -221,8 +220,8 @@ public class IndividualProfileRemoveFragment extends BaseFamilyProfileMemberFrag
     @Override
     public void onEveryoneRemoved() {
         if (getActivity() != null && getActivity() instanceof IndividualProfileRemoveActivity) {
-                IndividualProfileRemoveActivity p = (IndividualProfileRemoveActivity) getActivity();
-                p.onRemoveMember();
+            IndividualProfileRemoveActivity p = (IndividualProfileRemoveActivity) getActivity();
+            p.onRemoveMember();
         }
     }
 

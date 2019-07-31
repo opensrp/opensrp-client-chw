@@ -119,7 +119,8 @@ public class Constants {
         public static String getMalariaConfirmation() {
             return Utils.getLocalForm(MALARIA_CONFIRMATION);
         }
-        public static String getWashCheck(){
+
+        public static String getWashCheck() {
             return Utils.getLocalForm(WASH_CHECK);
         }
 

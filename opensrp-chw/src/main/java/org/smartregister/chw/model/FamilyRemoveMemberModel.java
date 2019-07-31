@@ -46,9 +46,9 @@ public class FamilyRemoveMemberModel extends FamilyProfileMemberModel implements
                             JSONObject min_date = org.smartregister.chw.util.JsonFormUtils.getFieldJSONObject(jsonArray, "date_moved");
                             JSONObject date_died = org.smartregister.chw.util.JsonFormUtils.getFieldJSONObject(jsonArray, "date_died");
 
-                           // dobString = Utils.getDuration(dobString);
+                            // dobString = Utils.getDuration(dobString);
                             //dobString = dobString.contains("y") ? dobString.substring(0, dobString.indexOf("y")) : "";
-                            int days= org.smartregister.chw.util.JsonFormUtils.getDayFromDate(dobString);
+                            int days = org.smartregister.chw.util.JsonFormUtils.getDayFromDate(dobString);
                             min_date.put("min_date", "today-" + days + "d");
                             date_died.put("min_date", "today-" + days + "d");
                         }
@@ -105,6 +105,7 @@ public class FamilyRemoveMemberModel extends FamilyProfileMemberModel implements
             return null;
         }
     }
+
     public String getForm(CommonPersonObjectClient client) {
         Date dob = Utils.dobStringToDate(Utils.getValue(client.getColumnmaps(), DBConstants.KEY.DOB, false));
         return ((dob != null && getDiffYears(dob, new Date()) >= 5) ? Constants.JSON_FORM.getFamilyDetailsRemoveMember() : Constants.JSON_FORM.getFamilyDetailsRemoveChild());

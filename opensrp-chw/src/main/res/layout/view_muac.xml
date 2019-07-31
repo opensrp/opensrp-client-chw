@@ -34,8 +34,8 @@
                     style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
                     android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp"
                     android:gravity="center_vertical"
                     android:padding="20dp"
                     android:text="@string/muac_question_label"
@@ -47,9 +47,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:paddingBottom="20dp"
                     android:paddingLeft="20dp"
-                    android:paddingRight="20dp">
+                    android:paddingRight="20dp"
+                    android:paddingBottom="20dp">
 
                     <RadioButton
                         android:id="@+id/choice_1"
@@ -68,6 +68,7 @@
                         android:text="@string/muac_choice_2"
                         android:textColor="@color/text_black"
                         android:textSize="@dimen/register_list_desc_size" />
+
                     <RadioButton
                         android:id="@+id/choice_3"
                         android:layout_width="wrap_content"
@@ -95,14 +96,14 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/scroll_layout"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="@dimen/btn_margin_right"
-        android:layout_marginEnd="@dimen/btn_margin_right"
-        android:layout_marginLeft="@dimen/btn_margin_left"
-        android:layout_marginRight="@dimen/btn_margin_right"
         android:layout_marginStart="@dimen/btn_margin_left"
+        android:layout_marginLeft="@dimen/btn_margin_left"
+        android:layout_marginEnd="@dimen/btn_margin_right"
+        android:layout_marginRight="@dimen/btn_margin_right"
+        android:layout_marginBottom="@dimen/btn_margin_right"
         android:background="@drawable/vaccination_today_bg"
-        android:paddingBottom="@dimen/btn_padding_bottom"
         android:paddingTop="@dimen/btn_padding_top"
+        android:paddingBottom="@dimen/btn_padding_bottom"
         android:text="@string/save"
         android:textAllCaps="true"
         android:textAppearance="?android:textAppearanceSmall"

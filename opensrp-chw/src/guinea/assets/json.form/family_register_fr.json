@@ -472,7 +472,7 @@
         ],
         "openmrs_choice_ids": {
           "None": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Literacy":"",
+          "Literacy": "",
           "Primary": "1713AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "Secondary": "1714AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "University": "159785AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"

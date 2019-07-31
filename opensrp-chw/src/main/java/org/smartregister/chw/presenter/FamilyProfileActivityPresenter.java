@@ -25,10 +25,11 @@ public class FamilyProfileActivityPresenter extends BaseFamilyProfileActivityPre
     public String getDefaultSortQuery() {
         return Constants.TABLE_NAME.CHILD_ACTIVITY + "." + ChildDBConstants.KEY.EVENT_DATE + " DESC";
     }
+
     public void fetchLastWashCheck() {
 
-        if(getView() instanceof FamilyProfileActivityFragment){
-            FamilyProfileActivityFragment familyProfileActivityFragment = (FamilyProfileActivityFragment)getView();
+        if (getView() instanceof FamilyProfileActivityFragment) {
+            FamilyProfileActivityFragment familyProfileActivityFragment = (FamilyProfileActivityFragment) getView();
             familyProfileActivityFragment.updateWashCheckBar(washCheckModel.getAllWashCheckList());
         }
     }

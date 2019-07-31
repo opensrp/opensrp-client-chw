@@ -14,7 +14,6 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,19 +51,17 @@ import timber.log.Timber;
 public class NavigationMenu implements NavigationContract.View, SyncStatusBroadcastReceiver.SyncStatusListener {
 
     private static NavigationMenu instance;
+    private static WeakReference<Activity> activityWeakReference;
     private String TAG = NavigationMenu.class.getCanonicalName();
     private DrawerLayout drawer;
     private Toolbar toolbar;
-
     private NavigationAdapter navigationAdapter;
     private RecyclerView recyclerView;
     private TextView tvLogout;
     private View rootView = null;
     private ImageView ivSync;
     private ProgressBar syncProgressBar;
-
     private NavigationContract.Presenter mPresenter;
-    private static WeakReference<Activity> activityWeakReference;
     private View parentView;
     private List<NavigationOption> navigationOptions;
 
@@ -376,7 +373,7 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
 
     @Override
     public void onSyncInProgress(FetchStatus fetchStatus) {
-        Timber.v( "onSyncInProgress");
+        Timber.v("onSyncInProgress");
     }
 
     @Override

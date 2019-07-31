@@ -11,7 +11,6 @@ import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
-
 import android.util.Pair;
 import android.view.Display;
 import android.view.Gravity;
@@ -40,7 +39,7 @@ import java.util.List;
 import timber.log.Timber;
 
 public class FamilyProfileChangeDialog extends DialogFragment implements View.OnClickListener, FamilyChangeContract.View, MemberAdapterListener {
-    private static String TAG =  FamilyProfileChangeDialog.class.getCanonicalName();
+    private static String TAG = FamilyProfileChangeDialog.class.getCanonicalName();
 
     protected Context context;
     protected String familyID;
@@ -151,7 +150,7 @@ public class FamilyProfileChangeDialog extends DialogFragment implements View.On
 
     @Override
     public void onMenuChoiceChange() {
-        Timber.v( "onMenuChoiceChange Fired");
+        Timber.v("onMenuChoiceChange Fired");
     }
 
     @Override
