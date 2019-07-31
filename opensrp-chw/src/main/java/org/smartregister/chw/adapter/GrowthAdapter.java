@@ -36,9 +36,9 @@ public class GrowthAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 return new ContentViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.growth_content_view, null));
             case BaseService.TYPE_LINE:
                 return new HeaderViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.view_line, null));
-
+            default:
+                return new HeaderViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.growth_header_view, null));
         }
-        return null;
     }
 
     @Override
