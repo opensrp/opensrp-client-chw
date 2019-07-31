@@ -8,7 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import org.smartregister.chw.R;
 import org.smartregister.chw.adapter.WashCheckAdapter;
 import org.smartregister.chw.model.FamilyProfileActivityModel;
-import org.smartregister.chw.util.FlavorWashCheck;
 import org.smartregister.chw.util.WashCheck;
 import org.smartregister.chw.presenter.FamilyProfileActivityPresenter;
 import org.smartregister.chw.provider.FamilyActivityRegisterProvider;
@@ -30,7 +29,7 @@ public class FamilyProfileActivityFragment extends BaseFamilyProfileActivityFrag
     private String familyName;
     private RecyclerView washCheckRecyclerView;
     private WashCheckAdapter washCheckAdapter;
-    private FlavorWashCheck flavorWashCheck = new WashCheckFlv();
+    private FamilyProfileDueFragment.Flavor flavorWashCheck = new WashCheckFlv();
 
     public static BaseFamilyProfileActivityFragment newInstance(Bundle bundle) {
         Bundle args = bundle;

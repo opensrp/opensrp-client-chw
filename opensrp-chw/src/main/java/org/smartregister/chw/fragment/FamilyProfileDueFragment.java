@@ -18,7 +18,6 @@ import org.smartregister.chw.activity.ChildProfileActivity;
 import org.smartregister.chw.activity.FamilyProfileActivity;
 import org.smartregister.chw.interactor.ChildProfileInteractor;
 import org.smartregister.chw.model.FamilyProfileDueModel;
-import org.smartregister.chw.util.FlavorWashCheck;
 import org.smartregister.chw.util.WashCheck;
 import org.smartregister.chw.presenter.FamilyProfileDuePresenter;
 import org.smartregister.chw.provider.ChwDueRegisterProvider;
@@ -47,7 +46,7 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
     private long dateFamilyCreated;
     private String familyBaseEntityId;
     private LinearLayout washCheckView;
-    private FlavorWashCheck flavorWashCheck = new WashCheckFlv();
+    private Flavor flavorWashCheck = new WashCheckFlv();
 
     public static BaseFamilyProfileDueFragment newInstance(Bundle bundle) {
         Bundle args = bundle;
@@ -252,6 +251,9 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
     public void setAdvancedSearchFormData(HashMap<String, String> hashMap) {
         //TODO
         Timber.d( "setAdvancedSearchFormData");
+    }
+    public interface Flavor {
+        boolean isWashCheckVisible();
     }
 
 }

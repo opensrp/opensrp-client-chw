@@ -22,7 +22,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.R;
 import org.smartregister.chw.contract.MemberAdapterListener;
 import org.smartregister.chw.domain.FamilyMember;
-import org.smartregister.chw.util.FlavorPhoneNumberLength;
 import org.smartregister.chw.util.PhoneNumberFlv;
 import org.smartregister.family.util.Utils;
 
@@ -38,7 +37,7 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MyViewHold
     private Animation slideUp;
     private Animation slideDown;
     private MemberAdapterListener memberAdapterListener;
-    private FlavorPhoneNumberLength flavorPhoneNumberLength;
+    private Flavor flavorPhoneNumberLength;
 
     public MemberAdapter(Context context, List<FamilyMember> myDataset, MemberAdapterListener memberAdapterListener) {
         familyMembers = myDataset;
@@ -270,6 +269,9 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MyViewHold
             et.addTextChangedListener(tw);
         }
 
+    }
+    public interface Flavor {
+        boolean isPhoneNumberLength16Digit();
     }
 
 }

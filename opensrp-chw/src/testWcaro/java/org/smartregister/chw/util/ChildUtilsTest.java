@@ -32,8 +32,11 @@ public class ChildUtilsTest extends BaseUnitTest {
 
     @Test
     public void isFullyImmunizedForTwoYears() throws Exception{
-
-        List<String> receivedVaccine = Arrays.asList(getTestReceivedTwoYearVaccine());
+        String[] list = {"OPV0".toLowerCase(), "BCG".toLowerCase(), "OPV1".toLowerCase(), "OPV2".toLowerCase(), "OPV3".toLowerCase()
+                , "Penta1".toLowerCase(), "Penta2".toLowerCase(), "Penta3".toLowerCase(), "PCV1".toLowerCase(), "PCV2".toLowerCase()
+                , "PCV3".toLowerCase(), "Rota1".toLowerCase(), "Rota2".toLowerCase(), "IPV".toLowerCase(), "MCV1".toLowerCase()
+                , "MCV2".toLowerCase(), "yellowfever".toLowerCase()};
+        List<String> receivedVaccine = Arrays.asList(list);
         setFinalStatic(ChildUtils.class.getDeclaredField("childUtilsFlv"), childUtilsFlv);
 
         Assert.assertEquals("2", ChildUtils.isFullyImmunized(receivedVaccine));
@@ -48,7 +51,11 @@ public class ChildUtilsTest extends BaseUnitTest {
 
     @Test
     public void isFullyImmunizedForOneYears() throws Exception {
-        List<String> receivedVaccine = Arrays.asList(getTestReceivedOneYearVaccine());
+        String[] list = {"OPV0".toLowerCase(), "BCG".toLowerCase(), "OPV1".toLowerCase(), "OPV2".toLowerCase(), "OPV3".toLowerCase()
+                , "Penta1".toLowerCase(), "Penta2".toLowerCase(), "Penta3".toLowerCase(), "PCV1".toLowerCase(), "PCV2".toLowerCase()
+                , "PCV3".toLowerCase(), "Rota1".toLowerCase(), "Rota2".toLowerCase(), "IPV".toLowerCase(),
+                "MCV1".toLowerCase(), "yellowfever".toLowerCase()};
+        List<String> receivedVaccine = Arrays.asList(list);
         setFinalStatic(ChildUtils.class.getDeclaredField("childUtilsFlv"), childUtilsFlv);
         Assert.assertEquals("1", ChildUtils.isFullyImmunized(receivedVaccine));
     }
@@ -84,20 +91,6 @@ public class ChildUtilsTest extends BaseUnitTest {
         Date date2 =  Utils.dobStringToDate("2019-06-01T03:00:00.000+03:00");
         String str2 = ChildUtils.getDurationFromTwoDate(date1,date2);
         Assert.assertEquals("13w 1d",str2);
-    }
-    public static String[] getTestReceivedTwoYearVaccine(){
-        String[] list = {"OPV0".toLowerCase(), "BCG".toLowerCase(), "OPV1".toLowerCase(), "OPV2".toLowerCase(), "OPV3".toLowerCase()
-                , "Penta1".toLowerCase(), "Penta2".toLowerCase(), "Penta3".toLowerCase(), "PCV1".toLowerCase(), "PCV2".toLowerCase()
-                , "PCV3".toLowerCase(), "Rota1".toLowerCase(), "Rota2".toLowerCase(), "IPV".toLowerCase(), "MCV1".toLowerCase()
-                , "MCV2".toLowerCase(), "yellowfever".toLowerCase()};
-        return list;
-    }
-    public static String[] getTestReceivedOneYearVaccine(){
-        String[] list = {"OPV0".toLowerCase(), "BCG".toLowerCase(), "OPV1".toLowerCase(), "OPV2".toLowerCase(), "OPV3".toLowerCase()
-                , "Penta1".toLowerCase(), "Penta2".toLowerCase(), "Penta3".toLowerCase(), "PCV1".toLowerCase(), "PCV2".toLowerCase()
-                , "PCV3".toLowerCase(), "Rota1".toLowerCase(), "Rota2".toLowerCase(), "IPV".toLowerCase(),
-                "MCV1".toLowerCase(), "yellowfever".toLowerCase()};
-        return list;
     }
 
     /*
