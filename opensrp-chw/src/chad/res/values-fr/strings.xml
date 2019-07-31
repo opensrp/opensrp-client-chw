@@ -1,7 +1,5 @@
 <resources>
-    <string name="app_name">CAE Guinée</string>
-    <string name="login_title">Moniteur CAE Guinée</string>
-    <string name="nav_logo">Moniteur CAE Guinée</string>
-    <string name="menu_anc">SPN</string>
-    <string name="menu_pnc">Consultation post natale (CPN)</string>
+    <string name="app_name">CFC-RTM - Tchad</string>
+    <string name="login_title">Communauté Amies des Enfants Suivi en Temps Réel - Tchad</string>
+    <string name="nav_logo">CFC-RTM - Tchad</string>
 </resources>

@@ -2,4 +2,6 @@
     <string name="app_name">Boresha Afya</string>
     <string name="login_title">Boresha Afya</string>
     <string name="nav_logo">USAID Boresha Afya</string>
+    <string name="menu_anc">ANC</string>
+    <string name="menu_pnc">PNC</string>
 </resources>

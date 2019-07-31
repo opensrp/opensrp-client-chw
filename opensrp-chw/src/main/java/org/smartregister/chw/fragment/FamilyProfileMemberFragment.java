@@ -30,8 +30,6 @@ import static com.opensrp.chw.core.utils.Constants.INTENT_KEY.IS_COMES_FROM_FAMI
 
 public class FamilyProfileMemberFragment extends BaseFamilyProfileMemberFragment {
 
-    private static final String TAG = FamilyProfileMemberFragment.class.getCanonicalName();
-
     public static BaseFamilyProfileMemberFragment newInstance(Bundle bundle) {
         Bundle args = bundle;
         BaseFamilyProfileMemberFragment fragment = new FamilyProfileMemberFragment();

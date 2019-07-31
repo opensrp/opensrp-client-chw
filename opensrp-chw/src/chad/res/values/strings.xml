@@ -2,6 +2,4 @@
     <string name="app_name">CFC-RTM - Tchad</string>
     <string name="login_title">Communauté Amies des Enfants Suivi en Temps Réel - Tchad</string>
     <string name="nav_logo">CFC-RTM - Tchad</string>
-    <string name="menu_anc">ANC Clients</string>
-    <string name="menu_pnc">PNC Clients</string>
 </resources>

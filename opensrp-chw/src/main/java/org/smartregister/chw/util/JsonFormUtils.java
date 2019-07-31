@@ -19,6 +19,7 @@ import org.joda.time.LocalDate;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.smartregister.AllConstants;
 import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.domain.FamilyMember;
@@ -919,6 +920,7 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
     private static HashMap<String, String> getEducationLevels(Context context) {
         HashMap<String, String> educationLevels = new HashMap<>();
         educationLevels.put(context.getResources().getString(R.string.edu_level_none), "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+        educationLevels.put(context.getResources().getString(R.string.edu_level_literacy), "");
         educationLevels.put(context.getResources().getString(R.string.edu_level_primary), "1713AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
         educationLevels.put(context.getResources().getString(R.string.edu_level_secondary), "1714AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
         educationLevels.put(context.getResources().getString(R.string.edu_level_post_secondary), "159785AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
@@ -1047,8 +1049,6 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
             Event event = getEditAncLatestProperties(baseEntityID);
             final List<Obs> observations = event.getObs();
             JSONObject form = getFormWithMetaData(baseEntityID, context, formName, eventType);
-            LocationPickerView lpv = new LocationPickerView(context);
-            lpv.init();
             if (form != null) {
                 JSONObject stepOne = form.getJSONObject(org.smartregister.family.util.JsonFormUtils.STEP1);
 
@@ -1086,5 +1086,11 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
         return null;
     }
 
+    public static JSONObject getJson(String formName, String baseEntityID) throws Exception {
+        String locationId = ChwApplication.getInstance().getContext().allSharedPreferences().getPreference(AllConstants.CURRENT_LOCATION_ID);
+        JSONObject jsonObject = org.smartregister.chw.anc.util.JsonFormUtils.getFormAsJson(formName);
+        org.smartregister.chw.anc.util.JsonFormUtils.getRegistrationForm(jsonObject, baseEntityID, locationId);
+        return jsonObject;
+    }
 
 }

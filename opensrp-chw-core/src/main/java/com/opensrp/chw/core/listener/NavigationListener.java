@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.view.View;
 import android.widget.Toast;
-
 import com.opensrp.chw.core.R;
 import com.opensrp.chw.core.adapter.NavigationAdapter;
 import com.opensrp.chw.core.utils.Constants;
@@ -39,7 +38,7 @@ public class NavigationListener implements View.OnClickListener {
                         Toast.makeText(activity.getApplicationContext(), Constants.DrawerMenu.LD, Toast.LENGTH_SHORT).show();
                         break;
                     case Constants.DrawerMenu.PNC:
-                        Toast.makeText(activity.getApplicationContext(), Constants.DrawerMenu.PNC, Toast.LENGTH_SHORT).show();
+                        startRegisterActivity(getActivity(Constants.REGISTERED_ACTIVITIES.PNC_REGISTER_ACTIVITY));
                         break;
                     case Constants.DrawerMenu.FAMILY_PLANNING:
                         Toast.makeText(activity.getApplicationContext(), Constants.DrawerMenu.FAMILY_PLANNING, Toast.LENGTH_SHORT).show();

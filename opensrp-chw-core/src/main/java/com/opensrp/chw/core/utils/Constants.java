@@ -44,8 +44,8 @@ public class Constants {
 
         public static final String ANC_REGISTRATION = "ANC Registration";
         public static final String ANC_HOME_VISIT = "ANC Home Visit";
+        public static final String PNC_HOME_VISIT = "PNC Home Visit";
         public static final String UPDATE_ANC_REGISTRATION = "Update ANC Registration";
-        public static final String PREGNANCY_OUTCOME = "Pregnancy Outcome";
     }
 
     /**
@@ -208,6 +208,69 @@ public class Constants {
                 return Utils.getLocalForm(EARLY_CHILDHOOD_DEVELOPMENT, locale, assetManager);
             }
         }
+
+        public static class PNC_HOME_VISIT {
+            private static final String DANGER_SIGNS = "pnc_hv_danger_signs";
+            private static final String DANGER_SIGNS_MOTHER = "pnc_danger_signs_mother";
+            private static final String DANGER_SIGNS_BABY = "pnc_danger_signs_baby";
+            private static final String HEALTH_FACILITY_VISIT = "pnc_health_facility_visit";
+            private static final String COUNSELLING = "pnc_counselling";
+            private static final String UMBILICAL_CORD = "pnc_umbilical_cord";
+            private static final String NUTRITION_STATUS_MOTHER = "pnc_nutrition_status_mother";
+            private static final String NUTRITION_STATUS_INFANT = "pnc_nutrition_status_infant";
+            private static final String MALARIA_PREVENTION = "pnc_malaria_prevention";
+            private static final String FAMILY_PLANNING = "pnc_family_planning";
+            private static final String OBSERVATION_AND_ILLNESS_MOTHER = "pnc_hv_observations_mother";
+            private static final String OBSERVATION_AND_ILLNESS_INFANT = "pnc_hv_observations_infant";
+
+            public static String getDangerSigns() {
+                return Utils.getLocalForm(DANGER_SIGNS, locale, assetManager);
+            }
+
+            public static String getDangerSignsMother() {
+                return Utils.getLocalForm(DANGER_SIGNS_MOTHER, locale, assetManager);
+            }
+
+            public static String getDangerSignsBaby() {
+                return Utils.getLocalForm(DANGER_SIGNS_BABY, locale, assetManager);
+            }
+
+            public static String getHealthFacilityVisit() {
+                return Utils.getLocalForm(HEALTH_FACILITY_VISIT, locale, assetManager);
+            }
+
+            public static String getCOUNSELLING() {
+                return Utils.getLocalForm(COUNSELLING, locale, assetManager);
+            }
+
+            public static String getUmbilicalCord() {
+                return Utils.getLocalForm(UMBILICAL_CORD, locale, assetManager);
+            }
+
+            public static String getNutritionStatusMother() {
+                return Utils.getLocalForm(NUTRITION_STATUS_MOTHER, locale, assetManager);
+            }
+
+            public static String getNutritionStatusInfant() {
+                return Utils.getLocalForm(NUTRITION_STATUS_INFANT, locale, assetManager);
+            }
+
+            public static String getMalariaPrevention() {
+                return Utils.getLocalForm(MALARIA_PREVENTION, locale, assetManager);
+            }
+
+            public static String getFamilyPlanning() {
+                return Utils.getLocalForm(FAMILY_PLANNING, locale, assetManager);
+            }
+
+            public static String getObservationAndIllnessMother() {
+                return Utils.getLocalForm(OBSERVATION_AND_ILLNESS_MOTHER, locale, assetManager);
+            }
+
+            public static String getObservationAndIllnessInfant() {
+                return Utils.getLocalForm(OBSERVATION_AND_ILLNESS_INFANT, locale, assetManager);
+            }
+        }
     }
 
     public static class RELATIONSHIP {
@@ -264,6 +327,7 @@ public class Constants {
     public static final class RULE_FILE {
         public static final String HOME_VISIT = "home-visit-rules.yml";
         public static final String ANC_HOME_VISIT = "anc-home-visit-rules.yml";
+        public static final String PNC_HOME_VISIT = "pnc-home-visit-rules.yml";
         public static final String BIRTH_CERT = "birth-cert-rules.yml";
         public static final String SERVICE = "service-rules.yml";
         public static final String IMMUNIZATION_EXPIRED = "immunization-expire-rules.yml";
@@ -415,5 +479,6 @@ public class Constants {
         public static final String CHILD_REGISTER_ACTIVITY = "CHILD_REGISTER_ACTIVITY";
         public static final String FAMILY_REGISTER_ACTIVITY = "FAMILY_REGISTER_ACTIVITY";
         public static final String ANC_REGISTER_ACTIVITY = "ANC_REGISTER_ACTIVITY";
+        public static final String PNC_REGISTER_ACTIVITY = "PNC_REGISTER_ACTIVITY";
     }
 }
