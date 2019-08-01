@@ -9,11 +9,14 @@ import org.smartregister.chw.anc.contract.BaseAncMemberProfileContract;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.util.Constants;
+import org.smartregister.chw.contract.ChildProfileContract;
 import org.smartregister.chw.pnc.interactor.BasePncMemberProfileInteractor;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 
 import java.util.Date;
+
+import timber.log.Timber;
 
 import static org.smartregister.chw.anc.AncLibrary.getInstance;
 
@@ -22,9 +25,6 @@ public class PncMemberProfileInteractor extends BasePncMemberProfileInteractor {
 
     public PncMemberProfileInteractor(Context context) {
         this.context = context;
-    }
-
-    public PncMemberProfileInteractor() {
     }
 
     /**
@@ -64,15 +64,19 @@ public class PncMemberProfileInteractor extends BasePncMemberProfileInteractor {
         return lastVisitDate;
     }
 
-    @Override
-    public void updateChild(final Pair<Client, Event> pair, final String jsonString) {
+
+    public void updateChilda(final Pair<Client, Event> pair, final String jsonString, final ChildProfileContract.InteractorCallBack callBack) {
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
                 appExecutors.mainThread().execute(new Runnable() {
                     @Override
                     public void run() {
-                        new ChildProfileInteractor().saveRegistration(pair, jsonString, true, null);
+                        try {
+                            new ChildProfileInteractor().saveRegistration(pair, jsonString, true, callBack);
+                        } catch (Exception e) {
+                            Timber.e(e);
+                        }
                     }
                 });
             }

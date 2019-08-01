@@ -14,6 +14,7 @@ import org.smartregister.chw.anc.AncLibrary;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.presenter.BaseAncMemberProfilePresenter;
 import org.smartregister.chw.anc.util.Constants;
+import org.smartregister.chw.contract.ChildProfileContract;
 import org.smartregister.chw.interactor.ChildProfileInteractor;
 import org.smartregister.chw.interactor.FamilyProfileInteractor;
 import org.smartregister.chw.interactor.PncMemberProfileInteractor;
@@ -21,6 +22,8 @@ import org.smartregister.chw.model.ChildRegisterModel;
 import org.smartregister.chw.model.FamilyProfileModel;
 import org.smartregister.chw.pnc.activity.BasePncMemberProfileActivity;
 import org.smartregister.chw.presenter.PncMemberProfilePresenter;
+import org.smartregister.chw.util.ChildService;
+import org.smartregister.chw.util.ChildVisit;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.CommonPersonObject;
@@ -35,8 +38,9 @@ import java.util.List;
 
 import timber.log.Timber;
 
-public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
+import static org.smartregister.chw.util.ChildDBConstants.KEY.MOTHER_ENTITY_ID;
 
+public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
 
 
     public static void startMe(Activity activity, MemberObject memberObject, String familyHeadName, String familyHeadPhoneNumber) {
@@ -73,6 +77,7 @@ public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
                     try {
                         JSONObject childEnrollmentForm = childProfileInteractor.getAutoPopulatedJsonEditFormString(org.smartregister.chw.util.Constants.JSON_FORM.getChildRegister(), getString(R.string.edit_child_form_title), this, children.get(0));
                         childEnrollmentForm.put(DBConstants.KEY.RELATIONAL_ID, MEMBER_OBJECT.getFamilyBaseEntityId());
+                        childEnrollmentForm.put(MOTHER_ENTITY_ID, MEMBER_OBJECT.getBaseEntityId());
                         startFormForEdit(childEnrollmentForm);
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -148,29 +153,27 @@ public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
                 }
                 break;
             case JsonFormUtils.REQUEST_CODE_GET_JSON:
-                if (resultCode == RESULT_OK) {
-                    try {
-                        String jsonString = data.getStringExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON);
-                        JSONObject form = new JSONObject(jsonString);
-                        if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Utils.metadata().familyMemberRegister.updateEventType)) {
+                if (resultCode == RESULT_OK) try {
+                    String jsonString = data.getStringExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON);
+                    JSONObject form = new JSONObject(jsonString);
+                    if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Utils.metadata().familyMemberRegister.updateEventType)) {
 
-                            FamilyEventClient familyEventClient =
-                                    new FamilyProfileModel(MEMBER_OBJECT.getFamilyName()).processUpdateMemberRegistration(jsonString, MEMBER_OBJECT.getBaseEntityId());
-                            new FamilyProfileInteractor().saveRegistration(familyEventClient, jsonString, true, pncMemberProfilePresenter());
-                        }
-
-                        if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(org.smartregister.chw.util.Constants.EventType.UPDATE_CHILD_REGISTRATION)) {
-
-                            Pair<Client, Event> pair = new ChildRegisterModel().processRegistration(jsonString);
-                            if (pair != null) {
-
-                                PncMemberProfileInteractor basePncMemberProfileInteractor = new PncMemberProfileInteractor(this);
-                                basePncMemberProfileInteractor.updateChild(pair, jsonString);
-                            }
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
+                        FamilyEventClient familyEventClient =
+                                new FamilyProfileModel(MEMBER_OBJECT.getFamilyName()).processUpdateMemberRegistration(jsonString, MEMBER_OBJECT.getBaseEntityId());
+                        new FamilyProfileInteractor().saveRegistration(familyEventClient, jsonString, true, pncMemberProfilePresenter());
                     }
+
+                    if (org.smartregister.chw.util.Constants.EventType.UPDATE_CHILD_REGISTRATION.equals(form.getString(JsonFormUtils.ENCOUNTER_TYPE))) {
+
+                        Pair<Client, Event> pair = new ChildRegisterModel().processRegistration(jsonString);
+                        if (pair != null) {
+
+                            PncMemberProfileInteractor basePncMemberProfileInteractor = new PncMemberProfileInteractor(this);
+                            basePncMemberProfileInteractor.updateChilda(pair, jsonString, callBack());
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
                 break;
             default:
@@ -181,5 +184,79 @@ public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
 
     public PncMemberProfilePresenter pncMemberProfilePresenter() {
         return new PncMemberProfilePresenter(this, new PncMemberProfileInteractor(this), MEMBER_OBJECT);
+    }
+//    TODO a better way to do this?
+    private ChildProfileContract.InteractorCallBack callBack() {
+        return new ChildProfileContract.InteractorCallBack() {
+            @Override
+            public void updateChildVisit(ChildVisit childVisit) {
+//                Implement
+            }
+
+            @Override
+            public void updateChildService(ChildService childService) {
+//                Implement
+            }
+
+            @Override
+            public void updateFamilyMemberServiceDue(String serviceDueStatus) {
+//                Implement
+            }
+
+            @Override
+            public void startFormForEdit(String title, CommonPersonObjectClient client) {
+//                Implement
+            }
+
+            @Override
+            public void refreshProfileTopSection(CommonPersonObjectClient client) {
+//                Implement
+            }
+
+            @Override
+            public void hideProgressBar() {
+//                Implement
+            }
+
+            @Override
+            public void onRegistrationSaved(boolean isEditMode) {
+//                Implement
+            }
+
+            @Override
+            public void setFamilyID(String familyID) {
+
+            }
+
+            @Override
+            public void setFamilyName(String familyName) {
+//                Implement
+            }
+
+            @Override
+            public void setFamilyHeadID(String familyHeadID) {
+//                Implement
+            }
+
+            @Override
+            public void setPrimaryCareGiverID(String primaryCareGiverID) {
+//                Implement
+            }
+
+            @Override
+            public void updateVisitNotDone() {
+//                Implement
+            }
+
+            @Override
+            public void undoVisitNotDone() {
+//                Implement
+            }
+
+            @Override
+            public void updateAfterBackGroundProcessed() {
+//                Implement
+            }
+        };
     }
 }
