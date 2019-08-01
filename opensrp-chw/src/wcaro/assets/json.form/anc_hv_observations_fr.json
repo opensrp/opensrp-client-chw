@@ -61,7 +61,7 @@
         "min_date": "today-10y",
         "v_required": {
           "value": "true",
-          "err": "Please enter illness date"
+          "err": "Cette réponse est requise"
         }
       },
       {
@@ -74,7 +74,7 @@
         "hint": "Description",
         "v_required": {
           "value": "true",
-          "err": "Please enter description"
+          "err": "Cette réponse est requise"
         }
       },
       {
@@ -87,7 +87,7 @@
         "hint": "Action prise",
         "v_required": {
           "value": "true",
-          "err": "Please select action"
+          "err": "Cette réponse est requise"
         },
         "values": [
           "Géré",

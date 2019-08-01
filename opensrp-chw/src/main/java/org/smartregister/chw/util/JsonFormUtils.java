@@ -1,12 +1,14 @@
 package org.smartregister.chw.util;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.text.TextUtils;
 import android.util.Pair;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
+import com.vijay.jsonwizard.domain.Form;
 
 import net.sqlcipher.database.SQLiteDatabase;
 
@@ -20,6 +22,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.AllConstants;
 import org.smartregister.chw.R;
+import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.domain.FamilyMember;
 import org.smartregister.chw.repository.ChwRepository;
@@ -30,6 +33,7 @@ import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.clientandeventmodel.Obs;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
+import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.domain.Photo;
 import org.smartregister.domain.ProfileImage;
 import org.smartregister.domain.tag.FormTag;
@@ -1126,10 +1130,43 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
         return jsonObject;
     }
 
+    public static JSONObject getAncPncForm(Integer title_resource, String formName, MemberObject memberObject, Context context) {
+        JSONObject form = null;
+
+        CommonRepository commonRepository = org.smartregister.chw.util.Utils.context().commonrepository(org.smartregister.chw.util.Utils.metadata().familyMemberRegister.tableName);
+        CommonPersonObject personObject = commonRepository.findByBaseEntityId(memberObject.getBaseEntityId());
+        CommonPersonObjectClient client = new CommonPersonObjectClient(personObject.getCaseId(), personObject.getDetails(), "");
+        client.setColumnmaps(personObject.getColumnmaps());
+
+        if (formName.equals(org.smartregister.chw.util.Constants.JSON_FORM.getFamilyMemberRegister())) {
+            form = org.smartregister.chw.util.JsonFormUtils.getAutoPopulatedJsonEditMemberFormString(
+                    (title_resource != null) ? context.getResources().getString(title_resource) : null,
+                    org.smartregister.chw.util.Constants.JSON_FORM.getFamilyMemberRegister(),
+                    context, client, org.smartregister.chw.util.Utils.metadata().familyMemberRegister.updateEventType, memberObject.getFamilyName(), false);
+        } else if (formName.equals(org.smartregister.chw.util.Constants.JSON_FORM.getAncRegistration())) {
+            form = org.smartregister.chw.util.JsonFormUtils.getAutoJsonEditAncFormString(
+                    memberObject.getBaseEntityId(), context, formName, org.smartregister.chw.util.Constants.EventType.UPDATE_ANC_REGISTRATION, context.getResources().getString(title_resource));
+        }
+        return form;
+
+    }
+
+    public static Intent getAncPncStartFormIntent(JSONObject jsonForm, Context context) {
+        Intent intent = new Intent(context, org.smartregister.family.util.Utils.metadata().familyMemberFormActivity);
+        intent.putExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON, jsonForm.toString());
+
+        Form form = new Form();
+        form.setActionBarBackground(R.color.family_actionbar);
+        form.setWizard(false);
+        intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);
+        return intent;
+    }
+
     public interface Flavor {
         JSONObject getAutoJsonEditMemberFormString(String title, String formName, Context context, CommonPersonObjectClient client, String eventType, String familyName, boolean isPrimaryCaregiver);
 
         void processFieldsForMemberEdit(CommonPersonObjectClient client, JSONObject jsonObject, JSONArray jsonArray, String familyName, boolean isPrimaryCaregiver, Event ecEvent, Client ecClient) throws JSONException;
+
     }
 
 }

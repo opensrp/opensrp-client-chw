@@ -69,7 +69,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Please select one option"
+          "err": "Cette réponse est requise"
         }
       },
       {
@@ -88,7 +88,7 @@
         "max_date": "today",
         "v_required": {
           "value": "true",
-          "err": "Enter the date of the ANC visit"
+          "err": "Cette réponse est requise"
         },
         "relevance": {
           "step1:anc_hf_visit": {
@@ -109,11 +109,11 @@
         "hint": "Poids (kg)",
         "v_required": {
           "value": "false",
-          "err": "Required"
+          "err": "Cette réponse est requise"
         },
         "v_numeric": {
           "value": "true",
-          "err": ""
+          "err": "Entrez un numéro valide"
         },
         "v_min": {
           "value": "0",
@@ -145,15 +145,15 @@
         "hint": "Pression systolique (mmHg)",
         "v_min": {
           "value": "0",
-          "err": "The value must be greater than or equal to 0"
+          "err": "La valeur doit être supérieure ou égale à 0"
         },
         "v_required": {
           "value": "false",
-          "err": "Required"
+          "err": "Cette réponse est requise."
         },
         "v_numeric_integer": {
           "value": "true",
-          "err": "Must be a rounded number"
+          "err": "Doit être un nombre arrondi"
         },
         "relevance": {
           "step1:anc_hf_visit": {
@@ -174,15 +174,15 @@
         "hint": "Pression diastolique (mmHg)",
         "v_min": {
           "value": "0",
-          "err": "The value must be greater than or equal to 0"
+          "err": "La valeur doit être supérieure ou égale à 0"
         },
         "v_required": {
           "value": "false",
-          "err": "Required"
+          "err": "Cette réponse est requise."
         },
         "v_numeric_integer": {
           "value": "true",
-          "err": "Must be a rounded number"
+          "err": "Doit être un nombre arrondi"
         },
         "relevance": {
           "step1:anc_hf_visit": {
@@ -203,7 +203,7 @@
         "hint": "Niveau d'hémoglobine g/dl",
         "v_required": {
           "value": "false",
-          "err": "Required"
+          "err": "Cette réponse est requise."
         },
         "v_numeric": {
           "value": "true",
@@ -227,7 +227,7 @@
         "hint": "FAF reçu??",
         "v_required": {
           "value": "true",
-          "err": "Required"
+          "err": "Cette réponse est requise."
         },
         "v_numeric": {
           "value": "true",
@@ -292,7 +292,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Please pick at least one"
+          "err": "Cette réponse est requise."
         },
         "relevance": {
           "step1:anc_hf_visit": {
