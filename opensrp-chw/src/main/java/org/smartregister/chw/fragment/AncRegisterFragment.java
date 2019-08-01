@@ -42,10 +42,9 @@ import static com.opensrp.chw.core.utils.Utils.convertDpToPixel;
 
 public class AncRegisterFragment extends BaseAncRegisterFragment {
 
-    private View view;
-
-    private boolean dueFilterActive = false;
     private static final String DUE_FILTER_TAG = "PRESSED";
+    private View view;
+    private boolean dueFilterActive = false;
 
     @Override
     public void setupViews(View view) {

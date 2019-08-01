@@ -32,12 +32,13 @@ public class ChildMedicalHistoryActivity extends BaseChildMedicalHistory {
     @Override
     public void onViewCreated(Activity activity) {
         flavor.renderView(this);
-        flavor.fetchData(activity,vaccineList,dateOfBirth,childClient);
+        flavor.fetchData(activity, vaccineList, dateOfBirth, childClient);
 
     }
 
-    public interface Flavor{
+    public interface Flavor {
         void renderView(Activity activity);
-        void fetchData(Context context, Map<String, Date> vaccineList,String dateOfBirth,CommonPersonObjectClient childClient);
+
+        void fetchData(Context context, Map<String, Date> vaccineList, String dateOfBirth, CommonPersonObjectClient childClient);
     }
 }

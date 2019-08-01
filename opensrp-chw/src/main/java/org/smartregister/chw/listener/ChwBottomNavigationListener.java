@@ -5,12 +5,12 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.view.MenuItem;
 
+import com.opensrp.chw.core.listener.CoreBottomNavigationListener;
+
 import org.smartregister.chw.activity.JobAidsActivity;
 import org.smartregister.family.R;
-import org.smartregister.listener.BottomNavigationListener;
-import org.smartregister.view.activity.BaseRegisterActivity;
 
-public class ChwBottomNavigationListener extends BottomNavigationListener {
+public class ChwBottomNavigationListener extends CoreBottomNavigationListener {
     private Activity context;
 
     public ChwBottomNavigationListener(Activity context) {
@@ -20,19 +20,8 @@ public class ChwBottomNavigationListener extends BottomNavigationListener {
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-//        super.onNavigationItemSelected(item);
-
-        BaseRegisterActivity baseRegisterActivity = (BaseRegisterActivity) context;
-
-        if (item.getItemId() == R.id.action_family) {
-            baseRegisterActivity.switchToBaseFragment();
-        } else if (item.getItemId() == R.id.action_scan_qr) {
-            baseRegisterActivity.startQrCodeScanner();
-            return false;
-        } else if (item.getItemId() == R.id.action_register) {
-            baseRegisterActivity.startRegistration();
-            return false;
-        } else if (item.getItemId() == R.id.action_job_aids) {
+        super.onNavigationItemSelected(item);
+        if (item.getItemId() == R.id.action_job_aids) {
             //view.setSelectedItemId(R.id.action_family);
             Intent intent = new Intent(context, JobAidsActivity.class);
             context.startActivity(intent);

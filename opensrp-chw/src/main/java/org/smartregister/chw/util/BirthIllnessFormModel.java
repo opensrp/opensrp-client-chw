@@ -13,9 +13,11 @@ public class BirthIllnessFormModel {
         this.jsonString = jsonString;
         this.pair = pair;
     }
+
     public String getJsonString() {
         return jsonString;
     }
+
     public Pair<Client, Event> getPair() {
         return pair;
     }

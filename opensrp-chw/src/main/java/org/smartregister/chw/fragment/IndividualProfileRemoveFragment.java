@@ -220,8 +220,8 @@ public class IndividualProfileRemoveFragment extends BaseFamilyProfileMemberFrag
     @Override
     public void onEveryoneRemoved() {
         if (getActivity() != null && getActivity() instanceof IndividualProfileRemoveActivity) {
-                IndividualProfileRemoveActivity p = (IndividualProfileRemoveActivity) getActivity();
-                p.onRemoveMember();
+            IndividualProfileRemoveActivity p = (IndividualProfileRemoveActivity) getActivity();
+            p.onRemoveMember();
         }
     }
 

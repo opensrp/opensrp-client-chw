@@ -1,11 +1,12 @@
 package org.smartregister.chw.presenter;
 
 
+import com.opensrp.chw.core.contract.FamilyProfileExtendedContract;
+
 import org.apache.commons.lang3.tuple.Triple;
 import org.smartregister.chw.anc.util.Util;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.contract.FamilyOtherMemberProfileExtendedContract;
-import com.opensrp.chw.core.contract.FamilyProfileExtendedContract;
 import org.smartregister.chw.interactor.FamilyInteractor;
 import org.smartregister.chw.interactor.FamilyProfileInteractor;
 import org.smartregister.chw.model.FamilyProfileModel;
@@ -116,7 +117,7 @@ public class FamilyOtherMemberActivityPresenter extends BaseFamilyOtherMemberPro
             this.getView().setProfileName(MessageFormat.format("{0}, {1}", getName(getName(firstName, middleName), lastName), age));
             String gestationAge = ChwApplication.ancRegisterRepository().getGaIfAncWoman(client.getCaseId());
             if (gestationAge != null) {
-                this.getView().setProfileDetailOne(Util.gestationAgeString(gestationAge, viewReference.get().getContext(),true));
+                this.getView().setProfileDetailOne(Util.gestationAgeString(gestationAge, viewReference.get().getContext(), true));
             }
         }
     }

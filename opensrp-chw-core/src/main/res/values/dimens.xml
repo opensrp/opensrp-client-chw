@@ -3,4 +3,9 @@
     <!-- Navigation Menu dimens -->
     <dimen name="sync_time_padding_right">20dp</dimen>
     <dimen name="sync_time_padding">15dp</dimen>
+
+    <!--Child register -->
+    <dimen name="child_register_title_size">16sp</dimen>
+    <dimen name="child_register_list_desc_size">16sp</dimen>
+    <dimen name="child_register_list_item_width">120dp</dimen>
 </resources>

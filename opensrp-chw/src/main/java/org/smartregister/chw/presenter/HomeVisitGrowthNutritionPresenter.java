@@ -29,6 +29,7 @@ import io.reactivex.ObservableOnSubscribe;
 import static com.opensrp.chw.core.utils.Utils.DD_MM_YYYY;
 
 public class HomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNutritionContract.Presenter, HomeVisitGrowthNutritionContract.InteractorCallBack {
+    private static final Flavor homeVisitGrowthNutritionPresenterFlv = new HomeVisitGrowthNutritionPresenterFlv();
     private WeakReference<HomeVisitGrowthNutritionContract.View> view;
     private HomeVisitGrowthNutritionContract.Interactor interactor;
     private Map<String, ServiceWrapper> serviceWrapperMap = new LinkedHashMap<>();
@@ -38,15 +39,12 @@ public class HomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNutriti
     private ServiceWrapper serviceWrapperDeworming;
     private Map<String, ServiceWrapper> saveStateMap = new LinkedHashMap<>();
     private Map<String, String> saveServiceMap = new LinkedHashMap<>();
-
     private Map<String, ServiceWrapper> notVisitStateMap = new LinkedHashMap<>();
     private CommonPersonObjectClient commonPersonObjectClient;
     private ArrayList<String> saveGroupList = new ArrayList<>();
     private boolean isEditMode = false;
     private Context context;
     private int initialCount = 0;
-
-    private static final Flavor homeVisitGrowthNutritionPresenterFlv = new HomeVisitGrowthNutritionPresenterFlv();
 
     public HomeVisitGrowthNutritionPresenter(HomeVisitGrowthNutritionContract.View view) {
         this.view = new WeakReference<>(view);

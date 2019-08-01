@@ -177,8 +177,8 @@
                                 android:layout_toEndOf="@+id/ivIconDevice"
                                 android:layout_toRightOf="@+id/ivIconDevice"
                                 android:fontFamily="sans-serif"
-                                android:textColor="@color/white"
                                 android:text="@string/device_to_device"
+                                android:textColor="@color/white"
                                 android:textSize="20sp" />
 
                         </RelativeLayout>
@@ -210,8 +210,8 @@
                                 android:layout_toEndOf="@+id/ivLogout"
                                 android:layout_toRightOf="@+id/ivLogout"
                                 android:fontFamily="sans-serif"
-                                android:textColor="@color/white"
                                 android:text="@string/log_out_as"
+                                android:textColor="@color/white"
                                 android:textSize="20sp" />
 
                         </RelativeLayout>

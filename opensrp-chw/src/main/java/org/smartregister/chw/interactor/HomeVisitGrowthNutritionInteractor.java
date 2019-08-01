@@ -88,9 +88,9 @@ public class HomeVisitGrowthNutritionInteractor implements HomeVisitGrowthNutrit
 
                     @Override
                     public void onNext(ServiceTaskModel serviceTaskModel) {
-                        if(serviceTaskModel==null){
+                        if (serviceTaskModel == null) {
                             callBack.allDataLoaded();
-                        }else{
+                        } else {
                             callBack.updateGivenRecordVisitData(serviceTaskModel.getGivenServiceMap());
                             callBack.updateNotGivenRecordVisitData(serviceTaskModel.getNotGivenServiceMap());
                         }
@@ -110,31 +110,32 @@ public class HomeVisitGrowthNutritionInteractor implements HomeVisitGrowthNutrit
                 });
 
 
-
-
     }
-    public Observable<ServiceTaskModel> getServiceWrapperMapFromLastHomeVisit(final CommonPersonObjectClient commonPersonObjectClient){
+
+    public Observable<ServiceTaskModel> getServiceWrapperMapFromLastHomeVisit(final CommonPersonObjectClient commonPersonObjectClient) {
         return Observable.create(new ObservableOnSubscribe<ServiceTaskModel>() {
             @Override
             public void subscribe(ObservableEmitter<ServiceTaskModel> e) throws Exception {
-                String lastHomeVisitStr=org.smartregister.util.Utils.getValue(commonPersonObjectClient.getColumnmaps(), ChildDBConstants.KEY.LAST_HOME_VISIT, false);
-                long lastHomeVisit= TextUtils.isEmpty(lastHomeVisitStr)?0:Long.parseLong(lastHomeVisitStr);
+                String lastHomeVisitStr = org.smartregister.util.Utils.getValue(commonPersonObjectClient.getColumnmaps(), ChildDBConstants.KEY.LAST_HOME_VISIT, false);
+                long lastHomeVisit = TextUtils.isEmpty(lastHomeVisitStr) ? 0 : Long.parseLong(lastHomeVisitStr);
                 HomeVisit homeVisit = ChwApplication.homeVisitRepository().findByDate(lastHomeVisit);
-                if(homeVisit!=null){
-                    Map<String, ServiceWrapper> serviceGivenWrapper = ChildUtils.gsonConverter.fromJson(homeVisit.getServicesGiven().toString(),new TypeToken<HashMap<String, ServiceWrapper>>(){}.getType());
-                    Map<String, ServiceWrapper> serviceNotGivenWrapper = ChildUtils.gsonConverter.fromJson(homeVisit.getServiceNotGiven().toString(),new TypeToken<HashMap<String, ServiceWrapper>>(){}.getType());
+                if (homeVisit != null) {
+                    Map<String, ServiceWrapper> serviceGivenWrapper = ChildUtils.gsonConverter.fromJson(homeVisit.getServicesGiven().toString(), new TypeToken<HashMap<String, ServiceWrapper>>() {
+                    }.getType());
+                    Map<String, ServiceWrapper> serviceNotGivenWrapper = ChildUtils.gsonConverter.fromJson(homeVisit.getServiceNotGiven().toString(), new TypeToken<HashMap<String, ServiceWrapper>>() {
+                    }.getType());
                     ServiceTaskModel serviceTaskModel = new ServiceTaskModel();
                     serviceTaskModel.setGivenServiceMap(serviceGivenWrapper);
                     serviceTaskModel.setNotGivenServiceMap(serviceNotGivenWrapper);
                     e.onNext(serviceTaskModel);
-                }else{
+                } else {
                     e.onNext(null);
                 }
 
             }
         });
     }
-  
+
     public ArrayList<GrowthServiceData> getAllDueService(Map<String, ServiceWrapper> serviceWrapperMap) {
         ArrayList<GrowthServiceData> growthServiceDataList = new ArrayList<>();
 
@@ -174,6 +175,6 @@ public class HomeVisitGrowthNutritionInteractor implements HomeVisitGrowthNutrit
     @Override
     public void onDestroy(boolean isChangingConfiguration) {
         //TODO Implement onDestroy
-        Timber.d( "onDestroy unimplemented");
+        Timber.d("onDestroy unimplemented");
     }
 }

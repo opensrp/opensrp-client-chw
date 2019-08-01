@@ -168,12 +168,12 @@ dependencies {
 task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest']) {
 
     reports {
-        html{
+        html {
             html.enabled = true
             destination file("${buildDir}/reports/jacoco/jacocoRootReport/chw-core-coverage")
         }
 
-        xml{
+        xml {
             xml.enabled = true
             destination file("${buildDir}/reports/jacoco/jacocoRootReport/chw-core-coverage.xml")
         }

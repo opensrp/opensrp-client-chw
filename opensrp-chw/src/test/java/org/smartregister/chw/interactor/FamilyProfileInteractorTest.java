@@ -68,8 +68,8 @@ public class FamilyProfileInteractorTest {
         PowerMockito.when(context.getAssets()).thenReturn(assetManager);
 
         //Set asset manager and locale for JSON_FORM class
-        Whitebox.setInternalState( Constants.JSON_FORM.class, "assetManager", assetManager );
-        Whitebox.setInternalState( Constants.JSON_FORM.class, "locale", new Locale("fr", "FR") );
+        Whitebox.setInternalState(Constants.JSON_FORM.class, "assetManager", assetManager);
+        Whitebox.setInternalState(Constants.JSON_FORM.class, "locale", new Locale("fr", "FR"));
 
         String sampleJson = " " +
                 "{ " +

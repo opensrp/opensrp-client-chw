@@ -2,4 +2,5 @@
 <resources>
     <color name="holo_blue">#81D4FA</color>
     <color name="grey_tranparent_50">#803B404D</color>
+    <color name="light_pink">#FFDAF7</color>
 </resources>

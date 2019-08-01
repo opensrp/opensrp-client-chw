@@ -1,21 +1,21 @@
-package org.smartregister.chw.model;
+package com.opensrp.chw.core.model;
 
+import com.opensrp.chw.core.contract.CoreChildProfileContract;
 import com.opensrp.chw.core.utils.Constants;
+import com.opensrp.chw.core.utils.CoreJsonFormUtils;
 
 import org.json.JSONObject;
-import org.smartregister.chw.contract.ChildProfileContract;
-import org.smartregister.chw.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
 import org.smartregister.util.FormUtils;
 
 import timber.log.Timber;
 
-public class ChildProfileModel implements ChildProfileContract.Model {
+public class CoreChildProfileModel implements CoreChildProfileContract.Model {
 
     private FormUtils formUtils;
     private String familyName;
 
-    public ChildProfileModel(String familyName) {
+    public CoreChildProfileModel(String familyName) {
         this.familyName = familyName;
     }
 
@@ -24,9 +24,9 @@ public class ChildProfileModel implements ChildProfileContract.Model {
         if (form == null) {
             return null;
         }
-        form = JsonFormUtils.getFormAsJson(form, formName, entityId, currentLocationId, familyID);
+        form = CoreJsonFormUtils.getFormAsJson(form, formName, entityId, currentLocationId, familyID);
         if (formName.equals(Constants.JSON_FORM.getChildRegister())) {
-            JsonFormUtils.updateJsonForm(form, familyName);
+            CoreJsonFormUtils.updateJsonForm(form, familyName);
         }
 
         return form;

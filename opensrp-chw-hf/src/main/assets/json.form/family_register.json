@@ -170,7 +170,7 @@
         "type": "edit_text",
         "hint": "ID",
         "value": "0",
-        "read_only" : "true",
+        "read_only": "true",
         "v_numeric": {
           "value": "true",
           "err": "Please enter a valid ID"
@@ -222,7 +222,7 @@
         "type": "edit_text",
         "hint": "Surname",
         "edit_type": "name",
-        "read_only" : "true",
+        "read_only": "true",
         "v_regex": {
           "value": "[A-Za-z\\s\\.\\-]*",
           "err": "Please enter a valid name"

@@ -17,15 +17,14 @@ import java.util.List;
 import timber.log.Timber;
 
 public class HomeVisitServiceRepository extends BaseRepository {
-    private static final String TAG = HomeVisitServiceRepository.class.getCanonicalName();
-    private static final String HOME_VISIT_SERVICE_SQL = "CREATE TABLE home_visit_service (home_visit_id VARCHAR NOT NULL,event_type VARCHAR,details TEXT,date DATETIME NOT NULL)";
     public static final String HOME_VISIT_SERVICE_TABLE_NAME = "home_visit_service";
     public static final String HOME_VISIT_ID = "home_visit_id";
     public static final String EVENT_TYPE = "event_type";
     public static final String DATE = "date";
     public static final String DETAILS = "details";
-
     public static final String[] TABLE_COLUMNS = {HOME_VISIT_ID, EVENT_TYPE, DATE, DETAILS};
+    private static final String TAG = HomeVisitServiceRepository.class.getCanonicalName();
+    private static final String HOME_VISIT_SERVICE_SQL = "CREATE TABLE home_visit_service (home_visit_id VARCHAR NOT NULL,event_type VARCHAR,details TEXT,date DATETIME NOT NULL)";
 
     public HomeVisitServiceRepository(Repository repository) {
         super(repository);

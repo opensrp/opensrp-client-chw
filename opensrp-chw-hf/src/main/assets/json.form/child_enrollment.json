@@ -394,7 +394,6 @@
           "err": "Please enter type of physical disabilities"
         }
       },
-
       {
         "key": "birth_cert_available",
         "openmrs_entity_parent": "",
@@ -442,7 +441,6 @@
           "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         }
       },
-
       {
         "key": "nutrition_status",
         "openmrs_entity_parent": "",

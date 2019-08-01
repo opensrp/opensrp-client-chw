@@ -246,6 +246,7 @@ public class Utils extends org.smartregister.family.util.Utils {
     public static String getLocalForm(String form_name, Locale locale, AssetManager assetManager) {
         return readFile(form_name, locale, assetManager);
     }
+
     public static boolean launchDialer(final Activity activity, final FamilyCallDialogContract.View callView, final String phoneNumber) {
 
         if (ContextCompat.checkSelfPermission(activity, Manifest.permission.READ_PHONE_STATE)

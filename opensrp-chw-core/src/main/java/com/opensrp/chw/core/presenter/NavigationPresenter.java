@@ -4,11 +4,11 @@ import android.app.Activity;
 
 import com.opensrp.chw.core.contract.CoreApplication;
 import com.opensrp.chw.core.contract.NavigationContract;
-
 import com.opensrp.chw.core.interactor.NavigationInteractor;
 import com.opensrp.chw.core.model.NavigationModel;
 import com.opensrp.chw.core.model.NavigationOption;
 import com.opensrp.chw.core.utils.Constants;
+
 import org.smartregister.job.ImageUploadServiceJob;
 import org.smartregister.job.SyncServiceJob;
 
@@ -43,7 +43,7 @@ public class NavigationPresenter implements NavigationContract.Presenter {
         tableMap.put(Constants.DrawerMenu.CHILD_CLIENTS, Constants.TABLE_NAME.CHILD);
         tableMap.put(Constants.DrawerMenu.ANC_CLIENTS, Constants.TABLE_NAME.ANC_MEMBER);
         tableMap.put(Constants.DrawerMenu.ANC, Constants.TABLE_NAME.ANC_MEMBER);
-        tableMap.put(Constants.DrawerMenu.PNC,Constants.TABLE_NAME.ANC_PREGNANCY_OUTCOME);
+        tableMap.put(Constants.DrawerMenu.PNC, Constants.TABLE_NAME.ANC_PREGNANCY_OUTCOME);
     }
 
     @Override

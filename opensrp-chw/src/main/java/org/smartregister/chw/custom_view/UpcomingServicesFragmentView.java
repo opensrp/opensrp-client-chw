@@ -60,11 +60,11 @@ public class UpcomingServicesFragmentView extends LinearLayout implements View.O
 
     }
 
-    public void setChildClient(Activity context,CommonPersonObjectClient childClient){
+    public void setChildClient(Activity context, CommonPersonObjectClient childClient) {
         this.childClient = childClient;
         this.context = context;
         removeAllViews();
-        presenter.fetchImmunizationData(childClient,"");
+        presenter.fetchImmunizationData(childClient, "");
     }
 
 

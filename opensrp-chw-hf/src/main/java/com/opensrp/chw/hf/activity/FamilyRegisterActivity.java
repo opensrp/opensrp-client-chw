@@ -5,7 +5,7 @@ import android.os.Bundle;
 import com.opensrp.chw.core.activity.CoreFamilyRegisterActivity;
 import com.opensrp.chw.core.custom_views.NavigationMenu;
 import com.opensrp.chw.core.utils.Constants;
-import com.opensrp.chw.hf.HealthFacilityApp;
+import com.opensrp.chw.hf.HealthFacilityApplication;
 import com.opensrp.chw.hf.fragement.FamilyRegisterFragment;
 import com.opensrp.chw.hf.listener.HfFamilyBottomNavListener;
 import com.opensrp.hf.BuildConfig;
@@ -29,7 +29,7 @@ public class FamilyRegisterActivity extends CoreFamilyRegisterActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         NavigationMenu.getInstance(this, null, null);
-        HealthFacilityApp.getInstance().notifyAppContextChange(); // initialize the language (bug in translation)
+        HealthFacilityApplication.getInstance().notifyAppContextChange(); // initialize the language (bug in translation)
 
         action = getIntent().getStringExtra(Constants.ACTIVITY_PAYLOAD.ACTION);
         if (action != null && action.equals(Constants.ACTION.START_REGISTRATION)) {

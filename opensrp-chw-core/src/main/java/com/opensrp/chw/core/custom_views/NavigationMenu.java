@@ -54,6 +54,10 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
 
     private static NavigationMenu instance;
     private static WeakReference<Activity> activityWeakReference;
+    private static CoreApplication application;
+    private static NavigationMenu.Flavour menuFlavor;
+    private static NavigationModel.Flavor modelFlavor;
+    private static Map<String, Class> registeredActivities;
     private String TAG = NavigationMenu.class.getCanonicalName();
     private DrawerLayout drawer;
     private Toolbar toolbar;
@@ -66,17 +70,13 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
     private NavigationContract.Presenter mPresenter;
     private View parentView;
     private List<NavigationOption> navigationOptions;
-    private static CoreApplication application;
-    private static NavigationMenu.Flavour menuFlavor;
-    private static NavigationModel.Flavor modelFlavor;
-    private static Map<String, Class> registeredActivities;
 
     private NavigationMenu() {
 
     }
 
     public static void setupNavigationMenu(CoreApplication application, NavigationMenu.Flavour menuFlavor,
-                                    NavigationModel.Flavor modelFlavor, Map<String, Class> registeredActivities) {
+                                           NavigationModel.Flavor modelFlavor, Map<String, Class> registeredActivities) {
         NavigationMenu.application = application;
         NavigationMenu.menuFlavor = menuFlavor;
         NavigationMenu.modelFlavor = modelFlavor;
@@ -110,7 +110,7 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
             setParentView(activity, parentView);
             toolbar = myToolbar;
             parentView = myParentView;
-            mPresenter = new NavigationPresenter(application,this, modelFlavor);
+            mPresenter = new NavigationPresenter(application, this, modelFlavor);
             prepareViews(activity);
         } catch (Exception e) {
             Timber.e(e);

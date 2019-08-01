@@ -38,8 +38,8 @@ import static com.opensrp.chw.core.utils.Utils.convertDpToPixel;
 public abstract class CoreFamilyRegisterFragment extends BaseFamilyRegisterFragment {
     private static final String TAG = CoreFamilyRegisterFragment.class.getCanonicalName();
     private static final String DUE_FILTER_TAG = "PRESSED";
-    private View view;
     protected View dueOnlyLayout;
+    private View view;
     private boolean dueFilterActive = false;
 
     @Override
@@ -117,7 +117,7 @@ public abstract class CoreFamilyRegisterFragment extends BaseFamilyRegisterFragm
     }
 
     @Override
-    public  void initializeAdapter(Set<org.smartregister.configurableviews.model.View> visibleColumns){
+    public void initializeAdapter(Set<org.smartregister.configurableviews.model.View> visibleColumns) {
         super.initializeAdapter(visibleColumns);
     }
 

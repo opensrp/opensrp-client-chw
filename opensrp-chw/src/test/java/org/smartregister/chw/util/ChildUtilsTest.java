@@ -126,20 +126,20 @@ public class ChildUtilsTest extends BaseUnitTest {
         Method method = Whitebox.getMethod(ChildUtils.class, "mainColumns",
                 String.class, String.class, String.class);
 
-        String [] columns  = (String[]) method.invoke(null, tableName, familyTableName, familyMemberTableName);
+        String[] columns = (String[]) method.invoke(null, tableName, familyTableName, familyMemberTableName);
         Assert.assertNotNull(columns);
         Assert.assertEquals(tableName + "." + DBConstants.KEY.FIRST_NAME, columns[3]);
     }
 
     @Test
-    public void testGetChildVisitStatus(){
+    public void testGetChildVisitStatus() {
         HomeAlertRule homeAlertRule = Mockito.mock(HomeAlertRule.class);
         ChildVisit childVisit = ChildUtils.getChildVisitStatus(homeAlertRule, 1213441433);
         Assert.assertNotNull(childVisit);
     }
 
     @Test
-    public void testDaysAwayWithPreviousDate(){
+    public void testDaysAwayWithPreviousDate() {
         //Test with 10 days ago should return "10 days overdue"
         String tenDaysAgo = String.valueOf(new LocalDate().minusDays(10));
         SpannableString tenDaysAway = ChildUtils.daysAway(tenDaysAgo);
@@ -150,7 +150,7 @@ public class ChildUtilsTest extends BaseUnitTest {
 
 
     @Test
-    public void testDaysAwayWithTodayAndFutureDate(){
+    public void testDaysAwayWithTodayAndFutureDate() {
         //Test with 10 days in future should return "10 days away"
         String tenDaysInFuture = String.valueOf(new LocalDate().plusDays(10));
         SpannableString tenDaysAway = ChildUtils.daysAway(tenDaysInFuture);

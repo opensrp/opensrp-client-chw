@@ -1,6 +1,6 @@
-package org.smartregister.chw.util;
+package com.opensrp.chw.core.utils;
 
-public class ChildService {
+public class CoreChildService {
 
     private String serviceName;
     private String serviceStatus;

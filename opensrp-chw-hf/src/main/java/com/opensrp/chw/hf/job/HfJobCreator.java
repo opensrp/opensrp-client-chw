@@ -9,7 +9,6 @@ import com.opensrp.chw.core.job.VaccineRecurringServiceJob;
 
 import org.smartregister.job.ExtendedSyncServiceJob;
 import org.smartregister.job.ImageUploadServiceJob;
-import org.smartregister.job.P2pServiceJob;
 import org.smartregister.job.PullUniqueIdsServiceJob;
 import org.smartregister.job.SyncServiceJob;
 import org.smartregister.job.ValidateSyncDataServiceJob;
@@ -38,7 +37,7 @@ public class HfJobCreator implements JobCreator {
             case VaccineRecurringServiceJob.TAG:
                 return new VaccineRecurringServiceJob();
             default:
-                Timber.d( "Please create job and specify the right job tag");
+                Timber.d("Please create job and specify the right job tag");
                 return null;
         }
     }

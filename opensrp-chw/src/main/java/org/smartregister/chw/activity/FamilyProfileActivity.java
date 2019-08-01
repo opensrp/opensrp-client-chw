@@ -14,23 +14,22 @@ import android.view.MenuItem;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import org.apache.commons.lang3.StringUtils;
-import org.greenrobot.eventbus.EventBus;
-import org.json.JSONObject;
-import org.smartregister.chw.R;
-
 import com.opensrp.chw.core.activity.CoreFamilyProfileActivity;
 import com.opensrp.chw.core.contract.FamilyProfileExtendedContract;
 import com.opensrp.chw.core.custom_views.FamilyFloatingMenu;
 import com.opensrp.chw.core.event.PermissionEvent;
+import com.opensrp.chw.core.listener.FloatingMenuListener;
+
+import org.apache.commons.lang3.StringUtils;
+import org.greenrobot.eventbus.EventBus;
+import org.json.JSONObject;
+import org.smartregister.chw.R;
 import org.smartregister.chw.fragment.FamilyProfileActivityFragment;
 import org.smartregister.chw.fragment.FamilyProfileDueFragment;
 import org.smartregister.chw.fragment.FamilyProfileMemberFragment;
-import com.opensrp.chw.core.listener.FloatingMenuListener;
 import org.smartregister.chw.model.FamilyProfileModel;
 import org.smartregister.chw.presenter.FamilyProfilePresenter;
 import org.smartregister.domain.FetchStatus;
-import org.smartregister.family.activity.BaseFamilyProfileActivity;
 import org.smartregister.family.adapter.ViewPagerAdapter;
 import org.smartregister.family.fragment.BaseFamilyProfileActivityFragment;
 import org.smartregister.family.fragment.BaseFamilyProfileDueFragment;

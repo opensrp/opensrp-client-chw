@@ -3,9 +3,10 @@ package com.opensrp.chw.core.service;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.opensrp.chw.core.utils.Constants;
+
 import org.smartregister.AllConstants;
 import org.smartregister.CoreLibrary;
-import com.opensrp.chw.core.utils.Constants;
 import org.smartregister.domain.jsonmapping.Location;
 import org.smartregister.domain.jsonmapping.util.LocationTree;
 import org.smartregister.domain.jsonmapping.util.TreeNode;
@@ -75,13 +76,13 @@ public class CoreAuthorizationService implements P2PAuthorizationService {
         LinkedHashMap<String, TreeNode<String, Location>> locationHierarchyMap = retrieveLocationHierarchyMap();
 
         if (locationHierarchyMap != null) {
-            for (String locationId: locationHierarchyMap.keySet()) {
+            for (String locationId : locationHierarchyMap.keySet()) {
                 // If the lower location is higher than the expected high location
                 boolean foundHighLocation = false;
 
                 if (locationId.equals(lowerLocationId)) {
                     return false;
-                } else if(locationId.equals(highLocationId)) {
+                } else if (locationId.equals(highLocationId)) {
                     foundHighLocation = true;
                 }
 
@@ -110,7 +111,7 @@ public class CoreAuthorizationService implements P2PAuthorizationService {
 
         return false;
     }
-    
+
     @Nullable
     private LinkedHashMap<String, TreeNode<String, Location>> retrieveLocationHierarchyMap() {
         String locationData = CoreLibrary.getInstance().context().anmLocationController().get();

@@ -329,7 +329,6 @@
     "id": "Fourteen_Weeks",
     "days_after_birth_due": 98,
     "vaccines": [
-
       {
         "name": "OPV 3",
         "type": "OPV",
@@ -550,8 +549,7 @@
             }
           ]
         }
-      }
-    ,
+      },
       {
         "name": "MenA",
         "type": "MenA",

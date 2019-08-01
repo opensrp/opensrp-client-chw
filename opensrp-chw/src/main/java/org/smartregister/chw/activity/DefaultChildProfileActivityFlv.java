@@ -2,9 +2,10 @@ package org.smartregister.chw.activity;
 
 import android.app.Activity;
 
-import org.smartregister.chw.R;
 import com.opensrp.chw.core.fragment.FamilyCallDialogFragment;
 import com.opensrp.chw.core.listener.OnClickFloatingMenu;
+
+import org.smartregister.chw.R;
 import org.smartregister.chw.presenter.ChildProfilePresenter;
 
 public abstract class DefaultChildProfileActivityFlv implements ChildProfileActivity.Flavor {
@@ -26,7 +27,7 @@ public abstract class DefaultChildProfileActivityFlv implements ChildProfileActi
     }
 
     @Override
-    public boolean showMalariaConfirmationMenu(){
+    public boolean showMalariaConfirmationMenu() {
         return false;
     }
 }

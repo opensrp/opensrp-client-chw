@@ -13,10 +13,11 @@ import java.util.List;
 /**
  * Created by keyamn on 12/11/2018.
  */
-public interface ChildRegisterContract {
+public interface CoreChildRegisterContract {
 
     interface View extends BaseRegisterContract.View {
-        ChildRegisterContract.Presenter presenter();
+        CoreChildRegisterContract.Presenter presenter();
+
         void openFamilyListView();
     }
 
@@ -55,9 +56,9 @@ public interface ChildRegisterContract {
 
         void onDestroy(boolean isChangingConfiguration);
 
-        void getNextUniqueId(Triple<String, String, String> triple, ChildRegisterContract.InteractorCallBack callBack, String familyID);
+        void getNextUniqueId(Triple<String, String, String> triple, CoreChildRegisterContract.InteractorCallBack callBack, String familyID);
 
-        void saveRegistration(final Pair<Client, Event> pair, final String jsonString, final boolean isEditMode, final ChildRegisterContract.InteractorCallBack callBack);
+        void saveRegistration(final Pair<Client, Event> pair, final String jsonString, final boolean isEditMode, final CoreChildRegisterContract.InteractorCallBack callBack);
 
         void removeChildFromRegister(String closeFormJsonString, String providerId);
 
