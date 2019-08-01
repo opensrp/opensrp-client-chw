@@ -109,7 +109,7 @@
     <string name="deworming">Déparasitage</string>
     <string name="vaccine_card_text">L\'enfant a t-il ou elle reçu son carnet de vaccination ou carnet mère et Enfant?</string>
     <string name="vaccine_card_title">Carnet de vaccination infantile reçu</string>
-    <string name="record_immunizations">Enregistrer les Vaccinaitons</string>
+    <string name="record_immunizations">Enregistrer les vaccinations</string>
     <string name="tab_text_1">TABLEAU DE BORD</string>
     <string name="tab_text_2">GUIDES</string>
     <string name="action_settings">Paramètres</string>
@@ -119,7 +119,9 @@
     <string name="observations_illness_episodes"><![CDATA[Observations & maladies - <i>optional</i>]]></string>
     <string name="observations_illness_episodes_medical"><![CDATA[Observations & Épisodes de maladies]]></string>
     <string name="home_visit_suffix"> &#183; Visite à domicile</string>
+    <string name="wash_check_suffix">&#183; Vérification Eau, Hygiène et Assainissement </string>
     <string name="last_visit_prefix">Dernière visite depuis %1$s </string>
+    <string name="completed_on_prefix">Complété le %1$s</string>
 
     <string name="profile_activity_completed">Complété le %s</string>
     <string name="interpunct">・</string>
@@ -415,5 +417,23 @@
     <string name="pnc_visit">Visite CPoN</string>
     <string name="anc_visit">Visite CPN</string>
     <string name="number_8_16">Le numéro doit être composé de 8 à 16 chiffres</string>
+
+    <string name="handwashing_facilities">Le ménage dispose-t-il d\'un dispositive pour se laver les mains?</string>
+    <string name="drinking_water">Le ménage a-t-il accès à de l\'eau potable propre?</string>
+    <string name="hygienic_latrine">Les membres du ménage utilisent-ils des latrines hygiéniques pour l\'évacuation des excréments?</string>
+    <string name="wash_check">Vérification Eau, Hygiène et Assainissement </string>
+
+    <string name="abv_first">1er</string>
+    <string name="abv_second">2ème</string>
+    <string name="abv_third">3ème</string>
+    <string name="abv_fourth">4ème</string>
+    <string name="abv_fifth">5ème</string>
+    <string name="abv_sixth">6ème</string>
+    <string name="abv_seventh">7ème</string>
+    <string name="abv_eigth">8ème</string>
+    <string name="abv_nineth">9ème</string>
+    <string name="abv_tenth">10ème</string>
+    <string name="abv_eleventh">11ème</string>
+    <string name="abv_twelfth">12ème</string>
 
 </resources>
