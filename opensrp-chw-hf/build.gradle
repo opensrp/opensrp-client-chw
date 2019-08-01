@@ -125,12 +125,12 @@ tasks.withType(Test) {
 task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest', 'createDebugCoverageReport']) {
 
     reports {
-        html{
+        html {
             html.enabled = true
             destination file("${buildDir}/reports/jacoco/jacocoRootReport/chw-hf-coverage")
         }
 
-        xml{
+        xml {
             xml.enabled = true
             destination file("${buildDir}/reports/jacoco/jacocoRootReport/chw-hf-coverage.xml")
         }

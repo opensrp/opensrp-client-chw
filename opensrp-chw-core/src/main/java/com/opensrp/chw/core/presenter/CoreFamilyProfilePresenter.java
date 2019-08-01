@@ -4,11 +4,11 @@ import android.content.Context;
 import android.util.Pair;
 
 import com.opensrp.chw.core.R;
-import com.opensrp.chw.core.contract.ChildRegisterContract;
+import com.opensrp.chw.core.contract.CoreChildRegisterContract;
 import com.opensrp.chw.core.contract.FamilyProfileExtendedContract;
 import com.opensrp.chw.core.interactor.CoreFamilyProfileInteractor;
 import com.opensrp.chw.core.utils.Constants;
-import com.opensrp.chw.core.utils.JsonFormUtils;
+import com.opensrp.chw.core.utils.CoreJsonFormUtils;
 import com.opensrp.chw.core.utils.Utils;
 
 import org.apache.commons.lang3.tuple.Triple;
@@ -24,7 +24,7 @@ import java.lang.ref.WeakReference;
 
 import timber.log.Timber;
 
-public class CoreFamilyProfilePresenter extends BaseFamilyProfilePresenter implements FamilyProfileExtendedContract.Presenter, ChildRegisterContract.InteractorCallBack, FamilyProfileExtendedContract.PresenterCallBack {
+public abstract class CoreFamilyProfilePresenter extends BaseFamilyProfilePresenter implements FamilyProfileExtendedContract.Presenter, CoreChildRegisterContract.InteractorCallBack, FamilyProfileExtendedContract.PresenterCallBack {
 
     private WeakReference<FamilyProfileExtendedContract.View> viewReference;
 
@@ -44,7 +44,7 @@ public class CoreFamilyProfilePresenter extends BaseFamilyProfilePresenter imple
     }
 
     @Override
-    public void saveChildRegistration(Pair<Client, Event> pair, String jsonString, boolean isEditMode, ChildRegisterContract.InteractorCallBack callBack) {
+    public void saveChildRegistration(Pair<Client, Event> pair, String jsonString, boolean isEditMode, CoreChildRegisterContract.InteractorCallBack callBack) {
         // childRegisterInteractor.saveRegistration(pair, jsonString, isEditMode, this);
     }
 
@@ -125,7 +125,7 @@ public class CoreFamilyProfilePresenter extends BaseFamilyProfilePresenter imple
 
     @Override
     public void startFormForEdit(CommonPersonObjectClient client) {
-        JSONObject form = JsonFormUtils.getAutoPopulatedJsonEditFormString(Constants.JSON_FORM.getFamilyDetailsRegister(), getView().getApplicationContext(), client, Utils.metadata().familyRegister.updateEventType);
+        JSONObject form = CoreJsonFormUtils.getAutoPopulatedJsonEditFormString(Constants.JSON_FORM.getFamilyDetailsRegister(), getView().getApplicationContext(), client, Utils.metadata().familyRegister.updateEventType);
         try {
             getView().startFormActivity(form);
         } catch (Exception e) {

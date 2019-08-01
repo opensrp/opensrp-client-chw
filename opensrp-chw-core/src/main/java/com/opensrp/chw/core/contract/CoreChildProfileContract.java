@@ -1,19 +1,19 @@
-package org.smartregister.chw.contract;
+package com.opensrp.chw.core.contract;
 
 import android.content.Context;
 import android.util.Pair;
 
 import com.opensrp.chw.core.model.ChildVisit;
+import com.opensrp.chw.core.utils.CoreChildService;
 
 import org.json.JSONObject;
-import org.smartregister.chw.util.ChildService;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.view.contract.BaseProfileContract;
 
-public interface ChildProfileContract {
+public interface CoreChildProfileContract {
 
     interface View extends BaseProfileContract.View {
 
@@ -51,11 +51,11 @@ public interface ChildProfileContract {
 
         void setLastVisitRowView(String days);
 
-        void setServiceNameDue(String name,String dueDate);
+        void setServiceNameDue(String name, String dueDate);
 
-        void setServiceNameOverDue(String name,String dueDate);
+        void setServiceNameOverDue(String name, String dueDate);
 
-        void setServiceNameUpcoming(String name,String dueDate);
+        void setServiceNameUpcoming(String name, String dueDate);
 
         void setVisitLessTwentyFourView(String monthName);
 
@@ -67,7 +67,7 @@ public interface ChildProfileContract {
 
         void setFamilyHasServiceOverdue();
 
-        ChildProfileContract.Presenter presenter();
+        CoreChildProfileContract.Presenter presenter();
 
         void updateHasPhone(boolean hasPhone);
 
@@ -86,7 +86,7 @@ public interface ChildProfileContract {
 
         void updateChildProfile(String jsonObject);
 
-        ChildProfileContract.View getView();
+        CoreChildProfileContract.View getView();
 
         void fetchProfileData();
 
@@ -105,29 +105,29 @@ public interface ChildProfileContract {
     }
 
     interface Interactor {
-        void updateVisitNotDone(long value, ChildProfileContract.InteractorCallBack callback);
+        void updateVisitNotDone(long value, CoreChildProfileContract.InteractorCallBack callback);
 
-        void refreshChildVisitBar(Context context, String baseEntityId, ChildProfileContract.InteractorCallBack callback);
+        void refreshChildVisitBar(Context context, String baseEntityId, CoreChildProfileContract.InteractorCallBack callback);
 
-        void refreshUpcomingServiceAndFamilyDue(Context context, String familyId, String baseEntityId, ChildProfileContract.InteractorCallBack callback);
+        void refreshUpcomingServiceAndFamilyDue(Context context, String familyId, String baseEntityId, CoreChildProfileContract.InteractorCallBack callback);
 
         void onDestroy(boolean isChangingConfiguration);
 
         void updateChildCommonPerson(String baseEntityId);
 
-        void refreshProfileView(String baseEntityId, boolean isForEdit, ChildProfileContract.InteractorCallBack callback);
+        void refreshProfileView(String baseEntityId, boolean isForEdit, CoreChildProfileContract.InteractorCallBack callback);
 
-        void saveRegistration(final Pair<Client, Event> pair, final String jsonString, final boolean isEditMode, final ChildProfileContract.InteractorCallBack callBack);
+        void saveRegistration(final Pair<Client, Event> pair, final String jsonString, final boolean isEditMode, final CoreChildProfileContract.InteractorCallBack callBack);
 
         JSONObject getAutoPopulatedJsonEditFormString(String formName, String title, Context context, CommonPersonObjectClient client);
 
-        void processBackGroundEvent(final ChildProfileContract.InteractorCallBack callback);
+        void processBackGroundEvent(final CoreChildProfileContract.InteractorCallBack callback);
     }
 
     interface InteractorCallBack {
         void updateChildVisit(ChildVisit childVisit);
 
-        void updateChildService(ChildService childService);
+        void updateChildService(CoreChildService childService);
 
         void updateFamilyMemberServiceDue(String serviceDueStatus);
 

@@ -23,11 +23,11 @@ import java.util.Map;
 import java.util.Set;
 
 public class RulesEngineHelper {
+    private final String RULE_FOLDER_PATH = "rule/";
     private Context context;
     private RulesEngine inferentialRulesEngine;
     private RulesEngine defaultRulesEngine;
     private Map<String, Rules> ruleMap;
-    private final String RULE_FOLDER_PATH = "rule/";
 
     public RulesEngineHelper(Context context) {
         this.context = context;
@@ -90,10 +90,10 @@ public class RulesEngineHelper {
         return alertRule.getButtonStatus();
     }
 
-    public List<Integer> getContactVisitSchedule(ContactRule contactRule, String rulesFile) {
+    public List<Integer> getContactVisitSchedule(ContactRule coreContactRule, String rulesFile) {
 
         Facts facts = new Facts();
-        facts.put(ContactRule.RULE_KEY, contactRule);
+        facts.put(ContactRule.RULE_KEY, coreContactRule);
 
         Rules rules = getRulesFromAsset(RULE_FOLDER_PATH + rulesFile);
         if (rules == null) {
@@ -102,7 +102,7 @@ public class RulesEngineHelper {
 
         processInferentialRules(rules, facts);
 
-        Set<Integer> contactList = contactRule.set;
+        Set<Integer> contactList = coreContactRule.set;
         List<Integer> list = new ArrayList<>(contactList);
         Collections.sort(list);
 

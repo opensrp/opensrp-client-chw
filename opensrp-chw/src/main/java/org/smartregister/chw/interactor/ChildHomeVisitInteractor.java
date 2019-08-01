@@ -54,6 +54,24 @@ public class ChildHomeVisitInteractor implements ChildHomeVisitContract.Interact
         this(new AppExecutors());
     }
 
+    private static void updateClientAttributes(JSONObject clientjsonFromForm, JSONObject clientJson) {
+        try {
+            JSONObject formAttributes = clientjsonFromForm.getJSONObject("attributes");
+            JSONObject clientAttributes = clientJson.getJSONObject("attributes");
+            Iterator<String> keys = formAttributes.keys();
+
+            while (keys.hasNext()) {
+                String key = keys.next();
+                clientAttributes.put(key, formAttributes.get(key));
+
+            }
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
     public int getSaveSize() {
         return saveList.size();
     }
@@ -94,11 +112,11 @@ public class ChildHomeVisitInteractor implements ChildHomeVisitContract.Interact
     }
 
     @Override
-    public void generateBirthCertForm(final String jsonString,final ChildHomeVisitContract.InteractorCallback callback, boolean isEditMode) {
+    public void generateBirthCertForm(final String jsonString, final ChildHomeVisitContract.InteractorCallback callback, boolean isEditMode) {
         birthCertDataList.clear();
-        BirthCertDataModel birthCertDataModel = flavor.getBirthCertDataList(jsonString,isEditMode);
-        if(birthCertDataModel !=null ){
-            birthCertDataList.add(flavor.getBirthCertDataList(jsonString,isEditMode));
+        BirthCertDataModel birthCertDataModel = flavor.getBirthCertDataList(jsonString, isEditMode);
+        if (birthCertDataModel != null) {
+            birthCertDataList.add(flavor.getBirthCertDataList(jsonString, isEditMode));
             Pair<Client, Event> pair = JsonFormUtils.processBirthAndIllnessForm(org.smartregister.family.util.Utils.context().allSharedPreferences(), jsonString);
             if (pair == null) {
                 return;
@@ -128,8 +146,8 @@ public class ChildHomeVisitInteractor implements ChildHomeVisitContract.Interact
     @Override
     public void generateObsIllnessForm(final String jsonString, final ChildHomeVisitContract.InteractorCallback callback, boolean isEditMode) {
         illnessDataList.clear();
-        ObsIllnessDataModel obsIllnessDataModel = flavor.getObsIllnessDataList(jsonString,isEditMode);
-        if(obsIllnessDataModel !=null){
+        ObsIllnessDataModel obsIllnessDataModel = flavor.getObsIllnessDataList(jsonString, isEditMode);
+        if (obsIllnessDataModel != null) {
             illnessDataList.add(obsIllnessDataModel);
             Pair<Client, Event> pair = JsonFormUtils.processBirthAndIllnessForm(org.smartregister.family.util.Utils.context().allSharedPreferences(), jsonString);
             if (pair == null) {
@@ -165,9 +183,9 @@ public class ChildHomeVisitInteractor implements ChildHomeVisitContract.Interact
     }
 
     @Override
-    public void generateTaskService(CommonPersonObjectClient childClient,final ChildHomeVisitContract.InteractorCallback callback, Context context, boolean isEditMode) {
+    public void generateTaskService(CommonPersonObjectClient childClient, final ChildHomeVisitContract.InteractorCallback callback, Context context, boolean isEditMode) {
 
-       final ArrayList<ServiceTask> serviceTasks = flavor.getTaskService(childClient,isEditMode,context);
+        final ArrayList<ServiceTask> serviceTasks = flavor.getTaskService(childClient, isEditMode, context);
 
 
         Runnable runnable = new Runnable() {
@@ -218,24 +236,6 @@ public class ChildHomeVisitInteractor implements ChildHomeVisitContract.Interact
         }
     }
 
-    private static void updateClientAttributes(JSONObject clientjsonFromForm, JSONObject clientJson) {
-        try {
-            JSONObject formAttributes = clientjsonFromForm.getJSONObject("attributes");
-            JSONObject clientAttributes = clientJson.getJSONObject("attributes");
-            Iterator<String> keys = formAttributes.keys();
-
-            while (keys.hasNext()) {
-                String key = keys.next();
-                clientAttributes.put(key, formAttributes.get(key));
-
-            }
-
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-
     public AllSharedPreferences getAllSharedPreferences() {
         return org.smartregister.family.util.Utils.context().allSharedPreferences();
     }
@@ -246,13 +246,16 @@ public class ChildHomeVisitInteractor implements ChildHomeVisitContract.Interact
 
     @Override
     public void onDestroy(boolean isChangingConfiguration) {
-        Timber.d( "onDestroy called");
+        Timber.d("onDestroy called");
     }
 
-    public interface Flavor{
-        ArrayList<ServiceTask> getTaskService(CommonPersonObjectClient childClient,boolean isEditMode,Context context);
-        BirthCertDataModel getBirthCertDataList(String jsonString,boolean isEditMode);
-        ObsIllnessDataModel getObsIllnessDataList(String jsonString,boolean isEditMode);
+    public interface Flavor {
+        ArrayList<ServiceTask> getTaskService(CommonPersonObjectClient childClient, boolean isEditMode, Context context);
+
+        BirthCertDataModel getBirthCertDataList(String jsonString, boolean isEditMode);
+
+        ObsIllnessDataModel getObsIllnessDataList(String jsonString, boolean isEditMode);
+
         void generateServiceData(HomeVisit homeVisit);
     }
 }

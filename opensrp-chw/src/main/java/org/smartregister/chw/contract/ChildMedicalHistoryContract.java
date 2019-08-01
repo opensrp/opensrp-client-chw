@@ -92,15 +92,15 @@ public interface ChildMedicalHistoryContract {
 
         void setInitialVaccineList(Map<String, Date> recievedVaccines, InteractorCallBack callBack);
 
-        void fetchGrowthNutritionData(CommonPersonObjectClient commonPersonObjectClient,InteractorCallBack callBack);
+        void fetchGrowthNutritionData(CommonPersonObjectClient commonPersonObjectClient, InteractorCallBack callBack);
 
-        void fetchDietaryData(CommonPersonObjectClient commonPersonObjectClient,InteractorCallBack callBack);
+        void fetchDietaryData(CommonPersonObjectClient commonPersonObjectClient, InteractorCallBack callBack);
 
-        void fetchMuacData(CommonPersonObjectClient commonPersonObjectClient,InteractorCallBack callBack);
+        void fetchMuacData(CommonPersonObjectClient commonPersonObjectClient, InteractorCallBack callBack);
 
-        void fetchLLitnData(CommonPersonObjectClient commonPersonObjectClient,InteractorCallBack callBack);
+        void fetchLLitnData(CommonPersonObjectClient commonPersonObjectClient, InteractorCallBack callBack);
 
-        void fetchEcdData(CommonPersonObjectClient commonPersonObjectClient,InteractorCallBack callBack);
+        void fetchEcdData(CommonPersonObjectClient commonPersonObjectClient, InteractorCallBack callBack);
 
         void fetchFullyImmunizationData(String dob, Map<String, Date> recievedVaccines, InteractorCallBack callBack);
 

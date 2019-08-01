@@ -40,7 +40,7 @@ import java.util.List;
 import timber.log.Timber;
 
 public class FamilyProfileChangeDialog extends DialogFragment implements View.OnClickListener, FamilyChangeContract.View, MemberAdapterListener {
-    private static String TAG =  FamilyProfileChangeDialog.class.getCanonicalName();
+    private static String TAG = FamilyProfileChangeDialog.class.getCanonicalName();
 
     protected Context context;
     protected String familyID;
@@ -151,7 +151,7 @@ public class FamilyProfileChangeDialog extends DialogFragment implements View.On
 
     @Override
     public void onMenuChoiceChange() {
-        Timber.v( "onMenuChoiceChange Fired");
+        Timber.v("onMenuChoiceChange Fired");
     }
 
     @Override

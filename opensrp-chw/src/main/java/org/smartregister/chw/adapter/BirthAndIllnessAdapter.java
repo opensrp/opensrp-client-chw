@@ -41,6 +41,7 @@ public class BirthAndIllnessAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     public int getItemCount() {
         return contentList.size();
     }
+
     public static class ContentViewHolder extends RecyclerView.ViewHolder {
         public TextView vaccineName;
         private View myView;

@@ -1,16 +1,16 @@
 package org.smartregister.chw.presenter;
 
+import com.opensrp.chw.core.contract.FamilyCallDialogContract;
+import com.opensrp.chw.core.interactor.FamilyCallDialogInteractor;
+import com.opensrp.chw.core.model.FamilyCallDialogModel;
+import com.opensrp.chw.core.presenter.FamilyCallDialogPresenter;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.powermock.reflect.Whitebox;
-import com.opensrp.chw.core.contract.FamilyCallDialogContract;
-import com.opensrp.chw.core.presenter.FamilyCallDialogPresenter;
-
-import com.opensrp.chw.core.interactor.FamilyCallDialogInteractor;
-import com.opensrp.chw.core.model.FamilyCallDialogModel;
 
 public class FamilyCallDialogPresenterTest {
 

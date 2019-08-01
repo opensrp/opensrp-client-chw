@@ -1,11 +1,11 @@
-package org.smartregister.chw.model;
+package com.opensrp.chw.core.model;
 
+import com.opensrp.chw.core.contract.CoreChildRegisterFragmentContract;
 import com.opensrp.chw.core.utils.ConfigHelper;
+import com.opensrp.chw.core.utils.CoreChildUtils;
 
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
-import org.smartregister.chw.contract.ChildRegisterFragmentContract;
-import org.smartregister.chw.util.ChildUtils;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
 import org.smartregister.configurableviews.model.Field;
 import org.smartregister.configurableviews.model.RegisterConfiguration;
@@ -22,7 +22,7 @@ import java.util.Set;
 
 import timber.log.Timber;
 
-public class ChildRegisterFragmentModel implements ChildRegisterFragmentContract.Model {
+public class CoreChildRegisterFragmentModel implements CoreChildRegisterFragmentContract.Model {
     @Override
     public RegisterConfiguration defaultRegisterConfiguration() {
         return ConfigHelper.defaultRegisterConfiguration(Utils.context().applicationContext());
@@ -47,8 +47,7 @@ public class ChildRegisterFragmentModel implements ChildRegisterFragmentContract
 
     @Override
     public String mainSelect(String tableName, String familyName, String familyMemberName, String mainCondition) {
-
-        return ChildUtils.mainSelectRegisterWithoutGroupby(tableName, familyName, familyMemberName, mainCondition);
+        return CoreChildUtils.mainSelectRegisterWithoutGroupby(tableName, familyName, familyMemberName, mainCondition);
     }
 
     @Override

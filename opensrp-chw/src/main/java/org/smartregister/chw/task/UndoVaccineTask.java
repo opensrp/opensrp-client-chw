@@ -22,9 +22,9 @@ import java.util.List;
  */
 public class UndoVaccineTask extends AsyncTask<Void, Void, Void> {
 
-    private ArrayList<VaccineWrapper> tag;
     private final VaccineRepository vaccineRepository;
     private final AlertService alertService;
+    private ArrayList<VaccineWrapper> tag;
     private List<Vaccine> vaccineList;
     private List<Alert> alertList;
     private List<String> affectedVaccines;

@@ -6,7 +6,6 @@ import android.view.View;
 import com.opensrp.chw.core.R;
 import com.opensrp.chw.core.fragment.FamilyCallDialogFragment;
 
-
 import timber.log.Timber;
 
 import static com.opensrp.chw.core.utils.Utils.launchDialer;

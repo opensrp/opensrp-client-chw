@@ -118,7 +118,7 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
     @Override
     public void setAdvancedSearchFormData(HashMap<String, String> hashMap) {
         //TODO
-        Timber.d( "setAdvancedSearchFormData");
+        Timber.d("setAdvancedSearchFormData");
     }
 
 }

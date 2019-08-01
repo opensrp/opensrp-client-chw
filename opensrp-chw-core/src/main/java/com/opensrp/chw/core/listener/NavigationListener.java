@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.view.View;
 import android.widget.Toast;
+
 import com.opensrp.chw.core.R;
 import com.opensrp.chw.core.adapter.NavigationAdapter;
 import com.opensrp.chw.core.utils.Constants;
@@ -62,7 +63,7 @@ public class NavigationListener implements View.OnClickListener {
         activity.finish();
     }
 
-    private Class getActivity(String key){
+    private Class getActivity(String key) {
         return navigationAdapter.getRegisteredActivities().get(key);
     }
 }

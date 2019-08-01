@@ -37,7 +37,7 @@ public class ChwRegisterProvider extends CoreRegisterProvider {
         super.getView(cursor, client, viewHolder);
         CommonPersonObjectClient pc = (CommonPersonObjectClient) client;
         String familyBaseEntityId = pc.getCaseId();
-        if(updateAsyncTask == null) { //Ensure this task is only called once
+        if (updateAsyncTask == null) { //Ensure this task is only called once
             Utils.startAsyncTask(new UpdateAsyncTask(context, viewHolder, familyBaseEntityId), null);
         }
     }

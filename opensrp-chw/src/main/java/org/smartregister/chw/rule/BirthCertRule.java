@@ -8,16 +8,17 @@ import org.smartregister.util.DateUtil;
 
 public class BirthCertRule implements ICommonRule {
 
-    public String buttonStatus= "";
+    public String buttonStatus = "";
     private LocalDate todayDate;
     private LocalDate birthDay;
 
-    public BirthCertRule(String dateOfBirth){
+    public BirthCertRule(String dateOfBirth) {
 
         todayDate = new LocalDate();
-        birthDay= new LocalDate(Utils.dobStringToDate(dateOfBirth));
+        birthDay = new LocalDate(Utils.dobStringToDate(dateOfBirth));
 
     }
+
     public boolean isOverdue(Integer month) {
 
 
@@ -31,6 +32,7 @@ public class BirthCertRule implements ICommonRule {
         return todayDate.isBefore(birthDay.plusMonths(month));
 
     }
+
     public boolean isExpire(Integer month) {
 
 
@@ -38,7 +40,7 @@ public class BirthCertRule implements ICommonRule {
 
     }
 
-    private String getFormateDate(String dateOfBirth){
+    private String getFormateDate(String dateOfBirth) {
         return DateUtil.formatDate(dateOfBirth);
     }
 

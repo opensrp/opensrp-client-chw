@@ -63,7 +63,7 @@ public class ChwRepositoryFlv {
             IMDatabaseUtils.accessAssetsAndFillDataBaseForVaccineTypes(context, db);
 
         } catch (Exception e) {
-            Timber.e(e , "upgradeToVersion2 ");
+            Timber.e(e, "upgradeToVersion2 ");
         }
 
     }
@@ -79,7 +79,7 @@ public class ChwRepositoryFlv {
             db.execSQL(RecurringServiceRecordRepository.ALTER_ADD_CREATED_AT_COLUMN);
             RecurringServiceRecordRepository.migrateCreatedAt(db);
         } catch (Exception e) {
-            Timber.e(e , "upgradeToVersion3 ");
+            Timber.e(e, "upgradeToVersion3 ");
         }
         try {
             Column[] columns = {EventClientRepository.event_column.formSubmissionId};
@@ -87,7 +87,7 @@ public class ChwRepositoryFlv {
 
 
         } catch (Exception e) {
-            Timber.e(e , "upgradeToVersion3 " + e.getMessage());
+            Timber.e(e, "upgradeToVersion3 " + e.getMessage());
         }
     }
 
@@ -100,7 +100,7 @@ public class ChwRepositoryFlv {
             db.execSQL(RecurringServiceRecordRepository.UPDATE_TABLE_ADD_TEAM_COL);
             db.execSQL(RecurringServiceRecordRepository.UPDATE_TABLE_ADD_TEAM_ID_COL);
         } catch (Exception e) {
-            Timber.e(e , "upgradeToVersion4 ");
+            Timber.e(e, "upgradeToVersion4 ");
         }
 
     }
@@ -110,7 +110,7 @@ public class ChwRepositoryFlv {
             db.execSQL(VaccineRepository.UPDATE_TABLE_ADD_CHILD_LOCATION_ID_COL);
             db.execSQL(RecurringServiceRecordRepository.UPDATE_TABLE_ADD_CHILD_LOCATION_ID_COL);
         } catch (Exception e) {
-            Timber.e(e , "upgradeToVersion5 ");
+            Timber.e(e, "upgradeToVersion5 ");
         }
     }
 
@@ -119,7 +119,7 @@ public class ChwRepositoryFlv {
             db.execSQL(HomeVisitRepository.UPDATE_TABLE_ADD_VACCINE_NOT_GIVEN);
             db.execSQL(HomeVisitRepository.UPDATE_TABLE_ADD_SERVICE_NOT_GIVEN);
         } catch (Exception e) {
-            Timber.e(e , "upgradeToVersion7 ");
+            Timber.e(e, "upgradeToVersion7 ");
         }
     }
 }

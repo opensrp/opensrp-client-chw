@@ -475,7 +475,7 @@ public class Constants {
         public static final String START_REGISTRATION = "start_registration";
     }
 
-    public static final class REGISTERED_ACTIVITIES{
+    public static final class REGISTERED_ACTIVITIES {
         public static final String CHILD_REGISTER_ACTIVITY = "CHILD_REGISTER_ACTIVITY";
         public static final String FAMILY_REGISTER_ACTIVITY = "FAMILY_REGISTER_ACTIVITY";
         public static final String ANC_REGISTER_ACTIVITY = "ANC_REGISTER_ACTIVITY";

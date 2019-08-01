@@ -15,7 +15,7 @@
     <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
-        android:name="com.opensrp.chw.hf.HealthFacilityApp"
+        android:name="com.opensrp.chw.hf.HealthFacilityApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -56,10 +56,12 @@
             android:screenOrientation="portrait"
             android:theme="@style/FamilyTheme.NoActionBar"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
+
         <activity
             android:name="com.opensrp.chw.hf.activity.FamilyRegisterActivity"
             android:screenOrientation="portrait"
             android:theme="@style/HFTheme.NoActionBar" />
+
         <activity
             android:name="com.opensrp.chw.hf.activity.FamilyProfileActivity"
             android:label="@string/title_family_detail"
@@ -70,6 +72,16 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.opensrp.chw.hf.activity.FamilyRegisterActivity" />
         </activity>
+
+        <activity
+            android:name="com.opensrp.chw.hf.activity.ChildRegisterActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/HFTheme.NoActionBar" />
+
+        <activity
+            android:name="com.opensrp.chw.hf.activity.ChildProfileActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/HFTheme.NoActionBar" />
 
         <service android:name="org.smartregister.immunization.service.intent.VaccineIntentService" />
         <service android:name="org.smartregister.immunization.service.intent.RecurringIntentService" />

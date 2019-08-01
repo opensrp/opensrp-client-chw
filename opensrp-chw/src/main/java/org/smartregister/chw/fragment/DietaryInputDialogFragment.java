@@ -23,18 +23,19 @@ public class DietaryInputDialogFragment extends DialogFragment implements View.O
     public static final String DIALOG_TAG = "VaccineCardInputDialog";
 
     private String choiceValue;
-    private RadioButton choiceOne,choiceTwo,choiceThree;
+    private RadioButton choiceOne, choiceTwo, choiceThree;
     private Button buttonSave;
     private OnUpdateServiceTask onUpdateServiceTask;
     private ServiceTask serviceTask;
 
-    public static DietaryInputDialogFragment getInstance(){
+    public static DietaryInputDialogFragment getInstance() {
         DietaryInputDialogFragment vaccineCardInputDialogFragment = new DietaryInputDialogFragment();
         Bundle bundle = new Bundle();
         vaccineCardInputDialogFragment.setArguments(bundle);
         return vaccineCardInputDialogFragment;
     }
-    public void setServiceTask(ServiceTask serviceTask,OnUpdateServiceTask onUpdateServiceTask){
+
+    public void setServiceTask(ServiceTask serviceTask, OnUpdateServiceTask onUpdateServiceTask) {
         this.onUpdateServiceTask = onUpdateServiceTask;
         this.serviceTask = serviceTask;
     }
@@ -76,14 +77,14 @@ public class DietaryInputDialogFragment extends DialogFragment implements View.O
         view.findViewById(R.id.close).setOnClickListener(this);
         ((RadioGroup) view.findViewById(R.id.radio_group_exclusive)).setOnCheckedChangeListener(this);
         choiceValue = serviceTask.getTaskLabel();
-        if(TextUtils.isEmpty(choiceValue)){
+        if (TextUtils.isEmpty(choiceValue)) {
             enableDisableSaveBtn(false);
-        }else{
-            if(choiceValue.equalsIgnoreCase(getString(R.string.minimum_dietary_choice_1))){
+        } else {
+            if (choiceValue.equalsIgnoreCase(getString(R.string.minimum_dietary_choice_1))) {
                 choiceOne.setChecked(true);
-            }else if(choiceValue.equalsIgnoreCase(getString(R.string.minimum_dietary_choice_2))){
+            } else if (choiceValue.equalsIgnoreCase(getString(R.string.minimum_dietary_choice_2))) {
                 choiceTwo.setChecked(true);
-            }else if(choiceValue.equalsIgnoreCase(getString(R.string.minimum_dietary_choice_3))){
+            } else if (choiceValue.equalsIgnoreCase(getString(R.string.minimum_dietary_choice_3))) {
                 choiceThree.setChecked(true);
             }
         }
@@ -92,17 +93,17 @@ public class DietaryInputDialogFragment extends DialogFragment implements View.O
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.close:
                 dismiss();
                 break;
             case R.id.save_bf_btn:
-                if(!TextUtils.isEmpty(choiceValue)){
+                if (!TextUtils.isEmpty(choiceValue)) {
                     saveVaccineCardData();
                 }
                 break;
-                default:
-                    break;
+            default:
+                break;
         }
 
     }
@@ -134,8 +135,9 @@ public class DietaryInputDialogFragment extends DialogFragment implements View.O
                 break;
         }
     }
-    private void enableDisableSaveBtn(boolean isEnable){
-        if(isEnable)buttonSave.setAlpha(1.0f);
-        else  buttonSave.setAlpha(0.3f);
+
+    private void enableDisableSaveBtn(boolean isEnable) {
+        if (isEnable) buttonSave.setAlpha(1.0f);
+        else buttonSave.setAlpha(0.3f);
     }
 }

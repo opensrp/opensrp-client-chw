@@ -1,13 +1,14 @@
-package org.smartregister.chw.interactor;
+package com.opensrp.chw.core.interactor;
 
 import android.support.annotation.VisibleForTesting;
 import android.util.Pair;
 
+import com.opensrp.chw.core.contract.CoreChildRegisterContract;
+import com.opensrp.chw.core.utils.Utils;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;
 import org.json.JSONObject;
-import com.opensrp.chw.core.contract.ChildRegisterContract;
-import org.smartregister.chw.util.Utils;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.domain.UniqueId;
@@ -28,23 +29,23 @@ import timber.log.Timber;
 /**
  * Created by keyman 12/11/2018.
  */
-public class ChildRegisterInteractor implements ChildRegisterContract.Interactor {
+public class CoreChildRegisterInteractor implements CoreChildRegisterContract.Interactor {
 
-    public static final String TAG = ChildRegisterInteractor.class.getName();
+    public static final String TAG = CoreChildRegisterInteractor.class.getName();
     private AppExecutors appExecutors;
 
 
     @VisibleForTesting
-    ChildRegisterInteractor(AppExecutors appExecutors) {
+    CoreChildRegisterInteractor(AppExecutors appExecutors) {
         this.appExecutors = appExecutors;
     }
 
-    public ChildRegisterInteractor() {
+    public CoreChildRegisterInteractor() {
         this(new AppExecutors());
     }
 
     @Override
-    public void getNextUniqueId(final Triple<String, String, String> triple, final ChildRegisterContract.InteractorCallBack callBack, final String familyId) {
+    public void getNextUniqueId(final Triple<String, String, String> triple, final CoreChildRegisterContract.InteractorCallBack callBack, final String familyId) {
 
         Runnable runnable = new Runnable() {
             @Override
@@ -68,7 +69,7 @@ public class ChildRegisterInteractor implements ChildRegisterContract.Interactor
     }
 
     @Override
-    public void saveRegistration(final Pair<Client, Event> pair, final String jsonString, final boolean isEditMode, final ChildRegisterContract.InteractorCallBack callBack) {
+    public void saveRegistration(final Pair<Client, Event> pair, final String jsonString, final boolean isEditMode, final CoreChildRegisterContract.InteractorCallBack callBack) {
 
         Runnable runnable = new Runnable() {
             @Override

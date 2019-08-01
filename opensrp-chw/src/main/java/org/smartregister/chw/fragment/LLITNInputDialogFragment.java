@@ -20,23 +20,24 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.listener.OnUpdateServiceTask;
 import org.smartregister.chw.util.ServiceTask;
 
-public class LLITNInputDialogFragment  extends DialogFragment implements View.OnClickListener, RadioGroup.OnCheckedChangeListener {
+public class LLITNInputDialogFragment extends DialogFragment implements View.OnClickListener, RadioGroup.OnCheckedChangeListener {
 
     public static final String DIALOG_TAG = "LLITNInputDialogFragment";
 
     private String choiceValue;
-    private RadioButton choiceOne,choiceTwo;
+    private RadioButton choiceOne, choiceTwo;
     private Button buttonSave;
     private OnUpdateServiceTask onUpdateServiceTask;
     private ServiceTask serviceTask;
 
-    public static LLITNInputDialogFragment getInstance(){
+    public static LLITNInputDialogFragment getInstance() {
         LLITNInputDialogFragment vaccineCardInputDialogFragment = new LLITNInputDialogFragment();
         Bundle bundle = new Bundle();
         vaccineCardInputDialogFragment.setArguments(bundle);
         return vaccineCardInputDialogFragment;
     }
-    public void setServiceTask(ServiceTask serviceTask, OnUpdateServiceTask onUpdateServiceTask){
+
+    public void setServiceTask(ServiceTask serviceTask, OnUpdateServiceTask onUpdateServiceTask) {
         this.onUpdateServiceTask = onUpdateServiceTask;
         this.serviceTask = serviceTask;
     }
@@ -78,12 +79,12 @@ public class LLITNInputDialogFragment  extends DialogFragment implements View.On
         view.findViewById(R.id.info_icon).setOnClickListener(this);
         ((RadioGroup) view.findViewById(R.id.radio_group_exclusive)).setOnCheckedChangeListener(this);
         choiceValue = serviceTask.getTaskLabel();
-        if(TextUtils.isEmpty(choiceValue)){
+        if (TextUtils.isEmpty(choiceValue)) {
             enableDisableSaveBtn(false);
-        }else{
-            if(choiceValue.equalsIgnoreCase(getString(R.string.yes))){
+        } else {
+            if (choiceValue.equalsIgnoreCase(getString(R.string.yes))) {
                 choiceOne.setChecked(true);
-            }else if(choiceValue.equalsIgnoreCase(getString(R.string.no))){
+            } else if (choiceValue.equalsIgnoreCase(getString(R.string.no))) {
                 choiceTwo.setChecked(true);
             }
         }
@@ -92,7 +93,7 @@ public class LLITNInputDialogFragment  extends DialogFragment implements View.On
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.close:
                 dismiss();
                 break;
@@ -100,7 +101,7 @@ public class LLITNInputDialogFragment  extends DialogFragment implements View.On
                 onShowInfo();
                 break;
             case R.id.save_bf_btn:
-                if(!TextUtils.isEmpty(choiceValue)){
+                if (!TextUtils.isEmpty(choiceValue)) {
                     saveData();
                 }
                 break;
@@ -149,8 +150,9 @@ public class LLITNInputDialogFragment  extends DialogFragment implements View.On
                 break;
         }
     }
-    private void enableDisableSaveBtn(boolean isEnable){
-        if(isEnable)buttonSave.setAlpha(1.0f);
-        else  buttonSave.setAlpha(0.3f);
+
+    private void enableDisableSaveBtn(boolean isEnable) {
+        if (isEnable) buttonSave.setAlpha(1.0f);
+        else buttonSave.setAlpha(0.3f);
     }
 }

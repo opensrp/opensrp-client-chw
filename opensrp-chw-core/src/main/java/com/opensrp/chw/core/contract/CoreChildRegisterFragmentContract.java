@@ -1,4 +1,4 @@
-package org.smartregister.chw.contract;
+package com.opensrp.chw.core.contract;
 
 import org.json.JSONArray;
 import org.smartregister.configurableviews.model.Field;
@@ -10,7 +10,7 @@ import org.smartregister.view.contract.BaseRegisterFragmentContract;
 import java.util.List;
 import java.util.Set;
 
-public interface ChildRegisterFragmentContract {
+public interface CoreChildRegisterFragmentContract {
 
     interface View extends BaseRegisterFragmentContract.View {
 

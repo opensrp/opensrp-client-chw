@@ -10,15 +10,14 @@ import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
 
-
 import com.opensrp.chw.core.R;
 
 import timber.log.Timber;
 
 public class CopyToClipboardDialog extends Dialog implements View.OnClickListener {
+    private static final String TAG = CopyToClipboardDialog.class.getCanonicalName();
     private Context context;
     private String content;
-    private static final String TAG = CopyToClipboardDialog.class.getCanonicalName();
 
     public CopyToClipboardDialog(@NonNull Context context) {
         super(context);

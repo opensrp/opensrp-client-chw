@@ -5,9 +5,6 @@ import android.app.Activity;
 import com.opensrp.chw.core.model.NavigationModel;
 import com.opensrp.chw.core.model.NavigationOption;
 
-import org.smartregister.commonregistry.CommonRepository;
-import org.smartregister.view.activity.DrishtiApplication;
-
 import java.util.Date;
 import java.util.List;
 

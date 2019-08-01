@@ -59,11 +59,11 @@ public class ImmunizationAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder viewHolder,int pos) {
+    public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder viewHolder, int pos) {
 
         switch (viewHolder.getItemViewType()) {
             case HomeVisitVaccineGroup.TYPE_INITIAL: {
-                ArrayList<HomeVisitVaccineGroup> list =  presenter.getHomeVisitVaccineGroupDetails();
+                ArrayList<HomeVisitVaccineGroup> list = presenter.getHomeVisitVaccineGroupDetails();
                 final HomeVisitVaccineGroup baseVaccine = list.get(viewHolder.getAdapterPosition());
                 InitialViewHolder inactiveViewHolder = (InitialViewHolder) viewHolder;
                 String immunizations;
@@ -139,7 +139,7 @@ public class ImmunizationAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
                 break;
             case HomeVisitVaccineGroup.TYPE_HIDDEN:
-                Log.logError("HIDDEN_VIEW","HomeVisitVaccineGroup.TYPE_HIDDEN");
+                Log.logError("HIDDEN_VIEW", "HomeVisitVaccineGroup.TYPE_HIDDEN");
                 HiddenViewHolder hiddenViewHolder = (HiddenViewHolder) viewHolder;
                 hiddenViewHolder.hiddenView.setVisibility(View.GONE);
                 break;
@@ -202,9 +202,9 @@ public class ImmunizationAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private StringBuilder getNotGivenVaccineName(HomeVisitVaccineGroup contentImmunization) {
         StringBuilder groupSecondaryText = new StringBuilder();
         for (VaccineRepo.Vaccine notGiven : contentImmunization.getNotGivenVaccines()) {
-           if(isExistInDueVaccine(contentImmunization,notGiven.display())){
-               groupSecondaryText.append(fixVaccineCasing(notGiven.display())).append(", ");
-           }
+            if (isExistInDueVaccine(contentImmunization, notGiven.display())) {
+                groupSecondaryText.append(fixVaccineCasing(notGiven.display())).append(", ");
+            }
         }
         if (groupSecondaryText.toString().endsWith(", ")) {
             groupSecondaryText = new StringBuilder(groupSecondaryText.toString().trim());
@@ -218,23 +218,25 @@ public class ImmunizationAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private boolean isExistInGivenVaccine(HomeVisitVaccineGroup contentImmunization, String name) {
         for (VaccineRepo.Vaccine vaccineGiven : contentImmunization.getGivenVaccines()) {
             if (vaccineGiven.display().equalsIgnoreCase(name)
-                    && isExistInDueVaccine(contentImmunization,vaccineGiven.display())
-                    && !isExistInNotGiven(contentImmunization,vaccineGiven.display())) {
+                    && isExistInDueVaccine(contentImmunization, vaccineGiven.display())
+                    && !isExistInNotGiven(contentImmunization, vaccineGiven.display())) {
                 return true;
             }
         }
         return false;
     }
-    private boolean isExistInDueVaccine(HomeVisitVaccineGroup contentImmunization,String name){
-        for(VaccineRepo.Vaccine dueList:contentImmunization.getDueVaccines()){
-            if(dueList.display().equalsIgnoreCase(name))
+
+    private boolean isExistInDueVaccine(HomeVisitVaccineGroup contentImmunization, String name) {
+        for (VaccineRepo.Vaccine dueList : contentImmunization.getDueVaccines()) {
+            if (dueList.display().equalsIgnoreCase(name))
                 return true;
         }
         return false;
     }
-    private boolean isExistInNotGiven(HomeVisitVaccineGroup contentImmunization,String name){
-        for(VaccineRepo.Vaccine dueList:contentImmunization.getNotGivenVaccines()){
-            if(dueList.display().equalsIgnoreCase(name))
+
+    private boolean isExistInNotGiven(HomeVisitVaccineGroup contentImmunization, String name) {
+        for (VaccineRepo.Vaccine dueList : contentImmunization.getNotGivenVaccines()) {
+            if (dueList.display().equalsIgnoreCase(name))
                 return true;
         }
         return false;
@@ -310,9 +312,11 @@ public class ImmunizationAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             return myView;
         }
     }
+
     public class HiddenViewHolder extends RecyclerView.ViewHolder {
-        private View myView;
         public LinearLayout hiddenView;
+        private View myView;
+
         private HiddenViewHolder(View view) {
             super(view);
             hiddenView = view.findViewById(R.id.parent_view);

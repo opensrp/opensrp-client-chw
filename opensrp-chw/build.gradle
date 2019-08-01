@@ -220,17 +220,16 @@ task jacocoTestReport(type: JacocoReport, dependsOn: [
 ]) {
 
     reports {
-        html{
+        html {
             html.enabled = true
             destination file("${buildDir}/reports/jacoco/jacocoRootReport/chw-coverage")
         }
 
-        xml{
+        xml {
             xml.enabled = true
             destination file("${buildDir}/reports/jacoco/jacocoRootReport/chw-coverage.xml")
         }
     }
-
 
 
     def fileFilter = ['**/R.class', '**/R$*.class', '**/BuildConfig.*', '**/Manifest*.*', '**/*Test*.*', 'android/**/*.*', '**/*$ViewBinder*.*']

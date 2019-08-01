@@ -4,11 +4,12 @@ import android.app.Activity;
 import android.text.TextUtils;
 import android.widget.Toast;
 
+import com.opensrp.chw.core.fragment.FamilyCallDialogFragment;
+import com.opensrp.chw.core.listener.OnClickFloatingMenu;
+
 import org.joda.time.DateTime;
 import org.joda.time.Period;
 import org.smartregister.chw.R;
-import com.opensrp.chw.core.fragment.FamilyCallDialogFragment;
-import com.opensrp.chw.core.listener.OnClickFloatingMenu;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 
 public class FamilyOtherMemberProfileActivityFlv implements FamilyOtherMemberProfileActivity.Flavor {
@@ -51,7 +52,7 @@ public class FamilyOtherMemberProfileActivityFlv implements FamilyOtherMemberPro
     }
 
     @Override
-    public boolean showMalariaConfirmationMenu(){
+    public boolean showMalariaConfirmationMenu() {
         return true;
     }
 

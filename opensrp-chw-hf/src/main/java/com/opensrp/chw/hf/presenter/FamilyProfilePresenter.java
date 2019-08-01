@@ -3,7 +3,7 @@ package com.opensrp.chw.hf.presenter;
 import android.content.Context;
 import android.util.Pair;
 
-import com.opensrp.chw.core.contract.ChildRegisterContract;
+import com.opensrp.chw.core.contract.CoreChildRegisterContract;
 import com.opensrp.chw.core.contract.FamilyProfileExtendedContract;
 import com.opensrp.chw.core.presenter.CoreFamilyProfilePresenter;
 
@@ -24,7 +24,7 @@ public class FamilyProfilePresenter extends CoreFamilyProfilePresenter{
     }
 
     @Override
-    public void saveChildRegistration(Pair<Client, Event> pair, String jsonString, boolean isEditMode, ChildRegisterContract.InteractorCallBack callBack) {
+    public void saveChildRegistration(Pair<Client, Event> pair, String jsonString, boolean isEditMode, CoreChildRegisterContract.InteractorCallBack callBack) {
 
     }
 

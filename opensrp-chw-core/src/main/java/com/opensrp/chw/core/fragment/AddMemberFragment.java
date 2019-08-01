@@ -15,7 +15,7 @@ import com.opensrp.chw.core.R;
 import com.opensrp.chw.core.activity.CoreFamilyProfileActivity;
 import com.opensrp.chw.core.utils.Constants;
 
-public class  AddMemberFragment extends DialogFragment implements View.OnClickListener {
+public class AddMemberFragment extends DialogFragment implements View.OnClickListener {
 
     public static final String DIALOG_TAG = "add_member_dialog";
 

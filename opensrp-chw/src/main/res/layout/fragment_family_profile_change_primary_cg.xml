@@ -47,13 +47,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
+                        android:layout_toStartOf="@+id/tvAction"
                         android:layout_toEndOf="@+id/close"
                         android:layout_toRightOf="@+id/close"
+                        android:ellipsize="end"
                         android:text="@string/change_caregiver_member_title"
                         android:textAppearance="@style/TextAppearance.AppCompat.Large"
                         android:textColor="@android:color/white"
-                        android:layout_toStartOf="@+id/tvAction"
-                        android:ellipsize="end"
                         android:textSize="@dimen/tool_bar_title" />
 
                     <org.smartregister.view.customcontrols.CustomFontTextView
@@ -81,10 +81,10 @@
             style="@style/CustomFontTextViewStyle.ClientList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="30dp"
             android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
             android:layout_marginTop="30dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="30dp"
             android:gravity="center_vertical"
             android:singleLine="false"
             android:text="@string/change_caregiver_member_title_question"

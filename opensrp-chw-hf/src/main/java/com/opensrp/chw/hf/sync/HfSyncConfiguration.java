@@ -7,7 +7,7 @@ import org.smartregister.SyncConfiguration;
 import org.smartregister.SyncFilter;
 
 /**
- * @author  Elly Nerdstone
+ * @author Elly Nerdstone
  */
 public class HfSyncConfiguration extends SyncConfiguration {
     @Override
