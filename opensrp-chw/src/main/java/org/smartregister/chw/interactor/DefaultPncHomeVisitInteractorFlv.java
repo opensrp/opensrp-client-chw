@@ -55,9 +55,9 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
         try {
             evaluateDangerSignsMother();
             evaluateDangerSignsBaby();
-            evaluatePNCHealthFacilityVisit();
-            evaluateChildVaccineCard();
-            evaluateImmunization();
+            //evaluatePNCHealthFacilityVisit();
+            //evaluateChildVaccineCard();
+            //evaluateImmunization();
             evaluateUmbilicalCord();
             evaluateExclusiveBreastFeeding();
             evaluateKangerooMotherCare();
@@ -84,7 +84,7 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
 
     private void evaluateDangerSignsBaby() throws Exception {
         for (Person baby : children) {
-            BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, MessageFormat.format(context.getString(R.string.pnc_danger_signs_baby), baby))
+            BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, MessageFormat.format(context.getString(R.string.pnc_danger_signs_baby), baby.getFullName()))
                     .withOptional(false)
                     .withDetails(details)
                     .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getDangerSignsBaby())
@@ -94,17 +94,18 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
         }
     }
 
-    private void evaluatePNCHealthFacilityVisit() throws Exception {
-        BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.pnc_health_facility_visit))
+    protected void evaluatePNCHealthFacilityVisit() throws Exception {
+        String day = "1";
+        BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, MessageFormat.format(context.getString(R.string.pnc_health_facility_visit), day))
                 .withOptional(false)
                 .withDetails(details)
                 .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getDangerSigns())
                 .withHelper(new DangerSignsAction())
                 .build();
-        actionList.put(context.getString(R.string.pnc_health_facility_visit), action);
+        actionList.put(MessageFormat.format(context.getString(R.string.pnc_health_facility_visit),day), action);
     }
 
-    private void evaluateChildVaccineCard() throws Exception {
+    protected void evaluateChildVaccineCard() throws Exception {
         for (Person baby : children) {
             BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, MessageFormat.format(context.getString(R.string.pnc_child_vaccine_card_recevied), baby.getFullName()))
                     .withOptional(false)
@@ -116,7 +117,7 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
         }
     }
 
-    private void evaluateImmunization() throws Exception {
+    protected void evaluateImmunization() throws Exception {
         for (Person baby : children) {
             BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, MessageFormat.format(context.getString(R.string.pnc_immunization_at_birth), baby.getFullName()))
                     .withOptional(false)
@@ -182,7 +183,7 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
 
     private void evaluateObservationAndIllnessBaby() throws Exception {
         for (Person baby : children) {
-            BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, MessageFormat.format(context.getString(R.string.pnc_observation_and_illness_baby), baby))
+            BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, MessageFormat.format(context.getString(R.string.pnc_observation_and_illness_baby), baby.getFullName()))
                     .withOptional(false)
                     .withDetails(details)
                     .withFormName(Constants.JSON_FORM.ANC_HOME_VISIT.getObservationAndIllness())
