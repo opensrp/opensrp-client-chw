@@ -1,24 +1,30 @@
 package org.smartregister.chw.interactor;
 
 import android.content.Context;
+import android.util.Pair;
 
 import org.ei.drishti.dto.AlertStatus;
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.contract.BaseAncMemberProfileContract;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.domain.Visit;
-import org.smartregister.chw.anc.interactor.BaseAncMemberProfileInteractor;
 import org.smartregister.chw.anc.util.Constants;
+import org.smartregister.chw.pnc.interactor.BasePncMemberProfileInteractor;
+import org.smartregister.clientandeventmodel.Client;
+import org.smartregister.clientandeventmodel.Event;
 
 import java.util.Date;
 
 import static org.smartregister.chw.anc.AncLibrary.getInstance;
 
-public class PncMemberProfileInteractor extends BaseAncMemberProfileInteractor {
+public class PncMemberProfileInteractor extends BasePncMemberProfileInteractor {
     private Context context;
 
     public PncMemberProfileInteractor(Context context) {
         this.context = context;
+    }
+
+    public PncMemberProfileInteractor() {
     }
 
     /**
@@ -56,5 +62,21 @@ public class PncMemberProfileInteractor extends BaseAncMemberProfileInteractor {
         }
 
         return lastVisitDate;
+    }
+
+    @Override
+    public void updateChild(final Pair<Client, Event> pair, final String jsonString) {
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                appExecutors.mainThread().execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        new ChildProfileInteractor().saveRegistration(pair, jsonString, true, null);
+                    }
+                });
+            }
+        };
+        appExecutors.diskIO().execute(runnable);
     }
 }

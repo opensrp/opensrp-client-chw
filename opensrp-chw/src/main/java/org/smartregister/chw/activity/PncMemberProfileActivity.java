@@ -2,27 +2,42 @@ package org.smartregister.chw.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.AncLibrary;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.presenter.BaseAncMemberProfilePresenter;
 import org.smartregister.chw.anc.util.Constants;
+import org.smartregister.chw.interactor.ChildProfileInteractor;
+import org.smartregister.chw.interactor.FamilyProfileInteractor;
 import org.smartregister.chw.interactor.PncMemberProfileInteractor;
+import org.smartregister.chw.model.ChildRegisterModel;
+import org.smartregister.chw.model.FamilyProfileModel;
 import org.smartregister.chw.pnc.activity.BasePncMemberProfileActivity;
-import org.smartregister.chw.presenter.ChildProfilePresenter;
+import org.smartregister.chw.presenter.PncMemberProfilePresenter;
+import org.smartregister.clientandeventmodel.Client;
+import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
+import org.smartregister.family.domain.FamilyEventClient;
+import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.JsonFormUtils;
+import org.smartregister.family.util.Utils;
+
+import java.util.List;
 
 import timber.log.Timber;
 
 public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
+
+
 
     public static void startMe(Activity activity, MemberObject memberObject, String familyHeadName, String familyHeadPhoneNumber) {
         Intent intent = new Intent(activity, PncMemberProfileActivity.class);
@@ -44,14 +59,27 @@ public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
             case android.R.id.home:
                 onBackPressed();
                 return true;
+
             case R.id.action_pnc_member_registration:
-                startFormForEdit(R.string.edit_member_form_title,
-                        org.smartregister.chw.util.Constants.JSON_FORM.getFamilyMemberRegister());
+                JSONObject form = org.smartregister.chw.util.JsonFormUtils.getAncPncForm(R.string.edit_member_form_title, org.smartregister.chw.util.Constants.JSON_FORM.getFamilyMemberRegister(), MEMBER_OBJECT, this);
+                startFormForEdit(form);
                 return true;
+
             case R.id.action_pnc_registration:
-                ((ChildProfilePresenter) presenter()).startFormForEdit(getResources().getString(R.string.edit_child_form_title),
-                        ((ChildProfilePresenter) presenter()).getChildClient());
+                ChildProfileInteractor childProfileInteractor = new ChildProfileInteractor();
+                PncMemberProfileInteractor basePncMemberProfileInteractor = new PncMemberProfileInteractor(this);
+                List<CommonPersonObjectClient> children = basePncMemberProfileInteractor.pncChildrenUnder29Days(MEMBER_OBJECT.getBaseEntityId());
+                if (!children.isEmpty()) {
+                    try {
+                        JSONObject childEnrollmentForm = childProfileInteractor.getAutoPopulatedJsonEditFormString(org.smartregister.chw.util.Constants.JSON_FORM.getChildRegister(), getString(R.string.edit_child_form_title), this, children.get(0));
+                        childEnrollmentForm.put(DBConstants.KEY.RELATIONAL_ID, MEMBER_OBJECT.getFamilyBaseEntityId());
+                        startFormForEdit(childEnrollmentForm);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
                 return true;
+
             case R.id.action__pnc_remove_member:
                 CommonRepository commonRepository = org.smartregister.chw.util.Utils.context().commonrepository(org.smartregister.chw.util.Utils.metadata().familyMemberRegister.tableName);
 
@@ -62,10 +90,12 @@ public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
 
                 IndividualProfileRemoveActivity.startIndividualProfileActivity(PncMemberProfileActivity.this, client, MEMBER_OBJECT.getFamilyBaseEntityId(), MEMBER_OBJECT.getFamilyHead(), MEMBER_OBJECT.getPrimaryCareGiver());
                 return true;
+
             case R.id.action_pregnancy_out_come:
                 AncRegisterActivity.startAncRegistrationActivity(PncMemberProfileActivity.this, MEMBER_OBJECT.getBaseEntityId(), null,
                         org.smartregister.chw.util.Constants.JSON_FORM.getPregnancyOutcome(), AncLibrary.getInstance().getUniqueIdRepository().getNextUniqueId().getOpenmrsId(), MEMBER_OBJECT.getFamilyBaseEntityId());
                 return true;
+
             default:
                 break;
         }
@@ -96,14 +126,60 @@ public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
     }
 
 
-    public void startFormForEdit(Integer title_resource, String formName) {
+    public void startFormForEdit(JSONObject form) {
 
         try {
-            JSONObject form = org.smartregister.chw.util.JsonFormUtils.getAncPncForm(title_resource, formName, MEMBER_OBJECT, this);
 
             startActivityForResult(org.smartregister.chw.util.JsonFormUtils.getAncPncStartFormIntent(form, this), JsonFormUtils.REQUEST_CODE_GET_JSON);
         } catch (Exception e) {
             Timber.e(e);
         }
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case org.smartregister.chw.util.Constants.ProfileActivityResults.CHANGE_COMPLETED:
+                if (resultCode == Activity.RESULT_OK) {
+                    Intent intent = new Intent(PncMemberProfileActivity.this, PncRegisterActivity.class);
+                    intent.putExtras(getIntent().getExtras());
+                    startActivity(intent);
+                    finish();
+                }
+                break;
+            case JsonFormUtils.REQUEST_CODE_GET_JSON:
+                if (resultCode == RESULT_OK) {
+                    try {
+                        String jsonString = data.getStringExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON);
+                        JSONObject form = new JSONObject(jsonString);
+                        if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Utils.metadata().familyMemberRegister.updateEventType)) {
+
+                            FamilyEventClient familyEventClient =
+                                    new FamilyProfileModel(MEMBER_OBJECT.getFamilyName()).processUpdateMemberRegistration(jsonString, MEMBER_OBJECT.getBaseEntityId());
+                            new FamilyProfileInteractor().saveRegistration(familyEventClient, jsonString, true, pncMemberProfilePresenter());
+                        }
+
+                        if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(org.smartregister.chw.util.Constants.EventType.UPDATE_CHILD_REGISTRATION)) {
+
+                            Pair<Client, Event> pair = new ChildRegisterModel().processRegistration(jsonString);
+                            if (pair != null) {
+
+                                PncMemberProfileInteractor basePncMemberProfileInteractor = new PncMemberProfileInteractor(this);
+                                basePncMemberProfileInteractor.updateChild(pair, jsonString);
+                            }
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                break;
+            default:
+                break;
+
+        }
+    }
+
+    public PncMemberProfilePresenter pncMemberProfilePresenter() {
+        return new PncMemberProfilePresenter(this, new PncMemberProfileInteractor(this), MEMBER_OBJECT);
     }
 }

@@ -32,7 +32,6 @@ import org.smartregister.commonregistry.AllCommonsRepository;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
-import org.smartregister.family.contract.FamilyProfileContract;
 import org.smartregister.family.domain.FamilyEventClient;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
@@ -46,16 +45,11 @@ import static org.smartregister.util.Utils.getAllSharedPreferences;
 
 public class AncMemberProfileActivity extends BaseAncMemberProfileActivity {
 
-    private static FamilyProfileContract.Interactor profileInteractor;
-    private static FamilyProfileContract.Model profileModel;
-
     public static void startMe(Activity activity, MemberObject memberObject, String familyHeadName, String familyHeadPhoneNumber) {
         Intent intent = new Intent(activity, AncMemberProfileActivity.class);
         intent.putExtra(Constants.ANC_MEMBER_OBJECTS.MEMBER_PROFILE_OBJECT, memberObject);
         intent.putExtra(Constants.ANC_MEMBER_OBJECTS.FAMILY_HEAD_NAME, familyHeadName);
         intent.putExtra(Constants.ANC_MEMBER_OBJECTS.FAMILY_HEAD_PHONE, familyHeadPhoneNumber);
-        profileInteractor = new FamilyProfileInteractor();
-        profileModel = new FamilyProfileModel(memberObject.getFamilyName());
         activity.startActivity(intent);
     }
 
@@ -180,8 +174,10 @@ public class AncMemberProfileActivity extends BaseAncMemberProfileActivity {
                         String jsonString = data.getStringExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON);
                         JSONObject form = new JSONObject(jsonString);
                         if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Utils.metadata().familyMemberRegister.updateEventType)) {
-                            FamilyEventClient familyEventClient = profileModel.processUpdateMemberRegistration(jsonString, MEMBER_OBJECT.getBaseEntityId());
-                            profileInteractor.saveRegistration(familyEventClient, jsonString, true, ancMemberProfilePresenter());
+
+                            FamilyEventClient familyEventClient =
+                                    new FamilyProfileModel(MEMBER_OBJECT.getFamilyName()).processUpdateMemberRegistration(jsonString, MEMBER_OBJECT.getBaseEntityId());
+                            new FamilyProfileInteractor().saveRegistration(familyEventClient, jsonString, true, ancMemberProfilePresenter());
                         } else if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(org.smartregister.chw.util.Constants.EventType.UPDATE_ANC_REGISTRATION)) {
                             AllSharedPreferences allSharedPreferences = getAllSharedPreferences();
                             Event baseEvent = org.smartregister.chw.anc.util.JsonFormUtils.processJsonForm(allSharedPreferences, jsonString, Constants.TABLES.ANC_MEMBERS);
