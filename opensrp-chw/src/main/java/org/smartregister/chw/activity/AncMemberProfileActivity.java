@@ -7,9 +7,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.vijay.jsonwizard.constants.JsonFormConstants;
-import com.vijay.jsonwizard.domain.Form;
-
 import org.jeasy.rules.api.Rules;
 import org.joda.time.DateTime;
 import org.json.JSONArray;
@@ -105,41 +102,13 @@ public class AncMemberProfileActivity extends BaseAncMemberProfileActivity {
 
     public void startFormForEdit(Integer title_resource, String formName) {
 
-        JSONObject form = null;
-
-        CommonRepository commonRepository = org.smartregister.chw.util.Utils.context().commonrepository(org.smartregister.chw.util.Utils.metadata().familyMemberRegister.tableName);
-        CommonPersonObject personObject = commonRepository.findByBaseEntityId(MEMBER_OBJECT.getBaseEntityId());
-        CommonPersonObjectClient client = new CommonPersonObjectClient(personObject.getCaseId(), personObject.getDetails(), "");
-        client.setColumnmaps(personObject.getColumnmaps());
-
-        if (formName.equals(org.smartregister.chw.util.Constants.JSON_FORM.getFamilyMemberRegister())) {
-            form = org.smartregister.chw.util.JsonFormUtils.getAutoPopulatedJsonEditMemberFormString(
-                    (title_resource != null) ? getResources().getString(title_resource) : null,
-                    org.smartregister.chw.util.Constants.JSON_FORM.getFamilyMemberRegister(),
-                    this, client, org.smartregister.chw.util.Utils.metadata().familyMemberRegister.updateEventType, MEMBER_OBJECT.getFamilyName(), false);
-        } else if (formName.equals(org.smartregister.chw.util.Constants.JSON_FORM.getAncRegistration())) {
-            form = org.smartregister.chw.util.JsonFormUtils.getAutoJsonEditAncFormString(
-                    MEMBER_OBJECT.getBaseEntityId(), this, formName, org.smartregister.chw.util.Constants.EventType.UPDATE_ANC_REGISTRATION, getResources().getString(title_resource));
-        }
-
         try {
-            startFormActivity(form);
+            JSONObject form = org.smartregister.chw.util.JsonFormUtils.getAncPncForm(title_resource, formName, MEMBER_OBJECT, this);
+
+            startActivityForResult(org.smartregister.chw.util.JsonFormUtils.getAncPncStartFormIntent(form, this), JsonFormUtils.REQUEST_CODE_GET_JSON);
         } catch (Exception e) {
             Timber.e(e);
         }
-    }
-
-    public void startFormActivity(JSONObject jsonForm) {
-
-        Intent intent = new Intent(this, Utils.metadata().familyMemberFormActivity);
-        intent.putExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON, jsonForm.toString());
-
-        Form form = new Form();
-        form.setActionBarBackground(R.color.family_actionbar);
-        form.setWizard(false);
-        intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);
-
-        startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
     }
 
     public AncMemberProfilePresenter ancMemberProfilePresenter() {

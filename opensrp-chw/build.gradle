@@ -299,7 +299,7 @@ dependencies {
         transitive = true
     }
 
-    implementation "org.smartregister:android-p2p-sync:0.2.1-SNAPSHOT"
+    implementation "org.smartregister:android-p2p-sync:0.3.2-SNAPSHOT"
 
     // PowerMock
     def powerMockVersion = '1.7.1'
