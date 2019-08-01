@@ -27,6 +27,7 @@ import com.github.ybq.android.spinkit.style.FadingCircle;
 
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.R;
+import org.smartregister.chw.activity.ChwP2pModeSelectActivity;
 import org.smartregister.chw.adapter.NavigationAdapter;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.contract.NavigationContract;
@@ -34,7 +35,6 @@ import org.smartregister.chw.model.NavigationOption;
 import org.smartregister.chw.presenter.NavigationPresenter;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.domain.FetchStatus;
-import org.smartregister.p2p.activity.P2pModeSelectActivity;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.util.LangUtils;
 import org.smartregister.util.PermissionUtils;
@@ -313,7 +313,7 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
         if (PermissionUtils.isPermissionGranted(activity
                 , new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}
                 , Constants.RQ_CODE.STORAGE_PERMISIONS)) {
-            activity.startActivity(new Intent(activity, P2pModeSelectActivity.class));
+            activity.startActivity(new Intent(activity, ChwP2pModeSelectActivity.class));
         }
     }
 

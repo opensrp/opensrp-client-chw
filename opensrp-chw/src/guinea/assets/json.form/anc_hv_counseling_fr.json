@@ -57,7 +57,7 @@
         "openmrs_data_type": "select one",
         "type": "spinner",
         "label_info_title": "Importance des visites CPN",
-        "label_info_text": "Chaque grossesse est unique. Tous femmes enceintes ont besoin d’au moins huit consultations prénatal pour assurer une grossesse sain et sécuritaire. Les femmes enceintes et leurs familles doit être capable d’identifier les signes du début de travail et les signes d’avertissement de complications de grossesse. Elles doivent avoir un plan et les ressources pour obtenir de soins qualifiés pour l’accouchement et de l’aide immédiate au besoin.",
+        "label_info_text": "Chaque grossesse est unique. Tous femmes enceintes ont besoin d’au moins huit consultations prénatal pour assurer une grossesse sain et sécuritaire. Les femmes enceintes et leurs familles doivent être capable d’identifier les signes du début de travail et les signes de danger de complications de grossesse. Elles doivent avoir un plan et les ressources pour obtenir de soins qualifiés pour l’accouchement et de l’aide immédiate au besoin.",
         "hint": "Importance des visites CPN",
         "values": [
           "Oui",
@@ -68,8 +68,8 @@
           "No"
         ],
         "openmrs_choice_ids": {
-          "Oui": "1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Non": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          "Yes": "1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "No": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         "v_required": {
           "value": "true",
@@ -93,8 +93,8 @@
         "openmrs_entity_id": "164108AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "label_info_title": "Importance d'accoucher à une structure sanitaire",
-        "label_info_text": "Promouvoir l’accouchement à une structure de santé et aborder les avantages d’avoir une assistance qualifiée.",
+        "label_info_title": "Importance d'accoucher dans une formation sanitaire",
+        "label_info_text": "Promouvoir l’accouchement au centre de santé et aborder les avantages d’avoir une assistance qualifiée.",
         "hint": "Importance d'accoucher à une structure sanitaire",
         "values": [
           "Oui",
@@ -105,8 +105,8 @@
           "No"
         ],
         "openmrs_choice_ids": {
-          "Oui": "1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Non": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          "Yes": "1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "No": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         "v_required": {
           "value": "true",
@@ -132,8 +132,8 @@
           "No"
         ],
         "openmrs_choice_ids": {
-          "Oui": "1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Non": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          "Yes": "1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "No": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         "v_required": {
           "value": "true",

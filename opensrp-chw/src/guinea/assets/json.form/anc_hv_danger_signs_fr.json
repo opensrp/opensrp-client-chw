@@ -132,7 +132,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Signe de danger! \nReferez immédiatement au structure sanitaire.",
+        "text": "Signe de danger! \nReferez immédiatement au centre de santé.",
         "text_color": "#CF0800",
         "toaster_type": "problem",
         "relevance": {

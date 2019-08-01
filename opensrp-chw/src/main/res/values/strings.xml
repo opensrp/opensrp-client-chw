@@ -426,4 +426,17 @@
     <string name="hygienic_latrine">Do household members use a hygienic latrine for the disposal of feces?</string>
     <string name="wash_check">WASH check</string>
 
+    <string name="abv_first">1st</string>
+    <string name="abv_second">2nd</string>
+    <string name="abv_third">3rd</string>
+    <string name="abv_fourth">4th</string>
+    <string name="abv_fifth">5th</string>
+    <string name="abv_sixth">6th</string>
+    <string name="abv_seventh">7th</string>
+    <string name="abv_eigth">8th</string>
+    <string name="abv_nineth">9th</string>
+    <string name="abv_tenth">10th</string>
+    <string name="abv_eleventh">11th</string>
+    <string name="abv_twelfth">12th</string>
+
 </resources>

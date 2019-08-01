@@ -1,5 +1,6 @@
 package org.smartregister.chw.interactor;
 
+import android.content.Context;
 import android.support.annotation.VisibleForTesting;
 import android.text.TextUtils;
 
@@ -37,10 +38,8 @@ import timber.log.Timber;
 import static org.smartregister.util.Utils.startAsyncTask;
 
 public class HomeVisitGrowthNutritionInteractor implements HomeVisitGrowthNutritionContract.Interactor {
-    private static final String TAG = HomeVisitGrowthNutritionInteractor.class.toString();
 
     private AppExecutors appExecutors;
-
 
     @VisibleForTesting
     HomeVisitGrowthNutritionInteractor(AppExecutors appExecutors) {
@@ -136,7 +135,7 @@ public class HomeVisitGrowthNutritionInteractor implements HomeVisitGrowthNutrit
         });
     }
 
-    public ArrayList<GrowthServiceData> getAllDueService(Map<String, ServiceWrapper> serviceWrapperMap) {
+    public ArrayList<GrowthServiceData> getAllDueService(Map<String, ServiceWrapper> serviceWrapperMap, Context context) {
         ArrayList<GrowthServiceData> growthServiceDataList = new ArrayList<>();
 
         for (String key : serviceWrapperMap.keySet()) {
@@ -145,7 +144,7 @@ public class HomeVisitGrowthNutritionInteractor implements HomeVisitGrowthNutrit
                 GrowthServiceData growthServiceData = new GrowthServiceData();
                 growthServiceData.setDate(serviceWrapper.getAlert().startDate());
                 growthServiceData.setName(serviceWrapper.getAlert().scheduleName());
-                growthServiceData.setDisplayName(getDisplayNameBasedOnType(key, growthServiceData.getName()));
+                growthServiceData.setDisplayName(getDisplayNameBasedOnType(key, growthServiceData.getName(), context));
                 String duedateString = DateUtil.formatDate(growthServiceData.getDate(), "dd MMM yyyy");
                 growthServiceData.setDisplayAbleDate(duedateString);
                 growthServiceDataList.add(growthServiceData);
@@ -155,7 +154,7 @@ public class HomeVisitGrowthNutritionInteractor implements HomeVisitGrowthNutrit
         return growthServiceDataList;
     }
 
-    private String getDisplayNameBasedOnType(String type, String name) {
+    private String getDisplayNameBasedOnType(String type, String name, Context context) {
         Object[] displayName = ChildUtils.getStringWithNumber(name);
         if (displayName.length > 1) {
             String str = (String) displayName[0];
@@ -163,9 +162,9 @@ public class HomeVisitGrowthNutritionInteractor implements HomeVisitGrowthNutrit
             if (type.equalsIgnoreCase(GrowthNutritionInputFragment.GROWTH_TYPE.EXCLUSIVE.getValue())) {
                 return str + " " + no + " month";
             } else if (type.equalsIgnoreCase(GrowthNutritionInputFragment.GROWTH_TYPE.MNP.getValue())) {
-                return str + " " + ChildUtils.getFirstSecondAsNumber(no) + " pack";
+                return str + " " + ChildUtils.getFirstSecondAsNumber(no, context) + " pack";
             } else {
-                return str + " " + ChildUtils.getFirstSecondAsNumber(no) + " dose";
+                return str + " " + ChildUtils.getFirstSecondAsNumber(no, context) + " dose";
             }
         }
         return "";
