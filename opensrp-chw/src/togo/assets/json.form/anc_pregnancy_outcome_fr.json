@@ -357,13 +357,6 @@
               "rules-file": "anc_pregnancy_outcome_calculation.yml"
             }
           }
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "anc_pregnancy_outcome_relevance.yml"
-            }
-          }
         }
       },
       {
