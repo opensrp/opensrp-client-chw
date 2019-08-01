@@ -88,7 +88,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
         }
     }
 
-    private void evaluatePNCHealthFacilityVisit() throws Exception {
+    protected void evaluatePNCHealthFacilityVisit() throws Exception {
         BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.pnc_health_facility_visit_within_fourty_eight_hours))
                 .withOptional(false)
                 .withDetails(details)
@@ -108,7 +108,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
         actionList.put(context.getString(R.string.pnc_family_planning), action);
     }
 
-    private void evaluateImmunization() throws Exception {
+    protected void evaluateImmunization() throws Exception {
         for (Person baby : children) {
             BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, MessageFormat.format(context.getString(R.string.pnc_immunization_at_birth), baby.getFullName()))
                     .withOptional(false)
