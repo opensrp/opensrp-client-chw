@@ -12,6 +12,7 @@ import com.opensrp.chw.core.custom_views.NavigationMenu;
 import com.opensrp.chw.core.loggers.CrashlyticsTree;
 import com.opensrp.chw.core.service.CoreAuthorizationService;
 import com.opensrp.chw.core.utils.Constants;
+import com.opensrp.chw.hf.activity.ChildRegisterActivity;
 import com.opensrp.chw.hf.activity.FamilyProfileActivity;
 import com.opensrp.chw.hf.activity.FamilyRegisterActivity;
 import com.opensrp.chw.hf.activity.LoginActivity;
@@ -170,7 +171,7 @@ public class HealthFacilityApplication extends DrishtiApplication implements Cor
         Map<String, Class> registeredActivities = new HashMap<>();
         registeredActivities.put(Constants.REGISTERED_ACTIVITIES.ANC_REGISTER_ACTIVITY, FamilyRegisterActivity.class);
         registeredActivities.put(Constants.REGISTERED_ACTIVITIES.FAMILY_REGISTER_ACTIVITY, FamilyRegisterActivity.class);
-        registeredActivities.put(Constants.REGISTERED_ACTIVITIES.CHILD_REGISTER_ACTIVITY, FamilyRegisterActivity.class);
+        registeredActivities.put(Constants.REGISTERED_ACTIVITIES.CHILD_REGISTER_ACTIVITY, ChildRegisterActivity.class);
         registeredActivities.put(Constants.REGISTERED_ACTIVITIES.PNC_REGISTER_ACTIVITY, FamilyRegisterActivity.class);
         return registeredActivities;
     }

@@ -56,12 +56,24 @@
             android:screenOrientation="portrait"
             android:theme="@style/FamilyTheme.NoActionBar"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
+
         <activity
             android:name="com.opensrp.chw.hf.activity.FamilyRegisterActivity"
             android:screenOrientation="portrait"
             android:theme="@style/HFTheme.NoActionBar" />
+
         <activity
             android:name="com.opensrp.chw.hf.activity.FamilyProfileActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/HFTheme.NoActionBar" />
+
+        <activity
+            android:name="com.opensrp.chw.hf.activity.ChildRegisterActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/HFTheme.NoActionBar" />
+
+        <activity
+            android:name="com.opensrp.chw.hf.activity.ChildProfileActivity"
             android:screenOrientation="portrait"
             android:theme="@style/HFTheme.NoActionBar" />
 
