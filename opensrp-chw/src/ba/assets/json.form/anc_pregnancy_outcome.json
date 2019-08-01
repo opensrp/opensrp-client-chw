@@ -436,10 +436,9 @@
       {
         "key": "fam_name",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "label",
-        "hidden": "true"
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "fam_name",
+        "type": "hidden"
       },
       {
         "key": "surname_calculation",
