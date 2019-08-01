@@ -20,13 +20,10 @@ import java.util.TreeSet;
 public class CoreChildRegisterFragmentPresenter implements CoreChildRegisterFragmentContract.Presenter {
 
 
-    private WeakReference<CoreChildRegisterFragmentContract.View> viewReference;
-
-    private CoreChildRegisterFragmentContract.Model model;
-
-    private RegisterConfiguration config;
-
     protected Set<View> visibleColumns = new TreeSet<>();
+    private WeakReference<CoreChildRegisterFragmentContract.View> viewReference;
+    private CoreChildRegisterFragmentContract.Model model;
+    private RegisterConfiguration config;
     private String viewConfigurationIdentifier;
 
     public CoreChildRegisterFragmentPresenter(CoreChildRegisterFragmentContract.View view, CoreChildRegisterFragmentContract.Model model, String viewConfigurationIdentifier) {

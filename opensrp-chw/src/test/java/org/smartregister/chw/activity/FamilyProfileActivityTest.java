@@ -43,13 +43,10 @@ import static org.powermock.api.mockito.PowerMockito.verifyPrivate;
 @Config(application = ChwApplication.class, constants = BuildConfig.class, sdk = 22)
 public class FamilyProfileActivityTest {
 
-    private FamilyProfileActivity activity;
-    private ActivityController<FamilyProfileActivity> controller;
-
-
     private final String TEST_CARE_GIVER = "45645sdfs64564544";
     private final String TEST_FAMILY_HEAD = "hsdf34453";
-
+    private FamilyProfileActivity activity;
+    private ActivityController<FamilyProfileActivity> controller;
     @Mock
     private FamilyProfilePresenter presenter;
 

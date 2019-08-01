@@ -205,7 +205,7 @@ public class ImmunizationViewInteractor implements ImmunizationContact.Interacto
 
                     }
                     try {
-                        ChwServiceSchedule.updateOfflineAlerts(childClient.getCaseId(), dateTime);
+                        ChwServiceSchedule.updateOfflineAlerts(childClient.getCaseId(), dateTime, "child");
                     } catch (Exception e) {
 
                     }

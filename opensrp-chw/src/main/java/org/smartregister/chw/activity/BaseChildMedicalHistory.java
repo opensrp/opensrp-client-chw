@@ -26,10 +26,10 @@ import static com.opensrp.chw.core.utils.Utils.firstCharacterUppercase;
 
 public abstract class BaseChildMedicalHistory extends SecuredActivity {
 
-    private TextView textViewTitle,textViewLastVisit;
     protected Map<String, Date> vaccineList;
     protected String dateOfBirth;
     protected CommonPersonObjectClient childClient;
+    private TextView textViewTitle, textViewLastVisit;
 
     public abstract void onViewCreated(Activity activity);
 
@@ -39,6 +39,7 @@ public abstract class BaseChildMedicalHistory extends SecuredActivity {
         setUpActionBar();
         parseBundleANdUpdateTopView();
     }
+
     private void setUpActionBar() {
         Toolbar toolbar = findViewById(R.id.collapsing_toolbar);
         textViewTitle = toolbar.findViewById(R.id.toolbar_title);
@@ -60,6 +61,7 @@ public abstract class BaseChildMedicalHistory extends SecuredActivity {
         });
 
     }
+
     private void parseBundleANdUpdateTopView() {
         childClient = (CommonPersonObjectClient) getIntent().getSerializableExtra(Constants.INTENT_KEY.CHILD_COMMON_PERSON);
         String name = getIntent().getStringExtra(Constants.INTENT_KEY.CHILD_NAME);
@@ -75,6 +77,7 @@ public abstract class BaseChildMedicalHistory extends SecuredActivity {
         onViewCreated(this);
 
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         return false;

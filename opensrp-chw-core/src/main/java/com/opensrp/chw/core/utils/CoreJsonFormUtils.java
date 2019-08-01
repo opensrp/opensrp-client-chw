@@ -800,7 +800,6 @@ public class CoreJsonFormUtils extends org.smartregister.family.util.JsonFormUti
     }
 
 
-
     public static JSONObject getFormWithMetaData(String baseEntityID, Context context, String formName, String eventType) {
         JSONObject form = null;
         try {

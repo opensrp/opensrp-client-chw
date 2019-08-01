@@ -9,11 +9,11 @@
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_marginBottom="16dp"
+        android:layout_alignParentBottom="true"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
+        android:layout_marginBottom="16dp"
         android:clickable="true"
         android:tint="@android:color/white"
         app:backgroundTint="@color/text_black"
@@ -53,10 +53,10 @@
 
                 <TextView
                     android:id="@+id/CallTextView"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentLeft="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
                     android:text="@string/call"
                     android:textColor="@android:color/black" />
 
@@ -70,7 +70,7 @@
                     android:text="@string/call_no_number_provided"
                     android:textColor="@color/grey"
                     android:textStyle="italic"
-                    android:visibility="gone"/>
+                    android:visibility="gone" />
 
             </RelativeLayout>
 

@@ -29,7 +29,7 @@ public class ChildRegisterProvider extends CoreChildRegisterProvider {
     private CommonRepository commonRepository;
 
     public ChildRegisterProvider(Context context, CommonRepository commonRepository, Set visibleColumns, View.OnClickListener onClickListener, View.OnClickListener paginationClickListener) {
-        super(context, visibleColumns,onClickListener,paginationClickListener);
+        super(context, visibleColumns, onClickListener, paginationClickListener);
         this.visibleColumns = visibleColumns;
         this.onClickListener = onClickListener;
         this.context = context;

@@ -177,7 +177,7 @@
           "Transport, storage and communications": "165413AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "Financial institutions": "165414AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "Communication, social and personal services": "165415AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Other" : "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          "Other": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         }
       }
     ]
@@ -201,7 +201,7 @@
         "type": "edit_text",
         "hint": "ID *",
         "value": "0",
-        "read_only" : "true",
+        "read_only": "true",
         "v_numeric": {
           "value": "true",
           "err": "Please enter a valid ID"
@@ -441,15 +441,17 @@
         "hint": "Highest education level",
         "values": [
           "None",
+          "Literacy",
           "Primary",
           "Secondary",
-          "Post-secondary"
+          "University"
         ],
         "openmrs_choice_ids": {
           "None": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Literacy": "",
           "Primary": "1713AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "Secondary": "1714AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Post-secondary": "159785AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          "University": "159785AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         }
       }
     ]

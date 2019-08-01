@@ -47,15 +47,13 @@ import static com.opensrp.chw.core.utils.Utils.convertDpToPixel;
 
 public class CoreChildRegisterFragment extends BaseRegisterFragment implements CoreChildRegisterFragmentContract.View {
 
-    private static final String TAG = CoreChildRegisterFragment.class.getCanonicalName();
     public static final String CLICK_VIEW_NORMAL = "click_view_normal";
     public static final String CLICK_VIEW_DOSAGE_STATUS = "click_view_dosage_status";
-
+    private static final String TAG = CoreChildRegisterFragment.class.getCanonicalName();
+    private static final String DUE_FILTER_TAG = "PRESSED";
     private View view;
     private View dueOnlyLayout;
-
     private boolean dueFilterActive = false;
-    private static final String DUE_FILTER_TAG = "PRESSED";
 
     @Override
     protected void initializePresenter() {

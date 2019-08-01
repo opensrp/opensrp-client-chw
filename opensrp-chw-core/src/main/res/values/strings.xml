@@ -128,5 +128,6 @@
     <string name="malaria_registration">Malaria Confirmation</string>
     <string name="edit_child_form_title">Edit Child Under 5</string>
     <string name="visit_month">%1$s visit done</string>
+    <string name="refer_to_facility">Refer to facility</string>
 
 </resources>

@@ -9,6 +9,7 @@ import com.opensrp.chw.core.custom_views.CoreFamilyMemberFloatingMenu;
 
 public class FamilyMemberFloatingMenu extends CoreFamilyMemberFloatingMenu {
     private Flavor flavor = new FamilyMemberFloatingMenuFlv();
+
     public FamilyMemberFloatingMenu(Context context) {
         super(context);
     }
@@ -21,13 +22,14 @@ public class FamilyMemberFloatingMenu extends CoreFamilyMemberFloatingMenu {
         super(context, attrs, defStyleAttr);
         initUi();
     }
+
     public void reDraw(boolean has_phone) {
         flavor.reDraw(this, has_phone);
     }
 
     @Override
     public void initUi() {
-        flavor  = new FamilyMemberFloatingMenuFlv();
+        flavor = new FamilyMemberFloatingMenuFlv();
         super.initUi();
         flavor.prepareFab(this, fab);
     }
@@ -40,7 +42,9 @@ public class FamilyMemberFloatingMenu extends CoreFamilyMemberFloatingMenu {
 
     interface Flavor {
         void reDraw(FamilyMemberFloatingMenu menu, boolean has_phone);
+
         void prepareFab(FamilyMemberFloatingMenu menu, FloatingActionButton fab);
+
         void fabInteraction(FamilyMemberFloatingMenu menu);
     }
 }

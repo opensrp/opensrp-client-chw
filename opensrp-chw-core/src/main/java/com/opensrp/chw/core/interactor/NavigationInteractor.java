@@ -80,6 +80,11 @@ public class NavigationInteractor implements NavigationContract.Interactor {
         return res;
     }
 
+    @Override
+    public void setApplication(CoreApplication coreApplication) {
+        this.coreApplication = coreApplication;
+    }
+
     private boolean isValidFilterForFts(CommonRepository commonRepository, String filters) {
         return commonRepository.isFts() && filters != null && !StringUtils
                 .containsIgnoreCase(filters, "like") && !StringUtils
@@ -113,10 +118,22 @@ public class NavigationInteractor implements NavigationContract.Interactor {
             stb.append(MessageFormat.format(" where {0}.{1} is null ", Constants.TABLE_NAME.FAMILY_MEMBER, DBConstants.KEY.DATE_REMOVED));
             stb.append(MessageFormat.format(" and {0}.{1} is 0 ", Constants.TABLE_NAME.ANC_MEMBER, org.smartregister.chw.anc.util.DBConstants.KEY.IS_CLOSED));
 
-
             mainCondition = stb.toString();
+
         } else if (tableName.equalsIgnoreCase(Constants.TABLE_NAME.ANC_PREGNANCY_OUTCOME)) {
-            mainCondition = String.format("where %s is 0", ChwDBConstants.IS_CLOSED);
+            StringBuilder build = new StringBuilder();
+            build.append(MessageFormat.format(" inner join {0} ", Constants.TABLE_NAME.FAMILY_MEMBER));
+            build.append(MessageFormat.format(" on {0}.{1} = {2}.{3} ", Constants.TABLE_NAME.FAMILY_MEMBER, DBConstants.KEY.BASE_ENTITY_ID,
+                    Constants.TABLE_NAME.ANC_PREGNANCY_OUTCOME, DBConstants.KEY.BASE_ENTITY_ID));
+
+            build.append(MessageFormat.format(" inner join {0} ", Constants.TABLE_NAME.FAMILY));
+            build.append(MessageFormat.format(" on {0}.{1} = {2}.{3} ", Constants.TABLE_NAME.FAMILY, DBConstants.KEY.BASE_ENTITY_ID,
+                    Constants.TABLE_NAME.FAMILY_MEMBER, DBConstants.KEY.RELATIONAL_ID));
+
+            build.append(MessageFormat.format(" where {0}.{1} is not null AND {0}.{2} is 0 ", Constants.TABLE_NAME.ANC_PREGNANCY_OUTCOME, ChwDBConstants.DELIVERY_DATE, ChwDBConstants.IS_CLOSED));
+
+            mainCondition = build.toString();
+
         } else {
             mainCondition = " where 1 = 1 ";
         }
@@ -143,10 +160,5 @@ public class NavigationInteractor implements NavigationContract.Interactor {
 
     private Long getLastCheckTimeStamp() {
         return coreApplication.getEcSyncHelper().getLastCheckTimeStamp();
-    }
-
-    @Override
-    public void setApplication(CoreApplication coreApplication) {
-        this.coreApplication = coreApplication;
     }
 }

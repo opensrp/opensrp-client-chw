@@ -12,7 +12,7 @@ import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.family.contract.FamilyProfileContract;
 import org.smartregister.family.presenter.BaseFamilyProfilePresenter;
 
-public class FamilyProfilePresenter extends BaseFamilyProfilePresenter implements FamilyProfileExtendedContract.Presenter, CoreChildRegisterContract.InteractorCallBack , FamilyProfileExtendedContract.PresenterCallBack {
+public class FamilyProfilePresenter extends BaseFamilyProfilePresenter implements FamilyProfileExtendedContract.Presenter, CoreChildRegisterContract.InteractorCallBack, FamilyProfileExtendedContract.PresenterCallBack {
 
     public FamilyProfilePresenter(FamilyProfileContract.View loginView, FamilyProfileContract.Model model, String familyBaseEntityId, String familyHead, String primaryCaregiver, String familyName) {
         super(loginView, model, familyBaseEntityId, familyHead, primaryCaregiver, familyName);

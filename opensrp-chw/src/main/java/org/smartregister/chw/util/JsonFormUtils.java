@@ -13,6 +13,7 @@ import org.apache.commons.lang3.tuple.Triple;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.smartregister.AllConstants;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.domain.FamilyMember;
 import org.smartregister.chw.repository.ChwRepository;
@@ -29,7 +30,6 @@ import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.sync.helper.ECSyncHelper;
 import org.smartregister.util.FormUtils;
-import org.smartregister.view.LocationPickerView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -195,7 +195,6 @@ public class JsonFormUtils extends CoreJsonFormUtils {
     }
 
 
-
     public static Pair<List<Client>, List<Event>> processFamilyUpdateRelations(Context context, FamilyMember familyMember, String lastLocationId) throws Exception {
         List<Client> clients = new ArrayList<>();
         List<Event> events = new ArrayList<>();
@@ -266,12 +265,6 @@ public class JsonFormUtils extends CoreJsonFormUtils {
         return Pair.create(clients, events);
     }
 
-    public interface Flavor {
-        JSONObject getAutoJsonEditMemberFormString(String title, String formName, Context context, CommonPersonObjectClient client, String eventType, String familyName, boolean isPrimaryCaregiver);
-
-        void processFieldsForMemberEdit(CommonPersonObjectClient client, JSONObject jsonObject, JSONArray jsonArray, String familyName, boolean isPrimaryCaregiver, Event ecEvent, Client ecClient) throws JSONException;
-    }
-
     private static Event getEditAncLatestProperties(String baseEntityID) {
 
         Event ecEvent = null;
@@ -301,8 +294,6 @@ public class JsonFormUtils extends CoreJsonFormUtils {
             Event event = getEditAncLatestProperties(baseEntityID);
             final List<Obs> observations = event.getObs();
             JSONObject form = getFormWithMetaData(baseEntityID, context, formName, eventType);
-            LocationPickerView lpv = new LocationPickerView(context);
-            lpv.init();
             if (form != null) {
                 JSONObject stepOne = form.getJSONObject(org.smartregister.family.util.JsonFormUtils.STEP1);
 
@@ -340,5 +331,17 @@ public class JsonFormUtils extends CoreJsonFormUtils {
         return null;
     }
 
+    public static JSONObject getJson(String formName, String baseEntityID) throws Exception {
+        String locationId = ChwApplication.getInstance().getContext().allSharedPreferences().getPreference(AllConstants.CURRENT_LOCATION_ID);
+        JSONObject jsonObject = org.smartregister.chw.anc.util.JsonFormUtils.getFormAsJson(formName);
+        org.smartregister.chw.anc.util.JsonFormUtils.getRegistrationForm(jsonObject, baseEntityID, locationId);
+        return jsonObject;
+    }
+
+    public interface Flavor {
+        JSONObject getAutoJsonEditMemberFormString(String title, String formName, Context context, CommonPersonObjectClient client, String eventType, String familyName, boolean isPrimaryCaregiver);
+
+        void processFieldsForMemberEdit(CommonPersonObjectClient client, JSONObject jsonObject, JSONArray jsonArray, String familyName, boolean isPrimaryCaregiver, Event ecEvent, Client ecClient) throws JSONException;
+    }
 
 }

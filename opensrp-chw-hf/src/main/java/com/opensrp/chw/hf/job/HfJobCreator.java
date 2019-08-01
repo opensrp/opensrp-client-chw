@@ -37,7 +37,7 @@ public class HfJobCreator implements JobCreator {
             case VaccineRecurringServiceJob.TAG:
                 return new VaccineRecurringServiceJob();
             default:
-                Timber.d( "Please create job and specify the right job tag");
+                Timber.d("Please create job and specify the right job tag");
                 return null;
         }
     }

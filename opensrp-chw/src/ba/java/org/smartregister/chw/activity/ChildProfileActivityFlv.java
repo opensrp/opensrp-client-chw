@@ -5,7 +5,6 @@ import android.widget.Toast;
 
 import com.opensrp.chw.core.fragment.FamilyCallDialogFragment;
 import com.opensrp.chw.core.listener.OnClickFloatingMenu;
-import com.opensrp.chw.core.presenter.CoreChildProfilePresenter;
 
 import org.smartregister.chw.R;
 import org.smartregister.chw.presenter.ChildProfilePresenter;
@@ -32,7 +31,7 @@ public class ChildProfileActivityFlv implements ChildProfileActivity.Flavor {
     }
 
     @Override
-    public boolean showMalariaConfirmationMenu(){
+    public boolean showMalariaConfirmationMenu() {
         return true;
     }
 }

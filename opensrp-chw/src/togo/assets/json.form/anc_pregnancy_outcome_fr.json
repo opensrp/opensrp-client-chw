@@ -354,7 +354,7 @@
         "calculation": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "anc_pregnancy_out_come_calculation.yml"
+              "rules-file": "anc_pregnancy_outcome_calculation.yml"
             }
           }
         },
@@ -367,7 +367,7 @@
         }
       },
       {
-        "key": "sex",
+        "key": "gender",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person",
         "openmrs_entity_id": "gender",
@@ -524,7 +524,6 @@
           }
         ]
       },
-
       {
         "key": "opv0_date",
         "openmrs_entity_parent": "",

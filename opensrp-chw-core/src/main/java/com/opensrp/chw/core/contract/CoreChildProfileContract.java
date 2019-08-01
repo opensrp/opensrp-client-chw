@@ -51,11 +51,11 @@ public interface CoreChildProfileContract {
 
         void setLastVisitRowView(String days);
 
-        void setServiceNameDue(String name,String dueDate);
+        void setServiceNameDue(String name, String dueDate);
 
-        void setServiceNameOverDue(String name,String dueDate);
+        void setServiceNameOverDue(String name, String dueDate);
 
-        void setServiceNameUpcoming(String name,String dueDate);
+        void setServiceNameUpcoming(String name, String dueDate);
 
         void setVisitLessTwentyFourView(String monthName);
 

@@ -23,18 +23,20 @@
             android:layout_alignParentTop="true"
             android:orientation="vertical"
             android:paddingTop="@dimen/login_logo_top_padding">
+
             <TextView
                 android:id="@+id/login_title_text_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="60dp"
+                android:layout_marginBottom="40dp"
                 android:gravity="center_horizontal"
                 android:text="@string/login_title"
                 android:textColor="#272727"
                 android:textSize="@dimen/login_title_text_size"
                 android:textStyle="bold"
-                android:layout_marginTop="60dp"
-                android:layout_marginBottom="40dp"
                 android:typeface="sans" />
+
             <ImageView
                 android:id="@+id/login_logo"
                 android:layout_width="match_parent"
@@ -121,8 +123,8 @@
                     android:layout_height="20dp"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="3dp"
-                    android:layout_marginRight="5dp"
                     android:layout_marginTop="15dp"
+                    android:layout_marginRight="5dp"
                     android:button="@drawable/white_checkbox_bg_selector" />
 
                 <TextView
@@ -162,8 +164,8 @@
             android:id="@+id/bottom_section"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
             android:layout_below="@+id/middle_section"
+            android:layout_alignParentBottom="true"
             android:orientation="vertical"
             android:paddingTop="30dp">
 
@@ -171,8 +173,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:paddingBottom="5dp"
                 android:paddingTop="10dp"
+                android:paddingBottom="5dp"
                 android:text="@string/powered_by"
                 android:textAlignment="center"
                 android:textColor="#585858" />

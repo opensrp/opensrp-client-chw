@@ -29,12 +29,11 @@ import static org.smartregister.immunization.util.VaccinatorUtils.nextServiceDue
 
 public class RecurringServiceUtil {
 
-    public static Map<String, ServiceWrapper> getRecurringServices(String baseEntityID, DateTime anchorDate) {
+    public static Map<String, ServiceWrapper> getRecurringServices(String baseEntityID, DateTime anchorDate, String group) {
         Map<String, ServiceWrapper> serviceWrapperMap = new LinkedHashMap<>();
 
-        RecurringServiceModel recurringServiceModel = getServiceModel(baseEntityID, anchorDate);
+        RecurringServiceModel recurringServiceModel = getServiceModel(baseEntityID, anchorDate, group);
         Map<String, List<ServiceType>> foundServiceTypeMap = getServiceGroup(recurringServiceModel);
-
 
         for (String type : foundServiceTypeMap.keySet()) {
             ServiceWrapper serviceWrapper = new ServiceWrapper();
@@ -50,10 +49,10 @@ public class RecurringServiceUtil {
         return serviceWrapperMap;
     }
 
-    public static RecurringServiceModel getServiceModel(String baseEntityID, DateTime anchorDate) {
+    public static RecurringServiceModel getServiceModel(String baseEntityID, DateTime anchorDate, String group) {
         // get the services
         if (anchorDate != null) {
-            ChwServiceSchedule.updateOfflineAlerts(baseEntityID, anchorDate);
+            ChwServiceSchedule.updateOfflineAlerts(baseEntityID, anchorDate, group);
         }
 
         RecurringServiceRecordRepository recurringServiceRecordRepository = ImmunizationLibrary.getInstance().recurringServiceRecordRepository();

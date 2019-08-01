@@ -13,23 +13,18 @@ import com.opensrp.chw.core.R;
 import com.opensrp.chw.core.listener.OnClickFloatingMenu;
 
 public class CoreFamilyMemberFloatingMenu extends LinearLayout implements View.OnClickListener {
-    private RelativeLayout activityMain;
     public FloatingActionButton fab;
+    public OnClickFloatingMenu onClickFloatingMenu;
+    private RelativeLayout activityMain;
     private LinearLayout menuBar;
     private Animation fabOpen, fabClose, rotateForward, rotateBack;
     private boolean isFabMenuOpen = false;
-    public OnClickFloatingMenu onClickFloatingMenu;
-
     private View callLayout;
     private View referLayout;
 
     public CoreFamilyMemberFloatingMenu(Context context) {
         super(context);
         initUi();
-    }
-
-    public View getCallLayout() {
-        return callLayout;
     }
 
     public CoreFamilyMemberFloatingMenu(Context context, AttributeSet attrs) {
@@ -40,6 +35,10 @@ public class CoreFamilyMemberFloatingMenu extends LinearLayout implements View.O
     public CoreFamilyMemberFloatingMenu(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         initUi();
+    }
+
+    public View getCallLayout() {
+        return callLayout;
     }
 
     public void initUi() {

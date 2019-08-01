@@ -11,7 +11,7 @@
     <string name="menu_child_clients">Enfants Clients</string>
     <string name="menu_hiv_clients">Clients VIH</string>
 
-    <string name="title_family_detail">Détails sur la Famille</string>
+    <string name="title_family_detail">Détails sur le ménage</string>
     <string name="child_register_title">Enfants Clients</string>
     <string name="return_to_all_children">Revenir à tous les enfants</string>
     <string name="back_to_children">Revenir à %1$s</string>
@@ -40,12 +40,12 @@
 
     <string name="call">Appel</string>
     <string name="call_no_number_provided">(aucun numéro fourni)</string>
-    <string name="family_details">Détails sur la famille</string>
-    <string name="add_new_family_member">Ajouter un nouveau membre à la famille</string>
-    <string name="remove_existing_family_member">Enlever un membre de la famille</string>
-    <string name="change_family_head">Changer le chef de famille</string>
+    <string name="family_details">Détails sur le ménage</string>
+    <string name="add_new_family_member">Ajouter un nouveau membre au ménage</string>
+    <string name="remove_existing_family_member">Enlever un membre du ménage</string>
+    <string name="change_family_head">Changer le chef de ménage</string>
     <string name="change_primary_caregiver">Changer la gardienne</string>
-    <string name="add_other_family_member">Autre membre de famille</string>
+    <string name="add_other_family_member">Autre membre de ménage</string>
     <string name="add_child_under_five">Enfant de moins de 5 ans</string>
     <string name="child_under_five">Enfant de moins de 5 ans</string>
     <string name="go_to_family_s_profile">Aller au profil du ménage</string>
@@ -62,10 +62,10 @@
     <string name="penta_1">Penta 1</string>
     <string name="view_medical_history">Voir historique médical</string>
     <string name="last_visit_40_days_ago">Dernier visite il y a %1$s </string>
-    <string name="add_member_title">Ajouter un membre de famille</string>
+    <string name="add_member_title">Ajouter un membre du ménage</string>
     <string name="add_member_title_question">Quel type de membre voulez vous ajouter?</string>
-    <string name="change_head_member_title">Changer le chef de famille</string>
-    <string name="change_head_member_title_question">Sélectionner nouveau chef de famille</string>
+    <string name="change_head_member_title">Changer le chef de ménage</string>
+    <string name="change_head_member_title_question">Sélectionner nouveau chef de ménage</string>
     <string name="change_caregiver_member_title">Changer la gardienne</string>
     <string name="change_caregiver_member_title_question">Sélectionner un nouveau gardienne</string>
     <string name="remove_member_title">Enlever membre </string>
@@ -75,8 +75,8 @@
     <string name="undo">ANNULER</string>
     <string name="record_visit">Enregistrer visite</string>
     <string name="edit">ÉDITER</string>
-    <string name="return_to_family_name">Retourner à la famille %1$s</string>
-    <string name="return_to_family_members">Retourner aux membres de la famille</string>
+    <string name="return_to_family_name">Retourner au ménage %1$s</string>
+    <string name="return_to_family_members">Retourner aux membres du ménage</string>
     <string name="save_title">ENREGISTRER</string>
 
     <string name="allow_calls_denied">Veuillez autoriser les appels ici</string>
@@ -140,11 +140,11 @@
     <string name="remove_warning_family">Êtes-vous certain de vouloir supprimer le dossier du ménage %s ? Cette action va enlever le dossier au complet ET toutes les données de santé sur le ménage %sseront éffacées de votre appareil. Cette action ne peût pas être annulée.</string>
     <string name="cancel">ANNULER</string>
     <string name="submit">VALIDER</string>
-    <string name="profile_change_dialog_message">Avant d\'enlever ce membre du ménage, vous devez sélectionner un nouveau chef de famille.</string>
+    <string name="profile_change_dialog_message">Avant d\'enlever ce membre du ménage, vous devez sélectionner un nouveau chef de ménage.</string>
     <string name="select_caregiver">Sélectionner un nouveau gardienne</string>
     <string name="select_family_head">Sélectionner un nouveau chef de ménage</string>
     <string name="remove_caregiver_warning_message">Avant d\'enlever ce membre du ménage, vous devez sélectionner un nouveau gardienne.</string>
-    <string name="remove_familyhead_warning_message">Avant d\'enlever ce membre du ménage vous devez sélectionner un nouveau chef de ménage</string>
+    <string name="remove_familyhead_warning_message">Avant d\'enlever ce membre du ménage vous devez sélectionner un nouveau chef de ménage.</string>
 
     <string name="visit_months">mois</string>
     <string name="visit_dose">dose</string>
@@ -161,7 +161,7 @@
     <string name="number">Numéro</string>
     <string name="notification">Déclaration de naissance faite?</string>
     <string name="call_prompt">APPELER %s</string>
-    <string name="head_of_family">Chef de famille</string>
+    <string name="head_of_family">Chef de ménage</string>
     <string name="care_giver">Gardienne</string>
     <string name="status_saving">Enregistrement</string>
     <string name="fill_earler_immunization"><![CDATA[<i>Enregistrer les vaccinations effectuées avant aujourd\'hui</i>]]></string>
@@ -247,7 +247,7 @@
     <string name="menu_labour_and_delivery"><![CDATA[L&D]]></string>
     <string name="menu_child">CH</string>
     <string name="menu_anc">CPN</string>
-    <string name="menu_pnc">CPoN</string>
+    <string name="menu_pnc">CoPN</string>
     <string name="menu_family_planing">PF</string>
     <string name="menu_malaria">Paludisme</string>
     <string name="refer_to_facility">Référer au centre de santé</string>
@@ -272,9 +272,10 @@
     <string name="due_details">Quand un membre du ménage doit recevoir une service, il sera affiché ici</string>
 
     <string name="edu_level_none">Aucun</string>
+    <string name="edu_level_literacy">Alphabétiser</string>
     <string name="edu_level_primary">Primaire</string>
     <string name="edu_level_secondary">Secondaire</string>
-    <string name="edu_level_post_secondary">Postsecondaire</string>
+    <string name="edu_level_post_secondary">Université</string>
 
     <string name="counseled">Conseillée: </string>
     <string name="not_counseled">Non conseillée:</string>
@@ -380,11 +381,39 @@
     <!-- ANC Reporting indicators labels: Check anc reporting data dictionary. Strings are named by number
  as defined in the data dictionary -->
     <string name="anc_indicator1">Total Femmes en Age de Procrée  (10-49 ans)</string>
-    <string name="anc_indicator2">Total femmes enceintes</string>
+    <string name="anc_indicator2">Total Femmes Enceintes</string>
     <string name="anc_indicator3">Femmes enceintes à jour avec leurs visites CPN à domicile</string>
     <string name="anc_indicator4">Femmes enceintes à jour avec leurs visites CPN au centres de santé</string>
     <string name="anc_indicator5">Femmes enceintes dépistée au VIH</string>
     <string name="anc_indicator6">Femmes enceintes dépistées pour la syphilis</string>
     <string name="anc_indicator7">Femmes enceintes à jour avec leurs VAT</string>
     <string name="anc_indicator8">Femmes enceintes à jour avec leurs Doses de SP</string>
+
+    <string name="pnc_danger_signs_mother">Signes de danger - femme</string>
+    <string name="pnc_danger_signs_baby">Signes de danger - enfant ({0})</string>
+    <string name="pnc_health_facility_visit">Visit CPoN au centre de santé - jour {0}</string>
+    <string name="pnc_child_vaccine_card_recevied">Carte de vaccination enfant reçu ({0})</string>
+    <string name="pnc_immunization_at_birth">Immunisations (à la naissance) ({0})</string>
+    <string name="pnc_umblicord_care">Soins du cordon ombilical</string>
+    <string name="pnc_exclusive_breastfeeding">Allaitement maternel exclusif ({0})</string>
+    <string name="pnc_kangeroo_mother_care">Soins maternels kangourou (SMK)</string>
+    <string name="pnc_family_planning">Planification familiale</string>
+    <string name="pnc_observation_and_illness_mother">Observations &amp; maladie - femme </string>
+    <string name="pnc_observation_and_illness_baby">Observations &amp; maladie - enfant ({0})</string>
+
+    <string name="pnc_counselling">Conseils</string>
+    <string name="pnc_nutrition_status">État nutritionnel</string>
+    <string name="pnc_nutrition_status_baby_name">État nutritionnel de l\'enfant ({0})</string>
+    <string name="pnc_malaria_prevention">Prévention du paludisme</string>
+    <string name="pnc_health_facility_visit_within_fourty_eight_hours">Visit CPoN au centre de santé - dans les 48 heures</string>
+    <string name="pnc_health_facility_visit_days_three_to_seven">Visit CPoN au centre de santé - jours 3-7</string>
+    <string name="pnc_health_facility_visit_days_eight_to_twenty_eight">Visit CPoN au centre de santé - jours 8-28</string>
+    <string name="pnc_health_facility_visit_days_twenty_nine_to_forty_two">Visit CPoN au centre de santé - jours 29-42</string>
+
+    <string name="pnc_visit_day_due">JOUR %s VISITE DUE</string>
+    <string name="pnc_visit_day_overdue">JOUR %s VISITE EN RETARD</string>
+    <string name="pnc_visit">Visite CPoN</string>
+    <string name="anc_visit">Visite CPN</string>
+    <string name="number_8_16">Le numéro doit être composé de 8 à 16 chiffres</string>
+
 </resources>

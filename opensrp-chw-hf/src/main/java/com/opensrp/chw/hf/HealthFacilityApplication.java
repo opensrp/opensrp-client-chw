@@ -38,6 +38,7 @@ import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.Repository;
 import org.smartregister.sync.helper.ECSyncHelper;
 import org.smartregister.util.Utils;
+import org.smartregister.view.activity.DrishtiApplication;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -51,7 +52,7 @@ import timber.log.Timber;
 import static com.opensrp.chw.core.utils.ApplicationUtils.getCommonFtsObject;
 import static com.opensrp.chw.core.utils.FormUtils.getFamilyMetadata;
 
-public class HealthFacilityApplication extends CoreChwApplication implements CoreApplication {
+public class HealthFacilityApplication extends DrishtiApplication implements CoreApplication {
 
     private static final String TAG = HealthFacilityApplication.class.getCanonicalName();
     private static CommonFtsObject commonFtsObject = null;
@@ -69,6 +70,10 @@ public class HealthFacilityApplication extends CoreChwApplication implements Cor
 
     public static Locale getCurrentLocale() {
         return mInstance == null ? Locale.getDefault() : mInstance.getResources().getConfiguration().locale;
+    }
+
+    public static CommonFtsObject createCommonFtsObject() {
+        return getCommonFtsObject(commonFtsObject);
     }
 
     @Override
@@ -166,6 +171,7 @@ public class HealthFacilityApplication extends CoreChwApplication implements Cor
         registeredActivities.put(Constants.REGISTERED_ACTIVITIES.ANC_REGISTER_ACTIVITY, FamilyRegisterActivity.class);
         registeredActivities.put(Constants.REGISTERED_ACTIVITIES.FAMILY_REGISTER_ACTIVITY, FamilyRegisterActivity.class);
         registeredActivities.put(Constants.REGISTERED_ACTIVITIES.CHILD_REGISTER_ACTIVITY, FamilyRegisterActivity.class);
+        registeredActivities.put(Constants.REGISTERED_ACTIVITIES.PNC_REGISTER_ACTIVITY, FamilyRegisterActivity.class);
         return registeredActivities;
     }
 
@@ -200,8 +206,5 @@ public class HealthFacilityApplication extends CoreChwApplication implements Cor
             Timber.e(e);
         }
         return repository;
-    }
-    public static CommonFtsObject createCommonFtsObject() {
-        return getCommonFtsObject(commonFtsObject);
     }
 }

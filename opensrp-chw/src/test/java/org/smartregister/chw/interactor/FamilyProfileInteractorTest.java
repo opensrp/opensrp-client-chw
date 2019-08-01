@@ -35,7 +35,7 @@ import java.util.Locale;
 import java.util.concurrent.Executor;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({Utils.class, ChwApplication.class})
+@PrepareForTest({Utils.class, ChwApplication.class, Constants.class})
 public class FamilyProfileInteractorTest {
 
     private FamilyProfileInteractor interactor;
@@ -66,6 +66,10 @@ public class FamilyProfileInteractorTest {
         PowerMockito.when(ChwApplication.getCurrentLocale()).thenReturn(new Locale("fr", "FR"));
         PowerMockito.when(chwApplication.getApplicationContext()).thenReturn(context);
         PowerMockito.when(context.getAssets()).thenReturn(assetManager);
+
+        //Set asset manager and locale for JSON_FORM class
+        Whitebox.setInternalState(Constants.JSON_FORM.class, "assetManager", assetManager);
+        Whitebox.setInternalState(Constants.JSON_FORM.class, "locale", new Locale("fr", "FR"));
 
         String sampleJson = " " +
                 "{ " +

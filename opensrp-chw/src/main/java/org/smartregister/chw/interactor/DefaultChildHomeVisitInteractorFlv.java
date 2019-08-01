@@ -72,21 +72,19 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements ChildHomeVis
             for (HomeVisitServiceDataModel homeVisitServiceDataModel : homeVisitServiceDataModels) {
                 if (homeVisitServiceDataModel.getEventType().equalsIgnoreCase(Constants.EventType.MINIMUM_DIETARY_DIVERSITY)) {
                     serviceTasks.add(ChildUtils.createServiceTaskFromEvent(TaskServiceCalculate.TASK_TYPE.Minimum_dietary.name(),
-                            homeVisitServiceDataModel.getHomeVisitDetails(),context.getString(R.string.minimum_dietary_title),
+                            homeVisitServiceDataModel.getHomeVisitDetails(), context.getString(R.string.minimum_dietary_title),
                             Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.TASK_MINIMUM_DIETARY));
                 } else if (homeVisitServiceDataModel.getEventType().equalsIgnoreCase(Constants.EventType.MUAC)) {
                     serviceTasks.add(ChildUtils.createServiceTaskFromEvent(TaskServiceCalculate.TASK_TYPE.MUAC.name(), homeVisitServiceDataModel.getHomeVisitDetails(),
-                            context.getString(R.string.muac_title),Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.TASK_MUAC));
-                }
-                else if (homeVisitServiceDataModel.getEventType().equalsIgnoreCase(Constants.EventType.LLITN)) {
+                            context.getString(R.string.muac_title), Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.TASK_MUAC));
+                } else if (homeVisitServiceDataModel.getEventType().equalsIgnoreCase(Constants.EventType.LLITN)) {
                     serviceTasks.add(ChildUtils.createServiceTaskFromEvent(TaskServiceCalculate.TASK_TYPE.LLITN.name(), homeVisitServiceDataModel.getHomeVisitDetails(),
-                            context.getString(R.string.llitn_title),Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.TASK_LLITN));
-                }
-                else if (homeVisitServiceDataModel.getEventType().equalsIgnoreCase(Constants.EventType.ECD)) {
-                    try{
-                        serviceTasks.add(ChildUtils.createECDTaskFromEvent(context,TaskServiceCalculate.TASK_TYPE.ECD.name(), homeVisitServiceDataModel.getHomeVisitDetails(),
+                            context.getString(R.string.llitn_title), Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.TASK_LLITN));
+                } else if (homeVisitServiceDataModel.getEventType().equalsIgnoreCase(Constants.EventType.ECD)) {
+                    try {
+                        serviceTasks.add(ChildUtils.createECDTaskFromEvent(context, TaskServiceCalculate.TASK_TYPE.ECD.name(), homeVisitServiceDataModel.getHomeVisitDetails(),
                                 context.getString(R.string.ecd_title)));
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }

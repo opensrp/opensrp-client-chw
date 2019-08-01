@@ -35,12 +35,14 @@ public class CoreChildProfilePresenter implements CoreChildProfileContract.Prese
     private String familyName;
     private String familyHeadID;
     private String primaryCareGiverID;
+
     public CoreChildProfilePresenter(CoreChildProfileContract.View childView, CoreChildProfileContract.Model model, String childBaseEntityId) {
         this.view = new WeakReference<>(childView);
         this.interactor = new CoreChildProfileInteractor();
         this.model = model;
         this.childBaseEntityId = childBaseEntityId;
     }
+
     public CoreChildProfilePresenter() {
     }
 

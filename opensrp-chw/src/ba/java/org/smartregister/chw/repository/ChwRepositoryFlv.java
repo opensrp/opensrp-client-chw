@@ -7,6 +7,7 @@ import net.sqlcipher.database.SQLiteDatabase;
 import org.smartregister.chw.anc.repository.VisitDetailsRepository;
 import org.smartregister.chw.anc.repository.VisitRepository;
 import org.smartregister.chw.util.RepositoryUtils;
+import org.smartregister.chw.util.RepositoryUtilsFlv;
 import org.smartregister.domain.db.Column;
 import org.smartregister.immunization.repository.RecurringServiceRecordRepository;
 import org.smartregister.immunization.repository.VaccineRepository;
@@ -17,8 +18,6 @@ import org.smartregister.repository.EventClientRepository;
 import timber.log.Timber;
 
 public class ChwRepositoryFlv {
-
-    private static final String TAG = ChwRepositoryFlv.class.getCanonicalName();
 
     public static void onUpgrade(Context context, SQLiteDatabase db, int oldVersion, int newVersion) {
         Timber.w(ChwRepository.class.getName(),
@@ -53,6 +52,9 @@ public class ChwRepositoryFlv {
                     break;
                 case 10:
                     upgradeToVersion10(db);
+                    break;
+                case 11:
+                    upgradeToVersion11(db);
                     break;
                 default:
                     break;
@@ -131,7 +133,7 @@ public class ChwRepositoryFlv {
 
     private static void upgradeToVersion6(SQLiteDatabase db) {
         try {
-            for (String query : RepositoryUtils.UPGRADE_V6) {
+            for (String query : RepositoryUtilsFlv.UPGRADE_V6) {
                 db.execSQL(query);
             }
         } catch (Exception e) {
@@ -150,7 +152,7 @@ public class ChwRepositoryFlv {
 
     private static void upgradeToVersion8(SQLiteDatabase db) {
         try {
-            for (String query : RepositoryUtils.UPGRADE_V8) {
+            for (String query : RepositoryUtilsFlv.UPGRADE_V8) {
                 db.execSQL(query);
             }
         } catch (Exception e) {
@@ -160,7 +162,7 @@ public class ChwRepositoryFlv {
 
     private static void upgradeToVersion9(SQLiteDatabase db) {
         try {
-            for (String query : RepositoryUtils.UPGRADE_V9) {
+            for (String query : RepositoryUtilsFlv.UPGRADE_V9) {
                 db.execSQL(query);
             }
         } catch (Exception e) {
@@ -174,6 +176,16 @@ public class ChwRepositoryFlv {
             VisitDetailsRepository.createTable(db);
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion10 ");
+        }
+    }
+
+    private static void upgradeToVersion11(SQLiteDatabase db) {
+        try {
+            for (String query : RepositoryUtils.UPGRADE_V10) {
+                db.execSQL(query);
+            }
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion11 ");
         }
     }
 }

@@ -63,6 +63,7 @@ import static com.opensrp.chw.core.utils.Utils.DD_MM_YYYY;
 import static org.apache.commons.lang3.text.WordUtils.capitalize;
 import static org.smartregister.chw.util.JsonFormUtils.getValue;
 import static org.smartregister.chw.util.JsonFormUtils.tagSyncMetadata;
+import static org.smartregister.util.JsonFormUtils.TAG;
 
 public class ChildUtils extends CoreChildUtils {
 
@@ -98,7 +99,6 @@ public class ChildUtils extends CoreChildUtils {
         ChwApplication.getInstance().getRulesEngineHelper().getButtonAlertStatus(immunizationExpiredRule, Constants.RULE_FILE.IMMUNIZATION_EXPIRED);
         return immunizationExpiredRule.getButtonStatus();
     }
-
 
 
     /**
@@ -150,12 +150,11 @@ public class ChildUtils extends CoreChildUtils {
             int index = Integer.parseInt(number);
             return firstSecondNumber[index];
         } catch (Exception e) {
-
+            Timber.tag(TAG).e(e);
         }
         return "";
 
     }
-
 
 
     public static String getChildListByFamilyId(String tableName, String familyId) {

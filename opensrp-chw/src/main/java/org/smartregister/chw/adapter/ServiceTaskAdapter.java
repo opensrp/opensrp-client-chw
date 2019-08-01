@@ -50,18 +50,17 @@ public class ServiceTaskAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             contentViewHolder.labelText.setText(serviceTask.getTaskLabel());
             contentViewHolder.circleImageView.setImageResource(R.drawable.ic_checked);
             contentViewHolder.circleImageView.setColorFilter(context.getResources().getColor(R.color.white));
-            if(!serviceTask.getTaskType().equalsIgnoreCase(TaskServiceCalculate.TASK_TYPE.ECD.name())){
+            if (!serviceTask.getTaskType().equalsIgnoreCase(TaskServiceCalculate.TASK_TYPE.ECD.name())) {
                 if (serviceTask.getTaskType().equalsIgnoreCase(TaskServiceCalculate.TASK_TYPE.Minimum_dietary.name())
                         && serviceTask.getTaskLabel().equalsIgnoreCase(context.getString(R.string.minimum_dietary_choice_3))) {
                     serviceTask.setGreen(true);
                 } else if (serviceTask.getTaskType().equalsIgnoreCase(TaskServiceCalculate.TASK_TYPE.MUAC.name())
                         && serviceTask.getTaskLabel().equalsIgnoreCase(context.getString(R.string.muac_choice_1))) {
                     serviceTask.setGreen(true);
-                } else if(serviceTask.getTaskType().equalsIgnoreCase(TaskServiceCalculate.TASK_TYPE.LLITN.name())
-                        && serviceTask.getTaskLabel().equalsIgnoreCase(context.getString(R.string.yes))){
+                } else if (serviceTask.getTaskType().equalsIgnoreCase(TaskServiceCalculate.TASK_TYPE.LLITN.name())
+                        && serviceTask.getTaskLabel().equalsIgnoreCase(context.getString(R.string.yes))) {
                     serviceTask.setGreen(true);
-                }
-                else {
+                } else {
                     serviceTask.setGreen(false);
                 }
             }
@@ -94,22 +93,21 @@ public class ServiceTaskAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         for (ServiceTask serviceTask : presenter.getServiceTasks()) {
             if (serviceTask.getTaskType().equalsIgnoreCase(TaskServiceCalculate.TASK_TYPE.Minimum_dietary.name())) {
-                ChildUtils.updateTaskAsEvent(Constants.EventType.MINIMUM_DIETARY_DIVERSITY,Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.TASK_MINIMUM_DIETARY,
-                        JsonFormUtils.toList(JsonFormUtils.getChoiceDietary(context).get(serviceTask.getTaskLabel())),JsonFormUtils.toList(serviceTask.getTaskLabel()),
-                        entityId,serviceTask.getTaskLabel(),homeVisitId,Constants.FORM_CONSTANTS.MINIMUM_DIETARY.CODE);
+                ChildUtils.updateTaskAsEvent(Constants.EventType.MINIMUM_DIETARY_DIVERSITY, Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.TASK_MINIMUM_DIETARY,
+                        JsonFormUtils.toList(JsonFormUtils.getChoiceDietary(context).get(serviceTask.getTaskLabel())), JsonFormUtils.toList(serviceTask.getTaskLabel()),
+                        entityId, serviceTask.getTaskLabel(), homeVisitId, Constants.FORM_CONSTANTS.MINIMUM_DIETARY.CODE);
             } else if (serviceTask.getTaskType().equalsIgnoreCase(TaskServiceCalculate.TASK_TYPE.MUAC.name())) {
-                ChildUtils.updateTaskAsEvent(Constants.EventType.MUAC,Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.TASK_MUAC,
+                ChildUtils.updateTaskAsEvent(Constants.EventType.MUAC, Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.TASK_MUAC,
                         JsonFormUtils.toList(JsonFormUtils.getChoiceMuac(context).get(serviceTask.getTaskLabel())), JsonFormUtils.toList(serviceTask.getTaskLabel())
-                        ,entityId,serviceTask.getTaskLabel(),homeVisitId,Constants.FORM_CONSTANTS.MUAC.CODE);
+                        , entityId, serviceTask.getTaskLabel(), homeVisitId, Constants.FORM_CONSTANTS.MUAC.CODE);
 
-            }else if (serviceTask.getTaskType().equalsIgnoreCase(TaskServiceCalculate.TASK_TYPE.LLITN.name())) {
-                ChildUtils.updateTaskAsEvent(Constants.EventType.LLITN,Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.TASK_LLITN,
+            } else if (serviceTask.getTaskType().equalsIgnoreCase(TaskServiceCalculate.TASK_TYPE.LLITN.name())) {
+                ChildUtils.updateTaskAsEvent(Constants.EventType.LLITN, Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.TASK_LLITN,
                         JsonFormUtils.toList(JsonFormUtils.getChoice(context).get(serviceTask.getTaskLabel())), JsonFormUtils.toList(serviceTask.getTaskLabel())
-                        ,entityId,serviceTask.getTaskLabel(),homeVisitId,Constants.FORM_CONSTANTS.LLITN.CODE);
+                        , entityId, serviceTask.getTaskLabel(), homeVisitId, Constants.FORM_CONSTANTS.LLITN.CODE);
 
-            }
-            else if (serviceTask.getTaskType().equalsIgnoreCase(TaskServiceCalculate.TASK_TYPE.ECD.name()) && serviceTask.getTaskJson() != null){
-                ChildUtils.updateECDTaskAsEvent(homeVisitId,entityId,serviceTask.getTaskJson().toString());
+            } else if (serviceTask.getTaskType().equalsIgnoreCase(TaskServiceCalculate.TASK_TYPE.ECD.name()) && serviceTask.getTaskJson() != null) {
+                ChildUtils.updateECDTaskAsEvent(homeVisitId, entityId, serviceTask.getTaskJson().toString());
             }
         }
 

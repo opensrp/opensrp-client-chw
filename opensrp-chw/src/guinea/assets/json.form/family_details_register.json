@@ -67,7 +67,7 @@
           "err": "Please enter the family name"
         },
         "v_regex": {
-          "value": "[A-Za-z\\s\\.\\-]*",
+          "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-]*",
           "err": "Please enter a valid name"
         }
       },
@@ -166,7 +166,7 @@
           "Transport, storage and communications": "165413AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "Financial institutions": "165414AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "Communication, social and personal services": "165415AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Other" : "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          "Other": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         }
       }
     ]

@@ -189,7 +189,7 @@ public class FamilyCallDialogFragment extends DialogFragment implements FamilyCa
     public Context getCurrentContext() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             return getContext();
-        }else {
+        } else {
             return getActivity().getApplicationContext();
         }
     }

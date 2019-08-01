@@ -70,7 +70,7 @@
           "err": "Please enter the family name"
         },
         "v_regex": {
-          "value": "[A-Za-z\\s\\.\\-]*",
+          "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-]*",
           "err": "Please enter a valid name"
         }
       },
@@ -102,7 +102,7 @@
           "err": "Please enter the village or town"
         },
         "v_regex": {
-          "value": "[A-Za-z\\s\\.\\-]*",
+          "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-]*",
           "err": "Please enter a valid village name"
         }
       },
@@ -170,7 +170,7 @@
         "type": "edit_text",
         "hint": "ID",
         "value": "0",
-        "read_only" : "true",
+        "read_only": "true",
         "v_numeric": {
           "value": "true",
           "err": "Please enter a valid ID"
@@ -193,7 +193,7 @@
           "err": "Please enter the first name"
         },
         "v_regex": {
-          "value": "[A-Za-z\\s\\.\\-]*",
+          "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-]*",
           "err": "Please enter a valid name"
         }
       },
@@ -210,7 +210,7 @@
           "err": "Please enter the middle name"
         },
         "v_regex": {
-          "value": "[A-Za-z\\s\\.\\-]*",
+          "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-]*",
           "err": "Please enter a valid name"
         }
       },
@@ -222,9 +222,9 @@
         "type": "edit_text",
         "hint": "Surname",
         "edit_type": "name",
-        "read_only" : "true",
+        "read_only": "true",
         "v_regex": {
-          "value": "[A-Za-z\\s\\.\\-]*",
+          "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-]*",
           "err": "Please enter a valid name"
         },
         "calculation": {

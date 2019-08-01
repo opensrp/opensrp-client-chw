@@ -28,7 +28,7 @@ import org.smartregister.chw.presenter.FamilyChangePresenter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FamilyProfileChangeHead extends Fragment implements View.OnClickListener, FamilyChangeContract.View , MemberAdapterListener {
+public class FamilyProfileChangeHead extends Fragment implements View.OnClickListener, FamilyChangeContract.View, MemberAdapterListener {
 
     protected static final String FAMILY_ID = "FAMILY_ID";
     protected String familyID;
@@ -49,8 +49,8 @@ public class FamilyProfileChangeHead extends Fragment implements View.OnClickLis
     }
 
     @Override
-    public void onMenuChoiceChange(){
-        boolean active =  (memberAdapter != null && StringUtils.isNotBlank(memberAdapter.getSelected()) && memberAdapter.validateSave());
+    public void onMenuChoiceChange() {
+        boolean active = (memberAdapter != null && StringUtils.isNotBlank(memberAdapter.getSelected()) && memberAdapter.validateSave());
         tvAction.setTextColor(getResources().getColor(active ? R.color.white : android.R.color.darker_gray));
     }
 

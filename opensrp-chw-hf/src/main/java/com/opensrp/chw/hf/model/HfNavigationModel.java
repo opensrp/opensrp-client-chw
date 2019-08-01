@@ -9,6 +9,7 @@ import java.util.List;
 
 public class HfNavigationModel implements NavigationModel.Flavor {
     private List<NavigationOption> navigationOptions = new ArrayList<>();
+
     @Override
     public List<NavigationOption> getNavigationItems() {
         if (navigationOptions.size() == 0) {

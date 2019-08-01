@@ -32,7 +32,7 @@ import java.lang.ref.WeakReference;
 
 import timber.log.Timber;
 
-public class FamilyProfilePresenter extends BaseFamilyProfilePresenter implements FamilyProfileExtendedContract.Presenter, CoreChildRegisterContract.InteractorCallBack , FamilyProfileExtendedContract.PresenterCallBack {
+public class FamilyProfilePresenter extends BaseFamilyProfilePresenter implements FamilyProfileExtendedContract.Presenter, CoreChildRegisterContract.InteractorCallBack, FamilyProfileExtendedContract.PresenterCallBack {
     private static final String TAG = FamilyProfilePresenter.class.getCanonicalName();
 
     private WeakReference<FamilyProfileExtendedContract.View> viewReference;

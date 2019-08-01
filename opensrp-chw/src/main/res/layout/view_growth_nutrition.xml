@@ -233,6 +233,7 @@
         </LinearLayout>
 
     </LinearLayout>
+
     <View
         android:id="@+id/view_deworming_bar"
         android:layout_width="match_parent"

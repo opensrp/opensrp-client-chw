@@ -15,6 +15,7 @@ public class CoreChildUtils {
     public static String mainSelect(String tableName, String familyTableName, String familyMemberTableName, String mainCondition) {
         return mainSelectRegisterWithoutGroupby(tableName, familyTableName, familyMemberTableName, tableName + "." + DBConstants.KEY.BASE_ENTITY_ID + " = '" + mainCondition + "'");
     }
+
     @SuppressWarnings("deprecation")
     public static Spanned fromHtml(String text) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {

@@ -67,7 +67,7 @@
           "err": "Veuillez entrer le nom de famille"
         },
         "v_regex": {
-          "value": "[A-Za-z\\s\\.\\-]*",
+          "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-]*",
           "err": "Veuillez entrer un nom valide"
         }
       },
@@ -247,7 +247,7 @@
           "err": "Veuillez entrer le nom"
         },
         "v_regex": {
-          "value": "[A-Za-z\\s\\.\\-]*",
+          "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-]*",
           "err": "Veuillez entrer un nom valide"
         },
         "relevance": {
@@ -303,7 +303,7 @@
           "err": "Veuillez entrer le prénom"
         },
         "v_regex": {
-          "value": "[A-Za-z\\s\\.\\-]*",
+          "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-]*",
           "err": "Veuillez entrer un prénom valide"
         }
       },
@@ -316,7 +316,7 @@
         "hint": "Deuxième prénom",
         "edit_type": "name",
         "v_regex": {
-          "value": "[A-Za-z\\s\\.\\-]*",
+          "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-]*",
           "err": "Veuillez entrer un deuxième prénom valide"
         }
       },
@@ -458,21 +458,24 @@
         "hint": "Niveau plus haut d'éducation/de formation",
         "values": [
           "Aucun",
+          "Alphabétiser",
           "Primaire",
           "Secondaire",
-          "Postsecondaire"
+          "Universite"
         ],
         "keys": [
           "None",
+          "Literacy",
           "Primary",
           "Secondary",
-          "Post-secondary"
+          "University"
         ],
         "openmrs_choice_ids": {
-          "Aucun": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Primaire": "1713AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Secondaire": "1714AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Postsecondaire": "159785AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          "None": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Literacy": "",
+          "Primary": "1713AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Secondary": "1714AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "University": "159785AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         }
       }
     ]

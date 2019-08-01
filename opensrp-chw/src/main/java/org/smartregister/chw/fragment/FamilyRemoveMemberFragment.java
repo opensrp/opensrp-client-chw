@@ -35,11 +35,9 @@ import timber.log.Timber;
 public class FamilyRemoveMemberFragment extends BaseFamilyProfileMemberFragment implements FamilyRemoveMemberContract.View {
 
     public static final String DIALOG_TAG = FamilyRemoveMemberFragment.class.getSimpleName();
-
-    private String familyBaseEntityId;
-
-    private String memberName;
     boolean processingFamily = false;
+    private String familyBaseEntityId;
+    private String memberName;
 
     public static FamilyRemoveMemberFragment newInstance(Bundle bundle) {
         Bundle args = bundle;
@@ -161,27 +159,6 @@ public class FamilyRemoveMemberFragment extends BaseFamilyProfileMemberFragment 
         getActivity().finish();
     }
 
-    public class RemoveMemberListener implements android.view.View.OnClickListener {
-        @Override
-        public void onClick(android.view.View v) {
-            if (v.getTag(R.id.VIEW_ID) == BaseFamilyProfileMemberFragment.CLICK_VIEW_NEXT_ARROW ||
-                    v.getTag(R.id.VIEW_ID) == BaseFamilyProfileMemberFragment.CLICK_VIEW_NORMAL) {
-                final CommonPersonObjectClient pc = (CommonPersonObjectClient) v.getTag();
-
-                memberName = String.format("%s %s %s", pc.getColumnmaps().get(DBConstants.KEY.FIRST_NAME),
-                        pc.getColumnmaps().get(DBConstants.KEY.MIDDLE_NAME),
-                        pc.getColumnmaps().get(DBConstants.KEY.LAST_NAME));
-
-                String dod = pc.getColumnmaps().get(DBConstants.KEY.DOD);
-
-                if (StringUtils.isBlank(dod)) {
-                    processingFamily = false;
-                    removeMember(pc);
-                }
-            }
-        }
-    }
-
     public void confirmRemove(final JSONObject form) {
         if (StringUtils.isNotBlank(memberName)) {
             FamilyRemoveMemberConfirmDialog dialog = null;
@@ -203,17 +180,6 @@ public class FamilyRemoveMemberFragment extends BaseFamilyProfileMemberFragment 
                     getPresenter().processRemoveForm(form);
                 }
             });
-        }
-    }
-
-    public class FooterListener implements android.view.View.OnClickListener {
-        @Override
-        public void onClick(final android.view.View v) {
-            processingFamily = true;
-            HashMap<String, String> payload = (HashMap<String, String>) v.getTag();
-            String message = payload.get("message");
-            memberName = payload.get("name");
-            closeFamily(String.format(getString(R.string.family), memberName), message);
         }
     }
 
@@ -248,6 +214,38 @@ public class FamilyRemoveMemberFragment extends BaseFamilyProfileMemberFragment 
 
     public void setAdvancedSearchFormData(HashMap<String, String> hashMap) {
         Timber.v(DIALOG_TAG, "setAdvancedSearchFormData");
+    }
+
+    public class RemoveMemberListener implements android.view.View.OnClickListener {
+        @Override
+        public void onClick(android.view.View v) {
+            if (v.getTag(R.id.VIEW_ID) == BaseFamilyProfileMemberFragment.CLICK_VIEW_NEXT_ARROW ||
+                    v.getTag(R.id.VIEW_ID) == BaseFamilyProfileMemberFragment.CLICK_VIEW_NORMAL) {
+                final CommonPersonObjectClient pc = (CommonPersonObjectClient) v.getTag();
+
+                memberName = String.format("%s %s %s", pc.getColumnmaps().get(DBConstants.KEY.FIRST_NAME),
+                        pc.getColumnmaps().get(DBConstants.KEY.MIDDLE_NAME),
+                        pc.getColumnmaps().get(DBConstants.KEY.LAST_NAME));
+
+                String dod = pc.getColumnmaps().get(DBConstants.KEY.DOD);
+
+                if (StringUtils.isBlank(dod)) {
+                    processingFamily = false;
+                    removeMember(pc);
+                }
+            }
+        }
+    }
+
+    public class FooterListener implements android.view.View.OnClickListener {
+        @Override
+        public void onClick(final android.view.View v) {
+            processingFamily = true;
+            HashMap<String, String> payload = (HashMap<String, String>) v.getTag();
+            String message = payload.get("message");
+            memberName = payload.get("name");
+            closeFamily(String.format(getString(R.string.family), memberName), message);
+        }
     }
 
 }

@@ -32,8 +32,6 @@ import static com.opensrp.chw.core.utils.Constants.TABLE_NAME;
 
 public class FamilyProfileMemberFragment extends BaseFamilyProfileMemberFragment {
 
-    private static final String TAG = FamilyProfileMemberFragment.class.getCanonicalName();
-
     public static BaseFamilyProfileMemberFragment newInstance(Bundle bundle) {
         Bundle args = bundle;
         BaseFamilyProfileMemberFragment fragment = new FamilyProfileMemberFragment();

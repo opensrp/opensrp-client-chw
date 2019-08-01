@@ -9,21 +9,20 @@ import org.joda.time.Months;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.smartregister.chw.R;
+import org.smartregister.chw.contract.RegisterAlert;
 import org.smartregister.chw.interactor.ChildProfileInteractor;
 
-public class AncVisitAlertRule implements ICommonRule {
+public class AncVisitAlertRule implements ICommonRule, RegisterAlert {
 
-    public String buttonStatus = ChildProfileInteractor.VisitType.DUE.name();
     private final int[] monthNames = {R.string.january, R.string.february, R.string.march, R.string.april, R.string.may, R.string.june, R.string.july, R.string.august, R.string.september, R.string.october, R.string.november, R.string.december};
-
+    public String buttonStatus = ChildProfileInteractor.VisitType.DUE.name();
+    public String noOfMonthDue;
+    public String noOfDayDue;
+    public String visitMonthName;
     private LocalDate dateCreated;
     private LocalDate todayDate;
     private LocalDate lastVisitDate;
     private LocalDate visitNotDoneDate;
-
-    public String noOfMonthDue;
-    public String noOfDayDue;
-    public String visitMonthName;
     private Context context;
     private LocalDate lmpDate;
 
@@ -47,8 +46,24 @@ public class AncVisitAlertRule implements ICommonRule {
         this.dateCreated = dateCreated;
     }
 
+    @Override
     public String getButtonStatus() {
         return buttonStatus;
+    }
+
+    @Override
+    public String getNumberOfMonthsDue() {
+        return noOfMonthDue;
+    }
+
+    @Override
+    public String getNumberOfDaysDue() {
+        return noOfDayDue;
+    }
+
+    @Override
+    public String getVisitMonthName() {
+        return visitMonthName;
     }
 
     public boolean isVisitNotDone() {

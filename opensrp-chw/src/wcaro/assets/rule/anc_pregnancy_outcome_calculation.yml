@@ -7,18 +7,26 @@ actions:
   - "calculation = (helper.getDifferenceDays(step1_last_menstrual_period)-helper.getDifferenceDays(helper.getDateToday())) /7"
 
 ---
-name: step2_surname_calculation
+name: step1_surname_calculation
 description: surname calculation
 priority: 1
 condition: "true"
 actions:
-  - "calculation = step2_same_as_fam_name.contains('same_as_fam_name')? step2_fam_name : step2_surname"
+  - "calculation = step1_same_as_fam_name_chk.contains('same_as_fam_name')? step1_fam_name : step1_surname"
 
 ---
-name: step2_dob
+name: step1_dob
 description: calculate dob
 priority: 1
 condition: "true"
 actions:
   - "calculation = step1_delivery_date"
+
+---
+name: step1_unique_id
+description: calculate unique_id
+priority: 1
+condition: "true"
+actions:
+  - "calculation = step1_temp_unique_id"
 

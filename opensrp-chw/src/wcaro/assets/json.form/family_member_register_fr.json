@@ -100,7 +100,7 @@
         "hint": "Nom",
         "edit_type": "name",
         "v_regex": {
-          "value": "[A-Za-z\\s\\.\\-]*",
+          "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-]*",
           "err": "Veuillez entrer un nom valide"
         },
         "v_required": {
@@ -171,7 +171,7 @@
         },
         "edit_type": "name",
         "v_regex": {
-          "value": "[A-Za-z\\s\\.\\-]*",
+          "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-]*",
           "err": "Veuillez entrer un prénom valide"
         }
       },
@@ -184,7 +184,7 @@
         "type": "edit_text",
         "edit_type": "name",
         "v_regex": {
-          "value": "[A-Za-z\\s\\.\\-]*",
+          "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-]*",
           "err": "Veuillez entrer un deuxième nom valide"
         }
       },
@@ -354,21 +354,24 @@
         "hint": "Plus haut niveau d'études/de formation",
         "values": [
           "Aucun",
+          "Alphabétiser",
           "Primaire",
           "Secondaire",
-          "Postsecondaire"
+          "Universite"
         ],
         "keys": [
           "None",
+          "Literacy",
           "Primary",
           "Secondary",
-          "Post-secondary"
+          "University"
         ],
         "openmrs_choice_ids": {
-          "None": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Primary": "1713AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Secondary": "1714AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Post-secondary": "159785AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          "Aucun": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Alphabétiser": "",
+          "Primaire": "1713AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Secondaire": "1714AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Universite": "159785AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         "relevance": {
           "step1:primary_caregiver": {

@@ -60,13 +60,16 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
         sIntentFilter.addAction(Intent.ACTION_TIME_CHANGED);
     }
 
-    private boolean appBarTitleIsShown = true;
-    private int appBarLayoutScrollRange = -1;
     public String childBaseEntityId;
     public boolean isComesFromFamily = false;
+    public String lastVisitDay;
+    public OnClickFloatingMenu onClickFloatingMenu;
     protected TextView textViewParentName, textViewLastVisit, textViewMedicalHistory;
-    private TextView textViewTitle, textViewChildName, textViewGender, textViewAddress, textViewId, textViewRecord, textViewVisitNot, tvEdit;
     protected CircleImageView imageViewProfile;
+    protected View recordVisitPanel;
+    private boolean appBarTitleIsShown = true;
+    private int appBarLayoutScrollRange = -1;
+    private TextView textViewTitle, textViewChildName, textViewGender, textViewAddress, textViewId, textViewRecord, textViewVisitNot, tvEdit;
     private RelativeLayout layoutNotRecordView, layoutLastVisitRow, layoutMostDueOverdue, layoutFamilyHasRow;
     private RelativeLayout layoutRecordButtonDone;
     private LinearLayout layoutRecordView;
@@ -76,10 +79,18 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
     private ProgressBar progressBar;
     private String gender;
     private Handler handler = new Handler();
-    public String lastVisitDay;
-    public OnClickFloatingMenu onClickFloatingMenu;
-    protected View recordVisitPanel;
+    public final BroadcastReceiver mDateTimeChangedReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            final String action = intent.getAction();
+            assert action != null;
+            if (action.equals(Intent.ACTION_TIME_CHANGED) ||
+                    action.equals(Intent.ACTION_TIMEZONE_CHANGED)) {
+                fetchProfileData();
 
+            }
+        }
+    };
 
     @Override
     public void enableEdit(boolean enable) {
@@ -196,7 +207,6 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
             presenter().updateVisitNotDone(0);
         }
     }
-
 
     @Override
     public void showUndoVisitNotDoneView() {
@@ -581,19 +591,6 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
 
         }
     }
-
-    public final BroadcastReceiver mDateTimeChangedReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            final String action = intent.getAction();
-            assert action != null;
-            if (action.equals(Intent.ACTION_TIME_CHANGED) ||
-                    action.equals(Intent.ACTION_TIMEZONE_CHANGED)) {
-                fetchProfileData();
-
-            }
-        }
-    };
 
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {

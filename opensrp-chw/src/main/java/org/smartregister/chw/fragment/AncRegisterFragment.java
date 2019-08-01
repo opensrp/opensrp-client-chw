@@ -42,10 +42,9 @@ import static com.opensrp.chw.core.utils.Utils.convertDpToPixel;
 
 public class AncRegisterFragment extends BaseAncRegisterFragment {
 
-    private View view;
-
-    private boolean dueFilterActive = false;
     private static final String DUE_FILTER_TAG = "PRESSED";
+    private View view;
+    private boolean dueFilterActive = false;
 
     @Override
     public void setupViews(View view) {
@@ -91,8 +90,8 @@ public class AncRegisterFragment extends BaseAncRegisterFragment {
         dueOnlyLayout.setOnClickListener(registerActionHandler);
 
         if (getSearchView() != null) {
-            getSearchView().setBackgroundResource(org.smartregister.family.R.color.white);
-            getSearchView().setCompoundDrawablesWithIntrinsicBounds(org.smartregister.family.R.drawable.ic_action_search, 0, 0, 0);
+            getSearchView().setBackgroundResource(R.color.white);
+            getSearchView().setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_action_search, 0, 0, 0);
             getSearchView().setTextColor(getResources().getColor(R.color.text_black));
         }
 
@@ -101,8 +100,8 @@ public class AncRegisterFragment extends BaseAncRegisterFragment {
 
     @Override
     public void initializeAdapter(Set<org.smartregister.configurableviews.model.View> visibleColumns) {
-        ChwAncRegisterProvider ancRegisterProvider = new ChwAncRegisterProvider(getActivity(), commonRepository(), visibleColumns, registerActionHandler, paginationViewHandler);
-        clientAdapter = new RecyclerViewPaginatedAdapter(null, ancRegisterProvider, context().commonrepository(this.tablename));
+        ChwAncRegisterProvider provider = new ChwAncRegisterProvider(getActivity(), commonRepository(), visibleColumns, registerActionHandler, paginationViewHandler);
+        clientAdapter = new RecyclerViewPaginatedAdapter(null, provider, context().commonrepository(this.tablename));
         clientAdapter.setCurrentlimit(20);
         clientsView.setAdapter(clientAdapter);
     }

@@ -14,12 +14,11 @@ public class CrashlyticsTree extends Timber.Tree {
     private static final String CRASHLYTICS_KEY_PRIORITY = "priority";
     private static final String CRASHLYTICS_KEY_TAG = "tag";
     private static final String CRASHLYTICS_KEY_MESSAGE = "message";
+    private String userName;
 
     public CrashlyticsTree(String userName) {
         this.userName = userName;
     }
-
-    private String userName;
 
     @Override
     protected void log(int priority, @Nullable String tag, @NotNull String message, @Nullable Throwable t) {

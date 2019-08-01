@@ -73,14 +73,13 @@ public class CoreChildRegisterPresenter implements CoreChildRegisterContract.Pre
             interactor.getNextUniqueId(triple, this, familyId);
             return;
         }
-        if(TextUtils.isEmpty(familyId)){
-            JSONObject form=  new BaseFamilyRegisterModel().getFormAsJson(formName, entityId, currentLocationId);
+        if (TextUtils.isEmpty(familyId)) {
+            JSONObject form = new BaseFamilyRegisterModel().getFormAsJson(formName, entityId, currentLocationId);
             getView().startFormActivity(form);
-        }else{
+        } else {
             JSONObject form = model.getFormAsJson(formName, entityId, currentLocationId, familyId);
             getView().startFormActivity(form);
         }
-
 
 
     }
@@ -110,8 +109,7 @@ public class CoreChildRegisterPresenter implements CoreChildRegisterContract.Pre
 
             getView().showProgressDialog(R.string.saving_dialog_title);
             JSONObject form = new JSONObject(jsonString);
-            if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Utils.metadata().familyRegister.registerEventType))
-            {
+            if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Utils.metadata().familyRegister.registerEventType)) {
 
                 List<FamilyEventClient> fevent = new BaseFamilyRegisterModel().processRegistration(jsonString);
                 if (fevent == null) {
@@ -137,7 +135,7 @@ public class CoreChildRegisterPresenter implements CoreChildRegisterContract.Pre
                     }
                 });
 
-            }else{
+            } else {
 
                 Pair<Client, Event> pair = model.processRegistration(jsonString);
                 if (pair == null) {

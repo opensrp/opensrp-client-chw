@@ -39,7 +39,7 @@ public class NavigationListener implements View.OnClickListener {
                         Toast.makeText(activity.getApplicationContext(), Constants.DrawerMenu.LD, Toast.LENGTH_SHORT).show();
                         break;
                     case Constants.DrawerMenu.PNC:
-                        Toast.makeText(activity.getApplicationContext(), Constants.DrawerMenu.PNC, Toast.LENGTH_SHORT).show();
+                        startRegisterActivity(getActivity(Constants.REGISTERED_ACTIVITIES.PNC_REGISTER_ACTIVITY));
                         break;
                     case Constants.DrawerMenu.FAMILY_PLANNING:
                         Toast.makeText(activity.getApplicationContext(), Constants.DrawerMenu.FAMILY_PLANNING, Toast.LENGTH_SHORT).show();
@@ -63,7 +63,7 @@ public class NavigationListener implements View.OnClickListener {
         activity.finish();
     }
 
-    private Class getActivity(String key){
+    private Class getActivity(String key) {
         return navigationAdapter.getRegisteredActivities().get(key);
     }
 }

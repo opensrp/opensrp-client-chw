@@ -112,7 +112,7 @@ android {
             dimension = 'baseDimension'
             applicationIdSuffix ".ba"
             versionCode 1
-            versionName "0.0.2"
+            versionName "0.0.3"
             buildConfigField "String", 'opensrp_url', '"https://boresha-afya.smartregister.org/opensrp/"'
             buildConfigField "String", 'opensrp_url_debug', '"https://boresha-afya-stage.smartregister.org/opensrp/"'
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"MOH Jhpiego Facility Name" , "Village"}'
@@ -123,7 +123,7 @@ android {
         wcaro {
             dimension = 'baseDimension'
             versionCode 1
-            versionName "0.1.6"
+            versionName "0.1.7"
             buildConfigField "String", 'opensrp_url', '"https://unicefwcaro.smartregister.org/opensrp/"'
             buildConfigField "String", 'opensrp_url_debug', '"https://unicefwcaro-stage.smartregister.org/opensrp/"'
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"Clinic" , "CHSS" , "CHA"}'
@@ -135,7 +135,7 @@ android {
             dimension = 'baseDimension'
             applicationIdSuffix ".togo"
             versionCode 1
-            versionName "0.0.3"
+            versionName "0.0.4"
             buildConfigField "String", 'opensrp_url', '"https://unicefwcaro.smartregister.org/opensrp/"'
             buildConfigField "String", 'opensrp_url_debug', '"https://unicefwcaro-stage.smartregister.org/opensrp/"'
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"Country", "Clinic" , "CHSS" , "CHA", "Supervisor", "CHW"}'
@@ -213,24 +213,23 @@ dependencies {
 task jacocoTestReport(type: JacocoReport, dependsOn: [
         'testBaDebugUnitTest', 'createBaDebugCoverageReport',
         'testWcaroDebugUnitTest', 'createWcaroDebugCoverageReport',
-        'testTogoDebugUnitTest', 'createTogoDebugCoverageReport',
+        /*'testTogoDebugUnitTest', 'createTogoDebugCoverageReport',
         'testGuineaDebugUnitTest', 'createGuineaDebugCoverageReport',
         'testChadDebugUnitTest', 'createChadDebugCoverageReport',
-        'testDrcDebugUnitTest', 'createDrcDebugCoverageReport'
+        'testDrcDebugUnitTest', 'createDrcDebugCoverageReport'*/
 ]) {
 
     reports {
-        html{
+        html {
             html.enabled = true
             destination file("${buildDir}/reports/jacoco/jacocoRootReport/chw-coverage")
         }
 
-        xml{
+        xml {
             xml.enabled = true
             destination file("${buildDir}/reports/jacoco/jacocoRootReport/chw-coverage.xml")
         }
     }
-
 
 
     def fileFilter = ['**/R.class', '**/R$*.class', '**/BuildConfig.*', '**/Manifest*.*', '**/*Test*.*', 'android/**/*.*', '**/*$ViewBinder*.*']
