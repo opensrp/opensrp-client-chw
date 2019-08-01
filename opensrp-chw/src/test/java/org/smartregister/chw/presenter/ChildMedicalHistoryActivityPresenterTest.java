@@ -40,7 +40,7 @@ public class ChildMedicalHistoryActivityPresenterTest {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        presenter = new ChildMedicalHistoryPresenter(view,appExecutors,homeVisitServiceRepository);
+        presenter = new ChildMedicalHistoryPresenter(view, appExecutors, homeVisitServiceRepository);
         Whitebox.setInternalState(presenter, "interactor", interactor);
     }
 

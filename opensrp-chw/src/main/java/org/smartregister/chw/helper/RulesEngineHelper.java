@@ -23,11 +23,11 @@ import java.util.Map;
 import java.util.Set;
 
 public class RulesEngineHelper {
+    private final String RULE_FOLDER_PATH = "rule/";
     private Context context;
     private RulesEngine inferentialRulesEngine;
     private RulesEngine defaultRulesEngine;
     private Map<String, Rules> ruleMap;
-    private final String RULE_FOLDER_PATH = "rule/";
 
     public RulesEngineHelper(Context context) {
         this.context = context;

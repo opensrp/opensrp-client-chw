@@ -7,16 +7,17 @@ import org.smartregister.chw.util.ImmunizationState;
 
 public class ServiceRule implements ICommonRule {
 
-    public String buttonStatus= ImmunizationState.DUE.name();
+    public String buttonStatus = ImmunizationState.DUE.name();
     private LocalDate todayDate;
     private LocalDate dueDate;
 
-    public ServiceRule(String dueDay){
+    public ServiceRule(String dueDay) {
 
         todayDate = new LocalDate();
-        dueDate= new LocalDate(dueDay);
+        dueDate = new LocalDate(dueDay);
 
     }
+
     public boolean isOverdue(Integer day) {
 
         return todayDate.isAfter(dueDate.plusDays(day));

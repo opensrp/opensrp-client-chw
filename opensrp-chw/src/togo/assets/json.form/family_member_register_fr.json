@@ -69,7 +69,7 @@
         "openmrs_entity_id": "opensrp_id",
         "type": "edit_text",
         "read_only": "true",
-        "hint": "UNIQUE ID *",
+        "hint": "ID *",
         "value": "0",
         "scanButtonText": "Scanner Code QR",
         "v_numeric": {
@@ -87,9 +87,17 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "163084AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "edit_text",
-        "label_info_text": "Quel et leur numéro d'identification national ou leur numéro d'inscription d'électeur?",
+        "label_info_text": "Quel est leur numéro d'identité national ou leur numéro de carte d'électeur?",
         "label_info_title": "Numéro d'identification national",
-        "hint": "Numéro d'identification national"
+        "hint": "Numéro d'identification national",
+        "v_numeric": {
+          "value": "true",
+          "err": "Le numéro doit comporter 11 chiffres."
+        },
+        "v_regex": {
+          "value": "([0-9]{11})|\\s*",
+          "err": "Le numéro doit comporter 11 chiffres"
+        }
       },
       {
         "key": "surname",
@@ -100,7 +108,7 @@
         "hint": "Nom",
         "edit_type": "name",
         "v_regex": {
-          "value": "[A-Za-z\\s\\.\\-]*",
+          "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-]*",
           "err": "Veuillez entrer un nom valide"
         },
         "v_required": {
@@ -129,7 +137,7 @@
         "options": [
           {
             "key": "same_as_fam_name",
-            "text": "Nom même que nom de famille",
+            "text": "Même nom que ménage",
             "text_size": "18px",
             "value": "false"
           }
@@ -149,7 +157,7 @@
         "openmrs_entity": "person",
         "openmrs_entity_id": "last_name",
         "type": "hidden",
-        "hint": "Nom même que nom de famille",
+        "hint": "Même nom que ménage",
         "calculation": {
           "rules-engine": {
             "ex-rules": {
@@ -171,7 +179,7 @@
         },
         "edit_type": "name",
         "v_regex": {
-          "value": "[A-Za-z\\s\\.\\-]*",
+          "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-]*",
           "err": "Veuillez entrer un prénom valide"
         }
       },
@@ -184,7 +192,7 @@
         "type": "edit_text",
         "edit_type": "name",
         "v_regex": {
-          "value": "[A-Za-z\\s\\.\\-]*",
+          "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-]*",
           "err": "Veuillez entrer un deuxième nom valide"
         }
       },
@@ -223,7 +231,7 @@
         "options": [
           {
             "key": "dob_unknown",
-            "text": "DDN inconnu?",
+            "text": "DDN inconnue?",
             "text_size": "18px",
             "value": "false"
           }
@@ -268,8 +276,8 @@
         "type": "spinner",
         "hint": "Sexe",
         "values": [
-          "Mâle",
-          "Femelle"
+          "Masculin",
+          "Feminin"
         ],
         "keys": [
           "Male",
@@ -286,7 +294,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "spinner",
-        "hint": "Est la personne principalement responsable pour l'enfant?",
+        "hint": "Est la gardienne?",
         "values": [
           "Oui",
           "Non"
@@ -351,13 +359,13 @@
         "openmrs_entity_id": "1712AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Plus haut niveau d'études/de formation",
+        "hint": "Plus haut niveau d'éducation/de formation",
         "values": [
           "Aucun",
           "Alphabétiser",
           "Primaire",
           "Secondaire",
-          "Universite"
+          "Université"
         ],
         "keys": [
           "None",
@@ -368,7 +376,7 @@
         ],
         "openmrs_choice_ids": {
           "None": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Literacy" :"",
+          "Literacy": "",
           "Primary": "1713AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "Secondary": "1714AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "University": "159785AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"

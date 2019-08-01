@@ -69,7 +69,7 @@
         "max_date": "today",
         "v_required": {
           "value": "true",
-          "err": "LMP required"
+          "err": "Cette réponse est requise."
         }
       },
       {
@@ -128,7 +128,7 @@
         "hint": "Nombre de grossesses antérieures",
         "v_required": {
           "value": "true",
-          "err": "Required"
+          "err": "Cette réponse est requise."
         },
         "v_numeric": {
           "value": "true",
@@ -136,7 +136,7 @@
         },
         "v_min": {
           "value": "0",
-          "err": "Number must be equal or greater than 0"
+          "err": "Le nombre doit être égal ou supérieur à 0"
         }
       },
       {
@@ -163,7 +163,7 @@
         "hint": "Nombre d'enfants survivants",
         "v_required": {
           "value": "true",
-          "err": "Required"
+          "err": "Cette réponse est requise."
         },
         "v_numeric": {
           "value": "true",
@@ -171,7 +171,7 @@
         },
         "v_min": {
           "value": "0",
-          "err": "Number must be equal or greater than 0"
+          "err": "Le nombre doit être égal ou supérieur à 0"
         }
       },
       {
@@ -183,15 +183,31 @@
         "hint": "Numéro de téléphone",
         "v_numeric": {
           "value": "true",
-          "err": "Number must be a total of 10 digits in length"
+          "err": "Le numéro doit être composé de 8 à 16 chiffres."
         },
         "v_regex": {
-          "value": "(0[0-9]{9})|\\s*",
-          "err": "Number must be 10 digits and must start with 0."
+          "value": "([0-9]{8,16})|\\s*",
+          "err": "Le numéro doit être composé de 8 à 16 chiffres."
         },
         "v_required": {
           "value": false,
-          "err": "Please specify the phone number"
+          "err": "Cette réponse est requise"
+        }
+      },
+      {
+        "key": "other_phone_number",
+        "openmrs_entity_parent": "159635AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "edit_text",
+        "hint": "Other phone number",
+        "v_numeric": {
+          "value": "true",
+          "err": "Le numéro doit être composé de 8 à 16 chiffres."
+        },
+        "v_regex": {
+          "value": "([0-9]{8,16})|\\s*",
+          "err": ""
         }
       },
       {

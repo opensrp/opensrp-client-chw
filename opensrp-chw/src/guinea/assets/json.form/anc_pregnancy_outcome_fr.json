@@ -49,12 +49,12 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "Issue de grossesse",
+    "title": "Résultat de la grossesse",
     "fields": [
       {
         "key": "pregnancy_outcome_label",
         "type": "label",
-        "text": "ISSUE DE GROSSESSE",
+        "text": "Résultat de la grossesse",
         "has_bg": true,
         "left_padding": "20dp",
         "right_padding": "20dp",
@@ -71,7 +71,7 @@
         "openmrs_entity_id": "161033AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Issue de grossesse",
+        "hint": "Résultat de la grossesse",
         "values": [
           "Naissance vivante",
           "Mort-né",
@@ -147,7 +147,7 @@
         "hint": "Lieu d'accouchement",
         "values": [
           "Maison",
-          "Structure sanitaire",
+          "Formation sanitaire",
           "Autre"
         ],
         "keys": [
@@ -175,7 +175,7 @@
       {
         "key": "baby_label",
         "type": "label",
-        "text": "DÉTAILS INFANTIL",
+        "text": "Détails de l'enfant",
         "has_bg": true,
         "left_padding": "20dp",
         "right_padding": "20dp",
@@ -265,7 +265,7 @@
         "options": [
           {
             "key": "same_as_fam_name",
-            "text": "Même nom que le nom de famille",
+            "text": "Même nom que ménage",
             "text_size": "18px",
             "value": "false"
           }
@@ -291,7 +291,7 @@
         "openmrs_entity": "person",
         "openmrs_entity_id": "last_name",
         "type": "hidden",
-        "hint": "[Même que {fam_name} case à cocher]",
+        "hint": "Même nom que ménage",
         "calculation": {
           "rules-engine": {
             "ex-rules": {
@@ -373,8 +373,12 @@
         "type": "spinner",
         "hint": "Sexe",
         "values": [
-          "Mâle",
-          "Femelle"
+          "Masculin",
+          "Feminin"
+        ],
+        "keys": [
+          "Male",
+          "Female"
         ],
         "v_required": {
           "value": "true",
@@ -399,6 +403,10 @@
           "Oui",
           "Non"
         ],
+        "keys": [
+          "Yes",
+          "No"
+        ],
         "openmrs_choice_ids": {
           "Yes": "1",
           "No": "0"
@@ -421,10 +429,14 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "161543AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "spinner",
-        "hint": "Initiation précoce à l'allaitement  (1 h)",
+        "hint": "Mise au sein precoce á la naissance (1 hr)?",
         "values": [
           "Oui",
           "Non"
+        ],
+        "keys": [
+          "Yes",
+          "No"
         ],
         "openmrs_choice_ids": {
           "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -448,10 +460,14 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "159522AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "spinner",
-        "hint": "Difficultés physique?",
+        "hint": "Enfant vivant avec un handicap?",
         "values": [
           "Oui",
           "Non"
+        ],
+        "keys": [
+          "Yes",
+          "No"
         ],
         "openmrs_choice_ids": {
           "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -508,13 +524,6 @@
             "openmrs_entity_id": "73263AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
-            "key": "chk_nothing_applied",
-            "text": "Cordon ombilical traité avec une solution de chlorhexidine ",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_nothing_applied"
-          },
-          {
             "key": "chk_skin_contact",
             "text": "Contact peau contre peau pour au moins 2 heures",
             "value": false,
@@ -523,7 +532,6 @@
           }
         ]
       },
-
       {
         "key": "opv0_date",
         "openmrs_entity_parent": "",

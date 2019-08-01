@@ -18,6 +18,7 @@ import org.smartregister.chw.contract.ChwBottomNavigator;
 import org.smartregister.chw.custom_view.NavigationMenu;
 import org.smartregister.chw.fragment.AncRegisterFragment;
 import org.smartregister.chw.listener.AncBottomNavigationListener;
+import org.smartregister.chw.util.Constants;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
 import org.smartregister.view.fragment.BaseRegisterFragment;
@@ -54,6 +55,13 @@ public class AncRegisterActivity extends BaseAncRegisterActivity implements ChwB
         activity.startActivity(intent);
     }
 
+    private static String getFormTable() {
+        if (form_name != null && form_name.equals(Constants.JSON_FORM.getAncRegistration())) {
+            return ANC_MEMBER;
+        }
+        return ANC_PREGNANCY_OUTCOME;
+    }
+
     @Override
     public void switchToBaseFragment() {
         Intent intent = new Intent(this, FamilyRegisterActivity.class);
@@ -66,12 +74,6 @@ public class AncRegisterActivity extends BaseAncRegisterActivity implements ChwB
         return form_name;
     }
 
-    private static String getFormTable() {
-        if (form_name != null && form_name.equals(JSON_FORM.getAncRegistration())) {
-            return ANC_MEMBER;
-        }
-        return ANC_PREGNANCY_OUTCOME;
-    }
 
     @Override
     public String getFormRegistrationEvent() {
@@ -123,6 +125,11 @@ public class AncRegisterActivity extends BaseAncRegisterActivity implements ChwB
         super.onResumption();
         NavigationMenu.getInstance(this, null, null).getNavigationAdapter()
                 .setSelectedView(DrawerMenu.ANC);
+        NavigationMenu menu = NavigationMenu.getInstance(this, null, null);
+        if(menu != null){
+            menu.getNavigationAdapter()
+                    .setSelectedView(Constants.DrawerMenu.ANC);
+        }
     }
 
     @Override

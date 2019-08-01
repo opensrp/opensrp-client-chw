@@ -104,7 +104,7 @@
         "openmrs_entity": "person_address",
         "openmrs_entity_id": "commune",
         "type": "edit_text",
-        "hint": "Quarter/Clan",
+        "hint": "Quarter",
         "v_required": {
           "value": "true",
           "err": "Please enter the quarter or clan"
@@ -166,7 +166,7 @@
           "Transport, storage and communications": "165413AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "Financial institutions": "165414AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "Communication, social and personal services": "165415AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Other" : "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          "Other": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         }
       }
     ]

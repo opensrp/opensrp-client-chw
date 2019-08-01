@@ -432,7 +432,7 @@
         }
       },
       {
-        "key": "physically_challenged",
+        "key": "disabilities",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "159522AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -495,13 +495,6 @@
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "73263AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "chk_nothing_applied",
-            "text": "No other products applied to umbilical stump",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_nothing_applied"
           },
           {
             "key": "chk_skin_contact",

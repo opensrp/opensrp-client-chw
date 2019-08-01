@@ -34,6 +34,17 @@ public class ContactUtilTest {
     private Map<Integer, LocalDate> expectedResult = new LinkedHashMap<>();
 
 
+    public ContactUtilTest() {
+        // expectedResult.put(13, LocalDate.parse("20/06/2019", DateTimeFormat.forPattern("dd/MM/yyyy"))); today's date
+        expectedResult.put(21, LocalDate.parse("15/08/2019", DateTimeFormat.forPattern("dd/MM/yyyy")));
+        expectedResult.put(27, LocalDate.parse("26/09/2019", DateTimeFormat.forPattern("dd/MM/yyyy")));
+        expectedResult.put(31, LocalDate.parse("24/10/2019", DateTimeFormat.forPattern("dd/MM/yyyy")));
+        expectedResult.put(35, LocalDate.parse("21/11/2019", DateTimeFormat.forPattern("dd/MM/yyyy")));
+        expectedResult.put(37, LocalDate.parse("05/12/2019", DateTimeFormat.forPattern("dd/MM/yyyy")));
+        expectedResult.put(39, LocalDate.parse("19/12/2019", DateTimeFormat.forPattern("dd/MM/yyyy")));
+        expectedResult.put(40, LocalDate.parse("25/12/2019", DateTimeFormat.forPattern("dd/MM/yyyy")));
+    }
+
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
@@ -55,17 +66,6 @@ public class ContactUtilTest {
         controller = Robolectric.buildActivity(FamilyProfileActivity.class, testIntent).create().start();
 
         activity = controller.get();
-    }
-
-    public ContactUtilTest() {
-        // expectedResult.put(13, LocalDate.parse("20/06/2019", DateTimeFormat.forPattern("dd/MM/yyyy"))); today's date
-        expectedResult.put(21, LocalDate.parse("15/08/2019", DateTimeFormat.forPattern("dd/MM/yyyy")));
-        expectedResult.put(27, LocalDate.parse("26/09/2019", DateTimeFormat.forPattern("dd/MM/yyyy")));
-        expectedResult.put(31, LocalDate.parse("24/10/2019", DateTimeFormat.forPattern("dd/MM/yyyy")));
-        expectedResult.put(35, LocalDate.parse("21/11/2019", DateTimeFormat.forPattern("dd/MM/yyyy")));
-        expectedResult.put(37, LocalDate.parse("05/12/2019", DateTimeFormat.forPattern("dd/MM/yyyy")));
-        expectedResult.put(39, LocalDate.parse("19/12/2019", DateTimeFormat.forPattern("dd/MM/yyyy")));
-        expectedResult.put(40, LocalDate.parse("25/12/2019", DateTimeFormat.forPattern("dd/MM/yyyy")));
     }
 
     @Test

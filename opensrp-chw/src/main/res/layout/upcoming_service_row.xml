@@ -12,13 +12,13 @@
             android:id="@+id/view_most_due_overdue_row"
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:background="@color/light_grey"
-            android:layout_below="@+id/most_due_overdue_row" />
+            android:layout_below="@+id/most_due_overdue_row"
+            android:background="@color/light_grey" />
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
             <org.smartregister.view.customcontrols.CustomFontTextView
                 android:id="@+id/grou_date_title"
@@ -28,8 +28,8 @@
                 android:padding="10dp"
                 android:text="@string/upcoming_services"
                 android:textColor="@color/black"
-                android:textStyle="bold"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <org.smartregister.view.customcontrols.CustomFontTextView
                 android:id="@+id/grou_date_status"
@@ -39,8 +39,8 @@
                 android:padding="10dp"
                 android:text="@string/upcoming_services"
                 android:textColor="@color/black"
-                android:textStyle="bold"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:textStyle="bold" />
         </LinearLayout>
 
 
@@ -72,9 +72,9 @@
             style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:visibility="gone"
             android:padding="10dp"
-            android:textSize="16sp" />
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:visibility="gone" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

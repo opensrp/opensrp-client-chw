@@ -119,7 +119,9 @@
     <string name="observations_illness_episodes"><![CDATA[Observations & Illness - <i>optional</i>]]></string>
     <string name="observations_illness_episodes_medical"><![CDATA[Observations & Illness Episodes]]></string>
     <string name="home_visit_suffix"> &#183; Home Visit</string>
+    <string name="wash_check_suffix"> &#183; Wash check</string>
     <string name="last_visit_prefix">Last visit %1$s ago</string>
+    <string name="completed_on_prefix">Completed on %1$s</string>
 
     <string name="profile_activity_completed">Completed on %s</string>
     <string name="interpunct">・</string>
@@ -246,8 +248,8 @@
     <string name="all_registers">All Registers</string>
     <string name="menu_labour_and_delivery"><![CDATA[L&D]]></string>
     <string name="menu_child">CH</string>
-    <string name="menu_anc">ANC</string>
-    <string name="menu_pnc">PNC</string>
+    <string name="menu_anc">ANC Clients</string>
+    <string name="menu_pnc">PNC Clients</string>
     <string name="menu_family_planing">FP</string>
     <string name="menu_malaria">Malaria</string>
     <string name="refer_to_facility">Refer to facility</string>
@@ -415,5 +417,23 @@
     <string name="pnc_visit">PNC Visit</string>
     <string name="anc_visit">ANC Visit</string>
     <string name="number_8_16">Number must be 8 to 16 digits</string>
+
+    <string name="handwashing_facilities">Does the household have handwashing facilities?</string>
+    <string name="drinking_water">Does the household have access to clean drinking water?</string>
+    <string name="hygienic_latrine">Do household members use a hygienic latrine for the disposal of feces?</string>
+    <string name="wash_check">WASH check</string>
+
+    <string name="abv_first">1st</string>
+    <string name="abv_second">2nd</string>
+    <string name="abv_third">3rd</string>
+    <string name="abv_fourth">4th</string>
+    <string name="abv_fifth">5th</string>
+    <string name="abv_sixth">6th</string>
+    <string name="abv_seventh">7th</string>
+    <string name="abv_eigth">8th</string>
+    <string name="abv_nineth">9th</string>
+    <string name="abv_tenth">10th</string>
+    <string name="abv_eleventh">11th</string>
+    <string name="abv_twelfth">12th</string>
 
 </resources>

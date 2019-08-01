@@ -199,7 +199,7 @@ dependencies {
         exclude group: 'io.ona.rdt-capture', module: 'lib'
     }
 
-    implementation('org.smartregister:opensrp-client-core:1.6.47-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-core:1.7.3-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.github.bmelnychuk', module: 'atv'
         exclude group: 'com.google.guava', module: 'guava'
@@ -214,7 +214,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'appcompat-v7'
     }
 
-    implementation('org.smartregister:opensrp-client-family:1.2.15-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-family:1.2.17-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'org.smartregister', module: 'opensrp-client-core'
         exclude group: 'org.smartregister', module: 'opensrp-client-native-form'
@@ -237,7 +237,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'design'
     }
 
-    implementation('org.smartregister:opensrp-client-chw-anc:0.1.2-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-chw-anc:0.1.3-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'org.smartregister', module: 'opensrp-client-core'
         exclude group: 'com.android.support', module: 'appcompat-v7'
@@ -246,7 +246,7 @@ dependencies {
         exclude group: 'org.smartregister', module: 'opensrp-client-immunization'
     }
 
-    implementation('org.smartregister:opensrp-client-chw-pnc:0.0.3-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-chw-pnc:0.0.4-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'org.smartregister', module: 'opensrp-client-chw-anc'
         exclude group: 'org.smartregister', module: 'opensrp-client-core'
@@ -309,15 +309,16 @@ dependencies {
     testImplementation "org.powermock:powermock-classloading-xstream:$powerMockVersion"
 }
 
+def flavors = android.productFlavors.collect { flavor -> flavor.name }
+if (!flavors) flavors.add('')
 
-task jacocoTestReport(type: JacocoReport, dependsOn: [
-        'testBaDebugUnitTest', 'createBaDebugCoverageReport',
-        'testWcaroDebugUnitTest', 'createWcaroDebugCoverageReport',
-        /*'testTogoDebugUnitTest', 'createTogoDebugCoverageReport',
-        'testGuineaDebugUnitTest', 'createGuineaDebugCoverageReport',
-        'testChadDebugUnitTest', 'createChadDebugCoverageReport',
-        'testDrcDebugUnitTest', 'createDrcDebugCoverageReport'*/
-]) {
+def testDependencies = []
+flavors.each { productFlavorName ->
+    testDependencies.add("test${productFlavorName.capitalize()}DebugUnitTest")
+    testDependencies.add("create${productFlavorName.capitalize()}DebugCoverageReport")
+}
+
+task jacocoTestReport(type: JacocoReport, dependsOn: testDependencies.take(2)) {
 
     reports {
         xml.enabled = true
@@ -328,13 +329,13 @@ task jacocoTestReport(type: JacocoReport, dependsOn: [
     getReports().getHtml().setDestination(file("${buildDir}/reports/jacoco/jacocoRootReport/html"))
 
     def fileFilter = ['**/R.class', '**/R$*.class', '**/BuildConfig.*', '**/Manifest*.*', '**/*Test*.*', 'android/**/*.*', '**/*$ViewBinder*.*']
-    def debugTree = fileTree(dir: "$project.buildDir/intermediates/classes/wcaro/debug", excludes: fileFilter)
+    def debugTree = fileTree(dir: "$project.buildDir/intermediates/classes/ba/debug", excludes: fileFilter)
     def mainSrc = "$project.projectDir/src/main/java"
 
     sourceDirectories = files([mainSrc])
     classDirectories = files([debugTree])
     executionData = fileTree(dir: project.buildDir, includes: [
-            'jacoco/testWcaroDebugUnitTest.exec', 'outputs/code-coverage/connected/*coverage.ec'
+            'jacoco/testBaDebugUnitTest.exec', 'outputs/code-coverage/connected/*coverage.ec'
     ])
 }
 

@@ -11,15 +11,16 @@ public interface HomeVisitGrowthNutritionContract {
     interface View {
         Presenter initializePresenter();
 
-        void updateExclusiveFeedingData(String name,String dueDate);
+        void updateExclusiveFeedingData(String name, String dueDate);
 
-        void updateMnpData(String name,String dueDate);
+        void updateMnpData(String name, String dueDate);
 
-        void updateVitaminAData(String name,String dueDate);
+        void updateVitaminAData(String name, String dueDate);
 
-        void updateDewormingData(String name,String dueDate);
+        void updateDewormingData(String name, String dueDate);
 
-        void statusImageViewUpdate(String type, boolean value,String message,String yesNoValue);
+        void statusImageViewUpdate(String type, boolean value, String message, String yesNoValue);
+
         void allDataLoaded();
 
         Context getViewContext();
@@ -27,7 +28,7 @@ public interface HomeVisitGrowthNutritionContract {
     }
 
     interface Presenter {
-        void parseRecordServiceData(CommonPersonObjectClient commonPersonObjectClient,boolean isEditMode);
+        void parseRecordServiceData(CommonPersonObjectClient commonPersonObjectClient, boolean isEditMode);
 
         void setSaveState(String type, ServiceWrapper serviceWrapper);
 
@@ -38,6 +39,7 @@ public interface HomeVisitGrowthNutritionContract {
         void onDestroy(boolean isChangingConfiguration);
 
         Map<String, ServiceWrapper> getSaveStateMap();
+
         Map<String, ServiceWrapper> getNotSaveStateMap();
 
     }
@@ -53,7 +55,9 @@ public interface HomeVisitGrowthNutritionContract {
 
     interface InteractorCallBack {
         void allDataLoaded();
+
         void updateGivenRecordVisitData(Map<String, ServiceWrapper> stringServiceWrapperMap);
+
         void updateNotGivenRecordVisitData(Map<String, ServiceWrapper> stringServiceWrapperMap);
 
     }

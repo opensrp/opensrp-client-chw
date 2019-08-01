@@ -50,7 +50,7 @@ public class ImmunizationModel {
             if (vaccine.category().equalsIgnoreCase("child")) {
                 String dobString = org.smartregister.util.Utils.getValue(client.getColumnmaps(), DBConstants.KEY.DOB, false);
 
-                if(ChildUtils.getImmunizationExpired(dobString,vaccine.display()).equalsIgnoreCase("true")){
+                if (ChildUtils.getImmunizationExpired(dobString, vaccine.display()).equalsIgnoreCase("true")) {
                     continue;
                 }
 

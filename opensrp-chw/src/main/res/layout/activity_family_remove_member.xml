@@ -65,10 +65,10 @@
         android:layout_marginRight="@dimen/remove_member_prompt_margin"
         android:gravity="left|start"
         android:maxLines="5"
-        android:paddingBottom="@dimen/remove_member_prompt_top_padding"
         android:paddingLeft="@dimen/remove_member_prompt_left_padding"
-        android:paddingRight="@dimen/remove_member_prompt_left_padding"
         android:paddingTop="@dimen/remove_member_prompt_top_padding"
+        android:paddingRight="@dimen/remove_member_prompt_left_padding"
+        android:paddingBottom="@dimen/remove_member_prompt_top_padding"
         android:text="@string/remove_member_prompt"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="@android:color/black" />

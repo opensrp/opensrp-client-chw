@@ -32,6 +32,7 @@ import io.reactivex.ObservableOnSubscribe;
 
 public class ImmunizationViewPresenter implements ImmunizationContact.Presenter, ImmunizationContact.InteractorCallBack {
 
+    private final VaccineRepository vaccineRepository;
     private WeakReference<ImmunizationContact.View> view;
     private ArrayList<HomeVisitVaccineGroup> homeVisitVaccineGroupDetails = new ArrayList<>();
     private ImmunizationViewInteractor interactor;
@@ -41,7 +42,6 @@ public class ImmunizationViewPresenter implements ImmunizationContact.Presenter,
     private ArrayList<VaccineWrapper> notGivenVaccines = new ArrayList<VaccineWrapper>();
     private ArrayList<VaccineWrapper> notGivenGroupWiseVaccines = new ArrayList<VaccineWrapper>();
     private ArrayList<String> saveGroupList = new ArrayList<>();
-    private final VaccineRepository vaccineRepository;
     private String groupName = "";
 
     public ImmunizationViewPresenter(ImmunizationContact.View view) {
@@ -60,7 +60,7 @@ public class ImmunizationViewPresenter implements ImmunizationContact.Presenter,
     }
 
     @Override
-    public void fetchImmunizationData(CommonPersonObjectClient commonPersonObjectClient,String groupName) {
+    public void fetchImmunizationData(CommonPersonObjectClient commonPersonObjectClient, String groupName) {
         this.groupName = groupName;
         interactor.fetchImmunizationData(commonPersonObjectClient, this);
     }
@@ -88,28 +88,28 @@ public class ImmunizationViewPresenter implements ImmunizationContact.Presenter,
     public void updateData(ArrayList<HomeVisitVaccineGroup> homeVisitVaccineGroupDetails, Map<String, Date> vaccines) {
 
 
-        if(!TextUtils.isEmpty(groupName)){
+        if (!TextUtils.isEmpty(groupName)) {
             saveGroupList.remove(groupName);
-            for(HomeVisitVaccineGroup homeVisitVaccineGroup:homeVisitVaccineGroupDetails){
-                if(isUpdateRow(homeVisitVaccineGroup)){
+            for (HomeVisitVaccineGroup homeVisitVaccineGroup : homeVisitVaccineGroupDetails) {
+                if (isUpdateRow(homeVisitVaccineGroup)) {
                     break;
                 }
-                Log.logError("SUBMIT_CHECK","updateData>>");
+                Log.logError("SUBMIT_CHECK", "updateData>>");
 
             }
             getView().onUpdateNextPosition();
 
             //getView().updateSubmitBtn();
-        }else{
+        } else {
             this.homeVisitVaccineGroupDetails = homeVisitVaccineGroupDetails;
             //if all due vaccine is same as given vaccine so remove the row.
             // has an issue after 24 hours/next visit all given vaccine showing again
             for (Iterator<HomeVisitVaccineGroup> iterator = this.homeVisitVaccineGroupDetails.iterator(); iterator.hasNext(); ) {
-                            HomeVisitVaccineGroup homeVisitVaccineGroup = iterator.next();
-                            if (homeVisitVaccineGroup.getDueVaccines().size() == 0 ||
-                                    (homeVisitVaccineGroup.getDueVaccines().size() == homeVisitVaccineGroup.getGivenVaccines().size())) {
-                                iterator.remove();
-                            }
+                HomeVisitVaccineGroup homeVisitVaccineGroup = iterator.next();
+                if (homeVisitVaccineGroup.getDueVaccines().size() == 0 ||
+                        (homeVisitVaccineGroup.getDueVaccines().size() == homeVisitVaccineGroup.getGivenVaccines().size())) {
+                    iterator.remove();
+                }
 
             }
             for (int i = 0; i < this.homeVisitVaccineGroupDetails.size(); i++) {
@@ -121,22 +121,23 @@ public class ImmunizationViewPresenter implements ImmunizationContact.Presenter,
                 }
             }
             getView().allDataLoaded();
-            getView().updateAdapter(0);
+            getView().updateAdapter(0, view.get().getMyContext());
 
             //getView().updateSubmitBtn();
         }
 
     }
-    private boolean isUpdateRow(HomeVisitVaccineGroup homeVisitVaccineGroup){
+
+    private boolean isUpdateRow(HomeVisitVaccineGroup homeVisitVaccineGroup) {
         int size = this.homeVisitVaccineGroupDetails.size();
-        for(int i=0;i<size;i++){
+        for (int i = 0; i < size; i++) {
             HomeVisitVaccineGroup hhh = this.homeVisitVaccineGroupDetails.get(i);
-            if(hhh.getGroup().equalsIgnoreCase(homeVisitVaccineGroup.getGroup())
-                    && homeVisitVaccineGroup.getGroup().equalsIgnoreCase(groupName)){
-                this.homeVisitVaccineGroupDetails.set(i,homeVisitVaccineGroup);
-                if(this.homeVisitVaccineGroupDetails.get(i).getDueVaccines().size() == 0){
+            if (hhh.getGroup().equalsIgnoreCase(homeVisitVaccineGroup.getGroup())
+                    && homeVisitVaccineGroup.getGroup().equalsIgnoreCase(groupName)) {
+                this.homeVisitVaccineGroupDetails.set(i, homeVisitVaccineGroup);
+                if (this.homeVisitVaccineGroupDetails.get(i).getDueVaccines().size() == 0) {
                     this.homeVisitVaccineGroupDetails.get(i).setViewType(HomeVisitVaccineGroup.TYPE_HIDDEN);
-                }else{
+                } else {
                     this.homeVisitVaccineGroupDetails.get(i).setViewType(HomeVisitVaccineGroup.TYPE_INITIAL);
                 }
                 return true;
@@ -150,13 +151,13 @@ public class ImmunizationViewPresenter implements ImmunizationContact.Presenter,
         getView().allDataLoaded();
         this.homeVisitVaccineGroupDetails = homeVisitVaccineGroupDetails;
         for (HomeVisitVaccineGroup homeVisitVaccineGroup : this.homeVisitVaccineGroupDetails) {
-            if(homeVisitVaccineGroup.getDueVaccines().size()== 0){
+            if (homeVisitVaccineGroup.getDueVaccines().size() == 0) {
                 homeVisitVaccineGroup.setViewType(HomeVisitVaccineGroup.TYPE_HIDDEN);
-            }else{
+            } else {
                 homeVisitVaccineGroup.setViewType(HomeVisitVaccineGroup.TYPE_ACTIVE);
             }
-         }
-        getView().updateAdapter(0);
+        }
+        getView().updateAdapter(0, view.get().getMyContext());
     }
 
     public ArrayList<VaccineWrapper> getDueVaccineWrappers(HomeVisitVaccineGroup duevaccines) {
@@ -187,6 +188,7 @@ public class ImmunizationViewPresenter implements ImmunizationContact.Presenter,
         }
         return vaccineWrappers;
     }
+
     public ArrayList<VaccineWrapper> getGivenVaccineWrappers(HomeVisitVaccineGroup group) {
 
         ArrayList<VaccineWrapper> vaccineWrappers = new ArrayList<VaccineWrapper>();
@@ -236,7 +238,8 @@ public class ImmunizationViewPresenter implements ImmunizationContact.Presenter,
             }
         }
     }
-    public boolean isFirstEntry(String groupName){
+
+    public boolean isFirstEntry(String groupName) {
         return !saveGroupList.contains(groupName);
     }
 
@@ -259,16 +262,17 @@ public class ImmunizationViewPresenter implements ImmunizationContact.Presenter,
         return vaccineArrayList;
 
     }
-    public LinkedHashMap<DateTime, ArrayList<VaccineRepo.Vaccine>> updateGroupByDate(){
+
+    public LinkedHashMap<DateTime, ArrayList<VaccineRepo.Vaccine>> updateGroupByDate() {
         LinkedHashMap<DateTime, ArrayList<VaccineRepo.Vaccine>> dueWithDate = new LinkedHashMap<>();
         for (VaccineWrapper vaccineWrapper : givenGroupWiseVaccines) {
             VaccineRepo.Vaccine vaccine = vaccineWrapper.getVaccine();
             DateTime dueDate = vaccineWrapper.getUpdatedVaccineDate();
-            if(dueWithDate.get(dueDate) == null){
+            if (dueWithDate.get(dueDate) == null) {
                 ArrayList<VaccineRepo.Vaccine> vaccineArrayList = new ArrayList<>();
                 vaccineArrayList.add(vaccine);
-                dueWithDate.put(dueDate,vaccineArrayList);
-            }else{
+                dueWithDate.put(dueDate, vaccineArrayList);
+            } else {
                 dueWithDate.get(dueDate).add(vaccine);
             }
         }
@@ -365,10 +369,11 @@ public class ImmunizationViewPresenter implements ImmunizationContact.Presenter,
         vaccineRepository.add(vaccine);
         tag.setDbKey(vaccine.getId());
     }
-    public boolean isAllSelected(){
-        for(HomeVisitVaccineGroup homeVisitVaccineGroup:homeVisitVaccineGroupDetails){
-            if(homeVisitVaccineGroup.getViewType()!= HomeVisitVaccineGroup.TYPE_ACTIVE
-                    && homeVisitVaccineGroup.getViewType()!= HomeVisitVaccineGroup.TYPE_HIDDEN){
+
+    public boolean isAllSelected() {
+        for (HomeVisitVaccineGroup homeVisitVaccineGroup : homeVisitVaccineGroupDetails) {
+            if (homeVisitVaccineGroup.getViewType() != HomeVisitVaccineGroup.TYPE_ACTIVE
+                    && homeVisitVaccineGroup.getViewType() != HomeVisitVaccineGroup.TYPE_HIDDEN) {
                 return false;
             }
         }

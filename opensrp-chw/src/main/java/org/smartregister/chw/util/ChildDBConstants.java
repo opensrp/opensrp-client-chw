@@ -40,8 +40,6 @@ public class ChildDBConstants {
         public static final String VACCINE_CARD = "vaccine_card";
         public static final String MOTHER_ENTITY_ID = "mother_entity_id";
 
-        // Family child visit status
-        //public static final String CHILD_VISIT_STATUS = "child_visit_status";
     }
 
     public static String childAgeLimitFilter() {
@@ -85,7 +83,6 @@ public class ChildDBConstants {
 
     }
 
-
     private static String orderByClause(String sort) {
         if (StringUtils.isNotBlank(sort)) {
             return " ORDER BY " + sort;
@@ -96,7 +93,6 @@ public class ChildDBConstants {
     private static String limitClause(int limit, int offset) {
         return " LIMIT " + offset + "," + limit;
     }
-
 
     private static String childAgeLimitFilter(String dateColumn, int age) {
         return " ((( julianday('now') - julianday(" + dateColumn + "))/365.25) <" + age + ")";

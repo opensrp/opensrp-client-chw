@@ -67,13 +67,14 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
         sIntentFilter.addAction(Intent.ACTION_TIME_CHANGED);
     }
 
+    protected TextView textViewParentName, textViewLastVisit, textViewMedicalHistory;
+    protected CircleImageView imageViewProfile;
+    protected View recordVisitPanel;
     private boolean appBarTitleIsShown = true;
     private int appBarLayoutScrollRange = -1;
     private String childBaseEntityId;
     private boolean isComesFromFamily = false;
-    protected TextView textViewParentName, textViewLastVisit, textViewMedicalHistory;
     private TextView textViewTitle, textViewChildName, textViewGender, textViewAddress, textViewId, textViewRecord, textViewVisitNot, tvEdit;
-    protected CircleImageView imageViewProfile;
     private RelativeLayout layoutNotRecordView, layoutLastVisitRow, layoutMostDueOverdue, layoutFamilyHasRow;
     private RelativeLayout layoutRecordButtonDone;
     private LinearLayout layoutRecordView;
@@ -83,11 +84,21 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     private ProgressBar progressBar;
     private String gender;
     private Handler handler = new Handler();
+    private final BroadcastReceiver mDateTimeChangedReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            final String action = intent.getAction();
+            assert action != null;
+            if (action.equals(Intent.ACTION_TIME_CHANGED) ||
+                    action.equals(Intent.ACTION_TIMEZONE_CHANGED)) {
+                fetchProfileData();
+
+            }
+        }
+    };
     private String lastVisitDay;
     private FamilyMemberFloatingMenu familyFloatingMenu;
     private OnClickFloatingMenu onClickFloatingMenu;
-    protected View recordVisitPanel;
-
     private ChildProfileActivityFlv flavor = new ChildProfileActivityFlv();
 
     @Override
@@ -281,7 +292,6 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
                 ((ChildProfilePresenter) presenter()).getDateOfBirth(), new LinkedHashMap<>(vaccine));
 
     }
-
 
     private void openVisitHomeScreen(boolean isEditMode) {
         ChildHomeVisitFragment childHomeVisitFragment = ChildHomeVisitFragment.newInstance();
@@ -697,17 +707,4 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
 
         boolean showMalariaConfirmationMenu();
     }
-
-    private final BroadcastReceiver mDateTimeChangedReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            final String action = intent.getAction();
-            assert action != null;
-            if (action.equals(Intent.ACTION_TIME_CHANGED) ||
-                    action.equals(Intent.ACTION_TIMEZONE_CHANGED)) {
-                fetchProfileData();
-
-            }
-        }
-    };
 }

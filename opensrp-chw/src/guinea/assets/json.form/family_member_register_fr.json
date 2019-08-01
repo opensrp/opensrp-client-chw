@@ -69,7 +69,7 @@
         "openmrs_entity_id": "opensrp_id",
         "type": "edit_text",
         "read_only": "true",
-        "hint": "UNIQUE ID *",
+        "hint": "ID *",
         "value": "0",
         "scanButtonText": "Scanner Code QR",
         "v_numeric": {
@@ -87,7 +87,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "163084AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "edit_text",
-        "label_info_text": "Quel et leur numéro d'identification national ou leur numéro d'inscription d'électeur?",
+        "label_info_text": "Quel est leur numéro d'identité national ou leur numéro de carte d'électeur?",
         "label_info_title": "Numéro d'identification national",
         "hint": "Numéro d'identification national"
       },
@@ -129,7 +129,7 @@
         "options": [
           {
             "key": "same_as_fam_name",
-            "text": "Nom même que nom de famille",
+            "text": "Même nom que ménage",
             "text_size": "18px",
             "value": "false"
           }
@@ -149,7 +149,7 @@
         "openmrs_entity": "person",
         "openmrs_entity_id": "last_name",
         "type": "hidden",
-        "hint": "Nom même que nom de famille",
+        "hint": "Même nom que ménage",
         "calculation": {
           "rules-engine": {
             "ex-rules": {
@@ -223,7 +223,7 @@
         "options": [
           {
             "key": "dob_unknown",
-            "text": "DDN inconnu?",
+            "text": "DDN inconnue?",
             "text_size": "18px",
             "value": "false"
           }
@@ -268,8 +268,8 @@
         "type": "spinner",
         "hint": "Sexe",
         "values": [
-          "Mâle",
-          "Femelle"
+          "Masculin",
+          "Feminin"
         ],
         "keys": [
           "Male",
@@ -286,7 +286,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "spinner",
-        "hint": "Est la personne principalement responsable pour l'enfant?",
+        "hint": "Est la gardienne?",
         "values": [
           "Oui",
           "Non"
@@ -308,7 +308,7 @@
           "err": "Numéro doit consister de 10 chiffres au total"
         },
         "v_regex": {
-          "value": "(0[0-9]{9})|\\s*",
+          "value": "([0-9]{8,16})|\\s*",
           "err": "Le Numéro doit commencer avec 0 et doit consister de 10 chiffres au total."
         },
         "v_required": {
@@ -318,7 +318,7 @@
         "relevance": {
           "step1:primary_caregiver": {
             "type": "string",
-            "ex": "equalTo(., \"Oui\")"
+            "ex": "equalTo(., \"Yes\")"
           }
         }
       },
@@ -334,13 +334,13 @@
           "err": "Numéro doit consister de 10 chiffres au total"
         },
         "v_regex": {
-          "value": "(0[0-9]{9})|\\s*",
+          "value": "([0-9]{8,16})|\\s*",
           "err": "Le Numéro doit commencer avec 0 et doit consister de 10 chiffres au total."
         },
         "relevance": {
           "step1:primary_caregiver": {
             "type": "string",
-            "ex": "equalTo(., \"Oui\")"
+            "ex": "equalTo(., \"Yes\")"
           }
         }
       },
@@ -351,24 +351,24 @@
         "openmrs_entity_id": "1712AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Plus haut niveau d'études/de formation",
+        "hint": "Plus haut niveau d'éducation/de formation",
         "values": [
           "Aucun",
           "Alphabétiser",
           "Primaire",
           "Secondaire",
-          "Universite"
+          "Université"
         ],
         "keys": [
           "None",
-          "Literacy",
           "Primary",
+          "Literacy",
           "Secondary",
           "University"
         ],
         "openmrs_choice_ids": {
           "None": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Literacy":"",
+          "Literacy": "",
           "Primary": "1713AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "Secondary": "1714AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "University": "159785AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -376,7 +376,7 @@
         "relevance": {
           "step1:primary_caregiver": {
             "type": "string",
-            "ex": "equalTo(., \"Oui\")"
+            "ex": "equalTo(., \"Yes\")"
           }
         }
       }
