@@ -1,10 +1,11 @@
 package org.smartregister.chw.presenter;
 
-import com.opensrp.chw.core.utils.Constants;
+
 
 import org.json.JSONObject;
 import org.smartregister.chw.contract.FamilyRemoveMemberContract;
 import org.smartregister.chw.interactor.FamilyRemoveMemberInteractor;
+import org.smartregister.chw.util.Constants;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.presenter.BaseFamilyProfileMemberPresenter;
 import org.smartregister.family.util.DBConstants;

@@ -7,7 +7,8 @@ import com.opensrp.chw.core.contract.NavigationContract;
 import com.opensrp.chw.core.interactor.NavigationInteractor;
 import com.opensrp.chw.core.model.NavigationModel;
 import com.opensrp.chw.core.model.NavigationOption;
-import com.opensrp.chw.core.utils.Constants;
+import com.opensrp.chw.core.utils.CoreConstants;
+
 
 import org.smartregister.job.ImageUploadServiceJob;
 import org.smartregister.job.SyncServiceJob;
@@ -39,11 +40,11 @@ public class NavigationPresenter implements NavigationContract.Presenter {
     }
 
     private void initialize() {
-        tableMap.put(Constants.DrawerMenu.ALL_FAMILIES, Constants.TABLE_NAME.FAMILY);
-        tableMap.put(Constants.DrawerMenu.CHILD_CLIENTS, Constants.TABLE_NAME.CHILD);
-        tableMap.put(Constants.DrawerMenu.ANC_CLIENTS, Constants.TABLE_NAME.ANC_MEMBER);
-        tableMap.put(Constants.DrawerMenu.ANC, Constants.TABLE_NAME.ANC_MEMBER);
-        tableMap.put(Constants.DrawerMenu.PNC, Constants.TABLE_NAME.ANC_PREGNANCY_OUTCOME);
+        tableMap.put(CoreConstants.DrawerMenu.ALL_FAMILIES, CoreConstants.TABLE_NAME.FAMILY);
+        tableMap.put(CoreConstants.DrawerMenu.CHILD_CLIENTS, CoreConstants.TABLE_NAME.CHILD);
+        tableMap.put(CoreConstants.DrawerMenu.ANC_CLIENTS, CoreConstants.TABLE_NAME.ANC_MEMBER);
+        tableMap.put(CoreConstants.DrawerMenu.ANC, CoreConstants.TABLE_NAME.ANC_MEMBER);
+        tableMap.put(CoreConstants.DrawerMenu.PNC, CoreConstants.TABLE_NAME.ANC_PREGNANCY_OUTCOME);
     }
 
     @Override

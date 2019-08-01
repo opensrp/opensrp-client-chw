@@ -7,7 +7,7 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.powermock.reflect.Whitebox;
 import org.smartregister.chw.contract.FamilyChangeContract;
-import org.smartregister.chw.domain.FamilyMember;
+import com.opensrp.chw.core.domain.FamilyMember;
 import org.smartregister.chw.interactor.FamilyChangeContractInteractor;
 import org.smartregister.chw.model.FamilyChangeContractModel;
 

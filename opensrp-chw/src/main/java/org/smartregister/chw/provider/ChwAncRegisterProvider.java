@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.Button;
 
 import com.opensrp.chw.core.utils.ChwDBConstants;
-import com.opensrp.chw.core.utils.Constants;
 
 import org.jeasy.rules.api.Rules;
 import org.joda.time.DateTime;
@@ -19,6 +18,7 @@ import org.smartregister.chw.anc.provider.AncRegisterProvider;
 import org.smartregister.chw.anc.util.DBConstants;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.interactor.ChildProfileInteractor;
+import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.HomeVisitUtil;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.chw.util.VisitSummary;

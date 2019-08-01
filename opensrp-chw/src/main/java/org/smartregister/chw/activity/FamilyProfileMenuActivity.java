@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 
+import com.opensrp.chw.core.utils.CoreConstants;
+
 import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.fragment.FamilyProfileChangeHead;
@@ -32,10 +34,10 @@ public class FamilyProfileMenuActivity extends SecuredActivity {
 
         Fragment fragment;
         switch (menuOption) {
-            case com.opensrp.chw.core.utils.Constants.MenuType.ChangeHead:
+            case CoreConstants.MenuType.ChangeHead:
                 fragment = FamilyProfileChangeHead.newInstance(familyBaseEntityId);
                 break;
-            case com.opensrp.chw.core.utils.Constants.MenuType.ChangePrimaryCare:
+            case CoreConstants.MenuType.ChangePrimaryCare:
                 fragment = FamilyProfileChangePrimaryCG.newInstance(familyBaseEntityId);
                 break;
             default:

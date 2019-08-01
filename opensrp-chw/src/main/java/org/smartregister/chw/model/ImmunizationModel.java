@@ -2,12 +2,14 @@ package org.smartregister.chw.model;
 
 import android.text.TextUtils;
 
+import com.opensrp.chw.core.enums.ImmunizationState;
+
 import org.joda.time.DateTime;
 import org.joda.time.Months;
 import org.joda.time.Weeks;
 import org.smartregister.chw.util.ChildUtils;
+import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.HomeVisitVaccineGroup;
-import org.smartregister.chw.util.ImmunizationState;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.Alert;
 import org.smartregister.family.util.DBConstants;
@@ -25,7 +27,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.opensrp.chw.core.utils.Constants.IMMUNIZATION_CONSTANT.DATE;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 import static org.smartregister.immunization.util.VaccinatorUtils.receivedVaccines;
 
@@ -132,7 +133,7 @@ public class ImmunizationModel {
             // compute due date
             for (Map<String, Object> toprocess : sch) {
                 if (((VaccineRepo.Vaccine) (toprocess.get("vaccine"))).name().equalsIgnoreCase(vaccine.name())) {
-                    DateTime dueDate = (DateTime) toprocess.get(DATE);
+                    DateTime dueDate = (DateTime) toprocess.get(Constants.IMMUNIZATION_CONSTANT.DATE);
                     if (dueDate != null) {
                         homeVisitVaccineGroupArrayList.get(position).setDueDate(dueDate.toLocalDate() + "");
                         homeVisitVaccineGroupArrayList.get(position).setDueDisplayDate(DateUtil.formatDate(dueDate.toLocalDate(), "dd MMM yyyy"));

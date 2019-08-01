@@ -6,8 +6,9 @@ import com.opensrp.chw.core.contract.FamilyProfileExtendedContract;
 import com.opensrp.chw.core.interactor.CoreChildProfileInteractor;
 import com.opensrp.chw.core.model.ChildVisit;
 import com.opensrp.chw.core.utils.ChildDBConstants;
-import com.opensrp.chw.core.utils.Constants;
+
 import com.opensrp.chw.core.utils.CoreChildService;
+import com.opensrp.chw.core.utils.CoreConstants;
 
 import org.joda.time.DateTime;
 import org.joda.time.Period;
@@ -180,7 +181,7 @@ public class CoreChildProfilePresenter implements CoreChildProfileContract.Prese
 
     @Override
     public void startFormForEdit(String title, CommonPersonObjectClient client) {
-        JSONObject form = interactor.getAutoPopulatedJsonEditFormString(Constants.JSON_FORM.getChildRegister(), title, getView().getApplicationContext(), client);
+        JSONObject form = interactor.getAutoPopulatedJsonEditFormString(CoreConstants.JSON_FORM.getChildRegister(), title, getView().getApplicationContext(), client);
         try {
 
             if (!isBlank(client.getColumnmaps().get(ChildDBConstants.KEY.RELATIONAL_ID))) {

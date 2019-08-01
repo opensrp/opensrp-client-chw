@@ -1,6 +1,6 @@
 package org.smartregister.chw.presenter;
 
-import com.opensrp.chw.core.utils.Constants;
+
 
 import org.json.JSONObject;
 import org.junit.Before;

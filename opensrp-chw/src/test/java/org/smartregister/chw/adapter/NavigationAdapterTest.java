@@ -2,7 +2,7 @@ package org.smartregister.chw.adapter;
 
 import com.opensrp.chw.core.adapter.NavigationAdapter;
 import com.opensrp.chw.core.model.NavigationOption;
-import com.opensrp.chw.core.utils.Constants;
+
 
 import org.junit.After;
 import org.junit.Before;

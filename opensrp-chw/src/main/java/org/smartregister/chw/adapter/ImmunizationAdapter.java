@@ -11,12 +11,13 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.opensrp.chw.core.enums.ImmunizationState;
+
 import org.joda.time.DateTime;
 import org.smartregister.chw.R;
 import org.smartregister.chw.listener.OnClickEditAdapter;
 import org.smartregister.chw.presenter.ImmunizationViewPresenter;
 import org.smartregister.chw.util.HomeVisitVaccineGroup;
-import org.smartregister.chw.util.ImmunizationState;
 import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.util.DateUtil;
 import org.smartregister.util.Log;

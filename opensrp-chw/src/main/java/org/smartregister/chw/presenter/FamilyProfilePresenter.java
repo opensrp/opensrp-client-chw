@@ -5,18 +5,18 @@ import android.util.Pair;
 
 import com.opensrp.chw.core.contract.CoreChildRegisterContract;
 import com.opensrp.chw.core.contract.FamilyProfileExtendedContract;
+import com.opensrp.chw.core.domain.FamilyMember;
 import com.opensrp.chw.core.interactor.CoreChildRegisterInteractor;
 import com.opensrp.chw.core.model.CoreChildProfileModel;
-import com.opensrp.chw.core.utils.Constants;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
-import org.smartregister.chw.domain.FamilyMember;
 import org.smartregister.chw.interactor.FamilyChangeContractInteractor;
 import org.smartregister.chw.interactor.FamilyProfileInteractor;
 import org.smartregister.chw.model.ChildRegisterModel;
+import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.JsonFormUtils;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.clientandeventmodel.Client;

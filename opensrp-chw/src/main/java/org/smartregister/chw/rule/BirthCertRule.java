@@ -1,5 +1,7 @@
 package org.smartregister.chw.rule;
 
+import com.opensrp.chw.core.rule.ICommonRule;
+
 import org.joda.time.LocalDate;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.util.DateUtil;

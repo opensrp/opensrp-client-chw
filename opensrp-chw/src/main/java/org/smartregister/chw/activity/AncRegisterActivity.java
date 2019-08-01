@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.opensrp.chw.core.custom_views.NavigationMenu;
-import com.opensrp.chw.core.utils.Constants;
+import com.opensrp.chw.core.utils.CoreConstants;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
 
@@ -19,6 +19,7 @@ import org.smartregister.chw.anc.util.DBConstants;
 import org.smartregister.chw.contract.ChwBottomNavigator;
 import org.smartregister.chw.fragment.AncRegisterFragment;
 import org.smartregister.chw.listener.AncBottomNavigationListener;
+import org.smartregister.chw.util.Constants;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
 import org.smartregister.view.fragment.BaseRegisterFragment;
@@ -26,8 +27,6 @@ import org.smartregister.view.fragment.BaseRegisterFragment;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.opensrp.chw.core.utils.Constants.TABLE_NAME.ANC_MEMBER;
-import static com.opensrp.chw.core.utils.Constants.TABLE_NAME.ANC_PREGNANCY_OUTCOME;
 import static org.smartregister.chw.anc.util.Constants.ACTIVITY_PAYLOAD.TABLE_NAME;
 
 public class AncRegisterActivity extends BaseAncRegisterActivity implements ChwBottomNavigator {
@@ -51,9 +50,9 @@ public class AncRegisterActivity extends BaseAncRegisterActivity implements ChwB
 
     private static String getFormTable() {
         if (form_name != null && form_name.equals(Constants.JSON_FORM.getAncRegistration())) {
-            return ANC_MEMBER;
+            return CoreConstants.TABLE_NAME.ANC_MEMBER;
         }
-        return ANC_PREGNANCY_OUTCOME;
+        return CoreConstants.TABLE_NAME.ANC_PREGNANCY_OUTCOME;
     }
 
     @Override

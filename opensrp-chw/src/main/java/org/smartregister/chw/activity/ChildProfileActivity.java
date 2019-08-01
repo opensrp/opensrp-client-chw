@@ -12,6 +12,7 @@ import com.opensrp.chw.core.activity.CoreChildProfileActivity;
 import com.opensrp.chw.core.listener.OnClickFloatingMenu;
 import com.opensrp.chw.core.model.CoreChildProfileModel;
 import com.opensrp.chw.core.presenter.CoreChildProfilePresenter;
+import com.opensrp.chw.core.utils.CoreConstants;
 
 import org.smartregister.chw.R;
 import org.smartregister.chw.custom_view.FamilyMemberFloatingMenu;
@@ -22,8 +23,6 @@ import org.smartregister.family.util.Constants;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
-
-import static com.opensrp.chw.core.utils.Constants.INTENT_KEY.IS_COMES_FROM_FAMILY;
 
 
 public class ChildProfileActivity extends CoreChildProfileActivity {
@@ -59,7 +58,7 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
     @Override
     protected void initializePresenter() {
         childBaseEntityId = getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID);
-        isComesFromFamily = getIntent().getBooleanExtra(IS_COMES_FROM_FAMILY, false);
+        isComesFromFamily = getIntent().getBooleanExtra(CoreConstants.INTENT_KEY.IS_COMES_FROM_FAMILY, false);
         String familyName = getIntent().getStringExtra(Constants.INTENT_KEY.FAMILY_NAME);
         if (familyName == null) {
             familyName = "";
@@ -129,7 +128,7 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
         intent.putExtra(Constants.INTENT_KEY.PRIMARY_CAREGIVER, ((CoreChildProfilePresenter) presenter()).getPrimaryCareGiverID());
         intent.putExtra(Constants.INTENT_KEY.FAMILY_NAME, ((CoreChildProfilePresenter) presenter()).getFamilyName());
 
-        intent.putExtra(com.opensrp.chw.core.utils.Constants.INTENT_KEY.SERVICE_DUE, true);
+        intent.putExtra(CoreConstants.INTENT_KEY.SERVICE_DUE, true);
         startActivity(intent);
     }
 

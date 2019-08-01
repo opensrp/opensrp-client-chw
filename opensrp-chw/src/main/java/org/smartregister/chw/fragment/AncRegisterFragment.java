@@ -10,7 +10,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.opensrp.chw.core.custom_views.NavigationMenu;
-import com.opensrp.chw.core.utils.Constants;
 import com.opensrp.chw.core.utils.QueryBuilder;
 
 import org.apache.commons.lang3.StringUtils;
@@ -24,6 +23,7 @@ import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.model.AncRegisterFragmentModel;
 import org.smartregister.chw.presenter.AncRegisterFragmentPresenter;
 import org.smartregister.chw.provider.ChwAncRegisterProvider;
+import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;

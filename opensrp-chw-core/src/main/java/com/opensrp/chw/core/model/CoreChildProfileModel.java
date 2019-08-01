@@ -1,7 +1,8 @@
 package com.opensrp.chw.core.model;
 
 import com.opensrp.chw.core.contract.CoreChildProfileContract;
-import com.opensrp.chw.core.utils.Constants;
+
+import com.opensrp.chw.core.utils.CoreConstants;
 import com.opensrp.chw.core.utils.CoreJsonFormUtils;
 
 import org.json.JSONObject;
@@ -25,7 +26,7 @@ public class CoreChildProfileModel implements CoreChildProfileContract.Model {
             return null;
         }
         form = CoreJsonFormUtils.getFormAsJson(form, formName, entityId, currentLocationId, familyID);
-        if (formName.equals(Constants.JSON_FORM.getChildRegister())) {
+        if (formName.equals(CoreConstants.JSON_FORM.getChildRegister())) {
             CoreJsonFormUtils.updateJsonForm(form, familyName);
         }
 

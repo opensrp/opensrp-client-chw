@@ -1,6 +1,6 @@
 package org.smartregister.chw.listener;
 
-import org.smartregister.chw.util.ImmunizationState;
+import com.opensrp.chw.core.enums.ImmunizationState;
 
 import java.util.Date;
 import java.util.Map;

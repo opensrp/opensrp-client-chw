@@ -12,7 +12,8 @@ import android.widget.LinearLayout;
 import com.opensrp.chw.core.R;
 import com.opensrp.chw.core.model.ChildVisit;
 import com.opensrp.chw.core.utils.ChildDBConstants;
-import com.opensrp.chw.core.utils.Constants;
+import com.opensrp.chw.core.utils.CoreConstants;
+
 
 import org.jeasy.rules.api.Rules;
 import org.smartregister.commonregistry.CommonRepository;
@@ -126,7 +127,7 @@ public abstract class CoreRegisterProvider extends FamilyRegisterProvider {
 
     protected List<Map<String, String>> getChildren(String familyEntityId) {
         SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
-        queryBUilder.SelectInitiateMainTable(Constants.TABLE_NAME.CHILD, new String[]{DBConstants.KEY.BASE_ENTITY_ID, DBConstants.KEY.GENDER, ChildDBConstants.KEY.LAST_HOME_VISIT, ChildDBConstants.KEY.VISIT_NOT_DONE, ChildDBConstants.KEY.DATE_CREATED, DBConstants.KEY.DOB});
+        queryBUilder.SelectInitiateMainTable(CoreConstants.TABLE_NAME.CHILD, new String[]{DBConstants.KEY.BASE_ENTITY_ID, DBConstants.KEY.GENDER, ChildDBConstants.KEY.LAST_HOME_VISIT, ChildDBConstants.KEY.VISIT_NOT_DONE, ChildDBConstants.KEY.DATE_CREATED, DBConstants.KEY.DOB});
         queryBUilder.mainCondition(String.format(" %s is null AND %s = '%s' AND %s ",
                 DBConstants.KEY.DATE_REMOVED,
                 DBConstants.KEY.RELATIONAL_ID,
@@ -135,7 +136,7 @@ public abstract class CoreRegisterProvider extends FamilyRegisterProvider {
 
         String query = queryBUilder.orderbyCondition(DBConstants.KEY.DOB + " ASC ");
 
-        CommonRepository commonRepository = Utils.context().commonrepository(Constants.TABLE_NAME.CHILD);
+        CommonRepository commonRepository = Utils.context().commonrepository(CoreConstants.TABLE_NAME.CHILD);
         List<Map<String, String>> res = new ArrayList<>();
 
         Cursor cursor = null;

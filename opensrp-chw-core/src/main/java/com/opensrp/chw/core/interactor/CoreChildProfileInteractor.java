@@ -7,8 +7,9 @@ import android.util.Pair;
 
 import com.opensrp.chw.core.contract.CoreChildProfileContract;
 import com.opensrp.chw.core.utils.ChildDBConstants;
-import com.opensrp.chw.core.utils.Constants;
+
 import com.opensrp.chw.core.utils.CoreChildUtils;
+import com.opensrp.chw.core.utils.CoreConstants;
 import com.opensrp.chw.core.utils.CoreJsonFormUtils;
 import com.opensrp.chw.core.utils.Utils;
 
@@ -149,13 +150,13 @@ public class CoreChildProfileInteractor implements CoreChildProfileContract.Inte
 
     @Override
     public void updateChildCommonPerson(String baseEntityId) {
-        String query = CoreChildUtils.mainSelect(Constants.TABLE_NAME.CHILD, Constants.TABLE_NAME.FAMILY, Constants.TABLE_NAME.FAMILY_MEMBER, baseEntityId);
+        String query = CoreChildUtils.mainSelect(CoreConstants.TABLE_NAME.CHILD, CoreConstants.TABLE_NAME.FAMILY, CoreConstants.TABLE_NAME.FAMILY_MEMBER, baseEntityId);
 
         Cursor cursor = null;
         try {
-            cursor = getCommonRepository(Constants.TABLE_NAME.CHILD).rawCustomQueryForAdapter(query);
+            cursor = getCommonRepository(CoreConstants.TABLE_NAME.CHILD).rawCustomQueryForAdapter(query);
             if (cursor != null && cursor.moveToFirst()) {
-                CommonPersonObject personObject = getCommonRepository(Constants.TABLE_NAME.CHILD).readAllcommonforCursorAdapter(cursor);
+                CommonPersonObject personObject = getCommonRepository(CoreConstants.TABLE_NAME.CHILD).readAllcommonforCursorAdapter(cursor);
                 pClient = new CommonPersonObjectClient(personObject.getCaseId(),
                         personObject.getDetails(), "");
                 pClient.setColumnmaps(personObject.getColumnmaps());
@@ -180,13 +181,13 @@ public class CoreChildProfileInteractor implements CoreChildProfileContract.Inte
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
-                String query = CoreChildUtils.mainSelect(Constants.TABLE_NAME.CHILD, Constants.TABLE_NAME.FAMILY, Constants.TABLE_NAME.FAMILY_MEMBER, baseEntityId);
+                String query = CoreChildUtils.mainSelect(CoreConstants.TABLE_NAME.CHILD, CoreConstants.TABLE_NAME.FAMILY, CoreConstants.TABLE_NAME.FAMILY_MEMBER, baseEntityId);
 
                 Cursor cursor = null;
                 try {
-                    cursor = getCommonRepository(Constants.TABLE_NAME.CHILD).rawCustomQueryForAdapter(query);
+                    cursor = getCommonRepository(CoreConstants.TABLE_NAME.CHILD).rawCustomQueryForAdapter(query);
                     if (cursor != null && cursor.moveToFirst()) {
-                        CommonPersonObject personObject = getCommonRepository(Constants.TABLE_NAME.CHILD).readAllcommonforCursorAdapter(cursor);
+                        CommonPersonObject personObject = getCommonRepository(CoreConstants.TABLE_NAME.CHILD).readAllcommonforCursorAdapter(cursor);
                         pClient = new CommonPersonObjectClient(personObject.getCaseId(),
                                 personObject.getDetails(), "");
                         pClient.setColumnmaps(personObject.getColumnmaps());
@@ -240,7 +241,7 @@ public class CoreChildProfileInteractor implements CoreChildProfileContract.Inte
             lpv.init();
             if (form != null) {
                 form.put(JsonFormUtils.ENTITY_ID, client.getCaseId());
-                form.put(JsonFormUtils.ENCOUNTER_TYPE, Constants.EventType.UPDATE_CHILD_REGISTRATION);
+                form.put(JsonFormUtils.ENCOUNTER_TYPE, CoreConstants.EventType.UPDATE_CHILD_REGISTRATION);
 
                 JSONObject metadata = form.getJSONObject(JsonFormUtils.METADATA);
                 String lastLocationId = LocationHelper.getInstance().getOpenMrsLocationId(lpv.getSelectedItem());
@@ -339,7 +340,7 @@ public class CoreChildProfileInteractor implements CoreChildProfileContract.Inte
 
                 break;
 
-            case Constants.JsonAssets.FAM_NAME:
+            case CoreConstants.JsonAssets.FAM_NAME:
 
                 final String SAME_AS_FAM_NAME = "same_as_fam_name";
                 final String SURNAME = "surname";
@@ -367,32 +368,32 @@ public class CoreChildProfileInteractor implements CoreChildProfileContract.Inte
 
                 break;
 
-            case Constants.JsonAssets.INSURANCE_PROVIDER:
+            case CoreConstants.JsonAssets.INSURANCE_PROVIDER:
                 jsonObject.put(JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.INSURANCE_PROVIDER, false));
                 break;
-            case Constants.JsonAssets.INSURANCE_PROVIDER_NUMBER:
+            case CoreConstants.JsonAssets.INSURANCE_PROVIDER_NUMBER:
                 jsonObject.put(JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.INSURANCE_PROVIDER_NUMBER, false));
                 break;
-            case Constants.JsonAssets.INSURANCE_PROVIDER_OTHER:
+            case CoreConstants.JsonAssets.INSURANCE_PROVIDER_OTHER:
                 jsonObject.put(JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.INSURANCE_PROVIDER_OTHER, false));
                 break;
-            case Constants.JsonAssets.DISABILITIES:
+            case CoreConstants.JsonAssets.DISABILITIES:
                 jsonObject.put(JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.CHILD_PHYSICAL_CHANGE, false));
                 break;
-            case Constants.JsonAssets.DISABILITY_TYPE:
+            case CoreConstants.JsonAssets.DISABILITY_TYPE:
                 jsonObject.put(JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.TYPE_OF_DISABILITY, false));
                 break;
 
-            case Constants.JsonAssets.BIRTH_CERT_AVAILABLE:
+            case CoreConstants.JsonAssets.BIRTH_CERT_AVAILABLE:
                 jsonObject.put(JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.BIRTH_CERT, false));
                 break;
-            case Constants.JsonAssets.BIRTH_REGIST_NUMBER:
+            case CoreConstants.JsonAssets.BIRTH_REGIST_NUMBER:
                 jsonObject.put(JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.BIRTH_CERT_NUMBER, false));
                 break;
-            case Constants.JsonAssets.RHC_CARD:
+            case CoreConstants.JsonAssets.RHC_CARD:
                 jsonObject.put(JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.RHC_CARD, false));
                 break;
-            case Constants.JsonAssets.NUTRITION_STATUS:
+            case CoreConstants.JsonAssets.NUTRITION_STATUS:
                 jsonObject.put(JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.NUTRITION_STATUS, false));
                 break;
 

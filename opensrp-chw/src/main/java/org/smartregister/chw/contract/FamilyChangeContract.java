@@ -3,7 +3,7 @@ package org.smartregister.chw.contract;
 import android.content.Context;
 import android.util.Pair;
 
-import org.smartregister.chw.domain.FamilyMember;
+import com.opensrp.chw.core.domain.FamilyMember;
 
 import java.util.List;
 

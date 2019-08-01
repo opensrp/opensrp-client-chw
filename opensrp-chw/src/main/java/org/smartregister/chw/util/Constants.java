@@ -1,4 +1,6 @@
 package org.smartregister.chw.util;
 
-public class Constants extends com.opensrp.chw.core.utils.Constants {
+import com.opensrp.chw.core.utils.CoreConstants;
+
+public class Constants extends CoreConstants {
 }

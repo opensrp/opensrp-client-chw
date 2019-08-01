@@ -1,6 +1,6 @@
 package org.smartregister.chw.util;
 
-import com.opensrp.chw.core.utils.Constants;
+import com.opensrp.chw.core.helper.ContactRule;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;
@@ -11,7 +11,6 @@ import org.joda.time.format.DateTimeFormat;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.model.VaccineTaskModel;
-import org.smartregister.chw.rule.ContactRule;
 import org.smartregister.domain.Alert;
 import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.immunization.domain.Vaccine;

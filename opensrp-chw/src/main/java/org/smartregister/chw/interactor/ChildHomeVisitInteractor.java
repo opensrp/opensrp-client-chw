@@ -5,13 +5,13 @@ import android.support.annotation.VisibleForTesting;
 import android.text.TextUtils;
 import android.util.Pair;
 
+import com.opensrp.chw.core.domain.HomeVisit;
 import com.opensrp.chw.core.utils.ChildDBConstants;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.contract.ChildHomeVisitContract;
-import org.smartregister.chw.domain.HomeVisit;
 import org.smartregister.chw.repository.ChwRepository;
 import org.smartregister.chw.util.BirthCertDataModel;
 import org.smartregister.chw.util.BirthIllnessFormModel;

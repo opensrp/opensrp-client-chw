@@ -4,11 +4,11 @@ import android.support.annotation.VisibleForTesting;
 import android.text.TextUtils;
 
 import com.google.gson.reflect.TypeToken;
+import com.opensrp.chw.core.domain.HomeVisit;
 import com.opensrp.chw.core.utils.ChildDBConstants;
 
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.contract.HomeVisitGrowthNutritionContract;
-import org.smartregister.chw.domain.HomeVisit;
 import org.smartregister.chw.fragment.GrowthNutritionInputFragment;
 import org.smartregister.chw.listener.UpdateServiceListener;
 import org.smartregister.chw.model.ServiceTaskModel;

@@ -153,9 +153,9 @@ public class CoreJsonFormUtils extends org.smartregister.family.util.JsonFormUti
         lastInteractedWith(fields);
         //Client baseClient = org.smartregister.util.JsonFormUtils.createBaseClient(fields, formTag(org.smartregister.family.util.Utils.context().allSharedPreferences()), entityId);
         Event baseEvent = org.smartregister.util.JsonFormUtils.createEvent(fields, getJSONObject(jsonForm, METADATA), formTag(org.smartregister.family.util.Utils.context().allSharedPreferences()),
-                entityId, getString(jsonForm, ENCOUNTER_TYPE), com.opensrp.chw.core.utils.Constants.TABLE_NAME.CHILD);
-        baseEvent.addObs((new Obs()).withFormSubmissionField(com.opensrp.chw.core.utils.Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_ID).withValue(homeVisitId)
-                .withFieldCode(com.opensrp.chw.core.utils.Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_ID).withFieldType("formsubmissionField").withFieldDataType("text").withParentCode("").withHumanReadableValues(new ArrayList<>()));
+                entityId, getString(jsonForm, ENCOUNTER_TYPE), CoreConstants.TABLE_NAME.CHILD);
+        baseEvent.addObs((new Obs()).withFormSubmissionField(CoreConstants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_ID).withValue(homeVisitId)
+                .withFieldCode(CoreConstants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_ID).withFieldType("formsubmissionField").withFieldDataType("text").withParentCode("").withHumanReadableValues(new ArrayList<>()));
 
         tagSyncMetadata(org.smartregister.family.util.Utils.context().allSharedPreferences(), baseEvent);// tag docs
         return baseEvent;
@@ -185,10 +185,10 @@ public class CoreJsonFormUtils extends org.smartregister.family.util.JsonFormUti
             }
 
             Client baseClient = org.smartregister.util.JsonFormUtils.createBaseClient(fields, formTag(allSharedPreferences), entityId);
-            Event baseEvent = org.smartregister.util.JsonFormUtils.createEvent(fields, getJSONObject(jsonForm, METADATA), formTag(allSharedPreferences), entityId, getString(jsonForm, ENCOUNTER_TYPE), com.opensrp.chw.core.utils.Constants.TABLE_NAME.CHILD);
+            Event baseEvent = org.smartregister.util.JsonFormUtils.createEvent(fields, getJSONObject(jsonForm, METADATA), formTag(allSharedPreferences), entityId, getString(jsonForm, ENCOUNTER_TYPE), CoreConstants.TABLE_NAME.CHILD);
             String illness_acton = org.smartregister.family.util.JsonFormUtils.getFieldValue(jsonString, "action_taken");
             if (!TextUtils.isEmpty(illness_acton)) {
-                baseEvent.addObs(new Obs("concept", "text", com.opensrp.chw.core.utils.Constants.FORM_CONSTANTS.ILLNESS_ACTION_TAKEN_LEVEL.CODE, "",
+                baseEvent.addObs(new Obs("concept", "text", CoreConstants.FORM_CONSTANTS.ILLNESS_ACTION_TAKEN_LEVEL.CODE, "",
                         toList(actionMap().get(illness_acton)), toList(illness_acton), null, "action_taken"));
 
             }
@@ -250,7 +250,7 @@ public class CoreJsonFormUtils extends org.smartregister.family.util.JsonFormUti
         String entityId = id;
         form.getJSONObject(METADATA).put(ENCOUNTER_LOCATION, currentLocationId);
 
-        if (Utils.metadata().familyRegister.formName.equals(formName) || Utils.metadata().familyMemberRegister.formName.equals(formName) || formName.equalsIgnoreCase(com.opensrp.chw.core.utils.Constants.JSON_FORM.getChildRegister())) {
+        if (Utils.metadata().familyRegister.formName.equals(formName) || Utils.metadata().familyMemberRegister.formName.equals(formName) || formName.equalsIgnoreCase(CoreConstants.JSON_FORM.getChildRegister())) {
             if (StringUtils.isNotBlank(entityId)) {
                 entityId = entityId.replace("-", "");
             }
@@ -258,15 +258,15 @@ public class CoreJsonFormUtils extends org.smartregister.family.util.JsonFormUti
             // Inject opensrp id into the form
             JSONArray field = fields(form);
             JSONObject uniqueId = getFieldJSONObject(field, DBConstants.KEY.UNIQUE_ID);
-//            JSONObject insurance_provider = getFieldJSONObject(field, com.opensrp.chw.core.utils.Constants.JsonAssets.INSURANCE_PROVIDER);
+//            JSONObject insurance_provider = getFieldJSONObject(field, CoreConstants.JsonAssets.INSURANCE_PROVIDER);
             if (uniqueId != null) {
                 uniqueId.remove(org.smartregister.family.util.JsonFormUtils.VALUE);
                 uniqueId.put(org.smartregister.family.util.JsonFormUtils.VALUE, entityId);
             }
 
 //            if (insurance_provider != null) {
-//                insurance_provider.remove(com.opensrp.chw.core.utils.Constants.JsonAssets.INSURANCE_PROVIDER);
-//                insurance_provider.put(com.opensrp.chw.core.utils.Constants.JsonAssets.INSURANCE_PROVIDER, insurance_provider);
+//                insurance_provider.remove(CoreConstants.JsonAssets.INSURANCE_PROVIDER);
+//                insurance_provider.put(CoreConstants.JsonAssets.INSURANCE_PROVIDER, insurance_provider);
 //            }
 
             if (!isBlank(familyID)) {
@@ -651,12 +651,12 @@ public class CoreJsonFormUtils extends org.smartregister.family.util.JsonFormUti
                 //JSONObject obj = registrationFormParams.getRight().getJSONObject(x);
                 String myKey = registrationFormParams.getRight().getJSONObject(x).getString(KEY);
 
-                if (myKey.equalsIgnoreCase(com.opensrp.chw.core.utils.Constants.FORM_CONSTANTS.REMOVE_MEMBER_FORM.DATE_MOVED) ||
-                        myKey.equalsIgnoreCase(com.opensrp.chw.core.utils.Constants.FORM_CONSTANTS.REMOVE_MEMBER_FORM.REASON)
+                if (myKey.equalsIgnoreCase(CoreConstants.FORM_CONSTANTS.REMOVE_MEMBER_FORM.DATE_MOVED) ||
+                        myKey.equalsIgnoreCase(CoreConstants.FORM_CONSTANTS.REMOVE_MEMBER_FORM.REASON)
                 ) {
                     fields.put(registrationFormParams.getRight().get(x));
                 }
-                if (myKey.equalsIgnoreCase(com.opensrp.chw.core.utils.Constants.FORM_CONSTANTS.REMOVE_MEMBER_FORM.DATE_DIED)) {
+                if (myKey.equalsIgnoreCase(CoreConstants.FORM_CONSTANTS.REMOVE_MEMBER_FORM.DATE_DIED)) {
                     fields.put(registrationFormParams.getRight().get(x));
                     try {
                         dod = dd_MM_yyyy.parse(registrationFormParams.getRight().getJSONObject(x).getString(VALUE));
@@ -672,15 +672,15 @@ public class CoreJsonFormUtils extends org.smartregister.family.util.JsonFormUti
             String eventType;
             String tableName;
 
-            if (encounterType.equalsIgnoreCase(com.opensrp.chw.core.utils.Constants.EventType.REMOVE_CHILD)) {
-                eventType = com.opensrp.chw.core.utils.Constants.EventType.REMOVE_CHILD;
-                tableName = com.opensrp.chw.core.utils.Constants.TABLE_NAME.CHILD;
-            } else if (encounterType.equalsIgnoreCase(com.opensrp.chw.core.utils.Constants.EventType.REMOVE_FAMILY)) {
-                eventType = com.opensrp.chw.core.utils.Constants.EventType.REMOVE_FAMILY;
-                tableName = com.opensrp.chw.core.utils.Constants.TABLE_NAME.FAMILY;
+            if (encounterType.equalsIgnoreCase(CoreConstants.EventType.REMOVE_CHILD)) {
+                eventType = CoreConstants.EventType.REMOVE_CHILD;
+                tableName = CoreConstants.TABLE_NAME.CHILD;
+            } else if (encounterType.equalsIgnoreCase(CoreConstants.EventType.REMOVE_FAMILY)) {
+                eventType = CoreConstants.EventType.REMOVE_FAMILY;
+                tableName = CoreConstants.TABLE_NAME.FAMILY;
             } else {
-                eventType = com.opensrp.chw.core.utils.Constants.EventType.REMOVE_MEMBER;
-                tableName = com.opensrp.chw.core.utils.Constants.TABLE_NAME.FAMILY_MEMBER;
+                eventType = CoreConstants.EventType.REMOVE_MEMBER;
+                tableName = CoreConstants.TABLE_NAME.FAMILY_MEMBER;
             }
 
             Event eventMember = CoreJsonFormUtils.createEvent(fields, metadata, formTag(allSharedPreferences), memberID,

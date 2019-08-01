@@ -2,6 +2,8 @@ package org.smartregister.chw.interactor;
 
 import android.content.Context;
 
+import com.opensrp.chw.core.domain.Person;
+
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -18,7 +20,6 @@ import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
 import org.smartregister.chw.anc.util.JsonFormUtils;
 import org.smartregister.chw.anc.util.VisitUtils;
 import org.smartregister.chw.dao.PersonDao;
-import org.smartregister.chw.domain.Person;
 import org.smartregister.chw.util.Constants;
 
 import java.text.MessageFormat;

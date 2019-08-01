@@ -4,6 +4,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.util.Pair;
 
+import com.opensrp.chw.core.domain.FamilyMember;
+import com.opensrp.chw.core.utils.CoreConstants;
 import com.opensrp.chw.core.utils.CoreJsonFormUtils;
 
 import net.sqlcipher.database.SQLiteDatabase;
@@ -15,7 +17,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.AllConstants;
 import org.smartregister.chw.application.ChwApplication;
-import org.smartregister.chw.domain.FamilyMember;
 import org.smartregister.chw.repository.ChwRepository;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
@@ -80,7 +81,7 @@ public class JsonFormUtils extends CoreJsonFormUtils {
 
             Client baseClient = org.smartregister.util.JsonFormUtils.createBaseClient(fields, formTag(allSharedPreferences), entityId);
 
-            Event baseEvent = org.smartregister.util.JsonFormUtils.createEvent(fields, getJSONObject(jsonForm, METADATA), formTag(allSharedPreferences), entityId, getString(jsonForm, ENCOUNTER_TYPE), com.opensrp.chw.core.utils.Constants.TABLE_NAME.CHILD);
+            Event baseEvent = org.smartregister.util.JsonFormUtils.createEvent(fields, getJSONObject(jsonForm, METADATA), formTag(allSharedPreferences), entityId, getString(jsonForm, ENCOUNTER_TYPE), CoreConstants.TABLE_NAME.CHILD);
             tagSyncMetadata(allSharedPreferences, baseEvent);
 
             if (baseClient != null || baseEvent != null) {
@@ -182,12 +183,12 @@ public class JsonFormUtils extends CoreJsonFormUtils {
 
         member.setFamilyID(familyBaseEntityId);
         member.setMemberID(entityID);
-        member.setPhone(getJsonFieldValue(fields, com.opensrp.chw.core.utils.Constants.JsonAssets.FAMILY_MEMBER.PHONE_NUMBER));
-        member.setOtherPhone(getJsonFieldValue(fields, com.opensrp.chw.core.utils.Constants.JsonAssets.FAMILY_MEMBER.OTHER_PHONE_NUMBER));
-        member.setEduLevel(getJsonFieldValue(fields, com.opensrp.chw.core.utils.Constants.JsonAssets.FAMILY_MEMBER.HIGHEST_EDUCATION_LEVEL));
+        member.setPhone(getJsonFieldValue(fields, CoreConstants.JsonAssets.FAMILY_MEMBER.PHONE_NUMBER));
+        member.setOtherPhone(getJsonFieldValue(fields, CoreConstants.JsonAssets.FAMILY_MEMBER.OTHER_PHONE_NUMBER));
+        member.setEduLevel(getJsonFieldValue(fields, CoreConstants.JsonAssets.FAMILY_MEMBER.HIGHEST_EDUCATION_LEVEL));
         member.setPrimaryCareGiver(
-                getJsonFieldValue(fields, com.opensrp.chw.core.utils.Constants.JsonAssets.PRIMARY_CARE_GIVER).equalsIgnoreCase("Yes") ||
-                        getJsonFieldValue(fields, com.opensrp.chw.core.utils.Constants.JsonAssets.IS_PRIMARY_CARE_GIVER).equalsIgnoreCase("Yes")
+                getJsonFieldValue(fields, CoreConstants.JsonAssets.PRIMARY_CARE_GIVER).equalsIgnoreCase("Yes") ||
+                        getJsonFieldValue(fields, CoreConstants.JsonAssets.IS_PRIMARY_CARE_GIVER).equalsIgnoreCase("Yes")
         );
         member.setFamilyHead(false);
 
@@ -216,12 +217,12 @@ public class JsonFormUtils extends CoreJsonFormUtils {
         Map<String, List<String>> relationships = familyClient.getRelationships();
 
         if (familyMember.getPrimaryCareGiver()) {
-            relationships.put(com.opensrp.chw.core.utils.Constants.RELATIONSHIP.PRIMARY_CAREGIVER, toStringList(familyMember.getMemberID()));
+            relationships.put(CoreConstants.RELATIONSHIP.PRIMARY_CAREGIVER, toStringList(familyMember.getMemberID()));
             familyClient.setRelationships(relationships);
         }
 
         if (familyMember.getFamilyHead()) {
-            relationships.put(com.opensrp.chw.core.utils.Constants.RELATIONSHIP.FAMILY_HEAD, toStringList(familyMember.getMemberID()));
+            relationships.put(CoreConstants.RELATIONSHIP.FAMILY_HEAD, toStringList(familyMember.getMemberID()));
             familyClient.setRelationships(relationships);
         }
 
@@ -240,22 +241,22 @@ public class JsonFormUtils extends CoreJsonFormUtils {
         formTag.databaseVersion = FamilyLibrary.getInstance().getDatabaseVersion();
 
         Event eventFamily = JsonFormUtils.createEvent(new JSONArray(), metadata, formTag, familyMember.getFamilyID(),
-                com.opensrp.chw.core.utils.Constants.EventType.UPDATE_FAMILY_RELATIONS,
+                CoreConstants.EventType.UPDATE_FAMILY_RELATIONS,
                 Utils.metadata().familyRegister.tableName);
         JsonFormUtils.tagSyncMetadata(Utils.context().allSharedPreferences(), eventFamily);
 
 
-        Event eventMember = JsonFormUtils.createEvent(new JSONArray(), metadata, formTag, familyMember.getMemberID(), com.opensrp.chw.core.utils.Constants.EventType.UPDATE_FAMILY_MEMBER_RELATIONS,
+        Event eventMember = JsonFormUtils.createEvent(new JSONArray(), metadata, formTag, familyMember.getMemberID(), CoreConstants.EventType.UPDATE_FAMILY_MEMBER_RELATIONS,
                 Utils.metadata().familyMemberRegister.tableName);
         JsonFormUtils.tagSyncMetadata(Utils.context().allSharedPreferences(), eventMember);
 
-        eventMember.addObs(new Obs("concept", "text", com.opensrp.chw.core.utils.Constants.FORM_CONSTANTS.CHANGE_CARE_GIVER.PHONE_NUMBER.CODE, "",
+        eventMember.addObs(new Obs("concept", "text", CoreConstants.FORM_CONSTANTS.CHANGE_CARE_GIVER.PHONE_NUMBER.CODE, "",
                 toList(familyMember.getPhone()), new ArrayList<>(), null, DBConstants.KEY.PHONE_NUMBER));
 
-        eventMember.addObs(new Obs("concept", "text", com.opensrp.chw.core.utils.Constants.FORM_CONSTANTS.CHANGE_CARE_GIVER.OTHER_PHONE_NUMBER.CODE, com.opensrp.chw.core.utils.Constants.FORM_CONSTANTS.CHANGE_CARE_GIVER.OTHER_PHONE_NUMBER.PARENT_CODE,
+        eventMember.addObs(new Obs("concept", "text", CoreConstants.FORM_CONSTANTS.CHANGE_CARE_GIVER.OTHER_PHONE_NUMBER.CODE, CoreConstants.FORM_CONSTANTS.CHANGE_CARE_GIVER.OTHER_PHONE_NUMBER.PARENT_CODE,
                 toList(familyMember.getOtherPhone()), new ArrayList<>(), null, DBConstants.KEY.OTHER_PHONE_NUMBER));
 
-        eventMember.addObs(new Obs("concept", "text", com.opensrp.chw.core.utils.Constants.FORM_CONSTANTS.CHANGE_CARE_GIVER.HIGHEST_EDU_LEVEL.CODE, "",
+        eventMember.addObs(new Obs("concept", "text", CoreConstants.FORM_CONSTANTS.CHANGE_CARE_GIVER.HIGHEST_EDU_LEVEL.CODE, "",
                 toList(getEducationLevels(context).get(familyMember.getEduLevel())), toList(familyMember.getEduLevel()), null, DBConstants.KEY.HIGHEST_EDU_LEVEL));
 
 
@@ -270,7 +271,7 @@ public class JsonFormUtils extends CoreJsonFormUtils {
         Event ecEvent = null;
 
         String query_event = String.format("select json from event where baseEntityId = '%s' and eventType in ('%s','%s') order by updatedAt desc limit 1;",
-                baseEntityID, com.opensrp.chw.core.utils.Constants.EventType.UPDATE_ANC_REGISTRATION, com.opensrp.chw.core.utils.Constants.EventType.ANC_REGISTRATION);
+                baseEntityID, CoreConstants.EventType.UPDATE_ANC_REGISTRATION, CoreConstants.EventType.ANC_REGISTRATION);
 
         Cursor cursor = ChwApplication.getInstance().getRepository().getReadableDatabase().rawQuery(query_event, new String[]{});
         try {

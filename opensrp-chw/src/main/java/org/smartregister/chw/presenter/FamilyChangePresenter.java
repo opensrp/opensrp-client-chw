@@ -3,8 +3,9 @@ package org.smartregister.chw.presenter;
 import android.content.Context;
 import android.util.Pair;
 
+import com.opensrp.chw.core.domain.FamilyMember;
+
 import org.smartregister.chw.contract.FamilyChangeContract;
-import org.smartregister.chw.domain.FamilyMember;
 import org.smartregister.chw.interactor.FamilyChangeContractInteractor;
 import org.smartregister.chw.model.FamilyChangeContractModel;
 import org.smartregister.location.helper.LocationHelper;

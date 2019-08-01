@@ -1,59 +1,39 @@
 package org.smartregister.chw.util;
 
-import android.content.ContentValues;
 import android.content.Context;
-import android.database.Cursor;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParseException;
-import com.google.gson.JsonPrimitive;
-import com.google.gson.JsonSerializationContext;
-import com.google.gson.JsonSerializer;
 import com.google.gson.reflect.TypeToken;
+import com.opensrp.chw.core.enums.ImmunizationState;
 import com.opensrp.chw.core.model.ChildVisit;
+import com.opensrp.chw.core.repository.HomeVisitServiceRepository;
+import com.opensrp.chw.core.rule.HomeAlertRule;
 import com.opensrp.chw.core.utils.ChildDBConstants;
-import com.opensrp.chw.core.utils.Constants;
 import com.opensrp.chw.core.utils.CoreChildUtils;
 
 import org.apache.commons.lang3.StringUtils;
 import org.jeasy.rules.api.Rules;
-import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.joda.time.LocalDate;
-import org.joda.time.format.ISODateTimeFormat;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
-import org.smartregister.chw.domain.HomeVisit;
-import org.smartregister.chw.repository.HomeVisitRepository;
-import org.smartregister.chw.repository.HomeVisitServiceRepository;
-import org.smartregister.chw.rule.HomeAlertRule;
 import org.smartregister.chw.rule.ImmunizationExpiredRule;
 import org.smartregister.chw.rule.ServiceRule;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.clientandeventmodel.Obs;
-import org.smartregister.commonregistry.AllCommonsRepository;
-import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.family.FamilyLibrary;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.sync.helper.ECSyncHelper;
 import org.smartregister.util.DateUtil;
 
-import java.lang.reflect.Type;
-import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -69,29 +49,11 @@ public class ChildUtils extends CoreChildUtils {
 
     private static final String[] firstSecondNumber = {"Zero", "1st", "2nd", "3rd", "4th", "5th", "6th", "7th", "8th", "9th"};
 
-    public static Gson gsonConverter;
+
 
     private static Flavor childUtilsFlv = new ChildUtilsFlv();
 
-    static {
-        gsonConverter = new GsonBuilder()
-                .setPrettyPrinting()
-                .serializeNulls()
-                .registerTypeAdapter(DateTime.class, new JsonSerializer<DateTime>() {
-                    @Override
-                    public JsonElement serialize(DateTime json, Type typeOfSrc, JsonSerializationContext context) {
-                        return new JsonPrimitive(ISODateTimeFormat.dateTime().print(json));
-                    }
 
-                })
-                .registerTypeAdapter(DateTime.class, new JsonDeserializer<DateTime>() {
-                    @Override
-                    public DateTime deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-                        return new DateTime(json.getAsJsonPrimitive().getAsString());
-                    }
-                })
-                .create();
-    }
 
     public static String getImmunizationExpired(String dateOfBirth, String vaccineName) {
         //String dob = org.smartregister.family.util.Utils.getValue(childClient.getColumnmaps(), DBConstants.KEY.DOB, false);
@@ -157,56 +119,7 @@ public class ChildUtils extends CoreChildUtils {
     }
 
 
-    public static String getChildListByFamilyId(String tableName, String familyId) {
-        SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
-        queryBUilder.SelectInitiateMainTable(tableName, new String[]{DBConstants.KEY.BASE_ENTITY_ID});
-        return queryBUilder.mainCondition(MessageFormat.format("{0}.{1} = ''{2}''", tableName, DBConstants.KEY.RELATIONAL_ID, familyId));
-    }
 
-    public static ChildHomeVisit getLastHomeVisit(String tableName, String childId) {
-        SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
-        queryBUilder.SelectInitiateMainTable(tableName, new String[]{ChildDBConstants.KEY.LAST_HOME_VISIT, ChildDBConstants.KEY.VISIT_NOT_DONE, ChildDBConstants.KEY.DATE_CREATED});
-        String query = queryBUilder.mainCondition(tableName + "." + DBConstants.KEY.BASE_ENTITY_ID + " = '" + childId + "'");
-
-        ChildHomeVisit childHomeVisit = new ChildHomeVisit();
-        Cursor cursor = null;
-        try {
-            cursor = Utils.context().commonrepository(Constants.TABLE_NAME.CHILD).queryTable(query);
-            if (cursor != null && cursor.moveToFirst()) {
-                String lastVisitStr = cursor.getString(cursor.getColumnIndex(ChildDBConstants.KEY.LAST_HOME_VISIT));
-                if (!TextUtils.isEmpty(lastVisitStr)) {
-                    try {
-                        childHomeVisit.setLastHomeVisitDate(Long.parseLong(lastVisitStr));
-                    } catch (Exception e) {
-
-                    }
-                }
-                String visitNotDoneStr = cursor.getString(cursor.getColumnIndex(ChildDBConstants.KEY.VISIT_NOT_DONE));
-                if (!TextUtils.isEmpty(visitNotDoneStr)) {
-                    try {
-                        childHomeVisit.setVisitNotDoneDate(Long.parseLong(visitNotDoneStr));
-                    } catch (Exception e) {
-                        Timber.e(e.toString());
-                    }
-                }
-                String strDateCreated = cursor.getString(cursor.getColumnIndex(ChildDBConstants.KEY.DATE_CREATED));
-                if (!TextUtils.isEmpty(strDateCreated)) {
-                    try {
-                        childHomeVisit.setDateCreated(org.smartregister.family.util.Utils.dobStringToDateTime(strDateCreated).getMillis());
-                    } catch (Exception e) {
-                        Timber.e(e.toString());
-                    }
-                }
-            }
-        } catch (Exception ex) {
-            Timber.e(ex.toString());
-        } finally {
-            if (cursor != null)
-                cursor.close();
-        }
-
-        return childHomeVisit;
-    }
 
     public static String[] mainColumns(String tableName, String familyTable, String familyMemberTable) {
         ArrayList<String> columnList = new ArrayList<>();
@@ -279,15 +192,6 @@ public class ChildUtils extends CoreChildUtils {
         return getChildVisitStatus(homeAlertRule, lastVisitDate);
     }
 
-    public static ChildVisit getChildVisitStatus(HomeAlertRule homeAlertRule, long lastVisitDate) {
-        ChildVisit childVisit = new ChildVisit();
-        childVisit.setVisitStatus(homeAlertRule.buttonStatus);
-        childVisit.setNoOfMonthDue(homeAlertRule.noOfMonthDue);
-        childVisit.setLastVisitDays(homeAlertRule.noOfDayDue);
-        childVisit.setLastVisitMonthName(homeAlertRule.visitMonthName);
-        childVisit.setLastVisitTime(lastVisitDate);
-        return childVisit;
-    }
 
     //event type="Child Home Visit"/Visit not done
 
@@ -474,71 +378,6 @@ public class ChildUtils extends CoreChildUtils {
     }
 
 
-    public static void addToHomeVisitTable(String baseEntityID, String formSubmissionId, List<org.smartregister.domain.db.Obs> observations) {
-        HomeVisit newHomeVisit = new HomeVisit(null, baseEntityID, HomeVisitRepository.EVENT_TYPE, new Date(), "", "", "", 0l, "", "", new Date());
-        try {
-            for (org.smartregister.domain.db.Obs obs : observations) {
-                if (obs.getFormSubmissionField().equalsIgnoreCase(Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_SINGLE_VACCINE)) {
-                    newHomeVisit.setSingleVaccinesGiven(new JSONObject((String) obs.getValue()));
-                }
-                if (obs.getFormSubmissionField().equalsIgnoreCase(Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_GROUP_VACCINE)) {
-                    newHomeVisit.setVaccineGroupsGiven(new JSONObject((String) obs.getValue()));
-                }
-                if (obs.getFormSubmissionField().equalsIgnoreCase(Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_VACCINE_NOT_GIVEN)) {
-                    newHomeVisit.setVaccineNotGiven(new JSONObject((String) obs.getValue()));
-                }
-                if (obs.getFormSubmissionField().equalsIgnoreCase(Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_SERVICE)) {
-                    newHomeVisit.setServicesGiven(new JSONObject((String) obs.getValue()));
-                }
-                if (obs.getFormSubmissionField().equalsIgnoreCase(Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_SERVICE_NOT_GIVEN)) {
-                    newHomeVisit.setServiceNotGiven(new JSONObject((String) obs.getValue()));
-                }
-                if (obs.getFormSubmissionField().equalsIgnoreCase(Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_BIRTH_CERT)) {
-                    try {
-                        newHomeVisit.setBirthCertificationState(new JSONObject((String) obs.getValue()));
-                    } catch (Exception e) {
-                        // e.printStackTrace();
-                        //previous support
-                        newHomeVisit.setBirthCertificationState(new JSONObject());
-                    }
-                }
-                if (obs.getFormSubmissionField().equalsIgnoreCase(Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_ILLNESS)) {
-                    newHomeVisit.setIllness_information(new JSONObject((String) obs.getValue()));
-                }
-                if (obs.getFormSubmissionField().equalsIgnoreCase(Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.LAST_HOME_VISIT)) {
-                    try {
-                        newHomeVisit.setDate(new Date(Long.parseLong((String) obs.getValue())));
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        newHomeVisit.setDate(new Date());
-                    }
-
-                }
-                if (obs.getFormSubmissionField().equalsIgnoreCase(Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_ID)) {
-                    newHomeVisit.setHomeVisitId((String) obs.getValue());
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        newHomeVisit.setFormSubmissionId(formSubmissionId);
-        newHomeVisit.setFormfields(new HashMap<String, String>());
-        ChwApplication.homeVisitRepository().add(newHomeVisit);
-    }
-
-    public static void addToHomeVisitService(String eventType, List<org.smartregister.domain.db.Obs> observations, Date evenDate, String details) {
-        HomeVisitServiceDataModel homeVisitServiceDataModel = new HomeVisitServiceDataModel();
-        for (org.smartregister.domain.db.Obs obs : observations) {
-            if (obs.getFormSubmissionField().equalsIgnoreCase(Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_ID)) {
-                homeVisitServiceDataModel.setHomeVisitId((String) obs.getValue());
-            }
-        }
-        homeVisitServiceDataModel.setEventType(eventType);
-        homeVisitServiceDataModel.setHomeVisitDate(evenDate);
-        homeVisitServiceDataModel.setHomeVisitDetails(details);
-        ChwApplication.getHomeVisitServiceRepository().add(homeVisitServiceDataModel);
-    }
-
     public static ServiceTask createServiceTaskFromEvent(String taskType, String details, String title, String formSubmissionId) {
         ServiceTask serviceTask = new ServiceTask();
         org.smartregister.domain.db.Event event = ChildUtils.gsonConverter.fromJson(details, new TypeToken<org.smartregister.domain.db.Event>() {
@@ -645,24 +484,7 @@ public class ChildUtils extends CoreChildUtils {
 
     }
 
-    public static void addToChildTable(String baseEntityID, List<org.smartregister.domain.db.Obs> observations) {
-        String value = "";
-        for (org.smartregister.domain.db.Obs obs : observations)
-            if (obs.getFormSubmissionField().equalsIgnoreCase(ChildDBConstants.KEY.VACCINE_CARD)) {
-                List<Object> hu = obs.getHumanReadableValues();
-                for (Object object : hu) {
-                    value = (String) object;
-                }
 
-            }
-        if (!TextUtils.isEmpty(value)) {
-            AllCommonsRepository commonsRepository = ChwApplication.getInstance().getAllCommonsRepository(Constants.TABLE_NAME.CHILD);
-            ContentValues values = new ContentValues();
-            values.put(ChildDBConstants.KEY.VACCINE_CARD, value);
-            commonsRepository.update(Constants.TABLE_NAME.CHILD, values, baseEntityID);
-        }
-
-    }
 
     /**
      * This method return the vaccine name first character as capital for selected vaccines

@@ -1,5 +1,7 @@
 package org.smartregister.chw.util;
 
+import com.opensrp.chw.core.enums.ImmunizationState;
+
 import org.joda.time.DateTime;
 import org.smartregister.immunization.db.VaccineRepo;
 

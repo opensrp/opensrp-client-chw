@@ -5,21 +5,21 @@ import android.support.annotation.VisibleForTesting;
 import android.text.TextUtils;
 
 import com.opensrp.chw.core.contract.CoreChildProfileContract;
+import com.opensrp.chw.core.enums.ImmunizationState;
 import com.opensrp.chw.core.interactor.CoreChildProfileInteractor;
 import com.opensrp.chw.core.model.ChildVisit;
 import com.opensrp.chw.core.utils.ChildDBConstants;
-import com.opensrp.chw.core.utils.Constants;
+import com.opensrp.chw.core.utils.ChildHomeVisit;
 import com.opensrp.chw.core.utils.CoreChildService;
 
 import org.json.JSONObject;
 import org.smartregister.chw.contract.HomeVisitGrowthNutritionContract;
 import org.smartregister.chw.contract.ImmunizationContact;
 import org.smartregister.chw.presenter.ImmunizationViewPresenter;
-import org.smartregister.chw.util.ChildHomeVisit;
 import org.smartregister.chw.util.ChildUtils;
+import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.GrowthServiceData;
 import org.smartregister.chw.util.HomeVisitVaccineGroup;
-import org.smartregister.chw.util.ImmunizationState;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.family.util.AppExecutors;
 import org.smartregister.family.util.DBConstants;
@@ -79,6 +79,7 @@ public class ChildProfileInteractor extends CoreChildProfileInteractor {
         appExecutors.diskIO().execute(runnable);
     }
 
+
     @Override
     public void updateVisitNotDone(final long value, final CoreChildProfileContract.InteractorCallBack callback) {
 
@@ -114,6 +115,12 @@ public class ChildProfileInteractor extends CoreChildProfileInteractor {
     @Override
     public void refreshUpcomingServiceAndFamilyDue(Context context, String familyId, String baseEntityId, final CoreChildProfileContract.InteractorCallBack callback) {
         if (getpClient() == null) return;
+        updateUpcomingServices(callback);
+        updateFamilyDueStatus(context, familyId, baseEntityId, callback);
+
+    }
+
+    private void updateUpcomingServices(final CoreChildProfileContract.InteractorCallBack callback) {
         updateUpcomingServices()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -140,8 +147,11 @@ public class ChildProfileInteractor extends CoreChildProfileInteractor {
                     public void onComplete() {
                     }
                 });
+    }
 
-        FamilyInteractor.updateFamilyDueStatus(context, baseEntityId, familyId)
+    private void updateFamilyDueStatus(Context context, String familyId, String baseEntityId, final CoreChildProfileContract.InteractorCallBack callback) {
+        FamilyInteractor familyInteractor = new FamilyInteractor();
+        familyInteractor.updateFamilyDueStatus(context, baseEntityId, familyId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<String>() {
@@ -165,7 +175,6 @@ public class ChildProfileInteractor extends CoreChildProfileInteractor {
                     public void onComplete() {
                     }
                 });
-
     }
 
     @Override
