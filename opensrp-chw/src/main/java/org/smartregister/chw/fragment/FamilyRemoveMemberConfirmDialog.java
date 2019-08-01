@@ -27,6 +27,10 @@ public class FamilyRemoveMemberConfirmDialog extends DialogFragment implements V
     private Runnable onRemoveActivity;
     private String message;
 
+    public FamilyRemoveMemberConfirmDialog() {
+        // Required empty public constructor
+    }
+
     public static FamilyRemoveMemberConfirmDialog newInstance(String message) {
         FamilyRemoveMemberConfirmDialog dialog = new FamilyRemoveMemberConfirmDialog();
         dialog.message = message;
@@ -39,10 +43,6 @@ public class FamilyRemoveMemberConfirmDialog extends DialogFragment implements V
 
     public void setOnRemoveActivity(Runnable onRemoveActivity) {
         this.onRemoveActivity = onRemoveActivity;
-    }
-
-    public FamilyRemoveMemberConfirmDialog() {
-        // Required empty public constructor
     }
 
     public void setContext(Context context) {

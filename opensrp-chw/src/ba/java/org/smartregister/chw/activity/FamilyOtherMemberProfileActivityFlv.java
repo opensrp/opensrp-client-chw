@@ -51,7 +51,6 @@ public class FamilyOtherMemberProfileActivityFlv implements FamilyOtherMemberPro
         return false;
     }
 
-
     @Override
     public Boolean onCreateOptionsMenu(Menu menu) {
         menu.findItem(R.id.action_malaria_registration).setVisible(true);

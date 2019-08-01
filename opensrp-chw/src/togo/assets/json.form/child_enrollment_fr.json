@@ -117,7 +117,7 @@
         "options": [
           {
             "key": "same_as_fam_name",
-            "text": "Utiliser nom comme nom de famille",
+            "text": "Même nom que ménage",
             "text_size": "18px",
             "value": "false"
           }
@@ -137,7 +137,7 @@
         "openmrs_entity": "person",
         "openmrs_entity_id": "last_name",
         "type": "hidden",
-        "hint": "Nom comme nom de famille",
+        "hint": "Même nom que ménage",
         "calculation": {
           "rules-engine": {
             "ex-rules": {
@@ -213,7 +213,7 @@
         "options": [
           {
             "key": "dob_estimated",
-            "text": "DDN est estimée",
+            "text": "DDN estimée",
             "text_size": "18px",
             "value": "false"
           }
@@ -230,7 +230,7 @@
         "options": [
           {
             "key": "dob_unknown",
-            "text": "DDN inconnu?",
+            "text": "DDN inconnue?",
             "text_size": "18px",
             "value": "false"
           }
@@ -275,8 +275,8 @@
         "type": "spinner",
         "hint": "Sexe",
         "values": [
-          "Mâle",
-          "Femelle"
+          "Masculin",
+          "Feminin"
         ],
         "keys": [
           "Male",
@@ -293,7 +293,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "161543AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "spinner",
-        "hint": "Initiation précoce de l'allaitement au sein exclusif (1hr)?",
+        "hint": "Mise au sein precoce à la naissance (1 hr)?",
         "values": [
           "Oui",
           "Non"
@@ -303,12 +303,12 @@
           "No"
         ],
         "openmrs_choice_ids": {
-          "Oui": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Non": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         "v_required": {
           "value": "vrai",
-          "err": "Veuillez entrer l'initiation précoce de l'allaitement au sein exclusif"
+          "err": "Veuillez entrer nise au sein precoce à la naissance (1 hr)?"
         }
       },
       {
@@ -317,7 +317,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "159522AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "spinner",
-        "hint": "Difficultés physiques?",
+        "hint": "Enfant vivant avec un handicap?",
         "values": [
           "Oui",
           "Non"
@@ -327,8 +327,8 @@
           "No"
         ],
         "openmrs_choice_ids": {
-          "Oui": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Non": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         "v_required": {
           "value": "true",

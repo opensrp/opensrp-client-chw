@@ -49,6 +49,13 @@ public class AncRegisterActivity extends BaseAncRegisterActivity implements ChwB
         activity.startActivity(intent);
     }
 
+    private static String getFormTable() {
+        if (form_name != null && form_name.equals(Constants.JSON_FORM.getAncRegistration())) {
+            return ANC_MEMBER;
+        }
+        return ANC_PREGNANCY_OUTCOME;
+    }
+
     @Override
     public void switchToBaseFragment() {
         Intent intent = new Intent(this, FamilyRegisterActivity.class);
@@ -59,13 +66,6 @@ public class AncRegisterActivity extends BaseAncRegisterActivity implements ChwB
     @Override
     public String getRegistrationForm() {
         return form_name;
-    }
-
-    private static String getFormTable() {
-        if (form_name != null && form_name.equals(Constants.JSON_FORM.getAncRegistration())) {
-            return ANC_MEMBER;
-        }
-        return ANC_PREGNANCY_OUTCOME;
     }
 
     @Override
@@ -116,8 +116,11 @@ public class AncRegisterActivity extends BaseAncRegisterActivity implements ChwB
     @Override
     protected void onResumption() {
         super.onResumption();
-        NavigationMenu.getInstance(this, null, null).getNavigationAdapter()
-                .setSelectedView(Constants.DrawerMenu.ANC);
+        NavigationMenu menu = NavigationMenu.getInstance(this, null, null);
+        if(menu != null){
+            menu.getNavigationAdapter()
+                    .setSelectedView(Constants.DrawerMenu.ANC);
+        }
     }
 
     @Override

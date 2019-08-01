@@ -2,7 +2,6 @@ package org.smartregister.chw.presenter;
 
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
-
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ImageView;

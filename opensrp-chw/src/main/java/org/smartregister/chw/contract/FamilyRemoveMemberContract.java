@@ -25,7 +25,7 @@ public interface FamilyRemoveMemberContract {
 
     }
 
-    interface View extends FamilyProfileMemberContract.View{
+    interface View extends FamilyProfileMemberContract.View {
         void removeMember(CommonPersonObjectClient client);
 
         void displayChangeFamilyHeadDialog(CommonPersonObjectClient client, String familyHeadID);
@@ -58,6 +58,7 @@ public interface FamilyRemoveMemberContract {
         JSONObject prepareJsonForm(CommonPersonObjectClient client, String formType);
 
         String getForm(CommonPersonObjectClient client);
+
         JSONObject prepareFamilyRemovalForm(String familyID, String familyName, String details);
 
     }

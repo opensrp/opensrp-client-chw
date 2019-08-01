@@ -30,7 +30,6 @@ import org.smartregister.chw.presenter.FamilyProfilePresenter;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.family.activity.BaseFamilyProfileActivity;
 import org.smartregister.family.adapter.ViewPagerAdapter;
-import org.smartregister.family.fragment.BaseFamilyProfileActivityFragment;
 import org.smartregister.family.fragment.BaseFamilyProfileDueFragment;
 import org.smartregister.family.fragment.BaseFamilyProfileMemberFragment;
 import org.smartregister.family.util.Constants;
@@ -51,6 +50,8 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity implements 
     private String familyName;
 
     private FamilyFloatingMenu familyFloatingMenu;
+    private BaseFamilyProfileDueFragment profileDueFragment;
+    private FamilyProfileActivityFragment profileActivityFragment;
 
     @Override
     protected void initializePresenter() {
@@ -87,8 +88,8 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity implements 
         adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
         BaseFamilyProfileMemberFragment profileMemberFragment = FamilyProfileMemberFragment.newInstance(this.getIntent().getExtras());
-        BaseFamilyProfileDueFragment profileDueFragment = FamilyProfileDueFragment.newInstance(this.getIntent().getExtras());
-        BaseFamilyProfileActivityFragment profileActivityFragment = FamilyProfileActivityFragment.newInstance(this.getIntent().getExtras());
+        profileDueFragment = FamilyProfileDueFragment.newInstance(this.getIntent().getExtras());
+        profileActivityFragment = (FamilyProfileActivityFragment) FamilyProfileActivityFragment.newInstance(this.getIntent().getExtras());
 
         adapter.addFragment(profileMemberFragment, this.getString(org.smartregister.family.R.string.member).toUpperCase());
         adapter.addFragment(profileDueFragment, this.getString(org.smartregister.family.R.string.due).toUpperCase());
@@ -216,6 +217,7 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity implements 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK) {
+            profileDueFragment.onActivityResult(requestCode, resultCode, data);
             switch (requestCode) {
                 case org.smartregister.family.util.JsonFormUtils.REQUEST_CODE_GET_JSON:
                     try {
@@ -356,6 +358,10 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity implements 
     @Override
     public FamilyProfileExtendedContract.Presenter presenter() {
         return (FamilyProfilePresenter) presenter;
+    }
+
+    public void updateWashCheckActivity() {
+        profileActivityFragment.updateWashCheck();
     }
 
     //    @Override

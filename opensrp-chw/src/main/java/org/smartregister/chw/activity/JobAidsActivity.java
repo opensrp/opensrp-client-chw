@@ -130,13 +130,14 @@ public class JobAidsActivity extends FamilyRegisterActivity {
         // Compute everything afresh. Last processed date is set to null to avoid messing with the processing timeline
         ChwApplication.getInstance().getContext().allSharedPreferences().savePreference(REPORT_LAST_PROCESSED_DATE, null);
         ChwIndicatorGeneratingJob.scheduleJobImmediately(ChwIndicatorGeneratingJob.TAG);
-        Timber.d( "ChwIndicatorGeneratingJob scheduled immediately to compute latest counts...");
+        Timber.d("ChwIndicatorGeneratingJob scheduled immediately to compute latest counts...");
         Toast.makeText(getApplicationContext(), getString(R.string.indicators_udpating), Toast.LENGTH_LONG).show();
     }
 
     /**
      * Handle Indicator Tallying complete event from reporting lib
      * When done tallying counts, update view
+     *
      * @param event The Indicator tally event we're handling
      */
     @Subscribe(threadMode = ThreadMode.MAIN)

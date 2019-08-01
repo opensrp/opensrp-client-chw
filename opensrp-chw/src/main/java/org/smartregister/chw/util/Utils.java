@@ -54,10 +54,9 @@ import static com.google.android.gms.common.internal.Preconditions.checkArgument
 
 public class Utils extends org.smartregister.family.util.Utils {
 
-    private static String TAG = Utils.class.getCanonicalName();
-
     public static final SimpleDateFormat dd_MMM_yyyy = new SimpleDateFormat("dd MMM yyyy");
     public static final SimpleDateFormat yyyy_mm_dd = new SimpleDateFormat("yyyy-mm-dd");
+    private static String TAG = Utils.class.getCanonicalName();
 
     public static String firstCharacterUppercase(String str) {
         if (TextUtils.isEmpty(str)) return "";
@@ -97,7 +96,7 @@ public class Utils extends org.smartregister.family.util.Utils {
             if (((TelephonyManager) activity.getSystemService(Context.TELEPHONY_SERVICE)).getLine1Number()
                     == null) {
 
-                Timber.i( "No dial application so we launch copy to clipboard...");
+                Timber.i("No dial application so we launch copy to clipboard...");
 
                 ClipboardManager clipboard = (ClipboardManager) activity.getSystemService(Context.CLIPBOARD_SERVICE);
                 ClipData clip = ClipData.newPlainText(activity.getText(R.string.copied_phone_number), phoneNumber);
@@ -275,10 +274,14 @@ public class Utils extends org.smartregister.family.util.Utils {
             return "th";
         }
         switch (n % 10) {
-            case 1:  return "st";
-            case 2:  return "nd";
-            case 3:  return "rd";
-            default: return "th";
+            case 1:
+                return "st";
+            case 2:
+                return "nd";
+            case 3:
+                return "rd";
+            default:
+                return "th";
         }
     }
 

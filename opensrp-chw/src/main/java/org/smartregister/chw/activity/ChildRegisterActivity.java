@@ -158,7 +158,10 @@ public class ChildRegisterActivity extends BaseRegisterActivity implements Child
     @Override
     protected void onResumption() {
         super.onResumption();
-        NavigationMenu.getInstance(this, null, null).getNavigationAdapter()
-                .setSelectedView(org.smartregister.chw.util.Constants.DrawerMenu.CHILD_CLIENTS);
+        NavigationMenu menu = NavigationMenu.getInstance(this, null, null);
+        if(menu != null){
+            menu.getNavigationAdapter()
+                    .setSelectedView(org.smartregister.chw.util.Constants.DrawerMenu.CHILD_CLIENTS);
+        }
     }
 }

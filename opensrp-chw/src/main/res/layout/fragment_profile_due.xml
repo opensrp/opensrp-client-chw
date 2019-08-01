@@ -38,12 +38,23 @@
         android:layout_weight="1"
         android:background="@drawable/listview_background_rounded">
 
+        <LinearLayout
+            android:id="@+id/wash_check_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+        </LinearLayout>
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_alignWithParentIfMissing="true"
+            android:layout_below="@+id/wash_check_layout"
             android:scrollbars="vertical"
-            android:visibility="invisible" />
+            android:visibility="visible" />
 
         <ProgressBar
             android:id="@+id/client_list_progress"

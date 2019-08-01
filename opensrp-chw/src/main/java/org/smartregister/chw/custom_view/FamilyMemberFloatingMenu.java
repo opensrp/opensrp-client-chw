@@ -29,10 +29,6 @@ public class FamilyMemberFloatingMenu extends LinearLayout implements View.OnCli
         initUi();
     }
 
-    public View getCallLayout() {
-        return callLayout;
-    }
-
     public FamilyMemberFloatingMenu(Context context, AttributeSet attrs) {
         super(context, attrs);
         initUi();
@@ -41,6 +37,10 @@ public class FamilyMemberFloatingMenu extends LinearLayout implements View.OnCli
     public FamilyMemberFloatingMenu(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         initUi();
+    }
+
+    public View getCallLayout() {
+        return callLayout;
     }
 
     public void reDraw(boolean has_phone) {

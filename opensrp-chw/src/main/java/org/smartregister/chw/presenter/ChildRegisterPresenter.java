@@ -3,7 +3,6 @@ package org.smartregister.chw.presenter;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
-
 import android.util.Pair;
 
 import org.apache.commons.lang3.StringUtils;
@@ -73,14 +72,13 @@ public class ChildRegisterPresenter implements ChildRegisterContract.Presenter, 
             interactor.getNextUniqueId(triple, this, familyId);
             return;
         }
-        if(TextUtils.isEmpty(familyId)){
-            JSONObject form=  new BaseFamilyRegisterModel().getFormAsJson(formName, entityId, currentLocationId);
+        if (TextUtils.isEmpty(familyId)) {
+            JSONObject form = new BaseFamilyRegisterModel().getFormAsJson(formName, entityId, currentLocationId);
             getView().startFormActivity(form);
-        }else{
+        } else {
             JSONObject form = model.getFormAsJson(formName, entityId, currentLocationId, familyId);
             getView().startFormActivity(form);
         }
-
 
 
     }
@@ -110,8 +108,7 @@ public class ChildRegisterPresenter implements ChildRegisterContract.Presenter, 
 
             getView().showProgressDialog(R.string.saving_dialog_title);
             JSONObject form = new JSONObject(jsonString);
-            if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Utils.metadata().familyRegister.registerEventType))
-            {
+            if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Utils.metadata().familyRegister.registerEventType)) {
 
                 List<FamilyEventClient> fevent = new BaseFamilyRegisterModel().processRegistration(jsonString);
                 if (fevent == null) {
@@ -136,7 +133,7 @@ public class ChildRegisterPresenter implements ChildRegisterContract.Presenter, 
                     }
                 });
 
-            }else{
+            } else {
 
                 Pair<Client, Event> pair = model.processRegistration(jsonString);
                 if (pair == null) {

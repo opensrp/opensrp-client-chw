@@ -63,16 +63,16 @@ public class HomeVisitVaccineGroup {
         return group;
     }
 
+    public void setGroup(String group) {
+        this.group = group;
+    }
+
     public int getViewType() {
         return viewType;
     }
 
     public void setViewType(int viewType) {
         this.viewType = viewType;
-    }
-
-    public void setGroup(String group) {
-        this.group = group;
     }
 
     public ImmunizationState getAlert() {

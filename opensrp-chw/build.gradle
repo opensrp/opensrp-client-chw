@@ -309,15 +309,16 @@ dependencies {
     testImplementation "org.powermock:powermock-classloading-xstream:$powerMockVersion"
 }
 
+def flavors = android.productFlavors.collect { flavor -> flavor.name }
+if (!flavors) flavors.add('')
 
-task jacocoTestReport(type: JacocoReport, dependsOn: [
-        'testBaDebugUnitTest', 'createBaDebugCoverageReport',
-        'testWcaroDebugUnitTest', 'createWcaroDebugCoverageReport',
-        /*'testTogoDebugUnitTest', 'createTogoDebugCoverageReport',
-        'testGuineaDebugUnitTest', 'createGuineaDebugCoverageReport',
-        'testChadDebugUnitTest', 'createChadDebugCoverageReport',
-        'testDrcDebugUnitTest', 'createDrcDebugCoverageReport'*/
-]) {
+def testDependencies = []
+flavors.each { productFlavorName ->
+    testDependencies.add("test${productFlavorName.capitalize()}DebugUnitTest")
+    testDependencies.add("create${productFlavorName.capitalize()}DebugCoverageReport")
+}
+
+task jacocoTestReport(type: JacocoReport, dependsOn: testDependencies.take(2)) {
 
     reports {
         xml.enabled = true
@@ -328,13 +329,13 @@ task jacocoTestReport(type: JacocoReport, dependsOn: [
     getReports().getHtml().setDestination(file("${buildDir}/reports/jacoco/jacocoRootReport/html"))
 
     def fileFilter = ['**/R.class', '**/R$*.class', '**/BuildConfig.*', '**/Manifest*.*', '**/*Test*.*', 'android/**/*.*', '**/*$ViewBinder*.*']
-    def debugTree = fileTree(dir: "$project.buildDir/intermediates/classes/wcaro/debug", excludes: fileFilter)
+    def debugTree = fileTree(dir: "$project.buildDir/intermediates/classes/ba/debug", excludes: fileFilter)
     def mainSrc = "$project.projectDir/src/main/java"
 
     sourceDirectories = files([mainSrc])
     classDirectories = files([debugTree])
     executionData = fileTree(dir: project.buildDir, includes: [
-            'jacoco/testWcaroDebugUnitTest.exec', 'outputs/code-coverage/connected/*coverage.ec'
+            'jacoco/testBaDebugUnitTest.exec', 'outputs/code-coverage/connected/*coverage.ec'
     ])
 }
 

@@ -3,7 +3,7 @@ package org.smartregister.chw.util;
 import org.smartregister.immunization.db.VaccineRepo;
 
 
-public class ChwVaccinateUtils  {
+public class ChwVaccinateUtils {
 
     public static String stateKey(VaccineRepo.Vaccine vaccine) {
 

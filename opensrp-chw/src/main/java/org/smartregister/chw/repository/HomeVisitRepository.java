@@ -56,7 +56,7 @@ public class HomeVisitRepository extends BaseRepository {
     public static final String illness_information = "illness_information";
     public static final String HOME_VISIT_ID = "home_visit_id";
     public static final String[] HomeVisit_TABLE_COLUMNS = {ID_COLUMN, BASE_ENTITY_ID, NAME, LAST_HOME_VISIT_DATE, ANMID, LOCATIONID, SYNC_STATUS, UPDATED_AT_COLUMN, EVENT_ID, FORMSUBMISSION_ID, CREATED_AT, FORMFIELDS, VACCCINE_GROUP, SINGLE_VACCINE, VACCINE_NOT_GIVEN,
-            SERVICE, SERVICE_NOT_GIVEN, BIRTH_CERTIFICATION, illness_information,HOME_VISIT_ID};
+            SERVICE, SERVICE_NOT_GIVEN, BIRTH_CERTIFICATION, illness_information, HOME_VISIT_ID};
     public static final String UPDATE_TABLE_ADD_VACCINE_NOT_GIVEN = "ALTER TABLE " + HomeVisitTABLE_NAME + " ADD COLUMN " + VACCINE_NOT_GIVEN + " VARCHAR;";
     public static final String UPDATE_TABLE_ADD_SERVICE_NOT_GIVEN = "ALTER TABLE " + HomeVisitTABLE_NAME + " ADD COLUMN " + SERVICE_NOT_GIVEN + " VARCHAR;";
     public static final String UPDATE_TABLE_ADD_HOME_VISIT_ID = "ALTER TABLE " + HomeVisitTABLE_NAME + " ADD COLUMN " + HOME_VISIT_ID + " VARCHAR;";
@@ -64,7 +64,7 @@ public class HomeVisitRepository extends BaseRepository {
     private static final String TAG = HomeVisitRepository.class.getCanonicalName();
     private static final String HomeVisit_SQL = "CREATE TABLE home_visit (_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,base_entity_id VARCHAR NOT NULL,name VARCHAR NOT NULL,date DATETIME NOT NULL,anmid VARCHAR NULL,location_id VARCHAR NULL,event_id VARCHAR NULL," +
             "formSubmissionId VARCHAR,sync_status VARCHAR,updated_at INTEGER NULL," +
-            "formfields VARCHAR,created_at DATETIME NOT NULL,vaccine_group VARCHAR,single_vaccine VARCHAR,vaccine_not_given VARCHAR,service VARCHAR,service_not_given VARCHAR,birth_certification VARCHAR,illness_information VARCHAR,"+HOME_VISIT_ID+" VARCHAR)";
+            "formfields VARCHAR,created_at DATETIME NOT NULL,vaccine_group VARCHAR,single_vaccine VARCHAR,vaccine_not_given VARCHAR,service VARCHAR,service_not_given VARCHAR,birth_certification VARCHAR,illness_information VARCHAR," + HOME_VISIT_ID + " VARCHAR)";
     private static final String BASE_ENTITY_ID_INDEX = "CREATE INDEX " + HomeVisitTABLE_NAME + "_" + BASE_ENTITY_ID + "_index ON " + HomeVisitTABLE_NAME + "(" + BASE_ENTITY_ID + " COLLATE NOCASE);";
     private static final String UPDATED_AT_INDEX = "CREATE INDEX " + HomeVisitTABLE_NAME + "_" + UPDATED_AT_COLUMN + "_index ON " + HomeVisitTABLE_NAME + "(" + UPDATED_AT_COLUMN + ");";
     public static DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -379,7 +379,7 @@ public class HomeVisitRepository extends BaseRepository {
         values.put(SERVICE_NOT_GIVEN, homeVisit.getServiceNotGiven().toString());
         values.put(BIRTH_CERTIFICATION, homeVisit.getBirthCertificationState().toString());
         values.put(illness_information, homeVisit.getIllness_information().toString());
-        values.put(HOME_VISIT_ID,homeVisit.getHomeVisitId());
+        values.put(HOME_VISIT_ID, homeVisit.getHomeVisitId());
         return values;
     }
 

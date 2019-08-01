@@ -76,34 +76,6 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
         actionList.put(context.getString(R.string.pnc_danger_signs_mother), action);
     }
 
-    private class PNCDangerSignsMotherHelper extends HomeVisitActionHelper {
-        private String danger_signs_present_mama;
-
-        @Override
-        public void onPayloadReceived(String s) {
-            try {
-                JSONObject jsonObject = new JSONObject(s);
-                danger_signs_present_mama = getCheckBoxValue(jsonObject, "danger_signs_present_mama");
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-
-        @Override
-        public String evaluateSubTitle() {
-            return MessageFormat.format("{0}: {1}", context.getString(R.string.anc_home_visit_danger_signs), danger_signs_present_mama);
-        }
-
-        @Override
-        public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
-            if (StringUtils.isNotBlank(danger_signs_present_mama)) {
-                return BaseAncHomeVisitAction.Status.COMPLETED;
-            } else {
-                return BaseAncHomeVisitAction.Status.PENDING;
-            }
-        }
-    }
-
     private void evaluateDangerSignsBaby() throws Exception {
         for (Person baby : children) {
             BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, MessageFormat.format(context.getString(R.string.pnc_danger_signs_baby), baby.getFullName()))
@@ -113,34 +85,6 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
                     .withHelper(new PNCDangerSignsBabyHelper())
                     .build();
             actionList.put(MessageFormat.format(context.getString(R.string.pnc_danger_signs_baby), baby.getFullName()), action);
-        }
-    }
-
-    private class PNCDangerSignsBabyHelper extends HomeVisitActionHelper {
-        private String danger_signs_present_child;
-
-        @Override
-        public void onPayloadReceived(String s) {
-            try {
-                JSONObject jsonObject = new JSONObject(s);
-                danger_signs_present_child = getCheckBoxValue(jsonObject, "danger_signs_present_child");
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-
-        @Override
-        public String evaluateSubTitle() {
-            return MessageFormat.format("{0}: {1}", context.getString(R.string.anc_home_visit_danger_signs), danger_signs_present_child);
-        }
-
-        @Override
-        public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
-            if (StringUtils.isNotBlank(danger_signs_present_child)) {
-                return BaseAncHomeVisitAction.Status.COMPLETED;
-            } else {
-                return BaseAncHomeVisitAction.Status.PENDING;
-            }
         }
     }
 
@@ -154,34 +98,6 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
         actionList.put(context.getString(R.string.pnc_health_facility_visit_within_fourty_eight_hours), action);
     }
 
-    private class PNCHealthFacilityVisitHelper extends HomeVisitActionHelper {
-        private String fp_counseling;
-
-        @Override
-        public void onPayloadReceived(String jsonPayload) {
-            try {
-                JSONObject jsonObject = new JSONObject(jsonPayload);
-                fp_counseling = getValue(jsonObject, "fp_counseling");
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-
-        @Override
-        public String evaluateSubTitle() {
-            return MessageFormat.format("{0}: {1}", "Family Planning", fp_counseling);
-        }
-
-        @Override
-        public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
-            if (StringUtils.isNotBlank(fp_counseling)) {
-                return BaseAncHomeVisitAction.Status.COMPLETED;
-            } else {
-                return BaseAncHomeVisitAction.Status.PENDING;
-            }
-        }
-    }
-
     private void evaluateFamilyPlanning() throws Exception {
         BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.pnc_family_planning))
                 .withOptional(false)
@@ -190,34 +106,6 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
                 .withHelper(new FamilyPlanningHelper())
                 .build();
         actionList.put(context.getString(R.string.pnc_family_planning), action);
-    }
-
-    private class FamilyPlanningHelper extends HomeVisitActionHelper {
-        private String fp_counseling;
-
-        @Override
-        public void onPayloadReceived(String jsonPayload) {
-            try {
-                JSONObject jsonObject = new JSONObject(jsonPayload);
-                fp_counseling = getValue(jsonObject, "fp_counseling");
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-
-        @Override
-        public String evaluateSubTitle() {
-            return MessageFormat.format("{0}: {1}", "Family Planning", fp_counseling);
-        }
-
-        @Override
-        public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
-            if (StringUtils.isNotBlank(fp_counseling)) {
-                return BaseAncHomeVisitAction.Status.COMPLETED;
-            } else {
-                return BaseAncHomeVisitAction.Status.PENDING;
-            }
-        }
     }
 
     private void evaluateImmunization() throws Exception {
@@ -250,6 +138,172 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
         actionList.put(context.getString(R.string.pnc_counselling), action);
     }
 
+    private void evaluateNutritionStatusMother() throws Exception {
+        BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.pnc_nutrition_status))
+                .withOptional(false)
+                .withDetails(details)
+                .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getNutritionStatusMother())
+                .withHelper(new NutritionStatusMotherHelper())
+                .build();
+        actionList.put(context.getString(R.string.pnc_nutrition_status), action);
+    }
+
+    private void evaluateNutritionStatusBaby() throws Exception {
+        for (Person baby : children) {
+            BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, MessageFormat.format(context.getString(R.string.pnc_nutrition_status_baby_name), baby.getFullName()))
+                    .withOptional(false)
+                    .withDetails(details)
+                    .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getNutritionStatusInfant())
+                    .withHelper(new NutritionStatusBabyHelper())
+                    .build();
+            actionList.put(MessageFormat.format(context.getString(R.string.pnc_nutrition_status_baby_name), baby.getFullName()), action);
+        }
+    }
+
+    private void evaluateMalariaPrevention() throws Exception {
+        BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.pnc_malaria_prevention))
+                .withOptional(false)
+                .withDetails(details)
+                .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getMalariaPrevention())
+                .withHelper(new MalariaPreventionHelper())
+                .build();
+        actionList.put(context.getString(R.string.pnc_malaria_prevention), action);
+    }
+
+    private void evaluateObsIllnessMother() throws Exception {
+        BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.pnc_observation_and_illness_mother))
+                .withOptional(true)
+                .withDetails(details)
+                .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getObservationAndIllnessMother())
+                .withHelper(new ObsIllnessMotherHelper())
+                .build();
+        actionList.put(context.getString(R.string.pnc_observation_and_illness_mother), action);
+    }
+
+    private void evaluateObsIllnessBaby() throws Exception {
+        for (Person baby : children) {
+            BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, MessageFormat.format(context.getString(R.string.pnc_observation_and_illness_baby), baby.getFullName()))
+                    .withOptional(true)
+                    .withDetails(details)
+                    .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getObservationAndIllnessInfant())
+                    .withHelper(new ObsIllnessBabyHelper())
+                    .build();
+            actionList.put(MessageFormat.format(context.getString(R.string.pnc_observation_and_illness_baby), baby.getFullName()), action);
+        }
+    }
+
+    private class PNCDangerSignsMotherHelper extends HomeVisitActionHelper {
+        private String danger_signs_present_mama;
+
+        @Override
+        public void onPayloadReceived(String s) {
+            try {
+                JSONObject jsonObject = new JSONObject(s);
+                danger_signs_present_mama = getCheckBoxValue(jsonObject, "danger_signs_present_mama");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        public String evaluateSubTitle() {
+            return MessageFormat.format("{0}: {1}", context.getString(R.string.anc_home_visit_danger_signs), danger_signs_present_mama);
+        }
+
+        @Override
+        public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
+            if (StringUtils.isNotBlank(danger_signs_present_mama)) {
+                return BaseAncHomeVisitAction.Status.COMPLETED;
+            } else {
+                return BaseAncHomeVisitAction.Status.PENDING;
+            }
+        }
+    }
+
+    private class PNCDangerSignsBabyHelper extends HomeVisitActionHelper {
+        private String danger_signs_present_child;
+
+        @Override
+        public void onPayloadReceived(String s) {
+            try {
+                JSONObject jsonObject = new JSONObject(s);
+                danger_signs_present_child = getCheckBoxValue(jsonObject, "danger_signs_present_child");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        public String evaluateSubTitle() {
+            return MessageFormat.format("{0}: {1}", context.getString(R.string.anc_home_visit_danger_signs), danger_signs_present_child);
+        }
+
+        @Override
+        public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
+            if (StringUtils.isNotBlank(danger_signs_present_child)) {
+                return BaseAncHomeVisitAction.Status.COMPLETED;
+            } else {
+                return BaseAncHomeVisitAction.Status.PENDING;
+            }
+        }
+    }
+
+    private class PNCHealthFacilityVisitHelper extends HomeVisitActionHelper {
+        private String fp_counseling;
+
+        @Override
+        public void onPayloadReceived(String jsonPayload) {
+            try {
+                JSONObject jsonObject = new JSONObject(jsonPayload);
+                fp_counseling = getValue(jsonObject, "fp_counseling");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        public String evaluateSubTitle() {
+            return MessageFormat.format("{0}: {1}", "Family Planning", fp_counseling);
+        }
+
+        @Override
+        public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
+            if (StringUtils.isNotBlank(fp_counseling)) {
+                return BaseAncHomeVisitAction.Status.COMPLETED;
+            } else {
+                return BaseAncHomeVisitAction.Status.PENDING;
+            }
+        }
+    }
+
+    private class FamilyPlanningHelper extends HomeVisitActionHelper {
+        private String fp_counseling;
+
+        @Override
+        public void onPayloadReceived(String jsonPayload) {
+            try {
+                JSONObject jsonObject = new JSONObject(jsonPayload);
+                fp_counseling = getValue(jsonObject, "fp_counseling");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        public String evaluateSubTitle() {
+            return MessageFormat.format("{0}: {1}", "Family Planning", fp_counseling);
+        }
+
+        @Override
+        public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
+            if (StringUtils.isNotBlank(fp_counseling)) {
+                return BaseAncHomeVisitAction.Status.COMPLETED;
+            } else {
+                return BaseAncHomeVisitAction.Status.PENDING;
+            }
+        }
+    }
+
     private class CounsellingHelper extends HomeVisitActionHelper {
 
         private String couselling_pnc;
@@ -277,16 +331,6 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
                 return BaseAncHomeVisitAction.Status.PENDING;
             }
         }
-    }
-
-    private void evaluateNutritionStatusMother() throws Exception {
-        BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.pnc_nutrition_status))
-                .withOptional(false)
-                .withDetails(details)
-                .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getNutritionStatusMother())
-                .withHelper(new NutritionStatusMotherHelper())
-                .build();
-        actionList.put(context.getString(R.string.pnc_nutrition_status), action);
     }
 
     private class NutritionStatusMotherHelper extends HomeVisitActionHelper {
@@ -318,18 +362,6 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
         }
     }
 
-    private void evaluateNutritionStatusBaby() throws Exception {
-        for (Person baby : children) {
-            BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, MessageFormat.format(context.getString(R.string.pnc_nutrition_status_baby_name), baby.getFullName()))
-                    .withOptional(false)
-                    .withDetails(details)
-                    .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getNutritionStatusInfant())
-                    .withHelper(new NutritionStatusBabyHelper())
-                    .build();
-            actionList.put(MessageFormat.format(context.getString(R.string.pnc_nutrition_status_baby_name), baby.getFullName()), action);
-        }
-    }
-
     private class NutritionStatusBabyHelper extends HomeVisitActionHelper {
 
         private String nutrition_status_1m;
@@ -357,16 +389,6 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
                 return BaseAncHomeVisitAction.Status.PENDING;
             }
         }
-    }
-
-    private void evaluateMalariaPrevention() throws Exception {
-        BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.pnc_malaria_prevention))
-                .withOptional(false)
-                .withDetails(details)
-                .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getMalariaPrevention())
-                .withHelper(new MalariaPreventionHelper())
-                .build();
-        actionList.put(context.getString(R.string.pnc_malaria_prevention), action);
     }
 
     private class MalariaPreventionHelper extends HomeVisitActionHelper {
@@ -414,16 +436,6 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
         }
     }
 
-    private void evaluateObsIllnessMother() throws Exception {
-        BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.pnc_observation_and_illness_mother))
-                .withOptional(true)
-                .withDetails(details)
-                .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getObservationAndIllnessMother())
-                .withHelper(new ObsIllnessMotherHelper())
-                .build();
-        actionList.put(context.getString(R.string.pnc_observation_and_illness_mother), action);
-    }
-
     private class ObsIllnessMotherHelper extends HomeVisitActionHelper {
         private String date_of_illness;
         private String illness_description;
@@ -460,18 +472,6 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
                 return BaseAncHomeVisitAction.Status.PENDING;
 
             return BaseAncHomeVisitAction.Status.COMPLETED;
-        }
-    }
-
-    private void evaluateObsIllnessBaby() throws Exception {
-        for (Person baby : children) {
-            BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, MessageFormat.format(context.getString(R.string.pnc_observation_and_illness_baby), baby.getFullName()))
-                    .withOptional(true)
-                    .withDetails(details)
-                    .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getObservationAndIllnessInfant())
-                    .withHelper(new ObsIllnessBabyHelper())
-                    .build();
-            actionList.put(MessageFormat.format(context.getString(R.string.pnc_observation_and_illness_baby), baby.getFullName()), action);
         }
     }
 

@@ -18,13 +18,13 @@ public class ChildMedicalHistoryPresenter implements ChildMedicalHistoryContract
     private ChildMedicalHistoryContract.Interactor interactor;
     private Map<String, Date> recievedVaccines;
     private ArrayList<BaseVaccine> baseVaccineArrayList;
-    private ArrayList<BaseService> growthNutritionArrayList,dietaryArrayList,muacArrayList,llitnDataArrayList,ecdDataArrayList;
+    private ArrayList<BaseService> growthNutritionArrayList, dietaryArrayList, muacArrayList, llitnDataArrayList, ecdDataArrayList;
     private ArrayList<String> birthCertifications;
     private ArrayList<String> obsIllnesses;
 
     public ChildMedicalHistoryPresenter(ChildMedicalHistoryContract.View view, AppExecutors appExecutors, HomeVisitServiceRepository homeVisitServiceRepository) {
         this.view = new WeakReference<>(view);
-        interactor = new ChildMedicalHistoryInteractor(appExecutors,homeVisitServiceRepository,getView().getContext());
+        interactor = new ChildMedicalHistoryInteractor(appExecutors, homeVisitServiceRepository, getView().getContext());
     }
 
 //    @Override
@@ -50,32 +50,32 @@ public class ChildMedicalHistoryPresenter implements ChildMedicalHistoryContract
 
     @Override
     public void fetchBirthData(CommonPersonObjectClient commonPersonObjectClient) {
-        interactor.fetchBirthCertificateData(commonPersonObjectClient,this);
+        interactor.fetchBirthCertificateData(commonPersonObjectClient, this);
     }
 
     @Override
     public void fetchIllnessData(CommonPersonObjectClient commonPersonObjectClient) {
-        interactor.fetchIllnessData(commonPersonObjectClient,this);
+        interactor.fetchIllnessData(commonPersonObjectClient, this);
     }
 
     @Override
     public void fetchDietaryData(CommonPersonObjectClient commonPersonObjectClient) {
-        interactor.fetchDietaryData(commonPersonObjectClient,this);
+        interactor.fetchDietaryData(commonPersonObjectClient, this);
     }
 
     @Override
     public void fetchMuacData(CommonPersonObjectClient commonPersonObjectClient) {
-        interactor.fetchMuacData(commonPersonObjectClient,this);
+        interactor.fetchMuacData(commonPersonObjectClient, this);
     }
 
     @Override
     public void fetchEcdData(CommonPersonObjectClient commonPersonObjectClient) {
-        interactor.fetchEcdData(commonPersonObjectClient,this);
+        interactor.fetchEcdData(commonPersonObjectClient, this);
     }
 
     @Override
     public void fetchLLitnData(CommonPersonObjectClient commonPersonObjectClient) {
-        interactor.fetchLLitnData(commonPersonObjectClient,this);
+        interactor.fetchLLitnData(commonPersonObjectClient, this);
     }
 
 

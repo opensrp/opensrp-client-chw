@@ -80,8 +80,11 @@ public class FamilyRegisterActivity extends BaseFamilyRegisterActivity {
     @Override
     protected void onResumption() {
         super.onResumption();
-        NavigationMenu.getInstance(this, null, null).getNavigationAdapter()
-                .setSelectedView(Constants.DrawerMenu.ALL_FAMILIES);
+        NavigationMenu menu = NavigationMenu.getInstance(this, null, null);
+        if(menu != null){
+            menu.getNavigationAdapter()
+                    .setSelectedView(Constants.DrawerMenu.ALL_FAMILIES);
+        }
     }
 
     @Override

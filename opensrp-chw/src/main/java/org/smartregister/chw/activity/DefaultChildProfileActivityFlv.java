@@ -32,6 +32,4 @@ public abstract class DefaultChildProfileActivityFlv implements ChildProfileActi
         menu.findItem(R.id.action_malaria_followup_visit).setVisible(false);
         return true;
     }
-
-
 }

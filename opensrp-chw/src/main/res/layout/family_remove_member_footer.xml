@@ -112,12 +112,12 @@
                 android:id="@+id/next_arrow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/register_list_top_bottom_padding"
-                android:paddingEnd="@dimen/register_list_max_padding"
-                android:paddingLeft="@dimen/register_list_member_item_padding"
-                android:paddingRight="@dimen/register_list_max_padding"
                 android:paddingStart="@dimen/register_list_member_item_padding"
+                android:paddingLeft="@dimen/register_list_member_item_padding"
                 android:paddingTop="@dimen/register_list_top_bottom_padding"
+                android:paddingEnd="@dimen/register_list_max_padding"
+                android:paddingRight="@dimen/register_list_max_padding"
+                android:paddingBottom="@dimen/register_list_top_bottom_padding"
                 android:src="@mipmap/ic_arrow_forward" />
         </LinearLayout>
 

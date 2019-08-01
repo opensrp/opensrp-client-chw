@@ -188,9 +188,10 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
 
         interactor.saveRegistration(pair, jsonString, true, this);
     }
+
     @Override
     public void updateAfterBackGroundProcessed() {
-        if(getView() != null){
+        if (getView() != null) {
             getView().updateAfterBackgroundProcessed();
         }
 
