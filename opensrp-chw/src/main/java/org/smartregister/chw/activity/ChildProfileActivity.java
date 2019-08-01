@@ -59,12 +59,14 @@ import static org.smartregister.chw.util.Constants.INTENT_KEY.IS_COMES_FROM_FAMI
 public class ChildProfileActivity extends BaseProfileActivity implements ChildProfileContract.View, ChildRegisterContract.InteractorCallBack {
     private static final String TAG = ChildProfileActivity.class.getCanonicalName();
     private static IntentFilter sIntentFilter;
+
     static {
         sIntentFilter = new IntentFilter();
         sIntentFilter.addAction(Intent.ACTION_DATE_CHANGED);
         sIntentFilter.addAction(Intent.ACTION_TIMEZONE_CHANGED);
         sIntentFilter.addAction(Intent.ACTION_TIME_CHANGED);
     }
+
     private boolean appBarTitleIsShown = true;
     private int appBarLayoutScrollRange = -1;
     private String childBaseEntityId;
@@ -488,7 +490,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
      * By this method it'll process the event client at home visit in background. After finish
      * it'll update the child client because for edit it's need the vaccine card,illness,birthcert.
      */
-    public void processBackgroundEvent(){
+    public void processBackgroundEvent() {
 
         layoutMostDueOverdue.setVisibility(View.GONE);
         viewMostDueRow.setVisibility(View.GONE);
@@ -598,13 +600,13 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     @Override
     public void onNoUniqueId() {
         //TODO
-        Timber.d( "onNoUniqueId unimplemented");
+        Timber.d("onNoUniqueId unimplemented");
     }
 
     @Override
     public void onUniqueIdFetched(Triple<String, String, String> triple, String entityId, String familyId) {
         //TODO
-        Timber.d( "onUniqueIdFetched unimplemented");
+        Timber.d("onUniqueIdFetched unimplemented");
     }
 
     @Override
@@ -646,7 +648,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
             case R.id.action_remove_member:
                 IndividualProfileRemoveActivity.startIndividualProfileActivity(ChildProfileActivity.this, ((ChildProfilePresenter) presenter()).getChildClient(),
                         ((ChildProfilePresenter) presenter()).getFamilyID()
-                        , ((ChildProfilePresenter) presenter()).getFamilyHeadID(), ((ChildProfilePresenter) presenter()).getPrimaryCareGiverID());
+                        , ((ChildProfilePresenter) presenter()).getFamilyHeadID(), ((ChildProfilePresenter) presenter()).getPrimaryCareGiverID(), ChildRegisterActivity.class.getCanonicalName());
 
                 return true;
             default:
@@ -692,6 +694,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
 
     public interface Flavor {
         OnClickFloatingMenu getOnClickFloatingMenu(Activity activity, ChildProfilePresenter presenter);
+
         boolean showMalariaConfirmationMenu();
     }
 
@@ -699,7 +702,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
         @Override
         public void onReceive(Context context, Intent intent) {
             final String action = intent.getAction();
-            assert action!=null;
+            assert action != null;
             if (action.equals(Intent.ACTION_TIME_CHANGED) ||
                     action.equals(Intent.ACTION_TIMEZONE_CHANGED)) {
                 fetchProfileData();

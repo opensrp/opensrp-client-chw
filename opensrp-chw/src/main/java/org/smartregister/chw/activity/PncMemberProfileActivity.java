@@ -10,9 +10,7 @@ import android.view.View;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
-import org.smartregister.chw.anc.AncLibrary;
 import org.smartregister.chw.anc.domain.MemberObject;
-import org.smartregister.chw.anc.presenter.BaseAncMemberProfilePresenter;
 import org.smartregister.chw.anc.util.Constants;
 import org.smartregister.chw.contract.ChildProfileContract;
 import org.smartregister.chw.interactor.ChildProfileInteractor;
@@ -93,13 +91,13 @@ public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
                         new CommonPersonObjectClient(commonPersonObject.getCaseId(), commonPersonObject.getDetails(), "");
                 client.setColumnmaps(commonPersonObject.getColumnmaps());
 
-                IndividualProfileRemoveActivity.startIndividualProfileActivity(PncMemberProfileActivity.this, client, MEMBER_OBJECT.getFamilyBaseEntityId(), MEMBER_OBJECT.getFamilyHead(), MEMBER_OBJECT.getPrimaryCareGiver());
+                IndividualProfileRemoveActivity.startIndividualProfileActivity(PncMemberProfileActivity.this, client, MEMBER_OBJECT.getFamilyBaseEntityId(), MEMBER_OBJECT.getFamilyHead(), MEMBER_OBJECT.getPrimaryCareGiver(), PncRegisterActivity.class.getCanonicalName());
+
+
+//
+//                IndividualProfileRemoveActivity.startIndividualProfileActivity(PncMemberProfileActivity.this, getClientDetailsByBaseEntityID(MEMBER_OBJECT.getBaseEntityId()), MEMBER_OBJECT.getFamilyBaseEntityId(), MEMBER_OBJECT.getFamilyHead(), MEMBER_OBJECT.getPrimaryCareGiver(), MalariaRegisterActivity.class.getCanonicalName());
                 return true;
 
-            case R.id.action_pregnancy_out_come:
-                AncRegisterActivity.startAncRegistrationActivity(PncMemberProfileActivity.this, MEMBER_OBJECT.getBaseEntityId(), null,
-                        org.smartregister.chw.util.Constants.JSON_FORM.getPregnancyOutcome(), AncLibrary.getInstance().getUniqueIdRepository().getNextUniqueId().getOpenmrsId(), MEMBER_OBJECT.getFamilyBaseEntityId());
-                return true;
 
             default:
                 break;
@@ -117,7 +115,7 @@ public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
 
     @Override
     protected void registerPresenter() {
-        presenter = new BaseAncMemberProfilePresenter(this, new PncMemberProfileInteractor(this), MEMBER_OBJECT);
+        presenter = new PncMemberProfilePresenter(this, new PncMemberProfileInteractor(this), MEMBER_OBJECT);
     }
 
     @Override
@@ -169,7 +167,7 @@ public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
                         if (pair != null) {
 
                             PncMemberProfileInteractor basePncMemberProfileInteractor = new PncMemberProfileInteractor(this);
-                            basePncMemberProfileInteractor.updateChilda(pair, jsonString, callBack());
+                            basePncMemberProfileInteractor.updateChild(pair, jsonString, callBack());
                         }
                     }
                 } catch (Exception e) {
@@ -185,7 +183,8 @@ public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
     public PncMemberProfilePresenter pncMemberProfilePresenter() {
         return new PncMemberProfilePresenter(this, new PncMemberProfileInteractor(this), MEMBER_OBJECT);
     }
-//    TODO a better way to do this?
+
+    //    TODO a better way to do this?
     private ChildProfileContract.InteractorCallBack callBack() {
         return new ChildProfileContract.InteractorCallBack() {
             @Override

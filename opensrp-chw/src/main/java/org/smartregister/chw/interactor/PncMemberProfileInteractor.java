@@ -64,8 +64,7 @@ public class PncMemberProfileInteractor extends BasePncMemberProfileInteractor {
         return lastVisitDate;
     }
 
-
-    public void updateChilda(final Pair<Client, Event> pair, final String jsonString, final ChildProfileContract.InteractorCallBack callBack) {
+    public void updateChild(final Pair<Client, Event> pair, final String jsonString, final ChildProfileContract.InteractorCallBack callBack) {
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
