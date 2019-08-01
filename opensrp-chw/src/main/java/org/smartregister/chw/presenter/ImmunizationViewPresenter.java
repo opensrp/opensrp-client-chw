@@ -121,7 +121,7 @@ public class ImmunizationViewPresenter implements ImmunizationContact.Presenter,
                 }
             }
             getView().allDataLoaded();
-            getView().updateAdapter(0);
+            getView().updateAdapter(0, view.get().getMyContext());
 
             //getView().updateSubmitBtn();
         }
@@ -157,7 +157,7 @@ public class ImmunizationViewPresenter implements ImmunizationContact.Presenter,
                 homeVisitVaccineGroup.setViewType(HomeVisitVaccineGroup.TYPE_ACTIVE);
             }
         }
-        getView().updateAdapter(0);
+        getView().updateAdapter(0, view.get().getMyContext());
     }
 
     public ArrayList<VaccineWrapper> getDueVaccineWrappers(HomeVisitVaccineGroup duevaccines) {

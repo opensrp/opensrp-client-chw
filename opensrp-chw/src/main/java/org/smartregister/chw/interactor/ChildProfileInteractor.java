@@ -220,7 +220,7 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
     @Override
     public void refreshUpcomingServiceAndFamilyDue(Context context, String familyId, String baseEntityId, final ChildProfileContract.InteractorCallBack callback) {
         if (getpClient() == null) return;
-        updateUpcomingServices()
+        updateUpcomingServices(context)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<ChildService>() {
@@ -305,7 +305,7 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
         });
     }
 
-    private Observable<ChildService> updateUpcomingServices() {
+    private Observable<ChildService> updateUpcomingServices(final Context context) {
         return Observable.create(new ObservableOnSubscribe<ChildService>() {
             @Override
             public void subscribe(final ObservableEmitter<ChildService> e) throws Exception {
@@ -355,7 +355,7 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
                                 public void updateGivenRecordVisitData(Map<String, ServiceWrapper> stringServiceWrapperMap) {
                                     try {
                                         ChildService childService = null;
-                                        ArrayList<GrowthServiceData> growthServiceDataList = homeVisitGrowthNutritionInteractor.getAllDueService(stringServiceWrapperMap);
+                                        ArrayList<GrowthServiceData> growthServiceDataList = homeVisitGrowthNutritionInteractor.getAllDueService(stringServiceWrapperMap, context);
                                         if (growthServiceDataList.size() > 0) {
                                             childService = new ChildService();
                                             GrowthServiceData growthServiceData = growthServiceDataList.get(0);
