@@ -76,7 +76,7 @@ import static org.smartregister.util.AssetHandler.jsonStringToJava;
 /**
  * Created by keyman on 13/11/2018.
  */
-public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
+public class JsonFormUtils extends com.opensrp.chw.core.utils.JsonFormUtils {
     public static final String METADATA = "metadata";
     public static final String TITLE = "title";
     public static final String ENCOUNTER_TYPE = "encounter_type";
@@ -483,44 +483,7 @@ public class JsonFormUtils extends org.smartregister.family.util.JsonFormUtils {
 
     }
 
-    public static JSONObject getAutoPopulatedJsonEditFormString(String formName, Context context, CommonPersonObjectClient client, String eventType) {
-        try {
-            JSONObject form = FormUtils.getInstance(context).getFormJson(formName);
-            LocationPickerView lpv = new LocationPickerView(context);
-            lpv.init();
-            // JsonFormUtils.addWomanRegisterHierarchyQuestions(form);
-            Timber.d("Form is " + form.toString());
-            if (form != null) {
-                form.put(org.smartregister.family.util.JsonFormUtils.ENTITY_ID, client.getCaseId());
-                form.put(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_TYPE, eventType);
 
-                JSONObject metadata = form.getJSONObject(org.smartregister.family.util.JsonFormUtils.METADATA);
-                String lastLocationId = LocationHelper.getInstance().getOpenMrsLocationId(lpv.getSelectedItem());
-
-                metadata.put(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_LOCATION, lastLocationId);
-
-                form.put(org.smartregister.family.util.JsonFormUtils.CURRENT_OPENSRP_ID, Utils.getValue(client.getColumnmaps(), DBConstants.KEY.UNIQUE_ID, false));
-
-                //inject opensrp id into the form
-                JSONObject stepOne = form.getJSONObject(org.smartregister.family.util.JsonFormUtils.STEP1);
-                JSONArray jsonArray = stepOne.getJSONArray(org.smartregister.family.util.JsonFormUtils.FIELDS);
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    JSONObject jsonObject = jsonArray.getJSONObject(i);
-
-                    processPopulatableFields(client, jsonObject);
-
-                }
-
-                org.smartregister.family.util.JsonFormUtils.addLocHierarchyQuestions(form);
-
-                return form;
-            }
-        } catch (Exception e) {
-            Timber.e(e);
-        }
-
-        return null;
-    }
 
     public static JSONObject getAutoPopulatedJsonEditMemberFormString(String title, String formName, Context context, CommonPersonObjectClient client, String eventType, String familyName, boolean isPrimaryCaregiver) {
         return flavor.getAutoJsonEditMemberFormString(title, formName, context, client, eventType, familyName, isPrimaryCaregiver);
