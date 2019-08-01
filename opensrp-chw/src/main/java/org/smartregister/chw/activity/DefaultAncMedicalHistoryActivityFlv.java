@@ -23,16 +23,15 @@ import java.util.TreeMap;
 
 public abstract class DefaultAncMedicalHistoryActivityFlv implements AncMedicalHistoryActivity.Flavor {
 
-    private LinearLayout linearLayoutLastVisit;
     protected LinearLayout linearLayoutAncCard;
     protected LinearLayout linearLayoutHealthFacilityVisit;
     protected LinearLayout linearLayoutHealthFacilityVisitDetails;
+    protected LayoutInflater inflater;
+    private LinearLayout linearLayoutLastVisit;
     private LinearLayout linearLayoutTTImmunization, linearLayoutTTImmunizationDetails;
     private LinearLayout linearLayoutIPTp, linearLayoutIPTpDetails;
     private TextView customFontTextViewLastVisit;
     private TextView customFontTextViewAncCard;
-
-    protected LayoutInflater inflater;
 
     @Override
     public View bindViews(Activity activity) {

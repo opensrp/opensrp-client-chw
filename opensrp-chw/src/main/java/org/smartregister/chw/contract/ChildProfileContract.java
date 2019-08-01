@@ -3,7 +3,6 @@ package org.smartregister.chw.contract;
 import android.content.Context;
 import android.util.Pair;
 
-import org.apache.commons.lang3.tuple.Triple;
 import org.json.JSONObject;
 import org.smartregister.chw.util.ChildService;
 import org.smartregister.chw.util.ChildVisit;
@@ -51,11 +50,11 @@ public interface ChildProfileContract {
 
         void setLastVisitRowView(String days);
 
-        void setServiceNameDue(String name,String dueDate);
+        void setServiceNameDue(String name, String dueDate);
 
-        void setServiceNameOverDue(String name,String dueDate);
+        void setServiceNameOverDue(String name, String dueDate);
 
-        void setServiceNameUpcoming(String name,String dueDate);
+        void setServiceNameUpcoming(String name, String dueDate);
 
         void setVisitLessTwentyFourView(String monthName);
 

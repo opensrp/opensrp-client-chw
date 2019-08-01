@@ -2,7 +2,6 @@ package org.smartregister.chw.util;
 
 import android.content.Context;
 import android.database.Cursor;
-
 import android.util.Pair;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
@@ -256,7 +255,7 @@ public class JsonFormUtilsFlv implements JsonFormUtils.Flavor {
         if (ecClient != null) {
             jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE,
                     (ecClient.getLastName() == null ? familyName : ecClient.getLastName()));
-            jsonObject.put(org.smartregister.family.util.JsonFormUtils.READ_ONLY,true);
+            jsonObject.put(org.smartregister.family.util.JsonFormUtils.READ_ONLY, true);
         }
     }
 
@@ -284,10 +283,10 @@ public class JsonFormUtilsFlv implements JsonFormUtils.Flavor {
             JSONObject surname = JsonFormUtils.getFieldJSONObject(jsonArray, SURNAME);
             if (!familyName.equals(lastName)) {
                 surname.put(org.smartregister.family.util.JsonFormUtils.VALUE, lastName);
-                surname.put(org.smartregister.family.util.JsonFormUtils.READ_ONLY,false);
+                surname.put(org.smartregister.family.util.JsonFormUtils.READ_ONLY, false);
             } else {
                 surname.put(org.smartregister.family.util.JsonFormUtils.VALUE, "");
-               surname.put(org.smartregister.family.util.JsonFormUtils.READ_ONLY,true);
+                surname.put(org.smartregister.family.util.JsonFormUtils.READ_ONLY, true);
             }
 
         }

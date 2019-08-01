@@ -132,8 +132,8 @@
             android:id="@+id/linearLayoutTTImmunizationDetails"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="20dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingLeft="20dp">
 
         </LinearLayout>
 
@@ -163,8 +163,8 @@
             android:id="@+id/linearLayoutIPTpDetails"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="20dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingLeft="20dp">
 
         </LinearLayout>
 

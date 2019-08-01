@@ -1,213 +1,214 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="@color/white"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:descendantFocusability="blocksDescendants"
+        android:layout_height="match_parent"
         android:background="@color/white"
-        android:layout_height="match_parent">
+        android:descendantFocusability="blocksDescendants"
+        android:orientation="vertical">
 
         <org.smartregister.view.customcontrols.CustomFontTextView
             android:id="@+id/medical_history"
-            android:layout_below="@+id/collapsing_toolbar"
+            style="@style/CustomFontTextViewStyle.ClientList.Medium"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/medical_history"
-            style="@style/CustomFontTextViewStyle.ClientList.Medium"
-            android:textColor="@color/black"
+            android:layout_below="@+id/collapsing_toolbar"
             android:gravity="left"
             android:paddingLeft="20dp"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
+            android:text="@string/medical_history"
+            android:textColor="@color/black"
             android:textSize="@dimen/px_20_to_sp" />
 
         <org.smartregister.view.customcontrols.CustomFontTextView
             android:id="@+id/last_visit"
-            android:layout_below="@+id/medical_history"
+            style="@style/CustomFontTextViewStyle.ClientList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/last_visit"
+            android:layout_below="@+id/medical_history"
             android:background="@color/medical_bar"
-            style="@style/CustomFontTextViewStyle.ClientList"
-            android:textColor="@color/white"
             android:paddingLeft="20dp"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
+            android:text="@string/last_visit"
+            android:textColor="@color/white"
             android:textSize="@dimen/px_14_to_sp" />
 
         <RelativeLayout
+            android:id="@+id/home_visit_card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/last_visit"
-            android:background="@drawable/white_rounded_bg"
-            android:id="@+id/home_visit_card">
+            android:background="@drawable/white_rounded_bg">
 
             <org.smartregister.view.customcontrols.CustomFontTextView
                 android:id="@+id/home_visit_date"
 
+                style="@style/CustomFontTextViewStyle.ClientList"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/medical_last_visit"
-                style="@style/CustomFontTextViewStyle.ClientList"
-                android:textColor="@color/medical_text_inner"
                 android:paddingLeft="20dp"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
+                android:text="@string/medical_last_visit"
+                android:textColor="@color/medical_text_inner"
                 android:textSize="@dimen/px_16_to_sp" />
         </RelativeLayout>
 
         <LinearLayout
             android:id="@+id/immunization_bar"
-            android:layout_below="@+id/home_visit_card"
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/home_visit_card"
+            android:orientation="vertical">
 
             <org.smartregister.view.customcontrols.CustomFontTextView
                 android:id="@+id/immunization_text"
 
+                style="@style/CustomFontTextViewStyle.ClientList"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/immunization"
                 android:background="@color/medical_bar"
-                style="@style/CustomFontTextViewStyle.ClientList"
-                android:textColor="@color/white"
                 android:paddingLeft="20dp"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
+                android:text="@string/immunization"
+                android:textColor="@color/white"
                 android:textSize="@dimen/px_14_to_sp" />
+
             <RelativeLayout
-                android:background="@drawable/white_rounded_bg"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:background="@drawable/white_rounded_bg">
+
                 <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-            <RelativeLayout
-                android:id="@+id/immu_bar_age_1"
-                android:visibility="visible"
-                android:paddingLeft="20dp"
-
-                android:gravity="center_horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <ImageView
-                    android:id="@+id/immu_imag"
-                    android:layout_width="39dp"
-                    android:layout_height="45dp"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/ic_full_one_yr"
-                     />
-
-                <org.smartregister.view.customcontrols.CustomFontTextView
-                    android:id="@+id/health_child"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="5dp"
-                    android:layout_toRightOf="@+id/immu_imag"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/health_child_milestone"
-                    style="@style/CustomFontTextViewStyle.ClientList"
-                    android:textColor="@color/medical_text_inner"
-                    android:textSize="@dimen/px_16_to_sp" />
+                    android:orientation="vertical">
 
-                <org.smartregister.view.customcontrols.CustomFontTextView
-                    android:id="@+id/fully_immunized"
-                    android:layout_below="@+id/health_child"
-                    android:layout_toRightOf="@+id/immu_imag"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/fully_immunized_at_age_1"
-                    style="@style/CustomFontTextViewStyle.ClientList.Light"
-                    android:textColor="@color/light_grey_text"
-                    android:textSize="@dimen/px_15_to_sp" />
+                    <RelativeLayout
+                        android:id="@+id/immu_bar_age_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
 
-                <View
-                    android:id="@+id/view"
-                    android:layout_width="match_parent"
-                    android:layout_height="1px"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginLeft="10dp"
-                    android:background="@color/light_grey"
-                    android:layout_below="@+id/fully_immunized" />
-            </RelativeLayout>
+                        android:gravity="center_horizontal"
+                        android:paddingLeft="20dp"
+                        android:visibility="visible">
 
-            <RelativeLayout
-                android:id="@+id/immu_bar_age_2"
-                android:visibility="visible"
-                android:paddingLeft="20dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                        <ImageView
+                            android:id="@+id/immu_imag"
+                            android:layout_width="39dp"
+                            android:layout_height="45dp"
+                            android:layout_centerVertical="true"
+                            android:src="@drawable/ic_full_one_yr" />
 
-                <ImageView
-                    android:id="@+id/immu_imag_2"
-                    android:layout_width="39dp"
-                    android:layout_height="45dp"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/ic_full_two_yr" />
+                        <org.smartregister.view.customcontrols.CustomFontTextView
+                            android:id="@+id/health_child"
+                            style="@style/CustomFontTextViewStyle.ClientList"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="5dp"
+                            android:layout_toRightOf="@+id/immu_imag"
+                            android:text="@string/health_child_milestone"
+                            android:textColor="@color/medical_text_inner"
+                            android:textSize="@dimen/px_16_to_sp" />
 
-                <org.smartregister.view.customcontrols.CustomFontTextView
-                    android:id="@+id/health_child_2"
-                    android:layout_toRightOf="@+id/immu_imag_2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/health_child_milestone"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp"
-                    style="@style/CustomFontTextViewStyle.ClientList"
-                    android:textColor="@color/medical_text_inner"
-                    android:textSize="@dimen/px_16_to_sp" />
+                        <org.smartregister.view.customcontrols.CustomFontTextView
+                            android:id="@+id/fully_immunized"
+                            style="@style/CustomFontTextViewStyle.ClientList.Light"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/health_child"
+                            android:layout_toRightOf="@+id/immu_imag"
+                            android:text="@string/fully_immunized_at_age_1"
+                            android:textColor="@color/light_grey_text"
+                            android:textSize="@dimen/px_15_to_sp" />
 
-                <org.smartregister.view.customcontrols.CustomFontTextView
-                    android:id="@+id/fully_immunized_2"
-                    android:layout_below="@+id/health_child_2"
-                    android:layout_toRightOf="@+id/immu_imag_2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/fully_immunized_at_age_2"
-                    style="@style/CustomFontTextViewStyle.ClientList.Light"
-                    android:textColor="@color/light_grey_text"
+                        <View
+                            android:id="@+id/view"
+                            android:layout_width="match_parent"
+                            android:layout_height="1px"
+                            android:layout_below="@+id/fully_immunized"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="20dp"
+                            android:background="@color/light_grey" />
+                    </RelativeLayout>
 
-                    android:textSize="@dimen/px_15_to_sp" />
+                    <RelativeLayout
+                        android:id="@+id/immu_bar_age_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="20dp"
+                        android:visibility="visible">
 
-                <View
-                    android:id="@+id/view_2"
-                    android:layout_width="match_parent"
-                    android:layout_height="1px"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginLeft="10dp"
-                    android:background="@color/light_grey"
-                    android:layout_below="@+id/fully_immunized_2" />
-            </RelativeLayout>
+                        <ImageView
+                            android:id="@+id/immu_imag_2"
+                            android:layout_width="39dp"
+                            android:layout_height="45dp"
+                            android:layout_centerVertical="true"
+                            android:src="@drawable/ic_full_two_yr" />
+
+                        <org.smartregister.view.customcontrols.CustomFontTextView
+                            android:id="@+id/health_child_2"
+                            style="@style/CustomFontTextViewStyle.ClientList"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:layout_toRightOf="@+id/immu_imag_2"
+                            android:text="@string/health_child_milestone"
+                            android:textColor="@color/medical_text_inner"
+                            android:textSize="@dimen/px_16_to_sp" />
+
+                        <org.smartregister.view.customcontrols.CustomFontTextView
+                            android:id="@+id/fully_immunized_2"
+                            style="@style/CustomFontTextViewStyle.ClientList.Light"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/health_child_2"
+                            android:layout_toRightOf="@+id/immu_imag_2"
+                            android:text="@string/fully_immunized_at_age_2"
+                            android:textColor="@color/light_grey_text"
+
+                            android:textSize="@dimen/px_15_to_sp" />
+
+                        <View
+                            android:id="@+id/view_2"
+                            android:layout_width="match_parent"
+                            android:layout_height="1px"
+                            android:layout_below="@+id/fully_immunized_2"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="20dp"
+                            android:background="@color/light_grey" />
+                    </RelativeLayout>
 
 
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/immunization_recycler_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="20dp"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp">
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/immunization_recycler_view"
-                    android:paddingLeft="20dp"
-                    android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                </android.support.v7.widget.RecyclerView>
+                    </android.support.v7.widget.RecyclerView>
 
                 </LinearLayout>
             </RelativeLayout>
 
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/service_other_contnt_layout"
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
         </LinearLayout>
 

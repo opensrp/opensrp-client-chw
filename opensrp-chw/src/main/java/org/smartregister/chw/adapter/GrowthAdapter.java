@@ -36,9 +36,9 @@ public class GrowthAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 return new ContentViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.growth_content_view, null));
             case BaseService.TYPE_LINE:
                 return new HeaderViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.view_line, null));
-
+            default:
+                return new HeaderViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.growth_header_view, null));
         }
-        return null;
     }
 
     @Override
@@ -74,14 +74,13 @@ public class GrowthAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         return baseServices.size();
     }
 
-    public class HeaderViewHolder extends RecyclerView.ViewHolder {
-        private TextView headerTitle;
+    public static class ContentViewHolder extends RecyclerView.ViewHolder {
+        private TextView vaccineName;
         private View myView;
 
-        private HeaderViewHolder(View view) {
+        private ContentViewHolder(View view) {
             super(view);
-            headerTitle = view.findViewById(R.id.header_text);
-
+            vaccineName = view.findViewById(R.id.name_date_tv);
             myView = view;
         }
 
@@ -90,13 +89,14 @@ public class GrowthAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         }
     }
 
-    public static class ContentViewHolder extends RecyclerView.ViewHolder {
-        private TextView vaccineName;
+    public class HeaderViewHolder extends RecyclerView.ViewHolder {
+        private TextView headerTitle;
         private View myView;
 
-        private ContentViewHolder(View view) {
+        private HeaderViewHolder(View view) {
             super(view);
-            vaccineName = view.findViewById(R.id.name_date_tv);
+            headerTitle = view.findViewById(R.id.header_text);
+
             myView = view;
         }
 
