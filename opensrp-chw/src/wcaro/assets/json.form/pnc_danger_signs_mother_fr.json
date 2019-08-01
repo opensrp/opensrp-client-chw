@@ -47,7 +47,7 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "Danger signs - Mother",
+    "title": "Signes de danger - Femme",
     "fields": [
       {
         "key": "danger_signs_present",
@@ -57,7 +57,7 @@
         "type": "check_box",
         "label_info_image_src": "img/chw.png",
         "label_info_has_image": true,
-        "label": "Any danger signs present?",
+        "label": "Y a-t-il des signes de danger?",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
         "exclusive": [
@@ -66,28 +66,28 @@
         "options": [
           {
             "key": "chk_none",
-            "text": "None",
+            "text": "Aucun",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_fever",
-            "text": "Fever",
+            "text": "Fièvre",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "140238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_prolonged_bleeding",
-            "text": "Prolonged bleeding",
+            "text": "Saignements prolongés",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "150802AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_severe_headache",
-            "text": "Severe headache",
+            "text": "Maux de tête sévères",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "139081AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -101,14 +101,14 @@
           },
           {
             "key": "chk_difficulty_breathing",
-            "text": "Difficulty breathing",
+            "text": "Difficulté à respirer",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "142373AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_severe_abdominal_pain",
-            "text": "Severe abdominal pain",
+            "text": "Douleur abdominale sévère",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "165271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -125,7 +125,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Danger sign! \nRefer immediately to health facility.",
+        "text": "Signe de danger! \nRéférer immédiatement à l'établissement de santé.",
         "text_color": "#CF0800",
         "toaster_type": "problem",
         "relevance": {
@@ -152,8 +152,12 @@
         "openmrs_entity_id": "161541AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Counseling on seeking care immediately for danger signs",
+        "hint": "Conseil pour rechercher immédiatement des soins pour les signes de danger",
         "values": [
+          "Oui",
+          "Non"
+        ],
+        "keys": [
           "Yes",
           "No"
         ],

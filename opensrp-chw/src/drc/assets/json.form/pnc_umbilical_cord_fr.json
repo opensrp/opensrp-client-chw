@@ -1,6 +1,6 @@
 {
   "count": "1",
-  "encounter_type": "Home Visit - Observations Illness",
+  "encounter_type": "Umbilical cord care",
   "entity_id": "",
   "metadata": {
     "start": {
@@ -47,57 +47,34 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "Observations et maladies - optionnel",
+    "title": "Soins du cordon ombilical",
     "fields": [
       {
-        "key": "date_of_illness",
+        "key": "cord_care",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "1730AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "date_picker",
-        "hint": "Date",
-        "expanded": false,
-        "max_date": "today",
-        "min_date": "today-10y",
-        "v_required": {
-          "value": "true",
-          "err": "Cette réponse est requise"
-        }
-      },
-      {
-        "key": "illness_description",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "1390AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "openmrs_data_type": "text",
-        "type": "edit_text",
-        "hint": "Description",
-        "v_required": {
-          "value": "true",
-          "err": "Cette réponse est requise"
-        }
-      },
-      {
-        "key": "action_taken",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "164378AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "161541AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Action prise",
-        "v_required": {
-          "value": "true",
-          "err": "Cette réponse est requise"
-        },
+        "hint": "Des produits sont-ils appliqués sur le moignon du cordon ombilical?",
         "values": [
-          "Géré",
-          "Reféré",
-          "Aucun action prise"
+          "Aucun produit",
+          "Chlorhexidine",
+          "Autre"
+        ],
+        "keys": [
+          "No products",
+          "Chlorhexidine",
+          "Other"
         ],
         "openmrs_choice_ids": {
-          "Managed": "140959AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Referred": "1648AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "No action taken": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          "No products": "products",
+          "Chlorhexidine": "73263AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Other": "Other"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select one option"
         }
       }
     ]
