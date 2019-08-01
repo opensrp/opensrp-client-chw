@@ -1,6 +1,7 @@
 package org.smartregister.chw.activity;
 
 import android.app.Activity;
+import android.view.Menu;
 
 import org.smartregister.chw.R;
 import org.smartregister.chw.fragment.FamilyCallDialogFragment;
@@ -24,4 +25,13 @@ public abstract class DefaultChildProfileActivityFlv implements ChildProfileActi
             }
         };
     }
+
+    @Override
+    public Boolean onCreateOptionsMenu(Menu menu) {
+        menu.findItem(R.id.action_malaria_registration).setVisible(false);
+        menu.findItem(R.id.action_malaria_followup_visit).setVisible(false);
+        return true;
+    }
+
+
 }

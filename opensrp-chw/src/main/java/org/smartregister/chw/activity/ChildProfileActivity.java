@@ -18,10 +18,15 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.*;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
-import de.hdodenhof.circleimageview.CircleImageView;
+
 import org.apache.commons.lang3.tuple.Triple;
 import org.json.JSONObject;
 import org.opensrp.api.constants.Gender;
@@ -40,11 +45,13 @@ import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
 import org.smartregister.helper.ImageRenderHelper;
 import org.smartregister.view.activity.BaseProfileActivity;
-import timber.log.Timber;
 
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
+
+import de.hdodenhof.circleimageview.CircleImageView;
+import timber.log.Timber;
 
 import static org.smartregister.chw.util.Constants.INTENT_KEY.IS_COMES_FROM_FAMILY;
 
@@ -611,11 +618,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.other_member_menu, menu);
-
-        menu.findItem(R.id.action_malaria_registration).setVisible(true);
-        menu.findItem(R.id.action_malaria_followup_visit).setVisible(false);
-        menu.findItem(R.id.action_anc_registration).setVisible(false);
-
+        flavor.onCreateOptionsMenu(menu);
         return true;
     }
 
@@ -686,6 +689,8 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
 
     public interface Flavor {
         OnClickFloatingMenu getOnClickFloatingMenu(Activity activity, ChildProfilePresenter presenter);
+
+        Boolean onCreateOptionsMenu(Menu menu);
     }
 
     private final BroadcastReceiver mDateTimeChangedReceiver = new BroadcastReceiver() {

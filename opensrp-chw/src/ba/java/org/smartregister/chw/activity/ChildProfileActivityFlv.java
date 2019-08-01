@@ -1,6 +1,7 @@
 package org.smartregister.chw.activity;
 
 import android.app.Activity;
+import android.view.Menu;
 import android.widget.Toast;
 
 import org.smartregister.chw.R;
@@ -27,5 +28,14 @@ public class ChildProfileActivityFlv implements ChildProfileActivity.Flavor {
                 }
             }
         };
+    }
+
+    @Override
+    public Boolean onCreateOptionsMenu(Menu menu) {
+        menu.findItem(R.id.action_malaria_registration).setVisible(true);
+        menu.findItem(R.id.action_malaria_followup_visit).setVisible(false);
+        menu.findItem(R.id.action_anc_registration).setVisible(false);
+
+        return true;
     }
 }
