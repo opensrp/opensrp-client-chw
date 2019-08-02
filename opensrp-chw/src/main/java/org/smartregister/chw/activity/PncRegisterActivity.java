@@ -5,16 +5,13 @@ import android.os.Bundle;
 
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
-import org.smartregister.chw.contract.ChwBottomNavigator;
 import org.smartregister.chw.custom_view.NavigationMenu;
 import org.smartregister.chw.fragment.PncRegisterFragment;
 import org.smartregister.chw.listener.AncBottomNavigationListener;
-import org.smartregister.chw.pnc.activity.BasePncRegisterActivity;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
-
-public class PncRegisterActivity extends BasePncRegisterActivity implements ChwBottomNavigator {
+public class PncRegisterActivity extends AncRegisterActivity {
 
     @Override
     protected BaseRegisterFragment getRegisterFragment() {
@@ -50,7 +47,7 @@ public class PncRegisterActivity extends BasePncRegisterActivity implements ChwB
     protected void onResumption() {
         super.onResumption();
         NavigationMenu menu = NavigationMenu.getInstance(this, null, null);
-        if(menu != null){
+        if (menu != null) {
             menu.getNavigationAdapter()
                     .setSelectedView(Constants.DrawerMenu.PNC);
         }
