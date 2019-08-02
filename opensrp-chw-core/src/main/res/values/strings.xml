@@ -131,4 +131,47 @@
     <string name="refer_to_facility">Refer to facility</string>
     <string name="updating">Updating....</string>
 
+    <string name="growth_and_nutrition">GROWTH AND NUTRITION</string>
+    <string name="vitamin_given">When was %1$s given?</string>
+    <string name="immunizations">Immunizations (%s)</string>
+    <string name="immunizations_count">Immunizations ({0})</string>
+    <string name="overdue">Overdue&#160;</string>
+    <string name="due">Due&#160;</string>
+    <string name="fill_earler_immunization"><![CDATA[<i>Record earlier immunizations</i>]]></string>
+    <string name="not_given_with_spaces">&#160;not given&#160;</string>
+    <string name="given_on_with_spaces">&#160;given on&#160;</string>
+    <string name="when_vaccines_given_text">When were vaccinations done?</string>
+    <string name="when_vaccine">When was %s immunization done?</string>
+    <string name="llitn_label">Is the woman sleeping under a Long Lasting Insecticide-Treated Net (LLITN)?</string>
+    <string name="llitn_label_child">Is the child sleeping under a Long Lasting Insecticide-Treated Net (LLITN)?</string>
+    <string name="llitn_info_title">Whether the pregnant woman sleeps under a LLITN</string>
+    <string name="llitn_info_text">Malaria is very dangerous for pregnant women. Wherever malaria is common, women should prevent malaria by taking anti-malarial tablets recommended by a trained health worker and by sleeping under an insecticide-treated mosquito net.</string>
+    <string name="dev_warning_sign">Developmental warning signs:</string>
+    <string name="care_stim_skill">Caregiver stimulation skills:</string>
+    <string name="early_learning">Early learning program:</string>
+    <string name="observations_illness_episodes"><![CDATA[Observations & Illness - <i>optional</i>]]></string>
+    <string name="observations_illness_episodes_medical"><![CDATA[Observations & Illness Episodes]]></string>
+    <string name="home_visit">Home Visit</string>
+    <string name="visit_exclusive_breastfeeding">Exclusive breastfeeding</string>
+    <string name="given">Given</string>
+    <string name="provided_on">Provided on %1$s</string>
+    <string name="given_on">Given on %1$s</string>
+    <string name="not_given">Not given</string>
+    <string name="visit_mnp_dose">MNP dose</string>
+    <string name="visit_months">months</string>
+    <string name="visit_dose">dose</string>
+    <string name="visit_pack">pack</string>
+    <string name="visit_vitamin_a_dose">Vitamin A dose</string>
+    <string name="visit_deworming_dose">Deworming dose</string>
+    <string name="exclusive_breastfeeding">Exclusive breastfeeding</string>
+    <string name="deworming">Deworming</string>
+    <string name="vaccine_card_title">Child vaccine card received</string>
+    <string name="birth_certification">Birth certification</string><string name="home_visit_suffix"> &#183; Home Visit</string>
+    <string name="no_vaccines_were_done">No vaccines were done</string>
+    <string name="vaccine_card_text">Did the child receive their vaccine card?</string>
+    <string name="record_immunizations">Record vaccinations</string>
+    <string name="exclusive_feeding">Did the child receive any liquid or food other than breastmilk yesterday and last night?</string>
+
+    <string name="growth_nutrition">Growth and Nutrition</string>
+
 </resources>

@@ -10,7 +10,9 @@ import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.application.ChwApplication;
-import org.smartregister.chw.model.VaccineTaskModel;
+import com.opensrp.chw.core.model.VaccineTaskModel;
+import com.opensrp.chw.core.utils.ChwServiceSchedule;
+
 import org.smartregister.domain.Alert;
 import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.immunization.domain.Vaccine;

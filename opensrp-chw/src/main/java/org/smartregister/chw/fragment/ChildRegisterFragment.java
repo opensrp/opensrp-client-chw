@@ -2,6 +2,7 @@ package org.smartregister.chw.fragment;
 
 import android.content.Intent;
 
+import com.opensrp.chw.core.fragment.CoreChildHomeVisitFragment;
 import com.opensrp.chw.core.fragment.CoreChildRegisterFragment;
 
 import org.apache.commons.lang3.StringUtils;

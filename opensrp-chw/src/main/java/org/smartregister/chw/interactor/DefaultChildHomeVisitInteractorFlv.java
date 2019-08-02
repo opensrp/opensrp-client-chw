@@ -11,12 +11,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
-import org.smartregister.chw.util.BirthCertDataModel;
+import com.opensrp.chw.core.utils.BirthCertDataModel;
 import org.smartregister.chw.util.ChildUtils;
 import org.smartregister.chw.util.Constants;
-import org.smartregister.chw.util.ObsIllnessDataModel;
-import org.smartregister.chw.util.ServiceTask;
-import org.smartregister.chw.util.TaskServiceCalculate;
+import com.opensrp.chw.core.utils.ObsIllnessDataModel;
+
+import com.opensrp.chw.core.utils.ServiceTask;
+import com.opensrp.chw.core.utils.TaskServiceCalculate;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.util.DBConstants;
 

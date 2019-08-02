@@ -12,7 +12,7 @@ import org.joda.time.format.DateTimeFormat;
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.model.BaseUpcomingService;
-import org.smartregister.chw.model.VaccineTaskModel;
+import com.opensrp.chw.core.model.VaccineTaskModel;
 import org.smartregister.chw.util.ContactUtil;
 import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.immunization.domain.ServiceWrapper;
@@ -27,7 +27,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import static org.smartregister.chw.util.RecurringServiceUtil.getRecurringServices;
+import static com.opensrp.chw.core.utils.RecurringServiceUtil.getRecurringServices;
 
 public abstract class DefaultAncUpcomingServicesInteractorFlv implements AncUpcomingServicesInteractor.Flavor {
 

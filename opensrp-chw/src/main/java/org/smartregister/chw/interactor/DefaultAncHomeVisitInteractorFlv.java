@@ -26,7 +26,7 @@ import org.smartregister.chw.anc.domain.VisitDetail;
 import org.smartregister.chw.anc.fragment.BaseAncHomeVisitFragment;
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
 import org.smartregister.chw.anc.util.VisitUtils;
-import org.smartregister.chw.model.VaccineTaskModel;
+import com.opensrp.chw.core.model.VaccineTaskModel;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.ContactUtil;
 import org.smartregister.immunization.db.VaccineRepo;
@@ -42,7 +42,7 @@ import java.util.Map;
 
 import timber.log.Timber;
 
-import static org.smartregister.chw.util.RecurringServiceUtil.getRecurringServices;
+import static com.opensrp.chw.core.utils.RecurringServiceUtil.getRecurringServices;
 
 public abstract class DefaultAncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor {
 

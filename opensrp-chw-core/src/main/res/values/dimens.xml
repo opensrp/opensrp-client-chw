@@ -8,4 +8,13 @@
     <dimen name="child_register_title_size">16sp</dimen>
     <dimen name="child_register_list_desc_size">16sp</dimen>
     <dimen name="child_register_list_item_width">120dp</dimen>
+    <dimen name="vaccine_text_top_margin">10dp</dimen>
+    <dimen name="immunization_status_circle_size">30dp</dimen>
+    <dimen name="child_home_visit_right_margin">20dp</dimen>
+    <dimen name="child_home_visit_left_margin">10dp</dimen>
+    <dimen name="child_home_visit_title_text_size">20sp</dimen>
+    <dimen name="px_16_to_sp">16dp</dimen>
+    <dimen name="px_15_to_sp">15dp</dimen>
+    <dimen name="px_20_to_sp">20dp</dimen>
+    <dimen name="px_14_to_sp">14dp</dimen>
 </resources>

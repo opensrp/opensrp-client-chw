@@ -5,173 +5,40 @@ import android.support.annotation.VisibleForTesting;
 import android.text.TextUtils;
 import android.util.Pair;
 
+import com.opensrp.chw.core.application.CoreChwApplication;
 import com.opensrp.chw.core.domain.HomeVisit;
-import com.opensrp.chw.core.utils.ChildDBConstants;
+import com.opensrp.chw.core.interactor.CoreChildHomeVisitInteractor;
+import com.opensrp.chw.core.model.BirthIllnessFormModel;
+import com.opensrp.chw.core.repository.CoreChwRepository;
+import com.opensrp.chw.core.utils.BirthCertDataModel;
+import com.opensrp.chw.core.utils.ObsIllnessDataModel;
+import com.opensrp.chw.core.utils.ServiceTask;
 
-import org.json.JSONException;
 import org.json.JSONObject;
-import org.smartregister.chw.application.ChwApplication;
-import org.smartregister.chw.contract.ChildHomeVisitContract;
 import org.smartregister.chw.repository.ChwRepository;
-import org.smartregister.chw.util.BirthCertDataModel;
-import org.smartregister.chw.util.BirthIllnessFormModel;
-import org.smartregister.chw.util.JsonFormUtils;
-import org.smartregister.chw.util.ObsIllnessDataModel;
-import org.smartregister.chw.util.ServiceTask;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
-import org.smartregister.family.FamilyLibrary;
 import org.smartregister.family.util.AppExecutors;
-import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.EventClientRepository;
-import org.smartregister.sync.helper.ECSyncHelper;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 
 import timber.log.Timber;
 
 import static com.opensrp.chw.core.utils.ChildDBConstants.KEY.BIRTH_CERT;
 import static org.smartregister.util.Utils.getValue;
 
-public class ChildHomeVisitInteractor implements ChildHomeVisitContract.Interactor {
-
-    private static final String TAG = "VisitInteractor";
-    private AppExecutors appExecutors;
-    private HashMap<String, BirthIllnessFormModel> saveList = new HashMap<>();
-    private ArrayList<BirthCertDataModel> birthCertDataList = new ArrayList<>();
-    private ArrayList<ObsIllnessDataModel> illnessDataList = new ArrayList<>();
-    private Flavor flavor = new ChildHomeVisitInteractorFlv();
+public class ChildHomeVisitInteractor extends CoreChildHomeVisitInteractor {
 
     @VisibleForTesting
     ChildHomeVisitInteractor(AppExecutors appExecutors) {
         this.appExecutors = appExecutors;
+        setFlavor(new ChildHomeVisitInteractorFlv());
     }
 
     public ChildHomeVisitInteractor() {
         this(new AppExecutors());
-    }
-
-    private static void updateClientAttributes(JSONObject clientjsonFromForm, JSONObject clientJson) {
-        try {
-            JSONObject formAttributes = clientjsonFromForm.getJSONObject("attributes");
-            JSONObject clientAttributes = clientJson.getJSONObject("attributes");
-            Iterator<String> keys = formAttributes.keys();
-
-            while (keys.hasNext()) {
-                String key = keys.next();
-                clientAttributes.put(key, formAttributes.get(key));
-
-            }
-
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public int getSaveSize() {
-        return saveList.size();
-    }
-
-    public ArrayList<ObsIllnessDataModel> getIllnessDataList() {
-        return illnessDataList;
-    }
-
-    public ArrayList<BirthCertDataModel> getBirthCertDataList() {
-        return birthCertDataList;
-    }
-
-    @Override
-    public void getLastEditData(CommonPersonObjectClient childClient, final ChildHomeVisitContract.InteractorCallback callback) {
-
-        String lastHomeVisitStr = getValue(childClient, ChildDBConstants.KEY.LAST_HOME_VISIT, false);
-        long lastHomeVisit = TextUtils.isEmpty(lastHomeVisitStr) ? 0 : Long.parseLong(lastHomeVisitStr);
-        HomeVisit homeVisit = ChwApplication.homeVisitRepository().findByDate(lastHomeVisit);
-        if (homeVisit != null) {
-            JSONObject jsonObject = null;
-            try {
-                jsonObject = new JSONObject(homeVisit.getBirthCertificationState().toString());
-                String birt = jsonObject.getString("birtCert");
-                callback.updateBirthCertEditData(birt);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            try {
-                jsonObject = new JSONObject(homeVisit.getIllness_information().toString());
-                String illness = jsonObject.getString("obsIllness");
-                callback.updateObsIllnessEditData(illness);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            flavor.generateServiceData(homeVisit);
-
-        }
-    }
-
-    @Override
-    public void generateBirthCertForm(final String jsonString, final ChildHomeVisitContract.InteractorCallback callback, boolean isEditMode) {
-        birthCertDataList.clear();
-        BirthCertDataModel birthCertDataModel = flavor.getBirthCertDataList(jsonString, isEditMode);
-        if (birthCertDataModel != null) {
-            birthCertDataList.add(flavor.getBirthCertDataList(jsonString, isEditMode));
-            Pair<Client, Event> pair = JsonFormUtils.processBirthAndIllnessForm(org.smartregister.family.util.Utils.context().allSharedPreferences(), jsonString);
-            if (pair == null) {
-                return;
-            }
-            BirthIllnessFormModel birthIllnessFormModel = new BirthIllnessFormModel(jsonString, pair);
-            if (saveList.get("birth_form") != null) {
-                saveList.remove("birth_form");
-            }
-            saveList.put("birth_form", birthIllnessFormModel);
-            Runnable runnable = new Runnable() {
-                @Override
-                public void run() {
-                    appExecutors.mainThread().execute(new Runnable() {
-                        @Override
-                        public void run() {
-                            callback.updateBirthStatusTick(jsonString);
-                        }
-                    });
-                }
-            };
-            appExecutors.diskIO().execute(runnable);
-        }
-
-
-    }
-
-    @Override
-    public void generateObsIllnessForm(final String jsonString, final ChildHomeVisitContract.InteractorCallback callback, boolean isEditMode) {
-        illnessDataList.clear();
-        ObsIllnessDataModel obsIllnessDataModel = flavor.getObsIllnessDataList(jsonString, isEditMode);
-        if (obsIllnessDataModel != null) {
-            illnessDataList.add(obsIllnessDataModel);
-            Pair<Client, Event> pair = JsonFormUtils.processBirthAndIllnessForm(org.smartregister.family.util.Utils.context().allSharedPreferences(), jsonString);
-            if (pair == null) {
-                return;
-            }
-            BirthIllnessFormModel birthIllnessFormModel = new BirthIllnessFormModel(jsonString, pair);
-            if (saveList.get("illness_form") != null) {
-                saveList.remove("illness_form");
-            }
-            saveList.put("illness_form", birthIllnessFormModel);
-            Runnable runnable = new Runnable() {
-                @Override
-                public void run() {
-                    appExecutors.mainThread().execute(new Runnable() {
-                        @Override
-                        public void run() {
-                            callback.updateObsIllnessStatusTick(jsonString);
-                        }
-                    });
-                }
-            };
-            appExecutors.diskIO().execute(runnable);
-
-        }
     }
 
     @Override
@@ -180,28 +47,6 @@ public class ChildHomeVisitInteractor implements ChildHomeVisitContract.Interact
             BirthIllnessFormModel birthIllnessFormModel = saveList.get(json);
             saveRegistration(birthIllnessFormModel.getPair(), childClient);
         }
-    }
-
-    @Override
-    public void generateTaskService(CommonPersonObjectClient childClient, final ChildHomeVisitContract.InteractorCallback callback, Context context, boolean isEditMode) {
-
-        final ArrayList<ServiceTask> serviceTasks = flavor.getTaskService(childClient, isEditMode, context);
-
-
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                appExecutors.mainThread().execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        callback.updateTaskAdapter(serviceTasks);
-                    }
-                });
-            }
-        };
-        appExecutors.diskIO().execute(runnable);
-
-
     }
 
     private void saveRegistration(Pair<Client, Event> pair, CommonPersonObjectClient childClient) {
@@ -213,9 +58,9 @@ public class ChildHomeVisitInteractor implements ChildHomeVisitContract.Interact
 
             if (baseClient != null) {
                 JSONObject clientjsonFromForm = new JSONObject(org.smartregister.family.util.JsonFormUtils.gson.toJson(baseClient));
-                ChwRepository pathRepository = new ChwRepository(ChwApplication.getInstance().getApplicationContext(), ChwApplication.getInstance().getContext());
+                ChwRepository pathRepository = new ChwRepository(CoreChwApplication.getInstance().getApplicationContext(), CoreChwApplication.getInstance().getContext());
                 EventClientRepository eventClientRepository = new EventClientRepository(pathRepository);
-                JSONObject clientJson = eventClientRepository.getClient(ChwApplication.getInstance().getRepository().getReadableDatabase(), baseClient.getBaseEntityId());
+                JSONObject clientJson = eventClientRepository.getClient(CoreChwApplication.getInstance().getRepository().getReadableDatabase(), baseClient.getBaseEntityId());
                 updateClientAttributes(clientjsonFromForm, clientJson);
                 String birthCert = getValue(childClient.getColumnmaps(), BIRTH_CERT, true);
                 if (TextUtils.isEmpty(birthCert)) {
@@ -236,26 +81,5 @@ public class ChildHomeVisitInteractor implements ChildHomeVisitContract.Interact
         }
     }
 
-    public AllSharedPreferences getAllSharedPreferences() {
-        return org.smartregister.family.util.Utils.context().allSharedPreferences();
-    }
 
-    private ECSyncHelper getSyncHelper() {
-        return FamilyLibrary.getInstance().getEcSyncHelper();
-    }
-
-    @Override
-    public void onDestroy(boolean isChangingConfiguration) {
-        Timber.d("onDestroy called");
-    }
-
-    public interface Flavor {
-        ArrayList<ServiceTask> getTaskService(CommonPersonObjectClient childClient, boolean isEditMode, Context context);
-
-        BirthCertDataModel getBirthCertDataList(String jsonString, boolean isEditMode);
-
-        ObsIllnessDataModel getObsIllnessDataList(String jsonString, boolean isEditMode);
-
-        void generateServiceData(HomeVisit homeVisit);
-    }
 }

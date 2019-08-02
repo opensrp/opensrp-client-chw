@@ -2,10 +2,8 @@ package org.smartregister.chw.interactor;
 
 import android.content.Context;
 import android.support.annotation.VisibleForTesting;
-import android.text.TextUtils;
 
 import com.opensrp.chw.core.contract.CoreChildProfileContract;
-import com.opensrp.chw.core.enums.ImmunizationState;
 import com.opensrp.chw.core.interactor.CoreChildProfileInteractor;
 import com.opensrp.chw.core.model.ChildVisit;
 import com.opensrp.chw.core.utils.ChildDBConstants;
@@ -13,20 +11,12 @@ import com.opensrp.chw.core.utils.ChildHomeVisit;
 import com.opensrp.chw.core.utils.CoreChildService;
 
 import org.json.JSONObject;
-import org.smartregister.chw.contract.HomeVisitGrowthNutritionContract;
-import org.smartregister.chw.contract.ImmunizationContact;
-import org.smartregister.chw.presenter.ImmunizationViewPresenter;
 import org.smartregister.chw.util.ChildUtils;
 import org.smartregister.chw.util.Constants;
-import org.smartregister.chw.util.GrowthServiceData;
-import org.smartregister.chw.util.HomeVisitVaccineGroup;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.family.util.AppExecutors;
 import org.smartregister.family.util.DBConstants;
-import org.smartregister.immunization.db.VaccineRepo;
-import org.smartregister.immunization.domain.ServiceWrapper;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -39,9 +29,6 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-import timber.log.Timber;
-
-import static org.smartregister.chw.util.ChildUtils.fixVaccineCasing;
 
 public class ChildProfileInteractor extends CoreChildProfileInteractor {
     public static final String TAG = ChildProfileInteractor.class.getName();
@@ -204,103 +191,6 @@ public class ChildProfileInteractor extends CoreChildProfileInteractor {
                 ChildUtils.updateHomeVisitAsEvent(getpClient().entityId(), Constants.EventType.CHILD_VISIT_NOT_DONE, Constants.TABLE_NAME.CHILD,
                         fields, ChildDBConstants.KEY.VISIT_NOT_DONE, value + "", homeVisitId);
                 objectObservableEmitter.onNext("");
-            }
-        });
-    }
-
-    private Observable<CoreChildService> updateUpcomingServices() {
-        return Observable.create(new ObservableOnSubscribe<CoreChildService>() {
-            @Override
-            public void subscribe(final ObservableEmitter<CoreChildService> coreChildServiceObservableEmitter) {
-                final ImmunizationViewPresenter presenter = new ImmunizationViewPresenter();
-                presenter.upcomingServiceFetch(getpClient(), new ImmunizationContact.InteractorCallBack() {
-
-                    @Override
-                    public void updateData(ArrayList<HomeVisitVaccineGroup> homeVisitVaccineGroupDetails, Map<String, Date> vaccines) {
-                        String dueDate = "", vaccineName = "";
-                        setVaccineList(vaccineList);
-                        ImmunizationState state = ImmunizationState.UPCOMING;
-                        for (HomeVisitVaccineGroup homeVisitVaccineGroupDetail : homeVisitVaccineGroupDetails) {
-                            if (homeVisitVaccineGroupDetail.getAlert().equals(ImmunizationState.DUE)
-                                    || homeVisitVaccineGroupDetail.getAlert().equals(ImmunizationState.OVERDUE)
-                                    || homeVisitVaccineGroupDetail.getAlert().equals(ImmunizationState.UPCOMING)) {
-                                if (homeVisitVaccineGroupDetail.getNotGivenVaccines().size() > 0) {
-                                    dueDate = homeVisitVaccineGroupDetail.getDueDisplayDate();
-                                    VaccineRepo.Vaccine vaccine = homeVisitVaccineGroupDetail.getNotGivenVaccines().get(0);
-                                    vaccineName = fixVaccineCasing(vaccine.display());
-                                    state = homeVisitVaccineGroupDetail.getAlert();
-                                    break;
-                                }
-                            }
-                        }
-
-                        if (!TextUtils.isEmpty(vaccineName) && !TextUtils.isEmpty(dueDate)) {
-                            CoreChildService childService = new CoreChildService();
-                            childService.setServiceName(vaccineName);
-                            if (childService.getServiceName().contains("MEASLES")) {
-                                childService.setServiceName(childService.getServiceName().replace("MEASLES", "MCV"));
-                            }
-                            //String duedateString = DateUtil.formatDate(dueDate, "dd MMM yyyy");
-                            childService.setServiceDate(dueDate);
-                            if (state.equals(ImmunizationState.DUE)) {
-                                childService.setServiceStatus(ServiceType.DUE.name());
-                            } else if (state.equals(ImmunizationState.OVERDUE)) {
-                                childService.setServiceStatus(ServiceType.OVERDUE.name());
-                            } else {
-                                childService.setServiceStatus(ServiceType.UPCOMING.name());
-                            }
-                            coreChildServiceObservableEmitter.onNext(childService);
-                        } else {
-                            //fetch service data
-                            final HomeVisitGrowthNutritionInteractor homeVisitGrowthNutritionInteractor = new HomeVisitGrowthNutritionInteractor();
-                            homeVisitGrowthNutritionInteractor.parseRecordServiceData(getpClient(), new HomeVisitGrowthNutritionContract.InteractorCallBack() {
-                                @Override
-                                public void updateGivenRecordVisitData(Map<String, ServiceWrapper> stringServiceWrapperMap) {
-                                    try {
-                                        CoreChildService childService = null;
-                                        ArrayList<GrowthServiceData> growthServiceDataList = homeVisitGrowthNutritionInteractor.getAllDueService(stringServiceWrapperMap);
-                                        if (growthServiceDataList.size() > 0) {
-                                            childService = new CoreChildService();
-                                            GrowthServiceData growthServiceData = growthServiceDataList.get(0);
-                                            childService.setServiceName(growthServiceData.getDisplayName());
-                                            childService.setServiceDate(growthServiceData.getDisplayAbleDate());
-                                            ImmunizationState state1 = ChildUtils.getDueStatus(growthServiceData.getDate());
-                                            if (state1.equals(ImmunizationState.DUE)) {
-                                                childService.setServiceStatus(ServiceType.DUE.name());
-                                            } else if (state1.equals(ImmunizationState.OVERDUE)) {
-                                                childService.setServiceStatus(ServiceType.OVERDUE.name());
-                                            } else {
-                                                childService.setServiceStatus(ServiceType.UPCOMING.name());
-                                            }
-
-                                        }
-                                        coreChildServiceObservableEmitter.onNext(childService);
-                                    } catch (Exception e) {
-                                        e.printStackTrace();
-                                    }
-
-                                }
-
-                                @Override
-                                public void updateNotGivenRecordVisitData(Map<String, ServiceWrapper> stringServiceWrapperMap) {
-                                    //No need to handle not given service
-                                }
-
-                                @Override
-                                public void allDataLoaded() {
-                                }
-                            });
-                        }
-
-                    }
-
-                    @Override
-                    public void updateEditData(ArrayList<HomeVisitVaccineGroup> homeVisitVaccineGroupDetails) {
-                        Timber.v("updateEditData");
-                    }
-                });
-
-
             }
         });
     }

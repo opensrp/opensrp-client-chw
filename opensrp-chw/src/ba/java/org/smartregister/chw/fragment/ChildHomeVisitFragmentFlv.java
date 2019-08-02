@@ -1,6 +1,8 @@
 package org.smartregister.chw.fragment;
 
-public class ChildHomeVisitFragmentFlv implements ChildHomeVisitFragment.Flavor {
+import com.opensrp.chw.core.fragment.CoreChildHomeVisitFragment;
+
+public class ChildHomeVisitFragmentFlv implements CoreChildHomeVisitFragment.Flavor {
     @Override
     public boolean onTaskVisibility() {
         return false;

@@ -16,6 +16,8 @@ import com.opensrp.chw.core.utils.CoreConstants;
 
 import org.smartregister.chw.R;
 import org.smartregister.chw.custom_view.FamilyMemberFloatingMenu;
+import com.opensrp.chw.core.fragment.CoreChildHomeVisitFragment;
+
 import org.smartregister.chw.fragment.ChildHomeVisitFragment;
 import org.smartregister.chw.presenter.ChildProfilePresenter;
 import org.smartregister.family.util.Constants;
@@ -150,7 +152,7 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
         childHomeVisitFragment.setContext(this);
         childHomeVisitFragment.setChildClient(((CoreChildProfilePresenter) presenter()).getChildClient());
 //                childHomeVisitFragment.setFamilyBaseEntityId(getFamilyBaseEntityId());
-        childHomeVisitFragment.show(getFragmentManager(), ChildHomeVisitFragment.DIALOG_TAG);
+        childHomeVisitFragment.show(getFragmentManager(), CoreChildHomeVisitFragment.DIALOG_TAG);
     }
 
     public interface Flavor {
