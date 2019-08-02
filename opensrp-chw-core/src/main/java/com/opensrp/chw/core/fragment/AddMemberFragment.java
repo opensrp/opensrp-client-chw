@@ -13,7 +13,8 @@ import android.widget.FrameLayout;
 
 import com.opensrp.chw.core.R;
 import com.opensrp.chw.core.activity.CoreFamilyProfileActivity;
-import com.opensrp.chw.core.utils.Constants;
+import com.opensrp.chw.core.utils.CoreConstants;
+
 
 public class AddMemberFragment extends DialogFragment implements View.OnClickListener {
 
@@ -83,10 +84,10 @@ public class AddMemberFragment extends DialogFragment implements View.OnClickLis
             if (i == R.id.close) {
                 dismiss();
             } else if (i == R.id.layout_add_child_under_five) {
-                ((CoreFamilyProfileActivity) context).startChildForm(Constants.JSON_FORM.getChildRegister(), "", "", "");
+                ((CoreFamilyProfileActivity) context).startChildForm(CoreConstants.JSON_FORM.getChildRegister(), "", "", "");
                 dismiss();
             } else if (i == R.id.layout_add_other_family_member) {
-                ((CoreFamilyProfileActivity) context).startFormActivity(Constants.JSON_FORM.getFamilyMemberRegister(), null, null);
+                ((CoreFamilyProfileActivity) context).startFormActivity(CoreConstants.JSON_FORM.getFamilyMemberRegister(), null, null);
                 dismiss();
             }
         } catch (Exception e) {

@@ -3,7 +3,8 @@ package com.opensrp.chw.core.service;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.opensrp.chw.core.utils.Constants;
+
+import com.opensrp.chw.core.utils.CoreConstants;
 
 import org.smartregister.AllConstants;
 import org.smartregister.CoreLibrary;
@@ -35,8 +36,8 @@ public class CoreAuthorizationService implements P2PAuthorizationService {
                 Object peerDeviceTeamId = peerDeviceMap.get(AllConstants.PeerToPeer.KEY_TEAM_ID);
                 if (peerDeviceTeamId instanceof String
                         && ((String) peerDeviceTeamId).equals(map.get(AllConstants.PeerToPeer.KEY_TEAM_ID))) {
-                    Object peerDeviceLocationId = peerDeviceMap.get(Constants.PEER_TO_PEER.LOCATION_ID);
-                    Object myLocationId = authorizationDetails.get(Constants.PEER_TO_PEER.LOCATION_ID);
+                    Object peerDeviceLocationId = peerDeviceMap.get(CoreConstants.PEER_TO_PEER.LOCATION_ID);
+                    Object myLocationId = authorizationDetails.get(CoreConstants.PEER_TO_PEER.LOCATION_ID);
                     Object myPeerStatus = authorizationDetails.get(org.smartregister.p2p.util.Constants.AuthorizationKeys.PEER_STATUS);
 
                     if (peerDeviceLocationId instanceof String && myLocationId instanceof String && myPeerStatus instanceof String) {
@@ -129,7 +130,7 @@ public class CoreAuthorizationService implements P2PAuthorizationService {
         AllSharedPreferences allSharedPreferences = CoreLibrary.getInstance().context().allSharedPreferences();
 
         authorizationDetails.put(AllConstants.PeerToPeer.KEY_TEAM_ID, allSharedPreferences.fetchDefaultTeamId(allSharedPreferences.fetchRegisteredANM()));
-        authorizationDetails.put(Constants.PEER_TO_PEER.LOCATION_ID, allSharedPreferences.fetchUserLocalityId(allSharedPreferences.fetchRegisteredANM()));
+        authorizationDetails.put(CoreConstants.PEER_TO_PEER.LOCATION_ID, allSharedPreferences.fetchUserLocalityId(allSharedPreferences.fetchRegisteredANM()));
 
         onAuthorizationDetailsProvidedCallback.onAuthorizationDetailsProvided(authorizationDetails);
     }

@@ -19,6 +19,7 @@ import com.opensrp.chw.core.contract.FamilyProfileExtendedContract;
 import com.opensrp.chw.core.custom_views.FamilyFloatingMenu;
 import com.opensrp.chw.core.event.PermissionEvent;
 import com.opensrp.chw.core.listener.FloatingMenuListener;
+import com.opensrp.chw.core.utils.CoreConstants;
 import com.opensrp.chw.hf.model.FamilyProfileModel;
 import com.opensrp.chw.hf.presenter.FamilyProfilePresenter;
 import com.opensrp.hf.R;
@@ -37,11 +38,6 @@ import org.smartregister.view.fragment.BaseRegisterFragment;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import timber.log.Timber;
-
-import static com.opensrp.chw.core.utils.Constants.EventType;
-import static com.opensrp.chw.core.utils.Constants.INTENT_KEY;
-import static com.opensrp.chw.core.utils.Constants.ProfileActivityResults;
-
 public class FamilyProfileActivity extends CoreFamilyProfileActivity {
 
     private static final String TAG = FamilyProfileActivity.class.getCanonicalName();
@@ -72,7 +68,7 @@ public class FamilyProfileActivity extends CoreFamilyProfileActivity {
 */
         viewPager.setAdapter(adapter);
 
-        if (getIntent().getBooleanExtra(INTENT_KEY.SERVICE_DUE, false) || getIntent().getBooleanExtra(Constants.INTENT_KEY.GO_TO_DUE_PAGE, false)) {
+        if (getIntent().getBooleanExtra(CoreConstants.INTENT_KEY.SERVICE_DUE, false) || getIntent().getBooleanExtra(Constants.INTENT_KEY.GO_TO_DUE_PAGE, false)) {
             viewPager.setCurrentItem(1);
         }
 
@@ -178,7 +174,7 @@ public class FamilyProfileActivity extends CoreFamilyProfileActivity {
                             presenter().updateFamilyRegister(jsonString);
                             presenter().verifyHasPhone();
 
-                        } else if (encounter_type.equals(EventType.CHILD_REGISTRATION)) {
+                        } else if (encounter_type.equals(CoreConstants.EventType.CHILD_REGISTRATION)) {
 
                             presenter().saveChildForm(jsonString, false);
 
@@ -198,7 +194,7 @@ public class FamilyProfileActivity extends CoreFamilyProfileActivity {
                         Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                     break;
-                case ProfileActivityResults.CHANGE_COMPLETED:
+                case CoreConstants.ProfileActivityResults.CHANGE_COMPLETED:
                     try {
 
                         String careGiverID = data.getStringExtra(Constants.INTENT_KEY.PRIMARY_CAREGIVER);

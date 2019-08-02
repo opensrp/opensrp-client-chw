@@ -3,7 +3,8 @@ package com.opensrp.chw.core.presenter;
 import com.opensrp.chw.core.R;
 import com.opensrp.chw.core.contract.CoreChildRegisterFragmentContract;
 import com.opensrp.chw.core.utils.ChildDBConstants;
-import com.opensrp.chw.core.utils.Constants;
+import com.opensrp.chw.core.utils.CoreConstants;
+
 
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.configurableviews.model.Field;
@@ -53,10 +54,10 @@ public class CoreChildRegisterFragmentPresenter implements CoreChildRegisterFrag
     @Override
     public void initializeQueries(String mainCondition) {
 
-        String countSelect = model.countSelect(Constants.TABLE_NAME.CHILD, mainCondition);
-        String mainSelect = model.mainSelect(Constants.TABLE_NAME.CHILD, Constants.TABLE_NAME.FAMILY, Constants.TABLE_NAME.FAMILY_MEMBER, mainCondition);
+        String countSelect = model.countSelect(CoreConstants.TABLE_NAME.CHILD, mainCondition);
+        String mainSelect = model.mainSelect(CoreConstants.TABLE_NAME.CHILD, CoreConstants.TABLE_NAME.FAMILY, CoreConstants.TABLE_NAME.FAMILY_MEMBER, mainCondition);
 
-        getView().initializeQueryParams(Constants.TABLE_NAME.CHILD, countSelect, mainSelect);
+        getView().initializeQueryParams(CoreConstants.TABLE_NAME.CHILD, countSelect, mainSelect);
         getView().initializeAdapter(visibleColumns);
 
         getView().countExecute();

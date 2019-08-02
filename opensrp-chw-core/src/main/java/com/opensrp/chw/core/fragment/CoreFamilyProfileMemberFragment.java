@@ -3,6 +3,8 @@ package com.opensrp.chw.core.fragment;
 import android.content.Intent;
 
 import com.opensrp.chw.core.R;
+import com.opensrp.chw.core.activity.CoreChildProfileActivity;
+import com.opensrp.chw.core.interactor.CoreChildProfileInteractor;
 import com.opensrp.chw.core.utils.ChildDBConstants;
 import com.opensrp.chw.core.utils.CoreChildUtils;
 import com.opensrp.chw.core.utils.Utils;
@@ -19,7 +21,9 @@ import java.util.Set;
 
 import timber.log.Timber;
 
-import static com.opensrp.chw.core.utils.Constants.INTENT_KEY.IS_COMES_FROM_FAMILY;
+import static com.opensrp.chw.core.utils.CoreConstants.*;
+import static com.opensrp.chw.core.utils.CoreConstants.INTENT_KEY.IS_COMES_FROM_FAMILY;
+
 
 public abstract class CoreFamilyProfileMemberFragment extends BaseFamilyProfileMemberFragment {
 
@@ -45,7 +49,7 @@ public abstract class CoreFamilyProfileMemberFragment extends BaseFamilyProfileM
         if (view.getTag() instanceof CommonPersonObjectClient) {
             CommonPersonObjectClient commonPersonObjectClient = (CommonPersonObjectClient) view.getTag();
             String entityType = Utils.getValue(commonPersonObjectClient.getColumnmaps(), ChildDBConstants.KEY.ENTITY_TYPE, false);
-            if (com.opensrp.chw.core.utils.Constants.TABLE_NAME.FAMILY_MEMBER.equals(entityType)) {
+            if (TABLE_NAME.FAMILY_MEMBER.equals(entityType)) {
                 goToOtherMemberProfileActivity(commonPersonObjectClient);
             } else {
                 goToChildProfileActivity(commonPersonObjectClient);
@@ -57,7 +61,7 @@ public abstract class CoreFamilyProfileMemberFragment extends BaseFamilyProfileM
         Intent intent = new Intent(getActivity(), FamilyOtherMemberProfileActivity.class);
         intent.putExtras(getArguments());
         intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, patient.getCaseId());
-        intent.putExtra(com.opensrp.chw.core.utils.Constants.INTENT_KEY.CHILD_COMMON_PERSON, patient);
+        intent.putExtra(INTENT_KEY.CHILD_COMMON_PERSON, patient);
         intent.putExtra(Constants.INTENT_KEY.FAMILY_HEAD, ((BaseFamilyProfileMemberPresenter) presenter).getFamilyHead());
         intent.putExtra(Constants.INTENT_KEY.PRIMARY_CAREGIVER, ((BaseFamilyProfileMemberPresenter) presenter).getPrimaryCaregiver());
         startActivity(intent);
@@ -70,7 +74,7 @@ public abstract class CoreFamilyProfileMemberFragment extends BaseFamilyProfileM
         if (yearOfBirth != null && yearOfBirth >= 5) {
             intent = new Intent(getActivity(), AboveFiveChildProfileActivity.class);
         } else {
-            intent = new Intent(getActivity(), ChildProfileActivity.class);
+            intent = new Intent(getActivity(), CoreChildProfileActivity.class);
         }
         intent.putExtras(getArguments());
         intent.putExtra(IS_COMES_FROM_FAMILY, true);

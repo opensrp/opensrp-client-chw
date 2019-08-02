@@ -26,12 +26,14 @@ import android.widget.Toast;
 import com.github.ybq.android.spinkit.style.FadingCircle;
 import com.opensrp.chw.core.R;
 import com.opensrp.chw.core.adapter.NavigationAdapter;
+import com.opensrp.chw.core.application.CoreChwApplication;
 import com.opensrp.chw.core.contract.CoreApplication;
 import com.opensrp.chw.core.contract.NavigationContract;
 import com.opensrp.chw.core.model.NavigationModel;
 import com.opensrp.chw.core.model.NavigationOption;
 import com.opensrp.chw.core.presenter.NavigationPresenter;
-import com.opensrp.chw.core.utils.Constants;
+import com.opensrp.chw.core.utils.CoreConstants;
+
 
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.domain.FetchStatus;
@@ -54,7 +56,7 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
 
     private static NavigationMenu instance;
     private static WeakReference<Activity> activityWeakReference;
-    private static CoreApplication application;
+    private static CoreChwApplication application;
     private static NavigationMenu.Flavour menuFlavor;
     private static NavigationModel.Flavor modelFlavor;
     private static Map<String, Class> registeredActivities;
@@ -75,7 +77,7 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
 
     }
 
-    public static void setupNavigationMenu(CoreApplication application, NavigationMenu.Flavour menuFlavor,
+    public static void setupNavigationMenu(CoreChwApplication application, NavigationMenu.Flavour menuFlavor,
                                            NavigationModel.Flavor modelFlavor, Map<String, Class> registeredActivities) {
         NavigationMenu.application = application;
         NavigationMenu.menuFlavor = menuFlavor;
@@ -361,7 +363,7 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
     public void startP2PActivity(@NonNull Activity activity) {
         if (PermissionUtils.isPermissionGranted(activity
                 , new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}
-                , Constants.RQ_CODE.STORAGE_PERMISIONS)) {
+                , CoreConstants.RQ_CODE.STORAGE_PERMISIONS)) {
             activity.startActivity(new Intent(activity, P2pModeSelectActivity.class));
         }
     }

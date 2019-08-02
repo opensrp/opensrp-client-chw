@@ -7,11 +7,12 @@ import android.os.Build;
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
 import com.evernote.android.job.JobManager;
+import com.opensrp.chw.core.application.CoreChwApplication;
 import com.opensrp.chw.core.contract.CoreApplication;
 import com.opensrp.chw.core.custom_views.NavigationMenu;
 import com.opensrp.chw.core.loggers.CrashlyticsTree;
 import com.opensrp.chw.core.service.CoreAuthorizationService;
-import com.opensrp.chw.core.utils.Constants;
+import com.opensrp.chw.core.utils.CoreConstants;
 import com.opensrp.chw.hf.activity.ChildRegisterActivity;
 import com.opensrp.chw.hf.activity.FamilyProfileActivity;
 import com.opensrp.chw.hf.activity.FamilyRegisterActivity;
@@ -19,7 +20,7 @@ import com.opensrp.chw.hf.activity.LoginActivity;
 import com.opensrp.chw.hf.custom_view.HfNavigationMenu;
 import com.opensrp.chw.hf.job.HfJobCreator;
 import com.opensrp.chw.hf.model.HfNavigationModel;
-import com.opensrp.chw.hf.repository.HfRepository;
+import com.opensrp.chw.hf.repository.HfChwRepository;
 import com.opensrp.chw.hf.sync.HfSyncConfiguration;
 import com.opensrp.hf.BuildConfig;
 
@@ -28,7 +29,6 @@ import org.smartregister.AllConstants;
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
 import org.smartregister.P2POptions;
-import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
 import org.smartregister.configurableviews.helper.JsonSpecHelper;
 import org.smartregister.family.FamilyLibrary;
@@ -37,9 +37,7 @@ import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.Repository;
-import org.smartregister.sync.helper.ECSyncHelper;
 import org.smartregister.util.Utils;
-import org.smartregister.view.activity.DrishtiApplication;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -50,32 +48,9 @@ import java.util.Map;
 import io.fabric.sdk.android.Fabric;
 import timber.log.Timber;
 
-import static com.opensrp.chw.core.utils.ApplicationUtils.getCommonFtsObject;
 import static com.opensrp.chw.core.utils.FormUtils.getFamilyMetadata;
 
-public class HealthFacilityApplication extends DrishtiApplication implements CoreApplication {
-
-    private static final String TAG = HealthFacilityApplication.class.getCanonicalName();
-    private static CommonFtsObject commonFtsObject = null;
-    private String password;
-    private JsonSpecHelper jsonSpecHelper;
-    private ECSyncHelper ecSyncHelper;
-
-    public static synchronized HealthFacilityApplication getInstance() {
-        return (HealthFacilityApplication) mInstance;
-    }
-
-    public static JsonSpecHelper getJsonSpecHelper() {
-        return getInstance().jsonSpecHelper;
-    }
-
-    public static Locale getCurrentLocale() {
-        return mInstance == null ? Locale.getDefault() : mInstance.getResources().getConfiguration().locale;
-    }
-
-    public static CommonFtsObject createCommonFtsObject() {
-        return getCommonFtsObject(commonFtsObject);
-    }
+public class HealthFacilityApplication extends CoreChwApplication implements CoreApplication {
 
     @Override
     public void onCreate() {
@@ -85,7 +60,7 @@ public class HealthFacilityApplication extends DrishtiApplication implements Cor
         JobManager.create(this).addJobCreator(new HfJobCreator());
 
         //Necessary to determine the right form to pick from assets
-        Constants.JSON_FORM.setLocaleAndAssetManager(HealthFacilityApplication.getCurrentLocale(),
+        CoreConstants.JSON_FORM.setLocaleAndAssetManager(HealthFacilityApplication.getCurrentLocale(),
                 HealthFacilityApplication.getInstance().getApplicationContext().getAssets());
 
         //Setup Navigation menu. Done only once when app is created
@@ -146,15 +121,7 @@ public class HealthFacilityApplication extends DrishtiApplication implements Cor
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         getApplicationContext().startActivity(intent);
         context.userService().logoutSession();
-        Timber.tag(TAG).i("Logged out user %s", getContext().allSharedPreferences().fetchRegisteredANM());
-    }
-
-    public String getPassword() {
-        if (password == null) {
-            String username = getContext().allSharedPreferences().fetchRegisteredANM();
-            password = getContext().userService().getGroupId(username);
-        }
-        return password;
+        Timber.i("Logged out user %s", getContext().allSharedPreferences().fetchRegisteredANM());
     }
 
     public void setOpenSRPUrl() {
@@ -166,42 +133,20 @@ public class HealthFacilityApplication extends DrishtiApplication implements Cor
         }
     }
 
-    @Override
     public @NotNull Map<String, Class> getRegisteredActivities() {
         Map<String, Class> registeredActivities = new HashMap<>();
-        registeredActivities.put(Constants.REGISTERED_ACTIVITIES.ANC_REGISTER_ACTIVITY, FamilyRegisterActivity.class);
-        registeredActivities.put(Constants.REGISTERED_ACTIVITIES.FAMILY_REGISTER_ACTIVITY, FamilyRegisterActivity.class);
-        registeredActivities.put(Constants.REGISTERED_ACTIVITIES.CHILD_REGISTER_ACTIVITY, ChildRegisterActivity.class);
-        registeredActivities.put(Constants.REGISTERED_ACTIVITIES.PNC_REGISTER_ACTIVITY, FamilyRegisterActivity.class);
+        registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.ANC_REGISTER_ACTIVITY, FamilyRegisterActivity.class);
+        registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.FAMILY_REGISTER_ACTIVITY, FamilyRegisterActivity.class);
+        registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.CHILD_REGISTER_ACTIVITY, ChildRegisterActivity.class);
+        registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.PNC_REGISTER_ACTIVITY, FamilyRegisterActivity.class);
         return registeredActivities;
-    }
-
-    public void saveLanguage(String language) {
-        HealthFacilityApplication.getInstance().getContext().allSharedPreferences().saveLanguagePreference(language);
-    }
-
-    public Context getContext() {
-        return context;
-    }
-
-    @Override
-    public ECSyncHelper getEcSyncHelper() {
-        if (ecSyncHelper == null) {
-            ecSyncHelper = ECSyncHelper.getInstance(getApplicationContext());
-        }
-        return ecSyncHelper;
-    }
-
-    @Override
-    public void notifyAppContextChange() {
-
     }
 
     @Override
     public Repository getRepository() {
         try {
             if (repository == null) {
-                repository = new HfRepository(getInstance().getApplicationContext(), context);
+                repository = new HfChwRepository(getInstance().getApplicationContext(), context);
             }
         } catch (UnsatisfiedLinkError e) {
             Timber.e(e);

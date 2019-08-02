@@ -112,7 +112,7 @@ public class FamilyProfileActivityTest {
     public void testOnActivityResultVerifyJsonReceived() throws Exception {
 
         FamilyProfileActivity spyActivity = Mockito.spy(activity);
-        JSONObject form = getFormJson(RuntimeEnvironment.application, com.opensrp.chw.core.utils.Constants.JSON_FORM.getFamilyMemberRegister());
+        JSONObject form = getFormJson(RuntimeEnvironment.application, CoreConstants.JSON_FORM.getFamilyMemberRegister());
 
         FamilyProfilePresenter presenter = mock(FamilyProfilePresenter.class);
         Whitebox.setInternalState(spyActivity, "presenter", presenter);
@@ -159,7 +159,7 @@ public class FamilyProfileActivityTest {
         FamilyProfileActivity spyActivity = Mockito.spy(activity);
 
         int resultCode = Activity.RESULT_OK;
-        int requestCode = com.opensrp.chw.core.utils.Constants.ProfileActivityResults.CHANGE_COMPLETED;
+        int requestCode = CoreConstants.ProfileActivityResults.CHANGE_COMPLETED;
         Intent data = new Intent();
         data.putExtra(Constants.INTENT_KEY.FAMILY_HEAD, TEST_CARE_GIVER);
         data.putExtra(Constants.INTENT_KEY.PRIMARY_CAREGIVER, TEST_FAMILY_HEAD);

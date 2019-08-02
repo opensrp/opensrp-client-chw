@@ -1,7 +1,7 @@
 package org.smartregister.chw.model;
 
 import com.opensrp.chw.core.model.NavigationOption;
-import com.opensrp.chw.core.utils.Constants;
+
 
 import org.junit.Test;
 import org.smartregister.chw.R;

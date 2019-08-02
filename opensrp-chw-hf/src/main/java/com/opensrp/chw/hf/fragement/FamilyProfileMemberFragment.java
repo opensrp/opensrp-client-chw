@@ -5,6 +5,7 @@ import android.os.Bundle;
 import com.opensrp.chw.core.fragment.CoreFamilyProfileMemberFragment;
 import com.opensrp.chw.core.provider.CoreMemberRegisterProvider;
 import com.opensrp.chw.hf.model.FamilyProfileMemberModel;
+import com.opensrp.chw.hf.provider.HfMemberRegisterProvider;
 
 import org.smartregister.configurableviews.model.View;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;

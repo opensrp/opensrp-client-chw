@@ -3,6 +3,7 @@ package org.smartregister.chw.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.opensrp.chw.core.utils.CoreConstants;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
 
@@ -63,7 +64,7 @@ public class IndividualProfileRemoveFragment extends BaseFamilyProfileMemberFrag
             familyBaseEntityId = getArguments().getString(Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID);
             String familyHead = getArguments().getString(Constants.INTENT_KEY.FAMILY_HEAD);
             String primaryCareGiver = getArguments().getString(Constants.INTENT_KEY.PRIMARY_CAREGIVER);
-            pc = (CommonPersonObjectClient) getArguments().getSerializable(com.opensrp.chw.core.utils.Constants.INTENT_KEY.CHILD_COMMON_PERSON);
+            pc = (CommonPersonObjectClient) getArguments().getSerializable(CoreConstants.INTENT_KEY.CHILD_COMMON_PERSON);
             presenter = new FamilyRemoveMemberPresenter(this, new FamilyRemoveMemberModel(), null, familyBaseEntityId, familyHead, primaryCareGiver);
             openDeleteDialog();
         }
@@ -126,7 +127,7 @@ public class IndividualProfileRemoveFragment extends BaseFamilyProfileMemberFrag
     public void displayChangeFamilyHeadDialog(final CommonPersonObjectClient client, final String familyHeadID) {
         if (getActivity() != null && getActivity().getFragmentManager() != null) {
             FamilyProfileChangeDialog dialog = FamilyProfileChangeDialog.newInstance(getContext(), familyBaseEntityId,
-                    com.opensrp.chw.core.utils.Constants.PROFILE_CHANGE_ACTION.HEAD_OF_FAMILY);
+                    CoreConstants.PROFILE_CHANGE_ACTION.HEAD_OF_FAMILY);
             dialog.setOnSaveAndClose(new Runnable() {
                 @Override
                 public void run() {
@@ -150,7 +151,7 @@ public class IndividualProfileRemoveFragment extends BaseFamilyProfileMemberFrag
     public void displayChangeCareGiverDialog(final CommonPersonObjectClient client, final String careGiverID) {
         if (getActivity() != null && getActivity().getFragmentManager() != null) {
             FamilyProfileChangeDialog dialog = FamilyProfileChangeDialog.newInstance(getContext(), familyBaseEntityId,
-                    com.opensrp.chw.core.utils.Constants.PROFILE_CHANGE_ACTION.PRIMARY_CARE_GIVER);
+                    CoreConstants.PROFILE_CHANGE_ACTION.PRIMARY_CARE_GIVER);
             dialog.setOnSaveAndClose(new Runnable() {
                 @Override
                 public void run() {
@@ -201,7 +202,7 @@ public class IndividualProfileRemoveFragment extends BaseFamilyProfileMemberFrag
     @Override
     public void onMemberRemoved(String removalType) {
         if (getActivity() != null) {
-            if (com.opensrp.chw.core.utils.Constants.EventType.REMOVE_FAMILY.equalsIgnoreCase(removalType)) {
+            if (CoreConstants.EventType.REMOVE_FAMILY.equalsIgnoreCase(removalType)) {
                 Intent intent = new Intent(getActivity(), FamilyRegisterActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);

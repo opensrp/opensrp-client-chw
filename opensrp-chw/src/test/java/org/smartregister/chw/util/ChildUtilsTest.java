@@ -13,7 +13,7 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.powermock.reflect.Whitebox;
 import org.smartregister.chw.BaseUnitTest;
-import org.smartregister.chw.rule.HomeAlertRule;
+import com.opensrp.chw.core.rule.HomeAlertRule;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.util.DBConstants;
 

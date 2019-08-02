@@ -12,6 +12,7 @@ import com.opensrp.chw.core.fragment.CoreChildRegisterFragment;
 import com.opensrp.chw.core.listener.CoreBottomNavigationListener;
 import com.opensrp.chw.core.model.CoreChildRegisterModel;
 import com.opensrp.chw.core.presenter.CoreChildRegisterPresenter;
+import com.opensrp.chw.core.utils.CoreConstants;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
 
@@ -94,7 +95,7 @@ public class CoreChildRegisterActivity extends BaseRegisterActivity implements C
 
                 JSONObject form = new JSONObject(jsonString);
                 if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Utils.metadata().familyRegister.registerEventType)
-                        || form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(com.opensrp.chw.core.utils.Constants.EventType.CHILD_REGISTRATION)
+                        || form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(CoreConstants.EventType.CHILD_REGISTRATION)
                 ) {
                     presenter().saveForm(jsonString, false);
                 }
@@ -154,6 +155,6 @@ public class CoreChildRegisterActivity extends BaseRegisterActivity implements C
     protected void onResumption() {
         super.onResumption();
         NavigationMenu.getInstance(this, null, null).getNavigationAdapter()
-                .setSelectedView(com.opensrp.chw.core.utils.Constants.DrawerMenu.CHILD_CLIENTS);
+                .setSelectedView(CoreConstants.DrawerMenu.CHILD_CLIENTS);
     }
 }

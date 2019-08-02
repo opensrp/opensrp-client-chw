@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.design.bottomnavigation.LabelVisibilityMode;
 
 import com.opensrp.chw.core.custom_views.NavigationMenu;
-import com.opensrp.chw.core.utils.Constants;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
 
@@ -16,6 +15,7 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.fragment.MalariaRegisterFragment;
 import org.smartregister.chw.listener.ChwBottomNavigationListener;
 import org.smartregister.chw.malaria.activity.BaseMalariaRegisterActivity;
+import org.smartregister.chw.util.Constants;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
 import org.smartregister.helper.BottomNavigationHelper;

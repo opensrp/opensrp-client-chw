@@ -20,7 +20,8 @@ import com.opensrp.chw.core.model.CoreChildRegisterFragmentModel;
 import com.opensrp.chw.core.presenter.CoreChildRegisterFragmentPresenter;
 import com.opensrp.chw.core.provider.CoreChildRegisterProvider;
 import com.opensrp.chw.core.utils.ChildDBConstants;
-import com.opensrp.chw.core.utils.Constants;
+import com.opensrp.chw.core.utils.CoreConstants;
+
 
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.commonregistry.CommonFtsObject;
@@ -164,7 +165,7 @@ public class CoreChildRegisterFragment extends BaseRegisterFragment implements C
 
     @Override
     protected void startRegistration() {
-        ((CoreChildRegisterActivity) getActivity()).startFormActivity(Constants.JSON_FORM.getChildRegister(), null, null);
+        ((CoreChildRegisterActivity) getActivity()).startFormActivity(CoreConstants.JSON_FORM.getChildRegister(), null, null);
         //getActivity().startFormActivity(Utils.metadata().familyRegister.formName, null, null);
     }
 
@@ -308,7 +309,7 @@ public class CoreChildRegisterFragment extends BaseRegisterFragment implements C
         String query = "";
         try {
             if (isValidFilterForFts(commonRepository())) {
-                String sql = ChildDBConstants.childMainFilter(mainCondition, presenter().getMainCondition(CommonFtsObject.searchTableName(Constants.TABLE_NAME.FAMILY_MEMBER)), filters, Sortqueries, clientAdapter.getCurrentlimit(), clientAdapter.getCurrentoffset());
+                String sql = ChildDBConstants.childMainFilter(mainCondition, presenter().getMainCondition(CommonFtsObject.searchTableName(CoreConstants.TABLE_NAME.FAMILY_MEMBER)), filters, Sortqueries, clientAdapter.getCurrentlimit(), clientAdapter.getCurrentoffset());
                 List<String> ids = commonRepository().findSearchIds(sql);
                 query = sqb.toStringFts(ids, tablename, CommonRepository.ID_COLUMN,
                         Sortqueries);

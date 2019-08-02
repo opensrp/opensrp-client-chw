@@ -9,11 +9,12 @@ import android.view.View;
 import android.widget.RelativeLayout;
 
 import com.opensrp.chw.core.R;
+import com.opensrp.chw.core.application.CoreChwApplication;
 import com.opensrp.chw.core.interactor.CoreChildProfileInteractor;
 import com.opensrp.chw.core.model.ChildVisit;
 import com.opensrp.chw.core.utils.ChildDBConstants;
-import com.opensrp.chw.core.utils.Constants;
 import com.opensrp.chw.core.utils.CoreChildUtils;
+import com.opensrp.chw.core.utils.CoreConstants;
 import com.opensrp.chw.core.utils.Utils;
 
 import org.jeasy.rules.api.Rules;
@@ -32,6 +33,8 @@ import java.util.Map;
 import java.util.Set;
 
 import timber.log.Timber;
+
+import static org.smartregister.family.util.Utils.*;
 
 public class CoreMemberRegisterProvider extends FamilyMemberRegisterProvider {
     private Context context;
@@ -58,7 +61,7 @@ public class CoreMemberRegisterProvider extends FamilyMemberRegisterProvider {
         viewHolder.status.setVisibility(View.GONE);
 
         String entityType = Utils.getValue(pc.getColumnmaps(), ChildDBConstants.KEY.ENTITY_TYPE, false);
-        if (Constants.TABLE_NAME.CHILD.equals(entityType)) {
+        if (CoreConstants.TABLE_NAME.CHILD.equals(entityType)) {
             Utils.startAsyncTask(new UpdateAsyncTask(viewHolder, pc), null);
         }
 
@@ -66,16 +69,16 @@ public class CoreMemberRegisterProvider extends FamilyMemberRegisterProvider {
 
     private Map<String, String> getChildDetails(String baseEntityId) {
         SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
-        queryBUilder.SelectInitiateMainTable(CommonFtsObject.searchTableName(Constants.TABLE_NAME.CHILD), new String[]{CommonFtsObject.idColumn, ChildDBConstants.KEY.LAST_HOME_VISIT, ChildDBConstants.KEY.VISIT_NOT_DONE, ChildDBConstants.KEY.DATE_CREATED});
+        queryBUilder.SelectInitiateMainTable(CommonFtsObject.searchTableName(CoreConstants.TABLE_NAME.CHILD), new String[]{CommonFtsObject.idColumn, ChildDBConstants.KEY.LAST_HOME_VISIT, ChildDBConstants.KEY.VISIT_NOT_DONE, ChildDBConstants.KEY.DATE_CREATED});
         String query = queryBUilder.mainCondition(String.format(" %s is null AND %s = '%s' AND %s ",
                 DBConstants.KEY.DATE_REMOVED,
                 CommonFtsObject.idColumn,
                 baseEntityId,
                 ChildDBConstants.childAgeLimitFilter()));
 
-        query = query.replace(CommonFtsObject.searchTableName(Constants.TABLE_NAME.CHILD) + ".id as _id ,", "");
+        query = query.replace(CommonFtsObject.searchTableName(CoreConstants.TABLE_NAME.CHILD) + ".id as _id ,", "");
 
-        CommonRepository commonRepository = Utils.context().commonrepository(Constants.TABLE_NAME.CHILD);
+        CommonRepository commonRepository = Utils.context().commonrepository(CoreConstants.TABLE_NAME.CHILD);
         List<Map<String, String>> res = new ArrayList<>();
 
         Cursor cursor = null;
@@ -121,7 +124,7 @@ public class CoreMemberRegisterProvider extends FamilyMemberRegisterProvider {
             visitNot = Long.valueOf(visitNotDone);
         }
         if (!TextUtils.isEmpty(strDateCreated)) {
-            dateCreated = org.smartregister.family.util.Utils.dobStringToDateTime(strDateCreated).getMillis();
+            dateCreated = dobStringToDateTime(strDateCreated).getMillis();
         }
         return CoreChildUtils.getChildVisitStatus(context, rules, dobString, lastVisit, visitNot, dateCreated);
     }
@@ -158,7 +161,7 @@ public class CoreMemberRegisterProvider extends FamilyMemberRegisterProvider {
         private UpdateAsyncTask(FamilyMemberRegisterProvider.RegisterViewHolder viewHolder, CommonPersonObjectClient pc) {
             this.viewHolder = viewHolder;
             this.pc = pc;
-            this.rules = ChwApplication.getInstance().getRulesEngineHelper().rules(Constants.RULE_FILE.HOME_VISIT);
+            this.rules = CoreChwApplication.getInstance().getRulesEngineHelper().rules(CoreConstants.RULE_FILE.HOME_VISIT);
         }
 
         @Override

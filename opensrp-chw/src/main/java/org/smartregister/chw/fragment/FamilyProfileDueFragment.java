@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.opensrp.chw.core.utils.CoreConstants;
+
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.ChildProfileActivity;
 import org.smartregister.chw.activity.FamilyProfileActivity;
@@ -20,8 +22,6 @@ import java.util.HashMap;
 import java.util.Set;
 
 import timber.log.Timber;
-
-import static com.opensrp.chw.core.utils.Constants.INTENT_KEY.IS_COMES_FROM_FAMILY;
 
 public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
     private static final String TAG = FamilyProfileDueFragment.class.getCanonicalName();
@@ -108,7 +108,7 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
 
             Intent intent = new Intent(getActivity(), ChildProfileActivity.class);
             intent.putExtras(getArguments());
-            intent.putExtra(IS_COMES_FROM_FAMILY, true);
+            intent.putExtra(CoreConstants.INTENT_KEY.IS_COMES_FROM_FAMILY, true);
             intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, patient.getCaseId());
             startActivity(intent);
         }

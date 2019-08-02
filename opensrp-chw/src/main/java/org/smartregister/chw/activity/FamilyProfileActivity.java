@@ -19,6 +19,7 @@ import com.opensrp.chw.core.contract.FamilyProfileExtendedContract;
 import com.opensrp.chw.core.custom_views.FamilyFloatingMenu;
 import com.opensrp.chw.core.event.PermissionEvent;
 import com.opensrp.chw.core.listener.FloatingMenuListener;
+import com.opensrp.chw.core.utils.CoreConstants;
 
 import org.apache.commons.lang3.StringUtils;
 import org.greenrobot.eventbus.EventBus;
@@ -42,11 +43,6 @@ import org.smartregister.view.fragment.BaseRegisterFragment;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import timber.log.Timber;
-
-import static com.opensrp.chw.core.utils.Constants.EventType;
-import static com.opensrp.chw.core.utils.Constants.INTENT_KEY;
-import static com.opensrp.chw.core.utils.Constants.MenuType;
-import static com.opensrp.chw.core.utils.Constants.ProfileActivityResults;
 
 public class FamilyProfileActivity extends CoreFamilyProfileActivity {
 
@@ -102,7 +98,7 @@ public class FamilyProfileActivity extends CoreFamilyProfileActivity {
 
         viewPager.setAdapter(adapter);
 
-        if (getIntent().getBooleanExtra(INTENT_KEY.SERVICE_DUE, false) || getIntent().getBooleanExtra(Constants.INTENT_KEY.GO_TO_DUE_PAGE, false)) {
+        if (getIntent().getBooleanExtra(CoreConstants.INTENT_KEY.SERVICE_DUE, false) || getIntent().getBooleanExtra(Constants.INTENT_KEY.GO_TO_DUE_PAGE, false)) {
             viewPager.setCurrentItem(1);
         }
 
@@ -139,15 +135,15 @@ public class FamilyProfileActivity extends CoreFamilyProfileActivity {
                 frm_intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID, getFamilyBaseEntityId());
                 frm_intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.FAMILY_HEAD, familyHead);
                 frm_intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.PRIMARY_CAREGIVER, primaryCaregiver);
-                startActivityForResult(frm_intent, ProfileActivityResults.CHANGE_COMPLETED);
+                startActivityForResult(frm_intent, CoreConstants.ProfileActivityResults.CHANGE_COMPLETED);
 
                 break;
             case R.id.action_change_head:
 
                 Intent fh_intent = new Intent(this, FamilyProfileMenuActivity.class);
                 fh_intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.BASE_ENTITY_ID, getFamilyBaseEntityId());
-                fh_intent.putExtra(FamilyProfileMenuActivity.MENU, MenuType.ChangeHead);
-                startActivityForResult(fh_intent, ProfileActivityResults.CHANGE_COMPLETED);
+                fh_intent.putExtra(FamilyProfileMenuActivity.MENU, CoreConstants.MenuType.ChangeHead);
+                startActivityForResult(fh_intent, CoreConstants.ProfileActivityResults.CHANGE_COMPLETED);
 
                 break;
             case R.id.action_change_care_giver:
@@ -155,8 +151,8 @@ public class FamilyProfileActivity extends CoreFamilyProfileActivity {
 
                 Intent pc_intent = new Intent(this, FamilyProfileMenuActivity.class);
                 pc_intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.BASE_ENTITY_ID, getFamilyBaseEntityId());
-                pc_intent.putExtra(FamilyProfileMenuActivity.MENU, MenuType.ChangePrimaryCare);
-                startActivityForResult(pc_intent, ProfileActivityResults.CHANGE_COMPLETED);
+                pc_intent.putExtra(FamilyProfileMenuActivity.MENU, CoreConstants.MenuType.ChangePrimaryCare);
+                startActivityForResult(pc_intent, CoreConstants.ProfileActivityResults.CHANGE_COMPLETED);
 
                 break;
             default:
@@ -236,7 +232,7 @@ public class FamilyProfileActivity extends CoreFamilyProfileActivity {
                             presenter().updateFamilyRegister(jsonString);
                             presenter().verifyHasPhone();
 
-                        } else if (encounter_type.equals(EventType.CHILD_REGISTRATION)) {
+                        } else if (encounter_type.equals(CoreConstants.EventType.CHILD_REGISTRATION)) {
 
                             presenter().saveChildForm(jsonString, false);
 
@@ -256,7 +252,7 @@ public class FamilyProfileActivity extends CoreFamilyProfileActivity {
                         Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                     break;
-                case ProfileActivityResults.CHANGE_COMPLETED:
+                case CoreConstants.ProfileActivityResults.CHANGE_COMPLETED:
                     try {
 
                         String careGiverID = data.getStringExtra(Constants.INTENT_KEY.PRIMARY_CAREGIVER);

@@ -3,20 +3,21 @@ package org.smartregister.chw.interactor;
 import android.content.Context;
 import android.text.TextUtils;
 
-import com.opensrp.chw.core.utils.Constants;
+import com.opensrp.chw.core.domain.HomeVisit;
+import com.opensrp.chw.core.domain.HomeVisitServiceDataModel;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
-import org.smartregister.chw.domain.HomeVisit;
-import org.smartregister.chw.util.BirthCertDataModel;
+import com.opensrp.chw.core.utils.BirthCertDataModel;
 import org.smartregister.chw.util.ChildUtils;
-import org.smartregister.chw.util.HomeVisitServiceDataModel;
-import org.smartregister.chw.util.ObsIllnessDataModel;
-import org.smartregister.chw.util.ServiceTask;
-import org.smartregister.chw.util.TaskServiceCalculate;
+import org.smartregister.chw.util.Constants;
+import com.opensrp.chw.core.utils.ObsIllnessDataModel;
+
+import com.opensrp.chw.core.utils.ServiceTask;
+import com.opensrp.chw.core.utils.TaskServiceCalculate;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.util.DBConstants;
 

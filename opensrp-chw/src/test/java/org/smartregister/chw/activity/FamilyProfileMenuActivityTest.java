@@ -2,7 +2,7 @@ package org.smartregister.chw.activity;
 
 import android.content.Intent;
 
-import com.opensrp.chw.core.utils.Constants;
+
 
 import org.smartregister.chw.BaseActivityTest;
 
