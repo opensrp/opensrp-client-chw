@@ -79,6 +79,12 @@
         "v_required": {
           "value": "true",
           "err": "Please enter date"
+        },
+        "relevance": {
+          "step1:pnc_visit_1": {
+            "type": "string",
+            "ex": "equalTo(., \"Yes\")"
+          }
         }
       },
       {
@@ -96,7 +102,13 @@
         "values": [
           "Yes",
           "No"
-        ]
+        ],
+        "relevance": {
+          "step1:pnc_visit_1": {
+            "type": "string",
+            "ex": "equalTo(., \"Yes\")"
+          }
+        }
       },
       {
         "key": "ifa_mother",
@@ -117,6 +129,12 @@
         "openmrs_choice_ids": {
           "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "relevance": {
+          "step1:pnc_visit_1": {
+            "type": "string",
+            "ex": "equalTo(., \"Yes\")"
+          }
         }
       },
       {
