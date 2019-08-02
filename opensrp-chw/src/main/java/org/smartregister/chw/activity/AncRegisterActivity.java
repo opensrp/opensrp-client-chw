@@ -29,7 +29,6 @@ import java.util.List;
 import static org.smartregister.chw.anc.util.Constants.ACTIVITY_PAYLOAD.TABLE_NAME;
 import static org.smartregister.chw.util.Constants.CONFIGURATION;
 import static org.smartregister.chw.util.Constants.DrawerMenu;
-import static org.smartregister.chw.util.Constants.JSON_FORM;
 import static org.smartregister.chw.util.Constants.JsonAssets;
 import static org.smartregister.chw.util.Constants.TABLE_NAME.ANC_MEMBER;
 import static org.smartregister.chw.util.Constants.TABLE_NAME.ANC_PREGNANCY_OUTCOME;
@@ -116,8 +115,12 @@ public class AncRegisterActivity extends BaseAncRegisterActivity implements ChwB
 
     @Override
     public void onRegistrationSaved(boolean isEdit) {
+        if (hasChildRegistration) {
+            startRegisterActivity(PncRegisterActivity.class);
+        } else {
+            startRegisterActivity(AncRegisterActivity.class);
+        }
         finish();
-        startRegisterActivity(AncRegisterActivity.class);
     }
 
     @Override
@@ -126,7 +129,7 @@ public class AncRegisterActivity extends BaseAncRegisterActivity implements ChwB
         NavigationMenu.getInstance(this, null, null).getNavigationAdapter()
                 .setSelectedView(DrawerMenu.ANC);
         NavigationMenu menu = NavigationMenu.getInstance(this, null, null);
-        if(menu != null){
+        if (menu != null) {
             menu.getNavigationAdapter()
                     .setSelectedView(Constants.DrawerMenu.ANC);
         }
@@ -137,12 +140,11 @@ public class AncRegisterActivity extends BaseAncRegisterActivity implements ChwB
         return Arrays.asList(CONFIGURATION.ANC_REGISTER);
     }
 
-    private void updateFormField(JSONArray formFieldArrays, String formFeildKey, String updateValue) {
+    private void updateFormField(JSONArray formFieldArrays, String formFieldKey, String updateValue) {
         if (updateValue != null) {
-            JSONObject formObject = org.smartregister.util.JsonFormUtils.getFieldJSONObject(formFieldArrays, formFeildKey);
+            JSONObject formObject = org.smartregister.util.JsonFormUtils.getFieldJSONObject(formFieldArrays, formFieldKey);
             if (formObject != null) {
                 try {
-                    formObject.remove(org.smartregister.util.JsonFormUtils.VALUE);
                     formObject.put(org.smartregister.util.JsonFormUtils.VALUE, updateValue);
                 } catch (JSONException e) {
                     e.printStackTrace();
