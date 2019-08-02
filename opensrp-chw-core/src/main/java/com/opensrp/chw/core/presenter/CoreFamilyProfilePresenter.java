@@ -7,7 +7,7 @@ import com.opensrp.chw.core.R;
 import com.opensrp.chw.core.contract.CoreChildRegisterContract;
 import com.opensrp.chw.core.contract.FamilyProfileExtendedContract;
 import com.opensrp.chw.core.interactor.CoreFamilyProfileInteractor;
-import com.opensrp.chw.core.utils.Constants;
+import com.opensrp.chw.core.utils.CoreConstants;
 import com.opensrp.chw.core.utils.CoreJsonFormUtils;
 import com.opensrp.chw.core.utils.Utils;
 
@@ -125,7 +125,7 @@ public abstract class CoreFamilyProfilePresenter extends BaseFamilyProfilePresen
 
     @Override
     public void startFormForEdit(CommonPersonObjectClient client) {
-        JSONObject form = CoreJsonFormUtils.getAutoPopulatedJsonEditFormString(Constants.JSON_FORM.getFamilyDetailsRegister(), getView().getApplicationContext(), client, Utils.metadata().familyRegister.updateEventType);
+        JSONObject form = CoreJsonFormUtils.getAutoPopulatedJsonEditFormString(CoreConstants.JSON_FORM.getFamilyDetailsRegister(), getView().getApplicationContext(), client, Utils.metadata().familyRegister.updateEventType);
         try {
             getView().startFormActivity(form);
         } catch (Exception e) {
