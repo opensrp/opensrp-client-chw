@@ -30,6 +30,7 @@ import com.opensrp.chw.core.listener.OnClickFloatingMenu;
 import com.opensrp.chw.core.model.CoreChildProfileModel;
 import com.opensrp.chw.core.presenter.CoreChildProfilePresenter;
 import com.opensrp.chw.core.utils.CoreChildUtils;
+import com.opensrp.chw.core.utils.CoreConstants;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
 
@@ -45,8 +46,6 @@ import org.smartregister.view.activity.BaseProfileActivity;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import timber.log.Timber;
-
-import static com.opensrp.chw.core.utils.Constants.INTENT_KEY.IS_COMES_FROM_FAMILY;
 
 
 public class CoreChildProfileActivity extends BaseProfileActivity implements CoreChildProfileContract.View, CoreChildRegisterContract.InteractorCallBack {
@@ -78,7 +77,7 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
     private ImageView imageViewCross;
     private ProgressBar progressBar;
     private String gender;
-    private Handler handler = new Handler();
+    public Handler handler = new Handler();
     public final BroadcastReceiver mDateTimeChangedReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -362,7 +361,7 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
     @Override
     protected void initializePresenter() {
         childBaseEntityId = getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID);
-        isComesFromFamily = getIntent().getBooleanExtra(IS_COMES_FROM_FAMILY, false);
+        isComesFromFamily = getIntent().getBooleanExtra(CoreConstants.INTENT_KEY.IS_COMES_FROM_FAMILY, false);
         String familyName = getIntent().getStringExtra(Constants.INTENT_KEY.FAMILY_NAME);
         if (familyName == null) {
             familyName = "";
@@ -568,7 +567,7 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
-            case com.opensrp.chw.core.utils.Constants.ProfileActivityResults.CHANGE_COMPLETED:
+            case CoreConstants.ProfileActivityResults.CHANGE_COMPLETED:
                 if (resultCode == Activity.RESULT_OK) {
                     finish();
                 }
@@ -579,7 +578,7 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
                         String jsonString = data.getStringExtra(Constants.JSON_FORM_EXTRA.JSON);
 
                         JSONObject form = new JSONObject(jsonString);
-                        if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(com.opensrp.chw.core.utils.Constants.EventType.UPDATE_CHILD_REGISTRATION)) {
+                        if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(CoreConstants.EventType.UPDATE_CHILD_REGISTRATION)) {
                             presenter().updateChildProfile(jsonString);
                         }
                     } catch (Exception e) {

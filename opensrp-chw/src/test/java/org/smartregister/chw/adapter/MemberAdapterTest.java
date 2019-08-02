@@ -8,7 +8,7 @@ import org.mockito.MockitoAnnotations;
 import org.robolectric.RuntimeEnvironment;
 import org.smartregister.chw.BaseUnitTest;
 import org.smartregister.chw.contract.MemberAdapterListener;
-import org.smartregister.chw.domain.FamilyMember;
+import com.opensrp.chw.core.domain.FamilyMember;
 
 import java.util.ArrayList;
 

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 
+import com.opensrp.chw.core.utils.CoreConstants;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
 
@@ -79,7 +80,7 @@ public class FamilyRemoveMemberFragment extends BaseFamilyProfileMemberFragment 
     @Override
     public void displayChangeFamilyHeadDialog(final CommonPersonObjectClient client, final String familyHeadID) {
         FamilyProfileChangeDialog dialog = FamilyProfileChangeDialog.newInstance(getContext(), familyBaseEntityId,
-                com.opensrp.chw.core.utils.Constants.PROFILE_CHANGE_ACTION.HEAD_OF_FAMILY);
+                CoreConstants.PROFILE_CHANGE_ACTION.HEAD_OF_FAMILY);
         dialog.setOnSaveAndClose(new Runnable() {
             @Override
             public void run() {
@@ -95,7 +96,7 @@ public class FamilyRemoveMemberFragment extends BaseFamilyProfileMemberFragment 
     @Override
     public void displayChangeCareGiverDialog(final CommonPersonObjectClient client, final String careGiverID) {
         FamilyProfileChangeDialog dialog = FamilyProfileChangeDialog.newInstance(getContext(), familyBaseEntityId,
-                com.opensrp.chw.core.utils.Constants.PROFILE_CHANGE_ACTION.PRIMARY_CARE_GIVER);
+                CoreConstants.PROFILE_CHANGE_ACTION.PRIMARY_CARE_GIVER);
         dialog.setOnSaveAndClose(new Runnable() {
             @Override
             public void run() {
@@ -141,7 +142,7 @@ public class FamilyRemoveMemberFragment extends BaseFamilyProfileMemberFragment 
     public void onMemberRemoved(String removalType) {
         // display alert
         if (getActivity() != null) {
-            if (com.opensrp.chw.core.utils.Constants.EventType.REMOVE_FAMILY.equalsIgnoreCase(removalType)) {
+            if (CoreConstants.EventType.REMOVE_FAMILY.equalsIgnoreCase(removalType)) {
                 Intent intent = new Intent(getActivity(), FamilyRegisterActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);

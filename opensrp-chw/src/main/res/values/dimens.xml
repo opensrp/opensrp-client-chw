@@ -13,8 +13,6 @@
     <dimen name="copy_to_clipboard_message_text_size">14sp</dimen>
 
     <dimen name="login_font_size">14sp</dimen>
-    <dimen name="immunization_status_circle_size">30dp</dimen>
-    <dimen name="vaccine_text_top_margin">10dp</dimen>
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
@@ -46,16 +44,8 @@
 
     <dimen name="dialog_toolbar_close_margin">10dp</dimen>
 
-    <dimen name="child_home_visit_right_margin">20dp</dimen>
-    <dimen name="child_home_visit_left_margin">10dp</dimen>
-    <dimen name="child_home_visit_title_text_size">20sp</dimen>
-
     <dimen name="member_profile_pic_width">70dp</dimen>
     <dimen name="member_profile_list_title_size">18sp</dimen>
     <dimen name="member_due_list_title_size">17.5sp</dimen>
-    <dimen name="px_16_to_sp">16dp</dimen>
-    <dimen name="px_15_to_sp">15dp</dimen>
-    <dimen name="px_20_to_sp">20dp</dimen>
-    <dimen name="px_14_to_sp">14dp</dimen>
 
 </resources>

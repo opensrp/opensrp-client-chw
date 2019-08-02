@@ -1,5 +1,7 @@
 package org.smartregister.chw.rule;
 
+import com.opensrp.chw.core.rule.ICommonRule;
+
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.smartregister.chw.contract.RegisterAlert;

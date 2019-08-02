@@ -9,13 +9,13 @@ import android.widget.Button;
 import com.opensrp.chw.core.holders.RegisterViewHolder;
 import com.opensrp.chw.core.model.ChildVisit;
 import com.opensrp.chw.core.utils.ChildDBConstants;
-import com.opensrp.chw.core.utils.Constants;
 
 import org.jeasy.rules.api.Rules;
 import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.interactor.ChildProfileInteractor;
 import org.smartregister.chw.util.ChildUtils;
+import org.smartregister.chw.util.Constants;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.family.util.DBConstants;

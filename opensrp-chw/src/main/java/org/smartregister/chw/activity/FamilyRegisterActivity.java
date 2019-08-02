@@ -6,12 +6,12 @@ import android.os.Bundle;
 
 import com.opensrp.chw.core.activity.CoreFamilyRegisterActivity;
 import com.opensrp.chw.core.custom_views.NavigationMenu;
-import com.opensrp.chw.core.utils.Constants;
 
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.fragment.FamilyRegisterFragment;
 import org.smartregister.chw.listener.FamilyBottomNavigationListener;
+import org.smartregister.chw.util.Constants;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
 public class FamilyRegisterActivity extends CoreFamilyRegisterActivity {

@@ -7,7 +7,8 @@ import android.widget.Toast;
 
 import com.opensrp.chw.core.R;
 import com.opensrp.chw.core.adapter.NavigationAdapter;
-import com.opensrp.chw.core.utils.Constants;
+import com.opensrp.chw.core.utils.CoreConstants;
+
 
 public class NavigationListener implements View.OnClickListener {
 
@@ -26,26 +27,26 @@ public class NavigationListener implements View.OnClickListener {
                 String tag = (String) v.getTag();
 
                 switch (tag) {
-                    case Constants.DrawerMenu.CHILD_CLIENTS:
-                        startRegisterActivity(getActivity(Constants.REGISTERED_ACTIVITIES.CHILD_REGISTER_ACTIVITY));
+                    case CoreConstants.DrawerMenu.CHILD_CLIENTS:
+                        startRegisterActivity(getActivity(CoreConstants.REGISTERED_ACTIVITIES.CHILD_REGISTER_ACTIVITY));
                         break;
-                    case Constants.DrawerMenu.ALL_FAMILIES:
-                        startRegisterActivity(getActivity(Constants.REGISTERED_ACTIVITIES.FAMILY_REGISTER_ACTIVITY));
+                    case CoreConstants.DrawerMenu.ALL_FAMILIES:
+                        startRegisterActivity(getActivity(CoreConstants.REGISTERED_ACTIVITIES.FAMILY_REGISTER_ACTIVITY));
                         break;
-                    case Constants.DrawerMenu.ANC:
-                        startRegisterActivity(getActivity(Constants.REGISTERED_ACTIVITIES.ANC_REGISTER_ACTIVITY));
+                    case CoreConstants.DrawerMenu.ANC:
+                        startRegisterActivity(getActivity(CoreConstants.REGISTERED_ACTIVITIES.ANC_REGISTER_ACTIVITY));
                         break;
-                    case Constants.DrawerMenu.LD:
-                        Toast.makeText(activity.getApplicationContext(), Constants.DrawerMenu.LD, Toast.LENGTH_SHORT).show();
+                    case CoreConstants.DrawerMenu.LD:
+                        Toast.makeText(activity.getApplicationContext(), CoreConstants.DrawerMenu.LD, Toast.LENGTH_SHORT).show();
                         break;
-                    case Constants.DrawerMenu.PNC:
-                        startRegisterActivity(getActivity(Constants.REGISTERED_ACTIVITIES.PNC_REGISTER_ACTIVITY));
+                    case CoreConstants.DrawerMenu.PNC:
+                        startRegisterActivity(getActivity(CoreConstants.REGISTERED_ACTIVITIES.PNC_REGISTER_ACTIVITY));
                         break;
-                    case Constants.DrawerMenu.FAMILY_PLANNING:
-                        Toast.makeText(activity.getApplicationContext(), Constants.DrawerMenu.FAMILY_PLANNING, Toast.LENGTH_SHORT).show();
+                    case CoreConstants.DrawerMenu.FAMILY_PLANNING:
+                        Toast.makeText(activity.getApplicationContext(), CoreConstants.DrawerMenu.FAMILY_PLANNING, Toast.LENGTH_SHORT).show();
                         break;
-                    case Constants.DrawerMenu.MALARIA:
-                        Toast.makeText(activity.getApplicationContext(), Constants.DrawerMenu.MALARIA, Toast.LENGTH_SHORT).show();
+                    case CoreConstants.DrawerMenu.MALARIA:
+                        Toast.makeText(activity.getApplicationContext(), CoreConstants.DrawerMenu.MALARIA, Toast.LENGTH_SHORT).show();
                         break;
                     default:
                         break;

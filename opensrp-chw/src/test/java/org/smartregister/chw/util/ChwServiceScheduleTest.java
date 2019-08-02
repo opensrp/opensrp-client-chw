@@ -1,5 +1,7 @@
 package org.smartregister.chw.util;
 
+import com.opensrp.chw.core.utils.ChwServiceSchedule;
+
 import org.joda.time.DateTime;
 import org.junit.Assert;
 import org.junit.Before;

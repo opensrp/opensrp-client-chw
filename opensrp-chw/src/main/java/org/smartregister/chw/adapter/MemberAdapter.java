@@ -18,10 +18,11 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import com.opensrp.chw.core.domain.FamilyMember;
+
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.R;
 import org.smartregister.chw.contract.MemberAdapterListener;
-import org.smartregister.chw.domain.FamilyMember;
 import org.smartregister.chw.util.TestConstant;
 import org.smartregister.family.util.Utils;
 

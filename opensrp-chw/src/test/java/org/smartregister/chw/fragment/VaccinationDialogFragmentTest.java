@@ -4,6 +4,7 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.LinearLayout;
 
+import com.opensrp.chw.core.fragment.VaccinationDialogFragment;
 import com.vijay.jsonwizard.customviews.CheckBox;
 
 import org.junit.Assert;
@@ -16,8 +17,8 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.reflect.Whitebox;
 import org.smartregister.chw.BaseUnitTest;
 import org.smartregister.chw.R;
-import org.smartregister.chw.custom_view.ImmunizationView;
-import org.smartregister.chw.presenter.ImmunizationViewPresenter;
+import com.opensrp.chw.core.custom_views.ImmunizationView;
+import com.opensrp.chw.core.presenter.ImmunizationViewPresenter;
 import org.smartregister.immunization.domain.VaccineWrapper;
 
 import java.util.ArrayList;

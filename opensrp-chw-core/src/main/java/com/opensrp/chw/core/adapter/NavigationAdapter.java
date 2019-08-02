@@ -14,7 +14,8 @@ import android.widget.TextView;
 import com.opensrp.chw.core.R;
 import com.opensrp.chw.core.listener.NavigationListener;
 import com.opensrp.chw.core.model.NavigationOption;
-import com.opensrp.chw.core.utils.Constants;
+import com.opensrp.chw.core.utils.CoreConstants;
+
 
 import java.util.List;
 import java.util.Locale;
@@ -23,7 +24,7 @@ import java.util.Map;
 public class NavigationAdapter extends RecyclerView.Adapter<NavigationAdapter.MyViewHolder> {
 
     private List<NavigationOption> navigationOptionList;
-    private String selectedView = Constants.DrawerMenu.ALL_FAMILIES;
+    private String selectedView = CoreConstants.DrawerMenu.ALL_FAMILIES;
     private View.OnClickListener onClickListener;
     private Context context;
     private Map<String, Class> registeredActivities;
@@ -37,7 +38,7 @@ public class NavigationAdapter extends RecyclerView.Adapter<NavigationAdapter.My
 
     public String getSelectedView() {
         if (selectedView == null || selectedView.equals(""))
-            setSelectedView(Constants.DrawerMenu.ALL_FAMILIES);
+            setSelectedView(CoreConstants.DrawerMenu.ALL_FAMILIES);
 
         return selectedView;
     }

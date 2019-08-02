@@ -3,13 +3,21 @@ package com.opensrp.chw.core.interactor;
 import android.content.Context;
 import android.database.Cursor;
 import android.support.annotation.VisibleForTesting;
+import android.text.TextUtils;
 import android.util.Pair;
 
 import com.opensrp.chw.core.contract.CoreChildProfileContract;
+import com.opensrp.chw.core.contract.HomeVisitGrowthNutritionContract;
+import com.opensrp.chw.core.contract.ImmunizationContact;
+import com.opensrp.chw.core.enums.ImmunizationState;
+import com.opensrp.chw.core.presenter.ImmunizationViewPresenter;
 import com.opensrp.chw.core.utils.ChildDBConstants;
-import com.opensrp.chw.core.utils.Constants;
+import com.opensrp.chw.core.utils.CoreChildService;
 import com.opensrp.chw.core.utils.CoreChildUtils;
+import com.opensrp.chw.core.utils.CoreConstants;
 import com.opensrp.chw.core.utils.CoreJsonFormUtils;
+import com.opensrp.chw.core.utils.GrowthServiceData;
+import com.opensrp.chw.core.utils.HomeVisitVaccineGroup;
 import com.opensrp.chw.core.utils.Utils;
 
 import org.apache.commons.lang3.StringUtils;
@@ -26,6 +34,8 @@ import org.smartregister.family.FamilyLibrary;
 import org.smartregister.family.util.AppExecutors;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.JsonFormUtils;
+import org.smartregister.immunization.db.VaccineRepo;
+import org.smartregister.immunization.domain.ServiceWrapper;
 import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.BaseRepository;
@@ -36,10 +46,14 @@ import org.smartregister.util.FormUtils;
 import org.smartregister.util.ImageUtils;
 import org.smartregister.view.LocationPickerView;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
 import timber.log.Timber;
 
 import static org.smartregister.util.JsonFormUtils.getFieldJSONObject;
@@ -149,13 +163,13 @@ public class CoreChildProfileInteractor implements CoreChildProfileContract.Inte
 
     @Override
     public void updateChildCommonPerson(String baseEntityId) {
-        String query = CoreChildUtils.mainSelect(Constants.TABLE_NAME.CHILD, Constants.TABLE_NAME.FAMILY, Constants.TABLE_NAME.FAMILY_MEMBER, baseEntityId);
+        String query = CoreChildUtils.mainSelect(CoreConstants.TABLE_NAME.CHILD, CoreConstants.TABLE_NAME.FAMILY, CoreConstants.TABLE_NAME.FAMILY_MEMBER, baseEntityId);
 
         Cursor cursor = null;
         try {
-            cursor = getCommonRepository(Constants.TABLE_NAME.CHILD).rawCustomQueryForAdapter(query);
+            cursor = getCommonRepository(CoreConstants.TABLE_NAME.CHILD).rawCustomQueryForAdapter(query);
             if (cursor != null && cursor.moveToFirst()) {
-                CommonPersonObject personObject = getCommonRepository(Constants.TABLE_NAME.CHILD).readAllcommonforCursorAdapter(cursor);
+                CommonPersonObject personObject = getCommonRepository(CoreConstants.TABLE_NAME.CHILD).readAllcommonforCursorAdapter(cursor);
                 pClient = new CommonPersonObjectClient(personObject.getCaseId(),
                         personObject.getDetails(), "");
                 pClient.setColumnmaps(personObject.getColumnmaps());
@@ -180,13 +194,13 @@ public class CoreChildProfileInteractor implements CoreChildProfileContract.Inte
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
-                String query = CoreChildUtils.mainSelect(Constants.TABLE_NAME.CHILD, Constants.TABLE_NAME.FAMILY, Constants.TABLE_NAME.FAMILY_MEMBER, baseEntityId);
+                String query = CoreChildUtils.mainSelect(CoreConstants.TABLE_NAME.CHILD, CoreConstants.TABLE_NAME.FAMILY, CoreConstants.TABLE_NAME.FAMILY_MEMBER, baseEntityId);
 
                 Cursor cursor = null;
                 try {
-                    cursor = getCommonRepository(Constants.TABLE_NAME.CHILD).rawCustomQueryForAdapter(query);
+                    cursor = getCommonRepository(CoreConstants.TABLE_NAME.CHILD).rawCustomQueryForAdapter(query);
                     if (cursor != null && cursor.moveToFirst()) {
-                        CommonPersonObject personObject = getCommonRepository(Constants.TABLE_NAME.CHILD).readAllcommonforCursorAdapter(cursor);
+                        CommonPersonObject personObject = getCommonRepository(CoreConstants.TABLE_NAME.CHILD).readAllcommonforCursorAdapter(cursor);
                         pClient = new CommonPersonObjectClient(personObject.getCaseId(),
                                 personObject.getDetails(), "");
                         pClient.setColumnmaps(personObject.getColumnmaps());
@@ -240,7 +254,7 @@ public class CoreChildProfileInteractor implements CoreChildProfileContract.Inte
             lpv.init();
             if (form != null) {
                 form.put(JsonFormUtils.ENTITY_ID, client.getCaseId());
-                form.put(JsonFormUtils.ENCOUNTER_TYPE, Constants.EventType.UPDATE_CHILD_REGISTRATION);
+                form.put(JsonFormUtils.ENCOUNTER_TYPE, CoreConstants.EventType.UPDATE_CHILD_REGISTRATION);
 
                 JSONObject metadata = form.getJSONObject(JsonFormUtils.METADATA);
                 String lastLocationId = LocationHelper.getInstance().getOpenMrsLocationId(lpv.getSelectedItem());
@@ -339,7 +353,7 @@ public class CoreChildProfileInteractor implements CoreChildProfileContract.Inte
 
                 break;
 
-            case Constants.JsonAssets.FAM_NAME:
+            case CoreConstants.JsonAssets.FAM_NAME:
 
                 final String SAME_AS_FAM_NAME = "same_as_fam_name";
                 final String SURNAME = "surname";
@@ -367,32 +381,32 @@ public class CoreChildProfileInteractor implements CoreChildProfileContract.Inte
 
                 break;
 
-            case Constants.JsonAssets.INSURANCE_PROVIDER:
+            case CoreConstants.JsonAssets.INSURANCE_PROVIDER:
                 jsonObject.put(JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.INSURANCE_PROVIDER, false));
                 break;
-            case Constants.JsonAssets.INSURANCE_PROVIDER_NUMBER:
+            case CoreConstants.JsonAssets.INSURANCE_PROVIDER_NUMBER:
                 jsonObject.put(JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.INSURANCE_PROVIDER_NUMBER, false));
                 break;
-            case Constants.JsonAssets.INSURANCE_PROVIDER_OTHER:
+            case CoreConstants.JsonAssets.INSURANCE_PROVIDER_OTHER:
                 jsonObject.put(JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.INSURANCE_PROVIDER_OTHER, false));
                 break;
-            case Constants.JsonAssets.DISABILITIES:
+            case CoreConstants.JsonAssets.DISABILITIES:
                 jsonObject.put(JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.CHILD_PHYSICAL_CHANGE, false));
                 break;
-            case Constants.JsonAssets.DISABILITY_TYPE:
+            case CoreConstants.JsonAssets.DISABILITY_TYPE:
                 jsonObject.put(JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.TYPE_OF_DISABILITY, false));
                 break;
 
-            case Constants.JsonAssets.BIRTH_CERT_AVAILABLE:
+            case CoreConstants.JsonAssets.BIRTH_CERT_AVAILABLE:
                 jsonObject.put(JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.BIRTH_CERT, false));
                 break;
-            case Constants.JsonAssets.BIRTH_REGIST_NUMBER:
+            case CoreConstants.JsonAssets.BIRTH_REGIST_NUMBER:
                 jsonObject.put(JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.BIRTH_CERT_NUMBER, false));
                 break;
-            case Constants.JsonAssets.RHC_CARD:
+            case CoreConstants.JsonAssets.RHC_CARD:
                 jsonObject.put(JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.RHC_CARD, false));
                 break;
-            case Constants.JsonAssets.NUTRITION_STATUS:
+            case CoreConstants.JsonAssets.NUTRITION_STATUS:
                 jsonObject.put(JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.NUTRITION_STATUS, false));
                 break;
 
@@ -412,19 +426,117 @@ public class CoreChildProfileInteractor implements CoreChildProfileContract.Inte
         }
     }
 
+
+    public Observable<CoreChildService> updateUpcomingServices() {
+        return Observable.create(new ObservableOnSubscribe<CoreChildService>() {
+            @Override
+            public void subscribe(final ObservableEmitter<CoreChildService> coreChildServiceObservableEmitter) {
+                final ImmunizationViewPresenter presenter = new ImmunizationViewPresenter();
+                presenter.upcomingServiceFetch(getpClient(), new ImmunizationContact.InteractorCallBack() {
+
+                    @Override
+                    public void updateData(ArrayList<HomeVisitVaccineGroup> homeVisitVaccineGroupDetails, Map<String, Date> vaccines) {
+                        String dueDate = "", vaccineName = "";
+                        setVaccineList(vaccineList);
+                        ImmunizationState state = ImmunizationState.UPCOMING;
+                        for (HomeVisitVaccineGroup homeVisitVaccineGroupDetail : homeVisitVaccineGroupDetails) {
+                            if (homeVisitVaccineGroupDetail.getAlert().equals(ImmunizationState.DUE)
+                                    || homeVisitVaccineGroupDetail.getAlert().equals(ImmunizationState.OVERDUE)
+                                    || homeVisitVaccineGroupDetail.getAlert().equals(ImmunizationState.UPCOMING)) {
+                                if (homeVisitVaccineGroupDetail.getNotGivenVaccines().size() > 0) {
+                                    dueDate = homeVisitVaccineGroupDetail.getDueDisplayDate();
+                                    VaccineRepo.Vaccine vaccine = homeVisitVaccineGroupDetail.getNotGivenVaccines().get(0);
+                                    vaccineName = CoreChildUtils.fixVaccineCasing(vaccine.display());
+                                    state = homeVisitVaccineGroupDetail.getAlert();
+                                    break;
+                                }
+                            }
+                        }
+
+                        if (!TextUtils.isEmpty(vaccineName) && !TextUtils.isEmpty(dueDate)) {
+                            CoreChildService childService = new CoreChildService();
+                            childService.setServiceName(vaccineName);
+                            if (childService.getServiceName().contains("MEASLES")) {
+                                childService.setServiceName(childService.getServiceName().replace("MEASLES", "MCV"));
+                            }
+                            //String duedateString = DateUtil.formatDate(dueDate, "dd MMM yyyy");
+                            childService.setServiceDate(dueDate);
+                            if (state.equals(ImmunizationState.DUE)) {
+                                childService.setServiceStatus(ServiceType.DUE.name());
+                            } else if (state.equals(ImmunizationState.OVERDUE)) {
+                                childService.setServiceStatus(ServiceType.OVERDUE.name());
+                            } else {
+                                childService.setServiceStatus(ServiceType.UPCOMING.name());
+                            }
+                            coreChildServiceObservableEmitter.onNext(childService);
+                        } else {
+                            //fetch service data
+                            final HomeVisitGrowthNutritionInteractor homeVisitGrowthNutritionInteractor = new HomeVisitGrowthNutritionInteractor();
+                            homeVisitGrowthNutritionInteractor.parseRecordServiceData(getpClient(), new HomeVisitGrowthNutritionContract.InteractorCallBack() {
+                                @Override
+                                public void updateGivenRecordVisitData(Map<String, ServiceWrapper> stringServiceWrapperMap) {
+                                    try {
+                                        CoreChildService childService = null;
+                                        ArrayList<GrowthServiceData> growthServiceDataList = homeVisitGrowthNutritionInteractor.getAllDueService(stringServiceWrapperMap);
+                                        if (growthServiceDataList.size() > 0) {
+                                            childService = new CoreChildService();
+                                            GrowthServiceData growthServiceData = growthServiceDataList.get(0);
+                                            childService.setServiceName(growthServiceData.getDisplayName());
+                                            childService.setServiceDate(growthServiceData.getDisplayAbleDate());
+                                            ImmunizationState state1 = CoreChildUtils.getDueStatus(growthServiceData.getDate());
+                                            if (state1.equals(ImmunizationState.DUE)) {
+                                                childService.setServiceStatus(ServiceType.DUE.name());
+                                            } else if (state1.equals(ImmunizationState.OVERDUE)) {
+                                                childService.setServiceStatus(ServiceType.OVERDUE.name());
+                                            } else {
+                                                childService.setServiceStatus(ServiceType.UPCOMING.name());
+                                            }
+
+                                        }
+                                        coreChildServiceObservableEmitter.onNext(childService);
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+
+                                }
+
+                                @Override
+                                public void updateNotGivenRecordVisitData(Map<String, ServiceWrapper> stringServiceWrapperMap) {
+                                    //No need to handle not given service
+                                }
+
+                                @Override
+                                public void allDataLoaded() {
+                                }
+                            });
+                        }
+
+                    }
+
+                    @Override
+                    public void updateEditData(ArrayList<HomeVisitVaccineGroup> homeVisitVaccineGroupDetails) {
+                        Timber.v("updateEditData");
+                    }
+                });
+
+
+            }
+        });
+    }
+
     @Override
     public void updateVisitNotDone(long value, CoreChildProfileContract.InteractorCallBack callback) {
-        //todo
+        //// TODO: 02/08/19
     }
 
     @Override
     public void refreshChildVisitBar(Context context, String baseEntityId, CoreChildProfileContract.InteractorCallBack callback) {
-        //todo
+        //// TODO: 02/08/19
     }
 
     @Override
     public void refreshUpcomingServiceAndFamilyDue(Context context, String familyId, String baseEntityId, CoreChildProfileContract.InteractorCallBack callback) {
-        //todo
+        //// TODO: 02/08/19
     }
 
     @Override

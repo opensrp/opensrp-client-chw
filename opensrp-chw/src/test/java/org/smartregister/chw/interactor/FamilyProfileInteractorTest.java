@@ -3,7 +3,7 @@ package org.smartregister.chw.interactor;
 import android.content.Context;
 import android.content.res.AssetManager;
 
-import com.opensrp.chw.core.utils.Constants;
+
 
 import org.apache.commons.io.IOUtils;
 import org.junit.Before;

@@ -14,7 +14,8 @@ import com.opensrp.chw.core.contract.CoreFamilyRegisterFragmentContract;
 import com.opensrp.chw.core.custom_views.NavigationMenu;
 import com.opensrp.chw.core.model.FamilyRegisterFramentModel;
 import com.opensrp.chw.core.presenter.FamilyRegisterFragmentPresenter;
-import com.opensrp.chw.core.utils.Constants;
+
+import com.opensrp.chw.core.utils.CoreConstants;
 import com.opensrp.chw.core.utils.QueryBuilder;
 
 import org.smartregister.commonregistry.CommonFtsObject;
@@ -79,7 +80,7 @@ public abstract class CoreFamilyRegisterFragment extends BaseFamilyRegisterFragm
 
     @Override
     public void filter(String filterString, String joinTableString, String mainConditionString, boolean qrCode) {
-        this.joinTables = new String[]{Constants.TABLE_NAME.FAMILY_MEMBER};
+        this.joinTables = new String[]{CoreConstants.TABLE_NAME.FAMILY_MEMBER};
         super.filter(filterString, joinTableString, mainConditionString, qrCode);
     }
 
@@ -249,7 +250,7 @@ public abstract class CoreFamilyRegisterFragment extends BaseFamilyRegisterFragm
                         .searchQueryFts(tablename, joinTable, mainCondition, filters, Sortqueries,
                                 clientAdapter.getCurrentlimit(), clientAdapter.getCurrentoffset());
                 sql = sql.replace(CommonFtsObject.idColumn, CommonFtsObject.relationalIdColumn);
-                sql = sql.replace(CommonFtsObject.searchTableName(Constants.TABLE_NAME.FAMILY), CommonFtsObject.searchTableName(Constants.TABLE_NAME.CHILD));
+                sql = sql.replace(CommonFtsObject.searchTableName(CoreConstants.TABLE_NAME.FAMILY), CommonFtsObject.searchTableName(CoreConstants.TABLE_NAME.CHILD));
                 List<String> ids = commonRepository().findSearchIds(sql);
                 query = sqb.toStringFts(ids, tablename, CommonRepository.ID_COLUMN,
                         Sortqueries);
@@ -305,7 +306,7 @@ public abstract class CoreFamilyRegisterFragment extends BaseFamilyRegisterFragm
                 if (isValidFilterForFts(commonRepository())) {
                     String sql = sqb.countQueryFts(tablename, joinTable, mainCondition, filters);
                     sql = sql.replace(CommonFtsObject.idColumn, CommonFtsObject.relationalIdColumn);
-                    sql = sql.replace(CommonFtsObject.searchTableName(Constants.TABLE_NAME.FAMILY), CommonFtsObject.searchTableName(Constants.TABLE_NAME.CHILD));
+                    sql = sql.replace(CommonFtsObject.searchTableName(CoreConstants.TABLE_NAME.FAMILY), CommonFtsObject.searchTableName(CoreConstants.TABLE_NAME.CHILD));
                     sql = sql + " GROUP BY " + CommonFtsObject.relationalIdColumn;
                     Timber.i(query);
 

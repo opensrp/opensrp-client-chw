@@ -7,11 +7,13 @@ import android.os.Build;
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
 import com.evernote.android.job.JobManager;
+import com.opensrp.chw.core.application.CoreChwApplication;
 import com.opensrp.chw.core.contract.CoreApplication;
 import com.opensrp.chw.core.custom_views.NavigationMenu;
 import com.opensrp.chw.core.loggers.CrashlyticsTree;
 import com.opensrp.chw.core.service.CoreAuthorizationService;
-import com.opensrp.chw.core.utils.Constants;
+import com.opensrp.chw.core.sync.ChwClientProcessor;
+import com.opensrp.chw.core.utils.CoreConstants;
 
 import org.jetbrains.annotations.NotNull;
 import org.smartregister.AllConstants;
@@ -27,130 +29,40 @@ import org.smartregister.chw.activity.LoginActivity;
 import org.smartregister.chw.activity.PncRegisterActivity;
 import org.smartregister.chw.anc.AncLibrary;
 import org.smartregister.chw.custom_view.NavigationMenuFlv;
-import org.smartregister.chw.helper.RulesEngineHelper;
 import org.smartregister.chw.job.ChwJobCreator;
 import org.smartregister.chw.malaria.MalariaLibrary;
 import org.smartregister.chw.model.NavigationModelFlv;
 import org.smartregister.chw.pnc.PncLibrary;
-import org.smartregister.chw.repository.AncRegisterRepository;
 import org.smartregister.chw.repository.ChwRepository;
-import org.smartregister.chw.repository.HomeVisitIndicatorInfoRepository;
-import org.smartregister.chw.repository.HomeVisitRepository;
-import org.smartregister.chw.repository.HomeVisitServiceRepository;
-import org.smartregister.chw.sync.ChwClientProcessor;
 import org.smartregister.chw.util.Utils;
-import org.smartregister.commonregistry.AllCommonsRepository;
-import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
 import org.smartregister.configurableviews.helper.JsonSpecHelper;
 import org.smartregister.family.FamilyLibrary;
 import org.smartregister.immunization.ImmunizationLibrary;
-import org.smartregister.immunization.domain.VaccineSchedule;
-import org.smartregister.immunization.domain.jsonmapping.Vaccine;
-import org.smartregister.immunization.domain.jsonmapping.VaccineGroup;
-import org.smartregister.immunization.repository.VaccineRepository;
-import org.smartregister.immunization.util.VaccinatorUtils;
 import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.reporting.ReportingLibrary;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.Repository;
-import org.smartregister.sync.ClientProcessorForJava;
-import org.smartregister.sync.helper.ECSyncHelper;
-import org.smartregister.view.activity.DrishtiApplication;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 import io.fabric.sdk.android.Fabric;
 import timber.log.Timber;
 
-import static com.opensrp.chw.core.utils.ApplicationUtils.getCommonFtsObject;
 import static com.opensrp.chw.core.utils.FormUtils.getFamilyMetadata;
 
-public class ChwApplication extends DrishtiApplication implements CoreApplication {
-
-    private static final int MINIMUM_JOB_FLEX_VALUE = 1;
-    private static ClientProcessorForJava clientProcessor;
-
-    private static CommonFtsObject commonFtsObject = null;
-    private static HomeVisitRepository homeVisitRepository;
-    private static HomeVisitServiceRepository homeVisitServiceRepository;
-    private static AncRegisterRepository ancRegisterRepository;
-    private static HomeVisitIndicatorInfoRepository homeVisitIndicatorInfoRepository;
-
-    private JsonSpecHelper jsonSpecHelper;
-    private ECSyncHelper ecSyncHelper;
-    private String password;
-
-    private RulesEngineHelper rulesEngineHelper;
-
-    public static synchronized ChwApplication getInstance() {
-        return (ChwApplication) mInstance;
-    }
-
-    public static JsonSpecHelper getJsonSpecHelper() {
-        return getInstance().jsonSpecHelper;
-    }
-
-    public static CommonFtsObject createCommonFtsObject() {
-        return getCommonFtsObject(commonFtsObject);
-    }
-
-    public static ClientProcessorForJava getClientProcessor(android.content.Context context) {
-        if (clientProcessor == null) {
-            clientProcessor = ChwClientProcessor.getInstance(context);
-//            clientProcessor = FamilyLibrary.getInstance().getClientProcessorForJava();
-        }
-        return clientProcessor;
-    }
-
-    public static HomeVisitRepository homeVisitRepository() {
-        if (homeVisitRepository == null) {
-            homeVisitRepository = new HomeVisitRepository(getInstance().getRepository(), getInstance().getContext().commonFtsObject(), getInstance().getContext().alertService());
-        }
-        return homeVisitRepository;
-    }
-
-    public static HomeVisitServiceRepository getHomeVisitServiceRepository() {
-        if (homeVisitServiceRepository == null) {
-            homeVisitServiceRepository = new HomeVisitServiceRepository(getInstance().getRepository());
-        }
-        return homeVisitServiceRepository;
-    }
-
-    public static AncRegisterRepository ancRegisterRepository() {
-        if (ancRegisterRepository == null) {
-            ancRegisterRepository = new AncRegisterRepository(getInstance().getRepository());
-        }
-        return ancRegisterRepository;
-    }
-
-    public static HomeVisitIndicatorInfoRepository homeVisitIndicatorInfoRepository() {
-        if (homeVisitIndicatorInfoRepository == null) {
-            homeVisitIndicatorInfoRepository = new HomeVisitIndicatorInfoRepository(getInstance().getRepository());
-        }
-        return homeVisitIndicatorInfoRepository;
-    }
-
-    /**
-     * Update application contants to fit current context
-     */
-    public static Locale getCurrentLocale() {
-        return mInstance == null ? Locale.getDefault() : mInstance.getResources().getConfiguration().locale;
-    }
-
+public class ChwApplication extends CoreChwApplication implements CoreApplication {
     @Override
     public void onCreate() {
         super.onCreate();
 
         //Necessary to determine the right form to pick from assets
-        Constants.JSON_FORM.setLocaleAndAssetManager(ChwApplication.getCurrentLocale(),
+        CoreConstants.JSON_FORM.setLocaleAndAssetManager(ChwApplication.getCurrentLocale(),
                 ChwApplication.getInstance().getApplicationContext().getAssets());
 
 
@@ -178,7 +90,7 @@ public class ChwApplication extends DrishtiApplication implements CoreApplicatio
         p2POptions.setAuthorizationService(new CoreAuthorizationService());
 
         CoreLibrary.init(context, new ChwSyncConfiguration(), BuildConfig.BUILD_TIMESTAMP, p2POptions);
-        CoreLibrary.getInstance().setEcClientFieldsFile(Constants.EC_CLIENT_FIELDS);
+        CoreLibrary.getInstance().setEcClientFieldsFile(CoreConstants.EC_CLIENT_FIELDS);
 
         // init libraries
         ImmunizationLibrary.init(context, getRepository(), null, BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
@@ -246,27 +158,13 @@ public class ChwApplication extends DrishtiApplication implements CoreApplicatio
         return repository;
     }
 
-    public String getPassword() {
-        if (password == null) {
-            String username = getContext().allSharedPreferences().fetchRegisteredANM();
-            password = getContext().userService().getGroupId(username);
-        }
-        return password;
-    }
-
-    @Override
-    public ClientProcessorForJava getClientProcessor() {
-        return ChwApplication.getClientProcessor(ChwApplication.getInstance().getApplicationContext());
-    }
-
-    @Override
     @NotNull
     public Map<String, Class> getRegisteredActivities() {
         Map<String, Class> registeredActivities = new HashMap<>();
-        registeredActivities.put(Constants.REGISTERED_ACTIVITIES.ANC_REGISTER_ACTIVITY, AncRegisterActivity.class);
-        registeredActivities.put(Constants.REGISTERED_ACTIVITIES.FAMILY_REGISTER_ACTIVITY, FamilyRegisterActivity.class);
-        registeredActivities.put(Constants.REGISTERED_ACTIVITIES.CHILD_REGISTER_ACTIVITY, ChildRegisterActivity.class);
-        registeredActivities.put(Constants.REGISTERED_ACTIVITIES.PNC_REGISTER_ACTIVITY, PncRegisterActivity.class);
+        registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.ANC_REGISTER_ACTIVITY, AncRegisterActivity.class);
+        registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.FAMILY_REGISTER_ACTIVITY, FamilyRegisterActivity.class);
+        registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.CHILD_REGISTER_ACTIVITY, ChildRegisterActivity.class);
+        registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.PNC_REGISTER_ACTIVITY, PncRegisterActivity.class);
         return registeredActivities;
     }
 
@@ -278,80 +176,4 @@ public class ChwApplication extends DrishtiApplication implements CoreApplicatio
             preferences.savePreference(AllConstants.DRISHTI_BASE_URL, BuildConfig.opensrp_url);
         }
     }
-
-    @Override
-    public void saveLanguage(String language) {
-        ChwApplication.getInstance().getContext().allSharedPreferences().saveLanguagePreference(language);
-    }
-
-    @Override
-    public Context getContext() {
-        return context;
-    }
-
-    @Override
-    public ECSyncHelper getEcSyncHelper() {
-        if (ecSyncHelper == null) {
-            ecSyncHelper = ECSyncHelper.getInstance(getApplicationContext());
-        }
-        return ecSyncHelper;
-    }
-
-    @Override
-    public void notifyAppContextChange() {
-        Locale current = getApplicationContext().getResources().getConfiguration().locale;
-        saveLanguage(current.getLanguage());
-        FamilyLibrary.getInstance().setMetadata(getFamilyMetadata(new FamilyProfileActivity()));
-    }
-
-    public VaccineRepository vaccineRepository() {
-        return ImmunizationLibrary.getInstance().vaccineRepository();
-    }
-
-    public RulesEngineHelper getRulesEngineHelper() {
-        if (rulesEngineHelper == null) {
-            rulesEngineHelper = new RulesEngineHelper(getApplicationContext());
-        }
-        return rulesEngineHelper;
-    }
-
-    public void initOfflineSchedules() {
-        try {
-            // child schedules
-            List<VaccineGroup> childVaccines = VaccinatorUtils.getSupportedVaccines(this);
-            List<Vaccine> specialVaccines = VaccinatorUtils.getSpecialVaccines(this);
-            VaccineSchedule.init(childVaccines, specialVaccines, "child");
-        } catch (Exception e) {
-            Timber.e(e);
-        }
-
-        try {
-            // mother vaccines
-            List<VaccineGroup> womanVaccines = VaccinatorUtils.getSupportedWomanVaccines(this);
-            VaccineSchedule.init(womanVaccines, null, "woman");
-        } catch (Exception e) {
-            Timber.e(e);
-        }
-    }
-
-    private void scheduleJobs() {
-        // TODO implement job scheduling
-        Timber.d("scheduleJobs pending implementation");
-    }
-
-    private long getFlexValue(int value) {
-        int minutes = MINIMUM_JOB_FLEX_VALUE;
-
-        if (value > MINIMUM_JOB_FLEX_VALUE) {
-
-            minutes = (int) Math.ceil(value / 3);
-        }
-
-        return TimeUnit.MINUTES.toMillis(minutes);
-    }
-
-    public AllCommonsRepository getAllCommonsRepository(String table) {
-        return ChwApplication.getInstance().getContext().allCommonsRepositoryobjects(table);
-    }
-
 }

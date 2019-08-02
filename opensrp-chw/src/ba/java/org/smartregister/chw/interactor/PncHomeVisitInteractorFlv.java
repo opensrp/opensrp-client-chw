@@ -15,7 +15,7 @@ import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
 import org.smartregister.chw.anc.util.VisitUtils;
 import org.smartregister.chw.dao.PersonDao;
-import org.smartregister.chw.domain.Person;
+import com.opensrp.chw.core.domain.Person;
 import org.smartregister.chw.util.Constants;
 
 import java.text.MessageFormat;

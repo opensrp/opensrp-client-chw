@@ -2,7 +2,7 @@ package org.smartregister.chw.dao;
 
 import android.database.Cursor;
 
-import org.smartregister.chw.domain.Person;
+import com.opensrp.chw.core.domain.Person;
 
 import java.text.ParseException;
 import java.util.Date;

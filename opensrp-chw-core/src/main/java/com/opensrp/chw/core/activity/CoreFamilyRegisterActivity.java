@@ -7,7 +7,8 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 
 import com.opensrp.chw.core.custom_views.NavigationMenu;
-import com.opensrp.chw.core.utils.Constants;
+import com.opensrp.chw.core.utils.CoreConstants;
+
 
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.family.activity.BaseFamilyRegisterActivity;
@@ -48,7 +49,7 @@ public abstract class CoreFamilyRegisterActivity extends BaseFamilyRegisterActiv
     protected void onResumption() {
         super.onResumption();
         NavigationMenu.getInstance(this, null, null).getNavigationAdapter()
-                .setSelectedView(Constants.DrawerMenu.ALL_FAMILIES);
+                .setSelectedView(CoreConstants.DrawerMenu.ALL_FAMILIES);
     }
 
     @Override
@@ -61,7 +62,7 @@ public abstract class CoreFamilyRegisterActivity extends BaseFamilyRegisterActiv
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if (requestCode == Constants.RQ_CODE.STORAGE_PERMISIONS && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+        if (requestCode == CoreConstants.RQ_CODE.STORAGE_PERMISIONS && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             NavigationMenu navigationMenu = NavigationMenu.getInstance(this, null, null);
             if (navigationMenu != null) {
                 navigationMenu.startP2PActivity(this);

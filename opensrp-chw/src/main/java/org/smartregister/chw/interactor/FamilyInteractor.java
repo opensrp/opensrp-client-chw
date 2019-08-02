@@ -4,71 +4,22 @@ import android.content.Context;
 import android.database.Cursor;
 import android.text.TextUtils;
 
+import com.opensrp.chw.core.enums.ImmunizationState;
+import com.opensrp.chw.core.interactor.CoreFamilyInteractor;
 import com.opensrp.chw.core.model.ChildVisit;
 import com.opensrp.chw.core.utils.ChildDBConstants;
-import com.opensrp.chw.core.utils.Constants;
 
 import org.smartregister.chw.util.ChildUtils;
-import org.smartregister.chw.util.ImmunizationState;
+import org.smartregister.chw.util.Constants;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.family.util.DBConstants;
 
-import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
-import timber.log.Timber;
+import static com.opensrp.chw.core.enums.ImmunizationState.NO_ALERT;
 
-public class FamilyInteractor {
+public class FamilyInteractor extends CoreFamilyInteractor {
 
-    public static Observable<String> updateFamilyDueStatus(final Context context, final String childId, final String familyId) {
-        return Observable.create(new ObservableOnSubscribe<String>() {
-            @Override
-            public void subscribe(ObservableEmitter<String> e) throws Exception {
-                ImmunizationState familyImmunizationState = ImmunizationState.NO_ALERT;
-                String query = ChildUtils.getChildListByFamilyId(Constants.TABLE_NAME.CHILD, familyId);
-                Cursor cursor = null;
-                try {
-                    cursor = org.smartregister.family.util.Utils.context().commonrepository(Constants.TABLE_NAME.CHILD).queryTable(query);
-                    if (cursor != null && cursor.moveToFirst()) {
-                        do {
-                            switch (getChildStatus(context, childId, cursor)) {
-                                case DUE:
-                                    if (familyImmunizationState != ImmunizationState.OVERDUE) {
-                                        familyImmunizationState = ImmunizationState.DUE;
-                                    }
-                                    break;
-                                case OVERDUE:
-                                    familyImmunizationState = ImmunizationState.OVERDUE;
-                                    break;
-                                default:
-                                    break;
-                            }
-                        } while (cursor.moveToNext());
-                    }
-                } catch (Exception ex) {
-                    Timber.e(ex.toString());
-                } finally {
-                    if (cursor != null)
-                        cursor.close();
-                }
-
-                e.onNext(toStringFamilyState(familyImmunizationState));
-            }
-        });
-
-    }
-
-    private static String toStringFamilyState(ImmunizationState state) {
-        if (state.equals(ImmunizationState.DUE)) {
-            return ChildProfileInteractor.FamilyServiceType.DUE.name();
-        } else if (state.equals(ImmunizationState.OVERDUE)) {
-            return ChildProfileInteractor.FamilyServiceType.OVERDUE.name();
-        } else {
-            return ChildProfileInteractor.FamilyServiceType.NOTHING.name();
-        }
-    }
-
-    private static ImmunizationState getChildStatus(Context context, final String childId, Cursor cursor) {
+    @Override
+    public ImmunizationState getChildStatus(Context context, final String childId, Cursor cursor) {
         CommonPersonObject personObject = org.smartregister.family.util.Utils.context().commonrepository(Constants.TABLE_NAME.CHILD).findByBaseEntityId(cursor.getString(1));
         if (!personObject.getCaseId().equalsIgnoreCase(childId)) {
 
@@ -87,16 +38,6 @@ public class FamilyInteractor {
             final ChildVisit childVisit = ChildUtils.getChildVisitStatus(context, dobString, lastHomeVisit, visitNotDone, dateCreated);
             return getImmunizationStatus(childVisit.getVisitStatus());
         }
-        return ImmunizationState.NO_ALERT;
-    }
-
-    private static ImmunizationState getImmunizationStatus(String visitStatus) {
-        if (visitStatus.equalsIgnoreCase(ChildProfileInteractor.VisitType.OVERDUE.name())) {
-            return ImmunizationState.OVERDUE;
-        }
-        if (visitStatus.equalsIgnoreCase(ChildProfileInteractor.VisitType.DUE.name())) {
-            return ImmunizationState.DUE;
-        }
-        return ImmunizationState.NO_ALERT;
+        return NO_ALERT;
     }
 }

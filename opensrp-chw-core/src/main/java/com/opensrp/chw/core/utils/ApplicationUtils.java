@@ -12,10 +12,10 @@ public class ApplicationUtils {
 
     @Nullable
     private static String[] retrieveFtsSearchFields(String tableName) {
-        if (tableName.equals(Constants.TABLE_NAME.FAMILY)) {
+        if (tableName.equals(CoreConstants.TABLE_NAME.FAMILY)) {
             return new String[]{DBConstants.KEY.BASE_ENTITY_ID, DBConstants.KEY.VILLAGE_TOWN, DBConstants.KEY.FIRST_NAME,
                     DBConstants.KEY.LAST_NAME, DBConstants.KEY.UNIQUE_ID};
-        } else if (tableName.equals(Constants.TABLE_NAME.FAMILY_MEMBER) || tableName.equals(Constants.TABLE_NAME.CHILD)) {
+        } else if (tableName.equals(CoreConstants.TABLE_NAME.FAMILY_MEMBER) || tableName.equals(CoreConstants.TABLE_NAME.CHILD)) {
             return new String[]{DBConstants.KEY.BASE_ENTITY_ID, DBConstants.KEY.FIRST_NAME, DBConstants.KEY.MIDDLE_NAME,
                     DBConstants.KEY.LAST_NAME, DBConstants.KEY.UNIQUE_ID};
         }
@@ -29,15 +29,15 @@ public class ApplicationUtils {
     @Nullable
     private static String[] retrieveFtsSortFields(String tableName) {
         switch (tableName) {
-            case Constants.TABLE_NAME.FAMILY:
+            case CoreConstants.TABLE_NAME.FAMILY:
                 return new String[]{DBConstants.KEY.LAST_INTERACTED_WITH, DBConstants.KEY.DATE_REMOVED,
                         DBConstants.KEY.FAMILY_HEAD, DBConstants.KEY.PRIMARY_CAREGIVER};
 
-            case Constants.TABLE_NAME.FAMILY_MEMBER:
+            case CoreConstants.TABLE_NAME.FAMILY_MEMBER:
                 return new String[]{DBConstants.KEY.DOB, DBConstants.KEY.DOD,
                         DBConstants.KEY.LAST_INTERACTED_WITH, DBConstants.KEY.DATE_REMOVED};
 
-            case Constants.TABLE_NAME.CHILD:
+            case CoreConstants.TABLE_NAME.CHILD:
                 return new String[]{ChildDBConstants.KEY.LAST_HOME_VISIT, ChildDBConstants.KEY.VISIT_NOT_DONE, DBConstants.KEY
                         .LAST_INTERACTED_WITH, ChildDBConstants.KEY.DATE_CREATED, DBConstants.KEY.DATE_REMOVED, DBConstants.KEY.DOB};
         }
@@ -45,7 +45,7 @@ public class ApplicationUtils {
     }
 
     private static String[] getFtsTables() {
-        return new String[]{Constants.TABLE_NAME.FAMILY, Constants.TABLE_NAME.FAMILY_MEMBER, Constants.TABLE_NAME.CHILD};
+        return new String[]{CoreConstants.TABLE_NAME.FAMILY, CoreConstants.TABLE_NAME.FAMILY_MEMBER, CoreConstants.TABLE_NAME.CHILD};
     }
 
     public static CommonFtsObject getCommonFtsObject(CommonFtsObject commonFtsObject) {
