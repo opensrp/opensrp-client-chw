@@ -21,7 +21,7 @@ public class ChildProfileActivityFlv implements ChildProfileActivity.Flavor {
                         FamilyCallDialogFragment.launchDialog(activity, presenter.getFamilyId());
                         break;
                     case R.id.refer_to_facility_fab:
-                        Toast.makeText(activity, R.string.refer_to_facilty, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(activity, R.string.refer_to_facility, Toast.LENGTH_SHORT).show();
                         break;
                     default:
                         break;
@@ -34,8 +34,6 @@ public class ChildProfileActivityFlv implements ChildProfileActivity.Flavor {
     public Boolean onCreateOptionsMenu(Menu menu) {
         menu.findItem(R.id.action_malaria_registration).setVisible(true);
         menu.findItem(R.id.action_malaria_followup_visit).setVisible(false);
-        menu.findItem(R.id.action_anc_registration).setVisible(false);
-
         return true;
     }
 }
