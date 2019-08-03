@@ -33,9 +33,6 @@ import org.joda.time.Period;
 import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.util.PermissionUtils;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.text.MessageFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -52,6 +49,7 @@ public class Utils extends org.smartregister.family.util.Utils {
 
     public static final SimpleDateFormat DD_MM_YYYY = new SimpleDateFormat("dd MMM yyyy");
     public static final SimpleDateFormat YYYY_MM_DD = new SimpleDateFormat("yyyy-mm-dd");
+    private static List<String> assets = null;
 
     public static String getSyncFilterValue() {
         String providerId = org.smartregister.Context.getInstance().allSharedPreferences().fetchRegisteredANM();
@@ -201,27 +199,26 @@ public class Utils extends org.smartregister.family.util.Utils {
         return StringUtils.join(printList, " ");
     }
 
-    public static String readFile(String form_name, Locale current, AssetManager assetManager) {
+    public static String getFileName(String form_name, Locale current, AssetManager assetManager) {
         String formIdentity = MessageFormat.format("{0}_{1}", form_name,
                 current == null ? "" : current.getLanguage());
-        // validate variant exists
         try {
-            InputStream inputStream = assetManager.open("json.form/" + formIdentity + ".json");
-            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream,
-                    "UTF-8"));
-            String jsonString;
-            StringBuilder stringBuilder = new StringBuilder();
-            while ((jsonString = reader.readLine()) != null) {
-                stringBuilder.append(jsonString);
+            if (assets == null || assets.size() > 0) {
+                assets = new ArrayList<>();
+                String[] local_assets = assetManager.list("json.form/");
+                if (local_assets != null && local_assets.length > 0) {
+                    for (String la : local_assets) {
+                        assets.add(la.substring(0, la.length() - 4));
+                    }
+                }
             }
-            inputStream.close();
 
-            return formIdentity;
+            if (assets.contains(form_name))
+                return formIdentity;
         } catch (Exception e) {
-            // return default
-            Timber.e(e);
-            return form_name;
+            Timber.v(e);
         }
+        return form_name;
     }
 
 
@@ -244,7 +241,7 @@ public class Utils extends org.smartregister.family.util.Utils {
     }
 
     public static String getLocalForm(String form_name, Locale locale, AssetManager assetManager) {
-        return readFile(form_name, locale, assetManager);
+        return getFileName(form_name, locale, assetManager);
     }
 
     public static boolean launchDialer(final Activity activity, final FamilyCallDialogContract.View callView, final String phoneNumber) {
