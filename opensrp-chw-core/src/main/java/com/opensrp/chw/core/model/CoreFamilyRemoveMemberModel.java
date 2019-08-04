@@ -1,12 +1,13 @@
-package org.smartregister.chw.model;
+package com.opensrp.chw.core.model;
 
 
+import com.opensrp.chw.core.contract.FamilyRemoveMemberContract;
+import com.opensrp.chw.core.utils.CoreConstants;
+import com.opensrp.chw.core.utils.CoreJsonFormUtils;
 
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import com.opensrp.chw.core.contract.FamilyRemoveMemberContract;
-import org.smartregister.chw.util.Constants;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.Utils;
@@ -21,7 +22,11 @@ import static java.util.Calendar.DATE;
 import static java.util.Calendar.MONTH;
 import static java.util.Calendar.YEAR;
 
-public class FamilyRemoveMemberModel extends FamilyProfileMemberModel implements FamilyRemoveMemberContract.Model {
+public abstract class CoreFamilyRemoveMemberModel extends CoreFamilyProfileModel implements FamilyRemoveMemberContract.Model {
+
+    public CoreFamilyRemoveMemberModel(String familyName) {
+        super(familyName);
+    }
 
     @Override
     public JSONObject prepareJsonForm(CommonPersonObjectClient client, String formType) {
@@ -45,17 +50,17 @@ public class FamilyRemoveMemberModel extends FamilyProfileMemberModel implements
                         Date dob = Utils.dobStringToDate(dobString);
                         if (dob != null) {
                             jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, JsonFormUtils.dd_MM_yyyy.format(dob));
-                            JSONObject min_date = org.smartregister.chw.util.JsonFormUtils.getFieldJSONObject(jsonArray, "date_moved");
-                            JSONObject date_died = org.smartregister.chw.util.JsonFormUtils.getFieldJSONObject(jsonArray, "date_died");
+                            JSONObject min_date = CoreJsonFormUtils.getFieldJSONObject(jsonArray, "date_moved");
+                            JSONObject date_died = CoreJsonFormUtils.getFieldJSONObject(jsonArray, "date_died");
 
                             // dobString = Utils.getDuration(dobString);
                             //dobString = dobString.contains("y") ? dobString.substring(0, dobString.indexOf("y")) : "";
-                            int days = org.smartregister.chw.util.JsonFormUtils.getDayFromDate(dobString);
+                            int days = CoreJsonFormUtils.getDayFromDate(dobString);
                             min_date.put("min_date", "today-" + days + "d");
                             date_died.put("min_date", "today-" + days + "d");
                         }
                     }
-                } else if (jsonObject.getString(org.smartregister.family.util.JsonFormUtils.KEY).equalsIgnoreCase(Constants.JsonAssets.DETAILS)) {
+                } else if (jsonObject.getString(org.smartregister.family.util.JsonFormUtils.KEY).equalsIgnoreCase(CoreConstants.JsonAssets.DETAILS)) {
 
                     String dob = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.DOB, false);
                     String dobString = Utils.getDuration(dob);
@@ -85,7 +90,7 @@ public class FamilyRemoveMemberModel extends FamilyProfileMemberModel implements
     public JSONObject prepareFamilyRemovalForm(String familyID, String familyName, String details) {
         try {
             FormUtils formUtils = FormUtils.getInstance(Utils.context().applicationContext());
-            JSONObject form = formUtils.getFormJson(Constants.JSON_FORM.getFamilyDetailsRemoveFamily());
+            JSONObject form = formUtils.getFormJson(CoreConstants.JSON_FORM.getFamilyDetailsRemoveFamily());
             form.put(JsonFormUtils.ENTITY_ID, familyID);
 
             JSONObject stepOne = form.getJSONObject(org.smartregister.family.util.JsonFormUtils.STEP1);
@@ -93,10 +98,10 @@ public class FamilyRemoveMemberModel extends FamilyProfileMemberModel implements
 
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
-                if (jsonObject.getString(org.smartregister.family.util.JsonFormUtils.KEY).equalsIgnoreCase(Constants.JsonAssets.DETAILS)) {
+                if (jsonObject.getString(org.smartregister.family.util.JsonFormUtils.KEY).equalsIgnoreCase(CoreConstants.JsonAssets.DETAILS)) {
                     jsonObject.put("text", details);
                 }
-                if (jsonObject.getString(org.smartregister.family.util.JsonFormUtils.KEY).equalsIgnoreCase(Constants.JsonAssets.FAM_NAME)) {
+                if (jsonObject.getString(org.smartregister.family.util.JsonFormUtils.KEY).equalsIgnoreCase(CoreConstants.JsonAssets.FAM_NAME)) {
                     jsonObject.put("text", familyName);
                 }
             }
@@ -110,7 +115,7 @@ public class FamilyRemoveMemberModel extends FamilyProfileMemberModel implements
 
     public String getForm(CommonPersonObjectClient client) {
         Date dob = Utils.dobStringToDate(Utils.getValue(client.getColumnmaps(), DBConstants.KEY.DOB, false));
-        return ((dob != null && getDiffYears(dob, new Date()) >= 5) ? Constants.JSON_FORM.getFamilyDetailsRemoveMember() : Constants.JSON_FORM.getFamilyDetailsRemoveChild());
+        return ((dob != null && getDiffYears(dob, new Date()) >= 5) ? CoreConstants.JSON_FORM.getFamilyDetailsRemoveMember() : CoreConstants.JSON_FORM.getFamilyDetailsRemoveChild());
     }
 
     public int getDiffYears(Date first, Date last) {

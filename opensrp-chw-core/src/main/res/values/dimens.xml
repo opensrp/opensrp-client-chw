@@ -33,4 +33,12 @@
     <dimen name="change_member_list_main">20sp</dimen>
     <dimen name="change_member_list_details">16sp</dimen>
 
+    <!--Remove member -->
+    <dimen name="remove_member_padding">25dp</dimen>
+    <dimen name="remove_member_text_size">17sp</dimen>
+    <dimen name="remove_member_prompt_top_padding">25dp</dimen>
+    <dimen name="remove_member_prompt_left_padding">15dp</dimen>
+    <dimen name="remove_member_prompt_margin">7dp</dimen>
+
+
 </resources>

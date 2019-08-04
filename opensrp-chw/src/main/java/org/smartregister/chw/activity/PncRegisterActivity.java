@@ -7,7 +7,7 @@ import com.opensrp.chw.core.custom_views.NavigationMenu;
 
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
-import org.smartregister.chw.contract.ChwBottomNavigator;
+import com.opensrp.chw.core.contract.ChwBottomNavigator;
 import org.smartregister.chw.fragment.PncRegisterFragment;
 import org.smartregister.chw.listener.AncBottomNavigationListener;
 import org.smartregister.chw.pnc.activity.BasePncRegisterActivity;

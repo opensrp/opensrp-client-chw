@@ -1,4 +1,4 @@
-package org.smartregister.chw.fragment;
+package com.opensrp.chw.core.fragment;
 
 
 import android.content.Context;
@@ -16,8 +16,9 @@ import android.view.Window;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.opensrp.chw.core.R;
+
 import org.apache.commons.lang3.StringUtils;
-import org.smartregister.chw.R;
 
 public class FamilyRemoveMemberConfirmDialog extends DialogFragment implements View.OnClickListener {
 
@@ -98,21 +99,17 @@ public class FamilyRemoveMemberConfirmDialog extends DialogFragment implements V
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.remove:
-                if (this.onRemove != null) {
-                    onRemove.run();
-                }
-                dismiss();
-                break;
-            case R.id.cancel:
-                if (this.onRemoveActivity != null) {
-                    onRemoveActivity.run();
-                }
-                dismiss();
-                break;
-            default:
-                break;
+        int i = v.getId();
+        if (i == R.id.remove) {
+            if (this.onRemove != null) {
+                onRemove.run();
+            }
+            dismiss();
+        } else if (i == R.id.cancel) {
+            if (this.onRemoveActivity != null) {
+                onRemoveActivity.run();
+            }
+            dismiss();
         }
     }
 

@@ -1,4 +1,4 @@
-package org.smartregister.chw.contract;
+package com.opensrp.chw.core.contract;
 
 public interface ChwBottomNavigator {
     void switchToBaseFragment();

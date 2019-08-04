@@ -9,7 +9,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.powermock.reflect.Whitebox;
-import org.smartregister.chw.contract.FamilyRemoveMemberContract;
+import com.opensrp.chw.core.contract.FamilyRemoveMemberContract;
 import org.smartregister.chw.interactor.FamilyRemoveMemberInteractor;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.util.DBConstants;

@@ -185,4 +185,22 @@
     <string name="number_8_16">Number must be 8 to 16 digits</string>
     <string name="status_saving">Saving</string>
 
+    <!--Remove family member -->
+    <string name="remove_member_title">Remove member</string>
+    <string name="remove_member_prompt">Which member do you want to remove?</string>
+    <string name="confirm_remove_text">Are you sure you want to remove %s\'s record? This will remove their entire health record from your device. This action cannot be undone.</string>
+    <string name="remove">REMOVE</string>
+    <string name="remove_entire_family">Removing entire family</string>
+    <string name="remove_warning_family">Are you sure you want to remove the %s Family\'s record? This will remove the family\'s entire record AND all of the %s family members\' health records from your device. This action cannot be undone.</string>
+    <string name="family">%s Family</string>
+
+    <!--Change care giver-->
+    <string name="select_caregiver">Select a new primary caregiver</string>
+    <string name="select_family_head">Select a new family head</string>
+    <string name="remove_caregiver_warning_message">Before you remove this member you must select a new primary caregiver</string>
+    <string name="remove_familyhead_warning_message">Before you remove this member you must select a new family head.</string>
+    <string name="profile_change_dialog_message">Before you remove this member, you must select a new family head.</string>
+    <string name="select_a_new_family_head">Select a new family head</string>
+    <string name="remove_family_count">%s adults and %s U5 children</string>
+
 </resources>
