@@ -27,4 +27,10 @@
     <dimen name="px_20_to_sp">20dp</dimen>
     <dimen name="px_14_to_sp">14dp</dimen>
 
+    <!--Change member -->
+    <dimen name="change_dialog_text_size">20dp</dimen>
+    <dimen name="change_member_padding">8dp</dimen>
+    <dimen name="change_member_list_main">20sp</dimen>
+    <dimen name="change_member_list_details">16sp</dimen>
+
 </resources>

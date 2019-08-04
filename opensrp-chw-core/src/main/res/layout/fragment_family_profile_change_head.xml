@@ -1,10 +1,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    tools:context="org.smartregister.chw.fragment.FamilyProfileChangePrimaryCG">
+    android:background="@color/white">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,7 +21,7 @@
             <android.support.v7.widget.Toolbar
                 android:id="@+id/detail_toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="@dimen/tool_bar_size"
                 android:background="@color/family_actionbar"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Dark">
 
@@ -51,7 +49,7 @@
                         android:layout_toEndOf="@+id/close"
                         android:layout_toRightOf="@+id/close"
                         android:ellipsize="end"
-                        android:text="@string/change_caregiver_member_title"
+                        android:text="@string/change_head_member_title"
                         android:textAppearance="@style/TextAppearance.AppCompat.Large"
                         android:textColor="@android:color/white"
                         android:textSize="@dimen/tool_bar_title" />
@@ -87,7 +85,7 @@
             android:layout_marginBottom="30dp"
             android:gravity="center_vertical"
             android:singleLine="false"
-            android:text="@string/change_caregiver_member_title_question"
+            android:text="@string/change_head_member_title_question"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
 
             android:textColor="@android:color/black" />

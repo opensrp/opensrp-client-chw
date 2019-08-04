@@ -58,20 +58,20 @@ public abstract class CoreFamilyProfileMemberFragment extends BaseFamilyProfileM
     }
 
     public void goToOtherMemberProfileActivity(CommonPersonObjectClient patient) {
-        Intent intent = new Intent(getActivity(), FamilyOtherMemberProfileActivity.class);
+   /*     Intent intent = new Intent(getActivity(), FamilyOtherMemberProfileActivity.class);
         intent.putExtras(getArguments());
         intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, patient.getCaseId());
         intent.putExtra(INTENT_KEY.CHILD_COMMON_PERSON, patient);
         intent.putExtra(Constants.INTENT_KEY.FAMILY_HEAD, ((BaseFamilyProfileMemberPresenter) presenter).getFamilyHead());
         intent.putExtra(Constants.INTENT_KEY.PRIMARY_CAREGIVER, ((BaseFamilyProfileMemberPresenter) presenter).getPrimaryCaregiver());
-        startActivity(intent);
+        startActivity(intent);*/
     }
 
     public void goToChildProfileActivity(CommonPersonObjectClient patient) {
         String dobString = Utils.getDuration(Utils.getValue(patient.getColumnmaps(), DBConstants.KEY.DOB, false));
         Integer yearOfBirth = CoreChildUtils.dobStringToYear(dobString);
         Intent intent;
-        if (yearOfBirth != null && yearOfBirth >= 5) {
+      /*  if (yearOfBirth != null && yearOfBirth >= 5) {
             intent = new Intent(getActivity(), AboveFiveChildProfileActivity.class);
         } else {
             intent = new Intent(getActivity(), CoreChildProfileActivity.class);
@@ -79,7 +79,7 @@ public abstract class CoreFamilyProfileMemberFragment extends BaseFamilyProfileM
         intent.putExtras(getArguments());
         intent.putExtra(IS_COMES_FROM_FAMILY, true);
         intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, patient.getCaseId());
-        startActivity(intent);
+        startActivity(intent);*/
     }
 
     @Override

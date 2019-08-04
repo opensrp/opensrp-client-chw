@@ -1,4 +1,4 @@
-package org.smartregister.chw.util;
+package com.opensrp.chw.core.utils;
 
 public class TestConstant {
 

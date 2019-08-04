@@ -24,10 +24,7 @@
     <string name="view_medical_history">View medical history</string>
     <string name="last_visit_40_days_ago">Last visit %1$s ago</string>
 
-    <string name="change_head_member_title">Change family head</string>
-    <string name="change_head_member_title_question">Select a new family head</string>
-    <string name="change_caregiver_member_title">Change primary caregiver</string>
-    <string name="change_caregiver_member_title_question">Select a new primary caregiver</string>
+
     <string name="remove_member_title">Remove member</string>
     <string name="remove_member_prompt">Which member do you want to remove?</string>
     <string name="not_visiting_this_month">Not visiting this month</string>
@@ -36,7 +33,7 @@
     <string name="edit">EDIT</string>
     <string name="return_to_family_name">Return to %1$s Family</string>
     <string name="return_to_family_members">Return to family members</string>
-    <string name="save_title">SAVE</string>
+
 
 
     <!-- TODO: Remove or change this placeholder text -->
@@ -80,7 +77,7 @@
     <string name="notification">Birth notification done?</string>
     <string name="head_of_family">Head of family</string>
 
-    <string name="status_saving">Saving</string>
+
     <string name="confirm_remove_text">Are you sure you want to remove %s\'s record? This will remove their entire health record from your device. This action cannot be undone.</string>
     <string name="remove">REMOVE</string>
     <string name="birth_date">Birth Date</string>
@@ -108,8 +105,6 @@
     <string name="vaccines_not_done">VACCINES NOT DONE</string>
     <string name="set">Set</string>
     <string name="remove_family_count">%s adults and %s U5 children</string>
-    <string name="phone_number">Phone number</string>
-    <string name="other_phone_number">Other phone number</string>
     <string name="highest_education_level">Highest education level</string>
     <string name="anc_registration_info">ANC Registration info</string>
     <string name="anc_pregnancy_out_come">Pregnancy outcome</string>
@@ -278,6 +273,6 @@
     <string name="pnc_visit_day_overdue">DAY %s OVERDUE</string>
     <string name="pnc_visit">PNC Visit</string>
     <string name="anc_visit">ANC Visit</string>
-    <string name="number_8_16">Number must be 8 to 16 digits</string>
+
 
 </resources>

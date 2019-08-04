@@ -24,7 +24,7 @@ import timber.log.Timber;
 
 import static com.opensrp.chw.core.utils.CoreJsonFormUtils.tagSyncMetadata;
 
-public class HfChildUtils extends CoreChildUtils {
+public class ChildUtils extends CoreChildUtils {
 
     /**
      * Same thread to retrive rules and also updateFamilyRelations in fts

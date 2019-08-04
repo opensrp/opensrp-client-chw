@@ -2,10 +2,8 @@ package com.opensrp.chw.hf.interactor;
 
 import android.content.Context;
 import android.support.annotation.VisibleForTesting;
-import android.text.TextUtils;
 
 import com.opensrp.chw.core.contract.CoreChildProfileContract;
-import com.opensrp.chw.core.enums.ImmunizationState;
 import com.opensrp.chw.core.interactor.CoreChildProfileInteractor;
 import com.opensrp.chw.core.model.ChildVisit;
 import com.opensrp.chw.core.utils.ChildDBConstants;
@@ -16,15 +14,12 @@ import com.opensrp.chw.core.utils.CoreChildUtils;
 import com.opensrp.chw.core.utils.CoreConstants;
 import com.opensrp.chw.core.utils.CoreJsonFormUtils;
 import com.opensrp.chw.core.utils.Utils;
-import com.opensrp.chw.hf.utils.HfChildUtils;
+import com.opensrp.chw.hf.utils.ChildUtils;
 
 import org.json.JSONObject;
 import org.smartregister.family.util.AppExecutors;
 import org.smartregister.family.util.DBConstants;
-import org.smartregister.immunization.db.VaccineRepo;
-import org.smartregister.immunization.domain.ServiceWrapper;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -37,19 +32,18 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-import timber.log.Timber;
 
-public class HfChildProfileInteractor extends CoreChildProfileInteractor {
-    public static final String TAG = HfChildProfileInteractor.class.getName();
+public class ChildProfileInteractor extends CoreChildProfileInteractor {
+    public static final String TAG = ChildProfileInteractor.class.getName();
     private AppExecutors appExecutors;
     private Map<String, Date> vaccineList = new LinkedHashMap<>();
 
     @VisibleForTesting
-    HfChildProfileInteractor(AppExecutors appExecutors) {
+    ChildProfileInteractor(AppExecutors appExecutors) {
         this.appExecutors = appExecutors;
     }
 
-    public HfChildProfileInteractor() {
+    public ChildProfileInteractor() {
         this(new AppExecutors());
     }
 
@@ -59,7 +53,7 @@ public class HfChildProfileInteractor extends CoreChildProfileInteractor {
 
         String dobString = Utils.getDuration(Utils.getValue(getpClient().getColumnmaps(), DBConstants.KEY.DOB, false));
 
-        final ChildVisit childVisit = HfChildUtils.getChildVisitStatus(context, dobString, childHomeVisit.getLastHomeVisitDate(), childHomeVisit.getVisitNotDoneDate(), childHomeVisit.getDateCreated());
+        final ChildVisit childVisit = ChildUtils.getChildVisitStatus(context, dobString, childHomeVisit.getLastHomeVisitDate(), childHomeVisit.getVisitNotDoneDate(), childHomeVisit.getDateCreated());
 
         Runnable runnable = new Runnable() {
             @Override
@@ -145,8 +139,8 @@ public class HfChildProfileInteractor extends CoreChildProfileInteractor {
     }
 
     private void updateFamilyDueStatus(Context context, String familyId, String baseEntityId, final CoreChildProfileContract.InteractorCallBack callback) {
-        HfFamilyInteractor hfFamilyInteractor = new HfFamilyInteractor();
-        hfFamilyInteractor.updateFamilyDueStatus(context, baseEntityId, familyId)
+        FamilyInteractor familyInteractor = new FamilyInteractor();
+        familyInteractor.updateFamilyDueStatus(context, baseEntityId, familyId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<String>() {
@@ -177,7 +171,7 @@ public class HfChildProfileInteractor extends CoreChildProfileInteractor {
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
-                HfChildUtils.processClientProcessInBackground();
+                ChildUtils.processClientProcessInBackground();
                 appExecutors.mainThread().execute(new Runnable() {
                     @Override
                     public void run() {
@@ -196,7 +190,7 @@ public class HfChildProfileInteractor extends CoreChildProfileInteractor {
                 final String homeVisitId = CoreJsonFormUtils.generateRandomUUIDString();
 
                 Map<String, JSONObject> fields = new HashMap<>();
-                HfChildUtils.updateHomeVisitAsEvent(getpClient().entityId(), CoreConstants.EventType.CHILD_VISIT_NOT_DONE, CoreConstants.TABLE_NAME.CHILD,
+                ChildUtils.updateHomeVisitAsEvent(getpClient().entityId(), CoreConstants.EventType.CHILD_VISIT_NOT_DONE, CoreConstants.TABLE_NAME.CHILD,
                         fields, ChildDBConstants.KEY.VISIT_NOT_DONE, value + "", homeVisitId);
                 objectObservableEmitter.onNext("");
             }

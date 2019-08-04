@@ -1,8 +1,10 @@
 package org.smartregister.chw.interactor;
 
+import com.opensrp.chw.core.interactor.CoreFamilyChangeContractInteractor;
+
 import org.smartregister.family.util.DBConstants;
 
-public class FamilyChangeContractInteractorFlv implements FamilyChangeContractInteractor.Flavor {
+public class FamilyChangeContractInteractorFlv implements CoreFamilyChangeContractInteractor.Flavor {
     @Override
     public String getFamilyMembersSql(String familyID) {
 

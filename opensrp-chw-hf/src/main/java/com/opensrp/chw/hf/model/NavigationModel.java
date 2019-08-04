@@ -1,14 +1,12 @@
 package com.opensrp.chw.hf.model;
 
-import com.opensrp.chw.core.model.NavigationModel;
 import com.opensrp.chw.core.model.NavigationOption;
 import com.opensrp.chw.core.utils.CoreConstants;
-
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class HfNavigationModel implements NavigationModel.Flavor {
+public class NavigationModel implements com.opensrp.chw.core.model.NavigationModel.Flavor {
     private List<NavigationOption> navigationOptions = new ArrayList<>();
 
     @Override

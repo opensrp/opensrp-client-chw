@@ -1,8 +1,8 @@
-package org.smartregister.chw.model;
+package com.opensrp.chw.core.model;
 
 import com.opensrp.chw.core.domain.FamilyMember;
 
-import org.smartregister.chw.contract.FamilyChangeContract;
+import com.opensrp.chw.core.contract.FamilyChangeContract;
 
 import java.util.ArrayList;
 import java.util.Arrays;

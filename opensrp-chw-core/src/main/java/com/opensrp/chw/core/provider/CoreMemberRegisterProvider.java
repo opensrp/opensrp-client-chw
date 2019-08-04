@@ -126,7 +126,7 @@ public class CoreMemberRegisterProvider extends FamilyMemberRegisterProvider {
         if (!TextUtils.isEmpty(strDateCreated)) {
             dateCreated = dobStringToDateTime(strDateCreated).getMillis();
         }
-        return CoreChildUtils.getChildVisitStatus(context, rules, dobString, lastVisit, visitNot, dateCreated);
+        return null;// CoreChildUtils.getChildVisitStatus(context, rules, dobString, lastVisit, visitNot, dateCreated);
     }
 
     private void updateDueColumn(FamilyMemberRegisterProvider.RegisterViewHolder viewHolder, ChildVisit childVisit) {

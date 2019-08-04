@@ -19,7 +19,7 @@ import com.opensrp.chw.hf.activity.FamilyRegisterActivity;
 import com.opensrp.chw.hf.activity.LoginActivity;
 import com.opensrp.chw.hf.custom_view.HfNavigationMenu;
 import com.opensrp.chw.hf.job.HfJobCreator;
-import com.opensrp.chw.hf.model.HfNavigationModel;
+import com.opensrp.chw.hf.model.NavigationModel;
 import com.opensrp.chw.hf.repository.HfChwRepository;
 import com.opensrp.chw.hf.sync.HfSyncConfiguration;
 import com.opensrp.hf.BuildConfig;
@@ -29,12 +29,16 @@ import org.smartregister.AllConstants;
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
 import org.smartregister.P2POptions;
+import org.smartregister.chw.anc.AncLibrary;
+import org.smartregister.chw.malaria.MalariaLibrary;
+import org.smartregister.chw.pnc.PncLibrary;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
 import org.smartregister.configurableviews.helper.JsonSpecHelper;
 import org.smartregister.family.FamilyLibrary;
 import org.smartregister.immunization.ImmunizationLibrary;
 import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
+import org.smartregister.reporting.ReportingLibrary;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.Repository;
 import org.smartregister.util.Utils;
@@ -58,13 +62,14 @@ public class HealthFacilityApplication extends CoreChwApplication implements Cor
 
         //init Job Manager
         JobManager.create(this).addJobCreator(new HfJobCreator());
+        SyncStatusBroadcastReceiver.init(this);
 
         //Necessary to determine the right form to pick from assets
         CoreConstants.JSON_FORM.setLocaleAndAssetManager(HealthFacilityApplication.getCurrentLocale(),
                 HealthFacilityApplication.getInstance().getApplicationContext().getAssets());
 
         //Setup Navigation menu. Done only once when app is created
-        NavigationMenu.setupNavigationMenu(this, new HfNavigationMenu(), new HfNavigationModel(), getRegisteredActivities());
+        NavigationMenu.setupNavigationMenu(this, new HfNavigationMenu(), new NavigationModel(), getRegisteredActivities());
 
         if (BuildConfig.DEBUG) {
             Timber.plant(new Timber.DebugTree());
@@ -93,8 +98,11 @@ public class HealthFacilityApplication extends CoreChwApplication implements Cor
         ConfigurableViewsLibrary.init(context, getRepository());
         FamilyLibrary.init(context, getRepository(), getFamilyMetadata(new FamilyProfileActivity()), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
         ImmunizationLibrary.init(context, getRepository(), null, BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
-        SyncStatusBroadcastReceiver.init(this);
         LocationHelper.init(new ArrayList<>(Arrays.asList(BuildConfig.ALLOWED_LOCATION_LEVELS)), BuildConfig.DEFAULT_LOCATION);
+        ReportingLibrary.init(context, getRepository(), null, BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
+        AncLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
+        PncLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
+        MalariaLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
 
         setOpenSRPUrl();
 

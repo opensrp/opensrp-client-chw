@@ -1,4 +1,4 @@
-package org.smartregister.chw.adapter;
+package com.opensrp.chw.core.adapter;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -18,12 +18,12 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import com.opensrp.chw.core.R;
 import com.opensrp.chw.core.domain.FamilyMember;
+import com.opensrp.chw.core.listener.MemberAdapterListener;
+import com.opensrp.chw.core.utils.TestConstant;
 
 import org.apache.commons.lang3.StringUtils;
-import org.smartregister.chw.R;
-import org.smartregister.chw.contract.MemberAdapterListener;
-import org.smartregister.chw.util.TestConstant;
 import org.smartregister.family.util.Utils;
 
 import java.util.List;

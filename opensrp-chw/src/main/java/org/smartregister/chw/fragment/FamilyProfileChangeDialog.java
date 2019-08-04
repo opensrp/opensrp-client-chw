@@ -28,9 +28,11 @@ import com.opensrp.chw.core.domain.FamilyMember;
 
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.R;
-import org.smartregister.chw.adapter.MemberAdapter;
-import org.smartregister.chw.contract.FamilyChangeContract;
-import org.smartregister.chw.contract.MemberAdapterListener;
+import com.opensrp.chw.core.adapter.MemberAdapter;
+import com.opensrp.chw.core.contract.FamilyChangeContract;
+import com.opensrp.chw.core.listener.MemberAdapterListener;
+import com.opensrp.chw.core.presenter.CoreFamilyChangePresenter;
+
 import org.smartregister.chw.presenter.FamilyChangePresenter;
 import org.smartregister.chw.util.Constants;
 
