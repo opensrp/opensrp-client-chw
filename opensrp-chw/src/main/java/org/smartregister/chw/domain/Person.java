@@ -45,6 +45,6 @@ public class Person {
     }
 
     public String getFullName() {
-        return getName(getName(firstName, middleName), lastName);
+        return StringUtils.capitalize(getName(getName(firstName, middleName), lastName));
     }
 }

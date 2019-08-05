@@ -393,7 +393,7 @@
 
     <string name="pnc_danger_signs_mother">Danger signs - mother</string>
     <string name="pnc_danger_signs_baby">Danger signs - baby ({0})</string>
-    <string name="pnc_health_facility_visit">PNC health facility visit - day {0}</string>
+    <string name="pnc_health_facility_visit">PNC health facility visit - day {0} ({1})</string>
     <string name="pnc_child_vaccine_card_recevied">Child vaccine card received ({0})</string>
     <string name="pnc_immunization_at_birth">Immunizations (at birth) ({0})</string>
     <string name="pnc_umblicord_care">Umbilical cord care</string>

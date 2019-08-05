@@ -393,7 +393,7 @@
 
     <string name="pnc_danger_signs_mother">Signes de danger - femme</string>
     <string name="pnc_danger_signs_baby">Signes de danger - enfant ({0})</string>
-    <string name="pnc_health_facility_visit">Visit CPoN au centre de santé - jour {0}</string>
+    <string name="pnc_health_facility_visit">Visit CPoN au centre de santé - jour {0} ({1})</string>
     <string name="pnc_child_vaccine_card_recevied">Carte de vaccination enfant reçu ({0})</string>
     <string name="pnc_immunization_at_birth">Immunisations (à la naissance) ({0})</string>
     <string name="pnc_umblicord_care">Soins du cordon ombilical</string>
