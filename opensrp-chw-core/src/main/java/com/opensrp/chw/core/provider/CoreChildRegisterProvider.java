@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.opensrp.chw.core.R;
 import com.opensrp.chw.core.holders.FooterViewHolder;
 import com.opensrp.chw.core.holders.RegisterViewHolder;
+import com.opensrp.chw.core.task.UpdateLastAsyncTask;
 import com.opensrp.chw.core.utils.ChildDBConstants;
 
 import org.apache.commons.lang3.text.WordUtils;
@@ -47,7 +48,6 @@ public class CoreChildRegisterProvider implements RecyclerViewProvider<RegisterV
 
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.visibleColumns = visibleColumns;
-
         this.onClickListener = onClickListener;
         this.paginationClickListener = paginationClickListener;
         this.context = context;
@@ -105,13 +105,17 @@ public class CoreChildRegisterProvider implements RecyclerViewProvider<RegisterV
         String gender = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.GENDER, true);
         fillValue(viewHolder.textViewAddressGender, address + " \u00B7 " + gender);
 
+        addButtonClickListeners(client, viewHolder);
+
+    }
+
+    public void addButtonClickListeners(SmartRegisterClient client, RegisterViewHolder viewHolder) {
         View patient = viewHolder.childColumn;
         attachPatientOnclickListener(patient, client);
 
 
         View dueButton = viewHolder.dueButton;
         attachDosageOnclickListener(dueButton, client);
-
     }
 
     public void populateIdentifierColumn(CommonPersonObjectClient pc, RegisterViewHolder viewHolder) {
@@ -181,4 +185,31 @@ public class CoreChildRegisterProvider implements RecyclerViewProvider<RegisterV
         return FooterViewHolder.class.isInstance(viewHolder);
     }
 
+    public LayoutInflater getInflater() {
+        return inflater;
+    }
+
+    public View.OnClickListener getOnClickListener() {
+        return onClickListener;
+    }
+
+    public void setOnClickListener(View.OnClickListener onClickListener) {
+        this.onClickListener = onClickListener;
+    }
+
+    public View.OnClickListener getPaginationClickListener() {
+        return paginationClickListener;
+    }
+
+    public void setPaginationClickListener(View.OnClickListener paginationClickListener) {
+        this.paginationClickListener = paginationClickListener;
+    }
+
+    public Context getContext() {
+        return context;
+    }
+
+    public void setContext(Context context) {
+        this.context = context;
+    }
 }

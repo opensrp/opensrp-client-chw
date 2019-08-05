@@ -1,29 +1,22 @@
 package com.opensrp.chw.hf.activity;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
+import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.LinearLayout;
 
 import com.opensrp.chw.core.activity.CoreChildProfileActivity;
+import com.opensrp.chw.core.custom_views.CoreFamilyMemberFloatingMenu;
 import com.opensrp.chw.core.model.CoreChildProfileModel;
 import com.opensrp.chw.core.utils.CoreConstants;
 import com.opensrp.chw.hf.presenter.HfChildProfilePresenter;
+import com.opensrp.hf.R;
 
 import org.smartregister.family.util.Constants;
 
 public class ChildProfileActivity extends CoreChildProfileActivity {
-    public final BroadcastReceiver mDateTimeChangedReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            final String action = intent.getAction();
-            assert action != null;
-            if (action.equals(Intent.ACTION_TIME_CHANGED) ||
-                    action.equals(Intent.ACTION_TIMEZONE_CHANGED)) {
-                fetchProfileData();
-
-            }
-        }
-    };
+    public CoreFamilyMemberFloatingMenu familyFloatingMenu;
 
     @Override
     protected void onCreation() {
@@ -37,7 +30,17 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
     @Override
     protected void setupViews() {
         super.setupViews();
+        familyFloatingMenu = new CoreFamilyMemberFloatingMenu(this);
+        LinearLayout.LayoutParams linearLayoutParams =
+                new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.MATCH_PARENT);
+        familyFloatingMenu.setGravity(Gravity.BOTTOM | Gravity.END);
+        addContentView(familyFloatingMenu, linearLayoutParams);
+
+        familyFloatingMenu.setClickListener(onClickFloatingMenu);
         fetchProfileData();
+
     }
 
     @Override
@@ -53,9 +56,31 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        unregisterReceiver(mDateTimeChangedReceiver);
-        handler.removeCallbacksAndMessages(null);
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(com.opensrp.chw.core.R.menu.other_member_menu, menu);
+        menu.findItem(com.opensrp.chw.core.R.id.action_anc_registration).setVisible(false);
+        menu.findItem(com.opensrp.chw.core.R.id.action_malaria_registration).setVisible(false);
+        menu.findItem(com.opensrp.chw.core.R.id.action_remove_member).setVisible(false);
+        menu.findItem(com.opensrp.chw.core.R.id.action_sick_child_follow_up).setVisible(true);
+        menu.findItem(com.opensrp.chw.core.R.id.action_malaria_diagnosis).setVisible(true);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_malaria_registration:
+                return true;
+            case R.id.action_remove_member:
+                return true;
+            default:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onClick(View view) {
+        super.onClick(view);
     }
 }

@@ -33,6 +33,7 @@ import com.opensrp.chw.core.rule.ImmunizationExpiredRule;
 import com.opensrp.chw.core.rule.ServiceRule;
 
 import org.apache.commons.lang3.StringUtils;
+import org.jeasy.rules.api.Rules;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.joda.time.LocalDate;
@@ -568,6 +569,34 @@ public abstract class CoreChildUtils {
             spannableString.setSpan(new ForegroundColorSpan(CoreChwApplication.getInstance().getContext().getColorResource(R.color.alert_urgent_red)), 0, str.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             return spannableString;
         }
+    }
+
+    /**
+     * Same thread to retrive rules and also updateFamilyRelations in fts
+     *
+     * @param yearOfBirth
+     * @param lastVisitDate
+     * @param visitNotDate
+     * @return
+     */
+    public static ChildVisit getChildVisitStatus(Context context, String yearOfBirth, long lastVisitDate, long visitNotDate, long dateCreated) {
+        HomeAlertRule homeAlertRule = new HomeAlertRule(context, yearOfBirth, lastVisitDate, visitNotDate, dateCreated);
+        CoreChwApplication.getInstance().getRulesEngineHelper().getButtonAlertStatus(homeAlertRule, CoreConstants.RULE_FILE.HOME_VISIT);
+        return getChildVisitStatus(homeAlertRule, lastVisitDate);
+    }
+    /**
+     * Rules can be retrieved separately so that the background thread is used here
+     *
+     * @param rules
+     * @param yearOfBirth
+     * @param lastVisitDate
+     * @param visitNotDate
+     * @return
+     */
+    public static ChildVisit getChildVisitStatus(Context context, Rules rules, String yearOfBirth, long lastVisitDate, long visitNotDate, long dateCreated) {
+        HomeAlertRule homeAlertRule = new HomeAlertRule(context, yearOfBirth, lastVisitDate, visitNotDate, dateCreated);
+        CoreChwApplication.getInstance().getRulesEngineHelper().getButtonAlertStatus(homeAlertRule, rules);
+        return getChildVisitStatus(homeAlertRule, lastVisitDate);
     }
 
 }

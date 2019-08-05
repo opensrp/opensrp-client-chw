@@ -3,4 +3,5 @@
     <string name="logo">logo</string>
     <string name="login_title">USAID Boresha Afya</string>
     <string name="nav_logo">USAID Boresha Afya</string>
+    <string name="due_only">Referred</string>
 </resources>

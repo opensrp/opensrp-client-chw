@@ -91,40 +91,6 @@ public class ChildUtils extends CoreChildUtils {
 
     }
 
-    /**
-     * Same thread to retrive rules and also updateFamilyRelations in fts
-     *
-     * @param yearOfBirth
-     * @param lastVisitDate
-     * @param visitNotDate
-     * @return
-     */
-    public static ChildVisit getChildVisitStatus(Context context, String yearOfBirth, long lastVisitDate, long visitNotDate, long dateCreated) {
-        HomeAlertRule homeAlertRule = new HomeAlertRule(context, yearOfBirth, lastVisitDate, visitNotDate, dateCreated);
-        ChwApplication.getInstance().getRulesEngineHelper().getButtonAlertStatus(homeAlertRule, Constants.RULE_FILE.HOME_VISIT);
-        return getChildVisitStatus(homeAlertRule, lastVisitDate);
-    }
-    /**
-     * Rules can be retrieved separately so that the background thread is used here
-     *
-     * @param rules
-     * @param yearOfBirth
-     * @param lastVisitDate
-     * @param visitNotDate
-     * @return
-     */
-    public static ChildVisit getChildVisitStatus(Context context, Rules rules, String yearOfBirth, long lastVisitDate, long visitNotDate, long dateCreated) {
-        HomeAlertRule homeAlertRule = new HomeAlertRule(context, yearOfBirth, lastVisitDate, visitNotDate, dateCreated);
-        ChwApplication.getInstance().getRulesEngineHelper().getButtonAlertStatus(homeAlertRule, rules);
-        return getChildVisitStatus(homeAlertRule, lastVisitDate);
-    }
-
-
-
-
-
-
-
     public static SpannableString daysAway(String dueDate) {
         SpannableString spannableString;
         LocalDate date1 = new LocalDate(dueDate);

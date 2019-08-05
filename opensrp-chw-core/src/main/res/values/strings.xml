@@ -126,6 +126,8 @@
     <string name="registration_info">Registration info</string>
     <string name="anc_registration">ANC Registration</string>
     <string name="malaria_registration">Malaria Confirmation</string>
+    <string name="malaria_diagnosis">Malaria Diagnosis</string>
+    <string name="sick_child_follow_up">Sick child follow-up</string>
     <string name="edit_child_form_title">Edit Child Under 5</string>
     <string name="visit_month">%1$s visit done</string>
     <string name="refer_to_facility">Refer to facility</string>

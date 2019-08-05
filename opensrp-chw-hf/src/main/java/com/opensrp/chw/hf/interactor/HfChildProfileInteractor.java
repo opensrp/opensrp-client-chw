@@ -192,7 +192,7 @@ public class HfChildProfileInteractor extends CoreChildProfileInteractor {
     private Observable<Object> updateHomeVisitAsEvent(final long value) {
         return Observable.create(new ObservableOnSubscribe<Object>() {
             @Override
-            public void subscribe(ObservableEmitter<Object> objectObservableEmitter) throws Exception {
+            public void subscribe(ObservableEmitter<Object> objectObservableEmitter) {
                 final String homeVisitId = CoreJsonFormUtils.generateRandomUUIDString();
 
                 Map<String, JSONObject> fields = new HashMap<>();

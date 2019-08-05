@@ -48,7 +48,7 @@ import timber.log.Timber;
 
 import static com.google.android.gms.common.internal.Preconditions.checkArgument;
 
-public class Utils extends org.smartregister.family.util.Utils {
+public abstract class Utils extends org.smartregister.family.util.Utils {
 
     public static final SimpleDateFormat DD_MM_YYYY = new SimpleDateFormat("dd MMM yyyy");
     public static final SimpleDateFormat YYYY_MM_DD = new SimpleDateFormat("yyyy-mm-dd");

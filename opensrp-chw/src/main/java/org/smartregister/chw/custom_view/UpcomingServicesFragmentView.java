@@ -71,10 +71,10 @@ public class UpcomingServicesFragmentView extends LinearLayout implements View.O
 
     private View createUpcomingServicesCard(HomeVisitVaccineGroup homeVisitVaccineGroupDetail) {
         View view = context.getLayoutInflater().inflate(R.layout.upcoming_service_row, null);
-        TextView groupDateTitle = (TextView) view.findViewById(R.id.grou_date_title);
-        TextView groupDateStatus = (TextView) view.findViewById(R.id.grou_date_status);
-        TextView groupNameTitle = (TextView) view.findViewById(R.id.grou_name_title);
-        TextView groupVaccineTitle = (TextView) view.findViewById(R.id.grou_vaccines_title);
+        TextView groupDateTitle = view.findViewById(R.id.grou_date_title);
+        TextView groupDateStatus = view.findViewById(R.id.grou_date_status);
+        TextView groupNameTitle = view.findViewById(R.id.grou_name_title);
+        TextView groupVaccineTitle = view.findViewById(R.id.grou_vaccines_title);
         groupVaccineTitle.setText("");
         if (!viewMap.containsKey(homeVisitVaccineGroupDetail.getDueDisplayDate())) {
             viewMap.put(homeVisitVaccineGroupDetail.getDueDisplayDate(), view);
@@ -95,11 +95,11 @@ public class UpcomingServicesFragmentView extends LinearLayout implements View.O
 
     private View createGrowthCard(GrowthServiceData growthServiceData) {
         View view = context.getLayoutInflater().inflate(R.layout.upcoming_service_row, null);
-        TextView groupDateTitle = (TextView) view.findViewById(R.id.grou_date_title);
-        TextView groupDateStatus = (TextView) view.findViewById(R.id.grou_date_status);
-        ((TextView) view.findViewById(R.id.grou_name_title)).setVisibility(GONE);
-        ((TextView) view.findViewById(R.id.grou_vaccines_title)).setVisibility(GONE);
-        TextView growth = (TextView) view.findViewById(R.id.growth_service_name_title);
+        TextView groupDateTitle = view.findViewById(R.id.grou_date_title);
+        TextView groupDateStatus = view.findViewById(R.id.grou_date_status);
+        view.findViewById(R.id.grou_name_title).setVisibility(GONE);
+        view.findViewById(R.id.grou_vaccines_title).setVisibility(GONE);
+        TextView growth = view.findViewById(R.id.growth_service_name_title);
         growth.setVisibility(VISIBLE);
         groupDateTitle.setText(growthServiceData.getDisplayAbleDate());
         groupDateStatus.setText(ChildUtils.daysAway(growthServiceData.getDate()));
@@ -170,7 +170,7 @@ public class UpcomingServicesFragmentView extends LinearLayout implements View.O
                         GrowthServiceData growthServiceData = i.next();
                         View existView = isExistView(growthServiceData);
                         if (existView != null) {
-                            TextView growth = (TextView) existView.findViewById(R.id.growth_service_name_title);
+                            TextView growth = existView.findViewById(R.id.growth_service_name_title);
                             if (growth.getVisibility() == GONE) {
                                 growth.setVisibility(VISIBLE);
                                 growth.setText(growthServiceData.getDisplayName());
@@ -186,7 +186,7 @@ public class UpcomingServicesFragmentView extends LinearLayout implements View.O
                                 addView(lastView);
                             } else {
                                 if (lastView != null) {
-                                    TextView growth = (TextView) lastView.findViewById(R.id.growth_service_name_title);
+                                    TextView growth = lastView.findViewById(R.id.growth_service_name_title);
                                     growth.append("\n" + growthServiceData.getDisplayName());
                                 }
 
