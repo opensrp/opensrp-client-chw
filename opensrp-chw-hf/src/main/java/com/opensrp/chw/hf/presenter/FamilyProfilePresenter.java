@@ -5,16 +5,16 @@ import android.util.Pair;
 
 import com.opensrp.chw.core.contract.CoreChildRegisterContract;
 import com.opensrp.chw.core.contract.FamilyProfileExtendedContract;
+import com.opensrp.chw.core.presenter.CoreFamilyProfilePresenter;
 
 import org.apache.commons.lang3.tuple.Triple;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.family.contract.FamilyProfileContract;
-import org.smartregister.family.presenter.BaseFamilyProfilePresenter;
 
-public class FamilyProfilePresenter extends BaseFamilyProfilePresenter implements FamilyProfileExtendedContract.Presenter, CoreChildRegisterContract.InteractorCallBack, FamilyProfileExtendedContract.PresenterCallBack {
+public class FamilyProfilePresenter extends CoreFamilyProfilePresenter{
 
-    public FamilyProfilePresenter(FamilyProfileContract.View loginView, FamilyProfileContract.Model model, String familyBaseEntityId, String familyHead, String primaryCaregiver, String familyName) {
+    public FamilyProfilePresenter(FamilyProfileExtendedContract.View loginView, FamilyProfileContract.Model model, String familyBaseEntityId, String familyHead, String primaryCaregiver, String familyName) {
         super(loginView, model, familyBaseEntityId, familyHead, primaryCaregiver, familyName);
     }
 

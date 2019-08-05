@@ -40,11 +40,4 @@ priority: 3
 condition: "ancVisitAlertRule.isDueWithinMonth()"
 actions:
   - "ancVisitAlertRule.buttonStatus = 'DUE'"
----
-name: step1_llin_given
-description: llin  given after the first visit
-priority: 1
-condition: "step1_confirmed_visits == 0 "
-actions:
-  - "isRelevant = true"
 

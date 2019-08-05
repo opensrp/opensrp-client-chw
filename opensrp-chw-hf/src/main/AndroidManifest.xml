@@ -64,8 +64,14 @@
 
         <activity
             android:name="com.opensrp.chw.hf.activity.FamilyProfileActivity"
+            android:label="@string/title_family_detail"
+            android:parentActivityName="com.opensrp.chw.hf.activity.FamilyRegisterActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/HFTheme.NoActionBar" />
+            android:theme="@style/HFTheme.NoActionBar" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.opensrp.chw.hf.activity.FamilyRegisterActivity" />
+        </activity>
 
         <activity
             android:name="com.opensrp.chw.hf.activity.ChildRegisterActivity"
