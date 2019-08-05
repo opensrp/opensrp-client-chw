@@ -49,7 +49,6 @@ import static org.smartregister.util.JsonFormUtils.fields;
 import static org.smartregister.util.JsonFormUtils.getFieldJSONObject;
 
 public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitInteractor.Flavor {
-
     protected LinkedHashMap<String, BaseAncHomeVisitAction> actionList;
     protected Context context;
     protected Map<String, List<VisitDetail>> details = null;
@@ -71,9 +70,10 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
             }
         }
 
-        children = PersonDao.getMothersPNCBabies(memberObject.getBaseEntityId());
         if (children == null)
             children = new ArrayList<>();
+
+        children.addAll(PersonDao.getMothersPNCBabies(memberObject.getBaseEntityId()));
 
         try {
             evaluateDangerSignsMother();
@@ -357,7 +357,8 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
             }
         }
 
-        for (PncBaby baby : children) {
+        for (Person person : children) {
+            PncBaby baby = (PncBaby) person;
             if (baby.getLbw().equalsIgnoreCase("yes")) {
                 String title = MessageFormat.format(context.getString(R.string.pnc_kangeroo_mother_care), baby.getFullName());
                 BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, title)
