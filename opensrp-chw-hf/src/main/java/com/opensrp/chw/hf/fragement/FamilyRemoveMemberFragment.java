@@ -11,7 +11,6 @@ import com.opensrp.chw.hf.model.FamilyRemoveMemberModel;
 import com.opensrp.chw.hf.presenter.FamilyRemoveMemberPresenter;
 import com.opensrp.chw.hf.provider.HfFamilyRemoveMemberProvider;
 
-
 import java.util.HashMap;
 import java.util.Set;
 

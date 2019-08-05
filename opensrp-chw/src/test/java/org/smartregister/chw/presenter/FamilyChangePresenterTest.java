@@ -1,17 +1,17 @@
 package org.smartregister.chw.presenter;
 
+import com.opensrp.chw.core.contract.FamilyChangeContract;
+import com.opensrp.chw.core.domain.FamilyMember;
+import com.opensrp.chw.core.interactor.CoreFamilyChangeContractInteractor;
+import com.opensrp.chw.core.model.FamilyChangeContractModel;
+import com.opensrp.chw.core.presenter.CoreFamilyChangePresenter;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.powermock.reflect.Whitebox;
-import com.opensrp.chw.core.contract.FamilyChangeContract;
-import com.opensrp.chw.core.domain.FamilyMember;
-import com.opensrp.chw.core.interactor.CoreFamilyChangeContractInteractor;
-import com.opensrp.chw.core.presenter.CoreFamilyChangePresenter;
-
-import com.opensrp.chw.core.model.FamilyChangeContractModel;
 
 import java.util.ArrayList;
 import java.util.List;

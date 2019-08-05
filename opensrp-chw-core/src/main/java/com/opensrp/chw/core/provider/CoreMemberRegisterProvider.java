@@ -13,7 +13,6 @@ import com.opensrp.chw.core.application.CoreChwApplication;
 import com.opensrp.chw.core.interactor.CoreChildProfileInteractor;
 import com.opensrp.chw.core.model.ChildVisit;
 import com.opensrp.chw.core.utils.ChildDBConstants;
-import com.opensrp.chw.core.utils.CoreChildUtils;
 import com.opensrp.chw.core.utils.CoreConstants;
 import com.opensrp.chw.core.utils.Utils;
 
@@ -34,7 +33,7 @@ import java.util.Set;
 
 import timber.log.Timber;
 
-import static org.smartregister.family.util.Utils.*;
+import static org.smartregister.family.util.Utils.dobStringToDateTime;
 
 public class CoreMemberRegisterProvider extends FamilyMemberRegisterProvider {
     private Context context;

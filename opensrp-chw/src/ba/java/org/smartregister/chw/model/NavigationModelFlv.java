@@ -3,7 +3,6 @@ package org.smartregister.chw.model;
 import com.opensrp.chw.core.model.NavigationModel;
 import com.opensrp.chw.core.model.NavigationOption;
 
-
 import org.smartregister.chw.R;
 import org.smartregister.chw.util.Constants;
 

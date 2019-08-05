@@ -2,6 +2,8 @@ package com.opensrp.chw.core.helper;
 
 import android.content.Context;
 
+import com.opensrp.chw.core.rule.ICommonRule;
+
 import org.jeasy.rules.api.Facts;
 import org.jeasy.rules.api.Rules;
 import org.jeasy.rules.api.RulesEngine;
@@ -9,7 +11,6 @@ import org.jeasy.rules.core.DefaultRulesEngine;
 import org.jeasy.rules.core.InferenceRulesEngine;
 import org.jeasy.rules.core.RulesEngineParameters;
 import org.jeasy.rules.mvel.MVELRuleFactory;
-import com.opensrp.chw.core.rule.ICommonRule;
 
 import java.io.BufferedReader;
 import java.io.IOException;

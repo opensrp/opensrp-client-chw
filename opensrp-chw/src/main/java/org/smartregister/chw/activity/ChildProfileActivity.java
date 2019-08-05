@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.opensrp.chw.core.activity.CoreChildProfileActivity;
+import com.opensrp.chw.core.fragment.CoreChildHomeVisitFragment;
 import com.opensrp.chw.core.listener.OnClickFloatingMenu;
 import com.opensrp.chw.core.model.CoreChildProfileModel;
 import com.opensrp.chw.core.presenter.CoreChildProfilePresenter;
@@ -16,8 +17,6 @@ import com.opensrp.chw.core.utils.CoreConstants;
 
 import org.smartregister.chw.R;
 import org.smartregister.chw.custom_view.FamilyMemberFloatingMenu;
-import com.opensrp.chw.core.fragment.CoreChildHomeVisitFragment;
-
 import org.smartregister.chw.fragment.ChildHomeVisitFragment;
 import org.smartregister.chw.presenter.ChildProfilePresenter;
 import org.smartregister.family.util.Constants;

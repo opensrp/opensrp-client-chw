@@ -6,7 +6,6 @@ import com.opensrp.chw.core.contract.FamilyProfileExtendedContract;
 import com.opensrp.chw.core.interactor.CoreChildProfileInteractor;
 import com.opensrp.chw.core.model.ChildVisit;
 import com.opensrp.chw.core.utils.ChildDBConstants;
-
 import com.opensrp.chw.core.utils.CoreChildService;
 import com.opensrp.chw.core.utils.CoreConstants;
 

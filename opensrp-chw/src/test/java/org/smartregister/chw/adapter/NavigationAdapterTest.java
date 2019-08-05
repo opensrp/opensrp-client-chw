@@ -3,7 +3,6 @@ package org.smartregister.chw.adapter;
 import com.opensrp.chw.core.adapter.NavigationAdapter;
 import com.opensrp.chw.core.model.NavigationOption;
 
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

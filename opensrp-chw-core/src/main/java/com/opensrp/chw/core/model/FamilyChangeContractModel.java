@@ -1,8 +1,7 @@
 package com.opensrp.chw.core.model;
 
-import com.opensrp.chw.core.domain.FamilyMember;
-
 import com.opensrp.chw.core.contract.FamilyChangeContract;
+import com.opensrp.chw.core.domain.FamilyMember;
 
 import java.util.ArrayList;
 import java.util.Arrays;

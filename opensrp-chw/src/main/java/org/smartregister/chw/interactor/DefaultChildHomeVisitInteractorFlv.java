@@ -5,19 +5,18 @@ import android.text.TextUtils;
 
 import com.opensrp.chw.core.domain.HomeVisit;
 import com.opensrp.chw.core.domain.HomeVisitServiceDataModel;
+import com.opensrp.chw.core.utils.BirthCertDataModel;
+import com.opensrp.chw.core.utils.ObsIllnessDataModel;
+import com.opensrp.chw.core.utils.ServiceTask;
+import com.opensrp.chw.core.utils.TaskServiceCalculate;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
-import com.opensrp.chw.core.utils.BirthCertDataModel;
 import org.smartregister.chw.util.ChildUtils;
 import org.smartregister.chw.util.Constants;
-import com.opensrp.chw.core.utils.ObsIllnessDataModel;
-
-import com.opensrp.chw.core.utils.ServiceTask;
-import com.opensrp.chw.core.utils.TaskServiceCalculate;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.util.DBConstants;
 

@@ -8,8 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.widget.LinearLayout;
 
-import org.joda.time.DateTime;
-
 import com.opensrp.chw.core.R;
 import com.opensrp.chw.core.adapter.ImmunizationAdapter;
 import com.opensrp.chw.core.contract.ImmunizationContact;
@@ -18,6 +16,8 @@ import com.opensrp.chw.core.fragment.VaccinationDialogFragment;
 import com.opensrp.chw.core.listener.OnClickEditAdapter;
 import com.opensrp.chw.core.presenter.ImmunizationViewPresenter;
 import com.opensrp.chw.core.utils.HomeVisitVaccineGroup;
+
+import org.joda.time.DateTime;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.immunization.domain.VaccineWrapper;

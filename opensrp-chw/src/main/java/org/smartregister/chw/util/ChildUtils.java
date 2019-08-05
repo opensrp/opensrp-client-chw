@@ -6,7 +6,6 @@ import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 
 import com.google.gson.reflect.TypeToken;
-import com.opensrp.chw.core.enums.ImmunizationState;
 import com.opensrp.chw.core.model.ChildVisit;
 import com.opensrp.chw.core.rule.HomeAlertRule;
 import com.opensrp.chw.core.utils.ChildDBConstants;
@@ -25,10 +24,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-
-import static com.opensrp.chw.core.utils.Utils.DD_MM_YYYY;
-import static org.apache.commons.lang3.text.WordUtils.capitalize;
-import static org.smartregister.chw.util.JsonFormUtils.tagSyncMetadata;
 
 public class ChildUtils extends CoreChildUtils {
     private static Flavor childUtilsFlv = new ChildUtilsFlv();

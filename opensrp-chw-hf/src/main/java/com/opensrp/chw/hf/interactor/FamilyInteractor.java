@@ -8,7 +8,6 @@ import com.opensrp.chw.core.enums.ImmunizationState;
 import com.opensrp.chw.core.interactor.CoreFamilyInteractor;
 import com.opensrp.chw.core.model.ChildVisit;
 import com.opensrp.chw.core.utils.ChildDBConstants;
-
 import com.opensrp.chw.core.utils.CoreConstants;
 import com.opensrp.chw.hf.utils.ChildUtils;
 

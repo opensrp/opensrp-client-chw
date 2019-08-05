@@ -22,7 +22,6 @@ import com.opensrp.chw.core.provider.CoreChildRegisterProvider;
 import com.opensrp.chw.core.utils.ChildDBConstants;
 import com.opensrp.chw.core.utils.CoreConstants;
 
-
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;

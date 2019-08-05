@@ -1,6 +1,5 @@
 package com.opensrp.chw.core.rule;
 
-import com.opensrp.chw.core.rule.ICommonRule;
 import com.opensrp.chw.core.utils.Utils;
 
 import org.joda.time.LocalDate;

@@ -5,7 +5,6 @@ import com.opensrp.chw.core.contract.CoreChildRegisterFragmentContract;
 import com.opensrp.chw.core.utils.ChildDBConstants;
 import com.opensrp.chw.core.utils.CoreConstants;
 
-
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.configurableviews.model.Field;
 import org.smartregister.configurableviews.model.RegisterConfiguration;

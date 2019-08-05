@@ -1,31 +1,27 @@
 package com.opensrp.chw.core.interactor;
 
 import android.content.Context;
-import android.support.annotation.VisibleForTesting;
 import android.text.TextUtils;
 import android.util.Pair;
 
 import com.opensrp.chw.core.application.CoreChwApplication;
+import com.opensrp.chw.core.contract.ChildHomeVisitContract;
 import com.opensrp.chw.core.domain.HomeVisit;
 import com.opensrp.chw.core.model.BirthIllnessFormModel;
-import com.opensrp.chw.core.repository.CoreChwRepository;
 import com.opensrp.chw.core.utils.BirthCertDataModel;
 import com.opensrp.chw.core.utils.ChildDBConstants;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-import com.opensrp.chw.core.contract.ChildHomeVisitContract;
-
 import com.opensrp.chw.core.utils.CoreJsonFormUtils;
 import com.opensrp.chw.core.utils.ObsIllnessDataModel;
 import com.opensrp.chw.core.utils.ServiceTask;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.FamilyLibrary;
 import org.smartregister.family.util.AppExecutors;
 import org.smartregister.repository.AllSharedPreferences;
-import org.smartregister.repository.EventClientRepository;
 import org.smartregister.sync.helper.ECSyncHelper;
 
 import java.util.ArrayList;
@@ -34,7 +30,6 @@ import java.util.Iterator;
 
 import timber.log.Timber;
 
-import static com.opensrp.chw.core.utils.ChildDBConstants.KEY.BIRTH_CERT;
 import static org.smartregister.util.Utils.getValue;
 
 public class CoreChildHomeVisitInteractor implements ChildHomeVisitContract.Interactor {

@@ -27,13 +27,11 @@ import com.github.ybq.android.spinkit.style.FadingCircle;
 import com.opensrp.chw.core.R;
 import com.opensrp.chw.core.adapter.NavigationAdapter;
 import com.opensrp.chw.core.application.CoreChwApplication;
-import com.opensrp.chw.core.contract.CoreApplication;
 import com.opensrp.chw.core.contract.NavigationContract;
 import com.opensrp.chw.core.model.NavigationModel;
 import com.opensrp.chw.core.model.NavigationOption;
 import com.opensrp.chw.core.presenter.NavigationPresenter;
 import com.opensrp.chw.core.utils.CoreConstants;
-
 
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.domain.FetchStatus;

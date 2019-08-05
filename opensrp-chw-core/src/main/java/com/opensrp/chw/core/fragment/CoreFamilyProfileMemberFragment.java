@@ -3,8 +3,6 @@ package com.opensrp.chw.core.fragment;
 import android.content.Intent;
 
 import com.opensrp.chw.core.R;
-import com.opensrp.chw.core.activity.CoreChildProfileActivity;
-import com.opensrp.chw.core.interactor.CoreChildProfileInteractor;
 import com.opensrp.chw.core.utils.ChildDBConstants;
 import com.opensrp.chw.core.utils.CoreChildUtils;
 import com.opensrp.chw.core.utils.Utils;
@@ -12,8 +10,6 @@ import com.opensrp.chw.core.utils.Utils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.configurableviews.model.View;
 import org.smartregister.family.fragment.BaseFamilyProfileMemberFragment;
-import org.smartregister.family.presenter.BaseFamilyProfileMemberPresenter;
-import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.DBConstants;
 
 import java.util.HashMap;
@@ -21,8 +17,7 @@ import java.util.Set;
 
 import timber.log.Timber;
 
-import static com.opensrp.chw.core.utils.CoreConstants.*;
-import static com.opensrp.chw.core.utils.CoreConstants.INTENT_KEY.IS_COMES_FROM_FAMILY;
+import static com.opensrp.chw.core.utils.CoreConstants.TABLE_NAME;
 
 
 public abstract class CoreFamilyProfileMemberFragment extends BaseFamilyProfileMemberFragment {

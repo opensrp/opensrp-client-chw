@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import com.opensrp.chw.core.domain.HomeVisitServiceDataModel;
 
 import net.sqlcipher.database.SQLiteDatabase;
+
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.repository.Repository;
 

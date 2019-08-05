@@ -4,7 +4,6 @@ import android.content.Context;
 import android.database.Cursor;
 
 import com.opensrp.chw.core.enums.ImmunizationState;
-
 import com.opensrp.chw.core.utils.CoreChildUtils;
 import com.opensrp.chw.core.utils.CoreConstants;
 

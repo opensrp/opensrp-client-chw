@@ -4,21 +4,20 @@ import android.text.TextUtils;
 
 import com.google.gson.reflect.TypeToken;
 import com.opensrp.chw.core.application.CoreChwApplication;
+import com.opensrp.chw.core.contract.ImmunizationContact;
 import com.opensrp.chw.core.domain.HomeVisit;
 import com.opensrp.chw.core.model.ImmunizationModel;
 import com.opensrp.chw.core.model.VaccineTaskModel;
 import com.opensrp.chw.core.utils.ChildDBConstants;
-
-import org.joda.time.DateTime;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-import com.opensrp.chw.core.contract.ImmunizationContact;
 import com.opensrp.chw.core.utils.ChwServiceSchedule;
 import com.opensrp.chw.core.utils.CoreChildUtils;
 import com.opensrp.chw.core.utils.HomeVisitVaccineGroup;
 import com.opensrp.chw.core.utils.Utils;
 
+import org.joda.time.DateTime;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.Alert;
 import org.smartregister.family.util.DBConstants;

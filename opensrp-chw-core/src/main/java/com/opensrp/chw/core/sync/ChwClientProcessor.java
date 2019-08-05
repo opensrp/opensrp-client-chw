@@ -3,7 +3,6 @@ package com.opensrp.chw.core.sync;
 import android.content.ContentValues;
 import android.content.Context;
 
-
 import com.opensrp.chw.core.application.CoreChwApplication;
 import com.opensrp.chw.core.repository.HomeVisitRepository;
 import com.opensrp.chw.core.utils.CoreChildUtils;

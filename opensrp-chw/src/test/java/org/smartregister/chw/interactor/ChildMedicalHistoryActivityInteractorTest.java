@@ -2,6 +2,7 @@ package org.smartregister.chw.interactor;
 
 import android.content.Context;
 
+import com.opensrp.chw.core.fragment.GrowthNutritionInputFragment;
 import com.opensrp.chw.core.utils.ChildDBConstants;
 
 import org.junit.Assert;
@@ -15,7 +16,6 @@ import org.powermock.reflect.Whitebox;
 import org.smartregister.chw.BaseUnitTest;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.contract.ChildMedicalHistoryContract;
-import com.opensrp.chw.core.fragment.GrowthNutritionInputFragment;
 import org.smartregister.chw.util.ServiceContent;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.util.AppExecutors;

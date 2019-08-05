@@ -1,10 +1,11 @@
 package org.smartregister.chw.model;
 
+import com.opensrp.chw.core.domain.FamilyMember;
+import com.opensrp.chw.core.model.FamilyChangeContractModel;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import com.opensrp.chw.core.domain.FamilyMember;
-import com.opensrp.chw.core.model.FamilyChangeContractModel;
 
 import java.util.ArrayList;
 import java.util.Arrays;

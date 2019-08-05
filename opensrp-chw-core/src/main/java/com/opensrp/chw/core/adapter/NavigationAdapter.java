@@ -16,7 +16,6 @@ import com.opensrp.chw.core.listener.NavigationListener;
 import com.opensrp.chw.core.model.NavigationOption;
 import com.opensrp.chw.core.utils.CoreConstants;
 
-
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
