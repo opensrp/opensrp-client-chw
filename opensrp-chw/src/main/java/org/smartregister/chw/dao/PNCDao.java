@@ -2,14 +2,17 @@ package org.smartregister.chw.dao;
 
 import android.database.Cursor;
 
+import org.jetbrains.annotations.Nullable;
 import org.smartregister.chw.domain.PNCHealthFacilityVisitSummary;
 
 import java.text.ParseException;
 import java.util.List;
 
+import timber.log.Timber;
+
 public class PNCDao extends AbstractDao {
 
-    public static PNCHealthFacilityVisitSummary getLastHealthFacilityVisitSummary(String baseEntityID) {
+    public static @Nullable PNCHealthFacilityVisitSummary getLastHealthFacilityVisitSummary(String baseEntityID) {
         String sql = "select  last_health_facility_visit_date , confirmed_health_facility_visits, delivery_date from ec_pregnancy_outcome " +
                 "where base_entity_id = '" + baseEntityID + "'";
 
@@ -23,7 +26,7 @@ public class PNCDao extends AbstractDao {
                             getCursorValue(c, "confirmed_health_facility_visits")
                     );
                 } catch (ParseException e) {
-                    e.printStackTrace();
+                    Timber.e(e);
                 }
                 return null;
             }

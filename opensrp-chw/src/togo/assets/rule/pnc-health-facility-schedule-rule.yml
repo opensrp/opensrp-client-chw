@@ -11,7 +11,7 @@ actions:
 ---
 name: schedule_two
 description: day seven
-priority: 1
+priority: 2
 condition: "visitRule.getLastVisitDifference() < 42 && !visitRule.isValidateExpired(42)"
 actions:
   - "visitRule.setVisitName(7)"
@@ -21,7 +21,7 @@ actions:
 ---
 name: schedule_three
 description: day forty_two
-priority: 1
+priority: 3
 condition: "visitRule.getLastVisitDifference() < 1000 && !visitRule.isValidateExpired(1000)"
 actions:
   - "visitRule.setVisitName(42)"

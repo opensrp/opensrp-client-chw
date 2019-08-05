@@ -5,6 +5,8 @@ import android.content.Context;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 
 import org.apache.commons.lang3.StringUtils;
+import org.joda.time.LocalDate;
+import org.joda.time.format.DateTimeFormat;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -29,13 +31,18 @@ import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.PNCVisitUtil;
 
 import java.text.MessageFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import timber.log.Timber;
 
+import static org.smartregister.chw.util.JsonFormUtils.getValue;
 import static org.smartregister.util.JsonFormUtils.fields;
 import static org.smartregister.util.JsonFormUtils.getFieldJSONObject;
 
@@ -121,10 +128,10 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
                         visit_num = 1;
                         break;
                     case "7":
-                        visit_num = 7;
+                        visit_num = 2;
                         break;
-                    case "1000":
-                        visit_num = 42;
+                    case "42":
+                        visit_num = 3;
                         break;
                     default:
                         visit_num = 1;
@@ -137,7 +144,7 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
                             .withDetails(details)
                             .withBaseEntityID(baby.getBaseEntityID())
                             .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getHealthFacilityVisit())
-                            .withHelper(new PNCHealthFacilityVisitHelper(visitRule, baby, visit_num))
+                            .withHelper(new PNCHealthFacilityVisitHelper(visitRule, visit_num))
                             .build();
                     actionList.put(MessageFormat.format(context.getString(R.string.pnc_health_facility_visit), visitRule.getVisitName(), baby.getFullName()), action);
                 }
@@ -298,12 +305,19 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
         private String jsonPayload;
 
         private PNCHealthFacilityVisitRule visitRule;
-        private Person baby;
         private int visit_num;
 
-        public PNCHealthFacilityVisitHelper(PNCHealthFacilityVisitRule visitRule, Person baby, int visit_num) {
+        private String pnc_visit;
+        private String pnc_hf_visit_date;
+        private String baby_weight;
+        private String baby_temp;
+
+        private BaseAncHomeVisitAction.ScheduleStatus scheduleStatus;
+        private String subTitle;
+        private Date date;
+
+        public PNCHealthFacilityVisitHelper(PNCHealthFacilityVisitRule visitRule, int visit_num) {
             this.visitRule = visitRule;
-            this.baby = baby;
             this.visit_num = visit_num;
         }
 
@@ -315,8 +329,11 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
 
         @Override
         public String getPreProcessed() {
-
             try {
+                scheduleStatus = (visitRule.getOverDueDate().toLocalDate().isBefore(LocalDate.now())) ? BaseAncHomeVisitAction.ScheduleStatus.OVERDUE : BaseAncHomeVisitAction.ScheduleStatus.DUE;
+                String due = (visitRule.getOverDueDate().toLocalDate().isBefore(LocalDate.now())) ? context.getString(R.string.overdue) : context.getString(R.string.due);
+
+                subTitle = MessageFormat.format("{0} {1}", due, DateTimeFormat.forPattern("dd MMM yyyy").print(visitRule.getOverDueDate().toLocalDate()));
                 JSONObject jsonObject = new JSONObject(jsonPayload);
                 JSONArray fields = fields(jsonObject);
 
@@ -325,14 +342,23 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
                 jsonObject.getJSONObject(JsonFormConstants.STEP1).put("title", MessageFormat.format(title, visitRule.getVisitName()));
 
                 JSONObject pnc_visit = getFieldJSONObject(fields, "pnc_visit_{0}");
+                pnc_visit.put(JsonFormConstants.KEY, MessageFormat.format("pnc_visit_{0}", visit_num));
+                pnc_visit.put("hint",
+                        MessageFormat.format(pnc_visit.getString(JsonFormConstants.HINT),
+                                visitRule.getVisitName(),
+                                DateTimeFormat.forPattern("dd MMM yyyy").print(visitRule.getDueDate()
+                                )
+                        )
+                );
 
-                /*
-                pnc_visit.put(JsonFormConstants.KEY, visitRule.getVisitName());
-
-                JSONObject pnc_hf_visit_date = getFieldJSONObject(fields, "pnc_hf_visit{0}_date}");
-                pnc_hf_visit_date.put(JsonFormConstants.KEY, visitRule.getVisitName());
-                pnc_hf_visit_date.put(JsonFormConstants.KEY, visitRule.getVisitName());
-                */
+                JSONObject pnc_visit_date = getFieldJSONObject(fields, "pnc_hf_visit{0}_date");
+                pnc_visit_date.put(JsonFormConstants.KEY, MessageFormat.format("pnc_hf_visit{0}_date", visit_num));
+                pnc_visit_date.put("hint",
+                        MessageFormat.format(pnc_visit_date.getString(JsonFormConstants.HINT), visitRule.getVisitName())
+                );
+                updateObjectRelevance(pnc_visit_date);
+                updateObjectRelevance(getFieldJSONObject(fields, "baby_weight"));
+                updateObjectRelevance(getFieldJSONObject(fields, "baby_temp"));
 
                 return jsonObject.toString();
             } catch (Exception e) {
@@ -341,39 +367,97 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
             return null;
         }
 
-        @Override
-        public void onPayloadReceived(String s) {
+        private void updateObjectRelevance(JSONObject jsonObject) throws JSONException {
+            JSONObject relevance = jsonObject.getJSONObject(JsonFormConstants.RELEVANCE);
+            JSONObject step = relevance.getJSONObject("step1:pnc_visit_{0}");
+            relevance.put(MessageFormat.format("step1:pnc_visit_{0}", visit_num), step);
+            relevance.remove("step1:pnc_visit_{0}");
+        }
 
+        @Override
+        public void onPayloadReceived(String jsonPayload) {
+            try {
+                JSONObject jsonObject = new JSONObject(jsonPayload);
+                pnc_visit = getValue(jsonObject, MessageFormat.format("pnc_visit_{0}", visit_num));
+                pnc_hf_visit_date = getValue(jsonObject, MessageFormat.format("pnc_hf_visit{0}_date", visit_num));
+                baby_weight = getValue(jsonObject, "baby_weight");
+                baby_temp = getValue(jsonObject, "baby_temp");
+
+                if (StringUtils.isNotBlank(pnc_hf_visit_date))
+                    date = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).parse(pnc_hf_visit_date);
+            } catch (JSONException e) {
+                Timber.e(e);
+            } catch (ParseException e) {
+                Timber.e(e);
+            }
         }
 
         @Override
         public BaseAncHomeVisitAction.ScheduleStatus getPreProcessedStatus() {
-            return null;
+            return scheduleStatus;
         }
 
         @Override
         public String getPreProcessedSubTitle() {
-            return null;
+            return subTitle;
         }
 
         @Override
         public String postProcess(String s) {
+            try {
+                JSONObject jsonObject = new JSONObject(s);
+
+                JSONArray field = fields(jsonObject);
+                JSONObject confirmed_visits = getFieldJSONObject(field, "confirmed_health_facility_visits");
+                JSONObject facility_visit_date = getFieldJSONObject(field, "facility_visit_date");
+                pnc_hf_visit_date = getValue(jsonObject, MessageFormat.format("pnc_hf_visit{0}_date", visit_num));
+
+                String count = String.valueOf(visit_num);
+                String value = getValue(jsonObject, MessageFormat.format("pnc_visit_{0}", visit_num));
+                if (value.equalsIgnoreCase("Yes")) {
+                    count = String.valueOf(visit_num + 1);
+                    facility_visit_date.put(JsonFormConstants.VALUE, pnc_hf_visit_date);
+                } else {
+                    facility_visit_date.remove(JsonFormConstants.VALUE);
+                }
+
+                if (!confirmed_visits.getString(JsonFormConstants.VALUE).equals(count)) {
+                    confirmed_visits.put(JsonFormConstants.VALUE, count);
+                    return jsonObject.toString();
+                }
+
+            } catch (JSONException e) {
+                Timber.e(e);
+            }
             return null;
         }
 
         @Override
         public String evaluateSubTitle() {
-            return null;
+            if (StringUtils.isBlank(pnc_visit))
+                return null;
+
+            return MessageFormat.format("{0} : {1}", context.getString(R.string.date), new SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(date));
         }
+
 
         @Override
         public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
-            return null;
+            if (StringUtils.isBlank(pnc_visit))
+                return BaseAncHomeVisitAction.Status.PENDING;
+
+            if (pnc_visit.equalsIgnoreCase("Yes")) {
+                return BaseAncHomeVisitAction.Status.COMPLETED;
+            } else if (pnc_visit.equalsIgnoreCase("No")) {
+                return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
+            } else {
+                return BaseAncHomeVisitAction.Status.PENDING;
+            }
         }
 
         @Override
         public void onPayloadReceived(BaseAncHomeVisitAction baseAncHomeVisitAction) {
-
+            Timber.d("onPayloadReceived");
         }
     }
 }
