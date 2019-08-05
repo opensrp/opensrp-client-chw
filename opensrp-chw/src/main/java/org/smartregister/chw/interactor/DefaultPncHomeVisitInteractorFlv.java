@@ -27,6 +27,7 @@ import org.smartregister.chw.dao.PNCDao;
 import org.smartregister.chw.dao.PersonDao;
 import org.smartregister.chw.domain.PNCHealthFacilityVisitSummary;
 import org.smartregister.chw.domain.Person;
+import org.smartregister.chw.domain.PncBaby;
 import org.smartregister.chw.rule.PNCHealthFacilityVisitRule;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.PNCVisitUtil;
@@ -52,7 +53,7 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
     protected LinkedHashMap<String, BaseAncHomeVisitAction> actionList;
     protected Context context;
     protected Map<String, List<VisitDetail>> details = null;
-    protected List<Person> children;
+    protected List<PncBaby> children;
     protected MemberObject memberObject;
     protected BaseAncHomeVisitContract.View view;
 
@@ -70,7 +71,7 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
             }
         }
 
-        children = PersonDao.getMothersChildren(memberObject.getBaseEntityId());
+        children = PersonDao.getMothersPNCBabies(memberObject.getBaseEntityId());
         if (children == null)
             children = new ArrayList<>();
 
@@ -269,13 +270,18 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
             }
         };
 
-        BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.pnc_kangeroo_mother_care))
-                .withOptional(false)
-                .withDetails(details)
-                .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(view, Constants.JSON_FORM.PNC_HOME_VISIT.getKangarooCare(), null, details, null))
-                .withHelper(kangarooHelper)
-                .build();
-        actionList.put(context.getString(R.string.pnc_kangeroo_mother_care), action);
+        for (PncBaby baby : children) {
+            if (baby.getLbw().equals("yes")) {
+                String title = MessageFormat.format(context.getString(R.string.pnc_kangeroo_mother_care), baby.getFullName());
+                BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, title)
+                        .withOptional(false)
+                        .withDetails(details)
+                        .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(view, Constants.JSON_FORM.PNC_HOME_VISIT.getKangarooCare(), null, details, null))
+                        .withHelper(kangarooHelper)
+                        .build();
+                actionList.put(title, action);
+            }
+        }
     }
 
     private void evaluateFamilyPlanning() throws Exception {

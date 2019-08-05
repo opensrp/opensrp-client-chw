@@ -30,6 +30,7 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.contract.FamilyCallDialogContract;
 import org.smartregister.chw.fragment.CopyToClipboardDialog;
+import org.smartregister.clientandeventmodel.Obs;
 import org.smartregister.util.PermissionUtils;
 
 import java.text.MessageFormat;
@@ -37,8 +38,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import timber.log.Timber;
 
@@ -222,6 +225,7 @@ public class Utils extends org.smartregister.family.util.Utils {
 
     /**
      * Check is the file exists
+     *
      * @param form_name
      * @return
      */
@@ -281,5 +285,23 @@ public class Utils extends org.smartregister.family.util.Utils {
             default:
                 return "th";
         }
+    }
+
+    /**
+     * @param obs
+     * @return
+     */
+    public static Map<String, List<Obs>> groupObsByFieldObservations(List<Obs> obs) {
+        Map<String, List<Obs>> map = new HashMap<>();
+        for (Obs o : obs) {
+            List<Obs> cur_vals = map.get(o.getFormSubmissionField());
+            if (cur_vals == null) {
+                cur_vals = new ArrayList<>();
+            }
+            cur_vals.add(o);
+
+            map.put(o.getFormSubmissionField(), cur_vals);
+        }
+        return map;
     }
 }
