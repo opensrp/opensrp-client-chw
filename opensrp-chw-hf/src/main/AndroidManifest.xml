@@ -67,7 +67,7 @@
             android:label="@string/title_family_detail"
             android:parentActivityName="com.opensrp.chw.hf.activity.FamilyRegisterActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/HFTheme.NoActionBar" >
+            android:theme="@style/HFTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.opensrp.chw.hf.activity.FamilyRegisterActivity" />
@@ -80,6 +80,13 @@
 
         <activity
             android:name="com.opensrp.chw.hf.activity.ChildProfileActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/HFTheme.NoActionBar" />
+        <activity
+            android:name="com.opensrp.chw.hf.activity.FamilyRemoveMemberActivity"
+            android:theme="@style/HFTheme.NoActionBar" />
+        <activity
+            android:name="com.opensrp.chw.hf.activity.FamilyProfileMenuActivity"
             android:screenOrientation="portrait"
             android:theme="@style/HFTheme.NoActionBar" />
 

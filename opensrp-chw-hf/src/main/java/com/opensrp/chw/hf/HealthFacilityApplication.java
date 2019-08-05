@@ -61,8 +61,8 @@ public class HealthFacilityApplication extends CoreChwApplication implements Cor
         super.onCreate();
 
         //init Job Manager
-        JobManager.create(this).addJobCreator(new HfJobCreator());
         SyncStatusBroadcastReceiver.init(this);
+        JobManager.create(this).addJobCreator(new HfJobCreator());
 
         //Necessary to determine the right form to pick from assets
         CoreConstants.JSON_FORM.setLocaleAndAssetManager(HealthFacilityApplication.getCurrentLocale(),

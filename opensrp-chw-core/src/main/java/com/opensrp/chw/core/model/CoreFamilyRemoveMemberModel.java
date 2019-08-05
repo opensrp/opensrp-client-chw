@@ -22,11 +22,7 @@ import static java.util.Calendar.DATE;
 import static java.util.Calendar.MONTH;
 import static java.util.Calendar.YEAR;
 
-public abstract class CoreFamilyRemoveMemberModel extends CoreFamilyProfileModel implements FamilyRemoveMemberContract.Model {
-
-    public CoreFamilyRemoveMemberModel(String familyName) {
-        super(familyName);
-    }
+public abstract class CoreFamilyRemoveMemberModel extends CoreFamilyProfileMemberModel implements FamilyRemoveMemberContract.Model {
 
     @Override
     public JSONObject prepareJsonForm(CommonPersonObjectClient client, String formType) {

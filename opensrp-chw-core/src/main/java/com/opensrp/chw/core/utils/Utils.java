@@ -27,9 +27,11 @@ import com.opensrp.chw.core.contract.FamilyCallDialogContract;
 import com.opensrp.chw.core.fragment.CopyToClipboardDialog;
 
 import org.apache.commons.lang3.StringUtils;
+import org.jetbrains.annotations.NotNull;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.joda.time.Period;
+import org.smartregister.family.util.DBConstants;
 import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.util.PermissionUtils;
 
@@ -294,5 +296,21 @@ public class Utils extends org.smartregister.family.util.Utils {
 
     public static int getDueProfileImageResourceIDentifier() {
         return R.color.visit_status_ok;
+    }
+
+    @NotNull
+    public static String getFamilyMembersSqlForBA() {
+        String info_columns = DBConstants.KEY.RELATIONAL_ID + " , " +
+                DBConstants.KEY.BASE_ENTITY_ID + " , " +
+                DBConstants.KEY.FIRST_NAME + " , " +
+                DBConstants.KEY.MIDDLE_NAME + " , " +
+                DBConstants.KEY.LAST_NAME + " , " +
+                DBConstants.KEY.PHONE_NUMBER + " , " +
+                DBConstants.KEY.OTHER_PHONE_NUMBER + " , " +
+                DBConstants.KEY.DOB + " , " +
+                DBConstants.KEY.DOD + " , " +
+                DBConstants.KEY.GENDER;
+
+        return info_columns;
     }
 }

@@ -1,10 +1,13 @@
 package com.opensrp.chw.core.activity;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.util.Pair;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,15 +20,21 @@ import com.opensrp.chw.core.custom_views.FamilyFloatingMenu;
 import com.opensrp.chw.core.event.PermissionEvent;
 import com.opensrp.chw.core.listener.FloatingMenuListener;
 import com.opensrp.chw.core.presenter.CoreFamilyProfilePresenter;
+import com.opensrp.chw.core.utils.CoreConstants;
 
 import org.apache.commons.lang3.StringUtils;
 import org.greenrobot.eventbus.EventBus;
+import org.json.JSONObject;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.family.activity.BaseFamilyProfileActivity;
+import org.smartregister.family.fragment.BaseFamilyProfileMemberFragment;
 import org.smartregister.family.util.Constants;
+import org.smartregister.family.util.JsonFormUtils;
+import org.smartregister.family.util.Utils;
 import org.smartregister.util.PermissionUtils;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import timber.log.Timber;
 
 public abstract class CoreFamilyProfileActivity extends BaseFamilyProfileActivity implements FamilyProfileExtendedContract.View {
     protected String familyBaseEntityId;
@@ -75,6 +84,110 @@ public abstract class CoreFamilyProfileActivity extends BaseFamilyProfileActivit
         return true;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        int i = item.getItemId();
+        if (i == R.id.action_family_details) {
+            startFormForEdit();
+        } else if (i == R.id.action_remove_member) {
+            Intent frm_intent = new Intent(this, getFamilyRemoveMemberClass());
+            frm_intent.putExtra(Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID, getFamilyBaseEntityId());
+            frm_intent.putExtra(Constants.INTENT_KEY.FAMILY_HEAD, familyHead);
+            frm_intent.putExtra(Constants.INTENT_KEY.PRIMARY_CAREGIVER, primaryCaregiver);
+            startActivityForResult(frm_intent, CoreConstants.ProfileActivityResults.CHANGE_COMPLETED);
+        } else if (i == R.id.action_change_head) {
+            Intent fh_intent = new Intent(this, getFamilyProfileMenuClass());
+            fh_intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, getFamilyBaseEntityId());
+            fh_intent.putExtra(CoreFamilyProfileMenuActivity.MENU, CoreConstants.MenuType.ChangeHead);
+            startActivityForResult(fh_intent, CoreConstants.ProfileActivityResults.CHANGE_COMPLETED);
+        } else if (i == R.id.action_change_care_giver) {
+            Intent pc_intent = new Intent(this, getFamilyProfileMenuClass());
+            pc_intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, getFamilyBaseEntityId());
+            pc_intent.putExtra(CoreFamilyProfileMenuActivity.MENU, CoreConstants.MenuType.ChangePrimaryCare);
+            startActivityForResult(pc_intent, CoreConstants.ProfileActivityResults.CHANGE_COMPLETED);
+        } else {
+            super.onOptionsItemSelected(item);
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == Activity.RESULT_OK) {
+            switch (requestCode) {
+                case org.smartregister.family.util.JsonFormUtils.REQUEST_CODE_GET_JSON:
+                    try {
+                        String jsonString = data.getStringExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON);
+                        Timber.d("JSONResult : %s", jsonString);
+
+                        JSONObject form = new JSONObject(jsonString);
+                        String encounter_type = form.getString(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_TYPE);
+                        // process child registration
+                        if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Utils.metadata().familyRegister.updateEventType)) {
+
+                            presenter().updateFamilyRegister(jsonString);
+                            presenter().verifyHasPhone();
+
+                        } else if (encounter_type.equals(CoreConstants.EventType.CHILD_REGISTRATION)) {
+
+                            presenter().saveChildForm(jsonString, false);
+
+                        } else if (encounter_type.equals(Utils.metadata().familyMemberRegister.registerEventType)) {
+
+                            String careGiver = presenter().saveChwFamilyMember(jsonString);
+                            if (presenter().updatePrimaryCareGiver(getApplicationContext(), jsonString, familyBaseEntityId, careGiver)) {
+                                setPrimaryCaregiver(careGiver);
+                                refreshPresenter();
+                                refreshMemberFragment(careGiver, null);
+                            }
+
+                            presenter().verifyHasPhone();
+                        }
+                    } catch (Exception e) {
+                        Timber.e(e);
+                        Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                    break;
+                case CoreConstants.ProfileActivityResults.CHANGE_COMPLETED:
+                    try {
+
+                        String careGiverID = data.getStringExtra(Constants.INTENT_KEY.PRIMARY_CAREGIVER);
+                        String familyHeadID = data.getStringExtra(Constants.INTENT_KEY.FAMILY_HEAD);
+
+                        setPrimaryCaregiver(careGiverID);
+                        setFamilyHead(familyHeadID);
+
+                        refreshMemberFragment(careGiverID, familyHeadID);
+                        presenter().verifyHasPhone();
+
+                    } catch (Exception e) {
+                        Timber.e(e);
+                        Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                    break;
+            }
+        }
+    }
+
+    @Override
+    public void refreshMemberList(FetchStatus fetchStatus) {
+        if (Looper.myLooper() == Looper.getMainLooper()) {
+            for (int i = 0; i < adapter.getCount(); i++) {
+                refreshList(adapter.getItem(i));
+            }
+        } else {
+            Handler handler = new Handler(Looper.getMainLooper());
+            handler.post(new Runnable() {
+                public void run() {
+                    for (int i = 0; i < adapter.getCount(); i++) {
+                        refreshList(adapter.getItem(i));
+                    }
+                }
+            });
+        }
+    }
 
     @Override
     public FamilyProfileExtendedContract.Presenter presenter() {
@@ -147,23 +260,33 @@ public abstract class CoreFamilyProfileActivity extends BaseFamilyProfileActivit
         }
     }
 
-    @Override
-    public void refreshMemberList(FetchStatus fetchStatus) {
-        if (Looper.myLooper() == Looper.getMainLooper()) {
-            for (int i = 0; i < adapter.getCount(); i++) {
-                refreshList(adapter.getItem(i));
-            }
-        } else {
-            Handler handler = new Handler(Looper.getMainLooper());
-            handler.post(new Runnable() {
-                public void run() {
-                    for (int i = 0; i < adapter.getCount(); i++) {
-                        refreshList(adapter.getItem(i));
-                    }
-                }
-            });
-        }
-    }
+    protected abstract Class<? extends CoreFamilyRemoveMemberActivity> getFamilyRemoveMemberClass();
+
+    protected abstract Class<? extends CoreFamilyProfileMenuActivity> getFamilyProfileMenuClass();
 
     protected abstract void refreshList(Fragment item);
+
+    public void updateDueCount(final int dueCount) {
+        Handler handler = new Handler(Looper.getMainLooper());
+        handler.post(new Runnable() {
+            public void run() {
+                adapter.updateCount(Pair.create(1, dueCount));
+            }
+        });
+    }
+
+    protected abstract void refreshPresenter();
+
+    private void refreshMemberFragment(String careGiverID, String familyHeadID) {
+        BaseFamilyProfileMemberFragment memberFragment = this.getProfileMemberFragment();
+        if (memberFragment != null) {
+            if (StringUtils.isNotBlank(careGiverID)) {
+                memberFragment.setPrimaryCaregiver(careGiverID);
+            }
+            if (StringUtils.isNotBlank(familyHeadID)) {
+                memberFragment.setFamilyHead(familyHeadID);
+            }
+            refreshMemberList(FetchStatus.fetched);
+        }
+    }
 }
