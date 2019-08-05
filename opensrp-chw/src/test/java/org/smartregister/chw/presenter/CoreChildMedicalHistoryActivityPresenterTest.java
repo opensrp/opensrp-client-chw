@@ -20,7 +20,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ChildMedicalHistoryActivityPresenterTest {
+public class CoreChildMedicalHistoryActivityPresenterTest {
 
 
     private ChildMedicalHistoryPresenter presenter;

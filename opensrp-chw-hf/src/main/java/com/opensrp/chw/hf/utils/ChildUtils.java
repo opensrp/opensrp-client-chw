@@ -1,9 +1,5 @@
 package com.opensrp.chw.hf.utils;
 
-import android.content.Context;
-
-import com.opensrp.chw.core.model.ChildVisit;
-import com.opensrp.chw.core.rule.HomeAlertRule;
 import com.opensrp.chw.core.utils.CoreChildUtils;
 import com.opensrp.chw.core.utils.CoreConstants;
 import com.opensrp.chw.core.utils.CoreJsonFormUtils;

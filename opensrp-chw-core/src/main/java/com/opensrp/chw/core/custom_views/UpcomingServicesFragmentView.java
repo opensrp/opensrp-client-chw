@@ -1,4 +1,4 @@
-package org.smartregister.chw.custom_view;
+package com.opensrp.chw.core.custom_views;
 
 import android.app.Activity;
 import android.content.Context;
@@ -8,17 +8,17 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.opensrp.chw.core.R;
+import com.opensrp.chw.core.activity.CoreUpcomingServicesActivity;
 import com.opensrp.chw.core.contract.HomeVisitGrowthNutritionContract;
 import com.opensrp.chw.core.contract.ImmunizationContact;
 import com.opensrp.chw.core.enums.ImmunizationState;
 import com.opensrp.chw.core.interactor.HomeVisitGrowthNutritionInteractor;
 import com.opensrp.chw.core.presenter.ImmunizationViewPresenter;
+import com.opensrp.chw.core.utils.CoreChildUtils;
 import com.opensrp.chw.core.utils.GrowthServiceData;
 import com.opensrp.chw.core.utils.HomeVisitVaccineGroup;
 
-import org.smartregister.chw.R;
-import org.smartregister.chw.activity.UpcomingServicesActivity;
-import org.smartregister.chw.util.ChildUtils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.immunization.domain.ServiceWrapper;
@@ -80,7 +80,7 @@ public class UpcomingServicesFragmentView extends LinearLayout implements View.O
             viewMap.put(homeVisitVaccineGroupDetail.getDueDisplayDate(), view);
         }
         groupDateTitle.setText(homeVisitVaccineGroupDetail.getDueDisplayDate());
-        groupDateStatus.setText(ChildUtils.daysAway(homeVisitVaccineGroupDetail.getDueDate()));
+        groupDateStatus.setText(CoreChildUtils.daysAway(homeVisitVaccineGroupDetail.getDueDate()));
         groupNameTitle.setText(String.format(getContext().getString(R.string.immunizations), homeVisitVaccineGroupDetail.getGroup()));
         for (VaccineRepo.Vaccine vaccine : homeVisitVaccineGroupDetail.getNotGivenVaccines()) {
             if (isBlank(groupVaccineTitle.getText().toString())) {
@@ -102,7 +102,7 @@ public class UpcomingServicesFragmentView extends LinearLayout implements View.O
         TextView growth = view.findViewById(R.id.growth_service_name_title);
         growth.setVisibility(VISIBLE);
         groupDateTitle.setText(growthServiceData.getDisplayAbleDate());
-        groupDateStatus.setText(ChildUtils.daysAway(growthServiceData.getDate()));
+        groupDateStatus.setText(CoreChildUtils.daysAway(growthServiceData.getDate()));
         growth.setText(growthServiceData.getDisplayName());
 
         return view;
@@ -198,8 +198,8 @@ public class UpcomingServicesFragmentView extends LinearLayout implements View.O
                 } catch (Exception e) {
                     e.printStackTrace();
                 } finally {
-                    if (context instanceof UpcomingServicesActivity) {
-                        UpcomingServicesActivity activity = (UpcomingServicesActivity) context;
+                    if (context instanceof CoreUpcomingServicesActivity) {
+                        CoreUpcomingServicesActivity activity = (CoreUpcomingServicesActivity) context;
                         activity.progressBarVisibility(false);
 
                     }

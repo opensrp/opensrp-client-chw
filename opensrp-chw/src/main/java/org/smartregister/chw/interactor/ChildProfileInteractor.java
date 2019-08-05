@@ -132,6 +132,7 @@ public class ChildProfileInteractor extends CoreChildProfileInteractor {
 
                     @Override
                     public void onComplete() {
+                        callback.hideProgressBar();
                     }
                 });
     }
@@ -160,6 +161,7 @@ public class ChildProfileInteractor extends CoreChildProfileInteractor {
 
                     @Override
                     public void onComplete() {
+                        callback.hideProgressBar();
                     }
                 });
     }

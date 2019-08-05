@@ -417,7 +417,6 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
 
     @Override
     public void updateAfterBackgroundProcessed() {
-
         presenter().updateChildCommonPerson(childBaseEntityId);
     }
 
@@ -457,7 +456,7 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
 
     @Override
     public void displayShortToast(int resourceId) {
-
+        super.displayToast(resourceId);
     }
 
     @Override

@@ -205,4 +205,13 @@
     <string name="select_a_new_family_head">Select a new family head</string>
     <string name="remove_family_count">%s adults and %s U5 children</string>
 
+    <string name="medical_title">Back to %1$s\'s profile</string>
+    <string name="medical_last_visit">%1$s ago</string>
+    <string name="back_to_children">Back to %1$s</string>
+    <string name="last_visit">LAST VISIT</string>
+    <string name="immunization">IMMUNIZATION</string>
+    <string name="health_child_milestone">Healthy child milestone</string>
+    <string name="fully_immunized_at_age_2">Fully immunized at age 2</string>
+    <string name="fully_immunized_at_age_1">Fully immunized at age 1</string>
+
 </resources>

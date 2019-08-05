@@ -1,4 +1,4 @@
-package org.smartregister.chw.activity;
+package com.opensrp.chw.core.activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -12,23 +12,24 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import org.smartregister.chw.R;
-import org.smartregister.chw.custom_view.UpcomingServicesFragmentView;
-import org.smartregister.chw.util.Constants;
+import com.opensrp.chw.core.R;
+import com.opensrp.chw.core.custom_views.UpcomingServicesFragmentView;
+import com.opensrp.chw.core.utils.CoreConstants;
+
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.view.activity.SecuredActivity;
 
 import static org.smartregister.util.Utils.getValue;
 
-public class UpcomingServicesActivity extends SecuredActivity {
+public class CoreUpcomingServicesActivity extends SecuredActivity {
 
 
     private ProgressBar progressBar;
     private String name;
 
     public static void startUpcomingServicesActivity(Activity activity, CommonPersonObjectClient childClient) {
-        Intent intent = new Intent(activity, UpcomingServicesActivity.class);
-        intent.putExtra(Constants.INTENT_KEY.CHILD_COMMON_PERSON, childClient);
+        Intent intent = new Intent(activity, CoreUpcomingServicesActivity.class);
+        intent.putExtra(CoreConstants.INTENT_KEY.CHILD_COMMON_PERSON, childClient);
 
         activity.startActivity(intent);
     }
@@ -37,7 +38,7 @@ public class UpcomingServicesActivity extends SecuredActivity {
     protected void onCreation() {
         setContentView(R.layout.activity_upcoming_services);
         progressBar = findViewById(R.id.progress_bar);
-        CommonPersonObjectClient childClient = (CommonPersonObjectClient) getIntent().getSerializableExtra(Constants.INTENT_KEY.CHILD_COMMON_PERSON);
+        CommonPersonObjectClient childClient = (CommonPersonObjectClient) getIntent().getSerializableExtra(CoreConstants.INTENT_KEY.CHILD_COMMON_PERSON);
         name = getValue(childClient.getColumnmaps(), "first_name", true) + " " +
                 getValue(childClient.getColumnmaps(), "last_name", true);
         UpcomingServicesFragmentView upcomingServicesView = findViewById(R.id.upcomingServicesHolder);

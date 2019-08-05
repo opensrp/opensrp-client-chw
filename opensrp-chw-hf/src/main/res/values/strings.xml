@@ -4,4 +4,7 @@
     <string name="login_title">USAID Boresha Afya</string>
     <string name="nav_logo">USAID Boresha Afya</string>
     <string name="due_only">Referred</string>
+
+    <string name="clicked_sick_child">You have clicked the sick child follow-up action</string>
+    <string name="clicked_malaria_diagnosis">You have clicked the malaria diagnosis action</string>
 </resources>

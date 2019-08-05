@@ -11,7 +11,6 @@ import android.widget.TextView;
 import com.opensrp.chw.core.R;
 import com.opensrp.chw.core.holders.FooterViewHolder;
 import com.opensrp.chw.core.holders.RegisterViewHolder;
-import com.opensrp.chw.core.task.UpdateLastAsyncTask;
 import com.opensrp.chw.core.utils.ChildDBConstants;
 
 import org.apache.commons.lang3.text.WordUtils;

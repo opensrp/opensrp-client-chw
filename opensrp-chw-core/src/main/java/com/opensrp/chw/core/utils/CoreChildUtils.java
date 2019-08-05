@@ -88,6 +88,24 @@ public abstract class CoreChildUtils {
                 .create();
     }
 
+    public static SpannableString daysAway(String dueDate) {
+        SpannableString spannableString;
+        LocalDate date1 = new LocalDate(dueDate);
+        LocalDate date2 = new LocalDate();
+        int diff = Days.daysBetween(date1, date2).getDays();
+        if (diff <= 0) {
+            String str = Math.abs(diff) + " days away";
+            spannableString = new SpannableString(str);
+            spannableString.setSpan(new ForegroundColorSpan(CoreChwApplication.getInstance().getContext().getColorResource(R.color.grey)), 0, str.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            return spannableString;
+        } else {
+            String str = diff + " days overdue";
+            spannableString = new SpannableString(str);
+            spannableString.setSpan(new ForegroundColorSpan(CoreChwApplication.getInstance().getContext().getColorResource(R.color.alert_urgent_red)), 0, str.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            return spannableString;
+        }
+    }
+
     public static void addToChildTable(String baseEntityID, List<org.smartregister.domain.db.Obs> observations) {
         String value = "";
         for (org.smartregister.domain.db.Obs obs : observations)
