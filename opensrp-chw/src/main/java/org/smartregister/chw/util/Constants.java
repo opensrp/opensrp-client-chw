@@ -211,6 +211,7 @@ public class Constants {
             private static final String MALARIA_PREVENTION = "pnc_malaria_prevention";
             private static final String FAMILY_PLANNING = "pnc_family_planning";
             private static final String KANGAROO_CARE = "pnc_kangaroo_care";
+            private static final String VACCINE_CARD = "pnc_vaccine_card";
             private static final String OBSERVATION_AND_ILLNESS_MOTHER = "pnc_hv_observations_mother";
             private static final String OBSERVATION_AND_ILLNESS_INFANT = "pnc_hv_observations_infant";
 
@@ -260,6 +261,10 @@ public class Constants {
 
             public static String getKangarooCare() {
                 return Utils.getLocalForm(KANGAROO_CARE);
+            }
+
+            public static String getVaccineCard() {
+                return Utils.getLocalForm(VACCINE_CARD);
             }
 
             public static String getObservationAndIllnessMother() {

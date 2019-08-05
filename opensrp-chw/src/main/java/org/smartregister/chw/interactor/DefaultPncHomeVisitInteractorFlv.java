@@ -79,7 +79,7 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
             evaluateDangerSignsMother();
             evaluateDangerSignsBaby();
             evaluatePNCHealthFacilityVisit();
-            //evaluateChildVaccineCard();
+            evaluateChildVaccineCard();
             //evaluateImmunization();
             evaluateUmbilicalCord();
             evaluateExclusiveBreastFeeding();
@@ -157,13 +157,57 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
     }
 
     protected void evaluateChildVaccineCard() throws Exception {
+        class VaccineCardHelper extends HomeVisitActionHelper {
+            private String vaccine_card;
+            private Date dob;
+
+            public VaccineCardHelper(Date dob) {
+                this.dob = dob;
+            }
+
+            @Override
+            public String getPreProcessedSubTitle() {
+                return MessageFormat.format("{0} {1}", context.getString(R.string.due), new SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(dob));
+            }
+
+            @Override
+            public void onPayloadReceived(String jsonPayload) {
+                try {
+                    JSONObject jsonObject = new JSONObject(jsonPayload);
+                    vaccine_card = JsonFormUtils.getValue(jsonObject, "vaccine_card");
+                } catch (JSONException e) {
+                    Timber.e(e);
+                }
+            }
+
+            @Override
+            public String evaluateSubTitle() {
+                return vaccine_card.equalsIgnoreCase("Yes") ? context.getString(R.string.yes) : context.getString(R.string.no);
+            }
+
+            @Override
+            public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
+                if (StringUtils.isBlank(vaccine_card))
+                    return BaseAncHomeVisitAction.Status.PENDING;
+
+                if (vaccine_card.equalsIgnoreCase("Yes")) {
+                    return BaseAncHomeVisitAction.Status.COMPLETED;
+                } else if (vaccine_card.equalsIgnoreCase("No")) {
+                    return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
+                } else {
+                    return BaseAncHomeVisitAction.Status.PENDING;
+                }
+            }
+        }
+
         for (Person baby : children) {
+            // if not given and less than 1 yr
             BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, MessageFormat.format(context.getString(R.string.pnc_child_vaccine_card_recevied), baby.getFullName()))
                     .withOptional(false)
                     .withDetails(details)
                     .withBaseEntityID(baby.getBaseEntityID())
-                    .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getDangerSigns())
-                    .withHelper(new DangerSignsAction())
+                    .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(view, Constants.JSON_FORM.PNC_HOME_VISIT.getVaccineCard(), null, details, null))
+                    .withHelper(new VaccineCardHelper(baby.getDob()))
                     .build();
             actionList.put(MessageFormat.format(context.getString(R.string.pnc_child_vaccine_card_recevied), baby.getFullName()), action);
         }
@@ -234,7 +278,7 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
     }
 
     private void evaluateKangarooMotherCare() throws Exception {
-        HomeVisitActionHelper kangarooHelper = new HomeVisitActionHelper() {
+        class KangarooHelper extends HomeVisitActionHelper {
             private String kangaroo;
 
             @Override
@@ -268,16 +312,16 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
                     return BaseAncHomeVisitAction.Status.PENDING;
                 }
             }
-        };
+        }
 
         for (PncBaby baby : children) {
-            if (baby.getLbw().equals("yes")) {
+            if (baby.getLbw().equalsIgnoreCase("yes")) {
                 String title = MessageFormat.format(context.getString(R.string.pnc_kangeroo_mother_care), baby.getFullName());
                 BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, title)
                         .withOptional(false)
                         .withDetails(details)
                         .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(view, Constants.JSON_FORM.PNC_HOME_VISIT.getKangarooCare(), null, details, null))
-                        .withHelper(kangarooHelper)
+                        .withHelper(new KangarooHelper())
                         .build();
                 actionList.put(title, action);
             }
