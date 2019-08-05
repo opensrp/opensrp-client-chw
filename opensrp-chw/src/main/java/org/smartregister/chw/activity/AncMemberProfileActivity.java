@@ -118,19 +118,15 @@ public class AncMemberProfileActivity extends BaseAncMemberProfileActivity {
         Rules rules = ChwApplication.getInstance().getRulesEngineHelper().rules(org.smartregister.chw.util.Constants.RULE_FILE.ANC_HOME_VISIT);
 
         VisitSummary visitSummary = HomeVisitUtil.getAncVisitStatus(this, rules, MEMBER_OBJECT.getLastMenstrualPeriod(), MEMBER_OBJECT.getLastContactVisit(), null, new DateTime(MEMBER_OBJECT.getDateCreated()).toLocalDate());
+        String visitStatus = visitSummary.getVisitStatus();
 
-        if (!visitSummary.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.DUE.name()) &&
-                !visitSummary.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.OVERDUE.name())) {
+        if (!visitStatus.equalsIgnoreCase(ChildProfileInteractor.VisitType.DUE.name()) &&
+                !visitStatus.equalsIgnoreCase(ChildProfileInteractor.VisitType.OVERDUE.name())) {
             textview_record_anc_visit.setVisibility(View.GONE);
             view_anc_record.setVisibility(View.GONE);
             textViewAncVisitNot.setVisibility(View.GONE);
         }
-        if (!visitSummary.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.DUE.name()) &&
-                !visitSummary.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.OVERDUE.name())) {
-            view_anc_record.setVisibility(View.GONE);
-            textViewAncVisitNot.setVisibility(View.GONE);
-        }
-        if (visitSummary.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.OVERDUE.name())) {
+        if (visitStatus.equalsIgnoreCase(ChildProfileInteractor.VisitType.OVERDUE.name())) {
             textview_record_anc_visit.setBackgroundResource(R.drawable.record_btn_selector_overdue);
             layoutRecordView.setVisibility(View.VISIBLE);
             record_reccuringvisit_done_bar.setVisibility(View.GONE);
