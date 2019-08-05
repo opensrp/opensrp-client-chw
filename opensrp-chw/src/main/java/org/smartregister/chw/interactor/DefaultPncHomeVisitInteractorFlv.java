@@ -19,6 +19,7 @@ import org.smartregister.chw.anc.contract.BaseAncHomeVisitContract;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.domain.VisitDetail;
+import org.smartregister.chw.anc.fragment.BaseAncHomeVisitFragment;
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
 import org.smartregister.chw.anc.util.JsonFormUtils;
 import org.smartregister.chw.anc.util.VisitUtils;
@@ -53,12 +54,14 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
     protected Map<String, List<VisitDetail>> details = null;
     protected List<Person> children;
     protected MemberObject memberObject;
+    protected BaseAncHomeVisitContract.View view;
 
     @Override
     public LinkedHashMap<String, BaseAncHomeVisitAction> calculateActions(BaseAncHomeVisitContract.View view, MemberObject memberObject, BaseAncHomeVisitContract.InteractorCallBack callBack) throws BaseAncHomeVisitAction.ValidationException {
         actionList = new LinkedHashMap<>();
         context = view.getContext();
         this.memberObject = memberObject;
+        this.view = view;
         // get the preloaded data
         if (view.getEditMode()) {
             Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EventType.PNC_HOME_VISIT);
@@ -230,11 +233,47 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
     }
 
     private void evaluateKangarooMotherCare() throws Exception {
+        HomeVisitActionHelper kangarooHelper = new HomeVisitActionHelper() {
+            private String kangaroo;
+
+            @Override
+            public void onPayloadReceived(String jsonPayload) {
+                try {
+                    JSONObject jsonObject = new JSONObject(jsonPayload);
+                    kangaroo = JsonFormUtils.getValue(jsonObject, "kangaroo");
+                } catch (JSONException e) {
+                    Timber.e(e);
+                }
+            }
+
+            @Override
+            public String evaluateSubTitle() {
+                if (StringUtils.isBlank(kangaroo))
+                    return null;
+
+                return kangaroo.equalsIgnoreCase("Yes") ? context.getString(R.string.yes) : context.getString(R.string.no);
+            }
+
+            @Override
+            public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
+                if (StringUtils.isBlank(kangaroo))
+                    return BaseAncHomeVisitAction.Status.PENDING;
+
+                if (kangaroo.equalsIgnoreCase("Yes")) {
+                    return BaseAncHomeVisitAction.Status.COMPLETED;
+                } else if (kangaroo.equalsIgnoreCase("No")) {
+                    return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
+                } else {
+                    return BaseAncHomeVisitAction.Status.PENDING;
+                }
+            }
+        };
+
         BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.pnc_kangeroo_mother_care))
                 .withOptional(false)
                 .withDetails(details)
-                .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getDangerSigns())
-                .withHelper(new DangerSignsAction())
+                .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(view, Constants.JSON_FORM.PNC_HOME_VISIT.getKangarooCare(), null, details, null))
+                .withHelper(kangarooHelper)
                 .build();
         actionList.put(context.getString(R.string.pnc_kangeroo_mother_care), action);
     }
