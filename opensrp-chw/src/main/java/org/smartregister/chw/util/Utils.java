@@ -235,12 +235,14 @@ public class Utils extends org.smartregister.family.util.Utils {
         String formIdentity = MessageFormat.format("{0}_{1}", form_name, current.getLanguage());
         // validate variant exists
         try {
-            if (assets == null) {
+            if(assets == null)
                 assets = new ArrayList<>();
-                String[] local_assets = ChwApplication.getInstance().getApplicationContext().getAssets().list("json.form/");
+
+            if (assets.size() == 0) {
+                String[] local_assets = ChwApplication.getInstance().getApplicationContext().getAssets().list("json.form");
                 if (local_assets != null && local_assets.length > 0) {
                     for (String s : local_assets) {
-                        assets.add(s.substring(0, s.length() - 4));
+                        assets.add(s.substring(0, s.length() - 5));
                     }
                 }
             }
