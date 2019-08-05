@@ -22,6 +22,7 @@ import org.smartregister.chw.pnc.activity.BasePncMemberProfileActivity;
 import org.smartregister.chw.presenter.PncMemberProfilePresenter;
 import org.smartregister.chw.util.ChildService;
 import org.smartregister.chw.util.ChildVisit;
+import org.smartregister.chw.util.VisitSummary;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.CommonPersonObject;
@@ -40,6 +41,7 @@ import static org.smartregister.chw.util.ChildDBConstants.KEY.MOTHER_ENTITY_ID;
 
 public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
 
+    PncMemberProfileInteractor basePncMemberProfileInteractor = new PncMemberProfileInteractor(this);
 
     public static void startMe(Activity activity, MemberObject memberObject, String familyHeadName, String familyHeadPhoneNumber) {
         Intent intent = new Intent(activity, PncMemberProfileActivity.class);
@@ -69,7 +71,6 @@ public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
 
             case R.id.action_pnc_registration:
                 ChildProfileInteractor childProfileInteractor = new ChildProfileInteractor();
-                PncMemberProfileInteractor basePncMemberProfileInteractor = new PncMemberProfileInteractor(this);
                 List<CommonPersonObjectClient> children = basePncMemberProfileInteractor.pncChildrenUnder29Days(MEMBER_OBJECT.getBaseEntityId());
                 if (!children.isEmpty()) {
                     try {
@@ -84,20 +85,9 @@ public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
                 return true;
 
             case R.id.action__pnc_remove_member:
-                CommonRepository commonRepository = org.smartregister.chw.util.Utils.context().commonrepository(org.smartregister.chw.util.Utils.metadata().familyMemberRegister.tableName);
 
-                final CommonPersonObject commonPersonObject = commonRepository.findByBaseEntityId(MEMBER_OBJECT.getBaseEntityId());
-                final CommonPersonObjectClient client =
-                        new CommonPersonObjectClient(commonPersonObject.getCaseId(), commonPersonObject.getDetails(), "");
-                client.setColumnmaps(commonPersonObject.getColumnmaps());
-
-                IndividualProfileRemoveActivity.startIndividualProfileActivity(PncMemberProfileActivity.this, client, MEMBER_OBJECT.getFamilyBaseEntityId(), MEMBER_OBJECT.getFamilyHead(), MEMBER_OBJECT.getPrimaryCareGiver(), PncRegisterActivity.class.getCanonicalName());
-
-
-//
-//                IndividualProfileRemoveActivity.startIndividualProfileActivity(PncMemberProfileActivity.this, getClientDetailsByBaseEntityID(MEMBER_OBJECT.getBaseEntityId()), MEMBER_OBJECT.getFamilyBaseEntityId(), MEMBER_OBJECT.getFamilyHead(), MEMBER_OBJECT.getPrimaryCareGiver(), MalariaRegisterActivity.class.getCanonicalName());
+                IndividualProfileRemoveActivity.startIndividualProfileActivity(PncMemberProfileActivity.this, clientObject(), MEMBER_OBJECT.getFamilyBaseEntityId(), MEMBER_OBJECT.getFamilyHead(), MEMBER_OBJECT.getPrimaryCareGiver(), PncRegisterActivity.class.getCanonicalName());
                 return true;
-
 
             default:
                 break;
@@ -105,12 +95,25 @@ public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    //TODO clean up library side
+    private CommonPersonObjectClient clientObject() {
+        CommonRepository commonRepository = org.smartregister.chw.util.Utils.context().commonrepository(org.smartregister.chw.util.Utils.metadata().familyMemberRegister.tableName);
+        final CommonPersonObject commonPersonObject = commonRepository.findByBaseEntityId(MEMBER_OBJECT.getBaseEntityId());
+        final CommonPersonObjectClient client =
+                new CommonPersonObjectClient(commonPersonObject.getCaseId(), commonPersonObject.getDetails(), "");
+        client.setColumnmaps(commonPersonObject.getColumnmaps());
+        return client;
+    }
+
     @Override
-    protected void setupViews() {
+    public void setupViews() {
         super.setupViews();
-        textViewAncVisitNot.setOnClickListener(null);
-        recordRecurringVisit.setVisibility(View.GONE);
+        VisitSummary visitSummary = basePncMemberProfileInteractor.visitSummary(clientObject());
+        String visitStatus = visitSummary.getVisitStatus();
+
+        if (ChildProfileInteractor.VisitType.OVERDUE.name().equals(visitStatus) || ChildProfileInteractor.VisitType.EXPIRY.name().equals(visitStatus)) {
+            textview_record_anc_visit.setBackgroundResource(R.drawable.record_btn_selector_overdue);
+        }
+
     }
 
     @Override
@@ -130,14 +133,13 @@ public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
 
 
     public void startFormForEdit(JSONObject form) {
-
         try {
-
             startActivityForResult(org.smartregister.chw.util.JsonFormUtils.getAncPncStartFormIntent(form, this), JsonFormUtils.REQUEST_CODE_GET_JSON);
         } catch (Exception e) {
             Timber.e(e);
         }
     }
+
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -165,8 +167,6 @@ public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
 
                         Pair<Client, Event> pair = new ChildRegisterModel().processRegistration(jsonString);
                         if (pair != null) {
-
-                            PncMemberProfileInteractor basePncMemberProfileInteractor = new PncMemberProfileInteractor(this);
                             basePncMemberProfileInteractor.updateChild(pair, jsonString, callBack());
                         }
                     }
@@ -258,4 +258,19 @@ public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
             }
         };
     }
+
+    @Override
+    public void onClick(View view) {
+        super.onClick(view);
+
+        switch (view.getId()) {
+            case R.id.textview_record_visit:
+                PncHomeVisitActivity.startMe(this, MEMBER_OBJECT, false);
+                break;
+            default:
+                break;
+        }
+    }
+
+
 }
