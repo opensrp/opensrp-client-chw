@@ -1,6 +1,6 @@
 {
   "count": "1",
-  "encounter_type": "Health Facility Visit",
+  "encounter_type": "PNC health facility visit",
   "entity_id": "",
   "metadata": {
     "start": {
@@ -47,13 +47,13 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "Health Facility Visit",
+    "title": "PNC Health Facility Visit Day {0}",
     "fields": [
       {
         "key": "pnc_visit_{0}",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "164378AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "",
         "openmrs_data_type": "select one",
         "type": "spinner",
         "hint": "Did the woman attend her PNC visit {0} at the health facility?\n\nVisit due date: {1}",
@@ -68,7 +68,7 @@
       },
       {
         "key": "pnc_hf_visit{0}_date",
-        "openmrs_entity_parent": "",
+        "openmrs_entity_parent": "1623AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "164093AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "date_picker",
@@ -88,21 +88,29 @@
         }
       },
       {
-        "key": "vit_a_mother",
-        "openmrs_entity_parent": "",
+        "key": "baby_weight",
+        "openmrs_entity_parent": "1528AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "164378AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "openmrs_data_type": "select one",
-        "type": "spinner",
-        "hint": "Did the woman receive Vitamin A within 24 hours of delivery?",
-        "v_required": {
-          "value": "true",
-          "err": "Please select option"
+        "openmrs_entity_id": "5089AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "edit_text",
+        "edit_type": "number",
+        "hint": "The baby's weight in kilograms.",
+        "v_min": {
+          "value": "0",
+          "err": "The value must be greater than or equal to 0"
         },
-        "values": [
-          "Yes",
-          "No"
-        ],
+        "v_max": {
+          "value": "20",
+          "err": "The value must be less than or equal to 20"
+        },
+        "v_required": {
+          "value": "false",
+          "err": "Required"
+        },
+        "v_numeric_integer": {
+          "value": "true",
+          "err": "Must be a rounded number"
+        },
         "relevance": {
           "step1:pnc_visit_{0}": {
             "type": "string",
@@ -111,24 +119,28 @@
         }
       },
       {
-        "key": "ifa_mother",
+        "key": "baby_temp",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "104677AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "openmrs_data_type": "select one",
-        "type": "spinner",
-        "hint": "Did the woman receive iron and folic acid (IFA) tablets within 24 hours of delivery?",
-        "v_required": {
-          "value": "true",
-          "err": "Please select option"
+        "openmrs_entity_id": "5085AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "edit_text",
+        "edit_type": "number",
+        "hint": "The baby's temperature in degrees Celsius.",
+        "v_min": {
+          "value": "35",
+          "err": "The value must be greater than or equal to 35"
         },
-        "values": [
-          "Yes",
-          "No"
-        ],
-        "openmrs_choice_ids": {
-          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        "v_max": {
+          "value": "42",
+          "err": "The value must be less than or equal to 42"
+        },
+        "v_required": {
+          "value": "false",
+          "err": "Required"
+        },
+        "v_numeric_integer": {
+          "value": "true",
+          "err": "Must be a rounded number"
         },
         "relevance": {
           "step1:pnc_visit_{0}": {

@@ -30,18 +30,18 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.contract.FamilyCallDialogContract;
 import org.smartregister.chw.fragment.CopyToClipboardDialog;
+import org.smartregister.clientandeventmodel.Obs;
 import org.smartregister.util.PermissionUtils;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.text.MessageFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import timber.log.Timber;
 
@@ -51,7 +51,7 @@ public class Utils extends org.smartregister.family.util.Utils {
 
     public static final SimpleDateFormat dd_MMM_yyyy = new SimpleDateFormat("dd MMM yyyy");
     public static final SimpleDateFormat yyyy_mm_dd = new SimpleDateFormat("yyyy-mm-dd");
-    private static String TAG = Utils.class.getCanonicalName();
+    private static List<String> assets;
 
     public static String firstCharacterUppercase(String str) {
         if (TextUtils.isEmpty(str)) return "";
@@ -223,28 +223,37 @@ public class Utils extends org.smartregister.family.util.Utils {
         return " " + context.getString(resId);
     }
 
+    /**
+     * Check is the file exists
+     *
+     * @param form_name
+     * @return
+     */
     public static String getLocalForm(String form_name) {
         Locale current = ChwApplication.getCurrentLocale();
 
         String formIdentity = MessageFormat.format("{0}_{1}", form_name, current.getLanguage());
         // validate variant exists
         try {
-            InputStream inputStream = ChwApplication.getInstance().getApplicationContext().getAssets()
-                    .open("json.form/" + formIdentity + ".json");
-            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream,
-                    "UTF-8"));
-            String jsonString;
-            StringBuilder stringBuilder = new StringBuilder();
-            while ((jsonString = reader.readLine()) != null) {
-                stringBuilder.append(jsonString);
-            }
-            inputStream.close();
+            if(assets == null)
+                assets = new ArrayList<>();
 
-            return formIdentity;
+            if (assets.size() == 0) {
+                String[] local_assets = ChwApplication.getInstance().getApplicationContext().getAssets().list("json.form");
+                if (local_assets != null && local_assets.length > 0) {
+                    for (String s : local_assets) {
+                        assets.add(s.substring(0, s.length() - 5));
+                    }
+                }
+            }
+
+            if (assets.contains(formIdentity))
+                return formIdentity;
         } catch (Exception e) {
             // return default
             return form_name;
         }
+        return form_name;
     }
 
     public static String getAncMemberNameAndAge(String firstName, String middleName, String surName, String age) {
@@ -278,5 +287,23 @@ public class Utils extends org.smartregister.family.util.Utils {
             default:
                 return "th";
         }
+    }
+
+    /**
+     * @param obs
+     * @return
+     */
+    public static Map<String, List<Obs>> groupObsByFieldObservations(List<Obs> obs) {
+        Map<String, List<Obs>> map = new HashMap<>();
+        for (Obs o : obs) {
+            List<Obs> cur_vals = map.get(o.getFormSubmissionField());
+            if (cur_vals == null) {
+                cur_vals = new ArrayList<>();
+            }
+            cur_vals.add(o);
+
+            map.put(o.getFormSubmissionField(), cur_vals);
+        }
+        return map;
     }
 }
