@@ -25,13 +25,13 @@ import android.widget.Toast;
 
 import com.opensrp.chw.core.R;
 import com.opensrp.chw.core.application.CoreChwApplication;
+import com.opensrp.chw.core.custom_views.ImmunizationView;
 import com.opensrp.chw.core.utils.CoreChildUtils;
 import com.opensrp.chw.core.utils.CoreJsonFormUtils;
 import com.vijay.jsonwizard.customviews.CheckBox;
 
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
-import com.opensrp.chw.core.custom_views.ImmunizationView;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.Utils;

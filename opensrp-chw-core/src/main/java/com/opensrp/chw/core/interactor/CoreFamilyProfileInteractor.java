@@ -14,14 +14,14 @@ import org.smartregister.family.util.Utils;
 import java.util.Map;
 
 public class CoreFamilyProfileInteractor extends org.smartregister.family.interactor.FamilyProfileInteractor {
-    private AppExecutors appExecutors;
+    protected AppExecutors appExecutors;
 
     @VisibleForTesting
-    CoreFamilyProfileInteractor(AppExecutors appExecutors) {
+    private CoreFamilyProfileInteractor(AppExecutors appExecutors) {
         this.appExecutors = appExecutors;
     }
 
-    public CoreFamilyProfileInteractor() {
+    protected CoreFamilyProfileInteractor() {
         this(new AppExecutors());
     }
 

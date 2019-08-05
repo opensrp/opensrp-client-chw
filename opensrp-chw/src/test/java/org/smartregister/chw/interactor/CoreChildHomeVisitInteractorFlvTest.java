@@ -2,13 +2,14 @@ package org.smartregister.chw.interactor;
 
 import android.content.Context;
 
+import com.opensrp.chw.core.utils.ServiceTask;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.smartregister.chw.BaseUnitTest;
-import com.opensrp.chw.core.utils.ServiceTask;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.util.DBConstants;
 

@@ -18,18 +18,6 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="appbar_padding_top">8dp</dimen>
 
-    <dimen name="remove_member_padding">25dp</dimen>
-    <dimen name="remove_member_text_size">17sp</dimen>
-
-    <dimen name="remove_member_prompt_top_padding">25dp</dimen>
-    <dimen name="remove_member_prompt_left_padding">15dp</dimen>
-    <dimen name="remove_member_prompt_margin">7dp</dimen>
-
-    <dimen name="change_dialog_text_size">20dp</dimen>
-    <dimen name="change_member_padding">8dp</dimen>
-    <dimen name="change_member_list_main">20sp</dimen>
-    <dimen name="change_member_list_details">16sp</dimen>
-
     <dimen name="tool_bar_size">55dp</dimen>
     <dimen name="tool_bar_title">20sp</dimen>
     <dimen name="tool_bar_image">25dp</dimen>

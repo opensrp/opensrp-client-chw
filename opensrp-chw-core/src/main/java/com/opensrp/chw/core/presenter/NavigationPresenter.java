@@ -9,7 +9,6 @@ import com.opensrp.chw.core.model.NavigationModel;
 import com.opensrp.chw.core.model.NavigationOption;
 import com.opensrp.chw.core.utils.CoreConstants;
 
-
 import org.smartregister.job.ImageUploadServiceJob;
 import org.smartregister.job.SyncServiceJob;
 

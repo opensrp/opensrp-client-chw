@@ -1,18 +1,12 @@
 package org.smartregister.chw.interactor;
 
-import android.content.Context;
 import android.support.annotation.VisibleForTesting;
 import android.text.TextUtils;
 import android.util.Pair;
 
 import com.opensrp.chw.core.application.CoreChwApplication;
-import com.opensrp.chw.core.domain.HomeVisit;
 import com.opensrp.chw.core.interactor.CoreChildHomeVisitInteractor;
 import com.opensrp.chw.core.model.BirthIllnessFormModel;
-import com.opensrp.chw.core.repository.CoreChwRepository;
-import com.opensrp.chw.core.utils.BirthCertDataModel;
-import com.opensrp.chw.core.utils.ObsIllnessDataModel;
-import com.opensrp.chw.core.utils.ServiceTask;
 
 import org.json.JSONObject;
 import org.smartregister.chw.repository.ChwRepository;
@@ -21,8 +15,6 @@ import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.util.AppExecutors;
 import org.smartregister.repository.EventClientRepository;
-
-import java.util.ArrayList;
 
 import timber.log.Timber;
 

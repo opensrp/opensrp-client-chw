@@ -1,7 +1,6 @@
 package com.opensrp.chw.core.model;
 
 import com.opensrp.chw.core.contract.CoreChildProfileContract;
-
 import com.opensrp.chw.core.utils.CoreConstants;
 import com.opensrp.chw.core.utils.CoreJsonFormUtils;
 

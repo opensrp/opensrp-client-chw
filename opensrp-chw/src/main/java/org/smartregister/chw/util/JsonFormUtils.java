@@ -4,7 +4,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.util.Pair;
 
-import com.opensrp.chw.core.domain.FamilyMember;
 import com.opensrp.chw.core.utils.CoreConstants;
 import com.opensrp.chw.core.utils.CoreJsonFormUtils;
 
@@ -23,20 +22,13 @@ import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.clientandeventmodel.Obs;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
-import org.smartregister.domain.tag.FormTag;
-import org.smartregister.family.FamilyLibrary;
 import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.EventClientRepository;
-import org.smartregister.sync.helper.ECSyncHelper;
-import org.smartregister.util.AssetHandler;
-import org.smartregister.util.FormUtils;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import timber.log.Timber;
 
@@ -171,101 +163,6 @@ public class JsonFormUtils extends CoreJsonFormUtils {
 
     public static JSONObject getAutoPopulatedJsonEditMemberFormString(String title, String formName, Context context, CommonPersonObjectClient client, String eventType, String familyName, boolean isPrimaryCaregiver) {
         return flavor.getAutoJsonEditMemberFormString(title, formName, context, client, eventType, familyName, isPrimaryCaregiver);
-    }
-
-    public static FamilyMember getFamilyMemberFromRegistrationForm(String jsonString, String familyBaseEntityId, String entityID) throws JSONException {
-        FamilyMember member = new FamilyMember();
-
-        Triple<Boolean, JSONObject, JSONArray> registrationFormParams = validateParameters(jsonString);
-        if (!registrationFormParams.getLeft()) {
-            return null;
-        }
-
-        JSONArray fields = registrationFormParams.getRight();
-
-        member.setFamilyID(familyBaseEntityId);
-        member.setMemberID(entityID);
-        member.setPhone(getJsonFieldValue(fields, CoreConstants.JsonAssets.FAMILY_MEMBER.PHONE_NUMBER));
-        member.setOtherPhone(getJsonFieldValue(fields, CoreConstants.JsonAssets.FAMILY_MEMBER.OTHER_PHONE_NUMBER));
-        member.setEduLevel(getJsonFieldValue(fields, CoreConstants.JsonAssets.FAMILY_MEMBER.HIGHEST_EDUCATION_LEVEL));
-        member.setPrimaryCareGiver(
-                getJsonFieldValue(fields, CoreConstants.JsonAssets.PRIMARY_CARE_GIVER).equalsIgnoreCase("Yes") ||
-                        getJsonFieldValue(fields, CoreConstants.JsonAssets.IS_PRIMARY_CARE_GIVER).equalsIgnoreCase("Yes")
-        );
-        member.setFamilyHead(false);
-
-        return member;
-    }
-
-
-    public static Pair<List<Client>, List<Event>> processFamilyUpdateRelations(Context context, FamilyMember familyMember, String lastLocationId) throws Exception {
-        List<Client> clients = new ArrayList<>();
-        List<Event> events = new ArrayList<>();
-
-
-        ECSyncHelper syncHelper = ChwApplication.getInstance().getEcSyncHelper();
-        JSONObject clientObject = syncHelper.getClient(familyMember.getFamilyID());
-        Client familyClient = syncHelper.convert(clientObject, Client.class);
-        if (familyClient == null) {
-            String birthDate = clientObject.getString("birthdate");
-            if (StringUtils.isNotBlank(birthDate)) {
-                birthDate = birthDate.replace("-00:44:30", getTimeZone());
-                clientObject.put("birthdate", birthDate);
-            }
-
-            familyClient = syncHelper.convert(clientObject, Client.class);
-        }
-
-        Map<String, List<String>> relationships = familyClient.getRelationships();
-
-        if (familyMember.getPrimaryCareGiver()) {
-            relationships.put(CoreConstants.RELATIONSHIP.PRIMARY_CAREGIVER, toStringList(familyMember.getMemberID()));
-            familyClient.setRelationships(relationships);
-        }
-
-        if (familyMember.getFamilyHead()) {
-            relationships.put(CoreConstants.RELATIONSHIP.FAMILY_HEAD, toStringList(familyMember.getMemberID()));
-            familyClient.setRelationships(relationships);
-        }
-
-        clients.add(familyClient);
-
-
-        JSONObject metadata = FormUtils.getInstance(context)
-                .getFormJson(Utils.metadata().familyRegister.formName)
-                .getJSONObject(org.smartregister.family.util.JsonFormUtils.METADATA);
-
-        metadata.put(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_LOCATION, lastLocationId);
-
-        FormTag formTag = new FormTag();
-        formTag.providerId = Utils.context().allSharedPreferences().fetchRegisteredANM();
-        formTag.appVersion = FamilyLibrary.getInstance().getApplicationVersion();
-        formTag.databaseVersion = FamilyLibrary.getInstance().getDatabaseVersion();
-
-        Event eventFamily = JsonFormUtils.createEvent(new JSONArray(), metadata, formTag, familyMember.getFamilyID(),
-                CoreConstants.EventType.UPDATE_FAMILY_RELATIONS,
-                Utils.metadata().familyRegister.tableName);
-        JsonFormUtils.tagSyncMetadata(Utils.context().allSharedPreferences(), eventFamily);
-
-
-        Event eventMember = JsonFormUtils.createEvent(new JSONArray(), metadata, formTag, familyMember.getMemberID(), CoreConstants.EventType.UPDATE_FAMILY_MEMBER_RELATIONS,
-                Utils.metadata().familyMemberRegister.tableName);
-        JsonFormUtils.tagSyncMetadata(Utils.context().allSharedPreferences(), eventMember);
-
-        eventMember.addObs(new Obs("concept", "text", CoreConstants.FORM_CONSTANTS.CHANGE_CARE_GIVER.PHONE_NUMBER.CODE, "",
-                toList(familyMember.getPhone()), new ArrayList<>(), null, DBConstants.KEY.PHONE_NUMBER));
-
-        eventMember.addObs(new Obs("concept", "text", CoreConstants.FORM_CONSTANTS.CHANGE_CARE_GIVER.OTHER_PHONE_NUMBER.CODE, CoreConstants.FORM_CONSTANTS.CHANGE_CARE_GIVER.OTHER_PHONE_NUMBER.PARENT_CODE,
-                toList(familyMember.getOtherPhone()), new ArrayList<>(), null, DBConstants.KEY.OTHER_PHONE_NUMBER));
-
-        eventMember.addObs(new Obs("concept", "text", CoreConstants.FORM_CONSTANTS.CHANGE_CARE_GIVER.HIGHEST_EDU_LEVEL.CODE, "",
-                toList(getEducationLevels(context).get(familyMember.getEduLevel())), toList(familyMember.getEduLevel()), null, DBConstants.KEY.HIGHEST_EDU_LEVEL));
-
-
-        events.add(eventFamily);
-        events.add(eventMember);
-
-        return Pair.create(clients, events);
     }
 
     private static Event getEditAncLatestProperties(String baseEntityID) {

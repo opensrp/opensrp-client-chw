@@ -14,7 +14,6 @@ import com.opensrp.chw.core.contract.CoreFamilyRegisterFragmentContract;
 import com.opensrp.chw.core.custom_views.NavigationMenu;
 import com.opensrp.chw.core.model.FamilyRegisterFramentModel;
 import com.opensrp.chw.core.presenter.FamilyRegisterFragmentPresenter;
-
 import com.opensrp.chw.core.utils.CoreConstants;
 import com.opensrp.chw.core.utils.QueryBuilder;
 

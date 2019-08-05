@@ -3,6 +3,8 @@ package org.smartregister.chw.util;
 import android.text.SpannableString;
 
 import com.opensrp.chw.core.model.ChildVisit;
+import com.opensrp.chw.core.rule.HomeAlertRule;
+import com.opensrp.chw.core.utils.TestConstant;
 
 import org.joda.time.LocalDate;
 import org.junit.Assert;
@@ -13,7 +15,6 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.powermock.reflect.Whitebox;
 import org.smartregister.chw.BaseUnitTest;
-import com.opensrp.chw.core.rule.HomeAlertRule;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.util.DBConstants;
 

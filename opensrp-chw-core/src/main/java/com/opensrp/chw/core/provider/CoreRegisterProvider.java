@@ -14,7 +14,6 @@ import com.opensrp.chw.core.model.ChildVisit;
 import com.opensrp.chw.core.utils.ChildDBConstants;
 import com.opensrp.chw.core.utils.CoreConstants;
 
-
 import org.jeasy.rules.api.Rules;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;

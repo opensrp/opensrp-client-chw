@@ -9,7 +9,6 @@ import android.support.v4.app.Fragment;
 import com.opensrp.chw.core.custom_views.NavigationMenu;
 import com.opensrp.chw.core.utils.CoreConstants;
 
-
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.family.activity.BaseFamilyRegisterActivity;
 import org.smartregister.family.model.BaseFamilyRegisterModel;

@@ -6,8 +6,9 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.view.MenuItem;
 
+import com.opensrp.chw.core.contract.ChwBottomNavigator;
+
 import org.smartregister.chw.activity.JobAidsActivity;
-import org.smartregister.chw.contract.ChwBottomNavigator;
 
 public class AncBottomNavigationListener extends FamilyBottomNavigationListener {
     private Activity context;

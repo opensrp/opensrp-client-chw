@@ -8,17 +8,17 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.opensrp.chw.core.contract.HomeVisitGrowthNutritionContract;
+import com.opensrp.chw.core.contract.ImmunizationContact;
 import com.opensrp.chw.core.enums.ImmunizationState;
+import com.opensrp.chw.core.interactor.HomeVisitGrowthNutritionInteractor;
+import com.opensrp.chw.core.presenter.ImmunizationViewPresenter;
+import com.opensrp.chw.core.utils.GrowthServiceData;
+import com.opensrp.chw.core.utils.HomeVisitVaccineGroup;
 
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.UpcomingServicesActivity;
-import com.opensrp.chw.core.contract.HomeVisitGrowthNutritionContract;
-import com.opensrp.chw.core.contract.ImmunizationContact;
-import com.opensrp.chw.core.interactor.HomeVisitGrowthNutritionInteractor;
-import com.opensrp.chw.core.presenter.ImmunizationViewPresenter;
 import org.smartregister.chw.util.ChildUtils;
-import com.opensrp.chw.core.utils.GrowthServiceData;
-import com.opensrp.chw.core.utils.HomeVisitVaccineGroup;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.immunization.domain.ServiceWrapper;

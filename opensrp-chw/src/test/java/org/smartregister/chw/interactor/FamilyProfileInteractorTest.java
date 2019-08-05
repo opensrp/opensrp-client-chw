@@ -3,8 +3,6 @@ package org.smartregister.chw.interactor;
 import android.content.Context;
 import android.content.res.AssetManager;
 
-
-
 import org.apache.commons.io.IOUtils;
 import org.junit.Before;
 import org.junit.Test;

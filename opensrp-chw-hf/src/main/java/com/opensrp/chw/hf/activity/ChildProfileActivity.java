@@ -10,7 +10,7 @@ import com.opensrp.chw.core.activity.CoreChildProfileActivity;
 import com.opensrp.chw.core.custom_views.CoreFamilyMemberFloatingMenu;
 import com.opensrp.chw.core.model.CoreChildProfileModel;
 import com.opensrp.chw.core.utils.CoreConstants;
-import com.opensrp.chw.hf.presenter.HfChildProfilePresenter;
+import com.opensrp.chw.hf.presenter.ChildProfilePresenter;
 import com.opensrp.hf.R;
 
 import org.smartregister.family.util.Constants;
@@ -52,7 +52,7 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
             familyName = "";
         }
 
-        presenter = new HfChildProfilePresenter(this, new CoreChildProfileModel(familyName), childBaseEntityId);
+        presenter = new ChildProfilePresenter(this, new CoreChildProfileModel(familyName), childBaseEntityId);
     }
 
     @Override

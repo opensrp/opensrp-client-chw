@@ -5,13 +5,15 @@ import android.support.annotation.VisibleForTesting;
 import android.text.TextUtils;
 
 import com.opensrp.chw.core.domain.HomeVisitServiceDataModel;
+import com.opensrp.chw.core.fragment.GrowthNutritionInputFragment;
 import com.opensrp.chw.core.repository.HomeVisitServiceRepository;
 import com.opensrp.chw.core.utils.ChildDBConstants;
+import com.opensrp.chw.core.utils.ServiceTask;
+import com.opensrp.chw.core.utils.TaskServiceCalculate;
 
 import org.apache.commons.lang3.text.WordUtils;
 import org.smartregister.chw.R;
 import org.smartregister.chw.contract.ChildMedicalHistoryContract;
-import com.opensrp.chw.core.fragment.GrowthNutritionInputFragment;
 import org.smartregister.chw.util.BaseService;
 import org.smartregister.chw.util.BaseVaccine;
 import org.smartregister.chw.util.ChildUtils;
@@ -20,8 +22,6 @@ import org.smartregister.chw.util.ReceivedVaccine;
 import org.smartregister.chw.util.ServiceContent;
 import org.smartregister.chw.util.ServiceHeader;
 import org.smartregister.chw.util.ServiceLine;
-import com.opensrp.chw.core.utils.ServiceTask;
-import com.opensrp.chw.core.utils.TaskServiceCalculate;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.chw.util.VaccineContent;
 import org.smartregister.chw.util.VaccineHeader;

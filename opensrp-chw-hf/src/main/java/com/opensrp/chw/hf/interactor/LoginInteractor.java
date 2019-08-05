@@ -1,5 +1,7 @@
 package com.opensrp.chw.hf.interactor;
 
+import com.opensrp.chw.core.job.HomeVisitServiceJob;
+import com.opensrp.chw.core.job.VaccineRecurringServiceJob;
 import com.opensrp.hf.BuildConfig;
 
 import org.smartregister.job.ImageUploadServiceJob;
@@ -26,5 +28,17 @@ public class LoginInteractor extends BaseLoginInteractor implements BaseLoginCon
         PullUniqueIdsServiceJob.scheduleJob(PullUniqueIdsServiceJob.TAG, TimeUnit.MINUTES.toMinutes(
                 BuildConfig.PULL_UNIQUE_IDS_MINUTES), getFlexValue(BuildConfig.PULL_UNIQUE_IDS_MINUTES));
 
+        VaccineRecurringServiceJob.scheduleJob(VaccineRecurringServiceJob.TAG, TimeUnit.MINUTES.toMinutes(
+                BuildConfig.VACCINE_SYNC_PROCESSING_MINUTES), getFlexValue(BuildConfig.VACCINE_SYNC_PROCESSING_MINUTES));
+
+        HomeVisitServiceJob.scheduleJob(HomeVisitServiceJob.TAG, TimeUnit.MINUTES.toMinutes(
+                BuildConfig.HOME_VISIT_MINUTES), getFlexValue(BuildConfig.HOME_VISIT_MINUTES));
+
+    }
+
+    @Override
+    protected void scheduleJobsImmediately() {
+        super.scheduleJobsImmediately();
+        HomeVisitServiceJob.scheduleJobImmediately(HomeVisitServiceJob.TAG);
     }
 }

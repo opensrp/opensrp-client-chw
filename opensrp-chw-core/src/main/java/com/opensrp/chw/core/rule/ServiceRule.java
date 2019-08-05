@@ -1,7 +1,6 @@
 package com.opensrp.chw.core.rule;
 
 import com.opensrp.chw.core.enums.ImmunizationState;
-import com.opensrp.chw.core.rule.ICommonRule;
 
 import org.joda.time.LocalDate;
 

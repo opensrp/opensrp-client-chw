@@ -1,9 +1,10 @@
 package org.smartregister.chw.model;
 
-import org.smartregister.family.domain.FamilyEventClient;
-import org.smartregister.family.model.BaseFamilyProfileModel;
+import com.opensrp.chw.core.model.CoreFamilyProfileModel;
 
-public class FamilyProfileModel extends BaseFamilyProfileModel {
+import org.smartregister.family.domain.FamilyEventClient;
+
+public class FamilyProfileModel extends CoreFamilyProfileModel {
     public FamilyProfileModel(String familyName) {
         super(familyName);
     }

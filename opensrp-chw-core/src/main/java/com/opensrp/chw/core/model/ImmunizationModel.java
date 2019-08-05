@@ -3,14 +3,13 @@ package com.opensrp.chw.core.model;
 import android.text.TextUtils;
 
 import com.opensrp.chw.core.enums.ImmunizationState;
+import com.opensrp.chw.core.utils.CoreChildUtils;
+import com.opensrp.chw.core.utils.CoreConstants;
+import com.opensrp.chw.core.utils.HomeVisitVaccineGroup;
 
 import org.joda.time.DateTime;
 import org.joda.time.Months;
 import org.joda.time.Weeks;
-
-import com.opensrp.chw.core.utils.CoreChildUtils;
-import com.opensrp.chw.core.utils.CoreConstants;
-import com.opensrp.chw.core.utils.HomeVisitVaccineGroup;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.Alert;
 import org.smartregister.family.util.DBConstants;

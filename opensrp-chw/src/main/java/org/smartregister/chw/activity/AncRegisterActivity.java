@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.opensrp.chw.core.activity.CoreAncRegisterActivity;
 import com.opensrp.chw.core.custom_views.NavigationMenu;
 import com.opensrp.chw.core.utils.CoreConstants;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
@@ -14,9 +15,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
-import org.smartregister.chw.anc.activity.BaseAncRegisterActivity;
 import org.smartregister.chw.anc.util.DBConstants;
-import org.smartregister.chw.contract.ChwBottomNavigator;
 import org.smartregister.chw.fragment.AncRegisterFragment;
 import org.smartregister.chw.listener.AncBottomNavigationListener;
 import org.smartregister.chw.util.Constants;
@@ -29,7 +28,7 @@ import java.util.List;
 
 import static org.smartregister.chw.anc.util.Constants.ACTIVITY_PAYLOAD.TABLE_NAME;
 
-public class AncRegisterActivity extends BaseAncRegisterActivity implements ChwBottomNavigator {
+public class AncRegisterActivity extends CoreAncRegisterActivity {
     private static String phone_number;
     private static String form_name;
     private static String unique_id;
@@ -98,14 +97,6 @@ public class AncRegisterActivity extends BaseAncRegisterActivity implements ChwB
         FamilyRegisterActivity.startFamilyRegisterForm(this);
     }
 
-    private void startRegisterActivity(Class registerClass) {
-        Intent intent = new Intent(this, registerClass);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        this.startActivity(intent);
-        this.overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
-        this.finish();
-    }
-
     @Override
     public void onRegistrationSaved(boolean isEdit) {
         finish();
@@ -122,20 +113,6 @@ public class AncRegisterActivity extends BaseAncRegisterActivity implements ChwB
     @Override
     public List<String> getViewIdentifiers() {
         return Arrays.asList(Constants.CONFIGURATION.ANC_REGISTER);
-    }
-
-    private void updateFormField(JSONArray formFieldArrays, String formFeildKey, String updateValue) {
-        if (updateValue != null) {
-            JSONObject formObject = org.smartregister.util.JsonFormUtils.getFieldJSONObject(formFieldArrays, formFeildKey);
-            if (formObject != null) {
-                try {
-                    formObject.remove(org.smartregister.util.JsonFormUtils.VALUE);
-                    formObject.put(org.smartregister.util.JsonFormUtils.VALUE, updateValue);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
     }
 
     public void startFormActivity(JSONObject jsonForm) {
@@ -158,6 +135,28 @@ public class AncRegisterActivity extends BaseAncRegisterActivity implements ChwB
             startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
         } catch (JSONException e) {
             e.printStackTrace();
+        }
+    }
+
+    private void startRegisterActivity(Class registerClass) {
+        Intent intent = new Intent(this, registerClass);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        this.startActivity(intent);
+        this.overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
+        this.finish();
+    }
+
+    private void updateFormField(JSONArray formFieldArrays, String formFeildKey, String updateValue) {
+        if (updateValue != null) {
+            JSONObject formObject = org.smartregister.util.JsonFormUtils.getFieldJSONObject(formFieldArrays, formFeildKey);
+            if (formObject != null) {
+                try {
+                    formObject.remove(org.smartregister.util.JsonFormUtils.VALUE);
+                    formObject.put(org.smartregister.util.JsonFormUtils.VALUE, updateValue);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 }

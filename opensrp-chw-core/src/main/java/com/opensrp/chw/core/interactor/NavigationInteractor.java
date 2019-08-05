@@ -8,7 +8,6 @@ import com.opensrp.chw.core.utils.ChildDBConstants;
 import com.opensrp.chw.core.utils.ChwDBConstants;
 import com.opensrp.chw.core.utils.CoreConstants;
 
-
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;

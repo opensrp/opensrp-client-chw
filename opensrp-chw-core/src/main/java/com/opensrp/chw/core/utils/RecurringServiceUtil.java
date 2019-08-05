@@ -1,10 +1,9 @@
 package com.opensrp.chw.core.utils;
 
-import com.opensrp.chw.core.utils.ChwServiceSchedule;
+import com.opensrp.chw.core.model.RecurringServiceModel;
 
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
-import com.opensrp.chw.core.model.RecurringServiceModel;
 import org.smartregister.domain.Alert;
 import org.smartregister.domain.AlertStatus;
 import org.smartregister.immunization.ImmunizationLibrary;
