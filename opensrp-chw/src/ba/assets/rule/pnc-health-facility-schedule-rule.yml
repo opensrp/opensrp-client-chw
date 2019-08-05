@@ -11,30 +11,30 @@ actions:
 ---
 name: schedule_two
 description: day three
-priority: 1
+priority: 2
 condition: "visitRule.getLastVisitDifference() < 8 && !visitRule.isValidateExpired(8)"
 actions:
-  - "visitRule.setVisitName(2)"
+  - "visitRule.setVisitName(3)"
   - "visitRule.setDueDiff(3)"
   - "visitRule.setOverdueDiff(5)"
   - "visitRule.setExpiryDiff(8)"
 ---
 name: schedule_three
 description: day eight
-priority: 1
+priority: 3
 condition: "visitRule.getLastVisitDifference() < 29 && !visitRule.isValidateExpired(29)"
 actions:
-  - "visitRule.setVisitName(3)"
+  - "visitRule.setVisitName(8)"
   - "visitRule.setDueDiff(8)"
   - "visitRule.setOverdueDiff(18)"
   - "visitRule.setExpiryDiff(29)"
 ---
 name: schedule_four
 description: day twenty nine
-priority: 1
+priority: 4
 condition: "visitRule.getLastVisitDifference() >= 29"
 actions:
-  - "visitRule.setVisitName(4)"
+  - "visitRule.setVisitName(29)"
   - "visitRule.setDueDiff(29)"
   - "visitRule.setOverdueDiff(36)"
   - "visitRule.setExpiryDiff(1000)"

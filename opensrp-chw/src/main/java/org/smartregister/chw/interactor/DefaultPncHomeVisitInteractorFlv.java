@@ -409,7 +409,7 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
 
                 JSONArray field = fields(jsonObject);
                 JSONObject confirmed_visits = getFieldJSONObject(field, "confirmed_health_facility_visits");
-                JSONObject facility_visit_date = getFieldJSONObject(field, "facility_visit_date");
+                JSONObject facility_visit_date = getFieldJSONObject(field, "last_health_facility_visit_date");
                 pnc_hf_visit_date = getValue(jsonObject, MessageFormat.format("pnc_hf_visit{0}_date", visit_num));
 
                 String count = String.valueOf(visit_num);
