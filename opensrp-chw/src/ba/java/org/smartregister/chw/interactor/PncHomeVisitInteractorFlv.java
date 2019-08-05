@@ -177,7 +177,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
                 switch (visitRule.getVisitName()) {
                     case "3":
                         title = context.getString(R.string.pnc_health_facility_visit_days_three_to_seven);
-                        visit_num = 1;
+                        visit_num = 2;
                         break;
                     case "8":
                         title = context.getString(R.string.pnc_health_facility_visit_days_eight_to_twenty_eight);
@@ -196,7 +196,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
                 BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, title)
                         .withOptional(false)
                         .withDetails(details)
-                        .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getHealthFacilityVisit())
+                        .withFormName(visit_num == 1 ? Constants.JSON_FORM.PNC_HOME_VISIT.getHealthFacilityVisit() : Constants.JSON_FORM.PNC_HOME_VISIT.getHealthFacilityVisitTwo())
                         .withHelper(new PNCHealthFacilityVisitHelper(visitRule, visit_num))
                         .build();
                 actionList.put(title, action);
@@ -580,7 +580,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
                 pnc_visit.put(JsonFormConstants.KEY, MessageFormat.format("pnc_visit_{0}", visit_num));
                 pnc_visit.put("hint",
                         MessageFormat.format(pnc_visit.getString(JsonFormConstants.HINT),
-                                visitRule.getVisitName(),
+                                visit_num,
                                 DateTimeFormat.forPattern("dd MMM yyyy").print(visitRule.getDueDate()
                                 )
                         )
@@ -593,7 +593,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
                 );
                 updateObjectRelevance(pnc_visit_date);
 
-                if (visit_num > 1) {
+                if (visit_num == 1) {
                     updateObjectRelevance(getFieldJSONObject(fields, "vit_a_mother"));
                     updateObjectRelevance(getFieldJSONObject(fields, "ifa_mother"));
                 }
@@ -619,7 +619,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
                 pnc_visit = getValue(jsonObject, MessageFormat.format("pnc_visit_{0}", visit_num));
                 pnc_hf_visit_date = getValue(jsonObject, MessageFormat.format("pnc_hf_visit{0}_date", visit_num));
 
-                if (visit_num > 1) {
+                if (visit_num == 1) {
                     vit_a_mother = getValue(jsonObject, "vit_a_mother");
                     ifa_mother = getValue(jsonObject, "ifa_mother");
                 }

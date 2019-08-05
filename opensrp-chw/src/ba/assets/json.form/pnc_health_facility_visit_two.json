@@ -88,56 +88,6 @@
         }
       },
       {
-        "key": "vit_a_mother",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "164378AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "openmrs_data_type": "select one",
-        "type": "spinner",
-        "hint": "Did the woman receive Vitamin A within 24 hours of delivery?",
-        "v_required": {
-          "value": "true",
-          "err": "Please select option"
-        },
-        "values": [
-          "Yes",
-          "No"
-        ],
-        "relevance": {
-          "step1:pnc_visit_{0}": {
-            "type": "string",
-            "ex": "equalTo(., \"Yes\")"
-          }
-        }
-      },
-      {
-        "key": "ifa_mother",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "104677AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "openmrs_data_type": "select one",
-        "type": "spinner",
-        "hint": "Did the woman receive iron and folic acid (IFA) tablets within 24 hours of delivery?",
-        "v_required": {
-          "value": "true",
-          "err": "Please select option"
-        },
-        "values": [
-          "Yes",
-          "No"
-        ],
-        "openmrs_choice_ids": {
-          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
-        "relevance": {
-          "step1:pnc_visit_{0}": {
-            "type": "string",
-            "ex": "equalTo(., \"Yes\")"
-          }
-        }
-      },
-      {
         "key": "confirmed_health_facility_visits",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
