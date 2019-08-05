@@ -14,9 +14,13 @@ import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
 import org.smartregister.chw.anc.util.VisitUtils;
+import org.smartregister.chw.dao.PNCDao;
 import org.smartregister.chw.dao.PersonDao;
+import org.smartregister.chw.domain.PNCHealthFacilityVisitSummary;
 import org.smartregister.chw.domain.Person;
+import org.smartregister.chw.rule.PNCHealthFacilityVisitRule;
 import org.smartregister.chw.util.Constants;
+import org.smartregister.chw.util.PNCVisitUtil;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -33,6 +37,8 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
     public LinkedHashMap<String, BaseAncHomeVisitAction> calculateActions(BaseAncHomeVisitContract.View view, MemberObject memberObject, BaseAncHomeVisitContract.InteractorCallBack callBack) throws BaseAncHomeVisitAction.ValidationException {
         actionList = new LinkedHashMap<>();
         context = view.getContext();
+        this.memberObject = memberObject;
+
         // get the preloaded data
         if (view.getEditMode()) {
             Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EventType.PNC_HOME_VISIT);
@@ -146,13 +152,37 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
     }
 
     protected void evaluatePNCHealthFacilityVisit() throws Exception {
-        BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.pnc_health_facility_visit_within_fourty_eight_hours))
-                .withOptional(false)
-                .withDetails(details)
-                .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getHealthFacilityVisit())
-                .withHelper(new PNCHealthFacilityVisitHelper())
-                .build();
-        actionList.put(context.getString(R.string.pnc_health_facility_visit_within_fourty_eight_hours), action);
+
+        PNCHealthFacilityVisitSummary summary = PNCDao.getLastHealthFacilityVisitSummary(memberObject.getBaseEntityId());
+        if (summary != null) {
+            PNCHealthFacilityVisitRule visitRule = PNCVisitUtil.getNextPNCHealthFacilityVisit(summary.getDeliveryDate(), summary.getLastVisitDate());
+
+            if(visitRule != null && visitRule.getVisitName() != null){
+                String title;
+                switch (visitRule.getVisitName()) {
+                    case "2":
+                        title = context.getString(R.string.pnc_health_facility_visit_days_three_to_seven);
+                        break;
+                    case "3":
+                        title = context.getString(R.string.pnc_health_facility_visit_days_eight_to_twenty_eight);
+                        break;
+                    case "4":
+                        title = context.getString(R.string.pnc_health_facility_visit_days_twenty_nine_to_forty_two);
+                        break;
+                    default:
+                        title = context.getString(R.string.pnc_health_facility_visit_within_fourty_eight_hours);
+                        break;
+                }
+
+                BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, title)
+                        .withOptional(false)
+                        .withDetails(details)
+                        .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getHealthFacilityVisit())
+                        .withHelper(new PNCHealthFacilityVisitHelper())
+                        .build();
+                actionList.put(title, action);
+            }
+        }
     }
 
     private void evaluateFamilyPlanning() throws Exception {

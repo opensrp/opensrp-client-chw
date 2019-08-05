@@ -32,9 +32,6 @@ import org.smartregister.chw.contract.FamilyCallDialogContract;
 import org.smartregister.chw.fragment.CopyToClipboardDialog;
 import org.smartregister.util.PermissionUtils;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.text.MessageFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -51,7 +48,7 @@ public class Utils extends org.smartregister.family.util.Utils {
 
     public static final SimpleDateFormat dd_MMM_yyyy = new SimpleDateFormat("dd MMM yyyy");
     public static final SimpleDateFormat yyyy_mm_dd = new SimpleDateFormat("yyyy-mm-dd");
-    private static String TAG = Utils.class.getCanonicalName();
+    private static List<String> assets;
 
     public static String firstCharacterUppercase(String str) {
         if (TextUtils.isEmpty(str)) return "";
@@ -223,28 +220,34 @@ public class Utils extends org.smartregister.family.util.Utils {
         return " " + context.getString(resId);
     }
 
+    /**
+     * Check is the file exists
+     * @param form_name
+     * @return
+     */
     public static String getLocalForm(String form_name) {
         Locale current = ChwApplication.getCurrentLocale();
 
         String formIdentity = MessageFormat.format("{0}_{1}", form_name, current.getLanguage());
         // validate variant exists
         try {
-            InputStream inputStream = ChwApplication.getInstance().getApplicationContext().getAssets()
-                    .open("json.form/" + formIdentity + ".json");
-            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream,
-                    "UTF-8"));
-            String jsonString;
-            StringBuilder stringBuilder = new StringBuilder();
-            while ((jsonString = reader.readLine()) != null) {
-                stringBuilder.append(jsonString);
+            if (assets == null) {
+                assets = new ArrayList<>();
+                String[] local_assets = ChwApplication.getInstance().getApplicationContext().getAssets().list("json.form/");
+                if (local_assets != null && local_assets.length > 0) {
+                    for (String s : local_assets) {
+                        assets.add(s.substring(0, s.length() - 4));
+                    }
+                }
             }
-            inputStream.close();
 
-            return formIdentity;
+            if (assets.contains(formIdentity))
+                return formIdentity;
         } catch (Exception e) {
             // return default
             return form_name;
         }
+        return form_name;
     }
 
     public static String getAncMemberNameAndAge(String firstName, String middleName, String surName, String age) {

@@ -35,11 +35,13 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
     protected Context context;
     protected Map<String, List<VisitDetail>> details = null;
     protected List<Person> children;
+    protected MemberObject memberObject;
 
     @Override
     public LinkedHashMap<String, BaseAncHomeVisitAction> calculateActions(BaseAncHomeVisitContract.View view, MemberObject memberObject, BaseAncHomeVisitContract.InteractorCallBack callBack) throws BaseAncHomeVisitAction.ValidationException {
         actionList = new LinkedHashMap<>();
         context = view.getContext();
+        this.memberObject = memberObject;
         // get the preloaded data
         if (view.getEditMode()) {
             Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EventType.PNC_HOME_VISIT);

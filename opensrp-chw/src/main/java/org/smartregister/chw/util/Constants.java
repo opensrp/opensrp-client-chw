@@ -320,6 +320,7 @@ public class Constants {
         public static final String SERVICE = "service-rules.yml";
         public static final String IMMUNIZATION_EXPIRED = "immunization-expire-rules.yml";
         public static final String CONTACT_RULES = "contact-rules.yml";
+        public static final String PNC_HEALTH_FACILITY_VISIT = "pnc-health-facility-schedule-rule.yml";
     }
 
     public static class PROFILE_CHANGE_ACTION {
@@ -465,5 +466,12 @@ public class Constants {
 
     public static final class ACTION {
         public static final String START_REGISTRATION = "start_registration";
+    }
+
+    public static final class VISIT_STATE {
+        public static final String EXPIRED = "EXPIRED";
+        public static final String DUE = "DUE";
+        public static final String OVERDUE = "OVERDUE";
+
     }
 }
