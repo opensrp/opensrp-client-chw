@@ -7,7 +7,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.domain.MemberObject;
@@ -29,7 +28,6 @@ import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.family.domain.FamilyEventClient;
-import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
 
@@ -37,7 +35,7 @@ import java.util.List;
 
 import timber.log.Timber;
 
-import static org.smartregister.chw.util.ChildDBConstants.KEY.MOTHER_ENTITY_ID;
+import static org.smartregister.chw.anc.util.JsonFormUtils.SetRequiredFieldsToFalseForPncChild;
 
 public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
 
@@ -71,21 +69,18 @@ public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
 
             case R.id.action_pnc_registration:
                 ChildProfileInteractor childProfileInteractor = new ChildProfileInteractor();
+
                 List<CommonPersonObjectClient> children = basePncMemberProfileInteractor.pncChildrenUnder29Days(MEMBER_OBJECT.getBaseEntityId());
                 if (!children.isEmpty()) {
-                    try {
-                        JSONObject childEnrollmentForm = childProfileInteractor.getAutoPopulatedJsonEditFormString(org.smartregister.chw.util.Constants.JSON_FORM.getChildRegister(), getString(R.string.edit_child_form_title), this, children.get(0));
-                        childEnrollmentForm.put(DBConstants.KEY.RELATIONAL_ID, MEMBER_OBJECT.getFamilyBaseEntityId());
-                        childEnrollmentForm.put(MOTHER_ENTITY_ID, MEMBER_OBJECT.getBaseEntityId());
-                        startFormForEdit(childEnrollmentForm);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+                    CommonPersonObjectClient client = children.get(0);
+                    JSONObject childEnrollmentForm = childProfileInteractor.getAutoPopulatedJsonEditFormString(org.smartregister.chw.util.Constants.JSON_FORM.getChildRegister(), getString(R.string.edit_child_form_title), this, client);
+
+                    startFormForEdit(SetRequiredFieldsToFalseForPncChild(childEnrollmentForm, MEMBER_OBJECT.getFamilyBaseEntityId(),
+                            MEMBER_OBJECT.getBaseEntityId()));
                 }
                 return true;
 
             case R.id.action__pnc_remove_member:
-
                 IndividualProfileRemoveActivity.startIndividualProfileActivity(PncMemberProfileActivity.this, clientObject(), MEMBER_OBJECT.getFamilyBaseEntityId(), MEMBER_OBJECT.getFamilyHead(), MEMBER_OBJECT.getPrimaryCareGiver(), PncRegisterActivity.class.getCanonicalName());
                 return true;
 
@@ -271,6 +266,5 @@ public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
                 break;
         }
     }
-
 
 }
