@@ -27,6 +27,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.smartregister.chw.anc.util.Constants.ACTIVITY_PAYLOAD.TABLE_NAME;
+import static org.smartregister.chw.anc.util.JsonFormUtils.updateFormField;
 import static org.smartregister.chw.util.Constants.CONFIGURATION;
 import static org.smartregister.chw.util.Constants.DrawerMenu;
 import static org.smartregister.chw.util.Constants.JsonAssets;
@@ -140,18 +141,6 @@ public class AncRegisterActivity extends BaseAncRegisterActivity implements ChwB
         return Arrays.asList(CONFIGURATION.ANC_REGISTER);
     }
 
-    private void updateFormField(JSONArray formFieldArrays, String formFieldKey, String updateValue) {
-        if (updateValue != null) {
-            JSONObject formObject = org.smartregister.util.JsonFormUtils.getFieldJSONObject(formFieldArrays, formFieldKey);
-            if (formObject != null) {
-                try {
-                    formObject.put(org.smartregister.util.JsonFormUtils.VALUE, updateValue);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
 
     public void startFormActivity(JSONObject jsonForm) {
 
