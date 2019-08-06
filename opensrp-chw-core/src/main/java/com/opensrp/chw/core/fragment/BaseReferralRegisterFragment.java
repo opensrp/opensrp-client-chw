@@ -21,6 +21,14 @@ public abstract class BaseReferralRegisterFragment extends BaseChwRegisterFragme
         clientsView.setAdapter(clientAdapter);
     }
 
+
+    @Override
+    public void setupViews(View view) {
+        super.setupViews(view);
+        View topRightLayout = view.findViewById(R.id.top_right_layout);
+        topRightLayout.setVisibility(View.GONE);
+    }
+
     @Override
     protected int getToolBarTitle() {
         return R.string.menu_referrals;
