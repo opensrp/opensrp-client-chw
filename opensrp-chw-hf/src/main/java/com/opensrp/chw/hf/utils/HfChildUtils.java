@@ -1,9 +1,5 @@
 package com.opensrp.chw.hf.utils;
 
-import android.content.Context;
-
-import com.opensrp.chw.core.model.ChildVisit;
-import com.opensrp.chw.core.rule.HomeAlertRule;
 import com.opensrp.chw.core.utils.CoreChildUtils;
 import com.opensrp.chw.core.utils.CoreConstants;
 import com.opensrp.chw.core.utils.CoreJsonFormUtils;
@@ -24,33 +20,7 @@ import timber.log.Timber;
 
 import static com.opensrp.chw.core.utils.CoreJsonFormUtils.tagSyncMetadata;
 
-public class ChildUtils extends CoreChildUtils {
-
-    /**
-     * Same thread to retrive rules and also updateFamilyRelations in fts
-     *
-     * @param yearOfBirth
-     * @param lastVisitDate
-     * @param visitNotDate
-     * @return
-     */
-    public static ChildVisit getChildVisitStatus(Context context, String yearOfBirth, long lastVisitDate, long visitNotDate, long dateCreated) {
-        HomeAlertRule homeAlertRule = new HomeAlertRule(context, yearOfBirth, lastVisitDate, visitNotDate, dateCreated);
-        HealthFacilityApplication.getInstance().getRulesEngineHelper().getButtonAlertStatus(homeAlertRule, CoreConstants.RULE_FILE.HOME_VISIT);
-        return getChildVisitStatus(homeAlertRule, lastVisitDate);
-    }
-
-    public static void processClientProcessInBackground() {
-        try {
-            long lastSyncTimeStamp = HealthFacilityApplication.getInstance().getContext().allSharedPreferences().fetchLastUpdatedAtDate(0);
-            Date lastSyncDate = new Date(lastSyncTimeStamp);
-            HealthFacilityApplication.getClientProcessor(HealthFacilityApplication.getInstance().getContext().applicationContext()).processClient(FamilyLibrary.getInstance().getEcSyncHelper().getEvents(lastSyncDate, BaseRepository.TYPE_Unprocessed));
-            HealthFacilityApplication.getInstance().getContext().allSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
-        } catch (Exception e) {
-            Timber.e(e);
-        }
-
-    }
+public class HfChildUtils extends CoreChildUtils {
 
     public static void updateHomeVisitAsEvent(String entityId, String eventType, String entityType, Map<String, JSONObject> fieldObjects, String visitStatus, String value, String homeVisitId) {
         try {

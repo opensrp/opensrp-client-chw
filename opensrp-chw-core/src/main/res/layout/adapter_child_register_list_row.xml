@@ -97,4 +97,40 @@
             android:typeface="normal" />
 
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/go_to_profile_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="90dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:paddingStart="@dimen/register_list_item_padding"
+        android:paddingLeft="@dimen/register_list_item_padding"
+        android:paddingTop="@dimen/register_list_top_bottom_padding"
+        android:paddingEnd="@dimen/register_list_item_padding"
+        android:paddingRight="@dimen/register_list_item_padding"
+        android:paddingBottom="@dimen/register_list_top_bottom_padding"
+        android:visibility="gone">
+
+        <com.rey.material.widget.ImageView
+            android:id="@+id/go_to_profile_image_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:adjustViewBounds="true"
+            android:background="@color/transparent"
+            android:src="@drawable/row_goto"
+            android:gravity="center"
+            android:hapticFeedbackEnabled="true"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textAllCaps="true"
+            android:textAppearance="?android:textAppearanceSmall"
+            android:textColor="@color/vaccine_blue_bg_st"
+            android:textSize="15sp"
+            android:typeface="normal" />
+
+    </LinearLayout>
+
 </RelativeLayout>

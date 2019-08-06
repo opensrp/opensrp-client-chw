@@ -1,4 +1,4 @@
-package org.smartregister.chw.activity;
+package com.opensrp.chw.core.activity;
 
 
 import android.app.Activity;
@@ -11,8 +11,9 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
 
-import org.smartregister.chw.R;
-import org.smartregister.chw.util.Constants;
+import com.opensrp.chw.core.R;
+import com.opensrp.chw.core.utils.CoreConstants;
+
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.view.activity.SecuredActivity;
 
@@ -62,11 +63,11 @@ public abstract class BaseChildMedicalHistory extends SecuredActivity {
     }
 
     private void parseBundleANdUpdateTopView() {
-        childClient = (CommonPersonObjectClient) getIntent().getSerializableExtra(Constants.INTENT_KEY.CHILD_COMMON_PERSON);
-        String name = getIntent().getStringExtra(Constants.INTENT_KEY.CHILD_NAME);
-        String lastVisitDays = getIntent().getStringExtra(Constants.INTENT_KEY.CHILD_LAST_VISIT_DAYS);
-        dateOfBirth = getIntent().getStringExtra(Constants.INTENT_KEY.CHILD_DATE_OF_BIRTH);
-        vaccineList = (Map<String, Date>) getIntent().getSerializableExtra(Constants.INTENT_KEY.CHILD_VACCINE_LIST);
+        childClient = (CommonPersonObjectClient) getIntent().getSerializableExtra(CoreConstants.INTENT_KEY.CHILD_COMMON_PERSON);
+        String name = getIntent().getStringExtra(CoreConstants.INTENT_KEY.CHILD_NAME);
+        String lastVisitDays = getIntent().getStringExtra(CoreConstants.INTENT_KEY.CHILD_LAST_VISIT_DAYS);
+        dateOfBirth = getIntent().getStringExtra(CoreConstants.INTENT_KEY.CHILD_DATE_OF_BIRTH);
+        vaccineList = (Map<String, Date>) getIntent().getSerializableExtra(CoreConstants.INTENT_KEY.CHILD_VACCINE_LIST);
         if (TextUtils.isEmpty(name)) {
             textViewTitle.setVisibility(View.GONE);
         } else {

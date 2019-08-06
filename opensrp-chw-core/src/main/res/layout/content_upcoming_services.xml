@@ -25,14 +25,14 @@
             android:textSize="20sp"
             android:textStyle="bold" />
 
-        <org.smartregister.chw.custom_view.UpcomingServicesFragmentView
+        <com.opensrp.chw.core.custom_views.UpcomingServicesFragmentView
             android:id="@+id/upcomingServicesHolder"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/medical_history"
             android:layout_marginLeft="10dp">
 
-        </org.smartregister.chw.custom_view.UpcomingServicesFragmentView>
+        </com.opensrp.chw.core.custom_views.UpcomingServicesFragmentView>
     </RelativeLayout>
 
 </android.support.v4.widget.NestedScrollView>

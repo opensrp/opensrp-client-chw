@@ -52,24 +52,24 @@ public class CoreConstants {
      * Only access form constants via the getter
      */
     public static class JSON_FORM {
-        private static final String BIRTH_CERTIFICATION = "birth_certification";
+        public static final String BIRTH_CERTIFICATION = "birth_certification";
 
-        private static final String OBS_ILLNESS = "observation_illness";
-        private static final String FAMILY_REGISTER = "family_register";
-        private static final String FAMILY_MEMBER_REGISTER = "family_member_register";
-        private static final String CHILD_REGISTER = "child_enrollment";
-        private static final String FAMILY_DETAILS_REGISTER = "family_details_register";
-        private static final String FAMILY_DETAILS_REMOVE_MEMBER = "family_details_remove_member";
+        public static final String OBS_ILLNESS = "observation_illness";
+        public static final String FAMILY_REGISTER = "family_register";
+        public static final String FAMILY_MEMBER_REGISTER = "family_member_register";
+        public static final String CHILD_REGISTER = "child_enrollment";
+        public static final String FAMILY_DETAILS_REGISTER = "family_details_register";
+        public static final String FAMILY_DETAILS_REMOVE_MEMBER = "family_details_remove_member";
 
-        private static final String FAMILY_DETAILS_REMOVE_CHILD = "family_details_remove_child";
-        private static final String FAMILY_DETAILS_REMOVE_FAMILY = "family_details_remove_family";
-        private static final String HOME_VISIT_COUNSELLING = "routine_home_visit";
+        public static final String FAMILY_DETAILS_REMOVE_CHILD = "family_details_remove_child";
+        public static final String FAMILY_DETAILS_REMOVE_FAMILY = "family_details_remove_family";
+        public static final String HOME_VISIT_COUNSELLING = "routine_home_visit";
 
-        private static final String ANC_REGISTRATION = "anc_member_registration";
-        private static final String PREGNANCY_OUTCOME = "anc_pregnancy_outcome";
-        private static final String MALARIA_CONFIRMATION = "malaria_confirmation";
-        private static AssetManager assetManager;
-        private static Locale locale;
+        public static final String ANC_REGISTRATION = "anc_member_registration";
+        public static final String PREGNANCY_OUTCOME = "anc_pregnancy_outcome";
+        public static final String MALARIA_CONFIRMATION = "malaria_confirmation";
+        public static AssetManager assetManager;
+        public static Locale locale;
 
         /**
          * NOTE: This method must be called first before using any of the forms. Preferable onCreate()

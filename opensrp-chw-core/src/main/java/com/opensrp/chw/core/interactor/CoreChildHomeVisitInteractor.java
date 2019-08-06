@@ -40,6 +40,7 @@ public class CoreChildHomeVisitInteractor implements ChildHomeVisitContract.Inte
     private ArrayList<ObsIllnessDataModel> illnessDataList = new ArrayList<>();
 
     public Flavor flavor;
+
     public Flavor getFlavor() {
         return flavor;
     }
@@ -47,7 +48,6 @@ public class CoreChildHomeVisitInteractor implements ChildHomeVisitContract.Inte
     public void setFlavor(Flavor flavor) {
         this.flavor = flavor;
     }
-
 
 
     public static void updateClientAttributes(JSONObject clientjsonFromForm, JSONObject clientJson) {
@@ -82,12 +82,12 @@ public class CoreChildHomeVisitInteractor implements ChildHomeVisitContract.Inte
 
     @Override
     public void getLastEditData(CommonPersonObjectClient childClient, final ChildHomeVisitContract.InteractorCallback callback) {
-
+        if (flavor != null) {
         String lastHomeVisitStr = getValue(childClient, ChildDBConstants.KEY.LAST_HOME_VISIT, false);
         long lastHomeVisit = TextUtils.isEmpty(lastHomeVisitStr) ? 0 : Long.parseLong(lastHomeVisitStr);
         HomeVisit homeVisit = CoreChwApplication.homeVisitRepository().findByDate(lastHomeVisit);
         if (homeVisit != null) {
-            JSONObject jsonObject = null;
+            JSONObject jsonObject;
             try {
                 jsonObject = new JSONObject(homeVisit.getBirthCertificationState().toString());
                 String birt = jsonObject.getString("birtCert");
@@ -103,93 +103,96 @@ public class CoreChildHomeVisitInteractor implements ChildHomeVisitContract.Inte
                 e.printStackTrace();
             }
             flavor.generateServiceData(homeVisit);
-
+        }
         }
     }
 
     @Override
     public void generateBirthCertForm(final String jsonString, final ChildHomeVisitContract.InteractorCallback callback, boolean isEditMode) {
-        birthCertDataList.clear();
-        BirthCertDataModel birthCertDataModel = flavor.getBirthCertDataList(jsonString, isEditMode);
-        if (birthCertDataModel != null) {
-            birthCertDataList.add(flavor.getBirthCertDataList(jsonString, isEditMode));
-            Pair<Client, Event> pair = CoreJsonFormUtils.processBirthAndIllnessForm(org.smartregister.family.util.Utils.context().allSharedPreferences(), jsonString);
-            if (pair == null) {
-                return;
-            }
-            BirthIllnessFormModel birthIllnessFormModel = new BirthIllnessFormModel(jsonString, pair);
-            if (saveList.get("birth_form") != null) {
-                saveList.remove("birth_form");
-            }
-            saveList.put("birth_form", birthIllnessFormModel);
-            Runnable runnable = new Runnable() {
-                @Override
-                public void run() {
-                    appExecutors.mainThread().execute(new Runnable() {
-                        @Override
-                        public void run() {
-                            callback.updateBirthStatusTick(jsonString);
-                        }
-                    });
+
+        if (flavor != null) {
+            birthCertDataList.clear();
+            BirthCertDataModel birthCertDataModel = flavor.getBirthCertDataList(jsonString, isEditMode);
+            if (birthCertDataModel != null) {
+                birthCertDataList.add(flavor.getBirthCertDataList(jsonString, isEditMode));
+                Pair<Client, Event> pair = CoreJsonFormUtils.processBirthAndIllnessForm(org.smartregister.family.util.Utils.context().allSharedPreferences(), jsonString);
+                if (pair == null) {
+                    return;
                 }
-            };
-            appExecutors.diskIO().execute(runnable);
+                BirthIllnessFormModel birthIllnessFormModel = new BirthIllnessFormModel(jsonString, pair);
+                if (saveList.get("birth_form") != null) {
+                    saveList.remove("birth_form");
+                }
+                saveList.put("birth_form", birthIllnessFormModel);
+                Runnable runnable = new Runnable() {
+                    @Override
+                    public void run() {
+                        appExecutors.mainThread().execute(new Runnable() {
+                            @Override
+                            public void run() {
+                                callback.updateBirthStatusTick(jsonString);
+                            }
+                        });
+                    }
+                };
+                appExecutors.diskIO().execute(runnable);
+            }
         }
-
-
     }
 
     @Override
     public void generateObsIllnessForm(final String jsonString, final ChildHomeVisitContract.InteractorCallback callback, boolean isEditMode) {
-        illnessDataList.clear();
-        ObsIllnessDataModel obsIllnessDataModel = flavor.getObsIllnessDataList(jsonString, isEditMode);
-        if (obsIllnessDataModel != null) {
-            illnessDataList.add(obsIllnessDataModel);
-            Pair<Client, Event> pair = CoreJsonFormUtils.processBirthAndIllnessForm(org.smartregister.family.util.Utils.context().allSharedPreferences(), jsonString);
-            if (pair == null) {
-                return;
-            }
-            BirthIllnessFormModel birthIllnessFormModel = new BirthIllnessFormModel(jsonString, pair);
-            if (saveList.get("illness_form") != null) {
-                saveList.remove("illness_form");
-            }
-            saveList.put("illness_form", birthIllnessFormModel);
-            Runnable runnable = new Runnable() {
-                @Override
-                public void run() {
-                    appExecutors.mainThread().execute(new Runnable() {
-                        @Override
-                        public void run() {
-                            callback.updateObsIllnessStatusTick(jsonString);
-                        }
-                    });
-                }
-            };
-            appExecutors.diskIO().execute(runnable);
 
+        if (flavor != null) {
+            illnessDataList.clear();
+            ObsIllnessDataModel obsIllnessDataModel = flavor.getObsIllnessDataList(jsonString, isEditMode);
+            if (obsIllnessDataModel != null) {
+                illnessDataList.add(obsIllnessDataModel);
+                Pair<Client, Event> pair = CoreJsonFormUtils.processBirthAndIllnessForm(org.smartregister.family.util.Utils.context().allSharedPreferences(), jsonString);
+                if (pair == null) {
+                    return;
+                }
+                BirthIllnessFormModel birthIllnessFormModel = new BirthIllnessFormModel(jsonString, pair);
+                if (saveList.get("illness_form") != null) {
+                    saveList.remove("illness_form");
+                }
+                saveList.put("illness_form", birthIllnessFormModel);
+                Runnable runnable = new Runnable() {
+                    @Override
+                    public void run() {
+                        appExecutors.mainThread().execute(new Runnable() {
+                            @Override
+                            public void run() {
+                                callback.updateObsIllnessStatusTick(jsonString);
+                            }
+                        });
+                    }
+                };
+                appExecutors.diskIO().execute(runnable);
+
+            }
         }
     }
 
     @Override
     public void generateTaskService(CommonPersonObjectClient childClient, final ChildHomeVisitContract.InteractorCallback callback, Context context, boolean isEditMode) {
-
-        final ArrayList<ServiceTask> serviceTasks = flavor.getTaskService(childClient, isEditMode, context);
-
-
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                appExecutors.mainThread().execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        callback.updateTaskAdapter(serviceTasks);
-                    }
-                });
-            }
-        };
-        appExecutors.diskIO().execute(runnable);
+        if (flavor != null) {
+            final ArrayList<ServiceTask> serviceTasks = flavor.getTaskService(childClient, isEditMode, context);
 
 
+            Runnable runnable = new Runnable() {
+                @Override
+                public void run() {
+                    appExecutors.mainThread().execute(new Runnable() {
+                        @Override
+                        public void run() {
+                            callback.updateTaskAdapter(serviceTasks);
+                        }
+                    });
+                }
+            };
+            appExecutors.diskIO().execute(runnable);
+        }
     }
 
     @Override
