@@ -89,6 +89,10 @@
             android:name="com.opensrp.chw.hf.activity.FamilyProfileMenuActivity"
             android:screenOrientation="portrait"
             android:theme="@style/HFTheme.NoActionBar" />
+        <activity
+            android:name="com.opensrp.chw.hf.activity.ReferralRegister"
+            android:screenOrientation="portrait"
+            android:theme="@style/HFTheme.NoActionBar" />
 
         <service android:name="org.smartregister.immunization.service.intent.VaccineIntentService" />
         <service android:name="org.smartregister.immunization.service.intent.RecurringIntentService" />
