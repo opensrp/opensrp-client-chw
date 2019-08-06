@@ -14,11 +14,13 @@ import org.joda.time.Period;
 import org.json.JSONObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.FetchStatus;
+import org.smartregister.domain.Task;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.Utils;
 
 import java.lang.ref.WeakReference;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import timber.log.Timber;
@@ -153,6 +155,11 @@ public class CoreChildProfilePresenter implements CoreChildProfileContract.Prese
     }
 
     @Override
+    public void fetchTasks() {
+        interactor.getClientTasks(childBaseEntityId, this);
+    }
+
+    @Override
     public void updateChildCommonPerson(String baseEntityId) {
         interactor.updateChildCommonPerson(baseEntityId);
     }
@@ -201,6 +208,13 @@ public class CoreChildProfilePresenter implements CoreChildProfileContract.Prese
     public void updateAfterBackGroundProcessed() {
         if (getView() != null) {
             getView().updateAfterBackgroundProcessed();
+        }
+    }
+
+    @Override
+    public void setClientTasks(List<Task> taskList) {
+        if (getView() != null) {
+            getView().setClientTasks(taskList);
         }
     }
 

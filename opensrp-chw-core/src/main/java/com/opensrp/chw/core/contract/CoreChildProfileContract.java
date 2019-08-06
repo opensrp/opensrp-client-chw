@@ -11,7 +11,10 @@ import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.FetchStatus;
+import org.smartregister.domain.Task;
 import org.smartregister.view.contract.BaseProfileContract;
+
+import java.util.List;
 
 public interface CoreChildProfileContract {
 
@@ -80,6 +83,8 @@ public interface CoreChildProfileContract {
         void showUndoVisitNotDoneView();
 
         void updateAfterBackgroundProcessed();
+
+        void setClientTasks(List<Task> taskList);
     }
 
     interface Presenter extends BaseProfileContract.Presenter {
@@ -89,6 +94,8 @@ public interface CoreChildProfileContract {
         CoreChildProfileContract.View getView();
 
         void fetchProfileData();
+
+        void fetchTasks();
 
         void updateChildCommonPerson(String baseEntityId);
 
@@ -116,6 +123,8 @@ public interface CoreChildProfileContract {
         void updateChildCommonPerson(String baseEntityId);
 
         void refreshProfileView(String baseEntityId, boolean isForEdit, CoreChildProfileContract.InteractorCallBack callback);
+
+        void getClientTasks(String baseEntityId, CoreChildProfileContract.InteractorCallBack callback);
 
         void saveRegistration(final Pair<Client, Event> pair, final String jsonString, final boolean isEditMode, final CoreChildProfileContract.InteractorCallBack callBack);
 
@@ -152,6 +161,8 @@ public interface CoreChildProfileContract {
         void undoVisitNotDone();
 
         void updateAfterBackGroundProcessed();
+
+        void setClientTasks(List<Task> taskList);
     }
 
     interface Model {

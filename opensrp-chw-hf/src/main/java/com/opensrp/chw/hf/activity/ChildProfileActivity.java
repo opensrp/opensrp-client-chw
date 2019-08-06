@@ -2,11 +2,14 @@ package com.opensrp.chw.hf.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.opensrp.chw.core.activity.CoreChildMedicalHistoryActivity;
@@ -19,18 +22,25 @@ import com.opensrp.chw.core.listener.OnClickFloatingMenu;
 import com.opensrp.chw.core.model.CoreChildProfileModel;
 import com.opensrp.chw.core.presenter.CoreChildProfilePresenter;
 import com.opensrp.chw.core.utils.CoreConstants;
+import com.opensrp.chw.hf.adapter.ReferralRecyclerViewAdapter;
 import com.opensrp.chw.hf.fragement.HfChildHomeVisitFragment;
 import com.opensrp.chw.hf.presenter.HfChildProfilePresenter;
 import com.opensrp.hf.R;
 
+import org.smartregister.domain.Task;
 import org.smartregister.family.util.Constants;
 
 import java.util.Date;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ChildProfileActivity extends CoreChildProfileActivity {
     public CoreFamilyMemberFloatingMenu familyFloatingMenu;
+    public RelativeLayout referalRow;
+    public RecyclerView referralRecyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager layoutManager;
 
     @Override
     protected void onCreation() {
@@ -45,6 +55,7 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
     @Override
     protected void setupViews() {
         super.setupViews();
+        initializeTasksRecyclerView();
         View recordVisitPanel = findViewById(R.id.record_visit_panel);
         recordVisitPanel.setVisibility(View.GONE);
         familyFloatingMenu = new CoreFamilyMemberFloatingMenu(this);
@@ -54,10 +65,25 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
                         LinearLayout.LayoutParams.MATCH_PARENT);
         familyFloatingMenu.setGravity(Gravity.BOTTOM | Gravity.END);
         addContentView(familyFloatingMenu, linearLayoutParams);
-
         familyFloatingMenu.setClickListener(onClickFloatingMenu);
         fetchProfileData();
+        presenter().fetchTasks();
+    }
 
+    private void initializeTasksRecyclerView() {
+        referralRecyclerView = findViewById(R.id.referral_card_recycler_view);
+        referalRow = findViewById(R.id.referal_row);
+        layoutManager = new LinearLayoutManager(this);
+        referralRecyclerView.setLayoutManager(layoutManager);
+    }
+
+    @Override
+    public void setClientTasks(List<Task> taskList) {
+        if (referralRecyclerView != null && taskList.size() > 0) {
+            referalRow.setVisibility(View.VISIBLE);
+            mAdapter = new ReferralRecyclerViewAdapter(taskList,this);
+            referralRecyclerView.setAdapter(mAdapter);
+        }
     }
 
     @Override
