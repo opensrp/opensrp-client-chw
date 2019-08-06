@@ -113,7 +113,7 @@ public class ChwPncRegisterProvider extends PncRegisterProvider {
             //map = getChildDetails(pc.getCaseId());
             SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
             String baseEntityID = org.smartregister.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, false);
-            String dayPnc = Utils.getValue(pc.getColumnmaps(), org.smartregister.chw.pnc.util.Constants.KEY.DELIVERY_DATE, true);
+            String dayPnc = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.DELIVERY_DATE, true);
             Date deliveryDate = null;
             Date lastVisitDate = null;
             Date lastNotVisitDate = null;

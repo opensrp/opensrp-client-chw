@@ -114,7 +114,7 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
                     .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getDangerSignsBaby())
                     .withHelper(new DangerSignsAction())
                     .build();
-            actionList.put(MessageFormat.format(context.getString(R.string.pnc_danger_signs_baby), baby), action);
+            actionList.put(MessageFormat.format(context.getString(R.string.pnc_danger_signs_baby), baby.getFullName()), action);
         }
     }
 
@@ -567,7 +567,7 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
 
         @Override
         public String evaluateSubTitle() {
-            if (StringUtils.isBlank(pnc_visit))
+            if (date != null)
                 return null;
 
             return MessageFormat.format("{0} : {1}", context.getString(R.string.date), new SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(date));
