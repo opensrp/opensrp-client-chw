@@ -2,16 +2,16 @@ package com.opensrp.chw.core.fragment;
 
 import android.view.View;
 
+import com.opensrp.chw.core.R;
 import com.opensrp.chw.core.contract.BaseReferralRegisterFragmentContract;
 import com.opensrp.chw.core.provider.BasereferralRegisterProvider;
 
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
-import org.smartregister.view.fragment.BaseRegisterFragment;
 
 import java.util.HashMap;
 import java.util.Set;
 
-public abstract class BaseReferralRegisterFragment extends BaseRegisterFragment implements BaseReferralRegisterFragmentContract.View {
+public abstract class BaseReferralRegisterFragment extends BaseChwRegisterFragment implements BaseReferralRegisterFragmentContract.View {
 
     @Override
     public void initializeAdapter(Set<org.smartregister.configurableviews.model.View> visibleColumns) {
@@ -19,6 +19,11 @@ public abstract class BaseReferralRegisterFragment extends BaseRegisterFragment 
         clientAdapter = new RecyclerViewPaginatedAdapter(null, registerProvider, context().commonrepository(this.tablename));
         clientAdapter.setCurrentlimit(20);
         clientsView.setAdapter(clientAdapter);
+    }
+
+    @Override
+    protected int getToolBarTitle() {
+        return R.string.menu_referrals;
     }
 
     @Override
