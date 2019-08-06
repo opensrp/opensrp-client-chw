@@ -168,7 +168,9 @@
             android:id="@+id/record_visit_panel"
             layout="@layout/view_record_visit" />
 
-        <include layout="@layout/content_profile" />
+        <include
+            android:id="@+id/profile_layout"
+            layout="@layout/content_profile" />
 
     </android.support.design.widget.AppBarLayout>
 </android.support.design.widget.CoordinatorLayout>

@@ -153,6 +153,11 @@ public class CoreChildProfilePresenter implements CoreChildProfileContract.Prese
     }
 
     @Override
+    public void fetchTasks() {
+
+    }
+
+    @Override
     public void updateChildCommonPerson(String baseEntityId) {
         interactor.updateChildCommonPerson(baseEntityId);
     }

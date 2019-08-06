@@ -90,6 +90,8 @@ public interface CoreChildProfileContract {
 
         void fetchProfileData();
 
+        void fetchTasks();
+
         void updateChildCommonPerson(String baseEntityId);
 
         void updateVisitNotDone(long value);
@@ -122,6 +124,8 @@ public interface CoreChildProfileContract {
         JSONObject getAutoPopulatedJsonEditFormString(String formName, String title, Context context, CommonPersonObjectClient client);
 
         void processBackGroundEvent(final CoreChildProfileContract.InteractorCallBack callback);
+
+        void getTasks(String baseEntityId, CoreChildProfileContract.InteractorCallBack callBack);
     }
 
     interface InteractorCallBack {

@@ -2,6 +2,8 @@ package com.opensrp.chw.hf.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,18 +21,24 @@ import com.opensrp.chw.core.listener.OnClickFloatingMenu;
 import com.opensrp.chw.core.model.CoreChildProfileModel;
 import com.opensrp.chw.core.presenter.CoreChildProfilePresenter;
 import com.opensrp.chw.core.utils.CoreConstants;
+import com.opensrp.chw.hf.adapter.ReferralsCardAdapter;
 import com.opensrp.chw.hf.fragement.HfChildHomeVisitFragment;
 import com.opensrp.chw.hf.presenter.HfChildProfilePresenter;
 import com.opensrp.hf.R;
 
+import org.smartregister.domain.Task;
 import org.smartregister.family.util.Constants;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ChildProfileActivity extends CoreChildProfileActivity {
     public CoreFamilyMemberFloatingMenu familyFloatingMenu;
+    public RecyclerView referralsRecyclerView;
+    private List<Task> taskList = new ArrayList<>();
 
     @Override
     protected void onCreation() {
@@ -45,6 +53,7 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
     @Override
     protected void setupViews() {
         super.setupViews();
+        initializeTasksRecycler();
         View recordVisitPanel = findViewById(R.id.record_visit_panel);
         recordVisitPanel.setVisibility(View.GONE);
         familyFloatingMenu = new CoreFamilyMemberFloatingMenu(this);
@@ -57,7 +66,13 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
 
         familyFloatingMenu.setClickListener(onClickFloatingMenu);
         fetchProfileData();
+    }
 
+    private void initializeTasksRecycler(){
+        referralsRecyclerView = findViewById(R.id.referral_card_recycler_view);
+
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        referralsRecyclerView.setLayoutManager(layoutManager);
     }
 
     @Override
