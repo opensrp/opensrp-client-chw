@@ -20,7 +20,7 @@ import timber.log.Timber;
 
 import static com.opensrp.chw.core.utils.CoreJsonFormUtils.tagSyncMetadata;
 
-public class ChildUtils extends CoreChildUtils {
+public class HfChildUtils extends CoreChildUtils {
 
     public static void updateHomeVisitAsEvent(String entityId, String eventType, String entityType, Map<String, JSONObject> fieldObjects, String visitStatus, String value, String homeVisitId) {
         try {

@@ -13,7 +13,7 @@ import com.opensrp.chw.core.utils.CoreChildUtils;
 import com.opensrp.chw.core.utils.CoreConstants;
 import com.opensrp.chw.core.utils.CoreJsonFormUtils;
 import com.opensrp.chw.core.utils.Utils;
-import com.opensrp.chw.hf.utils.ChildUtils;
+import com.opensrp.chw.hf.utils.HfChildUtils;
 
 import org.json.JSONObject;
 import org.smartregister.family.util.AppExecutors;
@@ -32,17 +32,16 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class ChildProfileInteractor extends CoreChildProfileInteractor {
-    public static final String TAG = ChildProfileInteractor.class.getName();
+public class HfChildProfileInteractor extends CoreChildProfileInteractor {
     private AppExecutors appExecutors;
     private Map<String, Date> vaccineList = new LinkedHashMap<>();
 
     @VisibleForTesting
-    ChildProfileInteractor(AppExecutors appExecutors) {
+    HfChildProfileInteractor(AppExecutors appExecutors) {
         this.appExecutors = appExecutors;
     }
 
-    public ChildProfileInteractor() {
+    public HfChildProfileInteractor() {
         this(new AppExecutors());
     }
 
@@ -52,7 +51,7 @@ public class ChildProfileInteractor extends CoreChildProfileInteractor {
 
         String dobString = Utils.getDuration(Utils.getValue(getpClient().getColumnmaps(), DBConstants.KEY.DOB, false));
 
-        final ChildVisit childVisit = ChildUtils.getChildVisitStatus(context, dobString, childHomeVisit.getLastHomeVisitDate(), childHomeVisit.getVisitNotDoneDate(), childHomeVisit.getDateCreated());
+        final ChildVisit childVisit = HfChildUtils.getChildVisitStatus(context, dobString, childHomeVisit.getLastHomeVisitDate(), childHomeVisit.getVisitNotDoneDate(), childHomeVisit.getDateCreated());
 
         Runnable runnable = new Runnable() {
             @Override
@@ -70,7 +69,6 @@ public class ChildProfileInteractor extends CoreChildProfileInteractor {
 
     @Override
     public void updateVisitNotDone(final long value, final CoreChildProfileContract.InteractorCallBack callback) {
-
         updateHomeVisitAsEvent(value)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -138,8 +136,8 @@ public class ChildProfileInteractor extends CoreChildProfileInteractor {
     }
 
     private void updateFamilyDueStatus(Context context, String familyId, String baseEntityId, final CoreChildProfileContract.InteractorCallBack callback) {
-        FamilyInteractor familyInteractor = new FamilyInteractor();
-        familyInteractor.updateFamilyDueStatus(context, baseEntityId, familyId)
+        HfFamilyInteractor hfFamilyInteractor = new HfFamilyInteractor();
+        hfFamilyInteractor.updateFamilyDueStatus(context, baseEntityId, familyId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<String>() {
@@ -170,7 +168,7 @@ public class ChildProfileInteractor extends CoreChildProfileInteractor {
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
-                ChildUtils.processClientProcessInBackground();
+                HfChildUtils.processClientProcessInBackground();
                 appExecutors.mainThread().execute(new Runnable() {
                     @Override
                     public void run() {
@@ -189,7 +187,7 @@ public class ChildProfileInteractor extends CoreChildProfileInteractor {
                 final String homeVisitId = CoreJsonFormUtils.generateRandomUUIDString();
 
                 Map<String, JSONObject> fields = new HashMap<>();
-                ChildUtils.updateHomeVisitAsEvent(getpClient().entityId(), CoreConstants.EventType.CHILD_VISIT_NOT_DONE, CoreConstants.TABLE_NAME.CHILD,
+                HfChildUtils.updateHomeVisitAsEvent(getpClient().entityId(), CoreConstants.EventType.CHILD_VISIT_NOT_DONE, CoreConstants.TABLE_NAME.CHILD,
                         fields, ChildDBConstants.KEY.VISIT_NOT_DONE, value + "", homeVisitId);
                 objectObservableEmitter.onNext("");
             }

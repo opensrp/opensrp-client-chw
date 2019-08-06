@@ -9,14 +9,14 @@ import com.opensrp.chw.core.interactor.CoreFamilyInteractor;
 import com.opensrp.chw.core.model.ChildVisit;
 import com.opensrp.chw.core.utils.ChildDBConstants;
 import com.opensrp.chw.core.utils.CoreConstants;
-import com.opensrp.chw.hf.utils.ChildUtils;
+import com.opensrp.chw.hf.utils.HfChildUtils;
 
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.family.util.DBConstants;
 
 import static com.opensrp.chw.core.enums.ImmunizationState.NO_ALERT;
 
-public class FamilyInteractor extends CoreFamilyInteractor {
+public class HfFamilyInteractor extends CoreFamilyInteractor {
 
     @Override
     public ImmunizationState getChildStatus(Context context, final String childId, Cursor cursor) {
@@ -35,7 +35,7 @@ public class FamilyInteractor extends CoreFamilyInteractor {
                 dateCreated = org.smartregister.family.util.Utils.dobStringToDateTime(strDateCreated).getMillis();
             }
 
-            final ChildVisit childVisit = ChildUtils.getChildVisitStatus(context, dobString, lastHomeVisit, visitNotDone, dateCreated);
+            final ChildVisit childVisit = HfChildUtils.getChildVisitStatus(context, dobString, lastHomeVisit, visitNotDone, dateCreated);
             return getImmunizationStatus(childVisit.getVisitStatus());
         }
         return NO_ALERT;
