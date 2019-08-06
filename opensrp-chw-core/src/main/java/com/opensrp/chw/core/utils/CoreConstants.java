@@ -288,6 +288,7 @@ public class CoreConstants {
         public static final String ANC_MEMBER_LOG = "ec_anc_log";
         public static final String MALARIA_CONFIRMATION = "ec_malaria_confirmation";
         public static final String ANC_PREGNANCY_OUTCOME = "ec_pregnancy_outcome";
+        public static final String TASK = "task";
     }
 
     public static final class INTENT_KEY {
@@ -481,5 +482,9 @@ public class CoreConstants {
         public static final String ANC_REGISTER_ACTIVITY = "ANC_REGISTER_ACTIVITY";
         public static final String PNC_REGISTER_ACTIVITY = "PNC_REGISTER_ACTIVITY";
         public static final String REFERRALS_REGISTER_ACTIVITY = "REFERRALS_REGISTER_ACTIVITY";
+    }
+
+   public  interface DB_CONSTANTS {
+        String FOR = "for";
     }
 }

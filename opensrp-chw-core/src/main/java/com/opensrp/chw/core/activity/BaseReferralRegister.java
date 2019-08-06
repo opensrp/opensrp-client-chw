@@ -50,8 +50,7 @@ public  abstract class BaseReferralRegister extends BaseRegisterActivity {
     }
 
     @Override
-    public void startRegistration() {
-
+    public void startRegistration() {//not used
     }
 
     @Override

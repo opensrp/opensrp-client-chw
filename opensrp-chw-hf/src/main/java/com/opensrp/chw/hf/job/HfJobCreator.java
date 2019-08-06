@@ -11,6 +11,7 @@ import org.smartregister.job.ExtendedSyncServiceJob;
 import org.smartregister.job.ImageUploadServiceJob;
 import org.smartregister.job.PullUniqueIdsServiceJob;
 import org.smartregister.job.SyncServiceJob;
+import org.smartregister.job.SyncTaskServiceJob;
 import org.smartregister.job.ValidateSyncDataServiceJob;
 import org.smartregister.sync.intent.SyncIntentService;
 
@@ -24,6 +25,8 @@ public class HfJobCreator implements JobCreator {
     @Override
     public Job create(@NonNull String tag) {
         switch (tag) {
+            case SyncTaskServiceJob.TAG:
+                return new SyncTaskServiceJob();
             case SyncServiceJob.TAG:
                 return new SyncServiceJob(SyncIntentService.class);
             case ExtendedSyncServiceJob.TAG:

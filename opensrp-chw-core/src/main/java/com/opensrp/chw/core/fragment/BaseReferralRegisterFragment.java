@@ -14,9 +14,9 @@ import java.util.Set;
 public abstract class BaseReferralRegisterFragment extends BaseChwRegisterFragment implements BaseReferralRegisterFragmentContract.View {
 
     @Override
-    public void initializeAdapter(Set<org.smartregister.configurableviews.model.View> visibleColumns) {
+    public void initializeAdapter(Set<org.smartregister.configurableviews.model.View> visibleColumns, String tableName) {
         BasereferralRegisterProvider registerProvider = new BasereferralRegisterProvider(getActivity(), visibleColumns, registerActionHandler, paginationViewHandler);
-        clientAdapter = new RecyclerViewPaginatedAdapter(null, registerProvider, context().commonrepository(this.tablename));
+        clientAdapter = new RecyclerViewPaginatedAdapter(null, registerProvider, context().commonrepository(tablename));
         clientAdapter.setCurrentlimit(20);
         clientsView.setAdapter(clientAdapter);
     }
@@ -36,32 +36,29 @@ public abstract class BaseReferralRegisterFragment extends BaseChwRegisterFragme
 
     @Override
     public void setUniqueID(String s) {
-
     }
 
     @Override
     public void setAdvancedSearchFormData(HashMap<String, String> hashMap) {
-
     }
 
     @Override
     protected String getMainCondition() {
-        return null;
+        return "";
     }
 
     @Override
     protected String getDefaultSortQuery() {
-        return null;
+        return "";
     }
 
     @Override
-    protected void startRegistration() {
-
+    protected void startRegistration() {//not used for referrals
     }
 
     @Override
     protected void onViewClicked(View view) {
-
+        //TODO link to referral details
     }
 
     @Override
