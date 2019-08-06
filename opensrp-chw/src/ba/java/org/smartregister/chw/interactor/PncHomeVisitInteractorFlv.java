@@ -49,12 +49,14 @@ import static org.smartregister.util.JsonFormUtils.getFieldJSONObject;
 
 public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv {
     protected List<Person> children;
+    protected BaseAncHomeVisitContract.View view;
 
     @Override
     public LinkedHashMap<String, BaseAncHomeVisitAction> calculateActions(BaseAncHomeVisitContract.View view, MemberObject memberObject, BaseAncHomeVisitContract.InteractorCallBack callBack) throws BaseAncHomeVisitAction.ValidationException {
         actionList = new LinkedHashMap<>();
         context = view.getContext();
         this.memberObject = memberObject;
+        this.view = view;
 
         // get the preloaded data
         if (view.getEditMode()) {
