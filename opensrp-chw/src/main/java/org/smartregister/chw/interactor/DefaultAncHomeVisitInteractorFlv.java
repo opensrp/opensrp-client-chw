@@ -29,6 +29,7 @@ import org.smartregister.chw.anc.util.VisitUtils;
 import org.smartregister.chw.model.VaccineTaskModel;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.ContactUtil;
+import org.smartregister.chw.util.VaccineScheduleUtil;
 import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.immunization.domain.ServiceWrapper;
 import org.smartregister.immunization.domain.Vaccine;
@@ -160,7 +161,7 @@ public abstract class DefaultAncHomeVisitInteractorFlv implements AncHomeVisitIn
             return;
         }
         // compute the due date
-        final Triple<DateTime, VaccineRepo.Vaccine, String> individualVaccine = ContactUtil.getIndividualVaccine(vaccineTaskModel, "TT");
+        final Triple<DateTime, VaccineRepo.Vaccine, String> individualVaccine = VaccineScheduleUtil.getIndividualVaccine(vaccineTaskModel, "TT");
         if (individualVaccine == null || individualVaccine.getLeft().isAfter(new DateTime())) {
             return;
         }
@@ -237,7 +238,7 @@ public abstract class DefaultAncHomeVisitInteractorFlv implements AncHomeVisitIn
     }
 
     public VaccineTaskModel getWomanVaccine(String baseEntityID, DateTime lmpDate, List<VaccineWrapper> notDoneVaccines) {
-        return ContactUtil.getWomanVaccine(baseEntityID, lmpDate, notDoneVaccines);
+        return VaccineScheduleUtil.getWomanVaccine(baseEntityID, lmpDate, notDoneVaccines);
     }
 
     // read vaccine repo for all not given vaccines
