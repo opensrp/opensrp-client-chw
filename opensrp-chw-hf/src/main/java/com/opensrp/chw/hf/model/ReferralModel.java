@@ -15,7 +15,7 @@ public class ReferralModel extends BaseReferralModel {
     @Override
     public String mainSelect(String tableName, String mainCondition) {
         SmartRegisterQueryBuilder queryBuilder = new SmartRegisterQueryBuilder();
-        queryBuilder.SelectInitiateMainTable(tableName, mainColumns(tableName));
+        queryBuilder.selectInitiateMainTable(tableName, mainColumns(tableName), "_id");
         queryBuilder.customJoin("LEFT JOIN " + CoreConstants.TABLE_NAME.FAMILY_MEMBER + " ON  " + tableName + "." + CoreConstants.DB_CONSTANTS.FOR + " = " + CoreConstants.TABLE_NAME.TASK + "." + CoreConstants.DB_CONSTANTS.FOR + " COLLATE NOCASE ");
         queryBuilder.customJoin("LEFT JOIN " + CoreConstants.TABLE_NAME.CHILD + " ON  " + tableName + "." + CoreConstants.DB_CONSTANTS.FOR + " = " + CoreConstants.TABLE_NAME.TASK + "." + CoreConstants.DB_CONSTANTS.FOR + " COLLATE NOCASE ");
 
@@ -36,7 +36,6 @@ public class ReferralModel extends BaseReferralModel {
         columns.add(table + "." + DBConstants.KEY.LAST_NAME);
         columns.add(table + "." + DBConstants.KEY.DOB);
         columns.add(table + "." + DBConstants.KEY.GENDER);
-        columns.add(table + "." + DBConstants.KEY.VILLAGE_TOWN);
 
     }
 }

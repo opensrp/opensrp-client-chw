@@ -17,7 +17,7 @@ public class BaseReferralModel implements BaseReferralRegisterFragmentContract.M
     @Override
     public String mainSelect(String taskTable, String mainCondition) {
         SmartRegisterQueryBuilder smartRegisterQueryBuilder = new SmartRegisterQueryBuilder();
-        smartRegisterQueryBuilder.SelectInitiateMainTable(taskTable, this.mainColumns(taskTable));
+        smartRegisterQueryBuilder.selectInitiateMainTable(taskTable, this.mainColumns(taskTable),"_id");
         return smartRegisterQueryBuilder.mainCondition(mainCondition);
     }
 
