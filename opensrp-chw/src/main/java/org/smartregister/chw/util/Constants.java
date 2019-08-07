@@ -466,11 +466,6 @@ public class Constants {
         public static final String UNIQUE_IDENTIFIER_KEY = "opensrp_id";
     }
 
-    public static class ECClientConfig {
-        public static String LIBERIA_EC_CLIENT_FIELDS = "ec_client_fields.json";
-        public static String TANZANIA_EC_CLIENT_FIELDS = "tz_ec_client_fields.json";
-    }
-
     public static final class RQ_CODE {
         public static final int STORAGE_PERMISIONS = 1;
     }
@@ -492,6 +487,12 @@ public class Constants {
         public static final String EXPIRED = "EXPIRED";
         public static final String DUE = "DUE";
         public static final String OVERDUE = "OVERDUE";
+    }
 
+    public static final class DATE_FORMATS {
+        public static final String NATIVE_FORMS = "dd-MM-yyyy";
+        public static final String HOME_VISIT_DISPLAY = "dd MMM yyyy";
+        public static final String FORMATED_DB_DATE = "yyyy-MM-dd";
+        public static final String ISO_8601 = "yyyy-MM-dd'T'HH:mm'Z'";
     }
 }

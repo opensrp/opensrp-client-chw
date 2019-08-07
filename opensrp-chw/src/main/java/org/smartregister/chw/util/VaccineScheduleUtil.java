@@ -46,6 +46,7 @@ public class VaccineScheduleUtil {
         vaccineWrapper.setName(vaccine.display());
         vaccineWrapper.setDbKey(getVaccineId(vaccine.display(), vaccineTaskModel));
         vaccineWrapper.setDefaultName(vaccine.display());
+        vaccineWrapper.setAlert(vaccineTaskModel.getAlertsMap().get(vaccine.display()));
         return vaccineWrapper;
     }
 

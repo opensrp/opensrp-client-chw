@@ -234,7 +234,7 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
                     .withBaseEntityID(baby.getBaseEntityID())
                     .withVaccineWrapper(wrappers)
                     .withDestinationFragment(BaseHomeVisitImmunizationFragment.getInstance(view, baby.getBaseEntityID(), details, wrappers))
-                    .withHelper(new ImmunizationActionHelper())
+                    .withHelper(new ImmunizationActionHelper(context, wrappers))
                     .build();
             actionList.put(MessageFormat.format(context.getString(R.string.pnc_immunization_at_birth), baby.getFullName()), action);
         }
