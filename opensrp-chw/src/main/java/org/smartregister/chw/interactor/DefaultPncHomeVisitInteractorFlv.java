@@ -5,6 +5,8 @@ import android.content.Context;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.tuple.Triple;
+import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 import org.json.JSONArray;
@@ -12,6 +14,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.actionhelper.DangerSignsAction;
+import org.smartregister.chw.actionhelper.ImmunizationActionHelper;
 import org.smartregister.chw.actionhelper.ObservationAction;
 import org.smartregister.chw.anc.AncLibrary;
 import org.smartregister.chw.anc.actionhelper.HomeVisitActionHelper;
@@ -20,17 +23,25 @@ import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.domain.VisitDetail;
 import org.smartregister.chw.anc.fragment.BaseAncHomeVisitFragment;
+import org.smartregister.chw.anc.fragment.BaseHomeVisitImmunizationFragment;
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
 import org.smartregister.chw.anc.util.JsonFormUtils;
 import org.smartregister.chw.anc.util.VisitUtils;
+import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.dao.PNCDao;
 import org.smartregister.chw.dao.PersonDao;
 import org.smartregister.chw.domain.PNCHealthFacilityVisitSummary;
 import org.smartregister.chw.domain.Person;
 import org.smartregister.chw.domain.PncBaby;
+import org.smartregister.chw.model.VaccineTaskModel;
 import org.smartregister.chw.rule.PNCHealthFacilityVisitRule;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.PNCVisitUtil;
+import org.smartregister.chw.util.VaccineScheduleUtil;
+import org.smartregister.immunization.db.VaccineRepo;
+import org.smartregister.immunization.domain.VaccineWrapper;
+import org.smartregister.immunization.domain.jsonmapping.Vaccine;
+import org.smartregister.immunization.domain.jsonmapping.VaccineGroup;
 
 import java.text.MessageFormat;
 import java.text.ParseException;
@@ -80,7 +91,7 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
             evaluateDangerSignsBaby();
             evaluatePNCHealthFacilityVisit();
             evaluateChildVaccineCard();
-            //evaluateImmunization();
+            evaluateImmunization();
             evaluateUmbilicalCord();
             evaluateExclusiveBreastFeeding();
             evaluateKangarooMotherCare();
@@ -215,12 +226,15 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
 
     protected void evaluateImmunization() throws Exception {
         for (Person baby : children) {
+            List<VaccineWrapper> wrappers = getChildDueVaccines(baby.getBaseEntityID(), baby.getDob(), 0);
+
             BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, MessageFormat.format(context.getString(R.string.pnc_immunization_at_birth), baby.getFullName()))
                     .withOptional(false)
                     .withDetails(details)
                     .withBaseEntityID(baby.getBaseEntityID())
-                    .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getDangerSigns())
-                    .withHelper(new DangerSignsAction())
+                    .withVaccineWrapper(wrappers)
+                    .withDestinationFragment(BaseHomeVisitImmunizationFragment.getInstance(view, baby.getBaseEntityID(), details, wrappers))
+                    .withHelper(new ImmunizationActionHelper())
                     .build();
             actionList.put(MessageFormat.format(context.getString(R.string.pnc_immunization_at_birth), baby.getFullName()), action);
         }
@@ -592,5 +606,38 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
         public void onPayloadReceived(BaseAncHomeVisitAction baseAncHomeVisitAction) {
             Timber.d("onPayloadReceived");
         }
+    }
+
+    /**
+     * returns list of vaccines that are pending
+     *
+     * @param baseEntityID
+     * @param dob
+     * @param group
+     * @return
+     */
+    private List<VaccineWrapper> getChildDueVaccines(String baseEntityID, Date dob, int group) {
+        List<VaccineWrapper> vaccineWrappers = new ArrayList<>();
+        try {
+            VaccineGroup groupMap = VaccineScheduleUtil.getVaccineGroups(ChwApplication.getInstance().getApplicationContext(), "child").get(group);
+
+            // get all vaccines that are not given
+            VaccineTaskModel taskModel = VaccineScheduleUtil.getLocalUpdatedVaccines(baseEntityID, new DateTime(dob), new ArrayList<>(), "child");
+
+            for (Vaccine vaccine : groupMap.vaccines) {
+                Triple<DateTime, VaccineRepo.Vaccine, String> individualVaccine = VaccineScheduleUtil.getIndividualVaccine(taskModel, vaccine.type);
+
+                if (individualVaccine == null || individualVaccine.getLeft().isAfter(new DateTime())) {
+                    continue;
+                }
+
+                vaccineWrappers.add(VaccineScheduleUtil.getVaccineWrapper(individualVaccine.getMiddle(), taskModel));
+            }
+            //
+
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+        return vaccineWrappers;
     }
 }

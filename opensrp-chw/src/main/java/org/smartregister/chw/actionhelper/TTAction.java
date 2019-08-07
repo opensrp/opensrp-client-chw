@@ -125,9 +125,9 @@ public class TTAction implements BaseAncHomeVisitAction.AncHomeVisitActionHelper
             String value = getValue(jsonObject, MessageFormat.format("tt{0}_date", vaccineStringTriple.getRight()));
 
             try {
-                if (ba.getVaccineWrapper() != null) {
+                if (ba.getVaccineWrapper() != null && ba.getVaccineWrapper().size() > 0) {
                     DateTime updateDate = DateTimeFormat.forPattern("dd-MM-yyyy").parseDateTime(value);
-                    ba.getVaccineWrapper().setUpdatedVaccineDate(updateDate, false);
+                    ba.getVaccineWrapper().get(0).setUpdatedVaccineDate(updateDate, false);
                 }
             } catch (Exception e) {
                 Timber.e(e);

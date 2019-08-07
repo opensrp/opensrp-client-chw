@@ -179,7 +179,7 @@ public abstract class DefaultAncHomeVisitInteractorFlv implements AncHomeVisitIn
                 .withDetails(details)
                 .withOptional(false)
                 .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(view, null, preProcessObject, details, individualVaccine.getRight()))
-                .withVaccineWrapper(getVaccineWrapper(individualVaccine.getMiddle(), vaccineTaskModel))
+                .withVaccineWrapper(VaccineScheduleUtil.getVaccineWrapper(individualVaccine.getMiddle(), vaccineTaskModel))
                 .withScheduleStatus((overdueMonth < 1) ? BaseAncHomeVisitAction.ScheduleStatus.DUE : BaseAncHomeVisitAction.ScheduleStatus.OVERDUE)
                 .withSubtitle(MessageFormat.format("{0} {1}", dueState, DateTimeFormat.forPattern("dd MMM yyyy").print(new DateTime(individualVaccine.getLeft()))))
                 .build();
@@ -244,24 +244,6 @@ public abstract class DefaultAncHomeVisitInteractorFlv implements AncHomeVisitIn
     // read vaccine repo for all not given vaccines
     private List<VaccineWrapper> getNotGivenVaccines() {
         return new ArrayList<>();
-    }
-
-    private VaccineWrapper getVaccineWrapper(VaccineRepo.Vaccine vaccine, VaccineTaskModel vaccineTaskModel) {
-        VaccineWrapper vaccineWrapper = new VaccineWrapper();
-        vaccineWrapper.setVaccine(vaccine);
-        vaccineWrapper.setName(vaccine.display());
-        vaccineWrapper.setDbKey(getVaccineId(vaccine.display(), vaccineTaskModel));
-        vaccineWrapper.setDefaultName(vaccine.display());
-        return vaccineWrapper;
-    }
-
-    private Long getVaccineId(String vaccineName, VaccineTaskModel vaccineTaskModel) {
-        for (Vaccine vaccine : vaccineTaskModel.getVaccines()) {
-            if (vaccine.getName().equalsIgnoreCase(vaccineName)) {
-                return vaccine.getId();
-            }
-        }
-        return null;
     }
 
 }
