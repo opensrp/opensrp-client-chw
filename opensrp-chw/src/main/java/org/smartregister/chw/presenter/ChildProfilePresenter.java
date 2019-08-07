@@ -51,6 +51,7 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
     public ChildProfilePresenter(ChildProfileContract.View childView, ChildProfileContract.Model model, String childBaseEntityId) {
         this.view = new WeakReference<>(childView);
         this.interactor = new ChildProfileInteractor();
+        this.interactor.setChildBaseEntityId(childBaseEntityId);
         this.model = model;
         this.childBaseEntityId = childBaseEntityId;
     }

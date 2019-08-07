@@ -7,10 +7,12 @@ import android.text.TextUtils;
 import android.util.Pair;
 
 import org.apache.commons.lang3.StringUtils;
+import org.joda.time.DateTime;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.anc.util.Util;
+import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.contract.ChildProfileContract;
 import org.smartregister.chw.contract.HomeVisitGrowthNutritionContract;
 import org.smartregister.chw.contract.ImmunizationContact;
@@ -20,7 +22,6 @@ import org.smartregister.chw.util.ChildHomeVisit;
 import org.smartregister.chw.util.ChildService;
 import org.smartregister.chw.util.ChildUtils;
 import org.smartregister.chw.util.ChildVisit;
-import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.GrowthServiceData;
 import org.smartregister.chw.util.HomeVisitVaccineGroup;
 import org.smartregister.chw.util.ImmunizationState;
@@ -51,24 +52,23 @@ import org.smartregister.view.LocationPickerView;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.UUID;
 
-import io.reactivex.Completable;
-import io.reactivex.CompletableObserver;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.Observer;
-import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Action;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
 import static org.smartregister.chw.anc.util.JsonFormUtils.*;
 import static org.smartregister.chw.util.ChildUtils.fixVaccineCasing;
+import static org.smartregister.chw.util.Constants.*;
 import static org.smartregister.util.JsonFormUtils.getFieldJSONObject;
 
 public class ChildProfileInteractor implements ChildProfileContract.Interactor {
@@ -76,6 +76,7 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
     private AppExecutors appExecutors;
     private CommonPersonObjectClient pClient;
     private Map<String, Date> vaccineList = new LinkedHashMap<>();
+    private String childBaseEntityId;
 
     @VisibleForTesting
     ChildProfileInteractor(AppExecutors appExecutors) {
@@ -204,7 +205,7 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
 
     @Override
     public void refreshChildVisitBar(Context context, String baseEntityId, final ChildProfileContract.InteractorCallBack callback) {
-        ChildHomeVisit childHomeVisit = ChildUtils.getLastHomeVisit(org.smartregister.chw.util.Constants.TABLE_NAME.CHILD, baseEntityId);
+        ChildHomeVisit childHomeVisit = ChildUtils.getLastHomeVisit(TABLE_NAME.CHILD, baseEntityId);
 
         String dobString = Utils.getDuration(Utils.getValue(pClient.getColumnmaps(), DBConstants.KEY.DOB, false));
 
@@ -288,13 +289,13 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
 
     @Override
     public void updateChildCommonPerson(String baseEntityId) {
-        String query = ChildUtils.mainSelect(org.smartregister.chw.util.Constants.TABLE_NAME.CHILD, org.smartregister.chw.util.Constants.TABLE_NAME.FAMILY, org.smartregister.chw.util.Constants.TABLE_NAME.FAMILY_MEMBER, baseEntityId);
+        String query = ChildUtils.mainSelect(TABLE_NAME.CHILD, TABLE_NAME.FAMILY, TABLE_NAME.FAMILY_MEMBER, baseEntityId);
 
         Cursor cursor = null;
         try {
-            cursor = getCommonRepository(org.smartregister.chw.util.Constants.TABLE_NAME.CHILD).rawCustomQueryForAdapter(query);
+            cursor = getCommonRepository(TABLE_NAME.CHILD).rawCustomQueryForAdapter(query);
             if (cursor != null && cursor.moveToFirst()) {
-                CommonPersonObject personObject = getCommonRepository(org.smartregister.chw.util.Constants.TABLE_NAME.CHILD).readAllcommonforCursorAdapter(cursor);
+                CommonPersonObject personObject = getCommonRepository(TABLE_NAME.CHILD).readAllcommonforCursorAdapter(cursor);
                 pClient = new CommonPersonObjectClient(personObject.getCaseId(),
                         personObject.getDetails(), "");
                 pClient.setColumnmaps(personObject.getColumnmaps());
@@ -319,13 +320,13 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
-                String query = ChildUtils.mainSelect(org.smartregister.chw.util.Constants.TABLE_NAME.CHILD, org.smartregister.chw.util.Constants.TABLE_NAME.FAMILY, org.smartregister.chw.util.Constants.TABLE_NAME.FAMILY_MEMBER, baseEntityId);
+                String query = ChildUtils.mainSelect(TABLE_NAME.CHILD, TABLE_NAME.FAMILY, TABLE_NAME.FAMILY_MEMBER, baseEntityId);
 
                 Cursor cursor = null;
                 try {
-                    cursor = getCommonRepository(org.smartregister.chw.util.Constants.TABLE_NAME.CHILD).rawCustomQueryForAdapter(query);
+                    cursor = getCommonRepository(TABLE_NAME.CHILD).rawCustomQueryForAdapter(query);
                     if (cursor != null && cursor.moveToFirst()) {
-                        CommonPersonObject personObject = getCommonRepository(org.smartregister.chw.util.Constants.TABLE_NAME.CHILD).readAllcommonforCursorAdapter(cursor);
+                        CommonPersonObject personObject = getCommonRepository(TABLE_NAME.CHILD).readAllcommonforCursorAdapter(cursor);
                         pClient = new CommonPersonObjectClient(personObject.getCaseId(),
                                 personObject.getDetails(), "");
                         pClient.setColumnmaps(personObject.getColumnmaps());
@@ -397,7 +398,7 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
             lpv.init();
             if (form != null) {
                 form.put(JsonFormUtils.ENTITY_ID, client.getCaseId());
-                form.put(JsonFormUtils.ENCOUNTER_TYPE, Constants.EventType.UPDATE_CHILD_REGISTRATION);
+                form.put(JsonFormUtils.ENCOUNTER_TYPE, EventType.UPDATE_CHILD_REGISTRATION);
 
                 JSONObject metadata = form.getJSONObject(JsonFormUtils.METADATA);
                 String lastLocationId = LocationHelper.getInstance().getOpenMrsLocationId(lpv.getSelectedItem());
@@ -471,12 +472,49 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
                         Timber.e(e);
                     }
                 });*/
-        Event baseEvent = processJsonForm(allSharedPreferences, jsonString, Constants.TABLE_NAME.CHILD_REFERRAL);
+        Event baseEvent = processJsonForm(allSharedPreferences, new JSONObject(jsonString).put(JsonFormUtils.ENTITY_ID, getChildBaseEntityId()).toString(), TABLE_NAME.CHILD_REFERRAL);
         Util.processEvent(baseEvent.getBaseEntityId(), new JSONObject(gson.toJson(baseEvent)));
+        //   createReferralTask(baseEvent.getBaseEntityId(), allSharedPreferences);
     }
 
-    private void createReferralTask() {
+    @Override
+    public void setChildBaseEntityId(String childBaseEntityId) {
+        this.childBaseEntityId = childBaseEntityId;
+    }
+
+    @Override
+    public String getChildBaseEntityId() {
+        return this.childBaseEntityId;
+    }
+
+    private void createReferralTask(String baseEntityId, AllSharedPreferences allSharedPreferences) {
         Task task = new Task();
+        task.setIdentifier(UUID.randomUUID().toString());
+        Iterator<String> iterator = ChwApplication.getInstance().getPlanDefinitionRepository()
+                .findAllPlanDefinitionIds().iterator();
+        if (iterator.hasNext()) {
+            task.setPlanIdentifier(iterator.next());
+        } else {
+            //TODO Implement an alert to inform the user; consult with PM
+        }
+        task.setGroupIdentifier("Awaiting Benja");
+        task.setStatus(Task.TaskStatus.READY);
+        task.setBusinessStatus("Referred");
+        task.setPriority(3);
+        task.setCode("Referral");
+        task.setDescription("Review and perform the referral for the client"); //set to string
+        task.setFocus("Sick Child");//the same here
+        task.setForEntity(baseEntityId);
+        DateTime now = new DateTime();
+        task.setExecutionStartDate(now);
+        task.setAuthoredOn(now);
+        task.setLastModified(now);
+        task.setOwner(allSharedPreferences.fetchRegisteredANM());
+        task.setSyncStatus(BaseRepository.TYPE_Created);
+        task.setRequester(allSharedPreferences.fetchRegisteredANM());
+        task.setLocation(allSharedPreferences.fetchUserLocalityId(allSharedPreferences.fetchRegisteredANM()));
+        ChwApplication.getInstance().getTaskRepository().addOrUpdate(task);
+
     }
 
     private Observable<Object> updateHomeVisitAsEvent(final long value) {
@@ -486,7 +524,7 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
                 final String homeVisitId = org.smartregister.chw.util.JsonFormUtils.generateRandomUUIDString();
 
                 Map<String, JSONObject> fields = new HashMap<>();
-                ChildUtils.updateHomeVisitAsEvent(getpClient().entityId(), Constants.EventType.CHILD_VISIT_NOT_DONE, Constants.TABLE_NAME.CHILD,
+                ChildUtils.updateHomeVisitAsEvent(getpClient().entityId(), EventType.CHILD_VISIT_NOT_DONE, TABLE_NAME.CHILD,
                         fields, ChildDBConstants.KEY.VISIT_NOT_DONE, value + "", homeVisitId);
                 e.onNext("");
             }
@@ -638,7 +676,7 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
 
                 break;
 
-            case org.smartregister.chw.util.Constants.JsonAssets.FAM_NAME:
+            case JsonAssets.FAM_NAME:
 
                 final String SAME_AS_FAM_NAME = "same_as_fam_name";
                 final String SURNAME = "surname";
@@ -666,32 +704,32 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
 
                 break;
 
-            case Constants.JsonAssets.INSURANCE_PROVIDER:
+            case JsonAssets.INSURANCE_PROVIDER:
                 jsonObject.put(JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.INSURANCE_PROVIDER, false));
                 break;
-            case Constants.JsonAssets.INSURANCE_PROVIDER_NUMBER:
+            case JsonAssets.INSURANCE_PROVIDER_NUMBER:
                 jsonObject.put(JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.INSURANCE_PROVIDER_NUMBER, false));
                 break;
-            case Constants.JsonAssets.INSURANCE_PROVIDER_OTHER:
+            case JsonAssets.INSURANCE_PROVIDER_OTHER:
                 jsonObject.put(JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.INSURANCE_PROVIDER_OTHER, false));
                 break;
-            case Constants.JsonAssets.DISABILITIES:
+            case JsonAssets.DISABILITIES:
                 jsonObject.put(JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.CHILD_PHYSICAL_CHANGE, false));
                 break;
-            case Constants.JsonAssets.DISABILITY_TYPE:
+            case JsonAssets.DISABILITY_TYPE:
                 jsonObject.put(JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.TYPE_OF_DISABILITY, false));
                 break;
 
-            case Constants.JsonAssets.BIRTH_CERT_AVAILABLE:
+            case JsonAssets.BIRTH_CERT_AVAILABLE:
                 jsonObject.put(JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.BIRTH_CERT, false));
                 break;
-            case Constants.JsonAssets.BIRTH_REGIST_NUMBER:
+            case JsonAssets.BIRTH_REGIST_NUMBER:
                 jsonObject.put(JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.BIRTH_CERT_NUMBER, false));
                 break;
-            case Constants.JsonAssets.RHC_CARD:
+            case JsonAssets.RHC_CARD:
                 jsonObject.put(JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.RHC_CARD, false));
                 break;
-            case Constants.JsonAssets.NUTRITION_STATUS:
+            case JsonAssets.NUTRITION_STATUS:
                 jsonObject.put(JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.NUTRITION_STATUS, false));
                 break;
 

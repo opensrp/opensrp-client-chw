@@ -30,6 +30,7 @@ import com.vijay.jsonwizard.domain.Form;
 import org.apache.commons.lang3.tuple.Triple;
 import org.json.JSONObject;
 import org.opensrp.api.constants.Gender;
+import org.smartregister.CoreLibrary;
 import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.contract.ChildProfileContract;
@@ -700,7 +701,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
                         if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(UPDATE_CHILD_REGISTRATION)) {
                             presenter().updateChildProfile(jsonString);
                         } else if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(CHILD_REFERRAL)) {
-                            presenter().createSickChildEvent(Utils.getAllSharedPreferences(), jsonString);
+                            presenter().createSickChildEvent(CoreLibrary.getInstance().context().allSharedPreferences(), jsonString);
                         }
                     } catch (Exception e) {
                         e.printStackTrace();

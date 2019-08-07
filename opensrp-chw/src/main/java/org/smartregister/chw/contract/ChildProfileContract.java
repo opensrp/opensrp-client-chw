@@ -3,7 +3,6 @@ package org.smartregister.chw.contract;
 import android.content.Context;
 import android.util.Pair;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.util.ChildService;
 import org.smartregister.chw.util.ChildVisit;
@@ -127,6 +126,10 @@ public interface ChildProfileContract {
         void processBackGroundEvent(final ChildProfileContract.InteractorCallBack callback);
 
         void createSickChildEvent(AllSharedPreferences allSharedPreferences, String jsonString) throws Exception;
+
+        void setChildBaseEntityId(String childBaseEntityId);
+
+        String getChildBaseEntityId();
 
     }
 
