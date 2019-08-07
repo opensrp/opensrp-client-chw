@@ -1,15 +1,22 @@
 package com.opensrp.chw.core.fragment;
 
+import android.database.Cursor;
 import android.view.View;
 
 import com.opensrp.chw.core.R;
 import com.opensrp.chw.core.contract.BaseReferralRegisterFragmentContract;
 import com.opensrp.chw.core.provider.BasereferralRegisterProvider;
+import com.opensrp.chw.core.utils.CoreConstants;
 
+import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
+import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
+import org.smartregister.domain.Task;
 
 import java.util.HashMap;
 import java.util.Set;
+
+import timber.log.Timber;
 
 public abstract class BaseReferralRegisterFragment extends BaseChwRegisterFragment implements BaseReferralRegisterFragmentContract.View {
 
@@ -44,7 +51,7 @@ public abstract class BaseReferralRegisterFragment extends BaseChwRegisterFragme
 
     @Override
     protected String getMainCondition() {
-        return "";
+        return "task.status = '" + Task.TaskStatus.READY.name() + "'";
     }
 
     @Override
@@ -65,4 +72,46 @@ public abstract class BaseReferralRegisterFragment extends BaseChwRegisterFragme
     public void showNotFoundPopup(String s) {
 
     }
+
+    @Override
+    public void countExecute() {
+        Cursor c = null;
+
+        try {
+            SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder(countSelect);
+            String query;
+            if (isValidFilterForFts(commonRepository())) {
+                String sql = sqb.countQueryFts(tablename, joinTable, mainCondition, filters);
+                sql = sql.replace("WHERE", String.format("JOIN %s ON task.%s = %s.%s WHERE", CoreConstants.TABLE_NAME.TASK, CoreConstants.DB_CONSTANTS.FOR, tablename, CommonFtsObject.idColumn));
+                Timber.i("FTS query %s", sql);
+
+                clientAdapter.setTotalcount(commonRepository().countSearchIds(sql));
+                Timber.v("total count here %s", clientAdapter.getTotalcount());
+
+
+            } else {
+                sqb.addCondition(filters);
+                query = sqb.orderbyCondition(Sortqueries);
+                query = sqb.Endquery(query);
+
+                Timber.i(query);
+                c = commonRepository().rawCustomQueryForAdapter(query);
+                c.moveToFirst();
+                clientAdapter.setTotalcount(c.getInt(0));
+                Timber.v("total count here %s", clientAdapter.getTotalcount());
+            }
+
+            clientAdapter.setCurrentlimit(20);
+            clientAdapter.setCurrentoffset(0);
+
+
+        } catch (Exception e) {
+            Timber.e(e);
+        } finally {
+            if (c != null) {
+                c.close();
+            }
+        }
+    }
+
 }

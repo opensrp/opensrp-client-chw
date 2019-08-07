@@ -2,7 +2,7 @@ package com.opensrp.chw.core.presenter;
 
 import com.opensrp.chw.core.contract.BaseReferralRegisterFragmentContract;
 import com.opensrp.chw.core.model.BaseReferralModel;
-import com.opensrp.chw.core.utils.CoreConstants;
+import com.opensrp.chw.core.utils.CoreConstants.TABLE_NAME;
 
 public class BaseRefererralFragmentPresenter implements BaseReferralRegisterFragmentContract.Presenter {
 
@@ -23,11 +23,11 @@ public class BaseRefererralFragmentPresenter implements BaseReferralRegisterFrag
 
     @Override
     public void initializeQueries(String mainCondition) {
-        String countSelect = model.countSelect(CoreConstants.TABLE_NAME.TASK, mainCondition);
-        String mainSelect = model.mainSelect(CoreConstants.TABLE_NAME.TASK, mainCondition);
+        String countSelect = model.countSelect(TABLE_NAME.TASK, mainCondition);
+        String mainSelect = model.mainSelect(TABLE_NAME.TASK, mainCondition);
 
-        view.initializeQueryParams(CoreConstants.TABLE_NAME.CHILD, countSelect, mainSelect);
-        view.initializeAdapter(null, CoreConstants.TABLE_NAME.TASK);
+        view.initializeQueryParams(TABLE_NAME.CHILD, countSelect, mainSelect);
+        view.initializeAdapter(null, TABLE_NAME.TASK);
 
         view.countExecute();
         view.filterandSortInInitializeQueries();
