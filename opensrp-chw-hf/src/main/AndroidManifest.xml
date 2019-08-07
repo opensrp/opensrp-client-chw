@@ -102,6 +102,8 @@
         <service android:name="org.smartregister.sync.intent.ValidateIntentService" />
         <service android:name="org.smartregister.service.ImageUploadSyncService" />
         <service android:name="org.smartregister.chw.anc.intent.HomeVisitIntent" />
+        <service android:name="com.opensrp.chw.hf.sync.intent.HfSyncTaskIntentService" />
+        <service android:name="org.smartregister.sync.intent.PlanIntentService" />
 
         <uses-library
             android:name="org.apache.http.legacy"

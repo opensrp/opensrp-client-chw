@@ -20,6 +20,9 @@ import org.smartregister.immunization.domain.jsonmapping.Vaccine;
 import org.smartregister.immunization.domain.jsonmapping.VaccineGroup;
 import org.smartregister.immunization.repository.VaccineRepository;
 import org.smartregister.immunization.util.VaccinatorUtils;
+import org.smartregister.repository.PlanDefinitionRepository;
+import org.smartregister.repository.TaskNotesRepository;
+import org.smartregister.repository.TaskRepository;
 import org.smartregister.sync.ClientProcessorForJava;
 import org.smartregister.sync.helper.ECSyncHelper;
 import org.smartregister.view.activity.DrishtiApplication;
@@ -49,6 +52,8 @@ public class CoreChwApplication extends DrishtiApplication implements CoreApplic
     private String password;
 
     private RulesEngineHelper rulesEngineHelper;
+    private TaskRepository taskRepository;
+    private PlanDefinitionRepository planDefinitionRepository;
 
     public static synchronized CoreChwApplication getInstance() {
         return (CoreChwApplication) mInstance;
@@ -61,6 +66,7 @@ public class CoreChwApplication extends DrishtiApplication implements CoreApplic
     public static CommonFtsObject createCommonFtsObject() {
         return getCommonFtsObject(commonFtsObject);
     }
+
     public static ClientProcessorForJava getClientProcessor(android.content.Context context) {
         if (clientProcessor == null) {
             clientProcessor = ChwClientProcessor.getInstance(context);
@@ -167,6 +173,20 @@ public class CoreChwApplication extends DrishtiApplication implements CoreApplic
             rulesEngineHelper = new RulesEngineHelper(getApplicationContext());
         }
         return rulesEngineHelper;
+    }
+
+    public TaskRepository getTaskRepository() {
+        if (taskRepository == null) {
+            taskRepository = new TaskRepository(getRepository(), new TaskNotesRepository(getRepository()));
+        }
+        return taskRepository;
+    }
+
+    public PlanDefinitionRepository getPlanDefinitionRepository() {
+        if (planDefinitionRepository == null) {
+            planDefinitionRepository = new PlanDefinitionRepository(getRepository());
+        }
+        return planDefinitionRepository;
     }
 
     public void initOfflineSchedules() {

@@ -81,7 +81,7 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
     public void setClientTasks(List<Task> taskList) {
         if (referralRecyclerView != null && taskList.size() > 0) {
             referalRow.setVisibility(View.VISIBLE);
-            mAdapter = new ReferralCardViewAdapter(taskList,this);
+            mAdapter = new ReferralCardViewAdapter(taskList,this, ((CoreChildProfilePresenter) presenter()).getChildClient());
             referralRecyclerView.setAdapter(mAdapter);
         }
     }

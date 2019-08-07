@@ -50,6 +50,10 @@ public class CoreChildProfilePresenter implements CoreChildProfileContract.Prese
     public CoreChildProfilePresenter() {
     }
 
+    public String getChildBaseEntityId() {
+        return childBaseEntityId;
+    }
+
     public void setChildBaseEntityId(String childBaseEntityId) {
         this.childBaseEntityId = childBaseEntityId;
     }

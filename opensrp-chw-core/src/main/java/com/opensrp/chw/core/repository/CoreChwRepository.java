@@ -24,8 +24,11 @@ import org.smartregister.reporting.repository.IndicatorQueryRepository;
 import org.smartregister.reporting.repository.IndicatorRepository;
 import org.smartregister.repository.DrishtiRepository;
 import org.smartregister.repository.EventClientRepository;
+import org.smartregister.repository.PlanDefinitionRepository;
+import org.smartregister.repository.PlanDefinitionSearchRepository;
 import org.smartregister.repository.Repository;
 import org.smartregister.repository.SettingsRepository;
+import org.smartregister.repository.TaskRepository;
 import org.smartregister.repository.UniqueIdRepository;
 import org.smartregister.util.Session;
 
@@ -70,14 +73,14 @@ public class CoreChwRepository extends Repository {
         IMDatabaseUtils.populateRecurringServices(context, database, recurringServiceTypeRepository);
         HomeVisitIndicatorInfoRepository.createTable(database);
         HomeVisitRepository.createTable(database);
-        HomeVisitServiceRepository.createTable(database);ReportingLibrary reportingLibraryInstance = ReportingLibrary.getInstance();
+        HomeVisitServiceRepository.createTable(database);
+        ReportingLibrary reportingLibraryInstance = ReportingLibrary.getInstance();
         String childIndicatorsConfigFile = "config/child-reporting-indicator-definitions.yml";
         String ancIndicatorConfigFile = "config/anc-reporting-indicator-definitions.yml";
         reportingLibraryInstance.initMultipleIndicatorsData(Collections.unmodifiableList(
                 Arrays.asList(childIndicatorsConfigFile, ancIndicatorConfigFile)), database);
         onUpgrade(database, 1, databaseVersion);
     }
-
 
 
     @Override
