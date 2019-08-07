@@ -14,6 +14,7 @@ import org.smartregister.job.SyncServiceJob;
 import org.smartregister.job.SyncTaskServiceJob;
 import org.smartregister.job.ValidateSyncDataServiceJob;
 import org.smartregister.sync.intent.SyncIntentService;
+import org.smartregister.sync.intent.SyncTaskIntentService;
 
 import timber.log.Timber;
 
@@ -26,7 +27,7 @@ public class HfJobCreator implements JobCreator {
     public Job create(@NonNull String tag) {
         switch (tag) {
             case SyncTaskServiceJob.TAG:
-                return new SyncTaskServiceJob();
+                return new SyncTaskServiceJob(SyncTaskIntentService.class);
             case SyncServiceJob.TAG:
                 return new SyncServiceJob(SyncIntentService.class);
             case ExtendedSyncServiceJob.TAG:
