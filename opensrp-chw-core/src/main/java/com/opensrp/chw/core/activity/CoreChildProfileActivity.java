@@ -46,6 +46,7 @@ import org.smartregister.helper.ImageRenderHelper;
 import org.smartregister.view.activity.BaseProfileActivity;
 
 import java.util.List;
+import java.util.Set;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import timber.log.Timber;
@@ -423,7 +424,7 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
     }
 
     @Override
-    public void setClientTasks(List<Task> taskList) {
+    public void setClientTasks(Set<Task> taskList) {
         //// TODO: 06/08/19  
     }
 

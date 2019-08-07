@@ -22,6 +22,7 @@ import java.lang.ref.WeakReference;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import timber.log.Timber;
 
@@ -216,7 +217,7 @@ public class CoreChildProfilePresenter implements CoreChildProfileContract.Prese
     }
 
     @Override
-    public void setClientTasks(List<Task> taskList) {
+    public void setClientTasks(Set<Task> taskList) {
         if (getView() != null) {
             getView().setClientTasks(taskList);
         }

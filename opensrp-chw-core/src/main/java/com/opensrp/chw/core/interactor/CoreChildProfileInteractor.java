@@ -50,9 +50,11 @@ import org.smartregister.view.LocationPickerView;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
@@ -251,19 +253,7 @@ public class CoreChildProfileInteractor implements CoreChildProfileContract.Inte
 
     @Override
     public void getClientTasks(String baseEntityId, CoreChildProfileContract.InteractorCallBack callback) {
-        //// TODO: 06/08/19  Update to make sure the tasks are fetched from the database
-        List<Task> taskList = new ArrayList<>();
-
-        Task task = new Task();
-        task.setAuthoredOn(new DateTime());
-        task.setFocus("Child Referral");
-        taskList.add(task);
-
-        Task taska = new Task();
-        taska.setAuthoredOn(new DateTime());
-        taska.setFocus("ANC Referral");
-        taskList.add(taska);
-
+        Set<Task> taskList =
         callback.setClientTasks(taskList);
     }
 

@@ -34,6 +34,7 @@ import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class ChildProfileActivity extends CoreChildProfileActivity {
     public CoreFamilyMemberFloatingMenu familyFloatingMenu;
@@ -78,7 +79,7 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
     }
 
     @Override
-    public void setClientTasks(List<Task> taskList) {
+    public void setClientTasks(Set<Task> taskList) {
         if (referralRecyclerView != null && taskList.size() > 0) {
             referalRow.setVisibility(View.VISIBLE);
             mAdapter = new ReferralCardViewAdapter(taskList,this, ((CoreChildProfilePresenter) presenter()).getChildClient());

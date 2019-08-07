@@ -15,6 +15,7 @@ import org.smartregister.domain.Task;
 import org.smartregister.view.contract.BaseProfileContract;
 
 import java.util.List;
+import java.util.Set;
 
 public interface CoreChildProfileContract {
 
@@ -84,7 +85,7 @@ public interface CoreChildProfileContract {
 
         void updateAfterBackgroundProcessed();
 
-        void setClientTasks(List<Task> taskList);
+        void setClientTasks(Set<Task> taskList);
     }
 
     interface Presenter extends BaseProfileContract.Presenter {
@@ -162,7 +163,7 @@ public interface CoreChildProfileContract {
 
         void updateAfterBackGroundProcessed();
 
-        void setClientTasks(List<Task> taskList);
+        void setClientTasks(Set<Task> taskList);
     }
 
     interface Model {

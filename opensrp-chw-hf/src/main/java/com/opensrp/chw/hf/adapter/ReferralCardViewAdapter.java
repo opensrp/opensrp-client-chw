@@ -16,17 +16,18 @@ import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.Task;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by wizard on 06/08/19.
  */
 public class ReferralCardViewAdapter extends RecyclerView.Adapter<ReferralCardViewHolder> {
-    private List<Task> tasks;
+    private Set<Task> tasks;
     private CommonPersonObjectClient personObjectClient;
     private Activity context;
     private ReferralRecyclerClickListener referralRecyclerClickListener = new ReferralRecyclerClickListener();
 
-    public ReferralCardViewAdapter(List<Task> taskList, Activity activity, CommonPersonObjectClient personObjectClient) {
+    public ReferralCardViewAdapter(Set<Task> taskList, Activity activity, CommonPersonObjectClient personObjectClient) {
         this.tasks = taskList;
         this.context = activity;
         this.personObjectClient = personObjectClient;
@@ -41,7 +42,7 @@ public class ReferralCardViewAdapter extends RecyclerView.Adapter<ReferralCardVi
 
     @Override
     public void onBindViewHolder(@NonNull ReferralCardViewHolder referralCardViewHolder, int position) {
-        referralRecyclerClickListener.setTask(tasks.get(position));
+        referralRecyclerClickListener.setTask(tasks);
         referralRecyclerClickListener.setCommonPersonObjectClient(personObjectClient);
         referralRecyclerClickListener.setActivity(context);
         referralCardViewHolder.textViewReferralHeader.setText(String.format(context.getApplicationContext().getResources().getString(R.string.referral_for), tasks.get(position).getFocus()));
