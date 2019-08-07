@@ -24,12 +24,11 @@ public class ReferralModel extends BaseReferralModel {
     @Override
     protected String[] mainColumns(String tableName) {
         Set<String> columns = new HashSet<>(Arrays.asList(super.mainColumns(tableName)));
-        addClientDeatils(CoreConstants.TABLE_NAME.CHILD, columns);
-        addClientDeatils(CoreConstants.TABLE_NAME.FAMILY_MEMBER, columns);
+        addClientDetails(CoreConstants.TABLE_NAME.CHILD, columns);
         return columns.toArray(new String[]{});
     }
 
-    private void addClientDeatils(String table, Set<String> columns) {
+    private void addClientDetails(String table, Set<String> columns) {
         columns.add(table + "." + DBConstants.KEY.FIRST_NAME);
         columns.add(table + "." + DBConstants.KEY.MIDDLE_NAME);
         columns.add(table + "." + DBConstants.KEY.LAST_NAME);
