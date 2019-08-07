@@ -114,7 +114,7 @@ public abstract class CoreFamilyProfileActivity extends BaseFamilyProfileActivit
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK) {
             switch (requestCode) {
                 case org.smartregister.family.util.JsonFormUtils.REQUEST_CODE_GET_JSON:

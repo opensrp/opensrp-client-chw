@@ -1,5 +1,7 @@
 package org.smartregister.chw.presenter;
 
+import com.opensrp.chw.core.contract.CoreChildRegisterFragmentContract;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,10 +14,10 @@ public class ChildRegisterFragmentPresenterTest extends BaseUnitTest {
     private ChildRegisterFragmentPresenter presenter;
 
     @Mock
-    private ChildRegisterFragmentContract.View view;
+    private CoreChildRegisterFragmentContract.View view;
 
     @Mock
-    private ChildRegisterFragmentContract.Model model;
+    private CoreChildRegisterFragmentContract.Model model;
 
     @Before
     public void setUp() {

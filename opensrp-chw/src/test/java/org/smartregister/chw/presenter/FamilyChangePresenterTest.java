@@ -35,7 +35,7 @@ public class FamilyChangePresenterTest {
     public void setUp() {
         MockitoAnnotations.initMocks(this);
 
-        presenter = new CoreFamilyChangePresenter(view, familyID);
+        presenter = new FamilyChangePresenter(view, familyID);
         Whitebox.setInternalState(presenter, "interactor", interactor);
         Whitebox.setInternalState(presenter, "model", model);
     }

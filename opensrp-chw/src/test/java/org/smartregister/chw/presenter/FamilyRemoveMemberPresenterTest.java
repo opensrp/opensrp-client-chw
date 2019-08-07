@@ -11,6 +11,7 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.powermock.reflect.Whitebox;
 import org.smartregister.chw.interactor.FamilyRemoveMemberInteractor;
+import org.smartregister.chw.util.Constants;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.util.DBConstants;
 
