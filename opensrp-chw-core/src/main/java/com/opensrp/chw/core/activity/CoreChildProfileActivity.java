@@ -38,11 +38,14 @@ import org.apache.commons.lang3.tuple.Triple;
 import org.json.JSONObject;
 import org.opensrp.api.constants.Gender;
 import org.smartregister.domain.FetchStatus;
+import org.smartregister.domain.Task;
 import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
 import org.smartregister.helper.ImageRenderHelper;
 import org.smartregister.view.activity.BaseProfileActivity;
+
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import timber.log.Timber;
@@ -380,7 +383,6 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
     protected void fetchProfileData() {
         presenter().fetchProfileData();
         updateImmunizationData();
-
     }
 
     /**
@@ -418,6 +420,11 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
     @Override
     public void updateAfterBackgroundProcessed() {
         presenter().updateChildCommonPerson(childBaseEntityId);
+    }
+
+    @Override
+    public void setClientTasks(List<Task> taskList) {
+        //// TODO: 06/08/19  
     }
 
     @Override

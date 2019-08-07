@@ -21,6 +21,7 @@ import com.opensrp.chw.core.utils.HomeVisitVaccineGroup;
 import com.opensrp.chw.core.utils.Utils;
 
 import org.apache.commons.lang3.StringUtils;
+import org.joda.time.DateTime;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -30,6 +31,7 @@ import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.domain.Photo;
+import org.smartregister.domain.Task;
 import org.smartregister.family.FamilyLibrary;
 import org.smartregister.family.util.AppExecutors;
 import org.smartregister.family.util.DBConstants;
@@ -49,6 +51,7 @@ import org.smartregister.view.LocationPickerView;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Observable;
@@ -244,6 +247,24 @@ public class CoreChildProfileInteractor implements CoreChildProfileContract.Inte
         };
 
         appExecutors.diskIO().execute(runnable);
+    }
+
+    @Override
+    public void getClientTasks(String baseEntityId, CoreChildProfileContract.InteractorCallBack callback) {
+        //// TODO: 06/08/19  Update to make sure the tasks are fetched from the database
+        List<Task> taskList = new ArrayList<>();
+
+        Task task = new Task();
+        task.setAuthoredOn(new DateTime());
+        task.setFocus("Child Referral");
+        taskList.add(task);
+
+        Task taska = new Task();
+        taska.setAuthoredOn(new DateTime());
+        taska.setFocus("ANC Referral");
+        taskList.add(taska);
+
+        callback.setClientTasks(taskList);
     }
 
     @Override
