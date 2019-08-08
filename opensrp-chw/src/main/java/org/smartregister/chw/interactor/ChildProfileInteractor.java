@@ -466,14 +466,16 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
     private void createReferralTask(String baseEntityId, AllSharedPreferences allSharedPreferences) {
         Task task = new Task();
         task.setIdentifier(UUID.randomUUID().toString());
-        Iterator<String> iterator = ChwApplication.getInstance().getPlanDefinitionRepository()
+        //TODO Implement plans
+      /*  Iterator<String> iterator = ChwApplication.getInstance().getPlanDefinitionRepository()
                 .findAllPlanDefinitionIds().iterator();
         if (iterator.hasNext()) {
             task.setPlanIdentifier(iterator.next());
         } else {
-            //TODO Implement an alert to inform the user; consult with PM
+
             Timber.e("No plans exist in the server");
-        }
+        }*/
+        task.setPlanIdentifier("5270285b-5a3b-4647-b772-c0b3c52e2b71");
         task.setGroupIdentifier("Awaiting Benja");
         task.setStatus(Task.TaskStatus.READY);
         task.setBusinessStatus("Referred");

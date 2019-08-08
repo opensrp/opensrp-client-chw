@@ -46,8 +46,9 @@ public class ChwJobCreator implements JobCreator {
                 return new HomeVisitServiceJob();
             case SyncTaskServiceJob.TAG:
                 return new SyncTaskServiceJob();
-            case PlanIntentServiceJob.TAG:
-                return new PlanIntentServiceJob();
+            //TODO uncomment to enable plans
+            /*case PlanIntentServiceJob.TAG:
+                return new PlanIntentServiceJob();*/
             default:
                 Timber.d("Looks like you tried to create a job " + tag + " that is not declared in the Chw Job Creator");
                 return null;
