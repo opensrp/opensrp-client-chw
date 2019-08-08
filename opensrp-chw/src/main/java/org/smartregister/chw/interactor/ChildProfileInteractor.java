@@ -96,6 +96,9 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
     public CommonPersonObjectClient getpClient() {
         return pClient;
     }
+    public void setpClient(CommonPersonObjectClient pClient) {
+        this.pClient = pClient;
+    }
 
     public Map<String, Date> getVaccineList() {
         return vaccineList;
@@ -240,7 +243,7 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
                 .subscribe(new Observer<ChildService>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-
+                        d.dispose();
                     }
 
                     @Override

@@ -64,6 +64,9 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
         return familyID;
     }
 
+    public ChildProfileContract.Interactor getInteractor(){
+        return interactor;
+    }
     public void setFamilyID(String familyID) {
         this.familyID = familyID;
         verifyHasPhone();
