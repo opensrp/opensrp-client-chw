@@ -433,7 +433,7 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
 
     private void evaluateObservationAndIllnessMother() throws Exception {
         BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.pnc_observation_and_illness_mother))
-                .withOptional(false)
+                .withOptional(true)
                 .withDetails(details)
                 .withFormName(Constants.JSON_FORM.ANC_HOME_VISIT.getObservationAndIllness())
                 .withHelper(new ObservationAction())
@@ -445,7 +445,7 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
         for (Person baby : children) {
             if (getAgeInDays(baby.getDob()) <= 28) {
                 BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, MessageFormat.format(context.getString(R.string.pnc_observation_and_illness_baby), baby.getFullName()))
-                        .withOptional(false)
+                        .withOptional(true)
                         .withDetails(details)
                         .withBaseEntityID(baby.getBaseEntityID())
                         .withFormName(Constants.JSON_FORM.ANC_HOME_VISIT.getObservationAndIllness())

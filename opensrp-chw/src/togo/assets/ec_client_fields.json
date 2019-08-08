@@ -698,7 +698,7 @@
           "save_format": "yyyy-MM-dd",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "last_visit_date"
+            "concept": "pnc_visit_date"
           }
         },
         {
