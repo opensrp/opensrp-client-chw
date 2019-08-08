@@ -5,7 +5,6 @@ import android.content.Intent;
 
 import org.jetbrains.annotations.Nullable;
 import org.smartregister.chw.pnc.PncLibrary;
-
 import org.smartregister.chw.pnc.repository.PncCloseDateRepository;
 import org.smartregister.chw.pnc.util.PncUtil;
 
@@ -18,6 +17,7 @@ public class ChwPncCloseDateIntent extends IntentService {
     public ChwPncCloseDateIntent() {
         super("ChwPncCloseDateIntent");
     }
+
     private PncCloseDateRepository repository;
 
     @Override
@@ -29,15 +29,14 @@ public class ChwPncCloseDateIntent extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
         try {
-            PncUtil.updatePregancyOutcome(flavor.getNumberOfDays(),repository);
+            PncUtil.updatePregancyOutcome(flavor.getNumberOfDays(), repository);
         } catch (Exception e) {
             Timber.e(e);
         }
     }
 
 
-
-   interface Flavor {
-      int getNumberOfDays();
-   }
+    interface Flavor {
+        int getNumberOfDays();
+    }
 }
