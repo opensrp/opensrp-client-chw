@@ -203,4 +203,7 @@
     <string name="select_a_new_family_head">Select a new family head</string>
     <string name="remove_family_count">%s adults and %s U5 children</string>
 
+    <!--Referral-->
+    <string name="referred_by">Referred by CHW %1s</string>
+
 </resources>

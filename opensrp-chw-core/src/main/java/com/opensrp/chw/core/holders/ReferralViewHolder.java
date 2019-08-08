@@ -35,7 +35,7 @@ public class ReferralViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void setReferredBy(String referredBy) {
-        referredByTextView.setText(referredBy);
+        referredByTextView.setText(itemView.getContext().getString(R.string.referred_by, referredBy));
     }
 
     public void setReferralStart(String referStart) {
