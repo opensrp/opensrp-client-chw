@@ -110,7 +110,7 @@ public abstract class UpcomingServicesFragmentView extends LinearLayout implemen
 
     @Override
     public ImmunizationContact.Presenter initializePresenter() {
-        presenter = new ImmunizationViewPresenter(this);
+        presenter = new ImmunizationViewPresenter(context);
         return presenter;
     }
 

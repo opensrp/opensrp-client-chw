@@ -309,7 +309,7 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
         return Observable.create(new ObservableOnSubscribe<ChildService>() {
             @Override
             public void subscribe(final ObservableEmitter<ChildService> e) throws Exception {
-                final ImmunizationViewPresenter presenter = new ImmunizationViewPresenter();
+                final ImmunizationViewPresenter presenter = new ImmunizationViewPresenter(context);
                 presenter.upcomingServiceFetch(getpClient(), new ImmunizationContact.InteractorCallBack() {
 
                     @Override
