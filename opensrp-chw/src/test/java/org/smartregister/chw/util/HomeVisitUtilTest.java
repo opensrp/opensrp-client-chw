@@ -1,6 +1,7 @@
 package org.smartregister.chw.util;
 
 import org.jeasy.rules.api.Rules;
+import org.joda.time.LocalDate;
 import org.junit.Test;
 import org.smartregister.chw.BaseUnitTest;
 import org.smartregister.chw.application.ChwApplication;
@@ -15,7 +16,7 @@ public class HomeVisitUtilTest extends BaseUnitTest {
         Rules rules = ChwApplication.getInstance().getRulesEngineHelper().rules(Constants.RULE_FILE.PNC_HOME_VISIT);
         Date lastVisitDate = null;
         Date lastNotVisitDate = null;
-        Date deliveryDate = null;
+        Date deliveryDate = LocalDate.now().plusDays(-3).toDate();
 
         PncVisitAlertRule pncVisitAlertRule = new PncVisitAlertRule(lastVisitDate, lastNotVisitDate, deliveryDate);
         ChwApplication.getInstance().getRulesEngineHelper().getButtonAlertStatus(pncVisitAlertRule, rules);

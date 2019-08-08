@@ -171,8 +171,9 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
                 BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, MessageFormat.format(context.getString(R.string.pnc_danger_signs_baby), baby.getFullName()))
                         .withOptional(false)
                         .withDetails(details)
-                        .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getDangerSignsBaby())
+                        .withBaseEntityID(baby.getBaseEntityID())
                         .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.DETACHED)
+                        .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getDangerSignsBaby())
                         .withHelper(new PNCDangerSignsBabyHelper())
                         .build();
                 actionList.put(MessageFormat.format(context.getString(R.string.pnc_danger_signs_baby), baby.getFullName()), action);
@@ -266,6 +267,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
                         .withOptional(false)
                         .withDetails(details)
                         .withBaseEntityID(baby.getBaseEntityID())
+                        .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.DETACHED)
                         .withVaccineWrapper(wrappers)
                         .withDestinationFragment(BaseHomeVisitImmunizationFragment.getInstance(view, baby.getBaseEntityID(), baby.getDob(), details, wrappers))
                         .withHelper(new ImmunizationActionHelper(context, wrappers))
@@ -325,6 +327,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
                         .withOptional(false)
                         .withDetails(details)
                         .withBaseEntityID(baby.getBaseEntityID())
+                        .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.DETACHED)
                         .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(view, Constants.JSON_FORM.PNC_HOME_VISIT.getExclusiveBreastFeeding(), null, details, null))
                         .withHelper(new ExclusiveBreastFeedingHelper(baby.getDob()))
                         .build();
@@ -445,6 +448,8 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
             BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, MessageFormat.format(context.getString(R.string.pnc_nutrition_status_baby_name), baby.getFullName()))
                     .withOptional(false)
                     .withDetails(details)
+                    .withBaseEntityID(baby.getBaseEntityID())
+                    .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.DETACHED)
                     .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getNutritionStatusInfant())
                     .withHelper(new NutritionStatusBabyHelper())
                     .build();

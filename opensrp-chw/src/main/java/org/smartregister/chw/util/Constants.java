@@ -487,6 +487,8 @@ public class Constants {
         public static final String EXPIRED = "EXPIRED";
         public static final String DUE = "DUE";
         public static final String OVERDUE = "OVERDUE";
+        public static final String VISIT_NOT_DONE = "VISIT_NOT_DONE";
+        public static final String VISIT_DONE = "VISIT_DONE";
     }
 
     public static final class DATE_FORMATS {
