@@ -49,22 +49,24 @@ public class HfChildProfileInteractor extends CoreChildProfileInteractor {
     public void refreshChildVisitBar(Context context, String baseEntityId, final CoreChildProfileContract.InteractorCallBack callback) {
         ChildHomeVisit childHomeVisit = CoreChildUtils.getLastHomeVisit(CoreConstants.TABLE_NAME.CHILD, baseEntityId);
 
-        String dobString = Utils.getDuration(Utils.getValue(getpClient().getColumnmaps(), DBConstants.KEY.DOB, false));
+        if (getpClient() != null) {
+            String dobString = Utils.getDuration(Utils.getValue(getpClient().getColumnmaps(), DBConstants.KEY.DOB, false));
 
-        final ChildVisit childVisit = HfChildUtils.getChildVisitStatus(context, dobString, childHomeVisit.getLastHomeVisitDate(), childHomeVisit.getVisitNotDoneDate(), childHomeVisit.getDateCreated());
+            final ChildVisit childVisit = HfChildUtils.getChildVisitStatus(context, dobString, childHomeVisit.getLastHomeVisitDate(), childHomeVisit.getVisitNotDoneDate(), childHomeVisit.getDateCreated());
 
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                appExecutors.mainThread().execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        callback.updateChildVisit(childVisit);
-                    }
-                });
-            }
-        };
-        appExecutors.diskIO().execute(runnable);
+            Runnable runnable = new Runnable() {
+                @Override
+                public void run() {
+                    appExecutors.mainThread().execute(new Runnable() {
+                        @Override
+                        public void run() {
+                            callback.updateChildVisit(childVisit);
+                        }
+                    });
+                }
+            };
+            appExecutors.diskIO().execute(runnable);
+        }
     }
 
     @Override

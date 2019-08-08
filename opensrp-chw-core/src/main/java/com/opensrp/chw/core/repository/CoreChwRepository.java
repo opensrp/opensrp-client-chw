@@ -74,7 +74,6 @@ public class CoreChwRepository extends Repository {
         IMDatabaseUtils.populateRecurringServices(context, database, recurringServiceTypeRepository);
         HomeVisitIndicatorInfoRepository.createTable(database);
         HomeVisitRepository.createTable(database);
-        HomeVisitServiceRepository.createTable(database);
         ReportingLibrary reportingLibraryInstance = ReportingLibrary.getInstance();
         String childIndicatorsConfigFile = "config/child-reporting-indicator-definitions.yml";
         String ancIndicatorConfigFile = "config/anc-reporting-indicator-definitions.yml";

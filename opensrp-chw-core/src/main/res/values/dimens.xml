@@ -40,5 +40,8 @@
     <dimen name="remove_member_prompt_left_padding">15dp</dimen>
     <dimen name="remove_member_prompt_margin">7dp</dimen>
 
+    <!-- Referrals-->
+    <dimen name="referral_list_item_width">100dp</dimen>
+
 
 </resources>

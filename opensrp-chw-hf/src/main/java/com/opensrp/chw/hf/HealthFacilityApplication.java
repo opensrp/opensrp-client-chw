@@ -17,6 +17,7 @@ import com.opensrp.chw.hf.activity.ChildRegisterActivity;
 import com.opensrp.chw.hf.activity.FamilyProfileActivity;
 import com.opensrp.chw.hf.activity.FamilyRegisterActivity;
 import com.opensrp.chw.hf.activity.LoginActivity;
+import com.opensrp.chw.hf.activity.ReferralRegister;
 import com.opensrp.chw.hf.custom_view.HfNavigationMenu;
 import com.opensrp.chw.hf.job.HfJobCreator;
 import com.opensrp.chw.hf.model.NavigationModel;
@@ -146,6 +147,7 @@ public class HealthFacilityApplication extends CoreChwApplication implements Cor
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.FAMILY_REGISTER_ACTIVITY, FamilyRegisterActivity.class);
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.CHILD_REGISTER_ACTIVITY, ChildRegisterActivity.class);
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.PNC_REGISTER_ACTIVITY, FamilyRegisterActivity.class);
+        registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.REFERRALS_REGISTER_ACTIVITY, ReferralRegister.class);
         return registeredActivities;
     }
 

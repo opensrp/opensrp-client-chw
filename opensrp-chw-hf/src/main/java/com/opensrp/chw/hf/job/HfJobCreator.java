@@ -18,6 +18,7 @@ import org.smartregister.job.SyncTaskServiceJob;
 import org.smartregister.job.ValidateSyncDataServiceJob;
 import org.smartregister.sync.intent.LocationIntentService;
 import org.smartregister.sync.intent.SyncIntentService;
+import org.smartregister.sync.intent.SyncTaskIntentService;
 
 import timber.log.Timber;
 
