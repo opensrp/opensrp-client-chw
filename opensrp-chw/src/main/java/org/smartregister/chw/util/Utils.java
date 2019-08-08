@@ -157,7 +157,7 @@ public class Utils extends org.smartregister.family.util.Utils {
     }
 
     public static int getDueProfileImageResourceIDentifier() {
-        return R.color.visit_status_ok;
+        return R.color.due_profile_blue;
     }
 
     public static Integer daysBetweenDateAndNow(String date) {
