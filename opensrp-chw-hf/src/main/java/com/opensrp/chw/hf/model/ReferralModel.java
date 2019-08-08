@@ -29,10 +29,12 @@ public class ReferralModel extends BaseReferralModel {
     }
 
     private void addClientDetails(String table, Set<String> columns) {
+        columns.add(table + "." + "relationalid");
         columns.add(table + "." + DBConstants.KEY.FIRST_NAME);
         columns.add(table + "." + DBConstants.KEY.MIDDLE_NAME);
         columns.add(table + "." + DBConstants.KEY.LAST_NAME);
         columns.add(table + "." + DBConstants.KEY.DOB);
+        columns.add(table + "." + DBConstants.KEY.GENDER);
         columns.add(table + "." + DBConstants.KEY.GENDER);
 
     }
