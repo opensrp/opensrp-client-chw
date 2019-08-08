@@ -85,7 +85,7 @@ public class DefaultAncHomeVisitInteractorFlvTest {
 
         VaccineTaskModel vaccineTaskModel = Mockito.mock(VaccineTaskModel.class);
 
-        Mockito.doReturn(vaccineTaskModel).when(flv).getWomanVaccine(ArgumentMatchers.anyString(), ArgumentMatchers.any(DateTime.class), ArgumentMatchers.<VaccineWrapper>anyList());
+        Mockito.doReturn(vaccineTaskModel).when(flv).getWomanVaccine(ArgumentMatchers.anyString(), ArgumentMatchers.any(DateTime.class), ArgumentMatchers.anyList());
 
         MemberObject memberObject = new MemberObject();
         Whitebox.setInternalState(memberObject, "lastMenstrualPeriod", "01-01-2019");

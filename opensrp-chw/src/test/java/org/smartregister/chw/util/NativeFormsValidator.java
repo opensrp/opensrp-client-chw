@@ -18,10 +18,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import timber.log.Timber;
@@ -34,6 +34,15 @@ public class NativeFormsValidator extends BaseUnitTest {
 
     private List<String> forms = new ArrayList<>();
     private Context context = RuntimeEnvironment.application;
+
+    public static boolean isNumeric(String strNum) {
+        try {
+            Double.parseDouble(strNum);
+        } catch (NumberFormatException | NullPointerException nfe) {
+            return false;
+        }
+        return true;
+    }
 
     @Before
     public void setUp() throws IOException {
@@ -48,7 +57,7 @@ public class NativeFormsValidator extends BaseUnitTest {
             InputStream inputStream = context.getAssets()
                     .open("json.form/" + formIdentity);
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream,
-                    "UTF-8"));
+                    StandardCharsets.UTF_8));
             String jsonString;
             StringBuilder stringBuilder = new StringBuilder();
             while ((jsonString = reader.readLine()) != null) {
@@ -89,15 +98,6 @@ public class NativeFormsValidator extends BaseUnitTest {
         } catch (Exception e) {
             Assert.fail("Exception : " + e.toString());
         }
-    }
-
-    public static boolean isNumeric(String strNum) {
-        try {
-            Double.parseDouble(strNum);
-        } catch (NumberFormatException | NullPointerException nfe) {
-            return false;
-        }
-        return true;
     }
 
     /**
