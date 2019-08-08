@@ -167,6 +167,7 @@ public abstract class BaseReferralRegisterFragment extends BaseChwRegisterFragme
                 List<String> ids = commonRepository().findSearchIds(sql);
                 query = sqb.toStringFts(ids, tablename, CommonRepository.ID_COLUMN,
                         Sortqueries);
+                query = query.concat(String.format(" ORDER BY %s.%s desc", CoreConstants.TABLE_NAME.TASK, CoreConstants.DB_CONSTANTS.START));
                 query = sqb.Endquery(query);
             } else {
                 sqb.addCondition(filters);
