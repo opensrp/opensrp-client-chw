@@ -114,10 +114,13 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
 
             @Override
             public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
+                if (danger_signs_present_mama == null)
+                    return BaseAncHomeVisitAction.Status.PENDING;
+
                 if (StringUtils.isNotBlank(danger_signs_present_mama)) {
                     return BaseAncHomeVisitAction.Status.COMPLETED;
                 } else {
-                    return BaseAncHomeVisitAction.Status.PENDING;
+                    return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
                 }
             }
         };
@@ -152,10 +155,13 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
 
             @Override
             public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
+                if(StringUtils.isBlank(danger_signs_present_child))
+                    return BaseAncHomeVisitAction.Status.PENDING;
+
                 if (StringUtils.isNotBlank(danger_signs_present_child)) {
                     return BaseAncHomeVisitAction.Status.COMPLETED;
                 } else {
-                    return BaseAncHomeVisitAction.Status.PENDING;
+                    return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
                 }
             }
         }
@@ -385,10 +391,13 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
 
             @Override
             public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
+                if(StringUtils.isBlank(nutrition_status_mama))
+                    return BaseAncHomeVisitAction.Status.PENDING;
+
                 if (StringUtils.isNotBlank(nutrition_status_mama)) {
                     return BaseAncHomeVisitAction.Status.COMPLETED;
                 } else {
-                    return BaseAncHomeVisitAction.Status.PENDING;
+                    return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
                 }
             }
         };
