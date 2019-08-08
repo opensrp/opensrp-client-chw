@@ -166,6 +166,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
                         .withOptional(false)
                         .withDetails(details)
                         .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getDangerSignsBaby())
+                        .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.DETACHED)
                         .withHelper(new PNCDangerSignsBabyHelper())
                         .build();
                 actionList.put(MessageFormat.format(context.getString(R.string.pnc_danger_signs_baby), baby.getFullName()), action);
