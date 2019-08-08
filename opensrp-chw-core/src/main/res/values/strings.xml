@@ -166,7 +166,8 @@
     <string name="exclusive_breastfeeding">Exclusive breastfeeding</string>
     <string name="deworming">Deworming</string>
     <string name="vaccine_card_title">Child vaccine card received</string>
-    <string name="birth_certification">Birth certification</string><string name="home_visit_suffix"> &#183; Home Visit</string>
+    <string name="birth_certification">Birth certification</string>
+    <string name="home_visit_suffix"> &#183; Home Visit</string>
     <string name="no_vaccines_were_done">No vaccines were done</string>
     <string name="vaccine_card_text">Did the child receive their vaccine card?</string>
     <string name="record_immunizations">Record vaccinations</string>
@@ -205,5 +206,7 @@
 
     <!--Referral-->
     <string name="referred_by">Referred by CHW %1s</string>
+    <string name="hours_ago">1%dh ago</string>
+    <string name="yesterday">Yesterday</string>
 
 </resources>

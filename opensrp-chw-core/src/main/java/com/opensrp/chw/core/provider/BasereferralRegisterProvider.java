@@ -20,7 +20,6 @@ import org.smartregister.cursoradapter.RecyclerViewProvider;
 import org.smartregister.family.fragment.BaseFamilyRegisterFragment;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.Utils;
-import org.smartregister.util.DateUtil;
 import org.smartregister.view.contract.SmartRegisterClient;
 import org.smartregister.view.contract.SmartRegisterClients;
 import org.smartregister.view.dialog.FilterOption;
@@ -29,6 +28,8 @@ import org.smartregister.view.dialog.SortOption;
 import org.smartregister.view.viewholder.OnClickFormLauncher;
 
 import java.text.MessageFormat;
+
+import static com.opensrp.chw.core.utils.Utils.formatReferralDuration;
 
 public class BasereferralRegisterProvider implements RecyclerViewProvider<ReferralViewHolder> {
     private Context context;
@@ -65,7 +66,7 @@ public class BasereferralRegisterProvider implements RecyclerViewProvider<Referr
         String executionStart = Utils.getValue(pc.getColumnmaps(), CoreConstants.DB_CONSTANTS.START, false);
         if (StringUtils.isNotBlank(executionStart)) {
             DateTime duration = new DateTime(Long.valueOf(executionStart));
-            viewHolder.setReferralStart(DateUtil.getDuration(duration));
+            viewHolder.setReferralStart(formatReferralDuration(duration,context));
         }
         attachPatientOnclickListener(viewHolder.itemView, client);
 

@@ -30,6 +30,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
+import org.joda.time.Hours;
 import org.joda.time.Period;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.location.helper.LocationHelper;
@@ -312,5 +313,17 @@ public class Utils extends org.smartregister.family.util.Utils {
                 DBConstants.KEY.GENDER;
 
         return info_columns;
+    }
+
+    public static String formatReferralDuration(DateTime referralTime, Context context) {
+        DateTime now = new DateTime();
+        int days = Days.daysBetween(referralTime, now).getDays();
+        if (days == 0) {
+            return context.getString(R.string.hours_ago, Hours.hoursBetween(referralTime, now).getHours());
+        } else if (days == 1) {
+            return context.getString(R.string.yesterday);
+        } else {
+            return new SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(referralTime);
+        }
     }
 }
