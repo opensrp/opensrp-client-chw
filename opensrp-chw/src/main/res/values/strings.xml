@@ -398,7 +398,7 @@
     <string name="pnc_immunization_at_birth">Immunizations (at birth) ({0})</string>
     <string name="pnc_umblicord_care">Umbilical cord care</string>
     <string name="pnc_exclusive_breastfeeding">Exclusive breastfeeding ({0})</string>
-    <string name="pnc_kangeroo_mother_care">Kangeroo mother care (KNC) - ({0})</string>
+    <string name="pnc_kangaroo_mother_care">Kangaroo mother care (KNC) - ({0})</string>
     <string name="pnc_family_planning">Family planning</string>
     <string name="pnc_observation_and_illness_mother">Observations &amp; illness - mother </string>
     <string name="pnc_observation_and_illness_baby">Observations &amp; illness - baby ({0}) </string>

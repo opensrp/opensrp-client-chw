@@ -237,7 +237,7 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
                         .withDetails(details)
                         .withBaseEntityID(baby.getBaseEntityID())
                         .withVaccineWrapper(wrappers)
-                        .withDestinationFragment(BaseHomeVisitImmunizationFragment.getInstance(view, baby.getBaseEntityID(), details, wrappers))
+                        .withDestinationFragment(BaseHomeVisitImmunizationFragment.getInstance(view, baby.getBaseEntityID(), baby.getDob(), details, wrappers))
                         .withHelper(new ImmunizationActionHelper(context, wrappers))
                         .build();
                 actionList.put(MessageFormat.format(context.getString(R.string.pnc_immunization_at_birth), baby.getFullName()), action);
@@ -381,7 +381,7 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
         for (Person person : children) {
             PncBaby baby = (PncBaby) person;
             if (baby.getLbw().equalsIgnoreCase("yes")) {
-                String title = MessageFormat.format(context.getString(R.string.pnc_kangeroo_mother_care), baby.getFullName());
+                String title = MessageFormat.format(context.getString(R.string.pnc_kangaroo_mother_care), baby.getFullName());
                 BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, title)
                         .withOptional(false)
                         .withDetails(details)

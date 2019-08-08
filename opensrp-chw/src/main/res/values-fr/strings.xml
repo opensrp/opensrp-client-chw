@@ -398,7 +398,7 @@
     <string name="pnc_immunization_at_birth">Immunisations (à la naissance) ({0})</string>
     <string name="pnc_umblicord_care">Soins du cordon ombilical</string>
     <string name="pnc_exclusive_breastfeeding">Allaitement maternel exclusif ({0})</string>
-    <string name="pnc_kangeroo_mother_care">Soins maternels kangourou (SMK) - ({0})</string>
+    <string name="pnc_kangaroo_mother_care">Soins maternels kangourou (SMK) - ({0})</string>
     <string name="pnc_family_planning">Planification familiale</string>
     <string name="pnc_observation_and_illness_mother">Observations &amp; maladie - femme </string>
     <string name="pnc_observation_and_illness_baby">Observations &amp; maladie - enfant ({0})</string>
