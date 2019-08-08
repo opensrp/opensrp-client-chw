@@ -15,6 +15,7 @@ import org.smartregister.job.SyncServiceJob;
 import org.smartregister.job.SyncTaskServiceJob;
 import org.smartregister.job.ValidateSyncDataServiceJob;
 import org.smartregister.sync.intent.SyncIntentService;
+import org.smartregister.sync.intent.SyncTaskIntentService;
 
 import timber.log.Timber;
 
@@ -45,7 +46,7 @@ public class ChwJobCreator implements JobCreator {
             case HomeVisitServiceJob.TAG:
                 return new HomeVisitServiceJob();
             case SyncTaskServiceJob.TAG:
-                return new SyncTaskServiceJob();
+                return new SyncTaskServiceJob(SyncTaskIntentService.class);
             case PlanIntentServiceJob.TAG:
                 return new PlanIntentServiceJob();
             default:
