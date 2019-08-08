@@ -12,8 +12,6 @@ import timber.log.Timber;
 
 public class PncMemberProfilePresenter extends BaseAncMemberProfilePresenter implements FamilyProfileContract.InteractorCallBack {
 
-    private static final String TAG = PncMemberProfilePresenter.class.getCanonicalName();
-
     public PncMemberProfilePresenter(BaseAncMemberProfileContract.View view, BaseAncMemberProfileContract.Interactor interactor, MemberObject memberObject) {
         super(view, interactor, memberObject);
     }

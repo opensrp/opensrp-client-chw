@@ -5,9 +5,6 @@ import android.util.Pair;
 
 import org.ei.drishti.dto.AlertStatus;
 import org.jeasy.rules.api.Rules;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.contract.BaseAncMemberProfileContract;
 import org.smartregister.chw.anc.domain.MemberObject;
@@ -22,7 +19,6 @@ import org.smartregister.chw.util.VisitSummary;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
-import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.util.Utils;
 
 import java.text.ParseException;
@@ -101,7 +97,7 @@ public class PncMemberProfileInteractor extends BasePncMemberProfileInteractor {
         Rules rules = ChwApplication.getInstance().getRulesEngineHelper().rules(org.smartregister.chw.util.Constants.RULE_FILE.ANC_HOME_VISIT);
         String dayPnc = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.DELIVERY_DATE, true);
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
-        String baseEntityID = org.smartregister.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, false);
+        String baseEntityID = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, false);
         Date deliveryDate = null;
         Date lastVisitDate = null;
         Date lastNotVisitDate = null;

@@ -287,7 +287,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
             public void onPayloadReceived(String jsonPayload) {
                 try {
                     JSONObject jsonObject = new JSONObject(jsonPayload);
-                    exclusive_breast_feeding = JsonFormUtils.getValue(jsonObject, "exclusive_breast_feeding");
+                    exclusive_breast_feeding = getValue(jsonObject, "exclusive_breast_feeding");
                 } catch (JSONException e) {
                     Timber.e(e);
                 }

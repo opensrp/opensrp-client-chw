@@ -186,7 +186,7 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
             public void onPayloadReceived(String jsonPayload) {
                 try {
                     JSONObject jsonObject = new JSONObject(jsonPayload);
-                    vaccine_card = JsonFormUtils.getValue(jsonObject, "vaccine_card");
+                    vaccine_card = getValue(jsonObject, "vaccine_card");
                 } catch (JSONException e) {
                     Timber.e(e);
                 }
@@ -301,7 +301,7 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
             public void onPayloadReceived(String jsonPayload) {
                 try {
                     JSONObject jsonObject = new JSONObject(jsonPayload);
-                    exclusive_breast_feeding = JsonFormUtils.getValue(jsonObject, "exclusive_breast_feeding");
+                    exclusive_breast_feeding = getValue(jsonObject, "exclusive_breast_feeding");
                 } catch (JSONException e) {
                     Timber.e(e);
                 }
@@ -349,7 +349,7 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
             public void onPayloadReceived(String jsonPayload) {
                 try {
                     JSONObject jsonObject = new JSONObject(jsonPayload);
-                    kangaroo = JsonFormUtils.getValue(jsonObject, "kangaroo");
+                    kangaroo = getValue(jsonObject, "kangaroo");
                 } catch (JSONException e) {
                     Timber.e(e);
                 }

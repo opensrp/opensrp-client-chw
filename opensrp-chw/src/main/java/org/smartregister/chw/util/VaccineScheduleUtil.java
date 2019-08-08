@@ -168,7 +168,7 @@ public class VaccineScheduleUtil {
      * @return
      */
     public static List<VaccineGroup> getVaccineGroups(Context context, String vaccineType) {
-        return vaccineType.equals("woman") ?
+        return "woman".equals(vaccineType) ?
                 VaccinatorUtils.getSupportedWomanVaccines(context) :
                 VaccinatorUtils.getSupportedVaccines(context);
     }

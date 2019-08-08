@@ -39,7 +39,7 @@ import static org.smartregister.chw.anc.util.JsonFormUtils.SetRequiredFieldsToFa
 
 public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
 
-    PncMemberProfileInteractor basePncMemberProfileInteractor = new PncMemberProfileInteractor(this);
+    private PncMemberProfileInteractor basePncMemberProfileInteractor = new PncMemberProfileInteractor(this);
 
     public static void startMe(Activity activity, MemberObject memberObject, String familyHeadName, String familyHeadPhoneNumber) {
         Intent intent = new Intent(activity, PncMemberProfileActivity.class);
@@ -219,7 +219,7 @@ public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
 
             @Override
             public void setFamilyID(String familyID) {
-
+//                Implement
             }
 
             @Override
