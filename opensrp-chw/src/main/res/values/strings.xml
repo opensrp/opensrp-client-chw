@@ -435,5 +435,17 @@
     <string name="abv_tenth">10th</string>
     <string name="abv_eleventh">11th</string>
     <string name="abv_twelfth">12th</string>
+    <string name="change_member_alert">Kindly complete the form before submitting</string>
+    <string name="must_start_with_zero">Must start with 0</string>
+    <string name="length_equal_10">Length must be equal to 10</string>
+    <string name="dismiss">Dismiss</string>
+    <string name="birth">birth</string>
+    <string name="week_full">weeks</string>
+    <string name="month_full">months</string>
+    <string name="at_birth">at birth</string>
+    <string name="child">child</string>
+    <string name="birth_cap">Birth</string>
+    <string name="done">done</string>
+    <string name="on">on</string>
 
 </resources>

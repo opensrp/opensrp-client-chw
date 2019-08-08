@@ -309,6 +309,13 @@
         "v_required": {
           "value": "vrai",
           "err": "Veuillez entrer nise au sein precoce à la naissance (1 hr)?"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family-child-relevance.yml"
+            }
+          }
         }
       },
       {

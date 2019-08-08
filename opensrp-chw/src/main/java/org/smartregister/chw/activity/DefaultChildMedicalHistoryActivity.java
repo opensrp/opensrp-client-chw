@@ -114,7 +114,7 @@ public abstract class DefaultChildMedicalHistoryActivity implements ChildMedical
         if (presenter.getVaccineBaseItem() != null && presenter.getVaccineBaseItem().size() > 0) {
             layoutImmunization.setVisibility(View.VISIBLE);
             if (vaccineAdapter == null) {
-                vaccineAdapter = new VaccineAdapter();
+                vaccineAdapter = new VaccineAdapter(activity);
                 vaccineAdapter.addItem(presenter.getVaccineBaseItem());
                 recyclerViewImmunization.setAdapter(vaccineAdapter);
             } else {

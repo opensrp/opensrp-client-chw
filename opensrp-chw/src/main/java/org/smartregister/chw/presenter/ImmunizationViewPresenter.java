@@ -46,12 +46,12 @@ public class ImmunizationViewPresenter implements ImmunizationContact.Presenter,
 
     public ImmunizationViewPresenter(ImmunizationContact.View view) {
         this.view = new WeakReference<>(view);
-        interactor = new ImmunizationViewInteractor();
+        interactor = new ImmunizationViewInteractor(view.getMyContext());
         vaccineRepository = ImmunizationLibrary.getInstance().vaccineRepository();
     }
 
     public ImmunizationViewPresenter() {
-        interactor = new ImmunizationViewInteractor();
+        interactor = new ImmunizationViewInteractor(getView().getMyContext());
         vaccineRepository = ImmunizationLibrary.getInstance().vaccineRepository();
     }
 
