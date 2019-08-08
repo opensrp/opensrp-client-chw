@@ -4,7 +4,8 @@ import android.util.Pair;
 
 import com.opensrp.chw.core.contract.CoreChildProfileContract;
 import com.opensrp.chw.core.presenter.CoreChildProfilePresenter;
-import com.opensrp.chw.hf.interactor.ChildProfileInteractor;
+import com.opensrp.chw.hf.interactor.HfChildProfileInteractor;
+import com.opensrp.chw.hf.interactor.HfFamilyProfileInteractor;
 import com.opensrp.chw.hf.model.ChildRegisterModel;
 import com.opensrp.hf.R;
 
@@ -13,11 +14,11 @@ import org.smartregister.clientandeventmodel.Event;
 
 import java.lang.ref.WeakReference;
 
-public class ChildProfilePresenter extends CoreChildProfilePresenter {
+public class HfChildProfilePresenter extends CoreChildProfilePresenter {
 
-    public ChildProfilePresenter(CoreChildProfileContract.View childView, CoreChildProfileContract.Model model, String childBaseEntityId) {
+    public HfChildProfilePresenter(CoreChildProfileContract.View childView, CoreChildProfileContract.Model model, String childBaseEntityId) {
         setView(new WeakReference<>(childView));
-        setInteractor(new ChildProfileInteractor());
+        setInteractor(new HfChildProfileInteractor());
         setModel(model);
         setChildBaseEntityId(childBaseEntityId);
     }
@@ -32,5 +33,10 @@ public class ChildProfilePresenter extends CoreChildProfilePresenter {
         }
 
         getInteractor().saveRegistration(pair, jsonString, true, this);
+    }
+
+    @Override
+    public void verifyHasPhone() {
+        new HfFamilyProfileInteractor().verifyHasPhone(familyID, this);
     }
 }

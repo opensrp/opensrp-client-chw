@@ -126,6 +126,8 @@
     <string name="registration_info">Registration info</string>
     <string name="anc_registration">ANC Registration</string>
     <string name="malaria_registration">Malaria Confirmation</string>
+    <string name="malaria_diagnosis">Malaria Diagnosis</string>
+    <string name="sick_child_follow_up">Sick child follow-up</string>
     <string name="edit_child_form_title">Edit Child Under 5</string>
     <string name="visit_month">%1$s visit done</string>
     <string name="refer_to_facility">Refer to facility</string>
@@ -204,7 +206,17 @@
     <string name="select_a_new_family_head">Select a new family head</string>
     <string name="remove_family_count">%s adults and %s U5 children</string>
 
-    <!--Referral-->
+
+    <string name="medical_title">Back to %1$s\'s profile</string>
+    <string name="medical_last_visit">%1$s ago</string>
+    <string name="back_to_children">Back to %1$s</string>
+    <string name="last_visit">LAST VISIT</string>
+    <string name="immunization">IMMUNIZATION</string>
+    <string name="health_child_milestone">Healthy child milestone</string>
+    <string name="fully_immunized_at_age_2">Fully immunized at age 2</string>
+    <string name="fully_immunized_at_age_1">Fully immunized at age 1</string>
+
+  <!--Referral-->
     <string name="referred_by">Referred by CHW %1s</string>
     <string name="hours_ago">1%dh ago</string>
     <string name="yesterday">Yesterday</string>

@@ -166,7 +166,7 @@ public class CoreChildHomeVisitFragment extends DialogFragment implements View.O
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
 
-        return (ViewGroup) inflater.inflate(R.layout.fragment_child_home_visit, container, false);
+        return inflater.inflate(R.layout.fragment_child_home_visit, container, false);
     }
 
     @Override
@@ -193,7 +193,7 @@ public class CoreChildHomeVisitFragment extends DialogFragment implements View.O
         circleImageViewVaccineCard = view.findViewById(R.id.vc_status_circle);
         layoutBirthCertGroup = view.findViewById(R.id.birth_cert_group);
         LinearLayout layoutIllnessGroup = view.findViewById(R.id.obs_illness_prevention_group);
-        if (flavor.onObsIllnessVisibility()) {
+        if (flavor != null && flavor.onObsIllnessVisibility()) {
             layoutIllnessGroup.setVisibility(View.VISIBLE);
         } else {
             layoutIllnessGroup.setVisibility(View.GONE);
@@ -214,7 +214,7 @@ public class CoreChildHomeVisitFragment extends DialogFragment implements View.O
         updateGrowthData();
         if (isEditMode) {
             immunizationView.setChildClient(this, getActivity(), childClient, true);
-            ((ChildHomeVisitPresenter) presenter).getLastEditData();
+            presenter.getLastEditData();
             submitButtonEnableDisable(false);
         } else {
             immunizationView.setChildClient(this, getActivity(), childClient, false);
@@ -368,7 +368,7 @@ public class CoreChildHomeVisitFragment extends DialogFragment implements View.O
         if (allVaccineDataLoaded && allServicesDataLoaded) {
             progressBar.setVisibility(View.GONE);
             homeVisitLayout.setVisibility(View.VISIBLE);
-            if (flavor.onTaskVisibility()) {
+            if (flavor !=null && flavor.onTaskVisibility()) {
                 presenter.generateTaskService(isEditMode);
             }
 
@@ -381,7 +381,7 @@ public class CoreChildHomeVisitFragment extends DialogFragment implements View.O
     public void forcfullyProgressBarInvisible() {
         progressBar.setVisibility(View.GONE);
         homeVisitLayout.setVisibility(View.VISIBLE);
-        if (flavor.onTaskVisibility()) {
+        if (flavor !=null && flavor.onTaskVisibility()) {
             presenter.generateTaskService(isEditMode);
         }
     }

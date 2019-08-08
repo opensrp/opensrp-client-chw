@@ -90,6 +90,10 @@
             android:screenOrientation="portrait"
             android:theme="@style/HFTheme.NoActionBar" />
         <activity
+            android:name="com.opensrp.chw.core.activity.CoreChildMedicalHistoryActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/HFTheme.NoActionBar" />
+        <activity
             android:name="com.opensrp.chw.hf.activity.ReferralRegister"
             android:screenOrientation="portrait"
             android:theme="@style/HFTheme.NoActionBar" />

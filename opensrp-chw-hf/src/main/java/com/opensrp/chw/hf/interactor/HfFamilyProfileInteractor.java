@@ -2,9 +2,9 @@ package com.opensrp.chw.hf.interactor;
 
 import com.opensrp.chw.core.interactor.CoreFamilyProfileInteractor;
 
-public class FamilyProfileInteractor extends CoreFamilyProfileInteractor {
+public class HfFamilyProfileInteractor extends CoreFamilyProfileInteractor {
 
-    public FamilyProfileInteractor() {
+    public HfFamilyProfileInteractor() {
         super();
     }
 }

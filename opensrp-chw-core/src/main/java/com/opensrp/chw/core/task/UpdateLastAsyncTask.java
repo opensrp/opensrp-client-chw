@@ -1,4 +1,4 @@
-package org.smartregister.chw.task;
+package com.opensrp.chw.core.task;
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -6,16 +6,16 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 
+import com.opensrp.chw.core.R;
+import com.opensrp.chw.core.application.CoreChwApplication;
 import com.opensrp.chw.core.holders.RegisterViewHolder;
+import com.opensrp.chw.core.interactor.CoreChildProfileInteractor;
 import com.opensrp.chw.core.model.ChildVisit;
 import com.opensrp.chw.core.utils.ChildDBConstants;
+import com.opensrp.chw.core.utils.CoreChildUtils;
+import com.opensrp.chw.core.utils.CoreConstants;
 
 import org.jeasy.rules.api.Rules;
-import org.smartregister.chw.R;
-import org.smartregister.chw.application.ChwApplication;
-import org.smartregister.chw.interactor.ChildProfileInteractor;
-import org.smartregister.chw.util.ChildUtils;
-import org.smartregister.chw.util.Constants;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.family.util.DBConstants;
@@ -38,7 +38,7 @@ public class UpdateLastAsyncTask extends AsyncTask<Void, Void, Void> {
         this.viewHolder = viewHolder;
         this.baseEntityId = baseEntityId;
         this.onClickListener = onClickListener;
-        this.rules = ChwApplication.getInstance().getRulesEngineHelper().rules(Constants.RULE_FILE.HOME_VISIT);
+        this.rules = CoreChwApplication.getInstance().getRulesEngineHelper().rules(CoreConstants.RULE_FILE.HOME_VISIT);
     }
 
     @Override
@@ -61,7 +61,7 @@ public class UpdateLastAsyncTask extends AsyncTask<Void, Void, Void> {
                 }
 
                 String dobString = Utils.getDuration(Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.DOB, false));
-                childVisit = ChildUtils.getChildVisitStatus(context, rules, dobString, lastVisit, visitNot, dateCreated);
+                childVisit = CoreChildUtils.getChildVisitStatus(context, rules, dobString, lastVisit, visitNot, dateCreated);
 
             }
             return null;
@@ -73,15 +73,15 @@ public class UpdateLastAsyncTask extends AsyncTask<Void, Void, Void> {
     protected void onPostExecute(Void param) {
         if (commonPersonObject != null) {
             viewHolder.dueButton.setVisibility(View.VISIBLE);
-            if (childVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.DUE.name())) {
+            if (childVisit.getVisitStatus().equalsIgnoreCase(CoreChildProfileInteractor.VisitType.DUE.name())) {
                 setVisitButtonDueStatus(context, viewHolder.dueButton);
-            } else if (childVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.OVERDUE.name())) {
+            } else if (childVisit.getVisitStatus().equalsIgnoreCase(CoreChildProfileInteractor.VisitType.OVERDUE.name())) {
                 setVisitButtonOverdueStatus(context, viewHolder.dueButton, childVisit.getNoOfMonthDue());
-            } else if (childVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.LESS_TWENTY_FOUR.name())) {
+            } else if (childVisit.getVisitStatus().equalsIgnoreCase(CoreChildProfileInteractor.VisitType.LESS_TWENTY_FOUR.name())) {
                 setVisitLessTwentyFourView(context, viewHolder.dueButton, childVisit.getLastVisitDays());
-            } else if (childVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.VISIT_THIS_MONTH.name())) {
+            } else if (childVisit.getVisitStatus().equalsIgnoreCase(CoreChildProfileInteractor.VisitType.VISIT_THIS_MONTH.name())) {
                 setVisitAboveTwentyFourView(context, viewHolder.dueButton);
-            } else if (childVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.NOT_VISIT_THIS_MONTH.name())) {
+            } else if (childVisit.getVisitStatus().equalsIgnoreCase(CoreChildProfileInteractor.VisitType.NOT_VISIT_THIS_MONTH.name())) {
                 setVisitNotDone(context, viewHolder.dueButton);
             }
         } else {

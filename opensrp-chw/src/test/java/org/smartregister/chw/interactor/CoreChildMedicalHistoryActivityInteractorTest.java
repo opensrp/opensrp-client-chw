@@ -33,7 +33,7 @@ import static com.opensrp.chw.core.utils.ChildDBConstants.KEY.ILLNESS_DESCRIPTIO
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 
-public class ChildMedicalHistoryActivityInteractorTest extends BaseUnitTest {
+public class CoreChildMedicalHistoryActivityInteractorTest extends BaseUnitTest {
 
     private ChildMedicalHistoryInteractor interactor;
     private AppExecutors appExecutors;

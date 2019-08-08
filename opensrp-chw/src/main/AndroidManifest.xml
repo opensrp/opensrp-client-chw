@@ -122,7 +122,7 @@
             android:label="@string/medical_history"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
-            android:name=".activity.UpcomingServicesActivity"
+            android:name="com.opensrp.chw.core.activity.CoreUpcomingServicesActivity"
             android:label="@string/upcoming_services"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity

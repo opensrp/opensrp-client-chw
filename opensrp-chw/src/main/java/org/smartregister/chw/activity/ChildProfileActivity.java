@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.opensrp.chw.core.activity.CoreChildProfileActivity;
+import com.opensrp.chw.core.activity.CoreUpcomingServicesActivity;
 import com.opensrp.chw.core.fragment.CoreChildHomeVisitFragment;
 import com.opensrp.chw.core.listener.OnClickFloatingMenu;
 import com.opensrp.chw.core.model.CoreChildProfileModel;
@@ -134,7 +135,7 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
     }
 
     private void openUpcomingServicePage() {
-        UpcomingServicesActivity.startUpcomingServicesActivity(this, ((CoreChildProfilePresenter) presenter()).getChildClient());
+        CoreUpcomingServicesActivity.startUpcomingServicesActivity(this, ((CoreChildProfilePresenter) presenter()).getChildClient());
     }
 
     private void openMedicalHistoryScreen() {

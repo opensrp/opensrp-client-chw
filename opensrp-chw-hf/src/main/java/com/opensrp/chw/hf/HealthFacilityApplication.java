@@ -104,7 +104,6 @@ public class HealthFacilityApplication extends CoreChwApplication implements Cor
         AncLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
         PncLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
         MalariaLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
-
         setOpenSRPUrl();
 
         Configuration configuration = getApplicationContext().getResources().getConfiguration();

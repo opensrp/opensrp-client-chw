@@ -21,6 +21,8 @@ import java.lang.ref.WeakReference;
 import java.util.Date;
 import java.util.Map;
 
+import timber.log.Timber;
+
 import static org.apache.commons.lang3.StringUtils.isBlank;
 
 public class CoreChildProfilePresenter implements CoreChildProfileContract.Presenter, CoreChildProfileContract.InteractorCallBack, FamilyProfileExtendedContract.PresenterCallBack {
@@ -191,21 +193,15 @@ public class CoreChildProfilePresenter implements CoreChildProfileContract.Prese
             }
             getView().startFormActivity(form);
         } catch (Exception e) {
-
+            Timber.e(e, "CoreChildProfilePresenter --> startFormForEdit");
         }
-
-//        } catch (Exception e) {
-//            Log.e("TAG", e.getMessage());
-//        }
     }
-
 
     @Override
     public void updateAfterBackGroundProcessed() {
         if (getView() != null) {
             getView().updateAfterBackgroundProcessed();
         }
-
     }
 
     @Override
@@ -251,7 +247,6 @@ public class CoreChildProfilePresenter implements CoreChildProfileContract.Prese
             } else {
                 getView().setServiceNameDue("", "");
             }
-
         }
     }
 
