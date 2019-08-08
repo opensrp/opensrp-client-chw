@@ -298,6 +298,8 @@ public abstract class CoreChildUtils {
         columnList.add(familyMemberTable + "." + DBConstants.KEY.FIRST_NAME + " as " + ChildDBConstants.KEY.FAMILY_FIRST_NAME);
         columnList.add(familyMemberTable + "." + DBConstants.KEY.LAST_NAME + " as " + ChildDBConstants.KEY.FAMILY_LAST_NAME);
         columnList.add(familyMemberTable + "." + DBConstants.KEY.MIDDLE_NAME + " as " + ChildDBConstants.KEY.FAMILY_MIDDLE_NAME);
+        columnList.add(familyMemberTable + "." + ChildDBConstants.PHONE_NUMBER + " as " + ChildDBConstants.KEY.FAMILY_MEMBER_PHONENUMBER);
+        columnList.add(familyMemberTable + "." + ChildDBConstants.OTHER_PHONE_NUMBER + " as " + ChildDBConstants.KEY.FAMILY_MEMBER_PHONENUMBER_OTHER);
         columnList.add(familyTable + "." + DBConstants.KEY.VILLAGE_TOWN + " as " + ChildDBConstants.KEY.FAMILY_HOME_ADDRESS);
         columnList.add(tableName + "." + DBConstants.KEY.LAST_NAME);
         columnList.add(tableName + "." + DBConstants.KEY.UNIQUE_ID);
@@ -602,6 +604,7 @@ public abstract class CoreChildUtils {
         CoreChwApplication.getInstance().getRulesEngineHelper().getButtonAlertStatus(homeAlertRule, CoreConstants.RULE_FILE.HOME_VISIT);
         return getChildVisitStatus(homeAlertRule, lastVisitDate);
     }
+
     /**
      * Rules can be retrieved separately so that the background thread is used here
      *

@@ -20,6 +20,7 @@ import org.smartregister.immunization.domain.jsonmapping.Vaccine;
 import org.smartregister.immunization.domain.jsonmapping.VaccineGroup;
 import org.smartregister.immunization.repository.VaccineRepository;
 import org.smartregister.immunization.util.VaccinatorUtils;
+import org.smartregister.repository.LocationRepository;
 import org.smartregister.repository.PlanDefinitionRepository;
 import org.smartregister.repository.TaskNotesRepository;
 import org.smartregister.repository.TaskRepository;
@@ -54,6 +55,7 @@ public class CoreChwApplication extends DrishtiApplication implements CoreApplic
     private RulesEngineHelper rulesEngineHelper;
     private TaskRepository taskRepository;
     private PlanDefinitionRepository planDefinitionRepository;
+    private LocationRepository locationRepository;
 
     public static synchronized CoreChwApplication getInstance() {
         return (CoreChwApplication) mInstance;
@@ -187,6 +189,13 @@ public class CoreChwApplication extends DrishtiApplication implements CoreApplic
             planDefinitionRepository = new PlanDefinitionRepository(getRepository());
         }
         return planDefinitionRepository;
+    }
+
+    public LocationRepository getLocationRepository() {
+        if (locationRepository == null) {
+            locationRepository = new LocationRepository(getRepository());
+        }
+        return locationRepository;
     }
 
     public void initOfflineSchedules() {

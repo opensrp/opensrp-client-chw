@@ -36,8 +36,8 @@ public class LoginInteractor extends BaseLoginInteractor implements BaseLoginCon
         HomeVisitServiceJob.scheduleJob(HomeVisitServiceJob.TAG, TimeUnit.MINUTES.toMinutes(
                 BuildConfig.HOME_VISIT_MINUTES), getFlexValue(BuildConfig.HOME_VISIT_MINUTES));
 
-        PlanIntentServiceJob.scheduleJob(PlanIntentServiceJob.TAG, TimeUnit.MINUTES.toMinutes(
-                BuildConfig.DATA_SYNC_DURATION_MINUTES), getFlexValue(BuildConfig.DATA_SYNC_DURATION_MINUTES));
+        /*PlanIntentServiceJob.scheduleJob(PlanIntentServiceJob.TAG, TimeUnit.MINUTES.toMinutes(
+                BuildConfig.DATA_SYNC_DURATION_MINUTES), getFlexValue(BuildConfig.DATA_SYNC_DURATION_MINUTES));*/
 
         SyncTaskServiceJob.scheduleJob(SyncTaskServiceJob.TAG, TimeUnit.MINUTES.toMinutes(
                 BuildConfig.DATA_SYNC_DURATION_MINUTES), getFlexValue(BuildConfig.DATA_SYNC_DURATION_MINUTES));
@@ -48,7 +48,7 @@ public class LoginInteractor extends BaseLoginInteractor implements BaseLoginCon
     protected void scheduleJobsImmediately() {
         super.scheduleJobsImmediately();
         HomeVisitServiceJob.scheduleJobImmediately(HomeVisitServiceJob.TAG);
-        PlanIntentServiceJob.scheduleJobImmediately(PlanIntentServiceJob.TAG);
+        //PlanIntentServiceJob.scheduleJobImmediately(PlanIntentServiceJob.TAG);
         SyncTaskServiceJob.scheduleJobImmediately(SyncTaskServiceJob.TAG);
     }
 }

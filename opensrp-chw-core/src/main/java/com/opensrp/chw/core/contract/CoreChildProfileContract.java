@@ -125,7 +125,7 @@ public interface CoreChildProfileContract {
 
         void refreshProfileView(String baseEntityId, boolean isForEdit, CoreChildProfileContract.InteractorCallBack callback);
 
-        void getClientTasks(String baseEntityId, CoreChildProfileContract.InteractorCallBack callback);
+        void getClientTasks(String planId, String baseEntityId, CoreChildProfileContract.InteractorCallBack callback);
 
         void saveRegistration(final Pair<Client, Event> pair, final String jsonString, final boolean isEditMode, final CoreChildProfileContract.InteractorCallBack callBack);
 

@@ -6,6 +6,8 @@ import org.smartregister.family.util.DBConstants;
 
 public class ChildDBConstants {
     private static final int FIVE_YEAR = 5;
+    public static final String OTHER_PHONE_NUMBER = "other_phone_number";
+    public static final String PHONE_NUMBER = "phone_number";
 
     public static String childAgeLimitFilter() {
         return childAgeLimitFilter(DBConstants.KEY.DOB, FIVE_YEAR);
@@ -78,6 +80,8 @@ public class ChildDBConstants {
         public static final String RELATIONAL_ID = "relationalid";
         public static final String FAMILY_FIRST_NAME = "family_first_name";
         public static final String FAMILY_MIDDLE_NAME = "family_middle_name";
+        public static final String FAMILY_MEMBER_PHONENUMBER = "family_member_phone_number";
+        public static final String FAMILY_MEMBER_PHONENUMBER_OTHER = "family_member_phone_number_other";
         public static final String FAMILY_LAST_NAME = "family_last_name";
         public static final String FAMILY_HOME_ADDRESS = "family_home_address";
         public static final String ENTITY_TYPE = "entity_type";

@@ -1,81 +1,371 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/white"
+    android:orientation="vertical"
     android:weightSum="1">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/opensrp_primary"
+        android:background="@color/white"
         android:fitsSystemWindows="true"
         android:orientation="vertical"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp">
 
         <android.support.v7.widget.Toolbar
-            android:id="@+id/detail_toolbar"
+            android:id="@+id/back_referrals_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/opensrp_primary"
-            android:padding="0dp"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Dark">
+            android:layout_height="?attr/actionBarSize"
+            android:contentInsetStart="0dp"
+            android:contentInsetLeft="0dp"
+            android:contentInsetEnd="0dp"
+            android:contentInsetRight="0dp"
+            app:contentInsetEnd="0dp"
+            app:contentInsetLeft="0dp"
+            app:contentInsetRight="0dp"
+            app:contentInsetStart="0dp"
+            app:contentInsetStartWithNavigation="0dp"
+            app:layout_collapseMode="pin">
+
+            <org.smartregister.view.customcontrols.CustomFontTextView
+                android:id="@+id/toolbar_title"
+                style="@style/CustomFontTextViewStyle.ClientList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical|start"
+                android:paddingStart="0dp"
+                android:paddingLeft="0dp"
+                android:paddingEnd="0dp"
+                android:paddingRight="0dp"
+                android:text="@string/back_to_referrals"
+                android:textColor="@color/customAppThemeBlue"
+                android:textSize="17sp" />
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
+
+    <ScrollView
+        android:id="@+id/details_scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/app_bar"
+        android:paddingStart="10dp"
+        android:paddingTop="10dp"
+        android:paddingEnd="10dp">
+
+        <RelativeLayout
+            android:id="@+id/referral_profile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/client_detials"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:orientation="horizontal">
+
+                <org.smartregister.view.customcontrols.CustomFontTextView
+                    android:id="@+id/client_name"
+                    style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="Susan Emma,"
+                    android:textColor="@color/text_black"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+
+                <org.smartregister.view.customcontrols.CustomFontTextView
+                    android:id="@+id/client_age"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:padding="5dp"
+                    android:text="3w"
+                    android:textColor="@color/text_black"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/care_giver_name_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:layout_below="@+id/client_detials"
+                android:orientation="horizontal">
+
+                <org.smartregister.view.customcontrols.CustomFontTextView
+                    android:id="@+id/care_giver_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:padding="5dp"
+                    android:text="CG: Emily Emma"
+                    android:textColor="@color/text_black"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/care_giver_phone_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:layout_below="@+id/care_giver_name_layout"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical">
+
+                <org.smartregister.view.customcontrols.CustomFontTextView
+                    android:id="@+id/care_giver_phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:padding="5dp"
+                    android:text="072324242424"
+                    android:textColor="@color/opensrp_primary"
+                    android:textSize="17sp"
+                    android:textStyle="normal" />
+
+                <org.smartregister.view.customcontrols.CustomFontTextView
+                    android:id="@+id/care_giver_phone_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:padding="5dp"
+                    android:text="@string/phone"
+                    android:textColor="@color/grey"
+                    android:textSize="15sp"
+                    android:textStyle="normal" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/client_referral_problem_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:layout_below="@+id/care_giver_phone_layout"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
+
+                <org.smartregister.view.customcontrols.CustomFontTextView
+                    android:id="@+id/client_referral_problem"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:padding="5dp"
+                    android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididun"
+                    android:textColor="@color/text_black"
+                    android:textSize="17sp"
+                    android:textStyle="normal" />
+
+                <org.smartregister.view.customcontrols.CustomFontTextView
+                    android:id="@+id/cclient_referral_problem_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:text="@string/problem"
+                    android:textColor="@color/grey"
+                    android:textSize="15sp"
+                    android:textStyle="normal" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/referral_date_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:layout_below="@+id/client_referral_problem_layout"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="20dp"
+                android:orientation="vertical">
+
+                <org.smartregister.view.customcontrols.CustomFontTextView
+                    android:id="@+id/referral_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:padding="5dp"
+                    android:text="26 Feb 2019"
+                    android:textColor="@color/text_black"
+                    android:textSize="17sp"
+                    android:textStyle="normal" />
+
+                <org.smartregister.view.customcontrols.CustomFontTextView
+                    android:id="@+id/referral_date_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:text="@string/referral_date"
+                    android:textColor="@color/grey"
+                    android:textSize="15sp"
+                    android:textStyle="normal" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/chw_details_row"
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_below="@+id/referral_date_layout"
+                android:background="@color/light_grey"
+                android:visibility="visible" />
+
+            <LinearLayout
+                android:id="@+id/chw_details_bottom_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:layout_below="@+id/chw_details_row"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
+
+                <org.smartregister.view.customcontrols.CustomFontTextView
+                    android:id="@+id/chw_details_names"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:padding="5dp"
+                    android:text="Emily Emma"
+                    android:textColor="@color/text_black"
+                    android:textSize="17sp"
+                    android:textStyle="normal" />
+
+                <org.smartregister.view.customcontrols.CustomFontTextView
+                    android:id="@+id/chw_details_names_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:text="@string/chw"
+                    android:textColor="@color/grey"
+                    android:textSize="15sp"
+                    android:textStyle="normal" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/chw_details_phone_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:layout_below="@+id/chw_details_bottom_layout"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
+
+                <org.smartregister.view.customcontrols.CustomFontTextView
+                    android:id="@+id/chw_details_phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:padding="5dp"
+                    android:text="072324242424"
+                    android:textColor="@color/opensrp_primary"
+                    android:textSize="17sp"
+                    android:textStyle="normal" />
+
+                <org.smartregister.view.customcontrols.CustomFontTextView
+                    android:id="@+id/chw_details_phone_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:text="@string/chw_phone"
+                    android:textColor="@color/grey"
+                    android:textSize="15sp"
+                    android:textStyle="normal" />
+            </LinearLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/chw_details_phone_layout"
+                android:layout_alignParentBottom="true"
+                android:layout_marginTop="30dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp">
 
-                <ImageView
-                    android:id="@+id/close"
-                    android:layout_width="@dimen/tool_bar_image"
-                    android:layout_height="@dimen/tool_bar_image"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true"
-                    android:tint="@color/white"
-                    app:srcCompat="@drawable/ic_action_close" />
+                <View
+                    android:id="@+id/view_referal_row"
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@color/light_grey"
+                    android:visibility="visible" />
 
-                <org.smartregister.view.customcontrols.CustomFontTextView
-                    android:id="@+id/textview_submit"
-                    style="@style/CustomFontTextViewStyle.ClientList.Bold"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:id="@+id/record_visit_bar"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginEnd="@dimen/child_home_visit_right_margin"
-                    android:layout_marginRight="@dimen/child_home_visit_right_margin"
-                    android:text="@string/submit"
-                    android:textAllCaps="true"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    android:textColor="@android:color/white" />
+                    android:layout_below="@+id/view_referal_row"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:visibility="visible"
+                    android:weightSum="2">
+
+                    <org.smartregister.view.customcontrols.CustomFontTextView
+                        android:id="@+id/mark_ask_done"
+                        style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_weight="1"
+                        android:background="@drawable/record_btn_selector"
+                        android:gravity="center_horizontal|center_vertical"
+                        android:paddingStart="30dp"
+                        android:paddingTop="10dp"
+                        android:paddingEnd="30dp"
+                        android:paddingBottom="10dp"
+                        android:text="@string/mark_as_done"
+                        android:textAllCaps="true"
+                        android:textColor="@color/white"
+                        android:clickable="true"
+                        android:focusable="true" />
+
+                    <org.smartregister.view.customcontrols.CustomFontTextView
+                        android:id="@+id/view_profile"
+                        style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginLeft="20dp"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal"
+                        android:paddingStart="30dp"
+                        android:paddingTop="10dp"
+                        android:paddingEnd="30dp"
+                        android:paddingBottom="10dp"
+                        android:text="@string/view_profile"
+                        android:textAllCaps="true"
+                        android:textColor="@color/opensrp_primary"
+                        android:clickable="true"
+                        android:focusable="true"/>
+                </LinearLayout>
             </RelativeLayout>
-
-        </android.support.v7.widget.Toolbar>
-
-        <org.smartregister.view.customcontrols.CustomFontTextView
-            android:id="@+id/textview_name_header"
-            style="@style/CustomFontTextViewStyle.ClientList.Light"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/child_home_visit_left_margin"
-            android:layout_marginLeft="@dimen/child_home_visit_left_margin"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="@dimen/child_home_visit_right_margin"
-            android:layout_marginRight="@dimen/child_home_visit_right_margin"
-            android:layout_marginBottom="@dimen/dialog_toolbar_close_margin"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:text="@string/add_member_title"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/child_home_visit_title_text_size" />
-
-
-    </android.support.design.widget.AppBarLayout>
-
+        </RelativeLayout>
+    </ScrollView>
 </RelativeLayout>

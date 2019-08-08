@@ -5,12 +5,16 @@ import android.app.Activity;
 import com.opensrp.chw.core.contract.CoreApplication;
 import com.opensrp.chw.core.contract.NavigationContract;
 import com.opensrp.chw.core.interactor.NavigationInteractor;
+import com.opensrp.chw.core.job.HomeVisitServiceJob;
+import com.opensrp.chw.core.job.VaccineRecurringServiceJob;
 import com.opensrp.chw.core.model.NavigationModel;
 import com.opensrp.chw.core.model.NavigationOption;
 import com.opensrp.chw.core.utils.CoreConstants;
 
 import org.smartregister.job.ImageUploadServiceJob;
+import org.smartregister.job.PullUniqueIdsServiceJob;
 import org.smartregister.job.SyncServiceJob;
+import org.smartregister.job.SyncTaskServiceJob;
 
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
@@ -91,6 +95,11 @@ public class NavigationPresenter implements NavigationContract.Presenter {
     public void sync(Activity activity) {
         ImageUploadServiceJob.scheduleJobImmediately(ImageUploadServiceJob.TAG);
         SyncServiceJob.scheduleJobImmediately(SyncServiceJob.TAG);
+        PullUniqueIdsServiceJob.scheduleJobImmediately(PullUniqueIdsServiceJob.TAG);
+        VaccineRecurringServiceJob.scheduleJobImmediately(VaccineRecurringServiceJob.TAG);
+        HomeVisitServiceJob.scheduleJobImmediately(HomeVisitServiceJob.TAG);
+        //PlanIntentServiceJob.scheduleJobImmediately(PlanIntentServiceJob.TAG);
+        SyncTaskServiceJob.scheduleJobImmediately(SyncTaskServiceJob.TAG);
     }
 
     @Override

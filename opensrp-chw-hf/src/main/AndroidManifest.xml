@@ -93,6 +93,10 @@
             android:name="com.opensrp.chw.core.activity.CoreChildMedicalHistoryActivity"
             android:screenOrientation="portrait"
             android:theme="@style/HFTheme.NoActionBar" />
+        <activity
+            android:name="com.opensrp.chw.hf.activity.ReferralTaskViewActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/HFTheme.NoActionBar" />
 
         <service android:name="org.smartregister.immunization.service.intent.VaccineIntentService" />
         <service android:name="org.smartregister.immunization.service.intent.RecurringIntentService" />
@@ -102,6 +106,7 @@
         <service android:name="org.smartregister.sync.intent.ValidateIntentService" />
         <service android:name="org.smartregister.service.ImageUploadSyncService" />
         <service android:name="org.smartregister.chw.anc.intent.HomeVisitIntent" />
+        <service android:name="org.smartregister.sync.intent.LocationIntentService" />
         <service android:name="com.opensrp.chw.hf.sync.intent.HfSyncTaskIntentService" />
         <service android:name="org.smartregister.sync.intent.PlanIntentService" />
 

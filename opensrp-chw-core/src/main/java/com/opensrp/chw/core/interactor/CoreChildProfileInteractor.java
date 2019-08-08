@@ -6,6 +6,7 @@ import android.support.annotation.VisibleForTesting;
 import android.text.TextUtils;
 import android.util.Pair;
 
+import com.opensrp.chw.core.application.CoreChwApplication;
 import com.opensrp.chw.core.contract.CoreChildProfileContract;
 import com.opensrp.chw.core.contract.HomeVisitGrowthNutritionContract;
 import com.opensrp.chw.core.contract.ImmunizationContact;
@@ -50,9 +51,7 @@ import org.smartregister.view.LocationPickerView;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -206,8 +205,7 @@ public class CoreChildProfileInteractor implements CoreChildProfileContract.Inte
                     cursor = getCommonRepository(CoreConstants.TABLE_NAME.CHILD).rawCustomQueryForAdapter(query);
                     if (cursor != null && cursor.moveToFirst()) {
                         CommonPersonObject personObject = getCommonRepository(CoreConstants.TABLE_NAME.CHILD).readAllcommonforCursorAdapter(cursor);
-                        pClient = new CommonPersonObjectClient(personObject.getCaseId(),
-                                personObject.getDetails(), "");
+                        pClient = new CommonPersonObjectClient(personObject.getCaseId(), personObject.getDetails(), "");
                         pClient.setColumnmaps(personObject.getColumnmaps());
                         final String familyId = Utils.getValue(pClient.getColumnmaps(), ChildDBConstants.KEY.RELATIONAL_ID, false);
 
@@ -252,8 +250,19 @@ public class CoreChildProfileInteractor implements CoreChildProfileContract.Inte
     }
 
     @Override
-    public void getClientTasks(String baseEntityId, CoreChildProfileContract.InteractorCallBack callback) {
-        Set<Task> taskList =
+    public void getClientTasks(String planId, String baseEntityId, CoreChildProfileContract.InteractorCallBack callback) {
+        Set<Task> taskList = CoreChwApplication.getInstance().getTaskRepository().getTasksByEntityAndStatus(planId, baseEntityId, Task.TaskStatus.READY);/*
+
+        Task task = new Task();
+        task.setFocus("Child Referral");
+        task.setExecutionStartDate(new DateTime());
+        taskList.add(task);
+
+        Task task1 = new Task();
+        task1.setFocus("Anc Referral");
+        task.setExecutionStartDate(new DateTime());
+        taskList.add(task1);*/
+
         callback.setClientTasks(taskList);
     }
 

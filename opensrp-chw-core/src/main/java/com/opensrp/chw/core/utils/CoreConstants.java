@@ -14,6 +14,7 @@ public class CoreConstants {
         public static final String FAMILY_MEMBER_REGISTER = "family_member_register";
         public static final String ANC_REGISTER = "anc_register";
         public static final String MALARIA_REGISTER = "anc_malaria_confirmation";
+        public static final String HEALTH_FACILITY_TAG = "MOH Jhpiego Facility Name";
 
     }
 
@@ -46,6 +47,8 @@ public class CoreConstants {
         public static final String ANC_HOME_VISIT = "ANC Home Visit";
         public static final String PNC_HOME_VISIT = "PNC Home Visit";
         public static final String UPDATE_ANC_REGISTRATION = "Update ANC Registration";
+
+        public static final String REFERRAL_TASK_MASK_AS_DONE = "Referral Task Mark as Done";
     }
 
     /**
@@ -302,6 +305,7 @@ public class CoreConstants {
         public static final String GROWTH_IMMUNIZATION_TYPE = "growth_type";
         public static final String CHILD_COMMON_PERSON = "child_common_peron";
         public static final String IS_COMES_FROM_FAMILY = "is_comes_from";
+        public static final String USERS_TASKS = "tasks";
     }
 
     public static final class IMMUNIZATION_CONSTANT {

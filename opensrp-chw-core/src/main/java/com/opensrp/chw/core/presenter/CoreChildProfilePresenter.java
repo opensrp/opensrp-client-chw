@@ -161,7 +161,8 @@ public class CoreChildProfilePresenter implements CoreChildProfileContract.Prese
 
     @Override
     public void fetchTasks() {
-        interactor.getClientTasks(childBaseEntityId, this);
+        // // TODO: 08/08/19  Change to use correct plan id
+        interactor.getClientTasks("5270285b-5a3b-4647-b772-c0b3c52e2b71",childBaseEntityId, this);
     }
 
     @Override

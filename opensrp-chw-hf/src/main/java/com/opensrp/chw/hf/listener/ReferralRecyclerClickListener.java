@@ -3,7 +3,7 @@ package com.opensrp.chw.hf.listener;
 import android.app.Activity;
 import android.view.View;
 
-import com.opensrp.chw.hf.fragement.ReferralTaskViewFragment;
+import com.opensrp.chw.hf.activity.ReferralTaskViewActivity;
 
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.Task;
@@ -42,9 +42,7 @@ public class ReferralRecyclerClickListener implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        ReferralTaskViewFragment referralTaskViewFragment = ReferralTaskViewFragment.newInstance();
-        referralTaskViewFragment.setTask(getTask());
-        referralTaskViewFragment.setPersonObjectClient(getCommonPersonObjectClient());
-        referralTaskViewFragment.show(getActivity().getFragmentManager(), ReferralTaskViewFragment.DIALOG_TAG);
+        ReferralTaskViewActivity.startReferralTaskViewActivity(getActivity(), getCommonPersonObjectClient(), getTask());
     }
+
 }

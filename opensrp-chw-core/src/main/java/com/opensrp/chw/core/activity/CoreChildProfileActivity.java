@@ -546,8 +546,8 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.other_member_menu, menu);
         menu.findItem(R.id.action_anc_registration).setVisible(false);
-        menu.findItem(com.opensrp.chw.core.R.id.action_sick_child_follow_up).setVisible(false);
-        menu.findItem(com.opensrp.chw.core.R.id.action_malaria_diagnosis).setVisible(false);
+        menu.findItem(R.id.action_sick_child_follow_up).setVisible(false);
+        menu.findItem(R.id.action_malaria_diagnosis).setVisible(false);
         return true;
     }
 

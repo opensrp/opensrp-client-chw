@@ -6,14 +6,17 @@ import android.support.annotation.Nullable;
 import com.evernote.android.job.Job;
 import com.evernote.android.job.JobCreator;
 import com.opensrp.chw.core.job.VaccineRecurringServiceJob;
+import com.opensrp.chw.hf.sync.intent.HfSyncTaskIntentService;
 
 import org.smartregister.job.ExtendedSyncServiceJob;
 import org.smartregister.job.ImageUploadServiceJob;
+import org.smartregister.job.LocationStructureServiceJob;
 import org.smartregister.job.PlanIntentServiceJob;
 import org.smartregister.job.PullUniqueIdsServiceJob;
 import org.smartregister.job.SyncServiceJob;
 import org.smartregister.job.SyncTaskServiceJob;
 import org.smartregister.job.ValidateSyncDataServiceJob;
+import org.smartregister.sync.intent.LocationIntentService;
 import org.smartregister.sync.intent.SyncIntentService;
 
 import timber.log.Timber;
@@ -38,8 +41,10 @@ public class HfJobCreator implements JobCreator {
                 return new ImageUploadServiceJob();
             case VaccineRecurringServiceJob.TAG:
                 return new VaccineRecurringServiceJob();
+            case LocationStructureServiceJob.TAG:
+                return new LocationStructureServiceJob();
             case SyncTaskServiceJob.TAG:
-                return new SyncTaskServiceJob();
+                return new SyncTaskServiceJob(HfSyncTaskIntentService.class);
             case PlanIntentServiceJob.TAG:
                 return new PlanIntentServiceJob();
             default:

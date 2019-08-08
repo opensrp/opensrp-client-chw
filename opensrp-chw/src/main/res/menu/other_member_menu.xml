@@ -20,6 +20,18 @@
         app:showAsAction="never" />
 
     <item
+        android:id="@+id/action_sick_child_follow_up"
+        android:enabled="true"
+        android:title="@string/sick_child_follow_up"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_malaria_diagnosis"
+        android:enabled="true"
+        android:title="@string/malaria_diagnosis"
+        app:showAsAction="never" />
+
+    <item
         android:id="@+id/action_remove_member"
         android:enabled="true"
         android:title="@string/remove_this_person"

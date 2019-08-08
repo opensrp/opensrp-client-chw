@@ -24,6 +24,7 @@ import org.smartregister.reporting.repository.IndicatorQueryRepository;
 import org.smartregister.reporting.repository.IndicatorRepository;
 import org.smartregister.repository.DrishtiRepository;
 import org.smartregister.repository.EventClientRepository;
+import org.smartregister.repository.LocationRepository;
 import org.smartregister.repository.PlanDefinitionRepository;
 import org.smartregister.repository.PlanDefinitionSearchRepository;
 import org.smartregister.repository.Repository;
