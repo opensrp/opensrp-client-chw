@@ -261,15 +261,25 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
 
             @Override
             public String evaluateSubTitle() {
-                return MessageFormat.format("{0}: {1}", "Cord Care", cord_care);
+                if ("No products".equalsIgnoreCase(cord_care)) {
+                    return context.getString(R.string.no_products);
+                } else if ("Chlorhexidine".equalsIgnoreCase(cord_care)) {
+                    return context.getString(R.string.chlorhexidine);
+                } else if ("Other".equalsIgnoreCase(cord_care)) {
+                    return context.getString(R.string.other);
+                }
+                return "";
             }
 
             @Override
             public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
-                if (StringUtils.isNotBlank(cord_care)) {
+                if (StringUtils.isBlank(cord_care))
+                    return BaseAncHomeVisitAction.Status.PENDING;
+
+                if ("Chlorhexidine".equalsIgnoreCase(cord_care)) {
                     return BaseAncHomeVisitAction.Status.COMPLETED;
                 } else {
-                    return BaseAncHomeVisitAction.Status.PENDING;
+                    return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
                 }
             }
         };
@@ -309,7 +319,10 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
 
             @Override
             public String evaluateSubTitle() {
-                return exclusive_breast_feeding.equalsIgnoreCase("Yes") ? context.getString(R.string.yes) : context.getString(R.string.no);
+                if (StringUtils.isBlank(exclusive_breast_feeding))
+                    return "";
+
+                return "No".equalsIgnoreCase(exclusive_breast_feeding) ? context.getString(R.string.yes) : context.getString(R.string.no);
             }
 
             @Override
@@ -318,9 +331,9 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
                     return BaseAncHomeVisitAction.Status.PENDING;
 
                 if (exclusive_breast_feeding.equalsIgnoreCase("Yes")) {
-                    return BaseAncHomeVisitAction.Status.COMPLETED;
-                } else if (exclusive_breast_feeding.equalsIgnoreCase("No")) {
                     return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
+                } else if (exclusive_breast_feeding.equalsIgnoreCase("No")) {
+                    return BaseAncHomeVisitAction.Status.COMPLETED;
                 } else {
                     return BaseAncHomeVisitAction.Status.PENDING;
                 }
@@ -396,28 +409,98 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
     private void evaluateFamilyPlanning() throws Exception {
         HomeVisitActionHelper helper = new HomeVisitActionHelper() {
             private String fp_counseling;
+            private String fp_method;
+            private String fp_start_date;
+            private Date start_date;
 
             @Override
             public void onPayloadReceived(String jsonPayload) {
                 try {
                     JSONObject jsonObject = new JSONObject(jsonPayload);
                     fp_counseling = JsonFormUtils.getValue(jsonObject, "fp_counseling");
+                    fp_method = JsonFormUtils.getValue(jsonObject, "fp_method");
+                    fp_start_date = JsonFormUtils.getValue(jsonObject, "fp_start_date");
+
+                    if (StringUtils.isNotBlank(fp_start_date))
+                        start_date = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).parse(fp_start_date);
                 } catch (JSONException e) {
+                    Timber.e(e);
+                } catch (ParseException e) {
                     Timber.e(e);
                 }
             }
 
             @Override
             public String evaluateSubTitle() {
-                return MessageFormat.format("{0}: {1}", "Family Planning ", fp_counseling);
+                StringBuilder builder = new StringBuilder();
+                builder.append(
+                        MessageFormat.format("{0}: {1}\n",
+                                context.getString(R.string.fp_counseling),
+                                "Yes".equalsIgnoreCase(fp_counseling) ? context.getString(R.string.done).toLowerCase() : context.getString(R.string.not_done).toLowerCase()
+                        )
+                );
+
+                if (StringUtils.isNotBlank(fp_method)) {
+                    String method = "";
+                    switch (fp_method) {
+                        case "None":
+                            method = context.getString(R.string.none);
+                            break;
+                        case "Abstinence":
+                            method = context.getString(R.string.abstinence);
+                            break;
+                        case "Condom":
+                            method = context.getString(R.string.condom);
+                            break;
+                        case "Tablets":
+                            method = context.getString(R.string.tablets);
+                            break;
+                        case "Injectable":
+                            method = context.getString(R.string.injectable);
+                            break;
+                        case "IUD":
+                            method = context.getString(R.string.iud);
+                            break;
+                        case "Implant":
+                            method = context.getString(R.string.implant);
+                            break;
+                        case "Other":
+                            method = context.getString(R.string.other);
+                            break;
+                        default:
+                            break;
+                    }
+
+                    builder.append(
+                            MessageFormat.format("{0}: {1}",
+                                    context.getString(R.string.fp_method_chosen),
+                                    method
+                            )
+                    );
+                }
+
+                if (StringUtils.isNotBlank(fp_start_date)) {
+                    builder.append(
+                            MessageFormat.format("\n{0}: {1}",
+                                    context.getString(R.string.fp_method_start_date),
+                                    new SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(start_date)
+                            )
+                    );
+                }
+
+                return builder.toString();
             }
 
             @Override
             public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
-                if (StringUtils.isNotBlank(fp_counseling)) {
+                if (StringUtils.isBlank(fp_counseling))
+                    return BaseAncHomeVisitAction.Status.PENDING;
+
+
+                if ("Yes".equalsIgnoreCase(fp_counseling)) {
                     return BaseAncHomeVisitAction.Status.COMPLETED;
                 } else {
-                    return BaseAncHomeVisitAction.Status.PENDING;
+                    return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
                 }
             }
         };
@@ -451,7 +534,7 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
                         .withFormName(Constants.JSON_FORM.ANC_HOME_VISIT.getObservationAndIllness())
                         .withHelper(new ObservationAction())
                         .build();
-                actionList.put(MessageFormat.format(context.getString(R.string.pnc_observation_and_illness_baby), baby), action);
+                actionList.put(MessageFormat.format(context.getString(R.string.pnc_observation_and_illness_baby), baby.getFullName()), action);
             }
         }
     }
@@ -590,12 +673,31 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
 
         @Override
         public String evaluateSubTitle() {
-            if (date != null)
+            if (pnc_visit == null)
                 return null;
 
-            return MessageFormat.format("{0} : {1}", context.getString(R.string.date), new SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(date));
-        }
+            if (pnc_visit.equalsIgnoreCase("No"))
+                return context.getString(R.string.visit_not_done).replace("\n", "");
 
+
+            StringBuilder builder = new StringBuilder();
+            builder.append(MessageFormat.format("{0}: {1}\n",
+                    context.getString(R.string.date),
+                    new SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(date))
+            );
+            builder.append(MessageFormat.format("{0}: {1} {2}\n",
+                    context.getString(R.string.babys_weight),
+                    baby_weight,
+                    context.getString(R.string.kg))
+            );
+            builder.append(MessageFormat.format("{0}: {1} {2}",
+                    context.getString(R.string.babys_temperature),
+                    baby_temp,
+                    context.getString(R.string.degrees_centigrade))
+            );
+
+            return builder.toString();
+        }
 
         @Override
         public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {

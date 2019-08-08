@@ -436,4 +436,23 @@
     <string name="abv_eleventh">11th</string>
     <string name="abv_twelfth">12th</string>
 
+    <string name="babys_weight">Baby\'s weight</string>
+    <string name="babys_temperature">Baby\'s temperature</string>
+    <string name="degrees_centigrade">°C</string>
+    <string name="no_products">No products</string>
+    <string name="chlorhexidine">Chlorhexidine</string>
+    <string name="other">Other</string>
+    <string name="fp_counseling">FP counseling</string>
+    <string name="fp_method_chosen">FP method chosen</string>
+    <string name="fp_method_start_date">FP method start date</string>
+    <string name="none">None</string>
+    <string name="abstinence">Abstinence</string>
+    <string name="condom">Condom</string>
+    <string name="tablets">Tablets</string>
+    <string name="injectable">Injectable</string>
+    <string name="iud">IUD</string>
+    <string name="implant">Implant</string>
+    <string name="managed">Managed</string>
+    <string name="referred">Referred</string>
+    <string name="no_action_taken">No action taken</string>
 </resources>
