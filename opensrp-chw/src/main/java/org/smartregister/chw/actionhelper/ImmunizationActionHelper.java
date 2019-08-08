@@ -142,7 +142,10 @@ public class ImmunizationActionHelper implements BaseAncHomeVisitAction.AncHomeV
         for (Map.Entry<String, List<String>> entry : completedVaccines.entrySet()) {
             StringBuilder completedBuilder = new StringBuilder();
             for (String vac : entry.getValue()) {
-                completedBuilder.append(completedBuilder.length() > 0 ? completedBuilder.append(", ") : vac);
+                if (completedBuilder.length() > 0)
+                    completedBuilder.append(", ");
+
+                completedBuilder.append(vac);
             }
 
             if (completedBuilder.length() > 0) {
@@ -162,8 +165,11 @@ public class ImmunizationActionHelper implements BaseAncHomeVisitAction.AncHomeV
         }
 
         StringBuilder pendingBuilder = new StringBuilder();
-        for (String s : notDoneVaccines) {
-            pendingBuilder.append(pendingBuilder.length() > 0 ? pendingBuilder.append(", ").append(s) : s);
+        for (String vac : notDoneVaccines) {
+            if (pendingBuilder.length() > 0)
+                pendingBuilder.append(", ");
+
+            pendingBuilder.append(vac);
         }
 
         if (pendingBuilder.length() > 0) {
@@ -182,6 +188,14 @@ public class ImmunizationActionHelper implements BaseAncHomeVisitAction.AncHomeV
 
     @Override
     public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
+        if (!notDoneVaccines.isEmpty()) {
+            return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
+        }
+
+        if (!completedVaccines.isEmpty()) {
+            return BaseAncHomeVisitAction.Status.COMPLETED;
+        }
+
         return BaseAncHomeVisitAction.Status.PENDING;
     }
 

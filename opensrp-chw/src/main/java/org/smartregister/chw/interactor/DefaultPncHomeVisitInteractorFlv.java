@@ -616,7 +616,7 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
      * @param group
      * @return
      */
-    private List<VaccineWrapper> getChildDueVaccines(String baseEntityID, Date dob, int group) {
+    protected List<VaccineWrapper> getChildDueVaccines(String baseEntityID, Date dob, int group) {
         List<VaccineWrapper> vaccineWrappers = new ArrayList<>();
         try {
             VaccineGroup groupMap = VaccineScheduleUtil.getVaccineGroups(ChwApplication.getInstance().getApplicationContext(), "child").get(group);

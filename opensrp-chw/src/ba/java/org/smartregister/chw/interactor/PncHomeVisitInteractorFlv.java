@@ -11,7 +11,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
-import org.smartregister.chw.actionhelper.DangerSignsAction;
+import org.smartregister.chw.actionhelper.ImmunizationActionHelper;
 import org.smartregister.chw.anc.AncLibrary;
 import org.smartregister.chw.anc.actionhelper.HomeVisitActionHelper;
 import org.smartregister.chw.anc.contract.BaseAncHomeVisitContract;
@@ -19,6 +19,7 @@ import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.domain.VisitDetail;
 import org.smartregister.chw.anc.fragment.BaseAncHomeVisitFragment;
+import org.smartregister.chw.anc.fragment.BaseHomeVisitImmunizationFragment;
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
 import org.smartregister.chw.anc.util.JsonFormUtils;
 import org.smartregister.chw.anc.util.VisitUtils;
@@ -29,6 +30,7 @@ import org.smartregister.chw.domain.Person;
 import org.smartregister.chw.rule.PNCHealthFacilityVisitRule;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.PNCVisitUtil;
+import org.smartregister.immunization.domain.VaccineWrapper;
 
 import java.text.MessageFormat;
 import java.text.ParseException;
@@ -249,11 +251,15 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
 
     protected void evaluateImmunization() throws Exception {
         for (Person baby : children) {
+            List<VaccineWrapper> wrappers = getChildDueVaccines(baby.getBaseEntityID(), baby.getDob(), 0);
+
             BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, MessageFormat.format(context.getString(R.string.pnc_immunization_at_birth), baby.getFullName()))
                     .withOptional(false)
                     .withDetails(details)
-                    .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getDangerSigns())
-                    .withHelper(new DangerSignsAction())
+                    .withBaseEntityID(baby.getBaseEntityID())
+                    .withVaccineWrapper(wrappers)
+                    .withDestinationFragment(BaseHomeVisitImmunizationFragment.getInstance(view, baby.getBaseEntityID(), details, wrappers))
+                    .withHelper(new ImmunizationActionHelper(context, wrappers))
                     .build();
             actionList.put(MessageFormat.format(context.getString(R.string.pnc_immunization_at_birth), baby.getFullName()), action);
         }
