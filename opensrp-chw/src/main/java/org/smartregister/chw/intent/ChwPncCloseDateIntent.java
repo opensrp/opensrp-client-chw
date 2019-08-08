@@ -12,13 +12,14 @@ import org.smartregister.chw.pnc.util.PncUtil;
 import timber.log.Timber;
 
 public class ChwPncCloseDateIntent extends IntentService {
+    private PncCloseDateRepository repository;
 
     private Flavor flavor = new ChwPncCloseDateIntentFlv();
 
     public ChwPncCloseDateIntent() {
         super("ChwPncCloseDateIntent");
     }
-    private PncCloseDateRepository repository;
+
 
     @Override
     public int onStartCommand(@Nullable Intent intent, int flags, int startId) {
