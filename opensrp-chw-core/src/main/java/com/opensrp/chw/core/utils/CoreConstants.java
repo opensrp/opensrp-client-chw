@@ -484,7 +484,11 @@ public class CoreConstants {
         public static final String REFERRALS_REGISTER_ACTIVITY = "REFERRALS_REGISTER_ACTIVITY";
     }
 
-   public  interface DB_CONSTANTS {
+    public interface DB_CONSTANTS {
+        String ID = "_id";
         String FOR = "for";
+        String FOCUS = "focus";
+        String REQUESTER = "requester";
+        String START = "start";
     }
 }

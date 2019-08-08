@@ -30,7 +30,7 @@ public abstract class BaseReferralRegisterFragment extends BaseChwRegisterFragme
 
     @Override
     public void initializeAdapter(Set<org.smartregister.configurableviews.model.View> visibleColumns, String tableName) {
-        BasereferralRegisterProvider registerProvider = new BasereferralRegisterProvider(getActivity(), visibleColumns, registerActionHandler, paginationViewHandler);
+        BasereferralRegisterProvider registerProvider = new BasereferralRegisterProvider(getActivity(), registerActionHandler, paginationViewHandler);
         clientAdapter = new RecyclerViewPaginatedAdapter(null, registerProvider, context().commonrepository(tablename));
         clientAdapter.setCurrentlimit(20);
         clientsView.setAdapter(clientAdapter);

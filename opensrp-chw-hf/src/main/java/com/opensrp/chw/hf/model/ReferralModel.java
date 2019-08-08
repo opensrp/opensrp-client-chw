@@ -25,6 +25,7 @@ public class ReferralModel extends BaseReferralModel {
     protected String[] mainColumns(String tableName) {
         Set<String> columns = new HashSet<>(Arrays.asList(super.mainColumns(tableName)));
         addClientDetails(CoreConstants.TABLE_NAME.CHILD, columns);
+        addTaskDetails(CoreConstants.TABLE_NAME.TASK, columns);
         return columns.toArray(new String[]{});
     }
 
@@ -35,7 +36,13 @@ public class ReferralModel extends BaseReferralModel {
         columns.add(table + "." + DBConstants.KEY.LAST_NAME);
         columns.add(table + "." + DBConstants.KEY.DOB);
         columns.add(table + "." + DBConstants.KEY.GENDER);
-        columns.add(table + "." + DBConstants.KEY.GENDER);
+
+    }
+
+    private void addTaskDetails(String table, Set<String> columns) {
+        columns.add(table + "." + CoreConstants.DB_CONSTANTS.FOCUS);
+        columns.add(table + "." + CoreConstants.DB_CONSTANTS.REQUESTER);
+        columns.add(table + "." + CoreConstants.DB_CONSTANTS.START);
 
     }
 }
