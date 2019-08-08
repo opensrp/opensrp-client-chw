@@ -203,6 +203,11 @@ public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
             }
 
             @Override
+            public void startSickChildReferralForm() {
+//                Implement
+            }
+
+            @Override
             public void refreshProfileTopSection(CommonPersonObjectClient client) {
 //                Implement
             }
