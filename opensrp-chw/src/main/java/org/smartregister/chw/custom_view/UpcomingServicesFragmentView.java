@@ -39,6 +39,7 @@ public class UpcomingServicesFragmentView extends LinearLayout implements View.O
 
     @Override
     public Context getMyContext() {
+        if (context == null) return getContext();
         return context;
     }
 
@@ -115,7 +116,7 @@ public class UpcomingServicesFragmentView extends LinearLayout implements View.O
 
     @Override
     public ImmunizationContact.Presenter initializePresenter() {
-        presenter = new ImmunizationViewPresenter(context);
+        presenter = new ImmunizationViewPresenter(this);
         return presenter;
     }
 
