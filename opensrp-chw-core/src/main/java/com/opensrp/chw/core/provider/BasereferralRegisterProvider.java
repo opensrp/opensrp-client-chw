@@ -45,11 +45,11 @@ public class BasereferralRegisterProvider implements RecyclerViewProvider<Referr
     @Override
     public void getView(Cursor cursor, SmartRegisterClient client, ReferralViewHolder viewHolder) {
         CommonPersonObjectClient pc = (CommonPersonObjectClient) client;
-        populatePatientColumn(pc, client, viewHolder);
+        populatePatientColumn(pc, viewHolder);
     }
 
 
-    public void populatePatientColumn(CommonPersonObjectClient pc, SmartRegisterClient client, ReferralViewHolder viewHolder) {
+    public void populatePatientColumn(CommonPersonObjectClient pc, ReferralViewHolder viewHolder) {
 
         String firstName = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.FIRST_NAME, true);
         String middleName = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.MIDDLE_NAME, true);
@@ -68,7 +68,7 @@ public class BasereferralRegisterProvider implements RecyclerViewProvider<Referr
             DateTime duration = new DateTime(Long.valueOf(executionStart));
             viewHolder.setReferralStart(formatReferralDuration(duration,context));
         }
-        attachPatientOnclickListener(viewHolder.itemView, client);
+        attachPatientOnclickListener(viewHolder.itemView, pc);
 
 
     }

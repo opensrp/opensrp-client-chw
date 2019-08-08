@@ -1,5 +1,6 @@
 package com.opensrp.chw.core.fragment;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.content.CursorLoader;
@@ -69,11 +70,6 @@ public abstract class BaseReferralRegisterFragment extends BaseChwRegisterFragme
 
     @Override
     protected void startRegistration() {//not used for referrals
-    }
-
-    @Override
-    protected void onViewClicked(View view) {
-        //TODO link to referral details
     }
 
     @Override
