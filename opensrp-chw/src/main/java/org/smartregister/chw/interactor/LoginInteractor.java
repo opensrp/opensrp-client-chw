@@ -6,8 +6,10 @@ import org.smartregister.chw.job.ChwIndicatorGeneratingJob;
 import org.smartregister.chw.job.HomeVisitServiceJob;
 import org.smartregister.chw.job.VaccineRecurringServiceJob;
 import org.smartregister.job.ImageUploadServiceJob;
+import org.smartregister.job.PlanIntentServiceJob;
 import org.smartregister.job.PullUniqueIdsServiceJob;
 import org.smartregister.job.SyncServiceJob;
+import org.smartregister.job.SyncTaskServiceJob;
 import org.smartregister.login.interactor.BaseLoginInteractor;
 import org.smartregister.view.contract.BaseLoginContract;
 
@@ -35,6 +37,11 @@ public class LoginInteractor extends BaseLoginInteractor implements BaseLoginCon
         HomeVisitServiceJob.scheduleJob(HomeVisitServiceJob.TAG, TimeUnit.MINUTES.toMinutes(BuildConfig.HOME_VISIT_MINUTES), getFlexValue(BuildConfig.HOME_VISIT_MINUTES));
 
         BasePncCloseJob.scheduleJob(BasePncCloseJob.TAG, TimeUnit.HOURS.toHours(BuildConfig.BASE_PNC_CLOSE_HOURS), getFlexValue(BuildConfig.BASE_PNC_CLOSE_HOURS));
+
+        PlanIntentServiceJob.scheduleJob(PlanIntentServiceJob.TAG, TimeUnit.MINUTES.toMinutes(BuildConfig.DATA_SYNC_DURATION_MINUTES), getFlexValue(BuildConfig.DATA_SYNC_DURATION_MINUTES));
+
+        SyncTaskServiceJob.scheduleJob(PlanIntentServiceJob.TAG, TimeUnit.MINUTES.toMinutes(BuildConfig.DATA_SYNC_DURATION_MINUTES), getFlexValue(BuildConfig.DATA_SYNC_DURATION_MINUTES));
+
     }
 
     @Override
@@ -44,5 +51,7 @@ public class LoginInteractor extends BaseLoginInteractor implements BaseLoginCon
         ChwIndicatorGeneratingJob.scheduleJobImmediately(ChwIndicatorGeneratingJob.TAG);
         HomeVisitServiceJob.scheduleJobImmediately(HomeVisitServiceJob.TAG);
         BasePncCloseJob.scheduleJobImmediately(BasePncCloseJob.TAG);
+        PlanIntentServiceJob.scheduleJobImmediately(PlanIntentServiceJob.TAG);
+        SyncTaskServiceJob.scheduleJobImmediately(SyncTaskServiceJob.TAG);
     }
 }

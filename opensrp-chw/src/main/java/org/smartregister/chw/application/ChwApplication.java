@@ -50,7 +50,10 @@ import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.reporting.ReportingLibrary;
 import org.smartregister.repository.AllSharedPreferences;
+import org.smartregister.repository.PlanDefinitionRepository;
 import org.smartregister.repository.Repository;
+import org.smartregister.repository.TaskNotesRepository;
+import org.smartregister.repository.TaskRepository;
 import org.smartregister.sync.ClientProcessorForJava;
 import org.smartregister.sync.helper.ECSyncHelper;
 import org.smartregister.view.activity.DrishtiApplication;
@@ -81,6 +84,8 @@ public class ChwApplication extends DrishtiApplication {
     private String password;
 
     private RulesEngineHelper rulesEngineHelper;
+    private TaskRepository taskRepository;
+    private PlanDefinitionRepository planDefinitionRepository;
 
     public static synchronized ChwApplication getInstance() {
         return (ChwApplication) mInstance;
@@ -378,5 +383,18 @@ public class ChwApplication extends DrishtiApplication {
         return ChwApplication.getClientProcessor(ChwApplication.getInstance().getApplicationContext());
     }
 
+    public TaskRepository getTaskRepository() {
+        if (taskRepository == null) {
+            taskRepository = new TaskRepository(getRepository(), new TaskNotesRepository(getRepository()));
+        }
+        return taskRepository;
+    }
+
+    public PlanDefinitionRepository getPlanDefinitionRepository() {
+        if (planDefinitionRepository == null) {
+            planDefinitionRepository = new PlanDefinitionRepository(getRepository());
+        }
+        return planDefinitionRepository;
+    }
 
 }
