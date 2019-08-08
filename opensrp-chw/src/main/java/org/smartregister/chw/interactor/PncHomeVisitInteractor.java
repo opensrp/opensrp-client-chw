@@ -54,6 +54,11 @@ public class PncHomeVisitInteractor extends BaseAncHomeVisitInteractor {
         return Constants.EVENT_TYPE.PNC_HOME_VISIT;
     }
 
+    @Override
+    protected String getTableName() {
+        return Constants.TABLES.PREGNANCY_OUTCOME;
+    }
+
     /**
      * Injects implementation specific changes to the event
      *
