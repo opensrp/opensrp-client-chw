@@ -29,13 +29,18 @@ import java.util.Map;
 
 import static org.apache.commons.lang3.StringUtils.isBlank;
 
-public abstract class UpcomingServicesFragmentView extends LinearLayout implements View.OnClickListener, ImmunizationContact.View {
+public class UpcomingServicesFragmentView extends LinearLayout implements View.OnClickListener, ImmunizationContact.View {
 
 
     private ImmunizationViewPresenter presenter;
     private Map<String, View> viewMap = new LinkedHashMap<>();
     private CommonPersonObjectClient childClient;
     private Activity context;
+
+    @Override
+    public Context getMyContext() {
+        return context;
+    }
 
     public UpcomingServicesFragmentView(Context context) {
         super(context);
