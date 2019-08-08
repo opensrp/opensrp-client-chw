@@ -35,7 +35,7 @@ import java.util.List;
 
 import timber.log.Timber;
 
-import static org.smartregister.chw.anc.util.JsonFormUtils.SetRequiredFieldsToFalseForPncChild;
+import static org.smartregister.chw.anc.util.JsonFormUtils.setRequiredFieldsToFalseForPncChild;
 
 public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
 
@@ -75,7 +75,7 @@ public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
                     CommonPersonObjectClient client = children.get(0);
                     JSONObject childEnrollmentForm = childProfileInteractor.getAutoPopulatedJsonEditFormString(org.smartregister.chw.util.Constants.JSON_FORM.getChildRegister(), getString(R.string.edit_child_form_title), this, client);
 
-                    startFormForEdit(SetRequiredFieldsToFalseForPncChild(childEnrollmentForm, MEMBER_OBJECT.getFamilyBaseEntityId(),
+                    startFormForEdit(setRequiredFieldsToFalseForPncChild(childEnrollmentForm, MEMBER_OBJECT.getFamilyBaseEntityId(),
                             MEMBER_OBJECT.getBaseEntityId()));
                 }
                 return true;
