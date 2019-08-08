@@ -48,6 +48,17 @@ public class Utils extends org.smartregister.family.util.Utils {
 
     public static final SimpleDateFormat dd_MMM_yyyy = new SimpleDateFormat("dd MMM yyyy");
 
+    public static String getImmunizationHeaderLanguageSpecific(Context context,String value){
+        if(value.equalsIgnoreCase("at birth")){
+            return  context.getString(R.string.at_birth);
+        }else if(value.contains("weeks")){
+            return context.getString(R.string.week_full);
+        }else if(value.contains("months")){
+            return context.getString(R.string.month_full);
+        }
+        return value;
+    }
+
     public static String getYesNoAsLanguageSpecific(Context context,String value){
         if(value.equalsIgnoreCase("yes")){
             return  context.getString(R.string.yes);

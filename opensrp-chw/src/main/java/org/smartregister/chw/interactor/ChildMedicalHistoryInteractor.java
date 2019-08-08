@@ -233,7 +233,7 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
             if (!receivedVaccine.getVaccineCategory().equalsIgnoreCase(lastCategory)) {
                 VaccineHeader vaccineHeader = new VaccineHeader();
                 lastCategory = receivedVaccine.getVaccineCategory();
-                vaccineHeader.setVaccineHeaderName(receivedVaccine.getVaccineCategory());
+                vaccineHeader.setVaccineHeaderName(Utils.getImmunizationHeaderLanguageSpecific(getContext(),receivedVaccine.getVaccineCategory()));
                 baseVaccineArrayList.add(vaccineHeader);
                 VaccineContent content = new VaccineContent();
                 SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
