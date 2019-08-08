@@ -22,6 +22,7 @@ import org.smartregister.chw.util.ChildHomeVisit;
 import org.smartregister.chw.util.ChildService;
 import org.smartregister.chw.util.ChildUtils;
 import org.smartregister.chw.util.ChildVisit;
+import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.GrowthServiceData;
 import org.smartregister.chw.util.HomeVisitVaccineGroup;
 import org.smartregister.chw.util.ImmunizationState;
@@ -52,20 +53,16 @@ import org.smartregister.view.LocationPickerView;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.UUID;
 
-import io.reactivex.Completable;
-import io.reactivex.CompletableObserver;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Action;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
@@ -96,6 +93,7 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
     public CommonPersonObjectClient getpClient() {
         return pClient;
     }
+
     public void setpClient(CommonPersonObjectClient pClient) {
         this.pClient = pClient;
     }
@@ -476,7 +474,10 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
             Timber.e("No plans exist in the server");
         }*/
         task.setPlanIdentifier("5270285b-5a3b-4647-b772-c0b3c52e2b71");
-        task.setGroupIdentifier("Awaiting Benja");
+        LocationHelper locationHelper = LocationHelper.getInstance();
+        ArrayList<String> allowedLevels = new ArrayList<>();
+        allowedLevels.add(Constants.CONFIGURATION.HEALTH_FACILITY_TAG);
+        task.setGroupIdentifier(locationHelper.getOpenMrsLocationId(locationHelper.generateDefaultLocationHierarchy(allowedLevels).get(0)));
         task.setStatus(Task.TaskStatus.READY);
         task.setBusinessStatus("Referred");
         task.setPriority(3);
@@ -507,7 +508,9 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
                 e.onNext("");
             }
         });
-    }    @Override
+    }
+
+    @Override
     public void setChildBaseEntityId(String childBaseEntityId) {
         this.childBaseEntityId = childBaseEntityId;
     }
@@ -728,7 +731,9 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
                 break;
 
         }
-    }    @Override
+    }
+
+    @Override
     public String getChildBaseEntityId() {
         return this.childBaseEntityId;
     }
@@ -738,10 +743,6 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
     public enum ServiceType {DUE, OVERDUE, UPCOMING}
 
     public enum FamilyServiceType {DUE, OVERDUE, NOTHING}
-
-
-
-
 
 
 }

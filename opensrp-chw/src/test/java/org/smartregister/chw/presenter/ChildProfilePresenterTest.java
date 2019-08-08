@@ -8,7 +8,6 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.robolectric.RuntimeEnvironment;
 import org.smartregister.chw.BaseUnitTest;
 import org.smartregister.chw.contract.ChildProfileContract;
 import org.smartregister.chw.interactor.ChildProfileInteractor;
@@ -35,8 +34,6 @@ public class ChildProfilePresenterTest extends BaseUnitTest {
     @Mock
     private Context context;
 
-    private ChildProfileContract.InteractorCallBack callBack;
-
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
@@ -61,6 +58,7 @@ public class ChildProfilePresenterTest extends BaseUnitTest {
 
     @Test
     public void testFetchVisitStatus() {
+        interactor.setpClient(personObjectClient);
         childProfilePresenter.fetchVisitStatus(testBaseEntityId);
         Mockito.verify(interactor, Mockito.atLeastOnce()).refreshChildVisitBar(childProfileView.getContext(),
                 testBaseEntityId, (ChildProfilePresenter) childProfilePresenter);
