@@ -67,6 +67,11 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
     public ChildProfileContract.Interactor getInteractor(){
         return interactor;
     }
+
+    public void setInteractor(ChildProfileContract.Interactor interactor){
+        this.interactor = interactor;
+    }
+
     public void setFamilyID(String familyID) {
         this.familyID = familyID;
         verifyHasPhone();
@@ -138,7 +143,6 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
     @Override
     public void processBackGroundEvent() {
         interactor.processBackGroundEvent(this);
-
     }
 
     @Override

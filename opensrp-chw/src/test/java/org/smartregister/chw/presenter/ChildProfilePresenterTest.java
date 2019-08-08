@@ -1,18 +1,22 @@
 package org.smartregister.chw.presenter;
 
+import android.content.Context;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.robolectric.RuntimeEnvironment;
+import org.smartregister.chw.BaseUnitTest;
 import org.smartregister.chw.contract.ChildProfileContract;
 import org.smartregister.chw.interactor.ChildProfileInteractor;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 
 import java.util.UUID;
 
-public class ChildProfilePresenterTest {
+public class ChildProfilePresenterTest extends BaseUnitTest {
 
     private static final String testBaseEntityId = UUID.randomUUID().toString();
     @Mock
@@ -21,19 +25,25 @@ public class ChildProfilePresenterTest {
     private ChildProfileContract.View childProfileView;
     @Mock
     private ChildProfileContract.Model childProfileModel;
-    @Mock
-    private ChildProfileContract.InteractorCallBack callBack;
 
     @Mock
     private CommonPersonObjectClient personObjectClient;
 
+    @Mock
     private ChildProfileInteractor interactor;
+
+    @Mock
+    private Context context;
+
+    private ChildProfileContract.InteractorCallBack callBack;
 
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
         childProfilePresenter = new ChildProfilePresenter(childProfileView, childProfileModel, testBaseEntityId);
-        interactor = (ChildProfileInteractor) ((ChildProfilePresenter) childProfilePresenter).getInteractor();
+        interactor.setpClient(personObjectClient);
+        ((ChildProfilePresenter) childProfilePresenter).setInteractor(interactor);
+        Mockito.doReturn(context).when(childProfileView).getContext();
     }
 
 
@@ -44,10 +54,21 @@ public class ChildProfilePresenterTest {
     }
 
     @Test
+    public void testThatViewlWasInitialized() {
+        ChildProfileContract.View view = childProfilePresenter.getView();
+        Assert.assertNotNull(view);
+    }
+
+    @Test
     public void testFetchVisitStatus() {
         childProfilePresenter.fetchVisitStatus(testBaseEntityId);
-       interactor.setpClient(personObjectClient);
-        Mockito.verify(((ChildProfilePresenter) childProfilePresenter).getInteractor(), Mockito.atLeastOnce())
-                .refreshChildVisitBar(childProfileView.getApplicationContext(), testBaseEntityId, callBack);
+        Mockito.verify(interactor, Mockito.atLeastOnce()).refreshChildVisitBar(childProfileView.getContext(),
+                testBaseEntityId, (ChildProfilePresenter) childProfilePresenter);
+    }
+
+    @Test
+    public void testProcessBackGroundEvent() {
+        childProfilePresenter.processBackGroundEvent();
+        Mockito.verify(interactor, Mockito.atLeastOnce()).processBackGroundEvent ((ChildProfilePresenter) childProfilePresenter);
     }
 }
