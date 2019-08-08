@@ -1,7 +1,8 @@
 package com.opensrp.chw.hf.model;
 
 import com.opensrp.chw.core.model.BaseReferralModel;
-import com.opensrp.chw.core.utils.CoreConstants;
+import com.opensrp.chw.core.utils.CoreConstants.DB_CONSTANTS;
+import com.opensrp.chw.core.utils.CoreConstants.TABLE_NAME;
 
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.family.util.DBConstants;
@@ -15,8 +16,9 @@ public class ReferralModel extends BaseReferralModel {
     @Override
     public String mainSelect(String tableName, String mainCondition) {
         SmartRegisterQueryBuilder queryBuilder = new SmartRegisterQueryBuilder();
-        queryBuilder.selectInitiateMainTable(tableName, mainColumns(tableName), "_id");
-        queryBuilder.customJoin("INNER JOIN " + CoreConstants.TABLE_NAME.CHILD + " ON  " + tableName + "." + CoreConstants.DB_CONSTANTS.FOR + " = " + CoreConstants.TABLE_NAME.TASK + "." + CoreConstants.DB_CONSTANTS.FOR + " COLLATE NOCASE ");
+        queryBuilder.selectInitiateMainTable(tableName, mainColumns(tableName), DB_CONSTANTS.ID);
+        queryBuilder.customJoin(String.format("INNER JOIN %s  ON  %s.%s = %s.%s COLLATE NOCASE ",
+                TABLE_NAME.CHILD, TABLE_NAME.CHILD, DBConstants.KEY.BASE_ENTITY_ID, tableName, DB_CONSTANTS.FOR));
 
         return queryBuilder.mainCondition(mainCondition);
     }
@@ -24,8 +26,8 @@ public class ReferralModel extends BaseReferralModel {
     @Override
     protected String[] mainColumns(String tableName) {
         Set<String> columns = new HashSet<>(Arrays.asList(super.mainColumns(tableName)));
-        addClientDetails(CoreConstants.TABLE_NAME.CHILD, columns);
-        addTaskDetails(CoreConstants.TABLE_NAME.TASK, columns);
+        addClientDetails(TABLE_NAME.CHILD, columns);
+        addTaskDetails(TABLE_NAME.TASK, columns);
         return columns.toArray(new String[]{});
     }
 
@@ -40,9 +42,9 @@ public class ReferralModel extends BaseReferralModel {
     }
 
     private void addTaskDetails(String table, Set<String> columns) {
-        columns.add(table + "." + CoreConstants.DB_CONSTANTS.FOCUS);
-        columns.add(table + "." + CoreConstants.DB_CONSTANTS.REQUESTER);
-        columns.add(table + "." + CoreConstants.DB_CONSTANTS.START);
+        columns.add(table + "." + DB_CONSTANTS.FOCUS);
+        columns.add(table + "." + DB_CONSTANTS.REQUESTER);
+        columns.add(table + "." + DB_CONSTANTS.START);
 
     }
 }
