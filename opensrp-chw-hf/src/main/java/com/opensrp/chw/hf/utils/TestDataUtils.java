@@ -29,7 +29,7 @@ public class TestDataUtils {
 
     public void populateTasks() {
 
-        if (StringUtils.isBlank(sharedPreferences.getPreference("TEST_DATA_POPULATED"))) {
+        if (StringUtils.isBlank(sharedPreferences.getPreference(TEST_DATA_POPULATED))) {
             List<String> ids = childRepository.findSearchIds("select base_entity_id from ec_child");
             Random random = new Random();
             for (String id : ids) {
@@ -40,7 +40,7 @@ public class TestDataUtils {
             }
 
             if (!ids.isEmpty()) {
-                sharedPreferences.savePreference("TEST_DATA_POPULATED", "true");
+                sharedPreferences.savePreference(TEST_DATA_POPULATED, "true");
             }
         }
     }
