@@ -22,6 +22,7 @@ import org.smartregister.chw.util.ChildHomeVisit;
 import org.smartregister.chw.util.ChildService;
 import org.smartregister.chw.util.ChildUtils;
 import org.smartregister.chw.util.ChildVisit;
+import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.GrowthServiceData;
 import org.smartregister.chw.util.HomeVisitVaccineGroup;
 import org.smartregister.chw.util.ImmunizationState;
@@ -57,12 +58,15 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.UUID;
 
+import io.reactivex.Completable;
+import io.reactivex.CompletableObserver;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Action;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
@@ -448,12 +452,16 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
 
     @Override
     public void createSickChildEvent(final AllSharedPreferences allSharedPreferences, final String jsonString) throws Exception {
-     /*   Completable.fromAction(new Action() {
+
+        final Event baseEvent = processJsonForm(allSharedPreferences, new JSONObject(jsonString)
+                .put(JsonFormUtils.ENTITY_ID, getChildBaseEntityId()).toString(), TABLE_NAME.CHILD_REFERRAL);
+        Completable.fromAction(new Action() {
+
             @Override
             public void run() throws Exception {
-                Event baseEvent = processJsonForm(allSharedPreferences, jsonString, Constants.TABLE_NAME.CHILD_REFERRAL);
                 Util.processEvent(baseEvent.getBaseEntityId(), new JSONObject(gson.toJson(baseEvent)));
             }
+
         }).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new CompletableObserver() {
@@ -464,27 +472,14 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
 
                     @Override
                     public void onComplete() {
-                        createReferralTask();
+                        createReferralTask(baseEvent.getBaseEntityId(), allSharedPreferences);
                     }
 
                     @Override
                     public void onError(Throwable e) {
                         Timber.e(e);
                     }
-                });*/
-        Event baseEvent = processJsonForm(allSharedPreferences, new JSONObject(jsonString).put(JsonFormUtils.ENTITY_ID, getChildBaseEntityId()).toString(), TABLE_NAME.CHILD_REFERRAL);
-        Util.processEvent(baseEvent.getBaseEntityId(), new JSONObject(gson.toJson(baseEvent)));
-        //   createReferralTask(baseEvent.getBaseEntityId(), allSharedPreferences);
-    }
-
-    @Override
-    public void setChildBaseEntityId(String childBaseEntityId) {
-        this.childBaseEntityId = childBaseEntityId;
-    }
-
-    @Override
-    public String getChildBaseEntityId() {
-        return this.childBaseEntityId;
+                });
     }
 
     private void createReferralTask(String baseEntityId, AllSharedPreferences allSharedPreferences) {
@@ -515,6 +510,9 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
         task.setLocation(allSharedPreferences.fetchUserLocalityId(allSharedPreferences.fetchRegisteredANM()));
         ChwApplication.getInstance().getTaskRepository().addOrUpdate(task);
 
+    }    @Override
+    public void setChildBaseEntityId(String childBaseEntityId) {
+        this.childBaseEntityId = childBaseEntityId;
     }
 
     private Observable<Object> updateHomeVisitAsEvent(final long value) {
@@ -529,6 +527,9 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
                 e.onNext("");
             }
         });
+    }    @Override
+    public String getChildBaseEntityId() {
+        return this.childBaseEntityId;
     }
 
     private Observable<ChildService> updateUpcomingServices(final Context context) {
@@ -754,4 +755,8 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
     public enum ServiceType {DUE, OVERDUE, UPCOMING}
 
     public enum FamilyServiceType {DUE, OVERDUE, NOTHING}
+
+
+
+
 }

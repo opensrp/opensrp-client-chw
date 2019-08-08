@@ -55,10 +55,24 @@
     "title": "Sick child form",
     "fields": [
       {
+        "key": "chw_referral_hf_child",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1759AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "child_referral_calculation.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "referral_problem_child",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity_id": "163182AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "check_box",
         "label": "Health problem / condition",
         "label_text_style": "bold",
@@ -249,7 +263,7 @@
         "key": "referral_problem_child_other",
         "type": "edit_text",
         "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
         "edit_type": "name",
         "hint": "Other symptom",
@@ -265,7 +279,7 @@
         "key": "service_before_child",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity_id": "164378AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "check_box",
         "label": "Pre-referral management given",
         "label_text_style": "bold",
@@ -315,7 +329,7 @@
         "key": "service_before_child_other",
         "type": "edit_text",
         "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
         "edit_type": "name",
         "hint": "Other treatment",

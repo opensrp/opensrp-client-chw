@@ -206,6 +206,11 @@ public class ChwClientProcessor extends ClientProcessorForJava {
                         processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
 
                         break;
+                    case Constants.EventType.CHILD_REFERRAL:
+                        if (eventClient.getClient() != null) {
+                            processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
+                        }
+                        break;
                     default:
                         if (eventClient.getClient() != null) {
                             if (eventType.equals(Constants.EventType.UPDATE_FAMILY_RELATIONS) && event.getEntityType().equalsIgnoreCase(Constants.TABLE_NAME.FAMILY_MEMBER)) {
@@ -219,6 +224,13 @@ public class ChwClientProcessor extends ClientProcessorForJava {
             }
 
         }
+    }
+
+    @Override
+    public void updateClientDetailsTable(Event event, Client client) {
+        Timber.d("Started updateClientDetailsTable");
+        event.addDetails("detailsUpdated", Boolean.TRUE.toString());
+        Timber.d("Finished updateClientDetailsTable");
     }
 
     private void processHomeVisit(EventClient eventClient) {
@@ -547,12 +559,5 @@ public class ChwClientProcessor extends ClientProcessorForJava {
                     String.format(" %s in (select base_entity_id from %s where relational_id = ? )  ", CommonFtsObject.idColumn, Constants.TABLE_NAME.FAMILY_MEMBER), new String[]{familyID});
 
         }
-    }
-
-    @Override
-    public void updateClientDetailsTable(Event event, Client client) {
-        Timber.d("Started updateClientDetailsTable");
-        event.addDetails("detailsUpdated", Boolean.TRUE.toString());
-        Timber.d("Finished updateClientDetailsTable");
     }
 }

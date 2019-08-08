@@ -57,6 +57,7 @@ import timber.log.Timber;
 
 import static org.smartregister.chw.util.Constants.EventType.*;
 import static org.smartregister.chw.util.Constants.INTENT_KEY.IS_COMES_FROM_FAMILY;
+import static org.smartregister.util.Utils.getAllSharedPreferences;
 
 
 public class ChildProfileActivity extends BaseProfileActivity implements ChildProfileContract.View, ChildRegisterContract.InteractorCallBack {
@@ -701,7 +702,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
                         if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(UPDATE_CHILD_REGISTRATION)) {
                             presenter().updateChildProfile(jsonString);
                         } else if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(CHILD_REFERRAL)) {
-                            presenter().createSickChildEvent(CoreLibrary.getInstance().context().allSharedPreferences(), jsonString);
+                            presenter().createSickChildEvent(getAllSharedPreferences(), jsonString);
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
