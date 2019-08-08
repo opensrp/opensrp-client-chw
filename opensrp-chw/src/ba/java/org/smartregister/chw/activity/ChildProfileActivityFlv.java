@@ -1,7 +1,6 @@
 package org.smartregister.chw.activity;
 
 import android.app.Activity;
-import android.widget.Toast;
 
 import org.smartregister.chw.R;
 import org.smartregister.chw.fragment.FamilyCallDialogFragment;

@@ -30,9 +30,7 @@ import com.vijay.jsonwizard.domain.Form;
 import org.apache.commons.lang3.tuple.Triple;
 import org.json.JSONObject;
 import org.opensrp.api.constants.Gender;
-import org.smartregister.CoreLibrary;
 import org.smartregister.chw.R;
-import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.contract.ChildProfileContract;
 import org.smartregister.chw.contract.ChildRegisterContract;
 import org.smartregister.chw.custom_view.FamilyMemberFloatingMenu;
@@ -55,7 +53,8 @@ import java.util.Map;
 import de.hdodenhof.circleimageview.CircleImageView;
 import timber.log.Timber;
 
-import static org.smartregister.chw.util.Constants.EventType.*;
+import static org.smartregister.chw.util.Constants.EventType.CHILD_REFERRAL;
+import static org.smartregister.chw.util.Constants.EventType.UPDATE_CHILD_REGISTRATION;
 import static org.smartregister.chw.util.Constants.INTENT_KEY.IS_COMES_FROM_FAMILY;
 import static org.smartregister.util.Utils.getAllSharedPreferences;
 

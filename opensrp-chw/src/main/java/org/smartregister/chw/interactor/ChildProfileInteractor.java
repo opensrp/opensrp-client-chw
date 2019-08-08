@@ -22,7 +22,6 @@ import org.smartregister.chw.util.ChildHomeVisit;
 import org.smartregister.chw.util.ChildService;
 import org.smartregister.chw.util.ChildUtils;
 import org.smartregister.chw.util.ChildVisit;
-import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.GrowthServiceData;
 import org.smartregister.chw.util.HomeVisitVaccineGroup;
 import org.smartregister.chw.util.ImmunizationState;
@@ -70,9 +69,12 @@ import io.reactivex.functions.Action;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
-import static org.smartregister.chw.anc.util.JsonFormUtils.*;
+import static org.smartregister.chw.anc.util.JsonFormUtils.gson;
+import static org.smartregister.chw.anc.util.JsonFormUtils.processJsonForm;
 import static org.smartregister.chw.util.ChildUtils.fixVaccineCasing;
-import static org.smartregister.chw.util.Constants.*;
+import static org.smartregister.chw.util.Constants.EventType;
+import static org.smartregister.chw.util.Constants.JsonAssets;
+import static org.smartregister.chw.util.Constants.TABLE_NAME;
 import static org.smartregister.util.JsonFormUtils.getFieldJSONObject;
 
 public class ChildProfileInteractor implements ChildProfileContract.Interactor {
@@ -491,6 +493,7 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
             task.setPlanIdentifier(iterator.next());
         } else {
             //TODO Implement an alert to inform the user; consult with PM
+            Timber.e("No plans exist in the server");
         }
         task.setGroupIdentifier("Awaiting Benja");
         task.setStatus(Task.TaskStatus.READY);
@@ -509,10 +512,6 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
         task.setRequester(allSharedPreferences.fetchRegisteredANM());
         task.setLocation(allSharedPreferences.fetchUserLocalityId(allSharedPreferences.fetchRegisteredANM()));
         ChwApplication.getInstance().getTaskRepository().addOrUpdate(task);
-
-    }    @Override
-    public void setChildBaseEntityId(String childBaseEntityId) {
-        this.childBaseEntityId = childBaseEntityId;
     }
 
     private Observable<Object> updateHomeVisitAsEvent(final long value) {
@@ -528,8 +527,8 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
             }
         });
     }    @Override
-    public String getChildBaseEntityId() {
-        return this.childBaseEntityId;
+    public void setChildBaseEntityId(String childBaseEntityId) {
+        this.childBaseEntityId = childBaseEntityId;
     }
 
     private Observable<ChildService> updateUpcomingServices(final Context context) {
@@ -748,6 +747,9 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
                 break;
 
         }
+    }    @Override
+    public String getChildBaseEntityId() {
+        return this.childBaseEntityId;
     }
 
     public enum VisitType {DUE, OVERDUE, LESS_TWENTY_FOUR, VISIT_THIS_MONTH, NOT_VISIT_THIS_MONTH, EXPIRY}
@@ -755,6 +757,8 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
     public enum ServiceType {DUE, OVERDUE, UPCOMING}
 
     public enum FamilyServiceType {DUE, OVERDUE, NOTHING}
+
+
 
 
 

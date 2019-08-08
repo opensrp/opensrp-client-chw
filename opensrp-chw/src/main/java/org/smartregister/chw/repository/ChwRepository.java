@@ -23,11 +23,8 @@ import org.smartregister.reporting.repository.DailyIndicatorCountRepository;
 import org.smartregister.reporting.repository.IndicatorQueryRepository;
 import org.smartregister.reporting.repository.IndicatorRepository;
 import org.smartregister.repository.EventClientRepository;
-import org.smartregister.repository.PlanDefinitionRepository;
-import org.smartregister.repository.PlanDefinitionSearchRepository;
 import org.smartregister.repository.Repository;
 import org.smartregister.repository.SettingsRepository;
-import org.smartregister.repository.TaskRepository;
 import org.smartregister.repository.UniqueIdRepository;
 
 import java.util.Arrays;
