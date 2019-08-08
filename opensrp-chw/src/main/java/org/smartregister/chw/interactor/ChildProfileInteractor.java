@@ -457,47 +457,25 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
 
     @Override
     public void createSickChildEvent(final AllSharedPreferences allSharedPreferences, final String jsonString) throws Exception {
-
         final Event baseEvent = processJsonForm(allSharedPreferences, new JSONObject(jsonString)
                 .put(JsonFormUtils.ENTITY_ID, getChildBaseEntityId()).toString(), TABLE_NAME.CHILD_REFERRAL);
-        Completable.fromAction(new Action() {
-
-            @Override
-            public void run() throws Exception {
-                Util.processEvent(baseEvent.getBaseEntityId(), new JSONObject(gson.toJson(baseEvent)));
-            }
-
-        }).subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new CompletableObserver() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-                        d.dispose();
-                    }
-
-                    @Override
-                    public void onComplete() {
-                        createReferralTask(baseEvent.getBaseEntityId(), allSharedPreferences);
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        Timber.e(e);
-                    }
-                });
+        Util.processEvent(baseEvent.getBaseEntityId(), new JSONObject(gson.toJson(baseEvent)));
+        createReferralTask(baseEvent.getBaseEntityId(), allSharedPreferences);
     }
 
     private void createReferralTask(String baseEntityId, AllSharedPreferences allSharedPreferences) {
         Task task = new Task();
         task.setIdentifier(UUID.randomUUID().toString());
-        Iterator<String> iterator = ChwApplication.getInstance().getPlanDefinitionRepository()
+        //TODO Implement plans
+      /*  Iterator<String> iterator = ChwApplication.getInstance().getPlanDefinitionRepository()
                 .findAllPlanDefinitionIds().iterator();
         if (iterator.hasNext()) {
             task.setPlanIdentifier(iterator.next());
         } else {
-            //TODO Implement an alert to inform the user; consult with PM
+
             Timber.e("No plans exist in the server");
-        }
+        }*/
+        task.setPlanIdentifier("5270285b-5a3b-4647-b772-c0b3c52e2b71");
         task.setGroupIdentifier("Awaiting Benja");
         task.setStatus(Task.TaskStatus.READY);
         task.setBusinessStatus("Referred");
