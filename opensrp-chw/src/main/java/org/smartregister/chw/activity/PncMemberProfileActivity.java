@@ -162,7 +162,7 @@ public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
 
                         Pair<Client, Event> pair = new ChildRegisterModel().processRegistration(jsonString);
                         if (pair != null) {
-                            basePncMemberProfileInteractor.updateChild(pair, jsonString, callBack());
+                            basePncMemberProfileInteractor.updateChild(pair, jsonString, null);
                         }
                     }
                 } catch (Exception e) {
@@ -177,86 +177,6 @@ public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
 
     public PncMemberProfilePresenter pncMemberProfilePresenter() {
         return new PncMemberProfilePresenter(this, new PncMemberProfileInteractor(this), MEMBER_OBJECT);
-    }
-
-    //    TODO a better way to do this?
-    private ChildProfileContract.InteractorCallBack callBack() {
-        return new ChildProfileContract.InteractorCallBack() {
-            @Override
-            public void updateChildVisit(ChildVisit childVisit) {
-//                Implement
-            }
-
-            @Override
-            public void updateChildService(ChildService childService) {
-//                Implement
-            }
-
-            @Override
-            public void updateFamilyMemberServiceDue(String serviceDueStatus) {
-//                Implement
-            }
-
-            @Override
-            public void startFormForEdit(String title, CommonPersonObjectClient client) {
-//                Implement
-            }
-
-            @Override
-            public void startSickChildReferralForm() {
-//                Implement
-            }
-
-            @Override
-            public void refreshProfileTopSection(CommonPersonObjectClient client) {
-//                Implement
-            }
-
-            @Override
-            public void hideProgressBar() {
-//                Implement
-            }
-
-            @Override
-            public void onRegistrationSaved(boolean isEditMode) {
-//                Implement
-            }
-
-            @Override
-            public void setFamilyID(String familyID) {
-//                Implement
-            }
-
-            @Override
-            public void setFamilyName(String familyName) {
-//                Implement
-            }
-
-            @Override
-            public void setFamilyHeadID(String familyHeadID) {
-//                Implement
-            }
-
-            @Override
-            public void setPrimaryCareGiverID(String primaryCareGiverID) {
-//                Implement
-            }
-
-            @Override
-            public void updateVisitNotDone() {
-//                Implement
-            }
-
-            @Override
-            public void undoVisitNotDone() {
-//                Implement
-            }
-
-            @Override
-            public void updateAfterBackGroundProcessed() {
-//                Implement
-            }
-        };
     }
 
     @Override

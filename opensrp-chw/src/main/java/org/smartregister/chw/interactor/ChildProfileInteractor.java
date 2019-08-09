@@ -218,17 +218,7 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
 
         final ChildVisit childVisit = ChildUtils.getChildVisitStatus(context, dobString, childHomeVisit.getLastHomeVisitDate(), childHomeVisit.getVisitNotDoneDate(), childHomeVisit.getDateCreated());
 
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                appExecutors.mainThread().execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        callback.updateChildVisit(childVisit);
-                    }
-                });
-            }
-        };
+        Runnable runnable = () -> appExecutors.mainThread().execute(() -> callback.updateChildVisit(childVisit));
         appExecutors.diskIO().execute(runnable);
     }
 
@@ -324,55 +314,46 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
      */
     @Override
     public void refreshProfileView(final String baseEntityId, final boolean isForEdit, final ChildProfileContract.InteractorCallBack callback) {
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                String query = ChildUtils.mainSelect(TABLE_NAME.CHILD, TABLE_NAME.FAMILY, TABLE_NAME.FAMILY_MEMBER, baseEntityId);
+        Runnable runnable = () -> {
+            String query = ChildUtils.mainSelect(TABLE_NAME.CHILD, TABLE_NAME.FAMILY, TABLE_NAME.FAMILY_MEMBER, baseEntityId);
 
-                Cursor cursor = null;
-                try {
-                    cursor = getCommonRepository(TABLE_NAME.CHILD).rawCustomQueryForAdapter(query);
-                    if (cursor != null && cursor.moveToFirst()) {
-                        CommonPersonObject personObject = getCommonRepository(TABLE_NAME.CHILD).readAllcommonforCursorAdapter(cursor);
-                        pClient = new CommonPersonObjectClient(personObject.getCaseId(),
-                                personObject.getDetails(), "");
-                        pClient.setColumnmaps(personObject.getColumnmaps());
-                        final String familyId = Utils.getValue(pClient.getColumnmaps(), ChildDBConstants.KEY.RELATIONAL_ID, false);
+            Cursor cursor = null;
+            try {
+                cursor = getCommonRepository(TABLE_NAME.CHILD).rawCustomQueryForAdapter(query);
+                if (cursor != null && cursor.moveToFirst()) {
+                    CommonPersonObject personObject = getCommonRepository(TABLE_NAME.CHILD).readAllcommonforCursorAdapter(cursor);
+                    pClient = new CommonPersonObjectClient(personObject.getCaseId(),
+                            personObject.getDetails(), "");
+                    pClient.setColumnmaps(personObject.getColumnmaps());
+                    final String familyId = Utils.getValue(pClient.getColumnmaps(), ChildDBConstants.KEY.RELATIONAL_ID, false);
 
-                        final CommonPersonObject familyPersonObject = getCommonRepository(Utils.metadata().familyRegister.tableName).findByBaseEntityId(familyId);
-                        final CommonPersonObjectClient client = new CommonPersonObjectClient(familyPersonObject.getCaseId(), familyPersonObject.getDetails(), "");
-                        client.setColumnmaps(familyPersonObject.getColumnmaps());
+                    final CommonPersonObject familyPersonObject = getCommonRepository(Utils.metadata().familyRegister.tableName).findByBaseEntityId(familyId);
+                    final CommonPersonObjectClient client = new CommonPersonObjectClient(familyPersonObject.getCaseId(), familyPersonObject.getDetails(), "");
+                    client.setColumnmaps(familyPersonObject.getColumnmaps());
 
-                        final String primaryCaregiverID = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.PRIMARY_CAREGIVER, false);
-                        final String familyHeadID = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.FAMILY_HEAD, false);
-                        final String familyName = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.FIRST_NAME, false);
+                    final String primaryCaregiverID = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.PRIMARY_CAREGIVER, false);
+                    final String familyHeadID = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.FAMILY_HEAD, false);
+                    final String familyName = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.FIRST_NAME, false);
 
 
-                        appExecutors.mainThread().execute(new Runnable() {
-                            @Override
-                            public void run() {
+                    appExecutors.mainThread().execute(() -> {
+                        callback.setFamilyHeadID(familyHeadID);
+                        callback.setFamilyID(familyId);
+                        callback.setPrimaryCareGiverID(primaryCaregiverID);
+                        callback.setFamilyName(familyName);
 
-                                callback.setFamilyHeadID(familyHeadID);
-                                callback.setFamilyID(familyId);
-                                callback.setPrimaryCareGiverID(primaryCaregiverID);
-                                callback.setFamilyName(familyName);
-
-                                if (isForEdit) {
-                                    callback.startFormForEdit("", pClient);
-                                } else {
-                                    callback.refreshProfileTopSection(pClient);
-                                }
-                            }
-                        });
-                    }
-                } catch (Exception ex) {
-                    Timber.e(ex.toString());
-                } finally {
-                    if (cursor != null)
-                        cursor.close();
+                        if (isForEdit) {
+                            callback.startFormForEdit("", pClient);
+                        } else {
+                            callback.refreshProfileTopSection(pClient);
+                        }
+                    });
                 }
-
-
+            } catch (Exception ex) {
+                Timber.e(ex.toString());
+            } finally {
+                if (cursor != null)
+                    cursor.close();
             }
         };
 
@@ -381,17 +362,12 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
 
     @Override
     public void saveRegistration(final Pair<Client, Event> pair, final String jsonString, final boolean isEditMode, final ChildProfileContract.InteractorCallBack callBack) {
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                saveRegistration(pair, jsonString, isEditMode);
-                appExecutors.mainThread().execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        callBack.onRegistrationSaved(isEditMode);
-                    }
-                });
-            }
+        Runnable runnable = () -> {
+            saveRegistration(pair, jsonString, isEditMode);
+            appExecutors.mainThread().execute(() -> {
+                if (callBack != null)
+                    callBack.onRegistrationSaved(isEditMode);
+            });
         };
 
         appExecutors.diskIO().execute(runnable);
