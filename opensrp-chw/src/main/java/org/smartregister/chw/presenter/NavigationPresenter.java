@@ -11,6 +11,7 @@ import org.smartregister.chw.model.NavigationOption;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.job.ImageUploadServiceJob;
 import org.smartregister.job.SyncServiceJob;
+import org.smartregister.job.SyncTaskServiceJob;
 
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
@@ -88,6 +89,7 @@ public class NavigationPresenter implements NavigationContract.Presenter {
         VaccineRecurringServiceJob.scheduleJobImmediately(VaccineRecurringServiceJob.TAG);
         ImageUploadServiceJob.scheduleJobImmediately(ImageUploadServiceJob.TAG);
         SyncServiceJob.scheduleJobImmediately(SyncServiceJob.TAG);
+        SyncTaskServiceJob.scheduleJobImmediately(SyncTaskServiceJob.TAG);
     }
 
     @Override
