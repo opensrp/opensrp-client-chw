@@ -129,8 +129,6 @@ public class ChildRegisterPresenter implements ChildRegisterContract.Presenter, 
                     public void onRegistrationSaved(boolean isEdit) {
                         getView().hideProgressDialog();
                         getView().openFamilyListView();
-
-
                     }
                 });
 

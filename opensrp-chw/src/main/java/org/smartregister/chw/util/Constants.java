@@ -10,6 +10,7 @@ public class Constants {
         public static final String FAMILY_MEMBER_REGISTER = "family_member_register";
         public static final String ANC_REGISTER = "anc_register";
         public static final String MALARIA_REGISTER = "anc_malaria_confirmation";
+        public static final String HEALTH_FACILITY_TAG = "MOH Jhpiego Facility Name";
 
     }
 
@@ -24,6 +25,7 @@ public class Constants {
         public static final String UPDATE_CHILD_REGISTRATION = "Update Child Registration";
         public static final String CHILD_HOME_VISIT = "Child Home Visit";
         public static final String CHILD_VISIT_NOT_DONE = "Visit not done";
+        public static final String CHILD_REFERRAL = "Sick Child Referral";
         public static final String VACCINE_CARD_RECEIVED = "Child vaccine card received";
         public static final String MINIMUM_DIETARY_DIVERSITY = "Minimum dietary diversity";
         public static final String MUAC = "Mid-upper arm circumference (MUAC)";
@@ -67,6 +69,11 @@ public class Constants {
         private static final String PREGNANCY_OUTCOME = "anc_pregnancy_outcome";
         private static final String MALARIA_CONFIRMATION = "malaria_confirmation";
         private static final String WASH_CHECK = "wash_check";
+        private static final String CHILD_REFERRAL_FORM =  "child_referral_form";
+
+        public static String getChildReferralForm(){
+            return CHILD_REFERRAL_FORM;
+        }
 
         public static String getBirthCertification() {
             return Utils.getLocalForm(BIRTH_CERTIFICATION);
@@ -278,6 +285,7 @@ public class Constants {
         public static final String MALARIA_CONFIRMATION = "ec_malaria_confirmation";
         public static final String ANC_PREGNANCY_OUTCOME = "ec_pregnancy_outcome";
         public static final String WASH_CHECK_LOG = "ec_wash_check_log";
+        public static final String CHILD_REFERRAL = "ec_child_referral";
     }
 
     public static final class INTENT_KEY {
