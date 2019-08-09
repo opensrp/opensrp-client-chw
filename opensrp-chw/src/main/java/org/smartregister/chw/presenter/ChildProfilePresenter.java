@@ -295,7 +295,7 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
 
     @Override
     public void refreshProfileTopSection(CommonPersonObjectClient client) {
-        if (client == null || client.getColumnmaps() == null) {
+        if (client == null || client.getColumnmaps() == null || getView() == null) {
             return;
         }
         String parentFirstName = Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.FAMILY_FIRST_NAME, true);
@@ -318,7 +318,7 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
         String gender = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.GENDER, true);
 
         getView().setAddress(address);
-        getView().setGender(gender);
+        getView().setGender(org.smartregister.chw.util.Utils.getGenderLanguageSpecific(view.get().getContext(),gender));
 
         String uniqueId = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.UNIQUE_ID, false);
         uniqueId = String.format(getView().getString(org.smartregister.family.R.string.unique_id_text), uniqueId);

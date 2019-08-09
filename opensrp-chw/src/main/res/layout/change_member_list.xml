@@ -35,7 +35,6 @@
         android:layout_below="@+id/tvName"
         android:layout_alignStart="@+id/tvName"
         android:maxLines="5"
-        android:text="Female"
         android:textColor="@color/black_tranparent_50"
         android:textSize="@dimen/change_member_list_details" />
 

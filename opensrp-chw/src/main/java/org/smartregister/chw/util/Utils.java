@@ -24,19 +24,17 @@ import android.widget.Toast;
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
-import org.joda.time.Period;
-import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.contract.FamilyCallDialogContract;
 import org.smartregister.chw.fragment.CopyToClipboardDialog;
+import org.smartregister.chw.fragment.GrowthNutritionInputFragment;
 import org.smartregister.clientandeventmodel.Obs;
 import org.smartregister.util.PermissionUtils;
 
 import java.text.MessageFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -47,11 +45,52 @@ import timber.log.Timber;
 
 import static com.google.android.gms.common.internal.Preconditions.checkArgument;
 
+
 public class Utils extends org.smartregister.family.util.Utils {
 
     public static final SimpleDateFormat dd_MMM_yyyy = new SimpleDateFormat("dd MMM yyyy");
     public static final SimpleDateFormat yyyy_mm_dd = new SimpleDateFormat("yyyy-mm-dd");
     private static List<String> assets;
+
+    public static String getImmunizationHeaderLanguageSpecific(Context context, String value) {
+        if (value.equalsIgnoreCase("at birth")) {
+            return context.getString(R.string.at_birth);
+        } else if (value.contains("weeks")) {
+            return context.getString(R.string.week_full);
+        } else if (value.contains("months")) {
+            return context.getString(R.string.month_full);
+        }
+        return value;
+    }
+
+    public static String getYesNoAsLanguageSpecific(Context context, String value) {
+        if (value.equalsIgnoreCase("yes")) {
+            return context.getString(R.string.yes);
+        } else if (value.equalsIgnoreCase("no")) {
+            return context.getString(R.string.no);
+        }
+        return value;
+    }
+
+    public static String getGenderLanguageSpecific(Context context, String value) {
+        if (value.equalsIgnoreCase("male")) {
+            return context.getString(org.smartregister.family.R.string.male);
+        } else if (value.equalsIgnoreCase("female")) {
+            return context.getString(org.smartregister.family.R.string.female);
+        }
+        return value;
+    }
+
+    public static String getServiceTypeLanguageSpecific(Context context, String value) {
+        if (value.equalsIgnoreCase(GrowthNutritionInputFragment.GROWTH_TYPE.EXCLUSIVE.getValue())) {
+            return context.getString(R.string.exclusive_breastfeeding);
+        } else if (value.equalsIgnoreCase(GrowthNutritionInputFragment.GROWTH_TYPE.VITAMIN.getValue())) {
+            return context.getString(R.string.vitamin_a);
+        } else if (value.equalsIgnoreCase(GrowthNutritionInputFragment.GROWTH_TYPE.DEWORMING.getValue())) {
+            return context.getString(R.string.deworming);
+        }
+        return value;
+    }
 
     public static String firstCharacterUppercase(String str) {
         if (TextUtils.isEmpty(str)) return "";
@@ -116,19 +155,6 @@ public class Utils extends org.smartregister.family.util.Utils {
         return dp * ((float) context.getResources().getDisplayMetrics().densityDpi / DisplayMetrics.DENSITY_DEFAULT);
     }
 
-    public static float convertPixelsToDp(float px, Context context) {
-        return px / ((float) context.getResources().getDisplayMetrics().densityDpi / DisplayMetrics.DENSITY_DEFAULT);
-    }
-
-    public static boolean areDrawablesIdentical(Drawable drawableA, Drawable drawableB) {
-        Drawable.ConstantState stateA = drawableA.getConstantState();
-        Drawable.ConstantState stateB = drawableB.getConstantState();
-        // If the constant state is identical, they are using the same drawable resource.
-        // However, the opposite is not necessarily true.
-        return (stateA != null && stateB != null && stateA.equals(stateB))
-                || getBitmap(drawableA).sameAs(getBitmap(drawableB));
-    }
-
     public static Bitmap getBitmap(Drawable drawable) {
         Bitmap result;
         if (drawable instanceof BitmapDrawable) {
@@ -184,41 +210,6 @@ public class Utils extends org.smartregister.family.util.Utils {
         return "";
     }
 
-    public static String actualDuration(Context context, String duration) {
-        List<String> printList = new ArrayList<>();
-        String[] splits = duration.split("\\s+");
-        for (String s : splits) {
-            if (s.contains("d")) {
-                printList.add(replaceSingularPlural(s, "d", getStringSpacePrefix(context, R.string.day), getStringSpacePrefix(context, R.string.days)));
-            } else if (s.contains("w")) {
-                printList.add(replaceSingularPlural(s, "w", getStringSpacePrefix(context, R.string.week), getStringSpacePrefix(context, R.string.weeks)));
-            } else if (s.contains("m")) {
-                printList.add(replaceSingularPlural(s, "m", getStringSpacePrefix(context, R.string.month), getStringSpacePrefix(context, R.string.months)));
-            } else if (s.contains("y")) {
-                printList.add(replaceSingularPlural(s, "y", getStringSpacePrefix(context, R.string.year), getStringSpacePrefix(context, R.string.years)));
-            }
-        }
-
-        return StringUtils.join(printList, " ");
-    }
-
-    public static String getBuildDate(Boolean isShortMonth) {
-        String simpleDateFormat;
-        if (isShortMonth) {
-            simpleDateFormat =
-                    new SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(new Date(BuildConfig.BUILD_TIMESTAMP));
-        } else {
-            simpleDateFormat =
-                    new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault()).format(new Date(BuildConfig.BUILD_TIMESTAMP));
-        }
-        return simpleDateFormat;
-    }
-
-    private static String replaceSingularPlural(String string, String dwmyString, String singular, String plural) {
-        int dwmy = Integer.valueOf(string.substring(0, string.indexOf(dwmyString)));
-        return " " + string.replace(dwmyString, dwmy > 1 ? plural : singular);
-    }
-
     private static String getStringSpacePrefix(Context context, int resId) {
         return " " + context.getString(resId);
     }
@@ -235,7 +226,7 @@ public class Utils extends org.smartregister.family.util.Utils {
         String formIdentity = MessageFormat.format("{0}_{1}", form_name, current.getLanguage());
         // validate variant exists
         try {
-            if(assets == null)
+            if (assets == null)
                 assets = new ArrayList<>();
 
             if (assets.size() == 0) {
@@ -254,18 +245,6 @@ public class Utils extends org.smartregister.family.util.Utils {
             return form_name;
         }
         return form_name;
-    }
-
-    public static String getAncMemberNameAndAge(String firstName, String middleName, String surName, String age) {
-        int integerAge = new Period(new DateTime(age), new DateTime()).getYears();
-        String first_name = firstName.trim();
-        String middle_name = middleName.trim();
-        String sur_name = surName != null ? surName.trim() : "";
-
-        if (StringUtils.isNotBlank(firstName) && StringUtils.isNotBlank(middleName) && StringUtils.isNotBlank(age)) {
-            return (first_name + " " + middle_name + " " + sur_name).trim() + ", " + integerAge;
-        }
-        return "";
     }
 
     public static String getDayOfMonthSuffix(String n) {
