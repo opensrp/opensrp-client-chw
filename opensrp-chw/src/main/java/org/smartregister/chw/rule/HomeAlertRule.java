@@ -1,7 +1,6 @@
 package org.smartregister.chw.rule;
 
 import android.content.Context;
-import android.text.TextUtils;
 
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.Days;
@@ -10,7 +9,6 @@ import org.joda.time.Months;
 import org.smartregister.chw.R;
 import org.smartregister.chw.interactor.ChildProfileInteractor;
 import org.smartregister.chw.util.ChildUtils;
-import org.smartregister.util.StringUtil;
 
 //All date formats ISO 8601 yyyy-mm-dd
 
@@ -39,7 +37,7 @@ public class HomeAlertRule implements ICommonRule {
         this.todayDate = new LocalDate();
         if (lastVisitDateLong > 0) {
             this.lastVisitDate = new LocalDate(lastVisitDateLong);
-            noOfDayDue = dayDifference(lastVisitDate, todayDate) + " "+context.getString(R.string.days);
+            noOfDayDue = dayDifference(lastVisitDate, todayDate) + " " + context.getString(R.string.days);
         }
 
         if (visitNotDoneValue > 0) {
