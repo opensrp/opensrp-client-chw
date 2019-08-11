@@ -1,13 +1,11 @@
 package org.smartregister.chw.activity;
 
 import android.os.Bundle;
-import android.support.design.bottomnavigation.LabelVisibilityMode;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -18,13 +16,11 @@ import com.github.ybq.android.spinkit.style.FadingCircle;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.fragment.JobAidsDashboardFragment;
 import org.smartregister.chw.fragment.JobAidsGuideBooksFragment;
 import org.smartregister.chw.job.ChwIndicatorGeneratingJob;
-import org.smartregister.chw.listener.JobsAidsBottomNavigationListener;
 import org.smartregister.helper.BottomNavigationHelper;
 import org.smartregister.reporting.domain.TallyStatus;
 import org.smartregister.reporting.event.IndicatorTallyEvent;
@@ -69,15 +65,12 @@ public class JobAidsActivity extends FamilyRegisterActivity {
         // Initial view until we determined by the refresh function
         refreshIndicatorsProgressBar.setVisibility(View.GONE);
 
-        refreshIndicatorsIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                refreshIndicatorsIcon.setVisibility(View.GONE);
-                FadingCircle circle = new FadingCircle();
-                refreshIndicatorsProgressBar.setIndeterminateDrawable(circle);
-                refreshIndicatorsProgressBar.setVisibility(View.VISIBLE);
-                refreshIndicatorData();
-            }
+        refreshIndicatorsIcon.setOnClickListener(view -> {
+            refreshIndicatorsIcon.setVisibility(View.GONE);
+            FadingCircle circle = new FadingCircle();
+            refreshIndicatorsProgressBar.setIndeterminateDrawable(circle);
+            refreshIndicatorsProgressBar.setVisibility(View.VISIBLE);
+            refreshIndicatorData();
         });
     }
 
@@ -95,32 +88,9 @@ public class JobAidsActivity extends FamilyRegisterActivity {
 
     @Override
     protected void registerBottomNavigation() {
-
         bottomNavigationHelper = new BottomNavigationHelper();
-        bottomNavigationView = findViewById(R.id.bottom_navigation);
-
-        if (bottomNavigationView != null) {
-
-            bottomNavigationView.getMenu().add(Menu.NONE, org.smartregister.R.string.action_me, Menu.NONE, org.smartregister.R.string.me)
-                    .setIcon(bottomNavigationHelper
-                            .writeOnDrawable(org.smartregister.R.drawable.bottom_bar_initials_background, "", getResources()));
-            bottomNavigationHelper.disableShiftMode(bottomNavigationView);
-
-            bottomNavigationView.getMenu().removeItem(org.smartregister.R.string.action_me);
-
-            bottomNavigationView.setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_LABELED);
-
-            bottomNavigationHelper.disableShiftMode(bottomNavigationView);
-            bottomNavigationView.setSelectedItemId(org.smartregister.family.R.id.action_job_aids);
-
-            JobsAidsBottomNavigationListener childBottomNavigationListener = new JobsAidsBottomNavigationListener(this);
-            bottomNavigationView.setOnNavigationItemSelectedListener(childBottomNavigationListener);
-
-        }
-
-        if (!BuildConfig.SUPPORT_QR) {
-            bottomNavigationView.getMenu().removeItem(org.smartregister.family.R.id.action_scan_qr);
-        }
+        bottomNavigationView = findViewById(org.smartregister.R.id.bottom_navigation);
+        FamilyRegisterActivity.registerBottomNavigation(bottomNavigationHelper, bottomNavigationView, this);
     }
 
     /**

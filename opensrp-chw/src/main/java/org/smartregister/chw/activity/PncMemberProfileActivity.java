@@ -105,7 +105,6 @@ public class PncMemberProfileActivity extends BasePncMemberProfileActivity {
         if (ChildProfileInteractor.VisitType.OVERDUE.name().equals(visitStatus) || ChildProfileInteractor.VisitType.EXPIRY.name().equals(visitStatus)) {
             textview_record_anc_visit.setBackgroundResource(R.drawable.record_btn_selector_overdue);
         }
-
     }
 
     @Override

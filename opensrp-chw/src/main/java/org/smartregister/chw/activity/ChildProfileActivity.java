@@ -60,7 +60,6 @@ import static org.smartregister.util.Utils.getAllSharedPreferences;
 
 
 public class ChildProfileActivity extends BaseProfileActivity implements ChildProfileContract.View, ChildRegisterContract.InteractorCallBack {
-    private static final String TAG = ChildProfileActivity.class.getCanonicalName();
     private static IntentFilter sIntentFilter;
 
     static {
@@ -347,15 +346,12 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
      * need postdelay to update the client map
      */
     private void updateImmunizationData() {
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                layoutMostDueOverdue.setVisibility(View.GONE);
-                viewMostDueRow.setVisibility(View.GONE);
-                presenter().fetchVisitStatus(childBaseEntityId);
-                presenter().fetchUpcomingServiceAndFamilyDue(childBaseEntityId);
-                presenter().updateChildCommonPerson(childBaseEntityId);
-            }
+        handler.postDelayed(() -> {
+            layoutMostDueOverdue.setVisibility(View.GONE);
+            viewMostDueRow.setVisibility(View.GONE);
+            presenter().fetchVisitStatus(childBaseEntityId);
+            presenter().fetchUpcomingServiceAndFamilyDue(childBaseEntityId);
+            presenter().updateChildCommonPerson(childBaseEntityId);
         }, 100);
     }
 
@@ -397,12 +393,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     @Override
     public void refreshProfile(FetchStatus fetchStatus) {
         if (fetchStatus.equals(FetchStatus.fetched)) {
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    presenter().fetchProfileData();
-                }
-            }, 100);
+            handler.postDelayed(() -> presenter().fetchProfileData(), 100);
         }
 
     }
@@ -450,7 +441,6 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     public void setProfileName(String fullName) {
         patientName = fullName;
         textViewChildName.setText(fullName);
-
     }
 
     @Override

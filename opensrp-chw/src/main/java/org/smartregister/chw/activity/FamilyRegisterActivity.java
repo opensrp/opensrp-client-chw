@@ -5,19 +5,24 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.bottomnavigation.LabelVisibilityMode;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.BuildConfig;
+import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.custom_view.NavigationMenu;
 import org.smartregister.chw.fragment.FamilyRegisterFragment;
+import org.smartregister.chw.listener.ChwBottomNavigationListener;
 import org.smartregister.chw.listener.FamilyBottomNavigationListener;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.family.activity.BaseFamilyRegisterActivity;
 import org.smartregister.family.model.BaseFamilyRegisterModel;
 import org.smartregister.family.presenter.BaseFamilyRegisterPresenter;
 import org.smartregister.family.util.JsonFormUtils;
+import org.smartregister.helper.BottomNavigationHelper;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
 public class FamilyRegisterActivity extends BaseFamilyRegisterActivity {
@@ -81,7 +86,7 @@ public class FamilyRegisterActivity extends BaseFamilyRegisterActivity {
     protected void onResumption() {
         super.onResumption();
         NavigationMenu menu = NavigationMenu.getInstance(this, null, null);
-        if(menu != null){
+        if (menu != null) {
             menu.getNavigationAdapter()
                     .setSelectedView(Constants.DrawerMenu.ALL_FAMILIES);
         }
@@ -94,6 +99,26 @@ public class FamilyRegisterActivity extends BaseFamilyRegisterActivity {
             if (navigationMenu != null) {
                 navigationMenu.startP2PActivity(this);
             }
+        }
+    }
+
+    public static void registerBottomNavigation(
+            BottomNavigationHelper bottomNavigationHelper,
+            BottomNavigationView bottomNavigationView,
+            Activity activity
+    ) {
+
+        if (bottomNavigationView != null) {
+            bottomNavigationView.setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_LABELED);
+
+            bottomNavigationView.getMenu().clear();
+            bottomNavigationView.inflateMenu(R.menu.bottom_nav_family_menu);
+            bottomNavigationHelper.disableShiftMode(bottomNavigationView);
+            bottomNavigationView.setOnNavigationItemSelectedListener(new ChwBottomNavigationListener(activity));
+        }
+
+        if (!BuildConfig.SUPPORT_QR) {
+            bottomNavigationView.getMenu().removeItem(org.smartregister.family.R.id.action_scan_qr);
         }
     }
 }

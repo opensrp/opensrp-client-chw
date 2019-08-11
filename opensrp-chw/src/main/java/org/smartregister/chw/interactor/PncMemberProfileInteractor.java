@@ -51,13 +51,10 @@ public class PncMemberProfileInteractor extends BasePncMemberProfileInteractor {
 
             @Override
             public void run() {
-                appExecutors.mainThread().execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        callback.refreshLastVisit(lastVisitDate);
-                        callback.refreshFamilyStatus(AlertStatus.normal);
-                        callback.refreshUpComingServicesStatus(context.getString(R.string.pnc_visit), AlertStatus.normal, new Date());
-                    }
+                appExecutors.mainThread().execute(() -> {
+                    callback.refreshLastVisit(lastVisitDate);
+                    callback.refreshFamilyStatus(AlertStatus.normal);
+                    callback.refreshUpComingServicesStatus(context.getString(R.string.pnc_visit), AlertStatus.normal, new Date());
                 });
             }
         };
@@ -75,21 +72,13 @@ public class PncMemberProfileInteractor extends BasePncMemberProfileInteractor {
     }
 
     public void updateChild(final Pair<Client, Event> pair, final String jsonString, final ChildProfileContract.InteractorCallBack callBack) {
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                appExecutors.mainThread().execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            new ChildProfileInteractor().saveRegistration(pair, jsonString, true, callBack);
-                        } catch (Exception e) {
-                            Timber.e(e);
-                        }
-                    }
-                });
+        Runnable runnable = () -> appExecutors.mainThread().execute(() -> {
+            try {
+                new ChildProfileInteractor().saveRegistration(pair, jsonString, true, callBack);
+            } catch (Exception e) {
+                Timber.e(e);
             }
-        };
+        });
         appExecutors.diskIO().execute(runnable);
     }
 
