@@ -26,7 +26,6 @@ import org.smartregister.chw.anc.domain.VisitDetail;
 import org.smartregister.chw.anc.fragment.BaseAncHomeVisitFragment;
 import org.smartregister.chw.anc.fragment.BaseHomeVisitImmunizationFragment;
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
-import org.smartregister.chw.anc.util.JsonFormUtils;
 import org.smartregister.chw.anc.util.VisitUtils;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.dao.PNCDao;
@@ -257,7 +256,7 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
             public void onPayloadReceived(String jsonPayload) {
                 try {
                     JSONObject jsonObject = new JSONObject(jsonPayload);
-                    cord_care = JsonFormUtils.getValue(jsonObject, "cord_care");
+                    cord_care = getValue(jsonObject, "cord_care");
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -424,9 +423,9 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
             public void onPayloadReceived(String jsonPayload) {
                 try {
                     JSONObject jsonObject = new JSONObject(jsonPayload);
-                    fp_counseling = JsonFormUtils.getValue(jsonObject, "fp_counseling");
-                    fp_method = JsonFormUtils.getValue(jsonObject, "fp_method");
-                    fp_start_date = JsonFormUtils.getValue(jsonObject, "fp_start_date");
+                    fp_counseling = getValue(jsonObject, "fp_counseling");
+                    fp_method = getValue(jsonObject, "fp_method");
+                    fp_start_date = getValue(jsonObject, "fp_start_date");
 
                     if (StringUtils.isNotBlank(fp_start_date))
                         start_date = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).parse(fp_start_date);
