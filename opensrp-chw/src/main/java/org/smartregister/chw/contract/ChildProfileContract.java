@@ -164,6 +164,9 @@ public interface ChildProfileContract {
 
         void updateAfterBackGroundProcessed();
     }
+    interface InteractorCallBack2 {
+
+    }
 
     interface Model {
 

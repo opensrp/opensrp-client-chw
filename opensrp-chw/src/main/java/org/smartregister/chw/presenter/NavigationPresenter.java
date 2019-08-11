@@ -4,6 +4,7 @@ import android.app.Activity;
 
 import org.smartregister.chw.contract.NavigationContract;
 import org.smartregister.chw.interactor.NavigationInteractor;
+import org.smartregister.chw.job.BasePncCloseJob;
 import org.smartregister.chw.job.HomeVisitServiceJob;
 import org.smartregister.chw.job.VaccineRecurringServiceJob;
 import org.smartregister.chw.model.NavigationModel;
@@ -84,6 +85,7 @@ public class NavigationPresenter implements NavigationContract.Presenter {
 
     @Override
     public void sync(Activity activity) {
+        BasePncCloseJob.scheduleJobImmediately(BasePncCloseJob.TAG);
         HomeVisitServiceJob.scheduleJobImmediately(HomeVisitServiceJob.TAG);
         VaccineRecurringServiceJob.scheduleJobImmediately(VaccineRecurringServiceJob.TAG);
         ImageUploadServiceJob.scheduleJobImmediately(ImageUploadServiceJob.TAG);

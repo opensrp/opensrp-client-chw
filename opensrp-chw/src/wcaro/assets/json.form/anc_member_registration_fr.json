@@ -67,6 +67,7 @@
         "label_info_text": "DDR = La première journée des dernières règles. Si la date exacte est inconnue mais la période du mois est connue, utiliser jour 5 pour le début du mois, jour 15 pour le milieu du mois, et jour 25 pour la fin du mois.",
         "expanded": false,
         "max_date": "today",
+        "min_date": "today-50w",
         "v_required": {
           "value": "true",
           "err": "Cette réponse est requise."

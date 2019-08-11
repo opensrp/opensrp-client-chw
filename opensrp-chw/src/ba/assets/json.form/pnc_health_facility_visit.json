@@ -50,13 +50,13 @@
     "title": "Health Facility Visit",
     "fields": [
       {
-        "key": "pnc_visit_1",
+        "key": "pnc_visit_{0}",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "164378AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Did the woman attend her PNC visit 1 at the health facility?\n\nVisit due date: [due date of visit]",
+        "hint": "Did the woman attend her PNC visit {0} at the health facility?\n\nVisit due date: {1}",
         "v_required": {
           "value": "true",
           "err": "Please select option"
@@ -67,18 +67,24 @@
         ]
       },
       {
-        "key": "pnc_hf_visit1_date",
+        "key": "pnc_hf_visit{0}_date",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "164093AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "date_picker",
-        "hint": "Date of PNC health facility visit 1",
+        "hint": "Date of PNC health facility visit {0}",
         "expanded": false,
         "max_date": "today",
         "min_date": "",
         "v_required": {
           "value": "true",
           "err": "Please enter date"
+        },
+        "relevance": {
+          "step1:pnc_visit_{0}": {
+            "type": "string",
+            "ex": "equalTo(., \"Yes\")"
+          }
         }
       },
       {
@@ -96,7 +102,13 @@
         "values": [
           "Yes",
           "No"
-        ]
+        ],
+        "relevance": {
+          "step1:pnc_visit_{0}": {
+            "type": "string",
+            "ex": "equalTo(., \"Yes\")"
+          }
+        }
       },
       {
         "key": "ifa_mother",
@@ -117,13 +129,29 @@
         "openmrs_choice_ids": {
           "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "relevance": {
+          "step1:pnc_visit_{0}": {
+            "type": "string",
+            "ex": "equalTo(., \"Yes\")"
+          }
         }
       },
       {
-        "key": "confirmed_visits",
+        "key": "confirmed_health_facility_visits",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "confirmed_visits",
+        "openmrs_entity_id": "confirmed_health_facility_visits",
+        "type": "spacer",
+        "read_only": "true",
+        "hidden": "true",
+        "value": "0"
+      },
+      {
+        "key": "last_health_facility_visit_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "last_health_facility_visit_date",
         "type": "spacer",
         "read_only": "true",
         "hidden": "true",

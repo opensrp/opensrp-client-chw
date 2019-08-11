@@ -27,6 +27,10 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.smartregister.chw.anc.util.Constants.ACTIVITY_PAYLOAD.TABLE_NAME;
+import static org.smartregister.chw.anc.util.JsonFormUtils.updateFormField;
+import static org.smartregister.chw.util.Constants.CONFIGURATION;
+import static org.smartregister.chw.util.Constants.DrawerMenu;
+import static org.smartregister.chw.util.Constants.JsonAssets;
 import static org.smartregister.chw.util.Constants.TABLE_NAME.ANC_MEMBER;
 import static org.smartregister.chw.util.Constants.TABLE_NAME.ANC_PREGNANCY_OUTCOME;
 
@@ -35,14 +39,16 @@ public class AncRegisterActivity extends BaseAncRegisterActivity implements ChwB
     private static String form_name;
     private static String unique_id;
     private static String familyBaseEntityId;
+    private static String familyName;
 
     public static void startAncRegistrationActivity(Activity activity, String memberBaseEntityID, String phoneNumber, String formName,
-                                                    String uniqueId, String familyBaseID) {
+                                                    String uniqueId, String familyBaseID, String family_name) {
         Intent intent = new Intent(activity, AncRegisterActivity.class);
         intent.putExtra(org.smartregister.chw.anc.util.Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID, memberBaseEntityID);
         phone_number = phoneNumber;
         familyBaseEntityId = familyBaseID;
         form_name = formName;
+        familyName = family_name;
         unique_id = uniqueId;
         intent.putExtra(org.smartregister.chw.anc.util.Constants.ACTIVITY_PAYLOAD.ACTION, org.smartregister.chw.anc.util.Constants.ACTIVITY_PAYLOAD_TYPE.REGISTRATION);
         intent.putExtra(TABLE_NAME, getFormTable());
@@ -67,6 +73,7 @@ public class AncRegisterActivity extends BaseAncRegisterActivity implements ChwB
     public String getRegistrationForm() {
         return form_name;
     }
+
 
     @Override
     public String getFormRegistrationEvent() {
@@ -109,15 +116,21 @@ public class AncRegisterActivity extends BaseAncRegisterActivity implements ChwB
 
     @Override
     public void onRegistrationSaved(boolean isEdit) {
+        if (hasChildRegistration) {
+            startRegisterActivity(PncRegisterActivity.class);
+        } else {
+            startRegisterActivity(AncRegisterActivity.class);
+        }
         finish();
-        startRegisterActivity(AncRegisterActivity.class);
     }
 
     @Override
     protected void onResumption() {
         super.onResumption();
+        NavigationMenu.getInstance(this, null, null).getNavigationAdapter()
+                .setSelectedView(DrawerMenu.ANC);
         NavigationMenu menu = NavigationMenu.getInstance(this, null, null);
-        if(menu != null){
+        if (menu != null) {
             menu.getNavigationAdapter()
                     .setSelectedView(Constants.DrawerMenu.ANC);
         }
@@ -125,22 +138,9 @@ public class AncRegisterActivity extends BaseAncRegisterActivity implements ChwB
 
     @Override
     public List<String> getViewIdentifiers() {
-        return Arrays.asList(Constants.CONFIGURATION.ANC_REGISTER);
+        return Arrays.asList(CONFIGURATION.ANC_REGISTER);
     }
 
-    private void updateFormField(JSONArray formFieldArrays, String formFeildKey, String updateValue) {
-        if (updateValue != null) {
-            JSONObject formObject = org.smartregister.util.JsonFormUtils.getFieldJSONObject(formFieldArrays, formFeildKey);
-            if (formObject != null) {
-                try {
-                    formObject.remove(org.smartregister.util.JsonFormUtils.VALUE);
-                    formObject.put(org.smartregister.util.JsonFormUtils.VALUE, updateValue);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
 
     public void startFormActivity(JSONObject jsonForm) {
 
@@ -148,7 +148,8 @@ public class AncRegisterActivity extends BaseAncRegisterActivity implements ChwB
             JSONObject stepOne = jsonForm.getJSONObject(JsonFormUtils.STEP1);
             JSONArray jsonArray = stepOne.getJSONArray(JsonFormUtils.FIELDS);
             updateFormField(jsonArray, DBConstants.KEY.TEMP_UNIQUE_ID, unique_id);
-            updateFormField(jsonArray, org.smartregister.chw.util.Constants.JsonAssets.FAMILY_MEMBER.PHONE_NUMBER, phone_number);
+            updateFormField(jsonArray, JsonAssets.FAM_NAME, familyName);
+            updateFormField(jsonArray, JsonAssets.FAMILY_MEMBER.PHONE_NUMBER, phone_number);
             updateFormField(jsonArray, org.smartregister.family.util.DBConstants.KEY.RELATIONAL_ID, familyBaseEntityId);
 
             Intent intent = new Intent(this, Utils.metadata().familyMemberFormActivity);

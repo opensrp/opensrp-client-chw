@@ -211,6 +211,7 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
     }
 
     public void updateWashCheckBar(WashCheck washCheck) {
+        if(washCheckView.getVisibility() == View.VISIBLE) return;
         addWashCheckView();
         TextView name = washCheckView.findViewById(R.id.patient_name_age);
         TextView lastVisit = washCheckView.findViewById(R.id.last_visit);

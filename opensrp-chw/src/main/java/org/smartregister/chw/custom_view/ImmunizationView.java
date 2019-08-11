@@ -248,7 +248,7 @@ public class ImmunizationView extends LinearLayout implements ImmunizationContac
 
     @Override
     public Context getMyContext() {
-        return null;
+        return context;
     }
 
     @Override

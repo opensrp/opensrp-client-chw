@@ -29,6 +29,7 @@ import org.smartregister.chw.anc.util.VisitUtils;
 import org.smartregister.chw.model.VaccineTaskModel;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.ContactUtil;
+import org.smartregister.chw.util.VaccineScheduleUtil;
 import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.immunization.domain.ServiceWrapper;
 import org.smartregister.immunization.domain.Vaccine;
@@ -160,7 +161,7 @@ public abstract class DefaultAncHomeVisitInteractorFlv implements AncHomeVisitIn
             return;
         }
         // compute the due date
-        final Triple<DateTime, VaccineRepo.Vaccine, String> individualVaccine = ContactUtil.getIndividualVaccine(vaccineTaskModel, "TT");
+        final Triple<DateTime, VaccineRepo.Vaccine, String> individualVaccine = VaccineScheduleUtil.getIndividualVaccine(vaccineTaskModel, "TT");
         if (individualVaccine == null || individualVaccine.getLeft().isAfter(new DateTime())) {
             return;
         }
@@ -178,7 +179,7 @@ public abstract class DefaultAncHomeVisitInteractorFlv implements AncHomeVisitIn
                 .withDetails(details)
                 .withOptional(false)
                 .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(view, null, preProcessObject, details, individualVaccine.getRight()))
-                .withVaccineWrapper(getVaccineWrapper(individualVaccine.getMiddle(), vaccineTaskModel))
+                .withVaccineWrapper(VaccineScheduleUtil.getVaccineWrapper(individualVaccine.getMiddle(), vaccineTaskModel))
                 .withScheduleStatus((overdueMonth < 1) ? BaseAncHomeVisitAction.ScheduleStatus.DUE : BaseAncHomeVisitAction.ScheduleStatus.OVERDUE)
                 .withSubtitle(MessageFormat.format("{0} {1}", dueState, DateTimeFormat.forPattern("dd MMM yyyy").print(new DateTime(individualVaccine.getLeft()))))
                 .build();
@@ -237,30 +238,12 @@ public abstract class DefaultAncHomeVisitInteractorFlv implements AncHomeVisitIn
     }
 
     public VaccineTaskModel getWomanVaccine(String baseEntityID, DateTime lmpDate, List<VaccineWrapper> notDoneVaccines) {
-        return ContactUtil.getWomanVaccine(baseEntityID, lmpDate, notDoneVaccines);
+        return VaccineScheduleUtil.getWomanVaccine(baseEntityID, lmpDate, notDoneVaccines);
     }
 
     // read vaccine repo for all not given vaccines
     private List<VaccineWrapper> getNotGivenVaccines() {
         return new ArrayList<>();
-    }
-
-    private VaccineWrapper getVaccineWrapper(VaccineRepo.Vaccine vaccine, VaccineTaskModel vaccineTaskModel) {
-        VaccineWrapper vaccineWrapper = new VaccineWrapper();
-        vaccineWrapper.setVaccine(vaccine);
-        vaccineWrapper.setName(vaccine.display());
-        vaccineWrapper.setDbKey(getVaccineId(vaccine.display(), vaccineTaskModel));
-        vaccineWrapper.setDefaultName(vaccine.display());
-        return vaccineWrapper;
-    }
-
-    private Long getVaccineId(String vaccineName, VaccineTaskModel vaccineTaskModel) {
-        for (Vaccine vaccine : vaccineTaskModel.getVaccines()) {
-            if (vaccine.getName().equalsIgnoreCase(vaccineName)) {
-                return vaccine.getId();
-            }
-        }
-        return null;
     }
 
 }

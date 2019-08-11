@@ -449,10 +449,12 @@ public class VaccinationDialogFragment extends DialogFragment implements View.On
         List<String> selectedCheckboxes = findSelectedCheckBoxes(vaccinationNameLayout);
         singleVaccineAddView.removeAllViews();
         singleVaccineMap.clear();
+
+        singleVaccineAddView.setVisibility(View.VISIBLE);
+        String dobString = org.smartregister.util.Utils.getValue(childDetails, DBConstants.KEY.DOB, false);
+
         for (String checkedName : selectedCheckboxes) {
-            singleVaccineAddView.setVisibility(View.VISIBLE);
             VaccineWrapper tag = searchWrapperByName(checkedName);
-            String dobString = org.smartregister.util.Utils.getValue(childDetails, DBConstants.KEY.DOB, false);
 
             if (tag != null && !TextUtils.isEmpty(dobString)) {
                 View layout = inflater.inflate(R.layout.custom_single_vaccine_view, null);

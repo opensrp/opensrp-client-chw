@@ -44,6 +44,9 @@ public class ChwJobCreator implements JobCreator {
                 return new P2pServiceJob();
             case HomeVisitServiceJob.TAG:
                 return new HomeVisitServiceJob();
+            case BasePncCloseJob.TAG:
+                return new BasePncCloseJob();
+
             case SyncTaskServiceJob.TAG:
                 return new SyncTaskServiceJob(SyncTaskIntentService.class);
             //TODO uncomment to enable plans

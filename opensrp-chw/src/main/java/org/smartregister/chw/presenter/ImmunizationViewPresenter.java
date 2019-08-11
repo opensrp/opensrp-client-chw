@@ -1,5 +1,6 @@
 package org.smartregister.chw.presenter;
 
+import android.content.Context;
 import android.text.TextUtils;
 
 import org.apache.commons.lang3.StringUtils;
@@ -46,12 +47,12 @@ public class ImmunizationViewPresenter implements ImmunizationContact.Presenter,
 
     public ImmunizationViewPresenter(ImmunizationContact.View view) {
         this.view = new WeakReference<>(view);
-        interactor = new ImmunizationViewInteractor();
+        interactor = new ImmunizationViewInteractor(getView().getMyContext());
         vaccineRepository = ImmunizationLibrary.getInstance().vaccineRepository();
     }
 
-    public ImmunizationViewPresenter() {
-        interactor = new ImmunizationViewInteractor();
+    public ImmunizationViewPresenter(Context context) {
+        interactor = new ImmunizationViewInteractor(context);
         vaccineRepository = ImmunizationLibrary.getInstance().vaccineRepository();
     }
 

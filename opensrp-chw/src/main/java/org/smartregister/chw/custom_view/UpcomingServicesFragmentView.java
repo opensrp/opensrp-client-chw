@@ -39,6 +39,7 @@ public class UpcomingServicesFragmentView extends LinearLayout implements View.O
 
     @Override
     public Context getMyContext() {
+        if (context == null) return getContext();
         return context;
     }
 

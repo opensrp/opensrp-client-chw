@@ -68,11 +68,11 @@ public class ImmunizationAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 InitialViewHolder inactiveViewHolder = (InitialViewHolder) viewHolder;
                 String immunizations;
                 String value = baseVaccine.getGroup();
-                if (value.contains("birth")) {
+                if (value.contains(context.getString(R.string.birth))) {
                     immunizations = MessageFormat.format(context.getString(R.string.immunizations_count), value);
 
                 } else {
-                    immunizations = MessageFormat.format(context.getString(R.string.immunizations_count), value.replace("weeks", "w").replace("months", "m").replace(" ", ""));
+                    immunizations = MessageFormat.format(context.getString(R.string.immunizations_count), value.replace(context.getString(R.string.week_full), context.getString(R.string.abbrv_weeks)).replace(context.getString(R.string.month_full), context.getString(R.string.abbrv_months)).replace(" ", ""));
 
                 }
                 inactiveViewHolder.circleImageView.setCircleBackgroundColor(context.getResources().getColor(R.color.white));
@@ -97,11 +97,11 @@ public class ImmunizationAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 InactiveViewHolder inactiveViewHolder = (InactiveViewHolder) viewHolder;
                 String immunizations;
                 String value = baseVaccine.getGroup();
-                if (value.contains("birth")) {
+                if (value.contains(context.getString(R.string.birth))) {
                     immunizations = MessageFormat.format(context.getString(R.string.immunizations_count), value);
 
                 } else {
-                    immunizations = MessageFormat.format(context.getString(R.string.immunizations_count), value.replace("weeks", "w").replace("months", "m").replace(" ", ""));
+                    immunizations = MessageFormat.format(context.getString(R.string.immunizations_count), value.replace(context.getString(R.string.week_full), context.getString(R.string.abbrv_weeks)).replace(context.getString(R.string.month_full), context.getString(R.string.abbrv_months)).replace(" ", ""));
 
                 }
                 inactiveViewHolder.titleText.setText(immunizations);
@@ -113,11 +113,11 @@ public class ImmunizationAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 ContentViewHolder contentViewHolder = (ContentViewHolder) viewHolder;
                 String cImmunization;
                 String cValue = contentImmunization.getGroup();
-                if (cValue.contains("birth")) {
+                if (cValue.contains(context.getString(R.string.birth))) {
                     cImmunization = MessageFormat.format(context.getString(R.string.immunizations_count), cValue);
 
                 } else {
-                    cImmunization = MessageFormat.format(context.getString(R.string.immunizations_count), cValue.replace("weeks", "w").replace("months", "m").replace(" ", ""));
+                    cImmunization = MessageFormat.format(context.getString(R.string.immunizations_count), cValue.replace(context.getString(R.string.week_full), context.getString(R.string.abbrv_weeks)).replace(context.getString(R.string.month_full), context.getString(R.string.abbrv_months)).replace(" ", ""));
 
                 }
                 contentViewHolder.titleText.setText(cImmunization);
@@ -139,7 +139,6 @@ public class ImmunizationAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
                 break;
             case HomeVisitVaccineGroup.TYPE_HIDDEN:
-                Log.logError("HIDDEN_VIEW", "HomeVisitVaccineGroup.TYPE_HIDDEN");
                 HiddenViewHolder hiddenViewHolder = (HiddenViewHolder) viewHolder;
                 hiddenViewHolder.hiddenView.setVisibility(View.GONE);
                 break;

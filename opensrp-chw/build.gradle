@@ -26,6 +26,11 @@ android {
     compileSdkVersion androidCompileSdkVersion
     buildToolsVersion androidBuildToolsVersion
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
     defaultConfig {
         applicationId "org.smartregister.chw"
         minSdkVersion androidMinSdkVersion
@@ -40,7 +45,6 @@ android {
         buildConfigField "long", "BUILD_TIMESTAMP", System.currentTimeMillis() + "L"
         buildConfigField "boolean", "IS_SYNC_SETTINGS", "false"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        manifestPlaceholders = [liberiaBuild: false, tanzaniaBuild: true]
     }
 
     dexOptions {
@@ -68,6 +72,7 @@ android {
             buildConfigField "int", "PULL_UNIQUE_IDS_MINUTES", '180'
             buildConfigField "int", "REPORT_INDICATOR_GENERATION_MINUTES", '180'
             buildConfigField "int", "HOME_VISIT_MINUTES", '60'
+            buildConfigField "int", "BASE_PNC_CLOSE_HOURS", '24'
         }
 
         debug {
@@ -81,6 +86,7 @@ android {
             buildConfigField "int", "PULL_UNIQUE_IDS_MINUTES", '15'
             buildConfigField "int", "REPORT_INDICATOR_GENERATION_MINUTES", '15'
             buildConfigField "int", "HOME_VISIT_MINUTES", '60'
+            buildConfigField "int", "BASE_PNC_CLOSE_HOURS", '24'
             testCoverageEnabled true
         }
     }
@@ -214,7 +220,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'appcompat-v7'
     }
 
-    implementation('org.smartregister:opensrp-client-family:1.2.17-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-family:1.2.18-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'org.smartregister', module: 'opensrp-client-core'
         exclude group: 'org.smartregister', module: 'opensrp-client-native-form'
@@ -237,7 +243,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'design'
     }
 
-    implementation('org.smartregister:opensrp-client-chw-anc:0.1.3-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-chw-anc:0.1.5-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'org.smartregister', module: 'opensrp-client-core'
         exclude group: 'com.android.support', module: 'appcompat-v7'
@@ -246,7 +252,7 @@ dependencies {
         exclude group: 'org.smartregister', module: 'opensrp-client-immunization'
     }
 
-    implementation('org.smartregister:opensrp-client-chw-pnc:0.0.4-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-chw-pnc:0.0.6-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'org.smartregister', module: 'opensrp-client-chw-anc'
         exclude group: 'org.smartregister', module: 'opensrp-client-core'
@@ -318,7 +324,7 @@ flavors.each { productFlavorName ->
     testDependencies.add("create${productFlavorName.capitalize()}DebugCoverageReport")
 }
 
-task jacocoTestReport(type: JacocoReport, dependsOn: testDependencies.take(2)) {
+task jacocoTestReport(type: JacocoReport, dependsOn: testDependencies.take(4)) {
 
     reports {
         xml.enabled = true
