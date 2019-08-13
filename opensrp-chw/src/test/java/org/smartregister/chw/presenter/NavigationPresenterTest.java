@@ -27,16 +27,13 @@ import static org.powermock.api.mockito.PowerMockito.when;
 public class NavigationPresenterTest {
 
     @Mock
-    private NavigationContract.View view;
-
-    @Mock
-    private NavigationPresenter presenter;
-
-    @Mock
     NavigationModel model;
-
     @Mock
     NavigationInteractor interactor;
+    @Mock
+    private NavigationContract.View view;
+    @Mock
+    private NavigationPresenter presenter;
 
     @Before
     public void setUp() throws Exception {

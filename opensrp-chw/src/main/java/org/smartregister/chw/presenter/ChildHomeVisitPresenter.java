@@ -4,7 +4,6 @@ package org.smartregister.chw.presenter;
 import org.json.JSONObject;
 import org.smartregister.chw.contract.ChildHomeVisitContract;
 import org.smartregister.chw.interactor.ChildHomeVisitInteractor;
-import org.smartregister.chw.model.ChildRegisterModel;
 import org.smartregister.chw.util.BirthCertDataModel;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.JsonFormUtils;

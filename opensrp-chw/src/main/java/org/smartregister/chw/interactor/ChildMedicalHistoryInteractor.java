@@ -8,6 +8,8 @@ import org.apache.commons.lang3.text.WordUtils;
 import org.smartregister.chw.R;
 import org.smartregister.chw.contract.ChildMedicalHistoryContract;
 import org.smartregister.chw.fragment.GrowthNutritionInputFragment;
+import org.smartregister.chw.presenter.HomeVisitGrowthNutritionPresenter;
+import org.smartregister.chw.presenter.HomeVisitGrowthNutritionPresenterFlv;
 import org.smartregister.chw.repository.HomeVisitServiceRepository;
 import org.smartregister.chw.util.BaseService;
 import org.smartregister.chw.util.BaseVaccine;
@@ -64,15 +66,16 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
     private HomeVisitServiceRepository homeVisitServiceRepository;
 
     private Context context;
+    private HomeVisitGrowthNutritionPresenter.Flavor homeVisitGrowthNutritionPresenterFlv = new HomeVisitGrowthNutritionPresenterFlv();
 
     @VisibleForTesting
-    public ChildMedicalHistoryInteractor(){
+    public ChildMedicalHistoryInteractor() {
         Timber.v("constructor");
     }
 
-    public ChildMedicalHistoryInteractor(AppExecutors appExecutors,HomeVisitServiceRepository homeVisitServiceRepository,Context context) {
+    public ChildMedicalHistoryInteractor(AppExecutors appExecutors, HomeVisitServiceRepository homeVisitServiceRepository, Context context) {
         this.appExecutors = appExecutors;
-        this.homeVisitServiceRepository = homeVisitServiceRepository ;
+        this.homeVisitServiceRepository = homeVisitServiceRepository;
         this.context = context;
     }
 
@@ -113,20 +116,20 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
 
         String birthCert = getValue(commonPersonObjectClient.getColumnmaps(), BIRTH_CERT, true);
         final ArrayList<String> birthCertificationContent = new ArrayList<>();
-        if (!TextUtils.isEmpty(birthCert) && birthCert.equalsIgnoreCase("Yes")) {
+        if (!TextUtils.isEmpty(birthCert) && birthCert.equalsIgnoreCase(getContext().getString(R.string.yes))) {
             birthCertificationContent.add(getContext().getString(R.string.birth_cert_value, birthCert));
             birthCertificationContent.add(getContext().getString(R.string.birth_cert_date, getValue(commonPersonObjectClient.getColumnmaps(), BIRTH_CERT_ISSUE_DATE, true)));
             birthCertificationContent.add(getContext().getString(R.string.birth_cert_number, getValue(commonPersonObjectClient.getColumnmaps(), BIRTH_CERT_NUMBER, true)));
 
-        } else if (!TextUtils.isEmpty(birthCert) && birthCert.equalsIgnoreCase("No")) {
+        } else if (!TextUtils.isEmpty(birthCert) && birthCert.equalsIgnoreCase(getContext().getString(R.string.no))) {
             birthCertificationContent.add(getContext().getString(R.string.birth_cert_value, birthCert));
             String notification = getValue(commonPersonObjectClient.getColumnmaps(), BIRTH_CERT_NOTIFIICATION, true);
 
-            if (!TextUtils.isEmpty(notification) && notification.equalsIgnoreCase("Yes")) {
-                birthCertificationContent.add(getContext().getString(R.string.birth_cert_notification, "Yes"));
+            if (!TextUtils.isEmpty(notification) && notification.equalsIgnoreCase(getContext().getString(R.string.yes))) {
+                birthCertificationContent.add(getContext().getString(R.string.birth_cert_notification, getContext().getString(R.string.yes)));
                 birthCertificationContent.add(getContext().getString(R.string.birth_cert_note_1));
-            } else if (!TextUtils.isEmpty(notification) && notification.equalsIgnoreCase("No")) {
-                birthCertificationContent.add(getContext().getString(R.string.birth_cert_notification, "No"));
+            } else if (!TextUtils.isEmpty(notification) && notification.equalsIgnoreCase(getContext().getString(R.string.no))) {
+                birthCertificationContent.add(getContext().getString(R.string.birth_cert_notification, getContext().getString(R.string.no)));
                 birthCertificationContent.add(getContext().getString(R.string.birth_cert_note_2));
             }
 //            else {
@@ -230,7 +233,7 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
             if (!receivedVaccine.getVaccineCategory().equalsIgnoreCase(lastCategory)) {
                 VaccineHeader vaccineHeader = new VaccineHeader();
                 lastCategory = receivedVaccine.getVaccineCategory();
-                vaccineHeader.setVaccineHeaderName(receivedVaccine.getVaccineCategory());
+                vaccineHeader.setVaccineHeaderName(Utils.getImmunizationHeaderLanguageSpecific(getContext(),receivedVaccine.getVaccineCategory()));
                 baseVaccineArrayList.add(vaccineHeader);
                 VaccineContent content = new VaccineContent();
                 SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
@@ -283,17 +286,19 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
         ServiceRecord initialServiceRecord = new ServiceRecord();
         initialServiceRecord.setType(GrowthNutritionInputFragment.GROWTH_TYPE.EXCLUSIVE.getValue());
         initialServiceRecord.setName(ChildDBConstants.KEY.CHILD_BF_HR);
-        initialServiceRecord.setValue(initialFeedingValue);
+        initialServiceRecord.setValue(Utils.getYesNoAsLanguageSpecific(getContext(),initialFeedingValue));
         serviceRecordList.add(0, initialServiceRecord);
         String lastType = "";
         for (ServiceRecord serviceRecord : serviceRecordList) {
+            if (serviceRecord.getType().equalsIgnoreCase(GrowthNutritionInputFragment.GROWTH_TYPE.MNP.getValue())
+                    && !homeVisitGrowthNutritionPresenterFlv.hasMNP()) continue;
             if (!serviceRecord.getType().equalsIgnoreCase(lastType)) {
-                if(!TextUtils.isEmpty(lastType)){
+                if (!TextUtils.isEmpty(lastType)) {
                     ServiceLine serviceLine = new ServiceLine();
                     baseServiceArrayList.add(serviceLine);
                 }
                 ServiceHeader serviceHeader = new ServiceHeader();
-                serviceHeader.setServiceHeaderName(serviceRecord.getType());
+                serviceHeader.setServiceHeaderName(Utils.getServiceTypeLanguageSpecific(getContext(),serviceRecord.getType()));
                 baseServiceArrayList.add(serviceHeader);
                 ServiceContent content = new ServiceContent();
                 addContent(content, serviceRecord);
@@ -323,7 +328,7 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
     public void fetchDietaryData(CommonPersonObjectClient commonPersonObjectClient, final ChildMedicalHistoryContract.InteractorCallBack callBack) {
         List<HomeVisitServiceDataModel> homeVisitDietary = homeVisitServiceRepository.getLatestThreeEntry(Constants.EventType.MINIMUM_DIETARY_DIVERSITY);
         final ArrayList<BaseService> baseServiceArrayList = new ArrayList<>();
-        if(homeVisitDietary.size()>0) {
+        if (homeVisitDietary.size() > 0) {
 
             ServiceLine serviceLine = new ServiceLine();
             baseServiceArrayList.add(serviceLine);
@@ -337,10 +342,10 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
                 ServiceTask serviceTask = ChildUtils.createServiceTaskFromEvent(TaskServiceCalculate.TASK_TYPE.Minimum_dietary.name(),
                         homeVisitServiceDataModel.getHomeVisitDetails(), getContext().getString(R.string.minimum_dietary_title),
                         Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.TASK_MINIMUM_DIETARY);
-                if(serviceTask.getTaskLabel()!=null){
+                if (serviceTask.getTaskLabel() != null) {
                     ServiceContent content = new ServiceContent();
                     String date = DATE_FORMAT.format(homeVisitServiceDataModel.getHomeVisitDate());
-                    content.setServiceName(serviceTask.getTaskLabel() + " - done " + date);
+                    content.setServiceName(Utils.getYesNoAsLanguageSpecific(getContext(),serviceTask.getTaskLabel()) + " - "+getContext().getString(R.string.done)+" " + date);
                     baseServiceArrayList.add(content);
                 }
 
@@ -361,11 +366,11 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
     }
 
     @Override
-    public void fetchMuacData(CommonPersonObjectClient commonPersonObjectClient,final ChildMedicalHistoryContract.InteractorCallBack callBack) {
+    public void fetchMuacData(CommonPersonObjectClient commonPersonObjectClient, final ChildMedicalHistoryContract.InteractorCallBack callBack) {
 
         List<HomeVisitServiceDataModel> homeVisitMUAC = homeVisitServiceRepository.getLatestThreeEntry(Constants.EventType.MUAC);
         final ArrayList<BaseService> baseServiceArrayList = new ArrayList<>();
-        if(homeVisitMUAC.size()>0) {
+        if (homeVisitMUAC.size() > 0) {
 
             ServiceLine serviceLine = new ServiceLine();
             baseServiceArrayList.add(serviceLine);
@@ -379,10 +384,10 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
                 ServiceTask serviceTask = ChildUtils.createServiceTaskFromEvent(TaskServiceCalculate.TASK_TYPE.MUAC.name(),
                         homeVisitServiceDataModel.getHomeVisitDetails(), getContext().getString(R.string.muac_title),
                         Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.TASK_MUAC);
-                if(serviceTask.getTaskLabel()!=null){
+                if (serviceTask.getTaskLabel() != null) {
                     ServiceContent content = new ServiceContent();
                     String date = DATE_FORMAT.format(homeVisitServiceDataModel.getHomeVisitDate());
-                    content.setServiceName(serviceTask.getTaskLabel() + " - done " + date);
+                    content.setServiceName(serviceTask.getTaskLabel() + " - "+getContext().getString(R.string.done)+" " + date);
                     baseServiceArrayList.add(content);
                 }
 
@@ -403,11 +408,11 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
     }
 
     @Override
-    public void fetchLLitnData(CommonPersonObjectClient commonPersonObjectClient,final ChildMedicalHistoryContract.InteractorCallBack callBack) {
+    public void fetchLLitnData(CommonPersonObjectClient commonPersonObjectClient, final ChildMedicalHistoryContract.InteractorCallBack callBack) {
 
         List<HomeVisitServiceDataModel> homeVisitLlitn = homeVisitServiceRepository.getLatestThreeEntry(Constants.EventType.LLITN);
         final ArrayList<BaseService> baseServiceArrayList = new ArrayList<>();
-        if(homeVisitLlitn.size()>0) {
+        if (homeVisitLlitn.size() > 0) {
 
             SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
 
@@ -417,7 +422,7 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
                         Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.TASK_LLITN);
                 ServiceContent content = new ServiceContent();
                 String date = DATE_FORMAT.format(homeVisitServiceDataModel.getHomeVisitDate());
-                content.setServiceName(serviceTask.getTaskLabel() + " on " + date);
+                content.setServiceName(Utils.getYesNoAsLanguageSpecific(getContext(),serviceTask.getTaskLabel()) + " "+getContext().getString(R.string.on)+" " + date);
                 baseServiceArrayList.add(content);
             }
         }
@@ -441,22 +446,22 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
 
         List<HomeVisitServiceDataModel> homeVisitEcd = homeVisitServiceRepository.getLatestThreeEntry(Constants.EventType.ECD);
         final ArrayList<BaseService> baseServiceArrayList = new ArrayList<>();
-        if(homeVisitEcd.size()>0) {
+        if (homeVisitEcd.size() > 0) {
 
             SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
 
             for (HomeVisitServiceDataModel homeVisitServiceDataModel : homeVisitEcd) {
-                ServiceTask serviceTask = ChildUtils.createECDTaskFromEvent(getContext(),TaskServiceCalculate.TASK_TYPE.ECD.name(),
+                ServiceTask serviceTask = ChildUtils.createECDTaskFromEvent(getContext(), TaskServiceCalculate.TASK_TYPE.ECD.name(),
                         homeVisitServiceDataModel.getHomeVisitDetails(),
                         getContext().getString(R.string.ecd_title));
 
                 String date = DATE_FORMAT.format(homeVisitServiceDataModel.getHomeVisitDate());
-                String difference = ChildUtils.getDurationFromTwoDate(Utils.dobStringToDate(dateOfBirth),homeVisitServiceDataModel.getHomeVisitDate());
+                String difference = ChildUtils.getDurationFromTwoDate(Utils.dobStringToDate(dateOfBirth), homeVisitServiceDataModel.getHomeVisitDate());
                 ServiceHeader serviceHeader = new ServiceHeader();
-                serviceHeader.setServiceHeaderName(date+" ("+difference+")");
+                serviceHeader.setServiceHeaderName(date + " (" + org.smartregister.family.util.Utils.getTranslatedDate(difference,getContext()) + ")");
                 baseServiceArrayList.add(serviceHeader);
                 String[] label = ChildUtils.splitStringByNewline(serviceTask.getTaskLabel());
-                for(String s : label){
+                for (String s : label) {
                     ServiceContent content = new ServiceContent();
                     content.setServiceName(s);
                     baseServiceArrayList.add(content);
@@ -489,13 +494,13 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
                 Object[] objects = ChildUtils.getStringWithNumber(serviceRecord.getName());
                 String name = (String) objects[0];
                 String number = (String) objects[1];
-                content.setServiceName(name + " (" + number + "m): " + serviceRecord.getValue());
+                content.setServiceName(name + " (" + number + ""+getContext().getString(R.string.abbrv_months)+"): " + serviceRecord.getValue());
             }
 
         } else {
             SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
             String date = DATE_FORMAT.format(serviceRecord.getDate());
-            content.setServiceName(serviceRecord.getName() + " - done " + date);
+            content.setServiceName(serviceRecord.getName() + " -  "+getContext().getString(R.string.done)+" " + date);
         }
     }
 

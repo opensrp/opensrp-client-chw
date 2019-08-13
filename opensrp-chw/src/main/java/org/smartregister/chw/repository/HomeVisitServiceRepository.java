@@ -17,15 +17,14 @@ import java.util.List;
 import timber.log.Timber;
 
 public class HomeVisitServiceRepository extends BaseRepository {
-    private static final String TAG = HomeVisitServiceRepository.class.getCanonicalName();
-    private static final String HOME_VISIT_SERVICE_SQL = "CREATE TABLE home_visit_service (home_visit_id VARCHAR NOT NULL,event_type VARCHAR,details TEXT,date DATETIME NOT NULL)";
     public static final String HOME_VISIT_SERVICE_TABLE_NAME = "home_visit_service";
     public static final String HOME_VISIT_ID = "home_visit_id";
     public static final String EVENT_TYPE = "event_type";
     public static final String DATE = "date";
     public static final String DETAILS = "details";
-
     public static final String[] TABLE_COLUMNS = {HOME_VISIT_ID, EVENT_TYPE, DATE, DETAILS};
+    private static final String TAG = HomeVisitServiceRepository.class.getCanonicalName();
+    private static final String HOME_VISIT_SERVICE_SQL = "CREATE TABLE home_visit_service (home_visit_id VARCHAR NOT NULL,event_type VARCHAR,details TEXT,date DATETIME NOT NULL)";
 
     public HomeVisitServiceRepository(Repository repository) {
         super(repository);
@@ -91,11 +90,14 @@ public class HomeVisitServiceRepository extends BaseRepository {
 
     public List<HomeVisitServiceDataModel> getLatestThreeEntry(String eventType) {
         SQLiteDatabase database = getReadableDatabase();
-        String selection = EVENT_TYPE + " = ? " + COLLATE_NOCASE;
-        String[] selectionArgs = new String[]{eventType};
-        net.sqlcipher.Cursor cursor = database.query(HOME_VISIT_SERVICE_TABLE_NAME, TABLE_COLUMNS, selection, selectionArgs, null, null, DATE + " DESC", "3");
-        List<HomeVisitServiceDataModel> homeVisitList = getAllHomeVisitService(cursor);
-        return homeVisitList;
+        String rawQuery = "select *,(substr(date, 31 , 4) || (case substr(date, 5,3) when 'Jan' then '01' when 'Feb' then '02'" +
+                " when 'Mar' then '03' when 'Apr' then '04' when 'May' then '05'" +
+                " when 'Jun' then '06' when 'Jul' then '07' when 'Aug' then '08'" +
+                " when 'Sep' then '09' when 'Oct' then '10' when 'Nov' then '11' when 'Dec' then '12' end) || " +
+                " substr(date, 9 , 2)) as d from "+ HOME_VISIT_SERVICE_TABLE_NAME +" where "+EVENT_TYPE+" = '"+eventType+"' group by d " +
+                " order by d desc limit 3";
+        net.sqlcipher.Cursor cursor = database.rawQuery(rawQuery,null);
+        return getAllHomeVisitService(cursor);
     }
 
     public List<HomeVisitServiceDataModel> getAllHomeVisitService(Cursor cursor) {

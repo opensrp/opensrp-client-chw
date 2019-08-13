@@ -95,23 +95,23 @@ public class ChwReport {
 
         PieChartSlice indicator3_1 = getPieChartSlice(LATEST_COUNT, countOfChildren0_5ExclusivelyBreastfeeding, mainLayout.getContext().getResources().getString(R.string.yes), mainLayout.getContext().getResources().getColor(R.color.pie_chart_yes), indicatorTallies);
         PieChartSlice indicator3_2 = getPieChartSlice(LATEST_COUNT, countOfChildren0_5NotExclusivelyBreastfeeding, mainLayout.getContext().getResources().getString(R.string.no), mainLayout.getContext().getResources().getColor(R.color.pie_chart_no), indicatorTallies);
-        mainLayout.addView(new PieChartIndicatorView(mainLayout.getContext(), getPieChartDisplayModel(addPieChartSlices(indicator3_1, indicator3_2),  R.string.children_0_5_months_exclusively_breastfeeding, null)).createView());
+        mainLayout.addView(new PieChartIndicatorView(mainLayout.getContext(), getPieChartDisplayModel(addPieChartSlices(indicator3_1, indicator3_2), R.string.children_0_5_months_exclusively_breastfeeding, null)).createView());
 
         PieChartSlice indicator4_1 = getPieChartSlice(TOTAL_COUNT, countOfChildren6_59VitaminReceivedA, mainLayout.getContext().getResources().getString(R.string.yes), mainLayout.getContext().getResources().getColor(R.color.pie_chart_yes), indicatorTallies);
         PieChartSlice indicator4_2 = getPieChartSlice(TOTAL_COUNT, countOfChildren6_59VitaminNotReceivedA, mainLayout.getContext().getResources().getString(R.string.no), mainLayout.getContext().getResources().getColor(R.color.pie_chart_no), indicatorTallies);
-        mainLayout.addView(new PieChartIndicatorView(mainLayout.getContext(), getPieChartDisplayModel(addPieChartSlices(indicator4_1, indicator4_2),  R.string.children_6_59_months_received_vitamin_A, null)).createView());
+        mainLayout.addView(new PieChartIndicatorView(mainLayout.getContext(), getPieChartDisplayModel(addPieChartSlices(indicator4_1, indicator4_2), R.string.children_6_59_months_received_vitamin_A, null)).createView());
 
         PieChartSlice indicator5_1 = getPieChartSlice(TOTAL_COUNT, countOfChildren12_59Dewormed, mainLayout.getContext().getResources().getString(R.string.yes), mainLayout.getContext().getResources().getColor(R.color.pie_chart_yes), indicatorTallies);
         PieChartSlice indicator5_2 = getPieChartSlice(TOTAL_COUNT, countOfChildren12_59NotDewormed, mainLayout.getContext().getResources().getString(R.string.no), mainLayout.getContext().getResources().getColor(R.color.pie_chart_no), indicatorTallies);
-        mainLayout.addView(new PieChartIndicatorView(mainLayout.getContext(), getPieChartDisplayModel(addPieChartSlices(indicator5_1, indicator5_2),  R.string.children_12_59_months_dewormed, null)).createView());
+        mainLayout.addView(new PieChartIndicatorView(mainLayout.getContext(), getPieChartDisplayModel(addPieChartSlices(indicator5_1, indicator5_2), R.string.children_12_59_months_dewormed, null)).createView());
 
         PieChartSlice indicator6_1 = getPieChartSlice(LATEST_COUNT, countOfChildren_6_23UptoDateMNP, mainLayout.getContext().getResources().getString(R.string.yes), mainLayout.getContext().getResources().getColor(R.color.pie_chart_yes), indicatorTallies);
         PieChartSlice indicator6_2 = getPieChartSlice(LATEST_COUNT, countOfChildren_6_23OverdueMNP, mainLayout.getContext().getResources().getString(R.string.no), mainLayout.getContext().getResources().getColor(R.color.pie_chart_no), indicatorTallies);
-        mainLayout.addView(new PieChartIndicatorView(mainLayout.getContext(), getPieChartDisplayModel(addPieChartSlices(indicator6_1, indicator6_2),  R.string.children_6_23_months_upto_date_mnp, null)).createView());
+        mainLayout.addView(new PieChartIndicatorView(mainLayout.getContext(), getPieChartDisplayModel(addPieChartSlices(indicator6_1, indicator6_2), R.string.children_6_23_months_upto_date_mnp, null)).createView());
 
         PieChartSlice indicator7_1 = getPieChartSlice(TOTAL_COUNT, countOfChildren0_59WithBirthCert, mainLayout.getContext().getResources().getString(R.string.yes), mainLayout.getContext().getResources().getColor(R.color.pie_chart_yes), indicatorTallies);
         PieChartSlice indicator7_2 = getPieChartSlice(TOTAL_COUNT, countOfChildren0_59WithNoBirthCert, mainLayout.getContext().getResources().getString(R.string.no), mainLayout.getContext().getResources().getColor(R.color.pie_chart_no), indicatorTallies);
-        mainLayout.addView(new PieChartIndicatorView(mainLayout.getContext(), getPieChartDisplayModel(addPieChartSlices(indicator7_1, indicator7_2),  R.string.children_0_59_months_with_birth_certificate, null)).createView());
+        mainLayout.addView(new PieChartIndicatorView(mainLayout.getContext(), getPieChartDisplayModel(addPieChartSlices(indicator7_1, indicator7_2), R.string.children_0_59_months_with_birth_certificate, null)).createView());
 
         NumericDisplayModel indicator8 = getIndicatorDisplayModel(TOTAL_COUNT, deceasedChildren0_11Months, R.string.deceased_children_0_11_months, indicatorTallies);
         mainLayout.addView(new NumericIndicatorView(mainLayout.getContext(), indicator8).createView());

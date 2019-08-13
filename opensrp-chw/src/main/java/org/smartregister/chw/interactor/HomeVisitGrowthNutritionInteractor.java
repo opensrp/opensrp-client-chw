@@ -1,12 +1,12 @@
 package org.smartregister.chw.interactor;
 
+import android.content.Context;
 import android.support.annotation.VisibleForTesting;
 import android.text.TextUtils;
 
-
 import com.google.gson.reflect.TypeToken;
 
-import org.json.JSONObject;
+import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.contract.HomeVisitGrowthNutritionContract;
 import org.smartregister.chw.domain.HomeVisit;
@@ -17,6 +17,7 @@ import org.smartregister.chw.task.UpdateServiceTask;
 import org.smartregister.chw.util.ChildDBConstants;
 import org.smartregister.chw.util.ChildUtils;
 import org.smartregister.chw.util.GrowthServiceData;
+import org.smartregister.chw.util.Utils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.AlertStatus;
 import org.smartregister.family.util.AppExecutors;
@@ -25,27 +26,22 @@ import org.smartregister.util.DateUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
-import io.reactivex.ObservableSource;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
 import static org.smartregister.util.Utils.startAsyncTask;
 
 public class HomeVisitGrowthNutritionInteractor implements HomeVisitGrowthNutritionContract.Interactor {
-    private static final String TAG = HomeVisitGrowthNutritionInteractor.class.toString();
 
     private AppExecutors appExecutors;
-
 
     @VisibleForTesting
     HomeVisitGrowthNutritionInteractor(AppExecutors appExecutors) {
@@ -93,9 +89,9 @@ public class HomeVisitGrowthNutritionInteractor implements HomeVisitGrowthNutrit
 
                     @Override
                     public void onNext(ServiceTaskModel serviceTaskModel) {
-                        if(serviceTaskModel==null){
+                        if (serviceTaskModel == null) {
                             callBack.allDataLoaded();
-                        }else{
+                        } else {
                             callBack.updateGivenRecordVisitData(serviceTaskModel.getGivenServiceMap());
                             callBack.updateNotGivenRecordVisitData(serviceTaskModel.getNotGivenServiceMap());
                         }
@@ -115,32 +111,33 @@ public class HomeVisitGrowthNutritionInteractor implements HomeVisitGrowthNutrit
                 });
 
 
-
-
     }
-    public Observable<ServiceTaskModel> getServiceWrapperMapFromLastHomeVisit(final CommonPersonObjectClient commonPersonObjectClient){
+
+    public Observable<ServiceTaskModel> getServiceWrapperMapFromLastHomeVisit(final CommonPersonObjectClient commonPersonObjectClient) {
         return Observable.create(new ObservableOnSubscribe<ServiceTaskModel>() {
             @Override
             public void subscribe(ObservableEmitter<ServiceTaskModel> e) throws Exception {
-                String lastHomeVisitStr=org.smartregister.util.Utils.getValue(commonPersonObjectClient.getColumnmaps(), ChildDBConstants.KEY.LAST_HOME_VISIT, false);
-                long lastHomeVisit= TextUtils.isEmpty(lastHomeVisitStr)?0:Long.parseLong(lastHomeVisitStr);
+                String lastHomeVisitStr = org.smartregister.util.Utils.getValue(commonPersonObjectClient.getColumnmaps(), ChildDBConstants.KEY.LAST_HOME_VISIT, false);
+                long lastHomeVisit = TextUtils.isEmpty(lastHomeVisitStr) ? 0 : Long.parseLong(lastHomeVisitStr);
                 HomeVisit homeVisit = ChwApplication.homeVisitRepository().findByDate(lastHomeVisit);
-                if(homeVisit!=null){
-                    Map<String, ServiceWrapper> serviceGivenWrapper = ChildUtils.gsonConverter.fromJson(homeVisit.getServicesGiven().toString(),new TypeToken<HashMap<String, ServiceWrapper>>(){}.getType());
-                    Map<String, ServiceWrapper> serviceNotGivenWrapper = ChildUtils.gsonConverter.fromJson(homeVisit.getServiceNotGiven().toString(),new TypeToken<HashMap<String, ServiceWrapper>>(){}.getType());
+                if (homeVisit != null) {
+                    Map<String, ServiceWrapper> serviceGivenWrapper = ChildUtils.gsonConverter.fromJson(homeVisit.getServicesGiven().toString(), new TypeToken<HashMap<String, ServiceWrapper>>() {
+                    }.getType());
+                    Map<String, ServiceWrapper> serviceNotGivenWrapper = ChildUtils.gsonConverter.fromJson(homeVisit.getServiceNotGiven().toString(), new TypeToken<HashMap<String, ServiceWrapper>>() {
+                    }.getType());
                     ServiceTaskModel serviceTaskModel = new ServiceTaskModel();
                     serviceTaskModel.setGivenServiceMap(serviceGivenWrapper);
                     serviceTaskModel.setNotGivenServiceMap(serviceNotGivenWrapper);
                     e.onNext(serviceTaskModel);
-                }else{
+                } else {
                     e.onNext(null);
                 }
 
             }
         });
     }
-  
-    public ArrayList<GrowthServiceData> getAllDueService(Map<String, ServiceWrapper> serviceWrapperMap) {
+
+    public ArrayList<GrowthServiceData> getAllDueService(Map<String, ServiceWrapper> serviceWrapperMap, Context context) {
         ArrayList<GrowthServiceData> growthServiceDataList = new ArrayList<>();
 
         for (String key : serviceWrapperMap.keySet()) {
@@ -149,7 +146,7 @@ public class HomeVisitGrowthNutritionInteractor implements HomeVisitGrowthNutrit
                 GrowthServiceData growthServiceData = new GrowthServiceData();
                 growthServiceData.setDate(serviceWrapper.getAlert().startDate());
                 growthServiceData.setName(serviceWrapper.getAlert().scheduleName());
-                growthServiceData.setDisplayName(getDisplayNameBasedOnType(key, growthServiceData.getName()));
+                growthServiceData.setDisplayName(getDisplayNameBasedOnType(key, growthServiceData.getName(), context));
                 String duedateString = DateUtil.formatDate(growthServiceData.getDate(), "dd MMM yyyy");
                 growthServiceData.setDisplayAbleDate(duedateString);
                 growthServiceDataList.add(growthServiceData);
@@ -159,17 +156,17 @@ public class HomeVisitGrowthNutritionInteractor implements HomeVisitGrowthNutrit
         return growthServiceDataList;
     }
 
-    private String getDisplayNameBasedOnType(String type, String name) {
+    private String getDisplayNameBasedOnType(String type, String name, Context context) {
         Object[] displayName = ChildUtils.getStringWithNumber(name);
         if (displayName.length > 1) {
             String str = (String) displayName[0];
             String no = (String) displayName[1];
             if (type.equalsIgnoreCase(GrowthNutritionInputFragment.GROWTH_TYPE.EXCLUSIVE.getValue())) {
-                return str + " " + no + " month";
+                return Utils.getServiceTypeLanguageSpecific(context,str) + " " + no + " "+context.getString(R.string.month);
             } else if (type.equalsIgnoreCase(GrowthNutritionInputFragment.GROWTH_TYPE.MNP.getValue())) {
-                return str + " " + ChildUtils.getFirstSecondAsNumber(no) + " pack";
+                return Utils.getServiceTypeLanguageSpecific(context,str) + " " + ChildUtils.getFirstSecondAsNumber(no, context) + " "+context.getString(R.string.visit_pack);
             } else {
-                return str + " " + ChildUtils.getFirstSecondAsNumber(no) + " dose";
+                return Utils.getServiceTypeLanguageSpecific(context,str) + " " + ChildUtils.getFirstSecondAsNumber(no, context) + " "+context.getString(R.string.visit_dose);
             }
         }
         return "";
@@ -179,6 +176,6 @@ public class HomeVisitGrowthNutritionInteractor implements HomeVisitGrowthNutrit
     @Override
     public void onDestroy(boolean isChangingConfiguration) {
         //TODO Implement onDestroy
-        Timber.d( "onDestroy unimplemented");
+        Timber.d("onDestroy unimplemented");
     }
 }

@@ -18,14 +18,14 @@ public class AbstractDao {
     private static SimpleDateFormat DOB_DATE_FORMAT;
     private static SimpleDateFormat NATIVE_FORMS_DATE_FORMAT;
 
-    public static SimpleDateFormat getDobDateFormat() {
+    protected static SimpleDateFormat getDobDateFormat() {
         if (DOB_DATE_FORMAT == null)
             DOB_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
 
         return DOB_DATE_FORMAT;
     }
 
-    public static SimpleDateFormat getNativeFormsDateFormat() {
+    protected static SimpleDateFormat getNativeFormsDateFormat() {
         if (NATIVE_FORMS_DATE_FORMAT == null)
             NATIVE_FORMS_DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
 
@@ -35,6 +35,7 @@ public class AbstractDao {
     /**
      * Returns a mapped pojo by reading the sqlite adapter
      * handles iteration and cursor disposable
+     *
      * @param query
      * @param dataMap
      * @param <T>
@@ -59,7 +60,7 @@ public class AbstractDao {
         return null;
     }
 
-    protected static String getCursorValue(Cursor c, String column_name){
+    protected static String getCursorValue(Cursor c, String column_name) {
         return c.getType(c.getColumnIndex(column_name)) == Cursor.FIELD_TYPE_NULL ? null : c.getString(c.getColumnIndex(column_name));
     }
 

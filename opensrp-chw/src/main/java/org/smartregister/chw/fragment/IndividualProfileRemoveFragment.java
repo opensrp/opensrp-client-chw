@@ -3,14 +3,12 @@ package org.smartregister.chw.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 
-
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
 
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
-import org.smartregister.chw.activity.AncRegisterActivity;
 import org.smartregister.chw.activity.FamilyRegisterActivity;
 import org.smartregister.chw.activity.IndividualProfileRemoveActivity;
 import org.smartregister.chw.contract.FamilyRemoveMemberContract;
@@ -38,6 +36,7 @@ public class IndividualProfileRemoveFragment extends BaseFamilyProfileMemberFrag
     private String familyBaseEntityId;
     private CommonPersonObjectClient pc;
     private String memberName;
+    private static String viewRegisterClassName;
 
     public static IndividualProfileRemoveFragment newInstance(Bundle bundle) {
         Bundle args = bundle;
@@ -45,6 +44,7 @@ public class IndividualProfileRemoveFragment extends BaseFamilyProfileMemberFrag
         if (args == null) {
             args = new Bundle();
         }
+        viewRegisterClassName = args.getString(org.smartregister.chw.util.Constants.INTENT_KEY.VIEW_REGISTER_CLASS);
         fragment.setArguments(args);
         return fragment;
     }
@@ -95,6 +95,14 @@ public class IndividualProfileRemoveFragment extends BaseFamilyProfileMemberFrag
         }
     }
 
+    private Class getCallingRegisterActivity() {
+        try {
+            return Class.forName(viewRegisterClassName);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
     public void confirmRemove(final JSONObject form) {
         if (StringUtils.isNotBlank(memberName) && getFragmentManager() != null) {
@@ -107,7 +115,7 @@ public class IndividualProfileRemoveFragment extends BaseFamilyProfileMemberFrag
                 @Override
                 public void run() {
                     getPresenter().processRemoveForm(form);
-                    Intent intent = new Intent(getActivity(), AncRegisterActivity.class);
+                    Intent intent = new Intent(getActivity(), getCallingRegisterActivity());
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
                 }
@@ -221,8 +229,8 @@ public class IndividualProfileRemoveFragment extends BaseFamilyProfileMemberFrag
     @Override
     public void onEveryoneRemoved() {
         if (getActivity() != null && getActivity() instanceof IndividualProfileRemoveActivity) {
-                IndividualProfileRemoveActivity p = (IndividualProfileRemoveActivity) getActivity();
-                p.onRemoveMember();
+            IndividualProfileRemoveActivity p = (IndividualProfileRemoveActivity) getActivity();
+            p.onRemoveMember();
         }
     }
 

@@ -10,7 +10,7 @@ import java.util.List;
 
 import timber.log.Timber;
 
-public class DefaultPncMedicalHistoryActivityFlv implements PncMedicalHistoryActivity.Flavor {
+public abstract class DefaultPncMedicalHistoryActivityFlv implements PncMedicalHistoryActivity.Flavor {
     @Override
     public View bindViews(Activity activity) {
         return null;

@@ -1,5 +1,6 @@
 package org.smartregister.chw.interactor;
 
+import android.content.Context;
 import android.text.TextUtils;
 
 import com.google.gson.reflect.TypeToken;
@@ -51,8 +52,8 @@ public class ImmunizationViewInteractor implements ImmunizationContact.Interacto
     private AlertService alertService;
     private VaccineRepository vaccineRepository;
 
-    public ImmunizationViewInteractor() {
-        model = new ImmunizationModel();
+    public ImmunizationViewInteractor(Context context) {
+        model = new ImmunizationModel(context);
         alertService = ChwApplication.getInstance().getContext().alertService();
         vaccineRepository = ChwApplication.getInstance().vaccineRepository();
     }

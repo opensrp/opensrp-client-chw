@@ -1,5 +1,6 @@
 package org.smartregister.chw.adapter;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -17,8 +18,10 @@ import java.util.ArrayList;
 
 public class VaccineAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private ArrayList<BaseVaccine> baseVaccines;
+    private Context context;
 
-    public VaccineAdapter() {
+    public VaccineAdapter(Context context) {
+        this.context = context;
         this.baseVaccines = new ArrayList<>();
     }
 
@@ -48,8 +51,8 @@ public class VaccineAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 BaseVaccine baseVaccine = baseVaccines.get(position);
                 VaccineHeader vaccineHeader = (VaccineHeader) baseVaccine;
                 HeaderViewHolder headerViewHolder = (HeaderViewHolder) viewHolder;
-                if (vaccineHeader.getVaccineHeaderName().trim().equalsIgnoreCase("at birth")) {
-                    vaccineHeader.setVaccineHeaderName("Birth");
+                if (vaccineHeader.getVaccineHeaderName().trim().equalsIgnoreCase(context.getString(R.string.at_birth))) {
+                    vaccineHeader.setVaccineHeaderName(context.getString(R.string.birth_cap));
                 }
                 headerViewHolder.headerTitle.setText(vaccineHeader.getVaccineHeaderName());
                 break;
@@ -57,7 +60,7 @@ public class VaccineAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 BaseVaccine content = baseVaccines.get(position);
                 VaccineContent vaccineContent = (VaccineContent) content;
                 ContentViewHolder contentViewHolder = (ContentViewHolder) viewHolder;
-                contentViewHolder.vaccineName.setText(ChildUtils.fixVaccineCasing(vaccineContent.getVaccineName()) + " - done " + vaccineContent.getVaccineDate());
+                contentViewHolder.vaccineName.setText(ChildUtils.fixVaccineCasing(vaccineContent.getVaccineName()) + " - "+context.getString(R.string.done) + vaccineContent.getVaccineDate());
                 break;
         }
 

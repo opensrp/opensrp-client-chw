@@ -25,6 +25,7 @@ import org.smartregister.chw.repository.ChwRepository;
 import org.smartregister.chw.repository.HomeVisitIndicatorInfoRepository;
 import org.smartregister.chw.repository.HomeVisitRepository;
 import org.smartregister.chw.repository.HomeVisitServiceRepository;
+import org.smartregister.chw.repository.WashCheckRepository;
 import org.smartregister.chw.service.ChwAuthorizationService;
 import org.smartregister.chw.sync.ChwClientProcessor;
 import org.smartregister.chw.util.ChildDBConstants;
@@ -49,7 +50,10 @@ import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.reporting.ReportingLibrary;
 import org.smartregister.repository.AllSharedPreferences;
+import org.smartregister.repository.PlanDefinitionRepository;
 import org.smartregister.repository.Repository;
+import org.smartregister.repository.TaskNotesRepository;
+import org.smartregister.repository.TaskRepository;
 import org.smartregister.sync.ClientProcessorForJava;
 import org.smartregister.sync.helper.ECSyncHelper;
 import org.smartregister.view.activity.DrishtiApplication;
@@ -73,12 +77,15 @@ public class ChwApplication extends DrishtiApplication {
     private static HomeVisitServiceRepository homeVisitServiceRepository;
     private static AncRegisterRepository ancRegisterRepository;
     private static HomeVisitIndicatorInfoRepository homeVisitIndicatorInfoRepository;
+    private static WashCheckRepository washCheckRepository;
 
     private JsonSpecHelper jsonSpecHelper;
     private ECSyncHelper ecSyncHelper;
     private String password;
 
     private RulesEngineHelper rulesEngineHelper;
+    private TaskRepository taskRepository;
+    private PlanDefinitionRepository planDefinitionRepository;
 
     public static synchronized ChwApplication getInstance() {
         return (ChwApplication) mInstance;
@@ -147,6 +154,13 @@ public class ChwApplication extends DrishtiApplication {
             homeVisitServiceRepository = new HomeVisitServiceRepository(getInstance().getRepository());
         }
         return homeVisitServiceRepository;
+    }
+
+    public static WashCheckRepository getWashCheckRepo() {
+        if (washCheckRepository == null) {
+            washCheckRepository = new WashCheckRepository(getInstance().getRepository());
+        }
+        return washCheckRepository;
     }
 
     public static AncRegisterRepository ancRegisterRepository() {
@@ -369,5 +383,18 @@ public class ChwApplication extends DrishtiApplication {
         return ChwApplication.getClientProcessor(ChwApplication.getInstance().getApplicationContext());
     }
 
+    public TaskRepository getTaskRepository() {
+        if (taskRepository == null) {
+            taskRepository = new TaskRepository(getRepository(), new TaskNotesRepository(getRepository()));
+        }
+        return taskRepository;
+    }
+
+    public PlanDefinitionRepository getPlanDefinitionRepository() {
+        if (planDefinitionRepository == null) {
+            planDefinitionRepository = new PlanDefinitionRepository(getRepository());
+        }
+        return planDefinitionRepository;
+    }
 
 }

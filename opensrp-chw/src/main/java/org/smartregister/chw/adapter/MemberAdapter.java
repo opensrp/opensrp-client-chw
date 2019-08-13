@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,7 +23,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.R;
 import org.smartregister.chw.contract.MemberAdapterListener;
 import org.smartregister.chw.domain.FamilyMember;
-import org.smartregister.chw.util.TestConstant;
+import org.smartregister.chw.util.PhoneNumberFlv;
 import org.smartregister.family.util.Utils;
 
 import java.util.List;
@@ -33,18 +34,17 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MyViewHold
     private List<FamilyMember> familyMembers;
     private MyViewHolder currentViewHolder;
     private Context context;
-
     private String selected = null;
-
     private Animation slideUp;
     private Animation slideDown;
     private MemberAdapterListener memberAdapterListener;
+    private Flavor flavorPhoneNumberLength;
 
     public MemberAdapter(Context context, List<FamilyMember> myDataset, MemberAdapterListener memberAdapterListener) {
         familyMembers = myDataset;
         this.context = context;
         this.memberAdapterListener = memberAdapterListener;
-
+        flavorPhoneNumberLength = new PhoneNumberFlv();
         slideUp = AnimationUtils.loadAnimation(context, R.anim.slide_up);
         slideDown = AnimationUtils.loadAnimation(context, R.anim.slide_up);
     }
@@ -81,7 +81,7 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MyViewHold
             dobString = Utils.getDuration(model.getDod(), model.getDob());
             dobString = dobString.contains("y") ? dobString.substring(0, dobString.indexOf("y")) : dobString;
         }
-
+        holder.tvGender.setText(org.smartregister.chw.util.Utils.getGenderLanguageSpecific(context,model.getGender()));
         holder.tvName.setText(String.format("%s, %s", model.getFullNames(), dobString));
         holder.llQuestions.setVisibility(model.getMemberID().equals(selected) ? View.VISIBLE : View.GONE);
         holder.radioButton.setChecked(model.getMemberID().equals(selected));
@@ -128,7 +128,7 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MyViewHold
 
     private void renderViews(final MyViewHolder holder, FamilyMember model) {
         holder.etPhone.setText(model.getPhone());
-        holder.etAlternatePhone.setText(model.getOtherPhone());
+        if(!TextUtils.isEmpty(model.getOtherPhone())) holder.etAlternatePhone.setText(model.getOtherPhone());
     }
 
     public boolean validateSave() {
@@ -137,15 +137,15 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MyViewHold
         }
 
         boolean res = validateTextView(currentViewHolder.etPhone);
-        res = (res && validateTextView(currentViewHolder.etAlternatePhone));
+        //res = (res && validateTextView(currentViewHolder.etAlternatePhone));
 
         if (!res) {
             AlertDialog.Builder builder1 = new AlertDialog.Builder(context);
-            builder1.setMessage("Kindly complete the form before submitting");
+            builder1.setMessage(context.getString(R.string.change_member_alert));
             builder1.setCancelable(true);
 
             builder1.setPositiveButton(
-                    "Dismiss",
+                    context.getString(R.string.dismiss),
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             dialog.cancel();
@@ -161,8 +161,8 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MyViewHold
     private boolean validateTextView(TextView textView) {
         String text = textView.getText().toString().trim();
 
-        if(TestConstant.IS_PHONE_NO_CHECK){
-            if(text.length()<8){
+        if (flavorPhoneNumberLength.isPhoneNumberLength16Digit()) {
+            if (text.length() < 8) {
                 textView.setError(context.getString(R.string.number_8_16));
                 return false;
             }
@@ -170,14 +170,14 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MyViewHold
                 textView.setError(context.getString(R.string.number_8_16));
                 return false;
             }
-        }else{
+        } else {
             if (text.length() > 0 && !text.substring(0, 1).equals("0")) {
-                textView.setError("Must start with 0");
+                textView.setError(context.getString(R.string.must_start_with_zero));
                 return false;
             }
 
             if (text.length() > 0 && text.length() != 10) {
-                textView.setError("Length must be equal to 10");
+                textView.setError(context.getString(R.string.length_equal_10));
                 return false;
             }
         }
@@ -202,6 +202,10 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MyViewHold
     @Override
     public int getItemCount() {
         return familyMembers.size();
+    }
+
+    public interface Flavor {
+        boolean isPhoneNumberLength16Digit();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -247,20 +251,21 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MyViewHold
                 @Override
                 public void afterTextChanged(Editable s) {
                     String text = et.getText().toString().trim();
-                    if(TestConstant.IS_PHONE_NO_CHECK){
-                        if(text.length()<8){
+                    if (flavorPhoneNumberLength.isPhoneNumberLength16Digit()) {
+                        if (text.length() < 8) {
                             et.setError(context.getString(R.string.number_8_16));
                         }
                         if (text.length() > 16) {
                             et.setError(context.getString(R.string.number_8_16));
                         }
 
-                    }else{
+                    } else {
                         if (text.length() > 0 && text.length() != 10) {
-                            et.setError("Length must be equal to 10");
+                            et.setError(context.getString(R.string.length_equal_10));
                         }
                         if (text.length() > 0 && !text.substring(0, 1).equals("0")) {
-                            et.setError("Must start with 0");
+                            et.setError(context.getString(R.string.must_start_with_zero));
+
                         }
                     }
 

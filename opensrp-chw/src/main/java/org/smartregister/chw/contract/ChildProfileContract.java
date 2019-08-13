@@ -3,7 +3,6 @@ package org.smartregister.chw.contract;
 import android.content.Context;
 import android.util.Pair;
 
-import org.apache.commons.lang3.tuple.Triple;
 import org.json.JSONObject;
 import org.smartregister.chw.util.ChildService;
 import org.smartregister.chw.util.ChildVisit;
@@ -11,6 +10,7 @@ import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.FetchStatus;
+import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.view.contract.BaseProfileContract;
 
 public interface ChildProfileContract {
@@ -51,11 +51,11 @@ public interface ChildProfileContract {
 
         void setLastVisitRowView(String days);
 
-        void setServiceNameDue(String name,String dueDate);
+        void setServiceNameDue(String name, String dueDate);
 
-        void setServiceNameOverDue(String name,String dueDate);
+        void setServiceNameOverDue(String name, String dueDate);
 
-        void setServiceNameUpcoming(String name,String dueDate);
+        void setServiceNameUpcoming(String name, String dueDate);
 
         void setVisitLessTwentyFourView(String monthName);
 
@@ -102,6 +102,8 @@ public interface ChildProfileContract {
 
         void processBackGroundEvent();
 
+        void createSickChildEvent(AllSharedPreferences allSharedPreferences, String jsonString) throws Exception;
+
     }
 
     interface Interactor {
@@ -122,6 +124,13 @@ public interface ChildProfileContract {
         JSONObject getAutoPopulatedJsonEditFormString(String formName, String title, Context context, CommonPersonObjectClient client);
 
         void processBackGroundEvent(final ChildProfileContract.InteractorCallBack callback);
+
+        void createSickChildEvent(AllSharedPreferences allSharedPreferences, String jsonString) throws Exception;
+
+        void setChildBaseEntityId(String childBaseEntityId);
+
+        String getChildBaseEntityId();
+
     }
 
     interface InteractorCallBack {
@@ -132,6 +141,8 @@ public interface ChildProfileContract {
         void updateFamilyMemberServiceDue(String serviceDueStatus);
 
         void startFormForEdit(String title, CommonPersonObjectClient client);
+
+        void startSickChildReferralForm();
 
         void refreshProfileTopSection(CommonPersonObjectClient client);
 
@@ -152,6 +163,9 @@ public interface ChildProfileContract {
         void undoVisitNotDone();
 
         void updateAfterBackGroundProcessed();
+    }
+    interface InteractorCallBack2 {
+
     }
 
     interface Model {

@@ -79,6 +79,47 @@ public class GrowthNutritionInputFragment extends DialogFragment implements Radi
         return growthNutritionInputFragment;
     }
 
+    public static void saveService(ServiceWrapper tag, String baseEntityId, String providerId, String locationId) {
+        if (tag.getUpdatedVaccineDate() == null) {
+            return;
+        }
+
+        RecurringServiceRecordRepository recurringServiceRecordRepository = ImmunizationLibrary.getInstance().recurringServiceRecordRepository();
+
+        ServiceRecord serviceRecord = new ServiceRecord();
+        if (tag.getDbKey() != null) {
+            serviceRecord = recurringServiceRecordRepository.find(tag.getDbKey());
+            if (serviceRecord == null) {
+                serviceRecord = new ServiceRecord();
+                serviceRecord.setDate(tag.getUpdatedVaccineDate().toDate());
+
+                serviceRecord.setBaseEntityId(baseEntityId);
+                serviceRecord.setRecurringServiceId(tag.getTypeId());
+                serviceRecord.setDate(tag.getUpdatedVaccineDate().toDate());
+                serviceRecord.setValue(tag.getValue());
+
+                JsonFormUtils.tagSyncMetadata(Utils.context().allSharedPreferences(), serviceRecord);
+            } else {
+                serviceRecord.setDate(tag.getUpdatedVaccineDate().toDate());
+                serviceRecord.setValue(tag.getValue());
+            }
+
+        } else {
+            serviceRecord.setDate(tag.getUpdatedVaccineDate().toDate());
+
+            serviceRecord.setBaseEntityId(baseEntityId);
+            serviceRecord.setRecurringServiceId(tag.getTypeId());
+            serviceRecord.setDate(tag.getUpdatedVaccineDate().toDate());
+            serviceRecord.setValue(tag.getValue());
+
+            JsonFormUtils.tagSyncMetadata(Utils.context().allSharedPreferences(), serviceRecord);
+
+        }
+
+        recurringServiceRecordRepository.add(serviceRecord);
+        tag.setDbKey(serviceRecord.getId());
+    }
+
     public void setServiceWrapper(ServiceWrapper serviceWrapper) {
         this.serviceWrapper = serviceWrapper;
     }
@@ -288,6 +329,16 @@ public class GrowthNutritionInputFragment extends DialogFragment implements Radi
         }
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (context instanceof HomeVisitGrowthAndNutrition && saveService != null) {
+            HomeVisitGrowthAndNutrition homeVisitGrowthAndNutrition = (HomeVisitGrowthAndNutrition) context;
+            homeVisitGrowthAndNutrition.setState(type, saveService);
+
+        }
+    }
+
     public enum GROWTH_TYPE {
         EXCLUSIVE("Exclusive breastfeeding"), MNP("MNP"), VITAMIN("Vitamin A"), DEWORMING("Deworming");
         private String value;
@@ -300,7 +351,6 @@ public class GrowthNutritionInputFragment extends DialogFragment implements Radi
             return value;
         }
     }
-
 
     public class SaveServiceTask extends AsyncTask<ServiceWrapper, Void, ServiceWrapper> {
 
@@ -346,56 +396,5 @@ public class GrowthNutritionInputFragment extends DialogFragment implements Radi
 //            return Triple.of(list, serviceRecordList, alertList);
 
         }
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        if (context instanceof HomeVisitGrowthAndNutrition && saveService != null) {
-            HomeVisitGrowthAndNutrition homeVisitGrowthAndNutrition = (HomeVisitGrowthAndNutrition) context;
-            homeVisitGrowthAndNutrition.setState(type, saveService);
-
-        }
-    }
-
-    public static void saveService(ServiceWrapper tag, String baseEntityId, String providerId, String locationId) {
-        if (tag.getUpdatedVaccineDate() == null) {
-            return;
-        }
-
-        RecurringServiceRecordRepository recurringServiceRecordRepository = ImmunizationLibrary.getInstance().recurringServiceRecordRepository();
-
-        ServiceRecord serviceRecord = new ServiceRecord();
-        if (tag.getDbKey() != null) {
-            serviceRecord = recurringServiceRecordRepository.find(tag.getDbKey());
-            if (serviceRecord == null) {
-                serviceRecord = new ServiceRecord();
-                serviceRecord.setDate(tag.getUpdatedVaccineDate().toDate());
-
-                serviceRecord.setBaseEntityId(baseEntityId);
-                serviceRecord.setRecurringServiceId(tag.getTypeId());
-                serviceRecord.setDate(tag.getUpdatedVaccineDate().toDate());
-                serviceRecord.setValue(tag.getValue());
-
-                JsonFormUtils.tagSyncMetadata(Utils.context().allSharedPreferences(), serviceRecord);
-            } else {
-                serviceRecord.setDate(tag.getUpdatedVaccineDate().toDate());
-                serviceRecord.setValue(tag.getValue());
-            }
-
-        } else {
-            serviceRecord.setDate(tag.getUpdatedVaccineDate().toDate());
-
-            serviceRecord.setBaseEntityId(baseEntityId);
-            serviceRecord.setRecurringServiceId(tag.getTypeId());
-            serviceRecord.setDate(tag.getUpdatedVaccineDate().toDate());
-            serviceRecord.setValue(tag.getValue());
-
-            JsonFormUtils.tagSyncMetadata(Utils.context().allSharedPreferences(), serviceRecord);
-
-        }
-
-        recurringServiceRecordRepository.add(serviceRecord);
-        tag.setDbKey(serviceRecord.getId());
     }
 }

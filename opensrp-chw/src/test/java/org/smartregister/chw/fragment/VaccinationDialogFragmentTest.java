@@ -79,33 +79,6 @@ public class VaccinationDialogFragmentTest extends BaseUnitTest {
     }
 
     @Test
-    public void testShowSingleVaccineDetailsView() {
-
-        try {
-            View view = Mockito.mock(View.class);
-
-            LinearLayout vaccinationNameLayout = Mockito.mock(LinearLayout.class);
-            Mockito.when(vaccinationNameLayout.getChildAt(Mockito.anyInt())).thenReturn(view);
-            Whitebox.setInternalState(vaccinationDialogFragment, "vaccinationNameLayout", vaccinationNameLayout);
-
-            LinearLayout multipleVaccineDatePickerView = Mockito.mock(LinearLayout.class);
-            Whitebox.setInternalState(vaccinationDialogFragment, "multipleVaccineDatePickerView", multipleVaccineDatePickerView);
-
-            LinearLayout singleVaccineAddView = Mockito.mock(LinearLayout.class);
-            Whitebox.setInternalState(vaccinationDialogFragment, "singleVaccineAddView", singleVaccineAddView);
-
-            Map<VaccineWrapper, DatePicker> singleVaccineMap = new LinkedHashMap<>();
-            Whitebox.setInternalState(vaccinationDialogFragment, "singleVaccineMap", singleVaccineMap);
-
-
-            Whitebox.invokeMethod(vaccinationDialogFragment, "showSingleVaccineDetailsView");
-        } catch (Exception e) {
-            fail();
-        }
-    }
-
-
-    @Test
     public void testHandleSingleVaccineLogic() {
         try {
             Map<VaccineWrapper, DatePicker> singleVaccineMap = new HashMap<>();

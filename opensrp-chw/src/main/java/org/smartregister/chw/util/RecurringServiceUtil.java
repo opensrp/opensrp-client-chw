@@ -35,7 +35,8 @@ public class RecurringServiceUtil {
         RecurringServiceModel recurringServiceModel = getServiceModel(baseEntityID, anchorDate, group);
         Map<String, List<ServiceType>> foundServiceTypeMap = getServiceGroup(recurringServiceModel);
 
-        for (String type : foundServiceTypeMap.keySet()) {
+        for (String type : foundServiceTypeMap.keySet())
+        {
             ServiceWrapper serviceWrapper = new ServiceWrapper();
             serviceWrapper.setId(baseEntityID);
             serviceWrapper.setDefaultName(type);

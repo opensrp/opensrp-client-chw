@@ -14,6 +14,9 @@ import org.smartregister.immunization.repository.VaccineRepository;
 import org.smartregister.immunization.util.IMDatabaseUtils;
 import org.smartregister.repository.AlertRepository;
 import org.smartregister.repository.EventClientRepository;
+import org.smartregister.repository.PlanDefinitionRepository;
+import org.smartregister.repository.PlanDefinitionSearchRepository;
+import org.smartregister.repository.TaskRepository;
 
 import timber.log.Timber;
 
@@ -55,6 +58,9 @@ public class ChwRepositoryFlv {
                     break;
                 case 11:
                     upgradeToVersion11(db);
+                    break;
+                case 12:
+                    upgradeToVersion12(db);
                     break;
                 default:
                     break;
@@ -186,6 +192,15 @@ public class ChwRepositoryFlv {
             }
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion11 ");
+        }
+    }
+    private static void upgradeToVersion12(SQLiteDatabase database) {
+        try {
+            PlanDefinitionRepository.createTable(database);
+            PlanDefinitionSearchRepository.createTable(database);
+            TaskRepository.createTable(database);
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion12");
         }
     }
 }

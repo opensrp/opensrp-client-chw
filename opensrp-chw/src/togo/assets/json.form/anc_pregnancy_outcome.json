@@ -277,10 +277,9 @@
       {
         "key": "fam_name",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "edit_text",
-        "hidden": "true"
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "fam_name",
+        "type": "hidden"
       },
       {
         "key": "surname_calculation",
@@ -496,13 +495,6 @@
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "73263AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "chk_nothing_applied",
-            "text": "No other products applied to umbilical stump",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_nothing_applied"
           },
           {
             "key": "chk_skin_contact",
