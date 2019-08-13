@@ -142,7 +142,7 @@ android {
             dimension = 'baseDimension'
             applicationIdSuffix ".togo"
             versionCode 1
-            versionName "0.0.4"
+            versionName "0.0.5"
             buildConfigField "String", 'opensrp_url', '"https://unicefwcaro.smartregister.org/opensrp/"'
             buildConfigField "String", 'opensrp_url_debug', '"https://unicefwcaro-stage.smartregister.org/opensrp/"'
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"Country", "Clinic" , "CHSS" , "CHA", "Supervisor", "CHW"}'
