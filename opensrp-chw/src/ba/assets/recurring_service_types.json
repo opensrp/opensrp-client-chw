@@ -2,6 +2,7 @@
   {
     "type": "Vitamin A",
     "service_logic": "",
+    "service_group": "child",
     "openmrs_service_name": {
       "parent_entity": "",
       "entity": "concept",
@@ -177,6 +178,7 @@
   {
     "type": "Deworming",
     "service_logic": "",
+    "service_group": "child",
     "openmrs_service_name": {
       "parent_entity": "",
       "entity": "concept",

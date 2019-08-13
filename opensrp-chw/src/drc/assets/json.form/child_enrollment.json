@@ -302,6 +302,13 @@
         "v_required": {
           "value": "true",
           "err": "Please enter Early initiation of breastfeeding"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family-child-relevance.yml"
+            }
+          }
         }
       },
       {

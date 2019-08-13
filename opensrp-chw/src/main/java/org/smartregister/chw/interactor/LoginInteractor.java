@@ -1,6 +1,7 @@
 package org.smartregister.chw.interactor;
 
 import org.smartregister.chw.BuildConfig;
+import org.smartregister.chw.job.BasePncCloseJob;
 import org.smartregister.chw.job.ChwIndicatorGeneratingJob;
 import org.smartregister.chw.job.HomeVisitServiceJob;
 import org.smartregister.chw.job.VaccineRecurringServiceJob;
@@ -35,6 +36,8 @@ public class LoginInteractor extends BaseLoginInteractor implements BaseLoginCon
 
         HomeVisitServiceJob.scheduleJob(HomeVisitServiceJob.TAG, TimeUnit.MINUTES.toMinutes(BuildConfig.HOME_VISIT_MINUTES), getFlexValue(BuildConfig.HOME_VISIT_MINUTES));
 
+        BasePncCloseJob.scheduleJob(BasePncCloseJob.TAG, TimeUnit.HOURS.toHours(BuildConfig.BASE_PNC_CLOSE_HOURS), getFlexValue(BuildConfig.BASE_PNC_CLOSE_HOURS));
+
         PlanIntentServiceJob.scheduleJob(PlanIntentServiceJob.TAG, TimeUnit.MINUTES.toMinutes(BuildConfig.DATA_SYNC_DURATION_MINUTES), getFlexValue(BuildConfig.DATA_SYNC_DURATION_MINUTES));
 
         SyncTaskServiceJob.scheduleJob(PlanIntentServiceJob.TAG, TimeUnit.MINUTES.toMinutes(BuildConfig.DATA_SYNC_DURATION_MINUTES), getFlexValue(BuildConfig.DATA_SYNC_DURATION_MINUTES));
@@ -47,6 +50,7 @@ public class LoginInteractor extends BaseLoginInteractor implements BaseLoginCon
         // Run initial job immediately on log in since the job will run a bit later (~ 15 mins +)
         ChwIndicatorGeneratingJob.scheduleJobImmediately(ChwIndicatorGeneratingJob.TAG);
         HomeVisitServiceJob.scheduleJobImmediately(HomeVisitServiceJob.TAG);
+        BasePncCloseJob.scheduleJobImmediately(BasePncCloseJob.TAG);
         PlanIntentServiceJob.scheduleJobImmediately(PlanIntentServiceJob.TAG);
         SyncTaskServiceJob.scheduleJobImmediately(SyncTaskServiceJob.TAG);
     }

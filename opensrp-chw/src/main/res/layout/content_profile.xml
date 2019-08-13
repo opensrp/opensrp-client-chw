@@ -163,8 +163,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
+                    android:layout_toLeftOf="@+id/family_arrow_image"
                     android:layout_toRightOf="@+id/family_image"
-                    android:gravity="center_horizontal"
+                    android:gravity="left|center_horizontal"
                     android:text="@string/family_has_nothing_due"
                     android:textColor="@android:color/black" />
 

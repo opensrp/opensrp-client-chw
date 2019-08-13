@@ -119,7 +119,7 @@
     <string name="observations_illness_episodes"><![CDATA[Observations & Illness - <i>optional</i>]]></string>
     <string name="observations_illness_episodes_medical"><![CDATA[Observations & Illness Episodes]]></string>
     <string name="home_visit_suffix"> &#183; Home Visit</string>
-    <string name="wash_check_suffix"> &#183; Wash check</string>
+    <string name="wash_check_suffix"> &#183; WASH check</string>
     <string name="last_visit_prefix">Last visit %1$s ago</string>
     <string name="completed_on_prefix">Completed on %1$s</string>
 
@@ -393,12 +393,12 @@
 
     <string name="pnc_danger_signs_mother">Danger signs - mother</string>
     <string name="pnc_danger_signs_baby">Danger signs - baby ({0})</string>
-    <string name="pnc_health_facility_visit">PNC health facility visit - day {0}</string>
+    <string name="pnc_health_facility_visit">PNC health facility visit - day {0} ({1})</string>
     <string name="pnc_child_vaccine_card_recevied">Child vaccine card received ({0})</string>
     <string name="pnc_immunization_at_birth">Immunizations (at birth) ({0})</string>
     <string name="pnc_umblicord_care">Umbilical cord care</string>
     <string name="pnc_exclusive_breastfeeding">Exclusive breastfeeding ({0})</string>
-    <string name="pnc_kangeroo_mother_care">Kangeroo mother care (KNC)</string>
+    <string name="pnc_kangaroo_mother_care">Kangaroo mother care (KNC) - ({0})</string>
     <string name="pnc_family_planning">Family planning</string>
     <string name="pnc_observation_and_illness_mother">Observations &amp; illness - mother </string>
     <string name="pnc_observation_and_illness_baby">Observations &amp; illness - baby ({0}) </string>
@@ -435,5 +435,36 @@
     <string name="abv_tenth">10th</string>
     <string name="abv_eleventh">11th</string>
     <string name="abv_twelfth">12th</string>
+    <string name="change_member_alert">Kindly complete the form before submitting</string>
+    <string name="must_start_with_zero">Must start with 0</string>
+    <string name="length_equal_10">Length must be equal to 10</string>
+    <string name="dismiss">Dismiss</string>
+    <string name="birth">birth</string>
+    <string name="week_full">weeks</string>
+    <string name="month_full">months</string>
+    <string name="at_birth">at birth</string>
+    <string name="child">child</string>
+    <string name="birth_cap">Birth</string>
+    <string name="done">done</string>
+    <string name="on">on</string>
 
+    <string name="babys_weight">Baby\'s weight</string>
+    <string name="babys_temperature">Baby\'s temperature</string>
+    <string name="degrees_centigrade">°C</string>
+    <string name="no_products">No products</string>
+    <string name="chlorhexidine">Chlorhexidine</string>
+    <string name="other">Other</string>
+    <string name="fp_counseling">FP counseling</string>
+    <string name="fp_method_chosen">FP method chosen</string>
+    <string name="fp_method_start_date">FP method start date</string>
+    <string name="none">None</string>
+    <string name="abstinence">Abstinence</string>
+    <string name="condom">Condom</string>
+    <string name="tablets">Tablets</string>
+    <string name="injectable">Injectable</string>
+    <string name="iud">IUD</string>
+    <string name="implant">Implant</string>
+    <string name="managed">Managed</string>
+    <string name="referred">Referred</string>
+    <string name="no_action_taken">No action taken</string>
 </resources>

@@ -18,14 +18,14 @@ public class AbstractDao {
     private static SimpleDateFormat DOB_DATE_FORMAT;
     private static SimpleDateFormat NATIVE_FORMS_DATE_FORMAT;
 
-    public static SimpleDateFormat getDobDateFormat() {
+    protected static SimpleDateFormat getDobDateFormat() {
         if (DOB_DATE_FORMAT == null)
             DOB_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
 
         return DOB_DATE_FORMAT;
     }
 
-    public static SimpleDateFormat getNativeFormsDateFormat() {
+    protected static SimpleDateFormat getNativeFormsDateFormat() {
         if (NATIVE_FORMS_DATE_FORMAT == null)
             NATIVE_FORMS_DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
 

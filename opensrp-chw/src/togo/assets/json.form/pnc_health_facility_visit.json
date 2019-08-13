@@ -1,0 +1,174 @@
+{
+  "count": "1",
+  "encounter_type": "PNC health facility visit",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "step1": {
+    "title": "PNC Health Facility Visit Day {0}",
+    "fields": [
+      {
+        "key": "pnc_visit_{0}",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "Did the woman attend her PNC visit {0} at the health facility?\n\nVisit due date: {1}",
+        "v_required": {
+          "value": "true",
+          "err": "Please select option"
+        },
+        "values": [
+          "Yes",
+          "No"
+        ]
+      },
+      {
+        "key": "pnc_hf_visit{0}_date",
+        "openmrs_entity_parent": "1623AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "164093AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "date_picker",
+        "hint": "Date of PNC health facility visit {0}",
+        "expanded": false,
+        "max_date": "today",
+        "min_date": "",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter date"
+        },
+        "relevance": {
+          "step1:pnc_visit_{0}": {
+            "type": "string",
+            "ex": "equalTo(., \"Yes\")"
+          }
+        }
+      },
+      {
+        "key": "baby_weight",
+        "openmrs_entity_parent": "1528AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "5089AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "edit_text",
+        "edit_type": "number",
+        "hint": "The baby's weight in kilograms.",
+        "v_min": {
+          "value": "0",
+          "err": "The value must be greater than or equal to 0"
+        },
+        "v_max": {
+          "value": "20",
+          "err": "The value must be less than or equal to 20"
+        },
+        "v_required": {
+          "value": "false",
+          "err": "Required"
+        },
+        "v_numeric_integer": {
+          "value": "true",
+          "err": "Must be a rounded number"
+        },
+        "relevance": {
+          "step1:pnc_visit_{0}": {
+            "type": "string",
+            "ex": "equalTo(., \"Yes\")"
+          }
+        }
+      },
+      {
+        "key": "baby_temp",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "5085AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "edit_text",
+        "edit_type": "number",
+        "hint": "The baby's temperature in degrees Celsius.",
+        "v_min": {
+          "value": "35",
+          "err": "The value must be greater than or equal to 35"
+        },
+        "v_max": {
+          "value": "42",
+          "err": "The value must be less than or equal to 42"
+        },
+        "v_required": {
+          "value": "false",
+          "err": "Required"
+        },
+        "v_numeric_integer": {
+          "value": "true",
+          "err": "Must be a rounded number"
+        },
+        "relevance": {
+          "step1:pnc_visit_{0}": {
+            "type": "string",
+            "ex": "equalTo(., \"Yes\")"
+          }
+        }
+      },
+      {
+        "key": "confirmed_health_facility_visits",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "confirmed_health_facility_visits",
+        "type": "spacer",
+        "read_only": "true",
+        "hidden": "true",
+        "value": "0"
+      },
+      {
+        "key": "last_health_facility_visit_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "last_health_facility_visit_date",
+        "type": "spacer",
+        "read_only": "true",
+        "hidden": "true",
+        "value": "0"
+      }
+    ]
+  }
+}

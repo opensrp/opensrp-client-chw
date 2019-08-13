@@ -1,35 +1,20 @@
 package org.smartregister.chw.actionhelper;
 
-import android.content.Context;
-
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
-import org.smartregister.chw.anc.domain.VisitDetail;
+import org.smartregister.chw.anc.actionhelper.HomeVisitActionHelper;
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
 import org.smartregister.chw.anc.util.JsonFormUtils;
 
 import java.text.MessageFormat;
-import java.util.List;
-import java.util.Map;
 
 import timber.log.Timber;
 
-public class DangerSignsAction implements BaseAncHomeVisitAction.AncHomeVisitActionHelper {
+public class DangerSignsAction extends HomeVisitActionHelper {
     private String signs_present;
     private String counseling;
-    private Context context;
-
-    @Override
-    public void onJsonFormLoaded(String jsonString, Context context, Map<String, List<VisitDetail>> details) {
-        this.context = context;
-    }
-
-    @Override
-    public String getPreProcessed() {
-        return null;
-    }
 
     @Override
     public void onPayloadReceived(String jsonPayload) {
@@ -38,23 +23,8 @@ public class DangerSignsAction implements BaseAncHomeVisitAction.AncHomeVisitAct
             signs_present = JsonFormUtils.getCheckBoxValue(jsonObject, "danger_signs_present");
             counseling = JsonFormUtils.getValue(jsonObject, "danger_signs_counseling");
         } catch (JSONException e) {
-            e.printStackTrace();
+            Timber.e(e);
         }
-    }
-
-    @Override
-    public BaseAncHomeVisitAction.ScheduleStatus getPreProcessedStatus() {
-        return null;
-    }
-
-    @Override
-    public String getPreProcessedSubTitle() {
-        return null;
-    }
-
-    @Override
-    public String postProcess(String s) {
-        return s;
     }
 
     @Override
@@ -87,8 +57,4 @@ public class DangerSignsAction implements BaseAncHomeVisitAction.AncHomeVisitAct
         }
     }
 
-    @Override
-    public void onPayloadReceived(BaseAncHomeVisitAction baseAncHomeVisitAction) {
-        Timber.d("onPayloadReceived");
-    }
 }
