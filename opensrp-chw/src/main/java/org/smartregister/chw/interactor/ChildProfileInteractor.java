@@ -222,6 +222,7 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
         appExecutors.diskIO().execute(runnable);
     }
 
+
     @Override
     public void refreshUpcomingServiceAndFamilyDue(Context context, String familyId, String baseEntityId, final ChildProfileContract.InteractorCallBack callback) {
         if (getpClient() == null) return;
@@ -231,20 +232,19 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
                 .subscribe(new Observer<ChildService>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-                        d.dispose();
+                        //TODO  disposing the observable immediately was causing  a baug in code
+                        //d.dispose();
                     }
 
                     @Override
                     public void onNext(ChildService childService) {
                         callback.updateChildService(childService);
                         callback.hideProgressBar();
-
                     }
 
                     @Override
                     public void onError(Throwable e) {
                         callback.hideProgressBar();
-
                     }
 
                     @Override
@@ -264,7 +264,6 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
                     @Override
                     public void onNext(String s) {
                         callback.updateFamilyMemberServiceDue(s);
-
                     }
 
                     @Override
