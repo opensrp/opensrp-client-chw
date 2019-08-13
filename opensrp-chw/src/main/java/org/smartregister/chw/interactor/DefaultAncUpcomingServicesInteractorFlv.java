@@ -2,7 +2,7 @@ package org.smartregister.chw.interactor;
 
 import android.content.Context;
 
-import com.opensrp.chw.core.model.VaccineTaskModel;
+import org.smartregister.chw.core.model.VaccineTaskModel;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Pair;
@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import static com.opensrp.chw.core.utils.RecurringServiceUtil.getRecurringServices;
+import static org.smartregister.chw.core.utils.RecurringServiceUtil.getRecurringServices;
 
 public abstract class DefaultAncUpcomingServicesInteractorFlv implements AncUpcomingServicesInteractor.Flavor {
 

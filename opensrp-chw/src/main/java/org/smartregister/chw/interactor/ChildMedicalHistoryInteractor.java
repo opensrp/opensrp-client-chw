@@ -4,12 +4,12 @@ import android.content.Context;
 import android.support.annotation.VisibleForTesting;
 import android.text.TextUtils;
 
-import com.opensrp.chw.core.domain.HomeVisitServiceDataModel;
-import com.opensrp.chw.core.fragment.GrowthNutritionInputFragment;
-import com.opensrp.chw.core.repository.HomeVisitServiceRepository;
-import com.opensrp.chw.core.utils.ChildDBConstants;
-import com.opensrp.chw.core.utils.ServiceTask;
-import com.opensrp.chw.core.utils.TaskServiceCalculate;
+import org.smartregister.chw.core.domain.HomeVisitServiceDataModel;
+import org.smartregister.chw.core.fragment.GrowthNutritionInputFragment;
+import org.smartregister.chw.core.repository.HomeVisitServiceRepository;
+import org.smartregister.chw.core.utils.ChildDBConstants;
+import org.smartregister.chw.core.utils.ServiceTask;
+import org.smartregister.chw.core.utils.TaskServiceCalculate;
 
 import org.apache.commons.lang3.text.WordUtils;
 import org.smartregister.chw.R;
@@ -45,14 +45,14 @@ import java.util.Map;
 
 import timber.log.Timber;
 
-import static com.opensrp.chw.core.utils.ChildDBConstants.KEY.BIRTH_CERT;
-import static com.opensrp.chw.core.utils.ChildDBConstants.KEY.BIRTH_CERT_ISSUE_DATE;
-import static com.opensrp.chw.core.utils.ChildDBConstants.KEY.BIRTH_CERT_NOTIFIICATION;
-import static com.opensrp.chw.core.utils.ChildDBConstants.KEY.BIRTH_CERT_NUMBER;
-import static com.opensrp.chw.core.utils.ChildDBConstants.KEY.ILLNESS_ACTION;
-import static com.opensrp.chw.core.utils.ChildDBConstants.KEY.ILLNESS_DATE;
-import static com.opensrp.chw.core.utils.ChildDBConstants.KEY.ILLNESS_DESCRIPTION;
-import static com.opensrp.chw.core.utils.ChildDBConstants.KEY.VACCINE_CARD;
+import static org.smartregister.chw.core.utils.ChildDBConstants.KEY.BIRTH_CERT;
+import static org.smartregister.chw.core.utils.ChildDBConstants.KEY.BIRTH_CERT_ISSUE_DATE;
+import static org.smartregister.chw.core.utils.ChildDBConstants.KEY.BIRTH_CERT_NOTIFIICATION;
+import static org.smartregister.chw.core.utils.ChildDBConstants.KEY.BIRTH_CERT_NUMBER;
+import static org.smartregister.chw.core.utils.ChildDBConstants.KEY.ILLNESS_ACTION;
+import static org.smartregister.chw.core.utils.ChildDBConstants.KEY.ILLNESS_DATE;
+import static org.smartregister.chw.core.utils.ChildDBConstants.KEY.ILLNESS_DESCRIPTION;
+import static org.smartregister.chw.core.utils.ChildDBConstants.KEY.VACCINE_CARD;
 import static org.smartregister.chw.util.ChildUtils.fixVaccineCasing;
 import static org.smartregister.util.Utils.getValue;
 

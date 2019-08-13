@@ -3,10 +3,10 @@ package org.smartregister.chw.activity;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 
-import com.opensrp.chw.core.activity.CoreFamilyProfileActivity;
-import com.opensrp.chw.core.activity.CoreFamilyProfileMenuActivity;
-import com.opensrp.chw.core.activity.CoreFamilyRemoveMemberActivity;
-import com.opensrp.chw.core.utils.CoreConstants;
+import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
+import org.smartregister.chw.core.activity.CoreFamilyProfileMenuActivity;
+import org.smartregister.chw.core.activity.CoreFamilyRemoveMemberActivity;
+import org.smartregister.chw.core.utils.CoreConstants;
 
 import org.smartregister.chw.fragment.FamilyProfileActivityFragment;
 import org.smartregister.chw.fragment.FamilyProfileDueFragment;

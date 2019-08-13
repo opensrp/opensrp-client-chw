@@ -4,17 +4,17 @@ import android.content.Context;
 import android.database.Cursor;
 import android.text.TextUtils;
 
-import com.opensrp.chw.core.enums.ImmunizationState;
-import com.opensrp.chw.core.interactor.CoreFamilyInteractor;
-import com.opensrp.chw.core.model.ChildVisit;
-import com.opensrp.chw.core.utils.ChildDBConstants;
+import org.smartregister.chw.core.enums.ImmunizationState;
+import org.smartregister.chw.core.interactor.CoreFamilyInteractor;
+import org.smartregister.chw.core.model.ChildVisit;
+import org.smartregister.chw.core.utils.ChildDBConstants;
 
 import org.smartregister.chw.util.ChildUtils;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.family.util.DBConstants;
 
-import static com.opensrp.chw.core.enums.ImmunizationState.NO_ALERT;
+import static org.smartregister.chw.core.enums.ImmunizationState.NO_ALERT;
 
 public class FamilyInteractor extends CoreFamilyInteractor {
 

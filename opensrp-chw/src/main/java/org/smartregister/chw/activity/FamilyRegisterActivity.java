@@ -4,8 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.opensrp.chw.core.activity.CoreFamilyRegisterActivity;
-import com.opensrp.chw.core.custom_views.NavigationMenu;
+import org.smartregister.chw.core.activity.CoreFamilyRegisterActivity;
+import org.smartregister.chw.core.custom_views.NavigationMenu;
 
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.application.ChwApplication;

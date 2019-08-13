@@ -22,7 +22,7 @@ android {
     buildToolsVersion androidBuildToolsVersion
 
     defaultConfig {
-        applicationId "com.opensrp.chw.hf"
+        applicationId "org.smartregister.chw.hf"
         minSdkVersion 18
         targetSdkVersion 28
         versionCode 1

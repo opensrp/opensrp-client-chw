@@ -1,6 +1,6 @@
 package org.smartregister.chw.activity;
 
-import com.opensrp.chw.core.activity.CoreUpcomingServicesActivity;
+import org.smartregister.chw.core.activity.CoreUpcomingServicesActivity;
 
 import org.smartregister.chw.BaseActivityTest;
 

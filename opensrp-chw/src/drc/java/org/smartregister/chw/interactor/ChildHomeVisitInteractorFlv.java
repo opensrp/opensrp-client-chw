@@ -2,9 +2,9 @@ package org.smartregister.chw.interactor;
 
 import android.content.Context;
 
-import com.opensrp.chw.core.domain.HomeVisit;
-import com.opensrp.chw.core.domain.HomeVisitServiceDataModel;
-import com.opensrp.chw.core.utils.ServiceTask;
+import org.smartregister.chw.core.domain.HomeVisit;
+import org.smartregister.chw.core.domain.HomeVisitServiceDataModel;
+import org.smartregister.chw.core.utils.ServiceTask;
 
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.commonregistry.CommonPersonObjectClient;

@@ -4,8 +4,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.util.Pair;
 
-import com.opensrp.chw.core.utils.CoreConstants;
-import com.opensrp.chw.core.utils.CoreJsonFormUtils;
+import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 
 import net.sqlcipher.database.SQLiteDatabase;
 

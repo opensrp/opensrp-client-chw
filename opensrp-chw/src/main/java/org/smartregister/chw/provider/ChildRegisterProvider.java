@@ -4,9 +4,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.view.View;
 
-import com.opensrp.chw.core.holders.RegisterViewHolder;
-import com.opensrp.chw.core.provider.CoreChildRegisterProvider;
-import com.opensrp.chw.core.task.UpdateLastAsyncTask;
+import org.smartregister.chw.core.holders.RegisterViewHolder;
+import org.smartregister.chw.core.provider.CoreChildRegisterProvider;
+import org.smartregister.chw.core.task.UpdateLastAsyncTask;
 
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;

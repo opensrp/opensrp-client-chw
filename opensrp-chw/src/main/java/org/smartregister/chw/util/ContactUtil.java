@@ -1,8 +1,8 @@
 package org.smartregister.chw.util;
 
-import com.opensrp.chw.core.helper.ContactRule;
-import com.opensrp.chw.core.model.VaccineTaskModel;
-import com.opensrp.chw.core.utils.ChwServiceSchedule;
+import org.smartregister.chw.core.helper.ContactRule;
+import org.smartregister.chw.core.model.VaccineTaskModel;
+import org.smartregister.chw.core.utils.ChwServiceSchedule;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;

@@ -1,7 +1,7 @@
 package org.smartregister.chw.presenter;
 
 
-import com.opensrp.chw.core.contract.FamilyProfileExtendedContract;
+import org.smartregister.chw.core.contract.FamilyProfileExtendedContract;
 
 import org.apache.commons.lang3.tuple.Triple;
 import org.smartregister.chw.anc.util.Util;

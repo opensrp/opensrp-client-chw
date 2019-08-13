@@ -1,8 +1,8 @@
 package org.smartregister.chw.interactor;
 
-import com.opensrp.chw.core.interactor.CoreFamilyChangeContractInteractor;
+import org.smartregister.chw.core.interactor.CoreFamilyChangeContractInteractor;
 
-import static com.opensrp.chw.core.utils.Utils.getFamilyMembersSqlForBA;
+import static org.smartregister.chw.core.utils.Utils.getFamilyMembersSqlForBA;
 
 public class FamilyChangeContractInteractorFlv implements CoreFamilyChangeContractInteractor.Flavor {
     @Override

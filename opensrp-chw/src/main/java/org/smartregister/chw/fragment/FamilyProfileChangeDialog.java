@@ -3,8 +3,8 @@ package org.smartregister.chw.fragment;
 
 import android.content.Context;
 
-import com.opensrp.chw.core.fragment.CoreFamilyProfileChangeDialog;
-import com.opensrp.chw.core.presenter.CoreFamilyChangePresenter;
+import org.smartregister.chw.core.fragment.CoreFamilyProfileChangeDialog;
+import org.smartregister.chw.core.presenter.CoreFamilyChangePresenter;
 
 import org.smartregister.chw.presenter.FamilyChangePresenter;
 

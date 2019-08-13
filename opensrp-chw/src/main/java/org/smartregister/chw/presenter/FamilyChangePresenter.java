@@ -1,7 +1,7 @@
 package org.smartregister.chw.presenter;
 
-import com.opensrp.chw.core.contract.FamilyChangeContract;
-import com.opensrp.chw.core.presenter.CoreFamilyChangePresenter;
+import org.smartregister.chw.core.contract.FamilyChangeContract;
+import org.smartregister.chw.core.presenter.CoreFamilyChangePresenter;
 
 import org.smartregister.chw.interactor.FamilyChangeContractInteractor;
 

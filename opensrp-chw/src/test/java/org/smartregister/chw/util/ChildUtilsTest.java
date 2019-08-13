@@ -2,9 +2,9 @@ package org.smartregister.chw.util;
 
 import android.text.SpannableString;
 
-import com.opensrp.chw.core.model.ChildVisit;
-import com.opensrp.chw.core.rule.HomeAlertRule;
-import com.opensrp.chw.core.utils.TestConstant;
+import org.smartregister.chw.core.model.ChildVisit;
+import org.smartregister.chw.core.rule.HomeAlertRule;
+import org.smartregister.chw.core.utils.TestConstant;
 
 import org.joda.time.LocalDate;
 import org.junit.Assert;

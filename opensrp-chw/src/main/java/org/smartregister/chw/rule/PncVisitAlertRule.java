@@ -1,6 +1,6 @@
 package org.smartregister.chw.rule;
 
-import com.opensrp.chw.core.rule.ICommonRule;
+import org.smartregister.chw.core.rule.ICommonRule;
 
 import org.joda.time.DateTime;
 import org.joda.time.Days;

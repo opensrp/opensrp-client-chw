@@ -3,8 +3,8 @@ package org.smartregister.chw.provider;
 import android.content.Context;
 import android.view.View;
 
-import com.opensrp.chw.core.interactor.CoreFamilyRemoveMemberInteractor;
-import com.opensrp.chw.core.provider.CoreFamilyRemoveMemberProvider;
+import org.smartregister.chw.core.interactor.CoreFamilyRemoveMemberInteractor;
+import org.smartregister.chw.core.provider.CoreFamilyRemoveMemberProvider;
 
 import org.smartregister.chw.interactor.FamilyRemoveMemberInteractor;
 import org.smartregister.commonregistry.CommonRepository;

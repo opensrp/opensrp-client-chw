@@ -8,13 +8,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 
-import com.opensrp.chw.core.activity.CoreChildProfileActivity;
-import com.opensrp.chw.core.activity.CoreUpcomingServicesActivity;
-import com.opensrp.chw.core.fragment.CoreChildHomeVisitFragment;
-import com.opensrp.chw.core.listener.OnClickFloatingMenu;
-import com.opensrp.chw.core.model.CoreChildProfileModel;
-import com.opensrp.chw.core.presenter.CoreChildProfilePresenter;
-import com.opensrp.chw.core.utils.CoreConstants;
+import org.smartregister.chw.core.activity.CoreChildProfileActivity;
+import org.smartregister.chw.core.activity.CoreUpcomingServicesActivity;
+import org.smartregister.chw.core.fragment.CoreChildHomeVisitFragment;
+import org.smartregister.chw.core.listener.OnClickFloatingMenu;
+import org.smartregister.chw.core.model.CoreChildProfileModel;
+import org.smartregister.chw.core.presenter.CoreChildProfilePresenter;
+import org.smartregister.chw.core.utils.CoreConstants;
 
 import org.smartregister.chw.R;
 import org.smartregister.chw.custom_view.FamilyMemberFloatingMenu;

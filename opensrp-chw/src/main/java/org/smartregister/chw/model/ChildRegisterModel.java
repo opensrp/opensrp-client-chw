@@ -2,7 +2,7 @@ package org.smartregister.chw.model;
 
 import android.util.Pair;
 
-import com.opensrp.chw.core.model.CoreChildRegisterModel;
+import org.smartregister.chw.core.model.CoreChildRegisterModel;
 
 import org.json.JSONObject;
 import org.smartregister.chw.util.JsonFormUtils;

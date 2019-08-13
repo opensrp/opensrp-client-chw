@@ -1,6 +1,6 @@
 package org.smartregister.chw.presenter;
 
-import com.opensrp.chw.core.repository.HomeVisitServiceRepository;
+import org.smartregister.chw.core.repository.HomeVisitServiceRepository;
 
 import org.junit.Assert;
 import org.junit.Before;

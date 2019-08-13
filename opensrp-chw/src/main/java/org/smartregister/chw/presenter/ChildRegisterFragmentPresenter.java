@@ -1,7 +1,7 @@
 package org.smartregister.chw.presenter;
 
-import com.opensrp.chw.core.contract.CoreChildRegisterFragmentContract;
-import com.opensrp.chw.core.presenter.CoreChildRegisterFragmentPresenter;
+import org.smartregister.chw.core.contract.CoreChildRegisterFragmentContract;
+import org.smartregister.chw.core.presenter.CoreChildRegisterFragmentPresenter;
 
 public class ChildRegisterFragmentPresenter extends CoreChildRegisterFragmentPresenter {
 

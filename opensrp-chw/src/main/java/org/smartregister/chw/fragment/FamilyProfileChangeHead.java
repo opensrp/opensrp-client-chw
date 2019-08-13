@@ -2,8 +2,8 @@ package org.smartregister.chw.fragment;
 
 import android.os.Bundle;
 
-import com.opensrp.chw.core.fragment.CoreFamilyProfileChangeHead;
-import com.opensrp.chw.core.presenter.CoreFamilyChangePresenter;
+import org.smartregister.chw.core.fragment.CoreFamilyProfileChangeHead;
+import org.smartregister.chw.core.presenter.CoreFamilyChangePresenter;
 
 import org.smartregister.chw.presenter.FamilyChangePresenter;
 

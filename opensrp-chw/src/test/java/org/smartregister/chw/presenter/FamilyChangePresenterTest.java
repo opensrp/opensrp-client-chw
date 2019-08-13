@@ -1,10 +1,10 @@
 package org.smartregister.chw.presenter;
 
-import com.opensrp.chw.core.contract.FamilyChangeContract;
-import com.opensrp.chw.core.domain.FamilyMember;
-import com.opensrp.chw.core.interactor.CoreFamilyChangeContractInteractor;
-import com.opensrp.chw.core.model.FamilyChangeContractModel;
-import com.opensrp.chw.core.presenter.CoreFamilyChangePresenter;
+import org.smartregister.chw.core.contract.FamilyChangeContract;
+import org.smartregister.chw.core.domain.FamilyMember;
+import org.smartregister.chw.core.interactor.CoreFamilyChangeContractInteractor;
+import org.smartregister.chw.core.model.FamilyChangeContractModel;
+import org.smartregister.chw.core.presenter.CoreFamilyChangePresenter;
 
 import org.junit.Before;
 import org.junit.Test;

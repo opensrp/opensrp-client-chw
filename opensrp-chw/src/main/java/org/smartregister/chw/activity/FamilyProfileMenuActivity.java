@@ -5,8 +5,8 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 
-import com.opensrp.chw.core.activity.CoreFamilyProfileMenuActivity;
-import com.opensrp.chw.core.utils.CoreConstants;
+import org.smartregister.chw.core.activity.CoreFamilyProfileMenuActivity;
+import org.smartregister.chw.core.utils.CoreConstants;
 
 import org.smartregister.chw.fragment.FamilyProfileChangeHead;
 import org.smartregister.chw.fragment.FamilyProfileChangePrimaryCG;

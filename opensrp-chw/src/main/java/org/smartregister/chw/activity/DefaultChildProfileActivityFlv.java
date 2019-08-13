@@ -2,8 +2,8 @@ package org.smartregister.chw.activity;
 
 import android.app.Activity;
 
-import com.opensrp.chw.core.fragment.FamilyCallDialogFragment;
-import com.opensrp.chw.core.listener.OnClickFloatingMenu;
+import org.smartregister.chw.core.fragment.FamilyCallDialogFragment;
+import org.smartregister.chw.core.listener.OnClickFloatingMenu;
 
 import org.smartregister.chw.R;
 import org.smartregister.chw.presenter.ChildProfilePresenter;

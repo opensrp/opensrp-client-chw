@@ -4,9 +4,9 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.LinearLayout;
 
-import com.opensrp.chw.core.custom_views.ImmunizationView;
-import com.opensrp.chw.core.fragment.VaccinationDialogFragment;
-import com.opensrp.chw.core.presenter.ImmunizationViewPresenter;
+import org.smartregister.chw.core.custom_views.ImmunizationView;
+import org.smartregister.chw.core.fragment.VaccinationDialogFragment;
+import org.smartregister.chw.core.presenter.ImmunizationViewPresenter;
 import com.vijay.jsonwizard.customviews.CheckBox;
 
 import org.junit.Assert;

@@ -1,6 +1,6 @@
 package org.smartregister.chw.interactor;
 
-import com.opensrp.chw.core.interactor.CoreFamilyRemoveMemberInteractor;
+import org.smartregister.chw.core.interactor.CoreFamilyRemoveMemberInteractor;
 
 import org.smartregister.chw.application.ChwApplication;
 

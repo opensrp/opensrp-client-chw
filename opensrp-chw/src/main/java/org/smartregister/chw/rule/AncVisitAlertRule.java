@@ -2,7 +2,7 @@ package org.smartregister.chw.rule;
 
 import android.content.Context;
 
-import com.opensrp.chw.core.rule.ICommonRule;
+import org.smartregister.chw.core.rule.ICommonRule;
 
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.Days;

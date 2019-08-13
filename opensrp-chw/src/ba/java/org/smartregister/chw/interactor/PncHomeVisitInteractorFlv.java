@@ -1,6 +1,6 @@
 package org.smartregister.chw.interactor;
 
-import com.opensrp.chw.core.domain.Person;
+import org.smartregister.chw.core.domain.Person;
 
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.LocalDate;

@@ -1,6 +1,6 @@
 package org.smartregister.chw.presenter;
 
-import com.opensrp.chw.core.contract.CoreChildRegisterFragmentContract;
+import org.smartregister.chw.core.contract.CoreChildRegisterFragmentContract;
 
 import org.junit.Assert;
 import org.junit.Before;

@@ -4,9 +4,9 @@ import android.support.annotation.VisibleForTesting;
 import android.text.TextUtils;
 import android.util.Pair;
 
-import com.opensrp.chw.core.application.CoreChwApplication;
-import com.opensrp.chw.core.interactor.CoreChildHomeVisitInteractor;
-import com.opensrp.chw.core.model.BirthIllnessFormModel;
+import org.smartregister.chw.core.application.CoreChwApplication;
+import org.smartregister.chw.core.interactor.CoreChildHomeVisitInteractor;
+import org.smartregister.chw.core.model.BirthIllnessFormModel;
 
 import org.json.JSONObject;
 import org.smartregister.chw.repository.ChwRepository;
@@ -18,7 +18,7 @@ import org.smartregister.repository.EventClientRepository;
 
 import timber.log.Timber;
 
-import static com.opensrp.chw.core.utils.ChildDBConstants.KEY.BIRTH_CERT;
+import static org.smartregister.chw.core.utils.ChildDBConstants.KEY.BIRTH_CERT;
 import static org.smartregister.util.Utils.getValue;
 
 public class ChildHomeVisitInteractor extends CoreChildHomeVisitInteractor {

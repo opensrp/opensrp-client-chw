@@ -3,12 +3,12 @@ package org.smartregister.chw.interactor;
 import android.content.Context;
 import android.text.TextUtils;
 
-import com.opensrp.chw.core.domain.HomeVisit;
-import com.opensrp.chw.core.domain.HomeVisitServiceDataModel;
-import com.opensrp.chw.core.utils.BirthCertDataModel;
-import com.opensrp.chw.core.utils.ObsIllnessDataModel;
-import com.opensrp.chw.core.utils.ServiceTask;
-import com.opensrp.chw.core.utils.TaskServiceCalculate;
+import org.smartregister.chw.core.domain.HomeVisit;
+import org.smartregister.chw.core.domain.HomeVisitServiceDataModel;
+import org.smartregister.chw.core.utils.BirthCertDataModel;
+import org.smartregister.chw.core.utils.ObsIllnessDataModel;
+import org.smartregister.chw.core.utils.ServiceTask;
+import org.smartregister.chw.core.utils.TaskServiceCalculate;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,14 +23,14 @@ import org.smartregister.family.util.DBConstants;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.opensrp.chw.core.utils.ChildDBConstants.KEY.BIRTH_CERT;
-import static com.opensrp.chw.core.utils.ChildDBConstants.KEY.BIRTH_CERT_ISSUE_DATE;
-import static com.opensrp.chw.core.utils.ChildDBConstants.KEY.BIRTH_CERT_NUMBER;
-import static com.opensrp.chw.core.utils.ChildDBConstants.KEY.ILLNESS_ACTION;
-import static com.opensrp.chw.core.utils.ChildDBConstants.KEY.ILLNESS_DATE;
-import static com.opensrp.chw.core.utils.ChildDBConstants.KEY.ILLNESS_DESCRIPTION;
-import static com.opensrp.chw.core.utils.Utils.DD_MM_YYYY;
-import static com.opensrp.chw.core.utils.Utils.convertToDateFormateString;
+import static org.smartregister.chw.core.utils.ChildDBConstants.KEY.BIRTH_CERT;
+import static org.smartregister.chw.core.utils.ChildDBConstants.KEY.BIRTH_CERT_ISSUE_DATE;
+import static org.smartregister.chw.core.utils.ChildDBConstants.KEY.BIRTH_CERT_NUMBER;
+import static org.smartregister.chw.core.utils.ChildDBConstants.KEY.ILLNESS_ACTION;
+import static org.smartregister.chw.core.utils.ChildDBConstants.KEY.ILLNESS_DATE;
+import static org.smartregister.chw.core.utils.ChildDBConstants.KEY.ILLNESS_DESCRIPTION;
+import static org.smartregister.chw.core.utils.Utils.DD_MM_YYYY;
+import static org.smartregister.chw.core.utils.Utils.convertToDateFormateString;
 
 public abstract class DefaultChildHomeVisitInteractorFlv implements ChildHomeVisitInteractor.Flavor {
     @Override

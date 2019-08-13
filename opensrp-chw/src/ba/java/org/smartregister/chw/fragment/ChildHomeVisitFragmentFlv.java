@@ -1,6 +1,6 @@
 package org.smartregister.chw.fragment;
 
-import com.opensrp.chw.core.fragment.CoreChildHomeVisitFragment;
+import org.smartregister.chw.core.fragment.CoreChildHomeVisitFragment;
 
 public class ChildHomeVisitFragmentFlv implements CoreChildHomeVisitFragment.Flavor {
     @Override

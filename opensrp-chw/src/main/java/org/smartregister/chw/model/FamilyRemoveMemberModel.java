@@ -2,7 +2,7 @@ package org.smartregister.chw.model;
 
 
 
-import com.opensrp.chw.core.model.CoreFamilyRemoveMemberModel;
+import org.smartregister.chw.core.model.CoreFamilyRemoveMemberModel;
 
 public class FamilyRemoveMemberModel extends CoreFamilyRemoveMemberModel{}
 

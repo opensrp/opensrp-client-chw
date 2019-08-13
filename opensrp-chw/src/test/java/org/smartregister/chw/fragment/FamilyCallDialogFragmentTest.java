@@ -3,8 +3,8 @@ package org.smartregister.chw.fragment;
 import android.view.View;
 import android.widget.LinearLayout;
 
-import com.opensrp.chw.core.fragment.FamilyCallDialogFragment;
-import com.opensrp.chw.core.model.FamilyCallDialogModel;
+import org.smartregister.chw.core.fragment.FamilyCallDialogFragment;
+import org.smartregister.chw.core.model.FamilyCallDialogModel;
 
 import org.junit.Assert;
 import org.junit.Before;

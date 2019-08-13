@@ -1,7 +1,7 @@
 package org.smartregister.chw.presenter;
 
-import com.opensrp.chw.core.contract.FamilyRemoveMemberContract;
-import com.opensrp.chw.core.presenter.CoreFamilyRemoveMemberPresenter;
+import org.smartregister.chw.core.contract.FamilyRemoveMemberContract;
+import org.smartregister.chw.core.presenter.CoreFamilyRemoveMemberPresenter;
 
 import org.smartregister.chw.interactor.FamilyRemoveMemberInteractor;
 

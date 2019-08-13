@@ -1,6 +1,6 @@
 package org.smartregister.chw.interactor;
 
-import com.opensrp.chw.core.model.VaccineTaskModel;
+import org.smartregister.chw.core.model.VaccineTaskModel;
 
 import org.joda.time.DateTime;
 import org.json.JSONObject;

@@ -1,8 +1,8 @@
 <resources>
-    <string name="app_name">USAID Boresha Afya</string>
+    <string name="app_name">USAID Boresha Afya Health Facility</string>
     <string name="logo">logo</string>
-    <string name="login_title">USAID Boresha Afya</string>
-    <string name="nav_logo">USAID Boresha Afya</string>
+    <string name="login_title">USAID Boresha Afya Health Facility</string>
+    <string name="nav_logo">USAID Boresha Afya Health Facility</string>
     <string name="due_only">Referred</string>
 
     <string name="clicked_sick_child">You have clicked the sick child follow-up action</string>

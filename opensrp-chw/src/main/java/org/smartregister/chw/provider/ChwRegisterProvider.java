@@ -6,9 +6,9 @@ import android.os.AsyncTask;
 import android.text.TextUtils;
 import android.view.View;
 
-import com.opensrp.chw.core.model.ChildVisit;
-import com.opensrp.chw.core.provider.CoreRegisterProvider;
-import com.opensrp.chw.core.utils.ChildDBConstants;
+import org.smartregister.chw.core.model.ChildVisit;
+import org.smartregister.chw.core.provider.CoreRegisterProvider;
+import org.smartregister.chw.core.utils.ChildDBConstants;
 
 import org.jeasy.rules.api.Rules;
 import org.smartregister.chw.application.ChwApplication;

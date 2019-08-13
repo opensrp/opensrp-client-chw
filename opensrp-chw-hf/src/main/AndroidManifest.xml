@@ -15,7 +15,7 @@
     <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
-        android:name="com.opensrp.chw.hf.HealthFacilityApplication"
+        android:name="org.smartregister.chw.hf.HealthFacilityApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -38,7 +38,7 @@
             android:value="3f94f9c3caeff331b3a2bd8c2182b663ad6a955a" />
 
         <activity
-            android:name="com.opensrp.chw.hf.activity.LoginActivity"
+            android:name="org.smartregister.chw.hf.activity.LoginActivity"
             android:launchMode="singleTask"
             android:roundIcon="@drawable/ic_launcher_round"
             android:screenOrientation="portrait"
@@ -58,47 +58,47 @@
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
 
         <activity
-            android:name="com.opensrp.chw.hf.activity.FamilyRegisterActivity"
+            android:name="org.smartregister.chw.hf.activity.FamilyRegisterActivity"
             android:screenOrientation="portrait"
             android:theme="@style/HFTheme.NoActionBar" />
 
         <activity
-            android:name="com.opensrp.chw.hf.activity.FamilyProfileActivity"
+            android:name="org.smartregister.chw.hf.activity.FamilyProfileActivity"
             android:label="@string/title_family_detail"
-            android:parentActivityName="com.opensrp.chw.hf.activity.FamilyRegisterActivity"
+            android:parentActivityName="org.smartregister.chw.hf.activity.FamilyRegisterActivity"
             android:screenOrientation="portrait"
             android:theme="@style/HFTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.opensrp.chw.hf.activity.FamilyRegisterActivity" />
+                android:value="org.smartregister.chw.hf.activity.FamilyRegisterActivity" />
         </activity>
 
         <activity
-            android:name="com.opensrp.chw.hf.activity.ChildRegisterActivity"
+            android:name="org.smartregister.chw.hf.activity.ChildRegisterActivity"
             android:screenOrientation="portrait"
             android:theme="@style/HFTheme.NoActionBar" />
 
         <activity
-            android:name="com.opensrp.chw.hf.activity.ChildProfileActivity"
+            android:name="org.smartregister.chw.hf.activity.ChildProfileActivity"
             android:screenOrientation="portrait"
             android:theme="@style/HFTheme.NoActionBar" />
         <activity
-            android:name="com.opensrp.chw.hf.activity.FamilyRemoveMemberActivity"
+            android:name="org.smartregister.chw.hf.activity.FamilyRemoveMemberActivity"
             android:theme="@style/HFTheme.NoActionBar" />
         <activity
-            android:name="com.opensrp.chw.hf.activity.FamilyProfileMenuActivity"
+            android:name="org.smartregister.chw.hf.activity.FamilyProfileMenuActivity"
             android:screenOrientation="portrait"
             android:theme="@style/HFTheme.NoActionBar" />
         <activity
-            android:name="com.opensrp.chw.core.activity.CoreChildMedicalHistoryActivity"
+            android:name="org.smartregister.chw.core.activity.CoreChildMedicalHistoryActivity"
             android:screenOrientation="portrait"
             android:theme="@style/HFTheme.NoActionBar" />
         <activity
-            android:name="com.opensrp.chw.hf.activity.ReferralRegister"
+            android:name="org.smartregister.chw.hf.activity.ReferralRegister"
             android:screenOrientation="portrait"
             android:theme="@style/HFTheme.NoActionBar" />
         <activity
-            android:name="com.opensrp.chw.hf.activity.ReferralTaskViewActivity"
+            android:name="org.smartregister.chw.hf.activity.ReferralTaskViewActivity"
             android:screenOrientation="portrait"
             android:theme="@style/HFTheme.NoActionBar" />
 
@@ -111,7 +111,7 @@
         <service android:name="org.smartregister.service.ImageUploadSyncService" />
         <service android:name="org.smartregister.chw.anc.intent.HomeVisitIntent" />
         <service android:name="org.smartregister.sync.intent.LocationIntentService" />
-        <service android:name="com.opensrp.chw.hf.sync.intent.HfSyncTaskIntentService" />
+        <service android:name="org.smartregister.chw.hf.sync.intent.HfSyncTaskIntentService" />
         <service android:name="org.smartregister.sync.intent.PlanIntentService" />
 
         <uses-library

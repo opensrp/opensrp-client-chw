@@ -9,8 +9,8 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.opensrp.chw.core.custom_views.NavigationMenu;
-import com.opensrp.chw.core.utils.QueryBuilder;
+import org.smartregister.chw.core.custom_views.NavigationMenu;
+import org.smartregister.chw.core.utils.QueryBuilder;
 
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.R;
@@ -38,7 +38,7 @@ import java.util.Set;
 
 import timber.log.Timber;
 
-import static com.opensrp.chw.core.utils.Utils.convertDpToPixel;
+import static org.smartregister.chw.core.utils.Utils.convertDpToPixel;
 
 public class AncRegisterFragment extends BaseAncRegisterFragment {
 

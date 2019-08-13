@@ -4,8 +4,8 @@ package org.smartregister.chw.activity;
 import android.content.Intent;
 import android.support.design.bottomnavigation.LabelVisibilityMode;
 
-import com.opensrp.chw.core.activity.CoreChildRegisterActivity;
-import com.opensrp.chw.core.contract.CoreChildRegisterContract;
+import org.smartregister.chw.core.activity.CoreChildRegisterActivity;
+import org.smartregister.chw.core.contract.CoreChildRegisterContract;
 
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.fragment.ChildRegisterFragment;

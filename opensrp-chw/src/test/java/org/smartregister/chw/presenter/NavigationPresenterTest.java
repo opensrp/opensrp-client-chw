@@ -3,11 +3,11 @@ package org.smartregister.chw.presenter;
 
 import android.support.v7.app.AppCompatActivity;
 
-import com.opensrp.chw.core.contract.CoreApplication;
-import com.opensrp.chw.core.contract.NavigationContract;
-import com.opensrp.chw.core.interactor.NavigationInteractor;
-import com.opensrp.chw.core.model.NavigationModel;
-import com.opensrp.chw.core.presenter.NavigationPresenter;
+import org.smartregister.chw.core.contract.CoreApplication;
+import org.smartregister.chw.core.contract.NavigationContract;
+import org.smartregister.chw.core.interactor.NavigationInteractor;
+import org.smartregister.chw.core.model.NavigationModel;
+import org.smartregister.chw.core.presenter.NavigationPresenter;
 
 import org.junit.Before;
 import org.junit.Ignore;

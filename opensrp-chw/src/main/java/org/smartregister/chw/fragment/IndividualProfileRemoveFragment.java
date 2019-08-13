@@ -3,12 +3,12 @@ package org.smartregister.chw.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.opensrp.chw.core.activity.CoreAncRegisterActivity;
-import com.opensrp.chw.core.activity.CoreFamilyRegisterActivity;
-import com.opensrp.chw.core.fragment.CoreFamilyProfileChangeDialog;
-import com.opensrp.chw.core.fragment.CoreIndividualProfileRemoveFragment;
-import com.opensrp.chw.core.fragment.FamilyRemoveMemberConfirmDialog;
-import com.opensrp.chw.core.utils.CoreConstants;
+import org.smartregister.chw.core.activity.CoreAncRegisterActivity;
+import org.smartregister.chw.core.activity.CoreFamilyRegisterActivity;
+import org.smartregister.chw.core.fragment.CoreFamilyProfileChangeDialog;
+import org.smartregister.chw.core.fragment.CoreIndividualProfileRemoveFragment;
+import org.smartregister.chw.core.fragment.FamilyRemoveMemberConfirmDialog;
+import org.smartregister.chw.core.utils.CoreConstants;
 
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
