@@ -414,17 +414,9 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
 
     @Override
     public void processBackGroundEvent(final ChildProfileContract.InteractorCallBack callback) {
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                ChildUtils.processClientProcessInBackground();
-                appExecutors.mainThread().execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        callback.updateAfterBackGroundProcessed();
-                    }
-                });
-            }
+        Runnable runnable = () -> {
+            ChildUtils.processClientProcessInBackground();
+            appExecutors.mainThread().execute(() -> callback.updateAfterBackGroundProcessed());
         };
         appExecutors.diskIO().execute(runnable);
     }

@@ -111,21 +111,15 @@ public class IndividualProfileRemoveFragment extends BaseFamilyProfileMemberFrag
             );
             dialog.setContext(getContext());
             dialog.show(getFragmentManager(), FamilyRemoveMemberFragment.DIALOG_TAG);
-            dialog.setOnRemove(new Runnable() {
-                @Override
-                public void run() {
-                    getPresenter().processRemoveForm(form);
-                    Intent intent = new Intent(getActivity(), getCallingRegisterActivity());
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(intent);
-                }
+            dialog.setOnRemove(() -> {
+                getPresenter().processRemoveForm(form);
+                Intent intent = new Intent(getActivity(), getCallingRegisterActivity());
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
             });
-            dialog.setOnRemoveActivity(new Runnable() {
-                @Override
-                public void run() {
-                    if (getActivity() != null) {
-                        getActivity().finish();
-                    }
+            dialog.setOnRemoveActivity(() -> {
+                if (getActivity() != null) {
+                    getActivity().finish();
                 }
             });
         }
@@ -136,19 +130,13 @@ public class IndividualProfileRemoveFragment extends BaseFamilyProfileMemberFrag
         if (getActivity() != null && getActivity().getFragmentManager() != null) {
             FamilyProfileChangeDialog dialog = FamilyProfileChangeDialog.newInstance(getContext(), familyBaseEntityId,
                     org.smartregister.chw.util.Constants.PROFILE_CHANGE_ACTION.HEAD_OF_FAMILY);
-            dialog.setOnSaveAndClose(new Runnable() {
-                @Override
-                public void run() {
-                    setFamilyHead(familyHeadID);
-                    getPresenter().removeMember(client);
-                }
+            dialog.setOnSaveAndClose(() -> {
+                setFamilyHead(familyHeadID);
+                getPresenter().removeMember(client);
             });
-            dialog.setOnRemoveActivity(new Runnable() {
-                @Override
-                public void run() {
-                    if (getActivity() != null) {
-                        getActivity().finish();
-                    }
+            dialog.setOnRemoveActivity(() -> {
+                if (getActivity() != null) {
+                    getActivity().finish();
                 }
             });
             dialog.show(getActivity().getFragmentManager(), "FamilyProfileChangeDialogHF");
@@ -160,19 +148,13 @@ public class IndividualProfileRemoveFragment extends BaseFamilyProfileMemberFrag
         if (getActivity() != null && getActivity().getFragmentManager() != null) {
             FamilyProfileChangeDialog dialog = FamilyProfileChangeDialog.newInstance(getContext(), familyBaseEntityId,
                     org.smartregister.chw.util.Constants.PROFILE_CHANGE_ACTION.PRIMARY_CARE_GIVER);
-            dialog.setOnSaveAndClose(new Runnable() {
-                @Override
-                public void run() {
-                    setPrimaryCaregiver(careGiverID);
-                    getPresenter().removeMember(client);
-                }
+            dialog.setOnSaveAndClose(() -> {
+                setPrimaryCaregiver(careGiverID);
+                getPresenter().removeMember(client);
             });
-            dialog.setOnRemoveActivity(new Runnable() {
-                @Override
-                public void run() {
-                    if (getActivity() != null) {
-                        getActivity().finish();
-                    }
+            dialog.setOnRemoveActivity(() -> {
+                if (getActivity() != null) {
+                    getActivity().finish();
                 }
             });
             dialog.show(getActivity().getFragmentManager(), "FamilyProfileChangeDialogPC");

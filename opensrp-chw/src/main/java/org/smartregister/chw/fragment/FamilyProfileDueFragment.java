@@ -75,13 +75,10 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
         this.clientAdapter.setCurrentlimit(metadata().familyDueRegister.currentLimit);
         this.clientsView.setAdapter(this.clientAdapter);
         //need some delay to ready the adapter
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (flavorWashCheck.isWashCheckVisible())
-                    ((FamilyProfileDuePresenter) presenter).fetchLastWashCheck(dateFamilyCreated);
+        new Handler().postDelayed(() -> {
+            if (flavorWashCheck.isWashCheckVisible())
+                ((FamilyProfileDuePresenter) presenter).fetchLastWashCheck(dateFamilyCreated);
 
-            }
         }, 500);
 
     }
@@ -94,15 +91,7 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
             dueCount = count;
             ((FamilyProfileActivity) getActivity()).updateDueCount(dueCount);
         }
-        if (getActivity() != null) {
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-
-                    onEmptyRegisterCount(count < 1);
-                }
-            });
-        }
+        if (getActivity() != null) getActivity().runOnUiThread(() -> onEmptyRegisterCount(count < 1));
     }
 
     @Override
