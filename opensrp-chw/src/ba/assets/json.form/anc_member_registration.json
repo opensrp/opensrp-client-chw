@@ -67,6 +67,7 @@
         "label_info_text": "LMP = first day of Last Menstrual Period. If the exact date is unknown, but the period of the month is known, use day 5 for beginning of the month, day 15 for middle of the month and day 25 for end of the month.",
         "expanded": false,
         "max_date": "today",
+        "min_date": "today-50w",
         "v_required": {
           "value": "true",
           "err": "LMP required"

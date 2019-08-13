@@ -113,8 +113,8 @@ public class ChildRegisterProvider implements RecyclerViewProvider<ChildRegister
         //dobString = dobString.contains("y") ? dobString.substring(0, dobString.indexOf("y")) : dobString;
         fillValue(viewHolder.textViewChildName, WordUtils.capitalize(childName) + ", " + WordUtils.capitalize(Utils.getTranslatedDate(dobString, context)));
         String address = Utils.getValue(pc.getColumnmaps(), ChildDBConstants.KEY.FAMILY_HOME_ADDRESS, true);
-        String gender = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.GENDER, true);
-        fillValue(viewHolder.textViewAddressGender, address + " \u00B7 " + gender);
+        String gender_key = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.GENDER, true);
+        fillValue(viewHolder.textViewAddressGender, address + " \u00B7 " + org.smartregister.chw.util.Utils.getGenderLanguageSpecific(context,gender_key));
 
         View patient = viewHolder.childColumn;
         attachPatientOnclickListener(patient, client);

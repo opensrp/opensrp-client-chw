@@ -116,7 +116,7 @@
     <string name="section_format">Salut le monde, de la section: %1$d</string>
     <string name="updating">Mise à jour en cours...</string>
     <string name="birth_certification">Acte de naissance</string>
-    <string name="observations_illness_episodes"><![CDATA[Observations & maladies - <i>optional</i>]]></string>
+    <string name="observations_illness_episodes"><![CDATA[Observations & maladies - <i>optionelle</i>]]></string>
     <string name="observations_illness_episodes_medical"><![CDATA[Observations & Épisodes de maladies]]></string>
     <string name="home_visit_suffix"> &#183; Visite à domicile</string>
     <string name="wash_check_suffix">&#183; Vérification Eau, Hygiène et Assainissement </string>
@@ -393,12 +393,12 @@
 
     <string name="pnc_danger_signs_mother">Signes de danger - femme</string>
     <string name="pnc_danger_signs_baby">Signes de danger - enfant ({0})</string>
-    <string name="pnc_health_facility_visit">Visit CPoN au centre de santé - jour {0}</string>
+    <string name="pnc_health_facility_visit">Visit CPoN au centre de santé - jour {0} ({1})</string>
     <string name="pnc_child_vaccine_card_recevied">Carte de vaccination enfant reçu ({0})</string>
     <string name="pnc_immunization_at_birth">Immunisations (à la naissance) ({0})</string>
     <string name="pnc_umblicord_care">Soins du cordon ombilical</string>
     <string name="pnc_exclusive_breastfeeding">Allaitement maternel exclusif ({0})</string>
-    <string name="pnc_kangeroo_mother_care">Soins maternels kangourou (SMK)</string>
+    <string name="pnc_kangaroo_mother_care">Soins maternels kangourou (SMK) - ({0})</string>
     <string name="pnc_family_planning">Planification familiale</string>
     <string name="pnc_observation_and_illness_mother">Observations &amp; maladie - femme </string>
     <string name="pnc_observation_and_illness_baby">Observations &amp; maladie - enfant ({0})</string>
@@ -431,9 +431,21 @@
     <string name="abv_sixth">6ème</string>
     <string name="abv_seventh">7ème</string>
     <string name="abv_eigth">8ème</string>
-    <string name="abv_nineth">9ème</string>
+    <string name="abv_nineth">9ieme</string>
     <string name="abv_tenth">10ème</string>
     <string name="abv_eleventh">11ème</string>
     <string name="abv_twelfth">12ème</string>
+    <string name="change_member_alert">Kindly complete the form before submitting</string>
+    <string name="must_start_with_zero">Must start with 0</string>
+    <string name="length_equal_10">Length must be equal to 10</string>
+    <string name="dismiss">Rejeter</string>
+    <string name="birth">naissance</string>
+    <string name="week_full">weeks</string>
+    <string name="month_full">months</string>
+    <string name="at_birth">à la naissance</string>
+    <string name="child">child</string>
+    <string name="birth_cap">Naissance</string>
+    <string name="done">terminé</string>
+    <string name="on">sur</string>
 
 </resources>

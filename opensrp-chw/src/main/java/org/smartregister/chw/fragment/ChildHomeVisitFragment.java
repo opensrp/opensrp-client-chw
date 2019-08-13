@@ -55,6 +55,7 @@ import org.smartregister.domain.FetchStatus;
 import org.smartregister.family.activity.BaseFamilyProfileActivity;
 import org.smartregister.family.util.AppExecutors;
 import org.smartregister.family.util.DBConstants;
+import org.smartregister.family.util.Utils;
 import org.smartregister.util.FormUtils;
 
 import java.util.ArrayList;
@@ -219,7 +220,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
             return;
 
         String dob = getValue(childClient.getColumnmaps(), DBConstants.KEY.DOB, false);
-        String dobString = getDuration(dob);
+        String dobString = Utils.getTranslatedDate(getDuration(dob),context);
         String birthCert = getValue(childClient.getColumnmaps(), BIRTH_CERT, true);
 
         nameHeader.setText(String.format("%s %s %s, %s \u00B7 %s",

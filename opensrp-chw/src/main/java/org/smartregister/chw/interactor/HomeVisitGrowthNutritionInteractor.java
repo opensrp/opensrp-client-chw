@@ -6,6 +6,7 @@ import android.text.TextUtils;
 
 import com.google.gson.reflect.TypeToken;
 
+import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.contract.HomeVisitGrowthNutritionContract;
 import org.smartregister.chw.domain.HomeVisit;
@@ -16,6 +17,7 @@ import org.smartregister.chw.task.UpdateServiceTask;
 import org.smartregister.chw.util.ChildDBConstants;
 import org.smartregister.chw.util.ChildUtils;
 import org.smartregister.chw.util.GrowthServiceData;
+import org.smartregister.chw.util.Utils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.AlertStatus;
 import org.smartregister.family.util.AppExecutors;
@@ -160,11 +162,11 @@ public class HomeVisitGrowthNutritionInteractor implements HomeVisitGrowthNutrit
             String str = (String) displayName[0];
             String no = (String) displayName[1];
             if (type.equalsIgnoreCase(GrowthNutritionInputFragment.GROWTH_TYPE.EXCLUSIVE.getValue())) {
-                return str + " " + no + " month";
+                return Utils.getServiceTypeLanguageSpecific(context,str) + " " + no + " "+context.getString(R.string.month);
             } else if (type.equalsIgnoreCase(GrowthNutritionInputFragment.GROWTH_TYPE.MNP.getValue())) {
-                return str + " " + ChildUtils.getFirstSecondAsNumber(no, context) + " pack";
+                return Utils.getServiceTypeLanguageSpecific(context,str) + " " + ChildUtils.getFirstSecondAsNumber(no, context) + " "+context.getString(R.string.visit_pack);
             } else {
-                return str + " " + ChildUtils.getFirstSecondAsNumber(no, context) + " dose";
+                return Utils.getServiceTypeLanguageSpecific(context,str) + " " + ChildUtils.getFirstSecondAsNumber(no, context) + " "+context.getString(R.string.visit_dose);
             }
         }
         return "";

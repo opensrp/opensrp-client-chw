@@ -11,8 +11,10 @@ import org.smartregister.job.ImageUploadServiceJob;
 import org.smartregister.job.P2pServiceJob;
 import org.smartregister.job.PullUniqueIdsServiceJob;
 import org.smartregister.job.SyncServiceJob;
+import org.smartregister.job.SyncTaskServiceJob;
 import org.smartregister.job.ValidateSyncDataServiceJob;
 import org.smartregister.sync.intent.SyncIntentService;
+import org.smartregister.sync.intent.SyncTaskIntentService;
 
 import timber.log.Timber;
 
@@ -42,7 +44,14 @@ public class ChwJobCreator implements JobCreator {
                 return new P2pServiceJob();
             case HomeVisitServiceJob.TAG:
                 return new HomeVisitServiceJob();
+            case BasePncCloseJob.TAG:
+                return new BasePncCloseJob();
 
+            case SyncTaskServiceJob.TAG:
+                return new SyncTaskServiceJob(SyncTaskIntentService.class);
+            //TODO uncomment to enable plans
+            /*case PlanIntentServiceJob.TAG:
+                return new PlanIntentServiceJob();*/
             default:
                 Timber.d("Looks like you tried to create a job " + tag + " that is not declared in the Chw Job Creator");
                 return null;

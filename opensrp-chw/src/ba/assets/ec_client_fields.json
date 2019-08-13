@@ -934,10 +934,100 @@
           }
         },
         {
+          "column_name": "last_health_facility_visit_date",
+          "type": "Event",
+          "data_type": "date",
+          "source_format": "dd-MM-yyyy",
+          "save_format": "yyyy-MM-dd",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "last_health_facility_visit_date"
+          }
+        },
+        {
+          "column_name": "confirmed_health_facility_visits",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "confirmed_health_facility_visits"
+          }
+        },
+        {
           "column_name": "last_interacted_with",
           "type": "Event",
           "json_mapping": {
             "field": "version"
+          }
+        }
+      ]
+    },
+    {
+      "name": "ec_child_referral",
+      "columns": [
+        {
+          "column_name": "base_entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "baseEntityId"
+          }
+        },
+        {
+          "column_name": "chw_referral_hf_child",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "1759AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        {
+          "column_name": "referral_problem_child",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "163182AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        {
+          "column_name": "referral_problem_child_other",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        {
+          "column_name": "service_before_child",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "164378AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        {
+          "column_name": "service_before_child_other",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        {
+          "column_name": "referral_date_child",
+          "type": "Event",
+          "data_type": "date",
+          "source_format": "dd-MM-yyyy",
+          "save_format": "yyyy-MM-dd",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "163181AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        {
+          "column_name": "referral_time_child",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": ""
           }
         }
       ]

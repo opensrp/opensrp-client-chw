@@ -32,7 +32,6 @@ import org.smartregister.commonregistry.AllCommonsRepository;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
-import org.smartregister.family.contract.FamilyProfileContract;
 import org.smartregister.family.domain.FamilyEventClient;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
@@ -46,19 +45,13 @@ import static org.smartregister.util.Utils.getAllSharedPreferences;
 
 public class AncMemberProfileActivity extends BaseAncMemberProfileActivity {
 
-    private static FamilyProfileContract.Interactor profileInteractor;
-    private static FamilyProfileContract.Model profileModel;
-
     public static void startMe(Activity activity, MemberObject memberObject, String familyHeadName, String familyHeadPhoneNumber) {
         Intent intent = new Intent(activity, AncMemberProfileActivity.class);
         intent.putExtra(Constants.ANC_MEMBER_OBJECTS.MEMBER_PROFILE_OBJECT, memberObject);
         intent.putExtra(Constants.ANC_MEMBER_OBJECTS.FAMILY_HEAD_NAME, familyHeadName);
         intent.putExtra(Constants.ANC_MEMBER_OBJECTS.FAMILY_HEAD_PHONE, familyHeadPhoneNumber);
-        profileInteractor = new FamilyProfileInteractor();
-        profileModel = new FamilyProfileModel(memberObject.getFamilyName());
         activity.startActivity(intent);
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -91,8 +84,7 @@ public class AncMemberProfileActivity extends BaseAncMemberProfileActivity {
                 IndividualProfileRemoveActivity.startIndividualProfileActivity(AncMemberProfileActivity.this, client, MEMBER_OBJECT.getFamilyBaseEntityId(), MEMBER_OBJECT.getFamilyHead(), MEMBER_OBJECT.getPrimaryCareGiver(), AncRegisterActivity.class.getCanonicalName());
                 return true;
             case R.id.action_pregnancy_out_come:
-                AncRegisterActivity.startAncRegistrationActivity(AncMemberProfileActivity.this, MEMBER_OBJECT.getBaseEntityId(), null,
-                        org.smartregister.chw.util.Constants.JSON_FORM.getPregnancyOutcome(), AncLibrary.getInstance().getUniqueIdRepository().getNextUniqueId().getOpenmrsId(), MEMBER_OBJECT.getFamilyBaseEntityId());
+                PncRegisterActivity.startAncRegistrationActivity(AncMemberProfileActivity.this, MEMBER_OBJECT.getBaseEntityId(), null, org.smartregister.chw.util.Constants.JSON_FORM.getPregnancyOutcome(), AncLibrary.getInstance().getUniqueIdRepository().getNextUniqueId().getOpenmrsId(), MEMBER_OBJECT.getFamilyBaseEntityId(), MEMBER_OBJECT.getFamilyName());
                 return true;
             default:
                 break;
@@ -126,19 +118,15 @@ public class AncMemberProfileActivity extends BaseAncMemberProfileActivity {
         Rules rules = ChwApplication.getInstance().getRulesEngineHelper().rules(org.smartregister.chw.util.Constants.RULE_FILE.ANC_HOME_VISIT);
 
         VisitSummary visitSummary = HomeVisitUtil.getAncVisitStatus(this, rules, MEMBER_OBJECT.getLastMenstrualPeriod(), MEMBER_OBJECT.getLastContactVisit(), null, new DateTime(MEMBER_OBJECT.getDateCreated()).toLocalDate());
+        String visitStatus = visitSummary.getVisitStatus();
 
-        if (!visitSummary.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.DUE.name()) &&
-                !visitSummary.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.OVERDUE.name())) {
+        if (!visitStatus.equalsIgnoreCase(ChildProfileInteractor.VisitType.DUE.name()) &&
+                !visitStatus.equalsIgnoreCase(ChildProfileInteractor.VisitType.OVERDUE.name())) {
             textview_record_anc_visit.setVisibility(View.GONE);
             view_anc_record.setVisibility(View.GONE);
             textViewAncVisitNot.setVisibility(View.GONE);
         }
-        if (!visitSummary.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.DUE.name()) &&
-                !visitSummary.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.OVERDUE.name())) {
-            view_anc_record.setVisibility(View.GONE);
-            textViewAncVisitNot.setVisibility(View.GONE);
-        }
-        if (visitSummary.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.OVERDUE.name())) {
+        if (visitStatus.equalsIgnoreCase(ChildProfileInteractor.VisitType.OVERDUE.name())) {
             textview_record_anc_visit.setBackgroundResource(R.drawable.record_btn_selector_overdue);
             layoutRecordView.setVisibility(View.VISIBLE);
             record_reccuringvisit_done_bar.setVisibility(View.GONE);
@@ -180,8 +168,10 @@ public class AncMemberProfileActivity extends BaseAncMemberProfileActivity {
                         String jsonString = data.getStringExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON);
                         JSONObject form = new JSONObject(jsonString);
                         if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Utils.metadata().familyMemberRegister.updateEventType)) {
-                            FamilyEventClient familyEventClient = profileModel.processUpdateMemberRegistration(jsonString, MEMBER_OBJECT.getBaseEntityId());
-                            profileInteractor.saveRegistration(familyEventClient, jsonString, true, ancMemberProfilePresenter());
+
+                            FamilyEventClient familyEventClient =
+                                    new FamilyProfileModel(MEMBER_OBJECT.getFamilyName()).processUpdateMemberRegistration(jsonString, MEMBER_OBJECT.getBaseEntityId());
+                            new FamilyProfileInteractor().saveRegistration(familyEventClient, jsonString, true, ancMemberProfilePresenter());
                         } else if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(org.smartregister.chw.util.Constants.EventType.UPDATE_ANC_REGISTRATION)) {
                             AllSharedPreferences allSharedPreferences = getAllSharedPreferences();
                             Event baseEvent = org.smartregister.chw.anc.util.JsonFormUtils.processJsonForm(allSharedPreferences, jsonString, Constants.TABLES.ANC_MEMBERS);

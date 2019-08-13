@@ -14,16 +14,21 @@ import org.smartregister.chw.model.ChildRegisterModel;
 import org.smartregister.chw.util.ChildDBConstants;
 import org.smartregister.chw.util.ChildService;
 import org.smartregister.chw.util.ChildVisit;
+import org.smartregister.chw.util.Constants;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.Utils;
+import org.smartregister.repository.AllSharedPreferences;
+import org.smartregister.util.FormUtils;
 
 import java.lang.ref.WeakReference;
 import java.util.Date;
 import java.util.Map;
+
+import timber.log.Timber;
 
 import static org.apache.commons.lang3.StringUtils.isBlank;
 
@@ -41,10 +46,12 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
     private String familyName;
     private String familyHeadID;
     private String primaryCareGiverID;
+    private FormUtils formUtils;
 
     public ChildProfilePresenter(ChildProfileContract.View childView, ChildProfileContract.Model model, String childBaseEntityId) {
         this.view = new WeakReference<>(childView);
         this.interactor = new ChildProfileInteractor();
+        this.interactor.setChildBaseEntityId(childBaseEntityId);
         this.model = model;
         this.childBaseEntityId = childBaseEntityId;
     }
@@ -55,6 +62,14 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
 
     public String getFamilyID() {
         return familyID;
+    }
+
+    public ChildProfileContract.Interactor getInteractor(){
+        return interactor;
+    }
+
+    public void setInteractor(ChildProfileContract.Interactor interactor){
+        this.interactor = interactor;
     }
 
     public void setFamilyID(String familyID) {
@@ -128,7 +143,11 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
     @Override
     public void processBackGroundEvent() {
         interactor.processBackGroundEvent(this);
+    }
 
+    @Override
+    public void createSickChildEvent(AllSharedPreferences allSharedPreferences, String jsonString) throws Exception {
+        interactor.createSickChildEvent(allSharedPreferences, jsonString);
     }
 
     @Override
@@ -176,6 +195,15 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
 //        } catch (Exception e) {
 //            Log.e("TAG", e.getMessage());
 //        }
+    }
+
+    @Override
+    public void startSickChildReferralForm() {
+        try {
+            getView().startFormActivity(getFormUtils().getFormJson(Constants.JSON_FORM.getChildReferralForm()));
+        } catch (Exception e) {
+            Timber.e(e);
+        }
     }
 
     @Override
@@ -267,7 +295,7 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
 
     @Override
     public void refreshProfileTopSection(CommonPersonObjectClient client) {
-        if (client == null || client.getColumnmaps() == null) {
+        if (client == null || client.getColumnmaps() == null || getView() == null) {
             return;
         }
         String parentFirstName = Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.FAMILY_FIRST_NAME, true);
@@ -290,7 +318,7 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
         String gender = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.GENDER, true);
 
         getView().setAddress(address);
-        getView().setGender(gender);
+        getView().setGender(org.smartregister.chw.util.Utils.getGenderLanguageSpecific(view.get().getContext(),gender));
 
         String uniqueId = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.UNIQUE_ID, false);
         uniqueId = String.format(getView().getString(org.smartregister.family.R.string.unique_id_text), uniqueId);
@@ -332,5 +360,12 @@ public class ChildProfilePresenter implements ChildProfileContract.Presenter, Ch
         if (view.get() != null) {
             view.get().updateHasPhone(hasPhone);
         }
+    }
+
+    private FormUtils getFormUtils() throws Exception {
+        if (this.formUtils == null){
+            this.formUtils = new FormUtils(getView().getApplicationContext());
+        }
+        return formUtils;
     }
 }

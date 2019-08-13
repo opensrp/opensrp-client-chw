@@ -7,9 +7,12 @@ import android.text.TextUtils;
 import android.util.Pair;
 
 import org.apache.commons.lang3.StringUtils;
+import org.joda.time.DateTime;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.smartregister.chw.anc.util.Util;
+import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.contract.ChildProfileContract;
 import org.smartregister.chw.contract.HomeVisitGrowthNutritionContract;
 import org.smartregister.chw.contract.ImmunizationContact;
@@ -30,6 +33,7 @@ import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.domain.Photo;
+import org.smartregister.domain.Task;
 import org.smartregister.family.FamilyLibrary;
 import org.smartregister.family.util.AppExecutors;
 import org.smartregister.family.util.DBConstants;
@@ -51,6 +55,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
@@ -61,7 +66,12 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
+import static org.smartregister.chw.anc.util.JsonFormUtils.gson;
+import static org.smartregister.chw.anc.util.JsonFormUtils.processJsonForm;
 import static org.smartregister.chw.util.ChildUtils.fixVaccineCasing;
+import static org.smartregister.chw.util.Constants.EventType;
+import static org.smartregister.chw.util.Constants.JsonAssets;
+import static org.smartregister.chw.util.Constants.TABLE_NAME;
 import static org.smartregister.util.JsonFormUtils.getFieldJSONObject;
 
 public class ChildProfileInteractor implements ChildProfileContract.Interactor {
@@ -69,6 +79,7 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
     private AppExecutors appExecutors;
     private CommonPersonObjectClient pClient;
     private Map<String, Date> vaccineList = new LinkedHashMap<>();
+    private String childBaseEntityId;
 
     @VisibleForTesting
     ChildProfileInteractor(AppExecutors appExecutors) {
@@ -81,6 +92,10 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
 
     public CommonPersonObjectClient getpClient() {
         return pClient;
+    }
+
+    public void setpClient(CommonPersonObjectClient pClient) {
+        this.pClient = pClient;
     }
 
     public Map<String, Date> getVaccineList() {
@@ -197,23 +212,13 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
 
     @Override
     public void refreshChildVisitBar(Context context, String baseEntityId, final ChildProfileContract.InteractorCallBack callback) {
-        ChildHomeVisit childHomeVisit = ChildUtils.getLastHomeVisit(org.smartregister.chw.util.Constants.TABLE_NAME.CHILD, baseEntityId);
+        ChildHomeVisit childHomeVisit = ChildUtils.getLastHomeVisit(TABLE_NAME.CHILD, baseEntityId);
 
         String dobString = Utils.getDuration(Utils.getValue(pClient.getColumnmaps(), DBConstants.KEY.DOB, false));
 
         final ChildVisit childVisit = ChildUtils.getChildVisitStatus(context, dobString, childHomeVisit.getLastHomeVisitDate(), childHomeVisit.getVisitNotDoneDate(), childHomeVisit.getDateCreated());
 
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                appExecutors.mainThread().execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        callback.updateChildVisit(childVisit);
-                    }
-                });
-            }
-        };
+        Runnable runnable = () -> appExecutors.mainThread().execute(() -> callback.updateChildVisit(childVisit));
         appExecutors.diskIO().execute(runnable);
     }
 
@@ -226,7 +231,7 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
                 .subscribe(new Observer<ChildService>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-
+                        d.dispose();
                     }
 
                     @Override
@@ -275,6 +280,139 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
     }
 
     @Override
+    public void onDestroy(boolean isChangingConfiguration) {
+
+    }
+
+    @Override
+    public void updateChildCommonPerson(String baseEntityId) {
+        String query = ChildUtils.mainSelect(TABLE_NAME.CHILD, TABLE_NAME.FAMILY, TABLE_NAME.FAMILY_MEMBER, baseEntityId);
+
+        Cursor cursor = null;
+        try {
+            cursor = getCommonRepository(TABLE_NAME.CHILD).rawCustomQueryForAdapter(query);
+            if (cursor != null && cursor.moveToFirst()) {
+                CommonPersonObject personObject = getCommonRepository(TABLE_NAME.CHILD).readAllcommonforCursorAdapter(cursor);
+                pClient = new CommonPersonObjectClient(personObject.getCaseId(),
+                        personObject.getDetails(), "");
+                pClient.setColumnmaps(personObject.getColumnmaps());
+            }
+        } catch (Exception ex) {
+            Timber.e(ex.toString());
+        } finally {
+            if (cursor != null)
+                cursor.close();
+        }
+    }
+
+    /**
+     * Refreshes family view based on the child id
+     *
+     * @param baseEntityId
+     * @param isForEdit
+     * @param callback
+     */
+    @Override
+    public void refreshProfileView(final String baseEntityId, final boolean isForEdit, final ChildProfileContract.InteractorCallBack callback) {
+        Runnable runnable = () -> {
+            String query = ChildUtils.mainSelect(TABLE_NAME.CHILD, TABLE_NAME.FAMILY, TABLE_NAME.FAMILY_MEMBER, baseEntityId);
+
+            Cursor cursor = null;
+            try {
+                cursor = getCommonRepository(TABLE_NAME.CHILD).rawCustomQueryForAdapter(query);
+                if (cursor != null && cursor.moveToFirst()) {
+                    CommonPersonObject personObject = getCommonRepository(TABLE_NAME.CHILD).readAllcommonforCursorAdapter(cursor);
+                    pClient = new CommonPersonObjectClient(personObject.getCaseId(),
+                            personObject.getDetails(), "");
+                    pClient.setColumnmaps(personObject.getColumnmaps());
+                    final String familyId = Utils.getValue(pClient.getColumnmaps(), ChildDBConstants.KEY.RELATIONAL_ID, false);
+
+                    final CommonPersonObject familyPersonObject = getCommonRepository(Utils.metadata().familyRegister.tableName).findByBaseEntityId(familyId);
+                    final CommonPersonObjectClient client = new CommonPersonObjectClient(familyPersonObject.getCaseId(), familyPersonObject.getDetails(), "");
+                    client.setColumnmaps(familyPersonObject.getColumnmaps());
+
+                    final String primaryCaregiverID = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.PRIMARY_CAREGIVER, false);
+                    final String familyHeadID = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.FAMILY_HEAD, false);
+                    final String familyName = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.FIRST_NAME, false);
+
+
+                    appExecutors.mainThread().execute(() -> {
+                        callback.setFamilyHeadID(familyHeadID);
+                        callback.setFamilyID(familyId);
+                        callback.setPrimaryCareGiverID(primaryCaregiverID);
+                        callback.setFamilyName(familyName);
+
+                        if (isForEdit) {
+                            callback.startFormForEdit("", pClient);
+                        } else {
+                            callback.refreshProfileTopSection(pClient);
+                        }
+                    });
+                }
+            } catch (Exception ex) {
+                Timber.e(ex.toString());
+            } finally {
+                if (cursor != null)
+                    cursor.close();
+            }
+        };
+
+        appExecutors.diskIO().execute(runnable);
+    }
+
+    @Override
+    public void saveRegistration(final Pair<Client, Event> pair, final String jsonString, final boolean isEditMode, final ChildProfileContract.InteractorCallBack callBack) {
+        Runnable runnable = () -> {
+            saveRegistration(pair, jsonString, isEditMode);
+            appExecutors.mainThread().execute(() -> {
+                if (callBack != null)
+                    callBack.onRegistrationSaved(isEditMode);
+            });
+        };
+
+        appExecutors.diskIO().execute(runnable);
+    }
+
+    @Override
+    public JSONObject getAutoPopulatedJsonEditFormString(String formName, String title, Context context, CommonPersonObjectClient client) {
+        try {
+            JSONObject form = FormUtils.getInstance(context).getFormJson(formName);
+            LocationPickerView lpv = new LocationPickerView(context);
+            lpv.init();
+            if (form != null) {
+                form.put(JsonFormUtils.ENTITY_ID, client.getCaseId());
+                form.put(JsonFormUtils.ENCOUNTER_TYPE, EventType.UPDATE_CHILD_REGISTRATION);
+
+                JSONObject metadata = form.getJSONObject(JsonFormUtils.METADATA);
+                String lastLocationId = LocationHelper.getInstance().getOpenMrsLocationId(lpv.getSelectedItem());
+
+                metadata.put(JsonFormUtils.ENCOUNTER_LOCATION, lastLocationId);
+
+                form.put(JsonFormUtils.CURRENT_OPENSRP_ID, Utils.getValue(client.getColumnmaps(), DBConstants.KEY.UNIQUE_ID, false));
+
+                JSONObject stepOne = form.getJSONObject(JsonFormUtils.STEP1);
+
+                if (StringUtils.isNotBlank(title)) {
+                    stepOne.put(org.smartregister.chw.util.JsonFormUtils.TITLE, title);
+                }
+                JSONArray jsonArray = stepOne.getJSONArray(JsonFormUtils.FIELDS);
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+
+                    processPopulatableFields(client, jsonObject, jsonArray);
+
+                }
+
+                return form;
+            }
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+
+        return null;
+    }
+
+    @Override
     public void processBackGroundEvent(final ChildProfileContract.InteractorCallBack callback) {
         Runnable runnable = new Runnable() {
             @Override
@@ -291,6 +429,49 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
         appExecutors.diskIO().execute(runnable);
     }
 
+    @Override
+    public void createSickChildEvent(final AllSharedPreferences allSharedPreferences, final String jsonString) throws Exception {
+        final Event baseEvent = processJsonForm(allSharedPreferences, new JSONObject(jsonString)
+                .put(JsonFormUtils.ENTITY_ID, getChildBaseEntityId()).toString(), TABLE_NAME.CHILD_REFERRAL);
+        Util.processEvent(baseEvent.getBaseEntityId(), new JSONObject(gson.toJson(baseEvent)));
+        createReferralTask(baseEvent.getBaseEntityId(), allSharedPreferences);
+    }
+
+    private void createReferralTask(String baseEntityId, AllSharedPreferences allSharedPreferences) {
+        Task task = new Task();
+        task.setIdentifier(UUID.randomUUID().toString());
+        //TODO Implement plans
+      /*  Iterator<String> iterator = ChwApplication.getInstance().getPlanDefinitionRepository()
+                .findAllPlanDefinitionIds().iterator();
+        if (iterator.hasNext()) {
+            task.setPlanIdentifier(iterator.next());
+        } else {
+
+            Timber.e("No plans exist in the server");
+        }*/
+        task.setPlanIdentifier("5270285b-5a3b-4647-b772-c0b3c52e2b71");
+        LocationHelper locationHelper = LocationHelper.getInstance();
+        ArrayList<String> allowedLevels = new ArrayList<>();
+        allowedLevels.add(Constants.CONFIGURATION.HEALTH_FACILITY_TAG);
+        task.setGroupIdentifier(locationHelper.getOpenMrsLocationId(locationHelper.generateDefaultLocationHierarchy(allowedLevels).get(0)));
+        task.setStatus(Task.TaskStatus.READY);
+        task.setBusinessStatus("Referred");
+        task.setPriority(3);
+        task.setCode("Referral");
+        task.setDescription("Review and perform the referral for the client"); //set to string
+        task.setFocus("Sick Child");//the same here
+        task.setForEntity(baseEntityId);
+        DateTime now = new DateTime();
+        task.setExecutionStartDate(now);
+        task.setAuthoredOn(now);
+        task.setLastModified(now);
+        task.setOwner(allSharedPreferences.fetchRegisteredANM());
+        task.setSyncStatus(BaseRepository.TYPE_Created);
+        task.setRequester(allSharedPreferences.fetchRegisteredANM());
+        task.setLocation(allSharedPreferences.fetchUserLocalityId(allSharedPreferences.fetchRegisteredANM()));
+        ChwApplication.getInstance().getTaskRepository().addOrUpdate(task);
+    }
+
     private Observable<Object> updateHomeVisitAsEvent(final long value) {
         return Observable.create(new ObservableOnSubscribe<Object>() {
             @Override
@@ -298,18 +479,23 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
                 final String homeVisitId = org.smartregister.chw.util.JsonFormUtils.generateRandomUUIDString();
 
                 Map<String, JSONObject> fields = new HashMap<>();
-                ChildUtils.updateHomeVisitAsEvent(getpClient().entityId(), Constants.EventType.CHILD_VISIT_NOT_DONE, Constants.TABLE_NAME.CHILD,
+                ChildUtils.updateHomeVisitAsEvent(getpClient().entityId(), EventType.CHILD_VISIT_NOT_DONE, TABLE_NAME.CHILD,
                         fields, ChildDBConstants.KEY.VISIT_NOT_DONE, value + "", homeVisitId);
                 e.onNext("");
             }
         });
     }
 
+    @Override
+    public void setChildBaseEntityId(String childBaseEntityId) {
+        this.childBaseEntityId = childBaseEntityId;
+    }
+
     private Observable<ChildService> updateUpcomingServices(final Context context) {
         return Observable.create(new ObservableOnSubscribe<ChildService>() {
             @Override
             public void subscribe(final ObservableEmitter<ChildService> e) throws Exception {
-                final ImmunizationViewPresenter presenter = new ImmunizationViewPresenter();
+                final ImmunizationViewPresenter presenter = new ImmunizationViewPresenter(context);
                 presenter.upcomingServiceFetch(getpClient(), new ImmunizationContact.InteractorCallBack() {
 
                     @Override
@@ -352,6 +538,11 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
                             final HomeVisitGrowthNutritionInteractor homeVisitGrowthNutritionInteractor = new HomeVisitGrowthNutritionInteractor();
                             homeVisitGrowthNutritionInteractor.parseRecordServiceData(getpClient(), new HomeVisitGrowthNutritionContract.InteractorCallBack() {
                                 @Override
+                                public void allDataLoaded() {
+
+                                }
+
+                                @Override
                                 public void updateGivenRecordVisitData(Map<String, ServiceWrapper> stringServiceWrapperMap) {
                                     try {
                                         ChildService childService = null;
@@ -382,11 +573,6 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
                                 public void updateNotGivenRecordVisitData(Map<String, ServiceWrapper> stringServiceWrapperMap) {
                                     //No need to handle not given service
                                 }
-
-                                @Override
-                                public void allDataLoaded() {
-
-                                }
                             });
                         }
 
@@ -403,148 +589,6 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
 
             }
         });
-    }
-
-    @Override
-    public void updateChildCommonPerson(String baseEntityId) {
-        String query = ChildUtils.mainSelect(org.smartregister.chw.util.Constants.TABLE_NAME.CHILD, org.smartregister.chw.util.Constants.TABLE_NAME.FAMILY, org.smartregister.chw.util.Constants.TABLE_NAME.FAMILY_MEMBER, baseEntityId);
-
-        Cursor cursor = null;
-        try {
-            cursor = getCommonRepository(org.smartregister.chw.util.Constants.TABLE_NAME.CHILD).rawCustomQueryForAdapter(query);
-            if (cursor != null && cursor.moveToFirst()) {
-                CommonPersonObject personObject = getCommonRepository(org.smartregister.chw.util.Constants.TABLE_NAME.CHILD).readAllcommonforCursorAdapter(cursor);
-                pClient = new CommonPersonObjectClient(personObject.getCaseId(),
-                        personObject.getDetails(), "");
-                pClient.setColumnmaps(personObject.getColumnmaps());
-            }
-        } catch (Exception ex) {
-            Timber.e(ex.toString());
-        } finally {
-            if (cursor != null)
-                cursor.close();
-        }
-    }
-
-    /**
-     * Refreshes family view based on the child id
-     *
-     * @param baseEntityId
-     * @param isForEdit
-     * @param callback
-     */
-    @Override
-    public void refreshProfileView(final String baseEntityId, final boolean isForEdit, final ChildProfileContract.InteractorCallBack callback) {
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                String query = ChildUtils.mainSelect(org.smartregister.chw.util.Constants.TABLE_NAME.CHILD, org.smartregister.chw.util.Constants.TABLE_NAME.FAMILY, org.smartregister.chw.util.Constants.TABLE_NAME.FAMILY_MEMBER, baseEntityId);
-
-                Cursor cursor = null;
-                try {
-                    cursor = getCommonRepository(org.smartregister.chw.util.Constants.TABLE_NAME.CHILD).rawCustomQueryForAdapter(query);
-                    if (cursor != null && cursor.moveToFirst()) {
-                        CommonPersonObject personObject = getCommonRepository(org.smartregister.chw.util.Constants.TABLE_NAME.CHILD).readAllcommonforCursorAdapter(cursor);
-                        pClient = new CommonPersonObjectClient(personObject.getCaseId(),
-                                personObject.getDetails(), "");
-                        pClient.setColumnmaps(personObject.getColumnmaps());
-                        final String familyId = Utils.getValue(pClient.getColumnmaps(), ChildDBConstants.KEY.RELATIONAL_ID, false);
-
-                        final CommonPersonObject familyPersonObject = getCommonRepository(Utils.metadata().familyRegister.tableName).findByBaseEntityId(familyId);
-                        final CommonPersonObjectClient client = new CommonPersonObjectClient(familyPersonObject.getCaseId(), familyPersonObject.getDetails(), "");
-                        client.setColumnmaps(familyPersonObject.getColumnmaps());
-
-                        final String primaryCaregiverID = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.PRIMARY_CAREGIVER, false);
-                        final String familyHeadID = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.FAMILY_HEAD, false);
-                        final String familyName = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.FIRST_NAME, false);
-
-
-                        appExecutors.mainThread().execute(new Runnable() {
-                            @Override
-                            public void run() {
-
-                                callback.setFamilyHeadID(familyHeadID);
-                                callback.setFamilyID(familyId);
-                                callback.setPrimaryCareGiverID(primaryCaregiverID);
-                                callback.setFamilyName(familyName);
-
-                                if (isForEdit) {
-                                    callback.startFormForEdit("", pClient);
-                                } else {
-                                    callback.refreshProfileTopSection(pClient);
-                                }
-                            }
-                        });
-                    }
-                } catch (Exception ex) {
-                    Timber.e(ex.toString());
-                } finally {
-                    if (cursor != null)
-                        cursor.close();
-                }
-
-
-            }
-        };
-
-        appExecutors.diskIO().execute(runnable);
-    }
-
-    @Override
-    public JSONObject getAutoPopulatedJsonEditFormString(String formName, String title, Context context, CommonPersonObjectClient client) {
-        try {
-            JSONObject form = FormUtils.getInstance(context).getFormJson(formName);
-            LocationPickerView lpv = new LocationPickerView(context);
-            lpv.init();
-            if (form != null) {
-                form.put(JsonFormUtils.ENTITY_ID, client.getCaseId());
-                form.put(JsonFormUtils.ENCOUNTER_TYPE, Constants.EventType.UPDATE_CHILD_REGISTRATION);
-
-                JSONObject metadata = form.getJSONObject(JsonFormUtils.METADATA);
-                String lastLocationId = LocationHelper.getInstance().getOpenMrsLocationId(lpv.getSelectedItem());
-
-                metadata.put(JsonFormUtils.ENCOUNTER_LOCATION, lastLocationId);
-
-                form.put(JsonFormUtils.CURRENT_OPENSRP_ID, Utils.getValue(client.getColumnmaps(), DBConstants.KEY.UNIQUE_ID, false));
-
-                JSONObject stepOne = form.getJSONObject(JsonFormUtils.STEP1);
-
-                if (StringUtils.isNotBlank(title)) {
-                    stepOne.put(org.smartregister.chw.util.JsonFormUtils.TITLE, title);
-                }
-                JSONArray jsonArray = stepOne.getJSONArray(JsonFormUtils.FIELDS);
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    JSONObject jsonObject = jsonArray.getJSONObject(i);
-
-                    processPopulatableFields(client, jsonObject, jsonArray);
-
-                }
-
-                return form;
-            }
-        } catch (Exception e) {
-            Timber.e(e);
-        }
-
-        return null;
-    }
-
-    @Override
-    public void saveRegistration(final Pair<Client, Event> pair, final String jsonString, final boolean isEditMode, final ChildProfileContract.InteractorCallBack callBack) {
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                saveRegistration(pair, jsonString, isEditMode);
-                appExecutors.mainThread().execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        callBack.onRegistrationSaved(isEditMode);
-                    }
-                });
-            }
-        };
-
-        appExecutors.diskIO().execute(runnable);
     }
 
     private void processPopulatableFields(CommonPersonObjectClient client, JSONObject jsonObject, JSONArray jsonArray) throws JSONException {
@@ -592,7 +636,7 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
 
                 break;
 
-            case org.smartregister.chw.util.Constants.JsonAssets.FAM_NAME:
+            case JsonAssets.FAM_NAME:
 
                 final String SAME_AS_FAM_NAME = "same_as_fam_name";
                 final String SURNAME = "surname";
@@ -620,32 +664,32 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
 
                 break;
 
-            case Constants.JsonAssets.INSURANCE_PROVIDER:
+            case JsonAssets.INSURANCE_PROVIDER:
                 jsonObject.put(JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.INSURANCE_PROVIDER, false));
                 break;
-            case Constants.JsonAssets.INSURANCE_PROVIDER_NUMBER:
+            case JsonAssets.INSURANCE_PROVIDER_NUMBER:
                 jsonObject.put(JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.INSURANCE_PROVIDER_NUMBER, false));
                 break;
-            case Constants.JsonAssets.INSURANCE_PROVIDER_OTHER:
+            case JsonAssets.INSURANCE_PROVIDER_OTHER:
                 jsonObject.put(JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.INSURANCE_PROVIDER_OTHER, false));
                 break;
-            case Constants.JsonAssets.DISABILITIES:
+            case JsonAssets.DISABILITIES:
                 jsonObject.put(JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.CHILD_PHYSICAL_CHANGE, false));
                 break;
-            case Constants.JsonAssets.DISABILITY_TYPE:
+            case JsonAssets.DISABILITY_TYPE:
                 jsonObject.put(JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.TYPE_OF_DISABILITY, false));
                 break;
 
-            case Constants.JsonAssets.BIRTH_CERT_AVAILABLE:
+            case JsonAssets.BIRTH_CERT_AVAILABLE:
                 jsonObject.put(JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.BIRTH_CERT, false));
                 break;
-            case Constants.JsonAssets.BIRTH_REGIST_NUMBER:
+            case JsonAssets.BIRTH_REGIST_NUMBER:
                 jsonObject.put(JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.BIRTH_CERT_NUMBER, false));
                 break;
-            case Constants.JsonAssets.RHC_CARD:
+            case JsonAssets.RHC_CARD:
                 jsonObject.put(JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.RHC_CARD, false));
                 break;
-            case Constants.JsonAssets.NUTRITION_STATUS:
+            case JsonAssets.NUTRITION_STATUS:
                 jsonObject.put(JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.NUTRITION_STATUS, false));
                 break;
 
@@ -666,8 +710,8 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
     }
 
     @Override
-    public void onDestroy(boolean isChangingConfiguration) {
-
+    public String getChildBaseEntityId() {
+        return this.childBaseEntityId;
     }
 
     public enum VisitType {DUE, OVERDUE, LESS_TWENTY_FOUR, VISIT_THIS_MONTH, NOT_VISIT_THIS_MONTH, EXPIRY}
@@ -675,4 +719,6 @@ public class ChildProfileInteractor implements ChildProfileContract.Interactor {
     public enum ServiceType {DUE, OVERDUE, UPCOMING}
 
     public enum FamilyServiceType {DUE, OVERDUE, NOTHING}
+
+
 }

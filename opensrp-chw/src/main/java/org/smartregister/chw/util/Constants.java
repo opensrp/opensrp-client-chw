@@ -10,6 +10,7 @@ public class Constants {
         public static final String FAMILY_MEMBER_REGISTER = "family_member_register";
         public static final String ANC_REGISTER = "anc_register";
         public static final String MALARIA_REGISTER = "anc_malaria_confirmation";
+        public static final String HEALTH_FACILITY_TAG = "MOH Jhpiego Facility Name";
 
     }
 
@@ -24,6 +25,7 @@ public class Constants {
         public static final String UPDATE_CHILD_REGISTRATION = "Update Child Registration";
         public static final String CHILD_HOME_VISIT = "Child Home Visit";
         public static final String CHILD_VISIT_NOT_DONE = "Visit not done";
+        public static final String CHILD_REFERRAL = "Sick Child Referral";
         public static final String VACCINE_CARD_RECEIVED = "Child vaccine card received";
         public static final String MINIMUM_DIETARY_DIVERSITY = "Minimum dietary diversity";
         public static final String MUAC = "Mid-upper arm circumference (MUAC)";
@@ -67,6 +69,11 @@ public class Constants {
         private static final String PREGNANCY_OUTCOME = "anc_pregnancy_outcome";
         private static final String MALARIA_CONFIRMATION = "malaria_confirmation";
         private static final String WASH_CHECK = "wash_check";
+        private static final String CHILD_REFERRAL_FORM =  "child_referral_form";
+
+        public static String getChildReferralForm(){
+            return CHILD_REFERRAL_FORM;
+        }
 
         public static String getBirthCertification() {
             return Utils.getLocalForm(BIRTH_CERTIFICATION);
@@ -203,12 +210,16 @@ public class Constants {
             private static final String DANGER_SIGNS_MOTHER = "pnc_danger_signs_mother";
             private static final String DANGER_SIGNS_BABY = "pnc_danger_signs_baby";
             private static final String HEALTH_FACILITY_VISIT = "pnc_health_facility_visit";
+            private static final String HEALTH_FACILITY_VISIT_TWO = "pnc_health_facility_visit_two";
             private static final String COUNSELLING = "pnc_counselling";
             private static final String UMBILICAL_CORD = "pnc_umbilical_cord";
             private static final String NUTRITION_STATUS_MOTHER = "pnc_nutrition_status_mother";
             private static final String NUTRITION_STATUS_INFANT = "pnc_nutrition_status_infant";
             private static final String MALARIA_PREVENTION = "pnc_malaria_prevention";
             private static final String FAMILY_PLANNING = "pnc_family_planning";
+            private static final String KANGAROO_CARE = "pnc_kangaroo_care";
+            private static final String VACCINE_CARD = "pnc_vaccine_card";
+            private static final String EXCLUSIVE_BREAST_FEEDING = "pnc_exclusive_breastfeeding";
             private static final String OBSERVATION_AND_ILLNESS_MOTHER = "pnc_hv_observations_mother";
             private static final String OBSERVATION_AND_ILLNESS_INFANT = "pnc_hv_observations_infant";
 
@@ -226,6 +237,10 @@ public class Constants {
 
             public static String getHealthFacilityVisit() {
                 return Utils.getLocalForm(HEALTH_FACILITY_VISIT);
+            }
+
+            public static String getHealthFacilityVisitTwo() {
+                return Utils.getLocalForm(HEALTH_FACILITY_VISIT_TWO);
             }
 
             public static String getCOUNSELLING() {
@@ -250,6 +265,18 @@ public class Constants {
 
             public static String getFamilyPlanning() {
                 return Utils.getLocalForm(FAMILY_PLANNING);
+            }
+
+            public static String getKangarooCare() {
+                return Utils.getLocalForm(KANGAROO_CARE);
+            }
+
+            public static String getVaccineCard() {
+                return Utils.getLocalForm(VACCINE_CARD);
+            }
+
+            public static String getExclusiveBreastFeeding() {
+                return Utils.getLocalForm(EXCLUSIVE_BREAST_FEEDING);
             }
 
             public static String getObservationAndIllnessMother() {
@@ -278,6 +305,7 @@ public class Constants {
         public static final String MALARIA_CONFIRMATION = "ec_malaria_confirmation";
         public static final String ANC_PREGNANCY_OUTCOME = "ec_pregnancy_outcome";
         public static final String WASH_CHECK_LOG = "ec_wash_check_log";
+        public static final String CHILD_REFERRAL = "ec_child_referral";
     }
 
     public static final class INTENT_KEY {
@@ -293,6 +321,7 @@ public class Constants {
         public static final String CHILD_COMMON_PERSON = "child_common_peron";
         public static final String IS_COMES_FROM_FAMILY = "is_comes_from";
         public static final String CLASS = "class";
+        public static final String VIEW_REGISTER_CLASS = "view_register_class";
     }
 
     public static final class IMMUNIZATION_CONSTANT {
@@ -320,6 +349,7 @@ public class Constants {
         public static final String SERVICE = "service-rules.yml";
         public static final String IMMUNIZATION_EXPIRED = "immunization-expire-rules.yml";
         public static final String CONTACT_RULES = "contact-rules.yml";
+        public static final String PNC_HEALTH_FACILITY_VISIT = "pnc-health-facility-schedule-rule.yml";
     }
 
     public static class PROFILE_CHANGE_ACTION {
@@ -446,11 +476,6 @@ public class Constants {
         public static final String UNIQUE_IDENTIFIER_KEY = "opensrp_id";
     }
 
-    public static class ECClientConfig {
-        public static String LIBERIA_EC_CLIENT_FIELDS = "ec_client_fields.json";
-        public static String TANZANIA_EC_CLIENT_FIELDS = "tz_ec_client_fields.json";
-    }
-
     public static final class RQ_CODE {
         public static final int STORAGE_PERMISIONS = 1;
     }
@@ -466,5 +491,20 @@ public class Constants {
 
     public static final class ACTION {
         public static final String START_REGISTRATION = "start_registration";
+    }
+
+    public static final class VISIT_STATE {
+        public static final String EXPIRED = "EXPIRED";
+        public static final String DUE = "DUE";
+        public static final String OVERDUE = "OVERDUE";
+        public static final String VISIT_NOT_DONE = "VISIT_NOT_DONE";
+        public static final String VISIT_DONE = "VISIT_DONE";
+    }
+
+    public static final class DATE_FORMATS {
+        public static final String NATIVE_FORMS = "dd-MM-yyyy";
+        public static final String HOME_VISIT_DISPLAY = "dd MMM yyyy";
+        public static final String FORMATED_DB_DATE = "yyyy-MM-dd";
+        public static final String ISO_8601 = "yyyy-MM-dd'T'HH:mm'Z'";
     }
 }

@@ -33,7 +33,7 @@ public class IndividualProfileRemoveFragment extends BaseFamilyProfileMemberFrag
     private String familyBaseEntityId;
     private CommonPersonObjectClient pc;
     private String memberName;
-    private static String className;
+    private static String viewRegisterClassName;
 
     public static IndividualProfileRemoveFragment newInstance(Bundle bundle) {
         Bundle args = bundle;
@@ -41,7 +41,7 @@ public class IndividualProfileRemoveFragment extends BaseFamilyProfileMemberFrag
         if (args == null) {
             args = new Bundle();
         }
-        className = args.getString(org.smartregister.chw.util.Constants.INTENT_KEY.CLASS);
+        viewRegisterClassName = args.getString(org.smartregister.chw.util.Constants.INTENT_KEY.VIEW_REGISTER_CLASS);
         fragment.setArguments(args);
         return fragment;
     }
@@ -92,6 +92,14 @@ public class IndividualProfileRemoveFragment extends BaseFamilyProfileMemberFrag
         }
     }
 
+    private Class getCallingRegisterActivity() {
+        try {
+            return Class.forName(viewRegisterClassName);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
     public void confirmRemove(final JSONObject form) {
         if (StringUtils.isNotBlank(memberName) && getFragmentManager() != null) {
@@ -103,14 +111,10 @@ public class IndividualProfileRemoveFragment extends BaseFamilyProfileMemberFrag
             dialog.setOnRemove(new Runnable() {
                 @Override
                 public void run() {
-                    try {
-                        getPresenter().processRemoveForm(form);
-                        Intent intent = new Intent(getActivity(), Class.forName(className));
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(intent);
-                    } catch (ClassNotFoundException e) {
-                        Timber.e(e);
-                    }
+                    getPresenter().processRemoveForm(form);
+                    Intent intent = new Intent(getActivity(), getCallingRegisterActivity());
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
                 }
             });
             dialog.setOnRemoveActivity(new Runnable() {
