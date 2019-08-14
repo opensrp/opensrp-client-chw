@@ -2,10 +2,8 @@ package org.smartregister.chw.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
-
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
@@ -23,11 +21,10 @@ import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
+import timber.log.Timber;
 
 import java.util.HashMap;
 import java.util.Set;
-
-import timber.log.Timber;
 
 public class IndividualProfileRemoveFragment extends BaseFamilyProfileMemberFragment implements FamilyRemoveMemberContract.View {
 
@@ -124,6 +121,7 @@ public class IndividualProfileRemoveFragment extends BaseFamilyProfileMemberFrag
             });
         }
     }
+
 
     @Override
     public void displayChangeFamilyHeadDialog(final CommonPersonObjectClient client, final String familyHeadID) {

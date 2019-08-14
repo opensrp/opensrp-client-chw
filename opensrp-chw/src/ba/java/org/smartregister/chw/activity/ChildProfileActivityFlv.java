@@ -11,24 +11,22 @@ public class ChildProfileActivityFlv implements ChildProfileActivity.Flavor {
 
     @Override
     public OnClickFloatingMenu getOnClickFloatingMenu(final Activity activity, final ChildProfilePresenter presenter) {
-        return new OnClickFloatingMenu() {
-            @Override
-            public void onClickMenu(int viewId) {
-                if(presenter != null) {
-                    switch (viewId) {
-                        case R.id.call_layout:
-                            FamilyCallDialogFragment.launchDialog(activity, presenter.getFamilyId());
-                            break;
-                        case R.id.refer_to_facility_layout:
-                            presenter.startSickChildReferralForm();
-                            break;
-                        default:
-                            break;
-                    }
+        return viewId -> {
+            if (presenter != null) {
+                switch (viewId) {
+                    case R.id.call_layout:
+                        FamilyCallDialogFragment.launchDialog(activity, presenter.getFamilyId());
+                        break;
+                    case R.id.refer_to_facility_layout:
+                        presenter.startSickChildReferralForm();
+                        break;
+                    default:
+                        break;
                 }
             }
         };
     }
+
 
     @Override
     public boolean showMalariaConfirmationMenu() {

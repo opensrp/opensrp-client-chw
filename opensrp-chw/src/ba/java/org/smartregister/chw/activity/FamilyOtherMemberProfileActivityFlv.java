@@ -2,6 +2,7 @@ package org.smartregister.chw.activity;
 
 import android.app.Activity;
 import android.text.TextUtils;
+import android.view.Menu;
 import android.widget.Toast;
 
 import org.joda.time.DateTime;
@@ -51,7 +52,9 @@ public class FamilyOtherMemberProfileActivityFlv implements FamilyOtherMemberPro
     }
 
     @Override
-    public boolean showMalariaConfirmationMenu() {
+    public Boolean onCreateOptionsMenu(Menu menu) {
+        menu.findItem(R.id.action_malaria_registration).setVisible(true);
+        menu.findItem(R.id.action_malaria_followup_visit).setVisible(false);
         return true;
     }
 

@@ -2,6 +2,7 @@ package org.smartregister.chw.activity;
 
 import android.app.Activity;
 import android.text.TextUtils;
+import android.view.Menu;
 
 import org.joda.time.DateTime;
 import org.joda.time.Period;
@@ -46,8 +47,10 @@ public abstract class DefaultFamilyOtherMemberProfileActivityFlv implements Fami
     }
 
     @Override
-    public boolean showMalariaConfirmationMenu() {
-        return false;
+    public Boolean onCreateOptionsMenu(Menu menu) {
+        menu.findItem(R.id.action_malaria_registration).setVisible(false);
+        menu.findItem(R.id.action_malaria_followup_visit).setVisible(false);
+        return true;
     }
 
 }

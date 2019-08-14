@@ -4,12 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.view.View;
 import android.widget.Toast;
-
 import org.smartregister.chw.R;
-import org.smartregister.chw.activity.AncRegisterActivity;
-import org.smartregister.chw.activity.ChildRegisterActivity;
-import org.smartregister.chw.activity.FamilyRegisterActivity;
-import org.smartregister.chw.activity.PncRegisterActivity;
+import org.smartregister.chw.activity.*;
 import org.smartregister.chw.adapter.NavigationAdapter;
 import org.smartregister.chw.util.Constants;
 
@@ -49,7 +45,7 @@ public class NavigationListener implements View.OnClickListener {
                         Toast.makeText(activity.getApplicationContext(), Constants.DrawerMenu.FAMILY_PLANNING, Toast.LENGTH_SHORT).show();
                         break;
                     case Constants.DrawerMenu.MALARIA:
-                        Toast.makeText(activity.getApplicationContext(), Constants.DrawerMenu.MALARIA, Toast.LENGTH_SHORT).show();
+                        startRegisterActivity(MalariaRegisterActivity.class);
                         break;
                     default:
                         break;
@@ -59,7 +55,7 @@ public class NavigationListener implements View.OnClickListener {
         }
     }
 
-    private void startRegisterActivity(Class registerClass) {
+    protected void startRegisterActivity(Class registerClass) {
         Intent intent = new Intent(activity, registerClass);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         activity.startActivity(intent);

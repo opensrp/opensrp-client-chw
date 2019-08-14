@@ -72,6 +72,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     protected TextView textViewParentName, textViewLastVisit, textViewMedicalHistory;
     protected CircleImageView imageViewProfile;
     protected View recordVisitPanel;
+
     private boolean appBarTitleIsShown = true;
     private int appBarLayoutScrollRange = -1;
     private String childBaseEntityId;
@@ -700,4 +701,5 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
 
         boolean showMalariaConfirmationMenu();
     }
+
 }

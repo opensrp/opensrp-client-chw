@@ -52,18 +52,18 @@ public class Constants {
      * Only access form constants via the getter
      */
     public static class JSON_FORM {
-        private static final String BIRTH_CERTIFICATION = "birth_certification";
+        public static final String BIRTH_CERTIFICATION = "birth_certification";
 
-        private static final String OBS_ILLNESS = "observation_illness";
-        private static final String FAMILY_REGISTER = "family_register";
-        private static final String FAMILY_MEMBER_REGISTER = "family_member_register";
-        private static final String CHILD_REGISTER = "child_enrollment";
-        private static final String FAMILY_DETAILS_REGISTER = "family_details_register";
-        private static final String FAMILY_DETAILS_REMOVE_MEMBER = "family_details_remove_member";
+        public static final String OBS_ILLNESS = "observation_illness";
+        public static final String FAMILY_REGISTER = "family_register";
+        public static final String FAMILY_MEMBER_REGISTER = "family_member_register";
+        public static final String CHILD_REGISTER = "child_enrollment";
+        public static final String FAMILY_DETAILS_REGISTER = "family_details_register";
+        public static final String FAMILY_DETAILS_REMOVE_MEMBER = "family_details_remove_member";
 
-        private static final String FAMILY_DETAILS_REMOVE_CHILD = "family_details_remove_child";
-        private static final String FAMILY_DETAILS_REMOVE_FAMILY = "family_details_remove_family";
-        private static final String HOME_VISIT_COUNSELLING = "routine_home_visit";
+        public static final String FAMILY_DETAILS_REMOVE_CHILD = "family_details_remove_child";
+        public static final String FAMILY_DETAILS_REMOVE_FAMILY = "family_details_remove_family";
+        public static final String HOME_VISIT_COUNSELLING = "routine_home_visit";
 
         private static final String ANC_REGISTRATION = "anc_member_registration";
         private static final String PREGNANCY_OUTCOME = "anc_pregnancy_outcome";
@@ -320,6 +320,7 @@ public class Constants {
         public static final String GROWTH_IMMUNIZATION_TYPE = "growth_type";
         public static final String CHILD_COMMON_PERSON = "child_common_peron";
         public static final String IS_COMES_FROM_FAMILY = "is_comes_from";
+        public static final String CLASS = "class";
         public static final String VIEW_REGISTER_CLASS = "view_register_class";
     }
 
@@ -383,6 +384,7 @@ public class Constants {
         public static final String BIRTH_REGIST_NUMBER = "birth_regist_number";
         public static final String RHC_CARD = "rhc_card";
         public static final String NUTRITION_STATUS = "nutrition_status";
+
 
         public static class FAMILY_MEMBER {
             public static final String HIGHEST_EDUCATION_LEVEL = "highest_edu_level";

@@ -174,11 +174,7 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
 
         getMenuInflater().inflate(R.menu.other_member_menu, menu);
 
-        if (flavor.showMalariaConfirmationMenu()) {
-            menu.findItem(R.id.action_malaria_registration).setVisible(false);
-        } else {
-            menu.findItem(R.id.action_malaria_registration).setVisible(false);
-        }
+        flavor.onCreateOptionsMenu(menu);
 
         if (flavor.isWra(commonPersonObject)) {
             menu.findItem(R.id.action_anc_registration).setVisible(true);
@@ -346,6 +342,7 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
          */
         OnClickFloatingMenu getOnClickFloatingMenu(final Activity activity, final String familyBaseEntityId);
 
+        Boolean onCreateOptionsMenu(Menu menu);
         /**
          * calculate wra validity for each implementation
          *
@@ -353,8 +350,6 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
          * @return
          */
         boolean isWra(CommonPersonObjectClient commonPersonObject);
-
-        boolean showMalariaConfirmationMenu();
 
     }
 }

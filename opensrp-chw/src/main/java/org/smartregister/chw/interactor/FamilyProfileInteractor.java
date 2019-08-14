@@ -1,7 +1,6 @@
 package org.smartregister.chw.interactor;
 
 import android.support.annotation.VisibleForTesting;
-
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.contract.FamilyProfileExtendedContract;
 import org.smartregister.commonregistry.CommonPersonObject;
@@ -44,6 +43,7 @@ public class FamilyProfileInteractor extends org.smartregister.family.interactor
         String familyHeadID = getValue(client.getColumnmaps(), DBConstants.KEY.FAMILY_HEAD);
 
         return hasNumber(primaryCaregiverID) || hasNumber(familyHeadID);
+
     }
 
     private boolean hasNumber(String baseID) {

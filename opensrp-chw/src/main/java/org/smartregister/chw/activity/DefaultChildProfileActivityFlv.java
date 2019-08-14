@@ -12,12 +12,8 @@ public abstract class DefaultChildProfileActivityFlv implements ChildProfileActi
     @Override
     public OnClickFloatingMenu getOnClickFloatingMenu(final Activity activity, final ChildProfilePresenter presenter) {
         return viewId -> {
-            switch (viewId) {
-                case R.id.fab:
-                    FamilyCallDialogFragment.launchDialog(activity, presenter.getFamilyId());
-                    break;
-                default:
-                    break;
+            if (viewId == R.id.fab) {
+                FamilyCallDialogFragment.launchDialog(activity, presenter.getFamilyId());
             }
         };
     }
