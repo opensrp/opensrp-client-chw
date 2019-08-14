@@ -1,7 +1,6 @@
 package org.smartregister.chw.activity;
 
 import android.app.Activity;
-import android.view.Menu;
 
 import org.smartregister.chw.R;
 import org.smartregister.chw.fragment.FamilyCallDialogFragment;
@@ -13,7 +12,7 @@ public class ChildProfileActivityFlv implements ChildProfileActivity.Flavor {
     @Override
     public OnClickFloatingMenu getOnClickFloatingMenu(final Activity activity, final ChildProfilePresenter presenter) {
         return viewId -> {
-            if(presenter != null) {
+            if (presenter != null) {
                 switch (viewId) {
                     case R.id.call_layout:
                         FamilyCallDialogFragment.launchDialog(activity, presenter.getFamilyId());

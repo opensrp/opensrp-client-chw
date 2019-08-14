@@ -21,8 +21,10 @@ import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.widget.Toast;
+
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
+
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
@@ -30,17 +32,13 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.contract.FamilyCallDialogContract;
 import org.smartregister.chw.fragment.CopyToClipboardDialog;
+import org.smartregister.chw.fragment.GrowthNutritionInputFragment;
+import org.smartregister.clientandeventmodel.Obs;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
-import org.smartregister.chw.fragment.GrowthNutritionInputFragment;
-import org.smartregister.clientandeventmodel.Obs;
 import org.smartregister.util.PermissionUtils;
-import timber.log.Timber;
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
+
 import java.text.MessageFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -50,6 +48,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+
+import timber.log.Timber;
 
 import static com.google.android.gms.common.internal.Preconditions.checkArgument;
 
@@ -106,7 +106,7 @@ public class Utils extends org.smartregister.family.util.Utils {
     }
 
     public static String convertToDateFormateString(String timeAsDDMMYYYY, SimpleDateFormat dateFormat) {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy");//12-08-2018
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy", Locale.getDefault());//12-08-2018
         try {
             Date date = sdf.parse(timeAsDDMMYYYY);
             return dateFormat.format(date);
@@ -122,12 +122,7 @@ public class Utils extends org.smartregister.family.util.Utils {
 
             // set a pending call execution request
             if (callView != null) {
-                callView.setPendingCallRequest(new FamilyCallDialogContract.Dialer() {
-                    @Override
-                    public void callMe() {
-                        Utils.launchDialer(activity, callView, phoneNumber);
-                    }
-                });
+                callView.setPendingCallRequest(() -> Utils.launchDialer(activity, callView, phoneNumber));
             }
 
             ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.READ_PHONE_STATE}, PermissionUtils.PHONE_STATE_PERMISSION_REQUEST_CODE);
@@ -297,6 +292,7 @@ public class Utils extends org.smartregister.family.util.Utils {
 
         return intent;
     }
+
     /**
      * @param obs
      * @return
