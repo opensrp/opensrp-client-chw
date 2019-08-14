@@ -111,10 +111,10 @@ public class ChildRegisterProvider implements RecyclerViewProvider<ChildRegister
 
         String dobString = Utils.getDuration(Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.DOB, false));
         //dobString = dobString.contains("y") ? dobString.substring(0, dobString.indexOf("y")) : dobString;
-        fillValue(viewHolder.textViewChildName, WordUtils.capitalize(childName) + ", " + WordUtils.capitalize(dobString));
+        fillValue(viewHolder.textViewChildName, WordUtils.capitalize(childName) + ", " + WordUtils.capitalize(Utils.getTranslatedDate(dobString, context)));
         String address = Utils.getValue(pc.getColumnmaps(), ChildDBConstants.KEY.FAMILY_HOME_ADDRESS, true);
-        String gender = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.GENDER, true);
-        fillValue(viewHolder.textViewAddressGender, address + " \u00B7 " + gender);
+        String gender_key = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.GENDER, true);
+        fillValue(viewHolder.textViewAddressGender, address + " \u00B7 " + org.smartregister.chw.util.Utils.getGenderLanguageSpecific(context,gender_key));
 
         View patient = viewHolder.childColumn;
         attachPatientOnclickListener(patient, client);
@@ -270,15 +270,12 @@ public class ChildRegisterProvider implements RecyclerViewProvider<ChildRegister
     }
 
     private class UpdateLastAsyncTask extends AsyncTask<Void, Void, Void> {
-        private String TAG = UpdateLastAsyncTask.class.getCanonicalName();
-
         private final Context context;
         private final CommonRepository commonRepository;
-
         private final RegisterViewHolder viewHolder;
         private final String baseEntityId;
         private final Rules rules;
-
+        private String TAG = UpdateLastAsyncTask.class.getCanonicalName();
         private CommonPersonObject commonPersonObject;
         private ChildVisit childVisit;
 

@@ -1,16 +1,15 @@
 package org.smartregister.chw.model;
 
-import android.util.Log;
-
 import org.smartregister.chw.contract.NavigationContract;
 import org.smartregister.util.Utils;
 
 import java.util.List;
 
+import timber.log.Timber;
+
 public class NavigationModel implements NavigationContract.Model {
 
     private static NavigationModel instance;
-    private String TAG = NavigationModel.class.getCanonicalName();
     private static Flavor flavor = new NavigationModelFlv();
 
     public static NavigationModel getInstance() {
@@ -31,7 +30,7 @@ public class NavigationModel implements NavigationContract.Model {
         try {
             res = Utils.getPrefferedName().split(" ")[0];
         } catch (Exception e) {
-            Log.e(TAG, e.toString());
+            Timber.e(e);
         }
 
         return res;

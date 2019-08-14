@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.bottomnavigation.LabelVisibilityMode;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
@@ -28,6 +27,8 @@ import org.smartregister.view.fragment.BaseRegisterFragment;
 
 import java.util.Arrays;
 import java.util.List;
+
+import timber.log.Timber;
 
 public class ChildRegisterActivity extends BaseRegisterActivity implements ChildRegisterContract.View {
 
@@ -65,7 +66,7 @@ public class ChildRegisterActivity extends BaseRegisterActivity implements Child
                 presenter().startForm(formName, entityId, metaData, locationId, "");
             }
         } catch (Exception e) {
-            Log.e(TAG, Log.getStackTraceString(e));
+            Timber.e(e);
             displayToast(getString(R.string.error_unable_to_start_form));
         }
     }
@@ -90,7 +91,7 @@ public class ChildRegisterActivity extends BaseRegisterActivity implements Child
         if (requestCode == JsonFormUtils.REQUEST_CODE_GET_JSON && resultCode == RESULT_OK) {
             try {
                 String jsonString = data.getStringExtra(Constants.JSON_FORM_EXTRA.JSON);
-                Log.d("JSONResult", jsonString);
+                Timber.d("JSONResult : %s", jsonString);
 
                 JSONObject form = new JSONObject(jsonString);
                 if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Utils.metadata().familyRegister.registerEventType)
@@ -99,7 +100,7 @@ public class ChildRegisterActivity extends BaseRegisterActivity implements Child
                     presenter().saveForm(jsonString, false);
                 }
             } catch (Exception e) {
-                Log.e(TAG, Log.getStackTraceString(e));
+                Timber.e(e);
             }
 
         }
@@ -157,7 +158,10 @@ public class ChildRegisterActivity extends BaseRegisterActivity implements Child
     @Override
     protected void onResumption() {
         super.onResumption();
-        NavigationMenu.getInstance(this, null, null).getNavigationAdapter()
-                .setSelectedView(org.smartregister.chw.util.Constants.DrawerMenu.CHILD_CLIENTS);
+        NavigationMenu menu = NavigationMenu.getInstance(this, null, null);
+        if(menu != null){
+            menu.getNavigationAdapter()
+                    .setSelectedView(org.smartregister.chw.util.Constants.DrawerMenu.CHILD_CLIENTS);
+        }
     }
 }

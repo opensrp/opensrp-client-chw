@@ -67,6 +67,12 @@
         <item name="android:textColor">@color/black</item>
     </style>
 
+    <style name="CustomFontTextViewStyle.ClientList.ThreeLines" parent="CustomFontTextViewStyle">
+        <item name="fontVariant">regular</item>
+        <item name="android:textColor">#737373</item>
+        <item name="android:maxLines">3</item>
+    </style>
+
     <style name="FamilyTheme.DarkAppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
         <item name="android:windowContentOverlay">@null</item>
         <!--below line used to change the color of home(back) button color-->

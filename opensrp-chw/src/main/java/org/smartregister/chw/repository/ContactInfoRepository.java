@@ -1,7 +1,6 @@
 package org.smartregister.chw.repository;
 
 import android.content.ContentValues;
-import android.util.Log;
 
 import net.sqlcipher.Cursor;
 import net.sqlcipher.database.SQLiteDatabase;
@@ -13,16 +12,16 @@ import org.smartregister.chw.domain.ContactInfo;
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.repository.Repository;
 
+import timber.log.Timber;
+
 
 public class ContactInfoRepository extends BaseRepository {
-    private static final String TAG = ContactInfoRepository.class.getCanonicalName();
-
     public static final String TABLE_NAME = "contact_info";
     public static final String BASE_ENTITY_ID = "base_entity_id";
     public static final String KEY = "key";
     public static final String VALUE = "value";
     public static final String CREATED_AT = "created_at";
-
+    private static final String TAG = ContactInfoRepository.class.getCanonicalName();
     private static final String CREATE_TABLE_SQL = "CREATE TABLE " + TABLE_NAME + "(" +
             BASE_ENTITY_ID + "  VARCHAR NOT NULL, " +
             KEY + "  VARCHAR, " +
@@ -58,7 +57,7 @@ public class ContactInfoRepository extends BaseRepository {
 
     }
 
-    private ContentValues createValuesFor(ContactInfo  contactInfo) {
+    private ContentValues createValuesFor(ContactInfo contactInfo) {
         ContentValues values = new ContentValues();
         values.put(BASE_ENTITY_ID, contactInfo.getBaseEntityId());
         values.put(VALUE, contactInfo.getValue());
@@ -69,15 +68,15 @@ public class ContactInfoRepository extends BaseRepository {
 
     /**
      * @param contactInfoRequest object holding contact request params
-     *                               it MUST contain NON NULL values for
-     *                               key
-     *                               baseEntityId
-     *                               contactNo
+     *                           it MUST contain NON NULL values for
+     *                           key
+     *                           baseEntityId
+     *                           contactNo
      */
     public ContactInfo getContactInfo(ContactInfo contactInfoRequest) {
         String selection = null;
         String[] selectionArgs = null;
-        ContactInfo dbContactInfo= null;
+        ContactInfo dbContactInfo = null;
         Cursor mCursor = null;
         try {
             if (StringUtils.isNotBlank(contactInfoRequest.getBaseEntityId()) && StringUtils.isNotBlank(contactInfoRequest.getKey())) {
@@ -93,7 +92,7 @@ public class ContactInfoRepository extends BaseRepository {
                 dbContactInfo = getContactResult(mCursor);
             }
         } catch (Exception e) {
-            Log.e(TAG, e.getMessage());
+            Timber.e(e);
 
         } finally {
             if (mCursor != null) {

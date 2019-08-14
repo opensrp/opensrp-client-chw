@@ -3,7 +3,6 @@ package org.smartregister.chw.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.support.v4.app.FragmentManager;
-import android.util.Log;
 import android.view.View;
 
 import org.json.JSONObject;
@@ -13,17 +12,19 @@ import org.smartregister.chw.util.Constants;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.view.activity.SecuredActivity;
 
+import timber.log.Timber;
+
 public class IndividualProfileRemoveActivity extends SecuredActivity {
     private static final String TAG = "IndividualProfile";
     private IndividualProfileRemoveFragment individualProfileRemoveFragment;
 
-    public static void startIndividualProfileActivity(Activity activity, CommonPersonObjectClient commonPersonObjectClient, String familyBaseEntityId,
-                                                      String familyHead, String primaryCareGiver) {
+    public static void startIndividualProfileActivity(Activity activity, CommonPersonObjectClient commonPersonObjectClient, String familyBaseEntityId, String familyHead, String primaryCareGiver, String viewRegisterClass) {
         Intent intent = new Intent(activity, IndividualProfileRemoveActivity.class);
         intent.putExtra(Constants.INTENT_KEY.CHILD_COMMON_PERSON, commonPersonObjectClient);
         intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID, familyBaseEntityId);
         intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.FAMILY_HEAD, familyHead);
         intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.PRIMARY_CAREGIVER, primaryCareGiver);
+        intent.putExtra(Constants.INTENT_KEY.VIEW_REGISTER_CLASS, viewRegisterClass);
         activity.startActivityForResult(intent, org.smartregister.chw.util.Constants.ProfileActivityResults.CHANGE_COMPLETED);
     }
 
@@ -56,7 +57,7 @@ public class IndividualProfileRemoveActivity extends SecuredActivity {
                 JSONObject form = new JSONObject(jsonString);
                 individualProfileRemoveFragment.confirmRemove(form);
             } catch (Exception e) {
-                Log.e(TAG, Log.getStackTraceString(e));
+                Timber.e(e);
             }
         } else {
             finish();

@@ -11,21 +11,25 @@ import org.jeasy.rules.api.Rules;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.smartregister.chw.R;
+import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.provider.AncRegisterProvider;
 import org.smartregister.chw.anc.util.DBConstants;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.interactor.ChildProfileInteractor;
-import org.smartregister.chw.util.AncHomeVisitUtil;
-import org.smartregister.chw.util.AncVisit;
-import org.smartregister.chw.util.ChildDBConstants;
 import org.smartregister.chw.util.ChwDBConstants;
 import org.smartregister.chw.util.Constants;
+import org.smartregister.chw.util.HomeVisitUtil;
 import org.smartregister.chw.util.Utils;
+import org.smartregister.chw.util.VisitSummary;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.view.contract.SmartRegisterClient;
 
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 import java.util.Set;
+
+import static org.smartregister.chw.anc.AncLibrary.getInstance;
 
 public class ChwAncRegisterProvider extends AncRegisterProvider {
 
@@ -82,17 +86,17 @@ public class ChwAncRegisterProvider extends AncRegisterProvider {
         dueButton.setOnClickListener(null);
     }
 
-    private void updateDueColumn(Context context, RegisterViewHolder viewHolder, AncVisit ancVisit) {
+    private void updateDueColumn(Context context, RegisterViewHolder viewHolder, VisitSummary visitSummary) {
         viewHolder.dueButton.setVisibility(View.VISIBLE);
-        if (ancVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.DUE.name())) {
+        if (visitSummary.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.DUE.name())) {
             setVisitButtonDueStatus(context, viewHolder.dueButton);
-        } else if (ancVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.OVERDUE.name())) {
-            setVisitButtonOverdueStatus(context, viewHolder.dueButton, ancVisit.getNoOfMonthDue());
-        } else if (ancVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.LESS_TWENTY_FOUR.name())) {
+        } else if (visitSummary.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.OVERDUE.name())) {
+            setVisitButtonOverdueStatus(context, viewHolder.dueButton, visitSummary.getNoOfMonthDue());
+        } else if (visitSummary.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.LESS_TWENTY_FOUR.name())) {
             setVisitLessTwentyFourView(context, viewHolder.dueButton);
-        } else if (ancVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.VISIT_THIS_MONTH.name())) {
+        } else if (visitSummary.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.VISIT_THIS_MONTH.name())) {
             setVisitAboveTwentyFourView(context, viewHolder.dueButton);
-        } else if (ancVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.NOT_VISIT_THIS_MONTH.name())) {
+        } else if (visitSummary.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.NOT_VISIT_THIS_MONTH.name())) {
             setVisitNotDone(context, viewHolder.dueButton);
         }
     }
@@ -103,7 +107,7 @@ public class ChwAncRegisterProvider extends AncRegisterProvider {
         private final Context context;
 
         private final Rules rules;
-        private AncVisit ancVisit;
+        private VisitSummary visitSummary;
 
         private UpdateAsyncTask(Context context, RegisterViewHolder viewHolder, CommonPersonObjectClient pc) {
             this.context = context;
@@ -116,20 +120,34 @@ public class ChwAncRegisterProvider extends AncRegisterProvider {
         protected Void doInBackground(Void... params) {
             //map = getChildDetails(pc.getCaseId());
 
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
             String lmpDate = org.smartregister.util.Utils.getValue(pc.getColumnmaps(), ChwDBConstants.LMP, false);
-            String visitDate = org.smartregister.util.Utils.getValue(pc.getColumnmaps(), ChildDBConstants.KEY.LAST_HOME_VISIT, false);
-            String lastVisitNotDone = org.smartregister.util.Utils.getValue(pc.getColumnmaps(), ChwDBConstants.VISIT_NOT_DONE, false);
+            String baseEntityID = org.smartregister.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, false);
+
             LocalDate dateCreated = (new DateTime(org.smartregister.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.DATE_CREATED, false))).toLocalDate();
 
-            ancVisit = AncHomeVisitUtil.getVisitStatus(context, rules, lmpDate, visitDate, lastVisitNotDone, dateCreated);
+            Visit lastNotDoneVisit = getInstance().visitRepository().getLatestVisit(baseEntityID, org.smartregister.chw.anc.util.Constants.EVENT_TYPE.ANC_HOME_VISIT_NOT_DONE);
+            if (lastNotDoneVisit != null) {
+                Visit lastNotDoneVisitUndo = getInstance().visitRepository().getLatestVisit(baseEntityID, org.smartregister.chw.anc.util.Constants.EVENT_TYPE.ANC_HOME_VISIT_NOT_DONE_UNDO);
+                if (lastNotDoneVisitUndo != null
+                        && lastNotDoneVisitUndo.getDate().after(lastNotDoneVisit.getDate())) {
+                    lastNotDoneVisit = null;
+                }
+            }
+
+            Visit lastVisit = getInstance().visitRepository().getLatestVisit(baseEntityID, org.smartregister.chw.anc.util.Constants.EVENT_TYPE.ANC_HOME_VISIT);
+            String visitDate = lastVisit != null ? sdf.format(lastVisit.getDate()) : null;
+            String lastVisitNotDone = lastNotDoneVisit != null ? sdf.format(lastNotDoneVisit.getDate()) : null;
+
+            visitSummary = HomeVisitUtil.getAncVisitStatus(context, rules, lmpDate, visitDate, lastVisitNotDone, dateCreated);
             return null;
         }
 
         @Override
         protected void onPostExecute(Void param) {
             // Update status column
-            if (ancVisit != null && !ancVisit.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.EXPIRY.name())) {
-                updateDueColumn(context, viewHolder, ancVisit);
+            if (visitSummary != null && !visitSummary.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.EXPIRY.name())) {
+                updateDueColumn(context, viewHolder, visitSummary);
             }
         }
     }

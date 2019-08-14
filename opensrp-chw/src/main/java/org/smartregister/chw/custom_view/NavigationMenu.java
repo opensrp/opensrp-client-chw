@@ -14,7 +14,6 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +27,7 @@ import com.github.ybq.android.spinkit.style.FadingCircle;
 
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.R;
+import org.smartregister.chw.activity.ChwP2pModeSelectActivity;
 import org.smartregister.chw.adapter.NavigationAdapter;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.contract.NavigationContract;
@@ -35,7 +35,6 @@ import org.smartregister.chw.model.NavigationOption;
 import org.smartregister.chw.presenter.NavigationPresenter;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.domain.FetchStatus;
-import org.smartregister.p2p.activity.P2pModeSelectActivity;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.util.LangUtils;
 import org.smartregister.util.PermissionUtils;
@@ -47,22 +46,22 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import timber.log.Timber;
+
 public class NavigationMenu implements NavigationContract.View, SyncStatusBroadcastReceiver.SyncStatusListener {
 
     private static NavigationMenu instance;
+    private static WeakReference<Activity> activityWeakReference;
     private String TAG = NavigationMenu.class.getCanonicalName();
     private DrawerLayout drawer;
     private Toolbar toolbar;
-
     private NavigationAdapter navigationAdapter;
     private RecyclerView recyclerView;
     private TextView tvLogout;
     private View rootView = null;
     private ImageView ivSync;
     private ProgressBar syncProgressBar;
-
     private NavigationContract.Presenter mPresenter;
-    private static WeakReference<Activity> activityWeakReference;
     private View parentView;
     private List<NavigationOption> navigationOptions;
 
@@ -103,7 +102,7 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
             mPresenter = new NavigationPresenter(this);
             prepareViews(activity);
         } catch (Exception e) {
-            Log.e(TAG, e.toString());
+            Timber.e(e);
         }
     }
 
@@ -314,7 +313,7 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
         if (PermissionUtils.isPermissionGranted(activity
                 , new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}
                 , Constants.RQ_CODE.STORAGE_PERMISIONS)) {
-            activity.startActivity(new Intent(activity, P2pModeSelectActivity.class));
+            activity.startActivity(new Intent(activity, ChwP2pModeSelectActivity.class));
         }
     }
 
@@ -374,7 +373,7 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
 
     @Override
     public void onSyncInProgress(FetchStatus fetchStatus) {
-        Log.v(TAG, "onSyncInProgress");
+        Timber.v("onSyncInProgress");
     }
 
     @Override

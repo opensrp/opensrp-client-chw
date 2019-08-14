@@ -2,7 +2,6 @@ package org.smartregister.chw.task;
 
 import android.os.AsyncTask;
 import android.text.TextUtils;
-import android.util.Log;
 
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
@@ -20,6 +19,8 @@ import java.util.Calendar;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+
+import timber.log.Timber;
 
 import static org.smartregister.util.Utils.getName;
 import static org.smartregister.util.Utils.getValue;
@@ -80,7 +81,7 @@ public class UpdateServiceTask extends AsyncTask<Void, Void, RecurringServiceMod
             RecurringServiceUtil.updateWrapper(serviceWrapper, map.getServiceRecords());
             displayServiceWrapper.put(type, serviceWrapper);
         }
-        Log.v("Service_wrapper", "service wrapper" + displayServiceWrapper);
+        Timber.v("Service_wrapper %s", displayServiceWrapper);
         listener.onUpdateServiceList(displayServiceWrapper);
     }
 
@@ -92,7 +93,7 @@ public class UpdateServiceTask extends AsyncTask<Void, Void, RecurringServiceMod
             dateOfBirth = new DateTime(dobString);
         }
 
-        return RecurringServiceUtil.getServiceModel(childDetails.entityId(), dateOfBirth);
+        return RecurringServiceUtil.getServiceModel(childDetails.entityId(), dateOfBirth, "child");
     }
 
 }

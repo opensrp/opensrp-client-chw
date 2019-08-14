@@ -2,13 +2,13 @@ package org.smartregister.chw.sync;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.util.Log;
 
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.repository.HomeVisitRepository;
 import org.smartregister.chw.util.ChildUtils;
 import org.smartregister.chw.util.Constants;
+import org.smartregister.chw.util.WashCheck;
 import org.smartregister.clientandeventmodel.DateUtil;
 import org.smartregister.commonregistry.AllCommonsRepository;
 import org.smartregister.commonregistry.CommonFtsObject;
@@ -35,15 +35,17 @@ import org.smartregister.sync.ClientProcessorForJava;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import timber.log.Timber;
 
 
 public class ChwClientProcessor extends ClientProcessorForJava {
 
-//    private static final String TAG = ChwClientProcessor.class.getName();
-//    private static ClientProcessorForJava instance;
+    private ClientClassification classification;
+    private Table vaccineTable;
+    private Table serviceTable;
 
     private ChwClientProcessor(Context context) {
         super(context);
@@ -56,14 +58,78 @@ public class ChwClientProcessor extends ClientProcessorForJava {
         return instance;
     }
 
+    public static void addVaccine(VaccineRepository vaccineRepository, Vaccine vaccine) {
+        try {
+            if (vaccineRepository == null || vaccine == null) {
+                return;
+            }
+
+            // Add the vaccine
+            vaccineRepository.add(vaccine);
+
+            String name = vaccine.getName();
+            if (StringUtils.isBlank(name)) {
+                return;
+            }
+
+            // Update vaccines in the same group where either can be given
+            // For example measles 1 / mr 1
+            name = VaccineRepository.removeHyphen(name);
+            String ftsVaccineName = null;
+
+            if (VaccineRepo.Vaccine.measles1.display().equalsIgnoreCase(name)) {
+                ftsVaccineName = VaccineRepo.Vaccine.mr1.display();
+            } else if (VaccineRepo.Vaccine.mr1.display().equalsIgnoreCase(name)) {
+                ftsVaccineName = VaccineRepo.Vaccine.measles1.display();
+            } else if (VaccineRepo.Vaccine.measles2.display().equalsIgnoreCase(name)) {
+                ftsVaccineName = VaccineRepo.Vaccine.mr2.display();
+            } else if (VaccineRepo.Vaccine.mr2.display().equalsIgnoreCase(name)) {
+                ftsVaccineName = VaccineRepo.Vaccine.measles2.display();
+            }
+
+            if (ftsVaccineName != null) {
+                ftsVaccineName = VaccineRepository.addHyphen(ftsVaccineName.toLowerCase());
+                Vaccine ftsVaccine = new Vaccine();
+                ftsVaccine.setBaseEntityId(vaccine.getBaseEntityId());
+                ftsVaccine.setName(ftsVaccineName);
+                vaccineRepository.updateFtsSearch(ftsVaccine);
+            }
+
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+
+    }
+
+    private Table getVaccineTable() {
+        if (vaccineTable == null) {
+            vaccineTable = assetJsonToJava("ec_client_vaccine.json", Table.class);
+        }
+        return vaccineTable;
+    }
+
+    private Table getServiceTable() {
+        if (serviceTable == null) {
+            serviceTable = assetJsonToJava("ec_client_service.json", Table.class);
+        }
+        return serviceTable;
+    }
+
+    private ClientClassification getClassification() {
+        if (classification == null) {
+            classification = assetJsonToJava("ec_client_classification.json", ClientClassification.class);
+        }
+        return classification;
+    }
+
     @Override
     public synchronized void processClient(List<EventClient> eventClients) throws Exception {
-        ClientClassification clientClassification = assetJsonToJava("ec_client_classification.json", ClientClassification.class);
-        Table vaccineTable = assetJsonToJava("ec_client_vaccine.json", Table.class);
-//        Table weightTable = assetJsonToJava("ec_client_weight.json", Table.class);
-        Table serviceTable = assetJsonToJava("ec_client_service.json", Table.class);
+
+        ClientClassification clientClassification = getClassification();
+        Table vaccineTable = getVaccineTable();
+        Table serviceTable = getServiceTable();
+
         if (!eventClients.isEmpty()) {
-            List<Event> unsyncEvents = new ArrayList<>();
             for (EventClient eventClient : eventClients) {
                 Event event = eventClient.getEvent();
                 if (event == null) {
@@ -73,50 +139,98 @@ public class ChwClientProcessor extends ClientProcessorForJava {
                 String eventType = event.getEventType();
                 if (eventType == null) {
                     continue;
-                } else if (eventType.equals(VaccineIntentService.EVENT_TYPE) || eventType.equals(VaccineIntentService.EVENT_TYPE_OUT_OF_CATCHMENT)) {
-                    if (vaccineTable == null) {
-                        continue;
-                    }
+                }
 
-                    processVaccine(eventClient, vaccineTable, eventType.equals(VaccineIntentService.EVENT_TYPE_OUT_OF_CATCHMENT));
-                } else if (eventType.equals(RecurringIntentService.EVENT_TYPE)) {
-                    if (serviceTable == null) {
-                        continue;
-                    }
-                    processService(eventClient, serviceTable);
-                } else if (eventType.equals(HomeVisitRepository.EVENT_TYPE) || eventType.equals(HomeVisitRepository.NOT_DONE_EVENT_TYPE)) {
-                    processHomeVisit(eventClient);
-                    processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
-                } else if (eventType.equals(Constants.EventType.MINIMUM_DIETARY_DIVERSITY)
-                        || eventType.equals(Constants.EventType.MUAC) ||
-                        eventType.equals(Constants.EventType.LLITN) ||
-                        eventType.equals(Constants.EventType.ECD)) {
-                    processHomeVisitService(eventClient);
-                    processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
-                } else if (eventType.equals(Constants.EventType.ANC_HOME_VISIT) && eventClient.getEvent() != null) {
-                    processAncHomeVisit(eventClient);
-                    processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
-                } else if (eventType.equals(Constants.EventType.REMOVE_FAMILY) && eventClient.getClient() != null) {
-                    processRemoveFamily(eventClient.getClient().getBaseEntityId(), event.getEventDate().toDate());
-                } else if (eventType.equals(Constants.EventType.REMOVE_MEMBER) && eventClient.getClient() != null) {
-                    processRemoveMember(eventClient.getClient().getBaseEntityId(), event.getEventDate().toDate());
-                } else if (eventType.equals(Constants.EventType.REMOVE_CHILD) && eventClient.getClient() != null) {
-                    processRemoveChild(eventClient.getClient().getBaseEntityId(), event.getEventDate().toDate());
-                } else if (eventType.equals(Constants.EventType.VACCINE_CARD_RECEIVED) && eventClient.getClient() != null) {
-                    processVaccineCardEvent(eventClient);
-                    processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
-                } else {
-                    if (eventClient.getClient() != null) {
-                        if (eventType.equals(Constants.EventType.UPDATE_FAMILY_RELATIONS) && event.getEntityType().equalsIgnoreCase(Constants.TABLE_NAME.FAMILY_MEMBER)) {
-                            event.setEventType(Constants.EventType.UPDATE_FAMILY_MEMBER_RELATIONS);
+                switch (eventType) {
+                    case VaccineIntentService.EVENT_TYPE:
+                    case VaccineIntentService.EVENT_TYPE_OUT_OF_CATCHMENT:
+                        if (vaccineTable == null) {
+                            continue;
                         }
+                        processVaccine(eventClient, vaccineTable, eventType.equals(VaccineIntentService.EVENT_TYPE_OUT_OF_CATCHMENT));
+                        break;
+                    case RecurringIntentService.EVENT_TYPE:
+                        if (serviceTable == null) {
+                            continue;
+                        }
+                        processService(eventClient, serviceTable);
+                        break;
+                    case HomeVisitRepository.EVENT_TYPE:
+                    case HomeVisitRepository.NOT_DONE_EVENT_TYPE:
+                        processHomeVisit(eventClient);
                         processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
-                    }
+                        break;
+                    case Constants.EventType.MINIMUM_DIETARY_DIVERSITY:
+                    case Constants.EventType.MUAC:
+                    case Constants.EventType.LLITN:
+                    case Constants.EventType.ECD:
+                        processHomeVisitService(eventClient);
+                        processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
+                        break;
+                    case Constants.EventType.ANC_HOME_VISIT:
+                    case org.smartregister.chw.anc.util.Constants.EVENT_TYPE.ANC_HOME_VISIT_NOT_DONE:
+                    case org.smartregister.chw.anc.util.Constants.EVENT_TYPE.ANC_HOME_VISIT_NOT_DONE_UNDO:
+                        if (eventClient.getEvent() == null) {
+                            continue;
+                        }
+                        processVisitEvent(eventClient);
+                        processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
+                        break;
+                    case Constants.EventType.REMOVE_FAMILY:
+                        if (eventClient.getClient() == null) {
+                            continue;
+                        }
+                        processRemoveFamily(eventClient.getClient().getBaseEntityId(), event.getEventDate().toDate());
+                        break;
+                    case Constants.EventType.REMOVE_MEMBER:
+                        if (eventClient.getClient() == null) {
+                            continue;
+                        }
+                        processRemoveMember(eventClient.getClient().getBaseEntityId(), event.getEventDate().toDate());
+                        break;
+                    case Constants.EventType.REMOVE_CHILD:
+                        if (eventClient.getClient() == null) {
+                            continue;
+                        }
+                        processRemoveChild(eventClient.getClient().getBaseEntityId(), event.getEventDate().toDate());
+                        break;
+                    case Constants.EventType.VACCINE_CARD_RECEIVED:
+                        if (eventClient.getClient() == null) {
+                            continue;
+                        }
+                        processVaccineCardEvent(eventClient);
+                        processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
+                        break;
+                    case Constants.EventType.WASH_CHECK:
+                        processWashCheckEvent(eventClient);
+                        processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
+
+                        break;
+                    case Constants.EventType.CHILD_REFERRAL:
+                        if (eventClient.getClient() != null) {
+                            processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
+                        }
+                        break;
+                    default:
+                        if (eventClient.getClient() != null) {
+                            if (eventType.equals(Constants.EventType.UPDATE_FAMILY_RELATIONS) && event.getEntityType().equalsIgnoreCase(Constants.TABLE_NAME.FAMILY_MEMBER)) {
+                                event.setEventType(Constants.EventType.UPDATE_FAMILY_MEMBER_RELATIONS);
+                            }
+                            processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
+                        }
+                        break;
                 }
 
             }
+
         }
-//        super.processClient(eventClients);
+    }
+
+    @Override
+    public void updateClientDetailsTable(Event event, Client client) {
+        Timber.d("Started updateClientDetailsTable");
+        event.addDetails("detailsUpdated", Boolean.TRUE.toString());
+        Timber.d("Finished updateClientDetailsTable");
     }
 
     private void processHomeVisit(EventClient eventClient) {
@@ -131,15 +245,37 @@ public class ChwClientProcessor extends ClientProcessorForJava {
     }
 
     private void processHomeVisitService(EventClient eventClient) {
-
         ChildUtils.addToHomeVisitService(eventClient.getEvent().getEventType(), eventClient.getEvent().getObs(), eventClient.getEvent().getEventDate().toDate(), ChildUtils.gsonConverter.toJson(eventClient.getEvent()));
     }
 
-    private void processAncHomeVisit(EventClient eventClient) {
-        org.smartregister.chw.anc.util.Util.processAncHomeVisit(eventClient); // save locally
+    private void processWashCheckEvent(EventClient eventClient) {
+        WashCheck washCheck = new WashCheck();
+        for (Obs obs : eventClient.getEvent().getObs()) {
+
+            if (obs.getFormSubmissionField().equalsIgnoreCase(Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.FAMILY_ID)) {
+                washCheck.setFamilyBaseEntityId((String) obs.getValue());
+            }
+            if (obs.getFormSubmissionField().equalsIgnoreCase(Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.WASH_CHECK_DETAILS)) {
+                washCheck.setDetailsJson((String) obs.getValue());
+            }
+            if (obs.getFormSubmissionField().equalsIgnoreCase(Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.WASH_CHECK_LAST_VISIT)) {
+                washCheck.setLastVisit(Long.parseLong((String) obs.getValue()));
+            }
+        }
+        ChwApplication.getWashCheckRepo().add(washCheck);
     }
 
-    private Boolean processVaccine(EventClient vaccine, Table vaccineTable, boolean outOfCatchment) throws Exception {
+    // possible to delegate
+    private void processVisitEvent(EventClient eventClient) {
+        try {
+            org.smartregister.chw.anc.util.Util.processAncHomeVisit(eventClient); // save locally
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+    }
+
+    // possible to delegate
+    private Boolean processVaccine(EventClient vaccine, Table vaccineTable, boolean outOfCatchment) {
 
         try {
             if (vaccine == null || vaccine.getEvent() == null) {
@@ -150,7 +286,7 @@ public class ChwClientProcessor extends ClientProcessorForJava {
                 return false;
             }
 
-            Log.d(TAG, "Starting processVaccine table: " + vaccineTable.name);
+            Timber.d("Starting processVaccine table: " + vaccineTable.name);
 
             ContentValues contentValues = processCaseModel(vaccine, vaccineTable);
 
@@ -180,17 +316,19 @@ public class ChwClientProcessor extends ClientProcessorForJava {
 
                 addVaccine(vaccineRepository, vaccineObj);
 
-                Log.d(TAG, "Ending processVaccine table: " + vaccineTable.name);
+                Timber.d("Ending processVaccine table: " + vaccineTable.name);
             }
             return true;
 
         } catch (Exception e) {
-            Log.e(TAG, "Process Vaccine Error", e);
+
+            Timber.e(e, "Process Vaccine Error");
             return null;
         }
     }
 
-    private Boolean processService(EventClient service, Table serviceTable) throws Exception {
+    // possible to delegate
+    private Boolean processService(EventClient service, Table serviceTable) {
 
         try {
 
@@ -202,7 +340,7 @@ public class ChwClientProcessor extends ClientProcessorForJava {
                 return false;
             }
 
-            Log.d(TAG, "Starting processService table: " + serviceTable.name);
+            Timber.d("Starting processService table: " + serviceTable.name);
 
             ContentValues contentValues = processCaseModel(service, serviceTable);
 
@@ -252,12 +390,12 @@ public class ChwClientProcessor extends ClientProcessorForJava {
 
                 recurringServiceRecordRepository.add(serviceObj);
 
-                Log.d(TAG, "Ending processService table: " + serviceTable.name);
+                Timber.d("Ending processService table: " + serviceTable.name);
             }
             return true;
 
         } catch (Exception e) {
-            Log.e(TAG, "Process Service Error", e);
+            Timber.e(e, "Process Service Error");
             return null;
         }
     }
@@ -266,7 +404,7 @@ public class ChwClientProcessor extends ClientProcessorForJava {
         try {
             return Integer.valueOf(string);
         } catch (NumberFormatException e) {
-            Log.e(TAG, e.toString(), e);
+            Timber.e(e);
         }
         return null;
     }
@@ -275,7 +413,7 @@ public class ChwClientProcessor extends ClientProcessorForJava {
         try {
             return Float.valueOf(string);
         } catch (NumberFormatException e) {
-            Log.e(TAG, e.toString(), e);
+            Timber.e(e);
         }
         return null;
     }
@@ -294,7 +432,7 @@ public class ChwClientProcessor extends ClientProcessorForJava {
                     try {
                         date = DateUtil.parseDate(eventDateStr);
                     } catch (ParseException pee) {
-                        Log.e(TAG, pee.toString(), pee);
+                        Timber.e(pee, pee.toString());
                     }
                 }
             }
@@ -313,52 +451,9 @@ public class ChwClientProcessor extends ClientProcessorForJava {
 
             return contentValues;
         } catch (Exception e) {
-            Log.e(TAG, e.toString(), e);
+            Timber.e(e);
         }
         return null;
-    }
-
-    public static void addVaccine(VaccineRepository vaccineRepository, Vaccine vaccine) {
-        try {
-            if (vaccineRepository == null || vaccine == null) {
-                return;
-            }
-
-            // Add the vaccine
-            vaccineRepository.add(vaccine);
-
-            String name = vaccine.getName();
-            if (StringUtils.isBlank(name)) {
-                return;
-            }
-
-            // Update vaccines in the same group where either can be given
-            // For example measles 1 / mr 1
-            name = VaccineRepository.removeHyphen(name);
-            String ftsVaccineName = null;
-
-            if (VaccineRepo.Vaccine.measles1.display().equalsIgnoreCase(name)) {
-                ftsVaccineName = VaccineRepo.Vaccine.mr1.display();
-            } else if (VaccineRepo.Vaccine.mr1.display().equalsIgnoreCase(name)) {
-                ftsVaccineName = VaccineRepo.Vaccine.measles1.display();
-            } else if (VaccineRepo.Vaccine.measles2.display().equalsIgnoreCase(name)) {
-                ftsVaccineName = VaccineRepo.Vaccine.mr2.display();
-            } else if (VaccineRepo.Vaccine.mr2.display().equalsIgnoreCase(name)) {
-                ftsVaccineName = VaccineRepo.Vaccine.measles2.display();
-            }
-
-            if (ftsVaccineName != null) {
-                ftsVaccineName = VaccineRepository.addHyphen(ftsVaccineName.toLowerCase());
-                Vaccine ftsVaccine = new Vaccine();
-                ftsVaccine.setBaseEntityId(vaccine.getBaseEntityId());
-                ftsVaccine.setName(ftsVaccineName);
-                vaccineRepository.updateFtsSearch(ftsVaccine);
-            }
-
-        } catch (Exception e) {
-            Log.e(ChwClientProcessor.class.getCanonicalName(), Log.getStackTraceString(e));
-        }
-
     }
 
     private void processRemoveMember(String baseEntityId, Date eventDate) {
@@ -464,12 +559,5 @@ public class ChwClientProcessor extends ClientProcessorForJava {
                     String.format(" %s in (select base_entity_id from %s where relational_id = ? )  ", CommonFtsObject.idColumn, Constants.TABLE_NAME.FAMILY_MEMBER), new String[]{familyID});
 
         }
-    }
-
-    @Override
-    public void updateClientDetailsTable(Event event, Client client) {
-        Log.d(TAG, "Started updateClientDetailsTable");
-        event.addDetails("detailsUpdated", Boolean.TRUE.toString());
-        Log.d(TAG, "Finished updateClientDetailsTable");
     }
 }

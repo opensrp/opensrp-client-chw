@@ -1,7 +1,6 @@
 package org.smartregister.chw.listener;
 
 import android.app.Activity;
-import android.util.Log;
 
 import org.smartregister.chw.R;
 import org.smartregister.chw.fragment.AddMemberFragment;
@@ -9,8 +8,11 @@ import org.smartregister.chw.fragment.FamilyCallDialogFragment;
 
 import java.lang.ref.WeakReference;
 
+import timber.log.Timber;
+
 public class FloatingMenuListener implements OnClickFloatingMenu {
     private static String TAG = FloatingMenuListener.class.getCanonicalName();
+    private static FloatingMenuListener instance;
     private WeakReference<Activity> context;
     private String familyBaseEntityId;
 
@@ -18,8 +20,6 @@ public class FloatingMenuListener implements OnClickFloatingMenu {
         this.context = new WeakReference<>(context);
         this.familyBaseEntityId = familyBaseEntityId;
     }
-
-    private static FloatingMenuListener instance;
 
     public static FloatingMenuListener getInstance(Activity context, String familyBaseEntityId) {
         if (instance == null) {
@@ -47,7 +47,7 @@ public class FloatingMenuListener implements OnClickFloatingMenu {
         if (context.get() != null) {
 
             if (context.get().isDestroyed()) {
-                Log.d(TAG, "Activity Destroyed");
+                Timber.d("Activity Destroyed");
                 return;
             }
 

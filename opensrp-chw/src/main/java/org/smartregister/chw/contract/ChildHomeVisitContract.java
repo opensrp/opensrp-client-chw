@@ -58,7 +58,7 @@ public interface ChildHomeVisitContract {
         void generateObsIllnessForm(String jsonString, InteractorCallback callback, boolean isEditMode);
 
         //void generateCounselingForm(String jsonString, InteractorCallback callback, boolean isEditMode);
-        void generateTaskService(CommonPersonObjectClient childClient, InteractorCallback callback, boolean isEditMode);
+        void generateTaskService(CommonPersonObjectClient childClient, InteractorCallback callback, Context context, boolean isEditMode);
 
         void saveForm(CommonPersonObjectClient childClient);
 

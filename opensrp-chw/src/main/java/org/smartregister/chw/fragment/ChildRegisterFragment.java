@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -42,17 +41,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
+import timber.log.Timber;
+
 public class ChildRegisterFragment extends BaseRegisterFragment implements ChildRegisterFragmentContract.View {
 
-    private static final String TAG = ChildRegisterFragment.class.getCanonicalName();
     public static final String CLICK_VIEW_NORMAL = "click_view_normal";
     public static final String CLICK_VIEW_DOSAGE_STATUS = "click_view_dosage_status";
-
+    private static final String TAG = ChildRegisterFragment.class.getCanonicalName();
+    private static final String DUE_FILTER_TAG = "PRESSED";
     private View view;
     private View dueOnlyLayout;
-
     private boolean dueFilterActive = false;
-    private static final String DUE_FILTER_TAG = "PRESSED";
 
     @Override
     protected void initializePresenter() {
@@ -290,7 +289,7 @@ public class ChildRegisterFragment extends BaseRegisterFragment implements Child
     private void goToChildDetailActivity(CommonPersonObjectClient patient,
                                          boolean launchDialog) {
         if (launchDialog) {
-            Log.i(ChildRegisterFragment.TAG, patient.name);
+            Timber.i(patient.name);
         }
 
         Intent intent = new Intent(getActivity(), ChildProfileActivity.class);
@@ -332,7 +331,7 @@ public class ChildRegisterFragment extends BaseRegisterFragment implements Child
 
             }
         } catch (Exception e) {
-            Log.e(getClass().getName(), e.toString(), e);
+            Timber.e(e);
         }
 
         return query;

@@ -3,7 +3,6 @@ package org.smartregister.chw.application;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Build;
-import android.util.Log;
 
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
@@ -11,24 +10,27 @@ import com.evernote.android.job.JobManager;
 
 import org.smartregister.AllConstants;
 import org.smartregister.Context;
-import org.smartregister.P2POptions;
 import org.smartregister.CoreLibrary;
+import org.smartregister.P2POptions;
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.activity.FamilyProfileActivity;
 import org.smartregister.chw.activity.LoginActivity;
 import org.smartregister.chw.anc.AncLibrary;
-import org.smartregister.chw.contract.ChwAuthorizationService;
 import org.smartregister.chw.helper.RulesEngineHelper;
 import org.smartregister.chw.job.ChwJobCreator;
 import org.smartregister.chw.malaria.MalariaLibrary;
+import org.smartregister.chw.pnc.PncLibrary;
 import org.smartregister.chw.repository.AncRegisterRepository;
 import org.smartregister.chw.repository.ChwRepository;
 import org.smartregister.chw.repository.HomeVisitIndicatorInfoRepository;
 import org.smartregister.chw.repository.HomeVisitRepository;
 import org.smartregister.chw.repository.HomeVisitServiceRepository;
+import org.smartregister.chw.repository.WashCheckRepository;
+import org.smartregister.chw.service.ChwAuthorizationService;
 import org.smartregister.chw.sync.ChwClientProcessor;
 import org.smartregister.chw.util.ChildDBConstants;
 import org.smartregister.chw.util.Constants;
+import org.smartregister.chw.util.CrashlyticsTree;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.commonregistry.AllCommonsRepository;
 import org.smartregister.commonregistry.CommonFtsObject;
@@ -48,7 +50,10 @@ import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.reporting.ReportingLibrary;
 import org.smartregister.repository.AllSharedPreferences;
+import org.smartregister.repository.PlanDefinitionRepository;
 import org.smartregister.repository.Repository;
+import org.smartregister.repository.TaskNotesRepository;
+import org.smartregister.repository.TaskRepository;
 import org.smartregister.sync.ClientProcessorForJava;
 import org.smartregister.sync.helper.ECSyncHelper;
 import org.smartregister.view.activity.DrishtiApplication;
@@ -64,7 +69,6 @@ import timber.log.Timber;
 
 public class ChwApplication extends DrishtiApplication {
 
-    private static final String TAG = ChwApplication.class.getCanonicalName();
     private static final int MINIMUM_JOB_FLEX_VALUE = 1;
     private static ClientProcessorForJava clientProcessor;
 
@@ -73,12 +77,15 @@ public class ChwApplication extends DrishtiApplication {
     private static HomeVisitServiceRepository homeVisitServiceRepository;
     private static AncRegisterRepository ancRegisterRepository;
     private static HomeVisitIndicatorInfoRepository homeVisitIndicatorInfoRepository;
+    private static WashCheckRepository washCheckRepository;
 
     private JsonSpecHelper jsonSpecHelper;
     private ECSyncHelper ecSyncHelper;
     private String password;
 
     private RulesEngineHelper rulesEngineHelper;
+    private TaskRepository taskRepository;
+    private PlanDefinitionRepository planDefinitionRepository;
 
     public static synchronized ChwApplication getInstance() {
         return (ChwApplication) mInstance;
@@ -141,11 +148,19 @@ public class ChwApplication extends DrishtiApplication {
         }
         return homeVisitRepository;
     }
-    public static HomeVisitServiceRepository getHomeVisitServiceRepository(){
-        if(homeVisitServiceRepository == null){
+
+    public static HomeVisitServiceRepository getHomeVisitServiceRepository() {
+        if (homeVisitServiceRepository == null) {
             homeVisitServiceRepository = new HomeVisitServiceRepository(getInstance().getRepository());
         }
         return homeVisitServiceRepository;
+    }
+
+    public static WashCheckRepository getWashCheckRepo() {
+        if (washCheckRepository == null) {
+            washCheckRepository = new WashCheckRepository(getInstance().getRepository());
+        }
+        return washCheckRepository;
     }
 
     public static AncRegisterRepository ancRegisterRepository() {
@@ -173,12 +188,20 @@ public class ChwApplication extends DrishtiApplication {
     public void onCreate() {
         super.onCreate();
 
+        /*
+        if (BuildConfig.DEBUG) {
+            Timber.plant(new Timber.DebugTree());
+        } else {
+            Timber.plant(new CrashlyticsTree());
+        }
+*/
+        Timber.plant(new CrashlyticsTree());
+
         mInstance = this;
         context = Context.getInstance();
         context.updateApplicationContext(getApplicationContext());
         context.updateCommonFtsObject(createCommonFtsObject());
 
-        Timber.plant(new Timber.DebugTree());
 
         //Fabric.with(this, new Crashlytics.Builder().core(new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build()).build());
         Fabric.with(this, new Crashlytics.Builder().core(new CrashlyticsCore.Builder().build()).build());
@@ -195,6 +218,7 @@ public class ChwApplication extends DrishtiApplication {
         ConfigurableViewsLibrary.init(context, getRepository());
         FamilyLibrary.init(context, getRepository(), getMetadata(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
         AncLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
+        PncLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
         MalariaLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
 
         SyncStatusBroadcastReceiver.init(this);
@@ -229,6 +253,7 @@ public class ChwApplication extends DrishtiApplication {
         if (language.equals(Locale.FRENCH.getLanguage())) {
             saveLanguage(Locale.FRENCH.getLanguage());
         }
+
     }
 
     public void setOpenSRPUrl() {
@@ -291,9 +316,9 @@ public class ChwApplication extends DrishtiApplication {
     }
 
     public void notifyAppContextChange() {
-        FamilyLibrary.getInstance().setMetadata(getMetadata());
         Locale current = getApplicationContext().getResources().getConfiguration().locale;
         saveLanguage(current.getLanguage());
+        FamilyLibrary.getInstance().setMetadata(getMetadata());
     }
 
     public VaccineRepository vaccineRepository() {
@@ -328,7 +353,7 @@ public class ChwApplication extends DrishtiApplication {
 
     private void scheduleJobs() {
         // TODO implement job scheduling
-        Log.d(TAG, "scheduleJobs pending implementation");
+        Timber.d("scheduleJobs pending implementation");
     }
 
     private long getFlexValue(int value) {
@@ -358,5 +383,18 @@ public class ChwApplication extends DrishtiApplication {
         return ChwApplication.getClientProcessor(ChwApplication.getInstance().getApplicationContext());
     }
 
+    public TaskRepository getTaskRepository() {
+        if (taskRepository == null) {
+            taskRepository = new TaskRepository(getRepository(), new TaskNotesRepository(getRepository()));
+        }
+        return taskRepository;
+    }
+
+    public PlanDefinitionRepository getPlanDefinitionRepository() {
+        if (planDefinitionRepository == null) {
+            planDefinitionRepository = new PlanDefinitionRepository(getRepository());
+        }
+        return planDefinitionRepository;
+    }
 
 }

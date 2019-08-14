@@ -68,7 +68,7 @@
         "openmrs_entity": "person_identifier",
         "openmrs_entity_id": "opensrp_id",
         "type": "edit_text",
-        "read_only" : "true",
+        "read_only": "true",
         "hint": "UNIQUE ID *",
         "value": "0",
         "scanButtonText": "Scan QR Code",
@@ -89,7 +89,15 @@
         "label_info_text": "What is their national identity number or their voter registration number?",
         "label_info_title": "National ID number",
         "type": "edit_text",
-        "hint": "National ID number"
+        "hint": "National ID number",
+        "v_numeric": {
+          "value": "true",
+          "err": "Number must be 11 digits."
+        },
+        "v_regex": {
+          "value": "([0-9]{11})|\\s*",
+          "err": "Number must be 11 digits."
+        }
       },
       {
         "key": "surname",
@@ -100,7 +108,7 @@
         "hint": "Surname",
         "edit_type": "name",
         "v_regex": {
-          "value": "[A-Za-z\\s\\.\\-]*",
+          "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-]*",
           "err": "Please enter a valid name"
         },
         "v_required": {
@@ -171,7 +179,7 @@
           "err": "Please enter the first name"
         },
         "v_regex": {
-          "value": "[A-Za-z\\s\\.\\-]*",
+          "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-]*",
           "err": "Please enter a valid name"
         }
       },
@@ -184,7 +192,7 @@
         "hint": "Middle name",
         "edit_type": "name",
         "v_regex": {
-          "value": "[A-Za-z\\s\\.\\-]*",
+          "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-]*",
           "err": "Please enter a valid name"
         }
       },
@@ -297,11 +305,11 @@
         "hint": "Phone number",
         "v_numeric": {
           "value": "true",
-          "err": "Number must be a total of 10 digits in length"
+          "err": "Number must be 8 to 16 digits."
         },
         "v_regex": {
-          "value": "(0[0-9]{9})|\\s*",
-          "err": "Number must be 10 digits and must start with 0."
+          "value": "([0-9]{8,16})|\\s*",
+          "err": "Number must be 8 to 16 digits."
         },
         "v_required": {
           "value": false,
@@ -323,11 +331,11 @@
         "hint": "Other phone number",
         "v_numeric": {
           "value": "true",
-          "err": "Number must be a total of 10 digits in length"
+          "err": "Number must be 8 to 16 digits."
         },
         "v_regex": {
-          "value": "(0[0-9]{9})|\\s*",
-          "err": "Number must be 10 digits and must start with 0."
+          "value": "([0-9]{8,16})|\\s*",
+          "err": "Number must be 8 to 16 digits."
         },
         "relevance": {
           "step1:primary_caregiver": {
@@ -346,15 +354,17 @@
         "hint": "Highest education level",
         "values": [
           "None",
+          "Literacy",
           "Primary",
           "Secondary",
-          "Post-secondary"
+          "University"
         ],
         "openmrs_choice_ids": {
           "None": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Literacy": "",
           "Primary": "1713AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "Secondary": "1714AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Post-secondary": "159785AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          "University": "159785AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         "relevance": {
           "step1:primary_caregiver": {

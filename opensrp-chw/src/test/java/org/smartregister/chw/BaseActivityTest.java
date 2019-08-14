@@ -11,6 +11,10 @@ import org.mockito.MockitoAnnotations;
 import org.robolectric.Robolectric;
 import org.robolectric.android.controller.ActivityController;
 
+import timber.log.Timber;
+
+import static com.ibm.icu.impl.Assert.fail;
+
 public abstract class BaseActivityTest<T extends Activity> extends BaseUnitTest {
 
     private T activity;
@@ -19,9 +23,9 @@ public abstract class BaseActivityTest<T extends Activity> extends BaseUnitTest 
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        if(getControllerIntent() == null){
+        if (getControllerIntent() == null) {
             controller = Robolectric.buildActivity(getActivityClass()).create().start();
-        }else{
+        } else {
             controller = Robolectric.buildActivity(getActivityClass(), getControllerIntent()).create().start();
         }
         activity = controller.get();
@@ -34,15 +38,52 @@ public abstract class BaseActivityTest<T extends Activity> extends BaseUnitTest 
             getActivityController().pause().stop().destroy(); //destroy controller if we can
 
         } catch (Exception e) {
-            e.printStackTrace();
+            Timber.e(e);
         }
 
         System.gc();
     }
 
     @Test
-    public void testActivityExists(){
+    public void testActivityExists() {
         Assert.assertNotNull(getActivity());
+    }
+
+    @Test
+    public void testNoErrorOnPause() {
+        try {
+            getActivityController().pause();
+        } catch (Exception e) {
+            fail("Should not have thrown any exception");
+        }
+    }
+
+    @Test
+    public void testNoErrorOnResume() {
+        try {
+            getActivityController().pause();
+            getActivityController().resume();
+        } catch (Exception e) {
+            fail("Should not have thrown any exception");
+        }
+    }
+
+    @Test
+    public void testNoErrorOnRestart() {
+        try {
+            getActivityController().restart();
+        } catch (Exception e) {
+            fail("Should not have thrown any exception");
+        }
+    }
+
+    @Test
+    public void testNoErrorOnStop() {
+        try {
+            getActivityController().stop();
+        } catch (Exception e) {
+            fail("Should not have thrown any exception");
+        }
     }
 
     protected abstract Class<T> getActivityClass();
@@ -55,7 +96,7 @@ public abstract class BaseActivityTest<T extends Activity> extends BaseUnitTest 
         return controller;
     }
 
-    protected Intent getControllerIntent(){
+    protected Intent getControllerIntent() {
         return null;
     }
 }

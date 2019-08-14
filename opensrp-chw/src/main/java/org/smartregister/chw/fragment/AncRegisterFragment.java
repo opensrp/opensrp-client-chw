@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -36,12 +35,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
+import timber.log.Timber;
+
 public class AncRegisterFragment extends BaseAncRegisterFragment {
 
-    private View view;
-
-    private boolean dueFilterActive = false;
     private static final String DUE_FILTER_TAG = "PRESSED";
+    private View view;
+    private boolean dueFilterActive = false;
 
     @Override
     public void setupViews(View view) {
@@ -87,8 +87,8 @@ public class AncRegisterFragment extends BaseAncRegisterFragment {
         dueOnlyLayout.setOnClickListener(registerActionHandler);
 
         if (getSearchView() != null) {
-            getSearchView().setBackgroundResource(org.smartregister.family.R.color.white);
-            getSearchView().setCompoundDrawablesWithIntrinsicBounds(org.smartregister.family.R.drawable.ic_action_search, 0, 0, 0);
+            getSearchView().setBackgroundResource(R.color.white);
+            getSearchView().setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_action_search, 0, 0, 0);
             getSearchView().setTextColor(getResources().getColor(R.color.text_black));
         }
 
@@ -97,8 +97,8 @@ public class AncRegisterFragment extends BaseAncRegisterFragment {
 
     @Override
     public void initializeAdapter(Set<org.smartregister.configurableviews.model.View> visibleColumns) {
-        ChwAncRegisterProvider ancRegisterProvider = new ChwAncRegisterProvider(getActivity(), commonRepository(), visibleColumns, registerActionHandler, paginationViewHandler);
-        clientAdapter = new RecyclerViewPaginatedAdapter(null, ancRegisterProvider, context().commonrepository(this.tablename));
+        ChwAncRegisterProvider provider = new ChwAncRegisterProvider(getActivity(), commonRepository(), visibleColumns, registerActionHandler, paginationViewHandler);
+        clientAdapter = new RecyclerViewPaginatedAdapter(null, provider, context().commonrepository(this.tablename));
         clientAdapter.setCurrentlimit(20);
         clientsView.setAdapter(clientAdapter);
     }
@@ -150,7 +150,7 @@ public class AncRegisterFragment extends BaseAncRegisterFragment {
 
     @Override
     protected void openHomeVisit(CommonPersonObjectClient client) {
-        AncHomeVisitActivity.startMe(getActivity(), new MemberObject(client));
+        AncHomeVisitActivity.startMe(getActivity(), new MemberObject(client), false);
     }
 
     @Override
@@ -239,7 +239,7 @@ public class AncRegisterFragment extends BaseAncRegisterFragment {
 
             }
         } catch (Exception e) {
-            Log.e(getClass().getName(), e.toString(), e);
+            Timber.e(e);
         }
 
         return query;
@@ -291,14 +291,14 @@ public class AncRegisterFragment extends BaseAncRegisterFragment {
             c = commonRepository().rawCustomQueryForAdapter(query);
             c.moveToFirst();
             clientAdapter.setTotalcount(c.getInt(0));
-            Log.v("total count here", "" + clientAdapter.getTotalcount());
+            Timber.v("total count here %s", clientAdapter.getTotalcount());
 
             clientAdapter.setCurrentlimit(20);
             clientAdapter.setCurrentoffset(0);
 
 
         } catch (Exception e) {
-            Log.e(getClass().getName(), e.toString(), e);
+            Timber.e(e);
         } finally {
             if (c != null) {
                 c.close();

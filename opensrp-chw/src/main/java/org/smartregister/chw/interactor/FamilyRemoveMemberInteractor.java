@@ -37,16 +37,8 @@ import timber.log.Timber;
 
 public class FamilyRemoveMemberInteractor implements FamilyRemoveMemberContract.Interactor {
 
-    private AppExecutors appExecutors;
-
     private static FamilyRemoveMemberInteractor instance;
-
-    public static FamilyRemoveMemberInteractor getInstance() {
-        if (instance == null)
-            instance = new FamilyRemoveMemberInteractor();
-
-        return instance;
-    }
+    private AppExecutors appExecutors;
 
     @VisibleForTesting
     FamilyRemoveMemberInteractor(AppExecutors appExecutors) {
@@ -55,6 +47,13 @@ public class FamilyRemoveMemberInteractor implements FamilyRemoveMemberContract.
 
     public FamilyRemoveMemberInteractor() {
         this(new AppExecutors());
+    }
+
+    public static FamilyRemoveMemberInteractor getInstance() {
+        if (instance == null)
+            instance = new FamilyRemoveMemberInteractor();
+
+        return instance;
     }
 
     @Override
@@ -252,7 +251,7 @@ public class FamilyRemoveMemberInteractor implements FamilyRemoveMemberContract.
 
         long lastSyncTimeStamp = getAllSharedPreferences().fetchLastUpdatedAtDate(0);
         Date lastSyncDate = new Date(lastSyncTimeStamp);
-        getClientProcessorForJava().processClient(getSyncHelper().getEvents(lastSyncDate, BaseRepository.TYPE_Unsynced));
+        getClientProcessorForJava().processClient(getSyncHelper().getEvents(lastSyncDate, BaseRepository.TYPE_Unprocessed));
         getAllSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
         return res;
     }

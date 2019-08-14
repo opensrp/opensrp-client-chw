@@ -19,7 +19,7 @@ public class BirthAndIllnessAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     }
 
     public void setData(ArrayList<String> contentList) {
-        this.contentList = contentList;
+        this.contentList.addAll(contentList);
     }
 
     @NonNull
@@ -41,6 +41,7 @@ public class BirthAndIllnessAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     public int getItemCount() {
         return contentList.size();
     }
+
     public static class ContentViewHolder extends RecyclerView.ViewHolder {
         public TextView vaccineName;
         private View myView;

@@ -45,6 +45,7 @@ import org.smartregister.family.FamilyLibrary;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.sync.helper.ECSyncHelper;
+import org.smartregister.util.DateUtil;
 
 import java.lang.reflect.Type;
 import java.text.MessageFormat;
@@ -156,12 +157,39 @@ public class ChildUtils {
         return objects;
     }
 
-    public static String getFirstSecondAsNumber(String number) {
+    public static String getFirstSecondAsNumber(String number, Context context) {
         try {
             int index = Integer.parseInt(number);
-            return firstSecondNumber[index];
+            switch (index) {
+                case 1:
+                    return context.getString(R.string.abv_first);
+                case 2:
+                    return context.getString(R.string.abv_second);
+                case 3:
+                    return context.getString(R.string.abv_third);
+                case 4:
+                    return context.getString(R.string.abv_fourth);
+                case 5:
+                    return context.getString(R.string.abv_fifth);
+                case 6:
+                    return context.getString(R.string.abv_sixth);
+                case 7:
+                    return context.getString(R.string.abv_seventh);
+                case 8:
+                    return context.getString(R.string.abv_eigth);
+                case 9:
+                    return context.getString(R.string.abv_nineth);
+                case 10:
+                    return context.getString(R.string.abv_tenth);
+                case 11:
+                    return context.getString(R.string.abv_eleventh);
+                case 12:
+                    return context.getString(R.string.abv_twelfth);
+                default:
+                    return "";
+            }
         } catch (Exception e) {
-
+            Timber.e(e);
         }
         return "";
 
@@ -326,7 +354,6 @@ public class ChildUtils {
 
     public static void updateHomeVisitAsEvent(String entityId, String eventType, String entityType, Map<String, JSONObject> fieldObjects, String visitStatus, String value, String homeVisitId) {
         try {
-
             ECSyncHelper syncHelper = FamilyLibrary.getInstance().getEcSyncHelper();
 
             Event event = (Event) new Event()
@@ -371,14 +398,13 @@ public class ChildUtils {
                     .withFieldCode(Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_ILLNESS).withFieldType("formsubmissionField").withFieldDataType("text").withParentCode("").withHumanReadableValues(new ArrayList<>()));
 
             tagSyncMetadata(ChwApplication.getInstance().getContext().allSharedPreferences(), event);
+
             JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(event));
             syncHelper.addEvent(entityId, eventJson);
             long lastSyncTimeStamp = ChwApplication.getInstance().getContext().allSharedPreferences().fetchLastUpdatedAtDate(0);
             Date lastSyncDate = new Date(lastSyncTimeStamp);
-            ChwApplication.getClientProcessor(ChwApplication.getInstance().getContext().applicationContext()).processClient(syncHelper.getEvents(lastSyncDate, BaseRepository.TYPE_Unsynced));
+            ChwApplication.getClientProcessor(ChwApplication.getInstance().getContext().applicationContext()).processClient(syncHelper.getEvents(lastSyncDate, BaseRepository.TYPE_Unprocessed));
             ChwApplication.getInstance().getContext().allSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
-
-            //update details
 
         } catch (Exception e) {
             Timber.e(e);
@@ -404,19 +430,14 @@ public class ChildUtils {
             tagSyncMetadata(ChwApplication.getInstance().getContext().allSharedPreferences(), baseEvent);
             JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(baseEvent));
             syncHelper.addEvent(entityId, eventJson);
-            long lastSyncTimeStamp = ChwApplication.getInstance().getContext().allSharedPreferences().fetchLastUpdatedAtDate(0);
-            Date lastSyncDate = new Date(lastSyncTimeStamp);
-            ChwApplication.getClientProcessor(ChwApplication.getInstance().getContext().applicationContext()).processClient(syncHelper.getEvents(lastSyncDate, BaseRepository.TYPE_Unsynced));
-            ChwApplication.getInstance().getContext().allSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
-
         } catch (Exception e) {
-            e.printStackTrace();
+            Timber.e(e);
         }
 
     }
 
     public static void updateTaskAsEvent(String eventType, String formSubmissionField, List<Object> values, List<Object> humenread,
-                                         String entityId, String choiceValue, String homeVisitId) {
+                                         String entityId, String choiceValue, String homeVisitId, String openMrsCode) {
         try {
             ECSyncHelper syncHelper = FamilyLibrary.getInstance().getEcSyncHelper();
             Event baseEvent = (Event) new Event()
@@ -429,7 +450,7 @@ public class ChildUtils {
             List<Object> huValue = new ArrayList<>();
             huValue.add(choiceValue);
 
-            baseEvent.addObs(new Obs("concept", "text", Constants.FORM_CONSTANTS.MUAC.CODE, "",
+            baseEvent.addObs(new Obs("concept", "text", openMrsCode, "",
                     values, humenread, null, formSubmissionField).withHumanReadableValues(huValue));
             baseEvent.addObs((new Obs()).withFormSubmissionField(Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_ID).withValue(homeVisitId)
                     .withFieldCode(Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_ID).withFieldType("formsubmissionField").withFieldDataType("text").withParentCode("").withHumanReadableValues(new ArrayList<>()));
@@ -437,13 +458,9 @@ public class ChildUtils {
             tagSyncMetadata(ChwApplication.getInstance().getContext().allSharedPreferences(), baseEvent);
             JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(baseEvent));
             syncHelper.addEvent(entityId, eventJson);
-            long lastSyncTimeStamp = ChwApplication.getInstance().getContext().allSharedPreferences().fetchLastUpdatedAtDate(0);
-            Date lastSyncDate = new Date(lastSyncTimeStamp);
-            ChwApplication.getClientProcessor(ChwApplication.getInstance().getContext().applicationContext()).processClient(syncHelper.getEvents(lastSyncDate, BaseRepository.TYPE_Unsynced));
-            ChwApplication.getInstance().getContext().allSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
 
         } catch (Exception e) {
-            e.printStackTrace();
+            Timber.e(e);
         }
 
     }
@@ -455,15 +472,22 @@ public class ChildUtils {
             if (baseEvent != null) {
                 JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(baseEvent));
                 syncHelper.addEvent(entityId, eventJson);
-                long lastSyncTimeStamp = ChwApplication.getInstance().getContext().allSharedPreferences().fetchLastUpdatedAtDate(0);
-                Date lastSyncDate = new Date(lastSyncTimeStamp);
-                ChwApplication.getClientProcessor(ChwApplication.getInstance().getContext().applicationContext()).processClient(syncHelper.getEvents(lastSyncDate, BaseRepository.TYPE_Unsynced));
-                ChwApplication.getInstance().getContext().allSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
-
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
+            Timber.e(e);
+        }
+
+    }
+
+    public static void processClientProcessInBackground() {
+        try {
+            long lastSyncTimeStamp = ChwApplication.getInstance().getContext().allSharedPreferences().fetchLastUpdatedAtDate(0);
+            Date lastSyncDate = new Date(lastSyncTimeStamp);
+            ChwApplication.getClientProcessor(ChwApplication.getInstance().getContext().applicationContext()).processClient(FamilyLibrary.getInstance().getEcSyncHelper().getEvents(lastSyncDate, BaseRepository.TYPE_Unprocessed));
+            ChwApplication.getInstance().getContext().allSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
+        } catch (Exception e) {
+            Timber.e(e);
         }
 
     }
@@ -610,7 +634,7 @@ public class ChildUtils {
                 for (Object object : hu) {
                     value = (String) object;
                 }
-                label = context.getString(R.string.dev_warning_sign) + value;
+                label = context.getString(R.string.dev_warning_sign) + Utils.getYesNoAsLanguageSpecific(context,value);
             }
             if (obs.getFormSubmissionField().equalsIgnoreCase("stim_skills")) {
                 List<Object> hu = obs.getHumanReadableValues();
@@ -618,7 +642,7 @@ public class ChildUtils {
                 for (Object object : hu) {
                     value = (String) object;
                 }
-                label = label + "\n" + context.getString(R.string.care_stim_skill) + value;
+                label = label + "\n" + context.getString(R.string.care_stim_skill) + Utils.getYesNoAsLanguageSpecific(context,value);
             }
             if (obs.getFormSubmissionField().equalsIgnoreCase("early_learning")) {
                 List<Object> hu = obs.getHumanReadableValues();
@@ -626,7 +650,7 @@ public class ChildUtils {
                 for (Object object : hu) {
                     value = (String) object;
                 }
-                label = label + "\n" + context.getString(R.string.early_learning) + value;
+                label = label + "\n" + context.getString(R.string.early_learning) + Utils.getYesNoAsLanguageSpecific(context,value);
             }
         }
         serviceTask.setTaskLabel(label);
@@ -650,12 +674,15 @@ public class ChildUtils {
             if (!TextUtils.isEmpty(value3) && (value3.equalsIgnoreCase(yesVale) || value3.equalsIgnoreCase(noValue))) {
                 serviceTask.setTaskLabel(context.getString(R.string.dev_warning_sign) + value1 + "\n" + context.getString(R.string.care_stim_skill) + value2
                         + "\n" + context.getString(R.string.early_learning) + value3);
+
+                serviceTask.setGreen(isComplete(context, value1, value2, value3));
             } else {
+
+                serviceTask.setGreen(isComplete(context, value1, value2));
                 serviceTask.setTaskLabel(context.getString(R.string.dev_warning_sign) + value1 + "\n" + context.getString(R.string.care_stim_skill) + value2
                 );
             }
 
-            serviceTask.setGreen(isComplete(context, value1, value2));
             serviceTask.setTaskTitle(context.getString(R.string.ecd_title));
             serviceTask.setTaskJson(jsonObject);
             serviceTask.setTaskType(TaskServiceCalculate.TASK_TYPE.ECD.name());
@@ -665,10 +692,27 @@ public class ChildUtils {
         return serviceTask;
     }
 
-    private static boolean isComplete(Context context, String value1, String value2){
+    private static boolean isComplete(Context context, String value1, String value2) {
         String yesVale = context.getString(R.string.yes);
         String noValue = context.getString(R.string.no);
         return value1.equalsIgnoreCase(noValue) && value2.equalsIgnoreCase(yesVale);
+    }
+
+    private static boolean isComplete(Context context, String value1, String value2, String value3) {
+        String yesVale = context.getString(R.string.yes);
+        String noValue = context.getString(R.string.no);
+        return value1.equalsIgnoreCase(noValue) && value2.equalsIgnoreCase(yesVale) && value3.equalsIgnoreCase(yesVale);
+    }
+
+    public static String[] splitStringByNewline(String strWithNewline) {
+        return strWithNewline.split("\n");
+    }
+
+    public static String getDurationFromTwoDate(Date dob, Date homeVisitServiceDate) {
+
+        long timeDiff = Math.abs(homeVisitServiceDate.getTime() - dob.getTime());
+        return DateUtil.getDuration(timeDiff);
+
     }
 
     public static void addToChildTable(String baseEntityID, List<org.smartregister.domain.db.Obs> observations) {

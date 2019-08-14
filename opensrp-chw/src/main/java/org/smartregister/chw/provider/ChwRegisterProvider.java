@@ -283,7 +283,7 @@ public class ChwRegisterProvider extends FamilyRegisterProvider {
         @Override
         protected Void doInBackground(Void... params) {
             list = getChildren(familyBaseEntityId);
-            ancWomanCount = ChwApplication.ancRegisterRepository().getancWomenCount(familyBaseEntityId);
+            ancWomanCount = ChwApplication.ancRegisterRepository().getAncWomenCount(familyBaseEntityId);
             childVisit = mergeChildVisits(retrieveChildVisitList(rules, list));
 
             return null;

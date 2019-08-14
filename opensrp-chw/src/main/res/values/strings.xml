@@ -119,7 +119,9 @@
     <string name="observations_illness_episodes"><![CDATA[Observations & Illness - <i>optional</i>]]></string>
     <string name="observations_illness_episodes_medical"><![CDATA[Observations & Illness Episodes]]></string>
     <string name="home_visit_suffix"> &#183; Home Visit</string>
+    <string name="wash_check_suffix"> &#183; WASH check</string>
     <string name="last_visit_prefix">Last visit %1$s ago</string>
+    <string name="completed_on_prefix">Completed on %1$s</string>
 
     <string name="profile_activity_completed">Completed on %s</string>
     <string name="interpunct">・</string>
@@ -215,6 +217,8 @@
     <string name="refresh_indicators">Refresh indicators</string>
     <string name="indicators_udpating">Updating&#8230;</string>
     <string name="indicators_updating_complete">Update complete</string>
+
+    <!-- Child indicators-->
     <string name="total_under_5_children_label">Total U5 children</string>
     <string name="deceased_children_0_11_months">Children (0&#8211;11 months) who died in the last year</string>
     <string name="deceased_children_12_59_months">Children (12&#8211;59 months) who died in the last year</string>
@@ -244,8 +248,8 @@
     <string name="all_registers">All Registers</string>
     <string name="menu_labour_and_delivery"><![CDATA[L&D]]></string>
     <string name="menu_child">CH</string>
-    <string name="menu_anc">ANC</string>
-    <string name="menu_pnc">PNC</string>
+    <string name="menu_anc">ANC Clients</string>
+    <string name="menu_pnc">PNC Clients</string>
     <string name="menu_family_planing">FP</string>
     <string name="menu_malaria">Malaria</string>
     <string name="refer_to_facility">Refer to facility</string>
@@ -270,9 +274,10 @@
     <string name="due_details">When a service becomes due for a family member, it will show up here.</string>
 
     <string name="edu_level_none">None</string>
+    <string name="edu_level_literacy">Literacy</string>
     <string name="edu_level_primary">Primary</string>
     <string name="edu_level_secondary">Secondary</string>
-    <string name="edu_level_post_secondary">Post-secondary</string>
+    <string name="edu_level_post_secondary">University</string>
 
     <string name="counseled">Counseled : </string>
     <string name="not_counseled">Not counseled : </string>
@@ -364,4 +369,102 @@
     <string name="dev_warning_sign">Developmental warning signs:</string>
     <string name="care_stim_skill">Caregiver stimulation skills:</string>
     <string name="early_learning">Early learning program:</string>
+
+    <string name="health_facility_visit_num">ANC health facility visit {0}</string>
+    <string name="tt_dose">TT {0}</string>
+    <string name="iptp_sp_dose">IPTP-sp {0}</string>
+
+    <string name="rubella">Rubella</string>
+    <string name="opv_0">OPV 0</string>
+    <string name="opv_1">OPV 1</string>
+    <string name="opv_2">OPV 2</string>
+    <string name="yellow_fever">Yellow Fever</string>
+
+    <!-- ANC Reporting indicators labels: Check anc reporting data dictionary. Strings are named by number
+ as defined in the data dictionary -->
+    <string name="anc_indicator1">Total WRA (10–49 years)</string>
+    <string name="anc_indicator2">Total pregnant women</string>
+    <string name="anc_indicator3">Pregnant women up to date with their ANC home visits</string>
+    <string name="anc_indicator4">Pregnant women up to date with their ANC health facility visits</string>
+    <string name="anc_indicator5">Pregnant women tested for HIV</string>
+    <string name="anc_indicator6">Pregnant women tested for syphilis</string>
+    <string name="anc_indicator7">Pregnant women up to date on TT immunization</string>
+    <string name="anc_indicator8">Pregnant women up to date on IPTp-SP doses</string>
+
+    <string name="pnc_danger_signs_mother">Danger signs - mother</string>
+    <string name="pnc_danger_signs_baby">Danger signs - baby ({0})</string>
+    <string name="pnc_health_facility_visit">PNC health facility visit - day {0} ({1})</string>
+    <string name="pnc_child_vaccine_card_recevied">Child vaccine card received ({0})</string>
+    <string name="pnc_immunization_at_birth">Immunizations (at birth) ({0})</string>
+    <string name="pnc_umblicord_care">Umbilical cord care</string>
+    <string name="pnc_exclusive_breastfeeding">Exclusive breastfeeding ({0})</string>
+    <string name="pnc_kangaroo_mother_care">Kangaroo mother care (KNC) - ({0})</string>
+    <string name="pnc_family_planning">Family planning</string>
+    <string name="pnc_observation_and_illness_mother">Observations &amp; illness - mother </string>
+    <string name="pnc_observation_and_illness_baby">Observations &amp; illness - baby ({0}) </string>
+
+    <string name="pnc_counselling">Counselling</string>
+    <string name="pnc_nutrition_status">Nutrition status</string>
+    <string name="pnc_nutrition_status_baby_name">Nutrition status baby ({0})</string>
+    <string name="pnc_malaria_prevention">Malaria prevention</string>
+    <string name="pnc_health_facility_visit_within_fourty_eight_hours">PNC health facility visit - within 48 hours </string>
+    <string name="pnc_health_facility_visit_days_three_to_seven">PNC health facility visit - days 3 - 7</string>
+    <string name="pnc_health_facility_visit_days_eight_to_twenty_eight">PNC health facility visit - days 8 - 28</string>
+    <string name="pnc_health_facility_visit_days_twenty_nine_to_forty_two">PNC health facility visit - days 29 - 42</string>
+
+    <string name="pnc_visit_day_due">DAY %s VISIT DUE</string>
+    <string name="pnc_visit_day_overdue">DAY %s OVERDUE</string>
+    <string name="pnc_visit">PNC Visit</string>
+    <string name="anc_visit">ANC Visit</string>
+    <string name="number_8_16">Number must be 8 to 16 digits</string>
+
+    <string name="handwashing_facilities">Does the household have handwashing facilities?</string>
+    <string name="drinking_water">Does the household have access to clean drinking water?</string>
+    <string name="hygienic_latrine">Do household members use a hygienic latrine for the disposal of feces?</string>
+    <string name="wash_check">WASH check</string>
+
+    <string name="abv_first">1st</string>
+    <string name="abv_second">2nd</string>
+    <string name="abv_third">3rd</string>
+    <string name="abv_fourth">4th</string>
+    <string name="abv_fifth">5th</string>
+    <string name="abv_sixth">6th</string>
+    <string name="abv_seventh">7th</string>
+    <string name="abv_eigth">8th</string>
+    <string name="abv_nineth">9th</string>
+    <string name="abv_tenth">10th</string>
+    <string name="abv_eleventh">11th</string>
+    <string name="abv_twelfth">12th</string>
+    <string name="change_member_alert">Kindly complete the form before submitting</string>
+    <string name="must_start_with_zero">Must start with 0</string>
+    <string name="length_equal_10">Length must be equal to 10</string>
+    <string name="dismiss">Dismiss</string>
+    <string name="birth">birth</string>
+    <string name="week_full">weeks</string>
+    <string name="month_full">months</string>
+    <string name="at_birth">at birth</string>
+    <string name="child">child</string>
+    <string name="birth_cap">Birth</string>
+    <string name="done">done</string>
+    <string name="on">on</string>
+
+    <string name="babys_weight">Baby\'s weight</string>
+    <string name="babys_temperature">Baby\'s temperature</string>
+    <string name="degrees_centigrade">°C</string>
+    <string name="no_products">No products</string>
+    <string name="chlorhexidine">Chlorhexidine</string>
+    <string name="other">Other</string>
+    <string name="fp_counseling">FP counseling</string>
+    <string name="fp_method_chosen">FP method chosen</string>
+    <string name="fp_method_start_date">FP method start date</string>
+    <string name="none">None</string>
+    <string name="abstinence">Abstinence</string>
+    <string name="condom">Condom</string>
+    <string name="tablets">Tablets</string>
+    <string name="injectable">Injectable</string>
+    <string name="iud">IUD</string>
+    <string name="implant">Implant</string>
+    <string name="managed">Managed</string>
+    <string name="referred">Referred</string>
+    <string name="no_action_taken">No action taken</string>
 </resources>

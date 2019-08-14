@@ -15,13 +15,13 @@
         <shape android:shape="rectangle"> <!-- this is for dialog frame -->
             <corners android:radius="6dp" />
             <stroke
-                android:color="#ff272727"
-                android:width="2dp" />
+                android:width="2dp"
+                android:color="#ff272727" />
             <gradient
                 android:angle="80"
-                android:startColor="#ffa7a7a7"
                 android:centerColor="#ff6a6a6a"
                 android:endColor="#ffa7a7a7"
+                android:startColor="#ffa7a7a7"
                 android:type="linear" />
         </shape>
     </item>

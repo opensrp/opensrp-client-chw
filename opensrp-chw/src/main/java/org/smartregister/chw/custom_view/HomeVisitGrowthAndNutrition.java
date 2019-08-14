@@ -36,19 +36,23 @@ public class HomeVisitGrowthAndNutrition extends LinearLayout implements View.On
     private ChildHomeVisitFragment childHomeVisitFragment;
     private String feedingText;
     private boolean isEditMode;
+    private Context context;
 
     public HomeVisitGrowthAndNutrition(Context context) {
         super(context);
+        this.context = context;
         initUi();
     }
 
     public HomeVisitGrowthAndNutrition(Context context, AttributeSet attrs) {
         super(context, attrs);
+        this.context = context;
         initUi();
     }
 
     public HomeVisitGrowthAndNutrition(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        this.context = context;
         initUi();
     }
 
@@ -80,12 +84,12 @@ public class HomeVisitGrowthAndNutrition extends LinearLayout implements View.On
         initializePresenter();
     }
 
-    public void setData(ChildHomeVisitFragment childHomeVisitFragment, FragmentManager fragmentManager, CommonPersonObjectClient commonPersonObjectClient,boolean isEditMode) {
+    public void setData(ChildHomeVisitFragment childHomeVisitFragment, FragmentManager fragmentManager, CommonPersonObjectClient commonPersonObjectClient, boolean isEditMode) {
         this.childHomeVisitFragment = childHomeVisitFragment;
         this.fragmentManager = fragmentManager;
         this.commonPersonObjectClient = commonPersonObjectClient;
         this.isEditMode = isEditMode;
-        presenter.parseRecordServiceData(commonPersonObjectClient,isEditMode);
+        presenter.parseRecordServiceData(commonPersonObjectClient, isEditMode);
     }
 
     @Override
@@ -137,7 +141,7 @@ public class HomeVisitGrowthAndNutrition extends LinearLayout implements View.On
     }
 
     private void showGrowthNutritionDialog(String type, String title, String question, ServiceWrapper serviceWrapper) {
-        GrowthNutritionInputFragment growthNutritionInputFragment = GrowthNutritionInputFragment.getInstance(title, question, type,commonPersonObjectClient);
+        GrowthNutritionInputFragment growthNutritionInputFragment = GrowthNutritionInputFragment.getInstance(title, question, type, commonPersonObjectClient);
         growthNutritionInputFragment.setContext(HomeVisitGrowthAndNutrition.this);
         growthNutritionInputFragment.setServiceWrapper(serviceWrapper);
         growthNutritionInputFragment.show(fragmentManager, TAG);
@@ -155,12 +159,12 @@ public class HomeVisitGrowthAndNutrition extends LinearLayout implements View.On
             layoutExclusiveBar.setVisibility(VISIBLE);
             findViewById(R.id.view_exclusive_feeding_bar).setVisibility(VISIBLE);
             Object[] displayName = ChildUtils.getStringWithNumber(name);
-            String str = (String) displayName[0];
+            String str = context.getString(R.string.exclusive_breastfeeding);
             String no = (String) displayName[1];
             feedingText = MessageFormat.format("{0} {1} {2}", str, no, getContext().getString(R.string.visit_months));
             textViewExclusiveFeedingTitle.setText(feedingText);
-            String status=ChildUtils.getServiceDueStatus(dueDate);
-            textViewExclusiveFeedingName.setText(ChildUtils.dueOverdueCalculation(getContext(), status,dueDate));
+            String status = ChildUtils.getServiceDueStatus(dueDate);
+            textViewExclusiveFeedingName.setText(ChildUtils.dueOverdueCalculation(getContext(), status, dueDate));
         }
 
     }
@@ -173,10 +177,10 @@ public class HomeVisitGrowthAndNutrition extends LinearLayout implements View.On
             Object[] displayName = ChildUtils.getStringWithNumber(name);
             String str = (String) displayName[0];
             String no = (String) displayName[1];
-            String mnpText = MessageFormat.format("{0} {1} {2}", str, ChildUtils.getFirstSecondAsNumber(no), getContext().getString(R.string.visit_pack));
+            String mnpText = MessageFormat.format("{0} {1} {2}", str, ChildUtils.getFirstSecondAsNumber(no, getContext()), getContext().getString(R.string.visit_pack));
             textViewMnpTitle.setText(mnpText);
-            String status=ChildUtils.getServiceDueStatus(dueDate);
-            textViewMnpName.setText(ChildUtils.dueOverdueCalculation(getContext(), status,dueDate));
+            String status = ChildUtils.getServiceDueStatus(dueDate);
+            textViewMnpName.setText(ChildUtils.dueOverdueCalculation(getContext(), status, dueDate));
         }
     }
 
@@ -186,12 +190,12 @@ public class HomeVisitGrowthAndNutrition extends LinearLayout implements View.On
             layoutVitaminBar.setVisibility(VISIBLE);
             findViewById(R.id.view_vitamin_a_bar).setVisibility(VISIBLE);
             Object[] displayName = ChildUtils.getStringWithNumber(name);
-            String str = (String) displayName[0];
+            String str = context.getString(R.string.vitamin_a);
             String no = (String) displayName[1];
-            String vitaminText = MessageFormat.format("{0} {1} {2}", str, ChildUtils.getFirstSecondAsNumber(no), getContext().getString(R.string.visit_dose));
+            String vitaminText = MessageFormat.format("{0} {1} {2}", str, ChildUtils.getFirstSecondAsNumber(no, getContext()), getContext().getString(R.string.visit_dose));
             textViewVitaminTitle.setText(vitaminText);
-            String status=ChildUtils.getServiceDueStatus(dueDate);
-            textViewVitaminName.setText(ChildUtils.dueOverdueCalculation(getContext(), status,dueDate));
+            String status = ChildUtils.getServiceDueStatus(dueDate);
+            textViewVitaminName.setText(ChildUtils.dueOverdueCalculation(getContext(), status, dueDate));
         }
     }
 
@@ -201,12 +205,12 @@ public class HomeVisitGrowthAndNutrition extends LinearLayout implements View.On
             layoutDewormingBar.setVisibility(VISIBLE);
             findViewById(R.id.view_deworming_bar).setVisibility(VISIBLE);
             Object[] displayName = ChildUtils.getStringWithNumber(name);
-            String str = (String) displayName[0];
+            String str = context.getString(R.string.deworming);
             String no = (String) displayName[1];
-            String dewormingText = MessageFormat.format("{0}{1} {2}", str, ChildUtils.getFirstSecondAsNumber(no), getContext().getString(R.string.visit_dose));
+            String dewormingText = MessageFormat.format("{0} {1} {2}", str, ChildUtils.getFirstSecondAsNumber(no, getContext()), getContext().getString(R.string.visit_dose));
             textViewDewormingTitle.setText(dewormingText);
-            String status=ChildUtils.getServiceDueStatus(dueDate);
-            textViewDewormingName.setText(ChildUtils.dueOverdueCalculation(getContext(), status,dueDate));
+            String status = ChildUtils.getServiceDueStatus(dueDate);
+            textViewDewormingName.setText(ChildUtils.dueOverdueCalculation(getContext(), status, dueDate));
         }
     }
 
@@ -215,7 +219,13 @@ public class HomeVisitGrowthAndNutrition extends LinearLayout implements View.On
         if (type.equalsIgnoreCase(GrowthNutritionInputFragment.GROWTH_TYPE.EXCLUSIVE.getValue())) {
             updateStatusTick(imageViewExclusiveStatus, (value && yesNoValue.toLowerCase().equalsIgnoreCase("yes")));
             textViewExclusiveFeedingTitle.setText(feedingText);
-            textViewExclusiveFeedingName.setText(StringUtils.capitalize(yesNoValue));
+            String translated = "";
+            if (yesNoValue.equalsIgnoreCase("Yes")) {
+                translated = context.getString(R.string.yes);
+            } else if (yesNoValue.equalsIgnoreCase("No")) {
+                translated = context.getString(R.string.no);
+            }
+            textViewExclusiveFeedingName.setText(StringUtils.capitalize(translated));
         } else if (type.equalsIgnoreCase(GrowthNutritionInputFragment.GROWTH_TYPE.MNP.getValue())) {
             updateStatusTick(imageViewMnpStatus, value);
             textViewMnpName.setText(message);
@@ -245,11 +255,12 @@ public class HomeVisitGrowthAndNutrition extends LinearLayout implements View.On
         }
 
     }
+
     @Override
-    public void allDataLoaded(){
+    public void allDataLoaded() {
         if (childHomeVisitFragment != null) {
-            childHomeVisitFragment.allServicesDataLoaded=true;
-            if(isEditMode)childHomeVisitFragment.forcfullyProgressBarInvisible();
+            childHomeVisitFragment.allServicesDataLoaded = true;
+            if (isEditMode) childHomeVisitFragment.forcfullyProgressBarInvisible();
             else childHomeVisitFragment.progressBarInvisible();
         }
     }
@@ -269,16 +280,17 @@ public class HomeVisitGrowthAndNutrition extends LinearLayout implements View.On
     }
 
     public Observable undoGrowthData() {
-       return  ((HomeVisitGrowthNutritionPresenter)presenter).undoGrowthData();
+        return ((HomeVisitGrowthNutritionPresenter) presenter).undoGrowthData();
     }
 
     public boolean isAllSelected() {
-        return ((HomeVisitGrowthNutritionPresenter)presenter).isAllSelected();
+        return ((HomeVisitGrowthNutritionPresenter) presenter).isAllSelected();
     }
 
     public Map<String, ServiceWrapper> returnSaveStateMap() {
         return presenter.getSaveStateMap();
     }
+
     public Map<String, ServiceWrapper> returnNotSaveStateMap() {
         return presenter.getNotSaveStateMap();
     }

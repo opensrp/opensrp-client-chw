@@ -15,15 +15,14 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.activity.FamilyProfileActivity;
 import org.smartregister.chw.util.Constants;
 
-public class  AddMemberFragment extends DialogFragment implements View.OnClickListener {
+public class AddMemberFragment extends DialogFragment implements View.OnClickListener {
 
     public static final String DIALOG_TAG = "add_member_dialog";
 
     private Context context;
 
     public static AddMemberFragment newInstance() {
-        AddMemberFragment addMemberFragment = new AddMemberFragment();
-        return addMemberFragment;
+        return new AddMemberFragment();
     }
 
     public void setContext(Context context) {

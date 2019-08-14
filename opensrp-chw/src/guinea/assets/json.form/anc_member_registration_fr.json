@@ -50,6 +50,13 @@
     "title": "Enregistrement CPN",
     "fields": [
       {
+        "key": "relational_id",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "relational_id",
+        "type": "hidden"
+      },
+      {
         "key": "last_menstrual_period",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -60,9 +67,10 @@
         "label_info_text": "DDR = La première journée des dernières règles. Si la date exacte est inconnue mais la période du mois est connue, utiliser jour 5 pour le début du mois, jour 15 pour le milieu du mois, et jour 25 pour la fin du mois.",
         "expanded": false,
         "max_date": "today",
+        "min_date": "today-50w",
         "v_required": {
           "value": "true",
-          "err": "LMP required"
+          "err": "Cette réponse est requise."
         }
       },
       {
@@ -121,7 +129,7 @@
         "hint": "Nombre de grossesses antérieures",
         "v_required": {
           "value": "true",
-          "err": "Required"
+          "err": "Cette réponse est requise."
         },
         "v_numeric": {
           "value": "true",
@@ -129,7 +137,7 @@
         },
         "v_min": {
           "value": "0",
-          "err": "Number must be equal or greater than 0"
+          "err": "Le nombre doit être égal ou supérieur à 0"
         }
       },
       {
@@ -156,7 +164,7 @@
         "hint": "Nombre d'enfants survivants",
         "v_required": {
           "value": "true",
-          "err": "Required"
+          "err": "Cette réponse est requise."
         },
         "v_numeric": {
           "value": "true",
@@ -164,7 +172,7 @@
         },
         "v_min": {
           "value": "0",
-          "err": "Number must be equal or greater than 0"
+          "err": "Le nombre doit être égal ou supérieur à 0"
         }
       },
       {
@@ -176,15 +184,31 @@
         "hint": "Numéro de téléphone",
         "v_numeric": {
           "value": "true",
-          "err": "Number must be a total of 10 digits in length"
+          "err": "Le numéro doit être composé de 8 à 16 chiffres."
         },
         "v_regex": {
-          "value": "(0[0-9]{9})|\\s*",
-          "err": "Number must be 10 digits and must start with 0."
+          "value": "([0-9]{8,16})|\\s*",
+          "err": "Le numéro doit être composé de 8 à 16 chiffres."
         },
         "v_required": {
           "value": false,
-          "err": "Please specify the phone number"
+          "err": "Cette réponse est requise"
+        }
+      },
+      {
+        "key": "other_phone_number",
+        "openmrs_entity_parent": "159635AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "edit_text",
+        "hint": "Other phone number",
+        "v_numeric": {
+          "value": "true",
+          "err": "Le numéro doit être composé de 8 à 16 chiffres."
+        },
+        "v_regex": {
+          "value": "([0-9]{8,16})|\\s*",
+          "err": ""
         }
       },
       {
@@ -202,12 +226,20 @@
         "values": [
           "Mariée",
           "Cohabite",
-          "Célibataire"
+          "Célibataire",
+          "Veuve"
+        ],
+        "keys": [
+          "Married",
+          "Co-habiting",
+          "Single",
+          "Widowed"
         ],
         "openmrs_choice_ids": {
           "Married": "5555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "Co-habiting": "1060AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Single": "5615AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          "Single": "5615AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Widowed": "1059AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         }
       }
     ]

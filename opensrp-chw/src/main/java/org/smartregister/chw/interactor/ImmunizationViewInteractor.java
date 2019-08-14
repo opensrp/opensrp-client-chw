@@ -1,5 +1,6 @@
 package org.smartregister.chw.interactor;
 
+import android.content.Context;
 import android.text.TextUtils;
 
 import com.google.gson.reflect.TypeToken;
@@ -51,8 +52,8 @@ public class ImmunizationViewInteractor implements ImmunizationContact.Interacto
     private AlertService alertService;
     private VaccineRepository vaccineRepository;
 
-    public ImmunizationViewInteractor() {
-        model = new ImmunizationModel();
+    public ImmunizationViewInteractor(Context context) {
+        model = new ImmunizationModel(context);
         alertService = ChwApplication.getInstance().getContext().alertService();
         vaccineRepository = ChwApplication.getInstance().vaccineRepository();
     }
@@ -76,17 +77,6 @@ public class ImmunizationViewInteractor implements ImmunizationContact.Interacto
                     @Override
                     public void onNext(VaccineTaskModel vaccineTaskModel) {
                         ArrayList<HomeVisitVaccineGroup> homeVisitVaccineGroupsList = model.determineAllHomeVisitVaccineGroup(commonPersonObjectClient, vaccineTaskModel.getAlerts(), vaccineTaskModel.getVaccines(), vaccineTaskModel.getNotGivenVaccine(), vaccineTaskModel.getScheduleList());
-                        //if all due vaccine is same as given vaccine so remove the row
-//                        for (Iterator<HomeVisitVaccineGroup> iterator = homeVisitVaccineGroupsList.iterator(); iterator.hasNext(); ) {
-//                            HomeVisitVaccineGroup homeVisitVaccineGroup = iterator.next();
-//                            if (homeVisitVaccineGroup.getDueVaccines().size() != 0 && (
-//                                    homeVisitVaccineGroup.getDueVaccines().size() == homeVisitVaccineGroup.getGivenVaccines().size())) {
-//                                iterator.remove();
-//                            }
-//
-//                        }
-
-
                         callBack.updateData(homeVisitVaccineGroupsList, vaccineTaskModel.getReceivedVaccines());
                     }
 
@@ -216,7 +206,7 @@ public class ImmunizationViewInteractor implements ImmunizationContact.Interacto
 
                     }
                     try {
-                        ChwServiceSchedule.updateOfflineAlerts(childClient.getCaseId(), dateTime);
+                        ChwServiceSchedule.updateOfflineAlerts(childClient.getCaseId(), dateTime, "child");
                     } catch (Exception e) {
 
                     }

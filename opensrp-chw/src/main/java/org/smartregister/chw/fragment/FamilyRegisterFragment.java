@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -33,14 +32,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
-public class FamilyRegisterFragment extends BaseFamilyRegisterFragment {
-    private static final String TAG = FamilyRegisterFragment.class.getCanonicalName();
+import timber.log.Timber;
 
+public class FamilyRegisterFragment extends BaseFamilyRegisterFragment {
+
+    private static final String DUE_FILTER_TAG = "PRESSED";
     private View view;
     private View dueOnlyLayout;
-
     private boolean dueFilterActive = false;
-    private static final String DUE_FILTER_TAG = "PRESSED";
 
     @Override
     public void setupViews(View view) {
@@ -240,7 +239,7 @@ public class FamilyRegisterFragment extends BaseFamilyRegisterFragment {
 
             }
         } catch (Exception e) {
-            Log.e(getClass().getName(), e.toString(), e);
+            Timber.e(e);
         }
 
         return query;
@@ -265,7 +264,7 @@ public class FamilyRegisterFragment extends BaseFamilyRegisterFragment {
 
             }
         } catch (Exception e) {
-            Log.e(getClass().getName(), e.toString(), e);
+            Timber.e(e);
         }
 
         return query;
@@ -286,10 +285,10 @@ public class FamilyRegisterFragment extends BaseFamilyRegisterFragment {
                     sql = sql.replace(CommonFtsObject.idColumn, CommonFtsObject.relationalIdColumn);
                     sql = sql.replace(CommonFtsObject.searchTableName(Constants.TABLE_NAME.FAMILY), CommonFtsObject.searchTableName(Constants.TABLE_NAME.CHILD));
                     sql = sql + " GROUP BY " + CommonFtsObject.relationalIdColumn;
-                    Log.i(getClass().getName(), query);
+                    Timber.i(query);
 
                     clientAdapter.setTotalcount(commonRepository().countSearchIds(sql));
-                    Log.v("total count here", "" + clientAdapter.getTotalcount());
+                    Timber.v("total count here %s", clientAdapter.getTotalcount());
 
 
                 } else {
@@ -297,11 +296,11 @@ public class FamilyRegisterFragment extends BaseFamilyRegisterFragment {
                     query = sqb.orderbyCondition(Sortqueries);
                     query = sqb.Endquery(query);
 
-                    Log.i(getClass().getName(), query);
+                    Timber.i(query);
                     c = commonRepository().rawCustomQueryForAdapter(query);
                     c.moveToFirst();
                     clientAdapter.setTotalcount(c.getInt(0));
-                    Log.v("total count here", "" + clientAdapter.getTotalcount());
+                    Timber.v("total count here %s", clientAdapter.getTotalcount());
                 }
 
                 clientAdapter.setCurrentlimit(20);
@@ -309,7 +308,7 @@ public class FamilyRegisterFragment extends BaseFamilyRegisterFragment {
 
 
             } catch (Exception e) {
-                Log.e(getClass().getName(), e.toString(), e);
+                Timber.e(e);
             } finally {
                 if (c != null) {
                     c.close();
@@ -357,7 +356,7 @@ public class FamilyRegisterFragment extends BaseFamilyRegisterFragment {
     @Override
     public void setAdvancedSearchFormData(HashMap<String, String> hashMap) {
         //TODO
-        Log.d(TAG, "setAdvancedSearchFormData unimplemented");
+        Timber.d("setAdvancedSearchFormData unimplemented");
     }
 
     @Override

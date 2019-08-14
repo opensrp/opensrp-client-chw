@@ -29,10 +29,6 @@ public class FamilyMemberFloatingMenu extends LinearLayout implements View.OnCli
         initUi();
     }
 
-    public View getCallLayout() {
-        return callLayout;
-    }
-
     public FamilyMemberFloatingMenu(Context context, AttributeSet attrs) {
         super(context, attrs);
         initUi();
@@ -41,6 +37,10 @@ public class FamilyMemberFloatingMenu extends LinearLayout implements View.OnCli
     public FamilyMemberFloatingMenu(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         initUi();
+    }
+
+    public View getCallLayout() {
+        return callLayout;
     }
 
     public void reDraw(boolean has_phone) {
@@ -95,7 +95,7 @@ public class FamilyMemberFloatingMenu extends LinearLayout implements View.OnCli
             isFabMenuOpen = false;
 
         } else {
-            activityMain.setBackgroundResource(R.color.black_tranparent_50);
+            activityMain.setBackgroundResource(R.color.grey_tranparent_50);
 
             fab.startAnimation(rotateForward);
             fab.setImageResource(R.drawable.ic_input_add);

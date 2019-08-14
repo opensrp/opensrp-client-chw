@@ -56,13 +56,13 @@ import static org.smartregister.chw.util.ChildUtils.fixVaccineCasing;
 
 @SuppressLint("ValidFragment")
 public class VaccinationDialogFragment extends DialogFragment implements View.OnClickListener {
-    private List<VaccineWrapper> tags, notGivenList, givenList;
-    private Date dateOfBirth;
     public static final String DIALOG_TAG = "VaccinationDialogFragment";
     public static final String WRAPPER_TAG = "tag";
     public static final String NOT_GIVEN = "not_given";
     public static final String GIVEN = "given";
     public static final String GROUP_NAME = "group_name";
+    private List<VaccineWrapper> tags, notGivenList, givenList;
+    private Date dateOfBirth;
     private ImmunizationView immunizationView;
     private int selectCount = 0;
     private Button saveBtn;
@@ -449,10 +449,12 @@ public class VaccinationDialogFragment extends DialogFragment implements View.On
         List<String> selectedCheckboxes = findSelectedCheckBoxes(vaccinationNameLayout);
         singleVaccineAddView.removeAllViews();
         singleVaccineMap.clear();
+
+        singleVaccineAddView.setVisibility(View.VISIBLE);
+        String dobString = org.smartregister.util.Utils.getValue(childDetails, DBConstants.KEY.DOB, false);
+
         for (String checkedName : selectedCheckboxes) {
-            singleVaccineAddView.setVisibility(View.VISIBLE);
             VaccineWrapper tag = searchWrapperByName(checkedName);
-            String dobString = org.smartregister.util.Utils.getValue(childDetails, DBConstants.KEY.DOB, false);
 
             if (tag != null && !TextUtils.isEmpty(dobString)) {
                 View layout = inflater.inflate(R.layout.custom_single_vaccine_view, null);

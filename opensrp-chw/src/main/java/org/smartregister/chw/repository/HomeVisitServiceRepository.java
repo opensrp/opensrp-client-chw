@@ -3,7 +3,6 @@ package org.smartregister.chw.repository;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.text.TextUtils;
-import android.util.Log;
 
 import net.sqlcipher.database.SQLiteDatabase;
 
@@ -11,23 +10,21 @@ import org.smartregister.chw.util.HomeVisitServiceDataModel;
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.repository.Repository;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import timber.log.Timber;
+
 public class HomeVisitServiceRepository extends BaseRepository {
-    private static final String TAG = HomeVisitServiceRepository.class.getCanonicalName();
-    private static final String HOME_VISIT_SERVICE_SQL = "CREATE TABLE home_visit_service (home_visit_id VARCHAR NOT NULL,event_type VARCHAR,details TEXT,date DATETIME NOT NULL)";
     public static final String HOME_VISIT_SERVICE_TABLE_NAME = "home_visit_service";
     public static final String HOME_VISIT_ID = "home_visit_id";
     public static final String EVENT_TYPE = "event_type";
     public static final String DATE = "date";
     public static final String DETAILS = "details";
-
     public static final String[] TABLE_COLUMNS = {HOME_VISIT_ID, EVENT_TYPE, DATE, DETAILS};
-    public static DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    private static final String TAG = HomeVisitServiceRepository.class.getCanonicalName();
+    private static final String HOME_VISIT_SERVICE_SQL = "CREATE TABLE home_visit_service (home_visit_id VARCHAR NOT NULL,event_type VARCHAR,details TEXT,date DATETIME NOT NULL)";
 
     public HomeVisitServiceRepository(Repository repository) {
         super(repository);
@@ -49,11 +46,12 @@ public class HomeVisitServiceRepository extends BaseRepository {
                     update(database, homeVisitServiceDataModel);
                 } else {
                     database.insert(HOME_VISIT_SERVICE_TABLE_NAME, null, createValuesFor(homeVisitServiceDataModel));
+
                 }
             }
 
         } catch (Exception e) {
-            Log.e(TAG, Log.getStackTraceString(e));
+            Timber.e(e);
         }
 
     }
@@ -90,6 +88,18 @@ public class HomeVisitServiceRepository extends BaseRepository {
         return homeVisitList;
     }
 
+    public List<HomeVisitServiceDataModel> getLatestThreeEntry(String eventType) {
+        SQLiteDatabase database = getReadableDatabase();
+        String rawQuery = "select *,(substr(date, 31 , 4) || (case substr(date, 5,3) when 'Jan' then '01' when 'Feb' then '02'" +
+                " when 'Mar' then '03' when 'Apr' then '04' when 'May' then '05'" +
+                " when 'Jun' then '06' when 'Jul' then '07' when 'Aug' then '08'" +
+                " when 'Sep' then '09' when 'Oct' then '10' when 'Nov' then '11' when 'Dec' then '12' end) || " +
+                " substr(date, 9 , 2)) as d from "+ HOME_VISIT_SERVICE_TABLE_NAME +" where "+EVENT_TYPE+" = '"+eventType+"' group by d " +
+                " order by d desc limit 3";
+        net.sqlcipher.Cursor cursor = database.rawQuery(rawQuery,null);
+        return getAllHomeVisitService(cursor);
+    }
+
     public List<HomeVisitServiceDataModel> getAllHomeVisitService(Cursor cursor) {
         List<HomeVisitServiceDataModel> homeVisitServiceDataModels = new ArrayList<>();
         try {
@@ -101,7 +111,7 @@ public class HomeVisitServiceRepository extends BaseRepository {
                     homeVisitServiceDataModel.setHomeVisitDetails(cursor.getString(cursor.getColumnIndex(DETAILS)));
                     homeVisitServiceDataModel.setHomeVisitId(cursor.getString(cursor.getColumnIndex(HOME_VISIT_ID)));
                     //duplicate handle
-                    if (!isExist(homeVisitServiceDataModels, homeVisitServiceDataModel.getEventType())) {
+                    if (homeVisitServiceDataModel.getHomeVisitId() != null && !isExist(homeVisitServiceDataModels, homeVisitServiceDataModel.getEventType(), homeVisitServiceDataModel.getHomeVisitId())) {
                         homeVisitServiceDataModels.add(homeVisitServiceDataModel);
                     }
                     cursor.moveToNext();
@@ -116,9 +126,10 @@ public class HomeVisitServiceRepository extends BaseRepository {
 
     }
 
-    private boolean isExist(List<HomeVisitServiceDataModel> homeVisitServiceDataModels, String type) {
+    private boolean isExist(List<HomeVisitServiceDataModel> homeVisitServiceDataModels, String type, String homeVisitId) {
         for (HomeVisitServiceDataModel homeVisitServiceDataModel : homeVisitServiceDataModels) {
-            if (homeVisitServiceDataModel.getEventType().equalsIgnoreCase(type)) {
+            if (homeVisitServiceDataModel.getEventType().equalsIgnoreCase(type)
+                    && homeVisitServiceDataModel.getHomeVisitId().equalsIgnoreCase(homeVisitId)) {
                 return true;
             }
         }
@@ -131,10 +142,10 @@ public class HomeVisitServiceRepository extends BaseRepository {
         }
 
         try {
-            String idSelection = HOME_VISIT_ID + " = ?";
-            database.update(HOME_VISIT_SERVICE_TABLE_NAME, createValuesFor(homeVisitServiceDataModel), idSelection, new String[]{homeVisitServiceDataModel.getHomeVisitId()});
+            String idSelection = HOME_VISIT_ID + " = ? and " + EVENT_TYPE + " = ?";
+            database.update(HOME_VISIT_SERVICE_TABLE_NAME, createValuesFor(homeVisitServiceDataModel), idSelection, new String[]{homeVisitServiceDataModel.getHomeVisitId(), homeVisitServiceDataModel.getEventType()});
         } catch (Exception e) {
-            Log.e(TAG, Log.getStackTraceString(e));
+            Timber.e(e);
         }
     }
 
@@ -144,7 +155,7 @@ public class HomeVisitServiceRepository extends BaseRepository {
         values.put(DETAILS, homeVisitServiceDataModel.getHomeVisitDetails());
         values.put(EVENT_TYPE, homeVisitServiceDataModel.getEventType());
         values.put(DATE, homeVisitServiceDataModel.getHomeVisitDate() + "");
-        Log.e("CONTENT_VALUES", "createValuesForService>>" + values);
+
         return values;
     }
 

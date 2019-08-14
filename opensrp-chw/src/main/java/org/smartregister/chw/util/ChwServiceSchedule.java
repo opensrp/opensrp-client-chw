@@ -1,7 +1,5 @@
 package org.smartregister.chw.util;
 
-import android.util.Log;
-
 import org.joda.time.DateTime;
 import org.smartregister.clientandeventmodel.DateUtil;
 import org.smartregister.domain.Alert;
@@ -27,9 +25,9 @@ import timber.log.Timber;
 
 public class ChwServiceSchedule {
 
-    public static void updateOfflineAlerts(String baseEntityId, DateTime dob) {
+    public static void updateOfflineAlerts(String baseEntityId, DateTime dob, String group) {
         RecurringServiceTypeRepository recurringServiceTypeRepository = ImmunizationLibrary.getInstance().recurringServiceTypeRepository();
-        List<String> types = recurringServiceTypeRepository.fetchTypes();
+        List<String> types = recurringServiceTypeRepository.fetchTypes(group);
         for (String type : types) {
             updateOfflineAlerts(type, baseEntityId, dob);
         }
@@ -90,7 +88,7 @@ public class ChwServiceSchedule {
             }
 
         } catch (Exception e) {
-            Log.e(ChwServiceSchedule.class.getName(), e.toString(), e);
+            Timber.e(e);
         }
 
     }
@@ -112,7 +110,7 @@ public class ChwServiceSchedule {
             }
             return null;
         } catch (Exception e) {
-            Log.e(ChwServiceSchedule.class.getName(), e.toString(), e);
+            Timber.e(e);
             return null;
         }
     }

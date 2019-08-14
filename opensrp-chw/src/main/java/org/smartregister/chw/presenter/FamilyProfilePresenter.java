@@ -1,7 +1,6 @@
 package org.smartregister.chw.presenter;
 
 import android.content.Context;
-import android.util.Log;
 import android.util.Pair;
 
 import org.apache.commons.lang3.StringUtils;
@@ -30,7 +29,9 @@ import org.smartregister.view.LocationPickerView;
 
 import java.lang.ref.WeakReference;
 
-public class FamilyProfilePresenter extends BaseFamilyProfilePresenter implements FamilyProfileExtendedContract.Presenter, ChildRegisterContract.InteractorCallBack , FamilyProfileExtendedContract.PresenterCallBack {
+import timber.log.Timber;
+
+public class FamilyProfilePresenter extends BaseFamilyProfilePresenter implements FamilyProfileExtendedContract.Presenter, ChildRegisterContract.InteractorCallBack, FamilyProfileExtendedContract.PresenterCallBack {
     private static final String TAG = FamilyProfilePresenter.class.getCanonicalName();
 
     private WeakReference<FamilyProfileExtendedContract.View> viewReference;
@@ -53,7 +54,7 @@ public class FamilyProfilePresenter extends BaseFamilyProfilePresenter implement
         try {
             getView().startFormActivity(form);
         } catch (Exception e) {
-            Log.e(TAG, e.getMessage());
+            Timber.e(e);
         }
     }
 
@@ -77,7 +78,7 @@ public class FamilyProfilePresenter extends BaseFamilyProfilePresenter implement
         try {
             startChildForm(triple.getLeft(), entityId, triple.getMiddle(), triple.getRight());
         } catch (Exception e) {
-            Log.e(TAG, Log.getStackTraceString(e));
+            Timber.e(e);
             getView().displayToast(R.string.error_unable_to_start_form);
         }
     }
@@ -101,7 +102,7 @@ public class FamilyProfilePresenter extends BaseFamilyProfilePresenter implement
             saveChildRegistration(pair, jsonString, isEditMode, this);
 
         } catch (Exception e) {
-            Log.e(TAG, Log.getStackTraceString(e));
+            Timber.e(e);
         }
     }
 
@@ -139,7 +140,7 @@ public class FamilyProfilePresenter extends BaseFamilyProfilePresenter implement
             interactor.saveRegistration(familyEventClient, jsonString, false, this);
             return familyEventClient.getClient().getBaseEntityId();
         } catch (Exception e) {
-            Log.e(TAG, Log.getStackTraceString(e));
+            Timber.e(e);
         }
         return null;
     }
@@ -159,7 +160,7 @@ public class FamilyProfilePresenter extends BaseFamilyProfilePresenter implement
                 res = true;
             }
         } catch (Exception e) {
-            Log.e(TAG, e.getMessage());
+            Timber.e(e);
         }
         return res;
     }

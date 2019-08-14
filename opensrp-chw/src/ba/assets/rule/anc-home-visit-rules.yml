@@ -41,4 +41,3 @@ condition: "ancVisitAlertRule.isDueWithinMonth()"
 actions:
   - "ancVisitAlertRule.buttonStatus = 'DUE'"
 
-
