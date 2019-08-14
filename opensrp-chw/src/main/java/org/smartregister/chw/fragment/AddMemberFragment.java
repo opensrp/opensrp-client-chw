@@ -66,13 +66,7 @@ public class AddMemberFragment extends DialogFragment implements View.OnClickLis
         super.onStart();
         // without a handler, the window sizes itself correctly
         // but the keyboard does not show up
-        new Handler().post(new Runnable() {
-            @Override
-            public void run() {
-                getDialog().getWindow().setLayout(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
-
-            }
-        });
+        new Handler().post(() -> getDialog().getWindow().setLayout(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
 
     }
 

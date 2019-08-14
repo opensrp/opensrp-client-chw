@@ -295,11 +295,9 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
             }
         } else {
             Handler handler = new Handler(Looper.getMainLooper());
-            handler.post(new Runnable() {
-                public void run() {
-                    for (int i = 0; i < adapter.getCount(); i++) {
-                        refreshList(adapter.getItem(i));
-                    }
+            handler.post(() -> {
+                for (int i = 0; i < adapter.getCount(); i++) {
+                    refreshList(adapter.getItem(i));
                 }
             });
         }

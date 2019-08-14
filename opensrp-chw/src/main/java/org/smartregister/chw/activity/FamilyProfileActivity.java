@@ -294,11 +294,9 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity implements 
             }
         } else {
             Handler handler = new Handler(Looper.getMainLooper());
-            handler.post(new Runnable() {
-                public void run() {
-                    for (int i = 0; i < adapter.getCount(); i++) {
-                        refreshList(adapter.getItem(i));
-                    }
+            handler.post(() -> {
+                for (int i = 0; i < adapter.getCount(); i++) {
+                    refreshList(adapter.getItem(i));
                 }
             });
         }
@@ -307,11 +305,7 @@ public class FamilyProfileActivity extends BaseFamilyProfileActivity implements 
     public void updateDueCount(final int dueCount) {
 
         Handler handler = new Handler(Looper.getMainLooper());
-        handler.post(new Runnable() {
-            public void run() {
-                adapter.updateCount(Pair.create(1, dueCount));
-            }
-        });
+        handler.post(() -> adapter.updateCount(Pair.create(1, dueCount)));
     }
 
     private void refreshList(Fragment fragment) {

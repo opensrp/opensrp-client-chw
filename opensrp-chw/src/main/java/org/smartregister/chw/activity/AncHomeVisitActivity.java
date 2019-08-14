@@ -38,12 +38,13 @@ public class AncHomeVisitActivity extends BaseAncHomeVisitActivity {
     @Override
     public void startFormActivity(JSONObject jsonForm) {
 
-        Intent intent = new Intent(this, Utils.metadata().familyMemberFormActivity);
-        intent.putExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON, jsonForm.toString());
-        intent.putExtra(Constants.WizardFormActivity.EnableOnCloseDialog, false);
         Form form = new Form();
         form.setActionBarBackground(R.color.family_actionbar);
         form.setWizard(false);
+
+        Intent intent = new Intent(this, Utils.metadata().familyMemberFormActivity);
+        intent.putExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON, jsonForm.toString());
+        intent.putExtra(Constants.WizardFormActivity.EnableOnCloseDialog, false);
         intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);
         startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
     }

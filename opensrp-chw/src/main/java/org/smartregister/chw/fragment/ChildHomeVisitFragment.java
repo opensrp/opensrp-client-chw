@@ -308,13 +308,7 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
         super.onStart();
         // without a handler, the window sizes itself correctly
         // but the keyboard does not show up
-        new Handler().post(new Runnable() {
-            @Override
-            public void run() {
-                getDialog().getWindow().setLayout(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
-
-            }
-        });
+        new Handler().post(() -> getDialog().getWindow().setLayout(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
 
     }
 
@@ -370,68 +364,65 @@ public class ChildHomeVisitFragment extends DialogFragment implements View.OnCli
 
     private void submitData(final String homeVisitDateLong, final String homeVisitId, final String vaccineCardData) {
         progressBar.setVisibility(View.VISIBLE);
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    JSONObject singleVaccineObject = new JSONObject().put("singleVaccinesGiven", new JSONArray());
-                    JSONObject vaccineGroupObject = new JSONObject().put("groupVaccinesGiven", new JSONArray());
-                    //end of not used
-                    JSONObject vaccineNotGivenObject;
-                    if (isEditMode) {
-                        vaccineNotGivenObject = new JSONObject().put("vaccineNotGiven", new JSONArray(ChildUtils.gsonConverter.toJson(immunizationView.getNotGivenVaccine())));
-                    } else {
-                        vaccineNotGivenObject = new JSONObject().put("vaccineNotGiven", new JSONArray(ChildUtils.gsonConverter.toJson(immunizationView.getNotGivenVaccine())));
+        Runnable runnable = () -> {
+            try {
+                JSONObject singleVaccineObject = new JSONObject().put("singleVaccinesGiven", new JSONArray());
+                JSONObject vaccineGroupObject = new JSONObject().put("groupVaccinesGiven", new JSONArray());
+                //end of not used
+                JSONObject vaccineNotGivenObject;
+                if (isEditMode) {
+                    vaccineNotGivenObject = new JSONObject().put("vaccineNotGiven", new JSONArray(ChildUtils.gsonConverter.toJson(immunizationView.getNotGivenVaccine())));
+                } else {
+                    vaccineNotGivenObject = new JSONObject().put("vaccineNotGiven", new JSONArray(ChildUtils.gsonConverter.toJson(immunizationView.getNotGivenVaccine())));
 
-                    }
-                    JSONObject service = new JSONObject(ChildUtils.gsonConverter.toJson(homeVisitGrowthAndNutritionLayout.returnSaveStateMap()));
-                    JSONObject serviceNotGiven = new JSONObject(ChildUtils.gsonConverter.toJson(homeVisitGrowthAndNutritionLayout.returnNotSaveStateMap()));
-
-                    if (illnessJson == null) {
-                        illnessJson = new JSONObject();
-                    }
-                    if (birthCertJson == null) {
-                        birthCertJson = new JSONObject();
-                    }
-
-                    Map<String, JSONObject> fields = new HashMap<>();
-                    fields.put(Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_SINGLE_VACCINE, singleVaccineObject);
-                    fields.put(Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_GROUP_VACCINE, vaccineGroupObject);
-                    fields.put(Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_VACCINE_NOT_GIVEN, vaccineNotGivenObject);
-                    fields.put(Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_SERVICE, service);
-                    fields.put(Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_SERVICE_NOT_GIVEN, serviceNotGiven);
-                    fields.put(Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_BIRTH_CERT, birthCertJson);
-                    fields.put(Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_ILLNESS, illnessJson);
-                    ChildUtils.updateHomeVisitAsEvent(childClient.entityId(), Constants.EventType.CHILD_HOME_VISIT, Constants.TABLE_NAME.CHILD, fields, ChildDBConstants.KEY.LAST_HOME_VISIT, homeVisitDateLong, homeVisitId);
-                    if (((ChildHomeVisitPresenter) presenter).getSaveSize() > 0) {
-                        presenter.saveForm();
-                    }
-                    if (serviceTaskAdapter != null) {
-                        serviceTaskAdapter.makeEvent(homeVisitId, childClient.getCaseId());
-                    }
-                    if (!TextUtils.isEmpty(vaccineCardData)) {
-                        ChildUtils.updateVaccineCardAsEvent(context, childClient.getCaseId(), vaccineCardData);
-
-                    }
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                } catch (Exception e) {
-                    e.printStackTrace();
                 }
-                appExecutors.mainThread().execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (isEditMode) {
-                            saveData();
-                            return;
-                        }
-                        progressBar.setVisibility(View.GONE);
-                        closeScreen();
+                JSONObject service = new JSONObject(ChildUtils.gsonConverter.toJson(homeVisitGrowthAndNutritionLayout.returnSaveStateMap()));
+                JSONObject serviceNotGiven = new JSONObject(ChildUtils.gsonConverter.toJson(homeVisitGrowthAndNutritionLayout.returnNotSaveStateMap()));
 
-                    }
-                });
+                if (illnessJson == null) {
+                    illnessJson = new JSONObject();
+                }
+                if (birthCertJson == null) {
+                    birthCertJson = new JSONObject();
+                }
+
+                Map<String, JSONObject> fields = new HashMap<>();
+                fields.put(Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_SINGLE_VACCINE, singleVaccineObject);
+                fields.put(Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_GROUP_VACCINE, vaccineGroupObject);
+                fields.put(Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_VACCINE_NOT_GIVEN, vaccineNotGivenObject);
+                fields.put(Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_SERVICE, service);
+                fields.put(Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_SERVICE_NOT_GIVEN, serviceNotGiven);
+                fields.put(Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_BIRTH_CERT, birthCertJson);
+                fields.put(Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_ILLNESS, illnessJson);
+                ChildUtils.updateHomeVisitAsEvent(childClient.entityId(), Constants.EventType.CHILD_HOME_VISIT, Constants.TABLE_NAME.CHILD, fields, ChildDBConstants.KEY.LAST_HOME_VISIT, homeVisitDateLong, homeVisitId);
+                if (((ChildHomeVisitPresenter) presenter).getSaveSize() > 0) {
+                    presenter.saveForm();
+                }
+                if (serviceTaskAdapter != null) {
+                    serviceTaskAdapter.makeEvent(homeVisitId, childClient.getCaseId());
+                }
+                if (!TextUtils.isEmpty(vaccineCardData)) {
+                    ChildUtils.updateVaccineCardAsEvent(context, childClient.getCaseId(), vaccineCardData);
+
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
+            appExecutors.mainThread().execute(new Runnable() {
+                @Override
+                public void run() {
+                    if (isEditMode) {
+                        saveData();
+                        return;
+                    }
+                    progressBar.setVisibility(View.GONE);
+                    closeScreen();
+
+                }
+            });
         };
         appExecutors.diskIO().execute(runnable);
     }

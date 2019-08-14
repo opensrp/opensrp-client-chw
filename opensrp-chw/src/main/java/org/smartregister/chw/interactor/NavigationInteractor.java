@@ -118,25 +118,12 @@ public class NavigationInteractor implements NavigationContract.Interactor {
     @Override
     public void getRegisterCount(final String tableName, final NavigationContract.InteractorCallback<Integer> callback) {
         if (callback != null) {
-            appExecutors.diskIO().execute(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        final Integer finalCount = getCount(tableName);
-                        appExecutors.mainThread().execute(new Runnable() {
-                            @Override
-                            public void run() {
-                                callback.onResult(finalCount);
-                            }
-                        });
-                    } catch (final Exception e) {
-                        appExecutors.mainThread().execute(new Runnable() {
-                            @Override
-                            public void run() {
-                                callback.onError(e);
-                            }
-                        });
-                    }
+            appExecutors.diskIO().execute(() -> {
+                try {
+                    final Integer finalCount = getCount(tableName);
+                    appExecutors.mainThread().execute(() -> callback.onResult(finalCount));
+                } catch (final Exception e) {
+                    appExecutors.mainThread().execute(() -> callback.onError(e));
                 }
             });
 

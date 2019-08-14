@@ -222,27 +222,24 @@ public class FamilyProfileChangeDialog extends DialogFragment implements View.On
         super.onStart();
         // without a handler, the window sizes itself correctly
         // but the keyboard does not show up
-        new Handler().post(new Runnable() {
-            @Override
-            public void run() {
-                Window window = null;
-                if (getDialog() != null) {
-                    window = getDialog().getWindow();
-                }
-
-                if (window == null) {
-                    return;
-                }
-
-                Point size = new Point();
-                Display display = window.getWindowManager().getDefaultDisplay();
-                display.getSize(size);
-
-                int height = size.y;
-
-                window.setLayout(FrameLayout.LayoutParams.MATCH_PARENT, (int) (height * 0.9));
-                window.setGravity(Gravity.CENTER);
+        new Handler().post(() -> {
+            Window window = null;
+            if (getDialog() != null) {
+                window = getDialog().getWindow();
             }
+
+            if (window == null) {
+                return;
+            }
+
+            Point size = new Point();
+            Display display = window.getWindowManager().getDefaultDisplay();
+            display.getSize(size);
+
+            int height = size.y;
+
+            window.setLayout(FrameLayout.LayoutParams.MATCH_PARENT, (int) (height * 0.9));
+            window.setGravity(Gravity.CENTER);
         });
     }
 

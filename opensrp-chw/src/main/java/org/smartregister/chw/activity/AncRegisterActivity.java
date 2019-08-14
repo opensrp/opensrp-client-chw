@@ -10,17 +10,15 @@ import com.vijay.jsonwizard.domain.Form;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.activity.BaseAncRegisterActivity;
 import org.smartregister.chw.anc.util.DBConstants;
-import org.smartregister.chw.contract.ChwBottomNavigator;
 import org.smartregister.chw.custom_view.NavigationMenu;
 import org.smartregister.chw.fragment.AncRegisterFragment;
-import org.smartregister.chw.listener.AncBottomNavigationListener;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
+import org.smartregister.helper.BottomNavigationHelper;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
 import java.util.Arrays;
@@ -29,12 +27,11 @@ import java.util.List;
 import static org.smartregister.chw.anc.util.Constants.ACTIVITY_PAYLOAD.TABLE_NAME;
 import static org.smartregister.chw.anc.util.JsonFormUtils.updateFormField;
 import static org.smartregister.chw.util.Constants.CONFIGURATION;
-import static org.smartregister.chw.util.Constants.DrawerMenu;
 import static org.smartregister.chw.util.Constants.JsonAssets;
 import static org.smartregister.chw.util.Constants.TABLE_NAME.ANC_MEMBER;
 import static org.smartregister.chw.util.Constants.TABLE_NAME.ANC_PREGNANCY_OUTCOME;
 
-public class AncRegisterActivity extends BaseAncRegisterActivity implements ChwBottomNavigator {
+public class AncRegisterActivity extends BaseAncRegisterActivity {
     private static String phone_number;
     private static String form_name;
     private static String unique_id;
@@ -94,16 +91,9 @@ public class AncRegisterActivity extends BaseAncRegisterActivity implements ChwB
     @Override
     protected void registerBottomNavigation() {
         super.registerBottomNavigation();
-        if (!BuildConfig.SUPPORT_QR) {
-            bottomNavigationView.getMenu().removeItem(R.id.action_scan_qr);
-        }
-
-        AncBottomNavigationListener listener = new AncBottomNavigationListener(this, bottomNavigationView);
-        bottomNavigationView.setOnNavigationItemSelectedListener(listener);
-    }
-
-    public void startFamilyRegistration() {
-        FamilyRegisterActivity.startFamilyRegisterForm(this);
+        bottomNavigationHelper = new BottomNavigationHelper();
+        bottomNavigationView = findViewById(org.smartregister.R.id.bottom_navigation);
+        FamilyRegisterActivity.registerBottomNavigation(bottomNavigationHelper, bottomNavigationView, this);
     }
 
     private void startRegisterActivity(Class registerClass) {
@@ -127,8 +117,6 @@ public class AncRegisterActivity extends BaseAncRegisterActivity implements ChwB
     @Override
     protected void onResumption() {
         super.onResumption();
-        NavigationMenu.getInstance(this, null, null).getNavigationAdapter()
-                .setSelectedView(DrawerMenu.ANC);
         NavigationMenu menu = NavigationMenu.getInstance(this, null, null);
         if (menu != null) {
             menu.getNavigationAdapter()
