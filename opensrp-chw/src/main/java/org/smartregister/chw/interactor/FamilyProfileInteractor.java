@@ -25,19 +25,9 @@ public class FamilyProfileInteractor extends org.smartregister.family.interactor
     }
 
     public void verifyHasPhone(final String familyID, final FamilyProfileExtendedContract.PresenterCallBack profilePresenter) {
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-
-                final boolean hasPhone = hasPhone(familyID);
-
-                appExecutors.mainThread().execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        profilePresenter.notifyHasPhone(hasPhone);
-                    }
-                });
-            }
+        Runnable runnable = () -> {
+            final boolean hasPhone = hasPhone(familyID);
+            appExecutors.mainThread().execute(() -> profilePresenter.notifyHasPhone(hasPhone));
         };
 
         appExecutors.diskIO().execute(runnable);

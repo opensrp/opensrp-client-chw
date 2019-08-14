@@ -59,25 +59,17 @@ public class FamilyRemoveMemberInteractor implements FamilyRemoveMemberContract.
     @Override
     public void removeMember(final String familyID, final String lastLocationId, final JSONObject exitForm, final FamilyRemoveMemberContract.Presenter presenter) {
 
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                String value = null;
-                try {
-                    // process the json object
-                    value = removeUser(familyID, exitForm, lastLocationId);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-                final String finalValue = value;
-                appExecutors.mainThread().execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        presenter.memberRemoved(finalValue);
-                    }
-                });
+        Runnable runnable = () -> {
+            String value = null;
+            try {
+                // process the json object
+                value = removeUser(familyID, exitForm, lastLocationId);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
+
+            final String finalValue = value;
+            appExecutors.mainThread().execute(() -> presenter.memberRemoved(finalValue));
         };
 
         appExecutors.diskIO().execute(runnable);
@@ -87,51 +79,43 @@ public class FamilyRemoveMemberInteractor implements FamilyRemoveMemberContract.
     @Override
     public void processFamilyMember(final String familyID, final CommonPersonObjectClient client, final FamilyRemoveMemberContract.Presenter presenter) {
 
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
+        Runnable runnable = () -> {
 
-                final HashMap<String, String> res = new HashMap<>();
-                String info_columns = Constants.RELATIONSHIP.PRIMARY_CAREGIVER + " , " +
-                        Constants.RELATIONSHIP.FAMILY_HEAD;
+            final HashMap<String, String> res = new HashMap<>();
+            String info_columns = Constants.RELATIONSHIP.PRIMARY_CAREGIVER + " , " +
+                    Constants.RELATIONSHIP.FAMILY_HEAD;
 
-                String sql = String.format("select %s from %s where %s = '%s' ",
-                        info_columns,
-                        Utils.metadata().familyRegister.tableName,
-                        DBConstants.KEY.BASE_ENTITY_ID,
-                        familyID
-                );
+            String sql = String.format("select %s from %s where %s = '%s' ",
+                    info_columns,
+                    Utils.metadata().familyRegister.tableName,
+                    DBConstants.KEY.BASE_ENTITY_ID,
+                    familyID
+            );
 
-                CommonRepository commonRepository = Utils.context().commonrepository(Utils.metadata().familyMemberRegister.tableName);
+            CommonRepository commonRepository = Utils.context().commonrepository(Utils.metadata().familyMemberRegister.tableName);
 
-                Cursor cursor = null;
-                try {
-                    cursor = commonRepository.queryTable(sql);
-                    cursor.moveToFirst();
+            Cursor cursor = null;
+            try {
+                cursor = commonRepository.queryTable(sql);
+                cursor.moveToFirst();
 
-                    while (!cursor.isAfterLast()) {
-                        int columncount = cursor.getColumnCount();
+                while (!cursor.isAfterLast()) {
+                    int columncount = cursor.getColumnCount();
 
-                        for (int i = 0; i < columncount; i++) {
-                            res.put(cursor.getColumnName(i), String.valueOf(cursor.getString(i)));
-                        }
-
-                        cursor.moveToNext();
+                    for (int i = 0; i < columncount; i++) {
+                        res.put(cursor.getColumnName(i), String.valueOf(cursor.getString(i)));
                     }
-                } catch (Exception e) {
-                    Timber.e(e, e.toString());
-                } finally {
-                    if (cursor != null)
-                        cursor.close();
+
+                    cursor.moveToNext();
                 }
-
-                appExecutors.mainThread().execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        presenter.processMember(res, client);
-                    }
-                });
+            } catch (Exception e) {
+                Timber.e(e, e.toString());
+            } finally {
+                if (cursor != null)
+                    cursor.close();
             }
+
+            appExecutors.mainThread().execute(() -> presenter.processMember(res, client));
         };
 
         appExecutors.diskIO().execute(runnable);
@@ -154,36 +138,20 @@ public class FamilyRemoveMemberInteractor implements FamilyRemoveMemberContract.
 
                 @Override
                 public void run() {
-                    appExecutors.mainThread().execute(new Runnable() {
-                        @Override
-                        public void run() {
+                    appExecutors.mainThread().execute(() -> {
 
-                            HashMap<String, String> results = new HashMap<>();
-                            results.put(Constants.TABLE_NAME.CHILD, kids.toString());
-                            results.put(Constants.TABLE_NAME.FAMILY_MEMBER, members.toString());
-                            results.put(Constants.GLOBAL.NAME, name);
-                            callback.onResult(results);
-                        }
+                        HashMap<String, String> results = new HashMap<>();
+                        results.put(Constants.TABLE_NAME.CHILD, kids.toString());
+                        results.put(Constants.TABLE_NAME.FAMILY_MEMBER, members.toString());
+                        results.put(Constants.GLOBAL.NAME, name);
+                        callback.onResult(results);
                     });
                 }
 
             };
         } catch (final Exception e) {
             e.printStackTrace();
-
-            runnable = new Runnable() {
-
-                @Override
-                public void run() {
-                    appExecutors.mainThread().execute(new Runnable() {
-                        @Override
-                        public void run() {
-                            callback.onError(e);
-                        }
-                    });
-                }
-
-            };
+            runnable = () -> appExecutors.mainThread().execute(() -> callback.onError(e));
         }
 
         appExecutors.diskIO().execute(runnable);

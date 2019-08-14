@@ -80,14 +80,11 @@ public class FamilyRemoveMemberFragment extends BaseFamilyProfileMemberFragment 
     public void displayChangeFamilyHeadDialog(final CommonPersonObjectClient client, final String familyHeadID) {
         FamilyProfileChangeDialog dialog = FamilyProfileChangeDialog.newInstance(getContext(), familyBaseEntityId,
                 org.smartregister.chw.util.Constants.PROFILE_CHANGE_ACTION.HEAD_OF_FAMILY);
-        dialog.setOnSaveAndClose(new Runnable() {
-            @Override
-            public void run() {
-                setFamilyHead(familyHeadID);
-                refreshMemberList(FetchStatus.fetched);
-                getPresenter().removeMember(client);
-                refreshListView();
-            }
+        dialog.setOnSaveAndClose(() -> {
+            setFamilyHead(familyHeadID);
+            refreshMemberList(FetchStatus.fetched);
+            getPresenter().removeMember(client);
+            refreshListView();
         });
         dialog.show(getActivity().getFragmentManager(), "FamilyProfileChangeDialogHF");
     }
@@ -96,14 +93,11 @@ public class FamilyRemoveMemberFragment extends BaseFamilyProfileMemberFragment 
     public void displayChangeCareGiverDialog(final CommonPersonObjectClient client, final String careGiverID) {
         FamilyProfileChangeDialog dialog = FamilyProfileChangeDialog.newInstance(getContext(), familyBaseEntityId,
                 org.smartregister.chw.util.Constants.PROFILE_CHANGE_ACTION.PRIMARY_CARE_GIVER);
-        dialog.setOnSaveAndClose(new Runnable() {
-            @Override
-            public void run() {
-                setPrimaryCaregiver(careGiverID);
-                refreshMemberList(FetchStatus.fetched);
-                getPresenter().removeMember(client);
-                refreshListView();
-            }
+        dialog.setOnSaveAndClose(() -> {
+            setPrimaryCaregiver(careGiverID);
+            refreshMemberList(FetchStatus.fetched);
+            getPresenter().removeMember(client);
+            refreshListView();
         });
 
         dialog.show(getActivity().getFragmentManager(), "FamilyProfileChangeDialogPC");
@@ -174,12 +168,7 @@ public class FamilyRemoveMemberFragment extends BaseFamilyProfileMemberFragment 
             }
             dialog.setContext(getContext());
             dialog.show(getFragmentManager(), FamilyRemoveMemberFragment.DIALOG_TAG);
-            dialog.setOnRemove(new Runnable() {
-                @Override
-                public void run() {
-                    getPresenter().processRemoveForm(form);
-                }
-            });
+            dialog.setOnRemove(() -> getPresenter().processRemoveForm(form));
         }
     }
 
@@ -190,13 +179,11 @@ public class FamilyRemoveMemberFragment extends BaseFamilyProfileMemberFragment 
             }
         } else {
             Handler handler = new Handler(Looper.getMainLooper());
-            handler.post(new Runnable() {
-                public void run() {
-                    if (fetchStatus.equals(FetchStatus.fetched)) {
-                        refreshListView();
-                    }
-
+            handler.post(() -> {
+                if (fetchStatus.equals(FetchStatus.fetched)) {
+                    refreshListView();
                 }
+
             });
         }
 

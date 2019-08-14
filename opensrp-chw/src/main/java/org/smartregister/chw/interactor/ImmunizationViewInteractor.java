@@ -65,7 +65,7 @@ public class ImmunizationViewInteractor implements ImmunizationContact.Interacto
     @Override
     public void fetchImmunizationData(final CommonPersonObjectClient commonPersonObjectClient, final ImmunizationContact.InteractorCallBack callBack) {
 
-        getVaccineTask(commonPersonObjectClient, new ArrayList<VaccineWrapper>())
+        getVaccineTask(commonPersonObjectClient, new ArrayList<>())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<VaccineTaskModel>() {

@@ -54,25 +54,11 @@ public class HomeVisitGrowthNutritionInteractor implements HomeVisitGrowthNutrit
 
     @Override
     public void parseRecordServiceData(final CommonPersonObjectClient commonPersonObjectClient, final HomeVisitGrowthNutritionContract.InteractorCallBack callBack) {
-        UpdateServiceTask updateServiceTask = new UpdateServiceTask(commonPersonObjectClient, new UpdateServiceListener() {
-            @Override
-            public void onUpdateServiceList(final Map<String, ServiceWrapper> serviceWrapperMap) {
-                Runnable runnable = new Runnable() {
-                    @Override
-                    public void run() {
-                        appExecutors.mainThread().execute(new Runnable() {
-                            @Override
-                            public void run() {
-                                callBack.updateGivenRecordVisitData(serviceWrapperMap);
-                            }
-                        });
-                    }
-                };
-                appExecutors.diskIO().execute(runnable);
-            }
+        UpdateServiceTask updateServiceTask = new UpdateServiceTask(commonPersonObjectClient, serviceWrapperMap -> {
+            Runnable runnable = () -> appExecutors.mainThread().execute(() -> callBack.updateGivenRecordVisitData(serviceWrapperMap));
+            appExecutors.diskIO().execute(runnable);
         });
         startAsyncTask(updateServiceTask, null);
-
     }
 
     @Override
