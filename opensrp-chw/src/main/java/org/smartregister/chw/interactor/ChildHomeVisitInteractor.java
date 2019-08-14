@@ -125,17 +125,7 @@ public class ChildHomeVisitInteractor implements ChildHomeVisitContract.Interact
                 saveList.remove("birth_form");
             }
             saveList.put("birth_form", birthIllnessFormModel);
-            Runnable runnable = new Runnable() {
-                @Override
-                public void run() {
-                    appExecutors.mainThread().execute(new Runnable() {
-                        @Override
-                        public void run() {
-                            callback.updateBirthStatusTick(jsonString);
-                        }
-                    });
-                }
-            };
+            Runnable runnable = () -> appExecutors.mainThread().execute(() -> callback.updateBirthStatusTick(jsonString));
             appExecutors.diskIO().execute(runnable);
         }
 
@@ -157,17 +147,7 @@ public class ChildHomeVisitInteractor implements ChildHomeVisitContract.Interact
                 saveList.remove("illness_form");
             }
             saveList.put("illness_form", birthIllnessFormModel);
-            Runnable runnable = new Runnable() {
-                @Override
-                public void run() {
-                    appExecutors.mainThread().execute(new Runnable() {
-                        @Override
-                        public void run() {
-                            callback.updateObsIllnessStatusTick(jsonString);
-                        }
-                    });
-                }
-            };
+            Runnable runnable = () -> appExecutors.mainThread().execute(() -> callback.updateObsIllnessStatusTick(jsonString));
             appExecutors.diskIO().execute(runnable);
 
         }
@@ -187,17 +167,7 @@ public class ChildHomeVisitInteractor implements ChildHomeVisitContract.Interact
         final ArrayList<ServiceTask> serviceTasks = flavor.getTaskService(childClient, isEditMode, context);
 
 
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                appExecutors.mainThread().execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        callback.updateTaskAdapter(serviceTasks);
-                    }
-                });
-            }
-        };
+        Runnable runnable = () -> appExecutors.mainThread().execute(() -> callback.updateTaskAdapter(serviceTasks));
         appExecutors.diskIO().execute(runnable);
 
 

@@ -33,38 +33,25 @@ public class FamilyCallDialogInteractor implements FamilyCallDialogContract.Inte
     @Override
     public void getHeadOfFamily(final FamilyCallDialogContract.Presenter presenter, final Context context) {
 
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
+        Runnable runnable = () -> {
 
-                final CommonPersonObject personObject = getCommonRepository(Utils.metadata().familyRegister.tableName).findByBaseEntityId(familyBaseEntityId);
-                final CommonPersonObjectClient client = new CommonPersonObjectClient(personObject.getCaseId(), personObject.getDetails(), "");
-                client.setColumnmaps(personObject.getColumnmaps());
+            final CommonPersonObject personObject = getCommonRepository(Utils.metadata().familyRegister.tableName).findByBaseEntityId(familyBaseEntityId);
+            final CommonPersonObjectClient client = new CommonPersonObjectClient(personObject.getCaseId(), personObject.getDetails(), "");
+            client.setColumnmaps(personObject.getColumnmaps());
 
-                String primaryCaregiverID = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.PRIMARY_CAREGIVER, false);
-                String familyHeadID = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.FAMILY_HEAD, false);
+            String primaryCaregiverID = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.PRIMARY_CAREGIVER, false);
+            String familyHeadID = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.FAMILY_HEAD, false);
 
-                if (primaryCaregiverID != null) {
-                    // load primary care giver
-                    final FamilyCallDialogModel headModel = prepareModel(context, familyHeadID, primaryCaregiverID, true);
-                    appExecutors.mainThread().execute(new Runnable() {
-                        @Override
-                        public void run() {
-                            presenter.updateHeadOfFamily((headModel == null || headModel.getPhoneNumber() == null) ? null : headModel);
-                        }
-                    });
-                }
+            if (primaryCaregiverID != null) {
+                // load primary care giver
+                final FamilyCallDialogModel headModel = prepareModel(context, familyHeadID, primaryCaregiverID, true);
+                appExecutors.mainThread().execute(() -> presenter.updateHeadOfFamily((headModel == null || headModel.getPhoneNumber() == null) ? null : headModel));
+            }
 
-                if (familyHeadID != null && !familyHeadID.equals(primaryCaregiverID) && primaryCaregiverID != null) {
-                    final FamilyCallDialogModel careGiverModel = prepareModel(context, familyHeadID, primaryCaregiverID, false);
-                    appExecutors.mainThread().execute(new Runnable() {
-                        @Override
-                        public void run() {
-                            presenter.updateCareGiver((careGiverModel == null || careGiverModel.getPhoneNumber() == null) ? null : careGiverModel);
-                        }
-                    });
+            if (familyHeadID != null && !familyHeadID.equals(primaryCaregiverID) && primaryCaregiverID != null) {
+                final FamilyCallDialogModel careGiverModel = prepareModel(context, familyHeadID, primaryCaregiverID, false);
+                appExecutors.mainThread().execute(() -> presenter.updateCareGiver((careGiverModel == null || careGiverModel.getPhoneNumber() == null) ? null : careGiverModel));
 
-                }
             }
         };
 

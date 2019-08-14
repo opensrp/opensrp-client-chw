@@ -60,7 +60,6 @@ import static org.smartregister.util.Utils.getAllSharedPreferences;
 
 
 public class ChildProfileActivity extends BaseProfileActivity implements ChildProfileContract.View, ChildRegisterContract.InteractorCallBack {
-    private static final String TAG = ChildProfileActivity.class.getCanonicalName();
     private static IntentFilter sIntentFilter;
 
     static {
@@ -96,7 +95,6 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
             if (action.equals(Intent.ACTION_TIME_CHANGED) ||
                     action.equals(Intent.ACTION_TIMEZONE_CHANGED)) {
                 fetchProfileData();
-
             }
         }
     };
@@ -120,12 +118,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
             upArrow.setColorFilter(getResources().getColor(R.color.text_blue), PorterDuff.Mode.SRC_ATOP);
             actionBar.setHomeAsUpIndicator(upArrow);
         }
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        toolbar.setNavigationOnClickListener(v -> finish());
         appBarLayout = findViewById(R.id.collapsing_toolbar_appbarlayout);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             appBarLayout.setOutlineProvider(null);
@@ -151,7 +144,6 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
             case R.id.textview_record_visit:
             case R.id.record_visit_done_bar:
                 openVisitHomeScreen(false);
-
                 break;
             case R.id.family_has_row:
                 openFamilyDueTab();
@@ -255,7 +247,6 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     protected void fetchProfileData() {
         presenter().fetchProfileData();
         updateImmunizationData();
-
     }
 
     @Override
@@ -348,15 +339,12 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
      * need postdelay to update the client map
      */
     private void updateImmunizationData() {
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                layoutMostDueOverdue.setVisibility(View.GONE);
-                viewMostDueRow.setVisibility(View.GONE);
-                presenter().fetchVisitStatus(childBaseEntityId);
-                presenter().fetchUpcomingServiceAndFamilyDue(childBaseEntityId);
-                presenter().updateChildCommonPerson(childBaseEntityId);
-            }
+        handler.postDelayed(() -> {
+            layoutMostDueOverdue.setVisibility(View.GONE);
+            viewMostDueRow.setVisibility(View.GONE);
+            presenter().fetchVisitStatus(childBaseEntityId);
+            presenter().fetchUpcomingServiceAndFamilyDue(childBaseEntityId);
+            presenter().updateChildCommonPerson(childBaseEntityId);
         }, 100);
     }
 
@@ -398,12 +386,7 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     @Override
     public void refreshProfile(FetchStatus fetchStatus) {
         if (fetchStatus.equals(FetchStatus.fetched)) {
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    presenter().fetchProfileData();
-                }
-            }, 100);
+            handler.postDelayed(() -> presenter().fetchProfileData(), 100);
         }
 
     }
@@ -451,7 +434,6 @@ public class ChildProfileActivity extends BaseProfileActivity implements ChildPr
     public void setProfileName(String fullName) {
         patientName = fullName;
         textViewChildName.setText(fullName);
-
     }
 
     @Override

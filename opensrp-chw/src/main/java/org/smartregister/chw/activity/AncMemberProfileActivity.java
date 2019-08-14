@@ -96,7 +96,6 @@ public class AncMemberProfileActivity extends BaseAncMemberProfileActivity {
 
         try {
             JSONObject form = org.smartregister.chw.util.JsonFormUtils.getAncPncForm(title_resource, formName, MEMBER_OBJECT, this);
-
             startActivityForResult(org.smartregister.chw.util.JsonFormUtils.getAncPncStartFormIntent(form, this), JsonFormUtils.REQUEST_CODE_GET_JSON);
         } catch (Exception e) {
             Timber.e(e);
@@ -186,7 +185,6 @@ public class AncMemberProfileActivity extends BaseAncMemberProfileActivity {
                                 ContentValues values = new ContentValues();
                                 values.put(DBConstants.KEY.PHONE_NUMBER, phoneNumber);
                                 ChwApplication.getInstance().getRepository().getWritableDatabase().update(org.smartregister.chw.util.Constants.TABLE_NAME.ANC_MEMBER, values, DBConstants.KEY.BASE_ENTITY_ID + " = ?  ", new String[]{baseEntityId});
-
                             }
 
                         }

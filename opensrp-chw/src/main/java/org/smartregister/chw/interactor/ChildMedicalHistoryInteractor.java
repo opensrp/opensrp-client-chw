@@ -97,17 +97,7 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
             vacList.add(trimLower);
         }
         final String fullyImmunizationText = ChildUtils.isFullyImmunized(vacList);
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                appExecutors.mainThread().execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        callBack.updateFullyImmunization(fullyImmunizationText);
-                    }
-                });
-            }
-        };
+        Runnable runnable = () -> appExecutors.mainThread().execute(() -> callBack.updateFullyImmunization(fullyImmunizationText));
         appExecutors.diskIO().execute(runnable);
     }
 
@@ -136,17 +126,7 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
 //                birthCertificationContent.add(getContext().getString(R.string.birth_cert_notification,"No"));
 //            }
         }
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                appExecutors.mainThread().execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        callBack.updateBirthCertification(birthCertificationContent);
-                    }
-                });
-            }
-        };
+        Runnable runnable = () -> appExecutors.mainThread().execute(() -> callBack.updateBirthCertification(birthCertificationContent));
         appExecutors.diskIO().execute(runnable);
     }
 
@@ -164,31 +144,11 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
             illnessContent.add(getContext().getString(R.string.illness_action_value, illnessAction));
 
         }
-        Runnable runnable2 = new Runnable() {
-            @Override
-            public void run() {
-                appExecutors.mainThread().execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        callBack.updateIllnessData(illnessContent);
-                    }
-                });
-            }
-        };
+        Runnable runnable2 = () -> appExecutors.mainThread().execute(() -> callBack.updateIllnessData(illnessContent));
         appExecutors.diskIO().execute(runnable2);
         final String vaccineCard = getValue(commonPersonObjectClient.getColumnmaps(), VACCINE_CARD, true);
         if (!TextUtils.isEmpty(vaccineCard)) {
-            Runnable runnable3 = new Runnable() {
-                @Override
-                public void run() {
-                    appExecutors.mainThread().execute(new Runnable() {
-                        @Override
-                        public void run() {
-                            callBack.updateVaccineCard(vaccineCard);
-                        }
-                    });
-                }
-            };
+            Runnable runnable3 = () -> appExecutors.mainThread().execute(() -> callBack.updateVaccineCard(vaccineCard));
             appExecutors.diskIO().execute(runnable3);
         }
     }
@@ -250,17 +210,7 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
                 baseVaccineArrayList.add(content);
             }
         }
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                appExecutors.mainThread().execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        callBack.updateVaccineData(baseVaccineArrayList);
-                    }
-                });
-            }
-        };
+        Runnable runnable = () -> appExecutors.mainThread().execute(() -> callBack.updateVaccineData(baseVaccineArrayList));
         appExecutors.diskIO().execute(runnable);
     }
 
@@ -271,15 +221,13 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
         List<ServiceRecord> serviceRecordList = recurringServiceRecordRepository.findByEntityId(commonPersonObjectClient.entityId());
         baseServiceArrayList.clear();
         if (serviceRecordList.size() > 0) {
-            Collections.sort(serviceRecordList, new Comparator<ServiceRecord>() {
-                public int compare(ServiceRecord serviceRecord1, ServiceRecord serviceRecord2) {
-                    if (serviceRecord1.getRecurringServiceId() < serviceRecord2.getRecurringServiceId()) {
-                        return -1;
-                    } else if (serviceRecord1.getRecurringServiceId() > serviceRecord2.getRecurringServiceId()) {
-                        return 1;
-                    }
-                    return 0;
+            Collections.sort(serviceRecordList, (serviceRecord1, serviceRecord2) -> {
+                if (serviceRecord1.getRecurringServiceId() < serviceRecord2.getRecurringServiceId()) {
+                    return -1;
+                } else if (serviceRecord1.getRecurringServiceId() > serviceRecord2.getRecurringServiceId()) {
+                    return 1;
                 }
+                return 0;
             });
         }
         //adding exclusive breast feeding initial value from child form
@@ -310,17 +258,7 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
                 baseServiceArrayList.add(content);
             }
         }
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                appExecutors.mainThread().execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        callBack.updateGrowthNutrition(baseServiceArrayList);
-                    }
-                });
-            }
-        };
+        Runnable runnable = () -> appExecutors.mainThread().execute(() -> callBack.updateGrowthNutrition(baseServiceArrayList));
         appExecutors.diskIO().execute(runnable);
     }
 
@@ -351,17 +289,7 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
 
             }
         }
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                appExecutors.mainThread().execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        callBack.updateDietaryData(baseServiceArrayList);
-                    }
-                });
-            }
-        };
+        Runnable runnable = () -> appExecutors.mainThread().execute(() -> callBack.updateDietaryData(baseServiceArrayList));
         appExecutors.diskIO().execute(runnable);
     }
 
@@ -393,17 +321,7 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
 
             }
         }
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                appExecutors.mainThread().execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        callBack.updateMuacData(baseServiceArrayList);
-                    }
-                });
-            }
-        };
+        Runnable runnable = () -> appExecutors.mainThread().execute(() -> callBack.updateMuacData(baseServiceArrayList));
         appExecutors.diskIO().execute(runnable);
     }
 
@@ -426,17 +344,7 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
                 baseServiceArrayList.add(content);
             }
         }
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                appExecutors.mainThread().execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        callBack.updateLLitnDataData(baseServiceArrayList);
-                    }
-                });
-            }
-        };
+        Runnable runnable = () -> appExecutors.mainThread().execute(() -> callBack.updateLLitnDataData(baseServiceArrayList));
         appExecutors.diskIO().execute(runnable);
     }
 
@@ -469,17 +377,7 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
 
             }
         }
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                appExecutors.mainThread().execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        callBack.updateEcdDataData(baseServiceArrayList);
-                    }
-                });
-            }
-        };
+        Runnable runnable = () -> appExecutors.mainThread().execute(() -> callBack.updateEcdDataData(baseServiceArrayList));
         appExecutors.diskIO().execute(runnable);
     }
 
