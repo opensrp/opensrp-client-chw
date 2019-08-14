@@ -106,7 +106,7 @@ public class Utils extends org.smartregister.family.util.Utils {
     }
 
     public static String convertToDateFormateString(String timeAsDDMMYYYY, SimpleDateFormat dateFormat) {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy");//12-08-2018
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy", Locale.getDefault());//12-08-2018
         try {
             Date date = sdf.parse(timeAsDDMMYYYY);
             return dateFormat.format(date);
@@ -122,12 +122,7 @@ public class Utils extends org.smartregister.family.util.Utils {
 
             // set a pending call execution request
             if (callView != null) {
-                callView.setPendingCallRequest(new FamilyCallDialogContract.Dialer() {
-                    @Override
-                    public void callMe() {
-                        Utils.launchDialer(activity, callView, phoneNumber);
-                    }
-                });
+                callView.setPendingCallRequest(() -> Utils.launchDialer(activity, callView, phoneNumber));
             }
 
             ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.READ_PHONE_STATE}, PermissionUtils.PHONE_STATE_PERMISSION_REQUEST_CODE);
