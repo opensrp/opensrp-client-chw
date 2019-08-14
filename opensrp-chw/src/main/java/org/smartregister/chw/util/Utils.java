@@ -21,8 +21,10 @@ import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.widget.Toast;
+
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
+
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
@@ -30,17 +32,13 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.contract.FamilyCallDialogContract;
 import org.smartregister.chw.fragment.CopyToClipboardDialog;
+import org.smartregister.chw.fragment.GrowthNutritionInputFragment;
+import org.smartregister.clientandeventmodel.Obs;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
-import org.smartregister.chw.fragment.GrowthNutritionInputFragment;
-import org.smartregister.clientandeventmodel.Obs;
 import org.smartregister.util.PermissionUtils;
-import timber.log.Timber;
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
+
 import java.text.MessageFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -50,6 +48,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+
+import timber.log.Timber;
 
 import static com.google.android.gms.common.internal.Preconditions.checkArgument;
 
@@ -297,6 +297,7 @@ public class Utils extends org.smartregister.family.util.Utils {
 
         return intent;
     }
+
     /**
      * @param obs
      * @return
