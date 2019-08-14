@@ -1,19 +1,21 @@
 package com.opensrp.chw.core.interactor;
 
+import android.content.Context;
 import android.support.annotation.VisibleForTesting;
 import android.text.TextUtils;
 
 import com.google.gson.reflect.TypeToken;
+import com.opensrp.chw.core.R;
 import com.opensrp.chw.core.application.CoreChwApplication;
 import com.opensrp.chw.core.contract.HomeVisitGrowthNutritionContract;
 import com.opensrp.chw.core.domain.HomeVisit;
 import com.opensrp.chw.core.fragment.GrowthNutritionInputFragment;
-import com.opensrp.chw.core.listener.UpdateServiceListener;
 import com.opensrp.chw.core.model.ServiceTaskModel;
 import com.opensrp.chw.core.task.UpdateServiceTask;
 import com.opensrp.chw.core.utils.ChildDBConstants;
 import com.opensrp.chw.core.utils.CoreChildUtils;
 import com.opensrp.chw.core.utils.GrowthServiceData;
+import com.opensrp.chw.core.utils.Utils;
 
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.AlertStatus;
@@ -37,10 +39,8 @@ import timber.log.Timber;
 import static org.smartregister.util.Utils.startAsyncTask;
 
 public class HomeVisitGrowthNutritionInteractor implements HomeVisitGrowthNutritionContract.Interactor {
-    private static final String TAG = HomeVisitGrowthNutritionInteractor.class.toString();
 
     private AppExecutors appExecutors;
-
 
     @VisibleForTesting
     HomeVisitGrowthNutritionInteractor(AppExecutors appExecutors) {
@@ -53,25 +53,11 @@ public class HomeVisitGrowthNutritionInteractor implements HomeVisitGrowthNutrit
 
     @Override
     public void parseRecordServiceData(final CommonPersonObjectClient commonPersonObjectClient, final HomeVisitGrowthNutritionContract.InteractorCallBack callBack) {
-        UpdateServiceTask updateServiceTask = new UpdateServiceTask(commonPersonObjectClient, new UpdateServiceListener() {
-            @Override
-            public void onUpdateServiceList(final Map<String, ServiceWrapper> serviceWrapperMap) {
-                Runnable runnable = new Runnable() {
-                    @Override
-                    public void run() {
-                        appExecutors.mainThread().execute(new Runnable() {
-                            @Override
-                            public void run() {
-                                callBack.updateGivenRecordVisitData(serviceWrapperMap);
-                            }
-                        });
-                    }
-                };
-                appExecutors.diskIO().execute(runnable);
-            }
+        UpdateServiceTask updateServiceTask = new UpdateServiceTask(commonPersonObjectClient, serviceWrapperMap -> {
+            Runnable runnable = () -> appExecutors.mainThread().execute(() -> callBack.updateGivenRecordVisitData(serviceWrapperMap));
+            appExecutors.diskIO().execute(runnable);
         });
         startAsyncTask(updateServiceTask, null);
-
     }
 
     @Override
@@ -136,7 +122,7 @@ public class HomeVisitGrowthNutritionInteractor implements HomeVisitGrowthNutrit
         });
     }
 
-    public ArrayList<GrowthServiceData> getAllDueService(Map<String, ServiceWrapper> serviceWrapperMap) {
+    public ArrayList<GrowthServiceData> getAllDueService(Map<String, ServiceWrapper> serviceWrapperMap, Context context) {
         ArrayList<GrowthServiceData> growthServiceDataList = new ArrayList<>();
 
         for (String key : serviceWrapperMap.keySet()) {
@@ -145,7 +131,7 @@ public class HomeVisitGrowthNutritionInteractor implements HomeVisitGrowthNutrit
                 GrowthServiceData growthServiceData = new GrowthServiceData();
                 growthServiceData.setDate(serviceWrapper.getAlert().startDate());
                 growthServiceData.setName(serviceWrapper.getAlert().scheduleName());
-                growthServiceData.setDisplayName(getDisplayNameBasedOnType(key, growthServiceData.getName()));
+                growthServiceData.setDisplayName(getDisplayNameBasedOnType(key, growthServiceData.getName(), context));
                 String duedateString = DateUtil.formatDate(growthServiceData.getDate(), "dd MMM yyyy");
                 growthServiceData.setDisplayAbleDate(duedateString);
                 growthServiceDataList.add(growthServiceData);
@@ -155,17 +141,17 @@ public class HomeVisitGrowthNutritionInteractor implements HomeVisitGrowthNutrit
         return growthServiceDataList;
     }
 
-    private String getDisplayNameBasedOnType(String type, String name) {
+    private String getDisplayNameBasedOnType(String type, String name, Context context) {
         Object[] displayName = CoreChildUtils.getStringWithNumber(name);
         if (displayName.length > 1) {
             String str = (String) displayName[0];
             String no = (String) displayName[1];
             if (type.equalsIgnoreCase(GrowthNutritionInputFragment.GROWTH_TYPE.EXCLUSIVE.getValue())) {
-                return str + " " + no + " month";
+                return Utils.getServiceTypeLanguageSpecific(context, str) + " " + no + " " + context.getString(R.string.month);
             } else if (type.equalsIgnoreCase(GrowthNutritionInputFragment.GROWTH_TYPE.MNP.getValue())) {
-                return str + " " + CoreChildUtils.getFirstSecondAsNumber(no) + " pack";
+                return Utils.getServiceTypeLanguageSpecific(context, str) + " " + CoreChildUtils.getFirstSecondAsNumber(no, context) + " " + context.getString(R.string.visit_pack);
             } else {
-                return str + " " + CoreChildUtils.getFirstSecondAsNumber(no) + " dose";
+                return Utils.getServiceTypeLanguageSpecific(context, str) + " " + CoreChildUtils.getFirstSecondAsNumber(no, context) + " " + context.getString(R.string.visit_dose);
             }
         }
         return "";

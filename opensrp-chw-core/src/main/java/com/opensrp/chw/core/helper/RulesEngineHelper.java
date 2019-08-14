@@ -3,6 +3,7 @@ package com.opensrp.chw.core.helper;
 import android.content.Context;
 
 import com.opensrp.chw.core.rule.ICommonRule;
+import com.opensrp.chw.core.rule.PNCHealthFacilityVisitRule;
 
 import org.jeasy.rules.api.Facts;
 import org.jeasy.rules.api.Rules;
@@ -51,7 +52,7 @@ public class RulesEngineHelper {
         }
     }
 
-    protected void processInferentialRules(Rules rules, Facts facts) {
+    public void processInferentialRules(Rules rules, Facts facts) {
 
         inferentialRulesEngine.fire(rules, facts);
     }
@@ -107,6 +108,21 @@ public class RulesEngineHelper {
         Collections.sort(list);
 
         return list;
+    }
+
+    public PNCHealthFacilityVisitRule getPNCHealthFacilityRule(PNCHealthFacilityVisitRule visitRule, String rulesFile) {
+
+        Facts facts = new Facts();
+        facts.put(PNCHealthFacilityVisitRule.RULE_KEY, visitRule);
+
+        Rules rules = getRulesFromAsset(RULE_FOLDER_PATH + rulesFile);
+        if (rules == null) {
+            return null;
+        }
+
+        processDefaultRules(rules, facts);
+
+        return visitRule;
     }
 
     public Rules rules(String rulesFile) {

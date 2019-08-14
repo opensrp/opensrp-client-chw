@@ -3,19 +3,13 @@ package org.smartregister.chw.activity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.opensrp.chw.core.contract.ChwBottomNavigator;
 import com.opensrp.chw.core.custom_views.NavigationMenu;
-
-import org.smartregister.chw.BuildConfig;
-import org.smartregister.chw.R;
 import org.smartregister.chw.fragment.PncRegisterFragment;
-import org.smartregister.chw.listener.AncBottomNavigationListener;
-import org.smartregister.chw.pnc.activity.BasePncRegisterActivity;
 import org.smartregister.chw.util.Constants;
+import org.smartregister.helper.BottomNavigationHelper;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
-
-public class PncRegisterActivity extends BasePncRegisterActivity implements ChwBottomNavigator {
+public class PncRegisterActivity extends AncRegisterActivity {
 
     @Override
     protected BaseRegisterFragment getRegisterFragment() {
@@ -38,24 +32,18 @@ public class PncRegisterActivity extends BasePncRegisterActivity implements ChwB
     @Override
     protected void registerBottomNavigation() {
         super.registerBottomNavigation();
-
-        if (!BuildConfig.SUPPORT_QR) {
-            bottomNavigationView.getMenu().removeItem(R.id.action_scan_qr);
-        }
-
-        AncBottomNavigationListener listener = new AncBottomNavigationListener(this, bottomNavigationView);
-        bottomNavigationView.setOnNavigationItemSelectedListener(listener);
+        bottomNavigationHelper = new BottomNavigationHelper();
+        bottomNavigationView = findViewById(org.smartregister.R.id.bottom_navigation);
+        FamilyRegisterActivity.registerBottomNavigation(bottomNavigationHelper, bottomNavigationView, this);
     }
 
     @Override
     protected void onResumption() {
         super.onResumption();
-        NavigationMenu.getInstance(this, null, null).getNavigationAdapter()
-                .setSelectedView(Constants.DrawerMenu.PNC);
-    }
-
-    @Override
-    public void startFamilyRegistration() {
-        FamilyRegisterActivity.startFamilyRegisterForm(this);
+        NavigationMenu menu = NavigationMenu.getInstance(this, null, null);
+        if (menu != null) {
+            menu.getNavigationAdapter()
+                    .setSelectedView(Constants.DrawerMenu.PNC);
+        }
     }
 }

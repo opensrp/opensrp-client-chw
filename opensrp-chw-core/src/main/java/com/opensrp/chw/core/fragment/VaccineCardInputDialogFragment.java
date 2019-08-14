@@ -13,7 +13,6 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-
 import com.opensrp.chw.core.R;
 
 public class VaccineCardInputDialogFragment extends DialogFragment implements View.OnClickListener, RadioGroup.OnCheckedChangeListener {
@@ -43,12 +42,9 @@ public class VaccineCardInputDialogFragment extends DialogFragment implements Vi
     @Override
     public void onStart() {
         super.onStart();
-        new Handler().post(new Runnable() {
-            @Override
-            public void run() {
-                if (getDialog() != null && getDialog().getWindow() != null) {
-                    getDialog().getWindow().setLayout(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
-                }
+        new Handler().post(() -> {
+            if (getDialog() != null && getDialog().getWindow() != null) {
+                getDialog().getWindow().setLayout(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
             }
         });
 

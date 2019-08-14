@@ -60,7 +60,7 @@ import timber.log.Timber;
 
 import static com.opensrp.chw.core.utils.CoreJsonFormUtils.getValue;
 import static com.opensrp.chw.core.utils.CoreJsonFormUtils.tagSyncMetadata;
-import static com.opensrp.chw.core.utils.Utils.DD_MM_YYYY;
+import static com.opensrp.chw.core.utils.Utils.dd_MMM_yyyy;
 import static org.apache.commons.lang3.text.WordUtils.capitalize;
 import static org.smartregister.util.JsonFormUtils.TAG;
 
@@ -389,6 +389,44 @@ public abstract class CoreChildUtils {
 
     }
 
+    public static String getFirstSecondAsNumber(String number, Context context) {
+        try {
+            int index = Integer.parseInt(number);
+            switch (index) {
+                case 1:
+                    return context.getString(R.string.abv_first);
+                case 2:
+                    return context.getString(R.string.abv_second);
+                case 3:
+                    return context.getString(R.string.abv_third);
+                case 4:
+                    return context.getString(R.string.abv_fourth);
+                case 5:
+                    return context.getString(R.string.abv_fifth);
+                case 6:
+                    return context.getString(R.string.abv_sixth);
+                case 7:
+                    return context.getString(R.string.abv_seventh);
+                case 8:
+                    return context.getString(R.string.abv_eigth);
+                case 9:
+                    return context.getString(R.string.abv_nineth);
+                case 10:
+                    return context.getString(R.string.abv_tenth);
+                case 11:
+                    return context.getString(R.string.abv_eleventh);
+                case 12:
+                    return context.getString(R.string.abv_twelfth);
+                default:
+                    return "";
+            }
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+        return "";
+
+    }
+
     public static void updateTaskAsEvent(String eventType, String formSubmissionField, List<Object> values, List<Object> humenread,
                                          String entityId, String choiceValue, String homeVisitId, String openMrsCode) {
         try {
@@ -577,12 +615,12 @@ public abstract class CoreChildUtils {
         Date date = org.smartregister.family.util.Utils.dobStringToDate(dueDate);
         if (status.equalsIgnoreCase(ImmunizationState.DUE.name())) {
 
-            String str = context.getResources().getString(R.string.due) + "" + DD_MM_YYYY.format(date);
+            String str = context.getResources().getString(R.string.due) + "" + dd_MMM_yyyy.format(date);
             spannableString = new SpannableString(str);
             spannableString.setSpan(new ForegroundColorSpan(CoreChwApplication.getInstance().getContext().getColorResource(R.color.grey)), 0, str.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             return spannableString;
         } else {
-            String str = context.getResources().getString(R.string.overdue) + "" + DD_MM_YYYY.format(date);
+            String str = context.getResources().getString(R.string.overdue) + "" + dd_MMM_yyyy.format(date);
             spannableString = new SpannableString(str);
             spannableString.setSpan(new ForegroundColorSpan(CoreChwApplication.getInstance().getContext().getColorResource(R.color.alert_urgent_red)), 0, str.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             return spannableString;

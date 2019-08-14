@@ -179,7 +179,6 @@ public class CoreChildHomeVisitInteractor implements ChildHomeVisitContract.Inte
         if (flavor != null) {
             final ArrayList<ServiceTask> serviceTasks = flavor.getTaskService(childClient, isEditMode, context);
 
-
             Runnable runnable = new Runnable() {
                 @Override
                 public void run() {

@@ -3,17 +3,14 @@ package org.smartregister.chw.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.bottomnavigation.LabelVisibilityMode;
 
 import com.opensrp.chw.core.custom_views.NavigationMenu;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
 
 import org.json.JSONObject;
-import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.fragment.MalariaRegisterFragment;
-import org.smartregister.chw.listener.ChwBottomNavigationListener;
 import org.smartregister.chw.malaria.activity.BaseMalariaRegisterActivity;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.family.util.JsonFormUtils;
@@ -54,33 +51,17 @@ public class MalariaRegisterActivity extends BaseMalariaRegisterActivity {
 
         bottomNavigationHelper = new BottomNavigationHelper();
         bottomNavigationView = findViewById(org.smartregister.R.id.bottom_navigation);
-
-        if (bottomNavigationView != null) {
-            bottomNavigationView.setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_LABELED);
-            bottomNavigationView.getMenu().removeItem(R.id.action_clients);
-            bottomNavigationView.getMenu().removeItem(R.id.action_register);
-            bottomNavigationView.getMenu().removeItem(R.id.action_search);
-            bottomNavigationView.getMenu().removeItem(R.id.action_library);
-
-            bottomNavigationView.inflateMenu(R.menu.bottom_nav_family_menu);
-
-            bottomNavigationHelper.disableShiftMode(bottomNavigationView);
-
-            ChwBottomNavigationListener childBottomNavigationListener = new ChwBottomNavigationListener(this);
-            bottomNavigationView.setOnNavigationItemSelectedListener(childBottomNavigationListener);
-
-        }
-
-        if (!BuildConfig.SUPPORT_QR) {
-            bottomNavigationView.getMenu().removeItem(org.smartregister.family.R.id.action_scan_qr);
-        }
+        FamilyRegisterActivity.registerBottomNavigation(bottomNavigationHelper, bottomNavigationView, this);
     }
 
     @Override
     protected void onResumption() {
         super.onResumption();
-        NavigationMenu.getInstance(this, null, null).getNavigationAdapter()
-                .setSelectedView(Constants.DrawerMenu.ANC);
+        NavigationMenu menu = NavigationMenu.getInstance(this, null, null);
+        if (menu != null) {
+            menu.getNavigationAdapter()
+                    .setSelectedView(Constants.DrawerMenu.MALARIA);
+        }
     }
 
     @Override
@@ -95,10 +76,12 @@ public class MalariaRegisterActivity extends BaseMalariaRegisterActivity {
 
         Form form = new Form();
         form.setActionBarBackground(R.color.family_actionbar);
-        form.setWizard(false);
+        form.setNavigationBackground(R.color.family_navigation);
+        form.setHomeAsUpIndicator(R.mipmap.ic_cross_white);
+        form.setName(this.getString(R.string.malaria_registration));
+        form.setNextLabel(this.getResources().getString(R.string.next));
+        form.setPreviousLabel(this.getResources().getString(R.string.back));
         intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);
-
-
         startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
     }
 

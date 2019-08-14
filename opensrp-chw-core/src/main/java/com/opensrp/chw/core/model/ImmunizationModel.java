@@ -1,7 +1,9 @@
 package com.opensrp.chw.core.model;
 
+import android.content.Context;
 import android.text.TextUtils;
 
+import com.opensrp.chw.core.R;
 import com.opensrp.chw.core.enums.ImmunizationState;
 import com.opensrp.chw.core.utils.CoreChildUtils;
 import com.opensrp.chw.core.utils.CoreConstants;
@@ -33,6 +35,10 @@ import static org.smartregister.immunization.util.VaccinatorUtils.receivedVaccin
 public class ImmunizationModel {
     private List<Vaccine> vaccines;
     private ArrayList<String> elligibleVaccineGroups = new ArrayList<String>();
+    private Context context;
+    public ImmunizationModel(Context context){
+        this.context = context;
+    }
 
     public List<Vaccine> getVaccines() {
         return vaccines;
@@ -48,7 +54,7 @@ public class ImmunizationModel {
         ArrayList<HomeVisitVaccineGroup> homeVisitVaccineGroupArrayList = new ArrayList<>();
         LinkedHashMap<String, Integer> vaccineGroupMap = new LinkedHashMap<>();
         for (VaccineRepo.Vaccine vaccine : vList) {
-            if (vaccine.category().equalsIgnoreCase("child")) {
+            if (vaccine.category().equalsIgnoreCase(context.getString(R.string.child))) {
                 String dobString = org.smartregister.util.Utils.getValue(client.getColumnmaps(), DBConstants.KEY.DOB, false);
 
                 if (CoreChildUtils.getImmunizationExpired(dobString, vaccine.display()).equalsIgnoreCase("true")) {
@@ -56,7 +62,7 @@ public class ImmunizationModel {
                 }
 
                 String stateKey = VaccinateActionUtils.stateKey(vaccine);
-                if (stateKey.equalsIgnoreCase("18 months")) continue;
+                if (stateKey.equalsIgnoreCase("18 "+context.getString(R.string.month_full))) continue;
                 if (isNotBlank(stateKey)) {
 
                     Integer position = vaccineGroupMap.get(stateKey);
@@ -201,21 +207,21 @@ public class ImmunizationModel {
             DateTime now = new DateTime();
             int weeks = Weeks.weeksBetween(dateTime, now).getWeeks();
             int months = Months.monthsBetween(dateTime, now).getMonths();
-            elligibleVaccineGroups.add("at birth");
+            elligibleVaccineGroups.add(context.getString(R.string.at_birth));
             if (weeks >= 6) {
-                elligibleVaccineGroups.add("6 weeks");
+                elligibleVaccineGroups.add("6 "+context.getString(R.string.week_full));
             }
             if (weeks >= 10) {
-                elligibleVaccineGroups.add("10 weeks");
+                elligibleVaccineGroups.add("10 "+context.getString(R.string.week_full));
             }
             if (weeks >= 14) {
-                elligibleVaccineGroups.add("14 weeks");
+                elligibleVaccineGroups.add("14 "+context.getString(R.string.week_full));
             }
             if (months >= 9) {
-                elligibleVaccineGroups.add("9 months");
+                elligibleVaccineGroups.add("9 "+context.getString(R.string.month_full));
             }
             if (months >= 15) {
-                elligibleVaccineGroups.add("15 months");
+                elligibleVaccineGroups.add("15 "+context.getString(R.string.month_full));
             }
         }
     }

@@ -5,12 +5,12 @@ import android.util.Pair;
 
 import com.opensrp.chw.core.model.ChildVisit;
 import com.opensrp.chw.core.utils.CoreChildService;
-
 import org.json.JSONObject;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.FetchStatus;
+import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.view.contract.BaseProfileContract;
 
 public interface CoreChildProfileContract {
@@ -102,6 +102,8 @@ public interface CoreChildProfileContract {
 
         void processBackGroundEvent();
 
+        void createSickChildEvent(AllSharedPreferences allSharedPreferences, String jsonString) throws Exception;
+
     }
 
     interface Interactor {
@@ -120,8 +122,13 @@ public interface CoreChildProfileContract {
         void saveRegistration(final Pair<Client, Event> pair, final String jsonString, final boolean isEditMode, final CoreChildProfileContract.InteractorCallBack callBack);
 
         JSONObject getAutoPopulatedJsonEditFormString(String formName, String title, Context context, CommonPersonObjectClient client);
-
         void processBackGroundEvent(final CoreChildProfileContract.InteractorCallBack callback);
+
+        void createSickChildEvent(AllSharedPreferences allSharedPreferences, String jsonString) throws Exception;
+
+        void setChildBaseEntityId(String childBaseEntityId);
+
+        String getChildBaseEntityId();
     }
 
     interface InteractorCallBack {
@@ -132,6 +139,8 @@ public interface CoreChildProfileContract {
         void updateFamilyMemberServiceDue(String serviceDueStatus);
 
         void startFormForEdit(String title, CommonPersonObjectClient client);
+
+        void startSickChildReferralForm();
 
         void refreshProfileTopSection(CommonPersonObjectClient client);
 
@@ -152,6 +161,9 @@ public interface CoreChildProfileContract {
         void undoVisitNotDone();
 
         void updateAfterBackGroundProcessed();
+    }
+    interface InteractorCallBack2 {
+
     }
 
     interface Model {

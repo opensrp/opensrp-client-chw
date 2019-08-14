@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.opensrp.chw.core.R;
-import com.opensrp.chw.core.contract.ChwBottomNavigator;
 import com.opensrp.chw.core.custom_views.NavigationMenu;
 import com.opensrp.chw.core.utils.CoreConstants;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
@@ -25,19 +24,21 @@ import java.util.List;
 
 import static org.smartregister.chw.anc.util.Constants.ACTIVITY_PAYLOAD.TABLE_NAME;
 
-public class CoreAncRegisterActivity extends BaseAncRegisterActivity implements ChwBottomNavigator {
-    private static String phone_number;
-    private static String form_name;
-    private static String unique_id;
-    private static String familyBaseEntityId;
+public class CoreAncRegisterActivity extends BaseAncRegisterActivity {
+    protected static String phone_number;
+    protected static String form_name;
+    protected static String unique_id;
+    protected static String familyBaseEntityId;    private static String familyName;
+
 
     public static void startAncRegistrationActivity(Activity activity, String memberBaseEntityID, String phoneNumber, String formName,
-                                                    String uniqueId, String familyBaseID) {
+                                                    String uniqueId, String familyBaseID,String family_name) {
         Intent intent = new Intent(activity, CoreAncRegisterActivity.class);
         intent.putExtra(org.smartregister.chw.anc.util.Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID, memberBaseEntityID);
         phone_number = phoneNumber;
         familyBaseEntityId = familyBaseID;
         form_name = formName;
+        familyName = family_name;
         unique_id = uniqueId;
         intent.putExtra(org.smartregister.chw.anc.util.Constants.ACTIVITY_PAYLOAD.ACTION, org.smartregister.chw.anc.util.Constants.ACTIVITY_PAYLOAD_TYPE.REGISTRATION);
         intent.putExtra(TABLE_NAME, getFormTable());
@@ -53,7 +54,7 @@ public class CoreAncRegisterActivity extends BaseAncRegisterActivity implements 
 
     @Override
     public void switchToBaseFragment() {
-       /* Intent intent = new Intent(this, FamilyRegisterActivity.class);
+        /*Intent intent = new Intent(this, FamilyRegisterActivity.class);
         startActivity(intent);
         finish();*/
     }
@@ -76,7 +77,6 @@ public class CoreAncRegisterActivity extends BaseAncRegisterActivity implements 
 
     @Override
     protected BaseRegisterFragment getRegisterFragment() {
-      //  return new AncRegisterFragment();
         return super.getRegisterFragment();
     }
 
@@ -112,8 +112,11 @@ public class CoreAncRegisterActivity extends BaseAncRegisterActivity implements 
     @Override
     protected void onResumption() {
         super.onResumption();
-        NavigationMenu.getInstance(this, null, null).getNavigationAdapter()
-                .setSelectedView(CoreConstants.DrawerMenu.ANC);
+        NavigationMenu menu = NavigationMenu.getInstance(this, null, null);
+        if (menu != null) {
+            menu.getNavigationAdapter()
+                    .setSelectedView(CoreConstants.DrawerMenu.ANC);
+        }
     }
 
     @Override
@@ -141,6 +144,7 @@ public class CoreAncRegisterActivity extends BaseAncRegisterActivity implements 
             JSONObject stepOne = jsonForm.getJSONObject(JsonFormUtils.STEP1);
             JSONArray jsonArray = stepOne.getJSONArray(JsonFormUtils.FIELDS);
             updateFormField(jsonArray, DBConstants.KEY.TEMP_UNIQUE_ID, unique_id);
+            updateFormField(jsonArray, CoreConstants.JsonAssets.FAM_NAME, familyName);
             updateFormField(jsonArray, CoreConstants.JsonAssets.FAMILY_MEMBER.PHONE_NUMBER, phone_number);
             updateFormField(jsonArray, org.smartregister.family.util.DBConstants.KEY.RELATIONAL_ID, familyBaseEntityId);
 

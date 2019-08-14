@@ -6,6 +6,7 @@ import android.support.annotation.VisibleForTesting;
 import android.text.TextUtils;
 import android.util.Pair;
 
+import com.opensrp.chw.core.application.CoreChwApplication;
 import com.opensrp.chw.core.contract.CoreChildProfileContract;
 import com.opensrp.chw.core.contract.HomeVisitGrowthNutritionContract;
 import com.opensrp.chw.core.contract.ImmunizationContact;
@@ -21,15 +22,18 @@ import com.opensrp.chw.core.utils.HomeVisitVaccineGroup;
 import com.opensrp.chw.core.utils.Utils;
 
 import org.apache.commons.lang3.StringUtils;
+import org.joda.time.DateTime;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.smartregister.chw.anc.util.Util;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.domain.Photo;
+import org.smartregister.domain.Task;
 import org.smartregister.family.FamilyLibrary;
 import org.smartregister.family.util.AppExecutors;
 import org.smartregister.family.util.DBConstants;
@@ -50,19 +54,23 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 import timber.log.Timber;
 
+import static org.smartregister.chw.anc.util.JsonFormUtils.processJsonForm;
 import static org.smartregister.util.JsonFormUtils.getFieldJSONObject;
+import static org.smartregister.util.JsonFormUtils.gson;
 
 public class CoreChildProfileInteractor implements CoreChildProfileContract.Interactor {
     public static final String TAG = CoreChildProfileInteractor.class.getName();
     private AppExecutors appExecutors;
     private CommonPersonObjectClient pClient;
     private Map<String, Date> vaccineList = new LinkedHashMap<>();
+    private String childBaseEntityId;
 
     @VisibleForTesting
     CoreChildProfileInteractor(AppExecutors appExecutors) {
@@ -105,7 +113,7 @@ public class CoreChildProfileInteractor implements CoreChildProfileContract.Inte
         return FamilyLibrary.getInstance().getClientProcessorForJava();
     }
 
-    private void saveRegistration(Pair<Client, Event> pair, String jsonString, boolean isEditMode) {
+    public void saveRegistration(Pair<Client, Event> pair, String jsonString, boolean isEditMode) {
 
         try {
 
@@ -191,56 +199,53 @@ public class CoreChildProfileInteractor implements CoreChildProfileContract.Inte
      */
     @Override
     public void refreshProfileView(final String baseEntityId, final boolean isForEdit, final CoreChildProfileContract.InteractorCallBack callback) {
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                String query = CoreChildUtils.mainSelect(CoreConstants.TABLE_NAME.CHILD, CoreConstants.TABLE_NAME.FAMILY, CoreConstants.TABLE_NAME.FAMILY_MEMBER, baseEntityId);
+        Runnable runnable = () -> {
+            String query = CoreChildUtils.mainSelect(CoreConstants.TABLE_NAME.CHILD, CoreConstants.TABLE_NAME.FAMILY, CoreConstants.TABLE_NAME.FAMILY_MEMBER, baseEntityId);
 
-                Cursor cursor = null;
-                try {
-                    cursor = getCommonRepository(CoreConstants.TABLE_NAME.CHILD).rawCustomQueryForAdapter(query);
-                    if (cursor != null && cursor.moveToFirst()) {
-                        CommonPersonObject personObject = getCommonRepository(CoreConstants.TABLE_NAME.CHILD).readAllcommonforCursorAdapter(cursor);
-                        pClient = new CommonPersonObjectClient(personObject.getCaseId(),
-                                personObject.getDetails(), "");
-                        pClient.setColumnmaps(personObject.getColumnmaps());
-                        final String familyId = Utils.getValue(pClient.getColumnmaps(), ChildDBConstants.KEY.RELATIONAL_ID, false);
+            Cursor cursor = null;
+            try {
+                cursor = getCommonRepository(CoreConstants.TABLE_NAME.CHILD).rawCustomQueryForAdapter(query);
+                if (cursor != null && cursor.moveToFirst()) {
+                    CommonPersonObject personObject = getCommonRepository(CoreConstants.TABLE_NAME.CHILD).readAllcommonforCursorAdapter(cursor);
+                    pClient = new CommonPersonObjectClient(personObject.getCaseId(),
+                            personObject.getDetails(), "");
+                    pClient.setColumnmaps(personObject.getColumnmaps());
+                    final String familyId = Utils.getValue(pClient.getColumnmaps(), ChildDBConstants.KEY.RELATIONAL_ID, false);
 
-                        final CommonPersonObject familyPersonObject = getCommonRepository(Utils.metadata().familyRegister.tableName).findByBaseEntityId(familyId);
-                        final CommonPersonObjectClient client = new CommonPersonObjectClient(familyPersonObject.getCaseId(), familyPersonObject.getDetails(), "");
-                        client.setColumnmaps(familyPersonObject.getColumnmaps());
+                    final CommonPersonObject familyPersonObject = getCommonRepository(Utils.metadata().familyRegister.tableName).findByBaseEntityId(familyId);
+                    final CommonPersonObjectClient client = new CommonPersonObjectClient(familyPersonObject.getCaseId(), familyPersonObject.getDetails(), "");
+                    client.setColumnmaps(familyPersonObject.getColumnmaps());
 
-                        final String primaryCaregiverID = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.PRIMARY_CAREGIVER, false);
-                        final String familyHeadID = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.FAMILY_HEAD, false);
-                        final String familyName = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.FIRST_NAME, false);
+                    final String primaryCaregiverID = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.PRIMARY_CAREGIVER, false);
+                    final String familyHeadID = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.FAMILY_HEAD, false);
+                    final String familyName = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.FIRST_NAME, false);
 
 
-                        appExecutors.mainThread().execute(new Runnable() {
-                            @Override
-                            public void run() {
+                    appExecutors.mainThread().execute(new Runnable() {
+                        @Override
+                        public void run() {
 
-                                callback.setFamilyHeadID(familyHeadID);
-                                callback.setFamilyID(familyId);
-                                callback.setPrimaryCareGiverID(primaryCaregiverID);
-                                callback.setFamilyName(familyName);
+                            callback.setFamilyHeadID(familyHeadID);
+                            callback.setFamilyID(familyId);
+                            callback.setPrimaryCareGiverID(primaryCaregiverID);
+                            callback.setFamilyName(familyName);
 
-                                if (isForEdit) {
-                                    callback.startFormForEdit("", pClient);
-                                } else {
-                                    callback.refreshProfileTopSection(pClient);
-                                }
+                            if (isForEdit) {
+                                callback.startFormForEdit("", pClient);
+                            } else {
+                                callback.refreshProfileTopSection(pClient);
                             }
-                        });
-                    }
-                } catch (Exception ex) {
-                    Timber.e(ex.toString());
-                } finally {
-                    if (cursor != null)
-                        cursor.close();
+                        }
+                    });
                 }
-
-
+            } catch (Exception ex) {
+                Timber.e(ex.toString());
+            } finally {
+                if (cursor != null)
+                    cursor.close();
             }
+
+
         };
 
         appExecutors.diskIO().execute(runnable);
@@ -291,18 +296,63 @@ public class CoreChildProfileInteractor implements CoreChildProfileContract.Inte
     }
 
     @Override
+    public void createSickChildEvent(AllSharedPreferences allSharedPreferences, String jsonString) throws Exception {
+        final Event baseEvent = processJsonForm(allSharedPreferences, new JSONObject(jsonString)
+                .put(JsonFormUtils.ENTITY_ID, getChildBaseEntityId()).toString(), CoreConstants.TABLE_NAME.CHILD_REFERRAL);
+        Util.processEvent(baseEvent.getBaseEntityId(), new JSONObject(gson.toJson(baseEvent)));
+        createReferralTask(baseEvent.getBaseEntityId(), allSharedPreferences);
+    }
+
+    private void createReferralTask(String baseEntityId, AllSharedPreferences allSharedPreferences) {
+        Task task = new Task();
+        task.setIdentifier(UUID.randomUUID().toString());
+        //TODO Implement plans
+      /*  Iterator<String> iterator = ChwApplication.getInstance().getPlanDefinitionRepository()
+                .findAllPlanDefinitionIds().iterator();
+        if (iterator.hasNext()) {
+            task.setPlanIdentifier(iterator.next());
+        } else {
+
+            Timber.e("No plans exist in the server");
+        }*/
+        task.setPlanIdentifier("5270285b-5a3b-4647-b772-c0b3c52e2b71");
+        LocationHelper locationHelper = LocationHelper.getInstance();
+        ArrayList<String> allowedLevels = new ArrayList<>();
+        allowedLevels.add(CoreConstants.CONFIGURATION.HEALTH_FACILITY_TAG);
+        task.setGroupIdentifier(locationHelper.getOpenMrsLocationId(locationHelper.generateDefaultLocationHierarchy(allowedLevels).get(0)));
+        task.setStatus(Task.TaskStatus.READY);
+        task.setBusinessStatus("Referred");
+        task.setPriority(3);
+        task.setCode("Referral");
+        task.setDescription("Review and perform the referral for the client"); //set to string
+        task.setFocus("Sick Child");//the same here
+        task.setForEntity(baseEntityId);
+        DateTime now = new DateTime();
+        task.setExecutionStartDate(now);
+        task.setAuthoredOn(now);
+        task.setLastModified(now);
+        task.setOwner(allSharedPreferences.fetchRegisteredANM());
+        task.setSyncStatus(BaseRepository.TYPE_Created);
+        task.setRequester(allSharedPreferences.fetchRegisteredANM());
+        task.setLocation(allSharedPreferences.fetchUserLocalityId(allSharedPreferences.fetchRegisteredANM()));
+        CoreChwApplication.getInstance().getTaskRepository().addOrUpdate(task);
+    }
+
+    @Override
+    public void setChildBaseEntityId(String childBaseEntityId) {
+        this.childBaseEntityId = childBaseEntityId;
+    }
+
+    @Override
+    public String getChildBaseEntityId() {
+        return childBaseEntityId;
+    }
+
+    @Override
     public void saveRegistration(final Pair<Client, Event> pair, final String jsonString, final boolean isEditMode, final CoreChildProfileContract.InteractorCallBack callBack) {
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                saveRegistration(pair, jsonString, isEditMode);
-                appExecutors.mainThread().execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        callBack.onRegistrationSaved(isEditMode);
-                    }
-                });
-            }
+        Runnable runnable = () -> {
+            saveRegistration(pair, jsonString, isEditMode);
+            appExecutors.mainThread().execute(() -> callBack.onRegistrationSaved(isEditMode));
         };
 
         appExecutors.diskIO().execute(runnable);
@@ -331,7 +381,7 @@ public class CoreChildProfileInteractor implements CoreChildProfileContract.Inte
                 if (StringUtils.isNotBlank(dobString)) {
                     Date dob = Utils.dobStringToDate(dobString);
                     if (dob != null) {
-                        jsonObject.put(JsonFormUtils.VALUE, CoreJsonFormUtils.dd_MM_yyyy.format(dob));
+                        jsonObject.put(JsonFormUtils.VALUE, JsonFormUtils.dd_MM_yyyy.format(dob));
                     }
                 }
 
@@ -427,100 +477,97 @@ public class CoreChildProfileInteractor implements CoreChildProfileContract.Inte
     }
 
 
-    public Observable<CoreChildService> updateUpcomingServices() {
-        return Observable.create(new ObservableOnSubscribe<CoreChildService>() {
-            @Override
-            public void subscribe(final ObservableEmitter<CoreChildService> coreChildServiceObservableEmitter) {
-                final ImmunizationViewPresenter presenter = new ImmunizationViewPresenter();
-                presenter.upcomingServiceFetch(getpClient(), new ImmunizationContact.InteractorCallBack() {
+    public Observable<CoreChildService> updateUpcomingServices(Context context) {
+        return Observable.create(coreChildServiceObservableEmitter -> {
+            final ImmunizationViewPresenter presenter = new ImmunizationViewPresenter(context);
+            presenter.upcomingServiceFetch(getpClient(), new ImmunizationContact.InteractorCallBack() {
 
-                    @Override
-                    public void updateData(ArrayList<HomeVisitVaccineGroup> homeVisitVaccineGroupDetails, Map<String, Date> vaccines) {
-                        String dueDate = "", vaccineName = "";
-                        setVaccineList(vaccineList);
-                        ImmunizationState state = ImmunizationState.UPCOMING;
-                        for (HomeVisitVaccineGroup homeVisitVaccineGroupDetail : homeVisitVaccineGroupDetails) {
-                            if (homeVisitVaccineGroupDetail.getAlert().equals(ImmunizationState.DUE)
-                                    || homeVisitVaccineGroupDetail.getAlert().equals(ImmunizationState.OVERDUE)
-                                    || homeVisitVaccineGroupDetail.getAlert().equals(ImmunizationState.UPCOMING)) {
-                                if (homeVisitVaccineGroupDetail.getNotGivenVaccines().size() > 0) {
-                                    dueDate = homeVisitVaccineGroupDetail.getDueDisplayDate();
-                                    VaccineRepo.Vaccine vaccine = homeVisitVaccineGroupDetail.getNotGivenVaccines().get(0);
-                                    vaccineName = CoreChildUtils.fixVaccineCasing(vaccine.display());
-                                    state = homeVisitVaccineGroupDetail.getAlert();
-                                    break;
-                                }
+                @Override
+                public void updateData(ArrayList<HomeVisitVaccineGroup> homeVisitVaccineGroupDetails, Map<String, Date> vaccines) {
+                    String dueDate = "", vaccineName = "";
+                    setVaccineList(vaccineList);
+                    ImmunizationState state = ImmunizationState.UPCOMING;
+                    for (HomeVisitVaccineGroup homeVisitVaccineGroupDetail : homeVisitVaccineGroupDetails) {
+                        if (homeVisitVaccineGroupDetail.getAlert().equals(ImmunizationState.DUE)
+                                || homeVisitVaccineGroupDetail.getAlert().equals(ImmunizationState.OVERDUE)
+                                || homeVisitVaccineGroupDetail.getAlert().equals(ImmunizationState.UPCOMING)) {
+                            if (homeVisitVaccineGroupDetail.getNotGivenVaccines().size() > 0) {
+                                dueDate = homeVisitVaccineGroupDetail.getDueDisplayDate();
+                                VaccineRepo.Vaccine vaccine = homeVisitVaccineGroupDetail.getNotGivenVaccines().get(0);
+                                vaccineName = CoreChildUtils.fixVaccineCasing(vaccine.display());
+                                state = homeVisitVaccineGroupDetail.getAlert();
+                                break;
                             }
                         }
+                    }
 
-                        if (!TextUtils.isEmpty(vaccineName) && !TextUtils.isEmpty(dueDate)) {
-                            CoreChildService childService = new CoreChildService();
-                            childService.setServiceName(vaccineName);
-                            if (childService.getServiceName().contains("MEASLES")) {
-                                childService.setServiceName(childService.getServiceName().replace("MEASLES", "MCV"));
-                            }
-                            //String duedateString = DateUtil.formatDate(dueDate, "dd MMM yyyy");
-                            childService.setServiceDate(dueDate);
-                            if (state.equals(ImmunizationState.DUE)) {
-                                childService.setServiceStatus(ServiceType.DUE.name());
-                            } else if (state.equals(ImmunizationState.OVERDUE)) {
-                                childService.setServiceStatus(ServiceType.OVERDUE.name());
-                            } else {
-                                childService.setServiceStatus(ServiceType.UPCOMING.name());
-                            }
-                            coreChildServiceObservableEmitter.onNext(childService);
+                    if (!TextUtils.isEmpty(vaccineName) && !TextUtils.isEmpty(dueDate)) {
+                        CoreChildService childService = new CoreChildService();
+                        childService.setServiceName(vaccineName);
+                        if (childService.getServiceName().contains("MEASLES")) {
+                            childService.setServiceName(childService.getServiceName().replace("MEASLES", "MCV"));
+                        }
+                        //String duedateString = DateUtil.formatDate(dueDate, "dd MMM yyyy");
+                        childService.setServiceDate(dueDate);
+                        if (state.equals(ImmunizationState.DUE)) {
+                            childService.setServiceStatus(ServiceType.DUE.name());
+                        } else if (state.equals(ImmunizationState.OVERDUE)) {
+                            childService.setServiceStatus(ServiceType.OVERDUE.name());
                         } else {
-                            //fetch service data
-                            final HomeVisitGrowthNutritionInteractor homeVisitGrowthNutritionInteractor = new HomeVisitGrowthNutritionInteractor();
-                            homeVisitGrowthNutritionInteractor.parseRecordServiceData(getpClient(), new HomeVisitGrowthNutritionContract.InteractorCallBack() {
-                                @Override
-                                public void updateGivenRecordVisitData(Map<String, ServiceWrapper> stringServiceWrapperMap) {
-                                    try {
-                                        CoreChildService childService = null;
-                                        ArrayList<GrowthServiceData> growthServiceDataList = homeVisitGrowthNutritionInteractor.getAllDueService(stringServiceWrapperMap);
-                                        if (growthServiceDataList.size() > 0) {
-                                            childService = new CoreChildService();
-                                            GrowthServiceData growthServiceData = growthServiceDataList.get(0);
-                                            childService.setServiceName(growthServiceData.getDisplayName());
-                                            childService.setServiceDate(growthServiceData.getDisplayAbleDate());
-                                            ImmunizationState state1 = CoreChildUtils.getDueStatus(growthServiceData.getDate());
-                                            if (state1.equals(ImmunizationState.DUE)) {
-                                                childService.setServiceStatus(ServiceType.DUE.name());
-                                            } else if (state1.equals(ImmunizationState.OVERDUE)) {
-                                                childService.setServiceStatus(ServiceType.OVERDUE.name());
-                                            } else {
-                                                childService.setServiceStatus(ServiceType.UPCOMING.name());
-                                            }
-
-                                        }
-                                        coreChildServiceObservableEmitter.onNext(childService);
-                                    } catch (Exception e) {
-                                        e.printStackTrace();
-                                    }
-
-                                }
-
-                                @Override
-                                public void updateNotGivenRecordVisitData(Map<String, ServiceWrapper> stringServiceWrapperMap) {
-                                    //No need to handle not given service
-                                }
-
-                                @Override
-                                public void allDataLoaded() {
-                                }
-                            });
+                            childService.setServiceStatus(ServiceType.UPCOMING.name());
                         }
+                        coreChildServiceObservableEmitter.onNext(childService);
+                    } else {
+                        //fetch service data
+                        final HomeVisitGrowthNutritionInteractor homeVisitGrowthNutritionInteractor = new HomeVisitGrowthNutritionInteractor();
+                        homeVisitGrowthNutritionInteractor.parseRecordServiceData(getpClient(), new HomeVisitGrowthNutritionContract.InteractorCallBack() {
+                            @Override
+                            public void updateGivenRecordVisitData(Map<String, ServiceWrapper> stringServiceWrapperMap) {
+                                try {
+                                    CoreChildService childService = null;
+                                    ArrayList<GrowthServiceData> growthServiceDataList = homeVisitGrowthNutritionInteractor.getAllDueService(stringServiceWrapperMap,context);
+                                    if (growthServiceDataList.size() > 0) {
+                                        childService = new CoreChildService();
+                                        GrowthServiceData growthServiceData = growthServiceDataList.get(0);
+                                        childService.setServiceName(growthServiceData.getDisplayName());
+                                        childService.setServiceDate(growthServiceData.getDisplayAbleDate());
+                                        ImmunizationState state1 = CoreChildUtils.getDueStatus(growthServiceData.getDate());
+                                        if (state1.equals(ImmunizationState.DUE)) {
+                                            childService.setServiceStatus(ServiceType.DUE.name());
+                                        } else if (state1.equals(ImmunizationState.OVERDUE)) {
+                                            childService.setServiceStatus(ServiceType.OVERDUE.name());
+                                        } else {
+                                            childService.setServiceStatus(ServiceType.UPCOMING.name());
+                                        }
 
+                                    }
+                                    coreChildServiceObservableEmitter.onNext(childService);
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+
+                            }
+
+                            @Override
+                            public void updateNotGivenRecordVisitData(Map<String, ServiceWrapper> stringServiceWrapperMap) {
+                                //No need to handle not given service
+                            }
+
+                            @Override
+                            public void allDataLoaded() {
+                            }
+                        });
                     }
 
-                    @Override
-                    public void updateEditData(ArrayList<HomeVisitVaccineGroup> homeVisitVaccineGroupDetails) {
-                        Timber.v("updateEditData");
-                    }
-                });
+                }
+
+                @Override
+                public void updateEditData(ArrayList<HomeVisitVaccineGroup> homeVisitVaccineGroupDetails) {
+                    Timber.v("updateEditData");
+                }
+            });
 
 
-            }
         });
     }
 

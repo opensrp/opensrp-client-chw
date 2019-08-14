@@ -126,9 +126,9 @@ public class IPTPAction implements BaseAncHomeVisitAction.AncHomeVisitActionHelp
             String value = getValue(jsonObject, MessageFormat.format("iptp{0}_date", serviceIteration));
 
             try {
-                if (ba.getServiceWrapper() != null) {
+                if (ba.getServiceWrapper() != null && ba.getServiceWrapper().size() > 0) {
                     DateTime updateDate = DateTimeFormat.forPattern("dd-MM-yyyy").parseDateTime(value);
-                    ba.getServiceWrapper().setUpdatedVaccineDate(updateDate, false);
+                    ba.getServiceWrapper().get(0).setUpdatedVaccineDate(updateDate, false);
                 }
             } catch (Exception e) {
                 Timber.e(e);

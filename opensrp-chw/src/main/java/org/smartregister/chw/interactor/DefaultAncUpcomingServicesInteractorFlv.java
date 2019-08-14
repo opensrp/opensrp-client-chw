@@ -15,6 +15,7 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.model.BaseUpcomingService;
 import org.smartregister.chw.util.ContactUtil;
+import org.smartregister.chw.util.VaccineScheduleUtil;
 import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.immunization.domain.ServiceWrapper;
 import org.smartregister.immunization.domain.VaccineWrapper;
@@ -116,7 +117,7 @@ public abstract class DefaultAncUpcomingServicesInteractorFlv implements AncUpco
         int ga = Days.daysBetween(lastMenstrualPeriod, new DateTime()).getDays() / 7;
 
         if (ga >= 13) {
-            vaccineTaskModel = ContactUtil.getWomanVaccine(memberObject.getBaseEntityId(), lastMenstrualPeriod, new ArrayList<VaccineWrapper>());
+            vaccineTaskModel = VaccineScheduleUtil.getWomanVaccine(memberObject.getBaseEntityId(), lastMenstrualPeriod, new ArrayList<VaccineWrapper>());
         }
 
         if (vaccineTaskModel == null || vaccineTaskModel.getScheduleList().size() < 1) {
@@ -124,6 +125,6 @@ public abstract class DefaultAncUpcomingServicesInteractorFlv implements AncUpco
         }
         // compute the due date
 
-        return ContactUtil.getIndividualVaccine(vaccineTaskModel, "TT");
+        return VaccineScheduleUtil.getIndividualVaccine(vaccineTaskModel, "TT");
     }
 }

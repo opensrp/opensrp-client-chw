@@ -12,6 +12,7 @@ public class FamilyMemberFloatingMenu extends CoreFamilyMemberFloatingMenu {
 
     public FamilyMemberFloatingMenu(Context context) {
         super(context);
+        initUi();
     }
 
     public FamilyMemberFloatingMenu(Context context, AttributeSet attrs) {

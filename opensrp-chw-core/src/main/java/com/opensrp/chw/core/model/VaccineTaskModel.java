@@ -6,11 +6,13 @@ import org.smartregister.immunization.domain.VaccineWrapper;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class VaccineTaskModel {
     private List<Alert> alerts;
+    private Map<String, Alert> alertsMap = null;
     private List<Vaccine> vaccines;
     private Map<String, Date> receivedVaccines;
     private List<Map<String, Object>> scheduleList;
@@ -22,6 +24,19 @@ public class VaccineTaskModel {
 
     public void setAlerts(List<Alert> alerts) {
         this.alerts = alerts;
+    }
+
+    // lazy intialization
+    public Map<String, Alert> getAlertsMap() {
+        if (alertsMap == null) {
+            alertsMap = new HashMap<>();
+        }
+        if (alerts != null && alerts.size() > 0) {
+            for (Alert alert : alerts) {
+                alertsMap.put(alert.scheduleName(), alert);
+            }
+        }
+        return alertsMap;
     }
 
     public List<Vaccine> getVaccines() {

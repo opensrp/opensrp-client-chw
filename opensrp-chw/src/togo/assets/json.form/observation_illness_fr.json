@@ -83,16 +83,16 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "164378AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "spinner",
-        "hint": "Mesure prise",
+        "hint": "Action prise",
         "v_required": {
           "value": "true",
-          "err": "Veuillez sélectionner mesure"
+          "err": "Veuillez sélectionner action prise"
         },
         "openmrs_data_type": "select one",
         "values": [
           "Géré",
           "Référé",
-          "Aucun mesure prise"
+          "Aucun mesure n'a été prise"
         ],
         "keys": [
           "Managed",
@@ -100,9 +100,9 @@
           "No action taken"
         ],
         "openmrs_choice_ids": {
-          "Géré": "140959AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Référé": "1648AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Aucun action prise": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          "Managed": "140959AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Referred": "1648AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "No action taken": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         }
       }
     ]

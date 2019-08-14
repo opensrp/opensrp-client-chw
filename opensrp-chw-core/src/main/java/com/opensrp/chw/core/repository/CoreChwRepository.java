@@ -53,32 +53,40 @@ public class CoreChwRepository extends Repository {
         super.onCreate(database);
         EventClientRepository.createTable(database, EventClientRepository.Table.client, EventClientRepository.client_column.values());
         EventClientRepository.createTable(database, EventClientRepository.Table.event, EventClientRepository.event_column.values());
+
+        HomeVisitRepository.createTable(database);
+        HomeVisitServiceRepository.createTable(database);
         VaccineRepository.createTable(database);
         VaccineNameRepository.createTable(database);
         VaccineTypeRepository.createTable(database);
+        WashCheckRepository.createTable(database);
         ConfigurableViewsRepository.createTable(database);
+
         UniqueIdRepository.createTable(database);
         SettingsRepository.onUpgrade(database);
+
         RecurringServiceTypeRepository.createTable(database);
         RecurringServiceRecordRepository.createTable(database);
+
         IndicatorRepository.createTable(database);
         IndicatorQueryRepository.createTable(database);
         DailyIndicatorCountRepository.createTable(database);
+        HomeVisitIndicatorInfoRepository.createTable(database);
+
         VisitRepository.createTable(database);
         VisitDetailsRepository.createTable(database);
+
         RecurringServiceTypeRepository recurringServiceTypeRepository = ImmunizationLibrary.getInstance().recurringServiceTypeRepository();
         IMDatabaseUtils.populateRecurringServices(context, database, recurringServiceTypeRepository);
-        HomeVisitIndicatorInfoRepository.createTable(database);
-        HomeVisitRepository.createTable(database);
-        HomeVisitServiceRepository.createTable(database);ReportingLibrary reportingLibraryInstance = ReportingLibrary.getInstance();
+
+        onUpgrade(database, 1, databaseVersion);
+
+        ReportingLibrary reportingLibraryInstance = ReportingLibrary.getInstance();
         String childIndicatorsConfigFile = "config/child-reporting-indicator-definitions.yml";
         String ancIndicatorConfigFile = "config/anc-reporting-indicator-definitions.yml";
         reportingLibraryInstance.initMultipleIndicatorsData(Collections.unmodifiableList(
                 Arrays.asList(childIndicatorsConfigFile, ancIndicatorConfigFile)), database);
-        onUpgrade(database, 1, databaseVersion);
     }
-
-
 
     @Override
     public SQLiteDatabase getReadableDatabase() {

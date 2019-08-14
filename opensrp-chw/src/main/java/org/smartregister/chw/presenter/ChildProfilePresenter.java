@@ -9,10 +9,13 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.interactor.ChildProfileInteractor;
 import org.smartregister.chw.interactor.FamilyProfileInteractor;
 import org.smartregister.chw.model.ChildRegisterModel;
+import org.smartregister.chw.util.Constants;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 
 import java.lang.ref.WeakReference;
+
+import timber.log.Timber;
 
 public class ChildProfilePresenter extends CoreChildProfilePresenter {
 
@@ -23,6 +26,15 @@ public class ChildProfilePresenter extends CoreChildProfilePresenter {
         setChildBaseEntityId(childBaseEntityId);
     }
 
+
+    @Override
+    public void startSickChildReferralForm() {
+        try {
+            getView().startFormActivity(getFormUtils().getFormJson(Constants.JSON_FORM.getChildReferralForm()));
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+    }
 
     @Override
     public void updateChildProfile(String jsonString) {
@@ -39,4 +51,12 @@ public class ChildProfilePresenter extends CoreChildProfilePresenter {
     public void verifyHasPhone() {
         new FamilyProfileInteractor().verifyHasPhone(familyID, this);
     }
+
+    @Override
+    public void notifyHasPhone(boolean hasPhone) {
+        if (getView() != null) {
+            getView().updateHasPhone(hasPhone);
+        }
+    }
+
 }

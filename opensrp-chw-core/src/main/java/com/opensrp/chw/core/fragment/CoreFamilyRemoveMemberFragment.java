@@ -81,14 +81,11 @@ public abstract class CoreFamilyRemoveMemberFragment extends BaseFamilyProfileMe
     @Override
     public void displayChangeFamilyHeadDialog(final CommonPersonObjectClient client, final String familyHeadID) {
         CoreFamilyProfileChangeDialog dialog = getChangeFamilyHeadDialog();
-        dialog.setOnSaveAndClose(new Runnable() {
-            @Override
-            public void run() {
-                setFamilyHead(familyHeadID);
-                refreshMemberList(FetchStatus.fetched);
-                getPresenter().removeMember(client);
-                refreshListView();
-            }
+        dialog.setOnSaveAndClose(() -> {
+            setFamilyHead(familyHeadID);
+            refreshMemberList(FetchStatus.fetched);
+            getPresenter().removeMember(client);
+            refreshListView();
         });
         dialog.show(getActivity().getFragmentManager(), "FamilyProfileChangeDialogHF");
     }

@@ -8,6 +8,7 @@ import com.opensrp.chw.core.repository.AncRegisterRepository;
 import com.opensrp.chw.core.repository.HomeVisitIndicatorInfoRepository;
 import com.opensrp.chw.core.repository.HomeVisitRepository;
 import com.opensrp.chw.core.repository.HomeVisitServiceRepository;
+import com.opensrp.chw.core.repository.WashCheckRepository;
 import com.opensrp.chw.core.sync.ChwClientProcessor;
 
 import org.smartregister.Context;
@@ -20,6 +21,9 @@ import org.smartregister.immunization.domain.jsonmapping.Vaccine;
 import org.smartregister.immunization.domain.jsonmapping.VaccineGroup;
 import org.smartregister.immunization.repository.VaccineRepository;
 import org.smartregister.immunization.util.VaccinatorUtils;
+import org.smartregister.repository.PlanDefinitionRepository;
+import org.smartregister.repository.TaskNotesRepository;
+import org.smartregister.repository.TaskRepository;
 import org.smartregister.sync.ClientProcessorForJava;
 import org.smartregister.sync.helper.ECSyncHelper;
 import org.smartregister.view.activity.DrishtiApplication;
@@ -43,6 +47,9 @@ public class CoreChwApplication extends DrishtiApplication implements CoreApplic
     private static HomeVisitServiceRepository homeVisitServiceRepository;
     private static AncRegisterRepository ancRegisterRepository;
     private static HomeVisitIndicatorInfoRepository homeVisitIndicatorInfoRepository;
+    private static TaskRepository taskRepository;
+    private static PlanDefinitionRepository planDefinitionRepository;
+    private static WashCheckRepository washCheckRepository;
 
     public JsonSpecHelper jsonSpecHelper;
     private ECSyncHelper ecSyncHelper;
@@ -95,6 +102,27 @@ public class CoreChwApplication extends DrishtiApplication implements CoreApplic
             homeVisitIndicatorInfoRepository = new HomeVisitIndicatorInfoRepository(getInstance().getRepository());
         }
         return homeVisitIndicatorInfoRepository;
+    }
+
+    public TaskRepository getTaskRepository() {
+        if (taskRepository == null) {
+            taskRepository = new TaskRepository(getRepository(), new TaskNotesRepository(getRepository()));
+        }
+        return taskRepository;
+    }
+
+    public PlanDefinitionRepository getPlanDefinitionRepository() {
+        if (planDefinitionRepository == null) {
+            planDefinitionRepository = new PlanDefinitionRepository(getRepository());
+        }
+        return planDefinitionRepository;
+    }
+
+    public static WashCheckRepository getWashCheckRepository() {
+        if (washCheckRepository == null) {
+            washCheckRepository = new WashCheckRepository(getInstance().getRepository());
+        }
+        return washCheckRepository;
     }
 
     /**

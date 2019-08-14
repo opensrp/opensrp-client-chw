@@ -7,6 +7,7 @@ import com.opensrp.chw.core.application.CoreChwApplication;
 import com.opensrp.chw.core.repository.HomeVisitRepository;
 import com.opensrp.chw.core.utils.CoreChildUtils;
 import com.opensrp.chw.core.utils.CoreConstants;
+import com.opensrp.chw.core.utils.WashCheck;
 
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.anc.util.DBConstants;
@@ -201,6 +202,16 @@ public class ChwClientProcessor extends ClientProcessorForJava {
                         processVaccineCardEvent(eventClient);
                         processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
                         break;
+                    case CoreConstants.EventType.WASH_CHECK:
+                        processWashCheckEvent(eventClient);
+                        processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
+
+                        break;
+                    case CoreConstants.EventType.CHILD_REFERRAL:
+                        if (eventClient.getClient() != null) {
+                            processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
+                        }
+                        break;
                     default:
                         if (eventClient.getClient() != null) {
                             if (eventType.equals(CoreConstants.EventType.UPDATE_FAMILY_RELATIONS) && event.getEntityType().equalsIgnoreCase(CoreConstants.TABLE_NAME.FAMILY_MEMBER)) {
@@ -216,6 +227,13 @@ public class ChwClientProcessor extends ClientProcessorForJava {
         }
     }
 
+    @Override
+    public void updateClientDetailsTable(Event event, Client client) {
+        Timber.d("Started updateClientDetailsTable");
+        event.addDetails("detailsUpdated", Boolean.TRUE.toString());
+        Timber.d("Finished updateClientDetailsTable");
+    }
+
     private void processHomeVisit(EventClient eventClient) {
         List<Obs> observations = eventClient.getEvent().getObs();
 
@@ -229,6 +247,23 @@ public class ChwClientProcessor extends ClientProcessorForJava {
 
     private void processHomeVisitService(EventClient eventClient) {
         CoreChildUtils.addToHomeVisitService(eventClient.getEvent().getEventType(), eventClient.getEvent().getObs(), eventClient.getEvent().getEventDate().toDate(), CoreChildUtils.gsonConverter.toJson(eventClient.getEvent()));
+    }
+
+    private void processWashCheckEvent(EventClient eventClient) {
+        WashCheck washCheck = new WashCheck();
+        for (Obs obs : eventClient.getEvent().getObs()) {
+
+            if (obs.getFormSubmissionField().equalsIgnoreCase(CoreConstants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.FAMILY_ID)) {
+                washCheck.setFamilyBaseEntityId((String) obs.getValue());
+            }
+            if (obs.getFormSubmissionField().equalsIgnoreCase(CoreConstants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.WASH_CHECK_DETAILS)) {
+                washCheck.setDetailsJson((String) obs.getValue());
+            }
+            if (obs.getFormSubmissionField().equalsIgnoreCase(CoreConstants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.WASH_CHECK_LAST_VISIT)) {
+                washCheck.setLastVisit(Long.parseLong((String) obs.getValue()));
+            }
+        }
+        CoreChwApplication.getWashCheckRepository().add(washCheck);
     }
 
     // possible to delegate
@@ -525,12 +560,5 @@ public class ChwClientProcessor extends ClientProcessorForJava {
                     String.format(" %s in (select base_entity_id from %s where relational_id = ? )  ", CommonFtsObject.idColumn, CoreConstants.TABLE_NAME.FAMILY_MEMBER), new String[]{familyID});
 
         }
-    }
-
-    @Override
-    public void updateClientDetailsTable(Event event, Client client) {
-        Timber.d("Started updateClientDetailsTable");
-        event.addDetails("detailsUpdated", Boolean.TRUE.toString());
-        Timber.d("Finished updateClientDetailsTable");
     }
 }

@@ -10,7 +10,6 @@ import android.widget.LinearLayout;
 
 import com.opensrp.chw.core.activity.CoreChildProfileActivity;
 import com.opensrp.chw.core.activity.CoreUpcomingServicesActivity;
-import com.opensrp.chw.core.fragment.CoreChildHomeVisitFragment;
 import com.opensrp.chw.core.listener.OnClickFloatingMenu;
 import com.opensrp.chw.core.model.CoreChildProfileModel;
 import com.opensrp.chw.core.presenter.CoreChildProfilePresenter;
@@ -26,7 +25,6 @@ import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-
 public class ChildProfileActivity extends CoreChildProfileActivity {
     public FamilyMemberFloatingMenu familyFloatingMenu;
     private ChildProfileActivityFlv flavor = new ChildProfileActivityFlv();
@@ -39,6 +37,23 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
         setupViews();
         setUpToolbar();
         registerReceiver(mDateTimeChangedReceiver, sIntentFilter);
+    }
+
+    @Override
+    public void onClick(View view) {
+        super.onClick(view);
+        int i = view.getId();
+        if (i == R.id.last_visit_row) {
+            openMedicalHistoryScreen();
+        } else if (i == R.id.most_due_overdue_row) {
+            openUpcomingServicePage();
+        } else if (i == R.id.textview_record_visit || i == R.id.record_visit_done_bar) {
+            openVisitHomeScreen(false);
+        } else if (i == R.id.family_has_row) {
+            openFamilyDueTab();
+        } else if (i == R.id.textview_edit) {
+            openVisitHomeScreen(true);
+        }
     }
 
     @Override
@@ -87,6 +102,39 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
         return super.onOptionsItemSelected(item);
     }
 
+
+    private void openFamilyDueTab() {
+        Intent intent = new Intent(this, FamilyProfileActivity.class);
+
+        intent.putExtra(Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID, ((ChildProfilePresenter) presenter()).getFamilyId());
+        intent.putExtra(Constants.INTENT_KEY.FAMILY_HEAD, ((ChildProfilePresenter) presenter()).getFamilyHeadID());
+        intent.putExtra(Constants.INTENT_KEY.PRIMARY_CAREGIVER, ((ChildProfilePresenter) presenter()).getPrimaryCareGiverID());
+        intent.putExtra(Constants.INTENT_KEY.FAMILY_NAME, ((ChildProfilePresenter) presenter()).getFamilyName());
+
+        intent.putExtra(org.smartregister.chw.util.Constants.INTENT_KEY.SERVICE_DUE, true);
+        startActivity(intent);
+    }
+
+    private void openUpcomingServicePage() {
+        CoreUpcomingServicesActivity.startUpcomingServicesActivity(this, ((ChildProfilePresenter) presenter()).getChildClient());
+    }
+
+    private void openMedicalHistoryScreen() {
+        Map<String, Date> vaccine = ((ChildProfilePresenter) presenter()).getVaccineList();
+        ChildMedicalHistoryActivity.startMedicalHistoryActivity(this, ((ChildProfilePresenter) presenter()).getChildClient(), patientName, lastVisitDay,
+                ((ChildProfilePresenter) presenter()).getDateOfBirth(), new LinkedHashMap<>(vaccine));
+
+    }
+
+    private void openVisitHomeScreen(boolean isEditMode) {
+        ChildHomeVisitFragment childHomeVisitFragment = ChildHomeVisitFragment.newInstance();
+        childHomeVisitFragment.setEditMode(isEditMode);
+        childHomeVisitFragment.setContext(this);
+        childHomeVisitFragment.setChildClient(((ChildProfilePresenter) presenter()).getChildClient());
+//                childHomeVisitFragment.setFamilyBaseEntityId(getFamilyBaseEntityId());
+        childHomeVisitFragment.show(getFragmentManager(), ChildHomeVisitFragment.DIALOG_TAG);
+    }
+
     @Override
     public void updateHasPhone(boolean hasPhone) {
         if (familyFloatingMenu != null) {
@@ -103,56 +151,6 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
             menu.findItem(R.id.action_malaria_registration).setVisible(false);
         }
         return true;
-    }
-
-    @Override
-    public void onClick(View view) {
-        super.onClick(view);
-        int i = view.getId();
-        if (i == R.id.last_visit_row) {
-            openMedicalHistoryScreen();
-        } else if (i == R.id.most_due_overdue_row) {
-            openUpcomingServicePage();
-        } else if (i == R.id.textview_record_visit || i == R.id.record_visit_done_bar) {
-            openVisitHomeScreen(false);
-        } else if (i == R.id.family_has_row) {
-            openFamilyDueTab();
-        } else if (i == R.id.textview_edit) {
-            openVisitHomeScreen(true);
-        }
-    }
-
-    private void openFamilyDueTab() {
-        Intent intent = new Intent(this, FamilyProfileActivity.class);
-
-        intent.putExtra(Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID, ((CoreChildProfilePresenter) presenter()).getFamilyId());
-        intent.putExtra(Constants.INTENT_KEY.FAMILY_HEAD, ((CoreChildProfilePresenter) presenter()).getFamilyHeadID());
-        intent.putExtra(Constants.INTENT_KEY.PRIMARY_CAREGIVER, ((CoreChildProfilePresenter) presenter()).getPrimaryCareGiverID());
-        intent.putExtra(Constants.INTENT_KEY.FAMILY_NAME, ((CoreChildProfilePresenter) presenter()).getFamilyName());
-
-        intent.putExtra(CoreConstants.INTENT_KEY.SERVICE_DUE, true);
-        startActivity(intent);
-    }
-
-    private void openUpcomingServicePage() {
-        CoreUpcomingServicesActivity.startUpcomingServicesActivity(this, ((CoreChildProfilePresenter) presenter()).getChildClient());
-    }
-
-    private void openMedicalHistoryScreen() {
-        Map<String, Date> vaccine = ((ChildProfilePresenter) presenter()).getVaccineList();
-        ChildMedicalHistoryActivity.startMedicalHistoryActivity(this, ((CoreChildProfilePresenter) presenter()).getChildClient(), patientName, lastVisitDay,
-                ((ChildProfilePresenter) presenter()).getDateOfBirth(), new LinkedHashMap<>(vaccine));
-
-    }
-
-
-    private void openVisitHomeScreen(boolean isEditMode) {
-        ChildHomeVisitFragment childHomeVisitFragment = ChildHomeVisitFragment.newInstance();
-        childHomeVisitFragment.setEditMode(isEditMode);
-        childHomeVisitFragment.setContext(this);
-        childHomeVisitFragment.setChildClient(((CoreChildProfilePresenter) presenter()).getChildClient());
-//                childHomeVisitFragment.setFamilyBaseEntityId(getFamilyBaseEntityId());
-        childHomeVisitFragment.show(getFragmentManager(), CoreChildHomeVisitFragment.DIALOG_TAG);
     }
 
     public interface Flavor {

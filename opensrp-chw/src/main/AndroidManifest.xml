@@ -3,8 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="org.smartregister.chw">
 
-    <uses-feature android:name="android.hardware.camera" />
-    <uses-feature android:name="android.hardware.camera.autofocus" />
+    <uses-feature
+        android:required="false"
+        android:name="android.hardware.camera" />
+    <uses-feature
+        android:required="false"
+        android:name="android.hardware.camera.autofocus" />
+    <uses-feature
+        android:name="android.hardware.telephony"
+        android:required="false" />
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -25,51 +32,41 @@
         <activity
             android:name=".activity.AncUpcomingServicesActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
-
         <activity
             android:name=".activity.AncMedicalHistoryActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
-
         <activity
             android:name=".activity.AncHomeVisitActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
-
         <activity
             android:name=".activity.AncRegisterActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
-
         <activity
             android:name=".activity.AncMemberProfileActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
-
         <activity
             android:name=".activity.PncUpcomingServicesActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
-
         <activity
             android:name=".activity.PncMedicalHistoryActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
-
         <activity
             android:name=".activity.PncHomeVisitActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
-
         <activity
             android:name=".activity.PncRegisterActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
-
         <activity
             android:name=".activity.PncMemberProfileActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
-
         <activity
             android:name=".activity.MalariaRegisterActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
-
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="3f94f9c3caeff331b3a2bd8c2182b663ad6a955a" />
-
+        <activity
+            android:name="com.opensrp.chw.core.activity.ChwP2pModeSelectActivity"/>
         <activity
             android:name=".activity.JobAidsActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
@@ -147,6 +144,10 @@
             android:name=".activity.AboveFiveChildProfileActivity"
             android:label="@string/child_details"
             android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.MalariaProfileActivity"
+            android:label="@string/malaria"
+            android:theme="@style/ChwTheme.NoActionBar" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -166,6 +167,9 @@
         <service android:name="org.smartregister.sync.intent.ValidateIntentService" />
         <service android:name="org.smartregister.service.ImageUploadSyncService" />
         <service android:name="org.smartregister.chw.anc.intent.HomeVisitIntent" />
+        <service android:name="org.smartregister.chw.com.opensrp.chw.core.intent.ChwPncCloseDateIntent" />
+        <service android:name="org.smartregister.sync.intent.SyncTaskIntentService" />
+        <service android:name="org.smartregister.sync.intent.PlanIntentService" />
 
         <uses-library
             android:name="org.apache.http.legacy"

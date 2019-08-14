@@ -1,16 +1,18 @@
 package com.opensrp.chw.core.presenter;
 
 import android.app.Activity;
-
 import com.opensrp.chw.core.contract.CoreApplication;
 import com.opensrp.chw.core.contract.NavigationContract;
 import com.opensrp.chw.core.interactor.NavigationInteractor;
+import com.opensrp.chw.core.job.BasePncCloseJob;
+import com.opensrp.chw.core.job.HomeVisitServiceJob;
+import com.opensrp.chw.core.job.VaccineRecurringServiceJob;
 import com.opensrp.chw.core.model.NavigationModel;
 import com.opensrp.chw.core.model.NavigationOption;
 import com.opensrp.chw.core.utils.CoreConstants;
-
 import org.smartregister.job.ImageUploadServiceJob;
 import org.smartregister.job.SyncServiceJob;
+import org.smartregister.job.SyncTaskServiceJob;
 
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
@@ -44,6 +46,7 @@ public class NavigationPresenter implements NavigationContract.Presenter {
         tableMap.put(CoreConstants.DrawerMenu.ANC_CLIENTS, CoreConstants.TABLE_NAME.ANC_MEMBER);
         tableMap.put(CoreConstants.DrawerMenu.ANC, CoreConstants.TABLE_NAME.ANC_MEMBER);
         tableMap.put(CoreConstants.DrawerMenu.PNC, CoreConstants.TABLE_NAME.ANC_PREGNANCY_OUTCOME);
+        tableMap.put(CoreConstants.DrawerMenu.MALARIA, CoreConstants.TABLE_NAME.MALARIA_CONFIRMATION);
     }
 
     @Override
@@ -89,8 +92,12 @@ public class NavigationPresenter implements NavigationContract.Presenter {
 
     @Override
     public void sync(Activity activity) {
+        BasePncCloseJob.scheduleJobImmediately(BasePncCloseJob.TAG);
+        HomeVisitServiceJob.scheduleJobImmediately(HomeVisitServiceJob.TAG);
+        VaccineRecurringServiceJob.scheduleJobImmediately(VaccineRecurringServiceJob.TAG);
         ImageUploadServiceJob.scheduleJobImmediately(ImageUploadServiceJob.TAG);
         SyncServiceJob.scheduleJobImmediately(SyncServiceJob.TAG);
+        SyncTaskServiceJob.scheduleJobImmediately(SyncTaskServiceJob.TAG);
     }
 
     @Override

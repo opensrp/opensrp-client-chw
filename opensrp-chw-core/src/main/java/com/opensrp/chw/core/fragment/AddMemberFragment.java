@@ -15,7 +15,6 @@ import com.opensrp.chw.core.R;
 import com.opensrp.chw.core.activity.CoreFamilyProfileActivity;
 import com.opensrp.chw.core.utils.CoreConstants;
 
-
 public class AddMemberFragment extends DialogFragment implements View.OnClickListener {
 
     public static final String DIALOG_TAG = "add_member_dialog";
@@ -67,13 +66,7 @@ public class AddMemberFragment extends DialogFragment implements View.OnClickLis
         super.onStart();
         // without a handler, the window sizes itself correctly
         // but the keyboard does not show up
-        new Handler().post(new Runnable() {
-            @Override
-            public void run() {
-                getDialog().getWindow().setLayout(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
-
-            }
-        });
+        new Handler().post(() -> getDialog().getWindow().setLayout(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
 
     }
 

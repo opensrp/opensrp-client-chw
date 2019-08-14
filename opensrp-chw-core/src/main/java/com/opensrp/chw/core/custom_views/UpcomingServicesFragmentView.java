@@ -38,6 +38,12 @@ public class UpcomingServicesFragmentView extends LinearLayout implements View.O
     private CommonPersonObjectClient childClient;
     private Activity context;
 
+    @Override
+    public Context getMyContext() {
+        if (context == null) return getContext();
+        return context;
+    }
+
     public UpcomingServicesFragmentView(Context context) {
         super(context);
     }
@@ -131,7 +137,7 @@ public class UpcomingServicesFragmentView extends LinearLayout implements View.O
     }
 
     @Override
-    public void updateAdapter(int position) {
+    public void updateAdapter(int position, Context context) {
         ArrayList<HomeVisitVaccineGroup> homeVisitVaccineGroupList = presenter.getHomeVisitVaccineGroupDetails();
         for (HomeVisitVaccineGroup homeVisitVaccineGroup : homeVisitVaccineGroupList) {
             if (homeVisitVaccineGroup.getNotGivenVaccines().size() > 0 && (homeVisitVaccineGroup.getAlert().equals(ImmunizationState.DUE)
@@ -141,12 +147,12 @@ public class UpcomingServicesFragmentView extends LinearLayout implements View.O
             }
         }
 
-        getUpcomingGrowthNutritonData();
+        getUpcomingGrowthNutritonData(context);
 
     }
 
 
-    private void getUpcomingGrowthNutritonData() {
+    private void getUpcomingGrowthNutritonData(final Context context) {
         final HomeVisitGrowthNutritionInteractor homeVisitGrowthNutritionInteractor = new HomeVisitGrowthNutritionInteractor();
         homeVisitGrowthNutritionInteractor.parseRecordServiceData(childClient, new HomeVisitGrowthNutritionContract.InteractorCallBack() {
             @Override
@@ -163,7 +169,7 @@ public class UpcomingServicesFragmentView extends LinearLayout implements View.O
             public void updateGivenRecordVisitData(final Map<String, ServiceWrapper> stringServiceWrapperMap) {
 
                 try {
-                    ArrayList<GrowthServiceData> growthServiceDataList = homeVisitGrowthNutritionInteractor.getAllDueService(stringServiceWrapperMap);
+                    ArrayList<GrowthServiceData> growthServiceDataList = homeVisitGrowthNutritionInteractor.getAllDueService(stringServiceWrapperMap, context);
                     String lastDate = "";
                     View lastView = null;
                     for (Iterator<GrowthServiceData> i = growthServiceDataList.iterator(); i.hasNext(); ) {

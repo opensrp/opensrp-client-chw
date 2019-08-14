@@ -444,10 +444,12 @@ public class VaccinationDialogFragment extends DialogFragment implements View.On
         List<String> selectedCheckboxes = findSelectedCheckBoxes(vaccinationNameLayout);
         singleVaccineAddView.removeAllViews();
         singleVaccineMap.clear();
+
+        singleVaccineAddView.setVisibility(View.VISIBLE);
+        String dobString = org.smartregister.util.Utils.getValue(childDetails, DBConstants.KEY.DOB, false);
+
         for (String checkedName : selectedCheckboxes) {
-            singleVaccineAddView.setVisibility(View.VISIBLE);
             VaccineWrapper tag = searchWrapperByName(checkedName);
-            String dobString = org.smartregister.util.Utils.getValue(childDetails, DBConstants.KEY.DOB, false);
 
             if (tag != null && !TextUtils.isEmpty(dobString)) {
                 View layout = inflater.inflate(R.layout.custom_single_vaccine_view, null);
@@ -558,9 +560,7 @@ public class VaccinationDialogFragment extends DialogFragment implements View.On
 
         // without a handler, the window sizes itself correctly
         // but the keyboard does not show up
-        new Handler().post(new Runnable() {
-            @Override
-            public void run() {
+        new Handler().post(() -> {
                 Window window = null;
                 if (getDialog() != null) {
                     window = getDialog().getWindow();
@@ -577,7 +577,6 @@ public class VaccinationDialogFragment extends DialogFragment implements View.On
 
                 window.setLayout(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
                 window.setGravity(Gravity.CENTER);
-            }
         });
     }
 

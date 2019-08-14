@@ -9,7 +9,6 @@ import com.opensrp.chw.core.R;
 import com.opensrp.chw.core.adapter.NavigationAdapter;
 import com.opensrp.chw.core.utils.CoreConstants;
 
-
 public class NavigationListener implements View.OnClickListener {
 
     private Activity activity;
@@ -46,7 +45,7 @@ public class NavigationListener implements View.OnClickListener {
                         Toast.makeText(activity.getApplicationContext(), CoreConstants.DrawerMenu.FAMILY_PLANNING, Toast.LENGTH_SHORT).show();
                         break;
                     case CoreConstants.DrawerMenu.MALARIA:
-                        Toast.makeText(activity.getApplicationContext(), CoreConstants.DrawerMenu.MALARIA, Toast.LENGTH_SHORT).show();
+                        startRegisterActivity(getActivity(CoreConstants.REGISTERED_ACTIVITIES.MALARIA_REGISTER_ACTIVITY));
                         break;
                     default:
                         break;
@@ -56,7 +55,7 @@ public class NavigationListener implements View.OnClickListener {
         }
     }
 
-    private void startRegisterActivity(Class registerClass) {
+    protected void startRegisterActivity(Class registerClass) {
         Intent intent = new Intent(activity, registerClass);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         activity.startActivity(intent);

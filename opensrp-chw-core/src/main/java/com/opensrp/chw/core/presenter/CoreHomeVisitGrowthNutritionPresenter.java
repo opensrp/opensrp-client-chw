@@ -27,7 +27,7 @@ import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 
-import static com.opensrp.chw.core.utils.Utils.DD_MM_YYYY;
+import static com.opensrp.chw.core.utils.Utils.dd_MMM_yyyy;
 
 public class CoreHomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNutritionContract.Presenter, HomeVisitGrowthNutritionContract.InteractorCallBack {
     private static Flavor homeVisitGrowthNutritionPresenterFlv = null;
@@ -76,11 +76,11 @@ public class CoreHomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNut
         if (type.equalsIgnoreCase(GrowthNutritionInputFragment.GROWTH_TYPE.EXCLUSIVE.getValue())) {
             Date date = org.smartregister.family.util.Utils.dobStringToDate(serviceWrapper.getUpdatedVaccineDateAsString());
             if (getView() != null)
-                getView().statusImageViewUpdate(type, true, context.getString(R.string.given_on, DD_MM_YYYY.format(date)), serviceWrapper.getValue());
+                getView().statusImageViewUpdate(type, true, context.getString(R.string.given_on, dd_MMM_yyyy.format(date)), serviceWrapper.getValue());
         } else {
             Date date = org.smartregister.family.util.Utils.dobStringToDate(serviceWrapper.getUpdatedVaccineDateAsString());
             if (getView() != null)
-                getView().statusImageViewUpdate(type, true, context.getString(R.string.given_on, DD_MM_YYYY.format(date)), "");
+                getView().statusImageViewUpdate(type, true, context.getString(R.string.given_on, dd_MMM_yyyy.format(date)), "");
 
         }
     }
@@ -99,21 +99,18 @@ public class CoreHomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNut
     }
 
     public Observable undoGrowthData() {
-        return Observable.create(new ObservableOnSubscribe() {
-            @Override
-            public void subscribe(ObservableEmitter e) throws Exception {
-                RecurringServiceRecordRepository recurringServiceRecordRepository = ImmunizationLibrary.getInstance().recurringServiceRecordRepository();
+        return Observable.create((ObservableOnSubscribe) e -> {
+            RecurringServiceRecordRepository recurringServiceRecordRepository = ImmunizationLibrary.getInstance().recurringServiceRecordRepository();
 
-                for (String type : saveStateMap.keySet()) {
-                    ServiceWrapper serviceWrapper = saveStateMap.get(type);
-                    if (serviceWrapper != null) {
-                        recurringServiceRecordRepository.deleteServiceRecord(serviceWrapper.getDbKey());
-                        ChwServiceSchedule.updateOfflineAlerts(serviceWrapper.getType(), commonPersonObjectClient.entityId(), Utils.dobToDateTime(commonPersonObjectClient));
-                    }
-
+            for (String type : saveStateMap.keySet()) {
+                ServiceWrapper serviceWrapper = saveStateMap.get(type);
+                if (serviceWrapper != null) {
+                    recurringServiceRecordRepository.deleteServiceRecord(serviceWrapper.getDbKey());
+                    ChwServiceSchedule.updateOfflineAlerts(serviceWrapper.getType(), commonPersonObjectClient.entityId(), Utils.dobToDateTime(commonPersonObjectClient));
                 }
-                e.onComplete();
+
             }
+            e.onComplete();
         });
 
     }

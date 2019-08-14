@@ -21,6 +21,11 @@ android {
     compileSdkVersion 28
     buildToolsVersion androidBuildToolsVersion
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
     defaultConfig {
         applicationId "com.opensrp.chw.hf"
         minSdkVersion 18

@@ -47,7 +47,7 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "Certification de naissance",
+    "title": "Acte de naissance",
     "fields": [
       {
         "key": "birth_cert",
@@ -56,7 +56,7 @@
         "openmrs_entity_id": "165406AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "L'enfant a-t-il un certificat de naissance?",
+        "hint": "L'enfant a t-il ou elle un certificat de naissance?",
         "values": [
           "Oui",
           "Non"
@@ -66,8 +66,8 @@
           "No"
         ],
         "openmrs_choice_ids": {
-          "Oui": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Non": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         "v_required": {
           "value": true,
@@ -80,7 +80,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "164129AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "date_picker",
-        "hint": "Date de delivrance du certificat de naissance",
+        "hint": "Date de délivrance de l'acte de naissance",
         "expanded": false,
         "max_date": "today",
         "min_date": "",
@@ -103,7 +103,7 @@
         "openmrs_entity_id": "162052AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "text",
         "type": "edit_text",
-        "hint": "Numéro du certificat de naissance",
+        "hint": "Numéro de l'acte de naissance",
         "v_required": {
           "value": "true",
           "err": "Veuillez entrer le numéro"
@@ -133,8 +133,8 @@
           "No"
         ],
         "openmrs_choice_ids": {
-          "Oui": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Non": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         "v_required": {
           "value": false,
@@ -154,7 +154,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "label",
-        "text": "Demandez au responsable de l'enfant de vous montrer la notification de naissance et instruisez la d'enregistrer la naissance au Départment sanitaire de la commune.",
+        "text": "Demandez à voir la declaration de naissance et demandez au parent d'enregistrer la naissance auprès des agents d'Etat civil.",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -169,7 +169,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "label",
-        "text": "Demandez au responsable de l'enfant d'enregistrer la naissance au Départment sanitaire de la commune.",
+        "text": "Demandez au parent de faire enregistrer la naissance de l'enfant auprès des agents d'Etat civil.",
         "relevance": {
           "rules-engine": {
             "ex-rules": {

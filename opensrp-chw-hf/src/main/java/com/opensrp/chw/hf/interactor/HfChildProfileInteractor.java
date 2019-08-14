@@ -101,13 +101,13 @@ public class HfChildProfileInteractor extends CoreChildProfileInteractor {
     @Override
     public void refreshUpcomingServiceAndFamilyDue(Context context, String familyId, String baseEntityId, final CoreChildProfileContract.InteractorCallBack callback) {
         if (getpClient() == null) return;
-        updateUpcomingServices(callback);
+        updateUpcomingServices(callback,context);
         updateFamilyDueStatus(context, familyId, baseEntityId, callback);
 
     }
 
-    private void updateUpcomingServices(final CoreChildProfileContract.InteractorCallBack callback) {
-        updateUpcomingServices()
+    private void updateUpcomingServices(final CoreChildProfileContract.InteractorCallBack callback, Context context) {
+        updateUpcomingServices(context)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<CoreChildService>() {

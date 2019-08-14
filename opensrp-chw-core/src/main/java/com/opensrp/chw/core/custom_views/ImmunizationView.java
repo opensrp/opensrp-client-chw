@@ -33,6 +33,7 @@ public class ImmunizationView extends LinearLayout implements ImmunizationContac
     private final String W_14 = "14 weeks";
     private final String W_6 = "6 weeks";
 
+    private Context context;
     private RecyclerView recyclerView;
     private ImmunizationAdapter adapter;
     private ImmunizationViewPresenter presenter;
@@ -67,16 +68,19 @@ public class ImmunizationView extends LinearLayout implements ImmunizationContac
 
     public ImmunizationView(Context context) {
         super(context);
+        this.context = context;
         initUi();
     }
 
     public ImmunizationView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        this.context = context;
         initUi();
     }
 
     public ImmunizationView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        this.context = context;
         initUi();
     }
 
@@ -133,7 +137,7 @@ public class ImmunizationView extends LinearLayout implements ImmunizationContac
     }
 
     @Override
-    public void updateAdapter(int position) {
+    public void updateAdapter(int position, Context context) {
         updateSubmitBtn();
 
         if (isEditMode) {
@@ -164,7 +168,7 @@ public class ImmunizationView extends LinearLayout implements ImmunizationContac
         }
         selectedGroup.getNotGivenVaccines().clear();
         selectedGroup.getNotGivenVaccines().addAll(notGiven);
-        updateAdapter(pressPosition);
+        updateAdapter(pressPosition, context);
         if ((pressPosition + 1) < presenter.getHomeVisitVaccineGroupDetails().size()) {
             HomeVisitVaccineGroup nextSelectedGroup = presenter.getHomeVisitVaccineGroupDetails().get(pressPosition + 1);
             if (nextSelectedGroup.getGroup().equalsIgnoreCase(W_10)
@@ -174,7 +178,7 @@ public class ImmunizationView extends LinearLayout implements ImmunizationContac
                 if (nextSelectedGroup.getViewType() == HomeVisitVaccineGroup.TYPE_INACTIVE) {
                     nextSelectedGroup.setViewType(HomeVisitVaccineGroup.TYPE_INITIAL);
                 }
-                updateAdapter(pressPosition + 1);
+                updateAdapter(pressPosition + 1, context);
             }
 
         }
@@ -235,12 +239,17 @@ public class ImmunizationView extends LinearLayout implements ImmunizationContac
                 }
 
             }
-            updateAdapter(pressPosition + 1);
+            updateAdapter(pressPosition + 1, context);
 
         } catch (Exception e) {
             adapter.notifyDataSetChanged();
         }
 
+    }
+
+    @Override
+    public Context getMyContext() {
+        return context;
     }
 
     @Override

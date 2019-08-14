@@ -367,7 +367,10 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
             familyName = "";
         }
 
-        presenter = new CoreChildProfilePresenter(this, new CoreChildProfileModel(familyName), childBaseEntityId);
+        if (presenter == null) {
+            presenter = new CoreChildProfilePresenter(this, new CoreChildProfileModel(familyName), childBaseEntityId);
+        }
+
         fetchProfileData();
     }
 
@@ -389,15 +392,12 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
      * need postdelay to update the client map
      */
     private void updateImmunizationData() {
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                layoutMostDueOverdue.setVisibility(View.GONE);
-                viewMostDueRow.setVisibility(View.GONE);
-                presenter().fetchVisitStatus(childBaseEntityId);
-                presenter().fetchUpcomingServiceAndFamilyDue(childBaseEntityId);
-                presenter().updateChildCommonPerson(childBaseEntityId);
-            }
+        handler.postDelayed(() -> {
+            layoutMostDueOverdue.setVisibility(View.GONE);
+            viewMostDueRow.setVisibility(View.GONE);
+            presenter().fetchVisitStatus(childBaseEntityId);
+            presenter().fetchUpcomingServiceAndFamilyDue(childBaseEntityId);
+            presenter().updateChildCommonPerson(childBaseEntityId);
         }, 100);
     }
 
@@ -444,12 +444,7 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
     @Override
     public void refreshProfile(FetchStatus fetchStatus) {
         if (fetchStatus.equals(FetchStatus.fetched)) {
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    presenter().fetchProfileData();
-                }
-            }, 100);
+            handler.postDelayed(() -> presenter().fetchProfileData(), 100);
         }
 
     }
