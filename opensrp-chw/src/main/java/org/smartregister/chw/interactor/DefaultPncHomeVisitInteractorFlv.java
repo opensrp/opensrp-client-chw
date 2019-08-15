@@ -87,6 +87,7 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
         children.addAll(PersonDao.getMothersPNCBabies(memberObject.getBaseEntityId()));
 
         try {
+            Constants.JSON_FORM.setLocaleAndAssetManager(ChwApplication.getCurrentLocale(), ChwApplication.getInstance().getApplicationContext().getAssets());
             evaluateDangerSignsMother();
             evaluateDangerSignsBaby();
             evaluatePNCHealthFacilityVisit();

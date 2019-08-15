@@ -218,39 +218,6 @@ public abstract class Utils extends org.smartregister.family.util.Utils {
         return " " + context.getString(resId);
     }
 
-    /**
-     * Check is the file exists
-     *
-     * @param form_name
-     * @return
-     */
-    public static String getLocalForm(String form_name) {
-        Locale current = CoreChwApplication.getCurrentLocale();
-
-        String formIdentity = MessageFormat.format("{0}_{1}", form_name, current.getLanguage());
-        // validate variant exists
-        try {
-            if (assets == null)
-                assets = new ArrayList<>();
-
-            if (assets.size() == 0) {
-                String[] local_assets = CoreChwApplication.getInstance().getApplicationContext().getAssets().list("json.form");
-                if (local_assets != null && local_assets.length > 0) {
-                    for (String s : local_assets) {
-                        assets.add(s.substring(0, s.length() - 5));
-                    }
-                }
-            }
-
-            if (assets.contains(formIdentity))
-                return formIdentity;
-        } catch (Exception e) {
-            // return default
-            return form_name;
-        }
-        return form_name;
-    }
-
     public static String getDayOfMonthSuffix(String n) {
         return getDayOfMonthSuffix(Integer.parseInt(n));
     }
@@ -312,25 +279,60 @@ public abstract class Utils extends org.smartregister.family.util.Utils {
         return map;
     }
 
+    /**
+     * Check is the file exists
+     *
+     * @param form_name
+     * @return
+     */
+    public static String getLocalForm(String form_name) {
+        Locale current = CoreChwApplication.getCurrentLocale();
+
+        String formIdentity = MessageFormat.format("{0}_{1}", form_name, current.getLanguage());
+        // validate variant exists
+        try {
+            if (assets == null)
+                assets = new ArrayList<>();
+
+            if (assets.size() == 0) {
+                String[] local_assets = CoreChwApplication.getInstance().getApplicationContext().getAssets().list("json.form");
+                if (local_assets != null && local_assets.length > 0) {
+                    for (String s : local_assets) {
+                        assets.add(s.substring(0, s.length() - 5));
+                    }
+                }
+            }
+
+            if (assets.contains(formIdentity))
+                return formIdentity;
+        } catch (Exception e) {
+            // return default
+            return form_name;
+        }
+        return form_name;
+    }
+
     public static String getLocalForm(String form_name, Locale locale, AssetManager assetManager) {
         return getFileName(form_name, locale, assetManager);
     }
 
     public static String getFileName(String form_name, Locale current, AssetManager assetManager) {
-        String formIdentity = MessageFormat.format("{0}_{1}", form_name,
-                current == null ? "" : current.getLanguage());
+        String formIdentity = MessageFormat.format("{0}_{1}", form_name, current.getLanguage());
         try {
-            if (assets == null || assets.size() > 0) {
+            if (assets == null)
                 assets = new ArrayList<>();
-                String[] local_assets = assetManager.list("json.form/");
+
+
+            if (assets.size() == 0) {
+                String[] local_assets = assetManager.list("json.form");
                 if (local_assets != null && local_assets.length > 0) {
-                    for (String la : local_assets) {
-                        assets.add(la.substring(0, la.length() - 4));
+                    for (String s : local_assets) {
+                        assets.add(s.substring(0, s.length() - 5));
                     }
                 }
             }
 
-            if (assets.contains(form_name))
+            if (assets.contains(formIdentity))
                 return formIdentity;
         } catch (Exception e) {
             Timber.v(e);
