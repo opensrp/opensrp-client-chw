@@ -3,6 +3,8 @@ package org.smartregister.chw.interactor;
 import android.content.Context;
 import android.util.Pair;
 
+import com.opensrp.chw.core.contract.CoreChildProfileContract;
+
 import org.ei.drishti.dto.AlertStatus;
 import org.jeasy.rules.api.Rules;
 import org.smartregister.chw.R;
@@ -12,7 +14,6 @@ import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.util.Constants;
 import org.smartregister.chw.anc.util.DBConstants;
 import org.smartregister.chw.application.ChwApplication;
-import org.smartregister.chw.contract.ChildProfileContract;
 import org.smartregister.chw.pnc.interactor.BasePncMemberProfileInteractor;
 import org.smartregister.chw.util.HomeVisitUtil;
 import org.smartregister.chw.util.VisitSummary;
@@ -71,7 +72,7 @@ public class PncMemberProfileInteractor extends BasePncMemberProfileInteractor {
         return lastVisitDate;
     }
 
-    public void updateChild(final Pair<Client, Event> pair, final String jsonString, final ChildProfileContract.InteractorCallBack callBack) {
+    public void updateChild(final Pair<Client, Event> pair, final String jsonString, final CoreChildProfileContract.InteractorCallBack callBack) {
         Runnable runnable = () -> appExecutors.mainThread().execute(() -> {
             try {
                 new ChildProfileInteractor().saveRegistration(pair, jsonString, true, callBack);

@@ -87,4 +87,8 @@ public class FamilyProfileActivity extends CoreFamilyProfileActivity {
                 familyBaseEntityId, familyHead, primaryCaregiver, familyName);
     }
 
+    public void updateWashCheckActivity() {
+        profileActivityFragment.updateWashCheck();
+    }
+
 }

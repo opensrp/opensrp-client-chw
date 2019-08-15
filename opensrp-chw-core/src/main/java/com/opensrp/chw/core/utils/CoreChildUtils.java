@@ -11,6 +11,7 @@ import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 
+import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializationContext;
@@ -656,4 +657,24 @@ public abstract class CoreChildUtils {
         return getChildVisitStatus(homeAlertRule, lastVisitDate);
     }
 
+    public static ServiceTask createServiceTaskFromEvent(String taskType, String details, String title, String formSubmissionId) {
+        ServiceTask serviceTask = new ServiceTask();
+        org.smartregister.domain.db.Event event = CoreChildUtils.gsonConverter.fromJson(details, new TypeToken<org.smartregister.domain.db.Event>() {
+        }.getType());
+        List<org.smartregister.domain.db.Obs> observations = event.getObs();
+        for (org.smartregister.domain.db.Obs obs : observations) {
+            if (obs.getFormSubmissionField().equalsIgnoreCase(formSubmissionId)) {
+                List<Object> hu = obs.getHumanReadableValues();
+                String value = "";
+                for (Object object : hu) {
+                    value = (String) object;
+                }
+                serviceTask.setTaskLabel(value);
+            }
+        }
+        serviceTask.setTaskTitle(title);
+        serviceTask.setTaskType(taskType);
+        return serviceTask;
+
+    }
 }

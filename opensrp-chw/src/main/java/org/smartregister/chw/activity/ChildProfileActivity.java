@@ -92,9 +92,10 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
                         ((CoreChildProfilePresenter) presenter()).getChildClient().getCaseId());
                 return true;
             case R.id.action_remove_member:
-                IndividualProfileRemoveActivity.startIndividualProfileActivity(ChildProfileActivity.this, ((CoreChildProfilePresenter) presenter()).getChildClient(),
-                        ((CoreChildProfilePresenter) presenter()).getFamilyID()
-                        , ((CoreChildProfilePresenter) presenter()).getFamilyHeadID(), ((CoreChildProfilePresenter) presenter()).getPrimaryCareGiverID());
+                IndividualProfileRemoveActivity.startIndividualProfileActivity(ChildProfileActivity.this, ((ChildProfilePresenter) presenter()).getChildClient(),
+                        ((ChildProfilePresenter) presenter()).getFamilyID()
+                        , ((ChildProfilePresenter) presenter()).getFamilyHeadID(), ((ChildProfilePresenter) presenter()).getPrimaryCareGiverID(), ChildRegisterActivity.class.getCanonicalName());
+
                 return true;
             default:
                 break;

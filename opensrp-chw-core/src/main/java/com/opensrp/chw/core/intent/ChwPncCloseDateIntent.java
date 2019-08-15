@@ -43,8 +43,7 @@ public class ChwPncCloseDateIntent extends IntentService {
         }
     }
 
-
-    interface Flavor {
+    public interface Flavor {
         int getNumberOfDays();
     }
 }

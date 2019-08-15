@@ -10,17 +10,18 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.opensrp.chw.core.custom_views.NavigationMenu;
+import com.opensrp.chw.core.utils.QueryBuilder;
+
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.MalariaProfileActivity;
 import org.smartregister.chw.anc.util.DBConstants;
-import org.smartregister.chw.custom_view.NavigationMenu;
 import org.smartregister.chw.malaria.domain.MemberObject;
 import org.smartregister.chw.malaria.fragment.BaseMalariaRegisterFragment;
 import org.smartregister.chw.model.MalariaRegisterFragmentModel;
 import org.smartregister.chw.presenter.MalariaRegisterFragmentPresenter;
 import org.smartregister.chw.util.Constants;
-import org.smartregister.chw.util.QueryBuilder;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
@@ -249,7 +250,7 @@ public class MalariaRegisterFragment extends BaseMalariaRegisterFragment {
             c = commonRepository().rawCustomQueryForAdapter(query);
             c.moveToFirst();
             clientAdapter.setTotalcount(c.getInt(0));
-            Timber.v("total count here", "" + clientAdapter.getTotalcount());
+            Timber.v("total count here %s", clientAdapter.getTotalcount());
 
             clientAdapter.setCurrentlimit(20);
             clientAdapter.setCurrentoffset(0);
