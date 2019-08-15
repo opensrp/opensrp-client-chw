@@ -9,10 +9,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.contract.FamilyOtherMemberProfileExtendedContract;
-import org.smartregister.chw.contract.FamilyProfileExtendedContract;
+import org.smartregister.chw.core.contract.FamilyProfileExtendedContract;
 import org.smartregister.chw.malaria.activity.BaseMalariaProfileActivity;
 import org.smartregister.chw.malaria.domain.MemberObject;
 import org.smartregister.chw.malaria.util.Constants;
@@ -23,6 +24,7 @@ import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.family.model.BaseFamilyOtherMemberProfileActivityModel;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
+
 import timber.log.Timber;
 
 import static org.smartregister.chw.util.Utils.clientForEdit;
@@ -49,24 +51,6 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.malaria_profile_menu, menu);
-        return true;
-    }
-
-    private static CommonPersonObjectClient getClientDetailsByBaseEntityID(@NonNull String baseEntityId) {
-        CommonRepository commonRepository = org.smartregister.chw.util.Utils.context().commonrepository(org.smartregister.chw.util.Utils.metadata().familyMemberRegister.tableName);
-
-        final CommonPersonObject commonPersonObject = commonRepository.findByBaseEntityId(baseEntityId);
-        final CommonPersonObjectClient client =
-                new CommonPersonObjectClient(commonPersonObject.getCaseId(), commonPersonObject.getDetails(), "");
-        client.setColumnmaps(commonPersonObject.getColumnmaps());
-        return client;
-
-    }
-
-
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
@@ -90,34 +74,10 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
         return super.onOptionsItemSelected(item);
     }
 
-    public void startFormForEdit(Integer title_resource, String formName) {
-
-        JSONObject form = null;
-        CommonPersonObjectClient client = clientForEdit(MEMBER_OBJECT.getBaseEntityId());
-
-        if (formName.equals(org.smartregister.chw.util.Constants.JSON_FORM.getFamilyMemberRegister())) {
-            form = org.smartregister.chw.util.JsonFormUtils.getAutoPopulatedJsonEditMemberFormString(
-                    (title_resource != null) ? getResources().getString(title_resource) : null,
-                    org.smartregister.chw.util.Constants.JSON_FORM.getFamilyMemberRegister(),
-                    this, client,
-                    org.smartregister.chw.util.Utils.metadata().familyMemberRegister.updateEventType, MEMBER_OBJECT.getLastName(), false);
-        } else if (formName.equals(org.smartregister.chw.util.Constants.JSON_FORM.getAncRegistration())) {
-            form = org.smartregister.chw.util.JsonFormUtils.getAutoJsonEditAncFormString(
-                    MEMBER_OBJECT.getBaseEntityId(), this, formName, org.smartregister.chw.util.Constants.EventType.UPDATE_ANC_REGISTRATION, getResources().getString(title_resource));
-        }
-
-        try {
-            assert form != null;
-            startFormActivity(form, MEMBER_OBJECT);
-        } catch (Exception e) {
-            Timber.e(e);
-        }
-    }
-
-    private void startFormActivity(JSONObject jsonForm, MemberObject memberObject) {
-        Intent intent = formActivityIntent(this, jsonForm.toString());
-        intent.putExtra(Constants.MALARIA_MEMBER_OBJECT.MEMBER_OBJECT, memberObject);
-        startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.malaria_profile_menu, menu);
+        return true;
     }
 
     @Override
@@ -150,7 +110,6 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
                 break;
         }
     }
-
 
     @NonNull
     @Override
@@ -198,6 +157,46 @@ public class MalariaProfileActivity extends BaseMalariaProfileActivity implement
         //implement
     }
 
+    public void startFormForEdit(Integer title_resource, String formName) {
+
+        JSONObject form = null;
+        CommonPersonObjectClient client = clientForEdit(MEMBER_OBJECT.getBaseEntityId());
+
+        if (formName.equals(org.smartregister.chw.util.Constants.JSON_FORM.getFamilyMemberRegister())) {
+            form = org.smartregister.chw.util.JsonFormUtils.getAutoPopulatedJsonEditMemberFormString(
+                    (title_resource != null) ? getResources().getString(title_resource) : null,
+                    org.smartregister.chw.util.Constants.JSON_FORM.getFamilyMemberRegister(),
+                    this, client,
+                    org.smartregister.chw.util.Utils.metadata().familyMemberRegister.updateEventType, MEMBER_OBJECT.getLastName(), false);
+        } else if (formName.equals(org.smartregister.chw.util.Constants.JSON_FORM.getAncRegistration())) {
+            form = org.smartregister.chw.util.JsonFormUtils.getAutoJsonEditAncFormString(
+                    MEMBER_OBJECT.getBaseEntityId(), this, formName, org.smartregister.chw.util.Constants.EventType.UPDATE_ANC_REGISTRATION, getResources().getString(title_resource));
+        }
+
+        try {
+            assert form != null;
+            startFormActivity(form, MEMBER_OBJECT);
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+    }
+
+    private static CommonPersonObjectClient getClientDetailsByBaseEntityID(@NonNull String baseEntityId) {
+        CommonRepository commonRepository = org.smartregister.chw.util.Utils.context().commonrepository(org.smartregister.chw.util.Utils.metadata().familyMemberRegister.tableName);
+
+        final CommonPersonObject commonPersonObject = commonRepository.findByBaseEntityId(baseEntityId);
+        final CommonPersonObjectClient client =
+                new CommonPersonObjectClient(commonPersonObject.getCaseId(), commonPersonObject.getDetails(), "");
+        client.setColumnmaps(commonPersonObject.getColumnmaps());
+        return client;
+
+    }
+
+    private void startFormActivity(JSONObject jsonForm, MemberObject memberObject) {
+        Intent intent = formActivityIntent(this, jsonForm.toString());
+        intent.putExtra(Constants.MALARIA_MEMBER_OBJECT.MEMBER_OBJECT, memberObject);
+        startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
+    }
 
     @Override
     public void refreshList() {

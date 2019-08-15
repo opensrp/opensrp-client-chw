@@ -2,6 +2,7 @@ package org.smartregister.chw.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+
 import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;

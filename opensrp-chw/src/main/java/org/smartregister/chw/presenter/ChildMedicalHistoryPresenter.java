@@ -1,8 +1,8 @@
 package org.smartregister.chw.presenter;
 
 import org.smartregister.chw.contract.ChildMedicalHistoryContract;
+import org.smartregister.chw.core.repository.HomeVisitServiceRepository;
 import org.smartregister.chw.interactor.ChildMedicalHistoryInteractor;
-import org.smartregister.chw.repository.HomeVisitServiceRepository;
 import org.smartregister.chw.util.BaseService;
 import org.smartregister.chw.util.BaseVaccine;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
@@ -39,23 +39,13 @@ public class ChildMedicalHistoryPresenter implements ChildMedicalHistoryContract
     }
 
     @Override
-    public void fetchGrowthNutrition(CommonPersonObjectClient commonPersonObjectClient) {
-        interactor.fetchGrowthNutritionData(commonPersonObjectClient, this);
-    }
-
-    @Override
     public void fetchFullyImmunization(String dateOfBirth) {
         interactor.fetchFullyImmunizationData(dateOfBirth, recievedVaccines, this);
     }
 
     @Override
-    public void fetchBirthData(CommonPersonObjectClient commonPersonObjectClient) {
-        interactor.fetchBirthCertificateData(commonPersonObjectClient, this);
-    }
-
-    @Override
-    public void fetchIllnessData(CommonPersonObjectClient commonPersonObjectClient) {
-        interactor.fetchIllnessData(commonPersonObjectClient, this);
+    public void fetchGrowthNutrition(CommonPersonObjectClient commonPersonObjectClient) {
+        interactor.fetchGrowthNutritionData(commonPersonObjectClient, this);
     }
 
     @Override
@@ -69,19 +59,23 @@ public class ChildMedicalHistoryPresenter implements ChildMedicalHistoryContract
     }
 
     @Override
+    public void fetchLLitnData(CommonPersonObjectClient commonPersonObjectClient) {
+        interactor.fetchLLitnData(commonPersonObjectClient, this);
+    }
+
+    @Override
     public void fetchEcdData(CommonPersonObjectClient commonPersonObjectClient) {
         interactor.fetchEcdData(commonPersonObjectClient, this);
     }
 
     @Override
-    public void fetchLLitnData(CommonPersonObjectClient commonPersonObjectClient) {
-        interactor.fetchLLitnData(commonPersonObjectClient, this);
+    public void fetchBirthData(CommonPersonObjectClient commonPersonObjectClient) {
+        interactor.fetchBirthCertificateData(commonPersonObjectClient, this);
     }
 
-
     @Override
-    public void updateFullyImmunization(String text) {
-        getView().updateFullyImmunization(text);
+    public void fetchIllnessData(CommonPersonObjectClient commonPersonObjectClient) {
+        interactor.fetchIllnessData(commonPersonObjectClient, this);
     }
 
     @Override
@@ -92,16 +86,6 @@ public class ChildMedicalHistoryPresenter implements ChildMedicalHistoryContract
     @Override
     public ArrayList<BaseService> getGrowthNutrition() {
         return growthNutritionArrayList;
-    }
-
-    @Override
-    public ArrayList<String> getBirthCertification() {
-        return birthCertifications;
-    }
-
-    @Override
-    public ArrayList<String> getObsIllness() {
-        return obsIllnesses;
     }
 
     @Override
@@ -125,30 +109,31 @@ public class ChildMedicalHistoryPresenter implements ChildMedicalHistoryContract
     }
 
     @Override
-    public void updateDietaryData(ArrayList<BaseService> services) {
-        this.dietaryArrayList = services;
-        getView().updateDietaryData();
-
+    public ArrayList<String> getBirthCertification() {
+        return birthCertifications;
     }
 
     @Override
-    public void updateMuacData(ArrayList<BaseService> services) {
-        this.muacArrayList = services;
-        getView().updateMuacData();
+    public ArrayList<String> getObsIllness() {
+        return obsIllnesses;
     }
 
     @Override
-    public void updateLLitnDataData(ArrayList<BaseService> services) {
-        this.llitnDataArrayList = services;
-        getView().updateLLitnData();
-
+    public ChildMedicalHistoryContract.View getView() {
+        return (view != null) ? view.get() : null;
     }
 
     @Override
-    public void updateEcdDataData(ArrayList<BaseService> services) {
-        this.ecdDataArrayList = services;
-        getView().updateEcdData();
+    public void onDestroy(boolean isChangingConfiguration) {
+        view = null;//set to null on destroy
 
+        // Inform interactor
+        interactor.onDestroy(isChangingConfiguration);
+
+        // Activity destroyed set interactor to null
+        if (!isChangingConfiguration) {
+            interactor = null;
+        }
     }
 
     @Override
@@ -180,26 +165,40 @@ public class ChildMedicalHistoryPresenter implements ChildMedicalHistoryContract
     }
 
     @Override
+    public void updateDietaryData(ArrayList<BaseService> services) {
+        this.dietaryArrayList = services;
+        getView().updateDietaryData();
+
+    }
+
+    @Override
+    public void updateMuacData(ArrayList<BaseService> services) {
+        this.muacArrayList = services;
+        getView().updateMuacData();
+    }
+
+    @Override
+    public void updateLLitnDataData(ArrayList<BaseService> services) {
+        this.llitnDataArrayList = services;
+        getView().updateLLitnData();
+
+    }
+
+    @Override
+    public void updateEcdDataData(ArrayList<BaseService> services) {
+        this.ecdDataArrayList = services;
+        getView().updateEcdData();
+
+    }
+
+    @Override
+    public void updateFullyImmunization(String text) {
+        getView().updateFullyImmunization(text);
+    }
+
+    @Override
     public void updateVaccineCard(String value) {
         getView().updateVaccineCard(value);
-    }
-
-    @Override
-    public void onDestroy(boolean isChangingConfiguration) {
-        view = null;//set to null on destroy
-
-        // Inform interactor
-        interactor.onDestroy(isChangingConfiguration);
-
-        // Activity destroyed set interactor to null
-        if (!isChangingConfiguration) {
-            interactor = null;
-        }
-    }
-
-    @Override
-    public ChildMedicalHistoryContract.View getView() {
-        return (view != null) ? view.get() : null;
     }
 
 }

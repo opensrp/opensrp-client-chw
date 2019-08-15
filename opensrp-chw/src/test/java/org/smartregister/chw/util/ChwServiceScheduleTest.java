@@ -8,6 +8,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.powermock.reflect.Whitebox;
 import org.smartregister.chw.BaseUnitTest;
+import org.smartregister.chw.core.utils.ChwServiceSchedule;
 import org.smartregister.domain.AlertStatus;
 
 public class ChwServiceScheduleTest extends BaseUnitTest {

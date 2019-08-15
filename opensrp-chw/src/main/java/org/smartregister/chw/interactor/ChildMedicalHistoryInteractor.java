@@ -7,22 +7,23 @@ import android.text.TextUtils;
 import org.apache.commons.lang3.text.WordUtils;
 import org.smartregister.chw.R;
 import org.smartregister.chw.contract.ChildMedicalHistoryContract;
-import org.smartregister.chw.fragment.GrowthNutritionInputFragment;
+import org.smartregister.chw.core.domain.HomeVisitServiceDataModel;
+import org.smartregister.chw.core.fragment.GrowthNutritionInputFragment;
+import org.smartregister.chw.core.repository.HomeVisitServiceRepository;
+import org.smartregister.chw.core.utils.ChildDBConstants;
+import org.smartregister.chw.core.utils.CoreChildUtils;
+import org.smartregister.chw.core.utils.ServiceTask;
+import org.smartregister.chw.core.utils.TaskServiceCalculate;
 import org.smartregister.chw.presenter.HomeVisitGrowthNutritionPresenter;
 import org.smartregister.chw.presenter.HomeVisitGrowthNutritionPresenterFlv;
-import org.smartregister.chw.repository.HomeVisitServiceRepository;
 import org.smartregister.chw.util.BaseService;
 import org.smartregister.chw.util.BaseVaccine;
-import org.smartregister.chw.util.ChildDBConstants;
 import org.smartregister.chw.util.ChildUtils;
 import org.smartregister.chw.util.Constants;
-import org.smartregister.chw.util.HomeVisitServiceDataModel;
 import org.smartregister.chw.util.ReceivedVaccine;
 import org.smartregister.chw.util.ServiceContent;
 import org.smartregister.chw.util.ServiceHeader;
 import org.smartregister.chw.util.ServiceLine;
-import org.smartregister.chw.util.ServiceTask;
-import org.smartregister.chw.util.TaskServiceCalculate;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.chw.util.VaccineContent;
 import org.smartregister.chw.util.VaccineHeader;
@@ -46,14 +47,14 @@ import java.util.Map;
 
 import timber.log.Timber;
 
-import static org.smartregister.chw.util.ChildDBConstants.KEY.BIRTH_CERT;
-import static org.smartregister.chw.util.ChildDBConstants.KEY.BIRTH_CERT_ISSUE_DATE;
-import static org.smartregister.chw.util.ChildDBConstants.KEY.BIRTH_CERT_NOTIFIICATION;
-import static org.smartregister.chw.util.ChildDBConstants.KEY.BIRTH_CERT_NUMBER;
-import static org.smartregister.chw.util.ChildDBConstants.KEY.ILLNESS_ACTION;
-import static org.smartregister.chw.util.ChildDBConstants.KEY.ILLNESS_DATE;
-import static org.smartregister.chw.util.ChildDBConstants.KEY.ILLNESS_DESCRIPTION;
-import static org.smartregister.chw.util.ChildDBConstants.KEY.VACCINE_CARD;
+import static org.smartregister.chw.core.utils.ChildDBConstants.KEY.BIRTH_CERT;
+import static org.smartregister.chw.core.utils.ChildDBConstants.KEY.BIRTH_CERT_ISSUE_DATE;
+import static org.smartregister.chw.core.utils.ChildDBConstants.KEY.BIRTH_CERT_NOTIFIICATION;
+import static org.smartregister.chw.core.utils.ChildDBConstants.KEY.BIRTH_CERT_NUMBER;
+import static org.smartregister.chw.core.utils.ChildDBConstants.KEY.ILLNESS_ACTION;
+import static org.smartregister.chw.core.utils.ChildDBConstants.KEY.ILLNESS_DATE;
+import static org.smartregister.chw.core.utils.ChildDBConstants.KEY.ILLNESS_DESCRIPTION;
+import static org.smartregister.chw.core.utils.ChildDBConstants.KEY.VACCINE_CARD;
 import static org.smartregister.chw.util.ChildUtils.fixVaccineCasing;
 import static org.smartregister.util.Utils.getValue;
 
@@ -87,19 +88,6 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
 //            homeVisitServiceDataModels = homeVisitServiceRepository.getHomeVisitServiceList(homeVisit.getHomeVisitId());
 //        }
 //    }
-
-    @Override
-    public void fetchFullyImmunizationData(String dob, Map<String, Date> recievedVaccines, final ChildMedicalHistoryContract.InteractorCallBack callBack) {
-
-        List<String> vacList = new ArrayList<>();
-        for (String name : recievedVaccines.keySet()) {
-            String trimLower = name.replace(" ", "").toLowerCase();
-            vacList.add(trimLower);
-        }
-        final String fullyImmunizationText = ChildUtils.isFullyImmunized(vacList);
-        Runnable runnable = () -> appExecutors.mainThread().execute(() -> callBack.updateFullyImmunization(fullyImmunizationText));
-        appExecutors.diskIO().execute(runnable);
-    }
 
     @Override
     public void fetchBirthCertificateData(CommonPersonObjectClient commonPersonObjectClient, final ChildMedicalHistoryContract.InteractorCallBack callBack) {
@@ -193,7 +181,7 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
             if (!receivedVaccine.getVaccineCategory().equalsIgnoreCase(lastCategory)) {
                 VaccineHeader vaccineHeader = new VaccineHeader();
                 lastCategory = receivedVaccine.getVaccineCategory();
-                vaccineHeader.setVaccineHeaderName(Utils.getImmunizationHeaderLanguageSpecific(getContext(),receivedVaccine.getVaccineCategory()));
+                vaccineHeader.setVaccineHeaderName(Utils.getImmunizationHeaderLanguageSpecific(getContext(), receivedVaccine.getVaccineCategory()));
                 baseVaccineArrayList.add(vaccineHeader);
                 VaccineContent content = new VaccineContent();
                 SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
@@ -234,7 +222,7 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
         ServiceRecord initialServiceRecord = new ServiceRecord();
         initialServiceRecord.setType(GrowthNutritionInputFragment.GROWTH_TYPE.EXCLUSIVE.getValue());
         initialServiceRecord.setName(ChildDBConstants.KEY.CHILD_BF_HR);
-        initialServiceRecord.setValue(Utils.getYesNoAsLanguageSpecific(getContext(),initialFeedingValue));
+        initialServiceRecord.setValue(Utils.getYesNoAsLanguageSpecific(getContext(), initialFeedingValue));
         serviceRecordList.add(0, initialServiceRecord);
         String lastType = "";
         for (ServiceRecord serviceRecord : serviceRecordList) {
@@ -246,7 +234,7 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
                     baseServiceArrayList.add(serviceLine);
                 }
                 ServiceHeader serviceHeader = new ServiceHeader();
-                serviceHeader.setServiceHeaderName(Utils.getServiceTypeLanguageSpecific(getContext(),serviceRecord.getType()));
+                serviceHeader.setServiceHeaderName(Utils.getServiceTypeLanguageSpecific(getContext(), serviceRecord.getType()));
                 baseServiceArrayList.add(serviceHeader);
                 ServiceContent content = new ServiceContent();
                 addContent(content, serviceRecord);
@@ -277,13 +265,13 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
             SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
 
             for (HomeVisitServiceDataModel homeVisitServiceDataModel : homeVisitDietary) {
-                ServiceTask serviceTask = ChildUtils.createServiceTaskFromEvent(TaskServiceCalculate.TASK_TYPE.Minimum_dietary.name(),
+                ServiceTask serviceTask = CoreChildUtils.createServiceTaskFromEvent(TaskServiceCalculate.TASK_TYPE.Minimum_dietary.name(),
                         homeVisitServiceDataModel.getHomeVisitDetails(), getContext().getString(R.string.minimum_dietary_title),
                         Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.TASK_MINIMUM_DIETARY);
                 if (serviceTask.getTaskLabel() != null) {
                     ServiceContent content = new ServiceContent();
                     String date = DATE_FORMAT.format(homeVisitServiceDataModel.getHomeVisitDate());
-                    content.setServiceName(Utils.getYesNoAsLanguageSpecific(getContext(),serviceTask.getTaskLabel()) + " - "+getContext().getString(R.string.done)+" " + date);
+                    content.setServiceName(Utils.getYesNoAsLanguageSpecific(getContext(), serviceTask.getTaskLabel()) + " - " + getContext().getString(R.string.done) + " " + date);
                     baseServiceArrayList.add(content);
                 }
 
@@ -309,13 +297,13 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
             SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
 
             for (HomeVisitServiceDataModel homeVisitServiceDataModel : homeVisitMUAC) {
-                ServiceTask serviceTask = ChildUtils.createServiceTaskFromEvent(TaskServiceCalculate.TASK_TYPE.MUAC.name(),
+                ServiceTask serviceTask = CoreChildUtils.createServiceTaskFromEvent(TaskServiceCalculate.TASK_TYPE.MUAC.name(),
                         homeVisitServiceDataModel.getHomeVisitDetails(), getContext().getString(R.string.muac_title),
                         Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.TASK_MUAC);
                 if (serviceTask.getTaskLabel() != null) {
                     ServiceContent content = new ServiceContent();
                     String date = DATE_FORMAT.format(homeVisitServiceDataModel.getHomeVisitDate());
-                    content.setServiceName(serviceTask.getTaskLabel() + " - "+getContext().getString(R.string.done)+" " + date);
+                    content.setServiceName(serviceTask.getTaskLabel() + " - " + getContext().getString(R.string.done) + " " + date);
                     baseServiceArrayList.add(content);
                 }
 
@@ -335,12 +323,12 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
             SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
 
             for (HomeVisitServiceDataModel homeVisitServiceDataModel : homeVisitLlitn) {
-                ServiceTask serviceTask = ChildUtils.createServiceTaskFromEvent(TaskServiceCalculate.TASK_TYPE.LLITN.name(),
+                ServiceTask serviceTask = CoreChildUtils.createServiceTaskFromEvent(TaskServiceCalculate.TASK_TYPE.LLITN.name(),
                         homeVisitServiceDataModel.getHomeVisitDetails(), getContext().getString(R.string.llitn_title),
                         Constants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.TASK_LLITN);
                 ServiceContent content = new ServiceContent();
                 String date = DATE_FORMAT.format(homeVisitServiceDataModel.getHomeVisitDate());
-                content.setServiceName(Utils.getYesNoAsLanguageSpecific(getContext(),serviceTask.getTaskLabel()) + " "+getContext().getString(R.string.on)+" " + date);
+                content.setServiceName(Utils.getYesNoAsLanguageSpecific(getContext(), serviceTask.getTaskLabel()) + " " + getContext().getString(R.string.on) + " " + date);
                 baseServiceArrayList.add(content);
             }
         }
@@ -366,7 +354,7 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
                 String date = DATE_FORMAT.format(homeVisitServiceDataModel.getHomeVisitDate());
                 String difference = ChildUtils.getDurationFromTwoDate(Utils.dobStringToDate(dateOfBirth), homeVisitServiceDataModel.getHomeVisitDate());
                 ServiceHeader serviceHeader = new ServiceHeader();
-                serviceHeader.setServiceHeaderName(date + " (" + org.smartregister.family.util.Utils.getTranslatedDate(difference,getContext()) + ")");
+                serviceHeader.setServiceHeaderName(date + " (" + org.smartregister.family.util.Utils.getTranslatedDate(difference, getContext()) + ")");
                 baseServiceArrayList.add(serviceHeader);
                 String[] label = ChildUtils.splitStringByNewline(serviceTask.getTaskLabel());
                 for (String s : label) {
@@ -381,6 +369,24 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
         appExecutors.diskIO().execute(runnable);
     }
 
+    @Override
+    public void fetchFullyImmunizationData(String dob, Map<String, Date> recievedVaccines, final ChildMedicalHistoryContract.InteractorCallBack callBack) {
+
+        List<String> vacList = new ArrayList<>();
+        for (String name : recievedVaccines.keySet()) {
+            String trimLower = name.replace(" ", "").toLowerCase();
+            vacList.add(trimLower);
+        }
+        final String fullyImmunizationText = ChildUtils.isFullyImmunized(vacList);
+        Runnable runnable = () -> appExecutors.mainThread().execute(() -> callBack.updateFullyImmunization(fullyImmunizationText));
+        appExecutors.diskIO().execute(runnable);
+    }
+
+    @Override
+    public void onDestroy(boolean isChangingConfiguration) {
+        Timber.v("onDestroy");
+    }
+
     private void addContent(ServiceContent content, ServiceRecord serviceRecord) {
         if (serviceRecord.getType().equalsIgnoreCase(GrowthNutritionInputFragment.GROWTH_TYPE.EXCLUSIVE.getValue())) {
             //String[] values = serviceRecord.getValue().split("_");
@@ -392,19 +398,14 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
                 Object[] objects = ChildUtils.getStringWithNumber(serviceRecord.getName());
                 String name = (String) objects[0];
                 String number = (String) objects[1];
-                content.setServiceName(name + " (" + number + ""+getContext().getString(R.string.abbrv_months)+"): " + serviceRecord.getValue());
+                content.setServiceName(name + " (" + number + "" + getContext().getString(R.string.abbrv_months) + "): " + serviceRecord.getValue());
             }
 
         } else {
             SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
             String date = DATE_FORMAT.format(serviceRecord.getDate());
-            content.setServiceName(serviceRecord.getName() + " -  "+getContext().getString(R.string.done)+" " + date);
+            content.setServiceName(serviceRecord.getName() + " -  " + getContext().getString(R.string.done) + " " + date);
         }
-    }
-
-    @Override
-    public void onDestroy(boolean isChangingConfiguration) {
-        Timber.v("onDestroy");
     }
 
     public Context getContext() {

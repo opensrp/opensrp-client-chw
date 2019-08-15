@@ -10,7 +10,6 @@ import org.smartregister.chw.adapter.WashCheckAdapter;
 import org.smartregister.chw.model.FamilyProfileActivityModel;
 import org.smartregister.chw.presenter.FamilyProfileActivityPresenter;
 import org.smartregister.chw.provider.FamilyActivityRegisterProvider;
-import org.smartregister.chw.util.WashCheck;
 import org.smartregister.chw.util.WashCheckFlv;
 import org.smartregister.configurableviews.model.View;
 import org.smartregister.family.adapter.FamilyRecyclerViewCustomAdapter;
@@ -23,6 +22,7 @@ import java.util.HashMap;
 import java.util.Set;
 
 import timber.log.Timber;
+import utils.WashCheck;
 
 public class FamilyProfileActivityFragment extends BaseFamilyProfileActivityFragment {
     private String familyName;
@@ -38,13 +38,6 @@ public class FamilyProfileActivityFragment extends BaseFamilyProfileActivityFrag
         }
         fragment.setArguments(args);
         return fragment;
-    }
-
-    @Override
-    public void setupViews(android.view.View view) {
-        super.setupViews(view);
-        washCheckRecyclerView = view.findViewById(R.id.recycler_view_wash_check);
-        updateWashCheck();
     }
 
     @Override
@@ -66,6 +59,19 @@ public class FamilyProfileActivityFragment extends BaseFamilyProfileActivityFrag
     public void setAdvancedSearchFormData(HashMap<String, String> hashMap) {
         //TODO
         Timber.d("setAdvancedSearchFormData");
+    }
+
+    @Override
+    public void setupViews(android.view.View view) {
+        super.setupViews(view);
+        washCheckRecyclerView = view.findViewById(R.id.recycler_view_wash_check);
+        updateWashCheck();
+    }
+
+    public void updateWashCheck() {
+        if (flavorWashCheck.isWashCheckVisible()) {
+            ((FamilyProfileActivityPresenter) presenter).fetchLastWashCheck();
+        }
     }
 
     public void updateWashCheckBar(ArrayList<WashCheck> washCheckList) {
@@ -91,12 +97,6 @@ public class FamilyProfileActivityFragment extends BaseFamilyProfileActivityFrag
         }
 
 
-    }
-
-    public void updateWashCheck() {
-        if (flavorWashCheck.isWashCheckVisible()) {
-            ((FamilyProfileActivityPresenter) presenter).fetchLastWashCheck();
-        }
     }
 
 }

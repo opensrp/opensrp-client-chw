@@ -4,20 +4,22 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.smartregister.chw.BaseUnitTest;
 
+import static org.smartregister.chw.core.utils.Utils.firstCharacterUppercase;
+
 public class UtilsTest extends BaseUnitTest {
 
     @Test
     public void firstCharacterUppercase_empty() {
-        Assert.assertEquals("", Utils.firstCharacterUppercase(""));
+        Assert.assertEquals("", firstCharacterUppercase(""));
     }
 
     @Test
     public void firstCharacterUppercase_with_one_character() {
-        Assert.assertEquals("A", Utils.firstCharacterUppercase("a"));
+        Assert.assertEquals("A", firstCharacterUppercase("a"));
     }
 
     @Test
     public void firstCharacterUppercase_with_two_word() {
-        Assert.assertEquals("A b", Utils.firstCharacterUppercase("a b"));
+        Assert.assertEquals("A b", firstCharacterUppercase("a b"));
     }
 }

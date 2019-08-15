@@ -20,6 +20,15 @@ public class BirthAndIllnessAdapterTest extends BaseUnitTest {
 
     private Context context = RuntimeEnvironment.application;
 
+    @Test
+    public void testSetData() {
+        BirthAndIllnessAdapter adapter = new BirthAndIllnessAdapter();
+        int count = 10;
+        adapter.setData(getSamples(count));
+
+        assertEquals(adapter.getItemCount(), count);
+    }
+
     private ArrayList<String> getSamples(int count) {
         int x = 0;
         ArrayList<String> contentList = new ArrayList<>();
@@ -28,15 +37,6 @@ public class BirthAndIllnessAdapterTest extends BaseUnitTest {
             x++;
         }
         return contentList;
-    }
-
-    @Test
-    public void testSetData() {
-        BirthAndIllnessAdapter adapter = new BirthAndIllnessAdapter();
-        int count = 10;
-        adapter.setData(getSamples(count));
-
-        assertEquals(adapter.getItemCount(), count);
     }
 
     @Test

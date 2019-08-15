@@ -11,8 +11,8 @@ import com.android.volley.toolbox.ImageLoader;
 
 import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.chw.core.utils.ImageLoaderRequest;
 import org.smartregister.chw.interactor.LoginInteractor;
-import org.smartregister.chw.util.ImageLoaderRequest;
 import org.smartregister.configurableviews.model.LoginConfiguration;
 import org.smartregister.configurableviews.model.ViewConfiguration;
 import org.smartregister.configurableviews.util.Constants;

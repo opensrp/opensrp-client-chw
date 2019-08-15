@@ -194,13 +194,6 @@ public abstract class DefaultAncMedicalHistoryActivityFlv implements AncMedicalH
         }
     }
 
-    private String getMapValue(Map<String, String> map, String key) {
-        if (map.containsKey(key)) {
-            return map.get(key);
-        }
-        return "";
-    }
-
     private void processTTImmunization(Map<String, String> immunizations, Context context) {
         int visible = 0;
         for (Map.Entry<String, String> vals : new TreeMap<>(immunizations).entrySet()) {
@@ -235,5 +228,12 @@ public abstract class DefaultAncMedicalHistoryActivityFlv implements AncMedicalH
             }
         }
         linearLayoutIPTp.setVisibility(visible > 0 ? View.VISIBLE : View.GONE);
+    }
+
+    private String getMapValue(Map<String, String> map, String key) {
+        if (map.containsKey(key)) {
+            return map.get(key);
+        }
+        return "";
     }
 }

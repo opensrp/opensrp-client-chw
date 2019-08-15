@@ -7,11 +7,11 @@ import android.view.MenuItem;
 
 import org.smartregister.chw.activity.FamilyRegisterActivity;
 import org.smartregister.chw.activity.JobAidsActivity;
+import org.smartregister.chw.core.listener.CoreBottomNavigationListener;
 import org.smartregister.family.R;
-import org.smartregister.listener.BottomNavigationListener;
 import org.smartregister.view.activity.BaseRegisterActivity;
 
-public class ChwBottomNavigationListener extends BottomNavigationListener {
+public class ChwBottomNavigationListener extends CoreBottomNavigationListener {
     private Activity context;
 
     public ChwBottomNavigationListener(Activity context) {

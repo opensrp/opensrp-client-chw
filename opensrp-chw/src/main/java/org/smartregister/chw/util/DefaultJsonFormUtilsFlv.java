@@ -9,6 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.smartregister.chw.core.utils.ChwDBConstants;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.clientandeventmodel.Obs;
@@ -33,17 +34,17 @@ public abstract class DefaultJsonFormUtilsFlv implements JsonFormUtils.Flavor {
 
     public DefaultJsonFormUtilsFlv() {
         JSON_DB_MAP = new HashMap<>();
-        JSON_DB_MAP.put(org.smartregister.chw.util.Constants.JsonAssets.SEX, DBConstants.KEY.GENDER);
-        JSON_DB_MAP.put(org.smartregister.chw.util.Constants.JsonAssets.NATIONAL_ID, org.smartregister.chw.util.Constants.JsonAssets.NATIONAL_ID);
-        JSON_DB_MAP.put(org.smartregister.chw.util.Constants.JsonAssets.VOTER_ID, ChwDBConstants.VOTER_ID);
-        JSON_DB_MAP.put(org.smartregister.chw.util.Constants.JsonAssets.DRIVER_LICENSE, ChwDBConstants.DRIVER_LICENSE);
-        JSON_DB_MAP.put(org.smartregister.chw.util.Constants.JsonAssets.PASSPORT, ChwDBConstants.PASSPORT);
-        JSON_DB_MAP.put(org.smartregister.chw.util.Constants.JsonAssets.INSURANCE_PROVIDER, ChwDBConstants.INSURANCE_PROVIDER);
-        JSON_DB_MAP.put(org.smartregister.chw.util.Constants.JsonAssets.INSURANCE_PROVIDER_OTHER, ChwDBConstants.INSURANCE_PROVIDER_OTHER);
-        JSON_DB_MAP.put(org.smartregister.chw.util.Constants.JsonAssets.INSURANCE_PROVIDER_NUMBER, ChwDBConstants.INSURANCE_PROVIDER_NUMBER);
-        JSON_DB_MAP.put(org.smartregister.chw.util.Constants.JsonAssets.DISABILITIES, ChwDBConstants.DISABILITIES);
-        JSON_DB_MAP.put(org.smartregister.chw.util.Constants.JsonAssets.DISABILITY_TYPE, ChwDBConstants.DISABILITY_TYPE);
-        JSON_DB_MAP.put(org.smartregister.chw.util.Constants.JsonAssets.OTHER_LEADER, ChwDBConstants.OTHER_LEADER);
+        JSON_DB_MAP.put(Constants.JsonAssets.SEX, DBConstants.KEY.GENDER);
+        JSON_DB_MAP.put(Constants.JsonAssets.NATIONAL_ID, Constants.JsonAssets.NATIONAL_ID);
+        JSON_DB_MAP.put(Constants.JsonAssets.VOTER_ID, ChwDBConstants.VOTER_ID);
+        JSON_DB_MAP.put(Constants.JsonAssets.DRIVER_LICENSE, ChwDBConstants.DRIVER_LICENSE);
+        JSON_DB_MAP.put(Constants.JsonAssets.PASSPORT, ChwDBConstants.PASSPORT);
+        JSON_DB_MAP.put(Constants.JsonAssets.INSURANCE_PROVIDER, ChwDBConstants.INSURANCE_PROVIDER);
+        JSON_DB_MAP.put(Constants.JsonAssets.INSURANCE_PROVIDER_OTHER, ChwDBConstants.INSURANCE_PROVIDER_OTHER);
+        JSON_DB_MAP.put(Constants.JsonAssets.INSURANCE_PROVIDER_NUMBER, ChwDBConstants.INSURANCE_PROVIDER_NUMBER);
+        JSON_DB_MAP.put(Constants.JsonAssets.DISABILITIES, ChwDBConstants.DISABILITIES);
+        JSON_DB_MAP.put(Constants.JsonAssets.DISABILITY_TYPE, ChwDBConstants.DISABILITY_TYPE);
+        JSON_DB_MAP.put(Constants.JsonAssets.OTHER_LEADER, ChwDBConstants.OTHER_LEADER);
     }
 
     @Override
@@ -105,7 +106,7 @@ public abstract class DefaultJsonFormUtilsFlv implements JsonFormUtils.Flavor {
                 computeDOBUnknown(jsonObject, client);
                 break;
 
-            case org.smartregister.chw.util.Constants.JsonAssets.AGE:
+            case Constants.JsonAssets.AGE:
                 computeAge(jsonObject, client);
                 break;
 
@@ -121,20 +122,20 @@ public abstract class DefaultJsonFormUtilsFlv implements JsonFormUtils.Flavor {
                 computeID(jsonObject, client);
                 break;
 
-            case org.smartregister.chw.util.Constants.JsonAssets.PREGNANT_1_YR:
+            case Constants.JsonAssets.PREGNANT_1_YR:
                 computePregnantOneYr(jsonObject, ecEvent);
                 break;
 
-            case org.smartregister.chw.util.Constants.JsonAssets.FAM_NAME:
+            case Constants.JsonAssets.FAM_NAME:
                 computeFamName(client, jsonObject, jsonArray, familyName);
                 break;
 
-            case org.smartregister.chw.util.Constants.JsonAssets.PRIMARY_CARE_GIVER:
-            case org.smartregister.chw.util.Constants.JsonAssets.IS_PRIMARY_CARE_GIVER:
+            case Constants.JsonAssets.PRIMARY_CARE_GIVER:
+            case Constants.JsonAssets.IS_PRIMARY_CARE_GIVER:
                 computePrimaryCareGiver(jsonObject, isPrimaryCaregiver);
                 break;
 
-            case org.smartregister.chw.util.Constants.JsonAssets.SERVICE_PROVIDER:
+            case Constants.JsonAssets.SERVICE_PROVIDER:
                 computeServiceProvider(jsonObject, ecEvent);
                 break;
 
@@ -151,16 +152,10 @@ public abstract class DefaultJsonFormUtilsFlv implements JsonFormUtils.Flavor {
         }
     }
 
-    private void computeID(JSONObject jsonObject, CommonPersonObjectClient client) throws JSONException {
-        String uniqueId = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.UNIQUE_ID, false);
-        jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, uniqueId.replace("-", ""));
-    }
-
-    private void computePhoto(JSONObject jsonObject, CommonPersonObjectClient client) throws JSONException {
-        Photo photo = ImageUtils.profilePhotoByClientID(client.getCaseId(), Utils.getProfileImageResourceIDentifier());
-        if (StringUtils.isNotBlank(photo.getFilePath())) {
-            jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, photo.getFilePath());
-        }
+    private void computeDOBUnknown(JSONObject jsonObject, CommonPersonObjectClient client) throws JSONException {
+        jsonObject.put(org.smartregister.family.util.JsonFormUtils.READ_ONLY, false);
+        JSONObject optionsObject = jsonObject.getJSONArray(org.smartregister.family.util.Constants.JSON_FORM_KEY.OPTIONS).getJSONObject(0);
+        optionsObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), org.smartregister.family.util.Constants.JSON_FORM_KEY.DOB_UNKNOWN, false));
     }
 
     private void computeAge(JSONObject jsonObject, CommonPersonObjectClient client) throws JSONException {
@@ -168,12 +163,6 @@ public abstract class DefaultJsonFormUtilsFlv implements JsonFormUtils.Flavor {
         dobString = org.smartregister.family.util.Utils.getDuration(dobString);
         dobString = dobString.contains("y") ? dobString.substring(0, dobString.indexOf("y")) : "0";
         jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, Integer.valueOf(dobString));
-    }
-
-    private void computeDOBUnknown(JSONObject jsonObject, CommonPersonObjectClient client) throws JSONException {
-        jsonObject.put(org.smartregister.family.util.JsonFormUtils.READ_ONLY, false);
-        JSONObject optionsObject = jsonObject.getJSONArray(org.smartregister.family.util.Constants.JSON_FORM_KEY.OPTIONS).getJSONObject(0);
-        optionsObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), org.smartregister.family.util.Constants.JSON_FORM_KEY.DOB_UNKNOWN, false));
     }
 
     private void computeDOB(JSONObject jsonObject, CommonPersonObjectClient client) throws JSONException {
@@ -184,6 +173,18 @@ public abstract class DefaultJsonFormUtilsFlv implements JsonFormUtils.Flavor {
                 jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, JsonFormUtils.dd_MM_yyyy.format(dob));
             }
         }
+    }
+
+    private void computePhoto(JSONObject jsonObject, CommonPersonObjectClient client) throws JSONException {
+        Photo photo = ImageUtils.profilePhotoByClientID(client.getCaseId(), Utils.getProfileImageResourceIDentifier());
+        if (StringUtils.isNotBlank(photo.getFilePath())) {
+            jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, photo.getFilePath());
+        }
+    }
+
+    private void computeID(JSONObject jsonObject, CommonPersonObjectClient client) throws JSONException {
+        String uniqueId = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.UNIQUE_ID, false);
+        jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, uniqueId.replace("-", ""));
     }
 
     private void computePregnantOneYr(JSONObject jsonObject, Event ecEvent) throws JSONException {

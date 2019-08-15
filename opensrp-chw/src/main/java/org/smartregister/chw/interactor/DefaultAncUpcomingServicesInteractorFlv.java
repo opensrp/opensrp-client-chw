@@ -12,7 +12,7 @@ import org.joda.time.format.DateTimeFormat;
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.model.BaseUpcomingService;
-import org.smartregister.chw.model.VaccineTaskModel;
+import org.smartregister.chw.core.model.VaccineTaskModel;
 import org.smartregister.chw.util.ContactUtil;
 import org.smartregister.chw.util.VaccineScheduleUtil;
 import org.smartregister.immunization.db.VaccineRepo;
@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import static org.smartregister.chw.util.RecurringServiceUtil.getRecurringServices;
+import static org.smartregister.chw.core.utils.RecurringServiceUtil.getRecurringServices;
 
 public abstract class DefaultAncUpcomingServicesInteractorFlv implements AncUpcomingServicesInteractor.Flavor {
 
@@ -52,6 +52,15 @@ public abstract class DefaultAncUpcomingServicesInteractorFlv implements AncUpco
         evaluateIPTP(services, memberObject, context);
 
         return services;
+    }
+
+    protected void evaluateANCCard(List<BaseUpcomingService> services, MemberObject memberObject, Context context, Date createDate) {
+        if (memberObject.getHasAncCard() != null && !memberObject.getHasAncCard().equalsIgnoreCase("Yes")) {
+            BaseUpcomingService cardService = new BaseUpcomingService();
+            cardService.setServiceName(context.getString(R.string.anc_card));
+            cardService.setServiceDate(createDate);
+            services.add(cardService);
+        }
     }
 
     protected void evaluateHealthFacility(List<BaseUpcomingService> services, MemberObject memberObject, Context context) {
@@ -86,29 +95,6 @@ public abstract class DefaultAncUpcomingServicesInteractorFlv implements AncUpco
         }
     }
 
-    protected void evaluateANCCard(List<BaseUpcomingService> services, MemberObject memberObject, Context context, Date createDate) {
-        if (memberObject.getHasAncCard() != null && !memberObject.getHasAncCard().equalsIgnoreCase("Yes")) {
-            BaseUpcomingService cardService = new BaseUpcomingService();
-            cardService.setServiceName(context.getString(R.string.anc_card));
-            cardService.setServiceDate(createDate);
-            services.add(cardService);
-        }
-    }
-
-    private Pair<String, Date> getNextIPTP(MemberObject memberObject) {
-        DateTime lmp = DateTimeFormat.forPattern("dd-MM-yyyy").parseDateTime(memberObject.getLastMenstrualPeriod());
-        Map<String, ServiceWrapper> serviceWrapperMap = getRecurringServices(memberObject.getBaseEntityId(), lmp, "woman");
-        ServiceWrapper serviceWrapper = serviceWrapperMap.get("IPTp-SP");
-
-
-        if (serviceWrapper == null) {
-            return null;
-        }
-
-        String iteration = serviceWrapper.getName().substring(serviceWrapper.getName().length() - 1);
-        return Pair.of(iteration, serviceWrapper.getVaccineDate().toDate());
-    }
-
     private Triple<DateTime, VaccineRepo.Vaccine, String> getNextTT(MemberObject memberObject) {
         VaccineTaskModel vaccineTaskModel = null;
 
@@ -125,5 +111,19 @@ public abstract class DefaultAncUpcomingServicesInteractorFlv implements AncUpco
         // compute the due date
 
         return VaccineScheduleUtil.getIndividualVaccine(vaccineTaskModel, "TT");
+    }
+
+    private Pair<String, Date> getNextIPTP(MemberObject memberObject) {
+        DateTime lmp = DateTimeFormat.forPattern("dd-MM-yyyy").parseDateTime(memberObject.getLastMenstrualPeriod());
+        Map<String, ServiceWrapper> serviceWrapperMap = getRecurringServices(memberObject.getBaseEntityId(), lmp, "woman");
+        ServiceWrapper serviceWrapper = serviceWrapperMap.get("IPTp-SP");
+
+
+        if (serviceWrapper == null) {
+            return null;
+        }
+
+        String iteration = serviceWrapper.getName().substring(serviceWrapper.getName().length() - 1);
+        return Pair.of(iteration, serviceWrapper.getVaccineDate().toDate());
     }
 }

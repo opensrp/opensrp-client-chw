@@ -15,8 +15,8 @@ import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.provider.AncRegisterProvider;
 import org.smartregister.chw.anc.util.DBConstants;
 import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.chw.core.utils.ChwDBConstants;
 import org.smartregister.chw.interactor.ChildProfileInteractor;
-import org.smartregister.chw.util.ChwDBConstants;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.HomeVisitUtil;
 import org.smartregister.chw.util.Utils;
@@ -50,6 +50,21 @@ public class ChwAncRegisterProvider extends AncRegisterProvider {
         Utils.startAsyncTask(new UpdateAsyncTask(context, viewHolder, pc), null);
     }
 
+    private void updateDueColumn(Context context, RegisterViewHolder viewHolder, VisitSummary visitSummary) {
+        viewHolder.dueButton.setVisibility(View.VISIBLE);
+        if (visitSummary.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.DUE.name())) {
+            setVisitButtonDueStatus(context, viewHolder.dueButton);
+        } else if (visitSummary.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.OVERDUE.name())) {
+            setVisitButtonOverdueStatus(context, viewHolder.dueButton, visitSummary.getNoOfMonthDue());
+        } else if (visitSummary.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.LESS_TWENTY_FOUR.name())) {
+            setVisitLessTwentyFourView(context, viewHolder.dueButton);
+        } else if (visitSummary.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.VISIT_THIS_MONTH.name())) {
+            setVisitAboveTwentyFourView(context, viewHolder.dueButton);
+        } else if (visitSummary.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.NOT_VISIT_THIS_MONTH.name())) {
+            setVisitNotDone(context, viewHolder.dueButton);
+        }
+    }
+
     private void setVisitButtonDueStatus(Context context, Button dueButton) {
         dueButton.setTextColor(context.getResources().getColor(R.color.alert_in_progress_blue));
         dueButton.setText(context.getString(R.string.record_home_visit));
@@ -68,6 +83,10 @@ public class ChwAncRegisterProvider extends AncRegisterProvider {
         dueButton.setOnClickListener(onClickListener);
     }
 
+    private void setVisitLessTwentyFourView(Context context, Button dueButton) {
+        setVisitAboveTwentyFourView(context, dueButton);
+    }
+
     private void setVisitAboveTwentyFourView(Context context, Button dueButton) {
         dueButton.setTextColor(context.getResources().getColor(R.color.alert_complete_green));
         dueButton.setText(context.getString(R.string.visit_done));
@@ -75,30 +94,11 @@ public class ChwAncRegisterProvider extends AncRegisterProvider {
         dueButton.setOnClickListener(null);
     }
 
-    private void setVisitLessTwentyFourView(Context context, Button dueButton) {
-        setVisitAboveTwentyFourView(context, dueButton);
-    }
-
     private void setVisitNotDone(Context context, Button dueButton) {
         dueButton.setTextColor(context.getResources().getColor(R.color.progress_orange));
         dueButton.setText(context.getString(R.string.visit_not_done));
         dueButton.setBackgroundColor(context.getResources().getColor(R.color.transparent));
         dueButton.setOnClickListener(null);
-    }
-
-    private void updateDueColumn(Context context, RegisterViewHolder viewHolder, VisitSummary visitSummary) {
-        viewHolder.dueButton.setVisibility(View.VISIBLE);
-        if (visitSummary.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.DUE.name())) {
-            setVisitButtonDueStatus(context, viewHolder.dueButton);
-        } else if (visitSummary.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.OVERDUE.name())) {
-            setVisitButtonOverdueStatus(context, viewHolder.dueButton, visitSummary.getNoOfMonthDue());
-        } else if (visitSummary.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.LESS_TWENTY_FOUR.name())) {
-            setVisitLessTwentyFourView(context, viewHolder.dueButton);
-        } else if (visitSummary.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.VISIT_THIS_MONTH.name())) {
-            setVisitAboveTwentyFourView(context, viewHolder.dueButton);
-        } else if (visitSummary.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.NOT_VISIT_THIS_MONTH.name())) {
-            setVisitNotDone(context, viewHolder.dueButton);
-        }
     }
 
     private class UpdateAsyncTask extends AsyncTask<Void, Void, Void> {

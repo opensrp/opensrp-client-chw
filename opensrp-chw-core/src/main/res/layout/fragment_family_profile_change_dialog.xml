@@ -1,0 +1,101 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp"
+    app:itemBackground="@drawable/dialog_frame_shadow">
+    <RelativeLayout
+        android:id="@+id/rlHead"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="@color/orange"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="5dp"
+            android:src="@drawable/ic_icon_warning" />
+
+        <org.smartregister.view.customcontrols.CustomFontTextView
+            android:id="@+id/tvWarning"
+            style="@style/CustomFontTextViewStyle.ClientList.Light"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:layout_toRightOf="@+id/imageView2"
+            android:maxLines="4"
+            android:text="@string/profile_change_dialog_message"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@android:color/black" />
+
+    </RelativeLayout>
+
+    <org.smartregister.view.customcontrols.CustomFontTextView
+        android:id="@+id/tvTitle"
+        style="@style/CustomFontTextViewStyle.ClientList.Light"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rlHead"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:maxLines="4"
+        android:text="@string/select_a_new_family_head"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/change_dialog_text_size" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/rlFooter"
+        android:layout_below="@+id/tvTitle">
+
+    </android.support.v7.widget.RecyclerView>
+
+    <RelativeLayout
+        android:id="@+id/rlFooter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+        <org.smartregister.view.customcontrols.CustomFontTextView
+            android:id="@+id/tvSubmit"
+            style="@style/CustomFontTextViewStyle.ClientList.Light"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="15dp"
+            android:text="@string/submit"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="@color/button_navy_blue" />
+
+        <org.smartregister.view.customcontrols.CustomFontTextView
+            android:id="@+id/tvCancel"
+            style="@style/CustomFontTextViewStyle.ClientList.Light"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_margin="15dp"
+            android:layout_toLeftOf="@+id/tvSubmit"
+            android:text="@string/cancel"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="@color/button_navy_blue" />
+
+    </RelativeLayout>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" />
+
+</RelativeLayout>

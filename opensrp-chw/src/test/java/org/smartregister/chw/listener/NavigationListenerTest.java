@@ -2,20 +2,37 @@ package org.smartregister.chw.listener;
 
 import android.app.Activity;
 import android.view.View;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.Spy;
-import org.smartregister.chw.activity.*;
-import org.smartregister.chw.adapter.NavigationAdapter;
+import org.smartregister.chw.activity.AncRegisterActivity;
+import org.smartregister.chw.activity.ChildRegisterActivity;
+import org.smartregister.chw.activity.FamilyRegisterActivity;
+import org.smartregister.chw.activity.MalariaRegisterActivity;
+import org.smartregister.chw.activity.PncRegisterActivity;
+import org.smartregister.chw.core.activity.BaseReferralRegister;
+import org.smartregister.chw.core.adapter.NavigationAdapter;
+import org.smartregister.chw.core.listener.NavigationListener;
+import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.util.Constants;
 
-import static org.mockito.Mockito.*;
+import java.util.HashMap;
+import java.util.Map;
+
+import static org.mockito.Mockito.anyInt;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 public class NavigationListenerTest {
+
     @Mock
     protected Activity activity = mock(Activity.class);
-
     @Mock
     protected View view = mock(View.class);
     @Spy
@@ -27,6 +44,16 @@ public class NavigationListenerTest {
     public void setUp() {
         NavigationListener navigationListener = new NavigationListener(activity, navigationAdapter);
         navigationListenerSpy = spy(navigationListener);
+
+        Map<String, Class> registeredActivities = new HashMap<>();
+        registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.ANC_REGISTER_ACTIVITY, AncRegisterActivity.class);
+        registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.FAMILY_REGISTER_ACTIVITY, FamilyRegisterActivity.class);
+        registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.CHILD_REGISTER_ACTIVITY, ChildRegisterActivity.class);
+        registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.PNC_REGISTER_ACTIVITY, PncRegisterActivity.class);
+        registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.MALARIA_REGISTER_ACTIVITY, MalariaRegisterActivity.class);
+        registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.REFERRALS_REGISTER_ACTIVITY, BaseReferralRegister.class);
+
+        Mockito.doReturn(registeredActivities).when(navigationAdapter).getRegisteredActivities();
     }
 
     @Test

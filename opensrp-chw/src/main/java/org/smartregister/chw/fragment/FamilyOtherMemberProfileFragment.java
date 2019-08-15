@@ -34,6 +34,12 @@ public class FamilyOtherMemberProfileFragment extends BaseFamilyOtherMemberProfi
     }
 
     @Override
+    public void setAdvancedSearchFormData(HashMap<String, String> hashMap) {
+        //TODO Implement
+        Timber.d(TAG, "setAdvancedSearchFormData unimplemented");
+    }
+
+    @Override
     protected void onViewClicked(View view) {
         super.onViewClicked(view);
         switch (view.getId()) {
@@ -45,12 +51,6 @@ public class FamilyOtherMemberProfileFragment extends BaseFamilyOtherMemberProfi
             default:
                 break;
         }
-    }
-
-    @Override
-    public void setAdvancedSearchFormData(HashMap<String, String> hashMap) {
-        //TODO Implement
-        Timber.d(TAG, "setAdvancedSearchFormData unimplemented");
     }
 
 }
