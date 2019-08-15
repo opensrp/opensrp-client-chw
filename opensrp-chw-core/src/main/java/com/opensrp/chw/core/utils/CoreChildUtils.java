@@ -640,6 +640,7 @@ public abstract class CoreChildUtils {
         CoreChwApplication.getInstance().getRulesEngineHelper().getButtonAlertStatus(homeAlertRule, CoreConstants.RULE_FILE.HOME_VISIT);
         return getChildVisitStatus(homeAlertRule, lastVisitDate);
     }
+
     /**
      * Rules can be retrieved separately so that the background thread is used here
      *

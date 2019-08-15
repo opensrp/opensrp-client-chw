@@ -33,7 +33,6 @@ import org.smartregister.chw.util.ContactUtil;
 import org.smartregister.chw.util.VaccineScheduleUtil;
 import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.immunization.domain.ServiceWrapper;
-import org.smartregister.immunization.domain.Vaccine;
 import org.smartregister.immunization.domain.VaccineWrapper;
 
 import java.text.MessageFormat;

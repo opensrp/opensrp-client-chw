@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.opensrp.chw.core.custom_views.NavigationMenu;
+
 import org.smartregister.chw.fragment.PncRegisterFragment;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.helper.BottomNavigationHelper;

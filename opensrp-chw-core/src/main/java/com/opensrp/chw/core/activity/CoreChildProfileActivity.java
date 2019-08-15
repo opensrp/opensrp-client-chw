@@ -63,6 +63,19 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
     public boolean isComesFromFamily = false;
     public String lastVisitDay;
     public OnClickFloatingMenu onClickFloatingMenu;
+    public Handler handler = new Handler();
+    public final BroadcastReceiver mDateTimeChangedReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            final String action = intent.getAction();
+            assert action != null;
+            if (action.equals(Intent.ACTION_TIME_CHANGED) ||
+                    action.equals(Intent.ACTION_TIMEZONE_CHANGED)) {
+                fetchProfileData();
+
+            }
+        }
+    };
     protected TextView textViewParentName, textViewLastVisit, textViewMedicalHistory;
     protected CircleImageView imageViewProfile;
     protected View recordVisitPanel;
@@ -77,19 +90,6 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
     private ImageView imageViewCross;
     private ProgressBar progressBar;
     private String gender;
-    public Handler handler = new Handler();
-    public final BroadcastReceiver mDateTimeChangedReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            final String action = intent.getAction();
-            assert action != null;
-            if (action.equals(Intent.ACTION_TIME_CHANGED) ||
-                    action.equals(Intent.ACTION_TIMEZONE_CHANGED)) {
-                fetchProfileData();
-
-            }
-        }
-    };
 
     @Override
     public void enableEdit(boolean enable) {

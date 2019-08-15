@@ -9,8 +9,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.smartregister.chw.R;
 import com.opensrp.chw.core.utils.WashCheck;
+
+import org.smartregister.chw.R;
 import org.smartregister.view.customcontrols.CustomFontTextView;
 
 import java.text.SimpleDateFormat;

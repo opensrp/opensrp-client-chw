@@ -38,12 +38,6 @@ public class UpcomingServicesFragmentView extends LinearLayout implements View.O
     private CommonPersonObjectClient childClient;
     private Activity context;
 
-    @Override
-    public Context getMyContext() {
-        if (context == null) return getContext();
-        return context;
-    }
-
     public UpcomingServicesFragmentView(Context context) {
         super(context);
     }
@@ -58,6 +52,12 @@ public class UpcomingServicesFragmentView extends LinearLayout implements View.O
         super(context, attrs, defStyleAttr);
         initUi();
 
+    }
+
+    @Override
+    public Context getMyContext() {
+        if (context == null) return getContext();
+        return context;
     }
 
     private void initUi() {

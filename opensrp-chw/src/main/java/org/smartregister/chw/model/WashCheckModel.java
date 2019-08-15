@@ -1,8 +1,9 @@
 package org.smartregister.chw.model;
 
+import com.opensrp.chw.core.utils.WashCheck;
+
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.util.JsonFormUtils;
-import com.opensrp.chw.core.utils.WashCheck;
 
 import java.util.ArrayList;
 

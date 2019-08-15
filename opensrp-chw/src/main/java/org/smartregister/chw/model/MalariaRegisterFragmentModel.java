@@ -1,7 +1,9 @@
 package org.smartregister.chw.model;
 
-import com.opensrp.chw.core.utils.ChildDBConstants;
 import android.support.annotation.NonNull;
+
+import com.opensrp.chw.core.utils.ChildDBConstants;
+
 import org.smartregister.chw.malaria.model.BaseMalariaRegisterFragmentModel;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;

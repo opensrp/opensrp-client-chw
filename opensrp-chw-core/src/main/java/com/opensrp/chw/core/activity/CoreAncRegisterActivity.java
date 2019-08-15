@@ -28,11 +28,12 @@ public class CoreAncRegisterActivity extends BaseAncRegisterActivity {
     protected static String phone_number;
     protected static String form_name;
     protected static String unique_id;
-    protected static String familyBaseEntityId;    private static String familyName;
+    protected static String familyBaseEntityId;
+    private static String familyName;
 
 
     public static void startAncRegistrationActivity(Activity activity, String memberBaseEntityID, String phoneNumber, String formName,
-                                                    String uniqueId, String familyBaseID,String family_name) {
+                                                    String uniqueId, String familyBaseID, String family_name) {
         Intent intent = new Intent(activity, CoreAncRegisterActivity.class);
         intent.putExtra(org.smartregister.chw.anc.util.Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID, memberBaseEntityID);
         phone_number = phoneNumber;
@@ -92,7 +93,7 @@ public class CoreAncRegisterActivity extends BaseAncRegisterActivity {
     }
 
     public void startFamilyRegistration() {
-       // CoreFamilyRegisterActivity.startFamilyRegisterForm(this);
+        // CoreFamilyRegisterActivity.startFamilyRegisterForm(this);
     }
 
     private void startRegisterActivity(Class registerClass) {

@@ -68,6 +68,7 @@ public class CoreChwApplication extends DrishtiApplication implements CoreApplic
     public static CommonFtsObject createCommonFtsObject() {
         return getCommonFtsObject(commonFtsObject);
     }
+
     public static ClientProcessorForJava getClientProcessor(android.content.Context context) {
         if (clientProcessor == null) {
             clientProcessor = ChwClientProcessor.getInstance(context);
@@ -104,20 +105,6 @@ public class CoreChwApplication extends DrishtiApplication implements CoreApplic
         return homeVisitIndicatorInfoRepository;
     }
 
-    public TaskRepository getTaskRepository() {
-        if (taskRepository == null) {
-            taskRepository = new TaskRepository(getRepository(), new TaskNotesRepository(getRepository()));
-        }
-        return taskRepository;
-    }
-
-    public PlanDefinitionRepository getPlanDefinitionRepository() {
-        if (planDefinitionRepository == null) {
-            planDefinitionRepository = new PlanDefinitionRepository(getRepository());
-        }
-        return planDefinitionRepository;
-    }
-
     public static WashCheckRepository getWashCheckRepository() {
         if (washCheckRepository == null) {
             washCheckRepository = new WashCheckRepository(getInstance().getRepository());
@@ -130,6 +117,20 @@ public class CoreChwApplication extends DrishtiApplication implements CoreApplic
      */
     public static Locale getCurrentLocale() {
         return mInstance == null ? Locale.getDefault() : mInstance.getResources().getConfiguration().locale;
+    }
+
+    public TaskRepository getTaskRepository() {
+        if (taskRepository == null) {
+            taskRepository = new TaskRepository(getRepository(), new TaskNotesRepository(getRepository()));
+        }
+        return taskRepository;
+    }
+
+    public PlanDefinitionRepository getPlanDefinitionRepository() {
+        if (planDefinitionRepository == null) {
+            planDefinitionRepository = new PlanDefinitionRepository(getRepository());
+        }
+        return planDefinitionRepository;
     }
 
     @Override

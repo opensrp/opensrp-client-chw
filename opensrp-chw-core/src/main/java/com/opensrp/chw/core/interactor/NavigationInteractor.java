@@ -13,10 +13,11 @@ import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.family.util.AppExecutors;
 import org.smartregister.family.util.DBConstants;
-import timber.log.Timber;
 
 import java.text.MessageFormat;
 import java.util.Date;
+
+import timber.log.Timber;
 
 public class NavigationInteractor implements NavigationContract.Interactor {
 

@@ -9,9 +9,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.opensrp.chw.core.utils.CoreConstants;
+import com.opensrp.chw.core.utils.WashCheck;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
-import com.opensrp.chw.core.utils.CoreConstants;
+
 import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.ChildProfileActivity;
@@ -20,7 +22,6 @@ import org.smartregister.chw.interactor.ChildProfileInteractor;
 import org.smartregister.chw.model.FamilyProfileDueModel;
 import org.smartregister.chw.presenter.FamilyProfileDuePresenter;
 import org.smartregister.chw.provider.ChwDueRegisterProvider;
-import com.opensrp.chw.core.utils.WashCheck;
 import org.smartregister.chw.util.WashCheckFlv;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.adapter.FamilyRecyclerViewCustomAdapter;
@@ -36,6 +37,7 @@ import timber.log.Timber;
 import static org.smartregister.chw.util.JsonFormUtils.REQUEST_CODE_GET_JSON_WASH;
 import static org.smartregister.family.util.Utils.metadata;
 import static org.smartregister.util.JsonFormUtils.ENTITY_ID;
+
 public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
 
     private int dueCount = 0;
@@ -89,7 +91,8 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
             dueCount = count;
             ((FamilyProfileActivity) getActivity()).updateDueCount(dueCount);
         }
-        if (getActivity() != null) getActivity().runOnUiThread(() -> onEmptyRegisterCount(count < 1));
+        if (getActivity() != null)
+            getActivity().runOnUiThread(() -> onEmptyRegisterCount(count < 1));
     }
 
     @Override
@@ -198,7 +201,7 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
     }
 
     public void updateWashCheckBar(WashCheck washCheck) {
-        if(washCheckView.getVisibility() == View.VISIBLE) return;
+        if (washCheckView.getVisibility() == View.VISIBLE) return;
         addWashCheckView();
         TextView name = washCheckView.findViewById(R.id.patient_name_age);
         TextView lastVisit = washCheckView.findViewById(R.id.last_visit);

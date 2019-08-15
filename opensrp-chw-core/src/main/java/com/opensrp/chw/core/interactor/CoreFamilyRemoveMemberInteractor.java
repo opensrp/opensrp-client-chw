@@ -38,9 +38,8 @@ import timber.log.Timber;
 
 public abstract class CoreFamilyRemoveMemberInteractor implements FamilyRemoveMemberContract.Interactor {
 
-    private AppExecutors appExecutors;
-
     protected CoreChwApplication coreChwApplication;
+    private AppExecutors appExecutors;
 
     @VisibleForTesting
     CoreFamilyRemoveMemberInteractor(AppExecutors appExecutors) {

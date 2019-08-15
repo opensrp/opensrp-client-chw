@@ -127,7 +127,7 @@ public abstract class CoreFamilyProfilePresenter extends BaseFamilyProfilePresen
                 lpv.init();
                 String lastLocationId = LocationHelper.getInstance().getOpenMrsLocationId(lpv.getSelectedItem());
 
-             //   new CoreFamilyChangeContractInteractor().updateFamilyRelations(context, member, lastLocationId);
+                //   new CoreFamilyChangeContractInteractor().updateFamilyRelations(context, member, lastLocationId);
                 res = true;
             }
         } catch (Exception e) {

@@ -1,13 +1,13 @@
 package com.opensrp.chw.core.job;
 
-        import android.content.Intent;
-        import android.support.annotation.NonNull;
+import android.content.Intent;
+import android.support.annotation.NonNull;
 
-        import org.smartregister.chw.anc.intent.HomeVisitIntent;
-        import org.smartregister.family.util.Constants;
-        import org.smartregister.job.BaseJob;
+import org.smartregister.chw.anc.intent.HomeVisitIntent;
+import org.smartregister.family.util.Constants;
+import org.smartregister.job.BaseJob;
 
-        import timber.log.Timber;
+import timber.log.Timber;
 
 public class HomeVisitServiceJob extends BaseJob {
     public static final String TAG = "HomeVisitServiceJob";

@@ -10,8 +10,9 @@ import org.smartregister.job.BaseJob;
 
 import timber.log.Timber;
 
-public class BasePncCloseJob  extends BaseJob {
+public class BasePncCloseJob extends BaseJob {
     public static final String TAG = "BasePncCloseJob";
+
     @NonNull
     @Override
     protected Result onRunJob(@NonNull Params params) {

@@ -36,19 +36,9 @@ public class CoreChildHomeVisitInteractor implements ChildHomeVisitContract.Inte
     private static final String TAG = "VisitInteractor";
     public AppExecutors appExecutors;
     public HashMap<String, BirthIllnessFormModel> saveList = new HashMap<>();
+    public Flavor flavor;
     private ArrayList<BirthCertDataModel> birthCertDataList = new ArrayList<>();
     private ArrayList<ObsIllnessDataModel> illnessDataList = new ArrayList<>();
-
-    public Flavor flavor;
-
-    public Flavor getFlavor() {
-        return flavor;
-    }
-
-    public void setFlavor(Flavor flavor) {
-        this.flavor = flavor;
-    }
-
 
     public static void updateClientAttributes(JSONObject clientjsonFromForm, JSONObject clientJson) {
         try {
@@ -68,6 +58,14 @@ public class CoreChildHomeVisitInteractor implements ChildHomeVisitContract.Inte
         }
     }
 
+    public Flavor getFlavor() {
+        return flavor;
+    }
+
+    public void setFlavor(Flavor flavor) {
+        this.flavor = flavor;
+    }
+
     public int getSaveSize() {
         return saveList.size();
     }
@@ -83,27 +81,27 @@ public class CoreChildHomeVisitInteractor implements ChildHomeVisitContract.Inte
     @Override
     public void getLastEditData(CommonPersonObjectClient childClient, final ChildHomeVisitContract.InteractorCallback callback) {
         if (flavor != null) {
-        String lastHomeVisitStr = getValue(childClient, ChildDBConstants.KEY.LAST_HOME_VISIT, false);
-        long lastHomeVisit = TextUtils.isEmpty(lastHomeVisitStr) ? 0 : Long.parseLong(lastHomeVisitStr);
-        HomeVisit homeVisit = CoreChwApplication.homeVisitRepository().findByDate(lastHomeVisit);
-        if (homeVisit != null) {
-            JSONObject jsonObject;
-            try {
-                jsonObject = new JSONObject(homeVisit.getBirthCertificationState().toString());
-                String birt = jsonObject.getString("birtCert");
-                callback.updateBirthCertEditData(birt);
-            } catch (JSONException e) {
-                e.printStackTrace();
+            String lastHomeVisitStr = getValue(childClient, ChildDBConstants.KEY.LAST_HOME_VISIT, false);
+            long lastHomeVisit = TextUtils.isEmpty(lastHomeVisitStr) ? 0 : Long.parseLong(lastHomeVisitStr);
+            HomeVisit homeVisit = CoreChwApplication.homeVisitRepository().findByDate(lastHomeVisit);
+            if (homeVisit != null) {
+                JSONObject jsonObject;
+                try {
+                    jsonObject = new JSONObject(homeVisit.getBirthCertificationState().toString());
+                    String birt = jsonObject.getString("birtCert");
+                    callback.updateBirthCertEditData(birt);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    jsonObject = new JSONObject(homeVisit.getIllness_information().toString());
+                    String illness = jsonObject.getString("obsIllness");
+                    callback.updateObsIllnessEditData(illness);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                flavor.generateServiceData(homeVisit);
             }
-            try {
-                jsonObject = new JSONObject(homeVisit.getIllness_information().toString());
-                String illness = jsonObject.getString("obsIllness");
-                callback.updateObsIllnessEditData(illness);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            flavor.generateServiceData(homeVisit);
-        }
         }
     }
 

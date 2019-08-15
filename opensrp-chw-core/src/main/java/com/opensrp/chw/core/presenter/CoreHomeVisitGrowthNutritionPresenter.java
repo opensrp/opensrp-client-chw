@@ -24,7 +24,6 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 
 import static com.opensrp.chw.core.utils.Utils.dd_MMM_yyyy;
@@ -53,6 +52,13 @@ public class CoreHomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNut
         interactor = new HomeVisitGrowthNutritionInteractor();
     }
 
+    public static Flavor getHomeVisitGrowthNutritionPresenterFlv() {
+        return homeVisitGrowthNutritionPresenterFlv;
+    }
+
+    public static void setHomeVisitGrowthNutritionPresenterFlv(Flavor homeVisitGrowthNutritionPresenterFlv) {
+        CoreHomeVisitGrowthNutritionPresenter.homeVisitGrowthNutritionPresenterFlv = homeVisitGrowthNutritionPresenterFlv;
+    }
 
     @Override
     public void parseRecordServiceData(CommonPersonObjectClient commonPersonObjectClient, boolean isEditMode) {
@@ -113,14 +119,6 @@ public class CoreHomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNut
             e.onComplete();
         });
 
-    }
-
-    public static Flavor getHomeVisitGrowthNutritionPresenterFlv() {
-        return homeVisitGrowthNutritionPresenterFlv;
-    }
-
-    public static void setHomeVisitGrowthNutritionPresenterFlv(Flavor homeVisitGrowthNutritionPresenterFlv) {
-        CoreHomeVisitGrowthNutritionPresenter.homeVisitGrowthNutritionPresenterFlv = homeVisitGrowthNutritionPresenterFlv;
     }
 
     public boolean isAllSelected() {

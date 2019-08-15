@@ -11,7 +11,7 @@ import org.smartregister.commonregistry.CommonRepository;
 
 import java.util.Set;
 
-public class HfFamilyRemoveMemberProvider extends CoreFamilyRemoveMemberProvider{
+public class HfFamilyRemoveMemberProvider extends CoreFamilyRemoveMemberProvider {
 
     public HfFamilyRemoveMemberProvider(String familyID, Context context, CommonRepository commonRepository,
                                         Set visibleColumns, View.OnClickListener onClickListener,

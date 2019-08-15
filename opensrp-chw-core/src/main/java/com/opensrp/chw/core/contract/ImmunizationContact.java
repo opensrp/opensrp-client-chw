@@ -1,7 +1,9 @@
 package com.opensrp.chw.core.contract;
 
-import com.opensrp.chw.core.utils.HomeVisitVaccineGroup;
 import android.content.Context;
+
+import com.opensrp.chw.core.utils.HomeVisitVaccineGroup;
+
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 
 import java.util.ArrayList;

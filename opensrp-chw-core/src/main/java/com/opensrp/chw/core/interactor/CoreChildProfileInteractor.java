@@ -57,8 +57,6 @@ import java.util.Map;
 import java.util.UUID;
 
 import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
 import timber.log.Timber;
 
 import static org.smartregister.chw.anc.util.JsonFormUtils.processJsonForm;
@@ -339,13 +337,13 @@ public class CoreChildProfileInteractor implements CoreChildProfileContract.Inte
     }
 
     @Override
-    public void setChildBaseEntityId(String childBaseEntityId) {
-        this.childBaseEntityId = childBaseEntityId;
+    public String getChildBaseEntityId() {
+        return childBaseEntityId;
     }
 
     @Override
-    public String getChildBaseEntityId() {
-        return childBaseEntityId;
+    public void setChildBaseEntityId(String childBaseEntityId) {
+        this.childBaseEntityId = childBaseEntityId;
     }
 
     @Override
@@ -525,7 +523,7 @@ public class CoreChildProfileInteractor implements CoreChildProfileContract.Inte
                             public void updateGivenRecordVisitData(Map<String, ServiceWrapper> stringServiceWrapperMap) {
                                 try {
                                     CoreChildService childService = null;
-                                    ArrayList<GrowthServiceData> growthServiceDataList = homeVisitGrowthNutritionInteractor.getAllDueService(stringServiceWrapperMap,context);
+                                    ArrayList<GrowthServiceData> growthServiceDataList = homeVisitGrowthNutritionInteractor.getAllDueService(stringServiceWrapperMap, context);
                                     if (growthServiceDataList.size() > 0) {
                                         childService = new CoreChildService();
                                         GrowthServiceData growthServiceData = growthServiceDataList.get(0);

@@ -73,7 +73,7 @@ public class CoreConstants {
         private static final String PREGNANCY_OUTCOME = "anc_pregnancy_outcome";
         private static final String MALARIA_CONFIRMATION = "malaria_confirmation";
         private static final String WASH_CHECK = "wash_check";
-        private static final String CHILD_REFERRAL_FORM =  "child_referral_form";
+        private static final String CHILD_REFERRAL_FORM = "child_referral_form";
         public static AssetManager assetManager;
         public static Locale locale;
 
@@ -89,7 +89,7 @@ public class CoreConstants {
             JSON_FORM.locale = locale;
         }
 
-        public static String getChildReferralForm(){
+        public static String getChildReferralForm() {
             return CHILD_REFERRAL_FORM;
         }
 

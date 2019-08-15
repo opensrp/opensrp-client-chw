@@ -1,7 +1,8 @@
 package org.smartregister.chw.util;
 
-import org.smartregister.chw.application.ChwApplication;
 import com.opensrp.chw.core.rule.PNCHealthFacilityVisitRule;
+
+import org.smartregister.chw.application.ChwApplication;
 
 import java.util.Date;
 

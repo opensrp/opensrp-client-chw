@@ -37,11 +37,10 @@ import timber.log.Timber;
 
 public class MalariaRegisterFragment extends BaseMalariaRegisterFragment {
 
+    private static final String DUE_FILTER_TAG = "PRESSED";
     private View view;
     private View dueOnlyLayout;
-
     private boolean dueFilterActive = false;
-    private static final String DUE_FILTER_TAG = "PRESSED";
 
     @Override
     public void setupViews(View view) {
@@ -139,7 +138,7 @@ public class MalariaRegisterFragment extends BaseMalariaRegisterFragment {
 
     //due filter for the client
     protected void dueFilter(View dueOnlyLayout) {
-        filter(searchText(),"",presenter().getMainCondition(),false);
+        filter(searchText(), "", presenter().getMainCondition(), false);
         dueOnlyLayout.setTag(DUE_FILTER_TAG);
         switchViews(dueOnlyLayout, true);
     }

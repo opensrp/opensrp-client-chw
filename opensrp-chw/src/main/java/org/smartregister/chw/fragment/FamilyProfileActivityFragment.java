@@ -5,12 +5,13 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.opensrp.chw.core.utils.WashCheck;
+
 import org.smartregister.chw.R;
 import org.smartregister.chw.adapter.WashCheckAdapter;
 import org.smartregister.chw.model.FamilyProfileActivityModel;
 import org.smartregister.chw.presenter.FamilyProfileActivityPresenter;
 import org.smartregister.chw.provider.FamilyActivityRegisterProvider;
-import com.opensrp.chw.core.utils.WashCheck;
 import org.smartregister.chw.util.WashCheckFlv;
 import org.smartregister.configurableviews.model.View;
 import org.smartregister.family.adapter.FamilyRecyclerViewCustomAdapter;

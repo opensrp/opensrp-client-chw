@@ -8,7 +8,7 @@ import com.opensrp.chw.hf.model.ChildRegisterModel;
 
 import org.smartregister.family.contract.FamilyProfileContract;
 
-public class FamilyProfilePresenter extends CoreFamilyProfilePresenter{
+public class FamilyProfilePresenter extends CoreFamilyProfilePresenter {
 
     public FamilyProfilePresenter(FamilyProfileExtendedContract.View loginView, FamilyProfileContract.Model model, String familyBaseEntityId, String familyHead, String primaryCaregiver, String familyName) {
         super(loginView, model, familyBaseEntityId, familyHead, primaryCaregiver, familyName);

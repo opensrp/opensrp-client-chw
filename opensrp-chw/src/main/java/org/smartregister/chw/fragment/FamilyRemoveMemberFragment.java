@@ -1,20 +1,16 @@
 package org.smartregister.chw.fragment;
 
 import android.os.Bundle;
+
 import com.opensrp.chw.core.activity.CoreFamilyRegisterActivity;
 import com.opensrp.chw.core.fragment.CoreFamilyProfileChangeDialog;
 import com.opensrp.chw.core.fragment.CoreFamilyRemoveMemberFragment;
 import com.opensrp.chw.core.utils.CoreConstants;
 
-import org.apache.commons.lang3.StringUtils;
-import org.smartregister.chw.R;
-import org.smartregister.chw.activity.FamilyRegisterActivity;;
+import org.smartregister.chw.activity.FamilyRegisterActivity;
 import org.smartregister.chw.model.FamilyRemoveMemberModel;
 import org.smartregister.chw.presenter.FamilyRemoveMemberPresenter;
 import org.smartregister.chw.provider.FamilyRemoveMemberProvider;
-import org.smartregister.commonregistry.CommonPersonObjectClient;
-import org.smartregister.family.fragment.BaseFamilyProfileMemberFragment;
-import org.smartregister.family.util.DBConstants;
 
 import java.util.HashMap;
 import java.util.Set;
@@ -24,6 +20,7 @@ import timber.log.Timber;
 public class FamilyRemoveMemberFragment extends CoreFamilyRemoveMemberFragment {
 
     public static final String DIALOG_TAG = FamilyRemoveMemberFragment.class.getSimpleName();
+
     public static CoreFamilyRemoveMemberFragment newInstance(Bundle bundle) {
         Bundle args = bundle;
         FamilyRemoveMemberFragment fragment = new FamilyRemoveMemberFragment();

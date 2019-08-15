@@ -22,6 +22,7 @@ import org.smartregister.view.fragment.BaseRegisterFragment;
 public class FamilyProfileActivity extends CoreFamilyProfileActivity {
     private BaseFamilyProfileDueFragment profileDueFragment;
     private FamilyProfileActivityFragment profileActivityFragment;
+
     @Override
     protected void initializePresenter() {
         super.initializePresenter();

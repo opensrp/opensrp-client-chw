@@ -95,6 +95,10 @@ public class CoreChildHomeVisitFragment extends DialogFragment implements View.O
 
     public boolean allVaccineDataLoaded = false;
     public boolean allServicesDataLoaded = false;
+    public LinearLayout homeVisitLayout;
+    public ChildHomeVisitContract.Presenter presenter;
+    public boolean isEditMode = false;
+    public ProgressBar progressBar;
     private Context context;
     private CommonPersonObjectClient childClient;
     private TextView nameHeader;
@@ -105,12 +109,6 @@ public class CoreChildHomeVisitFragment extends DialogFragment implements View.O
     private TextView submit;
     private ImmunizationView immunizationView;
     private LinearLayout layoutBirthCertGroup, layoutVaccineCard;
-    public LinearLayout homeVisitLayout;
-    public ChildHomeVisitContract.Presenter presenter;
-    private CircleImageView circleImageViewBirthStatus, circleImageViewIllnessStatus, circleImageViewVaccineCard;
-    private JSONObject illnessJson;
-    private JSONObject birthCertJson;
-    public boolean isEditMode = false;
     private final BroadcastReceiver mDateTimeChangedReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -124,7 +122,9 @@ public class CoreChildHomeVisitFragment extends DialogFragment implements View.O
             }
         }
     };
-    public ProgressBar progressBar;
+    private CircleImageView circleImageViewBirthStatus, circleImageViewIllnessStatus, circleImageViewVaccineCard;
+    private JSONObject illnessJson;
+    private JSONObject birthCertJson;
     private RecyclerView taskServiceRecyclerView;
     private ServiceTaskAdapter serviceTaskAdapter;
     private AppExecutors appExecutors;
@@ -137,16 +137,16 @@ public class CoreChildHomeVisitFragment extends DialogFragment implements View.O
         }
     };
 
+    public static CoreChildHomeVisitFragment newInstance() {
+        return new CoreChildHomeVisitFragment();
+    }
+
     public Flavor getFlavor() {
         return flavor;
     }
 
     public void setFlavor(Flavor flavor) {
         this.flavor = flavor;
-    }
-
-    public static CoreChildHomeVisitFragment newInstance() {
-        return new CoreChildHomeVisitFragment();
     }
 
     public void setContext(Context context) {

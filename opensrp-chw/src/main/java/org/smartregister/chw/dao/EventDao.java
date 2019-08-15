@@ -16,7 +16,7 @@ public class EventDao extends AbstractDao {
 
 
     public static List<Event> getEvents(String baseEntityID, String eventType, int limit) {
-        String sql = "select json from event where baseEntityId = '" + baseEntityID + "' and eventType = '" + eventType + "' order by updatedAt desc limit " + Integer.toString(limit);
+        String sql = "select json from event where baseEntityId = '" + baseEntityID + "' and eventType = '" + eventType + "' order by updatedAt desc limit " + limit;
 
         final ECSyncHelper syncHelper = ChwApplication.getInstance().getEcSyncHelper();
         DataMap<Event> dataMap = new DataMap<Event>() {

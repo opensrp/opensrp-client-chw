@@ -36,7 +36,8 @@ public class ImmunizationModel {
     private List<Vaccine> vaccines;
     private ArrayList<String> elligibleVaccineGroups = new ArrayList<String>();
     private Context context;
-    public ImmunizationModel(Context context){
+
+    public ImmunizationModel(Context context) {
         this.context = context;
     }
 
@@ -49,7 +50,7 @@ public class ImmunizationModel {
         this.vaccines = vaccines;
         setAgeVaccineListElligibleGroups(client);
         Map<String, Date> receivedVaccines = receivedVaccines(vaccines);
-        List<VaccineRepo.Vaccine> vList = Arrays.asList(VaccineRepo.Vaccine.values());
+        VaccineRepo.Vaccine[] vList = VaccineRepo.Vaccine.values();
 
         ArrayList<HomeVisitVaccineGroup> homeVisitVaccineGroupArrayList = new ArrayList<>();
         LinkedHashMap<String, Integer> vaccineGroupMap = new LinkedHashMap<>();
@@ -62,7 +63,8 @@ public class ImmunizationModel {
                 }
 
                 String stateKey = VaccinateActionUtils.stateKey(vaccine);
-                if (stateKey.equalsIgnoreCase("18 "+context.getString(R.string.month_full))) continue;
+                if (stateKey.equalsIgnoreCase("18 " + context.getString(R.string.month_full)))
+                    continue;
                 if (isNotBlank(stateKey)) {
 
                     Integer position = vaccineGroupMap.get(stateKey);
@@ -209,19 +211,19 @@ public class ImmunizationModel {
             int months = Months.monthsBetween(dateTime, now).getMonths();
             elligibleVaccineGroups.add(context.getString(R.string.at_birth));
             if (weeks >= 6) {
-                elligibleVaccineGroups.add("6 "+context.getString(R.string.week_full));
+                elligibleVaccineGroups.add("6 " + context.getString(R.string.week_full));
             }
             if (weeks >= 10) {
-                elligibleVaccineGroups.add("10 "+context.getString(R.string.week_full));
+                elligibleVaccineGroups.add("10 " + context.getString(R.string.week_full));
             }
             if (weeks >= 14) {
-                elligibleVaccineGroups.add("14 "+context.getString(R.string.week_full));
+                elligibleVaccineGroups.add("14 " + context.getString(R.string.week_full));
             }
             if (months >= 9) {
-                elligibleVaccineGroups.add("9 "+context.getString(R.string.month_full));
+                elligibleVaccineGroups.add("9 " + context.getString(R.string.month_full));
             }
             if (months >= 15) {
-                elligibleVaccineGroups.add("15 "+context.getString(R.string.month_full));
+                elligibleVaccineGroups.add("15 " + context.getString(R.string.month_full));
             }
         }
     }

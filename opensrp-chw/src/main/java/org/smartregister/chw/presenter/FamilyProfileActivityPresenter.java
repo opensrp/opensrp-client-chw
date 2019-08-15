@@ -1,6 +1,7 @@
 package org.smartregister.chw.presenter;
 
 import com.opensrp.chw.core.utils.ChildDBConstants;
+
 import org.smartregister.chw.fragment.FamilyProfileActivityFragment;
 import org.smartregister.chw.model.WashCheckModel;
 import org.smartregister.chw.util.Constants;

@@ -5,6 +5,7 @@ import android.util.Pair;
 
 import com.opensrp.chw.core.model.ChildVisit;
 import com.opensrp.chw.core.utils.CoreChildService;
+
 import org.json.JSONObject;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
@@ -122,13 +123,14 @@ public interface CoreChildProfileContract {
         void saveRegistration(final Pair<Client, Event> pair, final String jsonString, final boolean isEditMode, final CoreChildProfileContract.InteractorCallBack callBack);
 
         JSONObject getAutoPopulatedJsonEditFormString(String formName, String title, Context context, CommonPersonObjectClient client);
+
         void processBackGroundEvent(final CoreChildProfileContract.InteractorCallBack callback);
 
         void createSickChildEvent(AllSharedPreferences allSharedPreferences, String jsonString) throws Exception;
 
-        void setChildBaseEntityId(String childBaseEntityId);
-
         String getChildBaseEntityId();
+
+        void setChildBaseEntityId(String childBaseEntityId);
     }
 
     interface InteractorCallBack {
@@ -162,6 +164,7 @@ public interface CoreChildProfileContract {
 
         void updateAfterBackGroundProcessed();
     }
+
     interface InteractorCallBack2 {
 
     }

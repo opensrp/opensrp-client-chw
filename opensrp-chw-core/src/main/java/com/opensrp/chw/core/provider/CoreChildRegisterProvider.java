@@ -181,7 +181,7 @@ public class CoreChildRegisterProvider implements RecyclerViewProvider<RegisterV
 
     @Override
     public boolean isFooterViewHolder(RecyclerView.ViewHolder viewHolder) {
-        return FooterViewHolder.class.isInstance(viewHolder);
+        return viewHolder instanceof FooterViewHolder;
     }
 
     public LayoutInflater getInflater() {

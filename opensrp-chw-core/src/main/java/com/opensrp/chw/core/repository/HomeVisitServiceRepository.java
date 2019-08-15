@@ -95,9 +95,9 @@ public class HomeVisitServiceRepository extends BaseRepository {
                 " when 'Mar' then '03' when 'Apr' then '04' when 'May' then '05'" +
                 " when 'Jun' then '06' when 'Jul' then '07' when 'Aug' then '08'" +
                 " when 'Sep' then '09' when 'Oct' then '10' when 'Nov' then '11' when 'Dec' then '12' end) || " +
-                " substr(date, 9 , 2)) as d from "+ HOME_VISIT_SERVICE_TABLE_NAME +" where "+EVENT_TYPE+" = '"+eventType+"' group by d " +
+                " substr(date, 9 , 2)) as d from " + HOME_VISIT_SERVICE_TABLE_NAME + " where " + EVENT_TYPE + " = '" + eventType + "' group by d " +
                 " order by d desc limit 3";
-        net.sqlcipher.Cursor cursor = database.rawQuery(rawQuery,null);
+        net.sqlcipher.Cursor cursor = database.rawQuery(rawQuery, null);
         return getAllHomeVisitService(cursor);
     }
 

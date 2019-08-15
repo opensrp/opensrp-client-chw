@@ -4,7 +4,6 @@ import android.content.Context;
 
 import com.opensrp.chw.core.application.CoreChwApplication;
 import com.opensrp.chw.core.repository.CoreChwRepository;
-import com.opensrp.chw.core.repository.WashCheckRepository;
 
 import net.sqlcipher.database.SQLiteDatabase;
 

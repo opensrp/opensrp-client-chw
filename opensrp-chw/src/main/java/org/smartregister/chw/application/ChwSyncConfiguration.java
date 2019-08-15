@@ -1,4 +1,5 @@
 package org.smartregister.chw.application;
+
 import com.opensrp.chw.core.utils.Utils;
 
 import org.smartregister.SyncConfiguration;

@@ -6,9 +6,8 @@ import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+
 import com.opensrp.chw.core.utils.CoreConstants;
-import com.vijay.jsonwizard.constants.JsonFormConstants;
-import com.vijay.jsonwizard.domain.Form;
 
 import org.jeasy.rules.api.Rules;
 import org.joda.time.DateTime;

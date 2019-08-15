@@ -4,9 +4,10 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.text.TextUtils;
 
+import com.opensrp.chw.core.utils.WashCheck;
+
 import net.sqlcipher.database.SQLiteDatabase;
 
-import com.opensrp.chw.core.utils.WashCheck;
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.repository.Repository;
 

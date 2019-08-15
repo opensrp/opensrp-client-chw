@@ -101,7 +101,7 @@ public class HfChildProfileInteractor extends CoreChildProfileInteractor {
     @Override
     public void refreshUpcomingServiceAndFamilyDue(Context context, String familyId, String baseEntityId, final CoreChildProfileContract.InteractorCallBack callback) {
         if (getpClient() == null) return;
-        updateUpcomingServices(callback,context);
+        updateUpcomingServices(callback, context);
         updateFamilyDueStatus(context, familyId, baseEntityId, callback);
 
     }

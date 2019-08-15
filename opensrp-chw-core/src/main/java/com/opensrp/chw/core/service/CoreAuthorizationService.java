@@ -34,7 +34,7 @@ public class CoreAuthorizationService implements P2PAuthorizationService {
             public void onAuthorizationDetailsProvided(@NonNull Map<String, Object> map) {
                 Object peerDeviceTeamId = peerDeviceMap.get(AllConstants.PeerToPeer.KEY_TEAM_ID);
                 if (peerDeviceTeamId instanceof String
-                        && ((String) peerDeviceTeamId).equals(map.get(AllConstants.PeerToPeer.KEY_TEAM_ID))) {
+                        && peerDeviceTeamId.equals(map.get(AllConstants.PeerToPeer.KEY_TEAM_ID))) {
                     Object peerDeviceLocationId = peerDeviceMap.get(CoreConstants.PEER_TO_PEER.LOCATION_ID);
                     Object myLocationId = authorizationDetails.get(CoreConstants.PEER_TO_PEER.LOCATION_ID);
                     Object myPeerStatus = authorizationDetails.get(org.smartregister.p2p.util.Constants.AuthorizationKeys.PEER_STATUS);

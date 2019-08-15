@@ -360,7 +360,7 @@ public class CoreChildProfilePresenter implements CoreChildProfileContract.Prese
     }
 
     public FormUtils getFormUtils() throws Exception {
-        if (this.formUtils == null){
+        if (this.formUtils == null) {
             this.formUtils = new FormUtils(getView().getApplicationContext());
         }
         return formUtils;

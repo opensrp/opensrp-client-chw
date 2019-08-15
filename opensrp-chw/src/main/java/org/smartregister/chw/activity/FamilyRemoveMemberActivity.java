@@ -4,7 +4,7 @@ import com.opensrp.chw.core.activity.CoreFamilyRemoveMemberActivity;
 
 import org.smartregister.chw.fragment.FamilyRemoveMemberFragment;
 
-public class FamilyRemoveMemberActivity extends CoreFamilyRemoveMemberActivity{
+public class FamilyRemoveMemberActivity extends CoreFamilyRemoveMemberActivity {
 
     @Override
     protected void setRemoveMemberFragment() {

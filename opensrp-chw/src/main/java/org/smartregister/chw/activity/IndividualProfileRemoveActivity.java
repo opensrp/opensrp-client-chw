@@ -2,6 +2,7 @@ package org.smartregister.chw.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+
 import com.opensrp.chw.core.activity.CoreIndividualProfileRemoveActivity;
 
 import org.smartregister.chw.fragment.IndividualProfileRemoveFragment;
