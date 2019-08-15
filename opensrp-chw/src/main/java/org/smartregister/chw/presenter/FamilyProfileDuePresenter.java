@@ -1,8 +1,8 @@
 package org.smartregister.chw.presenter;
 
 import org.smartregister.chw.core.enums.ImmunizationState;
+import org.smartregister.chw.core.rule.WashCheckAlertRule;
 import org.smartregister.chw.core.utils.ChildDBConstants;
-import rule.WashCheckAlertRule;
 import utils.WashCheck;
 
 import org.smartregister.chw.fragment.FamilyProfileDueFragment;

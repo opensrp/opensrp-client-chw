@@ -1,6 +1,6 @@
 package org.smartregister.chw.domain;
 
-import domain.Person;
+import org.smartregister.chw.core.domain.Person;
 
 import java.util.Date;
 

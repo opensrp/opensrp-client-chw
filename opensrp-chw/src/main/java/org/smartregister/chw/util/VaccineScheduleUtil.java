@@ -2,12 +2,11 @@ package org.smartregister.chw.util;
 
 import android.content.Context;
 
-import model.VaccineTaskModel;
-import utils.ChwServiceSchedule;
-
 import org.apache.commons.lang3.tuple.Triple;
 import org.joda.time.DateTime;
 import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.chw.core.model.VaccineTaskModel;
+import org.smartregister.chw.core.utils.ChwServiceSchedule;
 import org.smartregister.domain.Alert;
 import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.immunization.domain.Vaccine;

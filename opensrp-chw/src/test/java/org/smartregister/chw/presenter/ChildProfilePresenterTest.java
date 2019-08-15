@@ -2,8 +2,6 @@ package org.smartregister.chw.presenter;
 
 import android.content.Context;
 
-import contract.CoreChildProfileContract;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,6 +9,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.smartregister.chw.BaseUnitTest;
+import org.smartregister.chw.core.contract.CoreChildProfileContract;
 import org.smartregister.chw.interactor.ChildProfileInteractor;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 

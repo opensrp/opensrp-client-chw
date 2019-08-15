@@ -2,6 +2,7 @@ package org.smartregister.chw.fragment;
 
 import android.content.Intent;
 
+import org.smartregister.chw.R;
 import org.smartregister.chw.core.fragment.CoreChildRegisterFragment;
 
 import org.apache.commons.lang3.StringUtils;

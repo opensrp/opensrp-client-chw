@@ -3,9 +3,6 @@ package org.smartregister.chw.listener;
 import android.app.Activity;
 import android.view.View;
 
-import com.opensrp.chw.core.adapter.NavigationAdapter;
-import com.opensrp.chw.core.listener.NavigationListener;
-import com.opensrp.chw.core.utils.CoreConstants;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -17,6 +14,10 @@ import org.smartregister.chw.activity.ChildRegisterActivity;
 import org.smartregister.chw.activity.FamilyRegisterActivity;
 import org.smartregister.chw.activity.MalariaRegisterActivity;
 import org.smartregister.chw.activity.PncRegisterActivity;
+import org.smartregister.chw.core.activity.BaseReferralRegister;
+import org.smartregister.chw.core.adapter.NavigationAdapter;
+import org.smartregister.chw.core.listener.NavigationListener;
+import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.util.Constants;
 
 import java.util.HashMap;
@@ -51,6 +52,7 @@ public class NavigationListenerTest {
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.CHILD_REGISTER_ACTIVITY, ChildRegisterActivity.class);
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.PNC_REGISTER_ACTIVITY, PncRegisterActivity.class);
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.MALARIA_REGISTER_ACTIVITY, MalariaRegisterActivity.class);
+        registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.REFERRALS_REGISTER_ACTIVITY, BaseReferralRegister.class);
 
         Mockito.doReturn(registeredActivities).when(navigationAdapter).getRegisteredActivities();
     }
