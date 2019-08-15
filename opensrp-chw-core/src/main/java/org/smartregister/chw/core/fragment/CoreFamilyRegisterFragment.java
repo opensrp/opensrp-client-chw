@@ -9,7 +9,8 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.opensrp.chw.core.R;
+
+import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.contract.CoreFamilyRegisterFragmentContract;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.core.model.FamilyRegisterFramentModel;

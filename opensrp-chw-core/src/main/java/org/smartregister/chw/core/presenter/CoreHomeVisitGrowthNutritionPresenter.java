@@ -2,7 +2,8 @@ package org.smartregister.chw.core.presenter;
 
 import android.content.Context;
 
-import com.opensrp.chw.core.R;
+
+import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.contract.HomeVisitGrowthNutritionContract;
 import org.smartregister.chw.core.fragment.GrowthNutritionInputFragment;
 import org.smartregister.chw.core.interactor.HomeVisitGrowthNutritionInteractor;
@@ -24,7 +25,6 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 
 public class CoreHomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNutritionContract.Presenter, HomeVisitGrowthNutritionContract.InteractorCallBack {
@@ -51,6 +51,13 @@ public class CoreHomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNut
         interactor = new HomeVisitGrowthNutritionInteractor();
     }
 
+    public static Flavor getHomeVisitGrowthNutritionPresenterFlv() {
+        return homeVisitGrowthNutritionPresenterFlv;
+    }
+
+    public static void setHomeVisitGrowthNutritionPresenterFlv(Flavor homeVisitGrowthNutritionPresenterFlv) {
+        CoreHomeVisitGrowthNutritionPresenter.homeVisitGrowthNutritionPresenterFlv = homeVisitGrowthNutritionPresenterFlv;
+    }
 
     @Override
     public void parseRecordServiceData(CommonPersonObjectClient commonPersonObjectClient, boolean isEditMode) {
@@ -74,12 +81,11 @@ public class CoreHomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNut
         if (type.equalsIgnoreCase(GrowthNutritionInputFragment.GROWTH_TYPE.EXCLUSIVE.getValue())) {
             Date date = org.smartregister.family.util.Utils.dobStringToDate(serviceWrapper.getUpdatedVaccineDateAsString());
             if (getView() != null)
-                getView().statusImageViewUpdate(type, true, context.getString(R.string.given_on, Utils.DD_MM_YYYY.format(date)), serviceWrapper.getValue());
+                getView().statusImageViewUpdate(type, true, context.getString(R.string.given_on, Utils.dd_MMM_yyyy.format(date)), serviceWrapper.getValue());
         } else {
             Date date = org.smartregister.family.util.Utils.dobStringToDate(serviceWrapper.getUpdatedVaccineDateAsString());
             if (getView() != null)
-                getView().statusImageViewUpdate(type, true, context.getString(R.string.given_on, Utils.DD_MM_YYYY.format(date)), "");
-
+                getView().statusImageViewUpdate(type, true, context.getString(R.string.given_on, Utils.dd_MMM_yyyy.format(date)), "");
         }
     }
 
@@ -97,31 +103,20 @@ public class CoreHomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNut
     }
 
     public Observable undoGrowthData() {
-        return Observable.create(new ObservableOnSubscribe() {
-            @Override
-            public void subscribe(ObservableEmitter e) throws Exception {
-                RecurringServiceRecordRepository recurringServiceRecordRepository = ImmunizationLibrary.getInstance().recurringServiceRecordRepository();
+        return Observable.create((ObservableOnSubscribe) e -> {
+            RecurringServiceRecordRepository recurringServiceRecordRepository = ImmunizationLibrary.getInstance().recurringServiceRecordRepository();
 
-                for (String type : saveStateMap.keySet()) {
-                    ServiceWrapper serviceWrapper = saveStateMap.get(type);
-                    if (serviceWrapper != null) {
-                        recurringServiceRecordRepository.deleteServiceRecord(serviceWrapper.getDbKey());
-                        ChwServiceSchedule.updateOfflineAlerts(serviceWrapper.getType(), commonPersonObjectClient.entityId(), Utils.dobToDateTime(commonPersonObjectClient));
-                    }
-
+            for (String type : saveStateMap.keySet()) {
+                ServiceWrapper serviceWrapper = saveStateMap.get(type);
+                if (serviceWrapper != null) {
+                    recurringServiceRecordRepository.deleteServiceRecord(serviceWrapper.getDbKey());
+                    ChwServiceSchedule.updateOfflineAlerts(serviceWrapper.getType(), commonPersonObjectClient.entityId(), Utils.dobToDateTime(commonPersonObjectClient));
                 }
-                e.onComplete();
+
             }
+            e.onComplete();
         });
 
-    }
-
-    public static Flavor getHomeVisitGrowthNutritionPresenterFlv() {
-        return homeVisitGrowthNutritionPresenterFlv;
-    }
-
-    public static void setHomeVisitGrowthNutritionPresenterFlv(Flavor homeVisitGrowthNutritionPresenterFlv) {
-        CoreHomeVisitGrowthNutritionPresenter.homeVisitGrowthNutritionPresenterFlv = homeVisitGrowthNutritionPresenterFlv;
     }
 
     public boolean isAllSelected() {

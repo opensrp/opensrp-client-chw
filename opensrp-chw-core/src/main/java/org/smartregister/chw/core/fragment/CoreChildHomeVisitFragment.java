@@ -25,7 +25,15 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.opensrp.chw.core.R;
+
+import com.vijay.jsonwizard.constants.JsonFormConstants;
+import com.vijay.jsonwizard.domain.Form;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.smartregister.chw.anc.util.DBConstants;
+import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.activity.CoreChildProfileActivity;
 import org.smartregister.chw.core.activity.CoreChildRegisterActivity;
 import org.smartregister.chw.core.adapter.ServiceTaskAdapter;
@@ -44,13 +52,6 @@ import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.chw.core.utils.ObsIllnessDataModel;
 import org.smartregister.chw.core.utils.ServiceTask;
 import org.smartregister.chw.core.utils.TaskServiceCalculate;
-import com.vijay.jsonwizard.constants.JsonFormConstants;
-import com.vijay.jsonwizard.domain.Form;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.smartregister.chw.anc.util.DBConstants;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.family.activity.BaseFamilyProfileActivity;
@@ -73,13 +74,13 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
+import static org.smartregister.chw.anc.util.Utils.dd_MMM_yyyy;
 import static org.smartregister.family.util.Utils.metadata;
 import static org.smartregister.util.Utils.dobStringToDate;
 import static org.smartregister.util.Utils.getDuration;
 import static org.smartregister.util.Utils.getValue;
 
 public class CoreChildHomeVisitFragment extends DialogFragment implements View.OnClickListener, ChildHomeVisitContract.View {
-
     private static final String TAG = "ChildHomeVisitFragment";
     public static String DIALOG_TAG = "child_home_visit_dialog";
     private static IntentFilter sIntentFilter;
@@ -93,6 +94,10 @@ public class CoreChildHomeVisitFragment extends DialogFragment implements View.O
 
     public boolean allVaccineDataLoaded = false;
     public boolean allServicesDataLoaded = false;
+    public LinearLayout homeVisitLayout;
+    public ChildHomeVisitContract.Presenter presenter;
+    public boolean isEditMode = false;
+    public ProgressBar progressBar;
     private Context context;
     private CommonPersonObjectClient childClient;
     private TextView nameHeader;
@@ -103,12 +108,6 @@ public class CoreChildHomeVisitFragment extends DialogFragment implements View.O
     private TextView submit;
     private ImmunizationView immunizationView;
     private LinearLayout layoutBirthCertGroup, layoutVaccineCard;
-    public LinearLayout homeVisitLayout;
-    public ChildHomeVisitContract.Presenter presenter;
-    private CircleImageView circleImageViewBirthStatus, circleImageViewIllnessStatus, circleImageViewVaccineCard;
-    private JSONObject illnessJson;
-    private JSONObject birthCertJson;
-    public boolean isEditMode = false;
     private final BroadcastReceiver mDateTimeChangedReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -122,10 +121,13 @@ public class CoreChildHomeVisitFragment extends DialogFragment implements View.O
             }
         }
     };
-    public ProgressBar progressBar;
+    private CircleImageView circleImageViewBirthStatus, circleImageViewIllnessStatus, circleImageViewVaccineCard;
+    private JSONObject illnessJson;
+    private JSONObject birthCertJson;
     private RecyclerView taskServiceRecyclerView;
     private ServiceTaskAdapter serviceTaskAdapter;
     private AppExecutors appExecutors;
+    private Flavor flavor;
     private OnUpdateServiceTask onUpdateServiceTask = new OnUpdateServiceTask() {
         @Override
         public void onUpdateServiceTask(ServiceTask serviceTask) {
@@ -134,19 +136,16 @@ public class CoreChildHomeVisitFragment extends DialogFragment implements View.O
         }
     };
 
+    public static CoreChildHomeVisitFragment newInstance() {
+        return new CoreChildHomeVisitFragment();
+    }
+
     public Flavor getFlavor() {
         return flavor;
     }
 
     public void setFlavor(Flavor flavor) {
         this.flavor = flavor;
-    }
-
-    private Flavor flavor;
-
-
-    public static CoreChildHomeVisitFragment newInstance() {
-        return new CoreChildHomeVisitFragment();
     }
 
     public void setContext(Context context) {
@@ -223,6 +222,9 @@ public class CoreChildHomeVisitFragment extends DialogFragment implements View.O
     }
 
     private void assignNameHeader() {
+        if (childClient == null || childClient.getColumnmaps() == null)
+            return;
+
         String dob = getValue(childClient.getColumnmaps(), DBConstants.KEY.DOB, false);
         String dobString = getDuration(dob);
         String birthCert = Utils.getValue(childClient.getColumnmaps(), ChildDBConstants.KEY.BIRTH_CERT, true);
@@ -248,11 +250,11 @@ public class CoreChildHomeVisitFragment extends DialogFragment implements View.O
             if (birthCertRule.isOverdue(12)) {
                 Date date = dobStringToDate(dob);
                 textViewBirthCertDueDate.setTextColor(getResources().getColor(R.color.alert_urgent_red));
-                textViewBirthCertDueDate.setText(String.format("%s%s", getString(R.string.overdue), org.smartregister.chw.core.utils.Utils.DD_MM_YYYY.format(date)));
-            } else {
+                textViewBirthCertDueDate.setText(String.format("%s%s", getString(R.string.overdue), dd_MMM_yyyy.format(date)));
+            } else{
                 Date date = dobStringToDate(dob);
                 textViewBirthCertDueDate.setTextColor(getResources().getColor(R.color.grey));
-                textViewBirthCertDueDate.setText(String.format("%s%s", getString(R.string.due), org.smartregister.chw.core.utils.Utils.DD_MM_YYYY.format(date)));
+                textViewBirthCertDueDate.setText(String.format("%s%s", getString(R.string.due), dd_MMM_yyyy.format(date)));
 
             }
 
@@ -282,11 +284,11 @@ public class CoreChildHomeVisitFragment extends DialogFragment implements View.O
             if (birthCertRule.isOverdue(12)) {
                 Date date = dobStringToDate(dob);
                 textViewVaccineCardText.setTextColor(getResources().getColor(R.color.alert_urgent_red));
-                textViewVaccineCardText.setText(String.format("%s%s", getString(R.string.overdue), org.smartregister.chw.core.utils.Utils.DD_MM_YYYY.format(date)));
-            } else {
+                textViewVaccineCardText.setText(String.format("%s%s", getString(R.string.overdue), dd_MMM_yyyy.format(date)));
+            } else{
                 Date date = dobStringToDate(dob);
                 textViewVaccineCardText.setTextColor(getResources().getColor(R.color.grey));
-                textViewVaccineCardText.setText(String.format("%s%s", getString(R.string.due), org.smartregister.chw.core.utils.Utils.DD_MM_YYYY.format(date)));
+                textViewVaccineCardText.setText(String.format("%s%s", getString(R.string.due), dd_MMM_yyyy.format(date)));
 
             }
         }
@@ -312,13 +314,7 @@ public class CoreChildHomeVisitFragment extends DialogFragment implements View.O
         super.onStart();
         // without a handler, the window sizes itself correctly
         // but the keyboard does not show up
-        new Handler().post(new Runnable() {
-            @Override
-            public void run() {
-                getDialog().getWindow().setLayout(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
-
-            }
-        });
+        new Handler().post(() -> getDialog().getWindow().setLayout(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
 
     }
 
@@ -359,95 +355,69 @@ public class CoreChildHomeVisitFragment extends DialogFragment implements View.O
             CoreChildUtils.processClientProcessInBackground();
             ((CoreChildRegisterActivity) getActivity()).refreshList(FetchStatus.fetched);
         }
-
-    }
-
-    public void progressBarInvisible() {
-        if (allVaccineDataLoaded && allServicesDataLoaded) {
-            progressBar.setVisibility(View.GONE);
-            homeVisitLayout.setVisibility(View.VISIBLE);
-            if (flavor !=null && flavor.onTaskVisibility()) {
-                presenter.generateTaskService(isEditMode);
-            }
-
-        } else {
-            progressBar.setVisibility(View.VISIBLE);
-            homeVisitLayout.setVisibility(View.GONE);
-        }
-    }
-
-    public void forcfullyProgressBarInvisible() {
-        progressBar.setVisibility(View.GONE);
-        homeVisitLayout.setVisibility(View.VISIBLE);
-        if (flavor !=null && flavor.onTaskVisibility()) {
-            presenter.generateTaskService(isEditMode);
-        }
     }
 
     private void submitData(final String homeVisitDateLong, final String homeVisitId, final String vaccineCardData) {
         progressBar.setVisibility(View.VISIBLE);
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    JSONObject singleVaccineObject = new JSONObject().put("singleVaccinesGiven", new JSONArray());
-                    JSONObject vaccineGroupObject = new JSONObject().put("groupVaccinesGiven", new JSONArray());
-                    //end of not used
-                    JSONObject vaccineNotGivenObject;
-                    if (isEditMode) {
-                        vaccineNotGivenObject = new JSONObject().put("vaccineNotGiven", new JSONArray(CoreChildUtils.gsonConverter.toJson(immunizationView.getNotGivenVaccine())));
-                    } else {
-                        vaccineNotGivenObject = new JSONObject().put("vaccineNotGiven", new JSONArray(CoreChildUtils.gsonConverter.toJson(immunizationView.getNotGivenVaccine())));
+        Runnable runnable = () -> {
+            try {
+                JSONObject singleVaccineObject = new JSONObject().put("singleVaccinesGiven", new JSONArray());
+                JSONObject vaccineGroupObject = new JSONObject().put("groupVaccinesGiven", new JSONArray());
+                //end of not used
+                JSONObject vaccineNotGivenObject;
+                if (isEditMode) {
+                    vaccineNotGivenObject = new JSONObject().put("vaccineNotGiven", new JSONArray(CoreChildUtils.gsonConverter.toJson(immunizationView.getNotGivenVaccine())));
+                } else {
+                    vaccineNotGivenObject = new JSONObject().put("vaccineNotGiven", new JSONArray(CoreChildUtils.gsonConverter.toJson(immunizationView.getNotGivenVaccine())));
 
-                    }
-                    JSONObject service = new JSONObject(CoreChildUtils.gsonConverter.toJson(coreHomeVisitGrowthAndNutritionLayout.returnSaveStateMap()));
-                    JSONObject serviceNotGiven = new JSONObject(CoreChildUtils.gsonConverter.toJson(coreHomeVisitGrowthAndNutritionLayout.returnNotSaveStateMap()));
-
-                    if (illnessJson == null) {
-                        illnessJson = new JSONObject();
-                    }
-                    if (birthCertJson == null) {
-                        birthCertJson = new JSONObject();
-                    }
-
-                    Map<String, JSONObject> fields = new HashMap<>();
-                    fields.put(CoreConstants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_SINGLE_VACCINE, singleVaccineObject);
-                    fields.put(CoreConstants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_GROUP_VACCINE, vaccineGroupObject);
-                    fields.put(CoreConstants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_VACCINE_NOT_GIVEN, vaccineNotGivenObject);
-                    fields.put(CoreConstants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_SERVICE, service);
-                    fields.put(CoreConstants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_SERVICE_NOT_GIVEN, serviceNotGiven);
-                    fields.put(CoreConstants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_BIRTH_CERT, birthCertJson);
-                    fields.put(CoreConstants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_ILLNESS, illnessJson);
-                    CoreChildUtils.updateHomeVisitAsEvent(childClient.entityId(), CoreConstants.EventType.CHILD_HOME_VISIT, CoreConstants.TABLE_NAME.CHILD, fields, ChildDBConstants.KEY.LAST_HOME_VISIT, homeVisitDateLong, homeVisitId);
-                    if (((ChildHomeVisitPresenter) presenter).getSaveSize() > 0) {
-                        presenter.saveForm();
-                    }
-                    if (serviceTaskAdapter != null) {
-                        serviceTaskAdapter.makeEvent(homeVisitId, childClient.getCaseId());
-                    }
-                    if (!TextUtils.isEmpty(vaccineCardData)) {
-                        CoreChildUtils.updateVaccineCardAsEvent(context, childClient.getCaseId(), vaccineCardData);
-
-                    }
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                } catch (Exception e) {
-                    e.printStackTrace();
                 }
-                appExecutors.mainThread().execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (isEditMode) {
-                            saveData();
-                            return;
-                        }
-                        progressBar.setVisibility(View.GONE);
-                        closeScreen();
+                JSONObject service = new JSONObject(CoreChildUtils.gsonConverter.toJson(coreHomeVisitGrowthAndNutritionLayout.returnSaveStateMap()));
+                JSONObject serviceNotGiven = new JSONObject(CoreChildUtils.gsonConverter.toJson(coreHomeVisitGrowthAndNutritionLayout.returnNotSaveStateMap()));
 
-                    }
-                });
+                if (illnessJson == null) {
+                    illnessJson = new JSONObject();
+                }
+                if (birthCertJson == null) {
+                    birthCertJson = new JSONObject();
+                }
+
+                Map<String, JSONObject> fields = new HashMap<>();
+                fields.put(CoreConstants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_SINGLE_VACCINE, singleVaccineObject);
+                fields.put(CoreConstants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_GROUP_VACCINE, vaccineGroupObject);
+                fields.put(CoreConstants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_VACCINE_NOT_GIVEN, vaccineNotGivenObject);
+                fields.put(CoreConstants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_SERVICE, service);
+                fields.put(CoreConstants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_SERVICE_NOT_GIVEN, serviceNotGiven);
+                fields.put(CoreConstants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_BIRTH_CERT, birthCertJson);
+                fields.put(CoreConstants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_ILLNESS, illnessJson);
+                CoreChildUtils.updateHomeVisitAsEvent(childClient.entityId(), CoreConstants.EventType.CHILD_HOME_VISIT, CoreConstants.TABLE_NAME.CHILD, fields, ChildDBConstants.KEY.LAST_HOME_VISIT, homeVisitDateLong, homeVisitId);
+                if (((ChildHomeVisitPresenter) presenter).getSaveSize() > 0) {
+                    presenter.saveForm();
+                }
+                if (serviceTaskAdapter != null) {
+                    serviceTaskAdapter.makeEvent(homeVisitId, childClient.getCaseId());
+                }
+                if (!TextUtils.isEmpty(vaccineCardData)) {
+                    CoreChildUtils.updateVaccineCardAsEvent(context, childClient.getCaseId(), vaccineCardData);
+
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
+            appExecutors.mainThread().execute(new Runnable() {
+                @Override
+                public void run() {
+                    if (isEditMode) {
+                        saveData();
+                        return;
+                    }
+                    progressBar.setVisibility(View.GONE);
+                    closeScreen();
+
+                }
+            });
         };
         appExecutors.diskIO().execute(runnable);
     }
@@ -550,6 +520,27 @@ public class CoreChildHomeVisitFragment extends DialogFragment implements View.O
         }
     }
 
+    public void progressBarInvisible() {
+        if (allVaccineDataLoaded && allServicesDataLoaded) {
+            progressBar.setVisibility(View.GONE);
+            homeVisitLayout.setVisibility(View.VISIBLE);
+            if (flavor.onTaskVisibility()) {
+                presenter.generateTaskService(isEditMode);
+            }
+
+        } else {
+            progressBar.setVisibility(View.VISIBLE);
+            homeVisitLayout.setVisibility(View.GONE);
+        }
+    }
+
+    public void forcfullyProgressBarInvisible() {
+        progressBar.setVisibility(View.GONE);
+        homeVisitLayout.setVisibility(View.VISIBLE);
+        if (flavor.onTaskVisibility()) {
+            presenter.generateTaskService(isEditMode);
+        }
+    }
 
     @Override
     public ChildHomeVisitContract.Presenter initializePresenter() {
@@ -626,7 +617,7 @@ public class CoreChildHomeVisitFragment extends DialogFragment implements View.O
                             LLITNInputDialogFragment dialogFragment = LLITNInputDialogFragment.getInstance();
                             dialogFragment.setServiceTask(serviceTask, onUpdateServiceTask);
                             FragmentTransaction ft = getActivity().getFragmentManager().beginTransaction();
-                            dialogFragment.show(ft, MuacInputDialogFragment.DIALOG_TAG);
+                            dialogFragment.show(ft, LLITNInputDialogFragment.DIALOG_TAG);
 
                         } else if (serviceTask.getTaskType().equalsIgnoreCase(TaskServiceCalculate.TASK_TYPE.ECD.name())) {
                             try {

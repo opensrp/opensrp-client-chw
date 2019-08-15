@@ -14,7 +14,7 @@ import android.view.WindowManager;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.opensrp.chw.core.R;
+import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.adapter.MemberAdapter;
 import org.smartregister.chw.core.contract.FamilyChangeContract;
 import org.smartregister.chw.core.domain.FamilyMember;

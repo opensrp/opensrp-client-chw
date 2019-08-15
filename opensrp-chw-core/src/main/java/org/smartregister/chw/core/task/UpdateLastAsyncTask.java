@@ -6,7 +6,8 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 
-import com.opensrp.chw.core.R;
+
+import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.holders.RegisterViewHolder;
 import org.smartregister.chw.core.interactor.CoreChildProfileInteractor;

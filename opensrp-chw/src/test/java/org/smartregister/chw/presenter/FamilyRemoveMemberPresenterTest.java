@@ -52,7 +52,7 @@ public class FamilyRemoveMemberPresenterTest {
         CommonPersonObjectClient client = new CommonPersonObjectClient(null, null, null);
 
         // remove member when is not a primary care giver
-        client.setColumnmaps(new HashMap<String, String>());
+        client.setColumnmaps(new HashMap<>());
         client.getColumnmaps().put(DBConstants.KEY.BASE_ENTITY_ID, "memberID");
         presenter.removeMember(client);
 
@@ -60,7 +60,7 @@ public class FamilyRemoveMemberPresenterTest {
 
 
         // remove member when is a primary care giver start fetch members for the change member dialog
-        client.setColumnmaps(new HashMap<String, String>());
+        client.setColumnmaps(new HashMap<>());
         client.getColumnmaps().put(DBConstants.KEY.BASE_ENTITY_ID, primaryCaregiver);
         presenter.removeMember(client);
 
@@ -77,7 +77,7 @@ public class FamilyRemoveMemberPresenterTest {
         CommonPersonObjectClient client = new CommonPersonObjectClient(null, null, null);
 
         // when the member is family head open change head dialog
-        client.setColumnmaps(new HashMap<String, String>());
+        client.setColumnmaps(new HashMap<>());
         client.getColumnmaps().put(DBConstants.KEY.BASE_ENTITY_ID, familyHead);
 
         presenter.processMember(familyDetails, client);

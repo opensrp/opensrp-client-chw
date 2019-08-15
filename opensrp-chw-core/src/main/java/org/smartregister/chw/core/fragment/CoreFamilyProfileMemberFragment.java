@@ -2,7 +2,8 @@ package org.smartregister.chw.core.fragment;
 
 import android.content.Intent;
 
-import com.opensrp.chw.core.R;
+
+import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.core.utils.CoreChildUtils;
 import org.smartregister.chw.core.utils.Utils;

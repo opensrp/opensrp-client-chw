@@ -3,7 +3,8 @@ package org.smartregister.chw.core.activity;
 import android.content.Intent;
 import android.view.View;
 
-import com.opensrp.chw.core.R;
+
+import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.fragment.CoreFamilyRemoveMemberFragment;
 
 import org.json.JSONObject;

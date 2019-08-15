@@ -1,6 +1,7 @@
 package org.smartregister.chw.core.presenter;
 
-import com.opensrp.chw.core.R;
+
+import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.contract.CoreFamilyRegisterFragmentContract;
 import org.smartregister.chw.core.utils.ChildDBConstants;
 

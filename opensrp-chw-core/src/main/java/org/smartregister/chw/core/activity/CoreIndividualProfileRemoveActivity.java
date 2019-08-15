@@ -4,7 +4,8 @@ import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 import android.view.View;
 
-import com.opensrp.chw.core.R;
+
+import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.fragment.CoreIndividualProfileRemoveFragment;
 
 import org.json.JSONObject;
@@ -32,7 +33,7 @@ public abstract class CoreIndividualProfileRemoveActivity extends SecuredActivit
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             try {

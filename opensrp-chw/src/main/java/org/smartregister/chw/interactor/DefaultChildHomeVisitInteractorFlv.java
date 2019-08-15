@@ -22,15 +22,14 @@ import org.smartregister.family.util.DBConstants;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import static org.smartregister.chw.core.utils.ChildDBConstants.KEY.BIRTH_CERT;
 import static org.smartregister.chw.core.utils.ChildDBConstants.KEY.BIRTH_CERT_ISSUE_DATE;
 import static org.smartregister.chw.core.utils.ChildDBConstants.KEY.BIRTH_CERT_NUMBER;
 import static org.smartregister.chw.core.utils.ChildDBConstants.KEY.ILLNESS_ACTION;
 import static org.smartregister.chw.core.utils.ChildDBConstants.KEY.ILLNESS_DATE;
 import static org.smartregister.chw.core.utils.ChildDBConstants.KEY.ILLNESS_DESCRIPTION;
-import static org.smartregister.chw.core.utils.Utils.DD_MM_YYYY;
 import static org.smartregister.chw.core.utils.Utils.convertToDateFormateString;
+import static org.smartregister.util.JsonFormUtils.dd_MM_yyyy;
 
 public abstract class DefaultChildHomeVisitInteractorFlv implements ChildHomeVisitInteractor.Flavor {
     @Override
@@ -112,7 +111,7 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements ChildHomeVis
                         case BIRTH_CERT_ISSUE_DATE:
                             String value = jsonObject.optString(org.smartregister.family.util.JsonFormUtils.VALUE);
                             if (!TextUtils.isEmpty(value)) {
-                                birthCertDataModel.setBirthCertDate("Issued " + convertToDateFormateString(value, DD_MM_YYYY));
+                                birthCertDataModel.setBirthCertDate("Issued " + convertToDateFormateString(value, dd_MM_yyyy));
                             }
 
                             break;
@@ -155,7 +154,7 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements ChildHomeVis
                         case ILLNESS_DATE:
                             String value = jsonObject.optString(org.smartregister.family.util.JsonFormUtils.VALUE);
 
-                            obsIllnessDataModel.setIllnessDate(convertToDateFormateString(value, DD_MM_YYYY));
+                            obsIllnessDataModel.setIllnessDate(convertToDateFormateString(value, dd_MM_yyyy));
 
                             break;
                         case ILLNESS_DESCRIPTION:

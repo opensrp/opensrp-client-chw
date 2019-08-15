@@ -1,5 +1,6 @@
 package org.smartregister.chw.core.interactor;
 
+import android.content.Context;
 import android.text.TextUtils;
 
 import com.google.gson.reflect.TypeToken;
@@ -35,8 +36,6 @@ import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -52,8 +51,8 @@ public class ImmunizationViewInteractor implements ImmunizationContact.Interacto
     private AlertService alertService;
     private VaccineRepository vaccineRepository;
 
-    public ImmunizationViewInteractor() {
-        model = new ImmunizationModel();
+    public ImmunizationViewInteractor(Context context) {
+        model = new ImmunizationModel(context);
         alertService = CoreChwApplication.getInstance().getContext().alertService();
         vaccineRepository = CoreChwApplication.getInstance().vaccineRepository();
     }
@@ -64,8 +63,7 @@ public class ImmunizationViewInteractor implements ImmunizationContact.Interacto
 
     @Override
     public void fetchImmunizationData(final CommonPersonObjectClient commonPersonObjectClient, final ImmunizationContact.InteractorCallBack callBack) {
-
-        getVaccineTask(commonPersonObjectClient, new ArrayList<VaccineWrapper>())
+        getVaccineTask(commonPersonObjectClient, new ArrayList<>())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<VaccineTaskModel>() {
@@ -94,7 +92,7 @@ public class ImmunizationViewInteractor implements ImmunizationContact.Interacto
 
     @Override
     public void fetchImmunizationEditData(final CommonPersonObjectClient commonPersonObjectClient, final ImmunizationContact.InteractorCallBack callBack) {
-        getLastVaccineTask(commonPersonObjectClient, new ArrayList<VaccineWrapper>())
+        getLastVaccineTask(commonPersonObjectClient, new ArrayList<>())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<VaccineTaskModel>() {
@@ -139,42 +137,39 @@ public class ImmunizationViewInteractor implements ImmunizationContact.Interacto
      */
     public Observable<VaccineTaskModel> getLastVaccineTask(final CommonPersonObjectClient childClient, final ArrayList<VaccineWrapper> notDoneVaccines) {
 
-        return Observable.create(new ObservableOnSubscribe<VaccineTaskModel>() {
-            @Override
-            public void subscribe(ObservableEmitter<VaccineTaskModel> emmiter) throws Exception {
-                String lastHomeVisitStr = org.smartregister.util.Utils.getValue(childClient.getColumnmaps(), ChildDBConstants.KEY.LAST_HOME_VISIT, false);
-                long lastHomeVisit = TextUtils.isEmpty(lastHomeVisitStr) ? 0 : Long.parseLong(lastHomeVisitStr);
-                HomeVisit homeVisit = CoreChwApplication.homeVisitRepository().findByDate(lastHomeVisit);
+        return Observable.create(emmiter -> {
+            String lastHomeVisitStr = org.smartregister.util.Utils.getValue(childClient.getColumnmaps(), ChildDBConstants.KEY.LAST_HOME_VISIT, false);
+            long lastHomeVisit = TextUtils.isEmpty(lastHomeVisitStr) ? 0 : Long.parseLong(lastHomeVisitStr);
+            HomeVisit homeVisit = CoreChwApplication.homeVisitRepository().findByDate(lastHomeVisit);
 
-                String dobString = org.smartregister.util.Utils.getValue(childClient.getColumnmaps(), DBConstants.KEY.DOB, false);
-                DateTime dob = Utils.dobStringToDateTime(dobString);
+            String dobString = org.smartregister.util.Utils.getValue(childClient.getColumnmaps(), DBConstants.KEY.DOB, false);
+            DateTime dob = Utils.dobStringToDateTime(dobString);
 
-                List<Alert> alerts = CoreChwApplication.getInstance().getContext().alertService().findByEntityIdAndAlertNames(childClient.entityId(), VaccinateActionUtils.allAlertNames("child"));
-                List<Vaccine> vaccines = CoreChwApplication.getInstance().vaccineRepository().findLatestTwentyFourHoursByEntityId(childClient.entityId());
-                Map<String, Date> recievedVaccines = receivedVaccines(vaccines);
-                List<Map<String, Object>> sch = generateScheduleList("child", dob, recievedVaccines, alerts);
-                VaccineTaskModel vaccineTaskModel = new VaccineTaskModel();
-                vaccineTaskModel.setAlerts(alerts);
-                vaccineTaskModel.setVaccines(vaccines);
-                vaccineTaskModel.setReceivedVaccines(recievedVaccines);
-                vaccineTaskModel.setScheduleList(sch);
-                if (homeVisit != null) {
-                    try {
-                        JSONObject jsonObject = new JSONObject(homeVisit.getVaccineNotGiven().toString());
-                        JSONArray array = jsonObject.getJSONArray("vaccineNotGiven");
-                        if (array != null) {
-                            ArrayList<VaccineWrapper> notGivenVaccine = CoreChildUtils.gsonConverter.fromJson(array.toString(), new TypeToken<ArrayList<VaccineWrapper>>() {
-                            }.getType());
-                            vaccineTaskModel.setNotGivenVaccine(notGivenVaccine);
-                        }
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+            List<Alert> alerts = CoreChwApplication.getInstance().getContext().alertService().findByEntityIdAndAlertNames(childClient.entityId(), VaccinateActionUtils.allAlertNames("child"));
+            List<Vaccine> vaccines = CoreChwApplication.getInstance().vaccineRepository().findLatestTwentyFourHoursByEntityId(childClient.entityId());
+            Map<String, Date> recievedVaccines = receivedVaccines(vaccines);
+            List<Map<String, Object>> sch = generateScheduleList("child", dob, recievedVaccines, alerts);
+            VaccineTaskModel vaccineTaskModel = new VaccineTaskModel();
+            vaccineTaskModel.setAlerts(alerts);
+            vaccineTaskModel.setVaccines(vaccines);
+            vaccineTaskModel.setReceivedVaccines(recievedVaccines);
+            vaccineTaskModel.setScheduleList(sch);
+            if (homeVisit != null) {
+                try {
+                    JSONObject jsonObject = new JSONObject(homeVisit.getVaccineNotGiven().toString());
+                    JSONArray array = jsonObject.getJSONArray("vaccineNotGiven");
+                    if (array != null) {
+                        ArrayList<VaccineWrapper> notGivenVaccine = CoreChildUtils.gsonConverter.fromJson(array.toString(), new TypeToken<ArrayList<VaccineWrapper>>() {
+                        }.getType());
+                        vaccineTaskModel.setNotGivenVaccine(notGivenVaccine);
                     }
 
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-                emmiter.onNext(vaccineTaskModel);
+
             }
+            emmiter.onNext(vaccineTaskModel);
         });
     }
 
@@ -190,43 +185,40 @@ public class ImmunizationViewInteractor implements ImmunizationContact.Interacto
     public Observable<VaccineTaskModel> getVaccineTask(final CommonPersonObjectClient childClient, final ArrayList<VaccineWrapper> notDoneVaccines) {
         final String dobString = org.smartregister.util.Utils.getValue(childClient.getColumnmaps(), DBConstants.KEY.DOB, false);
 
-        return Observable.create(new ObservableOnSubscribe<VaccineTaskModel>() {
-            @Override
-            public void subscribe(ObservableEmitter<VaccineTaskModel> emmiter) throws Exception {
-                DateTime dob = Utils.dobStringToDateTime(dobString);
-                if (dob == null) {
-                    dob = new DateTime();
-                }
-
-                if (!TextUtils.isEmpty(dobString)) {
-                    DateTime dateTime = new DateTime(dobString);
-                    try {
-                        VaccineSchedule.updateOfflineAlerts(childClient.getCaseId(), dateTime, "child");
-                    } catch (Exception e) {
-
-                    }
-                    try {
-                        ChwServiceSchedule.updateOfflineAlerts(childClient.getCaseId(), dateTime, "child");
-                    } catch (Exception e) {
-
-                    }
-                }
-                List<Alert> alerts = alertService.findByEntityIdAndAlertNames(childClient.getCaseId(), VaccinateActionUtils.allAlertNames("child"));
-                List<Vaccine> vaccines = vaccineRepository.findByEntityId(childClient.getCaseId());
-                Map<String, Date> recievedVaccines = receivedVaccines(vaccines);
-                int size = notDoneVaccines.size();
-                for (int i = 0; i < size; i++) {
-                    recievedVaccines.put(notDoneVaccines.get(i).getName().toLowerCase(), new Date());
-                }
-
-                List<Map<String, Object>> sch = generateScheduleList("child", dob, recievedVaccines, alerts);
-                VaccineTaskModel vaccineTaskModel = new VaccineTaskModel();
-                vaccineTaskModel.setAlerts(alerts);
-                vaccineTaskModel.setVaccines(vaccines);
-                vaccineTaskModel.setReceivedVaccines(recievedVaccines);
-                vaccineTaskModel.setScheduleList(sch);
-                emmiter.onNext(vaccineTaskModel);
+        return Observable.create(emmiter -> {
+            DateTime dob = Utils.dobStringToDateTime(dobString);
+            if (dob == null) {
+                dob = new DateTime();
             }
+
+            if (!TextUtils.isEmpty(dobString)) {
+                DateTime dateTime = new DateTime(dobString);
+                try {
+                    VaccineSchedule.updateOfflineAlerts(childClient.getCaseId(), dateTime, "child");
+                } catch (Exception e) {
+
+                }
+                try {
+                    ChwServiceSchedule.updateOfflineAlerts(childClient.getCaseId(), dateTime, "child");
+                } catch (Exception e) {
+
+                }
+            }
+            List<Alert> alerts = alertService.findByEntityIdAndAlertNames(childClient.getCaseId(), VaccinateActionUtils.allAlertNames("child"));
+            List<Vaccine> vaccines = vaccineRepository.findByEntityId(childClient.getCaseId());
+            Map<String, Date> recievedVaccines = receivedVaccines(vaccines);
+            int size = notDoneVaccines.size();
+            for (int i = 0; i < size; i++) {
+                recievedVaccines.put(notDoneVaccines.get(i).getName().toLowerCase(), new Date());
+            }
+
+            List<Map<String, Object>> sch = generateScheduleList("child", dob, recievedVaccines, alerts);
+            VaccineTaskModel vaccineTaskModel = new VaccineTaskModel();
+            vaccineTaskModel.setAlerts(alerts);
+            vaccineTaskModel.setVaccines(vaccines);
+            vaccineTaskModel.setReceivedVaccines(recievedVaccines);
+            vaccineTaskModel.setScheduleList(sch);
+            emmiter.onNext(vaccineTaskModel);
         });
     }
 }

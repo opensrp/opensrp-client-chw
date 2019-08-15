@@ -4,7 +4,8 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.Looper;
 
-import com.opensrp.chw.core.R;
+
+import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.activity.CoreFamilyRegisterActivity;
 import org.smartregister.chw.core.contract.FamilyRemoveMemberContract;
 import org.smartregister.chw.core.provider.CoreFamilyRemoveMemberProvider;
@@ -81,14 +82,11 @@ public abstract class CoreFamilyRemoveMemberFragment extends BaseFamilyProfileMe
     @Override
     public void displayChangeFamilyHeadDialog(final CommonPersonObjectClient client, final String familyHeadID) {
         CoreFamilyProfileChangeDialog dialog = getChangeFamilyHeadDialog();
-        dialog.setOnSaveAndClose(new Runnable() {
-            @Override
-            public void run() {
-                setFamilyHead(familyHeadID);
-                refreshMemberList(FetchStatus.fetched);
-                getPresenter().removeMember(client);
-                refreshListView();
-            }
+        dialog.setOnSaveAndClose(() -> {
+            setFamilyHead(familyHeadID);
+            refreshMemberList(FetchStatus.fetched);
+            getPresenter().removeMember(client);
+            refreshListView();
         });
         dialog.show(getActivity().getFragmentManager(), "FamilyProfileChangeDialogHF");
     }

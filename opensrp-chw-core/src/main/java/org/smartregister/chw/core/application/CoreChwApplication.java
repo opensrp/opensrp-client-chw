@@ -8,6 +8,7 @@ import org.smartregister.chw.core.repository.AncRegisterRepository;
 import org.smartregister.chw.core.repository.HomeVisitIndicatorInfoRepository;
 import org.smartregister.chw.core.repository.HomeVisitRepository;
 import org.smartregister.chw.core.repository.HomeVisitServiceRepository;
+import org.smartregister.chw.core.repository.WashCheckRepository;
 import org.smartregister.chw.core.sync.ChwClientProcessor;
 
 import org.smartregister.Context;
@@ -47,16 +48,17 @@ public class CoreChwApplication extends DrishtiApplication implements CoreApplic
     private static HomeVisitServiceRepository homeVisitServiceRepository;
     private static AncRegisterRepository ancRegisterRepository;
     private static HomeVisitIndicatorInfoRepository homeVisitIndicatorInfoRepository;
+    private static TaskRepository taskRepository;
+    private static PlanDefinitionRepository planDefinitionRepository;
+    private static WashCheckRepository washCheckRepository;
+    private LocationRepository locationRepository;
+
 
     public JsonSpecHelper jsonSpecHelper;
     private ECSyncHelper ecSyncHelper;
     private String password;
 
     private RulesEngineHelper rulesEngineHelper;
-    private TaskRepository taskRepository;
-    private PlanDefinitionRepository planDefinitionRepository;
-    private LocationRepository locationRepository;
-
     public static synchronized CoreChwApplication getInstance() {
         return (CoreChwApplication) mInstance;
     }
@@ -105,11 +107,32 @@ public class CoreChwApplication extends DrishtiApplication implements CoreApplic
         return homeVisitIndicatorInfoRepository;
     }
 
+    public static WashCheckRepository getWashCheckRepository() {
+        if (washCheckRepository == null) {
+            washCheckRepository = new WashCheckRepository(getInstance().getRepository());
+        }
+        return washCheckRepository;
+    }
+
     /**
      * Update application contants to fit current context
      */
     public static Locale getCurrentLocale() {
         return mInstance == null ? Locale.getDefault() : mInstance.getResources().getConfiguration().locale;
+    }
+
+    public TaskRepository getTaskRepository() {
+        if (taskRepository == null) {
+            taskRepository = new TaskRepository(getRepository(), new TaskNotesRepository(getRepository()));
+        }
+        return taskRepository;
+    }
+
+    public PlanDefinitionRepository getPlanDefinitionRepository() {
+        if (planDefinitionRepository == null) {
+            planDefinitionRepository = new PlanDefinitionRepository(getRepository());
+        }
+        return planDefinitionRepository;
     }
 
     @Override
@@ -175,20 +198,6 @@ public class CoreChwApplication extends DrishtiApplication implements CoreApplic
             rulesEngineHelper = new RulesEngineHelper(getApplicationContext());
         }
         return rulesEngineHelper;
-    }
-
-    public TaskRepository getTaskRepository() {
-        if (taskRepository == null) {
-            taskRepository = new TaskRepository(getRepository(), new TaskNotesRepository(getRepository()));
-        }
-        return taskRepository;
-    }
-
-    public PlanDefinitionRepository getPlanDefinitionRepository() {
-        if (planDefinitionRepository == null) {
-            planDefinitionRepository = new PlanDefinitionRepository(getRepository());
-        }
-        return planDefinitionRepository;
     }
 
     public LocationRepository getLocationRepository() {

@@ -70,10 +70,20 @@ public class ObservationAction implements BaseAncHomeVisitAction.AncHomeVisitAct
 
     @Override
     public String evaluateSubTitle() {
+
+        String translated_action_taken = "";
+        if ("Managed".equalsIgnoreCase(action_taken)) {
+            translated_action_taken = context.getString(R.string.managed);
+        } else if ("Referred".equalsIgnoreCase(action_taken)) {
+            translated_action_taken = context.getString(R.string.referred);
+        } else if ("No action taken".equalsIgnoreCase(action_taken)) {
+            translated_action_taken = context.getString(R.string.no_action_taken);
+        }
+
         return MessageFormat.format("{0}: {1}\n {2}: {3}",
                 illnessDate != null ? DateTimeFormat.forPattern("dd MMM yyyy").print(illnessDate) : "",
                 illness_description, context.getString(R.string.action_taken),
-                action_taken
+                translated_action_taken
         );
     }
 

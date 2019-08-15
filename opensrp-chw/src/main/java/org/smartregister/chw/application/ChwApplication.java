@@ -170,10 +170,8 @@ public class ChwApplication extends CoreChwApplication implements CoreApplicatio
 
     public void setOpenSRPUrl() {
         AllSharedPreferences preferences = Utils.getAllSharedPreferences();
-        if (BuildConfig.DEBUG) {
-            preferences.savePreference(AllConstants.DRISHTI_BASE_URL, BuildConfig.opensrp_url_debug);
-        } else {
-            preferences.savePreference(AllConstants.DRISHTI_BASE_URL, BuildConfig.opensrp_url);
-        }
+        preferences.savePreference(AllConstants.DRISHTI_BASE_URL,
+                BuildConfig.DEBUG ? BuildConfig.opensrp_url_debug : BuildConfig.opensrp_url
+        );
     }
 }

@@ -1,7 +1,6 @@
 package org.smartregister.chw.core.presenter;
 
 import android.app.Activity;
-
 import org.smartregister.chw.core.contract.CoreApplication;
 import org.smartregister.chw.core.contract.NavigationContract;
 import org.smartregister.chw.core.interactor.NavigationInteractor;
@@ -10,6 +9,7 @@ import org.smartregister.chw.core.job.VaccineRecurringServiceJob;
 import org.smartregister.chw.core.model.NavigationModel;
 import org.smartregister.chw.core.model.NavigationOption;
 import org.smartregister.chw.core.utils.CoreConstants;
+import job.BasePncCloseJob;
 
 import org.smartregister.job.ImageUploadServiceJob;
 import org.smartregister.job.PullUniqueIdsServiceJob;
@@ -48,6 +48,7 @@ public class NavigationPresenter implements NavigationContract.Presenter {
         tableMap.put(CoreConstants.DrawerMenu.ANC, CoreConstants.TABLE_NAME.ANC_MEMBER);
         tableMap.put(CoreConstants.DrawerMenu.PNC, CoreConstants.TABLE_NAME.ANC_PREGNANCY_OUTCOME);
         tableMap.put(CoreConstants.DrawerMenu.REFERRALS, CoreConstants.TABLE_NAME.TASK);
+        tableMap.put(CoreConstants.DrawerMenu.MALARIA, CoreConstants.TABLE_NAME.MALARIA_CONFIRMATION);
     }
 
     @Override
@@ -93,10 +94,12 @@ public class NavigationPresenter implements NavigationContract.Presenter {
 
     @Override
     public void sync(Activity activity) {
+        BasePncCloseJob.scheduleJobImmediately(BasePncCloseJob.TAG);
+        HomeVisitServiceJob.scheduleJobImmediately(HomeVisitServiceJob.TAG);
+        VaccineRecurringServiceJob.scheduleJobImmediately(VaccineRecurringServiceJob.TAG);
         ImageUploadServiceJob.scheduleJobImmediately(ImageUploadServiceJob.TAG);
         SyncServiceJob.scheduleJobImmediately(SyncServiceJob.TAG);
         PullUniqueIdsServiceJob.scheduleJobImmediately(PullUniqueIdsServiceJob.TAG);
-        VaccineRecurringServiceJob.scheduleJobImmediately(VaccineRecurringServiceJob.TAG);
         HomeVisitServiceJob.scheduleJobImmediately(HomeVisitServiceJob.TAG);
         //PlanIntentServiceJob.scheduleJobImmediately(PlanIntentServiceJob.TAG);
         SyncTaskServiceJob.scheduleJobImmediately(SyncTaskServiceJob.TAG);

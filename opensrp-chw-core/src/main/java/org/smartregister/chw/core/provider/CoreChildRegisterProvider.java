@@ -8,7 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.opensrp.chw.core.R;
+
+import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.holders.FooterViewHolder;
 import org.smartregister.chw.core.holders.RegisterViewHolder;
 import org.smartregister.chw.core.utils.ChildDBConstants;
@@ -181,7 +182,7 @@ public class CoreChildRegisterProvider implements RecyclerViewProvider<RegisterV
 
     @Override
     public boolean isFooterViewHolder(RecyclerView.ViewHolder viewHolder) {
-        return FooterViewHolder.class.isInstance(viewHolder);
+        return viewHolder instanceof FooterViewHolder;
     }
 
     public LayoutInflater getInflater() {

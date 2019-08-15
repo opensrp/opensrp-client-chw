@@ -11,6 +11,7 @@ import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 
+import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializationContext;
@@ -20,7 +21,16 @@ import com.google.gson.JsonParseException;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
-import com.opensrp.chw.core.R;
+
+
+import org.apache.commons.lang3.StringUtils;
+import org.jeasy.rules.api.Rules;
+import org.joda.time.DateTime;
+import org.joda.time.Days;
+import org.joda.time.LocalDate;
+import org.joda.time.format.ISODateTimeFormat;
+import org.json.JSONObject;
+import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.domain.HomeVisit;
 import org.smartregister.chw.core.domain.HomeVisitServiceDataModel;
@@ -31,14 +41,6 @@ import org.smartregister.chw.core.repository.HomeVisitServiceRepository;
 import org.smartregister.chw.core.rule.HomeAlertRule;
 import org.smartregister.chw.core.rule.ImmunizationExpiredRule;
 import org.smartregister.chw.core.rule.ServiceRule;
-
-import org.apache.commons.lang3.StringUtils;
-import org.jeasy.rules.api.Rules;
-import org.joda.time.DateTime;
-import org.joda.time.Days;
-import org.joda.time.LocalDate;
-import org.joda.time.format.ISODateTimeFormat;
-import org.json.JSONObject;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.AllCommonsRepository;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
@@ -58,9 +60,9 @@ import java.util.Map;
 
 import timber.log.Timber;
 
+import static org.apache.commons.lang3.text.WordUtils.capitalize;
 import static org.smartregister.chw.core.utils.CoreJsonFormUtils.getValue;
 import static org.smartregister.chw.core.utils.CoreJsonFormUtils.tagSyncMetadata;
-import static org.apache.commons.lang3.text.WordUtils.capitalize;
 import static org.smartregister.util.JsonFormUtils.TAG;
 
 public abstract class CoreChildUtils {
@@ -390,6 +392,44 @@ public abstract class CoreChildUtils {
 
     }
 
+    public static String getFirstSecondAsNumber(String number, Context context) {
+        try {
+            int index = Integer.parseInt(number);
+            switch (index) {
+                case 1:
+                    return context.getString(R.string.abv_first);
+                case 2:
+                    return context.getString(R.string.abv_second);
+                case 3:
+                    return context.getString(R.string.abv_third);
+                case 4:
+                    return context.getString(R.string.abv_fourth);
+                case 5:
+                    return context.getString(R.string.abv_fifth);
+                case 6:
+                    return context.getString(R.string.abv_sixth);
+                case 7:
+                    return context.getString(R.string.abv_seventh);
+                case 8:
+                    return context.getString(R.string.abv_eigth);
+                case 9:
+                    return context.getString(R.string.abv_nineth);
+                case 10:
+                    return context.getString(R.string.abv_tenth);
+                case 11:
+                    return context.getString(R.string.abv_eleventh);
+                case 12:
+                    return context.getString(R.string.abv_twelfth);
+                default:
+                    return "";
+            }
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+        return "";
+
+    }
+
     public static void updateTaskAsEvent(String eventType, String formSubmissionField, List<Object> values, List<Object> humenread,
                                          String entityId, String choiceValue, String homeVisitId, String openMrsCode) {
         try {
@@ -577,13 +617,12 @@ public abstract class CoreChildUtils {
         SpannableString spannableString;
         Date date = org.smartregister.family.util.Utils.dobStringToDate(dueDate);
         if (status.equalsIgnoreCase(ImmunizationState.DUE.name())) {
-
-            String str = context.getResources().getString(R.string.due) + "" + Utils.DD_MM_YYYY.format(date);
+            String str = context.getResources().getString(R.string.due) + "" + Utils.dd_MMM_yyyy.format(date);
             spannableString = new SpannableString(str);
             spannableString.setSpan(new ForegroundColorSpan(CoreChwApplication.getInstance().getContext().getColorResource(R.color.grey)), 0, str.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             return spannableString;
         } else {
-            String str = context.getResources().getString(R.string.overdue) + "" + Utils.DD_MM_YYYY.format(date);
+            String str = context.getResources().getString(R.string.overdue) + "" + Utils.dd_MMM_yyyy.format(date);
             spannableString = new SpannableString(str);
             spannableString.setSpan(new ForegroundColorSpan(CoreChwApplication.getInstance().getContext().getColorResource(R.color.alert_urgent_red)), 0, str.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             return spannableString;
@@ -619,4 +658,24 @@ public abstract class CoreChildUtils {
         return getChildVisitStatus(homeAlertRule, lastVisitDate);
     }
 
+    public static ServiceTask createServiceTaskFromEvent(String taskType, String details, String title, String formSubmissionId) {
+        ServiceTask serviceTask = new ServiceTask();
+        org.smartregister.domain.db.Event event = CoreChildUtils.gsonConverter.fromJson(details, new TypeToken<org.smartregister.domain.db.Event>() {
+        }.getType());
+        List<org.smartregister.domain.db.Obs> observations = event.getObs();
+        for (org.smartregister.domain.db.Obs obs : observations) {
+            if (obs.getFormSubmissionField().equalsIgnoreCase(formSubmissionId)) {
+                List<Object> hu = obs.getHumanReadableValues();
+                String value = "";
+                for (Object object : hu) {
+                    value = (String) object;
+                }
+                serviceTask.setTaskLabel(value);
+            }
+        }
+        serviceTask.setTaskTitle(title);
+        serviceTask.setTaskType(taskType);
+        return serviceTask;
+
+    }
 }

@@ -5,10 +5,10 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.Toast;
 
-import com.opensrp.chw.core.R;
+
+import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.adapter.NavigationAdapter;
 import org.smartregister.chw.core.utils.CoreConstants;
-
 
 public class NavigationListener implements View.OnClickListener {
 
@@ -46,7 +46,7 @@ public class NavigationListener implements View.OnClickListener {
                         Toast.makeText(activity.getApplicationContext(), CoreConstants.DrawerMenu.FAMILY_PLANNING, Toast.LENGTH_SHORT).show();
                         break;
                     case CoreConstants.DrawerMenu.MALARIA:
-                        Toast.makeText(activity.getApplicationContext(), CoreConstants.DrawerMenu.MALARIA, Toast.LENGTH_SHORT).show();
+                        startRegisterActivity(getActivity(CoreConstants.REGISTERED_ACTIVITIES.MALARIA_REGISTER_ACTIVITY));
                         break;
                     case CoreConstants.DrawerMenu.REFERRALS:
                         startRegisterActivity(getActivity(CoreConstants.REGISTERED_ACTIVITIES.REFERRALS_REGISTER_ACTIVITY));
@@ -59,7 +59,7 @@ public class NavigationListener implements View.OnClickListener {
         }
     }
 
-    private void startRegisterActivity(Class registerClass) {
+    public void startRegisterActivity(Class registerClass) {
         Intent intent = new Intent(activity, registerClass);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         activity.startActivity(intent);

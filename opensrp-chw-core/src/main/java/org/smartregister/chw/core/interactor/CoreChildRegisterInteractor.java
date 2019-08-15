@@ -47,22 +47,16 @@ public class CoreChildRegisterInteractor implements CoreChildRegisterContract.In
     @Override
     public void getNextUniqueId(final Triple<String, String, String> triple, final CoreChildRegisterContract.InteractorCallBack callBack, final String familyId) {
 
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                UniqueId uniqueId = getUniqueIdRepository().getNextUniqueId();
-                final String entityId = uniqueId != null ? uniqueId.getOpenmrsId() : "";
-                appExecutors.mainThread().execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (StringUtils.isBlank(entityId)) {
-                            callBack.onNoUniqueId();
-                        } else {
-                            callBack.onUniqueIdFetched(triple, entityId, familyId);
-                        }
-                    }
-                });
-            }
+        Runnable runnable = () -> {
+            UniqueId uniqueId = getUniqueIdRepository().getNextUniqueId();
+            final String entityId = uniqueId != null ? uniqueId.getOpenmrsId() : "";
+            appExecutors.mainThread().execute(() -> {
+                if (StringUtils.isBlank(entityId)) {
+                    callBack.onNoUniqueId();
+                } else {
+                    callBack.onUniqueIdFetched(triple, entityId, familyId);
+                }
+            });
         };
 
         appExecutors.diskIO().execute(runnable);
@@ -71,17 +65,9 @@ public class CoreChildRegisterInteractor implements CoreChildRegisterContract.In
     @Override
     public void saveRegistration(final Pair<Client, Event> pair, final String jsonString, final boolean isEditMode, final CoreChildRegisterContract.InteractorCallBack callBack) {
 
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                saveRegistration(pair, jsonString, isEditMode);
-                appExecutors.mainThread().execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        callBack.onRegistrationSaved(isEditMode);
-                    }
-                });
-            }
+        Runnable runnable = () -> {
+            saveRegistration(pair, jsonString, isEditMode);
+            appExecutors.mainThread().execute(() -> callBack.onRegistrationSaved(isEditMode));
         };
 
         appExecutors.diskIO().execute(runnable);
@@ -89,11 +75,8 @@ public class CoreChildRegisterInteractor implements CoreChildRegisterContract.In
 
     @Override
     public void removeChildFromRegister(final String closeFormJsonString, final String providerId) {
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                //TODO add functionality to remove family from register
-            }
+        Runnable runnable = () -> {
+            //TODO add functionality to remove family from register
         };
 
         appExecutors.diskIO().execute(runnable);

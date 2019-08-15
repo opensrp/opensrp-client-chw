@@ -14,7 +14,8 @@ import android.widget.FrameLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
-import com.opensrp.chw.core.R;
+
+import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.listener.OnUpdateServiceTask;
 import org.smartregister.chw.core.utils.ServiceTask;
 
@@ -50,12 +51,9 @@ public class DietaryInputDialogFragment extends DialogFragment implements View.O
     @Override
     public void onStart() {
         super.onStart();
-        new Handler().post(new Runnable() {
-            @Override
-            public void run() {
-                if (getDialog() != null && getDialog().getWindow() != null) {
-                    getDialog().getWindow().setLayout(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
-                }
+        new Handler().post(() -> {
+            if (getDialog() != null && getDialog().getWindow() != null) {
+                getDialog().getWindow().setLayout(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
             }
         });
 

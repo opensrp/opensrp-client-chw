@@ -6,7 +6,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.opensrp.chw.core.R;
+import org.smartregister.chw.core.R;
+
 
 public class RegisterViewHolder extends RecyclerView.ViewHolder {
     public TextView textViewParentName;

@@ -7,7 +7,8 @@ import android.support.v4.content.Loader;
 import android.util.Log;
 import android.view.View;
 
-import com.opensrp.chw.core.R;
+
+import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.contract.BaseReferralRegisterFragmentContract;
 import org.smartregister.chw.core.provider.BasereferralRegisterProvider;
 import org.smartregister.chw.core.utils.CoreConstants;

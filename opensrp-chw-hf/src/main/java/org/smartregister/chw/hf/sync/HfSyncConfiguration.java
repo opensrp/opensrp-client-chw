@@ -1,7 +1,9 @@
 package org.smartregister.chw.hf.sync;
 
+
+import org.smartregister.chw.hf.BuildConfig;
+
 import org.smartregister.chw.core.utils.Utils;
-import org.smartregister.hf.BuildConfig;
 
 import org.smartregister.SyncConfiguration;
 import org.smartregister.SyncFilter;

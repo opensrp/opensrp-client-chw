@@ -12,7 +12,8 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.opensrp.chw.core.R;
+
+import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.custom_views.UpcomingServicesFragmentView;
 import org.smartregister.chw.core.utils.CoreConstants;
 
@@ -69,12 +70,7 @@ public class CoreUpcomingServicesActivity extends SecuredActivity {
             upArrow.setColorFilter(getResources().getColor(R.color.text_blue), PorterDuff.Mode.SRC_ATOP);
             actionBar.setHomeAsUpIndicator(upArrow);
         }
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        toolbar.setNavigationOnClickListener(v -> finish());
         if (TextUtils.isEmpty(name)) {
             textViewTitle.setVisibility(View.GONE);
         } else {

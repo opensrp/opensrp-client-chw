@@ -1,6 +1,7 @@
 package org.smartregister.chw.core.presenter;
 
-import com.opensrp.chw.core.R;
+
+import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.contract.CoreChildProfileContract;
 import org.smartregister.chw.core.contract.FamilyProfileExtendedContract;
 import org.smartregister.chw.core.interactor.CoreChildProfileInteractor;
@@ -17,6 +18,8 @@ import org.smartregister.domain.FetchStatus;
 import org.smartregister.domain.Task;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.Utils;
+import org.smartregister.repository.AllSharedPreferences;
+import org.smartregister.util.FormUtils;
 
 import java.lang.ref.WeakReference;
 import java.util.Date;
@@ -39,10 +42,12 @@ public class CoreChildProfilePresenter implements CoreChildProfileContract.Prese
     private String familyName;
     private String familyHeadID;
     private String primaryCareGiverID;
+    private FormUtils formUtils;
 
     public CoreChildProfilePresenter(CoreChildProfileContract.View childView, CoreChildProfileContract.Model model, String childBaseEntityId) {
         this.view = new WeakReference<>(childView);
         this.interactor = new CoreChildProfileInteractor();
+        this.interactor.setChildBaseEntityId(childBaseEntityId);
         this.model = model;
         this.childBaseEntityId = childBaseEntityId;
     }
@@ -153,6 +158,11 @@ public class CoreChildProfilePresenter implements CoreChildProfileContract.Prese
     }
 
     @Override
+    public void createSickChildEvent(AllSharedPreferences allSharedPreferences, String jsonString) throws Exception {
+        interactor.createSickChildEvent(allSharedPreferences, jsonString);
+    }
+
+    @Override
     public void fetchProfileData() {
         interactor.refreshProfileView(childBaseEntityId, false, this);
 
@@ -206,6 +216,15 @@ public class CoreChildProfilePresenter implements CoreChildProfileContract.Prese
             getView().startFormActivity(form);
         } catch (Exception e) {
             Timber.e(e, "CoreChildProfilePresenter --> startFormForEdit");
+        }
+    }
+
+    @Override
+    public void startSickChildReferralForm() {
+        try {
+            getView().startFormActivity(getFormUtils().getFormJson(CoreConstants.JSON_FORM.getChildReferralForm()));
+        } catch (Exception e) {
+            Timber.e(e);
         }
     }
 
@@ -358,5 +377,12 @@ public class CoreChildProfilePresenter implements CoreChildProfileContract.Prese
         if (view.get() != null) {
             view.get().updateHasPhone(hasPhone);
         }
+    }
+
+    public FormUtils getFormUtils() throws Exception {
+        if (this.formUtils == null) {
+            this.formUtils = new FormUtils(getView().getApplicationContext());
+        }
+        return formUtils;
     }
 }

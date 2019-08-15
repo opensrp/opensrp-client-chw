@@ -4,10 +4,11 @@ import android.util.Pair;
 
 import org.smartregister.chw.core.contract.CoreChildProfileContract;
 import org.smartregister.chw.core.presenter.CoreChildProfilePresenter;
+import org.smartregister.chw.hf.R;
 import org.smartregister.chw.hf.interactor.HfChildProfileInteractor;
 import org.smartregister.chw.hf.interactor.HfFamilyProfileInteractor;
 import org.smartregister.chw.hf.model.ChildRegisterModel;
-import com.opensrp.hf.R;
+
 
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;

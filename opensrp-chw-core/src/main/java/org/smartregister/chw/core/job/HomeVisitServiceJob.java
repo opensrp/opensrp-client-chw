@@ -16,8 +16,7 @@ public class HomeVisitServiceJob extends BaseJob {
     @Override
     protected Result onRunJob(@NonNull Params params) {
         Timber.v("%s started", TAG);
-        Intent intent = new Intent(getApplicationContext(), HomeVisitIntent.class);
-        getApplicationContext().startService(intent);
+        getApplicationContext().startService(new Intent(getApplicationContext(), HomeVisitIntent.class));
         return params.getExtras().getBoolean(Constants.INTENT_KEY.TO_RESCHEDULE, false) ? Result.RESCHEDULE : Result.SUCCESS;
     }
 }

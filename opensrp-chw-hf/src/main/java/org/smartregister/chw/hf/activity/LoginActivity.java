@@ -3,8 +3,9 @@ package org.smartregister.chw.hf.activity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import org.smartregister.chw.hf.R;
 import org.smartregister.chw.hf.presenter.LoginPresenter;
-import com.opensrp.hf.R;
+
 
 import org.smartregister.family.util.Constants;
 import org.smartregister.task.SaveTeamLocationsTask;

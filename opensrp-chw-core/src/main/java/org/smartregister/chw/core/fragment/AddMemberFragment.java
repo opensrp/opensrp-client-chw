@@ -11,10 +11,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
-import com.opensrp.chw.core.R;
+
+import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
 import org.smartregister.chw.core.utils.CoreConstants;
-
 
 public class AddMemberFragment extends DialogFragment implements View.OnClickListener {
 
@@ -67,13 +67,7 @@ public class AddMemberFragment extends DialogFragment implements View.OnClickLis
         super.onStart();
         // without a handler, the window sizes itself correctly
         // but the keyboard does not show up
-        new Handler().post(new Runnable() {
-            @Override
-            public void run() {
-                getDialog().getWindow().setLayout(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
-
-            }
-        });
+        new Handler().post(() -> getDialog().getWindow().setLayout(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
 
     }
 

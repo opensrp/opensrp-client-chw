@@ -6,8 +6,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
-import com.opensrp.hf.R;
 
+import org.smartregister.chw.hf.R;
 import org.smartregister.view.customcontrols.CustomFontTextView;
 
 /**

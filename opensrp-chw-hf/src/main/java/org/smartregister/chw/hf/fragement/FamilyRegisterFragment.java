@@ -4,8 +4,8 @@ import android.view.View;
 
 import org.smartregister.chw.core.fragment.CoreFamilyRegisterFragment;
 import org.smartregister.chw.core.provider.CoreRegisterProvider;
+import org.smartregister.chw.hf.R;
 import org.smartregister.chw.hf.provider.HfRegisterProvider;
-import com.opensrp.hf.R;
 
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
 

@@ -2,10 +2,12 @@ package org.smartregister.chw.core.rule;
 
 import android.content.Context;
 
-import com.opensrp.chw.core.R;
+
+import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.interactor.CoreChildProfileInteractor;
 import org.smartregister.chw.core.utils.CoreChildUtils;
 
+import org.apache.commons.lang3.StringUtils;
 import org.joda.time.Days;
 import org.joda.time.LocalDate;
 import org.joda.time.Months;
@@ -37,7 +39,7 @@ public class HomeAlertRule implements ICommonRule {
         this.todayDate = new LocalDate();
         if (lastVisitDateLong > 0) {
             this.lastVisitDate = new LocalDate(lastVisitDateLong);
-            noOfDayDue = dayDifference(lastVisitDate, todayDate) + " days";
+            noOfDayDue = dayDifference(lastVisitDate, todayDate) + " " + context.getString(R.string.days);
         }
 
         if (visitNotDoneValue > 0) {
@@ -64,7 +66,7 @@ public class HomeAlertRule implements ICommonRule {
     public boolean isOverdueWithinMonth(Integer value) {
         int diff = getMonthsDifference((lastVisitDate != null ? lastVisitDate : dateCreated), todayDate);
         if (diff >= value) {
-            noOfMonthDue = diff + "M";
+            noOfMonthDue = diff + StringUtils.upperCase(context.getString(R.string.abbrv_months));
             return true;
         }
         return false;

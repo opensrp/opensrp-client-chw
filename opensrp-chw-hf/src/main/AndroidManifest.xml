@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.opensrp.hf">
+    package="org.smartregister.chw.hf">
 
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
@@ -94,7 +94,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/HFTheme.NoActionBar" />
         <activity
-            android:name="org.smartregister.chw.hf.activity.ReferralRegister"
+            android:name="org.smartregister.chw.hf.activity.ReferralRegisterActivity"
             android:screenOrientation="portrait"
             android:theme="@style/HFTheme.NoActionBar" />
         <activity

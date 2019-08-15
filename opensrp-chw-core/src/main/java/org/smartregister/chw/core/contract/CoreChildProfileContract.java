@@ -12,6 +12,7 @@ import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.domain.Task;
+import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.view.contract.BaseProfileContract;
 
 import java.util.Set;
@@ -109,6 +110,8 @@ public interface CoreChildProfileContract {
 
         void processBackGroundEvent();
 
+        void createSickChildEvent(AllSharedPreferences allSharedPreferences, String jsonString) throws Exception;
+
     }
 
     interface Interactor {
@@ -131,6 +134,12 @@ public interface CoreChildProfileContract {
         JSONObject getAutoPopulatedJsonEditFormString(String formName, String title, Context context, CommonPersonObjectClient client);
 
         void processBackGroundEvent(final CoreChildProfileContract.InteractorCallBack callback);
+
+        void createSickChildEvent(AllSharedPreferences allSharedPreferences, String jsonString) throws Exception;
+
+        String getChildBaseEntityId();
+
+        void setChildBaseEntityId(String childBaseEntityId);
     }
 
     interface InteractorCallBack {
@@ -141,6 +150,8 @@ public interface CoreChildProfileContract {
         void updateFamilyMemberServiceDue(String serviceDueStatus);
 
         void startFormForEdit(String title, CommonPersonObjectClient client);
+
+        void startSickChildReferralForm();
 
         void refreshProfileTopSection(CommonPersonObjectClient client);
 
@@ -163,6 +174,10 @@ public interface CoreChildProfileContract {
         void updateAfterBackGroundProcessed();
 
         void setClientTasks(Set<Task> taskList);
+    }
+
+    interface InteractorCallBack2 {
+
     }
 
     interface Model {

@@ -1,7 +1,6 @@
 package org.smartregister.chw.core.utils;
 
 public interface ChwDBConstants {
-
     String VOTER_ID = "voter_id";
     String DRIVER_LICENSE = "driver_license";
     String PASSPORT = "passport";

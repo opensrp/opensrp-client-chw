@@ -5,7 +5,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.opensrp.chw.core.R;
+
+import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
 
 import org.smartregister.chw.core.utils.Utils;

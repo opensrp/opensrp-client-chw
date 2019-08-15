@@ -3,6 +3,7 @@ package org.smartregister.chw.hf.fragement;
 import android.content.Intent;
 
 import org.smartregister.chw.core.fragment.CoreChildRegisterFragment;
+import org.smartregister.chw.hf.R;
 import org.smartregister.chw.hf.activity.ChildProfileActivity;
 import org.smartregister.chw.hf.provider.HfChildRegisterProvider;
 
@@ -33,7 +34,7 @@ public class ChildRegisterFragment extends CoreChildRegisterFragment {
     @Override
     protected void onViewClicked(android.view.View view) {
         super.onViewClicked(view);
-        if (view.getTag() != null && view.getTag(com.opensrp.chw.core.R.id.VIEW_ID) == CLICK_VIEW_DOSAGE_STATUS) {
+        if (view.getTag() != null && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_DOSAGE_STATUS) {
             if (view.getTag() instanceof CommonPersonObjectClient) {
                 CommonPersonObjectClient pc = (CommonPersonObjectClient) view.getTag();
                 String baseEntityId = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, true);

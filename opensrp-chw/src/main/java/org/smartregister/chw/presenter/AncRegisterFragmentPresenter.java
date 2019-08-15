@@ -1,7 +1,6 @@
 package org.smartregister.chw.presenter;
 
 
-
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.contract.BaseAncRegisterFragmentContract;
 import org.smartregister.chw.anc.presenter.BaseAncRegisterFragmentPresenter;

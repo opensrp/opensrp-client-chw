@@ -8,7 +8,8 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.opensrp.chw.core.R;
+
+import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.contract.HomeVisitGrowthNutritionContract;
 import org.smartregister.chw.core.fragment.CoreChildHomeVisitFragment;
 import org.smartregister.chw.core.fragment.GrowthNutritionInputFragment;

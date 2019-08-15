@@ -1,5 +1,6 @@
 package org.smartregister.chw.core.presenter;
 
+import android.content.Context;
 import android.text.TextUtils;
 
 import org.smartregister.chw.core.contract.ImmunizationContact;
@@ -28,7 +29,6 @@ import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 
 public class ImmunizationViewPresenter implements ImmunizationContact.Presenter, ImmunizationContact.InteractorCallBack {
@@ -47,12 +47,12 @@ public class ImmunizationViewPresenter implements ImmunizationContact.Presenter,
 
     public ImmunizationViewPresenter(ImmunizationContact.View view) {
         this.view = new WeakReference<>(view);
-        interactor = new ImmunizationViewInteractor();
+        interactor = new ImmunizationViewInteractor(getView().getMyContext());
         vaccineRepository = ImmunizationLibrary.getInstance().vaccineRepository();
     }
 
-    public ImmunizationViewPresenter() {
-        interactor = new ImmunizationViewInteractor();
+    public ImmunizationViewPresenter(Context context) {
+        interactor = new ImmunizationViewInteractor(context);
         vaccineRepository = ImmunizationLibrary.getInstance().vaccineRepository();
     }
 
@@ -122,7 +122,7 @@ public class ImmunizationViewPresenter implements ImmunizationContact.Presenter,
                 }
             }
             getView().allDataLoaded();
-            getView().updateAdapter(0);
+            getView().updateAdapter(0, view.get().getMyContext());
 
             //getView().updateSubmitBtn();
         }
@@ -158,7 +158,7 @@ public class ImmunizationViewPresenter implements ImmunizationContact.Presenter,
                 homeVisitVaccineGroup.setViewType(HomeVisitVaccineGroup.TYPE_ACTIVE);
             }
         }
-        getView().updateAdapter(0);
+        getView().updateAdapter(0, view.get().getMyContext());
     }
 
     public ArrayList<VaccineWrapper> getDueVaccineWrappers(HomeVisitVaccineGroup duevaccines) {
@@ -204,7 +204,7 @@ public class ImmunizationViewPresenter implements ImmunizationContact.Presenter,
     }
 
     public Long getVaccineId(String vaccineName) {
-        List<Vaccine> vaccines = ((ImmunizationViewInteractor) interactor).getVaccines();
+        List<Vaccine> vaccines = interactor.getVaccines();
         for (Vaccine vaccine : vaccines) {
             if (vaccine.getName().equalsIgnoreCase(vaccineName)) {
                 return vaccine.getId();
@@ -282,68 +282,59 @@ public class ImmunizationViewPresenter implements ImmunizationContact.Presenter,
 
     public Observable undoVaccine(final CommonPersonObjectClient childClient) {
 
-        return Observable.create(new ObservableOnSubscribe() {
-            @Override
-            public void subscribe(ObservableEmitter e) throws Exception {
-                for (VaccineWrapper tag : vaccinesGivenThisVisit) {
-                    if (tag != null && tag.getDbKey() != null) {
-                        Long dbKey = tag.getDbKey();
-                        vaccineRepository.deleteVaccine(dbKey);
+        return Observable.create((ObservableOnSubscribe) e -> {
+            for (VaccineWrapper tag : vaccinesGivenThisVisit) {
+                if (tag != null && tag.getDbKey() != null) {
+                    Long dbKey = tag.getDbKey();
+                    vaccineRepository.deleteVaccine(dbKey);
 
-                    }
                 }
-                String dobString = org.smartregister.util.Utils.getValue(childClient.getColumnmaps(), "dob", false);
-                if (!TextUtils.isEmpty(dobString)) {
-                    DateTime dateTime = new DateTime(dobString);
-                    VaccineSchedule.updateOfflineAlerts(childClient.entityId(), dateTime, "child");
-                }
-                e.onComplete();
             }
+            String dobString = org.smartregister.util.Utils.getValue(childClient.getColumnmaps(), "dob", false);
+            if (!TextUtils.isEmpty(dobString)) {
+                DateTime dateTime = new DateTime(dobString);
+                VaccineSchedule.updateOfflineAlerts(childClient.entityId(), dateTime, "child");
+            }
+            e.onComplete();
         });
     }
 
     public Observable undoPreviousGivenVaccine(final CommonPersonObjectClient childClient) {
 
-        return Observable.create(new ObservableOnSubscribe() {
-            @Override
-            public void subscribe(ObservableEmitter e) throws Exception {
-                for (VaccineWrapper tag : vaccinesGivenInitially) {
-                    if (tag != null && notGivenVaccines.contains(tag) && tag.getDbKey() != null) {
-                        notGivenVaccines.remove(tag);
-                        Long dbKey = tag.getDbKey();
-                        vaccineRepository.deleteVaccine(dbKey);
+        return Observable.create((ObservableOnSubscribe) e -> {
+            for (VaccineWrapper tag : vaccinesGivenInitially) {
+                if (tag != null && notGivenVaccines.contains(tag) && tag.getDbKey() != null) {
+                    notGivenVaccines.remove(tag);
+                    Long dbKey = tag.getDbKey();
+                    vaccineRepository.deleteVaccine(dbKey);
 
-                    }
                 }
-                String dobString = org.smartregister.util.Utils.getValue(childClient.getColumnmaps(), "dob", false);
-                if (!TextUtils.isEmpty(dobString)) {
-                    DateTime dateTime = new DateTime(dobString);
-                    VaccineSchedule.updateOfflineAlerts(childClient.entityId(), dateTime, "child");
-                }
-                e.onComplete();
             }
+            String dobString = org.smartregister.util.Utils.getValue(childClient.getColumnmaps(), "dob", false);
+            if (!TextUtils.isEmpty(dobString)) {
+                DateTime dateTime = new DateTime(dobString);
+                VaccineSchedule.updateOfflineAlerts(childClient.entityId(), dateTime, "child");
+            }
+            e.onComplete();
         });
     }
 
     public Observable saveGivenThisVaccine(final CommonPersonObjectClient childClient) {
 
-        return Observable.create(new ObservableOnSubscribe() {
-            @Override
-            public void subscribe(ObservableEmitter e) throws Exception {
-                for (VaccineWrapper tag : vaccinesGivenThisVisit) {
-                    //if (tag != null && tag.getDbKey() != null) {
-                    saveVaccine(tag, childClient);
+        return Observable.create((ObservableOnSubscribe) e -> {
+            for (VaccineWrapper tag : vaccinesGivenThisVisit) {
+                //if (tag != null && tag.getDbKey() != null) {
+                saveVaccine(tag, childClient);
 
-                    //}
-                }
-                String dobString = org.smartregister.util.Utils.getValue(childClient.getColumnmaps(), "dob", false);
-                if (!TextUtils.isEmpty(dobString)) {
-                    DateTime dateTime = new DateTime(dobString);
-                    VaccineSchedule.updateOfflineAlerts(childClient.entityId(), dateTime, "child");
-                }
-
-                e.onComplete();
+                //}
             }
+            String dobString = org.smartregister.util.Utils.getValue(childClient.getColumnmaps(), "dob", false);
+            if (!TextUtils.isEmpty(dobString)) {
+                DateTime dateTime = new DateTime(dobString);
+                VaccineSchedule.updateOfflineAlerts(childClient.entityId(), dateTime, "child");
+            }
+
+            e.onComplete();
         });
     }
 
@@ -379,8 +370,5 @@ public class ImmunizationViewPresenter implements ImmunizationContact.Presenter,
             }
         }
         return true;
-//        org.smartregister.util.Log.logError("SUBMIT_BTN","saveGroupList.size()>>"+saveGroupList.size()+": "+homeVisitVaccineGroupDetails.size());
-//
-//        return   saveGroupList.size() == homeVisitVaccineGroupDetails.size();
     }
 }

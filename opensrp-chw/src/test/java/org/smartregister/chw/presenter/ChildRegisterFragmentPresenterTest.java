@@ -1,5 +1,4 @@
 package org.smartregister.chw.presenter;
-
 import org.smartregister.chw.core.contract.CoreChildRegisterFragmentContract;
 
 import org.junit.Assert;

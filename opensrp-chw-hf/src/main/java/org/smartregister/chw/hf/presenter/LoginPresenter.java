@@ -7,8 +7,9 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 import org.smartregister.chw.hf.HealthFacilityApplication;
+import org.smartregister.chw.hf.R;
 import org.smartregister.chw.hf.interactor.LoginInteractor;
-import com.opensrp.hf.R;
+
 
 import org.smartregister.configurableviews.model.LoginConfiguration;
 import org.smartregister.configurableviews.model.ViewConfiguration;

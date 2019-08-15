@@ -29,15 +29,15 @@ public class Person {
     }
 
     public String getFirstName() {
-        return firstName;
+        return StringUtils.capitalize(firstName);
     }
 
     public String getLastName() {
-        return lastName;
+        return StringUtils.capitalize(lastName);
     }
 
     public String getMiddleName() {
-        return middleName;
+        return StringUtils.capitalize(middleName);
     }
 
     public Date getDob() {

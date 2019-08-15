@@ -11,7 +11,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.opensrp.chw.core.R;
+
+import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.listener.NavigationListener;
 import org.smartregister.chw.core.model.NavigationOption;
 import org.smartregister.chw.core.utils.CoreConstants;

@@ -5,7 +5,8 @@ import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.Pair;
 
-import com.opensrp.chw.core.R;
+
+import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.contract.CoreChildRegisterContract;
 import org.smartregister.chw.core.interactor.CoreChildRegisterInteractor;
 

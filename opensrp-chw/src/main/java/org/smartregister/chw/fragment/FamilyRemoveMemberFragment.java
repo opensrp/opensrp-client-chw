@@ -67,5 +67,4 @@ public class FamilyRemoveMemberFragment extends CoreFamilyRemoveMemberFragment {
     protected String getRemoveFamilyMemberDialogTag() {
         return FamilyRemoveMemberFragment.DIALOG_TAG;
     }
-
 }

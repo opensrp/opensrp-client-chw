@@ -2,7 +2,6 @@ package org.smartregister.chw.core.fragment;
 
 import android.app.AlertDialog;
 import android.app.DialogFragment;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -16,7 +15,8 @@ import android.widget.FrameLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
-import com.opensrp.chw.core.R;
+
+import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.listener.OnUpdateServiceTask;
 import org.smartregister.chw.core.utils.ServiceTask;
 
@@ -52,12 +52,9 @@ public class LLITNInputDialogFragment extends DialogFragment implements View.OnC
     @Override
     public void onStart() {
         super.onStart();
-        new Handler().post(new Runnable() {
-            @Override
-            public void run() {
-                if (getDialog() != null && getDialog().getWindow() != null) {
-                    getDialog().getWindow().setLayout(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
-                }
+        new Handler().post(() -> {
+            if (getDialog() != null && getDialog().getWindow() != null) {
+                getDialog().getWindow().setLayout(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
             }
         });
 
@@ -119,12 +116,7 @@ public class LLITNInputDialogFragment extends DialogFragment implements View.OnC
         builderSingle.setIcon(com.vijay.jsonwizard.R.drawable.dialog_info_filled);
 
         builderSingle.setNegativeButton(getView().getContext().getResources().getString(com.vijay.jsonwizard.R.string.ok),
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
+                (dialog, which) -> dialog.dismiss());
 
         builderSingle.show();
     }

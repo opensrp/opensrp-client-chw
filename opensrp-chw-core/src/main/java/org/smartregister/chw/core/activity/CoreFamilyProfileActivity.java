@@ -14,7 +14,8 @@ import android.view.MenuItem;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.opensrp.chw.core.R;
+
+import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.contract.FamilyProfileExtendedContract;
 import org.smartregister.chw.core.custom_views.FamilyFloatingMenu;
 import org.smartregister.chw.core.event.PermissionEvent;

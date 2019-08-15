@@ -15,7 +15,8 @@ import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.opensrp.chw.core.R;
+
+import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.contract.FamilyCallDialogContract;
 import org.smartregister.chw.core.event.PermissionEvent;
 import org.smartregister.chw.core.listener.CallWidgetDialogListener;

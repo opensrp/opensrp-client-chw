@@ -23,7 +23,8 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.opensrp.chw.core.R;
+
+import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.contract.CoreChildProfileContract;
 import org.smartregister.chw.core.contract.CoreChildRegisterContract;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
@@ -66,6 +67,19 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
     public boolean isComesFromFamily = false;
     public String lastVisitDay;
     public OnClickFloatingMenu onClickFloatingMenu;
+    public Handler handler = new Handler();
+    public final BroadcastReceiver mDateTimeChangedReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            final String action = intent.getAction();
+            assert action != null;
+            if (action.equals(Intent.ACTION_TIME_CHANGED) ||
+                    action.equals(Intent.ACTION_TIMEZONE_CHANGED)) {
+                fetchProfileData();
+
+            }
+        }
+    };
     protected TextView textViewParentName, textViewLastVisit, textViewMedicalHistory;
     protected CircleImageView imageViewProfile;
     protected View recordVisitPanel;
@@ -80,19 +94,6 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
     private ImageView imageViewCross;
     private ProgressBar progressBar;
     private String gender;
-    public Handler handler = new Handler();
-    public final BroadcastReceiver mDateTimeChangedReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            final String action = intent.getAction();
-            assert action != null;
-            if (action.equals(Intent.ACTION_TIME_CHANGED) ||
-                    action.equals(Intent.ACTION_TIMEZONE_CHANGED)) {
-                fetchProfileData();
-
-            }
-        }
-    };
 
     @Override
     public void enableEdit(boolean enable) {
@@ -370,7 +371,10 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
             familyName = "";
         }
 
-        presenter = new CoreChildProfilePresenter(this, new CoreChildProfileModel(familyName), childBaseEntityId);
+        if (presenter == null) {
+            presenter = new CoreChildProfilePresenter(this, new CoreChildProfileModel(familyName), childBaseEntityId);
+        }
+
         fetchProfileData();
     }
 
@@ -391,15 +395,12 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
      * need postdelay to update the client map
      */
     private void updateImmunizationData() {
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                layoutMostDueOverdue.setVisibility(View.GONE);
-                viewMostDueRow.setVisibility(View.GONE);
-                presenter().fetchVisitStatus(childBaseEntityId);
-                presenter().fetchUpcomingServiceAndFamilyDue(childBaseEntityId);
-                presenter().updateChildCommonPerson(childBaseEntityId);
-            }
+        handler.postDelayed(() -> {
+            layoutMostDueOverdue.setVisibility(View.GONE);
+            viewMostDueRow.setVisibility(View.GONE);
+            presenter().fetchVisitStatus(childBaseEntityId);
+            presenter().fetchUpcomingServiceAndFamilyDue(childBaseEntityId);
+            presenter().updateChildCommonPerson(childBaseEntityId);
         }, 100);
     }
 
@@ -451,12 +452,7 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
     @Override
     public void refreshProfile(FetchStatus fetchStatus) {
         if (fetchStatus.equals(FetchStatus.fetched)) {
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    presenter().fetchProfileData();
-                }
-            }, 100);
+            handler.postDelayed(() -> presenter().fetchProfileData(), 100);
         }
 
     }

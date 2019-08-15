@@ -2,10 +2,12 @@ package org.smartregister.chw.hf.repository;
 
 import android.content.Context;
 
+
+import org.smartregister.chw.hf.BuildConfig;
+
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.repository.CoreChwRepository;
 import org.smartregister.chw.core.repository.HomeVisitRepository;
-import org.smartregister.hf.BuildConfig;
 
 import net.sqlcipher.database.SQLiteDatabase;
 

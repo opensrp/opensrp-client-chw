@@ -23,6 +23,7 @@ import org.smartregister.chw.provider.FamilyRemoveMemberProvider;
 import java.util.Set;
 
 public class IndividualProfileRemoveFragment extends CoreIndividualProfileRemoveFragment {
+    private static String viewRegisterClassName;
 
     public static IndividualProfileRemoveFragment newInstance(Bundle bundle) {
         Bundle args = bundle;
@@ -30,6 +31,7 @@ public class IndividualProfileRemoveFragment extends CoreIndividualProfileRemove
         if (args == null) {
             args = new Bundle();
         }
+        viewRegisterClassName = args.getString(org.smartregister.chw.util.Constants.INTENT_KEY.VIEW_REGISTER_CLASS);
         fragment.setArguments(args);
         return fragment;
     }
@@ -39,7 +41,6 @@ public class IndividualProfileRemoveFragment extends CoreIndividualProfileRemove
         this.removeMemberProvider = new FamilyRemoveMemberProvider(familyBaseEntityId, this.getActivity(),
                 this.commonRepository(), visibleColumns, null, null, familyHead, primaryCaregiver);
     }
-
 
     protected void setPresenter(String familyHead, String primaryCareGiver) {
         this.presenter = new FamilyRemoveMemberPresenter(this, new FamilyRemoveMemberModel(), null, familyBaseEntityId, familyHead, primaryCareGiver);
@@ -106,21 +107,15 @@ public class IndividualProfileRemoveFragment extends CoreIndividualProfileRemove
             );
             dialog.setContext(getContext());
             dialog.show(getFragmentManager(), FamilyRemoveMemberFragment.DIALOG_TAG);
-            dialog.setOnRemove(new Runnable() {
-                @Override
-                public void run() {
-                    getPresenter().processRemoveForm(form);
-                    Intent intent = new Intent(getActivity(), AncRegisterActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(intent);
-                }
+            dialog.setOnRemove(() -> {
+                getPresenter().processRemoveForm(form);
+                Intent intent = new Intent(getActivity(), AncRegisterActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
             });
-            dialog.setOnRemoveActivity(new Runnable() {
-                @Override
-                public void run() {
-                    if (getActivity() != null) {
-                        getActivity().finish();
-                    }
+            dialog.setOnRemoveActivity(() -> {
+                if (getActivity() != null) {
+                    getActivity().finish();
                 }
             });
         }

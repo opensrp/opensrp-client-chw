@@ -3,7 +3,8 @@ package org.smartregister.chw.core.presenter;
 import android.content.Context;
 import android.util.Pair;
 
-import com.opensrp.chw.core.R;
+
+import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.contract.CoreChildRegisterContract;
 import org.smartregister.chw.core.contract.FamilyProfileExtendedContract;
 import org.smartregister.chw.core.domain.FamilyMember;
@@ -127,7 +128,7 @@ public abstract class CoreFamilyProfilePresenter extends BaseFamilyProfilePresen
                 lpv.init();
                 String lastLocationId = LocationHelper.getInstance().getOpenMrsLocationId(lpv.getSelectedItem());
 
-             //   new CoreFamilyChangeContractInteractor().updateFamilyRelations(context, member, lastLocationId);
+                //   new CoreFamilyChangeContractInteractor().updateFamilyRelations(context, member, lastLocationId);
                 res = true;
             }
         } catch (Exception e) {

@@ -5,7 +5,8 @@ import android.graphics.Bitmap;
 import android.text.TextUtils;
 import android.util.Pair;
 
-import com.opensrp.chw.core.R;
+
+import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.domain.FamilyMember;
 import com.vijay.jsonwizard.constants.JsonFormConstants;

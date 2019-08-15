@@ -124,7 +124,7 @@ public class RecurringServiceUtil {
             for (Map<String, Object> m : schedule) {
                 if (m != null && m.get("status") != null && m.get("status").toString().equalsIgnoreCase("due")) {
 
-                    if (v == null && m.get("service") != null && serviceTypeList.contains((ServiceType) m.get("service"))) {
+                    if (v == null && m.get("service") != null && serviceTypeList.contains(m.get("service"))) {
                         try {
                             Alert mAlert = (Alert) m.get("alert");
                             if (!mAlert.status().equals(AlertStatus.expired)) {
@@ -136,14 +136,14 @@ public class RecurringServiceUtil {
                         }
 
 
-                    } else if (v.get("alert") == null && m.get("alert") != null && m.get("service") != null && serviceTypeList.contains((ServiceType) m.get("service"))) {
+                    } else if (v.get("alert") == null && m.get("alert") != null && m.get("service") != null && serviceTypeList.contains(m.get("service"))) {
                         Alert mAlert = (Alert) m.get("alert");
                         if (!mAlert.status().equals(AlertStatus.expired)) {
                             v = m;
                         }
 
 
-                    } else if (v.get("alert") != null && m.get("alert") != null && m.get("service") != null && serviceTypeList.contains((ServiceType) m.get("service"))) {
+                    } else if (v.get("alert") != null && m.get("alert") != null && m.get("service") != null && serviceTypeList.contains(m.get("service"))) {
                         Alert vAlert = (Alert) v.get("alert");
                         Alert mAlert = (Alert) m.get("alert");
                         if (!vAlert.status().equals(AlertStatus.urgent)) {

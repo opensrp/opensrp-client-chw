@@ -22,10 +22,11 @@ import org.smartregister.chw.core.listener.OnClickFloatingMenu;
 import org.smartregister.chw.core.model.CoreChildProfileModel;
 import org.smartregister.chw.core.presenter.CoreChildProfilePresenter;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.hf.R;
 import org.smartregister.chw.hf.adapter.ReferralCardViewAdapter;
 import org.smartregister.chw.hf.fragement.HfChildHomeVisitFragment;
 import org.smartregister.chw.hf.presenter.HfChildProfilePresenter;
-import com.opensrp.hf.R;
+
 
 import org.smartregister.domain.Task;
 import org.smartregister.family.util.Constants;

@@ -2,8 +2,8 @@ package org.smartregister.chw.core.utils;
 
 import android.content.Context;
 
-import com.opensrp.chw.core.R;
 
+import org.smartregister.chw.core.R;
 import org.smartregister.configurableviews.model.Field;
 import org.smartregister.configurableviews.model.RegisterConfiguration;
 

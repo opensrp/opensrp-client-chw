@@ -11,7 +11,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.opensrp.chw.core.R;
+
+import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
 
 public class FamilyFloatingMenu extends LinearLayout implements View.OnClickListener {

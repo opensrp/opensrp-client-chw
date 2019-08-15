@@ -34,7 +34,7 @@ public class FamilyProfileMenuActivity extends CoreFamilyProfileMenuActivity {
                 break;
         }
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(com.opensrp.chw.core.R.id.frameLayout, fragment);
+        ft.replace(R.id.frameLayout, fragment);
         ft.commit();
     }
 }

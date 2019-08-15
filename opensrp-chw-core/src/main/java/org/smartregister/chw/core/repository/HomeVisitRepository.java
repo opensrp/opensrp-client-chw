@@ -332,7 +332,7 @@ public class HomeVisitRepository extends BaseRepository {
                             cursor.getString(cursor.getColumnIndex(FORMSUBMISSION_ID)),
                             createdAt
                     );
-                    homeVisit.setFormfields(new Gson().<Map<String, String>>fromJson(cursor.getString(cursor.getColumnIndex(FORMFIELDS)),
+                    homeVisit.setFormfields(new Gson().fromJson(cursor.getString(cursor.getColumnIndex(FORMFIELDS)),
                             new TypeToken<Map<String, String>>() {
                             }.getType()));
                     homeVisit.setVaccineGroupsGiven(new JSONObject(cursor.getString(cursor.getColumnIndex(VACCCINE_GROUP))));

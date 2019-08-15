@@ -2,8 +2,8 @@ package org.smartregister.chw.hf.listener;
 
 import android.view.View;
 
+import org.smartregister.chw.hf.R;
 import org.smartregister.chw.hf.activity.ReferralTaskViewActivity;
-import com.opensrp.hf.R;
 
 public class ReferralsTaskViewClickListener implements View.OnClickListener {
     private ReferralTaskViewActivity referralTaskViewActivity;

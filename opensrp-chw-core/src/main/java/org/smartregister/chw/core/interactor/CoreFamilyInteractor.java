@@ -14,6 +14,26 @@ import timber.log.Timber;
 
 public abstract class CoreFamilyInteractor {
 
+    private static String toStringFamilyState(ImmunizationState state) {
+        if (state.equals(ImmunizationState.DUE)) {
+            return CoreChildProfileInteractor.FamilyServiceType.DUE.name();
+        } else if (state.equals(ImmunizationState.OVERDUE)) {
+            return CoreChildProfileInteractor.FamilyServiceType.OVERDUE.name();
+        } else {
+            return CoreChildProfileInteractor.FamilyServiceType.NOTHING.name();
+        }
+    }
+
+    public static ImmunizationState getImmunizationStatus(String visitStatus) {
+        if (visitStatus.equalsIgnoreCase(CoreChildProfileInteractor.VisitType.OVERDUE.name())) {
+            return ImmunizationState.OVERDUE;
+        }
+        if (visitStatus.equalsIgnoreCase(CoreChildProfileInteractor.VisitType.DUE.name())) {
+            return ImmunizationState.DUE;
+        }
+        return ImmunizationState.NO_ALERT;
+    }
+
     public Observable<String> updateFamilyDueStatus(final Context context, final String childId, final String familyId) {
         return Observable.create(new ObservableOnSubscribe<String>() {
             @Override
@@ -41,7 +61,7 @@ public abstract class CoreFamilyInteractor {
 
     }
 
-    private ImmunizationState getImmunizationState(ImmunizationState familyImmunizationState, Cursor cursor, Context context, String childId){
+    private ImmunizationState getImmunizationState(ImmunizationState familyImmunizationState, Cursor cursor, Context context, String childId) {
         switch (this.getChildStatus(context, childId, cursor)) {
             case DUE:
                 if (familyImmunizationState != ImmunizationState.OVERDUE) {
@@ -55,27 +75,7 @@ public abstract class CoreFamilyInteractor {
                 break;
         }
         return familyImmunizationState;
-    };
+    }
 
     public abstract ImmunizationState getChildStatus(Context context, final String childId, Cursor cursor);
-
-    private static String toStringFamilyState(ImmunizationState state) {
-        if (state.equals(ImmunizationState.DUE)) {
-            return CoreChildProfileInteractor.FamilyServiceType.DUE.name();
-        } else if (state.equals(ImmunizationState.OVERDUE)) {
-            return CoreChildProfileInteractor.FamilyServiceType.OVERDUE.name();
-        } else {
-            return CoreChildProfileInteractor.FamilyServiceType.NOTHING.name();
-        }
-    }
-
-    public static ImmunizationState getImmunizationStatus(String visitStatus) {
-        if (visitStatus.equalsIgnoreCase(CoreChildProfileInteractor.VisitType.OVERDUE.name())) {
-            return ImmunizationState.OVERDUE;
-        }
-        if (visitStatus.equalsIgnoreCase(CoreChildProfileInteractor.VisitType.DUE.name())) {
-            return ImmunizationState.DUE;
-        }
-        return ImmunizationState.NO_ALERT;
-    }
 }

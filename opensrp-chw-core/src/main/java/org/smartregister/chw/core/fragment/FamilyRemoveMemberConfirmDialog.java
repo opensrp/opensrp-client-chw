@@ -16,9 +16,10 @@ import android.view.Window;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
-import com.opensrp.chw.core.R;
+
 
 import org.apache.commons.lang3.StringUtils;
+import org.smartregister.chw.core.R;
 
 public class FamilyRemoveMemberConfirmDialog extends DialogFragment implements View.OnClickListener {
 
@@ -74,26 +75,23 @@ public class FamilyRemoveMemberConfirmDialog extends DialogFragment implements V
 
         // without a handler, the window sizes itself correctly
         // but the keyboard does not show up
-        new Handler().post(new Runnable() {
-            @Override
-            public void run() {
-                Window window = null;
-                if (getDialog() != null) {
-                    window = getDialog().getWindow();
-                }
-
-                if (window == null) {
-                    return;
-                }
-
-                Point size = new Point();
-
-                Display display = window.getWindowManager().getDefaultDisplay();
-                display.getSize(size);
-
-                window.setLayout(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT);
-                window.setGravity(Gravity.TOP);
+        new Handler().post(() -> {
+            Window window = null;
+            if (getDialog() != null) {
+                window = getDialog().getWindow();
             }
+
+            if (window == null) {
+                return;
+            }
+
+            Point size = new Point();
+
+            Display display = window.getWindowManager().getDefaultDisplay();
+            display.getSize(size);
+
+            window.setLayout(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT);
+            window.setGravity(Gravity.TOP);
         });
     }
 

@@ -23,7 +23,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.opensrp.chw.core.R;
+
+import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.custom_views.ImmunizationView;
 import org.smartregister.chw.core.utils.CoreChildUtils;
@@ -130,13 +131,13 @@ public class VaccinationDialogFragment extends DialogFragment implements View.On
 
             }
         });
-        saveBtn = (Button) dialogView.findViewById(R.id.save_btn);
+        saveBtn = dialogView.findViewById(R.id.save_btn);
         saveBtn.setOnClickListener(this);
-        vaccinationNameLayout = (LinearLayout) dialogView.findViewById(R.id.vaccination_name_layout);
-        earlierDatePicker = (DatePicker) dialogView.findViewById(R.id.earlier_date_picker);
-        textViewAddDate = (TextView) dialogView.findViewById(R.id.add_date_separately);
+        vaccinationNameLayout = dialogView.findViewById(R.id.vaccination_name_layout);
+        earlierDatePicker = dialogView.findViewById(R.id.earlier_date_picker);
+        textViewAddDate = dialogView.findViewById(R.id.add_date_separately);
         textViewAddDate.setOnClickListener(this);
-        ((ImageView) dialogView.findViewById(R.id.close)).setOnClickListener(this);
+        dialogView.findViewById(R.id.close).setOnClickListener(this);
     }
 
     @Override
@@ -178,7 +179,7 @@ public class VaccinationDialogFragment extends DialogFragment implements View.On
         for (VaccineWrapper vaccineWrapper : tags) {
 
             View vaccinationName = inflater.inflate(R.layout.custom_vaccine_name_check, null);
-            TextView vaccineView = (TextView) vaccinationName.findViewById(R.id.vaccine);
+            TextView vaccineView = vaccinationName.findViewById(R.id.vaccine);
 
 
             VaccineRepo.Vaccine vaccine = vaccineWrapper.getVaccine();
@@ -193,8 +194,8 @@ public class VaccinationDialogFragment extends DialogFragment implements View.On
         selectCount = vaccinationNameLayout.getChildCount();
         for (int i = 0; i < vaccinationNameLayout.getChildCount(); i++) {
             View childView = vaccinationNameLayout.getChildAt(i);
-            final CheckBox childSelect = (CheckBox) childView.findViewById(R.id.select);
-            TextView vaccineView = (TextView) childView.findViewById(R.id.vaccine);
+            final CheckBox childSelect = childView.findViewById(R.id.select);
+            TextView vaccineView = childView.findViewById(R.id.vaccine);
             if (vaccineView != null && isExistInNotGiven(vaccineView.getText().toString())) {
                 childSelect.toggle();
             }
@@ -444,10 +445,12 @@ public class VaccinationDialogFragment extends DialogFragment implements View.On
         List<String> selectedCheckboxes = findSelectedCheckBoxes(vaccinationNameLayout);
         singleVaccineAddView.removeAllViews();
         singleVaccineMap.clear();
+
+        singleVaccineAddView.setVisibility(View.VISIBLE);
+        String dobString = org.smartregister.util.Utils.getValue(childDetails, DBConstants.KEY.DOB, false);
+
         for (String checkedName : selectedCheckboxes) {
-            singleVaccineAddView.setVisibility(View.VISIBLE);
             VaccineWrapper tag = searchWrapperByName(checkedName);
-            String dobString = org.smartregister.util.Utils.getValue(childDetails, DBConstants.KEY.DOB, false);
 
             if (tag != null && !TextUtils.isEmpty(dobString)) {
                 View layout = inflater.inflate(R.layout.custom_single_vaccine_view, null);
@@ -558,26 +561,23 @@ public class VaccinationDialogFragment extends DialogFragment implements View.On
 
         // without a handler, the window sizes itself correctly
         // but the keyboard does not show up
-        new Handler().post(new Runnable() {
-            @Override
-            public void run() {
-                Window window = null;
-                if (getDialog() != null) {
-                    window = getDialog().getWindow();
-                }
-
-                if (window == null) {
-                    return;
-                }
-
-                Point size = new Point();
-
-                Display display = window.getWindowManager().getDefaultDisplay();
-                display.getSize(size);
-
-                window.setLayout(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
-                window.setGravity(Gravity.CENTER);
+        new Handler().post(() -> {
+            Window window = null;
+            if (getDialog() != null) {
+                window = getDialog().getWindow();
             }
+
+            if (window == null) {
+                return;
+            }
+
+            Point size = new Point();
+
+            Display display = window.getWindowManager().getDefaultDisplay();
+            display.getSize(size);
+
+            window.setLayout(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
+            window.setGravity(Gravity.CENTER);
         });
     }
 
@@ -604,9 +604,9 @@ public class VaccinationDialogFragment extends DialogFragment implements View.On
         Map<CheckBox, String> vaccineCheckMap = new LinkedHashMap<>();
         for (int i = 0; i < vaccinationNameLayout.getChildCount(); i++) {
             View chilView = vaccinationNameLayout.getChildAt(i);
-            CheckBox selectChild = (CheckBox) chilView.findViewById(R.id.select);
+            CheckBox selectChild = chilView.findViewById(R.id.select);
             if (selectChild.isChecked()) {
-                TextView childVaccineView = (TextView) chilView.findViewById(R.id.vaccine);
+                TextView childVaccineView = chilView.findViewById(R.id.vaccine);
                 String checkedName = childVaccineView.getText().toString();
                 vaccineCheckMap.put(selectChild, checkedName);
             }
@@ -619,9 +619,9 @@ public class VaccinationDialogFragment extends DialogFragment implements View.On
         List<String> names = new ArrayList<>();
         for (int i = 0; i < vaccinationNameLayout.getChildCount(); i++) {
             View chilView = vaccinationNameLayout.getChildAt(i);
-            CheckBox selectChild = (CheckBox) chilView.findViewById(R.id.select);
+            CheckBox selectChild = chilView.findViewById(R.id.select);
             if (selectChild.isChecked()) {
-                TextView childVaccineView = (TextView) chilView.findViewById(R.id.vaccine);
+                TextView childVaccineView = chilView.findViewById(R.id.vaccine);
                 String checkedName = childVaccineView.getText().toString();
                 names.add(checkedName);
             }
@@ -634,9 +634,9 @@ public class VaccinationDialogFragment extends DialogFragment implements View.On
         List<String> names = new ArrayList<>();
         for (int i = 0; i < vaccinationNameLayout.getChildCount(); i++) {
             View chilView = vaccinationNameLayout.getChildAt(i);
-            CheckBox selectChild = (CheckBox) chilView.findViewById(R.id.select);
+            CheckBox selectChild = chilView.findViewById(R.id.select);
             if (!selectChild.isChecked()) {
-                TextView childVaccineView = (TextView) chilView.findViewById(R.id.vaccine);
+                TextView childVaccineView = chilView.findViewById(R.id.vaccine);
                 String checkedName = childVaccineView.getText().toString();
                 names.add(checkedName);
             }

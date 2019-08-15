@@ -7,32 +7,32 @@ import android.os.Build;
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
 import com.evernote.android.job.JobManager;
+
+import org.jetbrains.annotations.NotNull;
+import org.smartregister.AllConstants;
+import org.smartregister.Context;
+import org.smartregister.CoreLibrary;
+import org.smartregister.P2POptions;
+import org.smartregister.chw.anc.AncLibrary;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.contract.CoreApplication;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.core.loggers.CrashlyticsTree;
 import org.smartregister.chw.core.service.CoreAuthorizationService;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.core.utils.FormUtils;
 import org.smartregister.chw.hf.activity.ChildRegisterActivity;
 import org.smartregister.chw.hf.activity.FamilyProfileActivity;
 import org.smartregister.chw.hf.activity.FamilyRegisterActivity;
 import org.smartregister.chw.hf.activity.LoginActivity;
-import org.smartregister.chw.hf.activity.ReferralRegister;
+import org.smartregister.chw.hf.activity.ReferralRegisterActivity;
 import org.smartregister.chw.hf.custom_view.HfNavigationMenu;
 import org.smartregister.chw.hf.job.HfJobCreator;
 import org.smartregister.chw.hf.model.NavigationModel;
 import org.smartregister.chw.hf.repository.HfChwRepository;
 import org.smartregister.chw.hf.sync.HfSyncConfiguration;
-import org.smartregister.hf.BuildConfig;
-
-import org.jetbrains.annotations.NotNull;
-import org.smartregister.chw.core.utils.FormUtils;
-import org.smartregister.AllConstants;
-import org.smartregister.Context;
-import org.smartregister.CoreLibrary;
-import org.smartregister.P2POptions;
-import org.smartregister.chw.anc.AncLibrary;
 import org.smartregister.chw.malaria.MalariaLibrary;
+import org.smartregister.chw.malaria.activity.BaseMalariaRegisterActivity;
 import org.smartregister.chw.pnc.PncLibrary;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
 import org.smartregister.configurableviews.helper.JsonSpecHelper;
@@ -59,7 +59,6 @@ public class HealthFacilityApplication extends CoreChwApplication implements Cor
     @Override
     public void onCreate() {
         super.onCreate();
-
         //init Job Manager
         SyncStatusBroadcastReceiver.init(this);
         JobManager.create(this).addJobCreator(new HfJobCreator());
@@ -116,7 +115,6 @@ public class HealthFacilityApplication extends CoreChwApplication implements Cor
         if (language.equals(Locale.FRENCH.getLanguage())) {
             saveLanguage(Locale.FRENCH.getLanguage());
         }
-
     }
 
     @Override
@@ -146,7 +144,8 @@ public class HealthFacilityApplication extends CoreChwApplication implements Cor
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.FAMILY_REGISTER_ACTIVITY, FamilyRegisterActivity.class);
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.CHILD_REGISTER_ACTIVITY, ChildRegisterActivity.class);
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.PNC_REGISTER_ACTIVITY, FamilyRegisterActivity.class);
-        registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.REFERRALS_REGISTER_ACTIVITY, ReferralRegister.class);
+        registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.REFERRALS_REGISTER_ACTIVITY, ReferralRegisterActivity.class);
+        registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.MALARIA_REGISTER_ACTIVITY, BaseMalariaRegisterActivity.class);
         return registeredActivities;
     }
 

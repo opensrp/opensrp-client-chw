@@ -1,6 +1,7 @@
 package org.smartregister.chw.core.contract;
 
 import org.smartregister.chw.core.utils.HomeVisitVaccineGroup;
+import android.content.Context;
 
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 
@@ -16,11 +17,13 @@ public interface ImmunizationContact {
 
         void allDataLoaded();
 
-        void updateAdapter(int position);
+        void updateAdapter(int position, Context context);
 
         void updateSubmitBtn();
 
         void onUpdateNextPosition();
+
+        Context getMyContext();
     }
 
     interface Presenter {

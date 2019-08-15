@@ -9,7 +9,8 @@ import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
-import com.opensrp.chw.core.R;
+
+import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
 
 public class CoreFamilyMemberFloatingMenu extends LinearLayout implements View.OnClickListener {
@@ -87,7 +88,7 @@ public class CoreFamilyMemberFloatingMenu extends LinearLayout implements View.O
             isFabMenuOpen = false;
 
         } else {
-            activityMain.setBackgroundResource(R.color.black_tranparent_50);
+            activityMain.setBackgroundResource(R.color.grey_tranparent_50);
 
             fab.startAnimation(rotateForward);
             fab.setImageResource(R.drawable.ic_input_add);

@@ -5,7 +5,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
-import com.opensrp.chw.core.R;
+import org.smartregister.chw.core.R;
+
 
 public class ReferralViewHolder extends RecyclerView.ViewHolder {
 

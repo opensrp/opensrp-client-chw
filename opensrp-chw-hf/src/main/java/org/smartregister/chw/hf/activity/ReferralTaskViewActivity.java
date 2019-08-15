@@ -14,8 +14,9 @@ import android.view.View;
 
 import org.smartregister.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.hf.R;
 import org.smartregister.chw.hf.listener.ReferralsTaskViewClickListener;
-import com.opensrp.hf.R;
+
 
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
@@ -25,7 +26,6 @@ import org.smartregister.family.util.Utils;
 import org.smartregister.view.activity.SecuredActivity;
 import org.smartregister.view.customcontrols.CustomFontTextView;
 
-import static org.smartregister.chw.core.utils.CoreJsonFormUtils.tagSyncMetadata;
 import static org.smartregister.util.Utils.getValue;
 
 public class ReferralTaskViewActivity extends SecuredActivity {
@@ -163,7 +163,7 @@ public class ReferralTaskViewActivity extends SecuredActivity {
             clientReferralProblem.setText(getTask().getDescription());
             clientName.setText(getString(R.string.client_name_suffix, name));
             clientAge.setText(Utils.getTranslatedDate(Utils.getDuration(Utils.getValue(getPersonObjectClient().getColumnmaps(), DBConstants.KEY.DOB, false)), getBaseContext()));
-            referralDate.setText(org.smartregister.chw.core.utils.Utils.DD_MM_YYYY.format(task.getExecutionStartDate().toDate()));
+            referralDate.setText(org.smartregister.chw.core.utils.Utils.dd_MMM_yyyy.format(task.getExecutionStartDate().toDate()));
 
             String parentFirstName = Utils.getValue(getPersonObjectClient().getColumnmaps(), ChildDBConstants.KEY.FAMILY_FIRST_NAME, true);
             String parentLastName = Utils.getValue(getPersonObjectClient().getColumnmaps(), ChildDBConstants.KEY.FAMILY_LAST_NAME, true);

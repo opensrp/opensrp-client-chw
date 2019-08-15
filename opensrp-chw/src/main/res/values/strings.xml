@@ -42,7 +42,14 @@
     <string name="tab_text_2">GUIDEBOOKS</string>
     <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>
+    <string name="updating">Updating....</string>
+    <string name="birth_certification">Birth certification</string>
+    <string name="observations_illness_episodes"><![CDATA[Observations & Illness - <i>optional</i>]]></string>
+    <string name="observations_illness_episodes_medical"><![CDATA[Observations & Illness Episodes]]></string>
+    <string name="home_visit_suffix"> &#183; Home Visit</string>
+    <string name="wash_check_suffix"> &#183; WASH check</string>
     <string name="last_visit_prefix">Last visit %1$s ago</string>
+    <string name="completed_on_prefix">Completed on %1$s</string>
 
     <string name="profile_activity_completed">Completed on %s</string>
     <string name="interpunct">・</string>
@@ -201,7 +208,15 @@
     <string name="anc_visit_counselling">ANC visit counseling</string>
     <string name="delivery_at_facilty_counselling">Delivery at health facility counseling</string>
     <string name="nutrition_counselling">Nutrition counseling</string>
-
+    <string name="llitn_label">Is the woman sleeping under a Long Lasting Insecticide-Treated Net (LLITN)?</string>
+    <string name="llitn_label_child">Is the child sleeping under a Long Lasting Insecticide-Treated Net (LLITN)?</string>
+    <string name="llitn_info_title">Whether the pregnant woman sleeps under a LLITN</string>
+    <string name="llitn_info_text">Malaria is very dangerous for pregnant women. Wherever malaria is common, women should prevent malaria by taking anti-malarial tablets recommended by a trained health worker and by sleeping under an insecticide-treated mosquito net.</string>
+    <string name="dev_warning_sign">Developmental warning signs:</string>
+    <string name="care_stim_skill">Caregiver stimulation skills:</string>
+    <string name="early_learning">Early learning program:</string>
+    <string name="malaria_follow_up">Malaria Follow up</string>
+    <string name="refer_to_facilty">Refer to facility</string>
 
     <string name="health_facility_visit_num">ANC health facility visit {0}</string>
     <string name="tt_dose">TT {0}</string>
@@ -212,6 +227,7 @@
     <string name="opv_1">OPV 1</string>
     <string name="opv_2">OPV 2</string>
     <string name="yellow_fever">Yellow Fever</string>
+    <string name="follow_up_visit">Follow-up Visit</string>
 
     <!-- ANC Reporting indicators labels: Check anc reporting data dictionary. Strings are named by number
  as defined in the data dictionary -->
@@ -226,12 +242,12 @@
 
     <string name="pnc_danger_signs_mother">Danger signs - mother</string>
     <string name="pnc_danger_signs_baby">Danger signs - baby ({0})</string>
-    <string name="pnc_health_facility_visit">PNC health facility visit - day {0}</string>
+    <string name="pnc_health_facility_visit">PNC health facility visit - day {0} ({1})</string>
     <string name="pnc_child_vaccine_card_recevied">Child vaccine card received ({0})</string>
     <string name="pnc_immunization_at_birth">Immunizations (at birth) ({0})</string>
     <string name="pnc_umblicord_care">Umbilical cord care</string>
     <string name="pnc_exclusive_breastfeeding">Exclusive breastfeeding ({0})</string>
-    <string name="pnc_kangeroo_mother_care">Kangeroo mother care (KNC)</string>
+    <string name="pnc_kangaroo_mother_care">Kangaroo mother care (KNC) - ({0})</string>
     <string name="pnc_family_planning">Family planning</string>
     <string name="pnc_observation_and_illness_mother">Observations &amp; illness - mother </string>
     <string name="pnc_observation_and_illness_baby">Observations &amp; illness - baby ({0}) </string>
@@ -249,6 +265,5 @@
     <string name="pnc_visit_day_overdue">DAY %s OVERDUE</string>
     <string name="pnc_visit">PNC Visit</string>
     <string name="anc_visit">ANC Visit</string>
-
 
 </resources>

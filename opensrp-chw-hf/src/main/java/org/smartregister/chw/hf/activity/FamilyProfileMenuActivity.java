@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentTransaction;
 
 import org.smartregister.chw.core.activity.CoreFamilyProfileMenuActivity;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.hf.R;
 import org.smartregister.chw.hf.fragement.FamilyProfileChangeHead;
 import org.smartregister.chw.hf.fragement.FamilyProfileChangePrimaryCG;
 
@@ -34,7 +35,7 @@ public class FamilyProfileMenuActivity extends CoreFamilyProfileMenuActivity {
                 break;
         }
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(com.opensrp.chw.core.R.id.frameLayout, fragment);
+        ft.replace(R.id.frameLayout, fragment);
         ft.commit();
     }
 }

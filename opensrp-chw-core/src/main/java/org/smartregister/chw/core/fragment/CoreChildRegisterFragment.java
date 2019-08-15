@@ -9,7 +9,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
 
-import com.opensrp.chw.core.R;
+
+import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.activity.CoreChildProfileActivity;
 import org.smartregister.chw.core.activity.CoreChildRegisterActivity;
 import org.smartregister.chw.core.contract.CoreChildRegisterFragmentContract;
@@ -237,11 +238,11 @@ public class CoreChildRegisterFragment extends BaseChwRegisterFragment implement
             return;
         }
 
-        if (view.getTag() != null && view.getTag(com.opensrp.chw.core.R.id.VIEW_ID) == CLICK_VIEW_NORMAL) {
+        if (view.getTag() != null && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_NORMAL) {
             if (view.getTag() instanceof CommonPersonObjectClient) {
                 goToChildDetailActivity((CommonPersonObjectClient) view.getTag(), false);
             }
-        } else if (view.getId() == com.opensrp.chw.core.R.id.due_only_layout) {
+        } else if (view.getId() == R.id.due_only_layout) {
             toggleFilterSelection(view);
         }
     }

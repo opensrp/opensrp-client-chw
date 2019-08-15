@@ -18,6 +18,7 @@ import java.util.List;
 
 public class ChildUtils extends CoreChildUtils {
     private static Flavor childUtilsFlv = new ChildUtilsFlv();
+
     /**
      * Based on received vaccine list it'll return the fully immunized year.
      * Firstly it'll check with 2years vaccine list if it's match then return 2 year fully immunized.
@@ -111,7 +112,7 @@ public class ChildUtils extends CoreChildUtils {
                 for (Object object : hu) {
                     value = (String) object;
                 }
-                label = context.getString(R.string.dev_warning_sign) + value;
+                label = context.getString(R.string.dev_warning_sign) + Utils.getYesNoAsLanguageSpecific(context, value);
             }
             if (obs.getFormSubmissionField().equalsIgnoreCase("stim_skills")) {
                 List<Object> hu = obs.getHumanReadableValues();
@@ -119,7 +120,7 @@ public class ChildUtils extends CoreChildUtils {
                 for (Object object : hu) {
                     value = (String) object;
                 }
-                label = label + "\n" + context.getString(R.string.care_stim_skill) + value;
+                label = label + "\n" + context.getString(R.string.care_stim_skill) + Utils.getYesNoAsLanguageSpecific(context, value);
             }
             if (obs.getFormSubmissionField().equalsIgnoreCase("early_learning")) {
                 List<Object> hu = obs.getHumanReadableValues();
@@ -127,7 +128,7 @@ public class ChildUtils extends CoreChildUtils {
                 for (Object object : hu) {
                     value = (String) object;
                 }
-                label = label + "\n" + context.getString(R.string.early_learning) + value;
+                label = label + "\n" + context.getString(R.string.early_learning) + Utils.getYesNoAsLanguageSpecific(context, value);
             }
         }
         serviceTask.setTaskLabel(label);
@@ -136,7 +137,6 @@ public class ChildUtils extends CoreChildUtils {
         return serviceTask;
 
     }
-
 
     public static String[] splitStringByNewline(String strWithNewline) {
         return strWithNewline.split("\n");

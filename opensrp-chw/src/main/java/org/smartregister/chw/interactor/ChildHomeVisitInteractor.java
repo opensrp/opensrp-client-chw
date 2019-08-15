@@ -72,6 +72,4 @@ public class ChildHomeVisitInteractor extends CoreChildHomeVisitInteractor {
             Timber.e(e);
         }
     }
-
-
 }
