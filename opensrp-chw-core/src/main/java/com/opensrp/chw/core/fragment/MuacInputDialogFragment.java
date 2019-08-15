@@ -93,10 +93,8 @@ public class MuacInputDialogFragment extends DialogFragment implements View.OnCl
         int i = v.getId();
         if (i == R.id.close) {
             dismiss();
-        } else if (i == R.id.save_bf_btn) {
-            if (!TextUtils.isEmpty(choiceValue)) {
-                saveData();
-            }
+        } else if (i == R.id.save_bf_btn && !TextUtils.isEmpty(choiceValue)) {
+            saveData();
         }
 
     }

@@ -12,9 +12,6 @@ import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 import timber.log.Timber;
 
-import static com.opensrp.chw.core.enums.ImmunizationState.DUE;
-import static com.opensrp.chw.core.enums.ImmunizationState.OVERDUE;
-
 public abstract class CoreFamilyInteractor {
 
     private static String toStringFamilyState(ImmunizationState state) {
@@ -65,19 +62,20 @@ public abstract class CoreFamilyInteractor {
     }
 
     private ImmunizationState getImmunizationState(ImmunizationState familyImmunizationState, Cursor cursor, Context context, String childId) {
+        ImmunizationState finalState = familyImmunizationState;
         switch (this.getChildStatus(context, childId, cursor)) {
             case DUE:
-                if (familyImmunizationState != OVERDUE) {
-                    familyImmunizationState = DUE;
+                if (familyImmunizationState != ImmunizationState.OVERDUE) {
+                    finalState = ImmunizationState.DUE;
                 }
                 break;
             case OVERDUE:
-                familyImmunizationState = OVERDUE;
+                finalState = ImmunizationState.OVERDUE;
                 break;
             default:
                 break;
         }
-        return familyImmunizationState;
+        return finalState;
     }
 
     public abstract ImmunizationState getChildStatus(Context context, final String childId, Cursor cursor);

@@ -93,10 +93,8 @@ public class DietaryInputDialogFragment extends DialogFragment implements View.O
         int i = v.getId();
         if (i == R.id.close) {
             dismiss();
-        } else if (i == R.id.save_bf_btn) {
-            if (!TextUtils.isEmpty(choiceValue)) {
-                saveVaccineCardData();
-            }
+        } else if (i == R.id.save_bf_btn && !TextUtils.isEmpty(choiceValue)) {
+            saveVaccineCardData();
         }
 
     }

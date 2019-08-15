@@ -21,37 +21,35 @@ public class NavigationListener implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        if (v.getTag() != null) {
-            if (v.getTag() instanceof String) {
-                String tag = (String) v.getTag();
+        if (v.getTag() instanceof String) {
+            String tag = (String) v.getTag();
 
-                switch (tag) {
-                    case CoreConstants.DrawerMenu.CHILD_CLIENTS:
-                        startRegisterActivity(getActivity(CoreConstants.REGISTERED_ACTIVITIES.CHILD_REGISTER_ACTIVITY));
-                        break;
-                    case CoreConstants.DrawerMenu.ALL_FAMILIES:
-                        startRegisterActivity(getActivity(CoreConstants.REGISTERED_ACTIVITIES.FAMILY_REGISTER_ACTIVITY));
-                        break;
-                    case CoreConstants.DrawerMenu.ANC:
-                        startRegisterActivity(getActivity(CoreConstants.REGISTERED_ACTIVITIES.ANC_REGISTER_ACTIVITY));
-                        break;
-                    case CoreConstants.DrawerMenu.LD:
-                        Toast.makeText(activity.getApplicationContext(), CoreConstants.DrawerMenu.LD, Toast.LENGTH_SHORT).show();
-                        break;
-                    case CoreConstants.DrawerMenu.PNC:
-                        startRegisterActivity(getActivity(CoreConstants.REGISTERED_ACTIVITIES.PNC_REGISTER_ACTIVITY));
-                        break;
-                    case CoreConstants.DrawerMenu.FAMILY_PLANNING:
-                        Toast.makeText(activity.getApplicationContext(), CoreConstants.DrawerMenu.FAMILY_PLANNING, Toast.LENGTH_SHORT).show();
-                        break;
-                    case CoreConstants.DrawerMenu.MALARIA:
-                        startRegisterActivity(getActivity(CoreConstants.REGISTERED_ACTIVITIES.MALARIA_REGISTER_ACTIVITY));
-                        break;
-                    default:
-                        break;
-                }
-                navigationAdapter.setSelectedView(tag);
+            switch (tag) {
+                case CoreConstants.DrawerMenu.CHILD_CLIENTS:
+                    startRegisterActivity(getActivity(CoreConstants.REGISTERED_ACTIVITIES.CHILD_REGISTER_ACTIVITY));
+                    break;
+                case CoreConstants.DrawerMenu.ALL_FAMILIES:
+                    startRegisterActivity(getActivity(CoreConstants.REGISTERED_ACTIVITIES.FAMILY_REGISTER_ACTIVITY));
+                    break;
+                case CoreConstants.DrawerMenu.ANC:
+                    startRegisterActivity(getActivity(CoreConstants.REGISTERED_ACTIVITIES.ANC_REGISTER_ACTIVITY));
+                    break;
+                case CoreConstants.DrawerMenu.LD:
+                    Toast.makeText(activity.getApplicationContext(), CoreConstants.DrawerMenu.LD, Toast.LENGTH_SHORT).show();
+                    break;
+                case CoreConstants.DrawerMenu.PNC:
+                    startRegisterActivity(getActivity(CoreConstants.REGISTERED_ACTIVITIES.PNC_REGISTER_ACTIVITY));
+                    break;
+                case CoreConstants.DrawerMenu.FAMILY_PLANNING:
+                    Toast.makeText(activity.getApplicationContext(), CoreConstants.DrawerMenu.FAMILY_PLANNING, Toast.LENGTH_SHORT).show();
+                    break;
+                case CoreConstants.DrawerMenu.MALARIA:
+                    startRegisterActivity(getActivity(CoreConstants.REGISTERED_ACTIVITIES.MALARIA_REGISTER_ACTIVITY));
+                    break;
+                default:
+                    break;
             }
+            navigationAdapter.setSelectedView(tag);
         }
     }
 

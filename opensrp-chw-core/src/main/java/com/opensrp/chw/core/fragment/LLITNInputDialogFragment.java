@@ -94,10 +94,8 @@ public class LLITNInputDialogFragment extends DialogFragment implements View.OnC
             dismiss();
         } else if (i == R.id.info_icon) {
             onShowInfo();
-        } else if (i == R.id.save_bf_btn) {
-            if (!TextUtils.isEmpty(choiceValue)) {
-                saveData();
-            }
+        } else if (i == R.id.save_bf_btn && !TextUtils.isEmpty(choiceValue)) {
+            saveData();
         }
 
     }

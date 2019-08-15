@@ -36,7 +36,6 @@ import timber.log.Timber;
 import static com.opensrp.chw.core.utils.Utils.convertDpToPixel;
 
 public abstract class CoreFamilyRegisterFragment extends BaseFamilyRegisterFragment {
-    private static final String TAG = CoreFamilyRegisterFragment.class.getCanonicalName();
     private static final String DUE_FILTER_TAG = "PRESSED";
     protected View dueOnlyLayout;
     private View view;

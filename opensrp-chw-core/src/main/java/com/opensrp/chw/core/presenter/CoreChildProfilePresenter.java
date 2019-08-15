@@ -29,7 +29,6 @@ import static org.apache.commons.lang3.StringUtils.isBlank;
 
 public class CoreChildProfilePresenter implements CoreChildProfileContract.Presenter, CoreChildProfileContract.InteractorCallBack, FamilyProfileExtendedContract.PresenterCallBack {
 
-    private static final String TAG = CoreChildProfilePresenter.class.getCanonicalName();
     public CoreChildProfileContract.Model model;
     public String childBaseEntityId;
     public String familyID;

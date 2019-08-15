@@ -29,14 +29,10 @@ public abstract class CoreFamilyProfileMemberFragment extends BaseFamilyProfileM
     protected void onViewClicked(android.view.View view) {
         super.onViewClicked(view);
         int i = view.getId();
-        if (i == R.id.patient_column) {
-            if (view.getTag() != null && view.getTag(org.smartregister.family.R.id.VIEW_ID) == CLICK_VIEW_NORMAL) {
-                goToProfileActivity(view);
-            }
-        } else if (i == R.id.next_arrow) {
-            if (view.getTag() != null && view.getTag(org.smartregister.family.R.id.VIEW_ID) == CLICK_VIEW_NEXT_ARROW) {
-                goToProfileActivity(view);
-            }
+        if (i == R.id.patient_column && view.getTag() != null && view.getTag(org.smartregister.family.R.id.VIEW_ID) == CLICK_VIEW_NORMAL) {
+            goToProfileActivity(view);
+        } else if (i == R.id.next_arrow && view.getTag() != null && view.getTag(org.smartregister.family.R.id.VIEW_ID) == CLICK_VIEW_NEXT_ARROW) {
+            goToProfileActivity(view);
         }
     }
 

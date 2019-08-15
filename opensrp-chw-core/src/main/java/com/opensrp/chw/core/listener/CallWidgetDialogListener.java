@@ -12,8 +12,6 @@ import static com.opensrp.chw.core.utils.Utils.launchDialer;
 
 public class CallWidgetDialogListener implements View.OnClickListener {
 
-    private static String TAG = CallWidgetDialogListener.class.getCanonicalName();
-
     private FamilyCallDialogFragment callDialogFragment;
 
     public CallWidgetDialogListener(FamilyCallDialogFragment dialogFragment) {

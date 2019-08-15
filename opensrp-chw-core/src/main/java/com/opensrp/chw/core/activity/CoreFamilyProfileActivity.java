@@ -117,7 +117,7 @@ public abstract class CoreFamilyProfileActivity extends BaseFamilyProfileActivit
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK) {
             switch (requestCode) {
-                case org.smartregister.family.util.JsonFormUtils.REQUEST_CODE_GET_JSON:
+                case JsonFormUtils.REQUEST_CODE_GET_JSON:
                     try {
                         String jsonString = data.getStringExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON);
                         Timber.d("JSONResult : %s", jsonString);
@@ -167,6 +167,8 @@ public abstract class CoreFamilyProfileActivity extends BaseFamilyProfileActivit
                         Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                     break;
+                    default:
+                        break;
             }
         }
     }
