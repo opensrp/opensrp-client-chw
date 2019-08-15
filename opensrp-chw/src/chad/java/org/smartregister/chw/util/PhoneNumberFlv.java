@@ -1,6 +1,7 @@
 package org.smartregister.chw.util;
 
-import adapter.MemberAdapter;
+
+import org.smartregister.chw.core.adapter.MemberAdapter;
 
 public class PhoneNumberFlv implements MemberAdapter.Flavor {
     @Override
