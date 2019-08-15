@@ -18,9 +18,9 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.opensrp.chw.core.listener.FloatingMenuListener;
-import com.opensrp.chw.core.listener.OnClickFloatingMenu;
-import com.opensrp.chw.core.utils.CoreConstants;
+import org.smartregister.chw.core.listener.FloatingMenuListener;
+import org.smartregister.chw.core.listener.OnClickFloatingMenu;
+import org.smartregister.chw.core.utils.CoreConstants;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
 

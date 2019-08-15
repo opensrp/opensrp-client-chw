@@ -6,10 +6,10 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.util.Pair;
 
-import com.opensrp.chw.core.domain.FamilyMember;
-import com.opensrp.chw.core.repository.WashCheckRepository;
-import com.opensrp.chw.core.utils.CoreConstants;
-import com.opensrp.chw.core.utils.CoreJsonFormUtils;
+import org.smartregister.chw.core.domain.FamilyMember;
+import org.smartregister.chw.core.repository.WashCheckRepository;
+import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
 

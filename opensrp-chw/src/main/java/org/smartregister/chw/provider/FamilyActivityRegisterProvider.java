@@ -7,7 +7,7 @@ import android.graphics.Typeface;
 import android.util.TypedValue;
 import android.view.View;
 
-import com.opensrp.chw.core.utils.ChildDBConstants;
+import org.smartregister.chw.core.utils.ChildDBConstants;
 
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.R;

@@ -1,6 +1,6 @@
 package org.smartregister.chw.model;
 
-import com.opensrp.chw.core.model.CoreFamilyProfileModel;
+import org.smartregister.chw.core.model.CoreFamilyProfileModel;
 
 import org.smartregister.family.domain.FamilyEventClient;
 

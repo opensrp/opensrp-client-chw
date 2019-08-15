@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.opensrp.chw.core.contract.FamilyProfileExtendedContract;
+import contract.FamilyProfileExtendedContract;
 
 import org.json.JSONObject;
 import org.smartregister.chw.R;

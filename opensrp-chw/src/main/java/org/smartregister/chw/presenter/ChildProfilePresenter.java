@@ -2,8 +2,8 @@ package org.smartregister.chw.presenter;
 
 import android.util.Pair;
 
-import com.opensrp.chw.core.contract.CoreChildProfileContract;
-import com.opensrp.chw.core.presenter.CoreChildProfilePresenter;
+import org.smartregister.chw.core.contract.CoreChildProfileContract;
+import org.smartregister.chw.core.presenter.CoreChildProfilePresenter;
 
 import org.smartregister.chw.R;
 import org.smartregister.chw.interactor.ChildProfileInteractor;

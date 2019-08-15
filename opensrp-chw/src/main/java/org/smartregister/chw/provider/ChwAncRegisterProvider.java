@@ -7,7 +7,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 
-import com.opensrp.chw.core.utils.ChwDBConstants;
+import org.smartregister.chw.core.utils.ChwDBConstants;
 
 import org.jeasy.rules.api.Rules;
 import org.joda.time.DateTime;

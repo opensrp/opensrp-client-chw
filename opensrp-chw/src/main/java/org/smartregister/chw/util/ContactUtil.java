@@ -1,6 +1,6 @@
 package org.smartregister.chw.util;
 
-import com.opensrp.chw.core.helper.ContactRule;
+import org.smartregister.chw.core.helper.ContactRule;
 
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;

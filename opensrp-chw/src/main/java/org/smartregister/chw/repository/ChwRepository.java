@@ -2,8 +2,8 @@ package org.smartregister.chw.repository;
 
 import android.content.Context;
 
-import com.opensrp.chw.core.application.CoreChwApplication;
-import com.opensrp.chw.core.repository.CoreChwRepository;
+import org.smartregister.chw.core.application.CoreChwApplication;
+import org.smartregister.chw.core.repository.CoreChwRepository;
 
 import net.sqlcipher.database.SQLiteDatabase;
 

@@ -2,7 +2,7 @@ package org.smartregister.chw.interactor;
 
 import android.content.Context;
 
-import com.opensrp.chw.core.utils.ServiceTask;
+import org.smartregister.chw.core.utils.ServiceTask;
 
 import org.junit.Assert;
 import org.junit.Before;

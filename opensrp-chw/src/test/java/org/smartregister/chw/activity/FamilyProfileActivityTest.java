@@ -3,8 +3,7 @@ package org.smartregister.chw.activity;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Intent;
-
-import com.opensrp.chw.core.utils.CoreConstants;
+import org.smartregister.chw.core.utils.CoreConstants;
 
 import org.json.JSONException;
 import org.json.JSONObject;

@@ -1,8 +1,8 @@
 package org.smartregister.chw.interactor;
 
-import com.opensrp.chw.core.job.BasePncCloseJob;
-import com.opensrp.chw.core.job.HomeVisitServiceJob;
-import com.opensrp.chw.core.job.VaccineRecurringServiceJob;
+import org.smartregister.chw.core.job.HomeVisitServiceJob;
+import org.smartregister.chw.core.job.VaccineRecurringServiceJob;
+import job.BasePncCloseJob;
 
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.job.ChwIndicatorGeneratingJob;

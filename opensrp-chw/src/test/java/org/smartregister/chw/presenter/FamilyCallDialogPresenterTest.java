@@ -1,9 +1,9 @@
 package org.smartregister.chw.presenter;
 
-import com.opensrp.chw.core.contract.FamilyCallDialogContract;
-import com.opensrp.chw.core.interactor.FamilyCallDialogInteractor;
-import com.opensrp.chw.core.model.FamilyCallDialogModel;
-import com.opensrp.chw.core.presenter.FamilyCallDialogPresenter;
+import org.smartregister.chw.core.contract.FamilyCallDialogContract;
+import org.smartregister.chw.core.interactor.FamilyCallDialogInteractor;
+import org.smartregister.chw.core.model.FamilyCallDialogModel;
+import org.smartregister.chw.core.presenter.FamilyCallDialogPresenter;
 
 import org.junit.Before;
 import org.junit.Test;

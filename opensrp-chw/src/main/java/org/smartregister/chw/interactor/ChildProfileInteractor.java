@@ -4,12 +4,12 @@ import android.content.Context;
 import android.support.annotation.VisibleForTesting;
 import android.util.Pair;
 
-import com.opensrp.chw.core.contract.CoreChildProfileContract;
-import com.opensrp.chw.core.interactor.CoreChildProfileInteractor;
-import com.opensrp.chw.core.model.ChildVisit;
-import com.opensrp.chw.core.utils.ChildDBConstants;
-import com.opensrp.chw.core.utils.ChildHomeVisit;
-import com.opensrp.chw.core.utils.CoreChildService;
+import org.smartregister.chw.core.contract.CoreChildProfileContract;
+import org.smartregister.chw.core.interactor.CoreChildProfileInteractor;
+import org.smartregister.chw.core.model.ChildVisit;
+import org.smartregister.chw.core.utils.ChildDBConstants;
+import org.smartregister.chw.core.utils.ChildHomeVisit;
+import org.smartregister.chw.core.utils.CoreChildService;
 
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;

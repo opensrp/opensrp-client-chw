@@ -1,6 +1,6 @@
 package org.smartregister.chw.presenter;
 
-import com.opensrp.chw.core.presenter.CoreHomeVisitGrowthNutritionPresenter;
+import org.smartregister.chw.core.presenter.CoreHomeVisitGrowthNutritionPresenter;
 
 public class HomeVisitGrowthNutritionPresenterFlv implements CoreHomeVisitGrowthNutritionPresenter.Flavor {
     @Override

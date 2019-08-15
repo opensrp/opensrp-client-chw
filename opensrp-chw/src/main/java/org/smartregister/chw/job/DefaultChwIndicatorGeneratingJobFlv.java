@@ -1,9 +1,9 @@
 package org.smartregister.chw.job;
 
 import com.google.gson.reflect.TypeToken;
-import com.opensrp.chw.core.domain.HomeVisit;
-import com.opensrp.chw.core.domain.HomeVisitIndicatorInfo;
-import com.opensrp.chw.core.repository.HomeVisitIndicatorInfoRepository;
+import org.smartregister.chw.core.domain.HomeVisit;
+import org.smartregister.chw.core.domain.HomeVisitIndicatorInfo;
+import org.smartregister.chw.core.repository.HomeVisitIndicatorInfoRepository;
 
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.util.ChildUtils;

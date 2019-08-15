@@ -1,6 +1,6 @@
 package org.smartregister.chw.presenter;
 
-import com.opensrp.chw.core.repository.HomeVisitServiceRepository;
+import org.smartregister.chw.core.repository.HomeVisitServiceRepository;
 
 import org.smartregister.chw.contract.ChildMedicalHistoryContract;
 import org.smartregister.chw.interactor.ChildMedicalHistoryInteractor;

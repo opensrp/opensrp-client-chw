@@ -2,8 +2,7 @@ package org.smartregister.chw.activity;
 
 import android.app.Activity;
 import android.content.Intent;
-
-import com.opensrp.chw.core.activity.CoreAncRegisterActivity;
+import org.smartregister.chw.core.activity.CoreAncRegisterActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;

@@ -8,12 +8,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 
-import com.opensrp.chw.core.activity.CoreChildProfileActivity;
-import com.opensrp.chw.core.activity.CoreUpcomingServicesActivity;
-import com.opensrp.chw.core.listener.OnClickFloatingMenu;
-import com.opensrp.chw.core.model.CoreChildProfileModel;
-import com.opensrp.chw.core.presenter.CoreChildProfilePresenter;
-import com.opensrp.chw.core.utils.CoreConstants;
+import org.smartregister.chw.core.activity.CoreChildProfileActivity;
+import org.smartregister.chw.core.activity.CoreUpcomingServicesActivity;
+import org.smartregister.chw.core.fragment.CoreChildHomeVisitFragment;
+import org.smartregister.chw.core.listener.OnClickFloatingMenu;
+import org.smartregister.chw.core.model.CoreChildProfileModel;
+import org.smartregister.chw.core.presenter.CoreChildProfilePresenter;
+import org.smartregister.chw.core.utils.CoreConstants;
 
 import org.smartregister.chw.R;
 import org.smartregister.chw.custom_view.FamilyMemberFloatingMenu;
@@ -37,23 +38,6 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
         setupViews();
         setUpToolbar();
         registerReceiver(mDateTimeChangedReceiver, sIntentFilter);
-    }
-
-    @Override
-    public void onClick(View view) {
-        super.onClick(view);
-        int i = view.getId();
-        if (i == R.id.last_visit_row) {
-            openMedicalHistoryScreen();
-        } else if (i == R.id.most_due_overdue_row) {
-            openUpcomingServicePage();
-        } else if (i == R.id.textview_record_visit || i == R.id.record_visit_done_bar) {
-            openVisitHomeScreen(false);
-        } else if (i == R.id.family_has_row) {
-            openFamilyDueTab();
-        } else if (i == R.id.textview_edit) {
-            openVisitHomeScreen(true);
-        }
     }
 
     @Override
@@ -104,6 +88,7 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
     }
 
 
+
     private void openFamilyDueTab() {
         Intent intent = new Intent(this, FamilyProfileActivity.class);
 
@@ -151,7 +136,26 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
         } else {
             menu.findItem(R.id.action_malaria_registration).setVisible(false);
         }
+        menu.findItem(R.id.action_sick_child_follow_up).setVisible(false);
+        menu.findItem(R.id.action_malaria_diagnosis).setVisible(false);
         return true;
+    }
+
+    @Override
+    public void onClick(View view) {
+        super.onClick(view);
+        int i = view.getId();
+        if (i == R.id.last_visit_row) {
+            openMedicalHistoryScreen();
+        } else if (i == R.id.most_due_overdue_row) {
+            openUpcomingServicePage();
+        } else if (i == R.id.textview_record_visit || i == R.id.record_visit_done_bar) {
+            openVisitHomeScreen(false);
+        } else if (i == R.id.family_has_row) {
+            openFamilyDueTab();
+        } else if (i == R.id.textview_edit) {
+            openVisitHomeScreen(true);
+        }
     }
 
     public interface Flavor {

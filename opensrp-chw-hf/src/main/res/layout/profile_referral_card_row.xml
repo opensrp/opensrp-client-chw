@@ -53,7 +53,6 @@
             android:text="@string/full_referral_info"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="@color/light_grey_text" />
-
     </RelativeLayout>
 
     <View

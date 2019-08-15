@@ -1,8 +1,7 @@
 package org.smartregister.chw.activity;
 
-
-import com.opensrp.chw.core.activity.CoreChildRegisterActivity;
-import com.opensrp.chw.core.contract.CoreChildRegisterContract;
+import org.smartregister.chw.core.activity.CoreChildRegisterActivity;
+import org.smartregister.chw.core.contract.CoreChildRegisterContract;
 
 import org.smartregister.chw.fragment.ChildRegisterFragment;
 import org.smartregister.helper.BottomNavigationHelper;

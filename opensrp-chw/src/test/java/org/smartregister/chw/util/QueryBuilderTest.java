@@ -1,6 +1,6 @@
 package org.smartregister.chw.util;
 
-import com.opensrp.chw.core.utils.QueryBuilder;
+import org.smartregister.chw.core.utils.QueryBuilder;
 
 import org.junit.Assert;
 import org.junit.Test;

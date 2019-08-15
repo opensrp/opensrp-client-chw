@@ -2,7 +2,7 @@ package org.smartregister.chw.presenter;
 
 import android.content.Context;
 
-import com.opensrp.chw.core.contract.CoreChildProfileContract;
+import contract.CoreChildProfileContract;
 
 import org.junit.Assert;
 import org.junit.Before;

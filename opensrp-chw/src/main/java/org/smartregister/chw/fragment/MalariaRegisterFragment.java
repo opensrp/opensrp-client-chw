@@ -10,8 +10,8 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.opensrp.chw.core.custom_views.NavigationMenu;
-import com.opensrp.chw.core.utils.QueryBuilder;
+import custom_views.NavigationMenu;
+import utils.QueryBuilder;
 
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.R;

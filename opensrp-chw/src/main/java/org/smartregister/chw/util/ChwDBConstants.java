@@ -1,4 +1,4 @@
 package org.smartregister.chw.util;
 
-public interface ChwDBConstants extends com.opensrp.chw.core.utils.ChwDBConstants {
+public interface ChwDBConstants extends org.smartregister.chw.core.utils.ChwDBConstants {
 }

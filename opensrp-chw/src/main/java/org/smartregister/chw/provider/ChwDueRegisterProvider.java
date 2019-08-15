@@ -7,8 +7,8 @@ import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.View;
 
-import com.opensrp.chw.core.model.ChildVisit;
-import com.opensrp.chw.core.utils.ChildDBConstants;
+import org.smartregister.chw.core.model.ChildVisit;
+import org.smartregister.chw.core.utils.ChildDBConstants;
 
 import org.apache.commons.lang3.StringUtils;
 import org.jeasy.rules.api.Rules;
@@ -27,7 +27,7 @@ import org.smartregister.view.contract.SmartRegisterClient;
 
 import java.util.Set;
 
-import static com.opensrp.chw.core.utils.Utils.actualDaysBetweenDateAndNow;
+import static org.smartregister.chw.core.utils.Utils.actualDaysBetweenDateAndNow;
 import static org.smartregister.family.util.Utils.getName;
 
 public class ChwDueRegisterProvider extends FamilyDueRegisterProvider {

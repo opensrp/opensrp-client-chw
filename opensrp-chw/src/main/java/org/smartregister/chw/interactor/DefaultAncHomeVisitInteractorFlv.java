@@ -2,7 +2,7 @@ package org.smartregister.chw.interactor;
 
 import android.content.Context;
 
-import com.opensrp.chw.core.model.VaccineTaskModel;
+import org.smartregister.chw.core.model.VaccineTaskModel;
 
 import org.apache.commons.lang3.tuple.Triple;
 import org.joda.time.DateTime;
@@ -43,7 +43,7 @@ import java.util.Map;
 
 import timber.log.Timber;
 
-import static com.opensrp.chw.core.utils.RecurringServiceUtil.getRecurringServices;
+import static org.smartregister.chw.core.utils.RecurringServiceUtil.getRecurringServices;
 
 public abstract class DefaultAncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor {
 

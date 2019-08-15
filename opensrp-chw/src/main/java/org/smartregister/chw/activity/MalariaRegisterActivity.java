@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.opensrp.chw.core.custom_views.NavigationMenu;
+import org.smartregister.chw.core.custom_views.NavigationMenu;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
 

@@ -5,7 +5,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.opensrp.chw.core.custom_views.CoreFamilyMemberFloatingMenu;
+import org.smartregister.chw.core.custom_views.CoreFamilyMemberFloatingMenu;
 
 public class FamilyMemberFloatingMenu extends CoreFamilyMemberFloatingMenu {
     private Flavor flavor = new FamilyMemberFloatingMenuFlv();

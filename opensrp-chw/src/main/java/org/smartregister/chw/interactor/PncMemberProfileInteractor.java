@@ -3,7 +3,7 @@ package org.smartregister.chw.interactor;
 import android.content.Context;
 import android.util.Pair;
 
-import com.opensrp.chw.core.contract.CoreChildProfileContract;
+import contract.CoreChildProfileContract;
 
 import org.ei.drishti.dto.AlertStatus;
 import org.jeasy.rules.api.Rules;

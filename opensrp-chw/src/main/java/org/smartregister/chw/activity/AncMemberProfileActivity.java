@@ -6,8 +6,7 @@ import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-
-import com.opensrp.chw.core.utils.CoreConstants;
+import org.smartregister.chw.core.utils.CoreConstants;
 
 import org.jeasy.rules.api.Rules;
 import org.joda.time.DateTime;

@@ -1,5 +1,12 @@
 package org.smartregister.chw.util;
 
+import android.text.SpannableString;
+
+import org.smartregister.chw.core.model.ChildVisit;
+import org.smartregister.chw.core.rule.HomeAlertRule;
+import org.smartregister.chw.core.utils.TestConstant;
+
+import org.joda.time.LocalDate;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

@@ -2,9 +2,8 @@ package org.smartregister.chw.interactor;
 
 import android.content.Context;
 
-import com.opensrp.chw.core.domain.Person;
-import com.opensrp.chw.core.model.VaccineTaskModel;
-import com.opensrp.chw.core.rule.PNCHealthFacilityVisitRule;
+import org.smartregister.chw.core.domain.Person;
+import rule.PNCHealthFacilityVisitRule;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 
 import org.apache.commons.lang3.StringUtils;
@@ -31,6 +30,7 @@ import org.smartregister.chw.anc.fragment.BaseHomeVisitImmunizationFragment;
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
 import org.smartregister.chw.anc.util.VisitUtils;
 import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.chw.core.model.VaccineTaskModel;
 import org.smartregister.chw.dao.PNCDao;
 import org.smartregister.chw.dao.PersonDao;
 import org.smartregister.chw.domain.PNCHealthFacilityVisitSummary;

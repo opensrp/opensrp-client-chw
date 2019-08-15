@@ -8,8 +8,8 @@ import android.util.TypedValue;
 import android.view.View;
 import android.widget.RelativeLayout;
 
-import com.opensrp.chw.core.model.ChildVisit;
-import com.opensrp.chw.core.utils.ChildDBConstants;
+import org.smartregister.chw.core.model.ChildVisit;
+import org.smartregister.chw.core.utils.ChildDBConstants;
 
 import org.jeasy.rules.api.Rules;
 import org.smartregister.chw.R;

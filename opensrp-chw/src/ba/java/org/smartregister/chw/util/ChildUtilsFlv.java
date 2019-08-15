@@ -1,6 +1,6 @@
 package org.smartregister.chw.util;
 
-import com.opensrp.chw.core.utils.ChildDBConstants;
+import org.smartregister.chw.core.utils.ChildDBConstants;
 
 import java.util.ArrayList;
 

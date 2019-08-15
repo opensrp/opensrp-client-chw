@@ -2,8 +2,8 @@ package org.smartregister.chw.fragment;
 
 import android.view.View;
 
-import com.opensrp.chw.core.fragment.CoreFamilyRegisterFragment;
-import com.opensrp.chw.core.provider.CoreRegisterProvider;
+import org.smartregister.chw.core.fragment.CoreFamilyRegisterFragment;
+import org.smartregister.chw.core.provider.CoreRegisterProvider;
 
 import org.smartregister.chw.R;
 import org.smartregister.chw.provider.ChwRegisterProvider;

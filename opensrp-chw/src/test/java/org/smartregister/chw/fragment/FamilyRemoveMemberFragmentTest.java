@@ -2,7 +2,7 @@ package org.smartregister.chw.fragment;
 
 import android.content.Context;
 
-import com.opensrp.chw.core.fragment.FamilyRemoveMemberConfirmDialog;
+import org.smartregister.chw.core.fragment.FamilyRemoveMemberConfirmDialog;
 
 import org.json.JSONObject;
 import org.junit.Rule;

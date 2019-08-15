@@ -1,7 +1,7 @@
 package org.smartregister.chw.util;
 
 
-import com.opensrp.chw.core.adapter.MemberAdapter;
+import adapter.MemberAdapter;
 
 public class PhoneNumberFlv implements MemberAdapter.Flavor {
     @Override

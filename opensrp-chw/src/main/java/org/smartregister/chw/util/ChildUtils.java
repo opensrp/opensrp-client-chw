@@ -3,9 +3,9 @@ package org.smartregister.chw.util;
 import android.content.Context;
 
 import com.google.gson.reflect.TypeToken;
-import com.opensrp.chw.core.utils.ChildDBConstants;
-import com.opensrp.chw.core.utils.CoreChildUtils;
-import com.opensrp.chw.core.utils.ServiceTask;
+import org.smartregister.chw.core.utils.ChildDBConstants;
+import org.smartregister.chw.core.utils.CoreChildUtils;
+import org.smartregister.chw.core.utils.ServiceTask;
 
 import org.smartregister.chw.R;
 import org.smartregister.family.util.DBConstants;

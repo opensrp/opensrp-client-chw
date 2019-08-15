@@ -1,7 +1,7 @@
 package org.smartregister.chw.presenter;
 
-import com.opensrp.chw.core.contract.HomeVisitGrowthNutritionContract;
-import com.opensrp.chw.core.presenter.CoreHomeVisitGrowthNutritionPresenter;
+import org.smartregister.chw.core.contract.HomeVisitGrowthNutritionContract;
+import org.smartregister.chw.core.presenter.CoreHomeVisitGrowthNutritionPresenter;
 
 public class HomeVisitGrowthNutritionPresenter extends CoreHomeVisitGrowthNutritionPresenter {
     public HomeVisitGrowthNutritionPresenter(HomeVisitGrowthNutritionContract.View view) {

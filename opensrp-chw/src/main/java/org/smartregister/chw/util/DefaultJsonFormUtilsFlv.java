@@ -3,7 +3,7 @@ package org.smartregister.chw.util;
 import android.content.Context;
 import android.util.Pair;
 
-import com.opensrp.chw.core.utils.ChwDBConstants;
+import org.smartregister.chw.core.utils.ChwDBConstants;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 
 import org.apache.commons.lang3.StringUtils;

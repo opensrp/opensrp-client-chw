@@ -1,9 +1,9 @@
 package org.smartregister.chw.presenter;
 
-import com.opensrp.chw.core.enums.ImmunizationState;
-import com.opensrp.chw.core.rule.WashCheckAlertRule;
-import com.opensrp.chw.core.utils.ChildDBConstants;
-import com.opensrp.chw.core.utils.WashCheck;
+import org.smartregister.chw.core.enums.ImmunizationState;
+import org.smartregister.chw.core.utils.ChildDBConstants;
+import rule.WashCheckAlertRule;
+import utils.WashCheck;
 
 import org.smartregister.chw.fragment.FamilyProfileDueFragment;
 import org.smartregister.chw.interactor.ChildProfileInteractor;

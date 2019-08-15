@@ -4,8 +4,8 @@ import android.app.Activity;
 import android.text.TextUtils;
 import android.view.Menu;
 
-import com.opensrp.chw.core.fragment.FamilyCallDialogFragment;
-import com.opensrp.chw.core.listener.OnClickFloatingMenu;
+import org.smartregister.chw.core.fragment.FamilyCallDialogFragment;
+import org.smartregister.chw.core.listener.OnClickFloatingMenu;
 
 import org.joda.time.DateTime;
 import org.joda.time.Period;

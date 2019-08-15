@@ -2,8 +2,8 @@ package org.smartregister.chw.util;
 
 import android.content.Context;
 
-import com.opensrp.chw.core.model.VaccineTaskModel;
-import com.opensrp.chw.core.utils.ChwServiceSchedule;
+import model.VaccineTaskModel;
+import utils.ChwServiceSchedule;
 
 import org.apache.commons.lang3.tuple.Triple;
 import org.joda.time.DateTime;

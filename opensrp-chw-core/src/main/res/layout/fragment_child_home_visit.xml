@@ -163,7 +163,7 @@
                 android:layout_marginRight="@dimen/child_home_visit_right_margin"
                 android:background="@color/light_grey" />
 
-            <com.opensrp.chw.core.custom_views.ImmunizationView
+            <org.smartregister.chw.core.custom_views.ImmunizationView
                 android:id="@+id/immunization_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -172,10 +172,10 @@
                 android:layout_marginEnd="@dimen/child_home_visit_right_margin"
                 android:layout_marginRight="@dimen/child_home_visit_right_margin">
 
-            </com.opensrp.chw.core.custom_views.ImmunizationView>
+            </org.smartregister.chw.core.custom_views.ImmunizationView>
 
 
-            <com.opensrp.chw.core.custom_views.HomeVisitGrowthAndNutrition
+            <org.smartregister.chw.core.custom_views.HomeVisitGrowthAndNutrition
                 android:id="@+id/growth_and_nutrition_group"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -184,7 +184,7 @@
                 android:layout_marginEnd="@dimen/child_home_visit_right_margin"
                 android:layout_marginRight="@dimen/child_home_visit_right_margin">
 
-            </com.opensrp.chw.core.custom_views.HomeVisitGrowthAndNutrition>
+            </org.smartregister.chw.core.custom_views.HomeVisitGrowthAndNutrition>
 
 
             <LinearLayout

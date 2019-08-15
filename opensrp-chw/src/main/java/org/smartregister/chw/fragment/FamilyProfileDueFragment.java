@@ -9,8 +9,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.opensrp.chw.core.utils.CoreConstants;
-import com.opensrp.chw.core.utils.WashCheck;
+import org.smartregister.chw.core.utils.CoreConstants;
+import utils.WashCheck;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
 

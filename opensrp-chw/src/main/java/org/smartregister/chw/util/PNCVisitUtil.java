@@ -1,6 +1,6 @@
 package org.smartregister.chw.util;
 
-import com.opensrp.chw.core.rule.PNCHealthFacilityVisitRule;
+import rule.PNCHealthFacilityVisitRule;
 
 import org.smartregister.chw.application.ChwApplication;
 

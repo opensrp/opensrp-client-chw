@@ -8,7 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.volley.toolbox.ImageLoader;
-import com.opensrp.chw.core.utils.ImageLoaderRequest;
+import org.smartregister.chw.core.utils.ImageLoaderRequest;
 
 import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;

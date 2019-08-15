@@ -1,7 +1,7 @@
 package org.smartregister.chw.presenter;
 
 
-import com.opensrp.chw.core.contract.FamilyRemoveMemberContract;
+import org.smartregister.chw.core.contract.FamilyRemoveMemberContract;
 
 import org.json.JSONObject;
 import org.junit.Before;

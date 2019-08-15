@@ -1,7 +1,7 @@
 package org.smartregister.chw.model;
 
-import com.opensrp.chw.core.domain.FamilyMember;
-import com.opensrp.chw.core.model.FamilyChangeContractModel;
+import org.smartregister.chw.core.domain.FamilyMember;
+import org.smartregister.chw.core.model.FamilyChangeContractModel;
 
 import org.junit.Assert;
 import org.junit.Before;

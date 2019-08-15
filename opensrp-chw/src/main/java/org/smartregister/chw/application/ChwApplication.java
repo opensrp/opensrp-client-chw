@@ -7,13 +7,13 @@ import android.os.Build;
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
 import com.evernote.android.job.JobManager;
-import com.opensrp.chw.core.application.CoreChwApplication;
-import com.opensrp.chw.core.contract.CoreApplication;
-import com.opensrp.chw.core.custom_views.NavigationMenu;
-import com.opensrp.chw.core.loggers.CrashlyticsTree;
-import com.opensrp.chw.core.service.CoreAuthorizationService;
-import com.opensrp.chw.core.sync.ChwClientProcessor;
-import com.opensrp.chw.core.utils.CoreConstants;
+import org.smartregister.chw.core.application.CoreChwApplication;
+import org.smartregister.chw.core.contract.CoreApplication;
+import org.smartregister.chw.core.custom_views.NavigationMenu;
+import org.smartregister.chw.core.loggers.CrashlyticsTree;
+import org.smartregister.chw.core.service.CoreAuthorizationService;
+import org.smartregister.chw.core.sync.ChwClientProcessor;
+import org.smartregister.chw.core.utils.CoreConstants;
 
 import org.jetbrains.annotations.NotNull;
 import org.smartregister.AllConstants;
@@ -54,7 +54,7 @@ import java.util.Map;
 import io.fabric.sdk.android.Fabric;
 import timber.log.Timber;
 
-import static com.opensrp.chw.core.utils.FormUtils.getFamilyMetadata;
+import static org.smartregister.chw.core.utils.FormUtils.getFamilyMetadata;
 
 public class ChwApplication extends CoreChwApplication implements CoreApplication {
     @Override

@@ -1,8 +1,8 @@
 package org.smartregister.chw.adapter;
 
-import com.opensrp.chw.core.adapter.MemberAdapter;
-import com.opensrp.chw.core.domain.FamilyMember;
-import com.opensrp.chw.core.listener.MemberAdapterListener;
+import org.smartregister.chw.core.adapter.MemberAdapter;
+import org.smartregister.chw.core.domain.FamilyMember;
+import org.smartregister.chw.core.listener.MemberAdapterListener;
 
 import org.junit.Before;
 import org.junit.Test;

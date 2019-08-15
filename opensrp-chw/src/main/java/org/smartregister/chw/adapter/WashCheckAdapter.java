@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.opensrp.chw.core.utils.WashCheck;
+import utils.WashCheck;
 
 import org.smartregister.chw.R;
 import org.smartregister.view.customcontrols.CustomFontTextView;

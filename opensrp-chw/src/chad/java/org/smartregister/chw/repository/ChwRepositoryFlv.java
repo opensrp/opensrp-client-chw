@@ -1,7 +1,9 @@
 package org.smartregister.chw.repository;
 
 import android.content.Context;
-import com.opensrp.chw.core.repository.HomeVisitRepository;
+
+import org.smartregister.chw.core.repository.HomeVisitRepository;
+import HomeVisitRepository;
 import net.sqlcipher.database.SQLiteDatabase;
 
 import org.smartregister.domain.db.Column;

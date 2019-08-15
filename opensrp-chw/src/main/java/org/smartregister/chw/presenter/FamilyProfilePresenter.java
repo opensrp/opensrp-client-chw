@@ -2,11 +2,11 @@ package org.smartregister.chw.presenter;
 
 import android.content.Context;
 
-import com.opensrp.chw.core.contract.FamilyProfileExtendedContract;
-import com.opensrp.chw.core.domain.FamilyMember;
-import com.opensrp.chw.core.model.CoreChildRegisterModel;
-import com.opensrp.chw.core.presenter.CoreFamilyProfilePresenter;
-import com.opensrp.chw.core.utils.CoreJsonFormUtils;
+import org.smartregister.chw.core.contract.FamilyProfileExtendedContract;
+import org.smartregister.chw.core.domain.FamilyMember;
+import org.smartregister.chw.core.model.CoreChildRegisterModel;
+import org.smartregister.chw.core.presenter.CoreFamilyProfilePresenter;
+import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 
 import org.smartregister.chw.interactor.FamilyChangeContractInteractor;
 import org.smartregister.chw.interactor.FamilyProfileInteractor;
