@@ -21,7 +21,6 @@ public class ContactInfoRepository extends BaseRepository {
     public static final String KEY = "key";
     public static final String VALUE = "value";
     public static final String CREATED_AT = "created_at";
-    private static final String TAG = ContactInfoRepository.class.getCanonicalName();
     private static final String CREATE_TABLE_SQL = "CREATE TABLE " + TABLE_NAME + "(" +
             BASE_ENTITY_ID + "  VARCHAR NOT NULL, " +
             KEY + "  VARCHAR, " +
@@ -49,8 +48,9 @@ public class ContactInfoRepository extends BaseRepository {
     }
 
     public void saveContactInfo(ContactInfo contactInfo) {
-        if (contactInfo == null)
+        if (contactInfo == null) {
             return;
+        }
         contactInfo.setEventDate((new LocalDate()).toString(DateTimeFormat.forPattern("yyyy-MM-dd")));
         getWritableDatabase().insert(TABLE_NAME, null, createValuesFor(contactInfo));
 

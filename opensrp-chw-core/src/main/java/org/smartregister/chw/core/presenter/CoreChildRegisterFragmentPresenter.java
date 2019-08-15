@@ -69,31 +69,28 @@ public class CoreChildRegisterFragmentPresenter implements CoreChildRegisterFrag
     }
 
     @Override
-    public void updateSortAndFilter(List<Field> filterList, Field sortField) {
-        String filterText = model.getFilterText(filterList, getView().getString(org.smartregister.R.string.filter));
-        String sortText = model.getSortText(sortField);
-
-        getView().updateFilterAndFilterStatus(filterText, sortText);
-    }
-
-    @Override
     public void searchGlobally(String uniqueId) {
         // TODO implement search global
-    }
-
-    protected CoreChildRegisterFragmentContract.View getView() {
-        if (viewReference != null)
-            return viewReference.get();
-        else
-            return null;
     }
 
     private void setVisibleColumns(Set<View> visibleColumns) {
         this.visibleColumns = visibleColumns;
     }
 
-    public void setModel(CoreChildRegisterFragmentContract.Model model) {
-        this.model = model;
+    protected CoreChildRegisterFragmentContract.View getView() {
+        if (viewReference != null) {
+            return viewReference.get();
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public void updateSortAndFilter(List<Field> filterList, Field sortField) {
+        String filterText = model.getFilterText(filterList, getView().getString(org.smartregister.R.string.filter));
+        String sortText = model.getSortText(sortField);
+
+        getView().updateFilterAndFilterStatus(filterText, sortText);
     }
 
     @Override
@@ -114,5 +111,9 @@ public class CoreChildRegisterFragmentPresenter implements CoreChildRegisterFrag
     @Override
     public String getDueFilterCondition() {
         return getMainCondition() + " AND " + ChildDBConstants.childDueFilter();
+    }
+
+    public void setModel(CoreChildRegisterFragmentContract.Model model) {
+        this.model = model;
     }
 }

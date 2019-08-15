@@ -15,14 +15,8 @@ import org.smartregister.chw.core.R;
 import timber.log.Timber;
 
 public class CopyToClipboardDialog extends Dialog implements View.OnClickListener {
-    private static final String TAG = CopyToClipboardDialog.class.getCanonicalName();
     private Context context;
     private String content;
-
-    public CopyToClipboardDialog(@NonNull Context context) {
-        super(context);
-        this.context = context;
-    }
 
     public CopyToClipboardDialog(@NonNull Context context, int style) {
         super(context, style);

@@ -191,6 +191,23 @@ public class ImmunizationAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         return groupSecondaryText;
     }
 
+    private boolean isComplete(HomeVisitVaccineGroup contentImmunization) {
+
+        return contentImmunization.getNotGivenVaccines().size() == 0;
+
+    }
+
+    private boolean isExistInGivenVaccine(HomeVisitVaccineGroup contentImmunization, String name) {
+        for (VaccineRepo.Vaccine vaccineGiven : contentImmunization.getGivenVaccines()) {
+            if (vaccineGiven.display().equalsIgnoreCase(name)
+                    && isExistInDueVaccine(contentImmunization, vaccineGiven.display())
+                    && !isExistInNotGiven(contentImmunization, vaccineGiven.display())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     /**
      * This method return the text like as "bcg,op1 not give"
      *
@@ -209,42 +226,28 @@ public class ImmunizationAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             groupSecondaryText = new StringBuilder(groupSecondaryText.toString().trim());
             groupSecondaryText = new StringBuilder(groupSecondaryText.substring(0, groupSecondaryText.length() - 1));
         }
-        if (!TextUtils.isEmpty(groupSecondaryText))
+        if (!TextUtils.isEmpty(groupSecondaryText)) {
             groupSecondaryText.append(context.getString(R.string.not_given_with_spaces));
+        }
         return groupSecondaryText;
     }
 
-    private boolean isExistInGivenVaccine(HomeVisitVaccineGroup contentImmunization, String name) {
-        for (VaccineRepo.Vaccine vaccineGiven : contentImmunization.getGivenVaccines()) {
-            if (vaccineGiven.display().equalsIgnoreCase(name)
-                    && isExistInDueVaccine(contentImmunization, vaccineGiven.display())
-                    && !isExistInNotGiven(contentImmunization, vaccineGiven.display())) {
+    private boolean isExistInDueVaccine(HomeVisitVaccineGroup contentImmunization, String name) {
+        for (VaccineRepo.Vaccine dueList : contentImmunization.getDueVaccines()) {
+            if (dueList.display().equalsIgnoreCase(name)) {
                 return true;
             }
         }
         return false;
     }
 
-    private boolean isExistInDueVaccine(HomeVisitVaccineGroup contentImmunization, String name) {
-        for (VaccineRepo.Vaccine dueList : contentImmunization.getDueVaccines()) {
-            if (dueList.display().equalsIgnoreCase(name))
-                return true;
-        }
-        return false;
-    }
-
     private boolean isExistInNotGiven(HomeVisitVaccineGroup contentImmunization, String name) {
         for (VaccineRepo.Vaccine dueList : contentImmunization.getNotGivenVaccines()) {
-            if (dueList.display().equalsIgnoreCase(name))
+            if (dueList.display().equalsIgnoreCase(name)) {
                 return true;
+            }
         }
         return false;
-    }
-
-    private boolean isComplete(HomeVisitVaccineGroup contentImmunization) {
-
-        return contentImmunization.getNotGivenVaccines().size() == 0;
-
     }
 
     @Override

@@ -88,6 +88,14 @@ public class MuacInputDialogFragment extends DialogFragment implements View.OnCl
 
     }
 
+    private void enableDisableSaveBtn(boolean isEnable) {
+        if (isEnable) {
+            buttonSave.setAlpha(1.0f);
+        } else {
+            buttonSave.setAlpha(0.3f);
+        }
+    }
+
     @Override
     public void onClick(View v) {
         int i = v.getId();
@@ -105,7 +113,6 @@ public class MuacInputDialogFragment extends DialogFragment implements View.OnCl
         dismiss();
     }
 
-
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
         if (checkedId == R.id.choice_1) {
@@ -118,10 +125,5 @@ public class MuacInputDialogFragment extends DialogFragment implements View.OnCl
             choiceValue = choiceThree.getText().toString();
             enableDisableSaveBtn(true);
         }
-    }
-
-    private void enableDisableSaveBtn(boolean isEnable) {
-        if (isEnable) buttonSave.setAlpha(1.0f);
-        else buttonSave.setAlpha(0.3f);
     }
 }

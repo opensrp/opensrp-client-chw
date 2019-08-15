@@ -41,13 +41,6 @@ public class ImageLoaderRequest {
                 });
     }
 
-    public static synchronized ImageLoaderRequest getInstance(Context context) {
-        if (imageLoaderRequest == null) {
-            imageLoaderRequest = new ImageLoaderRequest(context);
-        }
-        return imageLoaderRequest;
-    }
-
     private RequestQueue getRequestQueue() {
         if (requestQueue == null) {
             Cache cache = new DiskBasedCache(context.getCacheDir(), 10 * 1024 * 1024);
@@ -56,6 +49,13 @@ public class ImageLoaderRequest {
             requestQueue.start();
         }
         return requestQueue;
+    }
+
+    public static synchronized ImageLoaderRequest getInstance(Context context) {
+        if (imageLoaderRequest == null) {
+            imageLoaderRequest = new ImageLoaderRequest(context);
+        }
+        return imageLoaderRequest;
     }
 
     public ImageLoader getImageLoader() {

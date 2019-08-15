@@ -34,30 +34,23 @@ public class JsonFormUtils extends CoreJsonFormUtils {
 
 
     public static Pair<Client, Event> processChildRegistrationForm(AllSharedPreferences allSharedPreferences, String jsonString) {
-
         try {
             Triple<Boolean, JSONObject, JSONArray> registrationFormParams = validateParameters(jsonString);
 
             if (!registrationFormParams.getLeft()) {
                 return null;
             }
-
             JSONObject jsonForm = registrationFormParams.getMiddle();
             JSONArray fields = registrationFormParams.getRight();
-
             String entityId = getString(jsonForm, ENTITY_ID);
             if (isBlank(entityId)) {
                 entityId = generateRandomUUIDString();
             }
-
             lastInteractedWith(fields);
-
             dobUnknownUpdateFromAge(fields);
-
-            processChildEnrollMent(jsonForm, fields);
+            processChildEnrollment(jsonForm, fields);
 
             Client baseClient = org.smartregister.util.JsonFormUtils.createBaseClient(fields, formTag(allSharedPreferences), entityId);
-
             Event baseEvent = org.smartregister.util.JsonFormUtils.createEvent(fields, getJSONObject(jsonForm, METADATA), formTag(allSharedPreferences), entityId, getString(jsonForm, ENCOUNTER_TYPE), CoreConstants.TABLE_NAME.CHILD);
             tagSyncMetadata(allSharedPreferences, baseEvent);
 
@@ -73,7 +66,7 @@ public class JsonFormUtils extends CoreJsonFormUtils {
                 lookUpEntityId = getString(lookUpJSONObject, "entity_id");
                 lookUpBaseEntityId = getString(lookUpJSONObject, "value");
             }
-            if (lookUpEntityId.equals("family") && StringUtils.isNotBlank(lookUpBaseEntityId)) {
+            if ("family".equals(lookUpEntityId) && StringUtils.isNotBlank(lookUpBaseEntityId)) {
                 Client ss = new Client(lookUpBaseEntityId);
                 Context context = HealthFacilityApplication.getInstance().getContext().applicationContext();
                 addRelationship(context, ss, baseClient);
@@ -84,7 +77,6 @@ public class JsonFormUtils extends CoreJsonFormUtils {
                 baseClient.setAddresses(getAddressFromClientJson(clientjson));
             }
 
-
             return Pair.create(baseClient, baseEvent);
         } catch (Exception e) {
             Timber.e(e);
@@ -92,10 +84,8 @@ public class JsonFormUtils extends CoreJsonFormUtils {
         }
     }
 
-    private static void processChildEnrollMent(JSONObject jsonForm, JSONArray fields) {
-
+    private static void processChildEnrollment(JSONObject jsonForm, JSONArray fields) {
         try {
-
             JSONObject surnam_familyName_SameObject = getFieldJSONObject(fields, "surname_same_as_family_name");
             JSONArray surnam_familyName_Same_options = getJSONArray(surnam_familyName_SameObject, Constants.JSON_FORM_KEY.OPTIONS);
             JSONObject surnam_familyName_Same_option = getJSONObject(surnam_familyName_Same_options, 0);

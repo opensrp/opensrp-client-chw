@@ -2,7 +2,6 @@ package org.smartregister.chw.core.custom_views;
 
 import android.Manifest;
 import android.app.Activity;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.support.annotation.NonNull;
@@ -51,14 +50,12 @@ import activity.ChwP2pModeSelectActivity;
 import timber.log.Timber;
 
 public class NavigationMenu implements NavigationContract.View, SyncStatusBroadcastReceiver.SyncStatusListener {
-
     private static NavigationMenu instance;
     private static WeakReference<Activity> activityWeakReference;
     private static CoreChwApplication application;
     private static NavigationMenu.Flavour menuFlavor;
     private static NavigationModel.Flavor modelFlavor;
     private static Map<String, Class> registeredActivities;
-    private String TAG = NavigationMenu.class.getCanonicalName();
     private DrawerLayout drawer;
     private Toolbar toolbar;
     private NavigationAdapter navigationAdapter;
@@ -69,7 +66,6 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
     private ProgressBar syncProgressBar;
     private NavigationContract.Presenter mPresenter;
     private View parentView;
-    private List<NavigationOption> navigationOptions;
 
     private NavigationMenu() {
 
@@ -98,10 +94,6 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
         } else {
             return null;
         }
-    }
-
-    public NavigationAdapter getNavigationAdapter() {
-        return navigationAdapter;
     }
 
     private void init(Activity activity, View myParentView, Toolbar myToolbar) {
@@ -232,13 +224,6 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
         }
     }
 
-    public void lockDrawer(Activity activity) {
-        prepareViews(activity);
-        if (drawer != null) {
-            drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-        }
-    }
-
     private void registerDrawer(Activity parentActivity) {
         if (drawer != null) {
             drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
@@ -253,7 +238,7 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
     private void registerNavigation(Activity parentActivity) {
         if (recyclerView != null) {
 
-            navigationOptions = mPresenter.getOptions();
+            List<NavigationOption> navigationOptions = mPresenter.getOptions();
             if (navigationAdapter == null) {
                 navigationAdapter = new NavigationAdapter(navigationOptions, parentActivity, registeredActivities);
             }
@@ -267,12 +252,7 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
 
     private void registerLogout(final Activity parentActivity) {
         mPresenter.displayCurrentUser();
-        tvLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                logout(parentActivity);
-            }
-        });
+        tvLogout.setOnClickListener(v -> logout(parentActivity));
     }
 
     private void registerSync(final Activity parentActivity) {
@@ -281,12 +261,9 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
         ivSync = rootView.findViewById(R.id.ivSyncIcon);
         syncProgressBar = rootView.findViewById(R.id.pbSync);
 
-        View.OnClickListener syncClicker = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(parentActivity, parentActivity.getResources().getText(R.string.action_start_sync), Toast.LENGTH_SHORT).show();
-                mPresenter.sync(parentActivity);
-            }
+        View.OnClickListener syncClicker = v -> {
+            Toast.makeText(parentActivity, parentActivity.getResources().getText(R.string.action_start_sync), Toast.LENGTH_SHORT).show();
+            mPresenter.sync(parentActivity);
         };
 
 
@@ -305,57 +282,56 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
         Locale current = context.getResources().getConfiguration().locale;
         tvLang.setText(StringUtils.capitalize(current.getDisplayLanguage()));
 
-        rlIconLang.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                builder.setTitle(context.getString(R.string.choose_language));
-                builder.setItems(languages, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        String lang = languages[which];
-                        Locale LOCALE;
-                        switch (lang) {
-                            case "English":
-                                LOCALE = Locale.ENGLISH;
-                                break;
-                            case "Français":
-                                LOCALE = Locale.FRENCH;
-                                break;
-                            case "Kiswahili":
-                                LOCALE = new Locale("sw");
-                                break;
-                            default:
-                                LOCALE = Locale.ENGLISH;
-                                break;
-                        }
-                        tvLang.setText(languages[which]);
-                        LangUtils.saveLanguage(context.getApplicationContext(), LOCALE.getLanguage());
+        rlIconLang.setOnClickListener(v -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            builder.setTitle(context.getString(R.string.choose_language));
+            builder.setItems(languages, (dialog, which) -> {
+                String lang = languages[which];
+                Locale LOCALE;
+                switch (lang) {
+                    case "English":
+                        LOCALE = Locale.ENGLISH;
+                        break;
+                    case "Français":
+                        LOCALE = Locale.FRENCH;
+                        break;
+                    case "Kiswahili":
+                        LOCALE = new Locale("sw");
+                        break;
+                    default:
+                        LOCALE = Locale.ENGLISH;
+                        break;
+                }
+                tvLang.setText(languages[which]);
+                LangUtils.saveLanguage(context.getApplicationContext(), LOCALE.getLanguage());
 
-                        // destroy current instance
-                        drawer.closeDrawers();
-                        instance = null;
-                        Intent intent = context.getIntent();
-                        context.finish();
-                        context.startActivity(intent);
-                        application.notifyAppContextChange();
-                    }
-                });
+                // destroy current instance
+                drawer.closeDrawers();
+                instance = null;
+                Intent intent = context.getIntent();
+                context.finish();
+                context.startActivity(intent);
+                application.notifyAppContextChange();
+            });
 
-                AlertDialog dialog = builder.create();
-                dialog.show();
-            }
+            AlertDialog dialog = builder.create();
+            dialog.show();
         });
     }
 
     private void registerDeviceToDeviceSync(@NonNull final Activity activity) {
         rootView.findViewById(R.id.rlIconDevice)
-                .setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        startP2PActivity(activity);
-                    }
-                });
+                .setOnClickListener(v -> startP2PActivity(activity));
+    }
+
+    protected void refreshSyncProgressSpinner() {
+        if (SyncStatusBroadcastReceiver.getInstance().isSyncing()) {
+            syncProgressBar.setVisibility(View.VISIBLE);
+            ivSync.setVisibility(View.INVISIBLE);
+        } else {
+            syncProgressBar.setVisibility(View.INVISIBLE);
+            ivSync.setVisibility(View.VISIBLE);
+        }
     }
 
     public void startP2PActivity(@NonNull Activity activity) {
@@ -363,6 +339,17 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
                 , new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}
                 , CoreConstants.RQ_CODE.STORAGE_PERMISIONS)) {
             activity.startActivity(new Intent(activity, ChwP2pModeSelectActivity.class));
+        }
+    }
+
+    public NavigationAdapter getNavigationAdapter() {
+        return navigationAdapter;
+    }
+
+    public void lockDrawer(Activity activity) {
+        prepareViews(activity);
+        if (drawer != null) {
+            drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         }
     }
 
@@ -396,16 +383,6 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
 
         if (activityWeakReference.get() != null && !activityWeakReference.get().isDestroyed()) {
             mPresenter.refreshNavigationCount(activityWeakReference.get());
-        }
-    }
-
-    protected void refreshSyncProgressSpinner() {
-        if (SyncStatusBroadcastReceiver.getInstance().isSyncing()) {
-            syncProgressBar.setVisibility(View.VISIBLE);
-            ivSync.setVisibility(View.INVISIBLE);
-        } else {
-            syncProgressBar.setVisibility(View.INVISIBLE);
-            ivSync.setVisibility(View.VISIBLE);
         }
     }
 

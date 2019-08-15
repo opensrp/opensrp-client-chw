@@ -5,7 +5,6 @@ import android.database.Cursor;
 import android.support.annotation.VisibleForTesting;
 import android.util.Pair;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -40,37 +39,29 @@ public abstract class CoreFamilyRemoveMemberInteractor implements FamilyRemoveMe
     protected CoreChwApplication coreChwApplication;
     private AppExecutors appExecutors;
 
+    public CoreFamilyRemoveMemberInteractor() {
+        this(new AppExecutors());
+    }
+
     @VisibleForTesting
     CoreFamilyRemoveMemberInteractor(AppExecutors appExecutors) {
         this.appExecutors = appExecutors;
     }
 
-    public CoreFamilyRemoveMemberInteractor() {
-        this(new AppExecutors());
-    }
-
     @Override
     public void removeMember(final String familyID, final String lastLocationId, final JSONObject exitForm, final FamilyRemoveMemberContract.Presenter presenter) {
 
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                String value = null;
-                try {
-                    // process the json object
-                    value = removeUser(familyID, exitForm, lastLocationId);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-                final String finalValue = value;
-                appExecutors.mainThread().execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        presenter.memberRemoved(finalValue);
-                    }
-                });
+        Runnable runnable = () -> {
+            String value = null;
+            try {
+                // process the json object
+                value = removeUser(familyID, exitForm, lastLocationId);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
+
+            final String finalValue = value;
+            appExecutors.mainThread().execute(() -> presenter.memberRemoved(finalValue));
         };
 
         appExecutors.diskIO().execute(runnable);
@@ -80,51 +71,44 @@ public abstract class CoreFamilyRemoveMemberInteractor implements FamilyRemoveMe
     @Override
     public void processFamilyMember(final String familyID, final CommonPersonObjectClient client, final FamilyRemoveMemberContract.Presenter presenter) {
 
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
+        Runnable runnable = () -> {
 
-                final HashMap<String, String> res = new HashMap<>();
-                String info_columns = CoreConstants.RELATIONSHIP.PRIMARY_CAREGIVER + " , " +
-                        CoreConstants.RELATIONSHIP.FAMILY_HEAD;
+            final HashMap<String, String> res = new HashMap<>();
+            String info_columns = CoreConstants.RELATIONSHIP.PRIMARY_CAREGIVER + " , " +
+                    CoreConstants.RELATIONSHIP.FAMILY_HEAD;
 
-                String sql = String.format("select %s from %s where %s = '%s' ",
-                        info_columns,
-                        Utils.metadata().familyRegister.tableName,
-                        DBConstants.KEY.BASE_ENTITY_ID,
-                        familyID
-                );
+            String sql = String.format("select %s from %s where %s = '%s' ",
+                    info_columns,
+                    Utils.metadata().familyRegister.tableName,
+                    DBConstants.KEY.BASE_ENTITY_ID,
+                    familyID
+            );
 
-                CommonRepository commonRepository = Utils.context().commonrepository(Utils.metadata().familyMemberRegister.tableName);
+            CommonRepository commonRepository = Utils.context().commonrepository(Utils.metadata().familyMemberRegister.tableName);
 
-                Cursor cursor = null;
-                try {
-                    cursor = commonRepository.queryTable(sql);
-                    cursor.moveToFirst();
+            Cursor cursor = null;
+            try {
+                cursor = commonRepository.queryTable(sql);
+                cursor.moveToFirst();
 
-                    while (!cursor.isAfterLast()) {
-                        int columncount = cursor.getColumnCount();
+                while (!cursor.isAfterLast()) {
+                    int columncount = cursor.getColumnCount();
 
-                        for (int i = 0; i < columncount; i++) {
-                            res.put(cursor.getColumnName(i), String.valueOf(cursor.getString(i)));
-                        }
-
-                        cursor.moveToNext();
+                    for (int i = 0; i < columncount; i++) {
+                        res.put(cursor.getColumnName(i), String.valueOf(cursor.getString(i)));
                     }
-                } catch (Exception e) {
-                    Timber.e(e, e.toString());
-                } finally {
-                    if (cursor != null)
-                        cursor.close();
+
+                    cursor.moveToNext();
                 }
-
-                appExecutors.mainThread().execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        presenter.processMember(res, client);
-                    }
-                });
+            } catch (Exception e) {
+                Timber.e(e, e.toString());
+            } finally {
+                if (cursor != null) {
+                    cursor.close();
+                }
             }
+
+            appExecutors.mainThread().execute(() -> presenter.processMember(res, client));
         };
 
         appExecutors.diskIO().execute(runnable);
@@ -147,16 +131,13 @@ public abstract class CoreFamilyRemoveMemberInteractor implements FamilyRemoveMe
 
                 @Override
                 public void run() {
-                    appExecutors.mainThread().execute(new Runnable() {
-                        @Override
-                        public void run() {
+                    appExecutors.mainThread().execute(() -> {
 
-                            HashMap<String, String> results = new HashMap<>();
-                            results.put(CoreConstants.TABLE_NAME.CHILD, kids.toString());
-                            results.put(CoreConstants.TABLE_NAME.FAMILY_MEMBER, members.toString());
-                            results.put(CoreConstants.GLOBAL.NAME, name);
-                            callback.onResult(results);
-                        }
+                        HashMap<String, String> results = new HashMap<>();
+                        results.put(CoreConstants.TABLE_NAME.CHILD, kids.toString());
+                        results.put(CoreConstants.TABLE_NAME.FAMILY_MEMBER, members.toString());
+                        results.put(CoreConstants.GLOBAL.NAME, name);
+                        callback.onResult(results);
                     });
                 }
 
@@ -164,19 +145,7 @@ public abstract class CoreFamilyRemoveMemberInteractor implements FamilyRemoveMe
         } catch (final Exception e) {
             e.printStackTrace();
 
-            runnable = new Runnable() {
-
-                @Override
-                public void run() {
-                    appExecutors.mainThread().execute(new Runnable() {
-                        @Override
-                        public void run() {
-                            callback.onError(e);
-                        }
-                    });
-                }
-
-            };
+            runnable = () -> appExecutors.mainThread().execute(() -> callback.onError(e));
         }
 
         appExecutors.diskIO().execute(runnable);
@@ -210,36 +179,25 @@ public abstract class CoreFamilyRemoveMemberInteractor implements FamilyRemoveMe
         return count;
     }
 
-    private boolean isValidFilterForFts(CommonRepository commonRepository, String filters) {
-        return commonRepository.isFts() && filters != null && !StringUtils
-                .containsIgnoreCase(filters, "like") && !StringUtils
-                .startsWithIgnoreCase(filters.trim(), "and ");
-    }
-
     private CommonRepository commonRepository(String tableName) {
         return coreChwApplication.getContext().commonrepository(tableName);
     }
 
     private String removeUser(String familyID, JSONObject closeFormJsonString, String providerId) throws Exception {
-
         String res = null;
         Triple<Pair<Date, String>, String, List<Event>> triple = CoreJsonFormUtils.processRemoveMemberEvent(familyID, Utils.getAllSharedPreferences(), closeFormJsonString, providerId);
-        if (triple != null) {
-            if (triple.getLeft() != null) {
+        if (triple != null && triple.getLeft() != null) {
+            processEvents(triple.getRight());
 
-                processEvents(triple.getRight());
-
-
-                if (triple.getLeft().second.equalsIgnoreCase(CoreConstants.EventType.REMOVE_CHILD)) {
-                    updateRepo(triple, Utils.metadata().familyMemberRegister.tableName);
-                    updateRepo(triple, CoreConstants.TABLE_NAME.CHILD);
-                } else if (triple.getLeft().second.equalsIgnoreCase(CoreConstants.EventType.REMOVE_FAMILY)) {
-                    updateRepo(triple, Utils.metadata().familyRegister.tableName);
-                } else {
-                    updateRepo(triple, Utils.metadata().familyMemberRegister.tableName);
-                }
-                res = triple.getLeft().second;
+            if (triple.getLeft().second.equalsIgnoreCase(CoreConstants.EventType.REMOVE_CHILD)) {
+                updateRepo(triple, Utils.metadata().familyMemberRegister.tableName);
+                updateRepo(triple, CoreConstants.TABLE_NAME.CHILD);
+            } else if (triple.getLeft().second.equalsIgnoreCase(CoreConstants.EventType.REMOVE_FAMILY)) {
+                updateRepo(triple, Utils.metadata().familyRegister.tableName);
+            } else {
+                updateRepo(triple, Utils.metadata().familyMemberRegister.tableName);
             }
+            res = triple.getLeft().second;
         }
 
         long lastSyncTimeStamp = getAllSharedPreferences().fetchLastUpdatedAtDate(0);
@@ -247,6 +205,13 @@ public abstract class CoreFamilyRemoveMemberInteractor implements FamilyRemoveMe
         getClientProcessorForJava().processClient(getSyncHelper().getEvents(lastSyncDate, BaseRepository.TYPE_Unprocessed));
         getAllSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
         return res;
+    }
+
+    private void processEvents(List<Event> events) throws JSONException {
+        ECSyncHelper syncHelper = coreChwApplication.getEcSyncHelper();
+        for (Event e : events) {
+            syncHelper.addEvent(e.getBaseEntityId(), new JSONObject(CoreJsonFormUtils.gson.toJson(e)));
+        }
     }
 
     private void updateRepo(Triple<Pair<Date, String>, String, List<Event>> triple, String tableName) {
@@ -275,27 +240,20 @@ public abstract class CoreFamilyRemoveMemberInteractor implements FamilyRemoveMe
         }
     }
 
-    private void processEvents(List<Event> events) throws JSONException {
-        ECSyncHelper syncHelper = coreChwApplication.getEcSyncHelper();
-        for (Event e : events) {
-            syncHelper.addEvent(e.getBaseEntityId(), new JSONObject(CoreJsonFormUtils.gson.toJson(e)));
-        }
-    }
-
-    private String getDBFormatedDate(Date date) {
-        return new SimpleDateFormat("yyyy-MM-dd").format(date);
-    }
-
     public AllSharedPreferences getAllSharedPreferences() {
         return Utils.context().allSharedPreferences();
+    }
+
+    public ClientProcessorForJava getClientProcessorForJava() {
+        return FamilyLibrary.getInstance().getClientProcessorForJava();
     }
 
     public ECSyncHelper getSyncHelper() {
         return FamilyLibrary.getInstance().getEcSyncHelper();
     }
 
-    public ClientProcessorForJava getClientProcessorForJava() {
-        return FamilyLibrary.getInstance().getClientProcessorForJava();
+    private String getDBFormatedDate(Date date) {
+        return new SimpleDateFormat("yyyy-MM-dd").format(date);
     }
 
     protected abstract void setCoreChwApplication();

@@ -44,18 +44,6 @@ public class HomeVisitGrowthAndNutrition extends LinearLayout implements View.On
         initUi();
     }
 
-    public HomeVisitGrowthAndNutrition(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        this.context = context;
-        initUi();
-    }
-
-    public HomeVisitGrowthAndNutrition(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-        this.context = context;
-        initUi();
-    }
-
     private void initUi() {
         inflate(getContext(), R.layout.view_growth_nutrition, this);
         layoutExclusiveBar = findViewById(R.id.exclusive_feeding_bar);
@@ -82,59 +70,6 @@ public class HomeVisitGrowthAndNutrition extends LinearLayout implements View.On
 //        imageViewVitaminStatus.setOnClickListener(this);
 //        imageViewDewormingStatus.setOnClickListener(this);
         initializePresenter();
-    }
-
-    public void setData(CoreChildHomeVisitFragment childHomeVisitFragment, FragmentManager fragmentManager, CommonPersonObjectClient commonPersonObjectClient, boolean isEditMode) {
-        this.childHomeVisitFragment = childHomeVisitFragment;
-        this.fragmentManager = fragmentManager;
-        this.commonPersonObjectClient = commonPersonObjectClient;
-        this.isEditMode = isEditMode;
-        presenter.parseRecordServiceData(commonPersonObjectClient, isEditMode);
-    }
-
-    @Override
-    public void onClick(View v) {
-        int i = v.getId();//            case R.id.exclusive_feeding_status_circle:
-//                ServiceWrapper ExServiceWrapper=((HomeVisitGrowthNutritionPresenter)presenter).getServiceWrapperExclusive();
-//                notVisitSetState(GrowthNutritionInputFragment.GROWTH_TYPE.EXCLUSIVE.getValue(),ExServiceWrapper);
-//                break;
-//            case R.id.vitamin_a_status_circle:
-//                ServiceWrapper vitaminServiceWrapper=((HomeVisitGrowthNutritionPresenter)presenter).getServiceWrapperVitamin();
-//                notVisitSetState(GrowthNutritionInputFragment.GROWTH_TYPE.VITAMIN.getValue(),vitaminServiceWrapper);
-//                break;
-//            case R.id.deworming_status_circle:
-//                ServiceWrapper deServiceWrapper=((HomeVisitGrowthNutritionPresenter)presenter).getServiceWrapperDeworming();
-//                notVisitSetState(GrowthNutritionInputFragment.GROWTH_TYPE.DEWORMING.getValue(),deServiceWrapper);
-//                break;
-        if (i == R.id.exclusive_feeding_bar) {//if (!presenter.isSelected(GrowthNutritionInputFragment.GROWTH_TYPE.EXCLUSIVE.getValue())) {
-            ServiceWrapper serviceWrapper = ((CoreHomeVisitGrowthNutritionPresenter) presenter).getServiceWrapperExclusive();
-            showGrowthNutritionDialog(GrowthNutritionInputFragment.GROWTH_TYPE.EXCLUSIVE.getValue(), getContext().getString(R.string.visit_exclusive_breastfeeding),
-                    textViewExclusiveFeedingTitle.getText().toString(), serviceWrapper);
-            // }
-        } else if (i == R.id.mnp_bar) {//if (!presenter.isSelected(GrowthNutritionInputFragment.GROWTH_TYPE.MNP.getValue())) {
-
-            ServiceWrapper serviceWrapperMnp = ((CoreHomeVisitGrowthNutritionPresenter) presenter).getServiceWrapperMnp();
-            showGrowthNutritionDialog(GrowthNutritionInputFragment.GROWTH_TYPE.MNP.getValue(), getContext().getString(R.string.visit_mnp_dose),
-                    textViewMnpTitle.getText().toString(), serviceWrapperMnp);
-            //}
-        } else if (i == R.id.vitamin_a_bar) {//if (!presenter.isSelected(GrowthNutritionInputFragment.GROWTH_TYPE.VITAMIN.getValue())) {
-            ServiceWrapper serviceWrapperVit = ((CoreHomeVisitGrowthNutritionPresenter) presenter).getServiceWrapperVitamin();
-            showGrowthNutritionDialog(GrowthNutritionInputFragment.GROWTH_TYPE.VITAMIN.getValue(), getContext().getString(R.string.visit_vitamin_a_dose),
-                    textViewVitaminTitle.getText().toString(), serviceWrapperVit);
-            //}
-        } else if (i == R.id.deworming_bar) {//if (!presenter.isSelected(GrowthNutritionInputFragment.GROWTH_TYPE.DEWORMING.getValue())) {
-            ServiceWrapper serviceWrapperDorm = ((CoreHomeVisitGrowthNutritionPresenter) presenter).getServiceWrapperDeworming();
-            showGrowthNutritionDialog(GrowthNutritionInputFragment.GROWTH_TYPE.DEWORMING.getValue(), getContext().getString(R.string.visit_deworming_dose),
-                    textViewDewormingTitle.getText().toString(), serviceWrapperDorm);
-            // }
-        }
-    }
-
-    private void showGrowthNutritionDialog(String type, String title, String question, ServiceWrapper serviceWrapper) {
-        GrowthNutritionInputFragment growthNutritionInputFragment = GrowthNutritionInputFragment.getInstance(title, question, type, commonPersonObjectClient);
-        growthNutritionInputFragment.setContext(HomeVisitGrowthAndNutrition.this);
-        growthNutritionInputFragment.setServiceWrapper(serviceWrapper);
-        growthNutritionInputFragment.show(fragmentManager, TAG);
     }
 
     @Override
@@ -228,7 +163,6 @@ public class HomeVisitGrowthAndNutrition extends LinearLayout implements View.On
         }
     }
 
-
     private void updateStatusTick(CircleImageView imageView, boolean isCheck) {
 
         imageView.setImageResource(R.drawable.ic_checked);
@@ -250,14 +184,82 @@ public class HomeVisitGrowthAndNutrition extends LinearLayout implements View.On
     public void allDataLoaded() {
         if (childHomeVisitFragment != null) {
             childHomeVisitFragment.allServicesDataLoaded = true;
-            if (isEditMode) childHomeVisitFragment.forcfullyProgressBarInvisible();
-            else childHomeVisitFragment.progressBarInvisible();
+            if (isEditMode) {
+                childHomeVisitFragment.forcfullyProgressBarInvisible();
+            } else {
+                childHomeVisitFragment.progressBarInvisible();
+            }
         }
     }
 
     @Override
     public Context getViewContext() {
         return getContext();
+    }
+
+    public HomeVisitGrowthAndNutrition(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        this.context = context;
+        initUi();
+    }
+
+    public HomeVisitGrowthAndNutrition(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        this.context = context;
+        initUi();
+    }
+
+    public void setData(CoreChildHomeVisitFragment childHomeVisitFragment, FragmentManager fragmentManager, CommonPersonObjectClient commonPersonObjectClient, boolean isEditMode) {
+        this.childHomeVisitFragment = childHomeVisitFragment;
+        this.fragmentManager = fragmentManager;
+        this.commonPersonObjectClient = commonPersonObjectClient;
+        this.isEditMode = isEditMode;
+        presenter.parseRecordServiceData(commonPersonObjectClient, isEditMode);
+    }
+
+    @Override
+    public void onClick(View v) {
+        int i = v.getId();//            case R.id.exclusive_feeding_status_circle:
+//                ServiceWrapper ExServiceWrapper=((HomeVisitGrowthNutritionPresenter)presenter).getServiceWrapperExclusive();
+//                notVisitSetState(GrowthNutritionInputFragment.GROWTH_TYPE.EXCLUSIVE.getValue(),ExServiceWrapper);
+//                break;
+//            case R.id.vitamin_a_status_circle:
+//                ServiceWrapper vitaminServiceWrapper=((HomeVisitGrowthNutritionPresenter)presenter).getServiceWrapperVitamin();
+//                notVisitSetState(GrowthNutritionInputFragment.GROWTH_TYPE.VITAMIN.getValue(),vitaminServiceWrapper);
+//                break;
+//            case R.id.deworming_status_circle:
+//                ServiceWrapper deServiceWrapper=((HomeVisitGrowthNutritionPresenter)presenter).getServiceWrapperDeworming();
+//                notVisitSetState(GrowthNutritionInputFragment.GROWTH_TYPE.DEWORMING.getValue(),deServiceWrapper);
+//                break;
+        if (i == R.id.exclusive_feeding_bar) {//if (!presenter.isSelected(GrowthNutritionInputFragment.GROWTH_TYPE.EXCLUSIVE.getValue())) {
+            ServiceWrapper serviceWrapper = ((CoreHomeVisitGrowthNutritionPresenter) presenter).getServiceWrapperExclusive();
+            showGrowthNutritionDialog(GrowthNutritionInputFragment.GROWTH_TYPE.EXCLUSIVE.getValue(), getContext().getString(R.string.visit_exclusive_breastfeeding),
+                    textViewExclusiveFeedingTitle.getText().toString(), serviceWrapper);
+            // }
+        } else if (i == R.id.mnp_bar) {//if (!presenter.isSelected(GrowthNutritionInputFragment.GROWTH_TYPE.MNP.getValue())) {
+
+            ServiceWrapper serviceWrapperMnp = ((CoreHomeVisitGrowthNutritionPresenter) presenter).getServiceWrapperMnp();
+            showGrowthNutritionDialog(GrowthNutritionInputFragment.GROWTH_TYPE.MNP.getValue(), getContext().getString(R.string.visit_mnp_dose),
+                    textViewMnpTitle.getText().toString(), serviceWrapperMnp);
+            //}
+        } else if (i == R.id.vitamin_a_bar) {//if (!presenter.isSelected(GrowthNutritionInputFragment.GROWTH_TYPE.VITAMIN.getValue())) {
+            ServiceWrapper serviceWrapperVit = ((CoreHomeVisitGrowthNutritionPresenter) presenter).getServiceWrapperVitamin();
+            showGrowthNutritionDialog(GrowthNutritionInputFragment.GROWTH_TYPE.VITAMIN.getValue(), getContext().getString(R.string.visit_vitamin_a_dose),
+                    textViewVitaminTitle.getText().toString(), serviceWrapperVit);
+            //}
+        } else if (i == R.id.deworming_bar) {//if (!presenter.isSelected(GrowthNutritionInputFragment.GROWTH_TYPE.DEWORMING.getValue())) {
+            ServiceWrapper serviceWrapperDorm = ((CoreHomeVisitGrowthNutritionPresenter) presenter).getServiceWrapperDeworming();
+            showGrowthNutritionDialog(GrowthNutritionInputFragment.GROWTH_TYPE.DEWORMING.getValue(), getContext().getString(R.string.visit_deworming_dose),
+                    textViewDewormingTitle.getText().toString(), serviceWrapperDorm);
+            // }
+        }
+    }
+
+    private void showGrowthNutritionDialog(String type, String title, String question, ServiceWrapper serviceWrapper) {
+        GrowthNutritionInputFragment growthNutritionInputFragment = GrowthNutritionInputFragment.getInstance(title, question, type, commonPersonObjectClient);
+        growthNutritionInputFragment.setContext(HomeVisitGrowthAndNutrition.this);
+        growthNutritionInputFragment.setServiceWrapper(serviceWrapper);
+        growthNutritionInputFragment.show(fragmentManager, TAG);
     }
 
     public void setState(String type, ServiceWrapper serviceWrapper) {

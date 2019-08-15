@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -27,7 +26,6 @@ import org.smartregister.chw.core.utils.Utils;
 import java.util.List;
 
 public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MyViewHolder> {
-
     public String TAG = MemberAdapter.class.getCanonicalName();
     private List<FamilyMember> familyMembers;
     private MyViewHolder currentViewHolder;
@@ -44,18 +42,6 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MyViewHold
         this.memberAdapterListener = memberAdapterListener;
         slideUp = AnimationUtils.loadAnimation(context, R.anim.slide_up);
         slideDown = AnimationUtils.loadAnimation(context, R.anim.slide_up);
-    }
-
-    public String getSelected() {
-        return selected;
-    }
-
-    public void setSelected(MyViewHolder view, String selected) {
-        currentViewHolder = view;
-        this.selected = selected;
-        if (memberAdapterListener != null) {
-            memberAdapterListener.onMenuChoiceChange();
-        }
     }
 
     public Flavor getFlavorPhoneNumberLength() {
@@ -91,20 +77,12 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MyViewHold
         holder.llQuestions.setVisibility(model.getMemberID().equals(selected) ? View.VISIBLE : View.GONE);
         holder.radioButton.setChecked(model.getMemberID().equals(selected));
 
-        holder.radioButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    redrawView(holder, model);
-                }
-            }
-        });
-        holder.view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        holder.radioButton.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
                 redrawView(holder, model);
             }
         });
+        holder.view.setOnClickListener(v -> redrawView(holder, model));
         renderViews(holder, model);
     }
 
@@ -133,8 +111,22 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MyViewHold
 
     private void renderViews(final MyViewHolder holder, FamilyMember model) {
         holder.etPhone.setText(model.getPhone());
-        if (!TextUtils.isEmpty(model.getOtherPhone()))
+        if (!TextUtils.isEmpty(model.getOtherPhone())) {
             holder.etAlternatePhone.setText(model.getOtherPhone());
+        }
+    }
+
+    public void setSelected(MyViewHolder view, String selected) {
+        currentViewHolder = view;
+        this.selected = selected;
+        if (memberAdapterListener != null) {
+            memberAdapterListener.onMenuChoiceChange();
+        }
+    }
+
+    @Override
+    public int getItemCount() {
+        return familyMembers.size();
     }
 
     public boolean validateSave() {
@@ -200,9 +192,8 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MyViewHold
         return null;
     }
 
-    @Override
-    public int getItemCount() {
-        return familyMembers.size();
+    public String getSelected() {
+        return selected;
     }
 
     public interface Flavor {
@@ -241,12 +232,12 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MyViewHold
             TextWatcher tw = new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
+                    //// TODO: 15/08/19  
                 }
 
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
-
+                    //// TODO: 15/08/19
                 }
 
                 @Override

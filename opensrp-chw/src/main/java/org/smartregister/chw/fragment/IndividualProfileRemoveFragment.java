@@ -22,7 +22,6 @@ import org.smartregister.chw.provider.FamilyRemoveMemberProvider;
 import java.util.Set;
 
 public class IndividualProfileRemoveFragment extends CoreIndividualProfileRemoveFragment {
-    private static String viewRegisterClassName;
 
     public static IndividualProfileRemoveFragment newInstance(Bundle bundle) {
         Bundle args = bundle;
@@ -30,7 +29,6 @@ public class IndividualProfileRemoveFragment extends CoreIndividualProfileRemove
         if (args == null) {
             args = new Bundle();
         }
-        viewRegisterClassName = args.getString(org.smartregister.chw.util.Constants.INTENT_KEY.VIEW_REGISTER_CLASS);
         fragment.setArguments(args);
         return fragment;
     }
@@ -41,6 +39,7 @@ public class IndividualProfileRemoveFragment extends CoreIndividualProfileRemove
                 this.commonRepository(), visibleColumns, null, null, familyHead, primaryCaregiver);
     }
 
+    @Override
     protected void setPresenter(String familyHead, String primaryCareGiver) {
         this.presenter = new FamilyRemoveMemberPresenter(this, new FamilyRemoveMemberModel(), null, familyBaseEntityId, familyHead, primaryCareGiver);
     }
@@ -73,6 +72,11 @@ public class IndividualProfileRemoveFragment extends CoreIndividualProfileRemove
     }
 
     @Override
+    protected Class<? extends CoreFamilyRegisterActivity> getFamilyRegisterActivityClass() {
+        return FamilyRegisterActivity.class;
+    }
+
+    @Override
     protected CoreFamilyProfileChangeDialog getChangeFamilyCareGiverDialog() {
         return FamilyProfileChangeDialog.newInstance(getContext(), familyBaseEntityId,
                 CoreConstants.PROFILE_CHANGE_ACTION.PRIMARY_CARE_GIVER);
@@ -85,26 +89,11 @@ public class IndividualProfileRemoveFragment extends CoreIndividualProfileRemove
     }
 
     @Override
-    protected Class<? extends CoreFamilyRegisterActivity> getFamilyRegisterActivityClass() {
-        return FamilyRegisterActivity.class;
-    }
-
-    @Override
-    protected Class<? extends CoreAncRegisterActivity> getAncRegisterActivityClass() {
-        return AncRegisterActivity.class;
-    }
-
-    @Override
-    protected String getRemoveFamilyMemberDialogTag() {
-        return FamilyRemoveMemberFragment.DIALOG_TAG;
-    }
-
     public void confirmRemove(final JSONObject form) {
         if (StringUtils.isNotBlank(memberName) && getFragmentManager() != null) {
             FamilyRemoveMemberConfirmDialog dialog = FamilyRemoveMemberConfirmDialog.newInstance(
                     String.format(getString(R.string.confirm_remove_text), memberName)
             );
-            dialog.setContext(getContext());
             dialog.show(getFragmentManager(), FamilyRemoveMemberFragment.DIALOG_TAG);
             dialog.setOnRemove(() -> {
                 getPresenter().processRemoveForm(form);
@@ -118,6 +107,16 @@ public class IndividualProfileRemoveFragment extends CoreIndividualProfileRemove
                 }
             });
         }
+    }
+
+    @Override
+    protected String getRemoveFamilyMemberDialogTag() {
+        return FamilyRemoveMemberFragment.DIALOG_TAG;
+    }
+
+    @Override
+    protected Class<? extends CoreAncRegisterActivity> getAncRegisterActivityClass() {
+        return AncRegisterActivity.class;
     }
 
 }

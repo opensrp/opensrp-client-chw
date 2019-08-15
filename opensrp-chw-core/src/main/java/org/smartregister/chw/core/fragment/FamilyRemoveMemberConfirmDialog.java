@@ -1,7 +1,6 @@
 package org.smartregister.chw.core.fragment;
 
 
-import android.content.Context;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.os.Handler;
@@ -20,16 +19,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.core.R;
 
 public class FamilyRemoveMemberConfirmDialog extends DialogFragment implements View.OnClickListener {
-
-
-    private Context context;
     private Runnable onRemove;
     private Runnable onRemoveActivity;
     private String message;
-
-    public FamilyRemoveMemberConfirmDialog() {
-        // Required empty public constructor
-    }
 
     public static FamilyRemoveMemberConfirmDialog newInstance(String message) {
         FamilyRemoveMemberConfirmDialog dialog = new FamilyRemoveMemberConfirmDialog();
@@ -45,17 +37,13 @@ public class FamilyRemoveMemberConfirmDialog extends DialogFragment implements V
         this.onRemoveActivity = onRemoveActivity;
     }
 
-    public void setContext(Context context) {
-        this.context = context;
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootview = inflater.inflate(R.layout.family_remove_member_confrim_dialog_fragment, container, false);
-        setUpView(rootview);
-        return rootview;
+        View rootView = inflater.inflate(R.layout.family_remove_member_confrim_dialog_fragment, container, false);
+        setUpView(rootView);
+        return rootView;
     }
 
     private void setUpView(View rootView) {
@@ -65,6 +53,30 @@ public class FamilyRemoveMemberConfirmDialog extends DialogFragment implements V
         if (StringUtils.isNotBlank(message)) {
             ((TextView) rootView.findViewById(R.id.message)).setText(message);
         }
+    }
+
+    /**
+     * handle backpress from dialog.it'll finish childremoveactivity when back press
+     */
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (getView() == null) {
+            return;
+        }
+        getView().setFocusableInTouchMode(true);
+        getView().requestFocus();
+        getView().setOnKeyListener((v, keyCode, event) -> {
+            if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
+                if (onRemoveActivity != null) {
+                    onRemoveActivity.run();
+                }
+                dismiss();
+                return true;
+            }
+            return false;
+        });
     }
 
     @Override
@@ -107,30 +119,5 @@ public class FamilyRemoveMemberConfirmDialog extends DialogFragment implements V
             }
             dismiss();
         }
-    }
-
-    /**
-     * handle backpress from dialog.it'll finish childremoveactivity when back press
-     */
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (getView() == null) return;
-        getView().setFocusableInTouchMode(true);
-        getView().requestFocus();
-        getView().setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
-                    if (onRemoveActivity != null) {
-                        onRemoveActivity.run();
-                    }
-                    dismiss();
-                    return true;
-                }
-                return false;
-            }
-        });
     }
 }

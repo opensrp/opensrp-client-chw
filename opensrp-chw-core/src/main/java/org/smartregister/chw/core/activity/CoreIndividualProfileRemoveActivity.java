@@ -47,6 +47,8 @@ public abstract class CoreIndividualProfileRemoveActivity extends SecuredActivit
         }
     }
 
+    protected abstract void setRemoveMemberFragment();
+
     private void startFragment() {
         FragmentManager fm = getSupportFragmentManager();
         fm.beginTransaction()
@@ -59,6 +61,4 @@ public abstract class CoreIndividualProfileRemoveActivity extends SecuredActivit
         setResult(RESULT_OK, intent);
         finish();
     }
-
-    protected abstract void setRemoveMemberFragment();
 }

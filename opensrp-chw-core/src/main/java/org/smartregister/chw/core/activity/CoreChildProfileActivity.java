@@ -94,17 +94,6 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
     private String gender;
 
     @Override
-    public void enableEdit(boolean enable) {
-        if (enable) {
-            tvEdit.setVisibility(View.VISIBLE);
-            tvEdit.setOnClickListener(this);
-        } else {
-            tvEdit.setVisibility(View.GONE);
-            tvEdit.setOnClickListener(null);
-        }
-    }
-
-    @Override
     protected void onCreation() {
         setContentView(R.layout.activity_child_profile);
         Toolbar toolbar = findViewById(R.id.collapsing_toolbar);
@@ -118,12 +107,7 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
             upArrow.setColorFilter(getResources().getColor(R.color.text_blue), PorterDuff.Mode.SRC_ATOP);
             actionBar.setHomeAsUpIndicator(upArrow);
         }
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        toolbar.setNavigationOnClickListener(v -> finish());
         appBarLayout = findViewById(R.id.collapsing_toolbar_appbarlayout);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             appBarLayout.setOutlineProvider(null);
@@ -132,20 +116,36 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
     }
 
     @Override
-    public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-
-        if (appBarLayoutScrollRange == -1) {
-            appBarLayoutScrollRange = appBarLayout.getTotalScrollRange();
+    public void onClick(View view) {
+        int i = view.getId();
+        if (i == R.id.textview_visit_not) {
+            showProgressBar();
+            presenter().updateVisitNotDone(System.currentTimeMillis());
+            tvEdit.setVisibility(View.GONE);
+        } else if (i == R.id.textview_undo) {
+            showProgressBar();
+            presenter().updateVisitNotDone(0);
         }
-        if (appBarLayoutScrollRange + verticalOffset == 0) {
+    }
 
-            textViewTitle.setText(patientName);
-            appBarTitleIsShown = true;
-        } else if (appBarTitleIsShown) {
-            setUpToolbar();
-            appBarTitleIsShown = false;
+    private void showProgressBar() {
+        progressBar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    protected void initializePresenter() {
+        childBaseEntityId = getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID);
+        isComesFromFamily = getIntent().getBooleanExtra(CoreConstants.INTENT_KEY.IS_COMES_FROM_FAMILY, false);
+        String familyName = getIntent().getStringExtra(Constants.INTENT_KEY.FAMILY_NAME);
+        if (familyName == null) {
+            familyName = "";
         }
 
+        if (presenter == null) {
+            presenter = new CoreChildProfilePresenter(this, new CoreChildProfileModel(familyName), childBaseEntityId);
+        }
+
+        fetchProfileData();
     }
 
     @Override
@@ -187,195 +187,6 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
         layoutRecordButtonDone.setOnClickListener(this);
     }
 
-    public void setUpToolbar() {
-        if (isComesFromFamily) {
-            textViewTitle.setText(getString(R.string.return_to_family_members));
-        } else {
-            textViewTitle.setText(getString(R.string.return_to_all_children));
-        }
-
-    }
-
-    @Override
-    public void onClick(View view) {
-        int i = view.getId();
-        if (i == R.id.textview_visit_not) {
-            showProgressBar();
-            presenter().updateVisitNotDone(System.currentTimeMillis());
-            tvEdit.setVisibility(View.GONE);
-        } else if (i == R.id.textview_undo) {
-            showProgressBar();
-            presenter().updateVisitNotDone(0);
-        }
-    }
-
-    @Override
-    public void showUndoVisitNotDoneView() {
-        presenter().fetchVisitStatus(childBaseEntityId);
-    }
-
-    public void openVisitMonthView() {
-        layoutNotRecordView.setVisibility(View.VISIBLE);
-        layoutRecordButtonDone.setVisibility(View.GONE);
-        layoutRecordView.setVisibility(View.GONE);
-
-    }
-
-    private void openVisitRecordDoneView() {
-        layoutRecordButtonDone.setVisibility(View.VISIBLE);
-        layoutNotRecordView.setVisibility(View.GONE);
-        layoutRecordView.setVisibility(View.GONE);
-
-    }
-
-    private void openVisitButtonView() {
-        layoutNotRecordView.setVisibility(View.GONE);
-        layoutRecordButtonDone.setVisibility(View.GONE);
-        layoutRecordView.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void hideProgressBar() {
-        progressBar.setVisibility(View.GONE);
-    }
-
-    private void showProgressBar() {
-        progressBar.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void setVisitButtonDueStatus() {
-        openVisitButtonView();
-        textViewRecord.setBackgroundResource(R.drawable.record_btn_selector_due);
-        textViewRecord.setTextColor(getResources().getColor(R.color.white));
-    }
-
-    @Override
-    public void setVisitButtonOverdueStatus() {
-        openVisitButtonView();
-        textViewRecord.setBackgroundResource(R.drawable.record_btn_selector_overdue);
-        textViewRecord.setTextColor(getResources().getColor(R.color.white));
-    }
-
-    @Override
-    public void setLastVisitRowView(String days) {
-        lastVisitDay = days;
-        if (TextUtils.isEmpty(days)) {
-            layoutLastVisitRow.setVisibility(View.GONE);
-            viewLastVisitRow.setVisibility(View.GONE);
-        } else {
-            layoutLastVisitRow.setVisibility(View.VISIBLE);
-            textViewLastVisit.setText(getString(R.string.last_visit_40_days_ago, days));
-            viewLastVisitRow.setVisibility(View.VISIBLE);
-        }
-
-    }
-
-    @Override
-    public void setServiceNameDue(String serviceName, String dueDate) {
-        if (!TextUtils.isEmpty(serviceName)) {
-            layoutMostDueOverdue.setVisibility(View.VISIBLE);
-            viewMostDueRow.setVisibility(View.VISIBLE);
-            textViewNameDue.setText(CoreChildUtils.fromHtml(getString(R.string.vaccine_service_due, serviceName, dueDate)));
-        } else {
-            layoutMostDueOverdue.setVisibility(View.GONE);
-            viewMostDueRow.setVisibility(View.GONE);
-        }
-
-    }
-
-    @Override
-    public void setServiceNameOverDue(String serviceName, String dueDate) {
-        layoutMostDueOverdue.setVisibility(View.VISIBLE);
-        viewMostDueRow.setVisibility(View.VISIBLE);
-        textViewNameDue.setText(CoreChildUtils.fromHtml(getString(R.string.vaccine_service_overdue, serviceName, dueDate)));
-
-    }
-
-    @Override
-    public void setServiceNameUpcoming(String serviceName, String dueDate) {
-        layoutMostDueOverdue.setVisibility(View.VISIBLE);
-        viewMostDueRow.setVisibility(View.VISIBLE);
-        textViewNameDue.setText(CoreChildUtils.fromHtml(getString(R.string.vaccine_service_upcoming, serviceName, dueDate)));
-
-    }
-
-    @Override
-    public void setFamilyHasNothingDue() {
-        layoutFamilyHasRow.setVisibility(View.VISIBLE);
-        viewFamilyRow.setVisibility(View.VISIBLE);
-        textViewFamilyHas.setText(getString(R.string.family_has_nothing_due));
-
-    }
-
-    @Override
-    public void setFamilyHasServiceDue() {
-        layoutFamilyHasRow.setVisibility(View.VISIBLE);
-        viewFamilyRow.setVisibility(View.VISIBLE);
-        textViewFamilyHas.setText(getString(R.string.family_has_services_due));
-    }
-
-    @Override
-    public void setFamilyHasServiceOverdue() {
-        layoutFamilyHasRow.setVisibility(View.VISIBLE);
-        viewFamilyRow.setVisibility(View.VISIBLE);
-        textViewFamilyHas.setText(CoreChildUtils.fromHtml(getString(R.string.family_has_service_overdue)));
-    }
-
-    @Override
-    public void setVisitNotDoneThisMonth() {
-        openVisitMonthView();
-        textViewNotVisitMonth.setText(getString(R.string.not_visiting_this_month));
-        textViewUndo.setText(getString(R.string.undo));
-        textViewUndo.setVisibility(View.VISIBLE);
-        imageViewCross.setImageResource(R.drawable.activityrow_notvisited);
-    }
-
-    @Override
-    public void setVisitLessTwentyFourView(String monthName) {
-        textViewNotVisitMonth.setText(getString(R.string.visit_month, monthName));
-        textViewUndo.setText(getString(R.string.edit));
-        textViewUndo.setVisibility(View.GONE);
-        imageViewCross.setImageResource(R.drawable.activityrow_visited);
-        openVisitMonthView();
-
-    }
-
-    @Override
-    public void setVisitAboveTwentyFourView() {
-        textViewVisitNot.setVisibility(View.GONE);
-        openVisitRecordDoneView();
-        textViewRecord.setBackgroundResource(R.drawable.record_btn_selector_above_twentyfr);
-        textViewRecord.setTextColor(getResources().getColor(R.color.light_grey_text));
-
-
-    }
-
-    protected void updateTopbar() {
-        if (gender.equalsIgnoreCase(Gender.MALE.toString())) {
-            imageViewProfile.setBorderColor(getResources().getColor(R.color.light_blue));
-        } else if (gender.equalsIgnoreCase(Gender.FEMALE.toString())) {
-            imageViewProfile.setBorderColor(getResources().getColor(R.color.light_pink));
-        }
-
-    }
-
-    @Override
-    protected void initializePresenter() {
-        childBaseEntityId = getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID);
-        isComesFromFamily = getIntent().getBooleanExtra(CoreConstants.INTENT_KEY.IS_COMES_FROM_FAMILY, false);
-        String familyName = getIntent().getStringExtra(Constants.INTENT_KEY.FAMILY_NAME);
-        if (familyName == null) {
-            familyName = "";
-        }
-
-        if (presenter == null) {
-            presenter = new CoreChildProfilePresenter(this, new CoreChildProfileModel(familyName), childBaseEntityId);
-        }
-
-        fetchProfileData();
-    }
-
     @Override
     protected ViewPager setupViewPager(ViewPager viewPager) {
         return null;
@@ -385,6 +196,32 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
     protected void fetchProfileData() {
         presenter().fetchProfileData();
         updateImmunizationData();
+    }
+
+    @Override
+    public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+
+        if (appBarLayoutScrollRange == -1) {
+            appBarLayoutScrollRange = appBarLayout.getTotalScrollRange();
+        }
+        if (appBarLayoutScrollRange + verticalOffset == 0) {
+
+            textViewTitle.setText(patientName);
+            appBarTitleIsShown = true;
+        } else if (appBarTitleIsShown) {
+            setUpToolbar();
+            appBarTitleIsShown = false;
+        }
+
+    }
+
+    public void setUpToolbar() {
+        if (isComesFromFamily) {
+            textViewTitle.setText(getString(R.string.return_to_family_members));
+        } else {
+            textViewTitle.setText(getString(R.string.return_to_all_children));
+        }
+
     }
 
     /**
@@ -417,33 +254,19 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
     }
 
     @Override
-    public void updateAfterBackgroundProcessed() {
-        presenter().updateChildCommonPerson(childBaseEntityId);
-    }
-
-    @Override
-    public void setClientTasks(Set<Task> taskList) {
-        //// TODO: 06/08/19  
-    }
-
-    @Override
     public Context getContext() {
         return this;
     }
 
     @Override
     public void startFormActivity(JSONObject jsonForm) {
-
         Intent intent = new Intent(this, Utils.metadata().familyMemberFormActivity);
         intent.putExtra(Constants.JSON_FORM_EXTRA.JSON, jsonForm.toString());
-
 
         Form form = new Form();
         form.setActionBarBackground(R.color.family_actionbar);
         form.setWizard(false);
         intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);
-
-
         startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
     }
 
@@ -464,14 +287,11 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
     public void setProfileImage(String baseEntityId) {
         int defaultImage = R.drawable.rowavatar_child;// gender.equalsIgnoreCase(Gender.MALE.toString()) ? R.drawable.row_boy : R.drawable.row_girl;
         imageRenderHelper.refreshProfileImage(baseEntityId, imageViewProfile, defaultImage);
-
-
     }
 
     @Override
     public void setParentName(String parentName) {
         textViewParentName.setText(parentName);
-
     }
 
     @Override
@@ -479,7 +299,14 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
         this.gender = gender;
         textViewGender.setText(gender);
         updateTopbar();
+    }
 
+    protected void updateTopbar() {
+        if (gender.equalsIgnoreCase(Gender.MALE.toString())) {
+            imageViewProfile.setBorderColor(getResources().getColor(R.color.light_blue));
+        } else if (gender.equalsIgnoreCase(Gender.FEMALE.toString())) {
+            imageViewProfile.setBorderColor(getResources().getColor(R.color.light_pink));
+        }
     }
 
     @Override
@@ -491,20 +318,133 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
     @Override
     public void setId(String id) {
         textViewId.setText(id);
-
     }
 
     @Override
     public void setProfileName(String fullName) {
         patientName = fullName;
         textViewChildName.setText(fullName);
-
     }
 
     @Override
     public void setAge(String age) {
         textViewChildName.append(", " + age);
+    }
 
+    @Override
+    public void setVisitButtonDueStatus() {
+        openVisitButtonView();
+        textViewRecord.setBackgroundResource(R.drawable.record_btn_selector_due);
+        textViewRecord.setTextColor(getResources().getColor(R.color.white));
+    }
+
+    private void openVisitButtonView() {
+        layoutNotRecordView.setVisibility(View.GONE);
+        layoutRecordButtonDone.setVisibility(View.GONE);
+        layoutRecordView.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void setVisitButtonOverdueStatus() {
+        openVisitButtonView();
+        textViewRecord.setBackgroundResource(R.drawable.record_btn_selector_overdue);
+        textViewRecord.setTextColor(getResources().getColor(R.color.white));
+    }
+
+    @Override
+    public void setVisitNotDoneThisMonth() {
+        openVisitMonthView();
+        textViewNotVisitMonth.setText(getString(R.string.not_visiting_this_month));
+        textViewUndo.setText(getString(R.string.undo));
+        textViewUndo.setVisibility(View.VISIBLE);
+        imageViewCross.setImageResource(R.drawable.activityrow_notvisited);
+    }
+
+    @Override
+    public void setLastVisitRowView(String days) {
+        lastVisitDay = days;
+        if (TextUtils.isEmpty(days)) {
+            layoutLastVisitRow.setVisibility(View.GONE);
+            viewLastVisitRow.setVisibility(View.GONE);
+        } else {
+            layoutLastVisitRow.setVisibility(View.VISIBLE);
+            textViewLastVisit.setText(getString(R.string.last_visit_40_days_ago, days));
+            viewLastVisitRow.setVisibility(View.VISIBLE);
+        }
+
+    }
+
+    @Override
+    public void setServiceNameDue(String serviceName, String dueDate) {
+        if (!TextUtils.isEmpty(serviceName)) {
+            layoutMostDueOverdue.setVisibility(View.VISIBLE);
+            viewMostDueRow.setVisibility(View.VISIBLE);
+            textViewNameDue.setText(CoreChildUtils.fromHtml(getString(R.string.vaccine_service_due, serviceName, dueDate)));
+        } else {
+            layoutMostDueOverdue.setVisibility(View.GONE);
+            viewMostDueRow.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void setServiceNameOverDue(String serviceName, String dueDate) {
+        layoutMostDueOverdue.setVisibility(View.VISIBLE);
+        viewMostDueRow.setVisibility(View.VISIBLE);
+        textViewNameDue.setText(CoreChildUtils.fromHtml(getString(R.string.vaccine_service_overdue, serviceName, dueDate)));
+    }
+
+    @Override
+    public void setServiceNameUpcoming(String serviceName, String dueDate) {
+        layoutMostDueOverdue.setVisibility(View.VISIBLE);
+        viewMostDueRow.setVisibility(View.VISIBLE);
+        textViewNameDue.setText(CoreChildUtils.fromHtml(getString(R.string.vaccine_service_upcoming, serviceName, dueDate)));
+
+    }
+
+    @Override
+    public void setVisitLessTwentyFourView(String monthName) {
+        textViewNotVisitMonth.setText(getString(R.string.visit_month, monthName));
+        textViewUndo.setText(getString(R.string.edit));
+        textViewUndo.setVisibility(View.GONE);
+        imageViewCross.setImageResource(R.drawable.activityrow_visited);
+        openVisitMonthView();
+    }
+
+    @Override
+    public void setVisitAboveTwentyFourView() {
+        textViewVisitNot.setVisibility(View.GONE);
+        openVisitRecordDoneView();
+        textViewRecord.setBackgroundResource(R.drawable.record_btn_selector_above_twentyfr);
+        textViewRecord.setTextColor(getResources().getColor(R.color.light_grey_text));
+    }
+
+    private void openVisitRecordDoneView() {
+        layoutRecordButtonDone.setVisibility(View.VISIBLE);
+        layoutNotRecordView.setVisibility(View.GONE);
+        layoutRecordView.setVisibility(View.GONE);
+
+    }
+
+    @Override
+    public void setFamilyHasNothingDue() {
+        layoutFamilyHasRow.setVisibility(View.VISIBLE);
+        viewFamilyRow.setVisibility(View.VISIBLE);
+        textViewFamilyHas.setText(getString(R.string.family_has_nothing_due));
+
+    }
+
+    @Override
+    public void setFamilyHasServiceDue() {
+        layoutFamilyHasRow.setVisibility(View.VISIBLE);
+        viewFamilyRow.setVisibility(View.VISIBLE);
+        textViewFamilyHas.setText(getString(R.string.family_has_services_due));
+    }
+
+    @Override
+    public void setFamilyHasServiceOverdue() {
+        layoutFamilyHasRow.setVisibility(View.VISIBLE);
+        viewFamilyRow.setVisibility(View.VISIBLE);
+        textViewFamilyHas.setText(CoreChildUtils.fromHtml(getString(R.string.family_has_service_overdue)));
     }
 
     @Override
@@ -514,7 +454,46 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
 
     @Override
     public void updateHasPhone(boolean hasPhone) {
-        //todo
+        //// TODO: 15/08/19
+    }
+
+    @Override
+    public void enableEdit(boolean enable) {
+        if (enable) {
+            tvEdit.setVisibility(View.VISIBLE);
+            tvEdit.setOnClickListener(this);
+        } else {
+            tvEdit.setVisibility(View.GONE);
+            tvEdit.setOnClickListener(null);
+        }
+    }
+
+    @Override
+    public void hideProgressBar() {
+        progressBar.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void openVisitMonthView() {
+        layoutNotRecordView.setVisibility(View.VISIBLE);
+        layoutRecordButtonDone.setVisibility(View.GONE);
+        layoutRecordView.setVisibility(View.GONE);
+
+    }
+
+    @Override
+    public void showUndoVisitNotDoneView() {
+        presenter().fetchVisitStatus(childBaseEntityId);
+    }
+
+    @Override
+    public void updateAfterBackgroundProcessed() {
+        presenter().updateChildCommonPerson(childBaseEntityId);
+    }
+
+    @Override
+    public void setClientTasks(Set<Task> taskList) {
+        //// TODO: 06/08/19
     }
 
     @Override
@@ -536,15 +515,6 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.other_member_menu, menu);
-        menu.findItem(R.id.action_anc_registration).setVisible(false);
-        menu.findItem(R.id.action_sick_child_follow_up).setVisible(false);
-        menu.findItem(R.id.action_malaria_diagnosis).setVisible(false);
-        return true;
-    }
-
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int i = item.getItemId();
         if (i == android.R.id.home) {
@@ -559,6 +529,15 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.other_member_menu, menu);
+        menu.findItem(R.id.action_anc_registration).setVisible(false);
+        menu.findItem(R.id.action_sick_child_follow_up).setVisible(false);
+        menu.findItem(R.id.action_malaria_diagnosis).setVisible(false);
+        return true;
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         unregisterReceiver(mDateTimeChangedReceiver);
@@ -568,28 +547,23 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode) {
-            case CoreConstants.ProfileActivityResults.CHANGE_COMPLETED:
-                if (resultCode == Activity.RESULT_OK) {
-                    finish();
-                }
-                break;
-            case JsonFormUtils.REQUEST_CODE_GET_JSON:
-                if (resultCode == RESULT_OK) {
-                    try {
-                        String jsonString = data.getStringExtra(Constants.JSON_FORM_EXTRA.JSON);
+        if (requestCode == CoreConstants.ProfileActivityResults.CHANGE_COMPLETED) {
+            if (resultCode == Activity.RESULT_OK) {
+                finish();
+            }
+        } else if (requestCode == JsonFormUtils.REQUEST_CODE_GET_JSON) {
+            if (resultCode == RESULT_OK) {
+                try {
+                    String jsonString = data.getStringExtra(Constants.JSON_FORM_EXTRA.JSON);
 
-                        JSONObject form = new JSONObject(jsonString);
-                        if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(CoreConstants.EventType.UPDATE_CHILD_REGISTRATION)) {
-                            presenter().updateChildProfile(jsonString);
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
+                    JSONObject form = new JSONObject(jsonString);
+                    if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(CoreConstants.EventType.UPDATE_CHILD_REGISTRATION)) {
+                        presenter().updateChildProfile(jsonString);
                     }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-                break;
-
-
+            }
         }
     }
 }

@@ -10,6 +10,7 @@ import net.sqlcipher.database.SQLiteDatabase;
 
 import org.apache.commons.lang3.StringUtils;
 import org.ei.drishti.dto.AlertStatus;
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONObject;
 import org.smartregister.chw.core.domain.HomeVisit;
 import org.smartregister.commonregistry.CommonFtsObject;
@@ -59,9 +60,7 @@ public class HomeVisitRepository extends BaseRepository {
             SERVICE, SERVICE_NOT_GIVEN, BIRTH_CERTIFICATION, illness_information, HOME_VISIT_ID};
     public static final String UPDATE_TABLE_ADD_VACCINE_NOT_GIVEN = "ALTER TABLE " + HomeVisitTABLE_NAME + " ADD COLUMN " + VACCINE_NOT_GIVEN + " VARCHAR;";
     public static final String UPDATE_TABLE_ADD_SERVICE_NOT_GIVEN = "ALTER TABLE " + HomeVisitTABLE_NAME + " ADD COLUMN " + SERVICE_NOT_GIVEN + " VARCHAR;";
-    public static final String UPDATE_TABLE_ADD_HOME_VISIT_ID = "ALTER TABLE " + HomeVisitTABLE_NAME + " ADD COLUMN " + HOME_VISIT_ID + " VARCHAR;";
 
-    private static final String TAG = HomeVisitRepository.class.getCanonicalName();
     private static final String HomeVisit_SQL = "CREATE TABLE home_visit (_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,base_entity_id VARCHAR NOT NULL,name VARCHAR NOT NULL,date DATETIME NOT NULL,anmid VARCHAR NULL,location_id VARCHAR NULL,event_id VARCHAR NULL," +
             "formSubmissionId VARCHAR,sync_status VARCHAR,updated_at INTEGER NULL," +
             "formfields VARCHAR,created_at DATETIME NOT NULL,vaccine_group VARCHAR,single_vaccine VARCHAR,vaccine_not_given VARCHAR,service VARCHAR,service_not_given VARCHAR,birth_certification VARCHAR,illness_information VARCHAR," + HOME_VISIT_ID + " VARCHAR)";
@@ -93,13 +92,6 @@ public class HomeVisitRepository extends BaseRepository {
     public static String addHyphen(String s) {
         if (StringUtils.isNotBlank(s)) {
             return s.replace(" ", "_");
-        }
-        return s;
-    }
-
-    public static String removeHyphen(String s) {
-        if (StringUtils.isNotBlank(s)) {
-            return s.replace("_", " ");
         }
         return s;
     }
@@ -195,39 +187,92 @@ public class HomeVisitRepository extends BaseRepository {
         return homeVisits;
     }
 
+    private List<HomeVisit> readAllHomeVisits(Cursor cursor) {
+        List<HomeVisit> homeVisits = new ArrayList<>();
+        try {
+
+            if (cursor != null && cursor.getCount() > 0 && cursor.moveToFirst()) {
+                while (!cursor.isAfterLast()) {
+                    String vaccineName = cursor.getString(cursor.getColumnIndex(NAME));
+                    if (vaccineName != null) {
+                        vaccineName = removeHyphen(vaccineName);
+                    }
+
+                    Date createdAt = null;
+                    String dateCreatedString = cursor.getString(cursor.getColumnIndex(CREATED_AT));
+                    if (StringUtils.isNotBlank(dateCreatedString)) {
+                        try {
+                            createdAt = dateFormat.parse(dateCreatedString);
+                        } catch (ParseException e) {
+                            Timber.e(e);
+                        }
+                    }
+                    HomeVisit homeVisit = getHomeVisit(cursor, vaccineName, createdAt);
+                    homeVisit.setFormFields(new Gson().fromJson(cursor.getString(cursor.getColumnIndex(FORMFIELDS)),
+                            new TypeToken<Map<String, String>>() {
+                            }.getType()));
+                    homeVisit.setVaccineGroupsGiven(new JSONObject(cursor.getString(cursor.getColumnIndex(VACCCINE_GROUP))));
+                    homeVisit.setSingleVaccinesGiven(new JSONObject(cursor.getString(cursor.getColumnIndex(SINGLE_VACCINE))));
+                    homeVisit.setVaccineNotGiven(new JSONObject(cursor.getString(cursor.getColumnIndex(VACCINE_NOT_GIVEN))));
+                    homeVisit.setServicesGiven(new JSONObject(cursor.getString(cursor.getColumnIndex(SERVICE))));
+                    homeVisit.setServiceNotGiven(new JSONObject(cursor.getString(cursor.getColumnIndex(SERVICE_NOT_GIVEN))));
+                    try {
+                        homeVisit.setBirthCertificationState(new JSONObject((cursor.getString(cursor.getColumnIndex(BIRTH_CERTIFICATION)))));
+                    } catch (Exception e) {
+                    }
+                    homeVisit.setIllnessInformation(new JSONObject(cursor.getString(cursor.getColumnIndex(illness_information))));
+                    homeVisit.setHomeVisitId(cursor.getString(cursor.getColumnIndex(HOME_VISIT_ID)));
+                    homeVisits.add(homeVisit);
+                    cursor.moveToNext();
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            cursor.close();
+        }
+        return homeVisits;
+    }
+
+    public static String removeHyphen(String s) {
+        if (StringUtils.isNotBlank(s)) {
+            return s.replace("_", " ");
+        }
+        return s;
+    }
+
+    @NotNull
+    private static HomeVisit getHomeVisit(Cursor cursor, String vaccineName, Date createdAt) {
+        HomeVisit newHomeVisit = new HomeVisit();
+        newHomeVisit.setId(cursor.getLong(cursor.getColumnIndex(ID_COLUMN)));
+        newHomeVisit.setBaseEntityId(cursor.getString(cursor.getColumnIndex(BASE_ENTITY_ID)));
+        newHomeVisit.setName(vaccineName);
+        newHomeVisit.setDate(new Date(cursor.getLong(cursor.getColumnIndex(LAST_HOME_VISIT_DATE))));
+        newHomeVisit.setAnmId(cursor.getString(cursor.getColumnIndex(ANMID)));
+        newHomeVisit.setLocationId(cursor.getString(cursor.getColumnIndex(LOCATIONID)));
+        newHomeVisit.setSyncStatus(cursor.getString(cursor.getColumnIndex(SYNC_STATUS)));
+        newHomeVisit.setUpdatedAt(cursor.getLong(cursor.getColumnIndex(UPDATED_AT_COLUMN)));
+        newHomeVisit.setEventId(cursor.getString(cursor.getColumnIndex(EVENT_ID)));
+        newHomeVisit.setFormSubmissionId(cursor.getString(cursor.getColumnIndex(FORMSUBMISSION_ID)));
+        newHomeVisit.setCreatedAt(createdAt);
+        return newHomeVisit;
+    }
+
     public List<HomeVisit> findByEntityId(String entityId) {
         SQLiteDatabase database = getReadableDatabase();
         Cursor cursor = database.query(HomeVisitTABLE_NAME, HomeVisit_TABLE_COLUMNS, BASE_ENTITY_ID + " = ? " + COLLATE_NOCASE + " ORDER BY " + UPDATED_AT_COLUMN, new String[]{entityId}, null, null, null, null);
         return readAllHomeVisits(cursor);
     }
 
-    public HomeVisit find(Long caseId) {
-        HomeVisit homeVisit = null;
-        Cursor cursor = null;
-        try {
-            cursor = getReadableDatabase().query(HomeVisitTABLE_NAME, HomeVisit_TABLE_COLUMNS, ID_COLUMN + " = ?", new String[]{caseId.toString()}, null, null, null, null);
-            List<HomeVisit> vaccines = readAllHomeVisits(cursor);
-            if (!vaccines.isEmpty()) {
-                homeVisit = vaccines.get(0);
-            }
-        } catch (Exception e) {
-            Timber.e(e);
-        } finally {
-            if (cursor != null) {
-                cursor.close();
-            }
-        }
-        return homeVisit;
-    }
-
     public HomeVisit findUnique(SQLiteDatabase database, HomeVisit homeVisit) {
+        SQLiteDatabase sqLiteDatabase = database;
         if (homeVisit == null || (StringUtils.isBlank(homeVisit.getFormSubmissionId()) && StringUtils.isBlank(homeVisit.getEventId()))) {
             return null;
         }
 
         try {
-            if (database == null) {
-                database = getReadableDatabase();
+            if (sqLiteDatabase == null) {
+                sqLiteDatabase = getReadableDatabase();
             }
 
             String selection = null;
@@ -243,7 +288,7 @@ public class HomeVisitRepository extends BaseRepository {
                 selectionArgs = new String[]{homeVisit.getFormSubmissionId()};
             }
 
-            Cursor cursor = database.query(HomeVisitTABLE_NAME, HomeVisit_TABLE_COLUMNS, selection, selectionArgs, null, null, ID_COLUMN + " DESC ", null);
+            Cursor cursor = sqLiteDatabase.query(HomeVisitTABLE_NAME, HomeVisit_TABLE_COLUMNS, selection, selectionArgs, null, null, ID_COLUMN + " DESC ", null);
             List<HomeVisit> homeVisitList = readAllHomeVisits(cursor);
             if (!homeVisitList.isEmpty()) {
                 return homeVisitList.get(0);
@@ -289,6 +334,51 @@ public class HomeVisitRepository extends BaseRepository {
         }
     }
 
+    public HomeVisit find(Long caseId) {
+        HomeVisit homeVisit = null;
+        Cursor cursor = null;
+        try {
+            cursor = getReadableDatabase().query(HomeVisitTABLE_NAME, HomeVisit_TABLE_COLUMNS, ID_COLUMN + " = ?", new String[]{caseId.toString()}, null, null, null, null);
+            List<HomeVisit> vaccines = readAllHomeVisits(cursor);
+            if (!vaccines.isEmpty()) {
+                homeVisit = vaccines.get(0);
+            }
+        } catch (Exception e) {
+            Timber.e(e);
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+        return homeVisit;
+    }
+
+    public void updateFtsSearch(String entityId, String vaccineName_) {
+        String vaccineName = vaccineName_;
+        try {
+            if (commonFtsObject != null && alertService() != null) {
+                if (vaccineName != null) {
+                    vaccineName = removeHyphen(vaccineName);
+                }
+
+                String scheduleName = commonFtsObject.getAlertScheduleName(vaccineName);
+                if (StringUtils.isNotBlank(entityId) && StringUtils.isNotBlank(scheduleName)) {
+                    Alert alert = alertService().findByEntityIdAndScheduleName(entityId, scheduleName);
+                    alertService().updateFtsSearch(alert, true);
+                }
+            }
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+    }
+
+    public AlertService alertService() {
+        if (alertService == null) {
+            alertService = ImmunizationLibrary.getInstance().context().alertService();
+        }
+        return alertService;
+    }
+
     public void close(Long caseId) {
         try {
             ContentValues values = new ContentValues();
@@ -297,65 +387,6 @@ public class HomeVisitRepository extends BaseRepository {
         } catch (Exception e) {
             Timber.e(e);
         }
-    }
-
-    private List<HomeVisit> readAllHomeVisits(Cursor cursor) {
-        List<HomeVisit> homeVisits = new ArrayList<HomeVisit>();
-
-        try {
-
-            if (cursor != null && cursor.getCount() > 0 && cursor.moveToFirst()) {
-                while (!cursor.isAfterLast()) {
-                    String vaccineName = cursor.getString(cursor.getColumnIndex(NAME));
-                    if (vaccineName != null) {
-                        vaccineName = removeHyphen(vaccineName);
-                    }
-
-                    Date createdAt = null;
-                    String dateCreatedString = cursor.getString(cursor.getColumnIndex(CREATED_AT));
-                    if (StringUtils.isNotBlank(dateCreatedString)) {
-                        try {
-                            createdAt = dateFormat.parse(dateCreatedString);
-                        } catch (ParseException e) {
-                            Timber.e(e);
-                        }
-                    }
-                    HomeVisit homeVisit = new HomeVisit(cursor.getLong(cursor.getColumnIndex(ID_COLUMN)),
-                            cursor.getString(cursor.getColumnIndex(BASE_ENTITY_ID)),
-                            vaccineName,
-                            new Date(cursor.getLong(cursor.getColumnIndex(LAST_HOME_VISIT_DATE))),
-                            cursor.getString(cursor.getColumnIndex(ANMID)),
-                            cursor.getString(cursor.getColumnIndex(LOCATIONID)),
-                            cursor.getString(cursor.getColumnIndex(SYNC_STATUS)),
-                            cursor.getLong(cursor.getColumnIndex(UPDATED_AT_COLUMN)),
-                            cursor.getString(cursor.getColumnIndex(EVENT_ID)),
-                            cursor.getString(cursor.getColumnIndex(FORMSUBMISSION_ID)),
-                            createdAt
-                    );
-                    homeVisit.setFormfields(new Gson().fromJson(cursor.getString(cursor.getColumnIndex(FORMFIELDS)),
-                            new TypeToken<Map<String, String>>() {
-                            }.getType()));
-                    homeVisit.setVaccineGroupsGiven(new JSONObject(cursor.getString(cursor.getColumnIndex(VACCCINE_GROUP))));
-                    homeVisit.setSingleVaccinesGiven(new JSONObject(cursor.getString(cursor.getColumnIndex(SINGLE_VACCINE))));
-                    homeVisit.setVaccineNotGiven(new JSONObject(cursor.getString(cursor.getColumnIndex(VACCINE_NOT_GIVEN))));
-                    homeVisit.setServicesGiven(new JSONObject(cursor.getString(cursor.getColumnIndex(SERVICE))));
-                    homeVisit.setServiceNotGiven(new JSONObject(cursor.getString(cursor.getColumnIndex(SERVICE_NOT_GIVEN))));
-                    try {
-                        homeVisit.setBirthCertificationState(new JSONObject((cursor.getString(cursor.getColumnIndex(BIRTH_CERTIFICATION)))));
-                    } catch (Exception e) {
-                    }
-                    homeVisit.setIllness_information(new JSONObject(cursor.getString(cursor.getColumnIndex(illness_information))));
-                    homeVisit.setHomeVisitId(cursor.getString(cursor.getColumnIndex(HOME_VISIT_ID)));
-                    homeVisits.add(homeVisit);
-                    cursor.moveToNext();
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            cursor.close();
-        }
-        return homeVisits;
     }
 
     private ContentValues createValuesFor(HomeVisit homeVisit) {
@@ -371,14 +402,14 @@ public class HomeVisitRepository extends BaseRepository {
         values.put(EVENT_ID, homeVisit.getEventId());
         values.put(FORMSUBMISSION_ID, homeVisit.getFormSubmissionId());
         values.put(CREATED_AT, homeVisit.getCreatedAt() != null ? dateFormat.format(homeVisit.getCreatedAt()) : null);
-        values.put(FORMFIELDS, new Gson().toJson(homeVisit.getFormfields()));
+        values.put(FORMFIELDS, new Gson().toJson(homeVisit.getFormFields()));
         values.put(VACCCINE_GROUP, homeVisit.getVaccineGroupsGiven().toString());
         values.put(SINGLE_VACCINE, homeVisit.getSingleVaccinesGiven().toString());
         values.put(VACCINE_NOT_GIVEN, homeVisit.getVaccineNotGiven().toString());
         values.put(SERVICE, homeVisit.getServicesGiven().toString());
         values.put(SERVICE_NOT_GIVEN, homeVisit.getServiceNotGiven().toString());
         values.put(BIRTH_CERTIFICATION, homeVisit.getBirthCertificationState().toString());
-        values.put(illness_information, homeVisit.getIllness_information().toString());
+        values.put(illness_information, homeVisit.getIllnessInformation().toString());
         values.put(HOME_VISIT_ID, homeVisit.getHomeVisitId());
         return values;
     }
@@ -407,32 +438,6 @@ public class HomeVisitRepository extends BaseRepository {
             Timber.e(e);
         }
 
-    }
-
-    public void updateFtsSearch(String entityId, String vaccineName_) {
-        String vaccineName = vaccineName_;
-        try {
-            if (commonFtsObject != null && alertService() != null) {
-                if (vaccineName != null) {
-                    vaccineName = removeHyphen(vaccineName);
-                }
-
-                String scheduleName = commonFtsObject.getAlertScheduleName(vaccineName);
-                if (StringUtils.isNotBlank(entityId) && StringUtils.isNotBlank(scheduleName)) {
-                    Alert alert = alertService().findByEntityIdAndScheduleName(entityId, scheduleName);
-                    alertService().updateFtsSearch(alert, true);
-                }
-            }
-        } catch (Exception e) {
-            Timber.e(e);
-        }
-    }
-
-    public AlertService alertService() {
-        if (alertService == null) {
-            alertService = ImmunizationLibrary.getInstance().context().alertService();
-        }
-        return alertService;
     }
 
     public HomeVisit findByDate(long lastHomeVisit) {

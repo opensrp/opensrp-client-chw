@@ -66,10 +66,6 @@ public class CoreAuthorizationService implements P2PAuthorizationService {
         });
     }
 
-    private void rejectConnection(@NonNull AuthorizationCallback authorizationCallback) {
-        authorizationCallback.onConnectionAuthorizationRejected("Incorrect authorization details provided");
-    }
-
     private boolean isLocationEncompassing(@NonNull String highLocationId, @NonNull String lowerLocationId) {
         //TODO: This method produces a false positive somewhere, I just forgot. :joy: happy-hunting
         LinkedHashMap<String, TreeNode<String, Location>> locationHierarchyMap = retrieveLocationHierarchyMap();
@@ -109,6 +105,10 @@ public class CoreAuthorizationService implements P2PAuthorizationService {
         }
 
         return false;
+    }
+
+    private void rejectConnection(@NonNull AuthorizationCallback authorizationCallback) {
+        authorizationCallback.onConnectionAuthorizationRejected("Incorrect authorization details provided");
     }
 
     @Nullable

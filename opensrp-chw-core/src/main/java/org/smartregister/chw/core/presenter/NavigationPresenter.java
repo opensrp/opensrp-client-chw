@@ -51,10 +51,19 @@ public class NavigationPresenter implements NavigationContract.Presenter {
         tableMap.put(CoreConstants.DrawerMenu.MALARIA, CoreConstants.TABLE_NAME.MALARIA_CONFIRMATION);
     }
 
+    public HashMap<String, String> getTableMap() {
+        return tableMap;
+    }
+
+    public void setTableMap(HashMap<String, String> tableMap) {
+        this.tableMap = tableMap;
+    }
+
     @Override
     public NavigationContract.View getNavigationView() {
         return mView.get();
     }
+
 
     @Override
     public void refreshNavigationCount(final Activity activity) {
@@ -84,7 +93,7 @@ public class NavigationPresenter implements NavigationContract.Presenter {
     @Override
     public void refreshLastSync() {
         // get last sync date
-        getNavigationView().refreshLastSync(mInteractor.Sync());
+        getNavigationView().refreshLastSync(mInteractor.sync());
     }
 
     @Override
@@ -110,11 +119,5 @@ public class NavigationPresenter implements NavigationContract.Presenter {
         return mModel.getNavigationItems();
     }
 
-    public HashMap<String, String> getTableMap() {
-        return tableMap;
-    }
 
-    public void setTableMap(HashMap<String, String> tableMap) {
-        this.tableMap = tableMap;
-    }
 }

@@ -24,6 +24,7 @@ import java.util.Map;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableOnSubscribe;
+import timber.log.Timber;
 
 public class CoreHomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNutritionContract.Presenter, HomeVisitGrowthNutritionContract.InteractorCallBack {
     private static Flavor homeVisitGrowthNutritionPresenterFlv = null;
@@ -78,26 +79,63 @@ public class CoreHomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNut
         saveServiceMap.put(type, serviceWrapper.getAlert().scheduleName());
         if (type.equalsIgnoreCase(GrowthNutritionInputFragment.GROWTH_TYPE.EXCLUSIVE.getValue())) {
             Date date = org.smartregister.family.util.Utils.dobStringToDate(serviceWrapper.getUpdatedVaccineDateAsString());
-            if (getView() != null)
+            if (getView() != null) {
                 getView().statusImageViewUpdate(type, true, context.getString(R.string.given_on, Utils.dd_MMM_yyyy.format(date)), serviceWrapper.getValue());
+            }
         } else {
             Date date = org.smartregister.family.util.Utils.dobStringToDate(serviceWrapper.getUpdatedVaccineDateAsString());
-            if (getView() != null)
+            if (getView() != null) {
                 getView().statusImageViewUpdate(type, true, context.getString(R.string.given_on, Utils.dd_MMM_yyyy.format(date)), "");
+            }
         }
     }
 
     @Override
     public void setNotVisitState(String type, ServiceWrapper serviceWrapper) {
 
-        if (isSave(type)) return;
+        if (isSave(type)) {
+            return;
+        }
         notVisitStateMap.put(type, serviceWrapper);
         if (!saveGroupList.contains(type)) {
             saveGroupList.add(type);
         }
-        if (getView() != null)
+        if (getView() != null) {
             getView().statusImageViewUpdate(type, false, context.getString(R.string.not_given), "");
+        }
 
+    }
+
+    @Override
+    public HomeVisitGrowthNutritionContract.View getView() {
+        if (view != null) {
+            return view.get();
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public void onDestroy(boolean isChangingConfiguration) {
+        view = null;//set to null on destroy
+
+        // Inform interactor
+        interactor.onDestroy(isChangingConfiguration);
+
+        // Activity destroyed set interactor to null
+        if (!isChangingConfiguration) {
+            interactor = null;
+        }
+    }
+
+    @Override
+    public Map<String, ServiceWrapper> getSaveStateMap() {
+        return saveStateMap;
+    }
+
+    @Override
+    public Map<String, ServiceWrapper> getNotSaveStateMap() {
+        return notVisitStateMap;
     }
 
     public Observable undoGrowthData() {
@@ -124,16 +162,6 @@ public class CoreHomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNut
     }
 
     @Override
-    public void updateNotGivenRecordVisitData(Map<String, ServiceWrapper> stringServiceWrapperMap) {
-        updateData(stringServiceWrapperMap);
-        for (String type : stringServiceWrapperMap.keySet()) {
-            ServiceWrapper serviceWrapper = stringServiceWrapperMap.get(type);
-            setNotVisitState(type, serviceWrapper);
-        }
-
-    }
-
-    @Override
     public void allDataLoaded() {
         getView().allDataLoaded();
     }
@@ -150,71 +178,13 @@ public class CoreHomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNut
         }
     }
 
-    private void updateData(Map<String, ServiceWrapper> stringServiceWrapperMap) {
-        saveGroupList.clear();
-        initialCount = 0;
-        serviceWrapperMap = stringServiceWrapperMap;
-        serviceWrapperExclusive = getServiceWrapperByType(GrowthNutritionInputFragment.GROWTH_TYPE.EXCLUSIVE.getValue());
-        if (serviceWrapperExclusive != null) {
-            Alert alert = serviceWrapperExclusive.getAlert();
-            if (alert != null && !alert.status().equals(AlertStatus.expired)) {
-                initialCount++;
-                if (getView() != null)
-                    getView().updateExclusiveFeedingData(alert.scheduleName(), alert.startDate());
-            } else {
-                // String lastDoneExclusive = serviceWrapperExclusive.getServiceType().getName();
-
-            }
+    @Override
+    public void updateNotGivenRecordVisitData(Map<String, ServiceWrapper> stringServiceWrapperMap) {
+        updateData(stringServiceWrapperMap);
+        for (String type : stringServiceWrapperMap.keySet()) {
+            ServiceWrapper serviceWrapper = stringServiceWrapperMap.get(type);
+            setNotVisitState(type, serviceWrapper);
         }
-        serviceWrapperMnp = getServiceWrapperByType(GrowthNutritionInputFragment.GROWTH_TYPE.MNP.getValue());
-        if (serviceWrapperMnp != null && homeVisitGrowthNutritionPresenterFlv.hasMNP()) {
-            Alert alert = serviceWrapperMnp.getAlert();
-            if (alert != null) {
-                initialCount++;
-                if (getView() != null)
-                    getView().updateMnpData(alert.scheduleName(), alert.startDate());
-            } else {
-                //  String lastDoneExclusive = serviceWrapperMnp.getServiceType().getName();
-
-            }
-        }
-        serviceWrapperVitamin = getServiceWrapperByType(GrowthNutritionInputFragment.GROWTH_TYPE.VITAMIN.getValue());
-        if (serviceWrapperVitamin != null) {
-            Alert alert = serviceWrapperVitamin.getAlert();
-            if (alert != null) {
-                initialCount++;
-                if (getView() != null)
-                    getView().updateVitaminAData(alert.scheduleName(), alert.startDate());
-            } else {
-                //String lastDoneExclusive = serviceWrapperVitamin.getServiceType().getName();
-
-            }
-
-        }
-        serviceWrapperDeworming = getServiceWrapperByType(GrowthNutritionInputFragment.GROWTH_TYPE.DEWORMING.getValue());
-        if (serviceWrapperDeworming != null) {
-            Alert alert = serviceWrapperDeworming.getAlert();
-            if (alert != null) {
-                initialCount++;
-                if (getView() != null)
-                    getView().updateDewormingData(alert.scheduleName(), alert.startDate());
-            } else {
-                //String lastDoneVitamin = serviceWrapperDeworming.getServiceType().getName();
-
-            }
-        }
-    }
-
-    public ServiceWrapper getServiceWrapperByType(String type) {
-        if (serviceWrapperMap != null) {
-            try {
-                return serviceWrapperMap.get(type);
-            } catch (Exception e) {
-
-            }
-
-        }
-        return null;
 
     }
 
@@ -228,12 +198,78 @@ public class CoreHomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNut
         return false;
     }
 
+    private void updateData(Map<String, ServiceWrapper> stringServiceWrapperMap) {
+        saveGroupList.clear();
+        initialCount = 0;
+        serviceWrapperMap = stringServiceWrapperMap;
+        serviceWrapperExclusive = getServiceWrapperByType(GrowthNutritionInputFragment.GROWTH_TYPE.EXCLUSIVE.getValue());
+        if (serviceWrapperExclusive != null) {
+            Alert alert = serviceWrapperExclusive.getAlert();
+            if (alert != null && !alert.status().equals(AlertStatus.expired)) {
+                initialCount++;
+                if (getView() != null) {
+                    getView().updateExclusiveFeedingData(alert.scheduleName(), alert.startDate());
+                }
+            } else {
+                // String lastDoneExclusive = serviceWrapperExclusive.getServiceType().getName();
+
+            }
+        }
+        serviceWrapperMnp = getServiceWrapperByType(GrowthNutritionInputFragment.GROWTH_TYPE.MNP.getValue());
+        if (serviceWrapperMnp != null && homeVisitGrowthNutritionPresenterFlv.hasMNP()) {
+            Alert alert = serviceWrapperMnp.getAlert();
+            if (alert != null) {
+                initialCount++;
+                if (getView() != null) {
+                    getView().updateMnpData(alert.scheduleName(), alert.startDate());
+                }
+            } else {
+                //  String lastDoneExclusive = serviceWrapperMnp.getServiceType().getName();
+
+            }
+        }
+        serviceWrapperVitamin = getServiceWrapperByType(GrowthNutritionInputFragment.GROWTH_TYPE.VITAMIN.getValue());
+        if (serviceWrapperVitamin != null) {
+            Alert alert = serviceWrapperVitamin.getAlert();
+            if (alert != null) {
+                initialCount++;
+                if (getView() != null) {
+                    getView().updateVitaminAData(alert.scheduleName(), alert.startDate());
+                }
+            } else {
+                //String lastDoneExclusive = serviceWrapperVitamin.getServiceType().getName();
+
+            }
+
+        }
+        serviceWrapperDeworming = getServiceWrapperByType(GrowthNutritionInputFragment.GROWTH_TYPE.DEWORMING.getValue());
+        if (serviceWrapperDeworming != null) {
+            Alert alert = serviceWrapperDeworming.getAlert();
+            if (alert != null) {
+                initialCount++;
+                if (getView() != null) {
+                    getView().updateDewormingData(alert.scheduleName(), alert.startDate());
+                }
+            }
+        }
+    }
+
+    public ServiceWrapper getServiceWrapperByType(String type) {
+        if (serviceWrapperMap != null) {
+            try {
+                return serviceWrapperMap.get(type);
+            } catch (Exception e) {
+                Timber.e(e);
+            }
+
+        }
+        return null;
+
+    }
 
     public ServiceWrapper getServiceWrapperExclusive() {
-        if (isEditMode) {
-            if (isSave(GrowthNutritionInputFragment.GROWTH_TYPE.EXCLUSIVE.getValue())) {
-                return saveStateMap.get(GrowthNutritionInputFragment.GROWTH_TYPE.EXCLUSIVE.getValue());
-            }
+        if (isEditMode && isSave(GrowthNutritionInputFragment.GROWTH_TYPE.EXCLUSIVE.getValue())) {
+            return saveStateMap.get(GrowthNutritionInputFragment.GROWTH_TYPE.EXCLUSIVE.getValue());
         }
         return serviceWrapperExclusive;
     }
@@ -259,42 +295,8 @@ public class CoreHomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNut
         return serviceWrapperDeworming;
     }
 
-    @Override
-    public void onDestroy(boolean isChangingConfiguration) {
-        view = null;//set to null on destroy
-
-        // Inform interactor
-        interactor.onDestroy(isChangingConfiguration);
-
-        // Activity destroyed set interactor to null
-        if (!isChangingConfiguration) {
-            interactor = null;
-        }
-    }
-
-    @Override
-    public HomeVisitGrowthNutritionContract.View getView() {
-        if (view != null) {
-            return view.get();
-        } else {
-            return null;
-        }
-    }
-
-    @Override
-    public Map<String, ServiceWrapper> getSaveStateMap() {
-        return saveStateMap;
-    }
-
-    @Override
-    public Map<String, ServiceWrapper> getNotSaveStateMap() {
-        return notVisitStateMap;
-    }
-
 
     public interface Flavor {
-
         boolean hasMNP();
-
     }
 }

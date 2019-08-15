@@ -54,10 +54,9 @@ public class CoreAncRegisterActivity extends BaseAncRegisterActivity {
     }
 
     @Override
-    public void switchToBaseFragment() {
-        /*Intent intent = new Intent(this, FamilyRegisterActivity.class);
-        startActivity(intent);
-        finish();*/
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        NavigationMenu.getInstance(this, null, null);
     }
 
     @Override
@@ -66,79 +65,6 @@ public class CoreAncRegisterActivity extends BaseAncRegisterActivity {
     }
 
     @Override
-    public String getFormRegistrationEvent() {
-        return org.smartregister.chw.anc.util.Constants.EVENT_TYPE.ANC_REGISTRATION;
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        NavigationMenu.getInstance(this, null, null);
-    }
-
-    @Override
-    protected BaseRegisterFragment getRegisterFragment() {
-        return super.getRegisterFragment();
-    }
-
-    @Override
-    protected void registerBottomNavigation() {
-        super.registerBottomNavigation();
-     /*   if (!BuildConfig.SUPPORT_QR) {
-            bottomNavigationView.getMenu().removeItem(R.id.action_scan_qr);
-        }
-
-        AncBottomNavigationListener listener = new AncBottomNavigationListener(this, bottomNavigationView);
-        bottomNavigationView.setOnNavigationItemSelectedListener(listener);*/
-    }
-
-    public void startFamilyRegistration() {
-        // CoreFamilyRegisterActivity.startFamilyRegisterForm(this);
-    }
-
-    private void startRegisterActivity(Class registerClass) {
-        Intent intent = new Intent(this, registerClass);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        this.startActivity(intent);
-        this.overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
-        this.finish();
-    }
-
-    @Override
-    public void onRegistrationSaved(boolean isEdit) {
-        finish();
-        startRegisterActivity(CoreAncRegisterActivity.class);
-    }
-
-    @Override
-    protected void onResumption() {
-        super.onResumption();
-        NavigationMenu menu = NavigationMenu.getInstance(this, null, null);
-        if (menu != null) {
-            menu.getNavigationAdapter()
-                    .setSelectedView(CoreConstants.DrawerMenu.ANC);
-        }
-    }
-
-    @Override
-    public List<String> getViewIdentifiers() {
-        return Arrays.asList(CoreConstants.CONFIGURATION.ANC_REGISTER);
-    }
-
-    private void updateFormField(JSONArray formFieldArrays, String formFeildKey, String updateValue) {
-        if (updateValue != null) {
-            JSONObject formObject = org.smartregister.util.JsonFormUtils.getFieldJSONObject(formFieldArrays, formFeildKey);
-            if (formObject != null) {
-                try {
-                    formObject.remove(org.smartregister.util.JsonFormUtils.VALUE);
-                    formObject.put(org.smartregister.util.JsonFormUtils.VALUE, updateValue);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
-
     public void startFormActivity(JSONObject jsonForm) {
 
         try {
@@ -161,5 +87,80 @@ public class CoreAncRegisterActivity extends BaseAncRegisterActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void onRegistrationSaved(boolean isEdit) {
+        finish();
+        startRegisterActivity(CoreAncRegisterActivity.class);
+    }
+
+    @Override
+    public String getFormRegistrationEvent() {
+        return org.smartregister.chw.anc.util.Constants.EVENT_TYPE.ANC_REGISTRATION;
+    }
+
+    @Override
+    public List<String> getViewIdentifiers() {
+        return Arrays.asList(CoreConstants.CONFIGURATION.ANC_REGISTER);
+    }
+
+    @Override
+    protected void registerBottomNavigation() {
+        super.registerBottomNavigation();
+     /*   if (!BuildConfig.SUPPORT_QR) {
+            bottomNavigationView.getMenu().removeItem(R.id.action_scan_qr);
+        }
+
+        AncBottomNavigationListener listener = new AncBottomNavigationListener(this, bottomNavigationView);
+        bottomNavigationView.setOnNavigationItemSelectedListener(listener);*/
+    }
+
+    @Override
+    protected BaseRegisterFragment getRegisterFragment() {
+        return super.getRegisterFragment();
+    }
+
+    private void startRegisterActivity(Class registerClass) {
+        Intent intent = new Intent(this, registerClass);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        this.startActivity(intent);
+        this.overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
+        this.finish();
+    }
+
+    private void updateFormField(JSONArray formFieldArrays, String formFeildKey, String updateValue) {
+        if (updateValue != null) {
+            JSONObject formObject = org.smartregister.util.JsonFormUtils.getFieldJSONObject(formFieldArrays, formFeildKey);
+            if (formObject != null) {
+                try {
+                    formObject.remove(org.smartregister.util.JsonFormUtils.VALUE);
+                    formObject.put(org.smartregister.util.JsonFormUtils.VALUE, updateValue);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public void startFamilyRegistration() {
+        // CoreFamilyRegisterActivity.startFamilyRegisterForm(this);
+    }
+
+    @Override
+    protected void onResumption() {
+        super.onResumption();
+        NavigationMenu menu = NavigationMenu.getInstance(this, null, null);
+        if (menu != null) {
+            menu.getNavigationAdapter()
+                    .setSelectedView(CoreConstants.DrawerMenu.ANC);
+        }
+    }
+
+    @Override
+    public void switchToBaseFragment() {
+        /*Intent intent = new Intent(this, FamilyRegisterActivity.class);
+        startActivity(intent);
+        finish();*/
     }
 }

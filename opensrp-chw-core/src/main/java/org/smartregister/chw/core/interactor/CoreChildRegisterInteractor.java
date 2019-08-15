@@ -34,13 +34,18 @@ public class CoreChildRegisterInteractor implements CoreChildRegisterContract.In
     private AppExecutors appExecutors;
 
 
+    public CoreChildRegisterInteractor() {
+        this(new AppExecutors());
+    }
+
     @VisibleForTesting
     CoreChildRegisterInteractor(AppExecutors appExecutors) {
         this.appExecutors = appExecutors;
     }
 
-    public CoreChildRegisterInteractor() {
-        this(new AppExecutors());
+    @Override
+    public void onDestroy(boolean isChangingConfiguration) {
+        //TODO set presenter or model to null
     }
 
     @Override
@@ -136,25 +141,20 @@ public class CoreChildRegisterInteractor implements CoreChildRegisterContract.In
         }
     }
 
-    @Override
-    public void onDestroy(boolean isChangingConfiguration) {
-        //TODO set presenter or model to null
+    public ECSyncHelper getSyncHelper() {
+        return FamilyLibrary.getInstance().getEcSyncHelper();
     }
 
     public AllSharedPreferences getAllSharedPreferences() {
         return Utils.context().allSharedPreferences();
     }
 
-    public UniqueIdRepository getUniqueIdRepository() {
-        return FamilyLibrary.getInstance().getUniqueIdRepository();
-    }
-
-    public ECSyncHelper getSyncHelper() {
-        return FamilyLibrary.getInstance().getEcSyncHelper();
-    }
-
     public ClientProcessorForJava getClientProcessorForJava() {
         return FamilyLibrary.getInstance().getClientProcessorForJava();
+    }
+
+    public UniqueIdRepository getUniqueIdRepository() {
+        return FamilyLibrary.getInstance().getUniqueIdRepository();
     }
 
     public enum type {SAVED, UPDATED}

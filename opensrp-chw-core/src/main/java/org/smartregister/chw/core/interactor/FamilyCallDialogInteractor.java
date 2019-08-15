@@ -20,14 +20,14 @@ public class FamilyCallDialogInteractor implements FamilyCallDialogContract.Inte
     private String familyBaseEntityId;
 
 
+    public FamilyCallDialogInteractor(String familyBaseEntityId) {
+        this(new AppExecutors(), familyBaseEntityId);
+    }
+
     @VisibleForTesting
     FamilyCallDialogInteractor(AppExecutors appExecutors, String familyBaseEntityId) {
         this.appExecutors = appExecutors;
         this.familyBaseEntityId = familyBaseEntityId;
-    }
-
-    public FamilyCallDialogInteractor(String familyBaseEntityId) {
-        this(new AppExecutors(), familyBaseEntityId);
     }
 
     @Override
@@ -58,6 +58,10 @@ public class FamilyCallDialogInteractor implements FamilyCallDialogContract.Inte
         if (familyBaseEntityId != null) {
             appExecutors.diskIO().execute(runnable);
         }
+    }
+
+    public CommonRepository getCommonRepository(String tableName) {
+        return Utils.context().commonrepository(tableName);
     }
 
     private FamilyCallDialogModel prepareModel(
@@ -97,10 +101,6 @@ public class FamilyCallDialogInteractor implements FamilyCallDialogContract.Inte
                 : context.getString(R.string.care_giver)));
 
         return model;
-    }
-
-    public CommonRepository getCommonRepository(String tableName) {
-        return Utils.context().commonrepository(tableName);
     }
 
 }

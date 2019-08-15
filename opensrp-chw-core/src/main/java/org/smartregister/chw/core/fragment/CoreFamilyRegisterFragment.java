@@ -112,6 +112,31 @@ public abstract class CoreFamilyRegisterFragment extends BaseFamilyRegisterFragm
         NavigationMenu.getInstance(getActivity(), null, toolbar);
     }
 
+    private void dueFilter(View dueOnlyLayout) {
+        dueFilter(presenter().getDueFilterCondition());
+        dueOnlyLayout.setTag(DUE_FILTER_TAG);
+        switchViews(dueOnlyLayout, true);
+    }
+
+    private void dueFilter(String mainConditionString) {
+        this.joinTables = null;
+        super.filter(searchText(), "", mainConditionString, false);
+    }
+
+    private void switchViews(View dueOnlyLayout, boolean isPress) {
+        TextView dueOnlyTextView = dueOnlyLayout.findViewById(R.id.due_only_text_view);
+        if (isPress) {
+            dueOnlyTextView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_due_filter_on, 0);
+        } else {
+            dueOnlyTextView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_due_filter_off, 0);
+
+        }
+    }
+
+    private String searchText() {
+        return (getSearchView() == null) ? "" : getSearchView().getText().toString();
+    }
+
     @Override
     public void initializeAdapter(Set<org.smartregister.configurableviews.model.View> visibleColumns) {
         super.initializeAdapter(visibleColumns);
@@ -192,11 +217,6 @@ public abstract class CoreFamilyRegisterFragment extends BaseFamilyRegisterFragm
         return (CoreFamilyRegisterFragmentContract.Presenter) presenter;
     }
 
-    private void dueFilter(String mainConditionString) {
-        this.joinTables = null;
-        super.filter(searchText(), "", mainConditionString, false);
-    }
-
     protected void toggleFilterSelection(View dueOnlyLayout) {
         if (dueOnlyLayout != null) {
             if (dueOnlyLayout.getTag() == null) {
@@ -209,30 +229,10 @@ public abstract class CoreFamilyRegisterFragment extends BaseFamilyRegisterFragm
         }
     }
 
-    private void dueFilter(View dueOnlyLayout) {
-        dueFilter(presenter().getDueFilterCondition());
-        dueOnlyLayout.setTag(DUE_FILTER_TAG);
-        switchViews(dueOnlyLayout, true);
-    }
-
     private void normalFilter(View dueOnlyLayout) {
         filter(searchText(), "", presenter().getMainCondition(), false);
         dueOnlyLayout.setTag(null);
         switchViews(dueOnlyLayout, false);
-    }
-
-    private String searchText() {
-        return (getSearchView() == null) ? "" : getSearchView().getText().toString();
-    }
-
-    private void switchViews(View dueOnlyLayout, boolean isPress) {
-        TextView dueOnlyTextView = dueOnlyLayout.findViewById(R.id.due_only_text_view);
-        if (isPress) {
-            dueOnlyTextView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_due_filter_on, 0);
-        } else {
-            dueOnlyTextView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_due_filter_off, 0);
-
-        }
     }
 
     private String dueFilterAndSortQuery() {

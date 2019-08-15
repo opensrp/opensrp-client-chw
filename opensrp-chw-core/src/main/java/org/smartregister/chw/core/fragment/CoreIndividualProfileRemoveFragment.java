@@ -75,6 +75,17 @@ public abstract class CoreIndividualProfileRemoveFragment extends BaseFamilyProf
 
     protected abstract void setPresenter(String familyHead, String primaryCareGiver);
 
+    private void openDeleteDialog() {
+        memberName = String.format("%s %s %s", pc.getColumnmaps().get(DBConstants.KEY.FIRST_NAME),
+                pc.getColumnmaps().get(DBConstants.KEY.MIDDLE_NAME) == null ? "" : pc.getColumnmaps().get(DBConstants.KEY.MIDDLE_NAME),
+                pc.getColumnmaps().get(DBConstants.KEY.LAST_NAME) == null ? "" : pc.getColumnmaps().get(DBConstants.KEY.LAST_NAME));
+
+        String dod = pc.getColumnmaps().get(DBConstants.KEY.DOD);
+        if (StringUtils.isBlank(dod)) {
+            getPresenter().removeMember(pc);
+        }
+    }
+
     public FamilyRemoveMemberContract.Presenter getPresenter() {
         return (FamilyRemoveMemberContract.Presenter) presenter;
     }
@@ -181,52 +192,34 @@ public abstract class CoreIndividualProfileRemoveFragment extends BaseFamilyProf
         }
     }
 
+    protected abstract Class<? extends CoreFamilyRegisterActivity> getFamilyRegisterActivityClass();
+
     protected abstract CoreFamilyProfileChangeDialog getChangeFamilyCareGiverDialog();
 
     protected abstract CoreFamilyProfileChangeDialog getChangeFamilyHeadDialog();
-
-    protected abstract Class<? extends CoreFamilyRegisterActivity> getFamilyRegisterActivityClass();
-
-    protected abstract Class<? extends CoreAncRegisterActivity> getAncRegisterActivityClass();
-
-    protected abstract String getRemoveFamilyMemberDialogTag();
-
-    private void openDeleteDialog() {
-        memberName = String.format("%s %s %s", pc.getColumnmaps().get(DBConstants.KEY.FIRST_NAME),
-                pc.getColumnmaps().get(DBConstants.KEY.MIDDLE_NAME) == null ? "" : pc.getColumnmaps().get(DBConstants.KEY.MIDDLE_NAME),
-                pc.getColumnmaps().get(DBConstants.KEY.LAST_NAME) == null ? "" : pc.getColumnmaps().get(DBConstants.KEY.LAST_NAME));
-
-        String dod = pc.getColumnmaps().get(DBConstants.KEY.DOD);
-        if (StringUtils.isBlank(dod)) {
-            getPresenter().removeMember(pc);
-        }
-    }
 
     public void confirmRemove(final JSONObject form) {
         if (StringUtils.isNotBlank(memberName) && getFragmentManager() != null) {
             FamilyRemoveMemberConfirmDialog dialog = FamilyRemoveMemberConfirmDialog.newInstance(
                     String.format(getString(R.string.confirm_remove_text), memberName)
             );
-            dialog.setContext(getContext());
             dialog.show(getFragmentManager(), getRemoveFamilyMemberDialogTag());
-            dialog.setOnRemove(new Runnable() {
-                @Override
-                public void run() {
-                    getPresenter().processRemoveForm(form);
-                    Intent intent = new Intent(getActivity(), getAncRegisterActivityClass());
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(intent);
-                }
+            dialog.setOnRemove(() -> {
+                getPresenter().processRemoveForm(form);
+                Intent intent = new Intent(getActivity(), getAncRegisterActivityClass());
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
             });
-            dialog.setOnRemoveActivity(new Runnable() {
-                @Override
-                public void run() {
-                    if (getActivity() != null) {
-                        getActivity().finish();
-                    }
+            dialog.setOnRemoveActivity(() -> {
+                if (getActivity() != null) {
+                    getActivity().finish();
                 }
             });
         }
     }
+
+    protected abstract String getRemoveFamilyMemberDialogTag();
+
+    protected abstract Class<? extends CoreAncRegisterActivity> getAncRegisterActivityClass();
 
 }

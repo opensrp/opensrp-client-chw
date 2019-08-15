@@ -53,6 +53,8 @@ public abstract class CoreFamilyRemoveMemberFragment extends BaseFamilyProfileMe
         return presenter().getDefaultSortQuery();
     }
 
+    protected abstract void setRemoveMemberProvider(Set visibleColumns, String familyHead, String primaryCaregiver, String familyBaseEntityId);
+
     @Override
     protected void initializePresenter() {
         if (getArguments() != null) {
@@ -63,19 +65,20 @@ public abstract class CoreFamilyRemoveMemberFragment extends BaseFamilyProfileMe
         }
     }
 
+    @Override
     public void setAdvancedSearchFormData(HashMap<String, String> hashMap) {
         Timber.v("setAdvancedSearchFormData");
     }
 
     protected abstract void setPresenter(String familyHead, String primaryCareGiver);
 
-    public FamilyRemoveMemberContract.Presenter getPresenter() {
-        return (FamilyRemoveMemberContract.Presenter) presenter;
-    }
-
     @Override
     public void removeMember(CommonPersonObjectClient client) {
         getPresenter().removeMember(client);
+    }
+
+    public FamilyRemoveMemberContract.Presenter getPresenter() {
+        return (FamilyRemoveMemberContract.Presenter) presenter;
     }
 
     @Override
@@ -154,6 +157,8 @@ public abstract class CoreFamilyRemoveMemberFragment extends BaseFamilyProfileMe
         getActivity().finish();
     }
 
+    protected abstract Class<? extends CoreFamilyRegisterActivity> getFamilyRegisterActivityClass();
+
     protected abstract CoreFamilyProfileChangeDialog getChangeFamilyCareGiverDialog();
 
     protected abstract CoreFamilyProfileChangeDialog getChangeFamilyHeadDialog();
@@ -166,6 +171,7 @@ public abstract class CoreFamilyRemoveMemberFragment extends BaseFamilyProfileMe
         } else {
             Handler handler = new Handler(Looper.getMainLooper());
             handler.post(new Runnable() {
+                @Override
                 public void run() {
                     if (fetchStatus.equals(FetchStatus.fetched)) {
                         refreshListView();
@@ -176,12 +182,6 @@ public abstract class CoreFamilyRemoveMemberFragment extends BaseFamilyProfileMe
         }
 
     }
-
-    protected abstract void setRemoveMemberProvider(Set visibleColumns, String familyHead, String primaryCaregiver, String familyBaseEntityId);
-
-    protected abstract Class<? extends CoreFamilyRegisterActivity> getFamilyRegisterActivityClass();
-
-    protected abstract String getRemoveFamilyMemberDialogTag();
 
     public void confirmRemove(final JSONObject form) {
         if (StringUtils.isNotBlank(memberName)) {
@@ -197,17 +197,13 @@ public abstract class CoreFamilyRemoveMemberFragment extends BaseFamilyProfileMe
                 );
             }
             if (getFragmentManager() != null) {
-                dialog.setContext(getContext());
                 dialog.show(getFragmentManager(), getRemoveFamilyMemberDialogTag());
-                dialog.setOnRemove(new Runnable() {
-                    @Override
-                    public void run() {
-                        getPresenter().processRemoveForm(form);
-                    }
-                });
+                dialog.setOnRemove(() -> getPresenter().processRemoveForm(form));
             }
         }
     }
+
+    protected abstract String getRemoveFamilyMemberDialogTag();
 
     public CoreFamilyRemoveMemberProvider getProvider() {
         return this.removeMemberProvider;

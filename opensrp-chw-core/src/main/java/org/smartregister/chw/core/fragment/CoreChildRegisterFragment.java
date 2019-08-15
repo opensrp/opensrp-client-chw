@@ -57,34 +57,16 @@ public class CoreChildRegisterFragment extends BaseChwRegisterFragment implement
 
     }
 
-    protected void filter(String filterString, String joinTableString, String mainConditionString) {
-        filters = filterString;
-        joinTable = joinTableString;
-        mainCondition = mainConditionString;
-        filterandSortExecute(countBundle());
+    @Override
+    public void setUniqueID(String s) {
+        if (getSearchView() != null) {
+            getSearchView().setText(s);
+        }
     }
 
     @Override
-    public void initializeAdapter(Set<org.smartregister.configurableviews.model.View> visibleColumns) {
-        CoreChildRegisterProvider childRegisterProvider = new CoreChildRegisterProvider(getActivity(), visibleColumns, registerActionHandler, paginationViewHandler);
-        clientAdapter = new RecyclerViewPaginatedAdapter(null, childRegisterProvider, context().commonrepository(this.tablename));
-        clientAdapter.setCurrentlimit(20);
-        clientsView.setAdapter(clientAdapter);
-    }
-
-    @Override
-    public void setupViews(View view) {
-        super.setupViews(view);
-        this.view = view;
-
-        dueOnlyLayout = view.findViewById(R.id.due_only_layout);
-        dueOnlyLayout.setVisibility(View.VISIBLE);
-        dueOnlyLayout.setOnClickListener(registerActionHandler);
-    }
-
-    @Override
-    protected int getToolBarTitle() {
-        return R.string.child_register_title;
+    public void setAdvancedSearchFormData(HashMap<String, String> hashMap) {
+        //// TODO: 15/08/19  
     }
 
     @Override
@@ -97,11 +79,13 @@ public class CoreChildRegisterFragment extends BaseChwRegisterFragment implement
     }
 
     @Override
-    protected void refreshSyncProgressSpinner() {
-        super.refreshSyncProgressSpinner();
-        if (syncButton != null) {
-            syncButton.setVisibility(View.GONE);
-        }
+    protected String getMainCondition() {
+        return presenter().getMainCondition();
+    }
+
+    @Override
+    protected String getDefaultSortQuery() {
+        return presenter().getDefaultSortQuery();
     }
 
     @Override
@@ -111,28 +95,18 @@ public class CoreChildRegisterFragment extends BaseChwRegisterFragment implement
     }
 
     @Override
-    public void showNotFoundPopup(String uniqueId) {
+    protected void onViewClicked(View view) {
         if (getActivity() == null) {
             return;
         }
-        NoMatchDialogFragment.launchDialog((BaseRegisterActivity) getActivity(), DIALOG_TAG, uniqueId);
-    }
 
-    @Override
-    public void setUniqueID(String s) {
-        if (getSearchView() != null) {
-            getSearchView().setText(s);
+        if (view.getTag() != null && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_NORMAL) {
+            if (view.getTag() instanceof CommonPersonObjectClient) {
+                goToChildDetailActivity((CommonPersonObjectClient) view.getTag(), false);
+            }
+        } else if (view.getId() == R.id.due_only_layout) {
+            toggleFilterSelection(view);
         }
-    }
-
-    @Override
-    protected String getMainCondition() {
-        return presenter().getMainCondition();
-    }
-
-    @Override
-    protected String getDefaultSortQuery() {
-        return presenter().getDefaultSortQuery();
     }
 
     @Override
@@ -164,6 +138,36 @@ public class CoreChildRegisterFragment extends BaseChwRegisterFragment implement
         }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        Toolbar toolbar = view.findViewById(org.smartregister.R.id.register_toolbar);
+        toolbar.setContentInsetsAbsolute(0, 0);
+        toolbar.setContentInsetsRelative(0, 0);
+        toolbar.setContentInsetStartWithNavigation(0);
+        NavigationMenu.getInstance(getActivity(), null, toolbar);
+    }
+
+    @Override
+    protected void refreshSyncProgressSpinner() {
+        super.refreshSyncProgressSpinner();
+        if (syncButton != null) {
+            syncButton.setVisibility(View.GONE);
+        }
+    }
+
+    public void goToChildDetailActivity(CommonPersonObjectClient patient,
+                                        boolean launchDialog) {
+        if (launchDialog) {
+            Timber.i(patient.name);
+        }
+
+        Intent intent = new Intent(getActivity(), CoreChildProfileActivity.class);
+        intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.BASE_ENTITY_ID, patient.getCaseId());
+        startActivity(intent);
+    }
+
     public void toggleFilterSelection(View dueOnlyLayout) {
         if (dueOnlyLayout != null) {
             if (dueOnlyLayout.getTag() == null) {
@@ -176,16 +180,23 @@ public class CoreChildRegisterFragment extends BaseChwRegisterFragment implement
         }
     }
 
+    private void normalFilter(View dueOnlyLayout) {
+        filter(searchText(), "", presenter().getMainCondition());
+        dueOnlyLayout.setTag(null);
+        switchViews(dueOnlyLayout, false);
+    }
+
     private void dueFilter(View dueOnlyLayout) {
         filter(searchText(), "", presenter().getDueFilterCondition());
         dueOnlyLayout.setTag(DUE_FILTER_TAG);
         switchViews(dueOnlyLayout, true);
     }
 
-    private void normalFilter(View dueOnlyLayout) {
-        filter(searchText(), "", presenter().getMainCondition());
-        dueOnlyLayout.setTag(null);
-        switchViews(dueOnlyLayout, false);
+    protected void filter(String filterString, String joinTableString, String mainConditionString) {
+        filters = filterString;
+        joinTable = joinTableString;
+        mainCondition = mainConditionString;
+        filterandSortExecute(countBundle());
     }
 
     private String searchText() {
@@ -202,15 +213,12 @@ public class CoreChildRegisterFragment extends BaseChwRegisterFragment implement
         }
     }
 
-    public void goToChildDetailActivity(CommonPersonObjectClient patient,
-                                        boolean launchDialog) {
-        if (launchDialog) {
-            Timber.i(patient.name);
-        }
-
-        Intent intent = new Intent(getActivity(), CoreChildProfileActivity.class);
-        intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.BASE_ENTITY_ID, patient.getCaseId());
-        startActivity(intent);
+    @Override
+    public void initializeAdapter(Set<org.smartregister.configurableviews.model.View> visibleColumns) {
+        CoreChildRegisterProvider childRegisterProvider = new CoreChildRegisterProvider(getActivity(), visibleColumns, registerActionHandler, paginationViewHandler);
+        clientAdapter = new RecyclerViewPaginatedAdapter(null, childRegisterProvider, context().commonrepository(this.tablename));
+        clientAdapter.setCurrentlimit(20);
+        clientsView.setAdapter(clientAdapter);
     }
 
     @Override
@@ -219,28 +227,46 @@ public class CoreChildRegisterFragment extends BaseChwRegisterFragment implement
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
+    public void setupViews(View view) {
+        super.setupViews(view);
+        this.view = view;
 
-        Toolbar toolbar = view.findViewById(org.smartregister.R.id.register_toolbar);
-        toolbar.setContentInsetsAbsolute(0, 0);
-        toolbar.setContentInsetsRelative(0, 0);
-        toolbar.setContentInsetStartWithNavigation(0);
-        NavigationMenu.getInstance(getActivity(), null, toolbar);
+        dueOnlyLayout = view.findViewById(R.id.due_only_layout);
+        dueOnlyLayout.setVisibility(View.VISIBLE);
+        dueOnlyLayout.setOnClickListener(registerActionHandler);
     }
 
     @Override
-    protected void onViewClicked(android.view.View view) {
+    protected int getToolBarTitle() {
+        return R.string.child_register_title;
+    }
+
+    @Override
+    public void showNotFoundPopup(String uniqueId) {
         if (getActivity() == null) {
             return;
         }
+        NoMatchDialogFragment.launchDialog((BaseRegisterActivity) getActivity(), DIALOG_TAG, uniqueId);
+    }
 
-        if (view.getTag() != null && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_NORMAL) {
-            if (view.getTag() instanceof CommonPersonObjectClient) {
-                goToChildDetailActivity((CommonPersonObjectClient) view.getTag(), false);
-            }
-        } else if (view.getId() == R.id.due_only_layout) {
-            toggleFilterSelection(view);
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        if (StringUtils.isBlank(filters)) {
+            return super.onCreateLoader(id, args);
+        } else {
+            if (id == LOADER_ID) {// Returns a new CursorLoader
+                return new CursorLoader(getActivity()) {
+                    @Override
+                    public Cursor loadInBackground() {
+                        // Count query
+                        String query = "";
+                        // Select register query
+                        query = filterandSortQuery();
+                        return commonRepository().rawCustomQueryForAdapter(query);
+                    }
+                };
+            }// An invalid id was passed in
+            return null;
         }
     }
 
@@ -266,34 +292,5 @@ public class CoreChildRegisterFragment extends BaseChwRegisterFragment implement
         }
 
         return query;
-    }
-
-    @Override
-    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        if (StringUtils.isBlank(filters)) {
-            return super.onCreateLoader(id, args);
-        } else {
-            switch (id) {
-                case LOADER_ID:
-                    // Returns a new CursorLoader
-                    return new CursorLoader(getActivity()) {
-                        @Override
-                        public Cursor loadInBackground() {
-                            // Count query
-                            String query = "";
-                            // Select register query
-                            query = filterandSortQuery();
-                            return commonRepository().rawCustomQueryForAdapter(query);
-                        }
-                    };
-                default:
-                    // An invalid id was passed in
-                    return null;
-            }
-        }
-    }
-
-    @Override
-    public void setAdvancedSearchFormData(HashMap<String, String> hashMap) {
     }
 }

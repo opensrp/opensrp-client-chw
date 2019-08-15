@@ -10,7 +10,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.Menu;
-import android.view.View;
 
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.core.utils.ChildDBConstants;
@@ -24,23 +23,16 @@ import org.smartregister.family.util.Utils;
 import org.smartregister.view.activity.SecuredActivity;
 import org.smartregister.view.customcontrols.CustomFontTextView;
 
-import static org.smartregister.util.Utils.getValue;
-
 public class ReferralTaskViewActivity extends SecuredActivity {
     protected AppBarLayout appBarLayout;
     private CommonPersonObjectClient personObjectClient;
     private Task task;
-    private CustomFontTextView toolBarTextView;
     private CustomFontTextView clientName;
     private CustomFontTextView clientAge;
     private CustomFontTextView careGiverName;
     private CustomFontTextView careGiverPhone;
     private CustomFontTextView clientReferralProblem;
     private CustomFontTextView referralDate;
-    private CustomFontTextView chwDetailsNames;
-    private CustomFontTextView chwDetailsPhone;
-    private CustomFontTextView markAskDone;
-    private CustomFontTextView viewProfile;
     private ReferralsTaskViewClickListener referralsTaskViewClickListener = new ReferralsTaskViewClickListener();
     private String name;
 
@@ -73,13 +65,13 @@ public class ReferralTaskViewActivity extends SecuredActivity {
 
     @Override
     protected void onResumption() {
-
+        //// TODO: 15/08/19
     }
 
     private void extractPersonObjectClient() {
         setPersonObjectClient((CommonPersonObjectClient) getIntent().getSerializableExtra(CoreConstants.INTENT_KEY.CHILD_COMMON_PERSON));
         if (getPersonObjectClient() != null) {
-            name = getValue(getPersonObjectClient().getColumnmaps(), DBConstants.KEY.FIRST_NAME, true) + " " + getValue(getPersonObjectClient().getColumnmaps(), DBConstants.KEY.LAST_NAME, true);
+            name = Utils.getValue(getPersonObjectClient().getColumnmaps(), DBConstants.KEY.FIRST_NAME, true) + " " + Utils.getValue(getPersonObjectClient().getColumnmaps(), DBConstants.KEY.LAST_NAME, true);
         }
     }
 
@@ -89,7 +81,7 @@ public class ReferralTaskViewActivity extends SecuredActivity {
 
     private void inflateToolbar() {
         Toolbar toolbar = findViewById(R.id.back_referrals_toolbar);
-        toolBarTextView = toolbar.findViewById(R.id.toolbar_title);
+        CustomFontTextView toolBarTextView = toolbar.findViewById(R.id.toolbar_title);
         setSupportActionBar(toolbar);
 
         ActionBar actionBar = getSupportActionBar();
@@ -101,12 +93,7 @@ public class ReferralTaskViewActivity extends SecuredActivity {
             actionBar.setElevation(0);
         }
 
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        toolbar.setNavigationOnClickListener(v -> finish());
 
         if (TextUtils.isEmpty(name)) {
             toolBarTextView.setText(R.string.back_to_referrals);
@@ -127,13 +114,11 @@ public class ReferralTaskViewActivity extends SecuredActivity {
         careGiverPhone = findViewById(R.id.care_giver_phone);
         clientReferralProblem = findViewById(R.id.client_referral_problem);
         referralDate = findViewById(R.id.referral_date);
-        chwDetailsNames = findViewById(R.id.chw_details_names);
-        chwDetailsPhone = findViewById(R.id.chw_details_phone);
 
-        markAskDone = findViewById(R.id.mark_ask_done);
+        CustomFontTextView markAskDone = findViewById(R.id.mark_ask_done);
         markAskDone.setOnClickListener(referralsTaskViewClickListener);
 
-        viewProfile = findViewById(R.id.view_profile);
+        CustomFontTextView viewProfile = findViewById(R.id.view_profile);
         viewProfile.setOnClickListener(referralsTaskViewClickListener);
 
         getReferralDetails();
@@ -189,7 +174,7 @@ public class ReferralTaskViewActivity extends SecuredActivity {
     }
 
     public void closeTask() {
-
+        //// TODO: 15/08/19
     }
 
   /*  private Event createReferralCloseEvent() {

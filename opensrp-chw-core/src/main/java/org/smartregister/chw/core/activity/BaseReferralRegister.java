@@ -23,35 +23,6 @@ public abstract class BaseReferralRegister extends BaseRegisterActivity {
     }
 
     @Override
-    protected Fragment[] getOtherFragments() {
-        return new Fragment[0];
-    }
-
-    @Override
-    public void startFormActivity(String s, String s1, String s2) {
-
-    }
-
-    @Override
-    public void startFormActivity(JSONObject jsonObject) {
-
-    }
-
-    @Override
-    protected void onActivityResultExtended(int i, int i1, Intent intent) {
-
-    }
-
-    @Override
-    public List<String> getViewIdentifiers() {
-        return null;
-    }
-
-    @Override
-    public void startRegistration() {//not used
-    }
-
-    @Override
     protected void registerBottomNavigation() {
 
         bottomNavigationHelper = new BottomNavigationHelper();
@@ -72,5 +43,35 @@ public abstract class BaseReferralRegister extends BaseRegisterActivity {
             bottomNavigationView.setOnNavigationItemSelectedListener(childBottomNavigationListener);
 
         }
+    }
+
+    @Override
+    protected Fragment[] getOtherFragments() {
+        return new Fragment[0];
+    }
+
+    @Override
+    public void startFormActivity(String s, String s1, String s2) {
+        // TODO: 15/08/19  
+    }
+
+    @Override
+    public void startFormActivity(JSONObject jsonObject) {
+        // TODO: 15/08/19  
+    }
+
+    @Override
+    protected void onActivityResultExtended(int i, int i1, Intent intent) {
+        //// TODO: 15/08/19  
+    }
+
+    @Override
+    public List<String> getViewIdentifiers() {
+        return null;
+    }
+
+    @Override
+    public void startRegistration() {
+        //// TODO: 15/08/19
     }
 }

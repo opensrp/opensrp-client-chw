@@ -47,7 +47,9 @@ public class UpdateLastAsyncTask extends AsyncTask<Void, Void, Void> {
                 String strDateCreated = Utils.getValue(commonPersonObject.getColumnmaps(), ChildDBConstants.KEY.DATE_CREATED, false);
                 String lastVisitDate = Utils.getValue(commonPersonObject.getColumnmaps(), ChildDBConstants.KEY.LAST_HOME_VISIT, false);
                 String visitNotDone = Utils.getValue(commonPersonObject.getColumnmaps(), ChildDBConstants.KEY.VISIT_NOT_DONE, false);
-                long lastVisit = 0, visitNot = 0, dateCreated = 0;
+                long lastVisit = 0;
+                long visitNot = 0;
+                long dateCreated = 0;
                 if (!TextUtils.isEmpty(visitNotDone)) {
                     visitNot = Long.parseLong(visitNotDone);
                 }
@@ -76,7 +78,7 @@ public class UpdateLastAsyncTask extends AsyncTask<Void, Void, Void> {
             } else if (childVisit.getVisitStatus().equalsIgnoreCase(CoreChildProfileInteractor.VisitType.OVERDUE.name())) {
                 setVisitButtonOverdueStatus(context, viewHolder.dueButton, childVisit.getNoOfMonthDue());
             } else if (childVisit.getVisitStatus().equalsIgnoreCase(CoreChildProfileInteractor.VisitType.LESS_TWENTY_FOUR.name())) {
-                setVisitLessTwentyFourView(context, viewHolder.dueButton, childVisit.getLastVisitDays());
+                setVisitLessTwentyFourView(context, viewHolder.dueButton);
             } else if (childVisit.getVisitStatus().equalsIgnoreCase(CoreChildProfileInteractor.VisitType.VISIT_THIS_MONTH.name())) {
                 setVisitAboveTwentyFourView(context, viewHolder.dueButton);
             } else if (childVisit.getVisitStatus().equalsIgnoreCase(CoreChildProfileInteractor.VisitType.NOT_VISIT_THIS_MONTH.name())) {
@@ -84,27 +86,15 @@ public class UpdateLastAsyncTask extends AsyncTask<Void, Void, Void> {
             }
         } else {
             viewHolder.dueButton.setVisibility(View.GONE);
-            //attachSyncOnclickListener(viewHolder.sync, pc);
         }
 
     }
 
-    private void setVisitNotDone(Context context, Button dueButton) {
-        dueButton.setTextColor(context.getResources().getColor(R.color.progress_orange));
-        dueButton.setText(context.getString(R.string.visit_not_done));
-        dueButton.setBackgroundColor(context.getResources().getColor(R.color.transparent));
-        dueButton.setOnClickListener(null);
-    }
-
-    private void setVisitAboveTwentyFourView(Context context, Button dueButton) {
-        dueButton.setTextColor(context.getResources().getColor(R.color.alert_complete_green));
-        dueButton.setText(context.getString(R.string.visit_done));
-        dueButton.setBackgroundColor(context.getResources().getColor(R.color.transparent));
-        dueButton.setOnClickListener(null);
-    }
-
-    private void setVisitLessTwentyFourView(Context context, Button dueButton, String lastVisitMonth) {
-        setVisitAboveTwentyFourView(context, dueButton);
+    private void setVisitButtonDueStatus(Context context, Button dueButton) {
+        dueButton.setTextColor(context.getResources().getColor(R.color.alert_in_progress_blue));
+        dueButton.setText(context.getString(R.string.record_home_visit));
+        dueButton.setBackgroundResource(R.drawable.blue_btn_selector);
+        dueButton.setOnClickListener(onClickListener);
     }
 
     private void setVisitButtonOverdueStatus(Context context, Button dueButton, String lastVisitDays) {
@@ -119,10 +109,21 @@ public class UpdateLastAsyncTask extends AsyncTask<Void, Void, Void> {
         dueButton.setOnClickListener(onClickListener);
     }
 
-    private void setVisitButtonDueStatus(Context context, Button dueButton) {
-        dueButton.setTextColor(context.getResources().getColor(R.color.alert_in_progress_blue));
-        dueButton.setText(context.getString(R.string.record_home_visit));
-        dueButton.setBackgroundResource(R.drawable.blue_btn_selector);
-        dueButton.setOnClickListener(onClickListener);
+    private void setVisitLessTwentyFourView(Context context, Button dueButton) {
+        setVisitAboveTwentyFourView(context, dueButton);
+    }
+
+    private void setVisitAboveTwentyFourView(Context context, Button dueButton) {
+        dueButton.setTextColor(context.getResources().getColor(R.color.alert_complete_green));
+        dueButton.setText(context.getString(R.string.visit_done));
+        dueButton.setBackgroundColor(context.getResources().getColor(R.color.transparent));
+        dueButton.setOnClickListener(null);
+    }
+
+    private void setVisitNotDone(Context context, Button dueButton) {
+        dueButton.setTextColor(context.getResources().getColor(R.color.progress_orange));
+        dueButton.setText(context.getString(R.string.visit_not_done));
+        dueButton.setBackgroundColor(context.getResources().getColor(R.color.transparent));
+        dueButton.setOnClickListener(null);
     }
 }

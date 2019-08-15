@@ -8,9 +8,7 @@ import android.util.TypedValue;
 import android.view.View;
 import android.widget.RelativeLayout;
 
-import org.jeasy.rules.api.Rules;
 import org.smartregister.chw.core.R;
-import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.interactor.CoreChildProfileInteractor;
 import org.smartregister.chw.core.model.ChildVisit;
 import org.smartregister.chw.core.utils.ChildDBConstants;
@@ -31,8 +29,6 @@ import java.util.Map;
 import java.util.Set;
 
 import timber.log.Timber;
-
-import static org.smartregister.family.util.Utils.dobStringToDateTime;
 
 public class CoreMemberRegisterProvider extends FamilyMemberRegisterProvider {
     private Context context;
@@ -96,8 +92,9 @@ public class CoreMemberRegisterProvider extends FamilyMemberRegisterProvider {
         } catch (Exception e) {
             Timber.e(e, e.toString());
         } finally {
-            if (cursor != null)
+            if (cursor != null) {
                 cursor.close();
+            }
         }
 
         if (res.isEmpty()) {
@@ -106,24 +103,13 @@ public class CoreMemberRegisterProvider extends FamilyMemberRegisterProvider {
         return res.get(0);
     }
 
-    private ChildVisit retrieveChildVisitList(Rules rules, CommonPersonObjectClient pc, Map<String, String> map) {
-        String dob = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.DOB, false);
-        String dobString = Utils.getDuration(dob);
+    private ChildVisit retrieveChildVisitList(CommonPersonObjectClient pc, Map<String, String> map) {
         String lastVisitDate = map.get(ChildDBConstants.KEY.LAST_HOME_VISIT);
         String visitNotDone = map.get(ChildDBConstants.KEY.VISIT_NOT_DONE);
         String strDateCreated = map.get(ChildDBConstants.KEY.DATE_CREATED);
-        long lastVisit = 0;
-        long visitNot = 0;
-        long dateCreated = 0;
-        if (!TextUtils.isEmpty(lastVisitDate)) {
-            lastVisit = Long.valueOf(lastVisitDate);
-        }
-        if (!TextUtils.isEmpty(visitNotDone)) {
-            visitNot = Long.valueOf(visitNotDone);
-        }
-        if (!TextUtils.isEmpty(strDateCreated)) {
-            dateCreated = dobStringToDateTime(strDateCreated).getMillis();
-        }
+        TextUtils.isEmpty(lastVisitDate);
+        TextUtils.isEmpty(visitNotDone);
+        TextUtils.isEmpty(strDateCreated);
         return null;// CoreChildUtils.getChildVisitStatus(context, rules, dobString, lastVisit, visitNot, dateCreated);
     }
 
@@ -151,22 +137,19 @@ public class CoreMemberRegisterProvider extends FamilyMemberRegisterProvider {
         private final FamilyMemberRegisterProvider.RegisterViewHolder viewHolder;
         private final CommonPersonObjectClient pc;
 
-        private final Rules rules;
-
         private Map<String, String> map;
         private ChildVisit childVisit;
 
         private UpdateAsyncTask(FamilyMemberRegisterProvider.RegisterViewHolder viewHolder, CommonPersonObjectClient pc) {
             this.viewHolder = viewHolder;
             this.pc = pc;
-            this.rules = CoreChwApplication.getInstance().getRulesEngineHelper().rules(CoreConstants.RULE_FILE.HOME_VISIT);
         }
 
         @Override
         protected Void doInBackground(Void... params) {
             map = getChildDetails(pc.getCaseId());
             if (map != null) {
-                childVisit = retrieveChildVisitList(rules, pc, map);
+                childVisit = retrieveChildVisitList(pc, map);
             }
             return null;
         }

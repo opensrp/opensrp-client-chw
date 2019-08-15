@@ -27,7 +27,7 @@ public class FamilyRegisterFragment extends CoreFamilyRegisterFragment {
     }
 
     @Override
-    public void onViewClicked(android.view.View view) {
+    public void onViewClicked(View view) {
         super.onViewClicked(view);
         if (view.getId() == R.id.due_only_layout) {
             toggleFilterSelection(view);

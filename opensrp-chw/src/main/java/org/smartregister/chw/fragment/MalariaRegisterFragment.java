@@ -194,7 +194,9 @@ public class MalariaRegisterFragment extends BaseMalariaRegisterFragment {
         if (syncButton != null) {
             syncButton.setVisibility(View.GONE);
         }
-    }    protected String dueFilterAndSortQuery() {
+    }
+
+    protected String dueFilterAndSortQuery() {
         SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder(mainSelect);
 
         String query = "";
@@ -221,8 +223,6 @@ public class MalariaRegisterFragment extends BaseMalariaRegisterFragment {
 
         return query;
     }
-
-
 
 
     private String defaultFilterAndSortQuery() {

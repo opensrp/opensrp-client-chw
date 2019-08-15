@@ -38,7 +38,6 @@ import static org.smartregister.chw.core.utils.ApplicationUtils.getCommonFtsObje
 
 public class CoreChwApplication extends DrishtiApplication implements CoreApplication {
 
-    private static final int MINIMUM_JOB_FLEX_VALUE = 1;
     private static ClientProcessorForJava clientProcessor;
 
     private static CommonFtsObject commonFtsObject = null;
@@ -56,24 +55,16 @@ public class CoreChwApplication extends DrishtiApplication implements CoreApplic
 
     private RulesEngineHelper rulesEngineHelper;
 
-    public static synchronized CoreChwApplication getInstance() {
-        return (CoreChwApplication) mInstance;
-    }
-
     public static JsonSpecHelper getJsonSpecHelper() {
         return getInstance().jsonSpecHelper;
     }
 
-    public static CommonFtsObject createCommonFtsObject() {
-        return getCommonFtsObject(commonFtsObject);
+    public static synchronized CoreChwApplication getInstance() {
+        return (CoreChwApplication) mInstance;
     }
 
-    public static ClientProcessorForJava getClientProcessor(android.content.Context context) {
-        if (clientProcessor == null) {
-            clientProcessor = ChwClientProcessor.getInstance(context);
-//            clientProcessor = FamilyLibrary.getInstance().getClientProcessorForJava();
-        }
-        return clientProcessor;
+    public static CommonFtsObject createCommonFtsObject() {
+        return getCommonFtsObject(commonFtsObject);
     }
 
     public static HomeVisitRepository homeVisitRepository() {
@@ -148,6 +139,7 @@ public class CoreChwApplication extends DrishtiApplication implements CoreApplic
         context.userService().logoutSession();
     }
 
+    @Override
     public String getPassword() {
         if (password == null) {
             String username = getContext().allSharedPreferences().fetchRegisteredANM();
@@ -161,40 +153,16 @@ public class CoreChwApplication extends DrishtiApplication implements CoreApplic
         return CoreChwApplication.getClientProcessor(CoreChwApplication.getInstance().getApplicationContext());
     }
 
-    @Override
-    public void saveLanguage(String language) {
-        CoreChwApplication.getInstance().getContext().allSharedPreferences().saveLanguagePreference(language);
-    }
-
-    @Override
-    public Context getContext() {
-        return context;
-    }
-
-    @Override
-    public ECSyncHelper getEcSyncHelper() {
-        if (ecSyncHelper == null) {
-            ecSyncHelper = ECSyncHelper.getInstance(getApplicationContext());
+    public static ClientProcessorForJava getClientProcessor(android.content.Context context) {
+        if (clientProcessor == null) {
+            clientProcessor = ChwClientProcessor.getInstance(context);
+//            clientProcessor = FamilyLibrary.getInstance().getClientProcessorForJava();
         }
-        return ecSyncHelper;
-    }
-
-    @Override
-    public void notifyAppContextChange() {
-        Locale current = getApplicationContext().getResources().getConfiguration().locale;
-        saveLanguage(current.getLanguage());
+        return clientProcessor;
     }
 
     public VaccineRepository vaccineRepository() {
         return ImmunizationLibrary.getInstance().vaccineRepository();
-    }
-
-    @Override
-    public RulesEngineHelper getRulesEngineHelper() {
-        if (rulesEngineHelper == null) {
-            rulesEngineHelper = new RulesEngineHelper(getApplicationContext());
-        }
-        return rulesEngineHelper;
     }
 
     public LocationRepository getLocationRepository() {
@@ -221,6 +189,9 @@ public class CoreChwApplication extends DrishtiApplication implements CoreApplic
         } catch (Exception e) {
             Timber.e(e);
         }
+    }    @Override
+    public void saveLanguage(String language) {
+        CoreChwApplication.getInstance().getContext().allSharedPreferences().saveLanguagePreference(language);
     }
 
     public void scheduleJobs() {
@@ -231,5 +202,37 @@ public class CoreChwApplication extends DrishtiApplication implements CoreApplic
     public AllCommonsRepository getAllCommonsRepository(String table) {
         return CoreChwApplication.getInstance().getContext().allCommonsRepositoryobjects(table);
     }
+
+    @Override
+    public Context getContext() {
+        return context;
+    }
+
+
+
+    @Override
+    public ECSyncHelper getEcSyncHelper() {
+        if (ecSyncHelper == null) {
+            ecSyncHelper = ECSyncHelper.getInstance(getApplicationContext());
+        }
+        return ecSyncHelper;
+    }
+
+
+    @Override
+    public void notifyAppContextChange() {
+        Locale current = getApplicationContext().getResources().getConfiguration().locale;
+        saveLanguage(current.getLanguage());
+    }
+
+
+    @Override
+    public RulesEngineHelper getRulesEngineHelper() {
+        if (rulesEngineHelper == null) {
+            rulesEngineHelper = new RulesEngineHelper(getApplicationContext());
+        }
+        return rulesEngineHelper;
+    }
+
 
 }

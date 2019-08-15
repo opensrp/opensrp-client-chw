@@ -65,6 +65,18 @@ public abstract class CoreFamilyProfileChangeHead extends Fragment implements Vi
         return root;
     }
 
+    protected void prepareViews(View view) {
+        view.findViewById(R.id.close).setOnClickListener(this);
+        view.findViewById(R.id.tvAction).setOnClickListener(this);
+        progressBar = view.findViewById(R.id.progressBar);
+        tvAction = view.findViewById(R.id.tvAction);
+        recyclerView = view.findViewById(R.id.rvList);
+
+        progressBar.setVisibility(View.INVISIBLE);
+    }
+
+    protected abstract CoreFamilyChangePresenter getPresenter();
+
     @Override
     public void onClick(View v) {
         int i = v.getId();
@@ -77,14 +89,14 @@ public abstract class CoreFamilyProfileChangeHead extends Fragment implements Vi
         }
     }
 
-    protected void prepareViews(View view) {
-        view.findViewById(R.id.close).setOnClickListener(this);
-        view.findViewById(R.id.tvAction).setOnClickListener(this);
-        progressBar = view.findViewById(R.id.progressBar);
-        tvAction = view.findViewById(R.id.tvAction);
-        recyclerView = view.findViewById(R.id.rvList);
-
-        progressBar.setVisibility(View.INVISIBLE);
+    protected void validateSave() {
+        Boolean valid = memberAdapter.validateSave();
+        if (valid) {
+            FamilyMember res = memberAdapter.getSelectedResults();
+            if (res != null) {
+                updateFamilyMember(Pair.create(CoreConstants.PROFILE_CHANGE_ACTION.HEAD_OF_FAMILY, res));
+            }
+        }
     }
 
     @Override
@@ -139,16 +151,5 @@ public abstract class CoreFamilyProfileChangeHead extends Fragment implements Vi
     public void close() {
         getActivity().finish();
     }
-
-    protected void validateSave() {
-        Boolean valid = memberAdapter.validateSave();
-        if (valid) {
-            FamilyMember res = memberAdapter.getSelectedResults();
-            if (res != null)
-                updateFamilyMember(Pair.create(CoreConstants.PROFILE_CHANGE_ACTION.HEAD_OF_FAMILY, res));
-        }
-    }
-
-    protected abstract CoreFamilyChangePresenter getPresenter();
 
 }

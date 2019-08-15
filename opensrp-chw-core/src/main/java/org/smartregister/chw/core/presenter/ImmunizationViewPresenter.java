@@ -71,10 +71,6 @@ public class ImmunizationViewPresenter implements ImmunizationContact.Presenter,
 
     }
 
-    public void upcomingServiceFetch(CommonPersonObjectClient commonPersonObjectClient, ImmunizationContact.InteractorCallBack callBack) {
-        interactor.fetchImmunizationData(commonPersonObjectClient, callBack);
-    }
-
     @Override
     public ImmunizationContact.View getView() {
         if (view != null) {
@@ -82,6 +78,10 @@ public class ImmunizationViewPresenter implements ImmunizationContact.Presenter,
         } else {
             return null;
         }
+    }
+
+    public void upcomingServiceFetch(CommonPersonObjectClient commonPersonObjectClient, ImmunizationContact.InteractorCallBack callBack) {
+        interactor.fetchImmunizationData(commonPersonObjectClient, callBack);
     }
 
     @Override
@@ -176,6 +176,16 @@ public class ImmunizationViewPresenter implements ImmunizationContact.Presenter,
         return vaccineWrappers;
     }
 
+    public Long getVaccineId(String vaccineName) {
+        List<Vaccine> vaccines = interactor.getVaccines();
+        for (Vaccine vaccine : vaccines) {
+            if (vaccine.getName().equalsIgnoreCase(vaccineName)) {
+                return vaccine.getId();
+            }
+        }
+        return null;
+    }
+
     public ArrayList<VaccineWrapper> getNotGivenVaccineWrappers(HomeVisitVaccineGroup group) {
 
         ArrayList<VaccineWrapper> vaccineWrappers = new ArrayList<VaccineWrapper>();
@@ -200,16 +210,6 @@ public class ImmunizationViewPresenter implements ImmunizationContact.Presenter,
             vaccineWrappers.add(vaccineWrapper);
         }
         return vaccineWrappers;
-    }
-
-    public Long getVaccineId(String vaccineName) {
-        List<Vaccine> vaccines = interactor.getVaccines();
-        for (Vaccine vaccine : vaccines) {
-            if (vaccine.getName().equalsIgnoreCase(vaccineName)) {
-                return vaccine.getId();
-            }
-        }
-        return null;
     }
 
     public ArrayList<VaccineWrapper> getNotGivenVaccines() {

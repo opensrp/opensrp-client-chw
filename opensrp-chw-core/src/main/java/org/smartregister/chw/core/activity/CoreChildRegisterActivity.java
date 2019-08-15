@@ -33,6 +33,35 @@ import timber.log.Timber;
 public class CoreChildRegisterActivity extends BaseRegisterActivity implements CoreChildRegisterContract.View {
 
     @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        NavigationMenu.getInstance(this, null, null);
+    }
+
+    @Override
+    protected void registerBottomNavigation() {
+
+        bottomNavigationHelper = new BottomNavigationHelper();
+        bottomNavigationView = findViewById(org.smartregister.R.id.bottom_navigation);
+
+        if (bottomNavigationView != null) {
+            bottomNavigationView.setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_LABELED);
+            bottomNavigationView.getMenu().removeItem(R.id.action_clients);
+            bottomNavigationView.getMenu().removeItem(R.id.action_register);
+            bottomNavigationView.getMenu().removeItem(R.id.action_search);
+            bottomNavigationView.getMenu().removeItem(R.id.action_library);
+
+            bottomNavigationView.inflateMenu(R.menu.bottom_nav_family_menu);
+
+            bottomNavigationHelper.disableShiftMode(bottomNavigationView);
+
+            CoreBottomNavigationListener childBottomNavigationListener = new CoreBottomNavigationListener(this);
+            bottomNavigationView.setOnNavigationItemSelectedListener(childBottomNavigationListener);
+
+        }
+    }
+
+    @Override
     protected void initializePresenter() {
         presenter = new CoreChildRegisterPresenter(this, new CoreChildRegisterModel());
     }
@@ -48,14 +77,10 @@ public class CoreChildRegisterActivity extends BaseRegisterActivity implements C
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        NavigationMenu.getInstance(this, null, null);
-    }
-
-    @Override
-    public void startRegistration() {
-        startFormActivity(Utils.metadata().familyRegister.formName, null, null);
+    protected void onResumption() {
+        super.onResumption();
+        NavigationMenu.getInstance(this, null, null).getNavigationAdapter()
+                .setSelectedView(CoreConstants.DrawerMenu.CHILD_CLIENTS);
     }
 
     @Override
@@ -107,31 +132,8 @@ public class CoreChildRegisterActivity extends BaseRegisterActivity implements C
     }
 
     @Override
-    protected void registerBottomNavigation() {
-
-        bottomNavigationHelper = new BottomNavigationHelper();
-        bottomNavigationView = findViewById(org.smartregister.R.id.bottom_navigation);
-
-        if (bottomNavigationView != null) {
-            bottomNavigationView.setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_LABELED);
-            bottomNavigationView.getMenu().removeItem(R.id.action_clients);
-            bottomNavigationView.getMenu().removeItem(R.id.action_register);
-            bottomNavigationView.getMenu().removeItem(R.id.action_search);
-            bottomNavigationView.getMenu().removeItem(R.id.action_library);
-
-            bottomNavigationView.inflateMenu(R.menu.bottom_nav_family_menu);
-
-            bottomNavigationHelper.disableShiftMode(bottomNavigationView);
-
-            CoreBottomNavigationListener childBottomNavigationListener = new CoreBottomNavigationListener(this);
-            bottomNavigationView.setOnNavigationItemSelectedListener(childBottomNavigationListener);
-
-        }
-    }
-
-    @Override
-    public void openFamilyListView() {
-        bottomNavigationView.setSelectedItemId(R.id.action_family);
+    public List<String> getViewIdentifiers() {
+        return Arrays.asList(Utils.metadata().familyRegister.config);
     }
 
     @Override
@@ -142,19 +144,17 @@ public class CoreChildRegisterActivity extends BaseRegisterActivity implements C
     }
 
     @Override
-    public List<String> getViewIdentifiers() {
-        return Arrays.asList(Utils.metadata().familyRegister.config);
-    }
-
-    @Override
     public CoreChildRegisterContract.Presenter presenter() {
         return (CoreChildRegisterContract.Presenter) presenter;
     }
 
     @Override
-    protected void onResumption() {
-        super.onResumption();
-        NavigationMenu.getInstance(this, null, null).getNavigationAdapter()
-                .setSelectedView(CoreConstants.DrawerMenu.CHILD_CLIENTS);
+    public void openFamilyListView() {
+        bottomNavigationView.setSelectedItemId(R.id.action_family);
+    }
+
+    @Override
+    public void startRegistration() {
+        startFormActivity(Utils.metadata().familyRegister.formName, null, null);
     }
 }

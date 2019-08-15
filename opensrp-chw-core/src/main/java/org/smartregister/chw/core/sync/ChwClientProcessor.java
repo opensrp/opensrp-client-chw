@@ -41,7 +41,6 @@ import timber.log.Timber;
 
 
 public class ChwClientProcessor extends ClientProcessorForJava {
-
     private ClientClassification classification;
     private Table vaccineTable;
     private Table serviceTable;
@@ -55,70 +54,6 @@ public class ChwClientProcessor extends ClientProcessorForJava {
             instance = new ChwClientProcessor(context);
         }
         return instance;
-    }
-
-    public static void addVaccine(VaccineRepository vaccineRepository, Vaccine vaccine) {
-        try {
-            if (vaccineRepository == null || vaccine == null) {
-                return;
-            }
-
-            // Add the vaccine
-            vaccineRepository.add(vaccine);
-
-            String name = vaccine.getName();
-            if (StringUtils.isBlank(name)) {
-                return;
-            }
-
-            // Update vaccines in the same group where either can be given
-            // For example measles 1 / mr 1
-            name = VaccineRepository.removeHyphen(name);
-            String ftsVaccineName = null;
-
-            if (VaccineRepo.Vaccine.measles1.display().equalsIgnoreCase(name)) {
-                ftsVaccineName = VaccineRepo.Vaccine.mr1.display();
-            } else if (VaccineRepo.Vaccine.mr1.display().equalsIgnoreCase(name)) {
-                ftsVaccineName = VaccineRepo.Vaccine.measles1.display();
-            } else if (VaccineRepo.Vaccine.measles2.display().equalsIgnoreCase(name)) {
-                ftsVaccineName = VaccineRepo.Vaccine.mr2.display();
-            } else if (VaccineRepo.Vaccine.mr2.display().equalsIgnoreCase(name)) {
-                ftsVaccineName = VaccineRepo.Vaccine.measles2.display();
-            }
-
-            if (ftsVaccineName != null) {
-                ftsVaccineName = VaccineRepository.addHyphen(ftsVaccineName.toLowerCase());
-                Vaccine ftsVaccine = new Vaccine();
-                ftsVaccine.setBaseEntityId(vaccine.getBaseEntityId());
-                ftsVaccine.setName(ftsVaccineName);
-                vaccineRepository.updateFtsSearch(ftsVaccine);
-            }
-
-        } catch (Exception e) {
-            Timber.e(e);
-        }
-
-    }
-
-    private Table getVaccineTable() {
-        if (vaccineTable == null) {
-            vaccineTable = assetJsonToJava("ec_client_vaccine.json", Table.class);
-        }
-        return vaccineTable;
-    }
-
-    private Table getServiceTable() {
-        if (serviceTable == null) {
-            serviceTable = assetJsonToJava("ec_client_service.json", Table.class);
-        }
-        return serviceTable;
-    }
-
-    private ClientClassification getClassification() {
-        if (classification == null) {
-            classification = assetJsonToJava("ec_client_classification.json", ClientClassification.class);
-        }
-        return classification;
     }
 
     @Override
@@ -225,52 +160,25 @@ public class ChwClientProcessor extends ClientProcessorForJava {
         }
     }
 
-    @Override
-    public void updateClientDetailsTable(Event event, Client client) {
-        Timber.d("Started updateClientDetailsTable");
-        event.addDetails("detailsUpdated", Boolean.TRUE.toString());
-        Timber.d("Finished updateClientDetailsTable");
-    }
-
-    private void processHomeVisit(EventClient eventClient) {
-        List<Obs> observations = eventClient.getEvent().getObs();
-
-        CoreChildUtils.addToHomeVisitTable(eventClient.getEvent().getBaseEntityId(), eventClient.getEvent().getFormSubmissionId(), observations);
-    }
-
-    private void processVaccineCardEvent(EventClient eventClient) {
-        List<Obs> observations = eventClient.getEvent().getObs();
-        CoreChildUtils.addToChildTable(eventClient.getEvent().getBaseEntityId(), observations);
-    }
-
-    private void processHomeVisitService(EventClient eventClient) {
-        CoreChildUtils.addToHomeVisitService(eventClient.getEvent().getEventType(), eventClient.getEvent().getObs(), eventClient.getEvent().getEventDate().toDate(), CoreChildUtils.gsonConverter.toJson(eventClient.getEvent()));
-    }
-
-    private void processWashCheckEvent(EventClient eventClient) {
-        utils.WashCheck washCheck = new utils.WashCheck();
-        for (Obs obs : eventClient.getEvent().getObs()) {
-
-            if (obs.getFormSubmissionField().equalsIgnoreCase(CoreConstants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.FAMILY_ID)) {
-                washCheck.setFamilyBaseEntityId((String) obs.getValue());
-            }
-            if (obs.getFormSubmissionField().equalsIgnoreCase(CoreConstants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.WASH_CHECK_DETAILS)) {
-                washCheck.setDetailsJson((String) obs.getValue());
-            }
-            if (obs.getFormSubmissionField().equalsIgnoreCase(CoreConstants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.WASH_CHECK_LAST_VISIT)) {
-                washCheck.setLastVisit(Long.parseLong((String) obs.getValue()));
-            }
+    private ClientClassification getClassification() {
+        if (classification == null) {
+            classification = assetJsonToJava("ec_client_classification.json", ClientClassification.class);
         }
-        CoreChwApplication.getWashCheckRepository().add(washCheck);
+        return classification;
     }
 
-    // possible to delegate
-    private void processVisitEvent(EventClient eventClient) {
-        try {
-            org.smartregister.chw.anc.util.Util.processAncHomeVisit(eventClient); // save locally
-        } catch (Exception e) {
-            Timber.e(e);
+    private Table getVaccineTable() {
+        if (vaccineTable == null) {
+            vaccineTable = assetJsonToJava("ec_client_vaccine.json", Table.class);
         }
+        return vaccineTable;
+    }
+
+    private Table getServiceTable() {
+        if (serviceTable == null) {
+            serviceTable = assetJsonToJava("ec_client_service.json", Table.class);
+        }
+        return serviceTable;
     }
 
     // possible to delegate
@@ -389,7 +297,7 @@ public class ChwClientProcessor extends ClientProcessorForJava {
 
                 recurringServiceRecordRepository.add(serviceObj);
 
-                Timber.d("Ending processService table: " + serviceTable.name);
+                Timber.d("Ending processService table: %s", serviceTable.name);
             }
             return true;
 
@@ -399,60 +307,67 @@ public class ChwClientProcessor extends ClientProcessorForJava {
         }
     }
 
-    private Integer parseInt(String string) {
-        try {
-            return Integer.valueOf(string);
-        } catch (NumberFormatException e) {
-            Timber.e(e);
-        }
-        return null;
+    private void processHomeVisit(EventClient eventClient) {
+        List<Obs> observations = eventClient.getEvent().getObs();
+        CoreChildUtils.addToHomeVisitTable(eventClient.getEvent().getBaseEntityId(), eventClient.getEvent().getFormSubmissionId(), observations);
     }
 
-    private Float parseFloat(String string) {
-        try {
-            return Float.valueOf(string);
-        } catch (NumberFormatException e) {
-            Timber.e(e);
-        }
-        return null;
+    private void processHomeVisitService(EventClient eventClient) {
+        CoreChildUtils.addToHomeVisitService(eventClient.getEvent().getEventType(), eventClient.getEvent().getObs(), eventClient.getEvent().getEventDate().toDate(), CoreChildUtils.gsonConverter.toJson(eventClient.getEvent()));
     }
 
-    private Date getDate(String eventDateStr) {
-        Date date = null;
-        if (StringUtils.isNotBlank(eventDateStr)) {
-            try {
-                DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ");
-                date = dateFormat.parse(eventDateStr);
-            } catch (ParseException e) {
-                try {
-                    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
-                    date = dateFormat.parse(eventDateStr);
-                } catch (ParseException pe) {
-                    try {
-                        date = DateUtil.parseDate(eventDateStr);
-                    } catch (ParseException pee) {
-                        Timber.e(pee, pee.toString());
-                    }
-                }
-            }
-        }
-        return date;
-    }
-
-    private ContentValues processCaseModel(EventClient eventClient, Table table) {
+    // possible to delegate
+    private void processVisitEvent(EventClient eventClient) {
         try {
-            List<Column> columns = table.columns;
-            ContentValues contentValues = new ContentValues();
-
-            for (Column column : columns) {
-                processCaseModel(eventClient.getEvent(), eventClient.getClient(), column, contentValues);
-            }
-
-            return contentValues;
+            org.smartregister.chw.anc.util.Util.processAncHomeVisit(eventClient); // save locally
         } catch (Exception e) {
             Timber.e(e);
         }
-        return null;
+    }
+
+    /**
+     * Update the family members
+     *
+     * @param familyID
+     */
+    private void processRemoveFamily(String familyID, Date eventDate) {
+
+        Date myEventDate = eventDate;
+        if (myEventDate == null) {
+            myEventDate = new Date();
+        }
+
+        if (familyID == null) {
+            return;
+        }
+
+        AllCommonsRepository commonsRepository = CoreChwApplication.getInstance().getAllCommonsRepository(CoreConstants.TABLE_NAME.FAMILY);
+        if (commonsRepository != null) {
+
+            ContentValues values = new ContentValues();
+            values.put(DBConstants.KEY.DATE_REMOVED, new SimpleDateFormat("yyyy-MM-dd").format(myEventDate));
+            values.put("is_closed", 1);
+
+            CoreChwApplication.getInstance().getRepository().getWritableDatabase().update(CoreConstants.TABLE_NAME.FAMILY, values,
+                    DBConstants.KEY.BASE_ENTITY_ID + " = ?  ", new String[]{familyID});
+
+            CoreChwApplication.getInstance().getRepository().getWritableDatabase().update(CoreConstants.TABLE_NAME.CHILD, values,
+                    DBConstants.KEY.RELATIONAL_ID + " = ?  ", new String[]{familyID});
+
+            CoreChwApplication.getInstance().getRepository().getWritableDatabase().update(CoreConstants.TABLE_NAME.FAMILY_MEMBER, values,
+                    DBConstants.KEY.RELATIONAL_ID + " = ?  ", new String[]{familyID});
+
+            // clean fts table
+            CoreChwApplication.getInstance().getRepository().getWritableDatabase().update(CommonFtsObject.searchTableName(CoreConstants.TABLE_NAME.FAMILY), values,
+                    CommonFtsObject.idColumn + " = ?  ", new String[]{familyID});
+
+            CoreChwApplication.getInstance().getRepository().getWritableDatabase().update(CommonFtsObject.searchTableName(CoreConstants.TABLE_NAME.CHILD), values,
+                    String.format(" %s in (select base_entity_id from %s where relational_id = ? )  ", CommonFtsObject.idColumn, CoreConstants.TABLE_NAME.CHILD), new String[]{familyID});
+
+            CoreChwApplication.getInstance().getRepository().getWritableDatabase().update(CommonFtsObject.searchTableName(CoreConstants.TABLE_NAME.FAMILY_MEMBER), values,
+                    String.format(" %s in (select base_entity_id from %s where relational_id = ? )  ", CommonFtsObject.idColumn, CoreConstants.TABLE_NAME.FAMILY_MEMBER), new String[]{familyID});
+
+        }
     }
 
     private void processRemoveMember(String baseEntityId, Date eventDate) {
@@ -515,48 +430,122 @@ public class ChwClientProcessor extends ClientProcessorForJava {
         }
     }
 
-    /**
-     * Update the family members
-     *
-     * @param familyID
-     */
-    private void processRemoveFamily(String familyID, Date eventDate) {
+    private void processVaccineCardEvent(EventClient eventClient) {
+        List<Obs> observations = eventClient.getEvent().getObs();
+        CoreChildUtils.addToChildTable(eventClient.getEvent().getBaseEntityId(), observations);
+    }
 
-        Date myEventDate = eventDate;
-        if (myEventDate == null) {
-            myEventDate = new Date();
+    private void processWashCheckEvent(EventClient eventClient) {
+        utils.WashCheck washCheck = new utils.WashCheck();
+        for (Obs obs : eventClient.getEvent().getObs()) {
+
+            if (obs.getFormSubmissionField().equalsIgnoreCase(CoreConstants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.FAMILY_ID)) {
+                washCheck.setFamilyBaseEntityId((String) obs.getValue());
+            }
+            if (obs.getFormSubmissionField().equalsIgnoreCase(CoreConstants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.WASH_CHECK_DETAILS)) {
+                washCheck.setDetailsJson((String) obs.getValue());
+            }
+            if (obs.getFormSubmissionField().equalsIgnoreCase(CoreConstants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.WASH_CHECK_LAST_VISIT)) {
+                washCheck.setLastVisit(Long.parseLong((String) obs.getValue()));
+            }
+        }
+        CoreChwApplication.getWashCheckRepository().add(washCheck);
+    }
+
+    private ContentValues processCaseModel(EventClient eventClient, Table table) {
+        try {
+            List<Column> columns = table.columns;
+            ContentValues contentValues = new ContentValues();
+
+            for (Column column : columns) {
+                processCaseModel(eventClient.getEvent(), eventClient.getClient(), column, contentValues);
+            }
+
+            return contentValues;
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+        return null;
+    }
+
+    private Integer parseInt(String string) {
+        try {
+            return Integer.valueOf(string);
+        } catch (NumberFormatException e) {
+            Timber.e(e);
+        }
+        return null;
+    }
+
+    private Date getDate(String eventDateStr) {
+        Date date = null;
+        if (StringUtils.isNotBlank(eventDateStr)) {
+            try {
+                DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ");
+                date = dateFormat.parse(eventDateStr);
+            } catch (ParseException e) {
+                try {
+                    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
+                    date = dateFormat.parse(eventDateStr);
+                } catch (ParseException pe) {
+                    try {
+                        date = DateUtil.parseDate(eventDateStr);
+                    } catch (ParseException pee) {
+                        Timber.e(pee, pee.toString());
+                    }
+                }
+            }
+        }
+        return date;
+    }
+
+    public static void addVaccine(VaccineRepository vaccineRepository, Vaccine vaccine) {
+        try {
+            if (vaccineRepository == null || vaccine == null) {
+                return;
+            }
+
+            // Add the vaccine
+            vaccineRepository.add(vaccine);
+
+            String name = vaccine.getName();
+            if (StringUtils.isBlank(name)) {
+                return;
+            }
+
+            // Update vaccines in the same group where either can be given
+            // For example measles 1 / mr 1
+            name = VaccineRepository.removeHyphen(name);
+            String ftsVaccineName = null;
+
+            if (VaccineRepo.Vaccine.measles1.display().equalsIgnoreCase(name)) {
+                ftsVaccineName = VaccineRepo.Vaccine.mr1.display();
+            } else if (VaccineRepo.Vaccine.mr1.display().equalsIgnoreCase(name)) {
+                ftsVaccineName = VaccineRepo.Vaccine.measles1.display();
+            } else if (VaccineRepo.Vaccine.measles2.display().equalsIgnoreCase(name)) {
+                ftsVaccineName = VaccineRepo.Vaccine.mr2.display();
+            } else if (VaccineRepo.Vaccine.mr2.display().equalsIgnoreCase(name)) {
+                ftsVaccineName = VaccineRepo.Vaccine.measles2.display();
+            }
+
+            if (ftsVaccineName != null) {
+                ftsVaccineName = VaccineRepository.addHyphen(ftsVaccineName.toLowerCase());
+                Vaccine ftsVaccine = new Vaccine();
+                ftsVaccine.setBaseEntityId(vaccine.getBaseEntityId());
+                ftsVaccine.setName(ftsVaccineName);
+                vaccineRepository.updateFtsSearch(ftsVaccine);
+            }
+
+        } catch (Exception e) {
+            Timber.e(e);
         }
 
-        if (familyID == null) {
-            return;
-        }
+    }
 
-        AllCommonsRepository commonsRepository = CoreChwApplication.getInstance().getAllCommonsRepository(CoreConstants.TABLE_NAME.FAMILY);
-        if (commonsRepository != null) {
-
-            ContentValues values = new ContentValues();
-            values.put(DBConstants.KEY.DATE_REMOVED, new SimpleDateFormat("yyyy-MM-dd").format(myEventDate));
-            values.put("is_closed", 1);
-
-            CoreChwApplication.getInstance().getRepository().getWritableDatabase().update(CoreConstants.TABLE_NAME.FAMILY, values,
-                    DBConstants.KEY.BASE_ENTITY_ID + " = ?  ", new String[]{familyID});
-
-            CoreChwApplication.getInstance().getRepository().getWritableDatabase().update(CoreConstants.TABLE_NAME.CHILD, values,
-                    DBConstants.KEY.RELATIONAL_ID + " = ?  ", new String[]{familyID});
-
-            CoreChwApplication.getInstance().getRepository().getWritableDatabase().update(CoreConstants.TABLE_NAME.FAMILY_MEMBER, values,
-                    DBConstants.KEY.RELATIONAL_ID + " = ?  ", new String[]{familyID});
-
-            // clean fts table
-            CoreChwApplication.getInstance().getRepository().getWritableDatabase().update(CommonFtsObject.searchTableName(CoreConstants.TABLE_NAME.FAMILY), values,
-                    CommonFtsObject.idColumn + " = ?  ", new String[]{familyID});
-
-            CoreChwApplication.getInstance().getRepository().getWritableDatabase().update(CommonFtsObject.searchTableName(CoreConstants.TABLE_NAME.CHILD), values,
-                    String.format(" %s in (select base_entity_id from %s where relational_id = ? )  ", CommonFtsObject.idColumn, CoreConstants.TABLE_NAME.CHILD), new String[]{familyID});
-
-            CoreChwApplication.getInstance().getRepository().getWritableDatabase().update(CommonFtsObject.searchTableName(CoreConstants.TABLE_NAME.FAMILY_MEMBER), values,
-                    String.format(" %s in (select base_entity_id from %s where relational_id = ? )  ", CommonFtsObject.idColumn, CoreConstants.TABLE_NAME.FAMILY_MEMBER), new String[]{familyID});
-
-        }
+    @Override
+    public void updateClientDetailsTable(Event event, Client client) {
+        Timber.d("Started updateClientDetailsTable");
+        event.addDetails("detailsUpdated", Boolean.TRUE.toString());
+        Timber.d("Finished updateClientDetailsTable");
     }
 }

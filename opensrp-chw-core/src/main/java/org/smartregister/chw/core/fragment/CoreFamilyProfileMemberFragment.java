@@ -1,16 +1,12 @@
 package org.smartregister.chw.core.fragment;
 
-import android.content.Intent;
-
 import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.utils.ChildDBConstants;
-import org.smartregister.chw.core.utils.CoreChildUtils;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.Utils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.configurableviews.model.View;
 import org.smartregister.family.fragment.BaseFamilyProfileMemberFragment;
-import org.smartregister.family.util.DBConstants;
 
 import java.util.HashMap;
 import java.util.Set;
@@ -39,14 +35,14 @@ public abstract class CoreFamilyProfileMemberFragment extends BaseFamilyProfileM
             CommonPersonObjectClient commonPersonObjectClient = (CommonPersonObjectClient) view.getTag();
             String entityType = Utils.getValue(commonPersonObjectClient.getColumnmaps(), ChildDBConstants.KEY.ENTITY_TYPE, false);
             if (CoreConstants.TABLE_NAME.FAMILY_MEMBER.equals(entityType)) {
-                goToOtherMemberProfileActivity(commonPersonObjectClient);
+                goToOtherMemberProfileActivity();
             } else {
-                goToChildProfileActivity(commonPersonObjectClient);
+                goToChildProfileActivity();
             }
         }
     }
 
-    public void goToOtherMemberProfileActivity(CommonPersonObjectClient patient) {
+    public void goToOtherMemberProfileActivity() {
    /*     Intent intent = new Intent(getActivity(), FamilyOtherMemberProfileActivity.class);
         intent.putExtras(getArguments());
         intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, patient.getCaseId());
@@ -56,11 +52,8 @@ public abstract class CoreFamilyProfileMemberFragment extends BaseFamilyProfileM
         startActivity(intent);*/
     }
 
-    public void goToChildProfileActivity(CommonPersonObjectClient patient) {
-        String dobString = Utils.getDuration(Utils.getValue(patient.getColumnmaps(), DBConstants.KEY.DOB, false));
-        Integer yearOfBirth = CoreChildUtils.dobStringToYear(dobString);
-        Intent intent;
-      /*  if (yearOfBirth != null && yearOfBirth >= 5) {
+    public void goToChildProfileActivity() {
+        /*  if (yearOfBirth != null && yearOfBirth >= 5) {
             intent = new Intent(getActivity(), AboveFiveChildProfileActivity.class);
         } else {
             intent = new Intent(getActivity(), CoreChildProfileActivity.class);

@@ -38,29 +38,6 @@ public class RulesEngineHelper {
 
     }
 
-    private Rules getRulesFromAsset(String fileName) {
-        try {
-            if (!ruleMap.containsKey(fileName)) {
-
-                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(context.getAssets().open(fileName)));
-                ruleMap.put(fileName, MVELRuleFactory.createRulesFrom(bufferedReader));
-            }
-            return ruleMap.get(fileName);
-        } catch (IOException e) {
-            return null;
-        }
-    }
-
-    public void processInferentialRules(Rules rules, Facts facts) {
-
-        inferentialRulesEngine.fire(rules, facts);
-    }
-
-    protected void processDefaultRules(Rules rules, Facts facts) {
-
-        defaultRulesEngine.fire(rules, facts);
-    }
-
     public String getButtonAlertStatus(ICommonRule alertRule, String rulesFile) {
 
         Facts facts = new Facts();
@@ -74,6 +51,28 @@ public class RulesEngineHelper {
         processDefaultRules(rules, facts);
 
         return alertRule.getButtonStatus();
+    }
+
+    public Rules rules(String rulesFile) {
+        return getRulesFromAsset(RULE_FOLDER_PATH + rulesFile);
+    }
+
+    protected void processDefaultRules(Rules rules, Facts facts) {
+
+        defaultRulesEngine.fire(rules, facts);
+    }
+
+    private Rules getRulesFromAsset(String fileName) {
+        try {
+            if (!ruleMap.containsKey(fileName)) {
+
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(context.getAssets().open(fileName)));
+                ruleMap.put(fileName, MVELRuleFactory.createRulesFrom(bufferedReader));
+            }
+            return ruleMap.get(fileName);
+        } catch (IOException e) {
+            return null;
+        }
     }
 
     public String getButtonAlertStatus(ICommonRule alertRule, Rules rules) {
@@ -109,6 +108,11 @@ public class RulesEngineHelper {
         return list;
     }
 
+    public void processInferentialRules(Rules rules, Facts facts) {
+
+        inferentialRulesEngine.fire(rules, facts);
+    }
+
     public PNCHealthFacilityVisitRule getPNCHealthFacilityRule(PNCHealthFacilityVisitRule visitRule, String rulesFile) {
 
         Facts facts = new Facts();
@@ -122,9 +126,5 @@ public class RulesEngineHelper {
         processDefaultRules(rules, facts);
 
         return visitRule;
-    }
-
-    public Rules rules(String rulesFile) {
-        return getRulesFromAsset(RULE_FOLDER_PATH + rulesFile);
     }
 }

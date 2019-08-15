@@ -71,18 +71,6 @@ public class ImmunizationView extends LinearLayout implements ImmunizationContac
         initUi();
     }
 
-    public ImmunizationView(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        this.context = context;
-        initUi();
-    }
-
-    public ImmunizationView(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-        this.context = context;
-        initUi();
-    }
-
     private void initUi() {
         inflate(getContext(), R.layout.custom_vaccine_edit, this);
         recyclerView = findViewById(R.id.immunization_recycler_view);
@@ -92,35 +80,6 @@ public class ImmunizationView extends LinearLayout implements ImmunizationContac
     @Override
     public ImmunizationContact.Presenter initializePresenter() {
         presenter = new ImmunizationViewPresenter(this);
-        return presenter;
-    }
-
-    public void setChildClient(CoreChildHomeVisitFragment coreChildHomeVisitFragment, Activity activity, CommonPersonObjectClient childClient, boolean isEditMode) {
-        this.childClient = childClient;
-        this.coreChildHomeVisitFragment = coreChildHomeVisitFragment;
-        this.activity = activity;
-        this.isEditMode = isEditMode;
-        if (isEditMode) {
-            presenter.fetchImmunizationEditData(childClient);
-        } else {
-            presenter.fetchImmunizationData(childClient, "");
-        }
-
-    }
-
-    public Observable undoVaccine() {
-        return presenter.undoVaccine(childClient);
-    }
-
-    public Observable undoPreviousGivenVaccine() {
-        return presenter.undoPreviousGivenVaccine(childClient);
-    }
-
-    public Observable saveGivenThisVaccine() {
-        return presenter.saveGivenThisVaccine(childClient);
-    }
-
-    public ImmunizationViewPresenter getPresenter() {
         return presenter;
     }
 
@@ -153,34 +112,9 @@ public class ImmunizationView extends LinearLayout implements ImmunizationContac
 
     }
 
-    public void updatePosition() {
-        ArrayList<VaccineRepo.Vaccine> givenList = presenter.convertGivenVaccineWrapperListToVaccineRepo();
-        ArrayList<VaccineRepo.Vaccine> notGiven = presenter.convertNotVaccineWrapperListToVaccineRepo();
-        if (givenList.size() == 0 && notGiven.size() == 0) return;
-        HomeVisitVaccineGroup selectedGroup = presenter.getHomeVisitVaccineGroupDetails().get(pressPosition);
-        selectedGroup.setViewType(HomeVisitVaccineGroup.TYPE_ACTIVE);
-        selectedGroup.getGivenVaccines().clear();
-        selectedGroup.getGivenVaccines().addAll(givenList);
-        if (givenList.size() > 0) {
-            selectedGroup.getGroupedByDate().clear();
-            selectedGroup.getGroupedByDate().putAll(presenter.updateGroupByDate());
-        }
-        selectedGroup.getNotGivenVaccines().clear();
-        selectedGroup.getNotGivenVaccines().addAll(notGiven);
-        updateAdapter(pressPosition, context);
-        if ((pressPosition + 1) < presenter.getHomeVisitVaccineGroupDetails().size()) {
-            HomeVisitVaccineGroup nextSelectedGroup = presenter.getHomeVisitVaccineGroupDetails().get(pressPosition + 1);
-            if (nextSelectedGroup.getGroup().equalsIgnoreCase(W_10)
-                    || nextSelectedGroup.getGroup().equalsIgnoreCase(W_14)) {
-                presenter.fetchImmunizationData(childClient, nextSelectedGroup.getGroup());
-            } else {
-                if (nextSelectedGroup.getViewType() == HomeVisitVaccineGroup.TYPE_INACTIVE) {
-                    nextSelectedGroup.setViewType(HomeVisitVaccineGroup.TYPE_INITIAL);
-                }
-                updateAdapter(pressPosition + 1, context);
-            }
-
-        }
+    @Override
+    public void updateSubmitBtn() {
+        coreChildHomeVisitFragment.checkIfSubmitIsToBeEnabled();
     }
 
     /**
@@ -251,9 +185,77 @@ public class ImmunizationView extends LinearLayout implements ImmunizationContac
         return context;
     }
 
-    @Override
-    public void updateSubmitBtn() {
-        coreChildHomeVisitFragment.checkIfSubmitIsToBeEnabled();
+    public ImmunizationView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        this.context = context;
+        initUi();
+    }
+
+    public ImmunizationView(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        this.context = context;
+        initUi();
+    }
+
+    public void setChildClient(CoreChildHomeVisitFragment coreChildHomeVisitFragment, Activity activity, CommonPersonObjectClient childClient, boolean isEditMode) {
+        this.childClient = childClient;
+        this.coreChildHomeVisitFragment = coreChildHomeVisitFragment;
+        this.activity = activity;
+        this.isEditMode = isEditMode;
+        if (isEditMode) {
+            presenter.fetchImmunizationEditData(childClient);
+        } else {
+            presenter.fetchImmunizationData(childClient, "");
+        }
+
+    }
+
+    public Observable undoVaccine() {
+        return presenter.undoVaccine(childClient);
+    }
+
+    public Observable undoPreviousGivenVaccine() {
+        return presenter.undoPreviousGivenVaccine(childClient);
+    }
+
+    public Observable saveGivenThisVaccine() {
+        return presenter.saveGivenThisVaccine(childClient);
+    }
+
+    public ImmunizationViewPresenter getPresenter() {
+        return presenter;
+    }
+
+    public void updatePosition() {
+        ArrayList<VaccineRepo.Vaccine> givenList = presenter.convertGivenVaccineWrapperListToVaccineRepo();
+        ArrayList<VaccineRepo.Vaccine> notGiven = presenter.convertNotVaccineWrapperListToVaccineRepo();
+        if (givenList.size() == 0 && notGiven.size() == 0) {
+            return;
+        }
+        HomeVisitVaccineGroup selectedGroup = presenter.getHomeVisitVaccineGroupDetails().get(pressPosition);
+        selectedGroup.setViewType(HomeVisitVaccineGroup.TYPE_ACTIVE);
+        selectedGroup.getGivenVaccines().clear();
+        selectedGroup.getGivenVaccines().addAll(givenList);
+        if (givenList.size() > 0) {
+            selectedGroup.getGroupedByDate().clear();
+            selectedGroup.getGroupedByDate().putAll(presenter.updateGroupByDate());
+        }
+        selectedGroup.getNotGivenVaccines().clear();
+        selectedGroup.getNotGivenVaccines().addAll(notGiven);
+        updateAdapter(pressPosition, context);
+        if ((pressPosition + 1) < presenter.getHomeVisitVaccineGroupDetails().size()) {
+            HomeVisitVaccineGroup nextSelectedGroup = presenter.getHomeVisitVaccineGroupDetails().get(pressPosition + 1);
+            if (nextSelectedGroup.getGroup().equalsIgnoreCase(W_10)
+                    || nextSelectedGroup.getGroup().equalsIgnoreCase(W_14)) {
+                presenter.fetchImmunizationData(childClient, nextSelectedGroup.getGroup());
+            } else {
+                if (nextSelectedGroup.getViewType() == HomeVisitVaccineGroup.TYPE_INACTIVE) {
+                    nextSelectedGroup.setViewType(HomeVisitVaccineGroup.TYPE_INITIAL);
+                }
+                updateAdapter(pressPosition + 1, context);
+            }
+
+        }
     }
 
     public ArrayList<VaccineWrapper> getNotGivenVaccine() {

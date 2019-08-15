@@ -42,30 +42,13 @@ public abstract class CoreFamilyChangeContractInteractor implements FamilyChange
     protected Flavor flavor;
     private AppExecutors appExecutors;
 
-    @VisibleForTesting
-    CoreFamilyChangeContractInteractor(AppExecutors appExecutors) {
-        this.appExecutors = appExecutors;
-    }
-
     public CoreFamilyChangeContractInteractor() {
         this(new AppExecutors());
     }
 
-    public static int getDiffYears(Date first, Date last) {
-        Calendar a = getCalendar(first);
-        Calendar b = getCalendar(last);
-        int diff = b.get(YEAR) - a.get(YEAR);
-        if (a.get(MONTH) > b.get(MONTH) ||
-                (a.get(MONTH) == b.get(MONTH) && a.get(DATE) > b.get(DATE))) {
-            diff--;
-        }
-        return diff;
-    }
-
-    public static Calendar getCalendar(Date date) {
-        Calendar cal = Calendar.getInstance(Locale.US);
-        cal.setTime(date);
-        return cal;
+    @VisibleForTesting
+    CoreFamilyChangeContractInteractor(AppExecutors appExecutors) {
+        this.appExecutors = appExecutors;
     }
 
     @Override
@@ -274,11 +257,29 @@ public abstract class CoreFamilyChangeContractInteractor implements FamilyChange
         } catch (Exception e) {
             Timber.e(e, e.toString());
         } finally {
-            if (cursor != null)
+            if (cursor != null) {
                 cursor.close();
+            }
         }
 
         return res;
+    }
+
+    public static int getDiffYears(Date first, Date last) {
+        Calendar a = getCalendar(first);
+        Calendar b = getCalendar(last);
+        int diff = b.get(YEAR) - a.get(YEAR);
+        if (a.get(MONTH) > b.get(MONTH) ||
+                (a.get(MONTH) == b.get(MONTH) && a.get(DATE) > b.get(DATE))) {
+            diff--;
+        }
+        return diff;
+    }
+
+    public static Calendar getCalendar(Date date) {
+        Calendar cal = Calendar.getInstance(Locale.US);
+        cal.setTime(date);
+        return cal;
     }
 
     public void setFlavor(Flavor flavor) {

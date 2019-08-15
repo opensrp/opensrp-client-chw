@@ -31,26 +31,6 @@ public class HomeVisit {
     private JSONObject illness_information = new JSONObject();
     private String homeVisitId;
 
-
-    public HomeVisit() {
-
-    }
-
-
-    public HomeVisit(Long id, String baseEntityId, String name, Date date, String anmId, String locationId, String syncStatus, Long updatedAt, String eventId, String formSubmissionId, Date createdAt) {
-        this.id = id;
-        this.baseEntityId = baseEntityId;
-        this.name = name;
-        this.date = date;
-        this.anmId = anmId;
-        this.locationId = locationId;
-        this.syncStatus = syncStatus;
-        this.updatedAt = updatedAt;
-        this.eventId = eventId;
-        this.formSubmissionId = formSubmissionId;
-        this.createdAt = createdAt;
-    }
-
     public String getHomeVisitId() {
         return homeVisitId;
     }
@@ -147,11 +127,11 @@ public class HomeVisit {
         this.createdAt = createdAt;
     }
 
-    public Map<String, String> getFormfields() {
+    public Map<String, String> getFormFields() {
         return formfields;
     }
 
-    public void setFormfields(Map<String, String> formfields) {
+    public void setFormFields(Map<String, String> formfields) {
         this.formfields = formfields;
     }
 
@@ -187,11 +167,11 @@ public class HomeVisit {
         this.birthCertificationState = birthCertificationState;
     }
 
-    public JSONObject getIllness_information() {
+    public JSONObject getIllnessInformation() {
         return illness_information;
     }
 
-    public void setIllness_information(JSONObject illness_information) {
+    public void setIllnessInformation(JSONObject illness_information) {
         this.illness_information = illness_information;
     }
 

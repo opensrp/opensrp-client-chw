@@ -50,10 +50,12 @@ public abstract class BaseReferralRegisterFragment extends BaseChwRegisterFragme
 
     @Override
     public void setUniqueID(String s) {
+        //// TODO: 15/08/19  
     }
 
     @Override
     public void setAdvancedSearchFormData(HashMap<String, String> hashMap) {
+        //// TODO: 15/08/19  
     }
 
     @Override
@@ -67,12 +69,13 @@ public abstract class BaseReferralRegisterFragment extends BaseChwRegisterFragme
     }
 
     @Override
-    protected void startRegistration() {//not used for referrals
+    protected void startRegistration() {
+        //// TODO: 15/08/19  
     }
 
     @Override
     public void showNotFoundPopup(String s) {
-
+        //// TODO: 15/08/19  
     }
 
     @Override

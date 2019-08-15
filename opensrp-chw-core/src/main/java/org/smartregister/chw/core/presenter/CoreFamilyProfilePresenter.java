@@ -23,7 +23,6 @@ import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.contract.FamilyProfileContract;
 import org.smartregister.family.domain.FamilyEventClient;
 import org.smartregister.family.presenter.BaseFamilyProfilePresenter;
-import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.view.LocationPickerView;
 
 import java.lang.ref.WeakReference;
@@ -55,6 +54,32 @@ public abstract class CoreFamilyProfilePresenter extends BaseFamilyProfilePresen
     }
 
     @Override
+    public FamilyProfileExtendedContract.View getView() {
+        if (viewReference != null) {
+            return viewReference.get();
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public void startFormForEdit(CommonPersonObjectClient client) {
+        JSONObject form = CoreJsonFormUtils.getAutoPopulatedJsonEditFormString(CoreConstants.JSON_FORM.getFamilyDetailsRegister(), getView().getApplicationContext(), client, Utils.metadata().familyRegister.updateEventType);
+        try {
+            getView().startFormActivity(form);
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+    }
+
+    @Override
+    public void notifyHasPhone(boolean hasPhone) {
+        if (viewReference.get() != null) {
+            viewReference.get().updateHasPhone(hasPhone);
+        }
+    }
+
+    @Override
     public void startChildForm(String formName, String entityId, String metadata, String currentLocationId) throws Exception {
         if (StringUtils.isBlank(entityId)) {
             Triple<String, String, String> triple = Triple.of(formName, metadata, currentLocationId);
@@ -66,6 +91,7 @@ public abstract class CoreFamilyProfilePresenter extends BaseFamilyProfilePresen
         getView().startFormActivity(form);
 
     }
+
 
     @Override
     public void saveChildRegistration(Pair<Client, Event> pair, String jsonString, boolean isEditMode, CoreChildRegisterContract.InteractorCallBack callBack) {
@@ -124,39 +150,11 @@ public abstract class CoreFamilyProfilePresenter extends BaseFamilyProfilePresen
             if (member != null && member.getPrimaryCareGiver()) {
                 LocationPickerView lpv = new LocationPickerView(context);
                 lpv.init();
-                String lastLocationId = LocationHelper.getInstance().getOpenMrsLocationId(lpv.getSelectedItem());
-
-                //   new CoreFamilyChangeContractInteractor().updateFamilyRelations(context, member, lastLocationId);
                 res = true;
             }
         } catch (Exception e) {
             Timber.e(e);
         }
         return res;
-    }
-
-    @Override
-    public void notifyHasPhone(boolean hasPhone) {
-        if (viewReference.get() != null) {
-            viewReference.get().updateHasPhone(hasPhone);
-        }
-    }
-
-    public FamilyProfileExtendedContract.View getView() {
-        if (viewReference != null) {
-            return viewReference.get();
-        } else {
-            return null;
-        }
-    }
-
-    @Override
-    public void startFormForEdit(CommonPersonObjectClient client) {
-        JSONObject form = CoreJsonFormUtils.getAutoPopulatedJsonEditFormString(CoreConstants.JSON_FORM.getFamilyDetailsRegister(), getView().getApplicationContext(), client, Utils.metadata().familyRegister.updateEventType);
-        try {
-            getView().startFormActivity(form);
-        } catch (Exception e) {
-            Timber.e(e);
-        }
     }
 }

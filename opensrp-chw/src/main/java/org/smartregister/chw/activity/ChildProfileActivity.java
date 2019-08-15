@@ -39,22 +39,6 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
     }
 
     @Override
-    protected void setupViews() {
-        super.setupViews();
-        familyFloatingMenu = new FamilyMemberFloatingMenu(this);
-        LinearLayout.LayoutParams linearLayoutParams =
-                new LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.MATCH_PARENT,
-                        LinearLayout.LayoutParams.MATCH_PARENT);
-        familyFloatingMenu.setGravity(Gravity.BOTTOM | Gravity.END);
-        addContentView(familyFloatingMenu, linearLayoutParams);
-
-        familyFloatingMenu.setClickListener(onClickFloatingMenu);
-        fetchProfileData();
-
-    }
-
-    @Override
     public void onClick(View view) {
         super.onClick(view);
         int i = view.getId();
@@ -84,23 +68,26 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
     }
 
     @Override
+    protected void setupViews() {
+        super.setupViews();
+        familyFloatingMenu = new FamilyMemberFloatingMenu(this);
+        LinearLayout.LayoutParams linearLayoutParams =
+                new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.MATCH_PARENT);
+        familyFloatingMenu.setGravity(Gravity.BOTTOM | Gravity.END);
+        addContentView(familyFloatingMenu, linearLayoutParams);
+
+        familyFloatingMenu.setClickListener(onClickFloatingMenu);
+        fetchProfileData();
+
+    }
+
+    @Override
     public void updateHasPhone(boolean hasPhone) {
         if (familyFloatingMenu != null) {
             familyFloatingMenu.reDraw(hasPhone);
         }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-        if (flavor.showMalariaConfirmationMenu()) {
-            menu.findItem(R.id.action_malaria_registration).setVisible(true);
-        } else {
-            menu.findItem(R.id.action_malaria_registration).setVisible(false);
-        }
-        menu.findItem(R.id.action_sick_child_follow_up).setVisible(false);
-        menu.findItem(R.id.action_malaria_diagnosis).setVisible(false);
-        return true;
     }
 
     @Override
@@ -120,6 +107,19 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        if (flavor.showMalariaConfirmationMenu()) {
+            menu.findItem(R.id.action_malaria_registration).setVisible(true);
+        } else {
+            menu.findItem(R.id.action_malaria_registration).setVisible(false);
+        }
+        menu.findItem(R.id.action_sick_child_follow_up).setVisible(false);
+        menu.findItem(R.id.action_malaria_diagnosis).setVisible(false);
+        return true;
     }
 
     private void openMedicalHistoryScreen() {

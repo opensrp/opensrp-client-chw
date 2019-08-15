@@ -11,7 +11,6 @@ import java.lang.ref.WeakReference;
 import timber.log.Timber;
 
 public class FloatingMenuListener implements OnClickFloatingMenu {
-    private static String TAG = FloatingMenuListener.class.getCanonicalName();
     private static FloatingMenuListener instance;
     private WeakReference<Activity> context;
     private String familyBaseEntityId;

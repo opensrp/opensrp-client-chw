@@ -14,16 +14,6 @@ import timber.log.Timber;
 
 public abstract class CoreFamilyInteractor {
 
-    private static String toStringFamilyState(ImmunizationState state) {
-        if (state.equals(ImmunizationState.DUE)) {
-            return CoreChildProfileInteractor.FamilyServiceType.DUE.name();
-        } else if (state.equals(ImmunizationState.OVERDUE)) {
-            return CoreChildProfileInteractor.FamilyServiceType.OVERDUE.name();
-        } else {
-            return CoreChildProfileInteractor.FamilyServiceType.NOTHING.name();
-        }
-    }
-
     public static ImmunizationState getImmunizationStatus(String visitStatus) {
         if (visitStatus.equalsIgnoreCase(CoreChildProfileInteractor.VisitType.OVERDUE.name())) {
             return ImmunizationState.OVERDUE;
@@ -51,8 +41,9 @@ public abstract class CoreFamilyInteractor {
                 } catch (Exception ex) {
                     Timber.e(ex.toString());
                 } finally {
-                    if (cursor != null)
+                    if (cursor != null) {
                         cursor.close();
+                    }
                 }
 
                 e.onNext(toStringFamilyState(familyImmunizationState));
@@ -76,6 +67,16 @@ public abstract class CoreFamilyInteractor {
                 break;
         }
         return finalState;
+    }
+
+    private static String toStringFamilyState(ImmunizationState state) {
+        if (state.equals(ImmunizationState.DUE)) {
+            return CoreChildProfileInteractor.FamilyServiceType.DUE.name();
+        } else if (state.equals(ImmunizationState.OVERDUE)) {
+            return CoreChildProfileInteractor.FamilyServiceType.OVERDUE.name();
+        } else {
+            return CoreChildProfileInteractor.FamilyServiceType.NOTHING.name();
+        }
     }
 
     public abstract ImmunizationState getChildStatus(Context context, final String childId, Cursor cursor);

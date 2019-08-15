@@ -61,22 +61,12 @@ public class WashCheckRepository extends BaseRepository {
         return null;
     }
 
-    public ArrayList<WashCheck> getAllWashCheckTask(String familyId) {
-        SQLiteDatabase database = getReadableDatabase();
-        String selection = FAMILY_ID + " = ? " + COLLATE_NOCASE;
-        String[] selectionArgs = new String[]{familyId};
-        net.sqlcipher.Cursor cursor = database.query(WASH_CHECK_TABLE_NAME, TABLE_COLUMNS, selection, selectionArgs, null, null, LAST_VISIT + " DESC");
-        return getAllWashCheck(cursor);
-    }
-
-    public WashCheck getLatestEntry(String familyId) {
-        SQLiteDatabase database = getReadableDatabase();
-        String selection = FAMILY_ID + " = ? " + COLLATE_NOCASE;
-        String[] selectionArgs = new String[]{familyId};
-        net.sqlcipher.Cursor cursor = database.query(WASH_CHECK_TABLE_NAME, TABLE_COLUMNS, selection, selectionArgs, null, null, LAST_VISIT + " DESC", "1");
-        ArrayList<WashCheck> washChecks = getAllWashCheck(cursor);
-        if (washChecks.size() > 0) return washChecks.get(0);
-        return null;
+    private ContentValues createValuesFor(WashCheck washCheck) {
+        ContentValues values = new ContentValues();
+        values.put(FAMILY_ID, washCheck.getFamilyBaseEntityId());
+        values.put(DETAILS, washCheck.getDetailsJson());
+        values.put(LAST_VISIT, washCheck.getLastVisit());
+        return values;
     }
 
     private ArrayList<WashCheck> getAllWashCheck(Cursor cursor) {
@@ -95,18 +85,32 @@ public class WashCheckRepository extends BaseRepository {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            if (cursor != null) cursor.close();
+            if (cursor != null) {
+                cursor.close();
+            }
         }
         return washChecks;
 
     }
 
-    private ContentValues createValuesFor(WashCheck washCheck) {
-        ContentValues values = new ContentValues();
-        values.put(FAMILY_ID, washCheck.getFamilyBaseEntityId());
-        values.put(DETAILS, washCheck.getDetailsJson());
-        values.put(LAST_VISIT, washCheck.getLastVisit());
-        return values;
+    public ArrayList<WashCheck> getAllWashCheckTask(String familyId) {
+        SQLiteDatabase database = getReadableDatabase();
+        String selection = FAMILY_ID + " = ? " + COLLATE_NOCASE;
+        String[] selectionArgs = new String[]{familyId};
+        net.sqlcipher.Cursor cursor = database.query(WASH_CHECK_TABLE_NAME, TABLE_COLUMNS, selection, selectionArgs, null, null, LAST_VISIT + " DESC");
+        return getAllWashCheck(cursor);
+    }
+
+    public WashCheck getLatestEntry(String familyId) {
+        SQLiteDatabase database = getReadableDatabase();
+        String selection = FAMILY_ID + " = ? " + COLLATE_NOCASE;
+        String[] selectionArgs = new String[]{familyId};
+        net.sqlcipher.Cursor cursor = database.query(WASH_CHECK_TABLE_NAME, TABLE_COLUMNS, selection, selectionArgs, null, null, LAST_VISIT + " DESC", "1");
+        ArrayList<WashCheck> washChecks = getAllWashCheck(cursor);
+        if (washChecks.size() > 0) {
+            return washChecks.get(0);
+        }
+        return null;
     }
 
 

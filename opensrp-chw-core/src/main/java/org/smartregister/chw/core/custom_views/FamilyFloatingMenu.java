@@ -30,31 +30,6 @@ public class FamilyFloatingMenu extends LinearLayout implements View.OnClickList
         initUi();
     }
 
-    public FamilyFloatingMenu(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        initUi();
-    }
-
-    public FamilyFloatingMenu(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-        initUi();
-    }
-
-    /**
-     * re-renders call menu ui
-     */
-    public void reDraw(boolean has_phone) {
-        TextView callTextView = findViewById(R.id.CallTextView);
-        TextView callTextViewHint = findViewById(R.id.CallTextViewHint);
-
-        callTextViewHint.setVisibility(has_phone ? GONE : VISIBLE);
-        callLayout.setOnClickListener(has_phone ? this : null);
-        callTextView.setTypeface(null, (has_phone ? Typeface.NORMAL : Typeface.ITALIC));
-        callTextView.setTextColor(getResources().getColor(has_phone ? android.R.color.black : R.color.grey));
-
-        ((FloatingActionButton) findViewById(R.id.callFab)).getDrawable().setAlpha(has_phone ? 255 : 122);
-    }
-
     private void initUi() {
         inflate(getContext(), R.layout.view_family_floating_menu, this);
         activityMain = findViewById(R.id.activity_main);
@@ -84,10 +59,6 @@ public class FamilyFloatingMenu extends LinearLayout implements View.OnClickList
 
         menuBar.setVisibility(GONE);
 
-    }
-
-    public void setClickListener(OnClickFloatingMenu onClickFloatingMenu) {
-        this.onClickFloatingMenu = onClickFloatingMenu;
     }
 
     public void animateFAB() {
@@ -122,6 +93,35 @@ public class FamilyFloatingMenu extends LinearLayout implements View.OnClickList
 
             isFabMenuOpen = true;
         }
+    }
+
+    public FamilyFloatingMenu(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        initUi();
+    }
+
+    public FamilyFloatingMenu(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        initUi();
+    }
+
+    /**
+     * re-renders call menu ui
+     */
+    public void reDraw(boolean has_phone) {
+        TextView callTextView = findViewById(R.id.CallTextView);
+        TextView callTextViewHint = findViewById(R.id.CallTextViewHint);
+
+        callTextViewHint.setVisibility(has_phone ? GONE : VISIBLE);
+        callLayout.setOnClickListener(has_phone ? this : null);
+        callTextView.setTypeface(null, (has_phone ? Typeface.NORMAL : Typeface.ITALIC));
+        callTextView.setTextColor(getResources().getColor(has_phone ? android.R.color.black : R.color.grey));
+
+        ((FloatingActionButton) findViewById(R.id.callFab)).getDrawable().setAlpha(has_phone ? 255 : 122);
+    }
+
+    public void setClickListener(OnClickFloatingMenu onClickFloatingMenu) {
+        this.onClickFloatingMenu = onClickFloatingMenu;
     }
 
     @Override

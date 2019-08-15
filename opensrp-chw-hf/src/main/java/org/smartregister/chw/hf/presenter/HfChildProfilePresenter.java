@@ -22,6 +22,10 @@ public class HfChildProfilePresenter extends CoreChildProfilePresenter {
         setChildBaseEntityId(childBaseEntityId);
     }
 
+    @Override
+    public void verifyHasPhone() {
+        new HfFamilyProfileInteractor().verifyHasPhone(familyID, this);
+    }
 
     @Override
     public void updateChildProfile(String jsonString) {
@@ -32,10 +36,5 @@ public class HfChildProfilePresenter extends CoreChildProfilePresenter {
         }
 
         getInteractor().saveRegistration(pair, jsonString, true, this);
-    }
-
-    @Override
-    public void verifyHasPhone() {
-        new HfFamilyProfileInteractor().verifyHasPhone(familyID, this);
     }
 }

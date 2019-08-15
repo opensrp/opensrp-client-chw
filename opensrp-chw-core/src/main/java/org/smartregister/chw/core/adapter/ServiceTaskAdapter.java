@@ -85,6 +85,11 @@ public class ServiceTaskAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     }
 
+    @Override
+    public int getItemCount() {
+        return presenter.getServiceTasks().size();
+    }
+
     public void makeEvent(String homeVisitId, String entityId) {
 //        Observable.create(new ObservableOnSubscribe<Object>() {
 //            @Override
@@ -113,11 +118,6 @@ public class ServiceTaskAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 //            }
 //        });
 
-    }
-
-    @Override
-    public int getItemCount() {
-        return presenter.getServiceTasks().size();
     }
 
     public class ContentViewHolder extends RecyclerView.ViewHolder {

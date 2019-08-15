@@ -95,15 +95,15 @@ public class JobAidsActivity extends FamilyRegisterActivity {
             }
             return super.getItemPosition(object);
         }
-    }    @Override
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_job_aids);
         setUpView();
         registerBottomNavigation();
     }
-
-
 
 
     private void setUpView() {

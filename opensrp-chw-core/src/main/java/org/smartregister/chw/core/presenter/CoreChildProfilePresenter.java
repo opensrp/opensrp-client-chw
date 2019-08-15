@@ -81,15 +81,29 @@ public class CoreChildProfilePresenter implements CoreChildProfileContract.Prese
         return familyID;
     }
 
+    @Override
     public void setFamilyID(String familyID) {
         this.familyID = familyID;
         verifyHasPhone();
+    }
+
+    @Override
+    public void verifyHasPhone() {
+        //todo
+    }
+
+    @Override
+    public void notifyHasPhone(boolean hasPhone) {
+        if (view.get() != null) {
+            view.get().updateHasPhone(hasPhone);
+        }
     }
 
     public String getFamilyName() {
         return familyName;
     }
 
+    @Override
     public void setFamilyName(String familyName) {
         this.familyName = familyName;
     }
@@ -98,6 +112,7 @@ public class CoreChildProfilePresenter implements CoreChildProfileContract.Prese
         return familyHeadID;
     }
 
+    @Override
     public void setFamilyHeadID(String familyHeadID) {
         this.familyHeadID = familyHeadID;
     }
@@ -106,6 +121,7 @@ public class CoreChildProfilePresenter implements CoreChildProfileContract.Prese
         return primaryCareGiverID;
     }
 
+    @Override
     public void setPrimaryCareGiverID(String primaryCareGiverID) {
         this.primaryCareGiverID = primaryCareGiverID;
     }
@@ -118,9 +134,17 @@ public class CoreChildProfilePresenter implements CoreChildProfileContract.Prese
     }
 
     @Override
-    public void undoVisitNotDone() {
-        hideProgressBar();
-        getView().showUndoVisitNotDoneView();
+    public void updateAfterBackGroundProcessed() {
+        if (getView() != null) {
+            getView().updateAfterBackgroundProcessed();
+        }
+    }
+
+    @Override
+    public void setClientTasks(Set<Task> taskList) {
+        if (getView() != null) {
+            getView().setClientTasks(taskList);
+        }
     }
 
     public CommonPersonObjectClient getChildClient() {
@@ -131,33 +155,22 @@ public class CoreChildProfilePresenter implements CoreChildProfileContract.Prese
         return ((CoreChildProfileInteractor) interactor).getVaccineList();
     }
 
-    public String getFamilyId() {
-        return familyID;
-    }
-
     public String getDateOfBirth() {
         return dob;
     }
 
     @Override
-    public void fetchVisitStatus(String baseEntityId) {
-        interactor.refreshChildVisitBar(view.get().getContext(), childBaseEntityId, this);
+    public void updateChildProfile(String jsonObject) {
+        //todo
     }
 
     @Override
-    public void fetchUpcomingServiceAndFamilyDue(String baseEntityId) {
-        interactor.refreshUpcomingServiceAndFamilyDue(view.get().getContext(), getFamilyId(), childBaseEntityId, this);
-    }
-
-    @Override
-    public void processBackGroundEvent() {
-        interactor.processBackGroundEvent(this);
-
-    }
-
-    @Override
-    public void createSickChildEvent(AllSharedPreferences allSharedPreferences, String jsonString) throws Exception {
-        interactor.createSickChildEvent(allSharedPreferences, jsonString);
+    public CoreChildProfileContract.View getView() {
+        if (view != null) {
+            return view.get();
+        } else {
+            return null;
+        }
     }
 
     @Override
@@ -183,61 +196,38 @@ public class CoreChildProfilePresenter implements CoreChildProfileContract.Prese
     }
 
     @Override
-    public void updateChildProfile(String jsonObject) {
-        //todo
+    public void undoVisitNotDone() {
+        hideProgressBar();
+        getView().showUndoVisitNotDoneView();
     }
 
     @Override
-    public CoreChildProfileContract.View getView() {
-        if (view != null) {
-            return view.get();
-        } else {
-            return null;
-        }
+    public void fetchVisitStatus(String baseEntityId) {
+        interactor.refreshChildVisitBar(view.get().getContext(), childBaseEntityId, this);
+    }
+
+    @Override
+    public void fetchUpcomingServiceAndFamilyDue(String baseEntityId) {
+        interactor.refreshUpcomingServiceAndFamilyDue(view.get().getContext(), getFamilyId(), childBaseEntityId, this);
+    }
+
+    public String getFamilyId() {
+        return familyID;
+    }
+
+    @Override
+    public void processBackGroundEvent() {
+        interactor.processBackGroundEvent(this);
+
+    }
+
+    @Override
+    public void createSickChildEvent(AllSharedPreferences allSharedPreferences, String jsonString) throws Exception {
+        interactor.createSickChildEvent(allSharedPreferences, jsonString);
     }
 
     public void setView(WeakReference<CoreChildProfileContract.View> view) {
         this.view = view;
-    }
-
-    @Override
-    public void startFormForEdit(String title, CommonPersonObjectClient client) {
-        JSONObject form = interactor.getAutoPopulatedJsonEditFormString(CoreConstants.JSON_FORM.getChildRegister(), title, getView().getApplicationContext(), client);
-        try {
-
-            if (!isBlank(client.getColumnmaps().get(ChildDBConstants.KEY.RELATIONAL_ID))) {
-                JSONObject metaDataJson = form.getJSONObject("metadata");
-                JSONObject lookup = metaDataJson.getJSONObject("look_up");
-                lookup.put("entity_id", "family");
-                lookup.put("value", client.getColumnmaps().get(ChildDBConstants.KEY.RELATIONAL_ID));
-            }
-            getView().startFormActivity(form);
-        } catch (Exception e) {
-            Timber.e(e, "CoreChildProfilePresenter --> startFormForEdit");
-        }
-    }
-
-    @Override
-    public void startSickChildReferralForm() {
-        try {
-            getView().startFormActivity(getFormUtils().getFormJson(CoreConstants.JSON_FORM.getChildReferralForm()));
-        } catch (Exception e) {
-            Timber.e(e);
-        }
-    }
-
-    @Override
-    public void updateAfterBackGroundProcessed() {
-        if (getView() != null) {
-            getView().updateAfterBackgroundProcessed();
-        }
-    }
-
-    @Override
-    public void setClientTasks(Set<Task> taskList) {
-        if (getView() != null) {
-            getView().setClientTasks(taskList);
-        }
     }
 
     @Override
@@ -301,9 +291,28 @@ public class CoreChildProfilePresenter implements CoreChildProfileContract.Prese
     }
 
     @Override
-    public void hideProgressBar() {
-        if (getView() != null) {
-            getView().hideProgressBar();
+    public void startFormForEdit(String title, CommonPersonObjectClient client) {
+        JSONObject form = interactor.getAutoPopulatedJsonEditFormString(CoreConstants.JSON_FORM.getChildRegister(), title, getView().getApplicationContext(), client);
+        try {
+
+            if (!isBlank(client.getColumnmaps().get(ChildDBConstants.KEY.RELATIONAL_ID))) {
+                JSONObject metaDataJson = form.getJSONObject("metadata");
+                JSONObject lookup = metaDataJson.getJSONObject("look_up");
+                lookup.put("entity_id", "family");
+                lookup.put("value", client.getColumnmaps().get(ChildDBConstants.KEY.RELATIONAL_ID));
+            }
+            getView().startFormActivity(form);
+        } catch (Exception e) {
+            Timber.e(e, "CoreChildProfilePresenter --> startFormForEdit");
+        }
+    }
+
+    @Override
+    public void startSickChildReferralForm() {
+        try {
+            getView().startFormActivity(getFormUtils().getFormJson(CoreConstants.JSON_FORM.getChildReferralForm()));
+        } catch (Exception e) {
+            Timber.e(e);
         }
     }
 
@@ -344,11 +353,25 @@ public class CoreChildProfilePresenter implements CoreChildProfileContract.Prese
     }
 
     @Override
+    public void hideProgressBar() {
+        if (getView() != null) {
+            getView().hideProgressBar();
+        }
+    }
+
+    @Override
     public void onRegistrationSaved(boolean isEditMode) {
         if (isEditMode) {
             getView().hideProgressDialog();
             getView().refreshProfile(FetchStatus.fetched);
         }
+    }
+
+    public FormUtils getFormUtils() throws Exception {
+        if (this.formUtils == null) {
+            this.formUtils = new FormUtils(getView().getApplicationContext());
+        }
+        return formUtils;
     }
 
     @Override
@@ -362,25 +385,5 @@ public class CoreChildProfilePresenter implements CoreChildProfileContract.Prese
         if (!isChangingConfiguration) {
             interactor = null;
         }
-    }
-
-
-    @Override
-    public void verifyHasPhone() {
-        //todo
-    }
-
-    @Override
-    public void notifyHasPhone(boolean hasPhone) {
-        if (view.get() != null) {
-            view.get().updateHasPhone(hasPhone);
-        }
-    }
-
-    public FormUtils getFormUtils() throws Exception {
-        if (this.formUtils == null) {
-            this.formUtils = new FormUtils(getView().getApplicationContext());
-        }
-        return formUtils;
     }
 }

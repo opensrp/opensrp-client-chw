@@ -34,6 +34,11 @@ public class CoreUpcomingServicesActivity extends SecuredActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return false;
+    }
+
+    @Override
     protected void onCreation() {
         setContentView(R.layout.activity_upcoming_services);
         progressBar = findViewById(R.id.progress_bar);
@@ -44,11 +49,6 @@ public class CoreUpcomingServicesActivity extends SecuredActivity {
         upcomingServicesView.setChildClient(this, childClient);
 
         setUpActionBar();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        return false;
     }
 
     @Override

@@ -103,7 +103,9 @@ public abstract class Utils extends org.smartregister.family.util.Utils {
     }
 
     public static String firstCharacterUppercase(String str) {
-        if (TextUtils.isEmpty(str)) return "";
+        if (TextUtils.isEmpty(str)) {
+            return "";
+        }
         return str.substring(0, 1).toUpperCase() + str.substring(1).toLowerCase();
     }
 
@@ -191,6 +193,18 @@ public abstract class Utils extends org.smartregister.family.util.Utils {
         return R.color.due_profile_blue;
     }
 
+    public static String actualDaysBetweenDateAndNow(Context context, String date) {
+        Integer days = daysBetweenDateAndNow(date);
+        if (days != null) {
+            if (days <= 1) {
+                return days + getStringSpacePrefix(context, R.string.day);
+            } else {
+                return days + getStringSpacePrefix(context, R.string.days);
+            }
+        }
+        return "";
+    }
+
     public static Integer daysBetweenDateAndNow(String date) {
         DateTime duration;
         if (StringUtils.isNotBlank(date)) {
@@ -203,16 +217,6 @@ public abstract class Utils extends org.smartregister.family.util.Utils {
             }
         }
         return null;
-    }
-
-    public static String actualDaysBetweenDateAndNow(Context context, String date) {
-        Integer days = daysBetweenDateAndNow(date);
-        if (days != null) {
-            if (days <= 1) {
-                return days + getStringSpacePrefix(context, R.string.day);
-            } else return days + getStringSpacePrefix(context, R.string.days);
-        }
-        return "";
     }
 
     private static String getStringSpacePrefix(Context context, int resId) {
@@ -292,8 +296,9 @@ public abstract class Utils extends org.smartregister.family.util.Utils {
         String formIdentity = MessageFormat.format("{0}_{1}", form_name, current.getLanguage());
         // validate variant exists
         try {
-            if (assets == null)
+            if (assets == null) {
                 assets = new ArrayList<>();
+            }
 
             if (assets.size() == 0) {
                 String[] local_assets = CoreChwApplication.getInstance().getApplicationContext().getAssets().list("json.form");
@@ -304,8 +309,9 @@ public abstract class Utils extends org.smartregister.family.util.Utils {
                 }
             }
 
-            if (assets.contains(formIdentity))
+            if (assets.contains(formIdentity)) {
                 return formIdentity;
+            }
         } catch (Exception e) {
             // return default
             return form_name;
@@ -320,8 +326,9 @@ public abstract class Utils extends org.smartregister.family.util.Utils {
     public static String getFileName(String form_name, Locale current, AssetManager assetManager) {
         String formIdentity = MessageFormat.format("{0}_{1}", form_name, current.getLanguage());
         try {
-            if (assets == null)
+            if (assets == null) {
                 assets = new ArrayList<>();
+            }
 
 
             if (assets.size() == 0) {
@@ -333,8 +340,9 @@ public abstract class Utils extends org.smartregister.family.util.Utils {
                 }
             }
 
-            if (assets.contains(formIdentity))
+            if (assets.contains(formIdentity)) {
                 return formIdentity;
+            }
         } catch (Exception e) {
             Timber.v(e);
         }

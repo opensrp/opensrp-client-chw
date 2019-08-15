@@ -79,6 +79,14 @@ public class VaccineCardInputDialogFragment extends DialogFragment implements Vi
 
     }
 
+    private void enableDisableSaveBtn(boolean isEnable) {
+        if (isEnable) {
+            buttonSave.setAlpha(1.0f);
+        } else {
+            buttonSave.setAlpha(0.3f);
+        }
+    }
+
     @Override
     public void onClick(View v) {
         int i = v.getId();
@@ -95,7 +103,6 @@ public class VaccineCardInputDialogFragment extends DialogFragment implements Vi
         dismiss();
     }
 
-
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
         if (checkedId == R.id.yes) {
@@ -105,10 +112,5 @@ public class VaccineCardInputDialogFragment extends DialogFragment implements Vi
             choiceValue = noButton.getText().toString();
             enableDisableSaveBtn(true);
         }
-    }
-
-    private void enableDisableSaveBtn(boolean isEnable) {
-        if (isEnable) buttonSave.setAlpha(1.0f);
-        else buttonSave.setAlpha(0.3f);
     }
 }

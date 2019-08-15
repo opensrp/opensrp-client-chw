@@ -42,6 +42,20 @@ public class AddMemberFragment extends DialogFragment implements View.OnClickLis
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        // without a handler, the window sizes itself correctly
+        // but the keyboard does not show up
+        new Handler().post(() -> getDialog().getWindow().setLayout(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
+
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+    }
+
+    @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
 
@@ -54,20 +68,6 @@ public class AddMemberFragment extends DialogFragment implements View.OnClickLis
         view.findViewById(R.id.close).setOnClickListener(this);
         view.findViewById(R.id.layout_add_child_under_five).setOnClickListener(this);
         view.findViewById(R.id.layout_add_other_family_member).setOnClickListener(this);
-    }
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        // without a handler, the window sizes itself correctly
-        // but the keyboard does not show up
-        new Handler().post(() -> getDialog().getWindow().setLayout(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
-
     }
 
     @Override

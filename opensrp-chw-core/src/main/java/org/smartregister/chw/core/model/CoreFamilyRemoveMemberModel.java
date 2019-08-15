@@ -82,6 +82,12 @@ public abstract class CoreFamilyRemoveMemberModel extends CoreFamilyProfileMembe
     }
 
     @Override
+    public String getForm(CommonPersonObjectClient client) {
+        Date dob = Utils.dobStringToDate(Utils.getValue(client.getColumnmaps(), DBConstants.KEY.DOB, false));
+        return ((dob != null && getDiffYears(dob, new Date()) >= 5) ? CoreConstants.JSON_FORM.getFamilyDetailsRemoveMember() : CoreConstants.JSON_FORM.getFamilyDetailsRemoveChild());
+    }
+
+    @Override
     public JSONObject prepareFamilyRemovalForm(String familyID, String familyName, String details) {
         try {
             FormUtils formUtils = FormUtils.getInstance(Utils.context().applicationContext());
@@ -106,11 +112,6 @@ public abstract class CoreFamilyRemoveMemberModel extends CoreFamilyProfileMembe
             e.printStackTrace();
             return null;
         }
-    }
-
-    public String getForm(CommonPersonObjectClient client) {
-        Date dob = Utils.dobStringToDate(Utils.getValue(client.getColumnmaps(), DBConstants.KEY.DOB, false));
-        return ((dob != null && getDiffYears(dob, new Date()) >= 5) ? CoreConstants.JSON_FORM.getFamilyDetailsRemoveMember() : CoreConstants.JSON_FORM.getFamilyDetailsRemoveChild());
     }
 
     public int getDiffYears(Date first, Date last) {

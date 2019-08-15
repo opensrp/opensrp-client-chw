@@ -55,7 +55,7 @@ public interface NavigationContract {
 
         void getRegisterCount(String tableName, InteractorCallback<Integer> callback);
 
-        Date Sync();
+        Date sync();
 
         void setApplication(CoreApplication coreApplication);
     }

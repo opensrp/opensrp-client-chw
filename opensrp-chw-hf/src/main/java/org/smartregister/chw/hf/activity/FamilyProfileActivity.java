@@ -16,6 +16,31 @@ import org.smartregister.family.util.Constants;
 public class FamilyProfileActivity extends CoreFamilyProfileActivity {
 
     @Override
+    protected void refreshPresenter() {
+        presenter = new FamilyProfilePresenter(this, new FamilyProfileModel(familyName), familyBaseEntityId, familyHead, primaryCaregiver, familyName);
+    }
+
+    @Override
+    protected void refreshList(Fragment fragment) {
+        if (fragment instanceof FamilyProfileMemberFragment) {
+            FamilyProfileMemberFragment familyProfileMemberFragment = ((FamilyProfileMemberFragment) fragment);
+            if (familyProfileMemberFragment.presenter() != null) {
+                familyProfileMemberFragment.refreshListView();
+            }
+        }
+    }
+
+    @Override
+    protected Class<? extends CoreFamilyRemoveMemberActivity> getFamilyRemoveMemberClass() {
+        return FamilyRemoveMemberActivity.class;
+    }
+
+    @Override
+    protected Class<? extends CoreFamilyProfileMenuActivity> getFamilyProfileMenuClass() {
+        return FamilyProfileMenuActivity.class;
+    }
+
+    @Override
     protected void initializePresenter() {
         super.initializePresenter();
         presenter = new FamilyProfilePresenter(this, new FamilyProfileModel(familyName), familyBaseEntityId, familyHead, primaryCaregiver, familyName);
@@ -36,30 +61,6 @@ public class FamilyProfileActivity extends CoreFamilyProfileActivity {
         }
 
         return viewPager;
-    }
-
-    @Override
-    protected Class<? extends CoreFamilyRemoveMemberActivity> getFamilyRemoveMemberClass() {
-        return FamilyRemoveMemberActivity.class;
-    }
-
-    @Override
-    protected Class<? extends CoreFamilyProfileMenuActivity> getFamilyProfileMenuClass() {
-        return FamilyProfileMenuActivity.class;
-    }
-
-    protected void refreshList(Fragment fragment) {
-        if (fragment instanceof FamilyProfileMemberFragment) {
-            FamilyProfileMemberFragment familyProfileMemberFragment = ((FamilyProfileMemberFragment) fragment);
-            if (familyProfileMemberFragment.presenter() != null) {
-                familyProfileMemberFragment.refreshListView();
-            }
-        }
-    }
-
-    @Override
-    protected void refreshPresenter() {
-        presenter = new FamilyProfilePresenter(this, new FamilyProfileModel(familyName), familyBaseEntityId, familyHead, primaryCaregiver, familyName);
     }
 
 }

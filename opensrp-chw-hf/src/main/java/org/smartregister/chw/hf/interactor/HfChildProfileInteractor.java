@@ -24,8 +24,6 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -55,23 +53,6 @@ public class HfChildProfileInteractor extends CoreChildProfileInteractor {
     }
 
     @Override
-    public void processBackGroundEvent(final CoreChildProfileContract.InteractorCallBack callback) {
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                HfChildUtils.processClientProcessInBackground();
-                appExecutors.mainThread().execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        callback.updateAfterBackGroundProcessed();
-                    }
-                });
-            }
-        };
-        appExecutors.diskIO().execute(runnable);
-    }
-
-    @Override
     public void updateVisitNotDone(final long value, final CoreChildProfileContract.InteractorCallBack callback) {
         updateHomeVisitAsEvent(value)
                 .subscribeOn(Schedulers.io())
@@ -79,6 +60,7 @@ public class HfChildProfileInteractor extends CoreChildProfileInteractor {
                 .subscribe(new Observer<Object>() {
                     @Override
                     public void onSubscribe(Disposable d) {
+                        //// TODO: 15/08/19
                     }
 
                     @Override
@@ -98,6 +80,7 @@ public class HfChildProfileInteractor extends CoreChildProfileInteractor {
 
                     @Override
                     public void onComplete() {
+                        //// TODO: 15/08/19
                     }
                 });
     }
@@ -111,17 +94,7 @@ public class HfChildProfileInteractor extends CoreChildProfileInteractor {
 
             final ChildVisit childVisit = HfChildUtils.getChildVisitStatus(context, dobString, childHomeVisit.getLastHomeVisitDate(), childHomeVisit.getVisitNotDoneDate(), childHomeVisit.getDateCreated());
 
-            Runnable runnable = new Runnable() {
-                @Override
-                public void run() {
-                    appExecutors.mainThread().execute(new Runnable() {
-                        @Override
-                        public void run() {
-                            callback.updateChildVisit(childVisit);
-                        }
-                    });
-                }
-            };
+            Runnable runnable = () -> appExecutors.mainThread().execute(() -> callback.updateChildVisit(childVisit));
             appExecutors.diskIO().execute(runnable);
         }
     }
@@ -136,6 +109,15 @@ public class HfChildProfileInteractor extends CoreChildProfileInteractor {
 
     }
 
+    @Override
+    public void processBackGroundEvent(final CoreChildProfileContract.InteractorCallBack callback) {
+        Runnable runnable = () -> {
+            HfChildUtils.processClientProcessInBackground();
+            appExecutors.mainThread().execute(() -> callback.updateAfterBackGroundProcessed());
+        };
+        appExecutors.diskIO().execute(runnable);
+    }
+
     private void updateUpcomingServices(final CoreChildProfileContract.InteractorCallBack callback, Context context) {
         updateUpcomingServices(context)
                 .subscribeOn(Schedulers.io())
@@ -143,7 +125,7 @@ public class HfChildProfileInteractor extends CoreChildProfileInteractor {
                 .subscribe(new Observer<CoreChildService>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-
+                        //// TODO: 15/08/19
                     }
 
                     @Override
@@ -161,6 +143,7 @@ public class HfChildProfileInteractor extends CoreChildProfileInteractor {
 
                     @Override
                     public void onComplete() {
+                        //// TODO: 15/08/19
                     }
                 });
     }
@@ -173,13 +156,12 @@ public class HfChildProfileInteractor extends CoreChildProfileInteractor {
                 .subscribe(new Observer<String>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-
+                        //// TODO: 15/08/19
                     }
 
                     @Override
                     public void onNext(String s) {
                         callback.updateFamilyMemberServiceDue(s);
-
                     }
 
                     @Override
@@ -189,21 +171,19 @@ public class HfChildProfileInteractor extends CoreChildProfileInteractor {
 
                     @Override
                     public void onComplete() {
+                        //// TODO: 15/08/19
                     }
                 });
     }
 
     private Observable<Object> updateHomeVisitAsEvent(final long value) {
-        return Observable.create(new ObservableOnSubscribe<Object>() {
-            @Override
-            public void subscribe(ObservableEmitter<Object> objectObservableEmitter) {
-                final String homeVisitId = CoreJsonFormUtils.generateRandomUUIDString();
+        return Observable.create(objectObservableEmitter -> {
+            final String homeVisitId = CoreJsonFormUtils.generateRandomUUIDString();
 
-                Map<String, JSONObject> fields = new HashMap<>();
-                HfChildUtils.updateHomeVisitAsEvent(getpClient().entityId(), CoreConstants.EventType.CHILD_VISIT_NOT_DONE, CoreConstants.TABLE_NAME.CHILD,
-                        fields, ChildDBConstants.KEY.VISIT_NOT_DONE, value + "", homeVisitId);
-                objectObservableEmitter.onNext("");
-            }
+            Map<String, JSONObject> fields = new HashMap<>();
+            HfChildUtils.updateHomeVisitAsEvent(getpClient().entityId(), CoreConstants.EventType.CHILD_VISIT_NOT_DONE, CoreConstants.TABLE_NAME.CHILD,
+                    fields, ChildDBConstants.KEY.VISIT_NOT_DONE, value + "", homeVisitId);
+            objectObservableEmitter.onNext("");
         });
     }
 }

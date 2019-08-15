@@ -7,21 +7,18 @@ import org.smartregister.configurableviews.model.View;
 
 import java.util.HashSet;
 
-public class BaseRefererralFragmentPresenter implements BaseReferralRegisterFragmentContract.Presenter {
-
-
+public class BaseReferralFragmentPresenter implements BaseReferralRegisterFragmentContract.Presenter {
     protected BaseReferralRegisterFragmentContract.View view;
-
     protected BaseReferralRegisterFragmentContract.Model model;
 
-    public BaseRefererralFragmentPresenter(BaseReferralRegisterFragmentContract.View view) {
+    public BaseReferralFragmentPresenter(BaseReferralRegisterFragmentContract.View view) {
         this.view = view;
         model = new BaseReferralModel();
     }
 
     @Override
     public void processViewConfigurations() {
-
+        //// TODO: 15/08/19
     }
 
     @Override
@@ -38,11 +35,11 @@ public class BaseRefererralFragmentPresenter implements BaseReferralRegisterFrag
 
     @Override
     public void startSync() {
-
+        //// TODO: 15/08/19
     }
 
     @Override
     public void searchGlobally(String s) {
-
+        //// TODO: 15/08/19
     }
 }

@@ -17,6 +17,23 @@ public class AboveFiveChildProfileActivity extends ChildProfileActivity {
     }
 
     @Override
+    public void setProfileImage(String baseEntityId) {
+        imageViewProfile.setBorderWidth(2);
+        imageRenderHelper.refreshProfileImage(baseEntityId, imageViewProfile, R.mipmap.ic_member);
+        imageViewProfile.setBorderColor(getResources().getColor(R.color.white));
+    }
+
+    @Override
+    public void setParentName(String parentName) {
+        textViewParentName.setVisibility(View.GONE);
+    }
+
+    @Override
+    protected void updateTopbar() {
+        //no need to do anything
+    }
+
+    @Override
     public void setLastVisitRowView(String days) {
         super.setLastVisitRowView(days);
         textViewLastVisit.setVisibility(View.GONE);
@@ -36,22 +53,5 @@ public class AboveFiveChildProfileActivity extends ChildProfileActivity {
     @Override
     public void setServiceNameUpcoming(String serviceName, String dueDate) {
         //no need to do anything
-    }
-
-    @Override
-    protected void updateTopbar() {
-        //no need to do anything
-    }
-
-    @Override
-    public void setProfileImage(String baseEntityId) {
-        imageViewProfile.setBorderWidth(2);
-        imageRenderHelper.refreshProfileImage(baseEntityId, imageViewProfile, R.mipmap.ic_member);
-        imageViewProfile.setBorderColor(getResources().getColor(R.color.white));
-    }
-
-    @Override
-    public void setParentName(String parentName) {
-        textViewParentName.setVisibility(View.GONE);
     }
 }

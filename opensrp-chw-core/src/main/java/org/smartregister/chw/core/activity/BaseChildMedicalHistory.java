@@ -29,7 +29,10 @@ public abstract class BaseChildMedicalHistory extends SecuredActivity {
     protected CommonPersonObjectClient childClient;
     private TextView textViewTitle, textViewLastVisit;
 
-    public abstract void onViewCreated(Activity activity);
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return false;
+    }
 
     @Override
     protected void onCreation() {
@@ -76,10 +79,7 @@ public abstract class BaseChildMedicalHistory extends SecuredActivity {
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        return false;
-    }
+    public abstract void onViewCreated(Activity activity);
 
     @Override
     protected void onResumption() {

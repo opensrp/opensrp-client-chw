@@ -117,50 +117,6 @@ public class RecurringServiceUtil {
         return foundServiceTypeMap;
     }
 
-    public static Map<String, Object> nextServiceDueBasedOnExpire(List<Map<String, Object>> schedule, List<ServiceType> serviceTypeList) {
-        Map<String, Object> v = null;
-        try {
-            for (Map<String, Object> m : schedule) {
-                if (m != null && m.get("status") != null && m.get("status").toString().equalsIgnoreCase("due")) {
-
-                    if (v == null && m.get("service") != null && serviceTypeList.contains(m.get("service"))) {
-                        try {
-                            Alert mAlert = (Alert) m.get("alert");
-                            if (!mAlert.status().equals(AlertStatus.expired)) {
-                                v = m;
-                            }
-
-                        } catch (Exception e) {
-
-                        }
-
-
-                    } else if (v.get("alert") == null && m.get("alert") != null && m.get("service") != null && serviceTypeList.contains(m.get("service"))) {
-                        Alert mAlert = (Alert) m.get("alert");
-                        if (!mAlert.status().equals(AlertStatus.expired)) {
-                            v = m;
-                        }
-
-
-                    } else if (v.get("alert") != null && m.get("alert") != null && m.get("service") != null && serviceTypeList.contains(m.get("service"))) {
-                        Alert vAlert = (Alert) v.get("alert");
-                        Alert mAlert = (Alert) m.get("alert");
-                        if (!vAlert.status().equals(AlertStatus.urgent)) {
-                            if (vAlert.status().equals(AlertStatus.upcoming) && (mAlert.status().equals(AlertStatus.normal) || mAlert.status().equals(AlertStatus.urgent))) {
-                                v = m;
-                            } else if (vAlert.status().equals(AlertStatus.normal) && mAlert.status().equals(AlertStatus.urgent)) {
-                                v = m;
-                            }
-                        }
-                    }
-                }
-            }
-        } catch (Exception e) {
-            Timber.e(e);
-        }
-        return v;
-    }
-
     public static void updateWrapperStatus(List<ServiceRecord> serviceRecords, List<Alert> alertList, ServiceWrapper tag, DateTime anchorDate, List<ServiceType> serviceTypes) {
         List<ServiceRecord> serviceRecordList = new ArrayList<>();
         for (ServiceRecord serviceRecord : serviceRecords) {
@@ -225,5 +181,49 @@ public class RecurringServiceUtil {
                 }
             }
         }
+    }
+
+    public static Map<String, Object> nextServiceDueBasedOnExpire(List<Map<String, Object>> schedule, List<ServiceType> serviceTypeList) {
+        Map<String, Object> v = null;
+        try {
+            for (Map<String, Object> m : schedule) {
+                if (m != null && m.get("status") != null && m.get("status").toString().equalsIgnoreCase("due")) {
+
+                    if (v == null && m.get("service") != null && serviceTypeList.contains(m.get("service"))) {
+                        try {
+                            Alert mAlert = (Alert) m.get("alert");
+                            if (!mAlert.status().equals(AlertStatus.expired)) {
+                                v = m;
+                            }
+
+                        } catch (Exception e) {
+
+                        }
+
+
+                    } else if (v.get("alert") == null && m.get("alert") != null && m.get("service") != null && serviceTypeList.contains(m.get("service"))) {
+                        Alert mAlert = (Alert) m.get("alert");
+                        if (!mAlert.status().equals(AlertStatus.expired)) {
+                            v = m;
+                        }
+
+
+                    } else if (v.get("alert") != null && m.get("alert") != null && m.get("service") != null && serviceTypeList.contains(m.get("service"))) {
+                        Alert vAlert = (Alert) v.get("alert");
+                        Alert mAlert = (Alert) m.get("alert");
+                        if (!vAlert.status().equals(AlertStatus.urgent)) {
+                            if (vAlert.status().equals(AlertStatus.upcoming) && (mAlert.status().equals(AlertStatus.normal) || mAlert.status().equals(AlertStatus.urgent))) {
+                                v = m;
+                            } else if (vAlert.status().equals(AlertStatus.normal) && mAlert.status().equals(AlertStatus.urgent)) {
+                                v = m;
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+        return v;
     }
 }

@@ -87,6 +87,11 @@ public class CoreChwRepository extends Repository {
     }
 
     @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        super.onUpgrade(db, oldVersion, newVersion);
+    }
+
+    @Override
     public SQLiteDatabase getReadableDatabase() {
         String pass = CoreChwApplication.getInstance().getPassword();
         if (StringUtils.isNotBlank(pass)) {
@@ -104,11 +109,6 @@ public class CoreChwRepository extends Repository {
         } else {
             throw new IllegalStateException("Password is blank");
         }
-    }
-
-    @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        super.onUpgrade(db, oldVersion, newVersion);
     }
 
     @Override

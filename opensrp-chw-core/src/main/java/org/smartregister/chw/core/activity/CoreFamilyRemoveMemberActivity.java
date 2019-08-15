@@ -45,6 +45,8 @@ public abstract class CoreFamilyRemoveMemberActivity extends SecuredActivity imp
         }
     }
 
+    protected abstract void setRemoveMemberFragment();
+
     private void startFragment() {
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.flFrame, removeMemberFragment)
@@ -57,6 +59,4 @@ public abstract class CoreFamilyRemoveMemberActivity extends SecuredActivity imp
             finish();
         }
     }
-
-    protected abstract void setRemoveMemberFragment();
 }

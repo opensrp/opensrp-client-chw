@@ -13,8 +13,19 @@ public class ChildDBConstants {
         return childAgeLimitFilter(DBConstants.KEY.DOB, FIVE_YEAR);
     }
 
+    private static String childAgeLimitFilter(String dateColumn, int age) {
+        return " ((( julianday('now') - julianday(" + dateColumn + "))/365.25) <" + age + ")";
+    }
+
     public static String childAgeLimitFilter(String tableName) {
         return childAgeLimitFilter(tableColConcat(tableName, DBConstants.KEY.DOB), FIVE_YEAR);
+    }
+
+    private static String tableColConcat(String tableName, String columnName) {
+        if (StringUtils.isBlank(tableName) || StringUtils.isBlank(columnName)) {
+            return "";
+        }
+        return tableName.concat(".").concat(columnName);
     }
 
     public static String childDueFilter() {
@@ -38,15 +49,16 @@ public class ChildDBConstants {
     }
 
     private static String matchPhrase(String phrase) {
-        if (phrase == null) {
-            phrase = "";
+        String stringPhrase = phrase;
+        if (stringPhrase == null) {
+            stringPhrase = "";
         }
 
         // Underscore does not work well in fts search
-        if (phrase.contains("_")) {
-            phrase = phrase.replace("_", "");
+        if (stringPhrase.contains("_")) {
+            stringPhrase = stringPhrase.replace("_", "");
         }
-        return " MATCH '" + phrase + "*' ";
+        return " MATCH '" + stringPhrase + "*' ";
 
     }
 
@@ -59,17 +71,6 @@ public class ChildDBConstants {
 
     private static String limitClause(int limit, int offset) {
         return " LIMIT " + offset + "," + limit;
-    }
-
-    private static String childAgeLimitFilter(String dateColumn, int age) {
-        return " ((( julianday('now') - julianday(" + dateColumn + "))/365.25) <" + age + ")";
-    }
-
-    private static String tableColConcat(String tableName, String columnName) {
-        if (StringUtils.isBlank(tableName) || StringUtils.isBlank(columnName)) {
-            return "";
-        }
-        return tableName.concat(".").concat(columnName);
     }
 
     public static final class KEY {

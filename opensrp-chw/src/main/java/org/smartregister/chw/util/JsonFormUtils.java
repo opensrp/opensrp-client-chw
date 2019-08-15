@@ -3,7 +3,6 @@ package org.smartregister.chw.util;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Bitmap;
 import android.util.Pair;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
@@ -32,7 +31,6 @@ import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.domain.Photo;
-import org.smartregister.domain.ProfileImage;
 import org.smartregister.domain.tag.FormTag;
 import org.smartregister.family.FamilyLibrary;
 import org.smartregister.family.util.Constants;
@@ -42,27 +40,19 @@ import org.smartregister.immunization.domain.Vaccine;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.repository.EventClientRepository;
-import org.smartregister.repository.ImageRepository;
 import org.smartregister.sync.helper.ECSyncHelper;
 import org.smartregister.util.FormUtils;
 import org.smartregister.util.ImageUtils;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
-import java.util.UUID;
 
 import timber.log.Timber;
 
@@ -80,8 +70,6 @@ public class JsonFormUtils extends CoreJsonFormUtils {
 
     public static final String CURRENT_OPENSRP_ID = "current_opensrp_id";
     public static final String READ_ONLY = "read_only";
-    private static final String TAG = org.smartregister.util.JsonFormUtils.class.getCanonicalName();
-    private static HashMap<String, String> actionMap = null;
     private static Flavor flavor = new JsonFormUtilsFlv();
 
     public static boolean saveWashCheckEvent(String jsonString, String familyId) {
@@ -355,51 +343,6 @@ public class JsonFormUtils extends CoreJsonFormUtils {
             optionsObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), DBConstants.KEY.DOB, false));
 
         }
-    }
-
-    private static void saveStaticImageToDisk(Bitmap image, String providerId, String entityId) {
-        if (image == null || isBlank(providerId) || isBlank(entityId)) {
-            return;
-        }
-        OutputStream os = null;
-        try {
-
-            if (entityId != null && !entityId.isEmpty()) {
-                final String absoluteFileName = ChwApplication.getAppDir() + File.separator + entityId + ".JPEG";
-
-                File outputFile = new File(absoluteFileName);
-                os = new FileOutputStream(outputFile);
-                Bitmap.CompressFormat compressFormat = Bitmap.CompressFormat.JPEG;
-                if (compressFormat != null) {
-                    image.compress(compressFormat, 100, os);
-                } else {
-                    throw new IllegalArgumentException("Failed to updateFamilyRelations static image, could not retrieve image compression format from name "
-                            + absoluteFileName);
-                }
-                // insert into the db
-                ProfileImage profileImage = new ProfileImage();
-                profileImage.setImageid(UUID.randomUUID().toString());
-                profileImage.setAnmId(providerId);
-                profileImage.setEntityID(entityId);
-                profileImage.setFilepath(absoluteFileName);
-                profileImage.setFilecategory("profilepic");
-                profileImage.setSyncStatus(ImageRepository.TYPE_Unsynced);
-                ImageRepository imageRepo = Utils.context().imageRepository();
-                imageRepo.add(profileImage);
-            }
-
-        } catch (FileNotFoundException e) {
-            Timber.e("Failed to updateFamilyRelations static image to disk");
-        } finally {
-            if (os != null) {
-                try {
-                    os.close();
-                } catch (IOException e) {
-                    Timber.e("Failed to close static images output stream after attempting to write image");
-                }
-            }
-        }
-
     }
 
     public static Vaccine tagSyncMetadata(AllSharedPreferences allSharedPreferences, Vaccine vaccine) {
@@ -724,10 +667,11 @@ public class JsonFormUtils extends CoreJsonFormUtils {
                     try {
                         for (Obs obs : observations) {
                             if (obs.getFormSubmissionField().equalsIgnoreCase(jsonObject.getString(JsonFormUtils.KEY))) {
-                                if (jsonObject.getString("type").equals("spinner"))
+                                if (jsonObject.getString("type").equals("spinner")) {
                                     jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, obs.getHumanReadableValues().get(0));
-                                else
+                                } else {
                                     jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, obs.getValue());
+                                }
                             }
                         }
                     } catch (Exception e) {

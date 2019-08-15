@@ -28,10 +28,7 @@ import org.smartregister.util.PermissionUtils;
 
 
 public class FamilyCallDialogFragment extends DialogFragment implements FamilyCallDialogContract.View {
-
-
     public static final String DIALOG_TAG = "FamilyCallWidgetDialogFragment_DIALOG_TAG";
-
     private View.OnClickListener listener = null;
     private FamilyCallDialogContract.Dialer mDialer;
     private String familyBaseEntityId;
@@ -72,9 +69,15 @@ public class FamilyCallDialogFragment extends DialogFragment implements FamilyCa
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setStyle(android.app.DialogFragment.STYLE_NO_TITLE, R.style.ChwTheme_Dialog_FullWidth);
+        setStyle(DialogFragment.STYLE_NO_TITLE, R.style.ChwTheme_Dialog_FullWidth);
 
 
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -92,6 +95,15 @@ public class FamilyCallDialogFragment extends DialogFragment implements FamilyCa
         return dialogView;
     }
 
+    private void setUpPosition() {
+        getDialog().getWindow().setGravity(Gravity.CENTER_HORIZONTAL | Gravity.TOP);
+        WindowManager.LayoutParams p = getDialog().getWindow().getAttributes();
+        p.width = ViewGroup.LayoutParams.MATCH_PARENT;
+        p.softInputMode = WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE;
+        p.y = 20;
+        getDialog().getWindow().setAttributes(p);
+    }
+
     private void initUI(ViewGroup rootView) {
 
         llFamilyHead = rootView.findViewById(R.id.layout_family_head);
@@ -107,15 +119,6 @@ public class FamilyCallDialogFragment extends DialogFragment implements FamilyCa
         rootView.findViewById(R.id.close).setOnClickListener(listener);
         tvFamilyHeadPhone.setOnClickListener(listener);
         tvCareGiverPhone.setOnClickListener(listener);
-    }
-
-    private void setUpPosition() {
-        getDialog().getWindow().setGravity(Gravity.CENTER_HORIZONTAL | Gravity.TOP);
-        WindowManager.LayoutParams p = getDialog().getWindow().getAttributes();
-        p.width = ViewGroup.LayoutParams.MATCH_PARENT;
-        p.softInputMode = WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE;
-        p.y = 20;
-        getDialog().getWindow().setAttributes(p);
     }
 
     @Override
@@ -207,12 +210,6 @@ public class FamilyCallDialogFragment extends DialogFragment implements FamilyCa
             }
             EventBus.getDefault().unregister(this);
         }
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        EventBus.getDefault().register(this);
     }
 
 }

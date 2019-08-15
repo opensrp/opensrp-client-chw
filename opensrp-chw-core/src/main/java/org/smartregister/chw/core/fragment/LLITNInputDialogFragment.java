@@ -87,6 +87,14 @@ public class LLITNInputDialogFragment extends DialogFragment implements View.OnC
 
     }
 
+    private void enableDisableSaveBtn(boolean isEnable) {
+        if (isEnable) {
+            buttonSave.setAlpha(1.0f);
+        } else {
+            buttonSave.setAlpha(0.3f);
+        }
+    }
+
     @Override
     public void onClick(View v) {
         int i = v.getId();
@@ -98,12 +106,6 @@ public class LLITNInputDialogFragment extends DialogFragment implements View.OnC
             saveData();
         }
 
-    }
-
-    private void saveData() {
-        serviceTask.setTaskLabel(choiceValue);
-        onUpdateServiceTask.onUpdateServiceTask(serviceTask);
-        dismiss();
     }
 
     protected void onShowInfo() {
@@ -118,6 +120,12 @@ public class LLITNInputDialogFragment extends DialogFragment implements View.OnC
         builderSingle.show();
     }
 
+    private void saveData() {
+        serviceTask.setTaskLabel(choiceValue);
+        onUpdateServiceTask.onUpdateServiceTask(serviceTask);
+        dismiss();
+    }
+
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
         if (checkedId == R.id.choice_1) {
@@ -127,10 +135,5 @@ public class LLITNInputDialogFragment extends DialogFragment implements View.OnC
             choiceValue = choiceTwo.getText().toString();
             enableDisableSaveBtn(true);
         }
-    }
-
-    private void enableDisableSaveBtn(boolean isEnable) {
-        if (isEnable) buttonSave.setAlpha(1.0f);
-        else buttonSave.setAlpha(0.3f);
     }
 }

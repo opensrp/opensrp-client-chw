@@ -148,7 +148,7 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
                 onBackPressed();
                 return true;
             case R.id.action_anc_registration:
-                AncRegisterActivity.startAncRegistrationActivity(FamilyOtherMemberProfileActivity.this, baseEntityId, PhoneNumber, CoreConstants.JSON_FORM.getAncRegistration(), null, familyBaseEntityId, familyName);
+                AncRegisterActivity.startAncRegistrationActivity(FamilyOtherMemberProfileActivity.this, baseEntityId, CoreConstants.JSON_FORM.getAncRegistration(), null, familyBaseEntityId, familyName);
                 return true;
             case R.id.action_malaria_registration:
                 MalariaRegisterActivity.startMalariaRegistrationActivity(FamilyOtherMemberProfileActivity.this, baseEntityId);
@@ -234,6 +234,7 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
         }
     }
 
+    @Override
     public void refreshList() {
         if (Looper.myLooper() == Looper.getMainLooper()) {
             for (int i = 0; i < adapter.getCount(); i++) {

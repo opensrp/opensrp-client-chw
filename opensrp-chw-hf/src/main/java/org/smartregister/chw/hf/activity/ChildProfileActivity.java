@@ -36,10 +36,8 @@ import java.util.Set;
 
 public class ChildProfileActivity extends CoreChildProfileActivity {
     public CoreFamilyMemberFloatingMenu familyFloatingMenu;
-    public RelativeLayout referalRow;
+    public RelativeLayout referralRow;
     public RecyclerView referralRecyclerView;
-    private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager layoutManager;
 
     @Override
     protected void onCreation() {
@@ -49,24 +47,6 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
         setupViews();
         setUpToolbar();
         registerReceiver(mDateTimeChangedReceiver, sIntentFilter);
-    }
-
-    @Override
-    protected void setupViews() {
-        super.setupViews();
-        initializeTasksRecyclerView();
-        View recordVisitPanel = findViewById(R.id.record_visit_panel);
-        recordVisitPanel.setVisibility(View.GONE);
-        familyFloatingMenu = new CoreFamilyMemberFloatingMenu(this);
-        LinearLayout.LayoutParams linearLayoutParams =
-                new LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.MATCH_PARENT,
-                        LinearLayout.LayoutParams.MATCH_PARENT);
-        familyFloatingMenu.setGravity(Gravity.BOTTOM | Gravity.END);
-        addContentView(familyFloatingMenu, linearLayoutParams);
-        familyFloatingMenu.setClickListener(onClickFloatingMenu);
-        fetchProfileData();
-        presenter().fetchTasks();
     }
 
     @Override
@@ -99,12 +79,21 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
     }
 
     @Override
-    public void setClientTasks(Set<Task> taskList) {
-        if (referralRecyclerView != null && taskList.size() > 0) {
-            referalRow.setVisibility(View.VISIBLE);
-            mAdapter = new ReferralCardViewAdapter(taskList, this, ((CoreChildProfilePresenter) presenter()).getChildClient());
-            referralRecyclerView.setAdapter(mAdapter);
-        }
+    protected void setupViews() {
+        super.setupViews();
+        initializeTasksRecyclerView();
+        View recordVisitPanel = findViewById(R.id.record_visit_panel);
+        recordVisitPanel.setVisibility(View.GONE);
+        familyFloatingMenu = new CoreFamilyMemberFloatingMenu(this);
+        LinearLayout.LayoutParams linearLayoutParams =
+                new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.MATCH_PARENT);
+        familyFloatingMenu.setGravity(Gravity.BOTTOM | Gravity.END);
+        addContentView(familyFloatingMenu, linearLayoutParams);
+        familyFloatingMenu.setClickListener(onClickFloatingMenu);
+        fetchProfileData();
+        presenter().fetchTasks();
     }
 
     @Override
@@ -113,14 +102,12 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-        menu.findItem(R.id.action_anc_registration).setVisible(false);
-        menu.findItem(R.id.action_malaria_registration).setVisible(false);
-        menu.findItem(R.id.action_remove_member).setVisible(false);
-        menu.findItem(R.id.action_sick_child_follow_up).setVisible(true);
-        menu.findItem(R.id.action_malaria_diagnosis).setVisible(true);
-        return true;
+    public void setClientTasks(Set<Task> taskList) {
+        if (referralRecyclerView != null && taskList.size() > 0) {
+            referralRow.setVisibility(View.VISIBLE);
+            RecyclerView.Adapter mAdapter = new ReferralCardViewAdapter(taskList, this, ((CoreChildProfilePresenter) presenter()).getChildClient());
+            referralRecyclerView.setAdapter(mAdapter);
+        }
     }
 
     @Override
@@ -136,6 +123,17 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        menu.findItem(R.id.action_anc_registration).setVisible(false);
+        menu.findItem(R.id.action_malaria_registration).setVisible(false);
+        menu.findItem(R.id.action_remove_member).setVisible(false);
+        menu.findItem(R.id.action_sick_child_follow_up).setVisible(true);
+        menu.findItem(R.id.action_malaria_diagnosis).setVisible(true);
+        return true;
     }
 
     private void openMedicalHistoryScreen() {
@@ -169,27 +167,24 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
     }
 
     public OnClickFloatingMenu getOnClickFloatingMenu(final Activity activity, final HfChildProfilePresenter presenter) {
-        return new OnClickFloatingMenu() {
-            @Override
-            public void onClickMenu(int viewId) {
-                switch (viewId) {
-                    case R.id.call_layout:
-                        FamilyCallDialogFragment.launchDialog(activity, presenter.getFamilyId());
-                        break;
-                    case R.id.refer_to_facility_fab:
-                        Toast.makeText(activity, "Refer to facility", Toast.LENGTH_SHORT).show();
-                        break;
-                    default:
-                        break;
-                }
+        return viewId -> {
+            switch (viewId) {
+                case R.id.call_layout:
+                    FamilyCallDialogFragment.launchDialog(activity, presenter.getFamilyId());
+                    break;
+                case R.id.refer_to_facility_fab:
+                    Toast.makeText(activity, "Refer to facility", Toast.LENGTH_SHORT).show();
+                    break;
+                default:
+                    break;
             }
         };
     }
 
     private void initializeTasksRecyclerView() {
         referralRecyclerView = findViewById(R.id.referral_card_recycler_view);
-        referalRow = findViewById(R.id.referal_row);
-        layoutManager = new LinearLayoutManager(this);
+        referralRow = findViewById(R.id.referal_row);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         referralRecyclerView.setLayoutManager(layoutManager);
     }
 }

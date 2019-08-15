@@ -33,13 +33,10 @@ import java.util.Set;
  */
 
 public class CoreChildRegisterProvider implements RecyclerViewProvider<RegisterViewHolder> {
-
     private final LayoutInflater inflater;
     private Set<org.smartregister.configurableviews.model.View> visibleColumns;
-
     private View.OnClickListener onClickListener;
     private View.OnClickListener paginationClickListener;
-
     private Context context;
 
     public CoreChildRegisterProvider(Context context, Set visibleColumns, View.OnClickListener onClickListener, View.OnClickListener paginationClickListener) {
@@ -49,12 +46,6 @@ public class CoreChildRegisterProvider implements RecyclerViewProvider<RegisterV
         this.onClickListener = onClickListener;
         this.paginationClickListener = paginationClickListener;
         this.context = context;
-    }
-
-    public static void fillValue(TextView v, String value) {
-        if (v != null)
-            v.setText(value);
-
     }
 
     @Override
@@ -80,58 +71,6 @@ public class CoreChildRegisterProvider implements RecyclerViewProvider<RegisterV
 
         footerViewHolder.nextPageView.setOnClickListener(paginationClickListener);
         footerViewHolder.previousPageView.setOnClickListener(paginationClickListener);
-    }
-
-    public void populatePatientColumn(CommonPersonObjectClient pc, SmartRegisterClient client, RegisterViewHolder viewHolder) {
-
-        String parentFirstName = Utils.getValue(pc.getColumnmaps(), ChildDBConstants.KEY.FAMILY_FIRST_NAME, true);
-        String parentLastName = Utils.getValue(pc.getColumnmaps(), ChildDBConstants.KEY.FAMILY_LAST_NAME, true);
-        String parentMiddleName = Utils.getValue(pc.getColumnmaps(), ChildDBConstants.KEY.FAMILY_MIDDLE_NAME, true);
-
-        String parentName = context.getResources().getString(R.string.care_giver_initials) + ": " + org.smartregister.util.Utils.getName(parentFirstName, parentMiddleName + " " + parentLastName);
-        String firstName = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.FIRST_NAME, true);
-        String middleName = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.MIDDLE_NAME, true);
-        String lastName = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.LAST_NAME, true);
-        String childName = org.smartregister.util.Utils.getName(firstName, middleName + " " + lastName);
-
-        fillValue(viewHolder.textViewParentName, WordUtils.capitalize(parentName));
-
-        String dobString = Utils.getDuration(Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.DOB, false));
-        //dobString = dobString.contains("y") ? dobString.substring(0, dobString.indexOf("y")) : dobString;
-        fillValue(viewHolder.textViewChildName, WordUtils.capitalize(childName) + ", " + WordUtils.capitalize(Utils.getTranslatedDate(dobString, context)));
-        String address = Utils.getValue(pc.getColumnmaps(), ChildDBConstants.KEY.FAMILY_HOME_ADDRESS, true);
-        String gender = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.GENDER, true);
-        fillValue(viewHolder.textViewAddressGender, address + " \u00B7 " + gender);
-
-        addButtonClickListeners(client, viewHolder);
-
-    }
-
-    public void addButtonClickListeners(SmartRegisterClient client, RegisterViewHolder viewHolder) {
-        View patient = viewHolder.childColumn;
-        attachPatientOnclickListener(patient, client);
-
-
-        View dueButton = viewHolder.dueButton;
-        attachDosageOnclickListener(dueButton, client);
-    }
-
-    public void populateIdentifierColumn(CommonPersonObjectClient pc, RegisterViewHolder viewHolder) {
-        String uniqueId = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.UNIQUE_ID, false);
-        //fillValue(viewHolder.ancId, String.format(context.getString(R.string.unique_id_text), uniqueId));
-    }
-
-
-    public void attachPatientOnclickListener(View view, SmartRegisterClient client) {
-        view.setOnClickListener(onClickListener);
-        view.setTag(client);
-        view.setTag(R.id.VIEW_ID, BaseFamilyRegisterFragment.CLICK_VIEW_NORMAL);
-    }
-
-    public void attachDosageOnclickListener(View view, SmartRegisterClient client) {
-        view.setOnClickListener(onClickListener);
-        view.setTag(client);
-        view.setTag(R.id.VIEW_ID, BaseFamilyRegisterFragment.CLICK_VIEW_DOSAGE_STATUS);
     }
 
     @Override
@@ -181,6 +120,63 @@ public class CoreChildRegisterProvider implements RecyclerViewProvider<RegisterV
     @Override
     public boolean isFooterViewHolder(RecyclerView.ViewHolder viewHolder) {
         return viewHolder instanceof FooterViewHolder;
+    }
+
+    public void populatePatientColumn(CommonPersonObjectClient pc, SmartRegisterClient client, RegisterViewHolder viewHolder) {
+
+        String parentFirstName = Utils.getValue(pc.getColumnmaps(), ChildDBConstants.KEY.FAMILY_FIRST_NAME, true);
+        String parentLastName = Utils.getValue(pc.getColumnmaps(), ChildDBConstants.KEY.FAMILY_LAST_NAME, true);
+        String parentMiddleName = Utils.getValue(pc.getColumnmaps(), ChildDBConstants.KEY.FAMILY_MIDDLE_NAME, true);
+
+        String parentName = context.getResources().getString(R.string.care_giver_initials) + ": " + org.smartregister.util.Utils.getName(parentFirstName, parentMiddleName + " " + parentLastName);
+        String firstName = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.FIRST_NAME, true);
+        String middleName = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.MIDDLE_NAME, true);
+        String lastName = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.LAST_NAME, true);
+        String childName = org.smartregister.util.Utils.getName(firstName, middleName + " " + lastName);
+
+        fillValue(viewHolder.textViewParentName, WordUtils.capitalize(parentName));
+
+        String dobString = Utils.getDuration(Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.DOB, false));
+        //dobString = dobString.contains("y") ? dobString.substring(0, dobString.indexOf("y")) : dobString;
+        fillValue(viewHolder.textViewChildName, WordUtils.capitalize(childName) + ", " + WordUtils.capitalize(Utils.getTranslatedDate(dobString, context)));
+        String address = Utils.getValue(pc.getColumnmaps(), ChildDBConstants.KEY.FAMILY_HOME_ADDRESS, true);
+        String gender = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.GENDER, true);
+        fillValue(viewHolder.textViewAddressGender, address + " \u00B7 " + gender);
+
+        addButtonClickListeners(client, viewHolder);
+
+    }
+
+    public void populateIdentifierColumn(CommonPersonObjectClient pc, RegisterViewHolder viewHolder) {
+        //fillValue(viewHolder.ancId, String.format(context.getString(R.string.unique_id_text), uniqueId));
+    }
+
+    public static void fillValue(TextView v, String value) {
+        if (v != null) {
+            v.setText(value);
+        }
+
+    }
+
+    public void addButtonClickListeners(SmartRegisterClient client, RegisterViewHolder viewHolder) {
+        View patient = viewHolder.childColumn;
+        attachPatientOnclickListener(patient, client);
+
+
+        View dueButton = viewHolder.dueButton;
+        attachDosageOnclickListener(dueButton, client);
+    }
+
+    public void attachPatientOnclickListener(View view, SmartRegisterClient client) {
+        view.setOnClickListener(onClickListener);
+        view.setTag(client);
+        view.setTag(R.id.VIEW_ID, BaseFamilyRegisterFragment.CLICK_VIEW_NORMAL);
+    }
+
+    public void attachDosageOnclickListener(View view, SmartRegisterClient client) {
+        view.setOnClickListener(onClickListener);
+        view.setTag(client);
+        view.setTag(R.id.VIEW_ID, BaseFamilyRegisterFragment.CLICK_VIEW_DOSAGE_STATUS);
     }
 
     public LayoutInflater getInflater() {

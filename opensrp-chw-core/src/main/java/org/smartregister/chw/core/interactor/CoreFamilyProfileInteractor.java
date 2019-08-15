@@ -15,13 +15,13 @@ import java.util.Map;
 public class CoreFamilyProfileInteractor extends org.smartregister.family.interactor.FamilyProfileInteractor {
     protected AppExecutors appExecutors;
 
+    protected CoreFamilyProfileInteractor() {
+        this(new AppExecutors());
+    }
+
     @VisibleForTesting
     private CoreFamilyProfileInteractor(AppExecutors appExecutors) {
         this.appExecutors = appExecutors;
-    }
-
-    protected CoreFamilyProfileInteractor() {
-        this(new AppExecutors());
     }
 
     public void verifyHasPhone(final String familyID, final FamilyProfileExtendedContract.PresenterCallBack profilePresenter) {
@@ -47,6 +47,10 @@ public class CoreFamilyProfileInteractor extends org.smartregister.family.intera
         return hasNumber(primaryCaregiverID) || hasNumber(familyHeadID);
     }
 
+    public String getValue(Map<String, String> map, String field) {
+        return Utils.getValue(map, field, false);
+    }
+
     private boolean hasNumber(String baseID) {
         final CommonPersonObject personObject = getCommonRepository(Utils.metadata().familyMemberRegister.tableName).findByBaseEntityId(baseID);
         try {
@@ -57,9 +61,5 @@ public class CoreFamilyProfileInteractor extends org.smartregister.family.intera
         } catch (Exception e) {
             return false;
         }
-    }
-
-    public String getValue(Map<String, String> map, String field) {
-        return Utils.getValue(map, field, false);
     }
 }

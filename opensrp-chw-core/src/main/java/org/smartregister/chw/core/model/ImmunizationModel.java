@@ -44,7 +44,9 @@ public class ImmunizationModel {
     }
 
     public ArrayList<HomeVisitVaccineGroup> determineAllHomeVisitVaccineGroup(CommonPersonObjectClient client, List<Alert> alerts, List<Vaccine> vaccines, ArrayList<VaccineWrapper> notGivenVaccines, List<Map<String, Object>> sch) {
-        if (this.vaccines != null) this.vaccines.clear();
+        if (this.vaccines != null) {
+            this.vaccines.clear();
+        }
         this.vaccines = vaccines;
         setAgeVaccineListElligibleGroups(client);
         Map<String, Date> receivedVaccines = receivedVaccines(vaccines);
@@ -61,8 +63,9 @@ public class ImmunizationModel {
                 }
 
                 String stateKey = VaccinateActionUtils.stateKey(vaccine);
-                if (stateKey.equalsIgnoreCase("18 " + context.getString(R.string.month_full)))
+                if (stateKey.equalsIgnoreCase("18 " + context.getString(R.string.month_full))) {
                     continue;
+                }
                 if (isNotBlank(stateKey)) {
 
                     Integer position = vaccineGroupMap.get(stateKey);
@@ -94,24 +97,28 @@ public class ImmunizationModel {
         return homeVisitVaccineGroupArrayList;
     }
 
-    private void computeGroups(ArrayList<HomeVisitVaccineGroup> homeVisitVaccineGroupArrayList) {
-        for (Iterator<HomeVisitVaccineGroup> iterator = homeVisitVaccineGroupArrayList.iterator(); iterator.hasNext(); ) {
-            HomeVisitVaccineGroup homeVisitVaccineGroup = iterator.next();
-            if (!inElligibleVaccineMap(homeVisitVaccineGroup)) {
-                iterator.remove();
+    public void setAgeVaccineListElligibleGroups(CommonPersonObjectClient client) {
+        String dobString = org.smartregister.util.Utils.getValue(client.getColumnmaps(), DBConstants.KEY.DOB, false);
+        if (!TextUtils.isEmpty(dobString)) {
+            DateTime dateTime = new DateTime(dobString);
+            DateTime now = new DateTime();
+            int weeks = Weeks.weeksBetween(dateTime, now).getWeeks();
+            int months = Months.monthsBetween(dateTime, now).getMonths();
+            elligibleVaccineGroups.add(context.getString(R.string.at_birth));
+            if (weeks >= 6) {
+                elligibleVaccineGroups.add("6 " + context.getString(R.string.week_full));
             }
-        }
-    }
-
-    private void computeNotGiven(ArrayList<HomeVisitVaccineGroup> homeVisitVaccineGroupArrayList, ArrayList<VaccineWrapper> notGivenVaccines) {
-        for (int x = 0; x < homeVisitVaccineGroupArrayList.size(); x++) {
-            homeVisitVaccineGroupArrayList.get(x).calculateNotGivenVaccines();
-            for (int i = 0; i < homeVisitVaccineGroupArrayList.get(x).getDueVaccines().size(); i++) {
-                for (VaccineWrapper notgivenVaccine : notGivenVaccines) {
-                    if (homeVisitVaccineGroupArrayList.get(x).getDueVaccines().get(i).display().equalsIgnoreCase(notgivenVaccine.getName())) {
-                        homeVisitVaccineGroupArrayList.get(x).getNotGivenInThisVisitVaccines().add(notgivenVaccine.getVaccine());
-                    }
-                }
+            if (weeks >= 10) {
+                elligibleVaccineGroups.add("10 " + context.getString(R.string.week_full));
+            }
+            if (weeks >= 14) {
+                elligibleVaccineGroups.add("14 " + context.getString(R.string.week_full));
+            }
+            if (months >= 9) {
+                elligibleVaccineGroups.add("9 " + context.getString(R.string.month_full));
+            }
+            if (months >= 15) {
+                elligibleVaccineGroups.add("15 " + context.getString(R.string.month_full));
             }
         }
     }
@@ -158,9 +165,58 @@ public class ImmunizationModel {
         }
     }
 
+    private void computeNotGiven(ArrayList<HomeVisitVaccineGroup> homeVisitVaccineGroupArrayList, ArrayList<VaccineWrapper> notGivenVaccines) {
+        for (int x = 0; x < homeVisitVaccineGroupArrayList.size(); x++) {
+            homeVisitVaccineGroupArrayList.get(x).calculateNotGivenVaccines();
+            for (int i = 0; i < homeVisitVaccineGroupArrayList.get(x).getDueVaccines().size(); i++) {
+                for (VaccineWrapper notgivenVaccine : notGivenVaccines) {
+                    if (homeVisitVaccineGroupArrayList.get(x).getDueVaccines().get(i).display().equalsIgnoreCase(notgivenVaccine.getName())) {
+                        homeVisitVaccineGroupArrayList.get(x).getNotGivenInThisVisitVaccines().add(notgivenVaccine.getVaccine());
+                    }
+                }
+            }
+        }
+    }
+
+    private void computeGroups(ArrayList<HomeVisitVaccineGroup> homeVisitVaccineGroupArrayList) {
+        for (Iterator<HomeVisitVaccineGroup> iterator = homeVisitVaccineGroupArrayList.iterator(); iterator.hasNext(); ) {
+            HomeVisitVaccineGroup homeVisitVaccineGroup = iterator.next();
+            if (!inElligibleVaccineMap(homeVisitVaccineGroup)) {
+                iterator.remove();
+            }
+        }
+    }
+
     private boolean hasAlert(VaccineRepo.Vaccine vaccine, List<Alert> alerts) {
         for (Alert alert : alerts) {
             if (alert.scheduleName().equalsIgnoreCase(vaccine.display())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public ImmunizationState assignAlert(VaccineRepo.Vaccine vaccine, List<Alert> alerts) {
+        for (Alert alert : alerts) {
+            if (alert.scheduleName().equalsIgnoreCase(vaccine.display())) {
+                return alertState(alert);
+            }
+        }
+        return ImmunizationState.NO_ALERT;
+    }
+
+    private boolean isReceived(String s, Map<String, Date> receivedvaccines) {
+        for (String name : receivedvaccines.keySet()) {
+            if (s.equalsIgnoreCase(name)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean inElligibleVaccineMap(HomeVisitVaccineGroup homeVisitVaccineGroup) {
+        for (String string : elligibleVaccineGroups) {
+            if (string.equalsIgnoreCase(homeVisitVaccineGroup.getGroup())) {
                 return true;
             }
         }
@@ -180,58 +236,5 @@ public class ImmunizationModel {
             return ImmunizationState.EXPIRED;
         }
         return ImmunizationState.NO_ALERT;
-    }
-
-    private boolean isReceived(String s, Map<String, Date> receivedvaccines) {
-        for (String name : receivedvaccines.keySet()) {
-            if (s.equalsIgnoreCase(name)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public ImmunizationState assignAlert(VaccineRepo.Vaccine vaccine, List<Alert> alerts) {
-        for (Alert alert : alerts) {
-            if (alert.scheduleName().equalsIgnoreCase(vaccine.display())) {
-                return alertState(alert);
-            }
-        }
-        return ImmunizationState.NO_ALERT;
-    }
-
-    public void setAgeVaccineListElligibleGroups(CommonPersonObjectClient client) {
-        String dobString = org.smartregister.util.Utils.getValue(client.getColumnmaps(), DBConstants.KEY.DOB, false);
-        if (!TextUtils.isEmpty(dobString)) {
-            DateTime dateTime = new DateTime(dobString);
-            DateTime now = new DateTime();
-            int weeks = Weeks.weeksBetween(dateTime, now).getWeeks();
-            int months = Months.monthsBetween(dateTime, now).getMonths();
-            elligibleVaccineGroups.add(context.getString(R.string.at_birth));
-            if (weeks >= 6) {
-                elligibleVaccineGroups.add("6 " + context.getString(R.string.week_full));
-            }
-            if (weeks >= 10) {
-                elligibleVaccineGroups.add("10 " + context.getString(R.string.week_full));
-            }
-            if (weeks >= 14) {
-                elligibleVaccineGroups.add("14 " + context.getString(R.string.week_full));
-            }
-            if (months >= 9) {
-                elligibleVaccineGroups.add("9 " + context.getString(R.string.month_full));
-            }
-            if (months >= 15) {
-                elligibleVaccineGroups.add("15 " + context.getString(R.string.month_full));
-            }
-        }
-    }
-
-    private boolean inElligibleVaccineMap(HomeVisitVaccineGroup homeVisitVaccineGroup) {
-        for (String string : elligibleVaccineGroups) {
-            if (string.equalsIgnoreCase(homeVisitVaccineGroup.getGroup())) {
-                return true;
-            }
-        }
-        return false;
     }
 }

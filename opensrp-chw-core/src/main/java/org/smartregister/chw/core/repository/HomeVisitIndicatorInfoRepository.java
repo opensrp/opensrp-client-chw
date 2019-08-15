@@ -29,8 +29,7 @@ public class HomeVisitIndicatorInfoRepository extends BaseRepository {
     private static final String CREATE_HOME_VISIT_INDICATOR_INFO_TABLE = "CREATE TABLE " + HOME_VISIT_INDICATOR_INFO_TABLE + "(" + ID + " INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, "
             + HOME_VISIT_ID + " INTEGER NOT NULL, " + HOME_VISIT_DATE + " DATETIME NOT NULL, " + SERVICE + " VARCHAR NOT NULL, " + SERVICE_DATE + " DATETIME, " + SERVICE_UPDATE_DATE + " DATETIME, "
             + SERVICE_GIVEN + " BOOLEAN NOT NULL, " + BASE_ENTITY_ID + " VARCHAR NOT NULL, " + VALUE + " VARCHAR, " + UPDATED_AT + " DATETIME, " + CREATED_AT + " DATETIME NOT NULL)";
-    private static String TAG = HomeVisitIndicatorInfoRepository.class.getCanonicalName();
-    String dateFormat = HomeVisitIndicatorInfoRepository.HOME_VISIT_INDICATOR_DATE_FORMAT;
+    private String dateFormat = HomeVisitIndicatorInfoRepository.HOME_VISIT_INDICATOR_DATE_FORMAT;
 
     public HomeVisitIndicatorInfoRepository(Repository repository) {
         super(repository);
@@ -52,6 +51,10 @@ public class HomeVisitIndicatorInfoRepository extends BaseRepository {
         database.insert(HOME_VISIT_INDICATOR_INFO_TABLE, null, createValuesFor(homeVisitIndicatorInfo));
     }
 
+    private String formatDate(Date date, String format) {
+        return (date != null ? new SimpleDateFormat(format, Locale.getDefault()).format(date) : "");
+    }
+
     private ContentValues createValuesFor(HomeVisitIndicatorInfo homeVisitIndicatorInfo) {
         ContentValues values = new ContentValues();
         values.put(HOME_VISIT_ID, homeVisitIndicatorInfo.getHomeVisitId());
@@ -65,9 +68,5 @@ public class HomeVisitIndicatorInfoRepository extends BaseRepository {
         values.put(UPDATED_AT, formatDate(homeVisitIndicatorInfo.getUpdatedAt(), dateFormat));
         values.put(CREATED_AT, formatDate(homeVisitIndicatorInfo.getCreatedAt(), dateFormat));
         return values;
-    }
-
-    private String formatDate(Date date, String format) {
-        return (date != null ? new SimpleDateFormat(format, Locale.getDefault()).format(date) : "");
     }
 }

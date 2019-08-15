@@ -93,15 +93,15 @@ public abstract class CoreRegisterProvider extends FamilyRegisterProvider {
         dueButton.setOnClickListener(null);
     }
 
+    protected void setVisitLessTwentyFourView(Context context, Button dueButton, String lastVisitMonth) {
+        setVisitAboveTwentyFourView(context, dueButton);
+    }
+
     protected void setVisitAboveTwentyFourView(Context context, Button dueButton) {
         dueButton.setTextColor(context.getResources().getColor(R.color.alert_complete_green));
         dueButton.setText(context.getString(R.string.visit_done));
         dueButton.setBackgroundColor(context.getResources().getColor(R.color.transparent));
         dueButton.setOnClickListener(null);
-    }
-
-    protected void setVisitLessTwentyFourView(Context context, Button dueButton, String lastVisitMonth) {
-        setVisitAboveTwentyFourView(context, dueButton);
     }
 
     protected void setVisitButtonOverdueStatus(Context context, Button dueButton, String lastVisitDays) {
@@ -154,8 +154,9 @@ public abstract class CoreRegisterProvider extends FamilyRegisterProvider {
         } catch (Exception e) {
             Timber.e(e, e.toString());
         } finally {
-            if (cursor != null)
+            if (cursor != null) {
                 cursor.close();
+            }
         }
 
         return res;

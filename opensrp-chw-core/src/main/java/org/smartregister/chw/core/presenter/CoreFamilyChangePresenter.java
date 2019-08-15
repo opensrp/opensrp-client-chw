@@ -26,6 +26,13 @@ public abstract class CoreFamilyChangePresenter implements FamilyChangeContract.
     }
 
     @Override
+    public void saveCompleted(String familyHeadID, String careGiverID) {
+        if (view != null && view.get() != null) {
+            view.get().saveComplete(familyHeadID, careGiverID);
+        }
+    }
+
+    @Override
     public void getAdultMembersExcludePCG() {
         if (view != null && view.get() != null) {
             interactor.getAdultMembersExcludePCG(familyID, this);
@@ -62,14 +69,6 @@ public abstract class CoreFamilyChangePresenter implements FamilyChangeContract.
         if (view != null && view.get() != null) {
             List<FamilyMember> res = model.getMembersExcluding(clients, primaryCareID, headOfHouseID, headOfHouseID);
             view.get().refreshMembersView(res);
-        }
-    }
-
-
-    @Override
-    public void saveCompleted(String familyHeadID, String careGiverID) {
-        if (view != null && view.get() != null) {
-            view.get().saveComplete(familyHeadID, careGiverID);
         }
     }
 }

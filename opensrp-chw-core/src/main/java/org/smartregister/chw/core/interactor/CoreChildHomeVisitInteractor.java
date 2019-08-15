@@ -91,7 +91,7 @@ public class CoreChildHomeVisitInteractor implements ChildHomeVisitContract.Inte
                     e.printStackTrace();
                 }
                 try {
-                    jsonObject = new JSONObject(homeVisit.getIllness_information().toString());
+                    jsonObject = new JSONObject(homeVisit.getIllnessInformation().toString());
                     String illness = jsonObject.getString("obsIllness");
                     callback.updateObsIllnessEditData(illness);
                 } catch (JSONException e) {
@@ -194,6 +194,10 @@ public class CoreChildHomeVisitInteractor implements ChildHomeVisitContract.Inte
         //// TODO: 02/08/19
     }
 
+    @Override
+    public void onDestroy(boolean isChangingConfiguration) {
+        Timber.d("onDestroy called");
+    }
 
     public AllSharedPreferences getAllSharedPreferences() {
         return org.smartregister.family.util.Utils.context().allSharedPreferences();
@@ -201,11 +205,6 @@ public class CoreChildHomeVisitInteractor implements ChildHomeVisitContract.Inte
 
     public ECSyncHelper getSyncHelper() {
         return FamilyLibrary.getInstance().getEcSyncHelper();
-    }
-
-    @Override
-    public void onDestroy(boolean isChangingConfiguration) {
-        Timber.d("onDestroy called");
     }
 
     public interface Flavor {

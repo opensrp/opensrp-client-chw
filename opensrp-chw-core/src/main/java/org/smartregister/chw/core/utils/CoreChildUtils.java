@@ -14,16 +14,13 @@ import android.text.style.ForegroundColorSpan;
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParseException;
 import com.google.gson.JsonPrimitive;
-import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 
 import org.apache.commons.lang3.StringUtils;
 import org.jeasy.rules.api.Rules;
+import org.jetbrains.annotations.NotNull;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.joda.time.LocalDate;
@@ -49,7 +46,6 @@ import org.smartregister.family.util.DBConstants;
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.sync.helper.ECSyncHelper;
 
-import java.lang.reflect.Type;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -72,19 +68,8 @@ public abstract class CoreChildUtils {
         gsonConverter = new GsonBuilder()
                 .setPrettyPrinting()
                 .serializeNulls()
-                .registerTypeAdapter(DateTime.class, new JsonSerializer<DateTime>() {
-                    @Override
-                    public JsonElement serialize(DateTime json, Type typeOfSrc, JsonSerializationContext context) {
-                        return new JsonPrimitive(ISODateTimeFormat.dateTime().print(json));
-                    }
-
-                })
-                .registerTypeAdapter(DateTime.class, new JsonDeserializer<DateTime>() {
-                    @Override
-                    public DateTime deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-                        return new DateTime(json.getAsJsonPrimitive().getAsString());
-                    }
-                })
+                .registerTypeAdapter(DateTime.class, (JsonSerializer<DateTime>) (json, typeOfSrc, context) -> new JsonPrimitive(ISODateTimeFormat.dateTime().print(json)))
+                .registerTypeAdapter(DateTime.class, (JsonDeserializer<DateTime>) (json, typeOfT, context) -> new DateTime(json.getAsJsonPrimitive().getAsString()))
                 .create();
     }
 
@@ -106,9 +91,9 @@ public abstract class CoreChildUtils {
         }
     }
 
-    public static void addToChildTable(String baseEntityID, List<org.smartregister.domain.db.Obs> observations) {
+    public static void addToChildTable(String baseEntityID, List<Obs> observations) {
         String value = "";
-        for (org.smartregister.domain.db.Obs obs : observations)
+        for (Obs obs : observations) {
             if (obs.getFormSubmissionField().equalsIgnoreCase(ChildDBConstants.KEY.VACCINE_CARD)) {
                 List<Object> hu = obs.getHumanReadableValues();
                 for (Object object : hu) {
@@ -116,6 +101,7 @@ public abstract class CoreChildUtils {
                 }
 
             }
+        }
         if (!TextUtils.isEmpty(value)) {
             AllCommonsRepository commonsRepository = CoreChwApplication.getInstance().getAllCommonsRepository(CoreConstants.TABLE_NAME.CHILD);
             ContentValues values = new ContentValues();
@@ -126,9 +112,9 @@ public abstract class CoreChildUtils {
     }
 
     public static void addToHomeVisitTable(String baseEntityID, String formSubmissionId, List<Obs> observations) {
-        HomeVisit newHomeVisit = new HomeVisit(null, baseEntityID, HomeVisitRepository.EVENT_TYPE, new Date(), "", "", "", 0l, "", "", new Date());
+        HomeVisit newHomeVisit = getHomeVisit(baseEntityID);
         try {
-            for (org.smartregister.domain.db.Obs obs : observations) {
+            for (Obs obs : observations) {
                 if (obs.getFormSubmissionField().equalsIgnoreCase(CoreConstants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_SINGLE_VACCINE)) {
                     newHomeVisit.setSingleVaccinesGiven(new JSONObject((String) obs.getValue()));
                 }
@@ -154,7 +140,7 @@ public abstract class CoreChildUtils {
                     }
                 }
                 if (obs.getFormSubmissionField().equalsIgnoreCase(CoreConstants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_ILLNESS)) {
-                    newHomeVisit.setIllness_information(new JSONObject((String) obs.getValue()));
+                    newHomeVisit.setIllnessInformation(new JSONObject((String) obs.getValue()));
                 }
                 if (obs.getFormSubmissionField().equalsIgnoreCase(CoreConstants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.LAST_HOME_VISIT)) {
                     try {
@@ -173,13 +159,30 @@ public abstract class CoreChildUtils {
             e.printStackTrace();
         }
         newHomeVisit.setFormSubmissionId(formSubmissionId);
-        newHomeVisit.setFormfields(new HashMap<String, String>());
+        newHomeVisit.setFormFields(new HashMap<>());
         CoreChwApplication.homeVisitRepository().add(newHomeVisit);
     }
 
-    public static void addToHomeVisitService(String eventType, List<org.smartregister.domain.db.Obs> observations, Date evenDate, String details) {
+    @NotNull
+    private static HomeVisit getHomeVisit(String baseEntityID) {
+        HomeVisit newHomeVisit = new HomeVisit();
+        newHomeVisit.setId(null);
+        newHomeVisit.setBaseEntityId(baseEntityID);
+        newHomeVisit.setName(HomeVisitRepository.EVENT_TYPE);
+        newHomeVisit.setDate(new Date());
+        newHomeVisit.setAnmId("");
+        newHomeVisit.setLocationId("");
+        newHomeVisit.setSyncStatus("");
+        newHomeVisit.setUpdatedAt(0L);
+        newHomeVisit.setEventId("");
+        newHomeVisit.setFormSubmissionId("");
+        newHomeVisit.setCreatedAt(new Date());
+        return newHomeVisit;
+    }
+
+    public static void addToHomeVisitService(String eventType, List<Obs> observations, Date evenDate, String details) {
         HomeVisitServiceDataModel homeVisitServiceDataModel = new HomeVisitServiceDataModel();
-        for (org.smartregister.domain.db.Obs obs : observations) {
+        for (Obs obs : observations) {
             if (obs.getFormSubmissionField().equalsIgnoreCase(CoreConstants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.HOME_VISIT_ID)) {
                 homeVisitServiceDataModel.setHomeVisitId((String) obs.getValue());
             }
@@ -194,16 +197,6 @@ public abstract class CoreChildUtils {
         SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
         queryBUilder.SelectInitiateMainTable(tableName, new String[]{DBConstants.KEY.BASE_ENTITY_ID});
         return queryBUilder.mainCondition(MessageFormat.format("{0}.{1} = ''{2}''", tableName, DBConstants.KEY.RELATIONAL_ID, familyId));
-    }
-
-    public static ChildVisit getChildVisitStatus(HomeAlertRule homeAlertRule, long lastVisitDate) {
-        ChildVisit childVisit = new ChildVisit();
-        childVisit.setVisitStatus(homeAlertRule.buttonStatus);
-        childVisit.setNoOfMonthDue(homeAlertRule.noOfMonthDue);
-        childVisit.setLastVisitDays(homeAlertRule.noOfDayDue);
-        childVisit.setLastVisitMonthName(homeAlertRule.visitMonthName);
-        childVisit.setLastVisitTime(lastVisitDate);
-        return childVisit;
     }
 
     public static ChildHomeVisit getLastHomeVisit(String tableName, String childId) {
@@ -244,8 +237,9 @@ public abstract class CoreChildUtils {
         } catch (Exception ex) {
             Timber.e(ex.toString());
         } finally {
-            if (cursor != null)
+            if (cursor != null) {
                 cursor.close();
+            }
         }
 
         return childHomeVisit;
@@ -253,30 +247,6 @@ public abstract class CoreChildUtils {
 
     public static String mainSelect(String tableName, String familyTableName, String familyMemberTableName, String mainCondition) {
         return mainSelectRegisterWithoutGroupby(tableName, familyTableName, familyMemberTableName, tableName + "." + DBConstants.KEY.BASE_ENTITY_ID + " = '" + mainCondition + "'");
-    }
-
-    @SuppressWarnings("deprecation")
-    public static Spanned fromHtml(String text) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            return Html.fromHtml(text, Html.FROM_HTML_MODE_LEGACY);
-        } else {
-            return Html.fromHtml(text);
-        }
-    }
-
-    public static Integer dobStringToYear(String yearOfBirthString) {
-        if (!TextUtils.isEmpty(yearOfBirthString)) {
-            try {
-                String year = yearOfBirthString.contains("y") ? yearOfBirthString.substring(0, yearOfBirthString.indexOf("y")) : "";
-                if (StringUtils.isNotBlank(year)) {
-                    return Integer.valueOf(year);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
-        return null;
     }
 
     public static String mainSelectRegisterWithoutGroupby(String tableName, String familyTableName, String familyMemberTableName, String mainCondition) {
@@ -322,6 +292,29 @@ public abstract class CoreChildUtils {
         return columnList.toArray(new String[columnList.size()]);
     }
 
+    public static Spanned fromHtml(String text) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            return Html.fromHtml(text, Html.FROM_HTML_MODE_LEGACY);
+        } else {
+            return Html.fromHtml(text);
+        }
+    }
+
+    public static Integer dobStringToYear(String yearOfBirthString) {
+        if (!TextUtils.isEmpty(yearOfBirthString)) {
+            try {
+                String year = yearOfBirthString.contains("y") ? yearOfBirthString.substring(0, yearOfBirthString.indexOf("y")) : "";
+                if (StringUtils.isNotBlank(year)) {
+                    return Integer.valueOf(year);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        return null;
+    }
+
     public static String getImmunizationExpired(String dateOfBirth, String vaccineName) {
         //String dob = org.smartregister.family.util.Utils.getValue(childClient.getColumnmaps(), DBConstants.KEY.DOB, false);
         ImmunizationExpiredRule immunizationExpiredRule = new ImmunizationExpiredRule(dateOfBirth, vaccineName);
@@ -345,18 +338,19 @@ public abstract class CoreChildUtils {
      */
 
     public static String fixVaccineCasing(String display) {
-        display = display.toUpperCase();
-        if (display.toLowerCase().contains("mena")) {
+        String vaccineDisplay = display;
+        vaccineDisplay = vaccineDisplay.toUpperCase();
+        if (vaccineDisplay.toLowerCase().contains("mena")) {
             return "MenA";
         }
-        if (display.toLowerCase().contains("rota")
+        if (vaccineDisplay.toLowerCase().contains("rota")
                 || display.toLowerCase().contains("penta")
                 || display.toLowerCase().contains("yellow fever")
                 || display.toLowerCase().contains("rubella")) {
-            display = capitalize(display.toLowerCase());
+            vaccineDisplay = capitalize(vaccineDisplay.toLowerCase());
         }
 
-        return display;
+        return vaccineDisplay;
     }
 
     public static Object[] getStringWithNumber(String fullString) {
@@ -473,8 +467,6 @@ public abstract class CoreChildUtils {
 
     }
 
-//event type="Child Home Visit"/Visit not done
-
     public static void updateHomeVisitAsEvent(String entityId, String eventType, String entityType, Map<String, JSONObject> fieldObjects, String visitStatus, String value, String homeVisitId) {
         try {
             ECSyncHelper syncHelper = FamilyLibrary.getInstance().getEcSyncHelper();
@@ -533,6 +525,8 @@ public abstract class CoreChildUtils {
             Timber.e(e);
         }
     }
+
+//event type="Child Home Visit"/Visit not done
 
     public static void updateVaccineCardAsEvent(Context context, String entityId, String choiceValue) {
         try {
@@ -642,6 +636,16 @@ public abstract class CoreChildUtils {
         return getChildVisitStatus(homeAlertRule, lastVisitDate);
     }
 
+    public static ChildVisit getChildVisitStatus(HomeAlertRule homeAlertRule, long lastVisitDate) {
+        ChildVisit childVisit = new ChildVisit();
+        childVisit.setVisitStatus(homeAlertRule.buttonStatus);
+        childVisit.setNoOfMonthDue(homeAlertRule.noOfMonthDue);
+        childVisit.setLastVisitDays(homeAlertRule.noOfDayDue);
+        childVisit.setLastVisitMonthName(homeAlertRule.visitMonthName);
+        childVisit.setLastVisitTime(lastVisitDate);
+        return childVisit;
+    }
+
     /**
      * Rules can be retrieved separately so that the background thread is used here
      *
@@ -659,10 +663,10 @@ public abstract class CoreChildUtils {
 
     public static ServiceTask createServiceTaskFromEvent(String taskType, String details, String title, String formSubmissionId) {
         ServiceTask serviceTask = new ServiceTask();
-        org.smartregister.domain.db.Event event = CoreChildUtils.gsonConverter.fromJson(details, new TypeToken<org.smartregister.domain.db.Event>() {
+        Event event = CoreChildUtils.gsonConverter.fromJson(details, new TypeToken<Event>() {
         }.getType());
-        List<org.smartregister.domain.db.Obs> observations = event.getObs();
-        for (org.smartregister.domain.db.Obs obs : observations) {
+        List<org.smartregister.clientandeventmodel.Obs> observations = event.getObs();
+        for (org.smartregister.clientandeventmodel.Obs obs : observations) {
             if (obs.getFormSubmissionField().equalsIgnoreCase(formSubmissionId)) {
                 List<Object> hu = obs.getHumanReadableValues();
                 String value = "";

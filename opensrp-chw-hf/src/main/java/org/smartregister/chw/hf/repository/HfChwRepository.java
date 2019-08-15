@@ -7,7 +7,6 @@ import net.sqlcipher.database.SQLiteDatabase;
 import org.smartregister.AllConstants;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.repository.CoreChwRepository;
-import org.smartregister.chw.core.repository.HomeVisitRepository;
 import org.smartregister.chw.hf.BuildConfig;
 import org.smartregister.domain.db.Column;
 import org.smartregister.immunization.repository.RecurringServiceRecordRepository;
@@ -23,52 +22,11 @@ import org.smartregister.repository.TaskRepository;
 import timber.log.Timber;
 
 public class HfChwRepository extends CoreChwRepository {
-    private static String[] UPGRADE_V6 = {
-            //"ALTER TABLE ec_family ADD COLUMN nearest_facility VARCHAR;",
-            "ALTER TABLE ec_family_member ADD COLUMN voter_id VARCHAR;",
-            "ALTER TABLE ec_family_member ADD COLUMN driver_license VARCHAR;",
-            "ALTER TABLE ec_family_member ADD COLUMN passport VARCHAR;",
-            "ALTER TABLE ec_family_member ADD COLUMN insurance_provider VARCHAR;",
-            "ALTER TABLE ec_family_member ADD COLUMN insurance_provider_other VARCHAR;",
-            "ALTER TABLE ec_family_member ADD COLUMN insurance_provider_number VARCHAR;",
-            "ALTER TABLE ec_family_member ADD COLUMN disabilities VARCHAR;",
-            "ALTER TABLE ec_family_member ADD COLUMN service_provider VARCHAR;",
-            "ALTER TABLE ec_family_member ADD COLUMN leader VARCHAR;",
-            "ALTER TABLE ec_family_member ADD COLUMN leader_other VARCHAR;"
-    };
-    private static String[] UPGRADE_V8 = {
-            //"ALTER TABLE ec_family_member ADD COLUMN type_of_disability VARCHAR;"
-    };
-    private static String[] UPGRADE_V9 = {
-            // "ALTER TABLE ec_child ADD COLUMN insurance_provider VARCHAR;",
-            "ALTER TABLE ec_child ADD COLUMN insurance_provider_number VARCHAR;",
-            "ALTER TABLE ec_child ADD COLUMN insurance_provider_other VARCHAR;",
-            "ALTER TABLE ec_child ADD COLUMN type_of_disability VARCHAR;"
-    };
     private Context context;
 
     public HfChwRepository(Context context, org.smartregister.Context openSRPContext) {
         super(context, AllConstants.DATABASE_NAME, BuildConfig.DATABASE_VERSION, openSRPContext.session(), CoreChwApplication.createCommonFtsObject(), openSRPContext.sharedRepositoriesArray());
         this.context = context;
-    }
-
-    private static void upgradeToVersion10(SQLiteDatabase db) {
-        try {
-//            VisitRepository.createTable(db);
-//            VisitDetailsRepository.createTable(db);
-            db.execSQL(AlertRepository.ALTER_ADD_OFFLINE_COLUMN);
-            db.execSQL(AlertRepository.OFFLINE_INDEX);
-            db.execSQL(VaccineRepository.UPDATE_TABLE_ADD_TEAM_COL);
-            db.execSQL(VaccineRepository.UPDATE_TABLE_ADD_TEAM_ID_COL);
-            db.execSQL(RecurringServiceRecordRepository.UPDATE_TABLE_ADD_TEAM_COL);
-            db.execSQL(RecurringServiceRecordRepository.UPDATE_TABLE_ADD_TEAM_ID_COL);
-            db.execSQL(VaccineRepository.UPDATE_TABLE_ADD_CHILD_LOCATION_ID_COL);
-            db.execSQL(RecurringServiceRecordRepository.UPDATE_TABLE_ADD_CHILD_LOCATION_ID_COL);
-            db.execSQL(HomeVisitRepository.UPDATE_TABLE_ADD_VACCINE_NOT_GIVEN);
-            db.execSQL(HomeVisitRepository.UPDATE_TABLE_ADD_SERVICE_NOT_GIVEN);
-        } catch (Exception e) {
-            Timber.e(e, "upgradeToVersion10 ");
-        }
     }
 
     @Override
@@ -93,21 +51,6 @@ public class HfChwRepository extends CoreChwRepository {
                     break;
                 case 6:
                     upgradeToVersion6(db);
-                    break;
-                case 7:
-                    upgradeToVersion7(db);
-                    break;
-                case 8:
-                    upgradeToVersion8(db);
-                    break;
-                case 9:
-                    upgradeToVersion9(db);
-                    break;
-                case 10:
-                    //upgradeToVersion10(db);
-                    break;
-                case 11:
-                    upgradeToVersion11(db);
                     break;
                 default:
                     break;
@@ -156,7 +99,7 @@ public class HfChwRepository extends CoreChwRepository {
 
 
         } catch (Exception e) {
-            Timber.e(e, "upgradeToVersion3 " + e.getMessage());
+            Timber.e(e, "upgradeToVersion3 %s", e.getMessage());
         }
     }
 
@@ -183,53 +126,14 @@ public class HfChwRepository extends CoreChwRepository {
         }
     }
 
-    private static void upgradeToVersion6(SQLiteDatabase db) {
-        try {
-            for (String query : UPGRADE_V6) {
-                // db.execSQL(query);
-            }
-        } catch (Exception e) {
-            Timber.e(e, "upgradeToVersion6 ");
-        }
-    }
-
-    private static void upgradeToVersion7(SQLiteDatabase db) {
-        try {
-            // db.execSQL(HomeVisitRepository.UPDATE_TABLE_ADD_VACCINE_NOT_GIVEN);
-//            db.execSQL(HomeVisitRepository.UPDATE_TABLE_ADD_SERVICE_NOT_GIVEN);
-        } catch (Exception e) {
-            Timber.e(e, "upgradeToVersion7 ");
-        }
-    }
-
-    private static void upgradeToVersion8(SQLiteDatabase db) {
-        try {
-            for (String query : UPGRADE_V8) {
-                db.execSQL(query);
-            }
-        } catch (Exception e) {
-            Timber.e(e, "upgradeToVersion8 ");
-        }
-    }
-
-    private static void upgradeToVersion9(SQLiteDatabase db) {
-        try {
-            for (String query : UPGRADE_V9) {
-//                db.execSQL(query);
-            }
-        } catch (Exception e) {
-            Timber.e(e, "upgradeToVersion9 ");
-        }
-    }
-
-    private static void upgradeToVersion11(SQLiteDatabase database) {
+    private static void upgradeToVersion6(SQLiteDatabase database) {
         try {
             PlanDefinitionRepository.createTable(database);
             PlanDefinitionSearchRepository.createTable(database);
             TaskRepository.createTable(database);
             LocationRepository.createTable(database);
         } catch (Exception e) {
-            Timber.e(e, "upgradeToVersion11");
+            Timber.e(e, "upgradeToVersion6");
         }
     }
 }

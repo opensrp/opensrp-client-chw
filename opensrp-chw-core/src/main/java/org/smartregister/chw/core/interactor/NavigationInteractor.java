@@ -2,7 +2,6 @@ package org.smartregister.chw.core.interactor;
 
 import android.database.Cursor;
 
-import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.core.contract.CoreApplication;
 import org.smartregister.chw.core.contract.NavigationContract;
 import org.smartregister.chw.core.utils.ChildDBConstants;
@@ -21,7 +20,7 @@ import timber.log.Timber;
 public class NavigationInteractor implements NavigationContract.Interactor {
 
     private static NavigationInteractor instance;
-    AppExecutors appExecutors = new AppExecutors();
+    private AppExecutors appExecutors = new AppExecutors();
     private CoreApplication coreApplication;
 
     private NavigationInteractor() {
@@ -29,8 +28,9 @@ public class NavigationInteractor implements NavigationContract.Interactor {
     }
 
     public static NavigationInteractor getInstance() {
-        if (instance == null)
+        if (instance == null) {
             instance = new NavigationInteractor();
+        }
 
         return instance;
     }
@@ -41,22 +41,22 @@ public class NavigationInteractor implements NavigationContract.Interactor {
     }
 
     @Override
-    public void setApplication(CoreApplication coreApplication) {
-        this.coreApplication = coreApplication;
-    }
+    public void getRegisterCount(final String tableName,
+                                 final NavigationContract.InteractorCallback<Integer> callback) {
+        if (callback != null) {
+            appExecutors.diskIO().execute(() -> {
+                try {
+                    final Integer finalCount = getCount(tableName);
+                    appExecutors.mainThread().execute(() -> callback.onResult(finalCount));
+                } catch (final Exception e) {
+                    appExecutors.mainThread().execute(() -> callback.onError(e));
+                }
+            });
 
-    private boolean isValidFilterForFts(CommonRepository commonRepository, String filters) {
-        return commonRepository.isFts() && filters != null && !StringUtils
-                .containsIgnoreCase(filters, "like") && !StringUtils
-                .startsWithIgnoreCase(filters.trim(), "and ");
-    }
-
-    private CommonRepository commonRepository(String tableName) {
-        return coreApplication.getContext().commonrepository(tableName);
+        }
     }
 
     private int getCount(String tableName) {
-
         int count;
         Cursor cursor = null;
         String mainCondition;
@@ -73,16 +73,6 @@ public class NavigationInteractor implements NavigationContract.Interactor {
                             CoreConstants.TABLE_NAME.FAMILY_MEMBER, DBConstants.KEY.RELATIONAL_ID) +
                     MessageFormat.format(" where {0}.{1} is null ", CoreConstants.TABLE_NAME.FAMILY_MEMBER, DBConstants.KEY.DATE_REMOVED) +
                     MessageFormat.format(" and {0}.{1} is 0 ", CoreConstants.TABLE_NAME.ANC_MEMBER, org.smartregister.chw.anc.util.DBConstants.KEY.IS_CLOSED);
-
-        } else if (tableName.equalsIgnoreCase(CoreConstants.TABLE_NAME.ANC_PREGNANCY_OUTCOME)) {
-
-            mainCondition = MessageFormat.format(" inner join {0} ", CoreConstants.TABLE_NAME.FAMILY_MEMBER) +
-                    MessageFormat.format(" on {0}.{1} = {2}.{3} ", CoreConstants.TABLE_NAME.FAMILY_MEMBER, DBConstants.KEY.BASE_ENTITY_ID,
-                            CoreConstants.TABLE_NAME.ANC_PREGNANCY_OUTCOME, DBConstants.KEY.BASE_ENTITY_ID) +
-                    MessageFormat.format(" inner join {0} ", CoreConstants.TABLE_NAME.FAMILY) +
-                    MessageFormat.format(" on {0}.{1} = {2}.{3} ", CoreConstants.TABLE_NAME.FAMILY, DBConstants.KEY.BASE_ENTITY_ID,
-                            CoreConstants.TABLE_NAME.FAMILY_MEMBER, DBConstants.KEY.RELATIONAL_ID) +
-                    MessageFormat.format(" where {0}.{1} is not null AND {0}.{2} is 0 ", CoreConstants.TABLE_NAME.ANC_PREGNANCY_OUTCOME, ChwDBConstants.DELIVERY_DATE, ChwDBConstants.IS_CLOSED);
 
         } else if (tableName.equalsIgnoreCase(CoreConstants.TABLE_NAME.TASK)) {
             mainCondition =
@@ -120,7 +110,6 @@ public class NavigationInteractor implements NavigationContract.Interactor {
         }
 
         try {
-
             SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder();
             String query = MessageFormat.format("select count(*) from {0} {1}", tableName, mainCondition);
             query = sqb.Endquery(query);
@@ -135,28 +124,15 @@ public class NavigationInteractor implements NavigationContract.Interactor {
             }
         }
 
-
         return count;
     }
 
-    @Override
-    public void getRegisterCount(final String tableName,
-                                 final NavigationContract.InteractorCallback<Integer> callback) {
-        if (callback != null) {
-            appExecutors.diskIO().execute(() -> {
-                try {
-                    final Integer finalCount = getCount(tableName);
-                    appExecutors.mainThread().execute(() -> callback.onResult(finalCount));
-                } catch (final Exception e) {
-                    appExecutors.mainThread().execute(() -> callback.onError(e));
-                }
-            });
-
-        }
+    private CommonRepository commonRepository(String tableName) {
+        return coreApplication.getContext().commonrepository(tableName);
     }
 
     @Override
-    public Date Sync() {
+    public Date sync() {
         Date res = null;
         try {
             res = new Date(getLastCheckTimeStamp());
@@ -164,6 +140,11 @@ public class NavigationInteractor implements NavigationContract.Interactor {
             Timber.e(e.toString());
         }
         return res;
+    }
+
+    @Override
+    public void setApplication(CoreApplication coreApplication) {
+        this.coreApplication = coreApplication;
     }
 
     private Long getLastCheckTimeStamp() {

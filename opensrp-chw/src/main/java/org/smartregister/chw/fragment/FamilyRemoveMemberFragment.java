@@ -30,6 +30,13 @@ public class FamilyRemoveMemberFragment extends CoreFamilyRemoveMemberFragment {
         return fragment;
     }
 
+    @Override
+    protected void setRemoveMemberProvider(Set visibleColumns, String familyHead, String primaryCaregiver, String familyBaseEntityId) {
+        this.removeMemberProvider = new FamilyRemoveMemberProvider(familyBaseEntityId, this.getActivity(),
+                this.commonRepository(), visibleColumns, new RemoveMemberListener(), new FooterListener(), familyHead, primaryCaregiver);
+    }
+
+    @Override
     public void setAdvancedSearchFormData(HashMap<String, String> hashMap) {
         Timber.v(DIALOG_TAG, "setAdvancedSearchFormData");
     }
@@ -37,6 +44,11 @@ public class FamilyRemoveMemberFragment extends CoreFamilyRemoveMemberFragment {
     @Override
     protected void setPresenter(String familyHead, String primaryCareGiver) {
         this.presenter = new FamilyRemoveMemberPresenter(this, new FamilyRemoveMemberModel(), null, familyBaseEntityId, familyHead, primaryCareGiver);
+    }
+
+    @Override
+    protected Class<? extends CoreFamilyRegisterActivity> getFamilyRegisterActivityClass() {
+        return FamilyRegisterActivity.class;
     }
 
     @Override
@@ -49,17 +61,6 @@ public class FamilyRemoveMemberFragment extends CoreFamilyRemoveMemberFragment {
     protected CoreFamilyProfileChangeDialog getChangeFamilyHeadDialog() {
         return FamilyProfileChangeDialog.newInstance(getContext(), familyBaseEntityId,
                 CoreConstants.PROFILE_CHANGE_ACTION.HEAD_OF_FAMILY);
-    }
-
-    @Override
-    protected void setRemoveMemberProvider(Set visibleColumns, String familyHead, String primaryCaregiver, String familyBaseEntityId) {
-        this.removeMemberProvider = new FamilyRemoveMemberProvider(familyBaseEntityId, this.getActivity(),
-                this.commonRepository(), visibleColumns, new RemoveMemberListener(), new FooterListener(), familyHead, primaryCaregiver);
-    }
-
-    @Override
-    protected Class<? extends CoreFamilyRegisterActivity> getFamilyRegisterActivityClass() {
-        return FamilyRegisterActivity.class;
     }
 
     @Override

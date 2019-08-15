@@ -29,7 +29,6 @@ import timber.log.Timber;
 
 public class CoreChildRegisterPresenter implements CoreChildRegisterContract.Presenter, CoreChildRegisterContract.InteractorCallBack {
     public static final String TAG = CoreChildRegisterPresenter.class.getName();
-
     private WeakReference<CoreChildRegisterContract.View> viewReference;
     private CoreChildRegisterContract.Interactor interactor;
     private CoreChildRegisterContract.Model model;
@@ -59,6 +58,35 @@ public class CoreChildRegisterPresenter implements CoreChildRegisterContract.Pre
     }
 
     @Override
+    public void onDestroy(boolean isChangingConfiguration) {
+
+        viewReference = null;//set to null on destroy
+        // Inform interactor
+        interactor.onDestroy(isChangingConfiguration);
+        // Activity destroyed set interactor to null
+        if (!isChangingConfiguration) {
+            interactor = null;
+            model = null;
+        }
+    }
+
+    @Override
+    public void updateInitials() {
+        String initials = model.getInitials();
+        if (initials != null) {
+            getView().updateInitialsText(initials);
+        }
+    }
+
+    private CoreChildRegisterContract.View getView() {
+        if (viewReference != null) {
+            return viewReference.get();
+        } else {
+            return null;
+        }
+    }
+
+    @Override
     public void saveLanguage(String language) {
         model.saveLanguage(language);
         getView().displayToast(language + " selected");
@@ -84,24 +112,6 @@ public class CoreChildRegisterPresenter implements CoreChildRegisterContract.Pre
     }
 
     @Override
-    public void closeFamilyRecord(String jsonString) {
-
-        try {
-            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getView().getContext());
-            AllSharedPreferences allSharedPreferences = new AllSharedPreferences(preferences);
-
-            Timber.d("JSONResult : %s", jsonString);
-            //getView().showProgressDialog(jsonString.contains(Constants.EventType.CLOSE) ? R.string.removing_dialog_title : R.string.saving_dialog_title);
-
-            interactor.removeChildFromRegister(jsonString, allSharedPreferences.fetchRegisteredANM());
-
-        } catch (Exception e) {
-            Timber.e(e);
-
-        }
-    }
-
-    @Override
     public void saveForm(String jsonString, boolean isEditMode) {
 
         try {
@@ -117,20 +127,18 @@ public class CoreChildRegisterPresenter implements CoreChildRegisterContract.Pre
                 new FamilyRegisterInteractor().saveRegistration(fevent, jsonString, isEditMode, new FamilyRegisterContract.InteractorCallBack() {
                     @Override
                     public void onUniqueIdFetched(Triple<String, String, String> triple, String entityId) {
-
+                        //// TODO: 15/08/19
                     }
 
                     @Override
                     public void onNoUniqueId() {
-
+                        //// TODO: 15/08/19
                     }
 
                     @Override
                     public void onRegistrationSaved(boolean isEdit) {
                         getView().hideProgressDialog();
                         getView().openFamilyListView();
-
-
                     }
                 });
 
@@ -147,6 +155,24 @@ public class CoreChildRegisterPresenter implements CoreChildRegisterContract.Pre
 
         } catch (Exception e) {
             Timber.e(e);
+        }
+    }
+
+    @Override
+    public void closeFamilyRecord(String jsonString) {
+
+        try {
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getView().getContext());
+            AllSharedPreferences allSharedPreferences = new AllSharedPreferences(preferences);
+
+            Timber.d("JSONResult : %s", jsonString);
+            //getView().showProgressDialog(jsonString.contains(Constants.EventType.CLOSE) ? R.string.removing_dialog_title : R.string.saving_dialog_title);
+
+            interactor.removeChildFromRegister(jsonString, allSharedPreferences.fetchRegisteredANM());
+
+        } catch (Exception e) {
+            Timber.e(e);
+
         }
     }
 
@@ -169,33 +195,5 @@ public class CoreChildRegisterPresenter implements CoreChildRegisterContract.Pre
     public void onRegistrationSaved(boolean isEdit) {
         getView().refreshList(FetchStatus.fetched);
         getView().hideProgressDialog();
-    }
-
-    @Override
-    public void onDestroy(boolean isChangingConfiguration) {
-
-        viewReference = null;//set to null on destroy
-        // Inform interactor
-        interactor.onDestroy(isChangingConfiguration);
-        // Activity destroyed set interactor to null
-        if (!isChangingConfiguration) {
-            interactor = null;
-            model = null;
-        }
-    }
-
-    @Override
-    public void updateInitials() {
-        String initials = model.getInitials();
-        if (initials != null) {
-            getView().updateInitialsText(initials);
-        }
-    }
-
-    private CoreChildRegisterContract.View getView() {
-        if (viewReference != null)
-            return viewReference.get();
-        else
-            return null;
     }
 }

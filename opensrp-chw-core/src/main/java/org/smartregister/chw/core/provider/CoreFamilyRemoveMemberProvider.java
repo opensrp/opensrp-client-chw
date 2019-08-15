@@ -32,14 +32,6 @@ public abstract class CoreFamilyRemoveMemberProvider extends FamilyMemberRegiste
         this.footerClickListener = paginationClickListener;
     }
 
-
-    @Override
-    public RecyclerView.ViewHolder createFooterHolder(ViewGroup parent) {
-        View view = inflater().inflate(R.layout.family_remove_member_footer, parent, false);
-        view.findViewById(R.id.top).setVisibility(View.GONE);
-        return new RemoveFooterViewHolder(view);
-    }
-
     @Override
     public void getFooterView(RecyclerView.ViewHolder viewHolder, final int currentPageCount, final int totalPageCount, boolean hasNext, boolean hasPrevious) {
         // do nothing
@@ -70,11 +62,18 @@ public abstract class CoreFamilyRemoveMemberProvider extends FamilyMemberRegiste
 
             @Override
             public void onError(Exception e) {
-
+                //// TODO: 15/08/19
             }
         });
 
         footerViewHolder.view.setOnClickListener(footerClickListener);
+    }
+
+    @Override
+    public RecyclerView.ViewHolder createFooterHolder(ViewGroup parent) {
+        View view = inflater().inflate(R.layout.family_remove_member_footer, parent, false);
+        view.findViewById(R.id.top).setVisibility(View.GONE);
+        return new RemoveFooterViewHolder(view);
     }
 
     protected abstract CoreFamilyRemoveMemberInteractor getFamilyRemoveMemberInteractor();

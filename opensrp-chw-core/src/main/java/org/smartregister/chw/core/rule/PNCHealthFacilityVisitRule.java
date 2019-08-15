@@ -21,13 +21,16 @@ public class PNCHealthFacilityVisitRule implements ICommonRule {
     private String visitName;
 
     public PNCHealthFacilityVisitRule(Date deliveryDate, Date lastVisitDate) {
-        if (deliveryDate != null)
+        if (deliveryDate != null) {
             this.deliveryDate = new DateTime(deliveryDate);
-        if (lastVisitDate != null)
+        }
+        if (lastVisitDate != null) {
             this.lastVisitDate = new DateTime(lastVisitDate);
+        }
 
-        if (this.lastVisitDate != null && this.deliveryDate != null)
+        if (this.lastVisitDate != null && this.deliveryDate != null) {
             lastVisitDifference = Days.daysBetween(this.deliveryDate.toLocalDate(), this.lastVisitDate.toLocalDate()).getDays();
+        }
     }
 
     public int getLastVisitDifference() {
@@ -66,34 +69,8 @@ public class PNCHealthFacilityVisitRule implements ICommonRule {
         this.visitName = visitName;
     }
 
-    public DateTime getOverDueDate() {
-        return deliveryDate.plusDays(overdueDiff);
-    }
-
-    public DateTime getDueDate() {
-        return deliveryDate.plusDays(dueDiff);
-    }
-
-    public DateTime getExpiryDate() {
-        return deliveryDate.plusDays(expiryDiff);
-    }
-
-    public boolean isExpired() {
-        return new DateTime(new LocalDate()).isAfter(getExpiryDate());
-    }
-
     public boolean isValidateExpired(int diff) {
         return new DateTime(new LocalDate().toDate()).isAfter(deliveryDate.plusDays(diff));
-    }
-
-    public boolean isDue() {
-        DateTime today = new DateTime(new LocalDate().toDate());
-        return today.isAfter(getDueDate()) && today.isBefore(getOverDueDate());
-    }
-
-    public boolean isOverDue() {
-        DateTime today = new DateTime(new LocalDate().toDate());
-        return today.isAfter(getOverDueDate()) && today.isBefore(getExpiryDate());
     }
 
     @Override
@@ -111,5 +88,31 @@ public class PNCHealthFacilityVisitRule implements ICommonRule {
             return CoreConstants.VISIT_STATE.OVERDUE;
         }
         return null;
+    }
+
+    public boolean isExpired() {
+        return new DateTime(new LocalDate()).isAfter(getExpiryDate());
+    }
+
+    public boolean isDue() {
+        DateTime today = new DateTime(new LocalDate().toDate());
+        return today.isAfter(getDueDate()) && today.isBefore(getOverDueDate());
+    }
+
+    public boolean isOverDue() {
+        DateTime today = new DateTime(new LocalDate().toDate());
+        return today.isAfter(getOverDueDate()) && today.isBefore(getExpiryDate());
+    }
+
+    public DateTime getExpiryDate() {
+        return deliveryDate.plusDays(expiryDiff);
+    }
+
+    public DateTime getDueDate() {
+        return deliveryDate.plusDays(dueDiff);
+    }
+
+    public DateTime getOverDueDate() {
+        return deliveryDate.plusDays(overdueDiff);
     }
 }

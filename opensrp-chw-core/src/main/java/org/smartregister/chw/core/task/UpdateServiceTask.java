@@ -22,9 +22,6 @@ import java.util.Map;
 
 import timber.log.Timber;
 
-import static org.smartregister.util.Utils.getName;
-import static org.smartregister.util.Utils.getValue;
-
 public class UpdateServiceTask extends AsyncTask<Void, Void, RecurringServiceModel> {
     private CommonPersonObjectClient childDetails;
     private Map<String, ServiceWrapper> displayServiceWrapper;
@@ -33,6 +30,17 @@ public class UpdateServiceTask extends AsyncTask<Void, Void, RecurringServiceMod
     public UpdateServiceTask(CommonPersonObjectClient childDetails, UpdateServiceListener listener) {
         this.childDetails = childDetails;
         this.listener = listener;
+    }
+
+    @Override
+    protected RecurringServiceModel doInBackground(Void... voids) {
+        String dobString = Utils.getValue(childDetails.getColumnmaps(), "dob", false);
+        DateTime dateOfBirth = null;
+        if (!TextUtils.isEmpty(dobString)) {
+            dateOfBirth = new DateTime(dobString);
+        }
+
+        return RecurringServiceUtil.getServiceModel(childDetails.entityId(), dateOfBirth, "child");
     }
 
     @Override
@@ -57,7 +65,7 @@ public class UpdateServiceTask extends AsyncTask<Void, Void, RecurringServiceMod
             serviceWrapper.setGender(childDetails.getDetails().get("gender"));
             serviceWrapper.setDefaultName(type);
 
-            String dobString = getValue(childDetails.getColumnmaps(), "dob", false);
+            String dobString = Utils.getValue(childDetails.getColumnmaps(), "dob", false);
             if (StringUtils.isNotBlank(dobString)) {
                 Calendar dobCalender = Calendar.getInstance();
                 DateTime dateTime = new DateTime(dobString);
@@ -68,12 +76,12 @@ public class UpdateServiceTask extends AsyncTask<Void, Void, RecurringServiceMod
             Photo photo = ImageUtils.profilePhotoByClient(childDetails);
             serviceWrapper.setPhoto(photo);
 
-            String zeirId = getValue(childDetails.getColumnmaps(), "zeir_id", false);
+            String zeirId = Utils.getValue(childDetails.getColumnmaps(), "zeir_id", false);
             serviceWrapper.setPatientNumber(zeirId);
 
-            String firstName = getValue(childDetails.getColumnmaps(), "first_name", true);
-            String lastName = getValue(childDetails.getColumnmaps(), "last_name", true);
-            String childName = getName(firstName, lastName);
+            String firstName = Utils.getValue(childDetails.getColumnmaps(), "first_name", true);
+            String lastName = Utils.getValue(childDetails.getColumnmaps(), "last_name", true);
+            String childName = Utils.getName(firstName, lastName);
             serviceWrapper.setPatientName(childName.trim());
 
             DateTime dob = new DateTime(dobString);
@@ -83,17 +91,6 @@ public class UpdateServiceTask extends AsyncTask<Void, Void, RecurringServiceMod
         }
         Timber.v("Service_wrapper %s", displayServiceWrapper);
         listener.onUpdateServiceList(displayServiceWrapper);
-    }
-
-    @Override
-    protected RecurringServiceModel doInBackground(Void... voids) {
-        String dobString = Utils.getValue(childDetails.getColumnmaps(), "dob", false);
-        DateTime dateOfBirth = null;
-        if (!TextUtils.isEmpty(dobString)) {
-            dateOfBirth = new DateTime(dobString);
-        }
-
-        return RecurringServiceUtil.getServiceModel(childDetails.entityId(), dateOfBirth, "child");
     }
 
 }

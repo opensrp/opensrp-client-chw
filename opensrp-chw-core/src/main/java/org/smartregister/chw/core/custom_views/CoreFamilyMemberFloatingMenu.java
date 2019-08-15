@@ -27,20 +27,6 @@ public class CoreFamilyMemberFloatingMenu extends LinearLayout implements View.O
         initUi();
     }
 
-    public CoreFamilyMemberFloatingMenu(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        initUi();
-    }
-
-    public CoreFamilyMemberFloatingMenu(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-        initUi();
-    }
-
-    public View getCallLayout() {
-        return callLayout;
-    }
-
     public void initUi() {
         inflate(getContext(), R.layout.view_individual_floating_menu, this);
         activityMain = findViewById(R.id.activity_main);
@@ -62,6 +48,20 @@ public class CoreFamilyMemberFloatingMenu extends LinearLayout implements View.O
         referLayout.setClickable(false);
 
         menuBar.setVisibility(GONE);
+    }
+
+    public CoreFamilyMemberFloatingMenu(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        initUi();
+    }
+
+    public CoreFamilyMemberFloatingMenu(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        initUi();
+    }
+
+    public View getCallLayout() {
+        return callLayout;
     }
 
     public void setClickListener(OnClickFloatingMenu onClickFloatingMenu) {

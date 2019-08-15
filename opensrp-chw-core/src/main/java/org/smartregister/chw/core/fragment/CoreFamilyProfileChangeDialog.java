@@ -78,6 +78,35 @@ public abstract class CoreFamilyProfileChangeDialog extends DialogFragment imple
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        // without a handler, the window sizes itself correctly
+        // but the keyboard does not show up
+        new Handler().post(new Runnable() {
+            @Override
+            public void run() {
+                Window window = null;
+                if (getDialog() != null) {
+                    window = getDialog().getWindow();
+                }
+
+                if (window == null) {
+                    return;
+                }
+
+                Point size = new Point();
+                Display display = window.getWindowManager().getDefaultDisplay();
+                display.getSize(size);
+
+                int height = size.y;
+
+                window.setLayout(FrameLayout.LayoutParams.MATCH_PARENT, (int) (height * 0.9));
+                window.setGravity(Gravity.CENTER);
+            }
+        });
+    }
+
+    @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
         final ViewGroup root = (ViewGroup) inflater.inflate(R.layout.fragment_family_profile_change_dialog, container, false);
@@ -99,21 +128,6 @@ public abstract class CoreFamilyProfileChangeDialog extends DialogFragment imple
         return root;
     }
 
-    protected abstract CoreFamilyChangePresenter getPresenter();
-
-    @Override
-    public void onClick(View v) {
-        int i = v.getId();
-        if (i == R.id.tvCancel) {
-            if (onRemoveActivity != null) {
-                onRemoveActivity.run();
-            }
-            close();
-        } else if (i == R.id.tvSubmit) {
-            validateSave();
-        }
-    }
-
     protected void prepareViews(View view) {
         view.findViewById(R.id.tvSubmit).setOnClickListener(this);
         view.findViewById(R.id.tvCancel).setOnClickListener(this);
@@ -130,6 +144,58 @@ public abstract class CoreFamilyProfileChangeDialog extends DialogFragment imple
         } else {
             tvTitle.setText(getString(R.string.select_family_head));
             tvInfo.setText(getString(R.string.remove_familyhead_warning_message));
+        }
+    }
+
+    protected abstract CoreFamilyChangePresenter getPresenter();
+
+    /**
+     * handle backpress from dialog.it'll finish childremoveactivity when back press
+     */
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (getView() == null) {
+            return;
+        }
+        getView().setFocusableInTouchMode(true);
+        getView().requestFocus();
+        getView().setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
+                    if (onRemoveActivity != null) {
+                        onRemoveActivity.run();
+                    }
+                    dismiss();
+                    return true;
+                }
+                return false;
+            }
+        });
+    }
+
+    @Override
+    public void onClick(View v) {
+        int i = v.getId();
+        if (i == R.id.tvCancel) {
+            if (onRemoveActivity != null) {
+                onRemoveActivity.run();
+            }
+            close();
+        } else if (i == R.id.tvSubmit) {
+            validateSave();
+        }
+    }
+
+    protected void validateSave() {
+        Boolean valid = memberAdapter.validateSave();
+        if (valid) {
+            FamilyMember res = memberAdapter.getSelectedResults();
+            if (res != null) {
+                updateFamilyMember(Pair.create(actionType, res));
+            }
         }
     }
 
@@ -191,68 +257,5 @@ public abstract class CoreFamilyProfileChangeDialog extends DialogFragment imple
     @Override
     public void close() {
         dismiss();
-    }
-
-    protected void validateSave() {
-        Boolean valid = memberAdapter.validateSave();
-        if (valid) {
-            FamilyMember res = memberAdapter.getSelectedResults();
-            if (res != null)
-                updateFamilyMember(Pair.create(actionType, res));
-        }
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        // without a handler, the window sizes itself correctly
-        // but the keyboard does not show up
-        new Handler().post(new Runnable() {
-            @Override
-            public void run() {
-                Window window = null;
-                if (getDialog() != null) {
-                    window = getDialog().getWindow();
-                }
-
-                if (window == null) {
-                    return;
-                }
-
-                Point size = new Point();
-                Display display = window.getWindowManager().getDefaultDisplay();
-                display.getSize(size);
-
-                int height = size.y;
-
-                window.setLayout(FrameLayout.LayoutParams.MATCH_PARENT, (int) (height * 0.9));
-                window.setGravity(Gravity.CENTER);
-            }
-        });
-    }
-
-    /**
-     * handle backpress from dialog.it'll finish childremoveactivity when back press
-     */
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (getView() == null) return;
-        getView().setFocusableInTouchMode(true);
-        getView().requestFocus();
-        getView().setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
-                    if (onRemoveActivity != null) {
-                        onRemoveActivity.run();
-                    }
-                    dismiss();
-                    return true;
-                }
-                return false;
-            }
-        });
     }
 }

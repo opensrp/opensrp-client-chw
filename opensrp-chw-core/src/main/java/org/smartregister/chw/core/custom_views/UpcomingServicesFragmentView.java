@@ -30,8 +30,6 @@ import java.util.Map;
 import static org.apache.commons.lang3.StringUtils.isBlank;
 
 public class UpcomingServicesFragmentView extends LinearLayout implements View.OnClickListener, ImmunizationContact.View {
-
-
     private ImmunizationViewPresenter presenter;
     private Map<String, View> viewMap = new LinkedHashMap<>();
     private CommonPersonObjectClient childClient;
@@ -47,18 +45,6 @@ public class UpcomingServicesFragmentView extends LinearLayout implements View.O
 
     }
 
-    public UpcomingServicesFragmentView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-        initUi();
-
-    }
-
-    @Override
-    public Context getMyContext() {
-        if (context == null) return getContext();
-        return context;
-    }
-
     private void initUi() {
         inflate(getContext(), R.layout.view_upcoming_service, this);
         setOrientation(VERTICAL);
@@ -66,13 +52,31 @@ public class UpcomingServicesFragmentView extends LinearLayout implements View.O
 
     }
 
-    public void setChildClient(Activity context, CommonPersonObjectClient childClient) {
-        this.childClient = childClient;
-        this.context = context;
-        removeAllViews();
-        presenter.fetchImmunizationData(childClient, "");
+    @Override
+    public ImmunizationContact.Presenter initializePresenter() {
+        presenter = new ImmunizationViewPresenter(this);
+        return presenter;
     }
 
+    @Override
+    public void allDataLoaded() {
+        //// TODO: 15/08/19
+    }
+
+    @Override
+    public void updateAdapter(int position, Context context) {
+        ArrayList<HomeVisitVaccineGroup> homeVisitVaccineGroupList = presenter.getHomeVisitVaccineGroupDetails();
+        for (HomeVisitVaccineGroup homeVisitVaccineGroup : homeVisitVaccineGroupList) {
+            if (homeVisitVaccineGroup.getNotGivenVaccines().size() > 0 && (homeVisitVaccineGroup.getAlert().equals(ImmunizationState.DUE)
+                    || homeVisitVaccineGroup.getAlert().equals(ImmunizationState.OVERDUE)
+                    || homeVisitVaccineGroup.getAlert().equals(ImmunizationState.UPCOMING))) {
+                addView(createUpcomingServicesCard(homeVisitVaccineGroup));
+            }
+        }
+
+        getUpcomingGrowthNutritonData(context);
+
+    }
 
     private View createUpcomingServicesCard(HomeVisitVaccineGroup homeVisitVaccineGroupDetail) {
         View view = context.getLayoutInflater().inflate(R.layout.upcoming_service_row, null);
@@ -98,75 +102,16 @@ public class UpcomingServicesFragmentView extends LinearLayout implements View.O
         return view;
     }
 
-    private View createGrowthCard(GrowthServiceData growthServiceData) {
-        View view = context.getLayoutInflater().inflate(R.layout.upcoming_service_row, null);
-        TextView groupDateTitle = view.findViewById(R.id.grou_date_title);
-        TextView groupDateStatus = view.findViewById(R.id.grou_date_status);
-        view.findViewById(R.id.grou_name_title).setVisibility(GONE);
-        view.findViewById(R.id.grou_vaccines_title).setVisibility(GONE);
-        TextView growth = view.findViewById(R.id.growth_service_name_title);
-        growth.setVisibility(VISIBLE);
-        groupDateTitle.setText(growthServiceData.getDisplayAbleDate());
-        groupDateStatus.setText(CoreChildUtils.daysAway(growthServiceData.getDate()));
-        growth.setText(growthServiceData.getDisplayName());
-
-        return view;
-    }
-
-
-    @Override
-    public ImmunizationContact.Presenter initializePresenter() {
-        presenter = new ImmunizationViewPresenter(this);
-        return presenter;
-    }
-
-    @Override
-    public void allDataLoaded() {
-
-    }
-
-    @Override
-    public void updateSubmitBtn() {
-        //no need to do
-    }
-
-    @Override
-    public void onUpdateNextPosition() {
-        //no need to do
-    }
-
-    @Override
-    public void updateAdapter(int position, Context context) {
-        ArrayList<HomeVisitVaccineGroup> homeVisitVaccineGroupList = presenter.getHomeVisitVaccineGroupDetails();
-        for (HomeVisitVaccineGroup homeVisitVaccineGroup : homeVisitVaccineGroupList) {
-            if (homeVisitVaccineGroup.getNotGivenVaccines().size() > 0 && (homeVisitVaccineGroup.getAlert().equals(ImmunizationState.DUE)
-                    || homeVisitVaccineGroup.getAlert().equals(ImmunizationState.OVERDUE)
-                    || homeVisitVaccineGroup.getAlert().equals(ImmunizationState.UPCOMING))) {
-                addView(createUpcomingServicesCard(homeVisitVaccineGroup));
-            }
-        }
-
-        getUpcomingGrowthNutritonData(context);
-
-    }
-
-
     private void getUpcomingGrowthNutritonData(final Context context) {
         final HomeVisitGrowthNutritionInteractor homeVisitGrowthNutritionInteractor = new HomeVisitGrowthNutritionInteractor();
         homeVisitGrowthNutritionInteractor.parseRecordServiceData(childClient, new HomeVisitGrowthNutritionContract.InteractorCallBack() {
             @Override
-            public void updateNotGivenRecordVisitData(Map<String, ServiceWrapper> stringServiceWrapperMap) {
-                //No need to do anything
-            }
-
-            @Override
             public void allDataLoaded() {
-
+                //// TODO: 15/08/19
             }
 
             @Override
             public void updateGivenRecordVisitData(final Map<String, ServiceWrapper> stringServiceWrapperMap) {
-
                 try {
                     ArrayList<GrowthServiceData> growthServiceDataList = homeVisitGrowthNutritionInteractor.getAllDueService(stringServiceWrapperMap, context);
                     String lastDate = "";
@@ -210,9 +155,13 @@ public class UpcomingServicesFragmentView extends LinearLayout implements View.O
                     }
                 }
             }
+
+            @Override
+            public void updateNotGivenRecordVisitData(Map<String, ServiceWrapper> stringServiceWrapperMap) {
+                //No need to do anything
+            }
         });
     }
-
 
     private View isExistView(GrowthServiceData growthServiceData) {
         for (String date : viewMap.keySet()) {
@@ -223,8 +172,55 @@ public class UpcomingServicesFragmentView extends LinearLayout implements View.O
         return null;
     }
 
+    private View createGrowthCard(GrowthServiceData growthServiceData) {
+        View view = context.getLayoutInflater().inflate(R.layout.upcoming_service_row, null);
+        TextView groupDateTitle = view.findViewById(R.id.grou_date_title);
+        TextView groupDateStatus = view.findViewById(R.id.grou_date_status);
+        view.findViewById(R.id.grou_name_title).setVisibility(GONE);
+        view.findViewById(R.id.grou_vaccines_title).setVisibility(GONE);
+        TextView growth = view.findViewById(R.id.growth_service_name_title);
+        growth.setVisibility(VISIBLE);
+        groupDateTitle.setText(growthServiceData.getDisplayAbleDate());
+        groupDateStatus.setText(CoreChildUtils.daysAway(growthServiceData.getDate()));
+        growth.setText(growthServiceData.getDisplayName());
+
+        return view;
+    }
+
+    @Override
+    public void updateSubmitBtn() {
+        //no need to do
+    }
+
+    @Override
+    public void onUpdateNextPosition() {
+        //no need to do
+    }
+
+    @Override
+    public Context getMyContext() {
+        if (context == null) {
+            return getContext();
+        }
+        return context;
+    }
+
+
+    public UpcomingServicesFragmentView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        initUi();
+
+    }
+
+    public void setChildClient(Activity context, CommonPersonObjectClient childClient) {
+        this.childClient = childClient;
+        this.context = context;
+        removeAllViews();
+        presenter.fetchImmunizationData(childClient, "");
+    }
+
     @Override
     public void onClick(View v) {
-
+        //// TODO: 15/08/19
     }
 }

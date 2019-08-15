@@ -55,6 +55,11 @@ public class CoreChildRegisterModel implements CoreChildRegisterContract.Model {
         return null;
     }
 
+    @Override
+    public String getInitials() {
+        return Utils.getUserInitials();
+    }
+
     public FormUtils getFormUtils() {
         if (formUtils == null) {
             try {
@@ -68,11 +73,5 @@ public class CoreChildRegisterModel implements CoreChildRegisterContract.Model {
 
     public void setFormUtils(FormUtils formUtils) {
         this.formUtils = formUtils;
-    }
-
-
-    @Override
-    public String getInitials() {
-        return Utils.getUserInitials();
     }
 }

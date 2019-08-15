@@ -95,7 +95,7 @@ public class NavigationPresenterTest {
         AppCompatActivity activity = Mockito.mock(AppCompatActivity.class);
 
         presenter.sync(activity);
-        verify(interactor).Sync();
+        verify(interactor).sync();
     }
 
 

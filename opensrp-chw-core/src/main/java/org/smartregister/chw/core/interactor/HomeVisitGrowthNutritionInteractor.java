@@ -28,8 +28,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -42,22 +40,13 @@ public class HomeVisitGrowthNutritionInteractor implements HomeVisitGrowthNutrit
 
     private AppExecutors appExecutors;
 
-    @VisibleForTesting
-    HomeVisitGrowthNutritionInteractor(AppExecutors appExecutors) {
-        this.appExecutors = appExecutors;
-    }
-
     public HomeVisitGrowthNutritionInteractor() {
         this(new AppExecutors());
     }
 
-    @Override
-    public void parseRecordServiceData(final CommonPersonObjectClient commonPersonObjectClient, final HomeVisitGrowthNutritionContract.InteractorCallBack callBack) {
-        UpdateServiceTask updateServiceTask = new UpdateServiceTask(commonPersonObjectClient, serviceWrapperMap -> {
-            Runnable runnable = () -> appExecutors.mainThread().execute(() -> callBack.updateGivenRecordVisitData(serviceWrapperMap));
-            appExecutors.diskIO().execute(runnable);
-        });
-        startAsyncTask(updateServiceTask, null);
+    @VisibleForTesting
+    HomeVisitGrowthNutritionInteractor(AppExecutors appExecutors) {
+        this.appExecutors = appExecutors;
     }
 
     @Override
@@ -69,7 +58,7 @@ public class HomeVisitGrowthNutritionInteractor implements HomeVisitGrowthNutrit
                 .subscribe(new Observer<ServiceTaskModel>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-
+                        //// TODO: 15/08/19
                     }
 
                     @Override
@@ -86,39 +75,51 @@ public class HomeVisitGrowthNutritionInteractor implements HomeVisitGrowthNutrit
 
                     @Override
                     public void onError(Throwable e) {
-
+                        //// TODO: 15/08/19
                     }
 
                     @Override
                     public void onComplete() {
-
+                        //// TODO: 15/08/19
                     }
                 });
 
 
     }
 
-    public Observable<ServiceTaskModel> getServiceWrapperMapFromLastHomeVisit(final CommonPersonObjectClient commonPersonObjectClient) {
-        return Observable.create(new ObservableOnSubscribe<ServiceTaskModel>() {
-            @Override
-            public void subscribe(ObservableEmitter<ServiceTaskModel> e) throws Exception {
-                String lastHomeVisitStr = org.smartregister.util.Utils.getValue(commonPersonObjectClient.getColumnmaps(), ChildDBConstants.KEY.LAST_HOME_VISIT, false);
-                long lastHomeVisit = TextUtils.isEmpty(lastHomeVisitStr) ? 0 : Long.parseLong(lastHomeVisitStr);
-                HomeVisit homeVisit = CoreChwApplication.homeVisitRepository().findByDate(lastHomeVisit);
-                if (homeVisit != null) {
-                    Map<String, ServiceWrapper> serviceGivenWrapper = CoreChildUtils.gsonConverter.fromJson(homeVisit.getServicesGiven().toString(), new TypeToken<HashMap<String, ServiceWrapper>>() {
-                    }.getType());
-                    Map<String, ServiceWrapper> serviceNotGivenWrapper = CoreChildUtils.gsonConverter.fromJson(homeVisit.getServiceNotGiven().toString(), new TypeToken<HashMap<String, ServiceWrapper>>() {
-                    }.getType());
-                    ServiceTaskModel serviceTaskModel = new ServiceTaskModel();
-                    serviceTaskModel.setGivenServiceMap(serviceGivenWrapper);
-                    serviceTaskModel.setNotGivenServiceMap(serviceNotGivenWrapper);
-                    e.onNext(serviceTaskModel);
-                } else {
-                    e.onNext(null);
-                }
+    @Override
+    public void parseRecordServiceData(final CommonPersonObjectClient commonPersonObjectClient, final HomeVisitGrowthNutritionContract.InteractorCallBack callBack) {
+        UpdateServiceTask updateServiceTask = new UpdateServiceTask(commonPersonObjectClient, serviceWrapperMap -> {
+            Runnable runnable = () -> appExecutors.mainThread().execute(() -> callBack.updateGivenRecordVisitData(serviceWrapperMap));
+            appExecutors.diskIO().execute(runnable);
+        });
+        startAsyncTask(updateServiceTask, null);
+    }
 
+    @Override
+    public void onDestroy(boolean isChangingConfiguration) {
+        //TODO Implement onDestroy
+        Timber.d("onDestroy unimplemented");
+    }
+
+    public Observable<ServiceTaskModel> getServiceWrapperMapFromLastHomeVisit(final CommonPersonObjectClient commonPersonObjectClient) {
+        return Observable.create(e -> {
+            String lastHomeVisitStr = org.smartregister.util.Utils.getValue(commonPersonObjectClient.getColumnmaps(), ChildDBConstants.KEY.LAST_HOME_VISIT, false);
+            long lastHomeVisit = TextUtils.isEmpty(lastHomeVisitStr) ? 0 : Long.parseLong(lastHomeVisitStr);
+            HomeVisit homeVisit = CoreChwApplication.homeVisitRepository().findByDate(lastHomeVisit);
+            if (homeVisit != null) {
+                Map<String, ServiceWrapper> serviceGivenWrapper = CoreChildUtils.gsonConverter.fromJson(homeVisit.getServicesGiven().toString(), new TypeToken<HashMap<String, ServiceWrapper>>() {
+                }.getType());
+                Map<String, ServiceWrapper> serviceNotGivenWrapper = CoreChildUtils.gsonConverter.fromJson(homeVisit.getServiceNotGiven().toString(), new TypeToken<HashMap<String, ServiceWrapper>>() {
+                }.getType());
+                ServiceTaskModel serviceTaskModel = new ServiceTaskModel();
+                serviceTaskModel.setGivenServiceMap(serviceGivenWrapper);
+                serviceTaskModel.setNotGivenServiceMap(serviceNotGivenWrapper);
+                e.onNext(serviceTaskModel);
+            } else {
+                e.onNext(null);
             }
+
         });
     }
 
@@ -156,11 +157,5 @@ public class HomeVisitGrowthNutritionInteractor implements HomeVisitGrowthNutrit
         }
         return "";
 
-    }
-
-    @Override
-    public void onDestroy(boolean isChangingConfiguration) {
-        //TODO Implement onDestroy
-        Timber.d("onDestroy unimplemented");
     }
 }

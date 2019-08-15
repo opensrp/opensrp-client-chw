@@ -42,8 +42,7 @@ import java.util.Calendar;
 import java.util.Map;
 
 public class GrowthNutritionInputFragment extends DialogFragment implements RadioGroup.OnCheckedChangeListener, View.OnClickListener {
-
-    static final Map<String, Integer> imageMap = ImmutableMap.of(
+    private static final Map<String, Integer> imageMap = ImmutableMap.of(
             GROWTH_TYPE.VITAMIN.getValue(), R.drawable.ic_form_vitamin,
             GROWTH_TYPE.MNP.getValue(), R.drawable.ic_form_mnp,
             GROWTH_TYPE.DEWORMING.getValue(), R.drawable.ic_form_deworming
@@ -53,7 +52,6 @@ public class GrowthNutritionInputFragment extends DialogFragment implements Radi
     private Button buttonSave;
     private Button buttonCancel;
     private RadioButton yesRadio, noRadio;
-
     private String type;
     private View layoutExclusiveFeeding, layoutVitaminBar;
     private TextView textViewVitamin;
@@ -65,7 +63,6 @@ public class GrowthNutritionInputFragment extends DialogFragment implements Radi
     private LinearLayout context;
     private ServiceWrapper saveService;
     private String dob;
-
 
     public static GrowthNutritionInputFragment getInstance(String title, String question, String type,
                                                            CommonPersonObjectClient commonPersonObjectClient) {
@@ -79,7 +76,7 @@ public class GrowthNutritionInputFragment extends DialogFragment implements Radi
         return growthNutritionInputFragment;
     }
 
-    public static void saveService(ServiceWrapper tag, String baseEntityId, String providerId, String locationId) {
+    public static void saveService(ServiceWrapper tag, String baseEntityId) {
         if (tag.getUpdatedVaccineDate() == null) {
             return;
         }
@@ -169,18 +166,6 @@ public class GrowthNutritionInputFragment extends DialogFragment implements Radi
 
     }
 
-    public void setContext(LinearLayout context) {
-        this.context = context;
-    }
-
-    private void saveButtonDisable(boolean value) {
-        if (value) {
-            buttonSave.setAlpha(0.3f);
-        } else {
-            buttonSave.setAlpha(1.0f);
-        }
-    }
-
     private void parseBundleAndSetData() {
         type = getArguments().getString(CoreConstants.INTENT_KEY.GROWTH_IMMUNIZATION_TYPE, GROWTH_TYPE.EXCLUSIVE.name());
         String title = getArguments().getString(CoreConstants.INTENT_KEY.GROWTH_TITLE, getString(R.string.growth_and_nutrition));
@@ -215,6 +200,21 @@ public class GrowthNutritionInputFragment extends DialogFragment implements Radi
         }
     }
 
+    private void saveButtonDisable(boolean value) {
+        if (value) {
+            buttonSave.setAlpha(0.3f);
+        } else {
+            buttonSave.setAlpha(1.0f);
+        }
+    }
+
+    private void visibleExclusiveBar() {
+        layoutExclusiveFeeding.setVisibility(View.VISIBLE);
+        layoutVitaminBar.setVisibility(View.GONE);
+        buttonCancel.setVisibility(View.GONE);
+
+    }
+
     private void updateDatePicker() {
         DateTime dateOfBirth = Utils.dobStringToDateTime(dob);
         DateTime dcToday = ServiceSchedule.standardiseDateTime(DateTime.now());
@@ -223,13 +223,6 @@ public class GrowthNutritionInputFragment extends DialogFragment implements Radi
 
         datePicker.setMinDate(minDate.getMillis());
         datePicker.setMaxDate(maxDate.getMillis());
-
-    }
-
-    private void visibleExclusiveBar() {
-        layoutExclusiveFeeding.setVisibility(View.VISIBLE);
-        layoutVitaminBar.setVisibility(View.GONE);
-        buttonCancel.setVisibility(View.GONE);
 
     }
 
@@ -242,6 +235,20 @@ public class GrowthNutritionInputFragment extends DialogFragment implements Radi
     }
 
     @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (context instanceof HomeVisitGrowthAndNutrition && saveService != null) {
+            HomeVisitGrowthAndNutrition coreHomeVisitGrowthAndNutrition = (HomeVisitGrowthAndNutrition) context;
+            coreHomeVisitGrowthAndNutrition.setState(type, saveService);
+
+        }
+    }
+
+    public void setContext(LinearLayout context) {
+        this.context = context;
+    }
+
+    @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
         if (checkedId == R.id.yes) {
             saveButtonDisable(false);
@@ -249,6 +256,27 @@ public class GrowthNutritionInputFragment extends DialogFragment implements Radi
         } else if (checkedId == R.id.no) {
             saveButtonDisable(false);
             isFeeding = "yes";
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        int i = v.getId();
+        if (i == R.id.save_bf_btn || i == R.id.save_btn) {
+            if (type.equalsIgnoreCase(GROWTH_TYPE.EXCLUSIVE.getValue())) {
+                saveExclusiveFeedingData();
+            } else {
+                saveVitaminAData();
+            }
+        } else if (i == R.id.close) {
+            dismiss();
+        } else if (i == R.id.cancel) {
+            if (context instanceof HomeVisitGrowthAndNutrition && serviceWrapper != null) {
+                HomeVisitGrowthAndNutrition coreHomeVisitGrowthAndNutrition = (HomeVisitGrowthAndNutrition) context;
+                coreHomeVisitGrowthAndNutrition.notVisitSetState(type, serviceWrapper);
+
+            }
+            dismiss();
         }
     }
 
@@ -290,37 +318,6 @@ public class GrowthNutritionInputFragment extends DialogFragment implements Radi
         Utils.startAsyncTask(backgroundTask, arrayTags);
     }
 
-    @Override
-    public void onClick(View v) {
-        int i = v.getId();
-        if (i == R.id.save_bf_btn || i == R.id.save_btn) {
-            if (type.equalsIgnoreCase(GROWTH_TYPE.EXCLUSIVE.getValue())) {
-                saveExclusiveFeedingData();
-            } else {
-                saveVitaminAData();
-            }
-        } else if (i == R.id.close) {
-            dismiss();
-        } else if (i == R.id.cancel) {
-            if (context instanceof HomeVisitGrowthAndNutrition && serviceWrapper != null) {
-                HomeVisitGrowthAndNutrition coreHomeVisitGrowthAndNutrition = (HomeVisitGrowthAndNutrition) context;
-                coreHomeVisitGrowthAndNutrition.notVisitSetState(type, serviceWrapper);
-
-            }
-            dismiss();
-        }
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        if (context instanceof HomeVisitGrowthAndNutrition && saveService != null) {
-            HomeVisitGrowthAndNutrition coreHomeVisitGrowthAndNutrition = (HomeVisitGrowthAndNutrition) context;
-            coreHomeVisitGrowthAndNutrition.setState(type, saveService);
-
-        }
-    }
-
     public enum GROWTH_TYPE {
         EXCLUSIVE("Exclusive breastfeeding"), MNP("MNP"), VITAMIN("Vitamin A"), DEWORMING("Deworming");
         private String value;
@@ -344,19 +341,13 @@ public class GrowthNutritionInputFragment extends DialogFragment implements Radi
         }
 
         @Override
-        protected void onPostExecute(ServiceWrapper serviceWrapper) {
-            saveService = serviceWrapper;
-            dismiss();
-        }
-
-        @Override
         protected ServiceWrapper doInBackground(ServiceWrapper... params) {
 
             //ArrayList<ServiceWrapper> list = new ArrayList<>();
             ServiceWrapper serviceWrapper = null;
 
             for (ServiceWrapper tag : params) {
-                saveService(tag, commonPersonObjectClient.entityId(), providerId, null);
+                saveService(tag, commonPersonObjectClient.entityId());
                 //list.add(tag);
                 //serviceId=tag.getServiceType().getId()+"";
                 //tag.getDbKey();
@@ -377,6 +368,12 @@ public class GrowthNutritionInputFragment extends DialogFragment implements Radi
 //
 //            return Triple.of(list, serviceRecordList, alertList);
 
+        }
+
+        @Override
+        protected void onPostExecute(ServiceWrapper serviceWrapper) {
+            saveService = serviceWrapper;
+            dismiss();
         }
     }
 }

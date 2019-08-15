@@ -19,46 +19,15 @@ import org.smartregister.family.util.Constants;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
 public class FamilyProfileActivity extends CoreFamilyProfileActivity {
-    private BaseFamilyProfileDueFragment profileDueFragment;
     private FamilyProfileActivityFragment profileActivityFragment;
 
     @Override
-    protected void initializePresenter() {
-        super.initializePresenter();
-        presenter = new FamilyProfilePresenter(this, new FamilyProfileModel(familyName), familyBaseEntityId, familyHead, primaryCaregiver, familyName);
+    protected void refreshPresenter() {
+        this.presenter = new FamilyProfilePresenter(this, new FamilyProfileModel(familyName),
+                familyBaseEntityId, familyHead, primaryCaregiver, familyName);
     }
 
     @Override
-    protected ViewPager setupViewPager(ViewPager viewPager) {
-        adapter = new ViewPagerAdapter(getSupportFragmentManager());
-
-        BaseFamilyProfileMemberFragment profileMemberFragment = FamilyProfileMemberFragment.newInstance(this.getIntent().getExtras());
-        profileDueFragment = FamilyProfileDueFragment.newInstance(this.getIntent().getExtras());
-        profileActivityFragment = (FamilyProfileActivityFragment) FamilyProfileActivityFragment.newInstance(this.getIntent().getExtras());
-
-        adapter.addFragment(profileMemberFragment, this.getString(org.smartregister.family.R.string.member).toUpperCase());
-        adapter.addFragment(profileDueFragment, this.getString(org.smartregister.family.R.string.due).toUpperCase());
-        adapter.addFragment(profileActivityFragment, this.getString(org.smartregister.family.R.string.activity).toUpperCase());
-
-        viewPager.setAdapter(adapter);
-
-        if (getIntent().getBooleanExtra(CoreConstants.INTENT_KEY.SERVICE_DUE, false) || getIntent().getBooleanExtra(Constants.INTENT_KEY.GO_TO_DUE_PAGE, false)) {
-            viewPager.setCurrentItem(1);
-        }
-
-        return viewPager;
-    }
-
-    @Override
-    protected Class<? extends CoreFamilyRemoveMemberActivity> getFamilyRemoveMemberClass() {
-        return FamilyRemoveMemberActivity.class;
-    }
-
-    @Override
-    protected Class<? extends CoreFamilyProfileMenuActivity> getFamilyProfileMenuClass() {
-        return FamilyProfileMenuActivity.class;
-    }
-
     protected void refreshList(Fragment fragment) {
         if (fragment instanceof BaseRegisterFragment) {
             if (fragment instanceof FamilyProfileMemberFragment) {
@@ -81,9 +50,40 @@ public class FamilyProfileActivity extends CoreFamilyProfileActivity {
     }
 
     @Override
-    protected void refreshPresenter() {
-        this.presenter = new FamilyProfilePresenter(this, new FamilyProfileModel(familyName),
-                familyBaseEntityId, familyHead, primaryCaregiver, familyName);
+    protected Class<? extends CoreFamilyRemoveMemberActivity> getFamilyRemoveMemberClass() {
+        return FamilyRemoveMemberActivity.class;
+    }
+
+    @Override
+    protected Class<? extends CoreFamilyProfileMenuActivity> getFamilyProfileMenuClass() {
+        return FamilyProfileMenuActivity.class;
+    }
+
+    @Override
+    protected void initializePresenter() {
+        super.initializePresenter();
+        presenter = new FamilyProfilePresenter(this, new FamilyProfileModel(familyName), familyBaseEntityId, familyHead, primaryCaregiver, familyName);
+    }
+
+    @Override
+    protected ViewPager setupViewPager(ViewPager viewPager) {
+        adapter = new ViewPagerAdapter(getSupportFragmentManager());
+
+        BaseFamilyProfileMemberFragment profileMemberFragment = FamilyProfileMemberFragment.newInstance(this.getIntent().getExtras());
+        BaseFamilyProfileDueFragment profileDueFragment = FamilyProfileDueFragment.newInstance(this.getIntent().getExtras());
+        profileActivityFragment = (FamilyProfileActivityFragment) FamilyProfileActivityFragment.newInstance(this.getIntent().getExtras());
+
+        adapter.addFragment(profileMemberFragment, this.getString(org.smartregister.family.R.string.member).toUpperCase());
+        adapter.addFragment(profileDueFragment, this.getString(org.smartregister.family.R.string.due).toUpperCase());
+        adapter.addFragment(profileActivityFragment, this.getString(org.smartregister.family.R.string.activity).toUpperCase());
+
+        viewPager.setAdapter(adapter);
+
+        if (getIntent().getBooleanExtra(CoreConstants.INTENT_KEY.SERVICE_DUE, false) || getIntent().getBooleanExtra(Constants.INTENT_KEY.GO_TO_DUE_PAGE, false)) {
+            viewPager.setCurrentItem(1);
+        }
+
+        return viewPager;
     }
 
     public void updateWashCheckActivity() {
