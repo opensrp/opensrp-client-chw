@@ -196,7 +196,6 @@
           }
         }
       },
-
       {
         "key": "malaria_treat",
         "openmrs_entity_parent": "",

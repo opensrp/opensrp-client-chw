@@ -3,7 +3,8 @@ package org.smartregister.chw.model;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.smartregister.chw.domain.FamilyMember;
+import org.smartregister.chw.core.domain.FamilyMember;
+import org.smartregister.chw.core.model.FamilyChangeContractModel;
 
 import java.util.ArrayList;
 import java.util.Arrays;

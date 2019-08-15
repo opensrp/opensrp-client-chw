@@ -9,7 +9,7 @@ import com.vijay.jsonwizard.domain.Form;
 
 import org.json.JSONObject;
 import org.smartregister.chw.R;
-import org.smartregister.chw.custom_view.NavigationMenu;
+import org.smartregister.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.fragment.MalariaRegisterFragment;
 import org.smartregister.chw.malaria.activity.BaseMalariaRegisterActivity;
 import org.smartregister.chw.util.Constants;
@@ -31,42 +31,14 @@ public class MalariaRegisterActivity extends BaseMalariaRegisterActivity {
     }
 
     @Override
-    public String getRegistrationForm() {
-        return Constants.JSON_FORM.getMalariaConfirmation();
-    }
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         NavigationMenu.getInstance(this, null, null);
     }
 
     @Override
-    protected BaseRegisterFragment getRegisterFragment() {
-        return new MalariaRegisterFragment();
-    }
-
-    @Override
-    protected void registerBottomNavigation() {
-
-        bottomNavigationHelper = new BottomNavigationHelper();
-        bottomNavigationView = findViewById(org.smartregister.R.id.bottom_navigation);
-        FamilyRegisterActivity.registerBottomNavigation(bottomNavigationHelper, bottomNavigationView, this);
-    }
-
-    @Override
-    protected void onResumption() {
-        super.onResumption();
-        NavigationMenu menu = NavigationMenu.getInstance(this, null, null);
-        if (menu != null) {
-            menu.getNavigationAdapter()
-                    .setSelectedView(Constants.DrawerMenu.MALARIA);
-        }
-    }
-
-    @Override
-    public List<String> getViewIdentifiers() {
-        return Arrays.asList(Constants.CONFIGURATION.MALARIA_REGISTER);
+    public String getRegistrationForm() {
+        return Constants.JSON_FORM.getMalariaConfirmation();
     }
 
     public void startFormActivity(JSONObject jsonForm) {
@@ -86,8 +58,36 @@ public class MalariaRegisterActivity extends BaseMalariaRegisterActivity {
     }
 
     @Override
+    public List<String> getViewIdentifiers() {
+        return Arrays.asList(Constants.CONFIGURATION.MALARIA_REGISTER);
+    }
+
+    @Override
+    protected void registerBottomNavigation() {
+
+        bottomNavigationHelper = new BottomNavigationHelper();
+        bottomNavigationView = findViewById(org.smartregister.R.id.bottom_navigation);
+        FamilyRegisterActivity.registerBottomNavigation(bottomNavigationHelper, bottomNavigationView, this);
+    }
+
+    @Override
+    protected BaseRegisterFragment getRegisterFragment() {
+        return new MalariaRegisterFragment();
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+    }
+
+    @Override
+    protected void onResumption() {
+        super.onResumption();
+        NavigationMenu menu = NavigationMenu.getInstance(this, null, null);
+        if (menu != null) {
+            menu.getNavigationAdapter()
+                    .setSelectedView(Constants.DrawerMenu.MALARIA);
+        }
     }
 }

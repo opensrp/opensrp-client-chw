@@ -4,11 +4,11 @@
     package="org.smartregister.chw">
 
     <uses-feature
-        android:required="false"
-        android:name="android.hardware.camera" />
+        android:name="android.hardware.camera"
+        android:required="false" />
     <uses-feature
-        android:required="false"
-        android:name="android.hardware.camera.autofocus" />
+        android:name="android.hardware.camera.autofocus"
+        android:required="false" />
     <uses-feature
         android:name="android.hardware.telephony"
         android:required="false" />
@@ -62,11 +62,12 @@
         <activity
             android:name=".activity.MalariaRegisterActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
+
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="3f94f9c3caeff331b3a2bd8c2182b663ad6a955a" />
-        <activity
-            android:name=".activity.ChwP2pModeSelectActivity"/>
+
+        <activity android:name="activity.ChwP2pModeSelectActivity" />
         <activity
             android:name=".activity.JobAidsActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
@@ -119,7 +120,7 @@
             android:label="@string/medical_history"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
-            android:name=".activity.UpcomingServicesActivity"
+            android:name=".core.activity.CoreUpcomingServicesActivity"
             android:label="@string/upcoming_services"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity

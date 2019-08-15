@@ -49,16 +49,6 @@ public class PncHomeVisitInteractor extends BaseAncHomeVisitInteractor {
         appExecutors.diskIO().execute(runnable);
     }
 
-    @Override
-    protected String getEncounterType() {
-        return Constants.EVENT_TYPE.PNC_HOME_VISIT;
-    }
-
-    @Override
-    protected String getTableName() {
-        return Constants.TABLES.PREGNANCY_OUTCOME;
-    }
-
     /**
      * Injects implementation specific changes to the event
      *
@@ -72,6 +62,16 @@ public class PncHomeVisitInteractor extends BaseAncHomeVisitInteractor {
             baseEvent.addObs(new Obs("concept", "text", "pnc_visit_date", "",
                     list, new ArrayList<>(), null, "pnc_visit_date"));
         }
+    }
+
+    @Override
+    protected String getEncounterType() {
+        return Constants.EVENT_TYPE.PNC_HOME_VISIT;
+    }
+
+    @Override
+    protected String getTableName() {
+        return Constants.TABLES.PREGNANCY_OUTCOME;
     }
 
     public interface Flavor {

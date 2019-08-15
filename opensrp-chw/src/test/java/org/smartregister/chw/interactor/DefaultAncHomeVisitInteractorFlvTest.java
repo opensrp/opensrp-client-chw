@@ -25,7 +25,7 @@ import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
 import org.smartregister.chw.anc.util.JsonFormUtils;
 import org.smartregister.chw.application.TestChwApplication;
-import org.smartregister.chw.model.VaccineTaskModel;
+import org.smartregister.chw.core.model.VaccineTaskModel;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.immunization.ImmunizationLibrary;
 import org.smartregister.immunization.repository.RecurringServiceRecordRepository;
@@ -72,8 +72,6 @@ public class DefaultAncHomeVisitInteractorFlvTest {
     @Test
     public void testCalculateActions() throws Exception {
         PowerMockito.mockStatic(ImmunizationLibrary.class);
-        PowerMockito.mockStatic(Utils.class);
-        when(Utils.getLocalForm(ArgumentMatchers.anyString())).thenReturn("anc_hv_anc_iptp_sp");
 
         when(immunizationLibrary.recurringServiceRecordRepository()).thenReturn(recurringServiceRecordRepository);
         when(ImmunizationLibrary.getInstance()).thenReturn(immunizationLibrary);

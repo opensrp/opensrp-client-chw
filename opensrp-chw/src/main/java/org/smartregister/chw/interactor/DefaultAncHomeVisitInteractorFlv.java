@@ -26,13 +26,13 @@ import org.smartregister.chw.anc.domain.VisitDetail;
 import org.smartregister.chw.anc.fragment.BaseAncHomeVisitFragment;
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
 import org.smartregister.chw.anc.util.VisitUtils;
-import org.smartregister.chw.model.VaccineTaskModel;
+import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.chw.core.model.VaccineTaskModel;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.ContactUtil;
 import org.smartregister.chw.util.VaccineScheduleUtil;
 import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.immunization.domain.ServiceWrapper;
-import org.smartregister.immunization.domain.Vaccine;
 import org.smartregister.immunization.domain.VaccineWrapper;
 
 import java.text.MessageFormat;
@@ -43,7 +43,7 @@ import java.util.Map;
 
 import timber.log.Timber;
 
-import static org.smartregister.chw.util.RecurringServiceUtil.getRecurringServices;
+import static org.smartregister.chw.core.utils.RecurringServiceUtil.getRecurringServices;
 
 public abstract class DefaultAncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor {
 
@@ -81,6 +81,7 @@ public abstract class DefaultAncHomeVisitInteractorFlv implements AncHomeVisitIn
         }
 
         try {
+            Constants.JSON_FORM.setLocaleAndAssetManager(ChwApplication.getCurrentLocale(), ChwApplication.getInstance().getApplicationContext().getAssets());
             evaluateDangerSigns();
             evaluateANCCounseling(dateMap);
             evaluateSleepingUnderLLITN();
@@ -96,6 +97,15 @@ public abstract class DefaultAncHomeVisitInteractorFlv implements AncHomeVisitIn
         }
 
         return actionList;
+    }
+
+    public VaccineTaskModel getWomanVaccine(String baseEntityID, DateTime lmpDate, List<VaccineWrapper> notDoneVaccines) {
+        return VaccineScheduleUtil.getWomanVaccine(baseEntityID, lmpDate, notDoneVaccines);
+    }
+
+    // read vaccine repo for all not given vaccines
+    private List<VaccineWrapper> getNotGivenVaccines() {
+        return new ArrayList<>();
     }
 
     private void evaluateDangerSigns() throws Exception {
@@ -235,15 +245,6 @@ public abstract class DefaultAncHomeVisitInteractorFlv implements AncHomeVisitIn
                 .build();
 
         actionList.put(context.getString(R.string.anc_home_visit_observations_n_illnes), observation);
-    }
-
-    public VaccineTaskModel getWomanVaccine(String baseEntityID, DateTime lmpDate, List<VaccineWrapper> notDoneVaccines) {
-        return VaccineScheduleUtil.getWomanVaccine(baseEntityID, lmpDate, notDoneVaccines);
-    }
-
-    // read vaccine repo for all not given vaccines
-    private List<VaccineWrapper> getNotGivenVaccines() {
-        return new ArrayList<>();
     }
 
 }

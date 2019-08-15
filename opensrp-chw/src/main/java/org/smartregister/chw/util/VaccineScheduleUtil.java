@@ -5,7 +5,8 @@ import android.content.Context;
 import org.apache.commons.lang3.tuple.Triple;
 import org.joda.time.DateTime;
 import org.smartregister.chw.application.ChwApplication;
-import org.smartregister.chw.model.VaccineTaskModel;
+import org.smartregister.chw.core.model.VaccineTaskModel;
+import org.smartregister.chw.core.utils.ChwServiceSchedule;
 import org.smartregister.domain.Alert;
 import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.immunization.domain.Vaccine;
@@ -31,15 +32,6 @@ public class VaccineScheduleUtil {
 
     }
 
-    private static Long getVaccineId(String vaccineName, VaccineTaskModel vaccineTaskModel) {
-        for (Vaccine vaccine : vaccineTaskModel.getVaccines()) {
-            if (vaccine.getName().equalsIgnoreCase(vaccineName)) {
-                return vaccine.getId();
-            }
-        }
-        return null;
-    }
-
     public static VaccineWrapper getVaccineWrapper(VaccineRepo.Vaccine vaccine, VaccineTaskModel vaccineTaskModel) {
         VaccineWrapper vaccineWrapper = new VaccineWrapper();
         vaccineWrapper.setVaccine(vaccine);
@@ -48,6 +40,15 @@ public class VaccineScheduleUtil {
         vaccineWrapper.setDefaultName(vaccine.display());
         vaccineWrapper.setAlert(vaccineTaskModel.getAlertsMap().get(vaccine.display()));
         return vaccineWrapper;
+    }
+
+    private static Long getVaccineId(String vaccineName, VaccineTaskModel vaccineTaskModel) {
+        for (Vaccine vaccine : vaccineTaskModel.getVaccines()) {
+            if (vaccine.getName().equalsIgnoreCase(vaccineName)) {
+                return vaccine.getId();
+            }
+        }
+        return null;
     }
 
     // vaccine utils
@@ -90,18 +91,6 @@ public class VaccineScheduleUtil {
     }
 
     /**
-     * gets vaccines for the child
-     *
-     * @param baseEntityID
-     * @param anchorDate
-     * @param notDoneVaccines
-     * @return
-     */
-    public static VaccineTaskModel getChildVaccine(String baseEntityID, DateTime anchorDate, List<VaccineWrapper> notDoneVaccines) {
-        return getLocalUpdatedVaccines(baseEntityID, anchorDate, notDoneVaccines, "child");
-    }
-
-    /**
      * Updates locals vaccines grouped by type and deducts all those not give
      * Returns a vaccines summary object that can be used for immunization
      *
@@ -139,6 +128,18 @@ public class VaccineScheduleUtil {
         vaccineTaskModel.setScheduleList(sch);
 
         return vaccineTaskModel;
+    }
+
+    /**
+     * gets vaccines for the child
+     *
+     * @param baseEntityID
+     * @param anchorDate
+     * @param notDoneVaccines
+     * @return
+     */
+    public static VaccineTaskModel getChildVaccine(String baseEntityID, DateTime anchorDate, List<VaccineWrapper> notDoneVaccines) {
+        return getLocalUpdatedVaccines(baseEntityID, anchorDate, notDoneVaccines, "child");
     }
 
     /**

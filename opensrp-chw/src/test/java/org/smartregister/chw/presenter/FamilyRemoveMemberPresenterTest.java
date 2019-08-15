@@ -1,5 +1,6 @@
 package org.smartregister.chw.presenter;
 
+
 import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
@@ -7,7 +8,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.powermock.reflect.Whitebox;
-import org.smartregister.chw.contract.FamilyRemoveMemberContract;
+import org.smartregister.chw.core.contract.FamilyRemoveMemberContract;
 import org.smartregister.chw.interactor.FamilyRemoveMemberInteractor;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
@@ -50,7 +51,7 @@ public class FamilyRemoveMemberPresenterTest {
         CommonPersonObjectClient client = new CommonPersonObjectClient(null, null, null);
 
         // remove member when is not a primary care giver
-        client.setColumnmaps(new HashMap<String, String>());
+        client.setColumnmaps(new HashMap<>());
         client.getColumnmaps().put(DBConstants.KEY.BASE_ENTITY_ID, "memberID");
         presenter.removeMember(client);
 
@@ -58,7 +59,7 @@ public class FamilyRemoveMemberPresenterTest {
 
 
         // remove member when is a primary care giver start fetch members for the change member dialog
-        client.setColumnmaps(new HashMap<String, String>());
+        client.setColumnmaps(new HashMap<>());
         client.getColumnmaps().put(DBConstants.KEY.BASE_ENTITY_ID, primaryCaregiver);
         presenter.removeMember(client);
 
@@ -75,7 +76,7 @@ public class FamilyRemoveMemberPresenterTest {
         CommonPersonObjectClient client = new CommonPersonObjectClient(null, null, null);
 
         // when the member is family head open change head dialog
-        client.setColumnmaps(new HashMap<String, String>());
+        client.setColumnmaps(new HashMap<>());
         client.getColumnmaps().put(DBConstants.KEY.BASE_ENTITY_ID, familyHead);
 
         presenter.processMember(familyDetails, client);

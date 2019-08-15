@@ -1,6 +1,6 @@
 package org.smartregister.chw.model;
 
-import org.smartregister.chw.util.ChildDBConstants;
+import org.smartregister.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.family.model.BaseFamilyProfileActivityModel;

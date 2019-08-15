@@ -13,9 +13,11 @@ import org.mockito.MockitoAnnotations;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
-import org.smartregister.chw.contract.NavigationContract;
-import org.smartregister.chw.interactor.NavigationInteractor;
-import org.smartregister.chw.model.NavigationModel;
+import org.smartregister.chw.core.contract.CoreApplication;
+import org.smartregister.chw.core.contract.NavigationContract;
+import org.smartregister.chw.core.interactor.NavigationInteractor;
+import org.smartregister.chw.core.model.NavigationModel;
+import org.smartregister.chw.core.presenter.NavigationPresenter;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -31,9 +33,13 @@ public class NavigationPresenterTest {
     @Mock
     NavigationInteractor interactor;
     @Mock
+    NavigationModel.Flavor modelFlavor;
+    @Mock
     private NavigationContract.View view;
     @Mock
     private NavigationPresenter presenter;
+    @Mock
+    private CoreApplication application;
 
     @Before
     public void setUp() throws Exception {
@@ -55,28 +61,28 @@ public class NavigationPresenterTest {
 
     @Test
     public void test_getNavigationView() {
-        NavigationContract.Presenter presenter = PowerMockito.spy(new NavigationPresenter(view));
+        NavigationContract.Presenter presenter = PowerMockito.spy(new NavigationPresenter(application, view, modelFlavor));
         assertNotNull(presenter.getNavigationView());
         assertEquals(view, presenter.getNavigationView());
     }
 
     @Test
     public void test_refreshLastSyncModifiesView() {
-        NavigationContract.Presenter presenter = PowerMockito.spy(new NavigationPresenter(view));
+        NavigationContract.Presenter presenter = PowerMockito.spy(new NavigationPresenter(application, view, modelFlavor));
         presenter.refreshLastSync();
         verify(view).refreshLastSync(interactor.getLastSync());
     }
 
     @Test
     public void test_displayCurrentUserUpdatesView() {
-        NavigationContract.Presenter presenter = PowerMockito.spy(new NavigationPresenter(view));
+        NavigationContract.Presenter presenter = PowerMockito.spy(new NavigationPresenter(application, view, modelFlavor));
         presenter.displayCurrentUser();
         verify(view).refreshCurrentUser(model.getCurrentUser());
     }
 
     @Test
     public void test_getOptionsRequestModel() {
-        NavigationContract.Presenter presenter = PowerMockito.spy(new NavigationPresenter(view));
+        NavigationContract.Presenter presenter = PowerMockito.spy(new NavigationPresenter(application, view, modelFlavor));
 
         presenter.getOptions();
         verify(model).getNavigationItems();
@@ -85,17 +91,17 @@ public class NavigationPresenterTest {
     @Test
     @Ignore // Needs a better implementation
     public void test_Sync() {
-        NavigationContract.Presenter presenter = PowerMockito.spy(new NavigationPresenter(view));
+        NavigationContract.Presenter presenter = PowerMockito.spy(new NavigationPresenter(application, view, modelFlavor));
         AppCompatActivity activity = Mockito.mock(AppCompatActivity.class);
 
         presenter.sync(activity);
-        verify(interactor).Sync();
+        verify(interactor).sync();
     }
 
 
     @Test
     public void test_refreshNavigationCount() {
-        NavigationContract.Presenter presenter = PowerMockito.spy(new NavigationPresenter(view));
+        NavigationContract.Presenter presenter = PowerMockito.spy(new NavigationPresenter(application, view, modelFlavor));
         AppCompatActivity activity = Mockito.mock(AppCompatActivity.class);
 
         presenter.refreshNavigationCount(activity);

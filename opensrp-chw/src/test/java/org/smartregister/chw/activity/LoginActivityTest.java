@@ -90,6 +90,13 @@ public class LoginActivityTest extends BaseActivityTest<LoginActivity> {
         assertActivityStarted(getActivity(), new FamilyRegisterActivity());
     }
 
+    private void assertActivityStarted(Activity currActivity, Activity nextActivity) {
+
+        Intent expectedIntent = new Intent(currActivity, nextActivity.getClass());
+        Intent actual = ShadowApplication.getInstance().getNextStartedActivity();
+        Assert.assertEquals(expectedIntent.getComponent(), actual.getComponent());
+    }
+
     @Test
     public void testGoToHomeWithRemoteTrue() {
 
@@ -100,13 +107,6 @@ public class LoginActivityTest extends BaseActivityTest<LoginActivity> {
         }
 
         assertActivityStarted(getActivity(), new FamilyRegisterActivity());
-    }
-
-    private void assertActivityStarted(Activity currActivity, Activity nextActivity) {
-
-        Intent expectedIntent = new Intent(currActivity, nextActivity.getClass());
-        Intent actual = ShadowApplication.getInstance().getNextStartedActivity();
-        Assert.assertEquals(expectedIntent.getComponent(), actual.getComponent());
     }
 
     @Test

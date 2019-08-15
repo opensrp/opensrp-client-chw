@@ -3,9 +3,9 @@ package org.smartregister.chw.interactor;
 import android.content.Context;
 
 import org.smartregister.chw.application.ChwApplication;
-import org.smartregister.chw.domain.HomeVisit;
-import org.smartregister.chw.util.HomeVisitServiceDataModel;
-import org.smartregister.chw.util.ServiceTask;
+import org.smartregister.chw.core.domain.HomeVisit;
+import org.smartregister.chw.core.domain.HomeVisitServiceDataModel;
+import org.smartregister.chw.core.utils.ServiceTask;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 
 import java.util.ArrayList;

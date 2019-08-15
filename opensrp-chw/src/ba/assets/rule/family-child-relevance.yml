@@ -53,4 +53,4 @@ description: early_bf_1hr below six month
 priority: 1
 condition: "helper.formatDate(step1_dob,'m') < 6"
 actions:
-- "isRelevant = true"
+  - "isRelevant = true"

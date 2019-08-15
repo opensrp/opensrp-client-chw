@@ -14,24 +14,10 @@
     <dimen name="copy_to_clipboard_message_text_size">14sp</dimen>
 
     <dimen name="login_font_size">14sp</dimen>
-    <dimen name="immunization_status_circle_size">30dp</dimen>
-    <dimen name="vaccine_text_top_margin">10dp</dimen>
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="appbar_padding_top">8dp</dimen>
-
-    <dimen name="remove_member_padding">25dp</dimen>
-    <dimen name="remove_member_text_size">17sp</dimen>
-
-    <dimen name="remove_member_prompt_top_padding">25dp</dimen>
-    <dimen name="remove_member_prompt_left_padding">15dp</dimen>
-    <dimen name="remove_member_prompt_margin">7dp</dimen>
-
-    <dimen name="change_dialog_text_size">20dp</dimen>
-    <dimen name="change_member_padding">8dp</dimen>
-    <dimen name="change_member_list_main">20sp</dimen>
-    <dimen name="change_member_list_details">16sp</dimen>
 
     <dimen name="tool_bar_size">55dp</dimen>
     <dimen name="tool_bar_title">20sp</dimen>
@@ -47,22 +33,8 @@
 
     <dimen name="dialog_toolbar_close_margin">10dp</dimen>
 
-    <dimen name="child_register_title_size">16sp</dimen>
-    <dimen name="child_register_list_desc_size">16sp</dimen>
-    <dimen name="child_register_list_item_width">120dp</dimen>
-    <dimen name="child_home_visit_right_margin">20dp</dimen>
-    <dimen name="child_home_visit_left_margin">10dp</dimen>
-    <dimen name="child_home_visit_title_text_size">20sp</dimen>
-
-    <dimen name="sync_time_padding_right">20dp</dimen>
-    <dimen name="sync_time_padding">15dp</dimen>
-
     <dimen name="member_profile_pic_width">70dp</dimen>
     <dimen name="member_profile_list_title_size">18sp</dimen>
     <dimen name="member_due_list_title_size">17.5sp</dimen>
-    <dimen name="px_16_to_sp">16dp</dimen>
-    <dimen name="px_15_to_sp">15dp</dimen>
-    <dimen name="px_20_to_sp">20dp</dimen>
-    <dimen name="px_14_to_sp">14dp</dimen>
 
 </resources>

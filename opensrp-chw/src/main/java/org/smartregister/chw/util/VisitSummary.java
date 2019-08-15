@@ -1,5 +1,7 @@
 package org.smartregister.chw.util;
 
+import org.smartregister.chw.core.model.ChildVisit;
+
 public class VisitSummary extends ChildVisit {
     private String noOfDaysDue;
 

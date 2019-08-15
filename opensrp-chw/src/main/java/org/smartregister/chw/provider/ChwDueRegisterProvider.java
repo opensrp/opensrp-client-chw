@@ -11,10 +11,10 @@ import org.apache.commons.lang3.StringUtils;
 import org.jeasy.rules.api.Rules;
 import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.chw.core.model.ChildVisit;
+import org.smartregister.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.interactor.ChildProfileInteractor;
-import org.smartregister.chw.util.ChildDBConstants;
 import org.smartregister.chw.util.ChildUtils;
-import org.smartregister.chw.util.ChildVisit;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
@@ -26,6 +26,7 @@ import org.smartregister.view.contract.SmartRegisterClient;
 
 import java.util.Set;
 
+import static org.smartregister.chw.core.utils.Utils.actualDaysBetweenDateAndNow;
 import static org.smartregister.family.util.Utils.getName;
 
 public class ChwDueRegisterProvider extends FamilyDueRegisterProvider {
@@ -74,7 +75,7 @@ public class ChwDueRegisterProvider extends FamilyDueRegisterProvider {
         String lastVisit = Utils.getValue(pc.getColumnmaps(), ChildDBConstants.KEY.LAST_HOME_VISIT, false);
         if (StringUtils.isNotBlank(lastVisit)) {
             // String lastVisitString = Utils.actualDuration(context, Utils.getDuration(lastVisit));
-            String lastVisitString = Utils.actualDaysBetweenDateAndNow(context, lastVisit);
+            String lastVisitString = actualDaysBetweenDateAndNow(context, lastVisit);
             viewHolder.lastVisit.setText(String.format(context.getString(R.string.last_visit_prefix), lastVisitString));
             viewHolder.lastVisit.setVisibility(View.VISIBLE);
         } else {

@@ -52,6 +52,19 @@ public class ChwPncRegisterProvider extends PncRegisterProvider {
         Utils.startAsyncTask(new UpdateAsyncTask(context, viewHolder, pc), null);
     }
 
+    private void updateDueColumn(Context context, RegisterViewHolder viewHolder, VisitSummary visitSummary) {
+        viewHolder.dueButton.setVisibility(View.VISIBLE);
+        if (visitSummary.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.DUE.name())) {
+            setVisitButtonDueStatus(context, visitSummary.getNoOfDaysDue(), viewHolder.dueButton);
+        } else if (visitSummary.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.OVERDUE.name())) {
+            setVisitButtonOverdueStatus(context, visitSummary.getNoOfDaysDue(), viewHolder.dueButton);
+        } else if (visitSummary.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.VISIT_THIS_MONTH.name())) {
+            setVisitAboveTwentyFourView(context, viewHolder.dueButton);
+        } else if (visitSummary.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.NOT_VISIT_THIS_MONTH.name())) {
+            setVisitNotDone(context, viewHolder.dueButton);
+        }
+    }
+
     private void setVisitButtonDueStatus(Context context, String visitDue, Button dueButton) {
         dueButton.setTextColor(context.getResources().getColor(R.color.alert_in_progress_blue));
         dueButton.setText(context.getString(R.string.pnc_visit_day_due, visitDue));
@@ -78,19 +91,6 @@ public class ChwPncRegisterProvider extends PncRegisterProvider {
         dueButton.setText(context.getString(R.string.visit_not_done));
         dueButton.setBackgroundColor(context.getResources().getColor(R.color.transparent));
         dueButton.setOnClickListener(null);
-    }
-
-    private void updateDueColumn(Context context, RegisterViewHolder viewHolder, VisitSummary visitSummary) {
-        viewHolder.dueButton.setVisibility(View.VISIBLE);
-        if (visitSummary.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.DUE.name())) {
-            setVisitButtonDueStatus(context, visitSummary.getNoOfDaysDue(), viewHolder.dueButton);
-        } else if (visitSummary.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.OVERDUE.name())) {
-            setVisitButtonOverdueStatus(context, visitSummary.getNoOfDaysDue(), viewHolder.dueButton);
-        } else if (visitSummary.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.VISIT_THIS_MONTH.name())) {
-            setVisitAboveTwentyFourView(context, viewHolder.dueButton);
-        } else if (visitSummary.getVisitStatus().equalsIgnoreCase(ChildProfileInteractor.VisitType.NOT_VISIT_THIS_MONTH.name())) {
-            setVisitNotDone(context, viewHolder.dueButton);
-        }
     }
 
     private class UpdateAsyncTask extends AsyncTask<Void, Void, Void> {

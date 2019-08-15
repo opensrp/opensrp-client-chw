@@ -22,6 +22,15 @@ public class GrowthAdapterTest extends BaseUnitTest {
 
     private Context context = RuntimeEnvironment.application;
 
+    @Test
+    public void testAddItemData() {
+        GrowthAdapter adapter = new GrowthAdapter();
+        int count = 10;
+        adapter.addItem(getSamples(count));
+
+        assertEquals(adapter.getItemCount(), count);
+    }
+
     private ArrayList<BaseService> getSamples(int count) {
         int x = 0;
         ArrayList<BaseService> contentList = new ArrayList<>();
@@ -30,15 +39,6 @@ public class GrowthAdapterTest extends BaseUnitTest {
             x++;
         }
         return contentList;
-    }
-
-    @Test
-    public void testAddItemData() {
-        GrowthAdapter adapter = new GrowthAdapter();
-        int count = 10;
-        adapter.addItem(getSamples(count));
-
-        assertEquals(adapter.getItemCount(), count);
     }
 
     @Test

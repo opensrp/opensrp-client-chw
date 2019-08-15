@@ -16,13 +16,13 @@ import org.smartregister.chw.activity.PncMemberProfileActivity;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.util.DBConstants;
 import org.smartregister.chw.application.ChwApplication;
-import org.smartregister.chw.custom_view.NavigationMenu;
+import org.smartregister.chw.core.custom_views.NavigationMenu;
+import org.smartregister.chw.core.utils.QueryBuilder;
 import org.smartregister.chw.model.PncRegisterFragmentModel;
 import org.smartregister.chw.pnc.fragment.BasePncRegisterFragment;
 import org.smartregister.chw.pnc.presenter.BasePncRegisterFragmentPresenter;
 import org.smartregister.chw.provider.ChwPncRegisterProvider;
 import org.smartregister.chw.util.Constants;
-import org.smartregister.chw.util.QueryBuilder;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
@@ -37,20 +37,79 @@ import java.util.Set;
 
 import timber.log.Timber;
 
+import static org.smartregister.chw.core.utils.Utils.convertDpToPixel;
+
 public class PncRegisterFragment extends BasePncRegisterFragment {
 
     private static final String DUE_FILTER_TAG = "PRESSED";
     private View view;
     private boolean dueFilterActive = false;
 
+    @Override
+    protected void onViewClicked(View view) {
+
+        if (view.getId() == R.id.due_only_layout) {
+            toggleFilterSelection(view);
+        } else {
+            super.onViewClicked(view);
+        }
+    }
+
+    private void toggleFilterSelection(View dueOnlyLayout) {
+        if (dueOnlyLayout != null) {
+            if (dueOnlyLayout.getTag() == null) {
+                dueFilterActive = true;
+                dueFilter(dueOnlyLayout);
+            } else if (dueOnlyLayout.getTag().toString().equals(DUE_FILTER_TAG)) {
+                dueFilterActive = false;
+                normalFilter(dueOnlyLayout);
+            }
+        }
+    }
+
+    private void dueFilter(View dueOnlyLayout) {
+        filter(searchText(), "", getCondition());
+        dueOnlyLayout.setTag(DUE_FILTER_TAG);
+        switchViews(dueOnlyLayout, true);
+    }
+
+    private void normalFilter(View dueOnlyLayout) {
+        filter(searchText(), "", getCondition());
+        dueOnlyLayout.setTag(null);
+        switchViews(dueOnlyLayout, false);
+    }
+
+    protected void filter(String filterString, String joinTableString, String mainConditionString) {
+        filters = filterString;
+        joinTable = joinTableString;
+        mainCondition = mainConditionString;
+        filterandSortExecute(countBundle());
+    }
+
+    private String searchText() {
+        return (getSearchView() == null) ? "" : getSearchView().getText().toString();
+    }
+
+    private String getCondition() {
+        return " " + Constants.TABLE_NAME.FAMILY_MEMBER + "." + DBConstants.KEY.DATE_REMOVED + " is null " +
+                "AND " + Constants.TABLE_NAME.ANC_PREGNANCY_OUTCOME + "." + DBConstants.KEY.IS_CLOSED + " is 0 ";
+    }
+
+    private void switchViews(View dueOnlyLayout, boolean isPress) {
+        TextView dueOnlyTextView = dueOnlyLayout.findViewById(R.id.due_only_text_view);
+        if (isPress) {
+            dueOnlyTextView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_due_filter_on, 0);
+        } else {
+            dueOnlyTextView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_due_filter_off, 0);
+        }
+    }
 
     @Override
-
-    protected void initializePresenter() {
-        if (getActivity() == null) {
-            return;
-        }
-        presenter = new BasePncRegisterFragmentPresenter(this, new PncRegisterFragmentModel(), null);
+    public void initializeAdapter(Set<org.smartregister.configurableviews.model.View> visibleColumns) {
+        ChwPncRegisterProvider provider = new ChwPncRegisterProvider(getActivity(), commonRepository(), visibleColumns, registerActionHandler, paginationViewHandler);
+        clientAdapter = new RecyclerViewPaginatedAdapter(null, provider, context().commonrepository(this.tablename));
+        clientAdapter.setCurrentlimit(20);
+        clientsView.setAdapter(clientAdapter);
     }
 
     @Override
@@ -73,7 +132,7 @@ public class PncRegisterFragment extends BasePncRegisterFragment {
         View searchBarLayout = view.findViewById(R.id.search_bar_layout);
         searchBarLayout.setLayoutParams(params);
         searchBarLayout.setBackgroundResource(R.color.chw_primary);
-        searchBarLayout.setPadding(searchBarLayout.getPaddingLeft(), searchBarLayout.getPaddingTop(), searchBarLayout.getPaddingRight(), (int) Utils.convertDpToPixel(10, getActivity()));
+        searchBarLayout.setPadding(searchBarLayout.getPaddingLeft(), searchBarLayout.getPaddingTop(), searchBarLayout.getPaddingRight(), (int) convertDpToPixel(10, getActivity()));
 
         CustomFontTextView titleView = view.findViewById(R.id.txt_title_label);
         if (titleView != null) {
@@ -106,80 +165,32 @@ public class PncRegisterFragment extends BasePncRegisterFragment {
     }
 
     @Override
-    protected void onViewClicked(View view) {
 
-        if (view.getId() == R.id.due_only_layout) {
-            toggleFilterSelection(view);
-        } else {
-            super.onViewClicked(view);
+    protected void initializePresenter() {
+        if (getActivity() == null) {
+            return;
         }
+        presenter = new BasePncRegisterFragmentPresenter(this, new PncRegisterFragmentModel(), null);
     }
-
-
-    private void toggleFilterSelection(View dueOnlyLayout) {
-        if (dueOnlyLayout != null) {
-            if (dueOnlyLayout.getTag() == null) {
-                dueFilterActive = true;
-                dueFilter(dueOnlyLayout);
-            } else if (dueOnlyLayout.getTag().toString().equals(DUE_FILTER_TAG)) {
-                dueFilterActive = false;
-                normalFilter(dueOnlyLayout);
-            }
-        }
-    }
-
-    protected void filter(String filterString, String joinTableString, String mainConditionString) {
-        filters = filterString;
-        joinTable = joinTableString;
-        mainCondition = mainConditionString;
-        filterandSortExecute(countBundle());
-    }
-
-    private String getCondition() {
-        return " " + Constants.TABLE_NAME.FAMILY_MEMBER + "." + DBConstants.KEY.DATE_REMOVED + " is null " +
-                "AND " + Constants.TABLE_NAME.ANC_PREGNANCY_OUTCOME + "." + DBConstants.KEY.IS_CLOSED + " is 0 ";
-    }
-
-    private void dueFilter(View dueOnlyLayout) {
-        filter(searchText(), "", getCondition());
-        dueOnlyLayout.setTag(DUE_FILTER_TAG);
-        switchViews(dueOnlyLayout, true);
-    }
-
-
-    private void normalFilter(View dueOnlyLayout) {
-        filter(searchText(), "", getCondition());
-        dueOnlyLayout.setTag(null);
-        switchViews(dueOnlyLayout, false);
-    }
-
-    private String searchText() {
-        return (getSearchView() == null) ? "" : getSearchView().getText().toString();
-    }
-
-
-    private String getDueCondition() {
-        return " ifnull(substr(delivery_date, 7, 4)||'-'||substr(delivery_date, 4, 2)||'-'||substr(delivery_date, 1, 2), '+2 day') < STRFTIME('%Y%m%d', datetime('now')) " +
-                " and julianday() - julianday(substr(delivery_date, 7, 4)||'-'||substr(delivery_date, 4, 2)||'-'||substr(delivery_date, 1, 2)) >= 2   ";
-    }
-
-
-    private void switchViews(View dueOnlyLayout, boolean isPress) {
-        TextView dueOnlyTextView = dueOnlyLayout.findViewById(R.id.due_only_text_view);
-        if (isPress) {
-            dueOnlyTextView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_due_filter_on, 0);
-        } else {
-            dueOnlyTextView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_due_filter_off, 0);
-        }
-    }
-
 
     @Override
-    public void initializeAdapter(Set<org.smartregister.configurableviews.model.View> visibleColumns) {
-        ChwPncRegisterProvider provider = new ChwPncRegisterProvider(getActivity(), commonRepository(), visibleColumns, registerActionHandler, paginationViewHandler);
-        clientAdapter = new RecyclerViewPaginatedAdapter(null, provider, context().commonrepository(this.tablename));
-        clientAdapter.setCurrentlimit(20);
-        clientsView.setAdapter(clientAdapter);
+    protected void openProfile(CommonPersonObjectClient client) {
+
+        HashMap<String, String> detailsMap = ChwApplication.ancRegisterRepository().getFamilyNameAndPhone(Utils.getValue(client.getColumnmaps(), org.smartregister.family.util.DBConstants.KEY.FAMILY_HEAD, false));
+
+        String familyName = "";
+        String familyHeadPhone = "";
+        if (detailsMap != null) {
+            familyName = detailsMap.get(org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.FAMILY_HEAD_NAME);
+            familyHeadPhone = detailsMap.get(org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.FAMILY_HEAD_PHONE);
+        }
+
+        PncMemberProfileActivity.startMe(getActivity(), new MemberObject(client), familyName, familyHeadPhone);
+    }
+
+    @Override
+    protected void openHomeVisit(CommonPersonObjectClient client) {
+        PncHomeVisitActivity.startMe(getActivity(), new MemberObject(client), false);
     }
 
     @Override
@@ -202,7 +213,13 @@ public class PncRegisterFragment extends BasePncRegisterFragment {
         if (syncButton != null) {
             syncButton.setVisibility(View.GONE);
         }
+    }    private String getDueCondition() {
+        return " ifnull(substr(delivery_date, 7, 4)||'-'||substr(delivery_date, 4, 2)||'-'||substr(delivery_date, 1, 2), '+2 day') < STRFTIME('%Y%m%d', datetime('now')) " +
+                " and julianday() - julianday(substr(delivery_date, 7, 4)||'-'||substr(delivery_date, 4, 2)||'-'||substr(delivery_date, 1, 2)) >= 2   ";
     }
+
+
+
 
     private String defaultFilterAndSortQuery() {
         SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder(mainSelect);
@@ -299,23 +316,5 @@ public class PncRegisterFragment extends BasePncRegisterFragment {
 
     }
 
-    @Override
-    protected void openHomeVisit(CommonPersonObjectClient client) {
-        PncHomeVisitActivity.startMe(getActivity(), new MemberObject(client), false);
-    }
 
-    @Override
-    protected void openProfile(CommonPersonObjectClient client) {
-
-        HashMap<String, String> detailsMap = ChwApplication.ancRegisterRepository().getFamilyNameAndPhone(Utils.getValue(client.getColumnmaps(), org.smartregister.family.util.DBConstants.KEY.FAMILY_HEAD, false));
-
-        String familyName = "";
-        String familyHeadPhone = "";
-        if (detailsMap != null) {
-            familyName = detailsMap.get(org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.FAMILY_HEAD_NAME);
-            familyHeadPhone = detailsMap.get(org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.FAMILY_HEAD_PHONE);
-        }
-
-        PncMemberProfileActivity.startMe(getActivity(), new MemberObject(client), familyName, familyHeadPhone);
-    }
 }

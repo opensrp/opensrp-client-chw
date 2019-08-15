@@ -6,20 +6,21 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.powermock.reflect.Whitebox;
-import org.smartregister.chw.contract.FamilyChangeContract;
-import org.smartregister.chw.domain.FamilyMember;
-import org.smartregister.chw.interactor.FamilyChangeContractInteractor;
-import org.smartregister.chw.model.FamilyChangeContractModel;
+import org.smartregister.chw.core.contract.FamilyChangeContract;
+import org.smartregister.chw.core.domain.FamilyMember;
+import org.smartregister.chw.core.interactor.CoreFamilyChangeContractInteractor;
+import org.smartregister.chw.core.model.FamilyChangeContractModel;
+import org.smartregister.chw.core.presenter.CoreFamilyChangePresenter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class FamilyChangePresenterTest {
 
-    private FamilyChangePresenter presenter;
+    private CoreFamilyChangePresenter presenter;
 
     @Mock
-    private FamilyChangeContractInteractor interactor;
+    private CoreFamilyChangeContractInteractor interactor;
 
     @Mock
     private FamilyChangeContractModel model;
