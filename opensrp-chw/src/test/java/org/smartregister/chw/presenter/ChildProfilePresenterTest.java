@@ -2,6 +2,8 @@ package org.smartregister.chw.presenter;
 
 import android.content.Context;
 
+import com.opensrp.chw.core.contract.CoreChildProfileContract;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -9,7 +11,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.smartregister.chw.BaseUnitTest;
-import org.smartregister.chw.contract.ChildProfileContract;
 import org.smartregister.chw.interactor.ChildProfileInteractor;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 
@@ -19,11 +20,11 @@ public class ChildProfilePresenterTest extends BaseUnitTest {
 
     private static final String testBaseEntityId = UUID.randomUUID().toString();
     @Mock
-    private ChildProfileContract.Presenter childProfilePresenter;
+    private CoreChildProfileContract.Presenter childProfilePresenter;
     @Mock
-    private ChildProfileContract.View childProfileView;
+    private CoreChildProfileContract.View childProfileView;
     @Mock
-    private ChildProfileContract.Model childProfileModel;
+    private CoreChildProfileContract.Model childProfileModel;
 
     @Mock
     private CommonPersonObjectClient personObjectClient;
@@ -46,13 +47,13 @@ public class ChildProfilePresenterTest extends BaseUnitTest {
 
     @Test
     public void testThatModelWasInitialized() {
-        ChildProfileContract.Model model = ((ChildProfilePresenter) childProfilePresenter).getModel();
+        CoreChildProfileContract.Model model = ((ChildProfilePresenter) childProfilePresenter).getModel();
         Assert.assertNotNull(model);
     }
 
     @Test
     public void testThatViewlWasInitialized() {
-        ChildProfileContract.View view = childProfilePresenter.getView();
+        CoreChildProfileContract.View view = childProfilePresenter.getView();
         Assert.assertNotNull(view);
     }
 

@@ -55,7 +55,7 @@ public class NavigationListener implements View.OnClickListener {
         }
     }
 
-    protected void startRegisterActivity(Class registerClass) {
+    public void startRegisterActivity(Class registerClass) {
         Intent intent = new Intent(activity, registerClass);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         activity.startActivity(intent);

@@ -2,6 +2,9 @@ package org.smartregister.chw.interactor;
 
 import android.content.Context;
 import android.content.res.AssetManager;
+import android.os.Handler;
+import android.os.Looper;
+import android.support.annotation.NonNull;
 
 import org.apache.commons.io.IOUtils;
 import org.junit.Before;
@@ -19,6 +22,7 @@ import org.powermock.reflect.Whitebox;
 import org.smartregister.chw.activity.FamilyProfileActivity;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.presenter.FamilyProfilePresenter;
+import org.smartregister.chw.util.Constants;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.family.activity.FamilyWizardFormActivity;
@@ -53,6 +57,9 @@ public class FamilyProfileInteractorTest {
     @Mock
     private AssetManager assetManager;
 
+    @Mock
+    private AppExecutors appExecutors;
+
     @Before
     public void setUp() throws IOException {
         MockitoAnnotations.initMocks(this);
@@ -80,6 +87,12 @@ public class FamilyProfileInteractorTest {
 
         InputStream inputStream = IOUtils.toInputStream(sampleJson);
         Mockito.when(assetManager.open(Mockito.anyString())).thenReturn(inputStream);
+
+        Mockito.when(appExecutors.diskIO());
+        Executor main = new MainThreadExecutor();
+        Mockito.doReturn(main).when(appExecutors).diskIO();
+        Mockito.doReturn(main).when(appExecutors).mainThread();
+        Mockito.doReturn(main).when(appExecutors).networkIO();
 
         AppExecutors appExecutors = Mockito.spy(AppExecutors.class);
         Executor executor = Mockito.mock(Executor.class);
@@ -129,6 +142,8 @@ public class FamilyProfileInteractorTest {
     public void testVerifyHasPhone() {
 
         String familyID = "12345";
+
+        Whitebox.setInternalState(interactor, "appExecutors", appExecutors);
         interactor.verifyHasPhone(familyID, profilePresenter);
         // verify that calls are sent to the database
 
@@ -144,5 +159,17 @@ public class FamilyProfileInteractorTest {
         metadata.updateFamilyActivityRegister(Constants.TABLE_NAME.CHILD_ACTIVITY, Integer.MAX_VALUE, false);
         metadata.updateFamilyOtherMemberRegister(Constants.TABLE_NAME.FAMILY_MEMBER, Integer.MAX_VALUE, false);
         return metadata;
+    }
+
+    private static class MainThreadExecutor implements Executor {
+        private Handler mainThreadHandler;
+
+        private MainThreadExecutor() {
+            this.mainThreadHandler = new Handler(Looper.getMainLooper());
+        }
+
+        public void execute(@NonNull Runnable command) {
+            this.mainThreadHandler.post(command);
+        }
     }
 }

@@ -5,6 +5,7 @@ import android.content.Intent;
 import com.opensrp.chw.core.activity.CoreFamilyProfileMenuActivity;
 
 import org.smartregister.chw.BaseActivityTest;
+import org.smartregister.chw.util.Constants;
 
 public class CoreFamilyProfileMenuActivityTest extends BaseActivityTest<CoreFamilyProfileMenuActivity> {
     @Override

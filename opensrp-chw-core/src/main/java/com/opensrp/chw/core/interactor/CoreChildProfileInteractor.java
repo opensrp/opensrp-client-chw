@@ -83,6 +83,10 @@ public class CoreChildProfileInteractor implements CoreChildProfileContract.Inte
         return pClient;
     }
 
+    public void setpClient(CommonPersonObjectClient pClient) {
+        this.pClient = pClient;
+    }
+
     public Map<String, Date> getVaccineList() {
         return vaccineList;
     }
