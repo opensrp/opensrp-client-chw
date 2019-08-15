@@ -46,6 +46,14 @@ public class AncRegisterFragment extends BaseAncRegisterFragment {
     private boolean dueFilterActive = false;
 
     @Override
+    public void initializeAdapter(Set<org.smartregister.configurableviews.model.View> visibleColumns) {
+        ChwAncRegisterProvider provider = new ChwAncRegisterProvider(getActivity(), commonRepository(), visibleColumns, registerActionHandler, paginationViewHandler);
+        clientAdapter = new RecyclerViewPaginatedAdapter(null, provider, context().commonrepository(this.tablename));
+        clientAdapter.setCurrentlimit(20);
+        clientsView.setAdapter(clientAdapter);
+    }
+
+    @Override
     public void setupViews(View view) {
         super.setupViews(view);
         this.view = view;
@@ -98,11 +106,16 @@ public class AncRegisterFragment extends BaseAncRegisterFragment {
     }
 
     @Override
-    public void initializeAdapter(Set<org.smartregister.configurableviews.model.View> visibleColumns) {
-        ChwAncRegisterProvider provider = new ChwAncRegisterProvider(getActivity(), commonRepository(), visibleColumns, registerActionHandler, paginationViewHandler);
-        clientAdapter = new RecyclerViewPaginatedAdapter(null, provider, context().commonrepository(this.tablename));
-        clientAdapter.setCurrentlimit(20);
-        clientsView.setAdapter(clientAdapter);
+    protected void initializePresenter() {
+        if (getActivity() == null) {
+            return;
+        }
+        presenter = new AncRegisterFragmentPresenter(this, new AncRegisterFragmentModel(), null);
+    }
+
+    @Override
+    protected String getMainCondition() {
+        return presenter().getMainCondition();
     }
 
     @Override
@@ -127,13 +140,6 @@ public class AncRegisterFragment extends BaseAncRegisterFragment {
         }
     }
 
-    protected void filter(String filterString, String joinTableString, String mainConditionString) {
-        filters = filterString;
-        joinTable = joinTableString;
-        mainCondition = mainConditionString;
-        filterandSortExecute(countBundle());
-    }
-
     private void dueFilter(View dueOnlyLayout) {
         filter(searchText(), "", presenter().getDueFilterCondition());
         dueOnlyLayout.setTag(DUE_FILTER_TAG);
@@ -146,13 +152,24 @@ public class AncRegisterFragment extends BaseAncRegisterFragment {
         switchViews(dueOnlyLayout, false);
     }
 
+    protected void filter(String filterString, String joinTableString, String mainConditionString) {
+        filters = filterString;
+        joinTable = joinTableString;
+        mainCondition = mainConditionString;
+        filterandSortExecute(countBundle());
+    }
+
     private String searchText() {
         return (getSearchView() == null) ? "" : getSearchView().getText().toString();
     }
 
-    @Override
-    protected void openHomeVisit(CommonPersonObjectClient client) {
-        AncHomeVisitActivity.startMe(getActivity(), new MemberObject(client), false);
+    private void switchViews(View dueOnlyLayout, boolean isPress) {
+        TextView dueOnlyTextView = dueOnlyLayout.findViewById(R.id.due_only_text_view);
+        if (isPress) {
+            dueOnlyTextView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_due_filter_on, 0);
+        } else {
+            dueOnlyTextView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_due_filter_off, 0);
+        }
     }
 
     @Override
@@ -170,15 +187,10 @@ public class AncRegisterFragment extends BaseAncRegisterFragment {
         AncMemberProfileActivity.startMe(getActivity(), new MemberObject(client), familyName, familyHeadPhone);
     }
 
-    private void switchViews(View dueOnlyLayout, boolean isPress) {
-        TextView dueOnlyTextView = dueOnlyLayout.findViewById(R.id.due_only_text_view);
-        if (isPress) {
-            dueOnlyTextView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_due_filter_on, 0);
-        } else {
-            dueOnlyTextView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_due_filter_off, 0);
-        }
+    @Override
+    protected void openHomeVisit(CommonPersonObjectClient client) {
+        AncHomeVisitActivity.startMe(getActivity(), new MemberObject(client), false);
     }
-
 
     @Override
     public void onResume() {
@@ -190,14 +202,6 @@ public class AncRegisterFragment extends BaseAncRegisterFragment {
         toolbar.setContentInsetStartWithNavigation(0);
 
         NavigationMenu.getInstance(getActivity(), null, toolbar);
-    }
-
-    @Override
-    protected void initializePresenter() {
-        if (getActivity() == null) {
-            return;
-        }
-        presenter = new AncRegisterFragmentPresenter(this, new AncRegisterFragmentModel(), null);
     }
 
     @Override
@@ -266,10 +270,6 @@ public class AncRegisterFragment extends BaseAncRegisterFragment {
         return super.onCreateLoader(id, args);
     }
 
-    @Override
-    protected String getMainCondition() {
-        return presenter().getMainCondition();
-    }
 
     @Override
     public void countExecute() {

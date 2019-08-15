@@ -15,19 +15,6 @@ public class FamilyMemberFloatingMenu extends CoreFamilyMemberFloatingMenu {
         initUi();
     }
 
-    public FamilyMemberFloatingMenu(Context context, AttributeSet attrs) {
-        super(context, attrs);
-    }
-
-    public FamilyMemberFloatingMenu(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-        initUi();
-    }
-
-    public void reDraw(boolean has_phone) {
-        flavor.reDraw(this, has_phone);
-    }
-
     @Override
     public void initUi() {
         flavor = new FamilyMemberFloatingMenuFlv();
@@ -39,6 +26,19 @@ public class FamilyMemberFloatingMenu extends CoreFamilyMemberFloatingMenu {
     public void onClick(View v) {
         onClickFloatingMenu.onClickMenu(v.getId());
         flavor.fabInteraction(this);
+    }
+
+    public FamilyMemberFloatingMenu(Context context, AttributeSet attrs) {
+        super(context, attrs);
+    }
+
+    public FamilyMemberFloatingMenu(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        initUi();
+    }
+
+    public void reDraw(boolean has_phone) {
+        flavor.reDraw(this, has_phone);
     }
 
     interface Flavor {

@@ -53,6 +53,11 @@ public class FamilyOtherMemberActivityPresenter extends BaseFamilyOtherMemberPro
         initializeServiceStatus();
     }
 
+    @Override
+    public void verifyHasPhone() {
+        ((FamilyProfileInteractor) profileInteractor).verifyHasPhone(familyBaseEntityId, this);
+    }
+
     private void initializeServiceStatus() {
         FamilyInteractor familyInteractor = new FamilyInteractor();
         familyInteractor.updateFamilyDueStatus(viewReference.get().getContext(), "", familyBaseEntityId)
@@ -81,6 +86,40 @@ public class FamilyOtherMemberActivityPresenter extends BaseFamilyOtherMemberPro
                 });
     }
 
+    public FamilyOtherMemberProfileExtendedContract.View getView() {
+        if (viewReference != null) {
+            return viewReference.get();
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public void refreshProfileTopSection(CommonPersonObjectClient client) {
+        super.refreshProfileTopSection(client);
+        if (client != null && client.getColumnmaps() != null) {
+            String firstName = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.FIRST_NAME, true);
+            String middleName = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.MIDDLE_NAME, true);
+            String lastName = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.LAST_NAME, true);
+
+            String dob = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.DOB, true);
+            int age = StringUtils.isNotBlank(dob) ? Utils.getAgeFromDate(dob) : 0;
+
+            this.getView().setProfileName(MessageFormat.format("{0}, {1}", getName(getName(firstName, middleName), lastName), age));
+            String gestationAge = ChwApplication.ancRegisterRepository().getGaIfAncWoman(client.getCaseId());
+            if (gestationAge != null) {
+                this.getView().setProfileDetailOne(Util.gestationAgeString(gestationAge, viewReference.get().getContext(), true));
+            }
+        }
+    }
+
+    @Override
+    public void notifyHasPhone(boolean hasPhone) {
+        if (viewReference.get() != null) {
+            viewReference.get().updateHasPhone(hasPhone);
+        }
+    }
+
     public String getFamilyBaseEntityId() {
         return familyBaseEntityId;
     }
@@ -106,22 +145,11 @@ public class FamilyOtherMemberActivityPresenter extends BaseFamilyOtherMemberPro
     }
 
     @Override
-    public void refreshProfileTopSection(CommonPersonObjectClient client) {
-        super.refreshProfileTopSection(client);
-        if (client != null && client.getColumnmaps() != null) {
-            String firstName = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.FIRST_NAME, true);
-            String middleName = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.MIDDLE_NAME, true);
-            String lastName = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.LAST_NAME, true);
-
-            String dob = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.DOB, true);
-            int age = StringUtils.isNotBlank(dob) ? Utils.getAgeFromDate(dob) : 0;
-
-            this.getView().setProfileName(MessageFormat.format("{0}, {1}", getName(getName(firstName, middleName), lastName), age));
-            String gestationAge = ChwApplication.ancRegisterRepository().getGaIfAncWoman(client.getCaseId());
-            if (gestationAge != null) {
-                this.getView().setProfileDetailOne(Util.gestationAgeString(gestationAge, viewReference.get().getContext(), true));
-            }
+    public void updateFamilyMemberServiceDue(String serviceDueStatus) {
+        if (getView() != null) {
+            getView().setFamilyServiceStatus(serviceDueStatus);
         }
+
     }
 
     public void startFormForEdit(CommonPersonObjectClient commonPersonObject) {
@@ -148,33 +176,5 @@ public class FamilyOtherMemberActivityPresenter extends BaseFamilyOtherMemberPro
 
             getView().refreshList();
         }
-    }
-
-    @Override
-    public void verifyHasPhone() {
-        ((FamilyProfileInteractor) profileInteractor).verifyHasPhone(familyBaseEntityId, this);
-    }
-
-    public FamilyOtherMemberProfileExtendedContract.View getView() {
-        if (viewReference != null) {
-            return viewReference.get();
-        } else {
-            return null;
-        }
-    }
-
-    @Override
-    public void notifyHasPhone(boolean hasPhone) {
-        if (viewReference.get() != null) {
-            viewReference.get().updateHasPhone(hasPhone);
-        }
-    }
-
-    @Override
-    public void updateFamilyMemberServiceDue(String serviceDueStatus) {
-        if (getView() != null) {
-            getView().setFamilyServiceStatus(serviceDueStatus);
-        }
-
     }
 }

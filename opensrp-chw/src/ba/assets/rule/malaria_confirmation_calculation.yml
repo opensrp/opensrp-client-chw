@@ -20,4 +20,4 @@ description: client has malaria
 priority: 1
 condition: "step1_malaria_results.contains('Positive') || step1_fever_malaria_chw.contains('Tested positive for malaria in the last 14 days in a health facility')"
 actions:
-- "calculation = 1"
+  - "calculation = 1"

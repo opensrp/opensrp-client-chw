@@ -105,6 +105,11 @@ public class FamilyActivityRegisterProvider extends org.smartregister.family.pro
         attachPatientOnclickListener(patient, client);
     }
 
+    private void populateIdentifierColumn(CommonPersonObjectClient pc, RegisterViewHolder viewHolder) {
+        String uniqueId = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.UNIQUE_ID, false);
+        //fillValue(viewHolder.ancId, String.format(context.getString(R.string.unique_id_text), uniqueId));
+    }
+
     private long parseLong(String string) {
         long res = 0l;
         try {
@@ -113,11 +118,6 @@ public class FamilyActivityRegisterProvider extends org.smartregister.family.pro
 
         }
         return res;
-    }
-
-    private void populateIdentifierColumn(CommonPersonObjectClient pc, RegisterViewHolder viewHolder) {
-        String uniqueId = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.UNIQUE_ID, false);
-        //fillValue(viewHolder.ancId, String.format(context.getString(R.string.unique_id_text), uniqueId));
     }
 
     private void attachPatientOnclickListener(View view, SmartRegisterClient client) {

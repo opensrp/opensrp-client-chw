@@ -120,6 +120,19 @@ public class JsonFormUtils extends CoreJsonFormUtils {
         return false;
     }
 
+    public static Event tagSyncMetadata(AllSharedPreferences allSharedPreferences, Event event) {
+        String providerId = allSharedPreferences.fetchRegisteredANM();
+        event.setProviderId(providerId);
+        event.setLocationId(locationId(allSharedPreferences));
+        event.setChildLocationId(allSharedPreferences.fetchCurrentLocality());
+        event.setTeam(allSharedPreferences.fetchDefaultTeam(providerId));
+        event.setTeamId(allSharedPreferences.fetchDefaultTeamId(providerId));
+
+        event.setClientApplicationVersion(FamilyLibrary.getInstance().getApplicationVersion());
+        event.setClientDatabaseVersion(FamilyLibrary.getInstance().getDatabaseVersion());
+
+        return event;
+    }
 
     public static Pair<Client, Event> processChildRegistrationForm(AllSharedPreferences allSharedPreferences, String jsonString) {
 
@@ -180,6 +193,15 @@ public class JsonFormUtils extends CoreJsonFormUtils {
         }
     }
 
+    protected static Triple<Boolean, JSONObject, JSONArray> validateParameters(String jsonString) {
+
+        JSONObject jsonForm = toJSONObject(jsonString);
+        JSONArray fields = fields(jsonForm);
+
+        Triple<Boolean, JSONObject, JSONArray> registrationFormParams = Triple.of(jsonForm != null && fields != null, jsonForm, fields);
+        return registrationFormParams;
+    }
+
     private static void processChildEnrollMent(JSONObject jsonForm, JSONArray fields) {
 
         try {
@@ -230,11 +252,6 @@ public class JsonFormUtils extends CoreJsonFormUtils {
             e.printStackTrace();
         }
         return value;
-    }
-
-
-    public static JSONObject getAutoPopulatedJsonEditMemberFormString(String title, String formName, Context context, CommonPersonObjectClient client, String eventType, String familyName, boolean isPrimaryCaregiver) {
-        return flavor.getAutoJsonEditMemberFormString(title, formName, context, client, eventType, familyName, isPrimaryCaregiver);
     }
 
     protected static void processPopulatableFields(CommonPersonObjectClient client, JSONObject jsonObject) throws JSONException {
@@ -385,29 +402,6 @@ public class JsonFormUtils extends CoreJsonFormUtils {
 
     }
 
-    protected static Triple<Boolean, JSONObject, JSONArray> validateParameters(String jsonString) {
-
-        JSONObject jsonForm = toJSONObject(jsonString);
-        JSONArray fields = fields(jsonForm);
-
-        Triple<Boolean, JSONObject, JSONArray> registrationFormParams = Triple.of(jsonForm != null && fields != null, jsonForm, fields);
-        return registrationFormParams;
-    }
-
-    public static Event tagSyncMetadata(AllSharedPreferences allSharedPreferences, Event event) {
-        String providerId = allSharedPreferences.fetchRegisteredANM();
-        event.setProviderId(providerId);
-        event.setLocationId(locationId(allSharedPreferences));
-        event.setChildLocationId(allSharedPreferences.fetchCurrentLocality());
-        event.setTeam(allSharedPreferences.fetchDefaultTeam(providerId));
-        event.setTeamId(allSharedPreferences.fetchDefaultTeamId(providerId));
-
-        event.setClientApplicationVersion(FamilyLibrary.getInstance().getApplicationVersion());
-        event.setClientDatabaseVersion(FamilyLibrary.getInstance().getDatabaseVersion());
-
-        return event;
-    }
-
     public static Vaccine tagSyncMetadata(AllSharedPreferences allSharedPreferences, Vaccine vaccine) {
         String providerId = allSharedPreferences.fetchRegisteredANM();
         vaccine.setAnmId(providerId);
@@ -531,15 +525,6 @@ public class JsonFormUtils extends CoreJsonFormUtils {
         return member;
     }
 
-    public static String getTimeZone() {
-        Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("GMT"),
-                Locale.getDefault());
-        Date currentLocalTime = calendar.getTime();
-        DateFormat date = new SimpleDateFormat("Z");
-        String localTime = date.format(currentLocalTime);
-        return localTime.substring(0, 3) + ":" + localTime.substring(3, 5);
-    }
-
     public static Pair<List<Client>, List<Event>> processFamilyUpdateRelations(Context context, FamilyMember familyMember, String lastLocationId) throws Exception {
         List<Client> clients = new ArrayList<>();
         List<Event> events = new ArrayList<>();
@@ -610,6 +595,15 @@ public class JsonFormUtils extends CoreJsonFormUtils {
         return Pair.create(clients, events);
     }
 
+    public static String getTimeZone() {
+        Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("GMT"),
+                Locale.getDefault());
+        Date currentLocalTime = calendar.getTime();
+        DateFormat date = new SimpleDateFormat("Z");
+        String localTime = date.format(currentLocalTime);
+        return localTime.substring(0, 3) + ":" + localTime.substring(3, 5);
+    }
+
     /**
      * Returns a value from json form field
      *
@@ -675,27 +669,36 @@ public class JsonFormUtils extends CoreJsonFormUtils {
         return "";
     }
 
-    private static Event getEditAncLatestProperties(String baseEntityID) {
+    public static JSONObject getJson(String formName, String baseEntityID) throws Exception {
+        String locationId = ChwApplication.getInstance().getContext().allSharedPreferences().getPreference(AllConstants.CURRENT_LOCATION_ID);
+        JSONObject jsonObject = org.smartregister.chw.anc.util.JsonFormUtils.getFormAsJson(formName);
+        org.smartregister.chw.anc.util.JsonFormUtils.getRegistrationForm(jsonObject, baseEntityID, locationId);
+        return jsonObject;
+    }
 
-        Event ecEvent = null;
+    public static JSONObject getAncPncForm(Integer title_resource, String formName, MemberObject memberObject, Context context) {
+        JSONObject form = null;
 
-        String query_event = String.format("select json from event where baseEntityId = '%s' and eventType in ('%s','%s') order by updatedAt desc limit 1;",
-                baseEntityID, CoreConstants.EventType.UPDATE_ANC_REGISTRATION, CoreConstants.EventType.ANC_REGISTRATION);
+        CommonRepository commonRepository = org.smartregister.chw.util.Utils.context().commonrepository(org.smartregister.chw.util.Utils.metadata().familyMemberRegister.tableName);
+        CommonPersonObject personObject = commonRepository.findByBaseEntityId(memberObject.getBaseEntityId());
+        CommonPersonObjectClient client = new CommonPersonObjectClient(personObject.getCaseId(), personObject.getDetails(), "");
+        client.setColumnmaps(personObject.getColumnmaps());
 
-        Cursor cursor = ChwApplication.getInstance().getRepository().getReadableDatabase().rawQuery(query_event, new String[]{});
-        try {
-            cursor.moveToFirst();
-
-            while (!cursor.isAfterLast()) {
-                ecEvent = jsonStringToJava(cursor.getString(0), Event.class);
-                cursor.moveToNext();
-            }
-        } catch (Exception e) {
-            Timber.e(e, e.toString());
-        } finally {
-            cursor.close();
+        if (formName.equals(org.smartregister.chw.util.Constants.JSON_FORM.getFamilyMemberRegister())) {
+            form = org.smartregister.chw.util.JsonFormUtils.getAutoPopulatedJsonEditMemberFormString(
+                    (title_resource != null) ? context.getResources().getString(title_resource) : null,
+                    org.smartregister.chw.util.Constants.JSON_FORM.getFamilyMemberRegister(),
+                    context, client, org.smartregister.chw.util.Utils.metadata().familyMemberRegister.updateEventType, memberObject.getFamilyName(), false);
+        } else if (formName.equals(org.smartregister.chw.util.Constants.JSON_FORM.getAncRegistration())) {
+            form = org.smartregister.chw.util.JsonFormUtils.getAutoJsonEditAncFormString(
+                    memberObject.getBaseEntityId(), context, formName, org.smartregister.chw.util.Constants.EventType.UPDATE_ANC_REGISTRATION, context.getResources().getString(title_resource));
         }
-        return ecEvent;
+        return form;
+
+    }
+
+    public static JSONObject getAutoPopulatedJsonEditMemberFormString(String title, String formName, Context context, CommonPersonObjectClient client, String eventType, String familyName, boolean isPrimaryCaregiver) {
+        return flavor.getAutoJsonEditMemberFormString(title, formName, context, client, eventType, familyName, isPrimaryCaregiver);
     }
 
     public static JSONObject getAutoJsonEditAncFormString(String baseEntityID, Context context, String formName, String eventType, String title) {
@@ -741,32 +744,27 @@ public class JsonFormUtils extends CoreJsonFormUtils {
         return null;
     }
 
-    public static JSONObject getJson(String formName, String baseEntityID) throws Exception {
-        String locationId = ChwApplication.getInstance().getContext().allSharedPreferences().getPreference(AllConstants.CURRENT_LOCATION_ID);
-        JSONObject jsonObject = org.smartregister.chw.anc.util.JsonFormUtils.getFormAsJson(formName);
-        org.smartregister.chw.anc.util.JsonFormUtils.getRegistrationForm(jsonObject, baseEntityID, locationId);
-        return jsonObject;
-    }
+    private static Event getEditAncLatestProperties(String baseEntityID) {
 
-    public static JSONObject getAncPncForm(Integer title_resource, String formName, MemberObject memberObject, Context context) {
-        JSONObject form = null;
+        Event ecEvent = null;
 
-        CommonRepository commonRepository = org.smartregister.chw.util.Utils.context().commonrepository(org.smartregister.chw.util.Utils.metadata().familyMemberRegister.tableName);
-        CommonPersonObject personObject = commonRepository.findByBaseEntityId(memberObject.getBaseEntityId());
-        CommonPersonObjectClient client = new CommonPersonObjectClient(personObject.getCaseId(), personObject.getDetails(), "");
-        client.setColumnmaps(personObject.getColumnmaps());
+        String query_event = String.format("select json from event where baseEntityId = '%s' and eventType in ('%s','%s') order by updatedAt desc limit 1;",
+                baseEntityID, CoreConstants.EventType.UPDATE_ANC_REGISTRATION, CoreConstants.EventType.ANC_REGISTRATION);
 
-        if (formName.equals(org.smartregister.chw.util.Constants.JSON_FORM.getFamilyMemberRegister())) {
-            form = org.smartregister.chw.util.JsonFormUtils.getAutoPopulatedJsonEditMemberFormString(
-                    (title_resource != null) ? context.getResources().getString(title_resource) : null,
-                    org.smartregister.chw.util.Constants.JSON_FORM.getFamilyMemberRegister(),
-                    context, client, org.smartregister.chw.util.Utils.metadata().familyMemberRegister.updateEventType, memberObject.getFamilyName(), false);
-        } else if (formName.equals(org.smartregister.chw.util.Constants.JSON_FORM.getAncRegistration())) {
-            form = org.smartregister.chw.util.JsonFormUtils.getAutoJsonEditAncFormString(
-                    memberObject.getBaseEntityId(), context, formName, org.smartregister.chw.util.Constants.EventType.UPDATE_ANC_REGISTRATION, context.getResources().getString(title_resource));
+        Cursor cursor = ChwApplication.getInstance().getRepository().getReadableDatabase().rawQuery(query_event, new String[]{});
+        try {
+            cursor.moveToFirst();
+
+            while (!cursor.isAfterLast()) {
+                ecEvent = jsonStringToJava(cursor.getString(0), Event.class);
+                cursor.moveToNext();
+            }
+        } catch (Exception e) {
+            Timber.e(e, e.toString());
+        } finally {
+            cursor.close();
         }
-        return form;
-
+        return ecEvent;
     }
 
     public static Intent getAncPncStartFormIntent(JSONObject jsonForm, Context context) {

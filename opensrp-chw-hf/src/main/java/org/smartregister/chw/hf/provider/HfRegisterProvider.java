@@ -20,25 +20,28 @@ public class HfRegisterProvider extends CoreRegisterProvider {
         super(context, commonRepository, visibleColumns, onClickListener, paginationClickListener);
     }
 
-    private void hideFamilyServiceButton(RegisterViewHolder viewHolder) {
-        viewHolder.dueButton.setVisibility(View.GONE);
-        viewHolder.dueWrapper.setVisibility(View.GONE);
-    }
-
     @Override
     public void getView(Cursor cursor, SmartRegisterClient client, RegisterViewHolder viewHolder) {
         super.getView(cursor, client, viewHolder);
         hideFamilyServiceButton(viewHolder);
     }
 
+    private void hideFamilyServiceButton(RegisterViewHolder viewHolder) {
+        viewHolder.dueButton.setVisibility(View.GONE);
+        viewHolder.dueWrapper.setVisibility(View.GONE);
+    }
+
+    @Override
     public void updateDueColumn(Context context, RegisterViewHolder viewHolder, ChildVisit childVisit) {
         hideFamilyServiceButton(viewHolder);
     }
 
+    @Override
     public List<ChildVisit> retrieveChildVisitList(Rules rules, List<Map<String, String>> list) {
         return null;
     }
 
+    @Override
     public ChildVisit mergeChildVisits(List<ChildVisit> childVisitList) {
         return null;
     }

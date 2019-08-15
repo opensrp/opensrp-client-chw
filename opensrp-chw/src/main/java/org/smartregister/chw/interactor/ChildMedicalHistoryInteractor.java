@@ -90,19 +90,6 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
 //    }
 
     @Override
-    public void fetchFullyImmunizationData(String dob, Map<String, Date> recievedVaccines, final ChildMedicalHistoryContract.InteractorCallBack callBack) {
-
-        List<String> vacList = new ArrayList<>();
-        for (String name : recievedVaccines.keySet()) {
-            String trimLower = name.replace(" ", "").toLowerCase();
-            vacList.add(trimLower);
-        }
-        final String fullyImmunizationText = ChildUtils.isFullyImmunized(vacList);
-        Runnable runnable = () -> appExecutors.mainThread().execute(() -> callBack.updateFullyImmunization(fullyImmunizationText));
-        appExecutors.diskIO().execute(runnable);
-    }
-
-    @Override
     public void fetchBirthCertificateData(CommonPersonObjectClient commonPersonObjectClient, final ChildMedicalHistoryContract.InteractorCallBack callBack) {
 
         String birthCert = getValue(commonPersonObjectClient.getColumnmaps(), BIRTH_CERT, true);
@@ -382,6 +369,24 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
         appExecutors.diskIO().execute(runnable);
     }
 
+    @Override
+    public void fetchFullyImmunizationData(String dob, Map<String, Date> recievedVaccines, final ChildMedicalHistoryContract.InteractorCallBack callBack) {
+
+        List<String> vacList = new ArrayList<>();
+        for (String name : recievedVaccines.keySet()) {
+            String trimLower = name.replace(" ", "").toLowerCase();
+            vacList.add(trimLower);
+        }
+        final String fullyImmunizationText = ChildUtils.isFullyImmunized(vacList);
+        Runnable runnable = () -> appExecutors.mainThread().execute(() -> callBack.updateFullyImmunization(fullyImmunizationText));
+        appExecutors.diskIO().execute(runnable);
+    }
+
+    @Override
+    public void onDestroy(boolean isChangingConfiguration) {
+        Timber.v("onDestroy");
+    }
+
     private void addContent(ServiceContent content, ServiceRecord serviceRecord) {
         if (serviceRecord.getType().equalsIgnoreCase(GrowthNutritionInputFragment.GROWTH_TYPE.EXCLUSIVE.getValue())) {
             //String[] values = serviceRecord.getValue().split("_");
@@ -401,11 +406,6 @@ public class ChildMedicalHistoryInteractor implements ChildMedicalHistoryContrac
             String date = DATE_FORMAT.format(serviceRecord.getDate());
             content.setServiceName(serviceRecord.getName() + " -  " + getContext().getString(R.string.done) + " " + date);
         }
-    }
-
-    @Override
-    public void onDestroy(boolean isChangingConfiguration) {
-        Timber.v("onDestroy");
     }
 
     public Context getContext() {

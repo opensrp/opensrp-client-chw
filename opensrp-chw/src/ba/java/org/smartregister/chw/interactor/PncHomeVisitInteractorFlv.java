@@ -181,45 +181,6 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
         }
     }
 
-    protected void evaluatePNCHealthFacilityVisit() throws Exception {
-
-        PNCHealthFacilityVisitSummary summary = PNCDao.getLastHealthFacilityVisitSummary(memberObject.getBaseEntityId());
-        if (summary != null) {
-            PNCHealthFacilityVisitRule visitRule = PNCVisitUtil.getNextPNCHealthFacilityVisit(summary.getDeliveryDate(), summary.getLastVisitDate());
-
-            if (visitRule != null && visitRule.getVisitName() != null) {
-                String title;
-                int visit_num;
-                switch (visitRule.getVisitName()) {
-                    case "3":
-                        title = context.getString(R.string.pnc_health_facility_visit_days_three_to_seven);
-                        visit_num = 2;
-                        break;
-                    case "8":
-                        title = context.getString(R.string.pnc_health_facility_visit_days_eight_to_twenty_eight);
-                        visit_num = 3;
-                        break;
-                    case "29":
-                        title = context.getString(R.string.pnc_health_facility_visit_days_twenty_nine_to_forty_two);
-                        visit_num = 4;
-                        break;
-                    default:
-                        title = context.getString(R.string.pnc_health_facility_visit_within_fourty_eight_hours);
-                        visit_num = 1;
-                        break;
-                }
-
-                BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, title)
-                        .withOptional(false)
-                        .withDetails(details)
-                        .withFormName(visit_num == 1 ? Constants.JSON_FORM.PNC_HOME_VISIT.getHealthFacilityVisit() : Constants.JSON_FORM.PNC_HOME_VISIT.getHealthFacilityVisitTwo())
-                        .withHelper(new PNCHealthFacilityVisitHelper(visitRule, visit_num))
-                        .build();
-                actionList.put(title, action);
-            }
-        }
-    }
-
     private void evaluateFamilyPlanning() throws Exception {
         HomeVisitActionHelper familyPlanningHelper = new HomeVisitActionHelper() {
             private String fp_counseling;
@@ -256,25 +217,6 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
                 .withHelper(familyPlanningHelper)
                 .build();
         actionList.put(context.getString(R.string.pnc_family_planning), action);
-    }
-
-    protected void evaluateImmunization() throws Exception {
-        for (Person baby : children) {
-            if (getAgeInDays(baby.getDob()) <= 28) {
-                List<VaccineWrapper> wrappers = getChildDueVaccines(baby.getBaseEntityID(), baby.getDob(), 0);
-
-                BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, MessageFormat.format(context.getString(R.string.pnc_immunization_at_birth), baby.getFullName()))
-                        .withOptional(false)
-                        .withDetails(details)
-                        .withBaseEntityID(baby.getBaseEntityID())
-                        .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.DETACHED)
-                        .withVaccineWrapper(wrappers)
-                        .withDestinationFragment(BaseHomeVisitImmunizationFragment.getInstance(view, baby.getBaseEntityID(), baby.getDob(), details, wrappers))
-                        .withHelper(new ImmunizationActionHelper(context, wrappers))
-                        .build();
-                actionList.put(MessageFormat.format(context.getString(R.string.pnc_immunization_at_birth), baby.getFullName()), action);
-            }
-        }
     }
 
     private void evaluateExclusiveBreastFeeding() throws Exception {
@@ -608,6 +550,64 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
                         .withHelper(new ObsIllnessBabyHelper())
                         .build();
                 actionList.put(MessageFormat.format(context.getString(R.string.pnc_observation_and_illness_baby), baby.getFullName()), action);
+            }
+        }
+    }
+
+    protected void evaluatePNCHealthFacilityVisit() throws Exception {
+
+        PNCHealthFacilityVisitSummary summary = PNCDao.getLastHealthFacilityVisitSummary(memberObject.getBaseEntityId());
+        if (summary != null) {
+            PNCHealthFacilityVisitRule visitRule = PNCVisitUtil.getNextPNCHealthFacilityVisit(summary.getDeliveryDate(), summary.getLastVisitDate());
+
+            if (visitRule != null && visitRule.getVisitName() != null) {
+                String title;
+                int visit_num;
+                switch (visitRule.getVisitName()) {
+                    case "3":
+                        title = context.getString(R.string.pnc_health_facility_visit_days_three_to_seven);
+                        visit_num = 2;
+                        break;
+                    case "8":
+                        title = context.getString(R.string.pnc_health_facility_visit_days_eight_to_twenty_eight);
+                        visit_num = 3;
+                        break;
+                    case "29":
+                        title = context.getString(R.string.pnc_health_facility_visit_days_twenty_nine_to_forty_two);
+                        visit_num = 4;
+                        break;
+                    default:
+                        title = context.getString(R.string.pnc_health_facility_visit_within_fourty_eight_hours);
+                        visit_num = 1;
+                        break;
+                }
+
+                BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, title)
+                        .withOptional(false)
+                        .withDetails(details)
+                        .withFormName(visit_num == 1 ? Constants.JSON_FORM.PNC_HOME_VISIT.getHealthFacilityVisit() : Constants.JSON_FORM.PNC_HOME_VISIT.getHealthFacilityVisitTwo())
+                        .withHelper(new PNCHealthFacilityVisitHelper(visitRule, visit_num))
+                        .build();
+                actionList.put(title, action);
+            }
+        }
+    }
+
+    protected void evaluateImmunization() throws Exception {
+        for (Person baby : children) {
+            if (getAgeInDays(baby.getDob()) <= 28) {
+                List<VaccineWrapper> wrappers = getChildDueVaccines(baby.getBaseEntityID(), baby.getDob(), 0);
+
+                BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, MessageFormat.format(context.getString(R.string.pnc_immunization_at_birth), baby.getFullName()))
+                        .withOptional(false)
+                        .withDetails(details)
+                        .withBaseEntityID(baby.getBaseEntityID())
+                        .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.DETACHED)
+                        .withVaccineWrapper(wrappers)
+                        .withDestinationFragment(BaseHomeVisitImmunizationFragment.getInstance(view, baby.getBaseEntityID(), baby.getDob(), details, wrappers))
+                        .withHelper(new ImmunizationActionHelper(context, wrappers))
+                        .build();
+                actionList.put(MessageFormat.format(context.getString(R.string.pnc_immunization_at_birth), baby.getFullName()), action);
             }
         }
     }

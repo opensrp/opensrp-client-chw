@@ -47,9 +47,8 @@ public class AncVisitAlertRule implements ICommonRule, RegisterAlert {
         this.dateCreated = dateCreated;
     }
 
-    @Override
-    public String getButtonStatus() {
-        return buttonStatus;
+    private int dayDifference(LocalDate date1, LocalDate date2) {
+        return Days.daysBetween(date1, date2).getDays();
     }
 
     @Override
@@ -69,6 +68,12 @@ public class AncVisitAlertRule implements ICommonRule, RegisterAlert {
 
     public boolean isVisitNotDone() {
         return (visitNotDoneDate != null && getMonthsDifference(visitNotDoneDate, todayDate) < 1);
+    }
+
+    private int getMonthsDifference(LocalDate date1, LocalDate date2) {
+        return Months.monthsBetween(
+                date1.withDayOfMonth(1),
+                date2.withDayOfMonth(1)).getMonths();
     }
 
     // never expire
@@ -97,36 +102,31 @@ public class AncVisitAlertRule implements ICommonRule, RegisterAlert {
         return !isVisitThisMonth(lastVisitDate, todayDate);
     }
 
+    private boolean isVisitThisMonth(LocalDate lastVisit, LocalDate todayDate) {
+        return getMonthsDifference(lastVisit, todayDate) < 1;
+    }
+
     public boolean isVisitWithinTwentyFour() {
         visitMonthName = theMonth(todayDate.getMonthOfYear() - 1);
         noOfDayDue = context.getString(R.string.less_than_twenty_four);
         return (lastVisitDate != null) && !(lastVisitDate.isBefore(todayDate.minusDays(1)) && lastVisitDate.isBefore(todayDate));
     }
 
-    public boolean isVisitWithinThisMonth() {
-        return (lastVisitDate != null) && isVisitThisMonth(lastVisitDate, todayDate);
-    }
-
-    private boolean isVisitThisMonth(LocalDate lastVisit, LocalDate todayDate) {
-        return getMonthsDifference(lastVisit, todayDate) < 1;
-    }
-
-    private int dayDifference(LocalDate date1, LocalDate date2) {
-        return Days.daysBetween(date1, date2).getDays();
-    }
-
     private String theMonth(int month) {
         return context.getResources().getString(monthNames[month]);
     }
 
-    private int getMonthsDifference(LocalDate date1, LocalDate date2) {
-        return Months.monthsBetween(
-                date1.withDayOfMonth(1),
-                date2.withDayOfMonth(1)).getMonths();
+    public boolean isVisitWithinThisMonth() {
+        return (lastVisitDate != null) && isVisitThisMonth(lastVisitDate, todayDate);
     }
 
     @Override
     public String getRuleKey() {
         return "ancVisitAlertRule";
+    }
+
+    @Override
+    public String getButtonStatus() {
+        return buttonStatus;
     }
 }

@@ -19,6 +19,14 @@ import timber.log.Timber;
 
 public class ChildRegisterFragment extends CoreChildRegisterFragment {
     @Override
+    public void initializeAdapter(Set<View> visibleColumns) {
+        HfChildRegisterProvider childRegisterProvider = new HfChildRegisterProvider(getActivity(), commonRepository(), visibleColumns, registerActionHandler, paginationViewHandler);
+        clientAdapter = new RecyclerViewPaginatedAdapter(null, childRegisterProvider, context().commonrepository(this.tablename));
+        clientAdapter.setCurrentlimit(20);
+        clientsView.setAdapter(clientAdapter);
+    }
+
+    @Override
     public void goToChildDetailActivity(CommonPersonObjectClient patient,
                                         boolean launchDialog) {
         if (launchDialog) {
@@ -46,13 +54,5 @@ public class ChildRegisterFragment extends CoreChildRegisterFragment {
                 }
             }
         }
-    }
-
-    @Override
-    public void initializeAdapter(Set<View> visibleColumns) {
-        HfChildRegisterProvider childRegisterProvider = new HfChildRegisterProvider(getActivity(), commonRepository(), visibleColumns, registerActionHandler, paginationViewHandler);
-        clientAdapter = new RecyclerViewPaginatedAdapter(null, childRegisterProvider, context().commonrepository(this.tablename));
-        clientAdapter.setCurrentlimit(20);
-        clientsView.setAdapter(clientAdapter);
     }
 }

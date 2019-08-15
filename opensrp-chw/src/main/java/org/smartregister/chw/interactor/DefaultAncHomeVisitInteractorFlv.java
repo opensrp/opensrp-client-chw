@@ -99,6 +99,15 @@ public abstract class DefaultAncHomeVisitInteractorFlv implements AncHomeVisitIn
         return actionList;
     }
 
+    public VaccineTaskModel getWomanVaccine(String baseEntityID, DateTime lmpDate, List<VaccineWrapper> notDoneVaccines) {
+        return VaccineScheduleUtil.getWomanVaccine(baseEntityID, lmpDate, notDoneVaccines);
+    }
+
+    // read vaccine repo for all not given vaccines
+    private List<VaccineWrapper> getNotGivenVaccines() {
+        return new ArrayList<>();
+    }
+
     private void evaluateDangerSigns() throws Exception {
         BaseAncHomeVisitAction danger_signs = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_danger_signs))
                 .withOptional(false)
@@ -236,15 +245,6 @@ public abstract class DefaultAncHomeVisitInteractorFlv implements AncHomeVisitIn
                 .build();
 
         actionList.put(context.getString(R.string.anc_home_visit_observations_n_illnes), observation);
-    }
-
-    public VaccineTaskModel getWomanVaccine(String baseEntityID, DateTime lmpDate, List<VaccineWrapper> notDoneVaccines) {
-        return VaccineScheduleUtil.getWomanVaccine(baseEntityID, lmpDate, notDoneVaccines);
-    }
-
-    // read vaccine repo for all not given vaccines
-    private List<VaccineWrapper> getNotGivenVaccines() {
-        return new ArrayList<>();
     }
 
 }

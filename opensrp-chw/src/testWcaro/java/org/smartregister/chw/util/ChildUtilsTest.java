@@ -17,21 +17,17 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 public class ChildUtilsTest extends BaseUnitTest {
     @Mock
     private ChildUtils.Flavor childUtilsFlv;
-    private static void setFinalStatic(Field field, Object newValue) throws Exception {
-        field.setAccessible(true);
-        Field modifiersField = Field.class.getDeclaredField("modifiers");
-        modifiersField.setAccessible(true);
-        modifiersField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
-        field.set(null, newValue);
-    }
+
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
         childUtilsFlv = Mockito.spy(ChildUtilsFlv.class);
     }
+
     @Test
     public void isFullyImmunizedForTwoYears() throws Exception {
         String[] list = {"OPV0".toLowerCase(), "BCG".toLowerCase(), "OPV1".toLowerCase(), "OPV2".toLowerCase(), "OPV3".toLowerCase()
@@ -42,6 +38,15 @@ public class ChildUtilsTest extends BaseUnitTest {
         setFinalStatic(ChildUtils.class.getDeclaredField("childUtilsFlv"), childUtilsFlv);
         Assert.assertEquals("2", ChildUtils.isFullyImmunized(receivedVaccine));
     }
+
+    private static void setFinalStatic(Field field, Object newValue) throws Exception {
+        field.setAccessible(true);
+        Field modifiersField = Field.class.getDeclaredField("modifiers");
+        modifiersField.setAccessible(true);
+        modifiersField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
+        field.set(null, newValue);
+    }
+
     @Test
     public void isFullyImmunizedForOneYears() throws Exception {
         String[] list = {"OPV0".toLowerCase(), "BCG".toLowerCase(), "OPV1".toLowerCase(), "OPV2".toLowerCase(), "OPV3".toLowerCase()
@@ -52,18 +57,21 @@ public class ChildUtilsTest extends BaseUnitTest {
         setFinalStatic(ChildUtils.class.getDeclaredField("childUtilsFlv"), childUtilsFlv);
         Assert.assertEquals("1", ChildUtils.isFullyImmunized(receivedVaccine));
     }
+
     @Test
     public void isFullyImmunizedForEmpty() {
         String[] list = {"OPV0".toLowerCase(), "BCG".toLowerCase(), "OPV1".toLowerCase(), "OPV2".toLowerCase()};
         List<String> receivedVaccine = Arrays.asList(list);
         Assert.assertEquals("", ChildUtils.isFullyImmunized(receivedVaccine));
     }
+
     @Test
     public void lowerCaseVaccineName() {
         Assert.assertEquals("MenA", ChildUtils.fixVaccineCasing("MENA"));
         Assert.assertEquals("Rubella 1", ChildUtils.fixVaccineCasing("RUBELLA 1"));
         Assert.assertEquals("Rubella 2", ChildUtils.fixVaccineCasing("RUBELLA 2"));
     }
+
     @Test
     public void threeTextAfterNewlineSplit() {
         String str = "Developmental warning signs:no" + "\n" + "Caregiver stimulation skills:no" + "\n" + "Early learning program:yes";
@@ -71,6 +79,7 @@ public class ChildUtilsTest extends BaseUnitTest {
         List<String> list = Arrays.asList(strings);
         Assert.assertEquals(3, list.size());
     }
+
     @Test
     public void durationWithTwoDate() {
         CommonPersonObjectClient childClient = new CommonPersonObjectClient("", null, "");

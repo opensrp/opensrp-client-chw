@@ -47,11 +47,6 @@ public class FamilyRegisterActivity extends CoreFamilyRegisterActivity {
     }
 
     @Override
-    protected BaseRegisterFragment getRegisterFragment() {
-        return new FamilyRegisterFragment();
-    }
-
-    @Override
     protected void registerBottomNavigation() {
         super.registerBottomNavigation();
 
@@ -72,5 +67,10 @@ public class FamilyRegisterActivity extends CoreFamilyRegisterActivity {
         if (action != null && action.equals(Constants.ACTION.START_REGISTRATION)) {
             startRegistration();
         }
+    }
+
+    @Override
+    protected BaseRegisterFragment getRegisterFragment() {
+        return new FamilyRegisterFragment();
     }
 }

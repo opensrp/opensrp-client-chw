@@ -35,46 +35,6 @@ public class JobAidsActivity extends FamilyRegisterActivity {
     private ProgressBar refreshIndicatorsProgressBar;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_job_aids);
-        setUpView();
-        registerBottomNavigation();
-    }
-
-    private void setUpView() {
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle(" ");
-        }
-        // Create the adapter that will return a fragment for each of the three
-        // primary sections of the activity.
-        SectionsPagerAdapter mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-
-        mViewPager = findViewById(R.id.container);
-        mViewPager.setAdapter(mSectionsPagerAdapter);
-
-        TabLayout tabLayout = findViewById(R.id.tabs);
-
-        mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
-
-        refreshIndicatorsIcon = findViewById(R.id.refreshIndicatorsIcon);
-        refreshIndicatorsProgressBar = findViewById(R.id.refreshIndicatorsPB);
-        // Initial view until we determined by the refresh function
-        refreshIndicatorsProgressBar.setVisibility(View.GONE);
-
-        refreshIndicatorsIcon.setOnClickListener(view -> {
-            refreshIndicatorsIcon.setVisibility(View.GONE);
-            FadingCircle circle = new FadingCircle();
-            refreshIndicatorsProgressBar.setIndeterminateDrawable(circle);
-            refreshIndicatorsProgressBar.setVisibility(View.VISIBLE);
-            refreshIndicatorData();
-        });
-    }
-
-    @Override
     public void onResume() {
         super.onResume();
         EventBus.getDefault().register(this);
@@ -84,24 +44,6 @@ public class JobAidsActivity extends FamilyRegisterActivity {
     public void onPause() {
         super.onPause();
         EventBus.getDefault().unregister(this);
-    }
-
-    @Override
-    protected void registerBottomNavigation() {
-        bottomNavigationHelper = new BottomNavigationHelper();
-        bottomNavigationView = findViewById(org.smartregister.R.id.bottom_navigation);
-        FamilyRegisterActivity.registerBottomNavigation(bottomNavigationHelper, bottomNavigationView, this);
-    }
-
-    /**
-     * Refresh the indicator data by scheduling the IndicatorGeneratingJob immediately
-     */
-    public void refreshIndicatorData() {
-        // Compute everything afresh. Last processed date is set to null to avoid messing with the processing timeline
-        ChwApplication.getInstance().getContext().allSharedPreferences().savePreference(REPORT_LAST_PROCESSED_DATE, null);
-        ChwIndicatorGeneratingJob.scheduleJobImmediately(ChwIndicatorGeneratingJob.TAG);
-        Timber.d("ChwIndicatorGeneratingJob scheduled immediately to compute latest counts...");
-        Toast.makeText(getApplicationContext(), getString(R.string.indicators_udpating), Toast.LENGTH_LONG).show();
     }
 
     /**
@@ -153,5 +95,67 @@ public class JobAidsActivity extends FamilyRegisterActivity {
             }
             return super.getItemPosition(object);
         }
+    }    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_job_aids);
+        setUpView();
+        registerBottomNavigation();
     }
+
+
+
+
+    private void setUpView() {
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(" ");
+        }
+        // Create the adapter that will return a fragment for each of the three
+        // primary sections of the activity.
+        SectionsPagerAdapter mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+
+        mViewPager = findViewById(R.id.container);
+        mViewPager.setAdapter(mSectionsPagerAdapter);
+
+        TabLayout tabLayout = findViewById(R.id.tabs);
+
+        mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
+
+        refreshIndicatorsIcon = findViewById(R.id.refreshIndicatorsIcon);
+        refreshIndicatorsProgressBar = findViewById(R.id.refreshIndicatorsPB);
+        // Initial view until we determined by the refresh function
+        refreshIndicatorsProgressBar.setVisibility(View.GONE);
+
+        refreshIndicatorsIcon.setOnClickListener(view -> {
+            refreshIndicatorsIcon.setVisibility(View.GONE);
+            FadingCircle circle = new FadingCircle();
+            refreshIndicatorsProgressBar.setIndeterminateDrawable(circle);
+            refreshIndicatorsProgressBar.setVisibility(View.VISIBLE);
+            refreshIndicatorData();
+        });
+    }
+
+
+    @Override
+    protected void registerBottomNavigation() {
+        bottomNavigationHelper = new BottomNavigationHelper();
+        bottomNavigationView = findViewById(org.smartregister.R.id.bottom_navigation);
+        FamilyRegisterActivity.registerBottomNavigation(bottomNavigationHelper, bottomNavigationView, this);
+    }
+
+    /**
+     * Refresh the indicator data by scheduling the IndicatorGeneratingJob immediately
+     */
+    public void refreshIndicatorData() {
+        // Compute everything afresh. Last processed date is set to null to avoid messing with the processing timeline
+        ChwApplication.getInstance().getContext().allSharedPreferences().savePreference(REPORT_LAST_PROCESSED_DATE, null);
+        ChwIndicatorGeneratingJob.scheduleJobImmediately(ChwIndicatorGeneratingJob.TAG);
+        Timber.d("ChwIndicatorGeneratingJob scheduled immediately to compute latest counts...");
+        Toast.makeText(getApplicationContext(), getString(R.string.indicators_udpating), Toast.LENGTH_LONG).show();
+    }
+
+
 }

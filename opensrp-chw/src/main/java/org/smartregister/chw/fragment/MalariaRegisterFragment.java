@@ -92,24 +92,6 @@ public class MalariaRegisterFragment extends BaseMalariaRegisterFragment {
     }
 
     @Override
-    protected void onResumption() {
-        if (dueFilterActive && dueOnlyLayout != null) {
-            dueFilter(dueOnlyLayout);
-        } else {
-            super.onResumption();
-        }
-    }
-
-    @Override
-    protected void onViewClicked(View view) {
-        super.onViewClicked(view);
-
-        if (view.getId() == R.id.due_only_layout) {
-            toggleFilterSelection(view);
-        }
-    }
-
-    @Override
     protected void initializePresenter() {
         if (getActivity() == null) {
             return;
@@ -119,9 +101,18 @@ public class MalariaRegisterFragment extends BaseMalariaRegisterFragment {
     }
 
     @Override
-    public void filter(String filterString, String joinTableString, String mainConditionString, boolean qrCode) {
-        this.joinTables = new String[]{Constants.TABLE_NAME.MALARIA_CONFIRMATION};
-        super.filter(filterString, joinTableString, mainConditionString, qrCode);
+    public void setAdvancedSearchFormData(HashMap<String, String> hashMap) {
+        //TODO
+        //Log.d(TAG, "setAdvancedSearchFormData unimplemented");
+    }
+
+    @Override
+    protected void onViewClicked(View view) {
+        super.onViewClicked(view);
+
+        if (view.getId() == R.id.due_only_layout) {
+            toggleFilterSelection(view);
+        }
     }
 
     protected void toggleFilterSelection(View dueOnlyLayout) {
@@ -164,7 +155,46 @@ public class MalariaRegisterFragment extends BaseMalariaRegisterFragment {
         }
     }
 
-    protected String dueFilterAndSortQuery() {
+    @Override
+    protected void openProfile(CommonPersonObjectClient client) {
+        MalariaProfileActivity.startMalariaActivity(getActivity(), new MemberObject(client), client);
+    }
+
+    @Override
+    protected void onResumption() {
+        if (dueFilterActive && dueOnlyLayout != null) {
+            dueFilter(dueOnlyLayout);
+        } else {
+            super.onResumption();
+        }
+    }
+
+    @Override
+    public void filter(String filterString, String joinTableString, String mainConditionString, boolean qrCode) {
+        this.joinTables = new String[]{Constants.TABLE_NAME.MALARIA_CONFIRMATION};
+        super.filter(filterString, joinTableString, mainConditionString, qrCode);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        Toolbar toolbar = view.findViewById(org.smartregister.R.id.register_toolbar);
+        toolbar.setContentInsetsAbsolute(0, 0);
+        toolbar.setContentInsetsRelative(0, 0);
+        toolbar.setContentInsetStartWithNavigation(0);
+        NavigationMenu.getInstance(getActivity(), null, toolbar);
+    }
+
+    @Override
+    protected void refreshSyncProgressSpinner() {
+        if (syncProgressBar != null) {
+            syncProgressBar.setVisibility(View.GONE);
+        }
+        if (syncButton != null) {
+            syncButton.setVisibility(View.GONE);
+        }
+    }    protected String dueFilterAndSortQuery() {
         SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder(mainSelect);
 
         String query = "";
@@ -191,6 +221,9 @@ public class MalariaRegisterFragment extends BaseMalariaRegisterFragment {
 
         return query;
     }
+
+
+
 
     private String defaultFilterAndSortQuery() {
         SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder(mainSelect);
@@ -227,6 +260,7 @@ public class MalariaRegisterFragment extends BaseMalariaRegisterFragment {
 
         return query;
     }
+
 
     @Override
     public void countExecute() {
@@ -265,6 +299,7 @@ public class MalariaRegisterFragment extends BaseMalariaRegisterFragment {
 
     }
 
+
     @Override
     public Loader<Cursor> onCreateLoader(int id, final Bundle args) {
         if (id == LOADER_ID) {
@@ -284,37 +319,7 @@ public class MalariaRegisterFragment extends BaseMalariaRegisterFragment {
         return super.onCreateLoader(id, args);
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
 
-        Toolbar toolbar = view.findViewById(org.smartregister.R.id.register_toolbar);
-        toolbar.setContentInsetsAbsolute(0, 0);
-        toolbar.setContentInsetsRelative(0, 0);
-        toolbar.setContentInsetStartWithNavigation(0);
-        NavigationMenu.getInstance(getActivity(), null, toolbar);
-    }
-
-    @Override
-    public void setAdvancedSearchFormData(HashMap<String, String> hashMap) {
-        //TODO
-        //Log.d(TAG, "setAdvancedSearchFormData unimplemented");
-    }
-
-    @Override
-    protected void refreshSyncProgressSpinner() {
-        if (syncProgressBar != null) {
-            syncProgressBar.setVisibility(View.GONE);
-        }
-        if (syncButton != null) {
-            syncButton.setVisibility(View.GONE);
-        }
-    }
-
-    @Override
-    protected void openProfile(CommonPersonObjectClient client) {
-        MalariaProfileActivity.startMalariaActivity(getActivity(), new MemberObject(client), client);
-    }
 }
 
 

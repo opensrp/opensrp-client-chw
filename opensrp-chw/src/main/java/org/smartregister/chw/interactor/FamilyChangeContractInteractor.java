@@ -14,6 +14,16 @@ public class FamilyChangeContractInteractor extends CoreFamilyChangeContractInte
         setFlavour();
     }
 
+    @Override
+    protected void setCoreChwApplication() {
+        this.coreChwApplication = ChwApplication.getInstance();
+    }
+
+    @Override
+    protected void setFlavour() {
+        this.flavor = new FamilyChangeContractInteractorFlv();
+    }
+
     public static int getDiffYears(Date first, Date last) {
         Calendar a = getCalendar(first);
         Calendar b = getCalendar(last);
@@ -29,15 +39,5 @@ public class FamilyChangeContractInteractor extends CoreFamilyChangeContractInte
         Calendar cal = Calendar.getInstance(Locale.US);
         cal.setTime(date);
         return cal;
-    }
-
-    @Override
-    protected void setCoreChwApplication() {
-        this.coreChwApplication = ChwApplication.getInstance();
-    }
-
-    @Override
-    protected void setFlavour() {
-        this.flavor = new FamilyChangeContractInteractorFlv();
     }
 }

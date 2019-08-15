@@ -16,6 +16,20 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
     public static final String TAG = BaseLoginActivity.class.getCanonicalName();
 
     @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mLoginPresenter.processViewCustomizations();
+        if (!mLoginPresenter.isUserLoggedOut()) {
+            goToHome(false);
+        }
+    }
+
+    @Override
     protected int getContentView() {
         return R.layout.activity_login;
     }
@@ -23,11 +37,6 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
     @Override
     protected void initializePresenter() {
         mLoginPresenter = new LoginPresenter(this);
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
     }
 
     @Override
@@ -45,15 +54,6 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
         Intent intent = new Intent(this, FamilyRegisterActivity.class);
         intent.putExtra(Constants.INTENT_KEY.IS_REMOTE_LOGIN, remote);
         startActivity(intent);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        mLoginPresenter.processViewCustomizations();
-        if (!mLoginPresenter.isUserLoggedOut()) {
-            goToHome(false);
-        }
     }
 
 }

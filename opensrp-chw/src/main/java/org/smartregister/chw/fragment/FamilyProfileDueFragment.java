@@ -69,6 +69,20 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
     }
 
     @Override
+    public void setAdvancedSearchFormData(HashMap<String, String> hashMap) {
+        //TODO
+        Timber.d("setAdvancedSearchFormData");
+    }
+
+    @Override
+    public void setupViews(View view) {
+        super.setupViews(view);
+        emptyView = view.findViewById(R.id.empty_view);
+        washCheckView = view.findViewById(R.id.wash_check_layout);
+
+    }
+
+    @Override
     public void initializeAdapter(Set<org.smartregister.configurableviews.model.View> visibleColumns) {
         ChwDueRegisterProvider chwDueRegisterProvider = new ChwDueRegisterProvider(this.getActivity(), this.commonRepository(), visibleColumns, this.registerActionHandler, this.paginationViewHandler);
         this.clientAdapter = new FamilyRecyclerViewCustomAdapter(null, chwDueRegisterProvider, this.context().commonrepository(this.tablename), metadata().familyDueRegister.showPagination);
@@ -81,59 +95,6 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
 
         }, 500);
 
-    }
-
-    @Override
-    public void countExecute() {
-        super.countExecute();
-        final int count = clientAdapter.getTotalcount();
-        if (getActivity() != null && count != dueCount) {
-            dueCount = count;
-            ((FamilyProfileActivity) getActivity()).updateDueCount(dueCount);
-        }
-        if (getActivity() != null)
-            getActivity().runOnUiThread(() -> onEmptyRegisterCount(count < 1));
-    }
-
-    @Override
-    public void setupViews(View view) {
-        super.setupViews(view);
-        emptyView = view.findViewById(R.id.empty_view);
-        washCheckView = view.findViewById(R.id.wash_check_layout);
-
-    }
-
-    private void addWashCheckView() {
-        View inflatLayout = getLayoutInflater().inflate(R.layout.view_wash_check, null);
-        washCheckView.addView(inflatLayout);
-        washCheckView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
-                    JSONObject jsonForm = FormUtils.getInstance(getActivity()).getFormJson(org.smartregister.chw.util.Constants.JSON_FORM.getWashCheck());
-                    jsonForm.put(ENTITY_ID, familyBaseEntityId);
-                    Intent intent = new Intent(getActivity(), metadata().familyMemberFormActivity);
-                    intent.putExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON, jsonForm.toString());
-
-                    Form form = new Form();
-                    form.setWizard(false);
-                    form.setActionBarBackground(org.smartregister.family.R.color.customAppThemeBlue);
-
-                    intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);
-                    intent.putExtra(org.smartregister.family.util.Constants.WizardFormActivity.EnableOnCloseDialog, true);
-                    getActivity().startActivityForResult(intent, REQUEST_CODE_GET_JSON_WASH);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-            }
-        });
-    }
-
-    public void onEmptyRegisterCount(final boolean has_no_records) {
-        if (emptyView != null) {
-            emptyView.setVisibility(has_no_records ? View.VISIBLE : View.GONE);
-        }
     }
 
     @Override
@@ -169,6 +130,24 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
     }
 
     @Override
+    public void countExecute() {
+        super.countExecute();
+        final int count = clientAdapter.getTotalcount();
+        if (getActivity() != null && count != dueCount) {
+            dueCount = count;
+            ((FamilyProfileActivity) getActivity()).updateDueCount(dueCount);
+        }
+        if (getActivity() != null)
+            getActivity().runOnUiThread(() -> onEmptyRegisterCount(count < 1));
+    }
+
+    public void onEmptyRegisterCount(final boolean has_no_records) {
+        if (emptyView != null) {
+            emptyView.setVisibility(has_no_records ? View.VISIBLE : View.GONE);
+        }
+    }
+
+    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
             case REQUEST_CODE_GET_JSON_WASH:
@@ -200,6 +179,18 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
         }
     }
 
+    private void visibilityWashView(boolean isVisible) {
+        if ((isVisible)) {
+            washCheckView.setVisibility(View.VISIBLE);
+            emptyView.setVisibility(View.GONE);
+            dueCount++;
+        } else {
+            dueCount--;
+            washCheckView.setVisibility(View.GONE);
+        }
+        ((FamilyProfileActivity) getActivity()).updateDueCount(dueCount);
+    }
+
     public void updateWashCheckBar(WashCheck washCheck) {
         if (washCheckView.getVisibility() == View.VISIBLE) return;
         addWashCheckView();
@@ -229,22 +220,31 @@ public class FamilyProfileDueFragment extends BaseFamilyProfileDueFragment {
 
     }
 
-    private void visibilityWashView(boolean isVisible) {
-        if ((isVisible)) {
-            washCheckView.setVisibility(View.VISIBLE);
-            emptyView.setVisibility(View.GONE);
-            dueCount++;
-        } else {
-            dueCount--;
-            washCheckView.setVisibility(View.GONE);
-        }
-        ((FamilyProfileActivity) getActivity()).updateDueCount(dueCount);
-    }
+    private void addWashCheckView() {
+        View inflatLayout = getLayoutInflater().inflate(R.layout.view_wash_check, null);
+        washCheckView.addView(inflatLayout);
+        washCheckView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    JSONObject jsonForm = FormUtils.getInstance(getActivity()).getFormJson(org.smartregister.chw.util.Constants.JSON_FORM.getWashCheck());
+                    jsonForm.put(ENTITY_ID, familyBaseEntityId);
+                    Intent intent = new Intent(getActivity(), metadata().familyMemberFormActivity);
+                    intent.putExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON, jsonForm.toString());
 
-    @Override
-    public void setAdvancedSearchFormData(HashMap<String, String> hashMap) {
-        //TODO
-        Timber.d("setAdvancedSearchFormData");
+                    Form form = new Form();
+                    form.setWizard(false);
+                    form.setActionBarBackground(org.smartregister.family.R.color.customAppThemeBlue);
+
+                    intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);
+                    intent.putExtra(org.smartregister.family.util.Constants.WizardFormActivity.EnableOnCloseDialog, true);
+                    getActivity().startActivityForResult(intent, REQUEST_CODE_GET_JSON_WASH);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
     }
 
     public interface Flavor {

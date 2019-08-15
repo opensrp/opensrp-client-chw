@@ -25,16 +25,6 @@ public class ChildProfilePresenter extends CoreChildProfilePresenter {
         setChildBaseEntityId(childBaseEntityId);
     }
 
-
-    @Override
-    public void startSickChildReferralForm() {
-        try {
-            getView().startFormActivity(getFormUtils().getFormJson(Constants.JSON_FORM.getChildReferralForm()));
-        } catch (Exception e) {
-            Timber.e(e);
-        }
-    }
-
     @Override
     public void updateChildProfile(String jsonString) {
         getView().showProgressDialog(R.string.updating);
@@ -44,6 +34,15 @@ public class ChildProfilePresenter extends CoreChildProfilePresenter {
         }
 
         getInteractor().saveRegistration(pair, jsonString, true, this);
+    }
+
+    @Override
+    public void startSickChildReferralForm() {
+        try {
+            getView().startFormActivity(getFormUtils().getFormJson(Constants.JSON_FORM.getChildReferralForm()));
+        } catch (Exception e) {
+            Timber.e(e);
+        }
     }
 
     @Override

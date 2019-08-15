@@ -22,14 +22,14 @@ import static org.smartregister.util.Utils.getValue;
 
 public class ChildHomeVisitInteractor extends CoreChildHomeVisitInteractor {
 
+    public ChildHomeVisitInteractor() {
+        this(new AppExecutors());
+    }
+
     @VisibleForTesting
     ChildHomeVisitInteractor(AppExecutors appExecutors) {
         this.appExecutors = appExecutors;
         setFlavor(new ChildHomeVisitInteractorFlv());
-    }
-
-    public ChildHomeVisitInteractor() {
-        this(new AppExecutors());
     }
 
     @Override

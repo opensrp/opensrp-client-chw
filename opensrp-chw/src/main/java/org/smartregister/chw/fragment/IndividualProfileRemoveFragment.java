@@ -46,33 +46,6 @@ public class IndividualProfileRemoveFragment extends CoreIndividualProfileRemove
     }
 
     @Override
-    protected CoreFamilyProfileChangeDialog getChangeFamilyCareGiverDialog() {
-        return FamilyProfileChangeDialog.newInstance(getContext(), familyBaseEntityId,
-                CoreConstants.PROFILE_CHANGE_ACTION.PRIMARY_CARE_GIVER);
-    }
-
-    @Override
-    protected CoreFamilyProfileChangeDialog getChangeFamilyHeadDialog() {
-        return FamilyProfileChangeDialog.newInstance(getContext(), familyBaseEntityId,
-                CoreConstants.PROFILE_CHANGE_ACTION.HEAD_OF_FAMILY);
-    }
-
-    @Override
-    protected Class<? extends CoreFamilyRegisterActivity> getFamilyRegisterActivityClass() {
-        return FamilyRegisterActivity.class;
-    }
-
-    @Override
-    protected Class<? extends CoreAncRegisterActivity> getAncRegisterActivityClass() {
-        return AncRegisterActivity.class;
-    }
-
-    @Override
-    protected String getRemoveFamilyMemberDialogTag() {
-        return FamilyRemoveMemberFragment.DIALOG_TAG;
-    }
-
-    @Override
     public void onMemberRemoved(String removalType) {
         if (getActivity() != null) {
             if (CoreConstants.EventType.REMOVE_FAMILY.equalsIgnoreCase(removalType)) {
@@ -97,6 +70,33 @@ public class IndividualProfileRemoveFragment extends CoreIndividualProfileRemove
             IndividualProfileRemoveActivity p = (IndividualProfileRemoveActivity) getActivity();
             p.onRemoveMember();
         }
+    }
+
+    @Override
+    protected CoreFamilyProfileChangeDialog getChangeFamilyCareGiverDialog() {
+        return FamilyProfileChangeDialog.newInstance(getContext(), familyBaseEntityId,
+                CoreConstants.PROFILE_CHANGE_ACTION.PRIMARY_CARE_GIVER);
+    }
+
+    @Override
+    protected CoreFamilyProfileChangeDialog getChangeFamilyHeadDialog() {
+        return FamilyProfileChangeDialog.newInstance(getContext(), familyBaseEntityId,
+                CoreConstants.PROFILE_CHANGE_ACTION.HEAD_OF_FAMILY);
+    }
+
+    @Override
+    protected Class<? extends CoreFamilyRegisterActivity> getFamilyRegisterActivityClass() {
+        return FamilyRegisterActivity.class;
+    }
+
+    @Override
+    protected Class<? extends CoreAncRegisterActivity> getAncRegisterActivityClass() {
+        return AncRegisterActivity.class;
+    }
+
+    @Override
+    protected String getRemoveFamilyMemberDialogTag() {
+        return FamilyRemoveMemberFragment.DIALOG_TAG;
     }
 
     public void confirmRemove(final JSONObject form) {

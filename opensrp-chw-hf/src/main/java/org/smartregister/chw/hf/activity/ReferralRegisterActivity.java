@@ -8,12 +8,12 @@ import org.smartregister.view.fragment.BaseRegisterFragment;
 public class ReferralRegisterActivity extends BaseReferralRegister {
 
     @Override
-    protected BaseRegisterFragment getRegisterFragment() {
-        return new ReferralRegisterFragment();
+    protected void initializePresenter() {
+        presenter = new BaseRefererralPresenter();
     }
 
     @Override
-    protected void initializePresenter() {
-        presenter = new BaseRefererralPresenter();
+    protected BaseRegisterFragment getRegisterFragment() {
+        return new ReferralRegisterFragment();
     }
 }

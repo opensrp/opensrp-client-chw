@@ -47,6 +47,11 @@ public class FamilyProfileMemberFragment extends BaseFamilyProfileMemberFragment
     }
 
     @Override
+    public void setAdvancedSearchFormData(HashMap<String, String> hashMap) {
+        Timber.v("setAdvancedSearchFormData");
+    }
+
+    @Override
     public void initializeAdapter(Set<org.smartregister.configurableviews.model.View> visibleColumns, String familyHead, String primaryCaregiver) {
         ChwMemberRegisterProvider chwMemberRegisterProvider = new ChwMemberRegisterProvider(this.getActivity(), this.commonRepository(), visibleColumns, this.registerActionHandler, this.paginationViewHandler, familyHead, primaryCaregiver);
         this.clientAdapter = new RecyclerViewPaginatedAdapter(null, chwMemberRegisterProvider, this.context().commonrepository(this.tablename));
@@ -107,11 +112,6 @@ public class FamilyProfileMemberFragment extends BaseFamilyProfileMemberFragment
         intent.putExtra(CoreConstants.INTENT_KEY.IS_COMES_FROM_FAMILY, true);
         intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, patient.getCaseId());
         startActivity(intent);
-    }
-
-    @Override
-    public void setAdvancedSearchFormData(HashMap<String, String> hashMap) {
-        Timber.v("setAdvancedSearchFormData");
     }
 
 }

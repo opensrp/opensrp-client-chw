@@ -51,20 +51,9 @@ public class ReferralTaskViewActivity extends SecuredActivity {
         activity.startActivity(intent);
     }
 
-    public CommonPersonObjectClient getPersonObjectClient() {
-        return personObjectClient;
-    }
-
-    public void setPersonObjectClient(CommonPersonObjectClient personObjectClient) {
-        this.personObjectClient = personObjectClient;
-    }
-
-    public Task getTask() {
-        return task;
-    }
-
-    public void setTask(Task task) {
-        this.task = task;
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return false;
     }
 
     @Override
@@ -96,12 +85,6 @@ public class ReferralTaskViewActivity extends SecuredActivity {
 
     private void extraClientTask() {
         setTask((Task) getIntent().getSerializableExtra(CoreConstants.INTENT_KEY.USERS_TASKS));
-    }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        return false;
     }
 
     private void inflateToolbar() {
@@ -156,6 +139,14 @@ public class ReferralTaskViewActivity extends SecuredActivity {
         getReferralDetails();
     }
 
+    public CommonPersonObjectClient getPersonObjectClient() {
+        return personObjectClient;
+    }
+
+    public void setPersonObjectClient(CommonPersonObjectClient personObjectClient) {
+        this.personObjectClient = personObjectClient;
+    }
+
     private void getReferralDetails() {
         if (getPersonObjectClient() != null) {
             clientReferralProblem.setText(getTask().getDescription());
@@ -172,6 +163,14 @@ public class ReferralTaskViewActivity extends SecuredActivity {
             careGiverPhone.setText(getFamilyMemberContacts());
 
         }
+    }
+
+    public Task getTask() {
+        return task;
+    }
+
+    public void setTask(Task task) {
+        this.task = task;
     }
 
     private String getFamilyMemberContacts() {

@@ -34,6 +34,13 @@ public class FamilyOtherMemberProfileActivityFlv implements FamilyOtherMemberPro
     }
 
     @Override
+    public Boolean onCreateOptionsMenu(Menu menu) {
+        menu.findItem(R.id.action_malaria_registration).setVisible(true);
+        menu.findItem(R.id.action_malaria_followup_visit).setVisible(false);
+        return true;
+    }
+
+    @Override
     public boolean isWra(CommonPersonObjectClient commonPersonObject) {
         if (commonPersonObject == null) {
             return false;
@@ -49,13 +56,6 @@ public class FamilyOtherMemberProfileActivityFlv implements FamilyOtherMemberPro
         }
 
         return false;
-    }
-
-    @Override
-    public Boolean onCreateOptionsMenu(Menu menu) {
-        menu.findItem(R.id.action_malaria_registration).setVisible(true);
-        menu.findItem(R.id.action_malaria_followup_visit).setVisible(false);
-        return true;
     }
 
 }

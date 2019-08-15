@@ -38,11 +38,6 @@ public class UndoVaccineTask extends AsyncTask<Void, Void, Void> {
     }
 
     @Override
-    protected void onPreExecute() {
-        super.onPreExecute();
-    }
-
-    @Override
     protected Void doInBackground(Void... params) {
         for (VaccineWrapper tag : this.tag) {
             if (tag != null) {
@@ -62,6 +57,11 @@ public class UndoVaccineTask extends AsyncTask<Void, Void, Void> {
             }
         }
         return null;
+    }
+
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
     }
 
     @Override

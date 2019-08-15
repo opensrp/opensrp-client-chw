@@ -31,6 +31,12 @@ public abstract class BaseActivityTest<T extends Activity> extends BaseUnitTest 
         activity = controller.get();
     }
 
+    protected Intent getControllerIntent() {
+        return null;
+    }
+
+    protected abstract Class<T> getActivityClass();
+
     @After
     public void tearDown() {
         try {
@@ -42,6 +48,14 @@ public abstract class BaseActivityTest<T extends Activity> extends BaseUnitTest 
         }
 
         System.gc();
+    }
+
+    protected T getActivity() {
+        return activity;
+    }
+
+    protected ActivityController getActivityController() {
+        return controller;
     }
 
     @Test
@@ -84,19 +98,5 @@ public abstract class BaseActivityTest<T extends Activity> extends BaseUnitTest 
         } catch (Exception e) {
             fail("Should not have thrown any exception");
         }
-    }
-
-    protected abstract Class<T> getActivityClass();
-
-    protected T getActivity() {
-        return activity;
-    }
-
-    protected ActivityController getActivityController() {
-        return controller;
-    }
-
-    protected Intent getControllerIntent() {
-        return null;
     }
 }

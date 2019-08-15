@@ -129,15 +129,6 @@ public class HealthFacilityApplication extends CoreChwApplication implements Cor
         Timber.i("Logged out user %s", getContext().allSharedPreferences().fetchRegisteredANM());
     }
 
-    public void setOpenSRPUrl() {
-        AllSharedPreferences preferences = Utils.getAllSharedPreferences();
-        if (BuildConfig.DEBUG) {
-            preferences.savePreference(AllConstants.DRISHTI_BASE_URL, BuildConfig.opensrp_url_debug);
-        } else {
-            preferences.savePreference(AllConstants.DRISHTI_BASE_URL, BuildConfig.opensrp_url);
-        }
-    }
-
     public @NotNull Map<String, Class> getRegisteredActivities() {
         Map<String, Class> registeredActivities = new HashMap<>();
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.ANC_REGISTER_ACTIVITY, FamilyRegisterActivity.class);
@@ -159,5 +150,14 @@ public class HealthFacilityApplication extends CoreChwApplication implements Cor
             Timber.e(e);
         }
         return repository;
+    }
+
+    public void setOpenSRPUrl() {
+        AllSharedPreferences preferences = Utils.getAllSharedPreferences();
+        if (BuildConfig.DEBUG) {
+            preferences.savePreference(AllConstants.DRISHTI_BASE_URL, BuildConfig.opensrp_url_debug);
+        } else {
+            preferences.savePreference(AllConstants.DRISHTI_BASE_URL, BuildConfig.opensrp_url);
+        }
     }
 }

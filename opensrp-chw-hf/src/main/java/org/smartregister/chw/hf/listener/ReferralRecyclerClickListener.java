@@ -15,6 +15,19 @@ public class ReferralRecyclerClickListener implements View.OnClickListener {
     private CommonPersonObjectClient commonPersonObjectClient;
     private Activity activity;
 
+    @Override
+    public void onClick(View view) {
+        ReferralTaskViewActivity.startReferralTaskViewActivity(getActivity(), getCommonPersonObjectClient(), getTask());
+    }
+
+    public Activity getActivity() {
+        return activity;
+    }
+
+    public CommonPersonObjectClient getCommonPersonObjectClient() {
+        return commonPersonObjectClient;
+    }
+
     public Task getTask() {
         return task;
     }
@@ -23,25 +36,12 @@ public class ReferralRecyclerClickListener implements View.OnClickListener {
         this.task = task;
     }
 
-    public CommonPersonObjectClient getCommonPersonObjectClient() {
-        return commonPersonObjectClient;
-    }
-
     public void setCommonPersonObjectClient(CommonPersonObjectClient commonPersonObjectClient) {
         this.commonPersonObjectClient = commonPersonObjectClient;
     }
 
-    public Activity getActivity() {
-        return activity;
-    }
-
     public void setActivity(Activity activity) {
         this.activity = activity;
-    }
-
-    @Override
-    public void onClick(View view) {
-        ReferralTaskViewActivity.startReferralTaskViewActivity(getActivity(), getCommonPersonObjectClient(), getTask());
     }
 
 }

@@ -207,6 +207,11 @@ public class JsonFormUtilsFlv implements JsonFormUtils.Flavor {
         return Pair.create(ecEvent, ecClient);
     }
 
+    private void computeDOBUnknown(JSONObject jsonObject, CommonPersonObjectClient client) throws JSONException {
+        jsonObject.put(org.smartregister.family.util.JsonFormUtils.READ_ONLY, false);
+        JSONObject optionsObject = jsonObject.getJSONArray(org.smartregister.family.util.Constants.JSON_FORM_KEY.OPTIONS).getJSONObject(0);
+        optionsObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), org.smartregister.family.util.Constants.JSON_FORM_KEY.DOB_UNKNOWN, false));
+    }
 
     private void computeAge(JSONObject jsonObject, CommonPersonObjectClient client) throws JSONException {
         String dobString = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.DOB, false);
@@ -214,13 +219,6 @@ public class JsonFormUtilsFlv implements JsonFormUtils.Flavor {
         dobString = dobString.contains("y") ? dobString.substring(0, dobString.indexOf("y")) : "0";
         jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, Integer.valueOf(dobString));
     }
-
-    private void computeDOBUnknown(JSONObject jsonObject, CommonPersonObjectClient client) throws JSONException {
-        jsonObject.put(org.smartregister.family.util.JsonFormUtils.READ_ONLY, false);
-        JSONObject optionsObject = jsonObject.getJSONArray(org.smartregister.family.util.Constants.JSON_FORM_KEY.OPTIONS).getJSONObject(0);
-        optionsObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), org.smartregister.family.util.Constants.JSON_FORM_KEY.DOB_UNKNOWN, false));
-    }
-
 
     private void computeDOB(JSONObject jsonObject, CommonPersonObjectClient client) throws JSONException {
 

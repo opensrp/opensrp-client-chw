@@ -13,11 +13,11 @@ import java.util.Set;
 public class FamilyRegisterFragment extends CoreFamilyRegisterFragment {
 
     @Override
-    public void onViewClicked(android.view.View view) {
-        super.onViewClicked(view);
-        if (view.getId() == R.id.due_only_layout) {
-            toggleFilterSelection(view);
-        }
+    public void initializeAdapter(Set<org.smartregister.configurableviews.model.View> visibleColumns) {
+        CoreRegisterProvider chwRegisterProvider = new HfRegisterProvider(getActivity(), commonRepository(), visibleColumns, registerActionHandler, paginationViewHandler);
+        clientAdapter = new RecyclerViewPaginatedAdapter(null, chwRegisterProvider, context().commonrepository(this.tablename));
+        clientAdapter.setCurrentlimit(20);
+        clientsView.setAdapter(clientAdapter);
     }
 
     @Override
@@ -27,10 +27,10 @@ public class FamilyRegisterFragment extends CoreFamilyRegisterFragment {
     }
 
     @Override
-    public void initializeAdapter(Set<org.smartregister.configurableviews.model.View> visibleColumns) {
-        CoreRegisterProvider chwRegisterProvider = new HfRegisterProvider(getActivity(), commonRepository(), visibleColumns, registerActionHandler, paginationViewHandler);
-        clientAdapter = new RecyclerViewPaginatedAdapter(null, chwRegisterProvider, context().commonrepository(this.tablename));
-        clientAdapter.setCurrentlimit(20);
-        clientsView.setAdapter(clientAdapter);
+    public void onViewClicked(android.view.View view) {
+        super.onViewClicked(view);
+        if (view.getId() == R.id.due_only_layout) {
+            toggleFilterSelection(view);
+        }
     }
 }

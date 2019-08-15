@@ -69,19 +69,20 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
         presenter().fetchTasks();
     }
 
-    private void initializeTasksRecyclerView() {
-        referralRecyclerView = findViewById(R.id.referral_card_recycler_view);
-        referalRow = findViewById(R.id.referal_row);
-        layoutManager = new LinearLayoutManager(this);
-        referralRecyclerView.setLayoutManager(layoutManager);
-    }
-
     @Override
-    public void setClientTasks(Set<Task> taskList) {
-        if (referralRecyclerView != null && taskList.size() > 0) {
-            referalRow.setVisibility(View.VISIBLE);
-            mAdapter = new ReferralCardViewAdapter(taskList, this, ((CoreChildProfilePresenter) presenter()).getChildClient());
-            referralRecyclerView.setAdapter(mAdapter);
+    public void onClick(View view) {
+        super.onClick(view);
+        int i = view.getId();
+        if (i == R.id.last_visit_row) {
+            openMedicalHistoryScreen();
+        } else if (i == R.id.most_due_overdue_row) {
+            openUpcomingServicePage();
+        } else if (i == R.id.textview_record_visit || i == R.id.record_visit_done_bar) {
+            openVisitHomeScreen(false);
+        } else if (i == R.id.family_has_row) {
+            openFamilyDueTab();
+        } else if (i == R.id.textview_edit) {
+            openVisitHomeScreen(true);
         }
     }
 
@@ -95,6 +96,20 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
         }
 
         presenter = new HfChildProfilePresenter(this, new CoreChildProfileModel(familyName), childBaseEntityId);
+    }
+
+    @Override
+    public void setClientTasks(Set<Task> taskList) {
+        if (referralRecyclerView != null && taskList.size() > 0) {
+            referalRow.setVisibility(View.VISIBLE);
+            mAdapter = new ReferralCardViewAdapter(taskList, this, ((CoreChildProfilePresenter) presenter()).getChildClient());
+            referralRecyclerView.setAdapter(mAdapter);
+        }
+    }
+
+    @Override
+    public void updateHasPhone(boolean hasPhone) {
+        hideProgressBar();
     }
 
     @Override
@@ -123,37 +138,22 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onClick(View view) {
-        super.onClick(view);
-        int i = view.getId();
-        if (i == R.id.last_visit_row) {
-            openMedicalHistoryScreen();
-        } else if (i == R.id.most_due_overdue_row) {
-            openUpcomingServicePage();
-        } else if (i == R.id.textview_record_visit || i == R.id.record_visit_done_bar) {
-            openVisitHomeScreen(false);
-        } else if (i == R.id.family_has_row) {
-            openFamilyDueTab();
-        } else if (i == R.id.textview_edit) {
-            openVisitHomeScreen(true);
-        }
+    private void openMedicalHistoryScreen() {
+        Map<String, Date> vaccine = ((HfChildProfilePresenter) presenter()).getVaccineList();
+        CoreChildMedicalHistoryActivity.startMedicalHistoryActivity(this, ((CoreChildProfilePresenter) presenter()).getChildClient(), patientName, lastVisitDay,
+                ((HfChildProfilePresenter) presenter()).getDateOfBirth(), new LinkedHashMap<>(vaccine));
     }
-
-    @Override
-    public void updateHasPhone(boolean hasPhone) {
-        hideProgressBar();
-    }
-
 
     private void openUpcomingServicePage() {
         CoreUpcomingServicesActivity.startUpcomingServicesActivity(this, ((CoreChildProfilePresenter) presenter()).getChildClient());
     }
 
-    private void openMedicalHistoryScreen() {
-        Map<String, Date> vaccine = ((HfChildProfilePresenter) presenter()).getVaccineList();
-        CoreChildMedicalHistoryActivity.startMedicalHistoryActivity(this, ((CoreChildProfilePresenter) presenter()).getChildClient(), patientName, lastVisitDay,
-                ((HfChildProfilePresenter) presenter()).getDateOfBirth(), new LinkedHashMap<>(vaccine));
+    private void openVisitHomeScreen(boolean isEditMode) {
+        HfChildHomeVisitFragment childHomeVisitFragment = HfChildHomeVisitFragment.newInstance();
+        childHomeVisitFragment.setEditMode(isEditMode);
+        childHomeVisitFragment.setContext(this);
+        childHomeVisitFragment.setChildClient(((CoreChildProfilePresenter) presenter()).getChildClient());
+        childHomeVisitFragment.show(getFragmentManager(), CoreChildHomeVisitFragment.DIALOG_TAG);
     }
 
     private void openFamilyDueTab() {
@@ -166,15 +166,6 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
 
         intent.putExtra(CoreConstants.INTENT_KEY.SERVICE_DUE, true);
         startActivity(intent);
-    }
-
-
-    private void openVisitHomeScreen(boolean isEditMode) {
-        HfChildHomeVisitFragment childHomeVisitFragment = HfChildHomeVisitFragment.newInstance();
-        childHomeVisitFragment.setEditMode(isEditMode);
-        childHomeVisitFragment.setContext(this);
-        childHomeVisitFragment.setChildClient(((CoreChildProfilePresenter) presenter()).getChildClient());
-        childHomeVisitFragment.show(getFragmentManager(), CoreChildHomeVisitFragment.DIALOG_TAG);
     }
 
     public OnClickFloatingMenu getOnClickFloatingMenu(final Activity activity, final HfChildProfilePresenter presenter) {
@@ -193,5 +184,12 @@ public class ChildProfileActivity extends CoreChildProfileActivity {
                 }
             }
         };
+    }
+
+    private void initializeTasksRecyclerView() {
+        referralRecyclerView = findViewById(R.id.referral_card_recycler_view);
+        referalRow = findViewById(R.id.referal_row);
+        layoutManager = new LinearLayoutManager(this);
+        referralRecyclerView.setLayoutManager(layoutManager);
     }
 }

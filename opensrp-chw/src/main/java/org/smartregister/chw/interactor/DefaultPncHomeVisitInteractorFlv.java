@@ -547,6 +547,10 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
         }
     }
 
+    protected int getAgeInDays(Date dob) {
+        return Days.daysBetween(new DateTime(dob).toLocalDate(), new DateTime().toLocalDate()).getDays();
+    }
+
     /**
      * returns list of vaccines that are pending
      *
@@ -578,10 +582,6 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
             Timber.e(e);
         }
         return vaccineWrappers;
-    }
-
-    protected int getAgeInDays(Date dob) {
-        return Days.daysBetween(new DateTime(dob).toLocalDate(), new DateTime().toLocalDate()).getDays();
     }
 
     private class PNCHealthFacilityVisitHelper implements BaseAncHomeVisitAction.AncHomeVisitActionHelper {

@@ -10,16 +10,16 @@ public class FamilyRemoveMemberInteractor extends CoreFamilyRemoveMemberInteract
         setCoreChwApplication();
     }
 
+    @Override
+    protected void setCoreChwApplication() {
+        this.coreChwApplication = ChwApplication.getInstance();
+    }
+
     public static FamilyRemoveMemberInteractor getInstance() {
         if (instance == null) {
             instance = new FamilyRemoveMemberInteractor();
         }
         return instance;
-    }
-
-    @Override
-    protected void setCoreChwApplication() {
-        this.coreChwApplication = ChwApplication.getInstance();
     }
 
 }

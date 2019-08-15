@@ -35,37 +35,40 @@ public class HfChildProfileInteractor extends CoreChildProfileInteractor {
     private AppExecutors appExecutors;
     private Map<String, Date> vaccineList = new LinkedHashMap<>();
 
+    public HfChildProfileInteractor() {
+        this(new AppExecutors());
+    }
+
     @VisibleForTesting
     HfChildProfileInteractor(AppExecutors appExecutors) {
         this.appExecutors = appExecutors;
     }
 
-    public HfChildProfileInteractor() {
-        this(new AppExecutors());
+    @Override
+    public Map<String, Date> getVaccineList() {
+        return vaccineList;
     }
 
     @Override
-    public void refreshChildVisitBar(Context context, String baseEntityId, final CoreChildProfileContract.InteractorCallBack callback) {
-        ChildHomeVisit childHomeVisit = CoreChildUtils.getLastHomeVisit(CoreConstants.TABLE_NAME.CHILD, baseEntityId);
+    public void setVaccineList(Map<String, Date> vaccineList) {
+        this.vaccineList = vaccineList;
+    }
 
-        if (getpClient() != null) {
-            String dobString = Utils.getDuration(Utils.getValue(getpClient().getColumnmaps(), DBConstants.KEY.DOB, false));
-
-            final ChildVisit childVisit = HfChildUtils.getChildVisitStatus(context, dobString, childHomeVisit.getLastHomeVisitDate(), childHomeVisit.getVisitNotDoneDate(), childHomeVisit.getDateCreated());
-
-            Runnable runnable = new Runnable() {
-                @Override
-                public void run() {
-                    appExecutors.mainThread().execute(new Runnable() {
-                        @Override
-                        public void run() {
-                            callback.updateChildVisit(childVisit);
-                        }
-                    });
-                }
-            };
-            appExecutors.diskIO().execute(runnable);
-        }
+    @Override
+    public void processBackGroundEvent(final CoreChildProfileContract.InteractorCallBack callback) {
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                HfChildUtils.processClientProcessInBackground();
+                appExecutors.mainThread().execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        callback.updateAfterBackGroundProcessed();
+                    }
+                });
+            }
+        };
+        appExecutors.diskIO().execute(runnable);
     }
 
     @Override
@@ -100,8 +103,34 @@ public class HfChildProfileInteractor extends CoreChildProfileInteractor {
     }
 
     @Override
+    public void refreshChildVisitBar(Context context, String baseEntityId, final CoreChildProfileContract.InteractorCallBack callback) {
+        ChildHomeVisit childHomeVisit = CoreChildUtils.getLastHomeVisit(CoreConstants.TABLE_NAME.CHILD, baseEntityId);
+
+        if (getpClient() != null) {
+            String dobString = Utils.getDuration(Utils.getValue(getpClient().getColumnmaps(), DBConstants.KEY.DOB, false));
+
+            final ChildVisit childVisit = HfChildUtils.getChildVisitStatus(context, dobString, childHomeVisit.getLastHomeVisitDate(), childHomeVisit.getVisitNotDoneDate(), childHomeVisit.getDateCreated());
+
+            Runnable runnable = new Runnable() {
+                @Override
+                public void run() {
+                    appExecutors.mainThread().execute(new Runnable() {
+                        @Override
+                        public void run() {
+                            callback.updateChildVisit(childVisit);
+                        }
+                    });
+                }
+            };
+            appExecutors.diskIO().execute(runnable);
+        }
+    }
+
+    @Override
     public void refreshUpcomingServiceAndFamilyDue(Context context, String familyId, String baseEntityId, final CoreChildProfileContract.InteractorCallBack callback) {
-        if (getpClient() == null) return;
+        if (getpClient() == null) {
+            return;
+        }
         updateUpcomingServices(callback, context);
         updateFamilyDueStatus(context, familyId, baseEntityId, callback);
 
@@ -164,23 +193,6 @@ public class HfChildProfileInteractor extends CoreChildProfileInteractor {
                 });
     }
 
-    @Override
-    public void processBackGroundEvent(final CoreChildProfileContract.InteractorCallBack callback) {
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                HfChildUtils.processClientProcessInBackground();
-                appExecutors.mainThread().execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        callback.updateAfterBackGroundProcessed();
-                    }
-                });
-            }
-        };
-        appExecutors.diskIO().execute(runnable);
-    }
-
     private Observable<Object> updateHomeVisitAsEvent(final long value) {
         return Observable.create(new ObservableOnSubscribe<Object>() {
             @Override
@@ -193,15 +205,5 @@ public class HfChildProfileInteractor extends CoreChildProfileInteractor {
                 objectObservableEmitter.onNext("");
             }
         });
-    }
-
-    @Override
-    public Map<String, Date> getVaccineList() {
-        return vaccineList;
-    }
-
-    @Override
-    public void setVaccineList(Map<String, Date> vaccineList) {
-        this.vaccineList = vaccineList;
     }
 }

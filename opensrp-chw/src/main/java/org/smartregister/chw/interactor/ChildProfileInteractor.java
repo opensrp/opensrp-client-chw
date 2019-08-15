@@ -46,26 +46,87 @@ public class ChildProfileInteractor extends CoreChildProfileInteractor {
     private AppExecutors appExecutors;
     private Map<String, Date> vaccineList = new LinkedHashMap<>();
 
+    public ChildProfileInteractor() {
+        this(new AppExecutors());
+    }
+
     @VisibleForTesting
     ChildProfileInteractor(AppExecutors appExecutors) {
         this.appExecutors = appExecutors;
     }
 
-    public ChildProfileInteractor() {
-        this(new AppExecutors());
+    @Override
+
+    public Map<String, Date> getVaccineList() {
+        return vaccineList;
     }
 
-    public void refreshChildVisitBar(Context context, String baseEntityId, final CoreChildProfileContract.InteractorCallBack callback) {
-        ChildHomeVisit childHomeVisit = ChildUtils.getLastHomeVisit(Constants.TABLE_NAME.CHILD, baseEntityId);
+    @Override
+    public void setVaccineList(Map<String, Date> vaccineList) {
+        this.vaccineList = vaccineList;
+    }
 
-        String dobString = Utils.getDuration(Utils.getValue(getpClient().getColumnmaps(), DBConstants.KEY.DOB, false));
+    @Override
+    public JSONObject getAutoPopulatedJsonEditFormString(String formName, String title, Context context, CommonPersonObjectClient client) {
+        try {
+            JSONObject form = FormUtils.getInstance(context).getFormJson(formName);
+            LocationPickerView lpv = new LocationPickerView(context);
+            lpv.init();
+            if (form != null) {
+                form.put(JsonFormUtils.ENTITY_ID, client.getCaseId());
+                form.put(JsonFormUtils.ENCOUNTER_TYPE, EventType.UPDATE_CHILD_REGISTRATION);
 
-        final ChildVisit childVisit = ChildUtils.getChildVisitStatus(context, dobString, childHomeVisit.getLastHomeVisitDate(), childHomeVisit.getVisitNotDoneDate(), childHomeVisit.getDateCreated());
+                JSONObject metadata = form.getJSONObject(JsonFormUtils.METADATA);
+                String lastLocationId = LocationHelper.getInstance().getOpenMrsLocationId(lpv.getSelectedItem());
 
-        Runnable runnable = () -> appExecutors.mainThread().execute(() -> callback.updateChildVisit(childVisit));
+                metadata.put(JsonFormUtils.ENCOUNTER_LOCATION, lastLocationId);
+
+                form.put(JsonFormUtils.CURRENT_OPENSRP_ID, Utils.getValue(client.getColumnmaps(), DBConstants.KEY.UNIQUE_ID, false));
+
+                JSONObject stepOne = form.getJSONObject(JsonFormUtils.STEP1);
+
+                if (StringUtils.isNotBlank(title)) {
+                    stepOne.put(org.smartregister.chw.util.JsonFormUtils.TITLE, title);
+                }
+                JSONArray jsonArray = stepOne.getJSONArray(JsonFormUtils.FIELDS);
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+
+                    processPopulatableFields(client, jsonObject, jsonArray);
+
+                }
+
+                return form;
+            }
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+
+        return null;
+    }
+
+    @Override
+    public void processBackGroundEvent(final CoreChildProfileContract.InteractorCallBack callback) {
+        Runnable runnable = () -> {
+            ChildUtils.processClientProcessInBackground();
+            appExecutors.mainThread().execute(() -> callback.updateAfterBackGroundProcessed());
+        };
+
         appExecutors.diskIO().execute(runnable);
     }
 
+    @Override
+    public void saveRegistration(final Pair<Client, Event> pair, final String jsonString, final boolean isEditMode, final CoreChildProfileContract.InteractorCallBack callBack) {
+        Runnable runnable = () -> {
+            saveRegistration(pair, jsonString, isEditMode);
+            appExecutors.mainThread().execute(() -> {
+                if (callBack != null)
+                    callBack.onRegistrationSaved(isEditMode);
+            });
+        };
+
+        appExecutors.diskIO().execute(runnable);
+    }
 
     @Override
     public void updateVisitNotDone(final long value, final CoreChildProfileContract.InteractorCallBack callback) {
@@ -97,6 +158,17 @@ public class ChildProfileInteractor extends CoreChildProfileInteractor {
                     public void onComplete() {
                     }
                 });
+    }
+
+    public void refreshChildVisitBar(Context context, String baseEntityId, final CoreChildProfileContract.InteractorCallBack callback) {
+        ChildHomeVisit childHomeVisit = ChildUtils.getLastHomeVisit(Constants.TABLE_NAME.CHILD, baseEntityId);
+
+        String dobString = Utils.getDuration(Utils.getValue(getpClient().getColumnmaps(), DBConstants.KEY.DOB, false));
+
+        final ChildVisit childVisit = ChildUtils.getChildVisitStatus(context, dobString, childHomeVisit.getLastHomeVisitDate(), childHomeVisit.getVisitNotDoneDate(), childHomeVisit.getDateCreated());
+
+        Runnable runnable = () -> appExecutors.mainThread().execute(() -> callback.updateChildVisit(childVisit));
+        appExecutors.diskIO().execute(runnable);
     }
 
     @Override
@@ -164,68 +236,6 @@ public class ChildProfileInteractor extends CoreChildProfileInteractor {
                 });
     }
 
-    @Override
-    public void processBackGroundEvent(final CoreChildProfileContract.InteractorCallBack callback) {
-        Runnable runnable = () -> {
-            ChildUtils.processClientProcessInBackground();
-            appExecutors.mainThread().execute(() -> callback.updateAfterBackGroundProcessed());
-        };
-
-        appExecutors.diskIO().execute(runnable);
-    }
-
-    @Override
-    public void saveRegistration(final Pair<Client, Event> pair, final String jsonString, final boolean isEditMode, final CoreChildProfileContract.InteractorCallBack callBack) {
-        Runnable runnable = () -> {
-            saveRegistration(pair, jsonString, isEditMode);
-            appExecutors.mainThread().execute(() -> {
-                if (callBack != null)
-                    callBack.onRegistrationSaved(isEditMode);
-            });
-        };
-
-        appExecutors.diskIO().execute(runnable);
-    }
-
-    @Override
-    public JSONObject getAutoPopulatedJsonEditFormString(String formName, String title, Context context, CommonPersonObjectClient client) {
-        try {
-            JSONObject form = FormUtils.getInstance(context).getFormJson(formName);
-            LocationPickerView lpv = new LocationPickerView(context);
-            lpv.init();
-            if (form != null) {
-                form.put(JsonFormUtils.ENTITY_ID, client.getCaseId());
-                form.put(JsonFormUtils.ENCOUNTER_TYPE, EventType.UPDATE_CHILD_REGISTRATION);
-
-                JSONObject metadata = form.getJSONObject(JsonFormUtils.METADATA);
-                String lastLocationId = LocationHelper.getInstance().getOpenMrsLocationId(lpv.getSelectedItem());
-
-                metadata.put(JsonFormUtils.ENCOUNTER_LOCATION, lastLocationId);
-
-                form.put(JsonFormUtils.CURRENT_OPENSRP_ID, Utils.getValue(client.getColumnmaps(), DBConstants.KEY.UNIQUE_ID, false));
-
-                JSONObject stepOne = form.getJSONObject(JsonFormUtils.STEP1);
-
-                if (StringUtils.isNotBlank(title)) {
-                    stepOne.put(org.smartregister.chw.util.JsonFormUtils.TITLE, title);
-                }
-                JSONArray jsonArray = stepOne.getJSONArray(JsonFormUtils.FIELDS);
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    JSONObject jsonObject = jsonArray.getJSONObject(i);
-
-                    processPopulatableFields(client, jsonObject, jsonArray);
-
-                }
-
-                return form;
-            }
-        } catch (Exception e) {
-            Timber.e(e);
-        }
-
-        return null;
-    }
-
     private Observable<Object> updateHomeVisitAsEvent(final long value) {
         return Observable.create(objectObservableEmitter -> {
             final String homeVisitId = org.smartregister.chw.util.JsonFormUtils.generateRandomUUIDString();
@@ -235,16 +245,5 @@ public class ChildProfileInteractor extends CoreChildProfileInteractor {
                     fields, ChildDBConstants.KEY.VISIT_NOT_DONE, value + "", homeVisitId);
             objectObservableEmitter.onNext("");
         });
-    }
-
-    @Override
-
-    public Map<String, Date> getVaccineList() {
-        return vaccineList;
-    }
-
-    @Override
-    public void setVaccineList(Map<String, Date> vaccineList) {
-        this.vaccineList = vaccineList;
     }
 }

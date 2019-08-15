@@ -20,21 +20,11 @@ import timber.log.Timber;
 public class ChildRegisterFragment extends CoreChildRegisterFragment {
 
     @Override
-    protected void onViewClicked(android.view.View view) {
-        super.onViewClicked(view);
-        if (view.getTag() != null && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_DOSAGE_STATUS) {
-            if (view.getTag() instanceof CommonPersonObjectClient) {
-                CommonPersonObjectClient pc = (CommonPersonObjectClient) view.getTag();
-                String baseEntityId = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, true);
-
-                if (StringUtils.isNotBlank(baseEntityId)) {
-                    ChildHomeVisitFragment childHomeVisitFragment = ChildHomeVisitFragment.newInstance();
-                    childHomeVisitFragment.setContext(getActivity());
-                    childHomeVisitFragment.setChildClient(pc);
-                    childHomeVisitFragment.show(getActivity().getFragmentManager(), ChildHomeVisitFragment.DIALOG_TAG);
-                }
-            }
-        }
+    public void initializeAdapter(Set<View> visibleColumns) {
+        ChildRegisterProvider childRegisterProvider = new ChildRegisterProvider(getActivity(), commonRepository(), visibleColumns, registerActionHandler, paginationViewHandler);
+        clientAdapter = new RecyclerViewPaginatedAdapter(null, childRegisterProvider, context().commonrepository(this.tablename));
+        clientAdapter.setCurrentlimit(20);
+        clientsView.setAdapter(clientAdapter);
     }
 
     @Override
@@ -50,10 +40,20 @@ public class ChildRegisterFragment extends CoreChildRegisterFragment {
     }
 
     @Override
-    public void initializeAdapter(Set<View> visibleColumns) {
-        ChildRegisterProvider childRegisterProvider = new ChildRegisterProvider(getActivity(), commonRepository(), visibleColumns, registerActionHandler, paginationViewHandler);
-        clientAdapter = new RecyclerViewPaginatedAdapter(null, childRegisterProvider, context().commonrepository(this.tablename));
-        clientAdapter.setCurrentlimit(20);
-        clientsView.setAdapter(clientAdapter);
+    protected void onViewClicked(android.view.View view) {
+        super.onViewClicked(view);
+        if (view.getTag() != null && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_DOSAGE_STATUS) {
+            if (view.getTag() instanceof CommonPersonObjectClient) {
+                CommonPersonObjectClient pc = (CommonPersonObjectClient) view.getTag();
+                String baseEntityId = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, true);
+
+                if (StringUtils.isNotBlank(baseEntityId)) {
+                    ChildHomeVisitFragment childHomeVisitFragment = ChildHomeVisitFragment.newInstance();
+                    childHomeVisitFragment.setContext(getActivity());
+                    childHomeVisitFragment.setChildClient(pc);
+                    childHomeVisitFragment.show(getActivity().getFragmentManager(), ChildHomeVisitFragment.DIALOG_TAG);
+                }
+            }
+        }
     }
 }

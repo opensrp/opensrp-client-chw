@@ -55,12 +55,6 @@ public class AncMemberProfileActivity extends BaseAncMemberProfileActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.anc_member_profile_menu, menu);
-        return true;
-    }
-
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
@@ -93,60 +87,10 @@ public class AncMemberProfileActivity extends BaseAncMemberProfileActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void startFormForEdit(Integer title_resource, String formName) {
-        try {
-            JSONObject form = org.smartregister.chw.util.JsonFormUtils.getAncPncForm(title_resource, formName, MEMBER_OBJECT, this);
-            startActivityForResult(org.smartregister.chw.util.JsonFormUtils.getAncPncStartFormIntent(form, this), JsonFormUtils.REQUEST_CODE_GET_JSON);
-        } catch (Exception e) {
-            Timber.e(e);
-        }
-    }
-
-    public AncMemberProfilePresenter ancMemberProfilePresenter() {
-        return new AncMemberProfilePresenter(this, new AncMemberProfileInteractor(this), MEMBER_OBJECT);
-    }
-
     @Override
-    protected void registerPresenter() {
-        presenter = new BaseAncMemberProfilePresenter(this, new AncMemberProfileInteractor(this), MEMBER_OBJECT);
-    }
-
-    @Override
-    public void setupViews() {
-        super.setupViews();
-        Rules rules = ChwApplication.getInstance().getRulesEngineHelper().rules(CoreConstants.RULE_FILE.ANC_HOME_VISIT);
-
-        VisitSummary visitSummary = HomeVisitUtil.getAncVisitStatus(this, rules, MEMBER_OBJECT.getLastMenstrualPeriod(), MEMBER_OBJECT.getLastContactVisit(), null, new DateTime(MEMBER_OBJECT.getDateCreated()).toLocalDate());
-        String visitStatus = visitSummary.getVisitStatus();
-
-        if (!visitStatus.equalsIgnoreCase(ChildProfileInteractor.VisitType.DUE.name()) &&
-                !visitStatus.equalsIgnoreCase(ChildProfileInteractor.VisitType.OVERDUE.name())) {
-            textview_record_anc_visit.setVisibility(View.GONE);
-            view_anc_record.setVisibility(View.GONE);
-            textViewAncVisitNot.setVisibility(View.GONE);
-        }
-        if (visitStatus.equalsIgnoreCase(ChildProfileInteractor.VisitType.OVERDUE.name())) {
-            textview_record_anc_visit.setBackgroundResource(R.drawable.record_btn_selector_overdue);
-            layoutRecordView.setVisibility(View.VISIBLE);
-            record_reccuringvisit_done_bar.setVisibility(View.GONE);
-        }
-    }
-
-    @Override
-    public void onClick(View view) {
-        super.onClick(view);
-
-        switch (view.getId()) {
-            case R.id.textview_record_visit:
-            case R.id.textview_record_reccuring_visit:
-                AncHomeVisitActivity.startMe(this, MEMBER_OBJECT, false);
-                break;
-            case R.id.textview_edit:
-                AncHomeVisitActivity.startMe(this, MEMBER_OBJECT, true);
-                break;
-            default:
-                break;
-        }
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.anc_member_profile_menu, menu);
+        return true;
     }
 
     @Override
@@ -195,6 +139,62 @@ public class AncMemberProfileActivity extends BaseAncMemberProfileActivity {
             default:
                 break;
 
+        }
+    }
+
+    public AncMemberProfilePresenter ancMemberProfilePresenter() {
+        return new AncMemberProfilePresenter(this, new AncMemberProfileInteractor(this), MEMBER_OBJECT);
+    }
+
+    public void startFormForEdit(Integer title_resource, String formName) {
+        try {
+            JSONObject form = org.smartregister.chw.util.JsonFormUtils.getAncPncForm(title_resource, formName, MEMBER_OBJECT, this);
+            startActivityForResult(org.smartregister.chw.util.JsonFormUtils.getAncPncStartFormIntent(form, this), JsonFormUtils.REQUEST_CODE_GET_JSON);
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+    }
+
+    @Override
+    protected void registerPresenter() {
+        presenter = new BaseAncMemberProfilePresenter(this, new AncMemberProfileInteractor(this), MEMBER_OBJECT);
+    }
+
+    @Override
+    public void setupViews() {
+        super.setupViews();
+        Rules rules = ChwApplication.getInstance().getRulesEngineHelper().rules(CoreConstants.RULE_FILE.ANC_HOME_VISIT);
+
+        VisitSummary visitSummary = HomeVisitUtil.getAncVisitStatus(this, rules, MEMBER_OBJECT.getLastMenstrualPeriod(), MEMBER_OBJECT.getLastContactVisit(), null, new DateTime(MEMBER_OBJECT.getDateCreated()).toLocalDate());
+        String visitStatus = visitSummary.getVisitStatus();
+
+        if (!visitStatus.equalsIgnoreCase(ChildProfileInteractor.VisitType.DUE.name()) &&
+                !visitStatus.equalsIgnoreCase(ChildProfileInteractor.VisitType.OVERDUE.name())) {
+            textview_record_anc_visit.setVisibility(View.GONE);
+            view_anc_record.setVisibility(View.GONE);
+            textViewAncVisitNot.setVisibility(View.GONE);
+        }
+        if (visitStatus.equalsIgnoreCase(ChildProfileInteractor.VisitType.OVERDUE.name())) {
+            textview_record_anc_visit.setBackgroundResource(R.drawable.record_btn_selector_overdue);
+            layoutRecordView.setVisibility(View.VISIBLE);
+            record_reccuringvisit_done_bar.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void onClick(View view) {
+        super.onClick(view);
+
+        switch (view.getId()) {
+            case R.id.textview_record_visit:
+            case R.id.textview_record_reccuring_visit:
+                AncHomeVisitActivity.startMe(this, MEMBER_OBJECT, false);
+                break;
+            case R.id.textview_edit:
+                AncHomeVisitActivity.startMe(this, MEMBER_OBJECT, true);
+                break;
+            default:
+                break;
         }
     }
 

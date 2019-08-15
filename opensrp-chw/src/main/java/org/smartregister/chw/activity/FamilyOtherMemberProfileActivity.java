@@ -87,21 +87,6 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
     }
 
     @Override
-    protected void initializePresenter() {
-        commonPersonObject = (CommonPersonObjectClient) getIntent().getSerializableExtra(CoreConstants.INTENT_KEY.CHILD_COMMON_PERSON);
-        familyBaseEntityId = getIntent().getStringExtra(Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID);
-        baseEntityId = getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID);
-        familyHead = getIntent().getStringExtra(Constants.INTENT_KEY.FAMILY_HEAD);
-        primaryCaregiver = getIntent().getStringExtra(Constants.INTENT_KEY.PRIMARY_CAREGIVER);
-        villageTown = getIntent().getStringExtra(Constants.INTENT_KEY.VILLAGE_TOWN);
-        familyName = getIntent().getStringExtra(Constants.INTENT_KEY.FAMILY_NAME);
-        PhoneNumber = commonPersonObject.getColumnmaps().get(CoreConstants.JsonAssets.FAMILY_MEMBER.PHONE_NUMBER);
-        presenter = new FamilyOtherMemberActivityPresenter(this, new BaseFamilyOtherMemberProfileActivityModel(), null, familyBaseEntityId, baseEntityId, familyHead, primaryCaregiver, villageTown, familyName);
-
-        onClickFloatingMenu = flavor.getOnClickFloatingMenu(this, familyBaseEntityId);
-    }
-
-    @Override
     protected void setupViews() {
         super.setupViews();
 
@@ -130,38 +115,9 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
     }
 
     @Override
-    public void updateHasPhone(boolean hasPhone) {
-        if (familyFloatingMenu != null) {
-            familyFloatingMenu.reDraw(hasPhone);
-        }
-    }
-
-    @Override
-    public void setFamilyServiceStatus(String status) {
-        layoutFamilyHasRow.setVisibility(View.VISIBLE);
-        if (status.equalsIgnoreCase(ChildProfileInteractor.FamilyServiceType.DUE.name())) {
-            textViewFamilyHas.setText(getString(R.string.family_has_services_due));
-        } else if (status.equalsIgnoreCase(ChildProfileInteractor.FamilyServiceType.OVERDUE.name())) {
-            textViewFamilyHas.setText(ChildUtils.fromHtml(getString(R.string.family_has_service_overdue)));
-        } else {
-            textViewFamilyHas.setText(getString(R.string.family_has_nothing_due));
-        }
-    }
-
-    @Override
-    public Context getContext() {
-        return this;
-    }
-
-    @Override
-    protected ViewPager setupViewPager(ViewPager viewPager) {
-        adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        BaseFamilyOtherMemberProfileFragment profileOtherMemberFragment = FamilyOtherMemberProfileFragment.newInstance(this.getIntent().getExtras());
-        adapter.addFragment(profileOtherMemberFragment, "");
-
-        viewPager.setAdapter(adapter);
-
-        return viewPager;
+    protected void onResumption() {
+        super.onResumption();
+        FloatingMenuListener.getInstance(this, presenter().getFamilyBaseEntityId());
     }
 
     @Override
@@ -278,12 +234,6 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
         }
     }
 
-    @Override
-    protected void onResumption() {
-        super.onResumption();
-        FloatingMenuListener.getInstance(this, presenter().getFamilyBaseEntityId());
-    }
-
     public void refreshList() {
         if (Looper.myLooper() == Looper.getMainLooper()) {
             for (int i = 0; i < adapter.getCount(); i++) {
@@ -297,6 +247,30 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
                 }
             });
         }
+    }
+
+    @Override
+    public void updateHasPhone(boolean hasPhone) {
+        if (familyFloatingMenu != null) {
+            familyFloatingMenu.reDraw(hasPhone);
+        }
+    }
+
+    @Override
+    public void setFamilyServiceStatus(String status) {
+        layoutFamilyHasRow.setVisibility(View.VISIBLE);
+        if (status.equalsIgnoreCase(ChildProfileInteractor.FamilyServiceType.DUE.name())) {
+            textViewFamilyHas.setText(getString(R.string.family_has_services_due));
+        } else if (status.equalsIgnoreCase(ChildProfileInteractor.FamilyServiceType.OVERDUE.name())) {
+            textViewFamilyHas.setText(ChildUtils.fromHtml(getString(R.string.family_has_service_overdue)));
+        } else {
+            textViewFamilyHas.setText(getString(R.string.family_has_nothing_due));
+        }
+    }
+
+    @Override
+    public Context getContext() {
+        return this;
     }
 
     private void refreshList(Fragment fragment) {
@@ -319,6 +293,32 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
                 super.onClick(view);
                 break;
         }
+    }
+
+    @Override
+    protected void initializePresenter() {
+        commonPersonObject = (CommonPersonObjectClient) getIntent().getSerializableExtra(CoreConstants.INTENT_KEY.CHILD_COMMON_PERSON);
+        familyBaseEntityId = getIntent().getStringExtra(Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID);
+        baseEntityId = getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID);
+        familyHead = getIntent().getStringExtra(Constants.INTENT_KEY.FAMILY_HEAD);
+        primaryCaregiver = getIntent().getStringExtra(Constants.INTENT_KEY.PRIMARY_CAREGIVER);
+        villageTown = getIntent().getStringExtra(Constants.INTENT_KEY.VILLAGE_TOWN);
+        familyName = getIntent().getStringExtra(Constants.INTENT_KEY.FAMILY_NAME);
+        PhoneNumber = commonPersonObject.getColumnmaps().get(CoreConstants.JsonAssets.FAMILY_MEMBER.PHONE_NUMBER);
+        presenter = new FamilyOtherMemberActivityPresenter(this, new BaseFamilyOtherMemberProfileActivityModel(), null, familyBaseEntityId, baseEntityId, familyHead, primaryCaregiver, villageTown, familyName);
+
+        onClickFloatingMenu = flavor.getOnClickFloatingMenu(this, familyBaseEntityId);
+    }
+
+    @Override
+    protected ViewPager setupViewPager(ViewPager viewPager) {
+        adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        BaseFamilyOtherMemberProfileFragment profileOtherMemberFragment = FamilyOtherMemberProfileFragment.newInstance(this.getIntent().getExtras());
+        adapter.addFragment(profileOtherMemberFragment, "");
+
+        viewPager.setAdapter(adapter);
+
+        return viewPager;
     }
 
     private void openFamilyDueTab() {

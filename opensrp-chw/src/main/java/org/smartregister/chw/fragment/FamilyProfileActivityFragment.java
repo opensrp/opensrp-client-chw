@@ -41,13 +41,6 @@ public class FamilyProfileActivityFragment extends BaseFamilyProfileActivityFrag
     }
 
     @Override
-    public void setupViews(android.view.View view) {
-        super.setupViews(view);
-        washCheckRecyclerView = view.findViewById(R.id.recycler_view_wash_check);
-        updateWashCheck();
-    }
-
-    @Override
     public void initializeAdapter(Set<View> visibleColumns) {
         FamilyActivityRegisterProvider familyActivityRegisterProvider = new FamilyActivityRegisterProvider(getActivity(), commonRepository(), visibleColumns, registerActionHandler, paginationViewHandler);
         clientAdapter = new FamilyRecyclerViewCustomAdapter(null, familyActivityRegisterProvider, context().commonrepository(this.tablename), Utils.metadata().familyActivityRegister.showPagination);
@@ -66,6 +59,19 @@ public class FamilyProfileActivityFragment extends BaseFamilyProfileActivityFrag
     public void setAdvancedSearchFormData(HashMap<String, String> hashMap) {
         //TODO
         Timber.d("setAdvancedSearchFormData");
+    }
+
+    @Override
+    public void setupViews(android.view.View view) {
+        super.setupViews(view);
+        washCheckRecyclerView = view.findViewById(R.id.recycler_view_wash_check);
+        updateWashCheck();
+    }
+
+    public void updateWashCheck() {
+        if (flavorWashCheck.isWashCheckVisible()) {
+            ((FamilyProfileActivityPresenter) presenter).fetchLastWashCheck();
+        }
     }
 
     public void updateWashCheckBar(ArrayList<WashCheck> washCheckList) {
@@ -91,12 +97,6 @@ public class FamilyProfileActivityFragment extends BaseFamilyProfileActivityFrag
         }
 
 
-    }
-
-    public void updateWashCheck() {
-        if (flavorWashCheck.isWashCheckVisible()) {
-            ((FamilyProfileActivityPresenter) presenter).fetchLastWashCheck();
-        }
     }
 
 }

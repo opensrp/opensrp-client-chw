@@ -52,6 +52,70 @@ public class HfChwRepository extends CoreChwRepository {
         this.context = context;
     }
 
+    private static void upgradeToVersion10(SQLiteDatabase db) {
+        try {
+//            VisitRepository.createTable(db);
+//            VisitDetailsRepository.createTable(db);
+            db.execSQL(AlertRepository.ALTER_ADD_OFFLINE_COLUMN);
+            db.execSQL(AlertRepository.OFFLINE_INDEX);
+            db.execSQL(VaccineRepository.UPDATE_TABLE_ADD_TEAM_COL);
+            db.execSQL(VaccineRepository.UPDATE_TABLE_ADD_TEAM_ID_COL);
+            db.execSQL(RecurringServiceRecordRepository.UPDATE_TABLE_ADD_TEAM_COL);
+            db.execSQL(RecurringServiceRecordRepository.UPDATE_TABLE_ADD_TEAM_ID_COL);
+            db.execSQL(VaccineRepository.UPDATE_TABLE_ADD_CHILD_LOCATION_ID_COL);
+            db.execSQL(RecurringServiceRecordRepository.UPDATE_TABLE_ADD_CHILD_LOCATION_ID_COL);
+            db.execSQL(HomeVisitRepository.UPDATE_TABLE_ADD_VACCINE_NOT_GIVEN);
+            db.execSQL(HomeVisitRepository.UPDATE_TABLE_ADD_SERVICE_NOT_GIVEN);
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion10 ");
+        }
+    }
+
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        Timber.w(HfChwRepository.class.getName(),
+                "Upgrading database from version " + oldVersion + " to "
+                        + newVersion + ", which will destroy all old data");
+        int upgradeTo = oldVersion + 1;
+        while (upgradeTo <= newVersion) {
+            switch (upgradeTo) {
+                case 2:
+                    upgradeToVersion2(context, db);
+                    break;
+                case 3:
+                    upgradeToVersion3(db);
+                    break;
+                case 4:
+                    upgradeToVersion4(db);
+                    break;
+                case 5:
+                    upgradeToVersion5(db);
+                    break;
+                case 6:
+                    upgradeToVersion6(db);
+                    break;
+                case 7:
+                    upgradeToVersion7(db);
+                    break;
+                case 8:
+                    upgradeToVersion8(db);
+                    break;
+                case 9:
+                    upgradeToVersion9(db);
+                    break;
+                case 10:
+                    //upgradeToVersion10(db);
+                    break;
+                case 11:
+                    upgradeToVersion11(db);
+                    break;
+                default:
+                    break;
+            }
+            upgradeTo++;
+        }
+    }
+
     private static void upgradeToVersion2(Context context, SQLiteDatabase db) {
         try {
             db.execSQL(VaccineRepository.UPDATE_TABLE_ADD_EVENT_ID_COL);
@@ -158,25 +222,6 @@ public class HfChwRepository extends CoreChwRepository {
         }
     }
 
-    private static void upgradeToVersion10(SQLiteDatabase db) {
-        try {
-//            VisitRepository.createTable(db);
-//            VisitDetailsRepository.createTable(db);
-            db.execSQL(AlertRepository.ALTER_ADD_OFFLINE_COLUMN);
-            db.execSQL(AlertRepository.OFFLINE_INDEX);
-            db.execSQL(VaccineRepository.UPDATE_TABLE_ADD_TEAM_COL);
-            db.execSQL(VaccineRepository.UPDATE_TABLE_ADD_TEAM_ID_COL);
-            db.execSQL(RecurringServiceRecordRepository.UPDATE_TABLE_ADD_TEAM_COL);
-            db.execSQL(RecurringServiceRecordRepository.UPDATE_TABLE_ADD_TEAM_ID_COL);
-            db.execSQL(VaccineRepository.UPDATE_TABLE_ADD_CHILD_LOCATION_ID_COL);
-            db.execSQL(RecurringServiceRecordRepository.UPDATE_TABLE_ADD_CHILD_LOCATION_ID_COL);
-            db.execSQL(HomeVisitRepository.UPDATE_TABLE_ADD_VACCINE_NOT_GIVEN);
-            db.execSQL(HomeVisitRepository.UPDATE_TABLE_ADD_SERVICE_NOT_GIVEN);
-        } catch (Exception e) {
-            Timber.e(e, "upgradeToVersion10 ");
-        }
-    }
-
     private static void upgradeToVersion11(SQLiteDatabase database) {
         try {
             PlanDefinitionRepository.createTable(database);
@@ -185,51 +230,6 @@ public class HfChwRepository extends CoreChwRepository {
             LocationRepository.createTable(database);
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion11");
-        }
-    }
-
-    @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        Timber.w(HfChwRepository.class.getName(),
-                "Upgrading database from version " + oldVersion + " to "
-                        + newVersion + ", which will destroy all old data");
-        int upgradeTo = oldVersion + 1;
-        while (upgradeTo <= newVersion) {
-            switch (upgradeTo) {
-                case 2:
-                    upgradeToVersion2(context, db);
-                    break;
-                case 3:
-                    upgradeToVersion3(db);
-                    break;
-                case 4:
-                    upgradeToVersion4(db);
-                    break;
-                case 5:
-                    upgradeToVersion5(db);
-                    break;
-                case 6:
-                    upgradeToVersion6(db);
-                    break;
-                case 7:
-                    upgradeToVersion7(db);
-                    break;
-                case 8:
-                    upgradeToVersion8(db);
-                    break;
-                case 9:
-                    upgradeToVersion9(db);
-                    break;
-                case 10:
-                    //upgradeToVersion10(db);
-                    break;
-                case 11:
-                    upgradeToVersion11(db);
-                    break;
-                default:
-                    break;
-            }
-            upgradeTo++;
         }
     }
 }

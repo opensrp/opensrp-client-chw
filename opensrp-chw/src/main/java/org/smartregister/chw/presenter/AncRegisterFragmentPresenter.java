@@ -13,11 +13,9 @@ public class AncRegisterFragmentPresenter extends BaseAncRegisterFragmentPresent
     }
 
     @Override
-    public void processViewConfigurations() {
-        super.processViewConfigurations();
-        if (config.getSearchBarText() != null && getView() != null) {
-            getView().updateSearchBarHint(getView().getContext().getString(R.string.search_name_or_id));
-        }
+    public String getMainCondition() {
+        return " " + Constants.TABLE_NAME.FAMILY_MEMBER + "." + DBConstants.KEY.DATE_REMOVED + " is null " +
+                "AND " + Constants.TABLE_NAME.ANC_MEMBER + "." + DBConstants.KEY.IS_CLOSED + " is 0 ";
     }
 
     @Override
@@ -26,8 +24,10 @@ public class AncRegisterFragmentPresenter extends BaseAncRegisterFragmentPresent
     }
 
     @Override
-    public String getMainCondition() {
-        return " " + Constants.TABLE_NAME.FAMILY_MEMBER + "." + DBConstants.KEY.DATE_REMOVED + " is null " +
-                "AND " + Constants.TABLE_NAME.ANC_MEMBER + "." + DBConstants.KEY.IS_CLOSED + " is 0 ";
+    public void processViewConfigurations() {
+        super.processViewConfigurations();
+        if (config.getSearchBarText() != null && getView() != null) {
+            getView().updateSearchBarHint(getView().getContext().getString(R.string.search_name_or_id));
+        }
     }
 }
