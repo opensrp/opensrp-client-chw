@@ -167,13 +167,9 @@ public abstract class CoreIndividualProfileRemoveFragment extends BaseFamilyProf
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 getActivity().finish();
-            } else {
-                if (getActivity() != null) {
-                    if (getActivity() instanceof CoreIndividualProfileRemoveActivity) {
-                        CoreIndividualProfileRemoveActivity p = (CoreIndividualProfileRemoveActivity) getActivity();
-                        p.onRemoveMember();
-                    }
-                }
+            } else if (getActivity() instanceof CoreIndividualProfileRemoveActivity) {
+                CoreIndividualProfileRemoveActivity p = (CoreIndividualProfileRemoveActivity) getActivity();
+                p.onRemoveMember();
             }
         }
     }

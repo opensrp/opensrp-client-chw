@@ -32,7 +32,6 @@ import java.util.Iterator;
 import timber.log.Timber;
 
 public class CoreChildHomeVisitInteractor implements ChildHomeVisitContract.Interactor {
-    private static final String TAG = "VisitInteractor";
     public AppExecutors appExecutors;
     public HashMap<String, BirthIllnessFormModel> saveList = new HashMap<>();
     public Flavor flavor;

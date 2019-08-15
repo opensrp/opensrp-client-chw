@@ -28,7 +28,6 @@ public class UpdateLastAsyncTask extends AsyncTask<Void, Void, Void> {
     private final RegisterViewHolder viewHolder;
     private final String baseEntityId;
     private final Rules rules;
-    private String TAG = UpdateLastAsyncTask.class.getCanonicalName();
     private CommonPersonObject commonPersonObject;
     private ChildVisit childVisit;
     private View.OnClickListener onClickListener;

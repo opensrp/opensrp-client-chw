@@ -43,7 +43,6 @@ public class CoreChildRegisterFragment extends BaseChwRegisterFragment implement
 
     public static final String CLICK_VIEW_NORMAL = "click_view_normal";
     public static final String CLICK_VIEW_DOSAGE_STATUS = "click_view_dosage_status";
-    private static final String TAG = CoreChildRegisterFragment.class.getCanonicalName();
     private static final String DUE_FILTER_TAG = "PRESSED";
     private View view;
     private View dueOnlyLayout;

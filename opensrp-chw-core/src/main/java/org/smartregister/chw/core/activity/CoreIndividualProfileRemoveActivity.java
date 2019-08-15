@@ -29,7 +29,7 @@ public abstract class CoreIndividualProfileRemoveActivity extends SecuredActivit
 
     @Override
     protected void onResumption() {
-
+        Timber.v("onResumption");
     }
 
     @Override

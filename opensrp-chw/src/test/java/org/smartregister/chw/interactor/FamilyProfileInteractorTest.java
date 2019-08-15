@@ -1,175 +1,40 @@
 package org.smartregister.chw.interactor;
 
-import android.content.Context;
-import android.content.res.AssetManager;
-import android.os.Handler;
-import android.os.Looper;
-import android.support.annotation.NonNull;
-
-import org.apache.commons.io.IOUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.mockito.invocation.InvocationOnMock;
-import org.mockito.stubbing.Answer;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.reflect.Whitebox;
-import org.smartregister.chw.activity.FamilyProfileActivity;
-import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.presenter.FamilyProfilePresenter;
-import org.smartregister.chw.util.Constants;
-import org.smartregister.commonregistry.CommonPersonObject;
-import org.smartregister.commonregistry.CommonRepository;
-import org.smartregister.family.activity.FamilyWizardFormActivity;
-import org.smartregister.family.domain.FamilyMetadata;
-import org.smartregister.family.util.AppExecutors;
-import org.smartregister.family.util.Utils;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.concurrent.Executor;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({Utils.class, ChwApplication.class, Constants.class})
-public class FamilyProfileInteractorTest {
+@PrepareForTest({FamilyProfileInteractor.class})
+public class FamilyProfileInteractorTest extends BaseInteractorTest {
 
     private FamilyProfileInteractor interactor;
 
     @Mock
-    private HashMap<String, String> details;
-
-    @Mock
     private FamilyProfilePresenter profilePresenter;
 
-    @Mock
-    private ChwApplication chwApplication;
-
-    @Mock
-    private Context context;
-
-    @Mock
-    private AssetManager assetManager;
-
-    @Mock
-    private AppExecutors appExecutors;
-
     @Before
-    public void setUp() throws IOException {
-        MockitoAnnotations.initMocks(this);
+    public void setUp() {
+        super.setUp();
 
-        PowerMockito.mockStatic(ChwApplication.class);
-
-        /* Mock reading of assets*/
-        PowerMockito.when(ChwApplication.getInstance()).thenReturn(chwApplication);
-        PowerMockito.when(ChwApplication.getCurrentLocale()).thenReturn(new Locale("fr", "FR"));
-        PowerMockito.when(chwApplication.getApplicationContext()).thenReturn(context);
-        PowerMockito.when(context.getAssets()).thenReturn(assetManager);
-
-        //Set asset manager and locale for JSON_FORM class
-        Whitebox.setInternalState(Constants.JSON_FORM.class, "assetManager", assetManager);
-        Whitebox.setInternalState(Constants.JSON_FORM.class, "locale", new Locale("fr", "FR"));
-
-        String sampleJson = " " +
-                "{ " +
-                "  \"validate_on_submit\": true,\n" +
-                "  \"show_errors_on_submit\": false,\n" +
-                "  \"count\": \"2\",\n" +
-                "  \"encounter_type\": \"Family Registration\",\n" +
-                "  \"entity_id\": \"\"" +
-                "}";
-
-        InputStream inputStream = IOUtils.toInputStream(sampleJson);
-        Mockito.when(assetManager.open(Mockito.anyString())).thenReturn(inputStream);
-
-        Mockito.when(appExecutors.diskIO());
-        Executor main = new MainThreadExecutor();
-        Mockito.doReturn(main).when(appExecutors).diskIO();
-        Mockito.doReturn(main).when(appExecutors).mainThread();
-        Mockito.doReturn(main).when(appExecutors).networkIO();
-
-        AppExecutors appExecutors = Mockito.spy(AppExecutors.class);
-        Executor executor = Mockito.mock(Executor.class);
-        implementAsDirectExecutor(executor);
-
-        interactor = Mockito.spy(FamilyProfileInteractor.class);
-        FamilyMetadata metadata = getMetadata();
-        CommonRepository commonRepository = Mockito.mock(CommonRepository.class);
-
-        // stub all executor threads with the main thread
-        Whitebox.setInternalState(appExecutors, "diskIO", executor);
-        Whitebox.setInternalState(appExecutors, "networkIO", executor);
-        Whitebox.setInternalState(appExecutors, "mainThread", executor);
-
+        interactor = PowerMockito.spy(new FamilyProfileInteractor());
         Whitebox.setInternalState(interactor, "appExecutors", appExecutors);
-
-        PowerMockito.mockStatic(Utils.class);
-        PowerMockito.when(Utils.metadata()).thenReturn(metadata);
-
-        /*
-        PowerMockito.when(
-                Utils.getValue(Mockito.anyMapOf(String.class,String.class), Mockito.anyString(), Mockito.anyBoolean())
-        ).thenReturn(familyID);
-        */
-
-        Mockito.doReturn(commonRepository).when(interactor).getCommonRepository(Mockito.anyString());
-        // Mockito.doReturn(familyID).when(getDetails()).get(Mockito.anyString());
-        Mockito.doReturn("123Test").when(details).get(Mockito.anyString());
-
-        CommonPersonObject personObject = new CommonPersonObject(null, null, details, null);
-        personObject.setColumnmaps(details);
-
-        Mockito.doReturn(personObject).when(commonRepository).findByBaseEntityId(Mockito.anyString());
-        Mockito.doReturn(personObject).when(commonRepository).findByBaseEntityId(null);
-    }
-
-    private void implementAsDirectExecutor(Executor executor) {
-        Mockito.doAnswer(new Answer<Object>() {
-            public Object answer(InvocationOnMock invocation) {
-                ((Runnable) invocation.getArguments()[0]).run();
-                return null;
-            }
-        }).when(executor).execute(Mockito.any(Runnable.class));
     }
 
     @Test
-    public void testVerifyHasPhone() {
-
-        String familyID = "12345";
-
-        Whitebox.setInternalState(interactor, "appExecutors", appExecutors);
-        interactor.verifyHasPhone(familyID, profilePresenter);
-        // verify that calls are sent to the database
-
-        // verify that the interactor update that view
+    public void testVerifyHasPhone() throws Exception {
+        // verify that the has method
+        PowerMockito.doReturn(false).when(interactor, "hasPhone", ArgumentMatchers.anyString());
+        interactor.verifyHasPhone("12345", profilePresenter);
         Mockito.verify(profilePresenter).notifyHasPhone(Mockito.anyBoolean());
-    }
-
-    private FamilyMetadata getMetadata() {
-        FamilyMetadata metadata = new FamilyMetadata(FamilyWizardFormActivity.class, FamilyWizardFormActivity.class, FamilyProfileActivity.class, Constants.IDENTIFIER.UNIQUE_IDENTIFIER_KEY, false);
-        metadata.updateFamilyRegister(Constants.JSON_FORM.getFamilyRegister(), Constants.TABLE_NAME.FAMILY, Constants.EventType.FAMILY_REGISTRATION, Constants.EventType.UPDATE_FAMILY_REGISTRATION, Constants.CONFIGURATION.FAMILY_REGISTER, Constants.RELATIONSHIP.FAMILY_HEAD, Constants.RELATIONSHIP.PRIMARY_CAREGIVER);
-        metadata.updateFamilyMemberRegister(Constants.JSON_FORM.getFamilyMemberRegister(), Constants.TABLE_NAME.FAMILY_MEMBER, Constants.EventType.FAMILY_MEMBER_REGISTRATION, Constants.EventType.UPDATE_FAMILY_MEMBER_REGISTRATION, Constants.CONFIGURATION.FAMILY_MEMBER_REGISTER, Constants.RELATIONSHIP.FAMILY);
-        metadata.updateFamilyDueRegister(Constants.TABLE_NAME.CHILD, Integer.MAX_VALUE, false);
-        metadata.updateFamilyActivityRegister(Constants.TABLE_NAME.CHILD_ACTIVITY, Integer.MAX_VALUE, false);
-        metadata.updateFamilyOtherMemberRegister(Constants.TABLE_NAME.FAMILY_MEMBER, Integer.MAX_VALUE, false);
-        return metadata;
-    }
-
-    private static class MainThreadExecutor implements Executor {
-        private Handler mainThreadHandler;
-
-        private MainThreadExecutor() {
-            this.mainThreadHandler = new Handler(Looper.getMainLooper());
-        }
-
-        public void execute(@NonNull Runnable command) {
-            this.mainThreadHandler.post(command);
-        }
     }
 }

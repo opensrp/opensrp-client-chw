@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.Toast;
 
-
 import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.adapter.NavigationAdapter;
 import org.smartregister.chw.core.utils.CoreConstants;
@@ -22,40 +21,26 @@ public class NavigationListener implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        if (v.getTag() != null) {
-            if (v.getTag() instanceof String) {
-                String tag = (String) v.getTag();
-
-                switch (tag) {
-                    case CoreConstants.DrawerMenu.CHILD_CLIENTS:
-                        startRegisterActivity(getActivity(CoreConstants.REGISTERED_ACTIVITIES.CHILD_REGISTER_ACTIVITY));
-                        break;
-                    case CoreConstants.DrawerMenu.ALL_FAMILIES:
-                        startRegisterActivity(getActivity(CoreConstants.REGISTERED_ACTIVITIES.FAMILY_REGISTER_ACTIVITY));
-                        break;
-                    case CoreConstants.DrawerMenu.ANC:
-                        startRegisterActivity(getActivity(CoreConstants.REGISTERED_ACTIVITIES.ANC_REGISTER_ACTIVITY));
-                        break;
-                    case CoreConstants.DrawerMenu.LD:
-                        Toast.makeText(activity.getApplicationContext(), CoreConstants.DrawerMenu.LD, Toast.LENGTH_SHORT).show();
-                        break;
-                    case CoreConstants.DrawerMenu.PNC:
-                        startRegisterActivity(getActivity(CoreConstants.REGISTERED_ACTIVITIES.PNC_REGISTER_ACTIVITY));
-                        break;
-                    case CoreConstants.DrawerMenu.FAMILY_PLANNING:
-                        Toast.makeText(activity.getApplicationContext(), CoreConstants.DrawerMenu.FAMILY_PLANNING, Toast.LENGTH_SHORT).show();
-                        break;
-                    case CoreConstants.DrawerMenu.MALARIA:
-                        startRegisterActivity(getActivity(CoreConstants.REGISTERED_ACTIVITIES.MALARIA_REGISTER_ACTIVITY));
-                        break;
-                    case CoreConstants.DrawerMenu.REFERRALS:
-                        startRegisterActivity(getActivity(CoreConstants.REGISTERED_ACTIVITIES.REFERRALS_REGISTER_ACTIVITY));
-                        break;
-                    default:
-                        break;
-                }
-                navigationAdapter.setSelectedView(tag);
+        if (v.getTag() instanceof String) {
+            String tag = (String) v.getTag();
+            if (CoreConstants.DrawerMenu.CHILD_CLIENTS.equals(tag)) {
+                startRegisterActivity(getActivity(CoreConstants.REGISTERED_ACTIVITIES.CHILD_REGISTER_ACTIVITY));
+            } else if (CoreConstants.DrawerMenu.ALL_FAMILIES.equals(tag)) {
+                startRegisterActivity(getActivity(CoreConstants.REGISTERED_ACTIVITIES.FAMILY_REGISTER_ACTIVITY));
+            } else if (CoreConstants.DrawerMenu.ANC.equals(tag)) {
+                startRegisterActivity(getActivity(CoreConstants.REGISTERED_ACTIVITIES.ANC_REGISTER_ACTIVITY));
+            } else if (CoreConstants.DrawerMenu.LD.equals(tag)) {
+                Toast.makeText(activity.getApplicationContext(), CoreConstants.DrawerMenu.LD, Toast.LENGTH_SHORT).show();
+            } else if (CoreConstants.DrawerMenu.PNC.equals(tag)) {
+                startRegisterActivity(getActivity(CoreConstants.REGISTERED_ACTIVITIES.PNC_REGISTER_ACTIVITY));
+            } else if (CoreConstants.DrawerMenu.FAMILY_PLANNING.equals(tag)) {
+                Toast.makeText(activity.getApplicationContext(), CoreConstants.DrawerMenu.FAMILY_PLANNING, Toast.LENGTH_SHORT).show();
+            } else if (CoreConstants.DrawerMenu.MALARIA.equals(tag)) {
+                startRegisterActivity(getActivity(CoreConstants.REGISTERED_ACTIVITIES.MALARIA_REGISTER_ACTIVITY));
+            } else if (CoreConstants.DrawerMenu.REFERRALS.equals(tag)) {
+                startRegisterActivity(getActivity(CoreConstants.REGISTERED_ACTIVITIES.REFERRALS_REGISTER_ACTIVITY));
             }
+            navigationAdapter.setSelectedView(tag);
         }
     }
 

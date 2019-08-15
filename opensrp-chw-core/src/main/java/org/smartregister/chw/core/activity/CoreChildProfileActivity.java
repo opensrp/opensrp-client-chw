@@ -53,7 +53,6 @@ import timber.log.Timber;
 
 
 public class CoreChildProfileActivity extends BaseProfileActivity implements CoreChildProfileContract.View, CoreChildRegisterContract.InteractorCallBack {
-    private static final String TAG = CoreChildProfileActivity.class.getCanonicalName();
     public static IntentFilter sIntentFilter;
 
     static {
@@ -593,10 +592,5 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
 
 
         }
-    }
-
-    @Override
-    public void onPointerCaptureChanged(boolean hasCapture) {
-
     }
 }

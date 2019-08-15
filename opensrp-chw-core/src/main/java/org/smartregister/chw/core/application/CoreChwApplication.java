@@ -32,7 +32,6 @@ import org.smartregister.view.activity.LoginActivity;
 
 import java.util.List;
 import java.util.Locale;
-import java.util.concurrent.TimeUnit;
 
 import timber.log.Timber;
 
@@ -229,17 +228,6 @@ public class CoreChwApplication extends DrishtiApplication implements CoreApplic
     public void scheduleJobs() {
         // TODO implement job scheduling
         Timber.d("scheduleJobs pending implementation");
-    }
-
-    private long getFlexValue(int value) {
-        int minutes = MINIMUM_JOB_FLEX_VALUE;
-
-        if (value > MINIMUM_JOB_FLEX_VALUE) {
-
-            minutes = (int) Math.ceil(value / 3);
-        }
-
-        return TimeUnit.MINUTES.toMillis(minutes);
     }
 
     public AllCommonsRepository getAllCommonsRepository(String table) {

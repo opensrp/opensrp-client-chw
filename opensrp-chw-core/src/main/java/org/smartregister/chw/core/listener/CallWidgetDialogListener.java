@@ -13,8 +13,6 @@ import timber.log.Timber;
 
 public class CallWidgetDialogListener implements View.OnClickListener {
 
-    private static String TAG = CallWidgetDialogListener.class.getCanonicalName();
-
     private FamilyCallDialogFragment callDialogFragment;
 
     public CallWidgetDialogListener(FamilyCallDialogFragment dialogFragment) {

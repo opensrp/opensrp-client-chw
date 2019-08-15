@@ -62,19 +62,20 @@ public abstract class CoreFamilyInteractor {
     }
 
     private ImmunizationState getImmunizationState(ImmunizationState familyImmunizationState, Cursor cursor, Context context, String childId) {
+        ImmunizationState finalState = familyImmunizationState;
         switch (this.getChildStatus(context, childId, cursor)) {
             case DUE:
                 if (familyImmunizationState != ImmunizationState.OVERDUE) {
-                    familyImmunizationState = ImmunizationState.DUE;
+                    finalState = ImmunizationState.DUE;
                 }
                 break;
             case OVERDUE:
-                familyImmunizationState = ImmunizationState.OVERDUE;
+                finalState = ImmunizationState.OVERDUE;
                 break;
             default:
                 break;
         }
-        return familyImmunizationState;
+        return finalState;
     }
 
     public abstract ImmunizationState getChildStatus(Context context, final String childId, Cursor cursor);
