@@ -59,10 +59,6 @@ public class ChwClientProcessor extends ClientProcessorForJava {
     @Override
     public synchronized void processClient(List<EventClient> eventClients) throws Exception {
 
-        ClientClassification clientClassification = getClassification();
-        Table vaccineTable = getVaccineTable();
-        Table serviceTable = getServiceTable();
-
         if (!eventClients.isEmpty()) {
             for (EventClient eventClient : eventClients) {
                 Event event = eventClient.getEvent();
@@ -75,88 +71,96 @@ public class ChwClientProcessor extends ClientProcessorForJava {
                     continue;
                 }
 
-                switch (eventType) {
-                    case VaccineIntentService.EVENT_TYPE:
-                    case VaccineIntentService.EVENT_TYPE_OUT_OF_CATCHMENT:
-                        if (vaccineTable == null) {
-                            continue;
-                        }
-                        processVaccine(eventClient, vaccineTable, eventType.equals(VaccineIntentService.EVENT_TYPE_OUT_OF_CATCHMENT));
-                        break;
-                    case RecurringIntentService.EVENT_TYPE:
-                        if (serviceTable == null) {
-                            continue;
-                        }
-                        processService(eventClient, serviceTable);
-                        break;
-                    case HomeVisitRepository.EVENT_TYPE:
-                    case HomeVisitRepository.NOT_DONE_EVENT_TYPE:
-                        processHomeVisit(eventClient);
-                        processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
-                        break;
-                    case CoreConstants.EventType.MINIMUM_DIETARY_DIVERSITY:
-                    case CoreConstants.EventType.MUAC:
-                    case CoreConstants.EventType.LLITN:
-                    case CoreConstants.EventType.ECD:
-                        processHomeVisitService(eventClient);
-                        processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
-                        break;
-                    case CoreConstants.EventType.ANC_HOME_VISIT:
-                    case org.smartregister.chw.anc.util.Constants.EVENT_TYPE.ANC_HOME_VISIT_NOT_DONE:
-                    case org.smartregister.chw.anc.util.Constants.EVENT_TYPE.ANC_HOME_VISIT_NOT_DONE_UNDO:
-                        if (eventClient.getEvent() == null) {
-                            continue;
-                        }
-                        processVisitEvent(eventClient);
-                        processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
-                        break;
-                    case CoreConstants.EventType.REMOVE_FAMILY:
-                        if (eventClient.getClient() == null) {
-                            continue;
-                        }
-                        processRemoveFamily(eventClient.getClient().getBaseEntityId(), event.getEventDate().toDate());
-                        break;
-                    case CoreConstants.EventType.REMOVE_MEMBER:
-                        if (eventClient.getClient() == null) {
-                            continue;
-                        }
-                        processRemoveMember(eventClient.getClient().getBaseEntityId(), event.getEventDate().toDate());
-                        break;
-                    case CoreConstants.EventType.REMOVE_CHILD:
-                        if (eventClient.getClient() == null) {
-                            continue;
-                        }
-                        processRemoveChild(eventClient.getClient().getBaseEntityId(), event.getEventDate().toDate());
-                        break;
-                    case CoreConstants.EventType.VACCINE_CARD_RECEIVED:
-                        if (eventClient.getClient() == null) {
-                            continue;
-                        }
-                        processVaccineCardEvent(eventClient);
-                        processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
-                        break;
-                    case CoreConstants.EventType.WASH_CHECK:
-                        processWashCheckEvent(eventClient);
-                        processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
-
-                        break;
-                    case CoreConstants.EventType.CHILD_REFERRAL:
-                        if (eventClient.getClient() != null) {
-                            processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
-                        }
-                        break;
-                    default:
-                        if (eventClient.getClient() != null) {
-                            if (eventType.equals(CoreConstants.EventType.UPDATE_FAMILY_RELATIONS) && event.getEntityType().equalsIgnoreCase(CoreConstants.TABLE_NAME.FAMILY_MEMBER)) {
-                                event.setEventType(CoreConstants.EventType.UPDATE_FAMILY_MEMBER_RELATIONS);
-                            }
-                            processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
-                        }
-                        break;
-                }
+                processEvents(eventClient, event, eventType);
 
             }
 
+        }
+    }
+
+    private void processEvents(EventClient eventClient, Event event, String eventType) throws Exception {
+        ClientClassification clientClassification = getClassification();
+        Table vaccineTable = getVaccineTable();
+        Table serviceTable = getServiceTable();
+
+        switch (eventType) {
+            case VaccineIntentService.EVENT_TYPE:
+            case VaccineIntentService.EVENT_TYPE_OUT_OF_CATCHMENT:
+                if (vaccineTable == null) {
+                    return;
+                }
+                processVaccine(eventClient, vaccineTable, eventType.equals(VaccineIntentService.EVENT_TYPE_OUT_OF_CATCHMENT));
+                break;
+            case RecurringIntentService.EVENT_TYPE:
+                if (serviceTable == null) {
+                    return;
+                }
+                processService(eventClient, serviceTable);
+                break;
+            case HomeVisitRepository.EVENT_TYPE:
+            case HomeVisitRepository.NOT_DONE_EVENT_TYPE:
+                processHomeVisit(eventClient);
+                processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
+                break;
+            case CoreConstants.EventType.MINIMUM_DIETARY_DIVERSITY:
+            case CoreConstants.EventType.MUAC:
+            case CoreConstants.EventType.LLITN:
+            case CoreConstants.EventType.ECD:
+                processHomeVisitService(eventClient);
+                processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
+                break;
+            case CoreConstants.EventType.ANC_HOME_VISIT:
+            case org.smartregister.chw.anc.util.Constants.EVENT_TYPE.ANC_HOME_VISIT_NOT_DONE:
+            case org.smartregister.chw.anc.util.Constants.EVENT_TYPE.ANC_HOME_VISIT_NOT_DONE_UNDO:
+                if (eventClient.getEvent() == null) {
+                    return;
+                }
+                processVisitEvent(eventClient);
+                processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
+                break;
+            case CoreConstants.EventType.REMOVE_FAMILY:
+                if (eventClient.getClient() == null) {
+                    return;
+                }
+                processRemoveFamily(eventClient.getClient().getBaseEntityId(), event.getEventDate().toDate());
+                break;
+            case CoreConstants.EventType.REMOVE_MEMBER:
+                if (eventClient.getClient() == null) {
+                    return;
+                }
+                processRemoveMember(eventClient.getClient().getBaseEntityId(), event.getEventDate().toDate());
+                break;
+            case CoreConstants.EventType.REMOVE_CHILD:
+                if (eventClient.getClient() == null) {
+                    return;
+                }
+                processRemoveChild(eventClient.getClient().getBaseEntityId(), event.getEventDate().toDate());
+                break;
+            case CoreConstants.EventType.VACCINE_CARD_RECEIVED:
+                if (eventClient.getClient() == null) {
+                    return;
+                }
+                processVaccineCardEvent(eventClient);
+                processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
+                break;
+            case CoreConstants.EventType.WASH_CHECK:
+                processWashCheckEvent(eventClient);
+                processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
+
+                break;
+            case CoreConstants.EventType.CHILD_REFERRAL:
+                if (eventClient.getClient() != null) {
+                    processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
+                }
+                break;
+            default:
+                if (eventClient.getClient() != null) {
+                    if (eventType.equals(CoreConstants.EventType.UPDATE_FAMILY_RELATIONS) && event.getEntityType().equalsIgnoreCase(CoreConstants.TABLE_NAME.FAMILY_MEMBER)) {
+                        event.setEventType(CoreConstants.EventType.UPDATE_FAMILY_MEMBER_RELATIONS);
+                    }
+                    processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
+                }
+                break;
         }
     }
 

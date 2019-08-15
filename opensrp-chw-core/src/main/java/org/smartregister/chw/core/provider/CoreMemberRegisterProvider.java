@@ -103,7 +103,7 @@ public class CoreMemberRegisterProvider extends FamilyMemberRegisterProvider {
         return res.get(0);
     }
 
-    private ChildVisit retrieveChildVisitList(CommonPersonObjectClient pc, Map<String, String> map) {
+    private ChildVisit retrieveChildVisitList(Map<String, String> map) {
         String lastVisitDate = map.get(ChildDBConstants.KEY.LAST_HOME_VISIT);
         String visitNotDone = map.get(ChildDBConstants.KEY.VISIT_NOT_DONE);
         String strDateCreated = map.get(ChildDBConstants.KEY.DATE_CREATED);
@@ -149,7 +149,7 @@ public class CoreMemberRegisterProvider extends FamilyMemberRegisterProvider {
         protected Void doInBackground(Void... params) {
             map = getChildDetails(pc.getCaseId());
             if (map != null) {
-                childVisit = retrieveChildVisitList(pc, map);
+                childVisit = retrieveChildVisitList(map);
             }
             return null;
         }

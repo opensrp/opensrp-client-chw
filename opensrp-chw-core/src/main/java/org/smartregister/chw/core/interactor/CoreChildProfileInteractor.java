@@ -331,13 +331,10 @@ public class CoreChildProfileInteractor implements CoreChildProfileContract.Inte
                 getSyncHelper().addEvent(baseEvent.getBaseEntityId(), eventJson);
             }
 
-            if (!isEditMode) {
-                if (baseClient != null) {
-                    String opensrpId = baseClient.getIdentifier(Utils.metadata().uniqueIdentifierKey);
-
-                    //mark OPENSRP ID as used
-                    getUniqueIdRepository().close(opensrpId);
-                }
+            if (!isEditMode && baseClient != null) {
+                String opensrpId = baseClient.getIdentifier(Utils.metadata().uniqueIdentifierKey);
+                //mark OPENSRP ID as used
+                getUniqueIdRepository().close(opensrpId);
             }
 
             if (baseClient != null || baseEvent != null) {

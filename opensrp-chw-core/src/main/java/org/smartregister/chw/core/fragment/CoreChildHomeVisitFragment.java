@@ -345,17 +345,18 @@ public class CoreChildHomeVisitFragment extends DialogFragment implements View.O
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == JsonFormUtils.REQUEST_CODE_GET_JSON) {
-            if (resultCode == Activity.RESULT_OK) {
-                try {
-                    String jsonString = data.getStringExtra(Constants.JSON_FORM_EXTRA.JSON);
-                    JSONObject form = new JSONObject(jsonString);
-                    if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(CoreConstants.EventType.BIRTH_CERTIFICATION)
-                    ) {
+        if (requestCode == JsonFormUtils.REQUEST_CODE_GET_JSON && resultCode == Activity.RESULT_OK) {
+            try {
+                String jsonString = data.getStringExtra(Constants.JSON_FORM_EXTRA.JSON);
+                JSONObject form = new JSONObject(jsonString);
+                switch (form.getString(JsonFormUtils.ENCOUNTER_TYPE)) {
+                    case CoreConstants.EventType.BIRTH_CERTIFICATION:
                         presenter.generateBirthCertForm(jsonString);
-                    } else if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(CoreConstants.EventType.OBS_ILLNESS)) {
+                        break;
+                    case CoreConstants.EventType.OBS_ILLNESS:
                         presenter.generateObsIllnessForm(jsonString);
-                    } else if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(CoreConstants.EventType.ECD)) {
+                        break;
+                    case CoreConstants.EventType.ECD:
                         ServiceTask serviceTask = CoreChildUtils.createECDFromJson(context, jsonString);
                         if (serviceTask != null) {
                             for (int i = 0; i < presenter.getServiceTasks().size(); i++) {
@@ -368,12 +369,12 @@ public class CoreChildHomeVisitFragment extends DialogFragment implements View.O
                             updateTaskService();
                             checkIfSubmitIsToBeEnabled();
                         }
-
-
-                    }
-                } catch (Exception e) {
-                    Timber.e(e);
+                        break;
+                    default:
+                        break;
                 }
+            } catch (Exception e) {
+                Timber.e(e);
             }
         }
     }
@@ -579,7 +580,7 @@ public class CoreChildHomeVisitFragment extends DialogFragment implements View.O
 
         intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);
         intent.putExtra(org.smartregister.family.util.Constants.WizardFormActivity.EnableOnCloseDialog, false);
-        startActivityForResult(intent, org.smartregister.family.util.JsonFormUtils.REQUEST_CODE_GET_JSON);
+        startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
     }
 
     @Override

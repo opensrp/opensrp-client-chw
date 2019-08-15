@@ -551,18 +551,16 @@ public class CoreChildProfileActivity extends BaseProfileActivity implements Cor
             if (resultCode == Activity.RESULT_OK) {
                 finish();
             }
-        } else if (requestCode == JsonFormUtils.REQUEST_CODE_GET_JSON) {
-            if (resultCode == RESULT_OK) {
-                try {
-                    String jsonString = data.getStringExtra(Constants.JSON_FORM_EXTRA.JSON);
+        } else if (requestCode == JsonFormUtils.REQUEST_CODE_GET_JSON && resultCode == RESULT_OK) {
+            try {
+                String jsonString = data.getStringExtra(Constants.JSON_FORM_EXTRA.JSON);
 
-                    JSONObject form = new JSONObject(jsonString);
-                    if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(CoreConstants.EventType.UPDATE_CHILD_REGISTRATION)) {
-                        presenter().updateChildProfile(jsonString);
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
+                JSONObject form = new JSONObject(jsonString);
+                if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(CoreConstants.EventType.UPDATE_CHILD_REGISTRATION)) {
+                    presenter().updateChildProfile(jsonString);
                 }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
     }

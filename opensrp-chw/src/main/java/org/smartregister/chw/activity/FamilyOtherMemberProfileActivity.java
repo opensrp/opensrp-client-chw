@@ -53,9 +53,7 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
     private String baseEntityId;
     private String familyHead;
     private String primaryCaregiver;
-    private String villageTown;
     private String familyName;
-    private String PhoneNumber;
     private CommonPersonObjectClient commonPersonObject;
     private FamilyMemberFloatingMenu familyFloatingMenu;
     private TextView textViewFamilyHas;
@@ -303,9 +301,9 @@ public class FamilyOtherMemberProfileActivity extends BaseFamilyOtherMemberProfi
         baseEntityId = getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID);
         familyHead = getIntent().getStringExtra(Constants.INTENT_KEY.FAMILY_HEAD);
         primaryCaregiver = getIntent().getStringExtra(Constants.INTENT_KEY.PRIMARY_CAREGIVER);
-        villageTown = getIntent().getStringExtra(Constants.INTENT_KEY.VILLAGE_TOWN);
+        String villageTown = getIntent().getStringExtra(Constants.INTENT_KEY.VILLAGE_TOWN);
         familyName = getIntent().getStringExtra(Constants.INTENT_KEY.FAMILY_NAME);
-        PhoneNumber = commonPersonObject.getColumnmaps().get(CoreConstants.JsonAssets.FAMILY_MEMBER.PHONE_NUMBER);
+        String phoneNumber = commonPersonObject.getColumnmaps().get(CoreConstants.JsonAssets.FAMILY_MEMBER.PHONE_NUMBER);
         presenter = new FamilyOtherMemberActivityPresenter(this, new BaseFamilyOtherMemberProfileActivityModel(), null, familyBaseEntityId, baseEntityId, familyHead, primaryCaregiver, villageTown, familyName);
 
         onClickFloatingMenu = flavor.getOnClickFloatingMenu(this, familyBaseEntityId);

@@ -210,10 +210,8 @@ public class CoreHomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNut
                 if (getView() != null) {
                     getView().updateExclusiveFeedingData(alert.scheduleName(), alert.startDate());
                 }
-            } else {
-                // String lastDoneExclusive = serviceWrapperExclusive.getServiceType().getName();
+            }  // String lastDoneExclusive = serviceWrapperExclusive.getServiceType().getName();
 
-            }
         }
         serviceWrapperMnp = getServiceWrapperByType(GrowthNutritionInputFragment.GROWTH_TYPE.MNP.getValue());
         if (serviceWrapperMnp != null && homeVisitGrowthNutritionPresenterFlv.hasMNP()) {
@@ -223,9 +221,6 @@ public class CoreHomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNut
                 if (getView() != null) {
                     getView().updateMnpData(alert.scheduleName(), alert.startDate());
                 }
-            } else {
-                //  String lastDoneExclusive = serviceWrapperMnp.getServiceType().getName();
-
             }
         }
         serviceWrapperVitamin = getServiceWrapperByType(GrowthNutritionInputFragment.GROWTH_TYPE.VITAMIN.getValue());
@@ -236,10 +231,8 @@ public class CoreHomeVisitGrowthNutritionPresenter implements HomeVisitGrowthNut
                 if (getView() != null) {
                     getView().updateVitaminAData(alert.scheduleName(), alert.startDate());
                 }
-            } else {
-                //String lastDoneExclusive = serviceWrapperVitamin.getServiceType().getName();
+            }  //String lastDoneExclusive = serviceWrapperVitamin.getServiceType().getName();
 
-            }
 
         }
         serviceWrapperDeworming = getServiceWrapperByType(GrowthNutritionInputFragment.GROWTH_TYPE.DEWORMING.getValue());
